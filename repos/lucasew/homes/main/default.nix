@@ -9,7 +9,7 @@ with (import ../../globalConfig.nix);
     ./modules/dunst.nix
     ./modules/dummy_module.nix
     ./modules/i3.nix
-    ./modules/wallpaper.nix
+    # ./modules/wallpaper.nix
     ./modules/espanso.nix
     ../../modules/polybar/home.nix
     ../../modules/spotify/home.nix
@@ -344,11 +344,11 @@ with (import ../../globalConfig.nix);
   };
   services.flameshot.enable = true;
 
-  # wallpaper
-  wallpaper = {
-    enable = true;
-    wallpaperFile = wallpaper;
-  };
+#   # wallpaper
+#   wallpaper = {
+#     enable = true;
+#     wallpaperFile = wallpaper;
+#   };
 
 
   # This value determines the Home Manager release that your

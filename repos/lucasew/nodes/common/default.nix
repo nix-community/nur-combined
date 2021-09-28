@@ -6,7 +6,7 @@ with import ../../globalConfig.nix;
     ../bootstrap/default.nix
     ../../modules/cloudflared/system.nix
     ../../modules/cachix/system.nix
-    ../../modules/randomtube/system.nix
+    # ../../modules/randomtube/system.nix
     ../../modules/vercel-ddns/system.nix
   ];
   zramSwap = {
