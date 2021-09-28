@@ -20,5 +20,7 @@ in {
         skype zoom-us mattermost-desktop
       ];
     };
+    # Zoom drawing
+    services.picom.enable = true;
   };
 }
