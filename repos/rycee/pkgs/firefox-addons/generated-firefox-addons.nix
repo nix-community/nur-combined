@@ -406,10 +406,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.8.0";
+      version = "4.8.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3844163/floccus-4.8.0-fx.xpi";
-      sha256 = "9c4104f9c116b52befb86925bd8892ccde6d2898960e3bcd8ffe6539166462d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3845650/floccus-4.8.1-fx.xpi";
+      sha256 = "2aa9194a5eb854236a42cb37caa83b08baf3f5da4522c1aa0cdf56134f65e556";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210923190449";
+      version = "93.0buildid20210927210923";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3844313/francais_language_pack-93.0buildid20210923190449-fx.xpi";
-      sha256 = "ee5ab102b99b2111192fd260c1faaa909798671a1ff7ead06478582b8de1b5e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3846058/francais_language_pack-93.0buildid20210927210923-fx.xpi";
+      sha256 = "446667394347cd924fcd36af97a481d61d6d289eac77ecdfc5ffeec8639b9050";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -783,10 +783,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.15";
+      version = "2.6.16";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3838476/localcdn-2.6.15-an+fx.xpi";
-      sha256 = "6a3c028ac6bb2df9126c549ac83fe7a43e85241093876669fd6e801cb64573c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3845260/localcdn-2.6.16-an+fx.xpi";
+      sha256 = "ad31a0a0cfe9a16d51214a9a818d3fd718106a9bab82b655e9f0d94d6127cdae";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1805,10 +1805,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.14";
+      version = "6.8.15";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3838217/wappalyzer-6.8.14-fx.xpi";
-      sha256 = "5e6727a7dda40064be7756dcf603bf24cce986ea6e28a0c62a64841ef3865bea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3846102/wappalyzer-6.8.15-fx.xpi";
+      sha256 = "01852a43d648fdcf449e1bccab6e7c81fb140819d6f0fe2acd135d29fc936448";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
