@@ -9,6 +9,10 @@ in
 {
   inherit callPackage;
 
+  ALVR = callPackage ./tools/graphics/alvr {
+    inherit (llvmPackages) libclang;
+  };
+
   bcml = bcml-qt;
 
   bcml-gtk = python3Packages.callPackage ./games/bcml {
