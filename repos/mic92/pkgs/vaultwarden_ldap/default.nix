@@ -12,19 +12,19 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "vaultwarden_ldap";
-  version = "0.5.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "ViViDboarder";
     repo = "vaultwarden_ldap";
     rev = "v${version}";
-    sha256 = "sha256-dLM24NioLrFPJ94nA76HzYskE3Wy7DNnFw6LVAPsqlc=";
+    sha256 = "sha256-LXblc427x4txZmPa94W6RDOsHXofV/AU4v/bLXXZbTw=";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security CoreServices ];
 
-  cargoSha256 = "sha256-hjUk465+OqLJ5D0PLNf1w4dSrTnXXbzH85fGX2Oqh+U=";
+  cargoSha256 = "sha256-T8M4EdFpVsj8XHfY+47QfgMkX1+tZgvWBZqHG65uj24=";
 
   meta = with lib; {
     description = "LDAP directory connector for vaultwarden";
