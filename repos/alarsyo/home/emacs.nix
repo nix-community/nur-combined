@@ -5,6 +5,10 @@
   };
 
   config = lib.mkIf config.my.home.emacs.enable {
+    home.sessionVariables = {
+      EDITOR = "emacsclient -t";
+    };
+
     home.packages = with pkgs; [
       sqlite # needed by org-roam
 

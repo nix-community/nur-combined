@@ -11,8 +11,6 @@
     my.theme = config.home-manager.users.alarsyo.my.themes.solarizedLight;
 
     home.packages = with pkgs; [
-        blender
-
         # some websites only work there :(
         chromium
 
