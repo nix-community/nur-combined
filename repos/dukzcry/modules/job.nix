@@ -21,6 +21,6 @@ in {
       ];
     };
     # Zoom drawing
-    services.picom.enable = true;
+    #services.picom.enable = true;
   };
 }
