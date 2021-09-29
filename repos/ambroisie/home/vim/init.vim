@@ -68,10 +68,12 @@ set timeoutlen=500
 " Set dark mode by default
 set background=dark
 
-" Load it manually because of autoload functions...
-packadd! onedark-vim
-" Use onedark
-colorscheme onedark
+" Include plug-in integration
+let g:gruvbox_plugin_hi_groups=1
+" Include filetype integration
+let g:gruvbox_filetype_hi_groups=1
+" Use my preferred colorscheme
+colorscheme gruvbox8
 " }}}
 
 " Search parameters {{{
