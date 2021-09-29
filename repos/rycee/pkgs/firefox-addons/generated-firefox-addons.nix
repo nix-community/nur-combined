@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.8";
+      version = "7.4.9";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3842849/betterttv-7.4.8-fx.xpi";
-      sha256 = "9929bf96ef187f1a3ebb5d3f203427e1fe84f5d00c4c85bb073dc282f25de52f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3846149/betterttv-7.4.9-fx.xpi";
+      sha256 = "cca1a3274df638eb0be0f23f45fa1e0fea47d8357a8b5379df54d1c43ceddf74";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -118,10 +118,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "1.2.2";
+      version = "1.3.0";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3814691/buster_captcha_solver_for_humans-1.2.2-an+fx.xpi";
-      sha256 = "c3f5e78a408cab6214de5875fa34c064996d5b9d068600958a08ba919bc24ab1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3845085/buster_captcha_solver_for_humans-1.3.0-fx.xpi";
+      sha256 = "db89af3bce5829226c5c62645aead2c02a0967821b7fb51be74878cfa1d5c5fa";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster";
@@ -406,10 +406,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.8.1";
+      version = "4.8.2";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3845650/floccus-4.8.1-fx.xpi";
-      sha256 = "2aa9194a5eb854236a42cb37caa83b08baf3f5da4522c1aa0cdf56134f65e556";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3846240/floccus-4.8.2-fx.xpi";
+      sha256 = "dbcef7b3979f27fb7fa6ab14d37345ceacc99a9107bc811ee4a8cc20aa7c10d0";
       meta = with lib;
       {
         homepage = "https://floccus.org";
