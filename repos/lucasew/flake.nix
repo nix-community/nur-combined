@@ -55,15 +55,29 @@
     in hmstuff // { inherit doc; };
 
     docConfig = {options, ...}: # it's a mess, i might fix it later
+    with pkgs.nixosOptionsDoc { inherit options; };
     let
-      optionsDoc = pkgs.nixosOptionsDoc { inherit options; };
-      strAsFile = str: pkgs.runCommandLocal "out" {inherit str; } "cp $str $out";
-    in {
-      asciidoc = strAsFile optionsDoc.optionsAsciiDoc;
-      # docbook is broken
-      json = optionsDoc.optionsJSON;
-      md = strAsFile optionsDoc.optionsMDDoc;
-      nix = optionsDoc.optionsNix;
+      normalizeString = content: builtins.replaceStrings [".drv" "!bin!" "/nix"] ["" "" "//nix"] content;
+      write = file: content:
+      let
+        normalizedContent = normalizeString content;
+        # filename = builtins.toFile file normalizedContent;
+        filename = builtins.toFile file content;
+      in filename;
+      # in filename;
+      # in "${filename}";
+      # in pkgs.runCommandLocal file {} "cp ${filename} $out";
+    in
+    {
+      # How to export
+      # NIXPKGS_ALLOW_BROKEN=1 nix-instantiate --eval -E 'with import <nixpkgs>; (builtins.getFlake "/home/lucasew/.dotfiles").nixosConfigurations.acer-nix.doc.mdText' --json | jq -r > options.md
+      ret = normalizeString "!bin!/eoq/trabson.drv.drv.drv";
+      asciidocText = optionsAsciiDoc;
+      # docbook is broken # cant export these as verbatim
+      json = optionsJSON;
+      # md = write "doc.md" optionsMDDoc;
+      mdText = optionsMDDoc;
+      # nix = optionsNix;
     };
     nixosConf = {mainModule, extraModules ? []}:
     let
