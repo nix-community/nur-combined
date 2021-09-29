@@ -10,7 +10,7 @@ let
   module = readFile moduleFile;
   status = readFile statusFile;
   moduleData = filter isList (split "path = ([^\n]*)\n[ \t]+url = ([^\n]*)" module);
-  statusData = filter isList (split "-([0-9a-z]+) ([^\n]*)\n" status);
+  statusData = filter isList (split "[- +]([0-9a-z]+) ([^\n]*)\n" status);
   findMatchingStatus = quickElem (i: head (filter (quickElem (j: (j 1) == (i 0))) statusData));
   repoData =
     let
