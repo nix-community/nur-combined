@@ -25,6 +25,7 @@ llvmPackages_11.stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     inherit owner repo rev sha256;
+    leaveDotGit = true;
   };
 
   postPatch = ''
