@@ -72,8 +72,8 @@ jobs:
         token: '${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}'
         commit-message: |
           ${{ env.COMMIT_TITLE }}${{ env.COMMIT_BODY }}
-        committer: GitHub <noreply@github.com>
-        author: GitHub <noreply@github.com>
+        committer: github-actions <github-actions@github.com>
+        author: github-actions <github-actions@github.com>
         title: Automated update
         body: |
           ###### Changelog

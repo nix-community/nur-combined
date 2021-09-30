@@ -26,6 +26,9 @@ packageSet = do
 ghPkg :: Text -> Text -> PackageSet ()
 ghPkg owner repo = define $ package repo `fromGitHub` (owner, repo)
 
+ghPkgTag :: Text -> Text -> (ListOptions -> ListOptions) -> PackageSet ()
+ghPkgTag owner repo f = define $ package repo `fromGitHubTag` (owner, repo, f)
+
 gitPkg :: Text -> Text -> PackageSet ()
 gitPkg name git = define $ package name `sourceGit` git `fetchGit` git
 
