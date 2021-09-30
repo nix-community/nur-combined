@@ -63,6 +63,10 @@ in
   };
   my.displayManager.sddm.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    arandr
+  ];
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
