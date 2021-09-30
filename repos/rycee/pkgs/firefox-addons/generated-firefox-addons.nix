@@ -1231,10 +1231,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.18.0";
+      version = "4.19.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3833894/react_developer_tools-4.18.0-fx.xpi";
-      sha256 = "331fad5706fcae9b2d6655b4091d2d27a310601a077e0c97a0e124d90c01d339";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847038/react_developer_tools-4.19.0-fx.xpi";
+      sha256 = "3dee2a8795ca435e8e6e04c02ff11f10647303366536f476d58ddbb997d76f45";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1805,10 +1805,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.15";
+      version = "6.8.16";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3846102/wappalyzer-6.8.15-fx.xpi";
-      sha256 = "01852a43d648fdcf449e1bccab6e7c81fb140819d6f0fe2acd135d29fc936448";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847095/wappalyzer-6.8.16-fx.xpi";
+      sha256 = "2733b3e47fe0b9561142185cecec5190abb8faaf3eb472cc923c50538abd4cd6";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -1832,10 +1832,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.45.1";
+      version = "2.45.2";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3845153/web_scrobbler-2.45.1-an+fx.xpi";
-      sha256 = "3da731dc686be6badeae557e69bdfdc3c2928a70e5e8624a2a06b291b92f212a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3846859/web_scrobbler-2.45.2-an+fx.xpi";
+      sha256 = "b5b2a5c7af74be58735b192dbfafb25e7e494adfa2c034b2b76de514a5c3f746";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
