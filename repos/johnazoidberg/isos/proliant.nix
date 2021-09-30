@@ -57,7 +57,4 @@
   boot.kernelParams = [
     "console=ttyS0,115200"
   ];
-
-  # Just for HPE network
-  networking.proxy.default = "http://web-proxy.bbn.hpecorp.net:8080";
 }
