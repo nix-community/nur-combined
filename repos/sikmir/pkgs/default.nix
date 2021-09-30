@@ -222,6 +222,7 @@ lib.makeScope newScope (
     gpxsee-bin = callPackage ./gpx/gpxsee/bin.nix { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
+    trackanimation = callPackage ./gpx/trackanimation { };
 
     ### IMAGES
 
@@ -296,6 +297,7 @@ lib.makeScope newScope (
     overpass-api = callPackage ./osm/overpass-api { };
     phyghtmap = callPackage ./osm/phyghtmap { };
     sdlmap = callPackage ./osm/sdlmap { };
+    smopy = callPackage ./osm/smopy { };
     smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
     tilemaker = callPackage ./osm/tilemaker { };
@@ -306,6 +308,14 @@ lib.makeScope newScope (
     libad9361 = callPackage ./radio/libad9361 { };
     linrad = callPackage ./radio/linrad { };
     sdrpp = callPackage ./radio/sdrpp { };
+    sigdigger = libsForQt5.callPackage ./radio/sigdigger {
+      inherit sigutils suscan suwidgets;
+    };
+    sigutils = callPackage ./radio/sigutils { };
+    suscan = callPackage ./radio/suscan { };
+    suwidgets = libsForQt5.callPackage ./radio/suwidgets {
+      inherit sigutils;
+    };
 
     ### SUCKLESS
 

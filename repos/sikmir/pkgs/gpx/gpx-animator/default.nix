@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gpx-animator";
-  version = "1.6.1";
+  version = "1.7.0";
 
   src = fetchurl {
     url = "https://download.gpx-animator.app/gpx-animator-${version}-all.jar";
-    hash = "sha256-f99lz8EtAZnQB2BE773oiISHrqGfgsG/mCvFnd1Xrtc=";
+    hash = "sha256-SiYaHFMHKbEA8whio3MeCq8QZ6bQGWU4i/ok8I28TpA=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

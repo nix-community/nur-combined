@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
     owner = "tatuylonen";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-EWdZt3jTSJyd4GSzGF4J2HRHUNw9J58lGlKaay40lXg=";
+    hash = "sha256-XmpMzsuTzIbzyGNoWRs9twNVQ3kP6c7hXUVHPnR3m+c=";
   };
 
   propagatedBuildInputs = with python3Packages; [ python-Levenshtein setuptools wikitextprocessor nltk ];
