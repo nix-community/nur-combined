@@ -73,7 +73,7 @@ jobs:
         commit-message: |
           ${{ env.COMMIT_TITLE }}${{ env.COMMIT_BODY }}
         committer: GitHub <noreply@github.com>
-        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        author: GitHub <noreply@github.com>
         title: Automated update
         body: |
           ###### Changelog
