@@ -46,6 +46,16 @@ in
     # Modal editing is life, but CLI benefits from emacs gymnastics
     defaultKeymap = "emacs";
 
+    # Make those happen early to avoid doing double the work
+    initExtraFirst =
+      lib.optionalString config.my.home.tmux.enable ''
+        # Launch tmux unless already inside one
+        if [ -z "$TMUX" ]; then
+          exec tmux new-session
+        fi
+      ''
+    ;
+
     initExtra = lib.concatMapStrings builtins.readFile [
       ./completion-styles.zsh
       ./extra-mappings.zsh
