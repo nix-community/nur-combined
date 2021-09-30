@@ -54,6 +54,5 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

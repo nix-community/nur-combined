@@ -18,6 +18,5 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

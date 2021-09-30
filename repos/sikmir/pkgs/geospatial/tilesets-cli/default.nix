@@ -34,6 +34,5 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://docs.mapbox.com/mapbox-tiling-service";
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

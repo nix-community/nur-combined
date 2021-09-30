@@ -70,8 +70,6 @@ lib.makeScope newScope (
     foma = callPackage ./development/libraries/foma {
       libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
     };
-    geographiclib = callPackage ./development/libraries/geographiclib { };
-    gpxlib = callPackage ./development/libraries/gpxlib { };
     hfst = callPackage ./development/libraries/hfst { };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
@@ -180,10 +178,12 @@ lib.makeScope newScope (
 
     ### GEOSPATIAL
 
+    arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
     datamaps = callPackage ./geospatial/datamaps { };
     elevation = callPackage ./geospatial/elevation {
       click = click-6-7;
     };
+    geographiclib = callPackage ./geospatial/geographiclib { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
     mapsoft = callPackage ./geospatial/mapsoft { };
     mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
@@ -218,6 +218,7 @@ lib.makeScope newScope (
     gpx-layer = perlPackages.callPackage ./gpx/gpx-layer { };
     gpx2yaml = callPackage ./gpx/gpx2yaml { };
     gpxchart = callPackage ./gpx/gpxchart { };
+    gpxlib = callPackage ./gpx/gpxlib { };
     gpxsee-bin = callPackage ./gpx/gpxsee/bin.nix { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };

@@ -64,7 +64,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };
 }

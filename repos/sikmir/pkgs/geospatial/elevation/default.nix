@@ -52,6 +52,5 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://elevation.bopen.eu/";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }
