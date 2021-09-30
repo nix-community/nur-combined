@@ -3,19 +3,22 @@
 }:
 stdenv.mkDerivation rec {
   pname = "ilorest";
-  version = "3.1.1-11";
+  version = "3.2.2-32";
 
+  # TODO: Build from source
   src = fetchurl {
-    url = "https://downloads.linux.hpe.com/SDR/repo/${pname}/RedHat/8/x86_64/current/${pname}-${version}.x86_64.rpm";
-    sha256 = "1a1c2lh5hag2amcsdc11h50a7jv03n5kzd16l9fs9crpvb3a1jvm";
+    url = "https://downloads.linux.hpe.com/SDR/repo/${pname}/current/${pname}-${version}.x86_64.rpm";
+    hash = "sha256:1f1rh0ap1rmajf6asfvsxyfma2a60rd8qcsw389bwkvx52ax9zcr";
   };
 
   nativeBuildInputs = [
-    rpmextract autoPatchelfHook
+    rpmextract
+    autoPatchelfHook
   ];
 
   buildInputs = [
-    zlib stdenv.cc.cc.lib
+    zlib
+    stdenv.cc.cc.lib
   ];
 
   unpackPhase = ''
