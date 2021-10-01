@@ -1,5 +1,4 @@
 { pkgs, config, lib, self, ... }:
-with (import ../../globalConfig.nix);
 {
   imports = [
     "${self.inputs.nixgram}/hmModule.nix"

@@ -1,8 +1,7 @@
-{pkgs, ...}:
-with import ../../globalConfig.nix;
+{cfg, pkgs, ...}:
 {
   nix = {
-    trustedUsers = [username "@wheel"];
+    trustedUsers = [cfg.username "@wheel"];
     package = pkgs.nixFlakes;
     extraOptions = ''
       min-free = ${toString (1  * 1024*1024*1024)}
@@ -40,7 +39,7 @@ with import ../../globalConfig.nix;
     192.168.69.4 cel.local
   '';
   users.users = {
-    ${username} = {
+    ${cfg.username} = {
       isNormalUser = true;
       extraGroups = [
         "wheel"

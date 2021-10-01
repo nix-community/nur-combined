@@ -2,9 +2,8 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{pkgs, config, lib, nix-ld, utils, nixos-hardware, ... }:
+{self, cfg, pkgs, config, lib, ... }:
 let
-  cfg = (import ../../globalConfig.nix);
   hostname = "acer-nix";
   send2kindle = pkgs.writeShellScriptBin "send2kindle" (pkgs.wrapDotenv "send2kindle.env" ''${pkgs.send2kindle}/bin/send2kindle "$@"'');
 in
@@ -16,6 +15,9 @@ in
       ./hardware-configuration.nix
       ../../modules/gui/system.nix
       ../../modules/polybar/system.nix
+      self.inputs.nix-ld.nixosModules.nix-ld
+      self.inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+      self.inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
     ]
   ;
 

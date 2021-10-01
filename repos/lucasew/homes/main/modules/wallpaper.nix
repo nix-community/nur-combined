@@ -1,8 +1,4 @@
 {lib, config, pkgs, ...}:
-let
-    globalConfig = import ../../globalConfig.nix;
-in
-with globalConfig;
 with lib;
 with builtins;
 {

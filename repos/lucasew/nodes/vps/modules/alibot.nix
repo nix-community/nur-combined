@@ -1,5 +1,4 @@
 {pkgs, config, lib, ...}:
-with import ../../../globalConfig.nix;
 with lib;
 let
   cfg = config.vps.alibot;

@@ -1,6 +1,5 @@
 {pkgs, ...}:
 with builtins;
-with import ../../globalConfig.nix;
 {
   imports = [
     ../common/default.nix

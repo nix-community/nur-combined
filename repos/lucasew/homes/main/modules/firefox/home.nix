@@ -1,6 +1,5 @@
 {pkgs, ...}: 
 let 
-  globalConfig = import ../../../../globalConfig.nix;
   nur = pkgs.nur;
 in
 {

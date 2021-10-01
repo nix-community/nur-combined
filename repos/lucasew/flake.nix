@@ -41,23 +41,32 @@
   };
 
   outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, nixos-hardware, borderless-browser, ... }@inputs:
-  with import ./globalConfig.nix;
   let
+    cfg = rec {
+        username = "lucasew";
+        email = "lucas59356@gmail.com";
+        selectedDesktopEnvironment = "xfce_i3";
+        rootPath = "/home/${username}/.dotfiles";
+        rootPathNix = "${rootPath}";
+        wallpaper = rootPath + "/wall.jpg";
+    };
+    extraArgs = {
+      inherit self;
+      inherit cfg;
+    };
     system = "x86_64-linux";
     environmentShell = ''
       function nix-repl {
-        nix repl "${rootPath}/repl.nix" "$@"
+        nix repl "${cfg.rootPath}/repl.nix" "$@"
       }
       export NIXPKGS_ALLOW_UNFREE=1
-      export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=${builtins.toString rootPath}/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=${(builtins.toString rootPath) + "/nodes/$HOSTNAME/default.nix"}
+      export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=${builtins.toString cfg.rootPath}/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=${(builtins.toString cfg.rootPath) + "/nodes/$HOSTNAME/default.nix"}
     '';
 
     hmConf = {...}@allConfig:
     let
       config = allConfig // {
-        extraSpecialArgs = {
-          inherit self;
-        };
+        extraSpecialArgs = extraArgs;
       };
       hmstuff = home-manager.lib.homeManagerConfiguration config;
       doc = docConfig hmstuff;
@@ -97,6 +106,7 @@
           revModule
           (mainModule)
         ] ++ extraModules;
+        specialArgs = extraArgs;
       };
       evalConfig = import "${nixpkgs}/nixos/lib/eval-config.nix" config;
     in
@@ -121,14 +131,13 @@
       });
     in {
       inherit overlays;
-      inherit environmentShell;
+      # inherit environmentShell;
       homeConfigurations = {
         main = hmConf {
           configuration = import ./homes/main/default.nix;
           inherit system;
-          homeDirectory = "/home/${username}";
-          inherit username;
-          inherit pkgs;
+          homeDirectory = "/home/${cfg.username}";
+          inherit (cfg) username;
         };
       };
       nixosConfigurations = {
@@ -137,11 +146,6 @@
         };
         acer-nix = nixosConf {
           mainModule = ./nodes/acer-nix/default.nix;
-          extraModules = [
-            nix-ld.nixosModules.nix-ld
-            nixos-hardware.nixosModules.common-pc-laptop-ssd
-            nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-          ];
         };
         bootstrap = nixosConf {
           mainModule = ./nodes/bootstrap/default.nix;
@@ -175,5 +179,6 @@
           program = "${pkgs.wineApps.wine7zip}/bin/7zip";
         };
       };
+      inherit extraArgs;
     };
   }

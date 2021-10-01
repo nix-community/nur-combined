@@ -1,5 +1,4 @@
 with builtins;
-with import ./globalConfig.nix;
 with flake.outputs;
 with packages;
 [

@@ -1,12 +1,12 @@
-with import ./globalConfig.nix;
 flake: self: super:
 let
+  cfg = flake.outputs.extraArgs.cfg;
   recursiveUpdate = super.lib.recursiveUpdate;
   cp = f: (super.callPackage f) {};
   dotenv = cp flake.inputs.dotenv;
   wrapDotenv = (file: script:
     let
-      dotenvFile = ((toString rootPath) + "/secrets/" + (toString file));
+      dotenvFile = ((toString cfg.rootPath) + "/secrets/" + (toString file));
       command = super.writeShellScript "dotenv-wrapper" script;
     in ''
       ${dotenv}/bin/dotenv "@${toString dotenvFile}" -- ${command} "$@"
