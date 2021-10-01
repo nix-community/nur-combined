@@ -12,7 +12,6 @@ buildPythonApplication { # https://nixos.wiki/wiki/Python
     img2pdf
   ];
   src = fetchFromGitHub {
-    # https://github.com/MiniGlome/Archive.org-Downloader
     repo = "Archive.org-Downloader";
     /*
     owner = "MiniGlome";
@@ -23,5 +22,8 @@ buildPythonApplication { # https://nixos.wiki/wiki/Python
     owner = "milahu";
     rev = "b9a6280cc70c3b138827b747b21ff02dfcb68e30";
     sha256 = "0bkyn1agn4lhfydrjavkwawyazd13jy5vn4wbmr9qs5yivacgwqh";
+  };
+  meta = {
+    homepage = "https://github.com/MiniGlome/Archive.org-Downloader";
   };
 }

@@ -22,6 +22,8 @@
 
   archive-org-downloader = pkgs.callPackage ./pkgs/archive-org-downloader/default.nix { };
 
+  rpl = pkgs.callPackage ./pkgs/rpl/default.nix { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
