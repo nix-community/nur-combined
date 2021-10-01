@@ -1,14 +1,16 @@
-{ pkgs, config, lib, nixgram, ... }:
+{ pkgs, config, lib, self, ... }:
 with (import ../../globalConfig.nix);
 {
   imports = [
-    "${flake.inputs.nixgram}/hmModule.nix"
-    "${flake.inputs.redial_proxy}/hmModule.nix"
+    "${self.inputs.nixgram}/hmModule.nix"
+    "${self.inputs.redial_proxy}/hmModule.nix"
+    "${self.inputs.borderless-browser}/home-manager.nix"
     ./modules/dlna.nix
     ./modules/firefox/home.nix
     ./modules/dunst.nix
     ./modules/dummy_module.nix
     ./modules/i3.nix
+    # ./modules/webapps.nix
     # ./modules/wallpaper.nix
     ./modules/espanso.nix
     ../../modules/polybar/home.nix
@@ -30,29 +32,12 @@ with (import ../../globalConfig.nix);
     fortune
     libnotify
     neofetch
-  ] 
-  ++ (builtins.attrValues pkgs.webapps)
-  ++ ([
-    (pkgs.webapp.wrap {
-      name = "trello-facul";
-      desktopName = "Trello Faculdade";
-      url = "https://trello.com/b/ov0pbUtC/facul";
-    })
-    (pkgs.webapp.wrap {
-      name = "trello-pessoal";
-      desktopName = "Trello Pessoal";
-      url = "https://trello.com/b/bjoRKSM2/pessoal";
-    })
-    (pkgs.webapp.wrap {
-      name = "trello-sides";
-      desktopName = "Trello Side Projects";
-      url = "https://trello.com/b/36ncJYYV/side-projects";
-    })
-  ]);
+    aerc # terminal email
+  ] ;
 
   home.file.".dotfilerc".text = ''
     #!/usr/bin/env bash
-    ${flake.outputs.environmentShell}
+    ${self.outputs.environmentShell}
   '';
 
   programs.hello-world.enable = true;
@@ -368,5 +353,94 @@ with (import ../../globalConfig.nix);
     platformTheme = "gtk";
   };
   # home.stateVersion = "20.03";
+
+  borderless-browser.apps = {
+    teste = {
+      desktopName = "Teste";
+      url = "https://google.com";
+    };
+    whatsapp = {
+      desktopName = "WhatsApp";
+      url = "web.whatsapp.com";
+      icon = builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/jiahaog/nativefier-icons/gh-pages/files/whatsapp.png";
+        sha256 = "1f5bwficjkqxjzanw89yj0rz66zz10k7zhrirq349x9qy9yp3bmc";
+      };
+    };
+    notion = {
+      desktopName = "Notion";
+      url = "notion.so";
+      icon = builtins.fetchurl {
+        url = "https://logos-download.com/wp-content/uploads/2019/06/Notion_App_Logo.png";
+        sha256 = "16vw52kca3pglykn9q184qgzshys3d2knzy631rp2slkbr301zxf";
+      };
+    };
+    duolingo = {
+      desktopName = "Duolingo";
+      url = "duolingo.com";
+      icon = builtins.fetchurl {
+        url = "https://logos-download.com/wp-content/uploads/2016/10/Duolingo_logo_owl.png";
+        sha256 = "1059lfaij0lmm1jsywfmnin9z8jalqh8yar9r8sj0qzk4nmjniss";
+      };
+    };
+    youtube-music =  {
+      desktopName = "Youtube Music";
+      url = "music.youtube.com";
+      icon = builtins.fetchurl {
+        url = "https://vancedapp.com/static/media/logo.866a4e0b.svg";
+        sha256 = "1axznpmfgmfqjgnq7z7vdjwmdsrk0qpc1rdlv9yyrcxfkyzqmvdv";
+      };
+    };
+    planttext =  {
+      desktopName = "PlantText";
+      url = "https://www.planttext.com/";
+      icon = builtins.fetchurl {
+        url = "https://www.planttext.com/images/blue_gray.png";
+        sha256 = "0n1p8g7gjxdp06fh36yqb10jvcbhxfc129xpvi1b10k1qb1vlj1h";
+      };
+    };
+    rainmode =  {
+      desktopName = "Tocar som de chuva";
+      url = "https://youtu.be/mPZkdNFkNps";
+      icon = "weather-showers";
+    };
+    gmail =  {
+      desktopName = "GMail";
+      url = "gmail.com";
+      icon = builtins.fetchurl {
+        url = "https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/256/Gmail-icon.png";
+        sha256 = "1cldc9k30rlvchh7ng00hmn0prbh632z8h9fqclj466y8bgdp15j";
+      };
+    };
+    keymash =  {
+      desktopName = "keyma.sh: Keyboard typing train";
+      url = "https://keyma.sh/learn";
+      icon = builtins.fetchurl {
+        url = "https://keyma.sh/static/media/logo_svg.ead5cacb.svg";
+        sha256 = "1i6py2gnpmf548zwakh9gscnk5ggsd1j98z80yb6mr0fm84bgizy";
+      };
+    };
+    calendar =  {
+      desktopName = "Calendário";
+      url = "https://calendar.google.com/calendar/u/0/r/customday";
+      icon = "x-office-calendar";
+    };
+    twitchLive =  {
+      desktopName = "Dashboard de Live";
+      url = "https://dashboard.twitch.tv/stream-manager";
+    };
+    trello-facul = {
+      desktopName = "Trello Faculdade";
+      url = "https://trello.com/b/ov0pbUtC/facul";
+    };
+    trello-pessoal = {
+      desktopName = "Trello Pessoal";
+      url = "https://trello.com/b/bjoRKSM2/pessoal";
+    };
+    trello-sides = {
+      desktopName = "Trello Side Projects";
+      url = "https://trello.com/b/36ncJYYV/side-projects";
+    };
+  };
 
 }

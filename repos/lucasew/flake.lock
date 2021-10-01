@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "borderless-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1633099475,
+        "narHash": "sha256-p2MWVr5R/f9Ga103wOC07l9NEek4TxTOTv68S+TbJNY=",
+        "owner": "lucasew",
+        "repo": "borderless-browser.nix",
+        "rev": "330b141a03cea1187a46ef15b85e39757930f42a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "borderless-browser.nix",
+        "type": "github"
+      }
+    },
     "dotenv": {
       "flake": false,
       "locked": {
@@ -200,6 +220,7 @@
     },
     "root": {
       "inputs": {
+        "borderless-browser": "borderless-browser",
         "dotenv": "dotenv",
         "home-manager": "home-manager",
         "impermanence": "impermanence",

@@ -7,6 +7,10 @@
       url = "github:nix-community/home-manager/release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    borderless-browser = {
+      url = "github:lucasew/borderless-browser.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-ld.url = "github:Mic92/nix-ld";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
     nixpkgsLatest.url = "github:NixOS/nixpkgs/master";
@@ -36,7 +40,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, nixos-hardware, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, nixos-hardware, borderless-browser, ... }@inputs:
   with import ./globalConfig.nix;
   let
     system = "x86_64-linux";
@@ -50,7 +54,12 @@
 
     hmConf = {...}@allConfig:
     let
-      hmstuff = home-manager.lib.homeManagerConfiguration allConfig;
+      config = allConfig // {
+        extraSpecialArgs = {
+          inherit self;
+        };
+      };
+      hmstuff = home-manager.lib.homeManagerConfiguration config;
       doc = docConfig hmstuff;
     in hmstuff // { inherit doc; };
 
@@ -93,8 +102,9 @@
     in
     (nixpkgs.lib.nixosSystem config) // {doc = docConfig evalConfig;};
     overlays = [
-      (import ./overlay.nix)
+      (import ./overlay.nix self)
       (import "${home-manager}/overlay.nix")
+      (borderless-browser.overlay)
     ];
     pkgs = import nixpkgs {
       inherit overlays;

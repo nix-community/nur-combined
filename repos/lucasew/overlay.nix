@@ -1,5 +1,5 @@
 with import ./globalConfig.nix;
-self: super:
+flake: self: super:
 let
   recursiveUpdate = super.lib.recursiveUpdate;
   cp = f: (super.callPackage f) {};
@@ -41,8 +41,6 @@ in reduceJoin [
     flutter = (cp "${flake.inputs.nixpkgsLatest}/pkgs/development/compilers/flutter/default.nix").stable;
     tor-browser-bundle-bin = (cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
     obsidian = (cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/misc/obsidian/default.nix");
-    webapp = cp ./packages/webapp.nix;
-    webapps = import ./packages/chromeapps.nix super;
     ventoy-bin = cp "${flake.inputs.nixpkgsLatest}/pkgs/tools/cd-dvd/ventoy-bin/default.nix";
     arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me;
