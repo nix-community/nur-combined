@@ -1,0 +1,21 @@
+{
+  "slug": "inkatlas-outdoor",
+  "name": "Inkatlas Outdoor",
+  "tile-width": 256,
+  "tile-height": 256,
+  "max-zoom-level": 19,
+  "urls": [
+    "https://tile.inkatlas.com/inkatlas/outdoor/${z}/${x}/${y}.png"
+  ],
+  "copyrights": [
+    {
+      "text": "© OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "text": "© Inkatlas OÜ",
+      "url": "https://inkatlas.com"
+    }
+  ]
+}
+

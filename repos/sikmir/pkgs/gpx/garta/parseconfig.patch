@@ -1,0 +1,13 @@
+diff --git i/src/geocoord/gpx/reader.rs w/src/geocoord/gpx/reader.rs
+index 7785dcb..9b38cb7 100644
+--- i/src/geocoord/gpx/reader.rs
++++ w/src/geocoord/gpx/reader.rs
+@@ -38,6 +38,8 @@ pub fn read_gpx<R: Read> (source: R) -> Result<Collection, String> {
+                         coalesce_characters: true,
+                         extra_entities: HashMap::new(),
+                         ignore_end_of_stream: false,
++                        replace_unknown_entity_references: false,
++                        ignore_root_level_whitespace: false,
+                     }
+                 );
+     let mut en_stack: LinkedList<String> = LinkedList::new(); // Element name stack
