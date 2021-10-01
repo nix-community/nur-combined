@@ -504,10 +504,14 @@ let
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/fc8e850f53be9766056d90274cef04c8bc878131.patch";
         sha256 = "13g5rxrrr60vpprkcfgslkxgcyb83qh0wwqr1kycaqbfwjz958h8";
-      }) ++ lib.optional (lib.versionAtLeast qemu.version "6.0") (fetchpatch {
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "6.0" && lib.versionOlder qemu.version "6.1") (fetchpatch {
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/61050b3f3400cd8d984b4db63d104e2480682227.patch";
         sha256 = "0cpg18pq2a344l3x589ab7sg386smp6fb6iyj768qzflsdwn2fmq";
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "6.1") (fetchpatch {
+        name = "qemu-cpu-pinning.patch";
+        url = "https://github.com/64kramsystem/qemu-pinning/commit/416986f5594b6db7eb305a2e3256b70f52f1fc5f.patch";
+        sha256 = "10q4f74kpji3s2rr1kbf695547hsb6ha3f42als2mdn0x9zsrqky";
       }) ++ lib.singleton (fetchpatch {
         name = "qemu-smb-symlinks.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/646a58799e0791c4074148a21d57786f100b7076.patch";
