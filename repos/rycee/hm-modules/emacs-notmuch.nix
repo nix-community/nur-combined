@@ -35,7 +35,7 @@ let
     (defun hm--message-send ()
       (make-local-variable 'message-user-fqdn)
       (let ((from ${elispFromAddress}))
-        ; Set the host part of the Message-ID to the email address host.
+        ;; Set the host part of the Message-ID to the email address host.
         (setq message-user-fqdn ${elispFromHost})))
   '';
 
@@ -79,7 +79,7 @@ in {
 
       notmuch = {
         config = ''
-          ; See https://github.com/Schnouki/dotfiles/blob/0d6716a041e1db95a27fc393baa8f38b850c5a25/emacs/init-50-mail.el#L243
+          ;; See https://github.com/Schnouki/dotfiles/blob/0d6716a041e1db95a27fc393baa8f38b850c5a25/emacs/init-50-mail.el#L243
           ${notmuchDraftSaveAdviceFunction}
           (advice-add 'notmuch-draft-save :around #'hm--notmuch-draft-save)
 

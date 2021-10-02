@@ -269,8 +269,6 @@ let
   hasChords = any (p: p.chords != { }) (attrValues cfg.usePackage);
 
   usePackageSetup = ''
-    (setq package-enable-at-startup nil)
-
     (eval-when-compile
       (require 'use-package)
       ;; To help fixing issues during startup.
@@ -397,6 +395,8 @@ in {
   };
 
   config = mkIf (config.programs.emacs.enable && cfg.enable) {
+    # Collect the extra packages that should be included in the user profile.
+    # These are typically tools called by Emacs packages.
     home.packages = concatMap (v: v.extraPackages)
       (filter (getAttr "enable") (builtins.attrValues cfg.usePackage));
 
@@ -438,6 +438,13 @@ in {
             ++ optional hasChords epkgs.use-package-chords;
           preferLocalBuild = true;
           allowSubstitutes = false;
+          preBuild = ''
+            # Do a bit of basic formatting of the generated init file.
+            emacs -Q --batch \
+              --eval '(find-file "hm-init.el")' \
+              --eval '(let ((indent-tabs-mode nil) (lisp-indent-offset 2)) (indent-region (point-min) (point-max)))' \
+              --eval '(write-file "hm-init.el")'
+          '';
         })
       ];
 
