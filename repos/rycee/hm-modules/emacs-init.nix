@@ -376,6 +376,24 @@ in {
       '';
     };
 
+    packageQuickstart = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to enable package-quickstart. This will make sure that
+        <literal>package.el</literal> is activated and all autoloads are
+        available.
+        </para><para>
+        If disabled you can save quite a few milliseconds on the startup time,
+        but you will most likely have to tweak the <literal>command</literal>
+        option of various packages.
+        </para><para>
+        As an example, running <literal>(emacs-init-time)</literal> on an Emacs
+        configuration with this option enabled reported ~300ms. Disabling the
+        option dropped the init time to ~200ms.
+      '';
+    };
+
     usePackageVerbose = mkEnableOption "verbose use-package mode";
 
     usePackage = mkOption {
@@ -404,7 +422,12 @@ in {
       earlyInit = mkBefore ''
         ${optionalString cfg.recommendedGcSettings gcSettings}
 
-        (setq package-enable-at-startup nil)
+        ${if cfg.packageQuickstart then ''
+          (setq package-quickstart t
+                package-quickstart-file "hm-package-quickstart.el")
+        '' else ''
+          (setq package-enable-at-startup nil)
+        ''}
 
         ;; Avoid expensive frame resizing. Inspired by Doom Emacs.
         (setq frame-inhibit-implied-resize t)
@@ -444,6 +467,18 @@ in {
               --eval '(find-file "hm-init.el")' \
               --eval '(let ((indent-tabs-mode nil) (lisp-indent-offset 2)) (indent-region (point-min) (point-max)))' \
               --eval '(write-file "hm-init.el")'
+
+            ${optionalString cfg.packageQuickstart ''
+              # Generate a package quickstart file to make autoloads and such
+              # available.
+              emacs -Q --batch \
+                --eval "(require 'package)" \
+                --eval "(setq package-quickstart-file \"hm-package-quickstart.el\")" \
+                --eval "(package-quickstart-refresh)"
+
+              # We know what we're doing?
+              sed -i '/no-byte-compile: t/d' hm-package-quickstart.el
+            ''}
           '';
         })
       ];
