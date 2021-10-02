@@ -75,6 +75,5 @@ buildPerlPackage rec {
     inherit (src.meta) homepage;
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }
