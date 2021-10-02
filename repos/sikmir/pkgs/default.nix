@@ -297,6 +297,7 @@ lib.makeScope newScope (
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
     overpass-api = callPackage ./osm/overpass-api { };
+    osmwalkthrough = callPackage ./osm/osmwalkthrough { };
     phyghtmap = callPackage ./osm/phyghtmap { };
     sdlmap = callPackage ./osm/sdlmap { };
     smopy = callPackage ./osm/smopy { };
