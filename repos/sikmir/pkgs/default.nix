@@ -219,6 +219,7 @@ lib.makeScope newScope (
     gpx-layer = perlPackages.callPackage ./gpx/gpx-layer { };
     gpx2yaml = callPackage ./gpx/gpx2yaml { };
     gpxchart = callPackage ./gpx/gpxchart { };
+    gpxeditor = callPackage ./gpx/gpxeditor { };
     gpxlib = callPackage ./gpx/gpxlib { };
     gpxsee-bin = callPackage ./gpx/gpxsee/bin.nix { };
     gpxtools = callPackage ./gpx/gpxtools { };
@@ -329,6 +330,7 @@ lib.makeScope newScope (
     json2tsv = callPackage ./suckless/json2tsv { };
     lacc = callPackage ./suckless/lacc { };
     lel = callPackage ./suckless/lel { };
+    libst = callPackage ./suckless/libst { };
     quark = callPackage ./suckless/quark { };
     saait = callPackage ./suckless/saait { };
     sbase = callPackage ./suckless/sbase { };
@@ -337,6 +339,7 @@ lib.makeScope newScope (
     sfeed = callPackage ./suckless/sfeed { };
     sfeed_curses = callPackage ./suckless/sfeed_curses { };
     sthkd = callPackage ./suckless/sthkd { };
+    svtm = callPackage ./suckless/svtm { };
     xprompt = callPackage ./suckless/xprompt { };
   }
 )
