@@ -166,13 +166,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.6.0" = {
+    "is-core-module-2.7.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.6.0";
+      version = "2.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.6.0.tgz";
-        sha512 = "wShG8vs60jKfPWpF2KZRaAtvt3a20OAn7+IJ6hLPECpSABLcKtFKTTI4ZtH5QcBruBHlq+WsdHWyz0BCZW7svQ==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.7.0.tgz";
+        sha512 = "ByY+tjCciCr+9nLryBYcSD50EOGWt95c7tIsKTG1J2ixKKXPvF7Ej3AVd+UfDydAJom3biBGDBALaO79ktwgEQ==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -391,13 +391,13 @@ let
         sha512 = "7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==";
       };
     };
-    "signal-exit-3.0.4" = {
+    "signal-exit-3.0.5" = {
       name = "signal-exit";
       packageName = "signal-exit";
-      version = "3.0.4";
+      version = "3.0.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.4.tgz";
-        sha512 = "rqYhcAnZ6d/vTPGghdrw7iumdcbXpsk1b8IG/rz+VWV51DM0p7XCtMoJ3qhPLIbp3tvyt3pKRbaaEMZYpHto8Q==";
+        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.5.tgz";
+        sha512 = "KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ==";
       };
     };
     "strip-final-newline-2.0.0" = {
@@ -470,7 +470,7 @@ let
       sources."human-signals-2.1.0"
       sources."import-local-3.0.2"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.6.0"
+      sources."is-core-module-2.7.0"
       sources."is-plain-object-2.0.4"
       sources."is-stream-2.0.1"
       sources."isexe-2.0.0"
@@ -495,7 +495,7 @@ let
       sources."shallow-clone-3.0.1"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
-      sources."signal-exit-3.0.4"
+      sources."signal-exit-3.0.5"
       sources."strip-final-newline-2.0.0"
       sources."v8-compile-cache-2.3.0"
       sources."webpack-merge-5.8.0"

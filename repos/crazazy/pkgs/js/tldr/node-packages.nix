@@ -148,13 +148,13 @@ let
         sha512 = "I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==";
       };
     };
-    "cli-spinners-2.6.0" = {
+    "cli-spinners-2.6.1" = {
       name = "cli-spinners";
       packageName = "cli-spinners";
-      version = "2.6.0";
+      version = "2.6.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.6.0.tgz";
-        sha512 = "t+4/y50K/+4xcCRosKkA7W4gTr1MySvLV0q+PxmG7FJ5g+66ChKurYjxBCjHggHH3HA5Hh9cy+lcUGWDqVH+4Q==";
+        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.6.1.tgz";
+        sha512 = "x/5fWmGMnbKQAaNwN+UZlV79qBLM9JFnJuJ03gIi5whrob0xV0ofNVHy9DhwGdsMJQc2OKv0oGmLzvaqvAVv+g==";
       };
     };
     "clone-1.0.4" = {
@@ -571,13 +571,13 @@ let
         sha1 = "290cbb232e306942d7d7ea9b83732ab7856f8285";
       };
     };
-    "signal-exit-3.0.4" = {
+    "signal-exit-3.0.5" = {
       name = "signal-exit";
       packageName = "signal-exit";
-      version = "3.0.4";
+      version = "3.0.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.4.tgz";
-        sha512 = "rqYhcAnZ6d/vTPGghdrw7iumdcbXpsk1b8IG/rz+VWV51DM0p7XCtMoJ3qhPLIbp3tvyt3pKRbaaEMZYpHto8Q==";
+        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.5.tgz";
+        sha512 = "KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ==";
       };
     };
     "slice-stream-1.0.0" = {
@@ -725,7 +725,7 @@ let
       sources."chainsaw-0.1.0"
       sources."chalk-4.1.2"
       sources."cli-cursor-3.1.0"
-      sources."cli-spinners-2.6.0"
+      sources."cli-spinners-2.6.1"
       sources."clone-1.0.4"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
@@ -771,7 +771,7 @@ let
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.2.1"
       sources."setimmediate-1.0.5"
-      sources."signal-exit-3.0.4"
+      sources."signal-exit-3.0.5"
       sources."slice-stream-1.0.0"
       sources."string_decoder-0.10.31"
       sources."strip-ansi-6.0.1"
