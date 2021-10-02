@@ -125,5 +125,7 @@ rec {
     python2Packages = pkgs.python2Packages // python2Packages.overlay;
   };
 
+  ytarchive = pkgs.callPackage ../tools/misc/ytarchive { };
+
   zsh-z = pkgs.callPackage ../shells/zsh/zsh-z { };
 }
