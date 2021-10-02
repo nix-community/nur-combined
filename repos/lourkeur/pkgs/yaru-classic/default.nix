@@ -15,14 +15,14 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "yaru-mixed";
-  version = "21.10.1pre";
+  pname = "yaru-classic";
+  version = "21.10.2.1";
 
   src = fetchFromGitHub {
     owner = "lourkeur";
-    repo = "yaru-mixed";
+    repo = "yaru-classic";
     rev = version;
-    sha256 = "sha256-og9RCSCvsmKAhUxrEB25bY8rst8QMIfaM5PAipgVgeQ=";
+    sha256 = "sha256-bloLVVYGIOZgGvCT59xar5SwPqC02xjFfBA/wln7pD4=";
   };
 
   nativeBuildInputs = [ meson sassc pkg-config glib ninja python3 ];
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Ubuntu community theme 'yaru' - default Ubuntu theme since 18.10";
-    homepage = "https://github.com/lourkeur/yaru-mixed";
+    homepage = "https://github.com/lourkeur/yaru-classic";
     license = with licenses; [ cc-by-sa-40 gpl3Plus lgpl21Only lgpl3Only ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ lourkeur ];

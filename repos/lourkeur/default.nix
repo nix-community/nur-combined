@@ -22,5 +22,7 @@ rec {
 
   chromium-extensions = pkgs.callPackage pkgs/chromium-extensions {};
 
-  yaru-mixed-theme = pkgs.callPackage pkgs/yaru-mixed { };
+  yaru-mixed-theme = yaru-classic-theme;  # alias added 2021-10-02
+
+  yaru-classic-theme = pkgs.callPackage pkgs/yaru-classic { };
 }
