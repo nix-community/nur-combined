@@ -448,6 +448,7 @@ in {
         (epkgs.trivialBuild {
           pname = "hm-early-init";
           src = pkgs.writeText "hm-early-init.el" earlyInitFile;
+          packageRequires = packages;
           preferLocalBuild = true;
           allowSubstitutes = false;
         })
