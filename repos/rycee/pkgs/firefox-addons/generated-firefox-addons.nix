@@ -309,10 +309,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.9.2";
+      version = "2021.9.30";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3834290/duckduckgo_privacy_essentials-2021.9.2-an+fx.xpi";
-      sha256 = "e9cf771ef3d463fdb65ea3367a39e8cb3f41e1662847f7309afba8ca649b08fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847643/duckduckgo_privacy_essentials-2021.9.30-fx.xpi";
+      sha256 = "aaacdfae1c7307000344df9ffe65fd41736067bfc86fc600c545b45a4e1b976f";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -531,10 +531,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.884.0";
+      version = "8.885.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3831475/grammarly_for_firefox-8.884.0-an+fx.xpi";
-      sha256 = "636372df084950be3fc3a8fd84925405dee8bf8f4b7c7fa5bfb18f3d693f0f61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847395/grammarly_for_firefox-8.885.0-an+fx.xpi";
+      sha256 = "d894786a5e75e802fb5344febf4957d46ce724f707a2ef0ec5266ffc94ed47c3";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -981,10 +981,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.1.0";
+      version = "7.1.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3845186/octotree_github_code_tree-7.1.0-fx.xpi";
-      sha256 = "5662ab15d381aa987a6a3d6af351886a99ee9c502f8b8095fcf05abda4ce3ed3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847930/octotree_github_code_tree-7.1.1-fx.xpi";
+      sha256 = "be213eb12b9de0e7426e6f2df14ef4b1e0ce48d958e133456fe92f381756214a";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1041,10 +1041,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.1.0";
+      version = "2.1.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3843961/1password-2.1.0-fx.xpi";
-      sha256 = "fef22a736ba350be4b3d7aa2cb1d2f1d7b6b4e8c9be0a4b0c1afda026b726c0e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847551/1password-2.1.2-fx.xpi";
+      sha256 = "ba9c1be44c9f4180b3406a33912c127595c05769e6fdef236e68f4b2729ddf94";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1231,10 +1231,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.19.0";
+      version = "4.19.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847038/react_developer_tools-4.19.0-fx.xpi";
-      sha256 = "3dee2a8795ca435e8e6e04c02ff11f10647303366536f476d58ddbb997d76f45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847790/react_developer_tools-4.19.1-fx.xpi";
+      sha256 = "3a861511d3317f6445867f3e0afeb7c55425a75ca66e24656b5e48e8d2474f94";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1301,10 +1301,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.9.18";
+      version = "21.10.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3841878/refined_github-21.9.18-an+fx.xpi";
-      sha256 = "37002484239ff80ff21704eb3108e77e2ee9706292c5eb19bb327ffea739a447";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847836/refined_github-21.10.1-an+fx.xpi";
+      sha256 = "1bf202210940d0353a606bb90e9907ec61cb38d6b62614b985962a99f23b4039";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
