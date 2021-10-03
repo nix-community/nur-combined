@@ -24,6 +24,8 @@
 
   rpl = pkgs.callPackage ./pkgs/rpl/default.nix { };
 
+  svn2github = pkgs.callPackage ./pkgs/svn2github/default.nix { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
