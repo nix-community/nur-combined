@@ -13,7 +13,7 @@ buildPythonPackage rec {
       Pat is a Python script that prints text from stdin or files with
       pastel, rainbow colors.
     '';
-    homepage = "https://gitdab.com/endie2/pat";
+    homepage = "https://gitdab.com/elle/pat";
     license = licenses.unlicense;
     platforms = platforms.all;
   };
