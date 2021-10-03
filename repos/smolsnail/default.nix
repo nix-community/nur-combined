@@ -17,6 +17,9 @@
   # Programs
   pat = pkgs.python39Packages.callPackage ./pkgs/pat { };
 
+  # GTK/icon themes
+  everforest-gtk = pkgs.callPackage ./pkgs/everforest-gtk { };
+
   # Vim color schemes
   everforest = pkgs.callPackage ./pkgs/everforest {
     buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
