@@ -14,7 +14,13 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # Programs
   pat = pkgs.python39Packages.callPackage ./pkgs/pat { };
+
+  # Vim color schemes
+  everforest = pkgs.callPackage ./pkgs/everforest {
+    buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
+  };
   rose-pine-nvim = pkgs.callPackage ./pkgs/rose-pine-nvim {
     buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
   };
