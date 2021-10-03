@@ -464,6 +464,9 @@
         "smaret": {
             "url": "https://github.com/smaret/nur-packages"
         },
+        "smolsnail": {
+            "url": "https://github.com/smolsnail/nur-packages"
+        },
         "sondr3": {
             "url": "https://github.com/sondr3/nix-expressions"
         },
