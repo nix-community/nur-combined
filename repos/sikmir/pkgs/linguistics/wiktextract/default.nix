@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub, fetchurl, unzip, wikitextprocessor }:
+{ lib, stdenv, python3Packages, fetchFromGitHub, fetchurl, unzip, wikitextprocessor }:
 
 let
   brown = fetchurl {
@@ -33,5 +33,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/137678
   };
 }

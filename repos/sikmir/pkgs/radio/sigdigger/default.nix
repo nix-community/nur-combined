@@ -1,4 +1,4 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, pkg-config
+{ lib, stdenv, mkDerivation, fetchFromGitHub, qmake, pkg-config
 , fftwFloat, sigutils, suscan, suwidgets, volk
 , fftw, libsndfile, soapysdr
 }:
@@ -28,6 +28,7 @@ mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }

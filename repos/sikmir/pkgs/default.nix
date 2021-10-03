@@ -8,7 +8,6 @@ lib.makeScope newScope (
     ### APPLICATIONS
 
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };
-    i18n-editor-bin = callPackage ./applications/i18n-editor { jre = pkgs.jdk11; };
     iterm2-bin = callPackage ./applications/iterm2/bin.nix { };
     klogg = libsForQt5.callPackage ./applications/misc/klogg { };
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
@@ -67,10 +66,6 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / LIBRARIES
 
-    foma = callPackage ./development/libraries/foma {
-      libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
-    };
-    hfst = callPackage ./development/libraries/hfst { };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
     qt6 = callPackage ./development/libraries/qt-6 { };
@@ -94,30 +89,10 @@ lib.makeScope newScope (
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     lru-dict = callPackage ./development/python-modules/lru-dict { };
-    mikatools = callPackage ./development/python-modules/mikatools { };
     morecantile = callPackage ./development/python-modules/morecantile { };
     portolan = callPackage ./development/python-modules/portolan { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
-    python-hfst = callPackage ./development/python-modules/python-hfst { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
-    wikitextprocessor = callPackage ./development/python-modules/wikitextprocessor { };
-    wiktfinnish = callPackage ./development/python-modules/wiktfinnish { };
-
-    ### DICT
-
-    dict2rest = callPackage ./dict/dict2rest { };
-    gdcv = callPackage ./dict/gdcv { };
-    goldendict-bin = callPackage ./dict/goldendict/bin.nix { };
-    gt4gd = callPackage ./dict/gt4gd { };
-    gt-bash-client = callPackage ./dict/gt-bash-client { };
-    lsdreader = callPackage ./dict/lsdreader { };
-    odict = callPackage ./dict/odict { };
-    opendict = callPackage ./dict/opendict { };
-    redict = libsForQt5.callPackage ./dict/redict { };
-    stardict-tools = callPackage ./dict/stardict-tools { };
-    tatoebatools = callPackage ./dict/tatoebatools { };
-    wiktextract = callPackage ./dict/wiktextract { };
-    zdict = callPackage ./dict/zdict { };
 
     ### EMBOX
 
@@ -188,6 +163,7 @@ lib.makeScope newScope (
     mapsoft = callPackage ./geospatial/mapsoft { };
     mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
+    polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     qgis-bin = callPackage ./geospatial/qgis/bin.nix { };
     qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
@@ -243,6 +219,32 @@ lib.makeScope newScope (
       wekan = callPackage ./images/wekan { };
     };
 
+    ### LINGUISTICS
+
+    dict2rest = callPackage ./linguistics/dict2rest { };
+    distance = callPackage ./linguistics/distance { };
+    foma = callPackage ./linguistics/foma {
+      libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
+    };
+    gdcv = callPackage ./linguistics/gdcv { };
+    goldendict-bin = callPackage ./linguistics/goldendict/bin.nix { };
+    gt-bash-client = callPackage ./linguistics/gt-bash-client { };
+    gt4gd = callPackage ./linguistics/gt4gd { };
+    hfst = callPackage ./linguistics/hfst { };
+    i18n-editor-bin = callPackage ./linguistics/i18n-editor { jre = pkgs.jdk11; };
+    lsdreader = callPackage ./linguistics/lsdreader { };
+    mikatools = callPackage ./linguistics/mikatools { };
+    odict = callPackage ./linguistics/odict { };
+    opendict = callPackage ./linguistics/opendict { };
+    python-hfst = callPackage ./linguistics/python-hfst { };
+    redict = libsForQt5.callPackage ./linguistics/redict { };
+    stardict-tools = callPackage ./linguistics/stardict-tools { };
+    tatoebatools = callPackage ./linguistics/tatoebatools { };
+    wikitextprocessor = callPackage ./linguistics/wikitextprocessor { };
+    wiktextract = callPackage ./linguistics/wiktextract { };
+    wiktfinnish = callPackage ./linguistics/wiktfinnish { };
+    zdict = callPackage ./linguistics/zdict { };
+
     ### MISC
 
     aamath = callPackage ./misc/aamath { };
@@ -263,7 +265,6 @@ lib.makeScope newScope (
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
     playonmac = callPackage ./misc/playonmac { };
-    polyvectorization = libsForQt5.callPackage ./misc/polyvectorization { };
     ptunnel = callPackage ./misc/ptunnel { };
     pvs-studio = callPackage ./misc/pvs-studio { };
     repolocli = callPackage ./misc/repolocli { };
