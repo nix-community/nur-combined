@@ -13,6 +13,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
+  postInstall = ''
+    install -Dm644 $src/lists/resolvers.txt $out/share/doc/resolvers.txt
+  '';
+
   meta = with lib; {
     description = "A high-performance DNS stub resolver for bulk lookups and reconnaissance (subdomain enumeration)";
     license = licenses.gpl3;
