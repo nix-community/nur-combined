@@ -95,6 +95,7 @@
     };
 
     org-roam = {
+      defines = [ "org-roam-graph-executable" ];
       config = ''
         (setq org-roam-graph-executable "${pkgs.graphviz}/bin/dot")
       '';
