@@ -97,6 +97,7 @@ in stdenv.mkDerivation rec {
   '';
 
   dontAutoPatchelf = true;
+  noAuditTmpdir = true; # Patchelf segfaults on multiple files and crashes the build
 
   postFixup = let
     libSearchPath = lib.strings.makeSearchPath "lib" [
@@ -107,14 +108,14 @@ in stdenv.mkDerivation rec {
       glibc
     ];
   in ''
-    # Patch elf dynamic library paths.
+    # Patch elf dynamic library paths and interpreters
     for dir in $TURBODIR/libso $TURBODIR/bin/*; do
-      files=$(find $dir -type f -executable -maxdepth 1 ! -name rimp2 ! -name ccsdf12)
+      files=$(find $dir -type f -executable -maxdepth 1 ! -name rimp2)
       for f in $files; do
-        # echo "Patching $f now!"
+        echo "Patching executable: $f: "
         patchelf \
           --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath "$libSearchPath" \
+          --set-rpath "${libSearchPath}"\
           $f
       done
     done
@@ -140,5 +141,6 @@ in stdenv.mkDerivation rec {
     homepage = "https://www.turbomole.org/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
+    maintainers = [ maintainers.sheepforce ];
   };
 }
