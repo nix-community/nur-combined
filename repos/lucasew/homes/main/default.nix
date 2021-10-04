@@ -1,4 +1,5 @@
-{ pkgs, config, lib, self, ... }:
+{ cfg, pkgs, config, lib, self, ... }:
+with cfg;
 {
   imports = [
     "${self.inputs.nixgram}/hmModule.nix"
@@ -32,6 +33,7 @@
     libnotify
     neofetch
     aerc # terminal email
+    comma # like nix-shell but more convenient
   ] ;
 
   home.file.".dotfilerc".text = ''

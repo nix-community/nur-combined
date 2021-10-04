@@ -38,6 +38,10 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
+    comma = {
+      url = "github:Shopify/comma";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgsLatest, nixgram, nix-ld, home-manager, dotenv, nur, pocket2kindle, redial_proxy, nixos-hardware, borderless-browser, ... }@inputs:
@@ -49,29 +53,19 @@
         rootPath = "/home/${username}/.dotfiles";
         rootPathNix = "${rootPath}";
         wallpaper = rootPath + "/wall.jpg";
+        environmentShell = ''
+          function nix-repl {
+            nix repl "${cfg.rootPath}/repl.nix" "$@"
+          }
+          export NIXPKGS_ALLOW_UNFREE=1
+          export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=${builtins.toString cfg.rootPath}/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=${(builtins.toString cfg.rootPath) + "/nodes/$HOSTNAME/default.nix"}
+        '';
+      system = "x86_64-linux";
     };
     extraArgs = {
       inherit self;
       inherit cfg;
     };
-    system = "x86_64-linux";
-    environmentShell = ''
-      function nix-repl {
-        nix repl "${cfg.rootPath}/repl.nix" "$@"
-      }
-      export NIXPKGS_ALLOW_UNFREE=1
-      export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=${builtins.toString cfg.rootPath}/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=${(builtins.toString cfg.rootPath) + "/nodes/$HOSTNAME/default.nix"}
-    '';
-
-    hmConf = {...}@allConfig:
-    let
-      config = allConfig // {
-        extraSpecialArgs = extraArgs;
-      };
-      hmstuff = home-manager.lib.homeManagerConfiguration config;
-      doc = docConfig hmstuff;
-    in hmstuff // { inherit doc; };
-
     docConfig = {options, ...}: # it's a mess, i might fix it later
     with pkgs.nixosOptionsDoc { inherit options; };
     let
@@ -97,11 +91,33 @@
       mdText = optionsMDDoc;
       # nix = optionsNix;
     };
+    overlays = [
+      (import ./overlay.nix self)
+      (import "${home-manager}/overlay.nix")
+      (borderless-browser.overlay)
+    ];
+    pkgs = import nixpkgs {
+      inherit overlays;
+      inherit (cfg) system;
+      config = {
+        allowUnfree = true;
+      };
+    };
+    hmConf = {...}@allConfig:
+    let
+      config = allConfig // {
+        extraSpecialArgs = extraArgs;
+        inherit pkgs;
+      };
+      hmstuff = home-manager.lib.homeManagerConfiguration config;
+      doc = docConfig hmstuff;
+    in hmstuff // { inherit doc; source = config; };
+
     nixosConf = {mainModule, extraModules ? []}:
     let
       config = {
         inherit pkgs;
-        inherit system;
+        inherit (cfg) system;
         modules = [
           revModule
           (mainModule)
@@ -110,19 +126,8 @@
       };
       evalConfig = import "${nixpkgs}/nixos/lib/eval-config.nix" config;
     in
-    (nixpkgs.lib.nixosSystem config) // {doc = docConfig evalConfig;};
-    overlays = [
-      (import ./overlay.nix self)
-      (import "${home-manager}/overlay.nix")
-      (borderless-browser.overlay)
-    ];
-    pkgs = import nixpkgs {
-      inherit overlays;
-      inherit system;
-      config = {
-        allowUnfree = true;
-      };
-    };
+    (nixpkgs.lib.nixosSystem config) // {doc = docConfig evalConfig; source = config; };
+
     revModule = ({pkgs, ...}: {
       system.configurationRevision = if (self ? rev) then 
         builtins.trace "detected flake hash: ${self.rev}" self.rev
@@ -131,13 +136,12 @@
       });
     in {
       inherit overlays;
-      # inherit environmentShell;
+      inherit (cfg) environmentShell;
       homeConfigurations = {
         main = hmConf {
           configuration = import ./homes/main/default.nix;
-          inherit system;
           homeDirectory = "/home/${cfg.username}";
-          inherit (cfg) username;
+          inherit (cfg) system username;
         };
       };
       nixosConfigurations = {
@@ -156,12 +160,12 @@
         name = "nixcfg-shell";
         buildInputs = [];
         shellHook = ''
-        ${environmentShell}
-        echo '${environmentShell}'
+        ${cfg.environmentShell}
+        echo '${cfg.environmentShell}'
         echo Shell setup complete!
         '';
       };
-      apps."${system}" = {
+      apps."${cfg.system}" = {
         pkg = {
           type = "app";
           program = "${pkgs.pkg}/bin/pkg";

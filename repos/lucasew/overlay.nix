@@ -34,6 +34,7 @@ in reduceJoin [
     p2k = cp flake.inputs.pocket2kindle;
     redial_proxy = cp flake.inputs.redial_proxy;
     send2kindle = cp flake.inputs.send2kindle;
+    comma = cp flake.inputs.comma;
     discord = cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/networking/instant-messengers/discord/default.nix";
     onlyoffice-bin = cp "${flake.inputs.nixpkgsLatest}/pkgs/applications/office/onlyoffice-bin/default.nix";
     dart = cp "${flake.inputs.nixpkgsLatest}/pkgs/development/interpreters/dart/default.nix";

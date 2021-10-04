@@ -1,4 +1,4 @@
-{pkgs, ...}: 
+{pkgs, ...}:
 let 
   nur = pkgs.nur;
 in

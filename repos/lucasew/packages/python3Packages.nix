@@ -1,4 +1,4 @@
-{ lib, python3Packages, pkgs }:
+{ lib, python3Packages, pkgs, ... }:
 rec {
   autoit = python3Packages.buildPythonApplication rec {
     pname = "autoit";
