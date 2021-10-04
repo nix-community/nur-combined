@@ -1424,6 +1424,19 @@
         platforms = platforms.all;
         };
       };
+    "startpage-private-search" = buildFirefoxXpiAddon {
+      pname = "startpage-private-search";
+      version = "1.3.0";
+      addonId = "{20fc2e06-e3e4-4b2b-812b-ab431220cada}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3421533/startpagecom_private_search_engine-1.3.0-fx.xpi";
+      sha256 = "e7b5500da81cd360336780bbc7c8e92c6044ede40b4bfbcbdb401ecf38e9b439";
+      meta = with lib;
+      {
+        description = "This search engine extension protects users from being tracked while allowing them to search the web in complete privacy.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
       version = "1.5.21";
@@ -1559,6 +1572,19 @@
         homepage = "https://github.com/jlebon/textern";
         description = "Edit text in your favourite external editor!";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "theme-nord-polar-night" = buildFirefoxXpiAddon {
+      pname = "theme-nord-polar-night";
+      version = "1.18";
+      addonId = "{758478b6-29f3-4d69-ab17-c49fe568ed80}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3786274/nord_polar_night_theme-1.18-an+fx.xpi";
+      sha256 = "3a871b7ad5f78fe929b14d12afca722155bf47382d94da53bc9db899b78ec34c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ChristosBouronikos/Nord-Polar-Night-Theme";
+        description = "<a href=\"https://outgoing.prod.mozaws.net/v1/ba1182cc6e56316a3cb1a60385b04ef4843dca5caf9bb4a82a5ba5b0556aeee8/https%3A//paypal.me/christosbouronikos\" rel=\"nofollow\">https://paypal.me/christosbouronikos</a>";
         platforms = platforms.all;
         };
       };

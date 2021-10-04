@@ -288,6 +288,10 @@
     "slug": "no-pdf-download"
   },
   {
+    "pname": "theme-nord-polar-night",
+    "slug": "nord-polar-night-theme"
+  },
+  {
     "slug": "noscript"
   },
   {
@@ -402,6 +406,9 @@
   },
   {
     "slug": "sponsorblock"
+  },
+  {
+    "slug": "startpage-private-search"
   },
   {
     "slug": "styl-us",
