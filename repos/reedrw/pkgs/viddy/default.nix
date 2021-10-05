@@ -1,12 +1,6 @@
 { buildGoModule
 , fetchFromGitHub
 , lib
-, wayland
-, libX11
-, xbitmaps
-, libXcursor
-, libXmu
-, libXpm
 }:
 
 buildGoModule rec {
