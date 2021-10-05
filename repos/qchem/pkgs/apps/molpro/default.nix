@@ -1,20 +1,28 @@
-{ lib, stdenv, requireFile, fetchurl, patchelf, python, token
+{ lib, stdenv, requireFile, fetchurl, patchelf, python
+, token
+, comm ? "sockets"
 } :
 
 assert token != null;
+assert (comm == "sockets") || (comm == "mpipr");
 
 let
-  version = "2021.2.0";
+  version = "2021.2.1";
+  url = http://www.molpro.net;
 
 in stdenv.mkDerivation {
   pname = "molpro";
   inherit version;
 
-  src = requireFile {
-    url = http://www.molpro.net;
+  src = requireFile (if comm == "sockets" then {
+    inherit url;
     name = "molpro-mpp-${version}.linux_x86_64_sockets.sh.gz";
-    sha256 = "0ghpv73zfdwx66hpnxma9wwzsgzpi1c92himvq23spqdpxykmdq2";
-  };
+    sha256 = "05ngn0inffng12i3nn820f4cz9g28lz71mi8v5jzvwxbqim0dhds";
+  } else {
+    inherit url;
+    name = "molpro-mpp-${version}.linux_x86_64_mpipr.sh.gz";
+    sha256 = "1hragygrqr3zwimc7c1vv2nkpzgrnjx32xrlsn21r1xgxcp66zni";
+  });
 
   nativeBuildInputs = [ patchelf ];
   buildInputs = [ python ];
@@ -80,7 +88,7 @@ in stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Quantum chemistry program package";
-    homepage = https://www.molpro.net;
+    homepage = url;
     license = licenses.unfree;
     maintainers = [ maintainers.markuskowa ];
     platforms = [ "x86_64-linux" ];
