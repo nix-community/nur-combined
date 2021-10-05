@@ -21,5 +21,15 @@ in {
         picocom        
       ];
     };
+    nix.buildMachines = [{
+      hostName = "robocat";
+      system = "x86_64-linux";
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      maxJobs = 8;
+    }];
+    nix.extraOptions = ''
+      builders-use-substitutes = true
+    '';
+    nix.distributedBuilds = true;
   };
 }
