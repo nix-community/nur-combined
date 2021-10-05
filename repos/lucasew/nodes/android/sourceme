@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+# Put this on /sdcard
+
+export PATH=$PATH:/data/data/ru.meefik.busybox/files/bin
+export ALPINEDROID=/data/alpinedroid
+sh
