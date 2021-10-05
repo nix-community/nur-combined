@@ -2,7 +2,12 @@
   description = "nixcfg";
 
   inputs = {
-    impermanence.url = "github:nix-community/impermanence";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgsLatest.url = "github:NixOS/nixpkgs/master";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,10 +16,14 @@
       url = "github:lucasew/borderless-browser.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ld.url = "github:Mic92/nix-ld";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
-    nixpkgsLatest.url = "github:NixOS/nixpkgs/master";
-    nur.url = "github:nix-community/NUR/master";
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nur = {
+      url = "github:nix-community/NUR/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     pocket2kindle = {
       url = "github:lucasew/pocket2kindle";
       flake = false;
@@ -37,6 +46,7 @@
     };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     comma = {
       url = "github:Shopify/comma";

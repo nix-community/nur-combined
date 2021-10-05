@@ -34,6 +34,13 @@ with cfg;
     neofetch
     aerc # terminal email
     comma # like nix-shell but more convenient
+    calibre
+    wineApps.wine7zip
+    libreoffice
+    mendeley
+    stremio
+    typora
+    fzf
   ] ;
 
   home.file.".dotfilerc".text = ''

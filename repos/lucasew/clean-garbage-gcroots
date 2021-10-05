@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+for f in /nix/var/nix/gcroots/auto/*; do
+    f="$(readlink $f)"
+    if [[ "$f" =~ ^/home ]]; then
+        rm "$f"
+    fi
+    if [[ "$f" =~ ^/tmp ]]; then
+        rm "$f"
+    fi
+done
