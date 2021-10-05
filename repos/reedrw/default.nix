@@ -16,10 +16,11 @@
 
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
   bitwarden-rofi-patched = pkgs.callPackage ./pkgs/bitwarden-rofi { };
-  rctpm = pkgs.callPackage ./pkgs/rctpm { };
   comma = pkgs.callPackage ./pkgs/comma { }; # From https://github.com/Shopify/comma/pull/7
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
+  rctpm = pkgs.callPackage ./pkgs/rctpm { };
   toonmux = pkgs.callPackage ./pkgs/toonmux { };
+  viddy = pkgs.callPackage ./pkgs/viddy { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
