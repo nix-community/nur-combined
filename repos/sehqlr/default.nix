@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   kakoune-ghwiki = pkgs.callPackage ./pkgs/kakoune-ghwiki { };
-  grit = pkgs.callPackage ./pkgs/grit { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
