@@ -58,7 +58,7 @@ index fe5f1802..7238c176 100644
  ## build mapsoft library
  
 -env.UseLibs('libxml-2.0 libzip libproj libgif libjpeg libpng libtiff-4 libcurl zlib yaml-0.1 shp jansson')
-+env.UseLibs('libxml-2.0 libzip proj libjpeg libpng libtiff-4 libcurl zlib yaml-0.1 shapelib jansson')
++env.UseLibs('libxml-2.0 libzip libjpeg libpng libtiff-4 libcurl zlib yaml-0.1 shapelib jansson')
  env.UseLibs('glibmm-2.4 gtkmm-2.4 gthread-2.0')
  env.UseLibs('cairomm-1.0 pixman-1 freetype2 libusb-1.0')
  

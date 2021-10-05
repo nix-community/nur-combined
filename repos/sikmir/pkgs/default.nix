@@ -109,7 +109,9 @@ lib.makeScope newScope (
     basecamp = callPackage ./garmin/basecamp { };
     cgpsmapper = callPackage ./garmin/cgpsmapper { };
     garmin-uploader = callPackage ./garmin/garmin-uploader { };
-    garminimg = libsForQt5.callPackage ./garmin/garminimg { };
+    garminimg = libsForQt5.callPackage ./garmin/garminimg {
+      proj = pkgs.proj_7;
+    };
     gimgtools = callPackage ./garmin/gimgtools { };
     gmaptool = callPackage ./garmin/gmaptool { };
     imgdecode = callPackage ./garmin/imgdecode { };
@@ -160,8 +162,12 @@ lib.makeScope newScope (
     };
     geographiclib = callPackage ./geospatial/geographiclib { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
-    mapsoft = callPackage ./geospatial/mapsoft { };
-    mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
+    mapsoft = callPackage ./geospatial/mapsoft {
+      proj = pkgs.proj_7;
+    };
+    mapsoft2 = callPackage ./geospatial/mapsoft/2.nix {
+      proj = pkgs.proj_7;
+    };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };

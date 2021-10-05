@@ -83,8 +83,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ bc libshell ];
 
   preBuild = ''
-    export CPPFLAGS="-I${boost.dev}/include -I${giflib}/include"
-    export LINKFLAGS="-L${giflib}/lib -lgif"
+    export CPPFLAGS="-I${boost.dev}/include -I${giflib}/include -I${proj.dev}/include"
+    export LINKFLAGS="-L${giflib}/lib -lgif -L${proj}/lib -lproj"
   '';
 
   sconsFlags = [ "minimal=1" "prefix=$(out)" ];
