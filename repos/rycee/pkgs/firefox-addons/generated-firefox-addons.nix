@@ -132,10 +132,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.3.7.0";
+      version = "2.3.8.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3845382/bypass_paywalls_clean-2.3.7.0-an+fx.xpi";
-      sha256 = "4b9829a081b246d130093ff3aa4fa1b63c8bddcb11253e92e894d19f9f8f3fbc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848454/bypass_paywalls_clean-2.3.8.0-an+fx.xpi";
+      sha256 = "078969d8e20a7693aacb5ebab09e988ac8647caf0b572d1d0afd84e33935db9b";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -240,10 +240,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.37.1";
+      version = "4.9.39";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3844210/dark_reader-4.9.37.1-an+fx.xpi";
-      sha256 = "4490abc7fada6ac429c2d034387b60d51ecfd4fc710eff2402b2793db3925c01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847766/dark_reader-4.9.39-an+fx.xpi";
+      sha256 = "570728350a0ada6dff2077512fbe14348ba8c841489320f5a4f57d5525a59454";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "93.0buildid20210927210923";
+      version = "94.0buildid20211004193346";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3846058/francais_language_pack-93.0buildid20210927210923-fx.xpi";
-      sha256 = "446667394347cd924fcd36af97a481d61d6d289eac77ecdfc5ffeec8639b9050";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848961/francais_language_pack-94.0buildid20211004193346-fx.xpi";
+      sha256 = "893d9f767e2cfdb2432a470d23e4c2ed4ee85341f4959b6a3cb85dcdf988b604";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1301,10 +1301,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.10.1";
+      version = "21.10.4";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847836/refined_github-21.10.1-an+fx.xpi";
-      sha256 = "1bf202210940d0353a606bb90e9907ec61cb38d6b62614b985962a99f23b4039";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3849135/refined_github-21.10.4-an+fx.xpi";
+      sha256 = "39d59b086cf2e8d0868b575e283735ddeb582238faa93bd6eb0f71fd002b0444";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1644,10 +1644,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.12";
+      version = "3.8.13";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3830576/tree_style_tab-3.8.12-fx.xpi";
-      sha256 = "9f2776638b073a3ad986851126c53a561e15b7532f3a1c646b428b61bd74aab4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848403/tree_style_tab-3.8.13-fx.xpi";
+      sha256 = "25766bec2ba97c3299883316bf3662b03b5f796245d0aeaef8f50d7aa17d1a1c";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1691,10 +1691,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.37.2";
+      version = "1.38.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3816867/ublock_origin-1.37.2-an+fx.xpi";
-      sha256 = "b3a3c81891acb4620e33dd548b50375aad826376044a6143b5a947d0406a559e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847314/ublock_origin-1.38.2-an+fx.xpi";
+      sha256 = "11c02e45981aec36a006bb5bf5d72bfc94b16361995ae8e49b1bd9b765346dad";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1886,10 +1886,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "18.7";
+      version = "19.0";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3816728/zoom_page_we-18.7-fx.xpi";
-      sha256 = "31a41137f6b719f2381a7e91d340aedad9d572556e5efaf3bce3007dbfd6bcdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848049/zoom_page_we-19.0-fx.xpi";
+      sha256 = "255254075573b822f3928e2cfbf996934fa64d7614d332995a0585dea8d51b65";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
