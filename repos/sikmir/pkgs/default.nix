@@ -152,6 +152,7 @@ lib.makeScope newScope (
     stargazer = callPackage ./gemini/stargazer {
       inherit (darwin.apple_sdk.frameworks) Security;
     };
+    tom = callPackage ./gemini/tom { };
 
     ### GEOSPATIAL
 
