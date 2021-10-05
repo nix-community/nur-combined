@@ -42,13 +42,13 @@ let
 in
 buildPythonPackage rec {
   pname = "pygsti";
-  version = "0.9.9.3";
+  version = "0.9.10";
 
   src = fetchFromGitHub {
     owner = "pyGSTio";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1hadwcag8kqc0k0hnrg9bkn4d4z78llfmr11wh1g0zxyina5y3dq";
+    sha256 = "sha256-O83shBlkQgaO6mwuelC/jHHcU1WenXUPwVXtzrWnPQ4=";
   };
 
   disabled = pythonOlder "3.5";
@@ -65,8 +65,8 @@ buildPythonPackage rec {
     scipy
   ] ++ optionalPackages;
 
-  postPatch = ''
-    substituteInPlace setup.py --replace "use_scm_version=custom_version" "version='${version}'"
+  preBuild = ''
+    export SETUPTOOLS_SCM_PRETEND_VERSION=${version}
   '';
 
   # extraCheckInputs = [
@@ -90,7 +90,6 @@ buildPythonPackage rec {
     "pygsti.extras"
     "pygsti.io"
     "pygsti.modelpacks"
-    "pygsti.objects"
     "pygsti.optimize"
     "pygsti.protocols"
     "pygsti.report"
@@ -110,7 +109,7 @@ buildPythonPackage rec {
   pytestFlagsArray = [
     "./test/unit"
     # "-v"
-    # "--durations=25"
+    "--durations=25"
     "--disable-warnings"  # reduce garbage lines from many tests throwing same warning
   ];
   disabledTests = [
@@ -176,6 +175,6 @@ buildPythonPackage rec {
     homepage = "http://www.pygsti.info";
     downloadPage = "https://www.github.com/pyGSTio/pyGSTi/releases";
     license = licenses.asl20;
-    # maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }

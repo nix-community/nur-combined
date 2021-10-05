@@ -6,8 +6,8 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ overlays ? import ./overlays
-, pkgs ? import <nixpkgs> { overlays = (builtins.attrValues overlays); }
+{ overlays ? import ./overlays  # set or list
+, pkgs ? import <nixpkgs> { overlays = (if builtins.isAttrs overlays then builtins.attrValues overlays else overlays); }
 }:
 
 rec {
