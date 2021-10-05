@@ -510,8 +510,8 @@ let
         sha256 = "0cpg18pq2a344l3x589ab7sg386smp6fb6iyj768qzflsdwn2fmq";
       }) ++ lib.optional (lib.versionAtLeast qemu.version "6.1") (fetchpatch {
         name = "qemu-cpu-pinning.patch";
-        url = "https://github.com/64kramsystem/qemu-pinning/commit/416986f5594b6db7eb305a2e3256b70f52f1fc5f.patch";
-        sha256 = "10q4f74kpji3s2rr1kbf695547hsb6ha3f42als2mdn0x9zsrqky";
+        url = "https://github.com/64kramsystem/qemu-pinning/commit/e3d3d8a836d5dd4d385def2959abae0eb23a1d69.patch";
+        sha256 = "04lbhhp2dcy38zzy4qx2w55af2j1s144ibka6d0k9pqya0d040d5";
       }) ++ lib.singleton (fetchpatch {
         name = "qemu-smb-symlinks.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/646a58799e0791c4074148a21d57786f100b7076.patch";
