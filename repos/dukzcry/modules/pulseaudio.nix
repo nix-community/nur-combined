@@ -2,9 +2,9 @@
 
 with lib;
 let
-  cfg = config.services.pulseaudio;
+  cfg = config.programs.pulseaudio;
 in {
-  options.services.pulseaudio = {
+  options.programs.pulseaudio = {
     enable = mkEnableOption ''
       the PulseAudio sound server
     '';
@@ -22,5 +22,11 @@ in {
     #  sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
     #    ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
     #'';
+    hardware.pulseaudio.package = pkgs.pulseaudio-hsphfpd;
+    hardware.bluetooth.hsphfpd.enable = true;
+    hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
+      sed 's/load-module module-bluetooth-policy$/load-module module-bluetooth-policy auto_switch=false/' \
+        ${pkgs.pulseaudio-hsphfpd}/etc/pulse/default.pa > $out
+    '';
   };
 }
