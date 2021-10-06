@@ -24,9 +24,5 @@ in {
     #'';
     hardware.pulseaudio.package = pkgs.pulseaudio-hsphfpd;
     hardware.bluetooth.hsphfpd.enable = true;
-    hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
-      sed 's/load-module module-bluetooth-policy$/load-module module-bluetooth-policy auto_switch=false/' \
-        ${pkgs.pulseaudio-hsphfpd}/etc/pulse/default.pa > $out
-    '';
   };
 }
