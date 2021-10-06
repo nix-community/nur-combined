@@ -476,10 +476,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "94.0buildid20211004193346";
+      version = "94.0buildid20211005185813";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3848961/francais_language_pack-94.0buildid20211004193346-fx.xpi";
-      sha256 = "893d9f767e2cfdb2432a470d23e4c2ed4ee85341f4959b6a3cb85dcdf988b604";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3849519/francais_language_pack-94.0buildid20211005185813-fx.xpi";
+      sha256 = "e9d01f5014c4e33234f7feb1ea7948cfb3909de064106de8d7dd5f807d0f32b8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -824,10 +824,10 @@
       };
     "matte-black-red" = buildFirefoxXpiAddon {
       pname = "matte-black-red";
-      version = "2020.10.20";
+      version = "2021.10.4";
       addonId = "{a7589411-c5f6-41cf-8bdc-f66527d9d930}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3664064/matte_black_red-2020.10.20-an+fx.xpi";
-      sha256 = "bc5e662440d345bcab60664c2213bd949f970b7de6e8dd927bd8d7e3c50f9715";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3849428/matte_black_red-2021.10.4-an+fx.xpi";
+      sha256 = "e0e02dbfe9c8f04394b1746a5ec6d6762c756a9ef001d8b302e02bef3de63b73";
       meta = with lib;
       {
         homepage = "https://elijahlopez.herokuapp.com/";
@@ -1412,10 +1412,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "3.2";
+      version = "3.3.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3842453/sponsorblock_skip_sponsorships_on_youtube-3.2-an+fx.xpi";
-      sha256 = "4d73d0845dc790cc14d33bc5aae1a2577e153de9f96b2e6e321534d4e38a123a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848213/sponsorblock_skip_sponsorships_on_youtube-3.3.2-an+fx.xpi";
+      sha256 = "e74589cba2a30bcb8deead9bca8207415cd981c3cee717e01eb19c22d2b626fc";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
