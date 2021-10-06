@@ -97,12 +97,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.22";
+    version = "1.10.23";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "00073smi1jja00d4bqfs6p4fqs38mki2ziy7b1kwsmiv5lcsw9v1";
+      sha256 = "1rrmp11v86552n77nbq7l961pr82vcw0m59cpjih55lp18vsxhrg";
     };
 
     dontUnpack = true;
@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.1.8";
+    version = "2.1.9";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "141myfivdjnkx8myvkgl2sclhvx9z1c6a1my4xzscx0injhsrf3p";
+      sha256 = "1fj8sq21qdsdidj5zh8s3c12pmf9nkmj36igmmixc5vc2h7bf02d";
     };
 
     dontUnpack = true;
@@ -482,12 +482,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "3.1.0";
+    version = "3.2.1";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "093s5zz76ijzn0fkhxycrabfxh3zjn8r9g5fx6phxsgadwsq5jz2";
+      sha256 = "05s6viyr3mlfblg6ch11siygfl3fc3qkf5sfs8pk4ydffadk4xsx";
     };
 
     phases = [ "installPhase" ];
@@ -723,10 +723,10 @@ let
   };
 
   protobuf318 = buildPecl {
-    version = "3.18.0";
+    version = "3.18.1";
     pname = "protobuf";
 
-    sha256 = "1bfdd27zg91zvnrrm8wk5izxfx63g2bnffdwgfa9xahlkxwhb0sr";
+    sha256 = "0ck2pmmhvvipamzwxvfv9zw430yg68f62yldyzb5lq7ms82l9asm";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -983,10 +983,10 @@ let
   };
 
   xdebug30 = buildPecl {
-    version = "3.0.4";
+    version = "3.1.0";
     pname = "xdebug";
 
-    sha256 = "1bvjmnx9bcfq4ikp02kiqg0f7ccgx4mkmz5d7g6v0d263x4r0wmj";
+    sha256 = "0flxwg8z12xwaql15bxdw95akyg7y2i3gmisazkj0jpgv8596mmr";
 
     doCheck = true;
     checkTarget = "test";
