@@ -1,6 +1,10 @@
 # nur-packages
 
-Some personal [Nix](https://nixos.org/) package expressions. Contrary to name, this repo is *not* actually part of [NUR](https://github.com/nix-community/NUR), though it uses [the template](https://github.com/nix-community/nur-packages-template).
+Some personal [Nix](https://nixos.org/) package expressions.
+
+This repo is included in [NUR](https://github.com/nix-community/NUR); if you wish to use it through NUR, see the instructions in NUR's readme. 
+
+If you are seeing this repo elsewhere, you can find the upstream at <https://github.com/DeeUnderscore/nur-packages>. This repo is based on [the nur-packages-template](https://github.com/nix-community/nur-packages-template). 
 
 ## Cachix
 There is a Cachix cache available for these packages: <https://deeunderscore-nur.cachix.org>
@@ -29,4 +33,4 @@ Hint: you can use `obs-input-overlay` from this package set as a plugin in `wrap
 This is an unstable version of nheko (stable is available in nixpkgs)
 
 ### mtxclient 
-This is an unstable version of mtxclient (stable is availble in nixpkgs), to go with nheko-unstable
+This is an unstable version of mtxclient (stable is available in nixpkgs), to go with nheko-unstable
