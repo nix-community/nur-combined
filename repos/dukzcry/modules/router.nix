@@ -18,7 +18,8 @@ in {
     };
     environment = {
       systemPackages = with pkgs; [
-        picocom        
+        picocom
+        jellyfin-media-player
       ];
     };
     nix.buildMachines = [{
