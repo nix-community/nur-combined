@@ -17,7 +17,8 @@ let
   toTimer = {unitName, OnCalendar, Description}: {
     Unit = {
       Description = "${Description} timer";
-      Requires = "${unitName}.service";
+      #https://superuser.com/a/1559534 we dont want it run on bootup, only on  timer
+      #Requires = "${unitName}.service";
     };
     Timer = {
       Unit="${unitName}.service";
