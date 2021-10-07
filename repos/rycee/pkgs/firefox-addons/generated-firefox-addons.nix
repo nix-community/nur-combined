@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.9";
+      version = "7.4.10";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3846149/betterttv-7.4.9-fx.xpi";
-      sha256 = "cca1a3274df638eb0be0f23f45fa1e0fea47d8357a8b5379df54d1c43ceddf74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3849184/betterttv-7.4.10-fx.xpi";
+      sha256 = "7b58ee6224923805ca1a1b5c5291de9878201f655946651ea379685b630ca108";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -531,10 +531,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.885.0";
+      version = "8.886.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847395/grammarly_for_firefox-8.885.0-an+fx.xpi";
-      sha256 = "d894786a5e75e802fb5344febf4957d46ce724f707a2ef0ec5266ffc94ed47c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848889/grammarly_for_firefox-8.886.0-an+fx.xpi";
+      sha256 = "79f787e1bbe725763b63f0a16c8debc1be75b6d093db6a8840c6fd587a19e3dc";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -838,10 +838,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.1.0";
+      version = "10.2.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3840930/metamask-10.1.0-an+fx.xpi";
-      sha256 = "8b88ec3355b80734d2e5ced2e6fd36a239ce26d2ccdc19202338894ddf759899";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850082/metamask-10.2.0-an+fx.xpi";
+      sha256 = "f81505d8c5c0f49e4dbcda74638017a56afe6a6d1a33ba086eb8c3e0420481a5";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1886,10 +1886,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.0";
+      version = "19.1";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3848049/zoom_page_we-19.0-fx.xpi";
-      sha256 = "255254075573b822f3928e2cfbf996934fa64d7614d332995a0585dea8d51b65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850054/zoom_page_we-19.1-fx.xpi";
+      sha256 = "67206194bcdf2948b7c489240f6fde5237c7eab2e38bed14db3ea0dc3212489b";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
