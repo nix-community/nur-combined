@@ -1,0 +1,13 @@
+diff --git a/projects/plugin/CMakeLists.txt b/projects/plugin/CMakeLists.txt
+index 757b8b4..ec6c85e 100644
+--- a/projects/plugin/CMakeLists.txt
++++ b/projects/plugin/CMakeLists.txt
+@@ -209,8 +209,6 @@ if(UNIX AND NOT APPLE)
+         # For *.deb installer
+         install(TARGETS input-overlay
+             LIBRARY DESTINATION "${CMAKE_INSTALL_FULL_LIBDIR}/obs-plugins")
+-        install(TARGETS input-overlay
+-            LIBRARY DESTINATION "/usr/lib/obs-plugins") # Ubuntu apparently doesn't know the correct path
+ 
+         install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data
+             DESTINATION "${CMAKE_INSTALL_FULL_DATAROOTDIR}/obs/obs-plugins/input-overlay")
