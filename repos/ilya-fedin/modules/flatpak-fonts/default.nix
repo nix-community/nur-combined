@@ -85,14 +85,6 @@ let
         </edit>
       </match>
 
-      ${optionalString (cfg.dpi != 0) ''
-      <match target="pattern">
-        <edit name="dpi" mode="assign">
-          <double>${toString cfg.dpi}</double>
-        </edit>
-      </match>
-      ''}
-
     </fontconfig>
   '';
 
