@@ -121,6 +121,16 @@
     "slug": "firenvim"
   },
   {
+    "slug": "flagfox",
+    "license": {
+      "tag": "custom",
+      "shortName": "flagfox",
+      "fullName": "Flagfox License",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/flagfox/license/",
+      "free": false
+    }
+  },
+  {
     "slug": "floccus"
   },
   {
@@ -201,6 +211,9 @@
   },
   {
     "slug": "keepassxc-browser"
+  },
+  {
+    "slug": "kristofferhagen-nord-theme"
   },
   {
     "slug": "languagetool",

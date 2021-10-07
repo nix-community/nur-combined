@@ -404,6 +404,25 @@
         platforms = platforms.all;
         };
       };
+    "flagfox" = buildFirefoxXpiAddon {
+      pname = "flagfox";
+      version = "6.1.43";
+      addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847109/flagfox-6.1.43-fx.xpi";
+      sha256 = "3981343d39c71a801beab58e437cbb39a63771b54aca666e18302b5a9a4c18ec";
+      meta = with lib;
+      {
+        homepage = "https://flagfox.wordpress.com/";
+        description = "Displays a country flag depicting the location of the current website's server and provides a multitude of tools such as site safety checks, whois, translation, similar sites, validation, URL shortening, and more...";
+        license = {
+          shortName = "flagfox";
+          fullName = "Flagfox License";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/flagfox/license/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
       version = "4.8.2";
@@ -679,6 +698,19 @@
         homepage = "https://keepassxc.org/";
         description = "Official browser plugin for the KeePassXC password manager (<a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/aebde84f385b73661158862b419dd43b46ac4c22bea71d8f812030e93d0e52d5/https%3A//keepassxc.org\">https://keepassxc.org</a>).";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "kristofferhagen-nord-theme" = buildFirefoxXpiAddon {
+      pname = "kristofferhagen-nord-theme";
+      version = "2.0";
+      addonId = "{e410fec2-1cbd-4098-9944-e21e708418af}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3365523/kristofferhagen_nord_theme-2.0-an+fx.xpi";
+      sha256 = "60b123e10d4e99deed1c4414ac784664ae5e0e0c196cd8610c468f2fa116c935";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kristofferhagen/firefox-nord-theme";
+        description = "Firefox theme inspired by <a href=\"https://outgoing.prod.mozaws.net/v1/276dc50c9e2710aa17b441df1ee87a9f5f023f5ded676ddd689d8f998d92713a/https%3A//www.nordtheme.com/\" rel=\"nofollow\">https://www.nordtheme.com/</a>";
         platforms = platforms.all;
         };
       };
