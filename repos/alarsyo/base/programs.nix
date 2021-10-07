@@ -19,6 +19,8 @@
     bandwhich.enable = true;
   };
 
+  virtualisation.docker.enable = true;
+
   environment.systemPackages = with pkgs; [
     # shell usage
     fd
