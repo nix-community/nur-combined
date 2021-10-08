@@ -305,6 +305,7 @@ lib.makeScope newScope (
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
+    osm-python-tools = callPackage ./osm/osm-python-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
     overpass-api = callPackage ./osm/overpass-api { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };

@@ -13,6 +13,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-KU3JaGIL65LWJWc6Iw/eyKdUMnVQ85g0MtmuSPGdp44=";
   };
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace "set(XML2_INCLUDE_DIRS" "#set(XML2_INCLUDE_DIRS"
+  '';
+
   nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ fftwFloat libsndfile libxml2 sigutils soapysdr volk ];
@@ -22,7 +27,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    platforms = platforms.unix;
   };
 }

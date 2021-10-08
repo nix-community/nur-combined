@@ -23,12 +23,16 @@ mkDerivation rec {
 
   qmakeFlags = [ "SUWIDGETS_PREFIX=${suwidgets}" "SigDigger.pro" ];
 
+  installPhase = lib.optionalString stdenv.isDarwin ''
+    mkdir -p $out/Applications
+    cp -r *.app $out/Applications
+  '';
+
   meta = with lib; {
     description = "Qt-based digital signal analyzer, using Suscan core and Sigutils DSP library";
     inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    platforms = platforms.unix;
   };
 }
