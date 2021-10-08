@@ -1,5 +1,5 @@
-language: nix
-nix: 2.3.4
+version: ~> 1.0
+import: nix-community/nix-travis-ci:nix.yml@main
 
 sudo: false
 
@@ -14,24 +14,21 @@ matrix:
     - env: NIX_CHANNEL=https://nixos.org/channels/nixos-unstable
     # - env: NIX_CHANNEL=https://nixos.org/channels/nixos-20.03
 
-install:
- - nix --version
- # for cachix we need travis to be a trusted nix user
- - echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
- - sudo systemctl restart nix-daemon
- - if [ -n "${CACHIX_CACHE}" ]; then travis_retry nix-channel --update; fi
- - if [ -n "${CACHIX_CACHE}" ]; then nix-env -iA cachix -f https://cachix.org/api/v1/install; fi
- - if [ -n "${CACHIX_CACHE}" ]; then cachix use "${CACHIX_CACHE}"; fi
- - nix-channel --add "${NIX_CHANNEL}" nixpkgs
- - travis_retry nix-channel --update
+before_install:
+  # Fix 2021-10 Let's Encrypt cert support on Travis' default Xenial images,
+  # hahhh
+  - |
+    sudo apt-get update && \
+      sudo apt-get install apt-transport-https ca-certificates -y && \
+      sudo update-ca-certificates
 
 script:
- - nix-build travis.nix -A buildOutputs
- - nix eval -f default.nix 'lib'
- - nix eval -f default.nix 'modules'
- - nix eval -f default.nix 'overlays'
+  - nix-build travis.nix -A buildOutputs
+  - nix eval -f default.nix 'lib'
+  - nix eval -f default.nix 'modules'
+  - nix eval -f default.nix 'overlays'
 
 after_success:
   - if [ -n "${CACHIX_CACHE}" ]; then nix-build travis.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
-  - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
+  - if [[ "cron" != "${TRAVIS_EVENT_TYPE}" && "false" = "${TRAVIS_PULL_REQUEST}" && "master" = "${TRAVIS_BRANCH}" ]]; then
       curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
