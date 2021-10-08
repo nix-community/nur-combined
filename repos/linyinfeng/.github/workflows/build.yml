@@ -65,7 +65,8 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
-      run: nix run nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
+      run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
