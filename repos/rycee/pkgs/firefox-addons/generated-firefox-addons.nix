@@ -495,10 +495,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "94.0buildid20211005185813";
+      version = "94.0buildid20211007185900";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3849519/francais_language_pack-94.0buildid20211005185813-fx.xpi";
-      sha256 = "e9d01f5014c4e33234f7feb1ea7948cfb3909de064106de8d7dd5f807d0f32b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850637/francais_language_pack-94.0buildid20211007185900-fx.xpi";
+      sha256 = "f6b62a50100b94a947ab184a2f8983fdc44f1f0f70494fc5a2d0917b7cf246d5";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1235,10 +1235,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "1.5.1";
+      version = "1.7.1";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3720941/firefox_relay-1.5.1-fx.xpi";
-      sha256 = "2650ce57e893832ba21cdc68a419679be07d567acc8ee1d50646f56c84494dea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3849420/firefox_relay-1.7.1-fx.xpi";
+      sha256 = "62bc36c3e0724a02f2ad3f75e563cfbe66e23c11f93f83ce7ec75e4c3745916e";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1444,10 +1444,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "3.3.2";
+      version = "3.3.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3848213/sponsorblock_skip_sponsorships_on_youtube-3.3.2-an+fx.xpi";
-      sha256 = "e74589cba2a30bcb8deead9bca8207415cd981c3cee717e01eb19c22d2b626fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850220/sponsorblock_skip_sponsorships_on_youtube-3.3.3-an+fx.xpi";
+      sha256 = "f55fb1a8519b72d2478ed906a514ce87a3d24f2caa8af08ec6b63b535e4555ad";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1890,10 +1890,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.45.2";
+      version = "2.45.3";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3846859/web_scrobbler-2.45.2-an+fx.xpi";
-      sha256 = "b5b2a5c7af74be58735b192dbfafb25e7e494adfa2c034b2b76de514a5c3f746";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850274/web_scrobbler-2.45.3-an+fx.xpi";
+      sha256 = "0b787ebc9c61455748b85bf03b699d4f2b2f1fb621c1a800d24af6e913913c4a";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
