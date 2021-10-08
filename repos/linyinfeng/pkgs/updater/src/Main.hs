@@ -17,6 +17,7 @@ packageSet = do
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
+  commitNotifier
   clashForWindows
   clashForWindowsIcon
   icalingua
@@ -31,6 +32,13 @@ ghPkgTag owner repo f = define $ package repo `fromGitHubTag` (owner, repo, f)
 
 gitPkg :: Text -> Text -> PackageSet ()
 gitPkg name git = define $ package name `sourceGit` git `fetchGit` git
+
+commitNotifier :: PackageSet ()
+commitNotifier =
+  define $ package "commit-notifier"
+    `sourceGit` "https://github.com/linyinfeng/commit-notifier.git"
+    `fetchGit` "https://github.com/linyinfeng/commit-notifier.git"
+    `hasCargoLock` "Cargo.lock"
 
 clashPremium :: Text -> Text -> PackageSet ()
 clashPremium sys goSys =

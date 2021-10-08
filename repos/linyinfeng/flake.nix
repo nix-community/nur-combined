@@ -14,9 +14,7 @@
         pkgs = importPkgs nixpkgs;
         inherit (pkgs) lib;
 
-        sources = import ./pkgs/sources.nix {
-          inherit (pkgs) fetchgit fetchurl;
-        };
+        sources = pkgs.callPackage ./pkgs/_sources/generated.nix { };
         packages = import ./pkgs
           {
             inherit pkgs sources;
@@ -58,6 +56,7 @@
         };
         devShell =
           let
+            scripts = pkgs.callPackage ./scripts { };
             simple = pkgs.mkShell {
               packages = [
                 # currently nothing
@@ -72,19 +71,12 @@
                 pkgs.nixpkgs-fmt
                 pkgs.cabal-install
                 pkgs.ormolu
-                (pkgs.writeScriptBin "update" ''
-                  set -e
-                  pushd pkgs
-                  nix shell ..#updater --command updater "$@"
-                  popd
-                  nixpkgs-fmt pkgs/sources.nix
-                '')
                 pkgs.nix-linter
                 pkgs.fd
-                (pkgs.writeScriptBin "lint" ''
-                  fd '.*\.nix' --exec nix-linter
-                '')
-              ];
+              ] ++ (with scripts; [
+                update
+                lint
+              ]);
             };
           in
           if (self.packages.${system} ? updater) then withUpdater else simple;
