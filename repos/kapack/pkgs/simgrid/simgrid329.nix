@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitLab, fetchpatch, cmake, perl, python3, boost
+{ stdenv, lib, fetchFromGitLab, cmake, perl, python3, boost
 , fortranSupport ? false, gfortran
 , buildDocumentation ? false, transfig, ghostscript, doxygen
 , buildJavaBindings ? false, openjdk
@@ -37,13 +37,11 @@ stdenv.mkDerivation rec {
     ++ optionals buildDocumentation [ transfig ghostscript doxygen ]
     ++ optionals modelCheckingSupport [ libunwind libevent elfutils ];
 
-  # Make it so that libsimgrid.so will be found when running programs from the build dir.
-  preConfigure = ''
-    export LD_LIBRARY_PATH="$PWD/build/lib"
-  '';
+  outputs = ["out"]
+    ++ optionals buildPythonBindings ["python"];
 
+  # "Release" does not work. non-debug mode is Debug compiled with optimization
   cmakeBuildType = "Debug";
-
   cmakeFlags = [
     "-Denable_documentation=${optionOnOff buildDocumentation}"
     "-Denable_java=${optionOnOff buildJavaBindings}"
@@ -65,19 +63,16 @@ stdenv.mkDerivation rec {
     "-Denable_compile_optimizations=${optionOnOff optimize}"
     "-Denable_lto=${optionOnOff optimize}"
   ];
-
   makeFlags = optional debug "VERBOSE=1";
 
-  # Some Perl scripts are called to generate test during build which
-  # is before the fixupPhase, so do this manualy here:
-  preBuild = ''
-    patchShebangs ..
+  # needed by tests (so libsimgrid.so is found)
+  preConfigure = ''
+    export LD_LIBRARY_PATH="$PWD/build/lib"
   '';
 
   doCheck = true;
-
-  # Prevent the execution of tests known to fail.
   preCheck = ''
+    # prevent the execution of tests known to fail
     cat <<EOW >CTestCustom.cmake
     SET(CTEST_CUSTOM_TESTS_IGNORE smpi-replay-multiple)
     EOW
@@ -86,11 +81,23 @@ stdenv.mkDerivation rec {
     make tests -j $NIX_BUILD_CORES
   '';
 
+  postInstall = "" + lib.optionalString withoutBin ''
+    # remove bin from output if requested.
+    # having a specific bin output would be cleaner but it does not work currently (circular references)
+    rm -rf $out/bin
+  '' + lib.optionalString buildPythonBindings ''
+    # manually install the python binding if requested.
+    # library output file is expected to be formatted as simgrid.cpython-XY-.*.so
+    # where X is python version major and Y python version minor.
+    PYTHON_VERSION_MAJOR=$(ls lib/simgrid.cpython*.so | sed -E 'sWlib/simgrid\.cpython-([[:digit:]])([[:digit:]])-.*W\1W')
+    PYTHON_VERSION_MINOR=$(ls lib/simgrid.cpython*.so | sed -E 'sWlib/simgrid\.cpython-([[:digit:]])([[:digit:]])-.*W\2W')
+    mkdir -p $python/lib/python''${PYTHON_VERSION_MAJOR}.''${PYTHON_VERSION_MINOR}/site-packages/
+    cp lib/simgrid.cpython*.so $python/lib/python''${PYTHON_VERSION_MAJOR}.''${PYTHON_VERSION_MINOR}/site-packages/
+  '';
+
+  # improve debuggability if requested
   hardeningDisable = if debug then [ "fortify" ] else [];
   dontStrip = debug;
-  postInstall = "" + lib.optionalString withoutBin ''
-    rm -rf $out/bin
-  '';
 
   meta = {
     description = "Framework for the simulation of distributed applications";
@@ -102,7 +109,7 @@ stdenv.mkDerivation rec {
       scheduling on distributed computing platforms ranging from simple
       network of workstations to Computational Grids.
     '';
-    homepage = https://simgrid.org/;
+    homepage = "https://simgrid.org/";
     license = licenses.lgpl2Plus;
     broken = false;
     maintainers = with maintainers; [ mickours mpoquet ];
