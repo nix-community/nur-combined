@@ -65,6 +65,11 @@ stdenv.mkDerivation rec {
   ];
   makeFlags = optional debug "VERBOSE=1";
 
+  # needed to ensure correct perl dependency in outputs
+  preBuild = ''
+    patchShebangs ..
+  '';
+
   # needed by tests (so libsimgrid.so is found)
   preConfigure = ''
     export LD_LIBRARY_PATH="$PWD/build/lib"
