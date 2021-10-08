@@ -31,6 +31,7 @@ in
     # A tidy home is a tidy mind
     dataFile = {
       "bash/.keep".text = "";
+      "gdb/.keep".text = "";
       "tig/.keep".text = "";
     };
   };
@@ -39,6 +40,7 @@ in
   config.home.sessionVariables = with config.xdg; lib.mkIf cfg.enable {
     CARGO_HOME = "${dataHome}/cargo";
     DOCKER_CONFIG = "${configHome}/docker";
+    GDBHISTFILE = "${dataHome}/gdb/gdb_history";
     HISTFILE = "${dataHome}/bash/history";
     INPUTRC = "${configHome}/readline/inputrc";
     LESSHISTFILE = "${dataHome}/less/history";
