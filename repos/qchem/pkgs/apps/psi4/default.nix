@@ -68,7 +68,7 @@ let
 
 in buildPythonPackage rec {
     pname = "psi4";
-    version = "1.4";
+    version = "1.4.1";
 
     nativeBuildInputs = [
       cmake
@@ -116,7 +116,7 @@ in buildPythonPackage rec {
       repo = pname;
       owner = "psi4";
       rev = "v${version}";
-      sha256 = "WmK5EndhUQlHMPBdU/Y5iWgMpc8ZeoEhKU4SLdqwvxM=";
+      sha256 = "g/cu087wwK/y37E86/noBUCGQiqYDPCihlVJf7yK7kA=";
     };
 
     patches = [ ./LibintCmake.patch ];
