@@ -272,6 +272,7 @@ lib.makeScope newScope (
     lazyscraper = callPackage ./misc/lazyscraper { };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
+    objlab = callPackage ./misc/objlab { };
     playonmac = callPackage ./misc/playonmac { };
     ptunnel = callPackage ./misc/ptunnel { };
     pvs-studio = callPackage ./misc/pvs-studio { };
@@ -315,6 +316,7 @@ lib.makeScope newScope (
     smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
     tilemaker = callPackage ./osm/tilemaker { };
+    vectiler = callPackage ./osm/vectiler { };
 
     ### RADIO
 
