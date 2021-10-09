@@ -3,8 +3,7 @@
 , capnproto, glog, lttng-ust, libudev, glib, xorg
 , libdrm, mesa, epoxy, nettle, libxkbcommon, libinput
 , libxmlxx, libuuid, freetype, libyamlcpp, python3Packages
-, libevdev, umockdev, gtest, lcov, gcovr, wlcs, doxygen
-, libsystemtap
+, libevdev, doxygen, libsystemtap
 }:
 
 with lib;
@@ -28,12 +27,13 @@ stdenv.mkDerivation rec {
     xorg.libX11 xorg.libXcursor xorg.xorgproto libdrm
     mesa epoxy nettle libxkbcommon libinput libxmlxx
     libuuid freetype libyamlcpp python3Packages.pillow
-    libevdev umockdev gtest lcov gcovr wlcs libsystemtap
+    libevdev libsystemtap
   ];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    "-DMIR_ENABLE_TESTS=OFF"
   ];
 
   enableParallelBuilding = true;

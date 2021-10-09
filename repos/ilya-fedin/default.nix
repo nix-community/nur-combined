@@ -13,9 +13,7 @@ rec {
 
   kotatogram-desktop = qt5.callPackage ./pkgs/kotatogram-desktop {};
 
-  mir = callPackage ./pkgs/mir {
-    inherit wlcs;
-  };
+  mir = callPackage ./pkgs/mir {};
 
   mirco = callPackage ./pkgs/mirco {
     inherit mir;
@@ -23,5 +21,5 @@ rec {
 
   silver = callPackage ./pkgs/silver {};
 
-  wlcs = callPackage ./pkgs/wlcs {};
+  #wlcs = callPackage ./pkgs/wlcs {};
 }
