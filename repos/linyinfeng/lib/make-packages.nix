@@ -11,12 +11,12 @@ let
     then
     # builtins.trace "look into"
       lib.mapAttrs (_name: v: if v.recurseForDerivations or false then filter system v else v)
-      (lib.filterAttrs
-        (_: p:
-          !(lib.isDerivation p) ||
-          # or p is a derivation
-          isSupportedUnderSystem system p)
-        t)
+        (lib.filterAttrs
+          (_: p:
+            !(lib.isDerivation p) ||
+            # or p is a derivation
+            isSupportedUnderSystem system p)
+          t)
     else
       t;
 in
