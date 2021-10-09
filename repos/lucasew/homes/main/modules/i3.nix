@@ -45,7 +45,10 @@ in {
   home.packages = [
     lockerSpace
   ];
-    services.picom.enable = true;
+  services.picom = {
+    enable = true;
+    vSync = true;
+  };
     xsession.windowManager.i3 = {
       config = {
         terminal = "${pkgs.xfce.xfce4-terminal}/bin/xfce4-terminal";

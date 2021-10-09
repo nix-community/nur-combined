@@ -449,6 +449,10 @@ with cfg;
       desktopName = "Trello Side Projects";
       url = "https://trello.com/b/36ncJYYV/side-projects";
     };
+    trello-dashboard = {
+      desktopName = "Trello Dashboard";
+      url = "trello.com";
+    };
   };
 
 }
