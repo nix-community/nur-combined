@@ -1040,10 +1040,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.3.0";
+      version = "6.4.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3821104/okta_browser_plugin-6.3.0-an+fx.xpi";
-      sha256 = "5f5b9e80d03fdacf28604acdf977f277850854a35366cb3763082a03e6281ff5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3847486/okta_browser_plugin-6.4.0-an+fx.xpi";
+      sha256 = "268f4c09eca8812f582dfac3baebd559bd1a11469f8ee232bb4b5891ae1f371a";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1263,10 +1263,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.19.1";
+      version = "4.19.2";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847790/react_developer_tools-4.19.1-fx.xpi";
-      sha256 = "3a861511d3317f6445867f3e0afeb7c55425a75ca66e24656b5e48e8d2474f94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3851009/react_developer_tools-4.19.2-fx.xpi";
+      sha256 = "d7f67ceca5b1ee5d35328db147ddd7703ec2e6b79787a4987ee984ddfaf2432f";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
