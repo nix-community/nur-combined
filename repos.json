@@ -314,6 +314,10 @@
         "milahu": {
             "url": "https://github.com/milahu/nur-packages"
         },
+        "misterio": {
+            "type": "sourcehut",
+            "url": "https://git.sr.ht/~misterio/nur-packages"
+        },
         "mmilata": {
             "url": "https://github.com/mmilata/nur-packages"
         },
