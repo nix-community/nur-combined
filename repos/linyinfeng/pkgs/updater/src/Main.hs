@@ -17,6 +17,7 @@ packageSet = do
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
+  gitPkg "plugin-git" "https://github.com/jhillyerd/plugin-git"
   commitNotifier
   dotTar
   clashForWindows

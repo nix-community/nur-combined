@@ -121,6 +121,18 @@
       sha256 = "0f0fgnhv80fwwfwlram5n078z7svnlqrh68d7gc4wl0qiig5ij44";
     };
   };
+  plugin-git = {
+    pname = "plugin-git";
+    version = "bc6caff38fdcac309fddac6651c13cd217d5a382";
+    src = fetchgit {
+      url = "https://github.com/jhillyerd/plugin-git";
+      rev = "bc6caff38fdcac309fddac6651c13cd217d5a382";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "09fg32a08p73aqj9njql0580ykjxv30vq3j8qnx76jlzcaglr1wf";
+    };
+  };
   telegram-send = {
     pname = "telegram-send";
     version = "2eb23bde734137b10da80fdf2e8a48d34f074454";

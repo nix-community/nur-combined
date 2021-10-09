@@ -11,7 +11,7 @@ lib.makeScope newScope (
   in
   {
     sources = callPackage ./_sources/generated.nix { };
-    updater = pkgs.callPackage ./updater { };
+    updater = callPackage ./updater { };
 
     activate-dpt = callPackage ./activate-dpt { };
     clash-for-windows = callPackage ./clash-for-windows { };
@@ -19,6 +19,9 @@ lib.makeScope newScope (
     commit-notifier = callPackage ./commit-notifier { };
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
+    fishPlugins = lib.recurseIntoAttrs (callPackage ./fish-plugins {
+      inherit (pkgs.fishPlugins) buildFishPlugin;
+    });
     godns = callPackage ./godns { };
     icalingua = callPackage ./icalingua { };
     telegram-send = callPackage ./telegram-send { };

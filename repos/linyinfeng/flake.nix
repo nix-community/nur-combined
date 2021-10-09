@@ -36,7 +36,7 @@
             pkgs = channels.nixpkgs;
           in
           rec {
-            packages = lib.filterAttrs (_attrName: lib.isDerivation) (makePackages pkgs);
+            packages = utils.flattenTree (makePackages pkgs);
             apps = makeApps packages appNames;
             devShell =
               let
