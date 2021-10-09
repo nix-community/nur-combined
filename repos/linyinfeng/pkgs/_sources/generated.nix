@@ -65,6 +65,22 @@
       outputHashes = { };
     };
   };
+  dot-tar = {
+    pname = "dot-tar";
+    version = "08f3652b54e8ee021bba933952df56aee22910b3";
+    src = fetchgit {
+      url = "https://github.com/linyinfeng/dot-tar.git";
+      rev = "08f3652b54e8ee021bba933952df56aee22910b3";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0wl2nhp1ri32mpq6jgvnxi62qg5m841vqi6zdymlfilsiwjamq43";
+    };
+    cargoLock = {
+      lockFile = ./dot-tar-08f3652b54e8ee021bba933952df56aee22910b3/Cargo.lock;
+      outputHashes = { };
+    };
+  };
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
     version = "v0.1.13";

@@ -18,6 +18,7 @@ packageSet = do
   ghPkg "Wind4" "vlmcsd"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   commitNotifier
+  dotTar
   clashForWindows
   clashForWindowsIcon
   icalingua
@@ -36,9 +37,20 @@ gitPkg name git = define $ package name `sourceGit` git `fetchGit` git
 commitNotifier :: PackageSet ()
 commitNotifier =
   define $ package "commit-notifier"
-    `sourceGit` "https://github.com/linyinfeng/commit-notifier.git"
-    `fetchGit` "https://github.com/linyinfeng/commit-notifier.git"
+    `sourceGit` url
+    `fetchGit` url
     `hasCargoLock` "Cargo.lock"
+ where
+   url = "https://github.com/linyinfeng/commit-notifier.git"
+
+dotTar :: PackageSet ()
+dotTar =
+  define $ package "dot-tar"
+    `sourceGit` url
+    `fetchGit` url
+    `hasCargoLock` "Cargo.lock"
+ where
+   url = "https://github.com/linyinfeng/dot-tar.git"
 
 clashPremium :: Text -> Text -> PackageSet ()
 clashPremium sys goSys =
