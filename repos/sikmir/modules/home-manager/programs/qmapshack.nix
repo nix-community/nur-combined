@@ -15,7 +15,7 @@ in
 
     package = mkOption {
       default = pkgs.qmapshack;
-      defaultText = literalExample "pkgs.qmapshack";
+      defaultText = literalExpression "pkgs.qmapshack";
       example = "pkgs.nur.repos.sikmir.qmapshack-bin";
       description = "QMapShack package to install.";
       type = types.package;

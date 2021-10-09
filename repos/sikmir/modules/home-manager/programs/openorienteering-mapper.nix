@@ -15,7 +15,7 @@ in
 
     package = mkOption {
       default = pkgs.openorienteering-mapper;
-      defaultText = literalExample "pkgs.openorienteering-mapper";
+      defaultText = literalExpression "pkgs.openorienteering-mapper";
       example = "pkgs.nur.repos.sikmir.openorienteering-mapper-bin";
       description = "OpenOrienteering Mapper package to install.";
       type = types.package;

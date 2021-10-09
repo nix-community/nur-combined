@@ -14,7 +14,7 @@ in
 
     package = mkOption {
       default = pkgs.nnn;
-      defaultText = literalExample "pkgs.nnn";
+      defaultText = literalExpression "pkgs.nnn";
       description = "nnn package to install.";
       type = types.package;
     };

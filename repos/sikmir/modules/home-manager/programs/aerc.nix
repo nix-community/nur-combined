@@ -40,7 +40,7 @@ in
     package = mkOption {
       type = types.package;
       default = pkgs.aerc;
-      defaultText = literalExample "pkgs.aerc";
+      defaultText = literalExpression "pkgs.aerc";
       description = "aerc package to install.";
     };
 

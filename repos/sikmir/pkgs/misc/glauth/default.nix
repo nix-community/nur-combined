@@ -15,7 +15,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ go-bindata ];
 
-  buildFlagsArray = [ "-ldflags=-X main.LastGitTag=v${version} -X main.GitTagIsCommit=1" ];
+  ldflags = [
+    "-s -w"
+    "-X main.LastGitTag=v${version}"
+    "-X main.GitTagIsCommit=1"
+  ];
 
   preBuild = "go-bindata -pkg=assets -o=pkg/assets/bindata.go assets";
 

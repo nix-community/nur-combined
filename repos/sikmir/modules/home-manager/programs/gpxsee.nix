@@ -25,7 +25,7 @@ in
 
     package = mkOption {
       default = pkgs.gpxsee;
-      defaultText = literalExample "pkgs.gpxsee";
+      defaultText = literalExpression "pkgs.gpxsee";
       example = "pkgs.nur.repos.sikmir.gpxsee-bin";
       description = "GPXSee package to install.";
       type = types.package;

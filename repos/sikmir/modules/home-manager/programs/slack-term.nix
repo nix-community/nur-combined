@@ -12,7 +12,7 @@ in
 
     package = mkOption {
       default = pkgs.slack-term;
-      defaultText = literalExample "pkgs.slack-term";
+      defaultText = literalExpression "pkgs.slack-term";
       description = "slack-term package to install.";
       type = types.package;
     };

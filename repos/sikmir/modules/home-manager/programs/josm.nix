@@ -18,7 +18,7 @@ in
 
     package = mkOption {
       default = pkgs.josm;
-      defaultText = literalExample "pkgs.josm";
+      defaultText = literalExpression "pkgs.josm";
       description = "JOSM package to install.";
       type = types.package;
     };

@@ -17,7 +17,7 @@ buildGoModule rec {
 
   buildInputs = [ portaudio ];
 
-  buildFlagsArray = [ "-ldflags=-X main.VERSION=${version}" ];
+  ldflags = [ "-X main.VERSION=${version}" ];
 
   doInstallCheck = true;
 

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gmid";
-  version = "1.7.2";
+  version = "1.7.4";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = pname;
     rev = version;
-    hash = "sha256-LmvpuPaLirUGKTQQIcCdLZI5lSi1CmoZaPbSM5Yyc+w=";
+    hash = "sha256-yjbuLlcacV/NQE4UgywczXDkkqHMoIsHhdHAus0zw/0=";
   };
 
   nativeBuildInputs = [ which yacc ];

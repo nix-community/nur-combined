@@ -12,7 +12,7 @@ in
 
     package = mkOption {
       default = pkgs.goldendict;
-      defaultText = literalExample "pkgs.goldendict";
+      defaultText = literalExpression "pkgs.goldendict";
       description = "GoldenDict package to install.";
       type = types.package;
     };

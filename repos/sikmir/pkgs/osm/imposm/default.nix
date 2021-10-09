@@ -15,7 +15,10 @@ buildGoModule rec {
 
   buildInputs = [ leveldb geos ];
 
-  buildFlagsArray = [ "-ldflags=-s -w -X github.com/omniscale/imposm3.Version=${version}" ];
+  ldflags = [
+    "-s -w"
+    "-X github.com/omniscale/imposm3.Version=${version}"
+  ];
 
   # requires network access
   doCheck = false;

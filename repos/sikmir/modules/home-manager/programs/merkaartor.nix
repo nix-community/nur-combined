@@ -15,7 +15,7 @@ in
 
     package = mkOption {
       default = pkgs.merkaartor;
-      defaultText = literalExample "pkgs.merkaartor";
+      defaultText = literalExpression "pkgs.merkaartor";
       description = "Merkaartor package to install.";
       type = types.package;
     };
