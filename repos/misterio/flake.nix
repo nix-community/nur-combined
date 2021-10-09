@@ -18,8 +18,8 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in {
       packages = forAllSystems (system:
-        import ./default.nix { pkgs = import nixpkgs { inherit system; }; });
-    } // {
+        import ./default.nix { pkgs = import nixpkgs { inherit system; }; }
+      );
       overlay = import ./overlay.nix;
       nixosModules = nixpkgs.lib.mapAttrs (name: value: import value) (import ./modules);
     };
