@@ -6,6 +6,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   propagatedBuildInputs = with python3Packages; [
+    setuptools
     httpsig
     requests
     pbkdf2
