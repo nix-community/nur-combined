@@ -6,5 +6,8 @@ lib.makeScope newScope (self:
   in
   {
     inherit buildFishPlugin;
+    pisces = callPackage ./pisces { };
+    plugin-bang-bang = callPackage ./plugin-bang-bang { };
     plugin-git = callPackage ./plugin-git { };
+    replay-fish = callPackage ./replay-fish { };
   })

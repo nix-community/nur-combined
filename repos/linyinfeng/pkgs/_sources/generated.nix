@@ -121,6 +121,30 @@
       sha256 = "0f0fgnhv80fwwfwlram5n078z7svnlqrh68d7gc4wl0qiig5ij44";
     };
   };
+  pisces = {
+    pname = "pisces";
+    version = "e45e0869855d089ba1e628b6248434b2dfa709c4";
+    src = fetchgit {
+      url = "https://github.com/laughedelic/pisces";
+      rev = "e45e0869855d089ba1e628b6248434b2dfa709c4";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "073wb83qcn0hfkywjcly64k6pf0d7z5nxxwls5sa80jdwchvd2rs";
+    };
+  };
+  plugin-bang-bang = {
+    pname = "plugin-bang-bang";
+    version = "f969c618301163273d0a03d002614d9a81952c1e";
+    src = fetchgit {
+      url = "https://github.com/oh-my-fish/plugin-bang-bang";
+      rev = "f969c618301163273d0a03d002614d9a81952c1e";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1r3d4wgdylnc857j08lbdscqbm9lxbm1wqzbkqz1jf8bgq2rvk03";
+    };
+  };
   plugin-git = {
     pname = "plugin-git";
     version = "bc6caff38fdcac309fddac6651c13cd217d5a382";
@@ -131,6 +155,18 @@
       deepClone = false;
       leaveDotGit = false;
       sha256 = "09fg32a08p73aqj9njql0580ykjxv30vq3j8qnx76jlzcaglr1wf";
+    };
+  };
+  replay-fish = {
+    pname = "replay-fish";
+    version = "1.2.0";
+    src = fetchgit {
+      url = "https://github.com/jorgebucaran/replay.fish";
+      rev = "1.2.0";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1aa3a7jdb8a9z9jd9ckf449zmf7cl7yl47yp94srqj4iv1amizs3";
     };
   };
   telegram-send = {
