@@ -1,0 +1,157 @@
+diff --git a/plugin/forward/connect.go b/plugin/forward/connect.go
+index 63a0bfe5..83bd15e5 100644
+--- a/plugin/forward/connect.go
++++ b/plugin/forward/connect.go
+@@ -72,7 +72,7 @@ func (t *Transport) Dial(proto string) (*persistConn, bool, error) {
+ }
+ 
+ // Connect selects an upstream, sends the request and waits for a response.
+-func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options) (*dns.Msg, error) {
++func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options) (*dns.Msg, []dns.RR, error) {
+ 	start := time.Now()
+ 
+ 	proto := ""
+@@ -87,7 +87,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
+ 
+ 	pc, cached, err := p.transport.Dial(proto)
+ 	if err != nil {
+-		return nil, err
++		return nil, nil, err
+ 	}
+ 
+ 	// Set buffer size correctly for this client.
+@@ -96,25 +96,73 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
+ 		pc.c.UDPSize = 512
+ 	}
+ 
++	var retRRs []dns.RR
++	var ret *dns.Msg
++
++	if state.QType() == dns.TypeAXFR || state.QType() == dns.TypeIXFR {
++		pc.c.SetWriteDeadline(time.Now().Add(maxTimeout))
++		if err := pc.c.WriteMsg(state.Req); err != nil {
++			pc.c.Close() // not giving it back
++			if err == io.EOF && cached {
++				return nil, nil, ErrCachedClosed
++			}
++			return nil, nil, err
++		}
++		first := true
++		for {
++			pc.c.SetReadDeadline(time.Now().Add(readTimeout))
++			in, err := pc.c.ReadMsg()
++			if err != nil {
++				pc.c.Close() // not giving it back
++				if err == io.EOF && cached {
++					return nil, nil, ErrCachedClosed
++				}
++				return ret, nil, err
++			}
++			if state.Req.Id != in.Id {
++				// out-of-order response. unexpected.
++				continue
++			}
++			if first {
++				if len(in.Answer) == 0 || in.Answer[0].Header().Rrtype != dns.TypeSOA {
++					pc.c.Close()
++					return nil, nil, dns.ErrSoa
++				}
++				first = !first
++				if len(in.Answer) == 1 {
++					retRRs = append(retRRs, in.Answer[0])
++					continue
++				}
++			}
++			for _, rr := range in.Answer {
++				retRRs = append(retRRs, rr)
++			}
++			if len(in.Answer) >= 0 && in.Answer[len(in.Answer)-1].Header().Rrtype == dns.TypeSOA {
++				break
++			}
++		}
++		p.transport.Yield(pc)
++		return nil, retRRs, nil
++	}
++
+ 	pc.c.SetWriteDeadline(time.Now().Add(maxTimeout))
+ 	if err := pc.c.WriteMsg(state.Req); err != nil {
+ 		pc.c.Close() // not giving it back
+ 		if err == io.EOF && cached {
+-			return nil, ErrCachedClosed
++			return nil, nil, ErrCachedClosed
+ 		}
+-		return nil, err
++		return nil, nil, err
+ 	}
+ 
+-	var ret *dns.Msg
+ 	pc.c.SetReadDeadline(time.Now().Add(readTimeout))
+ 	for {
+ 		ret, err = pc.c.ReadMsg()
+ 		if err != nil {
+ 			pc.c.Close() // not giving it back
+ 			if err == io.EOF && cached {
+-				return nil, ErrCachedClosed
++				return nil, nil, ErrCachedClosed
+ 			}
+-			return ret, err
++			return ret, nil, err
+ 		}
+ 		// drop out-of-order responses
+ 		if state.Req.Id == ret.Id {
+@@ -133,7 +181,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
+ 	RcodeCount.WithLabelValues(rc, p.addr).Add(1)
+ 	RequestDuration.WithLabelValues(p.addr, rc).Observe(time.Since(start).Seconds())
+ 
+-	return ret, nil
++	return ret, nil, nil
+ }
+ 
+ const cumulativeAvgWeight = 4
+diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
+index 624d0896..2211b973 100644
+--- a/plugin/forward/forward.go
++++ b/plugin/forward/forward.go
+@@ -128,12 +128,13 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+ 		})
+ 
+ 		var (
+-			ret *dns.Msg
+-			err error
++			ret     *dns.Msg
++			records []dns.RR
++			err     error
+ 		)
+ 		opts := f.opts
+ 		for {
+-			ret, err = proxy.Connect(ctx, state, opts)
++			ret, records, err = proxy.Connect(ctx, state, opts)
+ 			if err == ErrCachedClosed { // Remote side closed conn, can only happen with TCP.
+ 				continue
+ 			}
+@@ -167,6 +168,25 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+ 			break
+ 		}
+ 
++		if records != nil {
++			ch := make(chan *dns.Envelope)
++			defer close(ch)
++			tr := new(dns.Transfer)
++			go tr.Out(w, r, ch)
++			j, l := 0, 0
++			for i, r := range records {
++				l += dns.Len(r)
++				if l > 65000 {
++					ch <- &dns.Envelope{RR: records[j:i]}
++					l = 0
++					j = i
++				}
++			}
++			if j < len(records) {
++				ch <- &dns.Envelope{RR: records[j:]}
++			}
++			return 0, nil
++		}
+ 		// Check if the reply is correct; if not return FormErr.
+ 		if !state.Match(ret) {
+ 			debug.Hexdumpf(ret, "Wrong reply for id: %d, %s %d", ret.Id, state.QName(), state.QType())
