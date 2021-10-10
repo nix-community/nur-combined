@@ -22,6 +22,6 @@ let
   };
 
 in {
-  repos =  (lib.mapAttrs createRepo manifest) // repoOverrides;
+  repos = (lib.mapAttrs createRepo manifest) // repoOverrides;
   repo-sources = lib.mapAttrs repoSource manifest;
 }
