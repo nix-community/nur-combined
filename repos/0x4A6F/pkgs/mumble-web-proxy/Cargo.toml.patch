@@ -1,0 +1,13 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 83d4c95..e2834af 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -19,7 +19,7 @@ mumble-protocol = { version = "0.4", features = ["webrtc-extensions"] }
+ tokio-tungstenite = "0.13"
+ http = "0.2"
+ tungstenite = "0.12"
+-rtp = { git = "https://github.com/johni0702/rtp", rev = "6c0223d", features = ["rfc5764-openssl"] }
++rtp = { git = "https://github.com/Skgland/rtp", rev = "83eb4dd", features = ["rfc5764-openssl"] }
+ libnice = "0.3"
+ webrtc-sdp = "0.3"
+ openssl = "0.10"

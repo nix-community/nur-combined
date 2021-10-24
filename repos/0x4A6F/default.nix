@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -20,11 +20,19 @@
 
   acmed = pkgs.callPackage ./pkgs/acmed { };
 
+  alquitran = pkgs.callPackage ./pkgs/alquitran { };
+
+  autorandr-rs = pkgs.callPackage ./pkgs/autorandr-rs { };
+
   blflash = pkgs.callPackage ./pkgs/blflash { };
 
   bouffalo-cli = pkgs.callPackage ./pkgs/bouffalo-cli { };
 
   #bpf-linker = pkgs.callPackage ./pkgs/bpf-linker { };
+
+  check_mk-agent = pkgs.callPackage ./pkgs/check_mk-agent { };
+
+  conduit = pkgs.callPackage ./pkgs/conduit { };
 
   espflash = pkgs.callPackage ./pkgs/espflash { };
 
@@ -38,9 +46,23 @@
 
   innernet = pkgs.callPackage ./pkgs/innernet { };
 
+  libcerror = pkgs.callPackage ./pkgs/libcerror { };
+
+  #libcthreads = pkgs.callPackage ./pkgs/libcthreads { };
+
+  #libcdata = pkgs.callPackage ./pkgs/libcdata { };
+
+  mumble-web-proxy = pkgs.callPackage ./pkgs/mumble-web-proxy { };
+
+  nixpkgs-check = pkgs.callPackage ./pkgs/nixpkgs-check { };
+
   photoview-api = pkgs.callPackage ./pkgs/photoview-api { };
 
   routinator = pkgs.callPackage ./pkgs/routinator { };
+
+  wireguard-vanity-address = pkgs.callPackage ./pkgs/wireguard-vanity-address { };
+
+  #zellij = pkgs.callPackage ./pkgs/zellij { };
 
 }
 

@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoPatches = [ ./Cargo.lock.patch ];
-  cargoSha256 = "sha256:1rnkxvxp065psq7jpwfkmi2wlssxclyz9khm7y0yr8vqyh9y42hs";
+  cargoSha256 = "sha256:03jjbwbid3r0p2v2nwn678r83x7sjp34xswp92rahfbi81x5kg57";
 
   meta = with pkgs.lib; {
     description = "ESP8266 and ESP32 serial flasher";

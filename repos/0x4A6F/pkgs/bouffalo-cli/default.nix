@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0qg4hnr5ddqc5xbigk2jrmfkc9knzrgzcdy6zizpymzpv7r6hk6x";
   };
 
-  cargoSha256 = "sha256:08qbk0slcv375fxlkbz1cwsbb06phagdi14cwggfv5y512l3r6qv";
+  cargoSha256 = "sha256:0mg1vvai234m6y92axr2mx3jhpbdpin1cj3awj4ipkcspyn0bgd4";
 
   meta = with pkgs.lib; {
     description = "BL602 Boot ROM utility";

@@ -1,4 +1,8 @@
-{ stdenv, fetchFromGitHub, rustPlatform }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, rustPlatform
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "deploy-rs";
@@ -11,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "15lrh9b2qhwp0vqhh3vj1bcjl9cpnsv7myizm4ram0hva53s8fcd";
   };
 
-  cargoSha256 = "0655ipgmsx8ky1ikf5hwlqiwfyla80kp0fmppzzg9dr2js7svw4c";
+  cargoSha256 = "0ibarzkpdv94393nvddfsmlwiv6zvd2bqi6j8z10zc4m5mk0jn9b";
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -24,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     fi
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A simple multi-profile Nix-flake deploy tool.";
     homepage = "https://github.com/serokell/deploy-rs";
     license = licenses.mpl20;

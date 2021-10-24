@@ -1,0 +1,24 @@
+diff --git a/Makefile.am b/Makefile.am
+index d95b956..75b99ca 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -3,7 +3,6 @@ ACLOCAL_AMFLAGS = -I m4
+ SUBDIRS = \
+ 	include \
+ 	common \
+-	libcerror \
+ 	libcthreads \
+ 	po \
+ 	manuals \
+diff --git a/configure.ac b/configure.ac
+index 5c799d2..2f187c9 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -91,7 +91,6 @@ dnl Generate Makefiles
+ AC_CONFIG_FILES([Makefile])
+ AC_CONFIG_FILES([include/Makefile])
+ AC_CONFIG_FILES([common/Makefile])
+-AC_CONFIG_FILES([libcerror/Makefile])
+ AC_CONFIG_FILES([libcthreads/Makefile])
+ AC_CONFIG_FILES([po/Makefile.in])
+ AC_CONFIG_FILES([po/Makevars])

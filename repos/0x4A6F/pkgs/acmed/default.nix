@@ -1,7 +1,7 @@
-{ stdenv
+{ lib
 , fetchFromGitHub
 , rustPlatform
-, pkgconfig
+, pkg-config
 , openssl
 }:
 
@@ -17,12 +17,12 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoPatches = [ ./Cargo.lock.patch ];
-  cargoSha256 = "01pyqpi5sw5c1yixl74h5kpiynzmf8jbkrf61kh9iz8049d84cpv";
+  cargoSha256 = "1xl0jgwgmv437c4impzlc49gl2ajh8h85r76r6pavm5cp8a8cn2d";
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "ACME (RFC 8555) client daemon";
     homepage = "https://github.com/breard-r/acmed";
     license = licenses.mit;

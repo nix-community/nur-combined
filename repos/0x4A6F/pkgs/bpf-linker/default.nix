@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , rustPlatform
 , llvm_11
@@ -18,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "10dvnaxc0zslw083fx7lm68wiilk8zc1k6lv8y1k564slqjrlwrm";
   };
 
-  cargoSha256 = "1hsv7n27yrax5zaxhkjrcjfkvhvggibc6rdhn4d9li2pwkja43mw";
+  cargoSha256 = "16vq9zgxpxb2zxxwn5h6qvdk71hfzhjy1sja5msfmrxhys8znk9y";
 
   nativeBuildInputs = [
     llvm_11
@@ -33,7 +34,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
   installCheckPhase = ''
     if [[ "$("$out/bin/${pname}" --version)" == "${pname} ${version}" ]]; then
-      $out/bin/${pname} --help | grep -q ${pname} 
+      $out/bin/${pname} --help | grep -q ${pname}
       echo '${pname} smoke check passed'
     else
       echo '${pname} smoke check failed'
@@ -41,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     fi
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An BPF Linker written in Rust";
     homepage = "https://github.com/alessandrod/bpf-linker";
     license = [ licenses.asl20 licenses.mit ];
