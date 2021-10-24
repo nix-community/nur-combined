@@ -37,6 +37,7 @@
     git-lfs
     gnumake
     gnupg
+    kakoune
     pinentry-curses
     python3
     vim

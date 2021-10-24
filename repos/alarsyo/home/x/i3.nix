@@ -87,6 +87,9 @@ in
           "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "XF86AudioMicMute" = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
+          "XF86AudioPlay" = "exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play";
+          "XF86AudioPause" = "exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause";
+
           "XF86MonBrightnessDown" = "exec --no-startup-id light -U 5";
           "XF86MonBrightnessUp" = "exec --no-startup-id light -A 5";
           "${modifier}+XF86MonBrightnessDown" = "exec --no-startup-id light -U 0.1";

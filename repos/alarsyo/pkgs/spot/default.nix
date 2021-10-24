@@ -3,7 +3,7 @@
 , python3
 }:
 let
-  version = "2.9.7";
+  version = "2.9.8";
 in
 stdenv.mkDerivation {
   inherit version;
@@ -15,6 +15,6 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://www.lrde.epita.fr/dload/spot/spot-${version}.tar.gz";
-    sha256 = "sha256-Hupn40Rs27u3Be5uJv2GkCDNt9gsVj/q2ctDlLm6oEw=";
+    sha256 = "sha256-t/QEu5CjNaWRQ4Tsw/w6ICH/IsV+6XpAwHuyq0DiDPk=";
   };
 }
