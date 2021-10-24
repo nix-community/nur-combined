@@ -1,5 +1,5 @@
 { geckoSrc ? null, lib
-, stdenv, fetchFromGitHub, pythonFull, which, autoconf213
+, stdenv, fetchFromGitHub, pythonFull, which, autoconf213, m4
 , perl, unzip, zip, gnumake, yasm, pkgconfig, xlibs, gnome2, pango, freetype, fontconfig, cairo
 , dbus, dbus_glib, alsaLib, libpulseaudio
 , gtk3, glib, gobjectIntrospection, gdk_pixbuf, atk, gtk2
@@ -15,14 +15,15 @@
 , zlib, xorg
 , rust-cbindgen
 , nodejs
-, callPackage
+, jsdoc
+, fzf # needed by "mack try fuzzy"
 }:
 
 let
 
   inherit (lib) updateFromGitHub importJSON optionals inNixShell;
 
-  gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
+  gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.stdenv.cc.cc;
 
   # Gecko sources are huge, we do not want to import them in the nix-store when
   # we use this expression for making a build environment.
@@ -39,7 +40,7 @@ let
   buildInputs = [
 
     # Expected by "mach"
-    pythonFull setuptools which autoconf213
+    pythonFull setuptools which autoconf213 m4
 
     # Expected by the configure script
     perl unzip zip gnumake yasm pkgconfig
@@ -101,12 +102,22 @@ let
     nodejs
 
     # Used for building documentation.
-    (callPackage ../jsdoc {}).jsdoc
+    # jsdoc
 
   ] ++ optionals inNixShell [
     valgrind gdb ccache
     (if stdenv.isAarch64 then null else rr)
+    fzf # needed by "mach try fuzzy"
   ];
+
+  # bindgen.configure now has a rule to check that with-libclang-path matches CC
+  # or CXX. Default to the stdenv compiler if we are compiling with clang.
+  clang_path =
+    if stdenv.cc.isGNU then "${llvmPackages.clang}/bin/clang"
+    else "${stdenv.cc}/bin/cc";
+  libclang_path =
+    if stdenv.cc.isGNU then "${llvmPackages.clang.cc.lib}/lib"
+    else "${stdenv.cc.cc.lib}/lib";
 
   genMozConfig = ''
     cxxLib=$( echo -n ${gcc}/include/c++/* )
@@ -114,8 +125,8 @@ let
 
     cat - > $MOZCONFIG <<EOF
     mk_add_options AUTOCONF=${autoconf213}/bin/autoconf
-    ac_add_options --with-libclang-path=${llvmPackages.clang.cc.lib}/lib
-    ac_add_options --with-clang-path=${llvmPackages.clang}/bin/clang
+    ac_add_options --with-libclang-path=${libclang_path}
+    ac_add_options --with-clang-path=${clang_path}
     export BINDGEN_CFLAGS="-cxx-isystem $cxxLib -isystem $archLib"
     export CC="${stdenv.cc}/bin/cc"
     export CXX="${stdenv.cc}/bin/c++"
@@ -128,7 +139,7 @@ let
     export CC="${stdenv.cc}/bin/cc";
     export CXX="${stdenv.cc}/bin/c++";
     # To be used when building the JS Shell.
-    export NIX_EXTRA_CONFIGURE_ARGS="--with-libclang-path=${llvmPackages.clang.cc.lib}/lib --with-clang-path=${llvmPackages.clang}/bin/clang"
+    export NIX_EXTRA_CONFIGURE_ARGS="--with-libclang-path=${libclang_path} --with-clang-path=${clang_path}"
     cxxLib=$( echo -n ${gcc}/include/c++/* )
     archLib=$cxxLib/$( ${gcc}/bin/gcc -dumpmachine )
     export BINDGEN_CFLAGS="-cxx-isystem $cxxLib -isystem $archLib"
