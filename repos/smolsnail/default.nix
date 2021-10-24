@@ -16,9 +16,11 @@
 
   # Programs
   pat = pkgs.python39Packages.callPackage ./pkgs/pat { };
+  speedtime = pkgs.callPackage ./pkgs/speedtime { };
 
-  # GTK/icon themes
+  # Themes/icons
   everforest-gtk = pkgs.callPackage ./pkgs/everforest-gtk { };
+  monochrome-kde = pkgs.callPackage ./pkgs/monochrome-kde { };
 
   # Vim color schemes
   everforest = pkgs.callPackage ./pkgs/everforest {
