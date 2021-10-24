@@ -1,5 +1,4 @@
-{ pkgs ? (import <nixpkgs> {})
-}:
+{ pkgs ? (import <nixpkgs> {}) }:
 pkgs.stdenv.mkDerivation rec {
   name = "strongdm";
   version = "30.86.0";

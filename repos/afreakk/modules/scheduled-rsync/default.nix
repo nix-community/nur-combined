@@ -1,11 +1,12 @@
 { lib, pkgs, config, ... }:
 let 
   cfg = config.services.scheduled-rsync;
-  generateRsyncScript = name: {from, to, exclude-from, dry-run}: pkgs.writeScriptBin "rsyncScript.sh" ''
+  generateRsyncScript = name: {from, to, exclude-from, dry-run, rsh}: pkgs.writeScriptBin "rsyncScript.sh" ''
     #!${pkgs.bash}/bin/bash
-    export PATH=${pkgs.lib.makeBinPath [ pkgs.rsync ]}:$PATH
+    export PATH=${pkgs.lib.makeBinPath [ pkgs.rsync pkgs.openssh ]}:$PATH
+    echo $PATH
 
-    rsync ${if dry-run then "--dry-run" else ""} \
+    rsync ${if dry-run then "--dry-run" else ""} ${if builtins.stringLength rsh > 0 then "-e "+rsh else ""} \
     --archive \
     --one-file-system \
     --exclude-from=${generateExcludeFrom exclude-from} \
@@ -16,8 +17,8 @@ let
     name = "ignore.txt";
     text = str;
   };
-  generateCron = name: {Description, OnCalendar, from, to, exclude-from ? "", dry-run ? false}: { ${name} = {
-    ExecStart   = "${generateRsyncScript name {inherit from to exclude-from dry-run;}}/bin/rsyncScript.sh";
+  generateCron = name: {Description, OnCalendar, from, to, rsh ? "", exclude-from ? "", dry-run ? false}: { ${name} = {
+    ExecStart   = "${generateRsyncScript name {inherit from to exclude-from dry-run rsh;}}/bin/rsyncScript.sh";
     Description = Description;
     OnCalendar  = OnCalendar;
   }; };
