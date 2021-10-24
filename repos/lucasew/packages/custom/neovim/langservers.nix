@@ -1,9 +1,6 @@
 {pkgs, ...}:
 let
-  pkgbin = name: import ../../lib/pkgbin.nix {
-    pkgs = pkgs;
-    name = name;
-  };
+  pkgbin = name: "${pkgs."${name}"}/bin/${name}";
 in
 {
   go = ["gopls"]; # gopls

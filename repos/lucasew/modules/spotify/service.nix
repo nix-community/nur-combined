@@ -1,8 +1,10 @@
 {pkgs, ...}:
 let 
+  inherit (pkgs) writeShellScriptBin playerctl;
+
   systemdUserService = import ../../lib/systemdUserService.nix;
-  adskipper = pkgs.writeShellScriptBin "spotify-adskip" ''
-    PLAYERCTL=${pkgs.playerctl}/bin/playerctl
+  adskipper = writeShellScriptBin "spotify-adskip" ''
+    PLAYERCTL=${playerctl}/bin/playerctl
     echo Executando...
     function handle {
         echo $1

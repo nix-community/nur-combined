@@ -1,0 +1,19 @@
+{
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
+  "go.useLanguageServer": true,
+  "rest-client.enableTelemetry": false,
+  "rust-client.disableRustup": true,
+  "update.mode": "none",
+  "workbench.colorTheme": "One Dark Pro",
+  "workbench.iconTheme": "file-icons"
+}

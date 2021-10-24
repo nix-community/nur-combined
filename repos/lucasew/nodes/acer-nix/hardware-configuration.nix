@@ -2,7 +2,9 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-
+let
+  inherit (lib) mkDefault;
+in
 {
   imports =
     [
@@ -31,6 +33,6 @@
       { device = "/dev/disk/by-uuid/3b3c6e98-9d58-4c20-83c6-cadb228423f4"; }
     ];
 
-  nix.maxJobs = lib.mkDefault 4;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  nix.maxJobs = mkDefault 4;
+  powerManagement.cpuFreqGovernor = mkDefault "powersave";
 }

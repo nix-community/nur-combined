@@ -1,6 +1,4 @@
 {pkgs, config, ... }:
-let
-in
 {
   services = {
     xserver = {

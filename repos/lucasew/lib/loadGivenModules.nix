@@ -3,16 +3,18 @@
 items:
 component:
 let
+  inherit (builtins) split toString pathExists toPath;
+
   filter = import <dotfiles/lib/filter.nix>;
   tail = import <dotfiles/lib/tail.nix>;
   modulePath = <dotfiles/modules>;
-  getModuleName = item: tail (builtins.split "/" (builtins.toString item));
+  getModuleName = item: tail (split "/" (toString item));
   suffixifyItem = item:
     let
       suffix = "/" + item + "/" + component + ".nix";
     in
     <dotfiles/modules> + suffix;
   suffixedItems = map suffixifyItem (map getModuleName items);
-  filteredItems = filter builtins.pathExists suffixedItems;
+  filteredItems = filter pathExists suffixedItems;
 in
-map builtins.toPath filteredItems
+map toPath filteredItems

@@ -1,14 +1,19 @@
-with builtins;
-with flake.outputs;
-with packages;
-[
-  python3Packages.scikitlearn
-  stremio
-  cisco-packet-tracer
-  minecraft
-  peazip
-  pinball
-  stremio
-  ets2
-  discord # from unstable small
-]
+let
+  inherit (builtins) getFlake;
+  flake = getFlake "${toString ./.}";
+  inherit (flake.outputs) pkgs;
+in builtins.attrValues {
+  inherit (pkgs)
+    stremio
+    minecraft
+    discord
+  ;
+  inherit (pkgs.python3Packages)
+    scikitlearn
+  ;
+  inherit (pkgs.wineApps)
+    wine7zip
+    pinball
+  ;
+  polybar = pkgs.callPackage ./modules/polybar/customPolybar.nix {};
+}

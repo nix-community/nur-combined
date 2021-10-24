@@ -1,7 +1,9 @@
 {pkgs, lib, config, ...}:
-with builtins;
-with lib;
 let
+  inherit (lib) mkEnableOption types mkOption mkIf;
+  inherit (builtins) concatStringsSep;
+  inherit (pkgs) writeShellScript curl;
+
   cfg = config.services.vercel-ddns;
 in
 {
@@ -39,8 +41,8 @@ in
           Restart = "on-failure";
           RestartSec = 10;
         };
-        script = "${pkgs.writeShellScript "vercel-ddns" ''
-          PATH=$PATH:${pkgs.curl}/bin
+        script = "${writeShellScript "vercel-ddns" ''
+          PATH=$PATH:${curl}/bin
           IP=$(${cfg.fetch-ip})
           ${concatStringsSep "\n" (
           map (name: ''

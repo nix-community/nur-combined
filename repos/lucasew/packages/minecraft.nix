@@ -1,12 +1,16 @@
 { pkgs, lib, ... }:
 let
+  inherit (builtins) fetchurl;
+  inherit (lib) makeLibraryPath;
+  inherit (pkgs) stdenv makeDesktopItem;
+
   # java = pkgs.openjdk8;
   java = pkgs.graalvm8-ce;
-  launcherZip = builtins.fetchurl {
+  launcherZip = fetchurl {
     sha256 = "08la0fazwl4gn6g06iqjfl300q18dpqa8bzc6v16p4lsl9r54bm6";
     url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/ShiginimaSE_v4400.zip";
   };
-  envLibPath = with pkgs; lib.makeLibraryPath [
+  envLibPath = with pkgs; makeLibraryPath [
     alsaLib # needed for narrator
     curl
     flite # needed for narrator
@@ -19,7 +23,7 @@ let
     xorg.libXpm
     xorg.libXxf86vm # needed only for versions <1.13
   ];
-  drv = pkgs.stdenv.mkDerivation rec {
+  drv = stdenv.mkDerivation rec {
     name = "minecraft";
     src = launcherZip;
     dontUnpack = true;
@@ -49,12 +53,11 @@ let
       platforms = lib.platforms.unix;
     };
   };
-in
-pkgs.makeDesktopItem {
+in makeDesktopItem {
   name = "minecraft";
   desktopName = "Shiginima Minecraft";
   type = "Application";
-  icon = builtins.fetchurl {
+  icon = fetchurl {
     url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/minecraft.png";
     sha256 = "1bpky4ycdf6w1d9lrhxprsk04jgp26zp9wcm9gy4691di7v8w3iv";
   };

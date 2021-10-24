@@ -1,30 +1,42 @@
-{pkgs, config, ... }:
-with pkgs.lib;
+{pkgs, lib, config, ... }:
+let
+  inherit (lib);
+  inherit (pkgs) 
+    pulseaudio
+    playerctl
+    writeShellScript
+    makeDesktopItem
+    networkmanagerapplet
+    feh
+    blueberry
+  ;
+  inherit (pkgs.xfce) xfce4-terminal;
+in
 let
 
   mod = "Mod4";
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
-  playerctl = "${pkgs.playerctl}/bin/playerctl";
-  modn = pkgs.writeShellScript "modn" ''
+  pactl = "${pulseaudio}/bin/pactl";
+  playerctl-bin = "${playerctl}/bin/playerctl";
+  modn = writeShellScript "modn" ''
 goto_ws=$(i3-msg i3-msg -t get_workspaces | jq '.[] | select(.focused == true) | "i3-msg workspace number " + .name' | sed s/\"//g)
 
 i3-msg -t get_outputs | jq '.[] | select(.current_workspace != null) |  "i3-msg workspace number " + .current_workspace + ";i3-msg move workspace to output left"' | sed s/\"//g | bash
 
 echo $goto_ws | bash
   '';
-  sendToPQP = pkgs.writeShellScript "sendToPQP" ''
+  sendToPQP = writeShellScript "sendToPQP" ''
     ws=$[ $RANDOM % 100 + 11 ]
     i3-msg move container to workspace number $ws
     i3-msg workspace number $ws
   '';
-  gotoNewWs = pkgs.writeShellScript "gotoNewWs" ''
+  gotoNewWs = writeShellScript "gotoNewWs" ''
     ws=$[ $RANDOM % 100 + 11 ]
     i3-msg workspace number $ws
   '';
-  locker = pkgs.writeShellScript "locker" ''
+  locker = writeShellScript "locker" ''
     loginctl lock-session
   '';
-  lockerSpace = pkgs.makeDesktopItem {
+  lockerSpace = makeDesktopItem {
     name = "locker";
     desktopName = "Bloquear Tela";
     icon = "lock";
@@ -51,7 +63,7 @@ in {
   };
     xsession.windowManager.i3 = {
       config = {
-        terminal = "${pkgs.xfce.xfce4-terminal}/bin/xfce4-terminal";
+        terminal = "${xfce4-terminal}/bin/xfce4-terminal";
         menu = "my-rofi";
         modifier = mod;
         keybindings = {
@@ -114,18 +126,18 @@ in {
           "${mod}+n" = "exec ${modn}";
           "${mod}+b" = "exec ${gotoNewWs}";
           "${mod}+Shift+z" = "exec ${sendToPQP}";
-          "XF86AudioNext" = "exec ${playerctl} next";
-          "XF86AudioPrev" = "exec ${playerctl} previous";
-          "XF86AudioPlay" = "exec ${playerctl} play-pause";
-          "XF86AudioPause" = "exec ${playerctl} play-pause";
+          "XF86AudioNext" = "exec ${playerctl-bin} next";
+          "XF86AudioPrev" = "exec ${playerctl-bin} previous";
+          "XF86AudioPlay" = "exec ${playerctl-bin} play-pause";
+          "XF86AudioPause" = "exec ${playerctl-bin} play-pause";
         };
       };
       extraConfig = ''
-          exec --no-startup-id ${pkgs.networkmanagerapplet}/bin/nm-applet
-          exec --no-startup-id ${pkgs.feh}/bin/feh --bg-center ~/.background-image
-          exec --no-startup-id ${pkgs.blueberry}/bin/blueberry-tray
+          exec --no-startup-id ${networkmanagerapplet}/bin/nm-applet
+          exec --no-startup-id ${feh}/bin/feh --bg-center ~/.background-image
+          exec --no-startup-id ${blueberry}/bin/blueberry-tray
           exec_always systemctl restart --user polybar.service
-          exec_always ${pkgs.feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '/home/lucasew/.dotfiles/wall.jpg'
+          exec_always ${feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '/home/lucasew/.dotfiles/wall.jpg'
 
           new_window 1pixel
       '';

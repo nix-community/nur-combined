@@ -1,8 +1,11 @@
-{cfg, pkgs, ...}:
-{
+{global, pkgs, ...}:
+let
+  inherit (pkgs) neovim nixFlakes writeText;
+  inherit (global) username;
+in {
   nix = {
-    trustedUsers = [cfg.username "@wheel"];
-    package = pkgs.nixFlakes;
+    trustedUsers = [username "@wheel"];
+    package = nixFlakes;
     extraOptions = ''
       min-free = ${toString (1  * 1024*1024*1024)}
       max-free = ${toString (10 * 1024*1024*1024)}
@@ -15,7 +18,7 @@
   boot.cleanTmpDir = true;
   i18n.defaultLocale = "pt_BR.UTF-8";
   time.timeZone = "America/Sao_Paulo";
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     neovim
   ];
   environment.variables.EDITOR = "nvim";
@@ -39,7 +42,7 @@
     192.168.69.4 cel.local
   '';
   users.users = {
-    ${cfg.username} = {
+    ${username} = {
       isNormalUser = true;
       extraGroups = [
         "wheel"
@@ -53,7 +56,7 @@
   security.sudo.extraConfig = ''
 Defaults lecture = always
 
-Defaults lecture_file=${pkgs.writeText "sudo-lecture" ''
+Defaults lecture_file=${writeText "sudo-lecture" ''
 It's sudo time!
 ''}
   '';

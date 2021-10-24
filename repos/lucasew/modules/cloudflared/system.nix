@@ -1,7 +1,8 @@
 {pkgs, lib, config, ...}:
-with builtins;
-with lib;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (pkgs) cloudflared;
+
   cfg = config.services.cloudflared;
 in
 {
@@ -9,7 +10,7 @@ in
     enable = mkEnableOption "Enable cloudflared daemon";
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = [
       cloudflared
     ];
   };

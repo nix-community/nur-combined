@@ -1,12 +1,13 @@
 path:
 let
   pkgs = import <nixpkgs> { };
+  inherit (builtins) pathExists readDir attrNames;
   kvs =
-    if (builtins.pathExists path) then
-      builtins.readDir path
+    if (pathExists path) then
+      readDir path
     else
       abort (path + " not found");
-  justKs = builtins.attrNames kvs;
+  justKs = attrNames kvs;
   fn = k: path + "/${k}";
 in
 map fn justKs

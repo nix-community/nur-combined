@@ -1,12 +1,12 @@
 {pkgs, ...}:
 let 
-  nur = pkgs.nur;
-in
-{
+  inherit (pkgs) nur firefox-bin;
+  inherit (nur.repos.rycee) firefox-addons;
+in {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-bin;
-    extensions = with nur.repos.rycee.firefox-addons; [
+    package = firefox-bin;
+    extensions = with firefox-addons; [
       ublock-origin
       darkreader
       i-dont-care-about-cookies

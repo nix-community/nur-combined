@@ -1,6 +1,6 @@
 {pkgs, config, lib, ...}:
-with lib;
 let
+  inherit (lib) mkEnableOption mkOption types;
   cfg = config.vps.pgbackup;
 in
 {

@@ -2,12 +2,13 @@
 , pkgs ? import <nixpkgs> { }
 }:
 let
-  convert = "${pkgs.imagemagick}/bin/convert";
-  runCommand = pkgs.runCommand;
+  inherit (pkgs) imagemagick runCommand;
+  inherit (builtins) readFile replaceStrings;
+
+  convert = "${imagemagick}/bin/convert";
   pixelFile = runCommand "img2pixel" { } ''
     ${convert} ${image} -resize 1x1\! txt:- | sed 's/\ /\n/g' | grep '#[0-9A-F]' > $out
   '';
-  pixelString = builtins.readFile "${pixelFile}";
-  stripped = builtins.replaceStrings [ "\n" ] [ "" ] pixelString;
-in
-stripped
+  pixelString = readFile "${pixelFile}";
+  stripped = replaceStrings [ "\n" ] [ "" ] pixelString;
+in stripped

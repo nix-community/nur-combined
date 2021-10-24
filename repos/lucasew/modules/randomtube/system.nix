@@ -1,6 +1,9 @@
 {pkgs, config, lib, ...}:
-with lib;
 let
+  inherit (lib) mkOption mkEnableOption mkIf types literalExample;
+  inherit (pkgs) callPackage writeShellScript ffmpeg dotenv;
+  inherit (builtins) fetchGit;
+
   cfg = config.services.randomtube;
 in
 {
@@ -27,7 +30,7 @@ in
       };
       package = mkOption {
         type = types.package;
-        default = "${pkgs.callPackage "${builtins.fetchGit {
+        default = "${callPackage "${fetchGit {
           url = "ssh://git@github.com/lucasew/randomtube.git";
           rev = "d387833072132e0ecba5e53570e04a518edd70ab";
         }}" {}}";
@@ -41,9 +44,9 @@ in
   };
   config = mkIf cfg.enable (let
     binary = "${cfg.package}/bin/randomtube";
-    wrappedBinary = pkgs.writeShellScript "randomtube-wrapped" ''
-      PATH=$PATH:${pkgs.ffmpeg}/bin
-      ${pkgs.dotenv}/bin/dotenv @${cfg.secretsDotenv} -- ${binary} ${cfg.extraParameters}
+    wrappedBinary = writeShellScript "randomtube-wrapped" ''
+      PATH=$PATH:${ffmpeg}/bin
+      ${dotenv}/bin/dotenv @${cfg.secretsDotenv} -- ${binary} ${cfg.extraParameters}
     '';
   in {
     systemd = {

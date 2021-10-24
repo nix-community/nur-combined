@@ -1,5 +1,9 @@
-with builtins;
 { pkgs }:
+let
+  inherit (builtins) length concatStringsSep;
+  inherit (pkgs) lib cabextract writeShellScriptBin;
+  inherit (lib) makeBinPath;
+in
 { 
   is64bits ? false
   , wine ? if is64bits then pkgs.wineWowPackages.stable else pkgs.wine
@@ -14,12 +18,12 @@ with builtins;
 }:
 let
   wineBin = "${wine}/bin/wine${if is64bits then "64" else ""}";
-  requiredPackages = with pkgs; [
+  requiredPackages = [
     wine
     cabextract
   ];
   WINENIX_PROFILES = "$HOME/WINENIX_PROFILES";
-  PATH = pkgs.lib.makeBinPath requiredPackages;
+  PATH = makeBinPath requiredPackages;
   NAME = name;
   HOME = if home == "" 
     then "${WINENIX_PROFILES}/${name}" 
@@ -42,7 +46,7 @@ let
         '';
       in tricksCmd
     else "";
-  script = pkgs.writeShellScriptBin name ''
+  script = writeShellScriptBin name ''
     export APP_NAME="${NAME}"
     export WINEARCH=${WINEARCH}
     export WINE_NIX="$HOME/.wine-nix" # define antes de definir $HOME senão ele vai gravar na nova $HOME a .wine-nix
@@ -60,9 +64,9 @@ let
       # ${wineBin} cmd /c dir > /dev/null 2> /dev/null # initialize prefix
       wineserver -w
       ${tricksHook}
-      ${firstrunScript}
       rm "$WINEPREFIX/drive_c/users/$USER" -rf
       ln -s "$HOME" "$WINEPREFIX/drive_c/users/$USER"
+      ${firstrunScript}
     fi
     ${if chdir != null 
       then ''cd "${chdir}"'' 

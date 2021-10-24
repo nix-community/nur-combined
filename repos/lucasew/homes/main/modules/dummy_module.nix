@@ -1,8 +1,11 @@
 {pkgs, config, lib, ...}:
-with lib;
 let
+  inherit (lib) mkEnableOption mkIf;
+  inherit (pkgs) writeShellScriptBin;
+
   cfg = config.programs.hello-world;
-  helloworld = pkgs.writeShellScriptBin "helloworld" ''
+
+  helloworld = writeShellScriptBin "helloworld" ''
     echo Hello, world
   '';
 in

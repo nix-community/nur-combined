@@ -1,29 +1,33 @@
-{ cfg, pkgs, config, lib, self, ... }:
-with cfg;
-{
+{ global, pkgs, config, lib, self, ... }:
+let 
+  inherit (global) username email rootPath;
+  inherit (builtins) fetchurl;
+  inherit (self) inputs outputs;
+  inherit (outputs) environmentShell;
+  inherit (pkgs) writeShellScript espeak wrapDotenv p2k;
+  inherit (lib.hm.gvariant) mkTuple;
+in {
   imports = [
-    "${self.inputs.nixgram}/hmModule.nix"
-    "${self.inputs.redial_proxy}/hmModule.nix"
-    "${self.inputs.borderless-browser}/home-manager.nix"
+    "${inputs.nixgram}/hmModule.nix"
+    "${inputs.redial_proxy}/hmModule.nix"
+    "${inputs.borderless-browser}/home-manager.nix"
     ./modules/dlna.nix
     ./modules/firefox/home.nix
     ./modules/dunst.nix
-    ./modules/dummy_module.nix
     ./modules/i3.nix
     # ./modules/webapps.nix
     # ./modules/wallpaper.nix
     ./modules/espanso.nix
     ../../modules/polybar/home.nix
-    ../../modules/spotify/home.nix
+    # ../../modules/spotify/home.nix
     ../../modules/tmux/home.nix
-    ../../modules/vscode/home.nix
   ]
   ;
 
   home.packages = with pkgs; [
    # ------------ pacotes do nixpkgs ---------------
     # minecraft  # custom (excluded)
-    usb_tixati custom_rofi # custom
+    custom.tixati custom.rofi # custom
     tdesktop # communication
     obsidian
     vlc youtube-dl # media
@@ -33,6 +37,7 @@ with cfg;
     libnotify
     neofetch
     aerc # terminal email
+    croc # file transfer
     comma # like nix-shell but more convenient
     calibre
     wineApps.wine7zip
@@ -45,10 +50,10 @@ with cfg;
 
   home.file.".dotfilerc".text = ''
     #!/usr/bin/env bash
-    ${self.outputs.environmentShell}
+    ${environmentShell}
   '';
 
-  programs.hello-world.enable = true;
+  # programs.hello-world.enable = true;
   services.espanso = {
     enable = true;
     config = 
@@ -85,7 +90,7 @@ with cfg;
             name = "output";
             type = "shell";
             params = {
-              cmd = pkgs.writeShellScript "espanso-script" command;
+              cmd = writeShellScript "espanso-script" command;
             };
           }];
         };
@@ -100,61 +105,6 @@ with cfg;
         (replaceDate ":ot" "#datetime/%Y/%m/%e/%H/%M")
         (replaceDate ":od" "#datetime/%Y/%m/%e")
         (replaceSequence "°" "\\") # Alt+E, Alt+Q outputs /
-
-        # code
-        (justReplace ":<html>" ''
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-          <meta charset="UTF-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Document</title>
-          </head>
-          <body>
-          $|$
-          </body>
-          </html>
-        '')
-        (justReplace ":import React" ''
-          import React from 'react';
-
-          interface ComponentProps {
-            children: React.ReactNode
-          }
-
-          export default function Component(props: ComponentProps) {
-            return (
-              <>
-                $|$
-              </>
-            )
-          }
-        '')
-        (justReplace ":#include" ''
-          #include <stdio.h>
-          #include <stdlib.h>
-          #include <unistd.h>
-
-          int main(int argc, char **argv) {
-            $|$
-          }
-        '')
-        (justReplace ":package" ''
-          package main
-
-          import (
-            "fmt"
-            "github.com/davecgh/go-spew/spew"
-          )
-
-          func init() {
-          }
-
-          func main() {
-            $|$
-          }
-        '')
         (justReplace ":#!/usr/bin/env bash" ''
           #!/usr/bin/env bash
           set -eu -o pipefail
@@ -204,7 +154,6 @@ with cfg;
         (replaceWord "lenght" "length")
         (replaceWord "ther" "there")
         (replaceWord "automacao" "automação")
-        (replaceWord "nixos" "NixOS")
         (replaceWord "its" "it's")
         (replaceWord "dont" "don't")
         (replaceWord "didnt" "didn't")
@@ -231,26 +180,24 @@ with cfg;
       };
     };
     tmux.enable = true;
-    vscode.enable = true;
-  };
-
-  # Git
-  programs.git = {
+    git = {
         enable = true;
         userName = username;
         userEmail = email;
+    };
   };
 
   # KDE connect
-  services.kdeconnect = {
-    enable = true;
-    indicator = true;
+  services = {
+    kdeconnect = {
+      enable = true;
+      indicator = true;
+    };
+    polybar.enable = true;
+    flameshot.enable = true;
   };
 
-  # Polybar
-  services.polybar.enable = true;
   xsession.windowManager.i3.enable = true;
-
   # Dconf
   dconf.settings = {
     "org/gnome/desktop/background" = {
@@ -258,13 +205,9 @@ with cfg;
       primary-color = "#ffffff";
       secondary-color = "#000000";
     };
-    "org/gnome/desktop/input-sources" = 
-      let
-        tuple = lib.hm.gvariant.mkTuple;
-      in 
-    {
+    "org/gnome/desktop/input-sources" = {
       current = "uint32 0";
-      sources = [(tuple ["xkb" "br"]) (tuple ["xkb" "us"])];
+      sources = [(mkTuple ["xkb" "br"]) (mkTuple ["xkb" "us"])];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
     };
     "org/gnome/desktop/interface" = {
@@ -288,7 +231,7 @@ with cfg;
   };
 
   # nixgram
-  services.nixgram = with pkgs; {
+  services.nixgram = {
     enable = true;
     dotenvFile = rootPath + "/secrets/nixgram.env";
     customCommands = {
@@ -328,14 +271,13 @@ with cfg;
       if [ -n "$TESTING" ]; then
           exit 0
       fi
-      ${p2k}/bin/p2k -k $KINDLE_EMAIL -c $AMOUNT -t 30 $EXTRA_PARAMS
+      ${p2k}/bin/p2k -a -k $KINDLE_EMAIL -c $AMOUNT -t 30 $EXTRA_PARAMS
       '';
       letsgo = ''
         echo "let's gou"
       '';
     };
   };
-  services.flameshot.enable = true;
 
 #   # wallpaper
 #   wallpaper = {
@@ -370,7 +312,7 @@ with cfg;
     whatsapp = {
       desktopName = "WhatsApp";
       url = "web.whatsapp.com";
-      icon = builtins.fetchurl {
+      icon = fetchurl {
         url = "https://raw.githubusercontent.com/jiahaog/nativefier-icons/gh-pages/files/whatsapp.png";
         sha256 = "1f5bwficjkqxjzanw89yj0rz66zz10k7zhrirq349x9qy9yp3bmc";
       };
@@ -378,7 +320,7 @@ with cfg;
     notion = {
       desktopName = "Notion";
       url = "notion.so";
-      icon = builtins.fetchurl {
+      icon = fetchurl {
         url = "https://logos-download.com/wp-content/uploads/2019/06/Notion_App_Logo.png";
         sha256 = "16vw52kca3pglykn9q184qgzshys3d2knzy631rp2slkbr301zxf";
       };
@@ -386,7 +328,7 @@ with cfg;
     duolingo = {
       desktopName = "Duolingo";
       url = "duolingo.com";
-      icon = builtins.fetchurl {
+      icon = fetchurl {
         url = "https://logos-download.com/wp-content/uploads/2016/10/Duolingo_logo_owl.png";
         sha256 = "1059lfaij0lmm1jsywfmnin9z8jalqh8yar9r8sj0qzk4nmjniss";
       };
@@ -394,7 +336,7 @@ with cfg;
     youtube-music =  {
       desktopName = "Youtube Music";
       url = "music.youtube.com";
-      icon = builtins.fetchurl {
+      icon = fetchurl {
         url = "https://vancedapp.com/static/media/logo.866a4e0b.svg";
         sha256 = "1axznpmfgmfqjgnq7z7vdjwmdsrk0qpc1rdlv9yyrcxfkyzqmvdv";
       };
@@ -402,7 +344,7 @@ with cfg;
     planttext =  {
       desktopName = "PlantText";
       url = "https://www.planttext.com/";
-      icon = builtins.fetchurl {
+      icon = fetchurl {
         url = "https://www.planttext.com/images/blue_gray.png";
         sha256 = "0n1p8g7gjxdp06fh36yqb10jvcbhxfc129xpvi1b10k1qb1vlj1h";
       };
@@ -415,7 +357,7 @@ with cfg;
     gmail =  {
       desktopName = "GMail";
       url = "gmail.com";
-      icon = builtins.fetchurl {
+      icon = fetchurl {
         url = "https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/256/Gmail-icon.png";
         sha256 = "1cldc9k30rlvchh7ng00hmn0prbh632z8h9fqclj466y8bgdp15j";
       };
@@ -423,7 +365,7 @@ with cfg;
     keymash =  {
       desktopName = "keyma.sh: Keyboard typing train";
       url = "https://keyma.sh/learn";
-      icon = builtins.fetchurl {
+      icon = fetchurl {
         url = "https://keyma.sh/static/media/logo_svg.ead5cacb.svg";
         sha256 = "1i6py2gnpmf548zwakh9gscnk5ggsd1j98z80yb6mr0fm84bgizy";
       };
@@ -454,5 +396,4 @@ with cfg;
       url = "trello.com";
     };
   };
-
 }

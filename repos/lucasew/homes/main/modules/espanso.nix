@@ -1,6 +1,7 @@
 {pkgs, config, lib, ...}:
-with lib;
 let
+  inherit (lib) mkOption mkEnableOption mkIf;
+  inherit (pkgs) espanso xclip;
   cfg = config.services.espanso;
   systemdUserService = import ../../../lib/systemdUserService.nix;
   yaml = pkgs.formats.yaml {};
@@ -54,11 +55,11 @@ in {
       espanso = systemdUserService {
         description = "Espanso: cross platform text expander in Rust";
         enable = true;
-        command = "${pkgs.espanso}/bin/espanso daemon";
+        command = "${espanso}/bin/espanso daemon";
       };
     };
     home.file.".config/espanso/default.yml".source = yaml.generate "default.yml" cfg.config;
-    home.packages = with pkgs; [
+    home.packages = [
       espanso
       xclip
     ];

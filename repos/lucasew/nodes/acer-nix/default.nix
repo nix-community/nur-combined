@@ -2,10 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{self, cfg, pkgs, config, lib, ... }:
+{self, global, pkgs, config, lib, ... }:
 let
+  inherit (self) inputs;
+  inherit (global) wallpaper username;
   hostname = "acer-nix";
-  send2kindle = pkgs.writeShellScriptBin "send2kindle" (pkgs.wrapDotenv "send2kindle.env" ''${pkgs.send2kindle}/bin/send2kindle "$@"'');
 in
 {
   imports =
@@ -15,11 +16,15 @@ in
       ./hardware-configuration.nix
       ../../modules/gui/system.nix
       ../../modules/polybar/system.nix
-      self.inputs.nix-ld.nixosModules.nix-ld
-      self.inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-      self.inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
+      inputs.nix-ld.nixosModules.nix-ld
+      inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+      inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
     ]
   ;
+
+  services.xserver.modules = with pkgs.xorg; [
+    xf86inputjoystick
+  ];
 
   # programs.steam.enable = true;
 
@@ -43,7 +48,7 @@ in
     };
   };
 
-  services.xserver.displayManager.lightdm.background = cfg.wallpaper;
+  services.xserver.displayManager.lightdm.background = wallpaper;
 
   services.auto-cpufreq.enable = true;
   # text expander in rust
@@ -75,7 +80,8 @@ in
     p7zip unzip # archiving
     virt-manager
     # Extra
-    send2kindle
+    custom.send2kindle
+    intel-compute-runtime # OpenCL
   ];
 
   programs.dconf.enable = true;
@@ -127,7 +133,7 @@ in
 
   # Users
   users.users = {
-    ${cfg.username} = {
+    ${username} = {
       extraGroups = [
         "adbusers"
       ]; 
@@ -147,16 +153,10 @@ in
     libvirtd.enable = true;
   };
 
-  # keybase
-  services = {
-    keybase.enable = true;
-    kbfs.enable = true;
-  };
-
   # não deixar explodir
   nix.maxJobs = 3;
   # kernel
-  boot.kernelPackages = pkgs.linuxPackages_5_10;
+  boot.kernelPackages = pkgs.linuxPackages_5_14;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

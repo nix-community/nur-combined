@@ -9,5 +9,11 @@ let
     tricks = [
       "d3dx9_36"
     ];
+    firstrunScript = ''
+      # gamepad camera fix
+      # source: https://www.youtube.com/watch?v=KMMoRstSgRw
+      mkdir -p "$HOME/Documents/Electronic Arts/Dead Space"
+      echo "Pad.RightStick.Y = Borked" > "$HOME/Documents/Electronic Arts/Dead Space/joypad.txt"
+    '';
   };
 in bin

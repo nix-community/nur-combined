@@ -1,9 +1,13 @@
-{pkgs, config, lib, ...}:
-with lib;
+{pkgs, cfg, config, lib, ...}:
 let
-  cfg = config.vps.alibot;
-  alibot = pkgs.callPackage "${
-    builtins.fetchGit {
+  inherit (builtins) fetchGit;
+  inherit (pkgs) callPackage dotenv;
+  inherit (lib) mkEnableOption types mkOption mkIf;
+  inherit (cfg) rootPath;
+
+  module = config.vps.alibot;
+  alibot = callPackage "${
+    fetchGit {
       url = "ssh://git@github.com/lucasew/alibot";
       rev = "5bf5a883f7e600905280a9ea4a445f575e94a04d";
     }
@@ -25,14 +29,14 @@ in
       };
     };
   };
-  config = mkIf cfg.enable {
+  config = mkIf module.enable {
     systemd = {
       services.alibot = {
         enable = true;
         serviceConfig = {
           Type = "simple";
           Restart = "always";
-          ExecStart = "${pkgs.dotenv}/bin/dotenv '@${cfg.secretsDotenv}' -- ${alibot}/bin/alibot -d '${cfg.stateStore}'";
+          ExecStart = "${dotenv}/bin/dotenv '@${module.secretsDotenv}' -- ${alibot}/bin/alibot -d '${module.stateStore}'";
         };
         wantedBy = [
           "default.target"

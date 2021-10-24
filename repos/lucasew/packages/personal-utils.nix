@@ -1,8 +1,10 @@
 {pkgs ? import <nixpkgs> {}, ...}:
-pkgs.symlinkJoin {
+let
+  inherit (pkgs) symlinkJoin writeShellScriptBin;
+in symlinkJoin {
   name = "personal-utils";
   paths = [
-    (pkgs.writeShellScriptBin "todo" ''
+    (writeShellScriptBin "todo" ''
       curl $(cat ~/.dotfiles/secrets/todo_endpoint.env) -d "$*"
     '')
   ];

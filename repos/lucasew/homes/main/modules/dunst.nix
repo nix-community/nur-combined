@@ -1,12 +1,17 @@
 {pkgs, lib, ...}:
+let
+  inherit (lib) mkForce;
+  inherit (pkgs) dunst procps;
+  inherit (pkgs.custom) rofi;
+in
 {
   services.dunst = {
     enable = true;
-    settings = lib.mkForce {};
+    settings = mkForce {};
   };
-  home.packages = with pkgs; [
+  home.packages = [
     dunst
-    custom_rofi
+    rofi
   ];
   xdg.configFile."dunst/dunstrc" = {
     text = ''
@@ -28,7 +33,7 @@ idle_threshold = 120
 font = rissole 8
 line_height = 4
 markup = full
-dmenu = ${pkgs.custom_rofi}/bin/dmenu
+dmenu = ${rofi}/bin/dmenu
 format = %s %p\n%b
 alignment = left
 show_age_threshold = 60
@@ -77,7 +82,7 @@ timeout = 10
         if [[ -v VERBOSE ]]; then
           pkillVerbose="-e"
         fi
-        $DRY_RUN_CMD ${pkgs.procps}/bin/pkill -u $USER $pkillVerbose dunst || true
+        $DRY_RUN_CMD ${procps}/bin/pkill -u $USER $pkillVerbose dunst || true
         unset pkillVerbose
     '';
   };

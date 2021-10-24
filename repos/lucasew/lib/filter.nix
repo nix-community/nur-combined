@@ -1,5 +1,6 @@
-with builtins;
 let
+  inherit (builtins) length head tail;
+
   filter = fn: items:
     if (length items) == 0
     then [ ]
@@ -10,6 +11,4 @@ let
         newH = if (fn h) then [ h ] else [ ];
       in
       newH ++ (filter fn t);
-in
-filter
-
+in filter

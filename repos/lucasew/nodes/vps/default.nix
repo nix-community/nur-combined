@@ -1,10 +1,14 @@
-{pkgs, ...}:
-with builtins;
-{
+{pkgs, lib, global, ...}:
+let
+  inherit (flake) inputs;
+  inherit (pkgs) dotenv;
+  inherit (global) username rootPath;
+  inherit (lib) mkOverride;
+in {
   imports = [
     ../common/default.nix
-    "${flake.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
-    "${flake.inputs.impermanence}/nixos.nix"
+    "${inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
+    "${inputs.impermanence}/nixos.nix"
     ../../modules/cachix/system.nix
     ./modules
   ];
@@ -30,7 +34,7 @@ with builtins;
 
   nixpkgs.config.allowUnfree = true;
   networking.hostName = "cloudhead";
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     dotenv
   ];
   networking.firewall = {
@@ -61,7 +65,7 @@ with builtins;
     postgresql = {
       enable = true;
       enableTCPIP = true;
-      authentication = pkgs.lib.mkOverride 10 ''
+      authentication = mkOverride 10 ''
         local all all trust
         host all all 192.168.69.0/24 trust
       '';

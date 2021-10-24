@@ -1,10 +1,12 @@
 {pkgs, ...}:
 let
+  inherit (pkgs) writeShellScript rclone;
+  inherit (builtins) toString;
   systemdUserService = import ../../../lib/systemdUserService.nix;
   dlnaify = {path, name, extraFlags ? ""}: 
   let
-    drv = pkgs.writeShellScript "dlna" ''
-      ${pkgs.rclone}/bin/rclone serve dlna --read-only --name "${name}" "${builtins.toString path}" ${extraFlags}
+    drv = writeShellScript "dlna" ''
+      ${rclone}/bin/rclone serve dlna --read-only --name "${name}" "${toString path}" ${extraFlags}
     '';
   in "${drv}";
 in

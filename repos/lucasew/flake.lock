@@ -52,6 +52,21 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1601282935,
+        "narHash": "sha256-WQAFV6sGGQxrRs3a+/Yj9xUYvhTpukQJIcMbIi7LCJ4=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "588973065fce51f4763287f0fda87a174d78bf48",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -88,6 +103,28 @@
         "type": "github"
       }
     },
+    "mach-nix": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pypi-deps-db": "pypi-deps-db"
+      },
+      "locked": {
+        "lastModified": 1634281798,
+        "narHash": "sha256-YCLRUeDfQzbZHNq4jdPUM+2O4G38jsrRSBgdght2sX0=",
+        "owner": "DavHau",
+        "repo": "mach-nix",
+        "rev": "b56a541af15efd2062ffb9abb69f63dcceafb64d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DavHau",
+        "repo": "mach-nix",
+        "type": "github"
+      }
+    },
     "nix-ld": {
       "inputs": {
         "nixpkgs": [
@@ -106,6 +143,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "nix-ld",
+        "type": "github"
+      }
+    },
+    "nix-vscode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634836249,
+        "narHash": "sha256-ittDrL9UpaY98bH1YdMQvZAE9DoFJlN7tf8XQxPYEUQ=",
+        "owner": "lucasew",
+        "repo": "nix-vscode",
+        "rev": "1e26d59586d2ea5e20f3f7f585f891db3d7eff14",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "nix-vscode",
         "type": "github"
       }
     },
@@ -205,6 +258,22 @@
         "type": "github"
       }
     },
+    "pypi-deps-db": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1622970040,
+        "narHash": "sha256-u//RFnae/XMIhoy83G2uH2Qu/1LiUhVCdwwY1xj4Ufs=",
+        "owner": "DavHau",
+        "repo": "pypi-deps-db",
+        "rev": "be6591698c67a86a69c81fef72167e38d038a9fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DavHau",
+        "repo": "pypi-deps-db",
+        "type": "github"
+      }
+    },
     "redial_proxy": {
       "flake": false,
       "locked": {
@@ -228,7 +297,9 @@
         "dotenv": "dotenv",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "mach-nix": "mach-nix",
         "nix-ld": "nix-ld",
+        "nix-vscode": "nix-vscode",
         "nixgram": "nixgram",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

@@ -1,5 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
-pkgs.writeShellScriptBin "pkg" ''
+let
+  inherit (pkgs) writeShellScriptBin;
+in writeShellScriptBin "pkg" ''
   set -euf -o pipefail
   function bold {
       echo -e "$(tput bold)$@$(tput sgr0)"
