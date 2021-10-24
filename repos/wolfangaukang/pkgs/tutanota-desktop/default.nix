@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, makeWrapper, electron, libsecret }:
+{ stdenv, lib, fetchurl, makeDesktopItem, copyDesktopItems, makeWrapper,
+electron, libsecret }:
 
 stdenv.mkDerivation rec {
   pname = "tutanota-desktop";
@@ -6,18 +7,19 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/tutao/tutanota/releases/download/tutanota-release-${version}/${pname}-${version}-unpacked-linux.tar.gz";
-    name = "${pname}-${version}.tar.gz";
+    name = "tutanota-desktop-${version}.tar.gz";
     sha256 = "sha256-UOb63+NfW6mHKaj3PDEzvz5hcmJBIISq02rtwgSZMjo=";
   };
 
   nativeBuildInputs = [
+    copyDesktopItems
     makeWrapper
   ];
 
   dontConfigure = true;
   dontBuild = true;
 
-  desktopItem = makeDesktopItem {
+  desktopItems = makeDesktopItem {
     name = pname;
     exec = "tutanota-desktop";
     icon = "tutanota-desktop";
@@ -26,30 +28,25 @@ stdenv.mkDerivation rec {
     genericName = "Email Reader";
   };
 
-
-  installPhase = let
-    libPath = lib.makeLibraryPath [ libsecret ];
-  in ''
+  installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/opt/tutanota-desktop \
-             $out/share/${pname}
+    mkdir -p $out/bin $out/opt/tutanota-desktop $out/share/tutanota-desktop
 
     cp -r ./ $out/opt/tutanota-desktop
-    cp -r $out/opt/tutanota-desktop/{locales,resources} $out/share/${pname}
-    install -Dm444 ${desktopItem}/share/applications/${pname}.desktop -t "$out/share/applications/"
+    mv $out/opt/tutanota-desktop/{locales,resources} $out/share/tutanota-desktop
 
     for icon_size in 64 512; do
       icon=resources/icons/icon/$icon_size.png
-      path=$out/share/icons/hicolor/$icon_size'x'$icon_size/apps/${pname}.png
+      path=$out/share/icons/hicolor/$icon_size'x'$icon_size/apps/tutanota-desktop.png
       install -Dm644 $icon $path
     done
 
     makeWrapper ${electron}/bin/electron \
       $out/bin/tutanota-desktop \
-      --add-flags $out/share/${pname}/resources/app.asar \
+      --add-flags $out/share/tutanota-desktop/resources/app.asar \
       --run "mkdir /tmp/tutanota" \
-      --prefix LD_LIBRARY_PATH : ${libPath}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}
 
     runHook postInstall
   '';
