@@ -31,8 +31,8 @@
   })
   (fetchNuGet {
     name = "FFmpeg.AutoGen";
-    version = "4.4.0";
-    sha256 = "02n4az1jv30078019png9gbspygz051inxsn6w4iar20dqp55g2w";
+    version = "4.4.1";
+    sha256 = "01j989g68arm2d8abq44hp0f22pp6azf2xi7wi7hv7m4sl0l9cwp";
   })
   (fetchNuGet {
     name = "GdkSharp";
@@ -513,6 +513,11 @@
     name = "Ryujinx.Graphics.Nvdec.Dependencies";
     version = "4.4.0-build7";
     sha256 = "0g1l3lgs0ffxp64ka81v6q1cgsdirl1qlf73255v29r3v337074m";
+  })
+  (fetchNuGet {
+    name = "Ryujinx.Graphics.Nvdec.Dependencies";
+    version = "4.4.0-build9";
+    sha256 = "121zmh0byi22qsc9b25wv58kwcq6pmk7zf4f2rfafmdjvwx8bkxc";
   })
   (fetchNuGet {
     name = "Ryujinx.SDL2-CS";
