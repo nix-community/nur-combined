@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "jml";
     repo = pname;
     rev = "2f8ac25c6ad8efcf160d2b480825b1cbb6772aab";
-    hash = "sha256-Qw7Cu9q0ZgK/RTvyDdHM5N3eBaKjtYqYH0J+hKMUZX8=";
+    sha256 = "sha256-Qw7Cu9q0ZgK/RTvyDdHM5N3eBaKjtYqYH0J+hKMUZX8=";
   };
 
   patches = [

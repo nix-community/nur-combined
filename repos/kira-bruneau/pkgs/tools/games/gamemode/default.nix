@@ -30,14 +30,14 @@ stdenv.mkDerivation rec {
     # See https://github.com/FeralInteractive/gamemode/pull/323
     (fetchpatch {
       url = "https://github.com/FeralInteractive/gamemode/commit/be44b7091baa33be6dda60392e4c06c2f398ee72.patch";
-      sha256 = "TlDUETs4+N3pvrVd0FQGlGmC+6ByhJ2E7gKXa7suBtE=";
+      sha256 = "sha256-TlDUETs4+N3pvrVd0FQGlGmC+6ByhJ2E7gKXa7suBtE=";
     })
 
     # Fix loading shipped config when using a prefix other than /usr
     # See https://github.com/FeralInteractive/gamemode/pull/324
     (fetchpatch {
       url = "https://github.com/FeralInteractive/gamemode/commit/b29aa903ce5acc9141cfd3960c98ccb047eca872.patch";
-      sha256 = "LwBzBJQ7dfm2mFVSOSPjJP+skgV5N6h77i66L1Sq+ZM=";
+      sha256 = "sha256-LwBzBJQ7dfm2mFVSOSPjJP+skgV5N6h77i66L1Sq+ZM=";
     })
 
     # Add @libraryPath@ template variable to fix loading the PRELOAD library

@@ -15,7 +15,7 @@ buildPythonPackage rec {
     owner = "gabrielcnr";
     repo = pname;
     rev = version;
-    hash = "sha256-zv7f416GI+2E5daN33kEvFIQr/N1NpAL59Vii7W5j08=";
+    sha256 = "sha256-zv7f416GI+2E5daN33kEvFIQr/N1NpAL59Vii7W5j08=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;

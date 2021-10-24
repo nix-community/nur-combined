@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://dl.clonehero.net/${name}-v${lib.removePrefix "0" version}/${name}-linux.tar.gz";
-    hash = "sha256-sR7svBuAc3EJQp/My8Ykt1GPQtO+MiSfIBn6UpplMk0=";
+    sha256 = "sha256-sR7svBuAc3EJQp/My8Ykt1GPQtO+MiSfIBn6UpplMk0=";
   };
 
   outputs = [ "out" "doc" ];

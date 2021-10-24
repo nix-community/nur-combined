@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildPythonApplication
 , fetchFromGitHub
 , poetry
@@ -12,15 +11,20 @@
 
 buildPythonApplication rec {
   pname = "cmake-language-server";
-  version = "unstable-2021-03-28";
+  version = "0.1.3";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "regen100";
     repo = pname;
-    rev = "a5af5b505f8810760168dc250caf8404370b15c3";
-    hash = "sha256-uRn4Sl81ZdMZprYlDQcjNN/rl8SAm6Po7yZd3CtP4kA=";
+    rev = "v${version}";
+    sha256 = "sha256-eZBnygEYjLzk29tvLGg1JdhCECc5x2MewHRSChMuCjo=";
   };
+
+  patches = [
+    # Test timeouts occasionally cause the build to fail
+    ./disable-test-timeouts.patch
+  ];
 
   nativeBuildInputs = [ poetry ];
   propagatedBuildInputs = [ pygls pyparsing ];
@@ -34,6 +38,5 @@ buildPythonApplication rec {
     homepage = "https://github.com/regen100/cmake-language-server";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = stdenv.isDarwin; # pygls hangs at tests/test_protocol.py on darwin
   };
 }

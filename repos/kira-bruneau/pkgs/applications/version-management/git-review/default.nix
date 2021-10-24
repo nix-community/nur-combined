@@ -16,7 +16,7 @@ buildPythonApplication rec {
 
   src = fetchurl {
     url = "https://opendev.org/opendev/${pname}/archive/${version}.tar.gz";
-    hash = "sha256-3A1T+/iXhNeMS2Aww5jISoiNExdv9N9/kwyATSuwVTE=";
+    sha256 = "sha256-3A1T+/iXhNeMS2Aww5jISoiNExdv9N9/kwyATSuwVTE=";
   };
 
   outputs = [ "out" "man" ];

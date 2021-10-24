@@ -16,7 +16,7 @@ buildPythonPackage rec {
     owner = "krenyy";
     repo = "botw_havok";
     rev = "dc7966c7780ef8c8a35e061cd3aacc20020fa2d7";
-    hash = "sha256-eUbs8Ip/2S1cGQbmL0D5d1uTAF9TvnAzIxQE2tdnltI=";
+    sha256 = "sha256-eUbs8Ip/2S1cGQbmL0D5d1uTAF9TvnAzIxQE2tdnltI=";
   };
 
   patches = [

@@ -1,5 +1,5 @@
 diff --git a/bcml/_api.py b/bcml/_api.py
-index 88a0007..4992ffc 100644
+index 66d2ce5..f3a11ed 100644
 --- a/bcml/_api.py
 +++ b/bcml/_api.py
 @@ -69,10 +69,6 @@ class Api:
@@ -13,7 +13,7 @@ index 88a0007..4992ffc 100644
              "showChangelog": updated and util.get_settings("changelog"),
          }
          if updated:
-@@ -763,46 +759,6 @@ class Api:
+@@ -800,46 +796,6 @@ class Api:
          help_thread = Thread(target=help_window, args=(self.host,))
          help_thread.start()
  
@@ -61,10 +61,10 @@ index 88a0007..4992ffc 100644
          opener = Thread(target=start_new_instance)
          opener.start()
 diff --git a/bcml/assets/src/js/App.jsx b/bcml/assets/src/js/App.jsx
-index c91c653..12c2ba1 100644
+index 2826c26..ec03ac1 100644
 --- a/bcml/assets/src/js/App.jsx
 +++ b/bcml/assets/src/js/App.jsx
-@@ -49,7 +49,6 @@ class App extends React.Component {
+@@ -51,7 +51,6 @@ class App extends React.Component {
              confirmText: "",
              confirmCallback: () => {},
              showAbout: false,
@@ -72,7 +72,7 @@ index c91c653..12c2ba1 100644
              changelog: true,
              showChangelog: false,
              version: "3.0"
-@@ -336,16 +335,6 @@ class App extends React.Component {
+@@ -381,16 +380,6 @@ class App extends React.Component {
              .catch(this.props.onError);
      };
  
@@ -89,7 +89,7 @@ index c91c653..12c2ba1 100644
      setProgress = (title, msg) => {
          this.setState({
              progressTitle: title,
-@@ -373,9 +362,6 @@ class App extends React.Component {
+@@ -418,9 +407,6 @@ class App extends React.Component {
                                  onClick={() => pywebview.api.save_mod_list()}>
                                  Save Mod List
                              </Dropdown.Item>
@@ -99,7 +99,7 @@ index c91c653..12c2ba1 100644
                              <Dropdown.Item as="a" href="/index.html?firstrun">
                                  Run Setup Wizard
                              </Dropdown.Item>
-@@ -504,14 +490,6 @@ class App extends React.Component {
+@@ -554,14 +540,6 @@ class App extends React.Component {
                      message={this.state.confirmText}
                      onClose={this.state.confirmCallback.bind(this)}
                  />
@@ -114,7 +114,7 @@ index c91c653..12c2ba1 100644
                  <BackupModal
                      show={this.state.showBackups}
                      busy={this.state.showProgress}
-@@ -639,25 +617,6 @@ const ConfirmDialog = props => {
+@@ -698,25 +676,6 @@ const ConfirmDialog = props => {
      );
  };
  
@@ -141,7 +141,7 @@ index c91c653..12c2ba1 100644
      constructor(props) {
          super(props);
 diff --git a/bcml/assets/src/js/Settings.jsx b/bcml/assets/src/js/Settings.jsx
-index cbc8206..392596c 100644
+index b837396..e5980fa 100644
 --- a/bcml/assets/src/js/Settings.jsx
 +++ b/bcml/assets/src/js/Settings.jsx
 @@ -24,7 +24,6 @@ class Settings extends React.Component {
@@ -152,7 +152,7 @@ index cbc8206..392596c 100644
              valid: false,
              loaded: false,
              nsfw: false,
-@@ -539,24 +538,6 @@ class Settings extends React.Component {
+@@ -540,24 +539,6 @@ class Settings extends React.Component {
                                  />
                              </OverlayTrigger>
                          </Form.Group>
@@ -178,7 +178,7 @@ index cbc8206..392596c 100644
                              <OverlayTrigger
                                  overlay={
 diff --git a/bcml/util.py b/bcml/util.py
-index 239011a..9fd2d3d 100644
+index a1d3cb2..643310d 100644
 --- a/bcml/util.py
 +++ b/bcml/util.py
 @@ -579,7 +579,6 @@ DEFAULT_SETTINGS = {
@@ -189,7 +189,7 @@ index 239011a..9fd2d3d 100644
      "nsfw": False,
      "last_version": VERSION,
      "changelog": True,
-@@ -1294,25 +1293,6 @@ def get_open_port():
+@@ -1300,25 +1299,6 @@ def get_open_port():
      return port
  
  

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     owner = "coringao";
     repo = pname;
     rev = version;
-    hash = "sha256-uSbnXBpkeGM9X6DU7AikT7hG/emu67PXuGdm6xfB8To=";
+    sha256 = "sha256-uSbnXBpkeGM9X6DU7AikT7hG/emu67PXuGdm6xfB8To=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

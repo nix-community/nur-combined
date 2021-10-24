@@ -36,11 +36,11 @@ let
       owner = "ocornut";
       repo = "imgui";
       rev = "v${version}";
-      hash = "sha256-rRkayXk3xz758v6vlMSaUu5fui6NR8Md3njhDB0gJ18=";
+      sha256 = "sha256-rRkayXk3xz758v6vlMSaUu5fui6NR8Md3njhDB0gJ18=";
     };
     patch = fetchurl {
       url = "https://wrapdb.mesonbuild.com/v2/imgui_${version}-1/get_patch";
-      hash = "sha256-bQC0QmkLalxdj4mDEdqvvOFtNwz2T1MpTDuMXGYeQ18=";
+      sha256 = "sha256-bQC0QmkLalxdj4mDEdqvvOFtNwz2T1MpTDuMXGYeQ18=";
     };
   };
 in stdenv.mkDerivation rec {
@@ -52,7 +52,7 @@ in stdenv.mkDerivation rec {
     repo = "MangoHud";
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "RRtti0VnB6SXrpFYaEqANvpgvP/Dkvc+x/I40AXaspU=";
+    sha256 = "sha256-RRtti0VnB6SXrpFYaEqANvpgvP/Dkvc+x/I40AXaspU=";
   };
 
   outputs = [ "out" "doc" "man" ];

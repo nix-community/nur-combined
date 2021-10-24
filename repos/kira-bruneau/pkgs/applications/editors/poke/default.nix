@@ -23,7 +23,7 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
-    hash = "sha256-unhjA0obCABLDuj4i9qUFgcH6aeB1VVvVVtQdYPPDxs=";
+    sha256 = "sha256-unhjA0obCABLDuj4i9qUFgcH6aeB1VVvVVtQdYPPDxs=";
   };
 
   outputs = [ "out" "dev" "info" "lib" "man" ];

@@ -1174,6 +1174,15 @@ let
         sha1 = "e39b09aea9def866a8f206e288af63919bae39c4";
       };
     };
+    "array-flat-polyfill-1.0.1" = {
+      name = "array-flat-polyfill";
+      packageName = "array-flat-polyfill";
+      version = "1.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/array-flat-polyfill/-/array-flat-polyfill-1.0.1.tgz";
+        sha512 = "hfJmKupmQN0lwi0xG6FQ5U8Rd97RnIERplymOv/qpq8AoNKPPAnxJadjFA23FNWm88wykh9HmpLJUUwUtNU/iw==";
+      };
+    };
     "array-unique-0.3.2" = {
       name = "array-unique";
       packageName = "array-unique";
@@ -5522,6 +5531,7 @@ let
       sources."arr-diff-4.0.0"
       sources."arr-flatten-1.1.0"
       sources."arr-union-3.1.0"
+      sources."array-flat-polyfill-1.0.1"
       sources."array-unique-0.3.2"
       sources."asn1.js-4.10.1"
       (sources."assert-1.5.0" // {

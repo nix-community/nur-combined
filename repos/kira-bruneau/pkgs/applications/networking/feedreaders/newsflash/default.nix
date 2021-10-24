@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     owner = "news-flash";
     repo = "news_flash_gtk";
     rev = "v.${version}";
-    hash = "sha256-c/zT+FNRDu7jdooNTEYbeG9jLrL+9txe+aC7nSy4bB0=";
+    sha256 = "sha256-c/zT+FNRDu7jdooNTEYbeG9jLrL+9txe+aC7nSy4bB0=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-yTElaPSoTiJpfIGzuNJCWxVzdWBzim5rt0N2r0ARhvM=";
+    sha256 = "sha256-yTElaPSoTiJpfIGzuNJCWxVzdWBzim5rt0N2r0ARhvM=";
   };
 
   patches = [

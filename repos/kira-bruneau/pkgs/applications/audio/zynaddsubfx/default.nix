@@ -63,7 +63,7 @@ in stdenv.mkDerivation rec {
     repo = pname;
     rev = version;
     fetchSubmodules = true;
-    sha256 = "1lk3s5KV67yEVFG7I+24i4BXi/Hd0+DIYdtdRLlWdpU=";
+    sha256 = "sha256-1lk3s5KV67yEVFG7I+24i4BXi/Hd0+DIYdtdRLlWdpU=";
   };
 
   outputs = [ "out" "doc" ];

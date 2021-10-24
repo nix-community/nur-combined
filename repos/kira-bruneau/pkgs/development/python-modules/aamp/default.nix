@@ -13,7 +13,7 @@ buildPythonPackage rec {
     owner = "zeldamods";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-cmn2THRhGWebqNPakMT25Lahzwm822DKMYh5Kgn7Pmw=";
+    sha256 = "sha256-cmn2THRhGWebqNPakMT25Lahzwm822DKMYh5Kgn7Pmw=";
   };
 
   propagatedBuildInputs = [

@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , setuptools-scm
@@ -13,13 +12,13 @@
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "0.10.3";
+  version = "0.11.2";
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-oqIVBb9xPCXpzPCp5WC28otCNSoxq+X0JJ8QEXgYuJ4=";
+    sha256 = "sha256-zgQ5m198HMyFFrASSYCzn0EDLLeVy2j4LD0rEyEgahQ=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/openlawlibrary/pygls";
     license = licenses.asl20;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = !isPy3k || stdenv.isDarwin; # hangs at tests/test_protocol.py on darwin
+    broken = !isPy3k;
   };
 }

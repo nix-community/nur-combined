@@ -7,26 +7,27 @@
 , bison
 , check
 , flex
+, gdk-pixbuf
 , librsvg
 , libstartup_notification
 , libxkbcommon
 , pango
 , wayland
 , wayland-protocols
+, xcb-util-cursor
 , xcbutilwm
-, xcbutilxrm
 }:
 
 stdenv.mkDerivation rec {
   pname = "rofi-wayland";
-  version = "1.6.1";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "lbonn";
     repo = "rofi";
-    rev = "${version}-wayland";
+    rev = "${version}+wayland1";
     fetchSubmodules = true;
-    sha256 = "sha256-Kg8O4jKtzjwrz+wDm/TtqT0Vu+QaE1gCc5g5TMKeMNg=";
+    sha256 = "sha256-x+kgbd7pBCWDf7czJMlk2HzbwnnF/ix8NPr3mSmB1MA=";
   };
 
   nativeBuildInputs = [
@@ -39,23 +40,19 @@ stdenv.mkDerivation rec {
     bison
     check
     flex
-    librsvg
+    gdk-pixbuf
     libstartup_notification
     libxkbcommon
     pango
     wayland
     wayland-protocols
+    xcb-util-cursor
     xcbutilwm
-    xcbutilxrm
   ];
 
   mesonFlags = [
     "-Dwayland=enabled"
   ];
-
-  # Fixes:
-  # ../source/rofi-icon-fetcher.c:190:17: error: format not a string literal and no format arguments [-Werror=format-security]
-  hardeningDisable = [ "format" ];
 
   doCheck = true;
 

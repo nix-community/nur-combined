@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
   # Obtain data.zip from Make and Play edition
   src = fetchurl {
     url = "https://thelettervsixtim.es/makeandplay/data.zip";
-    hash = "sha256-b6483sBgYtBYJ9QYHEOBU/PqOQBDekTbc7zSl5n+V+A=";
+    sha256 = "sha256-b6483sBgYtBYJ9QYHEOBU/PqOQBDekTbc7zSl5n+V+A=";
     meta.licence = lib.licenses.unfree;
   };
 

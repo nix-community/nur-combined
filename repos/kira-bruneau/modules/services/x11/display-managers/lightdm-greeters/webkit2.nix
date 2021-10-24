@@ -93,7 +93,7 @@ in
         example = literalExample ''
           fetchzip {
             url = "https://github.com/Litarvan/lightdm-webkit-theme-litarvan/releases/download/v3.1.0/lightdm-webkit-theme-litarvan-3.1.0.tar.gz";
-            hash = "sha256-eHt8Qy9qi9YV4dzlTTqVlZwreXjr01KTFooBy4jtyL4=";
+            sha256 = "sha256-eHt8Qy9qi9YV4dzlTTqVlZwreXjr01KTFooBy4jtyL4=";
           };
         '';
         description = ''
@@ -115,7 +115,7 @@ in
           type = types.path;
           default = pkgs.fetchurl {
             url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/4f041870efa1a6f0799ef4b32bb7be2cafee7a74/logo/nixos.svg";
-            hash = "sha256-E+qpO9SSN44xG5qMEZxBAvO/COPygmn8r50HhgCRDSw=";
+            sha256 = "sha256-E+qpO9SSN44xG5qMEZxBAvO/COPygmn8r50HhgCRDSw=";
           };
           description = ''
             Path to logo image for use by greeter themes.

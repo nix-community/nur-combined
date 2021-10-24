@@ -13,7 +13,7 @@ buildPythonPackage rec {
     owner = "ValvePython";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-6ozglzZZNKDtADkHwxX2Zsnkh6BE8WbcRcC9HkTTgPU=";
+    sha256 = "sha256-6ozglzZZNKDtADkHwxX2Zsnkh6BE8WbcRcC9HkTTgPU=";
   };
 
   checkInputs = [ mock pytestCheckHook ];
