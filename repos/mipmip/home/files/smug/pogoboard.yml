@@ -1,0 +1,47 @@
+session: pogoboard
+
+root: ~/cPoppyGo/pogoboard
+
+before_start:
+
+stop:
+
+windows:
+  - name: board
+    layout: main-vertical
+    commands:
+      - echo "hi"
+    panes:
+      - type: horizontal
+        commands:
+          - ./pogocli
+      - type: horizontal
+        commands:
+          - ./sentry --build="make build_cli" --run="ls"
+      - type: horizontal
+        commands:
+          - ./sentry
+
+  - name: pay
+    root: ~/cPoppyGo/pogopay
+    layout: main-vertical
+    commands:
+     - echo "hi"
+    panes:
+      - type: horizontal
+        commands:
+          - ./rerun.sh
+      - type: horizontal
+        commands:
+          - stripe listen --forward-to localhost:4242/webhook
+
+  - name: reddis
+    root: ~/cPoppyGo/redis-server
+    layout: main-vertical
+    commands:
+     - echo "hi"
+    panes:
+      - type: horizontal
+        commands:
+          - ./rerun.sh
+

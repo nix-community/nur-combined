@@ -1,0 +1,10 @@
+open_with 
+cd >
+cd ~
+rename activeer.html Activeer.html
+cd 
+wq
+
+delete 
+shell 
+delete

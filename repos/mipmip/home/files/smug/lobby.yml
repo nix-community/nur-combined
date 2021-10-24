@@ -1,0 +1,7 @@
+session: lobby
+root: ""
+before_start: []
+stop: []
+windows:
+- name: zsh
+  root: /home/pim

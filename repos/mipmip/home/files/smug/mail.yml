@@ -1,0 +1,10 @@
+session: mail
+root: ""
+before_start: []
+stop: []
+windows:
+- name: zsh
+  root: /home/pim
+  commands:
+  - aerc
+

@@ -1,0 +1,8 @@
+session: homestead
+root: ""
+before_start: []
+stop: []
+windows:
+- name: zsh
+  root: /home/pim/Sys/homestead
+  before_start: []

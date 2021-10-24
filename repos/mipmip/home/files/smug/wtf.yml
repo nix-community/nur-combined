@@ -1,0 +1,13 @@
+session: wtf
+
+root: ~/config/wtfutil
+
+before_start:
+
+stop:
+
+windows:
+  - name: wtf
+    layout: main-vertical
+    commands:
+      - wtfutil
