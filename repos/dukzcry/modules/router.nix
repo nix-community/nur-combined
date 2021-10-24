@@ -20,6 +20,7 @@ in {
       systemPackages = with pkgs; [
         picocom
         jellyfin-media-player
+        transmission-remote-gtk
       ];
     };
     nix.buildMachines = [{
@@ -32,5 +33,8 @@ in {
       builders-use-substitutes = true
     '';
     nix.distributedBuilds = true;
+
+    virtualisation.libvirtd.enable = lib.mkForce false;
+    services.tor.enable = lib.mkForce false;
   };
 }
