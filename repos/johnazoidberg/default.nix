@@ -99,7 +99,9 @@ rec {
   ##     HPE     ##
   #################
   ams = pkgs.callPackage ./pkgs/ams.nix {};
-  # TODO: Add python-ilorest-library
+  #python-ilorest-library = pkgs.python3Packages.python-ilorest-library;
+  #python-ilorest-library = pkgs.callPackage ./pkgs/python-pkgs/python-ilorest-library.nix {};
+  # TODO: Build from source at https://github.com/HewlettPackard/python-redfish-utility
   ilorest = pkgs.callPackage ./pkgs/ilorest.nix {};
   hponcfg = pkgs.callPackage ./pkgs/hponcfg.nix {};
   ssacli = pkgs.callPackage ./pkgs/ssacli.nix {};
