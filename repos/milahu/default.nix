@@ -28,6 +28,10 @@
 
   recaf-bin = pkgs.callPackage ./pkgs/recaf-bin/default.nix { };
 
+  github-downloader = pkgs.callPackage ./pkgs/github-downloader/default.nix { };
+
+  oci-image-generator = pkgs.callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
