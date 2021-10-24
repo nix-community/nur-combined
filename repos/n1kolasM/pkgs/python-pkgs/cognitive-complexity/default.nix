@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi }:
+{ lib, buildPythonPackage, fetchPypi }:
 buildPythonPackage rec {
   pname = "cognitive_complexity";
   version = "0.0.4";
@@ -11,10 +11,9 @@ buildPythonPackage rec {
   # Tests are broken: pytest can't find tests properly
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Library to calculate Python functions cognitive complexity via code";
     homepage = https://github.com/Melevir/cognitive_complexity;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }

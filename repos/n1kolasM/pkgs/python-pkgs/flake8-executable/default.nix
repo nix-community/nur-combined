@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , flake8 }:
 buildPythonPackage rec {
   pname = "flake8-executable";
@@ -11,11 +11,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flake8 ];
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A Flake8 plugin for checking executable permissions and shebangs.";
     homepage = https://pypi.org/project/flake8-executable;
     license = licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, six }:
+{ lib, buildPythonPackage, fetchPypi, six }:
 buildPythonPackage rec {
   pname = "mando";
   version = "0.6.4";
@@ -11,11 +11,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six ];
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Create Python CLI apps with little to no effort at all!";
     homepage = https://pypi.org/project/mando;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

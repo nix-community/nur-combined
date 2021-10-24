@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , flake8, isort, testfixtures }:
 buildPythonPackage rec {
   pname = "flake8-isort";
@@ -11,11 +11,10 @@ buildPythonPackage rec {
   doCheck = false;
   propagatedBuildInputs = [ flake8 isort testfixtures ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "flake8 plugin that integrates isort.";
     homepage = https://pypi.org/project/flake8-isort;
     license = licenses.gpl2;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

@@ -1,4 +1,4 @@
-{ stdenv, mkDerivation, qmake, qttools, qtbase, fetchFromGitHub, autoPatchelfHook, wrapQtAppsHook }:
+{ stdenv, lib, mkDerivation, qmake, qttools, qtbase, fetchFromGitHub, autoPatchelfHook, wrapQtAppsHook }:
 let
   platformToDir = platform:
     if platform.isLinux && platform.isx86_32
@@ -26,7 +26,7 @@ mkDerivation {
     cp -r SpriteSheetPacker/defaultFormats $out/bin
     cp SpriteSheetPacker/3rdparty/PVRTexTool/${platformToDir stdenv.hostPlatform}/libPVRTexLib.so $out/lib
   '';
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Sprite sheet generator based on Qt";
     homepage = "https://amakaseev.github.io/sprite-sheet-packer/";
     license = licenses.unfree; # Some parts of output are not free redistributable

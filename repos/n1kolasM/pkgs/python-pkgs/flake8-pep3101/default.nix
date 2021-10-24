@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , flake8, pytest, testfixtures }:
 buildPythonPackage rec {
   pname = "flake8-pep3101";
@@ -12,11 +12,10 @@ buildPythonPackage rec {
   checkInputs = [ pytest testfixtures ];
   propagatedBuildInputs = [ flake8 ];
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Checks for old string formatting.";
     homepage = https://pypi.org/project/flake8-pep3101;
     license = licenses.gpl2;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

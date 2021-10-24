@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, tox }:
+{ lib, buildPythonPackage, fetchPypi, pytest, tox }:
 buildPythonPackage rec {
   pname = "darglint";
   version = "1.1.0";
@@ -14,11 +14,10 @@ buildPythonPackage rec {
     tox
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A utility for ensuring Google-style docstrings stay up to date with the source code";
     homepage = https://pypi.org/project/darglint;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

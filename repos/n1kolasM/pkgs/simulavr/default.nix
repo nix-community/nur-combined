@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, autoreconfHook, python, texinfo }:
+{ stdenv, lib, fetchgit, autoreconfHook, python, texinfo }:
 stdenv.mkDerivation rec {
   name = "simulavr-${version}";
   version = "1.2dev";
@@ -9,10 +9,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = false;
   };
   buildInputs = [ autoreconfHook python texinfo ];
-  meta = {
+  meta = with lib; {
     description = "Simulavr is a simulator for the Atmel AVR family of 8-bit risc microcontrollers.";
     homepage = https://www.nongnu.org/simulavr/;
-    license = stdenv.lib.licenses.gpl2Plus;
-    platforms = stdenv.lib.platforms.unix;
+    license = licenses.gpl2Plus;
+    platforms = platforms.unix;
   };
 }

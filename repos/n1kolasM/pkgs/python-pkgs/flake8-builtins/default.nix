@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, flake8 }:
+{ lib, buildPythonPackage, fetchPypi, flake8 }:
 buildPythonPackage rec {
   pname = "flake8-builtins";
   version = "1.4.2";
@@ -12,11 +12,10 @@ buildPythonPackage rec {
   doCheck = false;
   propagatedBuildInputs = [ flake8 ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Check for python builtins being used as variables or parameters.";
     homepage = https://pypi.org/project/flake8-builtins;
     license = licenses.gpl2;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

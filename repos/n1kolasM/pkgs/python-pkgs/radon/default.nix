@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , mando, colorama, flake8-polyfill, future }:
 buildPythonPackage rec {
   pname = "radon";
@@ -12,11 +12,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ mando colorama flake8-polyfill future ];
   doCheck = false;
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Code Metrics in Python";
     homepage = https://pypi.org/project/radon;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

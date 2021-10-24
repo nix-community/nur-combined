@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, poetry, flake8, setuptools }:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry, flake8, setuptools }:
 buildPythonPackage rec {
   pname = "flake8-broken-line";
   version = "0.1.1";
@@ -14,11 +14,10 @@ buildPythonPackage rec {
   nativeBuildInputs = [ poetry ];
   propagatedBuildInputs = [ flake8 setuptools ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Flake8 plugin to forbid backslashes for line breaks";
     homepage = https://pypi.org/project/flake8-broken-line;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

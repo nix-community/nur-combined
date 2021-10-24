@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, poetry, typing-extensions }:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry, typing-extensions }:
 buildPythonPackage rec {
   pname = "returns";
   version = "0.12.0";
@@ -14,11 +14,11 @@ buildPythonPackage rec {
   nativeBuildInputs = [ poetry ];
   propagatedBuildInputs = [ typing-extensions ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Make your functions return something meaningful, typed, and safe!";
     homepage = https://returns.readthedocs.io;
     license = licenses.bsd2;
-    maintainers = with lib.maintainers; [ ];
+    broken = true;
   };
 }
 

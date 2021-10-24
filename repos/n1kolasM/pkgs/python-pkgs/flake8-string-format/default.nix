@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , flake8 }:
 buildPythonPackage rec {
   pname = "flake8-string-format";
@@ -12,11 +12,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ flake8 ];
   doCheck = false;
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "string format checker, plugin for flake8";
     homepage = https://pypi.org/project/flake8-string-format;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

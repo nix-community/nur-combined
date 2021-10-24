@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , buildPythonPackage
 , fetchPypi
 , six
@@ -19,11 +19,10 @@ buildPythonPackage rec {
 
   checkInputs = [ coverage zope_testrunner ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/zopefoundation/zope.i18nmessageid";
     description = "Message Identifiers for internationalization";
     license = licenses.zpl20;
-    maintainers = with maintainers; [ goibhniu ];
   };
 
 }

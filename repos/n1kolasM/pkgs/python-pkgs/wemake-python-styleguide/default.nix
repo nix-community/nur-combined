@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , flake8, attrs, typing-extensions, astor
 , pygments, cognitive-complexity, flake8-builtins
 , flake8-commas, flake8-quotes, flake8-comprehensions
@@ -50,10 +50,10 @@ buildPythonPackage rec {
     radon
     darglint
   ];
-  meta = with stdenv.lib; {
+  meta = with lib; {
     broken = true;
     description = "The strictest and most opinionated python linter ever";
     homepage = https://wemake-python-stylegui.de;
-    license = with licenses; [ mit ];
+    license = licenses.mit;
   };
 }

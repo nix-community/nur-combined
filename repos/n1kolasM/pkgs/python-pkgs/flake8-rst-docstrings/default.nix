@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 , flake8, restructuredtext_lint }:
 buildPythonPackage rec {
   pname = "flake8-rst-docstrings";
@@ -11,11 +11,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flake8 restructuredtext_lint ];
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Python docstring reStructuredText (RST) validator";
     homepage = https://pypi.org/project/flake8-rst-docstrings;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

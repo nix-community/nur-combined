@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, flake8
+{ lib, buildPythonPackage, fetchFromGitHub, flake8
 , mock, python }:
 buildPythonPackage rec {
   pname = "flake8-coding";
@@ -18,11 +18,10 @@ buildPythonPackage rec {
     ${python}/bin/python run_tests.py
   '';
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Adds coding magic comment checks to flake8";
     homepage = https://pypi.org/project/flake8-coding;
     license = licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

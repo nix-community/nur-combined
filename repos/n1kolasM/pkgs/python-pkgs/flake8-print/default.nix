@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytestrunner
+{ lib, buildPythonPackage, fetchPypi, pytestrunner
 , flake8, six, pycodestyle }:
 buildPythonPackage rec {
   pname = "flake8-print";
@@ -13,11 +13,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ flake8 six pycodestyle ];
   doCheck = false;
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "print statement checker plugin for flake8";
     homepage = https://pypi.org/project/flake8-print;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

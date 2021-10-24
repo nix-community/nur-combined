@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, setuptools
+{ lib, buildPythonPackage, fetchPypi, setuptools
 , flake8 }:
 buildPythonPackage rec {
   pname = "flake8-commas";
@@ -12,11 +12,10 @@ buildPythonPackage rec {
   doCheck = false;
   propagatedBuildInputs = [ flake8 setuptools ];
   
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Flake8 lint for trailing commas.";
     homepage = https://pypi.org/project/flake8-commas;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 

@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, isPy27, futures
-, backports_functools_lru_cache, mock, pytest
+{ lib, buildPythonPackage, fetchPypi, setuptools, mock, pytest
 , withPipfile ? false, pipreqs ? null, tomlkit ? null, requirementslib ? null
 , withPyproject ? false, toml ? null
 , withRequirements ? false, pip-api ? null
@@ -8,7 +7,7 @@ assert withPipfile -> pipreqs != null && tomlkit != null && requirementslib != n
 assert withPyproject -> toml != null;
 assert withRequirements -> pipreqs != null && pip-api != null;
 let
-  skipTests = [ "test_requirements_finder" "test_pipfile_finder" ] ++ lib.optional isPy27 "test_standard_library_deprecates_user_issue_778";
+  skipTests = [ "test_requirements_finder" "test_pipfile_finder" ];
   testOpts = lib.concatMapStringsSep " " (t: "--deselect test_isort.py::${t}") skipTests;
 in buildPythonPackage rec {
   pname = "isort";
@@ -21,8 +20,7 @@ in buildPythonPackage rec {
 
   propagatedBuildInputs = [
     setuptools
-  ] ++ lib.optionals isPy27 [ futures backports_functools_lru_cache ]
-    ++ lib.optional (withPipfile || withRequirements) pipreqs
+  ] ++ lib.optional (withPipfile || withRequirements) pipreqs
     ++ lib.optionals withPipfile [ tomlkit requirementslib ]
     ++ lib.optional withPyproject toml
     ++ lib.optional withRequirements pip-api;
@@ -47,7 +45,6 @@ in buildPythonPackage rec {
     description = "A Python utility / library to sort Python imports";
     homepage = https://github.com/timothycrosley/isort;
     license = licenses.mit;
-    maintainers = with maintainers; [ couchemar nand0p ];
   };
 }
 

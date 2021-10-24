@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, flake8
+{ lib, buildPythonPackage, fetchFromGitHub, flake8
 , bandit, flake8-polyfill, pycodestyle, pytest }:
 buildPythonPackage rec {
   pname = "flake8-bandit";
@@ -18,12 +18,11 @@ buildPythonPackage rec {
     ${pytest}/bin/pytest
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     broken = true;
     description = "Automated security testing with bandit and flake8.";
     homepage = https://github.com/tylerwince/flake8-bandit;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ];
   };
 }
 
