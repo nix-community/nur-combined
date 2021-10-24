@@ -13,7 +13,6 @@ lib.makeScope newScope (
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
-    nnn-plugins = callPackage ./applications/nnn-plugins { };
     openorienteering-mapper-bin = callPackage ./applications/gis/openorienteering-mapper/bin.nix { };
     qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
     synwrite-bin = callPackage ./applications/synwrite/bin.nix { };
@@ -170,6 +169,8 @@ lib.makeScope newScope (
       proj = pkgs.proj_7;
     };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
+    mbutiles = callPackage ./geospatial/mbutiles { };
+    orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     qgis-bin = callPackage ./geospatial/qgis/bin.nix { };
@@ -244,6 +245,7 @@ lib.makeScope newScope (
     odict = callPackage ./linguistics/odict { };
     opendict = callPackage ./linguistics/opendict { };
     python-hfst = callPackage ./linguistics/python-hfst { };
+    pytorchtext = callPackage ./linguistics/pytorchtext { };
     redict = libsForQt5.callPackage ./linguistics/redict { };
     revtok = callPackage ./linguistics/revtok { };
     stardict-tools = callPackage ./linguistics/stardict-tools { };
@@ -279,6 +281,7 @@ lib.makeScope newScope (
     repolocli = callPackage ./misc/repolocli { };
     sdorfehs = callPackage ./misc/sdorfehs { };
     taskcoach = callPackage ./misc/taskcoach { };
+    tcvt = callPackage ./misc/tcvt { };
     tlstunnel = callPackage ./misc/tlstunnel { };
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr {
@@ -308,6 +311,7 @@ lib.makeScope newScope (
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osm-python-tools = callPackage ./osm/osm-python-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
+    osmosis = callPackage ./osm/osmosis { };
     overpass-api = callPackage ./osm/overpass-api { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
     phyghtmap = callPackage ./osm/phyghtmap { };
@@ -320,15 +324,14 @@ lib.makeScope newScope (
 
     ### RADIO
 
-    airspyhf = callPackage ./radio/airspyhf { };
     aprsc = callPackage ./radio/aprsc { };
-    libad9361 = callPackage ./radio/libad9361 { };
+    gqrx-scanner = callPackage ./radio/gqrx-scanner { };
     linrad = callPackage ./radio/linrad { };
-    sdrpp = callPackage ./radio/sdrpp { };
     sigdigger = libsForQt5.callPackage ./radio/sigdigger {
       inherit sigutils suscan suwidgets;
     };
     sigutils = callPackage ./radio/sigutils { };
+    smallrx = callPackage ./radio/smallrx { };
     suscan = callPackage ./radio/suscan { };
     suwidgets = libsForQt5.callPackage ./radio/suwidgets {
       inherit sigutils;

@@ -1,6 +1,7 @@
 { lib, stdenv, mkDerivation, fetchFromGitHub, qmake, pkg-config
 , fftwFloat, sigutils, suscan, suwidgets, volk
-, fftw, libsndfile, soapysdr
+, fftw, libsndfile, soapysdr, soapyrtlsdr
+, portaudio
 }:
 
 mkDerivation rec {
@@ -18,7 +19,9 @@ mkDerivation rec {
 
   buildInputs = [
     fftwFloat sigutils suscan suwidgets volk
-    fftw libsndfile soapysdr
+    fftw libsndfile
+    portaudio
+    (soapysdr.override { extraPackages = [ soapyrtlsdr ]; })
   ];
 
   qmakeFlags = [ "SUWIDGETS_PREFIX=${suwidgets}" "SigDigger.pro" ];

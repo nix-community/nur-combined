@@ -31,7 +31,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
-    skip.ci = true;
+    platforms = jre.meta.platforms;
   };
 }

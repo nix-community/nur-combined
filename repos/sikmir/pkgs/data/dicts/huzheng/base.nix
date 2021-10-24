@@ -1,11 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, pname, version, filename, sha256, description }:
+{ lib, stdenvNoCC, fetchurl, pname, version, filename, hash, description }:
 
 stdenvNoCC.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "http://download.huzheng.org/bigdict/${filename}";
-    inherit sha256;
+    url = "http://download.huzheng.org/${filename}";
+    inherit hash;
   };
 
   installPhase = "cp -a . $out";
@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     inherit description;
-    homepage = "http://download.huzheng.org/bigdict/";
+    homepage = "http://download.huzheng.org/";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

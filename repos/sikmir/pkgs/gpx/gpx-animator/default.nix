@@ -26,7 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gpx-animator.app/";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
-    skip.ci = true;
+    platforms = jre.meta.platforms;
   };
 }

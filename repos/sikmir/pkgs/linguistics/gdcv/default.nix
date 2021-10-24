@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, emacs, zlib }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, argp-standalone, emacs, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "gdcv";
@@ -11,11 +11,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-JmT6n+VC6bbOOg+j+3bpUaoMn/Wr2Q4XDbQ6kxuLNe0=";
   };
 
+  postPatch = lib.optionalString stdenv.isDarwin ''
+    substituteInPlace Makefile \
+      --replace "CC=gcc" ""
+
+    substituteInPlace gdcv.c \
+      --replace "#include <error.h>" ""
+
+    substituteInPlace index.c \
+      --replace "|FNM_EXTMATCH" ""
+  '';
+
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ emacs zlib ];
+  buildInputs = [ emacs zlib ] ++ lib.optional stdenv.isDarwin argp-standalone;
 
   makeFlags = [ "gdcv" "emacs-module" ];
+
+  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-largp";
 
   installPhase = ''
     install -Dm755 gdcv -t $out/bin
@@ -25,9 +38,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GoldenDict console version and emacs dynamic module";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
+    license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    platforms = platforms.unix;
     skip.ci = stdenv.isDarwin;
   };
 }

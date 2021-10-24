@@ -1,50 +1,36 @@
-{ lib, stdenv, fetchurl, gdal, osmium-tool }:
-let
-  regions = [
-    "RU-ARK"
-    "RU-VLG"
-    "RU-KGD"
-    "RU-KR"
-    "RU-KO"
-    "RU-LEN"
-    "RU-MUR"
-    "RU-NEN"
-    "RU-NGR"
-    "RU-PSK"
-    "RU-SPE"
-  ];
-in
-{
-  admin-boundaries = stdenv.mkDerivation rec {
-    pname = "osm-admin-boundaries";
-    version = "210905";
+{ lib, stdenv, fetchurl, osmium-tool, region ? "RU-LEN" }:
 
-    src = fetchurl {
-      url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-      hash = "sha256-ZFVnt7AbMZZdUgiv3AHvH4v+qrwRPNjJ1xyw4NMJFaM=";
-    };
+stdenv.mkDerivation rec {
+  pname = "osm-extracts-${region}";
+  version = "211021";
 
-    dontUnpack = true;
+  src = fetchurl {
+    url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
+    hash = "sha256-U7vR/EgDXOChoVxGpi1XWw6r3Ey1tdeJtk3vcLRzRGs=";
+  };
 
-    nativeBuildInputs = [ gdal osmium-tool ];
+  dontUnpack = true;
 
-    buildPhase = lib.concatMapStringsSep "\n"
-      (name: ''
-        osmium tags-filter -o ${name}-boundary.osm $src r/ISO3166-2=${name}
-        osmium extract -p ${name}-boundary.osm $src -s simple -o ${name}.osm
-        ogr2ogr -f GeoJSON ${name}-boundary.geojson ${name}-boundary.osm multipolygons
-      '')
-      regions;
+  nativeBuildInputs = [ osmium-tool ];
 
-    installPhase = "install -Dm644 *.geojson *.osm -t $out";
+  buildPhase = ''
+    osmium tags-filter -o ${region}-boundary.osm $src r/ISO3166-2=${region}
+    osmium extract -p ${region}-boundary.osm $src --set-bounds -s simple -o ${region}.osm.pbf
+    osmium export ${region}-boundary.osm -o ${region}-boundary.geojson
+    osmium tags-filter -o ${region}-water.osm ${region}.osm.pbf a/natural=water
+    osmium export ${region}-water.osm -o ${region}-water.geojson
+  '';
 
-    meta = with lib; {
-      description = "Administrative boundaries (NWFD)";
-      homepage = "https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative";
-      license = licenses.free;
-      maintainers = [ maintainers.sikmir ];
-      platforms = platforms.all;
-      skip.ci = true;
-    };
+  installPhase = ''
+    install -Dm644 *.geojson *.osm *.osm.pbf -t $out
+  '';
+
+  meta = with lib; {
+    description = "Administrative boundaries (${region})";
+    homepage = "https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative";
+    license = licenses.free;
+    maintainers = [ maintainers.sikmir ];
+    platforms = platforms.all;
+    skip.ci = true;
   };
 }

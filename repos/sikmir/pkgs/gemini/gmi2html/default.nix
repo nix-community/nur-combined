@@ -11,6 +11,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-B0+1s2eB1SAaVkGqj9OupMg0wGJGPj86NMEN765e7OU=";
   };
 
+  patches = [
+    # https://github.com/shtanton/gmi2html/pull/12
+    ./webp.patch
+  ];
+
   nativeBuildInputs = [ zig scdoc installShellFiles ];
 
   preConfigure = "HOME=$TMP";
@@ -18,6 +23,14 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     zig build -Drelease-safe
     scdoc < doc/gmi2html.scdoc > doc/gmi2html.1
+  '';
+
+  doCheck = true;
+
+  checkPhase = ''
+    substituteInPlace tests/test.sh \
+      --replace "zig-cache" "zig-out"
+    sh tests/test.sh
   '';
 
   installPhase = ''

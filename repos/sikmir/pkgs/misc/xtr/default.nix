@@ -23,6 +23,5 @@ rustPlatform.buildRustPackage rec {
     inherit (src.meta) homepage;
     license = with licenses; [ agpl3 mit ];
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
   };
 }

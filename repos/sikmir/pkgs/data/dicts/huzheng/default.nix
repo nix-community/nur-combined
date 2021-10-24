@@ -6,24 +6,32 @@ in
   cambridge = callPackage ./base.nix {
     pname = "cambridge";
     inherit version;
-    filename = "stardict-Cambridge_Advanced_Learners_Dictionary_3th_Ed-${version}.tar.bz2";
+    filename = "bigdict/stardict-Cambridge_Advanced_Learners_Dictionary_3th_Ed-${version}.tar.bz2";
     description = "Cambridge Advanced Learners Dictionary 3th Ed. (En-En)";
-    sha256 = "0mqrf5fr6hx3bjy1brsggmkrii2xf497jkaj6zf1hjxnp0ijswgr";
+    hash = "sha256-+XEtI7i2SxjcN1JNeRJxXcSYZ31P5xW8XKNDk11xGVc=";
+  };
+
+  duden = callPackage ./base.nix {
+    pname = "duden";
+    inherit version;
+    filename = "de/stardict-duden-${version}.tar.bz2";
+    description = "Duden - mehr als ein Wörterbuch";
+    hash = "sha256-7kF7aWI+HiMU1kplwhAXsFSeJJiGgG6pq3A0Y2ypQ+I=";
   };
 
   macmillan = callPackage ./base.nix {
     pname = "macmillan";
     inherit version;
-    filename = "stardict-Macmillan_English_Dictionary-${version}.tar.bz2";
+    filename = "bigdict/stardict-Macmillan_English_Dictionary-${version}.tar.bz2";
     description = "Macmillan English Dictionary (En-En)";
-    sha256 = "1xg4xvxnni5vc371sd0bvskl1vly6p62q3c8r36bd2069ln7jy8r";
+    hash = "sha256-GXl5LE0GiLbMyIgNLMw1nu5Ap94LNB3OYLtEa/vu5PU=";
   };
 
   webster = callPackage ./base.nix {
     pname = "webster";
     inherit version;
-    filename = "stardict-Webster_s_Unabridged_3-${version}.tar.bz2";
+    filename = "bigdict/stardict-Webster_s_Unabridged_3-${version}.tar.bz2";
     description = "Webster's Third New International Dictionary, Unabridged (En-En)";
-    sha256 = "1gj33px44d4ywhnxv7x5hxvh43f8m7skwmhvc62ld0c50blrqi7a";
+    hash = "sha256-6kSc6QKFgUaFYRtWPvWpyA0Cd4eln90t5J40QvodQ74=";
   };
 }

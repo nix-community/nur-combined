@@ -1,0 +1,84 @@
+diff --git i/src/main.zig w/src/main.zig
+index 09e6abd..e5ed3a3 100644
+--- i/src/main.zig
++++ w/src/main.zig
+@@ -7,6 +7,7 @@ const imageExtensions = [_][]const u8{
+     ".jpeg",
+     ".jpg",
+     ".gif",
++    ".webp",
+ };
+ const videoExtensions = [_][]const u8{
+     ".mp4",
+diff --git i/tests/audio_target.html w/tests/audio_target.html
+index 17774b1..5434aa6 100644
+--- i/tests/audio_target.html
++++ w/tests/audio_target.html
+@@ -17,6 +17,7 @@
+ <p>=&gt gemini://example.org/testimg.png</p>
+ <a style="display: block;" href="https://example.org/video.mp4">test video</a>
+ <audio style="display: block;" controls src="https://example.org/audio.mp3"><a src="https://example.org/audio.mp3">test audio</a></audio>
++<a style="display: block;" href="http://example.org/testimg.webp">http://example.org/testimg.webp</a>
+ <p><br/></p>
+ <pre alt="Alt text">
+ some stuff
+diff --git i/tests/image_target.html w/tests/image_target.html
+index de4d450..3b5152e 100644
+--- i/tests/image_target.html
++++ w/tests/image_target.html
+@@ -17,6 +17,7 @@
+ <p>=&gt gemini://example.org/testimg.png</p>
+ <a style="display: block;" href="https://example.org/video.mp4">test video</a>
+ <a style="display: block;" href="https://example.org/audio.mp3">test audio</a>
++<a style="display: block;" href="http://example.org/testimg.webp"><img src="http://example.org/testimg.webp" alt="http://example.org/testimg.webp"/></a>
+ <p><br/></p>
+ <pre alt="Alt text">
+ some stuff
+diff --git i/tests/inlined_target.html w/tests/inlined_target.html
+index 210bf5c..cd92e08 100644
+--- i/tests/inlined_target.html
++++ w/tests/inlined_target.html
+@@ -17,6 +17,7 @@
+ <p>=&gt gemini://example.org/testimg.png</p>
+ <video style="display: block;" controls src="https://example.org/video.mp4"><a src="https://example.org/video.mp4">test video</a></video>
+ <audio style="display: block;" controls src="https://example.org/audio.mp3"><a src="https://example.org/audio.mp3">test audio</a></audio>
++<a style="display: block;" href="http://example.org/testimg.webp"><img src="http://example.org/testimg.webp" alt="http://example.org/testimg.webp"/></a>
+ <p><br/></p>
+ <pre alt="Alt text">
+ some stuff
+diff --git i/tests/source.gmi w/tests/source.gmi
+index 35af512..626cc39 100644
+--- i/tests/source.gmi
++++ w/tests/source.gmi
+@@ -17,6 +17,7 @@ I write things here
+ => gemini://example.org/testimg.png
+ => https://example.org/video.mp4 test video
+ => https://example.org/audio.mp3 test audio
++=> http://example.org/testimg.webp
+ 
+ ```  	Alt text
+ some stuff
+diff --git i/tests/target.html w/tests/target.html
+index ed3e00e..66fb19d 100644
+--- i/tests/target.html
++++ w/tests/target.html
+@@ -17,6 +17,7 @@
+ <p>=&gt gemini://example.org/testimg.png</p>
+ <a style="display: block;" href="https://example.org/video.mp4">test video</a>
+ <a style="display: block;" href="https://example.org/audio.mp3">test audio</a>
++<a style="display: block;" href="http://example.org/testimg.webp">http://example.org/testimg.webp</a>
+ <p><br/></p>
+ <pre alt="Alt text">
+ some stuff
+diff --git i/tests/video_target.html w/tests/video_target.html
+index eded463..f4047b2 100644
+--- i/tests/video_target.html
++++ w/tests/video_target.html
+@@ -17,6 +17,7 @@
+ <p>=&gt gemini://example.org/testimg.png</p>
+ <video style="display: block;" controls src="https://example.org/video.mp4"><a src="https://example.org/video.mp4">test video</a></video>
+ <a style="display: block;" href="https://example.org/audio.mp3">test audio</a>
++<a style="display: block;" href="http://example.org/testimg.webp">http://example.org/testimg.webp</a>
+ <p><br/></p>
+ <pre alt="Alt text">
+ some stuff

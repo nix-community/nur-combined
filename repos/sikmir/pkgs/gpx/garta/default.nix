@@ -1,4 +1,4 @@
-{ lib, stdenv, rustPlatform, rust, fetchFromGitLab, pkg-config, firejail
+{ lib, stdenv, rustPlatform, rust, fetchFromGitLab, pkg-config
 , atk, cairo, gdk-pixbuf, glib, gtk3, harfbuzz, openssl, pango, zlib
 }:
 
@@ -37,9 +37,6 @@ rustPlatform.buildRustPackage rec {
     substituteInPlace install.sh \
       --replace "/etc/firejail" "$out/etc/firejail"
 
-    substituteInPlace garta.profile \
-      --replace "/etc/firejail" "${firejail}/etc/firejail"
-
     patchShebangs install.sh
   '';
 
@@ -48,6 +45,7 @@ rustPlatform.buildRustPackage rec {
   installPhase = ''
     ./install.sh
     install -Dm644 ${./inkatlas.json} $out/share/garta/maps/inkatlas.json
+    rm -fr $out/etc
   '';
 
   enableParallelBuilding = true;
@@ -57,7 +55,6 @@ rustPlatform.buildRustPackage rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    platforms = platforms.unix;
   };
 }

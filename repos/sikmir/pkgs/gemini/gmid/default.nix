@@ -1,17 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, which, yacc, libressl, libevent }:
+{ lib, stdenv, fetchFromGitHub, bison, libressl, libevent }:
 
 stdenv.mkDerivation rec {
   pname = "gmid";
-  version = "1.7.4";
+  version = "1.7.5";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = pname;
     rev = version;
-    hash = "sha256-yjbuLlcacV/NQE4UgywczXDkkqHMoIsHhdHAus0zw/0=";
+    hash = "sha256-BBd0AL5jRRslxzDnxcTZRR+8J5D23NAQ7mp9K+leXAQ=";
   };
 
-  nativeBuildInputs = [ which yacc ];
+  nativeBuildInputs = [ bison ];
 
   buildInputs = [ libressl libevent ];
 
