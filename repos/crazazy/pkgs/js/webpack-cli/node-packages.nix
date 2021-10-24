@@ -166,13 +166,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.7.0" = {
+    "is-core-module-2.8.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.7.0";
+      version = "2.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.7.0.tgz";
-        sha512 = "ByY+tjCciCr+9nLryBYcSD50EOGWt95c7tIsKTG1J2ixKKXPvF7Ej3AVd+UfDydAJom3biBGDBALaO79ktwgEQ==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.8.0.tgz";
+        sha512 = "vd15qHsaqrRL7dtH6QNuy0ndJmRDrS9HAM1CAiSifNUFv4x1a0CCVsj18hJ1mShxIG6T2i1sO78MkP56r0nYRw==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -409,15 +409,6 @@ let
         sha512 = "BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==";
       };
     };
-    "v8-compile-cache-2.3.0" = {
-      name = "v8-compile-cache";
-      packageName = "v8-compile-cache";
-      version = "2.3.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz";
-        sha512 = "l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==";
-      };
-    };
     "webpack-merge-5.8.0" = {
       name = "webpack-merge";
       packageName = "webpack-merge";
@@ -449,8 +440,8 @@ let
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "4.9.0";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.9.0.tgz"; sha1 = "dc43e6e0f80dd52e89cbf73d5294bcd7ad6eb343"; };
+    version = "4.9.1";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.9.1.tgz"; sha1 = "b64be825e2d1b130f285c314caa3b1ba9a4632b3"; };
     dependencies = [
       sources."@discoveryjs/json-ext-0.5.5"
       sources."@webpack-cli/configtest-1.1.0"
@@ -470,7 +461,7 @@ let
       sources."human-signals-2.1.0"
       sources."import-local-3.0.3"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.7.0"
+      sources."is-core-module-2.8.0"
       sources."is-plain-object-2.0.4"
       sources."is-stream-2.0.1"
       sources."isexe-2.0.0"
@@ -497,7 +488,6 @@ let
       sources."shebang-regex-3.0.0"
       sources."signal-exit-3.0.5"
       sources."strip-final-newline-2.0.0"
-      sources."v8-compile-cache-2.3.0"
       sources."webpack-merge-5.8.0"
       sources."which-2.0.2"
       sources."wildcard-2.0.0"

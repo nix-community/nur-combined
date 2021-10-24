@@ -16,6 +16,7 @@ in
   firefox-addons = import ./firefox-addons { inherit pkgs; };
 
   # standalone packages
+  seamonkey = callPackage ./seamonkey.nix { };
   nix-gen-node-tools = callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;};
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   efm-langserver = callPackage ./efm-langserver { };
