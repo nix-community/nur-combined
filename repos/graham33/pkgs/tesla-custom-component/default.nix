@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "tesla-custom-component";
-  version = "0.2.0";
+  version = "1.2.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alandtse";
     repo = "tesla";
     rev = "v${version}";
-    sha256 = "0b4gnx3mcn6krzwfscv2g37phb8kgkwsqfk7gzkf2nwyl83qnfwz";
+    sha256 = "0dy4gsb80v221qsxadmkzrdcclxzs5469p2pclwdmwq2r0012h6h";
   };
 
   patches = [ ./poetry.patch ];

@@ -23,29 +23,29 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.4.4";
+  version = "0.4.5";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "13szp6cjzbwb4xnf2vg7n0a5d8h92gdgnsf60flw1yjbh7mnd9nj";
+    sha256 = "1zd2fin2cajpj1vm4jvphw6l6zjjz53qlrsha91n11169cff1chz";
   };
   postPatch = ''
     substituteInPlace requirements_test.txt \
       --replace "coverage==5.5" "coverage>=5.3" \
-      --replace "homeassistant==2021.9.0b2" "homeassistant>=2021.9.0,<2021.10" \
+      --replace "homeassistant==2021.10.0b1" "homeassistant>=2021.10.0,<2021.11" \
       --replace "jsonpickle==1.4.1" "jsonpickle>=1.4.1" \
-      --replace "pipdeptree==1.0.0" "" \
+      --replace "pipdeptree==2.1.0" "" \
       --replace "pylint-strict-informational==0.1" "" \
       --replace "pytest==6.2.4" "pytest>=6.2.4" \
       --replace "pytest-test-groups==1.0.3" "" \
-      --replace "pytest-xdist==2.2.1" "pytest-xdist>=2.2.1" \
+      --replace "pytest-xdist==2.4.0" "pytest-xdist>=2.3.0" \
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
       --replace "respx==0.17.0" "respx>=0.17.0" \
       --replace "responses==0.12.0" "responses>=0.12.0" \
-      --replace "sqlalchemy==1.4.17" "sqlalchemy>=1.4.17" \
+      --replace "sqlalchemy==1.4.23" "sqlalchemy>=1.4.23" \
       --replace "stdlib-list==0.7.0" "" \
       --replace "tqdm==4.49.0" "tqdm>=4.49.0"
   '';

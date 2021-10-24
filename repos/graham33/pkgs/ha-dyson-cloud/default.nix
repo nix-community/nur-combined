@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ha-dyson-cloud";
-  version = "0.10.1";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "shenxn";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1p5c13i6qvmcfisid3rvhq49dbkja5a5mw7yk1sja53i79w06xzq";
+    sha256 = "1vzv6gpip5b0ljdiwq7d863xd72hkwh5376brqbaabhhiy6m4n5v";
   };
 
   installPhase = ''
