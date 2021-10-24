@@ -314,6 +314,10 @@
         "milahu": {
             "url": "https://github.com/milahu/nur-packages"
         },
+        "mipmip": {
+            "file": "pkgs/default.nix",
+            "url": "https://github.com/mipmip/nixos"
+        },
         "misterio": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~misterio/nur-packages"
@@ -323,6 +327,9 @@
         },
         "moaxcp": {
             "url": "https://github.com/moaxcp/nur"
+        },
+        "moosingin3space": {
+            "url": "https://github.com/moosingin3space/nur-packages"
         },
         "moredhel": {
             "url": "https://github.com/moredhel/nur-packages"
@@ -515,6 +522,9 @@
         },
         "uleenucks": {
             "url": "https://github.com/uleenucks/nurpkgs"
+        },
+        "uniquepointer": {
+            "url": "https://github.com/uniquepointer/nur-babies"
         },
         "vdemeester": {
             "file": "pkgs/default.nix",
