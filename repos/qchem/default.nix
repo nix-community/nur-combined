@@ -66,8 +66,8 @@ let
 
       # For molcas and chemps2
       hdf5-full = final.hdf5.override {
-        cpp = true;
-        inherit (final) gfortran;
+        cppSupport = true;
+        fortranSupport = true;
       };
 
       fftw-mpi = self.fftw.override { enableMpi = true; };
@@ -162,6 +162,8 @@ let
 
       orca = callPackage ./pkgs/apps/orca { };
 
+      orient = callPackage ./pkgs/apps/orient { };
+
       osu-benchmark = callPackage ./pkgs/apps/osu-benchmark {
         # OSU benchmark fails with C++ binddings enabled
         mpi = self.mpi.overrideAttrs (x: {
@@ -170,6 +172,8 @@ let
       };
 
       packmol = callPackage ./pkgs/apps/packmol { };
+
+      pegamoid = self.python3.pkgs.callPackage ./pkgs/apps/pegamoid { };
 
       psi4 = super.python3.pkgs.toPythonApplication self.python3.pkgs.psi4;
 

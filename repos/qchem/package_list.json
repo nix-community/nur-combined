@@ -1,6 +1,30 @@
 [
   {
-    "attribute": "qchem.bagel-serial",
+    "attribute": "qchem.amd-fftw",
+    "name": "amd-fftw-3.0.1",
+    "pname": "amd-fftw",
+    "version": "3.0.1",
+    "description": "Fastest Fourier Transform in the West library optimized for AMD Epyc CPUs",
+    "homepage": "http://www.fftw.org/"
+  },
+  {
+    "attribute": "qchem.amd-scalapack",
+    "name": "amd-scalapack-3.0",
+    "pname": "amd-scalapack",
+    "version": "3.0",
+    "description": "Linear algebra routines for parallel distributed memory machines optmized for AMD processors",
+    "homepage": "https://developer.amd.com/amd-aocl/scalapack/"
+  },
+  {
+    "attribute": "qchem.avogadro2",
+    "name": "avogadro2-1.95.1",
+    "pname": "avogadro2",
+    "version": "1.95.1",
+    "description": "Molecule editor and visualizer",
+    "homepage": "https://github.com/OpenChemistry/avogadroapp"
+  },
+  {
+    "attribute": "qchem.bagel",
     "name": "bagel-1.2.2",
     "pname": "bagel",
     "version": "1.2.2",
@@ -8,7 +32,7 @@
     "homepage": "https://nubakery.org"
   },
   {
-    "attribute": "qchem.bagel",
+    "attribute": "qchem.bagel-serial",
     "name": "bagel-1.2.2",
     "pname": "bagel",
     "version": "1.2.2",
@@ -57,9 +81,9 @@
   },
   {
     "attribute": "qchem.crest",
-    "name": "crest-2021-04-24",
+    "name": "crest-2.11.1",
     "pname": "crest",
-    "version": "2021-04-24",
+    "version": "2.11.1",
     "description": "Conformer-Rotamer Ensemble Sampling Tool based on the xtb Semiempirical Extended Tight-Binding Program Package",
     "homepage": "https://github.com/grimme-lab/crest"
   },
@@ -80,6 +104,14 @@
     "homepage": "https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/dft-d3/get-the-current-version-of-dft-d3"
   },
   {
+    "attribute": "qchem.dirac",
+    "name": "dirac-21.0",
+    "pname": "dirac",
+    "version": "21.0",
+    "description": "The DIRAC program computes molecular properties using relativistic quantum chemical methods.",
+    "homepage": "https://diracprogram.org/"
+  },
+  {
     "attribute": "qchem.dkh",
     "name": "dkh-1.2",
     "pname": "dkh",
@@ -93,7 +125,15 @@
     "pname": "ergoscf",
     "version": "3.8",
     "description": "Quantum chemistry program for large-scale self-consistent field calculations",
-    "homepage": "http://http://www.ergoscf.org"
+    "homepage": "http://www.ergoscf.org"
+  },
+  {
+    "attribute": "qchem.exatensor",
+    "name": "exatensor-2020-07-15",
+    "pname": "exatensor",
+    "version": "2020-07-15",
+    "description": "ExaTENSOR is a basic numerical tensor algebra library for\ndistributed HPC systems equipped with multicore CPU and NVIDIA or AMD GPU.",
+    "homepage": "https://gitlab.com/DmitryLyakh/ExaTensor"
   },
   {
     "attribute": "qchem.fftw",
@@ -192,6 +232,14 @@
     "homepage": "http://www.gromacs.org"
   },
   {
+    "attribute": "qchem.gsl",
+    "name": "gsl-2.7",
+    "pname": "gsl",
+    "version": "2.7",
+    "description": "The GNU Scientific Library, a large numerical library",
+    "homepage": "https://www.gnu.org/software/gsl/"
+  },
+  {
     "attribute": "qchem.harminv",
     "name": "harminv-1.4.1",
     "pname": "harminv",
@@ -201,9 +249,9 @@
   },
   {
     "attribute": "qchem.hdf5-full",
-    "name": "hdf5-1.12.0",
+    "name": "hdf5-1.12.1",
     "pname": "hdf5",
-    "version": "1.12.0",
+    "version": "1.12.1",
     "description": "Data model, library, and file format for storing and managing data",
     "homepage": "https://www.hdfgroup.org/HDF5/"
   },
@@ -264,17 +312,9 @@
     "homepage": "https://github.com/HomerReid/libGDSII"
   },
   {
-    "attribute": "qchem.libint1",
-    "name": "libint-1.1.5",
-    "pname": "libint",
-    "version": "1.1.5",
-    "description": "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions",
-    "homepage": "https://github.com/evaleev/libint"
-  },
-  {
     "attribute": "qchem.libint",
-    "name": "libint2-2.6.0",
-    "pname": "libint2",
+    "name": "libint-2.6.0",
+    "pname": "libint",
     "version": "2.6.0",
     "description": "Library for the evaluation of molecular integrals of many-body operators over Gaussian functions",
     "homepage": "https://github.com/evaleev/libint"
@@ -288,6 +328,30 @@
     "homepage": "https://libvdwxc.org/"
   },
   {
+    "attribute": "qchem.libvori",
+    "name": "libvori-210412",
+    "pname": "libvori",
+    "version": "210412",
+    "description": "Library for Voronoi intergration of electron densities",
+    "homepage": "https://brehm-research.de/libvori.php"
+  },
+  {
+    "attribute": "qchem.wfaMolcas",
+    "name": "libwfa-2020-02-19",
+    "pname": "libwfa",
+    "version": "2020-02-19",
+    "description": "Wave-function analysis tool library for quantum chemical applications",
+    "homepage": "https://github.com/libwfa/libwfa"
+  },
+  {
+    "attribute": "qchem.libwfa",
+    "name": "libwfa-2020-02-19",
+    "pname": "libwfa",
+    "version": "2020-02-19",
+    "description": "Wave-function analysis tool library for quantum chemical applications",
+    "homepage": "https://github.com/libwfa/libwfa"
+  },
+  {
     "attribute": "qchem.libxc4",
     "name": "libxc-4.3.4",
     "pname": "libxc",
@@ -296,10 +360,18 @@
     "homepage": "https://octopus-code.org/wiki/Libxc"
   },
   {
+    "attribute": "qchem.libxc",
+    "name": "libxc-5.1.6",
+    "pname": "libxc",
+    "version": "5.1.6",
+    "description": "Library of exchange-correlation functionals for density-functional theory",
+    "homepage": "https://www.tddft.org/programs/Libxc/"
+  },
+  {
     "attribute": "qchem.libxsmm",
-    "name": "libxsmm-1.16.1",
+    "name": "libxsmm-1.16.2",
     "pname": "libxsmm",
-    "version": "1.16.1",
+    "version": "1.16.2",
     "description": "Library targeting Intel Architecture for specialized dense and sparse matrix operations, and deep learning primitives",
     "homepage": "https://github.com/hfp/libxsmm"
   },
@@ -321,9 +393,9 @@
   },
   {
     "attribute": "qchem.meep",
-    "name": "meep-1.18.0",
+    "name": "meep-1.20.0",
     "pname": "meep",
-    "version": "1.18.0",
+    "version": "1.20.0",
     "description": "Free finite-difference time-domain (FDTD) software for electromagnetic simulations",
     "homepage": "https://meep.readthedocs.io/en/latest/"
   },
@@ -369,11 +441,19 @@
   },
   {
     "attribute": "qchem.molpro",
-    "name": "molpro-2021.2.0",
+    "name": "molpro-2021.2.1",
     "pname": "molpro",
-    "version": "2021.2.0",
+    "version": "2021.2.1",
     "description": "Quantum chemistry program package",
-    "homepage": "https://www.molpro.net"
+    "homepage": "http://www.molpro.net"
+  },
+  {
+    "attribute": "qchem.molpro-pr",
+    "name": "molpro-2021.2.1",
+    "pname": "molpro",
+    "version": "2021.2.1",
+    "description": "Quantum chemistry program package",
+    "homepage": "http://www.molpro.net"
   },
   {
     "attribute": "qchem.mrcc",
@@ -425,17 +505,17 @@
   },
   {
     "attribute": "qchem.octave",
-    "name": "octave-6.2.0",
+    "name": "octave-6.3.0",
     "pname": "octave",
-    "version": "6.2.0",
+    "version": "6.3.0",
     "description": "Scientific Pragramming Language",
     "homepage": "https://www.gnu.org/software/octave/"
   },
   {
     "attribute": "qchem.octopus",
-    "name": "octopus-10.3",
+    "name": "octopus-10.5",
     "pname": "octopus",
-    "version": "10.3",
+    "version": "10.5",
     "description": "Real-space time dependent density-functional theory code",
     "homepage": "https://octopus-code.org"
   },
@@ -473,11 +553,19 @@
   },
   {
     "attribute": "qchem.orca",
-    "name": "orca-5.0.0",
+    "name": "orca-5.0.1",
     "pname": "orca",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "description": "Ab initio quantum chemistry program package",
     "homepage": "https://orcaforum.kofo.mpg.de/"
+  },
+  {
+    "attribute": "qchem.orient",
+    "name": "orient-5.0.10",
+    "pname": "orient",
+    "version": "5.0.10",
+    "description": "Program for carrying out calculations of various kinds for an assembly of interacting molecules",
+    "homepage": "https://gitlab.com/anthonyjs/orient"
   },
   {
     "attribute": "qchem.osss-ucx",
@@ -512,26 +600,26 @@
     "homepage": "https://pcmsolver.readthedocs.io/en/stable/"
   },
   {
-    "attribute": "qchem.psi4Unstable",
-    "name": "psi4-01.11.2020",
-    "pname": "psi4",
-    "version": "01.11.2020",
-    "description": "Open-Source Quantum Chemistry – an electronic structure package in C++ driven by Python",
-    "homepage": "http://www.psicode.org/"
+    "attribute": "qchem.pegamoid",
+    "name": "Pegamoid-2.6.1",
+    "pname": "Pegamoid",
+    "version": "2.6.1",
+    "description": "Python GUI for OpenMolcas",
+    "homepage": "https://pypi.org/project/Pegamoid"
   },
   {
     "attribute": "qchem.psi4",
-    "name": "psi4-1.3.2",
+    "name": "psi4-1.4.1",
     "pname": "psi4",
-    "version": "1.3.2",
+    "version": "1.4.1",
     "description": "Open-Source Quantum Chemistry – an electronic structure package in C++ driven by Python",
     "homepage": "http://www.psicode.org/"
   },
   {
     "attribute": "qchem.pysisyphus",
-    "name": "pysisyphus-0.7.post1",
+    "name": "pysisyphus-0.7.2",
     "pname": "pysisyphus",
-    "version": "0.7.post1",
+    "version": "0.7.2",
     "description": "Python suite for optimization of stationary points on ground- and excited states PES and determination of reaction paths",
     "homepage": "https://github.com/eljost/pysisyphus"
   },
@@ -584,20 +672,20 @@
     "homepage": "https://www.sharc-md.org"
   },
   {
-    "attribute": "qchem.siesta-mpi",
-    "name": "siesta-4.1-b3",
+    "attribute": "qchem.siesta",
+    "name": "siesta-4.1.5",
     "pname": "siesta",
-    "version": "4.1-b3",
+    "version": "4.1.5",
     "description": "A first-principles materials simulation code using DFT",
-    "homepage": "https://www.quantum-espresso.org/"
+    "homepage": "https://siesta-project.org/siesta/"
   },
   {
-    "attribute": "qchem.siesta",
-    "name": "siesta-4.1-b3",
+    "attribute": "qchem.siesta-mpi",
+    "name": "siesta-4.1.5",
     "pname": "siesta",
-    "version": "4.1-b3",
+    "version": "4.1.5",
     "description": "A first-principles materials simulation code using DFT",
-    "homepage": "https://www.quantum-espresso.org/"
+    "homepage": "https://siesta-project.org/siesta/"
   },
   {
     "attribute": "qchem.slurm-tools",
@@ -614,6 +702,22 @@
     "version": "1.5.0",
     "description": "Sandia open SHMEM implementation",
     "homepage": "https://github.com/Sandia-OpenSHMEM/SOS/releases"
+  },
+  {
+    "attribute": "qchem.spglib",
+    "name": "spglib-1.16.2",
+    "pname": "spglib",
+    "version": "1.16.2",
+    "description": "C library for finding and handling crystal symmetries",
+    "homepage": "https://atztogo.github.io/spglib/"
+  },
+  {
+    "attribute": "qchem.stdenv",
+    "name": "stdenv-linux-haswell",
+    "pname": "stdenv-linux-haswell",
+    "version": "",
+    "description": "The default build environment for Unix packages in Nixpkgs",
+    "homepage": null
   },
   {
     "attribute": "qchem.stream-benchmark",
