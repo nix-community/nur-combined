@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   inherit (sources.godns) pname version src;
-
+  # TODO auto update vendor hash
   vendorSha256 = "sha256-FZLDaMrPEyoTGFmGBlpqPWsMuobqwkBaot5qjcRJe9w=";
 
   doCheck = false;

@@ -13,7 +13,7 @@ let
     desktopName = "Icalingua";
     comment = "A Linux client for QQ and more";
     icon = "icalingua";
-    exec = "icalingua %u";
+    exec = "bash -c \"icalingua %u > /dev/null\"";
     categories = "Network";
   };
   icon = sources.icalinguaIcon.src;
