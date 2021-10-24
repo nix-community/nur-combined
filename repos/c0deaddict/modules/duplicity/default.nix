@@ -61,7 +61,7 @@ let
       includeFilelist = mkOption {
         type = with types; listOf (submodule filelistModule);
         default = [ ];
-        example = literalExample ''
+        example = literalExpression ''
           [
             { path = "/home/foo/Backups"; include = false; }
             { path = "/home/foo/.ssh"; include = false; }

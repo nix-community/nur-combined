@@ -26,7 +26,7 @@ in {
     configuration = mkOption {
       type = types.attrsOf types.unspecified;
       default = { };
-      example = literalExample ''
+      example = literalExpression ''
         {
           listen = { addr = "127.0.0.1"; port = 8080; };
 
@@ -54,7 +54,7 @@ in {
     secrets = mkOption {
       type = types.attrsOf types.path;
       default = { };
-      example = literalExample ''
+      example = literalExpression ''
         {
           ".cookie.authentication_key" = "/secrets/nginx-sso/authentication_key";
         }
