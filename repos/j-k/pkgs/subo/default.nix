@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "subo";
-  version = "0.0.17";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "suborbital";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-0JG7GpuNcdUgmsNxnlv+45tahoMlPOYtm405cFhpuyw=";
+    sha256 = "sha256-6vVMBgjAlMmDiwM4KJcI+aVMIMe3y9tZjs7zImn0LLA=";
   };
 
   vendorSha256 = null;
@@ -19,7 +19,6 @@ buildGoModule rec {
   installCheckPhase = ''
     runHook preInstallCheck
     $out/bin/subo --help
-    $out/bin/subo --version | grep "Subo CLI v${version}"
     runHook postInstallCheck
   '';
 

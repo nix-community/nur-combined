@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "tuftool";
-  version = "0.6.1";
+  version = "0.6.4";
 
   src = fetchFromGitHub {
     owner = "awslabs";
     repo = "tough";
     rev = "tuftool-v${version}";
-    sha256 = "sha256-olI5i1YL05F8iVfBNjF8ebeMr2pCtGVOyP+2qAhZXRU=";
+    sha256 = "sha256-B4amCeePbF72zdTUC5PyT90ZVyMSEPOzJ4Vjsbh3Bl0=";
   };
 
-  cargoSha256 = "sha256-+U4mFiQUhffzYDjUgefxV0QikIY+XoaV8zvtV+ph9o0=";
+  cargoSha256 = "sha256-p59RY2HpmYFK67+dwB6Dsy6+cZSUBgBGlELTnV5FkVo=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ];

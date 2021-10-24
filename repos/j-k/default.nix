@@ -21,23 +21,14 @@ rec {
   fetchDenoTarball = callPackage ./pkgs/deno-extra/fetchDenoTarball.nix { };
   bundleDeno = callPackage ./pkgs/deno-extra/bundleDeno.nix { inherit fetchDenoTarball; };
 
-  # Defined in firefox-addons
-  firefox-addons = recurseIntoAttrs (callPackage ./pkgs/firefox-addons { });
-
   bane = callPackage ./pkgs/bane { };
-  crane = callPackage ./pkgs/crane { };
   comma = callPackage ./pkgs/comma { };
   conform = callPackage ./pkgs/conform { };
   container-diff = callPackage ./pkgs/container-diff { };
   flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
   google-fonts = callPackage ./pkgs/fonts/google-fonts { };
-  grpc-web = callPackage ./pkgs/grpc-web { };
-  infracost = callPackage ./pkgs/infracost { };
-  ko = callPackage ./pkgs/ko { };
-  konstraint = callPackage ./pkgs/konstraint { };
+  kubernetes-bom = callPackage ./pkgs/kubernetes-bom { };
   nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
-  rakkess = callPackage ./pkgs/rakkess { };
-  scorecard = callPackage ./pkgs/scorecard { };
   subo = callPackage ./pkgs/subo { };
   tuftool = callPackage ./pkgs/tuftool { };
 }

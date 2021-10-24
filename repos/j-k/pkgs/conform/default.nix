@@ -2,28 +2,20 @@
 
 buildGoModule rec {
   pname = "conform";
-  version = "0.1.0-alpha.20";
+  version = "0.1.0-alpha.23";
 
   src = fetchFromGitHub {
     owner = "talos-systems";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0c2nzlbdirsa7w5zs06vlqsc6z2yi5ic3dzwad8shizxa4pv3q2m";
+    sha256 = "sha256-eur8yyuNzpUcidKyQpkvlqy60b6z9Fs2guQhA1WDfCs=";
   };
 
-  vendorSha256 = "18vhxq475d1f5sghy8gxa4wg6dbfj103pbl0kfx6xl6jf2ksqiln";
+  vendorSha256 = "sha256-Me7QWOdH8PyRu9TSVwNsWBPGQizZWMlF6Edmr8Yo+Ao=";
 
   ldflags = [ "-s" "-w" "-X github.com/talos-systems/conform/cmd.Tag=v${version}" ];
 
   checkInputs = [ git ];
-
-  doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
-    $out/bin/conform --help
-    $out/bin/conform version | grep "v${version}"
-    runHook postInstallCheck
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/talos-systems/conform";
