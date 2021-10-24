@@ -29,6 +29,7 @@
   imv = ./imv.nix;
   weechat = ./weechat.nix;
   systemd = ./systemd.nix;
+  swaylock = ./swaylock.nix;
   xdg = ./xdg.nix;
 
   __functionArgs = { };
@@ -60,6 +61,7 @@
       imv
       weechat
       systemd
+      swaylock
       xdg
     ];
   };

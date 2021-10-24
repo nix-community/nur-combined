@@ -71,9 +71,10 @@
         # TODO: assert that args and flags are empty because they are not yet supported
       };
       lua = lua.toTable [ config.name ] // {
-        # TODO: assert flags are empty
         type = "pw_module";
         args = config.arguments;
+      } // optionalAttrs config.flags.ifexists {
+        optional = true;
       };
     };
   });
@@ -349,6 +350,14 @@ in {
     policy = {
       enable = mkEnableOption "policy" // { default = true; };
       session = {
+        dsp.enable = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            Enable channel splitting & merging on nodes.
+            Disabling this breaks JACK support.
+          '';
+        };
         move = mkOption {
           type = types.bool;
           default = true;
@@ -414,6 +423,16 @@ in {
     };
     v4l2 = {
       enable = mkEnableOption "Load v4l2 device monitor";
+    };
+    libcamera = {
+      enable = mkEnableOption "Load libcamera device monitor";
+      properties = mkOption {
+        type = json.types.attrs;
+        default = { };
+      };
+      rules = mkOption {
+        type = types.attrsOf alsaRuleType;
+      };
     };
     bluez = {
       enable = mkEnableOption "Load bluetooth device monitor";
@@ -513,13 +532,29 @@ in {
           "support.*" = "support/libspa-support";
         };
       };
-      access.rules.flatpak = {
-        matches = mkOptionDefault {
-          subject = "pipewire.access";
-          comparison = "flatpak";
-          verb = "=";
+      access.rules = {
+        flatpak = {
+          matches = mkOptionDefault {
+            subject = "pipewire.access";
+            comparison = "flatpak";
+            verb = "=";
+          };
+          permissions = mkOptionDefault "rx";
         };
-        permissions = mkOptionDefault "rx";
+        flatpakManager = {
+          matches = mkOptionDefault [
+            {
+              subject = "pipewire.access";
+              comparison = "flatpak";
+              verb = "=";
+            } {
+              subject = "media.category";
+              comparison = "Manager";
+              verb = "=";
+            }
+          ];
+          permissions = mkOptionDefault "all";
+        };
       };
       defaults.properties = mapAttrs (_: mkOptionDefault) {
         "use-persistent-storage" = cfg.defaults.persistent;
@@ -528,6 +563,7 @@ in {
         properties = mapAttrs (_: mkOptionDefault) {
           move = cfg.policy.session.move;
           follow = cfg.policy.session.follow;
+          "audio.no-dsp" = !cfg.policy.session.dsp.enable;
           "duck.level" = cfg.policy.duck.level;
         } // {
           roles = cfg.policy.roles.properties;
@@ -621,9 +657,10 @@ in {
           { name = "libwireplumber-module-si-standard-link"; type = "module"; }
           { name = "libwireplumber-module-si-audio-endpoint"; type = "module"; }
           { name = "libwireplumber-module-default-nodes-api"; type = "module"; } # access default nodes from scripts
+          { name = "libwireplumber-module-route-settings-api"; type = "module"; } # access volume of streams from scripts
           { name = "libwireplumber-module-mixer-api"; type = "module"; } # needed for volume ducking
           { name = "static-endpoints.lua"; type = "script/lua"; arguments = cfg.policy.roles.endpointsProperties; }
-          { name = "create-item.lua"; type = "script/lua"; }
+          { name = "create-item.lua"; type = "script/lua"; arguments = cfg.policy.properties; }
           { name = "policy-node.lua"; type = "script/lua"; arguments = cfg.policy.properties; }
           { name = "policy-endpoint-client.lua"; type = "script/lua"; arguments = cfg.policy.properties; }
           { name = "policy-endpoint-client-links.lua"; type = "script/lua"; arguments = cfg.policy.properties; }
@@ -638,6 +675,11 @@ in {
           }; }
           ++ optional cfg.alsa.midi.enable { name = "monitors/alsa-midi.lua"; type = "script/lua"; arguments = {
             properties = cfg.alsa.midi.properties;
+          }; };
+        libcamera =
+          singleton { name = "monitors/libcamera.lua"; type = "script/lua"; arguments = {
+            properties = cfg.libcamera.properties;
+            rules = mapRulesToLua cfg.libcamera.rules;
           }; };
         v4l2 = throw "TODO";
         bluez = throw "TODO";

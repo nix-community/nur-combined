@@ -8,15 +8,25 @@
     };
   };
 
-  more_uarches = { kernelPatches, hostPlatform, kernelArch ? null, gccArch ? null }@args: kernelPatches.more_uarches_5_8.override (
-    builtins.removeAttrs args [ "kernelPatches" ]
-  );
-  more_uarches_5_8 = { fetchpatch, hostPlatform, kernelArch ? null, gccArch ? hostPlatform.linux-kernel.arch or hostPlatform.gcc.arch or "x86-64-v3" }: rec {
+  more_uarches = { lib, fetchpatch, hostPlatform, linux, kernelArch ? null, gccArch ? hostPlatform.linux-kernel.arch or hostPlatform.gcc.arch or "x86-64-v3" }: rec {
     name = "more-uarches";
-    patch = fetchpatch {
-      name = name + ".patch";
-      url = "https://github.com/graysky2/kernel_gcc_patch/raw/199cd0cfc568f17dabcc0b29e8bda4974ab3653e/more-uarches-for-kernel-5.8%2B.patch";
-      sha256 = "192ax0jxhsvfccn795nfsdqdbyyggjyq83p6byhkiias491b1psc";
+    patch = let
+      src =
+        if lib.versionAtLeast linux.version "5.15" then {
+          versionRange = "5.15+";
+          sha256 = "0cfmi2f27zpms220vv0bdxqsxnfnplm1g3dkl28zsjkw1mjagf34";
+        } else if lib.versionAtLeast linux.version "5.8" then {
+          versionRange = "5.8-5.14";
+          sha256 = "079f1gvgj7k1irj25k6bc1dgnihhmxvcwqwbgmvrdn14f7kh8qb3";
+        } else {
+          versionRange = "4.19-5.4";
+          sha256 = "14xczd9bq6w9rc0lf8scq8nsgphxlnp7jqm91d0zvxj0v0mqylch";
+        };
+        patchUrl = range: "https://github.com/graysky2/kernel_compiler_patch/raw/b3967a789a54334ff9a8e28bd6da58348fd5dd2e/more-uarches-for-kernel-${range}.patch";
+    in fetchpatch {
+      name = name + "${src.versionRange}.patch";
+      url = patchUrl (lib.replaceStrings [ "+" ] [ "%2B" ] src.versionRange);
+      inherit (src) sha256;
     };
     extraConfig = let
       archconfig = if kernelArch != null then kernelArch else {

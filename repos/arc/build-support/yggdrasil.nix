@@ -1,22 +1,17 @@
 { self, super, lib, ... }: with lib; let
   addPassthru = drv: {
-    address = readFile "${drv}";
+    import = removeSuffix "\n" (readFile "${drv}");
   };
   packages = {
-    yggdrasil-address = { stdenvNoCC, yggdrasil }: pubkey: let
+    calculateYggdrasilAddress = { stdenvNoCC, yggdrasil-address }: pubkey: let
       drv = stdenvNoCC.mkDerivation {
         name = "yggdrasil-address-${pubkey}";
 
-        nativeBuildInputs = [ yggdrasil ];
+        nativeBuildInputs = singleton yggdrasil-address;
 
-        yggdrasilConf = builtins.toJSON {
-          EncryptionPublicKey = pubkey;
-        };
-
-        passAsFile = [ "yggdrasilConf" ];
-
+        inherit pubkey;
         buildCommand = ''
-          yggdrasil -useconffile $yggdrasilConfPath -address | tr -d '\n' > $out
+          yggdrasil-address "$pubkey" > $out
         '';
       };
     in drvPassthru addPassthru drv;

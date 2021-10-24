@@ -7,6 +7,7 @@
 , lua5_4 ? null
 , pkg-config
 , glib
+, elogind
 , pipewire
 , systemd
 , python3
@@ -24,14 +25,14 @@
   ]);
 in stdenv.mkDerivation rec {
   pname = "wireplumber";
-  version = "0.4.2";
+  version = "0.4.4";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "pipewire";
     repo = pname;
     rev = version;
-    sha256 = "04jq1rn8lr6wbn2acs5lzydpnhzmrs0fd80a1a55rli3fh1bm2qi";
+    sha256 = "0vr84xlnwlhrfq9l13rxh8cb8s389wlyafvi6bah444acmpx1lwv";
   };
 
   outputs = [ "out" "dev" ] ++ optional enableDocs "doc";
@@ -39,7 +40,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkg-config python doxygen ]
   ++ optional enableIntrospection gobject-introspection;
 
-  buildInputs = [ lua glib pipewire systemd ];
+  buildInputs = [ lua glib pipewire systemd elogind ];
 
   mesonFlags = [
     "-Dintrospection=${mesonFeature enableIntrospection}"
@@ -50,4 +51,6 @@ in stdenv.mkDerivation rec {
     "-Dsystemd-user-service=true"
     "-Dsystemd-system-service=true"
   ];
+
+  meta.broken = lib.versionOlder pipewire.version "0.3.37";
 }

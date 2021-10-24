@@ -380,6 +380,25 @@ let
       };
     });
 
+    swaylock-effects-develop = { fetchFromGitHub, swaylock-effects, fetchpatch }: swaylock-effects.overrideAttrs (old: rec {
+      version = "2021-05-23";
+
+      src = fetchFromGitHub {
+        owner = "mortie";
+        repo = "swaylock-effects";
+        rev = "5cb9579faaf5662b111f5722311b701eff1c1d00";
+        sha256 = "036dkhfqgk7g9vbr5pxgrs66h5fz0rwdsc67i1w51aa9v01r35ca";
+      };
+
+      patches = [
+        (fetchpatch {
+          name = "use-font-size-for-date-if-present";
+          url = "https://patch-diff.githubusercontent.com/raw/gavinbeatty/swaylock-effects/pull/1.patch";
+          sha256 = "1m42mb2gawkjf9svbhbdh7r1mfnyy8rxaaw19qns6i428aa4ykzx";
+        })
+      ];
+    });
+
     electrum-cli = { lib, electrum }: let
       electrum-cli = electrum.override { enableQt = false; };
     in electrum-cli.overrideAttrs (old: {

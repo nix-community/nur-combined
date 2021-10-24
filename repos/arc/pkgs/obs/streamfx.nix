@@ -1,12 +1,12 @@
 { fetchFromGitHub, stdenv, obs-studio, cmake, lib, qtbase ? qt5.qtbase, qt5, ffmpeg }: stdenv.mkDerivation rec {
   pname = "obs-streamfx";
-  version = "0.11.0a3";
+  version = "0.11.0a6";
 
   src = fetchFromGitHub {
     owner = "Xaymar";
     repo = "obs-StreamFX";
     rev = version;
-    sha256 = "0fwnbv40rlsfaa5pqim9yrby133b654r3zlag24md90ibjhj67s3";
+    sha256 = "07vbjg69q691n39a0cbb5x3c2bsdslsh9d3i0f01z7d081w9346s";
   };
 
   patches = [
