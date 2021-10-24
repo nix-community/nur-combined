@@ -9,7 +9,6 @@ in {
     enable = mkEnableOption "the driver for Argon One Raspberry Pi case fan and power button";
     package = mkOption {
       type = types.package;
-      # TODO change to pkgs.argononed when moving to nixpkgs
       default = nur.argononed;
       defaultText = "nur.argononed";
       description = ''
@@ -19,13 +18,44 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # TODO: i don't think these are needed, but keeping them here
+    # commented out just in case
+    # boot.kernelModules = [ "i2c-dev" "i2c-piix4" "i2c_bcm2835" ];
+    hardware.i2c.enable = true;
     hardware.deviceTree.overlays = [
       {
         name = "argononed";
         dtboFile = "${cfg.package}/boot/overlays/argonone.dtbo";
       }
+      # Seems to be absolutely needed for pi4
+      {
+          name = "i2c0";
+          dtsText = ''
+    /dts-v1/;
+          /plugin/;
+          /{
+              compatible = "raspberrypi,4-model-b";
+              fragment@1 {
+                  target = <&i2c1>;
+                  __overlay__ {
+                      status = "okay";
+                  };
+              };
+          };
+          '';
+      }
     ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = [ cfg.package ];
+    systemd.services.argononed = {
+      description = "Argon One Fan and Button Daemon Service";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        Type = "forking";
+        ExecStart = "${cfg.package}/bin/argononed";
+        PIDFile = "/run/argononed.pid";
+        Restart = "on-failure";
+      };
+    };
   };
 
 }
