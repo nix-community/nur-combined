@@ -13,14 +13,14 @@ rec {
   mariadb_10_4        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_4.nix { openssl = pkgs.libressl; inherit curl; jemalloc450 = pkgs.jemalloc450.override ({ disableInitExecTls = true; }); inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   mariadb_10_5        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_5.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   mariadb_10_6        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_6.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
-  mariadb-galera_25   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_25.nix { openssl = pkgs.libressl; asio = pkgs.asio_1_10; };
+  mariadb-galera_25   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_25.nix { asio = pkgs.asio_1_10; };
   mariadb-galera_26   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_26.nix { asio = pkgs.asio_1_10; };
   mysql_5_5           = pkgs.callPackage  ./pkgs/servers/mysql/mysql_5_5.nix { openssl = pkgs.libressl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   unit                = pkgs.callPackage  ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; php74 = php74-unit; php80 = php80-unit; withPython3 = false; withPHP56 = true; withPHP71 = true; withPHP72 = true; withPHP73 = true; withPHP74 = true; withPHP80 = true; withPerl534 = false; withRuby_3_0 = false; withIPv6 = true; };
   oh-my-zsh-custom    = pkgs.callPackage  ./pkgs/shells/oh-my-zsh-custom { inherit zsh-history-sync; inherit zsh-theme-rkj-mod; };
   zsh-history-sync    = pkgs.callPackage  ./pkgs/shells/zsh-history-sync { };
   zsh-theme-rkj-mod   = pkgs.callPackage  ./pkgs/shells/zsh-theme-rkj-mod { };
-  curl                = pkgs.callPackage  ./pkgs/tools/curl { openssl = pkgs.libressl; inherit libssh2; brotliSupport = true; scpSupport = true; sslSupport = true; zlibSupport = true; ipv6Support = true; };
+  curl                = pkgs.callPackage  ./pkgs/tools/curl { openssl = pkgs.libressl; inherit libssh2; brotliSupport = true; scpSupport = true; opensslSupport = true; zlibSupport = true; ipv6Support = true; };
   fail2ban            = pkgs.callPackage  ./pkgs/tools/fail2ban { };
   uwimap              = pkgs.callPackage  ./pkgs/tools/uwimap { openssl = pkgs.libressl; };
 

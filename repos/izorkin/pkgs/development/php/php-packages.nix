@@ -34,10 +34,10 @@ let
   };
 
   apcu51 = buildPecl {
-    version = "5.1.20";
+    version = "5.1.21";
     pname = "apcu";
 
-    sha256 = "1463z4lavpw9fghh8vpa878c3gyx4rskxrff5w9lsvy0zvx417dr";
+    sha256 = "1hgvxk7jlfb98nkz4bh7609zndaivzv50l68vv5ffvk990256cqh";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
     doCheck = true;
@@ -543,12 +543,12 @@ let
   };
 
   phpcbf = mkDerivation rec {
-    version = "3.6.0";
+    version = "3.6.1";
     pname = "phpcbf";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "04wb1imm4934mpy2hxcmqh4cn7md1vwmfii39p6mby809325b5z1";
+      sha256 = "0w8lq0zls457dfg7qy7sblamxcddx4ijmqcaqvbavgml1vfn1ljg";
     };
 
     phases = [ "installPhase" ];
@@ -570,12 +570,12 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.6.0";
+    version = "3.6.1";
     pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "0sdi78hrwd3r5p1b38qmp89m41kfszh2qn4n5zhq2dmhsjdhjziz";
+      sha256 = "0svhrqi1fcyqjpb2hafgmn8drmn40njmcqawjf37xzws8sm6iknh";
     };
 
     phases = [ "installPhase" ];
@@ -701,7 +701,7 @@ let
     };
   };
 
-  protobuf = if isPhp56 then protobuf312 else protobuf318;
+  protobuf = if isPhp56 then protobuf312 else protobuf319;
 
   protobuf312 = buildPecl {
     version = "3.12.4";
@@ -722,11 +722,11 @@ let
     };
   };
 
-  protobuf318 = buildPecl {
-    version = "3.18.1";
+  protobuf319 = buildPecl {
+    version = "3.19.0";
     pname = "protobuf";
 
-    sha256 = "0ck2pmmhvvipamzwxvfv9zw430yg68f62yldyzb5lq7ms82l9asm";
+    sha256 = "062hfaiwmz6kayw0ikvylcx65haxl9061hy4kzfxgwkqncp8fgh9";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -742,12 +742,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.10.0";
+    version = "4.11.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1zn27m4d78jvxh5hxy85icjl55w872i41iwg4cdnjk96frq1wrps";
+      sha256 = "1xnkahhldlabl3m5y5jmq8b19swznkidgj0ry8l9rcjd950xhm1c";
     };
 
     phases = [ "installPhase" ];
@@ -768,12 +768,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.10.8";
+    version = "0.10.9";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "1qbwssb2srkvr9jxa2229dymig16g07y0wm2jm3qwy3rlh2552pa";
+      sha256 = "086y9hywbgyvwyppk97mjb5gsmkxdj7w6cxc67s87n87m1ixmf9j";
     };
 
     phases = [ "installPhase" ];
@@ -983,10 +983,10 @@ let
   };
 
   xdebug30 = buildPecl {
-    version = "3.1.0";
+    version = "3.1.1";
     pname = "xdebug";
 
-    sha256 = "0flxwg8z12xwaql15bxdw95akyg7y2i3gmisazkj0jpgv8596mmr";
+    sha256 = "0s0s1n80z3rivp4ah2g3hxj3j4kgqpfnqql4h33a9i2dvc7sxqwv";
 
     doCheck = true;
     checkTarget = "test";

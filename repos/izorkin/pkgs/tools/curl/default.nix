@@ -3,7 +3,7 @@
 , idnSupport ? false, libidn ? null
 , ldapSupport ? false, openldap ? null
 , zlibSupport ? true, zlib ? null
-, sslSupport ? zlibSupport, openssl ? null
+, opensslSupport ? zlibSupport, openssl ? null
 , gnutlsSupport ? false, gnutls ? null
 , wolfsslSupport ? false, wolfssl ? null
 , scpSupport ? zlibSupport && !stdenv.isSunOS && !stdenv.isCygwin, libssh2 ? null
@@ -31,10 +31,10 @@ assert http2Support -> nghttp2 != null;
 assert idnSupport -> libidn != null;
 assert ldapSupport -> openldap != null;
 assert zlibSupport -> zlib != null;
-assert sslSupport -> openssl != null;
-assert !(gnutlsSupport && sslSupport);
+assert opensslSupport -> openssl != null;
+assert !(gnutlsSupport && opensslSupport);
 assert !(gnutlsSupport && wolfsslSupport);
-assert !(sslSupport && wolfsslSupport);
+assert !(opensslSupport && wolfsslSupport);
 assert gnutlsSupport -> gnutls != null;
 assert wolfsslSupport -> wolfssl != null;
 assert scpSupport -> libssh2 != null;
@@ -53,6 +53,10 @@ stdenv.mkDerivation rec {
     ];
     sha256 = "sha256-3mLEq5qTFjk5Yui5R3elcLufcf61gPtEdeQS8vk4eFE=";
   };
+
+  patches = [
+    ./7.79.1-darwin-no-systemconfiguration.patch
+  ];
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
   separateDebugInfo = stdenv.isLinux;
@@ -73,7 +77,7 @@ stdenv.mkDerivation rec {
     optional zlibSupport zlib ++
     optional gssSupport libkrb5 ++
     optional c-aresSupport c-ares ++
-    optional sslSupport openssl ++
+    optional opensslSupport openssl ++
     optional gnutlsSupport gnutls ++
     optional wolfsslSupport wolfssl ++
     optional scpSupport libssh2 ++
@@ -93,7 +97,7 @@ stdenv.mkDerivation rec {
       # The build fails when using wolfssl with --with-ca-fallback
       (lib.withFeature (!wolfsslSupport) "ca-fallback")
       "--disable-manual"
-      (lib.withFeatureAs sslSupport "ssl" openssl.dev)
+      (lib.withFeatureAs opensslSupport "openssl" openssl.dev)
       (lib.withFeatureAs gnutlsSupport "gnutls" gnutls.dev)
       (lib.withFeatureAs scpSupport "libssh2" libssh2.dev)
       (lib.enableFeature ldapSupport "ldap")
@@ -132,7 +136,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    inherit sslSupport openssl;
+    inherit opensslSupport openssl;
   };
 
   meta = with lib; {
