@@ -5,12 +5,15 @@ let
     beancount
     bokeh
     ipdb
+    ipython
     jupytext
     matplotlib
     notebook
     numpy
     pandas
     pyflakes
+    pylint
+    python-language-server
     scipy
     seaborn
     yapf
@@ -84,7 +87,6 @@ in
         self.graphviz
         self.icu
         self.imagemagick
-        self.irssi
         self.ledger
         self.libnotify # for nofify-send
         self.mupdf

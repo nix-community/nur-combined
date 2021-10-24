@@ -129,7 +129,6 @@ let
     embark
     embark-consult
     emmet-mode
-    emms
     emr
     engine-mode
     ep.csv-mode
@@ -200,12 +199,10 @@ let
     git-gutter-fringe
     git-link
     git-messenger
+    git-modes
     git-timemachine
-    gitattributes-mode
-    gitconfig-mode
     github-clone
     github-search
-    gitignore-mode
     gitignore-templates
     gntp
     gnuplot-mode
@@ -355,6 +352,7 @@ let
     pkg-info
     poetry
     polymode
+    popper
     popup
     popwin
     pos-tip

@@ -25,3 +25,5 @@ EOF
 branch="release-21.05"
 channel=$(git ls-remote https://github.com/nixos/nixpkgs $branch | awk '{print $1}')
 sed -i "s|^channel.*|channel='https://github.com/NixOS/nixpkgs/archive/$channel.tar.gz'  # $(date -I)|" talon
+
+talon
