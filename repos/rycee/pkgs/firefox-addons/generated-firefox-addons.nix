@@ -132,10 +132,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.3.8.0";
+      version = "2.3.9.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3848454/bypass_paywalls_clean-2.3.8.0-an+fx.xpi";
-      sha256 = "078969d8e20a7693aacb5ebab09e988ac8647caf0b572d1d0afd84e33935db9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3851594/bypass_paywalls_clean-2.3.9.0-an+fx.xpi";
+      sha256 = "15e3a0d4f0014c631f190a935c9e7a4de186d5148cc81fcaf7cd40409d4c89ce";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -495,10 +495,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "94.0buildid20211007185900";
+      version = "94.0buildid20211017185800";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3850637/francais_language_pack-94.0buildid20211007185900-fx.xpi";
-      sha256 = "f6b62a50100b94a947ab184a2f8983fdc44f1f0f70494fc5a2d0917b7cf246d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3854940/francais_language_pack-94.0buildid20211017185800-fx.xpi";
+      sha256 = "fd26a7f0dcad3799e32c7e94afbe32126d743d1c8d06d11457c3c9e0e0e1b1b8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -550,10 +550,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.886.0";
+      version = "8.887.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3848889/grammarly_for_firefox-8.886.0-an+fx.xpi";
-      sha256 = "79f787e1bbe725763b63f0a16c8debc1be75b6d093db6a8840c6fd587a19e3dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850476/grammarly_for_firefox-8.887.0-an+fx.xpi";
+      sha256 = "989b9d0fbaf0fa0568620b6ab69391115f37d09da98b9cc17ea3960619ded96b";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -815,10 +815,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.16";
+      version = "2.6.17";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3845260/localcdn-2.6.16-an+fx.xpi";
-      sha256 = "ad31a0a0cfe9a16d51214a9a818d3fd718106a9bab82b655e9f0d94d6127cdae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3854401/localcdn-2.6.17-an+fx.xpi";
+      sha256 = "4ed0ef4eba9d134488774a29de6546ecf17e8a7713319d561b379b551ab089db";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -870,10 +870,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.2.0";
+      version = "10.2.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3850082/metamask-10.2.0-an+fx.xpi";
-      sha256 = "f81505d8c5c0f49e4dbcda74638017a56afe6a6d1a33ba086eb8c3e0420481a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3852151/metamask-10.2.2-an+fx.xpi";
+      sha256 = "90a43806c1e74a882cae04c6370d1afc595d2cd55aa56f600bfe9dd7849ba42d";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1073,10 +1073,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.1.2";
+      version = "2.1.3";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847551/1password-2.1.2-fx.xpi";
-      sha256 = "ba9c1be44c9f4180b3406a33912c127595c05769e6fdef236e68f4b2729ddf94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850842/1password-2.1.3-fx.xpi";
+      sha256 = "63fd5a5b1becb12879fb6b1a6c74ffe41bef15e4739dd7929a3f713b6baeb779";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1263,10 +1263,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.19.2";
+      version = "4.20.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3851009/react_developer_tools-4.19.2-fx.xpi";
-      sha256 = "d7f67ceca5b1ee5d35328db147ddd7703ec2e6b79787a4987ee984ddfaf2432f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3854237/react_developer_tools-4.20.0-fx.xpi";
+      sha256 = "08630b06c9be60033e0666a1d9087e5112087e8daa8c046ad7c456cae50ee7ce";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1333,10 +1333,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.10.4";
+      version = "21.10.11";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3849135/refined_github-21.10.4-an+fx.xpi";
-      sha256 = "39d59b086cf2e8d0868b575e283735ddeb582238faa93bd6eb0f71fd002b0444";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3852077/refined_github-21.10.11-an+fx.xpi";
+      sha256 = "79b41da734a098dcaddfc52cf77694d850eeac14e9f1f2a41257a8603e8b7b8d";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1512,10 +1512,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.10.1";
+      version = "6.11.1";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3837073/tab_session_manager-6.10.1-fx.xpi";
-      sha256 = "21e4204c0357dfd81ea49f0a13f55752dfcb6f53f04bb3518c3471c6668e777f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3853650/tab_session_manager-6.11.1-fx.xpi";
+      sha256 = "d80f4ebe51045dc252165bf736978e4688a7c393776420955ac5bf1be236d66c";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -1723,10 +1723,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.38.2";
+      version = "1.38.6";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847314/ublock_origin-1.38.2-an+fx.xpi";
-      sha256 = "11c02e45981aec36a006bb5bf5d72bfc94b16361995ae8e49b1bd9b765346dad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3853583/ublock_origin-1.38.6-an+fx.xpi";
+      sha256 = "d095ce1d57e5b46d1de55f6f57d239630ec6259434449f45d7163d69f5c0cc85";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1863,10 +1863,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.16";
+      version = "6.8.18";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847095/wappalyzer-6.8.16-fx.xpi";
-      sha256 = "2733b3e47fe0b9561142185cecec5190abb8faaf3eb472cc923c50538abd4cd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3851862/wappalyzer-6.8.18-fx.xpi";
+      sha256 = "4dc655a737b6c84166c77f3f7a9cc58788cfc40a2ec7c60c62f7085965b264b8";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -1890,10 +1890,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.45.3";
+      version = "2.46.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3850274/web_scrobbler-2.45.3-an+fx.xpi";
-      sha256 = "0b787ebc9c61455748b85bf03b699d4f2b2f1fb621c1a800d24af6e913913c4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3854252/web_scrobbler-2.46.0-an+fx.xpi";
+      sha256 = "b4f9bb6b68cb52d2b4bd2db4f937a7afa123fd4625564470e99328de923b22d1";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
@@ -1918,10 +1918,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.1";
+      version = "19.2";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3850054/zoom_page_we-19.1-fx.xpi";
-      sha256 = "67206194bcdf2948b7c489240f6fde5237c7eab2e38bed14db3ea0dc3212489b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3850992/zoom_page_we-19.2-fx.xpi";
+      sha256 = "d74450745ac494a27a6b6de1db466a7d057c3a3c82eaecc7d1cebbd108cb204d";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";

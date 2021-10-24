@@ -72,6 +72,14 @@ let
         '';
       };
 
+      functions = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = ''
+          The entries to use for <option>:functions</option>.
+        '';
+      };
+
       mode = mkOption {
         type = types.listOf types.str;
         default = [ ];
@@ -188,6 +196,7 @@ let
         mkDefines = vs: optional (vs != [ ]) ":defines (${toString vs})";
         mkDiminish = vs: optional (vs != [ ]) ":diminish (${toString vs})";
         mkMode = map (v: ":mode ${v}");
+        mkFunctions = vs: optional (vs != [ ]) ":functions (${toString vs})";
         mkBind = mkBindHelper "bind" "";
         mkBindLocal = bs:
           let mkMap = n: v: mkBindHelper "bind" ":map ${n}" v;
@@ -206,8 +215,9 @@ let
         ++ mkBindKeyMap config.bindKeyMap ++ mkBindLocal config.bindLocal
         ++ mkChords config.chords ++ mkCommand config.command
         ++ mkDefer config.defer ++ mkDefines config.defines
-        ++ mkDemand config.demand ++ mkDiminish config.diminish
-        ++ mkHook config.hook ++ mkMode config.mode
+        ++ mkFunctions config.functions ++ mkDemand config.demand
+        ++ mkDiminish config.diminish ++ mkHook config.hook
+        ++ mkMode config.mode
         ++ optionals (config.init != "") [ ":init" config.init ]
         ++ optionals (config.config != "") [ ":config" config.config ]
         ++ optional (config.extraConfig != "") config.extraConfig) + ")";
