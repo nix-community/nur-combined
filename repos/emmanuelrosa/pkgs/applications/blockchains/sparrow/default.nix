@@ -66,7 +66,7 @@ let
       -m com.sparrowwallet.sparrow
     )
 
-    XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS /nix/store/anwva8fk7zf2ykjkzggjkg38wd7sxx39-openjdk-16+36/bin/java ''${params[@]} $@
+    XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS ${openjdk16}/bin/java ''${params[@]} $@
 '';
 
   torWrapper = writeScript "tor-wrapper" ''
