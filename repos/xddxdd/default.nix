@@ -14,6 +14,8 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bird-lg-go = pkgs.callPackage ./pkgs/bird-lg-go { };
+  bird-lgproxy-go = pkgs.callPackage ./pkgs/bird-lgproxy-go { };
   boringssl-oqs = pkgs.callPackage ./pkgs/boringssl-oqs { };
   coredns = pkgs.callPackage ./pkgs/coredns { };
   libltnginx = pkgs.callPackage ./pkgs/libltnginx { };
@@ -27,4 +29,5 @@ rec {
   openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian { };
   qemu-user-static = pkgs.callPackage ./pkgs/qemu-user-static { };
   route-chain = pkgs.callPackage ./pkgs/route-chain { };
+  xray = pkgs.callPackage ./pkgs/xray { };
 }

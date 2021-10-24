@@ -30,5 +30,6 @@ stdenv.mkDerivation rec {
     description = "A generic and open source machine emulator and virtualizer";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
+    broken = !stdenv.hostPlatform.isx86_64;
   };
 }
