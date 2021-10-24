@@ -23,7 +23,7 @@
 
 buildPythonPackage rec {
   pname = "pyquil";
-  version = "3.0.0";
+  version = "3.0.1";
 
   disabled = pythonOlder "3.6";
 
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     owner = "rigetti";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-XeSwxmqonj/Z/6zsQNasropnl8BH1FvqVn5v86m+4AA=";
+    sha256 = "sha256-OU7/LjcpCxvqlcfdlm5ll4f0DYXf0yxNprM8Muu2wyg=";
   };
   postPatch = ''
     # remove numpy hard-pinning, not compatible with nixpkgs 20.09
