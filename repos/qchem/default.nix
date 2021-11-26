@@ -133,6 +133,8 @@ let
 
       harminv = callPackage ./pkgs/apps/harminv { };
 
+      luscus = callPackage ./pkgs/apps/luscus { };
+
       nwchem = callPackage ./pkgs/apps/nwchem {
         blas = self.blas-i8;
         lapack = self.lapack-i8;

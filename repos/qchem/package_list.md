@@ -48,6 +48,7 @@ distributed HPC systems equipped with multicore CPU and NVIDIA or AMD GPU. |
 | libxc-4.3.4 | qchem.libxc4 | Library of exchange-correlation functionals for density-functional theory |
 | libxc-5.1.6 | qchem.libxc | Library of exchange-correlation functionals for density-functional theory |
 | libxsmm-1.16.2 | qchem.libxsmm | Library targeting Intel Architecture for specialized dense and sparse matrix operations, and deep learning primitives |
+| luscus-0.8.6 | qchem.luscus | Portable GUI for MOLCAS and other quantum chemical software |
 | matlab | qchem.matlab | null |
 | mctdh-8.4.17 | qchem.mctdh | Multi configuration time dependent hartree dynamics package |
 | meep-1.20.0 | qchem.meep | Free finite-difference time-domain (FDTD) software for electromagnetic simulations |

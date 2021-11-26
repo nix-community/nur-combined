@@ -376,6 +376,14 @@
     "homepage": "https://github.com/hfp/libxsmm"
   },
   {
+    "attribute": "qchem.luscus",
+    "name": "luscus-0.8.6",
+    "pname": "luscus",
+    "version": "0.8.6",
+    "description": "Portable GUI for MOLCAS and other quantum chemical software",
+    "homepage": "http://luscus.sourceforge.net"
+  },
+  {
     "attribute": "qchem.matlab",
     "name": "matlab",
     "pname": "matlab",
