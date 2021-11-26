@@ -16,14 +16,14 @@
 
 buildPythonPackage rec {
   pname = "cvxpy";
-  version = "1.1.15";
+  version = "1.1.17";
   format = "pyproject";
 
   disabled = pythonOlder "3.5";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-qam6ZTffu78JCzoLc6GFxQms5iDbytusxpgfcosymKY=";
+    sha256 = "sha256-M5fTuJ13Dqnw/DWbHJs6/t5qDTvqHP8g4mU7E0Uc24o=";
   };
 
   propagatedBuildInputs = [
@@ -41,7 +41,6 @@ buildPythonPackage rec {
   '';
 
   checkInputs = [ pytestCheckHook ];
-  dontUseSetuptoolsCheck = true;
   pytestFlagsArray = [ "./cvxpy" ];
   # Disable the slowest benchmarking tests, cuts test time in half
   disabledTests = [

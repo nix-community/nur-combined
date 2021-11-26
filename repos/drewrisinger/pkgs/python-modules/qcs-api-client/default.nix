@@ -17,13 +17,13 @@
 
 buildPythonPackage rec {
   pname = "qcs-api-client";
-  version = "0.8.0";
+  version = "0.15.0";
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "68118137337b7ba1688d070bd276c40081938e145759b500699fcc2b941a0fb0";
+    sha256 = "sha256-NzfHemIYQq2quYs3RNKF7NHfR6Vi8Sx4eRTVT2pTEYk=";
   };
 
   # unpin max versions on packages
@@ -51,7 +51,6 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;  # no tests included
-  dontUseSetuptoolsCheck = true;
   # checkInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "qcs_api_client" ];
 

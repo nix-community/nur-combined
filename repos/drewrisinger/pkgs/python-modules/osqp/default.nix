@@ -36,7 +36,6 @@ buildPythonPackage rec {
 
   checkInputs = [ pytestCheckHook cvxopt ];
   pythonImportsCheck = [ "osqp" ];
-  dontUseSetuptoolsCheck = true;  # running setup.py fails if false
   disabledTests = [
     # Disabled b/c mkl support not enabled
     "mkl_"

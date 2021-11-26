@@ -120,7 +120,6 @@ buildPythonPackage rec {
     setuptools  # temporary workaround for pbr missing setuptools, see https://github.com/NixOS/nixpkgs/pull/132614
     testtools
   ];
-  dontUseSetuptoolsCheck = true;  # Otherwise runs tests twice
 
   preCheck = ''
     # Tests include a compiled "circuit" which is auto-built in $HOME

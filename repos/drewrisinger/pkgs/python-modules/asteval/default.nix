@@ -29,7 +29,6 @@ buildPythonPackage rec {
   '';
 
   pythonImportsCheck = [ "asteval" ];
-  dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {

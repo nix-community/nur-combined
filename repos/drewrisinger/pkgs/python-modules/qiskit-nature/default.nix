@@ -20,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-nature";
-  version = "0.2.1";
+  version = "0.2.2";
 
   disabled = pythonOlder "3.6";
 
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-dfenE9QCSPDXgf8gV7zqfL3OQWeDTPWTiV756RUCJlc=";
+    sha256 = "sha256-nQbvH911Gt4KddG23qwmiXfRJTWwVEsrzPvuTQfy4FY=";
   };
 
   postPatch = ''
@@ -50,7 +50,6 @@ buildPythonPackage rec {
     ddt
     pylatexenc
   ];
-  dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit_nature" ];
 

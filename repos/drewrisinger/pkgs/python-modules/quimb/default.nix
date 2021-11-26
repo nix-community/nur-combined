@@ -43,7 +43,6 @@ buildPythonPackage rec {
     versioneer
   ];
 
-  dontUseSetuptoolsCheck = true;
   preCheck = ''
     substituteInPlace setup.cfg --replace "--cov=quimb --cov-report term-missing" ""
   '';

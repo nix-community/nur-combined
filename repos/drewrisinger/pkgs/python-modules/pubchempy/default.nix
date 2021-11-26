@@ -19,7 +19,6 @@ buildPythonPackage rec {
   doCheck = false;  # ALL tests require network access
 
   pythonImportsCheck = [ "pubchempy" ];
-  dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {

@@ -17,7 +17,6 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytestCheckHook pysocks ];
-  dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "websocket" ];
 

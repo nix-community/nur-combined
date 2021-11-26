@@ -97,7 +97,6 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [ pytestCheckHook cvxpy nose ];
-  dontUseSetuptoolsCheck = true;
 
   # Run tests from temp directory to avoid nose finding un-cythonized code
   preCheck = ''

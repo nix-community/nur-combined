@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-ode";
-  version = "unstable-2021-04-12";
+  version = "unstable-0.1.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -33,7 +33,6 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [ pytestCheckHook ];
-  dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit_ode" ];
 

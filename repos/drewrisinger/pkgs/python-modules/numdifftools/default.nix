@@ -37,7 +37,6 @@ buildPythonPackage rec {
 
   doCheck = false;
   pythonImportsCheck = [ "numdifftools" ];
-  dontUseSetuptoolsCheck = true;
   checkInputs = [
     pytestCheckHook
     hypothesis

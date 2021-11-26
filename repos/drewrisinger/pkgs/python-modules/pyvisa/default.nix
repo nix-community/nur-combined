@@ -24,7 +24,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ typing-extensions ];
 
   checkInputs = [ pytestCheckHook ];
-  dontUseSetuptoolsCheck = true;
   preCheck = ''
     export PATH=$out/bin:$PATH
   '';

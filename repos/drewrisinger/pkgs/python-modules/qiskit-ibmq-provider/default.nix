@@ -41,7 +41,7 @@ let
 in
 buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
-  version = "0.17.0";
+  version = "0.18.1";
 
   disabled = pythonOlder "3.6";
 
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-HrkcW+xoLWeM0VNj59kcDKtkFQu3doij5cTG18DLJpk=";
+    sha256 = "sha256-rySSCyI+62G7kL1ZRtjX1WeWj3LPXECvrlXAcIDINF4=";
   };
 
   propagatedBuildInputs = [
@@ -76,7 +76,6 @@ buildPythonPackage rec {
     vcrpy
     websockets
   ] ++ lib.optionals (!withVisualization) visualizationPackages;
-  dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];
   # These disabled tests require internet connection, aren't skipped elsewhere

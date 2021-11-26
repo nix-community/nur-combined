@@ -18,17 +18,19 @@
 
 buildPythonPackage rec {
   pname = "openfermion";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "quantumlib";
     repo = "openfermion";
     rev = "v${version}";
-    sha256 = "sha256-PEJOKf86ypPO8TqIJR+mqV80+1c8EDIr7fpoBV6Qwgc=";
+    sha256 = "sha256-kUeuFWkc8ITPFZ+agmJyi7Ee0kHIGFxtTt38YunrMcs=";
   };
 
   postPatch = ''
-    substituteInPlace requirements.txt --replace "cirq~=0.11.0" "cirq"
+    substituteInPlace requirements.txt \
+      --replace "cirq-google~=0.12.0" "cirq-google" \
+      --replace "cirq-core~=0.12.0" "cirq-core"
   '';
 
   propagatedBuildInputs = [
@@ -44,7 +46,6 @@ buildPythonPackage rec {
   ];
 
   # pythonImportsCheck = [ "openfermion" ]; # has troubles with cirq's import mechanism
-  dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook nbformat ];
 
   pytestFlagsArray = [

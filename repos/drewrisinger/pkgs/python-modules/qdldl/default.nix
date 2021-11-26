@@ -33,7 +33,6 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "qdldl" ];
 
   checkInputs = [ pytestCheckHook ];
-  dontUseSetuptoolsCheck = true;
 
   meta = with lib; {
     description = "A free LDL factorization routine";

@@ -8,7 +8,7 @@
 
 buildPythonApplication rec {
   pname = "tuna";
-  version = "0.5.8";
+  version = "0.5.10";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -17,11 +17,10 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "nschloe";
     repo = pname;
-    rev = version;
-    sha256 = "072w18qjml7rchbb6l35xalqx36xbda4xjskbg2wyz2p510336nd";
+    rev = "v${version}";
+    sha256 = "sha256-ilwZCIFM1k9o0mrB/DSlMaawtYR75mEjSfj0f2hjkxo=";
   };
 
-  dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
   preCheck = "export PATH=$out/bin:$PATH";
 

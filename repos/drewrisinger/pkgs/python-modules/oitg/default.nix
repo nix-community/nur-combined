@@ -31,7 +31,6 @@ buildPythonPackage {
   pythonCheckImports = [ "oitg" "oitg.fit" ];
 
   checkInputs = [ pytestCheckHook ];
-  dontUseSetuptoolsCheck = true;
 
   # Remove tests from $out directory to avoid conflicts.
   postCheck = ''

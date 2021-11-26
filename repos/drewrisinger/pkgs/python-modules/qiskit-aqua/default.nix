@@ -103,7 +103,6 @@ buildPythonPackage rec {
     ddt
     qiskit-aer
   ];
-  dontUseSetuptoolsCheck = true;
   pythonImportsCheck = [
     "qiskit.aqua"
     "qiskit.aqua.algorithms"

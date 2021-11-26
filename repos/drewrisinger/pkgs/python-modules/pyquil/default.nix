@@ -56,7 +56,6 @@ buildPythonPackage rec {
   ] ++ (lib.optionals (pythonOlder "3.8") [ importlib-metadata ]);
 
   doCheck = false; # tests are complex, seem to depend on certain processes/servers run in docker container.
-  dontUseSetuptoolsCheck = true;
   checkInputs = [
     pytestCheckHook
     ipython

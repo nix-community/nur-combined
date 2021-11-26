@@ -37,7 +37,6 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "qutip" ];
   checkInputs = [ pytestCheckHook ipython ];
-  dontUseSetuptoolsCheck = true;
   # copy qutip tests to a separate directory so pytest doesn't add $builddir/qutip to PATH,
   # which fails b/c the compiled libraries are missing
   preCheck = ''

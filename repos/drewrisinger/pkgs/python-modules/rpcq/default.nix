@@ -37,7 +37,6 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "msgpack>=0.6,<1.0" "msgpack"
   '';
 
-  dontUseSetuptoolsCheck = true;
   checkInputs = [
     pytestCheckHook
     numpy

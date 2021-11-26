@@ -28,7 +28,6 @@ buildPythonPackage rec {
     toml
   ];
 
-  dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {

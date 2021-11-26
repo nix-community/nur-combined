@@ -63,7 +63,6 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [ pytestCheckHook ];
-  dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [
     "qiskit_metal"

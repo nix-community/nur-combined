@@ -20,10 +20,6 @@ jobs:
         nix_path: "nixpkgs=channel:nixos-unstable"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: List NUR package attributes
-      run: |
-        nix-shell ./update-shell.nix --run 'nix eval --json "(import ./ci.nix { }).allAttrPaths" | jq . > nurAttrs.json'
-        cat nurAttrs.json
     - name: Auto-update
       env:
         XDG_RUNTIME_DIR: ${{ github.workspace }}
@@ -33,8 +29,7 @@ jobs:
         GIT_COMMITTER_EMAIL: drewrisinger@users.noreply.github.com
       timeout-minutes: 30
       continue-on-error: true # want the PR to still submit even if some updates error
-      # Run nix-update on all attribute paths, except pygsti-cirq
-      run: nix-shell ./update-shell.nix --run "jq '[.. | values | strings] | map(select(contains(\"pygsti-cirq\") or contains (\"pyscf\") | not)) | .[]' nurAttrs.json | xargs -L1 nix-update --commit"
+      run: ./scripts/update-packages.sh
     - name: Submit auto-update PR
       uses: peter-evans/create-pull-request@v3
       with:

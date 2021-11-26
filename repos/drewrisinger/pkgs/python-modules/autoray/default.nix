@@ -25,7 +25,6 @@ buildPythonPackage rec {
     numpy
   ];
 
-  dontUseSetuptoolsCheck = true;
   checkInputs = [ pytestCheckHook pytestcov ];
 
   meta = with lib; {

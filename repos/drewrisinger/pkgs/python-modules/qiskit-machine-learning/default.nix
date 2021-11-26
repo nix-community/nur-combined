@@ -50,7 +50,6 @@ buildPythonPackage rec {
     ddt
     qiskit-aer
   ];
-  dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "qiskit_machine_learning" ];
 

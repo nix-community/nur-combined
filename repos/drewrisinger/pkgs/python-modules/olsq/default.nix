@@ -14,15 +14,15 @@
 
 buildPythonPackage rec {
   pname = "olsq";
-  version = "0.0.3";
+  version = "0.0.4";
 
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "tbcdebug";
     repo = pname;
-    rev = "00b8132cc91d7aaca1f064aae69e04a57158b20e"; # untagged
-    sha256 = "04n48glngxbyxg3f55flyvpzb1m9qgl2lsmad4zflddgf9yx7lg9";
+    rev = "497c7a21e307d9801e9ce5d9e6c9f9599d013485"; # untagged
+    sha256 = "039v2n3wz6dy0w6nihc93akz7qh887hdw4gf47lgsps83krnsd7k";
   };
 
   postPatch = ''
@@ -42,7 +42,6 @@ buildPythonPackage rec {
     pytestCheckHook
     qiskit-ibmq-provider
   ];
-  dontUseSetuptoolsCheck = true;
 
   pythonImportsCheck = [ "olsq" ];
 

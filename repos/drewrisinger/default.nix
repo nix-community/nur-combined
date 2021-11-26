@@ -53,7 +53,7 @@ rec {
       propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ cirq ];
     });
     pytest-plt = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pytest-plt { };
-    pytest-profiling = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pytest-profiling { };
+    pytest-profiling = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pytest-profiling { graphviz = pkgs.graphviz; };
     pubchempy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pubchempy { };
     python-box = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-box { };
     qutip = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qutip { };  # removed from nixpkgs b/c it was broken (presumably unused)
@@ -73,7 +73,7 @@ rec {
     pyvisa-py = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyvisa-py { inherit pyvisa; };
 
     # More recent version than in Nixpkgs
-    inherit (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { inherit pyquil; })
+    inherit (pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cirq { inherit duet pyquil; })
       cirq
       cirq-aqt
       cirq-core
@@ -92,7 +92,7 @@ rec {
     # NOTE: remove once makes release version
     algopy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/algopy { };
     numdifftools = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/numdifftools { inherit algopy; };
-
+    duet = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/duet { };
 
     # Qiskit proper, build order
     retworkx = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/retworkx { };

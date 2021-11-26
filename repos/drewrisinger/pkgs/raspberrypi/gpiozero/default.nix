@@ -27,7 +27,6 @@ buildPythonPackage rec {
 
   checkInputs = [ pytestCheckHook mock ];
   pythonImportsCheck = [ "gpiozero" ];
-  dontUseSetuptoolsCheck = true;
 
   meta = with lib; {
     description = "A simple interface to GPIO devices with Raspberry Pi";

@@ -36,7 +36,6 @@ buildPythonPackage rec {
 
   # Tests
   pythonImportsCheck = [ "qiskit.ignis" ];
-  dontUseSetuptoolsCheck = true;
   preCheck = ''
     export HOME=$TMPDIR
     pushd $TMP/$sourceRoot
