@@ -134,6 +134,11 @@ let
         '';
       };
 
+  # Convert The version number from "96.0a1" to 96 integer.
+  getMajorVersion = version:
+    with builtins;
+    fromJSON (head (match "([0-9]+)[.].*" version.version));
+
   firefoxVersion = version:
     let info = versionInfo version; in
     super.wrapFirefox ((self.firefox-bin-unwrapped.override {
@@ -144,6 +149,12 @@ let
     }).overrideAttrs (old: {
       # Add a dependency on the signature check.
       src = fetchVersion info;
+
+      # Since Firefox 96.0a1, Firefox depends on libXtst, which is not yet
+      # reflected on Nixpkgs.
+      libPath = with super.lib;
+        old.libPath
+        + optionalString (96 >= getMajorVersion version) (":" + makeLibraryPath [self.xorg.libXtst]);
     })) {
       ${
         if super.firefox-unwrapped ? applicationName then
@@ -191,8 +202,8 @@ in
   # Set of packages which used to build developer environment
   devEnv = (super.shell or {}) // {
     gecko = super.callPackage ./pkgs/gecko {
-      inherit (self.python36Packages) setuptools;
-      pythonFull = self.python36Full;
+      inherit (self.python38Packages) setuptools;
+      pythonFull = self.python38Full;
       nodejs =
         if builtins.compareVersions self.nodejs.name "nodejs-8.11.3" < 0
         then self.nodejs-8_x else self.nodejs;

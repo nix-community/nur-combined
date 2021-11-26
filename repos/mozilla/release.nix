@@ -60,6 +60,7 @@ let
     "clang6"
     "clang7"
     "clang12"
+    "clang13"
     "gcc"
     "gcc6"
     "gcc5"
@@ -97,7 +98,6 @@ let
     # Which will spawn a new shell where the closure of everything used to build
     # Gecko would be part of the fake-root.
     gecko = build [ "devEnv" "gecko" ] { compilers = geckoCompilers; };
-    VidyoDesktop = build [ "VidyoDesktop" ];
     latest = {
       "firefox-nightly-bin" = build [ "latest" "firefox-nightly-bin" ];
     };

@@ -6,6 +6,7 @@
 , git, mercurial, openssl, cmake, procps
 , libnotify
 , valgrind, gdb, rr
+, inotify-tools
 , setuptools
 , rust # rust & cargo bundled. (otheriwse use pkgs.rust.{rustc,cargo})
 , buildFHSUserEnv # Build a FHS environment with all Gecko dependencies.
@@ -46,7 +47,7 @@ let
     perl unzip zip gnumake yasm pkgconfig
 
     xlibs.libICE xlibs.libSM xlibs.libX11 xlibs.libXau xlibs.libxcb
-    xlibs.libXdmcp xlibs.libXext xlibs.libXt
+    xlibs.libXdmcp xlibs.libXext xlibs.libXt xlibs.libXtst
     xlibs.libXcomposite
     xlibs.libXfixes
     xlibs.libXdamage xlibs.libXrender
@@ -108,6 +109,7 @@ let
     valgrind gdb ccache
     (if stdenv.isAarch64 then null else rr)
     fzf # needed by "mach try fuzzy"
+    inotify-tools # Workaround download of prebuilt binaries.
   ];
 
   # bindgen.configure now has a rule to check that with-libclang-path matches CC
@@ -124,6 +126,8 @@ let
     archLib=$cxxLib/$( ${gcc}/bin/gcc -dumpmachine )
 
     cat - > $MOZCONFIG <<EOF
+    ac_add_options --disable-bootstrap
+    #ac_add_options --without-wasm-sandboxed-libraries # this may be needed
     mk_add_options AUTOCONF=${autoconf213}/bin/autoconf
     ac_add_options --with-libclang-path=${libclang_path}
     ac_add_options --with-clang-path=${clang_path}

@@ -9,7 +9,6 @@ Current packages
 
 - gecko (https://github.com/mozilla/gecko-dev)
 - firefox-bin variants including Nightly
-- VidyoDesktop ()
 
 firefox-bin variants
 --------------------
@@ -132,6 +131,9 @@ toolchain or architecture.
   ~/mozilla-central$ nix-shell ../nixpkgs-mozilla/release.nix -A gecko.x86_64-linux.gcc --pure
     ... pull the rust compiler
     ... compile the toolchain
+  # First time only - initialize virtualenv
+  [~/mozilla-central] python ./mach create-mach-environment
+     ... create .mozbuild/_virtualenvs/mach
   [~/mozilla-central] python ./mach build
     ... build firefox desktop
   [~/mozilla-central] python ./mach run
@@ -151,7 +153,7 @@ default one, with your own options.
 
   ac_add_options --enable-js-shell
   ac_add_options --disable-tests
-  [~/mozilla-central] export MOZCONFIG=$(pwd)/.mozconfig
+  [~/mozilla-central] export MOZCONFIG="$(pwd)/.mozconfig"
   [~/mozilla-central] python ./mach build
 
 To avoid repeating yourself, you can also rely on the ``NIX_SHELL_HOOK``
