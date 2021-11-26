@@ -13,6 +13,7 @@ rec {
   mariadb_10_4        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_4.nix { openssl = pkgs.libressl; inherit curl; jemalloc450 = pkgs.jemalloc450.override ({ disableInitExecTls = true; }); inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   mariadb_10_5        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_5.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   mariadb_10_6        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_6.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
+  mariadb_10_7        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_7.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   mariadb-galera_25   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_25.nix { asio = pkgs.asio_1_10; };
   mariadb-galera_26   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_26.nix { asio = pkgs.asio_1_10; };
   mysql_5_5           = pkgs.callPackage  ./pkgs/servers/mysql/mysql_5_5.nix { openssl = pkgs.libressl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };

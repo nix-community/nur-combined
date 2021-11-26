@@ -44,18 +44,18 @@ assert gssSupport -> libkrb5 != null;
 
 stdenv.mkDerivation rec {
   pname = "curl";
-  version = "7.79.1";
+  version = "7.80.0";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/${pname}-${version}.tar.bz2"
       "https://github.com/curl/curl/releases/download/${lib.replaceStrings ["."] ["_"] pname}-${version}/${pname}-${version}.tar.bz2"
     ];
-    sha256 = "sha256-3mLEq5qTFjk5Yui5R3elcLufcf61gPtEdeQS8vk4eFE=";
+    sha256 = "sha256-3Q0VDknNlQr/NeFrYo7fBJJ/AonfQog3UM+VK7hYGJw=";
   };
 
   patches = [
-    ./7.79.1-darwin-no-systemconfiguration.patch
+    ./patch/7.79.1-darwin-no-systemconfiguration.patch
   ];
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A command line tool for transferring files with URL syntax";
-    homepage    = "https://curl.haxx.se/";
+    homepage    = "https://curl.se/";
     license = licenses.curl;
     maintainers = with maintainers; [ lovek323 ];
     platforms = platforms.all;

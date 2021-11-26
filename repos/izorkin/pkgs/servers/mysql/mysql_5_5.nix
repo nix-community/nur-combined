@@ -21,8 +21,8 @@ self = stdenv.mkDerivation rec {
       sha256 = "09sya27z3ir3xy5mrv3x68hm274594y381n0i6r5s627x71jyszf";
     }) ++
     lib.optionals stdenv.isCygwin [
-      ./5.5.17-cygwin.patch
-      ./5.5.17-export-symbols.patch
+      ./patch/5.5.17-cygwin.patch
+      ./patch/5.5.17-export-symbols.patch
     ];
 
   preConfigure = lib.optional stdenv.isDarwin ''
@@ -32,8 +32,6 @@ self = stdenv.mkDerivation rec {
 
   buildInputs = [ cmake bison ncurses openssl readline zlib ]
      ++ lib.optionals stdenv.isDarwin [ perl cctools CoreServices ];
-
-  enableParallelBuilding = true;
 
   cmakeFlags = [
     "-DWITH_SSL=yes"

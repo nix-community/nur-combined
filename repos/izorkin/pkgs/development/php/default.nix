@@ -4,7 +4,8 @@
 , apacheHttpd, libargon2, systemd, system-sendmail, valgrind
 , freetds, bzip2, curl, openssl
 , gd, freetype, libXpm, libjpeg, libpng, libwebp
-, gettext, gmp, libiconv, uwimap, pam, icu67, icu60, icu
+, gettext, gmp, libiconv, uwimap, pam
+, icu60, icu67, icu69
 , openldap, cyrus_sasl, libxml2, libmcrypt, pcre, pcre2
 , unixODBC, postgresql, sqlite, readline, html-tidy
 , libxslt, zlib, libzip, libsodium, oniguruma
@@ -85,7 +86,7 @@ let
     let
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
       pcre' = if (versionAtLeast version "7.3") then pcre2 else pcre;
-      icu' = if (versionAtLeast version "7.0") then (if versionAtLeast version "7.3" then icu else icu67) else icu60;
+      icu' = if (versionOlder version "7.0") then icu60 else (if versionAtLeast version "8.0" then icu69 else (if versionAtLeast version "7.3" then icu69 else icu67));
 
     in stdenv.mkDerivation {
 
@@ -378,6 +379,7 @@ in {
       ./patch/php56/php5640-79877.patch
       ./patch/php56/php5640-80672.patch
       ./patch/php56/php5640-80710.patch
+      ./patch/php56/php5640-81026.patch
       ./patch/php56/php5640-81122.patch
       ./patch/php56/php5640-81211.patch
     ];
@@ -421,6 +423,7 @@ in {
       ./patch/php71/php7133-79877.patch
       ./patch/php71/php7133-80672.patch
       ./patch/php71/php7133-80710.patch
+      ./patch/php71/php7133-81026.patch
       ./patch/php71/php7133-81122.patch
       ./patch/php71/php7133-81211.patch
     ] 
@@ -442,6 +445,7 @@ in {
       ./patch/php72/php7234-77423.patch
       ./patch/php72/php7234-80672.patch
       ./patch/php72/php7234-80710.patch
+      ./patch/php72/php7234-81026.patch
       ./patch/php72/php7234-81122.patch
       ./patch/php72/php7234-81211.patch
     ]
@@ -450,8 +454,8 @@ in {
   };
 
   php73 = generic {
-    version = "7.3.31";
-    sha256 = "sha256-36alQy/8Z3Xi252VLxp+e0vtBcgIzzSX8bJyXMsEtRk=";
+    version = "7.3.33";
+    sha256 = "sha256-wES+R9Mp384hoAYmDaA8X/KodeqOufF5WEf+0m1Ypz4=";
 
     extraPatches = [
       # PKG_CONFIG need not be a relative path
@@ -462,12 +466,12 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.25";
-    sha256 = "1ffaddz5v3645fcfvg90gngis04hnxqg6x5q4kfscgs6kmj3mv7v";
+    version = "7.4.26";
+    sha256 = "sha256-BGu9DC24UddzlK4wWI1eovSKqa54JcU4PlLXdQWPrQw=";
   };
 
   php80 = generic {
-    version = "8.0.12";
-    sha256 = "1kncyr6dlcgj5za5yr2rsmb09z11azpmymd4zvj5qsc0c7i63dlb";
+    version = "8.0.13";
+    sha256 = "sha256-x+xPm3Db5W/efKwMN/dNVmypO/3TYEUV2YKOheEB5CI=";
   };
 }

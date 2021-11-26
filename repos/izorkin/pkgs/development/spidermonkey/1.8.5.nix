@@ -30,9 +30,9 @@ stdenv.mkDerivation {
     })
   ] ++ lib.optionals stdenv.isAarch32 [
     # Explained below in configureFlags for ARM
-    ./1.8.5-findvanilla.patch
+    ./patch/1.8.5-findvanilla.patch
     # Fix for hard float flags.
-    ./1.8.5-arm-flags.patch
+    ./patch/1.8.5-arm-flags.patch
   ];
 
   patchFlags = [ "-p3" ];

@@ -1,18 +1,17 @@
 { lib, stdenv, fetchurl
 # Native buildInputs components
-, bison, boost, cmake, fixDarwinDylibNames, makeWrapper, pkg-config
+, bison, boost, cmake, fixDarwinDylibNames, flex, makeWrapper, pkg-config
 # Common components
-, curl, libiconv, ncurses, openssl, pcre
+, curl, fmt, libiconv, ncurses, openssl, pcre2
 , libaio, libkrb5, systemd
 , CoreServices, cctools, perl
-, jemalloc450, jemalloc, less
+, jemalloc, less
 # Server components
 , bzip2, lz4, lzo, snappy, xz, zlib, zstd
 , cracklib, judy, libevent, libxml2
-, linux-pam, numactl
+, linux-pam, numactl, pmdk
 , withStorageMroonga ? true, kytea, libsodium, msgpack, zeromq
 , withStorageRocks ? true
-, withStorageToku ? true
 }:
 
 with lib;
@@ -29,11 +28,11 @@ mariadb = server // {
 };
 
 common = rec { # attributes common to both builds
-  version = "10.3.32";
+  version = "10.7.1";
 
   src = fetchurl {
     url = "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
-    sha256 = "sha256-lI0M3y+Sxgz/QjKvnXJOCku+r7s1di+kKee6XDgRwGQ=";
+    sha256 = "sha256-7HDiSh7kIIexGHxzTa1a6LNqTObjY17HYRK9B9gZ1r4=";
     name   = "mariadb-${version}.tar.gz";
   };
 
@@ -42,11 +41,10 @@ common = rec { # attributes common to both builds
     ++ optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
 
   buildInputs = [
-    curl libiconv ncurses openssl pcre zlib
+    curl fmt libiconv ncurses openssl pcre2 zlib
   ] ++ optionals stdenv.hostPlatform.isLinux [ libaio libkrb5 systemd ]
     ++ optionals stdenv.hostPlatform.isDarwin [ CoreServices cctools perl ]
-    ++ optional (!stdenv.hostPlatform.isDarwin && withStorageToku) [ jemalloc450 ]
-    ++ optional (!stdenv.hostPlatform.isDarwin && !withStorageToku) [ jemalloc ];
+    ++ optional (!stdenv.hostPlatform.isDarwin) [ jemalloc ];
 
   prePatch = ''
     sed -i 's,[^"]*/var/log,/var/log,g' storage/mroonga/vendor/groonga/CMakeLists.txt
@@ -54,7 +52,10 @@ common = rec { # attributes common to both builds
 
   patches = [
     ./patch/cmake-includedir.patch
-  ];
+  ]
+  # Fixes a build issue as documented on
+  # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
+  ++ lib.optional (!stdenv.isLinux) ./patch/macos-MDEV-26769-regression-fix.patch;
 
   cmakeFlags = [
     "-DBUILD_CONFIG=mysql_release"
@@ -98,10 +99,9 @@ common = rec { # attributes common to both builds
     # Remove Development components. Need to use libmysqlclient.
     rm "$out"/lib/mysql/plugin/daemon_example.ini
     rm "$out"/lib/{libmariadbclient.a,libmysqlclient.a,libmysqlclient_r.a,libmysqlservices.a}
-    rm "$out"/bin/{mariadb_config,mysql_config}
+    rm "$out"/bin/{mariadb-config,mariadb_config,mysql_config}
     rm -r $out/include
     rm -r $out/lib/pkgconfig
-    rm -r $out/share/aclocal
   '';
 
   # perlPackages.DBDmysql is broken on darwin
@@ -137,8 +137,7 @@ client = stdenv.mkDerivation (common // {
   ];
 
   postInstall = common.postInstall + ''
-    rm -r "$out"/share/doc
-    rm "$out"/bin/mysqltest
+    rm "$out"/bin/{mariadb-test,mysqltest}
     libmysqlclient_path=$(readlink -f $out/lib/libmysqlclient${libExt})
     rm "$out"/lib/{libmariadb${libExt},libmysqlclient${libExt},libmysqlclient_r${libExt}}
     mv "$libmysqlclient_path" "$out"/lib/libmysqlclient${libExt}
@@ -151,13 +150,14 @@ server = stdenv.mkDerivation (common // {
 
   outputs = [ "out" "man" ];
 
-  nativeBuildInputs = common.nativeBuildInputs ++ [ bison boost.dev ];
+  nativeBuildInputs = common.nativeBuildInputs ++ [ bison boost.dev flex ];
 
   buildInputs = common.buildInputs ++ [
     bzip2 lz4 lzo snappy xz zstd
     cracklib judy libevent libxml2
   ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) numactl
     ++ optional stdenv.hostPlatform.isLinux linux-pam
+    ++ optional (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64) pmdk.dev
     ++ optional (!stdenv.hostPlatform.isDarwin) mytopEnv
     ++ optionals withStorageMroonga [ kytea libsodium msgpack zeromq ];
 
@@ -179,6 +179,7 @@ server = stdenv.mkDerivation (common // {
     "-DWITH_INNODB_DISALLOW_WRITES=ON"
     "-DWITHOUT_EXAMPLE=1"
     "-DWITHOUT_FEDERATED=1"
+    "-DWITHOUT_TOKUDB=1"
   ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) [
     "-DWITH_NUMA=ON"
   ] ++ optional (!withStorageMroonga) [
@@ -187,13 +188,12 @@ server = stdenv.mkDerivation (common // {
     "-DWITHOUT_ROCKSDB=1"
   ] ++ optional (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
     "-DWITH_ROCKSDB_JEMALLOC=ON"
-  ] ++ optional (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isMusl || !withStorageToku) [
-    "-DWITHOUT_TOKUDB=1"
-  ] ++ optional (!stdenv.hostPlatform.isDarwin && withStorageToku) [
-    "-DWITH_JEMALLOC=static"
-  ] ++ optional stdenv.hostPlatform.isDarwin [
+  ] ++ optional (!stdenv.hostPlatform.isDarwin) [
+    "-DWITH_JEMALLOC=yes"
+  ] ++ optionals stdenv.hostPlatform.isDarwin [
     "-DPLUGIN_AUTH_PAM=OFF"
     "-DWITHOUT_OQGRAPH=1"
+    "-DWITHOUT_PLUGIN_S3=1"
   ];
 
   preConfigure = optionalString (!stdenv.hostPlatform.isDarwin) ''
@@ -201,11 +201,15 @@ server = stdenv.mkDerivation (common // {
   '';
 
   postInstall = common.postInstall + ''
+    rm -r "$out"/share/aclocal
     chmod +x "$out"/bin/wsrep_sst_common
-    rm "$out"/bin/{mysql_client_test,mysqltest}
-    rm -r "$out"/data # Don't need testing data
+    rm "$out"/bin/{mariadb-client-test,mariadb-test,mysql_client_test,mysqltest}
   '' + optionalString withStorageMroonga ''
     mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
+  '' + optionalString (!stdenv.hostPlatform.isDarwin) ''
+    mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
+    mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
+    rm -r "$out"/OFF
   '';
 
   CXXFLAGS = optionalString stdenv.hostPlatform.isi686 "-fpermissive";

@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.1.9";
+    version = "2.1.12";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1fj8sq21qdsdidj5zh8s3c12pmf9nkmj36igmmixc5vc2h7bf02d";
+      sha256 = "sha256-rj7Ckt0EtORorqHl200IXxadioA6q+uZcH9p6UVL8hg=";
     };
 
     dontUnpack = true;
@@ -273,10 +273,10 @@ let
   };
 
   imagick = buildPecl {
-    version = "3.5.1";
+    version = "3.6.0";
     pname = "imagick";
 
-    sha256 = "10bz1znwp6317c15j7x7lqk4y2m672glsfpf8spb5b6w9q4z4gr4";
+    sha256 = "sha256-Till8tcN1ZpA55V9VuWQ5zHK0maen4ng/KFZ10jSlH4=";
 
     configureFlags = with pkgs; [
       "--with-imagick=${imagemagick.dev}"
@@ -397,7 +397,7 @@ let
     meta.broken = isPhp56;
   };
 
-  mongodb = if isPhp56 then mongodb17 else mongodb110;
+  mongodb = if isPhp56 then mongodb17 else mongodb111;
 
   mongodb17 = buildPecl {
     pname = "mongodb";
@@ -418,11 +418,11 @@ let
     meta.broken = isPhp71;
   };
 
-  mongodb110 = buildPecl {
+  mongodb111 = buildPecl {
     pname = "mongodb";
-    version = "1.10.0";
+    version = "1.11.1";
 
-    sha256 = "0wvaq97hrpcnfyhsd7a2jv4iiswbr711a339v95rl4x5lphxqcw0";
+    sha256 = "sha256-g4pQUN5Q1R+VkCa9jOxzSdivNwWMD+BylaC8lgqC1+8=";
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [
@@ -438,10 +438,10 @@ let
   };
 
   pcov = buildPecl {
-    version = "1.0.9";
+    version = "1.0.10";
     pname = "pcov";
 
-    sha256 = "0q2ig5lxzpwz3qgr05wcyh5jzhfxlygkv6nj6jagkhiialng2710";
+    sha256 = "sha256-M0oPauqLPNR8QmcGHxR9MDP9rd0vj2iLMj6Wlm2a+Zw=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -482,12 +482,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "3.2.1";
+    version = "3.3.2";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "05s6viyr3mlfblg6ch11siygfl3fc3qkf5sfs8pk4ydffadk4xsx";
+      sha256 = "sha256-iny2/L+RbwHUtCO3hQtEAbxocnUBG29DcyJnmk/EYT8=";
     };
 
     phases = [ "installPhase" ];
@@ -597,12 +597,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "0.12.99";
+    version = "1.2.0";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "0rv8xf5yx88wh95myysqmv29n5rr15zgwsvh8a4xb1pmw3h9kb6q";
+      sha256 = "sha256-WA1N6fOibS0+txaGxH+cOgec9CsrIYzQbpjQCfQf/ao=";
     };
 
     phases = [ "installPhase" ];
@@ -723,10 +723,10 @@ let
   };
 
   protobuf319 = buildPecl {
-    version = "3.19.0";
+    version = "3.19.1";
     pname = "protobuf";
 
-    sha256 = "062hfaiwmz6kayw0ikvylcx65haxl9061hy4kzfxgwkqncp8fgh9";
+    sha256 = "sha256-kAPNPnvbCrmGITM3Hjpsn62TASV8eNCizFN8+1+I6bY=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -742,12 +742,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.11.1";
+    version = "4.13.1";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "1xnkahhldlabl3m5y5jmq8b19swznkidgj0ry8l9rcjd950xhm1c";
+      sha256 = "sha256-dgX66abhuf+m6IrQd87FahlFTl7BpxkvOHznZHLdc7Q=";
     };
 
     phases = [ "installPhase" ];
@@ -768,12 +768,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.10.9";
+    version = "0.10.11";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "086y9hywbgyvwyppk97mjb5gsmkxdj7w6cxc67s87n87m1ixmf9j";
+      sha256 = "sha256-ip7iguuwRAyW52Ywoy3dEsgS1f6uuHbXBRfdPLFTIks=";
     };
 
     phases = [ "installPhase" ];
@@ -1012,10 +1012,10 @@ let
   };
 
   yaml22 = buildPecl {
-    version = "2.2.1";
+    version = "2.2.2";
     pname = "yaml";
 
-    sha256 = "06bqgp4y38npr6digi00ily1ivyz4sfxzlnxkc4zs99ffm7d0yp1";
+    sha256 = "sha256-EZBS8EYdV9hvRMJS+cmy3XQ0hscBwaCroK6+zdDYuCo=";
 
     configureFlags = with pkgs; [
       "--with-yaml=${libyaml}"

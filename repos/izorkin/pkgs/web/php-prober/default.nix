@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub}:
 
 stdenv.mkDerivation rec {
-  version = "6.6";
+  version = "8.6";
   pname = "php-x-prober";
 
   src = fetchFromGitHub {
     owner = "kmvan";
     repo = "x-prober";
     rev = "${version}";
-    sha256 = "1fmymbd3kxgssaq5v01krgn078bjlc4a86lci42dpnazgbmk1lry";
+    sha256 = "sha256-p0k/RSxoeNmKGqTDGpAb/EmKLDFr4hp+Cw91DrPVLKk=";
   };
 
   phases = [ "installPhase" ];
