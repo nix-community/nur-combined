@@ -1,5 +1,7 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  services = {
+    web-apps = {
+      cryptpad = ./services/web-apps/cryptpad.nix;
+    };
+  };
 }
