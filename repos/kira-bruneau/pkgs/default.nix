@@ -72,12 +72,6 @@ in
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
-    winetricks = winetricks.override {
-      # Remove default build of wine to reduce closure size.
-      # Falls back to wine in PATH.
-      wine = null;
-    };
-
     inherit steam-run yad;
   };
 
@@ -90,8 +84,7 @@ in
     rofi-unwrapped = callPackage ./applications/misc/rofi-wayland { };
   };
 
-  runescape-launcher = callPackage ./games/runescape-launcher/wrapper.nix { };
-  runescape-launcher-unwrapped = callPackage ./games/runescape-launcher { };
+  runescape-launcher = callPackage ./games/runescape-launcher/fhsenv.nix { };
 
   texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
@@ -111,11 +104,7 @@ in
     };
   };
 
-  VVVVVV = callPackage ./games/VVVVVV/wrapper.nix {
-    inherit (darwin.apple_sdk.frameworks) Foundation;
-  };
-
-  VVVVVV-unwrapped = callPackage ./games/VVVVVV {
+  VVVVVV = callPackage ./games/VVVVVV/with-assets.nix {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 

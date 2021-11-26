@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
   src = fetchurl {
     url = "https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb";
-    sha256 = "sha256-j6WRz5viOoJaktyWd0MpGYecSfTpsYuvAB6aq4v74wY=";
+    sha256 = "sha256-2bPQtBSIFMw82RNPSz7Pj4sNQnvtyENbPHC/NakCWPY=";
   };
 
   # What about fhs wrapper?

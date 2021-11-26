@@ -21,19 +21,19 @@
 
 stdenv.mkDerivation rec {
   pname = "newsflash";
-  version = "1.4.3";
+  version = "1.5.1";
 
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
-    rev = "v.${version}";
-    sha256 = "sha256-c/zT+FNRDu7jdooNTEYbeG9jLrL+9txe+aC7nSy4bB0=";
+    rev = version;
+    sha256 = "sha256-fLG7oYt+gdl3Lwnu6c7VLJWSHCFY5LyNeDKoUNGg3Yw=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    sha256 = "sha256-yTElaPSoTiJpfIGzuNJCWxVzdWBzim5rt0N2r0ARhvM=";
+    sha256 = "sha256-dQlbK3SfY6p1xinroXz5wcaBbq2LuDM9sMlfJ6ueTTg=";
   };
 
   patches = [
@@ -93,8 +93,9 @@ stdenv.mkDerivation rec {
     description = "A modern feed reader designed for the GNOME desktop";
     homepage = "https://gitlab.com/news-flash/news_flash_gtk";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = platforms.linux; # libhandy
+    maintainers = with maintainers; [ kira-bruneau stunkymonkey ];
+    platforms = platforms.unix;
     mainProgram = "com.gitlab.newsflash";
+    broken = stdenv.isDarwin; # webkitgtk doesn't build on Darwin
   };
 }

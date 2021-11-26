@@ -43,4 +43,6 @@ buildFHSUserEnv rec {
   '';
 
   runScript = "${runescape-launcher}/bin/${name}";
+
+  passthru.unwrapped = runescape-launcher;
 }

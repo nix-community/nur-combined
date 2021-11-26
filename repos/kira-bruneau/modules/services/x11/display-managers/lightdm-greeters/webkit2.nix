@@ -92,9 +92,10 @@ in
         default = "antergos";
         example = literalExample ''
           fetchzip {
-            url = "https://github.com/Litarvan/lightdm-webkit-theme-litarvan/releases/download/v3.1.0/lightdm-webkit-theme-litarvan-3.1.0.tar.gz";
-            sha256 = "sha256-eHt8Qy9qi9YV4dzlTTqVlZwreXjr01KTFooBy4jtyL4=";
-          };
+            url = "https://github.com/Litarvan/lightdm-webkit-theme-litarvan/releases/download/v3.2.0/lightdm-webkit-theme-litarvan-3.2.0.tar.gz";
+            stripRoot = false;
+            sha256 = "sha256-TfNhwM8xVAEWQa5bBdv8WlmE3Q9AkpworEDDGsLbR4I=";
+          }
         '';
         description = ''
           Path to webkit theme or name of a builtin theme.

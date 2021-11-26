@@ -11,7 +11,7 @@
 let
   VVVVVV = callPackage ./default.nix { inherit Foundation; };
   desktopItem = makeDesktopItem {
-    name = "VVVVVV";
+    name = VVVVVV.pname;
     desktopName = "VVVVVV";
     genericName = VVVVVV.meta.description;
     icon = "VVVVVV";
@@ -20,7 +20,7 @@ let
   };
 in
 stdenvNoCC.mkDerivation {
-  pname = "VVVVVV";
+  pname = "VVVVVV-with-assets";
   inherit (VVVVVV) version;
 
   # Obtain data.zip from Make and Play edition
@@ -42,18 +42,28 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p "$out/bin" "$out/share/VVVVVV" "$out/share/applications" "$out/share/pixmaps"
 
-    makeWrapper ${VVVVVV}/bin/VVVVVV "$out/bin/VVVVVV" \
-      --run "cd $out/share/VVVVVV"
+    mkdir -p \
+     "$out/share/VVVVVV" \
+     "$out/share/applications" \
+     "$out/share/pixmaps" \
+     "$out/bin"
 
     cp $src "$out/share/VVVVVV/data.zip"
     cp ${desktopItem}/share/applications/* "$out/share/applications"
     cp VVVVVV.png "$out/share/pixmaps"
+    ln -s ${VVVVVV}/share/licenses "$out/share"
+
+    makeWrapper ${VVVVVV}/bin/VVVVVV "$out/bin/VVVVVV" \
+      --add-flags "-assets $out/share/VVVVVV/data.zip"
+
     runHook postInstall
   '';
 
+  passthru.unwrapped = VVVVVV;
+
   meta = VVVVVV.meta // (with lib; {
     license = licenses.unfree;
+    mainProgram = "VVVVVV";
   });
 }

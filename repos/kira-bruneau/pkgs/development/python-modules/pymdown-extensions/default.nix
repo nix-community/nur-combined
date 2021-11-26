@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "pymdown-extensions";
-  version = "9.0";
+  version = "9.1";
 
   src = fetchFromGitHub {
     owner = "facelessuser";
     repo = pname;
     rev = version;
-    sha256 = "sha256-/FWaBfnoTzCQEkj5ZYoOjWyLRbC3LhowCrjWNju6LyU=";
+    sha256 = "sha256-II8Po8144h3wPFrzMbOB/qiCm2HseYrcZkyIZFGT+ek=";
   };
 
   propagatedBuildInputs = [ markdown ];

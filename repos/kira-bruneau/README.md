@@ -62,4 +62,5 @@ Name | Attribute | Description
 # Themes
 Name | Attribute | Description
 -----|-----------|------------
+[lightdm-webkit-theme-litarvan](https://github.com/Litarvan/lightdm-webkit-theme-litarvan)|[nur.repos.kira-bruneau.themes.lightdm-webkit2-greeter.litarvan](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/data/themes/lightdm-webkit2-greeter/litarvan/default.nix)|Litarvan's LightDM HTML Theme
 [sddm-theme-clairvoyance](https://github.com/eayus/sddm-theme-clairvoyance)|[nur.repos.kira-bruneau.themes.sddm.clairvoyance](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/data/themes/sddm/clairvoyance/default.nix)|An SDDM theme

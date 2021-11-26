@@ -7,26 +7,21 @@
 , Foundation
 }:
 
-let
-  executableSuffix =
-    if stdenv.isDarwin then ".osx"
-    else if stdenv.is64bit then ".x86_64"
-    else ".x86";
-in
 stdenv.mkDerivation rec {
-  pname = "VVVVVV-unwrapped";
-  version = "2.2";
+  pname = "VVVVVV";
+  version = "2.3.4";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
     rev = version;
-    sha256 = "sha256-Mgvqq5fwIiTc3WIgSvhJ/jhp5V0lOsY4KQvu+GZqMaQ=";
+    sha256 = "sha256-l0daAejDwTf01n0VjFf9Wie+ka4tjPX6LwGMQepZeJw=";
   };
 
   sourceRoot = "source/desktop_version";
 
   nativeBuildInputs = [ cmake ];
+
   buildInputs = [
     SDL2
     SDL2_mixer
@@ -34,15 +29,11 @@ stdenv.mkDerivation rec {
     Foundation
   ];
 
-  patchFlags = [ "-p2" ];
-  patches = [
-    ./find-sdl-mixer.patch
-  ];
-
   installPhase = ''
     runHook preInstall
-    mkdir -p "$out/bin"
-    cp vvvvvv${executableSuffix} "$out/bin/VVVVVV"
+    mkdir -p "$out/bin" "$out/share/licenses/VVVVVV"
+    cp VVVVVV "$out/bin"
+    cp ../../LICENSE.md "$out/share/licenses/VVVVVV"
     runHook postInstall
   '';
 

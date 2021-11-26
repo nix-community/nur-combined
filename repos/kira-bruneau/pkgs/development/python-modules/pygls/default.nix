@@ -12,13 +12,13 @@
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "0.11.2";
+  version = "0.11.3";
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-zgQ5m198HMyFFrASSYCzn0EDLLeVy2j4LD0rEyEgahQ=";
+    sha256 = "sha256-/nmDaA67XzrrmfwlBm5syTS4hn25m30Zb3gvOdL+bR8=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
@@ -34,6 +34,9 @@ buildPythonPackage rec {
     pytest-asyncio
     pytestCheckHook
   ];
+
+  # Fixes hanging tests on Darwin
+  __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "pygls" ];
 

@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "oead";
-  version = "1.2.2";
+  version = "1.2.3";
 
   src = fetchFromGitHub {
     owner = "zeldamods";
     repo = pname;
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-xAEb4BL2zCWmF6QIyjPmd52w2JbsiKe7Iyk0Q4kX61M=";
+    sha256 = "sha256-DABG9ta1MJaSuNl70kXJ514zpBxPB0/hh61YTwbB/E4=";
   };
 
   patches = [
