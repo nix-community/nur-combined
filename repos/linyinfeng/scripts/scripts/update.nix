@@ -23,6 +23,11 @@ writeShellScriptBin "update" ''
   # save old source file
   cp ${sourcesFile} ${oldSourcesFile}
 
+  # remove old Cargo.lock files
+  pushd pkgs/_sources
+  rm */Cargo.lock
+  popd
+
   # perform update
   pushd pkgs;
   export NIX_PATH="nixpkgs=${path}"

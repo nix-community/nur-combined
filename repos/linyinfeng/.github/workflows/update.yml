@@ -49,13 +49,14 @@ jobs:
         fi
     - name: Craete pull request
       uses: peter-evans/create-pull-request@main
+      id: cpr
       with:
         token: '${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}'
         commit-message: |
           ${{ env.COMMIT_TITLE }}${{ env.COMMIT_BODY }}
-        committer: github-actions <github-actions@github.com>
-        author: github-actions <github-actions@github.com>
         title: Automated update
+        author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+        committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
         body: |
           ###### Changelog
 
@@ -63,6 +64,10 @@ jobs:
           ${{ env.UPDATER_CHANGELOG }}
           ```
         branch: 'create-pull-request/update'
+        assignees: |
+          linyinfeng
+        reviewers: |
+          linyinfeng
+        labels: |
+          auto merge
         delete-branch: true
-        reviewers: linyinfeng
-        assignees: linyinfeng

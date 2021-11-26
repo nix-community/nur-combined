@@ -13,7 +13,6 @@ packageSet :: PackageSet ()
 packageSet = do
   traverse_ (uncurry clashPremium) clashPremiumSystems
   ghPkg "janten" "dpt-rp1-py"
-  ghPkg "TimothyYe" "godns"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"

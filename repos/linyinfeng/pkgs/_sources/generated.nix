@@ -3,10 +3,10 @@
 {
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.18.5";
+    version = "0.18.10";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.18.5/Clash.for.Windows-0.18.5-x64-linux.tar.gz";
-      sha256 = "0kygh19ky9c5sd4s6cdrfa7ndcwwgzdmjb0wyk5y71jcb27hc5fn";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.18.10/Clash.for.Windows-0.18.10-x64-linux.tar.gz";
+      sha256 = "0qz9w9pairsialzqyf444h9difvhc7cd0ph7gw43ilb8w2025vi1";
     };
   };
   clash-for-windows-icon = {
@@ -19,49 +19,49 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2021.09.15";
+    version = "2021.11.08";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2021.09.15.gz";
-      sha256 = "05d8zm4i3s1nymn2cz952niqh6x7skz0gi6r50faqqbhp2sqx356";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2021.11.08.gz";
+      sha256 = "0qnrh2nlkjf9hm87lh2bnyn6m3jd46sjmr213flwwj39h8wqflw2";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2021.09.15";
+    version = "2021.11.08";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2021.09.15.gz";
-      sha256 = "1nwf3rvd6fk3rgghcdjf3ck1jmf9gzclsnnd0ill37lmbcflr91a";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2021.11.08.gz";
+      sha256 = "01w66akjvhgr8kv349nf12pk03kxk2l4wzqjf2rm7pbxl99412vc";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2021.09.15";
+    version = "2021.11.08";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2021.09.15.gz";
-      sha256 = "08mmar0ws7ccjmajvlg1mcg84w8fqd3hfafiqc11pkqfgpsk9dnv";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2021.11.08.gz";
+      sha256 = "1dj11yqlfgpyk3xgb2zl09a676b3l72qvrh0caaww5328d50bnwd";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2021.09.15";
+    version = "2021.11.08";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2021.09.15.gz";
-      sha256 = "1qmmc8iiali743wzy6xpa03722mk9z3wdn7741bixhc8508b5061";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2021.11.08.gz";
+      sha256 = "0ry27dh7idp5hhgwlpifvayf0bswnkdh1rb3r5brrhbqgl7wkp7d";
     };
   };
   commit-notifier = {
     pname = "commit-notifier";
-    version = "c7544d340c2024570a533a50e9379b9ab169bd34";
+    version = "573c1eb7eabc97aa06e0e9ad85f5148110749876";
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "c7544d340c2024570a533a50e9379b9ab169bd34";
+      rev = "573c1eb7eabc97aa06e0e9ad85f5148110749876";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0xry0p9alwrk5ka31j6vpfrnq5wvjk3rfqqyr9lrr4ifzz51v21n";
+      sha256 = "0al8rvczn99hymhnanfij2b3b35gzg59v2q24swsfrky625g08i6";
     };
     cargoLock = {
-      lockFile = ./commit-notifier-c7544d340c2024570a533a50e9379b9ab169bd34/Cargo.lock;
+      lockFile = ./commit-notifier-573c1eb7eabc97aa06e0e9ad85f5148110749876/Cargo.lock;
       outputHashes = { };
     };
   };
@@ -93,24 +93,12 @@
       sha256 = "1jgkfn5kfnx98xs0dmym1h9mv1mrzlglk7x0fzs2jlc56c18w9dk";
     };
   };
-  godns = {
-    pname = "godns";
-    version = "v2.5";
-    src = fetchgit {
-      url = "https://github.com/TimothyYe/godns";
-      rev = "v2.5";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "11735nard9djfc4gbxnp2sc60aw9f6jkm2h9yvhm754abnchbbc9";
-    };
-  };
   icalingua = {
     pname = "icalingua";
-    version = "v2.3.2";
+    version = "v2.4.4-Deus-non-vult";
     src = fetchurl {
-      url = "https://github.com/Clansty/Icalingua/releases/download/v2.3.2/app-x86_64.asar";
-      sha256 = "1697xcp5rsf18q4f6k9mbg77y33s6mgzx6af8r3nkgzjk6gkajcq";
+      url = "https://github.com/Clansty/Icalingua/releases/download/v2.4.4-Deus-non-vult/app-x86_64.asar";
+      sha256 = "10c35qcanjm1f0hbgvf8wia7qf3l5cpay4gwgxsjvjcza3fwsr5d";
     };
   };
   icalinguaIcon = {
@@ -147,14 +135,14 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "3666bcdb890fb6af95a223939ae51ff2969fbbad";
+    version = "44a1eb5856cea43e4c01318120c1d4e1823d1e34";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "3666bcdb890fb6af95a223939ae51ff2969fbbad";
+      rev = "44a1eb5856cea43e4c01318120c1d4e1823d1e34";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0aa3fp3ndb49pgnjppb3lfpnpr0x2d85nfym9n8f8fxz582ishmp";
+      sha256 = "11pk1xkdsd98xszpr9vyajc40lv5hylqrqpw2kd7izr82z8k1rq3";
     };
   };
   replay-fish = {

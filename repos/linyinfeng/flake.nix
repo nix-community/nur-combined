@@ -21,7 +21,7 @@
             linyinfeng = makePackages prev;
           };
           singleRepoNur = final: prev: {
-            nur = prev.lib.recursiveUpdate prev.nur {
+            nur = prev.lib.recursiveUpdate (prev.nur or { }) {
               repos.linyinfeng = makePackages prev;
             };
           };
