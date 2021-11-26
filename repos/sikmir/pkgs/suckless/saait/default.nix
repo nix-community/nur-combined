@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-bx21xlIAHlPzkKS3jXqNoTJlL1YV1M7zDKUAEjUF8Sg=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "The most boring static page generator";

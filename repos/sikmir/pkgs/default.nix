@@ -129,6 +129,7 @@ lib.makeScope newScope (
 
     ### GEMINI
 
+    agunua = callPackage ./gemini/agunua { };
     astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
     gemcert = callPackage ./gemini/gemcert { };
@@ -139,7 +140,6 @@ lib.makeScope newScope (
     gemserv = callPackage ./gemini/gemserv { };
     gloggery = callPackage ./gemini/gloggery { };
     gmi2html = callPackage ./gemini/gmi2html { };
-    gmid = callPackage ./gemini/gmid { };
     gmnhg = callPackage ./gemini/gmnhg { };
     gmnigit = callPackage ./gemini/gmnigit { };
     gssg = callPackage ./gemini/gssg { };
@@ -148,6 +148,7 @@ lib.makeScope newScope (
     qute-gemini = callPackage ./gemini/qute-gemini { };
     satellite = callPackage ./gemini/satellite { };
     shavit = callPackage ./gemini/shavit { };
+    stagit-gemini = callPackage ./gemini/stagit-gemini { };
     stargazer = callPackage ./gemini/stargazer {
       inherit (darwin.apple_sdk.frameworks) Security;
     };
@@ -267,6 +268,7 @@ lib.makeScope newScope (
     didder = callPackage ./misc/didder { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
     docx2csv = callPackage ./misc/docx2csv { };
+    finalcut = callPackage ./misc/finalcut { };
     gef = callPackage ./misc/gef { };
     glauth = callPackage ./misc/glauth { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
@@ -276,8 +278,10 @@ lib.makeScope newScope (
     musig = callPackage ./misc/musig { };
     objlab = callPackage ./misc/objlab { };
     playonmac = callPackage ./misc/playonmac { };
+    pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };
     pvs-studio = callPackage ./misc/pvs-studio { };
+    qasync = callPackage ./misc/qasync { };
     repolocli = callPackage ./misc/repolocli { };
     sdorfehs = callPackage ./misc/sdorfehs { };
     taskcoach = callPackage ./misc/taskcoach { };
@@ -288,7 +292,7 @@ lib.makeScope newScope (
       inherit (darwin.apple_sdk.frameworks) Foundation;
     };
     yabai = callPackage ./misc/yabai {
-      inherit (darwin.apple_sdk.frameworks) Cocoa ScriptingBridge;
+      inherit (darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight ScriptingBridge;
     };
 
     ### NAKARTE
@@ -308,6 +312,17 @@ lib.makeScope newScope (
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
+    mepo = callPackage ./osm/mepo {
+      # See https://github.com/libsdl-org/SDL_ttf/issues/152
+      SDL2_ttf = pkgs.SDL2_ttf.overrideAttrs (old: {
+        src = pkgs.fetchFromGitHub {
+          owner = "libsdl-org";
+          repo = "SDL_ttf";
+          rev = "12013b24df59f11394c1761aad08700a4c5099be";
+          hash = "sha256-pOAlxdgfMDQiCER39hC4mDfHNhodouX/yCS+Y/dCA3Y=";
+        };
+      });
+    };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osm-python-tools = callPackage ./osm/osm-python-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
@@ -325,8 +340,10 @@ lib.makeScope newScope (
     ### RADIO
 
     aprsc = callPackage ./radio/aprsc { };
+    fmreceiver = libsForQt5.callPackage ./radio/fmreceiver { };
     gqrx-scanner = callPackage ./radio/gqrx-scanner { };
     linrad = callPackage ./radio/linrad { };
+    rtlsdr-airband = callPackage ./radio/rtlsdr-airband { };
     sigdigger = libsForQt5.callPackage ./radio/sigdigger {
       inherit sigutils suscan suwidgets;
     };
@@ -340,19 +357,22 @@ lib.makeScope newScope (
     ### SUCKLESS
 
     blind = callPackage ./suckless/blind { };
+    chibicc = callPackage ./suckless/chibicc { };
+    cproc = callPackage ./suckless/cproc { };
     farbfeld-utils = callPackage ./suckless/farbfeld-utils { };
+    ff-tools = callPackage ./suckless/ff-tools { };
+    ffshot = callPackage ./suckless/ffshot { };
     hurl = callPackage ./suckless/hurl { };
     imscript = callPackage ./suckless/imscript { };
     json2tsv = callPackage ./suckless/json2tsv { };
     lacc = callPackage ./suckless/lacc { };
     lel = callPackage ./suckless/lel { };
     libst = callPackage ./suckless/libst { };
-    quark = callPackage ./suckless/quark { };
+    pista = callPackage ./suckless/pista { };
     saait = callPackage ./suckless/saait { };
     sbase = callPackage ./suckless/sbase { };
     scc = callPackage ./suckless/scc { };
     scroll = callPackage ./suckless/scroll { };
-    sfeed = callPackage ./suckless/sfeed { };
     sfeed_curses = callPackage ./suckless/sfeed_curses { };
     sthkd = callPackage ./suckless/sthkd { };
     svtm = callPackage ./suckless/svtm { };

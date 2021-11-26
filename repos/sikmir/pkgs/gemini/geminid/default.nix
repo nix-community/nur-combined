@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libconfig file openssl.dev ];
 
-  makeFlags = [ "geminid" "CC=cc" "LEX=flex" ];
+  makeFlags = [ "geminid" "CC:=$(CC)" "LEX=flex" ];
 
   installPhase = "install -Dm755 geminid -t $out/bin";
 

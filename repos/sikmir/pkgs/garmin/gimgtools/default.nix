@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = ''
     substituteInPlace Makefile \
       --replace "CC = gcc" ""
   '';

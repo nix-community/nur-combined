@@ -2,34 +2,31 @@
 
 stdenv.mkDerivation rec {
   pname = "gmi2html";
-  version = "0.4.0";
+  version = "2021-10-24";
 
   src = fetchFromGitHub {
     owner = "shtanton";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-B0+1s2eB1SAaVkGqj9OupMg0wGJGPj86NMEN765e7OU=";
+    rev = "5de5d162511aba10c32fe603af701f111b3a32ce";
+    hash = "sha256-AYA2PWhowoSascD+jnLyXpLvxwZDGJiC8CvnN2tr+Ec=";
   };
 
-  patches = [
-    # https://github.com/shtanton/gmi2html/pull/12
-    ./webp.patch
-  ];
+  postPatch = ''
+    substituteInPlace tests/test.sh \
+      --replace "zig-cache" "zig-out"
+  '';
 
   nativeBuildInputs = [ zig scdoc installShellFiles ];
 
-  preConfigure = "HOME=$TMP";
-
   buildPhase = ''
-    zig build -Drelease-safe
+    export HOME=$TMPDIR
+    zig build -Drelease-safe=true
     scdoc < doc/gmi2html.scdoc > doc/gmi2html.1
   '';
 
   doCheck = true;
 
   checkPhase = ''
-    substituteInPlace tests/test.sh \
-      --replace "zig-cache" "zig-out"
     sh tests/test.sh
   '';
 
@@ -44,6 +41,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin;
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/86299
   };
 }

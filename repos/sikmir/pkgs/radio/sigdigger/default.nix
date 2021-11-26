@@ -1,10 +1,10 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, qmake, pkg-config
+{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, qmake, pkg-config
 , fftwFloat, sigutils, suscan, suwidgets, volk
 , fftw, libsndfile, soapysdr, soapyrtlsdr
 , portaudio
 }:
 
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "sigdigger";
   version = "0.2.0-rc1";
 
@@ -15,7 +15,7 @@ mkDerivation rec {
     hash = "sha256-OWFPf1iIDhzgV7+pANp7lxzEBhxND0tIhB0VGNOeCak=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     fftwFloat sigutils suscan suwidgets volk

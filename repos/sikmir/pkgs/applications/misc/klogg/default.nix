@@ -13,13 +13,13 @@
 
 mkDerivation rec {
   pname = "klogg";
-  version = "2021-05-06";
+  version = "2021-09-27";
 
   src = fetchFromGitHub {
     owner = "variar";
     repo = pname;
-    rev = "50fcd2f9e3d4947b131f94aaa4bc4807b7e41c30";
-    hash = "sha256-8rA15uekxeN8PYlFGy3mixAk4uzln5YcWFqs+zpueAo=";
+    rev = "9fade8bcf354fc6d329facbce07a6c29437597a1";
+    hash = "sha256-bim/cDEOfMolHkrBLBEu94YI+1o1opdeA66xeovAwp0=";
   };
 
   nativeBuildInputs = [ cmake ninja python3Packages.python ];

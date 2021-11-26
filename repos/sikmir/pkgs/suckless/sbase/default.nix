@@ -10,7 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0q3v7E82agburNaOKtXqKBHSLQHuq8swLvPdHsTJmIM=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" ];
+
+  installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "suckless unix tools";

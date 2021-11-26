@@ -1,21 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, expat, zlib }:
+{ lib, stdenv, fetchurl, expat, lz4, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "overpass-api";
-  version = "0.7.55";
+  version = "0.7.57.1";
 
-  src = fetchFromGitHub {
-    owner = "drolbr";
-    repo = "Overpass-API";
-    rev = "osm3s-v${version}";
-    hash = "sha256-Hf2uLVeBo95bQKubX1CSJZIEYiL2CdwjtDwSr6yOjwU=";
+  src = fetchurl {
+    url = "http://dev.overpass-api.de/releases/osm-3s_v${version}.tar.gz";
+    hash = "sha256-M5W/cCnPr4Ct4KKo+xs+21zEy86x+iBs1LqiQ8JVRhA=";
   };
 
-  sourceRoot = "${src.name}/src";
+  buildInputs = [ expat lz4 zlib ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  configureFlags = [ "--enable-lz4" ];
 
-  buildInputs = [ expat zlib ];
+  enableParallelBuilding = true;
 
   meta = with lib; {
     description = "A database engine to query the OpenStreetMap data";

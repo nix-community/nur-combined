@@ -1,12 +1,6 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, qmake
-, qtserialport
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, qtserialport, wrapQtAppsHook }:
 
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "visualgps-unstable";
   version = "2020-03-29";
 
@@ -18,7 +12,7 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
   buildInputs = [ qtserialport ];
 
@@ -28,7 +22,6 @@ mkDerivation rec {
     if stdenv.isDarwin then ''
       mkdir -p $out/Applications
       mv *.app $out/Applications
-      wrapQtApp $out/Applications/VisualGPSqt.app/Contents/MacOS/VisualGPSqt
     '' else ''
       install -Dm755 VisualGPSqt -t $out/bin
     '';

@@ -1,7 +1,7 @@
-{ mkDerivation
-, stdenv
+{ stdenv
 , lib
 , fetchFromGitHub
+, wrapQtAppsHook
 , pkg-config
 , qmake
 , qtbase
@@ -15,7 +15,7 @@
 , withI18n ? true
 }:
 
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "redict";
   version = "2019-06-21";
 
@@ -26,7 +26,7 @@ mkDerivation rec {
     hash = "sha256-VGYhcQqnK50NqF6MFcKDyaPECDnAjVRzhMR7Wldoiv4=";
   };
 
-  nativeBuildInputs = [ qmake pkg-config ]
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ]
     ++ lib.optional withI18n qttools;
   buildInputs = [ qtmultimedia qtsvg ]
     ++ lib.optionals stdenv.isLinux [ qtx11extras libX11 libXext libXtst ];

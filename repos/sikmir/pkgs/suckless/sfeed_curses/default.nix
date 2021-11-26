@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "sfeed curses UI";

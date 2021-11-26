@@ -25,13 +25,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "gpxsee-maps";
-  version = "2021-07-13";
+  version = "2021-11-10";
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "GPXSee-maps";
-    rev = "564e8680ec10f1e64372929aa3657cf5d3ebc84c";
-    hash = "sha256-7iFSGM3ZzgpmOdpVzX/3YUxRD4foXC5KwkcCjKcq8NU=";
+    rev = "963ce1b7a6718f8368342da3e36f4493f2535e57";
+    hash = "sha256-6SEv+TyAwVLRvKg+iWN4JMCXfhx1GlZq6nHG3yUmGIg=";
   };
 
   postPatch = let
@@ -68,6 +68,5 @@ stdenvNoCC.mkDerivation {
     license = licenses.unlicense;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
-    skip.ci = true;
   };
 }

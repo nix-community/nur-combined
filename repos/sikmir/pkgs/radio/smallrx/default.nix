@@ -11,6 +11,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-VcTMQAr5617CSPJbktzrKciNiBbveDWjIeE8Gzf9pa8=";
   };
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace "CC=gcc" ""
+  '';
+
   installPhase = "install -Dm755 rx -t $out/bin";
 
   meta = with lib; {
@@ -18,6 +23,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }

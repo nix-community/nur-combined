@@ -11,7 +11,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-vpU1Hbd6c/c0M/eUvQqW7RXHG2bz707LkcKlgFrzHtc=";
   };
 
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace "ar rcs" "\$(AR) rcs"
+  '';
+
   nativeBuildInputs = [ ncurses ];
+
+  buildInputs = [ ncurses ];
 
   postBuild = ''
     make -C examples/svt CFLAGS=-I$PWD LDFLAGS=-L$PWD

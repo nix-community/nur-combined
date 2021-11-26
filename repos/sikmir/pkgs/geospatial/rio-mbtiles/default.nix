@@ -11,6 +11,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-Kje443Qqs8+Jcv3PnTrMncaoaGDdjrzTcd42NYIenuU=";
   };
 
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "shapely~=1.7.0" "shapely"
+  '';
+
   propagatedBuildInputs = with python3Packages; [
     click
     cligj
@@ -22,8 +27,6 @@ python3Packages.buildPythonApplication rec {
   ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
-
-  disabledTests = [ "test_cutline_progress_bar" ];
 
   meta = with lib; {
     description = "A plugin command for the Rasterio CLI that exports a raster dataset to an MBTiles 1.1 SQLite file";

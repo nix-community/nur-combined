@@ -17,7 +17,7 @@ let
   };
   extremum = fetchgdrive {
     id = "12PM_mEE8Xck036vXd5TAzPsUZeCnztJ5";
-    sha256 = "1fx07haxwfz5x8kmw44aswjvf5d0sfgmi9lvycnnc405q4z7i4g9";
+    hash = "sha256-6ZF4PsEFEGYt85umWJ/ToBW3JdeKEF4n6uU73hU8oLs=";
     name = "Extremum.zip";
   };
 in
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://www.sasgis.org/programs/sasplanet/SASPlanet_${version}.zip";
-    sha256 = "0a6xg75fj4ap0yc3z8sk0vf09dpj75jrkl7v97i2ycy6dim66wi0";
+    hash = "sha256-IHJjamzGMy/iSfvQmWU58rYE3AZToz+YB1cR6cp53Sg=";
   };
 
   nativeBuildInputs = [ unzip makeWrapper ];

@@ -7,7 +7,7 @@
 
     src = fetchgdrive {
       id = "17DUaRG_qj_qgIZ5EuHOflaDCobO0pWlv";
-      sha256 = "1dmc02jg6pgqz05s61qwym4dgwx1qb43j0capzsaiyzbq9m4z99d";
+      hash = "sha256-AV9nGPtmbTUr8dH3xTXSfSLu6iehdhRgL02YKIRVZeQ=";
       name = "OV-Hib-Lov-${lib.replaceStrings [ "-" ] [ "" ] version}-1.03.zip";
     };
 
@@ -31,12 +31,12 @@
 
   kamch = stdenvNoCC.mkDerivation rec {
     pname = "Kamch";
-    version = "2021-01-18";
+    version = "2021-05-10";
 
     src = fetchgdrive {
       id = "1JWpkJxdnfqBrFc9Hd_FxndNDLlGM-dj0";
-      sha256 = "1swvc8xzarh0nfb37w80ahsr0g14gyg3z0fp0jf4yhwwb9ima7f1";
-      name = "OV-Kamch-Draft.zip";
+      hash = "sha256-BAPUvt+xQD/LV9NljCE7lke2syFSRAdAe++JZn/orSU=";
+      name = "OV-Kamch-${lib.replaceStrings [ "-" ] [ "" ] version}-1.01.zip";
     };
 
     sourceRoot = ".";
@@ -63,8 +63,8 @@
 
     src = fetchgdrive {
       id = "1CMMqgNoK92dIwxVpWQXkBR45P4dXP-o5";
-      sha256 = "04pvb8yf8qs1i6m7b1qs69nxjgc483z5z80mkmd610kmkbbpvvg6";
-      name = "OV-Kodar-Draft.zip";
+      hash = "sha256-C7+KmG8SQwm/q9J2ksgonzOUXPF2JPcvwVKWYbE2axA=";
+      name = "OV-Kodar-${lib.replaceStrings [ "-" ] [ "" ] version}-1.01.zip";
     };
 
     sourceRoot = ".";

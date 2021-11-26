@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "Farbfeld image viewer";
