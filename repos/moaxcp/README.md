@@ -2,7 +2,7 @@
 
 **A [Nix User Repository](https://github.com/nix-community/NUR) for java developers**
 
-[![Build Status](https://travis-ci.org/moaxcp/nur.svg?branch=master)](https://travis-ci.org/moaxcp/nur)
+![Build and populate cache](https://github.com/moaxcp/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-moaxcp-blue.svg)](https://moaxcp.cachix.org)
 
 Supported packages:

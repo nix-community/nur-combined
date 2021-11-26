@@ -167,8 +167,6 @@ in rec {
   micronaut-cli-2_2_2 = micronautCliPkgs.micronaut-cli-2_2_2;
   micronaut-cli-2_4_2 = micronautCliPkgs.micronaut-cli-2_4_2;
 
-  netbeans-11_3 = callPackage ./pkgs/netbeans { };
-
   spring-boot-cli-2_2_6 = springBootCliPkgs.spring-boot-cli-2_2_6;
   spring-boot-cli-2_2_7 = springBootCliPkgs.spring-boot-cli-2_2_7;
   spring-boot-cli-2_4_1 = springBootCliPkgs.spring-boot-cli-2_4_1;
