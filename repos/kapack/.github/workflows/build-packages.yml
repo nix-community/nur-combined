@@ -21,6 +21,8 @@ jobs:
       - name: Set up cachix
         run: |
           source ~/.nix-profile/etc/profile.d/nix.sh
+          mkdir -p ~/.config/nix/
+          echo 'experimental-features = nix-command' > ~/.config/nix/nix.conf
           nix-env -iA cachix -f https://cachix.org/api/v1/install
           cachix --version
           cachix use ${CACHIX_CACHE}
@@ -30,13 +32,17 @@ jobs:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
           source ~/.nix-profile/etc/profile.d/nix.sh
-          nix run -f https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz python3Packages.pytest --command pytest -ra -v --cachix-name=${CACHIX_CACHE} --push-deps-on-cachix --push-on-cachix --junit-xml pytest.xml
+          mkdir -p ~/.config/nix/
+          echo 'experimental-features = nix-command' > ~/.config/nix/nix.conf
+          nix shell -f https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz python3Packages.pytest --command pytest -ra -v --cachix-name=${CACHIX_CACHE} --push-deps-on-cachix --push-on-cachix --junit-xml pytest.xml
       - name: Build packages (debug)
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
           source ~/.nix-profile/etc/profile.d/nix.sh
-          nix run -f https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz python3Packages.pytest --command pytest -ra -v --cachix-name=${CACHIX_CACHE} --push-deps-on-cachix --push-on-cachix --debug-build --junit-xml pytest.xml
+          mkdir -p ~/.config/nix/
+          echo 'experimental-features = nix-command' > ~/.config/nix/nix.conf
+          nix shell -f https://github.com/NixOS/nixpkgs/archive/20.09.tar.gz python3Packages.pytest --command pytest -ra -v --cachix-name=${CACHIX_CACHE} --push-deps-on-cachix --push-on-cachix --debug-build --junit-xml pytest.xml
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2

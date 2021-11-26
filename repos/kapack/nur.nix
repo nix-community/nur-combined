@@ -43,8 +43,6 @@ rec {
 
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
 
-  # arion = pkgs.callPackage ./pkgs/arion { arion-compose = haskellPackages.arion-compose; };
-
   batsched-130 = pkgs.callPackage ./pkgs/batsched/batsched130.nix { inherit intervalset loguru redox debug; };
   batsched-140 = pkgs.callPackage ./pkgs/batsched/batsched140.nix { inherit intervalset loguru redox debug; };
   batsched = batsched-140;
@@ -55,7 +53,8 @@ rec {
 
   batsim-310 = pkgs.callPackage ./pkgs/batsim/batsim310.nix { inherit intervalset redox debug; simgrid = simgrid-324; };
   batsim-400 = pkgs.callPackage ./pkgs/batsim/batsim400.nix { inherit intervalset redox debug; simgrid = simgrid-325light; };
-  batsim = batsim-400;
+  batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit intervalset redox debug; simgrid = simgrid-329light; };
+  batsim = batsim-410;
   batsim-docker = pkgs.callPackage ./pkgs/batsim/batsim-docker.nix { inherit batsim; };
 
   batsky = pkgs.callPackage ./pkgs/batsky { };
@@ -95,6 +94,8 @@ rec {
 
   remote_pdb = pkgs.callPackage ./pkgs/remote-pdb { };
 
+  rt-tests = pkgs.callPackage ./pkgs/rt-tests { };
+  
   cigri = pkgs.callPackage ./pkgs/cigri { };
 
   oar = pkgs.callPackage ./pkgs/oar { inherit procset pybatsim remote_pdb; };

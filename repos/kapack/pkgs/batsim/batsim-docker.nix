@@ -1,4 +1,4 @@
-{ dockerTools, symlinkJoin, batsim, bash }:
+{ dockerTools, batsim, bash }:
 
 let self = rec {
   tag = if batsim.version == "master" then "latest" else batsim.version;
