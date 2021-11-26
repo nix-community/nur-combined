@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchzip {
     url =
       "https://github.com/marler8997/zigup/releases/download/v2021_06_17/zigup.ubuntu-latest.zip";
-    sha256 = "sha256-akDNu+KOXcB2sphYCKJU0yZ37B8b6zGzgjeNfu1eP1U=";
+    sha256 = "sha256-HdIIrG44GCZdJvvbvdbmuEaN/4c1Igtg/vSfJsQIFyE=";
   };
 
   installPhase = ''
