@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchgit
+, fetchFromGitLab
 , meson
 , ninja
 , pkg-config
@@ -11,12 +11,14 @@
 }:
 stdenv.mkDerivation rec {
   name = "coeurl";
-  version = "unstable-2021-08-13";
+  version = "unstable-2021-11-21";
 
-  src = fetchgit {
-    url = "https://nheko.im/nheko-reborn/coeurl.git";
-    rev = "22f58922da16c3b94d293d98a07cb7caa7a019e8";
-    sha256 = "sha256-bslkrBjAsf2co4lt9efEQ3R6YNR2+minZAKkcZKjykI=";
+  src = fetchFromGitLab {
+    domain = "nheko.im";
+    owner = "nheko-reborn";
+    repo = "coeurl";
+    rev = "abafd60d7e9f5cce76c9abad3b2b3dc1382e5349";
+    sha256 = "sha256-IMj8qK9OQ5C1+LTs+pBJXxkqY0+Pz0AjsffkHshWVcg=";
   };
 
   nativeBuildInputs = [

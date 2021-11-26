@@ -34,13 +34,13 @@
 
 mkDerivation rec {
   pname = "nheko";
-  version = "unstable-2021-10-20";
+  version = "unstable-2021-11-25";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "159f840aae35bb1e0364702091048c37cef8bc0d";
-    sha256 = "sha256-vUHEqcoALLhKlYXt1IYA111iSOGvqzapBiOdTp4ldS0=";
+    rev = "a9941c902b12e341bba978d86d76beb46832778e";
+    sha256 = "sha256-lgHAVhH4Fnx8bNSP0rsEkqS8whlycbZCjEyg2oHptdo=";
   };
 
   nativeBuildInputs = [
@@ -76,13 +76,6 @@ mkDerivation rec {
       gst-plugins-bad
       libnice
     ]);
-
-  # borrowed from https://github.com/unclechu/nixos-config/blob/c502e1a061165ce312321e5ab925e6e56dde5aae/apps/nheko.nix
-  postPatch = ''
-    substituteInPlace CMakeLists.txt --replace \
-      "# Fixup bundled keychain include dirs" \
-      "find_package(Boost COMPONENTS iostreams system  thread REQUIRED)"
-  '';
 
   cmakeFlags = [
     "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389

@@ -24,6 +24,7 @@ There is a Cachix cache available for these packages: <https://deeunderscore-nur
 * **nheko** (nheko-unstable): <https://nheko-reborn.github.io/>
 * **mtxclient** (mtxclient-unstable): <https://github.com/Nheko-Reborn/mtxclient>
 * **coeurl**: <https://nheko.im/nheko-reborn/coeurl>
+* **pktriggercord**: <http://pktriggercord.melda.info/>
 
 ## Notes
 ### input-overlay

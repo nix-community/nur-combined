@@ -16,13 +16,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "mtxclient";
-  version = "unstable-2021-10-13";
+  version = "unstable-2021-11-21";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
-    rev = "e5284ccc9d902117bbe782b0be76fa272b7f0a90";
-    sha256 = "sha256-OuLSoAvdL34EeMCTSsCLDyN4MphTOKKijnjPXpiPXhc=";
+    rev = "ffc1d3e13a507fa501966b2d7e9d4eda881f6bf4";
+    sha256 = "sha256-0uVL8u6u9kqfmEAm8p4kAwk5GzQ8L3xXJWRm1TEtEN4=";
   };
 
   cmakeFlags = [
@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     # https://github.com/Nheko-Reborn/mtxclient/issues/22
     "-DBUILD_LIB_TESTS=OFF"
     "-DBUILD_LIB_EXAMPLES=OFF"
-    "-Dnlohmann_json_DIR=${nlohmann_json}/lib/cmake/nlohmann_json"
-    # Can be removed once either https://github.com/NixOS/nixpkgs/pull/85254 or
-    # https://github.com/NixOS/nixpkgs/pull/73940 are merged
-    "-DBoost_NO_BOOST_CMAKE=TRUE"
-    "-DSPDLOG_FMT_EXTERNAL=ON"
-    "-DCMAKE_CXX_FLAGS=-DSPDLOG_FMT_EXTERNAL"
   ];
+
+  postPatch = ''
+    # See https://github.com/gabime/spdlog/issues/1897
+    sed -i '1a add_compile_definitions(SPDLOG_FMT_EXTERNAL)' CMakeLists.txt
+  '';
+
 
   nativeBuildInputs = [
     cmake
@@ -44,6 +44,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     spdlog
+    nlohmann_json
     boost17x
     openssl
     olm

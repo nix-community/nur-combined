@@ -13,4 +13,5 @@ rec {
     nheko-unstable = pkgs.libsForQt5.callPackage ./pkgs/nheko { inherit coeurl; mtxclient = mtxclient-unstable; };
     coeurl = pkgs.callPackage ./pkgs/coeurl { };
     mtxclient-unstable = pkgs.callPackage ./pkgs/mtxclient { inherit coeurl; };
+    pktriggercord = pkgs.callPackage ./pkgs/pktriggercord { };
 }
