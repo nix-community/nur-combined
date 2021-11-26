@@ -220,13 +220,13 @@ let
         sha1 = "c656051e9817d9ff08ed881477f3fe4019f3ef7d";
       };
     };
-    "follow-redirects-1.14.4" = {
+    "follow-redirects-1.14.5" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.14.4";
+      version = "1.14.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.4.tgz";
-        sha512 = "zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.5.tgz";
+        sha512 = "wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==";
       };
     };
     "fs-extra-9.1.0" = {
@@ -571,13 +571,13 @@ let
         sha1 = "290cbb232e306942d7d7ea9b83732ab7856f8285";
       };
     };
-    "signal-exit-3.0.5" = {
+    "signal-exit-3.0.6" = {
       name = "signal-exit";
       packageName = "signal-exit";
-      version = "3.0.5";
+      version = "3.0.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.5.tgz";
-        sha512 = "KWcOiKeQj6ZyXx7zq4YxSMgHRlod4czeBQZrPb8OKcohcqAXShm7E20kEMle9WBt26hFcAf0qLOcp5zmY7kOqQ==";
+        url = "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.6.tgz";
+        sha512 = "sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==";
       };
     };
     "slice-stream-1.0.0" = {
@@ -733,7 +733,7 @@ let
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.3"
       sources."defaults-1.0.3"
-      sources."follow-redirects-1.14.4"
+      sources."follow-redirects-1.14.5"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
@@ -771,7 +771,7 @@ let
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.2.1"
       sources."setimmediate-1.0.5"
-      sources."signal-exit-3.0.5"
+      sources."signal-exit-3.0.6"
       sources."slice-stream-1.0.0"
       sources."string_decoder-0.10.31"
       sources."strip-ansi-6.0.1"

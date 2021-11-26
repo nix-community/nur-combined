@@ -33,7 +33,7 @@ in
 
   environment.systemPackages = [
     myVim
-    pkgs.python38Packages.python-language-server
+    pkgs.python-language-server
     js.typescript
   ];
   environment.variables.EDITOR = "nvim";
