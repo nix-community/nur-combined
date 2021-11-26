@@ -148,9 +148,6 @@
         "dywedir": {
             "url": "https://github.com/dywedir/nur-packages"
         },
-        "eduardosm": {
-            "url": "https://github.com/eduardosm/nur-packages"
-        },
         "eeva": {
             "type": "gitea",
             "url": "https://git.marvid.fr/eeva/nur-packages"
@@ -176,6 +173,9 @@
         "fius": {
             "url": "https://github.com/Fius/nur-packages"
         },
+        "foolnotion": {
+            "url": "https://github.com/foolnotion/nur-pkg"
+        },
         "fortuneteller2k": {
             "url": "https://github.com/fortuneteller2k/nur"
         },
@@ -193,6 +193,9 @@
         },
         "htr": {
             "url": "https://github.com/htr/nur-packages"
+        },
+        "hujw77": {
+            "url": "https://github.com/hujw77/nur-packages"
         },
         "hutzdog": {
             "type": "sourcehut",
@@ -472,6 +475,9 @@
         "shamilton": {
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "sigprof": {
+            "url": "https://github.com/sigprof/nur-packages"
+        },
         "sikmir": {
             "url": "https://github.com/sikmir/nur-packages"
         },
@@ -526,6 +532,9 @@
         "uniquepointer": {
             "url": "https://github.com/uniquepointer/nur-babies"
         },
+        "vanilla": {
+            "url": "https://github.com/VergeDX/nur-packages"
+        },
         "vdemeester": {
             "file": "pkgs/default.nix",
             "url": "https://gitlab.com/vdemeester/home"
@@ -539,6 +548,9 @@
         "wamserma": {
             "url": "https://github.com/wamserma/nur-packages"
         },
+        "willpower3309": {
+            "url": "https://github.com/WillPower3309/nur-packages"
+        },
         "wolfangaukang": {
             "url": "https://github.com/wolfangaukang/nur-packages"
         },
@@ -550,6 +562,9 @@
         },
         "xeals": {
             "url": "https://github.com/xeals/nur-packages"
+        },
+        "yellowonion": {
+            "url": "https://github.com/yellowonion/nur-bcachefs"
         },
         "ysndr": {
             "url": "https://github.com/ysndr/nur-packages"
