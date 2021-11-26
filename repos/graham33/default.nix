@@ -35,21 +35,6 @@ let
     teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
     typer = pySelf.callPackage ./pkgs/typer { };
   };
-in rec {
-  inherit pkgs; # for debugging
-
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-
-  # TODO: fix
-  #enroot = pkgs.callPackage ./pkgs/enroot { };
-
-  python37 = pkgs.python37.override {
-    packageOverrides = pyPackageOverrides;
-  };
-  python37Packages = python37.pkgs;
 
   python38 = pkgs.python38.override {
     packageOverrides = pyPackageOverrides;
@@ -61,6 +46,26 @@ in rec {
   };
   python39Packages = python39.pkgs;
 
-  python3 = python39;
-  python3Packages = python39Packages;
+  pkg_21-11 = pkg: if (builtins.match "^21\.11.*" pkgs.lib.version != null) then pkg else null;
+
+in rec {
+  inherit pkgs; # for debugging
+
+  # The `lib`, `modules`, and `overlay` names are special
+  lib = import ./lib { inherit pkgs; }; # functions
+  modules = import ./modules; # NixOS modules
+  overlays = import ./overlays; # nixpkgs overlays
+
+  inherit python39 python39Packages;
+
+  # packages to cache (all versions)
+  inherit (python39Packages)
+    smartbox
+  ;
+
+  # packages to cache (21.11/unstable)
+  hass-smartbox = pkg_21-11 python39Packages.hass-smartbox;
+  homeassistant = pkg_21-11 python39Packages.homeassistant;
+  homeassistant-stubs = pkg_21-11 python39Packages.homeassistant-stubs;
+  pytest-homeassistant-custom-component = pkg_21-11 python39Packages.pytest-homeassistant-custom-component;
 }
