@@ -238,17 +238,20 @@ in {
     inherit (presets) linux latest linux_5_1 linux_5_0 linux_4_19 linux_4_4;
   };
 
+  linuxPackagesOverlays = super.linuxPackagesOverlays or [ ] ++ [ kernelOverlay ];
+
   linuxPackagesFor = if lib.isNixpkgsStable
-    then kernel: (super.linuxPackagesFor kernel).extend kernelOverlay
+    then kernel: (super.linuxPackagesFor kernel).extend (lib.composeManyExtensions self.linuxPackagesOverlays)
     else super.linuxPackagesFor;
 
   linuxKernel = lib.optionalAttrs lib.isNixpkgsUnstable (super.linuxKernel // {
-    packagesFor = kernel: (super.linuxKernel.packagesFor kernel).extend kernelOverlay;
+    packagesFor = kernel: (super.linuxKernel.packagesFor kernel).extend (lib.composeManyExtensions self.linuxPackagesOverlays);
   });
 
   linuxPackages_bleeding = with lib; let
     nonNullPackages = filter (p: p != null) [
       self.linuxPackages_latest
+      self.linuxPackages_5_15 or null
       self.linuxPackages_5_13 or null
       self.linuxPackages_5_12 or null
       self.linuxPackages_testing or null

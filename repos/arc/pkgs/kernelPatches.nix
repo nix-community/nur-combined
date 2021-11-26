@@ -1,13 +1,4 @@
 {
-  unprivileged_overlay_mounts = { fetchpatch }: rec {
-    name = "unprivileged_overlay_mounts";
-    patch = fetchpatch {
-      name = name + ".patch";
-      url = "https://patchwork.kernel.org/series/397711/mbox/";
-      sha256 = "0k4zsrrwpmjvvwbdbgn5qrj2sgk3b064rpfhxyk22zqs40wkxh47";
-    };
-  };
-
   more_uarches = { lib, fetchpatch, hostPlatform, linux, kernelArch ? null, gccArch ? hostPlatform.linux-kernel.arch or hostPlatform.gcc.arch or "x86-64-v3" }: rec {
     name = "more-uarches";
     patch = let
@@ -89,6 +80,22 @@
       name = name + ".patch";
       url = "https://gitlab.com/Queuecumber/linux-acs-override/-/raw/master/workspaces/5.10.4/acso.patch?inline=false";
       sha256 = "0qjb66ydbqqypyvhhlq8zwry8zcd8609y8d4a0nidhq1g6cp9vcw";
+    };
+  };
+
+  # used by appending to `pkgs.linuxPackagesOverlays`
+  overlays = { }: {
+    zfsVersionOverride = kself: ksuper: {
+      zfs = ksuper.zfs.overrideAttrs (old: {
+        meta = old.meta // {
+          broken = false;
+        };
+      });
+      zfsUnstable = ksuper.zfsUnstable.overrideAttrs (old: {
+        meta = old.meta // {
+          broken = false;
+        };
+      });
     };
   };
 }

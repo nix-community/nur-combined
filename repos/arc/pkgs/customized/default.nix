@@ -35,8 +35,6 @@ let
       EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
       EDITLINE_CFLAGS = "-DREADLINE";
       doInstallCheck = false; # old.doInstallCheck or false && !nix.stdenv.isDarwin;
-    } // lib.optionalAttrs lib.isNixpkgsStable {
-      __forceRebuild = true; # TODO: remove once unnecessary
     });
 
     rink-readline = { lib, rink, rustPlatform, fetchpatch }: rustPlatform.buildRustPackage {
@@ -459,7 +457,8 @@ let
         else if lib.versionOlder old.version "0.22.6" then "0.22.2"
         else if lib.versionOlder old.version "0.22.7" then "0.22.6"
         else if lib.versionOlder old.version "0.22.10" then "0.22.7"
-        else "0.22.10";
+        else if lib.versionOlder old.version "0.23" then "0.22.10"
+        else "0.23.2";
     in {
       pname = "${mpd.pname}-youtube-dl";
 
@@ -473,6 +472,7 @@ let
           else if patchVersion == "0.22.6" then "16fzj27m9xyh3aqnmfgwrbfr4rcljw7z7vdszlfgq8zj1z8zrdir"
           else if patchVersion == "0.22.7" then "1way27q3m9zzps2wkmjsqk22grp727fzky7ds30gdnzn4dygbcrp"
           else if patchVersion == "0.22.10" then "14sndl4b8zaf7l8ia4n6qq6l4iq5d9h7f495p0dzchw6ck536nhq"
+          else if patchVersion == "0.23.2" then "06dhl23n18ki6amplsqk5wf82l6j7criygfqksfwrn1j8k4m5drv"
           else lib.fakeSha256;
       }) ];
 
@@ -542,34 +542,7 @@ let
       };
     });
 
-    scream-develop = { scream ? null, stdenv, fetchFromGitHub, libjack2 }: let
-      version = "2021-05-30";
-      drv = scream.override {
-        pulseSupport = true;
-        #jackSupport = true;
-      };
-      broken = stdenv.mkDerivation {
-        pname = "scream";
-        inherit version;
-        meta.broken = true;
-      };
-    in if scream == null then broken else drv.overrideAttrs (old: {
-      inherit version;
-      src = fetchFromGitHub {
-        owner = "duncanthrax";
-        repo = "scream";
-        rev = "91d9a0a3afc49e5fdd02eb079dfd90c7b6ca760a";
-        sha256 = "04i3rwcl1sf21ihhgfsipsv1c9gyc8sryv0hyqsjmvnks8h60liq";
-      };
-
-      # unnecessary once a scream update is released:
-      buildInputs = old.buildInputs ++ [ libjack2 ];
-      cmakeFlags = old.cmakeFlags ++ [
-        "-DJACK_ENABLE=ON"
-      ];
-    });
-
-    scream-arc = { scream-develop, fetchpatch }: scream-develop.overrideAttrs (old: {
+    scream-arc = { scream, fetchpatch, lib }: scream.overrideAttrs (old: {
       pname = "scream-arc";
       patches = old.patches or [] ++ [
         (fetchpatch {
@@ -593,6 +566,19 @@ let
           sha256 = "18pavs8kdqsj43iapfs5x639w613xhahd168c2j86sizy04390ga";
         })
       ];
+      meta = old.meta or { } // {
+        broken = old.meta.broken or lib.isNixpkgsStable;
+      };
+    });
+
+    lieer-develop = { lieer, fetchFromGitHub }: lieer.overrideAttrs (old: {
+      version = "2021-10-17";
+      src = fetchFromGitHub {
+        owner = "gauteh";
+        repo = "lieer";
+        rev = "87e85ef546223d6a745e3fe95972fd1025c4c009";
+        sha256 = "05nhjg5bckxwx2zsshznlllb22im6lqhb6jlf9s6mrnz4ag62ig3";
+      };
     });
 
     xkeyboard-config-arc = { xkeyboard_config, fetchpatch, utilmacros, autoreconfHook }: xkeyboard_config.overrideAttrs (old: rec {

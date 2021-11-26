@@ -121,7 +121,7 @@ let
     };
 
     rtl8189es = { stdenv, lib, fetchFromGitHub, linux }: stdenv.mkDerivation rec {
-      version = "2021-03-02";
+      version = "2021-10-01";
       pname = let
         pname = "rtl8189es";
         kernel-name = builtins.tryEval "${pname}-${linux.version}";
@@ -130,8 +130,8 @@ let
       src = fetchFromGitHub {
         owner = "jwrdegoede";
         repo = "rtl8189ES_linux";
-        rev = "03ac413135a355b55b693154c44b70f86a39732e";
-        sha256 = "0wiikviwyvy6h55rgdvy7csi1zqniqg26p8x44rd6mhbw0g00h56";
+        rev = "be378f47055da1bae42ff6ec1d62f1a5052ef097";
+        sha256 = "1szayxl5chvmylcla13s9dnfwd0g2k6zmn5bp7m1in5igganlpzv";
       };
       sourceRoot = "source";
 
@@ -171,7 +171,7 @@ let
       meta.platforms = lib.platforms.linux;
     };
 
-    nvidia-patch = { stdenvNoCC, fetchFromGitHub, writeShellScriptBin, lib, lndir, nvidia_x11 ? linuxPackages.nvidia_x11, linuxPackages ? { } }: let
+    nvidia-patch = { stdenvNoCC, fetchFromGitHub, fetchpatch, writeShellScriptBin, lib, lndir, nvidia_x11 ? linuxPackages.nvidia_x11, linuxPackages ? { } }: let
       nvpatch = writeShellScriptBin "nvpatch" ''
         set -eu
         patchScript=$1
@@ -180,8 +180,8 @@ let
         set -- -sl
         source $patchScript
 
-        patch="''${patch_list[$nvidiaVersion]}"
-        object="''${object_list[$nvidiaVersion]}"
+        patch="''${patch_list[$nvidiaVersion]-}"
+        object="''${object_list[$nvidiaVersion]-}"
 
         if [[ -z $patch || -z $object ]]; then
           echo "$nvidiaVersion not supported for $patchScript" >&2
@@ -192,15 +192,26 @@ let
       '';
     in stdenvNoCC.mkDerivation {
       pname = "nvidia-patch";
-      version = "2021-09-21";
+      version = "2021-10-26";
 
       src = fetchFromGitHub {
         # mirror: git clone https://ipfs.io/ipns/Qmed4r8yrBP162WK1ybd1DJWhLUi4t6mGuBoB9fLtjxR7u
         owner = "keylase";
         repo = "nvidia-patch";
-        rev = "783b8407fd262a0e1d420845f107ccff53750886";
-        sha256 = "1dxb9mzcwmky0vnab6za492wiiq8kcpn5vyq44v917lxnidb1993";
+        rev = "6e7cdeef11bc2035438212b8ba74b4709d1b248b";
+        sha256 = "02ky2v69brk9ld9l1y649wvrik6vshgjpdmapdm2vraqnsa11iiy";
       };
+
+      patches = [
+        (fetchpatch {
+          url = "https://github.com/keylase/nvidia-patch/pull/449.patch";
+          sha256 = "0rxq1xammgkrb03a0cjl6b1fjgnb8iam02dzv8m7ynclbqq0wnj6";
+        })
+        (fetchpatch {
+          url = "https://github.com/arcnmx/nvidia-patch/commit/a55fc5e22a097ca907facb41d15ce018c393dcbc.patch";
+          sha256 = "1v4iax6x1cx6lfkcap1b2iab36j6zby1rm1h5pfwd954ks3xq1lw";
+        })
+      ];
 
       nativeBuildInputs = [ nvpatch lndir ];
       patchedLibs = [

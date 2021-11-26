@@ -2,6 +2,7 @@
   systemd = ./systemd.nix;
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
+  kernel = ./kernel.nix;
   crypttab = ./crypttab.nix;
   glauth = ./glauth.nix;
   common-root = ./common-root.nix;
@@ -31,6 +32,7 @@
       dht22-exporter
       glauth
       modprobe
+      kernel
       crypttab
       mutable-state
       common-root
