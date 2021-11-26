@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
     systemd.services.atlas = {
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${pkgs.atlas}/bin/atlas";
+      serviceConfig.ExecStart = "${pkgs.nur.repos.heph2.atlas}/bin/atlas";
     };
   };
 }
