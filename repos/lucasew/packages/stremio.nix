@@ -54,4 +54,5 @@ let
     desktopName = "Stremio";
     genericName = "Movies and TV Series";
   };
-in stremioItem
+in
+stremioItem

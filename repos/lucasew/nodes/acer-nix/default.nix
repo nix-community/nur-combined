@@ -6,6 +6,7 @@
 let
   inherit (self) inputs;
   inherit (global) wallpaper username;
+  inherit (builtins) storePath;
   hostname = "acer-nix";
 in
 {
@@ -22,10 +23,6 @@ in
     ]
   ;
 
-  services.xserver.modules = with pkgs.xorg; [
-    xf86inputjoystick
-  ];
-
   # programs.steam.enable = true;
 
   nixpkgs = {
@@ -34,7 +31,6 @@ in
     };
   };
 
-  # Use the systemd-boot EFI boot loader.
   boot.supportedFilesystems = [ "ntfs" ];
   boot.loader = {
     efi = {
@@ -48,7 +44,13 @@ in
     };
   };
 
-  services.xserver.displayManager.lightdm.background = wallpaper;
+  services.xserver.displayManager.lightdm = {
+    background = wallpaper;
+    greeters.enso = {
+      enable = true;
+      blur = true;
+    };
+  };
 
   services.auto-cpufreq.enable = true;
   # text expander in rust
@@ -56,6 +58,10 @@ in
 
   networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.enable = true;
+  systemd.extraConfig = ''
+  DefaultTimeoutStartSec=10s
+  '';
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -81,6 +87,7 @@ in
     virt-manager
     # Extra
     custom.send2kindle
+    custom.rofi
     intel-compute-runtime # OpenCL
   ];
 
@@ -91,7 +98,12 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    startAgent = true;
+    extraConfig = ''
+      ConnectTimeout=5
+    '';
+  };
   programs.gnupg.agent = {
     enable = true;
     # enableSSHSupport = true;
@@ -117,9 +129,41 @@ in
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # sound.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # jack.enable = true;
+    media-session.config.bluez-monitor.rules = [
+      {
+        # Matches all cards
+        matches = [ { "device.name" = "~bluez_card.*"; } ];
+        actions = {
+          "update-props" = {
+            "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+            # mSBC is not expected to work on all headset + adapter combinations.
+            "bluez5.msbc-support" = true;
+            # SBC-XQ is not expected to work on all headset + adapter combinations.
+            "bluez5.sbc-xq-support" = true;
+          };
+        };
+      }
+      {
+        matches = [
+          # Matches all sources
+          { "node.name" = "~bluez_input.*"; }
+          # Matches all outputs
+          { "node.name" = "~bluez_output.*"; }
+        ];
+        actions = {
+          "node.pause-on-idle" = false;
+        };
+      }
+  ];
+  };
 
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
@@ -136,10 +180,20 @@ in
     ${username} = {
       extraGroups = [
         "adbusers"
-      ]; 
+      ];
+      initialPassword = "123"; # for VM
       description = "Lucas Eduardo";
     };
   };
+
+  gc-hold.paths = with pkgs; [
+    go
+    gopls
+    python3
+    custom.neovim
+    clang
+    ccls
+  ];
 
   # ADB
   programs.adb.enable = true;
@@ -153,8 +207,23 @@ in
     libvirtd.enable = true;
   };
 
+  boot.plymouth = {
+    enable = true;
+  };
+
   # não deixar explodir
   nix.maxJobs = 3;
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+    {
+      hostName = "mtpc.local";
+      sshUser = "lucas59356";
+      system = "x86_64-linux";
+      maxJobs = 3;
+      speedFactor = 2;
+      supportedFeatures = [ "big-parallel" "kvm" ];
+    }
+  ];
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_5_14;
 

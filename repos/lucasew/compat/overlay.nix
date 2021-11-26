@@ -1,6 +1,10 @@
 let
-  flake = builtins.getFlake "${builtins.toString ../.}";
+  inherit (builtins) toString hasAttr;
 in
-[
-  (import ../overlay.nix flake)
-]
+if (hasAttr "getFlake" builtins) then
+  let
+    flake = builtins.getFlake "${builtins.toString ../.}";
+  in
+  [
+    (import ../overlay.nix flake)
+  ] else [ ]

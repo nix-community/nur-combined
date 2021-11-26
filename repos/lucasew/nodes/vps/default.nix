@@ -1,6 +1,6 @@
-{pkgs, lib, global, ...}:
+{pkgs, lib, global, self, ...}:
 let
-  inherit (flake) inputs;
+  inherit (self) inputs;
   inherit (pkgs) dotenv;
   inherit (global) username rootPath;
   inherit (lib) mkOverride;
@@ -70,11 +70,11 @@ in {
         host all all 192.168.69.0/24 trust
       '';
     };
-    randomtube = { # TODO: Bump git commit
-      enable = false;
-      extraParameters = "-ms 120";
-      secretsDotenv = "${rootPath}/secrets/randomtube.env";
-    };
+    # randomtube = { # TODO: Bump git commit
+    #   enable = false;
+    #   extraParameters = "-ms 120";
+    #   secretsDotenv = "${rootPath}/secrets/randomtube.env";
+    # };
     cloudflared.enable = true;
   };
 

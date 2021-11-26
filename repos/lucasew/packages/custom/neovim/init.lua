@@ -10,7 +10,16 @@ lsp_signature.setup{
 local lspSettings = {
     -- arduino_language_server = {},
     bashls = {},
-    ccls = {}, -- c/c++
+    ccls = {
+        init_options = {
+            cache = {
+                directory = "/tmp/.ccls-cache";
+            },
+            completion = {
+                detailedLabel = false;
+            }
+        }
+    }, -- c/c++
     cmake = {},
     dockerls = {},
     dotls = {}, -- dot/graphviz
@@ -19,6 +28,9 @@ local lspSettings = {
     gopls = {}, -- golang
     graphql = {},
     hls = {}, -- haskell
+    java_language_server = { -- java
+        cmd = { "java-language-server" };
+    },
     rnix = {}, -- nix
     rust_analyzer = {}, -- rust
     terraformls = {}, -- terraform

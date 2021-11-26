@@ -7,6 +7,7 @@
     ../../modules/cachix/system.nix
     # ../../modules/randomtube/system.nix
     ../../modules/vercel-ddns/system.nix
+    ../../modules/hold-gc/system.nix
   ];
   zramSwap = {
     enable = true;

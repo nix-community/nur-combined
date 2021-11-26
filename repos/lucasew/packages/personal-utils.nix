@@ -1,7 +1,8 @@
-{pkgs ? import <nixpkgs> {}, ...}:
+{ pkgs ? import <nixpkgs> { }, ... }:
 let
   inherit (pkgs) symlinkJoin writeShellScriptBin;
-in symlinkJoin {
+in
+symlinkJoin {
   name = "personal-utils";
   paths = [
     (writeShellScriptBin "todo" ''

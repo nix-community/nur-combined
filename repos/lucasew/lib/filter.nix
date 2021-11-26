@@ -11,4 +11,5 @@ let
         newH = if (fn h) then [ h ] else [ ];
       in
       newH ++ (filter fn t);
-in filter
+in
+filter

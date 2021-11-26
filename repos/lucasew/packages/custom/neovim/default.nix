@@ -119,23 +119,23 @@ let
       sha256 = "sha256-N7GLBVxO9FbLqo9FKJJndnHRnekunxwVAjcgu4l8jLw=";
     };
   };
-  neovimAltered = pkgs.neovim-unwrapped.overrideAttrs (old: rec {
-    version = "0.5.0";
+  # neovimAltered = pkgs.neovim-unwrapped.overrideAttrs (old: rec {
+  #   version = "0.5.0";
 
-    src = fetchFromGitHub {
-      owner = "neovim";
-      repo = "neovim";
-      rev = "v${version}";
-      sha256 = "0lgbf90sbachdag1zm9pmnlbn35964l3khs27qy4462qzpqyi9fi";
-    };
-    cmakeFlags = old.cmakeFlags ++ ([
-      "-DUSE_BUNDLED=OFF"
-    ]);
-    buildInputs = old.buildInputs ++ (with pkgs;[
-      tree-sitter
-    ]);
-});
-in wrapNeovim neovimAltered {
+  #   src = fetchFromGitHub {
+  #     owner = "neovim";
+  #     repo = "neovim";
+  #     rev = "v${version}";
+  #     sha256 = "0lgbf90sbachdag1zm9pmnlbn35964l3khs27qy4462qzpqyi9fi";
+  #   };
+  #   cmakeFlags = old.cmakeFlags ++ ([
+  #     "-DUSE_BUNDLED=OFF"
+  #   ]);
+  #   buildInputs = old.buildInputs ++ (with pkgs;[
+  #     tree-sitter
+  #   ]);
+  # });
+in wrapNeovim pkgs.neovim-unwrapped {
   withPython3 = true;
   extraPython3Packages = b:
     with b; with callPackage ./python.nix b b b; [
@@ -170,7 +170,7 @@ in wrapNeovim neovimAltered {
       pluginEmbark
       pluginNocapsquit
       pluginLspSignature
-      pluginIonideVim
+      # pluginIonideVim
       themePaper
       themePreto
       themeStarrynight

@@ -1,8 +1,9 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 let
   inherit (pkgs) stdenv autoPatchelfHook;
   inherit (builtins) fetchTarball;
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   name = "xplr";
   version = "0.3.13";
   src = "${fetchTarball {

@@ -11,4 +11,5 @@ let
   '';
   pixelString = readFile "${pixelFile}";
   stripped = replaceStrings [ "\n" ] [ "" ] pixelString;
-in stripped
+in
+stripped

@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}}:
+{ pkgs ? import <nixpkgs> { } }:
 let
   inherit (pkgs) gcc writeShellScriptBin python3;
 
@@ -22,7 +22,8 @@ let
     PATH=$PATH:${python3}/bin
     curl -L https://encore.dev/install.sh | bash
   '';
-in pkgs.symlinkJoin {
+in
+pkgs.symlinkJoin {
   name = "encore";
   version = "latest";
   paths = [

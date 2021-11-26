@@ -53,7 +53,8 @@ let
       platforms = lib.platforms.unix;
     };
   };
-in makeDesktopItem {
+in
+makeDesktopItem {
   name = "minecraft";
   desktopName = "Shiginima Minecraft";
   type = "Application";

@@ -1,8 +1,5 @@
-let
-  inherit (builtins) getFlake;
-  flake = getFlake "${toString ./.}";
-  inherit (flake.outputs) pkgs;
-in builtins.attrValues {
+with import ./default.nix;
+builtins.attrValues {
   inherit (pkgs)
     stremio
     minecraft
@@ -16,4 +13,11 @@ in builtins.attrValues {
     pinball
   ;
   polybar = pkgs.callPackage ./modules/polybar/customPolybar.nix {};
+  inherit (builtins.mapAttrs (k: v: v.config.system.build.toplevel) nixosConfigurations)
+    acer-nix
+    vps
+  ;
+  inherit (builtins.mapAttrs (k: v: v.activationPackage) homeConfigurations)
+    main
+  ;
 }

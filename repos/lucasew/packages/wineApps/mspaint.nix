@@ -31,7 +31,7 @@ pkgs.makeDesktopItem {
   desktopName = "Paint WindowsXP";
   icon = builtins.fetchurl {
     url = "http://vignette3.wikia.nocookie.net/logopedia/images/4/45/Ms_paint_windows_xp_logo.png/revision/latest?cb=20160414044336";
-    sha256 = "0sd85ix37l379l1cqszc1sfgin7cc1j21rhj3mdd0rm64ifa8znr";
+    sha256 = "sha256:1sznr3mdx6bk2ijs0n4q31chb1p64i54bmynm8njsxq4l11lnqph";
   };
   type = "Application";
   exec = "${bin}/bin/mspaint $*";

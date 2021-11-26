@@ -4,9 +4,8 @@ let
   inherit (pkgs) lib cabextract writeShellScriptBin;
   inherit (lib) makeBinPath;
 in
-{ 
-  is64bits ? false
-  , wine ? if is64bits then pkgs.wineWowPackages.stable else pkgs.wine
+{ is64bits ? false
+, wine ? if is64bits then pkgs.wineWowPackages.stable else pkgs.wine
 , wineFlags ? ""
 , executable
 , chdir ? null
@@ -25,26 +24,30 @@ let
   WINENIX_PROFILES = "$HOME/WINENIX_PROFILES";
   PATH = makeBinPath requiredPackages;
   NAME = name;
-  HOME = if home == "" 
-    then "${WINENIX_PROFILES}/${name}" 
+  HOME =
+    if home == ""
+    then "${WINENIX_PROFILES}/${name}"
     else home;
-  WINEARCH = if is64bits 
-    then "win64" 
+  WINEARCH =
+    if is64bits
+    then "win64"
     else "win32";
   setupHook = ''
-      ${wine}/bin/wineboot
+    ${wine}/bin/wineboot
   '';
-  tricksHook = if (length tricks) > 0 then
+  tricksHook =
+    if (length tricks) > 0 then
       let
         tricksStr = concatStringsSep " " tricks;
         tricksCmd = ''
-        pushd $(mktemp -d)
-          wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-          chmod +x winetricks
-          ./winetricks ${tricksStr}
-        popd
+          pushd $(mktemp -d)
+            wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+            chmod +x winetricks
+            ./winetricks ${tricksStr}
+          popd
         '';
-      in tricksCmd
+      in
+      tricksCmd
     else "";
   script = writeShellScriptBin name ''
     export APP_NAME="${NAME}"
@@ -80,4 +83,5 @@ let
     ${wineBin} ${wineFlags} "$EXECUTABLE" "$@"
     wineserver -w
   '';
-in script
+in
+script

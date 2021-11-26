@@ -1,7 +1,7 @@
-{pkgs, name ? "world"}:
+{ pkgs, name ? "world" }:
 {
   description = "Hello";
-  path =  pkgs.writeTextFile {
+  path = pkgs.writeTextFile {
     name = "scratch";
     text = "Hello, ${name}";
   };

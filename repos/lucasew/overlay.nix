@@ -1,12 +1,12 @@
 flake: self: super:
 let
   inherit (flake) inputs;
-  inherit (flake.outputs.extraArgs) global;
+  inherit (flake.outputs.extraArgs.x86_64-linux) global;
   inherit (global) rootPath;
   inherit (super) lib callPackage writeShellScript;
   inherit (lib) recursiveUpdate;
   inherit (builtins) toString length head tail;
-  inherit (flake.inputs) nixpkgsLatest;
+  inherit (flake.inputs) nixpkgsLatest nix-option nixpkgs;
 in
 let
   cp = f: (callPackage f) {};
@@ -27,11 +27,9 @@ let
 in reduceJoin [
   super
   {
-    # gambeta, mudar depois
-    electron_13 = super.electron;
-
     inherit dotenv;
     inherit wrapDotenv;
+    inherit (inputs.nixos-generators.packages."${super.system}") nixos-generators;
 
     lib = {
       inherit reduceJoin;
@@ -43,20 +41,28 @@ in reduceJoin [
     send2kindle = cp inputs.send2kindle;
     comma = cp inputs.comma;
     wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = super;});
+    wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = super;});
     discord = cp "${nixpkgsLatest}/pkgs/applications/networking/instant-messengers/discord/default.nix";
     dart = cp "${nixpkgsLatest}/pkgs/development/interpreters/dart/default.nix";
     hugo = cp "${nixpkgsLatest}/pkgs/applications/misc/hugo/default.nix";
     flutter = (cp "${nixpkgsLatest}/pkgs/development/compilers/flutter/default.nix").stable;
     tor-browser-bundle-bin = (cp "${nixpkgsLatest}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
-    obsidian = (cp "${nixpkgsLatest}/pkgs/applications/misc/obsidian/default.nix");
+    obsidian = super.callPackage "${nixpkgsLatest}/pkgs/applications/misc/obsidian/default.nix" {
+      electron_13 = super.electron_12;
+    };
     ventoy-bin = cp "${nixpkgsLatest}/pkgs/tools/cd-dvd/ventoy-bin/default.nix";
-    arcan = cp ./packages/arcan.nix;
     c4me = cp ./packages/c4me;
     encore = cp ./packages/encore.nix;
     xplr = cp ./packages/xplr.nix;
     personal-utils = cp ./packages/personal-utils.nix;
     nixwrap = cp ./packages/nixwrap.nix;
-    custom_neovim = cp ./packages/neovim/package.nix;
+    nix-option = callPackage "${nix-option}" {
+      nixos-option = (callPackage "${nixpkgs}/nixos/modules/installer/tools/nixos-option" {}).overrideAttrs (attrs: attrs // {
+        meta = attrs.meta // {
+          platforms = lib.platforms.all;
+        };
+      });
+    };
     wineApps = {
       wine7zip = cp ./packages/wineApps/7zip.nix;
       cs_extreme = cp ./packages/wineApps/cs_extreme.nix;
@@ -78,6 +84,7 @@ in reduceJoin [
     custom = {
       ncdu = cp ./packages/custom/ncdu.nix;
       neovim = cp ./packages/custom/neovim;
+      emacs = cp ./packages/custom/emacs;
       rofi = cp ./packages/custom/rofi.nix;
       tixati = cp ./packages/custom/tixati.nix;
       vscode = cp ./packages/custom/vscode;
@@ -85,13 +92,13 @@ in reduceJoin [
       retroarch = cp ./packages/custom/retroarch.nix;
     };
     minecraft = cp ./packages/minecraft.nix;
-    peazip = cp ./packages/peazip.nix;
     pkg = cp ./packages/pkg.nix;
+    pipedream-cli = cp ./packages/pipedream-cli.nix;
     stremio = cp ./packages/stremio.nix;
     wrapWine = cp ./packages/wrapWine.nix;
     preload = cp ./packages/preload.nix;
-    python3Packages = cp ./packages/python3Packages.nix;
-    nodePackages = cp ./modules/node_clis/package_data/default.nix;
+    # python3Packages = cp ./packages/python3Packages.nix;
+    nodePackages = cp ./packages/node_clis/package_data/default.nix;
 
     nur = import flake.inputs.nur {
       inherit (super) pkgs;

@@ -3,11 +3,12 @@ let
   inherit (global) username email rootPath;
   inherit (builtins) fetchurl;
   inherit (self) inputs outputs;
-  inherit (outputs) environmentShell;
   inherit (pkgs) writeShellScript espeak wrapDotenv p2k;
   inherit (lib.hm.gvariant) mkTuple;
+  environmentShell = outputs.environmentShell.x86_64-linux;
 in {
   imports = [
+    ../base/default.nix
     "${inputs.nixgram}/hmModule.nix"
     "${inputs.redial_proxy}/hmModule.nix"
     "${inputs.borderless-browser}/home-manager.nix"
@@ -29,29 +30,17 @@ in {
     # minecraft  # custom (excluded)
     custom.tixati custom.rofi # custom
     tdesktop # communication
-    obsidian
-    vlc youtube-dl # media
+    vlc # media
     chromium
-    file
     fortune
     libnotify
-    neofetch
     aerc # terminal email
     croc # file transfer
-    comma # like nix-shell but more convenient
     calibre
     wineApps.wine7zip
     libreoffice
-    mendeley
     stremio
-    typora
-    fzf
   ] ;
-
-  home.file.".dotfilerc".text = ''
-    #!/usr/bin/env bash
-    ${environmentShell}
-  '';
 
   # programs.hello-world.enable = true;
   services.espanso = {
@@ -179,12 +168,6 @@ in {
         treeView = true;
       };
     };
-    tmux.enable = true;
-    git = {
-        enable = true;
-        userName = username;
-        userEmail = email;
-    };
   };
 
   # KDE connect
@@ -236,6 +219,7 @@ in {
     dotenvFile = rootPath + "/secrets/nixgram.env";
     customCommands = {
       echo = "echo $*";
+      uptime = "uptime";
       wait = ''
         sleep $1
         echo Waited for $1 seconds!
@@ -286,14 +270,6 @@ in {
 #   };
 
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
   gtk = {
     enable = true;
     theme.name = "Adwaita-dark";
@@ -302,7 +278,6 @@ in {
     enable = true;
     platformTheme = "gtk";
   };
-  # home.stateVersion = "20.03";
 
   borderless-browser.apps = {
     teste = {
