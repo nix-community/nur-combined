@@ -5,8 +5,8 @@
       "type": "github",
       "owner": "chisui",
       "repo": "zsh-nix-shell",
-      "rev": "v0.2.0",
-      "sha256": "1gfyrgn23zpwv1vj37gf28hf5z0ka0w5qm6286a7qixwv7ijnrx9\n"
+      "rev": "v0.4.0",
+      "sha256": "037wz9fqmx0ngcwl9az55fgkipb745rymznxnssr3rx9irb6apzg"
     }
   },
   "nix-zsh-completions": {
@@ -17,6 +17,16 @@
       "repo": "nix-zsh-completions",
       "rev": "0.4.4",
       "sha256": "1n9whlys95k4wc57cnz3n07p7zpkv796qkmn68a50ygkx6h3afqf"
+    }
+  },
+  "agnoster-nix-theme": {
+    "file": "agnoster-nix.zsh-theme",
+    "src": {
+      "type": "gist",
+      "owner": "chisui",
+      "gist": "0d12bd51a5fd8e6bb52e6e6a43d31d5e",
+      "rev": "a97b74ce17c5f1befabe266ccf02a972cab2911b",
+      "sha256": "1czza9rpzpl2nnzqhzv4ni9agbycmyhzmyzd6laz87ksrr2mx0fh"
     }
   }
 }

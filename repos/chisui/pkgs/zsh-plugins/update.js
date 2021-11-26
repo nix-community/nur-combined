@@ -34,6 +34,7 @@ const nixPrefetchUrl = url => new Promise((res, rej) =>
       res(stdout)
     }
   }))
+  .then(str => str.trim())
 
 const updateSrcGithub = async src => {
   const { owner, repo, rev } = src
