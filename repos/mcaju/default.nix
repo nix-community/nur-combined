@@ -18,35 +18,39 @@ rec {
     yosys = symbiflow-yosys;
   };
 
-  symbiflow-arch-defs = pkgs.callPackage ./pkgs/symbiflow-arch-defs/default.nix {
+  symbiflow-arch-defs = pkgs.callPackage ./pkgs/symbiflow-arch-defs {
     inherit prjxray-db vtr yosys-symbiflow-plugins;
     python3Packages = pkgs.python3Packages // python3Packages;
     yosys = symbiflow-yosys;
   };
 
   python3Packages = pkgs.recurseIntoAttrs rec {
-    python-prjxray = pkgs.python3Packages.callPackage ./pkgs/python-prjxray {
-      inherit fasm;
-      inherit kijewski-pyjson5;
-      inherit prjxray-tools;
-    };
-    fasm = pkgs.python3Packages.callPackage ./pkgs/fasm {
-      inherit textx;
-    };
     kijewski-pyjson5 = pkgs.python3Packages.callPackage ./pkgs/pyjson5 { };
     pyric = pkgs.python3Packages.callPackage ./pkgs/pyric { };
     roguehostapd = pkgs.python3Packages.callPackage ./pkgs/roguehostapd { };
     textx = pkgs.python3Packages.callPackage ./pkgs/textx { };
     ubi_reader = pkgs.python3Packages.callPackage ./pkgs/ubi_reader { };
+
+    fasm = pkgs.python3Packages.callPackage ./pkgs/fasm {
+      inherit textx;
+    };
+
+    python-prjxray = pkgs.python3Packages.callPackage ./pkgs/python-prjxray {
+      inherit fasm;
+      inherit kijewski-pyjson5;
+      inherit prjxray-tools;
+    };
+
+    wifiphisher = pkgs.python3Packages.callPackage ./pkgs/wifiphisher {
+      inherit pyric;
+      inherit roguehostapd;
+    };
+
     xc-fasm = pkgs.python3Packages.callPackage ./pkgs/xc-fasm {
       inherit fasm;
       inherit prjxray-tools;
       inherit python-prjxray;
       inherit textx;
-    };
-    wifiphisher = pkgs.python3Packages.callPackage ./pkgs/wifiphisher {
-      inherit pyric;
-      inherit roguehostapd;
     };
   };
 }
