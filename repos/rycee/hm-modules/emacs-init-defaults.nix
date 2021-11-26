@@ -65,6 +65,11 @@
       '';
     };
 
+    kotlin-mode = {
+      mode = [ ''"\\.kts?\\'"'' ];
+      hook = [ "(kotlin-mode . subword-mode)" ];
+    };
+
     latex.mode = [ ''("\\.tex\\'" . latex-mode)'' ];
 
     lsp-eslint = {
@@ -115,7 +120,7 @@
       '';
     };
 
-    protobuf-mode.mode = [ ''"'\\.proto\\'"'' ];
+    protobuf-mode.mode = [ ''"\\.proto\\'"'' ];
 
     purescript-mode.mode = [ ''"\\.purs\\'"'' ];
 

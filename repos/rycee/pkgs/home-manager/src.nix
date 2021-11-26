@@ -12,6 +12,7 @@ let
     "21.03" = ./release-21.05.json;
     "21.05" = ./release-21.05.json;
     "21.11" = ./master.json;
+    "22.05" = ./master.json;
   };
 
   getOrAbort = err: key: attrs:

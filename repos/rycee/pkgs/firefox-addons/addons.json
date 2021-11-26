@@ -418,6 +418,16 @@
     "slug": "simple-tab-groups"
   },
   {
+    "slug": "solarized-light",
+    "license": {
+      "tag": "custom",
+      "shortName": "all-rights-reserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/wiki/All_rights_reserved",
+      "free": false
+    }
+  },
+  {
     "slug": "sponsorblock"
   },
   {
