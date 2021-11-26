@@ -31,10 +31,21 @@ let
     # vertico
     # vertico-repeat
 
-    # Packaged, but work around an issue with yaml-mode hanging infinitely
-    # forge
-    # salt-mode
-    # yaml-mode
+    # Packaged, but has some build issue not worth resolving (fill in gaps with use-package)
+    # dap-mode              ; bad hash on dependency bui-mode
+    # dired-quick-sort      ; can't mirror gitlab commit
+    # emr                   ; transitive dep on paredit
+    # evil-cleverparens     ; transitive dep on paredit
+    # eyebrowse             ; can't mirror gitlab commit
+    # forge                 ; workround yaml-mode hanging infinitely
+    # gcmh                  ; can't mirror gitlab commit
+    # git-timemachine       ; can't mirror gitlab commit
+    # highlight-parentheses ; can't mirror git.sr.ht
+    # lsp-java              ; bad hash on dependency bui-mode
+    # paredit               ; can't mirror mumble.net git
+    # ron-mode              ; can't mirror codeberg.org
+    # salt-mode             ; workround yaml-mode hanging infinitely
+    # yaml-mode             ; workround yaml-mode hanging infinitely
 
     ac-ispell
     ace-jump-mode
@@ -46,6 +57,7 @@ let
     all-the-icons
     alsamixer
     anaphora
+    annalist
     ansible
     ansible-doc
     anzu
@@ -90,6 +102,7 @@ let
     company-web
     concurrent
     consult
+    consult-yasnippet
     copy-as-format
     counsel
     counsel-gtags
@@ -100,13 +113,11 @@ let
     cython-mode
     dactyl-mode
     dante
-    dap-mode
     deferred
     define-word
     devdocs
     diff-hl
     diminish
-    dired-quick-sort
     direnv
     disaster
     docker
@@ -114,6 +125,7 @@ let
     dockerfile-mode
     doom-modeline
     dotenv-mode
+    drag-stuff
     dumb-jump
     eclim
     editorconfig
@@ -129,7 +141,6 @@ let
     embark
     embark-consult
     emmet-mode
-    emr
     engine-mode
     ep.csv-mode
     ep.elpaPackages.xclip
@@ -149,7 +160,6 @@ let
     evil
     evil-anzu
     evil-args
-    evil-cleverparens
     evil-easymotion
     evil-ediff
     evil-exchange
@@ -188,7 +198,6 @@ let
     flyspell-correct
     fringe-helper
     fuzzy
-    gcmh
     ggtags
     gh
     gh-md
@@ -200,7 +209,6 @@ let
     git-link
     git-messenger
     git-modes
-    git-timemachine
     github-clone
     github-search
     gitignore-templates
@@ -233,7 +241,6 @@ let
     highlight
     highlight-indentation
     highlight-numbers
-    highlight-parentheses
     hl-todo
     hlint-refactor
     ht
@@ -271,7 +278,6 @@ let
     logito
     lorem-ipsum
     lsp-haskell
-    lsp-java
     lsp-mode
     lsp-origami
     lsp-pyright
@@ -294,6 +300,7 @@ let
     minitest
     mmm-jinja2
     move-text
+    multi-line
     multi-term
     multiple-cursors
     mvn
@@ -309,6 +316,7 @@ let
     ob-http
     ob-restclient
     open-junk-file
+    orderless
     org-bookmark-heading
     org-brain
     org-bullets
@@ -338,7 +346,6 @@ let
     packed
     pandoc-mode
     paradox
-    paredit
     parent-mode
     password-generator
     pcache
@@ -361,6 +368,7 @@ let
     projectile
     pug-mode
     py-isort
+    pydoc
     pyenv-mode
     pytest
     pythonic
@@ -376,7 +384,6 @@ let
     restclient
     ripgrep
     robe
-    ron-mode
     rpm-spec-mode
     rspec-mode
     rubocop
