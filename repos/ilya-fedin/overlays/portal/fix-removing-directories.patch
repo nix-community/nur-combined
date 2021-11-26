@@ -1,15 +1,19 @@
 diff --git a/src/xdp-utils.c b/src/xdp-utils.c
-index ef68f0f..962a2b6 100644
+index 1126859..eca4e13 100644
 --- a/src/xdp-utils.c
 +++ b/src/xdp-utils.c
-@@ -970,10 +970,6 @@ xdp_app_info_get_path_for_fd (XdpAppInfo *app_info,
+@@ -1067,14 +1067,6 @@ xdp_app_info_get_path_for_fd (XdpAppInfo *app_info,
         * See issues #167 for details.
         */
  
 -      /* Must not be O_NOFOLLOW (because we want the target file) */
 -      if ((fd_flags & O_NOFOLLOW) == O_NOFOLLOW)
--        return NULL;
+-        {
+-          g_set_error (error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+-                       "O_PATH fd was opened O_NOFOLLOW");
+-          return NULL;
+-        }
 -
        if (!xdp_app_info_supports_opath (app_info))
-         return NULL;
- 
+         {
+           g_set_error (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
