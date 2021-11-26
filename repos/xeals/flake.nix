@@ -1,18 +1,31 @@
 {
-  description = "xeals's flake";
+  description = "xeals's Nix repository";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs }:
     let
-      inherit (flake-utils.lib) eachDefaultSystem flattenTree;
-      inherit (nixpkgs.lib.attrsets) filterAttrs mapAttrs;
+
+      inherit (nixpkgs) lib;
+
+      supportedSystems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+
+      forAllSystems = f: lib.genAttrs supportedSystems (system: f system);
+
     in
     {
-      nixosModules = mapAttrs (_: path: import path) (import ./modules);
+
+      nixosModules = lib.mapAttrs (_: path: import path) (import ./modules);
+
+      nixosModule = {
+        imports = lib.attrValues self.nixosModules;
+      };
 
       overlays = import ./overlays // {
         pkgs = final: prev: import ./pkgs/top-level/all-packages.nix { pkgs = prev; };
@@ -21,27 +34,30 @@
       overlay = final: prev: {
         xeals = nixpkgs.lib.composeExtensions self.overlays.pkgs;
       };
-    } // eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        xPkgs = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
-        mkApp = opts: { type = "app"; } // opts;
-      in
-      rec {
-        packages = filterAttrs
-          (attr: drv: builtins.elem system (drv.meta.platforms or [ ]))
-          (flattenTree xPkgs);
 
-        apps = flattenTree {
-          alacritty = mkApp { program = "${packages.alacritty-ligatures}/bin/alacritty"; };
-          protonmail-bridge = mkApp { program = "${packages.protonmail-bridge}/bin/protonmail-bridge"; };
-          protonmail-bridge-headless = mkApp { program = "${packages.protonmail-bridge}/bin/protonmail-bridge"; };
-          psst = {
-            cli = mkApp { program = "${packages.psst}/bin/psst-cli"; };
-            gui = mkApp { program = "${packages.psst}/bin/psst-gui"; };
-          };
-          samrewritten = mkApp { program = "${packages.samrewritten}/bin/samrewritten"; };
-          spotify-ripper = mkApp { program = "${packages.spotify-ripper}/bin/spotify-ripper"; };
-        };
-      });
+      packages = forAllSystems (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          xPkgs = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
+        in
+        lib.filterAttrs
+          (attr: drv: builtins.elem system (drv.meta.platforms or [ ]))
+          xPkgs);
+
+      apps = forAllSystems (system:
+        let
+          mkApp = opts: { type = "app"; } // opts;
+          pkgs = self.packages.${system};
+        in
+        {
+          alacritty = mkApp { program = "${pkgs.alacritty-ligatures}/bin/alacritty"; };
+          protonmail-bridge = mkApp { program = "${pkgs.protonmail-bridge}/bin/protonmail-bridge"; };
+          protonmail-bridge-headless = mkApp { program = "${pkgs.protonmail-bridge}/bin/protonmail-bridge"; };
+          psst-cli = mkApp { program = "${pkgs.psst}/bin/psst-cli"; };
+          psst-gui = mkApp { program = "${pkgs.psst}/bin/psst-gui"; };
+          samrewritten = mkApp { program = "${pkgs.samrewritten}/bin/samrewritten"; };
+          spotify-ripper = mkApp { program = "${pkgs.spotify-ripper}/bin/spotify-ripper"; };
+        });
+
+    };
 }

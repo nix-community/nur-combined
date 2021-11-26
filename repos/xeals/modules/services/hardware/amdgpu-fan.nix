@@ -33,14 +33,12 @@ in
         [ 75 89 ]
         [ 80 100 ]
       ];
-      example = literalExample ''
-        [
-          [ 0 0 ]
-          [ 40 30 ]
-          [ 60 50 ]
-          [ 80 100 ]
-        ]
-      '';
+      example = [
+        [ 0 0 ]
+        [ 40 30 ]
+        [ 60 50 ]
+        [ 80 100 ]
+      ];
       description = ''
         A list of temperature-fan speed pairs. The temperature is specified in
         degrees celcius, and speed is specified in %.
