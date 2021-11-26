@@ -33,8 +33,8 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     description = "Used to swallow a terminal window in i3";
     homepage = "https://github.com/jamesofarrell/i3-swallow";
-    license = with licenses; [ mit ];
+    license = with licenses; [ gpl2Only ];
     platforms = [ "x86_64-linux" ];
-    maintainers = [ "uniquepointer" ];
+    maintainers = with maintainers; [ uniquepointer ];
   };
 }

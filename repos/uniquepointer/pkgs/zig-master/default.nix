@@ -2,13 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "zig-master";
-  version = "0.9.0-dev.1396+51be57574";
+  version = "0.9.0-dev.1444+e2a2e6c14";
 
   src = fetchurl {
     url =
       "https://ziglang.org/builds/zig-linux-x86_64-${version}.tar.xz";
-    sha256 =
-      "sha256-Db+ue9qZJ2Mfv/skl7kNkf9LPTM3bYVQbSV7MKbJb20=";
+    sha256 = "sha256-yakBwt8GYe7eJCoIYM3cMLvbNNM/Mp3a4+XL2u0nMGw=";
   };
 
   installPhase = ''
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     description =
       "General-purpose programming language and toolchain for maintaining robust, optimal, and reusable software.";
     homepage = "https://github.com/ziglang/zig";
-    maintainers = [ "uniquepointer" ];
+    maintainers = with maintainers; [ uniquepointer ];
     platforms = platforms.linux;
   };
 }

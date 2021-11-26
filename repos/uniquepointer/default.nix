@@ -14,11 +14,13 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  yed = pkgs.callPackage ./pkgs/yed { };
+  your-editor = pkgs.callPackage ./pkgs/your-editor { };
   i3-swallow = pkgs.callPackage ./pkgs/i3-swallow { };
   zig-master = pkgs.callPackage ./pkgs/zig-master { };
   nyxt-dev = pkgs.callPackage ./pkgs/nyxt-dev { };
   runescape-launcher = pkgs.callPackage ./pkgs/runescape-launcher/wrapper.nix { };
   runescape-launcher-unwrapped = pkgs.callPackage ./pkgs/runescape-launcher { };
   xmake-dev = pkgs.callPackage ./pkgs/xmake-dev { };
+  wl-clipboard-master = pkgs.callPackage ./pkgs/wl-clipboard-master { };
+  riscv64-linux-gnu-toolchain = pkgs.callPackage ./pkgs/riscv64-linux-gnu-toolchain { };
 }
