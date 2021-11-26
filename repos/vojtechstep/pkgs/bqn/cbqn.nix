@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     in
     ''
       ${bqn}/bin/bqn ./genRuntime ${bqnRuntimeSrc}
-      make SHELL=${bash}/bin/bash CC=${CC}
+      make SHELL=${bash}/bin/bash CC=${CC} single-o3
     '';
   installPhase = ''
     mkdir -p $out/bin
