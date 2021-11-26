@@ -17,6 +17,7 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    boot.kernelModules = [ "v4l2loopback" "i2c-dev" "i2c-piix4" ];
     environment.systemPackages = [ cfg.package ];
     services.udev.packages = [ cfg.package ];
 

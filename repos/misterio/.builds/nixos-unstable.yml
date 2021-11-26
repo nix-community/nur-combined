@@ -7,6 +7,7 @@ environment:
   NIX_PATH: "nixpkgs=channel:nixos-unstable"
   NUR_REPO: "misterio"
   CACHIX_CACHE: "misterio"
+  NIX_CONFIG: "experimental-features = nix-command flakes"
 
 secrets:
   - f2907d38-97b4-4e7d-9fb9-57b3fb0135af
