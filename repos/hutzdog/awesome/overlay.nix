@@ -3,8 +3,8 @@ final: prev: {
     src = prev.fetchFromGitHub {
       owner = "awesomeWM";
       repo = "awesome";
-      rev = "832483dd60ba194f3ae0200ab39a3a548c26e910";
-      sha256 = "981934edc48f66a9862be653ab9e248ae5f3d04f0637e3541ae4d3e6a3ee8bad";
+      rev = "2eb035e1257c05aaaea33540e3db8dea504c2d13";
+      sha256 = "10k1bkif7mqqhgwbvh0vi13gf1qgxszack3r0shmsdainm37hqz3";
     };
     GI_TYPELIB_PATH = "${prev.playerctl}/lib/girepository-1.0:"
       + "${prev.upower}/lib/girepository-1.0:"
