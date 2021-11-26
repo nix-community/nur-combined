@@ -1,6 +1,6 @@
 {
-  lib, buildGoModule, fetchFromGitHub, callPackage,
-  cmake, ninja, perl, pkgconfig,
+  lib, stdenv, buildGoModule, fetchFromGitHub,
+  cmake, ninja, perl, pkgconfig, liboqs,
   ...
 } @ args:
 
@@ -18,8 +18,6 @@ buildGoModule rec {
   vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
 
   enableParallelBuilding = true;
-
-  liboqs = callPackage ../liboqs {};
 
   nativeBuildInputs = [
     cmake
@@ -60,5 +58,6 @@ buildGoModule rec {
     description = "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs";
     homepage    = "https://openquantumsafe.org";
     license = with licenses; [ openssl isc mit bsd3 ];
+    broken = !stdenv.hostPlatform.isx86_64;
   };
 }

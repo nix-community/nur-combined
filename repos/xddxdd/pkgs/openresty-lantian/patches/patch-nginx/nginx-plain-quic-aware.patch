@@ -1,5 +1,5 @@
 diff --git a/auto/modules b/auto/modules
-index f2c8268..642820b 100644
+index 09651f3..7f04723 100644
 --- a/auto/modules
 +++ b/auto/modules
 @@ -416,6 +416,18 @@ if [ $HTTP = YES ]; then
@@ -22,7 +22,7 @@ index f2c8268..642820b 100644
          have=NGX_HTTP_V2 . auto/have
          have=NGX_HTTP_HEADERS . auto/have
 diff --git a/auto/options b/auto/options
-index ae99aa1..d958487 100644
+index d677dd9..98b9ee7 100644
 --- a/auto/options
 +++ b/auto/options
 @@ -59,6 +59,7 @@ NGX_HTTP_SCGI_TEMP_PATH=
@@ -33,7 +33,7 @@ index ae99aa1..d958487 100644
  HTTP_SSL=NO
  HTTP_QUIC=NO
  HTTP_V2=NO
-@@ -237,6 +238,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
+@@ -236,6 +237,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
          --http-uwsgi-temp-path=*)        NGX_HTTP_UWSGI_TEMP_PATH="$value" ;;
          --http-scgi-temp-path=*)         NGX_HTTP_SCGI_TEMP_PATH="$value" ;;
  
@@ -41,7 +41,7 @@ index ae99aa1..d958487 100644
          --with-http_ssl_module)          HTTP_SSL=YES               ;;
          --with-http_quic_module)         HTTP_QUIC=YES              ;;
          --with-http_v2_module)           HTTP_V2=YES                ;;
-@@ -459,6 +461,7 @@ cat << END
+@@ -457,6 +459,7 @@ cat << END
  
    --without-quic_bpf_module          disable ngx_quic_bpf_module
  
@@ -50,7 +50,7 @@ index ae99aa1..d958487 100644
    --with-http_quic_module            enable ngx_http_quic_module
    --with-http_v2_module              enable ngx_http_v2_module
 diff --git a/src/http/ngx_http.c b/src/http/ngx_http.c
-index e1604af..7532b4a 100644
+index c9aa376..92cdb4f 100644
 --- a/src/http/ngx_http.c
 +++ b/src/http/ngx_http.c
 @@ -1234,6 +1234,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
@@ -104,10 +104,10 @@ index e1604af..7532b4a 100644
          addrs6[i].conf.ssl = addr[i].opt.ssl;
  #endif
 diff --git a/src/http/ngx_http.h b/src/http/ngx_http.h
-index fb41577..a2f36bd 100644
+index 708defe..66f9a7c 100644
 --- a/src/http/ngx_http.h
 +++ b/src/http/ngx_http.h
-@@ -103,6 +103,11 @@ int ngx_http_ssl_certificate(ngx_ssl_conn_t *ssl_conn, void *arg);
+@@ -102,6 +102,11 @@ int ngx_http_ssl_certificate(ngx_ssl_conn_t *ssl_conn, void *arg);
  
  
  ngx_int_t ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b);
@@ -378,7 +378,7 @@ index 6460da2..69f5a14 100644
  ngx_http_parse_header_line(ngx_http_request_t *r, ngx_buf_t *b,
      ngx_uint_t allow_underscores)
 diff --git a/src/http/ngx_http_request.c b/src/http/ngx_http_request.c
-index 3020007..0c1e36e 100644
+index e37ef80..45bca6c 100644
 --- a/src/http/ngx_http_request.c
 +++ b/src/http/ngx_http_request.c
 @@ -15,6 +15,12 @@ static ngx_http_request_t *ngx_http_alloc_request(ngx_connection_t *c);
@@ -394,7 +394,7 @@ index 3020007..0c1e36e 100644
  static ngx_int_t ngx_http_alloc_large_header_buffer(ngx_http_request_t *r,
      ngx_uint_t request_line);
  
-@@ -327,6 +333,11 @@ ngx_http_init_connection(ngx_connection_t *c)
+@@ -328,6 +334,11 @@ ngx_http_init_connection(ngx_connection_t *c)
      rev->handler = ngx_http_wait_request_handler;
      c->write->handler = ngx_http_empty_handler;
  
@@ -406,7 +406,7 @@ index 3020007..0c1e36e 100644
  #if (NGX_HTTP_V2)
      if (hc->addr_conf->http2) {
          rev->handler = ngx_http_v2_init;
-@@ -513,6 +524,151 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
+@@ -514,6 +525,139 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
  }
  
  
@@ -522,21 +522,9 @@ index 3020007..0c1e36e 100644
 +            return;
 +        }
 +
-+        b->pos = p;
-+
 +        /* re-inject the slash */
-+        *(b->pos - 1) = '/';
-+
-+        if (b->pos == b->last) {
-+            c->log->action = "waiting for request";
-+
-+            /* re-inject the slash, to be safe */
-+            *b->start = '/';
-+            b->pos = b->start + 1;
-+            b->last = b->start + 1;
-+            ngx_post_event(rev, &ngx_posted_events);
-+            return;
-+        }
++        b->pos = p - 1;
++        *b->pos = '/';
 +    }
 +
 +    c->log->action = "reading client request line";
@@ -558,7 +546,7 @@ index 3020007..0c1e36e 100644
  ngx_http_request_t *
  ngx_http_create_request(ngx_connection_t *c)
  {
-@@ -3585,6 +3741,110 @@ ngx_http_request_empty_handler(ngx_http_request_t *r)
+@@ -3586,6 +3730,110 @@ ngx_http_request_empty_handler(ngx_http_request_t *r)
  }
  
  

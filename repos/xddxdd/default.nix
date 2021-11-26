@@ -16,8 +16,17 @@ rec {
 
   bird-lg-go = pkgs.callPackage ./pkgs/bird-lg-go { };
   bird-lgproxy-go = pkgs.callPackage ./pkgs/bird-lgproxy-go { };
-  boringssl-oqs = pkgs.callPackage ./pkgs/boringssl-oqs { };
+  boringssl-oqs = pkgs.callPackage ./pkgs/boringssl-oqs {
+    inherit liboqs;
+  };
+  chmlib-utils = pkgs.callPackage ./pkgs/chmlib-utils { };
   coredns = pkgs.callPackage ./pkgs/coredns { };
+  dngzwxdq = pkgs.callPackage ./pkgs/dngzwxdq {
+    inherit chmlib-utils;
+  };
+  dnyjzsxj = pkgs.callPackage ./pkgs/dnyjzsxj {
+    inherit chmlib-utils;
+  };
   libltnginx = pkgs.callPackage ./pkgs/libltnginx { };
   liboqs = pkgs.callPackage ./pkgs/liboqs { };
   linux-xanmod-lantian = pkgs.callPackage ./pkgs/linux-xanmod-lantian {
@@ -26,7 +35,9 @@ rec {
       pkgs.kernelPatches.request_key_helper
     ];
   };
-  openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian { };
+  openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian {
+    inherit liboqs boringssl-oqs;
+  };
   qemu-user-static = pkgs.callPackage ./pkgs/qemu-user-static { };
   route-chain = pkgs.callPackage ./pkgs/route-chain { };
   xray = pkgs.callPackage ./pkgs/xray { };

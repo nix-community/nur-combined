@@ -1,8 +1,8 @@
 {
   lib, stdenv,
   fetchzip, fetchhg, fetchFromGitHub, fetchurl,
-  substituteAll, callPackage,
-  git, zlib, pcre, gd, zstd, perl,
+  substituteAll,
+  git, zlib, pcre, gd, zstd, perl, liboqs, boringssl-oqs,
   modules ? [],
   ...
 } @ args:
@@ -109,9 +109,6 @@ stdenv.mkDerivation rec {
   };
   patchNixSkipCheckLogsPath = ./patches/patch-nginx/nix-skip-check-logs-path.patch;
 
-  liboqs = callPackage ../liboqs {};
-  boringssl = callPackage ../boringssl-oqs {};
-
   enableParallelBuilding = true;
 
   nativeBuildInputs = [
@@ -120,7 +117,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     liboqs
-    boringssl
+    boringssl-oqs
 
     zlib
     pcre
@@ -159,8 +156,8 @@ stdenv.mkDerivation rec {
   '';
 
   preconfigure = ''
-    export CFLAGS="-I${boringssl}/include -I${liboqs}/include"
-    export LDFLAGS="-L${boringssl}/build/ssl -L${boringssl}/build/crypto -L${liboqs}/lib"
+    export CFLAGS="-I${boringssl-oqs}/include -I${liboqs}/include"
+    export LDFLAGS="-L${boringssl-oqs}/build/ssl -L${boringssl-oqs}/build/crypto -L${liboqs}/lib"
   '';
 
   configureFlags = [
@@ -192,7 +189,7 @@ stdenv.mkDerivation rec {
     "--add-module=../nginx-module-vts"
     "--add-module=../nginx-module-sts"
     "--add-module=../nginx-module-stream-sts"
-    "--with-openssl=${boringssl}"
+    "--with-openssl=${boringssl-oqs}"
     "--without-http_encrypted_session_module" # Conflict with quic stuff
 
     # NixOS paths
@@ -225,5 +222,6 @@ stdenv.mkDerivation rec {
     description = "OpenResty with Lan Tian modifications";
     homepage = "https://openresty.org";
     license = licenses.bsd2;
+    broken = !stdenv.hostPlatform.isx86_64;
   };
 }

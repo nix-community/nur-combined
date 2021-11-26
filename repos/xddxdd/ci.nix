@@ -34,20 +34,33 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
-
-  nurPkgs =
-    flattenPkgs
-      (listToAttrs
-        (map (n: nameValuePair n nurAttrs.${n})
-          (filter (n: !isReserved n)
-            (attrNames nurAttrs))));
+  systems = [
+    "x86_64-linux"
+    "i686-linux"
+    "x86_64-darwin"
+    "aarch64-linux"
+    "armv6l-linux"
+    "armv7l-linux"
+  ];
+  forAllSystems = f: pkgs.lib.genAttrs systems (system: f system);
 
 in
-rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
+forAllSystems
+  (system:
+    let
+      archPkgs = import <nixpkgs> { inherit system; };
+      nurAttrs = import ./default.nix { pkgs = archPkgs; };
+      nurPkgs =
+        flattenPkgs
+          (listToAttrs
+            (map (n: nameValuePair n nurAttrs.${n})
+              (filter (n: !isReserved n)
+                (attrNames nurAttrs))));
+    in
+    rec {
+      buildPkgs = filter isBuildable nurPkgs;
+      cachePkgs = filter isCacheable buildPkgs;
 
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
-}
+      buildOutputs = concatMap outputsOf buildPkgs;
+      cacheOutputs = concatMap outputsOf cachePkgs;
+    })

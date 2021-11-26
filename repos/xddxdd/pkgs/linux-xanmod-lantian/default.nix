@@ -17,4 +17,6 @@ linuxManualConfig rec {
   configfile = ./config;
   config = import ./config.nix;
   allowImportFromDerivation = true;
+
+  extraMeta.broken = linuxKernel.kernels.linux_xanmod.meta.broken;
 }

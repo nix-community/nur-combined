@@ -33,5 +33,6 @@ stdenv.mkDerivation rec {
     description = "C library for prototyping and experimenting with quantum-resistant cryptography";
     homepage    = "https://openquantumsafe.org";
     license = with licenses; [ mit ];
+    broken = !stdenv.hostPlatform.isx86_64;
   };
 }
