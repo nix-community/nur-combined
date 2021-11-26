@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ### DEVELOPMENT
-  nfstream = pkgs.python39Packages.callPackage ./pkgs/nfstream { };
+  #nfstream = pkgs.python39Packages.callPackage ./pkgs/nfstream { };
 
   ### APPLICATION
   atlas = pkgs.callPackage ./pkgs/atlas { };

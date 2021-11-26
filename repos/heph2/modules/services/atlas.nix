@@ -8,7 +8,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.services.hello = {
+    systemd.services.atlas = {
       wantedBy = [ "multi-user.target" ];
       serviceConfig.ExecStart = "${pkgs.nur.repos.heph2.atlas}/bin/atlas";
     };
