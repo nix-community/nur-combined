@@ -12,12 +12,15 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        nurRepo:
+          - n1kolasM
+        cachixName:
+          - nikolasm
         nixPath:
           - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixos-21.05
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout repository 
       uses: actions/checkout@v2
@@ -25,27 +28,28 @@ jobs:
       uses: cachix/install-nix-action@v14
       with:
         nix_path: ${{ matrix.nixPath }}
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v10
-      with:
-        name: nikolasm
-        skipPush: true
-    - name: Build and test all attributes
-      run: nix-build ci.nix -A buildOutputs
-    - name: Setup cachix push
-      uses: cachix/cachix-action@v10
-      with:
-        name: nikolasm
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Build, test and push cacheable attributes
-      run: nix-build ci.nix -A cacheOutputs
+    - name: Build nix packages
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A buildOutputs
     - name: Test lib
       run: nix eval -f default.nix 'lib'
     - name: Test modules
       run: nix eval -f default.nix 'modules'
     - name: Test overlays
       run: nix eval -f default.nix 'overlays'
+    - name: Setup cachix push
+      uses: cachix/cachix-action@v10
+      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+      with:
+        name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        skipPush: true
+    - name: Build cacheable nix packages
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=n1kolasM"
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
