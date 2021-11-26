@@ -15,10 +15,13 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # Programs
+  arduino-language-server = pkgs.callPackage ./pkgs/arduino-language-server { };
+  neocities-ruby = pkgs.callPackage ./pkgs/neocities-ruby { };
   pat = pkgs.python39Packages.callPackage ./pkgs/pat { };
   speedtime = pkgs.callPackage ./pkgs/speedtime { };
 
-  # Themes/icons
+  # Themes/cursors/icons
+  cursor-left-yaru = pkgs.callPackage ./pkgs/cursor-left-yaru { };
   everforest-gtk = pkgs.callPackage ./pkgs/everforest-gtk { };
   monochrome-kde = pkgs.callPackage ./pkgs/monochrome-kde { };
 
@@ -26,7 +29,7 @@
   everforest = pkgs.callPackage ./pkgs/everforest {
     buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
   };
-  rose-pine-nvim = pkgs.callPackage ./pkgs/rose-pine-nvim {
+  rose-pine-neovim = pkgs.callPackage ./pkgs/rose-pine-neovim {
     buildVimPlugin = pkgs.vimUtils.buildVimPlugin;
   };
 }

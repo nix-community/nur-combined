@@ -1,7 +1,7 @@
 { buildVimPlugin, fetchFromGitHub, lib }:
 
 buildVimPlugin rec {
-  name = "rose-pine-nvim";
+  pname = "rose-pine-neovim";
   version = "0.0.1";
   src = fetchFromGitHub {
     owner = "rose-pine";

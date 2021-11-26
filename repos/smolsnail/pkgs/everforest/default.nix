@@ -1,11 +1,11 @@
 { buildVimPlugin, fetchFromGitHub, lib }:
 
 buildVimPlugin rec {
-  name = "everforest";
+  pname = "everforest";
   version = "0.2.1";
   src = fetchFromGitHub {
     owner = "sainnhe";
-    repo = "everforest";
+    repo = pname;
     rev = "v${version}";
     sha256 = "13y181b7mi4qpi40cjrw96m2s0byx4rwh25iy1lam2y4kyinj449";
   };

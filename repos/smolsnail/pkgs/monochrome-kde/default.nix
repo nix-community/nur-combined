@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchFromGitLab }:
+{ lib, stdenvNoCC, fetchFromGitLab }:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "monochrome-kde";
   version = "20210222";
 
