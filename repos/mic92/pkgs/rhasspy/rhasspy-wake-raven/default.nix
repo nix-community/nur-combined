@@ -15,8 +15,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rhasspy";
     repo = "rhasspy-wake-raven";
-    rev = "5d16e5f76dff2b0894129613a048953a159f9d1e";
-    sha256 = "sha256-ZnGnxbEGIFUZdzAg8Kn1FoDwbCnWY1HdSNbq2FK0b5k=";
+    rev = "9847924ff3ef92b3c497769e870354ddf8d6da1c";
+    sha256 = "sha256-SKwuRExdZP5KkWNA2YvKgeSXFQ8ALwlTC2GgF1D5mhk=";
   };
 
   propagatedBuildInputs = [

@@ -48,7 +48,7 @@
 
 buildPythonPackage rec {
   pname = "rhasspy";
-  version = "2.5.10";
+  version = "2.5.11";
 
   disabled = pythonOlder "3.7";
 
@@ -56,7 +56,7 @@ buildPythonPackage rec {
     owner = pname;
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-2WbgsqTz3QwzyN+wJoR38NGqPMFhNP6LxtJ8t44Cmd8=";
+    sha256 = "sha256-tYNANwEklKaxe5E0dpH+sUAsW3itPmvpROVCwqIrxYM=";
   };
 
   configureFlags = [
@@ -65,6 +65,7 @@ buildPythonPackage rec {
     "RHASSPY_LANGUAGE=en"
     "--disable-precompiled-binaries"
     "--disable-virtualenv"
+    "--disable-wavenet"
   ];
 
   patches = [
@@ -73,11 +74,9 @@ buildPythonPackage rec {
   ];
 
   postPatch = ''
-    sed -i -e 's/is_virtualenv_enabled=yes/is_virtualenv_enabled=no/' configure.ac
-    # not packaged yet
-    sed -i -e '/rhasspy-tts-larynx-hermes/d' RHASSPY_DIRS
-    sed -i -e '/rhasspy-tts-wavenet-hermes/d' RHASSPY_DIRS
-    sed -i -e '/rhasspy-asr-pocketsphinx/d' RHASSPY_DIRS
+    for feat in virtualenv vosk larynx wake_pocketsphinx stt_pocketsphinx; do
+       sed -i -e "s/is_''${feat}_enabled=yes/is_''${feat}_enabled=no/g" configure.ac
+    done
     # packaged but broken
     sed -i -e '/rhasspy-rasa-nlu-hermes/d' RHASSPY_DIRS RHASSPY_SERVICES
   '';

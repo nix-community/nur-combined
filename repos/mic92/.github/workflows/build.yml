@@ -16,15 +16,18 @@ jobs:
           - mic92
         nixPath:
           - nixpkgs=channel:nixos-unstable-small
-          - nixpkgs=https://github.com/Mic92/nixpkgs/archive/master.tar.gz
+          - nixpkgs=https://github.com/Mic92/nixpkgs/archive/main.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Install nix
-      uses: cachix/install-nix-action@v14
+      uses: cachix/install-nix-action@v16
       with:
         nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
@@ -42,6 +45,6 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD > /dev/null
     - name: Build nix packages
-      run: nix run -f . nix-build-uncached -c nix-build-uncached non-broken.nix
+      run: nix shell -f . nix-build-uncached -c nix-build-uncached non-broken.nix
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"

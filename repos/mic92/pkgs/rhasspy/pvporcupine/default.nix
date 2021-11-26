@@ -8,13 +8,13 @@
 
 buildPythonPackage rec {
   pname = "pvporcupine";
-  version = "1.9.1";
+  version = "1.9.5";
 
   src = fetchFromGitHub {
     owner = "Picovoice";
     repo = "porcupine";
-    rev = "6ea24df46e1de8f1f43027bfa5b14977a2e4a541";
-    sha256 = "sha256-1mNebtJPtYrJNMn9hRQCSj4gukloN3kaEDJvZdGaJHQ=";
+    rev = "a9e2c711da15092dde649e8db71d8a0f14cc6bd9";
+    sha256 = "sha256-4mPdubF8Lr0AMvp1orFhjDIcFnKD6vOExBSaDfi4eUk=";
   };
 
   postPatch = ''
