@@ -29,7 +29,7 @@ import ./lib/make-test.nix (
       environment.systemPackages = with pkgs; [ openssl jq ];
 
       priegger.services.nginx.enable = true;
-      security.dhparams.defaultBitSize = 128; # probably unwise in production, but faster in tests
+      security.dhparams.defaultBitSize = 1024; # probably unwise in production, but faster in tests
       services.nginx.virtualHosts.default = {
         default = true;
         forceSSL = true;

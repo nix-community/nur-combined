@@ -8,5 +8,3 @@ for file in pkgs/*/update.sh; do
 	./update.sh
 	popd
 done
-
-nix-build --no-out-link tests/overlays.nix

@@ -605,10 +605,10 @@
   },
   {
     "name": "flib",
-    "version": "0.8.4",
-    "file_name": "flib_0.8.4.zip",
-    "download_url": "/download/flib/6147b04c1cd70ea0a7d8ee0f",
-    "sha1": "d4f79509f2bbec4d4a76e7b1bbfc7028b1decf80",
+    "version": "0.9.0",
+    "file_name": "flib_0.9.0.zip",
+    "download_url": "/download/flib/618c84a49d1d821bd414dd16",
+    "sha1": "f96b9326bac0a637b1226dc4d5472a6fdfbaa2c8",
     "dependencies": [
       "? base >= 1.1.35"
     ]
@@ -767,10 +767,10 @@
   },
   {
     "name": "Nanobots",
-    "version": "3.2.15",
-    "file_name": "Nanobots_3.2.15.zip",
-    "download_url": "/download/Nanobots/6010caed3b6b9d278a3769f2",
-    "sha1": "936b40794dec717f0a4c19a7e090a22b27bc3e30",
+    "version": "3.2.16",
+    "file_name": "Nanobots_3.2.16.zip",
+    "download_url": "/download/Nanobots/618811e1825187fdcb1b1a4c",
+    "sha1": "12e02015275ff625be8be75aea2d3354193432bd",
     "dependencies": [
       "base >= 1.1.0",
       "stdlib >= 1.4.6",
@@ -935,20 +935,20 @@
   },
   {
     "name": "RPGsystem",
-    "version": "1.1.9",
-    "file_name": "RPGsystem_1.1.9.zip",
-    "download_url": "/download/RPGsystem/6143738daef521e752e8c5f4",
-    "sha1": "287d229a8d7036a2c3c017577bb2d7d6c2bff6cf",
+    "version": "1.2.0",
+    "file_name": "RPGsystem_1.2.0.zip",
+    "download_url": "/download/RPGsystem/6176bb02eb75ee3c6910a95f",
+    "sha1": "bcdc98698a127a38a400a184bf7f218a457c0b14",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "rso-mod",
-    "version": "6.2.9",
-    "file_name": "rso-mod_6.2.9.zip",
-    "download_url": "/download/rso-mod/613a3df973141aef2feb19e2",
-    "sha1": "c8de70e49feea9175b8c9b8bbc1332c7aa4eee3f",
+    "version": "6.2.11",
+    "file_name": "rso-mod_6.2.11.zip",
+    "download_url": "/download/rso-mod/617adfc715cd2b27cb971b93",
+    "sha1": "db695a3245221378f22ae51963c3858792c3bce0",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
