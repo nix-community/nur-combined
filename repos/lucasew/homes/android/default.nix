@@ -18,6 +18,5 @@
     xz
     zip
     unzip
-
   ];
 }

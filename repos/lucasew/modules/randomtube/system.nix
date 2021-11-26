@@ -1,6 +1,6 @@
 {pkgs, config, lib, ...}:
 let
-  inherit (lib) mkOption mkEnableOption mkIf types literalExample;
+  inherit (lib) mkOption mkEnableOption mkIf types literalExpression;
   inherit (pkgs) callPackage writeShellScript ffmpeg dotenv;
   inherit (builtins) fetchGit;
 
@@ -13,7 +13,7 @@ in
       when = mkOption {
         type = types.str;
         default = "*-*-* 3:00:00";
-        example = literalExample ''"*-*-* 3:00:00" # Run everyday at 3AM'';
+        example = literalExpression ''"*-*-* 3:00:00" # Run everyday at 3AM'';
         description = "systemd calendar expression about when to trigger the service";
       };
       nice = mkOption {

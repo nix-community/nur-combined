@@ -180,6 +180,7 @@ in
     ${username} = {
       extraGroups = [
         "adbusers"
+        "vboxusers"
       ];
       initialPassword = "123"; # for VM
       description = "Lucas Eduardo";
@@ -205,6 +206,7 @@ in
   virtualisation = {
     docker.enable = true;
     libvirtd.enable = true;
+    virtualbox.host.enable = true;
   };
 
   boot.plymouth = {

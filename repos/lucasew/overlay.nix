@@ -1,8 +1,7 @@
 flake: self: super:
 let
   inherit (flake) inputs;
-  inherit (flake.outputs.extraArgs.x86_64-linux) global;
-  inherit (global) rootPath;
+  inherit (flake.outputs.extraArgs.x86_64-linux) global; inherit (global) rootPath;
   inherit (super) lib callPackage writeShellScript;
   inherit (lib) recursiveUpdate;
   inherit (builtins) toString length head tail;
@@ -90,6 +89,7 @@ in reduceJoin [
       vscode = cp ./packages/custom/vscode;
       send2kindle = cp ./packages/custom/send2kindle.nix;
       retroarch = cp ./packages/custom/retroarch.nix;
+      loader = cp ./packages/custom/loader/default.nix;
     };
     minecraft = cp ./packages/minecraft.nix;
     pkg = cp ./packages/pkg.nix;
