@@ -14,12 +14,15 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  binance = pkgs.callPackage ./pkgs/binance { };
-  signumone-ks = pkgs.callPackage ./pkgs/signumone-ks { };
+  librewolf = pkgs.callPackage ./pkgs/librewolf { };
   ssm-session-manager-plugin = pkgs.callPackage ./pkgs/ssm-session-manager-plugin { };
   stremio = pkgs.callPackage ./pkgs/stremio { };
-  tutanota-desktop = pkgs.callPackage ./pkgs/tutanota-desktop { };
-  upwork = pkgs.callPackage ./pkgs/upwork { };
-  vdhcoapp = pkgs.callPackage ./pkgs/vdhcoapp { };
-
+  vdhcoapp = pkgs.callPackage ./pkgs/vdhcoapp {
+    nodejs = pkgs.nodejs-12_x;
+    ffmpeg = if pkgs.stdenv.isLinux && pkgs.stdenv.isx86_64
+               then pkgs.ffmpeg-full
+               else pkgs.ffmpeg-full.override { libmfx = null; };
+  };
+  # DEPRECATED
+  #freezer = pkgs.callPackage ./pkgs/freezer { };
 }
