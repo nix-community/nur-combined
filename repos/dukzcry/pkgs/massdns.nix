@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "blechschmidt";
     repo = "massdns";
-    rev = version;
+    rev = "v${version}";
     sha256 = "1waxc10br1gxk508s8l0559z33y0ab252q7awk5b5wmzbxpv1ay1";
   };
 

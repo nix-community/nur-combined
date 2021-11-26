@@ -14,5 +14,7 @@ rec {
   nvidia = ./nvidia.nix;
   job = ./job.nix;
   monitor = import ./monitor.nix unstable;
-  router = ./router.nix;
+  server = ./server.nix;
+  steam = ./steam.nix;
+  wifi = ./wifi.nix;
 }

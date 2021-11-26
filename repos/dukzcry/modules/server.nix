@@ -2,11 +2,11 @@
 
 with lib;
 let
-  cfg = config.services.router;
+  cfg = config.services.server;
 in {
-  options.services.router = {
+  options.services.server = {
     enable = mkEnableOption ''
-      Router support
+      Support for my home server
     '';
   };
 
