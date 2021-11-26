@@ -81,4 +81,10 @@ rec {
 
   kubectl-cert-manager = pkgs.callPackage ./pkgs/kubectl-cert-manager {};
 
+  zigbee2mqtt = pkgs.callPackage ./pkgs/zigbee2mqtt {};
+
+  emacs-i3 = pkgs.callPackage ./pkgs/emacs-i3 {};
+
+  gcfflasher = pkgs.callPackage ./pkgs/gcfflasher {};
+
 }
