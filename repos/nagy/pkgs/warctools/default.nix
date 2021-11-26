@@ -17,6 +17,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/internetarchive/warctools";
     description = "Command line tools and libraries for handling and manipulating WARC files (and HTTP contents)";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
   };
 }

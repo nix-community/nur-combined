@@ -17,6 +17,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/sdementen/piecash";
     description = "Pythonic interface to GnuCash SQL documents";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
   };
 }

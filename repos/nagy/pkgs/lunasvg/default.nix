@@ -23,7 +23,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sammycage/lunasvg";
 
     license = licenses.mit;
-    maintainers = [  ];
     platforms = platforms.linux;
   };
 }

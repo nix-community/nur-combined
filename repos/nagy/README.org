@@ -13,7 +13,6 @@ It contains these packages/attributes:
 |-----------------------+------------------------------------------------------------------|
 | hyperspec             | http://www.lispworks.com/documentation/HyperSpec/Front/index.htm |
 | schemaorg             | https://schema.org                                               |
-| luaPackages.fennel    | https://fennel-lang.org/                                         |
 | luaPackages.tl        | https://github.com/teal-language/tl                              |
 | luaPackages.lua-curl  | https://github.com/Lua-cURL/Lua-cURLv3                           |
 | apertium              | https://github.com/apertium/apertium                             |

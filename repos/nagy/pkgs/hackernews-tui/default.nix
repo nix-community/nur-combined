@@ -16,7 +16,6 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Terminal UI to browse Hacker News";
     homepage = "https://github.com/aome510/hackernews-TUI";
-    maintainers = with maintainers; [ ];
     license = with licenses; [ mit ];
   };
 }

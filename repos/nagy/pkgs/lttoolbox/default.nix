@@ -20,7 +20,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/apertium/lttoolbox";
 
     license = licenses.gpl2;
-    maintainers = [  ];
     platforms = platforms.linux;
   };
 }

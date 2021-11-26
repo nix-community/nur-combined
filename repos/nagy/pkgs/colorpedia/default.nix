@@ -28,6 +28,5 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://joowani.github.io/colorpedia/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ ];
   };
 }

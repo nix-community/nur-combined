@@ -24,7 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/andremaravilha/cxxtimer";
 
     license = licenses.mit;
-    maintainers = [  ];
     platforms = platforms.all;
   };
 }

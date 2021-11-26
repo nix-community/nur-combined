@@ -21,7 +21,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.apertium.org/";
 
     license = licenses.gpl2;
-    maintainers = [  ];
     platforms = platforms.linux;
   };
 }

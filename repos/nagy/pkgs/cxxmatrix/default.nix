@@ -20,7 +20,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/akinomyoga/cxxmatrix";
 
     license = licenses.mit;
-    maintainers = [ ];
     platforms = platforms.all;
   };
 }
