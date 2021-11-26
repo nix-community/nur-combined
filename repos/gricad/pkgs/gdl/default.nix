@@ -1,4 +1,6 @@
-{stdenv, fetchurl, openmpi, plplot, cmake, ncurses, zlib ,libpng, readline, gsl, gcc, imagemagick, wxGTK30,libgeotiff, netcdf, hdf5, python27, eigen, graphicsmagick, fftw3, hdf4 }:
+{ stdenv, fetchurl, openmpi, plplot, cmake, ncurses, zlib ,libpng, readline, gsl, gcc, 
+  imagemagick, wxGTK30,libgeotiff, netcdf, hdf5, python27, eigen, graphicsmagick, fftw, 
+  hdf4, ntirpc, proj, udunits, glpk, shapelib, expat, clang }:
 let
   my-python-packages = python-packages: with python-packages; [
    numpy
@@ -8,19 +10,37 @@ in
 
 
 stdenv.mkDerivation rec {
-	version ="0.9.9";
+	version ="1.0.1";
 	name="gdl";
-	nativeBuildInputs =[cmake fftw3 ];
-buildInputs = [plplot openmpi ncurses zlib libpng readline gsl imagemagick wxGTK30 libgeotiff netcdf hdf5 eigen graphicsmagick python-with-my-packages hdf4];
+
+	nativeBuildInputs =[ cmake fftw clang ];
+
+        buildInputs = [ plplot openmpi ncurses zlib libpng readline gsl imagemagick 
+                        wxGTK30 libgeotiff netcdf hdf5 eigen graphicsmagick 
+                        python-with-my-packages hdf4 ntirpc proj udunits glpk shapelib
+                        expat 
+                      ];
+
 	src = fetchurl {
 		url = "https://github.com/gnudatalanguage/gdl/archive/v${version}.tar.gz";
-		sha256="ad5de3fec095a5c58b46338dcc7367d2565c093794ab1bbcf180bba1a712cf14";
+		sha256="0jj7c35fn5wy91sf7fkivrjkcd5kz93x7hlmy5ghgd4nq2zml1gb";
 	};
-	enableParallelBuilding =true;
-	cmakeFlags =[ "-DHDF=OFF" "-DFFTW=OFF" "-DPSLIB=OFF" ];
+	
+	cmakeFlags =[ "-DHDF=OFF"
+                      "-DFFTW=OFF"
+                      "-DPSLIB=OFF" 
+                      "-DRPCDIR=${ntirpc}"
+                      "-DRPC_INCLUDE_DIR=${ntirpc}/include/ntirpc" "-DRPC_LIBRARY=${ntirpc}/lib"
+                      "-DINTERACTIVE_GRAPHICS=OFF"
+                      "-DGRIB=OFF"
+                    ];
+
+        hardeningDisable = [ "all" ];
+
 	meta = {
 		description = "A free and open-source IDL/PV-WAVE compiler";
 		homepage = "https://github.com/gnudatalanguage/gdl";
+                broken = true;
 	};
 
 }

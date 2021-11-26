@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, lib, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "hello-2.10";
@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
       It is fully customizable.
     '';
     homepage = http://www.gnu.org/software/hello/manual/;
-    license = stdenv.lib.licenses.gpl3Plus;
-    maintainers = [ stdenv.lib.maintainers.eelco ];
-    platforms = stdenv.lib.platforms.all;
+    license =lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.eelco ];
+    platforms = lib.platforms.all;
   };
 }

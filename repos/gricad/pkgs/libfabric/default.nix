@@ -1,8 +1,8 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, psm2 }:
+{ lib, stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, psm2 }:
 
 stdenv.mkDerivation rec {
   name = "libfabric-${version}";
-  version = "1.9.0";
+  version = "1.13.1";
 
   enableParallelBuilding = true;
 
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     owner = "ofiwg";
     repo = "libfabric";
     rev = "v${version}";
-    sha256 = "07mnscjhhbvp2nwl36rxprxkvkcms108kd7k75r2psm9nap2hlr1";
+    sha256 = "1llx7m4x3zjwnn1478xax9823nlbmp23djym3bwbrbfr2lq90i6i";
   };
 
   buildInputs = [ pkgconfig autoreconfHook psm2 ];
@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-psm2=${psm2}" ] ;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = http://libfabric.org/;
     description = "Open Fabric Interfaces";
-    license = stdenv.lib.licenses.gpl2;
+    license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.bzizou ];
   };

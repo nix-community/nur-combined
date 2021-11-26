@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, qt4, gdal, boost, fftwFloat, qwt }:
+{ lib, stdenv, fetchFromGitHub, cmake, qt4, gdal, boost, fftwFloat, qwt }:
 
 stdenv.mkDerivation rec {
   version = "4.0.0fmp";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Spatial conservation prioritization framework for large-scale conservation planning";
     homepage = https://github.com/cbig/zonation-core;
-    maintainers = [ stdenv.lib.maintainers.bzizou ];
-    license = stdenv.lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.bzizou ];
+    license = lib.licenses.gpl3;
   };
 }

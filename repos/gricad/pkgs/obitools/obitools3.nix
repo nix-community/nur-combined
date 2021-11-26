@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, python3Packages, cmake, python3, bash }:
+{ lib, fetchurl, python3Packages, cmake, python3, stdenv }:
 
 let
   pythonPackages = python3Packages;
@@ -6,12 +6,14 @@ in
 
 pythonPackages.buildPythonApplication rec {
   pname = "obitools3";
-  version = "3.0.1b7";
+  version = "3.0.1b11";
 
   src = fetchurl {
     url = "https://git.metabarcoding.org/obitools/${pname}/repository/v${version}/archive.tar.gz";
-    sha256 = "f2b2ef72a0161df9cce1572f7633d628baa5e894e00ed0807beaed1b75e82b33";
+    sha256 = "1x7a0nrr9agg1pfgq8i1j8r1p6c0jpyxsv196ylix1dd2iivmas1";
   };
+
+  patches = lib.optional stdenv.isAarch64 [ ./no-sse-on-arch64.patch ];
 
   preBuild = ''
     substituteInPlace src/CMakeLists.txt --replace \$'{PYTHONLIB}' "$out/lib/${python3.libPrefix}/site-packages";
@@ -26,9 +28,7 @@ pythonPackages.buildPythonApplication rec {
 
   doCheck = true;
 
-  enableParallelBuilding = true;
-
-  meta = with stdenv.lib ; {
+  meta = with lib ; {
     description = "Management of analyses and data in DNA metabarcoding";
     homepage = "https://git.metabarcoding.org/obitools/obitools3";
     license = licenses.cecill20;

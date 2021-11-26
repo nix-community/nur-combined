@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, glibc, gcc }:
+{ lib, stdenv, fetchurl, glibc, gcc }:
 
 stdenv.mkDerivation rec {
   version = "2018u4";
@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Intel compilers and libraries 2018 update 4";
-    maintainers = [ stdenv.lib.maintainers.bzizou ];
-    platforms = stdenv.lib.platforms.linux;
-    license = stdenv.lib.licenses.unfree;
+    maintainers = [ lib.maintainers.bzizou ];
+    platforms = lib.platforms.linux;
+    license = lib.licenses.unfree;
   };
 }
 

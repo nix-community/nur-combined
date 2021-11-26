@@ -9,9 +9,11 @@
 
 export LANG=C
 
-packages="intel-compilers-2019 intel-compilers-2018 intel-compilers-2017"
+packages="intel-compilers-2019"
+# Use the following once to populate cache with older versions
+#packages="intel-compilers-2019 intel-compilers-2018 intel-compilers-2017"
 
-channels="https://github.com/NixOS/nixpkgs/archive/nixos-20.03.tar.gz https://github.com/NixOS/nixpkgs/archive/nixos-19.09.tar.gz"
+channels="https://github.com/NixOS/nixpkgs/archive/nixos-21.05.tar.gz https://github.com/NixOS/nixpkgs/archive/nixos-20.03.tar.gz https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz"
 
 build () {
   for p in $1
@@ -26,6 +28,7 @@ build () {
 }
 
 # Build packages
+perl -pi -e "s/sandbox = true/sandbox = false/" ~/.config/nix/nix.conf
 for c in $channels
 do
     export NIX_PATH="nixpkgs=$c"
@@ -37,4 +40,4 @@ do
         nix-env -i ./result
     done
 done
-
+perl -pi -e "s/sandbox = true/sandbox = true/" ~/.config/nix/nix.conf

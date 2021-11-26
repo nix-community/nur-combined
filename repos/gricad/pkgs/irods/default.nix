@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, bzip2, zlib, autoconf, automake, cmake, gnumake, help2man , texinfo, libtool , cppzmq , libarchive, avro-cpp_llvm, boost, jansson, zeromq, openssl , pam, libiodbc, kerberos, gcc, libcxx, which, catch2 }:
+{ lib, stdenv, fetchFromGitHub, bzip2, zlib, autoconf, automake, cmake, gnumake, help2man , texinfo, libtool , cppzmq , libarchive, avro-cpp_llvm, boost, jansson, zeromq, openssl , pam, libiodbc, kerberos, gcc, libcxx, which, catch2, nlohmann_json }:
 
 with stdenv;
 
@@ -7,30 +7,30 @@ let
 in
 let
   common = import ./common.nix {
-    inherit stdenv bzip2 zlib autoconf automake cmake gnumake
+    inherit lib stdenv bzip2 zlib autoconf automake cmake gnumake
             help2man texinfo libtool cppzmq libarchive jansson
             zeromq openssl pam libiodbc kerberos gcc libcxx
-            boost avro-cpp which catch2;
+            boost avro-cpp which catch2 nlohmann_json ;
   };
 in rec {
 
   # irods: libs and server package
   irods = stdenv.mkDerivation (common // rec {
-    version = "4.2.7";
+    version = "4.2.10";
     pname = "irods";
 
     src = fetchFromGitHub {
       owner = "irods";
       repo = "irods";
       rev = version;
-      sha256 = "1pd4l42z4igzf0l8xbp7yz0nhzsv47ziv5qj8q1hh6pfhmwlzp9s";
+      sha256 = "1djqzabaxi1il79pnlmlp1gsbmh63sw77nzykhhbdwri8ma3ffp3";
       fetchSubmodules = true;
     };
 
     # Patches:
     # irods_root_path.patch : the root path is obtained by stripping 3 items of the path,
     #                         but we don't use /usr with nix, so remove only 2 items.
-    patches = [ ./irods_root_path.patch ];
+    #patches = [ ./irods_root_path.patch ];
 
     # fix build with recent llvm versions
     NIX_CFLAGS_COMPILE = "-Wno-deprecated-register -Wno-deprecated-declarations";
@@ -65,14 +65,14 @@ in rec {
 
   # icommands (CLI) package, depends on the irods package
   irods-icommands = stdenv.mkDerivation (common // rec {
-     version = "4.2.7";
+     version = "4.2.10";
      pname = "irods-icommands";
 
      src = fetchFromGitHub {
        owner = "irods";
        repo = "irods_client_icommands";
        rev = version;
-       sha256 = "08hqrc9iaw0y9rrrcknnl5mzbcrsvqc39pwvm62fipl3vnfqryli";
+       sha256 = "0fxpd70gvvjfaiq9ph895bnf3avg6gb9kdf0z2cmbxmvfjmp4gy2";
      };
 
      patches = [ ./zmqcpp-deprecated-send_recv.patch ];

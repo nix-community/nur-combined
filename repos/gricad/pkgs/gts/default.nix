@@ -1,4 +1,4 @@
-{ fetchurl, stdenv, pkgconfig, autoreconfHook, gettext, glib }:
+{ fetchurl, lib, stdenv, pkgconfig, autoreconfHook, gettext, glib }:
 
 
 stdenv.mkDerivation rec {
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://gts.sourceforge.net/";
-    license = stdenv.lib.licenses.lgpl2Plus;
+    license = lib.licenses.lgpl2Plus;
     description = "GNU Triangulated Surface Library";
 
     longDescription = ''
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       3D surfaces meshed with interconnected triangles.
     '';
 
-    maintainers = [ stdenv.lib.maintainers.viric ];
-    platforms = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;
+    maintainers = [ lib.maintainers.viric ];
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

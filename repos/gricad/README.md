@@ -63,7 +63,7 @@ Frst, get the secretkey (from ~/.config/cachix/cachix.dhall)
 travis encrypt --pro CACHIX_SIGNING_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=="
 ```
 
-[![Build Status](https://travis-ci.com/Gricad/nur-packages.svg?branch=master)](https://travis-ci.com/Gricad/nur-packages)
+[![Build Status](https://travis-ci.com/Gricad/nur-packages.svg?branch=master)](https://app.travis-ci.com/github/Gricad/nur-packages)
 [![Cachix Cache](https://img.shields.io/badge/cachix-gricad-blue.svg)](https://gricad.cachix.org)
 
 

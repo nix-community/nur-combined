@@ -1,4 +1,4 @@
-{ fetchurl, stdenv, pkgconfig, autoreconfHook, openmpi, glib, gts, ffmpeg, fftw3, gettext, file }:
+{ fetchurl, stdenv, pkgconfig, autoreconfHook, openmpi, glib, gts, ffmpeg, fftw, gettext, file }:
 
 
 stdenv.mkDerivation rec {
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   patches = [ ./mpi.patch ./warnings.patch ./fftw.patch ];
 
   nativeBuildInputs = [ pkgconfig autoreconfHook file ];
-  buildInputs = [ ffmpeg gts fftw3 gettext ];
+  buildInputs = [ ffmpeg gts fftw gettext ];
   propagatedBuildInputs = [ glib openmpi ];
-
+  
 }

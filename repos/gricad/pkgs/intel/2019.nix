@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, glibc, gcc }:
+{ lib, stdenv, fetchurl, glibc, gcc }:
 
 stdenv.mkDerivation rec {
   version = "2019u3";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       fi
     done
     # Fixing man path
-    rm -f $out/man
+    #rm -f $out/man
     mkdir -p $out/share
     ln -s ../compilers_and_libraries/linux/man/common $out/share/man
   '';
@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Intel compilers and libraries 2019 update 3";
-    maintainers = [ stdenv.lib.maintainers.bzizou ];
-    platforms = stdenv.lib.platforms.linux;
-    license = stdenv.lib.licenses.unfree;
+    maintainers = [ lib.maintainers.bzizou ];
+    platforms = lib.platforms.linux;
+    license = lib.licenses.unfree;
   };
 }
 

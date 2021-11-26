@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, gfortran, perl
+{ lib, stdenv, fetchFromGitHub, cmake, gfortran, perl
 , blas, liblapack, boost
 , netcdf, netcdffortran, hdf5
 , matio
@@ -97,8 +97,8 @@ stdenv.mkDerivation rec {
     	 description = "A self-contained collection of software in Trilinos
          focused on one primary class of numerical methods.";
 	 homepage = "https://trilinos.org/";
-	 platforms = stdenv.lib.platforms.linux;
-         license = stdenv.lib.licenses.unfree; # because of the dependency on parmetis
+	 platforms = lib.platforms.linux;
+         license = lib.licenses.unfree; # because of the dependency on parmetis
          broken = true;
     };
 }
