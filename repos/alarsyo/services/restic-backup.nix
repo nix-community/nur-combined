@@ -68,7 +68,7 @@ in {
 
       repository = cfg.repo;
       passwordFile = "/root/restic/password";
-      s3CredentialsFile = "/root/restic/creds";
+      environmentFile = "/root/restic/creds";
 
       extraBackupArgs = [ "--verbose=2" ]
         ++ optional (builtins.length cfg.exclude != 0) excludeArg;

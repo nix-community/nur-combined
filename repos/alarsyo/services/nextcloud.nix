@@ -58,7 +58,7 @@ in
         dbhost = "/run/postgresql";
 
         adminuser = my.secrets.nextcloud-admin-user;
-        adminpass = my.secrets.nextcloud-admin-pass;
+        adminpassFile = "${my.secrets.nextcloud-admin-pass}";
       };
     };
 

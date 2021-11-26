@@ -49,6 +49,7 @@
     dogdns
     du-dust
     htop
+    ldns # drill
     tealdeer
     unzip
     zip

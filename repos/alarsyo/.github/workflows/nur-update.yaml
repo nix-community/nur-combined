@@ -4,6 +4,7 @@ on:
       - 'main'
     paths:
       - 'pkgs/**'
+      - '.github/workflows/*'
 
 jobs:
   update-nur:
