@@ -21,7 +21,7 @@ buildFHSUserEnv {
 
   meta = with lib; {
     description = "Official Telegram Desktop, packaging by using GitHub binary and buildFHSUserEnv. ";
-    homepage = "https://github.com/telegramdesktop/tdesktop/tree/v${version}";
+    homepage = "https://github.com/telegramdesktop/tdesktop/tree/v${tdesktop-bin.version}";
     license = licenses.gpl3;
     maintainers = [ maintainers.vanilla ];
     platforms = [ "x86_64-linux" ];
