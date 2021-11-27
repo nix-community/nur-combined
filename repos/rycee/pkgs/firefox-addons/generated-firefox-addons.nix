@@ -1415,10 +1415,10 @@
       };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "4.7.2";
+      version = "4.7.2.1";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3872046/simple_tab_groups-4.7.2-fx.xpi";
-      sha256 = "577f42dbbde241483faaa3afb2b1e58b5502a932be99f79f5d24bdc7fe1a3b30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3873608/simple_tab_groups-4.7.2.1-fx.xpi";
+      sha256 = "75077589098ca62c00b86cf9554c6120bf8dc04c5f916fe26f84915f5147b2a4";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
