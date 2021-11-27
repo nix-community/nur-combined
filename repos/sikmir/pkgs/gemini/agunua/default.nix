@@ -1,4 +1,4 @@
-{ lib, fetchFromGitLab, python3Packages }:
+{ lib, stdenv, fetchFromGitLab, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "agunua";
@@ -32,5 +32,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.gpl2Only;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin;
   };
 }
