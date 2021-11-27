@@ -27,6 +27,7 @@ rec {
   dnyjzsxj = pkgs.callPackage ./pkgs/dnyjzsxj {
     inherit chmlib-utils;
   };
+  ftp-proxy = pkgs.callPackage ./pkgs/ftp-proxy { };
   libltnginx = pkgs.callPackage ./pkgs/libltnginx { };
   liboqs = pkgs.callPackage ./pkgs/liboqs { };
   linux-xanmod-lantian = pkgs.callPackage ./pkgs/linux-xanmod-lantian {
