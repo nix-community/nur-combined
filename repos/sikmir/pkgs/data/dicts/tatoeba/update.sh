@@ -4,6 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# The files are updated every Saturday at 6:30 AM (UTC).
 version=`date -u -d "-$(( $(date -u +%w) + 1 )) days" +%Y-%m-%d`
 
 sed -i "s/version = \".*\"/version = \"$version\"/" default.nix
