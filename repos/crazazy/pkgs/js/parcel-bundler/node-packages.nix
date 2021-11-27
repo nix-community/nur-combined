@@ -1642,13 +1642,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001282" = {
+    "caniuse-lite-1.0.30001283" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001282";
+      version = "1.0.30001283";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001282.tgz";
-        sha512 = "YhF/hG6nqBEllymSIjLtR2iWDDnChvhnVJqp+vloyt2tEHFG1yBR+ac2B/rOw0qOK0m0lEXU2dv4E/sMk5P9Kg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001283.tgz";
+        sha512 = "9RoKo841j1GQFSJz/nCXOj0sD7tHBtlowjYlrqIUS812x9/emfBLBt6IyMz1zIaYc/eRL8Cs6HPUVi2Hzq4sIg==";
       };
     };
     "caseless-0.12.0" = {
@@ -1786,13 +1786,13 @@ let
         sha1 = "a7d0558bd89c42f795dd42328f740831ca53bc25";
       };
     };
-    "color-string-1.6.0" = {
+    "color-string-1.7.4" = {
       name = "color-string";
       packageName = "color-string";
-      version = "1.6.0";
+      version = "1.7.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/color-string/-/color-string-1.6.0.tgz";
-        sha512 = "c/hGS+kRWJutUBEngKKmk4iH3sD59MBkoxVapS/0wgpCz2u7XsNloxknyvBhzwEs1IbV36D9PwqLPJ2DTu3vMA==";
+        url = "https://registry.npmjs.org/color-string/-/color-string-1.7.4.tgz";
+        sha512 = "nVdUvPVgZMpRQad5dcsCMOSB5BXLljklTiaxS6ehhKxDsAI5sD7k5VmFuBt1y3Rlym8uulc/ANUN/bMWtBu6Sg==";
       };
     };
     "combined-stream-1.0.8" = {
@@ -2452,13 +2452,13 @@ let
         sha1 = "590c61156b0ae2f4f0255732a158b266bc56b21d";
       };
     };
-    "electron-to-chromium-1.4.0" = {
+    "electron-to-chromium-1.4.4" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.0";
+      version = "1.4.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.0.tgz";
-        sha512 = "+oXCt6SaIu8EmFTPx8wNGSB0tHQ5biDscnlf6Uxuz17e9CjzMRtGk9B8705aMPnj0iWr3iC74WuIkngCsLElmA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.4.tgz";
+        sha512 = "teHtgwcmVcL46jlFvAaqjyiTLWuMrUQO1JqV303JKB4ysXG6m8fXSFhbjal9st0r9mNskI22AraJZorb1VcLVg==";
       };
     };
     "elliptic-6.5.4" = {
@@ -6710,7 +6710,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001282"
+      sources."caniuse-lite-1.0.30001283"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -6724,7 +6724,7 @@ let
       sources."color-3.2.1"
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
-      sources."color-string-1.6.0"
+      sources."color-string-1.7.4"
       sources."combined-stream-1.0.8"
       sources."command-exists-1.2.9"
       sources."commander-2.20.3"
@@ -6847,7 +6847,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.0"
+      sources."electron-to-chromium-1.4.4"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"

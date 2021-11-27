@@ -2425,13 +2425,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001282" = {
+    "caniuse-lite-1.0.30001283" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001282";
+      version = "1.0.30001283";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001282.tgz";
-        sha512 = "YhF/hG6nqBEllymSIjLtR2iWDDnChvhnVJqp+vloyt2tEHFG1yBR+ac2B/rOw0qOK0m0lEXU2dv4E/sMk5P9Kg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001283.tgz";
+        sha512 = "9RoKo841j1GQFSJz/nCXOj0sD7tHBtlowjYlrqIUS812x9/emfBLBt6IyMz1zIaYc/eRL8Cs6HPUVi2Hzq4sIg==";
       };
     };
     "caseless-0.12.0" = {
@@ -2704,13 +2704,13 @@ let
         sha512 = "dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==";
       };
     };
-    "color-string-1.6.0" = {
+    "color-string-1.7.4" = {
       name = "color-string";
       packageName = "color-string";
-      version = "1.6.0";
+      version = "1.7.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/color-string/-/color-string-1.6.0.tgz";
-        sha512 = "c/hGS+kRWJutUBEngKKmk4iH3sD59MBkoxVapS/0wgpCz2u7XsNloxknyvBhzwEs1IbV36D9PwqLPJ2DTu3vMA==";
+        url = "https://registry.npmjs.org/color-string/-/color-string-1.7.4.tgz";
+        sha512 = "nVdUvPVgZMpRQad5dcsCMOSB5BXLljklTiaxS6ehhKxDsAI5sD7k5VmFuBt1y3Rlym8uulc/ANUN/bMWtBu6Sg==";
       };
     };
     "colord-2.9.1" = {
@@ -3748,13 +3748,13 @@ let
         sha512 = "iirFqlP3tiFoedNZ7dQcjvechunl054VbW6Ki38T/pabgXMAncduSE0ZXLeVGn1NbmcUJF9Z5TC0EvQ4RIpP9Q==";
       };
     };
-    "electron-to-chromium-1.4.0" = {
+    "electron-to-chromium-1.4.4" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.0";
+      version = "1.4.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.0.tgz";
-        sha512 = "+oXCt6SaIu8EmFTPx8wNGSB0tHQ5biDscnlf6Uxuz17e9CjzMRtGk9B8705aMPnj0iWr3iC74WuIkngCsLElmA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.4.tgz";
+        sha512 = "teHtgwcmVcL46jlFvAaqjyiTLWuMrUQO1JqV303JKB4ysXG6m8fXSFhbjal9st0r9mNskI22AraJZorb1VcLVg==";
       };
     };
     "elliptic-6.5.4" = {
@@ -4918,13 +4918,13 @@ let
         sha512 = "uUQBt3H/cSIVfch6i1EuPNy/YsRSOUBXTVfZ+yR7Zjez3qjBz6i9+i4zjNaoqcoFVI4lQJ5plg63TvGfRSDCRg==";
       };
     };
-    "http-parser-js-0.5.3" = {
+    "http-parser-js-0.5.4" = {
       name = "http-parser-js";
       packageName = "http-parser-js";
-      version = "0.5.3";
+      version = "0.5.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/http-parser-js/-/http-parser-js-0.5.3.tgz";
-        sha512 = "t7hjvef/5HEK7RWTdUzVUhl8zkEu+LlaE0IYzdMuvbSDipxBRpOn4Uhw8ZyECEa808iVT8XCjzo6xmYt4CiLZg==";
+        url = "https://registry.npmjs.org/http-parser-js/-/http-parser-js-0.5.4.tgz";
+        sha512 = "Qn1yyi10ipcylSSqlTFsj7bhimACWbFm5w5JNMxhLKfcJAeWFBc+/VBv4mu5qlWSKr0cjXqtwM6HISZkESUILA==";
       };
     };
     "http-proxy-1.18.1" = {
@@ -7564,13 +7564,13 @@ let
         sha512 = "yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA==";
       };
     };
-    "postcss-8.3.11" = {
+    "postcss-8.4.3" = {
       name = "postcss";
       packageName = "postcss";
-      version = "8.3.11";
+      version = "8.4.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss/-/postcss-8.3.11.tgz";
-        sha512 = "hCmlUAIlUiav8Xdqw3Io4LcpA1DOt7h3LSTAC4G6JGHFFaWzI6qvFt9oilvl8BmkbBRX1IhM90ZAmpk68zccQA==";
+        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.3.tgz";
+        sha512 = "d5gVKo8ekrircqHOQNvSQk8dhGOuAfu1iP6dzfAlnAmcu7EBJ9cFuZG8B1KZK362aaEO3L1H+WM3ny9xQ29tFw==";
       };
     };
     "postcss-calc-7.0.5" = {
@@ -9355,13 +9355,13 @@ let
         sha512 = "2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==";
       };
     };
-    "source-map-js-0.6.2" = {
+    "source-map-js-1.0.1" = {
       name = "source-map-js";
       packageName = "source-map-js";
-      version = "0.6.2";
+      version = "1.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/source-map-js/-/source-map-js-0.6.2.tgz";
-        sha512 = "/3GptzWzu0+0MBQFrDKzw/DvvMTUORvgY6k6jd/VS6iCR4RDTKWH6v6WPwQoUO8667uQEf9Oe38DxAYWY5F/Ug==";
+        url = "https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.1.tgz";
+        sha512 = "4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA==";
       };
     };
     "source-map-resolve-0.5.3" = {
@@ -11372,7 +11372,7 @@ let
       sources."camel-case-3.0.0"
       sources."camelcase-6.2.1"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001282"
+      sources."caniuse-lite-1.0.30001283"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-3.5.2"
@@ -11425,7 +11425,7 @@ let
       sources."color-3.2.1"
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"
-      sources."color-string-1.6.0"
+      sources."color-string-1.7.4"
       sources."colord-2.9.1"
       sources."combined-stream-1.0.8"
       sources."commander-2.17.1"
@@ -11642,7 +11642,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.6"
       sources."ejs-loader-0.5.0"
-      sources."electron-to-chromium-1.4.0"
+      sources."electron-to-chromium-1.4.4"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -11907,7 +11907,7 @@ let
           sources."inherits-2.0.3"
         ];
       })
-      sources."http-parser-js-0.5.3"
+      sources."http-parser-js-0.5.4"
       sources."http-proxy-1.18.1"
       (sources."http-proxy-middleware-0.19.1" // {
         dependencies = [
@@ -12310,7 +12310,7 @@ let
         ];
       })
       sources."posix-character-classes-0.1.1"
-      sources."postcss-8.3.11"
+      sources."postcss-8.4.3"
       (sources."postcss-calc-7.0.5" // {
         dependencies = [
           sources."picocolors-0.2.1"
@@ -12760,7 +12760,7 @@ let
       })
       sources."source-list-map-2.0.1"
       sources."source-map-0.7.3"
-      sources."source-map-js-0.6.2"
+      sources."source-map-js-1.0.1"
       sources."source-map-resolve-0.5.3"
       (sources."source-map-support-0.5.21" // {
         dependencies = [
