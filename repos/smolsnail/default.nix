@@ -20,6 +20,8 @@
   pat = pkgs.python39Packages.callPackage ./pkgs/pat { };
   speedtime = pkgs.callPackage ./pkgs/speedtime { };
 
+  nodePackages = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/nodePackages { });
+
   # Themes/cursors/icons
   cursor-left-yaru = pkgs.callPackage ./pkgs/cursor-left-yaru { };
   everforest-gtk = pkgs.callPackage ./pkgs/everforest-gtk { };
