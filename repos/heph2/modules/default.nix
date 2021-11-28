@@ -3,4 +3,5 @@
   #
   # my-module = ./my-module;
   atlas = ./services/atlas.nix;
+  pounce = ./services/pounce.nix;
 }
