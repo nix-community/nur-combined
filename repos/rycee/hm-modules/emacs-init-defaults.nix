@@ -115,8 +115,10 @@
     php-mode.mode = [ ''"\\.php\\'"'' ];
 
     plantuml-mode = {
+      mode = [ ''"\\.puml\\'"'' ];
       config = ''
-        (setq plantuml-jar-path "${pkgs.plantuml}/lib/plantuml.jar")
+        (setq plantuml-default-exec-mode 'executable
+              plantuml-executable-path "${pkgs.plantuml}/bin/plantuml")
       '';
     };
 
