@@ -28,6 +28,10 @@ rec {
     inherit chmlib-utils;
   };
   ftp-proxy = pkgs.callPackage ./pkgs/ftp-proxy { };
+  genshin-checkin-helper = pkgs.callPackage ./pkgs/genshin-checkin-helper {
+    inherit genshinhelper2 onepush;
+  };
+  genshinhelper2 = pkgs.callPackage ./pkgs/genshinhelper2 { };
   libltnginx = pkgs.callPackage ./pkgs/libltnginx { };
   liboqs = pkgs.callPackage ./pkgs/liboqs { };
   linux-xanmod-lantian = pkgs.callPackage ./pkgs/linux-xanmod-lantian {
@@ -36,6 +40,7 @@ rec {
       pkgs.kernelPatches.request_key_helper
     ];
   };
+  onepush = pkgs.callPackage ./pkgs/onepush { };
   openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian {
     inherit liboqs boringssl-oqs;
   };
