@@ -365,10 +365,10 @@
       };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
-      version = "3.9.0";
+      version = "3.9.1";
       addonId = "ff2mpv@yossarian.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3868143/ff2mpv-3.9.0-fx.xpi";
-      sha256 = "1ca5b626707dba8691f43dc56f623a965294e2ff163802c2795a0620f0ea6511";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3874208/ff2mpv-3.9.1-fx.xpi";
+      sha256 = "0093bd8768effd59aa95f4a1bbcabb56a27b37e6c606d8a9a5a38365e08233a2";
       meta = with lib;
       {
         homepage = "https://github.com/woodruffw/ff2mpv";
@@ -815,10 +815,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.18";
+      version = "2.6.19";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3864183/localcdn-2.6.18-an+fx.xpi";
-      sha256 = "0197dffceee6c74f7d837f94481f81aef43158e5fb7984fc667e02d6e1577de8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3874095/localcdn-2.6.19-an+fx.xpi";
+      sha256 = "a5e436f92e647b13b5af963f1dc19cdeed128bf8fade0de1f8099f3aadcf7e01";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1012,10 +1012,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.2.3";
+      version = "7.2.4";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3871297/octotree_github_code_tree-7.2.3-fx.xpi";
-      sha256 = "3ac40f15510c3653fdf6fca4c285891ca3d1036f0850e1c430ad63bca3d9ede3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3874330/octotree_github_code_tree-7.2.4-fx.xpi";
+      sha256 = "8cd7e01630aefca3a37c5c9ff00f509072b95b5b6b89de31d63a642a75889aa6";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
