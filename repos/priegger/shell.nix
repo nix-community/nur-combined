@@ -1,5 +1,5 @@
-{ sources ? import ./nix/sources.nix }:
 let
+  sources = import ./nix/sources.nix;
   pkgs = import sources.nixpkgs { };
 in
 pkgs.mkShell {
@@ -11,6 +11,4 @@ pkgs.mkShell {
     nixpkgs-fmt
     shellcheck
   ];
-
-  NIX_PATH = "nixpkgs=https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
 }
