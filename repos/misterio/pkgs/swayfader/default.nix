@@ -7,8 +7,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "Misterio77";
     repo = "swayfader";
-    rev = "2be57f2e0685e52d1141c57fb62efebed6e276b3";
-    sha256 = "sha256-foMu5Qxx4PD5YI67TuEe+sydP+pERUjB3MyoGOhHrjw=";
+    rev = "ee7151dc0ae43567b6b00212cabd5be88f010628";
+    sha256 = "sha256-eg334cIPlUd+PAZG9F2DVllZVb/ldIhLp1e/f4i6Cz0=";
   };
 
   buildInputs = [ (python3.withPackages (ps: [ ps.i3ipc ])) ];
