@@ -124,5 +124,7 @@ rec {
 
   yubikey-touch-detector = pkgs.callPackage ./pkgs/yubikey-touch-detector { };
 
+  noise-suppression-for-voice = pkgs.callPackage ./pkgs/noise-suppression-for-voice { };
+
   modules = import ./modules;
 }

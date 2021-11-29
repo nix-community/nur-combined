@@ -27,6 +27,7 @@
 , gradleGen
 , writeText
 , writeTextDir
+, callPackage
 }:
 
 {
@@ -325,9 +326,9 @@ let
       '';
 
   mkGradle = gradleSpec:
-    gradleGen.gradleGen {
+    callPackage (gradleGen {
       inherit (gradleSpec) nativeVersion version sha256;
-    };
+    }) {};
 
   mkProjectEnv = projectSpec: rec {
     inherit (projectSpec) name path version;
