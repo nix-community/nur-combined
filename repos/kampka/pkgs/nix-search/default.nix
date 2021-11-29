@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , makeWrapper
 , bash
@@ -22,12 +23,12 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     install $src/nix-search.sh $out/bin/nix-search
     wrapProgram $out/bin/nix-search \
-      --prefix PATH : ${ stdenv.lib.makeBinPath path }
+      --prefix PATH : ${ lib.makeBinPath path }
   '';
 
   nativeBuildInputs = [ makeWrapper ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Command line util for accelerated package search in nix environments";
     license = licenses.gpl3;
     platforms = platforms.linux;

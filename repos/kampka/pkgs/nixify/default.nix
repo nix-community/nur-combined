@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchFromGitHub
 , makeWrapper
 , bash
@@ -33,12 +34,12 @@ stdenv.mkDerivation rec {
   installPhase = ''
     DEST_DIR="$out" PREFIX="" make install
     wrapProgram $out/bin/nixify \
-      --prefix PATH : ${ stdenv.lib.makeBinPath path }
+      --prefix PATH : ${ lib.makeBinPath path }
   '';
 
   nativeBuildInputs = [ makeWrapper ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Bootstrap nix-shell environments";
     homepage = https://github.com/kampka/nixify;
     license = licenses.mit;

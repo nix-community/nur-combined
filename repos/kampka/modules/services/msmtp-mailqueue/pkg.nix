@@ -1,4 +1,4 @@
-{ pkgs, stdenv, buildPackages, fetchFromGitHub, makeWrapper, bash }:
+{ pkgs, lib, stdenv, buildPackages, fetchFromGitHub, makeWrapper, bash }:
 
 stdenv.mkDerivation rec {
   version = "0.1";
@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     install -m 755 src/msmtpq $out/bin/msmtpq
     install -m 755 src/msmtpq-flush $out/bin/msmtpq-flush
-    wrapProgram $out/bin/msmtpq --prefix PATH : "${pkgs.stdenv.lib.makeBinPath [ pkgs.coreutils pkgs.utillinux pkgs.nettools pkgs.bash ]}"
-    wrapProgram $out/bin/msmtpq-flush --prefix PATH : "${pkgs.stdenv.lib.makeBinPath [ pkgs.msmtp pkgs.gnupg pkgs.coreutils pkgs.utillinux pkgs.nettools pkgs.bash ]}"
+    wrapProgram $out/bin/msmtpq --prefix PATH : "${lib.makeBinPath [ pkgs.coreutils pkgs.utillinux pkgs.nettools pkgs.bash ]}"
+    wrapProgram $out/bin/msmtpq-flush --prefix PATH : "${lib.makeBinPath [ pkgs.msmtp pkgs.gnupg pkgs.coreutils pkgs.utillinux pkgs.nettools pkgs.bash ]}"
   '';
 
   fixupPhase = ''
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/bin/msmtpq-flush --replace "${buildPackages.bash}" "${bash}"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/kampka/msmtp-mailqueue;
     license = licenses.mit;
     description = "sendmail msmtp drop-in that enqueues mail and sends them at a later time using msmtp and a scheduler";

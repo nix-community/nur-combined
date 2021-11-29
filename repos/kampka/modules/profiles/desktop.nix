@@ -4,25 +4,6 @@ with lib;
 let
   cfg = config.kampka.profiles.desktop;
   common = import ./common.nix { inherit config pkgs lib; };
-
-  neovim-overlay = self: super:
-    let
-      vimConfigure = {
-        customRC = ''
-          let s:localVimConfig = $HOME . "/.config/nvim/init.vim"
-          if filereadable(expand(s:localVimConfig))
-            exe 'source' s:localVimConfig
-          endif
-        '';
-        packages.kampka-defaults.opt = with pkgs.vimPlugins; [ LanguageClient-neovim ];
-      };
-    in
-    {
-      neovim = super.neovim.override {
-        configure = vimConfigure;
-        extraMakeWrapperArgs = "--set MYVIMRC ${pkgs.vimUtils.vimrcFile vimConfigure}";
-      };
-    };
 in
 {
 
@@ -32,8 +13,6 @@ in
 
   config = mkIf cfg.enable (
     recursiveUpdate common rec{
-
-      nixpkgs.overlays = [ neovim-overlay ];
 
       boot.loader.grub.splashImage = null;
 
@@ -79,7 +58,7 @@ in
       services.xserver.displayManager.gdm.enable = mkDefault true;
       # Disable wayland if the nvidia driver is used
       services.xserver.displayManager.gdm.wayland = mkDefault (!(any (v: v == "nvidia") config.services.xserver.videoDrivers));
-      services.xserver.desktopManager.gnome3.enable = mkDefault true;
+      services.xserver.desktopManager.gnome.enable = mkDefault true;
 
       # Typically needed for wifi drivers and the like
       hardware.enableRedistributableFirmware = mkDefault true;
@@ -96,17 +75,20 @@ in
           gnupg
           kitty
           most
-          neovim
           ntfs3g
+          neovim
+          nvimpager
           ripgrep
           rsync
           stow
         ]
       );
 
+      programs.neovim.enable = true;
+
       environment.variables = {
         EDITOR = "nvim";
-        PAGER = "most";
+        PAGER = "nvimpager";
       };
 
       environment.shellAliases = {
@@ -114,7 +96,6 @@ in
         vim = "nvim";
         cat = "bat -p --pager=never";
       };
-
     }
   );
 }
