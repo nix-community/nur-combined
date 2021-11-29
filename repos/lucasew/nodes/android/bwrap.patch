@@ -1,0 +1,17 @@
+diff --git a/bubblewrap.c b/bubblewrap.c
+index dbec07f..e2d35f8 100644
+--- a/bubblewrap.c
++++ b/bubblewrap.c
+@@ -2626,7 +2626,11 @@ main (int    argc,
+    * that is sure to exist, that is sure to not be a symlink controlled
+    * by someone malicious, and that we won't immediately need to
+    * access ourselves. */
+-  base_path = "/tmp";
++  base_path = getenv("TMPDIR");
++  if (!base_path) {
++    base_path = "/tmp";
++  }
++  printf("base_path: %s\n", base_path);
+ 
+   __debug__ (("creating new namespace\n"));
+ 
