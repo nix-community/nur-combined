@@ -144,6 +144,7 @@ in {
     services.nginx.virtualHosts = { 
       rkn = {
         default = true;
+        listen = [{ addr = cfg.address.address; port = 80; }];
         locations."/" = {
           proxyPass = "http://$http_host:80";
           extraConfig = ''
