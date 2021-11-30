@@ -29,7 +29,7 @@ in {
         ip route add ${ip4.networkCIDR iif.ip} via ${iif.ip.address} table ${toString config.services.rkn.table}
       '';
     };
-    postStop = mkOption {
+    preStop = mkOption {
       type = types.str;
       example = ''
         ip route del ${ip4.networkCIDR iif.ip} via ${iif.ip.address} table ${toString config.services.rkn.table}
@@ -106,7 +106,7 @@ in {
         set +e
         ip rule del from ${cfg.address.address} table ${toString cfg.table}
         ip route del default via ${router.address} table ${toString cfg.table}
-        ${cfg.postStop}
+        ${cfg.preStop}
         true
       '';
     };
