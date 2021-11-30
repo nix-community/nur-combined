@@ -17,4 +17,5 @@ rec {
   server = ./server.nix;
   steam = ./steam.nix;
   wifi = ./wifi.nix;
+  rkn = ./rkn.nix;
 }
