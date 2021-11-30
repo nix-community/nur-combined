@@ -13,7 +13,7 @@ let
       sha256 = "1rcdqm60l4dgznmq8w4c008858g9jq798nfcca6l5zx74wk7kr7c";
     };
   });
-in stdenv.mkDerivation {
+in stdenv.mkDerivation rec {
   pname = "re3";
   version = "0.1";
 
