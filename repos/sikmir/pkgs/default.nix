@@ -189,6 +189,7 @@ lib.makeScope newScope (
 
     ### GNSS
 
+    gpstk = callPackage ./gnss/gpstk { };
     rtklib = callPackage ./gnss/rtklib { };
     visualgps = libsForQt5.callPackage ./gnss/visualgps { };
 
