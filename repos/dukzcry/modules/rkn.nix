@@ -124,7 +124,7 @@ in {
         Type = "oneshot";
         ExecStart = (pkgs.writeShellScriptBin "rkn.sh" ''
           set -e
-          cd `dirname ${cfg.file}`
+          cd ${dirOf cfg.file}
           wget --backups=3 https://raw.githubusercontent.com/zapret-info/z-i/master/dump.csv
           cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump.txt
           cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump.txt
@@ -173,7 +173,7 @@ in {
     '';
     systemd.services.bind.preStart = ''
       set +e
-      install -do named `${pkgs.coreutils}/bin/dirname ${cfg.file}`
+      install -do named ${dirOf cfg.file}
       true
     '';
     services.bind.extraConfig = ''
