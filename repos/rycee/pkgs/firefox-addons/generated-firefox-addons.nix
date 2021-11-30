@@ -495,10 +495,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "95.0buildid20211125.185815";
+      version = "95.0buildid20211129.150630";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3873379/francais_language_pack-95.0buildid20211125.185815-fx.xpi";
-      sha256 = "cb3c4d3fb3cb26f8889de7ba72f896733e1c9970df7129007e51b9f1491267db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3874929/francais_language_pack-95.0buildid20211129.150630-fx.xpi";
+      sha256 = "2117c8918db0f257c1b9157d5ae36bdd5392229316555cc418a654d8ff34ebe8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -870,10 +870,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.6.2";
+      version = "10.6.4";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3871929/metamask-10.6.2-an+fx.xpi";
-      sha256 = "016a38e289aa11abac22bc9a0b5ebf7314c0d8c1a946447f08fd2440619e7a99";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3875096/metamask-10.6.4-an+fx.xpi";
+      sha256 = "770a62da0ea13fb266f14e051cc474b09c3748770970efe164291b0c28880603";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1192,10 +1192,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2021.8.17";
+      version = "2021.11.23.1";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3826636/privacy_badger-2021.8.17-an+fx.xpi";
-      sha256 = "b7a4ad974856a4a1e1dd286d67f3e029bb74036e6b6f518451c2a1640bf769da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3872283/privacy_badger-2021.11.23.1-an+fx.xpi";
+      sha256 = "50274cd280413bd0e7c4b53d2ef3d019f6a3ce14a7396fed6d248f295ae7f63e";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -1712,10 +1712,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.21.1";
+      version = "1.22.0";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3746329/tridactyl-1.21.1-an+fx.xpi";
-      sha256 = "06e2ddd43f0209374c4d72312dc7566060a0369c860f68cf55b0fcc719450ece";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3874829/tridactyl-1.22.0-an+fx.xpi";
+      sha256 = "b53098462121e2328c9110ab5dbbff5938d8ecce615aeccfabd16f53dac48d8e";
       meta = with lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
