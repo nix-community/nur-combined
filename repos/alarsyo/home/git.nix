@@ -9,6 +9,12 @@ in
     programs.git = {
       enable = true;
 
+      delta = {
+        enable = true;
+        options = {
+          syntax-theme = "Solarized (light)";
+        };
+      };
       lfs.enable = true;
 
       userEmail = "antoine@alarsyo.net";
