@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-with pkgs.nur.repos.dukzcry.lib;
 
 let
   cfg = config.services.rkn;
-  router = ip4.next cfg.interfaceAddress;
+  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
+  router = ip4.next cfg.address;
 in {
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
@@ -23,30 +23,27 @@ in {
       type = types.ints.positive;
       default = 1;
     };
-    postStart = {
+    postStart = mkOption {
       type = types.str;
-      literalExample = ''
+      example = ''
         ip route add ${ip4.networkCIDR iif.ip} via ${iif.ip.address} table ${toString config.services.rkn.table}
       '';
     };
-    postStop = {
+    postStop = mkOption {
       type = types.str;
-      literalExample = ''
+      example = ''
         ip route del ${ip4.networkCIDR iif.ip} via ${iif.ip.address} table ${toString config.services.rkn.table}
       '';
     };
-    OnCalendar = {
+    OnCalendar = mkOption {
       type = types.str;
       default = "weekly";
-      description = ''
-        Как часто обновлять список роскомпозора
-      '';
     };
-    file = {
+    file = mkOption {
       type = types.str;
       default = "/var/lib/rkn/rkn.zone";
     };
-    header = {
+    header = mkOption {
       type = types.str;
       default = ''
         $TTL 604800 
@@ -60,13 +57,17 @@ in {
         localhost. IN A 127.0.0.1
       '';
     };
-    bindExtraConfig = {
+    bindExtraConfig = mkOption {
       type = types.str;
-      literalExample = ''
-        match-clients { ${ip4.networkCIDR iif.ip}; };
+      example = ''
+        match-clients { ''${ip4.networkCIDR iif.ip}; };
       '';
     };
+    resolver = mkOption {
+      type = types.str;
+    };
   };
+
   config = mkIf cfg.enable {
     services.tor.enable = true;
     services.tor.client.enable = true;
@@ -137,11 +138,11 @@ in {
     services.nginx.enable = true;
     services.nginx.proxyResolveWhileRunning = true;
     services.nginx.resolver = {
-      addresses = [ 127.0.0.1 ];
+      addresses = [ cfg.resolver ];
       ipv6 = false;
     };
     services.nginx.virtualHosts = { 
-      default = {
+      rkn = {
         default = true;
         locations."/" = {
           proxyPass = "http://$http_host:80";
@@ -153,7 +154,7 @@ in {
     };
     services.nginx.streamConfig = ''
       server {
-        resolver 127.0.0.1 ipv6=off;
+        resolver ${cfg.resolver} ipv6=off;
         listen ${cfg.address.address}:443;
         ssl_preread on;
         proxy_pass $ssl_preread_server_name:443;
@@ -166,10 +167,7 @@ in {
     };
 
     services.bind.enable = true;
-    services.bind.listenOn = [ 127.0.0.1 ];
-    services.bind.cacheNetworks = [ "any" ];
     services.bind.extraOptions = ''
-      recursion yes;
       check-names master ignore;
     '';
     systemd.services.bind.preStart = ''
@@ -186,9 +184,7 @@ in {
         };
         ${cfg.bindExtraConfig}
       };
-      view "main" {
-        match-clients { any; };
-      };
     '';
   };
+
 }
