@@ -424,6 +424,9 @@
         "pn": {
             "url": "https://github.com/pniedzwiedzinski/pnpkgs"
         },
+        "polykernel": {
+            "url": "https://github.com/polykernel/nur-packages"
+        },
         "priegger": {
             "file": "nur.nix",
             "url": "https://git.sr.ht/~priegger/nur-packages"
