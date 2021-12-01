@@ -263,6 +263,7 @@ lib.makeScope newScope (
     amethyst-bin = callPackage ./misc/amethyst/bin.nix { };
     apibackuper = callPackage ./misc/apibackuper { };
     ascii-dash = callPackage ./misc/ascii-dash { };
+    btpd = callPackage ./misc/btpd { };
     cfiles = callPackage ./misc/cfiles { };
     csvquote = callPackage ./misc/csvquote { };
     csvtools = callPackage ./misc/csvtools { };
