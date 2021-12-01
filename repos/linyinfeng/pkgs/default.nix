@@ -21,6 +21,7 @@ lib.makeScope newScope (
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
     fishPlugins = lib.recurseIntoAttrs (callPackage ./fish-plugins {
       inherit (pkgs.fishPlugins) buildFishPlugin;
+      pkgsFishPlugins = pkgs.fishPlugins;
     });
     icalingua = callPackage ./icalingua { };
     telegram-send = callPackage ./telegram-send { };

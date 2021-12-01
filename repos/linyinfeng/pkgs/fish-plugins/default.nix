@@ -1,4 +1,4 @@
-{ lib, newScope, buildFishPlugin }:
+{ lib, newScope, buildFishPlugin, pkgsFishPlugins }:
 
 lib.makeScope newScope (self:
   let
@@ -6,8 +6,9 @@ lib.makeScope newScope (self:
   in
   {
     inherit buildFishPlugin;
+    bang-bang = callPackage ./bang-bang { };
+    git = callPackage ./git { };
+    replay = callPackage ./replay { };
+  } // lib.optionalAttrs (! (pkgsFishPlugins ? pisces)) {
     pisces = callPackage ./pisces { };
-    plugin-bang-bang = callPackage ./plugin-bang-bang { };
-    plugin-git = callPackage ./plugin-git { };
-    replay-fish = callPackage ./replay-fish { };
   })
