@@ -5,7 +5,6 @@ let
 
   pname = "goldencheetah-bin";
   version = "3.5";
-  name = "${pname}-${version}";
 
   suffix = {
     x86_64-linux = "amd64_Linux.AppImage";
@@ -24,7 +23,7 @@ let
   };
 
   appimageContents = appimageTools.extract {
-    inherit name src;
+    inherit pname version src;
   };
 
   meta = with lib; {
@@ -37,10 +36,10 @@ let
   };
 
   linux = appimageTools.wrapType2 rec {
-    inherit name src meta;
+    inherit pname version src meta;
 
     extraInstallCommands = ''
-      mv $out/bin/{${name},${pname}}
+      mv $out/bin/{${pname}-${version},goldencheetah}
       install -Dm644 ${appimageContents}/GoldenCheetah.desktop -t $out/share/applications
       install -Dm644 ${appimageContents}/gc.png -t $out/share/icons/hicolor/256x256/apps
     '';

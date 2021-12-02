@@ -5,7 +5,6 @@ let
 
   pname = "klogg-bin";
   version = "20.12";
-  name = "${pname}-${version}";
 
   suffix = {
     x86_64-linux = "x86_64.AppImage";
@@ -24,7 +23,7 @@ let
   };
 
   appimageContents = appimageTools.extract {
-    inherit name src;
+    inherit pname version src;
   };
 
   meta = with lib; {
@@ -37,10 +36,10 @@ let
   };
 
   linux = appimageTools.wrapType2 rec {
-    inherit name src meta;
+    inherit pname version src meta;
 
     extraInstallCommands = ''
-      mv $out/bin/{${name},klogg}
+      mv $out/bin/{${pname}-${version},klogg}
       install -Dm644 ${appimageContents}/klogg.desktop -t $out/share/applications
       install -Dm644 ${appimageContents}/klogg.svg -t $out/share/icons/hicolor/scalable/apps
     '';
