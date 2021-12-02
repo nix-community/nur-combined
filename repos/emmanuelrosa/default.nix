@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -33,4 +33,7 @@
   sparrow = pkgs.callPackage ./pkgs/applications/blockchains/sparrow { };
   muun-recovery-tool = pkgs.callPackage ./pkgs/applications/blockchains/muun-recovery-tool { };
   tastyworks = pkgs.callPackage ./pkgs/applications/misc/tastyworks { };
+  sierrachart = pkgs.callPackage ./pkgs/applications/trading/sierrachart { wrapWine = lib.wrapWine; 
+    wine = pkgs.wineWowPackages.full;
+  };
 }
