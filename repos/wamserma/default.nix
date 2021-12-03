@@ -14,8 +14,8 @@ let
 in
 let
   python3AppPackages = pkgs.recurseIntoAttrs rec {
-    pyrouteros = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/routeros { lib = mylib; };
-    bundlewrap = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/bundlewrap { lib = mylib; inherit pyrouteros; };
+    pyrouteros = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/routeros { lib = mylib; };  # TODO: deprecate if not updated before 22.05
+    bundlewrap = pkgs.python3.pkgs.callPackage ./pkgs/development/python-modules/bundlewrap { lib = mylib; };
   };
 in
 rec {
