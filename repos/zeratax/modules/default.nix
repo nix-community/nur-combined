@@ -5,5 +5,4 @@
   matrix-registration = ./matrix-registration.nix;
   bukkit-plugins = ./bukkit-plugins;
   bukkit-server = ./bukkit-server.nix;
-  restic = ./restic.nix;
 }

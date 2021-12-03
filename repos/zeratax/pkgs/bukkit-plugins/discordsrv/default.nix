@@ -1,9 +1,9 @@
 { stdenv, lib, fetchurl }:
 let
-  version = "1.22.0";
+  version = "1.24.0";
   jar = fetchurl {
     url = "https://github.com/DiscordSRV/DiscordSRV/releases/download/v${version}/DiscordSRV-Build-${version}.jar";
-    sha256 = "0lhzil881hngyk0vlw1yp0bw9wh13h9fq7d0dykfhwl9g31n310n";
+    sha256 = "0dadiryjx8v761zh1im7piar3dh4aqs0ccsfyglaqn37m078wwrz";
   };
 in
 stdenv.mkDerivation rec {

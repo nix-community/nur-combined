@@ -153,6 +153,20 @@ in
             default = 8;
             description = "Minimum password length for the registered user.";
           };
+          username = {
+            validation_regex = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              description =
+                "regex that usernames need to match to register";
+            };
+            invalidation_regex = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description =
+                "regex that usernames are not allowed to match to register";
+            };
+          };
         };
       };
     };
