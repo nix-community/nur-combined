@@ -1,4 +1,4 @@
-{ lib, fetchpatch, kernel, kernelPatches, ...} @ args:
+{ lib, fetchurl, kernel, kernelPatches, ...} @ args:
 
 with lib;
 
@@ -19,7 +19,7 @@ let
 
   kernelPatches = [{
       name = "bcachefs-${commit}";
-      patch = fetchpatch {
+      patch = fetchurl {
         name = "bcachefs-${commit}.diff";
         url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${commit}&id2=v${lib.versions.majorMinor kernelVersion}";
         sha256 = diffHash;
