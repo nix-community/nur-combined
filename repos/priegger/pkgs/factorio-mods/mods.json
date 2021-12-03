@@ -565,10 +565,10 @@
   },
   {
     "name": "Companion_Drones",
-    "version": "1.0.21",
-    "file_name": "Companion_Drones_1.0.21.zip",
-    "download_url": "/download/Companion_Drones/6033d92ef71aa90f85430584",
-    "sha1": "0c7a5274788970b91113d0e62555e7f462659118",
+    "version": "1.0.22",
+    "file_name": "Companion_Drones_1.0.22.zip",
+    "download_url": "/download/Companion_Drones/61a8d082a8a2bffbcdeda3e1",
+    "sha1": "606d5133fb47b3c326172e2aaff2d2e08642a42b",
     "dependencies": [
       "base >= 1.1.5",
       "(?)alien-biomes",
@@ -605,10 +605,10 @@
   },
   {
     "name": "flib",
-    "version": "0.9.0",
-    "file_name": "flib_0.9.0.zip",
-    "download_url": "/download/flib/618c84a49d1d821bd414dd16",
-    "sha1": "f96b9326bac0a637b1226dc4d5472a6fdfbaa2c8",
+    "version": "0.9.2",
+    "file_name": "flib_0.9.2.zip",
+    "download_url": "/download/flib/6195e4ef4b62356f903c782a",
+    "sha1": "abf5831c1cbdf821b41889dd1a9a062c0534e9ac",
     "dependencies": [
       "? base >= 1.1.35"
     ]
@@ -636,10 +636,10 @@
   },
   {
     "name": "grappling-gun",
-    "version": "0.3.1",
-    "file_name": "grappling-gun_0.3.1.zip",
-    "download_url": "/download/grappling-gun/5fbc4a1c3588979cf9ce4edb",
-    "sha1": "97c6a92a9e8301a05324a6dd80cad058087eeff9",
+    "version": "0.3.2",
+    "file_name": "grappling-gun_0.3.2.zip",
+    "download_url": "/download/grappling-gun/6192f774de690e2b3ae1ff97",
+    "sha1": "a77f3747f6749d496680ae0975ec67cd3bf91faa",
     "dependencies": [
       "base >= 1.1.0"
     ]
@@ -724,10 +724,10 @@
   },
   {
     "name": "KS_Power",
-    "version": "0.4.1",
-    "file_name": "KS_Power_0.4.1.zip",
-    "download_url": "/download/KS_Power/602028d93f5c695c6543c596",
-    "sha1": "b9e95f6fbed33211ed26b709323d0ca69fd11191",
+    "version": "0.5.1",
+    "file_name": "KS_Power_0.5.1.zip",
+    "download_url": "/download/KS_Power/619a48c30fb67b412038a967",
+    "sha1": "e9dcaacefa07779de663faa60268280b9f99b651",
     "dependencies": []
   },
   {

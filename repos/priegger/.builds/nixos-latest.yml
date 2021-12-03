@@ -18,7 +18,7 @@ tasks:
   - lint: |
       cd nur-packages
       find . -name '*.nix' -exec nixpkgs-fmt --check {} +
-      find . -name '*.sh' -exec shellcheck --shell bash {} +
+      find . -name '*.sh' -exec shellcheck {} +
   - build: |
       cd nur-packages
 
