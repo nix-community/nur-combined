@@ -46,7 +46,7 @@ nodePackage.override {
 
     # Create electron wrapper
     makeWrapper ${electron}/bin/electron "$out/bin/caprine" \
-      --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland $out/lib/node_modules/caprine"
+      --add-flags "$out/lib/node_modules/caprine"
   '';
 
   meta = with lib; (nodePackage.meta // {
