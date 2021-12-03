@@ -12,6 +12,10 @@ in
     programs.direnv = {
         enable = true;
         enableFishIntegration = true;
+        # FIXME: proper file, not lorri.nix
+        nix-direnv = {
+          enable = true;
+        };
     };
   };
 }

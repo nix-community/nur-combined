@@ -29,3 +29,4 @@ set editorcmd emacsclient -c
 set yankto both
 
 blacklistadd netflix.com
+blacklistadd localhost
