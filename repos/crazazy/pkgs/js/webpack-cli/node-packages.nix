@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@discoveryjs/json-ext-0.5.5" = {
+    "@discoveryjs/json-ext-0.5.6" = {
       name = "_at_discoveryjs_slash_json-ext";
       packageName = "@discoveryjs/json-ext";
-      version = "0.5.5";
+      version = "0.5.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.5.tgz";
-        sha512 = "6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==";
+        url = "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.6.tgz";
+        sha512 = "ws57AidsDvREKrZKYffXddNkyaF14iHNHm8VQnZH6t99E8gczjNN0GpvcGny0imC80yQ0tHz1xVUKk/KFQSUyA==";
       };
     };
     "@webpack-cli/configtest-1.1.0" = {
@@ -443,7 +443,7 @@ let
     version = "4.9.1";
     src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.9.1.tgz"; sha1 = "b64be825e2d1b130f285c314caa3b1ba9a4632b3"; };
     dependencies = [
-      sources."@discoveryjs/json-ext-0.5.5"
+      sources."@discoveryjs/json-ext-0.5.6"
       sources."@webpack-cli/configtest-1.1.0"
       sources."@webpack-cli/info-1.4.0"
       sources."@webpack-cli/serve-1.6.0"
