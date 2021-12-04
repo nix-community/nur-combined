@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Modern C++ library for replacing scanf and std::istream. .";
-    homepage = "https://github.com/Morwenn/cpp-sort";
+    homepage = "https://scnlib.readthedocs.io/";
     license = licenses.asl20;
     platforms = platforms.all;
     #maintainers = with maintainers; [ foolnotion ];
