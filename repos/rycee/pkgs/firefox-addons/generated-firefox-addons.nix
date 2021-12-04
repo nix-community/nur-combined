@@ -1740,10 +1740,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.39.0";
+      version = "1.39.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3871774/ublock_origin-1.39.0-an+fx.xpi";
-      sha256 = "f08439f754846b321245195bac9cabd90a6124c41625f23fec714b2e55513187";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3875359/ublock_origin-1.39.2-an+fx.xpi";
+      sha256 = "02e139624549b733542b95c4c75b6b315a09cce91373c263ba2f18ca5ed8d93a";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1880,10 +1880,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.8.21";
+      version = "6.9.7";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3861114/wappalyzer-6.8.21-fx.xpi";
-      sha256 = "877fe89b98e827a9ef4189fc2c07491cbe86d0d3aa03f0e8112d5a1023b5c009";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3876791/wappalyzer-6.9.7-fx.xpi";
+      sha256 = "a951469f979aae0fffce2643cd33ce9e8e76d2a8ad9d105d0545fb37c56a66c9";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
