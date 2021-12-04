@@ -50,6 +50,8 @@
 
   robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
 
+  scnlib = pkgs.callPackage ./pkgs/scnlib { };
+
   span-lite = pkgs.callPackage ./pkgs/span-lite { };
 
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
