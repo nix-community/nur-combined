@@ -1,7 +1,8 @@
 { lib
 , buildPythonApplication
 , pythonOlder
-, fetchFromGitHub
+, fetchPypi
+, python
   # test inputs
 , pytestCheckHook
 }:
@@ -13,22 +14,21 @@ buildPythonApplication rec {
 
   disabled = pythonOlder "3.6";
 
-  # Use GitHub b/c some PyPi doesn't include tests
-  src = fetchFromGitHub {
-    owner = "nschloe";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-ilwZCIFM1k9o0mrB/DSlMaawtYR75mEjSfj0f2hjkxo=";
+  # Use Pypi vs GitHub b/c the required JS dependencies require semi-complicated node install
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "1yldddgfndf2mwyadvas7qi9kkqi6m73qspnl20yhdfgqaklbap3";
   };
 
-  checkInputs = [ pytestCheckHook ];
-  preCheck = "export PATH=$out/bin:$PATH";
+  installCheckPhase = ''
+    test -e $out/${python.sitePackages}/tuna/web/static/d3.min.js
+  '';
 
   meta = with lib; {
     description = "Python profile viewer";
     homepage = "https://github.com/nschloe/tuna";
     changelog = "https://github.com/nschloe/tuna/releases/tag/v${version}";
-    license = licenses.gpl3;   # gpl3Only
+    license = licenses.gpl3Only;
     maintainers = with maintainers; [ drewrisinger ];
   };
 }
