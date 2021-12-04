@@ -1,4 +1,11 @@
 {
+    "arcconf": {
+        "builtin": false,
+        "sha256": "0r65hspzs25lnca10810m7mjxzfzwdnm6gikxc8d98zsckz50aig",
+        "type": "file",
+        "url": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip",
+        "url_template": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip"
+    },
     "clementine": {
         "branch": "master",
         "builtin": false,
@@ -49,6 +56,19 @@
         "sha256": "0lxv8cn90ql4kj5fq3d6lfplw5rpfhxkmxnlidnbr61l18vkq4q1",
         "type": "tarball",
         "url": "https://github.com/Shados/facade.nvim/archive/5b68a13810d6375b7a21d10f9e0b5dcc1e5526f6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "firefox-history-merger": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Merge Firefox history and repair missing favicons with ease",
+        "homepage": "",
+        "owner": "crazy-max",
+        "repo": "firefox-history-merger",
+        "rev": "21f999151cc1f6d9d02afeb481c0bf0619fec0ca",
+        "sha256": "1f3wp2fkawi3sxyxhbqvb9j9byqdp8rzim6s4zm81q9xvn4q09np",
+        "type": "tarball",
+        "url": "https://github.com/crazy-max/firefox-history-merger/archive/21f999151cc1f6d9d02afeb481c0bf0619fec0ca.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "json-yaml": {

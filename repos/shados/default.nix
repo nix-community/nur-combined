@@ -10,6 +10,10 @@ let repo = rec {
 
   ## Packages
 
+  arcconf = pkgs.callPackage ./pkgs/arcconf {
+    inherit pins;
+  };
+
   firefox-common = opts: with pkgs; callPackage
     (import (nixpkgsPath + /pkgs/applications/networking/browsers/firefox/common.nix) opts)
     { libpng = libpng_apng;
@@ -22,6 +26,10 @@ let repo = rec {
       enableOfficialBranding = false;
       privacySupport = true;
     };
+
+  firefox-history-merger = pkgs.callPackage ./pkgs/firefox-history-merger {
+    inherit pins;
+  };
 
   json-yaml = pkgs.callPackage ./pkgs/json-yaml {
     inherit pins;
