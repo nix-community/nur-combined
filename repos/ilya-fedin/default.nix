@@ -11,7 +11,7 @@ rec {
 
   gtk-layer-background = callPackage ./pkgs/gtk-layer-background {};
 
-  kotatogram-desktop = qt5.callPackage ./pkgs/kotatogram-desktop {};
+  kotatogram-desktop = libsForQt5.callPackage ./pkgs/kotatogram-desktop {};
 
   mir = callPackage ./pkgs/mir {};
 
