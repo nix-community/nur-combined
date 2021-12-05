@@ -66,6 +66,10 @@ in {
     resolver = mkOption {
       type = types.str;
     };
+    ipv4Only = mkOption {
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -139,7 +143,7 @@ in {
     services.nginx.proxyResolveWhileRunning = true;
     services.nginx.resolver = {
       addresses = [ cfg.resolver ];
-      ipv6 = false;
+      ipv6 = !cfg.ipv4Only;
     };
     services.nginx.virtualHosts = { 
       rkn = {
@@ -155,7 +159,7 @@ in {
     };
     services.nginx.streamConfig = ''
       server {
-        resolver ${cfg.resolver} ipv6=off;
+        resolver ${cfg.resolver} ${lib.strings.optionalString cfg.ipv4Only "ipv6=off"};
         listen ${cfg.address.address}:443;
         ssl_preread on;
         proxy_pass $ssl_preread_server_name:443;
