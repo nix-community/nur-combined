@@ -87,11 +87,12 @@ stdenv.mkDerivation rec {
       cd "$out/lib"
       ln -s ${bzip2.out}/lib/libbz2.so.1 libbz2.so.1.0
     )
-    runHook postInstall
 
     mkdir $out/bin
     (
       cd $out/bin && ln -s ../talon talon
     )
+
+    runHook postInstall
   '';
 }

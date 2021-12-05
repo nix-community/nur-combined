@@ -13,7 +13,6 @@ let
     pandas
     pyflakes
     pylint
-    python-language-server
     scipy
     seaborn
     yapf
@@ -90,7 +89,7 @@ in
         self.ledger
         self.libnotify # for nofify-send
         self.mupdf
-        self.nixops
+        self.nixopsUnstable
         self.nixpkgs-fmt
         self.nixpkgs-review
         self.nload

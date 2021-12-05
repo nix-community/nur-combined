@@ -469,9 +469,6 @@ let
     # Python Tools
     self.autoflake
     self.python3Packages.pyflakes
-    self.python3Packages.pyls-black
-    self.python3Packages.pyls-isort
-    self.python3Packages.pyls-mypy
 
     # Rust Tools
     self.cargo
