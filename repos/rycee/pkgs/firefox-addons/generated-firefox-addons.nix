@@ -998,10 +998,10 @@
       };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
-      version = "6.9.0";
+      version = "6.10.0";
       addonId = "octolinker@stefanbuck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3861715/octolinker-6.9.0-an+fx.xpi";
-      sha256 = "3faaeb07b1332ef182a383659f471a6f50395d3439d79ce04896314306732189";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877023/octolinker-6.10.0-an+fx.xpi";
+      sha256 = "937bda2249f49728f7b38279a9ee6cf60505ce922fcaf052f9df3c36268587e3";
       meta = with lib;
       {
         homepage = "https://octolinker.now.sh";
