@@ -132,10 +132,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.4.5.0";
+      version = "2.4.6.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3871257/bypass_paywalls_clean-2.4.5.0-an+fx.xpi";
-      sha256 = "be8d2628f185686dc957e5c0cc9fcfbcf79d29013114524a736e4860bcbd5ba6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877248/bypass_paywalls_clean-2.4.6.0-an+fx.xpi";
+      sha256 = "3065a96565ea416276cc460b181946fbcde6714b9db141ec6108aece414a4557";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1012,10 +1012,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.2.4";
+      version = "7.2.5";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3874330/octotree_github_code_tree-7.2.4-fx.xpi";
-      sha256 = "8cd7e01630aefca3a37c5c9ff00f509072b95b5b6b89de31d63a642a75889aa6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877312/octotree_github_code_tree-7.2.5-fx.xpi";
+      sha256 = "90a7ae85ec93ed2147e033918d551e8dc3c7caf75f511226ca235741bfe47f37";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
