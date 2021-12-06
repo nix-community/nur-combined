@@ -1,28 +1,24 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{ lib
+, fetchFromGitHub
+, rustPlatform
+, routinator
+, testVersion
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "routinator";
-  version = "0.10.0-rc1";
+  version = "0.10.0-rc3";
 
   src = fetchFromGitHub {
     owner = "NLnetLabs";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1p76lr3kqbw6v2x5b6q2ml4hhf1v169fmjg5i53y3jzlb8jxqf4s";
+    sha256 = "13mvx4wwwm0k30a6rajzk714vpz6slqa5bwzws27lxjjsrjqizni";
   };
 
-  cargoSha256 = "sha256:08jfzdflahx8qji6090hcfd1ji6bpibh1nyq0pqg8gz73r251j3q";
+  cargoSha256 = "1r5d2r127rp4vr2iy84mpvrsbr2b39p9n2v6xf097mbbag2cpm90";
 
-  doInstallCheck = true;
-  installCheckPhase = ''
-    if [[ "$("$out/bin/${pname}" --version)" == "Routinator ${version}" ]]; then
-      $out/bin/${pname} config | grep -q log
-      echo '${pname} smoke check passed'
-    else
-      echo '${pname} smoke check failed'
-      return 1
-    fi
-  '';
+  passthru.tests = testVersion { package = routinator; };
 
   meta = with lib; {
     description = "An RPKI Validator written in Rust";
