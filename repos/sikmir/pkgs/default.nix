@@ -293,9 +293,6 @@ lib.makeScope newScope (
     xtr = callPackage ./misc/xtr {
       inherit (darwin.apple_sdk.frameworks) Foundation;
     };
-    yabai = callPackage ./misc/yabai {
-      inherit (darwin.apple_sdk.frameworks) Carbon Cocoa SkyLight ScriptingBridge;
-    };
 
     ### NAKARTE
 
