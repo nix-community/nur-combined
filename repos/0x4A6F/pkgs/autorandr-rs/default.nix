@@ -17,7 +17,6 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "1ifyy54g4z2l4v78r8cayww0cslwf3i3capykl93661ybyld4q6w";
-  RUST_BACKTRACE = "full";
 
   nativeBuildInputs = [
     scdoc
