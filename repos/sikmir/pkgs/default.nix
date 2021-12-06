@@ -201,6 +201,7 @@ lib.makeScope newScope (
     gps-whatsnew = callPackage ./gpx/gps-whatsnew { };
     gpx-animator = callPackage ./gpx/gpx-animator { };
     gpx-cmd-tools = callPackage ./gpx/gpx-cmd-tools { };
+    gpx-converter = callPackage ./gpx/gpx-converter { };
     gpx-interpolate = callPackage ./gpx/gpx-interpolate { };
     gpx-layer = perlPackages.callPackage ./gpx/gpx-layer { };
     gpx2yaml = callPackage ./gpx/gpx2yaml { };

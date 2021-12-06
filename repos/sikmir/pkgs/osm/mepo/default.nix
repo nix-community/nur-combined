@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mepo";
-  version = "2021-12-02";
+  version = "2021-12-06";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = pname;
-    rev = "e17efef7646868ec70d181f4e3a20c1a9ea2e54c";
-    hash = "sha256-+nwVUgtw9AaATEspG84YJiD8Ec8VSec+Q+qShdMJcM0=";
+    rev = "018bae5317dca7646fdbdd8bc9e285cfe04ab1d7";
+    hash = "sha256-MhjDzCWN6C5gJnMBfSDeHIENhm6nYZrbdL5k0etuzTA=";
   };
 
   nativeBuildInputs = [ pkg-config zig ];
