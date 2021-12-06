@@ -4,15 +4,17 @@ import pytest
 import shlex
 import subprocess
 
-def run_cmd_parse_json(cmd, input=None):
+def run_cmd_parse_json(cmd, input=None, do_print=False):
     '''Run a command and return its parsed JSON output.'''
     p = subprocess.Popen(shlex.split(cmd), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
     out, err = p.communicate(input=input)
+    if do_print:
+        print(f"cmd: {cmd}")
+        #if input: print(f"stdin:\n--- BEGIN OF STDIN LOG ---\n{input}\n--- END OF STDIN LOG---")
+        if out: print(f"stdout:\n--- BEGIN OF STDOUT LOG ---\n{out}\n--- END OF STDOUT LOG---")
+        if err: print(f"stderr:\n--- BEGIN OF STDERR LOG ---\n{err}\n--- END OF STDERR LOG---")
     if p.returncode != 0:
         print(f'process failed: {cmd}')
-        if input: print(f"stdin:\n--- BEGIN OF STDIN LOG ---\n{input}\n--- END OF STDIN LOG---")
-        if out: print(f"stdout: {out}")
-        if err: print(f"stderr: {err}")
         raise Exception(f'Process failed (returned {p.returncode})')
 
     return json.loads(out)
