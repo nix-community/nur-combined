@@ -37,6 +37,6 @@ buildGoPackage rec {
     license = licenses.lgpl3;
     broken = false;
     maintainers = with maintainers; [ mickours ];
-    platforms = platforms.all;
+    platforms = iproute.meta.platforms;
   };
 }

@@ -24,7 +24,7 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     description = "Infrastructure Performance Evaluation Toolkit Edit";
     homepage    = https://github.com/oar-team/evalys;
-    platforms   = platforms.all;
+    platforms   = python3Packages.debugpy.meta.platforms; # TODO: be more precise if possible
     license = licenses.bsd3;
     longDescription = ''
         Evalys is a data analytics library made to load, compute,

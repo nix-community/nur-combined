@@ -31,7 +31,7 @@ python37Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "";
     homepage    = https://github.com/oar-team/batsky;
-    platforms   = platforms.unix;
+    platforms   = python37Packages.pyinotify.meta.platforms;
     licence     = licenses.gpl2;
     longDescription = ''
     '';

@@ -134,7 +134,10 @@ rec {
   #slurm-bsc-simulator-v14 = slurm-bsc-simulator.override { version="14"; };
 
   slurm-multiple-slurmd = pkgs.slurm.overrideAttrs (oldAttrs: {
-    configureFlags = oldAttrs.configureFlags ++ ["--enable-multiple-slurmd" "--enable-silent-rules"];});
+    configureFlags = oldAttrs.configureFlags ++ ["--enable-multiple-slurmd" "--enable-silent-rules"];
+    meta.platforms = pkgs.lib.lists.intersectLists pkgs.rdma-core.meta.platforms
+      pkgs.ghc.meta.platforms;
+  });
 
   slurm-front-end = pkgs.slurm.overrideAttrs (oldAttrs: {
     configureFlags = [
@@ -144,6 +147,8 @@ rec {
       "--sysconfdir=/etc/slurm"
       "--enable-silent-rules"
     ];
+    meta.platforms = pkgs.lib.lists.intersectLists pkgs.rdma-core.meta.platforms
+      pkgs.ghc.meta.platforms;
   });
 
   # bs-slurm = pkgs.replaceDependency {

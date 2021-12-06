@@ -15,8 +15,8 @@ buildGoPackage rec {
 
   subPackages = [ "cmd/kube-batch" ];
 
-  buildFlagsArray = ''
-    -ldflags=-X github.com/kubernetes-sigs/kube-batch/pkg/version.Version=${version}
+  ldflags = ''
+    -X github.com/kubernetes-sigs/kube-batch/pkg/version.Version=${version}
   '';
 
   meta = with lib; {
