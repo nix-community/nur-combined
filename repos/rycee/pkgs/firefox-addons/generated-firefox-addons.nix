@@ -406,10 +406,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.44";
+      version = "6.1.45";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3860810/flagfox-6.1.44-fx.xpi";
-      sha256 = "8708dc0dfb544567408fa7c994a1048e23dbee52119fc96c44d71eec5ac85ce5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3875536/flagfox-6.1.45-fx.xpi";
+      sha256 = "b853e447c8b613c5733fc74a6739f3f95c8dc6d01b3786f5a1603ad4a2989f95";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -425,10 +425,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.8.4";
+      version = "4.8.6";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3868383/floccus-4.8.4-fx.xpi";
-      sha256 = "32218569f82d67804f080370ad5262e72befeebb6206f4c64a4af4c8aac535b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877463/floccus-4.8.6-fx.xpi";
+      sha256 = "f5ba78d60ae7f5831a5543f5b90fc66846a71446343312c5bfd9f001379e7e3a";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -495,10 +495,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "95.0buildid20211129.150630";
+      version = "96.0buildid20211206.194555";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3874929/francais_language_pack-95.0buildid20211129.150630-fx.xpi";
-      sha256 = "2117c8918db0f257c1b9157d5ae36bdd5392229316555cc418a654d8ff34ebe8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877717/francais_language_pack-96.0buildid20211206.194555-fx.xpi";
+      sha256 = "3220705ace12f2389e43957350fc6757b0356fed7078faa8ca14c88c8a02202e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -870,10 +870,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.6.4";
+      version = "10.7.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3875096/metamask-10.6.4-an+fx.xpi";
-      sha256 = "770a62da0ea13fb266f14e051cc474b09c3748770970efe164291b0c28880603";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877568/metamask-10.7.0-an+fx.xpi";
+      sha256 = "35c257676851d4a94b4f0d9f11dc061fbb2970736342f46c5c221bb05040411c";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
