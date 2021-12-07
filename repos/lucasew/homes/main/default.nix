@@ -40,6 +40,8 @@ in {
     wineApps.wine7zip
     libreoffice
     stremio
+    midori # secondary browser
+    easyeffects # efeitos de audio
   ] ;
 
   # programs.hello-world.enable = true;
