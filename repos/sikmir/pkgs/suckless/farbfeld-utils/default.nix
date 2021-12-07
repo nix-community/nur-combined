@@ -6,7 +6,7 @@ stdenv.mkDerivation {
 
   src = fetchfossil {
     url = "http://zzo38computer.org/fossil/farbfeld.ui";
-    rev = "c3ca188ebb";
+    rev = "c3ca188ebb3bdff06aedd2941964e20c76293d2d";
     sha256 = "sha256-JPzEb3ZHQzKTSBGEt0v8iqDV/KmzhRmUiHxsaov1LNQ=";
   };
 

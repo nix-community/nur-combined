@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "tom";
-  version = "2021-09-24";
+  version = "2021-10-21";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = pname;
-    rev = "87f805afd12ea0e971c6bc8278d94aa85120da6d";
-    hash = "sha256-Syz73/h9z6ZLDywhfQzh2NKC0nWFWon3SK0KHptK5Cc=";
+    rev = "5d89c1bb50200f79fac9eee5f88ed4e43ccd32a8";
+    hash = "sha256-dpDNZYkOzcugtPi3ZeB9xHlYas2tdsTqfnhp7KqBMYg=";
   };
 
   postPatch = ''

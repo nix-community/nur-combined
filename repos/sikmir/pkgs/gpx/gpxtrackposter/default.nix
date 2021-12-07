@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gpxtrackposter";
-  version = "2021-05-01";
+  version = "2021-12-01";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = pname;
-    rev = "0b13e79c2332856ee35aa88921c168d717b33f87";
-    hash = "sha256-0VXSes/Q6XD5/tevZihPAgOIwfYit4c3dJbIPugAWM0=";
+    rev = "d7ff0ba61f6396938efd075d841a7c4a226a6f5d";
+    hash = "sha256-J1CZ2wrL8Myd++skUOyyXLDPyRpOsBWEGxzqhk7OKqU=";
   };
 
   patches = [ ./fix-localedir.patch ];
@@ -22,17 +22,17 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [
     appdirs
-    dateutil
-    gpxpy
-    svgwrite
     colour
-    s2sphere
+    geopy
+    gpxpy
     pint
-    polyline
     pytz
-    setuptools
+    s2sphere
+    svgwrite
     stravalib
+    polyline
     timezonefinder
+    setuptools
   ];
 
   checkInputs = with python3Packages; [
