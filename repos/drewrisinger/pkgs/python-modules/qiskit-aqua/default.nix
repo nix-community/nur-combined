@@ -111,7 +111,9 @@ buildPythonPackage rec {
     "qiskit.ml"
     "qiskit.optimization"
   ];
-  pytestFlagsArray = lib.optionals (!withPyscf) [
+  pytestFlagsArray = [
+    "--durations=10"
+  ] ++ lib.optionals (!withPyscf) [
     "--ignore=test/chemistry/test_qeom_ee.py"
     "--ignore=test/chemistry/test_qeom_vqe.py"
     "--ignore=test/chemistry/test_vqe_uccsd_adapt.py"
@@ -169,6 +171,8 @@ buildPythonPackage rec {
     "test_eoh"
     "test_qasm_5"
     "test_uccsd_hf"
+    "test_lih"
+    "test_lih_freeze_core"
   ];
 
   meta = with lib; {
