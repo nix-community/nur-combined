@@ -11,7 +11,7 @@ in rec {
       runHook preInstall
       rm bin/jbang.cmd
       rm bin/jbang.ps1
-      rmdir tmp
+      rm -rf tmp
       cp -r . $out
       wrapProgram $out/bin/jbang \
         --set JAVA_HOME ${jdk} \
@@ -41,6 +41,14 @@ in rec {
     src = fetchzip {
       url = "https://github.com/jbangdev/jbang/releases/download/v${version}/${pname}-${version}.tar";
       sha256 = "sha256:08haij8nzzf2759ddzx0i6808g2if0v2fc21mlz00kmggjc03xz3";
+    };
+  };
+
+  jbang-0_83_1 = jbangGen rec {
+    version = "0.83.1";
+    src = fetchzip {
+      url = "https://github.com/jbangdev/jbang/releases/download/v${version}/${pname}-${version}.tar";
+      sha256 = "sha256:14qs2s3rk7rbcqj36r6w1fckhl0ac7f50vwxjy67k2cci1a411nx";
     };
   };
 }

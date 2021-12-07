@@ -157,6 +157,7 @@ in rec {
   groovy-4_0_0-rc-1 = groovy4Pkgs.groovy-4_0_0-rc-1;
 
   jbang-0_58_0 = jbangPkgs.jbang-0_58_0;
+  jbang-0_83_1 = jbangPkgs.jbang-0_83_1;
 
   apache-maven-3_5_4 = mavenPkgs.apache-maven-3_5_4;
   apache-maven-3_6_3 = mavenPkgs.apache-maven-3_6_3;
