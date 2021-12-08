@@ -1,16 +1,17 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, pkgs, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "your-editor";
-  version = "1301";
+  version = "1303";
 
   src = fetchFromGitHub {
     owner = "your-editor";
     repo = "yed";
-    rev = "cfcefaf5d77342a04c011cb9ac81e6f23bc453a6";
-    sha256 = "6p++3UasMBAQAMD/P5UrIOpqqwZPcxWkCQx5Nqgbgk8=";
+    rev = "1b044e5704fcf8de142ae1d5a6eb45728f0d91a2";
+    sha256 = "BWy/icQs8hVtNeM/mCi6LOah1UG0elU/DgCmfaIPD64=";
   };
 
+  buildInput = [ pkgs.git pkgs.gcc ];
   installPhase = ''
     runHook preInstall
     patchShebangs install.sh
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Your-editor (yed) is a small and simple terminal editor core that is meant to be extended through a powerful plugin architecture";
     homepage = "https://your-editor.org/";
     license = with licenses; [ mit ];
-    platforms = platforms.linux;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ uniquepointer ];
     mainProgram = "yed";
   };
