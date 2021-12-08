@@ -19,34 +19,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2021.11.08";
+    version = "2021.12.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2021.11.08.gz";
-      sha256 = "0qnrh2nlkjf9hm87lh2bnyn6m3jd46sjmr213flwwj39h8wqflw2";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2021.12.07.gz";
+      sha256 = "04dqcqkwjw8wl3bcqvqvaimf2riqfq1r35dxanvbicpq1s4h95li";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2021.11.08";
+    version = "2021.12.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2021.11.08.gz";
-      sha256 = "01w66akjvhgr8kv349nf12pk03kxk2l4wzqjf2rm7pbxl99412vc";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2021.12.07.gz";
+      sha256 = "0q68gi7zjdzrai0qrpshpv0avvvd6z7mn6i4il5y0cihy47v2sbb";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2021.11.08";
+    version = "2021.12.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2021.11.08.gz";
-      sha256 = "1dj11yqlfgpyk3xgb2zl09a676b3l72qvrh0caaww5328d50bnwd";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2021.12.07.gz";
+      sha256 = "1pkmy8zlm00sna602p8pkkl56cqa5mhr0crc89nwqmqc6qy2k02y";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2021.11.08";
+    version = "2021.12.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2021.11.08.gz";
-      sha256 = "0ry27dh7idp5hhgwlpifvayf0bswnkdh1rb3r5brrhbqgl7wkp7d";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2021.12.07.gz";
+      sha256 = "14qrjk9r7cz324h3lf8yg41gxr7bvlz05p43nnahqndnkjz3drlf";
     };
   };
   commit-notifier = {
