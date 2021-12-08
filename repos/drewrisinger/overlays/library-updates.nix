@@ -7,5 +7,5 @@ let
       localPackage;
 in
 rec {
-
+  symengine = overrideSuperVersionIfNewer super.symengine (self.callPackage ../pkgs/libraries/symengine { });
 }

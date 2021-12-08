@@ -60,10 +60,15 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
+    # fail with qiskit-terra == 0.19.0, apparently
+    "test_vqe_uvccsd_with_callback"
+    "test_evolved_op_ansatz"
+    "test_two_qubit_reduction"
+    "test_mapping"
+    "test_mapping_for_single_op"
+
     # Fails on GitHub Actions, small math error < 0.05 (< 9e-6 %)
     "test_vqe_uvccsd_factory"
-    # unsure of failure reason. Might be related to recent cvxpy update?
-    "test_two_qubit_reduction"
   ] ++ lib.optionals (!withPyscf) [
     "test_h2_bopes_sampler"
     "test_potential_interface"
@@ -72,7 +77,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Software for developing quantum computing programs";
     homepage = "https://qiskit.org";
-    downloadPage = "https://github.com/QISKit/qiskit-optimization/releases";
+    downloadPage = "https://github.com/QISKit/qiskit-nature/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
     maintainers = with maintainers; [ drewrisinger ];

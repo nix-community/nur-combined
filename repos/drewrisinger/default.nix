@@ -105,9 +105,6 @@ rec {
     qiskit-ignis = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ignis {
       inherit qiskit-aer qiskit-terra;
     };
-    qiskit-aqua = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aqua {
-      inherit cvxpy pyscf qiskit-aer qiskit-ignis qiskit-terra;
-    };
     qiskit-ibmq-provider = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ibmq-provider {
       inherit qiskit-terra qiskit-aer;
     };
@@ -116,7 +113,6 @@ rec {
         qiskit-aer
         qiskit-terra
         qiskit-ignis
-        qiskit-aqua
         qiskit-ibmq-provider
         qiskit-finance
         qiskit-machine-learning

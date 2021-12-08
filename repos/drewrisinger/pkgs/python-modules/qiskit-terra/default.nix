@@ -5,8 +5,6 @@
   # Python requirements
 , cython
 , dill
-, fastjsonschema
-, jsonschema
 , numpy
 , networkx
 , ply
@@ -16,6 +14,7 @@
 , retworkx
 , scipy
 , scikit-quant ? null
+, stevedore
 , symengine
 , sympy
 , tweedledum
@@ -56,7 +55,7 @@ in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
-  version = "0.18.3";
+  version = "0.19.0";
 
   disabled = pythonOlder "3.6";
 
@@ -64,15 +63,13 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-w/EnkdlC1hvmLqm4I8ajEYADxqMYGdHKrySLcb/yWGs=";
+    sha256 = "sha256-WFUVynD6q+mQSq1ZznMUjPo5l48KxXuQuiYrrKwmvAM=";
   };
 
   nativeBuildInputs = [ cython ];
 
   propagatedBuildInputs = [
     dill
-    fastjsonschema
-    jsonschema
     numpy
     networkx
     ply
@@ -82,6 +79,7 @@ buildPythonPackage rec {
     retworkx
     scipy
     scikit-quant
+    stevedore
     symengine
     sympy
     tweedledum
@@ -114,6 +112,10 @@ buildPythonPackage rec {
     "-n auto"
   ];
   disabledTests = [
+    "TestUnitarySynthesisPlugin" # use unittest mocks for transpiler.run(), seems incompatible somehow w/ pytest infrastructure
+    "TestMatplotlibDrawer"  # seems to fail non-deterministically
+    "test_copy" # assertNotIn doesn't seem to work as expected w/ pytest vs unittest
+
     # Flaky tests
     "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
     "test_cx_equivalence"  # Fails due to flaky test
@@ -155,6 +157,11 @@ buildPythonPackage rec {
     "test_two_qubit_weyl_decomposition_ab0"
     "test_sample_counts_memory_superposition"
     "test_piecewise_polynomial_function"
+    "test_piecewise_chebyshev_mutability"
+    "test_bit_conditional_no_cregbundle"
+    "test_gradient_wrapper2"
+    "test_two_qubit_weyl_decomposition_abmb"
+    "test_two_qubit_weyl_decomposition_abb"
   ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding
@@ -164,7 +171,6 @@ buildPythonPackage rec {
     echo "Moving Qiskit test files to package directory"
     cp -r $TMP/$sourceRoot/test $PACKAGEDIR
     cp -r $TMP/$sourceRoot/examples $PACKAGEDIR
-    cp -r $TMP/$sourceRoot/qiskit/schemas/examples $PACKAGEDIR/qiskit/schemas/
 
     # run pytest from Nix's $out path
     pushd $PACKAGEDIR

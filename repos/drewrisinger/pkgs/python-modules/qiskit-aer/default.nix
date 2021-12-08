@@ -111,6 +111,16 @@ buildPythonPackage rec {
     "test_reset_2_qubit"
   ] ++ lib.optionals (lib.versionAtLeast cvxpy.version "1.1.15") [
     "test_clifford"
+  ] ++ lib.optionals (lib.versionOlder lib.version "21.11") [
+    # fail due to some issue with unittest subtests (unittest2 v1.1.0)
+    "test_parameterized_qobj_qasm_save_expval"
+    "test_arbitrary_constant_drive"
+    "test_gaussian_drive"
+    "test_amplitude_damping_error"
+  ];
+  disabledTestPaths = lib.optionals (lib.versionOlder lib.version "21.11") [
+    # most of these fail due to some issue with unittest subtests (unittest2 v1.1.0)
+    "test/terra/backends/aer_simulator/"
   ];
   checkInputs = [
     pytestCheckHook
