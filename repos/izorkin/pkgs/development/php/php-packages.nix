@@ -61,10 +61,10 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.14";
+    version = "1.0.16";
     pname = "ast";
 
-    sha256 = "12hngyvd8kcnl2x1zbxjr5wf3sgnbx74ir6zrzhajsh9sd9h4rky";
+    sha256 = "sha256-Rb2jS3gMRmHOd89lzYpQT7VlJtS0Vu3Ml9eRyG84ec4=";
 
     meta.broken = isPhp56;
   };
@@ -126,12 +126,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.1.12";
+    version = "2.1.14";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-rj7Ckt0EtORorqHl200IXxadioA6q+uZcH9p6UVL8hg=";
+      sha256 = "sha256-1EqQRSD5qqdm6LSwXS2admrZpvA/oaSFGCJKrXAwYaQ=";
     };
 
     dontUnpack = true;
@@ -742,12 +742,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.13.1";
+    version = "4.15.0";
     pname = "psalm";
 
     src = pkgs.fetchurl {
-      url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "sha256-dgX66abhuf+m6IrQd87FahlFTl7BpxkvOHznZHLdc7Q=";
+      url = "https://github.com/vimeo/psalm/releases/download/v${version}/psalm.phar";
+      sha256 = "sha256-jvUNnA5OTmw3h1O1Ur7pUojgU5IRgwq2U/JF/ByO0EA=";
     };
 
     phases = [ "installPhase" ];
@@ -768,12 +768,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.10.11";
+    version = "0.11.0";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-ip7iguuwRAyW52Ywoy3dEsgS1f6uuHbXBRfdPLFTIks=";
+      sha256 = "sha256-UIAeOVbKWcfNV3bXaBhkK06wezhtig8aBZfB27umwFU=";
     };
 
     phases = [ "installPhase" ];
@@ -983,10 +983,10 @@ let
   };
 
   xdebug30 = buildPecl {
-    version = "3.1.1";
+    version = "3.1.2";
     pname = "xdebug";
 
-    sha256 = "0s0s1n80z3rivp4ah2g3hxj3j4kgqpfnqql4h33a9i2dvc7sxqwv";
+    sha256 = "sha256-CD9r4RAN95zL3wSdr8OTC6s18OuA+bGawa2E+md5zPM=";
 
     doCheck = true;
     checkTarget = "test";
