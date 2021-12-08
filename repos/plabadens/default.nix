@@ -30,6 +30,8 @@ rec {
 
   nwg-dock = pkgs.callPackage ./pkgs/nwg-dock { };
 
+  picoscope = pkgs.callPackage ./pkgs/picoscope { };
+
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
 
