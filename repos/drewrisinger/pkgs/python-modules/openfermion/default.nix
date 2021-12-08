@@ -18,13 +18,13 @@
 
 buildPythonPackage rec {
   pname = "openfermion";
-  version = "1.2.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "quantumlib";
     repo = "openfermion";
     rev = "v${version}";
-    sha256 = "sha256-kUeuFWkc8ITPFZ+agmJyi7Ee0kHIGFxtTt38YunrMcs=";
+    sha256 = "sha256-XrzB79PPCou5gWwbrCszH316U2wDc712kTwtQFBCPOw=";
   };
 
   postPatch = ''

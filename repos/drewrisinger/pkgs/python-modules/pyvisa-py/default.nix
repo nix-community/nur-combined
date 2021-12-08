@@ -12,14 +12,14 @@
 
 buildPythonPackage rec {
   pname = "pyvisa-py";
-  version = "0.5.1";
+  version = "0.5.2";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "pyvisa";
     repo = "pyvisa-py";
     rev = version;
-    sha256 = "sha256-V1BS+BvHVI8h/rynLnOHvQdIR6RwQrNa2p2S6GQug98=";
+    sha256 = "sha256-WYQ0liqn8Xs2WtH1yuIdUmTWiBg8iKvUxxFdQMZKwHg=";
   };
 
   nativeBuildInputs = [ setuptools_scm ];
