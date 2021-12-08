@@ -127,6 +127,7 @@ rec {
     qiskit-machine-learning = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-machine-learning { inherit qiskit-terra qiskit-aer; };
     qiskit-nature = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-nature { inherit qiskit-terra retworkx pyscf; };
     qiskit-ode = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ode { inherit qiskit-terra; };
+    qiskit-experiments = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-experiments { inherit qiskit-terra qiskit-aer qiskit-ibmq-provider; };
 
     # Raspberry Pi Packages
     colorzero = pkgs.python3Packages.callPackage ./pkgs/raspberrypi/colorzero { };
