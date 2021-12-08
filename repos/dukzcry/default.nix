@@ -33,5 +33,6 @@ in rec {
   bitwig-studio3 = pkgs.callPackage ./pkgs/bitwig-studio3.nix {};
   massdns = pkgs.callPackage ./pkgs/massdns.nix {};
   wireless-regdb = pkgs.callPackage ./pkgs/wireless-regdb {};
+  edgevpn = pkgs.callPackage ./pkgs/edgevpn.nix {};
 }
 
