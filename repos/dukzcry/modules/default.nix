@@ -1,4 +1,4 @@
-{ unstable-path, unstable }:
+{ unstable-path, unstable, libidn }:
 
 rec {
   # Add your NixOS modules here
@@ -17,5 +17,5 @@ rec {
   server = ./server.nix;
   steam = ./steam.nix;
   wifi = ./wifi.nix;
-  rkn = ./rkn.nix;
+  rkn = import ./rkn.nix libidn;
 }

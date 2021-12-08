@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+libidn: { config, lib, pkgs, ... }:
 
 with lib;
 
