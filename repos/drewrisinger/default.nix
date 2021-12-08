@@ -126,7 +126,7 @@ rec {
     qiskit-optimization = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-optimization { inherit qiskit-terra qiskit-aer; };
     qiskit-machine-learning = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-machine-learning { inherit qiskit-terra qiskit-aer; };
     qiskit-nature = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-nature { inherit qiskit-terra retworkx pyscf; };
-    qiskit-ode = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ode { inherit qiskit-terra; };
+    qiskit-dynamics = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-dynamics { inherit qiskit-terra; };
     qiskit-experiments = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-experiments { inherit qiskit-terra qiskit-aer qiskit-ibmq-provider; };
 
     # Raspberry Pi Packages

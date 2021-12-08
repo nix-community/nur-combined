@@ -12,17 +12,17 @@
 }:
 
 buildPythonPackage rec {
-  pname = "qiskit-ode";
-  version = "unstable-0.1.0";
+  pname = "qiskit-dynamics";
+  version = "0.2.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "Qiskit";
-    repo = "qiskit-ode";
-    rev = "21fed791780886ffe1490cf255c2078cc162520a";
-    sha256 = "1aijmg39gnj1yma4d406zichdjwyrrvp8aiampv4kffmj4ly6p24";
+    repo = "qiskit-dynamics";
+    rev = version;
+    sha256 = "sha256-H0snJrKV4IvloE+pXc8wk9M62B31dJupvhL+1M8lvWM=";
   };
 
   propagatedBuildInputs = [
@@ -34,12 +34,12 @@ buildPythonPackage rec {
 
   checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [ "qiskit_ode" ];
+  pythonImportsCheck = [ "qiskit_dynamics" ];
 
   disabledTests = [
     # These tests fail "TypeError: ufunc 'nextafter' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''"
-    "test_solve_ode_w_GeneratorModel"
-    "test_standard_problems_solve_ivp"
+    # "test_solve_ode_w_GeneratorModel"
+    # "test_standard_problems_solve_ivp"
   ];
 
   meta = with lib; {
