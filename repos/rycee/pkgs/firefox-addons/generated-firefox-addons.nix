@@ -71,10 +71,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.14";
+      version = "7.4.15";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3872630/betterttv-7.4.14-fx.xpi";
-      sha256 = "c95c215a5e94c61142107910aa388ec48f8595eeb3635c03429ed77ee6393a42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877964/betterttv-7.4.15-fx.xpi";
+      sha256 = "b9f2661305b331947f08f846e8a28d52b805b0d41efb5ca7187c0d947a9ffa94";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -240,10 +240,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.42";
+      version = "4.9.43";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3864423/dark_reader-4.9.42-an+fx.xpi";
-      sha256 = "592885b9a7b568d055207eb52bef3e13aa75c1015a98a19b4e6ecd79c2725403";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3878116/dark_reader-4.9.43-an+fx.xpi";
+      sha256 = "390bdc2609b43627b58e47bb3a3c2f42b156f16bd932b93746196615134db0b1";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -495,10 +495,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211206.194555";
+      version = "96.0buildid20211207.185904";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3877717/francais_language_pack-96.0buildid20211206.194555-fx.xpi";
-      sha256 = "3220705ace12f2389e43957350fc6757b0356fed7078faa8ca14c88c8a02202e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3878323/francais_language_pack-96.0buildid20211207.185904-fx.xpi";
+      sha256 = "9c5b13050ff6a6444540d49e786a7c3d278fedf1421df40ff8dbfd9b80128ea8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -550,10 +550,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.891.0";
+      version = "8.892.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3872558/grammarly_for_firefox-8.891.0-an+fx.xpi";
-      sha256 = "9421e72dadd016bf40b5a5e1629b1e8b053951d45c19a57372abe383f5ba41b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3877590/grammarly_for_firefox-8.892.0-an+fx.xpi";
+      sha256 = "2081fe0f8ef93d6bfd1ecd293cfcf4be75ddb7d975dc9a1c765bb76efc2bb02f";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1880,10 +1880,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.9.7";
+      version = "6.9.8";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3876791/wappalyzer-6.9.7-fx.xpi";
-      sha256 = "a951469f979aae0fffce2643cd33ce9e8e76d2a8ad9d105d0545fb37c56a66c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3878558/wappalyzer-6.9.8-fx.xpi";
+      sha256 = "428db4010d91623a1b966a4bc5d24e6ac83598828bb1b41b2cc4f0d54c1e31b2";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
