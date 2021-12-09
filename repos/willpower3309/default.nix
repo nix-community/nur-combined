@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ani-cli = pkgs.callPackage ./pkgs/ani-cli {};
+  hybridbar = pkgs.callPackage ./pkgs/hybridbar {};
 }
