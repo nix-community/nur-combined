@@ -716,10 +716,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.4.0";
+      version = "4.4.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3873156/grammatik_und_rechtschreibprufung_languagetool-4.4.0-fx.xpi";
-      sha256 = "bf1f5501fb9988b4accd5c29fa7f012f62ef92aac1efebbca560905102943087";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3878044/grammatik_und_rechtschreibprufung_languagetool-4.4.1-fx.xpi";
+      sha256 = "5b7fcfeca3a8aae78f34d614ee307954539d75ccfbcaeb3619fa87533a4d3a53";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -870,10 +870,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.7.0";
+      version = "10.7.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3877568/metamask-10.7.0-an+fx.xpi";
-      sha256 = "35c257676851d4a94b4f0d9f11dc061fbb2970736342f46c5c221bb05040411c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3878881/metamask-10.7.1-an+fx.xpi";
+      sha256 = "6adb61984b238d7cf72a151ecc73d643bd37e44bed78173b2aada65dd23d5ce7";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
