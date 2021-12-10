@@ -9,6 +9,8 @@
 { pkgs ? import <nixpkgs> { } }:
 
 rec {
+  deprecate = url: pkg: pkgs.lib.trivial.warn "The NUR emmanuelrosa is deprecated and is being divided into multiple Nix flakes. See ${url}." pkg;
+
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -21,14 +23,14 @@ rec {
   wingdings = pkgs.callPackage ./pkgs/wingdings { };
   trace-font = pkgs.callPackage ./pkgs/data/fonts/trace { };
   battery-icons = pkgs.callPackage ./pkgs/data/fonts/battery-icons { };
-  electrum-personal-server = pkgs.callPackage ./pkgs/electrum-personal-server { };
+  electrum-personal-server = deprecate "https://github.com/emmanuelrosa/nixos-bitcoin-tools" (pkgs.callPackage ./pkgs/electrum-personal-server { });
   er-wallpaper = pkgs.haskellPackages.callPackage ./pkgs/er-wallpaper { };
   electrum-hardened = pkgs.callPackage ./pkgs/applications/misc/electrum-hardened { };
   pdf2png = pkgs.callPackage ./pkgs/tools/graphics/pdf2png { };
   rofi-menu = pkgs.callPackage ./pkgs/applications/misc/rofi-menu { };
   electrumx = pkgs.callPackage ./pkgs/applications/blockchains/electrumx { };
   bitcoin-onion-nodes = pkgs.callPackage ./pkgs/applications/blockchains/bitcoin-onion-nodes { };
-  nvidia-offload = pkgs.callPackage ./pkgs/os-specific/linux/nvidia-offload { };
+  nvidia-offload = deprecate "https://github.com/emmanuelrosa/nixos-nvidia-tools" (pkgs.callPackage ./pkgs/os-specific/linux/nvidia-offload { });
   bisq-desktop = pkgs.callPackage ./pkgs/applications/blockchains/bisq-desktop { };
   sparrow = pkgs.callPackage ./pkgs/applications/blockchains/sparrow { };
   muun-recovery-tool = pkgs.callPackage ./pkgs/applications/blockchains/muun-recovery-tool { };
