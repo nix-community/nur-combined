@@ -425,10 +425,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.8.6";
+      version = "4.8.7";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3877463/floccus-4.8.6-fx.xpi";
-      sha256 = "f5ba78d60ae7f5831a5543f5b90fc66846a71446343312c5bfd9f001379e7e3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3879102/floccus-4.8.7-fx.xpi";
+      sha256 = "ff1c8e3addce888b45b3cab1bb104b2f3643ccc69e0807a2dfc812993d3d74af";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -495,10 +495,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211207.185904";
+      version = "96.0buildid20211209.163454";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3878323/francais_language_pack-96.0buildid20211207.185904-fx.xpi";
-      sha256 = "9c5b13050ff6a6444540d49e786a7c3d278fedf1421df40ff8dbfd9b80128ea8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3879320/francais_language_pack-96.0buildid20211209.163454-fx.xpi";
+      sha256 = "195330a9cc70d0354dbcad2712710854f0864350146fa8510556d804104c3161";
       meta = with lib;
       {
         description = "Français Language Pack";
