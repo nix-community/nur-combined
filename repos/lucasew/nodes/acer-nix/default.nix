@@ -203,6 +203,13 @@ in
     android-udev-rules
   ];
 
+  # Redshift
+  services.redshift.enable = true;
+  location = {
+    latitude = -24.0;
+    longitude = -54.0;
+  };
+
   virtualisation = {
     docker.enable = true;
     libvirtd.enable = true;

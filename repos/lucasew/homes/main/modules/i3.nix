@@ -9,6 +9,7 @@ let
     networkmanagerapplet
     feh
     blueberry
+    brightnessctl
   ;
   inherit (pkgs.xfce) xfce4-terminal;
 in
@@ -125,11 +126,13 @@ in {
           "${mod}+m" = "move workspace to output left";
           "${mod}+n" = "exec ${modn}";
           "${mod}+b" = "exec ${gotoNewWs}";
-          "${mod}+Shift+z" = "exec ${sendToPQP}";
+          "${mod}+Shift+b" = "exec ${sendToPQP}";
           "XF86AudioNext" = "exec ${playerctl-bin} next";
           "XF86AudioPrev" = "exec ${playerctl-bin} previous";
           "XF86AudioPlay" = "exec ${playerctl-bin} play-pause";
           "XF86AudioPause" = "exec ${playerctl-bin} play-pause";
+          "XF86MonBrightnessUp" = "exec ${brightnessctl}/bin/brightnessctl s +5%";
+          "XF86MonBrightnessDown" = "exec ${brightnessctl}/bin/brightnessctl s 5%-";
         };
       };
       extraConfig = ''

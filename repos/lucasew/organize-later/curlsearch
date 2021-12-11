@@ -22,7 +22,9 @@ function usage {
 }
 
 function log {
-    echo "$(tput setaf 3)verbose$(tput sgr0): $@" > /dev/stderr
+    if [ "$VERBOSE" == 1 ]; then
+        echo "$(tput setaf 3)verbose$(tput sgr0): $@" > /dev/stderr
+    fi
 }
 
 function find_links {
