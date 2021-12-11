@@ -18,7 +18,6 @@ in {
         gnome3.networkmanagerapplet
         remmina
         skype zoom-us mattermost-desktop
-        google-chrome
       ];
     };
   };
