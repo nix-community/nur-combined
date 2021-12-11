@@ -220,13 +220,13 @@ let
         sha1 = "c656051e9817d9ff08ed881477f3fe4019f3ef7d";
       };
     };
-    "follow-redirects-1.14.5" = {
+    "follow-redirects-1.14.6" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.14.5";
+      version = "1.14.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.5.tgz";
-        sha512 = "wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.6.tgz";
+        sha512 = "fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==";
       };
     };
     "fs-extra-9.1.0" = {
@@ -733,7 +733,7 @@ let
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.3"
       sources."defaults-1.0.3"
-      sources."follow-redirects-1.14.5"
+      sources."follow-redirects-1.14.6"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
