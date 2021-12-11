@@ -1,7 +1,7 @@
 {pkgs, lib, ...}:
 pkgs.wrapEmacs {
   imports = [
-    ./magit.nix
+    ./helm.nix
   ];
   magit.enable = true;
   evil = {
@@ -19,5 +19,7 @@ pkgs.wrapEmacs {
   initEl.pre = ''
   (menu-bar-mode 0)
   (tool-bar-mode 0)
+  (setq make-backup-files nil)
   '';
 }
+
