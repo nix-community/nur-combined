@@ -83,14 +83,14 @@
   };
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
-    version = "v0.1.13";
+    version = "v0.1.14";
     src = fetchgit {
       url = "https://github.com/janten/dpt-rp1-py";
-      rev = "v0.1.13";
+      rev = "v0.1.14";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1jgkfn5kfnx98xs0dmym1h9mv1mrzlglk7x0fzs2jlc56c18w9dk";
+      sha256 = "0584xwf5nli94b060gysmv4civ83p4a88phpkyxaddlks0w7fc5h";
     };
   };
   icalingua = {
