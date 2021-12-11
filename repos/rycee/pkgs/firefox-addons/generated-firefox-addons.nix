@@ -90,10 +90,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.54.0";
+      version = "1.55.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3859577/bitwarden_free_password_manager-1.54.0-an+fx.xpi";
-      sha256 = "232b50247ea309b98c0c022fea9d8ca5ef227eb539bf27c58c2fd83d8270d9d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3878893/bitwarden_free_password_manager-1.55.0-an+fx.xpi";
+      sha256 = "0236326c4d03c69e347a0264f5219ca3f1ae69de43d48173cd53e006da3933dd";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -896,10 +896,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.0.2";
+      version = "8.0.3";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3872817/firefox_multi_account_containers-8.0.2-fx.xpi";
-      sha256 = "d86e2521842a3c9917059523d7f1904d496c65a2bdf3bd474e168b76778038ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3875285/firefox_multi_account_containers-8.0.3-fx.xpi";
+      sha256 = "0b8f113381feac334a8cfea7d574b91a2b285c99b864e51be296074c2a6a1b89";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
