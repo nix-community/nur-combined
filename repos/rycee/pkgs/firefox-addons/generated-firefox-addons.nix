@@ -143,6 +143,19 @@
         platforms = platforms.all;
         };
       };
+    "c-c-search-extension" = buildFirefoxXpiAddon {
+      pname = "c-c-search-extension";
+      version = "0.2.0";
+      addonId = "{e737d9cb-82de-4f23-83c6-76f70a82229c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3718138/cc_search_extension-0.2.0-fx.xpi";
+      sha256 = "7dc4ddd1bbb46a61bb4cea71baa72be55a34b84b7406d34b4cdcc88c7708b9b0";
+      meta = with lib;
+      {
+        homepage = "https://cpp.extension.sh";
+        description = "The ultimate search extension for C/C++";
+        platforms = platforms.all;
+        };
+      };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
       version = "1.7";
@@ -671,6 +684,19 @@
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
         description = "Harness the power of IPFS in your browser";
         license = licenses.cc0;
+        platforms = platforms.all;
+        };
+      };
+    "js-search-extension" = buildFirefoxXpiAddon {
+      pname = "js-search-extension";
+      version = "0.1";
+      addonId = "{479ec4ee-fd16-4f95-b172-dd39fbd921ad}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3718212/js_search_extension-0.1-fx.xpi";
+      sha256 = "07d68e168d7137434cf5096efed581daa836a31096b0ca3f39a76a58e08b3ff5";
+      meta = with lib;
+      {
+        homepage = "https://js.extension.sh";
+        description = "The ultimate search extension for Javascript!";
         platforms = platforms.all;
         };
       };
