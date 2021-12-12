@@ -13,7 +13,6 @@ lib.makeScope newScope (
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     librewolf = callPackage ./applications/networking/librewolf { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
-    openorienteering-mapper-bin = callPackage ./applications/gis/openorienteering-mapper/bin.nix { };
     qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
     synwrite-bin = callPackage ./applications/synwrite/bin.nix { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
@@ -208,7 +207,6 @@ lib.makeScope newScope (
     gpxchart = callPackage ./gpx/gpxchart { };
     gpxeditor = callPackage ./gpx/gpxeditor { };
     gpxlib = callPackage ./gpx/gpxlib { };
-    gpxsee-bin = callPackage ./gpx/gpxsee/bin.nix { };
     gpxtools = callPackage ./gpx/gpxtools { };
     gpxtrackposter = callPackage ./gpx/gpxtrackposter { };
     trackanimation = callPackage ./gpx/trackanimation { };
