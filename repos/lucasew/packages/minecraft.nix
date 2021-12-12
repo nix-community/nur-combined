@@ -5,7 +5,7 @@ let
   inherit (pkgs) stdenv makeDesktopItem;
 
   # java = pkgs.openjdk8;
-  java = pkgs.graalvm8-ce;
+  java = pkgs.graalvm11-ce;
   launcherZip = fetchurl {
     sha256 = "08la0fazwl4gn6g06iqjfl300q18dpqa8bzc6v16p4lsl9r54bm6";
     url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/ShiginimaSE_v4400.zip";

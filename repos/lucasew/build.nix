@@ -5,6 +5,9 @@ builtins.attrValues {
     minecraft
     discord
   ;
+  inherit (pkgs.idea)
+    idea-ultimate # it sourcebuild the JDK
+  ;
   inherit (pkgs.python3Packages)
     scikitlearn
   ;

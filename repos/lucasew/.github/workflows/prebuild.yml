@@ -29,5 +29,7 @@ jobs:
           name: lucasew-personal
           authToken: '${{ secrets.CACHIX_TOKEN }}'
       - run: nix-build build.nix | cachix push lucasew-personal
+        env:
+          NIX_PATH: ""
 
 
