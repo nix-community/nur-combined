@@ -715,10 +715,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.10.1";
+      version = "1.7.11";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3869282/keepassxc_browser-1.7.10.1-fx.xpi";
-      sha256 = "9b97c8cb87ca73daf9d4c0668c08a314c5020f2553a4203a3170bab9373d85d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3880031/keepassxc_browser-1.7.11-fx.xpi";
+      sha256 = "03d469a4675dcd22f7f80d50af049a102383d3ef696ce2612070b818745714ed";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1330,10 +1330,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "5.6.3";
+      version = "5.6.4";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3837566/moderator_toolbox_for_reddit-5.6.3-an+fx.xpi";
-      sha256 = "3d0414f97be492466ab7e3289e696a55674bbe480375168396c76d0a9f596331";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3880037/moderator_toolbox_for_reddit-5.6.4-an+fx.xpi";
+      sha256 = "935dcb8b03d213d64bda5d301714f2cb305c69d465293fb8ce448278e546d9fd";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
