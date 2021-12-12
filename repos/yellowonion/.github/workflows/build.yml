@@ -9,7 +9,7 @@ on:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
+    - cron:  '3 10 * * *'
 jobs:
   tests:
     strategy:
@@ -70,6 +70,6 @@ jobs:
       # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
       run: nix run 'nixpkgs#nix-build-uncached' -- ci.nix -A cacheOutputs
     - name: Trigger NUR update
-      # Don't replace yo-nur here!
-      if: ${{ matrix.nurRepo != 'yo-nur' }}
+      # Don't replace <YOUR_REPO_NAME> here!
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
