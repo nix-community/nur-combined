@@ -57,6 +57,9 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Pull new bcachefs version
+      run: |
+        ./update.sh
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
@@ -69,7 +72,20 @@ jobs:
     - name: Build nix packages
       # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
       run: nix run 'nixpkgs#nix-build-uncached' -- ci.nix -A cacheOutputs
+    - name: Open issue if failed
+      if: failure()
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        update_existing: true
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
+    - name: Push to master
+      run: |
+        git config --global user.name 'GithubAction'
+        git config --global user.email 'action@gluo.nz'
+        git commit -am 'Automated update'
+        git push
