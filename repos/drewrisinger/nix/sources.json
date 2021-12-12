@@ -5,10 +5,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "ba57d5a29b4e0f2085917010380ef3ddc3cf380f",
-        "sha256": "1kpsvc53x821cmjg1khvp1nz7906gczq8mp83664cr15h94sh8i4",
+        "rev": "5830a4dd348d77e39a0f3c4c762ff2663b602d4c",
+        "sha256": "1d3lsrqvci4qz2hwjrcnd8h5vfkg8aypq3sjd4g3izbc8frwz5sm",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/ba57d5a29b4e0f2085917010380ef3ddc3cf380f.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/5830a4dd348d77e39a0f3c4c762ff2663b602d4c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nix-eval-jobs": {
@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "nix-eval-jobs",
-        "rev": "2a382fe9f57cd8884001c14e48145cca0fb807fb",
-        "sha256": "1nf8vxr3r66is487wz7hnmpr9gq99va2g6yylbkf9j2rfjmz7gdk",
+        "rev": "23523075c2aaaafe9f869d0d35b10d460031c403",
+        "sha256": "1ww1hjqc6042kd4ccfh2wzdpnxqdfp3cnnfkhsm3hz3bmn2sfsxc",
         "type": "tarball",
-        "url": "https://github.com/nix-community/nix-eval-jobs/archive/2a382fe9f57cd8884001c14e48145cca0fb807fb.tar.gz",
+        "url": "https://github.com/nix-community/nix-eval-jobs/archive/23523075c2aaaafe9f869d0d35b10d460031c403.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
