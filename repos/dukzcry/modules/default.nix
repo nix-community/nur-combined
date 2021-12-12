@@ -18,4 +18,5 @@ rec {
   steam = ./steam.nix;
   wifi = ./wifi.nix;
   rkn = import ./rkn.nix libidn;
+  edgevpn = ./edgevpn.nix;
 }
