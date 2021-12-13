@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     homepage = https://wiki.linuxfoundation.org/realtime/documentation/howto/tools/rt-tests;
     license = licenses.gpl2Plus;
     platforms = numactl.meta.platforms;
-    broken = false;
+    broken = true;
   };
 }
 
