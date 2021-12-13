@@ -1,6 +1,5 @@
 { lib, stdenv, fetchurl, unzip, which, makeWrapper, jdk, coreutils, gawk }:
-
-rec {
+let
     groovyGen = {version, src} : stdenv.mkDerivation {
       pname = "groovy";
       inherit version src;
@@ -37,6 +36,16 @@ rec {
       };
     };
 
+in {
+
+    groovy-3_0_9 = groovyGen rec {
+        version = "3.0.9";
+        src = fetchurl {
+            url = "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-${version}.zip";
+            sha256 = "sha256:08g4q926g28010nk7rclaqlb3lb6kycmppw7vd5446lv4bpg8d7b";
+        };
+    };
+
     groovy-3_0_7 = groovyGen rec {
         version = "3.0.7";
         src = fetchurl {
@@ -58,6 +67,14 @@ rec {
         src = fetchurl {
             url = "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-${version}.zip";
             sha256 = "1ddw3fqrmwh4w6z6xgck4jhmq33rwgbmpjw07g12ri1vgw4xks9w";
+        };
+    };
+
+    groovy-2_5_15 = groovyGen rec {
+        version = "2.5.15";
+        src = fetchurl {
+            url = "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-${version}.zip";
+            sha256 = "sha256:1r37im1c0pbhzyqql1b44l916anfyxh0zih028gl9vwbb291s6h7";
         };
     };
 
