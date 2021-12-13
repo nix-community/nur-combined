@@ -89,3 +89,4 @@ jobs:
         git config --global user.email 'action@gluo.nz'
         git commit -am 'Automated update'
         git push
+      continue-on-error: true
