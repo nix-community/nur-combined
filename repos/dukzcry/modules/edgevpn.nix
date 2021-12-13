@@ -45,24 +45,7 @@ in {
       path = with pkgs; [ ];
       serviceConfig = {
         ExecStart = with pkgs.nur.repos.dukzcry; ''
-          ${edgevpn}/bin/edgevpn --address ${cfg.address} --config ${cfg.config}
-        '';
-      };
-      postStart = ''
-      '';
-      preStop = ''
-      '';
-    };
-
-    systemd.services.edgevpn-web = {
-      requires = [ "network-online.target" ];
-      after = [ "network.target" "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      description = "EdgeVPN web service";
-      path = with pkgs; [ ];
-      serviceConfig = {
-        ExecStart = with pkgs.nur.repos.dukzcry; ''
-          ${edgevpn}/bin/edgevpn api --listen "${cfg.apiAddress}:${toString cfg.apiPort}" --config ${cfg.config}
+          ${edgevpn}/bin/edgevpn --address ${cfg.address} --config ${cfg.config} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
         '';
       };
       postStart = ''
