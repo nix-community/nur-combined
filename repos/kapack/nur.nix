@@ -164,4 +164,6 @@ rec {
   # };
 
   wait-for-it = pkgs.callPackage ./pkgs/wait-for-it { };
+
+  yamldiff = pkgs.callPackage ./pkgs/yamldiff { };
 }
