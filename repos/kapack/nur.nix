@@ -79,6 +79,8 @@ rec {
 
   gcovr = pkgs.callPackage ./pkgs/gcovr/csv.nix { };
 
+  gocov = pkgs.callPackage ./pkgs/gocov { };
+
   gocovmerge = pkgs.callPackage ./pkgs/gocovmerge { };
 
   intervalset = pkgs.callPackage ./pkgs/intervalset { };
