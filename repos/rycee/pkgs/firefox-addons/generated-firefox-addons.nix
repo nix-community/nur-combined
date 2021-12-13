@@ -132,10 +132,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.4.6.0";
+      version = "2.4.7.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3877248/bypass_paywalls_clean-2.4.6.0-an+fx.xpi";
-      sha256 = "3065a96565ea416276cc460b181946fbcde6714b9db141ec6108aece414a4557";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3880567/bypass_paywalls_clean-2.4.7.0-an+fx.xpi";
+      sha256 = "a968dd255776a958a22cefb111fae581004cab693685c909922df3a580fb295f";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211209.163454";
+      version = "96.0buildid20211212.185725";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3879320/francais_language_pack-96.0buildid20211209.163454-fx.xpi";
-      sha256 = "195330a9cc70d0354dbcad2712710854f0864350146fa8510556d804104c3161";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3880508/francais_language_pack-96.0buildid20211212.185725-fx.xpi";
+      sha256 = "246a8522383d949b2bb36654debb8f030b4ecd061a4d09d00567dc34bfce0ae1";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1358,10 +1358,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "21.11.23";
+      version = "21.12.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3872165/refined_github-21.11.23-an+fx.xpi";
-      sha256 = "c0164db2f2ca5ac130665b4e61b5cd6def643f195f538cab39c9434a3a06096b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3880260/refined_github-21.12.12-an+fx.xpi";
+      sha256 = "d866c969c10d2214145399ea9b7d693da4e2aaf90c86943cdb08a6e17ed6e6ed";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
