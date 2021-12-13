@@ -28,8 +28,12 @@ jobs:
         with:
           name: lucasew-personal
           authToken: '${{ secrets.CACHIX_TOKEN }}'
-      - run: nix-build build.nix | cachix push lucasew-personal
+      - run: ./build
         env:
           NIX_PATH: ""
+      - uses: actions/upload-artifact@v2
+        with:
+          name: out.nar
+          path: out.nar
 
 
