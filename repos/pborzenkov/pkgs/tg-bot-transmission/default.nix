@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "tg-bot-transmission";
-  version = "0.1.1";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "pborzenkov";
     repo = "tg-bot-transmission";
     rev = "v${version}";
-    sha256 = "078x28r6cnaqwi4sdfz8xw7gvwrv0dllpj0j111iq5kzf7h4iclz";
+    sha256 = "sha256-HjIpi7yn/xGA+9tzHB+ejW6xCq6SGYN6DxdcB+PwGWo=";
   };
 
-  vendorSha256 = "0ks1xx2b43890wz985q493wsfvcs6nh1g8zb8jbvwq7nh30phh2n";
+  vendorSha256 = "sha256-ZQ5iZwSU1CdQYOPgtrlU5+SElUvKelMjSe60TdhY3C8=";
 
   subPackages = [ "cmd/bot" ];
 
