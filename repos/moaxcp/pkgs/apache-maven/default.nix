@@ -1,10 +1,8 @@
 { stdenv, lib, fetchurl, jdk, coreutils, makeWrapper }:
 let
-  pname = "apache-maven";
-in rec {
   mavenGen = { version, src} : stdenv.mkDerivation {
-    inherit pname version src;
-
+    pname = "apache-maven";
+    inherit version src;
     dontBuild = true;
 
     buildInputs = [ jdk makeWrapper ];
@@ -33,11 +31,11 @@ in rec {
       maintainers = with maintainers; [ moaxcp ];
     };
   };
-
+in {
   apache-maven-3_5_4 = mavenGen rec {
     version = "3.5.4";
     src = fetchurl {
-      url = "mirror://apache/maven/maven-3/${version}/binaries/${pname}-${version}-bin.tar.gz";
+      url = "mirror://apache/maven/maven-3/${version}/binaries/apache-maven-${version}-bin.tar.gz";
       sha256 = "sha256:0kd1jzlz3b2kglppi85h7286vdwjdmm7avvpwgppgjv42g4v2l6f";
     };
   };
@@ -45,8 +43,16 @@ in rec {
   apache-maven-3_6_3 = mavenGen rec {
     version = "3.6.3";
     src = fetchurl {
-      url = "mirror://apache/maven/maven-3/${version}/binaries/${pname}-${version}-bin.tar.gz";
+      url = "mirror://apache/maven/maven-3/${version}/binaries/apache-maven-${version}-bin.tar.gz";
       sha256 = "1i9qlj3vy4j1yyf22nwisd0pg88n9qzp9ymfhwqabadka7br3b96";
+    };
+  };
+
+  apache-maven-3_8_4 = mavenGen rec {
+    version = "3.8.4";
+    src = fetchurl {
+      url = "mirror://apache/maven/maven-3/${version}/binaries/apache-maven-${version}-bin.tar.gz";
+      sha256 = "sha256:0g7iz7b66j4z9r5v3rrhv6my945pcf85mvsvqbyj1fr7ji8rrp1c";
     };
   };
 }

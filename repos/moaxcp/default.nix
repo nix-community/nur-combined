@@ -145,6 +145,7 @@ in rec {
   gradle-6_3 = gradlePkgs.gradle-6_3;
   gradle-6_4 = gradlePkgs.gradle-6_4;
   gradle-6_7_1 = gradlePkgs.gradle-6_7_1;
+  gradle-7_3_1 = gradlePkgs.gradle-7_3_1;
 
   groovy-2_4_19 = groovyPkgs.groovy-2_4_19;
   groovy-2_4_21 = groovyPkgs.groovy-2_4_21;
@@ -163,6 +164,7 @@ in rec {
 
   apache-maven-3_5_4 = mavenPkgs.apache-maven-3_5_4;
   apache-maven-3_6_3 = mavenPkgs.apache-maven-3_6_3;
+  apache-maven-3_8_4 = mavenPkgs.apache-maven-3_8_4;
 
   micronaut-1_3_4 = micronautPkgs.micronaut-1_3_4;
   micronaut-1_3_5 = micronautPkgs.micronaut-1_3_5;

@@ -1,9 +1,8 @@
 { lib, stdenv, fetchurl, unzip, jdk, makeWrapper }:
 let
-  pname = "gradle";
-in rec {
   gradleGen = {version, nativeVersion, src} : stdenv.mkDerivation {
-    inherit pname version nativeVersion src;
+    pname = "gradle";
+    inherit version nativeVersion src;
 
     dontBuild = true;
 
@@ -57,7 +56,16 @@ in rec {
       maintainers = with maintainers; [ moaxcp ];
     };
   };
+in {
+  gradle-7_3_1 = gradleGen rec {
+    version = "7.3.1";
+    nativeVersion = "0.22-milestone-21";
 
+    src = fetchurl {
+      url = "https://services.gradle.org/distributions/gradle-${version}-bin.zip";
+      sha256 = "0rkb9pdmvq0zidv8lv4im2j7gs949lg35r79l1hwf4pwi2k3ryws";
+    };
+  };
   gradle-6_7_1 = gradleGen rec {
     version = "6.7.1";
     nativeVersion = "0.22-milestone-9";
