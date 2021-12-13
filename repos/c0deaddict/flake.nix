@@ -8,5 +8,7 @@
         pkgs = prev;
       };
     };
+
+    nixosModules = import ./modules;
   };
 }
