@@ -21,5 +21,9 @@ rec {
 
   silver = callPackage ./pkgs/silver {};
 
+  virtualboxWithExtpack = virtualbox.override {
+    extensionPack = virtualboxExtpack;
+  };
+
   #wlcs = callPackage ./pkgs/wlcs {};
 }

@@ -12,6 +12,8 @@ let
     ) ++ [
       ./use-right-paths.patch
     ];
+
+    doCheck = false;
   });
 in {
   options = {
