@@ -31,4 +31,4 @@ for r in $REALIZED; do
 done
 
 echo "Exporting..."
-nix-store --export $REALIZED > out.nar
+nix-store --export $(nix-store -qR $REALIZED) > out.nar
