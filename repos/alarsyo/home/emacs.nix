@@ -27,7 +27,7 @@
 
     programs.emacs = {
       enable = true;
-      package = pkgs.emacsGcc28;
+      package = pkgs.emacsGcc;
     };
   };
 }
