@@ -1,5 +1,6 @@
 { stdenv, lib, fetchgit, meson, ninja, pkgconfig, boost, gtest
 , debug ? false
+, withoutBoostPropagation ? false
 }:
 
 stdenv.mkDerivation rec {
@@ -13,8 +14,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
-  buildInputs = [ gtest ];
-  propagatedBuildInputs = [ boost ];
+  buildInputs = [ gtest ]
+    ++ lib.optionals withoutBoostPropagation [ boost ];
+  propagatedBuildInputs = lib.optionals (!withoutBoostPropagation) [ boost ];
 
   ninjaFlags = [ "-v" ];
   doCheck = true;

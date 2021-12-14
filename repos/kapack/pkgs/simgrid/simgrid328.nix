@@ -9,6 +9,7 @@
 , optimize ? (!debug)
 , moreTests ? false
 , withoutBin ? false
+, withoutBoostPropagation ? false
 }:
 
 with lib;
@@ -37,8 +38,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  propagatedBuildInputs = [ boost ];
+  propagatedBuildInputs = optionals (!withoutBoostPropagation) [ boost ];
   nativeBuildInputs = [ cmake perl python3 ]
+    ++ optionals withoutBoostPropagation [ boost ]
     ++ optionals fortranSupport [ gfortran ]
     ++ optionals buildJavaBindings [ openjdk ]
     ++ optionals buildPythonBindings [ python3Packages.pybind11 ]

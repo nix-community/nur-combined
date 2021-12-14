@@ -43,17 +43,17 @@ rec {
 
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
 
-  batsched-130 = pkgs.callPackage ./pkgs/batsched/batsched130.nix { inherit intervalset loguru redox debug; };
-  batsched-140 = pkgs.callPackage ./pkgs/batsched/batsched140.nix { inherit intervalset loguru redox debug; };
+  batsched-130 = pkgs.callPackage ./pkgs/batsched/batsched130.nix { inherit loguru redox debug; intervalset = intervalsetlight; };
+  batsched-140 = pkgs.callPackage ./pkgs/batsched/batsched140.nix { inherit loguru redox debug; intervalset = intervalsetlight; };
   batsched = batsched-140;
 
   batexpe = pkgs.callPackage ./pkgs/batexpe { };
 
   batprotocol-cpp = pkgs.callPackage ./pkgs/batprotocol/cpp.nix { inherit flatbuffers debug; };
 
-  batsim-310 = pkgs.callPackage ./pkgs/batsim/batsim310.nix { inherit intervalset redox debug; simgrid = simgrid-324; };
-  batsim-400 = pkgs.callPackage ./pkgs/batsim/batsim400.nix { inherit intervalset redox debug; simgrid = simgrid-325light; };
-  batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit intervalset redox debug; simgrid = simgrid-329light; };
+  batsim-310 = pkgs.callPackage ./pkgs/batsim/batsim310.nix { inherit redox debug; simgrid = simgrid-324; intervalset = intervalsetlight; };
+  batsim-400 = pkgs.callPackage ./pkgs/batsim/batsim400.nix { inherit redox debug; simgrid = simgrid-325light; intervalset = intervalsetlight; };
+  batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-329light; intervalset = intervalsetlight; };
   batsim = batsim-410;
   batsim-docker = pkgs.callPackage ./pkgs/batsim/batsim-docker.nix { inherit batsim; };
 
@@ -84,6 +84,7 @@ rec {
   gocovmerge = pkgs.callPackage ./pkgs/gocovmerge { };
 
   intervalset = pkgs.callPackage ./pkgs/intervalset { };
+  intervalsetlight = pkgs.callPackage ./pkgs/intervalset { withoutBoostPropagation = true; };
 
   kube-batch = pkgs.callPackage ./pkgs/kube-batch { };
 
@@ -120,11 +121,11 @@ rec {
   simgrid-327 = pkgs.callPackage ./pkgs/simgrid/simgrid327.nix { inherit debug; };
   simgrid-328 = pkgs.callPackage ./pkgs/simgrid/simgrid328.nix { inherit debug; };
   simgrid-329 = pkgs.callPackage ./pkgs/simgrid/simgrid329.nix { inherit debug; };
-  simgrid-325light = simgrid-325.override { minimalBindings = true; withoutBin = true; };
-  simgrid-326light = simgrid-326.override { minimalBindings = true; withoutBin = true; };
-  simgrid-327light = simgrid-327.override { minimalBindings = true; withoutBin = true; };
-  simgrid-328light = simgrid-328.override { minimalBindings = true; withoutBin = true; };
-  simgrid-329light = simgrid-329.override { minimalBindings = true; withoutBin = true; };
+  simgrid-325light = simgrid-325.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
+  simgrid-326light = simgrid-326.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
+  simgrid-327light = simgrid-327.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
+  simgrid-328light = simgrid-328.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
+  simgrid-329light = simgrid-329.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid = simgrid-329;
   simgrid-light = simgrid-329light;
 

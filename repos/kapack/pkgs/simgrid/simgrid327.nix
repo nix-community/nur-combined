@@ -9,6 +9,7 @@
 , optimize ? (!debug)
 , moreTests ? false
 , withoutBin ? false
+, withoutBoostPropagation ? false
 }:
 
 with lib;
@@ -29,8 +30,9 @@ stdenv.mkDerivation rec {
     sha256 = "13nwsyk030fhl3srhpc28j5s6594z0m38606f4ygc4qhv9wxw011";
   };
 
-  propagatedBuildInputs = [ boost ];
+  propagatedBuildInputs = optionals (!withoutBoostPropagation) [ boost ];
   nativeBuildInputs = [ cmake perl python3 ]
+    ++ optionals withoutBoostPropagation [ boost ]
     ++ optionals fortranSupport [ gfortran ]
     ++ optionals buildJavaBindings [ openjdk ]
     ++ optionals buildPythonBindings [ python3Packages.pybind11 ]
