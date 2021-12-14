@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell -i bash -p findutils nixfmt
+#! nix-shell -i bash -p findutils nixpkgs-fmt
 
 CHECK_ARG=
 
@@ -13,4 +13,4 @@ case $1 in
 esac
 
 find . -name '*.nix' \
-  -exec nixfmt $CHECK_ARG {} +
+  -exec nixpkgs-fmt $CHECK_ARG {} +

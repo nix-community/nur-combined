@@ -1,6 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi
+{ lib
+, buildPythonPackage
+, fetchPypi
 
-, decorator, future, lxml, matplotlib, numpy, requests, scipy, sqlalchemy }:
+, decorator
+, future
+, lxml
+, matplotlib
+, numpy
+, requests
+, scipy
+, sqlalchemy
+}:
 
 buildPythonPackage rec {
   pname = "obspy";

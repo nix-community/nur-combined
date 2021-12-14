@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, gawk, gnused
-, imagemagick }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, makeWrapper
+, coreutils
+, gawk
+, gnused
+, imagemagick
+}:
 
 stdenv.mkDerivation rec {
   pname = "lsix";

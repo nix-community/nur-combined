@@ -1,7 +1,33 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, curl, dmidecode, edid-decode
-, hwinfo, pciutils, perl, systemd, usbutils, acpica-tools, cpuid ? null, drm_info
-, glxinfo, hdparm, hplip, i2c-tools, inxi, libva-utils, mcelog, memtester
-, opensc, sane-backends, sysstat, util-linux ? null, vulkan-tools, xinput }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, makeWrapper
+, curl
+, dmidecode
+, edid-decode
+, hwinfo
+, pciutils
+, perl
+, systemd
+, usbutils
+, acpica-tools
+, cpuid ? null
+, drm_info
+, glxinfo
+, hdparm
+, hplip
+, i2c-tools
+, inxi
+, libva-utils
+, mcelog
+, memtester
+, opensc
+, sane-backends
+, sysstat
+, util-linux ? null
+, vulkan-tools
+, xinput
+}:
 
 stdenv.mkDerivation rec {
   pname = "hw-probe";

@@ -6,7 +6,8 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; }
+{ system ? builtins.currentSystem
+, pkgs ? import <nixpkgs> { inherit system; }
 }:
 
 rec {

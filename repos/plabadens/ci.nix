@@ -38,7 +38,8 @@ let
           [ p ]
         else
           [ ];
-    in concatMap f (attrValues s);
+    in
+    concatMap f (attrValues s);
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
@@ -47,7 +48,8 @@ let
   nurPkgs = flattenPkgs (listToAttrs (map (n: nameValuePair n nurAttrs.${n})
     (filter (n: !isReserved n) (attrNames nurAttrs))));
 
-in rec {
+in
+rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
 
