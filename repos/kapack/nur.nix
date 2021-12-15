@@ -26,19 +26,6 @@ rec {
     '';
   });
 
-  # go_1_14-batsky = if (pkgs ? go_1_14) then
-  #   (pkgs.go_1_14.overrideAttrs (attrs: {
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "oar-team";
-  #     repo = "go_1_14-batsky";
-  #     rev = "0119ed47a612226f73a9db56d6572cfab858d59e";
-  #     sha256 = "1795xk5r0h6nl7fgjpdwzhmc4rgyz1v4jr6q46cdzp3fjqg345n3";
-  #   };
-  #   doCheck = false;
-  # }))
-  #   else
-  #   pkgs.callPackage ({}: {meta.broken=true;}) {};
-
   libpowercap = pkgs.callPackage ./pkgs/libpowercap { };
 
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
@@ -95,16 +82,16 @@ rec {
   oxidisched = pkgs.callPackage ./pkgs/oxidisched { };
 
   pybatsim-320 = pkgs.callPackage ./pkgs/pybatsim/pybatsim320.nix { inherit procset; };
-  pybatsim = pybatsim-320;
+  pybatsim-321 = pkgs.callPackage ./pkgs/pybatsim/pybatsim321.nix { inherit procset; };
+  pybatsim = pybatsim-321;
 
   redox = pkgs.callPackage ./pkgs/redox { };
 
   remote_pdb = pkgs.callPackage ./pkgs/remote-pdb { };
 
   rt-tests = pkgs.callPackage ./pkgs/rt-tests { };
-  
+
   cigri = pkgs.callPackage ./pkgs/cigri { };
-	
 
   oar = pkgs.callPackage ./pkgs/oar { inherit procset pybatsim remote_pdb; };
 
@@ -155,18 +142,6 @@ rec {
     meta.platforms = pkgs.lib.lists.intersectLists pkgs.rdma-core.meta.platforms
       pkgs.ghc.meta.platforms;
   });
-
-  # bs-slurm = pkgs.replaceDependency {
-  #   drv = slurm-multiple-slurmd;
-  #   oldDependency = pkgs.glibc;
-  #   newDependency = glibc-batsky;
-  # };
-
-  # fe-slurm = pkgs.replaceDependency {
-  #   drv = slurm-front-end;
-  #   oldDependency = pkgs.glibc;
-  #   newDependency = glibc-batsky;
-  # };
 
   wait-for-it = pkgs.callPackage ./pkgs/wait-for-it { };
 

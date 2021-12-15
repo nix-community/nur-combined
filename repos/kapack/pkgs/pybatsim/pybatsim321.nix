@@ -1,0 +1,36 @@
+{ lib, python3Packages, poetry, procset }:
+
+python3Packages.buildPythonPackage rec {
+  pname = "pybatsim";
+  version = "3.2.1";
+  format = "pyproject";
+
+    src = python3Packages.fetchPypi {
+      inherit pname version;
+      sha256 = "1gxvjnriklllj4qmiyvg8cf9ilwkpsh4p37kihgwgrgzgxr658ab";
+    };
+
+  buildInputs = with python3Packages; [
+    poetry
+  ];
+  propagatedBuildInputs = with python3Packages; [
+    click
+    docopt
+    procset
+    pyzmq
+    redis
+    sortedcontainers
+  ];
+
+  doCheck = false;
+
+  meta = with lib; {
+    description = "Python API and schedulers for Batsim";
+    homepage = "https://gitlab.inria.fr/batsim/pybatsim";
+    platforms = platforms.all;
+    license = licenses.lgpl3;
+    broken = false;
+
+    longDescription = "Python API and schedulers for Batsim";
+  };
+}
