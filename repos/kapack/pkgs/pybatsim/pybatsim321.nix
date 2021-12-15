@@ -14,11 +14,9 @@ python3Packages.buildPythonPackage rec {
     poetry
   ];
   propagatedBuildInputs = with python3Packages; [
-    click
     docopt
     procset
     pyzmq
-    redis
     sortedcontainers
   ];
 
