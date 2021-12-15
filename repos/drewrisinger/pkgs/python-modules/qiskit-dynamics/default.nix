@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-dynamics";
-  version = "0.2.0";
+  version = "0.2.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-dynamics";
     rev = version;
-    sha256 = "sha256-H0snJrKV4IvloE+pXc8wk9M62B31dJupvhL+1M8lvWM=";
+    sha256 = "sha256-gD64Q3L46kyfGGpSq5arbyv2pNPru0UUz9sPqPT5l/k=";
   };
 
   propagatedBuildInputs = [

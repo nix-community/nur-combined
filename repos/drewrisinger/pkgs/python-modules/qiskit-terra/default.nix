@@ -55,7 +55,7 @@ in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
-  version = "0.19.0";
+  version = "0.19.1";
 
   disabled = pythonOlder "3.6";
 
@@ -63,7 +63,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-WFUVynD6q+mQSq1ZznMUjPo5l48KxXuQuiYrrKwmvAM=";
+    sha256 = "sha256-2EfkSU9RXG5l3DgdwWYWXjNB2ZB3kec6NDsgK+FrqJk=";
   };
 
   nativeBuildInputs = [ cython ];
@@ -113,7 +113,9 @@ buildPythonPackage rec {
   ];
   disabledTests = [
     "TestUnitarySynthesisPlugin" # use unittest mocks for transpiler.run(), seems incompatible somehow w/ pytest infrastructure
-    "TestMatplotlibDrawer"  # seems to fail non-deterministically
+    # matplotlib tests seems to fail non-deterministically
+    "TestMatplotlibDrawer"
+    "TestGraphMatplotlibDrawer"
     "test_copy" # assertNotIn doesn't seem to work as expected w/ pytest vs unittest
 
     # Flaky tests
@@ -162,6 +164,7 @@ buildPythonPackage rec {
     "test_gradient_wrapper2"
     "test_two_qubit_weyl_decomposition_abmb"
     "test_two_qubit_weyl_decomposition_abb"
+    "test_vqe_qasm"
   ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding

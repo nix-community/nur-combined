@@ -57,6 +57,9 @@ buildPythonPackage rec {
     "test_bell_2_qubits"
     "test_trace_constraint"
     "TestStateTomographyCVX"
+  ] ++ [
+    # Slow tests
+    "test_graph_construction"
   ];
 
   meta = with lib; {
