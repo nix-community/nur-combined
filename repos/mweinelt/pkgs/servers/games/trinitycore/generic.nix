@@ -1,4 +1,4 @@
-{ llvmPackages_11
+{ llvmPackages_13
 , lib
 , fetchFromGitHub
 , cmake
@@ -19,7 +19,7 @@
 , ...
 }:
 
-llvmPackages_11.stdenv.mkDerivation rec {
+llvmPackages_13.stdenv.mkDerivation rec {
   pname = "TrinityCore";
   inherit version;
 
