@@ -47,7 +47,7 @@ in reduceJoin [
     flutter = (cp "${nixpkgsLatest}/pkgs/development/compilers/flutter/default.nix").stable;
     tor-browser-bundle-bin = (cp "${nixpkgsLatest}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
     obsidian = super.callPackage "${nixpkgsLatest}/pkgs/applications/misc/obsidian/default.nix" {
-      electron_13 = super.electron_12;
+      # electron_13 = super.electron_12;
     };
     ventoy-bin = cp "${nixpkgsLatest}/pkgs/tools/cd-dvd/ventoy-bin/default.nix";
     c4me = cp ./packages/c4me;

@@ -42,6 +42,19 @@ in {
     stremio
     midori # secondary browser
     easyeffects # efeitos de audio
+    blender
+    discord
+    feh
+    mendeley
+    obsidian
+    pipedream-cli
+    nix-option
+    nix-prefetch-scripts
+    obsidian
+    pkg
+    ripgrep
+    sshpass
+    xxd
   ] ;
 
   # programs.hello-world.enable = true;
