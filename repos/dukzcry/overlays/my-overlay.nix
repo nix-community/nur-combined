@@ -1,4 +1,4 @@
-{ unstable, config }:
+{ unstable, config, wireless-regdb_ }:
 
 self: super: with super.lib;
 rec {
@@ -17,4 +17,11 @@ rec {
     '';
   });
   wireless-regdb = if config.hardware.wifi.enable then wireless-regdb_ else super.wireless-regdb;
+  crda = if config.hardware.wifi.enable then (super.crda.override {
+    inherit wireless-regdb;
+  }).overrideAttrs (oldAttrs: rec {
+    makeFlags = oldAttrs.makeFlags ++ [
+      "PUBKEY_DIR=${wireless-regdb}/lib/crda/pubkeys"
+    ];
+  }) else super.crda;
 }
