@@ -1,4 +1,4 @@
-image: nixos/nix:latest
+image: nixos/nix:2.3.12
 
 variables:
   # Pinned 2021-08-09.
