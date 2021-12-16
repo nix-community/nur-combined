@@ -90,6 +90,7 @@ in reduceJoin [
       send2kindle = cp ./packages/custom/send2kindle.nix;
       retroarch = cp ./packages/custom/retroarch.nix;
       loader = cp ./packages/custom/loader/default.nix;
+      polybar = cp ./packages/custom/polybar.nix;
     };
     minecraft = cp ./packages/minecraft.nix;
     pkg = cp ./packages/pkg.nix;

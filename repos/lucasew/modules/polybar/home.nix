@@ -20,7 +20,7 @@ in {
       polybar bar -r &
       polybar hdmi -r &
     '';
-    package = pkgs.callPackage ./customPolybar.nix {};
+    package =  pkgs.custom.polybar;
     config = {
       "bar/hdmi" = {
         "monitor" = "HDMI-1";

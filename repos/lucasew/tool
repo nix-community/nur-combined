@@ -69,7 +69,7 @@ function buildNixOS {
 
 function buildHM {
     config=$1;shift
-    nix-build default.nix -A homeConfigurations.$config.activatePackage "$@"
+    nix-build default.nix -A homeConfigurations.$config.activationPackage "$@"
 }
 
 function enumeratePrebuildPaths {

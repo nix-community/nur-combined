@@ -5,6 +5,9 @@ builtins.attrValues {
     minecraft
     discord
   ;
+  inherit (pkgs.custom)
+    polybar
+  ;
   inherit (pkgs.idea)
     idea-ultimate # it sourcebuild the JDK
   ;
@@ -15,7 +18,6 @@ builtins.attrValues {
     wine7zip
     pinball
   ;
-  polybar = pkgs.callPackage ./modules/polybar/customPolybar.nix {};
   inherit (builtins.mapAttrs (k: v: v.config.system.build.toplevel) nixosConfigurations)
     acer-nix
     vps
