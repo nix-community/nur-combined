@@ -16,8 +16,8 @@ rec {
         --prefix PATH : "${super.lib.makeBinPath [ super.mpv ]}"
     '';
   });
-  wireless-regdb = if config.hardware.wifi.enable then wireless-regdb_ else super.wireless-regdb;
-  crda = if config.hardware.wifi.enable then (super.crda.override {
+  wireless-regdb = if (config.hardware.wifi.enable or false) then wireless-regdb_ else super.wireless-regdb;
+  crda = if (config.hardware.wifi.enable or false) then (super.crda.override {
     inherit wireless-regdb;
   }).overrideAttrs (oldAttrs: rec {
     makeFlags = oldAttrs.makeFlags ++ [
