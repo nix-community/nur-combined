@@ -31,7 +31,7 @@ in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules { unstable-path = unstable_; inherit unstable; inherit libidn; }; # NixOS modules
-  overlays = import ./overlays { inherit unstable config; }; # nixpkgs overlays
+  overlays = import ./overlays { inherit unstable config; wireless-regdb_ = wireless-regdb; }; # nixpkgs overlays
 
   k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf.nix { };
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };

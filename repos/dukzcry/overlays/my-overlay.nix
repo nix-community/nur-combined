@@ -16,4 +16,5 @@ rec {
         --prefix PATH : "${super.lib.makeBinPath [ super.mpv ]}"
     '';
   });
+  wireless-regdb = if config.hardware.wifi.enable then wireless-regdb_ else super.wireless-regdb;
 }

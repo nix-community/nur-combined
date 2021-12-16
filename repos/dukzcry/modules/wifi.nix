@@ -27,6 +27,5 @@ in {
       ${pkgs.wirelesstools}/bin/iwconfig ${cfg.interface} power off
       true
     '';
-    services.udev.packages = lib.mkForce [ crda ];
   };
 }
