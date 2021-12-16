@@ -75,6 +75,11 @@ let
         padding:          2px 0px 0px ;
     }
 
+    element-text, element-icon {
+        background-color: inherit;
+        text-color:       inherit;
+    }
+
     element {
         border:           0;
         padding:          1px ;
