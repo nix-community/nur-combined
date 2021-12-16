@@ -1,0 +1,358 @@
+#!/usr/bin/env fennel
+
+(local http-request (require :http.request))
+(local cjson (require :cjson))
+(local view (require :fennel.view))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; General utilities
+
+(fn basename [path]
+  "Get base name of a path."
+  (string.gsub path "(.*/)(.*)" "%2"))
+
+(fn io.slurp [file]
+  "Read all contents of a file."
+  (with-open [buf (assert (io.open file))]
+    (buf:read :*all)))
+
+(fn string.chomp [str]
+  "Remove trailing newlines: \\n, \\r, or \\r\\n."
+  (string.gsub str "[\r\n]+$" ""))
+
+(fn string.split [str sep]
+  "Split string by the separator into a table."
+  (let [regex (match sep
+                "" "."
+                x (.. "[^" x "]+")
+                _ "%S+")]
+    (icollect [chunk (str:gmatch regex)]
+      chunk)))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Nix helpers
+
+(local nix {})
+
+(fn nix.license-from-github-license [github-license]
+  "Translate GitHub API license to Nix license attr name in lib.licenses."
+  (let [map {:agpl-3.0 "agpl3Only"
+             :apache-2.0 "asl20"
+             :bsd-2-clause "bsd2"
+             :bsd-3-clause "bsd3"
+             :bsl-1.0 "boost"
+             :cc0-1.0 "cc0"
+             :epl-2.0 "epl20"
+             :gpl-2.0 "gpl2Only"
+             :gpl-3.0 "gpl3Only"
+             :lgpl-2.1 "lgpl21Only"
+             :mit "mit"
+             :mpl-2.0 "mpl20"
+             :unlicense "unlicense"}]
+    (. map github-license.key)))
+
+(fn nix.prefetch-url [url]
+  "Prefetch url and get its sha256 hash."
+  (let [cmd (string.format "nix-prefetch-url --type sha256 %s 2>/dev/null" url)
+        pipe (assert (io.popen cmd))
+        sha256 (string.chomp (assert (pipe:read :*all)))]
+    (pipe:close)
+    sha256))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; HTTP functions
+
+(local http {})
+
+(fn http.get [uri headers]
+  "Get contents of uri. The second value is its headers."
+  (let [request (http-request.new_from_uri uri)]
+    (each [key value (pairs (or headers {}))]
+      (request.headers:append key value))
+    (let [(headers stream) (assert (: request :go))
+          body (assert (stream:get_body_as_string))]
+     (if (= (headers:get ":status") :200)
+         (values body headers)
+         (error (view {: body : headers})))))) 
+
+;;; ------------------------------------------------------------------------------------------------
+;;; GitHub things
+
+(local github {})
+
+(fn github.get [query token]
+  "Get contents by query using GitHub REST API."
+  (let [token (assert (or token (os.getenv "GITHUB_TOKEN"))
+                      "GitHub API access token missing")
+        (body headers) (http.get (string.format "https://api.github.com/%s" query)
+                                 {:authorization (string.format "token %s" token)
+                                  :content-type "application/json"})]
+    (values (cjson.decode body) headers)))
+
+(fn github.null? [x]
+  "Check if content is null."
+  (or (not x)
+      (= x "")
+      (= (type x) :userdata))) ; #<userdata NULL>
+
+
+(set github.repo {:type "github"})
+
+(set github.repo.__index github.repo)
+
+(fn github.repo.new [full-name-or-owner name]
+  "Create object representing GitHub repo."
+  (let [info (let [full-name (if (not name)
+                                 full-name-or-owner
+                                 (string.format "%s/%s" full-name-or-owner name))]
+               (github.get (string.format "repos/%s" full-name)))
+        obj {:full-name info.full_name
+             :owner (pick-values 1 (string.match info.full_name "^([^/]+)/([^/]+)$"))
+             :name info.name
+             :default-branch info.default_branch
+             :description info.description
+             :fork? info.fork
+             ;; Better to show github page since homepage value may contain its owner's.
+             :homepage (string.format "https://github.com/%s" info.full_name)
+             :license (and (not (github.null? info.license))
+                           {:key info.license.key
+                            :name info.license.name})}]
+    (setmetatable obj github.repo)))
+
+(fn github.repo.get-recent-commit [self branch]
+  "Get recent commit of the branch."
+  (let [branch (or branch self.default-branch)
+        response (github.get (string.format "repos/%s/commits/%s" self.full-name branch))]
+    {: branch
+     :date response.commit.committer.date
+     :sha response.sha}))
+
+(fn github.repo.get-url [self sha]
+  "Get download url of the given hash."
+  (string.format "https://github.com/%s/archive/%s.tar.gz"
+                 self.full-name
+                 sha))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; GitLab things
+
+(local gitlab {})
+
+(fn gitlab.get [query]
+  "Get contents by query using GitLab REST API."
+  (let [(body headers) (http.get (string.format "https://gitlab.com/api/v4/%s" query)
+                                 {:content-type "application/json"})]
+    (values (cjson.decode body) headers)))
+
+(fn gitlab.escape-path-with-namespace [path-with-namespace]
+  "Replace / with %2F in the path with namespace."
+  (string.gsub path-with-namespace "/" "%%2F"))
+ 
+
+(set gitlab.project {:type "gitlab"})
+
+(set gitlab.project.__index gitlab.project)
+
+(fn gitlab.project.new [path-with-namespace-or-namespace path]
+  "Create object representing GitLab project."
+  (let [info (let [path-with-namespace
+                   (if (not path)
+                       path-with-namespace-or-namespace
+                       (string.format "%s/%s" path-with-namespace-or-namespace path))
+                   escaped-path-with-namespace
+                   (gitlab.escape-path-with-namespace path-with-namespace)]
+               (gitlab.get (string.format "projects/%s" escaped-path-with-namespace)))
+        obj {:full-name info.path_with_namespace
+             :owner info.namespace.path
+             :name info.path
+             :default-branch info.default_branch
+             :description info.description
+             :fork? nil
+             :homepage info.web_url
+             :license nil}]
+    (setmetatable obj gitlab.project)))
+
+(fn gitlab.project.get-recent-commit [self branch]
+  "Get recent commit of the branch."
+  (let [branch (or branch self.default-branch)
+        response (gitlab.get (string.format "projects/%s/repository/branches/%s"
+                                            (gitlab.escape-path-with-namespace self.full-name)
+                                            branch))]
+    {: branch
+     :date response.commit.committed_date
+     :sha response.commit.id}))
+
+(fn gitlab.project.get-url [self sha]
+  "Get download url of the given hash."
+  (string.format "https://gitlab.com/api/v4/projects/%s/repository/archive.tar.gz?sha=%s"
+                 (gitlab.escape-path-with-namespace self.full-name)
+                 sha))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Manifest spec parser
+
+(local manifest {})
+
+(fn manifest.parse-spec [spec]
+  "Parse manifest spec."
+  (match (type spec)
+    :string (match (string.match spec "^([^:]+/[^:]+)$") ; owner/repo
+              full-name {:type "github"
+                         : full-name}
+              _ (match (string.match spec "^([^:]+):([^:]+/[^:]+)$") ; type:owner/repo
+                  (repo-type full-name) {:type repo-type
+                                         : full-name}
+                  _ (match (string.match spec "^([^:]+/[^:]+):([^:]+)$") ; owner/repo:branch
+                      (full-name branch) {:type "github"
+                                          : full-name
+                                          : branch}
+                      _ (match (string.match spec "^([^:]+):([^:]+/[^:]+):([^:]+)$") ; type:owner/repo:branch
+                          (repo-type full-name branch) {:type repo-type
+                                                        : full-name
+                                                        : branch}
+                          _ (error "invalid manifest spec")))))
+    _ (error "undefined manifest spec")))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Vim plugin
+
+(local plugin {})
+
+(set plugin.__index plugin)
+
+(fn plugin.escape-name [name]
+  "Replace '.' with '-' in plugin name."
+  (string.gsub name "%." "-"))
+
+(fn plugin.get-date [timestamp]
+  "Get date (YYYY-MM-DD) from timestamp."
+  (string.match timestamp "^%d%d%d%d%-%d%d%-%d%d"))
+
+(fn plugin.new [spec]
+  "Create object representing Vim plugin."
+  (let [spec (manifest.parse-spec spec)
+        repo (match spec.type
+               :gitlab (gitlab.project.new spec.full-name)
+               :github (github.repo.new spec.full-name)
+               _ (error "undefined manifest spec"))
+        recent-commit (repo:get-recent-commit spec.branch)
+        url (repo:get-url recent-commit.sha)
+        attr-name (plugin.escape-name repo.name)
+        obj {: attr-name 
+             :pname attr-name
+             :version (plugin.get-date recent-commit.date)
+             : repo
+             :branch recent-commit.branch
+             : url
+             :sha256 (nix.prefetch-url url)}]
+     (setmetatable obj plugin)))
+
+(fn plugin.to-nixexpr [self]
+  "Generate snippet of Nix expression in an attr set."
+  (string.format
+    "  %s = buildVimPluginFrom2Nix {
+    pname = \"%s\";
+    version = \"%s\";
+    src = fetchurl {
+      url = \"%s\";
+      sha256 = \"%s\";
+    };
+    meta = with lib; {
+      description = \"%s\";
+      homepage = \"%s\";%s
+    };
+  };
+"
+    self.attr-name
+    self.pname
+    self.version
+    self.url
+    self.sha256
+    self.repo.description
+    self.repo.homepage
+    (let [license (and self.repo.license
+                       (nix.license-from-github-license self.repo.license))]
+      (if license
+          (string.format "\n      license = with licenses; [ %s ];" license)
+          ""))))
+
+(fn format-plugin [fmt plugin]
+  "Generate snippet of the given format."
+  (string.format
+    fmt
+    (match plugin.repo.type
+      :github plugin.repo.full-name
+      :gitlab (string.format "gitlab:%s" plugin.repo.full-name)
+      _ (error "undefined plugin repo type"))
+    plugin.repo.homepage
+    (if (= plugin.branch plugin.repo.default-branch)
+        ""
+        (string.format " [branch: `%s`]" plugin.branch))
+    plugin.version
+    plugin.attr-name))
+
+(fn plugin.to-markdown-bullet [self]
+  "Generate snippet of markdown bullet line."
+  (format-plugin
+    "- [%s](%s)%s (recent commit: %s, package name: `%s`)\n"
+    self))
+
+(fn plugin.to-markdown-table-row [self]
+  "Generate snippet of markdown table row."
+  (format-plugin
+    "| [%s](%s)%s | %s | `%s` |\n"
+    self))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Subcommands
+
+(fn command-update []
+  "Update manifested plugins."
+  (let [program-name (basename (. arg 0))
+        manifest (cjson.decode (io.slurp "manifest.json"))]
+    (table.sort manifest
+                (fn [left right]
+                  (< (string.gsub left "^[^/]+:" "")
+                     (string.gsub right "^[^/]+:" ""))))
+    (with-open [nix (io.open "pkgs/vim-plugins.nix" :w)
+                readme (io.open "README.md" :w)]
+      (nix:write "{ lib, buildVimPluginFrom2Nix, fetchurl }:\n\n{\n")
+      (readme:write (io.slurp "assets/README_header.md"))
+      (each [_ spec (ipairs manifest)]
+        (io.stderr:write (string.format "%s: update %s..." program-name spec))
+        (let [pkg (plugin.new spec)]
+          (nix:write (pkg:to-nixexpr))
+          (readme:write (pkg:to-markdown-table-row)))
+        (io.stderr:write "done\n"))
+      (nix:write "}\n")
+      (readme:write (io.slurp "assets/README_footer.md")))))
+
+(fn command-lint []
+  "Check if any plugin in manifest.json is already maintained in the official nixpkgs."
+  (let [program-name (basename (. arg 0))
+        local-manifest (cjson.decode (io.slurp "manifest.json"))
+        official-manifest (let [channel "nixpkgs-unstable"
+                                path "pkgs/misc/vim-plugins/vim-plugin-names"
+                                url (string.format
+                                      "https://raw.githubusercontent.com/NixOS/nixpkgs/%s/%s"
+                                      channel
+                                      path)
+                                (body header) (http.get url)]
+                            (collect [_ line (ipairs (body:split))]
+                              line true))]
+    (each [_ spec (ipairs local-manifest)]
+      (when (. official-manifest spec)
+        (io.stderr:write
+          (string.format "%s: %s is provided by official\n" program-name spec))))))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Main
+
+(fn main []
+  (let [command (. arg 1)]
+    (match command
+      :update (command-update)
+      :lint (command-lint)
+      _ (command-update))))
+
+(main)
