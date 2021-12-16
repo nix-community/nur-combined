@@ -85,6 +85,8 @@ rec {
   pybatsim-321 = pkgs.callPackage ./pkgs/pybatsim/pybatsim321.nix { inherit procset; };
   pybatsim = pybatsim-321;
 
+  python-mip = pkgs.callPackage ./pkgs/python-mip { };
+
   redox = pkgs.callPackage ./pkgs/redox { };
 
   remote_pdb = pkgs.callPackage ./pkgs/remote-pdb { };
