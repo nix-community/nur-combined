@@ -2,6 +2,7 @@
 pkgs.wrapEmacs {
   imports = [
     ./helm.nix
+    ./org-roam.nix
   ];
   magit.enable = true;
   evil = {
@@ -13,13 +14,18 @@ pkgs.wrapEmacs {
     nix.enable = true;
     markdown.enable = true;
   };
-  org.enable = true;
+  plugins = with pkgs.emacsPackages; [
+    org-roam
+  ];
+  org = {
+    enable = true;
+    roam = {
+      enable = true;
+      ack-v2 = true;
+    };
+  };
   # nogui = true;
   themes.selected = "wombat";
-  initEl.pre = ''
-  (menu-bar-mode 0)
-  (tool-bar-mode 0)
-  (setq make-backup-files nil)
-  '';
+  initEl.pos = builtins.readFile ./custom.el;
 }
 
