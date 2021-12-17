@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211212.185725";
+      version = "96.0buildid20211216.190150";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3880508/francais_language_pack-96.0buildid20211212.185725-fx.xpi";
-      sha256 = "246a8522383d949b2bb36654debb8f030b4ecd061a4d09d00567dc34bfce0ae1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3882587/francais_language_pack-96.0buildid20211216.190150-fx.xpi";
+      sha256 = "4c69fdb41910c3f79c03932c73ba783dc548497e69af95c738996d1393966c26";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -896,10 +896,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.7.1";
+      version = "10.8.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3878881/metamask-10.7.1-an+fx.xpi";
-      sha256 = "6adb61984b238d7cf72a151ecc73d643bd37e44bed78173b2aada65dd23d5ce7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3881289/metamask-10.8.0-an+fx.xpi";
+      sha256 = "10378174c0fb8e96c0394b13d17352399cfd2b5f75fc5291225fe92131e28a8f";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -922,10 +922,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.0.3";
+      version = "8.0.4";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3875285/firefox_multi_account_containers-8.0.3-fx.xpi";
-      sha256 = "0b8f113381feac334a8cfea7d574b91a2b285c99b864e51be296074c2a6a1b89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3881338/firefox_multi_account_containers-8.0.4-fx.xpi";
+      sha256 = "e1606931a955eddb130bad0bdf19761b47450bf531ab2680dac5ae2e7fe3c097";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -1065,10 +1065,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.5.0";
+      version = "6.6.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3860014/okta_browser_plugin-6.5.0-an+fx.xpi";
-      sha256 = "f5c5dbf2358be3e72e67f90de397e101334236e7c33f1599ee9f8fe3d23b0f1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3876348/okta_browser_plugin-6.6.0-an+fx.xpi";
+      sha256 = "2ecfde138282ba0322ce5fa4e8989b8f8377cfcdddc5c4ed4733ad7d864ac836";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1288,10 +1288,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.21.0";
+      version = "4.22.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3861388/react_developer_tools-4.21.0-fx.xpi";
-      sha256 = "376b4b28496a05ab9e35989d2893cd1e5e655d6b240c6979974d832ed6b2ecfe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3881363/react_developer_tools-4.22.0-fx.xpi";
+      sha256 = "e8d4b0f562501be5c09158ff76f0a694b6f00377352deababa065582da4259fe";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1399,10 +1399,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "4.3.1";
+      version = "4.4.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3871274/search_by_image-4.3.1-an+fx.xpi";
-      sha256 = "913af4cdea815b594604e7740e24e6543377b8a339fb68a8bed8f2a88d36fe98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3880898/search_by_image-4.4.0-an+fx.xpi";
+      sha256 = "e4ed7706722fb4fd8b5f7bb1cdabb3dfd6d8ffcb9c25cc536874136928b8cdc9";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -1719,10 +1719,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.16";
+      version = "3.8.17";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3866562/tree_style_tab-3.8.16-fx.xpi";
-      sha256 = "9cf29fdd9ed11f7fa43c0bf094a5fbf599c69c4568017478f1f57a934f30d18b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3881660/tree_style_tab-3.8.17-fx.xpi";
+      sha256 = "8df14ccac342815fa11cbc6e3ea0afb0d82891d23b7070a9a4677875d6a45867";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
