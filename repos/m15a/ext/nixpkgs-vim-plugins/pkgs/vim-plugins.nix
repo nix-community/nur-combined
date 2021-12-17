@@ -21,7 +21,7 @@
       sha256 = "0nl1znlcdyly9a2mak9wckdmsk8iqsg9wnq7hd0zraz6bsj3mzvm";
     };
     meta = with lib; {
-      description = "Syntax files for Bats (Bash Automated Testing System).";
+      description = "Syntax files for Bats (Bash Automated Testing System)";
       homepage = "https://github.com/aliou/bats.vim";
     };
   };
@@ -46,7 +46,7 @@
       sha256 = "0hyjlq3rkgry6jj53hayi39kv2qdy6afg6vfb19zan3r489bzsq1";
     };
     meta = with lib; {
-      description = "🔫 Bullets.vim is a Vim/NeoVim plugin for automated bullet lists.";
+      description = "🔫 Bullets.vim is a Vim/NeoVim plugin for automated bullet lists";
       homepage = "https://github.com/dkarter/bullets.vim";
     };
   };
@@ -129,11 +129,11 @@
     pname = "null-ls-nvim";
     version = "2021-12-16";
     src = fetchurl {
-      url = "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/9cff7d66bfa1ed8f4e2a4a4377af2bcaf176d914.tar.gz";
-      sha256 = "1mqdm5k3410ryv9h985g5vz9q16q93x2j6nj199r4yzbskd0hgvi";
+      url = "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/d5ad64919848c19e8d105e3620c7241747ee23cc.tar.gz";
+      sha256 = "1a07v8m5qb1pfx296wv711fi3m1a06nm6fajnmhmakadmwn3q4x1";
     };
     meta = with lib; {
-      description = "Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.";
+      description = "Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua";
       homepage = "https://github.com/jose-elias-alvarez/null-ls.nvim";
     };
   };
@@ -157,7 +157,7 @@
       sha256 = "1xg6d1wdz8dhhxnkpxvgw2vfadiv37x6lys7gq5pxciy3f4sjrxh";
     };
     meta = with lib; {
-      description = "A fork of IRON, Interactive Repl Over Neovim.";
+      description = "A fork of IRON, Interactive Repl Over Neovim";
       homepage = "https://github.com/mnacamura/iron.nvim";
       license = with licenses; [ bsd3 ];
     };
@@ -170,7 +170,7 @@
       sha256 = "0cfcx57rskxdg3yxcm1a1p39r6j3ghpji4xvjch4ryp65vz38iqz";
     };
     meta = with lib; {
-      description = "A colorscheme for Neovim inspired by Srcery.";
+      description = "A colorscheme for Neovim inspired by Srcery";
       homepage = "https://github.com/mnacamura/nvim-srcerite";
     };
   };
@@ -182,7 +182,7 @@
       sha256 = "1xiyjr66nhg9bv6nkvl90vas85i5qizlbbpqsss235qxx3yf9w9i";
     };
     meta = with lib; {
-      description = "Vim syntax highlighting for Fennel.";
+      description = "Vim syntax highlighting for Fennel";
       homepage = "https://github.com/mnacamura/vim-fennel-syntax";
       license = with licenses; [ mit ];
     };
@@ -195,7 +195,7 @@
       sha256 = "0iz6n1c8h6yijd40lzmfjlxa7fym3hh7b57yavfz39bgzihz24nj";
     };
     meta = with lib; {
-      description = "Vim syntax highlighting for R7RS Scheme and Gauche.";
+      description = "Vim syntax highlighting for R7RS Scheme and Gauche";
       homepage = "https://github.com/mnacamura/vim-r7rs-syntax";
       license = with licenses; [ mit ];
     };
@@ -208,7 +208,7 @@
       sha256 = "0cznply9bj8pbg9r32rdx04vdrmrn2vn38l47z5yni9p3cri92ky";
     };
     meta = with lib; {
-      description = "enhanced increment/decrement plugin for Neovim.";
+      description = "enhanced increment/decrement plugin for Neovim";
       homepage = "https://github.com/monaqa/dial.nvim";
       license = with licenses; [ mit ];
     };
@@ -221,7 +221,7 @@
       sha256 = "1w6f7cq4gnmxv5mj9hvsr857qy5bf16v6xr7snmhzvmhcjp3bsqh";
     };
     meta = with lib; {
-      description = "A telescope.nvim extension to search and paste bibtex entries into your TeX files.";
+      description = "A telescope.nvim extension to search and paste bibtex entries into your TeX files";
       homepage = "https://github.com/nvim-telescope/telescope-bibtex.nvim";
       license = with licenses; [ mit ];
     };

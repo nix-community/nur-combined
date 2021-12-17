@@ -1,4 +1,4 @@
-name: update-plugins
+name: Update Plugins
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
 jobs:
   update-plugins:
     runs-on: ubuntu-latest
-    name: update plugins
+    name: Update Plugins
     env:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     steps:
@@ -23,9 +23,9 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - run: nix run .#update-vim-plugins
+      - run: nix run .#update-vim-plugins -- update --all
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'maintenance: auto update plugins'
-          file_pattern: README.md pkgs/vim-plugins.nix
+          file_pattern: README.md pkgs/vim-plugins.nix .previous-update.json
           push_options: '--force'
