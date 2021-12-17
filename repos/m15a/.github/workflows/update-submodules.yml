@@ -1,0 +1,22 @@
+name: Update Submodules
+
+on:
+  schedule:
+    - cron: "55 5 * * 2,5"
+
+jobs:
+  update-submodules:
+    name: Update Submodules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          submodules: recursive
+      - run: |
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'maintenance: auto update submodules'
+          push_options: '--force'
