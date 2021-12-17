@@ -32,6 +32,7 @@ in reduceJoin [
 
     lib = {
       inherit reduceJoin;
+      jpg2png = cp ./lib/jpg2png.nix;
       maintainers = import "${nixpkgsLatest}/maintainers/maintainer-list.nix";
     };
     latest = import nixpkgsLatest {};

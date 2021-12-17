@@ -1,10 +1,14 @@
-{ global, config, pkgs, ... }:
+{ global, config, pkgs, lib, ... }:
 let
   inherit (pkgs) i3lock-color;
   inherit (global) wallpaper;
 
+  wallPng = pkgs.lib.jpg2png {
+    name = "wallpaper.jpg";
+    image = wallpaper;
+  };
   locker = pkgs.writeShellScript "locker" ''
-    ${i3lock-color}/bin/i3lock-color -B 5 --image ${toString wallpaper} --tiling --ignore-empty-password --show-failed-attempts --clock --pass-media-keys --pass-screen-keys --pass-volume-keys
+    ${i3lock-color}/bin/i3lock-color -B 5 --image ${wallPng} --tiling --ignore-empty-password --show-failed-attempts --clock --pass-media-keys --pass-screen-keys --pass-volume-keys
   '';
 in
 {

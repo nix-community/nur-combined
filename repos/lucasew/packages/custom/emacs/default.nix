@@ -3,8 +3,13 @@ pkgs.wrapEmacs {
   imports = [
     ./helm.nix
     ./org-roam.nix
+    ./lsp.nix
   ];
   magit.enable = true;
+  lsp = {
+    enable = true;
+    lsp-ui.enable = true;
+  };
   evil = {
     enable = true;
     escesc = true;
