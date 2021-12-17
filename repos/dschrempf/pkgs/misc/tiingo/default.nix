@@ -25,15 +25,15 @@ python3.pkgs.buildPythonPackage rec {
   #   hash = "sha256-zxVwbG84j1LIXUbvrg+hCSAKVx+VsMyTYQk5AsYvrAA=";
   # };
 
-  nativeBuildInputs = with python3.pkgs; [ pytest-runner requests ];
+  nativeBuildInputs = with python3.pkgs; [ pytest-runner ];
   # buildInputs = [ ];
-  # propagatedBuildInputs = [ ];
+  propagatedBuildInputs = with python3.pkgs; [ requests ];
 
   doCheck = false;
   pythonImportsCheck = [ pname ];
 
   meta = with lib; {
-    description = "";
+    description = "Financial data platform";
     homepage = "https://github.com/${owner}/${pname}";
     license = licenses.mit;
     maintainers = with maintainers; [ dschrempf ];
