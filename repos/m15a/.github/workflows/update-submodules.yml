@@ -13,9 +13,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           submodules: recursive
-      - run: |
-          git pull --recurse-submodules
-          git submodule update --remote --recursive
+      - run: git submodule update --remote --recursive
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'maintenance: auto update submodules'
