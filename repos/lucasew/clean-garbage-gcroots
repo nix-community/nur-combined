@@ -3,9 +3,9 @@
 for f in /nix/var/nix/gcroots/auto/*; do
     f="$(readlink $f)"
     if [[ "$f" =~ ^/home ]]; then
-        rm "$f"
+        rm "$f" || true
     fi
     if [[ "$f" =~ ^/tmp ]]; then
-        rm "$f"
+        rm "$f" || true
     fi
 done
