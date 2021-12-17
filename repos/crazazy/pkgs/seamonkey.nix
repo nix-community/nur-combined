@@ -2,8 +2,8 @@
 stdenv.mkDerivation {
   name = "seamonkey";
   src = fetchzip {
-    url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.10/linux-x86_64/en-US/seamonkey-2.53.10.en-US.linux-x86_64.tar.bz2";
-    sha256 = "1sgpyxyggjvmdfs9j7n6jfykgbjnq9awdbcx1hblp73x5rmg2y5w";
+    url = "https://archive.mozilla.org/pub/seamonkey/releases/2.53.10.1/linux-x86_64/en-US/seamonkey-2.53.10.1.en-US.linux-x86_64.tar.bz2";
+    sha256 = "0q70fjqidj272m49pds8vgzqikkhlwyq8i064bd9x04yww3v6qb4";
   };
   buildInputs = [
     xorg.libXdamage
