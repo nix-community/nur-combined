@@ -3,10 +3,10 @@
 {
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.19.1";
+    version = "0.19.2";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.1/Clash.for.Windows-0.19.1-x64-linux.tar.gz";
-      sha256 = "07ircbfldlq1k6rgcd83089zaw64f5pnkm4iqkm1w2wfcj1p6m9w";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.2/Clash.for.Windows-0.19.2-x64-linux.tar.gz";
+      sha256 = "1fhr36q6hw87nglavyski5sd7qnkzv2idhz8w8zgs93hnkga4fpv";
     };
   };
   clash-for-windows-icon = {
@@ -83,14 +83,14 @@
   };
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
-    version = "v0.1.14";
+    version = "v0.1.15";
     src = fetchgit {
       url = "https://github.com/janten/dpt-rp1-py";
-      rev = "v0.1.14";
+      rev = "v0.1.15";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0584xwf5nli94b060gysmv4civ83p4a88phpkyxaddlks0w7fc5h";
+      sha256 = "0kmhsx6n3wjzqcvfnpvdxiiwzxr51khgrl0kgaaas8hwq246l65d";
     };
   };
   icalingua = {
