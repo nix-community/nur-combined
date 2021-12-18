@@ -11,6 +11,10 @@
   "Get base name of a path."
   (string.gsub path "(.*/)(.*)" "%2"))
 
+(fn program-name []
+  "Get this program name."
+  (basename (. arg 0)))
+
 (fn io.slurp [file]
   "Read all contents of a file."
   (with-open [buf (assert (io.open file))]
@@ -29,6 +33,29 @@
                 _ "%S+")]
     (icollect [chunk (str:gmatch regex)]
       chunk)))
+
+(fn table.unique [tbl]
+  "Remove duplicated items in the sequencial table."
+  (let [items (collect [_ item (ipairs tbl)]
+                item true)]
+    (icollect [item _ (pairs items)]
+      item)))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; HTTP functions
+
+(local http {})
+
+(fn http.get [uri headers]
+  "Get contents of uri. The second value is its headers."
+  (let [request (http-request.new_from_uri uri)]
+    (each [key value (pairs (or headers {}))]
+      (request.headers:append key value))
+    (let [(headers stream) (assert (: request :go))
+          body (assert (stream:get_body_as_string))]
+     (if (= (headers:get ":status") :200)
+         (values body headers)
+         (error (view {: body : headers})))))) 
 
 ;;; ------------------------------------------------------------------------------------------------
 ;;; Nix helpers
@@ -60,34 +87,35 @@
     (pipe:close)
     sha256))
 
-;;; ------------------------------------------------------------------------------------------------
-;;; HTTP functions
-
-(local http {})
-
-(fn http.get [uri headers]
-  "Get contents of uri. The second value is its headers."
-  (let [request (http-request.new_from_uri uri)]
-    (each [key value (pairs (or headers {}))]
-      (request.headers:append key value))
-    (let [(headers stream) (assert (: request :go))
-          body (assert (stream:get_body_as_string))]
-     (if (= (headers:get ":status") :200)
-         (values body headers)
-         (error (view {: body : headers})))))) 
+(fn nix.get-nixpkgs-vim-plugins-manifest [channel]
+  "Fetch manifest of the official nixpkgs vim plugins."
+  (let [channel (or channel "nixpkgs-unstable")
+        path (string.format "/NixOS/nixpkgs/%s/pkgs/misc/vim-plugins/vim-plugin-names" channel)
+        url (string.format "https://raw.githubusercontent.com%s" path)
+        specs (: (http.get url) :split)]
+    ;; Return it as a map from spec to bool for later convenience.
+    (collect [_ spec (ipairs specs)]
+      spec true)))
 
 ;;; ------------------------------------------------------------------------------------------------
 ;;; GitHub things
 
-(local github {})
+(local github {:token-missing-warned false})
 
 (fn github.get [query token]
   "Get contents by query using GitHub REST API."
-  (let [token (assert (or token (os.getenv "GITHUB_TOKEN"))
-                      "GitHub API access token missing")
+  (let [token (or token
+                  (os.getenv "GITHUB_TOKEN")
+                  (when (not github.token-missing-warned)
+                    (io.stderr:write "GITHUB_TOKEN missing...")
+                    (set github.token-missing-warned true)
+                    nil))
         (body headers) (http.get (string.format "https://api.github.com/%s" query)
-                                 {:authorization (string.format "token %s" token)
-                                  :content-type "application/json"})]
+                                 (let [request-headers {:content-type "application/json"}]
+                                   (when token
+                                     (set request-headers.authorization
+                                          (string.format "token %s" token)))
+                                   request-headers))]
     (values (cjson.decode body) headers)))
 
 (fn github.null? [x]
@@ -111,7 +139,9 @@
              :owner (pick-values 1 (string.match info.full_name "^([^/]+)/([^/]+)$"))
              :name info.name
              :default-branch info.default_branch
-             :description info.description
+             :description (if (not (github.null? info.description))
+                              info.description
+                              "No description")
              :fork? info.fork
              ;; Better to show github page since homepage value may contain its owner's.
              :homepage (string.format "https://github.com/%s" info.full_name)
@@ -190,12 +220,51 @@
                  sha))
 
 ;;; ------------------------------------------------------------------------------------------------
+;;; awesome-neovim
+
+(local awesome-neovim {})
+
+(fn awesome-neovim.get-vim-plugins-manifest []
+  "Fetch vim plugins manifest from rockerBOO/awesome-neovim."
+  (let [path "/rockerBOO/awesome-neovim/main/README.md"
+        url (string.format "https://raw.githubusercontent.com%s" path)
+        readme (http.get url)
+        out []]
+    (var state :init)
+    (each [_ line (ipairs (readme:split "\n"))]
+      (when (and (= state :active)
+                 (line:match "^%s*-%s+%["))
+        ;; trim mini.nvim#foobar
+        (table.insert out (line:match "%[[^%]]+%]%(https://([^%)#]+)")))
+      (when (and (= state :init)
+                 (line:match "^## Plugin"))
+        (set state :active))
+      (when (and (= state :active)
+                 (line:match "^### Preconfigured Configuration"))
+        (set state :skip))
+      (when (and (= state :skip)
+                 (line:match "^### Keyinding"))
+        (set state :active))
+      (when (line:match "^## External")
+        (set state :done)))
+    (icollect [_ line (ipairs out)]
+      (let [(repo-type full-name) (line:match "^([^/]+)%.com/([^/]+/[^/]+)$")]
+        (match repo-type
+          :gitlab (string.format "%s:%s" repo-type full-name)
+          :github (if (full-name:match "feline%.nvim")
+                      "feline-nvim/feline.nvim" ; hot fix due to organization change
+                      full-name)
+          _ (error "undefined repo type"))))))
+
+;;; ------------------------------------------------------------------------------------------------
 ;;; Manifest spec parser
 
 (local manifest {})
 
+(set manifest.__index manifest)
+
 (fn manifest.parse-spec [spec]
-  "Parse manifest spec."
+  "Parse manifest individual spec."
   (match (type spec)
     :string (match (string.match spec "^([^:]+/[^:]+)$") ; owner/repo
               full-name {:type "github"
@@ -213,6 +282,64 @@
                                                         : branch}
                           _ (error "invalid manifest spec")))))
     _ (error "undefined manifest spec")))
+
+(fn manifest.lint [self]
+  "Sort specs, remove duplicated specs, etc."
+  (let [prev-specs (table.concat self.specs "\n")
+        specs (table.unique self.specs)]
+    (table.sort specs
+                (fn [left right]
+                  (< (string.gsub left "^[^/]+:" "")
+                     (string.gsub right "^[^/]+:" ""))))
+    (set self.specs specs)
+    (when (not= (table.concat self.specs "\n")
+                prev-specs)
+      (set self.changed true))))
+
+(fn manifest.changed? [self]
+  "Return true of manifest specs are changed since its loaded time."
+  (not= self.origin
+        (table.concat self.specs "\n")))
+
+(fn manifest.load [file]
+  "Load manifest from a file, defaulting to `manifest.txt`."
+  (let [file (or file "manifest.txt")
+        specs (icollect [spec (io.lines file)] spec)
+        obj {: file
+             : specs
+             :origin (table.concat specs "\n")}]
+    (setmetatable obj manifest)))
+
+(fn manifest.save [self]
+  "Save manifest to the file."
+  (when (self:changed?)
+    (with-open [buf (io.open self.file :w)]
+      (buf:write (table.concat self.specs "\n")))
+    (io.stderr:write (string.format "%s: manifest saved to %s\n" (program-name) self.file))))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Cache file
+
+(local cache {})
+
+(set cache.__index cache)
+
+(fn cache.load []
+  "Load cache of previous update."
+  (let [file ".previous-update.json"
+        (ok data) (pcall io.slurp file)
+        data (if ok
+                 (cjson.decode data)
+                 {})
+        obj {: file : data :changed? false}]
+    (setmetatable obj cache)))
+
+(fn cache.save [self]
+  "Save cache as JSON."
+  (when self.changed?
+    (with-open [buf (io.open self.file :w)]
+      (buf:write (cjson.encode self.data)))
+    (io.stderr:write (string.format "%s: cache saved to %s\n" (program-name) self.file))))
 
 ;;; ------------------------------------------------------------------------------------------------
 ;;; Vim plugin
@@ -317,59 +444,90 @@
 
 (fn command-update [...]
   "Update manifested plugins."
-  (let [program-name (basename (. arg 0))
-        args (collect [_ a (ipairs [...])]
-               a true)
-        update-all (. args "--all")
-        manifest (cjson.decode (io.slurp "manifest.json"))
-        cache (let [(ok contents) (pcall io.slurp ".previous-update.json")]
-                (if ok (cjson.decode contents)
-                    {}))]
-    (table.sort manifest
-                (fn [left right]
-                  (< (string.gsub left "^[^/]+:" "")
-                     (string.gsub right "^[^/]+:" ""))))
+  (let [args (collect [_ a (ipairs [...])] a true)
+        update-all? (. args "--all")
+        %manifest (manifest.load)
+        %cache (cache.load)]
     (with-open [nix (io.open "pkgs/vim-plugins.nix" :w)
-                readme (io.open "README.md" :w)
-                previous-update (io.open ".previous-update.json" :w)]
+                readme (io.open "README.md" :w)]
       (nix:write "{ lib, buildVimPluginFrom2Nix, fetchurl }:\n\n{\n")
       (readme:write (io.slurp "assets/README_header.md"))
-      (each [_ spec (ipairs manifest)]
-        (if (or update-all
-                (not (. cache spec)))
-            (do (io.stderr:write (string.format "%s: update %s..." program-name spec))
+      (each [_ spec (ipairs %manifest.specs)]
+        (if (or update-all?
+                (not (. %cache :data spec)))
+            (do (io.stderr:write (string.format "%s: update %s..." (program-name) spec))
                 (let [pkg (plugin.new spec)
                       nixexpr (pkg:to-nixexpr)
                       mditem (pkg:to-markdown-table-row)]
                   (nix:write nixexpr)
                   (readme:write mditem)
-                  (tset cache spec {: nixexpr : mditem}))
+                  (tset %cache.data spec {: nixexpr : mditem}))
+                (set %cache.changed? true)
                 (io.stderr:write "done\n"))
-            (do (io.stderr:write (string.format "%s: skip %s..." program-name spec)) 
-                (nix:write (. cache spec :nixexpr))
-                (readme:write (. cache spec :mditem))
+            (do (io.stderr:write (string.format "%s: skip %s..." (program-name) spec)) 
+                (nix:write (. %cache :data spec :nixexpr))
+                (readme:write (. %cache :data spec :mditem))
                 (io.stderr:write "used previous result\n"))))
       (nix:write "}\n")
-      (readme:write (io.slurp "assets/README_footer.md"))
-      (previous-update:write (cjson.encode cache)))))
+      (readme:write (io.slurp "assets/README_footer.md")))
+    (%cache:save)
+    (%manifest:lint)
+    (%manifest:save)))
 
-(fn command-lint []
-  "Check if any plugin in manifest.json is already maintained in the official nixpkgs."
-  (let [program-name (basename (. arg 0))
-        local-manifest (cjson.decode (io.slurp "manifest.json"))
-        official-manifest (let [channel "nixpkgs-unstable"
-                                path "pkgs/misc/vim-plugins/vim-plugin-names"
-                                url (string.format
-                                      "https://raw.githubusercontent.com/NixOS/nixpkgs/%s/%s"
-                                      channel
-                                      path)
-                                (body header) (http.get url)]
-                            (collect [_ line (ipairs (body:split))]
-                              line true))]
-    (each [_ spec (ipairs local-manifest)]
-      (when (. official-manifest spec)
-        (io.stderr:write
-          (string.format "%s: %s is provided by official\n" program-name spec))))))
+(fn command-lint [...]
+  "Check if any plugin in the manifest is already maintained in the official nixpkgs."
+  (let [args (collect [_ a (ipairs [...])] a true)
+        force? (. args "--force")
+        %manifest (manifest.load)
+        specs []
+        official-manifest (nix.get-nixpkgs-vim-plugins-manifest)
+        whitelist (collect [_ spec (ipairs (. (manifest.load "whitelist.txt")
+                                              :specs))]
+                    spec true)
+        blacklist (collect [_ spec (ipairs (. (manifest.load "blacklist.txt")
+                                              :specs))]
+                    spec true)]
+    (each [_ spec (ipairs %manifest.specs)]
+      (if (. blacklist spec)
+          (do (io.stderr:write
+                (string.format "%s: %s is in the blacklist\n" (program-name) spec))
+              (when (not force?)
+                (table.insert specs spec)))
+          (and (not (. whitelist spec))
+               (. official-manifest spec))
+          (do (io.stderr:write
+                (string.format "%s: %s is provided by official\n" (program-name) spec))
+              (when (not force?)
+                (table.insert specs spec)))
+          (table.insert specs spec)))
+    (set %manifest.specs specs)
+    (%manifest:lint)
+    (%manifest:save)))
+
+(fn command-awesome-neovim []
+  "Fetch awesome-neovim vim plugins manifest."
+  (let [%manifest (manifest.load)
+        %manifest-specs (collect [_ spec (ipairs %manifest.specs)]
+                          spec true)
+        official-manifest (nix.get-nixpkgs-vim-plugins-manifest)
+        awesome-neovim-manifest (awesome-neovim.get-vim-plugins-manifest)
+        whitelist (collect [_ spec (ipairs (. (manifest.load "whitelist.txt")
+                                              :specs))]
+                    spec true)
+        blacklist (collect [_ spec (ipairs (. (manifest.load "blacklist.txt")
+                                              :specs))]
+                    spec true)]
+    (io.stderr:write (string.format "%s: search for new plugins from awesome-neovim\n"
+                                    (program-name)))
+    (each [_ spec (ipairs awesome-neovim-manifest)]
+      (when (and (not (. blacklist spec))
+                 (not (. %manifest-specs spec))
+                 (or (. whitelist spec)
+                     (not (. official-manifest spec))))
+        (table.insert %manifest.specs spec)
+        (io.stderr:write (string.format "%s: add %s\n" (program-name) spec))))
+    (%manifest:lint)
+    (%manifest:save)))
 
 ;;; ------------------------------------------------------------------------------------------------
 ;;; Main
@@ -377,7 +535,8 @@
 (fn main []
   (match arg
     [:update & args] (command-update (unpack args))
-    [:lint & _] (command-lint)
+    [:lint & args] (command-lint (unpack args))
+    [:awesome-neovim & _] (command-awesome-neovim)
     args (command-update (unpack args))
     _ (error "undefined subcommand")))
 

@@ -1,18 +1,13 @@
-name: Update Plugins
+name: Fetch New Plugins from Awesome Neovim
 
 on:
-  push:
-    paths:
-      - manifest.txt
-    branches:
-      - main
   schedule:
-    - cron: "44 4 * * 2,5"
+    - cron: "44 4 * * 1,4"
 
 jobs:
   update-plugins:
     runs-on: ubuntu-latest
-    name: Update Plugins
+    name: Fetch New Plugins from Awesome Neovim
     env:
       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     steps:
@@ -23,9 +18,9 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - run: nix run .#update-vim-plugins -- update --all
+      - run: nix run .#update-vim-plugins -- awesome-neovim
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'maintenance: auto update plugins'
-          file_pattern: README.md pkgs/vim-plugins.nix .previous-update.json
+          commit_message: 'maintenance: auto fetch awesome neovim plugins'
+          file_pattern: manifest.txt
           push_options: '--force'

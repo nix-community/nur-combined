@@ -5,6 +5,37 @@ final: prev:
 let
   overrides = self: super:
   {
+    alpha-nvim = super.alpha-nvim.overrideAttrs (old: {
+      meta = old.meta // ( with lib; {
+        broken = true;
+      });
+    });
+    calltree-nvim = super.calltree-nvim.overrideAttrs (old: {
+      meta = old.meta // ( with lib; {
+        broken = true;
+      });
+    });
+    highlight-current-n-nvim = super.highlight-current-n-nvim.overrideAttrs (old: {
+      meta = old.meta // ( with lib; {
+        broken = true;
+      });
+    });
+    vacuumline-nvim = super.vacuumline-nvim.overrideAttrs (old: {
+      meta = old.meta // ( with lib; {
+        broken = true;
+      });
+    });
+    zen-mode-nvim = super.zen-mode-nvim.overrideAttrs (old: {
+      meta = old.meta // ( with lib; {
+        broken = true;
+      });
+    });
+    vgit-nvim = super.vgit-nvim.overrideAttrs (old: {
+      meta = old.meta // ( with lib; {
+        broken = true;
+      });
+    });
+
     feline-nvim = super.feline-nvim.overrideAttrs (old: {
       patches = (old.patches or []) ++ [
         # https://github.com/famiu/feline.nvim/pull/179

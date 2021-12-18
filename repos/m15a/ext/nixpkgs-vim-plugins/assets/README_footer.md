@@ -3,9 +3,9 @@
 
 ### How to add a new plugin
 
-#### 1. Add a new entry to `manifest.json`
+#### 1. Add a new entry to `manifest.txt`
 
-In `manifest.json`, an entry is specified by one of the following forms:
+In `manifest.txt`, an entry is specified by one of the following forms:
 
 - `owner/repo`: a GitHub repo with default branch (typically `main` or `master`).
 - `github:owner/repo`: again, a GitHub repo with default branch.
@@ -14,9 +14,17 @@ In `manifest.json`, an entry is specified by one of the following forms:
 - `github:owner/repo:branch`: again, a GitHub repo with a specific branch.
 - `gitlab:owner/repo:branch`: a GitLab repo with a specific branch.
 
+After adding your entry, run:
+
+```
+nix run .#update-vim-plugins -- lint
+```
+
+So that entries are sorted and duplicated ones are removed.
+
 #### 2. Update Nix expression and README
 
-Run this:
+Next, run this:
 
 ```
 nix run .#update-vim-plugins
@@ -33,10 +41,10 @@ In `overrides.nix`, you see something like
     # ...
 
     lspactions = super.lspactions.overrideAttrs (_: {
-      dependencies = with self; [
+      dependencies = with final.vimPlugins; [
         plenary-nvim
         popup-nvim
-        astronauta-nvim
+        self.astronauta-nvim
       ];
     });
 
@@ -50,6 +58,8 @@ Add your overrides here if needed.
 
 Anyone is welcome to add another plugin to this repo.
 Feel free to create a PR with your new plugins!
+In that case, make sure you commit only `manifest.txt` and `overrides.nix` if changed.
+Other files will be updated by GitHub Action.
 
 ## License
 
