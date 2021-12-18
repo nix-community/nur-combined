@@ -19,4 +19,5 @@ rec {
   wifi = ./wifi.nix;
   rkn = import ./rkn.nix libidn;
   edgevpn = ./edgevpn.nix;
+  cjdns = ./cjdns.nix;
 }
