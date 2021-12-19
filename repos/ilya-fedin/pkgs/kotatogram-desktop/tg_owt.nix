@@ -13,8 +13,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "desktop-app";
     repo = "tg_owt";
-    rev = "d578c760dc6f1ae5f0f3bb5317b0b2ed04b79138";
-    sha256 = "sha256-vBwWtiMX3STy6dmX/3nuPlnoEbkmdl2Ka0kOVS0omYo=";
+    rev = "429a6869e4a164e0aad2d8657db341d56f9a6a6f";
+    sha256 = "sha256-aBN2V71ffpJ8N223zqmRBVsjcJ9RrB3QnJcNhhXLZ+A=";
     fetchSubmodules = true;
   };
 
