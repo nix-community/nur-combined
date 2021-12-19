@@ -127,7 +127,16 @@
       };
   } // inputs.flake-utils.lib.eachDefaultSystem (system: {
     packages =
-      inputs.flake-utils.lib.flattenTree
-        (import ./pkgs { pkgs = import nixpkgs { inherit system; }; });
+      (
+        inputs.flake-utils.lib.flattenTree
+        (import ./pkgs { pkgs = import nixpkgs { inherit system; }; })
+      ) // {
+        emacsPgtkGcc = (
+          import nixpkgs {
+            inherit system;
+            overlays = [ inputs.emacs-overlay.overlay ];
+          }
+        ).emacsPgtkGcc;
+      };
   });
 }
