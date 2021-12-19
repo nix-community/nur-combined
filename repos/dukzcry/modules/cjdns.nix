@@ -20,7 +20,7 @@ in {
     '';
     interface = mkOption {
       type = types.str;
-      default = "tun1";
+      default = "cjdns0";
     };
     address = mkOption {
       type = types.anything;
@@ -33,9 +33,17 @@ in {
     };
     postStart = mkOption {
       type = types.str;
+      example = ''
+        ip route add dev ${config.programs.cjdns.interface} 10.0.0.0/24
+        echo -e "nameserver 10.0.0.2\nsearch local" | resolvconf -a ${config.programs.cjdns.interface}
+      '';
     };
     preStop = mkOption {
       type = types.str;
+      example = ''
+        ip route del dev ${config.programs.cjdns.interface} 10.0.0.0/24
+        resolvconf -d ${config.programs.cjdns.interface}
+      '';
     };
   };
 
@@ -83,9 +91,9 @@ in {
           };
         };
       };
-      systemd.services.cjdns.path = with pkgs; [ iproute2 ];
     })
     (mkIf server {
+      systemd.services.cjdns.path = with pkgs; [ iproute2 ];
       systemd.services.cjdns.postStart = ''
         set +e
         ip addr add dev ${cfg.interface} ${ip4.toCIDR cfg.address}
@@ -100,6 +108,7 @@ in {
       '';
     })
     (mkIf client {
+      systemd.services.cjdns.path = with pkgs; [ iproute2 openresolv ];
       systemd.services.cjdns.postStart = ''
         set +e
         ${cfg.postStart}

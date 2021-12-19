@@ -11,7 +11,7 @@ in {
     enable = mkEnableOption "Обход блокировок роскомпозора";
     interface = mkOption {
       type = types.str;
-      default = "tun0";
+      default = "rkn0";
     };
     address = mkOption {
       type = types.anything;
