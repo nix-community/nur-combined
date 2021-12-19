@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211216.190150";
+      version = "95.0.2buildid20211218.203254";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3882587/francais_language_pack-96.0buildid20211216.190150-fx.xpi";
-      sha256 = "4c69fdb41910c3f79c03932c73ba783dc548497e69af95c738996d1393966c26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883384/francais_language_pack-95.0.2buildid20211218.203254-fx.xpi";
+      sha256 = "14df0fc23ad173257b6138f136edbf4dfe9db2870c2277ba8fcfd92ce7e26c55";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -841,10 +841,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.19";
+      version = "2.6.20";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3874095/localcdn-2.6.19-an+fx.xpi";
-      sha256 = "a5e436f92e647b13b5af963f1dc19cdeed128bf8fade0de1f8099f3aadcf7e01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883212/localcdn-2.6.20-an+fx.xpi";
+      sha256 = "61f37166809ca894245068e1a7ecd5ec31dc25f23bfb745edf6e354843d44817";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
