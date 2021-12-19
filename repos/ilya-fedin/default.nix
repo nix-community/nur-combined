@@ -64,6 +64,7 @@ rec {
   silver = callPackage ./pkgs/silver {};
 
   virtualboxWithExtpack = virtualbox.override {
+    enableHardening = true;
     extensionPack = virtualboxExtpack;
   };
 
