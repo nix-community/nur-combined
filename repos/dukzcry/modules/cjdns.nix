@@ -83,12 +83,12 @@ in {
           };
           ipTunnel = {
             allowedConnections = optionals server (func.foldmap
-              { addr = ip4.next cfg.address; }
+              { _addr = ip4.next cfg.address; }
               []
-              (elem: prev: {
+              (elem: prev: rec {
+                _addr = ip4.next prev._addr;
                 publicKey = elem;
-                ip4Address = addr.address;
-                addr = ip4.next cfg.address;
+                ip4Address = prev._addr.address;
                 ip4Prefix = cfg.address.prefixLength;
               })
               cfg.keys
