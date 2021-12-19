@@ -1,20 +1,21 @@
-{ stdenv,
-  lib,
-  fetchFromGitHub,
-  ant,
-  jdk8,
-  jre8,
-  makeWrapper }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, ant
+, jdk8
+, jre8
+, makeWrapper
+}:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "beast2";
-  version = "2.6.5";
+  version = "2.6.6";
 
   src = fetchFromGitHub {
     owner = "CompEvol";
-    repo = "beast2";
-    rev = "v2.6.5";
-    sha256 = "sha256-3Uwz0rV51/2332MLf0wGIRpFF6EHXyD+AmPYOOEqmV4=";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-kmo0C55holJthZwB6F1xJg8R0H3oeZqZ9BD6ASmiGbQ=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];

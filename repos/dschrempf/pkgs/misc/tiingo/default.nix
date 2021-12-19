@@ -34,7 +34,7 @@ python3.pkgs.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Financial data platform";
-    homepage = "https://github.com/${owner}/${pname}";
+    homepage = "https://github.com/${owner}/${pname}-python";
     license = licenses.mit;
     maintainers = with maintainers; [ dschrempf ];
   };

@@ -7,7 +7,7 @@
 
 let
   pname = "finplot";
-  version = "1.7";
+  version = "1.8";
   owner = "highfestiva";
 in
 python3.pkgs.buildPythonPackage rec {
@@ -18,7 +18,7 @@ python3.pkgs.buildPythonPackage rec {
     inherit owner;
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-ixDCbMDMDf3ZPQcmQ1ap5vRetIm5vMgAirsFzJObTX4=";
+    hash = "sha256-MzS9ogRysx50DDHnV/tSKrm6xG3f3n746oSienX5mX4=";
   };
 
   nativeBuildInputs = [ wrapQtAppsHook ];

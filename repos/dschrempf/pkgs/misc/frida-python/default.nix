@@ -8,14 +8,14 @@
 
 let
   pname = "frida-python";
-  version = "15.0.13";
+  version = "15.1.14";
   namePypi = "frida";
   pythonVersion = "38";
   base = "https://files.pythonhosted.org/packages/${python3.pythonVersion}/${builtins.substring 0 1 namePypi}/${namePypi}";
   eggs = {
     x86_64-linux = fetchurl {
       url = "${base}/${namePypi}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
-      sha256 = "sha256-fg7tEY1MmVEr/TC3eiD9tGcj7P+o872KRd5sAXFwnRk=";
+      sha256 = "sha256-hagaTDBObCSsLKt3AdLOZtmAdBfCg+d7VH6tz2jo/Rs=";
     };
   };
 in
@@ -26,7 +26,7 @@ python3.pkgs.buildPythonPackage rec {
   src = python3.pkgs.fetchPypi {
     pname = namePypi;
     inherit version;
-    sha256 = "sha256-wOra4E4db9HqAy3VGWdksHcN85rvaEqbv1k1kRtqC1Q=";
+    sha256 = "sha256-tEzu4GdEt8XhU9OvqD8fDsPh1+bxwpGVQiHwY8iMrZU=";
   };
 
   egg = eggs.${stdenv.hostPlatform.system}

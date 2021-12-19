@@ -1,10 +1,11 @@
-{ stdenv,
-  lib,
-  fetchFromGitHub,
-  ant,
-  jdk8,
-  jre8,
-  makeWrapper }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, ant
+, jdk8
+, jre8
+, makeWrapper
+}:
 
 stdenv.mkDerivation {
   pname = "beast";
@@ -13,8 +14,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "beast-dev";
     repo = "beast-mcmc";
-    rev = "v1.10.5pre_thorney_v0.1.1";
-    sha256 = "sha256-h0cacdVKJ8++Tus3kQVoz18HIIHUOx6DEr/XaY0pIn0=";
+    rev = "v1.10.5pre_thorney_v0.1.2";
+    sha256 = "sha256-pL7spytNCB0zIN1B1ugMVBrUoEBr/dMzld2hvlQ0S5A=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];
