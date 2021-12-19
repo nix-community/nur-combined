@@ -111,6 +111,7 @@ in {
         true
       '';
       systemd.services.cjdns.wantedBy = mkForce [ ];
+      systemd.services.cjdns.partOf = [ "sleep.target" ];
     })
   ];
 }
