@@ -99,7 +99,7 @@ let
   ver = "1.4.6";
 in stdenv.mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "${ver}-1";
+  version = "${ver}-2";
 
   src = fetchFromGitHub {
     owner = "kotatogram";
@@ -112,6 +112,7 @@ in stdenv.mkDerivation rec {
   patches = lib.optionals stdenv.isDarwin [
     # let it build with nixpkgs 10.12 sdk
     ./kotato-10.12-sdk.patch
+    ./shortcuts-binary-path.patch
     ./0001-Add-an-option-to-hide-messages-from-blocked-users-in.patch
   ];
 
