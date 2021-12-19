@@ -6,7 +6,7 @@ let
   server = cfg.enable && cfg.server;
   client = cfg.enable && !cfg.server;
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
-  ip2 = ip4.next cfg.address;
+  func = pkgs.nur.repos.dukzcry.lib.func;
 in {
   options.programs.cjdns = {
     enable = mkEnableOption ''
@@ -28,8 +28,8 @@ in {
         ip4.fromString "10.0.2.1/24"
       '';
     };
-    key = mkOption {
-      type = types.str;
+    keys = mkOption {
+      type = types.listOf types.str;
     };
     postStart = mkOption {
       type = types.str;
@@ -82,12 +82,18 @@ in {
             tunDevice = cfg.interface;
           };
           ipTunnel = {
-            allowedConnections = optionals server [{
-              publicKey = cfg.key;
-              ip4Address = ip2.address;
-              ip4Prefix = ip2.prefixLength;
-            }];
-            outgoingConnections = optional client cfg.key;
+            allowedConnections = optionals server (func.foldmap
+              { addr = ip4.next cfg.address; }
+              []
+              (elem: prev: {
+                publicKey = elem;
+                ip4Address = addr.address;
+                addr = ip4.next cfg.address;
+                ip4Prefix = cfg.address.prefixLength;
+              })
+              cfg.keys
+            );
+            outgoingConnections = optionals client cfg.keys;
           };
         };
       };
