@@ -105,7 +105,7 @@ in stdenv.mkDerivation rec {
     owner = "kotatogram";
     repo = "kotatogram-desktop";
     rev = "k${ver}";
-    sha256 = "jcOLqOhIJfPA/0e0ooyeJ9xaNGelTboOgud7Rz0r+7U=";
+    sha256 = "sha256-KR81nihxAhfJXfAwV83mXIGp0afvLhS/mAgveG0ePQA=";
     fetchSubmodules = true;
   };
 
@@ -217,6 +217,7 @@ in stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DTDESKTOP_API_TEST=ON"
     "-DDESKTOP_APP_USE_PACKAGED_FONTS=OFF"
+    "-DDESKTOP_APP_QT6=OFF"
   ];
 
   installPhase = lib.optionalString stdenv.isDarwin ''
