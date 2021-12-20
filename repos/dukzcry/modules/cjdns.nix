@@ -85,9 +85,9 @@ in {
             allowedConnections = optionals server (lists.foldmap
               { _addr = ip4.next cfg.address; }
               []
-              (elem: prev: rec {
+              (key: prev: rec {
                 _addr = ip4.next prev._addr;
-                publicKey = elem;
+                publicKey = key;
                 ip4Address = prev._addr.address;
                 ip4Prefix = cfg.address.prefixLength;
               })
