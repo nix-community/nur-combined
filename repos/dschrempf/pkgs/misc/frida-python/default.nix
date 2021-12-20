@@ -13,6 +13,7 @@ let
   pythonVersion = "38";
   base = "https://files.pythonhosted.org/packages/${python3.pythonVersion}/${builtins.substring 0 1 namePypi}/${namePypi}";
   eggs = {
+    # TODO: Avoid direct usage of 'system'.
     x86_64-linux = fetchurl {
       url = "${base}/${namePypi}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
       sha256 = "sha256-hagaTDBObCSsLKt3AdLOZtmAdBfCg+d7VH6tz2jo/Rs=";
