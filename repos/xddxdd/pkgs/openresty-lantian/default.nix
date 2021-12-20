@@ -222,6 +222,5 @@ stdenv.mkDerivation rec {
     description = "OpenResty with Lan Tian modifications";
     homepage = "https://openresty.org";
     license = licenses.bsd2;
-    broken = !stdenv.hostPlatform.isx86_64;
   };
 }

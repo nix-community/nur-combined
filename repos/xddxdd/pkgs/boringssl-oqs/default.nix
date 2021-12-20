@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "boringssl-oqs";
-  version = "2021-08-snapshot";
+  version = "2021-12-rc1";
 
   src = fetchFromGitHub {
     owner = "open-quantum-safe";
     repo = "boringssl";
-    rev = "935d651e73a8f1e74b80dcbddede175f46ab216d";
-    sha256 = "03648hc4if12imrsahrlsw5s2x821hl2jxk7vs7cdjjmlw0h97r6";
+    rev = "OQS-BoringSSL-snapshot-2021-12-rc1";
+    sha256 = "sha256-Z9fdJARedL4LiVhTjg0Zz+o2jGMZOv8ScoaW5NATG3I=";
   };
 
-  vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
+  vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
 
   enableParallelBuilding = true;
 
@@ -30,11 +30,6 @@ buildGoModule rec {
     liboqs
   ];
 
-  cmakeFlags = [
-    "-GNinja"
-    "-DCMAKE_BUILD_TYPE=Release"
-  ];
-
   preBuild = ''
     export HOME=$TMP
     ln -s ${liboqs} oqs
@@ -44,6 +39,9 @@ buildGoModule rec {
   buildPhase = ''
     ninjaBuildPhase
   '';
+
+  # CMAKE_OSX_ARCHITECTURES is set to x86_64 by Nix, but it confuses boringssl on aarch64-linux.
+  cmakeFlags = [ "-GNinja" ] ++ lib.optionals (stdenv.isLinux) [ "-DCMAKE_OSX_ARCHITECTURES=" ];
 
   installPhase = ''
     mkdir -p $out/bin $out/include $out/lib
@@ -58,6 +56,5 @@ buildGoModule rec {
     description = "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs";
     homepage    = "https://openquantumsafe.org";
     license = with licenses; [ openssl isc mit bsd3 ];
-    broken = !stdenv.hostPlatform.isx86_64;
   };
 }
