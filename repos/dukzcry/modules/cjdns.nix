@@ -6,7 +6,7 @@ let
   server = cfg.enable && cfg.server;
   client = cfg.enable && !cfg.server;
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
-  func = pkgs.nur.repos.dukzcry.lib.func;
+  lists = pkgs.nur.repos.dukzcry.lib.lists;
 in {
   options.programs.cjdns = {
     enable = mkEnableOption ''
@@ -82,7 +82,7 @@ in {
             tunDevice = cfg.interface;
           };
           ipTunnel = {
-            allowedConnections = optionals server (func.foldmap
+            allowedConnections = optionals server (lists.foldmap
               { _addr = ip4.next cfg.address; }
               []
               (elem: prev: rec {

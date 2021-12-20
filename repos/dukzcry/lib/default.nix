@@ -1,7 +1,10 @@
 { pkgs }:
 
 with pkgs.lib; {
-  func = rec {
+  # Add your library functions here
+  #
+  # hexint = x: hexvals.${toLower x};
+  lists = rec {
     foldmap = seed: acc: func: list:
       let
         acc' = if acc == [] then seed else (last acc);
@@ -10,9 +13,6 @@ with pkgs.lib; {
       in if list == [] then acc
          else acc ++ (foldmap seed [(func x acc')] func xs);
   };
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
   # https://github.com/NixOS/nixpkgs/issues/36299
   ip4 = rec {
     pow = n : i :
@@ -56,15 +56,15 @@ with pkgs.lib; {
     fromIPString = str : prefixLength :
       fromString "${str}/${toString prefixLength}";
 
-    network_ = x: (network x).address;
+    network' = x: (network x).address;
     networkCIDR = x: toCIDR (network x);
-    netmask_ = x: (netmask x).address;
-    wildcard_ = x: (wildcard x).address;
-    broadcast_ = x: (broadcast x).address;
-    first_ = x: (first x).address;
-    next_ = x: (next x).address;
-    prev_ = x: (prev x).address;
-    last_ = x: (last x).address;
+    netmask' = x: (netmask x).address;
+    wildcard' = x: (wildcard x).address;
+    broadcast' = x: (broadcast x).address;
+    first' = x: (first x).address;
+    next' = x: (next x).address;
+    prev' = x: (prev x).address;
+    last' = x: (last x).address;
 
     network = addr :
       let

@@ -95,7 +95,7 @@ in {
           ${pkgs.badvpn}/bin/badvpn-tun2socks \
             --tundev ${cfg.interface} \
             --netif-ipaddr ${router.address} \
-            --netif-netmask ${ip4.netmask_ cfg.address} \
+            --netif-netmask ${ip4.netmask' cfg.address} \
             --socks-server-addr ${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port}
         '';
       };
