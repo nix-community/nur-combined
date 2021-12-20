@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchgit, makeWrapper, bash, mpv, curl, ffmpeg }:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, bash, mpv, curl, ffmpeg }:
 
 # https://nixos.wiki/wiki/Shell_Scripts
 
@@ -6,10 +6,11 @@ stdenv.mkDerivation rec {
   name = "ani-cli";
   version ="1.0";
 
-  src = fetchgit {
-    url="https://github.com/pystardust/ani-cli";
-    rev="34748e71a58feab8b57b2ac3de700c30a55430cc";
-    sha256="0i6cba36c64ghs192fg5r7753bb05i8ckqvnrmb858lwqip28sc3";
+  src = fetchFromGitHub {
+    owner="pystardust";
+    repo="ani-cli";
+    rev="c76860dff22834b9d123cbe11804896de040e547";
+    sha256="CP5ahipruXJNa4JQLXCqciEKwxqKbguT+V8mRi0NGxg=";
   };
 
   buildInputs = [ bash mpv curl ffmpeg ];
