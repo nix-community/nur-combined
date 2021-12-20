@@ -132,10 +132,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.4.7.0";
+      version = "2.4.8.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3880567/bypass_paywalls_clean-2.4.7.0-an+fx.xpi";
-      sha256 = "a968dd255776a958a22cefb111fae581004cab693685c909922df3a580fb295f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883711/bypass_paywalls_clean-2.4.8.0-an+fx.xpi";
+      sha256 = "807a4e6de079f74e8832ae58de8f9fe7aec360b8c8c754867ef029d8e0a30cd9";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "95.0.2buildid20211218.203254";
+      version = "96.0buildid20211219.185855";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3883384/francais_language_pack-95.0.2buildid20211218.203254-fx.xpi";
-      sha256 = "14df0fc23ad173257b6138f136edbf4dfe9db2870c2277ba8fcfd92ce7e26c55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883752/francais_language_pack-96.0buildid20211219.185855-fx.xpi";
+      sha256 = "76d07b92dc24abdf3819535408fe8bba224fd5e014e2890aeb2f4707dd0f6cb8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -841,10 +841,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.20";
+      version = "2.6.21";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3883212/localcdn-2.6.20-an+fx.xpi";
-      sha256 = "61f37166809ca894245068e1a7ecd5ec31dc25f23bfb745edf6e354843d44817";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883584/localcdn-2.6.21-an+fx.xpi";
+      sha256 = "fe3cf651250da8f7e5c3742b32c22e32b662004da97b6b0cfc6d45e33fd4d217";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
