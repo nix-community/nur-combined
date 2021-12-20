@@ -85,7 +85,9 @@ in {
             allowedConnections = optionals server (lists.foldmap
               { _addr = ip4.next cfg.address; }
               []
-              (key: prev: rec {
+              (key: acc: let
+                 prev = last acc;
+              in rec {
                 _addr = ip4.next prev._addr;
                 publicKey = key;
                 ip4Address = prev._addr.address;
