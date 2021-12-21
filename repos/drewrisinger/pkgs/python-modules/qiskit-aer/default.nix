@@ -29,7 +29,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
-  version = "0.9.1";
+  version = "0.10.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.6";
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "qiskit-aer";
     rev = version;
-    sha256 = "sha256-SAJjU2zYz6UabOPV1KI2JB7CbJfUJcjbPKbo6iiCk/g=";
+    sha256 = "sha256-/N0FiuDqs+HA/LKvUBoFv5XpLsHe83KlNFsTCxL+Tj0=";
   };
 
   postPatch = ''
@@ -111,6 +111,7 @@ buildPythonPackage rec {
     "test_reset_2_qubit"
   ] ++ lib.optionals (lib.versionAtLeast cvxpy.version "1.1.15") [
     "test_clifford"
+    "test_approx_random"
   ] ++ lib.optionals (lib.versionOlder lib.version "21.11") [
     # fail due to some issue with unittest subtests (unittest2 v1.1.0)
     "test_parameterized_qobj_qasm_save_expval"

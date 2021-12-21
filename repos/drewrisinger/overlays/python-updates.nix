@@ -20,6 +20,7 @@ rec {
       docplex = overrideSuperVersionIfNewer py-super.docplex (py-self.callPackage ../pkgs/python-modules/docplex { });
       websocket_client = overrideSuperVersionIfNewer py-super.websocket_client (py-self.callPackage ../pkgs/python-modules/websocket-client { });
       yfinance = overrideSuperVersionIfNewer py-super.yfinance (py-self.callPackage ../pkgs/python-modules/yfinance { });
+      dill = overrideSuperVersionIfNewer py-super.dill (py-self.callPackage ../pkgs/python-modules/dill { });
       # needed for nixpkgs <= nixos-21.05, broken
       symengine = overrideSuperVersionIfNewer py-super.symengine (py-self.callPackage ../pkgs/python-modules/symengine { inherit (self) symengine; });
     };

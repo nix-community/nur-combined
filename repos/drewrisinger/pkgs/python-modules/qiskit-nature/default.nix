@@ -20,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-nature";
-  version = "0.2.2";
+  version = "0.3.0";
 
   disabled = pythonOlder "3.6";
 
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-nQbvH911Gt4KddG23qwmiXfRJTWwVEsrzPvuTQfy4FY=";
+    sha256 = "sha256-qetfp+HoXYmKixDkkPgieMpm/qtm74QGh0GmLyhKIdM=";
   };
 
   postPatch = ''
@@ -69,6 +69,8 @@ buildPythonPackage rec {
 
     # Fails on GitHub Actions, small math error < 0.05 (< 9e-6 %)
     "test_vqe_uvccsd_factory"
+  ] ++ lib.optionals (scipy.version == "1.6.1") [
+    "test_to_matrix"  # fails due to https://github.com/scipy/scipy/issues/13585, fixed in 1.6.2
   ] ++ lib.optionals (!withPyscf) [
     "test_h2_bopes_sampler"
     "test_potential_interface"

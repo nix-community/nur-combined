@@ -8,6 +8,7 @@
 , qiskit-terra
 , qiskit-ibmq-provider
 , scipy
+, uncertainties
   # Check Inputs
 , pytestCheckHook
 , ddt
@@ -16,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-experiments";
-  version = "0.1.0";
+  version = "0.2.0";
 
   disabled = pythonOlder "3.7";
 
@@ -24,7 +25,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-tXzapOn8ej25nrY+O+E7FvcwHCy2sfvbMu8v6n8H6H4=";
+    sha256 = "sha256-QnkV9a0KO1YR4SeaBWPiYR+GJUk/j4WUR9aG36f3acg=";
   };
 
   propagatedBuildInputs = [
@@ -33,6 +34,7 @@ buildPythonPackage rec {
     qiskit-terra
     qiskit-ibmq-provider
     scipy
+    uncertainties
   ];
 
   checkInputs = [
