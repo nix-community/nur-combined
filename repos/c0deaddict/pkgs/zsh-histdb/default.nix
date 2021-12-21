@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "zsh-histdb";
-  version = "4274de7c1bca84f440fb0125e6931c1f75ad5e29";
+  version = "0b63f7c9f6748a1fa65b8d8e4508146da2c59087";
 
   src = fetchFromGitHub {
     owner = "larkery";
     repo = pname;
     rev = version;
-    sha256 = "1zh3r090jh6n6xwb4d2qvrhdhw35pc48j74hvkwsq06g62382zk3";
+    sha256 = "sha256-gqsd+tW2d/Dyo1IhjSxW6SKsT5dDNvOM1EglzK4UAAM=";
   };
 
   buildInputs = [ zsh ];
