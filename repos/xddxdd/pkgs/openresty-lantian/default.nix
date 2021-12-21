@@ -155,9 +155,11 @@ stdenv.mkDerivation rec {
     ln -s $BUILDROOT/brotli $BUILDROOT/ngx_brotli/deps/brotli
   '';
 
-  preconfigure = ''
-    export CFLAGS="-I${boringssl-oqs}/include -I${liboqs}/include"
-    export LDFLAGS="-L${boringssl-oqs}/build/ssl -L${boringssl-oqs}/build/crypto -L${liboqs}/lib"
+  preConfigure = ''
+    configureFlagsArray+=(
+      --with-cc-opt="-flto -I${boringssl-oqs}/include -I${liboqs}/include"
+      --with-ld-opt="-flto -L${boringssl-oqs}/build/ssl -L${boringssl-oqs}/build/crypto -L${liboqs}/lib"
+    )
   '';
 
   configureFlags = [
@@ -208,6 +210,7 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
+    find $out/ -type f -executable -exec strip --strip-all {} \;
     ln -s $out/luajit/bin/luajit $out/bin/luajit-openresty
     ln -s $out/nginx/sbin/nginx $out/bin/nginx
     ln -s $out/nginx/conf $out/conf
