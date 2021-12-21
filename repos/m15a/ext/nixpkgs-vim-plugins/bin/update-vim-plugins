@@ -76,7 +76,8 @@
              :lgpl-2.1 "lgpl21Only"
              :mit "mit"
              :mpl-2.0 "mpl20"
-             :unlicense "unlicense"}]
+             :unlicense "unlicense"
+             :wtfpl "wtfpl"}]
     (. map github-license.key)))
 
 (fn nix.prefetch-url [url]
@@ -269,18 +270,28 @@
     :string (match (string.match spec "^([^:]+/[^:]+)$") ; owner/repo
               full-name {:type "github"
                          : full-name}
-              _ (match (string.match spec "^([^:]+):([^:]+/[^:]+)$") ; type:owner/repo
-                  (repo-type full-name) {:type repo-type
-                                         : full-name}
-                  _ (match (string.match spec "^([^:]+/[^:]+):([^:]+)$") ; owner/repo:branch
-                      (full-name branch) {:type "github"
-                                          : full-name
-                                          : branch}
-                      _ (match (string.match spec "^([^:]+):([^:]+/[^:]+):([^:]+)$") ; type:owner/repo:branch
-                          (repo-type full-name branch) {:type repo-type
-                                                        : full-name
-                                                        : branch}
-                          _ (error "invalid manifest spec")))))
+              _ (match (string.match spec "^([^:]+/[^:]+):([^:]*)$") ; owner/repo:branch
+                  (full-name branch) {:type "github"
+                                      : full-name
+                                      :branch (and (not= branch "") branch)}
+                  _ (match (string.match spec "^([^:]+/[^:]+):([^:]*):([^:]+)$") ; owner/repo:branch:rename
+                      (full-name branch rename) {:type "github"
+                                                 : full-name
+                                                 :branch (and (not= branch "") branch)
+                                                 : rename}
+                      _ (match (string.match spec "^([^:]+):([^:]+/[^:]+)$") ; type:owner/repo
+                          (repo-type full-name) {:type repo-type
+                                                 : full-name}
+                          _ (match (string.match spec "^([^:]+):([^:]+/[^:]+):([^:]*)$") ; type:owner/repo:branch
+                              (repo-type full-name branch) {:type repo-type
+                                                            : full-name
+                                                            :branch (and (not= branch "") branch)}
+                              _ (match (string.match spec "^([^:]+):([^:]+/[^:]+):([^:]*):([^:]+)$") ; type:owner/repo:branch:rename
+                                  (repo-type full-name branch rename) {:type repo-type
+                                                                       : full-name
+                                                                       :branch (and (not= branch "") branch)
+                                                                       : rename}
+                                  _ (error "invalid manifest spec")))))))
     _ (error "undefined manifest spec")))
 
 (fn manifest.lint [self]
@@ -349,8 +360,10 @@
 (set plugin.__index plugin)
 
 (fn plugin.escape-name [name]
-  "Replace '.' with '-' in plugin name."
-  (string.gsub name "%." "-"))
+  "Replace '.' or '_' with '-' in plugin name."
+  (-> name
+      (string.gsub "%." "-")
+      (string.gsub "_" "-")))
 
 (fn plugin.get-date [timestamp]
   "Get date (YYYY-MM-DD) from timestamp."
@@ -372,7 +385,7 @@
                _ (error "undefined manifest spec"))
         recent-commit (repo:get-recent-commit spec.branch)
         url (repo:get-url recent-commit.sha)
-        attr-name (plugin.escape-name repo.name)
+        attr-name (plugin.escape-name (or spec.rename repo.name))
         obj {: attr-name 
              :pname attr-name
              :version (plugin.get-date recent-commit.date)

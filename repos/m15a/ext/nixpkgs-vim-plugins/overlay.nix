@@ -8,7 +8,5 @@ prev.lib.composeManyExtensions [
   in {
     vimExtraPlugins = final.lib.makeExtensible (_: final.lib.recurseIntoAttrs origin);
   })
-  (import ./overrides.nix {
-    inherit (final) lib;
-  })
+  (import ./overrides.nix)
 ] final prev

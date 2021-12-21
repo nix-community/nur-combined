@@ -2,3 +2,8 @@ Famiu/feline.nvim
 famiu/feline.nvim
 feline-nvim/feline.nvim
 kdheepak/panvimdoc
+nanotee/nvim-lua-guide
+catppuccin/nvim
+rose-pine/neovim
+MordechaiHadad/nvim-papadark
+SmiteshP/nvim-gps

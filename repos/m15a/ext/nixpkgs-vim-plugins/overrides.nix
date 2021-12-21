@@ -1,43 +1,176 @@
-{ lib, ... }:
-
 final: prev:
 
 let
-  overrides = self: super:
-  {
-    alpha-nvim = super.alpha-nvim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        broken = true;
-      });
-    });
-    calltree-nvim = super.calltree-nvim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        broken = true;
-      });
-    });
-    highlight-current-n-nvim = super.highlight-current-n-nvim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        broken = true;
-      });
-    });
-    vacuumline-nvim = super.vacuumline-nvim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        broken = true;
-      });
-    });
-    zen-mode-nvim = super.zen-mode-nvim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        broken = true;
-      });
-    });
-    vgit-nvim = super.vgit-nvim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        broken = true;
-      });
-    });
+  inherit (final) lib;
 
-    feline-nvim = super.feline-nvim.overrideAttrs (old: {
-      patches = (old.patches or []) ++ [
+  /*
+   * Mark broken packages here.
+   */
+  markBrokenPackages = self: super:
+  lib.mapAttrs (attrName: broken: super.${attrName}.overrideAttrs (old: {
+    meta = old.meta // { inherit broken; };
+  }))
+  {
+    alpha-nvim = true;
+
+    calltree-nvim = true;
+
+    highlight-current-n-nvim = true;
+
+    vacuumline-nvim = true;
+
+    vgit-nvim = true;
+
+    zen-mode-nvim = true;
+  };
+
+  /*
+   * Add licenses if missing or incorrect in generated ./pkgs/vim-plugins.nix.
+   */
+  fixLicenses = self: super:
+  lib.mapAttrs (attrName: license: super.${attrName}.overrideAttrs (old: {
+    meta = old.meta // { inherit license; };
+  })) (with lib.licenses;
+  {
+    ariake-vim-colors = [ mit ];
+
+    bats-vim = [ vim ];
+
+    bullets-vim = [ mit ];
+
+    calltree-nvim = [ mit ];
+
+    format-nvim = [ mit ];
+
+    goimpl-nvim = [ mit ];
+
+    null-ls-nvim = [ publicDomain ];
+
+    nvim-base16-lua = [ mit ];
+
+    nvim-deus = [ gpl3Plus ];
+
+    nvim-luapad = [ gpl3Only ];
+
+    nvim-pqf = [ mpl20 ];
+
+    nvim-revJ-lua = [ vim ];
+
+    nvim-srcerite = [ gpl3Plus ];
+
+    vim-emacscommandline = [ vim ];
+
+    vim-hy = [ vim ];
+
+    vim-textobj-indent = [ mit ];
+
+    vim-textobj-parameter = [ mit ];
+  });
+
+  /*
+   * Add dependencies to vim plugins if missing or incorrect in generated ./pkgs/vim-plugins.nix.
+   */
+  fixDependencies = self: super:
+  lib.mapAttrs (attrName: dependencies: super.${attrName}.overrideAttrs (_: {
+    inherit dependencies;
+  })) (with final.vimPlugins;
+  {
+    alpha-nvim = [ nvim-web-devicons ];
+
+    apprentice-nvim = [ lush-nvim ];
+
+    auto-pandoc-nvim = [ plenary-nvim ];
+
+    cmp-npm = [ plenary-nvim ];
+
+    cmp-tmux = [ nvim-cmp ];
+
+    code-runner-nvim = [ plenary-nvim ];
+
+    codeschool-nvim = [ lush-nvim ];
+
+    express-line-nvim = [ plenary-nvim ];
+
+    flutter-tools-nvim = [ plenary-nvim ];
+
+    follow-md-links-nvim = [ nvim-treesitter ];
+
+    fuzzy-nvim = [ plenary-nvim ];
+
+    gloombuddy = [ colorbuddy-nvim ];
+
+    goimpl-nvim = [ nvim-treesitter telescope-nvim ];
+
+    gruvbuddy-nvim = [ colorbuddy-nvim ];
+
+    gruvy = [ lush-nvim ];
+
+    jester = [ nvim-treesitter ];
+
+    lspactions = [ plenary-nvim popup-nvim self.astronauta-nvim ];
+
+    neogen = [ nvim-treesitter ];
+
+    neorg = [ plenary-nvim ];
+
+    nlsp-settings-nvim = [ nvim-lspconfig ];
+
+    nvim-biscuits = [ nvim-treesitter ];
+
+    nvim-comment-frame = [ nvim-treesitter ];
+
+    nvim-go = [ plenary-nvim popup-nvim ];
+
+    nvim-lsp-installer = [ nvim-lspconfig ];
+
+    nvim-lspupdate = [ nvim-lspconfig ];
+
+    nvim-magic = [ plenary-nvim nui-nvim ];
+
+    nvim-rdark = [ colorbuddy-nvim ];
+
+    nvim-revJ-lua = [ self.vim-textobj-parameter ];
+
+    nvim-spectre = [ plenary-nvim ];
+
+    nvim-treesitter-textsubjects = [ nvim-treesitter ];
+
+    nvim-ts-autotag = [ nvim-treesitter ];
+
+    nvim-ts-context-commentstring = [ nvim-treesitter ];
+
+    one-small-step-for-vimkind = [ nvim-dap ];
+
+    onebuddy = [ colorbuddy-nvim ];
+
+    renamer-nvim = [ plenary-nvim ];
+
+    tabline-framework-nvim = [ nvim-web-devicons ];
+
+    tabout-nvim = [ nvim-treesitter ];
+
+    telescope-bibtex-nvim = [ telescope-nvim ];
+
+    telescope-heading-nvim = [ telescope-nvim ];
+
+    telescope-zoxide = [ telescope-nvim ];
+
+    vacuumline-nvim = [ galaxyline-nvim ];
+
+    vgit-nvim = [ plenary-nvim ];
+
+    vim-textobj-parameter = [ vim-textobj-user ];
+
+    virtual-types-nvim = [ nvim-lspconfig ];
+  });
+
+  /*
+   * Add other overrides here.
+   */
+  otherOverrides = self: super:
+  {
+    feline-nvim-develop = super.feline-nvim-develop.overrideAttrs (old: {
+      patches = (old.patches or []) ++ lib.optionals (lib.versionOlder "2021-12-19" old.version) [
         # https://github.com/famiu/feline.nvim/pull/179
         (final.fetchpatch {
           url = "https://github.com/zbirenbaum/feline.nvim/commit/d62d9ec923fe76da27f5ac7000b2a506b035740d.patch";
@@ -46,74 +179,15 @@ let
       ];
     });
 
-    lspactions = super.lspactions.overrideAttrs (_: {
-      dependencies = with final.vimPlugins; [
-        plenary-nvim
-        popup-nvim
-        self.astronauta-nvim
-      ];
-    });
-
-    bats-vim = super.bats-vim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ vim ];
-      });
-    });
-
-    bullets-vim = super.bullets-vim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ mit ];
-      });
-    });
-
-    null-ls-nvim = super.null-ls-nvim.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ publicDomain ];
-      });
-    });
-
-    vim-emacscommandline = super.vim-emacscommandline.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ vim ];
-      });
-    });
-
-    vim-hy = super.vim-hy.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ vim ];
-      });
-    });
-
-    vim-textobj-indent = super.vim-textobj-indent.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ mit ];
-      });
-    });
-
-    nvim-srcerite = super.nvim-srcerite.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ gpl3Plus ];
-      });
-    });
-
-    telescope-heading-nvim = super.telescope-heading-nvim.overrideAttrs (_: {
-      dependencies = with final.vimPlugins; [
-        telescope-nvim
-      ];
-    });
-
-    telescope-bibtex-nvim = super.telescope-bibtex-nvim.overrideAttrs (_: {
-      dependencies = with final.vimPlugins; [
-        telescope-nvim
-      ];
-    });
-
-    nvim-pqf = super.nvim-pqf.overrideAttrs (old: {
-      meta = old.meta // ( with lib; {
-        license = with licenses; [ mpl20 ];
-      });
-    });
+    nvim-papadark = super.themer-lua;
   };
 in
 
-{ vimExtraPlugins = prev.vimExtraPlugins.extend overrides; }
+{
+  vimExtraPlugins = prev.vimExtraPlugins.extend (lib.composeManyExtensions [
+    markBrokenPackages
+    fixLicenses
+    fixDependencies
+    otherOverrides
+  ]);
+}

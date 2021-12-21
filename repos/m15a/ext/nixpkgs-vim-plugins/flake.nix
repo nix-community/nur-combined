@@ -17,16 +17,35 @@
     };
 
     update-vim-plugins = pkgs.callPackage ./pkgs/update-vim-plugins.nix {};
+
+    check-missing-licenses = let
+      hasLicense = pkg:
+      let
+        warn = x: nixpkgs.lib.warn x x;
+        msg = if builtins.hasAttr "license" pkg.meta
+        then "${pkg.name} has license"
+        else warn "${pkg.name} has no license";
+        msg' = nixpkgs.lib.replaceStrings [" "] ["-"] msg;
+      in
+      pkgs.runCommandNoCC msg' {} "echo : > $out";
+    in
+    pkgs.runCommandNoCC "check-missing-licenses" {
+      buildInputs = nixpkgs.lib.mapAttrsToList
+      (_: pkg: hasLicense pkg)
+      self.packages.${system};
+    } "echo : > $out";
   in {
-    packages = {
-      inherit (pkgs) vimExtraPlugins;
-    };
+    packages = flake-utils.lib.filterPackages system pkgs.vimExtraPlugins;
 
     apps = {
-      update-vim-plugins = {
-        type = "app";
-        program = "${update-vim-plugins}/bin/update-vim-plugins";
+      update-vim-plugins = flake-utils.lib.mkApp {
+        drv = update-vim-plugins;
       };
+    };
+
+    checks = self.packages.${system} // {
+      inherit check-missing-licenses;
+      inherit update-vim-plugins;
     };
 
     devShell = pkgs.mkShell {

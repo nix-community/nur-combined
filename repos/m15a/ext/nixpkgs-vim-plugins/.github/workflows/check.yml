@@ -1,0 +1,32 @@
+name: Check builds in nixpkgs-unstable
+
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+      - '.gitignore'
+      - 'LICENSE'
+      - '**.md'
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - '.gitignore'
+      - 'LICENSE'
+      - '**.md'
+
+jobs:
+  check-builds:
+    runs-on: ubuntu-latest
+    name: Check builds in nixpkgs-unstable
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          nix flake check --update-input nixpkgs

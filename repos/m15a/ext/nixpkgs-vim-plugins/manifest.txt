@@ -10,12 +10,12 @@ LoricAndre/OneTerm.nvim
 Mangeshrex/uwu.vim
 McAuleyPenney/tidy.nvim
 Mofiqul/vscode.nvim
-MordechaiHadad/nvim-papadark
 NFrid/due.nvim
 NTBBloodbath/cheovim
 NTBBloodbath/doom-one.nvim
 NTBBloodbath/galaxyline.nvim
 NTBBloodbath/rest.nvim
+NarutoXY/themer.lua
 PHSix/nvim-hybrid
 Pocco81/AbbrevMan.nvim
 Pocco81/AutoSave.nvim
@@ -25,7 +25,6 @@ RRethy/nvim-treesitter-textsubjects
 RishabhRD/gruvy
 RishabhRD/lspactions
 RishabhRD/nvim-rdark
-SmiteshP/nvim-gps
 Th3Whit3Wolf/onebuddy
 Th3Whit3Wolf/space-nvim
 ThePrimeagen/vim-be-good
@@ -52,7 +51,7 @@ bkegley/gloombuddy
 blackCauldron7/surround.nvim
 bluz71/vim-moonfly-colors
 bluz71/vim-nightfly-guicolors
-catppuccin/nvim
+catppuccin/nvim::catppuccin
 clojure-vim/jazz.nvim
 code-biscuits/nvim-biscuits
 crispgm/nvim-go
@@ -69,7 +68,7 @@ edolphin-ydf/goimpl.nvim
 ekickx/clipboard-image.nvim
 ellisonleao/glow.nvim
 ethanholz/nvim-lastplace
-feline-nvim/feline.nvim:develop
+feline-nvim/feline.nvim:develop:feline-nvim-develop
 filipdutescu/renamer.nvim
 folke/lua-dev.nvim
 folke/zen-mode.nvim
@@ -86,7 +85,7 @@ henriquehbr/nvim-startup.lua
 houtsnip/vim-emacscommandline
 hylang/vim-hy
 ibhagwan/fzf-lua
-inkch/vim-fish
+inkch/vim-fish::vim-fish-inkch
 is0n/fm-nvim
 is0n/jaq-nvim
 ishan9299/modus-theme-vim
@@ -129,7 +128,7 @@ mfussenegger/nvim-ts-hint-textobject
 michaelb/sniprun
 mizlan/iswap.nvim
 mjlbach/babelfish.nvim
-mnacamura/iron.nvim
+mnacamura/iron.nvim::iron-nvim-mnacamura
 mnacamura/nvim-srcerite
 mnacamura/vim-fennel-syntax
 mnacamura/vim-r7rs-syntax
@@ -138,7 +137,6 @@ monkoose/matchparen.nvim
 ms-jpq/chadtree
 ms-jpq/coq_nvim
 nanotee/nvim-lsp-basics
-nanotee/nvim-lua-guide
 nanotee/sqls.nvim
 navarasu/onedark.nvim
 nekonako/xresources-nvim
@@ -172,7 +170,7 @@ rktjmp/hotpot.nvim
 rktjmp/paperplanes.nvim
 rmehri01/onenord.nvim
 rockerBOO/boo-colorscheme-nvim
-rose-pine/neovim
+rose-pine/neovim::rose-pine
 s1n7ax/nvim-comment-frame
 s1n7ax/nvim-terminal
 sQVe/sort.nvim
@@ -181,6 +179,7 @@ sainnhe/everforest
 savq/melange
 savq/paq-nvim
 seandewar/nvimesweeper
+sgur/vim-textobj-parameter
 shaeinst/roshnivim-cs
 shaunsingh/moonlight.nvim
 stevearc/dressing.nvim
@@ -201,7 +200,6 @@ tjdevries/gruvbuddy.nvim
 tjdevries/vlog.nvim
 tveskag/nvim-blame-line
 vhyrro/neorg
-vijaymarupudi/nvim-fzf
 williamboman/nvim-lsp-installer
 windwp/nvim-projectconfig
 windwp/nvim-spectre
