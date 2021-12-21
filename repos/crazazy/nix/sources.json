@@ -23,6 +23,19 @@
         "url": "https://github.com/unknownshadow200/classicube/archive/23db8cc3a57a7339bd68cae5902dcc06967370df.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "dream2nix": {
+        "branch": "main",
+        "description": "A generic framework for 2nix tools [maintainer=@DavHau]",
+        "flake": true,
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "dream2nix",
+        "rev": "72e73fa255c9c03bf3797cdf396981e66ff9cdab",
+        "sha256": "0fl552zz2wnyp4ipbdcjx5y1r5glccajzscbji1brxc84z92bnk8",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/dream2nix/archive/72e73fa255c9c03bf3797cdf396981e66ff9cdab.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "efm-langserver": {
         "branch": "master",
         "description": "General purpose Language Server",
