@@ -1,10 +1,5 @@
 {pkgs, lib, ...}:
 pkgs.wrapEmacs {
-  imports = [
-    ./helm.nix
-    ./org-roam.nix
-    ./lsp.nix
-  ];
   magit.enable = true;
   lsp = {
     enable = true;

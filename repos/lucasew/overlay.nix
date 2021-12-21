@@ -99,7 +99,6 @@ in reduceJoin [
     stremio = cp ./packages/stremio.nix;
     wrapWine = cp ./packages/wrapWine.nix;
     preload = cp ./packages/preload.nix;
-    # python3Packages = cp ./packages/python3Packages.nix;
     nodePackages = cp ./packages/node_clis/package_data/default.nix;
 
     nur = import flake.inputs.nur {
