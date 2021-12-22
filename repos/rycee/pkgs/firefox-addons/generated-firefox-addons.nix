@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211219.185855";
+      version = "96.0buildid20211221.185759";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3883752/francais_language_pack-96.0buildid20211219.185855-fx.xpi";
-      sha256 = "76d07b92dc24abdf3819535408fe8bba224fd5e014e2890aeb2f4707dd0f6cb8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3884694/francais_language_pack-96.0buildid20211221.185759-fx.xpi";
+      sha256 = "57490584d50c09a193fa527d8369a1dd5bbc35e6a066998f1b472160501e3d05";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1399,10 +1399,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "4.4.0";
+      version = "4.4.2";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3880898/search_by_image-4.4.0-an+fx.xpi";
-      sha256 = "e4ed7706722fb4fd8b5f7bb1cdabb3dfd6d8ffcb9c25cc536874136928b8cdc9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883479/search_by_image-4.4.2-an+fx.xpi";
+      sha256 = "709d2fde48bfcad5b42cdad9ea075f9d5b6840fec2acb02e5ad950aa96d52d05";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -1427,10 +1427,10 @@
       };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "4.9.4";
+      version = "4.10.0";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3759780/sidebery-4.9.4-fx.xpi";
-      sha256 = "f54da033ba54ec970427212ec0d2dab9fa5cdc53ba3f00528c0e1340fa486c66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3884195/sidebery-4.10.0-fx.xpi";
+      sha256 = "10343868b5906aa612c07fe978ee6854e2baab1eb5d3f1b46d2a185ea3637914";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
