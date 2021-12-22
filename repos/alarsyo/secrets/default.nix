@@ -17,6 +17,7 @@ with lib;
     gandiKey = lib.fileContents ./gandi-api-key.secret;
 
     borg-backup = import ./borg-backup { inherit lib; };
+    paperless = import ./paperless { inherit lib; };
     restic-backup = import ./restic-backup { inherit lib; };
 
     matrixEmailConfig = import ./matrix-email-config.nix;
