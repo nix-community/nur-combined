@@ -126,5 +126,7 @@ rec {
 
   noise-suppression-for-voice = pkgs.callPackage ./pkgs/noise-suppression-for-voice { };
 
+  mailexporter = pkgs.callPackage ./pkgs/mailexporter { };
+
   modules = import ./modules;
 }
