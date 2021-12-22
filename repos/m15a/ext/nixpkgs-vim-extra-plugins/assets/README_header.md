@@ -1,4 +1,4 @@
-# nixpkgs-vim-plugins
+# nixpkgs-vim-extra-plugins
 
 Nix flake of miscellaneous Vim/Neovim plugins.
 
@@ -27,14 +27,14 @@ Use it as you normally do, like
 {
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    vim-plugins.url = "github:m15a/nixpkgs-vim-plugins";
+    vim-extra-plugins.url = "github:m15a/nixpkgs-vim-extra-plugins";
   };
-  outputs = { self, nixpkgs, flake-utils, vim-plugins, ... }:
+  outputs = { self, nixpkgs, flake-utils, vim-extra-plugins, ... }:
   flake-utils.lib.eachDefaultSystem (system:
   let
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [ vim-plugins.overlay ];
+      overlays = [ vim-extra-plugins.overlay ];
     };
   in {
     packages = {
@@ -60,7 +60,7 @@ It is handy to use `builtins.getFlake`, which was [introduced in Nix 2.4][1]. Fo
 ```nix
 with import <nixpkgs> {
   overlays = [
-    (builtins.getFlake "github:m15a/nixpkgs-vim-plugins").overlay
+    (builtins.getFlake "github:m15a/nixpkgs-vim-extra-plugins").overlay
   ];
 };
 ```
@@ -71,7 +71,7 @@ For Nix <2.4, use `builtins.fetchTarball` instead.
 with import <nixpkgs> {
   overlays = [
     (import (builtins.fetchTarball {
-      url = "https://github.com/m15a/nixpkgs-vim-plugins/archive/main.tar.gz";
+      url = "https://github.com/m15a/nixpkgs-vim-extra-plugins/archive/main.tar.gz";
     })).overlay
   ];
 };

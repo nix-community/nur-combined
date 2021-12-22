@@ -8,20 +8,19 @@ jobs:
   fetch-new-plugins:
     runs-on: ubuntu-latest
     name: Fetch new plugins from awesome-neovim
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
         with:
+          token: ${{ secrets.M15A_GITHUB_PAT }}
           ref: ${{ github.head_ref }}
       - uses: cachix/install-nix-action@v16
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - run: nix run .#update-vim-plugins -- awesome-neovim
-      - uses: stefanzweifel/git-auto-commit-action@v4
         env:
-          GITHUB_TOKEN: ${{ secrets.M15A_GITHUB_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'maintenance: auto fetch awesome neovim plugins'
           file_pattern: manifest.txt

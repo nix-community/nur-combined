@@ -5,16 +5,20 @@ on:
     paths-ignore:
       - '.github/**'
       - '.gitignore'
+      - '.previous-update.json'
       - 'LICENSE'
       - '**.md'
+      - '**.txt'
   push:
     branches:
       - main
     paths-ignore:
       - '.github/**'
       - '.gitignore'
+      - '.previous-update.json'
       - 'LICENSE'
       - '**.md'
+      - '**.txt'
 
 jobs:
   check-builds:
