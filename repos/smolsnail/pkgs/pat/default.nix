@@ -2,10 +2,10 @@
 
 buildPythonPackage rec {
   pname = "patcat";
-  version = "2021.9.10.2";
+  version = "2021.12.23";
   src = fetchPypi {
     inherit pname version;
-    sha256 = "9aa47bfb62410b90e8363ffafe83a1e10d9343e17dfb3c46f523d3aa37ca44d1";
+    sha256 = "16d3bd860777cc60c3613a86e3cab690e9526fd92604e985c1149aae6a85307c";
   };
   meta = with lib; {
     description = "Outputs text with rainbow colors.";

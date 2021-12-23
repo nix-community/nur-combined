@@ -1,19 +1,17 @@
 { lib, buildGoModule, fetchFromGitHub, arduino-cli, clang-tools }:
 
-let
-  base-name = "arduino-language-server";
-in buildGoModule {
-  pname = "${base-name}-unstable";
-  version = "2021-10-19";
+buildGoModule rec {
+  pname = "arduino-language-server";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "arduino";
-    repo = base-name;
-    rev = "68ebb5d40f5130496cb1ab39108ac594008f2163";
-    sha256 = "0zajg1y7a8cd2222z6gyl9k6kvj5jpmbjbhjnzc7jwhxh0s9kf13";
+    repo = pname;
+    rev = version;
+    sha256 = "1nrqasn8c2wzvb6bvv2izb05sqgv8frri1zfn4pivf9ywnlqwzad";
   };
 
-  vendorSha256 = "038d2v9xx1d47zad5kcm2f7hkj6iq3j9l0jfdi1ygprrdcqkmwgh";
+  vendorSha256 = "0kfn9jy59whw41vn07r536qjzl7vpgm51dp3qnh25b174lg0j7x7";
 
   meta = with lib; {
     description = "An Arduino Language Server based on Clangd to Arduino code autocompletion";

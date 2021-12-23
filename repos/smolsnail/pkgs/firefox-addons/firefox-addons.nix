@@ -2,10 +2,10 @@
 {
   "wwweed" = buildFirefoxXpiAddon {
     pname = "wwweed";
-    version = "2021.12.11";
+    version = "2021.12.23";
     addonId = "extension-id@wwweed";
-    url = "https://gitdab.com/attachments/0c7cf19a-e0e0-494d-8875-e12286f1cb35";
-    sha256 = "1m5jbcmdyyrz7p32rq4mnclmn84wn26xkx10044d9ys86348m5p3";
+    url = "https://gitdab.com/attachments/27b7c3bc-aaa1-4e2e-912f-730765674516";
+    sha256 = "00mb32jvw66w5v1s4wkiygnbwmw57npbhnxi3bkd5bbw6380h025";
     meta = with lib; {
       homepage = "https://gitdab.com/elle/wwweed";
       description = "My personal start page";

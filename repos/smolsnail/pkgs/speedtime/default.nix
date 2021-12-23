@@ -5,12 +5,12 @@ let
   url = "https://gitdab.com/elle/${pname}";
 in clangStdenv.mkDerivation rec {
   inherit pname;
-  version = "2021.11.14";
+  version = "2021.12.23";
 
   src = fetchgit {
     inherit url;
     rev = version;
-    sha256 = "1flr6m4m0wslksld58rjxmb0simc0xmgblzlfhiy3qyh6dr2vaam";
+    sha256 = "1zjgg4vdk2xax1v3sj775cndai5m6lfmly5bp3bi0lwwf90sycwb";
   };
 
   nativeBuildInputs = [ tup ];

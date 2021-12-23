@@ -2,12 +2,12 @@
 
 buildVimPlugin rec {
   pname = "rose-pine-neovim";
-  version = "0.0.1";
+  version = "0.1.0";
   src = fetchFromGitHub {
     owner = "rose-pine";
     repo = "neovim";
     rev = "v${version}";
-    sha256 = "1j0xxrva639xvxm9r6n1c3mnks6aw82r1w395sc20hnc76snxf9q";
+    sha256 = "08h2f6bq1l21mgsn2sid978mhbxv2j9jhzqyf0n3hg9y6mi94c9x";
   };
   meta = with lib; {
     description = "Soho vibes for Neovim";
