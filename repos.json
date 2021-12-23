@@ -260,10 +260,6 @@
         "kira-bruneau": {
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
-        "kmein": {
-            "submodules": true,
-            "url": "https://github.com/kmein/nur-packages"
-        },
         "kolloch": {
             "url": "https://github.com/kolloch/nur-packages"
         },
