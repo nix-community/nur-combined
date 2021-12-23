@@ -25,7 +25,7 @@ writeShellScriptBin "update" ''
 
   # remove old Cargo.lock files
   pushd pkgs/_sources
-  rm */Cargo.lock
+  rm -f */Cargo.lock
   popd
 
   # perform update

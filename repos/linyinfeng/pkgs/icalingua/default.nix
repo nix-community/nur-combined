@@ -16,7 +16,7 @@ let
     exec = "bash -c \"icalingua %u > /dev/null\"";
     categories = "Network";
   };
-  icon = sources.icalinguaIcon.src;
+  icon = "${sources.icalingua-aur.src}/512x512.png";
 in
 stdenv.mkDerivation rec {
   inherit (sources.icalingua) pname version src;

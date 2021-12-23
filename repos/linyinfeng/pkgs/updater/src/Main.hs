@@ -22,7 +22,7 @@ packageSet = do
   clashForWindows
   clashForWindowsIcon
   icalingua
-  icalinguaIcon
+  icalinguaAur
   wemeet
 
 fishPlugins :: PackageSet ()
@@ -90,7 +90,8 @@ clashForWindowsIcon =
   define $
     package "clash-for-windows-icon"
       `sourceManual` "0"
-      `fetchUrl` (const "https://docs.cfw.lbyczf.com/favicon.ico")
+      `fetchUrl` (const "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico")
+      -- `fetchUrl` (const "https://docs.cfw.lbyczf.com/favicon.ico")
 
 icalingua :: PackageSet ()
 icalingua =
@@ -101,12 +102,8 @@ icalingua =
   where
     url (Version v) = "https://github.com/Clansty/Icalingua/releases/download/" <> v <> "/app-x86_64.asar"
 
-icalinguaIcon :: PackageSet ()
-icalinguaIcon =
-  define $
-    package "icalinguaIcon"
-      `sourceManual` "0"
-      `fetchUrl` (const "https://aur.archlinux.org/cgit/aur.git/plain/512x512.png?h=icalingua")
+icalinguaAur :: PackageSet ()
+icalinguaAur = gitPkg "icalingua-aur" "https://aur.archlinux.org/icalingua.git"
 
 wemeet :: PackageSet ()
 wemeet =

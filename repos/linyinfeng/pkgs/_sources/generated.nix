@@ -13,7 +13,7 @@
     pname = "clash-for-windows-icon";
     version = "0";
     src = fetchurl {
-      url = "https://docs.cfw.lbyczf.com/favicon.ico";
+      url = "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico";
       sha256 = "1zd453mwrlc9kafagyvmj9i8vd5a4akp9srbsy9mxa48x77ckqp2";
     };
   };
@@ -101,12 +101,16 @@
       sha256 = "1j52b65cpzzjx31n19m0xgxfp76rcvvmfvh8q4nn6w1b4rvww068";
     };
   };
-  icalinguaIcon = {
-    pname = "icalinguaIcon";
-    version = "0";
-    src = fetchurl {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/512x512.png?h=icalingua";
-      sha256 = "0f0fgnhv80fwwfwlram5n078z7svnlqrh68d7gc4wl0qiig5ij44";
+  icalingua-aur = {
+    pname = "icalingua-aur";
+    version = "c372d9f6d6b60022d4254e6f88808f4a04606743";
+    src = fetchgit {
+      url = "https://aur.archlinux.org/icalingua.git";
+      rev = "c372d9f6d6b60022d4254e6f88808f4a04606743";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1q2kb4c9r5c64p1gfcyl45ciq5sgfrxviiy89j9sgx0k7ykk882r";
     };
   };
   pisces = {
