@@ -1,5 +1,4 @@
-{ buildFirefoxXpiAddon, lib }:
-{
+{ buildFirefoxXpiAddon, lib }: {
   "wwweed" = buildFirefoxXpiAddon {
     pname = "wwweed";
     version = "2021.12.23";

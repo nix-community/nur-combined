@@ -21,10 +21,6 @@ let
       '';
     };
 
-  packages = import ./firefox-addons.nix {
-    inherit buildFirefoxXpiAddon lib;
-  };
+  packages = import ./firefox-addons.nix { inherit buildFirefoxXpiAddon lib; };
 
-in packages // {
-  inherit buildFirefoxXpiAddon;
-}
+in packages // { inherit buildFirefoxXpiAddon; }

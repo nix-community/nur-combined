@@ -31,7 +31,8 @@ in clangStdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A timer.";
-    longDescription = "Speedtime is a timer that runs entirely within a terminal.";
+    longDescription =
+      "Speedtime is a timer that runs entirely within a terminal.";
     homepage = url;
     license = licenses.free;
     platforms = platforms.linux;

@@ -21,7 +21,8 @@ stdenvNoCC.mkDerivation rec {
   # Make this a fixed-output derivation
   outputHashMode = "recursive";
   outputHashAlgo = "sha256";
-  outputHash = "91d43b6d0d8e5a7dd2ea2057c74780c7f44e014fa85c2c295aa55f7f6da4c8ef";
+  outputHash =
+    "91d43b6d0d8e5a7dd2ea2057c74780c7f44e014fa85c2c295aa55f7f6da4c8ef";
 
   meta = with lib; {
     description = "A dark theme inspired by black and white photography.";

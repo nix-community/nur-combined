@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { }}:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -34,6 +34,8 @@
   };
 
   # Package groups
-  firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
-  nodePackages = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/nodePackages { });
+  firefox-addons =
+    pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
+  nodePackages =
+    pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/nodePackages { });
 }

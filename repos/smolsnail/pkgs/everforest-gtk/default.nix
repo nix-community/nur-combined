@@ -1,7 +1,6 @@
 { lib, stdenvNoCC, fetchFromGitHub, gtk-engine-murrine }:
 
-let
-  base-name = "everforest-gtk";
+let base-name = "everforest-gtk";
 in stdenvNoCC.mkDerivation {
   pname = "${base-name}-unstable";
   version = "2021-09-28";
