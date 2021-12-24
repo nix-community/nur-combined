@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211221.185759";
+      version = "96.0buildid20211223.202418";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3884694/francais_language_pack-96.0buildid20211221.185759-fx.xpi";
-      sha256 = "57490584d50c09a193fa527d8369a1dd5bbc35e6a066998f1b472160501e3d05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3885680/francais_language_pack-96.0buildid20211223.202418-fx.xpi";
+      sha256 = "2e2ba6162fd754302cb0626e43bb0d334b0d92be3101750be55c33d5e501d971";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -896,10 +896,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.8.0";
+      version = "10.8.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3881289/metamask-10.8.0-an+fx.xpi";
-      sha256 = "10378174c0fb8e96c0394b13d17352399cfd2b5f75fc5291225fe92131e28a8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3885451/metamask-10.8.1-an+fx.xpi";
+      sha256 = "a9d10052cb7d4e74c7e560fc54975f9f29dc1c02205ee6964925097d18db2da7";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1766,10 +1766,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.39.2";
+      version = "1.40.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3875359/ublock_origin-1.39.2-an+fx.xpi";
-      sha256 = "02e139624549b733542b95c4c75b6b315a09cce91373c263ba2f18ca5ed8d93a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3885089/ublock_origin-1.40.0-an+fx.xpi";
+      sha256 = "efd123f437544501a80f305400d108f78899f4aa6423c0cfce3317d4181f1e37";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
