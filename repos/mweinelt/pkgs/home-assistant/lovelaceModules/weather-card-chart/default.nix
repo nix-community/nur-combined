@@ -1,22 +1,26 @@
 { stdenv
 , lib
-, fetchFromGitHub
+, fetchurl
 }:
 
-stdenv.mkDerivation rec {
+let
   pname = "weather-card-chart";
-  version = "0.2.6";
+  version = "1.1.0";
+in
+stdenv.mkDerivation {
+  inherit pname version;
 
-  src = fetchFromGitHub {
-    owner = "Yevgenium";
-    repo = "lovelace-weather-card-chart";
-    rev = version;
-    sha256 = "0xcasbrzjfihm4dq099yiy52gd8zn9s77dsfrw3ng3vinkg8gxfs";
+  src = fetchurl {
+    url = "https://github.com/Yevgenium/weather-chart-card/releases/download/${version}/weather-chart-card.js";
+    hash = "sha256:16j50dj22qr89rdg3z8b3l4y4lsj1rp1l20dm4faw18vvdmni3jz";
   };
+
+  dontUnpack = true;
+  dontBuild = true;
 
   installPhase = ''
     mkdir $out
-    cp -v weather-card-chart.js $out/
+    cp -v $src $out/weather-card-chart.js
   '';
 
   meta = with lib; {
