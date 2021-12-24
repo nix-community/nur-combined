@@ -29,26 +29,18 @@ let
 		if environment == "gjs" then "-e gjs"
 		else if environment == "node" then "-e node"
 		else if environment == "both" then ""
-		else throw environment + '' must be "gjs", "node", or "both"'';
+		else throw ''"environment" must be "gjs", "node", or "both"'';
 in 
 lib.makeOverridable stdenv.mkDerivation {
 	name = name;
-	src = fetchFromGitHub {
-		owner="sammydre";
-		repo="ts-for-gjs";
-		rev="e1fdadbe3a4de45ce812ba07382c17efa839b702";
-		sha256="0fqdd1r5b0arhiy1af673pp6imgm4016x97jgkib7ndndg03a9r6";
-		fetchSubmodules=false;
-	};
+
 	buildInputs = [nodejs python3 automake];
 	buildPhase = ''
-
 		ln -s ${nodeDependencies}/lib/node_modules ./node_modules
-		export PATH="${nodeDependencies}/bin:$PATH"
-
-		mkdir -p $out
-		npm run start -- generate ${namesString} ${librariesString} -o $out ${if prettify then "--pretty" else ""} ${environmentString} --ignoreConflicts
+	    export PATH="${nodeDependencies}/bin:$PATH"
+		ts-for-gir generate ${namesString} ${librariesString} -o $out ${if prettify then "--pretty" else ""} ${environmentString} --ignoreConflicts
 	'';
+	dontUnpack = true;
 	dontInstall = true;
 	dontFixup = true;
 	dontCopyDist = true;

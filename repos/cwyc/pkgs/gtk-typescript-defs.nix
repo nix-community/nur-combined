@@ -12,11 +12,10 @@ in
 (ts-for-gjs {
 	name = "gtk-typescript-defs";
 	sources = [(girs + "/gir-1.0")];
-	modules = builtins.split " " "Atk-1.0 GLib-2.0 GObject-2.0 Gdk-3.0 GdkPixbuf-2.0 Gio-2.0 Gtk-3.0 Pango-1.0 cairo-1.0 xlib-2.0";
+	modules = lib.strings.splitString " " "Atk-1.0 GLib-2.0 GObject-2.0 Gdk-3.0 GdkPixbuf-2.0 Gio-2.0 Gtk-3.0 Pango-1.0 cairo-1.0 xlib-2.0";
 }).override {
 	meta = {
 		description = "A set of typescript definitions for coding with gtk. Built from https://github.com/sammydre/ts-for-gjs";
 		license = lib.licenses.lgpl2Plus;
-		broken = true;
 	};
 }

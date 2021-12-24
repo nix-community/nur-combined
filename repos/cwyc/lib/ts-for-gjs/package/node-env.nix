@@ -1,8 +1,11 @@
 # This file originates from node2nix
 
-{stdenv, nodejs, python2, utillinux, libtool, runCommand, writeTextFile}:
+{lib, stdenv, nodejs, python2, pkgs, libtool, runCommand, writeTextFile, writeShellScript}:
 
 let
+  # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
+  utillinux = if pkgs ? utillinux then pkgs.utillinux else pkgs.util-linux;
+
   python = if nodejs ? python then nodejs.python else python2;
 
   # Create a tar wrapper that filters all the 'Ignoring unknown extended header keyword' noise
@@ -37,36 +40,22 @@ let
       '';
     };
 
-  includeDependencies = {dependencies}:
-    stdenv.lib.optionalString (dependencies != [])
-      (stdenv.lib.concatMapStrings (dependency:
-        ''
-          # Bundle the dependencies of the package
-          mkdir -p node_modules
-          cd node_modules
+  # Common shell logic
+  installPackage = writeShellScript "install-package" ''
+    installPackage() {
+      local packageName=$1 src=$2
 
-          # Only include dependencies if they don't exist. They may also be bundled in the package.
-          if [ ! -e "${dependency.name}" ]
-          then
-              ${composePackage dependency}
-          fi
+      local strippedName
 
-          cd ..
-        ''
-      ) dependencies);
-
-  # Recursively composes the dependencies of a package
-  composePackage = { name, packageName, src, dependencies ? [], ... }@args:
-    builtins.addErrorContext "while evaluating node package '${packageName}'" ''
-      DIR=$(pwd)
+      local DIR=$PWD
       cd $TMPDIR
 
-      unpackFile ${src}
+      unpackFile $src
 
       # Make the base dir in which the target dependency resides first
-      mkdir -p "$(dirname "$DIR/${packageName}")"
+      mkdir -p "$(dirname "$DIR/$packageName")"
 
-      if [ -f "${src}" ]
+      if [ -f "$src" ]
       then
           # Figure out what directory has been unpacked
           packageDir="$(find . -maxdepth 1 -type d | tail -1)"
@@ -76,31 +65,56 @@ let
           chmod -R u+w "$packageDir"
 
           # Move the extracted tarball into the output folder
-          mv "$packageDir" "$DIR/${packageName}"
-      elif [ -d "${src}" ]
+          mv "$packageDir" "$DIR/$packageName"
+      elif [ -d "$src" ]
       then
           # Get a stripped name (without hash) of the source directory.
           # On old nixpkgs it's already set internally.
           if [ -z "$strippedName" ]
           then
-              strippedName="$(stripHash ${src})"
+              strippedName="$(stripHash $src)"
           fi
 
           # Restore write permissions to make building work
           chmod -R u+w "$strippedName"
 
           # Move the extracted directory into the output folder
-          mv "$strippedName" "$DIR/${packageName}"
+          mv "$strippedName" "$DIR/$packageName"
       fi
 
-      # Unset the stripped name to not confuse the next unpack step
-      unset strippedName
+      # Change to the package directory to install dependencies
+      cd "$DIR/$packageName"
+    }
+  '';
 
-      # Include the dependencies of the package
-      cd "$DIR/${packageName}"
+  # Bundle the dependencies of the package
+  #
+  # Only include dependencies if they don't exist. They may also be bundled in the package.
+  includeDependencies = {dependencies}:
+    lib.optionalString (dependencies != []) (
+      ''
+        mkdir -p node_modules
+        cd node_modules
+      ''
+      + (lib.concatMapStrings (dependency:
+        ''
+          if [ ! -e "${dependency.name}" ]; then
+              ${composePackage dependency}
+          fi
+        ''
+      ) dependencies)
+      + ''
+        cd ..
+      ''
+    );
+
+  # Recursively composes the dependencies of a package
+  composePackage = { name, packageName, src, dependencies ? [], ... }@args:
+    builtins.addErrorContext "while evaluating node package '${packageName}'" ''
+      installPackage "${packageName}" "${src}"
       ${includeDependencies { inherit dependencies; }}
       cd ..
-      ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+      ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
     '';
 
   pinpointDependencies = {dependencies, production}:
@@ -161,12 +175,12 @@ let
     ''
       node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
 
-      ${stdenv.lib.optionalString (dependencies != [])
+      ${lib.optionalString (dependencies != [])
         ''
           if [ -d node_modules ]
           then
               cd node_modules
-              ${stdenv.lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
+              ${lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
               cd ..
           fi
         ''}
@@ -183,7 +197,7 @@ let
           cd "${packageName}"
           ${pinpointDependencies { inherit dependencies production; }}
           cd ..
-          ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
       fi
     '';
 
@@ -242,8 +256,8 @@ let
       if(fs.existsSync("./package-lock.json")) {
           var packageLock = JSON.parse(fs.readFileSync("./package-lock.json"));
 
-          if(packageLock.lockfileVersion !== 1) {
-             process.stderr.write("Sorry, I only understand lock file version 1!\n");
+          if(![1, 2].includes(packageLock.lockfileVersion)) {
+             process.stderr.write("Sorry, I only understand lock file versions 1 and 2!\n");
              process.exit(1);
           }
 
@@ -344,8 +358,8 @@ let
         cd "${packageName}"
         runHook preRebuild
 
-        ${stdenv.lib.optionalString bypassCache ''
-          ${stdenv.lib.optionalString reconstructLock ''
+        ${lib.optionalString bypassCache ''
+          ${lib.optionalString reconstructLock ''
             if [ -f package-lock.json ]
             then
                 echo "WARNING: Reconstruct lock option enabled, but a lock file already exists!"
@@ -361,14 +375,14 @@ let
           node ${addIntegrityFieldsScript}
         ''}
 
-        npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${stdenv.lib.optionalString production "--production"} rebuild
+        npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} rebuild
 
         if [ "''${dontNpmInstall-}" != "1" ]
         then
             # NPM tries to download packages even when they already exist if npm-shrinkwrap is used.
             rm -f npm-shrinkwrap.json
 
-            npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${stdenv.lib.optionalString production "--production"} install
+            npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} install
         fi
     '';
 
@@ -388,16 +402,17 @@ let
     , dontStrip ? true
     , unpackPhase ? "true"
     , buildPhase ? "true"
+    , meta ? {}
     , ... }@args:
 
     let
-      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "preRebuild" "unpackPhase" "buildPhase" ];
+      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" "dontStrip" "dontNpmInstall" "preRebuild" "unpackPhase" "buildPhase" "meta" ];
     in
     stdenv.mkDerivation ({
-      name = "node_${name}-${version}";
+      name = "${name}-${version}";
       buildInputs = [ tarWrapper python nodejs ]
-        ++ stdenv.lib.optional (stdenv.isLinux) utillinux
-        ++ stdenv.lib.optional (stdenv.isDarwin) libtool
+        ++ lib.optional (stdenv.isLinux) utillinux
+        ++ lib.optional (stdenv.isDarwin) libtool
         ++ buildInputs;
 
       inherit nodejs;
@@ -411,6 +426,8 @@ let
       passAsFile = [ "compositionScript" "pinpointDependenciesScript" ];
 
       installPhase = ''
+        source ${installPackage}
+
         # Create and enter a root node_modules/ folder
         mkdir -p $out/lib/node_modules
         cd $out/lib/node_modules
@@ -443,7 +460,82 @@ let
         # Run post install hook, if provided
         runHook postInstall
       '';
+
+      meta = {
+        # default to Node.js' platforms
+        platforms = nodejs.meta.platforms;
+      } // meta;
     } // extraArgs);
+
+  # Builds a node environment (a node_modules folder and a set of binaries)
+  buildNodeDependencies =
+    { name
+    , packageName
+    , version
+    , src
+    , dependencies ? []
+    , buildInputs ? []
+    , production ? true
+    , npmFlags ? ""
+    , dontNpmInstall ? false
+    , bypassCache ? false
+    , reconstructLock ? false
+    , dontStrip ? true
+    , unpackPhase ? "true"
+    , buildPhase ? "true"
+    , ... }@args:
+
+    let
+      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];
+    in
+      stdenv.mkDerivation ({
+        name = "node-dependencies-${name}-${version}";
+
+        buildInputs = [ tarWrapper python nodejs ]
+          ++ lib.optional (stdenv.isLinux) utillinux
+          ++ lib.optional (stdenv.isDarwin) libtool
+          ++ buildInputs;
+
+        inherit dontStrip; # Stripping may fail a build for some package deployments
+        inherit dontNpmInstall unpackPhase buildPhase;
+
+        includeScript = includeDependencies { inherit dependencies; };
+        pinpointDependenciesScript = pinpointDependenciesOfPackage args;
+
+        passAsFile = [ "includeScript" "pinpointDependenciesScript" ];
+
+        installPhase = ''
+          source ${installPackage}
+
+          mkdir -p $out/${packageName}
+          cd $out/${packageName}
+
+          source $includeScriptPath
+
+          # Create fake package.json to make the npm commands work properly
+          cp ${src}/package.json .
+          chmod 644 package.json
+          ${lib.optionalString bypassCache ''
+            if [ -f ${src}/package-lock.json ]
+            then
+                cp ${src}/package-lock.json .
+            fi
+          ''}
+
+          # Go to the parent folder to make sure that all packages are pinpointed
+          cd ..
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+
+          ${prepareAndInvokeNPM { inherit packageName bypassCache reconstructLock npmFlags production; }}
+
+          # Expose the executables that were installed
+          cd ..
+          ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+
+          mv ${packageName} lib
+          ln -s $out/lib/node_modules/.bin $out/bin
+        '';
+      } // extraArgs);
 
   # Builds a development shell
   buildNodeShell =
@@ -464,59 +556,12 @@ let
     , ... }@args:
 
     let
-      extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];
-
-      nodeDependencies = stdenv.mkDerivation ({
-        name = "node-dependencies-${name}-${version}";
-
-        buildInputs = [ tarWrapper python nodejs ]
-          ++ stdenv.lib.optional (stdenv.isLinux) utillinux
-          ++ stdenv.lib.optional (stdenv.isDarwin) libtool
-          ++ buildInputs;
-
-        inherit dontStrip; # Stripping may fail a build for some package deployments
-        inherit dontNpmInstall unpackPhase buildPhase;
-
-        includeScript = includeDependencies { inherit dependencies; };
-        pinpointDependenciesScript = pinpointDependenciesOfPackage args;
-
-        passAsFile = [ "includeScript" "pinpointDependenciesScript" ];
-
-        installPhase = ''
-          mkdir -p $out/${packageName}
-          cd $out/${packageName}
-
-          source $includeScriptPath
-
-          # Create fake package.json to make the npm commands work properly
-          cp ${src}/package.json .
-          chmod 644 package.json
-          ${stdenv.lib.optionalString bypassCache ''
-            if [ -f ${src}/package-lock.json ]
-            then
-                cp ${src}/package-lock.json .
-            fi
-          ''}
-
-          # Go to the parent folder to make sure that all packages are pinpointed
-          cd ..
-          ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
-
-          ${prepareAndInvokeNPM { inherit packageName bypassCache reconstructLock npmFlags production; }}
-
-          # Expose the executables that were installed
-          cd ..
-          ${stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
-
-          mv ${packageName} lib
-          ln -s $out/lib/node_modules/.bin $out/bin
-        '';
-      } // extraArgs);
+      nodeDependencies = buildNodeDependencies args;
     in
     stdenv.mkDerivation {
       name = "node-shell-${name}-${version}";
 
-      buildInputs = [ python nodejs ] ++ stdenv.lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
+      buildInputs = [ python nodejs ] ++ lib.optional (stdenv.isLinux) utillinux ++ buildInputs;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF
@@ -529,14 +574,15 @@ let
 
       # Provide the dependencies in a development shell through the NODE_PATH environment variable
       inherit nodeDependencies;
-      shellHook = stdenv.lib.optionalString (dependencies != []) ''
+      shellHook = lib.optionalString (dependencies != []) ''
         export NODE_PATH=${nodeDependencies}/lib/node_modules
         export PATH="${nodeDependencies}/bin:$PATH"
       '';
     };
 in
 {
-  buildNodeSourceDist = stdenv.lib.makeOverridable buildNodeSourceDist;
-  buildNodePackage = stdenv.lib.makeOverridable buildNodePackage;
-  buildNodeShell = stdenv.lib.makeOverridable buildNodeShell;
+  buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;
+  buildNodePackage = lib.makeOverridable buildNodePackage;
+  buildNodeDependencies = lib.makeOverridable buildNodeDependencies;
+  buildNodeShell = lib.makeOverridable buildNodeShell;
 }

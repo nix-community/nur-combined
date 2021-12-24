@@ -70,7 +70,8 @@ stdenv.mkDerivation {
       A cleaner package bundled with qtcreator is in the works.
     '';
     homepage = "https://openframeworks.cc/download/";
-    license = stdenv.lib.licenses.mit;
-    meta.platforms = stdenv.lib.platforms.linux;
+    license = lib.licenses.mit;
+    meta.platforms = lib.platforms.linux;
+    broken = true;
   };
 }
