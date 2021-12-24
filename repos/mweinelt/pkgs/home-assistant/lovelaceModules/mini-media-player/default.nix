@@ -1,21 +1,23 @@
-{ pkgs, nodejs, stdenv, lib, ... }:
+{ lib, stdenv, fetchurl }:
 
 let
-
-  packageName = with lib; concatStrings (map (entry: (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry))) (importJSON ./package.json));
-
-  nodePackages = import ./node-composition.nix {
-    inherit pkgs nodejs;
-    inherit (stdenv.hostPlatform) system;
-  };
+  pname = "mini-media-player";
+  version = "1.15.0";
 in
-nodePackages."${packageName}".override {
-  postInstall = ''
-    # fixes the shebang in webpack
-    patchShebangs --build "$out/lib/node_modules/mini-media-player/node_modules/"
-    npm run build
-    cp -v dist/*.js $out/
-    rm -rf $out/lib
+stdenv.mkDerivation {
+  inherit pname version;
+
+  src = fetchurl {
+    url = "https://github.com/kalkih/${pname}/releases/download/v${version}/mini-media-player-bundle.js";
+    hash = "sha256:01k2m0yjp2z1al0cy7albgic8478d5305mkh8bqsvysnj49s553s";
+  };
+
+  dontUnpack = true;
+  dontBuild = true;
+
+  installPhase = ''
+    mkdir $out
+    cp $src $out/mini-media-player-bundle.js
   '';
 
   meta = with lib; {
