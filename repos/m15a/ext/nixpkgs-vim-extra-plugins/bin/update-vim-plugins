@@ -4,6 +4,9 @@
 (local cjson (require :cjson))
 (local view (require :fennel.view))
 
+(local lpeg (require :lpeg))
+(lpeg.locale lpeg)
+
 ;;; ------------------------------------------------------------------------------------------------
 ;;; General utilities
 
@@ -62,8 +65,21 @@
 
 (local nix {})
 
-(fn nix.license-from-github-license [github-license]
-  "Translate GitHub API license to Nix license attr name in lib.licenses."
+(fn nix.prefetch-url [url]
+  "Prefetch url and get its sha256 hash."
+  (let [cmd (string.format "nix-prefetch-url --type sha256 %s 2>/dev/null" url)
+        pipe (assert (io.popen cmd))
+        sha256 (string.chomp (assert (pipe:read :*all)))]
+    (pipe:close)
+    sha256))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Nixpkgs helpers
+
+(local nixpkgs {})
+
+(fn nixpkgs.license-from-github-license [github-license]
+  "Translate GitHub API license to Nixpkgs license attr name in lib.licenses."
   (let [map {:agpl-3.0 "agpl3Only"
              :apache-2.0 "asl20"
              :bsd-2-clause "bsd2"
@@ -80,15 +96,7 @@
              :wtfpl "wtfpl"}]
     (. map github-license.key)))
 
-(fn nix.prefetch-url [url]
-  "Prefetch url and get its sha256 hash."
-  (let [cmd (string.format "nix-prefetch-url --type sha256 %s 2>/dev/null" url)
-        pipe (assert (io.popen cmd))
-        sha256 (string.chomp (assert (pipe:read :*all)))]
-    (pipe:close)
-    sha256))
-
-(fn nix.get-nixpkgs-vim-plugins-manifest [channel]
+(fn nixpkgs.get-vim-plugins-manifest [channel]
   "Fetch manifest of the official nixpkgs vim plugins."
   (let [channel (or channel "nixpkgs-unstable")
         path (string.format "/NixOS/nixpkgs/%s/pkgs/misc/vim-plugins/vim-plugin-names" channel)
@@ -264,48 +272,75 @@
 
 (set manifest.__index manifest)
 
-(fn manifest.parse-spec [spec]
-  "Parse manifest individual spec."
-  (match (type spec)
-    :string (match (string.match spec "^([^:]+/[^:]+)$") ; owner/repo
-              full-name {:type "github"
-                         : full-name}
-              _ (match (string.match spec "^([^:]+/[^:]+):([^:]*)$") ; owner/repo:branch
-                  (full-name branch) {:type "github"
-                                      : full-name
-                                      :branch (and (not= branch "") branch)}
-                  _ (match (string.match spec "^([^:]+/[^:]+):([^:]*):([^:]+)$") ; owner/repo:branch:rename
-                      (full-name branch rename) {:type "github"
-                                                 : full-name
-                                                 :branch (and (not= branch "") branch)
-                                                 : rename}
-                      _ (match (string.match spec "^([^:]+):([^:]+/[^:]+)$") ; type:owner/repo
-                          (repo-type full-name) {:type repo-type
-                                                 : full-name}
-                          _ (match (string.match spec "^([^:]+):([^:]+/[^:]+):([^:]*)$") ; type:owner/repo:branch
-                              (repo-type full-name branch) {:type repo-type
-                                                            : full-name
-                                                            :branch (and (not= branch "") branch)}
-                              _ (match (string.match spec "^([^:]+):([^:]+/[^:]+):([^:]*):([^:]+)$") ; type:owner/repo:branch:rename
-                                  (repo-type full-name branch rename) {:type repo-type
-                                                                       : full-name
-                                                                       :branch (and (not= branch "") branch)
-                                                                       : rename}
-                                  _ (error "invalid manifest spec")))))))
-    _ (error "undefined manifest spec")))
+(set manifest.spec {})
+
+(fn manifest.spec.decode [line]
+  "Parse a line as manifest spec and return a table containing spec properties."
+  (let [space (^ lpeg.space 0)
+        repo-identifier (^ (+ lpeg.alnum (lpeg.S "_.-")) 1)
+        ;; This is not exactly correct; see https://git-scm.com/docs/git-check-ref-format
+        gitref-identifier (^ (+ lpeg.alnum (lpeg.S "@/_.-{}")) 1)
+        attr-identifier (* (+ lpeg.alpha (lpeg.S "_"))
+                           (^ (+ lpeg.alnum (lpeg.S "_-")) 0))
+        repo-type (lpeg.Cg (+ (lpeg.P :github)
+                              (lpeg.P :gitlab))
+                           :type)
+        owner (lpeg.Cg repo-identifier
+                       :owner)
+        name (lpeg.Cg repo-identifier
+                      :name)
+        full-name (* owner space (lpeg.S "/") space name)
+        gitref (lpeg.Cg ( + gitref-identifier (lpeg.P ""))
+                        :gitref)
+        rename (lpeg.Cg attr-identifier
+                        :rename)
+        parser (lpeg.Ct (* space
+                           (^ (* repo-type space (lpeg.S ":")) -1)
+                           space
+                           full-name
+                           space
+                           (^ (*  (lpeg.S ":") space gitref) -1)
+                           space
+                           (^ (* (lpeg.S ":") space rename) -1)
+                           space
+                           (lpeg.P -1)))]
+    (match (parser:match line)
+      result {:type (or result.type :github)
+              :full-name (.. result.owner "/" result.name)
+              :branch (when (and result.gitref (not= result.gitref ""))
+                        result.gitref)
+              :rename result.rename}
+      _ (error (string.format "invalid manifest spec: %s" line)))))
+
+(fn manifest.spec.encode [spec]
+  "Encode a table of spec properties to a line of manifest spec."
+  (.. (if (and spec.type (not= spec.type :github))
+          (string.format "%s:" spec.type)
+          "")
+      spec.full-name
+      (if (and spec.branch spec.rename)
+          (string.format ":%s:%s" spec.branch spec.rename)
+          (and spec.branch (not spec.rename))
+          (string.format ":%s" spec.branch)
+          (and (not spec.branch) spec.rename)
+          (string.format "::%s" spec.rename)
+          "")))
+
+(fn manifest.spec.format [line]
+  "Format a line of manifest spec."
+  (-> line
+      (manifest.spec.decode)
+      (manifest.spec.encode)))
 
 (fn manifest.lint [self]
-  "Sort specs, remove duplicated specs, etc."
-  (let [prev-specs (table.concat self.specs "\n")
-        specs (table.unique self.specs)]
+  "Sort specs, remove duplicated specs, format specs, etc."
+  (let [specs (table.unique (icollect [_ line (ipairs self.specs)]
+                              (manifest.spec.format line)))]
     (table.sort specs
                 (fn [left right]
                   (< (string.gsub left "^[^/]+:" "")
                      (string.gsub right "^[^/]+:" ""))))
-    (set self.specs specs)
-    (when (not= (table.concat self.specs "\n")
-                prev-specs)
-      (set self.changed true))))
+    (set self.specs specs)))
 
 (fn manifest.changed? [self]
   "Return true of manifest specs are changed since its loaded time."
@@ -325,7 +360,7 @@
   "Save manifest to the file."
   (when (self:changed?)
     (with-open [buf (io.open self.file :w)]
-      (buf:write (table.concat self.specs "\n")))
+      (buf:write (.. (table.concat self.specs "\n") "\n")))
     (io.stderr:write (string.format "%s: manifest saved to %s\n" (program-name) self.file))))
 
 ;;; ------------------------------------------------------------------------------------------------
@@ -378,11 +413,11 @@
 
 (fn plugin.new [spec]
   "Create object representing Vim plugin."
-  (let [spec (manifest.parse-spec spec)
+  (let [spec (manifest.spec.decode spec)
         repo (match spec.type
                :gitlab (gitlab.project.new spec.full-name)
                :github (github.repo.new spec.full-name)
-               _ (error "undefined manifest spec"))
+               _ (error "undefined repo type"))
         recent-commit (repo:get-recent-commit spec.branch)
         url (repo:get-url recent-commit.sha)
         attr-name (plugin.escape-name (or spec.rename repo.name))
@@ -420,7 +455,7 @@
     self.repo.description
     self.repo.homepage
     (let [license (and self.repo.license
-                       (nix.license-from-github-license self.repo.license))]
+                       (nixpkgs.license-from-github-license self.repo.license))]
       (if license
           (string.format "\n      license = with licenses; [ %s ];" license)
           ""))))
@@ -493,7 +528,7 @@
         force? (. args "--force")
         %manifest (manifest.load)
         specs []
-        official-manifest (nix.get-nixpkgs-vim-plugins-manifest)
+        official-manifest (nixpkgs.get-vim-plugins-manifest)
         whitelist (collect [_ spec (ipairs (. (manifest.load "whitelist.txt")
                                               :specs))]
                     spec true)
@@ -522,7 +557,7 @@
   (let [%manifest (manifest.load)
         %manifest-specs (collect [_ spec (ipairs %manifest.specs)]
                           spec true)
-        official-manifest (nix.get-nixpkgs-vim-plugins-manifest)
+        official-manifest (nixpkgs.get-vim-plugins-manifest)
         awesome-neovim-manifest (awesome-neovim.get-vim-plugins-manifest)
         whitelist (collect [_ spec (ipairs (. (manifest.load "whitelist.txt")
                                               :specs))]

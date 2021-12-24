@@ -38,6 +38,8 @@ let
 
     bullets-vim = [ mit ];
 
+    kanagawa-nvim = [ mit ];
+
     litee-nvim = [ mit ];
 
     goimpl-nvim = [ mit ];

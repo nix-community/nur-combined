@@ -10,6 +10,7 @@ LoricAndre/OneTerm.nvim
 Mangeshrex/uwu.vim
 McAuleyPenney/tidy.nvim
 Mofiqul/vscode.nvim
+MunifTanjim/nui.nvim
 NFrid/due.nvim
 NTBBloodbath/cheovim
 NTBBloodbath/doom-one.nvim
@@ -110,6 +111,7 @@ jvgrootveld/telescope-zoxide
 kana/vim-textobj-indent
 kazhala/close-buffers.nvim
 kdheepak/monochrome.nvim
+klen/nvim-config-local
 konapun/vacuumline.nvim
 kristijanhusak/orgmode.nvim
 kvrohit/substrata.nvim
@@ -164,6 +166,7 @@ rafcamlet/tabline-framework.nvim
 raimon49/requirements.txt.vim
 ray-x/go.nvim
 ray-x/navigator.lua
+rebelot/kanagawa.nvim
 rhysd/vim-gfm-syntax
 rktjmp/highlight-current-n.nvim
 rktjmp/hotpot.nvim

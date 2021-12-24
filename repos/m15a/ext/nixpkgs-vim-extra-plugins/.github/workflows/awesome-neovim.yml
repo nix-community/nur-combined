@@ -2,7 +2,7 @@ name: Fetch new plugins from awesome-neovim
 
 on:
   schedule:
-    - cron: "44 4 * * 1,4"
+    - cron: "22 19 * * 1,4"
 
 jobs:
   fetch-new-plugins:

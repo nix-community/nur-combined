@@ -14,6 +14,7 @@ stdenvNoCC.mkDerivation {
   ] ++ (with luajit.pkgs; [
     http
     cjson
+    lpeg
   ]);
 
   dontPatchShebangs = true;

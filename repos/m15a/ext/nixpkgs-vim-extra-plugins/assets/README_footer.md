@@ -5,21 +5,34 @@
 
 #### 1. Add a new entry to `manifest.txt`
 
-In `manifest.txt`, an entry is specified by one of the following forms:
+All Nix derivations of plugins found in `pkgs/vim-plugins.nix` are generated
+from `manifest.txt`, in which each line corresponds to each plugin.
+An entry is specified by
 
-- `owner/repo`: a GitHub repo with default branch (typically `main` or `master`).
-- `github:owner/repo`: again, a GitHub repo with default branch.
-- `gitlab:owner/repo`: a GitLab repo with default branch.
-- `owner/repo:branch`: a GitHub repo with a specific `branch`.
-- `github:owner/repo:branch`: again, a GitHub repo with a specific `branch`.
-- `gitlab:owner/repo:branch`: a GitLab repo with a specific `branch`.
-- `owner/repo::rename`: a GitHub repo with default branch, renamed to `rename`.
-    - Example: `xxx/yyy::zzz`'s package name will be renamed to `zzz` in place of `yyy`.
-- `github:owner/repo::rename`: again, a GitHub repo with default branch, renamed to `rename`.
-- `gitlab:owner/repo::rename`: a GitLab repo with default branch, renamed to `rename`.
-- `owner/repo:branch:rename`: a GitHub repo with a specific `branch`, renamed to `rename`.
-- `github:owner/repo:branch:rename`: again, a GitHub repo with a specific `branch`, renamed to `rename`.
-- `gitlab:owner/repo:branch:rename`: a GitLab repo with a specific `branch`, renamed to `rename`.
+```bnf
+<entry> ::= [ <repo-type>  ":" ] <repo-full-name> [ ":"  [ <git-ref> ] [ ":" <attr-name> ] ]
+
+<repo-type> ::= "github" | "gitlab"
+
+<repo-full-name> ::= <owner-name> "/" <repo-name>
+```
+
+- If `<repo-type>` is omitted, it defaults to GitHub.
+  Only GitHub and GitLab are supported.
+- `<git-ref>` can be either branch name or commit hash. If omitted,
+  the latest commit hash in the default branch will be used.
+- Attribute name of a plugin (`pkgs.vimExtraPlugins.${attr-name}`) is
+  automatically determined from `<repo-name>` by default.
+  If `<attr-name>` is set in an entry, it will replace the default name.
+
+**Examples:**
+
+- `foo/bar`: a GitHub repo `bar` of owner `foo`, using default branch.
+- `gitlab:foo/bar`:  a GitLab repo, using default branch.
+- `foo/bar:dev`: a GitHub repo, using `dev` branch.
+- `foo/bar:97be0965f9a0944629ba67e5fd0b05b898d34e61`: a GitHub repo,
+  pinned to a commit `97be0965f9a0944629ba67e5fd0b05b898d34e61`.
+- `foo/bar::baz`: a GitHub repo, using default branch, renamed to `baz`.
 
 After adding your entry, run:
 
@@ -27,7 +40,7 @@ After adding your entry, run:
 nix run .#update-vim-plugins -- lint
 ```
 
-So that entries are sorted and duplicated ones are removed.
+So that entries are checked and formatted.
 
 #### 2. Update Nix expression and README
 

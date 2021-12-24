@@ -2,6 +2,18 @@
 
 Nix flake of miscellaneous Vim/Neovim plugins.
 
+## Table of contents
+
+- [Description](#description)
+- [Usage](#usage)
+    - [In flake](#in-flake)
+    - [In legacy Nix](#in-legacy-nix)
+    - [Via NUR](#via-nur)
+- [Available Vim/Neovim plugins](#available-vimneovim-plugins)
+- [Contribution](#contribution)
+    - [How to add a new plugin](#how-to-add-a-new-plugin)
+- [License](#license)
+
 ## Description
 
 This flake contains Nix packages of miscellaneous Vim/Neovim plugins.
