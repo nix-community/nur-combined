@@ -2,18 +2,18 @@
 
 buildGoModule rec {
   pname = "astronaut";
-  version = "0.1.0-rc.2";
+  version = "0.1.0";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = pname;
     rev = version;
-    hash = "sha256-VI+JI7tqS2FHO9pIGAEGqV6oocYH9A/jDsjw9yYbx3k=";
+    hash = "sha256-42n7XB7hJcuB7vvWB2chUUWFyZQkRTsdUnqEloU22GU=";
   };
 
   nativeBuildInputs = [ scdoc ];
 
-  vendorSha256 = "sha256-6zf+BdI/3iAlip1Uu2YbZ8dyfTYQlvPi/RmMm3x3BUs=";
+  vendorSha256 = "sha256-7SyawlfJ9toNVuFehGr5GQF6mNmS9E4kkNcqWllp8No=";
 
   installPhase = ''
     runHook preInstall
