@@ -17,5 +17,6 @@
   openframeworks = pkgs.callPackage ./pkgs/openframeworks {};
   gtk-typescript-defs = pkgs.callPackage ./pkgs/gtk-typescript-defs.nix {};
   calligra = pkgs.callPackage ./pkgs/calligra-patched {};
+  webp-pixbuf-loader = pkgs.callPackage ./pkgs/webp-pixbuf-loader {};
 }
 
