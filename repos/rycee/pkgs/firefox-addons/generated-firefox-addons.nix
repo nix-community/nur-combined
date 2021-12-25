@@ -742,10 +742,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.4.1";
+      version = "4.4.2";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3878044/grammatik_und_rechtschreibprufung_languagetool-4.4.1-fx.xpi";
-      sha256 = "5b7fcfeca3a8aae78f34d614ee307954539d75ccfbcaeb3619fa87533a4d3a53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3885480/grammatik_und_rechtschreibprufung_languagetool-4.4.2-fx.xpi";
+      sha256 = "7d20800418fb9c91045c13ae136584293a21d60759681ab9ca7228c2a772dc50";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1038,10 +1038,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.2.5";
+      version = "7.3.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3877312/octotree_github_code_tree-7.2.5-fx.xpi";
-      sha256 = "90a7ae85ec93ed2147e033918d551e8dc3c7caf75f511226ca235741bfe47f37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3885923/octotree_github_code_tree-7.3.0-fx.xpi";
+      sha256 = "e750e11b5188f8beafaecab9d72471d9b1a2d3b33cae495a43892ebbd8182b3d";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
