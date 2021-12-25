@@ -1,14 +1,14 @@
 {
-	stdenv, fetchFromGitHub, 
+	stdenv, fetchFromGitHub,
 	meson, cmake, ninja, pkg-config,
 	gdk-pixbuf, libwebp
 }:
 let
-	loaderPath = "lib/gdk-pixbuf-2.0/2.10.0/loaders";
+	moduleDir = gdk-pixbuf.moduleDir;
 in stdenv.mkDerivation {
 	pname = "webp-pixbuf-loader";
 	version = "0.0.3";
-	
+
 	src = fetchFromGitHub {
 		owner = "aruiz";
 		repo = "webp-pixbuf-loader";
@@ -22,13 +22,13 @@ in stdenv.mkDerivation {
 
 	mesonFlags = [
 		"-Dgdk_pixbuf_query_loaders_path=${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders"
-		"-Dgdk_pixbuf_moduledir=./${loaderPath}"
+		"-Dgdk_pixbuf_moduledir=./${moduleDir}/loaders"
 	];
 
 	preInstallPhases = ["preInstallPhase"];
 	preInstallPhase = ''
 		#environment variables controlling gdk-pixbuf-query-loaders
-		export GDK_PIXBUF_MODULE_FILE=$out/${loaderPath}/loaders.cache
-		export GDK_PIXBUF_MODULEDIR=$out/${loaderPath}
+		export GDK_PIXBUF_MODULE_FILE=$out/${moduleDir}/loaders.cache
+		export GDK_PIXBUF_MODULEDIR=$out/${moduleDir}/loaders
 	'';
 }
