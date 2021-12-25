@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cxxmatrix";
-  version = "unstable-2021-06-30";
+  version = "unstable-2021-10-18";
 
   src = fetchFromGitHub {
     owner = "akinomyoga";
     repo = pname;
-    rev = "b58c7e00588c46cd0cef6fef3205ccd814b51ba8";
-    sha256 = "0n5zkzfv6ablkinvz1mvn2iaq1mzlv56izrqnp7hg10ckvp63szx";
+    rev = "87f1fb028caee28ff793550edfdf940c5def0385";
+    sha256 = "0mb2jxja60nvv210z4pjizkflfccpkiykxxdfvcggxivydnq7vyi";
   };
 
   outputs = [ "out" "man" ];
@@ -21,5 +21,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.mit;
     platforms = platforms.all;
+    mainProgram = "cxxmatrix";
   };
 }

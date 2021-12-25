@@ -12,6 +12,8 @@ rec {
 
   schemaorg = callPackage ./pkgs/schemaorg { } ;
 
+  libetc = callPackage ./pkgs/libetc { } ;
+
   lttoolbox = callPackage ./pkgs/lttoolbox {};
 
   apertium = callPackage ./pkgs/apertium { inherit lttoolbox; };
@@ -23,6 +25,16 @@ rec {
   };
 
   colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
+
+  dbussy = pkgs.python3Packages.callPackage ./pkgs/dbussy { };
+
+  extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit convcolors; };
+
+  convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors {  };
+
+  pymatting = pkgs.python3Packages.callPackage ./pkgs/pymatting {  };
+
+  rembg = pkgs.python3Packages.callPackage ./pkgs/rembg { inherit pymatting; };
 
   rustfilt = callPackage ./pkgs/rustfilt {};
 
@@ -49,6 +61,16 @@ rec {
   ksuid = callPackage ./pkgs/ksuid {};
 
   pigo = callPackage ./pkgs/pigo {};
+
+  htmlq = callPackage ./pkgs/htmlq { };
+
+  s-dot = callPackage ./pkgs/s-dot {};
+
+  s-dot2 = callPackage ./pkgs/s-dot2 {};
+
+  tinmop = callPackage ./pkgs/tinmop {};
+
+  ksv = callPackage ./pkgs/ksv { };
 
   lib = {
 

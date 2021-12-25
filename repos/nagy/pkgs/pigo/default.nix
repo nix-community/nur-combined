@@ -13,6 +13,8 @@ buildGoModule rec {
 
   vendorSha256 = "1yaiiiamk6wvacsyv04m5gar3rskb0hqa54rrxag8x5lz2rmahij";
 
+  deleteVendor = true;
+
   postInstall = ''
      # this generic name might conflict with other packages
      rm -f $out/bin/http

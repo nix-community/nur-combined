@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    kaitai-struct (0.9)
+    kaitai-struct-visualizer (0.7)
+      kaitai-struct (~> 0.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  kaitai-struct-visualizer
+
+BUNDLED WITH
+   2.1.4
