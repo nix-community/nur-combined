@@ -3,9 +3,12 @@
 	meson, cmake, ninja, pkg-config,
 	gdk-pixbuf, libwebp
 }:
-stdenv.mkDerivation {
+let
+	loaderPath = "lib/gdk-pixbuf-2.0/2.10.0/loaders";
+in stdenv.mkDerivation {
 	pname = "webp-pixbuf-loader";
 	version = "0.0.3";
+	
 	src = fetchFromGitHub {
 		owner = "aruiz";
 		repo = "webp-pixbuf-loader";
@@ -13,10 +16,19 @@ stdenv.mkDerivation {
 		sha256 = "1dp4xrdz2p4vx2gd871vcy0nk6lkai4r3ddiw38ic6a8pq9npn11";
 		fetchSubmodules = true;
 	};
+
 	nativeBuildInputs = [meson cmake ninja pkg-config];
 	buildInputs = [gdk-pixbuf libwebp];
+
 	mesonFlags = [
 		"-Dgdk_pixbuf_query_loaders_path=${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders"
-		"-Dgdk_pixbuf_moduledir=./lib/gdk-pixbuf-2.0/2.10.0/loaders"
+		"-Dgdk_pixbuf_moduledir=./${loaderPath}"
 	];
+
+	preInstallPhases = ["preInstallPhase"];
+	preInstallPhase = ''
+		#environment variables controlling gdk-pixbuf-query-loaders
+		export GDK_PIXBUF_MODULE_FILE=$out/${loaderPath}/loaders.cache
+		export GDK_PIXBUF_MODULEDIR=$out/${loaderPath}
+	'';
 }
