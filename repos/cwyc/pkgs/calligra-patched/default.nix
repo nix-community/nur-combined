@@ -8,4 +8,5 @@ calligra.overrideAttrs (old: {
 		fetchSubmodules = true;
 	};
 	meta.description = "My patches to the calligra office suite";
+	meta.broken = true; #patch conflict
 })
