@@ -193,12 +193,15 @@ in {
 
   config = mkIf cfg.enable {
 
-    users.users.minecraft = {
+   users.users.minecraft = {
       description     = "Minecraft server service user";
       home            = cfg.dataDir;
       createHome      = true;
-      uid             = config.ids.uids.minecraft;
+      isSystemUser    = true;
+      group           = "minecraft";
     };
+
+    users.groups.minecraft = {};
 
     systemd.services.bukkit-server = {
       description   = "Minecraft Server Service";
