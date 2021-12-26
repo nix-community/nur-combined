@@ -14,6 +14,7 @@ rec {
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib { };
+  ccxt = pkgs.callPackage ./pkgs/misc/ccxt { };
   finplot = pkgs.libsForQt5.callPackage ./pkgs/misc/finplot { };
   frida-python = pkgs.callPackage ./pkgs/misc/frida-python {
     # WTNG: Check when Frida is available for Python 3.9 which is now the
