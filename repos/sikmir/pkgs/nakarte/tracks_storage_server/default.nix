@@ -44,7 +44,9 @@ python2Packages.buildPythonApplication rec {
     let
       pythonEnv = python2Packages.python.withPackages (p: with p; [
         msgpack
-        protobuf
+        (protobuf.overrideAttrs (old: {
+          dontUsePythonImportsCheck = true;
+        }))
         psycopg2
       ]);
     in
