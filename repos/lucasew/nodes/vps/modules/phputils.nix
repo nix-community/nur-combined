@@ -13,6 +13,7 @@ in {
     domain = mkOption {
       type = types.str;
       description = "nginx virtual host to use";
+      default = "utils." + config.vps.domain;
     };
   };
   config = mkIf cfg.enable {

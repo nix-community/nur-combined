@@ -14,6 +14,7 @@ in {
   ];
 
   vps = {
+    domain = "ztvps.biglucas.tk";
     # alibot.enable = true;
     pgbackup.enable = true;
   };
@@ -67,10 +68,7 @@ in {
       resolveLocalQueries = true;
     };
     irqbalance.enable = true;
-    php-utils = {
-      enable = true;
-      domain = "utils.vps.local";
-    };
+    php-utils.enable = true;
     vaultwarden.enable = true;
     postgresql = {
       enable = true;

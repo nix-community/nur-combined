@@ -1,6 +1,6 @@
 {global, pkgs, lib, ...}:
 let
-  inherit (pkgs) neovim nixFlakes writeText;
+  inherit (pkgs) vim nixFlakes writeText gitMinimal tmux;
   inherit (global) username;
 in {
   nix = {
@@ -19,7 +19,9 @@ in {
   i18n.defaultLocale = "pt_BR.UTF-8";
   time.timeZone = "America/Sao_Paulo";
   environment.systemPackages = [
-    neovim
+    vim
+    gitMinimal
+    tmux
   ];
   environment.variables.EDITOR = "nvim";
   # remote acess
@@ -51,6 +53,7 @@ in {
         "wheel"
         "docker"
       ];
+      initialPassword = "changeme";
       openssh.authorizedKeys.keyFiles = [
         ../../authorized_keys
       ];

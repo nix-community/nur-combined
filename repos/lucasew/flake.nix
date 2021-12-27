@@ -147,9 +147,9 @@
       let
         revModule = {pkgs, ...}: {
           system.configurationRevision = if (self ? rev) then 
-          trace "detected flake hash: ${self.rev}" self.rev
+            trace "detected flake hash: ${self.rev}" self.rev
           else
-          trace "flake hash not detected!" null;
+            trace "flake hash not detected!" null;
           };
           source = {
           inherit pkgs system;

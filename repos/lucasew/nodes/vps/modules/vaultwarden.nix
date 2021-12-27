@@ -1,8 +1,11 @@
 {pkgs, config, lib, global, ...}:
+let
+  domain = "vaultwarden." + config.vps.domain;
+in
 lib.mkIf config.services.vaultwarden.enable {
   services.nginx = {
     virtualHosts = {
-      "vaultwarden.vps.local" = {
+      "${domain}" = {
         locations."/" = {
           proxyPass = "http://127.0.0.1:${config.services.vaultwarden.config.ROCKET_PORT}/";
           proxyWebsockets = true;
