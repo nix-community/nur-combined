@@ -1,9 +1,11 @@
-{ config, lib, pkgs, ... }:
+edgevpn: { config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.server;
 in {
+  imports = [ edgevpn ];
+
   options.services.server = {
     enable = mkEnableOption ''
       Support for my home server
@@ -36,5 +38,19 @@ in {
 
     virtualisation.libvirtd.enable = lib.mkForce false;
     services.tor.enable = lib.mkForce false;
+
+    networking.edgevpn = {
+      enable = true;
+      address = "10.0.2.2/24";
+      router = "10.0.2.1";
+      postStart = ''
+        ip route add dev ${config.networking.edgevpn.interface} 10.0.0.0/24
+        ip route add dev ${config.networking.edgevpn.interface} 10.0.1.0/24
+        echo -e "nameserver 10.0.0.2\nsearch local" | resolvconf -a ${config.networking.edgevpn.interface}
+      '';
+      preStop = ''
+        resolvconf -d ${config.networking.edgevpn.interface}
+      '';
+    };
   };
 }

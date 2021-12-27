@@ -14,7 +14,7 @@ rec {
   nvidia = ./nvidia.nix;
   job = ./job.nix;
   monitor = import ./monitor.nix unstable;
-  server = ./server.nix;
+  server = import ./server.nix edgevpn;
   steam = ./steam.nix;
   wifi = ./wifi.nix;
   rkn = import ./rkn.nix libidn;
