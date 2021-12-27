@@ -1,25 +1,26 @@
 { lib, stdenv, fetchurl, appimageTools, undmg }:
 let
   pname = "librewolf";
-  version = "93.0-1";
+  version = "95.0.2-1";
   name = "${pname}-${version}";
 
   srcs = {
+    # Picked from $PROJECT_URL/-/releases
     x86_64-linux = fetchurl {
-      url = "https://gitlab.com/librewolf-community/browser/appimage/-/jobs/1662565348/artifacts/raw/LibreWolf-${version}.x86_64.AppImage";
-      hash = "sha256-1Rxv1dZ/kwhhHdvm34XphnbQlDXTkSVy9pjQ525S4eo=";
+      url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/${pname}/${version}/LibreWolf.x86_64.AppImage";
+      sha256 = "e25016af59632c9f13509fa18196474880c476eb43c3ee6bb18919a6e2370675";
     };
     aarch64-linux = fetchurl {
-      url = "https://gitlab.com/librewolf-community/browser/appimage/-/jobs/1662565349/artifacts/raw/LibreWolf-${version}.aarch64.AppImage";
-      hash = "sha256-zuXGDptHULbFaINHJERJd7qEUmWqsoKjWiQwgtNVMmQ=";
+      url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/${pname}/${version}/LibreWolf.aarch64.AppImage";
+      sha256 = "6ce7fc3e3c2024dcb8e371f6e090319a2d93337f02043f353ce0f56833014546";
     };
     x86_64-darwin = fetchurl {
-      url = "https://gitlab.com/librewolf-community/browser/macos/uploads/9324cabdb1a0677c6a2ed5847ccb5eb8/librewolf-${version}.dmg";
-      hash = "sha256-g8ujnFyspbT2QrTyxwyAapCSAPGJ26cOv93VBgsWKUk=";
+      url = "https://gitlab.com/librewolf-community/browser/macos/uploads/dd4be5c05d04d8fa4a9134ee13bc2e33/librewolf-${version}.dmg";
+      sha256 = "91bca5c96d725a70f9d73d622680064805bf3dbfcac0af36a44786d15437f0e6";
     };
     aarch64-darwin = fetchurl {
-      url = "https://gitlab.com/librewolf-community/browser/macos/uploads/e092796aa6d554c4bbe5687426e06bb1/librewolf-${version}_aarch64_exp.dmg";
-      hash = "sha256-/0ILIFirJB31VuNbDnRDOv2CWovJ4TnVYzjNdhi8PTU=";
+      url = "https://gitlab.com/librewolf-community/browser/macos/uploads/199aedb468a551b3c1371f974487502f/librewolf-${version}_aarch64_exp.dmg";
+      sha256 = "70170da323506d6286008c13f781fb1de2f2332cec3f22406a1a61ee9b254a10";
     };
   };
   src = srcs.${stdenv.hostPlatform.system};
