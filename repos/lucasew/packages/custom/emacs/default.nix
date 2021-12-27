@@ -10,13 +10,18 @@ pkgs.wrapEmacs {
     escesc = true;
     collection = true;
   };
+  company.enable = true;
   language-support = {
     nix.enable = true;
     markdown.enable = true;
+    golang.enable = true;
   };
-  plugins = with pkgs.emacsPackages; [
-    org-roam
-  ];
+  performance.startup.increase-gc-threshold-on-init = true;
+  yasnippet = {
+    enable = true;
+    global-mode.enable = true;
+    official-snippets.enable = true;
+  };
   org = {
     enable = true;
     roam = {
@@ -24,8 +29,12 @@ pkgs.wrapEmacs {
       ack-v2 = true;
     };
   };
+  helm.enable = true;
   # nogui = true;
   themes.selected = "wombat";
+  plugins = with pkgs.emacsPackages; [
+    auctex
+  ];
   initEl.pos = builtins.readFile ./custom.el;
 }
 

@@ -100,6 +100,13 @@ in reduceJoin [
     wrapWine = cp ./packages/wrapWine.nix;
     preload = cp ./packages/preload.nix;
     nodePackages = cp ./packages/node_clis/package_data/default.nix;
+    emacsPackages.org-roam = super.emacsPackages.org-roam.overrideAttrs (attrs: {
+      src = builtins.fetchGit {
+        rev = "9b2f5279a504148a7fef1a884655fb224b248ae5";
+        ref = "feat/db-hook";
+        url = "https://github.com/lucasew/org-roam";
+      };
+    });
 
     nur = import flake.inputs.nur {
       inherit (super) pkgs;

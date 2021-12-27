@@ -144,11 +144,11 @@
     "nix-emacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1639766086,
-        "narHash": "sha256-lhf0gO5FVQ78WauVoAdZYIWHLaDZAqrOBRUUw+JYqF8=",
+        "lastModified": 1640281702,
+        "narHash": "sha256-SyXlRQRXxGIZ4z/Fm/PnjQ/liLxT/07dleaqEURg9jo=",
         "owner": "nixosbrasil",
         "repo": "nix-emacs",
-        "rev": "56fa4dee99e7ade766f73cc2a877643006513de8",
+        "rev": "a1963d6a640197095ea9c1b7483dda36e6e7ff65",
         "type": "github"
       },
       "original": {
