@@ -5,7 +5,7 @@ buildFishPlugin rec {
 
   meta = with lib; {
     description = "Git plugin for Oh My Fish";
-    homepage = "https://github.com/TimothyYe/godns";
+    homepage = "https://github.com/jhillyerd/plugin-git";
     license = licenses.mit;
   };
 }
