@@ -5,13 +5,14 @@ let
     categories = "GTK;Network;WebBrowser;";
     desktopName = "Relay Browser";
     exec = "rbrowser %U";
-    genericName  = "Web Browser";
+    genericName = "Web Browser";
     icon = "chromium";
     mimeType = "x-scheme-handler/unknown;x-scheme-handler/about;text/html;text/xml;application/xhtml+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;";
     name = "rbrowser";
   };
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   name = "rbrowser";
 
   phases = [ "installPhase" "fixupPhase" ];
