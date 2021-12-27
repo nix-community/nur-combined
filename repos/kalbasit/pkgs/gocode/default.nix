@@ -1,4 +1,4 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ buildGoPackage, fetchFromGitHub, lib }:
 
 buildGoPackage rec {
   name = "gocode-unstable-${version}";
@@ -28,7 +28,7 @@ buildGoPackage rec {
     rm -r go/src/$goPackagePath/internal/suggest/testdata
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An autocompletion daemon for the Go programming language";
     longDescription = ''
       Gocode is a helper tool which is intended to be integrated with your

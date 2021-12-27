@@ -1,4 +1,4 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ buildGoPackage, fetchFromGitHub, lib }:
 
 buildGoPackage rec {
   name = "corgi-${rev}";
@@ -15,7 +15,7 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "CLI workflow manager";
     longDescription = ''
       Corgi is a command-line tool that helps with your repetitive command usages by organizing them into reusable snippet.

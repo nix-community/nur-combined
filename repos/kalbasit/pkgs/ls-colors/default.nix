@@ -1,14 +1,14 @@
-{ stdenvNoCC, fetchFromGitHub }:
+{ stdenvNoCC, fetchFromGitHub, lib }:
 
 stdenvNoCC.mkDerivation rec {
-  name = "lscolors-unstable-${version}";
-  version = "2019-02-01";
+  pname = "lscolors-unstable";
+  version = "2021-07-27";
 
   src = fetchFromGitHub {
     owner = "trapd00r";
     repo = "LS_COLORS";
-    rev = "ea316590b3f6c9784c21445bd575e16fc4b1ff2f";
-    sha256 = "1bj3q6s7yfglj7bpc8hjw05bz1byhm95ml2iyzr72vda4jn6ll7m";
+    rev = "2957904dbd4156b7980e3450233f811073132023";
+    sha256 = "sha256-46UR3lKOAoMdcIolVzyqMyGs+Q2DXeq7xUubTLxS3/I=";
   };
 
   buildPhase = ''
@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     mv bourne-shell.sh c-shell.sh $out/ls-colors/
   '';
 
-  meta = with stdenvNoCC.lib; {
+  meta = {
     description = "A collection of LS_COLORS definitions; needs your contribution!";
     longDescription = ''
       This is a collection of extension:color mappings, suitable to use as your
@@ -30,8 +30,8 @@ stdenvNoCC.mkDerivation rec {
       with capabilities of displaying 256 colors.
     '';
     homepage = https://github.com/trapd00r/LS_COLORS;
-    license = licenses.artistic1;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ kalbasit ];
+    license = lib.licenses.artistic1;
+    platforms = lib.platforms.all;
+    maintainers = [ lib.maintainers.kalbasit ];
   };
 }

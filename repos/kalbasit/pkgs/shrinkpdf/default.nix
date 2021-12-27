@@ -1,4 +1,4 @@
-{ pkgs, stdenv, fetchurl }:
+{ pkgs, lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "shrinkpdf-${version}";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
       --replace gs ${pkgs.ghostscript}/bin/gs
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "shrink PDF files with Ghostscript";
     longDescription = ''
       A simple wrapper around Ghostscript to shrink PDFs (as in reduce
