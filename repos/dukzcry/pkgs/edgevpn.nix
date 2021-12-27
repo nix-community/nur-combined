@@ -2,16 +2,21 @@
 
 buildGoModule rec {
   pname = "edgevpn";
-  version = "0.5.1";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "mudler";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-sJk2cbQv+EfJyqgK4JZVRmFkmYP4fN4itmmSqbAOksc=";
+    sha256 = "1bd19jafrpbx10jifr869cabhdz9z1737lm9k43m2nc14cq5g4cc";
   };
 
-  vendorSha256 = "sha256-pPv0y5obD/79qSg08J7y+6g98QITrY0wdrQpfc+D0a4=";
+  vendorSha256 = "1cdxnlcrfgxapwfpx5if2cdzxxrqkxbnlz95gl6aa2w7yx550jjr";
+
+  preBuild = ''
+    substituteInPlace internal/version.go \
+      --replace 'Version = ""' 'Version = "${src.rev}"'
+  '';
 
   doCheck = false;
 
