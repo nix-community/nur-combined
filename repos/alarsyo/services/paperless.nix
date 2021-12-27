@@ -79,7 +79,7 @@ in
 
     systemd.services.paperless-ng-server = {
       # Make sure the DB is available
-      after = [ "postgresql.service" ];
+      after = [ "postgresql.service" "redis-paperless.service" ];
     };
 
     services.nginx.virtualHosts = {

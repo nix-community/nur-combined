@@ -28,10 +28,6 @@ in
     };
   };
 
-  virtualisation.docker = {
-    enable = true;
-  };
-
   networking.hostName = "poseidon"; # Define your hostname.
   networking.domain = "alarsyo.net";
 
@@ -157,8 +153,4 @@ in
 
   # Takes a long while to build
   documentation.nixos.enable = false;
-
-  environment.systemPackages = with pkgs; [
-    docker-compose
-  ];
 }
