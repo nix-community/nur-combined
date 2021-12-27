@@ -1,4 +1,4 @@
-{pkgs, lib, global, self, ...}:
+{pkgs, lib, global, self, config, ...}:
 let
   inherit (self) inputs;
   inherit (pkgs) dotenv;
@@ -25,6 +25,7 @@ in {
     directories = [
       "${toString rootPath}/secrets"
       "/backups"
+      "/srv/php-utils"
     ];
   };
 
@@ -61,7 +62,16 @@ in {
   };
   virtualisation.docker.enable = true;
   services = {
+    dnsmasq = {
+      enable = true;
+      resolveLocalQueries = true;
+    };
     irqbalance.enable = true;
+    php-utils = {
+      enable = true;
+      domain = "utils.vps.local";
+    };
+    vaultwarden.enable = true;
     postgresql = {
       enable = true;
       enableTCPIP = true;
@@ -81,5 +91,9 @@ in {
   cachix.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_5_4;
+  services.nginx = {
+    enable = true;
+    enableReload = true;
+  };
   system.stateVersion = "20.03";
 }
