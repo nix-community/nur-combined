@@ -1,6 +1,6 @@
 { lib
 , stdenvNoCC
-, openjdk11
+, openjdk8
 , buildFHSUserEnv
 , fetchzip
 }:
@@ -21,7 +21,7 @@ let
   fhs = buildFHSUserEnv {
     name = "tlauncher";
     runScript = ''
-      ${openjdk11}/bin/java -jar "${tlauncher}/opt/tlauncher/tlauncher.jar" "$@"
+      ${openjdk8}/bin/java -jar "${tlauncher}/opt/tlauncher/tlauncher.jar" "$@"
     '';
     targetPkgs = pkgs: with pkgs; [
       alsa-lib
