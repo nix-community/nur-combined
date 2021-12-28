@@ -56,6 +56,8 @@
 
   nixpkgs-check = pkgs.callPackage ./pkgs/nixpkgs-check { };
 
+  pixelpwnr = pkgs.callPackage ./pkgs/pixelpwnr { };
+
   photoview-api = pkgs.callPackage ./pkgs/photoview-api { };
 
   routinator = pkgs.callPackage ./pkgs/routinator { };

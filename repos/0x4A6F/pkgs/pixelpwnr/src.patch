@@ -1,0 +1,87 @@
+diff --git a/src/color.rs b/src/color.rs
+index 0c5c73f..41d5f6e 100644
+--- a/src/color.rs
++++ b/src/color.rs
+@@ -6,19 +6,20 @@ pub struct Color {
+     r: u8,
+     g: u8,
+     b: u8,
++    a: u8,
+ }
+ 
+ impl Color {
+     /// Constructor.
+     ///
+     /// The color channels must be between 0 and 255.
+-    pub fn from(r: u8, g: u8, b: u8) -> Color {
+-        Color { r, g, b }
++    pub fn from(r: u8, g: u8, b: u8, a: u8) -> Color {
++        Color { r, g, b, a}
+     }
+ 
+     /// Get a hexadecimal representation of the color,
+     /// such as `FFFFFF` for white and `FF0000` for red.
+     pub fn as_hex(self) -> String {
+-        format!("{:02X}{:02X}{:02X}", self.r, self.g, self.b)
++        format!("{:02X}{:02X}{:02X}{:02X}", self.r, self.g, self.b, self.a)
+     }
+ }
+diff --git a/src/image_manager.rs b/src/image_manager.rs
+index dafe33a..feb28a9 100644
+--- a/src/image_manager.rs
++++ b/src/image_manager.rs
+@@ -4,7 +4,8 @@ use std::time::Duration;
+ use rayon::prelude::*;
+ 
+ use image;
+-use image::{DynamicImage, FilterType};
++use image::DynamicImage;
++use image::imageops::FilterType;
+ 
+ use pix::canvas::Canvas;
+ 
+diff --git a/src/painter/painter.rs b/src/painter/painter.rs
+index 870c4d8..bf26a0e 100644
+--- a/src/painter/painter.rs
++++ b/src/painter/painter.rs
+@@ -51,7 +51,7 @@ impl Painter {
+         }
+ 
+         // Get an RGB image
+-        let image = self.image.as_mut().unwrap().to_rgb();
++        let image = self.image.as_mut().unwrap().to_rgba8();
+ 
+         // Loop through all the pixels, and set their color
+         for x in 0..self.area.w {
+@@ -68,7 +68,8 @@ impl Painter {
+                 let channels = pixel.channels();
+ 
+                 // Define the color
+-                let color = Color::from(channels[0], channels[1], channels[2]);
++                let color = Color::from(channels[0], channels[1], channels[2], channels[3]);
++
+ 
+                 // Set the pixel
+                 if let Some(client) = &mut self.client {
+diff --git a/src/pix/client.rs b/src/pix/client.rs
+index fdb0bfc..aeb34ac 100644
+--- a/src/pix/client.rs
++++ b/src/pix/client.rs
+@@ -80,7 +80,7 @@ impl Client {
+     fn write_command(&mut self, cmd: &str) -> Result<(), Error> {
+         // Write the pixels and a new line
+         self.stream.write_all(cmd.as_bytes())?;
+-        self.stream.write_all(b"\r\n")?;
++        self.stream.write_all(b"\n")?;
+ 
+         // Flush, make sure to clear the send buffer
+         // TODO: only flush each 100 pixels?
+@@ -114,7 +114,7 @@ impl Client {
+ impl Drop for Client {
+     /// Nicely drop the connection when the client is disconnected.
+     fn drop(&mut self) {
+-        let _ = self.write_command("\r\nQUIT".into());
++        let _ = self.write_command("\nQUIT".into());
+     }
+ }
+ 
