@@ -38,6 +38,8 @@ let
 
     bullets-vim = [ mit ];
 
+    christmas-vim = [ mit ];
+
     kanagawa-nvim = [ mit ];
 
     litee-nvim = [ mit ];

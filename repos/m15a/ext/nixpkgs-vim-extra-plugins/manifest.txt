@@ -184,6 +184,7 @@ savq/paq-nvim
 seandewar/nvimesweeper
 sgur/vim-textobj-parameter
 shaeinst/roshnivim-cs
+skanehira/christmas.vim
 startup-nvim/startup.nvim
 stevearc/dressing.nvim
 stevearc/gkeep.nvim
