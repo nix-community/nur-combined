@@ -10,6 +10,7 @@
 , pytest
 , pytest-aiohttp
 , pytest-cov
+, pytest-freezegun
 , pytest-socket
 , pytest-sugar
 , pytest-timeout
@@ -24,24 +25,25 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.4.7";
+  version = "0.5.8";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "0fxn4pbg747scilrmpa16si2y4llgig2r32jzqqg4mzk51kd5myj";
+    sha256 = "0hgwnxl3cpzwmwazgvyr1937rpvxafg1074i73j95g9wi3f3ynlq";
   };
   postPatch = ''
     substituteInPlace requirements_test.txt \
-      --replace "coverage==6.0.2" "coverage>=5.5" \
+      --replace "coverage==6.2.0" "coverage>=5.5" \
       --replace "homeassistant==2021.11.0b0" "homeassistant>=2021.11.0,<2021.12" \
       --replace "jsonpickle==1.4.1" "jsonpickle>=1.4.1" \
-      --replace "pipdeptree==2.1.0" "" \
+      --replace "pipdeptree==2.2.0" "" \
       --replace "pylint-strict-informational==0.1" "" \
       --replace "pytest-socket==0.4.1" "pytest-socket>=0.4.0" \
       --replace "pytest-test-groups==1.0.3" "" \
+      --replace "pytest-timeout==2.0.1" "pytest-timeout>=1.4.2" \
       --replace "pytest-xdist==2.4.0" "pytest-xdist>=2.3.0" \
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
       --replace "respx==0.17.0" "respx>=0.17.0" \
@@ -65,6 +67,7 @@ buildPythonPackage rec {
     mock-open
     pytest-aiohttp
     pytest-cov
+    pytest-freezegun
     pytest-sugar
     pytest-timeout
     pytest-xdist

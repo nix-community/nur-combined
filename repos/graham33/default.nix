@@ -17,13 +17,13 @@ let
     ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
     haManifestRequirementsCheckHook = pySelf.callPackage pkgs/build-support/ha-custom-components/ha-manifest-requirements-check-hook.nix {};
     hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
-    homeassistant = (pySelf.toPythonModule pkgs.home-assistant).overrideAttrs (o: {
+    homeassistant = (pySelf.toPythonModule home-assistant).overrideAttrs (o: {
       # tests take a really long time
       doInstallCheck = false;
     });
     homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
     libdyson = pySelf.callPackage ./pkgs/libdyson { };
-    libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
+    # libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
     monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
     pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
     pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
@@ -36,17 +36,13 @@ let
     typer = pySelf.callPackage ./pkgs/typer { };
   };
 
-  python38 = pkgs.python38.override {
+  home-assistant = pkgs.home-assistant.override {
+    # TODO: fix upstream
+    extraPackages = ps: [ps.ifaddr];
     packageOverrides = pyPackageOverrides;
   };
-  python38Packages = python38.pkgs;
 
-  python39 = pkgs.python39.override {
-    packageOverrides = pyPackageOverrides;
-  };
-  python39Packages = python39.pkgs;
-
-  pkg_21-11 = pkg: if (builtins.match "^21\.11.*" pkgs.lib.version != null) then pkg else null;
+  # pkg_21-11 = pkg: if (builtins.match "^21\.11.*" pkgs.lib.version != null) then pkg else null;
 
 in rec {
   inherit pkgs; # for debugging
@@ -56,16 +52,14 @@ in rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  inherit python39 python39Packages;
+  inherit home-assistant;
 
   # packages to cache (all versions)
-  inherit (python39Packages)
+  inherit (home-assistant.python.pkgs)
+    hass-smartbox
+    homeassistant
+    homeassistant-stubs
+    pytest-homeassistant-custom-component
     smartbox
   ;
-
-  # packages to cache (21.11/unstable)
-  hass-smartbox = pkg_21-11 python39Packages.hass-smartbox;
-  homeassistant = pkg_21-11 python39Packages.homeassistant;
-  homeassistant-stubs = pkg_21-11 python39Packages.homeassistant-stubs;
-  pytest-homeassistant-custom-component = pkg_21-11 python39Packages.pytest-homeassistant-custom-component;
 }
