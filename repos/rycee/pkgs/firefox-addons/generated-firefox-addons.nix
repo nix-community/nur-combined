@@ -57,10 +57,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.8";
+      version = "0.4.9";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3880782/auto_tab_discard-0.4.8-an+fx.xpi";
-      sha256 = "32233e227e92178fe131b155d45d56991df5c2bf759cc233c71252d50aaf1ece";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3886197/auto_tab_discard-0.4.9-an+fx.xpi";
+      sha256 = "45784353df9444a16155fba1d2d6390b8cf34a055882b7a8763033880f9d2b7d";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -1385,10 +1385,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.4.0";
+      version = "1.4.1";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3859949/rust_search_extension-1.4.0-fx.xpi";
-      sha256 = "eee085e3d03e1de3d9d3fcafd1e3b0a8af0435de8dd6de0b30cbcbabd7f11000";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3886576/rust_search_extension-1.4.1-fx.xpi";
+      sha256 = "401371f78f587a165e63c26bcb673d4110211eb4f020638465c03b7e5b226eaf";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -1732,10 +1732,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.17";
+      version = "3.8.18";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3881660/tree_style_tab-3.8.17-fx.xpi";
-      sha256 = "8df14ccac342815fa11cbc6e3ea0afb0d82891d23b7070a9a4677875d6a45867";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3886076/tree_style_tab-3.8.18-fx.xpi";
+      sha256 = "0cbb1bcfe9f488f3618723b6bd9ee076eb2da097a3a008c8fffecf4c98dcafd1";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1779,10 +1779,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.40.0";
+      version = "1.40.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3885089/ublock_origin-1.40.0-an+fx.xpi";
-      sha256 = "efd123f437544501a80f305400d108f78899f4aa6423c0cfce3317d4181f1e37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3886236/ublock_origin-1.40.2-an+fx.xpi";
+      sha256 = "837915929c950651e46ed5cc30aa9faed84136e7715e74369a2eadf328bea065";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
