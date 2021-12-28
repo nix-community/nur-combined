@@ -17,10 +17,7 @@ let
     ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
     haManifestRequirementsCheckHook = pySelf.callPackage pkgs/build-support/ha-custom-components/ha-manifest-requirements-check-hook.nix {};
     hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
-    homeassistant = (pySelf.toPythonModule home-assistant).overrideAttrs (o: {
-      # tests take a really long time
-      doInstallCheck = false;
-    });
+    homeassistant = (pySelf.toPythonModule home-assistant);
     homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
     libdyson = pySelf.callPackage ./pkgs/libdyson { };
     # libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
@@ -36,11 +33,14 @@ let
     typer = pySelf.callPackage ./pkgs/typer { };
   };
 
-  home-assistant = pkgs.home-assistant.override {
+  home-assistant = (pkgs.home-assistant.override {
     # TODO: fix upstream
     extraPackages = ps: [ps.ifaddr];
     packageOverrides = pyPackageOverrides;
-  };
+  }).overrideAttrs (o: {
+    # tests take a really long time
+    doInstallCheck = false;
+  });
 
   # pkg_21-11 = pkg: if (builtins.match "^21\.11.*" pkgs.lib.version != null) then pkg else null;
 
