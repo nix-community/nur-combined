@@ -365,6 +365,10 @@
     "pname": "polish-dictionary"
   },
   {
+    "slug": "polkadot-js-extension",
+    "pname": "polkadot-js"
+  },
+  {
     "slug": "privacy-badger17",
     "pname": "privacy-badger"
   },

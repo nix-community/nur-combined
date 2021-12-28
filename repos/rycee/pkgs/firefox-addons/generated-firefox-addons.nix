@@ -1216,6 +1216,19 @@
         platforms = platforms.all;
         };
       };
+    "polkadot-js" = buildFirefoxXpiAddon {
+      pname = "polkadot-js";
+      version = "0.42.2";
+      addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3879725/polkadotjs_extension-0.42.2-fx.xpi";
+      sha256 = "4a81850eb1dd83059f3638e15cfe8357e34b3cfed6e146b88d5de5c747bd44a2";
+      meta = with lib;
+      {
+        homepage = "https://github.com/polkadot-js/extension";
+        description = "Manage your Polkadot accounts outside of dapps. Injects the accounts and allows signs transactions for a specific account.";
+        platforms = platforms.all;
+        };
+      };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
       version = "2021.11.23.1";
