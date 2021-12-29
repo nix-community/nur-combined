@@ -29,7 +29,7 @@ let
     ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
     smartbox = pySelf.callPackage ./pkgs/smartbox { };
     tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
-    teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
+    #teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
     typer = pySelf.callPackage ./pkgs/typer { };
 
     # These use a conflicting version of python-socketio

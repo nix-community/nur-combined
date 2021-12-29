@@ -8,14 +8,14 @@
 
 buildPythonPackage rec {
   pname = "tesla-custom-component";
-  version = "1.2.0";
+  version = "1.4.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alandtse";
     repo = "tesla";
     rev = "v${version}";
-    sha256 = "0dy4gsb80v221qsxadmkzrdcclxzs5469p2pclwdmwq2r0012h6h";
+    sha256 = "1nl9ghasy222n9mkm0q7glljfbsfa2y6kvbfq5260zfsiw3n1ik2";
   };
 
   patches = [ ./poetry.patch ];
@@ -31,7 +31,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/alandtse/tesla";
     license = licenses.asl20;
-    description = "A fork of the official Tesla integration in Home Assistant to use an oauth proxy for logins.";
+    description = "A fork of the official Tesla integration in Home Assistant.";
     maintainers = with maintainers; [ graham33 ];
   };
 }
