@@ -4,8 +4,12 @@ CRAG666/code_runner.nvim
 David-Kunz/cmp-npm
 David-Kunz/jester
 FrenzyExists/aquarium-vim
+Fymyte/rasi.vim
+Iron-E/nvim-cartographer
 JoosepAlviste/nvim-ts-context-commentstring
 L3MON4D3/LuaSnip
+LinArcX/telescope-command-palette.nvim
+LionC/nest.nvim
 LoricAndre/OneTerm.nvim
 Mangeshrex/uwu.vim
 McAuleyPenney/tidy.nvim
@@ -46,6 +50,9 @@ amirrezaask/fuzzy.nvim
 andersevenrud/cmp-tmux
 andersevenrud/nordic.nvim
 anott03/nvim-lspinstall
+aserowy/tmux.nvim
+b0o/mapx.nvim
+beauwilliams/focus.nvim
 beauwilliams/statusline.lua
 bfredl/nvim-luadev
 bkegley/gloombuddy
@@ -53,11 +60,13 @@ blackCauldron7/surround.nvim
 bluz71/vim-moonfly-colors
 bluz71/vim-nightfly-guicolors
 catppuccin/nvim::catppuccin
+chipsenkbeil/distant.nvim
 clojure-vim/jazz.nvim
 code-biscuits/nvim-biscuits
 crispgm/nvim-go
 crispgm/nvim-tabline
 crispgm/telescope-heading.nvim
+danielpieper/telescope-tmuxinator.nvim
 danymat/neogen
 datwaft/bubbly.nvim
 davidgranstrom/nvim-markdown-preview
@@ -84,7 +93,9 @@ glepnir/prodoc.nvim
 goolord/alpha-nvim
 gwatcha/reaper-keys
 h-hg/fcitx.nvim
+henriquehbr/ataraxis.lua
 henriquehbr/nvim-startup.lua
+hkupty/nvimux
 houtsnip/vim-emacscommandline
 hylang/vim-hy
 ibhagwan/fzf-lua
@@ -95,6 +106,7 @@ ishan9299/modus-theme-vim
 jakewvincent/mkdnflow.nvim
 jakewvincent/texmagic.nvim
 jameshiew/nvim-magic
+jamestthompson3/nvim-remote-containers
 jbyuki/instant.nvim
 jbyuki/nabla.nvim
 jbyuki/one-small-step-for-vimkind
@@ -120,6 +132,7 @@ ldelossa/litee.nvim
 ldelossa/vimdark
 lewis6991/spellsitter.nvim
 lourenci/github-colors
+luisiacc/gruvbox-baby
 lukas-reineke/cmp-rg
 luukvbaal/nnn.nvim
 m00qek/plugin-template.nvim
@@ -149,6 +162,7 @@ notomo/cmdbuf.nvim
 notomo/gesture.nvim
 novakne/kosmikoa.nvim
 numToStr/Comment.nvim
+numToStr/Navigator.nvim
 nvim-telescope/telescope-bibtex.nvim
 nxvu699134/vn-night.nvim
 ojroques/nvim-hardline
@@ -184,6 +198,7 @@ savq/paq-nvim
 seandewar/nvimesweeper
 sgur/vim-textobj-parameter
 shaeinst/roshnivim-cs
+sindrets/winshift.nvim
 skanehira/christmas.vim
 startup-nvim/startup.nvim
 stevearc/dressing.nvim
@@ -215,3 +230,4 @@ xiyaowong/nvim-transparent
 yashguptaz/calvera-dark.nvim
 yonlu/omni.vim
 gitlab:yorickpeterse/nvim-pqf
+gitlab:yorickpeterse/nvim-window

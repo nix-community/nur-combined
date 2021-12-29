@@ -40,6 +40,8 @@ let
 
     christmas-vim = [ mit ];
 
+    distant-nvim = [ asl20 mit ];
+
     kanagawa-nvim = [ mit ];
 
     litee-nvim = [ mit ];
@@ -50,15 +52,28 @@ let
 
     nvim-base16-lua = [ mit ];
 
+    nvim-cartographer = [ gpl3Plus ];
+
     nvim-deus = [ gpl3Plus ];
 
     nvim-luapad = [ gpl3Only ];
 
     nvim-pqf = [ mpl20 ];
 
+    nvim-remote-containers = [rec {
+      shortName = fullName;
+      fullName = "jamestthompson3's modified MIT License";
+      url = "https://github.com/jamestthompson3/nvim-remote-containers/blob/master/LICENSE";
+      free = true;
+      redistributable = true;
+      deprecated = false;
+    }];
+
     nvim-revJ-lua = [ vim ];
 
     nvim-srcerite = [ gpl3Plus ];
+
+    nvim-window = [ mpl20 ];
 
     osc-nvim = [ mit ];
 
@@ -167,6 +182,8 @@ let
 
     onebuddy = [ colorbuddy-nvim ];
 
+    orgmode = [ nvim-treesitter ];
+
     renamer-nvim = [ plenary-nvim ];
 
     reaper-nvim = [ self.osc-nvim ];
@@ -181,7 +198,11 @@ let
 
     telescope-bibtex-nvim = [ telescope-nvim ];
 
+    telescope-command-palette-nvim = [ telescope-nvim ];
+
     telescope-heading-nvim = [ telescope-nvim ];
+
+    telescope-tmuxinator-nvim = [ telescope-nvim ];
 
     telescope-zoxide = [ telescope-nvim ];
 

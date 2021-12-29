@@ -241,21 +241,18 @@
         out []]
     (var state :init)
     (each [_ line (ipairs (readme:split "\n"))]
-      (when (and (= state :active)
-                 (line:match "^%s*-%s+%["))
-        ;; trim mini.nvim#foobar
-        (table.insert out (line:match "%[[^%]]+%]%(https://([^%)#]+)")))
-      (when (and (= state :init)
-                 (line:match "^## Plugin"))
-        (set state :active))
-      (when (and (= state :active)
-                 (line:match "^### Preconfigured Configuration"))
-        (set state :skip))
-      (when (and (= state :skip)
-                 (line:match "^### Keyinding"))
-        (set state :active))
-      (when (line:match "^## External")
-        (set state :done)))
+      (match state
+        :init   (when (line:match "^## Plugin")
+                  (set state :active))
+        :active (if (line:match "^%s*-%s+%[")
+                    ;; trim mini.nvim#foobar
+                    (table.insert out (line:match "%[[^%]]+%]%(https://([^%)#]+)"))
+                    (line:match "^### Preconfigured Configuration")
+                    (set state :skip)
+                    (line:match "^## External")
+                    (set state :done))
+        :skip   (when (line:match "^### Keybinding")
+                  (set state :active))))
     (icollect [_ line (ipairs out)]
       (let [(repo-type full-name) (line:match "^([^/]+)%.com/([^/]+/[^/]+)$")]
         (match repo-type
