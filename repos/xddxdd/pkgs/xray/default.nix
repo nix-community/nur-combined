@@ -10,13 +10,13 @@
 }:
 
 let
-  version = "1.5.1";
+  version = "1.5.2";
 
   src = fetchFromGitHub {
     owner = "XTLS";
     repo = "Xray-core";
     rev = "v${version}";
-    sha256 = "sha256-6gn3PT526XFlkU5xom8qFFfaSSYIBPJr/iuA40UrzTs=";
+    sha256 = "sha256-ZZiZ3sX5R+E4v4WUBQM1b0Zc1dudppmzzsci4TLFbCc=";
   };
 
   vendorSha256 = "sha256-urpt9JCO7kT3iwyYGt4FOilkS2TFefTqoPZ9ksc8S70=";
@@ -25,8 +25,8 @@ let
     # MIT licensed
     "geoip.dat" =
       let
-        geoipRev = "202112160030";
-        geoipSha256 = "0swfwl2dvwfyj4x10vs7i7125n577h8bsjzpswj3w6la4qva0aic";
+        geoipRev = "202112230031";
+        geoipSha256 = "1mjp9y2926g6y0qqsaq389cs2cfvs4yysybmyc5ykrh82hidj1yh";
       in
       fetchurl {
         url = "https://github.com/v2fly/geoip/releases/download/${geoipRev}/geoip.dat";
@@ -36,7 +36,7 @@ let
     # MIT licensed
     "private.dat" =
       let
-        geoipRev = "202112160030";
+        geoipRev = "202112230031";
         geoipSha256 = "1s60xrnii6rmi6ca2sbhlnx0x6cmzfxd7g2lbvz0kchfxfnyhlfw";
       in
       fetchurl {
