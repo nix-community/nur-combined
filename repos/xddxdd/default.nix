@@ -45,6 +45,9 @@ rec {
     inherit liboqs boringssl-oqs;
   };
   qemu-user-static = pkgs.callPackage ./pkgs/qemu-user-static { };
+  rime-dict = pkgs.callPackage ./pkgs/rime-dict { };
+  rime-moegirl = pkgs.callPackage ./pkgs/rime-moegirl { };
+  rime-zhwiki = pkgs.callPackage ./pkgs/rime-zhwiki { };
   route-chain = pkgs.callPackage ./pkgs/route-chain { };
   xray = pkgs.callPackage ./pkgs/xray { };
 }
