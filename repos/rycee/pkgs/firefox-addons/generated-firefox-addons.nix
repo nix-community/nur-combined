@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211223.202418";
+      version = "96.0buildid20211228.195952";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3885680/francais_language_pack-96.0buildid20211223.202418-fx.xpi";
-      sha256 = "2e2ba6162fd754302cb0626e43bb0d334b0d92be3101750be55c33d5e501d971";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3887084/francais_language_pack-96.0buildid20211228.195952-fx.xpi";
+      sha256 = "4b62df53a0a3557066e47e8f88c86c6945b2bdfcdca15eca7c4ddabc0fb09d14";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1010,10 +1010,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.11";
+      version = "11.2.13";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3816655/noscript_security_suite-11.2.11-an+fx.xpi";
-      sha256 = "b833e81823986646dbc473ebbee987bd47757fbe79c9d1720150f08ba6ca9ba9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3887002/noscript_security_suite-11.2.13-an+fx.xpi";
+      sha256 = "1675a014fce6b99ebdb51fc1cbf9687046bae1ba6004eef063d7a0e6b53a19b3";
       meta = with lib;
       {
         homepage = "https://noscript.net";
