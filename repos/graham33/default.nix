@@ -9,7 +9,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  pyPackageOverrides = pySelf: pySuper: rec {
+  homeAssistantPackageOverrides = pySelf: pySuper: rec {
     authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
     fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
     garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
@@ -40,7 +40,7 @@ let
   home-assistant = (pkgs.home-assistant.override {
     # TODO: fix upstream
     extraPackages = ps: [ps.ifaddr];
-    packageOverrides = pyPackageOverrides;
+    packageOverrides = homeAssistantPackageOverrides;
   }).overrideAttrs (o: {
     # tests take a really long time
     doInstallCheck = false;
@@ -56,7 +56,7 @@ in rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  inherit home-assistant;
+  inherit home-assistant homeAssistantPackageOverrides;
 
   # packages to cache (all versions)
   inherit (home-assistant.python.pkgs)
