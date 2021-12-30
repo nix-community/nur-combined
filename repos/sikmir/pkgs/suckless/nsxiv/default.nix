@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "nsxiv";
-  version = "2021-12-01";
+  version = "28";
 
   src = fetchFromGitHub {
     owner = "nsxiv";
     repo = pname;
-    rev = "79b8fefcc45d6279c28505ab3d07f539fb9726ff";
-    hash = "sha256-ZimwfNiopkka3htHkQRcSuVeU/YM36HcU8nokGHc7nM=";
+    rev = "v${version}";
+    hash = "sha256-12RmEAzZdeanrRtnan96loXT7qSjIMjcWf296XmNE+A=";
   };
 
   configFile = lib.optionalString (conf!=null) (builtins.toFile "config.def.h" conf);
