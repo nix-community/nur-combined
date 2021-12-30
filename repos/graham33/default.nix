@@ -40,7 +40,6 @@ let
       python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
       ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
       smartbox = pySelf.callPackage ./pkgs/smartbox { };
-      tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
       typer = pySelf.callPackage ./pkgs/typer { };
 
       # These use a conflicting version of python-socketio
@@ -48,6 +47,7 @@ let
       simplisafe-python = null;
     };
 
+    tesla-custom-component = callPackage ./pkgs/tesla-custom-component { };
   });
 
   # pkg_21-11 = pkg: if (builtins.match "^21\.11.*" pkgs.lib.version != null) then pkg else null;
@@ -60,7 +60,9 @@ in rec {
   inherit (myPackages)
     hass-smartbox
     home-assistant
-    homeAssistantPackageOverrides;
+    homeAssistantPackageOverrides
+    tesla-custom-component
+  ;
 
   # packages to cache (all versions)
   inherit (home-assistant.python.pkgs)

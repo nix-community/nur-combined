@@ -7,7 +7,6 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "hass-smartbox";
   version = "0.8.0-pre39c4f64";
   format = "other";
-  component-name = "smartbox";
 
   src = fetchFromGitHub {
     owner = "graham33";
@@ -35,7 +34,7 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
 
   installPhase = ''
     mkdir -p $out/custom_components
-    cp -r custom_components/${component-name} $out/custom_components/
+    cp -r custom_components/smartbox $out/custom_components/
   '';
 
   meta = with lib; {

@@ -1,12 +1,9 @@
 { lib
-, buildPythonPackage
-, python
 , fetchFromGitHub
-, poetry-core
-, teslajsonpy
+, home-assistant
 }:
 
-buildPythonPackage rec {
+with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "tesla-custom-component";
   version = "1.4.0";
   format = "pyproject";
@@ -27,6 +24,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     teslajsonpy
   ];
+
+  fixupPhase = ''
+    mkdir -p $out/custom_components
+    mv $out/${home-assistant.python.sitePackages}/* $out/custom_components/
+    rm -r $out/lib
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/alandtse/tesla";

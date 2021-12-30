@@ -6,8 +6,6 @@
 { pname
 , version
 , src
-# Directory name to install the component under in custom_components
-, component-name ? pname
 , ... } @ args:
 
 with home-assistant.python.pkgs; let
