@@ -172,10 +172,10 @@
       };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.21.0";
+      version = "1.22.0";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3748919/clearurls-1.21.0-an+fx.xpi";
-      sha256 = "eb0b199cd478b21bc1fab59be627603946d1474070aa4eb482c44d18c041d974";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3886960/clearurls-1.22.0-an+fx.xpi";
+      sha256 = "f226a4b5e0865a884bc6544810a0e768a821a4c3eb411c00f77a727272212559";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -780,10 +780,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.1.1";
+      version = "1.2";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3860895/leechblock_ng-1.1.1-an+fx.xpi";
-      sha256 = "cf8c589edd79289a4f4d2e9ba003bc8472ed4897889e365f6f736120e2458814";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3887281/leechblock_ng-1.2-an+fx.xpi";
+      sha256 = "6ebdf5aecc85cb1cb1eafbf032decc0c1b7cc9cf2aeb8f96e55084c0cb830999";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1010,10 +1010,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.13";
+      version = "11.2.11";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3887002/noscript_security_suite-11.2.13-an+fx.xpi";
-      sha256 = "1675a014fce6b99ebdb51fc1cbf9687046bae1ba6004eef063d7a0e6b53a19b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3816655/noscript_security_suite-11.2.11-an+fx.xpi";
+      sha256 = "b833e81823986646dbc473ebbee987bd47757fbe79c9d1720150f08ba6ca9ba9";
       meta = with lib;
       {
         homepage = "https://noscript.net";
