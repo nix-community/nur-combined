@@ -11,33 +11,9 @@
 let
   myPackages = pkgs.lib.makeScope pkgs.newScope (self: with self; {
 
-    homeAssistantPackageOverrides = pySelf: pySuper: rec {
-      authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
-      fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
-      garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
-      ha-dyson = pySelf.callPackage ./pkgs/ha-dyson { };
-      ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
-      haManifestRequirementsCheckHook = pySelf.callPackage pkgs/build-support/ha-custom-components/ha-manifest-requirements-check-hook.nix {};
-      hass-smartbox = pySelf.callPackage ./pkgs/hass-smartbox { };
-      homeassistant = (pySelf.toPythonModule home-assistant);
-      homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
-      libdyson = pySelf.callPackage ./pkgs/libdyson { };
-      # libpurecool = pySelf.callPackage ./pkgs/libpurecool { };
-      monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
-      pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
-      pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
-      python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
-      python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
-      ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
-      smartbox = pySelf.callPackage ./pkgs/smartbox { };
-      tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
-      #teslajsonpy = pySelf.callPackage ./pkgs/teslajsonpy { };
-      typer = pySelf.callPackage ./pkgs/typer { };
+    buildHomeAssistantCustomComponent = callPackage pkgs/build-support/build-home-assistant-custom-component {};
 
-      # These use a conflicting version of python-socketio
-      aioambient = null;
-      simplisafe-python = null;
-    };
+    hass-smartbox = callPackage ./pkgs/hass-smartbox {};
 
     home-assistant = (pkgs.home-assistant.override {
       # TODO: fix upstream
@@ -48,6 +24,31 @@ let
       doInstallCheck = false;
     });
 
+    homeAssistantPackageOverrides = pySelf: pySuper: rec {
+
+      authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
+      fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
+      garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
+      ha-dyson = pySelf.callPackage ./pkgs/ha-dyson { };
+      ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
+      homeassistant = (pySelf.toPythonModule home-assistant);
+      homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
+      libdyson = pySelf.callPackage ./pkgs/libdyson { };
+      monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
+      pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
+      pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
+      python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
+      python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
+      ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
+      smartbox = pySelf.callPackage ./pkgs/smartbox { };
+      tesla-custom-component = pySelf.callPackage ./pkgs/tesla-custom-component { };
+      typer = pySelf.callPackage ./pkgs/typer { };
+
+      # These use a conflicting version of python-socketio
+      aioambient = null;
+      simplisafe-python = null;
+    };
+
   });
 
   # pkg_21-11 = pkg: if (builtins.match "^21\.11.*" pkgs.lib.version != null) then pkg else null;
@@ -57,11 +58,13 @@ in rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  inherit (myPackages) home-assistant homeAssistantPackageOverrides;
+  inherit (myPackages)
+    hass-smartbox
+    home-assistant
+    homeAssistantPackageOverrides;
 
   # packages to cache (all versions)
   inherit (home-assistant.python.pkgs)
-    hass-smartbox
     homeassistant
     homeassistant-stubs
     pytest-homeassistant-custom-component

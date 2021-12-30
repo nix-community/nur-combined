@@ -1,5 +1,5 @@
 # Setup hook to check HA manifest requirements
-echo "Sourcing ha-manifest-requirements-check-hook"
+echo "Sourcing manifest-requirements-check-hook"
 
 function haManifestRequirementsCheckPhase() {
     echo "Executing haManifestRequirementsCheckPhase"

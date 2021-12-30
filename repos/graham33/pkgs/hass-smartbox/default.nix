@@ -1,24 +1,13 @@
 { lib
-, buildPythonPackage
-, python
+, buildHomeAssistantCustomComponent
 , fetchFromGitHub
-, homeassistant
-, smartbox
-, voluptuous
-, pytest-aiohttp
-, pytest-asyncio
-, pytest-cov
-, pytest-homeassistant-custom-component
-, pytest-randomly
-, pytest-sugar
-, pytestCheckHook
-, haManifestRequirementsCheckHook
+, home-assistant
 }:
 
-buildPythonPackage rec {
+buildHomeAssistantCustomComponent rec {
   pname = "hass-smartbox";
   version = "0.8.0-pre39c4f64";
-  format = "other";
+  component-name = "smartbox";
 
   src = fetchFromGitHub {
     owner = "graham33";
@@ -28,20 +17,13 @@ buildPythonPackage rec {
     sha256 = "sha256:0j52mwp8hq15jrdqrr9v304mb6n2jj6qpigs5z1v7kw2bqffcrkb";
   };
 
-  propagatedBuildInputs = [
-    homeassistant
+  propagatedBuildInputs = with home-assistant.python.pkgs; [
     smartbox
     voluptuous
   ];
 
-  installPhase = ''
-    mkdir -p $out/custom_components
-    cp -r custom_components/smartbox $out/custom_components/
-  '';
-
-  doCheck = true;
-
-  checkInputs = [
+  checkInputs = with home-assistant.python.pkgs; [
+    homeassistant
     pytest-aiohttp
     pytest-asyncio
     pytest-cov
@@ -49,7 +31,6 @@ buildPythonPackage rec {
     pytest-randomly
     pytest-sugar
     pytestCheckHook
-    haManifestRequirementsCheckHook
   ];
 
   meta = with lib; {
