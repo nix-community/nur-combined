@@ -234,6 +234,18 @@ let
       ];
     });
 
+    mdeval-nvim = super.mdeval-nvim.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or []) ++ [
+        final.coreutils
+      ];
+      postPatch = (old.postPatch or "") + ''
+        sed -Ei lua/mdeval.lua \
+            -e 's@(get_command\(string\.format\(")mkdir@\1${final.coreutils}/bin/mkdir@' \
+            -e 's@(get_command\(string\.format\(")rm@\1${final.coreutils}/bin/rm@' \
+            -e 's@(2>&1; )echo@\1${final.coreutils}/bin/echo@'
+      '';
+    });
+
     nvim-papadark = self.themer-lua;
 
     feline-nvim-develop = self.feline-nvim;
