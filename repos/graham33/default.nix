@@ -11,6 +11,9 @@
 let
   myPackages = pkgs.lib.makeScope pkgs.newScope (self: with self; {
 
+    ha-dyson = callPackage ./pkgs/ha-dyson { };
+    ha-dyson-cloud = callPackage ./pkgs/ha-dyson-cloud { };
+
     hass-smartbox = callPackage ./pkgs/hass-smartbox {};
 
     home-assistant = (pkgs.home-assistant.override {
@@ -28,8 +31,6 @@ let
       authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
       fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
       garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
-      ha-dyson = pySelf.callPackage ./pkgs/ha-dyson { };
-      ha-dyson-cloud = pySelf.callPackage ./pkgs/ha-dyson-cloud { };
       homeassistant = (pySelf.toPythonModule home-assistant);
       homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
       libdyson = pySelf.callPackage ./pkgs/libdyson { };
@@ -58,6 +59,8 @@ in rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   inherit (myPackages)
+    ha-dyson
+    ha-dyson-cloud
     hass-smartbox
     home-assistant
     homeAssistantPackageOverrides

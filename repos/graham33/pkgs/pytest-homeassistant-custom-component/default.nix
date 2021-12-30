@@ -34,6 +34,7 @@ buildPythonPackage rec {
     rev = version;
     sha256 = "0hgwnxl3cpzwmwazgvyr1937rpvxafg1074i73j95g9wi3f3ynlq";
   };
+
   postPatch = ''
     substituteInPlace requirements_test.txt \
       --replace "coverage==6.2.0" "coverage>=5.5" \
