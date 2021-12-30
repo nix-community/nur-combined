@@ -6,6 +6,7 @@
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "hass-smartbox";
   version = "0.8.0-pre39c4f64";
+  format = "other";
   component-name = "smartbox";
 
   src = fetchFromGitHub {
@@ -31,6 +32,11 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
     pytest-sugar
     pytestCheckHook
   ];
+
+  installPhase = ''
+    mkdir -p $out/custom_components
+    cp -r custom_components/${component-name} $out/custom_components/
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/graham33/hass-smartbox";
