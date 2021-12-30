@@ -34,6 +34,7 @@ pkgs.wrapEmacs {
   themes.selected = "wombat";
   plugins = with pkgs.emacsPackages; [
     auctex
+    org-roam-ui
   ];
   initEl.pos = builtins.readFile ./custom.el;
 }
