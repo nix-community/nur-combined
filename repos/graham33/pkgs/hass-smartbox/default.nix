@@ -1,10 +1,9 @@
 { lib
-, buildHomeAssistantCustomComponent
 , fetchFromGitHub
 , home-assistant
 }:
 
-buildHomeAssistantCustomComponent rec {
+with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "hass-smartbox";
   version = "0.8.0-pre39c4f64";
   component-name = "smartbox";
@@ -17,12 +16,12 @@ buildHomeAssistantCustomComponent rec {
     sha256 = "sha256:0j52mwp8hq15jrdqrr9v304mb6n2jj6qpigs5z1v7kw2bqffcrkb";
   };
 
-  propagatedBuildInputs = with home-assistant.python.pkgs; [
+  propagatedBuildInputs = [
     smartbox
     voluptuous
   ];
 
-  checkInputs = with home-assistant.python.pkgs; [
+  checkInputs = [
     homeassistant
     pytest-aiohttp
     pytest-asyncio

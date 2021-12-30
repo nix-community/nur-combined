@@ -11,8 +11,6 @@
 let
   myPackages = pkgs.lib.makeScope pkgs.newScope (self: with self; {
 
-    buildHomeAssistantCustomComponent = callPackage pkgs/build-support/build-home-assistant-custom-component {};
-
     hass-smartbox = callPackage ./pkgs/hass-smartbox {};
 
     home-assistant = (pkgs.home-assistant.override {
@@ -25,6 +23,7 @@ let
     });
 
     homeAssistantPackageOverrides = pySelf: pySuper: rec {
+      buildHomeAssistantCustomComponent = callPackage pkgs/build-support/build-home-assistant-custom-component {};
 
       authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
       fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
