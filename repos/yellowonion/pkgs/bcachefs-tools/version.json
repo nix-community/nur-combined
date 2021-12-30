@@ -1,7 +1,7 @@
 {
     "owner": "koverstreet",
     "repo": "bcachefs-tools",
-    "rev": "2401b88dce88367f67b3aa3b56c557c5ca06efc5",
-    "sha256": "ftmSj1TNg9N9bLCrvcofDBEw2Ds3g7hPWM5uorfsdCk=",
+    "rev": "27049a5b72ca4ff640d9817eac3de2ce701ce921",
+    "sha256": "M6KyW+qcya9NOQSXu+fuBDjKXKLeol/lfw2NgWJwgVw=",
     "fetchSubmodules": false
 }
