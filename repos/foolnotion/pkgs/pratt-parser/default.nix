@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "foolnotion";
     repo = "pratt-parser-calculator";
-    rev = "8b0b33289c7b9cb6a2d8e0db47ff69f3f9c0430b";
-    sha256 = "sha256-nbEYG86Pz7fj3do6Q4XMOH6nG7uYi1yDI4HKZPVWUFY=";
+    rev = "7a73a0cc8005fadeeff34040d247766dd77b18b1";
+    sha256 = "sha256-oCt7UyKWq+lsoae8jiRjcb9xkU6jyhqsAaZME1m5YnI=";
   };
 
   nativeBuildInputs = [ cmake ];
