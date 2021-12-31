@@ -1,4 +1,4 @@
-{ python3Packages, fetchgit, callPackage, ... }:
+{ python3Packages, fetchgit, callPackage, lib, ... }:
 let onnxruntime = callPackage ./onnxruntime-py39.nix { }; in
 let imagehash = callPackage ./imagehash.nix { }; in
 let opencv_python = callPackage ./opencv_python.nix { }; in
@@ -19,4 +19,11 @@ python3Packages.buildPythonPackage rec {
 
   # https://stackoverflow.com/questions/14463277/how-to-disable-python-warnings
   postFixup = "wrapProgram $out/bin/${pname} --set PYTHONWARNINGS ignore";
+
+  meta = with lib; {
+    homepage = "https://github.com/Konano/${pname}";
+    license = licenses.mit;
+    maintainers = [ maintainers.vanilla ];
+    platforms = [ "x86_64-linux" ];
+  };
 }
