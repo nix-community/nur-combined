@@ -12,10 +12,21 @@ index 2a092c6ea..de46dd269 100644
  		.protocol = qsl("tg"),
  		.protocolName = qsl("Telegram Link"),
 diff --git a/Telegram/SourceFiles/platform/linux/specific_linux.cpp b/Telegram/SourceFiles/platform/linux/specific_linux.cpp
-index 26168baa7..2b4181a23 100644
+index 26168baa7..00d2525a0 100644
 --- a/Telegram/SourceFiles/platform/linux/specific_linux.cpp
 +++ b/Telegram/SourceFiles/platform/linux/specific_linux.cpp
-@@ -314,8 +314,7 @@ bool GenerateDesktopFile(
+@@ -303,19 +303,11 @@ bool GenerateDesktopFile(
+ 
+ 	QFile target(targetFile);
+ 	if (target.open(QIODevice::WriteOnly)) {
+-		fileText = fileText.replace(
+-			QRegularExpression(
+-				qsl("^TryExec=.*$"),
+-				QRegularExpression::MultilineOption),
+-			qsl("TryExec=%1").arg(
+-				QString(cExeDir() + cExeName()).replace('\\', "\\\\")));
+-
+ 		fileText = fileText.replace(
  			QRegularExpression(
  				qsl("^Exec=kotatogram-desktop(.*)$"),
  				QRegularExpression::MultilineOption),

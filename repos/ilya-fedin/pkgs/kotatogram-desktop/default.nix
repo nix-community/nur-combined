@@ -96,16 +96,16 @@ let
     CoreFoundation = CoreFoundation;
     ApplicationServices = ApplicationServices;
   };
-  ver = "1.4.6";
+  ver = "1.4.8";
 in stdenv.mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "${ver}-3";
+  version = "${ver}-1";
 
   src = fetchFromGitHub {
     owner = "kotatogram";
     repo = "kotatogram-desktop";
     rev = "k${ver}";
-    sha256 = "sha256-KR81nihxAhfJXfAwV83mXIGp0afvLhS/mAgveG0ePQA=";
+    sha256 = "sha256-bQRPt+GfhZWcTVobyglsRk/1DXkusu8Ye/ksafnmGmI=";
     fetchSubmodules = true;
   };
 
