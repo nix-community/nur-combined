@@ -152,6 +152,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       dart-vim-plugin
       echodoc
       emmet-vim
+      fennel-vim
       indentLine
       nvim-lspconfig
       nvim-web-devicons

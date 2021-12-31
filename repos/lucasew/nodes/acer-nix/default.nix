@@ -182,7 +182,6 @@ in
         "adbusers"
         "vboxusers"
       ];
-      initialPassword = "123"; # for VM
       description = "Lucas Eduardo";
     };
   };
@@ -233,6 +232,13 @@ in
       supportedFeatures = [ "big-parallel" "kvm" ];
     }
   ];
+  environment.etc."X11/xorg.conf.d/20-intel.conf".text = ''
+    Section "Device"
+        Identifier "intelgpu0"
+        Driver "intel"
+        Option "VirtualHeads" "1"
+    EndSection
+  '';
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

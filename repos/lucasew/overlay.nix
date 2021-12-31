@@ -94,7 +94,7 @@ in reduceJoin [
       polybar = cp ./packages/custom/polybar.nix;
     };
     minecraft = cp ./packages/minecraft.nix;
-    tlauncher = cp ./packages/tlauncher.nix;
+    # tlauncher = cp ./packages/tlauncher.nix;
     pkg = cp ./packages/pkg.nix;
     pipedream-cli = cp ./packages/pipedream-cli.nix;
     stremio = cp ./packages/stremio.nix;
