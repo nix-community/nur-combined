@@ -91,7 +91,6 @@ glacambre/firenvim
 glepnir/indent-guides.nvim
 glepnir/prodoc.nvim
 goolord/alpha-nvim
-gwatcha/reaper-keys
 h-hg/fcitx.nvim
 henriquehbr/ataraxis.lua
 henriquehbr/nvim-startup.lua
@@ -179,6 +178,7 @@ rafcamlet/nvim-luapad
 rafcamlet/tabline-framework.nvim
 raimon49/requirements.txt.vim
 ray-x/go.nvim
+ray-x/guihua.lua
 ray-x/navigator.lua
 rebelot/kanagawa.nvim
 rhysd/vim-gfm-syntax

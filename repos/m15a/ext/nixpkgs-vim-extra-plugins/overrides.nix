@@ -130,6 +130,8 @@ let
 
     gloombuddy = [ colorbuddy-nvim ];
 
+    go-nvim = [ nvim-treesitter ];
+
     goimpl-nvim = [ nvim-treesitter telescope-nvim ];
 
     gruvbuddy-nvim = [ colorbuddy-nvim ];
@@ -139,6 +141,8 @@ let
     jester = [ nvim-treesitter ];
 
     lspactions = [ plenary-nvim popup-nvim self.astronauta-nvim ];
+
+    navigator-lua = [ nvim-lspconfig self.guihua-lua ];
 
     neogen = [ nvim-treesitter ];
 
@@ -188,6 +192,8 @@ let
 
     reaper-nvim = [ self.osc-nvim ];
 
+    rest-nvim = [ plenary-nvim ];
+
     sqls-nvim = [ nvim-lspconfig ];
 
     startup-nvim = [ telescope-nvim ];
@@ -234,15 +240,28 @@ let
       ];
     });
 
+    guihua-lua = super.guihua-lua.overrideAttrs (old: {
+      buildPhase = ''
+        (
+          cd lua/fzy
+          make
+        )
+      '';
+    });
+
     mdeval-nvim = super.mdeval-nvim.overrideAttrs (old: {
-      buildInputs = (old.buildInputs or []) ++ [
-        final.coreutils
-      ];
       postPatch = (old.postPatch or "") + ''
         sed -Ei lua/mdeval.lua \
             -e 's@(get_command\(string\.format\(")mkdir@\1${final.coreutils}/bin/mkdir@' \
             -e 's@(get_command\(string\.format\(")rm@\1${final.coreutils}/bin/rm@' \
             -e 's@(2>&1; )echo@\1${final.coreutils}/bin/echo@'
+      '';
+    });
+
+    rest-nvim = super.rest-nvim.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        sed -Ei lua/rest-nvim/curl/init.lua \
+            -e 's@(vim\.fn\.system\s*\(\s*")jq(")@\1${final.jq}/bin/jq\2@'
       '';
     });
 
