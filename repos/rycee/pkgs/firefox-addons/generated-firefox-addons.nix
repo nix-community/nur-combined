@@ -1010,10 +1010,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.11";
+      version = "11.2.14";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3816655/noscript_security_suite-11.2.11-an+fx.xpi";
-      sha256 = "b833e81823986646dbc473ebbee987bd47757fbe79c9d1720150f08ba6ca9ba9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3887553/noscript_security_suite-11.2.14-an+fx.xpi";
+      sha256 = "47399b94f57dde1162f74a49679c7cb3b6dfe684d4eee49842e65eae64e9982b";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1849,10 +1849,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.5.0";
+      version = "3.6.0";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3819211/view_image-3.5.0-an+fx.xpi";
-      sha256 = "18ebd855bdd8d5ff0910157e07dc79270b26c6baee74321a134d2e7f59eaae8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3887718/view_image-3.6.0-an+fx.xpi";
+      sha256 = "2dc7473322a03b203d39f6b233880a8bfe2d0b2af88e12d170f3ed3399e54976";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
