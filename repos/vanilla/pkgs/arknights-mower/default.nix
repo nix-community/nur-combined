@@ -21,6 +21,7 @@ python3Packages.buildPythonPackage rec {
   postFixup = "wrapProgram $out/bin/${pname} --set PYTHONWARNINGS ignore";
 
   meta = with lib; {
+    description = "《明日方舟》长草助手";
     homepage = "https://github.com/Konano/${pname}";
     license = licenses.mit;
     maintainers = [ maintainers.vanilla ];
