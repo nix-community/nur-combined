@@ -1,12 +1,12 @@
-{ mkDerivation, base, blaze-html, lib, sqlite-simple, unix, fetchFromGitHub }:
+{ mkDerivation, base, blaze-html, lib, sqlite-simple, unix, fetchFromGitHub}:
 mkDerivation {
   pname = "qutebrowser-start-page";
   version = "0.1.0.0";
   src = fetchFromGitHub {
-    rev = "34d5dc49b33bd5a5d9885948401c665d7993929d";
+    rev = "1e7757a856ed5acd73bc1ea66d1073b255dac6fd";
     owner = "afreakk";
     repo = "qutebrowser-start-page";
-    sha256 = "sha256-UU3SpYhD0lox0FpD8T7dIc+RQKbMqv5IMXE/Mie7MZg=";
+    sha256 = "sha256-2egOtTFS5RpdFN5M0wqO3s5esvQ4EaB2Mgdvxn0b9yY=";
   };
   isLibrary = false;
   isExecutable = true;
