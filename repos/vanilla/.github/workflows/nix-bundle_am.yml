@@ -1,0 +1,21 @@
+name: nix-bundle arknights-mower
+on: [ push ]
+
+jobs:
+  nix-bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v15
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - uses: actions/checkout@v2
+        with:
+          repository: 'VergeDX/nur-packages'
+
+      - run: nix-env -i nix-bundle -f '<nixpkgs>'
+      - run: nix-bundle '(pkgs.callPackage ./. { }).arknights-mower' /bin/arknights-mower
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./arknights-mower
