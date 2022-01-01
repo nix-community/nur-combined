@@ -31,13 +31,13 @@ let
         sha512 = "ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==";
       };
     };
-    "acorn-8.6.0" = {
+    "acorn-8.7.0" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.6.0";
+      version = "8.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.6.0.tgz";
-        sha512 = "U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.7.0.tgz";
+        sha512 = "V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==";
       };
     };
     "acorn-jsx-5.3.2" = {
@@ -247,13 +247,13 @@ let
         sha512 = "yWJFpu4DtjsWKkt5GeNBBuZMlNcYVs6vRCLoCVEJrTjaSB6LC98gFipNK/erM2Heg/E8mIK+hXG/pJMLK+eRZA==";
       };
     };
-    "espree-9.2.0" = {
+    "espree-9.3.0" = {
       name = "espree";
       packageName = "espree";
-      version = "9.2.0";
+      version = "9.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/espree/-/espree-9.2.0.tgz";
-        sha512 = "oP3utRkynpZWF/F2x/HZJ+AGtnIclaR7z1pYPxy7NYM2fSO6LgK/Rkny8anRSPK/VwEA1eqm2squui0T7ZMOBg==";
+        url = "https://registry.npmjs.org/espree/-/espree-9.3.0.tgz";
+        sha512 = "d/5nCsb0JcqsSEeQzFZ8DH1RmxPcglRWh24EFTlUEmCKoehXGdpsx0RkHDubqUI8LSAIKMQp4r9SzQ3n+sm4HQ==";
       };
     };
     "esquery-1.4.0" = {
@@ -791,13 +791,13 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.5.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.5.0.tgz"; sha1 = "ddd2c1afd8f412036f87ae2a063d2aa296d3175f"; };
+    version = "8.6.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.6.0.tgz"; sha1 = "4318c6a31c5584838c1a2e940c478190f58d558e"; };
     dependencies = [
       sources."@eslint/eslintrc-1.0.5"
       sources."@humanwhocodes/config-array-0.9.2"
       sources."@humanwhocodes/object-schema-1.2.1"
-      sources."acorn-8.6.0"
+      sources."acorn-8.7.0"
       sources."acorn-jsx-5.3.2"
       sources."ajv-6.12.6"
       sources."ansi-colors-4.1.1"
@@ -824,7 +824,7 @@ let
         ];
       })
       sources."eslint-visitor-keys-3.1.0"
-      sources."espree-9.2.0"
+      sources."espree-9.3.0"
       sources."esquery-1.4.0"
       sources."esrecurse-4.3.0"
       sources."estraverse-5.3.0"
