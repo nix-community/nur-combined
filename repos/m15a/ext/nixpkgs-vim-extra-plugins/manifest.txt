@@ -213,6 +213,7 @@ tanvirtin/monokai.nvim
 tanvirtin/vgit.nvim
 terrortylor/nvim-comment
 theniceboy/nvim-deus
+titanzero/zephyrium
 tjdevries/astronauta.nvim
 tjdevries/express_line.nvim
 tjdevries/gruvbuddy.nvim
