@@ -15,6 +15,15 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
     sha256 = "1nl9ghasy222n9mkm0q7glljfbsfa2y6kvbfq5260zfsiw3n1ik2";
   };
 
+  postPatch = ''
+    substituteInPlace pyproject.toml --replace \
+      'teslajsonpy = "^1.4.1"' \
+      'teslajsonpy = ">=1.4.1"'
+    substituteInPlace custom_components/tesla_custom/manifest.json --replace \
+      "teslajsonpy==1.4.1" \
+      "teslajsonpy>=1.4.1"
+  '';
+
   patches = [ ./poetry.patch ];
 
   nativeBuildInputs = [
