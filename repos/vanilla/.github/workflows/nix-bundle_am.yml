@@ -9,24 +9,22 @@ jobs:
   nix-bundle:
     runs-on: ubuntu-latest
 
-    env:
-      CH_URL: https://nixos.org/channels/nixos-21.11
-
     strategy:
       matrix:
-        container: [
-            "nixos/nix:latest-amd64",
-            "nixos/nix:latest-arm64"
-        ]
+        arch: [ "linux/amd64", "linux/arm64/v8" ]
 
     container:
-      image: ${{ matrix.container }}
+      image: alpine:latest
+      options: --platform ${{ matrix.arch }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
 
-      - run: nix-channel --add $CH_URL nixpkgs
-      - run: nix-channel --update
+      - run: apk add bash
+      - uses: cachix/install-nix-action@v15
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
       - run: nix-shell nix-scripts/bundle-am.nix
 
       - uses: actions/upload-artifact@v2
