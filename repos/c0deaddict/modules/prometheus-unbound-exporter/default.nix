@@ -49,7 +49,7 @@ in
         Group = "nogroup";
         Environment = "GODEBUG=x509ignoreCN=0";
         ExecStart = ''
-          ${pkgs.prometheus-unbound-exporter}/bin/unbound_exporter \
+          ${pkgs.my-nur.prometheus-unbound-exporter}/bin/unbound_exporter \
             -web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
             -unbound.ca ${cfg.serverCA} \
             -unbound.cert ${cfg.controlCert} \

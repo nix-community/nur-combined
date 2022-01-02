@@ -12,6 +12,12 @@ in
 
   options.services.prometheus.nats-exporter = {
     enable = mkEnableOption "the prometheus nats exporter";
+
+    package = mkOption {
+      type = types.package;
+      default = pkgs.my-nur.prometheus-nats-exporter;
+    };
+
     port = mkOption {
       type = types.int;
       default = 7777;
@@ -53,7 +59,7 @@ in
         WorkingDirectory = /tmp;
         DynamicUser = true;
         ExecStart = ''
-          ${pkgs.prometheus-nats-exporter}/bin/prometheus-nats-exporter \
+          ${cfg.package}/bin/prometheus-nats-exporter \
             -addr ${cfg.listenAddress} \
             -port ${toString cfg.port} \
             ${concatStringsSep " \\\n  " cfg.extraFlags} \

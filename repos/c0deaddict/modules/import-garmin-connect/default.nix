@@ -26,7 +26,7 @@ let
   };
 
   script = cfg: profile: pkgs.writeShellScriptBin "run" ''
-    ${pkgs.import-garmin-connect}/bin/import-garmin-connect \
+    ${pkgs.my-nur.import-garmin-connect}/bin/import-garmin-connect \
       --user ${profile.username} \
       --password $(cat ${profile.passwordFile}) \
       --profile ${profile.profile} \

@@ -16,7 +16,7 @@ let
 
   script = cfg: name: command: pkgs.writeShellScript name ''
     ${exportSettings cfg}
-    ${pkgs.solaredge-influx}/bin/solaredge-influx ${command}
+    ${pkgs.my-nur.solaredge-influx}/bin/solaredge-influx ${command}
   '';
 
   versionCheck = cfg: script cfg "solaredge-version-check" "version";
