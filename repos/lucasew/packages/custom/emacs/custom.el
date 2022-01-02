@@ -13,6 +13,9 @@
 (setq org-roam-ui-update-on-save t)
 (setq org-roam-ui-follow t)
 (setq org-roam-ui-open-on-start nil)
+(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
 
 (defun buffer-animate-string (text)
   "Animate a string in a new buffer then close"

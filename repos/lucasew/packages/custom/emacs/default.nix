@@ -35,6 +35,8 @@ pkgs.wrapEmacs {
   plugins = with pkgs.emacsPackages; [
     auctex
     org-roam-ui
+    company-math
+    emmet-mode
   ];
   initEl.pos = builtins.readFile ./custom.el;
 }
