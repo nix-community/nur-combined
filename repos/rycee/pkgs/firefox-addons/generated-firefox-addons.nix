@@ -1849,10 +1849,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.6.0";
+      version = "3.6.1";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3887718/view_image-3.6.0-an+fx.xpi";
-      sha256 = "2dc7473322a03b203d39f6b233880a8bfe2d0b2af88e12d170f3ed3399e54976";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3888180/view_image-3.6.1-an+fx.xpi";
+      sha256 = "40a9efeb692c9adf0783173bef5656652321328b97e82cc962f7b1ad3dcc645d";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
