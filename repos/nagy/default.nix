@@ -72,7 +72,7 @@ rec {
 
   ksv = callPackage ./pkgs/ksv { };
 
-  lib = {
+  lib = pkgs.lib.dontRecurseIntoAttrs {
 
     # A function, which adds "man" to a packages output if it is not already
     # there. This can help to separate packages man pages to make it possible to
