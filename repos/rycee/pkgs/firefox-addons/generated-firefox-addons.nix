@@ -1383,6 +1383,19 @@
         platforms = platforms.all;
         };
       };
+    "return-youtube-dislikes" = buildFirefoxXpiAddon {
+      pname = "return-youtube-dislikes";
+      version = "2.0.0.3";
+      addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883046/return_youtube_dislike-2.0.0.3-an+fx.xpi";
+      sha256 = "aefc4e9605737bb8eb0c328ae226909367dda3a16df5aaa105429bc80486dab0";
+      meta = with lib;
+      {
+        description = "Returns ability to see dislike statistics on youtube";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
       version = "1.4.1";
