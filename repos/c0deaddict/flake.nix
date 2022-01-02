@@ -16,7 +16,7 @@
       packages = forAllSystems (system:
         import ./default.nix { pkgs = import nixpkgs { inherit system; }; });
 
-      overlay = final: prev: { nur = import ./default.nix { pkgs = prev; }; };
+      overlay = final: prev: { my-nur = import ./default.nix { pkgs = prev; }; };
 
       nixosModules = import ./modules;
     };
