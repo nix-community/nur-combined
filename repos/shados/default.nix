@@ -49,6 +49,8 @@ let repo = rec {
     inherit pins;
   };
 
+  tmm = pkgs.callPackage ./pkgs/tmm { };
+
   urxvt-config-reload = pkgs.callPackage ./pkgs/urxvt-config-reload {
     inherit (pkgs.perlPackages) AnyEvent LinuxFD CommonSense SubExporter
       DataOptList ParamsUtil SubInstall;
