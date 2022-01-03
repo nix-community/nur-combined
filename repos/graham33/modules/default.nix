@@ -1,5 +1,5 @@
 {
   # Add your NixOS modules here
   #
-  home-assistant = ./home-assistant;
+  home-assistant-extras = ./home-assistant-extras;
 }

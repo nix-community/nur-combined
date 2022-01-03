@@ -5,14 +5,6 @@ with lib;
 let
   cfg = config.services.home-assistant;
 in {
-  disabledModules = [
-    "services/misc/home-assistant.nix"
-  ];
-
-  imports = [
-    (modulesPath + "/services/misc/home-assistant.nix")
-  ];
-
   options = {
     services.home-assistant.custom-components = mkOption {
       type = types.attrsOf types.package;
