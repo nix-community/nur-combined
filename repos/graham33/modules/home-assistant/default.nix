@@ -1,4 +1,4 @@
-{config, pkgs, lib, ...}:
+{config, pkgs, lib, modulesPath, ...}:
 
 with lib;
 
@@ -10,7 +10,7 @@ in {
   ];
 
   imports = [
-    "<nixpkgs>/nixos/modules/services/misc/home-assistant.nix"
+    (modulesPath + "/services/misc/home-assistant.nix")
   ];
 
   options = {
