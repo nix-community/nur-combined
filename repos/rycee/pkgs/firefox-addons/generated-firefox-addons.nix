@@ -419,10 +419,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.45";
+      version = "6.1.46";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3875536/flagfox-6.1.45-fx.xpi";
-      sha256 = "b853e447c8b613c5733fc74a6739f3f95c8dc6d01b3786f5a1603ad4a2989f95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3887989/flagfox-6.1.46-fx.xpi";
+      sha256 = "79b849d78767e7bd09f0a30b24bd4726ce62e7a23d6b0f41f1d016a2a228fcfc";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -508,10 +508,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0buildid20211228.195952";
+      version = "96.0buildid20220103.221059";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3887084/francais_language_pack-96.0buildid20211228.195952-fx.xpi";
-      sha256 = "4b62df53a0a3557066e47e8f88c86c6945b2bdfcdca15eca7c4ddabc0fb09d14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3888918/francais_language_pack-96.0buildid20220103.221059-fx.xpi";
+      sha256 = "15fe83d0c16658cf8f944d776d5da7fb75c419f2b02614e2b761ca430601a7e8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -742,10 +742,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.4.2";
+      version = "4.4.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3885480/grammatik_und_rechtschreibprufung_languagetool-4.4.2-fx.xpi";
-      sha256 = "7d20800418fb9c91045c13ae136584293a21d60759681ab9ca7228c2a772dc50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3888056/grammatik_und_rechtschreibprufung_languagetool-4.4.3-fx.xpi";
+      sha256 = "e56eca4aa2daee60e6f22ba1aa81d9bf05b3eacb8be3fb72bfa7b2dc54cc84e1";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
