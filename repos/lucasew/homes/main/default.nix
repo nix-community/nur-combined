@@ -16,44 +16,40 @@ in {
     ./modules/firefox/home.nix
     ./modules/dunst.nix
     ./modules/i3.nix
-    # ./modules/webapps.nix
-    # ./modules/wallpaper.nix
     ./modules/espanso.nix
     ../../modules/polybar/home.nix
-    # ../../modules/spotify/home.nix
     ../../modules/tmux/home.nix
   ]
   ;
 
   home.packages = with pkgs; [
-   # ------------ pacotes do nixpkgs ---------------
-    # minecraft  # custom (excluded)
-    custom.tixati custom.rofi # custom
-    tdesktop # communication
-    vlc # media
-    chromium
-    fortune
-    libnotify
-    aerc # terminal email
-    croc # file transfer
     calibre
-    wineApps.wine7zip
-    libreoffice
-    stremio
-    midori # secondary browser
-    easyeffects # efeitos de audio
-    blender
+    chromium
+    custom.rofi # custom
+    custom.tixati
     discord
+    easyeffects # efeitos de audio
     feh
+    fortune
+    graphviz
+    libnotify
+    libreoffice
     mendeley
-    obsidian
-    pipedream-cli
     nix-option
     nix-prefetch-scripts
     obsidian
+    obsidian
+    pipedream-cli
     pkg
+    retroarchFull
     ripgrep
+    sqlite
     sshpass
+    stremio
+    tdesktop # communication
+    texlive.combined.scheme-full
+    vlc # media
+    wineApps.wine7zip
     xxd
   ] ;
 

@@ -42,3 +42,31 @@
 	(dir (expand-file-name (file-name-directory (or buffer-file-name "./"))))
 	(filename (helm-read-file-name dir)))
     (insert (file-relative-name filename dir))))
+
+
+(defun jogo-do-bicho ()
+  "Is there anything more brazilian than this? Now on emacs!"
+  (interactive)
+  (let* ((bichos '(
+		   :Avestruz
+		   :Águia
+		   :Burro
+		   :Borboleta
+		   :Cachorro
+		   :Cabra
+		   :Carneiro
+		   :Camelo
+		   :Cobra
+		   :Coelho
+		   :Cavalo
+		   :Elefante
+		   :Galo
+		   :Gato
+		   :Jacaré
+		   :Leão
+		   :Macaco
+		   :Porco
+		   :Pavão
+		   :Peru
+		   ))
+	 ) (message "%s" (nth (random (length bichos)) bichos))))
