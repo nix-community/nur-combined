@@ -138,11 +138,15 @@ lib.makeScope newScope (
     gemreader = callPackage ./gemini/gemreader { };
     gemserv = callPackage ./gemini/gemserv { };
     gloggery = callPackage ./gemini/gloggery { };
-    gmi2html = callPackage ./gemini/gmi2html { };
+    gmi2html = callPackage ./gemini/gmi2html {
+      zig = pkgs.zig_0_8_1;
+    };
     gmnhg = callPackage ./gemini/gmnhg { };
     gmnigit = callPackage ./gemini/gmnigit { };
     gssg = callPackage ./gemini/gssg { };
-    gurl = callPackage ./gemini/gurl { };
+    gurl = callPackage ./gemini/gurl {
+      zig = pkgs.zig_0_8_1;
+    };
     kineto = callPackage ./gemini/kineto { };
     qute-gemini = callPackage ./gemini/qute-gemini { };
     satellite = callPackage ./gemini/satellite { };
@@ -180,6 +184,9 @@ lib.makeScope newScope (
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
     sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
     supermercado = callPackage ./geospatial/supermercado { };
+    t-rex = callPackage ./geospatial/t-rex {
+      inherit (darwin.apple_sdk.frameworks) Security;
+    };
     tdh = callPackage ./geospatial/tdh { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
@@ -312,6 +319,7 @@ lib.makeScope newScope (
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
     mepo = callPackage ./osm/mepo {
+      zig = pkgs.zig_0_8_1;
       # See https://github.com/libsdl-org/SDL_ttf/issues/152
       SDL2_ttf = pkgs.SDL2_ttf.overrideAttrs (old: {
         src = pkgs.fetchFromGitHub {
