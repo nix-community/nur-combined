@@ -61,6 +61,10 @@ buildPythonPackage rec {
   disabledTests = lib.optionals (lib.versionAtLeast respx.version "0.17.0") [
     "test_sync_client"  # don't seem to work on respx >= 0.17.0
   ];
+  # this file doesn't collect, due to deprecation of respx.MockTransport in v0.18.0
+  disabledTestPaths = lib.optionals (lib.versionAtLeast respx.version "0.18.0") [
+    "tests/test_client/test_client.py"
+  ];
 
   meta = with lib; {
     description = "A client library for accessing the Rigetti QCS API";

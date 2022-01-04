@@ -169,6 +169,11 @@ let
         --replace "httpx~=0.15.5" "httpx" \
         --replace "iso8601~=0.1.14" "iso8601" \
         --replace "~=" ">="
+    '' + lib.optionalString (lib.versionAtLeast httpcore.version "0.14.0") ''
+      substituteInPlace cirq_rigetti/service_test.py \
+        --replace "from httpcore._types import URL, Headers" "" \
+        --replace ": URL" "" \
+        --replace ": Headers" ""
     '';
     propagatedBuildInputs = [
       # idna

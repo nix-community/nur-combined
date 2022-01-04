@@ -68,6 +68,8 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Find Unbroken Nix Packages
+      env:
+        NIX_PATH: channel:nixos-21.11
       run: |
         nix-shell update-shell.nix --run "nix-eval-jobs --option restrict-eval true default.nix > evaluations.json"
         nix-shell update-shell.nix --run "jq '.|select(.error != null)' evaluations.json"
