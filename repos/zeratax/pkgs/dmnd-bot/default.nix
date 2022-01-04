@@ -2,12 +2,12 @@
 
 pkgs.crystal.buildCrystalPackage rec {
   pname = "dmnd-bot";
-  version = "0.2.2";
+  version = "0.2.3";
   src = fetchFromGitHub {
     owner = "ZerataX";
     repo = pname;
     rev = "v${version}";
-    sha256 = "023z3x8hijhs4incha7rpvgxh3pqrp3vjkdk5xsy8448g939bgjr";
+    sha256 = "1p6f647a4f61wjmjy1p0xn5p8wxr9n8ji33kx1d5kzw1v9shfq3d";
   };
 
   format = "shards";
