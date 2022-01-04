@@ -9,4 +9,4 @@
 (print (is-lua-jit))
 (print "{re,}loaded")
 
-{: is-lua-jit : get-script-file}
+{: is-lua-jit : get-script-file :repl fennel.repl}
