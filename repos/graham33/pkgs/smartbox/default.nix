@@ -28,8 +28,8 @@ buildPythonPackage rec {
     owner = "graham33";
     repo = pname;
     #rev = "v${version}";
-    rev = "8a70a4226ff05779a0439774d5c16c33212398b1";
-    sha256 = "sha256:13cxkczy78ga03p1d59b3c875aiwl3qzzcyimiaqpqbrh94gp5g2";
+    rev = "6825c48b29c38c5b85f6decdc0e00178056a86ae";
+    sha256 = "sha256:17ipgpvv3ni6c4kss41nain0s2rpxivply0k5dx0p0jqdpgwlsyv";
   };
 
   propagatedBuildInputs = [ aiohttp
