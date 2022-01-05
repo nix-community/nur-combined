@@ -2,10 +2,10 @@
   {
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
-      version = "1.2.0";
+      version = "1.2.1";
       addonId = "a11y.css@ffoodd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3754972/a11ycss_accessibility_checker-1.2.0-fx.xpi";
-      sha256 = "888a7d028b6dfdb913cf4a417c5ea2b8d71cd127f248709cb0ce5b6509fafda3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3889115/a11ycss_verificateur_daccessibilite-1.2.1-fx.xpi";
+      sha256 = "db0dbda6eaffac5a3df7e72c6062981bf5107f8e2ec5fbbf26f868659991d8a4";
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
@@ -57,10 +57,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.4.9";
+      version = "0.5.0";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3886197/auto_tab_discard-0.4.9-an+fx.xpi";
-      sha256 = "45784353df9444a16155fba1d2d6390b8cf34a055882b7a8763033880f9d2b7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3889015/auto_tab_discard-0.5.0-an+fx.xpi";
+      sha256 = "c67145babb671dadccfb983b781f4c4dbf1f2f51ae80e4efeafed6aaa02bc72d";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
