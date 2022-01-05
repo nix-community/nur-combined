@@ -25,15 +25,11 @@ in {
     };
     postStart = mkOption {
       type = types.str;
-      example = ''
-        ip route add ${ip4.networkCIDR iif.ip} via ${iif.ip.address} table ${toString config.services.rkn.table}
-      '';
+      default = "";
     };
     preStop = mkOption {
       type = types.str;
-      example = ''
-        ip route del ${ip4.networkCIDR iif.ip} via ${iif.ip.address} table ${toString config.services.rkn.table}
-      '';
+      default = "";
     };
     OnCalendar = mkOption {
       type = types.str;
@@ -102,14 +98,16 @@ in {
       postStart = ''
         set +e
         ip rule add from ${cfg.address.address} table ${toString cfg.table}
-        ip route add default via ${router.address} table ${toString cfg.table}
+        ip route add default dev ${cfg.interface} table ${toString cfg.table}
+        ip rule add from ${cfg.address.address} table main suppress_prefixlength 0
         ${cfg.postStart}
         true
       '';
       preStop = ''
         set +e
         ip rule del from ${cfg.address.address} table ${toString cfg.table}
-        ip route del default via ${router.address} table ${toString cfg.table}
+        ip route del default dev ${cfg.interface} table ${toString cfg.table}
+        ip rule del from ${cfg.address.address} table main suppress_prefixlength 0
         ${cfg.preStop}
         true
       '';

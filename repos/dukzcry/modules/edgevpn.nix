@@ -76,7 +76,7 @@ in {
         };
         postStart = ''
           set +e
-          sleep 5
+          ${optionalString (cfg.postStart != "") "sleep 5"}
           ${cfg.postStart}
           true
         '';
@@ -101,7 +101,7 @@ in {
         };
         postStart = ''
           set +e
-          sleep 5
+          ${optionalString (cfg.postStart != "") "sleep 5"}
           ${cfg.postStart}
           true
         '';
