@@ -59,6 +59,7 @@ bkegley/gloombuddy
 blackCauldron7/surround.nvim
 bluz71/vim-moonfly-colors
 bluz71/vim-nightfly-guicolors
+booperlv/nvim-gomove
 catppuccin/nvim::catppuccin
 chipsenkbeil/distant.nvim
 clojure-vim/jazz.nvim
@@ -164,6 +165,7 @@ numToStr/Comment.nvim
 numToStr/Navigator.nvim
 nvim-telescope/telescope-bibtex.nvim
 nxvu699134/vn-night.nvim
+nyngwang/NeoRoot.lua
 ojroques/nvim-hardline
 ojroques/nvim-lspfuzzy
 petertriho/cmp-git
