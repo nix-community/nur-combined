@@ -20,4 +20,5 @@ rec {
   rkn = import ./rkn.nix libidn;
   edgevpn = ./edgevpn.nix;
   cjdns = ./cjdns.nix;
+  prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
 }

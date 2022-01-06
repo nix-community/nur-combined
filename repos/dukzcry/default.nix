@@ -43,5 +43,6 @@ in rec {
   massdns = pkgs.callPackage ./pkgs/massdns.nix {};
   wireless-regdb = pkgs.callPackage ./pkgs/wireless-regdb {};
   edgevpn = pkgs.callPackage ./pkgs/edgevpn.nix {};
+  prometheus-nut-exporter = pkgs.callPackage ./pkgs/prometheus-nut-exporter.nix {};
 }
 
