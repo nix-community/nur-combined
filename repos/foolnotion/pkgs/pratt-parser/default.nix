@@ -7,15 +7,14 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "foolnotion";
     repo = "pratt-parser-calculator";
-    rev = "7a73a0cc8005fadeeff34040d247766dd77b18b1";
-    sha256 = "sha256-oCt7UyKWq+lsoae8jiRjcb9xkU6jyhqsAaZME1m5YnI=";
+    rev = "aec4b169e17a716af7f39623598d6de78c05505d";
+    sha256 = "sha256-h653bhhRRqJ6BOsZEvGoCx3diOBT18/QMTnw/2iQ6+M=";
   };
 
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     fast_float
-    robin-hood-hashing
   ];
 
   meta = with lib; {
