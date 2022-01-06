@@ -11,21 +11,17 @@
 
 buildPythonPackage rec {
   pname = "ecos";
-  version = "2.0.8";
+  version = "2.0.10";
 
   disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "embotech";
     repo = "ecos-python";
-    rev = version;
-    sha256 = "sha256-2OJqbcOZceeD2fO5cu9fohuUVaA2LwQOQSWR4jRv3mk=";
+    rev = "v${version}";
+    sha256 = "sha256-TPxrTyVZ1KXgPoDbZZqXT5+NEIEndg9qepujqFQwK+Q=";
     fetchSubmodules = true;
   };
-
-  prePatch = ''
-    echo '__version__ = "${version}"' >> ./src/ecos/version.py
-  '';
 
   propagatedBuildInputs = [
     numpy
@@ -34,9 +30,7 @@ buildPythonPackage rec {
 
   checkInputs = [ nose ];
   checkPhase = ''
-    # Run tests
-    cd ./src
-    nosetests test_interface.py test_interface_bb.py
+    nosetests
   '';
   pythonImportsCheck = [ "ecos" ];
 
