@@ -4,7 +4,7 @@
 (show-paren-mode)
 
 (let (
-    (kb-setup "~/WORKSPACE/zettel-emacs/setup.el"))
+    (kb-setup "~/WORKSPACE/ZETTEL/org/setup.el"))
     (when (file-exists-p kb-setup)
         (load-file kb-setup)))
 

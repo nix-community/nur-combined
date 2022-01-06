@@ -35,6 +35,7 @@ in {
     libnotify
     libreoffice
     mendeley
+    ncdu
     nix-option
     nix-prefetch-scripts
     obsidian
