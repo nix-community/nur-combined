@@ -184,9 +184,6 @@ lib.makeScope newScope (
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
     sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
     supermercado = callPackage ./geospatial/supermercado { };
-    t-rex = callPackage ./geospatial/t-rex {
-      inherit (darwin.apple_sdk.frameworks) Security;
-    };
     tdh = callPackage ./geospatial/tdh { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
