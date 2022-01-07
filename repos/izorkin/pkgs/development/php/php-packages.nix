@@ -19,6 +19,7 @@ let
     isPhp73 = pkgs.lib.versionAtLeast php.version "7.3";
     isPhp74 = pkgs.lib.versionAtLeast php.version "7.4";
     isPhp80 = pkgs.lib.versionAtLeast php.version "8.0";
+    isPhp81 = pkgs.lib.versionAtLeast php.version "8.1";
 
   apcu = if isPhp56 then apcu40 else apcu51;
 
@@ -97,12 +98,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.23";
+    version = "1.10.24";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "1rrmp11v86552n77nbq7l961pr82vcw0m59cpjih55lp18vsxhrg";
+      sha256 = "sha256-VCzhat1v1ez7AEndSaAhTmmpZqYCtCwhWtsZQ4wTqJA=";
     };
 
     dontUnpack = true;
@@ -126,12 +127,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.1.14";
+    version = "2.2.3";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-1EqQRSD5qqdm6LSwXS2admrZpvA/oaSFGCJKrXAwYaQ=";
+      sha256 = "sha256-chzCf4HGSF//cOb1a58qra53Ch+JdKOEw041mHojDYw=";
     };
 
     dontUnpack = true;
@@ -397,7 +398,7 @@ let
     meta.broken = isPhp56;
   };
 
-  mongodb = if isPhp56 then mongodb17 else mongodb111;
+  mongodb = if isPhp56 then mongodb17 else (if isPhp72 then mongodb1112 else mongodb1111);
 
   mongodb17 = buildPecl {
     pname = "mongodb";
@@ -412,13 +413,13 @@ let
       openssl
       snappy
       zlib
-      (if isPhp73 then pcre2.dev else pcre.dev)
+      pcre.dev
     ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
 
-    meta.broken = isPhp71;
+    meta.broken = !isPhp56;
   };
 
-  mongodb111 = buildPecl {
+  mongodb1111 = buildPecl {
     pname = "mongodb";
     version = "1.11.1";
 
@@ -431,17 +432,36 @@ let
       openssl
       snappy
       zlib
+      pcre.dev
+    ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
+
+    meta.broken = (isPhp56 || isPhp72);
+  };
+
+  mongodb1112 = buildPecl {
+    pname = "mongodb";
+    version = "1.12.0";
+
+    sha256 = "sha256-DZ9nCwISiLtsmwYJefGR8dp3PXKRAGcxZvOLYX4kMX4=";
+
+    nativeBuildInputs = with pkgs; [ pkg-config ];
+    buildInputs = with pkgs; [
+      cyrus_sasl
+      icu
+      openssl
+      snappy
+      zlib
       (if isPhp73 then pcre2.dev else pcre.dev)
     ] ++ lib.optional (stdenv.isDarwin) darwin.apple_sdk.frameworks.Security;
 
-    meta.broken = isPhp56;
+    meta.broken = !isPhp72;
   };
 
   pcov = buildPecl {
-    version = "1.0.10";
+    version = "1.0.11";
     pname = "pcov";
 
-    sha256 = "sha256-M0oPauqLPNR8QmcGHxR9MDP9rd0vj2iLMj6Wlm2a+Zw=";
+    sha256 = "sha256-rSLmTNOvBlMwGCrBQsHDq0Dek0SCzUAPi9dgZBMKwkI=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -478,16 +498,16 @@ let
 
     buildInputs = with pkgs; [ unixODBC ];
 
-    meta.broken = !isPhp73;
+    meta.broken = (!isPhp73 || isPhp81);
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "3.3.2";
+    version = "3.4.0";
     pname = "php-cs-fixer";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "sha256-iny2/L+RbwHUtCO3hQtEAbxocnUBG29DcyJnmk/EYT8=";
+      sha256 = "sha256-UlZ3L5JaFN988WaHeZZRdl9yif29zFO0LMiFDGkMFuQ=";
     };
 
     phases = [ "installPhase" ];
@@ -539,6 +559,8 @@ let
       license = licenses.bsd2;
       homepage = "https://github.com/JakubOnderka/PHP-Parallel-Lint";
       maintainers = with maintainers; [ jtojnar ];
+
+      broken = isPhp81;
     };
   };
 
@@ -597,12 +619,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "1.2.0";
+    version = "1.3.1";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "sha256-WA1N6fOibS0+txaGxH+cOgec9CsrIYzQbpjQCfQf/ao=";
+      sha256 = "sha256-VUumCfvQfSc4V4DtjF8uQt8Zulxzz4HlUNKtEBaz2jA=";
     };
 
     phases = [ "installPhase" ];
@@ -723,10 +745,10 @@ let
   };
 
   protobuf319 = buildPecl {
-    version = "3.19.1";
+    version = "3.19.2";
     pname = "protobuf";
 
-    sha256 = "sha256-kAPNPnvbCrmGITM3Hjpsn62TASV8eNCizFN8+1+I6bY=";
+    sha256 = "sha256-tSnxlX6TuR+d0ynoRhoHP7pxNnzldVrcnu1Xn7I60Uk=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -742,12 +764,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.15.0";
+    version = "4.17.0";
     pname = "psalm";
 
     src = pkgs.fetchurl {
-      url = "https://github.com/vimeo/psalm/releases/download/v${version}/psalm.phar";
-      sha256 = "sha256-jvUNnA5OTmw3h1O1Ur7pUojgU5IRgwq2U/JF/ByO0EA=";
+      url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
+      sha256 = "sha256-6E3XsGKVrEVVL3LuwnJFsxGtOO1a5ecqvA8dWg7HMF0=";
     };
 
     phases = [ "installPhase" ];
@@ -768,12 +790,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.11.0";
+    version = "0.11.1";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-UIAeOVbKWcfNV3bXaBhkK06wezhtig8aBZfB27umwFU=";
+      sha256 = "sha256-OiEXI7AVcC5udISfJ41285OBL82mSd1Xb5qhVtG4p9I=";
     };
 
     phases = [ "installPhase" ];
@@ -855,7 +877,7 @@ let
     meta.broken = (!isPhp73 || isPhp74);
   };
 
-  redis = if isPhp56 then redis43 else redis50;
+  redis = if isPhp56 then redis43 else redis53;
 
   redis43 = buildPecl {
     version = "4.3.0";
@@ -866,11 +888,11 @@ let
     meta.broken = !isPhp56;
   };
 
-  redis50 = buildPecl {
-    version = "5.3.4";
+  redis53 = buildPecl {
+    version = "5.3.5";
     pname = "redis";
 
-    sha256 = "1k5l7xxb06rlwq9jbmbbr03pc74d75vgv7h5bqjkbwan6dphafab";
+    sha256 = "sha256-1V+lzGmRmJF7or3IJ9pjKtd/AJuiZC0nUEVql22+WYk=";
 
     meta.broken = isPhp56;
   };
@@ -896,7 +918,7 @@ let
 
     buildInputs = with pkgs; [ unixODBC ];
 
-    meta.broken = !isPhp73;
+    meta.broken = (!isPhp73 || isPhp81);
   };
 
   snuffleupagus = buildPecl rec {
