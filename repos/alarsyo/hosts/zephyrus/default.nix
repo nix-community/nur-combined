@@ -46,13 +46,6 @@ in
   };
 
   services = {
-    xserver = {
-      enable = true;
-      windowManager.i3.enable = true;
-      layout = "fr";
-      xkbVariant = "us";
-      libinput.enable = true;
-    };
     tlp = {
       settings = {
         START_CHARGE_THRESH_BAT0 = 70;
@@ -61,7 +54,7 @@ in
     };
     fwupd.enable = true;
   };
-  my.displayManager.sddm.enable = true;
+  my.gui.enable = true;
 
   environment.systemPackages = with pkgs; [
     arandr

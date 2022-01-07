@@ -91,17 +91,11 @@ in
       permitRootLogin = "no";
       passwordAuthentication = false;
     };
-
-    xserver = {
-      enable = true;
-      videoDrivers = [ "nvidia" ];
-      windowManager.i3.enable = true;
-      layout = "fr";
-      xkbVariant = "us";
-      libinput.enable = true;
-    };
   };
-  my.displayManager.sddm.enable = true;
+  my.gui = {
+    enable = true;
+    isNvidia = true;
+  };
 
   my.wakeonwlan.interfaces.phy0.methods = [
     "magic-packet"
