@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/include/vectorclass
-    mkdir -p $out/share/cmake
+    mkdir -p $out/share/vectorclass
     cp *.h $out/include/vectorclass
-    cp ${vectorclass_cmake}/* $out/share/cmake/
+    cp ${vectorclass_cmake}/* $out/share/vectorclass/
     '';
 
   postFixup = ''
@@ -29,7 +29,7 @@ Description: C++ class library for using the Single Instruction Multiple Data (S
 Version: $version
 Cflags: -I$out/include/vectorclass" > $out/lib/pkgconfig/vectorclass.pc
 
-    sed -i "s|VECTORCLASS_INCLUDE_DIR|$out/include|g" $out/share/cmake/vectorclassTargets.cmake
+    sed -i "s|VECTORCLASS_INCLUDE_DIR|$out/include|g" $out/share/vectorclass/vectorclassTargets.cmake
     '';
 
   meta = with lib; {
