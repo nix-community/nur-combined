@@ -56,7 +56,9 @@
 
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
 
-  vectorclass = pkgs.callPackage ./pkgs/vectorclass { };
+  vectorclass = pkgs.callPackage ./pkgs/vectorclass {
+      vectorclass_cmake = ./pkgs/vectorclass/vectorclass-cmake;
+  };
 
   vstat = pkgs.callPackage ./pkgs/vstat { };
 }

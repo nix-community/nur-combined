@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ vectorclass_cmake, lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "vectorclass";
@@ -13,7 +13,9 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/include/vectorclass
+    mkdir -p $out/share/cmake
     cp *.h $out/include/vectorclass
+    cp ${vectorclass_cmake}/* $out/share/cmake/
     '';
 
   postFixup = ''
@@ -26,6 +28,8 @@ Name: Vectorclass
 Description: C++ class library for using the Single Instruction Multiple Data (SIMD) instructions to improve performance on modern microprocessors with the x86 or x86/64 instruction set.
 Version: $version
 Cflags: -I$out/include/vectorclass" > $out/lib/pkgconfig/vectorclass.pc
+
+    sed -i "s|VECTORCLASS_INCLUDE_DIR|$out/include|g" $out/share/cmake/vectorclassTargets.cmake
     '';
 
   meta = with lib; {
