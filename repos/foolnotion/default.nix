@@ -13,7 +13,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  aria-csv = pkgs.callPackage ./pkgs/aria-csv { };
+  aria-csv = pkgs.callPackage ./pkgs/aria-csv {
+      aria-csv-cmake = ./pkgs/aria-csv/aria-csv-cmake;
+  };
 
   asmjit = pkgs.callPackage ./pkgs/asmjit { };
 
@@ -57,7 +59,7 @@
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
 
   vectorclass = pkgs.callPackage ./pkgs/vectorclass {
-      vectorclass_cmake = ./pkgs/vectorclass/vectorclass-cmake;
+      vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
   };
 
   vstat = pkgs.callPackage ./pkgs/vstat { };

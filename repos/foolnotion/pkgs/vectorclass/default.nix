@@ -1,4 +1,4 @@
-{ vectorclass_cmake, lib, stdenv, fetchFromGitHub }:
+{ vectorclass-cmake, lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "vectorclass";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/include/vectorclass
     mkdir -p $out/share/vectorclass
     cp *.h $out/include/vectorclass
-    cp ${vectorclass_cmake}/* $out/share/vectorclass/
+    cp ${vectorclass-cmake}/* $out/share/vectorclass/
     '';
 
   postFixup = ''
