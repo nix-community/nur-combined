@@ -25,4 +25,6 @@ rec {
   yaru-mixed-theme = yaru-classic-theme;  # alias added 2021-10-02
 
   yaru-classic-theme = pkgs.callPackage pkgs/yaru-classic { };
+
+  garlicshare = pkgs.callPackage pkgs/garlicshare { };
 }
