@@ -1,7 +1,11 @@
 {
   description = "pborzenkov's personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
+  inputs.nur = {
+    url = "github:nix-community/NUR";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+  outputs = { self, nixpkgs, nur }:
     let
       systems = [
         "x86_64-linux"
@@ -17,5 +21,16 @@
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
+
+      devShell = forAllSystems (system:
+        let
+          pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay ]; };
+        in
+        pkgs.mkShell {
+          packages = [
+            pkgs.nixpkgs-fmt
+            pkgs.nur.repos.rycee.firefox-addons-generator
+          ];
+        });
     };
 }

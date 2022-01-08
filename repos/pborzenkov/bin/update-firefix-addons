@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+dir=$(dirname ${0})
+nixpkgs-firefox-addons ${dir}/../pkgs/firefox-addons/addons.json ${dir}/../pkgs/firefox-addons/generated-firefox-addons.nix
