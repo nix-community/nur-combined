@@ -288,6 +288,7 @@ lib.makeScope newScope (
     ptunnel = callPackage ./misc/ptunnel { };
     pvs-studio = callPackage ./misc/pvs-studio { };
     qasync = callPackage ./misc/qasync { };
+    qoiview = callPackage ./misc/qoiview { };
     repolocli = callPackage ./misc/repolocli { };
     sdorfehs = callPackage ./misc/sdorfehs { };
     taskcoach = callPackage ./misc/taskcoach { };
