@@ -27,5 +27,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin;
   };
 }
