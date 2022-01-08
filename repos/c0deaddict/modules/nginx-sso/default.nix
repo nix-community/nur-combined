@@ -76,12 +76,9 @@ in {
         ExecStartPre = let
           preStart = ''
             mkdir -p $RUNTIME_DIRECTORY -m 750
-            chown nginx-sso:nginx-sso $RUNTIME_DIRECTORY
 
             export config=$RUNTIME_DIRECTORY/config.yml
             cp ${configYml} $config
-            chmod 640 $config
-            chown nginx-sso:nginx-sso $config
 
             ${concatStringsSep "\n" (attrValues (flip mapAttrs cfg.secrets
               (key: path: ''
@@ -89,6 +86,10 @@ in {
                 ${pkgs.yq}/bin/yq -y '${key}=$ENV.secret' $config \
                   | ${pkgs.moreutils}/bin/sponge $config
               '')))}
+
+            # https://github.com/systemd/systemd/issues/16060#issuecomment-964168566
+            chown -R $(stat -c %%u $RUNTIME_DIRECTORY)
+            chmod 640 $config
           '';
         in "!${pkgs.writeShellScript "nginx-sso-pre-start" preStart}";
 
@@ -97,7 +98,7 @@ in {
             --config $RUNTIME_DIRECTORY/config.yml \
             --frontend-dir ${pkg}/share/frontend
         '';
-        
+
         Restart = "always";
         DynamicUser = true;
       };
