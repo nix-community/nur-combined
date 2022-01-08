@@ -88,7 +88,7 @@ in {
               '')))}
 
             # https://github.com/systemd/systemd/issues/16060#issuecomment-964168566
-            chown -R $(stat -c %%u $RUNTIME_DIRECTORY)
+            chown -R $(stat -c %u $RUNTIME_DIRECTORY)
             chmod 640 $config
           '';
         in "!${pkgs.writeShellScript "nginx-sso-pre-start" preStart}";
