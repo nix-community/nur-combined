@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "how-to-use-pvs-studio-free";
-  version = "2021-02-08";
+  version = "2.1";
 
   src = fetchFromGitHub {
     owner = "viva64";
     repo = pname;
-    rev = "abc39706151159d102d29e3e2f2b8d5688362ec3";
-    hash = "sha256-MDJ2z4gmnLxnO9YNlYbfwMDAwLTnc634w6I1wf0OvYM=";
+    rev = version;
+    hash = "sha256-aFqk0WsMylRQqvlb+M5IfDHVwMBuKNQpCiiGPrj+jEw=";
   };
 
   nativeBuildInputs = [ cmake ];
