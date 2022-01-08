@@ -169,6 +169,7 @@ nyngwang/NeoRoot.lua
 ojroques/nvim-hardline
 ojroques/nvim-lspfuzzy
 petertriho/cmp-git
+petertriho/nvim-scrollbar
 pianocomposer321/consolation.nvim
 pianocomposer321/yabs.nvim
 projekt0n/github-nvim-theme
