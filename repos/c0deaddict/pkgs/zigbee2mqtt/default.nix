@@ -3,7 +3,7 @@ let
   package = (import ./node.nix { inherit pkgs system; }).package;
 in
 package.override rec {
-  version = "1.22.1";
+  version = "1.22.2";
   reconstructLock = true;
 
   src = pkgs.fetchFromGitHub {
