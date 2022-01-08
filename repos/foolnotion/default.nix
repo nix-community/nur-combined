@@ -63,4 +63,6 @@
   };
 
   vstat = pkgs.callPackage ./pkgs/vstat { };
+
+  xxhash = pkgs.callPackage ./pkgs/xxhash { };
 }
