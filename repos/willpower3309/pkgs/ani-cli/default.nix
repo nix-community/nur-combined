@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner="pystardust";
     repo="ani-cli";
-    rev="c76860dff22834b9d123cbe11804896de040e547";
-    sha256="CP5ahipruXJNa4JQLXCqciEKwxqKbguT+V8mRi0NGxg=";
+    rev="865fec2c72449169bd8b101665c70de77859f83c";
+    sha256="u3DosXWpq/uIiQjmugWLir701TDqfDnK7CrtfbT+jEM=";
   };
 
   buildInputs = [ bash mpv curl ffmpeg ];

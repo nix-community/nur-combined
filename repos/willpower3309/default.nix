@@ -16,4 +16,5 @@
 
   ani-cli = pkgs.callPackage ./pkgs/ani-cli {};
   hybridbar = pkgs.callPackage ./pkgs/hybridbar {};
+  swayblur = pkgs.python3.pkgs.callPackage ./pkgs/swayblur {};
 }
