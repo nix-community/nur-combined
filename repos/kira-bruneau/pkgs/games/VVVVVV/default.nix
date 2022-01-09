@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "VVVVVV";
-  version = "2.3.4";
+  version = "2.3.6";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
     rev = version;
-    sha256 = "sha256-l0daAejDwTf01n0VjFf9Wie+ka4tjPX6LwGMQepZeJw=";
+    sha256 = "sha256-sLNO4vkmlirsqJmCV9YWpyNnIiigU1KMls7rOgWgSmQ=";
   };
 
   sourceRoot = "source/desktop_version";

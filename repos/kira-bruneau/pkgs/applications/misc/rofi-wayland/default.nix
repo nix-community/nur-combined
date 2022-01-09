@@ -20,14 +20,14 @@
 
 stdenv.mkDerivation rec {
   pname = "rofi-wayland";
-  version = "1.7.1";
+  version = "1.7.2";
 
   src = fetchFromGitHub {
     owner = "lbonn";
     repo = "rofi";
     rev = "${version}+wayland1";
     fetchSubmodules = true;
-    sha256 = "sha256-8CLBBRvtz9nYAHJLdBUX99sH3ZC+242wUtE7tXm5B7o=";
+    sha256 = "sha256-INFYHOVjBNj8ks4UjKnxLW8mL7h1c8ySFPS/rUxOWwo=";
   };
 
   nativeBuildInputs = [
