@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # Programs
+  bandcamp-dl = pkgs.python39Packages.callPackage ./pkgs/bandcamp-dl { };
   arduino-language-server = pkgs.callPackage ./pkgs/arduino-language-server { };
   neocities-ruby = pkgs.callPackage ./pkgs/neocities-ruby { };
   pat = pkgs.python39Packages.callPackage ./pkgs/pat { };
