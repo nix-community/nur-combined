@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/naofireblade/clear-theme-dark";
+    homepage = "https://github.com/naofireblade/clear-theme";
     description = "Clear Theme for Home Assistant";
     license = licenses.mit;
   };

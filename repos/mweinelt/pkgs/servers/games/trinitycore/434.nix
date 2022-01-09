@@ -2,7 +2,7 @@
 
 callPackage ./generic.nix (args // {
   owner = "The-Cataclysm-Preservation-Project";
-  version = "TDB434.21071";
-  commit = "836278cff3776c9c353f6ea7bab2aaa761c22628";
-  sha256 = "0hp1blpfprw3v2avvarbns505sj1sis3pvn0pyp4a2nz8qhpg48q";
+  version = "TDB434.22011";
+  commit = "1a1f0b767dcbb75a526b8f8213e7360f14fa2b7d";
+  sha256 = "0286xcfbvs0bknpwkx7wn9i93r96afgv137rwww6cvhnx8lapya0";
 })
