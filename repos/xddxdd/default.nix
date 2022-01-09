@@ -32,6 +32,7 @@ rec {
     inherit genshinhelper2 onepush;
   };
   genshinhelper2 = pkgs.callPackage ./pkgs/genshinhelper2 { };
+  glibc-debian-openvz-files = pkgs.callPackage ./pkgs/glibc-debian-openvz-files { };
   libltnginx = pkgs.callPackage ./pkgs/libltnginx { };
   liboqs = pkgs.callPackage ./pkgs/liboqs { };
   linux-xanmod-lantian = pkgs.callPackage ./pkgs/linux-xanmod-lantian {
