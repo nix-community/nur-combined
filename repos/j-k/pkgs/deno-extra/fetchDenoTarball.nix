@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, cacert, deno, git }:
+{ lib, stdenvNoCC, cacert, deno, git, tree, jq }:
 
 { name ? "deno-deps"
 , src ? null
@@ -19,7 +19,7 @@ let hash_ =
 in
 stdenvNoCC.mkDerivation ({
   name = "${name}-vendor.tar.gz";
-  nativeBuildInputs = [ cacert deno git ];
+  nativeBuildInputs = [ cacert deno jq git ];
 
   phases = "unpackPhase patchPhase buildPhase installPhase";
 
@@ -38,17 +38,14 @@ stdenvNoCC.mkDerivation ({
 
           exit 1
       fi
-      deno cache --lock=${lockfileLocation} --lock-write ${entrypoint} --unstable
+      deno cache --lock="${lockfileLocation}" --lock-write "${entrypoint}"
     else
       echo "lockfile found"
+      deno cache --lock="${lockfileLocation}" --reload "${entrypoint}"
     fi
-    echo "reloading dependencies from lockfile"
-    deno cache --reload --lock=${lockfileLocation} ${entrypoint} --unstable
-    echo "strip non-reproducable buildinfo and metadata files"
-    find . -type f \( \
-      -name "*.buildinfo" -o \
-      -name "metadata.json" -o -name "*.metadata.json" \
-    \) -exec rm {} \;
+    echo "delete buildinfo and strip non-reproducable metadata"
+    rm -rf $DENO_DIR/gen
+    find . -name '*.metadata.json' -exec sh -c "cat {} | jq -c '{ headers: { }, now: { secs_since_epoch: 0, nanos_since_epoch: 0 }, url: .url }' | tee {}" \;
     cp ${lockfileLocation} $name/lockfile.json
   '';
 

@@ -48,8 +48,8 @@ stdenvNoCC.mkDerivation (args // {
   nativeBuildInputs = nativeBuildInputs ++ [ deno ];
 
   postUnpack = ''
-    unpackFile ${denoDeps}
-    export DENO_DIR="/build/$(stripHash ${denoDeps})"
+    unpackFile "${denoDeps}"
+    export DENO_DIR="/build/$(stripHash "${denoDeps}")"
     export DENO_LOCK="$DENO_DIR/lockfile.json"
   '' + (args.postUnpack or "");
 
@@ -60,17 +60,18 @@ stdenvNoCC.mkDerivation (args // {
 
   buildPhase = args.buildPhase or ''
     runHook preBuild
-    deno bundle --lock $DENO_LOCK --unstable ${entrypoint} ${outname}.js
+    deno bundle --lock "$DENO_LOCK" "${entrypoint}" "${outname}.js"
     runHook postBuild
   '';
 
   installPhase = args.installPhase or ''
     runHook preInstall
 
-    mkdir -p $out/{bin,lib/${outname}}
-    mv ${outname}.js $out/lib/${outname}/
-    deno install --unstable --root $out --lock $DENO_LOCK $permissionsFlags $out/lib/${outname}/${outname}.js
-    substituteInPlace $out/bin/${outname} --replace 'exec deno ' 'exec ${deno}/bin/deno '
+    mkdir -p "$out"/{bin,"lib/${outname}"}
+    mv "${outname}.js" "$out/lib/${outname}/"
+    deno install --root "$out" --lock "$DENO_LOCK" $permissionsFlags "$out/lib/${outname}/${outname}.js"
+    substituteInPlace "$out/bin/${outname}" --replace 'exec deno ' 'exec ${deno}/bin/deno '
+    rm "$out/bin/${outname}.lock.json"
 
     runHook postInstall
   '';
