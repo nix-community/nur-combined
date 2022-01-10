@@ -21,4 +21,5 @@ rec {
   edgevpn = ./edgevpn.nix;
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
+  bitwig = ./bitwig.nix;
 }
