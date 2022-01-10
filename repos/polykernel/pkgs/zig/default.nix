@@ -49,6 +49,6 @@ llvmPackages.stdenv.mkDerivation rec {
     maintainers = [ maintainers.polykernel ];
     platforms = platforms.unix;
     # See https://github.com/NixOS/nixpkgs/issues/86299
-    broken = llvmPackages.stdenv.isDarwin;
+    broken = llvmPackages.stdenv.hostPlatform.isDarwin;
   };
 }
