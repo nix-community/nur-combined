@@ -37,6 +37,7 @@ in {
     nix.distributedBuilds = true;
 
     virtualisation.libvirtd.enable = lib.mkForce false;
+    virtualisation.spiceUSBRedirection.enable = true;
     services.tor.enable = lib.mkForce false;
 
     networking.edgevpn = {
