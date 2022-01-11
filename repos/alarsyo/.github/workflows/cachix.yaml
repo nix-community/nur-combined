@@ -9,11 +9,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        name:
+        - emacsPgtkGcc
+        - grafanaDashboards/nginx
+        - grafanaDashboards/node-exporter
+        - kaleidoscope-udev-rules
+        - sddm-sugar-candy
+        - spot
+
     steps:
     - uses: actions/checkout@v2
+
     - uses: cachix/install-nix-action@v16
+
     - uses: cachix/cachix-action@v10
       with:
         name: alarsyo
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: .github/workflows/build-flake-packages.sh
+
+    - name: Build package
+      run: nix build --verbose -L .#"${{ matrix.name }}"
