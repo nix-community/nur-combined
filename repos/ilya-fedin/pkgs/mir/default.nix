@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
+    "-DMIR_FATAL_COMPILE_WARNINGS=OFF"
     "-DMIR_ENABLE_TESTS=OFF"
   ];
 
