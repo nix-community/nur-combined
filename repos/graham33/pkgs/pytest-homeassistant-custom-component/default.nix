@@ -49,7 +49,7 @@ buildPythonPackage rec {
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
       --replace "respx==0.17.0" "respx>=0.17.0" \
       --replace "responses==0.12.0" "responses>=0.12.0" \
-      --replace "sqlalchemy==1.4.23" "sqlalchemy>=1.4.23" \
+      --replace "sqlalchemy==1.4.27" "sqlalchemy>=1.4.27" \
       --replace "stdlib-list==0.7.0" "" \
       --replace "tqdm==4.49.0" "tqdm>=4.49.0"
   '';
