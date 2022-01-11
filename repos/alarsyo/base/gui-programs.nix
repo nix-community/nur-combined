@@ -12,8 +12,8 @@
       xserver = {
         enable = true;
         # NOTE: could use `mkOptionDefault` but this feels more explicit
-        videoDrivers = options.services.xserver.videoDrivers.default
-                       ++ lib.optional config.my.gui.isNvidia "nvidia";
+        videoDrivers = if config.my.gui.isNvidia then [ "nvidia" ]
+                       else options.services.xserver.videoDrivers.default;
         windowManager.i3.enable = true;
         layout = "fr";
         xkbVariant = "us";
