@@ -29,6 +29,7 @@ jobs:
       with:
         name: alarsyo
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        extraPullNames: "nix-community"
 
     - name: Build package
       run: nix build --verbose -L .#"${{ matrix.name }}"
