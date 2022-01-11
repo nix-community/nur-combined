@@ -11,14 +11,14 @@
 }:
 stdenv.mkDerivation rec {
   name = "coeurl";
-  version = "unstable-2021-11-21";
+  version = "0.1.1";
 
   src = fetchFromGitLab {
     domain = "nheko.im";
     owner = "nheko-reborn";
     repo = "coeurl";
-    rev = "abafd60d7e9f5cce76c9abad3b2b3dc1382e5349";
-    sha256 = "sha256-IMj8qK9OQ5C1+LTs+pBJXxkqY0+Pz0AjsffkHshWVcg=";
+    rev = "v${version}";
+    sha256 = "sha256-F4kHE9r2pR8hI+CrZQ9ElPjtp0McgwfSxoD5p56KDGs=";
   };
 
   nativeBuildInputs = [

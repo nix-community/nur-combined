@@ -23,6 +23,7 @@
 , fmt
 , olm
 , pkg-config
+, asciidoctor
 , nlohmann_json
 , voipSupport ? true
 , gst_all_1
@@ -34,19 +35,20 @@
 
 mkDerivation rec {
   pname = "nheko";
-  version = "unstable-2021-12-08";
+  version = "unstable-2022-01-10";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "8effdbc447f399d29d9704c556f1faa3090a4b5f";
-    sha256 = "sha256-Co5kvwxLX5ywCsGYaA8FNBEupD/qmGAgQhAqbAa9P4c=";
+    rev = "edfeb5c28439e2d6db215b76fffc2a8b632e320f";
+    sha256 = "sha256-R/MaP8EIVTwuuxLxC77uDVW/mLHUzwx1dKfmZoRv2c8=";
   };
 
   nativeBuildInputs = [
     lmdbxx
     cmake
     pkg-config
+    asciidoctor
   ];
 
   buildInputs = [
