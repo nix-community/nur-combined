@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "09wa8zyrwh7l49csckgr5vry2b4nkcssnfvzdsfgc9yxzdfl9ali";
   };
 
-  nativeBuildInputs = [ fasm pkg-config ];
+  nativeBuildInputs = [ fasm ];
 
   installPhase = ''
     make install prefix=$out
