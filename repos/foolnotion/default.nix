@@ -7,7 +7,7 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> {} }:
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -45,12 +45,12 @@
 
   pmlb = pkgs.python39Packages.callPackage ./pkgs/pmlb { };
 
-  pratt-parser = pkgs.callPackage ./pkgs/pratt-parser {
-    fast_float = pkgs.callPackage ./pkgs/fast_float { };
-    robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
-  };
-
   robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
+
+  pratt-parser = pkgs.callPackage ./pkgs/pratt-parser {
+    fast_float = fast_float;
+    robin-hood-hashing = robin-hood-hashing;
+  };
 
   scnlib = pkgs.callPackage ./pkgs/scnlib { };
 
@@ -62,7 +62,9 @@
       vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
   };
 
-  vstat = pkgs.callPackage ./pkgs/vstat { };
+  vstat = pkgs.callPackage ./pkgs/vstat {
+      vectorclass = vectorclass;
+  };
 
   xxhash = pkgs.callPackage ./pkgs/xxhash { };
 }

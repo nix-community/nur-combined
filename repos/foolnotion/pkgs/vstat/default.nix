@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake, vectorclass }:
 
 stdenv.mkDerivation rec {
   pname = "vstat";
@@ -12,6 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
+
+  buildInputs = [ vectorclass ];
 
   meta = with lib; {
     description = "C++17 library of computationally efficient methods for calculating sample statistics (mean, variance, covariance, correlation).";
