@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "vstat";
-  version = "0.1.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "vstat";
-    rev = "2796c5358c74bfcbeaf8d0411f7d6452b55cf912";
-    sha256 = "sha256-PjTmZuXquABQ5h3ydjtVlX106p//Ol5wEipBNCWQjYg=";
+    rev = "e6d16e7ba279f5e8730328e69a80ffae442702e3";
+    sha256 = "sha256-ID771prG6A6MNO0TAhlei7OqC58OPw/h5wwHwQK0yTg=";
   };
 
   nativeBuildInputs = [ cmake ];
