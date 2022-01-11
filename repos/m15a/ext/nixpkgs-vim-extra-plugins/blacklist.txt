@@ -12,3 +12,12 @@ ms-jpq/chadtree
 shaunsingh/moonlight.nvim
 andersevenrud/compe-tmux
 gwatcha/reaper-keys
+ahmedkhalf/project.nvim
+andersevenrud/cmp-tmux
+blackCauldron7/surround.nvim
+filipdutescu/renamer.nvim
+folke/lua-dev.nvim
+ldelossa/litee.nvim
+navarasu/onedark.nvim
+rebelot/kanagawa.nvim
+windwp/nvim-ts-autotag
