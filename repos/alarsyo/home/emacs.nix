@@ -5,6 +5,8 @@
   };
 
   config = lib.mkIf config.my.home.emacs.enable {
+
+    home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
     home.sessionVariables = {
       EDITOR = "emacsclient -t";
     };
