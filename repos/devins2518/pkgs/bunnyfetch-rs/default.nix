@@ -2,20 +2,20 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "bunnyfetch";
-  version = "unstable-2021-06-16";
+  version = "unstable-2022-01-12";
 
   src = fetchFromGitHub {
-    owner = "Rosettea";
+    owner = "devins2518";
     repo = pname;
-    rev = "dd3b43c5afc2e942c8e7b1109ffc917bc6f4a606";
-    sha256 = "sha256-F0aGLrnqkxpkiPaIKhMOlLtAy+wigrEBhNHhvMw6lqo=";
+    rev = "dae88dc91e6cf7ab67f8da319028759eb0738e99";
+    sha256 = "sha256-dzX1NmSI8Gw/WzKc/gymqj8u0teJPivxnkkRG9j2AXU";
   };
 
-  cargoSha256 = "sha256-4/kRkL3KHFtAQGxcNrmoa5+4yvLcvtD3CC0svvAtf4I=";
+  cargoSha256 = "sha256-NYaApRSxAmj1LbJITj9hFJ4w7eJ3mUuMkB6caiAnb1w";
 
   meta = with lib; {
     description = "Tiny system info fetch utility. ";
-    homepage = "https://github.com/Rosettea/bunnyfetch/tree/rs";
+    homepage = "https://github.com/devins2518/bunnyfetch";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ devins2518 ];
   };
