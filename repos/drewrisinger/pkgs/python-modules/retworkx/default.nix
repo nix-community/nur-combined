@@ -2,11 +2,7 @@
 , stdenv
 , buildPythonPackage
 , rustPlatform
-, python
 , fetchFromGitHub
-, pipInstallHook
-, maturin
-, pip
 , libiconv
   # Check inputs
 , pytestCheckHook
@@ -29,7 +25,7 @@ buildPythonPackage rec {
     rev = version;
     sha256 = "sha256-F2hcVUsuHcNfsg3rXYt/erc0zB6W7GdepVOReP3u4lg=";
   };
-  
+
   cargoDeps = rustPlatform.fetchCargoTarball {
       inherit src;
       name = "${pname}-${version}";
