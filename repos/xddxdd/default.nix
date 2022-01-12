@@ -27,6 +27,7 @@ rec {
   dnyjzsxj = pkgs.callPackage ./pkgs/dnyjzsxj {
     inherit chmlib-utils;
   };
+  drone-vault = pkgs.callPackage ./pkgs/drone-vault { };
   ftp-proxy = pkgs.callPackage ./pkgs/ftp-proxy { };
   genshin-checkin-helper = pkgs.callPackage ./pkgs/genshin-checkin-helper {
     inherit genshinhelper2 onepush;
