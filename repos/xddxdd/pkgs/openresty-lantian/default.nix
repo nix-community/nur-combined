@@ -9,20 +9,20 @@
 
 stdenv.mkDerivation rec {
   pname = "openresty-lantian";
-  nginxVersion = "1.19.9";
-  version = "${nginxVersion}.1";
+  nginxVersion = "1.21.4";
+  version = "${nginxVersion}.1rc1";
 
   srcs = [
     (fetchzip {
       url = "https://openresty.org/download/openresty-${version}.tar.gz";
-      sha256 = "07bj41j9nvxmbhshfs0bzhykv11wcygqvc6qkh7cfsjiiywxd5xi";
+      sha256 = "sha256-HRp9DPrGEQAexJUWFRfP3WLRyQSQN7LLHkh77EB97HY=";
       name = "openresty";
     })
 
     (fetchhg {
       url = "https://hg.nginx.org/nginx-quic";
-      rev = "7603284f7af5";
-      sha256 = "009d2yp0wf87wi426mbxdqhiwrrwrlcqwdppbaxz6z0859wcsrgn";
+      rev = "47f45a98f892";
+      sha256 = "sha256-jJW56A8E2LORpXRYCVMHNqGxUkN5OZG9Qxi45DOv/+E=";
       name = "nginx-quic";
     })
 
@@ -126,7 +126,11 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  postUnpack = ''
+  postUnpack = let
+    patch = p: ''
+      echo ${p} && patch -p1 < ${p}
+    '';
+  in ''
     export BUILDROOT=$(pwd)
     chmod -R 755 .
     patchShebangs .
@@ -136,18 +140,18 @@ stdenv.mkDerivation rec {
 
     cd $BUILDROOT/openresty/bundle/nginx-${nginxVersion}
     ln -s ./auto/configure ./configure
-    patch -p1 < ${patchUseOpensslMd5Sha1}
-    patch -p1 < ${patchBoringsslOcsp}
-    patch -p1 < ${patchHpackDyntls}
-    patch -p1 < ${patchDisableOpensslCheck}
-    patch -p1 < ${patchQuicDisableTcpNodelay}
-    patch -p1 < ${patchPlain}
-    patch -p1 < ${patchPlainProxy}
-    patch -p1 < ${patchNixEtag}
-    patch -p1 < ${patchNixSkipCheckLogsPath}
+    ${patch patchUseOpensslMd5Sha1}
+    ${patch patchBoringsslOcsp}
+    ${patch patchHpackDyntls}
+    ${patch patchDisableOpensslCheck}
+    ${patch patchQuicDisableTcpNodelay}
+    ${patch patchPlain}
+    ${patch patchPlainProxy}
+    ${patch patchNixEtag}
+    ${patch patchNixSkipCheckLogsPath}
 
     cd $BUILDROOT/stream-echo-nginx-module
-    patch -p1 < ${patchModStreamEcho}
+    ${patch patchModStreamEcho}
 
     cd $BUILDROOT
 
@@ -179,7 +183,6 @@ stdenv.mkDerivation rec {
     "--with-http_v2_module"
     "--with-http_v2_hpack_enc"
     "--with-http_v3_module"
-    "--with-http_quic_module"
     "--with-stream"
     "--with-stream_realip_module"
     "--with-stream_ssl_module"
