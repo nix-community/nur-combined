@@ -67,4 +67,17 @@ rec {
   };
 
   xxhash = pkgs.callPackage ./pkgs/xxhash { };
+
+  operon = pkgs.callPackage ./pkgs/operon {
+    aria-csv = aria-csv;
+    fast_float = fast_float;
+    pratt-parser = pratt-parser;
+    robin-hood-hashing = robin-hood-hashing;
+    scnlib = scnlib;
+    span-lite = span-lite;
+    taskflow = taskflow;
+    vectorclass = vectorclass;
+    vstat = vstat;
+    xxhash = xxhash;
+  };
 }
