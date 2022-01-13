@@ -318,15 +318,6 @@ lib.makeScope newScope (
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
     mepo = callPackage ./osm/mepo {
       zig = pkgs.zig_0_8_1;
-      # See https://github.com/libsdl-org/SDL_ttf/issues/152
-      SDL2_ttf = pkgs.SDL2_ttf.overrideAttrs (old: {
-        src = pkgs.fetchFromGitHub {
-          owner = "libsdl-org";
-          repo = "SDL_ttf";
-          rev = "12013b24df59f11394c1761aad08700a4c5099be";
-          hash = "sha256-pOAlxdgfMDQiCER39hC4mDfHNhodouX/yCS+Y/dCA3Y=";
-        };
-      });
     };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osm-python-tools = callPackage ./osm/osm-python-tools { };

@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "gpxtools";
-  version = "2020-05-10";
+  version = "2022-01-11";
 
   src = fetchgit {
     url = "https://notabug.org/irdvo/gpxtools.git";
-    rev = "919fb5953af8de1e71f61244eb70dd56b670a429";
-    sha256 = "sha256-GkrdvwzrxQs/hCghqBnALbRE8oSstNzckzpcLaGfCRs=";
+    rev = "45b7b8f5a42d8426f2fc998d017d2f224943f959";
+    sha256 = "sha256-hhvxQ+2jOvY0OVt8iKQ9XcHgRN4ECywV1W1fKV7Q9Mo=";
   };
 
   nativeBuildInputs = [ cmake ];
