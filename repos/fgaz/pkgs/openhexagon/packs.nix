@@ -17,7 +17,7 @@
   tuxo = stdenv.mkDerivation {
     name = "openhexagon-tuxopack";
     src = fetchurl {
-      url = "https://files.gamebanana.com/gamefiles/tuxo_pack_update1.zip";
+      url = "https://files.gamebanana.com/mods/tuxo_pack_update1.zip";
       sha256 = "0b1kjqpq4y9y8vp5j0a999q4qkyz9vsc336cl5yvbl8zqgp4c3p8";
     };
     nativeBuildInputs = [ unzip ];
