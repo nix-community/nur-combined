@@ -9,13 +9,13 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  unstable_ = pkgs.fetchFromGitHub {
+  unstable' = pkgs.fetchFromGitHub {
     owner = "nixos";
     repo = "nixpkgs";
     rev = "34ad3ffe08adfca17fcb4e4a47bb5f3b113687be";
     sha256 = "02li241rz5668nfyp88zfjilxf0mr9yansa93fbl38hjwkhf3ix6";
   };
-  unstable = import unstable_ { config.allowUnfree = true; };
+  unstable = import unstable' { config.allowUnfree = true; };
   eval = import <nixpkgs/nixos/lib/eval-config.nix>;
   config = (eval {modules = [(import <nixos-config>)];}).config;
   # https://bugs.gentoo.org/804825
@@ -30,8 +30,8 @@ let
 in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules { unstable-path = unstable_; inherit unstable; inherit libidn; }; # NixOS modules
-  overlays = import ./overlays { inherit unstable config; wireless-regdb_ = wireless-regdb; }; # nixpkgs overlays
+  modules = import ./modules { unstable-path = unstable'; inherit unstable; inherit libidn; }; # NixOS modules
+  overlays = import ./overlays { inherit unstable config; wireless-regdb' = wireless-regdb; }; # nixpkgs overlays
 
   k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf.nix { };
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };

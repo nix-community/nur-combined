@@ -1,4 +1,4 @@
-{ unstable, config, wireless-regdb_ }:
+{ unstable, config, wireless-regdb' }:
 
 self: super: with super.lib;
 rec {
@@ -16,7 +16,7 @@ rec {
         --prefix PATH : "${super.lib.makeBinPath [ super.mpv ]}"
     '';
   });
-  wireless-regdb = if (config.hardware.wifi.enable or false) then wireless-regdb_ else super.wireless-regdb;
+  wireless-regdb = if (config.hardware.wifi.enable or false) then wireless-regdb' else super.wireless-regdb;
   crda = if (config.hardware.wifi.enable or false) then (super.crda.override {
     inherit wireless-regdb;
   }).overrideAttrs (oldAttrs: rec {
