@@ -55,6 +55,20 @@
         platforms = platforms.all;
         };
       };
+    "anonaddy" = buildFirefoxXpiAddon {
+      pname = "anonaddy";
+      version = "2.0.13";
+      addonId = "browser-extension@anonaddy";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3890009/anonaddy_anonymous_email_forwarding-2.0.13-fx.xpi";
+      sha256 = "5a9d003ca68b839bc647b9bb62b89b936d16544ad67f2e784c3756c30222476b";
+      meta = with lib;
+      {
+        homepage = "https://anonaddy.com";
+        description = "Open-source Anonymous Email Forwarding. \n\nQuickly and easily view, search, manage and create new aliases in just a few clicks using the AnonAddy browser extension.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
       version = "0.5.0";
@@ -792,6 +806,19 @@
         platforms = platforms.all;
         };
       };
+    "light-dark-switcher" = buildFirefoxXpiAddon {
+      pname = "light-dark-switcher";
+      version = "1.0.2";
+      addonId = "{66908292-10f9-44ab-8de1-3605cee906ff}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3884629/lightdark_switcher-1.0.2-fx.xpi";
+      sha256 = "6e8c70abc14c2bbcf568f2c8b89deedf3f09956b5f151204b5db9b9504a91853";
+      meta = with lib;
+      {
+        description = "Automatically switches between two themes when dark or light mode toggles";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "limit-limit-distracting-sites" = buildFirefoxXpiAddon {
       pname = "limit-limit-distracting-sites";
       version = "0.1.6";
@@ -903,20 +930,6 @@
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
-        platforms = platforms.all;
-        };
-      };
-    "min-twitter" = buildFirefoxXpiAddon {
-      pname = "min-twitter";
-      version = "3.1.6";
-      addonId = "{e7476172-097c-4b77-b56e-f56a894adca9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3840650/minimal_twitter-3.1.6-fx.xpi";
-      sha256 = "9d5114e70654bc72af2b70c3159244228d08b6fa67878264e7f64eb0a62e9223";
-      meta = with lib;
-      {
-        homepage = "https://github.com/thomaswang/minimal-twitter";
-        description = "Minimal Twitter theme that drastically simplifies and declutters the new Twitter UI.";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };

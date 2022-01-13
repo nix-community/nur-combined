@@ -23,6 +23,9 @@
     "slug": "anchors-reveal"
   },
   {
+    "slug": "anonaddy"
+  },
+  {
     "slug": "auto-tab-discard"
   },
   {
@@ -245,6 +248,9 @@
     "slug": "leechblock-ng"
   },
   {
+    "slug": "light-dark-switcher"
+  },
+  {
     "slug": "limit-limit-distracting-sites",
     "license": {
       "tag": "custom",
@@ -276,9 +282,6 @@
       "tag": "predefined",
       "shortName": "cc-by-nc-sa-30"
     }
-  },
-  {
-    "slug": "min-twitter"
   },
   {
     "slug": "multi-account-containers"
