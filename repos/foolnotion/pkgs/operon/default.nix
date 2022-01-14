@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "operon";
-    rev = "aaa8640e4f3911cdc835416fc5835491a827ca8a";
-    sha256 = "sha256-w32h53/z0m5wmmmJj9/bZBcUkUwZvV1ZeP0nXLmvRyo=";
+    rev = "77a2dc21cb0af30ef35ff4cea6bd7b4ce133b2a0";
+    sha256 = "sha256-NT6qzKLCPPoCfrCpJUmAMcbn74RdTXBCHr1Nf4sUptE=";
   };
 
   nativeBuildInputs = [ cmake git ];
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Modern, fast, scalable C++ framework for symbolic regression ";
+    description = "Modern, fast, scalable C++ framework for symbolic regression.";
     homepage = "https://github.com/heal-research/operon";
     license = licenses.mit;
     platforms = platforms.all;

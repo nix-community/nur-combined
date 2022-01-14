@@ -3,7 +3,8 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  buildXXHSum ? false
+  buildXXHSum ? false,
+  buildSharedLibs ? true
 }:
 
 stdenv.mkDerivation rec {
@@ -24,6 +25,7 @@ stdenv.mkDerivation rec {
     cmake -S . -B ./build ./cmake_unofficial \
       -DCMAKE_BUILD_TYPE=Release \
       -DXXHASH_BUILD_XXHSUM=${if buildXXHSum then "ON" else "OFF"} \
+      -DBUILD_SHARED_LIBS=${if buildSharedLibs then "ON" else "OFF"} \
       -DCMAKE_INSTALL_PREFIX=$out
     '';
 

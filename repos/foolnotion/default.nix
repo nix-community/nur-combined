@@ -80,4 +80,18 @@ rec {
     vstat = vstat;
     xxhash = xxhash;
   };
+
+  pyoperon = pkgs.callPackage ./pkgs/pyoperon {
+    operon = operon;
+    pybind11 = pkgs.python3Packages.pybind11;
+    aria-csv = aria-csv;
+    fast_float = fast_float;
+    pratt-parser = pratt-parser;
+    robin-hood-hashing = robin-hood-hashing;
+    span-lite = span-lite;
+    taskflow = taskflow;
+    vectorclass = vectorclass;
+    vstat = vstat;
+    xxhash = xxhash;
+  };
 }
