@@ -1,14 +1,18 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.miniflux;
   my = config.my;
 
   domain = config.networking.domain;
 in {
-  options.my.services.miniflux = {
+  options.my.services.miniflux = let inherit (lib) types; in {
     enable = mkEnableOption "Serve a Miniflux instance";
 
     adminCredentialsFile = mkOption {

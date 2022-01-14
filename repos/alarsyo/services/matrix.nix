@@ -9,9 +9,13 @@
 #
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.matrix;
   my = config.my;
 
@@ -19,10 +23,10 @@ let
   clientPort = { public = 443; private = 11339; };
   domain = config.networking.domain;
 in {
-  options.my.services.matrix = {
-    enable = lib.mkEnableOption "Matrix Synapse";
+  options.my.services.matrix = let inherit (lib) types; in {
+    enable = mkEnableOption "Matrix Synapse";
 
-    registration_shared_secret = lib.mkOption {
+    registration_shared_secret = mkOption {
       type = types.str;
       default = null;
       example = "deadbeef";
@@ -61,7 +65,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.postgresql = {
       enable = true;
     };

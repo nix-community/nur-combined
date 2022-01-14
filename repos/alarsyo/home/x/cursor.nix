@@ -1,11 +1,16 @@
 { config, lib, pkgs, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.home.x.cursor;
 in
 {
-  options.my.home.x.cursor.enable = (lib.mkEnableOption "X cursor") // { default = config.my.home.x.enable; };
+  options.my.home.x.cursor.enable = (mkEnableOption "X cursor") // { default = config.my.home.x.enable; };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     xsession.pointerCursor = {
       package = pkgs.capitaine-cursors;
       name = "capitaine-cursors";

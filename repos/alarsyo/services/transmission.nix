@@ -1,5 +1,11 @@
 { config, lib, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.transmission;
 
   domain = config.networking.domain;
@@ -11,7 +17,7 @@ let
   downloadBase = "/media/torrents/";
 in
 {
-  options.my.services.transmission = with lib; {
+  options.my.services.transmission = let inherit (lib) types; in {
     enable = mkEnableOption "Transmission torrent client";
 
     username = mkOption {
@@ -28,7 +34,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.transmission = {
       enable = true;
       group = "media";

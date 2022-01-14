@@ -3,6 +3,11 @@
 # TODO: setup prometheus exporter
 
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.services.nextcloud;
   my = config.my;
   domain = config.networking.domain;
@@ -10,10 +15,10 @@ let
 in
 {
   options.my.services.nextcloud = {
-    enable = lib.mkEnableOption "NextCloud";
+    enable = mkEnableOption "NextCloud";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.postgresql = {
       enable = true;
 
@@ -73,7 +78,7 @@ in
 
     my.services.restic-backup = let
       nextcloudHome = config.services.nextcloud.home;
-    in lib.mkIf cfg.enable  {
+    in mkIf cfg.enable  {
       paths = [ nextcloudHome ];
       exclude = [
         # borg can fail if *.part files disappear during backup

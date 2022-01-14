@@ -1,13 +1,18 @@
 { config, lib, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.home.lorri;
 in
 {
-  options.my.home.lorri = with lib; {
+  options.my.home.lorri = {
     enable = (mkEnableOption "lorri daemon setup") // { default = true; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.lorri.enable = true;
     programs.direnv = {
         enable = true;

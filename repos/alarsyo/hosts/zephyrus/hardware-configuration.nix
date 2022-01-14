@@ -2,7 +2,11 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-
+let
+  inherit (lib)
+    mkDefault
+  ;
+in
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
@@ -40,7 +44,7 @@
 
   swapDevices = [ ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = mkDefault "powersave";
 
   hardware.enableRedistributableFirmware = true;
 }

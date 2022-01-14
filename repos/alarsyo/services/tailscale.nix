@@ -1,16 +1,19 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.services.tailscale;
 in
 {
   options.my.services.tailscale = {
-    enable = lib.mkEnableOption "Tailscale";
+    enable = mkEnableOption "Tailscale";
 
     # NOTE: still have to do `tailscale up --advertise-exit-node`
-    exitNode = lib.mkEnableOption "Use as exit node";
+    exitNode = mkEnableOption "Use as exit node";
   };
 
   config = mkIf cfg.enable {

@@ -1,7 +1,11 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.services.fail2ban;
 in {
   options.my.services.fail2ban = {

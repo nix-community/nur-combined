@@ -1,11 +1,16 @@
 { config, lib, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.home.fish;
 in
 {
-  options.my.home.fish.enable = (lib.mkEnableOption "Fish shell") // { default = true; };
+  options.my.home.fish.enable = (mkEnableOption "Fish shell") // { default = true; };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.fish = {
       enable = true;
     };

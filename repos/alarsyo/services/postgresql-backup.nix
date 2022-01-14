@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.services.postgresql-backup;
 in {
   options.my.services.postgresql-backup = {

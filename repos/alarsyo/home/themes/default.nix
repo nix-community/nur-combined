@@ -1,6 +1,10 @@
 { config, lib, ... }:
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+  ;
+
   themeType = types.submodule {
     options = {
       alacrittyTheme = mkOption {
@@ -29,7 +33,7 @@ in
   };
 
   options.my.themes = mkOption {
-    type = with types; attrsOf themeType;
+    type = types.attrsOf themeType;
   };
 
   config.my.themes = {

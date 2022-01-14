@@ -2,7 +2,11 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-
+let
+  inherit (lib)
+    mkDefault
+  ;
+in
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
@@ -32,5 +36,5 @@
     [ { device = "/dev/disk/by-uuid/381a9c5e-4d71-45b4-ac62-e7414b3768fc"; }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+  powerManagement.cpuFreqGovernor = mkDefault "ondemand";
 }

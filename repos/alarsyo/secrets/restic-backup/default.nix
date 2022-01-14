@@ -1,4 +1,9 @@
 { lib }:
+let
+  inherit (lib)
+    fileContents
+  ;
+in
 {
-  poseidon-repo = lib.fileContents ./poseidon-repo.secret;
+  poseidon-repo = fileContents ./poseidon-repo.secret;
 }

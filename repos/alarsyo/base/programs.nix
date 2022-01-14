@@ -19,40 +19,45 @@
     bandwhich.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    # shell usage
-    fd
-    ripgrep
-    sd
-    tmux
-    tokei
-    tree
-    wget
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs)
+      # shell usage
+      fd
+      ripgrep
+      sd
+      tmux
+      tokei
+      tree
+      wget
 
-    # development
-    git
-    git-crypt
-    git-lfs
-    gnumake
-    gnupg
-    kakoune
-    pinentry-curses
-    python3
-    vim
-    clang_11
-    llvmPackages_11.bintools
+      # development
+      git
+      git-crypt
+      git-lfs
+      gnumake
+      gnupg
+      kakoune
+      pinentry-curses
+      python3
+      vim
 
-    # terminal utilities
-    bottom
-    dogdns
-    du-dust
-    htop
-    ldns # drill
-    tealdeer
-    unzip
-    zip
+      # terminal utilities
+      bottom
+      dogdns
+      du-dust
+      htop
+      ldns # drill
+      tealdeer
+      unzip
+      zip
 
-    # nix pkgs lookup
-    nix-index
-  ];
+      # nix pkgs lookup
+      nix-index
+    ;
+
+    inherit (pkgs.llvmPackages_11)
+      bintools
+      clang
+    ;
+  };
 }

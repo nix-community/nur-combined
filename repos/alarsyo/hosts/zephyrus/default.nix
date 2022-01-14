@@ -56,9 +56,7 @@ in
   };
   my.gui.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    arandr
-  ];
+  environment.systemPackages = [ pkgs.arandr ];
 
   hardware.bluetooth = {
     enable = true;

@@ -1,7 +1,23 @@
 let
-  colors = import ./colors.nix;
+  inherit (import ./colors.nix)
+    base0
+    base00
+    base01
+    base02
+    base03
+    base1
+    base2
+    base3
+    blue
+    cyan
+    green
+    magenta
+    orange
+    red
+    violet
+    yellow
+  ;
 in
-with colors;
 {
   primary = {
     background = base3;

@@ -1,8 +1,11 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.services.jellyfin;
   my = config.my;
 
@@ -15,7 +18,7 @@ in {
     enable = mkEnableOption "Jellyfin";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.jellyfin = {
       enable = true;
       group = "media";

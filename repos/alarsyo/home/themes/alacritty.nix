@@ -1,6 +1,10 @@
 { lib }:
-with lib;
 let
+  inherit (lib)
+    mkOption
+    types
+  ;
+
   mkColorOption = import ./color.nix { inherit lib; };
 
   primaryColorModule = types.submodule {

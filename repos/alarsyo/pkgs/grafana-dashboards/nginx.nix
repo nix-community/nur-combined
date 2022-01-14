@@ -1,5 +1,9 @@
 { stdenv, fetchFromGitHub, lib, ... }:
 let
+  inherit (lib)
+    licenses
+  ;
+
   version = "0.9.0";
 in
 stdenv.mkDerivation {
@@ -20,7 +24,7 @@ stdenv.mkDerivation {
     cp grafana/dashboard.json $out/dashboard.json
   '';
 
-  meta = with lib; {
+  meta = {
     description = "grafana dashboard for NGINX exporter";
     homepage = "https://github.com/nginxinc/nginx-prometheus-exporter";
     license = licenses.asl20;

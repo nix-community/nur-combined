@@ -1,16 +1,20 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.fava;
   my = config.my;
   domain = config.networking.domain;
   secrets = config.my.secrets;
 in
 {
-  options.my.services.fava = {
-    enable = lib.mkEnableOption "Fava";
+  options.my.services.fava = let inherit (lib) types; in {
+    enable = mkEnableOption "Fava";
 
     home = mkOption {
       type = types.str;
@@ -43,7 +47,6 @@ in
         User = "fava";
         Group = "fava";
       };
-      path = with pkgs; [];
     };
 
     users.users.fava = {

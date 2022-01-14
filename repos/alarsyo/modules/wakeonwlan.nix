@@ -1,8 +1,15 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatStringsSep
+    literalExample
+    mapAttrs'
+    mkIf
+    mkOption
+    nameValuePair
+  ;
+
   cfg = config.my.wakeonwlan;
 
   mkWowlanService = name: cfg:
@@ -20,7 +27,7 @@ let
     };
 in
 {
-  options.my.wakeonwlan = {
+  options.my.wakeonwlan = let inherit (lib) types; in {
     interfaces = mkOption {
       default = { };
       description = "Wireless interfaces where you want to enable WoWLAN";

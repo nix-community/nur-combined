@@ -1,11 +1,19 @@
 { config, lib, pkgs, ... }:
 let
+  inherit (lib)
+    lists
+    mkIf
+    mkOption
+    optional
+    types
+  ;
+
   isEnabled = config.my.home.x.enable;
   i3BarTheme = config.my.theme.i3BarTheme;
   cfg = config.my.home.x.i3bar;
 in
 {
-  options.my.home.x.i3bar = with lib; {
+  options.my.home.x.i3bar = {
     temperature.chip = mkOption {
       type = types.str;
       example = "coretemp-isa-*";
@@ -24,12 +32,14 @@ in
     };
   };
 
-  config = lib.mkIf isEnabled {
-    home.packages = with pkgs; [
-      iw # Used by `net` block
-      lm_sensors # Used by `temperature` block
-      font-awesome
-    ];
+  config = mkIf isEnabled {
+    home.packages = builtins.attrValues {
+      inherit (pkgs)
+        iw # Used by `net` block
+        lm_sensors # Used by `temperature` block
+        font-awesome
+      ;
+    };
 
     programs.i3status-rust = {
       enable = true;
@@ -79,7 +89,7 @@ in
               chip = cfg.temperature.chip;
               inputs = cfg.temperature.inputs;
             }
-          ] ++ (lib.lists.optionals ((builtins.length cfg.networking.throughput_interfaces) != 0)
+          ] ++ (lists.optionals ((builtins.length cfg.networking.throughput_interfaces) != 0)
             (map
               (interface:
                 {
@@ -105,11 +115,11 @@ in
               block = "sound";
               driver = "pulseaudio";
             }
-          ] ++ (lib.lists.optionals config.my.home.laptop.enable [
+          ] ++ (optional config.my.home.laptop.enable
             {
               block = "battery";
             }
-          ]) ++ [
+          ) ++ [
             # {
             #   block = "notify";
             # }

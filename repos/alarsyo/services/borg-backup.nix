@@ -1,10 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.my.services.borg-backup;
+let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+  cfg = config.my.services.borg-backup;
 in {
-  options.my.services.borg-backup = {
+  options.my.services.borg-backup = let inherit (lib) types; in {
     enable = mkEnableOption "Enable Borg backups for this host";
 
     repo = mkOption {

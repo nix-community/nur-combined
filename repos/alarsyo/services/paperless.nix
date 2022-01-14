@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.paperless;
   my = config.my;
   domain = config.networking.domain;
@@ -10,8 +14,8 @@ let
   secretKeyFile = pkgs.writeText "paperless-secret-key-file.env" my.secrets.paperless.secretKey;
 in
 {
-  options.my.services.paperless = {
-    enable = lib.mkEnableOption "Paperless";
+  options.my.services.paperless = let inherit (lib) types; in {
+    enable = mkEnableOption "Paperless";
 
     port = mkOption {
       type = types.port;

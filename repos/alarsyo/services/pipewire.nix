@@ -1,14 +1,18 @@
 { config, lib, pkgs, options, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    optionalAttrs
+  ;
+
   cfg = config.my.services.pipewire;
   my = config.my;
 in
 {
   options.my.services.pipewire = {
-    enable = lib.mkEnableOption "Pipewire sound backend";
+    enable = mkEnableOption "Pipewire sound backend";
   };
 
   # HACK: services.pipewire.alsa doesn't exist on 20.09, avoid evaluating this
@@ -69,6 +73,6 @@ in
 
     # FIXME: a shame pactl isn't available by itself, eventually this should be
     #        replaced by pw-cli or a wrapper, I guess?
-    environment.systemPackages = with pkgs; [ pulseaudio ];
+    environment.systemPackages = [ pkgs.pulseaudio ];
   });
 }

@@ -1,20 +1,24 @@
 { pkgs, lib, config, ... }:
-with lib;
-{
-  options.my.secrets = mkOption {
+let
+  inherit (lib)
+    fileContents
+    mkOption
+  ;
+in {
+  options.my.secrets = let inherit (lib) types; in mkOption {
     type = types.attrs;
   };
 
   config.my.secrets = {
-    matrix-registration-shared-secret = lib.fileContents ./matrix-registration-shared-secret.secret;
-    shadow-hashed-password-alarsyo = lib.fileContents ./shadow-hashed-password-alarsyo.secret;
-    shadow-hashed-password-root = lib.fileContents ./shadow-hashed-password-root.secret;
-    miniflux-admin-credentials = lib.fileContents ./miniflux-admin-credentials.secret;
-    transmission-password = lib.fileContents ./transmission.secret;
+    matrix-registration-shared-secret = fileContents ./matrix-registration-shared-secret.secret;
+    shadow-hashed-password-alarsyo = fileContents ./shadow-hashed-password-alarsyo.secret;
+    shadow-hashed-password-root = fileContents ./shadow-hashed-password-root.secret;
+    miniflux-admin-credentials = fileContents ./miniflux-admin-credentials.secret;
+    transmission-password = fileContents ./transmission.secret;
     nextcloud-admin-pass = ./nextcloud-admin-pass.secret;
-    nextcloud-admin-user = lib.fileContents ./nextcloud-admin-user.secret;
-    lohr-shared-secret = lib.fileContents ./lohr-shared-secret.secret;
-    gandiKey = lib.fileContents ./gandi-api-key.secret;
+    nextcloud-admin-user = fileContents ./nextcloud-admin-user.secret;
+    lohr-shared-secret = fileContents ./lohr-shared-secret.secret;
+    gandiKey = fileContents ./gandi-api-key.secret;
 
     borg-backup = import ./borg-backup { inherit lib; };
     paperless = import ./paperless { inherit lib; };

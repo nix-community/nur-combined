@@ -1,5 +1,9 @@
 { stdenv, fetchFromGitHub, lib, ... }:
 let
+  inherit (lib)
+    licenses
+  ;
+
   version = "7d61c79619e5749e629758ecd96748c010028120";
 in
 stdenv.mkDerivation {
@@ -20,7 +24,7 @@ stdenv.mkDerivation {
     cp prometheus/node-exporter-full.json $out/node-exporter-full.json
   '';
 
-  meta = with lib; {
+  meta = {
     description = "grafana dashboard for node exporter";
     homepage = "https://github.com/rfrail3/grafana-dashboards";
     license = licenses.lgpl3Only;

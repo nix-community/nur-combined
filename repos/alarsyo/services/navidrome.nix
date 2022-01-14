@@ -1,12 +1,17 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    optional
+  ;
+
   cfg = config.my.services.navidrome;
   domain = config.networking.domain;
 in {
-  options.my.services.navidrome = {
+  options.my.services.navidrome = let inherit (lib) types; in {
     enable = mkEnableOption "Navidrome";
     musicFolder = {
       path = mkOption {
@@ -17,7 +22,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.navidrome = {
       enable = true;
       settings = {

@@ -60,6 +60,8 @@
       };
     };
 
+    overlays = import ./overlays;
+
     nixosConfigurations =
       let
         system = "x86_64-linux";
@@ -73,7 +75,7 @@
               config.allowUnfree = true;
             };
           })
-        ];
+        ] ++ builtins.attrValues self.overlays;
         sharedModules = [
           home-manager.nixosModule
           { nixpkgs.overlays = shared_overlays; }

@@ -1,5 +1,10 @@
 { lib }:
+let
+  inherit (lib)
+    fileContents
+  ;
+in
 {
-  boreal-repo = lib.fileContents ./boreal-repo.secret;
-  poseidon-repo = lib.fileContents ./poseidon-repo.secret;
+  boreal-repo = fileContents ./boreal-repo.secret;
+  poseidon-repo = fileContents ./poseidon-repo.secret;
 }

@@ -1,14 +1,18 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.vaultwarden;
   my = config.my;
 
   domain = config.networking.domain;
 in {
-  options.my.services.vaultwarden = {
+  options.my.services.vaultwarden = let inherit (lib) types; in {
     enable = mkEnableOption "Vaultwarden";
 
     privatePort = mkOption {

@@ -1,13 +1,18 @@
 { config, lib, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.home.ssh;
 in
 {
-  options.my.home.ssh = with lib; {
+  options.my.home.ssh = {
     enable = (mkEnableOption "ssh configuration") // { default = true; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.ssh = {
       enable = true;
 

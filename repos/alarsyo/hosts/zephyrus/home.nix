@@ -12,18 +12,20 @@
 
     my.theme = config.home-manager.users.alarsyo.my.themes.solarizedLight;
 
-    home.packages = with pkgs; [
-        # some websites only work there :(
-        chromium
+    home.packages = builtins.attrValues {
+        inherit (pkgs)
+          # some websites only work there :(
+          chromium
 
-        wineWowPackages.stable
+          darktable
 
-        darktable
+          # dev
+          rustup
+        ;
 
-        # dev
-        rustup
+        inherit (pkgs.packages) spot;
 
-        packages.spot
-    ];
+        inherit (pkgs.wineWowPackages) stable;
+    };
   };
 }

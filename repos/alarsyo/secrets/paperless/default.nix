@@ -1,5 +1,10 @@
 { lib }:
+let
+  inherit (lib)
+    fileContents
+  ;
+in
 {
-  secretKey = lib.fileContents ./secret-key-file.secret;
-  adminPassword = lib.fileContents ./admin-password.secret;
+  secretKey = fileContents ./secret-key-file.secret;
+  adminPassword = fileContents ./admin-password.secret;
 }

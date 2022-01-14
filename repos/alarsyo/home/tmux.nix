@@ -1,20 +1,25 @@
 { config, lib, pkgs, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.home.tmux;
 in
 {
-  options.my.home.tmux = with lib; {
+  options.my.home.tmux = {
     enable = (mkEnableOption "tmux dotfiles") // { default = true; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.tmux = {
       enable = true;
       baseIndex = 1;
       terminal = "screen-256color";
       clock24 = true;
 
-      plugins = with pkgs; [
+      plugins = let inherit (pkgs) tmuxPlugins; in [
         {
           plugin = tmuxPlugins.cpu;
           extraConfig = ''

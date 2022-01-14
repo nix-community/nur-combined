@@ -1,11 +1,16 @@
 { config, lib, pkgs, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.home.git;
 in
 {
-  options.my.home.git.enable = (lib.mkEnableOption "Git configuration") // { default = true; };
+  options.my.home.git.enable = (mkEnableOption "Git configuration") // { default = true; };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.git = {
       enable = true;
 

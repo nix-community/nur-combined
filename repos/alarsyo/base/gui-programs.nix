@@ -1,11 +1,18 @@
 { pkgs, lib, config, options, ... }:
+let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    optional
+  ;
+in
 {
   options.my.gui = {
-    enable = lib.mkEnableOption "System has some kind of screen attached";
-    isNvidia = lib.mkEnableOption "System a NVIDIA GPU";
+    enable = mkEnableOption "System has some kind of screen attached";
+    isNvidia = mkEnableOption "System a NVIDIA GPU";
   };
 
-  config = lib.mkIf config.my.gui.enable {
+  config = mkIf config.my.gui.enable {
     my.displayManager.sddm.enable = true;
 
     services = {
@@ -21,27 +28,30 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      element-desktop
-      feh
-      firefox
-      ffmpeg
-      gimp
-      gnome.nautilus
-      imagemagick
-      mpv
-      obs-studio
-      pavucontrol
-      slack
-      spotify
-      tdesktop
-      teams
-      thunderbird
-      virt-manager
-      zathura
+    environment.systemPackages = builtins.attrValues {
+      inherit (pkgs)
+        element-desktop
+        feh
+        firefox
+        ffmpeg
+        gimp
+        imagemagick
+        mpv
+        obs-studio
+        pavucontrol
+        slack
+        spotify
+        tdesktop
+        teams
+        thunderbird
+        virt-manager
+        zathura
+      ;
 
-      unstable.discord
-    ];
+      inherit (pkgs.gnome) nautilus;
+
+      inherit (pkgs.unstable) discord;
+    };
 
     networking.networkmanager.enable = true;
     programs.nm-applet.enable = true;

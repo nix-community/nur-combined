@@ -1,7 +1,14 @@
 let
-  colors = import ./colors.nix;
+  inherit (import ./colors.nix)
+    base00
+    base2
+    base3
+    blue
+    green
+    red
+    yellow
+  ;
 in
-with colors;
 {
   theme = {
     name = "solarized-light";

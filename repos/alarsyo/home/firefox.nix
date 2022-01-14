@@ -1,13 +1,18 @@
 { config, lib, pkgs, ... }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+  ;
+
   cfg = config.my.home.firefox;
 in
 {
-  options.my.home.firefox = with lib; {
+  options.my.home.firefox = {
     enable = (mkEnableOption "firefox config") // { default = config.my.home.x.enable; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.firefox = {
       enable = true;
       package = pkgs.firefox.override {

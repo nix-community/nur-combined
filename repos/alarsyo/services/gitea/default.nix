@@ -1,14 +1,18 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.gitea;
   my = config.my;
 
   domain = config.networking.domain;
 in {
-  options.my.services.gitea = {
+  options.my.services.gitea = let inherit (lib) types; in {
     enable = mkEnableOption "Personal Git hosting with Gitea";
 
     privatePort = mkOption {

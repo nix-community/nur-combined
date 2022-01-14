@@ -1,5 +1,10 @@
 { config, lib, pkgs, ... }:
 let
+  inherit (lib)
+    mkIf
+    mkOptionDefault
+  ;
+
   isEnabled = config.my.home.x.enable;
 
   myTerminal =
@@ -17,14 +22,12 @@ let
   i3Theme = config.my.theme.i3Theme;
 in
 {
-  config = lib.mkIf isEnabled {
+  config = mkIf isEnabled {
     my.home = {
       flameshot.enable = true;
     };
 
-    home.packages = with pkgs; [
-      betterlockscreen
-    ];
+    home.packages = [ pkgs.betterlockscreen ];
 
     xsession.windowManager.i3 = {
       enable = true;
@@ -77,7 +80,7 @@ in
           size = 8.0;
         };
 
-        keybindings = lib.mkOptionDefault {
+        keybindings = mkOptionDefault {
           "${modifier}+Shift+e" = ''mode "${logoutMode}"'';
           "${modifier}+i" = "exec emacsclient -c";
 
@@ -106,7 +109,7 @@ in
               "Return" = "mode default";
             };
           in
-            lib.mkOptionDefault {
+            mkOptionDefault {
               "${logoutMode}" = makeModeBindings {
                 "l" = "exec --no-startup-id i3-msg exit, mode default";
                 "s" = "exec --no-startup-id betterlockscreen --suspend, mode default";

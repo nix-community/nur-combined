@@ -1,12 +1,16 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.monitoring;
   domain = config.networking.domain;
 in {
-  options.my.services.monitoring = {
+  options.my.services.monitoring = let inherit (lib) types; in {
     enable = mkEnableOption "Enable monitoring";
 
     domain = mkOption {

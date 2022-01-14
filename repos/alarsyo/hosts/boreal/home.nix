@@ -10,7 +10,8 @@
 
     my.theme = config.home-manager.users.alarsyo.my.themes.solarizedLight;
 
-    home.packages = with pkgs; [
+    home.packages = builtins.attrValues {
+      inherit (pkgs)
         # some websites only work there :(
         chromium
 
@@ -19,8 +20,9 @@
 
         # keyboard goodness
         chrysalis
+      ;
 
-        packages.spot
-    ];
+      inherit (pkgs.packages) spot;
+    };
   };
 }

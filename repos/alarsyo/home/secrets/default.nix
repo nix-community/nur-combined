@@ -1,5 +1,11 @@
 { lib, ... }:
-with lib;
+let
+  inherit (lib)
+    fileContents
+    mkOption
+    types
+  ;
+in
 {
   options.my.secrets = mkOption {
     type = types.attrs;

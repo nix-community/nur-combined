@@ -1,6 +1,10 @@
 { stdenv, lib, fetchFromGitHub }:
 
 let
+  inherit (lib)
+    licenses
+  ;
+
   version = "1.99.3";
 in
 stdenv.mkDerivation {
@@ -21,7 +25,7 @@ stdenv.mkDerivation {
     cp etc/60-kaleidoscope.rules $out/lib/udev/rules.d/
   '';
 
-  meta = with lib; {
+  meta = {
     description = "udev rules for kaleidoscope firmware keyboards";
     homepage = "https://github.com/keyboardio/Kaleidoscope";
     license = licenses.gpl3Only;

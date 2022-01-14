@@ -1,8 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+  ;
+
   cfg = config.my.services.lohr;
   my = config.my;
   domain = config.networking.domain;
@@ -14,8 +18,8 @@ let
     flake.defaultPackage."x86_64-linux"; # FIXME: use correct system
 in
 {
-  options.my.services.lohr = {
-    enable = lib.mkEnableOption "Lohr Mirroring Daemon";
+  options.my.services.lohr = let inherit (lib) types; in {
+    enable = mkEnableOption "Lohr Mirroring Daemon";
 
     home = mkOption {
       type = types.str;
@@ -49,9 +53,7 @@ in
         User = "lohr";
         Group = "lohr";
       };
-      path = with pkgs; [
-        git
-      ];
+      path = [ pkgs.git ];
     };
 
     users.users.lohr = {

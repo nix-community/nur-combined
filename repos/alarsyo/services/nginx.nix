@@ -2,10 +2,15 @@
 #
 # https://github.com/delroth/infra.delroth.net
 { config, lib, pkgs, ... }:
+let
+  inherit (lib)
+    mkIf
+  ;
+in
 {
   # Whenever something defines an nginx vhost, ensure that nginx defaults are
   # properly set.
-  config = lib.mkIf ((builtins.attrNames config.services.nginx.virtualHosts) != [ "localhost" ]) {
+  config = mkIf ((builtins.attrNames config.services.nginx.virtualHosts) != [ "localhost" ]) {
     services.nginx = {
       enable = true;
       statusPage = true; # For monitoring scraping.

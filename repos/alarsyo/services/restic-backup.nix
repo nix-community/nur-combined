@@ -1,16 +1,22 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    attrsets
+    concatStringsSep
+    mkEnableOption
+    mkIf
+    mkOption
+    optional
+  ;
+
   cfg = config.my.services.restic-backup;
   secrets = config.my.secrets;
-  excludeArg = with builtins; with pkgs;
-    "--exclude-file=" + (writeText "excludes.txt" (concatStringsSep "\n" cfg.exclude));
+  excludeArg = "--exclude-file=" + (pkgs.writeText "excludes.txt" (concatStringsSep "\n" cfg.exclude));
   makePruneOpts = pruneOpts:
     attrsets.mapAttrsToList (name: value: "--keep-${name} ${toString value}") pruneOpts;
 in {
-  options.my.services.restic-backup = {
+  options.my.services.restic-backup = let inherit (lib) types; in {
     enable = mkEnableOption "Enable Restic backups for this host";
 
     repo = mkOption {
@@ -22,7 +28,7 @@ in {
     };
 
     paths = mkOption {
-      type = with types; listOf str;
+      type = types.listOf types.str;
       default = [ ];
       example = [
         "/var/lib"
@@ -32,7 +38,7 @@ in {
     };
 
     exclude = mkOption {
-      type = with types; listOf str;
+      type = types.listOf types.str;
       default = [ ];
       example = [
         # very large paths
@@ -71,7 +77,7 @@ in {
       environmentFile = "/root/restic/creds";
 
       extraBackupArgs = [ "--verbose=2" ]
-        ++ optional (builtins.length cfg.exclude != 0) excludeArg;
+                        ++ optional (builtins.length cfg.exclude != 0) excludeArg;
 
       timerConfig = {
         OnCalendar = "daily";

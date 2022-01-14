@@ -105,9 +105,7 @@ in
     "rfkill-release"
   ];
 
-  services.udev.packages = with pkgs; [
-    packages.kaleidoscope-udev-rules
-  ];
+  services.udev.packages = [ pkgs.packages.kaleidoscope-udev-rules ];
 
   hardware.bluetooth = {
     enable = true;
