@@ -39,5 +39,7 @@ rec {
   python-validity = python3Packages.python-validity;
 
   sway-launcher-desktop = pkgs.callPackage ./pkgs/sway-launcher-desktop { };
+
+  valeronoi = pkgs.libsForQt5.callPackage ./pkgs/valeronoi { };
 }
 
