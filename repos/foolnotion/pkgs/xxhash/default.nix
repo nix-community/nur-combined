@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  buildXXHSum ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "xxhash";
@@ -15,7 +21,10 @@ stdenv.mkDerivation rec {
 
   configurePhase = ''
     mkdir build
-    cmake -S . -B ./build ./cmake_unofficial -DCMAKE_BUILD_TYPE=Release -DXXHASH_BUILD_XXHSUM=OFF -DCMAKE_INSTALL_PREFIX=$out
+    cmake -S . -B ./build ./cmake_unofficial \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DXXHASH_BUILD_XXHSUM=${if buildXXHSum then "ON" else "OFF"} \
+      -DCMAKE_INSTALL_PREFIX=$out
     '';
 
   buildPhase = ''
