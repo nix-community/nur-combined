@@ -96,4 +96,6 @@ rec {
 
   dcpj315w = pkgs.callPackage ./pkgs/brother/dcpj315w { };
 
+  solo2-cli = pkgs.callPackage ./pkgs/solo2-cli {};
+
 }
