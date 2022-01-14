@@ -42,7 +42,7 @@
         in
         rec {
           packages = flattenTree {
-            inherit (customPackages) efm-langserver elm nix-gen-node-tools truffleSqueak;
+            inherit (customPackages) efm-langserver elm nix-gen-node-tools seamonkey truffleSqueak;
           };
         });
 }

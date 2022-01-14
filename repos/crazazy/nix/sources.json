@@ -173,5 +173,18 @@
         "type": "tarball",
         "url": "https://github.com/nixos/nixpkgs/archive/ff377a78794d412a35245e05428c8f95fef3951f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixvim": {
+        "branch": "main",
+        "description": "Configure Neovim with Nix!",
+        "flake": true,
+        "homepage": "https://pta2002.github.io/nixvim",
+        "owner": "pta2002",
+        "repo": "nixvim",
+        "rev": "929659b7a115a7ea55a8e68786372ace071b45ad",
+        "sha256": "0mpq07wyz9cdp9vf695frhinnvp20pc9pygkzk0i5155m700fgg9",
+        "type": "tarball",
+        "url": "https://github.com/pta2002/nixvim/archive/929659b7a115a7ea55a8e68786372ace071b45ad.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
