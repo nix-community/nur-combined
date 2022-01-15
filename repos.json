@@ -24,6 +24,9 @@
             "file": "pkgs/default.nix",
             "url": "https://github.com/ambroisie/nix-config"
         },
+        "amesgen": {
+            "url": "https://github.com/amesgen/nur-packages"
+        },
         "andersontorres": {
             "url": "https://github.com/AndersonTorres/nur-packages"
         },
