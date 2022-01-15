@@ -316,9 +316,6 @@ lib.makeScope newScope (
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
-    mepo = callPackage ./osm/mepo {
-      zig = pkgs.zig_0_8_1;
-    };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osm-python-tools = callPackage ./osm/osm-python-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
