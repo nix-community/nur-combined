@@ -4,6 +4,7 @@ builtins.attrValues {
     stremio
     minecraft
     discord
+    comma
   ;
   inherit (pkgs.custom)
     polybar
