@@ -11,10 +11,10 @@
   };
   hellsmack = {
     pname = "hellsmack";
-    version = "0.1.2.5";
+    version = "0.1.2.6";
     src = fetchurl {
-      url = "https://github.com/amesgen/hellsmack/releases/download/v0.1.2.5/hellsmack-Linux.zip";
-      sha256 = "066a5fr69f48j99kvvgxwjj95sdjgy1y65ix693a3b9bqjsdhb70";
+      url = "https://github.com/amesgen/hellsmack/releases/download/v0.1.2.6/hellsmack-Linux.zip";
+      sha256 = "0gs65n5ihcana9ykppzb1jwnb3k00qilyq1pmf51a39zirrj4a87";
     };
   };
   hlint = {
