@@ -4,7 +4,7 @@ packages:
   - nixos.cachix
 
 environment:
-  NIX_PATH: "nixpkgs=channel:nixos-21.05"
+  NIX_PATH: "nixpkgs=channel:nixos-21.11"
   NUR_REPO: "misterio"
   CACHIX_CACHE: "misterio"
   NIX_CONFIG: "experimental-features = nix-command flakes"
