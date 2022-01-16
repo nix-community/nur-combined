@@ -14,23 +14,25 @@ upgrade_emacs_overlay() {
 }
 
 upgrade_homeassistant_stubs() {
+    org="KapJI"
+    repo="homeassistant-stubs"
     homeassistant_version=$(nix eval -I 'nixpkgs=channel:nixos-unstable' "nixpkgs.home-assistant.version" | sed -e 's/"//g')
-    echo "Version: $homeassistant_version"
-    sha256=$(nix-prefetch-git --quiet https://github.com/KapJI/homeassistant-stubs $homeassistant_version | jq .sha256)
-    echo "sha256: $sha256"
-    sed -i pkgs/homeassistant-stubs/default.nix -e "s/version = \"[0-9\.]+\"/version = \"$homeassistant_version\"/"
-    sed -i pkgs/homeassistant-stubs/default.nix -e "s/sha256 = \"[^\"\"]+\"/sha256 = $sha256/"
+    version=$homeassistant_version
+    sha256=$(nix-prefetch-git --quiet https://github.com/$org/$repo $homeassistant_version | jq .sha256)
+    echo "$org/$repo: version=$version, sha256=$sha256 (homeassistant-version=$homeassistant_version)"
+    sed -i pkgs/$repo/default.nix -e "s/version = \"[0-9\.]+\"/version = \"$homeassistant_version\"/"
+    sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"\"]+\"/sha256 = $sha256/"
 }
 
 upgrade_phacc() {
+    org="MatthewFlamm"
+    repo="pytest-homeassistant-custom-component"
     homeassistant_version=$(nix eval -I 'nixpkgs=channel:nixos-unstable' "nixpkgs.home-assistant.version" | sed -e 's/"//g')
-    echo "Home Assistant version : $homeassistant_version"
-    phacc_version=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MatthewFlamm/pytest-homeassistant-custom-component/releases | jq ".[] | select(.body|test(\"$homeassistant_version\")).tag_name" | sed -e 's/"//g')
-    echo "PHACC version: $phacc_version"
-    sha256=$(nix-prefetch-git --quiet https://github.com/MatthewFlamm/pytest-homeassistant-custom-component $phacc_version | jq .sha256)
-    echo "sha256: $sha256"
-    sed -i pkgs/pytest-homeassistant-custom-component/default.nix -e "s/version = \"[0-9\.]+\"/version = \"$phacc_version\"/"
-    sed -i pkgs/pytest-homeassistant-custom-component/default.nix -e "s/sha256 = \"[^\"]+\"/sha256 = $sha256/"
+    version=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/$org/$repo/releases | jq ".[] | select(.body|test(\"$homeassistant_version\")).tag_name" | sed -e 's/"//g')
+    sha256=$(nix-prefetch-git --quiet https://github.com/$org/$repo $version | jq .sha256)
+    echo "$org/$repo: version=$version, sha256=$sha256 (homeassistant-version=$homeassistant_version)"
+    sed -i pkgs/$repo/default.nix -e "s/version = \"[0-9\.]+\"/version = \"$version\"/"
+    sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"]+\"/sha256 = $sha256/"
 }
 
 latest_github_release() {
@@ -75,7 +77,7 @@ upgrade_github_release() {
         fi
     fi
     sha256=$(git_prefetch https://github.com/$org/$repo $rev sha256)
-    echo "Upgrading $org/$repo: version=$version, rev=$rev, sha256=$sha256"
+    echo "$org/$repo: version=$version, rev=$rev, sha256=$sha256"
     sed -i pkgs/$repo/default.nix -e "s/version = \"[^\"]*\"/version = \"$version\"/"
     sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"]*\"/sha256 = \"$sha256\"/"
     # use version in rev if possible
