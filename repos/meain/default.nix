@@ -20,6 +20,7 @@
   tojson = pkgs.callPackage ./pkgs/tojson { };
   toffee = pkgs.callPackage ./pkgs/toffee { };
   quickserve = pkgs.callPackage ./pkgs/quickserve { };
+  gloc = pkgs.callPackage ./pkgs/gloc { };
 
   ## external
   fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
