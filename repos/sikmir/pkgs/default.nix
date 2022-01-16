@@ -316,11 +316,11 @@ lib.makeScope newScope (
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive-bin = callPackage ./osm/maperitive/bin.nix { };
+    osm-3s = callPackage ./osm/osm-3s { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osm-python-tools = callPackage ./osm/osm-python-tools { };
     osmcoastline = callPackage ./osm/osmcoastline { };
     osmosis = callPackage ./osm/osmosis { };
-    overpass-api = callPackage ./osm/overpass-api { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
     phyghtmap = callPackage ./osm/phyghtmap { };
     sdlmap = callPackage ./osm/sdlmap { };

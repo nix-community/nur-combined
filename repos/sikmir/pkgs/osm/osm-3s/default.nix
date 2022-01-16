@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, expat, lz4, zlib }:
 
 stdenv.mkDerivation rec {
-  pname = "overpass-api";
+  pname = "osm-3s";
   version = "0.7.57.1";
 
   src = fetchurl {
