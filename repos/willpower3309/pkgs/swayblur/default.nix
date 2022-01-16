@@ -2,11 +2,11 @@
 
 buildPythonApplication rec {
   pname = "swayblur";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "OS2eS3p0ig6dDO6/deOjXdXUOCRdHs4YuOwiaCc1qfs=";
+    sha256 = "b6yj6GNqeynCJkp6yy/IN2LzQ0etSDGC1oK+s+Xav/g=";
   };
 
   propagatedBuildInputs = [ i3ipc importlib-metadata ];
