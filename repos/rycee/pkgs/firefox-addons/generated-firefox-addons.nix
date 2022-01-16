@@ -1043,7 +1043,7 @@
       sha256 = "db886b1228a04b5c9516ecb00134881bc27ef890631d6e8b1a345ce845280435";
       meta = with lib;
       {
-        homepage = "https://octolinker.vercel.app/?utm_source=octolinker&utm_campaign=oss";
+        homepage = "https://octolinker.vercel.app";
         description = "It turns language-specific module-loading statements like include, require or import into links. Depending on the language it will either redirect you to the referenced file or to an external website like a manual page or another service.";
         license = licenses.mit;
         platforms = platforms.all;
@@ -1972,10 +1972,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.48.0";
+      version = "2.49.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3860152/web_scrobbler-2.48.0-an+fx.xpi";
-      sha256 = "87985b8c033399513bd0bcedddad07bea5bf2ee5058fd63457fd8dc56cc4f3f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3894466/web_scrobbler-2.49.0-an+fx.xpi";
+      sha256 = "de58c857dd789cefdb10161ac15723777fc0a1285f95e69f7b5ed0605b843536";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
