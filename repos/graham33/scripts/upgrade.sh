@@ -33,10 +33,52 @@ upgrade_phacc() {
     sed -i pkgs/pytest-homeassistant-custom-component/default.nix -e "s/sha256 = \"[^\"\"]+\"/sha256 = $sha256/"
 }
 
+latest_github_release() {
+    org=$1
+    repo=$2
+    release=$(curl -s -H "Accept: application/vnd.github.v3+json" "https://api.github.com/repos/$org/$repo/releases" | jq ".[0].tag_name" | sed -e 's/"//g')
+    echo $release
+}
+
+version_from_tag() {
+    tag=$1
+    echo $(echo $tag | sed -e 's/^v//')
+}
+
+git_sha256() {
+    git_url=$1
+    rev=$2
+    sha256=$(nix-prefetch-git --quiet $git_url $rev | jq .sha256 | sed -e 's/"//g')
+    echo $sha256
+}
+upgrade_github_release() {
+    org=$1
+    repo=$2
+    release_tag=$(latest_github_release $org $repo)
+    echo "$org/$repo release tag: $release_tag"
+    version=$(version_from_tag $release_tag)
+    echo "$org/$repo version: $version"
+    sha256=$(git_sha256 https://github.com/$org/$repo $release_tag)
+    echo "sha256: $sha256"
+    sed -i pkgs/$repo/default.nix -e "s/version = \"[0-9\.]+\"/version = \"$version\"/"
+    sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"\"]+\"/sha256 = $sha256/"
+}
+
+upgrade_smartbox() {
+    upgrade_github_release graham33 smartbox
+}
+
+upgrade_hass_smartbox() {
+    upgrade_github_release graham33 hass-smartbox
+}
+
 if [ "$#" -lt 1 ]; then
-    upgrade_emacs_overlay
+    # Don't upgrade emacs-overlay by default, for stability
+    # upgrade_emacs_overlay
     upgrade_homeassistant_stubs
     upgrade_phacc
+    upgrade_hass_smartbox
+    upgrade_smartbox
 else
     upgrade_$1
 fi
