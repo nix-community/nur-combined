@@ -68,11 +68,14 @@ upgrade_github_release() {
         release_tag=$(latest_github_release $org $repo)
         rev=$release_tag
         version=$(version_from_tag $release_tag)
+        current_version=$(sed pkgs/$repo/default.nix -n -e "s/^ *version = \"\([^\"]*\)\".*$/\1/p")
+        if [ $(semver compare $version $current_version) -lt 0 ]; then
+            echo "Not upgrading $org/$repo automatically since current version $current_version is newer than latest release $version"
+            return
+        fi
     fi
-    echo "$org/$repo rev: $rev"
-    echo "$org/$repo version: $version"
     sha256=$(git_prefetch https://github.com/$org/$repo $rev sha256)
-    echo "sha256: $sha256"
+    echo "Upgrading $org/$repo: version=$version, rev=$rev, sha256=$sha256"
     sed -i pkgs/$repo/default.nix -e "s/version = \"[^\"]*\"/version = \"$version\"/"
     sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"]*\"/sha256 = \"$sha256\"/"
     # use version in rev if possible
