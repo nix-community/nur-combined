@@ -24,6 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=ON"
     "-DOQS_BUILD_ONLY_LIB=1"
     "-DOQS_USE_OPENSSL=OFF"
   ] ++ (if stdenv.hostPlatform.isx86_64 then [

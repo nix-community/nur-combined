@@ -2,7 +2,7 @@
   lib, stdenv,
   fetchzip, fetchhg, fetchFromGitHub, fetchurl,
   substituteAll,
-  git, zlib, pcre, gd, zstd, perl, liboqs, boringssl-oqs,
+  git, zlib, pcre, gd, zstd, perl, liboqs, openssl-oqs,
   modules ? [],
   ...
 } @ args:
@@ -17,13 +17,6 @@ stdenv.mkDerivation rec {
       url = "https://openresty.org/download/openresty-${version}.tar.gz";
       sha256 = "sha256-HRp9DPrGEQAexJUWFRfP3WLRyQSQN7LLHkh77EB97HY=";
       name = "openresty";
-    })
-
-    (fetchhg {
-      url = "https://hg.nginx.org/nginx-quic";
-      rev = "47f45a98f892";
-      sha256 = "sha256-jJW56A8E2LORpXRYCVMHNqGxUkN5OZG9Qxi45DOv/+E=";
-      name = "nginx-quic";
     })
 
     (fetchFromGitHub rec {
@@ -91,23 +84,21 @@ stdenv.mkDerivation rec {
     url = "https://github.com/kn007/patch/raw/master/use_openssl_md5_sha1.patch";
     sha256 = "1db5mjkxl6vxg4pic4v6g8bi8q9v5psj8fbjmjls1nfvxpz6nhvr";
   };
-  patchBoringsslOcsp = fetchurl {
-    url = "https://github.com/kn007/patch/raw/master/Enable_BoringSSL_OCSP.patch";
-    sha256 = "0rnlss41h0s2qwjxsq0gyjb3h6mik5x4j5pfka7fvw43k4c0rbad";
+
+  patchHpackDyntls = fetchurl {
+    url = "https://raw.githubusercontent.com/kn007/patch/f0b8ebd76924eb9c573c8056792b7f1d6f79d684/nginx.patch";
+    sha256 = "0dp2lcyxcv41lcridny6fbc2yr95s2sx0bd2bxs59p437d3dm7qp";
   };
 
-  patchHpackDyntls = ./patches/patch-nginx/nginx-hpack-dyntls.patch;
-  patchDisableOpensslCheck = ./patches/patch-nginx/nginx-disable-openssl-check.patch;
-  patchQuicDisableTcpNodelay = ./patches/patch-nginx/nginx-quic-disable-tcp-nodelay.patch;
-  patchPlain = ./patches/patch-nginx/nginx-plain-quic-aware.patch;
-  patchPlainProxy = ./patches/patch-nginx/nginx-plain-proxy.patch;
+  patchPlain = ./patches/nginx-plain.patch;
+  patchPlainProxy = ./patches/nginx-plain-proxy.patch;
   patchNixEtag = substituteAll {
-    src = ./patches/patch-nginx/nix-etag-1.15.4.patch;
+    src = ./patches/nix-etag-1.15.4.patch;
     preInstall = ''
       export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
     '';
   };
-  patchNixSkipCheckLogsPath = ./patches/patch-nginx/nix-skip-check-logs-path.patch;
+  patchNixSkipCheckLogsPath = ./patches/nix-skip-check-logs-path.patch;
 
   enableParallelBuilding = true;
 
@@ -117,7 +108,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     liboqs
-    boringssl-oqs
+    openssl-oqs
 
     zlib
     pcre
@@ -135,16 +126,9 @@ stdenv.mkDerivation rec {
     chmod -R 755 .
     patchShebangs .
 
-    rm -rf $BUILDROOT/openresty/bundle/nginx-${nginxVersion}
-    cp -r $BUILDROOT/hg-archive-nginx-quic $BUILDROOT/openresty/bundle/nginx-${nginxVersion}
-
     cd $BUILDROOT/openresty/bundle/nginx-${nginxVersion}
-    ln -s ./auto/configure ./configure
     ${patch patchUseOpensslMd5Sha1}
-    ${patch patchBoringsslOcsp}
     ${patch patchHpackDyntls}
-    ${patch patchDisableOpensslCheck}
-    ${patch patchQuicDisableTcpNodelay}
     ${patch patchPlain}
     ${patch patchPlainProxy}
     ${patch patchNixEtag}
@@ -157,13 +141,6 @@ stdenv.mkDerivation rec {
 
     rm -rf $BUILDROOT/ngx_brotli/deps/brotli
     ln -s $BUILDROOT/brotli $BUILDROOT/ngx_brotli/deps/brotli
-  '';
-
-  preConfigure = ''
-    configureFlagsArray+=(
-      --with-cc-opt="-flto -I${boringssl-oqs}/include -I${liboqs}/include"
-      --with-ld-opt="-flto -L${boringssl-oqs}/build/ssl -L${boringssl-oqs}/build/crypto -L${liboqs}/lib"
-    )
   '';
 
   configureFlags = [
@@ -182,19 +159,16 @@ stdenv.mkDerivation rec {
     "--with-http_sub_module"
     "--with-http_v2_module"
     "--with-http_v2_hpack_enc"
-    "--with-http_v3_module"
     "--with-stream"
     "--with-stream_realip_module"
     "--with-stream_ssl_module"
     "--with-stream_ssl_preread_module"
-    "--with-stream_quic_module"
     "--add-module=../ngx_brotli"
     "--add-module=../stream-echo-nginx-module"
     "--add-module=../zstd-nginx-module"
     "--add-module=../nginx-module-vts"
     "--add-module=../nginx-module-sts"
     "--add-module=../nginx-module-stream-sts"
-    "--with-openssl=${boringssl-oqs}"
     "--without-http_encrypted_session_module" # Conflict with quic stuff
 
     # NixOS paths
@@ -207,10 +181,6 @@ stdenv.mkDerivation rec {
     "--http-uwsgi-temp-path=/var/cache/nginx/uwsgi"
     "--http-scgi-temp-path=/var/cache/nginx/scgi"
   ];
-
-  postConfigure = ''
-    sed -i 's/libcrypto.a/libcrypto.a -loqs/g' build/nginx-${nginxVersion}/objs/Makefile
-  '';
 
   postInstall = ''
     find $out/ -type f -executable -exec strip --strip-all {} \;

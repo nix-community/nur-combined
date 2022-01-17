@@ -44,7 +44,10 @@ rec {
   };
   onepush = pkgs.callPackage ./pkgs/onepush { };
   openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian {
-    inherit liboqs boringssl-oqs;
+    inherit liboqs openssl-oqs;
+  };
+  openssl-oqs = pkgs.callPackage ./pkgs/openssl-oqs {
+    inherit liboqs;
   };
   qemu-user-static = pkgs.callPackage ./pkgs/qemu-user-static { };
   rime-dict = pkgs.callPackage ./pkgs/rime-dict { };
