@@ -6,6 +6,8 @@ let
   cfg = config.services.rkn;
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
   router = ip4.next cfg.address;
+  # damn flibusta
+  tor = ip4.fromString "10.123.0.1/16";
 in {
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
@@ -73,7 +75,14 @@ in {
     services.tor.client.enable = true;
     services.tor.settings = {
       ExcludeExitNodes = "{RU}";
+      DNSPort = [{ addr = cfg.address.address; port = 53; }];
+      VirtualAddrNetworkIPv4 = ip4.networkCIDR tor;
+      AutomapHostsOnResolve = true;
+      TransPort = [{ addr = cfg.address.address; port = 9040; }];
     };
+    networking.firewall.extraCommands = ''
+      iptables -t nat -A PREROUTING -p tcp -d ${ip4.networkCIDR tor} -j DNAT --to-destination ${cfg.address.address}:9040
+    '';
 
     networking.interfaces.${cfg.interface} = {
       ipv4.addresses = [ (ip4.toNetworkAddress cfg.address) ];
@@ -184,6 +193,11 @@ in {
         zone "rkn" {
           type master;
           file "${cfg.file}";
+        };
+        zone "onion" {
+          type forward;
+          forward only;
+          forwarders { ${cfg.address.address}; };
         };
         ${cfg.bindExtraConfig}
       };
