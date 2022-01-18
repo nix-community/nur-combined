@@ -10,6 +10,10 @@ rec {
     lua-curl = callPackage ./pkgs/lua-curl {};
   };
 
+  python3Packages = recurseIntoAttrs {
+    vosk = pkgs.python3Packages.callPackage ./pkgs/libvosk/python.nix { inherit libvosk; };
+  };
+
   schemaorg = callPackage ./pkgs/schemaorg { } ;
 
   libetc = callPackage ./pkgs/libetc { } ;
@@ -63,6 +67,8 @@ rec {
   pigo = callPackage ./pkgs/pigo {};
 
   htmlq = callPackage ./pkgs/htmlq { };
+
+  libvosk = callPackage ./pkgs/libvosk { };
 
   s-dot = callPackage ./pkgs/s-dot {};
 
