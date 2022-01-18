@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "pyoperon";
-    rev = "264e111264d3986e389103d33f98a793aa837e3d";
-    sha256 = "sha256-8fpOpN1MabB88BX8gvtIIvQHbIb0u5u3sieU0bLTDu0=";
+    rev = "ecd1307d5bf34b2e05909b8aff210ea73ac2e150";
+    sha256 = "sha256-cE5q6yUo1OfKAYPVHXzN8Cq2/tHolTe0mEu29GI4U1s=";
   };
 
   nativeBuildInputs = [ cmake ];
