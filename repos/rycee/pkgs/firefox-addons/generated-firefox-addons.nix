@@ -775,10 +775,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.85.1.3";
+      version = "4.87.0.9";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3872176/lastpass_password_manager-4.85.1.3-an+fx.xpi";
-      sha256 = "6e160766e25cb10cc787a5bf4c661b7bf97be0bdd4dd83174464b312cb6e423a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3894149/lastpass_password_manager-4.87.0.9-an+fx.xpi";
+      sha256 = "51cc588e5ee23aa67def5dbe405385683eea2d8cc45f579799d66d8f971a3019";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1342,10 +1342,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.5";
+      version = "5.22.8";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3784229/reddit_enhancement_suite-5.22.5-an+fx.xpi";
-      sha256 = "213f1ada92bb9d2814e6760cf20a2dc3cf2cc31b503e2baa8fe2f784be6df11c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3894512/reddit_enhancement_suite-5.22.8-an+fx.xpi";
+      sha256 = "bc89b04b340a70e34d637602b2eed4025f6bd49ab6670b952111f96b9b429b4f";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1526,10 +1526,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.0.2";
+      version = "4.0.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3894129/sponsorblock_skip_sponsorships_on_youtube-4.0.2-an+fx.xpi";
-      sha256 = "c917f44fa5907333027e941c8221a9a8dd5e38c17c62dff65bf4aaa429ef7995";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3894233/sponsorblock_skip_sponsorships_on_youtube-4.0.3-an+fx.xpi";
+      sha256 = "2b29cd3d8dc2dabc7b0f033e0b9cb2551152b67ef1345c9bf92adbe62ceaf0c3";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
