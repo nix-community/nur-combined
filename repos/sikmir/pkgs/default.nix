@@ -165,6 +165,7 @@ lib.makeScope newScope (
       click = click-6-7;
     };
     geographiclib = callPackage ./geospatial/geographiclib { };
+    go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
     mapsoft = callPackage ./geospatial/mapsoft {
       proj = pkgs.proj_7;
@@ -175,6 +176,7 @@ lib.makeScope newScope (
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
     orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
+    pmtiles = callPackage ./geospatial/pmtiles { };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     qgis-bin = callPackage ./geospatial/qgis/bin.nix { };
