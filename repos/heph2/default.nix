@@ -20,4 +20,5 @@
   ### APPLICATION
   atlas = pkgs.callPackage ./pkgs/atlas { };
   logisim-evolution = pkgs.callPackage ./pkgs/logisim-evolution { };
+  telescope = pkgs.callPackage ./pkgs/telescope { };
 }
