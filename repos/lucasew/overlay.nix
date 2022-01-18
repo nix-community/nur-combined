@@ -42,15 +42,6 @@ in reduceJoin [
     comma = cp inputs.comma;
     wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = super;});
     wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = super;});
-    discord = cp "${nixpkgsLatest}/pkgs/applications/networking/instant-messengers/discord/default.nix";
-    dart = cp "${nixpkgsLatest}/pkgs/development/interpreters/dart/default.nix";
-    hugo = cp "${nixpkgsLatest}/pkgs/applications/misc/hugo/default.nix";
-    flutter = (cp "${nixpkgsLatest}/pkgs/development/compilers/flutter/default.nix").stable;
-    tor-browser-bundle-bin = (cp "${nixpkgsLatest}/pkgs/applications/networking/browsers/tor-browser-bundle-bin/default.nix");
-    obsidian = super.callPackage "${nixpkgsLatest}/pkgs/applications/misc/obsidian/default.nix" {
-      # electron_13 = super.electron_12;
-    };
-    ventoy-bin = cp "${nixpkgsLatest}/pkgs/tools/cd-dvd/ventoy-bin/default.nix";
     c4me = cp ./packages/c4me;
     encore = cp ./packages/encore.nix;
     xplr = cp ./packages/xplr.nix;
@@ -93,22 +84,13 @@ in reduceJoin [
       loader = cp ./packages/custom/loader/default.nix;
       polybar = cp ./packages/custom/polybar.nix;
     };
-    minecraft = cp ./packages/minecraft.nix;
-    # tlauncher = cp ./packages/tlauncher.nix;
+    tlauncher = cp ./packages/tlauncher.nix;
     pkg = cp ./packages/pkg.nix;
     pipedream-cli = cp ./packages/pipedream-cli.nix;
     stremio = cp ./packages/stremio.nix;
     wrapWine = cp ./packages/wrapWine.nix;
     preload = cp ./packages/preload.nix;
     nodePackages = cp ./packages/node_clis/package_data/default.nix;
-    emacsPackages.org-roam = super.emacsPackages.org-roam.overrideAttrs (attrs: {
-      src = builtins.fetchGit {
-        rev = "9b2f5279a504148a7fef1a884655fb224b248ae5";
-        ref = "feat/db-hook";
-        url = "https://github.com/lucasew/org-roam";
-      };
-    });
-
     nur = import flake.inputs.nur {
       inherit (super) pkgs;
       nurpkgs = super.pkgs;

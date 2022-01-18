@@ -23,9 +23,8 @@ in
     custom_neovim = p ./modules/neovim/package.nix;
     custom_rofi = p ./packages/custom_rofi.nix;
     peazip = p ./packages/peazip.nix;
-    shiginima = p ./packages/minecraft.nix;
+    tlauncher = p ./packages/tlauncher.nix;
     stremio = p ./packages/stremio.nix;
-    cisco-packet-tracr = p ./packages/cisco-packet-tracer.nix;
 
     # webapp stuff
     webapp = p ./packages/webapp.nix;
