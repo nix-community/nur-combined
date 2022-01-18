@@ -43,6 +43,7 @@ adisen99/codeschool.nvim
 akinsho/dependency-assist.nvim
 akinsho/flutter-tools.nvim
 akinsho/nvim-toggleterm.lua
+alaviss/nim.nvim
 alec-gibson/nvim-tetris
 alexaandru/nvim-lspupdate
 aliou/bats.vim
@@ -73,7 +74,6 @@ davidgranstrom/osc.nvim
 davidgranstrom/scnvim
 dcampos/nvim-snippy
 dkarter/bullets.vim
-echasnovski/mini.nvim
 edolphin-ydf/goimpl.nvim
 ekickx/clipboard-image.nvim
 ellisonleao/glow.nvim

@@ -21,3 +21,4 @@ ldelossa/litee.nvim
 navarasu/onedark.nvim
 rebelot/kanagawa.nvim
 windwp/nvim-ts-autotag
+echasnovski/mini.nvim
