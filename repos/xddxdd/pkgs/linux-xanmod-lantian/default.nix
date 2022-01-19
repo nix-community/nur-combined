@@ -3,7 +3,6 @@
 , lib
 , fetchFromGitHub
 , buildLinux
-, serverVariant ? false
 , ...
 } @ args:
 
@@ -22,7 +21,7 @@ buildLinux {
   };
   modDirVersion = "${version}-xanmod${release}-lantian";
 
-  structuredExtraConfig = import ./config.nix args // (if serverVariant then (import ./config-server.nix args) else { });
+  structuredExtraConfig = import ./config.nix args;
 
   kernelPatches = [
     pkgs.kernelPatches.bridge_stp_helper
