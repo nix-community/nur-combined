@@ -78,7 +78,7 @@ with lib.kernel;
   PSTORE_ZSTD_COMPRESS_DEFAULT = yes;
 
   # ZRAM & Zswap
-  ZRAM = lib.mkForce yes;
+  ZRAM = module;
   ZRAM_DEF_COMP_ZSTD = yes;
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
   ZSWAP_ZPOOL_DEFAULT_ZSMALLOC = yes;
