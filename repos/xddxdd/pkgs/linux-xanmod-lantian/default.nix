@@ -39,4 +39,6 @@ buildLinux {
     "0006-uksm"
     "0007-vfio-pci-d3cold"
   ]);
+
+  extraMeta.broken = !stdenv.hostPlatform.isx86_64;
 }
