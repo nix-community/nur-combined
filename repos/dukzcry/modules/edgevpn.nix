@@ -3,8 +3,9 @@
 with lib;
 let
   cfg = config.networking.edgevpn;
-	server = cfg.enable && cfg.server;
-	client = cfg.enable && !cfg.server;
+  server = cfg.enable && cfg.server;
+  client = cfg.enable && !cfg.server;
+  edgevpn = pkgs.nur.repos.dukzcry.edgevpn;
 in {
   options.networking.edgevpn = {
     enable = mkOption {
@@ -60,7 +61,7 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      environment.systemPackages = with pkgs.nur.repos.dukzcry; [ edgevpn ];
+      environment.systemPackages = [ edgevpn ];
     })
     (mkIf server {
       systemd.services.edgevpn = {
@@ -68,10 +69,10 @@ in {
         after = [ "network.target" "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
         description = "EdgeVPN service";
-        path = with pkgs; [ iproute2 ];
+        path = with pkgs; [ edgevpn iproute2 ];
         serviceConfig = {
-          ExecStart = with pkgs.nur.repos.dukzcry; ''
-            ${edgevpn}/bin/edgevpn --address ${cfg.address} --config ${cfg.config} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
+          ExecStart = pkgs.writeShellScript "edgevpn" ''
+            edgevpn --address ${cfg.address} --config ${cfg.config} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
           '';
         };
         postStart = ''
@@ -93,10 +94,10 @@ in {
         requires = [ "network-online.target" ];
         after = [ "network.target" "network-online.target" ];
         description = "EdgeVPN service";
-        path = with pkgs; [ iproute2 openresolv ];
+        path = with pkgs; [ edgevpn iproute2 openresolv ];
         serviceConfig = {
-          ExecStart = with pkgs.nur.repos.dukzcry; ''
-            ${edgevpn}/bin/edgevpn --address ${cfg.address} --config ${cfg.config} ${optionalString (cfg.router != "") "--router ${cfg.router}"}
+          ExecStart = pkgs.writeShellScript "edgevpn" ''
+            edgevpn --address ${cfg.address} --config ${cfg.config} ${optionalString (cfg.router != "") "--router ${cfg.router}"}
           '';
         };
         postStart = ''
