@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   hassLovelaceModules = pkgs.recurseIntoAttrs {
+    apexcharts-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/apexcharts-card {};
     mini-graph-card = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-graph-card {});
     mini-media-player = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-media-player {});
     multiple-entity-row = (pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/multiple-entity-row {});
@@ -42,6 +43,4 @@
 
   vmangos = pkgs.callPackage ./pkgs/servers/games/vmangos {};
   vmangos-worlddb = pkgs.callPackage ./pkgs/servers/games/vmangos/worlddb.nix {};
-
-  zigbee2mqtt = pkgs.callPackage ./pkgs/servers/homeautomation/zigbee2mqtt {};
 }

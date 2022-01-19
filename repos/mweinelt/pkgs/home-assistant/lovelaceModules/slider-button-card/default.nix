@@ -1,19 +1,26 @@
-{ pkgs, nodejs, stdenv, lib, ... }:
+{ stdenv
+, lib
+, fetchurl
+}:
 
 let
-
-  packageName = with lib; concatStrings (map (entry: (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry))) (importJSON ./package.json));
-
-  nodePackages = import ./node-composition.nix {
-    inherit pkgs nodejs;
-    inherit (stdenv.hostPlatform) system;
-  };
+  pname = "slider-button-card";
+  version = "1.10.3";
 in
-nodePackages."${packageName}".override {
-  postInstall = ''
-    npm run build
-    cp -v dist/*.js $out/
-    rm -rf $out/lib
+stdenv.mkDerivation {
+  inherit pname version;
+
+  src = fetchurl {
+    url = "https://github.com/mattieha/slider-button-card/releases/download/v${version}/slider-button-card.js";
+    hash = "sha256-2SUyjbh5OTVMlnGuWowYoyEX2NGsksPwS1hcKTu7ToA=";
+  };
+
+  dontUnpack = true;
+  dontBuild = true;
+
+  installPhase = ''
+    mkdir $out
+    cp -v $src $out/slider-button-card.js
   '';
 
   meta = with lib; {

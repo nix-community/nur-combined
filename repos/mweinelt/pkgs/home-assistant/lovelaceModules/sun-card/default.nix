@@ -1,19 +1,26 @@
-{ pkgs, nodejs, stdenv, lib, ... }:
+{ stdenv
+, lib
+, fetchurl
+}:
 
 let
-
-  packageName = with lib; concatStrings (map (entry: (concatStrings (mapAttrsToList (key: value: "${key}-${value}") entry))) (importJSON ./package.json));
-
-  nodePackages = import ./node-composition.nix {
-    inherit pkgs nodejs;
-    inherit (stdenv.hostPlatform) system;
-  };
+  pname = "apexcharts-card";
+  version = "0.1.4";
 in
-nodePackages."${packageName}".override {
-  postInstall = ''
-    npm run build
-    cp -v dist/home-assistant-sun-card.js $out/sun-card.js
-    rm -rf $out/lib
+stdenv.mkDerivation {
+  inherit pname version;
+
+  src = fetchurl {
+    url = "https://github.com/AitorDB/home-assistant-sun-card/releases/download/v${version}/home-assistant-sun-card.js";
+    hash = "sha256-1B566pKJLeB0AfiuZ7j+hyYgHqj43w4yCOT/PzH0UjA=";
+  };
+
+  dontUnpack = true;
+  dontBuild = true;
+
+  installPhase = ''
+    mkdir $out
+    cp -v $src $out/sun-card.js
   '';
 
   meta = with lib; {
