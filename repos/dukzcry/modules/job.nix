@@ -9,7 +9,7 @@ in {
       Programs for job
     '';
     server = mkEnableOption ''
-      Programs for job on router
+      Services for job
     '';
   };
 
