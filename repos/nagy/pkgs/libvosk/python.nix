@@ -14,4 +14,10 @@ buildPythonPackage {
   '';
 
   doCheck = false;
+  meta = with lib; {
+    description =
+      "Offline speech recognition API for Android, iOS, Raspberry Pi and servers with Python, Java, C# and Node";
+    homepage = "https://github.com/alphacep/vosk-api";
+    license = with licenses; [ asl20 ];
+  };
 }

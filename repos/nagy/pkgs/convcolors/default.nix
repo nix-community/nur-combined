@@ -18,5 +18,6 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     license = licenses.mit;
     platforms = platforms.unix;
+    homepage = "https://github.com/CairX/convert-colors-py";
   };
 }
