@@ -148,6 +148,7 @@ lib.makeScope newScope (
       zig = pkgs.zig_0_8_1;
     };
     kineto = callPackage ./gemini/kineto { };
+    py-gmi2html = callPackage ./gemini/py-gmi2html { };
     qute-gemini = callPackage ./gemini/qute-gemini { };
     satellite = callPackage ./gemini/satellite { };
     shavit = callPackage ./gemini/shavit { };
