@@ -35,7 +35,7 @@ in {
         ExecStart = pkgs.writeShellScript "jobvpn" ''
           cat /etc/openconnect.conf | \
           openconnect \
-            --script "vpn-slice msk-vdi-t005.mos.renins.com" \
+            --script "vpn-slice --prevent-idle-timeout msk-vdi-t005.mos.renins.com" \
             --interface job0 \
             --user "ALukyanov" \
             --passwd-on-stdin \
