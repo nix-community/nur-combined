@@ -522,10 +522,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "97.0buildid20220116.190254";
+      version = "97.0buildid20220118.185733";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3895013/francais_language_pack-97.0buildid20220116.190254-fx.xpi";
-      sha256 = "cd3bbb80f624048212f2785fc27ba8dba76f0890e30e5a23593f5ba48c35ae13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3896112/francais_language_pack-97.0buildid20220118.185733-fx.xpi";
+      sha256 = "14cd8f1914606521d13094790300c0e664c723f18399f8a7c3ac6401c17cc7d2";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -794,10 +794,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.2";
+      version = "1.3";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3887281/leechblock_ng-1.2-an+fx.xpi";
-      sha256 = "6ebdf5aecc85cb1cb1eafbf032decc0c1b7cc9cf2aeb8f96e55084c0cb830999";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3895182/leechblock_ng-1.3-an+fx.xpi";
+      sha256 = "7de6e26b79428fccef6566656ba0fc4ef7d0277150c94a9bdf4a2b3ffeac1ae8";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1384,10 +1384,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.1.11";
+      version = "22.1.18";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3891913/refined_github-22.1.11-an+fx.xpi";
-      sha256 = "8c7737dbae980d3025b2b5ca8466b436e5acc70a780c4f3ae9e0aa048d01827e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3895957/refined_github-22.1.18-an+fx.xpi";
+      sha256 = "aeae7fb8c5f53b94cf1ce3385932ebb81b9194ec8c95a872aa4bc51519503c4b";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
