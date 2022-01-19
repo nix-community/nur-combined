@@ -29,6 +29,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
+          commit_user_name: m15abot
+          commit_user_email: bot.nacamura@gmail.com
+          commit_author: Mitsuhiro Nakamura <mitsuhiro_nakamura@albert2005.co.jp>
           commit_message: 'maintenance: auto update plugins'
           file_pattern: README.md pkgs/vim-plugins.nix .previous-update.json
           push_options: '--force'
