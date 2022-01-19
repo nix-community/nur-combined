@@ -1,22 +1,43 @@
-{
-  stdenv, lib,
-  fetchFromGitHub,
-  linuxManualConfig,
-  linuxKernel,
-  kernelPatches ? [],
-  ...
-}:
-# with import <nixpkgs> {};
+{ pkgs
+, stdenv
+, lib
+, fetchFromGitHub
+, buildLinux
+, serverVariant ? false
+, ...
+} @ args:
 
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
-linuxManualConfig rec {
-  inherit stdenv lib kernelPatches;
-  inherit (linuxKernel.kernels.linux_xanmod) version src;
+let
+  version = "5.16.1";
+  release = "1";
+in
+buildLinux {
+  inherit stdenv lib version;
+  src = fetchFromGitHub {
+    owner = "xanmod";
+    repo = "linux";
+    rev = "${version}-xanmod${release}";
+    sha256 = "sha256-0p1gcKJ5wmm6l8AWjBFjw98axJEvcyT4o7EhhoJeRoI=";
+  };
+  modDirVersion = "${version}-xanmod${release}-lantian";
 
-  modDirVersion = "${linuxKernel.kernels.linux_xanmod.modDirVersion}-lantian";
-  configfile = ./config;
-  config = import ./config.nix;
-  allowImportFromDerivation = true;
+  structuredExtraConfig = import ./config.nix args // (if serverVariant then (import ./config-server.nix args) else { });
 
-  extraMeta.broken = linuxKernel.kernels.linux_xanmod.meta.broken;
+  kernelPatches = [
+    pkgs.kernelPatches.bridge_stp_helper
+    pkgs.kernelPatches.request_key_helper
+  ] ++ (builtins.map
+    (name: {
+      inherit name;
+      patch = ./patches + "/${name}.patch";
+    }) [
+    "0001-drm-i915-gvt-Add-virtual-option-ROM-emulation"
+    "0002-qcserial"
+    "0003-intel-drm-use-max-clock"
+    "0004-hp-omen-fourzone"
+    "0005-cjktty"
+    "0006-uksm"
+    "0007-vfio-pci-d3cold"
+  ]);
 }
