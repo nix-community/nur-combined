@@ -5,16 +5,16 @@ let
   cfg = config.services.job;
 in {
   options.services.job = {
-    enablePrograms = mkEnableOption ''
+    client = mkEnableOption ''
       Programs for job
     '';
-    enableVpn = mkEnableOption ''
-      VPN client
+    server = mkEnableOption ''
+      Programs for job on router
     '';
   };
 
   config = mkMerge [
-    (mkIf cfg.enablePrograms {
+    (mkIf cfg.client {
       # remember Skype password
       services.gnome.gnome-keyring.enable = true;
       environment = {
@@ -24,7 +24,7 @@ in {
         ];
       };
     })
-    (mkIf cfg.enableVpn {
+    (mkIf cfg.server {
       systemd.services.jobvpn = {
       requires = [ "network-online.target" ];
       after = [ "network.target" "network-online.target" ];
@@ -50,6 +50,13 @@ in {
       networking.firewall.extraCommands = ''
         iptables -t nat -A POSTROUTING -o job0 -j MASQUERADE
       '';
+
+      services.davmail.enable = true;
+      services.davmail.url = "https://sync2.renins.com/ews/exchange.asmx";
+      services.davmail.config = {
+        davmail.defaultDomain = "mos.renins.com";
+        davmail.allowRemote = true;
+      };
     })
   ];
 }
