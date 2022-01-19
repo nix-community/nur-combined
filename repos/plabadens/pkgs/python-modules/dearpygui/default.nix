@@ -12,7 +12,7 @@ let
     owner = "ocornut";
     repo = "imgui";
     rev = "1b435ae3e07ca813eb3ef40aaabe7053f5570fae";
-    sha256 = "sha256-4UqRKgwaERUz2GQdEZbGmWOj8tAaP+thSlaOBRt06Ho=";
+    hash = "sha256-4UqRKgwaERUz2GQdEZbGmWOj8tAaP+thSlaOBRt06Ho=";
   };
 in
 buildPythonPackage rec {
