@@ -6,6 +6,9 @@ rec {
     unzipSupport = true;
     unrarSupport = true;
   };
+  lmms = super.lmms.overrideAttrs (oldAttrs: optionalAttrs (config.services.jack.enable or false) {
+    cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DWANT_WEAKJACK=OFF" ];
+  });
   qutebrowser = super.qutebrowser.overrideAttrs (oldAttrs: {
     postFixup = ''
       ${oldAttrs.postFixup}
