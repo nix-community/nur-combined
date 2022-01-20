@@ -12,6 +12,9 @@
   fmt,
   glog,
   git,
+  jemalloc,
+  openlibm,
+  pkg-config,
   pratt-parser,
   robin-hood-hashing,
   scnlib,
@@ -23,7 +26,9 @@
   # build options
   useSinglePrecision ? true,
   buildCliPrograms ? true,
-  buildSharedLibs ? true
+  buildSharedLibs ? true,
+  useOpenLibm ? true,
+  useJemalloc ? false
 }:
 stdenv.mkDerivation rec {
   pname = "operon";
@@ -32,8 +37,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "operon";
-    rev = "0d0f2147d329ab50f8c0df7d7bc8d746a3de1a47";
-    sha256 = "sha256-GJ0V8SJ+sH14Bbmv+AShJPr7iYIyuWf2KzaWd1P7IYc=";
+    rev = "2c1edf616dc51c8a6eb2ff214bb63d4766b28064";
+    sha256 = "sha256-GK7CCQcMHJGDuc1DWi0rg9/+TLfbC46cpd4K0HFLwJ0=";
   };
 
   nativeBuildInputs = [ cmake git ];
@@ -46,6 +51,7 @@ stdenv.mkDerivation rec {
     fmt
     git
     glog
+    pkg-config
     pratt-parser
     robin-hood-hashing
     scnlib
@@ -54,13 +60,17 @@ stdenv.mkDerivation rec {
     vectorclass
     vstat
     xxhash
-  ] ++ lib.optionals buildCliPrograms [ cxxopts ];
+  ] ++ lib.optionals buildCliPrograms [ cxxopts ]
+    ++ lib.optionals useOpenLibm [ openlibm ]
+    ++ lib.optionals useJemalloc [ jemalloc ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
     "-DUSE_SINGLE_PRECISION=${if useSinglePrecision then "ON" else "OFF"}"
     "-DBUILD_CLI_PROGRAMS=${if buildCliPrograms then "ON" else "OFF"}"
     "-DBUILD_SHARED_LIBS=${if buildSharedLibs then "ON" else "OFF"}"
+    "-DUSE_JEMALLOC=${if useJemalloc then "ON" else "OFF"}"
+    "-DUSE_OPENLIBM=${if useOpenLibm then "ON" else "OFF"}"
   ];
 
   meta = with lib; {
