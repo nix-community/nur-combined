@@ -44,6 +44,14 @@ with lib.kernel;
   FONT_CJK_16x16 = yes;
   FONT_CJK_32x32 = yes;
 
+  # Ksmbd
+  CIFS_SMB_DIRECT = yes;
+  CIFS_SWN_UPCALL = yes;
+  SMB_SERVER = module;
+  SMB_SERVER_CHECK_CAP_NET_ADMIN = yes;
+  SMB_SERVER_KERBEROS5 = yes;
+  SMB_SERVER_SMBDIRECT = yes;
+
   # Linux RNG framework
   LRNG = yes;
   LRNG_IRQ = yes;
@@ -54,6 +62,24 @@ with lib.kernel;
   LRNG_DRNG_SWITCH = yes;
   LRNG_KCAPI_HASH = yes;
   LRNG_DRBG = yes;
+
+  # Lockup detector
+  LOCKUP_DETECTOR = yes;
+  SOFTLOCKUP_DETECTOR = yes;
+  HARDLOCKUP_DETECTOR_PERF = yes;
+  HARDLOCKUP_DETECTOR = yes;
+
+  # Prefer EXT4 driver
+  EXT2_FS = no;
+  EXT3_FS = no;
+  EXT4_USE_FOR_EXT2 = yes;
+
+  # Prefer EXT4 driver - clear errors
+  EXT2_FS_POSIX_ACL = lib.mkForce (option no);
+  EXT2_FS_SECURITY = lib.mkForce (option no);
+  EXT2_FS_XATTR = lib.mkForce (option no);
+  EXT3_FS_POSIX_ACL = lib.mkForce (option no);
+  EXT3_FS_SECURITY = lib.mkForce (option no);
 
   # Reduce log buffer size
   LOG_BUF_SHIFT = freeform "12";
@@ -69,13 +95,28 @@ with lib.kernel;
   MODULE_COMPRESS_ZSTD = yes;
 
   # Various tunings
+  ACPI_APEI = yes;
+  ACPI_APEI_GHES = yes;
+  ACPI_DPTF = yes;
+  ACPI_FPDT = yes;
+  ACPI_PCI_SLOT = yes;
+  BPF_JIT_ALWAYS_ON = lib.mkForce yes;
+  ENERGY_MODEL = yes;
   FAT_DEFAULT_UTF8 = yes;
+  FORTIFY_SOURCE = yes;
   FSCACHE_STATS = yes;
-  LRU_GEN = yes;
-  LRU_GEN_ENABLED = yes;
+  HARDENED_USERCOPY = yes;
+  MAGIC_SYSRQ = no;
   NTFS_FS = no;
+  PARAVIRT_TIME_ACCOUNTING = yes;
+  PM_AUTOSLEEP = yes;
   PSTORE_ZSTD_COMPRESS = yes;
   PSTORE_ZSTD_COMPRESS_DEFAULT = yes;
+  SHUFFLE_PAGE_ALLOCATOR = yes;
+  SLAB_FREELIST_HARDENED = yes;
+  SLAB_FREELIST_RANDOM = yes;
+  WQ_POWER_EFFICIENT_DEFAULT = yes;
+  X86_X32 = yes;
 
   # ZRAM & Zswap
   ZRAM = module;
