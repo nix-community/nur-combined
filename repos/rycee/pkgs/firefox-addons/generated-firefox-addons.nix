@@ -522,10 +522,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "97.0buildid20220118.185733";
+      version = "96.0.2buildid20220119.190439";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3896112/francais_language_pack-97.0buildid20220118.185733-fx.xpi";
-      sha256 = "14cd8f1914606521d13094790300c0e664c723f18399f8a7c3ac6401c17cc7d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3896887/francais_language_pack-96.0.2buildid20220119.190439-fx.xpi";
+      sha256 = "d1b06b016e120b03e6f0a055a4f9e6a157c130d168ae0f4c0ba0745846a8f3cc";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -577,10 +577,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.892.0";
+      version = "8.893.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3877590/grammarly_for_firefox-8.892.0-an+fx.xpi";
-      sha256 = "2081fe0f8ef93d6bfd1ecd293cfcf4be75ddb7d975dc9a1c765bb76efc2bb02f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3896075/grammarly_for_firefox-8.893.0-an+fx.xpi";
+      sha256 = "40974f7e8eabd0cab60e259b9f656aa98cdeb59dd1f50f8ccf222356bfdb3b03";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1023,10 +1023,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.14";
+      version = "11.2.15";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3887553/noscript_security_suite-11.2.14-an+fx.xpi";
-      sha256 = "47399b94f57dde1162f74a49679c7cb3b6dfe684d4eee49842e65eae64e9982b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3895654/noscript_security_suite-11.2.15-an+fx.xpi";
+      sha256 = "669f05fe76b51fa64ec05c3dcdf94e6c7f4b1408ff8e01a6f006f7f5f920f217";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1526,10 +1526,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.0.3";
+      version = "4.0.4";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3894233/sponsorblock_skip_sponsorships_on_youtube-4.0.3-an+fx.xpi";
-      sha256 = "2b29cd3d8dc2dabc7b0f033e0b9cb2551152b67ef1345c9bf92adbe62ceaf0c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3896048/sponsorblock_skip_sponsorships_on_youtube-4.0.4-an+fx.xpi";
+      sha256 = "e47db196e1dbb8164c97df8ded0a13ce64c7fbb485fda9f1ae53dc51d6644b5b";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
