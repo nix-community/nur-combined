@@ -1,18 +1,24 @@
 { llvmPackages_13
 , lib
 , fetchFromGitHub
+
+# build time
 , cmake
-, libmysqlclient
 , git
+
+# runtime
 , boost
-, readline
 , bzip2
+, libmysqlclient
+, readline
+
 # version specifics
 , version
 , owner ? "TrinityCore"
 , repo ? "TrinityCore"
 , rev ? version
 , sha256
+
 # genrev
 , branch ? "master"
 , commit
