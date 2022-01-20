@@ -20,8 +20,8 @@ upgrade_homeassistant_stubs() {
     version=$homeassistant_version
     sha256=$(nix-prefetch-git --quiet https://github.com/$org/$repo $homeassistant_version | jq .sha256)
     echo "$org/$repo: version=$version, sha256=$sha256 (homeassistant-version=$homeassistant_version)"
-    sed -i pkgs/$repo/default.nix -e "s/version = \"[0-9\.]+\"/version = \"$homeassistant_version\"/"
-    sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"\"]+\"/sha256 = $sha256/"
+    sed -i pkgs/$repo/default.nix -e "s/version = \"[0-9\.]*\"/version = \"$homeassistant_version\"/"
+    sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"]*\"/sha256 = $sha256/"
 }
 
 upgrade_phacc() {
@@ -31,8 +31,8 @@ upgrade_phacc() {
     version=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/$org/$repo/releases | jq ".[] | select(.body|test(\"$homeassistant_version\")).tag_name" | sed -e 's/"//g')
     sha256=$(nix-prefetch-git --quiet https://github.com/$org/$repo $version | jq .sha256)
     echo "$org/$repo: version=$version, sha256=$sha256 (homeassistant-version=$homeassistant_version)"
-    sed -i pkgs/$repo/default.nix -e "s/version = \"[0-9\.]+\"/version = \"$version\"/"
-    sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"]+\"/sha256 = $sha256/"
+    sed -i pkgs/$repo/default.nix -e "s/version = \"[0-9\.]*\"/version = \"$version\"/"
+    sed -i pkgs/$repo/default.nix -e "s/sha256 = \"[^\"]*\"/sha256 = $sha256/"
 }
 
 latest_github_release() {
