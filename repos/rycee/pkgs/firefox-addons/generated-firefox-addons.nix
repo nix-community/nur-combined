@@ -211,6 +211,19 @@
         platforms = platforms.all;
         };
       };
+    "consent-o-matic" = buildFirefoxXpiAddon {
+      pname = "consent-o-matic";
+      version = "0.9.4";
+      addonId = "gdpr@cavi.au.dk";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3772705/consent_o_matic-0.9.4-fx.xpi";
+      sha256 = "443c742cfacbc17a6fc68d5e56c099f3c98c39e0ddb9906dc93d9f4f0c6175ad";
+      meta = with lib;
+      {
+        description = "Automatic handling of GDPR consent forms";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
       version = "3.6.0";
@@ -1489,6 +1502,20 @@
         homepage = "https://github.com/drive4ik/simple-tab-groups";
         description = "Create, modify, and quickly change tab groups";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "single-file" = buildFirefoxXpiAddon {
+      pname = "single-file";
+      version = "1.19.24";
+      addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3886356/singlefile-1.19.24-an+fx.xpi";
+      sha256 = "7911f8bb8a55bcee1771489daa7938194f18f85bb68bbf1f5e495c2504801551";
+      meta = with lib;
+      {
+        homepage = "https://github.com/gildas-lormeau/SingleFile";
+        description = "Save an entire web page—including images and styling—as a single HTML file.";
+        license = licenses.agpl3Plus;
         platforms = platforms.all;
         };
       };

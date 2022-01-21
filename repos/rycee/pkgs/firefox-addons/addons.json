@@ -65,6 +65,13 @@
     "slug": "close-other-windows"
   },
   {
+    "slug": "consent-o-matic",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mit"
+    }
+  },
+  {
     "slug": "cookie-autodelete"
   },
   {
@@ -432,6 +439,13 @@
   },
   {
     "slug": "simple-tab-groups"
+  },
+  {
+    "slug": "single-file",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Plus"
+    }
   },
   {
     "slug": "solarized-light",
