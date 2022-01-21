@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pybatsim-functional";
-  version = "4.0.0-alpha+aa11bbe";
+  version = "4.0.0-alpha+5414b272";
   format = "pyproject";
 
   # src set to a subdirectory of the whole pybatsim repository
@@ -24,7 +24,7 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://gitlab.inria.fr/batsim/pybatsim";
     platforms = platforms.all;
     license = licenses.lgpl3;
-    broken = true;
+    broken = false;
 
     longDescription = "Functional scheduler API for pybatsim";
   };

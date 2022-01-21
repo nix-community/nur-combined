@@ -2,7 +2,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pybatsim-core";
-  version = "4.0.0-alpha+aa11bbe";
+  version = "4.0.0-alpha+5414b272";
   format = "pyproject";
 
   # src set to a subdirectory of the whole pybatsim repository
