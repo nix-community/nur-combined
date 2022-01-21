@@ -6,7 +6,7 @@
 , makeWrapper
 , dpkg
 , makeDesktopItem
-, xlibs
+, xorg
 , wayland
 , gmpxx
 , glib
@@ -17,7 +17,7 @@
 , libpulseaudio
 , e2fsprogs
 , mtdev
-, alsaLib
+, alsa-lib
 , xkeyboard_config
 }:
 
@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
     libpulseaudio
     e2fsprogs
     mtdev
-    alsaLib
-  ] ++ (with xlibs; [
+    alsa-lib
+  ] ++ (with xorg; [
     libSM
     libX11
   ]) ++ (with libsForQt5; [

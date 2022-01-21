@@ -23,5 +23,5 @@ in
 
 pkgs:
 
-filter pkgs.system
+filter pkgs.stdenv.hostPlatform.system
   (import ../pkgs { inherit pkgs; })

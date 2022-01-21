@@ -2,16 +2,15 @@
 , stdenv
 , lib
 , autoPatchelfHook
-, xlibs
 , xorg
 , gtk3
 , pango
 , at-spi2-atk
 , nss
 , libdrm
-, alsaLib
+, alsa-lib
 , mesa
-, libudev
+, udev
 , libappindicator
 , imagemagick
 , makeDesktopItem
@@ -41,12 +40,11 @@ stdenv.mkDerivation rec {
     at-spi2-atk
     nss
     libdrm
-    alsaLib
+    alsa-lib
     mesa
-  ] ++ (with xlibs; [
+  ] ++ (with xorg; [
     libXext
     libXcomposite
-  ]) ++ (with xorg; [
     libXrandr
     libxshmfence
     libXdamage
@@ -54,7 +52,7 @@ stdenv.mkDerivation rec {
 
   runtimeDependencies = [
     libappindicator
-    libudev
+    udev
   ];
 
   installPhase = ''

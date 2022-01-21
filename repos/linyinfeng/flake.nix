@@ -29,6 +29,7 @@
 
         channels.nixpkgs.config = {
           allowUnfree = true;
+          allowAliases = false;
         };
 
         outputsBuilder = channels:
