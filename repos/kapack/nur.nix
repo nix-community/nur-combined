@@ -87,6 +87,7 @@ rec {
   pybatsim-functional-400 = pkgs.callPackage ./pkgs/pybatsim/functional400.nix { pybatsim-core = pybatsim-core-400; };
   pybatsim = pybatsim-321;
   pybatsim-core = pybatsim-core-400;
+  pybatsim-functional = pybatsim-functional-400;
 
   python-mip = pkgs.callPackage ./pkgs/python-mip { };
 
