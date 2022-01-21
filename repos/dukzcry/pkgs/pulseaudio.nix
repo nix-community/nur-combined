@@ -72,22 +72,9 @@ stdenv.mkDerivation rec {
   name = "${if libOnly then "lib" else ""}pulseaudio-${version}";
   version = "15.0";
 
-  #src = fetchTarball {
-  #  url = "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz";
-  #  sha256 = "0wmr4ahvzvr0603h2dfl65dra1ncdrq43ia03a1jmyzi063d4mgp";
-  #};
-  src = derivation rec {
+  src = fetchurl {
     url = "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz";
-    name = builtins.baseNameOf url;
-    urls = [ url ];
-    unpack = false;
-
-    builder = "builtin:fetchurl";
-    system = "builtin";
-    outputHashMode = "flat"; outputHashAlgo = "sha256";
-    preferLocalBuild = true;
-    #outputHash = "0wmr4ahvzvr0603h2dfl65dra1ncdrq43ia03a1jmyzi063d4mgp";
-    outputHash = "1851rg4h6sjwanvd294hn52z321rc6vbs4gbfrlw53597dx8h2x4";
+    sha256 = "1851rg4h6sjwanvd294hn52z321rc6vbs4gbfrlw53597dx8h2x4";
   };
 
   outputs = [ "out" "dev" ];
