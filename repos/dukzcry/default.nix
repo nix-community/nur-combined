@@ -44,5 +44,6 @@ in rec {
   wireless-regdb = pkgs.callPackage ./pkgs/wireless-regdb {};
   edgevpn = pkgs.callPackage ./pkgs/edgevpn.nix {};
   prometheus-nut-exporter = pkgs.callPackage ./pkgs/prometheus-nut-exporter.nix {};
+  pulseaudio = pkgs.callPackage ./pkgs/pulseaudio.nix {};
 }
 

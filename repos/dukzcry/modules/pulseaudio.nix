@@ -22,7 +22,6 @@ in {
     #  sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
     #    ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
     #'';
-    hardware.pulseaudio.package = pkgs.pulseaudio-hsphfpd;
-    hardware.bluetooth.hsphfpd.enable = true;
+    hardware.pulseaudio.package = pkgs.nur.repos.dukzcry.pulseaudio;
   };
 }
