@@ -522,10 +522,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0.2buildid20220119.190439";
+      version = "97.0buildid20220120.185732";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3896887/francais_language_pack-96.0.2buildid20220119.190439-fx.xpi";
-      sha256 = "d1b06b016e120b03e6f0a055a4f9e6a157c130d168ae0f4c0ba0745846a8f3cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3897532/francais_language_pack-97.0buildid20220120.185732-fx.xpi";
+      sha256 = "3189dbba0b7bc9340f5e340c531575c5f61b629c066add0e6acc3dba9c1e4bf8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -808,10 +808,10 @@
       };
     "light-dark-switcher" = buildFirefoxXpiAddon {
       pname = "light-dark-switcher";
-      version = "1.0.2";
+      version = "1.0.1";
       addonId = "{66908292-10f9-44ab-8de1-3605cee906ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3884629/lightdark_switcher-1.0.2-fx.xpi";
-      sha256 = "6e8c70abc14c2bbcf568f2c8b89deedf3f09956b5f151204b5db9b9504a91853";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3799471/lightdark_switcher-1.0.1-fx.xpi";
+      sha256 = "6d2e93b0fa43de1e56617aff7246d13efbe81888f543087024b6bc7e144304da";
       meta = with lib;
       {
         description = "Automatically switches between two themes when dark or light mode toggles";
@@ -1370,13 +1370,13 @@
       };
     "reduxdevtools" = buildFirefoxXpiAddon {
       pname = "reduxdevtools";
-      version = "3.0.3";
+      version = "3.0.6";
       addonId = "extension@redux.devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3892557/redux_devtools-3.0.3-fx.xpi";
-      sha256 = "82414b0ff5b543bb615f04213c0a4011fc6adece74f0c02951fefcd184867417";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3897299/redux_devtools-3.0.6-fx.xpi";
+      sha256 = "076efa19d8722532d5b96f0a25a56840cd68c6108b907482f51a031a9762db07";
       meta = with lib;
       {
-        homepage = "https://github.com/zalmoxisus/redux-devtools-extension";
+        homepage = "https://github.com/reduxjs/redux-devtools";
         description = "DevTools for Redux with actions history, undo and replay.";
         license = licenses.mit;
         platforms = platforms.all;
@@ -1972,10 +1972,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.49.0";
+      version = "2.50.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3894466/web_scrobbler-2.49.0-an+fx.xpi";
-      sha256 = "de58c857dd789cefdb10161ac15723777fc0a1285f95e69f7b5ed0605b843536";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3897445/web_scrobbler-2.50.0-an+fx.xpi";
+      sha256 = "22f781c2b0fd3b08b70e10c43674c482bf46957819fe1ecc05edbffa60036ac1";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
