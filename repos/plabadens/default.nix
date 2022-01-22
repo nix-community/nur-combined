@@ -25,6 +25,10 @@ rec {
 
   filebrowser = pkgs.callPackage ./pkgs/filebrowser { };
 
+  hassLovelaceModules = pkgs.recurseIntoAttrs {
+    valetudo-map-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/lovelace-valetudo-map-card { };
+  };
+
   hw-probe = pkgs.callPackage ./pkgs/hw-probe { };
 
   lsix = pkgs.callPackage ./pkgs/lsix { };
