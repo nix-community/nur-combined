@@ -22,13 +22,13 @@ let
         sha512 = "m7OkX0IdKLKPpBlJtF561YJal5y/jyI5fNfWbPxh2D/nbzzGI4qRyrD8xO2jB24u7l+5I2a43scCG2IrfjC50Q==";
       };
     };
-    "@babel/core-7.16.7" = {
+    "@babel/core-7.16.10" = {
       name = "_at_babel_slash_core";
       packageName = "@babel/core";
-      version = "7.16.7";
+      version = "7.16.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/core/-/core-7.16.7.tgz";
-        sha512 = "aeLaqcqThRNZYmbMqtulsetOQZ/5gbR/dWruUCJcpas4Qoyy+QeagfDsPdMrqwsPRDNxJvBlRiZxxX7THO7qtA==";
+        url = "https://registry.npmjs.org/@babel/core/-/core-7.16.10.tgz";
+        sha512 = "pbiIdZbCiMx/MM6toR+OfXarYix3uz0oVsnNtfdAGTcCTu3w/JGF8JhirevXLBJUu0WguSZI12qpKnx7EeMyLA==";
       };
     };
     "@babel/generator-7.16.8" = {
@@ -67,13 +67,13 @@ let
         sha512 = "mGojBwIWcwGD6rfqgRXVlVYmPAv7eOpIemUG3dGnDdCY4Pae70ROij3XmfrH6Fa1h1aiDylpglbZyktfzyo/hA==";
       };
     };
-    "@babel/helper-create-class-features-plugin-7.16.7" = {
+    "@babel/helper-create-class-features-plugin-7.16.10" = {
       name = "_at_babel_slash_helper-create-class-features-plugin";
       packageName = "@babel/helper-create-class-features-plugin";
-      version = "7.16.7";
+      version = "7.16.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.16.7.tgz";
-        sha512 = "kIFozAvVfK05DM4EVQYKK+zteWvY85BFdGBRQBytRyY3y+6PX0DkDOn/CZ3lEuczCfrCxEzwt0YtP/87YPTWSw==";
+        url = "https://registry.npmjs.org/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.16.10.tgz";
+        sha512 = "wDeej0pu3WN/ffTxMNCPW5UCiOav8IcLRxSIyp/9+IF2xJUM9h/OYjg0IJLHaL6F8oU8kqMz9nc1vryXhMsgXg==";
       };
     };
     "@babel/helper-create-regexp-features-plugin-7.16.7" = {
@@ -85,13 +85,13 @@ let
         sha512 = "fk5A6ymfp+O5+p2yCkXAu5Kyj6v0xh0RBeNcAkYUMDvvAAoxvSKXn+Jb37t/yWFiQVDFK1ELpUTD8/aLhCPu+g==";
       };
     };
-    "@babel/helper-define-polyfill-provider-0.3.0" = {
+    "@babel/helper-define-polyfill-provider-0.3.1" = {
       name = "_at_babel_slash_helper-define-polyfill-provider";
       packageName = "@babel/helper-define-polyfill-provider";
-      version = "0.3.0";
+      version = "0.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-define-polyfill-provider/-/helper-define-polyfill-provider-0.3.0.tgz";
-        sha512 = "7hfT8lUljl/tM3h+izTX/pO3W3frz2ok6Pk+gzys8iJqDfZrZy2pXjRTZAvG2YmfHun1X4q8/UZRLatMfqc5Tg==";
+        url = "https://registry.npmjs.org/@babel/helper-define-polyfill-provider/-/helper-define-polyfill-provider-0.3.1.tgz";
+        sha512 = "J9hGMpJQmtWmj46B3kBHmL38UhJGhYX7eqkcq+2gsstyYt341HmPeWspihX43yVRA0mS+8GGk2Gckc7bY/HCmA==";
       };
     };
     "@babel/helper-environment-visitor-7.16.7" = {
@@ -265,22 +265,22 @@ let
         sha512 = "9ZDoqtfY7AuEOt3cxchfii6C7GDyyMBffktR5B2jvWv8u2+efwvpnVKXMWzNehqy68tKgAfSwfdw/lWpthS2bw==";
       };
     };
-    "@babel/highlight-7.16.7" = {
+    "@babel/highlight-7.16.10" = {
       name = "_at_babel_slash_highlight";
       packageName = "@babel/highlight";
-      version = "7.16.7";
+      version = "7.16.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.16.7.tgz";
-        sha512 = "aKpPMfLvGO3Q97V0qhw/V2SWNWlwfJknuwAunU7wZLSfrM4xTBvg7E5opUVi1kJTBKihE38CPg4nBiqX83PWYw==";
+        url = "https://registry.npmjs.org/@babel/highlight/-/highlight-7.16.10.tgz";
+        sha512 = "5FnTQLSLswEj6IkgVw5KusNUUFY9ZGqe/TRFnP/BKYHYgfh7tc+C7mwiy95/yNP7Dh9x580Vv8r7u7ZfTBFxdw==";
       };
     };
-    "@babel/parser-7.16.8" = {
+    "@babel/parser-7.16.10" = {
       name = "_at_babel_slash_parser";
       packageName = "@babel/parser";
-      version = "7.16.8";
+      version = "7.16.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.16.8.tgz";
-        sha512 = "i7jDUfrVBWc+7OKcBzEe5n7fbv3i2fWtxKzzCvOjnzSxMfWMigAhtfJ7qzZNGFNMsCCd67+uz553dYKWXPvCKw==";
+        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.16.10.tgz";
+        sha512 = "Sm/S9Or6nN8uiFsQU1yodyDW3MWXQhFeqzMPM+t8MJjM+pLsnFVxFZzkpXKvUXh+Gz9cbMoYYs484+Jw/NTEFQ==";
       };
     };
     "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression-7.16.7" = {
@@ -409,13 +409,13 @@ let
         sha512 = "eC3xy+ZrUcBtP7x+sq62Q/HYd674pPTb/77XZMb5wbDPGWIdUbSr4Agr052+zaUPSb+gGRnjxXfKFvx5iMJ+DA==";
       };
     };
-    "@babel/plugin-proposal-private-methods-7.16.7" = {
+    "@babel/plugin-proposal-private-methods-7.16.11" = {
       name = "_at_babel_slash_plugin-proposal-private-methods";
       packageName = "@babel/plugin-proposal-private-methods";
-      version = "7.16.7";
+      version = "7.16.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/plugin-proposal-private-methods/-/plugin-proposal-private-methods-7.16.7.tgz";
-        sha512 = "7twV3pzhrRxSwHeIvFE6coPgvo+exNDOiGUMg39o2LiLo1Y+4aKpfkcLGcg1UHonzorCt7SNXnoMyCnnIOA8Sw==";
+        url = "https://registry.npmjs.org/@babel/plugin-proposal-private-methods/-/plugin-proposal-private-methods-7.16.11.tgz";
+        sha512 = "F/2uAkPlXDr8+BHpZvo19w3hLFKge+k75XUprE6jaqKxjGkSYcK+4c+bup5PdW/7W/Rpjwql7FTVEDW+fRAQsw==";
       };
     };
     "@babel/plugin-proposal-private-property-in-object-7.16.7" = {
@@ -886,13 +886,13 @@ let
         sha512 = "oC5tYYKw56HO75KZVLQ+R/Nl3Hro9kf8iG0hXoaHP7tjAyCpvqBiSNe6vGrZni1Z6MggmUOC6A7VP7AVmw225Q==";
       };
     };
-    "@babel/preset-env-7.16.8" = {
+    "@babel/preset-env-7.16.11" = {
       name = "_at_babel_slash_preset-env";
       packageName = "@babel/preset-env";
-      version = "7.16.8";
+      version = "7.16.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.16.8.tgz";
-        sha512 = "9rNKgVCdwHb3z1IlbMyft6yIXIeP3xz6vWvGaLHrJThuEIqWfHb0DNBH9VuTgnDfdbUDhkmkvMZS/YMCtP7Elg==";
+        url = "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.16.11.tgz";
+        sha512 = "qcmWG8R7ZW6WBRPZK//y+E3Cli151B20W1Rv7ln27vuPaXU/8TKms6jFdiJtF7UDTxcrb7mZd88tAeK9LjdT8g==";
       };
     };
     "@babel/preset-modules-0.1.5" = {
@@ -922,13 +922,13 @@ let
         sha512 = "I8j/x8kHUrbYRTUxXrrMbfCa7jxkE7tZre39x3kjr9hvI82cK1FfqLygotcWN5kdPGWcLdWMHpSBavse5tWw3w==";
       };
     };
-    "@babel/traverse-7.16.8" = {
+    "@babel/traverse-7.16.10" = {
       name = "_at_babel_slash_traverse";
       packageName = "@babel/traverse";
-      version = "7.16.8";
+      version = "7.16.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/traverse/-/traverse-7.16.8.tgz";
-        sha512 = "xe+H7JlvKsDQwXRsBhSnq1/+9c+LlQcCK3Tn/l5sbx02HYns/cn7ibp9+RV1sIUqu7hKg91NWsgHurO9dowITQ==";
+        url = "https://registry.npmjs.org/@babel/traverse/-/traverse-7.16.10.tgz";
+        sha512 = "yzuaYXoRJBGMlBhsMJoUW7G1UmSb/eXr/JHYM/MsOJgavJibLwASijW7oXBdw3NQ6T0bW7Ty5P/VarOs9cHmqw==";
       };
     };
     "@babel/types-7.16.8" = {
@@ -1300,31 +1300,31 @@ let
         sha512 = "jZVI+s9Zg3IqA/kdi0i6UDCybUI3aSBLnglhYbSSjKlV7yF1F/5LWv8MakQmvYpnbJDS6fcBL2KzHSxNCMtWSQ==";
       };
     };
-    "babel-plugin-polyfill-corejs2-0.3.0" = {
+    "babel-plugin-polyfill-corejs2-0.3.1" = {
       name = "babel-plugin-polyfill-corejs2";
       packageName = "babel-plugin-polyfill-corejs2";
-      version = "0.3.0";
+      version = "0.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.3.0.tgz";
-        sha512 = "wMDoBJ6uG4u4PNFh72Ty6t3EgfA91puCuAwKIazbQlci+ENb/UU9A3xG5lutjUIiXCIn1CY5L15r9LimiJyrSA==";
+        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.3.1.tgz";
+        sha512 = "v7/T6EQcNfVLfcN2X8Lulb7DjprieyLWJK/zOWH5DUYcAgex9sP3h25Q+DLsX9TloXe3y1O8l2q2Jv9q8UVB9w==";
       };
     };
-    "babel-plugin-polyfill-corejs3-0.5.0" = {
+    "babel-plugin-polyfill-corejs3-0.5.1" = {
       name = "babel-plugin-polyfill-corejs3";
       packageName = "babel-plugin-polyfill-corejs3";
-      version = "0.5.0";
+      version = "0.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs3/-/babel-plugin-polyfill-corejs3-0.5.0.tgz";
-        sha512 = "Hcrgnmkf+4JTj73GbK3bBhlVPiLL47owUAnoJIf69Hakl3q+KfodbDXiZWGMM7iqCZTxCG3Z2VRfPNYES4rXqQ==";
+        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs3/-/babel-plugin-polyfill-corejs3-0.5.1.tgz";
+        sha512 = "TihqEe4sQcb/QcPJvxe94/9RZuLQuF1+To4WqQcRvc+3J3gLCPIPgDKzGLG6zmQLfH3nn25heRuDNkS2KR4I8A==";
       };
     };
-    "babel-plugin-polyfill-regenerator-0.3.0" = {
+    "babel-plugin-polyfill-regenerator-0.3.1" = {
       name = "babel-plugin-polyfill-regenerator";
       packageName = "babel-plugin-polyfill-regenerator";
-      version = "0.3.0";
+      version = "0.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/babel-plugin-polyfill-regenerator/-/babel-plugin-polyfill-regenerator-0.3.0.tgz";
-        sha512 = "dhAPTDLGoMW5/84wkgwiLRwMnio2i1fUe53EuvtKMv0pn2p3S8OCoV1xAzfJPl0KOX7IB89s2ib85vbYiea3jg==";
+        url = "https://registry.npmjs.org/babel-plugin-polyfill-regenerator/-/babel-plugin-polyfill-regenerator-0.3.1.tgz";
+        sha512 = "Y2B06tvgHYt1x0yz17jGkGeeMr5FeKUu+ASJ+N6nB5lQ8Dapfg42i0OVrf8PNGJ3zKL4A23snMi1IRwrqqND7A==";
       };
     };
     "babel-runtime-6.26.0" = {
@@ -1651,13 +1651,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001299" = {
+    "caniuse-lite-1.0.30001301" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001299";
+      version = "1.0.30001301";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001299.tgz";
-        sha512 = "iujN4+x7QzqA2NCSrS5VUy+4gLmRd4xv6vbBBsmfVqTx8bLAD8097euLqQgKxSVLvxjSDcvF1T/i9ocgnUFexw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001301.tgz";
+        sha512 = "csfD/GpHMqgEL3V3uIgosvh+SVIQvCh43SNu9HRbP1lnxkKm1kjDG4f32PP571JplkLjfS+mg2p1gxR7MYrrIA==";
       };
     };
     "caseless-0.12.0" = {
@@ -1912,13 +1912,13 @@ let
         sha512 = "Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==";
       };
     };
-    "core-js-compat-3.20.2" = {
+    "core-js-compat-3.20.3" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.20.2";
+      version = "3.20.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.20.2.tgz";
-        sha512 = "qZEzVQ+5Qh6cROaTPFLNS4lkvQ6mBzE3R6A6EEpssj7Zr2egMHgsy4XapdifqJDGC9CBiNv7s+ejI96rLNQFdg==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.20.3.tgz";
+        sha512 = "c8M5h0IkNZ+I92QhIpuSijOxGAcj3lgpsWdkCqmUTZNwidujF4r3pi6x1DCN+Vcs5qTS2XWWMfWSuCqyupX8gw==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -2461,13 +2461,13 @@ let
         sha1 = "590c61156b0ae2f4f0255732a158b266bc56b21d";
       };
     };
-    "electron-to-chromium-1.4.46" = {
+    "electron-to-chromium-1.4.50" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.46";
+      version = "1.4.50";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.46.tgz";
-        sha512 = "UtV0xUA/dibCKKP2JMxOpDtXR74zABevuUEH4K0tvduFSIoxRVcYmQsbB51kXsFTX8MmOyWMt8tuZAlmDOqkrQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.50.tgz";
+        sha512 = "g5X/6oVoqLyzKfsZ1HsJvxKoUAToFMCuq1USbmp/GPIwJDRYV1IEcv+plYTdh6h11hg140hycCBId0vf7rL0+Q==";
       };
     };
     "elliptic-6.5.4" = {
@@ -4909,13 +4909,13 @@ let
         sha512 = "36P2QR59jDTOAiIkqEprfJDsoNrvwFei3eCqKd1Y0tUsBimsq39BLp7RD+JWny3WgB1zGhJX8XVePwm9k4wdBg==";
       };
     };
-    "postcss-selector-parser-6.0.8" = {
+    "postcss-selector-parser-6.0.9" = {
       name = "postcss-selector-parser";
       packageName = "postcss-selector-parser";
-      version = "6.0.8";
+      version = "6.0.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.0.8.tgz";
-        sha512 = "D5PG53d209Z1Uhcc0qAZ5U3t5HagH3cxu+WLZ22jt3gLUpXM4eXXfiO14jiDWST3NNooX/E8wISfOhZ9eIjGTQ==";
+        url = "https://registry.npmjs.org/postcss-selector-parser/-/postcss-selector-parser-6.0.9.tgz";
+        sha512 = "UO3SgnZOVTwu4kyLR22UQ1xZh086RyNZppb7lLAKBFK8a32ttG5i87Y/P3+2bRSjZNyJ1B7hfFNo273tKe9YxQ==";
       };
     };
     "postcss-svgo-4.0.3" = {
@@ -5323,13 +5323,13 @@ let
         sha512 = "wcW+sIUiWnKgNY0dqCpOZkUbF/I+YPi+f09JZIDa39Ec+q82CpSYniDp+ISgTTbKmnpJWASeJBPZmoxH84wt3g==";
       };
     };
-    "resolve-1.21.0" = {
+    "resolve-1.21.1" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.21.0";
+      version = "1.21.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.21.0.tgz";
-        sha512 = "3wCbTpk5WJlyE4mSOtDLhqQmGFi0/TD9VPwmiolnk8U0wRgMEktqCXd3vy5buTO3tljvalNvKrjHEfrd2WpEKA==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.21.1.tgz";
+        sha512 = "lfEImVbnolPuaSZuLQ52cAxPBHeI77sPwCOWRdy12UG/CNa8an7oBHH1R+Fp1/mUqSJi4c8TIP6FOIPSZAUrEQ==";
       };
     };
     "resolve-from-3.0.0" = {
@@ -6484,7 +6484,7 @@ let
     dependencies = [
       sources."@babel/code-frame-7.16.7"
       sources."@babel/compat-data-7.16.8"
-      (sources."@babel/core-7.16.7" // {
+      (sources."@babel/core-7.16.10" // {
         dependencies = [
           sources."json5-2.2.0"
           sources."semver-6.3.0"
@@ -6503,9 +6503,9 @@ let
           sources."semver-6.3.0"
         ];
       })
-      sources."@babel/helper-create-class-features-plugin-7.16.7"
+      sources."@babel/helper-create-class-features-plugin-7.16.10"
       sources."@babel/helper-create-regexp-features-plugin-7.16.7"
-      (sources."@babel/helper-define-polyfill-provider-0.3.0" // {
+      (sources."@babel/helper-define-polyfill-provider-0.3.1" // {
         dependencies = [
           sources."semver-6.3.0"
         ];
@@ -6529,8 +6529,8 @@ let
       sources."@babel/helper-validator-option-7.16.7"
       sources."@babel/helper-wrap-function-7.16.8"
       sources."@babel/helpers-7.16.7"
-      sources."@babel/highlight-7.16.7"
-      sources."@babel/parser-7.16.8"
+      sources."@babel/highlight-7.16.10"
+      sources."@babel/parser-7.16.10"
       sources."@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression-7.16.7"
       sources."@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining-7.16.7"
       sources."@babel/plugin-proposal-async-generator-functions-7.16.8"
@@ -6545,7 +6545,7 @@ let
       sources."@babel/plugin-proposal-object-rest-spread-7.16.7"
       sources."@babel/plugin-proposal-optional-catch-binding-7.16.7"
       sources."@babel/plugin-proposal-optional-chaining-7.16.7"
-      sources."@babel/plugin-proposal-private-methods-7.16.7"
+      sources."@babel/plugin-proposal-private-methods-7.16.11"
       sources."@babel/plugin-proposal-private-property-in-object-7.16.7"
       sources."@babel/plugin-proposal-unicode-property-regex-7.16.7"
       sources."@babel/plugin-syntax-async-generators-7.8.4"
@@ -6598,7 +6598,7 @@ let
       sources."@babel/plugin-transform-typeof-symbol-7.16.7"
       sources."@babel/plugin-transform-unicode-escapes-7.16.7"
       sources."@babel/plugin-transform-unicode-regex-7.16.7"
-      (sources."@babel/preset-env-7.16.8" // {
+      (sources."@babel/preset-env-7.16.11" // {
         dependencies = [
           sources."semver-6.3.0"
         ];
@@ -6606,7 +6606,7 @@ let
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/runtime-7.16.7"
       sources."@babel/template-7.16.7"
-      sources."@babel/traverse-7.16.8"
+      sources."@babel/traverse-7.16.10"
       sources."@babel/types-7.16.8"
       sources."@iarna/toml-2.2.5"
       sources."@mrmlnc/readdir-enhanced-2.2.1"
@@ -6662,13 +6662,13 @@ let
       sources."aws-sign2-0.7.0"
       sources."aws4-1.11.0"
       sources."babel-plugin-dynamic-import-node-2.3.3"
-      (sources."babel-plugin-polyfill-corejs2-0.3.0" // {
+      (sources."babel-plugin-polyfill-corejs2-0.3.1" // {
         dependencies = [
           sources."semver-6.3.0"
         ];
       })
-      sources."babel-plugin-polyfill-corejs3-0.5.0"
-      sources."babel-plugin-polyfill-regenerator-0.3.0"
+      sources."babel-plugin-polyfill-corejs3-0.5.1"
+      sources."babel-plugin-polyfill-regenerator-0.3.1"
       (sources."babel-runtime-6.26.0" // {
         dependencies = [
           sources."regenerator-runtime-0.11.1"
@@ -6729,7 +6729,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001299"
+      sources."caniuse-lite-1.0.30001301"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -6755,7 +6755,7 @@ let
       sources."convert-source-map-1.8.0"
       sources."copy-descriptor-0.1.1"
       sources."core-js-2.6.12"
-      (sources."core-js-compat-3.20.2" // {
+      (sources."core-js-compat-3.20.3" // {
         dependencies = [
           sources."semver-7.0.0"
         ];
@@ -6866,7 +6866,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.46"
+      sources."electron-to-chromium-1.4.50"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -7234,7 +7234,7 @@ let
       sources."postcss-ordered-values-4.1.2"
       sources."postcss-reduce-initial-4.0.3"
       sources."postcss-reduce-transforms-4.0.2"
-      sources."postcss-selector-parser-6.0.8"
+      sources."postcss-selector-parser-6.0.9"
       sources."postcss-svgo-4.0.3"
       sources."postcss-unique-selectors-4.0.1"
       sources."postcss-value-parser-3.3.1"
@@ -7303,7 +7303,7 @@ let
       sources."request-2.88.2"
       sources."request-promise-core-1.1.4"
       sources."request-promise-native-1.0.9"
-      sources."resolve-1.21.0"
+      sources."resolve-1.21.1"
       sources."resolve-from-3.0.0"
       sources."resolve-url-0.2.1"
       sources."restore-cursor-2.0.0"

@@ -337,13 +337,13 @@ let
         sha512 = "/njmZ8s1wVeR6pjTZ+0nCnv8SpZNRMT2D1RLOJQESlYFDBvwpTA4KWJpZ+sBJ4+vhjILRcK7JIFdGCdxEAAitg==";
       };
     };
-    "resolve-1.21.0" = {
+    "resolve-1.21.1" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.21.0";
+      version = "1.21.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.21.0.tgz";
-        sha512 = "3wCbTpk5WJlyE4mSOtDLhqQmGFi0/TD9VPwmiolnk8U0wRgMEktqCXd3vy5buTO3tljvalNvKrjHEfrd2WpEKA==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.21.1.tgz";
+        sha512 = "lfEImVbnolPuaSZuLQ52cAxPBHeI77sPwCOWRdy12UG/CNa8an7oBHH1R+Fp1/mUqSJi4c8TIP6FOIPSZAUrEQ==";
       };
     };
     "resolve-cwd-3.0.0" = {
@@ -489,7 +489,7 @@ let
       sources."path-parse-1.0.7"
       sources."pkg-dir-4.2.0"
       sources."rechoir-0.7.1"
-      sources."resolve-1.21.0"
+      sources."resolve-1.21.1"
       sources."resolve-cwd-3.0.0"
       sources."resolve-from-5.0.0"
       sources."shallow-clone-3.0.1"
