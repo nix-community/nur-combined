@@ -47,7 +47,8 @@ jobs:
         if [ -n "$(git status --porcelain)" ]; then
           nix flake update
         fi
-    - name: Craete pull request
+    - name: Create pull request
+      if: "${{ env.COMMIT_TITLE }}${{ env.COMMIT_BODY }}" != ""
       uses: peter-evans/create-pull-request@main
       id: cpr
       with:
