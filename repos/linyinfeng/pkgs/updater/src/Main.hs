@@ -43,21 +43,23 @@ gitPkg name git = define $ package name `sourceGit` git `fetchGit` git
 
 commitNotifier :: PackageSet ()
 commitNotifier =
-  define $ package "commit-notifier"
-    `sourceGit` url
-    `fetchGit` url
-    `hasCargoLock` "Cargo.lock"
- where
-   url = "https://github.com/linyinfeng/commit-notifier.git"
+  define $
+    package "commit-notifier"
+      `sourceGit` url
+      `fetchGit` url
+      `hasCargoLock` "Cargo.lock"
+  where
+    url = "https://github.com/linyinfeng/commit-notifier.git"
 
 dotTar :: PackageSet ()
 dotTar =
-  define $ package "dot-tar"
-    `sourceGit` url
-    `fetchGit` url
-    `hasCargoLock` "Cargo.lock"
- where
-   url = "https://github.com/linyinfeng/dot-tar.git"
+  define $
+    package "dot-tar"
+      `sourceGit` url
+      `fetchGit` url
+      `hasCargoLock` "Cargo.lock"
+  where
+    url = "https://github.com/linyinfeng/dot-tar.git"
 
 clashPremium :: Text -> Text -> PackageSet ()
 clashPremium sys goSys =
@@ -91,7 +93,6 @@ clashForWindowsIcon =
     package "clash-for-windows-icon"
       `sourceManual` "0"
       `fetchUrl` (const "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico")
-      -- `fetchUrl` (const "https://docs.cfw.lbyczf.com/favicon.ico")
 
 icalingua :: PackageSet ()
 icalingua =
