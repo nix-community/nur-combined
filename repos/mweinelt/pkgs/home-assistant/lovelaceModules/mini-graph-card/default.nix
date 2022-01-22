@@ -5,14 +5,14 @@
 
 let
   pname = "mini-graph-card";
-  version = "0.11.0-dev.5";
+  version = "0.11.0";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
     url = "https://github.com/kalkih/mini-graph-card/releases/download/v${version}/mini-graph-card-bundle.js";
-    hash = "sha256-+8kidgFiHwPGjQAEM2Mi/1aIOmx7iqP6owkAe8fxZyQ=";
+    hash = "sha256-ujWSekx/DRS6fQzDyL79ZKGne5VHJwHBT6c88WECc1I=";
   };
 
   dontUnpack = true;
