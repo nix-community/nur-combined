@@ -48,7 +48,7 @@ jobs:
           nix flake update
         fi
     - name: Create pull request
-      if: "${{ env.COMMIT_TITLE }}${{ env.COMMIT_BODY }}" != ""
+      if: ${{ format('{0}{1}', env.COMMIT_TITLE, env.COMMIT_BODY) != '' }}
       uses: peter-evans/create-pull-request@main
       id: cpr
       with:
