@@ -14,6 +14,7 @@ LionC/nest.nvim
 LoricAndre/OneTerm.nvim
 Mangeshrex/uwu.vim
 McAuleyPenney/tidy.nvim
+Mofiqul/dracula.nvim
 Mofiqul/vscode.nvim
 MunifTanjim/nui.nvim
 NFrid/due.nvim
@@ -183,6 +184,7 @@ rhysd/vim-gfm-syntax
 rktjmp/highlight-current-n.nvim
 rktjmp/hotpot.nvim
 rktjmp/paperplanes.nvim
+rlane/pounce.nvim
 rmehri01/onenord.nvim
 rockerBOO/boo-colorscheme-nvim
 rose-pine/neovim::rose-pine
