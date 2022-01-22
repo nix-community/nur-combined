@@ -465,10 +465,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.8.7";
+      version = "4.9.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3879102/floccus-4.8.7-fx.xpi";
-      sha256 = "ff1c8e3addce888b45b3cab1bb104b2f3643ccc69e0807a2dfc812993d3d74af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3897899/floccus-4.9.0-fx.xpi";
+      sha256 = "4ecbadb0420184eb3c7b6085cf8b02eaf7825ad5ac68312b1fb4de612f8611c4";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -688,10 +688,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.3.5";
+      version = "3.3.6";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3875271/i_dont_care_about_cookies-3.3.5-an+fx.xpi";
-      sha256 = "58f5ab5b472d95a2dacad74ae518da5fb38947ef2869179e0ce55e40379cd5aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3897820/i_dont_care_about_cookies-3.3.6-an+fx.xpi";
+      sha256 = "730ee05063181847652678cac054ec430895c5e1ab34bbb1b8fd44c48366798d";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
