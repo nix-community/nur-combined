@@ -15,7 +15,7 @@ buildGoModule rec {
   proxyVendor = true;
 
   meta = with lib; {
-    description = "Run a shell command in all the git repos in a directory ";
+    description = "Run a shell command in all the git repos in a directory";
     license = lib.licenses.asl20;
     homepage = "https://github.com/meain/gloc";
     platforms = platforms.linux ++ platforms.darwin;

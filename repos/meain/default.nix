@@ -21,6 +21,7 @@
   toffee = pkgs.callPackage ./pkgs/toffee { };
   quickserve = pkgs.callPackage ./pkgs/quickserve { };
   gloc = pkgs.callPackage ./pkgs/gloc { };
+  nn = pkgs.callPackage ./pkgs/nn { };
 
   ## external
   fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
