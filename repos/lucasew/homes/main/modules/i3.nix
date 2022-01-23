@@ -10,6 +10,7 @@ let
     feh
     blueberry
     brightnessctl
+    custom
   ;
   inherit (pkgs.xfce) xfce4-terminal;
 in
@@ -104,7 +105,7 @@ in {
           "${mod}+Shift+r" = "restart";
           "${mod}+Up" = "focus up";
           "${mod}+a" = "focus parent";
-          "${mod}+d" = "exec my-rofi";
+          "${mod}+d" = "exec ${custom.rofi}/bin/my-rofi";
           "${mod}+e" = "layout toggle split";
           "${mod}+f" = "fullscreen toggle";
           "${mod}+h" = "split h";

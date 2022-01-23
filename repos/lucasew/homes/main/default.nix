@@ -189,7 +189,6 @@ in {
       indicator = true;
     };
     polybar.enable = true;
-    flameshot.enable = true;
   };
 
   xsession.windowManager.i3.enable = true;
@@ -381,6 +380,11 @@ in {
     trello-dashboard = {
       desktopName = "Trello Dashboard";
       url = "trello.com";
+    };
+    geforce-now = {
+      desktopName = "GeForce Now";
+      url = "play.geforcenow.com";
+      icon = "nvidia";
     };
   };
 }

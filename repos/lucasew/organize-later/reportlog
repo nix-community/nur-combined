@@ -4,7 +4,6 @@ import subprocess
 from sys import argv, stdout
 from os import environ
 from json import loads as json_decode, dumps as json_encode, dump
-import csv
 from datetime import datetime, timezone
 from time import sleep
 
@@ -14,6 +13,7 @@ LOGLEVEL_EMERGENCY, LOGLEVEL_ALERT, LOGLEVEL_CRITICAL, LOGLEVEL_ERROR, LOGLEVEL_
 
 class CSVHandler:
     def __init__(self, writer = stdout):
+        import csv
         self.writer = csv.writer(stdout, delimiter= ",") # ele já lida com escape codes
         self.writer.writerow(['hostname', 'timestamp', 'cgroup', 'cmdline', 'message'])
     def handle(self, entry):
@@ -30,6 +30,7 @@ class JSONHandler:
         self.writer = writer
 
     def handle(self, entry):
+        from json import dump
         hostname = entry['_HOSTNAME']
         timestamp = int(entry['__REALTIME_TIMESTAMP'])
         cgroup = entry['_SYSTEMD_CGROUP']
@@ -68,7 +69,6 @@ class TelegramHandler:
 class DiscordHandler:
     def __init__(self, webhook):
         self.webhook = webhook
-        print(webhook)
     def send_message(self, content):
         sleep(0.1)
         from urllib import parse, request

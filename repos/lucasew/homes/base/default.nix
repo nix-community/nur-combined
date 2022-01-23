@@ -12,6 +12,7 @@ in
     comma # like nix-shell but more convenient
     fzf # file finder and terminal based dmenu
     ffmpeg # video converter
+    send2kindle
   ];
 
   home.stateVersion = mkDefault "20.03";

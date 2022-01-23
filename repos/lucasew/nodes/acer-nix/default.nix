@@ -80,14 +80,8 @@ in
   environment.systemPackages = with pkgs; [
     gparted
     paper-icon-theme
-    kde-gtk-config # Custom
-    # dasel # manipulação de json, toml, yaml, xml, csv e tal
-    rclone-browser rclone restic # cloud storage
     p7zip unzip # archiving
-    virt-manager
     # Extra
-    custom.send2kindle
-    custom.rofi
     intel-compute-runtime # OpenCL
   ];
 
@@ -185,15 +179,6 @@ in
     };
   };
 
-  gc-hold.paths = with pkgs; [
-    go
-    gopls
-    python3
-    custom.neovim
-    clang
-    ccls
-  ];
-
   # ADB
   programs.adb.enable = true;
   services.udev.packages = with pkgs; [
@@ -231,13 +216,6 @@ in
       supportedFeatures = [ "big-parallel" "kvm" ];
     }
   ];
-  environment.etc."X11/xorg.conf.d/20-intel.conf".text = ''
-    Section "Device"
-        Identifier "intelgpu0"
-        Driver "intel"
-        Option "VirtualHeads" "1"
-    EndSection
-  '';
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
