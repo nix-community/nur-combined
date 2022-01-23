@@ -1050,10 +1050,10 @@
       };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
-      version = "6.10.1";
+      version = "6.10.2";
       addonId = "octolinker@stefanbuck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3890667/octolinker-6.10.1-an+fx.xpi";
-      sha256 = "db886b1228a04b5c9516ecb00134881bc27ef890631d6e8b1a345ce845280435";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898284/octolinker-6.10.2-an+fx.xpi";
+      sha256 = "ae6dcfb8b4de6b5db58881206054a4a2a0043e99a08e5e20c62e302e06b80d1c";
       meta = with lib;
       {
         homepage = "https://octolinker.vercel.app";
@@ -1930,10 +1930,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.67";
+      version = "1.67.1";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3807948/vimium_ff-1.67-fx.xpi";
-      sha256 = "c6e2638a111345631cadaaa9df87bfb2a42b1d1b1aeec07c6a84f51480d34fac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898202/vimium_ff-1.67.1-fx.xpi";
+      sha256 = "12740802748e7abff8f13014c845db182b5266f280e2f9e22fae0af82789fe6d";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
