@@ -11,8 +11,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "xddxdd";
     repo = "bird-lg-go";
-    rev = "af5b653326936ede439380d1a88b5ed96e4e7e8c";
-    sha256 = "sha256-NURyhXYZjBxzrxGNc2RmWu9s/K5WFXSyRZoiEYhqnqs=";
+    rev = "950c018b187aa13edbea4d8acbb2022fd2f13319";
+    sha256 = "sha256-bTGFocQel+Tz9RuPN1mebkz12P+M1C4h4bzTD8woHas=";
   };
 
   vendorSha256 = "101z8afd3wd9ax3ln2jx1hsmkarps5jfzyng4xmvdr4m4hd9basq";
