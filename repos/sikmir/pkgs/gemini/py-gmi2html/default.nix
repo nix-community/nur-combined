@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication rec {
     owner = "tinyrabbit";
     repo = pname;
     rev = "1a63bc609915a3b1531e6ba4a5893f00743ac0e0";
-    hash = "sha256-ZQivQp4k9/BeZR9tJKfNhWhLmxkv0mRH8//H2vaaLfk=";
+    hash = "sha256-FVT28QYfSaVOI8qbxQbZ2w+dktg1tpp6eb4IltEpltU=";
   };
 
   meta = with lib; {
