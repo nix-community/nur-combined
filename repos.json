@@ -17,6 +17,9 @@
             "file": "pkgs/default.nix",
             "url": "https://github.com/alarsyo/nixos-config"
         },
+        "alexnortung": {
+            "url": "https://github.com/alexnortung/nur-alexnortung"
+        },
         "alwinb": {
             "url": "https://gitlab.com/AlwinB/nur-packages"
         },
