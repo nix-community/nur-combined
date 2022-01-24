@@ -146,10 +146,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.5.2.0";
+      version = "2.5.3.1";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3894913/bypass_paywalls_clean-2.5.2.0-an+fx.xpi";
-      sha256 = "afbc9dc7daf4e5bbcffa55486e171a072315762608585e56192e21dc7f4b7e14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898784/bypass_paywalls_clean-2.5.3.1-an+fx.xpi";
+      sha256 = "f37c361d189c525ea22f7a7361d5b25da75b281c5d00939c00c8df8ab915ff95";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -405,10 +405,10 @@
       };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
-      version = "3.9.1";
+      version = "4.0.0";
       addonId = "ff2mpv@yossarian.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3874208/ff2mpv-3.9.1-fx.xpi";
-      sha256 = "0093bd8768effd59aa95f4a1bbcabb56a27b37e6c606d8a9a5a38365e08233a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898765/ff2mpv-4.0.0-fx.xpi";
+      sha256 = "88312a84fc0a5d8e32100664af900a252a86875ee51869c30fd68054e990c992";
       meta = with lib;
       {
         homepage = "https://github.com/woodruffw/ff2mpv";
@@ -535,10 +535,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "97.0buildid20220120.185732";
+      version = "97.0buildid20220123.185805";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3897532/francais_language_pack-97.0buildid20220120.185732-fx.xpi";
-      sha256 = "3189dbba0b7bc9340f5e340c531575c5f61b629c066add0e6acc3dba9c1e4bf8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898875/francais_language_pack-97.0buildid20220123.185805-fx.xpi";
+      sha256 = "e3d366c6e82c7fed7c25c557ec87edb136d8c402de32869b6ba02781236ba73b";
       meta = with lib;
       {
         description = "Français Language Pack";
