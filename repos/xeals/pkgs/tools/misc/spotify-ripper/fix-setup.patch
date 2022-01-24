@@ -2,7 +2,7 @@ diff --git a/setup.py b/setup.py
 index a800b3b..8967921 100755
 --- a/setup.py
 +++ b/setup.py
-@@ -22,14 +22,13 @@ setup(
+@@ -33,14 +33,13 @@ setup(
      name='spotify-ripper',
      version='2.9.1',
      packages=find_packages(exclude=["tests"]),
@@ -18,11 +18,7 @@ index a800b3b..8967921 100755
          ],
      },
  
-@@ -67,7 +66,5 @@ setup(
-         'Programming Language :: Python :: 3',
-         'Programming Language :: Python :: 3.4',
-     ],
--    long_description=_read('README.rst'),
- )
+@@ -121,3 +121,2 @@ setup(
+     return True
  
 -create_default_dir()

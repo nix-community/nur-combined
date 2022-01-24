@@ -58,50 +58,6 @@ rec {
 
   psst = pkgs.callPackage ../applications/audio/psst { };
 
-  python2Packages =
-    let
-      fixVersion =
-        { package
-        , version
-        , sha256
-        , extra ? (oldAttrs: { })
-        }: package.overrideAttrs (oldAttrs: rec {
-          inherit version;
-          src = pkgs.python2Packages.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version sha256;
-          };
-        } // extra oldAttrs);
-    in
-    pkgs.recurseIntoAttrs rec {
-      colorama_0_3_3 = fixVersion {
-        package = pkgs.python2Packages.colorama;
-        version = "0.3.3";
-        sha256 = "1716z9pq1r5ys3nkg7wdrb3h2f9rmd0zdxpxzmx3bgwgf6xg48gb";
-      };
-
-      mutagen_1_30 = fixVersion {
-        package = pkgs.python2Packages.mutagen;
-        version = "1.30";
-        sha256 = "0kv2gjnzbj1w0bswmxm7wi05x6ypi7jk52s0lb8gw8s459j41gyd";
-        extra = oldAttrs: {
-          patches = [ ];
-        };
-      };
-
-      pyspotify_2_0_5 = fixVersion {
-        package = pkgs.python2Packages.pyspotify;
-        version = "2.0.5";
-        sha256 = "0y16c024rrvbvfdqj1n0k4b25b1nbza3i7kspg5b0ci2src1rm7v";
-      };
-
-      overlay = {
-        colorama = colorama_0_3_3;
-        mutagen = mutagen_1_30;
-        pyspotify = pyspotify_2_0_5;
-      };
-    };
-
   python3Packages = pkgs.recurseIntoAttrs {
     py-sonic = pkgs.python3.pkgs.callPackage ../development/python-modules/py-sonic { };
   };
@@ -118,12 +74,7 @@ rec {
 
   samrewritten = pkgs.callPackage ../tools/misc/samrewritten { };
 
-  spotify-ripper = pkgs.callPackage ../tools/misc/spotify-ripper {
-    # NOTE: Not available in 20.03. Specifying it this way lets me cheat the
-    # build auto-failing on 20.03 because of the attribute not existing.
-    inherit (pkgs) fdk-aac-encoder;
-    python2Packages = pkgs.python2Packages // python2Packages.overlay;
-  };
+  spotify-ripper = pkgs.callPackage ../tools/misc/spotify-ripper { };
 
   ytarchive = pkgs.callPackage ../tools/misc/ytarchive { };
 

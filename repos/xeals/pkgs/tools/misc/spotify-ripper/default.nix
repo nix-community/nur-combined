@@ -2,7 +2,8 @@
 , lib
 , fetchFromGitHub
 
-, python2Packages
+, python3Packages
+, lame
 
 , aacSupport ? false, faac
 , alacSupport ? false, libav
@@ -19,25 +20,27 @@ assert m4aSupport || mp4Support -> fdk-aac-encoder.meta.available;
 assert oggSupport               -> vorbisTools.meta.available;
 assert opusSupport              -> opusTools.meta.available;
 
-python2Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "spotify-ripper";
-  version = "20161231.gd046419";
+  version = "20210724.5bfd3f7";
 
   src = fetchFromGitHub {
-    owner = "hbashton";
+    owner = "ast261";
     repo = pname;
-    rev = "d0464193dead7bd3ac7580e98bde86a0f323acae";
-    sha256 = "003d6br20f1cf4qvmpl62bk0k4h4v66ib76wn36c23bnh9x5q806";
+    rev = "5bfd3f7a52f2767b433fd315145409837a3c33f0";
+    sha256 = "sha256-LLunGzs9Mg4S00Su260b+M5w/XwS+kICl/YXQdR/cPI=";
   };
 
-  propagatedBuildInputs = (with python2Packages; [
+  propagatedBuildInputs = (with python3Packages; [
     colorama
     mutagen
     pyspotify
     requests
     schedule
     setuptools
+    spotipy
   ]) ++ [
+    lame
     (if flacSupport then flac else null)
     (if alacSupport then libav else null)
     (if aacSupport then faac else null)
