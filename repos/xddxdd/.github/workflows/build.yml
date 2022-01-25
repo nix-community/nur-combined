@@ -32,7 +32,7 @@ jobs:
         image: tonistiigi/binfmt:latest
         platforms: all
     - name: Install nix
-      uses: cachix/install-nix-action@v15
+      uses: cachix/install-nix-action@v16
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
