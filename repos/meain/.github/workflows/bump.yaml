@@ -19,9 +19,12 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update packages
         run: |
-          echo fluent-theme gh-issues-to-rss gloc nn quickserve steal-my-focus toffee tojson traffic | xargs -L1 ./_scripts/autoupdate
+          # shuf as github might rate-limit the api to fetch latest version
+          echo fluent-theme gh-issues-to-rss gloc nn quickserve steal-my-focus toffee tojson traffic |
+          tr ' ' '\n' | shuf | xargs -L1 ./_scripts/autoupdate
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
+        if: always()
         with:
           commit-message: Update packages
           title: Update packages
