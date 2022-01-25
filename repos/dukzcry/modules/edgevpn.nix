@@ -6,6 +6,7 @@ let
   server = cfg.enable && cfg.server;
   client = cfg.enable && !cfg.server;
   edgevpn = pkgs.nur.repos.dukzcry.edgevpn;
+  sleep = "while [ ! -d /sys/devices/virtual/net/${cfg.interface} ]; do sleep 5; done";
 in {
   options.networking.edgevpn = {
     enable = mkOption {
@@ -85,7 +86,7 @@ in {
         };
         postStart = ''
           set +e
-          ${optionalString (cfg.postStart != "") "sleep 5"}
+          ${optionalString (cfg.postStart != "") sleep}
           ${cfg.postStart}
           true
         '';
@@ -110,7 +111,7 @@ in {
         };
         postStart = ''
           set +e
-          ${optionalString (cfg.postStart != "") "sleep 5"}
+          ${optionalString (cfg.postStart != "") sleep}
           ${cfg.postStart}
           true
         '';
