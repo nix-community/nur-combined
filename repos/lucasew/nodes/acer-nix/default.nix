@@ -86,7 +86,7 @@ in
   ];
 
   programs.dconf.enable = true;
-  services.dbus.packages = with pkgs; [ gnome3.dconf ];
+  services.dbus.packages = with pkgs; [ dconf ];
   services.gvfs.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
