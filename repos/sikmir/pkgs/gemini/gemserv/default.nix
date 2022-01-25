@@ -1,4 +1,4 @@
-{ lib, stdenv, rustPlatform, fetchFromSourcehut, pkg-config, openssl }:
+{ lib, stdenv, rustPlatform, fetchFromSourcehut, pkg-config, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gemserv";
@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     install -Dm644 config.toml -t $out/share/gemserv

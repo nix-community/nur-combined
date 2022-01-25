@@ -136,7 +136,9 @@ lib.makeScope newScope (
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
-    gemserv = callPackage ./gemini/gemserv { };
+    gemserv = callPackage ./gemini/gemserv {
+      inherit (darwin.apple_sdk.frameworks) Security;
+    };
     gloggery = callPackage ./gemini/gloggery { };
     gmi2html = callPackage ./gemini/gmi2html {
       zig = pkgs.zig_0_8_1;
