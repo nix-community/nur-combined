@@ -1,12 +1,12 @@
 { pkgs, lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  pname = "gnome-shell-extension-steal-my-focus";
+  pname = "gnome-shell-extension-stealmyfocus";
   uuid = "focus-my-window@varianto25.com";
   version = "3eab84ea45a09ee42207c922260ae60cf03acb2c";
 
   src = fetchFromGitHub {
-    repo = "gnome-shell-extension-stealmyfocus";
+    repo = pname;
     # owner = "v-dimitrov";
     owner = "meain";
     rev = version;
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
   meta = {
     description = "Open app instead of showing that the app is ready";
-    homepage = "https://github.com/v-dimitrov/${uuid}";
+    homepage = "https://github.com/meain/${pname}";
   };
   passthru = {
     extensionPortalSlug = "gnome-shell-extension-steal-my-focus";

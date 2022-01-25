@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# A super hacky script to update nix package to latest Github version
+# If it is hacky but works, is it really hacky?
+
+set -eu
+
+skipupdate=0
+[ "$1" = "--skip-update" ] && shift && skipupdate=1
+
+[ -z "$1" ] && echo "Pass in package name" && exit 1
+package="$1"
+file="pkgs/$package/default.nix"
+
+if ! grep -q 'fetchFromGitHub' "$file"; then
+	echo "We don't really know how to update this as the source is not from Github"
+	exit 1
+fi
+
+if [ "$skipupdate" -ne 1 ]; then
+	# get the latest version from github
+	# https://api.github.com/repos/<owner>/<repo>/releases/latest
+	github_url="$(nix --extra-experimental-features nix-command eval -f ./default.nix $package.meta.homepage --raw)"
+	if ! echo "$github_url" | grep -q 'github.com'; then
+		echo "meta.homepage is not Github. I don't really know how to fetch latest version" && exit 1
+	fi
+	release_url="$(echo $github_url | sed 's|github.com|api.github.com/repos|;s|$|/releases/latest|')"
+	cversion="$(grep -E "version[^=]*=[^\"]*\"[^\"]*\"" "$file" | sed "s|.*version[^=]*=[^\"]*\"\([^\"]*\)\".*|\1|")"
+	lversion="$(curl --silent "$release_url" | tee /tmp/autoupdate-curl | jq -er .tag_name | sed 's/^[vV]//')"
+	echo Current: "$cversion" '|' Latest: $lversion
+	if [ "$lversion" = "$cversion" ]; then
+		echo "Already on latest release, not upgrading" && exit 0
+	fi
+	echo Bumping $github_url to $lversion
+	sed -i "s|version[^=]*=[^\"]*\"[^\"]*\"|version = \"$lversion\"|" "$file"
+fi
+
+# update computed sha values
+sed -i 's|"sha256[:-][^"]*"|lib.fakeSha256|' "$file"
+while ! nix-build -A "$package" 2>/tmp/nix-build-log; do
+	newsha="$(grep "            got:    sha256-" /tmp/nix-build-log | awk -F' ' '{print $NF}')"
+	echo -e "\n\n\t\t [[ Using: $newsha ]]\n\n"
+	sed -i "0,/lib.fakeSha256/s|lib.fakeSha256|\"$newsha\"|1" "$file"
+done
+
+git add -u && git commit -m "$package: $cversion -> $lversion"

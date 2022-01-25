@@ -1,0 +1,29 @@
+name: Update repos
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '1 3 * * *'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install nix
+        uses: cachix/install-nix-action@v16
+        with:
+          nix_path: "nixpkgs=channel:nixpkgs-unstable"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Update packages
+        run: |
+          echo fluent-theme gh-issues-to-rss gloc nn quickserve steal-my-focus toffee tojson traffic | xargs -L1 ./_scripts/autoupdate
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Update packages
+          title: Update packages
+          body: Update version of packages
+          branch: update-packages
