@@ -42,7 +42,7 @@ in {
 
     networking.edgevpn = {
       enable = true;
-      address = "10.0.2.4/24";
+      address = "10.0.2.1/24";
       router = "10.0.2.1";
       postStart = ''
         ip route add dev ${config.networking.edgevpn.interface} 10.0.0.0/24

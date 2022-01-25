@@ -18,6 +18,10 @@ in {
     server = mkEnableOption ''
       server mode
     '';
+    logLevel = mkOption {
+      type = types.str;
+      default = "info";
+    };
     config = mkOption {
       type = types.str;
       default = "/etc/edgevpn/config.yaml";
@@ -28,14 +32,18 @@ in {
     };
     address = mkOption {
       type = types.str;
-      default = "10.0.0.1/24";
+      default = "10.1.0.1/24";
+    };
+    dhcp = mkOption {
+      type = types.bool;
+      default = client;
     };
     router = mkOption {
-      type = types.str;
-      default = "";
+      type = types.nullOr types.str;
+      default = null;
     };
     apiPort = mkOption {
-      type = types.ints.positive;
+      type = types.port;
       default = 8080;
     };
     apiAddress = mkOption {
@@ -72,7 +80,7 @@ in {
         path = with pkgs; [ edgevpn iproute2 ];
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "edgevpn" ''
-            edgevpn --address ${cfg.address} --config ${cfg.config} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
+            edgevpn --log-level ${cfg.logLevel} --config ${cfg.config} --address ${cfg.address} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
           '';
         };
         postStart = ''
@@ -97,7 +105,7 @@ in {
         path = with pkgs; [ edgevpn iproute2 openresolv ];
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "edgevpn" ''
-            edgevpn --address ${cfg.address} --config ${cfg.config} ${optionalString (cfg.router != "") "--router ${cfg.router}"}
+            edgevpn --log-level ${cfg.logLevel} --config ${cfg.config} --address ${cfg.address} ${optionalString cfg.dhcp "--dhcp"} ${optionalString (cfg.router != null) "--router ${cfg.router}"}
           '';
         };
         postStart = ''
