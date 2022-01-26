@@ -37,6 +37,7 @@ rec {
   libltnginx = pkgs.callPackage ./pkgs/libltnginx { };
   liboqs = pkgs.callPackage ./pkgs/liboqs { };
   linux-xanmod-lantian = pkgs.callPackage ./pkgs/linux-xanmod-lantian { };
+  linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
   onepush = pkgs.callPackage ./pkgs/onepush { };
   openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian {
     inherit liboqs openssl-oqs;
