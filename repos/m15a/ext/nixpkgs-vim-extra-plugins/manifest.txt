@@ -165,6 +165,7 @@ nxvu699134/vn-night.nvim
 nyngwang/NeoRoot.lua
 ojroques/nvim-hardline
 ojroques/nvim-lspfuzzy
+p00f/cphelper.nvim
 petertriho/cmp-git
 petertriho/nvim-scrollbar
 pianocomposer321/consolation.nvim
@@ -180,6 +181,7 @@ raimon49/requirements.txt.vim
 ray-x/go.nvim
 ray-x/guihua.lua
 ray-x/navigator.lua
+renerocksai/telekasten.nvim
 rhysd/vim-gfm-syntax
 rktjmp/highlight-current-n.nvim
 rktjmp/hotpot.nvim
@@ -225,6 +227,7 @@ windwp/nvim-projectconfig
 windwp/nvim-spectre
 windwp/windline.nvim
 winston0410/commented.nvim
+xeluxee/competitest.nvim
 xiyaowong/nvim-cursorword
 xiyaowong/nvim-transparent
 yashguptaz/calvera-dark.nvim
