@@ -535,10 +535,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "97.0buildid20220123.185805";
+      version = "97.0buildid20220125.201015";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898875/francais_language_pack-97.0buildid20220123.185805-fx.xpi";
-      sha256 = "e3d366c6e82c7fed7c25c557ec87edb136d8c402de32869b6ba02781236ba73b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3900044/francais_language_pack-97.0buildid20220125.201015-fx.xpi";
+      sha256 = "a1776f8c8134ce47085244b894782fb199b5022405f3cb57248bd869ca2e6f98";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -769,10 +769,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.4.3";
+      version = "4.4.8";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3888056/grammatik_und_rechtschreibprufung_languagetool-4.4.3-fx.xpi";
-      sha256 = "e56eca4aa2daee60e6f22ba1aa81d9bf05b3eacb8be3fb72bfa7b2dc54cc84e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898574/grammatik_und_rechtschreibprufung_languagetool-4.4.8-fx.xpi";
+      sha256 = "fd4321cc104699955e2c491173104a284c4840c9b5ce1066f84d54113b49b289";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1124,10 +1124,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.2.1";
+      version = "2.2.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3892456/1password-2.2.1-fx.xpi";
-      sha256 = "8a445eddff7528577edb74e0923ccde186c07b61c8d2fd9a6310d2bc887aacc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898154/1password-2.2.2-fx.xpi";
+      sha256 = "cdba430a2e1d73b6339d042bd34e9338a381dc24007973871b1c38f7c6522801";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1424,10 +1424,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.4.1";
+      version = "1.5.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3886576/rust_search_extension-1.4.1-fx.xpi";
-      sha256 = "401371f78f587a165e63c26bcb673d4110211eb4f020638465c03b7e5b226eaf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3899697/rust_search_extension-1.5.0-fx.xpi";
+      sha256 = "5165a52a922e97145032e483f896ba5f3fbd5d7a08461a482fa6f3c5abff7b50";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -1553,10 +1553,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.0.4";
+      version = "4.0.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3896048/sponsorblock_skip_sponsorships_on_youtube-4.0.4-an+fx.xpi";
-      sha256 = "e47db196e1dbb8164c97df8ded0a13ce64c7fbb485fda9f1ae53dc51d6644b5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898029/sponsorblock_skip_sponsorships_on_youtube-4.0.5-an+fx.xpi";
+      sha256 = "65bf2379867bde81729bcb611623ce968b61ac32c6ac223774876a686c309e4d";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
