@@ -4,6 +4,6 @@ fetchFromGitLab {
   domain = "gitlab.inria.fr";
   owner = "batsim";
   repo = "pybatsim";
-  rev = "5414b272d9f0cdfd514c5d180e100cbab7b85fc3";
-  sha256 = "C5MvK6wJicJl4zWvhpaWA0uwcfPkFa4l01C/HhQW1hA=";
+  rev = "v4.0.0a0";
+  sha256 = "064z0i2m8cnf8fmv80lj52hz720n5v1hpmkm79rns7saajp8k9f2";
 }
