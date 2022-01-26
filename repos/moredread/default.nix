@@ -19,6 +19,7 @@ rec {
       pythonPackages = pkgs.python3Packages;
       buildPythonApplication = pkgs.python3Packages.buildPythonApplication;
     };
+    airscan = pkgs.callPackage ./pkgs/airscan {};
   };
 
   # copy of dependencies that are not available on older nixos channels
