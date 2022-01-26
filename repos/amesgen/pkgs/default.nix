@@ -41,18 +41,38 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
     { lib
     , stdenv
     , installShellFiles
+    , makeWrapper
     , unzip
+
+    , curl
+    , libpulseaudio
+    , systemd
+    , alsa-lib
+    , flite
+    , xorg
     }:
+    let
+      # see https://github.com/NixOS/nixpkgs/blob/f4f5cfb354b63ac74e03694ae88f0e078cbaa29b/pkgs/games/minecraft/default.nix#L44-L51
+      libPath = lib.makeLibraryPath [
+        curl
+        libpulseaudio
+        systemd
+        alsa-lib # needed for narrator
+        flite # needed for narrator
+        xorg.libXxf86vm # needed only for versions <1.13
+      ];
+    in
     stdenv.mkDerivation rec {
       inherit (nv.hellsmack) pname version src;
       dontUnpack = true;
-      nativeBuildInputs = [ installShellFiles unzip ];
+      nativeBuildInputs = [ installShellFiles makeWrapper unzip ];
       installPhase = ''
         mkdir -p $out/bin
         BIN=$out/bin/${pname}
         unzip ${src}
         install -m755 -D hellsmack $BIN
         ${optparseApplicativeCompletions pname}
+        wrapProgram $BIN --prefix LD_LIBRARY_PATH : ${libPath}
       '';
 
       meta = {
