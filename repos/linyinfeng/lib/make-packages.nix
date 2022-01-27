@@ -9,19 +9,16 @@ let
   filter = system: t:
     if lib.isAttrs t
     then
-    # builtins.trace "look into"
       lib.mapAttrs (_name: v: if v.recurseForDerivations or false then filter system v else v)
         (lib.filterAttrs
           (_: p:
-            !(lib.isDerivation p) ||
-            # or p is a derivation
-            isSupportedUnderSystem system p)
+            (lib.isDerivation p && isSupportedUnderSystem system p) ||
+            (lib.isAttrs p && p.recurseForDerivations or false))
           t)
     else
-      t;
+      throw "require an attribute set as argument";
 in
 
-pkgs:
+path: { pkgs, ... }@args:
 
-filter pkgs.stdenv.hostPlatform.system
-  (import ../pkgs { inherit pkgs; })
+filter pkgs.stdenv.hostPlatform.system (import path args)

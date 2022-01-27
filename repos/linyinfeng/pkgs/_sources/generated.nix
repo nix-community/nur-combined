@@ -6,7 +6,7 @@
     version = "0.19.6";
     src = fetchurl {
       url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.6/Clash.for.Windows-0.19.6-x64-linux.tar.gz";
-      sha256 = "0cavmk3ydskjgcky96rryb2j4vw42myl6my6iyv3hhx31iabg165";
+      sha256 = "0fhkhnpfh3lir3bwb3ibx2wj14y16szs9vlfwypppzjkg81jimpv";
     };
   };
   clash-for-windows-icon = {
@@ -203,6 +203,18 @@
     src = fetchurl {
       url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_2.8.0.1_x86_64.publish.deb";
       sha256 = "05r3l3cgbcqdkwyr60dz2pwlr5x3i5dghnpc6yqmhqbv6qncyqrd";
+    };
+  };
+  yacd = {
+    pname = "yacd";
+    version = "v0.3.4";
+    src = fetchgit {
+      url = "https://github.com/haishanh/yacd";
+      rev = "v0.3.4";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "135i1mk2qyvk7gb5sc2hv8n0k9p1awrzwad760fgdaj9k0xf2im8";
     };
   };
 }

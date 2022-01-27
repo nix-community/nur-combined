@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }
+, withIfd ? false
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -15,4 +17,4 @@
   overlays = import ./overlays; # nixpkgs overlays
 }
   //
-import ./pkgs { inherit pkgs; }
+import ./pkgs { inherit pkgs withIfd; }
