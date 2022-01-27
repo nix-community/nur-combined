@@ -208,13 +208,9 @@
   yacd = {
     pname = "yacd";
     version = "v0.3.4";
-    src = fetchgit {
-      url = "https://github.com/haishanh/yacd";
-      rev = "v0.3.4";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "135i1mk2qyvk7gb5sc2hv8n0k9p1awrzwad760fgdaj9k0xf2im8";
+    src = fetchurl {
+      url = "https://github.com/haishanh/yacd/releases/download/v0.3.4/yacd.tar.xz";
+      sha256 = "14q1wp3bdl474f6jwhykvr3409f18xmwhkzndvk6rlgidxvq6in2";
     };
   };
 }

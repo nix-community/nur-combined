@@ -15,7 +15,6 @@ packageSet = do
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
-  ghPkg "haishanh" "yacd"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   fishPlugins
   commitNotifier
@@ -25,6 +24,7 @@ packageSet = do
   icalingua
   icalinguaAur
   wemeet
+  yacd
 
 fishPlugins :: PackageSet ()
 fishPlugins = do
@@ -115,3 +115,12 @@ wemeet =
       `fetchUrl` url
   where
     url (Version v) = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_" <> v <> "_x86_64.publish.deb"
+
+yacd :: PackageSet ()
+yacd =
+  define $
+    package "yacd"
+      `sourceGitHub` ("haishanh", "yacd")
+      `fetchUrl` url
+  where
+    url (Version v) = "https://github.com/haishanh/yacd/releases/download/" <> v <> "/yacd.tar.xz"
