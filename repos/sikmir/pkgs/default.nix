@@ -272,6 +272,7 @@ lib.makeScope newScope (
     apibackuper = callPackage ./misc/apibackuper { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     btpd = callPackage ./misc/btpd { };
+    capture2text = libsForQt5.callPackage ./misc/capture2text { };
     cfiles = callPackage ./misc/cfiles { };
     csvquote = callPackage ./misc/csvquote { };
     csvtools = callPackage ./misc/csvtools { };
