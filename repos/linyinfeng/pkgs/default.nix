@@ -1,7 +1,4 @@
-{ pkgs
-, sources ? pkgs.callPackage ./_sources/generated.nix { }
-, withIfd ? false
-}:
+{ pkgs, sources ? pkgs.callPackage ./_sources/generated.nix { } }:
 
 let
   inherit (pkgs) lib newScope;
@@ -32,9 +29,8 @@ lib.makeScope newScope (
     trojan = callPackage ./trojan { };
     vlmcsd = callPackage ./vlmcsd { };
     wemeet = callPackage ./wemeet { };
+    yacd = callPackage ./yacd { };
   } // lib.optionalAttrs (! (pkgs ? godns)) {
     godns = callPackage ./godns { };
-  } // lib.optionalAttrs withIfd {
-    yacd = callPackage ./yacd { };
   })
 )

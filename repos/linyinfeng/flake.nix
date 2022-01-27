@@ -17,16 +17,12 @@
         lib = import ./lib { inherit (nixpkgs) lib; };
         nixosModules = import ./modules;
         overlays = import ./overlays // {
-          linyinfeng = final: prev: { linyinfeng = makePackages ./pkgs { pkgs = prev; }; };
-          linyinfengWithIfd = final: prev: { linyinfeng = makePackages ./pkgs { pkgs = prev; withIfd = true; }; };
+          linyinfeng = final: prev: {
+            linyinfeng = makePackages prev;
+          };
           singleRepoNur = final: prev: {
             nur = prev.lib.recursiveUpdate (prev.nur or { }) {
-              repos.linyinfeng = makePackages ./pkgs { pkgs = prev; };
-            };
-          };
-          singleRepoNurWithIfd = final: prev: {
-            nur = prev.lib.recursiveUpdate (prev.nur or { }) {
-              repos.linyinfeng = makePackages ./pkgs { pkgs = prev; withIfd = true; };
+              repos.linyinfeng = makePackages prev;
             };
           };
         };
@@ -41,10 +37,8 @@
             pkgs = channels.nixpkgs;
           in
           rec {
-            packages = utils.flattenTree (makePackages ./pkgs { inherit pkgs; });
+            packages = utils.flattenTree (makePackages pkgs);
             apps = makeApps packages appNames;
-            packagesWithIfd = utils.flattenTree (makePackages ./pkgs { inherit pkgs; withIfd = true; });
-            appsWithIfd = makeApps packagesWithIfd appNames;
             devShell =
               let
                 scripts = pkgs.callPackage ./scripts { };

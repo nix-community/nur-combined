@@ -12,6 +12,10 @@ mkYarnPackage rec {
     # do nothing
   '';
 
+  packageJSON = ./package.json;
+  yarnLock = ./yarn.lock;
+  yarnNix = ./yarn.nix;
+
   meta = with lib; {
     homepage = "https://github.com/haishanh/yacd";
     description = "Yet Another Clash Dashboard";
