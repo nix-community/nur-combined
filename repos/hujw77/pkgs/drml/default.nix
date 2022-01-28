@@ -7,16 +7,18 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "drml";
-  version = "2.8.1";
+  version = "debug-bsc";
 
   src = fetchFromGitHub {
     owner = "darwinia-network";
     repo = "darwinia-common";
-    rev = "v${version}";
-    sha256 = "sha256-TBrlPFQEA531RytoGbQicfvdfHW9p/llel6TzXaGHbs=";
+    rev = "debug-bsc";
+    sha256 = "sha256-ONTxgVz1l/kJsp1hW+xw8CbvXbIznejWvmoIHiqZX8Q=";
   };
 
-  cargoSha256 = "sha256-1qg4ZnSORRVI7eCVMrR7lY3tzo7KJt+dC2RBXqbKrig=";
+  cargoPatches = [ ./cargo-lock.patch ];
+
+  cargoSha256 = "sha256-/JQDUtSSkuO9nrYVSkQOaZjps1BUuH8Bc1SMyDSSJS4=";
 
   nativeBuildInputs = [ clang ];
 
@@ -31,6 +33,8 @@ rustPlatform.buildRustPackage rec {
 
   # We can't run the test suite since we didn't compile the WASM runtimes.
   doCheck = false;
+
+  cargoBuildFlags = [ "--profile" "release-lto" "--bin" "drml" ];
 
   meta = with lib; {
     description = "Darwinia Runtime Pallet Library and Pangolin/Pangoro Testnet";
