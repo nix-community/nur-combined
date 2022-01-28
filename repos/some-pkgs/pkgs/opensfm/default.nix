@@ -32,6 +32,7 @@
 , sphinx
 , matplotlib
 , fpdf
+, pandas
 }:
 
 let
@@ -112,7 +113,7 @@ buildPythonPackage rec {
     license = lib.licenses.bsd2;
     description = "Open source Structure-from-Motion pipeline from Mapillary";
     homepage = "https://opensfm.org/";
-    broken = stdenv.isDarwin;
+    broken = stdenv.isDarwin || pandas.meta.broken; # pandas broken on python38 in some revisions
     platforms = lib.platforms.linux ++ [
       "x86_64-darwin"
     ];
