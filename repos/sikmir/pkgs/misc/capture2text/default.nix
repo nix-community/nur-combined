@@ -15,12 +15,22 @@ stdenv.mkDerivation rec {
       --replace "-lpvt.cppan.demo.danbloomberg.leptonica-1.74.4" "-llept" \
       --replace "-luser32" "-ltesseract"
 
+    # Fix app description
     substituteInPlace CommandLine.cpp \
       --replace "Capture2Text_CLI.exe" "capture2text"
 
+    # Locate dictionaries in $XDG_DATA_DIR/Capture2Text/Capture2Text/tessdata
+    # Initialize tesseract without specifying tessdata path
+    sed -i '1 i #include <QStandardPaths>' OcrEngine.cpp
+    substituteInPlace OcrEngine.cpp \
+      --replace "QCoreApplication::applicationDirPath()" \
+                "QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)" \
+      --replace "exeDirpath.toLocal8Bit().constData()" "NULL"
+
     # See https://github.com/DanBloomberg/leptonica/commit/990a76de210636dfc4c976c7d3c6d63500e363b9
     substituteInPlace PreProcess.cpp \
-      --replace "pixAverageInRect(binarizeForNegPixs, &negRect, &pixelAvg)" "pixAverageInRect(binarizeForNegPixs, NULL, &negRect, 0, 255, 1, &pixelAvg)"
+      --replace "pixAverageInRect(binarizeForNegPixs, &negRect, &pixelAvg)" \
+                "pixAverageInRect(binarizeForNegPixs, NULL, &negRect, 0, 255, 1, &pixelAvg)"
   '';
 
   buildInputs = [ leptonica tesseract4 ];
