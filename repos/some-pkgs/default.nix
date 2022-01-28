@@ -6,7 +6,11 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+let
+  impureNixpkgs' = import <nixpkgs> { };
+  impureNixpkgs = builtins.trace "ACHTUNG! Impure import <nixpkgs>" impureNixpkgs';
+in
+{ pkgs ? impureNixpkgs }:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special

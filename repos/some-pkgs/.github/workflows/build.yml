@@ -38,7 +38,7 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-21.05
+          - nixpkgs=channel:nixos-21.11
         os: [ ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
@@ -48,6 +48,7 @@ jobs:
       uses: cachix/install-nix-action@v16
       with:
         nix_path: "${{ matrix.nixPath }}"
+        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
