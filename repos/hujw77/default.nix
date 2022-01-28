@@ -16,6 +16,7 @@
 
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
   colorize_lines = pkgs.callPackage ./pkgs/colorize_lines { };
+  drml = pkgs.callPackage ./pkgs/drml { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
