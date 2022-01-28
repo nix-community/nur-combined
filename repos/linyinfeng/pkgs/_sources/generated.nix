@@ -3,10 +3,10 @@
 {
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.19.6";
+    version = "0.19.7";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.6/Clash.for.Windows-0.19.6-x64-linux.tar.gz";
-      sha256 = "0fhkhnpfh3lir3bwb3ibx2wj14y16szs9vlfwypppzjkg81jimpv";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.7/Clash.for.Windows-0.19.7-x64-linux.tar.gz";
+      sha256 = "04nm6yn5hw7dd3jmfkchp173gapyyxx2mxa3p9750x07xizgyjzq";
     };
   };
   clash-for-windows-icon = {
@@ -19,34 +19,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2022.01.03";
+    version = "2022.01.27";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.01.03.gz";
-      sha256 = "0h104hvg3pybwzmvmgb71zwq00zi6jzlzd7llgk53zibf457ll1j";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.01.27.gz";
+      sha256 = "1frqzchixl37xa92xxpxp2blgmw8yb0cqqv8mnk97h9bmxgnvf21";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2022.01.03";
+    version = "2022.01.27";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.01.03.gz";
-      sha256 = "1rjcidsln52dnq486bf9vkjg697skzcbfb2a3knlcym7k0fdkjpk";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.01.27.gz";
+      sha256 = "13r8c5dbb5rp67akdpsfs8w9z4y74zwl504d0sqdrn7xkilmv30j";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2022.01.03";
+    version = "2022.01.27";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.01.03.gz";
-      sha256 = "0a2ka1cjpqklwhri2my2zskja5nsscfhcvnz42b7iiwnk9xkkci4";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.01.27.gz";
+      sha256 = "0jbznvv1a54mkppc03503v6qk53bw4mfjdwc7a9s3d9a1dbqw5j6";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2022.01.03";
+    version = "2022.01.27";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.01.03.gz";
-      sha256 = "05xcfxavyq57qpcn6b6yjka2nfbp5kl08dhmd6zlv9144ica7xvm";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.01.27.gz";
+      sha256 = "0x6gavq43qhahxmy576j762qgqmfx9i7ggmqdfsjcyj00rdj864p";
     };
   };
   commit-notifier = {
@@ -139,14 +139,14 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "44a1eb5856cea43e4c01318120c1d4e1823d1e34";
+    version = "1a0357c1f13a9c5f18a5d773e9c0c963f1ff23b6";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "44a1eb5856cea43e4c01318120c1d4e1823d1e34";
+      rev = "1a0357c1f13a9c5f18a5d773e9c0c963f1ff23b6";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "11pk1xkdsd98xszpr9vyajc40lv5hylqrqpw2kd7izr82z8k1rq3";
+      sha256 = "1ynk2414gzxp5zr1zscrxs49k2na2lfvdmxh7hvv4s5xxfgiqlvp";
     };
   };
   replay-fish = {
