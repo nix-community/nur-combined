@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "edgevpn";
-  version = "0.8.4";
+  version = "0.8.5";
 
   src = fetchFromGitHub {
     owner = "mudler";
     repo = pname;
     rev = "v${version}";
-    sha256 = "11y11liad6wwxdlkiszihrh0z7n9j07br20kxsf0gxp00864q0pz";
+    sha256 = "0bsqwnp0x9kcw27w1d8b6fa6lkvc8ali7x9wxp24g0nknhx62sj1";
   };
 
   vendorSha256 = "0hc810ykhanaipl6gx2dqsdmikg1h71jpz5wzl7hb5fsqcw787dx";
