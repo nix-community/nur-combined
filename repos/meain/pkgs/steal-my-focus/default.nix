@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     # owner = "v-dimitrov";
     owner = "meain";
     rev = version;
-    sha256 = "sha256:1wcbsrr5k58fm0339nmz7r81nans4ipxszgqpqd6yhsijj9i3rzc";
+    sha256 = "sha256-7OcRk5RRQ28avvh93W8k2iobUD6/2jQGqA6VWXLWi/E=";
   };
   buildCommand = ''
     mkdir -p $out/share/gnome-shell/extensions/

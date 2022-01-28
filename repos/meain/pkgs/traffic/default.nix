@@ -2,14 +2,14 @@
 
 python38Packages.buildPythonPackage rec {
   pname = "traffic";
-  version = "6504a8ac02f362b76a0bd9027b19d79072f0e6f4";
+  version = "0.5.1";
   format = "pyproject";
  
   src = fetchFromGitHub {
     owner = "meain";
-    repo = "traffic";
+    repo = pname;
     rev = version;
-    sha256 = "sha256:1fr0zcw9id7nhdf3pawd6aw0jrfxa9qnf4i8gcf2lsyfg9c6m8xz";
+    sha256 = "sha256-K2FndFfwwaaj2tTNF/xP2RopcFOcb3w5IU2TQjX1H2Q=";
   };
 
   # nativeBuildInputs = [ python38Packages.psutil ];
@@ -17,7 +17,7 @@ python38Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "View network up/down speeds and usage";
-    homepage = "https://github.com/meain/trraffic";
+    homepage = "https://github.com/meain/${pname}";
     license = licenses.mit;
   };
 }
