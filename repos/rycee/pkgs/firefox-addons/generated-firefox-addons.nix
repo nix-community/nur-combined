@@ -535,10 +535,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "96.0.3buildid20220126.154723";
+      version = "97.0buildid20220127.193706";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3900477/francais_language_pack-96.0.3buildid20220126.154723-fx.xpi";
-      sha256 = "b516a711b42e7107fc3bb90cd8e01b4dcf8df557a254ecdb796c7240b9449aac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901180/francais_language_pack-97.0buildid20220127.193706-fx.xpi";
+      sha256 = "a7896b0c49f4897c2305dfd6ccb00e8172390f52b2426b30140bf5b1ef5deacf";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -590,10 +590,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.893.0";
+      version = "8.894.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3896075/grammarly_for_firefox-8.893.0-an+fx.xpi";
-      sha256 = "40974f7e8eabd0cab60e259b9f656aa98cdeb59dd1f50f8ccf222356bfdb3b03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3899442/grammarly_for_firefox-8.894.0-an+fx.xpi";
+      sha256 = "8d859bcacd1572fd05183010f98757f20381f3fd666af4fcbe9756bcfb0f4ed1";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1521,10 +1521,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.5.4";
+      version = "0.5.5";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3759245/snowflake-0.5.4-fx.xpi";
-      sha256 = "5cd9648ce39e137d495c5ce48ff23e8e741f1eb6f1bcb1c0bc1d9bcabe7f9622";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901265/snowflake-0.5.5-fx.xpi";
+      sha256 = "4d2f1e43d383e95c1fe22cd43abfb3035b5633fea7c98ba16db1efbbefc64597";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -1999,10 +1999,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.50.0";
+      version = "2.50.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3897445/web_scrobbler-2.50.0-an+fx.xpi";
-      sha256 = "22f781c2b0fd3b08b70e10c43674c482bf46957819fe1ecc05edbffa60036ac1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901175/web_scrobbler-2.50.1-an+fx.xpi";
+      sha256 = "4bca86e9a94dd2ad872e6a4f86df3e7b39cbc00ef36940e1f30c550e08362ffe";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
