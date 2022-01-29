@@ -82,7 +82,7 @@ buildPythonApplication rec {
 
   patches = [
     ./dont-modify-helpers.patch
-    ./loosen-requirements.patch
+    ./relax-requirements.patch
     ./remove-register-handlers.patch
     ./remove-updater.patch
   ] ++ lib.optionals (gui == "gtk") [

@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   patches = [
-    ./loosen-requirements.patch
+    ./relax-requirements.patch
   ];
 
   propagatedBuildInputs = [
