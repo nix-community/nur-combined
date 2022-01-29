@@ -82,6 +82,7 @@ lib.makeScope newScope (
     bson = callPackage ./development/python-modules/bson { };
     click-6-7 = callPackage ./development/python-modules/click { };
     contextily = callPackage ./development/python-modules/contextily { };
+    curses-menu = callPackage ./development/python-modules/curses-menu { };
     earthpy = callPackage ./development/python-modules/earthpy { };
     geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
@@ -286,6 +287,7 @@ lib.makeScope newScope (
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     ish = callPackage ./misc/ish { };
     lazyscraper = callPackage ./misc/lazyscraper { };
+    miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
     objlab = callPackage ./misc/objlab { };
