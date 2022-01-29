@@ -1,4 +1,4 @@
-{ stdenv, requireFile, p7zip, wimlib, ... }:
+{ stdenv, requireFile, p7zip, wimlib, lib, ... }:
 stdenv.mkDerivation rec {
   pname = "Win10_LTSC_2019_fonts";
   version = "LTSC_2019";
@@ -24,4 +24,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/fonts/truetype/ && find . -name "*.ttf" -exec cp {} $_ \;
     mkdir -p $out/share/fonts/opentype/ && find . -name "*.ttc" -exec cp {} $_ \;
   '';
+
+  meta = with lib; {
+    description = "Windows 10 LTSC 2021 fonts, extract from iso.";
+    homepage = "https://next.itellyou.cn/Original/Index";
+    maintainers = [ maintainers.vanilla ];
+  };
 }
