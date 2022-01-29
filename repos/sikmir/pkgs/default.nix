@@ -285,6 +285,7 @@ lib.makeScope newScope (
     gef = callPackage ./misc/gef { };
     glauth = callPackage ./misc/glauth { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
+    huami-token = callPackage ./misc/huami-token { };
     ish = callPackage ./misc/ish { };
     lazyscraper = callPackage ./misc/lazyscraper { };
     miband4 = callPackage ./misc/miband4 { };
