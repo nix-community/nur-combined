@@ -1594,10 +1594,10 @@
       };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "0.9.74";
+      version = "1.0.3";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3771858/surfingkeys-0.9.74-fx.xpi";
-      sha256 = "2093789a90eedf4667151771b0c1dbba1d3c3be52f64fc2da940360b4b713267";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901528/surfingkeys-1.0.3-fx.xpi";
+      sha256 = "ee97cbd24917e86916b9587b70eb04ac916df4cd67bd0748921aaa6e7a5a33cd";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -1999,10 +1999,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.50.1";
+      version = "2.50.2";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901175/web_scrobbler-2.50.1-an+fx.xpi";
-      sha256 = "4bca86e9a94dd2ad872e6a4f86df3e7b39cbc00ef36940e1f30c550e08362ffe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901631/web_scrobbler-2.50.2-an+fx.xpi";
+      sha256 = "0fe1e88f7c3766afcd1f0ef373a6048406cc41ade5657ef7c14592f9f253bb19";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
