@@ -423,7 +423,31 @@
         "nur": "nur",
         "pocket2kindle": "pocket2kindle",
         "redial_proxy": "redial_proxy",
+        "rust-overlay": "rust-overlay",
         "send2kindle": "send2kindle"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1642838864,
+        "narHash": "sha256-pHnhm3HWwtvtOK7NdNHwERih3PgNlacrfeDwachIG8E=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "9fb49daf1bbe1d91e6c837706c481f9ebb3d8097",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "send2kindle": {

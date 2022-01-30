@@ -25,6 +25,7 @@ let
     {};
 in reduceJoin [
   super
+  (inputs.rust-overlay.overlay self super)
   {
     inherit dotenv;
     inherit wrapDotenv;

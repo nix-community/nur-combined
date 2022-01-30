@@ -90,7 +90,7 @@ let g:vim_markdown_no_extensions_in_markdown = 1
 " Disable conceallevel
 autocmd VimEnter * set conceallevel=0
 
-COQnow --shut-up
-
 " F-Sharp remapping
 autocmd BufNewFile,BufRead *.fs,*.fsx,*.fsi set filetype=fsharp
+
+COQnow --shut-up

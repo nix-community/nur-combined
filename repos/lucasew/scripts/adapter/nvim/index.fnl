@@ -4,6 +4,9 @@
 (local lsp_signature (require :lsp_signature))
 
 (local v (require :adapter.nvim.utils))
+(local lutils (require :lspconfig.util))
+
+(print "Loading neovim fennel module...")
 
 (lsp_signature.setup { :bind true })
 
@@ -32,6 +35,7 @@
 (lsp :java_language_server { ;; Java
   :cmd [:java_language_server]
 })
+(lsp :pylsp) ;; Python
 (lsp :rnix) ;; Nix
 (lsp :rust_analyzer) ;; Rust
 (lsp :terraformls) ;; Terraform
@@ -45,4 +49,3 @@
 (v.cmd "nmap <C-p> :Telescope<CR>")
 (v.cmd "nmap <C-.> :Telescope lsp_code_actions<CR>")
 
-(print "hello")

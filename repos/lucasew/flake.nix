@@ -22,6 +22,7 @@
     nur =                {url =  "github:nix-community/NUR/master";                 inputs.nixpkgs.follows = "nixpkgs"; };
     pocket2kindle =      {url =  "github:lucasew/pocket2kindle";                    flake = false;                      };
     redial_proxy =       {url =  "github:lucasew/redial_proxy";                     flake = false;                      };
+    rust-overlay =       {url =  "github:oxalica/rust-overlay"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
     send2kindle =        {url =  "github:lucasew/send2kindle";                      flake = false;                      };
   };
 
