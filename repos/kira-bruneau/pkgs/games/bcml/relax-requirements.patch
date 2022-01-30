@@ -1,5 +1,5 @@
 diff --git a/requirements.txt b/requirements.txt
-index ec4a5b3..a9bdd40 100644
+index ec4a5b3..261b269 100644
 --- a/requirements.txt
 +++ b/requirements.txt
 @@ -1,14 +1,15 @@
@@ -21,7 +21,7 @@ index ec4a5b3..a9bdd40 100644
 -requests~=2.23.0
 +# pyqtwebengine missing dist-info + breaks GTK build
 +# pyqtwebengine~=5.15.2,<6; platform_system == 'Linux'
-+PyYAML>=5.3.1,<6
++PyYAML>=5.3.1,<7
 +requests>=2.23.0,<3
  rstb>=1.2.0
 -xxhash~=1.4

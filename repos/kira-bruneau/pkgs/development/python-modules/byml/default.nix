@@ -19,6 +19,10 @@ buildPythonPackage rec {
     sha256 = "sha256-j2iixPkZJNXG+2Kag84yMXZeYSX8C4w065BeR8zgqSY=";
   };
 
+  patches = [
+    ./relax-requirements.patch
+  ];
+
   propagatedBuildInputs = [
     oead
     pyyaml
