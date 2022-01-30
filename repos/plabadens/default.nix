@@ -16,33 +16,23 @@ rec {
   #modules = import ./modules; # NixOS modules
   #overlays = import ./overlays; # nixpkgs overlays
 
-  clight-gui = pkgs.libsForQt5.callPackage ./pkgs/clight-gui { };
-
   diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
 
   edmarketconnector =
     pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
 
-  filebrowser = pkgs.callPackage ./pkgs/filebrowser { };
-
   hassLovelaceModules = pkgs.recurseIntoAttrs {
     valetudo-map-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/lovelace-valetudo-map-card { };
   };
-
-  hw-probe = pkgs.callPackage ./pkgs/hw-probe { };
 
   lsix = pkgs.callPackage ./pkgs/lsix { };
 
   nwg-dock = pkgs.callPackage ./pkgs/nwg-dock { };
 
-  picoscope = pkgs.callPackage ./pkgs/picoscope { };
-
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
 
   python-validity = python3Packages.python-validity;
-
-  sway-launcher-desktop = pkgs.callPackage ./pkgs/sway-launcher-desktop { };
 
   valeronoi = pkgs.libsForQt5.callPackage ./pkgs/valeronoi { };
 }

@@ -1,22 +1,22 @@
 {
   description = "plabadens' NUR reporsitory";
 
-  inputs.nixpkgs.url = "nixpkgs";
+  inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs";
+  };
 
-  outputs = { self, nixpkgs }:
-    let
-      systems = [
-        "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
-      ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-    in
-    {
-      packages = forAllSystems (system:
-        import ./default.nix { pkgs = import nixpkgs { inherit system; }; });
-    };
+  outputs = { self, flake-utils, nixpkgs }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        nur-packages = import ./default.nix { inherit pkgs; };
+      in
+      rec {
+        legacyPackages = pkgs.lib.filterAttrs
+          (n: v: !(builtins.elem n [ "lib" "modules" "overlays" ]))
+          nur-packages;
+
+        packages = flake-utils.lib.flattenTree legacyPackages;
+      });
 }
