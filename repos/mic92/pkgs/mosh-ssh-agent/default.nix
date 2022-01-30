@@ -3,14 +3,14 @@
 , withUtempter ? stdenv.isLinux, libutempter }:
 
 stdenv.mkDerivation {
-  name = "mosh-ssh-agent-2021-08-13";
+  name = "mosh-ssh-agent-2022-01-30";
 
   # TODO: incoperate https://github.com/mobile-shell/mosh/pull/1104
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "mosh";
-    rev = "a27e1095536451b323a6096f336a365978044555";
-    sha256 = "sha256-XlO2Evcwnimg1ILLm8uzIkePQHZdELIt4qWaT21nMfE=";
+    rev = "87a5e0ad1f8d11437c2349a781176d9ee4c83746";
+    sha256 = "sha256-ULJSBFaVdjFmMS+kHV2/gM9YTr91mVwIhDOnH2UOViU=";
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
