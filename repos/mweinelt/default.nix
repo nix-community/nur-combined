@@ -23,6 +23,7 @@
     sun-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/sun-card {};
     slider-button-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/slider-button-card {};
     swipe-navigation = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/swipe-navigation {};
+    valetudo-map-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/valetudo-map-card {};
     weather-card-chart = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/weather-card-chart {};
   };
 
