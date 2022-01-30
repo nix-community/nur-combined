@@ -4,12 +4,12 @@
 { stdenv, lib, fetchgit, cmake, supercollider, fftw, libsndfile }:
 stdenv.mkDerivation rec {
 	pname = "sc3-plugins";
-	version = "3.11.0-rc2";
+	version = "3.11.1";
 
   src = fetchgit {
 		url = "https://github.com/supercollider/sc3-plugins";
 		rev = "Version-${version}";
-		sha256 = "1rdmgdm2an1vlmm7rs5mia43p2mizjv04c61vvacl09nid1ixf0l";
+		sha256 = "sha256-CMryjUzZBVBu5zGMQhJL24uMDf+ObPMaoXXGuqt4x7M=";
 		fetchSubmodules = true;
   };
 
