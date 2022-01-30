@@ -1,20 +1,12 @@
 {
   lib, stdenv,
-  fetchFromGitHub,
+  sources,
   cmake,
   ...
 } @ args:
 
 stdenv.mkDerivation rec {
-  pname = "liboqs";
-  version = "0.7.1";
-
-  src = fetchFromGitHub {
-    owner = "open-quantum-safe";
-    repo = "liboqs";
-    rev = version;
-    sha256 = "sha256-m20M4+3zsH40hTpMJG9cyIjXp0xcCUBS+cCiRVLXFqM=";
-  };
+  inherit (sources.liboqs) pname version src;
 
   enableParallelBuilding = true;
   dontFixCmake = true;

@@ -8,47 +8,48 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  sources = pkgs.callPackage _sources/generated.nix { };
+  pkg = path: args: pkgs.callPackage path ({
+    inherit sources;
+  } // args);
+in
 rec {
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
-
-  bird-lg-go = pkgs.callPackage ./pkgs/bird-lg-go { };
-  bird-lgproxy-go = pkgs.callPackage ./pkgs/bird-lgproxy-go { };
-  boringssl-oqs = pkgs.callPackage ./pkgs/boringssl-oqs {
+  bird-lg-go = pkg ./pkgs/bird-lg-go { };
+  bird-lgproxy-go = pkg ./pkgs/bird-lgproxy-go { };
+  boringssl-oqs = pkg ./pkgs/boringssl-oqs {
     inherit liboqs;
   };
-  chmlib-utils = pkgs.callPackage ./pkgs/chmlib-utils { };
-  coredns = pkgs.callPackage ./pkgs/coredns { };
-  dngzwxdq = pkgs.callPackage ./pkgs/dngzwxdq {
+  chmlib-utils = pkg ./pkgs/chmlib-utils { };
+  coredns = pkg ./pkgs/coredns { };
+  dngzwxdq = pkg ./pkgs/dngzwxdq {
     inherit chmlib-utils;
   };
-  dnyjzsxj = pkgs.callPackage ./pkgs/dnyjzsxj {
+  dnyjzsxj = pkg ./pkgs/dnyjzsxj {
     inherit chmlib-utils;
   };
-  drone-vault = pkgs.callPackage ./pkgs/drone-vault { };
-  ftp-proxy = pkgs.callPackage ./pkgs/ftp-proxy { };
-  genshin-checkin-helper = pkgs.callPackage ./pkgs/genshin-checkin-helper {
+  drone-vault = pkg ./pkgs/drone-vault { };
+  ftp-proxy = pkg ./pkgs/ftp-proxy { };
+  genshin-checkin-helper = pkg ./pkgs/genshin-checkin-helper {
     inherit genshinhelper2 onepush;
   };
-  genshinhelper2 = pkgs.callPackage ./pkgs/genshinhelper2 { };
-  glibc-debian-openvz-files = pkgs.callPackage ./pkgs/glibc-debian-openvz-files { };
-  libltnginx = pkgs.callPackage ./pkgs/libltnginx { };
-  liboqs = pkgs.callPackage ./pkgs/liboqs { };
-  linux-xanmod-lantian = pkgs.callPackage ./pkgs/linux-xanmod-lantian { };
+  genshinhelper2 = pkg ./pkgs/genshinhelper2 { };
+  glibc-debian-openvz-files = pkg ./pkgs/glibc-debian-openvz-files { };
+  libltnginx = pkg ./pkgs/libltnginx { };
+  liboqs = pkg ./pkgs/liboqs { };
+  linux-xanmod-lantian = pkg ./pkgs/linux-xanmod-lantian { };
   linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
-  onepush = pkgs.callPackage ./pkgs/onepush { };
-  openresty-lantian = pkgs.callPackage ./pkgs/openresty-lantian {
+  onepush = pkg ./pkgs/onepush { };
+  openresty-lantian = pkg ./pkgs/openresty-lantian {
     inherit liboqs openssl-oqs;
   };
-  openssl-oqs = pkgs.callPackage ./pkgs/openssl-oqs {
+  openssl-oqs = pkg ./pkgs/openssl-oqs {
     inherit liboqs;
   };
-  qemu-user-static = pkgs.callPackage ./pkgs/qemu-user-static { };
-  rime-dict = pkgs.callPackage ./pkgs/rime-dict { };
-  rime-moegirl = pkgs.callPackage ./pkgs/rime-moegirl { };
-  rime-zhwiki = pkgs.callPackage ./pkgs/rime-zhwiki { };
-  route-chain = pkgs.callPackage ./pkgs/route-chain { };
-  xray = pkgs.callPackage ./pkgs/xray { };
+  qemu-user-static = pkg ./pkgs/qemu-user-static { };
+  rime-dict = pkg ./pkgs/rime-dict { };
+  rime-moegirl = pkg ./pkgs/rime-moegirl { };
+  rime-zhwiki = pkg ./pkgs/rime-zhwiki { };
+  route-chain = pkg ./pkgs/route-chain { };
+  xray = pkg ./pkgs/xray { };
 }

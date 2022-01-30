@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, sources
 , buildPackages
 , perl
 , coreutils
@@ -17,15 +17,10 @@
 
 with lib;
 stdenv.mkDerivation rec {
-  pname = "openssl-oqs";
-  version = "1.1.1.2022-01";
+  inherit (sources.openssl-oqs) pname src;
 
-  src = fetchFromGitHub {
-    owner = "open-quantum-safe";
-    repo = "openssl";
-    rev = "OQS-OpenSSL-1_1_1-stable-snapshot-2022-01";
-    sha256 = "sha256-aCvZwFzL3uf2XrawsavL/LVMouXEdzimiPL7EeFsFbM=";
-  };
+  # Version from nvfetcher cannot be properly parsed
+  version = "1.1.1";
 
   postPatch = ''
     patchShebangs Configure

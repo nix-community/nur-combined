@@ -1,0 +1,62 @@
+[bird-lg-go]
+src.git = "https://github.com/xddxdd/bird-lg-go.git"
+fetch.github = "xddxdd/bird-lg-go"
+
+[boringssl-oqs]
+src.github = "open-quantum-safe/boringssl"
+fetch.github = "open-quantum-safe/boringssl"
+
+[drone-vault]
+src.github_tag = "drone/drone-vault"
+fetch.github = "drone/drone-vault"
+
+[libltnginx]
+src.git = "https://github.com/xddxdd/libltnginx.git"
+fetch.github = "xddxdd/libltnginx"
+
+[liboqs]
+src.github = "open-quantum-safe/liboqs"
+fetch.github = "open-quantum-safe/liboqs"
+
+[openssl-oqs]
+src.github = "open-quantum-safe/openssl"
+fetch.github = "open-quantum-safe/openssl"
+
+[qemu-user-static-amd64]
+src.webpage = "https://packages.debian.org/sid/qemu-user-static"
+src.regex = "\\(1:(.*)\\)"
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_amd64.deb"
+
+[qemu-user-static-arm64]
+src.webpage = "https://packages.debian.org/sid/qemu-user-static"
+src.regex = "\\(1:(.*)\\)"
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_arm64.deb"
+
+[rime-dict]
+src.git = "https://github.com/Iorest/rime-dict.git"
+fetch.github = "Iorest/rime-dict"
+
+[rime-moegirl]
+src.github = "outloudvi/mw2fcitx"
+fetch.url = "https://github.com/outloudvi/mw2fcitx/releases/download/$ver/moegirl.dict.yaml"
+
+[rime-zhwiki]
+src.webpage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases"
+src.regex = "zhwiki-([0-9]{8})\\.dict\\.yaml"
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-$ver.dict.yaml"
+
+[route-chain]
+src.git = "https://github.com/xddxdd/route-chain.git"
+fetch.github = "xddxdd/route-chain"
+
+[v2fly-geoip]
+src.github = "v2fly/geoip"
+fetch.url = "https://github.com/v2fly/geoip/releases/download/$ver/geoip.dat"
+
+[v2fly-private]
+src.github = "v2fly/geoip"
+fetch.url = "https://github.com/v2fly/geoip/releases/download/$ver/private.dat"
+
+[v2fly-geosite]
+src.github = "v2fly/domain-list-community"
+fetch.url = "https://github.com/v2fly/domain-list-community/releases/download/$ver/dlc.dat"

@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , buildGoModule
-, fetchFromGitHub
+, sources
 , cmake
 , ninja
 , perl
@@ -11,16 +11,7 @@
 } @ args:
 
 buildGoModule rec {
-  pname = "boringssl-oqs";
-  version = "2022-01";
-
-  src = fetchFromGitHub {
-    owner = "open-quantum-safe";
-    repo = "boringssl";
-    rev = "OQS-BoringSSL-snapshot-2022-01";
-    sha256 = "sha256-Z9fdJARedL4LiVhTjg0Zz+o2jGMZOv8ScoaW5NATG3J=";
-  };
-
+  inherit (sources.boringssl-oqs) pname version src;
   vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
 
   enableParallelBuilding = true;
@@ -30,10 +21,6 @@ buildGoModule rec {
     ninja
     perl
     pkgconfig
-  ];
-
-  buildInputs = [
-    liboqs
   ];
 
   preBuild = ''
@@ -69,5 +56,6 @@ buildGoModule rec {
     description = "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs";
     homepage = "https://openquantumsafe.org";
     license = with licenses; [ openssl isc mit bsd3 ];
+    broken = true;
   };
 }

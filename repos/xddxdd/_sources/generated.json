@@ -1,0 +1,267 @@
+{
+    "rime-dict": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "rime-dict",
+        "src": {
+            "deepClone": false,
+            "owner": "Iorest",
+            "name": null,
+            "repo": "rime-dict",
+            "type": "github",
+            "sha256": "sha256-LmY2EQ1VjfX9UJ8ubwoHgxDdJUicSuE0uqxKRnniJ+k=",
+            "rev": "325ecbda51cd93e07e2fe02e37e5f14d94a4a541",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "325ecbda51cd93e07e2fe02e37e5f14d94a4a541",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "v2fly-geosite": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "v2fly-geosite",
+        "src": {
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220124140856/dlc.dat",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-UJRNu+XxG4qdKCCj+dFqgUcouJ34YNQonjUKuqdl2gs="
+        },
+        "version": "20220124140856",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "qemu-user-static-arm64": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "qemu-user-static-arm64",
+        "src": {
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-2_arm64.deb",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-V4ZmJRlhbVuqTgcnxJhLyD4AFKL9M9Fy4hlYwhj8jxM="
+        },
+        "version": "6.2+dfsg-2",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "liboqs": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "liboqs",
+        "src": {
+            "deepClone": false,
+            "owner": "open-quantum-safe",
+            "name": null,
+            "repo": "liboqs",
+            "type": "github",
+            "sha256": "sha256-m20M4+3zsH40hTpMJG9cyIjXp0xcCUBS+cCiRVLXFqM=",
+            "rev": "0.7.1",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "0.7.1",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "boringssl-oqs": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "boringssl-oqs",
+        "src": {
+            "deepClone": false,
+            "owner": "open-quantum-safe",
+            "name": null,
+            "repo": "boringssl",
+            "type": "github",
+            "sha256": "sha256-sMdOi2ADLcEhFMCk3J3XeVMgRki8GGcwumIlid1VnVE=",
+            "rev": "OQS-BoringSSL-snapshot-2022-01",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "OQS-BoringSSL-snapshot-2022-01",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "rime-moegirl": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "rime-moegirl",
+        "src": {
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20220114/moegirl.dict.yaml",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-JAesSFWqHG+HQRofawDkCx+Ko4h0iqiyAPXR+fciDFk="
+        },
+        "version": "20220114",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "qemu-user-static-amd64": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "qemu-user-static-amd64",
+        "src": {
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-2_amd64.deb",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-DT50klT9IYutOHVS+3S7EXhv4ogFhHIWOqQYub+uCNk="
+        },
+        "version": "6.2+dfsg-2",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "openssl-oqs": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "openssl-oqs",
+        "src": {
+            "deepClone": false,
+            "owner": "open-quantum-safe",
+            "name": null,
+            "repo": "openssl",
+            "type": "github",
+            "sha256": "sha256-aCvZwFzL3uf2XrawsavL/LVMouXEdzimiPL7EeFsFbM=",
+            "rev": "OQS-OpenSSL-1_1_1-stable-snapshot-2022-01",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "OQS-OpenSSL-1_1_1-stable-snapshot-2022-01",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "rime-zhwiki": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "rime-zhwiki",
+        "src": {
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220127.dict.yaml",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-cwiwvxo0EuxJVu8nHg00PHMX6tQnrQhhKpM6YE5F+8A="
+        },
+        "version": "20220127",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "libltnginx": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "libltnginx",
+        "src": {
+            "deepClone": false,
+            "owner": "xddxdd",
+            "name": null,
+            "repo": "libltnginx",
+            "type": "github",
+            "sha256": "sha256-A3+CpN0kKmxEw8N0ZQX284qjsSsiy1/RjJp5VvAKP5U=",
+            "rev": "96698a667740ac45ca4571a04a6cfe39caf926c0",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "96698a667740ac45ca4571a04a6cfe39caf926c0",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "route-chain": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "route-chain",
+        "src": {
+            "deepClone": false,
+            "owner": "xddxdd",
+            "name": null,
+            "repo": "route-chain",
+            "type": "github",
+            "sha256": "sha256-AW4Tc8RCP0vyRUtZxUuNSYh/iYZh9ExZrsbgZHkFPqU=",
+            "rev": "b2068ce2905588f445ff95a05c00f200ec96d5b5",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "b2068ce2905588f445ff95a05c00f200ec96d5b5",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "v2fly-private": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "v2fly-private",
+        "src": {
+            "url": "https://github.com/v2fly/geoip/releases/download/202201270031/private.dat",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg="
+        },
+        "version": "202201270031",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "drone-vault": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "drone-vault",
+        "src": {
+            "deepClone": false,
+            "owner": "drone",
+            "name": null,
+            "repo": "drone-vault",
+            "type": "github",
+            "sha256": "sha256-P6rOMqYu6uxGVG1CPNE9fjhntH8IBMyo3mfSOo16EAA=",
+            "rev": "v1.2.0",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "v1.2.0",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "v2fly-geoip": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "v2fly-geoip",
+        "src": {
+            "url": "https://github.com/v2fly/geoip/releases/download/202201270031/geoip.dat",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-kFHpOh1nyrrcEkaQtWg0K8uOV5D4V+CfrvV31mNR3Mw="
+        },
+        "version": "202201270031",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "bird-lg-go": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "bird-lg-go",
+        "src": {
+            "deepClone": false,
+            "owner": "xddxdd",
+            "name": null,
+            "repo": "bird-lg-go",
+            "type": "github",
+            "sha256": "sha256-bTGFocQel+Tz9RuPN1mebkz12P+M1C4h4bzTD8woHas=",
+            "rev": "950c018b187aa13edbea4d8acbb2022fd2f13319",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "950c018b187aa13edbea4d8acbb2022fd2f13319",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    }
+}
