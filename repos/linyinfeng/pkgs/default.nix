@@ -24,7 +24,6 @@ lib.makeScope newScope (
       inherit (pkgs.fishPlugins) buildFishPlugin;
       pkgsFishPlugins = pkgs.fishPlugins;
     });
-    icalingua = callPackage ./icalingua { };
     telegram-send = callPackage ./telegram-send { };
     trojan = callPackage ./trojan { };
     vlmcsd = callPackage ./vlmcsd { };
