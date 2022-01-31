@@ -15,6 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "Lm6lSC69XqGA+2wm+zdRK1B4tIkTXstcSI6GxJZauIg=";
   };
 
+  patches = [ ./fix-meson-language.patch ];
+
   nativeBuildInputs = [ pkg-config meson ninja ];
 
   buildInputs = [ mir libxkbcommon ];
