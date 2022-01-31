@@ -48,6 +48,6 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A ${{ matrix.system }}.cacheOutputs
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A ${{ matrix.system }}
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=xddxdd"

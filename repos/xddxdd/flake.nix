@@ -13,10 +13,15 @@
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
-    {
+    rec {
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
-      overlay = self: super: with super; callPackage ./default.nix { };
+
+      # Following line doesn't work for infinite recursion
+      # overlay = self: super: packages."${super.system}";
+      overlay = self: super: import ./default.nix {
+        pkgs = import nixpkgs { inherit (super) system; };
+      };
     };
 }

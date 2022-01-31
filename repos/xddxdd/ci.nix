@@ -43,22 +43,12 @@ let
   ];
   forAllSystems = f: pkgs.lib.genAttrs systems (system: f system);
 
+  flake = builtins.getFlake (builtins.toString ./.);
 in
 forAllSystems
   (system:
     let
-      archPkgs = import <nixpkgs> { inherit system; };
-      nurAttrs = import ./default.nix { pkgs = archPkgs; };
-      nurPkgs =
-        flattenPkgs
-          (listToAttrs
-            (map (n: nameValuePair n nurAttrs.${n})
-              (attrNames nurAttrs)));
+      nurAttrs = flake.packages."${system}";
+      nurPkgs = flattenPkgs nurAttrs;
     in
-    rec {
-      buildPkgs = filter isBuildable nurPkgs;
-      cachePkgs = filter isCacheable buildPkgs;
-
-      buildOutputs = concatMap outputsOf buildPkgs;
-      cacheOutputs = concatMap outputsOf cachePkgs;
-    })
+    concatMap outputsOf (filter (p: (isBuildable p) && (isCacheable p)) nurPkgs))
