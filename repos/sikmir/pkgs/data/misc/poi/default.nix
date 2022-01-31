@@ -2,10 +2,10 @@
 
 {
   geocachingSu = fetchwebarchive {
-    name = "geocaching_su-2021-07-31";
+    name = "geocaching_su-2022-01-31";
     url = "https://nakarte.me/geocachingSu/geocaching_su2.json";
-    timestamp = "20210731232107";
-    hash = "sha256-jCdTilM36m+BxNhPOGD0dWw9bITaVgO43fBpnnCHJ/Q=";
+    timestamp = "20220131071819";
+    hash = "sha256-aN9uX74SISK8UTUYhEhmYKEa9LRtt36t7DQepWFwMIA=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -24,9 +24,9 @@
   };
 
   laavut = fetchurl {
-    name = "laavut-2021-07-02";
+    name = "laavut-2021-11-16";
     url = "http://laavu.org/lataa.php?paikkakunta=kaikki";
-    hash = "sha256-jPyYJJELWqdDNj97kLCpX+vqwQkNzKbz///LH9i2sm0=";
+    hash = "sha256-cazLb7IE1UkUlxbXS1AI3INM/yqZlKd4j8cWehYsmSo=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Laavut-kodat.gpx";
@@ -42,9 +42,9 @@
   };
 
   autiotuvat = fetchurl {
-    name = "autiotuvat-2021-07-13";
+    name = "autiotuvat-2021-11-10";
     url = "http://www.laavu.org/autiotuvat/lataa.php?paikkakunta=kaikki";
-    hash = "sha256-ycxy58RB/aigywtxfuqyf2tB67rDjN5zrETxbkQ900M=";
+    hash = "sha256-Brjh07b0VLhtnukqkRUym/DX30Fygc736ZKnOu6liMU=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Autiotuvat.gpx";
@@ -63,7 +63,7 @@
     name = "westra-2020-12-30";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
     timestamp = "20201230113603";
-    sha256 = "1r8s5zywl2i2cx22rbh9srhf8pyl2hwg3wvaipjc5km2rl0y0vf9";
+    sha256 = "sha256-yW3gAc2izsLkjWrz8TgU1F/kYNYJrixEZyIKyv0vGuU=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -82,9 +82,9 @@
   };
 
   strelki = fetchurl {
-    name = "strelki-2020-11-25";
+    name = "strelki-2022-01-31";
     url = "https://strelki.extremum.org/s/p/47p";
-    sha256 = "0i1b7pvmxvlbp76nrjaghd0fyv1lj6z8wy8hbvzcjclh1d3fm5xa";
+    sha256 = "sha256-p+KYOaEJCQAwEQSl4VPdxxK6Kt/QLPlRHNbxi/RVrj0=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "makel";
-  version = "2022-01-07";
+  version = "2022-01-24";
 
   src = fetchFromGitHub {
     owner = "maandree";
     repo = pname;
-    rev = "7e54065eb147ba61b5c4b0ca81bd3980a91bf22d";
-    hash = "sha256-U+0ou4FZvqs+/gL8mMrrdmioP/up9V8+P5DH9xgzV9M=";
+    rev = "0650e17761ffc45b4fc5d32287514796d6da332d";
+    hash = "sha256-ItZaByPpheCuSXdd9ej+ySeX3P6DYgnNNAQlAQeNEDA=";
   };
 
   buildInputs = [ libgrapheme ];
