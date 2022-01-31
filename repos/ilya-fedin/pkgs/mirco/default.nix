@@ -15,8 +15,6 @@ stdenv.mkDerivation rec {
     sha256 = "Lm6lSC69XqGA+2wm+zdRK1B4tIkTXstcSI6GxJZauIg=";
   };
 
-  patches = [ ./fix-meson-language.patch ];
-
   nativeBuildInputs = [ pkg-config meson ninja ];
 
   buildInputs = [ mir libxkbcommon ];
@@ -32,5 +30,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     homepage = https://github.com/wmww/mirco;
     maintainers = with maintainers; [ ilya-fedin ];
+    broken = true;
   };
 }

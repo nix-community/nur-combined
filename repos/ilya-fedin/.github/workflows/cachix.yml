@@ -17,4 +17,4 @@ jobs:
       with:
         name: ilya-fedin
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: NIXPKGS_ALLOW_UNFREE=1 nix-build
+    - run: NIXPKGS_ALLOW_UNFREE=1 nix-build non-broken.nix
