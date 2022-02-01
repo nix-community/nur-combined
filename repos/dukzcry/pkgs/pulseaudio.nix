@@ -2,7 +2,6 @@
 , stdenv
 , fetchurl
 , pkg-config
-  # , autoreconfHook
 , libsndfile
 , libtool
 , makeWrapper
@@ -60,9 +59,6 @@
 , # Whether to build only the library.
   libOnly ? false
 
-  # , CoreServices
-  # , AudioUnit
-  # , Cocoa
 , tcp_wrappers
 , gst_all_1
 , check
@@ -123,30 +119,26 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ libtool libsndfile soxr speexdsp fftwFloat ]
     ++ lib.optionals stdenv.isLinux [ dbus ]
-    # ++ lib.optionals stdenv.isDarwin [ CoreServices AudioUnit Cocoa ]
-    ++ #lib.optionals (!libOnly) (
-      [ libasyncns webrtc-audio-processing ]
+    ++ [ libasyncns webrtc-audio-processing ]
       ++ lib.optional jackaudioSupport libjack2
       ++ lib.optionals x11Support [ xorg.xlibsWrapper xorg.libXtst xorg.libXi ]
       ++ lib.optional useSystemd systemd
       ++ lib.optionals stdenv.isLinux [ alsa-lib udev ]
       ++ lib.optional airtunesSupport openssl
       ++ lib.optionals bluetoothSupport [ bluez5 sbc ]
-      # ++ lib.optional remoteControlSupport
-      ++ lib.optional zeroconfSupport avahi
-    #)
-;
-  buildPhase = ''
-    cd ..
-    meson setup --reconfigure --prefix=$out -Dsystemduserunitdir=$out/lib/systemd/user -Dudevrulesdir=$out/lib/udev/rules.d build
-    ninja -C build 
-  '';
-  installPhase = ''
-    ninja -C build install
-  '';
+      ++ lib.optional zeroconfSupport avahi;
 
+  mesonFlags = [
+    "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
+    "-Dudevrulesdir=${placeholder "out"}/lib/udev/rules.d"
+  ];
 
   enableParallelBuilding = true;
+
+  preConfigure = ''
+    substituteInPlace meson.build \
+      --replace "cdata.set_quoted('PA_DEFAULT_CONFIG_DIR', pulsesysconfdir)" "cdata.set_quoted('PA_DEFAULT_CONFIG_DIR', '/etc/pulse')"
+  '';
 
   postInstall = lib.optionalString libOnly ''
     rm -rf $out/{bin,share,etc,lib/{pulse-*,systemd}}

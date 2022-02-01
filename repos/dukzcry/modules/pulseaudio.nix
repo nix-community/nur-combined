@@ -3,6 +3,7 @@
 with lib;
 let
   cfg = config.programs.pulseaudio;
+  pulse = pkgs.nur.repos.dukzcry.pulseaudio;
   audio = pkgs.writeShellScript "audio" ''
     USER_NAME=$(w -hs | awk -v vt=tty$(fgconsole) '$0 ~ vt {print $1}')
     USER_ID=$(id -u "$USER_NAME")
@@ -10,6 +11,13 @@ let
 
     hdmi=$(sudo -u "$USER_NAME" LANG=C pactl --server "$PULSE_SERVER" list | grep "hdmi-stereo:" | grep -oE "available: no")
 
+    #for i in {1..3}; do
+    #  sleep 1
+    #  sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-card-profile bluez_card.41_42_BB_63_41_D9 handsfree_head_unit
+    #  if [ "$?" = "0" ]; then
+    #    break
+    #  fi
+    #done
     sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-default-source bluez_source.41_42_BB_63_41_D9.handsfree_head_unit
     result=$?
 
@@ -43,14 +51,16 @@ in {
     environment = {
       systemPackages = with pkgs; [ pavucontrol pulseeffects-legacy ];
     };
+    # pactl list short modules
     #hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
-    #  sed 's/module-udev-detect$/module-udev-detect tsched=0/' \
-    #    ${pkgs.pulseaudio}/etc/pulse/default.pa > $out
+      # 's/module-udev-detect$/module-udev-detect tsched=0/'
+    #  sed 's/module-bluetooth-policy$/module-bluetooth-policy auto_switch=false/' \
+    #    ${pulse}/etc/pulse/default.pa > $out
     #'';
-    hardware.pulseaudio.package = pkgs.nur.repos.dukzcry.pulseaudio;
+    hardware.pulseaudio.package = pulse;
     systemd.services.hfpmic = {
       description = "HFP microphone";
-      path = with pkgs; [ procps gawk kbd coreutils sudo gnugrep pkgs.nur.repos.dukzcry.pulseaudio ];
+      path = with pkgs; [ procps gawk kbd coreutils sudo gnugrep pulse ];
       serviceConfig = {
         ExecStart = audio;
       };
