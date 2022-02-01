@@ -66,6 +66,7 @@
 , tcp_wrappers
 , gst_all_1
 , check
+, doxygen
 }:
 
 stdenv.mkDerivation rec {
@@ -113,6 +114,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gstreamer
     gst_all_1.gstreamermm
     check
+    doxygen
   ]);
 
   propagatedBuildInputs =
