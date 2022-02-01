@@ -27,6 +27,7 @@ buildFHSUserEnv rec {
 
     # Libraries, found with:
     # > patchelf --print-needed ~/Jagex/launcher/rs2client
+    libglvnd
     glibc
     libGL
     openssl
