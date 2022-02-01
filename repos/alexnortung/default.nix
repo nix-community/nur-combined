@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   papermc-1_18_x = pkgs.callPackage ./pkgs/games/papermc/1.18.nix { };
   papermc-1_17_x = pkgs.callPackage ./pkgs/games/papermc/1.17.nix { };
   papermc-1_16_x = pkgs.callPackage ./pkgs/games/papermc/1.16.nix { };
