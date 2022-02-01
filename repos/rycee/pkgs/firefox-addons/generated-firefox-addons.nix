@@ -294,10 +294,10 @@
       };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
-      version = "2.0.16";
+      version = "2.0.17";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3833987/decentraleyes-2.0.16-an+fx.xpi";
-      sha256 = "fa87ceac1242c26a40c07e31be62d519c4e2cd6ffb5c1f83248cc924766465c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3902154/decentraleyes-2.0.17-an+fx.xpi";
+      sha256 = "e7f16ddc458eb2bc5bea75832305895553fca53c2565b6f1d07d5d9620edaff1";
       meta = with lib;
       {
         homepage = "https://decentraleyes.org";
@@ -446,10 +446,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.46";
+      version = "6.1.47";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3887989/flagfox-6.1.46-fx.xpi";
-      sha256 = "79b849d78767e7bd09f0a30b24bd4726ce62e7a23d6b0f41f1d016a2a228fcfc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3902689/flagfox-6.1.47-fx.xpi";
+      sha256 = "5b74becbb22c0068513d6134243efab6fd70e0fd7ddd97eb914f47fc813b5720";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -535,10 +535,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "97.0buildid20220127.193706";
+      version = "97.0buildid20220131.171509";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901180/francais_language_pack-97.0buildid20220127.193706-fx.xpi";
-      sha256 = "a7896b0c49f4897c2305dfd6ccb00e8172390f52b2426b30140bf5b1ef5deacf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3902587/francais_language_pack-97.0buildid20220131.171509-fx.xpi";
+      sha256 = "8800782d4c0b1de55cf741a6cca4d391a0ba1c00869c2123e82d7f9b5bf975ec";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -590,10 +590,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.894.0";
+      version = "8.895.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3899442/grammarly_for_firefox-8.894.0-an+fx.xpi";
-      sha256 = "8d859bcacd1572fd05183010f98757f20381f3fd666af4fcbe9756bcfb0f4ed1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901295/grammarly_for_firefox-8.895.0-an+fx.xpi";
+      sha256 = "e28e83f89ee0ffe0cc91cac249ff38843ee71f59e263c07d8476ea00fc0683e9";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -788,10 +788,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.87.0.9";
+      version = "4.88.0.1";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3894149/lastpass_password_manager-4.87.0.9-an+fx.xpi";
-      sha256 = "51cc588e5ee23aa67def5dbe405385683eea2d8cc45f579799d66d8f971a3019";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3900294/lastpass_password_manager-4.88.0.1-an+fx.xpi";
+      sha256 = "6b0468d28fa25ae0759a5b7b03914d7ab2fcf4ec55d83ba6d968f90610f372ce";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -881,10 +881,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.22";
+      version = "2.6.23";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3889373/localcdn-2.6.22-an+fx.xpi";
-      sha256 = "03ae90624c02aaab5511dea645251b6ae8885367902c2d85c1c19e5ef9f9f7b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3902456/localcdn-2.6.23-an+fx.xpi";
+      sha256 = "ff2a0a64a0cdc8aa62b16f1f3cc41201760033731276b427ef02290cb53e6480";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -948,10 +948,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.0.4";
+      version = "8.0.5";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3881338/firefox_multi_account_containers-8.0.4-fx.xpi";
-      sha256 = "e1606931a955eddb130bad0bdf19761b47450bf531ab2680dac5ae2e7fe3c097";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3899402/firefox_multi_account_containers-8.0.5-fx.xpi";
+      sha256 = "b9d6267a8fd633cd64a0444b6355c299bc4a3f23d21e794117e339c5ec705039";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -1036,10 +1036,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.15";
+      version = "11.2.16";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3895654/noscript_security_suite-11.2.15-an+fx.xpi";
-      sha256 = "669f05fe76b51fa64ec05c3dcdf94e6c7f4b1408ff8e01a6f006f7f5f920f217";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3902510/noscript_security_suite-11.2.16-an+fx.xpi";
+      sha256 = "3ae971485ca3c50850bafab8bf01f28a96c01dccaba231b6bddeba9da4a1f09f";
       meta = with lib;
       {
         homepage = "https://noscript.net";
