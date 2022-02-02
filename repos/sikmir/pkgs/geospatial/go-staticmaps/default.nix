@@ -2,18 +2,18 @@
 
 buildGoModule rec {
   pname = "go-staticmaps";
-  version = "2021-04-25";
+  version = "2021-12-31";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = pname;
-    rev = "2e6e19a99c28a6e68b24e2f2fbcc084da8aee8ac";
-    hash = "sha256-yTnlX55+B4Qh+Zcq7PdAK3nIB36iHvZOo+l4z/ECO6Y=";
+    rev = "56e3560e444bd7855f8de837dd491cb0a4bd5ae9";
+    hash = "sha256-r1PQ45hLy/akquN1vhuhCu+71E8ptjT1boCXupbH8lw=";
   };
 
   patches = [ ./extra-tileproviders.patch ];
 
-  vendorSha256 = "sha256-HHeMGRMaG6llmhTWrSOlYVBB4LiS2FeMxagKvkfRaXc=";
+  vendorSha256 = "sha256-VwdQsm7VghVtX2O41jNxILTuiLff4rTfXP41+IzUmMs=";
 
   meta = with lib; {
     description = "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles";
