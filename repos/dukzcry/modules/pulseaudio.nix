@@ -4,12 +4,17 @@ with lib;
 let
   cfg = config.programs.pulseaudio;
   package = pkgs.nur.repos.dukzcry.pulseaudio;
-  hfpscript = pkgs.writeShellScript "hfpscript" ''
+  script = pkgs.writeShellScript "script" ''
     USER_NAME=$(w -hs | awk -v vt=tty$(fgconsole) '$0 ~ vt {print $1}')
     USER_ID=$(id -u "$USER_NAME")
     export PULSE_SERVER="unix:/run/user/"$USER_ID"/pulse/native"
 
-    hdmi=$(sudo -u "$USER_NAME" LANG=C pactl --server "$PULSE_SERVER" list | grep "hdmi-stereo:" | grep -oE "available: no")
+    # 1. Try to set profile to hfp
+    # 2. Try to set input to hfp
+    # 3. Set profile to either hdmi or analog, if hfp isn't available then enable internal input
+    # 4. Set output to either hdmi or analog, move applications to that output
+
+    hdmi=$(sudo -u "$USER_NAME" LANG=C pactl --server "$PULSE_SERVER" list cards | grep "hdmi-stereo:" | grep -oE "available: no")
 
     for i in {1..3}; do
       sleep 1
@@ -35,6 +40,10 @@ let
 
     sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-card-profile alsa_card.pci-0000_00_1f.3 output:$profile
     sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-default-sink alsa_output.pci-0000_00_1f.3.$sink
+
+    for i in $(sudo -u "$USER_NAME" LANG=C pactl --server "$PULSE_SERVER" list sink-inputs short | cut -f 1); do
+      sudo -u "$USER_NAME" LANG=C pactl --server "$PULSE_SERVER" move-sink-input $i alsa_output.pci-0000_00_1f.3.$sink
+    done
   '';
 in {
   options.programs.pulseaudio = {
@@ -53,8 +62,8 @@ in {
     };
     # pactl list short modules
     #hardware.pulseaudio.configFile = pkgs.runCommand "default.pa" {} ''
-      # 's/module-udev-detect$/module-udev-detect tsched=0/'
-    #  sed 's/module-bluetooth-policy$/module-bluetooth-policy auto_switch=false/' \
+    #  sed -e 's/module-udev-detect$/module-udev-detect tsched=0/' \
+    #      -e 's/module-bluetooth-policy$/module-bluetooth-policy auto_switch=false/' \
     #    ${package}/etc/pulse/default.pa > $out
     #'';
     hardware.pulseaudio.package = package;
@@ -62,7 +71,7 @@ in {
       description = "HFP headset";
       path = with pkgs; [ procps gawk kbd coreutils sudo gnugrep package ];
       serviceConfig = {
-        ExecStart = hfpscript;
+        ExecStart = script;
       };
     };
     services.udev.extraRules = ''
