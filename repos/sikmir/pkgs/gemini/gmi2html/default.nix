@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gmi2html";
-  version = "2021-10-24";
+  version = "2022-01-03";
 
   src = fetchFromGitHub {
     owner = "shtanton";
     repo = pname;
-    rev = "5de5d162511aba10c32fe603af701f111b3a32ce";
-    hash = "sha256-AYA2PWhowoSascD+jnLyXpLvxwZDGJiC8CvnN2tr+Ec=";
+    rev = "2ee16d29c2ffd4057f2e89efb0d323ef79c70010";
+    hash = "sha256-wlFj/zymZgG8vaY9yUs4NmV+CCMsjgchCyNDvgqZTLk=";
   };
 
   postPatch = ''
