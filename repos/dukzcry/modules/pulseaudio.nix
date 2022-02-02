@@ -58,7 +58,7 @@ in {
     #    ${package}/etc/pulse/default.pa > $out
     #'';
     hardware.pulseaudio.package = package;
-    systemd.services.hfps = {
+    systemd.services.hfp = {
       description = "HFP headset";
       path = with pkgs; [ procps gawk kbd coreutils sudo gnugrep package ];
       serviceConfig = {
