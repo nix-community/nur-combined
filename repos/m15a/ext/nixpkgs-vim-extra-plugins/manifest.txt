@@ -215,6 +215,7 @@ tanvirtin/monokai.nvim
 tanvirtin/vgit.nvim
 terrortylor/nvim-comment
 theniceboy/nvim-deus
+tiagovla/tokyodark.nvim
 titanzero/zephyrium
 tjdevries/astronauta.nvim:edc19d30a3c51a8c3fc3f606008e5b4238821f1e
 tjdevries/express_line.nvim
