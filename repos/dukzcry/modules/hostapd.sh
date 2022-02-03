@@ -1,10 +1,10 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i sh -p iw gawk
+#!nix-shell -i sh -p iw gawk gnugrep coreutils
 
 # https://github.com/openwrt/openwrt/blob/master/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh
 # awk '{print $1}' | sed 's/:/=/'
 
-phy=phy0
+phy=phy$1
 ht_capab="[HT40+]"
 
 mac80211_add_capabilities() {
