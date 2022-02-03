@@ -26,6 +26,23 @@ mac80211_add_capabilities() {
   export -n -- "$__var=$__out"
 }
 
+mac80211_add_he_capabilities() {
+	local __out= oifs
+
+	oifs="$IFS"
+	IFS=:
+	for capab in "$@"; do
+		set -- $capab
+		[ "$(($4))" -gt 0 ] || continue
+		[ "$(((0x$2) & $3))" -gt 0 ] || {
+			eval "$1=0"
+			continue
+		}
+		echo "$1=1" "$N"
+	done
+	IFS="$oifs"
+}
+
 # n
 ldpc=1
 greenfield=0
@@ -163,6 +180,26 @@ vht_cap="$(( ($vht_cap & ~(0x700)) | ($cap_rx_stbc << 8) ))"
 			vht_link_adapt_hw=3
 		[ "$vht_link_adapt_hw" != 0 ] && \
 			vht_capab="$vht_capab[VHT-LINK-ADAPT-$vht_link_adapt_hw]"
+
+# ax
+he_su_beamformer=1
+he_su_beamformee=0
+he_mu_beamformer=1
+he_twt_required=0
+he_spr_sr_control=0
+he_spr_non_srg_obss_pd_max_offset=1
+
+		he_phy_cap=$(iw phy "$phy" info | awk -F "[()]" '/HE PHY Capabilities/ { print $2 }' | head -1)
+		he_phy_cap=${he_phy_cap:2}
+		he_mac_cap=$(iw phy "$phy" info | awk -F "[()]" '/HE MAC Capabilities/ { print $2 }' | head -1)
+		he_mac_cap=${he_mac_cap:2}
+
+		mac80211_add_he_capabilities \
+			he_su_beamformer:${he_phy_cap:6:2}:0x80:$he_su_beamformer \
+			he_su_beamformee:${he_phy_cap:8:2}:0x1:$he_su_beamformee \
+			he_mu_beamformer:${he_phy_cap:8:2}:0x2:$he_mu_beamformer \
+			he_spr_sr_control:${he_phy_cap:14:2}:0x1:$he_spr_sr_control \
+			he_twt_required:${he_mac_cap:0:2}:0x6:$he_twt_required
 
 echo $ht_capab
 echo $vht_capab
