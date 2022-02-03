@@ -22,4 +22,5 @@ rec {
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
   bitwig = ./bitwig.nix;
+  hostapd = ./hostapd.nix;
 }
