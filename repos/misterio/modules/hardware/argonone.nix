@@ -13,6 +13,8 @@ in {
       defaultText = "nur.argononed";
       description = ''
         The package implementing the Argon One driver
+
+        Do note you need i2c enabled for this to work. Importing the rpi4 module from nixos-hardware should do the trick. 
       '';
     };
   };
@@ -23,23 +25,6 @@ in {
       {
         name = "argononed";
         dtboFile = "${cfg.package}/boot/overlays/argonone.dtbo";
-      }
-      # Seems to be absolutely needed for pi4
-      {
-          name = "i2c0";
-          dtsText = ''
-    /dts-v1/;
-          /plugin/;
-          /{
-              compatible = "raspberrypi,4-model-b";
-              fragment@1 {
-                  target = <&i2c1>;
-                  __overlay__ {
-                      status = "okay";
-                  };
-              };
-          };
-          '';
       }
     ];
     environment.systemPackages = [ cfg.package ];
