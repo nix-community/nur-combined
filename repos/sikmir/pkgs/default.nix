@@ -286,6 +286,7 @@ lib.makeScope newScope (
     huami-token = callPackage ./misc/huami-token { };
     ish = callPackage ./misc/ish { };
     lazyscraper = callPackage ./misc/lazyscraper { };
+    md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
