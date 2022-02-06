@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "dbussy";
-  version = "unstable-2021-11-07";
+  version = "unstable-2022-01-28";
 
   src = fetchFromGitHub {
     owner = "Ldo";
     repo = "dbussy";
-    rev = "a694e3b525e988dc5362f2278e2aacdf06b3a179";
-    sha256 = "0if40gy9l9dx8583fs5pa99shzm4xywdhvxrbc527g0bdahcgf67";
+    rev = "60d3c155d07ce11bdf89a201ae0026525ac65aca";
+    sha256 = "0grffr3xpnqhsbfjsb95zp66dkgg1b0qyhr0n6y5ign45ngyxf6g";
   };
 
   pythonImportsCheck = [ "dbussy" ];

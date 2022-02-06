@@ -7,7 +7,7 @@ lispPackages.buildLispPackage {
 
     buildSystems = [];
 
-    description = "tinmop";
+    description = "An opinionated TUI client for gemini and pleroma";
 
     deps = [ ];
 

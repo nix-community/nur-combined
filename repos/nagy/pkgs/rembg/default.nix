@@ -39,6 +39,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   meta = with lib; {
+    description = "A tool to remove images background";
     license = licenses.mit;
     platforms = platforms.unix;
   };

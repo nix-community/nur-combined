@@ -1,18 +1,16 @@
-{ lib, fetchFromGitHub, python3Packages, setuptools, setuptools_scm, numba
+{ lib, fetchPypi, python3Packages, setuptools, setuptools_scm, numba
 , scipy, openssl, installShellFiles, pillow }:
 
 python3Packages.buildPythonPackage rec {
   pname = "PyMatting";
-  version = "1.1.2";
+  version = "1.1.5";
 
-  src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "1k6r9ddrdddmv9f12l3lhcq03z8m2jdmhn8dddx4l0hpdjqnkr7m";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-8rFIF0VhuejHZ3fU5L5+t5jII98N6lDSID9bm4FFOps=";
   };
 
-  pythonImportsCheck = [ "pymatting" "pymatting_aot" ];
+  pythonImportsCheck = [ "pymatting" ];
 
   nativeBuildInputs = [ setuptools_scm installShellFiles ];
 
@@ -21,6 +19,7 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
+    description = "A Python library for alpha matting";
     license = licenses.mit;
     platforms = platforms.unix;
   };

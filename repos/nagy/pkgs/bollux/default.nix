@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
-    description = "bash Gemini client";
+    description = "gemini browser in like, bash?";
     homepage = "https://sr.ht/~acdw/bollux/";
     license = licenses.mit;
   };
