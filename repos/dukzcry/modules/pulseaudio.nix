@@ -41,6 +41,7 @@ let
     sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-card-profile alsa_card.pci-0000_00_1f.3 output:$profile
     sudo -u "$USER_NAME" pactl --server "$PULSE_SERVER" set-default-sink alsa_output.pci-0000_00_1f.3.$sink
 
+    sleep 5
     for i in $(sudo -u "$USER_NAME" LANG=C pactl --server "$PULSE_SERVER" list sink-inputs short | cut -f 1); do
       sudo -u "$USER_NAME" LANG=C pactl --server "$PULSE_SERVER" move-sink-input $i alsa_output.pci-0000_00_1f.3.$sink
     done
