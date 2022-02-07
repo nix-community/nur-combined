@@ -16,6 +16,44 @@ let
     doCheck = false;
   };
 
+  httpcorelib = buildPythonPackage rec {
+    pname = "httpcore";
+    version = "0.13.7";
+    disabled = pythonOlder "3.6";
+
+    src = fetchFromGitHub {
+      owner = "encode";
+      repo = pname;
+      rev = version;
+      sha256 = "sha256-9hG9MqqEYMT2j7tXafToGYwHbJfp9/klNqZozHSbweE=";
+    };
+
+    propagatedBuildInputs = [
+      anyio
+      h11
+      h2
+      sniffio
+    ];
+
+    checkInputs = [
+      pproxy
+      pytest-asyncio
+      pytestCheckHook
+      pytest-cov
+      trio
+      trustme
+      uvicorn
+    ];
+
+    disabledTestPaths = [
+      # these tests fail during dns lookups: httpcore.ConnectError: [Errno -2] Name or service not known
+      "tests/test_threadsafety.py"
+      "tests/async_tests/"
+      "tests/sync_tests/test_interfaces.py"
+      "tests/sync_tests/test_retries.py"
+    ];
+  };
+
   httpxlib = buildPythonPackage rec {
     pname = "httpx";
     version = "0.20.0";
@@ -33,7 +71,7 @@ let
       certifi
       charset-normalizer
       h2
-      httpcore
+      httpcorelib
       rfc3986
       sniffio
     ];
