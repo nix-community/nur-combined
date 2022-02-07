@@ -5,7 +5,6 @@
 # awk '{print $1}' | sed 's/:/=/'
 
 phy=phy$1
-ht_capab="[HT40+]"
 
 mac80211_add_capabilities() {
   local __var="$1"; shift
