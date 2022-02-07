@@ -22,6 +22,9 @@
 # genrev
 , branch ? "master"
 , commit
+
+# patches
+, extraPatches ? []
 , ...
 }:
 
@@ -33,6 +36,8 @@ llvmPackages_13.stdenv.mkDerivation rec {
     inherit owner repo rev sha256;
     leaveDotGit = true;
   };
+
+  patches = [] ++ extraPatches;
 
   postPatch = ''
     substituteInPlace cmake/genrev.cmake \
