@@ -819,16 +819,17 @@
         platforms = platforms.all;
         };
       };
-    "light-dark-switcher" = buildFirefoxXpiAddon {
-      pname = "light-dark-switcher";
-      version = "1.0.1";
-      addonId = "{66908292-10f9-44ab-8de1-3605cee906ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3799471/lightdark_switcher-1.0.1-fx.xpi";
-      sha256 = "6d2e93b0fa43de1e56617aff7246d13efbe81888f543087024b6bc7e144304da";
+    "lesspass" = buildFirefoxXpiAddon {
+      pname = "lesspass";
+      version = "9.6.6";
+      addonId = "contact@lesspass.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3899836/lesspass-9.6.6-an+fx.xpi";
+      sha256 = "5f419c4a2aa20f9e30a7111e90537c99aba3683b715ebfe5b09743ad373cd52f";
       meta = with lib;
       {
-        description = "Automatically switches between two themes when dark or light mode toggles";
-        license = licenses.mit;
+        homepage = "https://github.com/lesspass/lesspass";
+        description = "Use LessPass add-on to generate complex passwords and log in  automatically to all your sites";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
@@ -2008,6 +2009,20 @@
         homepage = "https://web-scrobbler.com";
         description = "Scrobble music all around the web!";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "windscribe" = buildFirefoxXpiAddon {
+      pname = "windscribe";
+      version = "3.3.3";
+      addonId = "@windscribeff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3898132/windscribe_free_vpn_and_ad_blocker-3.3.3-fx.xpi";
+      sha256 = "05417544f0ca57670609b8a7c0eeeef8419470d28b163b1072348d61a82fc8c6";
+      meta = with lib;
+      {
+        homepage = "https://windscribe.com";
+        description = "Windscribe helps you circumvent censorship, block ads, beacons and trackers on websites you use every day.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
