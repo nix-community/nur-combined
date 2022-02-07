@@ -45,6 +45,7 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.bzizou ];
     platforms = lib.platforms.linux;
     license = lib.licenses.unfree;
+    broken = true;
   };
 }
 
