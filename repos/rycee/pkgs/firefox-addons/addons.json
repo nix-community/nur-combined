@@ -29,6 +29,9 @@
     "slug": "auto-tab-discard"
   },
   {
+    "slug": "behind-the-overlay-revival"
+  },
+  {
     "slug": "betterttv",
     "license": {
       "tag": "custom",
@@ -292,6 +295,9 @@
   },
   {
     "slug": "multi-account-containers"
+  },
+  {
+    "slug": "musescore-downloader"
   },
   {
     "slug": "netflix-1080p-firefox",

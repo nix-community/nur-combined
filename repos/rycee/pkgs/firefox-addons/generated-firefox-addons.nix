@@ -83,6 +83,20 @@
         platforms = platforms.all;
         };
       };
+    "behind-the-overlay-revival" = buildFirefoxXpiAddon {
+      pname = "behind-the-overlay-revival";
+      version = "1.8.3";
+      addonId = "{c0e1baea-b4cb-4b62-97f0-278392ff8c37}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1749632/behind_the_overlay_revival-1.8.3-fx.xpi";
+      sha256 = "95c9b03c87f2d02cae3625d85b3aab286b01647c84752811fb0be9b49b3f6a22";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.com/ivanruvalcaba/BehindTheOverlayRevival";
+        description = "Click to close any overlay popup on any website.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
       version = "7.4.17";
@@ -958,6 +972,20 @@
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
         description = "Firefox Multi-Account Containers lets you keep parts of your online life separated into color-coded tabs. Cookies are separated by container, allowing you to use the web with multiple accounts and integrate Mozilla VPN for an extra layer of privacy.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "musescore-downloader" = buildFirefoxXpiAddon {
+      pname = "musescore-downloader";
+      version = "0.26.0";
+      addonId = "{69856097-6e10-42e9-acc7-0c063550c7b8}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3818223/musescore_downloader-0.26.0-an+fx.xpi";
+      sha256 = "2d7d1d70d953231aa7464f89a33154b78019baeee855284bfe9dd2db505a8e76";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Xmader/musescore-downloader#readme";
+        description = "download sheet music from <a href=\"https://outgoing.prod.mozaws.net/v1/c0273e141ab141ea0a7256437045917b687d145c317a25868e70a5d8ccb864ea/http%3A//musescore.com\" rel=\"nofollow\">musescore.com</a> for free, no login or Musescore Pro required | 免登录、免 Musescore Pro，免费下载 <a href=\"https://outgoing.prod.mozaws.net/v1/c0273e141ab141ea0a7256437045917b687d145c317a25868e70a5d8ccb864ea/http%3A//musescore.com\" rel=\"nofollow\">musescore.com</a> 上的曲谱";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
