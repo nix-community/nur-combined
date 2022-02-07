@@ -44,7 +44,7 @@ in
 
     security.acme = {
       acceptTerms = true;
-      email = "antoine97.martin@gmail.com";
+      defaults.email = "antoine97.martin@gmail.com";
 
       certs =
         let

@@ -12,6 +12,7 @@ in
       ./hardware-configuration.nix
 
       ./home.nix
+      ./secrets.nix
     ];
 
   # Use the GRUB 2 boot loader.

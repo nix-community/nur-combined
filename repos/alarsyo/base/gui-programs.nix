@@ -26,6 +26,8 @@ in
         xkbVariant = "us";
         libinput.enable = true;
       };
+
+      logind.lidSwitch = "ignore";
     };
 
     environment.systemPackages = builtins.attrValues {
@@ -53,7 +55,40 @@ in
       inherit (pkgs.unstable) discord;
     };
 
-    networking.networkmanager.enable = true;
+    networking.networkmanager = {
+      enable = true;
+
+      dispatcherScripts = [
+        {
+          source =
+            let
+              grep = "${pkgs.gnugrep}/bin/grep";
+              nmcli = "${pkgs.networkmanager}/bin/nmcli";
+            in pkgs.writeShellScript "disable_wifi_on_ethernet" ''
+              export LC_ALL=C
+
+              enable_disable_wifi ()
+              {
+                  result=$(${nmcli} dev | ${grep} "ethernet" | ${grep} -w "connected")
+                  if [ -n "$result" ]; then
+                      ${nmcli} radio wifi off
+                  else
+                      ${nmcli} radio wifi on
+                  fi
+              }
+
+              if [ "$2" = "up" ]; then
+                  enable_disable_wifi
+              fi
+
+              if [ "$2" = "down" ]; then
+                  enable_disable_wifi
+              fi
+            '';
+          type = "basic";
+        }
+      ];
+    };
     programs.nm-applet.enable = true;
     programs.steam.enable = true;
 

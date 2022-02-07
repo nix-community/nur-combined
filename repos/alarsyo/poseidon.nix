@@ -5,6 +5,9 @@
     # Default configuration
     ./base
 
+    # Module definitions
+    ./modules
+
     # Service definitions
     ./services
 

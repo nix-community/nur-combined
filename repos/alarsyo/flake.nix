@@ -15,6 +15,12 @@
       ref = "nixos-unstable-small";
     };
 
+    agenix = {
+      type = "github";
+      owner = "ryantm";
+      repo = "agenix";
+    };
+
     emacs-overlay = {
       type = "github";
       owner = "nix-community";
@@ -45,7 +51,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @inputs: {
+  outputs = { self, nixpkgs, home-manager, agenix, ... } @inputs: {
     nixosModules = {
       home = {
         home-manager.useGlobalPkgs = true;
@@ -74,9 +80,13 @@
               inherit system;
               config.allowUnfree = true;
             };
+
           })
+
+          agenix.overlay
         ] ++ builtins.attrValues self.overlays;
         sharedModules = [
+          agenix.nixosModules.age
           home-manager.nixosModule
           { nixpkgs.overlays = shared_overlays; }
         ] ++ (nixpkgs.lib.attrValues self.nixosModules);

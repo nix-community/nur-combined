@@ -12,7 +12,6 @@
     ./laptop.nix
     ./lorri.nix
     ./rofi.nix
-    ./secrets
     ./ssh.nix
     ./themes
     ./tmux.nix

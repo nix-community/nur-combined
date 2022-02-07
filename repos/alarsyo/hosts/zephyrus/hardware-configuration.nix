@@ -29,6 +29,7 @@ in
     { device = "/dev/disk/by-uuid/6395cef1-c30b-450a-917c-cfb3c0380642";
       fsType = "btrfs";
       options = [ "subvol=@home" "compress=zstd" "noatime" ];
+      neededForBoot = true; # agenix needs my key for some root secrets
     };
 
   fileSystems."/nix" =

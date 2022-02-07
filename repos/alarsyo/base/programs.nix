@@ -53,6 +53,8 @@
 
       # nix pkgs lookup
       nix-index
+
+      agenix
     ;
 
     inherit (pkgs.llvmPackages_11)

@@ -10,6 +10,7 @@ final: prev:
     buildInputs = builtins.attrValues {
       inherit (final)
         dbus
+        lm_sensors
         openssl
         pulseaudio
       ;

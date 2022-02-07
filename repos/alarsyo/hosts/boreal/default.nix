@@ -3,15 +3,14 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, ... }:
-let
-  secrets = config.my.secrets;
-in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
       ./home.nix
+
+      ./secrets.nix
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -46,17 +45,12 @@ in
 
   # List services that you want to enable:
   my.services = {
-    borg-backup = {
+    restic-backup = {
       enable = true;
-      repo = secrets.borg-backup.boreal-repo;
-      # for a workstation, having backups spanning the last month should be
-      # enough
-      prune = {
-        keep = {
-          daily = 7;
-          weekly = 4;
-        };
-      };
+      repo = "b2:boreal-backup";
+      passwordFile = config.age.secrets."restic-backup/boreal-password".path;
+      environmentFile = config.age.secrets."restic-backup/boreal-credentials".path;
+
       paths = [
         "/home/alarsyo"
       ];
@@ -64,7 +58,7 @@ in
         "/home/alarsyo/Downloads"
 
         # Rust builds using half my storage capacity
-        "/home/alarsyo/*/target"
+        "/home/alarsyo/**/target"
         "/home/alarsyo/work/rust/build"
 
         # don't backup nixpkgs

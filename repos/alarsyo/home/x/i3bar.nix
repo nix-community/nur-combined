@@ -35,8 +35,7 @@ in
   config = mkIf isEnabled {
     home.packages = builtins.attrValues {
       inherit (pkgs)
-        iw # Used by `net` block
-        lm_sensors # Used by `temperature` block
+        # FIXME: is this useful?
         font-awesome
       ;
     };
@@ -104,12 +103,6 @@ in
             {
               block = "networkmanager";
               primary_only = true;
-            }
-            {
-              block = "bluetooth";
-              mac = config.my.secrets.bluetooth-mouse-mac-address;
-              hide_disconnected = true;
-              format = "{percentage}";
             }
             {
               block = "sound";

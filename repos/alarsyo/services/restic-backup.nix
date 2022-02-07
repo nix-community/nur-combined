@@ -11,7 +11,6 @@ let
   ;
 
   cfg = config.my.services.restic-backup;
-  secrets = config.my.secrets;
   excludeArg = "--exclude-file=" + (pkgs.writeText "excludes.txt" (concatStringsSep "\n" cfg.exclude));
   makePruneOpts = pruneOpts:
     attrsets.mapAttrsToList (name: value: "--keep-${name} ${toString value}") pruneOpts;
@@ -62,6 +61,23 @@ in {
         monthly = 6;
       };
     };
+
+    passwordFile = mkOption {
+      type = types.str;
+      default = "/root/restic/password";
+    };
+
+    environmentFile = mkOption {
+      type = types.str;
+      default = "/root/restic/creds";
+    };
+
+    timerConfig = mkOption {
+      type = types.attrsOf types.str;
+      default = {
+        OnCalendar = "daily";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -73,15 +89,13 @@ in {
       paths = cfg.paths;
 
       repository = cfg.repo;
-      passwordFile = "/root/restic/password";
-      environmentFile = "/root/restic/creds";
+      passwordFile = cfg.passwordFile;
+      environmentFile = cfg.environmentFile;
 
       extraBackupArgs = [ "--verbose=2" ]
                         ++ optional (builtins.length cfg.exclude != 0) excludeArg;
 
-      timerConfig = {
-        OnCalendar = "daily";
-      };
+      timerConfig = cfg.timerConfig;
 
       pruneOpts = makePruneOpts cfg.prune;
     };

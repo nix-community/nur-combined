@@ -1,3 +1,5 @@
+" -*- tridactylrc -*-
+
 " This wipes all existing settings. This means that if a setting in this file is
 " removed, then it will return to default. In other words, this file serves as
 " as an enforced single point of truth for Tridactyl's configuration.
