@@ -32,13 +32,13 @@ in {
     feh
     fortune
     graphviz
+    gimp
     libnotify
     libreoffice
     mendeley
     ncdu
     nix-option
     nix-prefetch-scripts
-    obsidian
     obsidian
     pipedream-cli
     pkg
