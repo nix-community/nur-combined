@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, glibc, gcc, glib, libnotify, xdg-utils, ncurses, fakeroot }:
+{ lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, at-spi2-core, libxcb, libdrm, gtk3, mesa }:
 
 stdenv.mkDerivation rec {
   version = "2022.1.2.146";
@@ -6,8 +6,9 @@ stdenv.mkDerivation rec {
   name = "intel-oneapi-${version}";
   sourceRoot = "/data/scratch/intel/oneapi_installer";
 
-  nativeBuildInputs = [ fakeroot ];
-  propagatedBuildInputs = [ glibc gcc glib libnotify xdg-utils ncurses ];
+  propagatedBuildInputs = [ glibc glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa ];
+
+  libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa ];
 
   phases = [ "installPhase" "fixupPhase" "installCheckPhase" "distPhase" ];
 
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
     echo "Fixing rights..."
     chmod u+w -R $out
     echo "Patching rpath and interpreter..."
-    find $out -type f -exec $SHELL -c 'patchelf --set-interpreter $(echo ${glibc}/lib/ld-linux*.so.2) --set-rpath ${glibc}/lib:${gcc.cc}/lib:${gcc.cc.lib}/lib 2>/dev/null {}' \;
+    find $out -type f -exec $SHELL -c 'patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath ${glibc}/lib:$libPath 2>/dev/null {}' \;
   '';
 
   meta = {
