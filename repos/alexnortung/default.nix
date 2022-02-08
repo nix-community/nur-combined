@@ -25,4 +25,6 @@
   papermc-1_10_x = pkgs.callPackage ./pkgs/games/papermc/1.10.nix { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
+
+  fsharp-3 = pkgs.callPackage ./pkgs/development/fsharp-3.nix { };
 }
