@@ -23,6 +23,7 @@ rec {
 
   hassLovelaceModules = pkgs.recurseIntoAttrs {
     valetudo-map-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/lovelace-valetudo-map-card { };
+    zigbee2mqtt-networkmap = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/zigbee2mqtt-networkmap { };
   };
 
   lsix = pkgs.callPackage ./pkgs/lsix { };
