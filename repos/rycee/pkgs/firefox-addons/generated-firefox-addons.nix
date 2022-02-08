@@ -99,10 +99,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.17";
+      version = "7.4.20";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3890998/betterttv-7.4.17-fx.xpi";
-      sha256 = "4e58cfee298f7551dbafcfd51cd3666fb674d0bd44f25f1feb609a4a352ee490";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3904145/betterttv-7.4.20-fx.xpi";
+      sha256 = "a2fe37b6589ae9bf3cb6b14d0c16f0eef80293be6ae771e512149721a7bba2cf";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -160,10 +160,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.5.4.0";
+      version = "2.5.5.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902124/bypass_paywalls_clean-2.5.4.0-an+fx.xpi";
-      sha256 = "26c8ed6e90d0c22bb17b75075b162ad3f43472cba2eae6b3eefcfa907fb4ec3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3904934/bypass_paywalls_clean-2.5.5.0-an+fx.xpi";
+      sha256 = "9e61a4fdda599e23cf07b04f06e69239eae19afc4339db746b9766292a370061";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -294,10 +294,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.43";
+      version = "4.9.45";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3878116/dark_reader-4.9.43-an+fx.xpi";
-      sha256 = "390bdc2609b43627b58e47bb3a3c2f42b156f16bd932b93746196615134db0b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3904618/dark_reader-4.9.45-an+fx.xpi";
+      sha256 = "7df6f5a6c07d3740ed26be3c24fdd1719b77e685506e2642f756ce3538b3cc7f";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -363,10 +363,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2021.9.30";
+      version = "2022.1.24";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847643/duckduckgo_privacy_essentials-2021.9.30-fx.xpi";
-      sha256 = "aaacdfae1c7307000344df9ffe65fd41736067bfc86fc600c545b45a4e1b976f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3899601/duckduckgo_privacy_essentials-2022.1.24-fx.xpi";
+      sha256 = "23b98f82e4e594cafb361a217a12d935aa8208f54c57687368232e54ea593bcb";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -549,10 +549,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "97.0buildid20220131.171509";
+      version = "98.0buildid20220207.151916";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902587/francais_language_pack-97.0buildid20220131.171509-fx.xpi";
-      sha256 = "8800782d4c0b1de55cf741a6cca4d391a0ba1c00869c2123e82d7f9b5bf975ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3905365/francais_language_pack-98.0buildid20220207.151916-fx.xpi";
+      sha256 = "cbe0c3e8efdb002c302b48cd45e77da1186293a994a64734ab6edb1a082bc620";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -943,7 +943,7 @@
       sha256 = "e0e02dbfe9c8f04394b1746a5ec6d6762c756a9ef001d8b302e02bef3de63b73";
       meta = with lib;
       {
-        homepage = "https://elijahlopez.herokuapp.com/";
+        homepage = "https://elijahlopez.ca/";
         description = "A modern dark / Matte Black theme with a red accent color.\nClick my name for more accents (request if not available).\nmonero:84PR6SkYd5zaFLKDjAFrQfbaAg2c7SV3q3XDZ15QCpEZUggrN4YzY7n8m9XC3deXjo41yWHTm1LrsUpPTYGnRQbD9Cwp8En";
         license = licenses.cc-by-nc-sa-30;
         platforms = platforms.all;
@@ -1065,10 +1065,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.16";
+      version = "11.2.19";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902510/noscript_security_suite-11.2.16-an+fx.xpi";
-      sha256 = "3ae971485ca3c50850bafab8bf01f28a96c01dccaba231b6bddeba9da4a1f09f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3904230/noscript_security_suite-11.2.19-an+fx.xpi";
+      sha256 = "627ad134968a395fd585a6455087c1c1c461b993a4db0c1471f4c5d2c0cc1177";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1153,10 +1153,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.2.2";
+      version = "2.2.3";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898154/1password-2.2.2-fx.xpi";
-      sha256 = "cdba430a2e1d73b6339d042bd34e9338a381dc24007973871b1c38f7c6522801";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901678/1password-2.2.3-fx.xpi";
+      sha256 = "db63f3b8eb03d801b6830d31715b6eed30510a7dc644c1136f6440de32f155cf";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1328,10 +1328,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.0.0";
+      version = "2.2.2";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3867026/firefox_relay-2.0.0-fx.xpi";
-      sha256 = "1691f821f2bb91230ae33b93d275fa4409ea6e857f837f62f60e746fc71ea1ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3903142/firefox_relay-2.2.2-fx.xpi";
+      sha256 = "12b8ea471394e4bbaa020edede40acbb6417578f4e7299dabb2f0bebac9be848";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1384,10 +1384,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.8";
+      version = "5.22.10";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3894512/reddit_enhancement_suite-5.22.8-an+fx.xpi";
-      sha256 = "bc89b04b340a70e34d637602b2eed4025f6bd49ab6670b952111f96b9b429b4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3902655/reddit_enhancement_suite-5.22.10-an+fx.xpi";
+      sha256 = "749ecad7db8a9411ab72ea7f5f40b468a084128f2e6ba9446fc1745a2b734045";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -1426,10 +1426,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.1.18";
+      version = "22.2.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3895957/refined_github-22.1.18-an+fx.xpi";
-      sha256 = "aeae7fb8c5f53b94cf1ce3385932ebb81b9194ec8c95a872aa4bc51519503c4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3903094/refined_github-22.2.1-an+fx.xpi";
+      sha256 = "d89b72355587a2a5198ca618fba7b7827c9c3bbda84186ed4363179ae148797b";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1453,10 +1453,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.5.0";
+      version = "1.5.1";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3899697/rust_search_extension-1.5.0-fx.xpi";
-      sha256 = "5165a52a922e97145032e483f896ba5f3fbd5d7a08461a482fa6f3c5abff7b50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3902992/rust_search_extension-1.5.1-fx.xpi";
+      sha256 = "db5101442122e92b5fe75f7524ecc68273dd8b897ac76f589f99d2d9890c6371";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -1536,10 +1536,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.19.24";
+      version = "1.19.28";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3886356/singlefile-1.19.24-an+fx.xpi";
-      sha256 = "7911f8bb8a55bcee1771489daa7938194f18f85bb68bbf1f5e495c2504801551";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3904457/singlefile-1.19.28-an+fx.xpi";
+      sha256 = "b0b1cb04b2fb85c465ee4f1046c871909d9da12f9326a800f82da993916a96cf";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1623,10 +1623,10 @@
       };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.0.3";
+      version = "1.0.4";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901528/surfingkeys-1.0.3-fx.xpi";
-      sha256 = "ee97cbd24917e86916b9587b70eb04ac916df4cd67bd0748921aaa6e7a5a33cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3904477/surfingkeys-1.0.4-fx.xpi";
+      sha256 = "b9cf09cc36ae09ae68eb760587fd3507557fd066ce00a00a3b72faf67bf52719";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -1987,10 +1987,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "5.3.4";
+      version = "6.0.1";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3717410/vuejs_devtools-5.3.4-fx.xpi";
-      sha256 = "40d2ce816aa20b20330380c0d8a5386d7fe817e566de46a4f2be5cc8037cc94d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3905257/vuejs_devtools-6.0.1-fx.xpi";
+      sha256 = "c93cd05fe40fd668f90fd1addc91730713c1b70f5628524031ba5592ee6f6776";
       meta = with lib;
       {
         homepage = "https://vuejs.org";
@@ -2001,10 +2001,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.9.11";
+      version = "6.9.14";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3890260/wappalyzer-6.9.11-fx.xpi";
-      sha256 = "4a4dcfd308f9400ed71ea8fc50f548d5d83560fa2ba032f99533b7b1c7da1fcd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3903212/wappalyzer-6.9.14-fx.xpi";
+      sha256 = "35cba653702dd8e7297326e6eea50cb13d93c80011d68b0c036931a4c14ea810";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2028,10 +2028,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.50.2";
+      version = "2.51.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901631/web_scrobbler-2.50.2-an+fx.xpi";
-      sha256 = "0fe1e88f7c3766afcd1f0ef373a6048406cc41ade5657ef7c14592f9f253bb19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3903857/web_scrobbler-2.51.1-an+fx.xpi";
+      sha256 = "9a1bd41de7c74df655b427742f1864da1d4e5e17aa91d8a0e57d1b559f167adf";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
