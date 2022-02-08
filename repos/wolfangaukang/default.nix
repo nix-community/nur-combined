@@ -14,7 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  librewolf = pkgs.callPackage ./pkgs/librewolf { };
+  librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
   ssm-session-manager-plugin = pkgs.callPackage ./pkgs/ssm-session-manager-plugin { };
   stremio = pkgs.callPackage ./pkgs/stremio { };
   vdhcoapp = pkgs.callPackage ./pkgs/vdhcoapp {

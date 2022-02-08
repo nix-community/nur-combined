@@ -1,26 +1,27 @@
 { lib, stdenv, fetchurl, appimageTools, undmg }:
 let
-  pname = "librewolf";
-  version = "95.0.2-1";
+  pname = "librewolf-bin";
+  version = "96.0.3-2";
   name = "${pname}-${version}";
 
   srcs = {
-    # Picked from $PROJECT_URL/-/releases
+    # Picked SHA from $PROJECT_URL/-/packages and package URL from $PROJECT_URL/-/releases
     x86_64-linux = fetchurl {
       url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/${pname}/${version}/LibreWolf.x86_64.AppImage";
-      sha256 = "e25016af59632c9f13509fa18196474880c476eb43c3ee6bb18919a6e2370675";
+      sha256 = "8e7d8242f92cd5aa2c5903b4f08eba75d5fdee2f1c1a294da91d1fb8bbe68c1e";
     };
     aarch64-linux = fetchurl {
       url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/${pname}/${version}/LibreWolf.aarch64.AppImage";
-      sha256 = "6ce7fc3e3c2024dcb8e371f6e090319a2d93337f02043f353ce0f56833014546";
+      sha256 = "3a083d40b862df383980c9d44021ff8cafe6b7f9328d1e8265d9c263016b9284";
     };
+    # Picked from $PROJECT_URL/-/releases
     x86_64-darwin = fetchurl {
       url = "https://gitlab.com/librewolf-community/browser/macos/uploads/dd4be5c05d04d8fa4a9134ee13bc2e33/librewolf-${version}.dmg";
-      sha256 = "91bca5c96d725a70f9d73d622680064805bf3dbfcac0af36a44786d15437f0e6";
+      sha256 = "3a45392bac62cf11e1153fd83cdedeb90b8acfc93d9e31d97f7853625973a187";
     };
     aarch64-darwin = fetchurl {
       url = "https://gitlab.com/librewolf-community/browser/macos/uploads/199aedb468a551b3c1371f974487502f/librewolf-${version}_aarch64_exp.dmg";
-      sha256 = "70170da323506d6286008c13f781fb1de2f2332cec3f22406a1a61ee9b254a10";
+      sha256 = "ce576f5cce6fa2fe78bb5afe4706358be1b72d3b30630617a8768d99e9ca4fce";
     };
   };
   src = srcs.${stdenv.hostPlatform.system};
