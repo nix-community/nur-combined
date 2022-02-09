@@ -154,6 +154,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       emmet-vim
       fennel-vim
       indentLine
+      luasnip
       nvim-lspconfig
       nvim-web-devicons
       onedark-vim

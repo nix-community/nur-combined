@@ -32,6 +32,8 @@ set completeopt=menuone,noinsert,noselect " Customizações no menu de autocompl
 set previewheight=3 " Altura máxima do preview
 set winfixheight " Mantém
 
+let mapleader=","
+
 " Wildmenu: autocomplete para modo de comando
 set wildmenu
 set wildmode=list:longest,full
