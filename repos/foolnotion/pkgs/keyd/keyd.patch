@@ -1,28 +1,42 @@
-diff --git a/src/config.c b/src/config.c
-index 86b95d5..74015cd 100644
---- a/src/config.c
-+++ b/src/config.c
-@@ -837,7 +837,13 @@ void config_free()
- void config_generate()
+diff --git a/src/keyd.c b/src/keyd.c
+index 00f2cb4..24af05d 100644
+--- a/src/keyd.c
++++ b/src/keyd.c
+@@ -69,6 +69,8 @@ static struct keyboard *keyboards = NULL;
+ 
+ int debug = 0;
+ 
++static char* keyd_config_dir = CONFIG_DIR;
++
+ void dbg(const char *fmt, ...)
  {
- 	struct dirent *ent;
--	DIR *dh = opendir(CONFIG_DIR);
-+
-+      char *config_dir = getenv("KEYD_CONFIG_DIR");
-+      if (!config_dir) {
-+          config_dir = CONFIG_DIR;
-+      }
-+
-+      DIR *dh = opendir(config_dir);
+ 	va_list ap;
+@@ -314,7 +316,7 @@ void reload_config()
+ 	keyboards = NULL;
  
- 	if(!dh) {
- 		perror("opendir");
-@@ -852,7 +858,7 @@ void config_generate()
- 			continue;
+ 	free_configs();
+-	read_config_dir(CONFIG_DIR);
++	read_config_dir(keyd_config_dir);
+ 	scan_keyboards(0);
+ }
  
+@@ -760,6 +762,10 @@ int main(int argc, char *argv[])
+ 		debug = atoi(getenv("KEYD_DEBUG"));
  
--		sprintf(path, "%s/%s", CONFIG_DIR, ent->d_name);
-+		sprintf(path, "%s/%s", config_dir, ent->d_name);
+ 	dbg("Debug mode enabled.");
++	char* cfg_dir = getenv("KEYD_CONFIG_DIR");
++	if (cfg_dir) {
++		keyd_config_dir = cfg_dir;
++	}
  
- 		cfg = calloc(1, sizeof(struct keyboard_config));
+ 	if (argc > 1) {
+ 		if (!strcmp(argv[1], "-v") || !strcmp(argv[1], "--version")) {
+@@ -848,7 +854,7 @@ int main(int argc, char *argv[])
+ 	atexit(cleanup);
  
+ 	info("Starting keyd v%s (%s).", VERSION, GIT_COMMIT_HASH);
+-	read_config_dir(CONFIG_DIR);
++	read_config_dir(keyd_config_dir);
+ 	vkbd = vkbd_init(VIRTUAL_KEYBOARD_NAME);
+ 
+ 	main_loop();
