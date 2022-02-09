@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     echo "Patching rpath and interpreter..."
     for dir in `find $out -mindepth 1 -maxdepth 1 -type d`
     do
-      find $dir -type f -exec $SHELL -c 'patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath ${glibc}/lib:$libPath:$dir/latest/lib64 2>/dev/null {}' \;
+      find $dir -type f -exec $SHELL -c "patchelf --set-interpreter \"$(cat $NIX_CC/nix-support/dynamic-linker)\" --set-rpath ${glibc}/lib:$libPath:$dir/latest/lib64 2>/dev/null {}" \;
     done
   '';
 
