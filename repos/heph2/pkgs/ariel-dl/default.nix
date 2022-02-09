@@ -7,8 +7,8 @@ perlPackages.buildPerlPackage rec {
   src = fetchFromGitHub {
     owner = "heph2";
     repo = pname;
-    rev = "cfda09149f1d6f44f00fb6e6285d9e4aaba5b3e6";
-    sha256 = "54WCkE3Ielb83AxjAsJrXFI5hECAPYoKDc+tGUyqdZM=";
+    rev = "c396ba1494a9d6be619d5a5ccc790b6be722e162";
+    sha256 = "5ajTiQbdxCKTOCejun1IFnrfd99T80uAbfByDk2CC8A=";	
   };
 
   propagatedBuildInputs = with perlPackages;
