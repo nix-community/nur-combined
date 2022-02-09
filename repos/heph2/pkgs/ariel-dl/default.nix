@@ -13,7 +13,7 @@ perlPackages.buildPerlPackage rec {
 
   propagatedBuildInputs = with perlPackages;
     [
-      WWWMechanize MojoDOM58 HTTPCookies GetoptLong Env
+      WWWMechanize MojoDOM58 HTTPCookies GetoptLong Env LWPProtocolHttps
     ];
 
   buildInputs = [shortenPerlShebang];
