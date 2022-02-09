@@ -479,10 +479,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.9.0";
+      version = "4.10.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3897899/floccus-4.9.0-fx.xpi";
-      sha256 = "4ecbadb0420184eb3c7b6085cf8b02eaf7825ad5ac68312b1fb4de612f8611c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3905938/floccus-4.10.0-fx.xpi";
+      sha256 = "e5625f56ae01bc87c83191762d125caf585502dc7bb9508c14ac7cf87b095b31";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -549,10 +549,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220207.151916";
+      version = "98.0buildid20220208.185809";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3905365/francais_language_pack-98.0buildid20220207.151916-fx.xpi";
-      sha256 = "cbe0c3e8efdb002c302b48cd45e77da1186293a994a64734ab6edb1a082bc620";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3906102/francais_language_pack-98.0buildid20220208.185809-fx.xpi";
+      sha256 = "3f072e56888a728215c5863b2c4c6b8604ddd7140ae9ab02109cf75c851c6a96";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1987,10 +1987,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.1";
+      version = "6.0.2";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3905257/vuejs_devtools-6.0.1-fx.xpi";
-      sha256 = "c93cd05fe40fd668f90fd1addc91730713c1b70f5628524031ba5592ee6f6776";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3905786/vuejs_devtools-6.0.2-fx.xpi";
+      sha256 = "50c148d325a46fe2e76a81973370014da9ea85c00af6b2269b546e14cdb8f822";
       meta = with lib;
       {
         homepage = "https://vuejs.org";
