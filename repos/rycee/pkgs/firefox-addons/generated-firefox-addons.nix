@@ -951,10 +951,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.8.1";
+      version = "10.9.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3885451/metamask-10.8.1-an+fx.xpi";
-      sha256 = "a9d10052cb7d4e74c7e560fc54975f9f29dc1c02205ee6964925097d18db2da7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3906604/metamask-10.9.2-an+fx.xpi";
+      sha256 = "091e74007d508918e8a52407afda7697e2ab68c81a16b7a71bd3a481a7a973af";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1065,10 +1065,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.19";
+      version = "11.2.21";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3904230/noscript_security_suite-11.2.19-an+fx.xpi";
-      sha256 = "627ad134968a395fd585a6455087c1c1c461b993a4db0c1471f4c5d2c0cc1177";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3906402/noscript_security_suite-11.2.21-an+fx.xpi";
+      sha256 = "c4b12880791b0678cb414ee1642fc84770d0a7af2f96bb04f1e87e7e0b5e7409";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1814,10 +1814,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.19";
+      version = "3.8.20";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3892754/tree_style_tab-3.8.19-fx.xpi";
-      sha256 = "fdcaf0e7b28e369ef04f3584f7abd28174557bf05cc90ac9d290046ef1821396";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3905819/tree_style_tab-3.8.20-fx.xpi";
+      sha256 = "1586435713e5218379b171df2159af9cfaffcd7f972dfb2c9f1c7d5baa868046";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1987,13 +1987,13 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.2";
+      version = "6.0.5";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3905786/vuejs_devtools-6.0.2-fx.xpi";
-      sha256 = "50c148d325a46fe2e76a81973370014da9ea85c00af6b2269b546e14cdb8f822";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3906695/vuejs_devtools-6.0.5-fx.xpi";
+      sha256 = "000e032df359ae1463785467b4d812f41d3c2b7dfb59cd0574ff0e96ddf25cf3";
       meta = with lib;
       {
-        homepage = "https://vuejs.org";
+        homepage = "https://devtools.vuejs.org";
         description = "DevTools extension for debugging Vue.js applications.";
         license = licenses.mit;
         platforms = platforms.all;
