@@ -6,15 +6,14 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
-rec {
+{ pkgs ? import <nixpkgs> {} }: rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   aria-csv = pkgs.callPackage ./pkgs/aria-csv {
-      aria-csv-cmake = ./pkgs/aria-csv/aria-csv-cmake;
+    aria-csv-cmake = ./pkgs/aria-csv/aria-csv-cmake;
   };
 
   asmjit = pkgs.callPackage ./pkgs/asmjit { };
@@ -59,12 +58,10 @@ rec {
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
 
   vectorclass = pkgs.callPackage ./pkgs/vectorclass {
-      vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
+    vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
   };
 
-  vstat = pkgs.callPackage ./pkgs/vstat {
-      vectorclass = vectorclass;
-  };
+  vstat = pkgs.callPackage ./pkgs/vstat { vectorclass = vectorclass; };
 
   xxhash = pkgs.callPackage ./pkgs/xxhash { };
 
