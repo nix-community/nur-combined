@@ -11,7 +11,7 @@ rec {
 
   # Intel compiler
   #intel-compilers-2017 = throw "2017 Intel compilers have been removed for Gricad's NUR repository. Please, use intel-compilers-2019";
-  #intel-compilers-2018 = throw "2018 Intel compilers have been removed for Gricad's NUR repository. Please, use intel-compilers-2019";
+  intel-compilers-2018 = pkgs.callPackage ./pkgs/intel/2018.nix { };
   intel-compilers-2019 = pkgs.callPackage ./pkgs/intel/2019.nix { };
   intel-oneapi = pkgs.callPackage ./pkgs/intel/oneapi.nix { };
 
