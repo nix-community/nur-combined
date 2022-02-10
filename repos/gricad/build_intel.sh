@@ -9,7 +9,7 @@
 
 export LANG=C
 
-packages="intel-compilers-2019 intel-oneapi"
+packages="intel-compilers-2018 intel-compilers-2019 intel-oneapi"
 # Use the following once to populate cache with older versions
 #packages="intel-compilers-2019 intel-compilers-2018 intel-compilers-2017"
 

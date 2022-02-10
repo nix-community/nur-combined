@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   version = "2018u4";
   name = "intel-compilers-${version}";
-  sourceRoot = "/scratch/intel/2018";
+  sourceRoot = "/data/scratch/intel/2018";
 
   buildInputs = [ glibc gcc ];
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       fi
     done
     # Fixing man path
-    rm -f $out/man
+    rm -rf $out/man
     mkdir -p $out/share
     ln -s ../compilers_and_libraries/linux/man/common $out/share/man
   '';
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.bzizou ];
     platforms = lib.platforms.linux;
     license = lib.licenses.unfree;
-    broken = true;
+    #broken = true;
   };
 }
 
