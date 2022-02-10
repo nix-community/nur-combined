@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
+  multifirefox = pkgs.callPackage ./pkgs/multifirefox { };
   ssm-session-manager-plugin = pkgs.callPackage ./pkgs/ssm-session-manager-plugin { };
   stremio = pkgs.callPackage ./pkgs/stremio { };
   vdhcoapp = pkgs.callPackage ./pkgs/vdhcoapp {
