@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515 }:
+{ lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515, zlib }:
 
 stdenv.mkDerivation rec {
   version = "2022.1.2.146";
@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
   name = "intel-oneapi-${version}";
   sourceRoot = "/data/scratch/intel/oneapi_installer";
 
-  propagatedBuildInputs = [ glibc glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa qt515.full ];
+  propagatedBuildInputs = [ glibc glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa qt515.full zlib ];
 
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa qt515.full ];
+  libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa qt515.full zlib ];
 
   phases = [ "installPhase" "fixupPhase" "installCheckPhase" "distPhase" ];
 
