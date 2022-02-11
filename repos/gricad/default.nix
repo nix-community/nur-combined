@@ -94,6 +94,13 @@ rec {
     mpi = openmpi3;
   };
 
+  lammps-impi =  pkgs.callPackage ./pkgs/lammps {
+    withMPI = true;
+    withOneAPI = true;
+    intel-oneapi = intel-oneapi;
+    gcc = pkgs.gcc;
+  };
+
   # osu micro benchmarks
   osu-micro-benchmarks =  pkgs.callPackage ./pkgs/osu-micro-benchmarks { 
     mpi = openmpi3;
