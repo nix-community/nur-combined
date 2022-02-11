@@ -99,10 +99,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.20";
+      version = "7.4.21";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3904145/betterttv-7.4.20-fx.xpi";
-      sha256 = "a2fe37b6589ae9bf3cb6b14d0c16f0eef80293be6ae771e512149721a7bba2cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3906721/betterttv-7.4.21-fx.xpi";
+      sha256 = "bf725b7890afceaeb4dd7ff0366ac99a7563f1ea7ebb648737b76f5fe7d89836";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -549,10 +549,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220208.185809";
+      version = "98.0buildid20220210.185745";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3906102/francais_language_pack-98.0buildid20220208.185809-fx.xpi";
-      sha256 = "3f072e56888a728215c5863b2c4c6b8604ddd7140ae9ab02109cf75c851c6a96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907166/francais_language_pack-98.0buildid20220210.185745-fx.xpi";
+      sha256 = "83bb8fe2e366399e12b96bfce6889e7dae566e9473eee667602042bd2f13a769";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -576,10 +576,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.5.7";
+      version = "8.6.2";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3803046/ghostery_privacy_ad_blocker-8.5.7-an+fx.xpi";
-      sha256 = "f6977b23eca4a3ce351a00379ce3febf03ac8f927105000075aab5b8393d21ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3903413/ghostery_privacy_ad_blocker-8.6.2-an+fx.xpi";
+      sha256 = "b3dfce2f2036d9183fc0507b89c51b49570c29a04ba152d7622c45d3da116054";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -1065,10 +1065,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.21";
+      version = "11.2.23";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3906402/noscript_security_suite-11.2.21-an+fx.xpi";
-      sha256 = "c4b12880791b0678cb414ee1642fc84770d0a7af2f96bb04f1e87e7e0b5e7409";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907021/noscript_security_suite-11.2.23-an+fx.xpi";
+      sha256 = "a47aae9f5427a855e06fc6476e9d527fe0f08e912983efbafe08e4afec0adeb7";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1120,10 +1120,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.6.0";
+      version = "6.8.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3876348/okta_browser_plugin-6.6.0-an+fx.xpi";
-      sha256 = "2ecfde138282ba0322ce5fa4e8989b8f8377cfcdddc5c4ed4733ad7d864ac836";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901586/okta_browser_plugin-6.8.0-an+fx.xpi";
+      sha256 = "65238deaa1b2f9e12837eec9d49456a0e3102bd74e3a310f1fa395e5b02761e0";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1536,10 +1536,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.19.28";
+      version = "1.19.29";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3904457/singlefile-1.19.28-an+fx.xpi";
-      sha256 = "b0b1cb04b2fb85c465ee4f1046c871909d9da12f9326a800f82da993916a96cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3906954/singlefile-1.19.29-an+fx.xpi";
+      sha256 = "eb05e7c4ff664d4d634679e2051122459f1c396b20034d78fd513b6c986b789e";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1582,10 +1582,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.0.5";
+      version = "4.1.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898029/sponsorblock_skip_sponsorships_on_youtube-4.0.5-an+fx.xpi";
-      sha256 = "65bf2379867bde81729bcb611623ce968b61ac32c6ac223774876a686c309e4d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3906634/sponsorblock_skip_sponsorships_on_youtube-4.1.2-an+fx.xpi";
+      sha256 = "2d55c0c59baa31eaa1c83c3953b435500a8895622e61c0dc85c18e8807aa452a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1861,10 +1861,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.40.8";
+      version = "1.41.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3892224/ublock_origin-1.40.8-an+fx.xpi";
-      sha256 = "1929a8acefa948d76f0b37ab41ff3552ef8b928a5bab220b6940a7b2aefc9cfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907015/ublock_origin-1.41.2-an+fx.xpi";
+      sha256 = "0ff07ab9f13d793ee8e5796937b3f06fa80bdcbec40d742374b0ce7ad04ff46b";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -1987,10 +1987,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.5";
+      version = "6.0.6";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3906695/vuejs_devtools-6.0.5-fx.xpi";
-      sha256 = "000e032df359ae1463785467b4d812f41d3c2b7dfb59cd0574ff0e96ddf25cf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907373/vuejs_devtools-6.0.6-fx.xpi";
+      sha256 = "e3a4670c6feb0860c4016a51cfcc05d7317dd4b89fee3ebda5e0ce2a2538d57b";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
