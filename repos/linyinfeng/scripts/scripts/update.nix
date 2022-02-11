@@ -1,5 +1,5 @@
 { writeShellScriptBin
-, nixUnstable
+, nixVersions
 , nixpkgs-fmt
 , path
 , sourcesFile ? "./pkgs/_sources/generated.nix"
@@ -8,6 +8,10 @@
 , changelogFile ? "${tmpDir}/changelog"
 , alternativeEnvFile ? "${tmpDir}/github-env"
 }:
+
+let
+  nix = nixVersions.unstable;
+in
 
 writeShellScriptBin "update" ''
   set -e
@@ -31,12 +35,12 @@ writeShellScriptBin "update" ''
   # perform update
   pushd pkgs;
   export NIX_PATH="nixpkgs=${path}"
-  ${nixUnstable}/bin/nix shell ..#updater --command updater "$@";
+  ${nix}/bin/nix shell ..#updater --command updater "$@";
   popd
   ${nixpkgs-fmt}/bin/nixpkgs-fmt ${sourcesFile}
   # update done
 
-  ${nixUnstable}/bin/nix eval --expr '
+  ${nix}/bin/nix eval --expr '
     (builtins.getFlake "'$PWD'").lib.versionDiff {
       oldSources = ${oldSourcesFile};
       newSources = ${sourcesFile};
