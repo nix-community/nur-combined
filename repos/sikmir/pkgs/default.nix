@@ -301,6 +301,7 @@ lib.makeScope newScope (
     sdorfehs = callPackage ./misc/sdorfehs { };
     taskcoach = callPackage ./misc/taskcoach { };
     tcvt = callPackage ./misc/tcvt { };
+    telegabber = callPackage ./misc/telegabber { };
     tlstunnel = callPackage ./misc/tlstunnel { };
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr {
