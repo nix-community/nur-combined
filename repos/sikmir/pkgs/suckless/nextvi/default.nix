@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
     description = "Next version of neatvi (a small vi/ex editor)";
     inherit (src.meta) homepage;
     license = licenses.mit;
-    platforms = platforms.unix;
+    platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
+    skip.ci = stdenv.isDarwin;
   };
 }
