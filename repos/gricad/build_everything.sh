@@ -26,7 +26,7 @@ c="nixos-21.05"
 
 export NIX_PATH="nixpkgs=channel:$c"
 echo $NIX_PATH
-build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
+build "hello lammps-impi osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
 
 ###### PACKAGES FOR OLD CHANNEL #######
 c="nixos-20.03"

@@ -7,25 +7,24 @@
 , glibc
 , intel-oneapi
 , gcc
-, gccStdenv
 }:
 let packages = [
      "asphere" "body" "class2" "colloid" "compress" "coreshell"
      "dipole" "granular" "kspace" "manybody" "mc" "misc" "molecule"
-     "opt" "peri" "qeq" "replica" "rigid" "shock" "snap" "srd" "user-reaxc"
+     "opt" "peri" "qeq" "replica" "rigid" "shock" "srd"
     ];
     lammps_includes = "-DLAMMPS_EXCEPTIONS -DLAMMPS_GZIP -DLAMMPS_MEMALIGN=64";
 in
 stdenv.mkDerivation rec {
   # LAMMPS has weird versioning converted to ISO 8601 format
-  version = "stable_29Oct2020";
+  version = "stable_29Sep2021_update2";
   pname = "lammps";
 
   src = fetchFromGitHub {
     owner = "lammps";
     repo = "lammps";
     rev = version;
-    sha256 = "1rmi9r5wj2z49wg43xyhqn9sm37n95cyli3g7vrqk3ww35mmh21q";
+    sha256 = "1ihrg6fw2c2dmgjh6ls9c16sd7mymhsigqwjgn5kjmk81z68kb52";
   };
 
   passthru = {
