@@ -1065,10 +1065,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.23";
+      version = "11.2.24";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3907021/noscript_security_suite-11.2.23-an+fx.xpi";
-      sha256 = "a47aae9f5427a855e06fc6476e9d527fe0f08e912983efbafe08e4afec0adeb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907334/noscript_security_suite-11.2.24-an+fx.xpi";
+      sha256 = "be96f5efb1103ba978643348df1255e4f4409dd5d1a494222502be99f20da1d3";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1987,10 +1987,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.6";
+      version = "6.0.8";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3907373/vuejs_devtools-6.0.6-fx.xpi";
-      sha256 = "e3a4670c6feb0860c4016a51cfcc05d7317dd4b89fee3ebda5e0ce2a2538d57b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907762/vuejs_devtools-6.0.8-fx.xpi";
+      sha256 = "53c3a630cce0163213a733800d78acd065230400ce97cb3a862971c800313b69";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
