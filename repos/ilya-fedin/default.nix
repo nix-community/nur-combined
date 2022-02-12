@@ -52,7 +52,9 @@ rec {
     # tdesktop has random crashes when jemalloc is built with gcc.
     # Apparently, it triggers some bug due to usage of gcc's builtin
     # functions like __builtin_ffsl by jemalloc when it's built with gcc.
-    jemalloc = jemalloc.override { stdenv = llvmPackages.stdenv; };
+    jemalloc = (jemalloc.override { stdenv = llvmPackages.stdenv; }).overrideAttrs(_: {
+      doCheck = false;
+    });
   };
 
   mir = callPackage ./pkgs/mir {};
