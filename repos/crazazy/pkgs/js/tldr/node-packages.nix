@@ -220,13 +220,13 @@ let
         sha1 = "c656051e9817d9ff08ed881477f3fe4019f3ef7d";
       };
     };
-    "follow-redirects-1.14.7" = {
+    "follow-redirects-1.14.8" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.14.7";
+      version = "1.14.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.7.tgz";
-        sha512 = "+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.14.8.tgz";
+        sha512 = "1x0S9UVJHsQprFcEC/qnNzBLcIxsjAV905f/UkQxbclCsoTWlacCNOpQa/anodLl2uaEKFhfWOvM2Qg77+15zA==";
       };
     };
     "fs-extra-9.1.0" = {
@@ -409,13 +409,13 @@ let
         sha512 = "OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==";
       };
     };
-    "minimatch-3.0.4" = {
+    "minimatch-3.0.5" = {
       name = "minimatch";
       packageName = "minimatch";
-      version = "3.0.4";
+      version = "3.0.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz";
-        sha512 = "yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==";
+        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.0.5.tgz";
+        sha512 = "tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==";
       };
     };
     "minimist-1.2.5" = {
@@ -733,7 +733,7 @@ let
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.3"
       sources."defaults-1.0.3"
-      sources."follow-redirects-1.14.7"
+      sources."follow-redirects-1.14.8"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
@@ -754,7 +754,7 @@ let
       sources."marked-2.1.3"
       sources."match-stream-0.0.2"
       sources."mimic-fn-2.1.0"
-      sources."minimatch-3.0.4"
+      sources."minimatch-3.0.5"
       sources."minimist-1.2.5"
       sources."mkdirp-0.5.5"
       sources."ms-2.1.3"

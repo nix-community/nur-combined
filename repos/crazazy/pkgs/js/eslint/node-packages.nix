@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.0.5" = {
+    "@eslint/eslintrc-1.1.0" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.0.5";
+      version = "1.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.0.5.tgz";
-        sha512 = "BLxsnmK3KyPunz5wmCCpqy0YelEoxxGmH73Is+Z74oOTMtExcjkr3dDR6quwrjh1YspA8DH9gnX1o069KiS9AQ==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.1.0.tgz";
+        sha512 = "C1DfL7XX4nPqGd6jcP01W9pVM1HYCuUkFk1432D7F0v3JSlUIeOYn9oCoi3eoLZ+iwBSb29BMFxxny0YrrEZqg==";
       };
     };
     "@humanwhocodes/config-array-0.9.3" = {
@@ -193,13 +193,13 @@ let
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
       };
     };
-    "eslint-scope-7.1.0" = {
+    "eslint-scope-7.1.1" = {
       name = "eslint-scope";
       packageName = "eslint-scope";
-      version = "7.1.0";
+      version = "7.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint-scope/-/eslint-scope-7.1.0.tgz";
-        sha512 = "aWwkhnS0qAXqNOgKOK0dJ2nvzEbhEvpy8OlJ9kZ0FeZnA6zpjv1/Vei+puGFFX7zkPCkHHXb7IDX3A+7yPrRWg==";
+        url = "https://registry.npmjs.org/eslint-scope/-/eslint-scope-7.1.1.tgz";
+        sha512 = "QKQM/UXpIiHcLqJ5AOyIW7XZmzjkzQXYE54n1++wb0u9V/abW3l9uQnxX8Z5Xd18xyKIMTUAyQ0k1e8pz6LUrw==";
       };
     };
     "eslint-utils-3.0.0" = {
@@ -220,22 +220,22 @@ let
         sha512 = "0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==";
       };
     };
-    "eslint-visitor-keys-3.2.0" = {
+    "eslint-visitor-keys-3.3.0" = {
       name = "eslint-visitor-keys";
       packageName = "eslint-visitor-keys";
-      version = "3.2.0";
+      version = "3.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.2.0.tgz";
-        sha512 = "IOzT0X126zn7ALX0dwFiUQEdsfzrm4+ISsQS8nukaJXwEyYKRSnEIIDULYg1mCtGp7UUXgfGl7BIolXREQK+XQ==";
+        url = "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.3.0.tgz";
+        sha512 = "mQ+suqKJVyeuwGYHAdjMFqjCyfl8+Ldnxuyp3ldiMBFKkvytrXUZWaiPCEav8qDHKty44bD+qV1IP4T+w+xXRA==";
       };
     };
-    "espree-9.3.0" = {
+    "espree-9.3.1" = {
       name = "espree";
       packageName = "espree";
-      version = "9.3.0";
+      version = "9.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/espree/-/espree-9.3.0.tgz";
-        sha512 = "d/5nCsb0JcqsSEeQzFZ8DH1RmxPcglRWh24EFTlUEmCKoehXGdpsx0RkHDubqUI8LSAIKMQp4r9SzQ3n+sm4HQ==";
+        url = "https://registry.npmjs.org/espree/-/espree-9.3.1.tgz";
+        sha512 = "bvdyLmJMfwkV3NCRl5ZhJf22zBFo1y8bYh3VYb+bfzqNB4Je68P2sSuXyuFquzWLebHpNd2/d5uv7yoP9ISnGQ==";
       };
     };
     "esquery-1.4.0" = {
@@ -508,13 +508,13 @@ let
         sha512 = "0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==";
       };
     };
-    "minimatch-3.0.4" = {
+    "minimatch-3.0.5" = {
       name = "minimatch";
       packageName = "minimatch";
-      version = "3.0.4";
+      version = "3.0.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz";
-        sha512 = "yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==";
+        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.0.5.tgz";
+        sha512 = "tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==";
       };
     };
     "ms-2.1.2" = {
@@ -749,7 +749,7 @@ let
     version = "8.8.0";
     src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.8.0.tgz"; sha1 = "9762b49abad0cb4952539ffdb0a046392e571a2d"; };
     dependencies = [
-      (sources."@eslint/eslintrc-1.0.5" // {
+      (sources."@eslint/eslintrc-1.1.0" // {
         dependencies = [
           sources."ignore-4.0.6"
         ];
@@ -774,14 +774,14 @@ let
       sources."deep-is-0.1.4"
       sources."doctrine-3.0.0"
       sources."escape-string-regexp-4.0.0"
-      sources."eslint-scope-7.1.0"
+      sources."eslint-scope-7.1.1"
       (sources."eslint-utils-3.0.0" // {
         dependencies = [
           sources."eslint-visitor-keys-2.1.0"
         ];
       })
-      sources."eslint-visitor-keys-3.2.0"
-      sources."espree-9.3.0"
+      sources."eslint-visitor-keys-3.3.0"
+      sources."espree-9.3.1"
       sources."esquery-1.4.0"
       sources."esrecurse-4.3.0"
       sources."estraverse-5.3.0"
@@ -811,7 +811,7 @@ let
       sources."json-stable-stringify-without-jsonify-1.0.1"
       sources."levn-0.4.1"
       sources."lodash.merge-4.6.2"
-      sources."minimatch-3.0.4"
+      sources."minimatch-3.0.5"
       sources."ms-2.1.2"
       sources."natural-compare-1.4.0"
       sources."once-1.4.0"
