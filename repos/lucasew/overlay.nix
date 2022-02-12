@@ -88,7 +88,6 @@ in reduceJoin [
     t-launcher = cp ./packages/tlauncher.nix;
     pkg = cp ./packages/pkg.nix;
     pipedream-cli = cp ./packages/pipedream-cli.nix;
-    stremio = cp ./packages/stremio.nix;
     wrapWine = cp ./packages/wrapWine.nix;
     preload = cp ./packages/preload.nix;
     nodePackages = cp ./packages/node_clis/package_data/default.nix;
