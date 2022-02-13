@@ -1,14 +1,13 @@
 { lib
 , buildPythonPackage
 , isPy3k
-, fetchFromGitHub
+, fetchPypi
 , fixtures
 , jsonpatch
-, mock
 , netaddr
 , prettytable
-, pytestCheckHook
 , python-dateutil
+, pytestCheckHook
 , requests
 , requests-mock
 , six
@@ -18,20 +17,14 @@
 
 buildPythonPackage rec {
   pname = "fiblary3";
-  version = "0.1.8";
+  version = "0.1.12";
   disabled = !isPy3k;
 
-  src = fetchFromGitHub {
-    # TODO: fix
-    owner = "graham33";
-    repo = "fiblary";
-    rev = "bda5e5434adf446e8659223816ec7cc9452fa393";
-    sha256 = "1fww6ackarn4sdlwwkk22x3lcbh1m1rjx9yl4ksbvakhh1jfycii";
+  src = fetchPypi {
+    pname = "fiblary3-fork";
+    inherit version;
+    sha256 = "001wqh7gx2dv3sf7a5xsbppz9r88f5qwrp05jzjsjcm6cbcvmsz0";
   };
-
-  nativeBuildInputs = [
-    sphinx
-  ];
 
   propagatedBuildInputs = [
     jsonpatch
@@ -44,7 +37,6 @@ buildPythonPackage rec {
 
   checkInputs = [
     fixtures
-    mock
     pytestCheckHook
     requests-mock
     testtools
@@ -53,9 +45,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "fiblary3" ];
 
   meta = with lib; {
-    homepage = "https://github.com/pbalogh77/fiblary";
+    homepage = "https://github.com/graham33/fiblary";
     description = "Fibaro Home Center API Python Library";
     license = licenses.asl20;
-    #maintainers = with maintainers; [ graham33 ];
+    maintainers = with maintainers; [ graham33 ];
   };
 }
