@@ -7,6 +7,29 @@ let
   client = cfg.enable && !cfg.server;
   edgevpn = pkgs.nur.repos.dukzcry.edgevpn;
   sleep = "while [ ! -d /sys/devices/virtual/net/${cfg.interface} ]; do sleep 5; done";
+  serviceOptions = {
+    LockPersonality = true;
+    DeviceAllow = "/dev/net/tun";
+    PrivateIPC = true;
+    PrivateMounts = true;
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    ProtectProc = "invisible";
+    RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    AmbientCapabilities = "CAP_NET_ADMIN";
+    CapabilityBoundingSet = "CAP_NET_ADMIN";
+    MemoryDenyWriteExecute = true;
+    SystemCallArchitectures = "native";
+    SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
+    DynamicUser = true;
+    LoadCredential = "config.yaml:${cfg.config}";
+  };
 in {
   options.networking.edgevpn = {
     enable = mkOption {
@@ -77,49 +100,50 @@ in {
         requires = [ "network-online.target" ];
         after = [ "network.target" "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
-        description = "EdgeVPN service";
-        path = with pkgs; [ edgevpn iproute2 ];
+        description = "EdgeVPN server";
+        path = with pkgs; [ edgevpn ];
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "edgevpn" ''
-            edgevpn --log-level ${cfg.logLevel} --config ${cfg.config} --address ${cfg.address} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
+            edgevpn --log-level ${cfg.logLevel} --config $CREDENTIALS_DIRECTORY/config.yaml --address ${cfg.address} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
           '';
-        };
-        postStart = ''
-          set +e
-          ${optionalString (cfg.postStart != "") sleep}
-          ${cfg.postStart}
-          true
-        '';
-        preStop = ''
-          set +e
-          ${cfg.preStop}
-          true
-        '';
-       };
+          CPUQuota = "5%";
+        } // serviceOptions;
+      };
     })
     (mkIf client {
       boot.kernel.sysctl."net.core.rmem_max" = mkDefault 2500000;
       systemd.services.edgevpn = {
         requires = [ "network-online.target" ];
         after = [ "network.target" "network-online.target" ];
-        description = "EdgeVPN service";
+        description = "EdgeVPN client";
         path = with pkgs; [ edgevpn iproute2 openresolv ];
+        environment = {
+          HOME = "%S/edgevpn";
+        };
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "edgevpn" ''
-            edgevpn --log-level ${cfg.logLevel} --config ${cfg.config} --address ${cfg.address} ${optionalString cfg.dhcp "--dhcp"} ${optionalString (cfg.router != null) "--router ${cfg.router}"}
+            edgevpn --log-level ${cfg.logLevel} --config $CREDENTIALS_DIRECTORY/config.yaml --address ${cfg.address} ${optionalString cfg.dhcp "--dhcp"} ${optionalString (cfg.router != null) "--router ${cfg.router}"}
+          '';
+          StateDirectory = "edgevpn";
+          ReadWritePaths = "/var/lib/edgevpn";
+        } // serviceOptions;
+      };
+      systemd.services.edgevpn-script = {
+        after = [ "edgevpn.service" ];
+        bindsTo = [ "edgevpn.service" ];
+        wantedBy = [ "edgevpn.service" ];
+        description = "EdgeVPN script";
+        path = with pkgs; [ iproute2 openresolv ];
+        serviceConfig = {
+          RemainAfterExit = true;
+          ExecStart = pkgs.writeShellScript "edgevpn-start" ''
+            ${optionalString (cfg.postStart != "") sleep}
+            ${cfg.postStart}
+          '';
+          ExecStop = pkgs.writeShellScript "edgevpn-stop" ''
+            ${cfg.preStop}
           '';
         };
-        postStart = ''
-          set +e
-          ${optionalString (cfg.postStart != "") sleep}
-          ${cfg.postStart}
-          true
-        '';
-        preStop = ''
-          set +e
-          ${cfg.preStop}
-          true
-        '';
       };
     })
   ];
