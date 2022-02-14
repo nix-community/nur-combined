@@ -82,7 +82,7 @@ in {
         echo -e "nameserver 10.0.0.2\nsearch local" | resolvconf -a ${config.networking.edgevpn.interface}
       '';
     };
-    preStop = mkOption {
+    postStop = mkOption {
       type = types.str;
       default = "";
       example = ''
@@ -121,7 +121,6 @@ in {
             edgevpn --log-level ${cfg.logLevel} --config $CREDENTIALS_DIRECTORY/config.yaml --address ${cfg.address} ${optionalString cfg.dhcp "--dhcp"} ${optionalString (cfg.router != null) "--router ${cfg.router}"} --lease-dir /var/lib/edgevpn
           '';
           StateDirectory = "edgevpn";
-          ReadWritePaths = "/var/lib/edgevpn";
         } // serviceOptions;
       };
       systemd.services.edgevpn-script = {
@@ -137,7 +136,7 @@ in {
             ${cfg.postStart}
           '';
           ExecStop = pkgs.writeShellScript "edgevpn-stop" ''
-            ${cfg.preStop}
+            ${cfg.postStop}
           '';
         };
       };

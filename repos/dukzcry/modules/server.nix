@@ -49,7 +49,7 @@ in {
         ip route add dev ${config.networking.edgevpn.interface} 10.0.1.0/24
         echo -e "nameserver 10.0.0.2\nsearch local" | resolvconf -a ${config.networking.edgevpn.interface}
       '';
-      preStop = ''
+      postStop = ''
         resolvconf -d ${config.networking.edgevpn.interface}
       '';
     };
