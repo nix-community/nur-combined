@@ -4,11 +4,9 @@
 
   nix = {
     package = pkgs.nixStable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
 
     settings = {
+      experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "@wheel" ];
       substituters = [
         "https://alarsyo.cachix.org"
