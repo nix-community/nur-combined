@@ -16,7 +16,6 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/gui/system.nix
-      ../../modules/polybar/system.nix
       inputs.nix-ld.nixosModules.nix-ld
       inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
       inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
@@ -51,6 +50,14 @@ in
       blur = true;
     };
   };
+
+  fonts.fonts = with pkgs; [
+    siji
+    noto-fonts
+    noto-fonts-emoji
+    fira-code
+  ];
+
 
   services.auto-cpufreq.enable = true;
   # text expander in rust

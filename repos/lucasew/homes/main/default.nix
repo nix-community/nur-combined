@@ -17,8 +17,8 @@ in {
     ./modules/dunst.nix
     ./modules/i3.nix
     ./modules/espanso.nix
-    ../../modules/polybar/home.nix
-    ../../modules/tmux/home.nix
+    ./modules/polybar.nix
+    ./modules/tmux
   ]
   ;
 

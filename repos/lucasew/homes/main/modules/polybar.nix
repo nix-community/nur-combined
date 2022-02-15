@@ -4,7 +4,7 @@ let
   colors = {
     background = "#77000000";
     background-alt = "#aa111111";
-    background-selected = "cc000000";
+    background-selected = "ee000000";
     background-selected-secondary = "99000000";
     foreground = "#dfdfdf";
     foreground-alt = "#555";
@@ -39,7 +39,7 @@ in {
       "background" = colors.background;
       "foreground" = colors.foreground;
 
-      "line-size" = 2;
+      "line-size" = 0;
       "line-color" = "#f00";
 
       "border-size" = 0;
@@ -51,8 +51,10 @@ in {
       "module-margin-left" = 1;
       "module-margin-right" = 1;
 
-      "modules-center" = [
+      "modules-left" = [
         "i3"
+      ];
+      "modules-center" = [
         "temperature"
         "date"
         # "xwindow"
@@ -78,7 +80,7 @@ in {
       "background" = colors.background;
       "foreground" = colors.foreground;
 
-      "line-size" = 2;
+      "line-size" = 0;
       "line-color" = "#f00";
 
       "border-size" = 0;
@@ -90,17 +92,20 @@ in {
       "module-margin-left" = 1;
       "module-margin-right" = 1;
 
-      "modules-center" = [
+      "modules-left" = [
         "i3"
-        "pulseaudio"
-        "xkeyboard"
-        "memory"
+      ];
+
+      "modules-center" = [
         "cpu"
-        "netusage-wifi"
+        "memory"
+        "xkeyboard"
         "wlan"
-        "netusage-ethernet"
+        "netusage-wifi"
         "eth"
+        "netusage-ethernet"
         "temperature"
+        "pulseaudio"
         "battery"
         "date"
       ];
@@ -116,7 +121,7 @@ in {
     };
     "module/xkeyboard" = {
       "type" = "internal/xkeyboard";
-      "format" = " <label-layout> <label-indicator>";
+      "format" = "  <label-indicator> <label-layout>";
     # ; format-prefix = ""
     "format-prefix-foreground" = colors.foreground-alt;
     "format-prefix-underline" = colors.secondary;
@@ -261,10 +266,10 @@ in {
     "interface" = "enp2s0f1";
     "interval" = 3;
 
-    "format-connected-prefix" = "  ON";
+    "format-connected-prefix" = " ";
     "format-connected-underline" = "#00ff00";
 
-    "format-connected-prefix-foreground" = colors.foreground-alt;
+    # "format-connected-prefix-foreground" = colors.foreground-alt;
     "label-connected" = "%local_ip%";
 
     "format-disconnected" = "  OFF";
@@ -290,9 +295,9 @@ in {
     "type" = "internal/pulseaudio";
 
     # ; format-volume = <label-volume> <bar-volume>
-    "format-volume" = "♫  <bar-volume>";
+    "format-volume" = "♫  <label-volume>";
     # ; label-volume = som %percentage%%
-    "label-volume" = "";
+    "label-volume" = "%percentage%";
 
     "label-muted" = "";
     # ; label-muted-foreground = #666
@@ -377,7 +382,7 @@ in {
   "module/temperature" = {
     "type" = "internal/temperature";
     "thermal-zone" = "0";
-    "warn-temperature" = "60";
+    "warn-temperature" = "70";
 
     "format" = "<ramp> <label>";
     "format-underline" = "#f50a4d";
