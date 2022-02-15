@@ -69,7 +69,7 @@ in {
     };
     irqbalance.enable = true;
     php-utils.enable = true;
-    vaultwarden.enable = true;
+    # vaultwarden.enable = true;
     postgresql = {
       enable = true;
       enableTCPIP = true;
