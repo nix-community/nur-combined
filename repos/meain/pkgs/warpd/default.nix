@@ -3,21 +3,21 @@
 pkgs.stdenv.mkDerivation rec {
   pname = "warpd";
   name = pname;
-  version = "617f0e08d5a4ec80ce8df0d4e66f9edb32188921";
+  version = "0cb25272c7ad6521158cedfc0971adb5d6cbd71b";
 
   src = fetchFromGitHub {
     owner = "rvaiya";
     repo = "${pname}";
     rev = "${version}";
-    sha256 = "sha256-WuejZx65XuhESwNgfc5E3L10rXFJWoxivjqgXhmA/wc=";
+    sha256 = "sha256-eXMSrPvMR/GURoiXb06UNlxS6fjLFmsusdKeYOnMdS8=";
   };
 
   nativeBuildInputs = [xorg.libX11 xorg.libXi xorg.libXinerama xorg.libXft xorg.libXtst xlibs.libXext.dev];
-  patches = [ ./change-font.patch ];
+  patches = [ ./font-config.patch ]; # add option to customize fonts
 
   installPhase = ''
     mkdir -p $out/bin
-    cp bin/warp $out/bin/warpd
+    cp bin/warpd $out/bin/warpd
     chmod +x $out/bin/*
   '';
 

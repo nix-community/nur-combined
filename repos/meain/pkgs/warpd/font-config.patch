@@ -1,0 +1,95 @@
+diff --git a/cfg.opts b/cfg.opts
+index 606af16..7f87e17 100644
+--- a/cfg.opts
++++ b/cfg.opts
+@@ -51,6 +51,8 @@ hint_bgcolor		string		"#00ff00"		"The background hint color."
+ hint_fgcolor		string		"#000000"		"The foreground hint color."
+ hint_border_radius	int		0			"Border radius."
+ 
++hint_font	string		"Monospace"			"Font for hint text"
++
+ scroll_down		string		"e"			"Scroll down key."
+ scroll_up		string		"r"			"Scroll up key."
+ 
+diff --git a/src/cfg.c b/src/cfg.c
+index 7538c6c..e14d8df 100644
+--- a/src/cfg.c
++++ b/src/cfg.c
+@@ -107,6 +107,7 @@ struct cfg* parse_cfg(const char *fname) {
+ 	cfg->hint_bgcolor = strdup("#00ff00");
+ 	cfg->hint_fgcolor = strdup("#000000");
+ 	cfg->hint_border_radius = atoi("0");
++	cfg->hint_font = strdup("Monospace");
+ 	cfg->scroll_down = strdup("e");
+ 	cfg->scroll_up = strdup("r");
+ 
+@@ -201,6 +202,8 @@ struct cfg* parse_cfg(const char *fname) {
+             cfg->hint_fgcolor = strdup(val);
+         else if(!strcmp(key, "hint_border_radius"))
+             cfg->hint_border_radius = atoi(val);
++        else if(!strcmp(key, "hint_font"))
++            cfg->hint_font = strdup(val);
+         else if(!strcmp(key, "scroll_down"))
+             cfg->scroll_down = strdup(val);
+         else if(!strcmp(key, "scroll_up"))
+diff --git a/src/cfg.h b/src/cfg.h
+index 31d6f42..7542f27 100644
+--- a/src/cfg.h
++++ b/src/cfg.h
+@@ -50,6 +50,7 @@ struct cfg {
+ 	char	 *hint_bgcolor;
+ 	char	 *hint_fgcolor;
+ 	int	  hint_border_radius;
++	char	 *hint_font;
+ 	char	 *scroll_down;
+ 	char	 *scroll_up;
+ };
+diff --git a/src/hint.c b/src/hint.c
+index 097d07e..d51e016 100644
+--- a/src/hint.c
++++ b/src/hint.c
+@@ -83,7 +83,7 @@ void init_hint_mode() {
+ 			hint->label[2] = 0;
+ 		}
+ 
+-	init_hint(hints, nhints, sz, cfg->hint_border_radius, cfg->hint_bgcolor, cfg->hint_fgcolor);
++	init_hint(hints, nhints, sz, cfg->hint_border_radius, cfg->hint_bgcolor, cfg->hint_fgcolor, cfg->hint_font);
+ 	filter("", NULL);
+ }
+ 
+diff --git a/src/platform.h b/src/platform.h
+index 6d33061..20a9a1e 100644
+--- a/src/platform.h
++++ b/src/platform.h
+@@ -103,7 +103,7 @@ void	screen_get_dimensions(int *sw, int *sh);
+ 
+ /* Hints are centered around the provided x,y coordinates. */
+ void	init_hint(struct hint *_hints, size_t n, int _ptsz, int _border_radius, 
+-			const char *bgcol, const char *fgcol);
++			const char *bgcol, const char *fgcol, const char *ufont);
+ 
+ /* indices must be the same size as the initialized hints */
+ void	hint_show(uint8_t *indices);
+diff --git a/src/platform/X/hints.c b/src/platform/X/hints.c
+index 8721524..b1fd280 100644
+--- a/src/platform/X/hints.c
++++ b/src/platform/X/hints.c
+@@ -328,7 +328,8 @@ void init_hint(struct hint *_hints,
+ 	       int _height,
+ 	       int _border_radius,
+ 	       const char *bgcol,
+-	       const char *fgcol)
++	       const char *fgcol,
++	       const char *ufont)
+ {
+ 	size_t i;
+ 	int sw, sh;
+@@ -342,7 +343,7 @@ void init_hint(struct hint *_hints,
+ 	border_radius = _border_radius;
+ 	height = (sh * _height) / 1000;
+ 
+-	font = get_font("Monospace", height);
++	font = get_font(ufont, height);
+ 
+ 	for(i = 0;i < nhints;i++)
+ 		active_indices[i] = 1;
