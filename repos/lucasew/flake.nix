@@ -39,7 +39,6 @@
         nixos-hardware
         nix-on-droid
         nixpkgs
-        nixpkgsLatest
         nur
         pocket2kindle
         redial_proxy
@@ -78,7 +77,7 @@
               "$NIXCFG_ROOT_PATH/scripts/?/index.lua"
             ]}"
             export LUA_INIT="pcall(require, 'adapter.fennel')"
-            export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/compat/overlay.nix:nixpkgsLatest=${nixpkgsLatest}:home-manager=${home-manager}:nur=${nur}:nixos-config=$NIXCFG_ROOT_PATH/nodes/$HOSTNAME/default.nix
+            export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/compat/overlay.nix:home-manager=${home-manager}:nur=${nur}:nixos-config=$NIXCFG_ROOT_PATH/nodes/$HOSTNAME/default.nix
           '';
         };
 
@@ -112,11 +111,12 @@
         nix = optionsNix;
       };
 
-      overlays = [
-        (import ./overlay.nix self)
-        (import "${home-manager}/overlay.nix")
-        (borderless-browser.overlay)
-      ];
+      overlays = []
+      ++ [(import "${home-manager}/overlay.nix")]
+      ++ [(borderless-browser.overlay)]
+      ++ [(import ./overlay.nix self)]
+      ++ [inputs.rust-overlay.overlay]
+      ;
 
       nixOnDroidConf = {mainModule}:
         import "${nix-on-droid}/modules" {
@@ -179,6 +179,7 @@
 
       in {
         inherit (global) environmentShell;
+        inherit overlays;
 
         homeConfigurations = {
           main = hmConf {

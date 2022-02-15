@@ -83,7 +83,6 @@ in {
     #   extraParameters = "-ms 120";
     #   secretsDotenv = "${rootPath}/secrets/randomtube.env";
     # };
-    cloudflared.enable = true;
   };
 
   cachix.enable = true;
