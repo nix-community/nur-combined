@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "Digital";
-  version = "0.26";
+  version = "0.29";
 
   # TODO: perhaps build from source
   src = fetchurl {
     url =
       "github.com/hneemann/Digital/releases/download/v${version}/Digital.zip";
-    sha256 = "TYO3tBzpRCAFi/EZri3uj/RIXkFvG6D/4NHq9rR+nnc=";
+    sha256 = "19zk8wgsv7wvbjxgkypyxrjr3fg36ddnx21qhqzzxp80c5vy4qad";
   };
 
   nativeBuildInputs = [ unzip makeWrapper ];
