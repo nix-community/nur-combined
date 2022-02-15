@@ -821,10 +821,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.3";
+      version = "1.3.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3895182/leechblock_ng-1.3-an+fx.xpi";
-      sha256 = "7de6e26b79428fccef6566656ba0fc4ef7d0277150c94a9bdf4a2b3ffeac1ae8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3908323/leechblock_ng-1.3.1-an+fx.xpi";
+      sha256 = "f8b5c36f858effbbe8259604447ed65e177252bbcde5639dd90b032b2ac67b1b";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1065,10 +1065,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.24";
+      version = "11.2.25";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3907334/noscript_security_suite-11.2.24-an+fx.xpi";
-      sha256 = "be96f5efb1103ba978643348df1255e4f4409dd5d1a494222502be99f20da1d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3908143/noscript_security_suite-11.2.25-an+fx.xpi";
+      sha256 = "f0903b012a336b46e8a73c68acb44a19c757dbd688f08fa86019c932a1543e03";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1582,10 +1582,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.1.2";
+      version = "4.1.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3906634/sponsorblock_skip_sponsorships_on_youtube-4.1.2-an+fx.xpi";
-      sha256 = "2d55c0c59baa31eaa1c83c3953b435500a8895622e61c0dc85c18e8807aa452a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907999/sponsorblock_skip_sponsorships_on_youtube-4.1.3-an+fx.xpi";
+      sha256 = "cba43848fefa019cd4a15a42852c58554668e2feeebb94b9cc277bc905187527";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1814,10 +1814,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.20";
+      version = "3.8.21";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3905819/tree_style_tab-3.8.20-fx.xpi";
-      sha256 = "1586435713e5218379b171df2159af9cfaffcd7f972dfb2c9f1c7d5baa868046";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3908159/tree_style_tab-3.8.21-fx.xpi";
+      sha256 = "80f83f6314f0c85f405fcbe76fec0fdcc69eb844417a1b2a450c1f46f4417021";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -1987,10 +1987,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.8";
+      version = "6.0.11";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3907762/vuejs_devtools-6.0.8-fx.xpi";
-      sha256 = "53c3a630cce0163213a733800d78acd065230400ce97cb3a862971c800313b69";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3908925/vuejs_devtools-6.0.11-fx.xpi";
+      sha256 = "67654e0ac89e30ee06598951e8a4a6dfbedf333c9e02bc5b13b47fad7cdc516a";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
