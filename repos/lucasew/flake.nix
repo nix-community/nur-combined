@@ -38,13 +38,24 @@
         nixgram
         nixos-hardware
         nix-on-droid
-        nixpkgs
         nur
         pocket2kindle
         redial_proxy
         ;
         inherit (builtins) replaceStrings toFile trace readFile concatStringsSep;
         inherit (home-manager.lib) homeManagerConfiguration;
+
+        nixpkgs = inputs.nixpkgs.legacyPackages.${system}.applyPatches {
+          name = "nixpkgs";
+          src = inputs.nixpkgs;
+          patches = map inputs.nixpkgs.legacyPackages.${system}.fetchpatch [
+            {
+              # fix remarshall
+              url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/159074.patch";
+              sha256 = "0mw667qrcwax66nx5bzfgaxyll4j2qkg1sp42ss860y8xyyyvjgv";
+            }
+          ];
+        };
 
         pkgsArgs = {
           inherit overlays;
