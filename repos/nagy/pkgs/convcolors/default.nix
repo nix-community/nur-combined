@@ -1,6 +1,6 @@
-{ lib, fetchPypi, python3Packages, setuptools, setuptools_scm}:
+{ lib, fetchPypi, buildPythonPackage, setuptools_scm}:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "convcolors";
   version = "1.0.0";
 

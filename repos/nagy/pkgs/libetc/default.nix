@@ -9,11 +9,6 @@ stdenv.mkDerivation rec {
     sha256 = "10n2sxmiglpxh0gdmbib3fa8qyfm5ci75k964xqszs7ay8wa36d4";
   };
 
-  nativeBuildInputs = [ ];
-  buildInputs = [
-
-  ];
-
   makeFlags = [ "LIBDIR=${placeholder "out"}/lib" ];
 
   postPatch = ''

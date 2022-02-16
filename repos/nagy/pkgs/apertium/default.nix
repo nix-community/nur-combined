@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, callPackage, autoconf, automake, libtool, libxml2
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, libxml2
 , libxslt, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox, autoreconfHook }:
+
 stdenv.mkDerivation rec {
   pname = "apertium";
   version = "3.7.1";

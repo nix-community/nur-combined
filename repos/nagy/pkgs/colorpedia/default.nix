@@ -1,7 +1,7 @@
-{ lib, fetchPypi, python3Packages, setuptools, setuptools_scm, fire, toml
+{ lib, fetchPypi, buildPythonApplication, setuptools, setuptools_scm, fire
 , installShellFiles }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "colorpedia";
   version = "1.2.3";
 
@@ -12,7 +12,9 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ setuptools_scm installShellFiles ];
 
-  propagatedBuildInputs = [ fire toml setuptools ];
+  propagatedBuildInputs = [ fire setuptools ];
+
+  pythonImportsCheck = [ "colorpedia" ];
 
   postInstall = ''
     installShellCompletion --cmd color \

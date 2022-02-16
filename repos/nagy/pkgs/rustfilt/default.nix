@@ -1,4 +1,5 @@
 { lib, fetchFromGitHub, rustPlatform }:
+
 rustPlatform.buildRustPackage rec {
   pname = "rustfilt";
   version = "0.2.1";

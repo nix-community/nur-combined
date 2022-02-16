@@ -1,6 +1,6 @@
-{ lib, fetchFromGitHub, python3Packages, dbus }:
+{ lib, fetchFromGitHub, buildPythonPackage, dbus }:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "dbussy";
   version = "unstable-2022-01-28";
 

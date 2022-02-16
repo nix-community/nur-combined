@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, setuptools, setuptools_scm, pymatting
+{ lib, fetchFromGitHub, python3Packages, setuptools_scm, pymatting
 , filetype, scikitimage, installShellFiles, pillow
 # my fork does not need these packages
 # , flask

@@ -1,4 +1,4 @@
-{ lib, pkgs, cffi, buildPythonPackage, libvosk }:
+{ lib, cffi, buildPythonPackage, libvosk }:
 
 buildPythonPackage {
   pname = "vosk";

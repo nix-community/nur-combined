@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "pigo";
-  version = "1.4.4";
+  version = "1.4.5";
 
   src = fetchFromGitHub {
     owner = "esimov";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0pwyv7ys7w7d3dz22xs8ddxi3kj7yj2k2wxj8z5pg87vfmx8lhl4";
+    sha256 = "sha256-46/zUdLCcYS0+sVM1HZTfnCHgIJ39p+mjpDPvvq0+UA=";
   };
 
   vendorSha256 = "1yaiiiamk6wvacsyv04m5gar3rskb0hqa54rrxag8x5lz2rmahij";
@@ -16,8 +16,7 @@ buildGoModule rec {
   deleteVendor = true;
 
   postInstall = ''
-     # this generic name might conflict with other packages
-     rm -f $out/bin/http
+     mv $out/bin/http $out/bin/pigo-http
   '';
 
   meta = with lib; {

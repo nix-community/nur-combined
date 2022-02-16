@@ -1,7 +1,7 @@
-{ lib, fetchPypi, python3Packages, setuptools, setuptools_scm, numba
+{ lib, fetchPypi, buildPythonPackage, setuptools_scm, numba
 , scipy, openssl, installShellFiles, pillow }:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "PyMatting";
   version = "1.1.5";
 

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, bundlerApp, ... }:
+{ bundlerApp, ... }:
 
 bundlerApp {
   pname = "kaitai-struct-visualizer" ;
