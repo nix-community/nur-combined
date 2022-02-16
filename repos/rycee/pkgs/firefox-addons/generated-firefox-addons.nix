@@ -479,10 +479,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.10.0";
+      version = "4.10.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3905938/floccus-4.10.0-fx.xpi";
-      sha256 = "e5625f56ae01bc87c83191762d125caf585502dc7bb9508c14ac7cf87b095b31";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3909212/floccus-4.10.1-fx.xpi";
+      sha256 = "2190a7d70402ff4436b8db1f5744141a8d13125301a922c1f760558f16726af4";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -549,10 +549,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220213.185901";
+      version = "98.0buildid20220215.194438";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3908438/francais_language_pack-98.0buildid20220213.185901-fx.xpi";
-      sha256 = "c46a35d8798c97801cf44fe2ab61d1425e2f3608b83c969a330fded9552f518c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3909553/francais_language_pack-98.0buildid20220215.194438-fx.xpi";
+      sha256 = "b4243cbab1396ffb1df779e2542123b0b15a103801ccfe0f51a4c5759a37f5ff";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -963,10 +963,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.0.5";
+      version = "8.0.6";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3899402/firefox_multi_account_containers-8.0.5-fx.xpi";
-      sha256 = "b9d6267a8fd633cd64a0444b6355c299bc4a3f23d21e794117e339c5ec705039";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907697/firefox_multi_account_containers-8.0.6-fx.xpi";
+      sha256 = "d93db0b146ef6982011200e58b8afa9c43bdc345116333593826667c5db5cfab";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -1987,10 +1987,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.11";
+      version = "6.0.12";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3908925/vuejs_devtools-6.0.11-fx.xpi";
-      sha256 = "67654e0ac89e30ee06598951e8a4a6dfbedf333c9e02bc5b13b47fad7cdc516a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3909446/vuejs_devtools-6.0.12-fx.xpi";
+      sha256 = "b17d2f68f68992b720989586266e7549b2384e3bb7b06990418a0de5c97122a4";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
@@ -2028,10 +2028,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.51.1";
+      version = "2.52.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3903857/web_scrobbler-2.51.1-an+fx.xpi";
-      sha256 = "9a1bd41de7c74df655b427742f1864da1d4e5e17aa91d8a0e57d1b559f167adf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3909505/web_scrobbler-2.52.0-an+fx.xpi";
+      sha256 = "b2f363ced850ddab9128d7564ecb07194700ee92623af9f74c37ae971ca461b2";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
