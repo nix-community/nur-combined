@@ -10,4 +10,5 @@
   duplicity = ./duplicity;
   wordpress = ./wordpress;
   etlegacy = ./etlegacy;
+  mautrix-whatsapp = ./mautrix-whatsapp;
 }
