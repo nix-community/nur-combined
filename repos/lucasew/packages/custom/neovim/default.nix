@@ -1,15 +1,14 @@
 { pkgs
+, flake
 , ...
 }:
 let
   inherit (builtins)
-    getFlake
     toString
     readFile
     trace
   ;
-  self = getFlake (toString ../../..);
-  inherit (self) inputs;
+  inherit (flake) inputs;
   inherit (pkgs) 
     fetchFromGitHub
     vimPlugins
@@ -34,37 +33,6 @@ let
         sha256 = "1jwwiq321b86bh1z3shcprgh2xs5n1xjy9s364zxlxy8qhwfsryq";
     };
   };
-  pluginEmbark = buildVimPlugin {
-    name = "embark-theme";
-    src = fetchFromGitHub {
-      owner = "embark-theme";
-      repo = "vim";
-      rev = "cce94a2cc9f0395ed156930bf6a2d1e3198daa4f";
-      sha256 = "02wxjg8ygx7viirphdjlpqr26mdbzcpajnijlchjafy1gms0gryc";
-    };
-  };
-  pluginCoq = buildVimPluginFrom2Nix {
-    # based on https://github.com/cideM/coq-nvim-nix/blob/main/flake.nix
-    name = "coq-nvim";
-    patches = [
-      ./coq.patch
-    ];
-    src = fetchFromGitHub {
-      owner = "ms-jpq";
-      repo = "coq_nvim";
-      sha256 = "sha256-UBlB6M8t1i47MzRG97NmlCZzMnQBusUJDuYEWTDs8YI=";
-      rev = "9718da5b621a15709dca342d311a1ee8553f7955";
-    };
-  };
-  pluginCoqArtifacts = buildVimPlugin {
-    name = "coq.artifacts";
-    src = fetchFromGitHub {
-      owner = "ms-jpq";
-      repo = "coq.artifacts";
-      rev = "254ad1d7974f4f2b984e2b9dd4cc3cdc39b7e361";
-      sha256 = "sha256-rZjesUv1Irx4jSUEuONIWiWVwMSeB3PcNEwlSQyM1UA=";
-    };
-  };
   pluginIonideVim = buildVimPlugin {
     name = "ionide-vim";
     src = fetchFromGitHub {
@@ -86,12 +54,6 @@ let
       chmod 555 $out/share/vim-plugins/ionide-vim/fsac -R
     '';
   };
-  pluginLspSignature = vimPlugins.lsp_signature-nvim.overrideAttrs (old: old // {
-    src = fetchurl {
-      url = "https://github.com/ray-x/lsp_signature.nvim/archive/refs/tags/v0.1.1.tar.gz";
-      sha256 = "1dk7sdpxhbvmnwiy811n7jd675mqlsgkjb046f7m6cr7z12gxcnq";
-    };
-  });
   themeStarrynight = buildVimPlugin {
     name = "starrynight";
     src = fetchFromGitHub {
@@ -119,41 +81,25 @@ let
       sha256 = "sha256-N7GLBVxO9FbLqo9FKJJndnHRnekunxwVAjcgu4l8jLw=";
     };
   };
-  # neovimAltered = pkgs.neovim-unwrapped.overrideAttrs (old: rec {
-  #   version = "0.5.0";
-
-  #   src = fetchFromGitHub {
-  #     owner = "neovim";
-  #     repo = "neovim";
-  #     rev = "v${version}";
-  #     sha256 = "0lgbf90sbachdag1zm9pmnlbn35964l3khs27qy4462qzpqyi9fi";
-  #   };
-  #   cmakeFlags = old.cmakeFlags ++ ([
-  #     "-DUSE_BUNDLED=OFF"
-  #   ]);
-  #   buildInputs = old.buildInputs ++ (with pkgs;[
-  #     tree-sitter
-  #   ]);
-  # });
 in wrapNeovim pkgs.neovim-unwrapped {
   withPython3 = true;
-  extraPython3Packages = b:
-    with b; with callPackage ./python.nix b b b; [
-    std2
+  extraPython3Packages = p: 
+  with p;
+  with callPackage ./python.nix p p p; [
     pynvim-pp
-    # pynvim
-    PyYAML
+    std2
+    pyyaml
   ];
   configure = {
     plug.plugins = with vimPlugins; [
-      # builtin
-      # LanguageClient-neovim
-      # auto-pairs
+      (coq_nvim.overrideAttrs (old: {patches = [ ./coq.patch ]; }))
       dart-vim-plugin
       echodoc
+      embark-vim
       emmet-vim
       fennel-vim
       indentLine
+      lsp_signature-nvim
       luasnip
       nvim-lspconfig
       nvim-web-devicons
@@ -167,11 +113,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       vim-startify
       vim-fetch # support for stacktrace paths
       # custom
-      pluginCoq
-      pluginCoqArtifacts
-      pluginEmbark
       pluginNocapsquit
-      pluginLspSignature
       # pluginIonideVim
       themePaper
       themePreto

@@ -63,6 +63,7 @@
             allowUnfree = true;
           };
         };
+
         mkPkgs = argfn: let
           stdargs = pkgsArgs // {inherit system;};
           in import nixpkgs (stdargs // (argfn stdargs));

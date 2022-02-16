@@ -34,7 +34,6 @@ in {
     graphviz
     gimp
     libnotify
-    libreoffice
     mendeley
     ncdu
     nix-option

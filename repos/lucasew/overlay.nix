@@ -23,6 +23,7 @@ in {
   inherit dotenv;
   inherit wrapDotenv;
   inherit (inputs.nixos-generators.packages."${super.system}") nixos-generators;
+  inherit flake;
 
   lib = super.lib // {
     jpg2png = cp ./lib/jpg2png.nix;
