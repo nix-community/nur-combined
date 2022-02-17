@@ -24,5 +24,6 @@ pkgs.stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A small X program which provides novel methods for keyboard driven cursor manipulation. ";
     homepage = "https://github.com/rvaiya/${pname}";
+    license = licenses.mit;
   };
 }
