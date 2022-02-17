@@ -549,10 +549,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220215.194438";
+      version = "97.0.1buildid20220216.172458";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3909553/francais_language_pack-98.0buildid20220215.194438-fx.xpi";
-      sha256 = "b4243cbab1396ffb1df779e2542123b0b15a103801ccfe0f51a4c5759a37f5ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910178/francais_language_pack-97.0.1buildid20220216.172458-fx.xpi";
+      sha256 = "9367bdba8c7951904600f20af6feb7f6cbf1e899be05ee3619748b9ce8d7d16d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -951,10 +951,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.9.2";
+      version = "10.9.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3906604/metamask-10.9.2-an+fx.xpi";
-      sha256 = "091e74007d508918e8a52407afda7697e2ab68c81a16b7a71bd3a481a7a973af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910319/metamask-10.9.3-an+fx.xpi";
+      sha256 = "cbb739d750f8ea2320c96ac0853bcec9cc20870028c701d1064326a207c74ea3";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1065,10 +1065,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.2.25";
+      version = "11.3";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3908143/noscript_security_suite-11.2.25-an+fx.xpi";
-      sha256 = "f0903b012a336b46e8a73c68acb44a19c757dbd688f08fa86019c932a1543e03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3909904/noscript_security_suite-11.3-an+fx.xpi";
+      sha256 = "9ed2108be65fcf21cc782e6bea2f176ea9283e104930d14bef2701450109df09";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1861,10 +1861,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.41.2";
+      version = "1.41.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3907015/ublock_origin-1.41.2-an+fx.xpi";
-      sha256 = "0ff07ab9f13d793ee8e5796937b3f06fa80bdcbec40d742374b0ce7ad04ff46b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910015/ublock_origin-1.41.4-an+fx.xpi";
+      sha256 = "6de88b49221291b163dfd93743c9171c1feb6459d32144f092de4b4a4e89a1f2";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -2028,10 +2028,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.52.0";
+      version = "2.52.3";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3909505/web_scrobbler-2.52.0-an+fx.xpi";
-      sha256 = "b2f363ced850ddab9128d7564ecb07194700ee92623af9f74c37ae971ca461b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910276/web_scrobbler-2.52.3-an+fx.xpi";
+      sha256 = "774295179f0985c11cb668c46c62fdc15140b2d660aab5708367d90d50ca340e";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
