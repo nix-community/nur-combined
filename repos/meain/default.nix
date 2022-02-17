@@ -27,6 +27,7 @@
   fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
   kmonad = pkgs.callPackage ./pkgs/kmonad { };
   warpd = pkgs.callPackage ./pkgs/warpd { };
+  dmenu = pkgs.callPackage ./pkgs/dmenu { };
   # notmuch-git = pkgs.callPackage ./pkgs/notmuch-git {};
   gnomeExtensions.steal-my-focus = pkgs.callPackage ./pkgs/steal-my-focus { };
   grpc-gateway = pkgs.callPackage ./pkgs/grpc-gateway { };
