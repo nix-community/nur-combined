@@ -39,9 +39,11 @@
     promptInit = ''
       export EDITOR="nvim"
       export PS1="\u@\h \w \$?\\$ \[$(tput sgr0)\]"
-      export PATH="$PATH:~/.yarn/bin/"
+      export PATH="$PATH:$HOME/.yarn/bin"
       mkcd(){ [ ! -z "$1" ] && mkdir -p "$1" && cd "$_"; }
-      source "/home/$USER/.dotfilerc" || true
+      if [ -f "$HOME/.dotfilerc" ]; then
+        source "$HOME/.dotfilerc"
+      fi
     '';
   };
 }

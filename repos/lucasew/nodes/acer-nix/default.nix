@@ -211,18 +211,18 @@ in
   };
 
   # não deixar explodir
-  nix.maxJobs = 3;
-  nix.distributedBuilds = true;
-  nix.buildMachines = [
-    {
-      hostName = "mtpc.local";
-      sshUser = "lucas59356";
-      system = "x86_64-linux";
-      maxJobs = 3;
-      speedFactor = 2;
-      supportedFeatures = [ "big-parallel" "kvm" ];
-    }
-  ];
+  nix.settings.max-jobs = 3;
+  # nix.distributedBuilds = true;
+  # nix.buildMachines = [
+  #   {
+  #     hostName = "mtpc.local";
+  #     sshUser = "lucas59356";
+  #     system = "x86_64-linux";
+  #     maxJobs = 3;
+  #     speedFactor = 2;
+  #     supportedFeatures = [ "big-parallel" "kvm" ];
+  #   }
+  # ];
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 

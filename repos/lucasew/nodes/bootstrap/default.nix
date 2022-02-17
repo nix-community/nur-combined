@@ -4,13 +4,15 @@ let
   inherit (global) username;
 in {
   nix = {
-    trustedUsers = [username "@wheel"];
-    package = nixFlakes;
-    extraOptions = ''
-      min-free = ${toString (1  * 1024*1024*1024)}
-      max-free = ${toString (10 * 1024*1024*1024)}
-      experimental-features = nix-command flakes
-    '';
+    settings = {
+      trusted-users = [username "@wheel"];
+      min-free = 1  * 1024*1024*1024;
+      max-free = 10 * 1024*1024*1024;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
   };
   nixpkgs.config = {
     allowUnfree = true;
