@@ -17,8 +17,7 @@
       packages = forAllSystems (system: (import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       }).pkgs);
-      nixosModules = (import ./default.nix {
-        pkgs = import nixpkgs { system = builtins.currentSystem; };
-      }).modules;
+      nixosModules = (import ./default.nix { pkgs = {}; }).modules;
+      overlay = (import ./default.nix { pkgs = {}; }).overlays;
     };
 }
