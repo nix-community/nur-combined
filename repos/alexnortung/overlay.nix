@@ -10,7 +10,8 @@ let
   pkgsAttrs = nurAttrs.pkgs;
 
 in
-builtins.listToAttrs
-  (map (n: nameValuePair n pkgsAttrs.${n})
-    (builtins.filter (n: !isReserved n)
-      (builtins.attrNames pkgsAttrs)))
+# builtins.listToAttrs
+#   (map (n: nameValuePair n pkgsAttrs.${n})
+#     (builtins.filter (n: !isReserved n)
+#       (builtins.attrNames pkgsAttrs)))
+pkgsAttrs
