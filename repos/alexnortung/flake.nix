@@ -18,6 +18,6 @@
         pkgs = import nixpkgs { inherit system; };
       }).pkgs);
       nixosModules = (import ./default.nix { pkgs = {}; }).modules;
-      overlay = (import ./default.nix { pkgs = {}; }).overlays;
+      overlay = (import ./default.nix { pkgs = {}; }).overlay;
     };
 }
