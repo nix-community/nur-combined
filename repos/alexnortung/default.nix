@@ -13,18 +13,19 @@
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+  pkgs = {
+    papermc-1_18_x = pkgs.callPackage ./pkgs/games/papermc/1.18.nix { };
+    papermc-1_17_x = pkgs.callPackage ./pkgs/games/papermc/1.17.nix { };
+    papermc-1_16_x = pkgs.callPackage ./pkgs/games/papermc/1.16.nix { };
+    papermc-1_15_x = pkgs.callPackage ./pkgs/games/papermc/1.15.nix { };
+    papermc-1_14_x = pkgs.callPackage ./pkgs/games/papermc/1.14.nix { };
+    papermc-1_13_x = pkgs.callPackage ./pkgs/games/papermc/1.13.nix { };
+    papermc-1_12_x = pkgs.callPackage ./pkgs/games/papermc/1.12.nix { };
+    papermc-1_11_x = pkgs.callPackage ./pkgs/games/papermc/1.11.nix { };
+    papermc-1_10_x = pkgs.callPackage ./pkgs/games/papermc/1.10.nix { };
+    # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+    # ...
 
-  papermc-1_18_x = pkgs.callPackage ./pkgs/games/papermc/1.18.nix { };
-  papermc-1_17_x = pkgs.callPackage ./pkgs/games/papermc/1.17.nix { };
-  papermc-1_16_x = pkgs.callPackage ./pkgs/games/papermc/1.16.nix { };
-  papermc-1_15_x = pkgs.callPackage ./pkgs/games/papermc/1.15.nix { };
-  papermc-1_14_x = pkgs.callPackage ./pkgs/games/papermc/1.14.nix { };
-  papermc-1_13_x = pkgs.callPackage ./pkgs/games/papermc/1.13.nix { };
-  papermc-1_12_x = pkgs.callPackage ./pkgs/games/papermc/1.12.nix { };
-  papermc-1_11_x = pkgs.callPackage ./pkgs/games/papermc/1.11.nix { };
-  papermc-1_10_x = pkgs.callPackage ./pkgs/games/papermc/1.10.nix { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
-
-  fsharp-3 = pkgs.callPackage ./pkgs/development/fsharp-3.nix { };
+    fsharp-3 = pkgs.callPackage ./pkgs/development/fsharp-3.nix { };
+  };
 }
