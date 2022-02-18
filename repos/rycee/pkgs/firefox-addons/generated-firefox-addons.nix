@@ -57,10 +57,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.0.13";
+      version = "2.0.14";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3890009/anonaddy_anonymous_email_forwarding-2.0.13-fx.xpi";
-      sha256 = "5a9d003ca68b839bc647b9bb62b89b936d16544ad67f2e784c3756c30222476b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910482/anonaddy_anonymous_email_forwarding-2.0.14-fx.xpi";
+      sha256 = "c2391b283ed22a796df19367c98ed99a2543b54e2ca361a32ef807eee47be332";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -549,10 +549,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "97.0.1buildid20220216.172458";
+      version = "98.0buildid20220217.185748";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910178/francais_language_pack-97.0.1buildid20220216.172458-fx.xpi";
-      sha256 = "9367bdba8c7951904600f20af6feb7f6cbf1e899be05ee3619748b9ce8d7d16d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910749/francais_language_pack-98.0buildid20220217.185748-fx.xpi";
+      sha256 = "fc2a13167482b7a20208314ef654fa8b34add4d6cac37dc896bc8f04e81ededb";
       meta = with lib;
       {
         description = "Français Language Pack";
