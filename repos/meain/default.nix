@@ -22,6 +22,7 @@
   quickserve = pkgs.callPackage ./pkgs/quickserve { };
   gloc = pkgs.callPackage ./pkgs/gloc { };
   nn = pkgs.callPackage ./pkgs/nn { };
+  sirus = pkgs.callPackage ./pkgs/sirus { };
 
   ## external
   fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
