@@ -186,10 +186,10 @@
       };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.7";
+      version = "1.8";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3864535/canvasblocker-1.7-an+fx.xpi";
-      sha256 = "770caeb39e93ec332946473c183de6a9f8746ac4c9d6527dc4c14d1089b23d60";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910598/canvasblocker-1.8-an+fx.xpi";
+      sha256 = "817a6181be877668eca1d0fef9ecf789c898e6d7d93dca7e29479d40f986c844";
       meta = with lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
@@ -924,10 +924,10 @@
       };
     "markdownload" = buildFirefoxXpiAddon {
       pname = "markdownload";
-      version = "3.0.1";
+      version = "3.1.0";
       addonId = "{1c5e4c6f-5530-49a3-b216-31ce7d744db0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3809141/markdownload_markdown_web_clipper-3.0.1-fx.xpi";
-      sha256 = "24294324c2447d287544aa0139a81a20f1e1b523ebb7d84bbf550159f940a925";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3911043/markdownload_markdown_web_clipper-3.1.0-an+fx.xpi";
+      sha256 = "90162919e1517eb7b4fd75eade3573011550a9c6d081e23a606ec0bdfeadb2ab";
       meta = with lib;
       {
         homepage = "https://github.com/deathau/markdown-clipper";
@@ -1065,10 +1065,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.3";
+      version = "11.3.2";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3909904/noscript_security_suite-11.3-an+fx.xpi";
-      sha256 = "9ed2108be65fcf21cc782e6bea2f176ea9283e104930d14bef2701450109df09";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3910951/noscript_security_suite-11.3.2-an+fx.xpi";
+      sha256 = "4aa83f4845b575ffbad2c7341f2980b88dbe05444c194e6e7bf1125fdba5fa9d";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1861,10 +1861,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.41.4";
+      version = "1.41.6";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910015/ublock_origin-1.41.4-an+fx.xpi";
-      sha256 = "6de88b49221291b163dfd93743c9171c1feb6459d32144f092de4b4a4e89a1f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3911165/ublock_origin-1.41.6-an+fx.xpi";
+      sha256 = "402cae75651acc377eec5ea015e5e72efaf2c6adb8a2f3ba63cf507bf9a4a5a7";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -2015,13 +2015,14 @@
       };
     "wayback-machine" = buildFirefoxXpiAddon {
       pname = "wayback-machine";
-      version = "1.8.6";
+      version = "3.0";
       addonId = "wayback_machine@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/929315/wayback_machine-1.8.6-an+fx.xpi";
-      sha256 = "9036b595c24b46b9d236863be3d7cf6dd59ab09b6e512c3a5c9bd41b7b843394";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3911106/wayback_machine-3.0-fx.xpi";
+      sha256 = "1b2e71800d5f756ae5f6d494c1ba4194a487bb3fe1883676e053b776a3d83a30";
       meta = with lib;
       {
-        description = "Detects dead pages, 404s, DNS failures &amp; a range of other web breakdowns, offering to show archived versions via the Internet Archive's Wayback Machine.  In addition you can archive web pages, and see their most recent &amp; first archives.";
+        homepage = "https://archive.org";
+        description = "Welcome to the Official Internet Archive Wayback Machine Browser Extension! Go back in time to see how a website has changed through the history of the Web. Save websites, view missing 404 Not Found pages, or read archived books &amp; papers.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
