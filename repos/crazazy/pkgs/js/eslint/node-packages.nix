@@ -508,13 +508,13 @@ let
         sha512 = "0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==";
       };
     };
-    "minimatch-3.0.5" = {
+    "minimatch-3.1.2" = {
       name = "minimatch";
       packageName = "minimatch";
-      version = "3.0.5";
+      version = "3.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.0.5.tgz";
-        sha512 = "tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==";
+        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz";
+        sha512 = "J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==";
       };
     };
     "ms-2.1.2" = {
@@ -746,8 +746,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.8.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.8.0.tgz"; sha1 = "9762b49abad0cb4952539ffdb0a046392e571a2d"; };
+    version = "8.9.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.9.0.tgz"; sha1 = "a2a8227a99599adc4342fd9b854cb8d8d6412fdb"; };
     dependencies = [
       (sources."@eslint/eslintrc-1.1.0" // {
         dependencies = [
@@ -811,7 +811,7 @@ let
       sources."json-stable-stringify-without-jsonify-1.0.1"
       sources."levn-0.4.1"
       sources."lodash.merge-4.6.2"
-      sources."minimatch-3.0.5"
+      sources."minimatch-3.1.2"
       sources."ms-2.1.2"
       sources."natural-compare-1.4.0"
       sources."once-1.4.0"

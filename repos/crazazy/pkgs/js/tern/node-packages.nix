@@ -148,13 +148,13 @@ let
         sha1 = "7bcc6b629e3a43e871d7e29aca6ae8a7f15cbb20";
       };
     };
-    "minimatch-3.0.5" = {
+    "minimatch-3.1.2" = {
       name = "minimatch";
       packageName = "minimatch";
-      version = "3.0.5";
+      version = "3.1.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.0.5.tgz";
-        sha512 = "tUpxzX0VAzJHjLu0xUfFv1gwVp9ba3IOuRAVH2EGuRW8a5emA2FlACLqiT/lDVtS1W+TGNwqz3sWaNyLgDJWuw==";
+        url = "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz";
+        sha512 = "J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==";
       };
     };
     "object-assign-4.1.1" = {
@@ -288,7 +288,7 @@ let
       sources."inherits-2.0.4"
       sources."isarray-1.0.0"
       sources."memory-fs-0.3.0"
-      sources."minimatch-3.0.5"
+      sources."minimatch-3.1.2"
       sources."object-assign-4.1.1"
       sources."once-1.4.0"
       sources."path-is-absolute-1.0.1"
