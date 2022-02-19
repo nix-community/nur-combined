@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools_scm}:
+{ lib, fetchPypi, buildPythonPackage, setuptools_scm }:
 
 buildPythonPackage rec {
   pname = "convcolors";
@@ -16,8 +16,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ ];
 
   meta = with lib; {
+    description =
+      "Python package for converting colors between different color spaces";
+    homepage = "https://pypi.org/project/convcolors/";
     license = licenses.mit;
     platforms = platforms.unix;
-    homepage = "https://github.com/CairX/convert-colors-py";
   };
 }

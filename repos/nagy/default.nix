@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}  }:
+{ pkgs ? import <nixpkgs> { }  }:
 let
   inherit (pkgs) callPackage recurseIntoAttrs;
 in
@@ -15,6 +15,12 @@ rec {
     dbussy = pkgs.python3Packages.callPackage ./pkgs/dbussy { };
     colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
     ssort = pkgs.python3Packages.callPackage ./pkgs/ssort {  };
+    extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit  (python3Packages) convcolors; };
+    convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors { };
+    pymatting = pkgs.python3Packages.callPackage ./pkgs/pymatting { };
+    rembg = pkgs.python3Packages.callPackage ./pkgs/rembg { inherit (python3Packages) pymatting; };
+    warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {  };
+    blender-file = pkgs.python3Packages.callPackage ./pkgs/blender-file { };
   };
 
   schemaorg = callPackage ./pkgs/schemaorg { } ;
@@ -31,17 +37,8 @@ rec {
     vacietis = callPackage ./pkgs/vacietis {};
   };
 
-  extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit convcolors; };
-
-  convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors { };
-
-  pymatting = pkgs.python3Packages.callPackage ./pkgs/pymatting { };
-
-  rembg = pkgs.python3Packages.callPackage ./pkgs/rembg { inherit pymatting; };
-
   rustfilt = callPackage ./pkgs/rustfilt {};
 
-  warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {  };
 
   bollux = callPackage ./pkgs/bollux {};
 
@@ -55,7 +52,6 @@ rec {
 
   piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
 
-  blender-file = pkgs.python3Packages.callPackage ./pkgs/blender-file { };
 
   hackernews-tui = callPackage ./pkgs/hackernews-tui {};
 
@@ -64,6 +60,8 @@ rec {
   ksuid = callPackage ./pkgs/ksuid {};
 
   pigo = callPackage ./pkgs/pigo {};
+
+  hcl2json = callPackage ./pkgs/hcl2json {};
 
   htmlq = callPackage ./pkgs/htmlq { };
 

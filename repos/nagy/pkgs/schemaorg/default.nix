@@ -1,4 +1,5 @@
 { stdenvNoCC, lib, fetchFromGitHub }:
+
 stdenvNoCC.mkDerivation rec {
   pname = "schemaorg";
   version = "13.0";
@@ -16,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "schema.org";
+    description = "Schema.org - schemas and supporting software";
     homepage = "https://schema.org/";
     license = licenses.asl20;
     changelog = "https://schema.org/docs/releases.html";

@@ -19,7 +19,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A Python library for alpha matting";
+    description = "Python library for alpha matting";
     license = licenses.mit;
     platforms = platforms.unix;
   };
