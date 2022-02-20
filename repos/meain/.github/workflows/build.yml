@@ -63,7 +63,7 @@ jobs:
     - name: Check evaluation
       run: |
         export NIX_PATH="$(nix-instantiate --find-file nixpkgs):$PWD"
-        nix-env -f . -qa \* --meta --xml \
+        nix-env -f . -qa \* --meta \
           --allowed-uris https://static.rust-lang.org \
           --option restrict-eval true \
           --option allow-import-from-derivation true \
