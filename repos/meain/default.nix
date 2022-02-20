@@ -23,6 +23,7 @@
   gloc = pkgs.callPackage ./pkgs/gloc { };
   nn = pkgs.callPackage ./pkgs/nn { };
   sirus = pkgs.callPackage ./pkgs/sirus { };
+  mmm = pkgs.callPackage ./pkgs/mmm { };
 
   ## external
   fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
