@@ -1,5 +1,9 @@
 #!/usr/bin/env groovy
 
-import java.net.http.*
+import groovy.json.JsonSlurper
 
-HttpRequest.newBuilder().GET().uri('')
+def slurper = new JsonSlurper()
+
+def releases = slurper.parseText('https://api.adoptium.net/v3/info/available_releases'.toURL().text)
+
+println releases.available_lts_releases

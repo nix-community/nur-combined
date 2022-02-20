@@ -37,6 +37,14 @@ rec {
       };
     };
 
+    groovy-4_0_0 = groovyGen rec {
+        version = "4.0.0";
+        src = fetchurl {
+            url = "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-${version}.zip";
+            sha256 = "sha256:1y8dwgmsv4lgkpi2dxlpwqp26viahfw0r85fqz2l37qnkkv8lnxx";
+        };
+    };
+
     groovy-4_0_0-rc-1 = groovyGen rec {
         version = "4.0.0-rc-1";
         src = fetchurl {

@@ -158,6 +158,7 @@ in rec {
   groovy-3_0_7 = groovyPkgs.groovy-3_0_7;
   groovy-3_0_9 = groovyPkgs.groovy-3_0_9;
   groovy-4_0_0-rc-1 = groovy4Pkgs.groovy-4_0_0-rc-1;
+  groovy-4_0_0 = groovy4Pkgs.groovy-4_0_0;
 
   jbang-0_58_0 = jbangPkgs.jbang-0_58_0;
   jbang-0_83_1 = jbangPkgs.jbang-0_83_1;
