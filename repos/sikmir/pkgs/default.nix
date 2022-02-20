@@ -328,6 +328,7 @@ lib.makeScope newScope (
     osm-3s = callPackage ./osm/osm-3s { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
     osm-python-tools = callPackage ./osm/osm-python-tools { };
+    osm-tags-transform = callPackage ./osm/osm-tags-transform { };
     osmcoastline = callPackage ./osm/osmcoastline { };
     osmosis = callPackage ./osm/osmosis { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
