@@ -50,6 +50,9 @@
     "pname": "browserpass"
   },
   {
+    "slug": "bukubrow"
+  },
+  {
     "slug": "buster-captcha-solver"
   },
   {
@@ -104,6 +107,9 @@
   },
   {
     "slug": "display-_anchors"
+  },
+  {
+    "slug": "don-t-fuck-with-paste"
   },
   {
     "slug": "duckduckgo-for-firefox",
@@ -462,6 +468,10 @@
       "url": "https://en.wikipedia.org/wiki/All_rights_reserved",
       "free": false
     }
+  },
+  {
+    "slug": "sourcegraph-for-firefox",
+    "pname": "sourcegraph"
   },
   {
     "slug": "sponsorblock"

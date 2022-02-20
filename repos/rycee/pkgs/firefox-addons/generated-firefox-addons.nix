@@ -144,6 +144,20 @@
         platforms = platforms.all;
         };
       };
+    "bukubrow" = buildFirefoxXpiAddon {
+      pname = "bukubrow";
+      version = "5.0.3.0";
+      addonId = "bukubrow@samhh.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3769984/bukubrow-5.0.3.0-fx.xpi";
+      sha256 = "4c9424d0f13df8f1f6ac605302c42bb30f3c138eb76c8d4ced5d45a637942913";
+      meta = with lib;
+      {
+        homepage = "https://github.com/samhh/bukubrow";
+        description = "Synchronise your browser bookmarks with Buku";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
       version = "1.3.1";
@@ -357,6 +371,20 @@
       {
         homepage = "https://github.com/Rob--W/display-anchors";
         description = "Displays anchors for all content in the current web page without breaking the layout.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "don-t-fuck-with-paste" = buildFirefoxXpiAddon {
+      pname = "don-t-fuck-with-paste";
+      version = "2.7";
+      addonId = "DontFuckWithPaste@raim.ist";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3630212/dont_fuck_with_paste-2.7-fx.xpi";
+      sha256 = "ef17dcef7e2034a25982a106e54d19e24c9f226434a396a808195ef0de021a40";
+      meta = with lib;
+      {
+        homepage = "https://github.com/aaronraimist/DontFuckWithPaste";
+        description = "This add-on stops websites from blocking copy and paste for password fields and other input fields.";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -1577,6 +1605,18 @@
           url = "https://en.wikipedia.org/wiki/All_rights_reserved";
           free = false;
           };
+        platforms = platforms.all;
+        };
+      };
+    "sourcegraph" = buildFirefoxXpiAddon {
+      pname = "sourcegraph";
+      version = "22.2.11.1553";
+      addonId = "sourcegraph-for-firefox@sourcegraph.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3907604/sourcegraph_for_firefox-22.2.11.1553-an+fx.xpi";
+      sha256 = "88ff22e09178d1ed2b3d6a5b49d43bee44f81d6a632ad42628039a52a363cd2b";
+      meta = with lib;
+      {
+        description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
         platforms = platforms.all;
         };
       };
