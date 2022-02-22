@@ -11,25 +11,27 @@
 , matplotlib
 , networkx
 , numpy
+, pillow
 , pydot
+, testtools
 }:
 
 buildPythonPackage rec {
   pname = "retworkx";
-  version = "0.10.2";
+  version = "0.11.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = "retworkx";
     rev = version;
-    sha256 = "sha256-F2hcVUsuHcNfsg3rXYt/erc0zB6W7GdepVOReP3u4lg=";
+    sha256 = "sha256-o3XPMTaiFH5cBtyqtW650wiDBElLvCmERr2XwwdPO1c=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
       inherit src;
       name = "${pname}-${version}";
-      sha256 = "1ajzxwx0rrzzq844sbv986h4yg6krzhfagc0q6px3sbhnkm9s2i3";
+      sha256 = "sha256-Zhk4m+HNtimhPWfiBLi9dqJ0fp2D8d0u9k6ROG0/jBo=";
   };
 
   nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
@@ -44,6 +46,7 @@ buildPythonPackage rec {
     matplotlib
     numpy
     networkx
+    pillow
     pydot
   ];
   preCheck = ''
@@ -52,6 +55,7 @@ buildPythonPackage rec {
     pushd $TESTDIR
   '';
   postCheck = "popd";
+  disabledTests = lib.optionals (lib.versionOlder testtools.version "2.5.0") [ "test_gnp_random" ];
 
   meta = with lib; {
     description = "A python graph library implemented in Rust.";
