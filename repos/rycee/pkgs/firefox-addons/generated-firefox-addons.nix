@@ -57,10 +57,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.0.14";
+      version = "2.0.15";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910482/anonaddy_anonymous_email_forwarding-2.0.14-fx.xpi";
-      sha256 = "c2391b283ed22a796df19367c98ed99a2543b54e2ca361a32ef807eee47be332";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3912266/anonaddy_anonymous_email_forwarding-2.0.15-fx.xpi";
+      sha256 = "833ad13e8bfac95eab3f0133dd6d3bacf7a3ae4f314b4509311b8f7cd896e371";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -1093,10 +1093,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.3.2";
+      version = "11.3.3";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910951/noscript_security_suite-11.3.2-an+fx.xpi";
-      sha256 = "4aa83f4845b575ffbad2c7341f2980b88dbe05444c194e6e7bf1125fdba5fa9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3911935/noscript_security_suite-11.3.3-an+fx.xpi";
+      sha256 = "730dacfae764ac26a2dfb7a9e86c05374778ee8236c0fd1dbcee31436843157c";
       meta = with lib;
       {
         homepage = "https://noscript.net";
