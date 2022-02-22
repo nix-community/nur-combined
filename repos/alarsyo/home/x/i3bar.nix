@@ -54,7 +54,7 @@ in
               block = "pomodoro";
               length = 60;
               break_length = 10;
-              use_nag = true;
+              notifier = "i3nag";
             }
             {
               block = "disk_space";
