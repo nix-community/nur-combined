@@ -83,6 +83,19 @@
         platforms = platforms.all;
         };
       };
+    "behave" = buildFirefoxXpiAddon {
+      pname = "behave";
+      version = "0.9.7.1";
+      addonId = "{17c7f098-dbb8-4f15-ad39-8b578da80f7e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3606644/behave-0.9.7.1-fx.xpi";
+      sha256 = "983b43da26b49df421186c5d550b27aad36e38761089c032eb18441d3ffd21d9";
+      meta = with lib;
+      {
+        description = "A monitoring browser extension for pages acting as bad boys";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "behind-the-overlay-revival" = buildFirefoxXpiAddon {
       pname = "behind-the-overlay-revival";
       version = "1.8.3";
@@ -1573,6 +1586,19 @@
         homepage = "https://github.com/gildas-lormeau/SingleFile";
         description = "Save an entire web page—including images and styling—as a single HTML file.";
         license = licenses.agpl3Plus;
+        platforms = platforms.all;
+        };
+      };
+    "skip-redirect" = buildFirefoxXpiAddon {
+      pname = "skip-redirect";
+      version = "2.3.5";
+      addonId = "skipredirect@sblask";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750630/skip_redirect-2.3.5-an+fx.xpi";
+      sha256 = "ed64848bbf986bc985690b2873161ad44c41726a859b8db60afe27d24fd9b747";
+      meta = with lib;
+      {
+        description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };

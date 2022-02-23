@@ -29,6 +29,9 @@
     "slug": "auto-tab-discard"
   },
   {
+    "slug": "behave"
+  },
+  {
     "slug": "behind-the-overlay-revival"
   },
   {
@@ -458,6 +461,9 @@
       "tag": "predefined",
       "shortName": "agpl3Plus"
     }
+  },
+  {
+    "slug": "skip-redirect"
   },
   {
     "slug": "solarized-light",
