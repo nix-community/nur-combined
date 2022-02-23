@@ -70,8 +70,6 @@ buildPythonPackage rec {
     # where segfaults might be introduced in future
     echo 'feature_type: SIFT' >> data/berlin/config.yaml
     echo 'feature_type: HAHOG' >> data/lund/config.yaml
-
-    sed -i 's/assert 0.01 < errors/assert 0.001 < errors/g' opensfm/test/test_*.py
   '';
 
   nativeBuildInputs = [ cmake pkg-config sphinx ];
@@ -110,6 +108,11 @@ buildPythonPackage rec {
   cmakeFlags = [
     "-Bcmake_build"
     "-Sopensfm/src"
+  ];
+
+  disabledTests = [
+    "test_reconstruction_incremental"
+    "test_reconstruction_triangulation"
   ];
 
   pythonImportsCheck = [ "opensfm" ];
