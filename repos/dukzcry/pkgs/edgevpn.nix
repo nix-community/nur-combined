@@ -1,17 +1,17 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub }:
+{ lib, stdenv, buildGo117Module, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGo117Module rec {
   pname = "edgevpn";
-  version = "0.9.5";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "mudler";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1grs7ka1kyljah4mdacj604vhdq51hqz20wna0wxy1ahphrd5xb4";
+    sha256 = "13phcbppl8ca3lsmywhlwr54r35hb7dlb5h6vnxanac114l7f8vf";
   };
 
-  vendorSha256 = "0w39f3nx29aaxyd3z2c7vyfjilmj054h4vqspz8az4sldkq0jqbq";
+  vendorSha256 = "17z9mgh0h99wxx5fc2nji6zjygz3nmqv9ggjam2f4wmhll10x4pb";
 
   preBuild = ''
     substituteInPlace internal/version.go \
