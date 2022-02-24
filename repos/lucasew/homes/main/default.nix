@@ -51,6 +51,7 @@ in {
     vlc # media
     wineApps.wine7zip
     xxd
+    pavucontrol # controle de volume
   ] ;
 
   # programs.hello-world.enable = true;

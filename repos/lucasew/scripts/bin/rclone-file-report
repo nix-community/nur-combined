@@ -1,0 +1,53 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p rclone python3 -i python
+# vim:ft=python
+
+from datetime import datetime
+from argparse import ArgumentParser
+from pathlib import Path
+from subprocess import run, PIPE
+from sys import stderr
+
+parser = ArgumentParser()
+parser.add_argument('-c', type = Path, help = "rclone config file")
+parser.add_argument('-d', type = Path, help = "rclone directory to explore", required = True)
+parser.add_argument('-g', type = int, help = "group things by x seconds", default = 60)
+args = parser.parse_args()
+
+rclone_args = ['rclone', 'lsl', str(args.d)]
+if args.c is not None:
+    rclone_args.append('--config')
+    rclone_args.append(str(args.c))
+
+print("bucket,amount")
+# print("datetime,name,size")
+
+buckets = {}
+for line in run(rclone_args, stdout = PIPE).stdout.decode('utf8').split('\n'):
+# for line in run(['cat', '/tmp/times.txt'], stdout = PIPE).stdout.decode('utf8').split('\n'):
+    line = line.strip()
+    try:
+        size, sdate, stime, name = line.split(' ')
+        size = int(size)
+        year, month, day = sdate.split('-')
+        hour, minute, ssecond = stime.split(':')
+        second, micrsecond = ssecond.split('.')
+        dt = datetime(int(year), int(month), int(day), int(hour), int(minute), int(second), int(micrsecond)//1000).timestamp()
+        bucket = int(dt) - (int(dt) % args.g)
+        if bucket not in buckets:
+            buckets[bucket] = 0
+        buckets[bucket] += 1
+        # print(f"{year}/{month}/{day} {hour}:{minute}:{second},{name},{size}")
+    except Exception as e:
+        print(f"falhou '{line}'", e, file = stderr)
+
+bkeys = list(buckets.keys())
+for k in range(min(bkeys), max(bkeys) + 1, args.g):
+    if k not in buckets:
+        buckets[k] = 0
+
+for k, v in buckets.items():
+    dt = datetime.fromtimestamp(k)
+    print(f"{dt.year}/{dt.month}/{dt.day} {dt.hour}:{dt.minute}:{dt.second};{v}")
+
+
