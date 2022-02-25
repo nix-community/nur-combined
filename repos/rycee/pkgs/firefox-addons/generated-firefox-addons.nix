@@ -590,10 +590,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220222.185824";
+      version = "98.0buildid20220224.185616";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3912967/francais_language_pack-98.0buildid20220222.185824-fx.xpi";
-      sha256 = "93231adc5d87813c8f425a6a845f8a7badd956d6e05f9b0c6e9c77f5dcaa5f3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3914006/francais_language_pack-98.0buildid20220224.185616-fx.xpi";
+      sha256 = "36de5d4c59ada2634e25ef9a756644927011d5223be820dc48ea086accf7f6c5";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -992,10 +992,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.9.3";
+      version = "10.10.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910319/metamask-10.9.3-an+fx.xpi";
-      sha256 = "cbb739d750f8ea2320c96ac0853bcec9cc20870028c701d1064326a207c74ea3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3914203/metamask-10.10.1-an+fx.xpi";
+      sha256 = "a157d977329ee64d186a492cdc73693f700e80efec146e542378c560550c03d2";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1577,10 +1577,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.19.29";
+      version = "1.19.31";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3906954/singlefile-1.19.29-an+fx.xpi";
-      sha256 = "eb05e7c4ff664d4d634679e2051122459f1c396b20034d78fd513b6c986b789e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3913567/singlefile-1.19.31-an+fx.xpi";
+      sha256 = "929c562c92f515c80768da3b2d1fa92fc9dec1e505352a00eb8d7818f179cc6b";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2067,10 +2067,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.9.14";
+      version = "6.10.15";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3903212/wappalyzer-6.9.14-fx.xpi";
-      sha256 = "35cba653702dd8e7297326e6eea50cb13d93c80011d68b0c036931a4c14ea810";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3914230/wappalyzer-6.10.15-fx.xpi";
+      sha256 = "7c7fee6565dea5b9661a733274ca5f297635fd075977772bffce05b755a3fb1b";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
