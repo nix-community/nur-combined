@@ -52,6 +52,11 @@ rec {
   openmpi = openmpi4;
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
   libfabric = pkgs.callPackage ./pkgs/libfabric { psm2 = psm2; };
+  openmpi-intel =  pkgs.callPackage ./pkgs/openmpi/intel.nix {
+    withOneAPI = true;
+    intel-oneapi = intel-oneapi;
+    gcc = pkgs.gcc;
+  };
 
   # HPL
   hpl = pkgs.callPackage ./pkgs/hpl { mpi = openmpi4; };
