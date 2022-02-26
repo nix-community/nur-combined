@@ -1106,10 +1106,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.3.3";
+      version = "11.3.4";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3911935/noscript_security_suite-11.3.3-an+fx.xpi";
-      sha256 = "730dacfae764ac26a2dfb7a9e86c05374778ee8236c0fd1dbcee31436843157c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3914346/noscript_security_suite-11.3.4-an+fx.xpi";
+      sha256 = "63098ea692602de8586b6a3b39535f65da3a9c46ae73581da44be7dc985accd4";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1648,10 +1648,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.1.4";
+      version = "4.1.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3912637/sponsorblock_skip_sponsorships_on_youtube-4.1.4-an+fx.xpi";
-      sha256 = "4ad85f087fa0c42e2ef4a22fa0e397cf5628762408ad8a7f476d51befbee705c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3913892/sponsorblock_skip_sponsorships_on_youtube-4.1.5-an+fx.xpi";
+      sha256 = "39fa807081d51b991187d8c18011f03bb34505131f57135adbf0f76c06f6db15";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2095,10 +2095,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.52.3";
+      version = "2.53.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910276/web_scrobbler-2.52.3-an+fx.xpi";
-      sha256 = "774295179f0985c11cb668c46c62fdc15140b2d660aab5708367d90d50ca340e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3914538/web_scrobbler-2.53.0-an+fx.xpi";
+      sha256 = "7dfb4be56e35f1e7edec8391fb6a6a9ffefc8f09b2f23970a45e0797303cc191";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
