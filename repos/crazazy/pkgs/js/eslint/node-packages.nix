@@ -4,22 +4,22 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.1.0" = {
+    "@eslint/eslintrc-1.2.0" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.1.0";
+      version = "1.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.1.0.tgz";
-        sha512 = "C1DfL7XX4nPqGd6jcP01W9pVM1HYCuUkFk1432D7F0v3JSlUIeOYn9oCoi3eoLZ+iwBSb29BMFxxny0YrrEZqg==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.2.0.tgz";
+        sha512 = "igm9SjJHNEJRiUnecP/1R5T3wKLEJ7pL6e2P+GUSfCd0dGjPYYZve08uzw8L2J8foVHFz+NGu12JxRcU2gGo6w==";
       };
     };
-    "@humanwhocodes/config-array-0.9.3" = {
+    "@humanwhocodes/config-array-0.9.5" = {
       name = "_at_humanwhocodes_slash_config-array";
       packageName = "@humanwhocodes/config-array";
-      version = "0.9.3";
+      version = "0.9.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.9.3.tgz";
-        sha512 = "3xSMlXHh03hCcCmFc0rbKp3Ivt2PFEJnQUJDDMTJQ2wkECZWdq4GePs2ctc5H8zV+cHPaq8k2vU8mrQjA6iHdQ==";
+        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.9.5.tgz";
+        sha512 = "ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw==";
       };
     };
     "@humanwhocodes/object-schema-1.2.1" = {
@@ -746,15 +746,15 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.9.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.9.0.tgz"; sha1 = "a2a8227a99599adc4342fd9b854cb8d8d6412fdb"; };
+    version = "8.10.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.10.0.tgz"; sha1 = "931be395eb60f900c01658b278e05b6dae47199d"; };
     dependencies = [
-      (sources."@eslint/eslintrc-1.1.0" // {
+      (sources."@eslint/eslintrc-1.2.0" // {
         dependencies = [
           sources."ignore-4.0.6"
         ];
       })
-      sources."@humanwhocodes/config-array-0.9.3"
+      sources."@humanwhocodes/config-array-0.9.5"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."acorn-8.7.0"
       sources."acorn-jsx-5.3.2"

@@ -148,13 +148,13 @@ let
         sha512 = "/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==";
       };
     };
-    "fs-extra-10.0.0" = {
+    "fs-extra-10.0.1" = {
       name = "fs-extra";
       packageName = "fs-extra";
-      version = "10.0.0";
+      version = "10.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-10.0.0.tgz";
-        sha512 = "C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==";
+        url = "https://registry.npmjs.org/fs-extra/-/fs-extra-10.0.1.tgz";
+        sha512 = "NbdoVMZso2Lsrn/QwLXOy6rm0ufY2zEOKCDzJR/0kBsb0E6qed0P3iYK+Ath3BfvXEeu4JhEtXLgILx5psUfag==";
       };
     };
     "fs.realpath-1.0.0" = {
@@ -621,7 +621,7 @@ let
       sources."debug-2.6.9"
       sources."duplexer2-0.0.2"
       sources."envinfo-7.8.1"
-      sources."fs-extra-10.0.0"
+      sources."fs-extra-10.0.1"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
       sources."fstream-ignore-1.0.5"
