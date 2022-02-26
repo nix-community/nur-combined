@@ -25,6 +25,14 @@
       sha256 = "00d1l48a4vc1aja77kkiq8j7fipr94hipdxd8vayzmn43f20dqfr";
     };
   };
+  nix-index-database = {
+    pname = "nix-index-database";
+    version = "2022-02-25";
+    src = fetchurl {
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-02-25/index-x86_64-linux";
+      sha256 = "1xpsp4yvw7knz82jrjr1xr646vn71ahs8531nn8pwxifl3icmaf4";
+    };
+  };
   ormolu = {
     pname = "ormolu";
     version = "0.4.0.0";
