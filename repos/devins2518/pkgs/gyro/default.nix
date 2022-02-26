@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "gyro";
-  version = "unstable-2021-09-26";
+  version = "unstable-2022-02-26";
 
   src = fetchFromGitHub {
     owner = "mattnite";
     repo = "gyro";
-    rev = "fa0a54b5e99adf9d7420fd3d4eaed9fa5ae686b6";
-    sha256 = "sha256-Sb56kZbXdUPh3FPPyZd7Lwsb7wZczXJMI88lWGgPkVs=";
+    rev = "b3aa10462ccf073701023d74221e388d33b70820";
+    sha256 = "sha256-S0M2NwELnjBLqTlnJDfXGmzDv3KoswnxXF0j/HaISh4=";
     fetchSubmodules = true;
   };
 
@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/devins2518/gyro-nix";
     license = licenses.mit;
     maintainers = with maintainers; [ devins2518 ];
-    platforms = platforms.linux;
+    platforms = with platforms; linux ++ darwin;
   };
 }

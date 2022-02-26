@@ -2,7 +2,7 @@
 
 let
   os = if stdenv.isLinux then "linux" else "macos";
-  arch = if stdenv.isx86_64 then "x86-64" else "aarch64";
+  arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
   v = "0.10.0-dev.980+db82c1b98";
   shas = {
     x86_64-linux =
