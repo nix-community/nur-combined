@@ -18,7 +18,7 @@ jobs:
         cachixName:
           - devins2518
         nixPath:
-          # - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
           #- nixpkgs=channel:nixos-21.05
       fail-fast: false
@@ -30,6 +30,7 @@ jobs:
       uses: cachix/install-nix-action@v13
       with:
         nix_path: "${{ matrix.nixPath }}"
+        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
         extra_nix_config: |
           experimental-features = nix-command
     - name: Show nixpkgs version
