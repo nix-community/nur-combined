@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "htmlq";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "mgdm";
     repo = "htmlq";
     rev = "v${version}";
-    hash = "sha256-pTw+dsbbFwrPIxCimMsYfyAF2zVeudebxVtMQV1cJnE=";
+    hash = "sha256-kZtK2QuefzfxxuE1NjXphR7otr+RYfMif/RSpR6TxY0=";
   };
 
-  cargoHash = "sha256-nMQqO5w4oqIKRad6tkBKzm5XHAONem7AJymAYVITdko=";
+  cargoHash = "sha256-r9EnQQPGpPIcNYb1eqGrMnRdh0snIa5iVsTYTI+YErY=";
 
   meta = with lib; {
     description = "Like jq, but for HTML";

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   phases = [ "installPhase" ];
 
   installPhase = ''
-     install -Dm644 $src/cxxtimer.hpp $out/include/cxxtimer.hpp
+    install -Dm644 $src/cxxtimer.hpp $out/include/cxxtimer.hpp
   '';
 
   meta = with lib; {

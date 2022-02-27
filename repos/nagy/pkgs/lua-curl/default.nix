@@ -1,6 +1,6 @@
 { lib, lua53Packages, fetchurl, curl, pkg-config }:
-let
-  inherit (lua53Packages) lua luaOlder luaAtLeast buildLuarocksPackage;
+
+let inherit (lua53Packages) lua luaOlder luaAtLeast buildLuarocksPackage;
 in buildLuarocksPackage rec {
   pname = "lua-curl";
   version = "0.3.12-1";

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, libxml2
-, libxslt, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox, autoreconfHook }:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, libxml2, libxslt
+, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "apertium";
@@ -14,8 +14,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [ autoconf automake libtool libxml2 libxslt flex pcre pcre-cpp icu
-                  lttoolbox ];
+  buildInputs = [
+    autoconf
+    automake
+    libtool
+    libxml2
+    libxslt
+    flex
+    pcre
+    pcre-cpp
+    icu
+    lttoolbox
+  ];
 
   meta = with lib; {
     description = "A free/open-source machine translation platform";

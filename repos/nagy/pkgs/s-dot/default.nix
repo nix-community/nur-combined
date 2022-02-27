@@ -1,18 +1,18 @@
-{ lispPackages, fetchurl,  ... }:
+{ lispPackages, fetchurl, ... }:
 
 lispPackages.buildLispPackage {
 
-    baseName = "s-dot";
-    version = "1.2";
+  baseName = "s-dot";
+  version = "1.2";
 
-    buildSystems = [];
+  buildSystems = [ ];
 
-    description = "s-dot";
+  description = "s-dot";
 
-    deps = [ ];
+  deps = [ ];
 
-    src = fetchurl {
-      url = "https://martin-loetzsch.de/S-DOT/s-dot.tar.gz";
-      sha256 = "1lq0hj143gqjl55k93g7bqsjbwp127ybcwdv28y809zflsnsscg1";
-    };
+  src = fetchurl {
+    url = "https://martin-loetzsch.de/S-DOT/s-dot.tar.gz";
+    sha256 = "1lq0hj143gqjl55k93g7bqsjbwp127ybcwdv28y809zflsnsscg1";
+  };
 }

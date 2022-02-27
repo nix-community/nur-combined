@@ -13,10 +13,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [ autoconf automake libtool libxml2 libxslt flex pcre pcre-cpp ];
+  buildInputs =
+    [ autoconf automake libtool libxml2 libxslt flex pcre pcre-cpp ];
 
   meta = with lib; {
-    description = "Finite state compiler, processor and helper tools used by apertium";
+    description =
+      "Finite state compiler, processor and helper tools used by apertium";
     homepage = "https://github.com/apertium/lttoolbox";
 
     license = licenses.gpl2;

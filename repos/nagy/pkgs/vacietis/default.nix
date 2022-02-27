@@ -7,13 +7,9 @@ lispPackages.buildLispPackage rec {
   buildSystems = [ "vacietis" ];
 
   description = "C to Common Lisp compiler";
-  deps = with lispPackages; [
-    named-readtables
-    anaphora
-    babel
-    cl-ppcre
-    cl-fad
-  ];
+
+  deps = with lispPackages; [ named-readtables anaphora babel cl-ppcre cl-fad ];
+
   src = fetchFromGitHub {
     owner = "vsedach";
     repo = "Vacietis";

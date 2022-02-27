@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools_scm, numba
-, scipy, openssl, installShellFiles, pillow }:
+{ lib, fetchPypi, buildPythonPackage, setuptools_scm, numba, scipy, openssl
+, installShellFiles, pillow }:
 
 buildPythonPackage rec {
   pname = "PyMatting";

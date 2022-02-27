@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, pytz, sqlalchemy-utils, tzlocal, click  }:
+{ lib, buildPythonPackage, fetchPypi, setuptools, pytz, sqlalchemy-utils
+, tzlocal, click }:
 
 buildPythonPackage rec {
   pname = "piecash";

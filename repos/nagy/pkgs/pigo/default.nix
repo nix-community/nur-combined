@@ -16,11 +16,12 @@ buildGoModule rec {
   deleteVendor = true;
 
   postInstall = ''
-     mv $out/bin/http $out/bin/pigo-http
+    mv $out/bin/http $out/bin/pigo-http
   '';
 
   meta = with lib; {
-    description = "Fast face detection, pupil/eyes localization and facial landmark points detection library in pure Go";
+    description =
+      "Fast face detection, pupil/eyes localization and facial landmark points detection library in pure Go";
     homepage = "https://github.com/esimov/pico";
     license = with licenses; [ mit ];
   };
