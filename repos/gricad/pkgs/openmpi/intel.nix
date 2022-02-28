@@ -101,16 +101,19 @@ in stdenv.mkDerivation rec {
     # default compilers should be indentical to the
     # compilers at build time
 
-    sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}cc:' \
+    CC=${if withOneAPI then "${intel-oneapi}/compiler/latest/linux/bin/intel64/icc" else "${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}cc"}
+    CPP=${if withOneAPI then "${intel-oneapi}/compiler/latest/linux/bin/intel64/icpc" else "${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}c++"}
+    FORT=${if withOneAPI then "${intel-oneapi}/compiler/latest/linux/bin/intel64/ifort" else "${gfortran}/bin/${gfortran.targetPrefix}gfortran"}
+    sed -i "s:compiler=.*:compiler=$CC:" \
       $out/share/openmpi/mpicc-wrapper-data.txt
 
-    sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}cc:' \
+    sed -i "s:compiler=.*:compiler=$CC:" \
        $out/share/openmpi/ortecc-wrapper-data.txt
 
-    sed -i 's:compiler=.*:compiler=${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}c++:' \
+    sed -i "s:compiler=.*:compiler=$CPP:" \
        $out/share/openmpi/mpic++-wrapper-data.txt
 
-    sed -i 's:compiler=.*:compiler=${gfortran}/bin/${gfortran.targetPrefix}gfortran:'  \
+    sed -i "s:compiler=.*:compiler=$FORT:"  \
        $out/share/openmpi/mpifort-wrapper-data.txt
   '';
 
