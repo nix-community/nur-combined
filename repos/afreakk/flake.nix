@@ -22,7 +22,12 @@
         (system:
           lib.filterAttrs (n: v: n != "modules") (import ./default.nix {
             inherit system;
-            pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = import nixpkgs {
+              inherit system;
+              config = {
+                allowUnfree = true;
+              };
+            };
           }));
     };
 }

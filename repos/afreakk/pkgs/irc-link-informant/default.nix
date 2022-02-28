@@ -2,16 +2,16 @@
 
 pkgs.rustPlatform.buildRustPackage rec {
   pname = "IRC-Link-Informant";
-  version = "de65edd1c877ecee55a4851a39a19e07e22ae1cc";
+  version = "efc351261b130aa2163b6a48f12f4071705de556";
 
   src = pkgs.fetchFromGitHub {
     owner = "afreakk";
     repo = pname;
     rev = version;
-    sha256 = "1cghvmv0fnlqrdf5vr7bhpb64zwrqzjzj5wqn6mzrjmmk0hfrwcv";
+    sha256 = "1irws6ca8g069q4l4vwgva9n3572xdjql6l32wnhqyngjfv6pgas";
   };
 
-  cargoSha256 = "05m8ixxgclchcprlpbnk4ivwq5qsp8v5nrflz5lfj1yw90nfqp4h";
-  nativeBuildInputs = [pkgs.pkg-config];
+  cargoSha256 = "12sa8jjza22f5f3rb12xbfixp2i2l3v3xyj5l3q0sf77ipdr2j88";
+  nativeBuildInputs = [ pkgs.pkg-config ];
   buildInputs = [ pkgs.openssl ];
 }
