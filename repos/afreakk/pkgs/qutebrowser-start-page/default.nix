@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs }:
 let
   qutebrowser-start-page = pkgs.haskellPackages.callPackage ./haskellExecutable.nix { };
   qutebrowser-start-page-css = pkgs.callPackage ./tailwindCss.nix {};

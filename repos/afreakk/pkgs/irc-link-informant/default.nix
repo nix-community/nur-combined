@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs }:
 
 pkgs.rustPlatform.buildRustPackage rec {
   pname = "IRC-Link-Informant";

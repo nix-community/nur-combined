@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }:
 let
   rtpPath = "share/tmux-plugins";
 

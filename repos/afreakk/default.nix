@@ -1,11 +1,11 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs, ... }:
 let
-  tmuxHlp = import ./tmuxhelpers.nix { };
+  tmuxHlp = import ./tmuxhelpers.nix { inherit pkgs; };
   self = {
-    irc-link-informant = pkgs.callPackage ./pkgs/irc-link-informant {};
-    realm-cli = pkgs.callPackage ./pkgs/realm-cli {};
-    fish-history-merger = pkgs.callPackage ./pkgs/fish-history-merger {};
-    qutebrowser-start-page = pkgs.callPackage ./pkgs/qutebrowser-start-page {};
+    irc-link-informant = pkgs.callPackage ./pkgs/irc-link-informant { };
+    realm-cli = pkgs.callPackage ./pkgs/realm-cli { };
+    fish-history-merger = pkgs.callPackage ./pkgs/fish-history-merger { };
+    qutebrowser-start-page = pkgs.callPackage ./pkgs/qutebrowser-start-page { };
     wowup = pkgs.callPackage ./pkgs/wowup { };
     strongdm = pkgs.callPackage ./pkgs/sdm { };
     dmenu-afreak = pkgs.callPackage ./pkgs/dmenu { };
@@ -25,9 +25,7 @@ let
       };
     };
     modules = {
-      fzf-fork = import ./modules/fzf-fork;
       strongdm = import ./modules/sdm;
-      mcfly_with_fix = import ./modules/mcfly;
       systemd-cron = import ./modules/systemd-cron;
       scheduled-rsync = import ./modules/scheduled-rsync;
     };
