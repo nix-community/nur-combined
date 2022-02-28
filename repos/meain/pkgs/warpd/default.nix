@@ -1,4 +1,4 @@
-{ pkgs, lib, xorg, xlibs, fetchFromGitHub, ... }:
+{ pkgs, lib, xorg, fetchFromGitHub, ... }:
 
 pkgs.stdenv.mkDerivation rec {
   pname = "warpd";
@@ -12,7 +12,7 @@ pkgs.stdenv.mkDerivation rec {
     sha256 = "sha256-mj32/0Zngb38xgpo3lr6pC0fwrkJ5t7YmI97JlXOeLM=";
   };
 
-  nativeBuildInputs = [xorg.libX11 xorg.libXi xorg.libXinerama xorg.libXft xorg.libXtst xlibs.libXext.dev];
+  nativeBuildInputs = [xorg.libX11 xorg.libXi xorg.libXinerama xorg.libXft xorg.libXtst xorg.libXext.dev];
 
   installPhase = ''
     mkdir -p $out/bin
