@@ -14,10 +14,13 @@
       forAllSystems = f: lib.genAttrs supportedSystems (system: f system);
     in
     {
-      nixosModules = ((import ./default.nix { pkgs = null; }).modules);
-      nixosModule = {
-        imports = lib.attrValues self.nixosModules;
-      };
+      nixosModules = let x = ((import ./default.nix { pkgs = null; })); in
+        {
+          # can be used like 
+          # imports = (builtins.attrValues myPackages.nixosModules.home-modules);
+          home-modules = x.modules;
+          system-modules = x.system-modules;
+        };
       packages = forAllSystems
         (system:
           lib.filterAttrs (n: v: n != "modules") (import ./default.nix {

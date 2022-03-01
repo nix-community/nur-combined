@@ -29,6 +29,9 @@ let
       systemd-cron = import ./modules/systemd-cron;
       scheduled-rsync = import ./modules/scheduled-rsync;
     };
+    system-modules = {
+      irc-link-informant = import ./modules/irc-link-informant;
+    };
   };
 in
 self
