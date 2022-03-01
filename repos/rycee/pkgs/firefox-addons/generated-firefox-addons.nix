@@ -501,10 +501,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.47";
+      version = "6.1.48";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902689/flagfox-6.1.47-fx.xpi";
-      sha256 = "5b74becbb22c0068513d6134243efab6fd70e0fd7ddd97eb914f47fc813b5720";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3915084/flagfox-6.1.48-fx.xpi";
+      sha256 = "f7a1d8621c1ba381a7e20270d47f1c8ce950410c473a5f1acdd7fd9fdb4ef357";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -590,10 +590,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220224.185616";
+      version = "98.0buildid20220228.162945";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3914006/francais_language_pack-98.0buildid20220224.185616-fx.xpi";
-      sha256 = "36de5d4c59ada2634e25ef9a756644927011d5223be820dc48ea086accf7f6c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3915413/francais_language_pack-98.0buildid20220228.162945-fx.xpi";
+      sha256 = "9cc2df6fe501018784244d5240559f0bad45420e553f0cea06d4cdbc3d259912";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -743,10 +743,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.3.6";
+      version = "3.3.7";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3897820/i_dont_care_about_cookies-3.3.6-an+fx.xpi";
-      sha256 = "730ee05063181847652678cac054ec430895c5e1ab34bbb1b8fd44c48366798d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3915177/i_dont_care_about_cookies-3.3.7-an+fx.xpi";
+      sha256 = "f08216110eaf2974a79eed0a886aec0e20555b666b7305083f85542fcaed12c3";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1106,10 +1106,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.3.4";
+      version = "11.3.6";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3914346/noscript_security_suite-11.3.4-an+fx.xpi";
-      sha256 = "63098ea692602de8586b6a3b39535f65da3a9c46ae73581da44be7dc985accd4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3915268/noscript_security_suite-11.3.6-an+fx.xpi";
+      sha256 = "f9a7c93c7bd31cd39825a2a34605f3d68caab5748022e38d6c58db20fecb3bab";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1577,10 +1577,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.19.31";
+      version = "1.19.32";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3913567/singlefile-1.19.31-an+fx.xpi";
-      sha256 = "929c562c92f515c80768da3b2d1fa92fc9dec1e505352a00eb8d7818f179cc6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3915041/singlefile-1.19.32-an+fx.xpi";
+      sha256 = "5ed9b83c70f06059782d55b661b6cb936ef3fc8eea503132f05d36ab7887ae6c";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1997,10 +1997,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.6.1";
+      version = "3.6.2";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3888180/view_image-3.6.1-an+fx.xpi";
-      sha256 = "40a9efeb692c9adf0783173bef5656652321328b97e82cc962f7b1ad3dcc645d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3915088/view_image-3.6.2-an+fx.xpi";
+      sha256 = "6caf5c89fb9d8619ab71fe023ec2940a55f41e5ab3104ee74c5b399136c19176";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
@@ -2095,10 +2095,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.53.0";
+      version = "2.54.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3914538/web_scrobbler-2.53.0-an+fx.xpi";
-      sha256 = "7dfb4be56e35f1e7edec8391fb6a6a9ffefc8f09b2f23970a45e0797303cc191";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3915502/web_scrobbler-2.54.0-an+fx.xpi";
+      sha256 = "270fa0fd5f28362eeb8a71deb584b5ede8d90aa1b8d368461a1d0275f3d6481e";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
