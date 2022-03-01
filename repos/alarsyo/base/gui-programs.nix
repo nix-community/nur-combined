@@ -41,6 +41,7 @@ in
         mpv
         obs-studio
         pavucontrol
+        rbw
         slack
         spotify
         tdesktop
