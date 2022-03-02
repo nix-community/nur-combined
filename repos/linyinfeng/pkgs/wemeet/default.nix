@@ -27,8 +27,8 @@ let
     desktopName = "Wemeet App";
     exec = "wemeetapp %u";
     icon = "wemeetapp";
-    categories = "AudioVideo";
-    mimeType = "x-scheme-handler/wemeet";
+    categories = [ "AudioVideo" ];
+    mimeTypes = [ "x-scheme-handler/wemeet" ];
   };
 in
 stdenv.mkDerivation rec {
@@ -89,6 +89,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "22.05");
     homepage = https://meeting.tencent.com;
     description = "Tencent Video Conferencing, tencent meeting";
     license = licenses.unfree;

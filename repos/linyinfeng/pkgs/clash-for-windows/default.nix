@@ -23,7 +23,7 @@ let
     comment = "A Windows/macOS/Linux GUI based on Clash and Electron";
     icon = "clash-for-windows";
     exec = "cfw";
-    categories = "Network";
+    categories = [ "Network" ];
   };
   icon = "${sources.clash-for-windows-icon.src}[4]";
 in
@@ -75,6 +75,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "22.05");
     homepage = https://github.com/Fndroid/clash_for_windows_pkg;
     description = "A Windows/macOS/Linux GUI based on Clash and Electron";
     license = licenses.unfree;
