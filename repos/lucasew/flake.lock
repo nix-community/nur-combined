@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "blender-bin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "blender",
+        "lastModified": 1644773270,
+        "narHash": "sha256-TmYp+D33TSmjbZLngIq2k0N7/9FtKYfU/SPXEscltc4=",
+        "owner": "edolstra",
+        "repo": "nix-warez",
+        "rev": "2676668d26982c9e9211c888ea9925514ea8bb97",
+        "type": "github"
+      },
+      "original": {
+        "id": "blender-bin",
+        "type": "indirect"
+      }
+    },
     "borderless-browser": {
       "inputs": {
         "nixpkgs": [
@@ -387,6 +407,7 @@
     },
     "root": {
       "inputs": {
+        "blender-bin": "blender-bin",
         "borderless-browser": "borderless-browser",
         "comma": "comma",
         "dotenv": "dotenv",

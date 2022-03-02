@@ -23,6 +23,7 @@ in {
   ;
 
   home.packages = with pkgs; [
+    appimage-run
     calibre
     chromium
     custom.rofi # custom
@@ -41,6 +42,7 @@ in {
     obsidian
     pipedream-cli
     pkg
+    rclone
     retroarchFull
     ripgrep
     sqlite

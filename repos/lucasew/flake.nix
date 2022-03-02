@@ -3,6 +3,7 @@
 
   inputs = {
     borderless-browser = {url =  "github:lucasew/borderless-browser.nix";           inputs.nixpkgs.follows = "nixpkgs"; };
+    blender-bin =        {url =  "blender-bin";                                     inputs.nixpkgs.follows = "nixpkgs"; };
     comma =              {url =  "github:Shopify/comma";                            flake = false;                      };
     dotenv =             {url =  "github:lucasew/dotenv";                           flake = false;                      };
     flake-utils =        {url =  "github:numtide/flake-utils/master";                                                   };
@@ -128,10 +129,11 @@
       };
 
       overlays = []
-      ++ [(import "${home-manager}/overlay.nix")]
-      ++ [(borderless-browser.overlay)]
-      ++ [(import ./overlay.nix self)]
-      ++ [inputs.rust-overlay.overlay]
+        ++ [(import "${home-manager}/overlay.nix")]
+        ++ [(borderless-browser.overlay)]
+        ++ [inputs.rust-overlay.overlay]
+        ++ [inputs.blender-bin.overlay]
+        ++ [(import ./overlay.nix self)]
       ;
 
       nixOnDroidConf = {mainModule}:

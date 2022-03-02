@@ -79,8 +79,11 @@ in {
   t-launcher = cp ./packages/tlauncher.nix;
   pkg = cp ./packages/pkg.nix;
   pipedream-cli = cp ./packages/pipedream-cli.nix;
+  electron_13 = super.electron_13.overrideAttrs (old: {
+    meta.insecure = false;
+  });
   obsidian = super.obsidian.override {
-    electron_13 = super.electron;
+    electron_13 = super.electron_15;
   };
   wrapWine = cp ./packages/wrapWine.nix;
   preload = cp ./packages/preload.nix;
