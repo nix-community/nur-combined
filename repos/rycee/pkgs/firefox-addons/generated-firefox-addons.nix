@@ -888,6 +888,20 @@
         platforms = platforms.all;
         };
       };
+    "libredirect" = buildFirefoxXpiAddon {
+      pname = "libredirect";
+      version = "1.4.6";
+      addonId = "7esoorv3@alefvanoon.anonaddy.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916028/libredirect-1.4.6-an+fx.xpi";
+      sha256 = "fb56691cf7033fdc35149971abd36fe73c86bc40a964706629c2f0ff7dfed802";
+      meta = with lib;
+      {
+        homepage = "https://libredirect.github.io/";
+        description = "Redirects Twitter, YouTube, Instagram and more to privacy friendly alternatives.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "limit-limit-distracting-sites" = buildFirefoxXpiAddon {
       pname = "limit-limit-distracting-sites";
       version = "0.1.6";
