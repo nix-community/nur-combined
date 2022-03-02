@@ -55,10 +55,10 @@ rustPlatform.buildRustPackage rec {
       name = pname;
       desktopName = "psst";
       genericName = "Spotify Player";
-      categories = "AudioVideo;Audio;Network;Player;";
+      categories = [ "AudioVideo" "Audio" "Network" "Player" ];
       comment = "Spotify client with native GUI";
       exec = "psst-gui";
-      extraEntries = "Keywords=spotify;music;";
+      keywords = [ "spotify" "music" ];
       icon = "spotify";
       type = "Application";
     })
