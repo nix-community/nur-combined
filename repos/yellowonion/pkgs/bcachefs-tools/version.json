@@ -1,8 +1,8 @@
 {
     "owner": "koverstreet",
     "repo": "bcachefs-tools",
-    "rev": "fd1b84975b960d5e42963bed2c18b8c63d8abce7",
-    "sha256": "GlQcRw4iTPkBbH1c7TejDkKG/7Z7Ey8MGANJLd4FcCM=",
+    "rev": "d7037e345a95f437bc6db7551304e56fca9e29f9",
+    "sha256": "3qnj+AoF9IkOhGGSrWrEksl729QaIGTZR3CNOKstkSc=",
     "fetchSubmodules": false,
     "leaveDotGit": false,
     "deepClone": false
