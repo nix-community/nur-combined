@@ -22,7 +22,6 @@ let
     type = "Application";
     categories = "Game;ArcadeGame;ActionGame";
     genericName = pname;
-    fileValidation = false;
   };
 
 in
