@@ -590,10 +590,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220228.162945";
+      version = "98.0buildid20220302.164716";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3915413/francais_language_pack-98.0buildid20220228.162945-fx.xpi";
-      sha256 = "9cc2df6fe501018784244d5240559f0bad45420e553f0cea06d4cdbc3d259912";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916392/francais_language_pack-98.0buildid20220302.164716-fx.xpi";
+      sha256 = "3f289996ac5fab9f74e401b6b5330f9f9a5ec459f0495b30a9b8a5f5c03570fb";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1120,10 +1120,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.3.6";
+      version = "11.3.7";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3915268/noscript_security_suite-11.3.6-an+fx.xpi";
-      sha256 = "f9a7c93c7bd31cd39825a2a34605f3d68caab5748022e38d6c58db20fecb3bab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916177/noscript_security_suite-11.3.7-an+fx.xpi";
+      sha256 = "6e5af18ce46bfc496fb027581d3d37a0edb95df158d053a5d9a1f89b8093bc49";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1508,10 +1508,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.5.1";
+      version = "1.6.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902992/rust_search_extension-1.5.1-fx.xpi";
-      sha256 = "db5101442122e92b5fe75f7524ecc68273dd8b897ac76f589f99d2d9890c6371";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916115/rust_search_extension-1.6.0-fx.xpi";
+      sha256 = "5715b4172cbc8426b921d3d614344a6a23e8d73e0b24c62d5f4c6184ecbf9f2c";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
