@@ -28,6 +28,8 @@ in {
     chromium
     custom.rofi # custom
     custom.tixati
+    custom.neovim
+    custom.emacs
     discord
     easyeffects # efeitos de audio
     feh
@@ -35,6 +37,7 @@ in {
     graphviz
     gimp
     libnotify
+    libreoffice
     mendeley
     ncdu
     nix-option
@@ -50,10 +53,12 @@ in {
     stremio
     tdesktop # communication
     texlive.combined.scheme-full
+    t-launcher
     vlc # media
     wineApps.wine7zip
     xxd
     pavucontrol # controle de volume
+    zeal
   ] ;
 
   # programs.hello-world.enable = true;

@@ -1,7 +1,7 @@
 flake: self: super:
 let
   inherit (flake) inputs;
-  inherit (flake.outputs.extraArgs.x86_64-linux) global;
+  inherit (flake.outputs) global;
   inherit (global) rootPath;
   inherit (super) lib callPackage writeShellScript;
   inherit (lib) recursiveUpdate;

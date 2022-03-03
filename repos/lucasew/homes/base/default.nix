@@ -1,8 +1,8 @@
 { global, pkgs, config, self, lib, ...}:
 let
   inherit (self) inputs outputs;
-  environmentShell = outputs.environmentShell.x86_64-linux;
   inherit (lib) mkDefault;
+  inherit (global) environmentShell;
 in
 {
   home.packages = with pkgs; [

@@ -71,7 +71,7 @@ let
     };
     comment = "Minecraft launcher";
     desktopName = "TLauncher";
-    categories = "Game;";
+    categories = [ "Game" ];
   };
 in stdenv.mkDerivation {
   pname = "tlauncher-wrapper";

@@ -88,6 +88,7 @@ in
     gparted
     paper-icon-theme
     p7zip unzip # archiving
+    pv
     # Extra
     intel-compute-runtime # OpenCL
   ];

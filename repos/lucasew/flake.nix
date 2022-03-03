@@ -6,20 +6,20 @@
     blender-bin =        {url =  "blender-bin";                                     inputs.nixpkgs.follows = "nixpkgs"; };
     comma =              {url =  "github:Shopify/comma";                            flake = false;                      };
     dotenv =             {url =  "github:lucasew/dotenv";                           flake = false;                      };
-    flake-utils =        {url =  "github:numtide/flake-utils/master";                                                   };
-    home-manager =       {url =  "github:nix-community/home-manager/release-21.11"; inputs.nixpkgs.follows = "nixpkgs"; };
+    flake-utils =        {url =  "flake-utils";                                                                         };
+    home-manager =       {url =  "home-manager/release-21.11";                      inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence =       {url =  "github:nix-community/impermanence";               inputs.nixpkgs.follows = "nixpkgs"; };
-    mach-nix =           {url =  "github:DavHau/mach-nix";                          inputs.nixpkgs.follows = "nixpkgs"; };
+    mach-nix =           {url =  "mach-nix";                                        inputs.nixpkgs.follows = "nixpkgs"; };
     nix-ld =             {url =  "github:Mic92/nix-ld";                             inputs.nixpkgs.follows = "nixpkgs"; };
     nix-vscode =         {url =  "github:lucasew/nix-vscode";                       flake = false;                      };
     nix-emacs =          {url =  "github:nixosbrasil/nix-emacs";                    flake = false;                      };
     nix-option =         {url =  "github:lucasew/nix-option";                       flake = false;                      };
     nix-on-droid =       {url =  "github:t184256/nix-on-droid/master";              inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; inputs.home-manager.follows = "home-manager"; };
     nixgram =            {url =  "github:lucasew/nixgram/master";                   flake = false;                      };
-    nixos-hardware =     {url =  "github:NixOS/nixos-hardware";                     inputs.nixpkgs.follows = "nixpkgs"; };
+    nixos-hardware =     {url =  "nixos-hardware";                                  inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-generators =   {url =  "github:nix-community/nixos-generators";           inputs.nixpkgs.follows = "nixpkgs"; };
     nixpkgs =            {url =  "github:NixOS/nixpkgs/nixos-unstable";                                                 };
-    nur =                {url =  "github:nix-community/NUR/master";                 inputs.nixpkgs.follows = "nixpkgs"; };
+    nur =                {url =  "nur";                                             inputs.nixpkgs.follows = "nixpkgs"; };
     pocket2kindle =      {url =  "github:lucasew/pocket2kindle";                    flake = false;                      };
     redial_proxy =       {url =  "github:lucasew/redial_proxy";                     flake = false;                      };
     rust-overlay =       {url =  "github:oxalica/rust-overlay"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -27,48 +27,45 @@
   };
 
   outputs = { self, flake-utils, ... }@inputs:
-    flake-utils.lib.eachDefaultSystem (system: (
-      let
-        inherit (inputs)
-        borderless-browser
-        dotenv
-        flake-utils
-        home-manager
-        nix-ld
-        nix-vscode
-        nixgram
-        nixos-hardware
-        nix-on-droid
-        nur
-        pocket2kindle
-        redial_proxy
-        ;
-        inherit (builtins) replaceStrings toFile trace readFile concatStringsSep;
-        inherit (home-manager.lib) homeManagerConfiguration;
+  let
+    system = builtins.currentSystem or "x86_64-linux";
+    inherit (inputs)
+    borderless-browser
+    dotenv
+    flake-utils
+    home-manager
+    nix-ld
+    nix-vscode
+    nixgram
+    nixpkgs
+    nixos-hardware
+    nix-on-droid
+    nur
+    pocket2kindle
+    redial_proxy
+    ;
+    inherit (builtins) replaceStrings toFile trace readFile concatStringsSep;
+    inherit (home-manager.lib) homeManagerConfiguration;
 
-        nixpkgs = inputs.nixpkgs.legacyPackages.${system}.applyPatches {
-          name = "nixpkgs";
-          src = inputs.nixpkgs;
-          patches = map inputs.nixpkgs.legacyPackages.${system}.fetchpatch [
-            {
-              # fix remarshall
-              url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/159074.patch";
-              sha256 = "0mw667qrcwax66nx5bzfgaxyll4j2qkg1sp42ss860y8xyyyvjgv";
-            }
-          ];
-        };
+        # nixpkgs = inputs.nixpkgs.legacyPackages.${system}.applyPatches {
+        #   name = "nixpkgs";
+        #   src = inputs.nixpkgs;
+        #   patches = map inputs.nixpkgs.legacyPackages.${system}.fetchpatch [
+        #     {
+        #       # fix remarshall
+        #       url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/159074.patch";
+        #       sha256 = "0mw667qrcwax66nx5bzfgaxyll4j2qkg1sp42ss860y8xyyyvjgv";
+        #     }
+        #   ];
+        # };
 
-        pkgsArgs = {
-          inherit overlays;
-          config = {
+        mkPkgs = args: import nixpkgs (args // {
+          config = (args.config or {}) // {
             allowUnfree = true;
           };
-        };
-
-        mkPkgs = argfn: let
-          stdargs = pkgsArgs // {inherit system;};
-          in import nixpkgs (stdargs // (argfn stdargs));
-        pkgs = mkPkgs (v: {});
+          overlays = (args.overlays or []) ++ overlays;
+        });
+        pkgs = mkPkgs { inherit system; };
 
         global = rec {
           username = "lucasew";
@@ -129,77 +126,30 @@
       };
 
       overlays = []
-        ++ [(import "${home-manager}/overlay.nix")]
-        ++ [(borderless-browser.overlay)]
-        ++ [inputs.rust-overlay.overlay]
-        ++ [inputs.blender-bin.overlay]
-        ++ [(import ./overlay.nix self)]
+      ++ [(import (home-manager + "/overlay.nix"))]
+      ++ [(borderless-browser.overlay)]
+      ++ [inputs.rust-overlay.overlay]
+      ++ [inputs.blender-bin.overlay]
+      ++ [(import ./overlay.nix self)]
       ;
+  in {
+    inherit global;
+    inherit overlays;
+        # packages = pkgs;
 
-      nixOnDroidConf = {mainModule}:
-        import "${nix-on-droid}/modules" {
-          config = {
-            _module.args = extraArgs;
-            home-manager.config._module.args = extraArgs;
-            imports = [
-              mainModule
-            ];
-          };
-          pkgs = mkPkgs (super: {
-            overlays = super.overlays ++ (import "${nix-on-droid}/overlays");
-          });
-          home-manager = import home-manager {};
-          isFlake = true;
-        };
-
-      hmConf = allConfig:
-      let
-        source = allConfig // {
-          extraSpecialArgs = extraArgs;
-          inherit pkgs;
-        };
-        evaluated = homeManagerConfiguration source;
-        doc = docConfig evaluated;
-      in evaluated // {
-        inherit source doc;
-      };
-
-      nixosConf = {
-        mainModule,
-        extraModules ? [],
-      }:
-      let
-        revModule = {pkgs, ...}: {
-          system.configurationRevision = if (self ? rev) then 
-            trace "detected flake hash: ${self.rev}" self.rev
-          else
-            trace "flake hash not detected!" null;
-          };
-          source = {
-          inherit pkgs system;
-          modules = [
-          revModule
-          (mainModule)
-          ] ++ extraModules;
-          specialArgs = extraArgs;
-          };
-          eval = import "${nixpkgs}/nixos/lib/eval-config.nix";
-          override = mySource: fn: let
-            sourceProcessed = mySource // (fn mySource);
-            evaluated = eval sourceProcessed;
+        homeConfigurations = let 
+          hmConf = allConfig:
+          let
+            source = allConfig // {
+              extraSpecialArgs = extraArgs;
+              inherit pkgs;
+            };
+            evaluated = homeManagerConfiguration source;
             doc = docConfig evaluated;
           in evaluated // {
-            source = sourceProcessed;
-            inherit doc;
-            override = override sourceProcessed;
+            inherit source doc;
           };
-      in override source (v: {});
-
-      in {
-        inherit (global) environmentShell;
-        inherit overlays;
-
-        homeConfigurations = {
+        in {
           main = hmConf {
             configuration = import ./homes/main/default.nix;
             homeDirectory = "/home/${global.username}";
@@ -207,7 +157,38 @@
           };
         };
 
-        nixosConfigurations = {
+        nixosConfigurations = let
+          nixosConf = {
+            mainModule,
+            extraModules ? [],
+          }:
+          let
+            revModule = {pkgs, ...}: {
+              system.configurationRevision = if (self ? rev) then 
+              trace "detected flake hash: ${self.rev}" self.rev
+              else
+              trace "flake hash not detected!" null;
+            };
+            source = {
+              inherit pkgs system;
+              modules = [
+                revModule
+                (mainModule)
+              ] ++ extraModules;
+              specialArgs = extraArgs;
+            };
+            eval = import "${nixpkgs}/nixos/lib/eval-config.nix";
+            override = mySource: fn: let
+              sourceProcessed = mySource // (fn mySource);
+              evaluated = eval sourceProcessed;
+              doc = docConfig evaluated;
+            in evaluated // {
+              source = sourceProcessed;
+              inherit doc;
+              override = override sourceProcessed;
+            };
+          in override source (v: {});
+        in {
           vps = nixosConf {
             mainModule = ./nodes/vps/default.nix;
           };
@@ -218,14 +199,29 @@
             mainModule = ./nodes/bootstrap/default.nix;
           };
         };
-
-        nixOnDroidConfigurations = {
+        nixOnDroidConfigurations = let
+          nixOnDroidConf = {mainModule}:
+          import "${nix-on-droid}/modules" {
+            config = {
+              _module.args = extraArgs;
+              home-manager.config._module.args = extraArgs;
+              imports = [
+                mainModule
+              ];
+            };
+            pkgs = mkPkgs {
+              overlays = (import "${nix-on-droid}/overlays");
+            };
+            home-manager = import home-manager {};
+            isFlake = true;
+          };
+        in {
           xiaomi = nixOnDroidConf {
             mainModule = ./nodes/xiaomi/default.nix;
           };
         };
 
-        devShell = pkgs.mkShell {
+        devShell.${system} = pkgs.mkShell {
           name = "nixcfg-shell";
           buildInputs = [];
           shellHook = ''
@@ -233,31 +229,6 @@
             echo Shell setup complete!
           '';
         };
+      };
+    }
 
-        apps = {
-          pkg = {
-            type = "app";
-            program = "${pkgs.pkg}/bin/pkg";
-          };
-          webapp = {
-            type = "app";
-            program = "${pkgs.webapp}/bin/webapp";
-          };
-          pinball = {
-            type = "app";
-            program = "${pkgs.wineApps.pinball}/bin/pinball";
-          };
-          wine7zip = {
-            type = "app";
-            program = "${pkgs.wineApps.wine7zip}/bin/7zip";
-          };
-        };
-
-        templates = {
-          # Does not work!
-          hello = import ./templates/hello.nix;
-        };
-        inherit extraArgs pkgs mkPkgs;
-      }
-    ));
-}
