@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, pcsclite, libudev }:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, pcsclite, udev }:
 
 rustPlatform.buildRustPackage rec {
   pname = "solo2-cli";
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-MYxVegXUVeZ4AzDz+Si5TtTjUDEPTO0Nh008rgLtsLw=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pcsclite libudev ];
+  buildInputs = [ pcsclite udev ];
 
   meta = with lib; {
     description = "solo2 library and CLI";
