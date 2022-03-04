@@ -1,6 +1,6 @@
 { stdenv, lib, fetchFromGitHub, pkg-config, cmake, ninja
 , boost, wayland, egl-wayland, libglvnd, glm, protobuf
-, capnproto, glog, lttng-ust, libudev, glib, xorg
+, capnproto, glog, lttng-ust, udev, glib, xorg
 , libdrm, mesa, epoxy, nettle, libxkbcommon, libinput
 , libxmlxx, libuuid, freetype, libyamlcpp, python3Packages
 , libevdev, doxygen, libsystemtap
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     boost wayland egl-wayland libglvnd glm protobuf
-    capnproto glog lttng-ust libudev glib xorg.libxcb
+    capnproto glog lttng-ust udev glib xorg.libxcb
     xorg.libX11 xorg.libXcursor xorg.xorgproto libdrm
     mesa epoxy nettle libxkbcommon libinput libxmlxx
     libuuid freetype libyamlcpp python3Packages.pillow
