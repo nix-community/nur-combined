@@ -210,6 +210,10 @@
             "type": "sourcehut",
             "url": "https://git.sr.ht/~hutzdog/NUR"
         },
+        "iagocq": {
+            "file": "nur.nix",
+            "url": "https://github.com/iagocq/nix"
+        },
         "ijohanne": {
             "url": "https://github.com/ijohanne/nur-packages"
         },
