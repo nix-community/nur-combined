@@ -890,10 +890,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.4.6";
+      version = "1.4.7";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916028/libredirect-1.4.6-an+fx.xpi";
-      sha256 = "fb56691cf7033fdc35149971abd36fe73c86bc40a964706629c2f0ff7dfed802";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916835/libredirect-1.4.7-an+fx.xpi";
+      sha256 = "eec2f21b5990fff8738645747950efbe4614e190ef227fe58e1fa1e87a9ab4c0";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -1006,10 +1006,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.10.1";
+      version = "10.10.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3914203/metamask-10.10.1-an+fx.xpi";
-      sha256 = "a157d977329ee64d186a492cdc73693f700e80efec146e542378c560550c03d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916893/metamask-10.10.2-an+fx.xpi";
+      sha256 = "15f51acbec630fec3d3b5cacc9435286d1cd72b3fe7720f7f0f3543ad7be4dcb";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1481,10 +1481,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.2.22";
+      version = "22.3.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3912729/refined_github-22.2.22-an+fx.xpi";
-      sha256 = "adcdfb2aa76aac5781aa7dfb5db3ec4e5755a4b20443119c7342dd70b6782af1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916817/refined_github-22.3.3-an+fx.xpi";
+      sha256 = "7597b713c3b2c891ab58b681de0cb445fbbfd56b1a7af5fa001391c53bc11194";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1522,10 +1522,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "27.0";
+      version = "27.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3884218/save_page_we-27.0-fx.xpi";
-      sha256 = "6b95494a916d524e06c1ccba382a580d9c302b7c63f1a04e2ca4886276f0be1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916884/save_page_we-27.1-fx.xpi";
+      sha256 = "d1487f1784ef4458fa96f7213d7fbb4212364c30120e1dd55329e234cce26e47";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
