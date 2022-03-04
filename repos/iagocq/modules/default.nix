@@ -1,0 +1,3 @@
+{
+  lightspeed = import ./lightspeed.nix;
+}

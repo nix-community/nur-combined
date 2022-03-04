@@ -1,0 +1,4 @@
+parprouted/0.70-3
+DESTDIR-in-Makefile.patch
+LDFLAGS-in-Makefile.patch
+64-32bit-comparison.patch

@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "lightspeed-ingest": {
+      "type": "Git",
+      "url": "https://github.com/GRVYDEV/Lightspeed-ingest",
+      "rev": "1a13ece0790ffdf6bb67c12118238cf607d758fd",
+      "sha256": "0gsn7salxy2nm1wf4dvm5jy0h6ynr9mlscgn96af4n8ya0lm4g8f"
+    }
+  }
+}
