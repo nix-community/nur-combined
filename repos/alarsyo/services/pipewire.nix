@@ -32,6 +32,7 @@ in
       pulse.enable = true;
       jack.enable = true;
 
+      wireplumber.enable = false;
       media-session = {
         enable = true;
         config.bluez-monitor.rules = [
