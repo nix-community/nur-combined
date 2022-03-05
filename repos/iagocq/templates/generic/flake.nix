@@ -1,15 +1,9 @@
 {
-  description = "";
-
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-
-    flake-compat.url = "github:edolstra/flake-compat";
-    flake-compat.flake = false;
   };
 
-  outputs = (inputs@{ self, nixpkgs, flake-utils, ... }:
+  outputs = { self, nixpkgs, flake-utils, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -23,7 +17,5 @@
         devShell = pkgs.mkShell {
           inherit buildInputs nativeBuildInputs;
         };
-      }
-    )
-  );
+      });
 }

@@ -1,12 +1,40 @@
 # based on https://github.com/clefru/nur-packages/blob/master/pkgs/parsecgaming/default.nix
 
-{ lib, stdenv, buildFHSUserEnv, fetchurl, copyDesktopItems
-, curl, jq, writeScript, dpkg, alsa-lib, cups, dbus, fontconfig
-, freetype, libGL, libsamplerate, makeDesktopItem
-, libudev, libva, vaapiVdpau, libxkbcommon, nas
-, vulkan-loader, libX11, libXScrnSaver, libXcursor
-, libXext, libXi, libXinerama, libXrandr, libXrender
-, libXxf86vm, libxcb, openssl, extraPkgs ? []
+{ lib
+, stdenv
+, buildFHSUserEnv
+, fetchurl
+, copyDesktopItems
+, curl
+, jq
+, writeScript
+, dpkg
+, alsa-lib
+, cups
+, dbus
+, fontconfig
+, freetype
+, libGL
+, libsamplerate
+, makeDesktopItem
+, libudev
+, libva
+, vaapiVdpau
+, libxkbcommon
+, nas
+, vulkan-loader
+, libX11
+, libXScrnSaver
+, libXcursor
+, libXext
+, libXi
+, libXinerama
+, libXrandr
+, libXrender
+, libXxf86vm
+, libxcb
+, openssl
+, extraPkgs ? [ ]
 }:
 
 let
@@ -78,12 +106,32 @@ let
   fhsEnv = buildFHSUserEnv {
     name = "parsec-fhs-wrapper";
     targetPkgs = pkgs: [
-      alsa-lib cups dbus src fontconfig
-      freetype libGL libsamplerate
-      libudev libva vaapiVdpau libxkbcommon nas
-      vulkan-loader libX11 libXScrnSaver libXcursor
-      libXext libXi libXinerama libXrandr libXrender
-      libXxf86vm libxcb openssl stdenv.cc.cc.lib
+      alsa-lib
+      cups
+      dbus
+      src
+      fontconfig
+      freetype
+      libGL
+      libsamplerate
+      libudev
+      libva
+      vaapiVdpau
+      libxkbcommon
+      nas
+      vulkan-loader
+      libX11
+      libXScrnSaver
+      libXcursor
+      libXext
+      libXi
+      libXinerama
+      libXrandr
+      libXrender
+      libXxf86vm
+      libxcb
+      openssl
+      stdenv.cc.cc.lib
       linkAlsaConf
       # Those libraries are missing from buildInputs
       # libGLES_CM.so.1        # Can't find in my /nix/store
@@ -95,19 +143,22 @@ let
     ] ++ extraPkgs;
     runScript = launchScript;
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "parsec";
   inherit version;
 
   nativeBuildInputs = [ copyDesktopItems ];
-  desktopItems = [ (makeDesktopItem {
-    name = "parsec";
-    desktopName = "Parsec";
-    comment = "Simple, low-latency game streaming.";
-    exec = "parsec %u";
-    icon = "parsecd";
-    categories = "Network;Game;Utility;";
-  }) ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "parsec";
+      desktopName = "Parsec";
+      comment = "Simple, low-latency game streaming.";
+      exec = "parsec %u";
+      icon = "parsecd";
+      categories = "Network;Game;Utility;";
+    })
+  ];
 
   phases = [ "installPhase" ];
   installPhase = ''
@@ -121,9 +172,9 @@ in stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = {
+  meta = with lib; {
     description = "Simple, low-latency game streaming.";
     homepage = "https://parsec.app";
-    license = with lib.licenses; [ unfree ];
+    license = licenses.unfree;
   };
 }

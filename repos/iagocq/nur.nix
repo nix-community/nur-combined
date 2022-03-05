@@ -1,4 +1,4 @@
 { pkgs }: import ./pkgs { inherit pkgs; } // {
-  overlays.all = final: prev: import ./pkgs { pkgs = prev; };
+  overlays = import ./overlays;
   modules = import ./modules;
 }

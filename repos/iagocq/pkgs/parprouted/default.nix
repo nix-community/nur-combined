@@ -1,7 +1,8 @@
 { lib
 , stdenv
 , fetchurl
-, iproute2 }:
+, iproute2
+}:
 
 stdenv.mkDerivation rec {
   pname = "parprouted";
@@ -23,4 +24,10 @@ stdenv.mkDerivation rec {
     install parprouted $out/bin
     install parprouted.8 $out/share/man/man8
   '';
+
+  meta = with lib; {
+    description = "Daemon for transparent IP proxy ARP bridging";
+    homepage = "https://www.hazard.maks.net/parprouted/";
+    license = licenses.gpl2;
+  };
 }
