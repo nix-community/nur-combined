@@ -86,6 +86,7 @@ in {
     electron_13 = super.electron_15;
   };
   wrapWine = cp ./packages/wrapWine.nix;
+  wonderland-engine = cp ./packages/wonderland-engine.nix;
   preload = cp ./packages/preload.nix;
   nodePackages = cp ./packages/node_clis/package_data/default.nix;
   nur = import flake.inputs.nur {
