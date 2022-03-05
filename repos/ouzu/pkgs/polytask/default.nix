@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "polytask";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "ouzu";
     repo = "polytask";
     rev = "v${version}";
-    sha256 = "sha256-lT3EJhHVsGsRAR63t1yh/OMkKFAZc1uxWjtW5fzyfjU=";
+    sha256 = "sha256-1KiZkAx6lLEUNtO4xJO1hHFBf2+26jNapZ8+UIUjXKQ=";
   };
 
-  vendorSha256 = "sha256-BZ0GO3T6X23jgbMR/3KiOGbJeEH5Yn/8mbvbHD+Nzo0=";
+  vendorSha256 = "sha256-s0zC6uZmSa0zQv6u7hiYX1HwI9IJe291i9hYawnp5fo=";
   
   meta = with lib; {
     description = "Taskwarrior module for polybar";
