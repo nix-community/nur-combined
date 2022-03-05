@@ -63,7 +63,7 @@ in
           ];
         in
         ''
-          install -Dm0644 ${src}/notsecrets/logo.svg $out/share/icons/hicolor/256x256/apps/ultimmc.svg
+          install -Dm0644 ${src}/notsecrets/logo.svg $out/share/icons/hicolor/scalable/apps/ultimmc.svg
           wrapProgram $out/bin/UltimMC \
             "''${qtWrapperArgs[@]}" \
             --set GAME_LIBRARY_PATH /run/opengl-driver/lib:${libpath} \
