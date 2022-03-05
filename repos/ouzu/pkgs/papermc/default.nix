@@ -1,10 +1,10 @@
 { lib, stdenv, fetchurl, bash, jre_headless }:
 let
-  mcVersion = "1.17.1";
-  buildNum = "104";
+  mcVersion = "1.18.2";
+  buildNum = "225";
   jar = fetchurl {
      url = "https://papermc.io/api/v2/projects/paper/versions/${mcVersion}/builds/${buildNum}/downloads/paper-${mcVersion}-${buildNum}.jar";
-     sha256 = "0id20b4hbwfkh7ib4s34qn591ygj3pdgp3zdb11divfh9gp9pnzg";
+     sha256 = "sha256-M9wsy2PxYa0g6Yae4xK4d4okPZIws3UZP5n/+Xam1qI=";
   };
 in stdenv.mkDerivation {
   pname = "papermc";

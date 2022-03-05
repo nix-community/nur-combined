@@ -12,7 +12,6 @@ buildGoModule rec {
   };
 
   vendorSha256 = "15jzxm4yviv1pjhb9zjmy0zccn28qcdwsk1pkx3x8yl0h2hdxpgf";
-  runVend = true;
   
   meta = with lib; {
     description = "Teamspeak 3 exporter for prometheus ";

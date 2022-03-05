@@ -12,7 +12,6 @@ buildGoModule rec {
   };
 
   vendorSha256 = "11lq6mmvfa1yyqxaixgc1zzs6b3cr8ykzrgzdl5diwm2mn9zggc5";
-  runVend = true;
   
   meta = with lib; {
     description = "Gets the public IP adress from FritzBox routers and updates Cloudflare DNS records";

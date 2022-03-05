@@ -15,8 +15,6 @@ buildGoModule rec {
 
   subPackages = [ "." ];
   
-  runVend = true;
-
   doCheck = false;
 
   nativeBuildInputs = [ go-rice ];
