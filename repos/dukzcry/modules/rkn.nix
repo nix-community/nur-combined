@@ -137,8 +137,12 @@ in {
           set -e
           cd ${dirOf cfg.file}
           wget --backups=3 https://raw.githubusercontent.com/zapret-info/z-i/master/dump.csv
+          # domain column
           cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump.txt
+          # domain from url
           cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump.txt
+          # add root domain for each wildcard domain
+          sed -i 's/\(\*\.\)\(.*\)/\2\n&/' dump.txt
           install -m644 ${pkgs.writeText "local.zone" cfg.header} ${cfg.file}
           cat dump.txt | sort | uniq | idn --no-tld | sed -e 's#\(.*\)#\1 IN A ${cfg.address.address}#' >> ${cfg.file}
           systemctl restart bind
