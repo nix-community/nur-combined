@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   bmono = pkgs.callPackage ./pkgs/bmono { };
+  pepper = pkgs.callPackage ./pkgs/pepper { };
   # ...
 }

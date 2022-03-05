@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/NNBnh/bmono";
     downloadPage = "https://github.com/NNBnh/bmono/releases";
-    description = "Mono font that SuperB ";
+    description = "Mono font that SuperB";
     license = licenses.ofl;
     platforms = platforms.all;
   };
