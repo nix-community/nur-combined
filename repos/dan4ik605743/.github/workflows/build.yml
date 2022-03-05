@@ -10,8 +10,6 @@ jobs:
       matrix:
         nurRepo:
           - dan4ik605743
-        cachixName:
-          - dan4ik605743
         nixPath:
           - nixpkgs=channel:nixos-unstable
     runs-on: ubuntu-latest
@@ -28,11 +26,6 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v10
-      with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
