@@ -14,6 +14,9 @@
       forAllSystems = f: lib.genAttrs supportedSystems (system: f system);
     in
     {
+      lib = {
+        inherit forAllSystems;
+      };
       nixosModules = let x = ((import ./default.nix { pkgs = null; })); in
         {
           # can be used like 
