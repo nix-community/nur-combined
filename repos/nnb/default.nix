@@ -16,5 +16,6 @@
 
   bmono = pkgs.callPackage ./pkgs/bmono { };
   pepper = pkgs.callPackage ./pkgs/pepper { };
+  pepper-lsp = pkgs.callPackage ./pkgs/pepper-lsp { };
   # ...
 }
