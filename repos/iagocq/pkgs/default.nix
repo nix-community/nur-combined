@@ -63,6 +63,7 @@ in
           ];
         in
         ''
+          chmod -x $out/bin/*.so
           install -Dm0644 ${src}/notsecrets/logo.svg $out/share/icons/hicolor/scalable/apps/ultimmc.svg
           wrapProgram $out/bin/UltimMC \
             "''${qtWrapperArgs[@]}" \
