@@ -2,14 +2,14 @@
 
 let
   pname = "mini-media-player";
-  version = "1.16.0";
+  version = "1.16.1";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
     url = "https://github.com/kalkih/${pname}/releases/download/v${version}/mini-media-player-bundle.js";
-    hash = "sha256-CEL+V+pXMJhRbVOydNy8+IDTfCrO8f79BvJ5X95VOoo=";
+    hash = "sha256-OuAyMeGDzQJZ+n5ZDI5HPvIhrahv2ReOqMCeGuQVCx0=";
   };
 
   dontUnpack = true;
