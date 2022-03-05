@@ -590,10 +590,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220302.164716";
+      version = "98.0buildid20220304.153049";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916392/francais_language_pack-98.0buildid20220302.164716-fx.xpi";
-      sha256 = "3f289996ac5fab9f74e401b6b5330f9f9a5ec459f0495b30a9b8a5f5c03570fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3917730/francais_language_pack-98.0buildid20220304.153049-fx.xpi";
+      sha256 = "2eed9704d8df545c7645c380bfb50bf3118bbfba2aa24f0a8650502e565920f9";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -645,10 +645,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.895.0";
+      version = "8.896.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901295/grammarly_for_firefox-8.895.0-an+fx.xpi";
-      sha256 = "e28e83f89ee0ffe0cc91cac249ff38843ee71f59e263c07d8476ea00fc0683e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916975/grammarly_for_firefox-8.896.0-an+fx.xpi";
+      sha256 = "9f1954e31b7a740f744a40380e037577a2f856c18ecfc0817d39b28ce6c5b816";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -843,10 +843,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.88.0.1";
+      version = "4.90.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3900294/lastpass_password_manager-4.88.0.1-an+fx.xpi";
-      sha256 = "6b0468d28fa25ae0759a5b7b03914d7ab2fcf4ec55d83ba6d968f90610f372ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916769/lastpass_password_manager-4.90.0.3-an+fx.xpi";
+      sha256 = "d209ce22f0d4c1dc767a17c24a321b83b353b7ca6f2c4904b2d3218ec024d454";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -890,10 +890,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.4.7";
+      version = "1.4.8";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916835/libredirect-1.4.7-an+fx.xpi";
-      sha256 = "eec2f21b5990fff8738645747950efbe4614e190ef227fe58e1fa1e87a9ab4c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3917490/libredirect-1.4.8-an+fx.xpi";
+      sha256 = "ebb6d656dbff07a8c4c9ef437731c1f9d456612368ebe99a50329ec36e556a46";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -2109,10 +2109,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.54.0";
+      version = "2.55.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3915502/web_scrobbler-2.54.0-an+fx.xpi";
-      sha256 = "270fa0fd5f28362eeb8a71deb584b5ede8d90aa1b8d368461a1d0275f3d6481e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3917602/web_scrobbler-2.55.0-an+fx.xpi";
+      sha256 = "ca0525db6d1185040f8b21df37c8e60916aeb4921b7d1bff62e92d623308ff2e";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
@@ -2123,10 +2123,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.3.3";
+      version = "3.4.0";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898132/windscribe_free_vpn_and_ad_blocker-3.3.3-fx.xpi";
-      sha256 = "05417544f0ca57670609b8a7c0eeeef8419470d28b163b1072348d61a82fc8c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3917631/windscribe_free_vpn_and_ad_blocker-3.4.0-fx.xpi";
+      sha256 = "3f97e30ed7433b967f4c8c6dcf115f493f753f3cec12e02fba18068bb062dd82";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
