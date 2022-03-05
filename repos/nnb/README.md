@@ -8,8 +8,9 @@
 ## 💡 About
 
 My personal [NUR](https://github.com/nix-community/NUR) repository contain the following packages:
-- [**Bmono**](https://github.com/NNBnh/bmono) - Mono font that SuperB.
-- [**Pepper**](https://vamolessa.github.io/pepper) - A simple and opinionated modal code editor for your terminal.
+- [`bmono`](https://github.com/NNBnh/bmono) - Mono font that SuperB.
+- [`pepper`](https://vamolessa.github.io/pepper) - A simple and opinionated modal code editor for your terminal.
+- [`pepper-lsp`](https://vamolessa.github.io/pepper) - Pepper editor with [Language Server Protocol plugin](https://crates.io/crates/pepper-plugin-lsp).
 
 <br><br><br><br>
 
