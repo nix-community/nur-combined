@@ -4,11 +4,11 @@
 , debug ? false }:
 
 let
-  desktopItem = makeDesktopItem rec {
-    name = "KnobKraft-orm";
+  desktopItem = makeDesktopItem {
+    name = "knobkraftorm";
     exec = "KnobKraftOrm";
     icon = "icon_orm";
-    desktopName = "KnobKraft-orm";
+    desktopName = "KnobKraftOrm";
     genericName = "KnobKraft Orm";
     categories = "Audio;AudioVideo;";
   };
