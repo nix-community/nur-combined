@@ -1,0 +1,22 @@
+name: Soft-Serve
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  soft-serve:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Push to Soft-Serve
+        uses: charmbracelet/soft-serve-action@master
+        with:
+          server: ouzu.tech
+          ssh-key: ${{ secrets.SOFT_SERVE_KEY }}
