@@ -72,7 +72,9 @@ in
               {
                   result=$(${nmcli} dev | ${grep} "ethernet" | ${grep} -w "connected")
                   if [ -n "$result" ]; then
-                      ${nmcli} radio wifi off
+                      if ! ${nmcli} dev | ${grep} -q "hotspot"; then
+                          ${nmcli} radio wifi off
+                      fi
                   else
                       ${nmcli} radio wifi on
                   fi
