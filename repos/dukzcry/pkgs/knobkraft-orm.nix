@@ -8,7 +8,7 @@ let
     name = "KnobKraft-orm";
     exec = "KnobKraftOrm";
     icon = "icon_orm";
-    desktopName = name;
+    desktopName = "KnobKraft-orm";
     genericName = "KnobKraft Orm";
     categories = "Audio;AudioVideo;";
   };
