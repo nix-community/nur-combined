@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   lemonade = pkgs.callPackage ./pkgs/lemonade { };
+  csvlens = pkgs.callPackage ./pkgs/csvlens { };
   ulozto-downloader = pkgs.callPackage ./pkgs/ulozto-downloader { };
   xss-events = pkgs.callPackage ./pkgs/xss-events { };
   xvisbell = pkgs.callPackage ./pkgs/xvisbell { };
