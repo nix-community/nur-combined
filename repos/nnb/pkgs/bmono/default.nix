@@ -5,7 +5,7 @@ let
 in fetchzip {
   name = "bmono-${version}";
   url = "https://github.com/NNBnh/bmono/releases/download/v${version}/bmono-ttf.zip";
-  sha256 = "sha256-/o3IyGlhWm45rxWW3bD4FLeCjiNP8HWx5BZVGFrryXI=";
+  sha256 = "1xi56z9sn340gsz9vnfp15dyfcv33kq8b9pr235hyc8gzk750rwb";
 
   postFetch = ''
     mkdir -p $out/share/fonts
