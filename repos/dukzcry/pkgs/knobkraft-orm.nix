@@ -4,12 +4,13 @@
 , debug ? false }:
 
 let
-  desktopItem = makeDesktopItem {
-    name = "knobkraftorm";
+  desktopItem = makeDesktopItem rec {
+    name = "KnobKraft-orm";
     exec = "KnobKraftOrm";
     icon = "icon_orm";
-    desktopName = "KnobKraftOrm";
+    desktopName = name;
     genericName = "KnobKraft Orm";
+    # new API introduced, mark package as broken
     categories = "Audio;AudioVideo;";
   };
   inherit (lib) optional optionalString;
@@ -58,5 +59,6 @@ in stdenv.mkDerivation rec {
     license = licenses.agpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
+    broken = true;
   };
 }
