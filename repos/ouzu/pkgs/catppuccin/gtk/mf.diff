@@ -1,0 +1,29 @@
+diff --git a/Makefile b/Makefile
+index 025d8b7..2c8b452 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,9 +4,9 @@ LOG_WARNING=$(shell date +"%H:%M:%S") \e[0;33mWARNING\e[0m
+ LOG_SUCCESS=$(shell date +"%H:%M:%S") \e[0;32mSUCCESS\e[0m
+
+ .DEFAULT_GOAL := install
+-ROOT_DIR=$(shell git rev-parse --show-toplevel)
++ROOT_DIR=$(src)
+
+-dest=$(ROOT_DIR)/pkgs
++dest=$(out)
+ quiet=false
+
+ export ROOT_DIR
+diff --git a/scripts/install.sh b/scripts/install.sh
+index d2a2b86..2012198 100755
+--- a/scripts/install.sh
++++ b/scripts/install.sh
+@@ -2,7 +2,7 @@
+
+ set -Eeo pipefail
+
+-REPO_DIR="$(git rev-parse --show-toplevel)"
++REPO_DIR="$(src)"
+ SRC_DIR="${REPO_DIR}/src"
+
+ ROOT_UID=0

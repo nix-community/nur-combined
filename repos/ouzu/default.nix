@@ -14,12 +14,24 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # my packages
   cf-dns-updater = pkgs.callPackage ./pkgs/cf-dns-updater { };
-  hbs = pkgs.callPackage ./pkgs/hbs { };
   i3lock-fancy-rapid = pkgs.callPackage ./pkgs/i3lock-fancy-rapid { };
-  linx-client = pkgs.callPackage ./pkgs/linx-client { };
-  linx-server = pkgs.callPackage ./pkgs/linx-server { go-rice=pkgs.callPackage ./pkgs/go-rice { }; };
-  papermc = pkgs.callPackage ./pkgs/papermc { };
   polytask = pkgs.callPackage ./pkgs/polytask { };
+
+  # catppuccin
+  catppuccin.cursors = pkgs.callPackage ./pkgs/catppuccin/cursors {
+    inkscape = pkgs.inkscape;
+    xorg = pkgs.xorg;
+  };
+  catppuccin.gtk = pkgs.callPackage ./pkgs/catppuccin/gtk { };
+
+  # other packages
+  hbs = pkgs.callPackage ./pkgs/hbs { };
+  linx-client = pkgs.callPackage ./pkgs/linx-client { };
+  linx-server = pkgs.callPackage ./pkgs/linx-server {
+    go-rice=pkgs.callPackage ./pkgs/go-rice { };
+  };
+  papermc = pkgs.callPackage ./pkgs/papermc { };
   ts3exporter = pkgs.callPackage ./pkgs/ts3exporter { };
 }
