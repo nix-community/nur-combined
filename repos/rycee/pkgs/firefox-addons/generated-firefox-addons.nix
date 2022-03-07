@@ -187,10 +187,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.5.8.0";
+      version = "2.5.9.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3914969/bypass_paywalls_clean-2.5.8.0-an+fx.xpi";
-      sha256 = "c8f2005e85e13e6a0176e30b4986d02dc2cb90d369545d441cece75551b41137";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918355/bypass_paywalls_clean-2.5.9.0-an+fx.xpi";
+      sha256 = "352f5aab921610716654c74b437f5e8beabb780bcfabde783084d0985581520e";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -890,10 +890,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.4.8";
+      version = "1.4.9";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3917490/libredirect-1.4.8-an+fx.xpi";
-      sha256 = "ebb6d656dbff07a8c4c9ef437731c1f9d456612368ebe99a50329ec36e556a46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918238/libredirect-1.4.9-an+fx.xpi";
+      sha256 = "0396f5a346ded98f27305f69f83eab62afc0a0f9849fdbf8b913b29bf57cf050";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
