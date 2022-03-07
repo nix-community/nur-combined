@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-  callPackage = pkgs.callPackage;
+  inherit (pkgs) callPackage lib;
 in
 {
   lightspeed-ingest = callPackage ./lightspeed-ingest { };
@@ -30,6 +30,7 @@ in
       };
       multimcPkg = pkgs.polymc or pkgs.multimc;
       description = "Cracked version of a popular Minecraft launcher";
+      categories = if lib.versionAtLeast lib.version "22.05pre" then [ "Game" ] else "Game;";
     in
     multimcPkg.overrideAttrs (old: {
       inherit src;
@@ -44,7 +45,7 @@ in
           icon = "ultimmc";
           comment = description;
           exec = "UltimMC %u";
-          categories = "Game;";
+          inherit categories;
         })
       ];
 
@@ -63,6 +64,7 @@ in
           ];
         in
         ''
+          # nixpkgs/nixos-21.11 for some reason auto-wraps everything in /bin that is executable
           chmod -x $out/bin/*.so
           install -Dm0644 ${src}/notsecrets/logo.svg $out/share/icons/hicolor/scalable/apps/ultimmc.svg
           wrapProgram $out/bin/UltimMC \
