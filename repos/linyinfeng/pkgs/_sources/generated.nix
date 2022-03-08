@@ -179,10 +179,10 @@
   };
   wemeet = {
     pname = "wemeet";
-    version = "2.8.0.1";
+    version = "2.8.0.3";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_2.8.0.1_x86_64.publish.deb";
-      sha256 = "05r3l3cgbcqdkwyr60dz2pwlr5x3i5dghnpc6yqmhqbv6qncyqrd";
+      url = "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e1f/TencentMeeting_0300000000_2.8.0.3_x86_64_default.publish.deb";
+      sha256 = "17w5lw6yk3655p6qw4myfhypxsp2fmx5jjl0q47v18w8yvh6d87g";
     };
   };
   yacd = {
