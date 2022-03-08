@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+TABLET_ID="52c0f4e7611e708b"
+
+URL="$1"
+
+if [ -n "$URL" ]; then
+    kdeconnect-cli --share "$URL" -d $TABLET_ID
+else
+    MY_IP=`ip addr show up | grep 'inet' | grep 'brd' | sed 's;^[^i]*inet \([0-9\.]*\)/[0-9]* brd [^$]*;\1;' | head -n 1`
+    kdeconnect-cli --share $MY_IP:42069 -d $TABLET_ID
+fi
