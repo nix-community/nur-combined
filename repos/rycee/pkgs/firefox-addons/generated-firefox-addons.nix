@@ -1591,10 +1591,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.19.32";
+      version = "1.19.34";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3915041/singlefile-1.19.32-an+fx.xpi";
-      sha256 = "5ed9b83c70f06059782d55b661b6cb936ef3fc8eea503132f05d36ab7887ae6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918727/singlefile-1.19.34-an+fx.xpi";
+      sha256 = "1a9d5cbfa43d54d7b08d0e4d1ff5dbb89c18e099d9b89d569013caa32b4f46dd";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2123,10 +2123,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.0";
+      version = "3.4.1";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3917631/windscribe_free_vpn_and_ad_blocker-3.4.0-fx.xpi";
-      sha256 = "3f97e30ed7433b967f4c8c6dcf115f493f753f3cec12e02fba18068bb062dd82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918765/windscribe_free_vpn_and_ad_blocker-3.4.1-fx.xpi";
+      sha256 = "05bd96f917f80c7202a2c604958af9040e5ab9f3cee35fd17456a0b1a1bcc2e5";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
@@ -2151,10 +2151,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.3";
+      version = "19.5";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3865237/zoom_page_we-19.3-fx.xpi";
-      sha256 = "b97c565379f7c42415e774b7214c8e17e92b878a162dd4abead1880f1a545f5e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918772/zoom_page_we-19.5-fx.xpi";
+      sha256 = "f0a994b4e6a35bbbe6c4479c09e97064dcab7c57eee139a2091d34892a7caed1";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
