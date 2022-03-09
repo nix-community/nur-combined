@@ -1,15 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-, boost, lua, protobuf, shapelib, sqlite, zlib }:
+{ lib, stdenv, fetchFromGitHub, cmake, installShellFiles
+, boost, lua, protobuf, rapidjson, shapelib, sqlite, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "tilemaker";
-  version = "2.0.0";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "systemed";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-RfWf5e7yyfoJO3S8u6DwpB5xYl4PGnlhk+E1l+ewNN8=";
+    hash = "sha256-weDwDIeOI7CEyZotGWar5l6zW+l31ZvfHkIEUiXevR8=";
   };
 
   postPatch = ''
@@ -18,11 +18,12 @@ stdenv.mkDerivation rec {
       --replace "process.lua" "$out/share/tilemaker/process-openmaptiles.lua"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake installShellFiles ];
 
-  buildInputs = [ boost lua protobuf shapelib sqlite zlib ];
+  buildInputs = [ boost lua protobuf rapidjson shapelib sqlite zlib ];
 
   postInstall = ''
+    installManPage $src/docs/man/tilemaker.1
     install -Dm644 $src/resources/* -t $out/share/tilemaker
   '';
 
