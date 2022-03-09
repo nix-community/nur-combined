@@ -1,4 +1,4 @@
-From e6697d3b6322cc2018b7dfa07a7135bd03372dc6 Mon Sep 17 00:00:00 2001
+From 51ec84e88a3c60d6ba65ba2400d76eea97ef7745 Mon Sep 17 00:00:00 2001
 From: Ilya Fedin <fedin-ilja2010@ya.ru>
 Date: Sun, 14 Jun 2020 03:25:53 +0400
 Subject: [PATCH] Add an option to hide messages from blocked users in groups
@@ -6,13 +6,13 @@ Subject: [PATCH] Add an option to hide messages from blocked users in groups
 ---
  Telegram/Resources/langs/rewrites/en.json     |  1 +
  Telegram/Resources/langs/rewrites/ru.json     |  1 +
- .../history/history_item_components.cpp       |  8 +++-
+ .../history/history_item_components.cpp       |  9 ++++-
  .../SourceFiles/history/history_widget.cpp    | 30 ++++++++++++++
  .../history/view/history_view_element.cpp     |  7 ++++
  .../SourceFiles/kotato/kotato_settings.cpp    |  3 ++
  .../kotato/kotato_settings_menu.cpp           |  1 +
  Telegram/SourceFiles/main/main_session.cpp    | 40 +++++++++++++++++++
- 8 files changed, 89 insertions(+), 2 deletions(-)
+ 8 files changed, 90 insertions(+), 2 deletions(-)
 
 diff --git a/Telegram/Resources/langs/rewrites/en.json b/Telegram/Resources/langs/rewrites/en.json
 index e50ac3e25..bd67e4d27 100644
@@ -39,10 +39,18 @@ index 5f4c7e775..cb1509722 100644
  	"ktg_settings_forward_retain_selection": "Сохранять выделение после пересылки",
  	"ktg_settings_forward_chat_on_click": "Открывать чат по клику",
 diff --git a/Telegram/SourceFiles/history/history_item_components.cpp b/Telegram/SourceFiles/history/history_item_components.cpp
-index 09e2fe34e..19abfdd95 100644
+index 09e2fe34e..1939d3570 100644
 --- a/Telegram/SourceFiles/history/history_item_components.cpp
 +++ b/Telegram/SourceFiles/history/history_item_components.cpp
-@@ -334,7 +334,11 @@ void HistoryMessageReply::paint(
+@@ -7,6 +7,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ */
+ #include "history/history_item_components.h"
+ 
++#include "kotato/kotato_settings.h"
+ #include "kotato/kotato_lang.h"
+ #include "base/qt/qt_key_modifiers.h"
+ #include "lang/lang_keys.h"
+@@ -334,7 +335,11 @@ void HistoryMessageReply::paint(
  	p.fillRect(rbar, bar);
  
  	if (w > st::msgReplyBarSkip) {
@@ -55,7 +63,7 @@ index 09e2fe34e..19abfdd95 100644
  			auto hasPreview = replyToMsg->media() ? replyToMsg->media()->hasReplyPreview() : false;
  			if (hasPreview && w < st::msgReplyBarSkip + st::msgReplyBarSize.height()) {
  				hasPreview = false;
-@@ -380,7 +384,7 @@ void HistoryMessageReply::paint(
+@@ -380,7 +385,7 @@ void HistoryMessageReply::paint(
  			p.setPen(inBubble
  				? stm->msgDateFg
  				: st->msgDateImgFg());
