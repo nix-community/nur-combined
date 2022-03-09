@@ -590,10 +590,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "98.0buildid20220304.153049";
+      version = "99.0buildid20220308.094525";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3917730/francais_language_pack-98.0buildid20220304.153049-fx.xpi";
-      sha256 = "2eed9704d8df545c7645c380bfb50bf3118bbfba2aa24f0a8650502e565920f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919166/francais_language_pack-99.0buildid20220308.094525-fx.xpi";
+      sha256 = "69a13429bb7eecb1f9831ae22536e4a548800bf182383ff3d97e9d92d2deb584";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -937,10 +937,10 @@
       };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
-      version = "1.2.0";
+      version = "1.2.1";
       addonId = "linkhints@lydell.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3831838/link_hints-1.2.0-fx.xpi";
-      sha256 = "3d0bd5699a2f3a668edc83a3de415e0425262bfae532d32565b0fd1d75c9619f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919345/link_hints-1.2.1-fx.xpi";
+      sha256 = "9341ef138bf96819615d2d886b232965e07fb5947659a378b9bdf80163ae6e70";
       meta = with lib;
       {
         homepage = "https://lydell.github.io/LinkHints";
