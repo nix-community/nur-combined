@@ -12,9 +12,7 @@
 , qtbase
 , qtimageformats
 , qtsvg
-, gtk3
 , kwayland
-, libdbusmenu
 , lz4
 , xxHash
 , ffmpeg
@@ -32,6 +30,7 @@
 , rnnoise
 , abseil-cpp
 , microsoft_gsl
+, wayland
 , libicns
 , Cocoa
 , CoreFoundation
@@ -66,58 +65,42 @@
 , MetalKit
 }:
 
+with lib;
+
 let
   tg_owt = callPackage ./tg_owt.nix {
-    abseil-cpp = (abseil-cpp.override {
-      # abseil-cpp should use the same compiler
-      stdenv = stdenv;
-      cxxStandard = if stdenv.isDarwin then "14" else "17";
-    }).overrideAttrs(_: {
+    abseil-cpp = abseil-cpp.overrideAttrs (_: {
       # https://github.com/NixOS/nixpkgs/issues/130963
-      NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lc++abi";
+      NIX_LDFLAGS = optionalString stdenv.isDarwin "-lc++abi";
     });
 
     # tg_owt should use the same compiler
-    stdenv = stdenv;
+    inherit stdenv;
 
-    Cocoa = Cocoa;
-    AppKit = AppKit;
-    IOKit = IOKit;
-    IOSurface = IOSurface;
-    Foundation = Foundation;
-    AVFoundation = AVFoundation;
-    CoreMedia = CoreMedia;
-    VideoToolbox = VideoToolbox;
-    CoreGraphics = CoreGraphics;
-    CoreVideo = CoreVideo;
-    OpenGL = OpenGL;
-    Metal = Metal;
-    MetalKit = MetalKit;
-    CoreFoundation = CoreFoundation;
-    ApplicationServices = ApplicationServices;
+    inherit Cocoa AppKit IOKit IOSurface Foundation AVFoundation CoreMedia VideoToolbox
+      CoreGraphics CoreVideo OpenGL Metal MetalKit CoreFoundation ApplicationServices;
   };
-  ver = "1.4.8";
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "${ver}-1";
+  version = "1.4.9";
 
   src = fetchFromGitHub {
     owner = "kotatogram";
     repo = "kotatogram-desktop";
-    rev = "k${ver}";
-    sha256 = "sha256-bQRPt+GfhZWcTVobyglsRk/1DXkusu8Ye/ksafnmGmI=";
+    rev = "k${version}";
+    sha256 = "sha256-6bF/6fr8mJyyVg53qUykysL7chuewtJB8E22kVyxjHw=";
     fetchSubmodules = true;
   };
 
   patches = [
     ./shortcuts-binary-path.patch
     ./0001-Add-an-option-to-hide-messages-from-blocked-users-in.patch
-  ] ++ lib.optionals stdenv.isDarwin [
     # let it build with nixpkgs 10.12 sdk
     ./kotato-10.12-sdk.patch
   ];
 
-  postPatch = lib.optionalString stdenv.isLinux ''
+  postPatch = optionalString stdenv.isLinux ''
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioInputALSA.cpp \
       --replace '"libasound.so.2"' '"${alsa-lib}/lib/libasound.so.2"'
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioOutputALSA.cpp \
@@ -126,15 +109,12 @@ in stdenv.mkDerivation rec {
       --replace '"libpulse.so.0"' '"${libpulseaudio}/lib/libpulse.so.0"'
     substituteInPlace Telegram/lib_webview/webview/platform/linux/webview_linux_webkit_gtk.cpp \
       --replace '"libwebkit2gtk-4.0.so.37"' '"${webkitgtk}/lib/libwebkit2gtk-4.0.so.37"'
-  '' + lib.optionalString stdenv.isDarwin ''
+  '' + optionalString stdenv.isDarwin ''
     substituteInPlace Telegram/CMakeLists.txt \
-      --replace 'COMMAND iconutil' 'COMMAND png2icns'
-    substituteInPlace Telegram/CMakeLists.txt \
-      --replace '--convert icns' ""
-    substituteInPlace Telegram/CMakeLists.txt \
-      --replace '--output AppIcon.icns' 'AppIcon.icns'
-    substituteInPlace Telegram/CMakeLists.txt --replace "\''${appicon_path}" \
-      "\''${appicon_path}/icon_16x16.png \''${appicon_path}/icon_32x32.png \''${appicon_path}/icon_128x128.png \''${appicon_path}/icon_256x256.png \''${appicon_path}/icon_512x512.png"
+      --replace 'COMMAND iconutil' 'COMMAND png2icns' \
+      --replace '--convert icns' "" \
+      --replace '--output AppIcon.icns' 'AppIcon.icns' \
+      --replace "\''${appicon_path}" "\''${appicon_path}/icon_16x16.png \''${appicon_path}/icon_32x32.png \''${appicon_path}/icon_128x128.png \''${appicon_path}/icon_256x256.png \''${appicon_path}/icon_512x512.png"
   '';
 
   # We want to run wrapProgram manually (with additional parameters)
@@ -147,7 +127,7 @@ in stdenv.mkDerivation rec {
     ninja
     python3
     wrapQtAppsHook
-  ] ++ lib.optionals stdenv.isLinux [
+  ] ++ optionals stdenv.isLinux [
     wrapGAppsHook
     extra-cmake-modules
   ];
@@ -167,18 +147,15 @@ in stdenv.mkDerivation rec {
     rnnoise
     tg_owt
     microsoft_gsl
-  ] ++ lib.optionals stdenv.isLinux [
-    gtk3
+  ] ++ optionals stdenv.isLinux [
     kwayland
-    libdbusmenu
     alsa-lib
     libpulseaudio
     hunspell
     glibmm
-    webkitgtk
     jemalloc
-  ] ++ lib.optionals stdenv.isDarwin [
-    libicns
+    wayland
+  ] ++ optionals stdenv.isDarwin [
     Cocoa
     CoreFoundation
     CoreServices
@@ -209,26 +186,26 @@ in stdenv.mkDerivation rec {
     MediaPlayer
     IOSurface
     Metal
+    libicns
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/130963
-  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lc++abi";
+  NIX_LDFLAGS = optionalString stdenv.isDarwin "-lc++abi";
 
   enableParallelBuilding = true;
 
   cmakeFlags = [
     "-DTDESKTOP_API_TEST=ON"
-    "-DDESKTOP_APP_USE_PACKAGED_FONTS=OFF"
     "-DDESKTOP_APP_QT6=OFF"
   ];
 
-  installPhase = lib.optionalString stdenv.isDarwin ''
+  installPhase = optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications
     cp -r Kotatogram.app $out/Applications
     ln -s $out/Applications/Kotatogram.app/Contents/MacOS $out/bin
   '';
 
-  postFixup = lib.optionalString stdenv.isLinux ''
+  postFixup = optionalString stdenv.isLinux ''
     # We also use gappsWrapperArgs from wrapGAppsHook.
     wrapProgram $out/bin/kotatogram-desktop \
       "''${gappsWrapperArgs[@]}" \
@@ -239,7 +216,7 @@ in stdenv.mkDerivation rec {
     inherit tg_owt;
   };
 
-  meta = with lib; {
+  meta = {
     description = "Kotatogram – experimental Telegram Desktop fork";
     longDescription = ''
       Unofficial desktop client for the Telegram messenger, based on Telegram Desktop.
@@ -249,7 +226,7 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl3;
     platforms = platforms.all;
     homepage = "https://kotatogram.github.io";
-    changelog = "https://github.com/kotatogram/kotatogram-desktop/releases/tag/k{ver}";
+    changelog = "https://github.com/kotatogram/kotatogram-desktop/releases/tag/k{version}";
     maintainers = with maintainers; [ ilya-fedin ];
   };
 }
