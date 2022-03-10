@@ -69,7 +69,11 @@ with lib;
 
 let
   tg_owt = callPackage ./tg_owt.nix {
-    abseil-cpp = abseil-cpp.overrideAttrs (_: {
+    abseil-cpp = (abseil-cpp.override {
+      # abseil-cpp should use the same compiler
+      stdenv = stdenv;
+      cxxStandard = "20";
+    }).overrideAttrs (_: {
       # https://github.com/NixOS/nixpkgs/issues/130963
       NIX_LDFLAGS = optionalString stdenv.isDarwin "-lc++abi";
     });
