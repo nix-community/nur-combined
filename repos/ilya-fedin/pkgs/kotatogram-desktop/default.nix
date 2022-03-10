@@ -71,7 +71,7 @@ let
   tg_owt = callPackage ./tg_owt.nix {
     abseil-cpp = (abseil-cpp.override {
       # abseil-cpp should use the same compiler
-      stdenv = stdenv;
+      inherit stdenv;
       cxxStandard = "20";
     }).overrideAttrs (_: {
       # https://github.com/NixOS/nixpkgs/issues/130963
