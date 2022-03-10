@@ -23,6 +23,7 @@ in {
         picocom
         jellyfin-media-player
         transmission-remote-gtk
+        nextcloud-client
       ];
     };
     nix.buildMachines = [{
