@@ -110,6 +110,34 @@
         platforms = platforms.all;
         };
       };
+    "belgium-eid" = buildFirefoxXpiAddon {
+      pname = "belgium-eid";
+      version = "1.0.32";
+      addonId = "belgiumeid@eid.belgium.be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3736679/eid_belgie-1.0.32-fx.xpi";
+      sha256 = "b76cdb139f08b8778094cf7594d5f8adb8962f3b79b10ab7e746f53d175263bc";
+      meta = with lib;
+      {
+        homepage = "https://eid.belgium.be/";
+        description = "Use the Belgian electronic identity card (eID) in Firefox";
+        license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
+    "better-tweetdeck" = buildFirefoxXpiAddon {
+      pname = "better-tweetdeck";
+      version = "4.8.4";
+      addonId = "BetterTweetDeck@erambert.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918392/better_tweetdeck-4.8.4-fx.xpi";
+      sha256 = "a58ef501aaf7fc05dff344cac1f0b4e5eb4d420befccad29bd5e74b81b6e543f";
+      meta = with lib;
+      {
+        homepage = "https://better.tw/";
+        description = "Improve your experience on TweetDeck web with emojis, thumbnails, and a lot of customization options to make TweetDeck even better for you";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
       version = "7.4.22";
