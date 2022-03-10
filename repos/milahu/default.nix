@@ -32,6 +32,32 @@
 
   oci-image-generator = pkgs.callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
 
+  /*
+  linux-firecracker = pkgs.callPackage ./pkgs/linux-firecracker { };
+  FIXME eval error
+    linuxManualConfig
+
+    error: cannot import '/nix/store/wncs0mpydwbj89bljzfldk5vij0dalwy-config.nix', since path '/nix/store/ngggbr62d4nk754m3bj3s5fy11j1ginn-config.nix.drv' is not valid
+
+           at /nix/store/hlzqh8yqzrzp2knrrndf9133k6hxsbjv-source/pkgs/os-specific/linux/kernel/manual-config.nix:7:28:
+
+                6| let
+                7|   readConfig = configfile: import (runCommand "config.nix" {} ''
+                 |                            ^
+  */
+
+  hazel-editor = pkgs.callPackage ./pkgs/hazel-editor { };
+
+  brother-hll3210cw = pkgs.callPackage ./pkgs/brother-hll3210cw { };
+
+  rasterview = pkgs.callPackage ./pkgs/rasterview { };
+
+  srtgen = pkgs.callPackage ./pkgs/srtgen { };
+
+  gaupol = pkgs.callPackage ./pkgs/gaupol/gaupol.nix { };
+
+  autosub-by-abhirooptalasila = pkgs.callPackage ./pkgs/autosub-by-abhirooptalasila { };
+
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...

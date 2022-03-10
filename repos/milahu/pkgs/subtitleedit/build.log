@@ -1,0 +1,186 @@
+this derivation will be built:
+  /nix/store/1dd2w7mg7advrky4pmpgb9bqbqwr58k5-subtitleedit-3.6.4.drv
+building '/nix/store/1dd2w7mg7advrky4pmpgb9bqbqwr58k5-subtitleedit-3.6.4.drv'...
+unpacking sources
+unpacking source archive /nix/store/bnnwk5k7sj5dwksdgh77jwzspn2az8xa-source
+source root is source
+'/nix/store/za0kh75k4fd18hz7cy1ivwymlzha40py-SubtitleEdit.csproj' -> 'src/ui/SubtitleEdit.csproj'
+'/nix/store/p48hng2lkz567h60jpk8x7j962gi5izy-Test.csproj' -> 'src/Test/Test.csproj'
+'/nix/store/312k6il5d5ijbnngl6kc1k95y7xpwx4l-LibSE.csproj' -> 'src/libse/LibSE.csproj'
+'/nix/store/ahv1iajlakgfkwic8mrh14c45y813hsx-project.assets.json' -> 'src/libse/obj/project.assets.json'
+patching sources
+configuring
+Placating Nuget in nuget.targets
+Just to be sure, replacing Nuget executables by empty files.
+Placating Paket in paket.targets
+Just to be sure, replacing Paket executables by empty files.
+Patching F# targets in fsproj files...
+building
+++++ export HOME=/tmp
+++++ HOME=/tmp
+++++ ls
+Changelog.txt       SubtitleEdit.sln              build_helpers.bat
+Dictionaries        SubtitleEdit.sln.DotSettings  installer
+LICENSE.txt         Tesseract302                  preview.mkv
+LanguageMaster.xml  appveyor.yml                  src
+Ocr                 build.bat                     vswhere.exe
+README.md           build_beta.bat
+++++ pwd
+/build/source
+++++ nuget locals all -list
+http-cache: /tmp/.local/share/NuGet/v3-cache
+global-packages: /tmp/.nuget/packages/
+temp: /build/NuGetScratch
+plugins-cache: /tmp/.local/share/NuGet/plugins-cache
+++++ for d in $HOME/.nuget . src src/libse src/libse/obj
+++++ mkdir -p /tmp/.nuget/packages
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown /tmp/.nuget/packages/UTF.Unknown.2.5.0
+'/tmp/.nuget/packages/UTF.Unknown.2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir /tmp/.nuget/packages/UTF.Unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown /tmp/.nuget/packages/UTF.Unknown/2.5.0
+'/tmp/.nuget/packages/UTF.Unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir /tmp/.nuget/packages/utf.unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown /tmp/.nuget/packages/utf.unknown/2.5.0
+'/tmp/.nuget/packages/utf.unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ ln -s -v /nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build /tmp/.nuget/packages/Microsoft.Bcl.Build.1.0.21
+'/tmp/.nuget/packages/Microsoft.Bcl.Build.1.0.21' -> '/nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build'
+++++ ln -s -v /nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk /tmp/.nuget/packages/Vosk.0.3.32
+'/tmp/.nuget/packages/Vosk.0.3.32' -> '/nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk'
+++++ ln -s -v /nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell /tmp/.nuget/packages/NHunspell.1.2.5554.16953
+'/tmp/.nuget/packages/NHunspell.1.2.5554.16953' -> '/nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell'
+++++ ln -s -v /nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc /tmp/.nuget/packages/ncalc.1.3.8
+'/tmp/.nuget/packages/ncalc.1.3.8' -> '/nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc'
+++++ ln -s -v /nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json /tmp/.nuget/packages/Newtonsoft.Json.13.0.1
+'/tmp/.nuget/packages/Newtonsoft.Json.13.0.1' -> '/nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json'
+++++ ln -s -v /nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http /tmp/.nuget/packages/Microsoft.Net.Http.2.2.29
+'/tmp/.nuget/packages/Microsoft.Net.Http.2.2.29' -> '/nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http'
+++++ for d in $HOME/.nuget . src src/libse src/libse/obj
+++++ mkdir -p ./packages
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown ./packages/UTF.Unknown.2.5.0
+'./packages/UTF.Unknown.2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir ./packages/UTF.Unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown ./packages/UTF.Unknown/2.5.0
+'./packages/UTF.Unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir ./packages/utf.unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown ./packages/utf.unknown/2.5.0
+'./packages/utf.unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ ln -s -v /nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build ./packages/Microsoft.Bcl.Build.1.0.21
+'./packages/Microsoft.Bcl.Build.1.0.21' -> '/nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build'
+++++ ln -s -v /nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk ./packages/Vosk.0.3.32
+'./packages/Vosk.0.3.32' -> '/nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk'
+++++ ln -s -v /nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell ./packages/NHunspell.1.2.5554.16953
+'./packages/NHunspell.1.2.5554.16953' -> '/nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell'
+++++ ln -s -v /nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc ./packages/ncalc.1.3.8
+'./packages/ncalc.1.3.8' -> '/nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc'
+++++ ln -s -v /nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json ./packages/Newtonsoft.Json.13.0.1
+'./packages/Newtonsoft.Json.13.0.1' -> '/nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json'
+++++ ln -s -v /nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http ./packages/Microsoft.Net.Http.2.2.29
+'./packages/Microsoft.Net.Http.2.2.29' -> '/nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http'
+++++ for d in $HOME/.nuget . src src/libse src/libse/obj
+++++ mkdir -p src/packages
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/packages/UTF.Unknown.2.5.0
+'src/packages/UTF.Unknown.2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir src/packages/UTF.Unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/packages/UTF.Unknown/2.5.0
+'src/packages/UTF.Unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir src/packages/utf.unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/packages/utf.unknown/2.5.0
+'src/packages/utf.unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ ln -s -v /nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build src/packages/Microsoft.Bcl.Build.1.0.21
+'src/packages/Microsoft.Bcl.Build.1.0.21' -> '/nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build'
+++++ ln -s -v /nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk src/packages/Vosk.0.3.32
+'src/packages/Vosk.0.3.32' -> '/nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk'
+++++ ln -s -v /nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell src/packages/NHunspell.1.2.5554.16953
+'src/packages/NHunspell.1.2.5554.16953' -> '/nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell'
+++++ ln -s -v /nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc src/packages/ncalc.1.3.8
+'src/packages/ncalc.1.3.8' -> '/nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc'
+++++ ln -s -v /nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json src/packages/Newtonsoft.Json.13.0.1
+'src/packages/Newtonsoft.Json.13.0.1' -> '/nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json'
+++++ ln -s -v /nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http src/packages/Microsoft.Net.Http.2.2.29
+'src/packages/Microsoft.Net.Http.2.2.29' -> '/nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http'
+++++ for d in $HOME/.nuget . src src/libse src/libse/obj
+++++ mkdir -p src/libse/packages
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/libse/packages/UTF.Unknown.2.5.0
+'src/libse/packages/UTF.Unknown.2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir src/libse/packages/UTF.Unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/libse/packages/UTF.Unknown/2.5.0
+'src/libse/packages/UTF.Unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir src/libse/packages/utf.unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/libse/packages/utf.unknown/2.5.0
+'src/libse/packages/utf.unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ ln -s -v /nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build src/libse/packages/Microsoft.Bcl.Build.1.0.21
+'src/libse/packages/Microsoft.Bcl.Build.1.0.21' -> '/nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build'
+++++ ln -s -v /nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk src/libse/packages/Vosk.0.3.32
+'src/libse/packages/Vosk.0.3.32' -> '/nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk'
+++++ ln -s -v /nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell src/libse/packages/NHunspell.1.2.5554.16953
+'src/libse/packages/NHunspell.1.2.5554.16953' -> '/nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell'
+++++ ln -s -v /nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc src/libse/packages/ncalc.1.3.8
+'src/libse/packages/ncalc.1.3.8' -> '/nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc'
+++++ ln -s -v /nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json src/libse/packages/Newtonsoft.Json.13.0.1
+'src/libse/packages/Newtonsoft.Json.13.0.1' -> '/nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json'
+++++ ln -s -v /nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http src/libse/packages/Microsoft.Net.Http.2.2.29
+'src/libse/packages/Microsoft.Net.Http.2.2.29' -> '/nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http'
+++++ for d in $HOME/.nuget . src src/libse src/libse/obj
+++++ mkdir -p src/libse/obj/packages
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/libse/obj/packages/UTF.Unknown.2.5.0
+'src/libse/obj/packages/UTF.Unknown.2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir src/libse/obj/packages/UTF.Unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/libse/obj/packages/UTF.Unknown/2.5.0
+'src/libse/obj/packages/UTF.Unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ mkdir src/libse/obj/packages/utf.unknown
+++++ ln -s -v /nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown src/libse/obj/packages/utf.unknown/2.5.0
+'src/libse/obj/packages/utf.unknown/2.5.0' -> '/nix/store/mbkfygz6lp0b2addqfp2nrdxy4fz9snd-UTF.Unknown-2.5.0/lib/dotnet/UTF.Unknown'
+++++ ln -s -v /nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build src/libse/obj/packages/Microsoft.Bcl.Build.1.0.21
+'src/libse/obj/packages/Microsoft.Bcl.Build.1.0.21' -> '/nix/store/fb1xw3iygr4zgvwjfqsnkafndpzwh4m4-Microsoft.Bcl.Build-1.0.21/lib/dotnet/Microsoft.Bcl.Build'
+++++ ln -s -v /nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk src/libse/obj/packages/Vosk.0.3.32
+'src/libse/obj/packages/Vosk.0.3.32' -> '/nix/store/m171a1kzvhywxh2g6kif2hj8lif2hd0i-Vosk-0.3.32/lib/dotnet/Vosk'
+++++ ln -s -v /nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell src/libse/obj/packages/NHunspell.1.2.5554.16953
+'src/libse/obj/packages/NHunspell.1.2.5554.16953' -> '/nix/store/85nlnzz38fa29k2s3cmnxjyg6ixn61dd-NHunspell-1.2.5554.16953//lib/dotnet/NHunspell'
+++++ ln -s -v /nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc src/libse/obj/packages/ncalc.1.3.8
+'src/libse/obj/packages/ncalc.1.3.8' -> '/nix/store/71v8akmbwd80xbnkqdfr4jq1lzblgv0j-ncalc-1.3.8//lib/dotnet/ncalc'
+++++ ln -s -v /nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json src/libse/obj/packages/Newtonsoft.Json.13.0.1
+'src/libse/obj/packages/Newtonsoft.Json.13.0.1' -> '/nix/store/c19k2pqj8dyjfnq6avnfkjrp9vh5fnxh-Newtonsoft.Json-13.0.1//lib/dotnet/Newtonsoft.Json'
+++++ ln -s -v /nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http src/libse/obj/packages/Microsoft.Net.Http.2.2.29
+'src/libse/obj/packages/Microsoft.Net.Http.2.2.29' -> '/nix/store/658xzfhl54c0hg3szc8w0jqp9v8nwfm3-Microsoft.Net.Http-2.2.29//lib/dotnet/Microsoft.Net.Http'
+++++ sed 's/\[REVNO\]/0000/g; s/\[GITHASH\]/xxxxxxx/g'
+++++ sed 's/\[REVNO\]/0000/g; s/\[GITHASH\]/xxxxxxx/g'
+Microsoft (R) Build Engine version 16.10.1 for Mono
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 03/01/2022 22:14:55.
+Project "/build/source/src/ui/SubtitleEdit.csproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "bin/Release/".
+  Creating directory "obj/Release/".
+Project "/build/source/src/ui/SubtitleEdit.csproj" (1) is building "/build/source/src/libse/LibSE.csproj" (2:4) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "bin/Release/net472/".
+  Creating directory "obj/Release/net472/".
+/nix/store/f9hvm0gxs9i300j8g6hng8kg4gk5vx8q-dotnet-sdk-5.0.401/sdk/5.0.401/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets(241,5): error NETSDK1064: Package UTF.Unknown, version 2.5.0 was not found. It might have been deleted since NuGet restore. Otherwise, NuGet restore might have only partially completed, which might have been due to maximum path length restrictions. [/build/source/src/libse/LibSE.csproj]
+Done Building Project "/build/source/src/libse/LibSE.csproj" (default targets) -- FAILED.
+Done Building Project "/build/source/src/ui/SubtitleEdit.csproj" (default targets) -- FAILED.
+
+Build FAILED.
+
+"/build/source/src/ui/SubtitleEdit.csproj" (default target) (1) ->
+"/build/source/src/libse/LibSE.csproj" (default target) (2:4) ->
+(ResolvePackageAssets target) -> 
+  /nix/store/f9hvm0gxs9i300j8g6hng8kg4gk5vx8q-dotnet-sdk-5.0.401/sdk/5.0.401/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets(241,5): error NETSDK1064: Package UTF.Unknown, version 2.5.0 was not found. It might have been deleted since NuGet restore. Otherwise, NuGet restore might have only partially completed, which might have been due to maximum path length restrictions. [/build/source/src/libse/LibSE.csproj]
+
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:05.87
+error: builder for '/nix/store/1dd2w7mg7advrky4pmpgb9bqbqwr58k5-subtitleedit-3.6.4.drv' failed with exit code 1;
+       last 10 log lines:
+       >
+       > "/build/source/src/ui/SubtitleEdit.csproj" (default target) (1) ->
+       > "/build/source/src/libse/LibSE.csproj" (default target) (2:4) ->
+       > (ResolvePackageAssets target) ->
+       >   /nix/store/f9hvm0gxs9i300j8g6hng8kg4gk5vx8q-dotnet-sdk-5.0.401/sdk/5.0.401/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets(241,5): error NETSDK1064: Package UTF.Unknown, version 2.5.0 was not found. It might have been deleted since NuGet restore. Otherwise, NuGet restore might have only partially completed, which might have been due to maximum path length restrictions. [/build/source/src/libse/LibSE.csproj]
+       >
+       >     0 Warning(s)
+       >     1 Error(s)
+       >
+       > Time Elapsed 00:00:05.87
+       For full logs, run 'nix log /nix/store/1dd2w7mg7advrky4pmpgb9bqbqwr58k5-subtitleedit-3.6.4.drv'.
