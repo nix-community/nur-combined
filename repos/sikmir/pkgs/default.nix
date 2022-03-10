@@ -364,6 +364,7 @@ lib.makeScope newScope (
     blind = callPackage ./suckless/blind { };
     chibicc = callPackage ./suckless/chibicc { };
     cproc = callPackage ./suckless/cproc { };
+    dragon = callPackage ./suckless/dragon { };
     farbfeld-utils = callPackage ./suckless/farbfeld-utils { };
     ff-tools = callPackage ./suckless/ff-tools { };
     ffshot = callPackage ./suckless/ffshot { };
