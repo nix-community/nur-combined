@@ -520,10 +520,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.10.1";
+      version = "4.11.0.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3909212/floccus-4.10.1-fx.xpi";
-      sha256 = "2190a7d70402ff4436b8db1f5744141a8d13125301a922c1f760558f16726af4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919635/floccus-4.11.0.1-fx.xpi";
+      sha256 = "0aac2c172369456c616517efbde084cd37158ee5288acf76e6ec2bd2098c217e";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -824,10 +824,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "4.4.8";
+      version = "5.0.0";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898574/grammatik_und_rechtschreibprufung_languagetool-4.4.8-fx.xpi";
-      sha256 = "fd4321cc104699955e2c491173104a284c4840c9b5ce1066f84d54113b49b289";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919214/grammatik_und_rechtschreibprufung_languagetool-5.0.0-fx.xpi";
+      sha256 = "30aa2b950bb29f58b289b309956c9b97826da68eaebec879cf13ffce9b6d7dff";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -890,10 +890,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.4.9";
+      version = "1.5.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918238/libredirect-1.4.9-an+fx.xpi";
-      sha256 = "0396f5a346ded98f27305f69f83eab62afc0a0f9849fdbf8b913b29bf57cf050";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919793/libredirect-1.5.0-an+fx.xpi";
+      sha256 = "3f376a710842d658e29064642b3eb4ba2d6d69489ce0b400fe3383ce8f16a679";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -2067,10 +2067,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.12";
+      version = "6.0.13";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3909446/vuejs_devtools-6.0.12-fx.xpi";
-      sha256 = "b17d2f68f68992b720989586266e7549b2384e3bb7b06990418a0de5c97122a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919736/vuejs_devtools-6.0.13-fx.xpi";
+      sha256 = "caa2db52fb9bc821086b4ac7f29ebbd96cb53f8bb4a25e0a8aa223e710de93f8";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
