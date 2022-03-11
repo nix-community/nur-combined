@@ -28,6 +28,7 @@ let
       strongdm = import ./modules/sdm;
       systemd-cron = import ./modules/systemd-cron;
       scheduled-rsync = import ./modules/scheduled-rsync;
+      joystickwake = import ./modules/joystickwake;
     };
     system-modules = {
       irc-link-informant = import ./modules/irc-link-informant;
