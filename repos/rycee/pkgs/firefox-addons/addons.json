@@ -313,6 +313,16 @@
     }
   },
   {
+    "slug": "momentumdash",
+    "license": {
+      "tag": "custom",
+      "shortName": "momentum",
+      "fullName": "Momentum Terms of Use",
+      "url": "https://momentumdash.com/legal",
+      "free": false
+    }
+  },
+  {
     "slug": "multi-account-containers"
   },
   {

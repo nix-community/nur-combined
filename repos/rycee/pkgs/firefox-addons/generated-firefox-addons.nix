@@ -1044,6 +1044,25 @@
         platforms = platforms.all;
         };
       };
+    "momentumdash" = buildFirefoxXpiAddon {
+      pname = "momentumdash";
+      version = "2.5.45";
+      addonId = "momentum@momentumdash.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919302/momentum-2.5.45-fx.xpi";
+      sha256 = "df420f12d243c98d4d1bd729491bfdcca422550fff0ec9594a17c735b2f53bc7";
+      meta = with lib;
+      {
+        homepage = "https://momentumdash.com";
+        description = "Replace your new tab page with an all-in-one productivity dashboard. Featuring daily inspiration, focus reminders, to-do lists, local weather info, and more!";
+        license = {
+          shortName = "momentum";
+          fullName = "Momentum Terms of Use";
+          url = "https://momentumdash.com/legal";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "8.0.6";
