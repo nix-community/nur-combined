@@ -618,10 +618,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220308.094525";
+      version = "99.0buildid20220310.185912";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3919166/francais_language_pack-99.0buildid20220308.094525-fx.xpi";
-      sha256 = "69a13429bb7eecb1f9831ae22536e4a548800bf182383ff3d97e9d92d2deb584";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920275/francais_language_pack-99.0buildid20220310.185912-fx.xpi";
+      sha256 = "93332d82f49d0c209a1e1ca2da8ee4a9570fcd1d7419f50a105cf5cb7e805ad8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -918,10 +918,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.5.0";
+      version = "1.5.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3919793/libredirect-1.5.0-an+fx.xpi";
-      sha256 = "3f376a710842d658e29064642b3eb4ba2d6d69489ce0b400fe3383ce8f16a679";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920082/libredirect-1.5.1-an+fx.xpi";
+      sha256 = "c6dcfa96a1a68387acb764107828c31c6386e5d27ecd7a917953be9bc9cdd654";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -993,10 +993,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.4.1";
+      version = "4.5.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3775277/mailvelope-4.4.1-fx.xpi";
-      sha256 = "f3dc00d01242ddc064b73f7a35dfc4e2f3c737993786bcda71cb2ddd03343139";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920074/mailvelope-4.5.0-fx.xpi";
+      sha256 = "7d7357e1612fc84f976cb7e700c19e82b4b326d7e7ea3f45f2d159eeb41dd9ec";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1411,10 +1411,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.2.2";
+      version = "2.3.0";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3903142/firefox_relay-2.2.2-fx.xpi";
-      sha256 = "12b8ea471394e4bbaa020edede40acbb6417578f4e7299dabb2f0bebac9be848";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916465/firefox_relay-2.3.0-fx.xpi";
+      sha256 = "5f9ea2a73bad3fa9321c17df76d5ea33fc9ed6f4fb560c090727803e92fdeb10";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1439,10 +1439,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.23.0";
+      version = "4.24.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3899222/react_developer_tools-4.23.0-fx.xpi";
-      sha256 = "6660e0c9a5bd3e87f3ba06d4807334dcde3656963f13c699394e2ec9b6a0695b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920243/react_developer_tools-4.24.0-fx.xpi";
+      sha256 = "adffe8eb0c5c3c6cc7d9169fc0468ebbf87a6304cbfb35e65b68eccbf7fc064f";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1550,10 +1550,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "27.1";
+      version = "27.2";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916884/save_page_we-27.1-fx.xpi";
-      sha256 = "d1487f1784ef4458fa96f7213d7fbb4212364c30120e1dd55329e234cce26e47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920220/save_page_we-27.2-fx.xpi";
+      sha256 = "ed19eea001f0f0cb5bf962b2da414de301f4907a172e2302398c2c1bd8636031";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1786,10 +1786,10 @@
       };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
-      version = "2.1.0";
+      version = "2.2.1";
       addonId = "extension@tabliss.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3716637/tabliss_new_tab-2.1.0-fx.xpi";
-      sha256 = "7381d681c4eef5bf91667e6b3918569c72009c6a7f62f9a33a44017b03d740ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920015/tabliss_new_tab-2.2.1-fx.xpi";
+      sha256 = "3c7dd27fd1a89fad95334d7dbd80d43a88edd7732fda1a31f037900bff7a4b9f";
       meta = with lib;
       {
         homepage = "https://tabliss.io";
