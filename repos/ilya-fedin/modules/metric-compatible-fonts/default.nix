@@ -13,55 +13,55 @@ let
     <match>
         <test name="family"><string>Arial</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Arimo Nerd Font</string>
+        <string>Arimo</string>
         </edit>
     </match>
     <match>
         <test name="family"><string>Helvetica</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Arimo Nerd Font</string>
+        <string>Arimo</string>
         </edit>
     </match>
     <match> <!-- NOT metric-compatible! -->
         <test name="family"><string>Verdana</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Arimo Nerd Font</string>
+        <string>Arimo</string>
         </edit>
     </match>
     <match> <!-- NOT metric-compatible! -->
         <test name="family"><string>Tahoma</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Arimo Nerd Font</string>
+        <string>Arimo</string>
         </edit>
     </match>
     <match>
         <test name="family"><string>Times</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Tinos Nerd Font</string>
+        <string>Tinos</string>
         </edit>
     </match>
     <match>
         <test name="family"><string>Times New Roman</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Tinos Nerd Font</string>
+        <string>Tinos</string>
         </edit>
     </match>
     <match> <!-- NOT metric-compatible! -->
         <test name="family"><string>Consolas</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Cousine Nerd Font</string>
+        <string>Cousine</string>
         </edit>
     </match>
     <match>
         <test name="family"><string>Courier</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Cousine Nerd Font</string>
+        <string>Cousine</string>
         </edit>
     </match>
     <match>
         <test name="family"><string>Courier New</string></test>
         <edit name="family" mode="assign" binding="strong">
-        <string>Cousine Nerd Font</string>
+        <string>Cousine</string>
         </edit>
     </match>
     <match>
@@ -103,15 +103,8 @@ in {
   };
 
   config = mkIf cfg.crOSMaps {
-    # there is no croscore package :(
     fonts.fonts = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "Arimo"
-          "Cousine"
-          "Tinos"
-        ];
-      })
+      nur.repos.ilya-fedin.ttf-croscore
       carlito
       caladea
     ];

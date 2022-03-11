@@ -2,19 +2,19 @@
 
 stdenv.mkDerivation rec {
   pname = "exo2";
-  version = "unstable-2020-03-09";
+  version = "unstable-2021-11-11";
 
   src = fetchFromGitHub {
     owner = "NDISCOVER";
     repo = "Exo-2.0";
-    rev = "6ce85fdb06fc174d485ad70a15afbcbf23ff2b53";
-    sha256 = "12bhx8gj46sx4ky8w58chpddqk5xqb1xbbciar51a0h7fpps13wj";
+    rev = "182060cd38adf3cde0d22add3f8009d30bd48cde";
+    sha256 = "sha256-najUE9CI8LEhVobU/mHyXWgdZs69spHK2c1Yt+JWlAM=";
   };
 
   phases = [ "unpackPhase" "installPhase" ];
 
   installPhase = ''
-    install -m644 --target $out/share/fonts/truetype/${pname} -D $src/fonts/ttf/*.ttf
+    install -m644 --target $out/share/fonts/truetype/${pname} -D $src/fonts/variable/*.ttf
   '';
 
   meta = with lib; {

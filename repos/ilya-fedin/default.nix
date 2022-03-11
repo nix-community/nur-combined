@@ -7,21 +7,12 @@ rec {
 
   overlays = import ./overlays;
 
-  cascadia-code-nerdfont = runCommand "cascadia-code-nerdfont" {} ''
-    mkdir -p "$out/share/fonts"
-    font_regexp='.*\.\(ttf\|ttc\|otf\|pcf\|pfa\|pfb\|bdf\)\(\.gz\)?'
-    find ${cascadia-code} -regex "$font_regexp" \
-      -exec ${nerd-font-patcher}/bin/nerd-font-patcher -c -out "$out/share/fonts" '{}' \;
+  cascadia-code-powerline = runCommand "cascadia-code-powerline" {} ''
+    install -m644 --target $out/share/fonts/truetype -D ${cascadia-code}/share/fonts/truetype/CascadiaCodePL.ttf
+    install -m644 --target $out/share/fonts/truetype -D ${cascadia-code}/share/fonts/truetype/CascadiaCodePLItalic.ttf
   '';
 
   exo2 = callPackage ./pkgs/exo2 {};
-
-  exo2-nerdfont = runCommand "exo2-nerdfont" {} ''
-    mkdir -p "$out/share/fonts"
-    font_regexp='.*\.\(ttf\|ttc\|otf\|pcf\|pfa\|pfb\|bdf\)\(\.gz\)?'
-    find ${exo2} -regex "$font_regexp" \
-      -exec ${nerd-font-patcher}/bin/nerd-font-patcher -c -out "$out/share/fonts" '{}' \;
-  '';
 
   gtk-layer-background = callPackage ./pkgs/gtk-layer-background {};
 
@@ -53,7 +44,22 @@ rec {
     inherit mir;
   };
 
+  nerd-fonts-symbols = callPackage ./pkgs/nerd-fonts-symbols {};
+
   silver = callPackage ./pkgs/silver {};
+
+  ttf-croscore = noto-fonts.overrideAttrs(oldAttrs: {
+    pname = "ttf-croscore";
+
+    installPhase = ''
+      install -m444 -Dt $out/share/fonts/truetype/croscore hinted/{Arimo,Cousine,Tinos}/*.ttf
+    '';
+
+    meta = oldAttrs.meta // {
+      description = "Chrome OS core fonts";
+      longDescription = "This package includes the Arimo, Cousine, and Tinos fonts.";
+    };
+  });
 
   virtualboxWithExtpack = virtualbox.override {
     enableHardening = true;
