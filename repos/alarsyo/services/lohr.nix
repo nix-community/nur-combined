@@ -44,9 +44,8 @@ in
           "ROCKET_PORT=${toString cfg.port}"
           "ROCKET_LOG_LEVEL=normal"
           "LOHR_HOME=${cfg.home}"
-          # NOTE: secret cannot contain a '%', it's interpreted by systemd
-          "'LOHR_SECRET=${secrets.lohr-shared-secret}'"
         ];
+        EnvironmentFile = config.age.secrets."lohr/shared-secret".path;
         ExecStart = "${lohrPkg}/bin/lohr";
         StateDirectory = "lohr";
         WorkingDirectory = "/var/lib/lohr";

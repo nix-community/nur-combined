@@ -11,9 +11,6 @@
     # Service definitions
     ./services
 
-    # Configuration secrets
-    ./secrets
-
     # Host-specific config
     ./hosts/poseidon
   ];

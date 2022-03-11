@@ -11,7 +11,6 @@ let
   my = config.my;
   domain = config.networking.domain;
   paperlessDomain = "paperless.${domain}";
-  secretKeyFile = pkgs.writeText "paperless-secret-key-file.env" my.secrets.paperless.secretKey;
 in
 {
   options.my.services.paperless = let inherit (lib) types; in {
@@ -23,13 +22,27 @@ in
       example = 8080;
       description = "Internal port for Paperless service";
     };
+
+    passwordFile = mkOption {
+      type = types.path;
+      description = ''
+        Path to a file containing the admin's password
+      '';
+    };
+
+    secretKeyFile = mkOption {
+      type = types.path;
+      description = ''
+        Path to a file containing the service's secret key
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
     services.paperless-ng = {
       enable = true;
       port = cfg.port;
-      passwordFile = pkgs.writeText "paperless-password-file.txt" config.my.secrets.paperless.adminPassword;
+      passwordFile = cfg.passwordFile;
       extraConfig = {
         # Postgres settings
         PAPERLESS_DBHOST = "/run/postgresql";
@@ -53,17 +66,17 @@ in
 
     systemd.services = {
       paperless-ng-server.serviceConfig = {
-        EnvironmentFile = secretKeyFile;
+        EnvironmentFile = cfg.secretKeyFile;
         BindReadOnlyPaths = [ config.services.redis.servers.paperless.unixSocket ];
       };
 
       paperless-ng-consumer.serviceConfig = {
-        EnvironmentFile = secretKeyFile;
+        EnvironmentFile = cfg.secretKeyFile;
         BindReadOnlyPaths = [ config.services.redis.servers.paperless.unixSocket ];
       };
 
       paperless-ng-web.serviceConfig = {
-        EnvironmentFile = secretKeyFile;
+        EnvironmentFile = cfg.secretKeyFile;
         BindReadOnlyPaths = [ config.services.redis.servers.paperless.unixSocket ];
       };
     };

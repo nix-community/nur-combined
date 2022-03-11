@@ -46,6 +46,7 @@ jobs:
       matrix:
         name:
         - boreal
+        - poseidon
         - zephyrus
 
     steps:

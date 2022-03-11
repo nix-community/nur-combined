@@ -54,7 +54,7 @@ in
           "${domain}" = {
             extraDomainNames = [ "*.${domain}" ];
             dnsProvider = "gandiv5";
-            credentialsFile = pkgs.writeText "gandi-creds.env" gandiKey;
+            credentialsFile = config.age.secrets."gandi/api-key".path;
             group = "nginx";
           };
         };

@@ -6,6 +6,7 @@ let
   inherit (lib)
     mkEnableOption
     mkIf
+    mkOption
   ;
 
   cfg = config.my.services.nextcloud;
@@ -14,8 +15,16 @@ let
   dbName = "nextcloud";
 in
 {
-  options.my.services.nextcloud = {
+  options.my.services.nextcloud = let inherit (lib) types; in {
     enable = mkEnableOption "NextCloud";
+
+    adminpassFile = mkOption {
+      type = types.path;
+      description = ''
+        Path to a file containing the admin's password, must be readable by
+        'nextcloud' user.
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -62,8 +71,8 @@ in
         dbname = dbName;
         dbhost = "/run/postgresql";
 
-        adminuser = my.secrets.nextcloud-admin-user;
-        adminpassFile = "${my.secrets.nextcloud-admin-pass}";
+        adminuser = "admin";
+        adminpassFile = cfg.adminpassFile;
       };
     };
 

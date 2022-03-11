@@ -4,6 +4,7 @@ let
     mkEnableOption
     mkIf
     mkOption
+    optionalAttrs
   ;
 
   cfg = config.my.services.transmission;
@@ -27,10 +28,11 @@ in
       description = "Name of the transmission RPC user";
     };
 
-    password = mkOption {
-      type = types.str;
-      example = "password";
-      description = "Password of the transmission RPC user";
+    secretConfigFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      example = "/var/run/secrets/transmission-secrets";
+      description = "Path to secrets file to append to configuration";
     };
   };
 
@@ -50,7 +52,6 @@ in
         rpc-authentication-required = true;
 
         rpc-username = cfg.username;
-        rpc-password = cfg.password;
 
         rpc-whitelist-enabled = true;
         rpc-whitelist = "127.0.0.1";
@@ -58,7 +59,9 @@ in
 
       # automatically allow transmission.settings.peer-port
       openFirewall = true;
-    };
+    } // (optionalAttrs (cfg.secretConfigFile != null) {
+      credentialsFile = cfg.secretConfigFile;
+    });
 
     services.nginx.virtualHosts."${webuiDomain}" = {
       forceSSL = true;

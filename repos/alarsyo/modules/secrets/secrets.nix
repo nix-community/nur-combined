@@ -11,10 +11,27 @@ let
   all = users ++ machines;
 in
 {
+  "gandi/api-key.age".publicKeys = [ poseidon ];
+
+  "lohr/shared-secret.age".publicKeys = [ poseidon ];
+
+  "matrix-synapse/secret-config.age".publicKeys = [ poseidon ];
+
+  "miniflux/admin-credentials.age".publicKeys = [ poseidon ];
+
+  "nextcloud/admin-pass.age".publicKeys = [ poseidon ];
+
+  "paperless/admin-password.age".publicKeys = [ poseidon ];
+  "paperless/secret-key.age".publicKeys = [ poseidon ];
+
   "restic-backup/boreal-password.age".publicKeys = [ alarsyo boreal ];
   "restic-backup/boreal-credentials.age".publicKeys = [ alarsyo boreal ];
+  "restic-backup/poseidon-password.age".publicKeys = [ alarsyo poseidon ];
+  "restic-backup/poseidon-credentials.age".publicKeys = [ alarsyo poseidon ];
   "restic-backup/zephyrus-password.age".publicKeys = [ alarsyo zephyrus ];
   "restic-backup/zephyrus-credentials.age".publicKeys = [ alarsyo zephyrus ];
+
+  "transmission/secret.age".publicKeys = [ poseidon ];
 
   "users/root-hashed-password.age".publicKeys = machines;
   "users/alarsyo-hashed-password.age".publicKeys = machines ++ [ alarsyo ];

@@ -65,7 +65,9 @@ in
 
     restic-backup = {
       enable = true;
-      repo = secrets.restic-backup.poseidon-repo;
+      repo = "b2:poseidon-backup";
+      passwordFile = config.age.secrets."restic-backup/poseidon-password".path;
+      environmentFile = config.age.secrets."restic-backup/poseidon-credentials".path;
     };
 
     fail2ban = {
@@ -94,14 +96,13 @@ in
 
     miniflux = {
       enable = true;
-      adminCredentialsFile = "${../../secrets/miniflux-admin-credentials.secret}";
+      adminCredentialsFile = config.age.secrets."miniflux/admin-credentials".path;
       privatePort = 8080;
     };
 
     matrix = {
       enable = true;
-      registration_shared_secret = secrets.matrix-registration-shared-secret;
-      emailConfig = secrets.matrixEmailConfig;
+      secretConfigFile = config.age.secrets."matrix-synapse/secret-config".path;
     };
 
     monitoring = {
@@ -116,6 +117,7 @@ in
 
     nextcloud = {
       enable = true;
+      adminpassFile = config.age.secrets."nextcloud/admin-pass".path;
     };
 
     nuage = {
@@ -125,6 +127,8 @@ in
     paperless = {
       enable = true;
       port = 8085;
+      passwordFile = config.age.secrets."paperless/admin-password".path;
+      secretKeyFile = config.age.secrets."paperless/secret-key".path;
     };
 
     postgresql-backup = {
@@ -143,7 +147,7 @@ in
     transmission = {
       enable = true;
       username = "alarsyo";
-      password = secrets.transmission-password;
+      secretConfigFile = config.age.secrets."transmission/secret".path;
     };
   };
 

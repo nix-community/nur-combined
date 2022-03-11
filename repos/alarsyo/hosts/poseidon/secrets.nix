@@ -9,6 +9,30 @@
         } // attrs;
       in
         lib.mapAttrs toSecret {
+          "gandi/api-key" = {};
+
+          "lohr/shared-secret" = {};
+
+          "matrix-synapse/secret-config" = {
+            owner = "matrix-synapse";
+          };
+
+          "miniflux/admin-credentials" = {};
+
+          "nextcloud/admin-pass" = {
+            owner = "nextcloud";
+          };
+
+          "paperless/admin-password" = {};
+          "paperless/secret-key" = {};
+
+          "restic-backup/poseidon-credentials" = {};
+          "restic-backup/poseidon-password" = {};
+
+          "transmission/secret" = {
+            owner = "transmission";
+          };
+
           "users/alarsyo-hashed-password" = {};
           "users/root-hashed-password" = {};
         };

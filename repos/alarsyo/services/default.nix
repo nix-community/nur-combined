@@ -3,7 +3,6 @@
 {
   imports = [
     ./vaultwarden.nix
-    ./borg-backup.nix
     ./fail2ban.nix
     ./fava.nix
     ./gitea
