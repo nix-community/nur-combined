@@ -1,8 +1,8 @@
 = rycee's NUR expressions
 :url-nur-install: https://github.com/nix-community/NUR/#installation
 
-These is my NUR expressions, use them as you please. Don't blame me if
-things break.
+These are my NUR expressions, use them as you please. Don't blame me
+if things break.
 
 To make use of the things defined in this repository it is best to
 first {url-nur-install}[install NUR].

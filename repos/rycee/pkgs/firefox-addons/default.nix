@@ -1,8 +1,10 @@
-{ fetchurl, lib, stdenv }:
+{ fetchurl, lib, stdenv }@args:
 
 let
 
-  buildFirefoxXpiAddon = { pname, version, addonId, url, sha256, meta, ... }:
+  buildFirefoxXpiAddon = lib.makeOverridable ({ stdenv ? args.stdenv
+    , fetchurl ? args.fetchurl, pname, version, addonId, url, sha256, meta, ...
+    }:
     stdenv.mkDerivation {
       name = "${pname}-${version}";
 
@@ -18,7 +20,7 @@ let
         mkdir -p "$dst"
         install -v -m644 "$src" "$dst/${addonId}.xpi"
       '';
-    };
+    });
 
   packages = import ./generated-firefox-addons.nix {
     inherit buildFirefoxXpiAddon fetchurl lib stdenv;
