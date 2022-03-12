@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.2.0" = {
+    "@eslint/eslintrc-1.2.1" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.2.0";
+      version = "1.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.2.0.tgz";
-        sha512 = "igm9SjJHNEJRiUnecP/1R5T3wKLEJ7pL6e2P+GUSfCd0dGjPYYZve08uzw8L2J8foVHFz+NGu12JxRcU2gGo6w==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.2.1.tgz";
+        sha512 = "bxvbYnBPN1Gibwyp6NrpnFzA3YtRL3BBAyEAFVIpNTm2Rn4Vy87GA5M4aSn3InRrlsbX5N0GW7XIx+U4SAEKdQ==";
       };
     };
     "@humanwhocodes/config-array-0.9.5" = {
@@ -382,15 +382,6 @@ let
         sha512 = "EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==";
       };
     };
-    "ignore-4.0.6" = {
-      name = "ignore";
-      packageName = "ignore";
-      version = "4.0.6";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/ignore/-/ignore-4.0.6.tgz";
-        sha512 = "cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==";
-      };
-    };
     "ignore-5.2.0" = {
       name = "ignore";
       packageName = "ignore";
@@ -746,14 +737,10 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.10.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.10.0.tgz"; sha1 = "931be395eb60f900c01658b278e05b6dae47199d"; };
+    version = "8.11.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.11.0.tgz"; sha1 = "88b91cfba1356fc10bb9eb592958457dfe09fb37"; };
     dependencies = [
-      (sources."@eslint/eslintrc-1.2.0" // {
-        dependencies = [
-          sources."ignore-4.0.6"
-        ];
-      })
+      sources."@eslint/eslintrc-1.2.1"
       sources."@humanwhocodes/config-array-0.9.5"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."acorn-8.7.0"

@@ -1435,13 +1435,13 @@ let
         sha512 = "Ft7YH3lEVRQ6ls8k4Ff1oB4jN6oy/XmU6tQISKdhfh+1mR+viZFphS6WL0IrtDOzvefmJg5a0s7ZQoRXwqTEFg==";
       };
     };
-    "@types/ws-8.5.2" = {
+    "@types/ws-8.5.3" = {
       name = "_at_types_slash_ws";
       packageName = "@types/ws";
-      version = "8.5.2";
+      version = "8.5.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/ws/-/ws-8.5.2.tgz";
-        sha512 = "VXI82ykONr5tacHEojnErTQk+KQSoYbW1NB6iz6wUwrNd+BqfkfggQNoNdCqhJSzbNumShPERbM+Pc5zpfhlbw==";
+        url = "https://registry.npmjs.org/@types/ws/-/ws-8.5.3.tgz";
+        sha512 = "6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w==";
       };
     };
     "@webassemblyjs/ast-1.9.0" = {
@@ -3406,13 +3406,13 @@ let
         sha512 = "6gZm2htn7xIPJOHY824ERgj8cNPgPxyCSnkXc4v7YvNW+TdVfzgngHcEhy/8D11kUWRUMbke+tC+AUcUsnMz2g==";
       };
     };
-    "cssnano-5.1.1" = {
+    "cssnano-5.1.3" = {
       name = "cssnano";
       packageName = "cssnano";
-      version = "5.1.1";
+      version = "5.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cssnano/-/cssnano-5.1.1.tgz";
-        sha512 = "WWfN7jBK/3Uk3oX/jsFbQApDf9DkXj6dOYull5ZaSGskcDggzg3RyDZI4GKKO+00LdfLMEZtY1cwTQUL+YMg2Q==";
+        url = "https://registry.npmjs.org/cssnano/-/cssnano-5.1.3.tgz";
+        sha512 = "bdf+sY2w4XV+F5LOCEd7fWnSeMeKBO4lKgoAKVWZOSTR7CmWEk1UW/s9ibTMMnsTsinBmIdgZs755sAGa1eoXQ==";
       };
     };
     "cssnano-preset-default-4.0.8" = {
@@ -3424,13 +3424,13 @@ let
         sha512 = "LdAyHuq+VRyeVREFmuxUZR1TXjQm8QQU/ktoo/x7bz+SdOge1YKc5eMN6pRW7YWBmyq59CqYba1dJ5cUukEjLQ==";
       };
     };
-    "cssnano-preset-default-5.2.1" = {
+    "cssnano-preset-default-5.2.3" = {
       name = "cssnano-preset-default";
       packageName = "cssnano-preset-default";
-      version = "5.2.1";
+      version = "5.2.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cssnano-preset-default/-/cssnano-preset-default-5.2.1.tgz";
-        sha512 = "Y+CUCS5iZ1uzHn5KtmKIlysQVXrTtLCnYsYTOJcbdd5rghOwtw1gobvEXefBncjGO4fWwGZr9/n9hwZfo6W1Fw==";
+        url = "https://registry.npmjs.org/cssnano-preset-default/-/cssnano-preset-default-5.2.3.tgz";
+        sha512 = "e4pzD/FnsvRywKO3i2Ti4jgAcJO5MhQPudrex92HXAJoMyQfS8lZHIzzC1yZ1t+d2zdkLXFY1sHdsZaT7lKoCQ==";
       };
     };
     "cssnano-util-get-arguments-4.0.0" = {
@@ -3955,13 +3955,13 @@ let
         sha512 = "iirFqlP3tiFoedNZ7dQcjvechunl054VbW6Ki38T/pabgXMAncduSE0ZXLeVGn1NbmcUJF9Z5TC0EvQ4RIpP9Q==";
       };
     };
-    "electron-to-chromium-1.4.80" = {
+    "electron-to-chromium-1.4.82" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.80";
+      version = "1.4.82";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.80.tgz";
-        sha512 = "COsbJCGVYCc/aAY4cd94x1Js3q0r406YKGbdL8LXHg0O9dEjuFEFU/vZneRxBxKo/f1lLHi0YyAR7sbFM+i8Bg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.82.tgz";
+        sha512 = "Ks+ANzLoIrFDUOJdjxYMH6CMKB8UQo5modAwvSZTxgF+vEs/U7G5IbWFUp6dS4klPkTDVdxbORuk8xAXXhMsWw==";
       };
     };
     "elliptic-6.5.4" = {
@@ -7717,13 +7717,13 @@ let
         sha512 = "B9miTzbznhDjTfjvipfHoqbWKwd0Mj+/fL5s1QOz06wufguil+Xheo4XpOnc4NqKYBCNqqEzgPv2aPBIJLox0w==";
       };
     };
-    "postcss-discard-empty-5.1.0" = {
+    "postcss-discard-empty-5.1.1" = {
       name = "postcss-discard-empty";
       packageName = "postcss-discard-empty";
-      version = "5.1.0";
+      version = "5.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss-discard-empty/-/postcss-discard-empty-5.1.0.tgz";
-        sha512 = "782T/buGgb3HOuHOJAHpdyKzAAKsv/BxWqsutnZ+QsiHEcDkY7v+6WWdturuBiSal6XMOO1p1aJvwXdqLD5vhA==";
+        url = "https://registry.npmjs.org/postcss-discard-empty/-/postcss-discard-empty-5.1.1.tgz";
+        sha512 = "zPz4WljiSuLWsI0ir4Mcnr4qQQ5e1Ukc3i7UfE2XcrwKK2LIPIqE5jxMRxO6GbI3cv//ztXDsXwEWT3BHOGh3A==";
       };
     };
     "postcss-discard-overridden-4.0.1" = {
@@ -7771,13 +7771,13 @@ let
         sha512 = "alx/zmoeXvJjp7L4mxEMjh8lxVlDFX1gqWHzaaQewwMZiVhLo42TEClKaeHbRf6J7j82ZOdTJ808RtN0ZOZwvw==";
       };
     };
-    "postcss-merge-longhand-5.1.0" = {
+    "postcss-merge-longhand-5.1.1" = {
       name = "postcss-merge-longhand";
       packageName = "postcss-merge-longhand";
-      version = "5.1.0";
+      version = "5.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss-merge-longhand/-/postcss-merge-longhand-5.1.0.tgz";
-        sha512 = "Gr46srN2tsLD8fudKYoHO56RG0BLQ2nsBRnSZGY04eNBPwTeWa9KeHrbL3tOLAHyB2aliikycPH2TMJG1U+W6g==";
+        url = "https://registry.npmjs.org/postcss-merge-longhand/-/postcss-merge-longhand-5.1.1.tgz";
+        sha512 = "JLtqAY1LvxiD2aej6hcAk/TkXvEPM+Gs1aOkOIZub2MDEiB5NMtpMe/Ir2seIMMM245bsuHggzIhQBv6qFBm4A==";
       };
     };
     "postcss-merge-rules-4.0.3" = {
@@ -7843,13 +7843,13 @@ let
         sha512 = "G7eWyzEx0xL4/wiBBJxJOz48zAKV2WG3iZOqVhPet/9geefm/Px5uo1fzlHu+DOjT+m0Mmiz3jkQzVHe6wxAWg==";
       };
     };
-    "postcss-minify-params-5.1.0" = {
+    "postcss-minify-params-5.1.1" = {
       name = "postcss-minify-params";
       packageName = "postcss-minify-params";
-      version = "5.1.0";
+      version = "5.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss-minify-params/-/postcss-minify-params-5.1.0.tgz";
-        sha512 = "q67dcts4Hct6x8+JmhBgctHkbvUsqGIg2IItenjE63iZXMbhjr7AlVZkNnKtIGt/1Wsv7p/7YzeSII6Q+KPXRg==";
+        url = "https://registry.npmjs.org/postcss-minify-params/-/postcss-minify-params-5.1.1.tgz";
+        sha512 = "WCpr+J9Uz8XzMpAfg3UL8z5rde6MifBbh5L8bn8S2F5hq/YDJJzASYCnCHvAB4Fqb94ys8v95ULQkW2EhCFvNg==";
       };
     };
     "postcss-minify-selectors-4.0.2" = {
@@ -8059,13 +8059,13 @@ let
         sha512 = "tO8QIgrsI3p95r8fyqKV+ufKlSHh9hMJqACqbv2XknufqEDhDvbguXGBBqxw9nsQoXWf0qOqppziKJKHMD4GtA==";
       };
     };
-    "postcss-normalize-whitespace-5.1.0" = {
+    "postcss-normalize-whitespace-5.1.1" = {
       name = "postcss-normalize-whitespace";
       packageName = "postcss-normalize-whitespace";
-      version = "5.1.0";
+      version = "5.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss-normalize-whitespace/-/postcss-normalize-whitespace-5.1.0.tgz";
-        sha512 = "7O1FanKaJkpWFyCghFzIkLhehujV/frGkdofGLwhg5upbLyGsSfiTcZAdSzoPsSUgyPCkBkNMeWR8yVgPdQybg==";
+        url = "https://registry.npmjs.org/postcss-normalize-whitespace/-/postcss-normalize-whitespace-5.1.1.tgz";
+        sha512 = "83ZJ4t3NUDETIHTa3uEg6asWjSBYL5EdkVB0sDncx9ERzOKBVJIUeDO9RyA9Zwtig8El1d79HBp0JEi8wvGQnA==";
       };
     };
     "postcss-ordered-values-4.1.2" = {
@@ -11202,7 +11202,7 @@ let
         ];
       })
       sources."@types/webpack-sources-3.2.0"
-      sources."@types/ws-8.5.2"
+      sources."@types/ws-8.5.3"
       sources."@webassemblyjs/ast-1.9.0"
       sources."@webassemblyjs/floating-point-hex-parser-1.9.0"
       sources."@webassemblyjs/helper-api-error-1.9.0"
@@ -11628,7 +11628,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.6"
       sources."ejs-loader-0.5.0"
-      sources."electron-to-chromium-1.4.80"
+      sources."electron-to-chromium-1.4.82"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -12162,8 +12162,8 @@ let
           sources."css-select-4.2.1"
           sources."css-tree-1.1.3"
           sources."css-what-5.1.0"
-          sources."cssnano-5.1.1"
-          sources."cssnano-preset-default-5.2.1"
+          sources."cssnano-5.1.3"
+          sources."cssnano-preset-default-5.2.3"
           sources."dom-serializer-1.3.2"
           sources."domelementtype-2.2.0"
           sources."domutils-2.8.0"
@@ -12175,13 +12175,13 @@ let
           sources."postcss-convert-values-5.1.0"
           sources."postcss-discard-comments-5.1.1"
           sources."postcss-discard-duplicates-5.1.0"
-          sources."postcss-discard-empty-5.1.0"
+          sources."postcss-discard-empty-5.1.1"
           sources."postcss-discard-overridden-5.1.0"
-          sources."postcss-merge-longhand-5.1.0"
+          sources."postcss-merge-longhand-5.1.1"
           sources."postcss-merge-rules-5.1.0"
           sources."postcss-minify-font-values-5.1.0"
           sources."postcss-minify-gradients-5.1.0"
-          sources."postcss-minify-params-5.1.0"
+          sources."postcss-minify-params-5.1.1"
           sources."postcss-minify-selectors-5.2.0"
           sources."postcss-normalize-charset-5.1.0"
           sources."postcss-normalize-display-values-5.1.0"
@@ -12191,7 +12191,7 @@ let
           sources."postcss-normalize-timing-functions-5.1.0"
           sources."postcss-normalize-unicode-5.1.0"
           sources."postcss-normalize-url-5.1.0"
-          sources."postcss-normalize-whitespace-5.1.0"
+          sources."postcss-normalize-whitespace-5.1.1"
           sources."postcss-ordered-values-5.1.0"
           sources."postcss-reduce-initial-5.1.0"
           sources."postcss-reduce-transforms-5.1.0"

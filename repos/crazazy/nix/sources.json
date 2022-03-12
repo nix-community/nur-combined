@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "bf433883467208124ffd3548dcb180d0bfc0fcf3",
-        "sha256": "1afvd9qdhvdcbacjc20mgbagwpssfvpqpxf5wcz0wjy3lqj8awyz",
+        "rev": "a7faa08bb5b05f9f8fe213acf83d4335a6ef47e8",
+        "sha256": "1pj30fb3rp5wlnfqqs9qriy7szminiqgxnkmd01inbbvpils05rl",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/bf433883467208124ffd3548dcb180d0bfc0fcf3.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/a7faa08bb5b05f9f8fe213acf83d4335a6ef47e8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "classicube": {
@@ -42,10 +42,10 @@
         "homepage": "",
         "owner": "mattn",
         "repo": "efm-langserver",
-        "rev": "c9738482c30a5f80f313e069b837a0df240e326c",
-        "sha256": "0sidd3dsm5a164v39sxaw3g167bb9mdi7wvpfchsvaa8kx1d46my",
+        "rev": "b13f35f67c84029a83d245928ef29fa40b5e1d9c",
+        "sha256": "0z0bxq5hgdjnrx22yqb1wbf6bxasw8m44djrr7mvs2rk4zs1zmj0",
         "type": "tarball",
-        "url": "https://github.com/mattn/efm-langserver/archive/c9738482c30a5f80f313e069b837a0df240e326c.tar.gz",
+        "url": "https://github.com/mattn/efm-langserver/archive/b13f35f67c84029a83d245928ef29fa40b5e1d9c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "emacs": {

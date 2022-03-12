@@ -3,13 +3,13 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-33OFJKbDSw4+48X1i+92Wl/+1HoVCCaZWqxt2HBq26k=",
+        "narHash": "sha256-NBegabx7LRsDaHXa/nC0sX59fMw4aYydpbzcPJYDQ94=",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/bf433883467208124ffd3548dcb180d0bfc0fcf3.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/a7faa08bb5b05f9f8fe213acf83d4335a6ef47e8.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/bf433883467208124ffd3548dcb180d0bfc0fcf3.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/a7faa08bb5b05f9f8fe213acf83d4335a6ef47e8.tar.gz"
       }
     },
     "alejandra": {
@@ -117,13 +117,13 @@
     "efm-langserver": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-vhrSQp9Iqa0hc3fzE1tNax0T3uCq6zQ2MUGVqttoLWo=",
+        "narHash": "sha256-QNYf9CczC73ryVk2QiriWvVl3OJhYS9Ez1a2BwvuC3w=",
         "type": "tarball",
-        "url": "https://github.com/mattn/efm-langserver/archive/c9738482c30a5f80f313e069b837a0df240e326c.tar.gz"
+        "url": "https://github.com/mattn/efm-langserver/archive/b13f35f67c84029a83d245928ef29fa40b5e1d9c.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/mattn/efm-langserver/archive/c9738482c30a5f80f313e069b837a0df240e326c.tar.gz"
+        "url": "https://github.com/mattn/efm-langserver/archive/b13f35f67c84029a83d245928ef29fa40b5e1d9c.tar.gz"
       }
     },
     "emacs": {
