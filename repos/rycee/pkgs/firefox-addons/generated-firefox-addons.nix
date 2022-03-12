@@ -349,10 +349,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.45";
+      version = "4.9.46";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3904618/dark_reader-4.9.45-an+fx.xpi";
-      sha256 = "7df6f5a6c07d3740ed26be3c24fdd1719b77e685506e2642f756ce3538b3cc7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920225/dark_reader-4.9.46-an+fx.xpi";
+      sha256 = "27a08b220814e09a428e05257d81f6ae12051d447dda298e32a065a5bde45946";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1255,10 +1255,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.2.3";
+      version = "2.3.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901678/1password-2.2.3-fx.xpi";
-      sha256 = "db63f3b8eb03d801b6830d31715b6eed30510a7dc644c1136f6440de32f155cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918810/1password-2.3.0-fx.xpi";
+      sha256 = "615a422186a6b51ebd22958becc11e90c1f0b8823863594bbcaca6ca37891a3e";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1652,10 +1652,10 @@
       };
     "skip-redirect" = buildFirefoxXpiAddon {
       pname = "skip-redirect";
-      version = "2.3.5";
+      version = "2.3.6";
       addonId = "skipredirect@sblask";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3750630/skip_redirect-2.3.5-an+fx.xpi";
-      sha256 = "ed64848bbf986bc985690b2873161ad44c41726a859b8db60afe27d24fd9b747";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920533/skip_redirect-2.3.6-fx.xpi";
+      sha256 = "dbe8950245c1f475c5c1c6daab89c79b83ba4680621c91e80f15be7b09b618ae";
       meta = with lib;
       {
         description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
@@ -1697,10 +1697,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.2.11.1553";
+      version = "22.3.11.1145";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3907604/sourcegraph_for_firefox-22.2.11.1553-an+fx.xpi";
-      sha256 = "88ff22e09178d1ed2b3d6a5b49d43bee44f81d6a632ad42628039a52a363cd2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920604/sourcegraph_for_firefox-22.3.11.1145-an+fx.xpi";
+      sha256 = "7e078b6dd53af03e83a35b8f70bbfcc7586340ba51bc91335fc859ab63520c97";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2114,10 +2114,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.0.13";
+      version = "6.1.0";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3919736/vuejs_devtools-6.0.13-fx.xpi";
-      sha256 = "caa2db52fb9bc821086b4ac7f29ebbd96cb53f8bb4a25e0a8aa223e710de93f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920721/vuejs_devtools-6.1.0-fx.xpi";
+      sha256 = "74f5ac59e321bec28559d459941f8e4585ccf55291c6e708414ef1ee4231ef19";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
@@ -2198,10 +2198,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.5";
+      version = "19.6";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918772/zoom_page_we-19.5-fx.xpi";
-      sha256 = "f0a994b4e6a35bbbe6c4479c09e97064dcab7c57eee139a2091d34892a7caed1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920210/zoom_page_we-19.6-fx.xpi";
+      sha256 = "cec1f7cfded26b26217118ba08daaa02cd9e2545bc1da9fb3c5b6b989f9322f0";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
