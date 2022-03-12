@@ -111,7 +111,7 @@ in {
           spaces_enabled = true;
         };
 
-        use_presence = false;
+        use_presence = true;
 
         email = {
           require_transport_security = true;
