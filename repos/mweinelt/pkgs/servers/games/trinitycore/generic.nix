@@ -7,8 +7,9 @@
 , git
 
 # runtime
-, boost17x
+, boost
 , bzip2
+, icu
 , libmysqlclient
 , readline
 
@@ -45,8 +46,18 @@ llvmPackages_13.stdenv.mkDerivation rec {
       --replace "set(rev_branch \"Archived\")" "set(rev_branch \"${branch}\")"
   '';
 
-  nativeBuildInputs = [ cmake git ];
-  buildInputs = [ libmysqlclient boost17x readline bzip2 ];
+  nativeBuildInputs = [
+    cmake
+    git
+  ];
+
+  buildInputs = [
+    boost
+    bzip2
+    icu
+    libmysqlclient
+    readline
+  ];
 
   cmakeFlags = [
     "-DMYSQL_HOME=${libmysqlclient}/lib/mysql"
