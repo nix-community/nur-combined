@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     icon = "sftpman-gtk.png";
     exec = "sftpman-gtk";
     categories = [ "GTK" "Filesystem" "Network" ];
-    terminal = "false";
+    terminal = false;
     desktopName = "sftpman-gtk";
   };
 
