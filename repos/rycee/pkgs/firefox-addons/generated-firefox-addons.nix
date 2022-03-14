@@ -215,10 +215,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.5.9.0";
+      version = "2.6.0.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918355/bypass_paywalls_clean-2.5.9.0-an+fx.xpi";
-      sha256 = "352f5aab921610716654c74b437f5e8beabb780bcfabde783084d0985581520e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3921676/bypass_paywalls_clean-2.6.0.0-an+fx.xpi";
+      sha256 = "4ee9b5455633eb52878cbb3fddc183f0eb4039ab28f82dce470390463bfdbf7a";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -618,10 +618,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220310.185912";
+      version = "99.0buildid20220313.185831";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920275/francais_language_pack-99.0buildid20220310.185912-fx.xpi";
-      sha256 = "93332d82f49d0c209a1e1ca2da8ee4a9570fcd1d7419f50a105cf5cb7e805ad8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3921703/francais_language_pack-99.0buildid20220313.185831-fx.xpi";
+      sha256 = "29030b3af009080150c31a19caf0b48f77a8f15de83d4be7620fe7864cb93835";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -918,10 +918,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.5.2";
+      version = "1.5.3";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3921092/libredirect-1.5.2-an+fx.xpi";
-      sha256 = "0da6187d65f02466414c182c85b4ab226eb409a9030e6276fa904ba5eb8ade4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3921355/libredirect-1.5.3-an+fx.xpi";
+      sha256 = "f47c60d389efb792c1dd94e86973d9e06d930f6857b903b2503c833b860e9d10";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -1569,10 +1569,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "27.2";
+      version = "27.3";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920220/save_page_we-27.2-fx.xpi";
-      sha256 = "ed19eea001f0f0cb5bf962b2da414de301f4907a172e2302398c2c1bd8636031";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3921360/save_page_we-27.3-fx.xpi";
+      sha256 = "14704c6463ad7b4be2b35dad3690e629001e4e08f2088472b7197dffeae945f1";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
