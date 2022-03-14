@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     comment = "Mount SSHFS/SFTP filesystems";
     icon = "sftpman-gtk.png";
     exec = "sftpman-gtk";
-    categories = "GTK;Filesystem;Network";
+    categories = [ "GTK" "Filesystem" "Network" ];
     terminal = "false";
     desktopName = "sftpman-gtk";
   };
