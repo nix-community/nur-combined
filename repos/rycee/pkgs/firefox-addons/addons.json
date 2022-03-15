@@ -113,6 +113,9 @@
     "pname": "french-dictionary"
   },
   {
+    "slug": "disable-javascript"
+  },
+  {
     "slug": "disconnect"
   },
   {
@@ -540,6 +543,9 @@
   },
   {
     "slug": "to-deepl"
+  },
+  {
+    "slug": "tokyo-night-v2"
   },
   {
     "slug": "tomato-clock"

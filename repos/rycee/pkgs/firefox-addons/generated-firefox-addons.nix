@@ -388,6 +388,20 @@
         platforms = platforms.all;
         };
       };
+    "disable-javascript" = buildFirefoxXpiAddon {
+      pname = "disable-javascript";
+      version = "2.3.1";
+      addonId = "{41f9e51d-35e4-4b29-af66-422ff81c8b41}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1090623/disable_javascript-2.3.1-an+fx.xpi";
+      sha256 = "d3578dca38de54ae3f8f1e381b371f63176bedcd753e53cd7f5af0209493dc7c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/dpacassi/disable-javascript";
+        description = "Adds the ability to disable JavaScript for specific sites or specific tabs.\nYou can customize the default JS state (on or off), the disable behavior (by domain or by tab) and much more.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "disconnect" = buildFirefoxXpiAddon {
       pname = "disconnect";
       version = "20.3.1.1";
@@ -1896,6 +1910,19 @@
         homepage = "https://github.com/rewkha/firefox-to-deepl/";
         description = "Right-click on a section of text and click on \"To DeepL\" to translate it to your language. Default language is selected in extension preferences.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "tokyo-night-v2" = buildFirefoxXpiAddon {
+      pname = "tokyo-night-v2";
+      version = "1.0";
+      addonId = "{afda92c3-008d-4d08-8766-3f1571995071}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3872556/tokyo_night-1.0-an+fx.xpi";
+      sha256 = "35e99f6584d450412916c95af3dc3cedf4c794657c54bbc1dde900a24880cdf9";
+      meta = with lib;
+      {
+        description = "A Tokyo Night theme, based on enkia's VS Code theme. There are other Tokyo Night themes in the addons store, but none of them actually had the right colors, so I decided to make my own.";
+        license = licenses.cc-by-nc-sa-30;
         platforms = platforms.all;
         };
       };
