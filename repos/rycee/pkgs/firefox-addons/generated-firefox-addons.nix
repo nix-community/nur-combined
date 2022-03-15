@@ -349,10 +349,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.46";
+      version = "4.9.47";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920225/dark_reader-4.9.46-an+fx.xpi";
-      sha256 = "27a08b220814e09a428e05257d81f6ae12051d447dda298e32a065a5bde45946";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3922130/dark_reader-4.9.47-an+fx.xpi";
+      sha256 = "e849883de7211e344d2608abb8c527df09316eb9a8d3a4aef3fcfe18ff9d5502";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -852,10 +852,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.0.0";
+      version = "5.0.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3919214/grammatik_und_rechtschreibprufung_languagetool-5.0.0-fx.xpi";
-      sha256 = "30aa2b950bb29f58b289b309956c9b97826da68eaebec879cf13ffce9b6d7dff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3921646/grammatik_und_rechtschreibprufung_languagetool-5.0.1-fx.xpi";
+      sha256 = "9b311f3f634e0cf8df6f8cd61c9ed9fdb48cf9286d942b259af603917652ee0a";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1034,10 +1034,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.10.2";
+      version = "10.11.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916893/metamask-10.10.2-an+fx.xpi";
-      sha256 = "15f51acbec630fec3d3b5cacc9435286d1cd72b3fe7720f7f0f3543ad7be4dcb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3922215/metamask-10.11.1-an+fx.xpi";
+      sha256 = "b7b4a37a3a1a67593b60a74de3d96e8417df9ca1042cc61137d0ecec4ecaeb5f";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1430,10 +1430,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.3.0";
+      version = "2.3.1";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916465/firefox_relay-2.3.0-fx.xpi";
-      sha256 = "5f9ea2a73bad3fa9321c17df76d5ea33fc9ed6f4fb560c090727803e92fdeb10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920788/firefox_relay-2.3.1-fx.xpi";
+      sha256 = "1fffe7e5127114b8077725862e5e33f1d82ff38d5107f02957289c7565d4fa23";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1709,10 +1709,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.1.5";
+      version = "4.1.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3913892/sponsorblock_skip_sponsorships_on_youtube-4.1.5-an+fx.xpi";
-      sha256 = "39fa807081d51b991187d8c18011f03bb34505131f57135adbf0f76c06f6db15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920905/sponsorblock_skip_sponsorships_on_youtube-4.1.6-an+fx.xpi";
+      sha256 = "d14f636821b07d51eafc7dcdaaa6c24ed0d5b8f0ee8ce18f61b61dd204a58731";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1805,10 +1805,10 @@
       };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
-      version = "2.2.1";
+      version = "2.3.0";
       addonId = "extension@tabliss.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920015/tabliss_new_tab-2.2.1-fx.xpi";
-      sha256 = "3c7dd27fd1a89fad95334d7dbd80d43a88edd7732fda1a31f037900bff7a4b9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3921647/tabliss_new_tab-2.3.0-fx.xpi";
+      sha256 = "5cd8ee438e439dee1d5a3db2d487da2ca5fd85a897702c208d5c2ff5ae811627";
       meta = with lib;
       {
         homepage = "https://tabliss.io";
@@ -2114,10 +2114,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.1.0";
+      version = "6.1.3";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920721/vuejs_devtools-6.1.0-fx.xpi";
-      sha256 = "74f5ac59e321bec28559d459941f8e4585ccf55291c6e708414ef1ee4231ef19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3922234/vuejs_devtools-6.1.3-fx.xpi";
+      sha256 = "da871a1020a27aaa2eafeb0b41e786849c9d1932f906f507fd3a9f1dae3c813a";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
@@ -2156,10 +2156,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.55.0";
+      version = "2.56.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3917602/web_scrobbler-2.55.0-an+fx.xpi";
-      sha256 = "ca0525db6d1185040f8b21df37c8e60916aeb4921b7d1bff62e92d623308ff2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3922302/web_scrobbler-2.56.0-an+fx.xpi";
+      sha256 = "bf8a99e6def70594542f7e53620997fbc4f30a358710ec1ee7fb610e3a7e9fc8";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
