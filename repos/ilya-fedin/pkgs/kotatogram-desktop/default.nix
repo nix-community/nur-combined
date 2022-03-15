@@ -219,12 +219,14 @@ stdenv.mkDerivation rec {
     ln -s $out/Applications/Kotatogram.app/Contents/MacOS $out/bin
   '';
 
-  postFixup = ''
+  preFixup = ''
     binName=${if stdenv.isLinux then "kotatogram-desktop" else "Kotatogram"}
     remove-references-to -t ${stdenv.cc.cc} $out/bin/$binName
     remove-references-to -t ${microsoft_gsl} $out/bin/$binName
     remove-references-to -t ${tg_owt.dev} $out/bin/$binName
-  '' + optionalString (stdenv.isLinux && withWebKit) ''
+  '';
+
+  postFixup = optionalString (stdenv.isLinux && withWebKit) ''
     # We also use gappsWrapperArgs from wrapGAppsHook.
     wrapProgram $out/bin/kotatogram-desktop \
       "''${gappsWrapperArgs[@]}" \
