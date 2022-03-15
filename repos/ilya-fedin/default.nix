@@ -38,6 +38,15 @@ rec {
     abseil-cpp = abseil-cpp_202111;
   };
 
+  mesa-drivers-amd = (pkgs.mesa.override {
+  	galliumDrivers = [ "radeonsi" ];
+  	driDrivers = [];
+  	vulkanDrivers = [ "amd" ];
+  	enableGalliumNine = false;
+  	enableOSMesa = false;
+  	enableOpenCL = false;
+  }).drivers;
+
   mir = callPackage ./pkgs/mir {};
 
   mirco = callPackage ./pkgs/mirco {

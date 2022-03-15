@@ -2,7 +2,6 @@
   dbus-broker = import ./dbus-broker;
   default-emoji-font = import ./default-emoji-font;
   metric-compatible-fonts = import ./metric-compatible-fonts;
-  cascadia-code-fallback = import ./cascadia-code-fallback;
   noto-cjk = import ./noto-cjk;
   io-scheduler = import ./io-scheduler;
   mate-wayland = import ./mate-wayland;

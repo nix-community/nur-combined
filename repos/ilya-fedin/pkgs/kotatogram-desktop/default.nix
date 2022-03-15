@@ -5,6 +5,7 @@
 , pkg-config
 , cmake
 , ninja
+, clang
 , python3
 , wrapGAppsHook
 , wrapQtAppsHook
@@ -63,6 +64,7 @@
 , IOSurface
 , Metal
 , MetalKit
+, withWebKit ? false
 }:
 
 with lib;
@@ -111,6 +113,7 @@ stdenv.mkDerivation rec {
       --replace '"libasound.so.2"' '"${alsa-lib}/lib/libasound.so.2"'
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioPulse.cpp \
       --replace '"libpulse.so.0"' '"${libpulseaudio}/lib/libpulse.so.0"'
+  '' + optionalString (stdenv.isLinux && withWebKit) ''
     substituteInPlace Telegram/lib_webview/webview/platform/linux/webview_linux_webkit_gtk.cpp \
       --replace '"libwebkit2gtk-4.0.so.37"' '"${webkitgtk}/lib/libwebkit2gtk-4.0.so.37"'
   '' + optionalString stdenv.isDarwin ''
@@ -123,7 +126,7 @@ stdenv.mkDerivation rec {
 
   # We want to run wrapProgram manually (with additional parameters)
   dontWrapGApps = stdenv.isLinux;
-  dontWrapQtApps = stdenv.isLinux;
+  dontWrapQtApps = stdenv.isLinux && withWebKit;
 
   nativeBuildInputs = [
     pkg-config
@@ -132,8 +135,11 @@ stdenv.mkDerivation rec {
     python3
     wrapQtAppsHook
   ] ++ optionals stdenv.isLinux [
-    wrapGAppsHook
+    # to build bundled libdispatch
+    clang
     extra-cmake-modules
+  ] ++ optionals (stdenv.isLinux && withWebKit) [
+    wrapGAppsHook
   ];
 
   buildInputs = [
@@ -159,6 +165,8 @@ stdenv.mkDerivation rec {
     glibmm
     jemalloc
     wayland
+  ] ++ optionals (stdenv.isLinux && withWebKit) [
+    webkitgtk
   ] ++ optionals stdenv.isDarwin [
     Cocoa
     CoreFoundation
@@ -209,7 +217,7 @@ stdenv.mkDerivation rec {
     ln -s $out/Applications/Kotatogram.app/Contents/MacOS $out/bin
   '';
 
-  postFixup = optionalString stdenv.isLinux ''
+  postFixup = optionalString (stdenv.isLinux && withWebKit) ''
     # We also use gappsWrapperArgs from wrapGAppsHook.
     wrapProgram $out/bin/kotatogram-desktop \
       "''${gappsWrapperArgs[@]}" \
