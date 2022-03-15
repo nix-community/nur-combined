@@ -7,11 +7,11 @@ let
   srcs = {
     # Picked SHA from $PROJECT_URL/-/packages and package URL from $PROJECT_URL/-/releases
     x86_64-linux = fetchurl {
-      url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/${pname}/${version}/LibreWolf.x86_64.AppImage";
+      url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/librewolf/${version}/LibreWolf.x86_64.AppImage";
       sha256 = "8e7d8242f92cd5aa2c5903b4f08eba75d5fdee2f1c1a294da91d1fb8bbe68c1e";
     };
     aarch64-linux = fetchurl {
-      url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/${pname}/${version}/LibreWolf.aarch64.AppImage";
+      url = "https://gitlab.com/api/v4/projects/24386000/packages/generic/librewolf/${version}/LibreWolf.aarch64.AppImage";
       sha256 = "3a083d40b862df383980c9d44021ff8cafe6b7f9328d1e8265d9c263016b9284";
     };
     # Picked from $PROJECT_URL/-/releases
