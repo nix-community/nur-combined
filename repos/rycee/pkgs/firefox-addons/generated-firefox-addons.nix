@@ -1007,10 +1007,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.5.0";
+      version = "4.5.1";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920074/mailvelope-4.5.0-fx.xpi";
-      sha256 = "7d7357e1612fc84f976cb7e700c19e82b4b326d7e7ea3f45f2d159eeb41dd9ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923039/mailvelope-4.5.1-fx.xpi";
+      sha256 = "8decb3d944df74516ce4be71d77514e32e66b6678fd0838beaf9cefd8cafe226";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1596,10 +1596,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "4.5.0";
+      version = "4.6.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3890914/search_by_image-4.5.0-an+fx.xpi";
-      sha256 = "2b0406167991bf6aa8e297fa28390f93a368d82ee78d94ba11508a6adb977012";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923022/search_by_image-4.6.0-an+fx.xpi";
+      sha256 = "dd429d1715072f3f4d2dcd6765b14306c2cd73db9ed085df898237be7749cb38";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -2183,10 +2183,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.56.0";
+      version = "2.56.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3922302/web_scrobbler-2.56.0-an+fx.xpi";
-      sha256 = "bf8a99e6def70594542f7e53620997fbc4f30a358710ec1ee7fb610e3a7e9fc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923270/web_scrobbler-2.56.1-an+fx.xpi";
+      sha256 = "cf1d3aeb6b3584c65a85882d1a6c24010b5fd22308b3ed2f517b8f1891b28c2b";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
