@@ -21,6 +21,8 @@ packageSet = do
   dotTar
   clashForWindows
   clashForWindowsIcon
+  icalinguaPlusPlus
+  icalinguaPlusPlusAur
   wemeet
   yacd
 
@@ -92,6 +94,18 @@ clashForWindowsIcon =
     package "clash-for-windows-icon"
       `sourceManual` "0"
       `fetchUrl` (const "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico")
+
+icalinguaPlusPlus :: PackageSet ()
+icalinguaPlusPlus =
+  define $
+    package "icalingua-plus-plus"
+      `sourceGitHub` ("icalingua-plus-plus", "icalingua-plus-plus")
+      `fetchUrl` url
+  where
+    url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
+
+icalinguaPlusPlusAur :: PackageSet ()
+icalinguaPlusPlusAur = gitPkg "icalingua-plus-plus-aur" "https://aur.archlinux.org/icalingua++.git"
 
 wemeet :: PackageSet ()
 wemeet =

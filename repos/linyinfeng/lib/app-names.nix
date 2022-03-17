@@ -15,6 +15,7 @@ let
     (trivial "dot-tar")
     { "dpt-rp1-py" = { "dpt-rp1-py" = "dptrp1"; }; }
     (trivial "godns")
+    (trivial "icalingua-plus-plus")
     (trivial "telegram-send")
     (trivial "trojan")
     (trivial "updater")
