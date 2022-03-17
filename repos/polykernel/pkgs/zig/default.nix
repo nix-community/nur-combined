@@ -13,8 +13,8 @@ llvmPackages.stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ziglang";
     repo = pname;
-    rev = "b463924da2b1ed4ae83a51c18b4998531c44d809";
-    sha256 = "sha256-K2lkb+BFPyXhzDJseaZlVggtEdvuAcZnCrslyND3kvY=";
+    rev = "d78b8c10b9b33a5b1a21e9fa981576fd408939e5";
+    sha256 = "sha256-UMw9merc7+2S1jZqWXuTGkA0r4lvterRzpTQ8XPEs04=";
   };
 
   nativeBuildInputs = [
