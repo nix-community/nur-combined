@@ -38,11 +38,12 @@ rec {
     # New packages NOT in NixOS/nixpkgs (and likely never will be)
     asteval = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/asteval { };
     autoray = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/autoray { };
+    csaps = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/csaps { };
     dynaconf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/dynaconf { };
     # nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     oitg = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/oitg { };
     pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
-    pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy; };
+    pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy csaps; };
     pygsti-cirq = pygsti.overridePythonAttrs (oldAttrs: {
       version = "unstable-2020-04-20";
       src = pkgs.fetchFromGitHub {
