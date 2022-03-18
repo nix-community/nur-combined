@@ -12,7 +12,6 @@ lib.makeScope newScope (
     klogg = libsForQt5.callPackage ./applications/misc/klogg { };
     klogg-bin = callPackage ./applications/misc/klogg/bin.nix { };
     macpass-bin = callPackage ./applications/macpass/bin.nix { };
-    qutebrowser-bin = callPackage ./applications/networking/qutebrowser/bin.nix { };
     synwrite-bin = callPackage ./applications/synwrite/bin.nix { };
     wireguard-statusbar-bin = callPackage ./applications/wireguard-statusbar { };
 
