@@ -1,5 +1,5 @@
 { lib
-, buildGoModule
+, buildGo117Module
 , fetchFromGitHub
 , protobuf
 , git
@@ -7,7 +7,7 @@
 , buf
 }:
 
-buildGoModule rec {
+buildGo117Module rec {
   pname = "grpc-gateway";
   version = "2.9.0";
 
@@ -18,7 +18,7 @@ buildGoModule rec {
     sha256 = "sha256-8TtGPBQdNIuGhKFDhL2AGCmLodSkcB6uCVWOlnFmLHQ=";
   };
 
-  vendorSha256 = "sha256-0eKfLpzknMTV75cEnPxXchBng+MVbqPwjWT+ceUj7ck=";
+  vendorSha256 = "sha256-ulU7Cw+YEB1vigc/X0NyYTP/q1/X/f7pc9wNTvfiNLc=";
   subPackages = [ "protoc-gen-grpc-gateway" "protoc-gen-openapiv2" ];
 
   meta = with lib; {
