@@ -488,10 +488,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.1";
+      version = "2.3.2";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3818838/facebook_container-2.3.1-fx.xpi";
-      sha256 = "37e5def08a300360a1667a16b281af41a9f282d0d85a2c7b05693db8b3e33853";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923300/facebook_container-2.3.2-fx.xpi";
+      sha256 = "a1851f15ae4ec790c40f9a751ad6d64a44a6bf47f70ee497ef4ee17115bb7e06";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -562,10 +562,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.11.0.1";
+      version = "4.12.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3919635/floccus-4.11.0.1-fx.xpi";
-      sha256 = "0aac2c172369456c616517efbde084cd37158ee5288acf76e6ec2bd2098c217e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923491/floccus-4.12.0-fx.xpi";
+      sha256 = "0a2d55e2d56206a20f48472e2c236dbf5b5bc3033eca6a50bb494a9840f3cf6a";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -632,10 +632,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220315.185755";
+      version = "99.0buildid20220317.190002";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3922837/francais_language_pack-99.0buildid20220315.185755-fx.xpi";
-      sha256 = "05a06c8d9aad0f2f3cdb996d4c035dadd27239add6fde1c597dd37cd74d4aaa0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923729/francais_language_pack-99.0buildid20220317.190002-fx.xpi";
+      sha256 = "66582c4d6789294d5a16de77b82ab0d78362a0002ebff0545e8c1df3e04ab8b0";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -932,10 +932,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.5.3";
+      version = "1.5.5";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3921355/libredirect-1.5.3-an+fx.xpi";
-      sha256 = "f47c60d389efb792c1dd94e86973d9e06d930f6857b903b2503c833b860e9d10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923574/libredirect-1.5.5-an+fx.xpi";
+      sha256 = "4da58f5b26127d506b6c5425a19d89a6791be0b21b2e3259669495a0f33e443d";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -1209,10 +1209,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.4.0";
+      version = "7.4.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3907820/octotree_github_code_tree-7.4.0-fx.xpi";
-      sha256 = "1a714cdb1fcd7967b824180383e701f929653858a333454c1a953f5cf368a71b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923381/octotree_github_code_tree-7.4.2-fx.xpi";
+      sha256 = "7c1df492d970cdab9be78324bc72f92918d0cb74fdd5b290ea542d0cdde478de";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1542,10 +1542,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.3.3";
+      version = "22.3.18";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916817/refined_github-22.3.3-an+fx.xpi";
-      sha256 = "7597b713c3b2c891ab58b681de0cb445fbbfd56b1a7af5fa001391c53bc11194";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923936/refined_github-22.3.18-an+fx.xpi";
+      sha256 = "284db4de2eda0268a2398ef2be520e15fa41028a6ea0df074152a44804ce0fe2";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1723,10 +1723,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.1.6";
+      version = "4.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920905/sponsorblock_skip_sponsorships_on_youtube-4.1.6-an+fx.xpi";
-      sha256 = "d14f636821b07d51eafc7dcdaaa6c24ed0d5b8f0ee8ce18f61b61dd204a58731";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923363/sponsorblock_skip_sponsorships_on_youtube-4.2-an+fx.xpi";
+      sha256 = "40bc363bdbbad215a81cffb6b0959006bb3a3b82bfdbff99a20ae22aee2a10fd";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
