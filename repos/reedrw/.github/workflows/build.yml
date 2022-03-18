@@ -34,6 +34,9 @@ jobs:
       uses: cachix/install-nix-action@v16
       with:
         nix_path: "${{ matrix.nixPath }}"
+        # nix 2.6 breaks restrict-eval, when using the NIX_PATH
+        # see https://github.com/NixOS/nix/issues/5980
+        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
@@ -46,7 +49,7 @@ jobs:
         signingKey: '${{ env.CACHIX_SIGNING_KEY }}'
 
     - name: Checkout repository
-      uses: actions/checkout@v2.4.0
+      uses: actions/checkout@v3
 
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs

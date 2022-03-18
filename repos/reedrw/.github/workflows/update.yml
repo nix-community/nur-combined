@@ -37,7 +37,7 @@ jobs:
         signingKey: '${{ env.CACHIX_SIGNING_KEY }}'
 
     - name: Checkout repository
-      uses: actions/checkout@v2.4.0
+      uses: actions/checkout@v3
 
     - name: Update packages
       run: find -L "$(pwd)/" -type f -name "update.sh" | while read -r updatescript; do ( dir="$(dirname -- "$updatescript")"; cd "$dir" || exit; $updatescript ); done

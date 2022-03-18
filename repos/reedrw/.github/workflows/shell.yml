@@ -36,7 +36,7 @@ jobs:
         signingKey: '${{ env.CACHIX_SIGNING_KEY }}'
 
     - name: Checkout repository
-      uses: actions/checkout@v2.4.0
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
