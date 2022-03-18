@@ -61,7 +61,7 @@ in {
         mkdir -p $EXT_DIR
         chown ${cfg.user}:users $EXT_DIR
         for x in ${concatMapStringsSep " " toString cfg.extensions}; do
-            ln -sf $x/* $EXT_DIR/
+            ln -sf $x/share/vscode/extensions/* $EXT_DIR/
         done
         chown -R ${cfg.user}:users $EXT_DIR
       '';
