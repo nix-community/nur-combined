@@ -195,6 +195,7 @@ lib.makeScope newScope (
 
     ### GNSS
 
+    gps-sdr-sim = callPackage ./gnss/gps-sdr-sim { };
     gpstk = callPackage ./gnss/gpstk { };
     rtklib = callPackage ./gnss/rtklib { };
     visualgps = libsForQt5.callPackage ./gnss/visualgps { };
