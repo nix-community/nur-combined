@@ -92,7 +92,9 @@
   };
   my.gui.enable = true;
 
-  environment.systemPackages = [ pkgs.arandr ];
+  environment.systemPackages = [ pkgs.arandr pkgs.chrysalis ];
+
+  services.udev.packages = [ pkgs.packages.kaleidoscope-udev-rules ];
 
   hardware.bluetooth = {
     enable = true;

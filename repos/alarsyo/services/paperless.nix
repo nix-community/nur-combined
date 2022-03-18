@@ -58,26 +58,20 @@ in
         PAPERLESS_TIME_ZONE = config.time.timeZone;
 
         PAPERLESS_ADMIN_USER = "alarsyo";
-
-        # FIXME: upstream module should be fixed instead of setting the redis URL myself
-        PAPERLESS_REDIS = "unix://${config.services.redis.servers.paperless.unixSocket}";
       };
     };
 
     systemd.services = {
       paperless-ng-server.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
-        BindReadOnlyPaths = [ config.services.redis.servers.paperless.unixSocket ];
       };
 
       paperless-ng-consumer.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
-        BindReadOnlyPaths = [ config.services.redis.servers.paperless.unixSocket ];
       };
 
       paperless-ng-web.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
-        BindReadOnlyPaths = [ config.services.redis.servers.paperless.unixSocket ];
       };
     };
 
@@ -92,11 +86,9 @@ in
       ];
     };
 
-    services.redis.servers.paperless.enable = true;
-
     systemd.services.paperless-ng-server = {
       # Make sure the DB is available
-      after = [ "postgresql.service" "redis-paperless.service" ];
+      after = [ "postgresql.service" ];
     };
 
     services.nginx.virtualHosts = {
@@ -123,10 +115,6 @@ in
           proxyWebsockets = true;
         };
       };
-    };
-
-    users.users.${config.services.paperless-ng.user} = {
-      extraGroups = [ config.services.redis.servers.paperless.user ];
     };
 
     my.services.restic-backup = mkIf cfg.enable {
