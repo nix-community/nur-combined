@@ -5,10 +5,10 @@ let
   cfg = config.xdg.icons;
 
   iconDir = pkgs.runCommand "icons" { preferLocalBuild = true; } ''
-    mkdir -p "$out"
+    mkdir -p "$out/share/icons"
     ${concatMapStrings (p: ''
         if [ -d "${p}/share/icons" ]; then
-            find -L "${p}/share/icons" -mindepth 1 -maxdepth 1 -type d -exec cp -rn --no-preserve=mode,ownership {}/ "$out" \;
+            find -L "${p}/share/icons" -mindepth 1 -maxdepth 1 -type d -exec cp -rn --no-preserve=mode,ownership {}/ "$out/share/icons" \;
         fi
     '') cfg.icons}
   '';
@@ -33,12 +33,11 @@ in {
   };
 
   config = mkIf (cfg.enable && cfg.icons != []) {
+      environment.systemPackages = [ iconDir ];
       fileSystems."/usr/share/icons" = {
-        device = "${iconDir}";
+        device = "${iconDir}/share/icons";
         fsType = "none";
         options = [ "bind" ];
       };
-      environment.sessionVariables.XDG_DATA_DIRS = [ "/usr/share" ];
-      environment.sessionVariables.XCURSOR_PATH = [ "/usr/share/icons" ];
   };
 }
