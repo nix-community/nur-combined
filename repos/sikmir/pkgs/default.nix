@@ -284,6 +284,7 @@ lib.makeScope newScope (
     glauth = callPackage ./misc/glauth { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     huami-token = callPackage ./misc/huami-token { };
+    imsg-compat = callPackage ./misc/imsg-compat { };
     ish = callPackage ./misc/ish { };
     lazyscraper = callPackage ./misc/lazyscraper { };
     libnbcompat = callPackage ./misc/libnbcompat { };
