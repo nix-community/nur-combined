@@ -157,13 +157,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "debug-4.3.3" = {
+    "debug-4.3.4" = {
       name = "debug";
       packageName = "debug";
-      version = "4.3.3";
+      version = "4.3.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/debug/-/debug-4.3.3.tgz";
-        sha512 = "/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==";
+        url = "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz";
+        sha512 = "PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==";
       };
     };
     "deep-is-0.1.4" = {
@@ -364,13 +364,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.12.1" = {
+    "globals-13.13.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.12.1";
+      version = "13.13.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.12.1.tgz";
-        sha512 = "317dFlgY2pdJZ9rspXDks7073GpDmXdfbM3vYYp0HAMKGDh1FfWPleI2ljVNLQX5M5lXcAslTcPTrOrMEFOjyw==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.13.0.tgz";
+        sha512 = "EQ7Q18AJlPwp3vUDL4mKA0KXrXyNIQyWon6T6XQiBQF0XHvRsiCSrWmmeATpUzdJN2HhWZU6Pdl0a9zdep5p6A==";
       };
     };
     "has-flag-4.0.0" = {
@@ -757,7 +757,7 @@ let
       sources."color-name-1.1.4"
       sources."concat-map-0.0.1"
       sources."cross-spawn-7.0.3"
-      sources."debug-4.3.3"
+      sources."debug-4.3.4"
       sources."deep-is-0.1.4"
       sources."doctrine-3.0.0"
       sources."escape-string-regexp-4.0.0"
@@ -783,7 +783,7 @@ let
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.2.0"
       sources."glob-parent-6.0.2"
-      sources."globals-13.12.1"
+      sources."globals-13.13.0"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.0"
       sources."import-fresh-3.3.0"
