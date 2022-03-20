@@ -44,6 +44,10 @@ in {
               type = types.str;
               example = "socks5://127.0.0.1:9050";
             };
+            logLevel = mkOption {
+              type = types.str;
+              default = "info";
+            };
           };
         });
       };
@@ -58,11 +62,11 @@ in {
 
       serviceConfig = {
         ExecStart = pkgs.writeShellScript "tun2socks" ''
-          tun2socks -device tun://${name} -proxy ${value.proxy}
+          tun2socks -device tun://${name} -proxy ${value.proxy} -loglevel ${value.logLevel}
         '';
       } // serviceOptions;
     })) cfg.gateways) //
-    (mapAttrs' (name: value: nameValuePair ("tun2socks-${name}-script") ({
+    (mapAttrs' (name: value: nameValuePair "tun2socks-${name}-script" ({
       after = [ "sys-devices-virtual-net-${name}.device" ];
       bindsTo = [ "sys-devices-virtual-net-${name}.device" ];
       wantedBy = [ "sys-devices-virtual-net-${name}.device" ];

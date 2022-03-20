@@ -87,6 +87,7 @@ in {
         tor = {
           address = cfg.address.address;
           proxy = "socks5://${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port}";
+          logLevel = "error";
         };
       };
     };
