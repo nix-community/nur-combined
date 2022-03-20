@@ -3,7 +3,5 @@
     "repo": "bcachefs-tools",
     "rev": "3765483ff0cf9abd0243fcafe11aebd0f9beb03d",
     "sha256": "dioGA2njHQnwMuvSAk+J2ajMQfhfyZ1MKVmldEcztXo=",
-    "fetchSubmodules": false,
-    "leaveDotGit": false,
-    "deepClone": false
+    "fetchSubmodules": false
 }
