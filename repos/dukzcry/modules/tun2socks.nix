@@ -3,7 +3,6 @@
 with lib;
 
 let
-  sleep = dev: "while [ ! -d /sys/devices/virtual/net/${dev} ]; do sleep 5; done";
   cfg = config.programs.tun2socks;
   serviceOptions = {
     LockPersonality = true;
@@ -64,16 +63,15 @@ in {
       } // serviceOptions;
     })) cfg.gateways) //
     (mapAttrs' (name: value: nameValuePair ("tun2socks-${name}-script") ({
-      after = [ ("tun2socks-${name}.service") ];
-      bindsTo = [ ("tun2socks-${name}.service") ];
-      wantedBy = [ ("tun2socks-${name}.service") ];
+      after = [ "sys-devices-virtual-net-${name}.device" ];
+      bindsTo = [ "sys-devices-virtual-net-${name}.device" ];
+      wantedBy = [ "sys-devices-virtual-net-${name}.device" ];
       description = "tun2socks ${name} script";
       path = with pkgs; [ iproute2 ];
       serviceConfig = {
         RemainAfterExit = true;
         ExecStart = pkgs.writeShellScript "tun2socks-start" ''
           set +e
-          ${sleep name}
           ip addr add ${value.address} dev ${name}
           ip link set dev ${name} up
 

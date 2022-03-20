@@ -12,10 +12,6 @@ in {
 
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
-    interface = mkOption {
-      type = types.str;
-      default = "tun0";
-    };
     address = mkOption {
       type = types.anything;
       example = ''
@@ -85,11 +81,6 @@ in {
       iptables -t nat -A PREROUTING -p tcp -d ${ip4.networkCIDR tor} -j DNAT --to-destination ${cfg.address.address}:9040
     '';
 
-    networking.interfaces.${cfg.interface} = {
-      ipv4.addresses = [ (ip4.toNetworkAddress cfg.address) ];
-      virtual = true;
-    };
-
     programs.tun2socks = {
       enable = true;
       gateways = {
@@ -156,8 +147,8 @@ in {
       }
     '';
     systemd.services.nginx = {
-      after = [ "network-addresses-${cfg.interface}.service" ];
-      bindsTo = [ "network-addresses-${cfg.interface}.service" ];
+      after = [ "tun2socks-tor-script.service" ];
+      bindsTo = [ "tun2socks-tor-script.service" ];
     };
 
     services.bind.enable = true;
