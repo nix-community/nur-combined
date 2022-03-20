@@ -23,4 +23,5 @@ rec {
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
   bitwig = ./bitwig.nix;
   hostapd = ./hostapd;
+  hardware = import ./hardware.nix [ nvidia ];
 }
