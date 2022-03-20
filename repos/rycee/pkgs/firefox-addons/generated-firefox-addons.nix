@@ -69,6 +69,20 @@
         platforms = platforms.all;
         };
       };
+    "augmented-steam" = buildFirefoxXpiAddon {
+      pname = "augmented-steam";
+      version = "2.3.1";
+      addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3890859/augmented_steam-2.3.1-fx.xpi";
+      sha256 = "0e77580d86773c9dd8b392d75df22dd414ccde500c52ccc72f697f2f706d8c46";
+      meta = with lib;
+      {
+        homepage = "https://augmentedsteam.com/";
+        description = "Augments your Steam Experience";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
       version = "0.5.0";
@@ -1146,6 +1160,20 @@
         platforms = platforms.all;
         };
       };
+    "nighttab" = buildFirefoxXpiAddon {
+      pname = "nighttab";
+      version = "7.3.0";
+      addonId = "{47bf427e-c83d-457d-9b3d-3db4118574bd}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848032/nighttab-7.3.0-fx.xpi";
+      sha256 = "ef53db7d9276a9f21533f8b21bc67114965c959802c0d2a92b8fce6cebed800d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/zombieFox/nightTab";
+        description = "A neutral new tab page accented with a chosen colour. Customise the layout, style, background and bookmarks in nightTab.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "ninja-cookie" = buildFirefoxXpiAddon {
       pname = "ninja-cookie";
       version = "0.2.7";
@@ -1456,6 +1484,20 @@
         platforms = platforms.all;
         };
       };
+    "protondb-for-steam" = buildFirefoxXpiAddon {
+      pname = "protondb-for-steam";
+      version = "1.8.1";
+      addonId = "{30280527-c46c-4e03-bb16-2e3ed94fa57c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3736312/protondb_for_steam-1.8.1-an+fx.xpi";
+      sha256 = "879a5d1a2b757d54089d07a325340656ba2968f57408fe53259dc31d72a687a9";
+      meta = with lib;
+      {
+        homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
+        description = "Shows ratings from <a href=\"https://outgoing.prod.mozaws.net/v1/f8db0358d96c1a46b9a77aa02190de811e40819051b1d42dd013c17276046ffd/http%3A//protondb.com\" rel=\"nofollow\">protondb.com</a> on Steam";
+        license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
       version = "2.1.1";
@@ -1748,6 +1790,20 @@
         platforms = platforms.all;
         };
       };
+    "steam-database" = buildFirefoxXpiAddon {
+      pname = "steam-database";
+      version = "3.1.0";
+      addonId = "firefox-extension@steamdb.info";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3887477/steamdb-3.1.0-an+fx.xpi";
+      sha256 = "82bbf254de0fe52c14018becad3a69d905829665fd41fed7b86ff62ceeca51b6";
+      meta = with lib;
+      {
+        homepage = "https://steamdb.info/";
+        description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
+        license = licenses.bsd3;
+        platforms = platforms.all;
+        };
+      };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
       version = "1.5.21";
@@ -2010,6 +2066,20 @@
         homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
         description = "Search for or filter the Tabs in TST's sidebar, and quickly find and activate them.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "ublacklist" = buildFirefoxXpiAddon {
+      pname = "ublacklist";
+      version = "7.5.2";
+      addonId = "@ublacklist";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3918227/ublacklist-7.5.2-an+fx.xpi";
+      sha256 = "bbdb61ce3a2897b7ecfc52af22d6e3f0e4b63a50a4fa353c2863ec737a4e3cf0";
+      meta = with lib;
+      {
+        homepage = "https://iorate.github.io/ublacklist/";
+        description = "Blocks sites you specify from appearing in Google search results";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };

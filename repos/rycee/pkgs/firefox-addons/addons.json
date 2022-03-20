@@ -26,6 +26,9 @@
     "slug": "anonaddy"
   },
   {
+    "slug": "augmented-steam"
+  },
+  {
     "slug": "auto-tab-discard"
   },
   {
@@ -342,6 +345,9 @@
     "slug": "news-feed-eradicator"
   },
   {
+    "slug": "nighttab"
+  },
+  {
     "slug": "ninja-cookie",
     "license": {
       "tag": "custom",
@@ -434,6 +440,9 @@
     "slug": "private-relay"
   },
   {
+    "slug": "protondb-for-steam"
+  },
+  {
     "slug": "rabattcorner"
   },
   {
@@ -507,6 +516,13 @@
   },
   {
     "slug": "startpage-private-search"
+  },
+  {
+    "slug": "steam-database",
+    "license": {
+      "tag": "predefined",
+      "shortName": "bsd3"
+    }
   },
   {
     "slug": "styl-us",
@@ -586,6 +602,9 @@
   {
     "slug": "tst-search",
     "pname": "tst-tab-search"
+  },
+  {
+    "slug": "ublacklist"
   },
   {
     "slug": "ublock-origin"
