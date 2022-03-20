@@ -6,7 +6,6 @@ let
   server = cfg.enable && cfg.server;
   client = cfg.enable && !cfg.server;
   edgevpn = pkgs.nur.repos.dukzcry.edgevpn;
-  sleep = "while [ ! -d /sys/devices/virtual/net/${cfg.interface} ]; do sleep 5; done";
   serviceOptions = {
     LockPersonality = true;
     DeviceAllow = "/dev/net/tun";
@@ -29,6 +28,11 @@ let
     SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
     DynamicUser = true;
     LoadCredential = "config.yaml:${cfg.config}";
+  };
+  envOptions = {
+    IFACE = cfg.interface;
+    EDGEVPNLOGLEVEL = cfg.logLevel;
+    ADDRESS = cfg.address;
   };
 in {
   options.networking.edgevpn = {
@@ -102,9 +106,13 @@ in {
         wantedBy = [ "multi-user.target" ];
         description = "EdgeVPN server";
         path = with pkgs; [ edgevpn ];
+        environment = {
+          API = "1";
+          APILISTEN = "${cfg.apiAddress}:${toString cfg.apiPort}";
+        } // envOptions;
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "edgevpn" ''
-            edgevpn --log-level ${cfg.logLevel} --config $CREDENTIALS_DIRECTORY/config.yaml --address ${cfg.address} --api --api-listen "${cfg.apiAddress}:${toString cfg.apiPort}"
+            edgevpn --config $CREDENTIALS_DIRECTORY/config.yaml
           '';
         } // serviceOptions;
       };
@@ -116,23 +124,29 @@ in {
         after = [ "network.target" "network-online.target" ];
         description = "EdgeVPN client";
         path = with pkgs; [ edgevpn ];
+        environment = {
+          DHCPLEASEDIR = "/var/lib/edgevpn";
+        } // optionalAttrs cfg.dhcp {
+          DHCP = "1";
+        } // optionalAttrs (cfg.router != null) {
+          ROUTER = cfg.router;
+        } // envOptions;
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "edgevpn" ''
-            edgevpn --log-level ${cfg.logLevel} --config $CREDENTIALS_DIRECTORY/config.yaml --address ${cfg.address} ${optionalString cfg.dhcp "--dhcp"} ${optionalString (cfg.router != null) "--router ${cfg.router}"} --lease-dir /var/lib/edgevpn
+            edgevpn --config $CREDENTIALS_DIRECTORY/config.yaml
           '';
           StateDirectory = "edgevpn";
         } // serviceOptions;
       };
       systemd.services.edgevpn-script = {
-        after = [ "edgevpn.service" ];
-        bindsTo = [ "edgevpn.service" ];
-        wantedBy = [ "edgevpn.service" ];
+        after = [ "sys-devices-virtual-net-${cfg.interface}.device" ];
+        bindsTo = [ "sys-devices-virtual-net-${cfg.interface}.device" ];
+        wantedBy = [ "sys-devices-virtual-net-${cfg.interface}.device" ];
         description = "EdgeVPN script";
         path = with pkgs; [ iproute2 openresolv ];
         serviceConfig = {
           RemainAfterExit = true;
           ExecStart = pkgs.writeShellScript "edgevpn-start" ''
-            ${optionalString (cfg.postStart != "") sleep}
             ${cfg.postStart}
           '';
           ExecStop = pkgs.writeShellScript "edgevpn-stop" ''

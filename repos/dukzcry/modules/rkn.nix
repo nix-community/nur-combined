@@ -147,8 +147,8 @@ in {
       }
     '';
     systemd.services.nginx = {
-      after = [ "tun2socks-tor-script.service" ];
-      bindsTo = [ "tun2socks-tor-script.service" ];
+      after = [ "sys-devices-virtual-net-tor.device" ];
+      bindsTo = [ "sys-devices-virtual-net-tor.device" ];
     };
 
     services.bind.enable = true;
