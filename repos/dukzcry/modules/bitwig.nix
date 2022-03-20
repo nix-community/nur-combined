@@ -7,7 +7,7 @@ let
     postFixup = ''
       ${oldAttrs.postFixup}
       wrapProgram $out/bin/bitwig-studio \
-        --run "${pkgs.alsaUtils}/bin/aconnect 'microKEY2-25 Air' 'Virtual Raw MIDI 1-0'"
+        --run "${pkgs.alsaUtils}/bin/aconnect 'microKEY2-25 Air' 'Virtual Raw MIDI 0-0'"
     '';
   });
 in {
