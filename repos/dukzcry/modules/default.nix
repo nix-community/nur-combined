@@ -24,4 +24,5 @@ rec {
   bitwig = ./bitwig.nix;
   hostapd = ./hostapd;
   hardware = import ./hardware.nix [ nvidia ];
+  tun2socks = ./tun2socks.nix;
 }

@@ -35,7 +35,7 @@ in {
             cat /etc/openconnect.conf | \
             openconnect \
               --script "vpn-slice --prevent-idle-timeout msk-vdi-t005.mos.renins.com" \
-              --interface job0 \
+              --interface job \
               --user "ALukyanov" \
               --passwd-on-stdin \
               --authgroup "2_FULL_ACCESS" \
@@ -49,7 +49,7 @@ in {
       };
       environment.etc.hosts.mode = "0644";
       networking.firewall.extraCommands = ''
-        iptables -t nat -A POSTROUTING -o job0 -j MASQUERADE
+        iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';
 
       services.davmail.enable = true;
