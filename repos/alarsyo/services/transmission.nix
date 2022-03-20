@@ -49,12 +49,13 @@ in
 
         rpc-enabled = true;
         rpc-port = transmissionRpcPort;
-        rpc-authentication-required = true;
-
-        rpc-username = cfg.username;
+        rpc-authentication-required = false;
 
         rpc-whitelist-enabled = true;
         rpc-whitelist = "127.0.0.1";
+
+        rpc-host-whitelist-enabled = true;
+        rpc-host-whitelist = webuiDomain;
       };
 
       # automatically allow transmission.settings.peer-port
@@ -68,6 +69,20 @@ in
       useACMEHost = domain;
 
       locations."/".proxyPass = "http://127.0.0.1:${toString transmissionRpcPort}";
+
+      listen = [
+        # FIXME: hardcoded tailscale IP
+        {
+          addr = "100.80.61.67";
+          port = 443;
+          ssl = true;
+        }
+        {
+          addr = "100.80.61.67";
+          port = 80;
+          ssl = false;
+        }
+      ];
     };
   };
 }

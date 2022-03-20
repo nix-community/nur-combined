@@ -29,10 +29,6 @@
           "restic-backup/poseidon-credentials" = {};
           "restic-backup/poseidon-password" = {};
 
-          "transmission/secret" = {
-            owner = "transmission";
-          };
-
           "users/alarsyo-hashed-password" = {};
           "users/root-hashed-password" = {};
         };
