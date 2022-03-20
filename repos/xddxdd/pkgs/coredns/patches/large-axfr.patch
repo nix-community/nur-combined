@@ -1,5 +1,5 @@
 diff --git a/plugin/forward/connect.go b/plugin/forward/connect.go
-index 63a0bfe5..83bd15e5 100644
+index 3d53044e..82cee279 100644
 --- a/plugin/forward/connect.go
 +++ b/plugin/forward/connect.go
 @@ -72,7 +72,7 @@ func (t *Transport) Dial(proto string) (*persistConn, bool, error) {
@@ -20,7 +20,7 @@ index 63a0bfe5..83bd15e5 100644
  	}
  
  	// Set buffer size correctly for this client.
-@@ -96,25 +96,73 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
+@@ -96,6 +96,55 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
  		pc.c.UDPSize = 512
  	}
  
@@ -74,6 +74,9 @@ index 63a0bfe5..83bd15e5 100644
 +	}
 +
  	pc.c.SetWriteDeadline(time.Now().Add(maxTimeout))
+ 	// records the origin Id before upstream.
+ 	originId := state.Req.Id
+@@ -107,25 +156,24 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
  	if err := pc.c.WriteMsg(state.Req); err != nil {
  		pc.c.Close() // not giving it back
  		if err == io.EOF && cached {
@@ -94,12 +97,16 @@ index 63a0bfe5..83bd15e5 100644
 -				return nil, ErrCachedClosed
 +				return nil, nil, ErrCachedClosed
  			}
+ 			// recovery the origin Id after upstream.
+ 			if ret != nil {
+ 				ret.Id = originId
+ 			}
 -			return ret, err
 +			return ret, nil, err
  		}
  		// drop out-of-order responses
  		if state.Req.Id == ret.Id {
-@@ -133,7 +181,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
+@@ -146,7 +194,7 @@ func (p *Proxy) Connect(ctx context.Context, state request.Request, opts options
  	RcodeCount.WithLabelValues(rc, p.addr).Add(1)
  	RequestDuration.WithLabelValues(p.addr, rc).Observe(time.Since(start).Seconds())
  
@@ -109,10 +116,10 @@ index 63a0bfe5..83bd15e5 100644
  
  const cumulativeAvgWeight = 4
 diff --git a/plugin/forward/forward.go b/plugin/forward/forward.go
-index 624d0896..2211b973 100644
+index 19a469c7..505322cb 100644
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
-@@ -128,12 +128,13 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+@@ -130,12 +130,13 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
  		})
  
  		var (
@@ -129,7 +136,7 @@ index 624d0896..2211b973 100644
  			if err == ErrCachedClosed { // Remote side closed conn, can only happen with TCP.
  				continue
  			}
-@@ -167,6 +168,25 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
+@@ -169,6 +170,25 @@ func (f *Forward) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg
  			break
  		}
  

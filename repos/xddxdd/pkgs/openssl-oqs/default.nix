@@ -3,6 +3,7 @@
 , sources
 , buildPackages
 , perl
+, python3
 , coreutils
 , liboqs
 , withCryptodev ? false
@@ -47,7 +48,10 @@ stdenv.mkDerivation rec {
     !(stdenv.hostPlatform.useLLVM or false) &&
     stdenv.cc.isGNU;
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [
+    perl
+    (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
+  ];
   buildInputs = lib.optional withCryptodev cryptodev
     # perl is included to allow the interpreter path fixup hook to set the
     # correct interpreter in c_rehash.
@@ -55,6 +59,9 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     ln -s ${liboqs} oqs
+    sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml
+    LIBOQS_DOCS_DIR=${sources.liboqs.src}/docs python oqs-template/generate.py
+    make generate_crypto_objects
   '';
 
   # TODO(@Ericson2314): Improve with mass rebuild

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=Chat;
+Comment=
+Exec=dingtalk %u
+GenericName=dingtalk
+Icon=dingtalk
+Keywords=dingtalk;
+MimeType=x-scheme-handler/dingtalk;
+Name=钉钉
+Type=Application
+X-Deepin-Vendor=user-custom

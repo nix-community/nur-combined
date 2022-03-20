@@ -18,9 +18,37 @@ fetch.github = "xddxdd/libltnginx"
 src.github = "open-quantum-safe/liboqs"
 fetch.github = "open-quantum-safe/liboqs"
 
+[netboot-xyz-efi]
+src.github = "netbootxyz/netboot.xyz"
+fetch.url = "https://github.com/netbootxyz/netboot.xyz/releases/download/$ver/netboot.xyz.efi"
+
+[netboot-xyz-lkrn]
+src.github = "netbootxyz/netboot.xyz"
+fetch.url = "https://github.com/netbootxyz/netboot.xyz/releases/download/$ver/netboot.xyz.lkrn"
+
+[netns-exec]
+src.git = "https://github.com/pekman/netns-exec.git"
+fetch.github = "pekman/netns-exec"
+git.fetchSubmodules = true
+
+[noise-suppression-for-voice]
+src.github = "werman/noise-suppression-for-voice"
+fetch.github = "werman/noise-suppression-for-voice"
+
 [openssl-oqs]
 src.github = "open-quantum-safe/openssl"
 fetch.github = "open-quantum-safe/openssl"
+
+[phpmyadmin]
+src.github_tag = "phpmyadmin/phpmyadmin"
+src.include_regex = "RELEASE_([0-9_]*)"
+src.from_pattern = "RELEASE_([0-9])_([0-9])_([0-9])"
+src.to_pattern = "\\1.\\2.\\3"
+fetch.url = "https://files.phpmyadmin.net/phpMyAdmin/$ver/phpMyAdmin-$ver-all-languages.tar.xz"
+
+[phppgadmin]
+src.github = "phppgadmin/phppgadmin"
+fetch.github = "phppgadmin/phppgadmin"
 
 [qemu-user-static-amd64]
 src.webpage = "https://packages.debian.org/sid/qemu-user-static"
@@ -60,3 +88,7 @@ fetch.url = "https://github.com/v2fly/geoip/releases/download/$ver/private.dat"
 [v2fly-geosite]
 src.github = "v2fly/domain-list-community"
 fetch.url = "https://github.com/v2fly/domain-list-community/releases/download/$ver/dlc.dat"
+
+[xray]
+src.github = "XTLS/Xray-core"
+fetch.github = "XTLS/Xray-core"

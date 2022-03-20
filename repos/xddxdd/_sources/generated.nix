@@ -3,13 +3,13 @@
 {
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "950c018b187aa13edbea4d8acbb2022fd2f13319";
+    version = "348295b9aa954a92df2cf6b1179846a9486dafc0";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "950c018b187aa13edbea4d8acbb2022fd2f13319";
+      rev = "348295b9aa954a92df2cf6b1179846a9486dafc0";
       fetchSubmodules = false;
-      sha256 = "sha256-bTGFocQel+Tz9RuPN1mebkz12P+M1C4h4bzTD8woHas=";
+      sha256 = "sha256-2t8ZP9Uc0sJlqWiJMq3MVoARfMKsuTXJkuOid0oWgyY=";
     });
   };
   boringssl-oqs = {
@@ -56,6 +56,44 @@
       sha256 = "sha256-m20M4+3zsH40hTpMJG9cyIjXp0xcCUBS+cCiRVLXFqM=";
     });
   };
+  netboot-xyz-efi = {
+    pname = "netboot-xyz-efi";
+    version = "2.0.56";
+    src = fetchurl {
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.56/netboot.xyz.efi";
+      sha256 = "sha256-hzW1iqVYqfMZ3DFKHfu8zX91fiU4468SgoB4v1zR3dw=";
+    };
+  };
+  netboot-xyz-lkrn = {
+    pname = "netboot-xyz-lkrn";
+    version = "2.0.56";
+    src = fetchurl {
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.56/netboot.xyz.lkrn";
+      sha256 = "sha256-/zKvg502NUunq6BHKQxKcl+Af9MZv//o/EkaAYzIj/E=";
+    };
+  };
+  netns-exec = {
+    pname = "netns-exec";
+    version = "aa346fd058d47b238ae1b86250f414bcab2e7927";
+    src = fetchFromGitHub ({
+      owner = "pekman";
+      repo = "netns-exec";
+      rev = "aa346fd058d47b238ae1b86250f414bcab2e7927";
+      fetchSubmodules = true;
+      sha256 = "sha256-CnIgzRb58KIvdx7T9LpervSB2Ol6JMxmSM/Ti3K1+Dg=";
+    });
+  };
+  noise-suppression-for-voice = {
+    pname = "noise-suppression-for-voice";
+    version = "v0.91";
+    src = fetchFromGitHub ({
+      owner = "werman";
+      repo = "noise-suppression-for-voice";
+      rev = "v0.91";
+      fetchSubmodules = false;
+      sha256 = "sha256-jLcSFQz5kt+PcWetZUQ1NEQ2diI7Z/ZaBe/oyZaO/IY=";
+    });
+  };
   openssl-oqs = {
     pname = "openssl-oqs";
     version = "OQS-OpenSSL-1_1_1-stable-snapshot-2022-01";
@@ -67,20 +105,39 @@
       sha256 = "sha256-aCvZwFzL3uf2XrawsavL/LVMouXEdzimiPL7EeFsFbM=";
     });
   };
+  phpmyadmin = {
+    pname = "phpmyadmin";
+    version = "5.1.3";
+    src = fetchurl {
+      url = "https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.tar.xz";
+      sha256 = "sha256-xWL+3cD4/15pYpET8nOg0CSmX7koxI6JzmFHRNR4KW8=";
+    };
+  };
+  phppgadmin = {
+    pname = "phppgadmin";
+    version = "REL_7-13-0";
+    src = fetchFromGitHub ({
+      owner = "phppgadmin";
+      repo = "phppgadmin";
+      rev = "REL_7-13-0";
+      fetchSubmodules = false;
+      sha256 = "sha256-GzAGnr2OMrGEG31YUgxGkCAUXVWO7fOlYQeD+1u0do0=";
+    });
+  };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "6.2+dfsg-2";
+    version = "6.2+dfsg-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-2_amd64.deb";
-      sha256 = "sha256-DT50klT9IYutOHVS+3S7EXhv4ogFhHIWOqQYub+uCNk=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-3_amd64.deb";
+      sha256 = "sha256-6OaNuLr703gw2L9gLrULsuWWJ2uDWsyb4QXZmeOKAeU=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "6.2+dfsg-2";
+    version = "6.2+dfsg-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-2_arm64.deb";
-      sha256 = "sha256-V4ZmJRlhbVuqTgcnxJhLyD4AFKL9M9Fy4hlYwhj8jxM=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-3_arm64.deb";
+      sha256 = "sha256-BbEMaBQGfaToODtp0grN7V9JAx6DU0eXDz6TJ/RPlpw=";
     };
   };
   rime-dict = {
@@ -96,18 +153,18 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20220114";
+    version = "20220218";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20220114/moegirl.dict.yaml";
-      sha256 = "sha256-JAesSFWqHG+HQRofawDkCx+Ko4h0iqiyAPXR+fciDFk=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20220218/moegirl.dict.yaml";
+      sha256 = "sha256-ut1oWd88hCq4eJ0rI0a4YuVEmo6/nwG80tC/i/oxJLA=";
     };
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20220127";
+    version = "20220312";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220127.dict.yaml";
-      sha256 = "sha256-cwiwvxo0EuxJVu8nHg00PHMX6tQnrQhhKpM6YE5F+8A=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220312.dict.yaml";
+      sha256 = "sha256-ljV+v7r3tWdFhBN3ozq/fAxbMrTBRJgTZuJwdv52MCE=";
     };
   };
   route-chain = {
@@ -123,26 +180,37 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202201270031";
+    version = "202203170039";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202201270031/geoip.dat";
-      sha256 = "sha256-kFHpOh1nyrrcEkaQtWg0K8uOV5D4V+CfrvV31mNR3Mw=";
+      url = "https://github.com/v2fly/geoip/releases/download/202203170039/geoip.dat";
+      sha256 = "sha256-EsGD3vvAUua9lusIin+VX506YtZiAJ1ftj2gQOlU5sg=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220124140856";
+    version = "20220313173740";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220124140856/dlc.dat";
-      sha256 = "sha256-UJRNu+XxG4qdKCCj+dFqgUcouJ34YNQonjUKuqdl2gs=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220313173740/dlc.dat";
+      sha256 = "sha256-ha5EQ6QZLA/0x1noqVnawC+sNii+YlMZOcyQWcMoWtA=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202201270031";
+    version = "202203170039";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202201270031/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202203170039/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
+  };
+  xray = {
+    pname = "xray";
+    version = "v1.5.4";
+    src = fetchFromGitHub ({
+      owner = "XTLS";
+      repo = "Xray-core";
+      rev = "v1.5.4";
+      fetchSubmodules = false;
+      sha256 = "sha256-hhfR38TqQPSQBWkP/1Cztc6/I0Ct4K3t7yfX6ZsWERk=";
+    });
   };
 }

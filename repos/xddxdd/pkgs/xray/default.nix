@@ -8,16 +8,8 @@
 }:
 
 let
-  version = "1.5.2";
-
-  src = fetchFromGitHub {
-    owner = "XTLS";
-    repo = "Xray-core";
-    rev = "v${version}";
-    sha256 = "sha256-ZZiZ3sX5R+E4v4WUBQM1b0Zc1dudppmzzsci4TLFbCc=";
-  };
-
-  vendorSha256 = "sha256-urpt9JCO7kT3iwyYGt4FOilkS2TFefTqoPZ9ksc8S70=";
+  inherit (sources.xray) version src;
+  vendorSha256 = "sha256-ZFbYUybbKKqmFz7mi7QpgaRj0i7is4iM/aBbPAqCuSM=";
 
   assetsDrv = linkFarm "xray-assets" (lib.mapAttrsToList
     (name: path: {

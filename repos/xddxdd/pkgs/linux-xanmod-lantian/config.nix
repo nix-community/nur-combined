@@ -90,10 +90,6 @@ with lib.kernel;
   UKSM = yes;
   KSM_LEGACY = no;
 
-  # Use ZSTD wherever possible
-  MODULE_COMPRESS_XZ = lib.mkForce no;
-  MODULE_COMPRESS_ZSTD = yes;
-
   # Various tunings
   ACPI_APEI = yes;
   ACPI_APEI_GHES = yes;
@@ -116,7 +112,6 @@ with lib.kernel;
   SLAB_FREELIST_HARDENED = yes;
   SLAB_FREELIST_RANDOM = yes;
   WQ_POWER_EFFICIENT_DEFAULT = yes;
-  X86_X32 = yes;
 
   # ZRAM & Zswap
   ZRAM = module;
@@ -133,7 +128,8 @@ with lib.kernel;
   ################################################################
 
   # AMD P-state driver
-  X86_AMD_PSTATE = yes;
+  # Seems causing issues on an AMD VM?
+  X86_AMD_PSTATE = lib.mkForce no;
 
   # Paragon's NTFS3 driver
   NTFS3_FS = module;

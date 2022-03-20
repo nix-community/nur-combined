@@ -9,8 +9,6 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { } }:
-
 with builtins;
 let
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
@@ -18,9 +16,9 @@ let
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
-  nameValuePair = n: v: { name = n; value = v; };
-
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
+  flake = getFlake (toString ./.);
+  inherit (flake) forAllSystems;
+  inherit (flake.lib) concatMap nameValuePair;
 
   flattenPkgs = s:
     let
@@ -33,17 +31,6 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  systems = [
-    "x86_64-linux"
-    "i686-linux"
-    "x86_64-darwin"
-    "aarch64-linux"
-    "armv6l-linux"
-    "armv7l-linux"
-  ];
-  forAllSystems = f: pkgs.lib.genAttrs systems (system: f system);
-
-  flake = builtins.getFlake (builtins.toString ./.);
 in
 forAllSystems
   (system:
