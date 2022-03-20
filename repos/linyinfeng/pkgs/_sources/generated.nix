@@ -103,14 +103,14 @@
   };
   icalingua-plus-plus-aur = {
     pname = "icalingua-plus-plus-aur";
-    version = "204c3e7b9ab8077c6643ea0657fb4bbce4e2a4f7";
+    version = "b7b239b8aaa0a2bf72265e93886d7019abd323c7";
     src = fetchgit {
       url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "204c3e7b9ab8077c6643ea0657fb4bbce4e2a4f7";
+      rev = "b7b239b8aaa0a2bf72265e93886d7019abd323c7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0pz10any5f5z6sqss9skxvihdm9fcxisf8wg0j1jq9va9bdkhwq3";
+      sha256 = "1sqiys5l21i3dmyzf3h59ximx2abvgc5498kdsl28k7a9m1xvk67";
     };
   };
   pisces = {
