@@ -41,10 +41,6 @@ in {
               type = types.str;
               example = "10.0.1.1/24";
             };
-            routedAddress = mkOption {
-              type = types.str;
-              example = "10.0.0.1/24";
-            };
             proxy = mkOption {
               type = types.str;
               example = "socks5://127.0.0.1:9050";

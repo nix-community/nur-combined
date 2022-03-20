@@ -1,10 +1,10 @@
-edgevpn: { config, lib, pkgs, ... }:
+imports: { config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.server;
 in {
-  imports = [ edgevpn ];
+  inherit imports;
 
   options.services.server = {
     enable = mkEnableOption ''

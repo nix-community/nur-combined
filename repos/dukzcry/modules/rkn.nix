@@ -1,14 +1,15 @@
-libidn: { config, lib, pkgs, ... }:
+libidn: imports: { config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.rkn;
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
-  router = ip4.next cfg.address;
   # damn flibusta
   tor = ip4.fromString "10.123.0.1/16";
 in {
+  inherit imports;
+
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
     interface = mkOption {
@@ -89,37 +90,14 @@ in {
       virtual = true;
     };
 
-    systemd.services.rkn-server = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-addresses-${cfg.interface}.service" ];
-      bindsTo = [ "network-addresses-${cfg.interface}.service" ];
-      description = "Шлюз для обхода блокировок роскомпозора";
-      path = with pkgs; [ iproute2 ];
-      serviceConfig = {
-        ExecStart = ''
-          ${pkgs.badvpn}/bin/badvpn-tun2socks \
-            --tundev ${cfg.interface} \
-            --netif-ipaddr ${router.address} \
-            --netif-netmask ${ip4.netmask' cfg.address} \
-            --socks-server-addr ${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port}
-        '';
+    programs.tun2socks = {
+      enable = true;
+      gateways = {
+        tor = {
+          address = cfg.address.address;
+          proxy = "socks5://${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port}";
+        };
       };
-      postStart = ''
-        set +e
-        ip rule add from ${cfg.address.address} table ${toString cfg.table}
-        ip route add default dev ${cfg.interface} table ${toString cfg.table}
-        ip rule add from ${cfg.address.address} table main suppress_prefixlength 0
-        ${cfg.postStart}
-        true
-      '';
-      preStop = ''
-        set +e
-        ip rule del from ${cfg.address.address} table ${toString cfg.table}
-        ip route del default dev ${cfg.interface} table ${toString cfg.table}
-        ip rule del from ${cfg.address.address} table main suppress_prefixlength 0
-        ${cfg.preStop}
-        true
-      '';
     };
 
     systemd.timers.rkn-script = {
