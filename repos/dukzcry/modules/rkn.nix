@@ -18,18 +18,6 @@ in {
         ip4.fromString "10.0.0.1/24"
       '';
     };
-    table = mkOption {
-      type = types.ints.positive;
-      default = 1;
-    };
-    postStart = mkOption {
-      type = types.str;
-      default = "";
-    };
-    preStop = mkOption {
-      type = types.str;
-      default = "";
-    };
     OnCalendar = mkOption {
       type = types.str;
       default = "weekly";
