@@ -58,6 +58,7 @@ rec {
   phpmyadmin = pkg ./phpmyadmin { };
   phppgadmin = pkg ./phppgadmin { };
   qemu-user-static = pkg ./qemu-user-static { };
+  qqmusic = pkg ./qqmusic { };
   rime-dict = pkg ./rime-dict { };
   rime-moegirl = pkg ./rime-moegirl { };
   rime-zhwiki = pkg ./rime-zhwiki { };
