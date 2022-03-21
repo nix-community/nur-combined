@@ -19,34 +19,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2022.03.19";
+    version = "2022.03.21";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.03.19.gz";
-      sha256 = "1vvc3iw0i0g20sal83k3fv0pl64jfkkh5y527mr1wxjm5ihngykf";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.03.21.gz";
+      sha256 = "1dq0vidxsxh7xm24cw51m0xg4hp3ap7g910x2r7agkxwsnanlx6j";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2022.03.19";
+    version = "2022.03.21";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.03.19.gz";
-      sha256 = "1psdsv9hrk6b4nh224aav7qjqnjwgzkljfmmndk3km3jfhc7ls0m";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.03.21.gz";
+      sha256 = "1k112f3a7x878gpdp1jc33n5965wzfhj598d3pjhd12m5r6h61py";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2022.03.19";
+    version = "2022.03.21";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.03.19.gz";
-      sha256 = "0lcngx3jy94fs52c154yiy6dwc6frlrgq777321km0z6x1232g8d";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.03.21.gz";
+      sha256 = "17l3jgrjjav31jziyn7mwmn68flca7ccz9z2zdc8cwsxjkcnxn9x";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2022.03.19";
+    version = "2022.03.21";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.03.19.gz";
-      sha256 = "055q55pylclhdkm8849wkb843x280b9vlv3grcrrn32zj1flabir";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.03.21.gz";
+      sha256 = "0dnjig0rsxgpciz5bmw2v0akkx2fzmiv6gcf4j2pln8nkbaxqnjx";
     };
   };
   commit-notifier = {
