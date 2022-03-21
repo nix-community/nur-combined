@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.6.0.0";
+      version = "2.6.1.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3921676/bypass_paywalls_clean-2.6.0.0-an+fx.xpi";
-      sha256 = "4ee9b5455633eb52878cbb3fddc183f0eb4039ab28f82dce470390463bfdbf7a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924838/bypass_paywalls_clean-2.6.1.0-an+fx.xpi";
+      sha256 = "6c3c3d2ce0be155161806166c8f70b7cbe591a977078d5f9536aa4b1216dcf24";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -646,10 +646,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220317.190002";
+      version = "99.0buildid20220320.185956";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923729/francais_language_pack-99.0buildid20220317.190002-fx.xpi";
-      sha256 = "66582c4d6789294d5a16de77b82ab0d78362a0002ebff0545e8c1df3e04ab8b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924878/francais_language_pack-99.0buildid20220320.185956-fx.xpi";
+      sha256 = "9401bd14c282d4be41c45d9905112922bed7c21cb075168c142390bc791ba86d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1237,10 +1237,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.4.2";
+      version = "7.4.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923381/octotree_github_code_tree-7.4.2-fx.xpi";
-      sha256 = "7c1df492d970cdab9be78324bc72f92918d0cb74fdd5b290ea542d0cdde478de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924814/octotree_github_code_tree-7.4.3-fx.xpi";
+      sha256 = "815c55cd696b49456d4afa37ba6fc2d5beeda3e7dcc328b3441ab63b60c5a66f";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -2225,10 +2225,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.15";
+      version = "6.10.19";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3914230/wappalyzer-6.10.15-fx.xpi";
-      sha256 = "7c7fee6565dea5b9661a733274ca5f297635fd075977772bffce05b755a3fb1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924857/wappalyzer-6.10.19-fx.xpi";
+      sha256 = "b6fd445786811ebe13346466ed1b095ef0594a884af74d941d0a3016c6452a5c";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
