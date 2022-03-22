@@ -40,7 +40,7 @@ rec {
 
   batsim-310 = pkgs.callPackage ./pkgs/batsim/batsim310.nix { inherit redox debug; simgrid = simgrid-324; intervalset = intervalsetlight; };
   batsim-400 = pkgs.callPackage ./pkgs/batsim/batsim400.nix { inherit redox debug; simgrid = simgrid-325light; intervalset = intervalsetlight; };
-  batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-330light; intervalset = intervalsetlight; };
+  batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-331light; intervalset = intervalsetlight; };
   batsim = batsim-410;
   batsim-docker = pkgs.callPackage ./pkgs/batsim/batsim-docker.nix { inherit batsim; };
 
@@ -115,14 +115,16 @@ rec {
   simgrid-328 = pkgs.callPackage ./pkgs/simgrid/simgrid328.nix { inherit debug; };
   simgrid-329 = pkgs.callPackage ./pkgs/simgrid/simgrid329.nix { inherit debug; };
   simgrid-330 = pkgs.callPackage ./pkgs/simgrid/simgrid330.nix { inherit debug; };
+  simgrid-331 = pkgs.callPackage ./pkgs/simgrid/simgrid331.nix { inherit debug; };
   simgrid-325light = simgrid-325.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid-326light = simgrid-326.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid-327light = simgrid-327.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid-328light = simgrid-328.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid-329light = simgrid-329.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
-  simgrid-330light = simgrid-330.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
-  simgrid = simgrid-330;
-  simgrid-light = simgrid-330light;
+  simgrid-330light = simgrid-330.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; buildPythonBindings = false; };
+  simgrid-331light = simgrid-331.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; buildPythonBindings = false; };
+  simgrid = simgrid-331;
+  simgrid-light = simgrid-331light;
 
   # Setting needed for nixos-19.03 and nixos-19.09
   slurm-bsc-simulator =
