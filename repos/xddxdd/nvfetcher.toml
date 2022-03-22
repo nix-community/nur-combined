@@ -39,6 +39,10 @@ fetch.github = "werman/noise-suppression-for-voice"
 src.github = "open-quantum-safe/openssl"
 fetch.github = "open-quantum-safe/openssl"
 
+[osdlyrics]
+src.github = "osdlyrics/osdlyrics"
+fetch.github = "osdlyrics/osdlyrics"
+
 [phpmyadmin]
 src.github_tag = "phpmyadmin/phpmyadmin"
 src.include_regex = "RELEASE_([0-9_]*)"

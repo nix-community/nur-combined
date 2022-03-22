@@ -55,6 +55,7 @@ rec {
   openssl-oqs = pkg ./openssl-oqs {
     inherit liboqs;
   };
+  osdlyrics = pkg ./osdlyrics { };
   phpmyadmin = pkg ./phpmyadmin { };
   phppgadmin = pkg ./phppgadmin { };
   qemu-user-static = pkg ./qemu-user-static { };

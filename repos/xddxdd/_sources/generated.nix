@@ -58,18 +58,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.56";
+    version = "2.0.57";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.56/netboot.xyz.efi";
-      sha256 = "sha256-hzW1iqVYqfMZ3DFKHfu8zX91fiU4468SgoB4v1zR3dw=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.57/netboot.xyz.efi";
+      sha256 = "sha256-kE7SFCLMWglxMK0s0F0oB6ONDd01jmaC70wCJdKAx+Q=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.56";
+    version = "2.0.57";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.56/netboot.xyz.lkrn";
-      sha256 = "sha256-/zKvg502NUunq6BHKQxKcl+Af9MZv//o/EkaAYzIj/E=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.57/netboot.xyz.lkrn";
+      sha256 = "sha256-ClvSrm3SoXTr5QmTQDyyCNn1UVVaMPq9QXrZdl8UJ6E=";
     };
   };
   netns-exec = {
@@ -103,6 +103,17 @@
       rev = "OQS-OpenSSL-1_1_1-stable-snapshot-2022-01";
       fetchSubmodules = false;
       sha256 = "sha256-aCvZwFzL3uf2XrawsavL/LVMouXEdzimiPL7EeFsFbM=";
+    });
+  };
+  osdlyrics = {
+    pname = "osdlyrics";
+    version = "0.5.10";
+    src = fetchFromGitHub ({
+      owner = "osdlyrics";
+      repo = "osdlyrics";
+      rev = "0.5.10";
+      fetchSubmodules = false;
+      sha256 = "sha256-x9gIT1JkfPIc4RmmQJLv9rOG2WqAftoTK5uiRlS65zU=";
     });
   };
   phpmyadmin = {
@@ -188,10 +199,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220313173740";
+    version = "20220322062456";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220313173740/dlc.dat";
-      sha256 = "sha256-ha5EQ6QZLA/0x1noqVnawC+sNii+YlMZOcyQWcMoWtA=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220322062456/dlc.dat";
+      sha256 = "sha256-KB38Dd+AP9J+D1v+0OycPA8/VX7XBK7akV3TolT5jhA=";
     };
   };
   v2fly-private = {

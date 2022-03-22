@@ -64,12 +64,12 @@
         "cargoLock": null,
         "name": "netboot-xyz-lkrn",
         "src": {
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.56/netboot.xyz.lkrn",
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.57/netboot.xyz.lkrn",
             "name": null,
             "type": "url",
-            "sha256": "sha256-/zKvg502NUunq6BHKQxKcl+Af9MZv//o/EkaAYzIj/E="
+            "sha256": "sha256-ClvSrm3SoXTr5QmTQDyyCNn1UVVaMPq9QXrZdl8UJ6E="
         },
-        "version": "2.0.56",
+        "version": "2.0.57",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -79,12 +79,12 @@
         "cargoLock": null,
         "name": "v2fly-geosite",
         "src": {
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220313173740/dlc.dat",
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220322062456/dlc.dat",
             "name": null,
             "type": "url",
-            "sha256": "sha256-ha5EQ6QZLA/0x1noqVnawC+sNii+YlMZOcyQWcMoWtA="
+            "sha256": "sha256-KB38Dd+AP9J+D1v+0OycPA8/VX7XBK7akV3TolT5jhA="
         },
-        "version": "20220313173740",
+        "version": "20220322062456",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -254,12 +254,12 @@
         "cargoLock": null,
         "name": "netboot-xyz-efi",
         "src": {
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.56/netboot.xyz.efi",
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.57/netboot.xyz.efi",
             "name": null,
             "type": "url",
-            "sha256": "sha256-hzW1iqVYqfMZ3DFKHfu8zX91fiU4468SgoB4v1zR3dw="
+            "sha256": "sha256-kE7SFCLMWglxMK0s0F0oB6ONDd01jmaC70wCJdKAx+Q="
         },
-        "version": "2.0.56",
+        "version": "2.0.57",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -365,6 +365,26 @@
             "sha256": "sha256-EsGD3vvAUua9lusIin+VX506YtZiAJ1ftj2gQOlU5sg="
         },
         "version": "202203170039",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
+    "osdlyrics": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "osdlyrics",
+        "src": {
+            "deepClone": false,
+            "owner": "osdlyrics",
+            "name": null,
+            "repo": "osdlyrics",
+            "type": "github",
+            "sha256": "sha256-x9gIT1JkfPIc4RmmQJLv9rOG2WqAftoTK5uiRlS65zU=",
+            "rev": "0.5.10",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "0.5.10",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
