@@ -6,6 +6,7 @@ R.override {
     BoardGames
     shiny
     # plumber # rLibSodium is borked run
+    tidyverse
     rmarkdown
   ];
 }
