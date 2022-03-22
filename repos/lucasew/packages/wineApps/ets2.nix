@@ -14,6 +14,6 @@ pkgs.makeDesktopItem {
   name = "ets2";
   desktopName = "Euro Truck Simulator 2";
   type = "Application";
-  exec = "${bin}/bin/ets2 $*";
+  exec = "${bin}/bin/ets2";
   icon = "${logo}";
 }

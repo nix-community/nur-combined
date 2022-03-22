@@ -5,6 +5,11 @@ let
   inherit (global) environmentShell;
 in
 {
+  imports = [
+    "${inputs.nixgram}/hmModule.nix"
+    "${inputs.redial_proxy}/hmModule.nix"
+    "${inputs.borderless-browser}/home-manager.nix"
+  ];
   home.packages = with pkgs; [
     youtube-dl # video downloader
     file # what file is it?
@@ -13,6 +18,7 @@ in
     fzf # file finder and terminal based dmenu
     ffmpeg # video converter
     send2kindle
+    home-manager
   ];
 
   home.stateVersion = mkDefault "20.03";

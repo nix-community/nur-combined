@@ -9,16 +9,9 @@ let
 in {
   imports = [
     ../base/default.nix
-    "${inputs.nixgram}/hmModule.nix"
-    "${inputs.redial_proxy}/hmModule.nix"
-    "${inputs.borderless-browser}/home-manager.nix"
     ./modules/dlna.nix
     ./modules/firefox/home.nix
-    ./modules/dunst.nix
-    ./modules/i3.nix
     ./modules/espanso.nix
-    ./modules/polybar.nix
-    ./modules/tmux
   ]
   ;
 
@@ -195,10 +188,8 @@ in {
       enable = true;
       indicator = true;
     };
-    polybar.enable = true;
   };
 
-  xsession.windowManager.i3.enable = true;
   # Dconf
   dconf.settings = {
     "org/gnome/desktop/background" = {

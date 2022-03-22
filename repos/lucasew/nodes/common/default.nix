@@ -23,12 +23,42 @@
       rlwrap
       wget
       curl
+      unrar
     ];
   };
   services = {
     irqbalance.enable = true;
   };
   cachix.enable = true;
+  environment.etc."tmuxconfig".text = ''
+    bind r source-file /etc/tmuxconfig; display-message "Configurações recarregadas!"
+
+    # splitando e criando janelas no mesmo pwd de quem criou
+    bind '"' split-window -c '#{pane_current_path}'
+    bind % split-window -h -c '#{pane_current_path}'
+    bind c new-window -c '#{pane_current_path}'
+
+    set -g status-right-length 60
+    set -g status-right "⏰ %x %k:%M 👤 #(whoami)@#(hostname) 🔋 #(cat /sys/class/power_supply/BAT1/capacity)%"
+    # %x data de hoje
+    set -g set-titles on
+
+    set -g pane-border-style fg=colour0
+    set -g pane-active-border-style fg=colour238
+    set -g status-bg black
+    set -g status-fg white
+
+    # uso de mouse
+    #set -g mouse-select-window on
+    #set -g mouse-select-pane on
+    #set -g mouse-resize-pane on
+  '';
+  programs.tmux = {
+    enable = true;
+    extraConfig = ''
+      source-file /etc/tmuxconfig
+    '';
+  };
   programs.bash = {
     shellAliases = {
       "la" = "ls -a";

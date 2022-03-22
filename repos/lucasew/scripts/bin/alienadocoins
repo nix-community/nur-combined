@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-curl "https://botisimo.com/api/v1/public/alienadotmp/leaderboard/trovo?name=lucas59356&limit=100&offset=0" 2> /dev/null | jq 'map(.gold)[0]'
