@@ -56,7 +56,7 @@ defaultPackages: with defaultPackages.pkgs; {
     name = "games-env";
     paths = [
       minetest
-      multimc
+      polymc
       steam
       stuntrally
     ];
