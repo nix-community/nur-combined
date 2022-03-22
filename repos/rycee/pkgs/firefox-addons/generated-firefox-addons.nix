@@ -140,10 +140,10 @@
       };
     "better-tweetdeck" = buildFirefoxXpiAddon {
       pname = "better-tweetdeck";
-      version = "4.8.4";
+      version = "4.8.5";
       addonId = "BetterTweetDeck@erambert.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918392/better_tweetdeck-4.8.4-fx.xpi";
-      sha256 = "a58ef501aaf7fc05dff344cac1f0b4e5eb4d420befccad29bd5e74b81b6e543f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925220/better_tweetdeck-4.8.5-fx.xpi";
+      sha256 = "44e3f419d1af8bbc1b9b13352218d263f39259860727e3d4bbaeec1b1ac68b36";
       meta = with lib;
       {
         homepage = "https://better.tw/";
@@ -799,10 +799,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.3.7";
+      version = "3.3.8";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3915177/i_dont_care_about_cookies-3.3.7-an+fx.xpi";
-      sha256 = "f08216110eaf2974a79eed0a886aec0e20555b666b7305083f85542fcaed12c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925251/i_dont_care_about_cookies-3.3.8-an+fx.xpi";
+      sha256 = "d03396e84c37be42eac3509b44744e2eeba7eddbc7fc8781e784a6d78386e4a2";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -918,10 +918,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.3.1";
+      version = "1.4";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3908323/leechblock_ng-1.3.1-an+fx.xpi";
-      sha256 = "f8b5c36f858effbbe8259604447ed65e177252bbcde5639dd90b032b2ac67b1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924864/leechblock_ng-1.4-an+fx.xpi";
+      sha256 = "9c61a1b991e2ffbd33c3ef43f3c20c20f742f6303e69e8937e69e4837f71331d";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1062,10 +1062,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.11.1";
+      version = "10.11.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3922215/metamask-10.11.1-an+fx.xpi";
-      sha256 = "b7b4a37a3a1a67593b60a74de3d96e8417df9ca1042cc61137d0ecec4ecaeb5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925357/metamask-10.11.2-an+fx.xpi";
+      sha256 = "12b8791e4cf03826640f9372ef809e79808e35f14a311cceafc4e70fc5ca7e29";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1209,10 +1209,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.3.7";
+      version = "11.4";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916177/noscript_security_suite-11.3.7-an+fx.xpi";
-      sha256 = "6e5af18ce46bfc496fb027581d3d37a0edb95df158d053a5d9a1f89b8093bc49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924235/noscript_security_suite-11.4-an+fx.xpi";
+      sha256 = "933119143bfefcc68cd3ab1d44d7dec1d9ace876deed93a5f4b6248a98abfd9e";
       meta = with lib;
       {
         homepage = "https://noscript.net";
