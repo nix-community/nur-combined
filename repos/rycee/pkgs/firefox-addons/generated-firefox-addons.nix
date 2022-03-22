@@ -1887,6 +1887,25 @@
         platforms = platforms.all;
         };
       };
+    "tampermonkey" = buildFirefoxXpiAddon {
+      pname = "tampermonkey";
+      version = "4.15.6154";
+      addonId = "firefox@tampermonkey.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916879/tampermonkey-4.15.6154-an+fx.xpi";
+      sha256 = "5663f1887fa50e7a1d8931a1d38ffa561dfed6b0a885d75cac947e0196c67f57";
+      meta = with lib;
+      {
+        homepage = "https://tampermonkey.net";
+        description = "Tampermonkey is the world's most popular userscript manager.";
+        license = {
+          shortName = "tampermonkey";
+          fullName = "End-User License Agreement for Tampermonkey";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/eula/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "temporary-containers" = buildFirefoxXpiAddon {
       pname = "temporary-containers";
       version = "1.9.2";

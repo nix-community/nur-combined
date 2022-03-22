@@ -542,6 +542,16 @@
     "slug": "tabliss"
   },
   {
+    "slug": "tampermonkey",
+    "license": {
+      "tag": "custom",
+      "shortName": "tampermonkey",
+      "fullName": "End-User License Agreement for Tampermonkey",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/eula/",
+      "free": false
+    }
+  },
+  {
     "slug": "temporary-containers"
   },
   {
