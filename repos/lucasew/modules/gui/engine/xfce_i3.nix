@@ -568,7 +568,7 @@ timeout=10
     };
     programs.xss-lock = {
       enable = true;
-      lockerCommand = "${locker}";
+      lockerCommand = "${i3lock-color}/bin/i3lock-color -B 5 --image ${wallPng} --tiling --ignore-empty-password --show-failed-attempts --clock --pass-media-keys --pass-screen-keys --pass-volume-keys";
       extraOptions = [];
     };
     environment.systemPackages = [
