@@ -7,24 +7,67 @@ with lib;
 let
   cfg = config.services.mautrix-whatsapp;
   dataDir = "/var/lib/mautrix-whatsapp";
-  settingsFormat = pkgs.formats.json { };
+  format = pkgs.formats.json { };
 
   registrationFile = "${dataDir}/whatsapp-registration.yaml";
-  settingsFile = settingsFormat.generate "config.json" cfg.settings;
-
+  settingsFile = format.generate "config.json" cfg.settings;
 in {
   options.services.mautrix-whatsapp = {
     enable = mkEnableOption
       "Mautrix-whatsapp, a puppeting bridge between Matrix and WhatsApp.";
 
     settings = mkOption rec {
-      type = settingsFormat.type;
+      apply = recursiveUpdate default;
+      inherit (format) type;
+
       description = ''
         This options will be transform in YAML configuration file for the bridge
 
         Look <link xlink:href="https://github.com/tulir/mautrix-whatsapp/wiki/Bridge-setup">here</link> for documentation.
       '';
-      default = { };
+      default = {
+        homeserver = {
+          address = config.services.matrix-synapse.public_baseurl;
+          domain = config.services.matrix-synapse.server_name;
+        };
+        appservice = rec {
+          port = 29318;
+          address = "http://localhost:${toString port}";
+          hostname = "0.0.0.0";
+          database = {
+            type = "sqlite3";
+            uri = "${dataDir}/mautrix-whatsapp.db";
+          };
+          id = "whatsapp";
+          bot = {
+            username = "whatsappbot";
+            displayname = "WhatsApp Bot";
+          };
+          as_token = "";
+          hs_token = "";
+        };
+        bridge = {
+          username_template = "whatsapp_{{.}}";
+          displayname_template =
+            "{{if .Notify}}{{.Notify}}{{else}}{{.Jid}}{{end}}";
+          command_prefix = "!wa";
+          permissions."*" = "relaybot";
+        };
+        relaybot = {
+          enabled = true;
+          management = "!whatsappbot:${
+              toString (config.services.matrix-synapse.server_name)
+            }";
+        };
+        logging = {
+          directory = "${dataDir}/logs";
+          file_name_format = "{{.Date}}-{{.Index}}.log";
+          file_date_format = "2006-01-02";
+          file_mode = 384;
+          timestamp_format = "Jan _2, 2006 15:04:05";
+          print_level = "info";
+        };
+      };
       example = {
         settings = {
           homeserver.address = "https://matrix.org";
@@ -35,47 +78,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.mautrix-whatsapp.settings = {
-      homeserver = { domain = config.services.matrix-synapse.server_name; };
-      appservice = rec {
-        address = "http://localhost:${toString port}";
-        hostname = "0.0.0.0";
-        port = 29318;
-        database = {
-          type = "sqlite3";
-          uri = "${dataDir}/mautrix-whatsapp.db";
-        };
-        id = "whatsapp";
-        bot = {
-          username = "whatsappbot";
-          displayname = "WhatsApp Bot";
-        };
-        as_token = "";
-        hs_token = "";
-      };
-      bridge = {
-        username_template = "whatsapp_{{.}}";
-        displayname_template =
-          "{{if .Notify}}{{.Notify}}{{else}}{{.Jid}}{{end}}";
-        command_prefix = "!wa";
-        permissions."*" = "relaybot";
-      };
-      relaybot = {
-        enabled = true;
-        management = "!whatsappbot:${
-            toString (config.services.matrix-synapse.server_name)
-          }";
-      };
-      logging = {
-        directory = "${dataDir}/logs";
-        file_name_format = "{{.Date}}-{{.Index}}.log";
-        file_date_format = "2006-01-02";
-        file_mode = 384;
-        timestamp_format = "Jan _2, 2006 15:04:05";
-        print_level = "info";
-      };
-    };
-
     systemd.services.mautrix-whatsapp = {
       description = "Mautrix-WhatsApp Service - A WhatsApp bridge for Matrix";
       after = [ "network-online.target" "matrix-synapse.service" ];
@@ -101,20 +103,22 @@ in {
 
       serviceConfig = {
         Type = "simple";
-        Restart = "always";
+        #DynamicUser = true;
+        PrivateTmp = true;
+        StateDirectory = baseNameOf dataDir;
+        StateDirectoryMode = "0750";
+        WorkingDirectory = "${dataDir}";
 
         ProtectSystem = "strict";
         ProtectHome = true;
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectControlGroups = true;
-
-        DynamicUser = true;
-        PrivateTmp = true;
-        WorkingDirectory = "${dataDir}";
-        StateDirectory = baseNameOf dataDir;
-        UMask = 27;
+        User = "mautrix-whatsapp";
+        Group = "matrix-synapse";
         SupplementaryGroups = "matrix-synapse";
+        UMask = "027";
+        Restart = "always";
 
         ExecStart = ''
           ${pkgs.mautrix-whatsapp}/bin/mautrix-whatsapp \
@@ -124,8 +128,15 @@ in {
       };
     };
 
-    services.matrix-synapse.app_service_config_files =
-      [ "${registrationFile}" ];
+    users.users.mautrix-whatsapp = {
+      isSystemUser = true;
+      group = "mautrix-whatsapp";
+      home = dataDir;
+    };
+
+    users.groups.mautrix-whatsapp = { };
+
+    services.matrix-synapse.app_service_config_files = [ registrationFile ];
 
   };
 }
