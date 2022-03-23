@@ -3,28 +3,136 @@ libidn: imports: { config, lib, pkgs, ... }:
 with lib;
 
 let
-  cfg = config.services.rkn;
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
-  # damn flibusta
-  tor = ip4.fromString "10.123.0.1/16";
+  cfg = config.services.rkn;
+  tor = cfg.transports.tor;
+  serviceOptions = {
+    LockPersonality = true;
+    PrivateDevices = true;
+    PrivateIPC = true;
+    PrivateMounts = true;
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    ProtectProc = "invisible";
+    RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    MemoryDenyWriteExecute = true;
+    SystemCallArchitectures = "native";
+    SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
+    DynamicUser = true;
+    StateDirectory = "rkn-script";
+  };
+  nginx = name: value: {
+    services.nginx.enable = true;
+    services.nginx.proxyResolveWhileRunning = true;
+    services.nginx.resolver = {
+      addresses = [ cfg.resolver ];
+      ipv6 = !cfg.ipv4Only;
+    };
+    services.nginx.virtualHosts = {
+      "${name}" = {
+        default = true;
+        listen = [{ addr = value.address.address; port = 80; }];
+        locations."/" = {
+          proxyPass = "http://$http_host:80";
+          extraConfig = ''
+            proxy_bind ${value.address.address};
+          '';
+        };
+      };
+    };
+    services.nginx.streamConfig = ''
+      server {
+        resolver ${cfg.resolver} ${lib.strings.optionalString cfg.ipv4Only "ipv6=off"};
+        listen ${value.address.address}:443;
+        ssl_preread on;
+        proxy_pass $ssl_preread_server_name:443;
+        proxy_bind ${value.address.address};
+      }
+    '';
+    systemd.services.nginx = {
+      after = [ "sys-devices-virtual-net-${name}.device" ];
+      bindsTo = [ "sys-devices-virtual-net-${name}.device" ];
+    };
+  };
+  bind = name: value: extraSection: {
+    services.bind.enable = true;
+    systemd.services.bind.preStart = ''
+      set +e
+      install -do named ${cfg.folder}
+      true
+    '';
+    services.bind.extraConfig = ''
+      view "${name}" {
+        response-policy { zone "${name}"; };
+        zone "${name}" {
+          type master;
+          file "${cfg.folder}/${name}.zone";
+        };
+        ${extraSection}
+        match-destinations { ${value.address.address}; };
+      };
+    '';
+  };
+  script = name: value: {
+    systemd.timers."rkn-${name}" = {
+      timerConfig = {
+        inherit (cfg) OnCalendar;
+      };
+      wantedBy = [ "timers.target" ];
+    };
+    systemd.services."rkn-${name}" = {
+      after = [ "rkn-script.service" ];
+      description = "Скрипт по активации зоны";
+      path = with pkgs; [ coreutils gnused ];
+      serviceConfig = {
+        ExecStart = pkgs.writeShellScript "rkn-${name}" ''
+          set +e
+          mkdir -p ${cfg.folder}
+          cd ${cfg.folder}
+          install -m644 ${pkgs.writeText "local.zone" cfg.header} ${name}.zone
+          cat /var/lib/rkn-script/dump.txt | sed -e 's#\(.*\)#\1 IN A ${value.address.address}#' >> ${name}.zone
+          systemctl restart bind
+        '';
+      };
+    };
+  };
 in {
   inherit imports;
 
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
-    address = mkOption {
-      type = types.anything;
-      example = ''
-        ip4.fromString "10.0.0.1/24"
-      '';
+
+    transports = mkOption {
+      default = {};
+      type = types.attrsOf (types.submodule {
+        options = {
+          address = mkOption {
+            type = types.anything;
+            example = ''
+              ip4.fromString "10.0.0.1/24"
+            '';
+          };
+          torNetwork = mkOption {
+            type = types.anything;
+            default = ip4.fromString "10.123.0.1/16";
+          };
+        };
+      });
     };
+
     OnCalendar = mkOption {
       type = types.str;
       default = "weekly";
     };
-    file = mkOption {
+    folder = mkOption {
       type = types.str;
-      default = "/var/lib/rkn/rkn.zone";
+      default = "/var/lib/rkn";
     };
     header = mkOption {
       type = types.str;
@@ -40,12 +148,6 @@ in {
         localhost. IN A 127.0.0.1
       '';
     };
-    bindExtraConfig = mkOption {
-      type = types.str;
-      example = ''
-        match-clients { ''${ip4.networkCIDR iif.ip}; };
-      '';
-    };
     resolver = mkOption {
       type = types.str;
     };
@@ -55,31 +157,50 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkMerge [
+
+  (mkIf (hasAttr "tor" cfg.transports) {
     services.tor.enable = true;
     services.tor.client.enable = true;
     services.tor.settings = {
       ExcludeExitNodes = "{RU}";
-      DNSPort = [{ addr = cfg.address.address; port = 53; }];
-      VirtualAddrNetworkIPv4 = ip4.networkCIDR tor;
+      DNSPort = [{ addr = tor.address.address; port = 5353; }];
+      VirtualAddrNetworkIPv4 = ip4.networkCIDR tor.torNetwork;
       AutomapHostsOnResolve = true;
-      TransPort = [{ addr = cfg.address.address; port = 9040; }];
+      TransPort = [{ addr = tor.address.address; port = 9040; }];
     };
     networking.firewall.extraCommands = ''
-      iptables -t nat -A PREROUTING -p tcp -d ${ip4.networkCIDR tor} -j DNAT --to-destination ${cfg.address.address}:9040
+      iptables -t nat -A PREROUTING -p tcp -d ${ip4.networkCIDR tor.torNetwork} -j DNAT --to-destination ${tor.address.address}:9040
     '';
-
     programs.tun2socks = {
       enable = true;
       gateways = {
         tor = {
-          address = cfg.address.address;
+          address = ip4.toCIDR tor.address;
           proxy = "socks5://${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port}";
           logLevel = "error";
         };
       };
     };
+  })
+  (mkIf (hasAttr "tor" cfg.transports) (nginx "tor" tor))
+  (mkIf (hasAttr "tor" cfg.transports) (bind "tor" tor
+      ''
+        zone "onion" {
+          type forward;
+          forward only;
+          forwarders { ${tor.address.address} port 5353; };
+        };
+      ''
+  ))
+  (mkIf (hasAttr "tor" cfg.transports) (script "tor" tor))
 
+  (mkIf cfg.enable {
+    services.bind.cacheNetworks = [ "any" ];
+    services.bind.extraOptions = ''
+      recursion yes;
+      check-names master ignore;
+    '';
     systemd.timers.rkn-script = {
       timerConfig = {
         inherit (cfg) OnCalendar;
@@ -91,79 +212,21 @@ in {
       path = with pkgs; [ gnugrep wget coreutils gnused libidn glibc gawk ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = (pkgs.writeShellScriptBin "rkn.sh" ''
+        ExecStart = pkgs.writeShellScript "rkn.sh" ''
           set -e
-          cd ${dirOf cfg.file}
+          cd /var/lib/rkn-script
           wget --backups=3 https://raw.githubusercontent.com/zapret-info/z-i/master/dump.csv
           # domain column
-          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump.txt
+          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump2.txt
           # domain from url
-          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump.txt
+          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump2.txt
           # add root domain for each wildcard domain
-          sed -i 's/\(\*\.\)\(.*\)/\2\n&/' dump.txt
-          install -m644 ${pkgs.writeText "local.zone" cfg.header} ${cfg.file}
-          cat dump.txt | sort | uniq | idn --no-tld | sed -e 's#\(.*\)#\1 IN A ${cfg.address.address}#' >> ${cfg.file}
-          systemctl restart bind
-        '') + "/bin/rkn.sh";
-      };
+          sed -i 's/\(\*\.\)\(.*\)/\2\n&/' dump2.txt
+          cat dump2.txt | sort | uniq | idn --no-tld > dump.txt
+        '';
+      } // serviceOptions;
     };
+  })
 
-    services.nginx.enable = true;
-    services.nginx.proxyResolveWhileRunning = true;
-    services.nginx.resolver = {
-      addresses = [ cfg.resolver ];
-      ipv6 = !cfg.ipv4Only;
-    };
-    services.nginx.virtualHosts = { 
-      rkn = {
-        default = true;
-        listen = [{ addr = cfg.address.address; port = 80; }];
-        locations."/" = {
-          proxyPass = "http://$http_host:80";
-          extraConfig = ''
-            proxy_bind ${cfg.address.address};
-          '';
-        };
-      };
-    };
-    services.nginx.streamConfig = ''
-      server {
-        resolver ${cfg.resolver} ${lib.strings.optionalString cfg.ipv4Only "ipv6=off"};
-        listen ${cfg.address.address}:443;
-        ssl_preread on;
-        proxy_pass $ssl_preread_server_name:443;
-        proxy_bind ${cfg.address.address};
-      }
-    '';
-    systemd.services.nginx = {
-      after = [ "sys-devices-virtual-net-tor.device" ];
-      bindsTo = [ "sys-devices-virtual-net-tor.device" ];
-    };
-
-    services.bind.enable = true;
-    services.bind.extraOptions = ''
-      check-names master ignore;
-    '';
-    systemd.services.bind.preStart = ''
-      set +e
-      install -do named ${dirOf cfg.file}
-      true
-    '';
-    services.bind.extraConfig = ''
-      view "rkn" {
-        response-policy { zone "rkn"; };
-        zone "rkn" {
-          type master;
-          file "${cfg.file}";
-        };
-        zone "onion" {
-          type forward;
-          forward only;
-          forwarders { ${cfg.address.address}; };
-        };
-        ${cfg.bindExtraConfig}
-      };
-    '';
-  };
-
+  ];
 }

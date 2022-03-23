@@ -39,7 +39,7 @@ in {
 
     virtualisation.libvirtd.enable = lib.mkForce false;
     virtualisation.spiceUSBRedirection.enable = true;
-    services.tor.enable = lib.mkForce false;
+    #services.tor.enable = lib.mkForce false;
 
     networking.edgevpn = {
       enable = true;
