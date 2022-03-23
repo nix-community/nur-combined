@@ -646,10 +646,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220320.185956";
+      version = "99.0buildid20220322.185926";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924878/francais_language_pack-99.0buildid20220320.185956-fx.xpi";
-      sha256 = "9401bd14c282d4be41c45d9905112922bed7c21cb075168c142390bc791ba86d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926061/francais_language_pack-99.0buildid20220322.185926-fx.xpi";
+      sha256 = "478e02f1e44089b68dd8401b8358ab51a1fd10f6c9b0dff97e30d1b1b6a2ad04";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -880,10 +880,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.0.1";
+      version = "5.0.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3921646/grammatik_und_rechtschreibprufung_languagetool-5.0.1-fx.xpi";
-      sha256 = "9b311f3f634e0cf8df6f8cd61c9ed9fdb48cf9286d942b259af603917652ee0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925655/grammatik_und_rechtschreibprufung_languagetool-5.0.3-fx.xpi";
+      sha256 = "040dff104ec58b0973e6d915a6b2796d2d1a621c6225d9aecb3c0a535818ca52";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -899,10 +899,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.90.0.3";
+      version = "4.91.0.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916769/lastpass_password_manager-4.90.0.3-an+fx.xpi";
-      sha256 = "d209ce22f0d4c1dc767a17c24a321b83b353b7ca6f2c4904b2d3218ec024d454";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925414/lastpass_password_manager-4.91.0.4-an+fx.xpi";
+      sha256 = "2d96079f677fac27be1e430966d3d38951f2da8c0675c0772c3b54eca4d2d427";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1007,10 +1007,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.23";
+      version = "2.6.24";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902456/localcdn-2.6.23-an+fx.xpi";
-      sha256 = "ff2a0a64a0cdc8aa62b16f1f3cc41201760033731276b427ef02290cb53e6480";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925575/localcdn-2.6.24-an+fx.xpi";
+      sha256 = "cedfb687518814e47f9002e96564093b34ec6d7888887a5ead4e7dd68f148700";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1062,10 +1062,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.11.2";
+      version = "10.11.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3925357/metamask-10.11.2-an+fx.xpi";
-      sha256 = "12b8791e4cf03826640f9372ef809e79808e35f14a311cceafc4e70fc5ca7e29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926177/metamask-10.11.3-an+fx.xpi";
+      sha256 = "e0a79a525016e7a4091eda0f59789c2b13ed74c80d69937095cef0c1ee4d41f9";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
