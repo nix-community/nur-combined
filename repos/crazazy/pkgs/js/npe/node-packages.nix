@@ -13,13 +13,13 @@ let
         sha512 = "jz+Cfrg9GWOZbQAnDQ4hlVnQky+341Yk5ru8bZSe6sIDTCIg8n9i/u7hSQGSVOF3C7lH6mGtqjkiT9G4wFLL0w==";
       };
     };
-    "minimist-1.2.5" = {
+    "minimist-1.2.6" = {
       name = "minimist";
       packageName = "minimist";
-      version = "1.2.5";
+      version = "1.2.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz";
-        sha512 = "FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==";
+        url = "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz";
+        sha512 = "Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==";
       };
     };
     "steeltoe-1.0.1" = {
@@ -39,7 +39,7 @@ let
     src = fetchurl { url = "https://registry.npmjs.org/npe/-/npe-1.2.0.tgz"; sha1 = "a54d78f868267de93ae822f33072fa5ed4e9d36f"; };
     dependencies = [
       sources."merge-2.1.1"
-      sources."minimist-1.2.5"
+      sources."minimist-1.2.6"
       sources."steeltoe-1.0.1"
     ];
     buildInputs = globalBuildInputs;
