@@ -63,7 +63,7 @@
           config = (args.config or {}) // {
             allowUnfree = true;
           };
-          overlays = (args.overlays or []) ++ overlays;
+          overlays = (args.overlays or []) ++ (builtins.attrValues overlays);
         });
         pkgs = mkPkgs { inherit system; };
 
@@ -125,13 +125,13 @@
         nix = optionsNix;
       };
 
-      overlays = []
-      ++ [(import (home-manager + "/overlay.nix"))]
-      ++ [(borderless-browser.overlay)]
-      ++ [inputs.rust-overlay.overlay]
-      ++ [inputs.blender-bin.overlay]
-      ++ [(import ./overlay.nix self)]
-      ;
+      overlays = {
+        home-manager = import (home-manager + "/overlay.nix");
+        borderless-browser = borderless-browser.overlay;
+        rust-overlay = inputs.rust-overlay.overlay;
+        blender-bin = inputs.blender-bin.overlay;
+        this = import ./overlay.nix self;
+      };
   in {
     inherit global;
     inherit overlays;
