@@ -16,4 +16,5 @@ rec {
   ciao = pkgs.callPackage ./pkgs/ciao { };
   iosevka-term = pkgs.callPackage ./pkgs/iosevka/term.nix { };
   cbqn = pkgs.callPackage ./pkgs/cbqn { stdenv = pkgs.clangStdenv; };
+  ssb-patchbay = pkgs.callPackage ./pkgs/ssb-patchbay { };
 }
