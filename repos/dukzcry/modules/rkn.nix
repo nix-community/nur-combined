@@ -62,6 +62,7 @@ let
   };
   bind = name: value: extraSection: {
     services.bind.enable = true;
+    services.bind.listenOn = [ value.address.address ];
     systemd.services.bind.preStart = ''
       set +e
       install -do named ${cfg.folder}
@@ -75,6 +76,7 @@ let
           file "${cfg.folder}/${name}.zone";
         };
         ${extraSection}
+        ${cfg.bindExtraConfig}
         match-destinations { ${value.address.address}; };
       };
     '';
@@ -148,6 +150,10 @@ in {
         localhost. IN A 127.0.0.1
       '';
     };
+    bindExtraConfig = mkOption {
+      type = types.str;
+      default = "";
+    };
     resolver = mkOption {
       type = types.str;
     };
@@ -198,8 +204,8 @@ in {
   (mkIf cfg.enable {
     services.bind.cacheNetworks = [ "any" ];
     services.bind.extraOptions = ''
-      recursion yes;
       check-names master ignore;
+      #recursion yes;
     '';
     systemd.timers.rkn-script = {
       timerConfig = {
