@@ -27,11 +27,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1633099475,
-        "narHash": "sha256-p2MWVr5R/f9Ga103wOC07l9NEek4TxTOTv68S+TbJNY=",
+        "lastModified": 1648063496,
+        "narHash": "sha256-L7jRBvVJCVi4t9e/x5753Mto5OwyTPkHohazKbQ71MU=",
         "owner": "lucasew",
         "repo": "borderless-browser.nix",
-        "rev": "330b141a03cea1187a46ef15b85e39757930f42a",
+        "rev": "4f9a49190db2f9f475ea6a03b513b1ca02e13dfe",
         "type": "github"
       },
       "original": {

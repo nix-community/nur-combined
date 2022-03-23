@@ -221,7 +221,7 @@
           };
         };
 
-        devShell.${system} = pkgs.mkShell {
+        devShells.${system}.default = pkgs.mkShell {
           name = "nixcfg-shell";
           buildInputs = [];
           shellHook = ''

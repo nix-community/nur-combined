@@ -1,9 +1,9 @@
-flake: self: super:
+flake: final: prev:
 let
   inherit (flake) inputs;
   inherit (flake.outputs) global;
   inherit (global) rootPath;
-  inherit (super) lib callPackage writeShellScript;
+  inherit (prev) lib callPackage writeShellScript;
   inherit (lib) recursiveUpdate;
   inherit (builtins) toString length head tail;
   inherit (flake.inputs) nix-option nixpkgs;
@@ -22,18 +22,18 @@ let
 in {
   inherit dotenv;
   inherit wrapDotenv;
-  inherit (inputs.nixos-generators.packages."${super.system}") nixos-generators;
+  inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generators;
   inherit flake;
 
-  lib = super.lib // {
+  lib = prev.lib // {
     jpg2png = cp ./lib/jpg2png.nix;
   };
   p2k = cp inputs.pocket2kindle;
   redial_proxy = cp inputs.redial_proxy;
   send2kindle = cp inputs.send2kindle;
   comma = cp inputs.comma;
-  wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = super;});
-  wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = super;});
+  wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = prev;});
+  wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = prev;});
   c4me = cp ./packages/c4me;
   encore = cp ./packages/encore.nix;
   xplr = cp ./packages/xplr.nix;
@@ -84,12 +84,12 @@ in {
   preload = cp ./packages/preload.nix;
   nodePackages = cp ./packages/node_clis/package_data/default.nix;
   nur = import flake.inputs.nur {
-    inherit (super) pkgs;
-    nurpkgs = super.pkgs;
+    inherit (prev) pkgs;
+    nurpkgs = prev.pkgs;
   };
-  discord = super.discord.overrideAttrs (old: rec {
+  discord = prev.discord.overrideAttrs (old: rec {
     version = "0.0.17";
-    src = super.fetchurl {
+    src = prev.fetchurl {
       url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
       sha256 = "058k0cmbm4y572jqw83bayb2zzl2fw2aaz0zj1gvg6sxblp76qil";
     };
