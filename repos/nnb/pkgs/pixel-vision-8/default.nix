@@ -1,30 +1,28 @@
-{ stdenv, lib, fetchzip, autoPatchelfHook }:
+{ stdenv, lib, fetchzip, autoPatchelfHook, zlib }:
 
 stdenv.mkDerivation rec {
   name = "pixel-vision-8-${version}";
-
   version = "1.0.0";
 
   src = fetchzip {
-    url = "https://github.com/PixelVision8/PixelVision8/releases/download/v1.0.0/PixelVision8-v${version}-linux.zip";
-    sha256 = "1xi56z9sn340gsz9vnfp15dyfcv33kq8b9pr235hyc8gzk750rwb";
+    url = "https://github.com/PixelVision8/PixelVision8/releases/download/v${version}/PixelVision8-v${version}-linux.zip";
+    sha256 = "19yjj7vycr7mdq2d82ivb6k3f7sn29lmrpj92xip99y5rsf05lfi";
+    stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  sourceRoot = ".";
+  buildInputs = [ stdenv.cc.cc.lib zlib ];
 
   installPhase = ''
-    find "PixelVision8-${version}-linux/" -type f -exec install -vDm 755 {} "$out/lib/{}" \;
-  	ln -s "$out/lib/PixelVision8-v1.0.0-linux/Pixel Vision 8" "$out/bin/pv8"
+    find "PixelVision8-v${version}-linux" -type f -exec install -vDm 755 {} "$out/lib/pv8/{}" \;
+    install -dm 755 "$out/bin"
+  	ln -s "$out/lib/pv8/PixelVision8-v1.0.0-linux/Pixel Vision 8" "$out/bin/pv8"
   '';
 
   meta = with lib; {
     homepage = "https://pixelvision8.github.io/Website";
     description = "Pixel Vision 8 is a next generation 8-bit fantasy game console";
     license = licenses.mspl;
-    platforms = platforms.all;
   };
 }
