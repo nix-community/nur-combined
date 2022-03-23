@@ -1,6 +1,6 @@
 defaultPackages: with defaultPackages.pkgs; {
   rMaker = import ./rMaker.nix;
-  python-personal = (import ./python-env.nix) python38;
+  python-personal = (import ./python-env.nix) python310;
 
   rEnv = rMaker defaultPackages.rWrapper rPackages;
 
