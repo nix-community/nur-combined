@@ -173,10 +173,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.56.6";
+      version = "1.57.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910071/bitwarden_free_password_manager-1.56.6-an+fx.xpi";
-      sha256 = "e2820a8bf6ad6fb3c0d39585b721fdf11f5abce5e120f93d0d8d4ed04c0a647e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925900/bitwarden_free_password_manager-1.57.0-an+fx.xpi";
+      sha256 = "7de0228befc3764154629e6644d8e00d5d10fe6d2d1886183e351c53aee85440";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -269,10 +269,10 @@
       };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.22.0";
+      version = "1.23.1";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3886960/clearurls-1.22.0-an+fx.xpi";
-      sha256 = "f226a4b5e0865a884bc6544810a0e768a821a4c3eb411c00f77a727272212559";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926368/clearurls-1.23.1-an+fx.xpi";
+      sha256 = "ddf9e6635300e5f5bd9d4c8da25267499a594fb07b020163da5beca60aa6e7d8";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -1209,10 +1209,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4";
+      version = "11.4.1";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924235/noscript_security_suite-11.4-an+fx.xpi";
-      sha256 = "933119143bfefcc68cd3ab1d44d7dec1d9ace876deed93a5f4b6248a98abfd9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926354/noscript_security_suite-11.4.1-an+fx.xpi";
+      sha256 = "68bdf014e3c102b3b3fbb86b7c07a9ecb7ee8e6a1da253cd6aea31d4c86a04d7";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2062,10 +2062,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.22.0";
+      version = "1.22.1";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3874829/tridactyl-1.22.0-an+fx.xpi";
-      sha256 = "b53098462121e2328c9110ab5dbbff5938d8ecce615aeccfabd16f53dac48d8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926466/tridactyl-1.22.1-an+fx.xpi";
+      sha256 = "ed0337dd67516142d1f02a77cab910c7cb95ca575ec1ee4b1f5cf8971918b0f6";
       meta = with lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
@@ -2272,10 +2272,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.57.0";
+      version = "2.57.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923981/web_scrobbler-2.57.0-an+fx.xpi";
-      sha256 = "948b5185e7476aeff66039e9d91b7a44e312f67ef6dc0f1bedb2bbdbf170baa2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926362/web_scrobbler-2.57.1-an+fx.xpi";
+      sha256 = "2f91576138fbd1ce0c43fe60b98c3578a87565181d5ede993fa27859d501bad2";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
