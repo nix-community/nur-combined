@@ -41,8 +41,8 @@ with lib.kernel;
   FONTS = yes;
   FONT_8x16 = yes;
   FONT_TER16x32 = yes;
-  FONT_CJK_16x16 = yes;
-  FONT_CJK_32x32 = yes;
+  # FONT_CJK_16x16 = yes;
+  # FONT_CJK_32x32 = yes;
 
   # Ksmbd
   CIFS_SMB_DIRECT = yes;
@@ -86,9 +86,9 @@ with lib.kernel;
   LOG_CPU_MAX_BUF_SHIFT = freeform "12";
   PRINTK_SAFE_LOG_BUF_SHIFT = freeform "10";
 
-  # Ultra KSM
-  UKSM = yes;
-  KSM_LEGACY = no;
+  # # Ultra KSM
+  # UKSM = yes;
+  # KSM_LEGACY = no;
 
   # Various tunings
   ACPI_APEI = yes;
