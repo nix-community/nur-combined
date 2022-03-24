@@ -25,22 +25,23 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.6.15";
+  version = "0.7.4";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "1i1zm6fr4kvw9x8m99lx9wmchc0nvidvb818jb13v1gc7qschfci";
+    sha256 = "0s17l4141i1vay4vlc6sd7razy1p2x9bd80gb58v9c8xl84r876v";
   };
 
   postPatch = ''
     substituteInPlace requirements_test.txt \
-      --replace "coverage==6.2.0" "coverage>=5.5" \
+      --replace "coverage==6.3.1" "coverage>=6.2" \
       --replace "jsonpickle==1.4.1" "jsonpickle>=1.4.1" \
       --replace "pipdeptree==2.2.1" "" \
       --replace "pylint-strict-informational==0.1" "" \
+      --replace "pytest==7.0.1" "pytest>=6.2.5" \
       --replace "pytest-cov==2.12.1" "pytest-cov>=2.12.1" \
       --replace "pytest-socket==0.4.1" "pytest-socket>=0.4.0" \
       --replace "pytest-test-groups==1.0.3" "" \
