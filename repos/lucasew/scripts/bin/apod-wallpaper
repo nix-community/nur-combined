@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+feh --bg-fill $(curl -L "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&count=1" | jq .[0].hdurl -r)
