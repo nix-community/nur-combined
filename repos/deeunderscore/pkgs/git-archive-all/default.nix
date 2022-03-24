@@ -1,12 +1,12 @@
 { stdenv, lib, pkgs, python3Packages, fetchFromGitHub }:
 python3Packages.buildPythonApplication  rec {
   pname = "git-archive-all";
-  version = "1.22.0";
+  version = "1.23.0";
 
   src = fetchFromGitHub {
     owner = "Kentzo";
     repo = "git-archive-all";
-    rev = "1.23.0";
+    rev =  version;
     sha256 = "sha256-G1xaZ/71omLnl7eVRIzIwB6n5MqJgWXZuh+z/ZDYSeY=";
   };
 
