@@ -1,24 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook269, pkg-config, cairo, librsvg }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, cairo, librsvg }:
 
 stdenv.mkDerivation rec {
   pname = "smrender";
-  version = "2021-03-15";
+  version = "4.3.0";
 
   src = fetchFromGitHub {
     owner = "rahra";
     repo = pname;
-    rev = "3c146d1dcf28d59866598a3de924dcb8b119e6df";
-    hash = "sha256-tgUoSrsZWAPDPnujiB69dgSdZtPUoO9VuMgwlDfEeN0=";
+    rev = "v${version}";
+    hash = "sha256-b9xuOPLxA9zZzIwWl+FTSW5XHgJ2sFoC578ZH6iwjaM=";
   };
 
-  postPatch = ''
-    substituteInPlace configure.ac \
-      --replace "git log --oneline | wc -l" "echo 470"
-  '';
-
-  nativeBuildInputs = [ autoreconfHook269 pkg-config ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [ cairo librsvg ];
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    $out/bin/smrender -v | grep "V${version}"
+    runHook postInstallCheck
+  '';
 
   meta = with lib; {
     description = "A powerful, flexible, and modular rule-based rendering engine for OSM data";
