@@ -5,7 +5,7 @@
 with lib;
 
 let
-  cfg = config.services.minidlna;
+  cfg = config.dan4ik605743.modules.minidlna;
   port = 8200;
 in
 
