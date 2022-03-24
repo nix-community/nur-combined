@@ -12,63 +12,63 @@ in
 {
   ###### interface
   options = {
-    services.minidlna.enable = mkOption {
-      type = types.bool;
-      default = false;
-      description =
-        ''
+    dan4ik605743.modules.minidlna.enable = mkOption {
+      type = types.bool; 
+      default = false; 
+      description = 
+        '' 
           Whether to enable MiniDLNA, a simple DLNA server.  It serves
           media files such as video and music to DLNA client devices
           such as televisions and media players.
-        '';
-    };
-
-    services.minidlna.mediaDirs = mkOption {
+        ''; 
+    }; 
+ 
+    dan4ik605743.modules.minidlna.mediaDirs = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [];  
       example = [ "/data/media" "V,/home/alice/video" ];
-      description =
-        ''
+      description =  
+        ''  
           Directories to be scanned for media files.  The prefixes
           <literal>A,</literal>, <literal>V,</literal> and
           <literal>P,</literal> restrict a directory to audio, video
           or image files.  The directories must be accessible to the
           <literal>minidlna</literal> user account.
-        '';
-    };
-
-    services.minidlna.friendlyName = mkOption {
-      type = types.str;
+        '';  
+    };  
+  
+    dan4ik605743.modules.minidlna.friendlyName = mkOption {
+      type = types.str;   
       default = "${config.networking.hostName} MiniDLNA";
       defaultText = literalExpression ''"''${config.networking.hostName} MiniDLNA"'';
-      example = "rpi3";
+      example = "rpi3";   
       description =
-        ''
+        ''   
           Name that the DLNA server presents to clients.
-        '';
-    };
-
-    services.minidlna.rootContainer = mkOption {
-      type = types.str;
-      default = ".";
-      example = "B";
-      description =
+        '';  
+    };  
+  
+    dan4ik605743.modules.minidlna.rootContainer = mkOption {
+      type = types.str;  
+      default = ".";  
+      example = "B";  
+      description =  
         ''
           Use a different container as the root of the directory tree presented
           to clients. The possible values are:
           - "." - standard container
           - "B" - "Browse Directory"
-          - "M" - "Music"
+          - "M" - "Music" 
           - "P" - "Pictures"
-          - "V" - "Video"
+          - "V" - "Video" 
           - Or, you can specify the ObjectID of your desired root container
             (eg. 1$F for Music/Playlists)
           If you specify "B" and the client device is audio-only then
           "Music/Folders" will be used as root.
-         '';
-    };
+         ''; 
+    }; 
 
-    services.minidlna.loglevel = mkOption {
+    dan4ik605743.modules.minidlna.loglevel = mkOption {
       type = types.str;
       default = "warn";
       example = "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
@@ -96,7 +96,7 @@ in
         '';
     };
 
-    services.minidlna.announceInterval = mkOption {
+    dan4ik605743.modules.minidlna.announceInterval = mkOption {
       type = types.int;
       default = 895;
       description =
@@ -112,7 +112,7 @@ in
         '';
     };
 
-    services.minidlna.config = mkOption {
+    dan4ik605743.modules.minidlna.config = mkOption {
       type = types.lines;
       description =
       ''
@@ -122,7 +122,7 @@ in
       '';
     };
 
-    services.minidlna.extraConfig = mkOption {
+    dan4ik605743.modules.minidlna.extraConfig = mkOption {
       type = types.lines;
       default = "";
       example = ''
