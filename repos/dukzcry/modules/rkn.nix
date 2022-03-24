@@ -76,7 +76,7 @@ let
           file "${cfg.folder}/${name}.zone";
         };
         ${extraSection}
-        ${cfg.bindExtraConfig}
+        ${cfg.bindExtraView}
         match-destinations { ${value.address.address}; };
       };
     '';
@@ -154,6 +154,10 @@ in {
       type = types.str;
       default = "";
     };
+    bindExtraView = mkOption {
+      type = types.str;
+      default = "";
+    };
     resolver = mkOption {
       type = types.str;
     };
@@ -164,6 +168,40 @@ in {
   };
 
   config = mkMerge [
+
+  (mkIf cfg.enable {
+    #services.bind.cacheNetworks = [ "any" ];
+    services.bind.extraOptions = ''
+      check-names master ignore;
+      #recursion yes;
+    '';
+    services.bind.extraConfig = cfg.bindExtraConfig;
+    systemd.timers.rkn-script = {
+      timerConfig = {
+        inherit (cfg) OnCalendar;
+      };
+      wantedBy = [ "timers.target" ];
+    };
+    systemd.services.rkn-script = {
+      description = "Сервис выгрузки и обработки списка блокировок роскомпозора";
+      path = with pkgs; [ gnugrep wget coreutils gnused libidn glibc gawk ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "rkn.sh" ''
+          set -e
+          cd /var/lib/rkn-script
+          wget --backups=3 https://raw.githubusercontent.com/zapret-info/z-i/master/dump.csv
+          # domain column
+          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump2.txt
+          # domain from url
+          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump2.txt
+          # add root domain for each wildcard domain
+          sed -i 's/\(\*\.\)\(.*\)/\2\n&/' dump2.txt
+          cat dump2.txt | sort | uniq | idn --no-tld > dump.txt
+        '';
+      } // serviceOptions;
+    };
+  })
 
   (mkIf (hasAttr "tor" cfg.transports) {
     services.tor.enable = true;
@@ -200,39 +238,6 @@ in {
       ''
   ))
   (mkIf (hasAttr "tor" cfg.transports) (script "tor" tor))
-
-  (mkIf cfg.enable {
-    services.bind.cacheNetworks = [ "any" ];
-    services.bind.extraOptions = ''
-      check-names master ignore;
-      #recursion yes;
-    '';
-    systemd.timers.rkn-script = {
-      timerConfig = {
-        inherit (cfg) OnCalendar;
-      };
-      wantedBy = [ "timers.target" ];
-    };
-    systemd.services.rkn-script = {
-      description = "Сервис выгрузки и обработки списка блокировок роскомпозора";
-      path = with pkgs; [ gnugrep wget coreutils gnused libidn glibc gawk ];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = pkgs.writeShellScript "rkn.sh" ''
-          set -e
-          cd /var/lib/rkn-script
-          wget --backups=3 https://raw.githubusercontent.com/zapret-info/z-i/master/dump.csv
-          # domain column
-          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump2.txt
-          # domain from url
-          cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump2.txt
-          # add root domain for each wildcard domain
-          sed -i 's/\(\*\.\)\(.*\)/\2\n&/' dump2.txt
-          cat dump2.txt | sort | uniq | idn --no-tld > dump.txt
-        '';
-      } // serviceOptions;
-    };
-  })
 
   ];
 }
