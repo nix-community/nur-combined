@@ -114,7 +114,6 @@ in
 
     dan4ik605743.modules.minidlna.config = mkOption {
       type = types.lines;
-      default = "";
       description =
       ''
         The contents of MiniDLNA's configuration file.
@@ -151,7 +150,7 @@ in
 
   ###### implementation
   config = mkIf cfg.enable {
-    services.minidlna.config =
+    dan4ik605743.modules.minidlna.config =
       ''
         port=${toString port}
         friendly_name=${cfg.friendlyName}
