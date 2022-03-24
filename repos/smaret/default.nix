@@ -10,7 +10,7 @@
       pythonPackages = pkgs.python3Packages;
     }
   );
-  # FIXME: This fails too...
+  # FIXME: This fails to build because aplpy in broken in nixpkgs
   #pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
   # FIXME: This fails to build because astroquery is broken in nixpkgs
   #pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { };
