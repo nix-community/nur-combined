@@ -38,7 +38,6 @@ or
 To avoid compiling the packages, you may download binaries with
 [Cachix](https://smaret.cachix.org).
 
-[![Build Status](https://travis-ci.com/smaret/nur-packages.svg?branch=master)](https://travis-ci.com/smaret/nur-packages)
+![Build and populate cache](https://github.com/smaret/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-smaret-blue.svg)](https://smaret.cachix.org)
-
 

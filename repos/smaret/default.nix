@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   lib = import ./lib { inherit pkgs; };
@@ -10,6 +10,7 @@
       pythonPackages = pkgs.python3Packages;
     }
   );
-  pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor {};
-  pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex {};
+  pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
+  # FIXME: This fails to build because astroquery is broken in nixpkgs
+  #pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { };
 }

@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , fetchgit
 , fetchurl
 , buildPythonPackage
@@ -31,13 +32,13 @@ buildPythonPackage rec {
   sourceRoot = "pyradex-f8c8e74";
 
   postUnpack = "ln -s ../Radex $sourceRoot/Radex";
-  
+
   postPatch = ''
     substituteInPlace setup.py --replace "install_radex.install_radex()" "install_radex.install_radex(download=False, extract=False)" 
   '';
 
   nativeBuildInputs = [ gfortran numpy ];
-  
+
   propagatedBuildInputs = [ numpy astropy astroquery requests ];
 
   checkInputs = [ astroquery ];
@@ -49,11 +50,11 @@ buildPythonPackage rec {
 
   preCheck = "export HOME=$TMPDIR";
 
-  meta = {
+  meta = with lib; {
     description = "Python interface to RADEX";
     homepage = https://github.com/keflavich/pyradex;
-    license = stdenv.lib.licenses.bsd3;
-    platforms = stdenv.lib.platforms.all;
-    maintainers = with stdenv.lib.maintainers; [ smaret ];
+    license = licenses.bsd3;
+    platforms = platforms.all;
+    maintainers = [ maintainers.smaret ];
   };
 }
