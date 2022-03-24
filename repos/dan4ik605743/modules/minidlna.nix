@@ -114,6 +114,7 @@ in
 
     dan4ik605743.modules.minidlna.config = mkOption {
       type = types.lines;
+      default = "";
       description =
       ''
         The contents of MiniDLNA's configuration file.
