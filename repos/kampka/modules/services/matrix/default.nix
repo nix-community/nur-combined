@@ -130,7 +130,7 @@ in
           bind_address = "";
           port = cfg.matrix.federationPort;
           resources = [
-            { compress = true; names = [ "client" "webclient" ]; }
+            { compress = true; names = [ "client" ]; }
             { compress = false; names = [ "federation" ]; }
           ];
           tls = true;
@@ -142,7 +142,7 @@ in
           bind_address = "127.0.0.1";
           port = cfg.matrix.clientPort;
           resources = [
-            { compress = true; names = [ "client" "webclient" ]; }
+            { compress = true; names = [ "client" ]; }
           ];
           tls = false;
           type = "http";
