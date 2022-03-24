@@ -36,6 +36,7 @@
   # golang-migrate::tags: postgres mysql redshift cassandra spanner cockroachdb clickhouse file go_bindata github aws_s3 google_cloud_storage godoc_vfs gitlab
   golang-migrate-pg = pkgs.callPackage ./pkgs/golang-migrate { tags = [ "postgres" "file" ]; }; # with proper build tags
   prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
+  gcalendar = pkgs.python38.pkgs.callPackage ./pkgs/gcalendar { };
 
   ## programming
   # buf = pkgs.callPackage ./pkgs/buf {};
