@@ -646,10 +646,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220322.185926";
+      version = "99.0buildid20220324.185704";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926061/francais_language_pack-99.0buildid20220322.185926-fx.xpi";
-      sha256 = "478e02f1e44089b68dd8401b8358ab51a1fd10f6c9b0dff97e30d1b1b6a2ad04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3927148/francais_language_pack-99.0buildid20220324.185704-fx.xpi";
+      sha256 = "bee5f2fe2692bac63429d1875234356b1fd6cc923e8612b19c8f6f3dd792ddc1";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1875,10 +1875,10 @@
       };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
-      version = "2.3.0";
+      version = "2.4.0";
       addonId = "extension@tabliss.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3921647/tabliss_new_tab-2.3.0-fx.xpi";
-      sha256 = "5cd8ee438e439dee1d5a3db2d487da2ca5fd85a897702c208d5c2ff5ae811627";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926874/tabliss_new_tab-2.4.0-fx.xpi";
+      sha256 = "9f8e65622d95d40aab4a732c8e0aef3de194afe082c7e17217b5c37ae234c279";
       meta = with lib;
       {
         homepage = "https://tabliss.io";
