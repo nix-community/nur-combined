@@ -20,7 +20,6 @@ in {
     };
     environment = {
       systemPackages = with pkgs; [
-        picocom
         jellyfin-media-player
         transmission-remote-gtk
         nextcloud-client
