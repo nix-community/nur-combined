@@ -269,10 +269,10 @@
       };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.23.1";
+      version = "1.24.1";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926368/clearurls-1.23.1-an+fx.xpi";
-      sha256 = "ddf9e6635300e5f5bd9d4c8da25267499a594fb07b020163da5beca60aa6e7d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3927638/clearurls-1.24.1-an+fx.xpi";
+      sha256 = "41259fc4c330261e19ff4d38734eb5fdad92e7a358a16175383e31c62d50f06b";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -1297,10 +1297,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.0";
+      version = "2.3.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918810/1password-2.3.0-fx.xpi";
-      sha256 = "615a422186a6b51ebd22958becc11e90c1f0b8823863594bbcaca6ca37891a3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926702/1password-2.3.2-fx.xpi";
+      sha256 = "08ef8713819b302ad01b6438c3b2528b442bf3c28e7efd0cc5df5cccf41d4988";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1694,10 +1694,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.19.34";
+      version = "1.19.35";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918727/singlefile-1.19.34-an+fx.xpi";
-      sha256 = "1a9d5cbfa43d54d7b08d0e4d1ff5dbb89c18e099d9b89d569013caa32b4f46dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926913/singlefile-1.19.35-an+fx.xpi";
+      sha256 = "830cf296517d4a444af913146c9543177abb101ed73c05f06de884b216e21fc5";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1875,10 +1875,10 @@
       };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
-      version = "2.4.0";
+      version = "2.4.2";
       addonId = "extension@tabliss.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926874/tabliss_new_tab-2.4.0-fx.xpi";
-      sha256 = "9f8e65622d95d40aab4a732c8e0aef3de194afe082c7e17217b5c37ae234c279";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3927608/tabliss_new_tab-2.4.2-fx.xpi";
+      sha256 = "06038e3792828448801aea05df256cadd4f1ca2fb4cbea5dd73fe1cc245fbb4b";
       meta = with lib;
       {
         homepage = "https://tabliss.io";
