@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   udp-over-tcp = pkgs.callPackage ./pkgs/udp-over-tcp { };
+  udptunnel = pkgs.callPackage ./pkgs/udptunnel { };
 }
