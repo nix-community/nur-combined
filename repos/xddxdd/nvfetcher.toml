@@ -10,6 +10,10 @@ fetch.github = "open-quantum-safe/boringssl"
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
 
+[genshin-glyphs]
+src.git = "https://github.com/SpeedyOrc-C/Genshin-Glyphs.git"
+fetch.github = "SpeedyOrc-C/Genshin-Glyphs"
+
 [libltnginx]
 src.git = "https://github.com/xddxdd/libltnginx.git"
 fetch.github = "xddxdd/libltnginx"

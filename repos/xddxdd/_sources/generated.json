@@ -19,6 +19,26 @@
         "extract": null,
         "rustGitDeps": null
     },
+    "genshin-glyphs": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "genshin-glyphs",
+        "src": {
+            "deepClone": false,
+            "owner": "SpeedyOrc-C",
+            "name": null,
+            "repo": "Genshin-Glyphs",
+            "type": "github",
+            "sha256": "sha256-ElmA3USBlVYOAKaVy4FbcTHVaoOLKPu0fbHXMiK/7QM=",
+            "rev": "ca9b7d9bdbec47d0548daeeacc8a6917925c6095",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "ca9b7d9bdbec47d0548daeeacc8a6917925c6095",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
     "xray": {
         "pinned": false,
         "cargoLock": null,
@@ -79,12 +99,12 @@
         "cargoLock": null,
         "name": "v2fly-geosite",
         "src": {
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220322062456/dlc.dat",
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220325131800/dlc.dat",
             "name": null,
             "type": "url",
-            "sha256": "sha256-KB38Dd+AP9J+D1v+0OycPA8/VX7XBK7akV3TolT5jhA="
+            "sha256": "sha256-VLlWYieArszaiFEhb523OF9v9wYkFXSBY7YiJre2JHw="
         },
-        "version": "20220322062456",
+        "version": "20220325131800",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -309,12 +329,12 @@
         "cargoLock": null,
         "name": "v2fly-private",
         "src": {
-            "url": "https://github.com/v2fly/geoip/releases/download/202203170039/private.dat",
+            "url": "https://github.com/v2fly/geoip/releases/download/202203250919/private.dat",
             "name": null,
             "type": "url",
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg="
         },
-        "version": "202203170039",
+        "version": "202203250919",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -359,12 +379,12 @@
         "cargoLock": null,
         "name": "v2fly-geoip",
         "src": {
-            "url": "https://github.com/v2fly/geoip/releases/download/202203170039/geoip.dat",
+            "url": "https://github.com/v2fly/geoip/releases/download/202203250919/geoip.dat",
             "name": null,
             "type": "url",
-            "sha256": "sha256-EsGD3vvAUua9lusIin+VX506YtZiAJ1ftj2gQOlU5sg="
+            "sha256": "sha256-/TijXcSg6dwfriEpJVc/+TDSflD2aUglhsNf8mivjqY="
         },
-        "version": "202203170039",
+        "version": "202203250919",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null

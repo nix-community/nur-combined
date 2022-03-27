@@ -38,6 +38,7 @@ rec {
   genshin-checkin-helper = pkg ./genshin-checkin-helper {
     inherit genshinhelper2 onepush;
   };
+  genshin-glyphs = pkg ./genshin-glyphs { };
   genshinhelper2 = pkg ./genshinhelper2 { };
   glibc-debian-openvz-files = pkg ./glibc-debian-openvz-files { };
   hesuvi-hrir = pkg ./hesuvi-hrir { };

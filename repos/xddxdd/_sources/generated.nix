@@ -34,6 +34,17 @@
       sha256 = "sha256-P6rOMqYu6uxGVG1CPNE9fjhntH8IBMyo3mfSOo16EAA=";
     });
   };
+  genshin-glyphs = {
+    pname = "genshin-glyphs";
+    version = "ca9b7d9bdbec47d0548daeeacc8a6917925c6095";
+    src = fetchFromGitHub ({
+      owner = "SpeedyOrc-C";
+      repo = "Genshin-Glyphs";
+      rev = "ca9b7d9bdbec47d0548daeeacc8a6917925c6095";
+      fetchSubmodules = false;
+      sha256 = "sha256-ElmA3USBlVYOAKaVy4FbcTHVaoOLKPu0fbHXMiK/7QM=";
+    });
+  };
   libltnginx = {
     pname = "libltnginx";
     version = "96698a667740ac45ca4571a04a6cfe39caf926c0";
@@ -191,25 +202,25 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202203170039";
+    version = "202203250919";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202203170039/geoip.dat";
-      sha256 = "sha256-EsGD3vvAUua9lusIin+VX506YtZiAJ1ftj2gQOlU5sg=";
+      url = "https://github.com/v2fly/geoip/releases/download/202203250919/geoip.dat";
+      sha256 = "sha256-/TijXcSg6dwfriEpJVc/+TDSflD2aUglhsNf8mivjqY=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220322062456";
+    version = "20220325131800";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220322062456/dlc.dat";
-      sha256 = "sha256-KB38Dd+AP9J+D1v+0OycPA8/VX7XBK7akV3TolT5jhA=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220325131800/dlc.dat";
+      sha256 = "sha256-VLlWYieArszaiFEhb523OF9v9wYkFXSBY7YiJre2JHw=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202203170039";
+    version = "202203250919";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202203170039/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202203250919/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };
