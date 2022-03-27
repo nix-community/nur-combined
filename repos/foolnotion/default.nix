@@ -30,6 +30,8 @@
 
   eovim = pkgs.callPackage ./pkgs/eovim { };
 
+  eve = pkgs.callPackage ./pkgs/eve { };
+
   fast_float = pkgs.callPackage ./pkgs/fast_float { };
 
   keyd = pkgs.callPackage ./pkgs/keyd { };
