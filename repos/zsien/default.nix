@@ -16,4 +16,5 @@
 
   udp-over-tcp = pkgs.callPackage ./pkgs/udp-over-tcp { };
   udptunnel = pkgs.callPackage ./pkgs/udptunnel { };
+  udp2raw = pkgs.callPackage ./pkgs/udp2raw { };
 }
