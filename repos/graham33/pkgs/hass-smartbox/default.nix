@@ -5,14 +5,14 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "hass-smartbox";
-  version = "1.1.0-pre+25d488";
+  version = "1.1.0-pre+415bdd";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
-    rev = "25d488ffdcde601a9981d346ef7ce3820e3c6b60";
-    sha256 = "1fkxnzh0flwl00z875ja0ixl7w1bb9aasn0i0bl0lcz912zc9ryb";
+    rev = "415bdd9f8b06450e61a8c3ee5c4c67fe97b69fc1";
+    sha256 = "0vnaw0b4vl7i3wphjp6qlp6p8dy8rbpzhcpvvzqcfp0vh4z4f0is";
   };
 
   propagatedBuildInputs = [
@@ -30,9 +30,6 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
     pytest-sugar
     pytestCheckHook
   ];
-
-  # TODO: re-enable
-  doCheck = false;
 
   installPhase = ''
     mkdir -p $out/custom_components
