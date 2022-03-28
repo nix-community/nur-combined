@@ -56,12 +56,16 @@ rec {
 
   colmet-collector = pkgs.callPackage ./pkgs/colmet-collector { };
 
+  ear =  pkgs.callPackage ./pkgs/ear { };
+  
   evalys = pkgs.callPackage ./pkgs/evalys { inherit procset; };
 
   flatbuffers = pkgs.callPackage ./pkgs/flatbuffers/2.0.nix { };
 
   melissa = pkgs.callPackage ./pkgs/melissa { };
 
+  npb =  pkgs.callPackage ./pkgs/npb { };
+  
   go-swagger  = pkgs.callPackage ./pkgs/go-swagger { };
 
   gcovr = pkgs.callPackage ./pkgs/gcovr/csv.nix { };

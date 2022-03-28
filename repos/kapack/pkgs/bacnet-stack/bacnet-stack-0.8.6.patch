@@ -1,0 +1,52 @@
+diff --git a/include/address.h b/include/address.h
+index 895aeb9..5ecbe80 100644
+--- a/include/address.h
++++ b/include/address.h
+@@ -36,6 +36,14 @@ extern "C" {
+ 
+     void address_init(
+         void);
++        
++    /*
++	 * Patched in for use with dcdbpusher.
++	 * Has the same functionality as address_init() but lets the caller
++	 * specify the address cache file.
++	 */
++	void address_init_by_file(
++    	const char *pFilename);
+ 
+     void address_init_partial(
+         void);
+         
+diff --git a/src/address.c b/src/address.c
+index 1b543f9..3a55157 100644
+--- a/src/address.c
++++ b/src/address.c
+@@ -308,6 +308,27 @@ void address_init(
+     return;
+ }
+ 
++/*
++ * Patched in for use with dcdbpusher.
++ * Has the same functionality as address_init() but lets the caller
++ * specify the address cache file.
++ */
++void address_init_by_file(
++    const char *pFilename)
++{
++    struct Address_Cache_Entry *pMatch;
++
++   Top_Protected_Entry = 0;
++
++    pMatch = Address_Cache;
++    while (pMatch <= &Address_Cache[MAX_ADDRESS_CACHE - 1]) {
++        pMatch->Flags = 0;
++        pMatch++;
++    }
++    address_file_init(pFilename);
++    return;
++}
++
+ /****************************************************************************
+  * Clear down the cache of any non bound, expired  or reserved entries.     *
+  * Leave static and unexpired bound entries alone. For use where the cache  *

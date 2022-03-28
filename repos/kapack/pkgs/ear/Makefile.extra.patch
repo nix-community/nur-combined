@@ -1,0 +1,47 @@
+:100644 100644 6cb7f52 0000000 M	src/Makefile.extra
+
+diff --git a/src/Makefile.extra b/src/Makefile.extra
+index 6cb7f52..984d1e0 100644
+--- a/src/Makefile.extra
++++ b/src/Makefile.extra
+@@ -11,13 +11,13 @@ ifdef REPLACE
+ 	@ (cd $($*_PATH) && rm -f $($*_BINS))
+ endif
+ 	@ (cp -f $($*_BINS) $($*_PATH))
+-ifdef CHOWN_USR
+-	@ (cd $($*_PATH) && chown $(CHOWN_USR) $($*_BINS))
+-endif
+-ifdef CHOWN_GRP
+-	@ (cd $($*_PATH) && chgrp $(CHOWN_GRP) $($*_BINS))
+-endif
+-	@ (cd $($*_PATH) && chmod $($*_PERM) $($*_BINS))
++# ifdef CHOWN_USR
++# 	@ (cd $($*_PATH) && chown $(CHOWN_USR) $($*_BINS))
++# endif
++# ifdef CHOWN_GRP
++# 	@ (cd $($*_PATH) && chgrp $(CHOWN_GRP) $($*_BINS))
++# endif
++# 	@ (cd $($*_PATH) && chmod $($*_PERM) $($*_BINS))
+ 
+ %.finstall:
+ 	@ (mkdir -p $($*_PATH))
+@@ -25,12 +25,12 @@ ifdef REPLACE
+ 	@ (cd $($*_PATH) && rm -f $($*_BINS))
+ endif
+ 	@ (cd $($*_FOLD) && cp $($*_BINS) $($*_PATH))
+-ifdef CHOWN_USR
+-	@ (cd $($*_PATH) && chown $(CHOWN_USR) $($*_BINS))
+-endif
+-ifdef CHOWN_GRP
+-	@ (cd $($*_PATH) && chgrp $(CHOWN_GRP) $($*_BINS))
+-endif
+-	@ (cd $($*_PATH) && chmod $($*_PERM) $($*_BINS))
++# ifdef CHOWN_USR
++# 	@ (cd $($*_PATH) && chown $(CHOWN_USR) $($*_BINS))
++# endif
++# ifdef CHOWN_GRP
++# 	@ (cd $($*_PATH) && chgrp $(CHOWN_GRP) $($*_BINS))
++# endif
++# 	@ (cd $($*_PATH) && chmod $($*_PERM) $($*_BINS))
+ 
+ -include .extra

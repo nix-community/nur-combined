@@ -1,0 +1,268 @@
+diff --git a/lib/actions.c b/lib/actions.c
+index 5e50dbe..c92c7ab 100644
+--- a/lib/actions.c
++++ b/lib/actions.c
+@@ -51,6 +51,10 @@ int mosquitto_publish(struct mosquitto *mosq, int *mid, const char *topic, int p
+ 	if(qos == 0){
+ 		return send__publish(mosq, local_mid, topic, payloadlen, payload, qos, retain, false);
+ 	}else{
++		if (mosq->max_queued_messages > 0 && (mosq->in_queue_len + mosq->out_queue_len + mosq->inflight_messages + 1 >= mosq->max_queued_messages)) {
++			return MOSQ_ERR_NOMEM;
++		}
++		
+ 		message = mosquitto__calloc(1, sizeof(struct mosquitto_message_all));
+ 		if(!message) return MOSQ_ERR_NOMEM;
+ 
+diff --git a/lib/loop.c b/lib/loop.c
+index e4a985e..ca51772 100644
+--- a/lib/loop.c
++++ b/lib/loop.c
+@@ -18,7 +18,7 @@ Contributors:
+ 
+ #include <errno.h>
+ #ifndef WIN32
+-#include <sys/select.h>
++#include <poll.h>
+ #include <time.h>
+ #endif
+ 
+@@ -36,45 +36,43 @@ Contributors:
+ 
+ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
+ {
+-#ifdef HAVE_PSELECT
+-	struct timespec local_timeout;
++#ifdef WITH_SRV
++	struct pollfd fds[2+ARES_GETSOCK_MAXNUM];
++	ares_socket_t aresfd[ARES_GETSOCK_MAXNUM];
++	int i;
+ #else
+-	struct timeval local_timeout;
++	struct pollfd fds[2];
+ #endif
+-	fd_set readfds, writefds;
++	nfds_t nfds = 2;
+ 	int fdcount;
+ 	int rc;
+ 	char pairbuf;
+-	int maxfd = 0;
+ 	time_t now;
+ 
+ 	if(!mosq || max_packets < 1) return MOSQ_ERR_INVAL;
+-#ifndef WIN32
+-	if(mosq->sock >= FD_SETSIZE || mosq->sockpairR >= FD_SETSIZE){
+-		return MOSQ_ERR_INVAL;
+-	}
+-#endif
+ 
+-	FD_ZERO(&readfds);
+-	FD_ZERO(&writefds);
++	/* Make sure fd is set to proper values. INVALID_SOCKET is safe here, as -1 will be ignored
++	 * by poll()  */
++	fds[0].fd = mosq->sock;
++	fds[1].fd = mosq->sockpairR;
++
+ 	if(mosq->sock != INVALID_SOCKET){
+-		maxfd = mosq->sock;
+-		FD_SET(mosq->sock, &readfds);
++		fds[0].events = POLLIN;
+ 		pthread_mutex_lock(&mosq->current_out_packet_mutex);
+ 		pthread_mutex_lock(&mosq->out_packet_mutex);
+ 		if(mosq->out_packet || mosq->current_out_packet){
+-			FD_SET(mosq->sock, &writefds);
++			fds[0].events|= POLLOUT;
+ 		}
+ #ifdef WITH_TLS
+ 		if(mosq->ssl){
+-			if(mosq->want_write){
+-				FD_SET(mosq->sock, &writefds);
++			if(mosq->want_write && !mosq->want_connect){
++				fds[0].events|= POLLOUT;
+ 			}else if(mosq->want_connect){
+-				/* Remove possible FD_SET from above, we don't want to check
++				/* Remove possible POLLOUT from above, we don't want to check
+ 				 * for writing if we are still connecting, unless want_write is
+ 				 * definitely set. The presence of outgoing packets does not
+ 				 * matter yet. */
+-				FD_CLR(mosq->sock, &writefds);
++				fds[0].events&= ~POLLOUT;
+ 			}
+ 		}
+ #endif
+@@ -85,9 +83,19 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
+ 		if(mosq->achan){
+ 			pthread_mutex_lock(&mosq->state_mutex);
+ 			if(mosq->state == mosq_cs_connect_srv){
+-				rc = ares_fds(mosq->achan, &readfds, &writefds);
+-				if(rc > maxfd){
+-					maxfd = rc;
++				rc = ares_getsock(mosq->achan, aresfd, ARES_GETSOCK_MAXNUM);
++				for (i=0; i<ARES_GETSOCK_MAXNUM; i++) {
++					fds[nfds].events = 0;
++					if (ARES_GETSOCK_READABLE(rc, i)) {
++						fds[nfds].events|= POLLIN;
++					}
++					if (ARES_GETSOCK_WRITABLE(rc, i)) {
++						fds[nfds].events|= POLLOUT;
++					}
++					if (fds[nfds].events > 0) {
++						fds[nfds].fd = aresfd[i];
++						nfds++;
++					}
+ 				}
+ 			}else{
+ 				pthread_mutex_unlock(&mosq->state_mutex);
+@@ -102,10 +110,7 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
+ 	if(mosq->sockpairR != INVALID_SOCKET){
+ 		/* sockpairR is used to break out of select() before the timeout, on a
+ 		 * call to publish() etc. */
+-		FD_SET(mosq->sockpairR, &readfds);
+-		if(mosq->sockpairR > maxfd){
+-			maxfd = mosq->sockpairR;
+-		}
++		fds[1].events = POLLIN;
+ 	}
+ 
+ 	if(timeout < 0){
+@@ -123,18 +128,7 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
+ 		timeout = 0;
+ 	}
+ 
+-	local_timeout.tv_sec = timeout/1000;
+-#ifdef HAVE_PSELECT
+-	local_timeout.tv_nsec = (timeout-local_timeout.tv_sec*1000)*1e6;
+-#else
+-	local_timeout.tv_usec = (timeout-local_timeout.tv_sec*1000)*1000;
+-#endif
+-
+-#ifdef HAVE_PSELECT
+-	fdcount = pselect(maxfd+1, &readfds, &writefds, NULL, &local_timeout, NULL);
+-#else
+-	fdcount = select(maxfd+1, &readfds, &writefds, NULL, &local_timeout);
+-#endif
++	fdcount = poll(fds, nfds, timeout);
+ 	if(fdcount == -1){
+ #ifdef WIN32
+ 		errno = WSAGetLastError();
+@@ -146,13 +140,13 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
+ 		}
+ 	}else{
+ 		if(mosq->sock != INVALID_SOCKET){
+-			if(FD_ISSET(mosq->sock, &readfds)){
++			if((fds[0].revents & POLLIN) == POLLIN){
+ 				rc = mosquitto_loop_read(mosq, max_packets);
+ 				if(rc || mosq->sock == INVALID_SOCKET){
+ 					return rc;
+ 				}
+ 			}
+-			if(mosq->sockpairR != INVALID_SOCKET && FD_ISSET(mosq->sockpairR, &readfds)){
++			if(mosq->sockpairR != INVALID_SOCKET && (fds[1].revents & POLLIN) == POLLIN){
+ #ifndef WIN32
+ 				if(read(mosq->sockpairR, &pairbuf, 1) == 0){
+ 				}
+@@ -163,9 +157,9 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
+ 				 * we didn't ask for it, because at that point the publish or
+ 				 * other command wasn't present. */
+ 				if(mosq->sock != INVALID_SOCKET)
+-					FD_SET(mosq->sock, &writefds);
++					fds[0].revents|= POLLOUT;
+ 			}
+-			if(mosq->sock != INVALID_SOCKET && FD_ISSET(mosq->sock, &writefds)){
++			if(mosq->sock != INVALID_SOCKET && (fds[0].revents & POLLOUT) == POLLOUT){
+ #ifdef WITH_TLS
+ 				if(mosq->want_connect){
+ 					rc = net__socket_connect_tls(mosq);
+@@ -182,7 +176,19 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
+ 		}
+ #ifdef WITH_SRV
+ 		if(mosq->achan){
+-			ares_process(mosq->achan, &readfds, &writefds);
++			for (i=2; i<nfds; i++) {
++				ares_socket_t rfd = ARES_SOCKET_BAD;
++				ares_socket_t wfd = ARES_SOCKET_BAD;
++				if ((fds[i].revents & POLLIN) == POLLIN) {
++					rfd = fds[i].fd;
++				}
++				if ((fds[i].revents & POLLOUT) == POLLOUT) {
++					wfd = fds[i].fd;
++				}
++				if (rfd != ARES_SOCKET_BAD || wfd != ARES_SOCKET_BAD) {
++					ares_process_fd(mosq->achan, rfd, wfd);
++				}
++			}
+ 		}
+ #endif
+ 	}
+diff --git a/lib/messages_mosq.c b/lib/messages_mosq.c
+index f6c50b8..6bbc6e2 100644
+--- a/lib/messages_mosq.c
++++ b/lib/messages_mosq.c
+@@ -399,3 +399,12 @@ int mosquitto_max_inflight_messages_set(struct mosquitto *mosq, unsigned int max
+ 	return MOSQ_ERR_SUCCESS;
+ }
+ 
++int mosquitto_max_queued_messages_set(struct mosquitto *mosq, unsigned int max_queued_messages)
++{
++	if(!mosq) return MOSQ_ERR_INVAL;
++	
++	mosq->max_queued_messages = max_queued_messages;
++	
++	return MOSQ_ERR_SUCCESS;
++}
++
+diff --git a/lib/mosquitto.c b/lib/mosquitto.c
+index eab1d99..76715f7 100644
+--- a/lib/mosquitto.c
++++ b/lib/mosquitto.c
+@@ -162,6 +162,7 @@ int mosquitto_reinitialise(struct mosquitto *mosq, const char *id, bool clean_se
+ 	mosq->out_messages = NULL;
+ 	mosq->out_messages_last = NULL;
+ 	mosq->max_inflight_messages = 20;
++	mosq->max_queued_messages = 0;
+ 	mosq->will = NULL;
+ 	mosq->on_connect = NULL;
+ 	mosq->on_publish = NULL;
+diff --git a/lib/mosquitto.h b/lib/mosquitto.h
+index 57a22ec..9ed8c28 100644
+--- a/lib/mosquitto.h
++++ b/lib/mosquitto.h
+@@ -1366,6 +1366,27 @@ libmosq_EXPORT int mosquitto_reconnect_delay_set(struct mosquitto *mosq, unsigne
+  */
+ libmosq_EXPORT int mosquitto_max_inflight_messages_set(struct mosquitto *mosq, unsigned int max_inflight_messages);
+ 
++/*
++ * Function: mosquitto_max_queued_messages_set
++ *
++ * Set the number of QoS 1 and 2 messages that can be queued at one time.
++ * This will be on top of the "in flight" messages and is meant to limit the
++ * amount of memory used for buffering messages when they cannot be delivered
++ * to the broker immediately.
++ *
++ * Set to 0 for no maximum.
++ *
++ * Parameters:
++ *  mosq -                a valid mosquitto instance.
++ *  max_queued_messages - the maximum number of inflight messages. Defaults
++ *                        to 0.
++ *
++ * Returns:
++ *	MOSQ_ERR_SUCCESS - on success.
++ * 	MOSQ_ERR_INVAL -   if the input parameters were invalid.
++ */
++libmosq_EXPORT int mosquitto_max_queued_messages_set(struct mosquitto *mosq, unsigned int max_queued_messages);
++	
+ /*
+  * Function: mosquitto_message_retry_set
+  *
+diff --git a/lib/mosquitto_internal.h b/lib/mosquitto_internal.h
+index c6b3d6e..7505916 100644
+--- a/lib/mosquitto_internal.h
++++ b/lib/mosquitto_internal.h
+@@ -271,6 +271,7 @@ struct mosquitto {
+ 	struct mosquitto__packet *out_packet_last;
+ 	int inflight_messages;
+ 	int max_inflight_messages;
++	int max_queued_messages;
+ #  ifdef WITH_SRV
+ 	ares_channel achan;
+ #  endif
