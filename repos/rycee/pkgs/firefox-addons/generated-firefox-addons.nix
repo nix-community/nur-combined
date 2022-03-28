@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.6.1.0";
+      version = "2.6.2.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924838/bypass_paywalls_clean-2.6.1.0-an+fx.xpi";
-      sha256 = "6c3c3d2ce0be155161806166c8f70b7cbe591a977078d5f9536aa4b1216dcf24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3928162/bypass_paywalls_clean-2.6.2.0-an+fx.xpi";
+      sha256 = "daf1c288fa27116514fd20dc1549b164b221a36d83ed05c5f44095b92b372225";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -993,10 +993,10 @@
       };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
-      version = "1.2.1";
+      version = "1.2.3";
       addonId = "linkhints@lydell.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3919345/link_hints-1.2.1-fx.xpi";
-      sha256 = "9341ef138bf96819615d2d886b232965e07fb5947659a378b9bdf80163ae6e70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3928071/link_hints-1.2.3-fx.xpi";
+      sha256 = "8ac8f7925f9ebaa2dba5e5bf2f6675c5227a433fbf250bd6395f1be9d849a9d8";
       meta = with lib;
       {
         homepage = "https://lydell.github.io/LinkHints";
@@ -2272,10 +2272,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.57.1";
+      version = "2.57.2";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926362/web_scrobbler-2.57.1-an+fx.xpi";
-      sha256 = "2f91576138fbd1ce0c43fe60b98c3578a87565181d5ede993fa27859d501bad2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3928222/web_scrobbler-2.57.2-an+fx.xpi";
+      sha256 = "04e1f5afe03711ae84be34f1f9cb80b168d53a62440f84b388ceda9ceb01347e";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
