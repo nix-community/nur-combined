@@ -25,6 +25,5 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/137678
   };
 }

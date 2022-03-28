@@ -1,4 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, cairo, librsvg }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, cairo, librsvg
+, Foundation, memstreamHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "smrender";
@@ -13,7 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [ cairo librsvg ];
+  buildInputs = [ cairo librsvg ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation memstreamHook ];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -27,7 +30,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
-    skip.ci = stdenv.isDarwin;
+    platforms = platforms.unix;
   };
 }

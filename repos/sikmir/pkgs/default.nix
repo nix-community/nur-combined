@@ -336,7 +336,9 @@ lib.makeScope newScope (
     phyghtmap = callPackage ./osm/phyghtmap { };
     sdlmap = callPackage ./osm/sdlmap { };
     smopy = callPackage ./osm/smopy { };
-    smrender = callPackage ./osm/smrender { };
+    smrender = callPackage ./osm/smrender {
+      inherit (darwin.apple_sdk.frameworks) Foundation;
+    };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
     tilemaker = callPackage ./osm/tilemaker { };
     vectiler = callPackage ./osm/vectiler { };
