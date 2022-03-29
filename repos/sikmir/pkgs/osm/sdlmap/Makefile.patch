@@ -1,0 +1,14 @@
+diff --git i/Makefile w/Makefile
+index 569a347..a7f4032 100644
+--- i/Makefile
++++ w/Makefile
+@@ -1,6 +1,6 @@
+-SDL_CONFIG=sdl2-config
+-CXXFLAGS=`$(SDL_CONFIG) --cflags` -g
+-LIBS=`$(SDL_CONFIG) --libs` -lcurl -lSDL2_image
++PKG_CONFIG=pkg-config
++CXXFLAGS=`$(PKG_CONFIG) --cflags SDL2` `$(PKG_CONFIG) --cflags SDL2_image` -g
++LIBS=`$(PKG_CONFIG) --libs SDL2` `$(PKG_CONFIG) --libs SDL2_image` -lcurl
+ TARGET=sdlmap
+ 
+ sdlmap: sdlmap.o tile_downloader.o tile_collection.o map_view.o tile.o

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, curl, SDL2, SDL2_image }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, curl, SDL2, SDL2_image }:
 
 stdenv.mkDerivation rec {
   pname = "sdlmap";
@@ -11,7 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-W09WzCKmuMjV1L2c1bvlBCmNvXxYgGNU/MLtu6TTsIg=";
   };
 
-  patches = [ ./tile.patch ];
+  patches = [ ./tile.patch ./Makefile.patch ];
+
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ curl SDL2 SDL2_image ];
 

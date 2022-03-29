@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "tilemaker";
-  version = "2.1.0";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "systemed";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-weDwDIeOI7CEyZotGWar5l6zW+l31ZvfHkIEUiXevR8=";
+    hash = "sha256-st6WDCk1RZ2lbfrudtcD+zenntyTMRHrIXw3nX5FHOU=";
   };
 
   postPatch = ''
