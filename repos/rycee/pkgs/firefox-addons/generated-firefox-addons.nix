@@ -154,10 +154,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.22";
+      version = "7.4.24";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3913184/betterttv-7.4.22-fx.xpi";
-      sha256 = "5cdc655443aeab6b7f79d0c00fd625f2592de31285832c8dccd3cdd84758bee5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3928218/betterttv-7.4.24-fx.xpi";
+      sha256 = "195c66ebb8999b19425b7b8e9e01fe4bc254e92c797b013969fc5cd7f19c7d0d";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -646,10 +646,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220324.185704";
+      version = "99.0buildid20220328.190900";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3927148/francais_language_pack-99.0buildid20220324.185704-fx.xpi";
-      sha256 = "bee5f2fe2692bac63429d1875234356b1fd6cc923e8612b19c8f6f3dd792ddc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3928679/francais_language_pack-99.0buildid20220328.190900-fx.xpi";
+      sha256 = "85607b9563c0108c1efee116871cad311cc40c9f202052f02144ea152bd689fb";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1209,10 +1209,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.1";
+      version = "11.4.3";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926354/noscript_security_suite-11.4.1-an+fx.xpi";
-      sha256 = "68bdf014e3c102b3b3fbb86b7c07a9ecb7ee8e6a1da253cd6aea31d4c86a04d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3928474/noscript_security_suite-11.4.3-an+fx.xpi";
+      sha256 = "992e2425240f65cb96228bd6842bdd43d3a647bcfe4cde0ae912cd9d27224672";
       meta = with lib;
       {
         homepage = "https://noscript.net";
