@@ -23,7 +23,7 @@ jobs:
           echo fluent-theme gh-issues-to-rss gloc nn quickserve toffee tojson traffic grpc-gateway sirus prosemd-lsp |
           tr ' ' '\n' | shuf | xargs -L1 ./_scripts/autoupdate
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         if: always()
         with:
           commit-message: Update packages
