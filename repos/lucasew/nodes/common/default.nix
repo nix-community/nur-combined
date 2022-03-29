@@ -8,7 +8,7 @@
   ];
   zramSwap = {
     enable = true;
-    algorithm = "zstd";
+    algorithm = "lzo-rle";
     memoryPercent = 10;
   };
   boot = {

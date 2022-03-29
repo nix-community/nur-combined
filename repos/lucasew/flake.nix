@@ -75,14 +75,18 @@
           rootPathNix = "${rootPath}";
           wallpaper = ./wall.jpg;
           system = throw "usa o system do flake!";
-          environmentShell = ''
+          environmentShell = with pkgs; ''
             export NIXPKGS_ALLOW_UNFREE=1
             export NIXCFG_ROOT_PATH="$HOME/.dotfiles"
+            export NIX_LD="$(cat "${stdenv.cc.outPath}/nix-support/dynamic-linker")"
+            export NIX_LD_LIBRARY_PATH=${lib.makeLibraryPath [
+              stdenv.cc.cc
+            ]}
             function nix-repl {
               nix repl "$NIXCFG_ROOT_PATH/repl.nix" "$@"
             }
             export LUA_PATH="${concatStringsSep ";" [
-              "${pkgs.fennel}/share/lua/5.4.3/?.lua"
+              "${fennel}/share/lua/5.4.3/?.lua"
               "$NIXCFG_ROOT_PATH/scripts/?.lua"
               "$NIXCFG_ROOT_PATH/scripts/?/index.lua"
             ]}"

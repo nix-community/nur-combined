@@ -240,11 +240,11 @@
     "nix-vscode": {
       "flake": false,
       "locked": {
-        "lastModified": 1635687717,
-        "narHash": "sha256-Snue4H7ajvQnKMbP1GLtsEQ7mJmIb/cldUNBq0rdr1c=",
+        "lastModified": 1648304401,
+        "narHash": "sha256-AyVF6DnJNtiMIYhKYFQ9j1jScjodjxwwVCVAIyX5ODc=",
         "owner": "lucasew",
         "repo": "nix-vscode",
-        "rev": "ac26894ddf88be65e175c8eeda108c1a831d9240",
+        "rev": "d96b40e58aa459cd456f301f4bff5bc97d532179",
         "type": "github"
       },
       "original": {

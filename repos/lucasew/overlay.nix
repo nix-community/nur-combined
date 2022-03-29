@@ -36,6 +36,7 @@ in {
   wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = prev;});
   c4me = cp ./packages/c4me;
   encore = cp ./packages/encore.nix;
+  parsec = cp ./packages/parsec.nix;
   xplr = cp ./packages/xplr.nix;
   personal-utils = cp ./packages/personal-utils.nix;
   nixwrap = cp ./packages/nixwrap.nix;
@@ -82,7 +83,7 @@ in {
   wrapWine = cp ./packages/wrapWine.nix;
   wonderland-engine = cp ./packages/wonderland-engine.nix;
   preload = cp ./packages/preload.nix;
-  nodePackages = cp ./packages/node_clis/package_data/default.nix;
+  nodePackages = prev.nodePackages // (cp ./packages/node_clis/package_data/default.nix);
   nur = import flake.inputs.nur {
     inherit (prev) pkgs;
     nurpkgs = prev.pkgs;
