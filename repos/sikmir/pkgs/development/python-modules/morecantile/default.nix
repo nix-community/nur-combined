@@ -1,15 +1,15 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{ lib, stdenv, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "morecantile";
-  version = "3.0.0";
+  version = "3.1.2";
   disabled = python3Packages.pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = pname;
     rev = version;
-    hash = "sha256-k4EfOYXXyOmcWs6pi/7Muk8X1ncIyoo6R1LWfuobpWQ=";
+    hash = "sha256-QvqXpcjunRWzfdcoyt3pUulDd20Ga8Cs9NTeLnUf5c8=";
   };
 
   propagatedBuildInputs = with python3Packages; [ pydantic pyproj ];
@@ -23,5 +23,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://developmentseed.org/morecantile/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/161740
   };
 }
