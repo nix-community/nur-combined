@@ -11,6 +11,7 @@ static const int systraypinningfailfirst = 1; /* 1: if pinning fails, display sy
 static const int showsystray = 1;			  /* 0 means no systray */
 static const int showbar = 1;				  /* 0 means no bar */
 static const int topbar = 1;				  /* 0 means bottom bar */
+static const int gappx = 10;
 static const char *fonts[] = {"Cantarell-Regular:size=12", "Fira Code Nerd Font:size=12"};
 
 static int barheight;
@@ -20,6 +21,7 @@ static char xresourcesfont[30];
 static char col_background[] = "#292f3a"; /* top bar dark background*/
 // fonts
 static char col_white[] = "#ffffff";/*white for fonts*/
+static char col_gray[] = "#747c90"; /*top bar minimized foreground*/
 
 // border active and inactive
 static char col_pastel_blue[] = "#747c90";/*unsaturated for focused border*/
@@ -57,7 +59,7 @@ static const char *colors[][4] = {
 	/*                    fg               bg              border 	           float*/
 	[SchemeNorm]      = { col_white,       col_background, col_pastel_blue,    col_green },
 	[SchemeSel]       = { col_white,       col_blue,       col_light_blue,     col_green },
-	[SchemeHid]       = { col_pastel_blue, col_background, col_pastel_blue,    col_green },
+	[SchemeHid]       = { col_gray,        col_background, col_pastel_blue,    col_green },
 	[SchemeTags]      = { col_white,       col_blue,       col_light_blue,     col_dark_blue },
 	[SchemeActive]    = { col_white,       col_green,      col_light_blue,     col_dark_green },
 	[SchemeAddActive] = { col_white,       col_orange,     col_light_blue,     col_dark_orange },
@@ -68,7 +70,9 @@ static const char *colors[][4] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "s" };
+#define MAX_TAGLEN 16
+static const char *tags_default[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "s"};
+static char tags[][MAX_TAGLEN] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "s" };
 /* ffox, programming1, term, music, steam, folder, play icon, document, message  */
 static const char *tagsalt[] = { "", "{}", "$", "", "", "", "", "", "" };
 
@@ -99,6 +103,7 @@ static const Rule rules[] = {
 	{"Panther",                     NULL,     NULL,  0,         3,          -1},
 	{"org-wellkord-globonote-Main", NULL,     NULL,  0,         1,          -1},
 	{"Peek",                        NULL,     NULL,  0,         1,          -1},
+	{"Media viewer",                NULL,     NULL,  0,         1,          -1},
 	{"ROX-Filer",                   NULL,     NULL,  0,         0,          -1},
 };
 
@@ -129,7 +134,8 @@ static const Layout layouts[] = {
 		{MODKEY|ControlMask, KEY, toggleview, {.ui = 1 << TAG}}, \
 		{MODKEY|ShiftMask, KEY, tag, {.ui = 1 << TAG}},          \
 		{MODKEY|Mod1Mask, KEY, followtag, {.ui = 1 << TAG}},          \
-		{MODKEY|ControlMask|ShiftMask, KEY, toggletag, {.ui = 1 << TAG}},
+		{MODKEY|ControlMask|ShiftMask, KEY, toggletag, {.ui = 1 << TAG}}, \
+		{MODKEY|Mod1Mask|ShiftMask, KEY, swaptags, {.ui = 1 << TAG}},
 
 
 #define SHCMD(cmd)                                           \
@@ -152,6 +158,7 @@ static const char *instantpacmancmd[] = {"instantpacman", NULL};
 static const char *instantsharecmd[] = {"instantshare", "snap", NULL};
 static const char *nautiluscmd[] = {".config/instantos/default/filemanager", NULL};
 static const char *slockcmd[] = {".config/instantos/default/lockscreen", NULL};
+static const char *onekeylock[] = {"ilock", "-o", NULL};
 static const char *langswitchcmd[] = {"ilayout", NULL};
 static const char *oslockcmd[] = {"instantlock", "-o", NULL};
 static const char *helpcmd[] = {"instanthotkeys", "gui", NULL};
@@ -164,7 +171,7 @@ static const char *onboardcmd[] = {"onboard", NULL};
 static const char *instantshutdowncmd[] = {"instantshutdown", NULL};
 static const char *systemmonitorcmd[] = {".config/instantos/default/systemmonitor", NULL};
 static const char *notifycmd[] = {"instantnotify", NULL};
-static const char *rangercmd[] = { "st", "-e", "ranger", NULL };
+static const char *rangercmd[] = { ".config/instantos/default/termfilemanager", NULL };
 static const char *panther[] = { ".config/instantos/default/appmenu", NULL};
 static const char *controlcentercmd[] = { "instantsettings", NULL};
 static const char *displaycmd[] = { "instantdisper", NULL};
@@ -200,6 +207,7 @@ ResourcePref resources[] = {
 
 		{ "minimize",         STRING,  &col_orange },
 		{ "darkminimize",     STRING,  &col_dark_orange },
+		{ "minimizedcolor",   STRING,  &col_gray },
 
 		{ "border",           STRING,  &col_pastel_blue },
 		{ "activeborder",     STRING,  &col_light_blue },
@@ -220,22 +228,37 @@ ResourcePref resources[] = {
 		{ "barheight",        INTEGER, &barheight },
 		{ "font",             STRING,  &xresourcesfont },
 
+		{ "tag1",             STRING,  &tags[0] },
+		{ "tag2",             STRING,  &tags[1] },
+		{ "tag3",             STRING,  &tags[2] },
+		{ "tag4",             STRING,  &tags[3] },
+		{ "tag5",             STRING,  &tags[4] },
+		{ "tag6",             STRING,  &tags[5] },
+		{ "tag7",             STRING,  &tags[6] },
+		{ "tag8",             STRING,  &tags[7] },
+		{ "tag9",             STRING,  &tags[8] },
 };
 
+// instantwmctrl commands
 static Xcommand commands[] = {
 	/* signum       function        default argument  arg handler*/
     // 0 means off, 1 means toggle, 2 means on
 	{ "overlay",                setoverlay,                   {0},         0 },
 	{ "tag",                    view,                         { .ui = 2 }, 3 },
 	{ "animated",               toggleanimated,               { .ui = 2 }, 1 },
-    { "focusfollowsmouse",      togglefocusfollowsmouse,      { .ui = 2 }, 1 },
-    { "focusfollowsfloatmouse", togglefocusfollowsfloatmouse, { .ui = 2 }, 1 },
+	{ "focusfollowsmouse",      togglefocusfollowsmouse,      { .ui = 2 }, 1 },
+	{ "focusfollowsfloatmouse", togglefocusfollowsfloatmouse, { .ui = 2 }, 1 },
 	{ "alttab",                 alttabfree,                   { .ui = 2 }, 1 },
 	{ "layout",                 commandlayout,                { .ui = 0 }, 1 },
 	{ "prefix",                 commandprefix,                { .ui = 1 }, 1 },
 	{ "alttag",                 togglealttag,                 { .ui = 0 }, 1 },
 	{ "hidetags",               toggleshowtags,               { .ui = 0 }, 1 },
 	{ "specialnext",            setspecialnext,               { .ui = 0 }, 3 },
+	{ "tagmon",                 tagmon,                       { .i = +1 }, 0 },
+	{ "followmon",              followmon,                    { .i = +1 }, 0 },
+	{ "focusmon",               focusmon,                     { .i = +1 }, 0 },
+	{ "nametag",                nametag,                      { .v = "tag" }, 4 },
+	{ "resetnametag",           resetnametag,                 {0}, 0 },
 };
 
 static Key dkeys[] = {
@@ -311,6 +334,7 @@ static Key keys[] = {
 	{MODKEY,                                XK_dead_circumflex, spawn,                {.v = caretinstantswitchcmd}},
 
 	{MODKEY | ControlMask, XK_l, spawn, SHCMD("slock & systemctl suspend")}, // {.v = slockcmd}}
+	{MODKEY|ControlMask|ShiftMask,          XK_l,               spawn,                {.v = onekeylock}},
 
 	{MODKEY|ControlMask,                    XK_h,               hidewin,              {0}},
 	{MODKEY|Mod1Mask|ControlMask,           XK_h,               unhideall,            {0}},
@@ -373,10 +397,15 @@ static Key keys[] = {
 	{MODKEY,                                XK_e,               overtoggle,           {.ui = ~0}},
 	{MODKEY|ShiftMask,                      XK_e,               fullovertoggle,       {.ui = ~0}},
 
-	{MODKEY|ControlMask,                    XK_Left,            shiftview,            {.i = -1 }},
-	{MODKEY|Mod1Mask,                       XK_Left,            moveleft,             {0}},
-	{MODKEY|ControlMask,                    XK_Right,           shiftview,            {.i = +1 }},
+	{MODKEY|ControlMask,                    XK_Left,            directionfocus,            {.ui = 3 }},
+	{MODKEY|ControlMask,                    XK_Right,           directionfocus,            {.ui = 1 }},
+	{MODKEY|ControlMask,                    XK_Up,              directionfocus,            {.ui = 0 }},
+	{MODKEY|ControlMask,                    XK_Down,            directionfocus,            {.ui = 2 }},
 
+	{MODKEY|ShiftMask|ControlMask,                    XK_Right,           shiftview,            {.i = +1 }},
+	{MODKEY|ShiftMask|ControlMask,                    XK_Left,           shiftview,            {.i = -1 }},
+
+	{MODKEY|Mod1Mask,                       XK_Left,            moveleft,             {0}},
 	{MODKEY|Mod1Mask,                       XK_Right,           moveright,            {0}},
 
 	{MODKEY|ShiftMask,                      XK_Left,            tagtoleft,            {0}},
@@ -412,7 +441,7 @@ static Key keys[] = {
 	TAGKEYS(XK_7, 6)
 	TAGKEYS(XK_8, 7)
 	TAGKEYS(XK_9, 8)
-	{MODKEY|ShiftMask|ControlMask, XK_q,                     quit,    {0}},
+    {MODKEY|ShiftMask|ControlMask, XK_q,                     quit,    {0}},
 	{0,                            XF86XK_MonBrightnessUp,   spawn,   {.v = upbright}},
 	{0,                            XF86XK_MonBrightnessDown, spawn,   {.v = downbright}},
 	{0,                            XF86XK_AudioLowerVolume,  spawn,   {.v = downvol}},
@@ -430,6 +459,10 @@ static Key keys[] = {
 	{MODKEY|Mod1Mask,              XK_Print,                 spawn,   {.v = fclipscrotcmd}},
 
 	{ MODKEY,                      XK_o,                     winview, {0} },
+
+	//{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
+    //{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
+	//{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 
 };
 

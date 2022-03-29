@@ -73,6 +73,7 @@ rec {
     instantConf = self.instantconf;
     instantUtils = self.instantutils;
     Paperbash = self.paperbash;
+    inherit (pkgs.gnome3) zenity;
   };
   instantsettings = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantSettings {
     instantAssist = self.instantassist;
@@ -157,6 +158,7 @@ rec {
         self.pkgs.xdg-user-dirs
         self.pkgs.papirus-icon-theme
         self.pkgs.arc-theme
+        pkgs.xorg.xeyes
     ];
   };
 } )

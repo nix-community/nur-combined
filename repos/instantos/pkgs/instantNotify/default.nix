@@ -13,23 +13,22 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantNOTIFY";
-    rev = "f6cc6bb305f0cd81e67eaa58887762f533ecca2b";
-    sha256 = "sha256-+LZefZCKI9AkJuSU9a/+dNpkrw5FtxIEWEihS1+DIhU=";
+    rev = "ad4bdbf161b39a21d64f89aa11020df90cff0285";
+    sha256 = "Lb3xm43heIyHVRfGVsXWl9Y4pSoOyzeZGcq1aZU26hU=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
   propagatedBuildInputs = [ instantMenu sqlite ];
 
+  makeFlags = [ "DESTDIR=$(out)/" "PREFIX=" ];
+
   postPatch = ''
-    substituteInPlace install.sh \
-      --replace "/usr" "$out" \
-      --replace "sudo " ""
     patchShebangs *.sh
   '';
 
   installPhase = ''
     mkdir -p "$out/bin"
-    ./install.sh
+    make install DESTDIR=$out/ PREFIX=
     runHook postInstall
   '';
 

@@ -6,9 +6,8 @@
 
 -------
 
-| main [![Build Status](https://travis-ci.org/instantOS/instantNIX.svg?branch=master)](https://travis-ci.org/instantOS/instantNIX) |
-dev [![Build Status](https://travis-ci.org/instantOS/instantNIX.svg?branch=dev)](https://travis-ci.org/instantOS/instantNIX) |
-cache [![Cachix Cache](https://img.shields.io/badge/cachix-instantos-blue.svg)](https://instantos.cachix.org) |
+[![CI builds](https://github.com/instantOS/instantNIX/actions/workflows/ci.yml/badge.svg)](https://github.com/instantOS/instantNIX/actions/workflows/ci.yml)
+[![Cachix Cache](https://img.shields.io/badge/cachix-instantos-blue.svg)](https://instantos.cachix.org)
 
 [InstantOS](https://instantos.github.io/) window manager and tools packaged for Nix and NixOS.
 [Nix](https://nixos.org/explore.html) is your friendly, reproducible package manager and build tool for the experienced user.
@@ -51,7 +50,8 @@ on your system if not already installed:
 curl -L https://nixos.org/nix/install | sh
 ```
 
-Currently, you will have the least manual configuration to do if you use NixOS as a base.
+Currently, you will have the least manual configuration to do if you use NixOS as a base
+(the Nix universal package manager and build system works on many Linux Distributions and MacOS).
 
 # Installation from Clone
 

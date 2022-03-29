@@ -2,8 +2,10 @@
 , stdenv
 , fetchFromGitHub
 , gnumake
-, xlibs
 , instantAssist
+, libX11
+, libXft
+, libXinerama
 }:
 stdenv.mkDerivation {
 
@@ -26,7 +28,7 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ gnumake ];
-  buildInputs = with xlibs; map lib.getDev [ libX11 libXft libXinerama ];
+  buildInputs = [ libX11 libXft libXinerama ];
 
   propagatedBuildInputs = [ instantAssist ];
 

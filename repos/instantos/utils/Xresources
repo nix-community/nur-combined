@@ -11,6 +11,7 @@ instantwm.hoverbgcolor: #7a88cf
 
 instantwm.minimize: #7a88cf
 instantwm.darkminimize: #5c669b
+instantwm.minimizedcolor: #5c669b
 
 instantwm.darkactivetag: #FF79Ce
 instantwm.activetag: #FF92Da

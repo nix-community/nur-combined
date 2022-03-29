@@ -2,24 +2,26 @@
 , stdenv
 , fetchFromGitHub
 , gnumake
-, xlibs
 , instantUtils
+, libX11
+, libXft
+, libXinerama
 }:
-stdenv.mkDerivation {
 
+stdenv.mkDerivation {
   pname = "instantMenu";
   version = "unstable";
 
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantMENU";
-    rev = "4f442922c4f89175383e7a6edf6b62c512fea43e";
-    sha256 = "qcBswwVJuXBs8c3StC6RnOxxLWYp46yaDeaen7ON5VY=";
+    rev = "3f544aec3a4672ecd0b5e4f5fb3f188736d3709a";
+    sha256 = "VWMKufNPNreRxGXfM4zHdM82vxeBgFA9mpLVMX9mzcQ=";
     name = "instantOS_instantMenu";
   };
 
   nativeBuildInputs = [ gnumake ];
-  buildInputs = with xlibs; map lib.getDev [ libX11 libXft libXinerama ];
+  buildInputs = [ libX11 libXft libXinerama ];
   propagatedBuildInputs = [ instantUtils ];
 
   postPatch = ''

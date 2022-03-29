@@ -4,8 +4,8 @@ chardet==3.0.4
 click==7.1.2
 effect==1.1.0
 idna==2.10
-Jinja2==2.11.2
+Jinja2==2.11.3
 MarkupSafe==1.1.1
-nix-prefetch-github==2.4
+nix-prefetch-github==4.0.3
 requests==2.24.0
-urllib3==1.25.9
+urllib3==1.26.5

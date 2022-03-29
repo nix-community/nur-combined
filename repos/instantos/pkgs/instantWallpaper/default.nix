@@ -9,6 +9,7 @@
 , imagemagick
 , nitrogen
 , xdg-user-dirs
+, zenity
 }:
 stdenv.mkDerivation {
 
@@ -19,15 +20,15 @@ stdenv.mkDerivation {
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantWALLPAPER";
-      rev = "d2f301fc8a239c888331aff6204916a9ea541f11";
-      sha256 = "1iqha0q4m1qwgrcynnr2fz3hyhns0fcm76iyf0zvw92n90i7pqmi";
+      rev = "95a2c6a828cbfe9df7c6e7ef2c0c40abc7b2ef82";
+      sha256 = "w8wKOF3quKBvCFuh85mkkosRNsm1zwba13ZiWPsZ9gg=";
       name = "instantOS_instantWallpaper";
     }) 
     (fetchFromGitHub {
       owner = "instantOS";
       repo = "instantLOGO";
-      rev = "f22dc40ed6d88497db9e9ad7f4e1fd4f409b3af2";
-      sha256 = "sha256-gBTT1APImpEBrEmqKfjLZrpJiDoRRBRW5iqjrZLvzs0=";
+      rev = "014673c0d7cc62a35b639bb308f23d2c8d8b74a5";
+      sha256 = "Bu/z06GxwFQy+oB+rHeWi6SZgpkf4r7TgXx8S0djvDM=";
       name = "instantOS_instantLogo";
     })
   ];
@@ -46,6 +47,7 @@ stdenv.mkDerivation {
     imagemagick
     nitrogen
     xdg-user-dirs
+    zenity
   ];
 
   postPatch = ''
@@ -54,6 +56,8 @@ stdenv.mkDerivation {
       --replace /usr/share/instantwallpaper/wallutils.sh wallutils.sh \
       --replace "/usr/share/paperbash" "${Paperbash}/share/paperbash" \
       --replace wallutils.sh "$out/share/instantwallpaper/wallutils.sh"
+    substituteInPlace wallutils.sh \
+      --replace 'zenity' "${zenity}/bin/zenity"
     patchShebangs *.sh
   '';
 

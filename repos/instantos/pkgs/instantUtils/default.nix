@@ -70,8 +70,8 @@ let
     version = "unstable";
 
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/instantOS/instantos.github.io/33d905f2a7b04fb81dbe4f563777fae13cf6ed14/youtube/hotkeys.md";
-      sha256 = "sha256-C4DXIebxJA9QDo7jNjiC4PGW0bJqYG53DgQaBQcsywA=";
+      url = "https://raw.githubusercontent.com/instantOS/instantos.github.io/4deb9b368108999067bfc60c5e6e1d0e36fea0ab/youtube/hotkeys.md";
+      sha256 = "sha256-WJopJ6qMeUWV7o+J6/CptfdbabnCbx+a6nsL6mbxsOE=";
     };
     sourceRoot = ".";
     unpackCmd =  "cp $curSrc hotkeys.md";
@@ -103,8 +103,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantOS";
-    rev = "f66cb9f2c62640bf918bd90e12461cb10590b15b";
-    sha256 = "DJmhrJ4Axv08umuTRhuNcRld5JHm2il8mNaBW5p+l/w=";
+    rev = "188d22a462ba7436775a619c635b7129f275ece3";
+    sha256 = "ucyad0SDLrxae9jJv3q917pWfrpDk97A8Uo7NSnlWMs=";
     name = "instantOS_instantUtils";
   };
 
@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
     substituteInPlace programs/appmenu \
       --replace "#!/usr/bin/dash" "#!/bin/sh" \
       --replace "/usr/share/instantdotfiles/rofi/appmenu.rasi" "tmp_placeholder" \
-      --replace "tmp_placeholder" "\$(instantdata -d)/share/instantdotfiles/rofi/appmenu.rasi"
+      --replace "tmp_placeholder" "\$(instantdata --get-userconfig-dir=rofi)/appmenu.rasi"
     substituteInPlace autostart.sh \
       --replace /usr/bin/instantstatus "$out/bin/instantstatus" \
       --replace /usr/share/instantutils "$out/share/instantutils" \

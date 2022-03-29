@@ -27,7 +27,9 @@ in {
   networking = {
     hostName = hostname;
     useDHCP = false;  # should be disabled
-    # ...instead enable for individual interfaces:
+    # ...instead enable for individual interfaces e.g.:
+    # interfaces."${physical_interface}".useDHCP = true;
+    # interfaces."${wifi_interface}".useDHCP = true;
   };
   services.xserver = {
     layout = "us";
@@ -72,7 +74,7 @@ in {
   programs.slock.enable = true;
   services.clipmenu.enable = true;
   services.xserver.exportConfiguration = true;
-  services.dconf.enable = true;
+  programs.dconf.enable = true;
   services.gvfs.enable = true;
   services.xserver.displayManager = {
     defaultSession = "none+instantwm";
@@ -94,6 +96,9 @@ in {
       '';
     };
   };
+
+  # fix java windows
+  environment.variables._JAVA_AWT_WM_NONREPARENTING = "1";
 
   users.users."${main_user}" = {
     isNormalUser = true;

@@ -30,7 +30,7 @@ __filedir__ = os.path.dirname(__file__)
 fetch_rex = re.compile(
      # Find fetchFromGitHub lines in nix expressions (in lieu of a Nix AST)
     r"""
-        fetchFromGitHub\s+{\s*(
+        (fetchFromGitHub|gitref\s+=)\s+{\s*(
           (\#[^\S\n\r]*branch:[^\S\n\r]*(?P<branch>[\w-]+)\s*\n\s* )|
           (\#[^\S\n\r].*$\s*)|          # allow but ignore other comments
           ((?P<fullowner>   owner  \s* = \s* "(?P<owner>[\w-]+)")             \s* ; \s* )|

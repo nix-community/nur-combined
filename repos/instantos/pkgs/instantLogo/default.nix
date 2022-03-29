@@ -2,7 +2,6 @@
 , stdenv
 , fetchFromGitHub
 , gnumake
-, xlibs
 }:
 stdenv.mkDerivation {
 
@@ -12,8 +11,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "instantOS";
     repo = "instantLOGO";
-    rev = "f22dc40ed6d88497db9e9ad7f4e1fd4f409b3af2";
-    sha256 = "sha256-gBTT1APImpEBrEmqKfjLZrpJiDoRRBRW5iqjrZLvzs0=";
+    rev = "014673c0d7cc62a35b639bb308f23d2c8d8b74a5";
+    sha256 = "Bu/z06GxwFQy+oB+rHeWi6SZgpkf4r7TgXx8S0djvDM=";
     name = "instantOS_instantLogo";
   };
 

@@ -1,21 +1,12 @@
 { lib
-, stdenv
-, fetchFromGitHub
+, stdenvNoCC
 , instantdata
 , file
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
 
   pname = "instantdata-test";
   version = "unstable";
-
-  # src = fetchFromGitHub {
-  #   owner = "SCOTT-HAMILTON";
-  #   repo = "instantData";
-  #   rev = "ade1148cd26c272cb569f9a4c10337f5a4e91f29";
-  #   sha256 = "1207ihwxss7v3wz4xcvg21p10a8yz1r9phzb4n43138jpaynziqx";
-  #   name = "instantOS_instantData";
-  # };
 
   src = null;
   dontUnpack = true;
@@ -25,45 +16,45 @@ stdenv.mkDerivation {
   
   buildPhase = ''
     runHook preBuild
+    echo "Checking instantdata : ${instantdata}/bin/instantdata"
     check () {
-      file "$(${instantdata}/bin/instantdata "$1")$2" | grep "$3"
+      file "$(instantdata "$1")$2" | grep "$3"
     }
-    ${instantdata}/bin/instantdata -a
     echo "Checking instantassist..."
-    check -a /bin/instantassist ASCII
+    check --get-assist-dir /bin/instantassist ASCII
 
     echo "Checking instantconf..."
-    check -c /bin/instantconf ASCII
+    check --get-conf-dir /bin/instantconf ASCII
 
     echo "Checking instantdotfiles..."
-    check -d /bin/instantdotfiles ASCII
+    check --get-dotfiles-dir /share/instantdotfiles/rootinstall.sh ASCII
 
     echo "Checking instantlogo..."
-    check -l /share/backgrounds/readme.jpg JPEG
+    check --get-logo-dir /share/backgrounds/readme.jpg JPEG
 
     echo "Checking instantmenu..."
-    check -m /bin/instantmenu ELF
+    check --get-menu-dir /bin/instantmenu ELF
 
     echo "Checking instantshell..."
-    check -s /bin/instantshell ASCII
+    check --get-shell-dir /bin/instantshell ASCII
 
     echo "Checking instantthemes..."
-    check -t /bin/instantthemes ASCII
+    check --get-themes-dir /bin/instantthemes ASCII
 
     echo "Checking instantutils..."
-    check -u /bin/instantutils ASCII
+    check --get-utils-dir /bin/instantutils ASCII
 
     echo "Checking instantwallpapers..."
-    check -wa /bin/instantwallpaper ASCII
+    check --get-wallpaper-dir /bin/instantwallpaper ASCII
 
     echo "Checking instantwidgets arrow png..."
-    check -wi /share/instantwidgets/arrow.png image
+    check --get-widgets-dir /share/instantwidgets/arrow.png image
 
     echo "Checking instantwm..."
-    check -wm /bin/instantwm ELF
+    check --get-wm-dir /bin/instantwm ELF
 
     echo "Checking rangerplugins..."
-    check -r /share/rangerplugins/devicons.py Python
+    check --get-rangerplugins-dir /share/rangerplugins/devicons.py Python
 
     runHook postBuild
   '';
