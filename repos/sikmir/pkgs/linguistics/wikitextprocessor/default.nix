@@ -1,6 +1,6 @@
 { lib, stdenv, python3Packages, fetchFromGitHub, lru-dict }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonPackage rec {
   pname = "wikitextprocessor";
   version = "0.4.95";
 
@@ -15,7 +15,9 @@ python3Packages.buildPythonApplication rec {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
+  disabledTests = [
+    "test_string_format2"
+  ] ++ lib.optionals stdenv.isDarwin [
     "test_long_twothread"
     "test_expr29"
   ];

@@ -18,6 +18,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }
