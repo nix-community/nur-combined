@@ -946,10 +946,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.5.6";
+      version = "1.5.9";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924424/libredirect-1.5.6-an+fx.xpi";
-      sha256 = "2faf0ebcb8fd7b2f64d15b7ce3e5808b033869ed422ff68c1cc1ade03fdd3a9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929036/libredirect-1.5.9-an+fx.xpi";
+      sha256 = "1c4809f0e5914e4e2cecce674311bfc8a317b2ff55b68ed911f5d8c110d40b85";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -2230,10 +2230,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.1.3";
+      version = "6.1.4";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3922234/vuejs_devtools-6.1.3-fx.xpi";
-      sha256 = "da871a1020a27aaa2eafeb0b41e786849c9d1932f906f507fd3a9f1dae3c813a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929128/vuejs_devtools-6.1.4-fx.xpi";
+      sha256 = "fb7d09c5038b3c368c0e509161a9707349044c3f2bf87a0bebe4dad7e15da586";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
