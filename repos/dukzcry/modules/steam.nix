@@ -11,9 +11,6 @@ in {
     xorg = mkEnableOption "via X.Org";
     wayland = mkEnableOption "via Wayland";
     autorun = mkEnableOption "run by default";
-    user = mkOption {
-      type = types.str;
-    };
     devid = mkOption {
       type = types.str;
       example = "0000:07:00.0,1";
@@ -29,6 +26,9 @@ in {
    (mkIf cfg.enable {
     programs.steam.enable = true;
     hardware.pulseaudio.enable = true;
+    users.extraUsers.steam = {
+      isNormalUser = true;
+    };
    })
    (mkIf xorg {
       boot.extraModprobeConfig = ''
@@ -43,7 +43,7 @@ in {
         EndSubSection
       '';
       services.xserver.displayManager.autoLogin.enable = true;
-      services.xserver.displayManager.autoLogin.user = cfg.user;
+      services.xserver.displayManager.autoLogin.user = "steam";
       services.xserver.displayManager.defaultSession = "none+i3";
       services.xserver.windowManager.i3.enable = true;
       services.xserver.windowManager.i3.extraSessionCommands = ''
@@ -74,7 +74,7 @@ in {
         enableLingering = ''
           rm -r /var/lib/systemd/linger
           mkdir /var/lib/systemd/linger
-          touch /var/lib/systemd/linger/${cfg.user}
+          touch /var/lib/systemd/linger/steam
         '';
       };
     })
