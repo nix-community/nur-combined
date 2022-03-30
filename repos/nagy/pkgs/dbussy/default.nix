@@ -13,8 +13,6 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "dbussy" ];
 
-  propagatedBuildInputs = [ dbus ];
-
   prePatch = ''
     substituteInPlace dbussy.py \
         --replace libdbus-1.so.3 ${dbus.lib}/lib/libdbus-1.so.3

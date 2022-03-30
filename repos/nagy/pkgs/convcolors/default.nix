@@ -13,8 +13,6 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools_scm ];
 
-  propagatedBuildInputs = [ ];
-
   meta = with lib; {
     description =
       "Python package for converting colors between different color spaces";

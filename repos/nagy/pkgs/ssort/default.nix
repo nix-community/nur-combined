@@ -1,13 +1,17 @@
-{ lib, fetchPypi, buildPythonApplication }:
+{ lib, pathspec, fetchPypi, buildPythonApplication }:
 
 buildPythonApplication rec {
   pname = "ssort";
-  version = "0.10.0";
+  version = "0.11.4";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-uM8zEgKxT6+xYqONSEnbvvaqls27y6c+nHModOuyVOg=";
+    sha256 = "sha256-dKtU2ofjapjz6Hmmp+OsE5Nz63g2JABTTiNGRd/38Dw=";
   };
+
+  buildInputs = [
+    pathspec
+  ];
 
   meta = with lib; {
     description = "Tool for sorting top level statements in python files";

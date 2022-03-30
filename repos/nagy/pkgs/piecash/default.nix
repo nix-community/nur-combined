@@ -1,22 +1,29 @@
 { lib, buildPythonPackage, fetchPypi, setuptools, pytz, sqlalchemy-utils
-, tzlocal, click }:
+, tzlocal, click, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "piecash";
-  version = "1.1.7";
+  version = "1.2.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "04jnp8mxxznnjnbj68qzjk8yj1f5pk9rzm9f4p172fhk6lkij8qc";
+    sha256 = "sha256-iWOfBmHUkiQng/OcjRR+pFwyHcQRH5PsopefBw9fF20=";
   };
 
   propagatedBuildInputs = [ setuptools pytz sqlalchemy-utils tzlocal click ];
 
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/sdementen/piecash/pull/193.patch";
+      sha256 = "sha256-sSsln8c3XOEnLFlE8TlVRGOoVnvH8hSLNaYNQ70L+So=";
+    })
+  ];
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/sdementen/piecash";
     description = "Pythonic interface to GnuCash SQL documents";
     license = licenses.mit;
+    broken = true;
   };
 }

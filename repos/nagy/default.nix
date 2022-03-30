@@ -26,6 +26,7 @@ in rec {
     };
     warctools = pkgs.python3Packages.callPackage ./pkgs/warctools { };
     blender-file = pkgs.python3Packages.callPackage ./pkgs/blender-file { };
+    piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
   };
 
   schemaorg = callPackage ./pkgs/schemaorg { };
@@ -53,7 +54,6 @@ in rec {
 
   cxxmatrix = callPackage ./pkgs/cxxmatrix { };
 
-  piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
 
   hackernews-tui = callPackage ./pkgs/hackernews-tui { };
 
@@ -74,6 +74,10 @@ in rec {
   s-dot2 = callPackage ./pkgs/s-dot2 { };
 
   tinmop = callPackage ./pkgs/tinmop { };
+
+  cl-opengl = callPackage ./pkgs/cl-opengl { };
+
+  cl-raylib = callPackage ./pkgs/cl-raylib { };
 
   ksv = callPackage ./pkgs/ksv { };
 
