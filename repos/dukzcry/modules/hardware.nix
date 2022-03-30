@@ -14,6 +14,7 @@ in {
 
   config = mkMerge [
     (mkIf (config.networking.hostName == "li-si-tsin") {
+      boot.blacklistedKernelModules = [ "uvcvideo" ];
       boot.kernelParams = [ "mitigations=off" ];
       boot.extraModprobeConfig = ''
         options snd-hda-intel model=dell-headset-multi
