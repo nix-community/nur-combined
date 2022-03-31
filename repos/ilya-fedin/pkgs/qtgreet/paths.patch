@@ -1,0 +1,95 @@
+diff --git a/src/thememanager/ThemeManager.cpp b/src/thememanager/ThemeManager.cpp
+index 5bea3b8..2dffec6 100644
+--- a/src/thememanager/ThemeManager.cpp
++++ b/src/thememanager/ThemeManager.cpp
+@@ -21,10 +21,7 @@
+ // Local Headers
+ #include "ThemeManager.hpp"
+ 
+-static QStringList themePaths{
+-    "/usr/local/share/qtgreet/themes",
+-    "/usr/share/qtgreet/themes",
+-};
++static QStringList themePaths = QStandardPaths::locateAll( QStandardPaths::GenericDataLocation, "qtgreet/themes", QStandardPaths::LocateDirectory );
+ 
+ ThemeManager::ThemeManager( QString themeName ) {
+     /** If this theme does not exist, use the 'default' theme */
+diff --git a/src/widgets/session/session.cpp b/src/widgets/session/session.cpp
+index 2a72c2b..a8ffad7 100644
+--- a/src/widgets/session/session.cpp
++++ b/src/widgets/session/session.cpp
+@@ -45,43 +45,43 @@ static bool IsExec( QString exec ) {
+ Sessions getSessions( bool custom ) {
+     Sessions mSessions;
+ 
+-    QDir wlSessDir( "/usr/share/wayland-sessions" );
+-
+-    for ( QString sess: wlSessDir.entryList( { "*.desktop" } ) ) {
+-        QSettings session( wlSessDir.filePath( sess ), QSettings::IniFormat );
+-
+-        if ( IsExec( session.value( "Desktop Entry/TryExec" ).toString() ) ) {
+-            Session s = Session{
+-                session.value( "Desktop Entry/Name" ).toString(),
+-                session.value( "Desktop Entry/Icon", ":/icons/session.png" ).toString(),
+-                "wayland",
+-                session.value( "Desktop Entry/Exec" ).toString(),
+-                wlSessDir.filePath( sess )
+-            };
+-
+-            if ( not s.name.contains( "wayland", Qt::CaseInsensitive ) ) {
+-                s.name += " (Wayland)";
++    for ( QString wlSessDir: QStandardPaths::locateAll( QStandardPaths::GenericDataLocation, "wayland-sessions", QStandardPaths::LocateDirectory ) ) {
++        for ( QFileInfo sess: QDir( wlSessDir ).entryInfoList( { "*.desktop" } ) ) {
++            QSettings session( sess.absoluteFilePath(), QSettings::IniFormat );
++
++            if ( IsExec( session.value( "Desktop Entry/TryExec" ).toString() ) ) {
++                Session s = Session{
++                    session.value( "Desktop Entry/Name" ).toString(),
++                    session.value( "Desktop Entry/Icon", ":/icons/session.png" ).toString(),
++                    "wayland",
++                    session.value( "Desktop Entry/Exec" ).toString(),
++                    sess.absoluteFilePath()
++                };
++
++                if ( not s.name.contains( "wayland", Qt::CaseInsensitive ) ) {
++                    s.name += " (Wayland)";
++                }
++
++                mSessions << s;
+             }
+-
+-            mSessions << s;
+         }
+     }
+ 
+-    QDir xSessDir( "/usr/share/xsessions" );
+-
+-    for ( QString sess: xSessDir.entryList( { "*.desktop" } ) ) {
+-        QSettings session( xSessDir.filePath( sess ), QSettings::IniFormat );
++    for ( QString xSessDir: QStandardPaths::locateAll( QStandardPaths::GenericDataLocation, "xsessions", QStandardPaths::LocateDirectory ) ) {
++        for ( QFileInfo sess: QDir( xSessDir ).entryInfoList( { "*.desktop" } ) ) {
++            QSettings session( sess.absoluteFilePath(), QSettings::IniFormat );
+ 
+-        if ( IsExec( session.value( "Desktop Entry/TryExec" ).toString() ) ) {
+-            Session s = Session{
+-                session.value( "Desktop Entry/Name" ).toString() + " (X11)",
+-                session.value( "Desktop Entry/Icon", ":/icons/session.png" ).toString(),
+-                "X11",
+-                session.value( "Desktop Entry/Exec" ).toString(),
+-                xSessDir.filePath( sess )
+-            };
++            if ( IsExec( session.value( "Desktop Entry/TryExec" ).toString() ) ) {
++                Session s = Session{
++                    session.value( "Desktop Entry/Name" ).toString() + " (X11)",
++                    session.value( "Desktop Entry/Icon", ":/icons/session.png" ).toString(),
++                    "X11",
++                    session.value( "Desktop Entry/Exec" ).toString(),
++                    sess.absoluteFilePath()
++                };
+ 
+-            mSessions << s;
++                mSessions << s;
++            }
+         }
+     }
+ 
