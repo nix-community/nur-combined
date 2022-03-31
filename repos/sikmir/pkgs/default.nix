@@ -308,6 +308,7 @@ lib.makeScope newScope (
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };
     tlstunnel = callPackage ./misc/tlstunnel { };
+    wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr {
       inherit (darwin.apple_sdk.frameworks) Foundation;
