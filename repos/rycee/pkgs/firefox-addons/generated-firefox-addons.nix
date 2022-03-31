@@ -557,10 +557,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.48";
+      version = "6.1.49";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3915084/flagfox-6.1.48-fx.xpi";
-      sha256 = "f7a1d8621c1ba381a7e20270d47f1c8ce950410c473a5f1acdd7fd9fdb4ef357";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929226/flagfox-6.1.49-fx.xpi";
+      sha256 = "ab7e010b236afde566fb5742f45db264b835256e4b7b14ae0dae8c3561417218";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -646,10 +646,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "99.0buildid20220328.190900";
+      version = "99.0buildid20220330.194208";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3928679/francais_language_pack-99.0buildid20220328.190900-fx.xpi";
-      sha256 = "85607b9563c0108c1efee116871cad311cc40c9f202052f02144ea152bd689fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929762/francais_language_pack-99.0buildid20220330.194208-fx.xpi";
+      sha256 = "866d98eb556816f334eaaf8a3957a710c0903ef9b2baeef13fc3f28fbc6504cf";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -946,10 +946,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.5.9";
+      version = "1.6.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3929036/libredirect-1.5.9-an+fx.xpi";
-      sha256 = "1c4809f0e5914e4e2cecce674311bfc8a317b2ff55b68ed911f5d8c110d40b85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929419/libredirect-1.6.0-an+fx.xpi";
+      sha256 = "01ef063448c472c2a6f488cd215f1ad12cb00d5877a5f7d8d3f837d167dbc0dc";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -1638,10 +1638,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "4.6.0";
+      version = "4.7.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923022/search_by_image-4.6.0-an+fx.xpi";
-      sha256 = "dd429d1715072f3f4d2dcd6765b14306c2cd73db9ed085df898237be7749cb38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929123/search_by_image-4.7.0-an+fx.xpi";
+      sha256 = "0f8df452eca4d2e19d9daa209587428479fb4efaad3aa9ad4ce38a0c6db655bf";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
