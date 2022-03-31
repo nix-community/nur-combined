@@ -83,6 +83,24 @@ let versions = builtins.mapAttrs (n: v: v // { "version" = n; }) {
       "96.0.3" = {
         sha256 = "1vr8x87vndmlv3vybq0z9xqi8fglmlwri2rvqsjdywwjwqy6fg44";
       };
+      "97.0" = {
+        sha256 = "0x7gl8d154bxalwjlckm3a0qzmndsk843gn30mfzbjls2xc4wv60";
+      };
+      "97.0.1" = {
+        sha256 = "1yksizx80m18gipnsb2migc98gyxg3szvmg5x2z7lp8nlb890bqp";
+      };
+      "97.0.2" = {
+        sha256 = "0zxph8lnzxg3q6gplld7g3qvhkny45qw4xqyph3vzrvrdqa6chs0";
+      };
+      "98.0" = {
+        sha256 = "1rlk3gmvx9csqn1r7vv007qfjah8gspkyzmgfwi7pgk9qa7i0kyh";
+      };
+      "98.0.1" = {
+        sha256 = "1jxm6hm8ll0agdvkfd432g71azkmv10yhf8zd7m20igpcih3wzcc";
+      };
+      "98.0.2" = {
+        sha256 = "0lcqm5flyv8ncdvpxr7jgapyhvfm42spc5db7lqs1k8dgj8zsk9h";
+      };
     };
     latestVersion = lib.lists.foldr (v: lV:
                                       if builtins.compareVersions v lV == 1
