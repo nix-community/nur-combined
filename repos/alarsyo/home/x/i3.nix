@@ -51,6 +51,8 @@ in
 
               colors = i3Theme.bar;
 
+              trayOutput = "primary";
+
               # disable mouse scroll wheel in bar
               extraConfig = ''
                 bindsym button4 nop
