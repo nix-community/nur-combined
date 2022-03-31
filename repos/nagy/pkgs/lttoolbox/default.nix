@@ -2,13 +2,13 @@
 , pkg-config, flex, pcre, pcre-cpp, autoreconfHook }:
 stdenv.mkDerivation rec {
   pname = "lttoolbox";
-  version = "3.5.3";
+  version = "3.5.4";
 
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "lttoolbox";
     rev = "v${version}";
-    sha256 = "1fybcfwmwnddldkmzrqivdjymw1gajw7zsw6c0m21dhfgq9f1l6l";
+    sha256 = "sha256-FK5Stq+fzGCjL0Dq5Wg3vpNzVB9e56QPx/5dOKACjxk=";
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];

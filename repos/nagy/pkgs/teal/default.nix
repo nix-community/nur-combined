@@ -1,7 +1,7 @@
-{ lib, lua53Packages, fetchurl, fetchFromGitHub }:
+{ pkgs, lib, luaOlder, luaAtLeast, fetchurl, fetchFromGitHub
+, buildLuarocksPackage, compat53, argparse, luafilesystem }:
 
-let inherit (lua53Packages) lua luaOlder luaAtLeast buildLuarocksPackage;
-in buildLuarocksPackage rec {
+buildLuarocksPackage rec {
   pname = "tl";
 
   # version = "0.13.2-1";
@@ -20,13 +20,9 @@ in buildLuarocksPackage rec {
 
   disabled = (luaOlder "5.3") || (luaAtLeast "5.5");
 
-  propagatedBuildInputs = with lua53Packages; [
-    compat53
-    argparse
-    luafilesystem
-  ];
+  propagatedBuildInputs = [ compat53 argparse luafilesystem ];
 
-  meta = with lib; {
+  meta = with pkgs.lib; {
     description = "Typed Lua that compiles to Lua";
     homepage = "https://github.com/teal-language/tl";
     license = licenses.mit;
