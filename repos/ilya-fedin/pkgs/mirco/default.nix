@@ -6,7 +6,7 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "mirco";
-  version = "unstable-2022-01-01";
+  version = "unstable-2022-04-01";
 
   src = fetchFromGitHub {
     owner = "wmww";

@@ -8,6 +8,7 @@ let
     set -euo pipefail
 
     export WAYLAND_DISPLAY=wayland-mate # This will be the Wayland display Mirco creates
+    export XDG_SESSION_TYPE=wayland # Tell to applications we're on Wayland
 
     # Once Mir starts up, it will drop the X11 display number into this file
     XWAYLAND_DISPLAY_FILE=$(mktemp mir-x11-display.XXXXXX --tmpdir)
@@ -55,6 +56,9 @@ let
     echo "DISPLAY: ''${DISPLAY:-[nil]}"
     systemctl --user import-environment
 
+    # Start systemd user services for graphical sessions
+    systemctl --user start graphical-session.target
+
     # Wait for all components to exit and kill the server
     ${pkgs.mate.mate-session-manager}/bin/mate-session
     kill $SERVER_PID
@@ -93,7 +97,7 @@ let
   '';
 
   nixos-gsettings-desktop-schemas = let
-    defaultPackages = with pkgs; [ gsettings-desktop-schemas gnome.gnome-shell ];
+    defaultPackages = with pkgs; [ mate.mate-session-manager mate.mate-panel ];
   in
   pkgs.runCommand "nixos-gsettings-desktop-schemas" { preferLocalBuild = true; }
     ''
@@ -101,7 +105,7 @@ let
 
      ${concatMapStrings
         (pkg: "cp -rf ${pkg}/share/gsettings-schemas/*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas\n")
-        [ pkgs.mate.mate-session-manager ]}
+        defaultPackages}
 
      chmod -R a+w $out/share/gsettings-schemas/nixos-gsettings-overrides
      cat - > $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/nixos-defaults.gschema.override <<- EOF
@@ -110,6 +114,9 @@ let
 
        [org.mate.session.required-components]
        filemanager='mate-gtk-layer-background'
+
+       [org.mate.panel]
+       disabled-applets=['NotificationAreaAppletFactory::NotificationArea', 'WnckletFactory::WorkspaceSwitcherApplet', 'WnckletFactory::ShowDesktopApplet']
      EOF
 
      ${pkgs.glib.dev}/bin/glib-compile-schemas $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/
@@ -134,5 +141,6 @@ in {
     services.xserver.displayManager.sessionPackages = [ sessionPkg ];
     environment.systemPackages = [ startSessionScript backgroundPkg ];
     environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+    i18n.inputMethod.enabled = "fcitx5";
   };
 }

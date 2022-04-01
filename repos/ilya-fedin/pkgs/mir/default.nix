@@ -10,13 +10,13 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "mir";
-  version = "2.4.1";
+  version = "2.7.0";
 
   src = fetchFromGitHub {
     owner = "MirServer";
     repo = "mir";
     rev = "v${version}";
-    sha256 = "KE2vnSEt8TlVq/dJkrLyQyj3r6wc8kFPxhLUe154nfc=";
+    sha256 = "sha256-2py67RGhGmtKQSQsHa9Re4GUYPdFxbEzMudbYz74NyQ=";
   };
 
   nativeBuildInputs = [ pkg-config cmake ninja doxygen ];

@@ -6,13 +6,13 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "gtk-layer-background";
-  version = "unstable-2019-08-01";
+  version = "unstable-2022-04-01";
 
   src = fetchFromGitHub {
     owner = "wmww";
     repo = "gtk-layer-background";
-    rev = "c8af4694f4b831af5870cd956b29183b308ad231";
-    sha256 = "AOeZ0wQiQCBo1Dr/K/Odk/7344fV7bWQ6AmIEmd3Xfw=";
+    rev = "45f869a294a93a92a5648e062ad92eaf5237fb11";
+    sha256 = "sha256-fF8Q1F4CyWEil7aBHA3aeNfWrCQQeo4/JNQYQtBhSUs=";
   };
 
   nativeBuildInputs = [ pkg-config autoconf automake libtool ];
