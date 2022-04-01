@@ -14,7 +14,7 @@
         inherit packages;
         checks.build =
           pkgs.linkFarmFromDrvs "amesgen-nur-packages" (lib.attrValues packages);
-        devShell =
+        devShells.default =
           let
             nvfetcherCfg = (pkgs.formats.toml { }).generate "nvfetcher.toml" (import ./pkgs/nvfetcher.nix lib);
             nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''

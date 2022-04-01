@@ -11,13 +11,18 @@ let
         // lib.optionalAttrs useTag { use_latest_release = true; })
       src;
   };
-in
-flatten {
+
   cabal-docspec = github {
     slug = "phadej/cabal-extras";
     useTag = true;
     restUrl = "cabal-docspec-$ver/cabal-docspec-$ver.xz";
     src.prefix = "cabal-docspec-";
+  };
+in
+flatten {
+  inherit cabal-docspec;
+  cabal-docspec-man = cabal-docspec // {
+    fetch.url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-$ver/cabal-docspec/cabal-docspec.1";
   };
   hellsmack = github {
     slug = "amesgen/hellsmack";

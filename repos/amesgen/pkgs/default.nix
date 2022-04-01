@@ -98,6 +98,7 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         unxz -c ${src} > cabal-docspec
         install -m755 -D cabal-docspec $BIN
         ${optparseApplicativeCompletions pname}
+        installManPage ${nv.cabal-docspec-man.src}
       '';
 
       meta = {

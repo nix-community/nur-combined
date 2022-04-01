@@ -9,6 +9,14 @@
       sha256 = "12lgpv4g5lcv5b37crimbmd95n9w8fx45xf3dgncg7lckq6p0972";
     };
   };
+  cabal-docspec-man = {
+    pname = "cabal-docspec-man";
+    version = "0.0.0.20211114";
+    src = fetchurl {
+      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20211114/cabal-docspec/cabal-docspec.1";
+      sha256 = "14km7fc906ww3hsd12g96z9fxbllh7lzrcsb3r2n08pcy0ql12h9";
+    };
+  };
   hellsmack = {
     pname = "hellsmack";
     version = "0.1.2.6";
@@ -27,10 +35,10 @@
   };
   nix-index-database = {
     pname = "nix-index-database";
-    version = "2022-02-27";
+    version = "2022-03-27";
     src = fetchurl {
-      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-02-27/index-x86_64-linux";
-      sha256 = "17xvajkaqjakml6lhwx9ww8fh0y9lxa2kxr1k6jzmhibf1ya9hlk";
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-03-27/index-x86_64-linux";
+      sha256 = "0wsmr2c84a5mci0j95msc6pc1xwfz2df6r15hjbcdfw9zq40w0zb";
     };
   };
   ormolu = {
