@@ -1,4 +1,5 @@
-{ pkgs, lib, luaOlder, luaAtLeast, buildLuarocksPackage, fetchurl, curl, pkg-config }:
+{ pkgs, lib, luaOlder, luaAtLeast, buildLuarocksPackage, fetchurl, curl
+, pkg-config }:
 
 buildLuarocksPackage rec {
   pname = "lua-curl";
@@ -10,7 +11,7 @@ buildLuarocksPackage rec {
 
   disabled = (luaOlder "5.3") || (luaAtLeast "5.5");
 
-  buildInputs = [ curl.dev ];
+  buildInputs = [ curl ];
 
   nativeBuildInputs = [ pkg-config ];
 

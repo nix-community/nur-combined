@@ -35,6 +35,8 @@ in rec {
 
   libetc = callPackage ./pkgs/libetc { };
 
+  gh-dash = callPackage ./pkgs/gh-dash { };
+
   lttoolbox = callPackage ./pkgs/lttoolbox { };
 
   apertium = callPackage ./pkgs/apertium { inherit lttoolbox; };

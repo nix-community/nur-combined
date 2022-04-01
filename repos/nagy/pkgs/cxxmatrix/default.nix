@@ -16,11 +16,9 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
-    description = "C++ Matrix: The Matrix Reloaded in Terminals";
+    description = "The Matrix Reloaded in Terminals";
     homepage = "https://github.com/akinomyoga/cxxmatrix";
-
     license = licenses.mit;
     platforms = platforms.all;
-    mainProgram = "cxxmatrix";
   };
 }
