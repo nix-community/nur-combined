@@ -6,12 +6,7 @@
     ../../modules/cachix/system.nix
     ../../modules/hold-gc/system.nix
   ];
-  zramSwap = {
-    enable = true;
-    algorithm = "lzo-rle";
-    memoryPercent = 10;
-  };
-  boot = {
+ boot = {
     kernel.sysctl = {
       "vm.swappiness" = 10;
     };

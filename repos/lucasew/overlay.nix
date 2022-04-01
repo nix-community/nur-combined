@@ -95,4 +95,9 @@ in {
       sha256 = "058k0cmbm4y572jqw83bayb2zzl2fw2aaz0zj1gvg6sxblp76qil";
     };
   });
+  intel-ocl = prev.intel-ocl.overrideAttrs (old: {
+    urls = [
+      "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip"
+    ];
+  });
 }

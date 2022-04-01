@@ -22,6 +22,12 @@ in
     ]
   ;
 
+  zramSwap = {
+    enable = true;
+    algorithm = "lzo-rle";
+    memoryPercent = 20;
+  };
+ 
   programs.steam.enable = true;
 
   nixpkgs = {
@@ -124,6 +130,10 @@ in
     opengl = {
       enable = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        intel-ocl
+        vaapiIntel
+      ];
       extraPackages32 = with pkgs.pkgsi686Linux; [
         vaapiIntel
       ];
