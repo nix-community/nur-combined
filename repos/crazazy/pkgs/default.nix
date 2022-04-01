@@ -19,7 +19,8 @@ in
   seamonkey = callPackage ./seamonkey.nix { };
   nix-gen-node-tools = callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;};
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
-  efm-langserver = callPackage ./efm-langserver { };
+  # vendor broken. Also in nixpkgs already
+  # efm-langserver = callPackage ./efm-langserver { };
   guile-hall = callPackage ./guile-hall { };
   truffleSqueak = callPackage ./truffleSqueak { };
 
