@@ -880,10 +880,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.0.3";
+      version = "5.0.7";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3925655/grammatik_und_rechtschreibprufung_languagetool-5.0.3-fx.xpi";
-      sha256 = "040dff104ec58b0973e6d915a6b2796d2d1a621c6225d9aecb3c0a535818ca52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929583/grammatik_und_rechtschreibprufung_languagetool-5.0.7-fx.xpi";
+      sha256 = "286ec19eaf58f4488583e3d5875c8a7cd330180dfb44591e9d558f5052d30026";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1264,10 +1264,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.8.0";
+      version = "6.9.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901586/okta_browser_plugin-6.8.0-an+fx.xpi";
-      sha256 = "65238deaa1b2f9e12837eec9d49456a0e3102bd74e3a310f1fa395e5b02761e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924296/okta_browser_plugin-6.9.0-an+fx.xpi";
+      sha256 = "11ef4b752b584725e3d8ebfb192f4eb38617763fd9bfed5b32bbc98b210ddae1";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1753,10 +1753,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.3.11.1145";
+      version = "22.3.31.914";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920604/sourcegraph_for_firefox-22.3.11.1145-an+fx.xpi";
-      sha256 = "7e078b6dd53af03e83a35b8f70bbfcc7586340ba51bc91335fc859ab63520c97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929896/sourcegraph_for_firefox-22.3.31.914-an+fx.xpi";
+      sha256 = "c3f6e22896e47e64e087423138f7102c0cebc6de58531c975ee2b00843368383";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2104,10 +2104,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.41.8";
+      version = "1.42.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3913320/ublock_origin-1.41.8-an+fx.xpi";
-      sha256 = "527c7527116a6c6ffddb963cdfb901518d56f624cfc922f6eab32916b24e8f5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929378/ublock_origin-1.42.0-an+fx.xpi";
+      sha256 = "a0e00dd0d859b472bcdb9a3dfc0d1166ad3e0d49731ab4d6408281532eb79b06";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
