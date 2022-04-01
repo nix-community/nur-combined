@@ -6,13 +6,13 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "mirco";
-  version = "unstable-2020-10-29";
+  version = "unstable-2022-01-01";
 
   src = fetchFromGitHub {
     owner = "wmww";
     repo = "mirco";
-    rev = "86ed505e7824cce778d7b0f9100a571ecdbe350a";
-    sha256 = "Lm6lSC69XqGA+2wm+zdRK1B4tIkTXstcSI6GxJZauIg=";
+    rev = "ea472f3b9e24cdebd4abea6e4291c951dc2fe99b";
+    sha256 = "sha256-oMMa3PSkOPoX3zXFuGCYAKF5dOuKG3bnHg7TUn2j9l4=";
   };
 
   nativeBuildInputs = [ pkg-config meson ninja ];
@@ -30,6 +30,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     homepage = https://github.com/wmww/mirco;
     maintainers = with maintainers; [ ilya-fedin ];
-    broken = true;
   };
 }

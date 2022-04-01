@@ -38,4 +38,4 @@ filterSet
         && (!p.meta.available)
     )
   )
-  (import ./default.nix { inherit pkgs; })
+  (import ./. { inherit pkgs; })

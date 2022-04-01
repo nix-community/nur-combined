@@ -16,6 +16,7 @@ self: super: {
       mate-polkit
       mate-session-manager
       mate-settings-daemon
+      mate-settings-daemon-wrapped
       mate-themes
     ];
 

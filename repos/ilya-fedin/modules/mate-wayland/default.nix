@@ -96,7 +96,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ (import ../../overlays/mate-wayland/default.nix) ];
+    nixpkgs.overlays = [ (import ../../overlays/mate-wayland) ];
     services.xserver.desktopManager.mate.enable = true;
     services.xserver.displayManager.sessionPackages = [ sessionPkg ];
   };
