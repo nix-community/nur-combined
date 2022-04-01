@@ -1,0 +1,25 @@
+diff --git a/mate-settings-daemon/main.c b/mate-settings-daemon/main.c
+index dcff17c..8859381 100644
+--- a/mate-settings-daemon/main.c
++++ b/mate-settings-daemon/main.c
+@@ -491,6 +491,7 @@ main (int argc, char *argv[])
+         }
+ 
+         mate_settings_profile_start ("opening gtk display");
++        gdk_set_allowed_backends ("x11");
+         if (! gtk_init_check (NULL, NULL)) {
+                 g_warning ("Unable to initialize GTK+");
+                 exit (EXIT_FAILURE);
+diff --git a/plugins/mouse/msd-locate-pointer.c b/plugins/mouse/msd-locate-pointer.c
+index e384017..8b3ac86 100644
+--- a/plugins/mouse/msd-locate-pointer.c
++++ b/plugins/mouse/msd-locate-pointer.c
+@@ -578,6 +578,8 @@ set_locate_pointer (void)
+ int
+ main (int argc, char *argv[])
+ {
++  gdk_set_allowed_backends ("x11");
++
+   gtk_init (&argc, &argv);
+ 
+   set_locate_pointer ();

@@ -4,12 +4,10 @@ with lib;
 let
   cfg = config.programs.mate-wayland;
 
-  startSessionScript = pkgs.writeScriptBin "mate-wayland" ''
-    #!${pkgs.stdenv.shell}
+  startSessionScript = pkgs.writeShellScriptBin "mate-wayland" ''
     set -euo pipefail
 
     export WAYLAND_DISPLAY=wayland-mate # This will be the Wayland display Mirco creates
-    export XDG_RUNTIME_DIR=/run/user/$(id -u) # Since this is a classic snap, this should be set to the normal value
 
     # Once Mir starts up, it will drop the X11 display number into this file
     XWAYLAND_DISPLAY_FILE=$(mktemp mir-x11-display.XXXXXX --tmpdir)
@@ -17,6 +15,11 @@ let
     # Enable XWayland and set up Mir to work
     export MIR_SERVER_ENABLE_X11=1
     export MIR_SERVER_XWAYLAND_PATH=${pkgs.xwayland}/bin/Xwayland
+
+    # Set cursor theme and size
+    export XDG_DATA_DIRS="${pkgs.glib.getSchemaDataDirPath pkgs.mate.mate-settings-daemon}:$XDG_DATA_DIRS"
+    export XCURSOR_THEME="$(eval "echo $(gsettings get org.mate.peripherals-mouse cursor-theme)")"
+    export XCURSOR_SIZE="$(gsettings get org.mate.peripherals-mouse cursor-size)"
 
     ${pkgs.nur.repos.ilya-fedin.mirco}/bin/mirco $@ --x11-displayfd 5 5>"$XWAYLAND_DISPLAY_FILE" &
     SERVER_PID=$!
@@ -52,19 +55,9 @@ let
     echo "DISPLAY: ''${DISPLAY:-[nil]}"
     systemctl --user import-environment
 
-    COMPONENT_PIDS=""
-
-    GDK_BACKEND=x11 ${pkgs.mate.mate-session-manager}/bin/mate-session &
-    COMPONENT_PIDS="$COMPONENT_PIDS $!"
-
-    ${pkgs.mate.mate-panel}/bin/mate-panel &
-    COMPONENT_PIDS="$COMPONENT_PIDS $!"
-
-    ${pkgs.nur.repos.ilya-fedin.gtk-layer-background}/bin/gtk-layer-background -i "$(eval "echo $(dconf read /org/mate/desktop/background/picture-filename)")" &
-    COMPONENT_PIDS="$COMPONENT_PIDS $!"
-
-    # Wait for all components and the server to exit
-    wait $COMPONENT_PIDS $SERVER_PID
+    # Wait for all components to exit and kill the server
+    ${pkgs.mate.mate-session-manager}/bin/mate-session
+    kill $SERVER_PID
   '';
 
   sessionPkg = pkgs.runCommand "mate-wayland-session" {
@@ -81,6 +74,46 @@ let
     DesktopNames=MATE
     EOF
   '';
+
+  backgroundPkg = pkgs.runCommand "mate-gtk-layer-background" { preferLocalBuild = true; } ''
+    mkdir -p "$out/share/applications/autostart"
+    cat <<EOF > "$out/share/applications/mate-gtk-layer-background.desktop"
+    [Desktop Entry]
+    Name=MATE Wayland Background
+    Exec=${pkgs.writeShellScript "mate-gtk-layer-background" ''exec ${pkgs.nur.repos.ilya-fedin.gtk-layer-background}/bin/gtk-layer-background -i "$(eval "echo $(gsettings get org.mate.background picture-filename)")"''}
+    TryExec=${pkgs.nur.repos.ilya-fedin.gtk-layer-background}/bin/gtk-layer-background
+    Type=Application
+    OnlyShowIn=MATE;
+    X-MATE-Autostart-Phase=Desktop
+    X-MATE-Autostart-Notify=true
+    X-MATE-AutoRestart=true
+    X-MATE-Provides=filemanager
+    NoDisplay=true
+    EOF
+  '';
+
+  nixos-gsettings-desktop-schemas = let
+    defaultPackages = with pkgs; [ gsettings-desktop-schemas gnome.gnome-shell ];
+  in
+  pkgs.runCommand "nixos-gsettings-desktop-schemas" { preferLocalBuild = true; }
+    ''
+     mkdir -p $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
+
+     ${concatMapStrings
+        (pkg: "cp -rf ${pkg}/share/gsettings-schemas/*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas\n")
+        [ pkgs.mate.mate-session-manager ]}
+
+     chmod -R a+w $out/share/gsettings-schemas/nixos-gsettings-overrides
+     cat - > $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/nixos-defaults.gschema.override <<- EOF
+       [org.mate.session]
+       required-components-list=['panel', 'filemanager', 'dock']
+
+       [org.mate.session.required-components]
+       filemanager='mate-gtk-layer-background'
+     EOF
+
+     ${pkgs.glib.dev}/bin/glib-compile-schemas $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/
+    '';
 in {
   options = {
     programs.mate-wayland = {
@@ -99,5 +132,7 @@ in {
     nixpkgs.overlays = [ (import ../../overlays/mate-wayland) ];
     services.xserver.desktopManager.mate.enable = true;
     services.xserver.displayManager.sessionPackages = [ sessionPkg ];
+    environment.systemPackages = [ startSessionScript backgroundPkg ];
+    environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
   };
 }
