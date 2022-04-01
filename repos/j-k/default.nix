@@ -22,16 +22,10 @@ rec {
   bundleDeno = callPackage ./pkgs/deno-extra/bundleDeno.nix { inherit fetchDenoTarball; };
 
   bane = callPackage ./pkgs/bane { };
-  comma = callPackage ./pkgs/comma { };
   conform = callPackage ./pkgs/conform { };
   container-diff = callPackage ./pkgs/container-diff { };
-  flat-remix-theme = callPackage ./pkgs/themes/flat-remix { };
-  google-fonts = callPackage ./pkgs/fonts/google-fonts { };
+  hasklig-nerdfont = pkgs.nerdfonts.override { fonts = [ "Hasklig" ]; };
+  kdigger = callPackage ./pkgs/kdigger { };
   kubernetes-bom = callPackage ./pkgs/kubernetes-bom { };
-  nerdfont-hasklig = callPackage ./pkgs/fonts/nerdfont-hasklig { };
-  subo = callPackage ./pkgs/subo { };
   tuftool = callPackage ./pkgs/tuftool { };
-
-  # Can't update on nixpkgs because buildGo117Module isn't stable
-  tailscale = callPackage ./pkgs/tailscale { };
 }

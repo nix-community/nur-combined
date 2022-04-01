@@ -2,18 +2,21 @@
 
 buildGoModule rec {
   pname = "conform";
-  version = "0.1.0-alpha.23";
+  version = "0.1.0-alpha.25";
 
   src = fetchFromGitHub {
     owner = "talos-systems";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-eur8yyuNzpUcidKyQpkvlqy60b6z9Fs2guQhA1WDfCs=";
+    sha256 = "sha256-WgWgigpqPoEBY4tLjbzK02WFwrCWPGQWJ5eakLv5IWw=";
   };
+  vendorSha256 = "sha256-Oigt7tAK4jhBQtfG1wdLHqi11NWu6uJn5fmuqTmR76E=";
 
-  vendorSha256 = "sha256-Me7QWOdH8PyRu9TSVwNsWBPGQizZWMlF6Edmr8Yo+Ao=";
-
-  ldflags = [ "-s" "-w" "-X github.com/talos-systems/conform/cmd.Tag=v${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/talos-systems/conform/cmd.Tag=v${version}"
+  ];
 
   checkInputs = [ git ];
 
