@@ -62,9 +62,11 @@ in rec {
 
   ksuid = callPackage ./pkgs/ksuid { };
 
-  pigo = callPackage ./pkgs/pigo { };
+  wagi = callPackage ./pkgs/wagi { };
 
-  hcl2json = callPackage ./pkgs/hcl2json { };
+  bindle = callPackage ./pkgs/bindle { };
+
+  pigo = callPackage ./pkgs/pigo { };
 
   htmlq = callPackage ./pkgs/htmlq { };
 
