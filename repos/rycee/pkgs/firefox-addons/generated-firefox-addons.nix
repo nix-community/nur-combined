@@ -1209,10 +1209,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.3";
+      version = "11.4.4";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3928474/noscript_security_suite-11.4.3-an+fx.xpi";
-      sha256 = "992e2425240f65cb96228bd6842bdd43d3a647bcfe4cde0ae912cd9d27224672";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3930315/noscript_security_suite-11.4.4-an+fx.xpi";
+      sha256 = "925fc2fadb017bab3ed1abf9c9fde705f5ac03e64ce19b3b1b3f20407cd1de31";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1584,10 +1584,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.3.18";
+      version = "22.4.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923936/refined_github-22.3.18-an+fx.xpi";
-      sha256 = "284db4de2eda0268a2398ef2be520e15fa41028a6ea0df074152a44804ce0fe2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3930506/refined_github-22.4.1-an+fx.xpi";
+      sha256 = "bc3bbb0cd0fd266ed50ab53aab9ce1cb2189ec34c86b7458e97c85ebb19401c5";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2244,10 +2244,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.19";
+      version = "6.10.20";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924857/wappalyzer-6.10.19-fx.xpi";
-      sha256 = "b6fd445786811ebe13346466ed1b095ef0594a884af74d941d0a3016c6452a5c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3930571/wappalyzer-6.10.20-fx.xpi";
+      sha256 = "3c8c924ff104f59398a821187add91d57698a43b617e6baf04a9e12546035bb6";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
