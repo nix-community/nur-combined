@@ -1,4 +1,5 @@
 #!/usr/bin/env nix-shell
 #! nix-shell ../../shell.nix -i bash
 
-nix-prefetch-github cmvnd fonts | tee source.json
+nix-prefetch-github  --fetch-submodules \
+  cmvnd fonts | tee source.json

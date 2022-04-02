@@ -18,6 +18,7 @@
   bitwarden-rofi-patched = pkgs.callPackage ./pkgs/bitwarden-rofi { };
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   rctpm = pkgs.callPackage ./pkgs/rctpm { };
+  shairport-sync-metadata-reader = pkgs.callPackage ./pkgs/shairport-sync-metadata-reader { };
   toonmux = pkgs.callPackage ./pkgs/toonmux { };
   uxplay = pkgs.callPackage ./pkgs/uxplay { };
   viddy = pkgs.callPackage ./pkgs/viddy { };
