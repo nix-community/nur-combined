@@ -3,5 +3,7 @@
     "repo": "fonts",
     "rev": "0480a776c8a0b9c05cba4037084f74c5f8c042f6",
     "sha256": "bfMRd30rpjhu5UGFoWwKjx1clWSAjoYpBZOSdSMEldU=",
-    "fetchSubmodules": true
+    "fetchSubmodules": true,
+    "leaveDotGit": false,
+    "deepClone": false
 }
