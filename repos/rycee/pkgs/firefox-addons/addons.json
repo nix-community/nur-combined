@@ -84,6 +84,9 @@
     "slug": "close-other-windows"
   },
   {
+    "slug": "conex"
+  },
+  {
     "slug": "consent-o-matic",
     "license": {
       "tag": "predefined",
@@ -98,6 +101,9 @@
   },
   {
     "slug": "copy-selection-as-markdown"
+  },
+  {
+    "slug": "dark-mode-website-switcher"
   },
   {
     "slug": "dark-scroll-for-tweetdeck"
@@ -437,6 +443,9 @@
     }
   },
   {
+    "slug": "privacy-settings"
+  },
+  {
     "slug": "private-relay"
   },
   {
@@ -618,6 +627,9 @@
   },
   {
     "slug": "ublock-origin"
+  },
+  {
+    "slug": "ubo-scope"
   },
   {
     "slug": "umatrix"

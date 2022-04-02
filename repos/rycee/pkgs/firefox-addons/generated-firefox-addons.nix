@@ -294,6 +294,20 @@
         platforms = platforms.all;
         };
       };
+    "conex" = buildFirefoxXpiAddon {
+      pname = "conex";
+      version = "0.9.7";
+      addonId = "{ec9d70ea-0229-49c0-bbf7-0df9bbccde35}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1667278/conex-0.9.7-an+fx.xpi";
+      sha256 = "f6aa6c18b278b5ceb977e06409afe6572f3fe8fe94494512e91087321f6ca7e6";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kesselborn/conex#conex";
+        description = "TabGroups married with Tab Containers and bookmark  &amp; history search";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
       version = "0.9.4";
@@ -344,6 +358,20 @@
       {
         homepage = "https://github.com/0x6b/copy-selection-as-markdown";
         description = "Copy title, URL, and selection as Markdown.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "dark-mode-website-switcher" = buildFirefoxXpiAddon {
+      pname = "dark-mode-website-switcher";
+      version = "2.0";
+      addonId = "dark-mode-website-switcher@rugk.github.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3878543/dark_website_forcer-2.0-an+fx.xpi";
+      sha256 = "be18aeadee3248fa1e2866eac7011f8008311f82f0456fd4fcb796511218a16e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/rugk/website-dark-mode-switcher";
+        description = "Adjusts the website's color scheme, so that all websites are dark by default, if they have a special design for that. It makes websites look dark even with a light system style.";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -1470,6 +1498,20 @@
         platforms = platforms.all;
         };
       };
+    "privacy-settings" = buildFirefoxXpiAddon {
+      pname = "privacy-settings";
+      version = "0.3.7";
+      addonId = "jid1-CKHySAadH4nL6Q@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1182089/privacy_settings-0.3.7-an+fx.xpi";
+      sha256 = "692ef4eea9b192c470be28f6fb7e9eb3f5a92946aad65d384be9ea0b4d01e40c";
+      meta = with lib;
+      {
+        homepage = "http://add0n.com/privacy-settings.html";
+        description = "Alter Firefox's built-in privacy settings easily with a toolbar panel.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
       version = "2.3.1";
@@ -2112,6 +2154,20 @@
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
         description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "ubo-scope" = buildFirefoxXpiAddon {
+      pname = "ubo-scope";
+      version = "0.1.12";
+      addonId = "uBO-Scope@raymondhill.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/982889/ubo_scope-0.1.12-an+fx.xpi";
+      sha256 = "00946c772704fc10e2bdd5ebbf5b91fd51bac19c40fbb4e43d751648fa171ef5";
+      meta = with lib;
+      {
+        homepage = "https://github.com/gorhill/uBO-Scope";
+        description = "A tool to measure your 3rd-party exposure score for web sites you visit.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
