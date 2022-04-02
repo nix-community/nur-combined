@@ -2,29 +2,22 @@
   description = "My personal NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
     hath-nix.url = github:poscat0x04/hath-nix;
     keycloak-lantian = {
       url = "git+https://git.lantian.pub/lantian/keycloak-lantian.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
-      systems = [
-        "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
-      ];
       lib = nixpkgs.lib;
-      forAllSystems = f: lib.genAttrs systems (system: f system);
+      eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
     in
     {
-      inherit forAllSystems lib;
+      inherit eachSystem lib;
 
-      packages = forAllSystems (system: import ./pkgs {
+      packages = eachSystem (system: import ./pkgs {
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
@@ -41,6 +34,16 @@
         };
         inherit inputs;
       };
+
+      apps = eachSystem (system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
+            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
+          '';
+        });
 
       nixosModules = import ./modules;
     };

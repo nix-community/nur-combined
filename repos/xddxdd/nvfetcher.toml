@@ -68,6 +68,10 @@ src.webpage = "https://packages.debian.org/sid/qemu-user-static"
 src.regex = "\\(1:(.*)\\)"
 fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_arm64.deb"
 
+[rime-aurora-pinyin]
+src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
+fetch.github = "hosxy/rime-aurora-pinyin"
+
 [rime-dict]
 src.git = "https://github.com/Iorest/rime-dict.git"
 fetch.github = "Iorest/rime-dict"

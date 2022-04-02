@@ -34,6 +34,7 @@ rec {
     inherit chmlib-utils;
   };
   drone-vault = pkg ./drone-vault { };
+  fcitx5-breeze = pkg ./fcitx5-breeze { };
   ftp-proxy = pkg ./ftp-proxy { };
   genshin-checkin-helper = pkg ./genshin-checkin-helper {
     inherit genshinhelper2 onepush;
@@ -61,6 +62,7 @@ rec {
   phppgadmin = pkg ./phppgadmin { };
   qemu-user-static = pkg ./qemu-user-static { };
   qqmusic = pkg ./qqmusic { };
+  rime-aurora-pinyin = pkg ./rime-aurora-pinyin { };
   rime-dict = pkg ./rime-dict { };
   rime-moegirl = pkg ./rime-moegirl { };
   rime-zhwiki = pkg ./rime-zhwiki { };

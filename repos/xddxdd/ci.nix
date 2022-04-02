@@ -17,7 +17,7 @@ let
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   flake = getFlake (toString ./.);
-  inherit (flake) forAllSystems;
+  inherit (flake) eachSystem;
   inherit (flake.lib) concatMap nameValuePair;
 
   flattenPkgs = s:
@@ -32,7 +32,7 @@ let
   outputsOf = p: map (o: p.${o}) p.outputs;
 
 in
-forAllSystems
+eachSystem
   (system:
     let
       nurAttrs = flake.packages."${system}";
