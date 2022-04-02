@@ -19,6 +19,7 @@
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   rctpm = pkgs.callPackage ./pkgs/rctpm { };
   toonmux = pkgs.callPackage ./pkgs/toonmux { };
+  uxplay = pkgs.callPackage ./pkgs/uxplay { };
   viddy = pkgs.callPackage ./pkgs/viddy { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
