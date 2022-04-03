@@ -1,10 +1,11 @@
 { pkgs, lib, config, options, ... }:
+with lib;
 
 let
   cfg = config.services.godns;
 
   cfgFile = pkgs.writeText "godns.json" (builtins.toJSON (
-    (lib.filterAttrsRecursive (n: v: v != null && v != []) ({
+    (filterAttrsRecursive (n: v: v != null && v != []) ({
       provider = cfg.provider;
       email = cfg.email;
       password = cfg.password;
@@ -24,10 +25,10 @@ let
       resolver = cfg.resolver;
     } // cfg.extraConf)
   )));
-in
 
+in
 {
-  options = with lib; {
+  options = {
     services.godns = {
       enable = mkEnableOption "GoDNS";
 
@@ -145,7 +146,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
     ];
@@ -155,7 +156,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = lib.mkForce {
+      serviceConfig = mkForce {
         WorkingDirectory = cfg.dataDir;
         User = cfg.user;
         Group = cfg.group;
@@ -164,7 +165,7 @@ in
       };
     };
 
-    users.users = lib.mkIf (cfg.user == "godns") {
+    users.users = mkIf (cfg.user == "godns") {
       godns = {
         description = "GoDNS service user";
         group = cfg.group;
@@ -173,7 +174,7 @@ in
       };
     };
 
-    users.groups = lib.mkIf (cfg.group == "godns") {
+    users.groups = mkIf (cfg.group == "godns") {
       godns = {};
     };
   };

@@ -1,11 +1,12 @@
 { pkgs, lib, config, options, ... }:
+with lib;
 
 let
   cfg = config.services.unpackerr;
-in
 
+in
 {
-  options = with lib; {
+  options = {
     services.unpackerr = {
       enable = mkEnableOption "Unpackerr";
 
@@ -23,7 +24,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     systemd.services.unpackerr = {
       description = "Unpackerr";
       after = [ "network.target" ];
@@ -38,7 +39,7 @@ in
       };
     };
 
-    users.users = lib.mkIf (cfg.user == "unpackerr") {
+    users.users = mkIf (cfg.user == "unpackerr") {
       unpackerr = {
         group = cfg.group;
         home = "/var/lib/unpackerr";
@@ -46,7 +47,7 @@ in
       };
     };
 
-    users.groups = lib.mkIf (cfg.group == "unpackerr") {
+    users.groups = mkIf (cfg.group == "unpackerr") {
       unpackerr = {
         gid = config.ids.gids.unpackerr;
       };

@@ -1,13 +1,21 @@
 { pkgs, lib, config, options, ... }:
+with lib;
 
 let
   cfg = config.services.readarr;
-in
 
+in
 {
-  options = with lib; {
+  options = {
     services.readarr = {
       enable = mkEnableOption "Readarr";
+
+      package = mkOption {
+        type = types.package;
+        default = pkgs.readarr;
+        defaultText = literalExpression "pkgs.readarr";
+        description = "Readarr package to use";
+      };
 
       dataDir = mkOption {
         type = types.str;
@@ -37,7 +45,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
     ];
@@ -51,16 +59,16 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${pkgs.readarr}/bin/Readarr -nobrowser -data='${cfg.dataDir}'";
+        ExecStart = "${cfg.package}/bin/Readarr -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall {
+    networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = [ 8787 ];
     };
 
-    users.users = lib.mkIf (cfg.user == "readarr") {
+    users.users = mkIf (cfg.user == "readarr") {
       readarr = {
         group = cfg.group;
         home = "/var/lib/readarr";
@@ -68,7 +76,7 @@ in
       };
     };
 
-    users.groups = lib.mkIf (cfg.group == "readarr") {
+    users.groups = mkIf (cfg.group == "readarr") {
       readarr = {
         gid = config.ids.gids.readarr;
       };

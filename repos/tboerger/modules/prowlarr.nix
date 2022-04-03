@@ -1,11 +1,12 @@
 { pkgs, lib, config, options, ... }:
+with lib;
 
 let
   cfg = config.services.prowlarr;
-in
 
+in
 {
-  options = with lib; {
+  options = {
     services.prowlarr = {
       dataDir = mkOption {
         type = types.str;
@@ -27,7 +28,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
     ];
@@ -37,7 +38,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = lib.mkForce {
+      serviceConfig = mkForce {
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
@@ -46,7 +47,7 @@ in
       };
     };
 
-    users.users = lib.mkIf (cfg.user == "prowlarr") {
+    users.users = mkIf (cfg.user == "prowlarr") {
       prowlarr = {
         group = cfg.group;
         home = "/var/lib/prowlarr";
@@ -54,7 +55,7 @@ in
       };
     };
 
-    users.groups = lib.mkIf (cfg.group == "prowlarr") {
+    users.groups = mkIf (cfg.group == "prowlarr") {
       prowlarr = {
         gid = config.ids.gids.prowlarr;
       };
