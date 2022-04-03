@@ -26,6 +26,8 @@
 
   cpp-sort = pkgs.callPackage ./pkgs/cpp-sort { };
 
+  cutechess = pkgs.libsForQt5.callPackage ./pkgs/cutechess { };
+
   eli5 = pkgs.python39Packages.callPackage ./pkgs/eli5 { };
 
   eovim = pkgs.callPackage ./pkgs/eovim { };
