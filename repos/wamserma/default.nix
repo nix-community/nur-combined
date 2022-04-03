@@ -35,6 +35,7 @@ rec {
 
   git-smash = pkgs.callPackage pkgs/applications/version-management/git-and-tools/git-smash { lib = mylib; };
 
+  falsisign = pkgs.callPackage pkgs/applications/misc/falsisign/default.nix { lib = mylib; };
   masterpdfeditor4 = pkgs.callPackage pkgs/applications/misc/masterpdfeditor/default.nix { lib = mylib; qtbase = pkgs.qt5.qtbase; qtsvg = pkgs.qt5.qtsvg; wrapQtAppsHook = pkgs.qt5.wrapQtAppsHook; };
 
   genius-sf-600-firmware = pkgs.callPackage pkgs/misc/firmware/genius/sf600.nix { lib = mylib; };
