@@ -974,10 +974,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.6.0";
+      version = "1.6.2";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3929419/libredirect-1.6.0-an+fx.xpi";
-      sha256 = "01ef063448c472c2a6f488cd215f1ad12cb00d5877a5f7d8d3f837d167dbc0dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3930803/libredirect-1.6.2-an+fx.xpi";
+      sha256 = "b41425a0c495c1ff9b3400cf6730ad3dcec6b2f5435130b7571142e116362642";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -1035,10 +1035,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.24";
+      version = "2.6.25";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3925575/localcdn-2.6.24-an+fx.xpi";
-      sha256 = "cedfb687518814e47f9002e96564093b34ec6d7888887a5ead4e7dd68f148700";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3930632/localcdn-2.6.25-an+fx.xpi";
+      sha256 = "a8cb56a4c3e24c000bc91d62bb922fff32a1f80fd6597b406ed23f2985f6aee6";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1795,10 +1795,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.3.31.914";
+      version = "22.4.2.611";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3929896/sourcegraph_for_firefox-22.3.31.914-an+fx.xpi";
-      sha256 = "c3f6e22896e47e64e087423138f7102c0cebc6de58531c975ee2b00843368383";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3930650/sourcegraph_for_firefox-22.4.2.611-an+fx.xpi";
+      sha256 = "0c5363e99c737831ea901b1f0a6e5d94585a3cb2845b21a491822be01f839be4";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
