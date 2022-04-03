@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import (import ./flake-compat.nix).inputs.nixpkgs {} }:
 
 with pkgs;
 
