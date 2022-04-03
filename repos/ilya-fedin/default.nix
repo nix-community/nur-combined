@@ -7,10 +7,20 @@ rec {
 
   overlays = import ./overlays;
 
+  ayatana-indicator-keyboard = callPackage ./pkgs/ayatana-indicator-keyboard {
+    inherit cmake-extras libayatana-common;
+  };
+
+  ayatana-indicator-power = callPackage ./pkgs/ayatana-indicator-power {
+    inherit cmake-extras libayatana-common;
+  };
+
   cascadia-code-powerline = runCommand "cascadia-code-powerline" {} ''
     install -m644 --target $out/share/fonts/truetype -D ${cascadia-code}/share/fonts/truetype/CascadiaCodePL.ttf
     install -m644 --target $out/share/fonts/truetype -D ${cascadia-code}/share/fonts/truetype/CascadiaCodePLItalic.ttf
   '';
+
+  cmake-extras = callPackage ./pkgs/cmake-extras {};
 
   exo2 = callPackage ./pkgs/exo2 {};
 
@@ -36,6 +46,10 @@ rec {
     });
 
     abseil-cpp = abseil-cpp_202111;
+  };
+
+  libayatana-common = callPackage ./pkgs/libayatana-common {
+    inherit cmake-extras;
   };
 
   mesa-drivers-amd = (pkgs.mesa.override {
