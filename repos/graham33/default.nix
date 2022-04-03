@@ -29,7 +29,7 @@ let
       buildHomeAssistantCustomComponent = callPackage pkgs/build-support/build-home-assistant-custom-component {};
 
       authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
-      fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
+      # fiblary3 = pySelf.callPackage ./pkgs/fiblary3 { };
       garminconnect = pySelf.callPackage ./pkgs/garminconnect { };
       homeassistant = (pySelf.toPythonModule home-assistant);
       homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
