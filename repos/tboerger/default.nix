@@ -5,5 +5,5 @@
   modules = import ./modules;
   overlays = import ./overlays;
 
-  dummy = pkgs.callPackage ./pkgs/dummy { };
+  readarr = pkgs.callPackage ./pkgs/readarr { };
 }
