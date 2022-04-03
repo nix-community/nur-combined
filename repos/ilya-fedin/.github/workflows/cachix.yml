@@ -22,5 +22,4 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: NIXPKGS_ALLOW_UNFREE=1 nix-build non-broken.nix
     - run: git add flake.lock
-    - run: git commit -m "Update flake"
-    - run: git push
+    - run: git diff --staged --quiet || (git commit -m "Update flake" && git push)
