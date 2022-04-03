@@ -42,6 +42,7 @@ in {
 
     networking.edgevpn = {
       enable = true;
+      logLevel = "debug";
       address = "10.0.2.1/24";
       router = "10.0.2.1";
       postStart = ''
