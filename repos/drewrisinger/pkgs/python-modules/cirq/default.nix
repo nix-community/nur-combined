@@ -39,12 +39,12 @@
 }:
 
 let
-  version = "0.13.1";
+  version = "0.14.0";
   src = fetchFromGitHub {
     owner = "quantumlib";
     repo = "cirq";
     rev = "v${version}";
-    sha256 = "sha256-MVfJ8iEeW8gFvCNTqrWfYpNNYuDAufHgcjd7Nh3qp8U=";
+    sha256 = "sha256-Gqit834l08CWYQfs8YzavVOhXC3Zujqc99XmWvJlSpI=";
   };
   disabled = pythonOlder "3.6";
   cirqSubPackage = { pname, ... } @ args: buildPythonPackage ((builtins.removeAttrs args [ ]) // rec {
@@ -53,7 +53,10 @@ let
 
     propagatedBuildInputs = if pname != "cirq-core" then ((args.propagatedBuildInputs or [ ]) ++ [ cirq-core ]) else args.propagatedBuildInputs;
 
-      checkInputs = args.checkInputs or [ pytestCheckHook ];
+    checkInputs = args.checkInputs or [ pytestCheckHook ];
+    postPatch = args.postPatch or ''
+      substituteInPlace ${builtins.replaceStrings [ "-" ] [ "_" ] pname}/_version_test.py --replace "${version}.dev" "${version}"
+    '';
     # pythonImportsCheck = args.pythonImportsCheck or [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
     meta = args.meta or cirq-core.meta;
   }
@@ -65,6 +68,9 @@ let
         --replace "matplotlib~=3.0" "matplotlib" \
         --replace "networkx~=2.4" "networkx" \
         --replace "numpy~=1.16" "numpy"
+
+      # test was written to expect the dev version, but fails when built against the release version
+      substituteInPlace cirq/_version_test.py --replace "0.14.0.dev" "0.14.0"
     '';
 
     propagatedBuildInputs = [
@@ -96,7 +102,8 @@ let
 
     pytestFlagsArray = [
       "-rfE"
-      # "--durations=10"
+      "--durations=10"
+      # "-x"
     ] ++ lib.optionals (!withContribRequires) [
       # requires external (unpackaged) libraries, so untested.
       "--ignore=cirq/contrib/"
@@ -104,6 +111,10 @@ let
     disabledTests = [
       "test_metadata_search_path" # tries to import flynt, which isn't in Nixpkgs
       "test_benchmark_2q_xeb_fidelities" # fails due pandas MultiIndex. Maybe issue with pandas version in nix?
+      "test_qasm" # in cirq/ops/classically_controlled_operations_test.py, fails due to string header including dev version number
+    ] ++ [
+      # slow tests, >10 seconds locally
+      "test_fsim_gate_with_symbols"
     ] ++ lib.optionals (lib.versionAtLeast scipy.version "1.6.0") [
       "test_projector_matrix_missing_qid"
       "test_projector_from_np_array"
@@ -130,6 +141,7 @@ let
       substituteInPlace requirements.txt \
         --replace "protobuf~=3.13.0" "protobuf" \
         --replace "google-api-core[grpc] >= 1.14.0, < 2.0.0dev" "google-api-core[grpc] >= 1.14.0, < 3.0.0dev"
+      substituteInPlace cirq_google/_version_test.py --replace "0.14.0.dev" "${version}"
     '';
 
     propagatedBuildInputs = [
@@ -169,6 +181,8 @@ let
         --replace "httpx~=0.15.5" "httpx" \
         --replace "iso8601~=0.1.14" "iso8601" \
         --replace "~=" ">="
+
+      substituteInPlace cirq_rigetti/_version_test.py --replace "0.14.0.dev" "${version}"
     '' + lib.optionalString (lib.versionAtLeast httpcore.version "0.14.0") ''
       substituteInPlace cirq_rigetti/service_test.py \
         --replace "from httpcore._types import URL, Headers" "" \
@@ -203,6 +217,7 @@ let
       rm -rf cirq-google
       rm -rf cirq-ionq
       rm -rf cirq-rigetti
+      rm -rf cirq-pasqal
       rm -rf cirq-web
     '';
 

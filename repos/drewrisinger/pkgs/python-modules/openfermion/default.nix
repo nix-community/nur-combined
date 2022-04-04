@@ -27,11 +27,6 @@ buildPythonPackage rec {
     sha256 = "sha256-XrzB79PPCou5gWwbrCszH316U2wDc712kTwtQFBCPOw=";
   };
 
-  postPatch = ''
-    substituteInPlace requirements.txt \
-      --replace "cirq-google~=0.12.0" "cirq-google" \
-      --replace "cirq-core~=0.12.0" "cirq-core"
-  '';
 
   propagatedBuildInputs = [
     cirq
@@ -60,19 +55,10 @@ buildPythonPackage rec {
     "test_all"
     "test_apply_constraints"
     "test_plane_wave_hamiltonian"
-  ] ++ lib.optionals (lib.versionAtLeast cirq.version "0.11.1") [
-    "test_cirq_deprecations"
-  ]
-    ++
-    # These fail on scipy 1.6.1, seem to work before that
-    lib.optionals (lib.versionAtLeast scipy.version "1.6.1") [
-      # Have issues with some of these tests, don't have time to track down the issue.
-      # Some of these are probably fixed by PR #710, but that patch doesn't apply cleanly
-      "test_jw_sparse"
-      "test_particle_conserving"
-      "test_non_particle_conserving"
-      "test_get_ground_state_hermitian"
-      "JWGetGaussianStateTest"
+  ] ++ lib.optionals (lib.versionAtLeast cirq.version "0.14.0") [
+    # these fail for some reason on cirq 0.14.0. Reported in https://github.com/quantumlib/OpenFermion/issues/775
+    "test_fermionic_simulation_gate"
+    "test_quartic_fermionic_simulation_consistency"
   ];
 
   meta = with lib; {
