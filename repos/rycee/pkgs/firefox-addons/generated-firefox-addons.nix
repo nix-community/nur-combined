@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.6.2.0";
+      version = "2.6.3.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3928162/bypass_paywalls_clean-2.6.2.0-an+fx.xpi";
-      sha256 = "daf1c288fa27116514fd20dc1549b164b221a36d83ed05c5f44095b92b372225";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3931065/bypass_paywalls_clean-2.6.3.0-an+fx.xpi";
+      sha256 = "14fe4c0cb161c5e535054d988f2c43d39e848c3c62b0bc523f341a538d51d2d6";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1049,10 +1049,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.5.1";
+      version = "4.5.2";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923039/mailvelope-4.5.1-fx.xpi";
-      sha256 = "8decb3d944df74516ce4be71d77514e32e66b6678fd0838beaf9cefd8cafe226";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3931074/mailvelope-4.5.2-fx.xpi";
+      sha256 = "531b0d27b86e7b0a100423eb526370cf19deec4e31eef1deb12edf107f1606f1";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
