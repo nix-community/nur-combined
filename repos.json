@@ -342,7 +342,7 @@
         },
         "misterio": {
             "type": "sourcehut",
-            "url": "https://git.sr.ht/~misterio/nur-packages"
+            "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "mmilata": {
             "url": "https://github.com/mmilata/nur-packages"
