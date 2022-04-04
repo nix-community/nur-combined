@@ -23,6 +23,9 @@ rec {
       dill = overrideSuperVersionIfNewer py-super.dill (py-self.callPackage ../pkgs/python-modules/dill { });
       # needed for nixpkgs <= nixos-21.05, broken
       symengine = overrideSuperVersionIfNewer py-super.symengine (py-self.callPackage ../pkgs/python-modules/symengine { inherit (self) symengine; });
+      # needed for nixpkgs == nixos-21.05, incompatible w/ python-box
+      ruamel_yaml = overrideSuperVersionIfNewer py-super.ruamel_yaml (py-self.callPackage ../pkgs/python-modules/ruamel_yaml { });
+      ruamel-yaml-clib = overrideSuperVersionIfNewer py-super.ruamel-yaml-clib (py-self.callPackage ../pkgs/python-modules/ruamel-yaml-clib { });
     };
   };
 
