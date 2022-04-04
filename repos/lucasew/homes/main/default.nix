@@ -158,6 +158,7 @@ in {
         (replaceWord "its" "it's")
         (replaceWord "dont" "don't")
         (replaceWord "didnt" "didn't")
+        (replaceWord "cant" "can't")
         (replaceWord "arent" "aren't")
         (replaceWord "youre" "you're")
       ];

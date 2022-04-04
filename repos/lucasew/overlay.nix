@@ -37,6 +37,7 @@ in {
   c4me = cp ./packages/c4me;
   encore = cp ./packages/encore.nix;
   parsec = cp ./packages/parsec.nix;
+  weston-run = cp ./packages/weston-desktop.nix;
   xplr = cp ./packages/xplr.nix;
   personal-utils = cp ./packages/personal-utils.nix;
   nixwrap = cp ./packages/nixwrap.nix;

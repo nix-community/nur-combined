@@ -152,10 +152,11 @@ in
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
+    # alsa.enable = true;
+    # alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+    wireplumber.enable = true;
     media-session.config.bluez-monitor.rules = [
       {
         # Matches all cards
@@ -223,6 +224,7 @@ in
     docker.enable = true;
     libvirtd.enable = true;
     virtualbox.host.enable = true;
+    waydroid.enable = true;
   };
 
   boot.plymouth = {
