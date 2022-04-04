@@ -15,6 +15,7 @@ packageSet = do
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
+  ghPkg "cloudflare" "cf-terraforming"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   fishPlugins
   commitNotifier

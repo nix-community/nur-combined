@@ -15,6 +15,7 @@ lib.makeScope newScope (
 
     activate-dpt = callPackage ./activate-dpt { };
     canokey-udev-rules = callPackage ./canokey-udev-rules { };
+    cf-terraforming = callPackage ./cf-terraforming { };
     clash-for-windows = callPackage ./clash-for-windows { };
     clash-premium = callPackage ./clash-premium { };
     commit-notifier = callPackage ./commit-notifier { };
