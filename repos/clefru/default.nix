@@ -24,4 +24,8 @@ rec {
   usbreset = pkgs.callPackage ./pkgs/usbreset { };
   gtk-v4l = pkgs.callPackage ./pkgs/gtk-v4l { };
   ib-tws = pkgs.callPackage ./pkgs/ib-tws { };
+  quantlib = pkgs.callPackage ./pkgs/quantlib { };
+
+  # FIXME: Look into pythonOverrides
+  quantlib-python3 = pkgs.python3.pkgs.callPackage ./pkgs/python-pkgs/quantlib { };
 }

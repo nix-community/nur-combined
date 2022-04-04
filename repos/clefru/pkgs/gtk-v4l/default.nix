@@ -10,6 +10,6 @@ stdenv.mkDerivation {
 
   meta = {
     description = "GUI for adjusting settings of V4L devices";
-    license = stdenv.lib.licenses.gpl2;
+    license = lib.licenses.gpl2;
   };
 }

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig }:
+{ pkgs ? import <nixpkgs> {} }:
+with pkgs;
 
 stdenv.mkDerivation (rec {
   name = "noise-suppression-for-voice-${version}";
@@ -13,7 +14,7 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [ cmake ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://github.com/werman/noise-suppression-for-voice;
     description = "Noise suppression plugin based on Xiph's RNNoise";
     license = licenses.gpl3;

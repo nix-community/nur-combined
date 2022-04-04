@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook }:
+{ pkgs ? import <nixpkgs> {} }:
+with pkgs;
 
 stdenv.mkDerivation (rec {
   name = "rnnoise-${version}";
@@ -13,7 +14,7 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://people.xiph.org/~jm/demo/rnnoise/;
     description = "Recurrent neural network for audio noise reduction.";
     license = licenses.bsd3;

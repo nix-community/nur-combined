@@ -33,7 +33,7 @@ with pkgs;
   meta = {
     description = "Grin Mimblewimble node";
     homepage = https://grin-tech.org/;
-    license = stdenv.lib.licenses.asl20;
+    license = lib.licenses.asl20;
     broken = true;
   };
 })

@@ -1,0 +1,11 @@
+--- QuantLib-SWIG/Python/Makefile.am	2021-03-16 09:36:59.527977224 +0100
++++ src/QuantLib-SWIG-1.21/Python/Makefile.am	2021-03-09 16:05:13.724250743 +0100
+@@ -16,7 +16,7 @@
+ 	$(PYTHON) setup.py test
+ 
+ install-exec-local: .build-stamp
+-	$(PYTHON) setup.py install
++	$(PYTHON) setup.py install --prefix=$(DESTDIR)
+ 
+ clean-local:
+ 	rm -rf build
