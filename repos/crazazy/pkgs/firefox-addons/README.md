@@ -28,3 +28,4 @@ in
   wrapFirefox firefox-unwrapped {
     nixExtensions = attrValues addons;
   }
+```
