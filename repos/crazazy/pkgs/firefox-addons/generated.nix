@@ -2,10 +2,10 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "1.55.0";
+      version = "1.57.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3878893/bitwarden_free_password_manager-1.55.0-an+fx.xpi";
-      sha256 = "0236326c4d03c69e347a0264f5219ca3f1ae69de43d48173cd53e006da3933dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3925900/bitwarden_free_password_manager-1.57.0-an+fx.xpi";
+      sha256 = "7de0228befc3764154629e6644d8e00d5d10fe6d2d1886183e351c53aee85440";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -16,10 +16,10 @@
       };
     "feedbroreader" = buildFirefoxXpiAddon {
       pname = "feedbroreader";
-      version = "4.10.0";
+      version = "4.11.12";
       addonId = "{a9c2ad37-e940-4892-8dce-cd73c6cbbc0c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3833137/feedbro_rss_feed_reader-4.10.0-fx.xpi";
-      sha256 = "a62eebaed7f244e8e4a29314bc64bc752a9132d7667dd7ea6176726d2769b157";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3919947/feedbro_rss_feed_reader-4.11.12-fx.xpi";
+      sha256 = "66cd05f300f078a718f1b401a79e48390b12d128e7b23b4c686929e6b8c5d970";
       meta = with lib;
       {
         homepage = "http://nodetics.com/feedbro";
@@ -56,10 +56,10 @@
       };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
-      version = "2.1.0";
+      version = "2.5.1";
       addonId = "extension@tabliss.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3716637/tabliss_new_tab-2.1.0-fx.xpi";
-      sha256 = "7381d681c4eef5bf91667e6b3918569c72009c6a7f62f9a33a44017b03d740ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3930696/tabliss_new_tab-2.5.1-fx.xpi";
+      sha256 = "ec0f74b4a122f67031b2055af194c9489e1300442671646209c87f36e17d180a";
       meta = with lib;
       {
         homepage = "https://tabliss.io";
@@ -70,10 +70,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.39.2";
+      version = "1.42.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3875359/ublock_origin-1.39.2-an+fx.xpi";
-      sha256 = "02e139624549b733542b95c4c75b6b315a09cce91373c263ba2f18ca5ed8d93a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3929378/ublock_origin-1.42.0-an+fx.xpi";
+      sha256 = "a0e00dd0d859b472bcdb9a3dfc0d1166ad3e0d49731ab4d6408281532eb79b06";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -98,10 +98,10 @@
       };
     "youtube_downloader_webx" = buildFirefoxXpiAddon {
       pname = "youtube_downloader_webx";
-      version = "1.1.6";
+      version = "1.2.1";
       addonId = "{f73df109-8fb4-453e-8373-f59e61ca4da3}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3802517/youtube_video_and_audio_downloader_webex-1.1.6-fx.xpi";
-      sha256 = "60371a03d74cda3f200e8df8170056cc57fab0345bfa76b88d8d44e820b5ba16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901737/youtube_video_and_audio_downloader_webex-1.2.1-fx.xpi";
+      sha256 = "5a2fa3f36be42b3d136c9e07365d996b6a2940f38f3662e6b7ef3375cc5c64fa";
       meta = with lib;
       {
         homepage = "https://github.com/feller-prj/extractor-project";
