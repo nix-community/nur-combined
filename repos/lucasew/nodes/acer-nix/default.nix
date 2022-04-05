@@ -185,8 +185,12 @@ in
   ];
   };
 
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+  services.xserver = {
+    layout = "br,us";
+    xkbOptions = "grp:win_space_toggle,terminate:ctrl_alt_bksp";
+    xkbModel = "acer_laptop";
+    xkbVariant = ",";
+  };
 
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
