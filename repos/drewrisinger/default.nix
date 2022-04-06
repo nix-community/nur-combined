@@ -127,7 +127,7 @@ rec {
     qiskit-finance = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-finance { inherit qiskit-optimization qiskit-terra qiskit-aer; };
     qiskit-optimization = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-optimization { inherit qiskit-terra qiskit-aer; };
     qiskit-machine-learning = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-machine-learning { inherit qiskit-terra qiskit-aer; };
-    qiskit-nature = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-nature { inherit qiskit-terra retworkx pyscf; };
+    qiskit-nature = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-nature { inherit qiskit-terra qiskit-aer retworkx pyscf; };
     qiskit-dynamics = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-dynamics { inherit qiskit-terra; };
     qiskit-experiments = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-experiments { inherit qiskit-terra qiskit-aer qiskit-ibmq-provider; };
 

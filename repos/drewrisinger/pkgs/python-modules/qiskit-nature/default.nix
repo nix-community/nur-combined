@@ -16,11 +16,12 @@
 , pytestCheckHook
 , ddt
 , pylatexenc
+, qiskit-aer
 }:
 
 buildPythonPackage rec {
   pname = "qiskit-nature";
-  version = "0.3.1";
+  version = "0.3.2";
 
   disabled = pythonOlder "3.6";
 
@@ -28,7 +29,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-EkYppEOQGmRIxKC4ArXZb0b+p1gPGnP6AU8LbEbOpPo=";
+    sha256 = "sha256-BXUVRZ8X3OJiRexNXZsnvp+Yh8ARNYohYH49/IYFYM0=";
   };
 
   propagatedBuildInputs = [
@@ -41,11 +42,11 @@ buildPythonPackage rec {
     scipy
   ] ++ lib.optional withPyscf pyscf;
 
-  doCheck = false;  # TODO: re-enable on next release. Some issues w/ tests against qiskit-terra v0.20.0, seem resolved on unstable-2022-04-04
   checkInputs = [
     pytestCheckHook
     ddt
     pylatexenc
+    qiskit-aer
   ];
 
   pythonImportsCheck = [ "qiskit_nature" ];
@@ -57,6 +58,8 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
+    # Slow tests > 10s
+    "test_hf_bitstring_mapped"
     # Fails on GitHub Actions, small math error < 0.05 (< 9e-6 %)
     "test_vqe_uvccsd_factory"
   ] ++ lib.optionals (scipy.version == "1.6.1") [
@@ -65,12 +68,8 @@ buildPythonPackage rec {
     "test_h2_bopes_sampler"
     "test_potential_interface"
   ] ++ lib.optionals (lib.versionAtLeast qiskit-terra.version "0.19.0") [
-    # fail with qiskit-terra == 0.19.0, apparently. TODO: check still failing
-    "test_vqe_uvccsd_with_callback"
-    "test_evolved_op_ansatz"
+    # fail with qiskit-terra >= 0.19.0, apparently.
     "test_two_qubit_reduction"
-    "test_mapping"
-    "test_mapping_for_single_op"
   ];
 
   meta = with lib; {
