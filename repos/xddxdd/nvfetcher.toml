@@ -58,6 +58,10 @@ fetch.url = "https://files.phpmyadmin.net/phpMyAdmin/$ver/phpMyAdmin-$ver-all-la
 src.github = "phppgadmin/phppgadmin"
 fetch.github = "phppgadmin/phppgadmin"
 
+[qbittorrent-enhanced-edition]
+src.github = "c0re100/qBittorrent-Enhanced-Edition"
+fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
+
 [qemu-user-static-amd64]
 src.webpage = "https://packages.debian.org/sid/qemu-user-static"
 src.regex = "\\(1:(.*)\\)"

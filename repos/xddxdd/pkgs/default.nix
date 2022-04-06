@@ -60,6 +60,7 @@ rec {
   osdlyrics = pkg ./osdlyrics { };
   phpmyadmin = pkg ./phpmyadmin { };
   phppgadmin = pkg ./phppgadmin { };
+  qbittorrent-enhanced-edition = pkg ./qbittorrent-enhanced-edition { };
   qemu-user-static = pkg ./qemu-user-static { };
   qqmusic = pkg ./qqmusic { };
   rime-aurora-pinyin = pkg ./rime-aurora-pinyin { };

@@ -39,14 +39,14 @@
   };
   genshin-glyphs = {
     pname = "genshin-glyphs";
-    version = "be7680e31f8111ada87c7f7f9d41db577b1d8c49";
+    version = "0fa7c69928ddd7f849ab026e95bb5c27e24834ed";
     src = fetchgit {
       url = "https://github.com/SpeedyOrc-C/Genshin-Glyphs";
-      rev = "be7680e31f8111ada87c7f7f9d41db577b1d8c49";
+      rev = "0fa7c69928ddd7f849ab026e95bb5c27e24834ed";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0lsg982akmf6l656xb9svnqlys3lkwb65kalxaczlncf4bmggg8m";
+      sha256 = "1228dx9345hpz1lj100kpdyqk3d0csv48v50fyrh1va8mrlfyzvb";
     };
   };
   libltnginx = {
@@ -157,6 +157,18 @@
       sha256 = "129q354bgpabh86q335bnra0pzdlnbssxc02gd54s5k982fwxaw7";
     };
   };
+  qbittorrent-enhanced-edition = {
+    pname = "qbittorrent-enhanced-edition";
+    version = "release-4.4.2.10";
+    src = fetchgit {
+      url = "https://github.com/c0re100/qBittorrent-Enhanced-Edition";
+      rev = "release-4.4.2.10";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "00d57kvils4vdkscqly306kpcd3jixsyyvcfhy362pgamdpf738i";
+    };
+  };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
     version = "6.2+dfsg-3";
@@ -235,10 +247,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220402025922";
+    version = "20220405035552";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220402025922/dlc.dat";
-      sha256 = "11iqavgbkfim1d82396l37ypx4rvfbm4n0z03jb4vgiq0vr61a6b";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220405035552/dlc.dat";
+      sha256 = "1b98mrwq7wgcpl56ggnzrd9995qcpjqdm3ryakzc71clqwdhy3j7";
     };
   };
   v2fly-private = {
