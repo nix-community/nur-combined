@@ -1,0 +1,25 @@
+image: nixos/unstable
+
+packages:
+  - nixos.cachix
+
+environment:
+  NIX_CONFIG: "experimental-features = nix-command flakes"
+  repo: "nix-config"
+  cachix: "misterio"
+  nur: "misterio"
+
+secrets:
+  - f2907d38-97b4-4e7d-9fb9-57b3fb0135af
+
+tasks:
+- setup_cachix: |
+    cachix authtoken --stdin < ~/.cachix_token
+    cachix use "$cachix"
+- build: |
+    cd "$repo"
+    nix build .#{alacritty-ligatures,clematis,comma,minicava,pass-wofi,photoprism,pmis,preferredplayer,rgbdaemon,shellcolord,swayfader}
+- upload_cachix: |
+    nix path-info "$repo"/result*/ -r | cachix push "$cachix"
+- update_nur: |
+    curl -XPOST "https://nur-update.herokuapp.com/update?repo=${nur}"
