@@ -17,7 +17,7 @@ buildGoModule rec{
   postInstall = ''
     mkdir completion && $out/bin/gencompletion
 
-    installShellCompletion \
+    installShellCompletion --cmd devspace \
       --bash completion/bash.sh \
       --zsh completion/zsh-completion \
       --fish completion/fish.fish
