@@ -88,6 +88,7 @@ buildPythonPackage rec {
   disabledTests = [
     "test_snapshot" # TODO: these ~30 tests fail on setup due to pytest fixture issues?
     "test_initialize_2" # TODO: simulations appear incorrect, off by >10%.
+    "test_pauli_error_2q_gate_from_string_1qonly"
 
     # these fail for some builds. Haven't been able to reproduce error locally.
     "test_kraus_gate_noise"

@@ -2,8 +2,9 @@
 , pythonOlder
 , buildPythonPackage
 , fetchFromGitHub
+, rustPackages_1_55 ? null # needs at least v1.55 for certain features
+, rustPlatform
   # Python requirements
-, cython
 , dill
 , numpy
 , networkx
@@ -14,6 +15,7 @@
 , retworkx
 , scipy
 , scikit-quant ? null
+, setuptools-rust
 , stevedore
 , symengine
 , sympy
@@ -51,22 +53,29 @@ let
     seaborn
   ];
   crosstalkPackages = [ z3 ];
+  used_rustPlatform = if lib.versionOlder rustPlatform.rust.rustc.version "1.55" then rustPackages_1_55.rustPlatform else rustPlatform;
 in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
-  version = "0.19.2";
+  version = "0.20.0";
 
-  disabled = pythonOlder "3.6";
+  disabled = pythonOlder "3.7" || lib.versionOlder used_rustPlatform.rust.rustc.version "1.55";
 
   src = fetchFromGitHub {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-P2QTdt1H9I5T/ONNoo7XEVnoHweOdq3p2NH3l3/yAn4=";
+    sha256 = "sha256-/t87IgazpJlfd8NT2Pkn5b6/Ut104DcJEFCubQ/bBiw=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [ setuptools-rust ] ++ (with used_rustPlatform; [ rust.rustc rust.cargo cargoSetupHook ]);
+
+  cargoDeps = used_rustPlatform.fetchCargoTarball {
+    inherit src;
+    name = "${pname}-${version}";
+    sha256 = "sha256-tNiBXn32g1PTuTmKNXSac+4PLSc1Ao9n+oAMfvVYR30=";
+  };
 
   propagatedBuildInputs = [
     dill
@@ -98,7 +107,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [
     "qiskit"
-    "qiskit.transpiler.passes.routing.cython.stochastic_swap.swap_trial"
+    "qiskit.pulse"
   ];
 
   pytestFlagsArray = [
@@ -165,6 +174,8 @@ buildPythonPackage rec {
     "test_two_qubit_weyl_decomposition_abmb"
     "test_two_qubit_weyl_decomposition_abb"
     "test_vqe_qasm"
+    "test_dag_from_networkx"
+    "test_defaults_to_dict_46"
   ];
 
   # Moves tests to $PACKAGEDIR/test. They can't be run from /build because of finding

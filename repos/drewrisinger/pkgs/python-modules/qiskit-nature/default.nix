@@ -31,10 +31,6 @@ buildPythonPackage rec {
     sha256 = "sha256-EkYppEOQGmRIxKC4ArXZb0b+p1gPGnP6AU8LbEbOpPo=";
   };
 
-  postPatch = ''
-    substituteInPlace requirements.txt --replace "h5py<3.3" "h5py"
-  '';
-
   propagatedBuildInputs = [
     h5py
     numpy
@@ -45,6 +41,7 @@ buildPythonPackage rec {
     scipy
   ] ++ lib.optional withPyscf pyscf;
 
+  doCheck = false;  # TODO: re-enable on next release. Some issues w/ tests against qiskit-terra v0.20.0, seem resolved on unstable-2022-04-04
   checkInputs = [
     pytestCheckHook
     ddt
@@ -60,13 +57,6 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
-    # fail with qiskit-terra == 0.19.0, apparently
-    "test_vqe_uvccsd_with_callback"
-    "test_evolved_op_ansatz"
-    "test_two_qubit_reduction"
-    "test_mapping"
-    "test_mapping_for_single_op"
-
     # Fails on GitHub Actions, small math error < 0.05 (< 9e-6 %)
     "test_vqe_uvccsd_factory"
   ] ++ lib.optionals (scipy.version == "1.6.1") [
@@ -74,6 +64,13 @@ buildPythonPackage rec {
   ] ++ lib.optionals (!withPyscf) [
     "test_h2_bopes_sampler"
     "test_potential_interface"
+  ] ++ lib.optionals (lib.versionAtLeast qiskit-terra.version "0.19.0") [
+    # fail with qiskit-terra == 0.19.0, apparently. TODO: check still failing
+    "test_vqe_uvccsd_with_callback"
+    "test_evolved_op_ansatz"
+    "test_two_qubit_reduction"
+    "test_mapping"
+    "test_mapping_for_single_op"
   ];
 
   meta = with lib; {
