@@ -85,6 +85,9 @@
         "clefru": {
             "url": "https://github.com/clefru/nur-packages"
         },
+        "congee": {
+            "url": "https://github.com/congee/nur"
+        },
         "cransom": {
             "url": "https://github.com/cransom/nur-packages"
         },
