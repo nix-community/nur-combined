@@ -1,8 +1,6 @@
 # System configuration for my Raspberry Pi 4
-{ config, pkgs, system, inputs, ... }:
+{ inputs, ... }:
 
-let nur = import inputs.nur { nurpkgs = import inputs.nixpkgs { inherit system; }; };
-in
 {
   imports = [
     inputs.hardware.nixosModules.raspberry-pi-4
@@ -12,7 +10,6 @@ in
     ../common/postgres.nix
 
     ./deluge.nix
-    # ./ddclient.nix
     ./files-server.nix
     ./jitsi.nix
     ./minecraft.nix
@@ -22,10 +19,7 @@ in
     ./photoprism.nix
     ./wireguard.nix
 
-    ./disconic.nix
     ./paste-misterio-me.nix
-    ./pokedex-pfpa.nix
-    ./sistemer-bot.nix
   ];
 
   # Static IP address
@@ -52,11 +46,5 @@ in
   security.sudo.extraConfig = "%wheel ALL = (ALL) NOPASSWD: ALL";
 
   # Enable argonone fan daemon
-  hardware = {
-    argonone.enable = true;
-    raspberry-pi."4" = {
-      i2c0.enable = true;
-      i2c1.enable = true;
-    };
-  };
+  hardware.argonone.enable = true;
 }

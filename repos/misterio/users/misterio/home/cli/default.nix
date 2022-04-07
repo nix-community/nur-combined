@@ -7,7 +7,6 @@
     ./git.nix
     ./neofetch.nix
     ./nix-index.nix
-    ./pmis.nix
     ./ranger.nix
     ./screen.nix
     ./shellcolor.nix
@@ -15,13 +14,16 @@
     ./starship.nix
   ];
   home.packages = with pkgs; [
-    # Cli
+    # CLI Utils
     comma
     bottom
     cachix
     exa
     ncdu
     ripgrep
+    # Nix tooling
     rnix-lsp
+    nixfmt
+    deadnix
   ];
 }

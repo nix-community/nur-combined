@@ -13,6 +13,7 @@
     gemini-vim-syntax
     kotlin-vim
     haskell-vim
+    mermaid-vim
     {
       plugin = pgsql-vim;
       config = "let g:sql_type_default = 'pgsql'";
