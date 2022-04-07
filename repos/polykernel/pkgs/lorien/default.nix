@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "mbrlabs";
     repo = pname;
-    rev = "b9cfdb41b45241cccce71e2a83c524b0ad286831";
-    sha256 = "sha256-jBbzH/9UOqDIihxmPBX3QEXgStdIsx6bm08dHsCv8EE=";
+    rev = "340da250d39f774e9bb451f6c146de725c521634";
+    sha256 = "sha256-6JaG+7noXAn3nqWee1EgsQ6Qq8pf3PEcNVOXJBpg+ag=";
   };
 
   nativeBuildInputs = [ godot-headless godot-export-templates ];
