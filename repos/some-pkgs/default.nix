@@ -12,13 +12,26 @@ let
 in
 { pkgs ? impureNixpkgs }:
 
-rec {
-  # The `lib`, `modules`, and `overlay` names are special
+let
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  accelerate = pkgs.python3Packages.callPackage ./pkgs/accelerate.nix { inherit lib accelerate; };
-  opensfm = pkgs.python3Packages.callPackage ./pkgs/opensfm { inherit lib; };
-  kornia = pkgs.python3Packages.callPackage ./pkgs/kornia.nix { inherit lib accelerate kornia; };
-}
+  self = {
+    # The `lib`, `modules`, and `overlay` names are special
+    inherit lib modules overlays;
+
+    accelerate = pkgs.python3Packages.callPackage ./pkgs/accelerate.nix { inherit (self) lib accelerate; };
+    opensfm = pkgs.python3Packages.callPackage ./pkgs/opensfm { inherit lib; };
+    kornia = pkgs.python3Packages.callPackage ./pkgs/kornia.nix { inherit (self) lib accelerate kornia; };
+    gpytorch = pkgs.python3Packages.callPackage ./pkgs/gpytorch.nix { inherit lib; };
+    dm-tree = pkgs.python3Packages.callPackage ./pkgs/dm-tree { inherit lib; };
+    tensorflow-probability_8_0 = pkgs.python3Packages.callPackage ./pkgs/tfp/8.0.nix { inherit (self) lib dm-tree; };
+  }
+  // pkgs.lib.optionalAttrs (pkgs.lib.versionAtLeast pkgs.lib.version "22.05pre") {
+    gpflow = pkgs.python3Packages.callPackage ./pkgs/gpflow.nix { inherit (self) lib tensorflow-probability_8_0; };
+    gpflux = pkgs.python3Packages.callPackage ./pkgs/gpflux.nix { inherit (self) lib gpflow tensorflow-probability_8_0; };
+    trieste = pkgs.python3Packages.callPackage ./pkgs/trieste.nix { inherit (self) lib gpflow gpflux tensorflow-probability_8_0; };
+  };
+in
+self
