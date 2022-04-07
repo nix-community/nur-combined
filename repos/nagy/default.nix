@@ -85,4 +85,8 @@ in rec {
   cl-raylib = callPackage ./pkgs/cl-raylib { };
 
   ksv = callPackage ./pkgs/ksv { };
+
+  sasl2-oauth = callPackage ./pkgs/sasl2-oauth { };
+
+  oauth2ms = pkgs.callPackage ./pkgs/oauth2ms { };
 }
