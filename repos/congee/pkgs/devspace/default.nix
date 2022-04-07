@@ -25,6 +25,11 @@ buildGoModule rec{
     find -L $out/bin -type f -not -name devspace -delete
   '';
 
+  ldflags = [
+    "-s" "-w"
+    "-X main.version=${version}"
+  ];
+
   # nope
   doCheck = false;
 
