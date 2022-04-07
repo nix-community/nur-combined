@@ -13,17 +13,20 @@
         "armv7l-linux"
       ];
       forAllSystems = f: lib.genAttrs systems (system: f system);
+
       supportsPlatform = system: package: builtins.elem system package.meta.platforms;
-      notBroken = pkg: (builtins.tryEval (builtins.seq pkg.outPath true)).value;
+      notBroken = name: pkg: (builtins.tryEval (builtins.seq pkg.outPath true)).value;
+
       filterUnsupported = system: packages:
         let
           filters = [
             (name: supportsPlatform system)
-            (name: package: !package.meta.broken && notBroken package)
+            notBroken
           ];
           f = name: package: builtins.all (f: f name package) filters;
         in
         lib.filterAttrs f packages;
+
       importPkgs = system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       };
