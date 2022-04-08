@@ -4,7 +4,7 @@
     fish.enable = true;
     gnupg.agent = {
       enable = true;
-      pinentryFlavor = "curses";
+      pinentryFlavor = "gnome3";
     };
     less.enable = true;
     mosh.enable = true;
@@ -37,7 +37,7 @@
       gnumake
       gnupg
       kakoune
-      pinentry-curses
+      pinentry-gnome
       python3
       vim
 
