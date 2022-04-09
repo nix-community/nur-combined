@@ -1,14 +1,14 @@
-{ originalPkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
-  inherit (originalPkgs) lib;
+  inherit (pkgs) lib;
   overlayList = builtins.attrValues (import ./overlays);
-  pkgs = lib.foldl (prev: prev.extend) originalPkgs overlayList;
+  pkgs' = lib.foldl (prev: prev.extend) pkgs overlayList;
 in
 {
-  lib = import ./lib { inherit (pkgs) lib; };
+  lib = import ./lib { inherit (pkgs') lib; };
   modules = import ./modules;
   overlays = import ./overlays;
 }
   //
-import ./pkgs { inherit pkgs; }
+import ./pkgs { pkgs = pkgs'; }
