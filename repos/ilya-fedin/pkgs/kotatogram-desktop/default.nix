@@ -119,9 +119,6 @@ stdenv.mkDerivation rec {
       --replace "\''${appicon_path}" "\''${appicon_path}/icon_16x16.png \''${appicon_path}/icon_32x32.png \''${appicon_path}/icon_128x128.png \''${appicon_path}/icon_256x256.png \''${appicon_path}/icon_512x512.png"
   '';
 
-  # We want to run wrapProgram manually (with additional parameters)
-  dontWrapGApps = stdenv.isLinux;
-
   nativeBuildInputs = [
     pkg-config
     cmake
