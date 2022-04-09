@@ -48,6 +48,10 @@ rec {
     abseil-cpp = abseil-cpp_202111;
   };
 
+  kotatogram-desktop-with-webkit = callPackage ./pkgs/kotatogram-desktop/with-webkit.nix {
+    inherit kotatogram-desktop;
+  };
+
   libayatana-common = callPackage ./pkgs/libayatana-common {
     inherit cmake-extras;
   };

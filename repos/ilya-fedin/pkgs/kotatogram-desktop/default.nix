@@ -7,7 +7,6 @@
 , ninja
 , clang
 , python3
-, wrapGAppsHook
 , wrapQtAppsHook
 , removeReferencesTo
 , extra-cmake-modules
@@ -27,7 +26,6 @@
 , tl-expected
 , hunspell
 , glibmm
-, webkitgtk
 , jemalloc
 , rnnoise
 , abseil-cpp
@@ -65,7 +63,6 @@
 , IOSurface
 , Metal
 , MetalKit
-, withWebKit ? false
 }:
 
 with lib;
@@ -114,9 +111,6 @@ stdenv.mkDerivation rec {
       --replace '"libasound.so.2"' '"${alsa-lib}/lib/libasound.so.2"'
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioPulse.cpp \
       --replace '"libpulse.so.0"' '"${libpulseaudio}/lib/libpulse.so.0"'
-  '' + optionalString (stdenv.isLinux && withWebKit) ''
-    substituteInPlace Telegram/lib_webview/webview/platform/linux/webview_linux_webkit_gtk.cpp \
-      --replace '"libwebkit2gtk-4.0.so.37"' '"${webkitgtk}/lib/libwebkit2gtk-4.0.so.37"'
   '' + optionalString stdenv.isDarwin ''
     substituteInPlace Telegram/CMakeLists.txt \
       --replace 'COMMAND iconutil' 'COMMAND png2icns' \
@@ -127,7 +121,6 @@ stdenv.mkDerivation rec {
 
   # We want to run wrapProgram manually (with additional parameters)
   dontWrapGApps = stdenv.isLinux;
-  dontWrapQtApps = stdenv.isLinux && withWebKit;
 
   nativeBuildInputs = [
     pkg-config
@@ -140,8 +133,6 @@ stdenv.mkDerivation rec {
     # to build bundled libdispatch
     clang
     extra-cmake-modules
-  ] ++ optionals (stdenv.isLinux && withWebKit) [
-    wrapGAppsHook
   ];
 
   buildInputs = [
@@ -167,8 +158,6 @@ stdenv.mkDerivation rec {
     glibmm
     jemalloc
     wayland
-  ] ++ optionals (stdenv.isLinux && withWebKit) [
-    webkitgtk
   ] ++ optionals stdenv.isDarwin [
     Cocoa
     CoreFoundation
@@ -224,13 +213,6 @@ stdenv.mkDerivation rec {
     remove-references-to -t ${stdenv.cc.cc} $out/bin/$binName
     remove-references-to -t ${microsoft_gsl} $out/bin/$binName
     remove-references-to -t ${tg_owt.dev} $out/bin/$binName
-  '';
-
-  postFixup = optionalString (stdenv.isLinux && withWebKit) ''
-    # We also use gappsWrapperArgs from wrapGAppsHook.
-    wrapProgram $out/bin/kotatogram-desktop \
-      "''${gappsWrapperArgs[@]}" \
-      "''${qtWrapperArgs[@]}"
   '';
 
   passthru = {
