@@ -28,3 +28,23 @@ Now, have you really considered if there ever was a need for Docker or Kubernete
 Enter [Nix (for building things) and NixOS](https://nixos.org/) (for setting up the runtime environment, notably `/run/opengl-driver/lib`):
 
 https://user-images.githubusercontent.com/9720532/162585397-7528d249-4db1-4931-930c-3929775d61ea.mp4
+
+DISCLAIMER:
+
+> - The video demonstrates https://github.com/NVlabs/instant-ngp
+> - **`/run/opengl-driver/lib/`**
+>
+>   Nix deploys its executables and libraries with absolute paths to
+>   concrete versions of their dependencies that are guaranteed to work
+>   (e.g. through Runpath in ELF headers on Linux).
+>   However, this doesn't apply to hardware-specific dependencies, like graphics and compute drivers.
+>   For `nix run` to work with OpenGL or CUDA-enabled applications,
+>   one needs to symlink their hardware-dependent drivers
+>   in `/run/opengl-driver/lib`. NixOS does that automatically when
+>   [`hardware.opengl.enable = true`](https://nixos.org/manual/nixos/stable/options.html#opt-hardware.opengl.enable)
+> - **NixGL**
+>
+>   When running on Ubuntu&c one may face an issue that their graphics driver
+>   links against a revision libc older than the one used by this repo. In
+>   these cases a temporary workaround could be
+>   [NixGL](https://github.com/guibou/nixGL).
