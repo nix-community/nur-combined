@@ -52,12 +52,44 @@ in
             tls.enable = true;
           };
         };
+        lrde = {
+          address = email_lrde;
+          userName = "amartin";
+          realName = myName;
+          flavor = "plain"; # default setting
+          passwordCommand = "${pkgs.rbw}/bin/rbw get lrde.epita.fr amartin";
+          mbsync = {
+            enable = true;
+            create = "both";
+            expunge = "both";
+            extraConfig.account = {
+              # otherwise mbsync tries GSSAPI, but I don't have Kerberos setup
+              # on this machine
+              AuthMechs = "LOGIN";
+            };
+          };
+          msmtp.enable = true;
+          mu.enable = true;
+          imap = {
+            host = "imap.lrde.epita.fr";
+            port = 993;
+            tls.enable = true;
+          };
+          smtp = {
+            host = "smtp.lrde.epita.fr";
+            port = 465;
+            tls.enable = true;
+          };
+        };
       };
     };
 
     programs.mbsync.enable = true;
     services.mbsync = {
       enable = true;
+      # sync every hour on the third minute, then every 16 minutes (to not hit
+      # servers right on plain hours)
+      frequency = "*:03/16";
       postExec = "${pkgs.mu}/bin/mu index";
     };
     systemd.user.services.mbsync = {
@@ -67,6 +99,8 @@ in
       # https://github.com/doy/rbw/blob/acd1173848b4db1c733af7d3f53d24aab900b542/src/bin/rbw/commands.rs#L1000
       Service.Environment = "RBW_AGENT=${pkgs.rbw}/bin/rbw-agent";
     };
+
+    programs.msmtp.enable = true;
 
     programs.mu.enable = true;
   };

@@ -12,6 +12,7 @@
     ./laptop.nix
     ./lorri.nix
     ./mail.nix
+    ./rbw.nix
     ./rofi.nix
     ./ssh.nix
     ./themes
