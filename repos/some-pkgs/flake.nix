@@ -15,7 +15,7 @@
       forAllSystems = f: lib.genAttrs systems (system: f system);
 
       supportsPlatform = system: package: builtins.elem system package.meta.platforms;
-      notBroken = name: pkg: (builtins.tryEval (builtins.seq pkg.outPath true)).value;
+      notBroken = name: pkg: !pkg.meta.broken or true;
 
       filterUnsupported = system: packages:
         let

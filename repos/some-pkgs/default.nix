@@ -36,6 +36,16 @@ let
     kornia = pkgs.python3Packages.callPackage ./pkgs/kornia.nix { inherit (self) lib accelerate kornia; };
     gpytorch = pkgs.python3Packages.callPackage ./pkgs/gpytorch.nix { inherit lib; };
     dm-tree = pkgs.python3Packages.callPackage ./pkgs/dm-tree { inherit lib; };
+
+    instant-ngp = pkgs.python3Packages.callPackage ./pkgs/instant-ngp
+      ({
+        inherit lib;
+        cudnn = pkgs.cudnn_8_3_cudatoolkit_11_4 or pkgs.cudnn_cudatoolkit_11_4;
+      }
+      // lib.optionalAttrs (pkgs.python3Packages ? lark-parser) {
+        lark = pkgs.python3Packages.lark-parser;
+      });
+
     tensorflow-probability_8_0 = pkgs.python3Packages.callPackage ./pkgs/tfp/8.0.nix { inherit (self) lib dm-tree; };
   }
   // pkgs.lib.optionalAttrs (pkgs.lib.versionAtLeast pkgs.lib.version "22.05pre") {
