@@ -11,6 +11,7 @@
     ./git.nix
     ./laptop.nix
     ./lorri.nix
+    ./mail.nix
     ./rofi.nix
     ./ssh.nix
     ./themes
