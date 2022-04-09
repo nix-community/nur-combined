@@ -14,7 +14,7 @@
       {
         inherit self inputs;
 
-        sharedOverlays = builtins.attrValues (import ./overlays);
+        sharedOverlays = builtins.attrValues (self.overlays);
         channels.nixpkgs.config = {
           allowUnfree = true;
           allowAliases = false;
@@ -27,7 +27,7 @@
           rec {
             packages = utils.flattenTree (makePackages pkgs);
             apps = makeApps packages appNames;
-            devShell =
+            devShells.default =
               let
                 scripts = pkgs.callPackage ./scripts { };
                 simple = pkgs.mkShell {
@@ -68,6 +68,5 @@
 
         lib = import ./lib { inherit (nixpkgs) lib; };
         nixosModules = import ./modules;
-
       };
 }

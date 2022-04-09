@@ -3,7 +3,7 @@
 buildGoModule rec {
   inherit (sources.cf-terraforming) pname version src;
 
-  vendorSha256 = "sha256-rw/7QlCyDo7ssiXvwJn4MtVIzUjj/oXxrnxNwx+u1DU=";
+  vendorSha256 = "sha256-vD8EGXRzEl47ZBTlGYpVlW8zJF5NneGIcY93IpFDw58=";
 
   ldflags = [
     "-s"

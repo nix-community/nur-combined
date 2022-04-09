@@ -3,22 +3,22 @@
 {
   cf-terraforming = {
     pname = "cf-terraforming";
-    version = "v0.6.3";
+    version = "v0.7.2";
     src = fetchgit {
       url = "https://github.com/cloudflare/cf-terraforming";
-      rev = "v0.6.3";
+      rev = "v0.7.2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "12fhkgjpyjnh8qd8hb2ll4lqcajrhm3zs133b9krzvsxxdyyq6qn";
+      sha256 = "0fjs88ncxhl8qclk7503zz3i2mqz6n1wn7n8h703s4qs7vz3cph9";
     };
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.19.14";
+    version = "0.19.15";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.14/Clash.for.Windows-0.19.14-x64-linux.tar.gz";
-      sha256 = "04p5qqlc0hqkq2sldzm1yymjarvk4rv9jpjwakhqxc8ahcv6mgmh";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.15/Clash.for.Windows-0.19.15-x64-linux.tar.gz";
+      sha256 = "1bkfvyjf5mzm6csx8vn9p227q0c4p8zdz1wf67547vfipzq4c92a";
     };
   };
   clash-for-windows-icon = {
@@ -151,14 +151,14 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "1a0357c1f13a9c5f18a5d773e9c0c963f1ff23b6";
+    version = "14b605f1d117bf04867f1909ac419351ce273042";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "1a0357c1f13a9c5f18a5d773e9c0c963f1ff23b6";
+      rev = "14b605f1d117bf04867f1909ac419351ce273042";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1ynk2414gzxp5zr1zscrxs49k2na2lfvdmxh7hvv4s5xxfgiqlvp";
+      sha256 = "0qjwbgdlkvww7mfnxd6dnnk9xvvladpmhqj6qyfwv5l7m187dxd0";
     };
   };
   replay-fish = {
@@ -175,14 +175,14 @@
   };
   telegram-send = {
     pname = "telegram-send";
-    version = "2eb23bde734137b10da80fdf2e8a48d34f074454";
+    version = "c4e947f02a4e4ffe4f7c0a65b450d8b408bbda92";
     src = fetchgit {
       url = "https://github.com/rahiel/telegram-send.git";
-      rev = "2eb23bde734137b10da80fdf2e8a48d34f074454";
+      rev = "c4e947f02a4e4ffe4f7c0a65b450d8b408bbda92";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0xix3fh1wjkcgmmhg2gkflzcdyzy3vzqabwwh566flggc619qb78";
+      sha256 = "06kiwf8h8838zgjjbgf5gv0hllfj85ysg2nixnpckdw81i8m0bsj";
     };
   };
   trojan = {
