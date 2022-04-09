@@ -1,5 +1,9 @@
 name: "Build and populate cache"
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Bump Version
   pull_request:
   push:
     branches:
