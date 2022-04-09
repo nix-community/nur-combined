@@ -14,19 +14,7 @@
       {
         inherit self inputs;
 
-        lib = import ./lib { inherit (nixpkgs) lib; };
-        nixosModules = import ./modules;
-        overlays = import ./overlays // {
-          linyinfeng = final: prev: {
-            linyinfeng = makePackages prev;
-          };
-          singleRepoNur = final: prev: {
-            nur = prev.lib.recursiveUpdate (prev.nur or { }) {
-              repos.linyinfeng = makePackages prev;
-            };
-          };
-        };
-
+        sharedOverlays = builtins.attrValues (import ./overlays);
         channels.nixpkgs.config = {
           allowUnfree = true;
           allowAliases = false;
@@ -65,5 +53,21 @@
               if (packages ? updater) then withUpdater else simple;
             checks = packages;
           };
+
+        overlays = import ./overlays // {
+          linyinfeng = final: prev: {
+            linyinfeng = makePackages prev;
+          };
+          singleRepoNur = final: prev: {
+            nur = prev.lib.recursiveUpdate (prev.nur or { }) {
+              repos.linyinfeng = makePackages prev;
+            };
+          };
+        };
+
+
+        lib = import ./lib { inherit (nixpkgs) lib; };
+        nixosModules = import ./modules;
+
       };
 }
