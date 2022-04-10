@@ -3,6 +3,7 @@
 }:
 
 rec {
+
   # Evolution.
   beast = pkgs.callPackage ./pkgs/evolution/beast { };
   beast2 = pkgs.callPackage ./pkgs/evolution/beast2 { };
@@ -13,20 +14,24 @@ rec {
   revbayes = pkgs.callPackage ./pkgs/evolution/revbayes { };
   tracer = pkgs.callPackage ./pkgs/evolution/tracer { };
 
-  # Misc.
-  biblib = pkgs.callPackage ./pkgs/misc/biblib { };
-  ccxt = pkgs.callPackage ./pkgs/misc/ccxt { };
-  finplot = pkgs.libsForQt5.callPackage ./pkgs/misc/finplot { };
-  frida-python = pkgs.callPackage ./pkgs/misc/frida-python {
+  # Finance.
+  ccxt = pkgs.callPackage ./pkgs/finance/ccxt { };
+  finplot = pkgs.libsForQt5.callPackage ./pkgs/finance/finplot { };
+  tiingo = pkgs.callPackage ./pkgs/finance/tiingo { };
+
+  # Hacking.
+  frida-python = pkgs.callPackage ./pkgs/hacking/frida-python {
     # WTNG: Check when Frida is available for Python 3.9 which is now the
     # default in Nixpkgs.
     python3 = pkgs.python38;
   };
-  frida-tools = pkgs.callPackage ./pkgs/misc/frida-tools {
+  frida-tools = pkgs.callPackage ./pkgs/hacking/frida-tools {
     python3 = pkgs.python38;
     inherit frida-python;
   };
+
+  # Misc.
+  biblib = pkgs.callPackage ./pkgs/misc/biblib { };
   jugglinglab = pkgs.callPackage ./pkgs/misc/jugglinglab { };
   signal-back = pkgs.callPackage ./pkgs/misc/signal-back { };
-  tiingo = pkgs.callPackage ./pkgs/misc/tiingo { };
 }
