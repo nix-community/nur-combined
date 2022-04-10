@@ -6,6 +6,7 @@
     ../../modules/cachix/system.nix
     ../../modules/hold-gc/system.nix
   ];
+  boot.loader.grub.memtest86.enable = true;
  boot = {
     kernel.sysctl = {
       "vm.swappiness" = 10;
