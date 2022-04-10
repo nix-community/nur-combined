@@ -97,7 +97,9 @@ rec {
 
   solo2-cli = pkgs.callPackage ./pkgs/solo2-cli {};
 
-
   matrix-synapse-contrib = pkgs.callPackage ./pkgs/matrix-synapse-contrib {};
+
+
+  rpi_ws281x = pkgs.callPackage ./pkgs/rpi_ws281x {};
 
 }
