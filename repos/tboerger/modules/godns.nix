@@ -6,13 +6,13 @@ let
   cfg = config.services.godns;
 
   settingsFormat = pkgs.formats.json {};
-  settingsFile = settingsFormat.generate "godns.json" {
+  settingsFile = settingsFormat.generate "godns.json" ({
     ip_url = "https://ip4.seeip.org";
     ipv6_url = "https://ip6.seeip.org";
     ip_type = "IPv4";
     interval = 300;
     resolver = "8.8.8.8";
-  } // cfg.settings;
+  } // cfg.settings);
 
 in
 {
