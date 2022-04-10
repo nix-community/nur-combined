@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./gui-programs.nix
     ./networking.nix

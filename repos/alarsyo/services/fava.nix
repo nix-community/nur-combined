@@ -1,19 +1,24 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.fava;
   my = config.my;
   domain = config.networking.domain;
   secrets = config.my.secrets;
-in
-{
-  options.my.services.fava = let inherit (lib) types; in {
+in {
+  options.my.services.fava = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Fava";
 
     home = mkOption {
@@ -39,7 +44,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.fava = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Environment = [];
         ExecStart = "${pkgs.fava}/bin/fava -H 127.0.0.1 -p ${toString cfg.port} ${cfg.home}/${cfg.filePath}";
@@ -55,7 +60,7 @@ in
       createHome = true;
       group = "fava";
     };
-    users.groups.fava = { };
+    users.groups.fava = {};
 
     services.nginx.virtualHosts = {
       "fava.${domain}" = {

@@ -1,11 +1,15 @@
-{ config, lib, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
     optionalAttrs
-  ;
+    ;
 
   cfg = config.my.services.transmission;
 
@@ -16,9 +20,10 @@ let
   transmissionPeerPort = 30251;
 
   downloadBase = "/media/torrents/";
-in
-{
-  options.my.services.transmission = let inherit (lib) types; in {
+in {
+  options.my.services.transmission = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Transmission torrent client";
 
     username = mkOption {
@@ -37,32 +42,34 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.transmission = {
-      enable = true;
-      group = "media";
+    services.transmission =
+      {
+        enable = true;
+        group = "media";
 
-      settings = {
-        download-dir = "${downloadBase}/complete";
-        incomplete-dir = "${downloadBase}/incomplete";
+        settings = {
+          download-dir = "${downloadBase}/complete";
+          incomplete-dir = "${downloadBase}/incomplete";
 
-        peer-port = transmissionPeerPort;
+          peer-port = transmissionPeerPort;
 
-        rpc-enabled = true;
-        rpc-port = transmissionRpcPort;
-        rpc-authentication-required = false;
+          rpc-enabled = true;
+          rpc-port = transmissionRpcPort;
+          rpc-authentication-required = false;
 
-        rpc-whitelist-enabled = true;
-        rpc-whitelist = "127.0.0.1";
+          rpc-whitelist-enabled = true;
+          rpc-whitelist = "127.0.0.1";
 
-        rpc-host-whitelist-enabled = true;
-        rpc-host-whitelist = webuiDomain;
-      };
+          rpc-host-whitelist-enabled = true;
+          rpc-host-whitelist = webuiDomain;
+        };
 
-      # automatically allow transmission.settings.peer-port
-      openFirewall = true;
-    } // (optionalAttrs (cfg.secretConfigFile != null) {
-      credentialsFile = cfg.secretConfigFile;
-    });
+        # automatically allow transmission.settings.peer-port
+        openFirewall = true;
+      }
+      // (optionalAttrs (cfg.secretConfigFile != null) {
+        credentialsFile = cfg.secretConfigFile;
+      });
 
     services.nginx.virtualHosts."${webuiDomain}" = {
       forceSSL = true;

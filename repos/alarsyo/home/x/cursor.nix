@@ -1,14 +1,18 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.x.cursor;
-in
-{
-  options.my.home.x.cursor.enable = (mkEnableOption "X cursor") // { default = config.my.home.x.enable; };
+in {
+  options.my.home.x.cursor.enable = (mkEnableOption "X cursor") // {default = config.my.home.x.enable;};
 
   config = mkIf cfg.enable {
     xsession.pointerCursor = {

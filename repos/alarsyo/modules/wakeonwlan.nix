@@ -1,23 +1,27 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     concatStringsSep
     literalExample
     mapAttrs'
     mkIf
     mkOption
     nameValuePair
-  ;
+    ;
 
   cfg = config.my.wakeonwlan;
 
   mkWowlanService = name: cfg:
     nameValuePair "wowlan-${name}" {
       description = "Enable WoWLAN for interface ${name}";
-      requires = [ "network.target" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["network.target"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
       };
@@ -25,11 +29,12 @@ let
         ${pkgs.iw}/bin/iw ${name} wowlan enable ${concatStringsSep " " cfg.methods}
       '';
     };
-in
-{
-  options.my.wakeonwlan = let inherit (lib) types; in {
+in {
+  options.my.wakeonwlan = let
+    inherit (lib) types;
+  in {
     interfaces = mkOption {
-      default = { };
+      default = {};
       description = "Wireless interfaces where you want to enable WoWLAN";
       example = literalExample ''
         {

@@ -1,15 +1,19 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.alacritty;
   alacrittyTheme = config.my.theme.alacrittyTheme;
-in
-{
-  options.my.home.alacritty.enable = (mkEnableOption "Alacritty terminal") // { default = config.my.home.x.enable; };
+in {
+  options.my.home.alacritty.enable = (mkEnableOption "Alacritty terminal") // {default = config.my.home.x.enable;};
 
   config = mkIf cfg.enable {
     programs.alacritty = {
@@ -39,7 +43,7 @@ in
       };
     };
 
-    home.packages = [ pkgs.iosevka-bin ];
+    home.packages = [pkgs.iosevka-bin];
 
     # make sure font is discoverable
     fonts.fontconfig.enable = true;

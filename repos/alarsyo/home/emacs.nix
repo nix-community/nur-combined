@@ -1,30 +1,35 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
-in
-{
+    ;
+in {
   options.my.home.emacs = {
     enable = mkEnableOption "Emacs daemon configuration";
   };
 
   config = mkIf config.my.home.emacs.enable {
-
-    home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
+    home.sessionPath = ["${config.xdg.configHome}/emacs/bin"];
     home.sessionVariables = {
       EDITOR = "emacsclient -t";
     };
 
     home.packages = builtins.attrValues {
-      inherit (pkgs)
+      inherit
+        (pkgs)
         sqlite # needed by org-roam
-
+        
         # fonts used by my config
+        
         emacs-all-the-icons-fonts
         iosevka-bin
-      ;
+        ;
     };
     # make sure above fonts are discoverable
     fonts.fontconfig.enable = true;

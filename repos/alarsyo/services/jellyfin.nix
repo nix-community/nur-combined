@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.services.jellyfin;
   my = config.my;

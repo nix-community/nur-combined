@@ -1,17 +1,23 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
     optional
-  ;
+    ;
 
   cfg = config.my.services.navidrome;
   domain = config.networking.domain;
 in {
-  options.my.services.navidrome = let inherit (lib) types; in {
+  options.my.services.navidrome = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Navidrome";
     musicFolder = {
       path = mkOption {
@@ -34,8 +40,8 @@ in {
     };
 
     my.services.restic-backup = {
-      paths = [ "/var/lib/navidrome" ] ++ optional cfg.musicFolder.backup cfg.musicFolder.path;
-      exclude = [ "/var/lib/navidrome/cache" ];
+      paths = ["/var/lib/navidrome"] ++ optional cfg.musicFolder.backup cfg.musicFolder.path;
+      exclude = ["/var/lib/navidrome/cache"];
     };
 
     services.nginx.virtualHosts."music.${domain}" = {

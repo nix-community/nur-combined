@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     # Default configuration
     ./base

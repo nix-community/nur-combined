@@ -1,15 +1,19 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.rofi;
-in
-{
+in {
   options.my.home.rofi = {
-    enable = (mkEnableOption "rofi configuration") // { default = config.my.home.x.enable; };
+    enable = (mkEnableOption "rofi configuration") // {default = config.my.home.x.enable;};
   };
 
   config = mkIf cfg.enable {

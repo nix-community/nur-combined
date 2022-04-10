@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.services.postgresql-backup;
 in {
@@ -20,12 +24,11 @@ in {
     };
 
     my.services.restic-backup = mkIf cfg.enable {
-      paths = [ "/var/backup/postgresql" ];
+      paths = ["/var/backup/postgresql"];
 
       # no need to store previously backed up files, as borg does the snapshoting
       # for us
-      exclude = [ "/var/backup/postgresql/*.prev.sql.gz" ];
+      exclude = ["/var/backup/postgresql/*.prev.sql.gz"];
     };
   };
-
 }

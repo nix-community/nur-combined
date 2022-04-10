@@ -51,104 +51,121 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, agenix, ... } @inputs: {
-    nixosModules = {
-      home = {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.alarsyo = import ./home;
-        home-manager.verbose = true;
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    agenix,
+    ...
+  } @ inputs:
+    {
+      nixosModules = {
+        home = {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.alarsyo = import ./home;
+          home-manager.verbose = true;
+        };
+        nix-path = {
+          nix.nixPath = [
+            "nixpkgs=${inputs.nixpkgs}"
+          ];
+        };
       };
-      nix-path = {
-        nix.nixPath = [
-          "nixpkgs=${inputs.nixpkgs}"
-        ];
-      };
-    };
 
-    overlays = import ./overlays;
+      overlays = import ./overlays;
 
-    nixosConfigurations =
-      let
+      nixosConfigurations = let
         system = "x86_64-linux";
-        shared_overlays = [
-          (self: super: {
-            packages = import ./pkgs { pkgs = super; };
+        shared_overlays =
+          [
+            (self: super: {
+              packages = import ./pkgs {pkgs = super;};
 
-            # packages accessible through pkgs.unstable.package
-            unstable = import inputs.nixpkgs-unstable-small {
-              inherit system;
-              config.allowUnfree = true;
-            };
+              # packages accessible through pkgs.unstable.package
+              unstable = import inputs.nixpkgs-unstable-small {
+                inherit system;
+                config.allowUnfree = true;
+              };
+            })
 
-          })
-
-          agenix.overlay
-        ] ++ builtins.attrValues self.overlays;
-        sharedModules = [
-          agenix.nixosModule
-          home-manager.nixosModule
-          { nixpkgs.overlays = shared_overlays; }
-        ] ++ (nixpkgs.lib.attrValues self.nixosModules);
+            agenix.overlay
+          ]
+          ++ builtins.attrValues self.overlays;
+        sharedModules =
+          [
+            agenix.nixosModule
+            home-manager.nixosModule
+            {nixpkgs.overlays = shared_overlays;}
+          ]
+          ++ (nixpkgs.lib.attrValues self.nixosModules);
       in {
-
         poseidon = nixpkgs.lib.nixosSystem rec {
           inherit system;
-          modules = [
-            ./poseidon.nix
-          ] ++ sharedModules;
+          modules =
+            [
+              ./poseidon.nix
+            ]
+            ++ sharedModules;
         };
 
         boreal = nixpkgs.lib.nixosSystem rec {
           inherit system;
-          modules = [
-            ./boreal.nix
+          modules =
+            [
+              ./boreal.nix
 
-            {
-              nixpkgs.overlays = [
-                inputs.emacs-overlay.overlay
+              {
+                nixpkgs.overlays = [
+                  inputs.emacs-overlay.overlay
 
-                # uncomment this to build everything from scratch, fun but takes a
-                # while
-                #
-                # (self: super: {
-                #   stdenv = super.impureUseNativeOptimizations super.stdenv;
-                # })
-              ];
-            }
-          ] ++ sharedModules;
+                  # uncomment this to build everything from scratch, fun but takes a
+                  # while
+                  #
+                  # (self: super: {
+                  #   stdenv = super.impureUseNativeOptimizations super.stdenv;
+                  # })
+                ];
+              }
+            ]
+            ++ sharedModules;
         };
 
         zephyrus = nixpkgs.lib.nixosSystem rec {
           inherit system;
-          modules = [
-            ./zephyrus.nix
+          modules =
+            [
+              ./zephyrus.nix
 
-            inputs.nixos-hardware.nixosModules.common-cpu-intel
-            inputs.nixos-hardware.nixosModules.common-pc-laptop
-            inputs.nixos-hardware.nixosModules.common-pc-ssd
+              inputs.nixos-hardware.nixosModules.common-cpu-intel
+              inputs.nixos-hardware.nixosModules.common-pc-laptop
+              inputs.nixos-hardware.nixosModules.common-pc-ssd
 
-            {
-              nixpkgs.overlays = [
-                inputs.emacs-overlay.overlay
-              ];
-            }
-          ] ++ sharedModules;
+              {
+                nixpkgs.overlays = [
+                  inputs.emacs-overlay.overlay
+                ];
+              }
+            ]
+            ++ sharedModules;
         };
-
       };
-  } // inputs.flake-utils.lib.eachDefaultSystem (system: {
-    packages =
-      (
-        inputs.flake-utils.lib.flattenTree
-        (import ./pkgs { pkgs = import nixpkgs { inherit system; }; })
-      ) // {
-        emacsPgtkGcc = (
-          import nixpkgs {
-            inherit system;
-            overlays = [ inputs.emacs-overlay.overlay ];
-          }
-        ).emacsPgtkGcc;
-      };
-  });
+    }
+    // inputs.flake-utils.lib.eachDefaultSystem (system: {
+      packages =
+        (
+          inputs.flake-utils.lib.flattenTree
+          (import ./pkgs {pkgs = import nixpkgs {inherit system;};})
+        )
+        // {
+          emacsPgtkGcc =
+            (
+              import nixpkgs {
+                inherit system;
+                overlays = [inputs.emacs-overlay.overlay];
+              }
+            )
+            .emacsPgtkGcc;
+        };
+    });
 }

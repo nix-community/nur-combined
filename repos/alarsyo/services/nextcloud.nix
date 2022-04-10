@@ -1,21 +1,26 @@
-{ lib, config, pkgs, ... }:
-
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 # TODO: setup prometheus exporter
-
 let
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.nextcloud;
   my = config.my;
   domain = config.networking.domain;
   dbName = "nextcloud";
-in
-{
-  options.my.services.nextcloud = let inherit (lib) types; in {
+in {
+  options.my.services.nextcloud = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "NextCloud";
 
     adminpassFile = mkOption {
@@ -31,7 +36,7 @@ in
     services.postgresql = {
       enable = true;
 
-      ensureDatabases = [ dbName ];
+      ensureDatabases = [dbName];
       ensureUsers = [
         {
           name = "nextcloud";
@@ -43,13 +48,13 @@ in
     };
 
     # not handled by module
-    systemd.services.nextcloud-setup= {
-      requires = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
+    systemd.services.nextcloud-setup = {
+      requires = ["postgresql.service"];
+      after = ["postgresql.service"];
     };
 
     services.postgresqlBackup = {
-      databases = [ dbName ];
+      databases = [dbName];
     };
 
     services.nextcloud = {
@@ -87,16 +92,17 @@ in
 
     my.services.restic-backup = let
       nextcloudHome = config.services.nextcloud.home;
-    in mkIf cfg.enable  {
-      paths = [ nextcloudHome ];
-      exclude = [
-        # borg can fail if *.part files disappear during backup
-        "${nextcloudHome}/data/*/uploads"
-        # image previews can take up a lot of space
-        "${nextcloudHome}/data/appdata_*/preview"
-        # specific account for huge files I don't care about losing
-        "${nextcloudHome}/data/misc"
-      ];
-    };
+    in
+      mkIf cfg.enable {
+        paths = [nextcloudHome];
+        exclude = [
+          # borg can fail if *.part files disappear during backup
+          "${nextcloudHome}/data/*/uploads"
+          # image previews can take up a lot of space
+          "${nextcloudHome}/data/appdata_*/preview"
+          # specific account for huge files I don't care about losing
+          "${nextcloudHome}/data/misc"
+        ];
+      };
   };
 }

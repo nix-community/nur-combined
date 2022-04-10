@@ -1,15 +1,17 @@
-{ config, lib, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.services.tgv;
   my = config.my;
-in
-{
+in {
   options.my.services.tgv = {
     enable = mkEnableOption "TGV redirect";
   };

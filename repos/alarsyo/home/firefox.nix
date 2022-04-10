@@ -1,15 +1,19 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.firefox;
-in
-{
+in {
   options.my.home.firefox = {
-    enable = (mkEnableOption "firefox config") // { default = config.my.home.x.enable; };
+    enable = (mkEnableOption "firefox config") // {default = config.my.home.x.enable;};
   };
 
   config = mkIf cfg.enable {

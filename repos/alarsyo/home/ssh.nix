@@ -1,15 +1,18 @@
-{ config, lib, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.ssh;
-in
-{
+in {
   options.my.home.ssh = {
-    enable = (mkEnableOption "ssh configuration") // { default = true; };
+    enable = (mkEnableOption "ssh configuration") // {default = true;};
   };
 
   config = mkIf cfg.enable {
@@ -17,8 +20,8 @@ in
       enable = true;
 
       matchBlocks = {
-        boreal = { hostname = "boreal.alarsyo.net"; };
-        poseidon = { hostname = "poseidon.alarsyo.net"; };
+        boreal = {hostname = "boreal.alarsyo.net";};
+        poseidon = {hostname = "poseidon.alarsyo.net";};
         pi = {
           hostname = "pi.alarsyo.net";
           user = "pi";

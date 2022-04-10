@@ -1,10 +1,14 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
-    mkEnableOption
-  ;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
+    mkEnableOption
+    ;
+in {
   imports = [
     ./cursor.nix
     ./i3.nix

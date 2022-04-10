@@ -7,24 +7,36 @@
 # - https://github.com/delroth/infra.delroth.net/blob/master/roles/matrix-synapse.nix
 # - https://nixos.org/manual/nixos/stable/index.html#module-services-matrix
 #
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
     optionals
-  ;
+    ;
 
   cfg = config.my.services.matrix;
   my = config.my;
 
-  federationPort = { public = 8448; private = 11338; };
-  clientPort = { public = 443; private = 11339; };
+  federationPort = {
+    public = 8448;
+    private = 11338;
+  };
+  clientPort = {
+    public = 443;
+    private = 11339;
+  };
   domain = config.networking.domain;
 in {
-  options.my.services.matrix = let inherit (lib) types; in {
+  options.my.services.matrix = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Matrix Synapse";
 
     secretConfigFile = mkOption {
@@ -41,7 +53,7 @@ in {
     };
 
     services.postgresqlBackup = {
-      databases = [ "matrix-synapse" ];
+      databases = ["matrix-synapse"];
     };
 
     services.matrix-synapse = {
@@ -90,20 +102,30 @@ in {
         listeners = [
           # Federation
           {
-            bind_addresses = [ "::1" ];
+            bind_addresses = ["::1"];
             port = federationPort.private;
-            tls = false;  # Terminated by nginx.
+            tls = false; # Terminated by nginx.
             x_forwarded = true;
-            resources = [ { names = [ "federation" ]; compress = false; } ];
+            resources = [
+              {
+                names = ["federation"];
+                compress = false;
+              }
+            ];
           }
 
           # Client
           {
-            bind_addresses = [ "::1" ];
+            bind_addresses = ["::1"];
             port = clientPort.private;
-            tls = false;  # Terminated by nginx.
+            tls = false; # Terminated by nginx.
             x_forwarded = true;
-            resources = [ { names = [ "client" ]; compress = false; } ];
+            resources = [
+              {
+                names = ["client"];
+                compress = false;
+              }
+            ];
           }
         ];
 
@@ -127,26 +149,32 @@ in {
           onlySSL = true;
           useACMEHost = domain;
 
-          locations =
-            let
-              proxyToClientPort = {
-                proxyPass = "http://[::1]:${toString clientPort.private}";
-              };
-            in {
-              # Or do a redirect instead of the 404, or whatever is appropriate
-              # for you. But do not put a Matrix Web client here! See the
-              # Element web section below.
-              "/".return = "404";
-
-              "/_matrix" = proxyToClientPort;
-              "/_synapse/client" = proxyToClientPort;
+          locations = let
+            proxyToClientPort = {
+              proxyPass = "http://[::1]:${toString clientPort.private}";
             };
+          in {
+            # Or do a redirect instead of the 404, or whatever is appropriate
+            # for you. But do not put a Matrix Web client here! See the
+            # Element web section below.
+            "/".return = "404";
+
+            "/_matrix" = proxyToClientPort;
+            "/_synapse/client" = proxyToClientPort;
+          };
 
           listen = [
-            { addr = "0.0.0.0"; port = clientPort.public; ssl = true; }
-            { addr = "[::]"; port = clientPort.public; ssl = true; }
+            {
+              addr = "0.0.0.0";
+              port = clientPort.public;
+              ssl = true;
+            }
+            {
+              addr = "[::]";
+              port = clientPort.public;
+              ssl = true;
+            }
           ];
-
         };
 
         # same as above, but listening on the federation port
@@ -162,32 +190,37 @@ in {
           };
 
           listen = [
-            { addr = "0.0.0.0"; port = federationPort.public; ssl = true; }
-            { addr = "[::]"; port = federationPort.public; ssl = true; }
+            {
+              addr = "0.0.0.0";
+              port = federationPort.public;
+              ssl = true;
+            }
+            {
+              addr = "[::]";
+              port = federationPort.public;
+              ssl = true;
+            }
           ];
-
         };
 
         "${domain}" = {
           forceSSL = true;
           useACMEHost = domain;
 
-          locations."= /.well-known/matrix/server".extraConfig =
-            let
-              server = { "m.server" = "matrix.${domain}:${toString federationPort.public}"; };
-            in ''
+          locations."= /.well-known/matrix/server".extraConfig = let
+            server = {"m.server" = "matrix.${domain}:${toString federationPort.public}";};
+          in ''
             add_header Content-Type application/json;
             return 200 '${builtins.toJSON server}';
           '';
 
-          locations."= /.well-known/matrix/client".extraConfig =
-            let
-              client = {
-                "m.homeserver" =  { "base_url" = "https://matrix.${domain}"; };
-                "m.identity_server" =  { "base_url" = "https://vector.im"; };
-              };
-              # ACAO required to allow element-web on any URL to request this json file
-            in ''
+          locations."= /.well-known/matrix/client".extraConfig = let
+            client = {
+              "m.homeserver" = {"base_url" = "https://matrix.${domain}";};
+              "m.identity_server" = {"base_url" = "https://vector.im";};
+            };
+            # ACAO required to allow element-web on any URL to request this json file
+          in ''
             add_header Content-Type application/json;
             add_header Access-Control-Allow-Origin *;
             return 200 '${builtins.toJSON client}';
@@ -227,7 +260,7 @@ in {
     };
 
     # For administration tools.
-    environment.systemPackages = [ pkgs.matrix-synapse ];
+    environment.systemPackages = [pkgs.matrix-synapse];
 
     networking.firewall.allowedTCPPorts = [
       clientPort.public
@@ -236,10 +269,11 @@ in {
 
     my.services.restic-backup = let
       dataDir = config.services.matrix-synapse.dataDir;
-    in mkIf cfg.enable {
-      paths = [ dataDir ];
-      # this is just caching for other servers media, doesn't need backup
-      exclude = [ "${dataDir}/media/remote_*" ];
-    };
+    in
+      mkIf cfg.enable {
+        paths = [dataDir];
+        # this is just caching for other servers media, doesn't need backup
+        exclude = ["${dataDir}/media/remote_*"];
+      };
   };
 }

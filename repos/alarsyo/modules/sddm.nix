@@ -1,13 +1,17 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.displayManager.sddm;
-in
-{
+in {
   options.my.displayManager.sddm.enable = mkEnableOption "SDDM setup";
 
   config = mkIf cfg.enable {
@@ -17,15 +21,17 @@ in
     };
 
     environment.systemPackages = builtins.attrValues {
-      inherit (pkgs.packages)
+      inherit
+        (pkgs.packages)
         sddm-sugar-candy
-      ;
+        ;
 
-      inherit (pkgs.libsForQt5.qt5)
+      inherit
+        (pkgs.libsForQt5.qt5)
         qtgraphicaleffects
         qtquickcontrols2
         qtsvg
-      ;
+        ;
     };
   };
 }

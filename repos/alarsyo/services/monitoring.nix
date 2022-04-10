@@ -1,16 +1,22 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.monitoring;
   domain = config.networking.domain;
 in {
-  options.my.services.monitoring = let inherit (lib) types; in {
+  options.my.services.monitoring = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Enable monitoring";
 
     domain = mkOption {
@@ -74,7 +80,7 @@ in {
       exporters = {
         node = {
           enable = true;
-          enabledCollectors = [ "systemd" ];
+          enabledCollectors = ["systemd"];
           port = 9100;
           listenAddress = "127.0.0.1";
         };
@@ -87,9 +93,11 @@ in {
       scrapeConfigs = [
         {
           job_name = config.networking.hostName;
-          static_configs = [{
-            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-          }];
+          static_configs = [
+            {
+              targets = ["127.0.0.1:${toString config.services.prometheus.exporters.node.port}"];
+            }
+          ];
         }
       ];
     };

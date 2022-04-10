@@ -1,15 +1,17 @@
-{ config, lib, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.services.nuage;
   my = config.my;
-in
-{
+in {
   options.my.services.nuage = {
     enable = mkEnableOption "Nuage redirect";
   };

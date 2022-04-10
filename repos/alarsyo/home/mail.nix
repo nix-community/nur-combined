@@ -1,22 +1,26 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   myName = "Antoine Martin";
   email_perso = "antoine@alarsyo.net";
   email_lrde = "amartin@lrde.epita.fr";
 
   cfg = config.my.home.mail;
-in
-{
+in {
   options.my.home.mail = {
     # I *could* read email in a terminal emacs client on a server, but in
     # practice I don't think it'll happen very often, so let's enable this only
     # when I'm on a machine with a Xorg server.
-    enable = (mkEnableOption "email configuration") // { default = config.my.home.x.enable; };
+    enable = (mkEnableOption "email configuration") // {default = config.my.home.x.enable;};
   };
 
   config = mkIf cfg.enable {

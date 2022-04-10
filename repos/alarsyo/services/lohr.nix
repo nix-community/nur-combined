@@ -1,24 +1,28 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.lohr;
   my = config.my;
   domain = config.networking.domain;
   secrets = config.my.secrets;
-  lohrPkg =
-    let
-      flake = builtins.getFlake "github:alarsyo/lohr?rev=58503cc8b95c8b627f6ae7e56740609e91f323cd";
-    in
+  lohrPkg = let
+    flake = builtins.getFlake "github:alarsyo/lohr?rev=58503cc8b95c8b627f6ae7e56740609e91f323cd";
+  in
     flake.defaultPackage."x86_64-linux"; # FIXME: use correct system
-in
-{
-  options.my.services.lohr = let inherit (lib) types; in {
+in {
+  options.my.services.lohr = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Lohr Mirroring Daemon";
 
     home = mkOption {
@@ -38,7 +42,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.lohr = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Environment = [
           "ROCKET_PORT=${toString cfg.port}"
@@ -52,7 +56,7 @@ in
         User = "lohr";
         Group = "lohr";
       };
-      path = [ pkgs.git ];
+      path = [pkgs.git];
     };
 
     users.users.lohr = {
@@ -61,7 +65,7 @@ in
       createHome = true;
       group = "lohr";
     };
-    users.groups.lohr = { };
+    users.groups.lohr = {};
 
     services.nginx.virtualHosts = {
       "lohr.${domain}" = {

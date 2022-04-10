@@ -1,14 +1,17 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.services.tailscale;
-in
-{
+in {
   options.my.services.tailscale = {
     enable = mkEnableOption "Tailscale";
 
@@ -23,8 +26,8 @@ in
     };
 
     networking.firewall = {
-      trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
+      trustedInterfaces = ["tailscale0"];
+      allowedUDPPorts = [config.services.tailscale.port];
     };
 
     # enable IP forwarding to use as exit node

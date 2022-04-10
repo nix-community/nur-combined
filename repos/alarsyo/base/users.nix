@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
-let
-  secrets = config.my.secrets;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  secrets = config.my.secrets;
+in {
   users.mutableUsers = false;
   users.users.root = {
     passwordFile = config.age.secrets."users/root-hashed-password".path;

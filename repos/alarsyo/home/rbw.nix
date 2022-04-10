@@ -1,14 +1,18 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
   cfg = config.my.home.mail;
-in
-{
+in {
   options.my.home.rbw = {
-    enable = (mkEnableOption "rbw configuration");
+    enable = mkEnableOption "rbw configuration";
   };
 
   config = mkIf cfg.enable {

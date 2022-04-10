@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./alacritty.nix
     ./bat.nix

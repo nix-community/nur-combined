@@ -1,13 +1,16 @@
-{ config, lib, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.flameshot;
-in
-{
+in {
   options.my.home.flameshot = {
     enable = mkEnableOption "flameshot autolaunch";
   };

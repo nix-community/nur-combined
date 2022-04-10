@@ -1,12 +1,17 @@
-{ pkgs, lib, config, options, ... }:
-let
-  inherit (lib)
+{
+  pkgs,
+  lib,
+  config,
+  options,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     optional
-  ;
-in
-{
+    ;
+in {
   options.my.gui = {
     enable = mkEnableOption "System has some kind of screen attached";
     isNvidia = mkEnableOption "System a NVIDIA GPU";
@@ -19,8 +24,10 @@ in
       xserver = {
         enable = true;
         # NOTE: could use `mkOptionDefault` but this feels more explicit
-        videoDrivers = if config.my.gui.isNvidia then [ "nvidia" ]
-                       else options.services.xserver.videoDrivers.default;
+        videoDrivers =
+          if config.my.gui.isNvidia
+          then ["nvidia"]
+          else options.services.xserver.videoDrivers.default;
         windowManager.i3.enable = true;
         layout = "fr";
         xkbVariant = "us";
@@ -31,7 +38,8 @@ in
     };
 
     environment.systemPackages = builtins.attrValues {
-      inherit (pkgs)
+      inherit
+        (pkgs)
         element-desktop
         feh
         firefox
@@ -48,7 +56,7 @@ in
         thunderbird
         virt-manager
         zathura
-      ;
+        ;
 
       inherit (pkgs.gnome) nautilus;
 
@@ -60,11 +68,11 @@ in
 
       dispatcherScripts = [
         {
-          source =
-            let
-              grep = "${pkgs.gnugrep}/bin/grep";
-              nmcli = "${pkgs.networkmanager}/bin/nmcli";
-            in pkgs.writeShellScript "disable_wifi_on_ethernet" ''
+          source = let
+            grep = "${pkgs.gnugrep}/bin/grep";
+            nmcli = "${pkgs.networkmanager}/bin/nmcli";
+          in
+            pkgs.writeShellScript "disable_wifi_on_ethernet" ''
               export LC_ALL=C
 
               enable_disable_wifi ()

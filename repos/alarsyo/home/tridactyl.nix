@@ -1,15 +1,18 @@
-{ config, lib, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.tridactyl;
-in
-{
+in {
   options.my.home.tridactyl = {
-    enable = (mkEnableOption "tridactyl code display tool") // { default = config.my.home.firefox.enable; };
+    enable = (mkEnableOption "tridactyl code display tool") // {default = config.my.home.firefox.enable;};
   };
 
   config = mkIf cfg.enable {

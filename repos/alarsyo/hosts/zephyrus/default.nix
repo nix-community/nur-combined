@@ -1,15 +1,18 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, lib, pkgs, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./home.nix
-      ./secrets.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./home.nix
+    ./secrets.nix
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages;
 
@@ -20,7 +23,7 @@
   services.btrfs = {
     autoScrub = {
       enable = true;
-      fileSystems = [ "/" ];
+      fileSystems = ["/"];
     };
   };
 
@@ -86,9 +89,9 @@
   };
   my.gui.enable = true;
 
-  environment.systemPackages = [ pkgs.arandr pkgs.chrysalis ];
+  environment.systemPackages = [pkgs.arandr pkgs.chrysalis];
 
-  services.udev.packages = [ pkgs.packages.kaleidoscope-udev-rules ];
+  services.udev.packages = [pkgs.packages.kaleidoscope-udev-rules];
 
   hardware.bluetooth = {
     enable = true;

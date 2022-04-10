@@ -1,17 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, lib, pkgs, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-      ./home.nix
+    ./home.nix
 
-      ./secrets.nix
-    ];
+    ./secrets.nix
+  ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -27,7 +30,7 @@
   services.btrfs = {
     autoScrub = {
       enable = true;
-      fileSystems = [ "/" ];
+      fileSystems = ["/"];
     };
   };
 
@@ -93,7 +96,7 @@
     "rfkill-release"
   ];
 
-  services.udev.packages = [ pkgs.packages.kaleidoscope-udev-rules ];
+  services.udev.packages = [pkgs.packages.kaleidoscope-udev-rules];
 
   hardware.bluetooth = {
     enable = true;

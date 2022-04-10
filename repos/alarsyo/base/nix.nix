@@ -1,13 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   nix = {
     package = pkgs.nixStable;
 
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = [ "@wheel" ];
+      experimental-features = ["nix-command" "flakes"];
+      trusted-users = ["@wheel"];
       substituters = [
         "https://alarsyo.cachix.org"
         "https://nix-community.cachix.org"

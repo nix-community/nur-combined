@@ -1,19 +1,24 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.paperless;
   my = config.my;
   domain = config.networking.domain;
   paperlessDomain = "paperless.${domain}";
-in
-{
-  options.my.services.paperless = let inherit (lib) types; in {
+in {
+  options.my.services.paperless = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Paperless";
 
     port = mkOption {
@@ -77,7 +82,7 @@ in
 
     services.postgresql = {
       enable = true;
-      ensureDatabases = [ "paperless" ];
+      ensureDatabases = ["paperless"];
       ensureUsers = [
         {
           name = "paperless";
@@ -88,7 +93,7 @@ in
 
     systemd.services.paperless-ng-server = {
       # Make sure the DB is available
-      after = [ "postgresql.service" ];
+      after = ["postgresql.service"];
     };
 
     services.nginx.virtualHosts = {

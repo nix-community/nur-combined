@@ -1,18 +1,24 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.miniflux;
   my = config.my;
 
   domain = config.networking.domain;
 in {
-  options.my.services.miniflux = let inherit (lib) types; in {
+  options.my.services.miniflux = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Serve a Miniflux instance";
 
     adminCredentialsFile = mkOption {
@@ -34,7 +40,7 @@ in {
     # services.postgresql is automatically enabled by services.miniflux, let's
     # back it up
     services.postgresqlBackup = {
-      databases = [ "miniflux" ];
+      databases = ["miniflux"];
     };
 
     services.miniflux = {

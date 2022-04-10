@@ -1,18 +1,24 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.vaultwarden;
   my = config.my;
 
   domain = config.networking.domain;
 in {
-  options.my.services.vaultwarden = let inherit (lib) types; in {
+  options.my.services.vaultwarden = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Vaultwarden";
 
     privatePort = mkOption {
@@ -36,7 +42,7 @@ in {
     };
 
     services.postgresqlBackup = {
-      databases = [ "vaultwarden" ];
+      databases = ["vaultwarden"];
     };
 
     services.vaultwarden = {
@@ -82,8 +88,8 @@ in {
 
     # FIXME: should be renamed to vaultwarden eventually
     my.services.restic-backup = mkIf cfg.enable {
-      paths = [ "/var/lib/bitwarden_rs" ];
-      exclude = [ "/var/lib/bitwarden_rs/icon_cache" ];
+      paths = ["/var/lib/bitwarden_rs"];
+      exclude = ["/var/lib/bitwarden_rs/icon_cache"];
     };
 
     services.fail2ban.jails = {
@@ -119,5 +125,4 @@ in {
       '';
     };
   };
-
 }

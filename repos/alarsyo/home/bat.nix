@@ -1,16 +1,19 @@
-{ config, lib, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.bat;
   batTheme = config.my.theme.batTheme;
-in
-{
+in {
   options.my.home.bat = {
-    enable = (mkEnableOption "bat code display tool") // { default = true; };
+    enable = (mkEnableOption "bat code display tool") // {default = true;};
   };
 
   config = mkIf cfg.enable {

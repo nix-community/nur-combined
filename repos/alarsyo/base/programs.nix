@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs = {
     fish.enable = true;
     gnupg.agent = {
@@ -20,8 +19,10 @@
   };
 
   environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       # shell usage
+      
       fd
       ripgrep
       sd
@@ -29,8 +30,9 @@
       tokei
       tree
       wget
-
       # development
+      
+      alejandra
       git
       git-crypt
       git-lfs
@@ -40,8 +42,8 @@
       pinentry-gnome
       python3
       vim
-
       # terminal utilities
+      
       bottom
       dogdns
       du-dust
@@ -50,16 +52,16 @@
       tealdeer
       unzip
       zip
-
       # nix pkgs lookup
+      
       nix-index
-
       agenix
-    ;
+      ;
 
-    inherit (pkgs.llvmPackages_11)
+    inherit
+      (pkgs.llvmPackages_11)
       bintools
       clang
-    ;
+      ;
   };
 }

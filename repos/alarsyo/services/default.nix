@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   imports = [
     ./vaultwarden.nix
     ./fail2ban.nix

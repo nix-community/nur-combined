@@ -1,5 +1,6 @@
 let
-  inherit (import ./colors.nix)
+  inherit
+    (import ./colors.nix)
     base0
     base00
     base01
@@ -16,9 +17,8 @@ let
     red
     violet
     yellow
-  ;
-in
-{
+    ;
+in {
   primary = {
     background = base3;
     foreground = base00;

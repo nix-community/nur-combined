@@ -1,14 +1,18 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.git;
-in
-{
-  options.my.home.git.enable = (mkEnableOption "Git configuration") // { default = true; };
+in {
+  options.my.home.git.enable = (mkEnableOption "Git configuration") // {default = true;};
 
   config = mkIf cfg.enable {
     programs.git = {
@@ -26,11 +30,11 @@ in
       userName = "Antoine Martin";
 
       extraConfig = {
-        commit = { verbose = true; };
-        core = { editor = "vim"; };
-        init = { defaultBranch = "main"; };
-        pull = { rebase = true; };
-        rerere = { enabled = true; };
+        commit = {verbose = true;};
+        core = {editor = "vim";};
+        init = {defaultBranch = "main";};
+        pull = {rebase = true;};
+        rerere = {enabled = true;};
       };
 
       aliases = {
@@ -42,15 +46,15 @@ in
       includes = [
         {
           condition = "gitdir:~/work/lrde/";
-          contents = { user = { email = "amartin@lrde.epita.fr"; }; };
+          contents = {user = {email = "amartin@lrde.epita.fr";};};
         }
         {
           condition = "gitdir:~/work/prologin/";
-          contents = { user = { email = "antoine.martin@prologin.org"; }; };
+          contents = {user = {email = "antoine.martin@prologin.org";};};
         }
         {
           condition = "gitdir:~/work/epita/";
-          contents = { user = { email = "antoine4.martin@epita.fr"; }; };
+          contents = {user = {email = "antoine4.martin@epita.fr";};};
         }
       ];
     };

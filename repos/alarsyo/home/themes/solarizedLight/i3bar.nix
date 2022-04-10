@@ -1,5 +1,6 @@
 let
-  inherit (import ./colors.nix)
+  inherit
+    (import ./colors.nix)
     base00
     base2
     base3
@@ -7,9 +8,8 @@ let
     green
     red
     yellow
-  ;
-in
-{
+    ;
+in {
   theme = {
     name = "solarized-light";
     overrides = {

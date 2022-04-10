@@ -1,14 +1,17 @@
-{ config, lib, ... }:
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
-  ;
+    ;
 
   cfg = config.my.home.fish;
-in
-{
-  options.my.home.fish.enable = (mkEnableOption "Fish shell") // { default = true; };
+in {
+  options.my.home.fish.enable = (mkEnableOption "Fish shell") // {default = true;};
 
   config = mkIf cfg.enable {
     home.sessionVariables = {
@@ -21,6 +24,6 @@ in
       enable = true;
     };
 
-    xdg.configFile."fish/functions" = { source = ./. + "/functions"; };
+    xdg.configFile."fish/functions" = {source = ./. + "/functions";};
   };
 }

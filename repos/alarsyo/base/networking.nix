@@ -1,11 +1,10 @@
-{ lib, ... }:
-let
-  inherit (lib)
+{lib, ...}: let
+  inherit
+    (lib)
     mkOption
     types
-  ;
-in
-{
+    ;
+in {
   options.my.networking.externalInterface = mkOption {
     type = types.nullOr types.str;
     default = null;

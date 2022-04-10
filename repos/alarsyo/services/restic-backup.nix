@@ -1,21 +1,27 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     attrsets
     concatStringsSep
     mkEnableOption
     mkIf
     mkOption
     optional
-  ;
+    ;
 
   cfg = config.my.services.restic-backup;
   excludeArg = "--exclude-file=" + (pkgs.writeText "excludes.txt" (concatStringsSep "\n" cfg.exclude));
   makePruneOpts = pruneOpts:
     attrsets.mapAttrsToList (name: value: "--keep-${name} ${toString value}") pruneOpts;
 in {
-  options.my.services.restic-backup = let inherit (lib) types; in {
+  options.my.services.restic-backup = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Enable Restic backups for this host";
 
     repo = mkOption {
@@ -23,12 +29,11 @@ in {
       default = null;
       example = "/mnt/hdd";
       description = "Restic backup repo";
-
     };
 
     paths = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "/var/lib"
         "/home"
@@ -38,7 +43,7 @@ in {
 
     exclude = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         # very large paths
         "/var/lib/docker"
@@ -81,7 +86,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.restic ];
+    environment.systemPackages = [pkgs.restic];
 
     services.restic.backups.backblaze = {
       initialize = true;
@@ -92,8 +97,9 @@ in {
       passwordFile = cfg.passwordFile;
       environmentFile = cfg.environmentFile;
 
-      extraBackupArgs = [ "--verbose=2" ]
-                        ++ optional (builtins.length cfg.exclude != 0) excludeArg;
+      extraBackupArgs =
+        ["--verbose=2"]
+        ++ optional (builtins.length cfg.exclude != 0) excludeArg;
 
       timerConfig = cfg.timerConfig;
 

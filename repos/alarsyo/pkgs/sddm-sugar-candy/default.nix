@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitLab }:
+{
+  stdenv,
+  fetchFromGitLab,
+}:
 stdenv.mkDerivation rec {
   pname = "sddm-sugar-candy";
   # latest master commit, no recent tags :(
@@ -10,7 +13,7 @@ stdenv.mkDerivation rec {
     cp -aR . $out/share/sddm/themes/sugar-candy
   '';
 
-  patches = [ ./custom-conf.patch ];
+  patches = [./custom-conf.patch];
 
   src = fetchFromGitLab {
     domain = "framagit.org";

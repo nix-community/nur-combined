@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./sddm.nix
     ./secrets

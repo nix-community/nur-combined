@@ -1,16 +1,20 @@
-{ config, lib, pkgs, options, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  options,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     optionalAttrs
-  ;
+    ;
 
   cfg = config.my.services.pipewire;
   my = config.my;
-in
-{
+in {
   options.my.services.pipewire = {
     enable = mkEnableOption "Pipewire sound backend";
   };
@@ -37,6 +41,6 @@ in
 
     # FIXME: a shame pactl isn't available by itself, eventually this should be
     #        replaced by pw-cli or a wrapper, I guess?
-    environment.systemPackages = [ pkgs.pulseaudio ];
+    environment.systemPackages = [pkgs.pulseaudio];
   });
 }

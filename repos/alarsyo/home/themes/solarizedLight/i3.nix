@@ -1,5 +1,6 @@
 let
-  inherit (import ./colors.nix)
+  inherit
+    (import ./colors.nix)
     base00
     base2
     base3
@@ -8,9 +9,8 @@ let
     orange
     red
     yellow
-  ;
-in
-{
+    ;
+in {
   bar = {
     background = base3;
     statusline = yellow;

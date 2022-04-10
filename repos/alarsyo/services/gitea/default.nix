@@ -1,18 +1,24 @@
-{ config, lib, pkgs, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
-  ;
+    ;
 
   cfg = config.my.services.gitea;
   my = config.my;
 
   domain = config.networking.domain;
 in {
-  options.my.services.gitea = let inherit (lib) types; in {
+  options.my.services.gitea = let
+    inherit (lib) types;
+  in {
     enable = mkEnableOption "Personal Git hosting with Gitea";
 
     privatePort = mkOption {
@@ -33,11 +39,11 @@ in {
 
       # the systemd service for the gitea module seems to hardcode the group as
       # gitea, so, uh, just in case?
-      extraGroups = [ "gitea" ];
+      extraGroups = ["gitea"];
 
       isSystemUser = true;
     };
-    users.groups.git = { };
+    users.groups.git = {};
 
     services.gitea = {
       enable = true;
@@ -88,7 +94,7 @@ in {
     };
 
     services.postgresqlBackup = {
-      databases = [ "gitea" ];
+      databases = ["gitea"];
     };
 
     services.nginx = {
