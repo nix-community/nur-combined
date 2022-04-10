@@ -89,23 +89,7 @@ in {
     };
 
     programs.mbsync.enable = true;
-    services.mbsync = {
-      enable = true;
-      # sync every hour on the third minute, then every 16 minutes (to not hit
-      # servers right on plain hours)
-      frequency = "*:03/16";
-      postExec = "${pkgs.mu}/bin/mu index";
-    };
-    systemd.user.services.mbsync = {
-      # rbw invokes the agent to know if the agent is launched already, and
-      # needs its path for that.
-      #
-      # https://github.com/doy/rbw/blob/acd1173848b4db1c733af7d3f53d24aab900b542/src/bin/rbw/commands.rs#L1000
-      Service.Environment = "RBW_AGENT=${pkgs.rbw}/bin/rbw-agent";
-    };
-
     programs.msmtp.enable = true;
-
     programs.mu.enable = true;
   };
 }
