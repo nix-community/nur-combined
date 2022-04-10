@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ cyrus_sasl ];
   meta = with lib; {
     inherit (src.meta) homepage;
-    description = "desc An OAuth plugin for libsasl2";
+    description = "An OAuth plugin for libsasl2";
     license = with licenses; [ mit ];
   };
 }
