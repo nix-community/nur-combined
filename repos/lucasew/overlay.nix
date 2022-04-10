@@ -89,16 +89,25 @@ in {
     inherit (prev) pkgs;
     nurpkgs = prev.pkgs;
   };
-  discord = prev.discord.overrideAttrs (old: rec {
-    version = "0.0.17";
-    src = prev.fetchurl {
-      url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-      sha256 = "058k0cmbm4y572jqw83bayb2zzl2fw2aaz0zj1gvg6sxblp76qil";
-    };
-  });
+  # discord = prev.discord.overrideAttrs (old: rec {
+  #   version = "0.0.17";
+  #   src = prev.fetchurl {
+  #     url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
+  #     sha256 = "058k0cmbm4y572jqw83bayb2zzl2fw2aaz0zj1gvg6sxblp76qil";
+  #   };
+  # });
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
     urls = [
       "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip"
     ];
   });
+  calibre = prev.calibre.override { # remove after #168071 is merged
+  python3Packages = prev.python3Packages.overrideScope (orig: old: {
+    apsw = old.apsw.overridePythonAttrs (old: {
+        version = "3.38.1-r1";
+        sha256 = "sha256-pbb6wCu1T1mPlgoydB1Y1AKv+kToGkdVUjiom2vTqf4=";
+        checkInputs = [];
+      });
+    });
+  };
 }

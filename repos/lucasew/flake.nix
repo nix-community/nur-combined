@@ -7,7 +7,7 @@
     comma =              {url =  "github:Shopify/comma";                            flake = false;                      };
     dotenv =             {url =  "github:lucasew/dotenv";                           flake = false;                      };
     flake-utils =        {url =  "flake-utils";                                                                         };
-    home-manager =       {url =  "home-manager/release-21.11";                      inputs.nixpkgs.follows = "nixpkgs"; };
+    home-manager =       {url =  "home-manager/master";                      inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence =       {url =  "github:nix-community/impermanence";               inputs.nixpkgs.follows = "nixpkgs"; };
     mach-nix =           {url =  "mach-nix";                                        inputs.nixpkgs.follows = "nixpkgs"; };
     nix-ld =             {url =  "github:Mic92/nix-ld";                             inputs.nixpkgs.follows = "nixpkgs"; };

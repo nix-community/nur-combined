@@ -1,26 +1,13 @@
-diff --git a/coq/__main__.py b/coq/__main__.py
-index 77198a4e..61afdb5f 100644
---- a/coq/__main__.py
-+++ b/coq/__main__.py
-@@ -134,7 +134,7 @@ elif command == "run":
-         lock = ""
-     try:
-         if not _IN_VENV:
--            raise ImportError()
-+            pass
-         elif lock != _REQ:
-             raise ImportError()
-         else:
 diff --git a/coq/consts.py b/coq/consts.py
-index 718bf97a..3b6ab011 100644
+index 06f0725b..956b622b 100644
 --- a/coq/consts.py
 +++ b/coq/consts.py
-@@ -9,7 +9,7 @@ TOP_LEVEL = Path(__file__).resolve().parent.parent
+@@ -9,7 +9,7 @@ TOP_LEVEL = Path(__file__).resolve(strict=True).parent.parent
  REQUIREMENTS = TOP_LEVEL / "requirements.txt"
  
  
 -VARS = TOP_LEVEL / ".vars"
-+VARS = Path("/tmp/coq") / ".vars"
++VARS = Path("~/.coq_nvim").expanduser()
  
  RT_DIR = VARS / "runtime"
  RT_PY = RT_DIR / "Scripts" / "python.exe" if IS_WIN else RT_DIR / "bin" / "python3"

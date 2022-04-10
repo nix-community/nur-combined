@@ -11,13 +11,12 @@ in {
     ../base/default.nix
     ./modules/dlna.nix
     ./modules/firefox/home.nix
-    ./modules/espanso.nix
   ]
   ;
 
   home.packages = with pkgs; [
     appimage-run
-    calibre
+    calibre # a dependency is broken
     chromium
     custom.rofi # custom
     custom.tixati
@@ -39,25 +38,25 @@ in {
     pipedream-cli
     pkg
     rclone
-    retroarchFull
     ripgrep
     sqlite
     sshpass
     stremio
     tdesktop # communication
-    texlive.combined.scheme-full
     t-launcher
     vlc # media
     wineApps.wine7zip
     xxd
     pavucontrol # controle de volume
     zeal
+    # retroarchFull
+    # texlive.combined.scheme-full
   ] ;
 
   # programs.hello-world.enable = true;
   services.espanso = {
     enable = true;
-    config = 
+    settings =
       let
         justReplace = from: to: {
           trigger = from;
