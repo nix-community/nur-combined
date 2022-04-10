@@ -38,12 +38,6 @@ in
 
   boot = {
     supportedFilesystems = [ "ntfs" ];
-    kernelParams = [
-      "i915.enable_gvt=1"
-      "intel_iommu=igfx_off"
-      "kvm.ignore_msrs=1"
-      "kvm.report_ignored_msrs=0"
-    ];
     loader = {
       efi = {
         canTouchEfiVariables = true;
