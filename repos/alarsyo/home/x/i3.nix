@@ -87,7 +87,8 @@ in {
 
         keybindings = mkOptionDefault {
           "${modifier}+Shift+e" = ''mode "${logoutMode}"'';
-          "${modifier}+i" = "exec emacsclient -c";
+          "${modifier}+i" = "exec emacsclient --create-frame";
+          "${modifier}+o" = "exec emacsclient --create-frame --eval '(load \"${config.xdg.configHome}/doom/launch-agenda.el\")'";
 
           # Volume handling
           "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
