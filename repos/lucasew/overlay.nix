@@ -70,6 +70,7 @@ in {
     ncdu = cp ./packages/custom/ncdu.nix;
     neovim = cp ./packages/custom/neovim;
     emacs = cp ./packages/custom/emacs;
+    firefox = cp ./packages/custom/firefox.nix;
     rofi = cp ./packages/custom/rofi.nix;
     tixati = cp ./packages/custom/tixati.nix;
     vscode = cp ./packages/custom/vscode;

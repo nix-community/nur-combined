@@ -10,7 +10,6 @@ in {
   imports = [
     ../base/default.nix
     ./modules/dlna.nix
-    ./modules/firefox/home.nix
   ]
   ;
 
