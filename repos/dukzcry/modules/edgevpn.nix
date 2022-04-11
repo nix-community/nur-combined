@@ -6,6 +6,7 @@ let
   server = cfg.enable && cfg.server;
   client = cfg.enable && !cfg.server;
   edgevpn = pkgs.nur.repos.dukzcry.edgevpn;
+  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
   serviceOptions = {
     LockPersonality = true;
     DeviceAllow = "/dev/net/tun";
@@ -21,8 +22,6 @@ let
     RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
     RestrictNamespaces = true;
     RestrictRealtime = true;
-    AmbientCapabilities = "CAP_NET_ADMIN";
-    CapabilityBoundingSet = "CAP_NET_ADMIN";
     MemoryDenyWriteExecute = true;
     SystemCallArchitectures = "native";
     SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
@@ -59,8 +58,8 @@ in {
       default = "edgevpn0";
     };
     address = mkOption {
-      type = types.str;
-      default = "10.1.0.1/24";
+      type = types.anything;
+      default = ip4.fromString "10.1.0.1/24";
     };
     dhcp = mkOption {
       type = types.bool;
@@ -100,6 +99,10 @@ in {
       environment.systemPackages = [ edgevpn ];
     })
     (mkIf server {
+      networking.interfaces.${cfg.interface} = {
+        ipv4.addresses = [ (ip4.toNetworkAddress cfg.address) ];
+        virtual = true;
+      };
       systemd.services.edgevpn = {
         requires = [ "network-online.target" ];
         after = [ "network.target" "network-online.target" ];
@@ -109,6 +112,7 @@ in {
         environment = {
           API = "1";
           APILISTEN = "${cfg.apiAddress}:${toString cfg.apiPort}";
+          #EDGEVPNBOOTSTRAPIFACE = "false";
         } // envOptions;
         serviceConfig = {
           ExecStart = pkgs.writeShellScript "edgevpn" ''
@@ -136,6 +140,8 @@ in {
             edgevpn --config $CREDENTIALS_DIRECTORY/config.yaml
           '';
           StateDirectory = "edgevpn";
+          AmbientCapabilities = "CAP_NET_ADMIN";
+          CapabilityBoundingSet = "CAP_NET_ADMIN";
         } // serviceOptions;
       };
       systemd.services.edgevpn-script = {
