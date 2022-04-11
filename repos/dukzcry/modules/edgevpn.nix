@@ -19,7 +19,6 @@ let
     ProtectKernelModules = true;
     ProtectKernelTunables = true;
     ProtectProc = "invisible";
-    RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
     RestrictNamespaces = true;
     RestrictRealtime = true;
     MemoryDenyWriteExecute = true;
@@ -131,6 +130,7 @@ in {
           RestrictSUIDSGID = true;
           User = "edgevpn";
           Group = "edgevpn";
+          RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
         } // serviceOptions;
       };
     })
@@ -156,6 +156,7 @@ in {
           DynamicUser = true;
           AmbientCapabilities = "CAP_NET_ADMIN";
           CapabilityBoundingSet = "CAP_NET_ADMIN";
+          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
         } // serviceOptions;
       };
       systemd.services.edgevpn-script = {
