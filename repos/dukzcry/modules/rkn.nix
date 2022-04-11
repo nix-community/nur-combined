@@ -184,13 +184,32 @@ in {
     };
     systemd.services.rkn-script = {
       description = "Сервис выгрузки и обработки списка блокировок роскомпозора";
-      path = with pkgs; [ gnugrep wget coreutils gnused libidn glibc gawk ];
+      path = with pkgs; [ gnugrep coreutils gnused libidn glibc gawk git ];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "rkn.sh" ''
           set -e
           cd /var/lib/rkn-script
-          wget --backups=3 https://raw.githubusercontent.com/zapret-info/z-i/master/dump.csv
+          git remote update
+          UPSTREAM=''${1:-'@{u}'}
+          LOCAL=$(git rev-parse @)
+          REMOTE=$(git rev-parse "$UPSTREAM")
+          BASE=$(git merge-base @ "$UPSTREAM")
+          if [ $LOCAL = $REMOTE ]; then
+            #echo "Up-to-date"
+            :
+          elif [ $LOCAL = $BASE ]; then
+            #echo "Need to pull"
+            git pull
+            do=0
+          elif [ $REMOTE = $BASE ]; then
+            #echo "Need to push"
+            :
+          else
+            #echo "Diverged"
+            :
+          fi
+          [ -z $do ] && exit
           # domain column
           cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump2.txt
           # domain from url
