@@ -16,10 +16,11 @@ stdenv.mkDerivation {
     autoPatchelfHook
   ]; # ++ firefox-unwrapped.buildInputs;
   installPhase = ''
-      mkdir -p $out/{bin,usr,lib}
+      mkdir -p $out/{bin,usr,lib,share/applications}
       cp -r $src/* $out/usr
       cp $out/usr/*.so* $out/lib
       makeWrapper $out/usr/seamonkey $out/bin/seamonkey --prefix LD_LIBRARY_PATH : ${libpulseaudio}/lib
+      cp ${./seamonkey.desktop} $out/share/applications
   '';
   meta = with lib; {
     description = "Seamonkey browser.";

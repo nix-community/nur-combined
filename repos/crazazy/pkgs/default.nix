@@ -16,7 +16,7 @@ in
   firefox-addons = import ./firefox-addons { inherit pkgs; };
 
   # standalone packages
-  seamonkey = callPackage ./seamonkey.nix { };
+  seamonkey = callPackage ./seamonkey { };
   nix-gen-node-tools = callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;};
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   # vendor broken. Also in nixpkgs already

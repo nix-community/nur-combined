@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Network;WebBrowser
+Exec=seamonkey %U
+GenericName=Web Browser
+Icon=seamonkey
+MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp
+Name=Seamonkey
+Type=Application
+Version=1.4
