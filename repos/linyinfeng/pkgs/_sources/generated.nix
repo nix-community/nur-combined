@@ -31,34 +31,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2022.03.21";
+    version = "2022.04.10";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.03.21.gz";
-      sha256 = "1dq0vidxsxh7xm24cw51m0xg4hp3ap7g910x2r7agkxwsnanlx6j";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.04.10.gz";
+      sha256 = "0gbl7kgnzyzybvj25mjqqv2ds1vi72lqr3rbvwch4rr9hjdrsvkv";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2022.03.21";
+    version = "2022.04.10";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.03.21.gz";
-      sha256 = "1k112f3a7x878gpdp1jc33n5965wzfhj598d3pjhd12m5r6h61py";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.04.10.gz";
+      sha256 = "1xfnzyq10nddw6dwyfnq4zjq195xdkj494apjbz1r662hba1bwbw";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2022.03.21";
+    version = "2022.04.10";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.03.21.gz";
-      sha256 = "17l3jgrjjav31jziyn7mwmn68flca7ccz9z2zdc8cwsxjkcnxn9x";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.04.10.gz";
+      sha256 = "1j428y2fdjal1nnfl75ck7n65lz9j0p1x7mf9c29lxv3h0f34xaj";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2022.03.21";
+    version = "2022.04.10";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.03.21.gz";
-      sha256 = "0dnjig0rsxgpciz5bmw2v0akkx2fzmiv6gcf4j2pln8nkbaxqnjx";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.04.10.gz";
+      sha256 = "15w2d4sqmvwc4il2g7548igxcvkc1a1llkb5b9bl5gpsr39bf3aq";
     };
   };
   commit-notifier = {
@@ -175,14 +175,14 @@
   };
   telegram-send = {
     pname = "telegram-send";
-    version = "5e7b4fe21083a143a8b6284e1483d72290264216";
+    version = "693a555dd644042bc83e983607c0f81b1bb0a7e4";
     src = fetchgit {
       url = "https://github.com/rahiel/telegram-send.git";
-      rev = "5e7b4fe21083a143a8b6284e1483d72290264216";
+      rev = "693a555dd644042bc83e983607c0f81b1bb0a7e4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1pjh03h4w2zvnmj6xpqxvpx0cpbwdq2bng60brmz813yvn55ggvv";
+      sha256 = "15mg87rq3fnmphyrpff88nw1kvfln55r418sv1h1mr9cvkyvy0jg";
     };
   };
   trojan = {
