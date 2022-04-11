@@ -1,6 +1,10 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -p python3 -i python
 from os import sys
+from pathlib import Path
+
+def reverse_txt(value):
+    return value[::-1]
 
 def eprint(*args, **kwargs):
     from sys import stderr
