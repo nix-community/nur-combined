@@ -3,6 +3,7 @@ imports: { config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.server;
+  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
 in {
   inherit imports;
 
@@ -43,7 +44,7 @@ in {
     networking.edgevpn = {
       enable = true;
       logLevel = "debug";
-      address = "10.0.2.1/24";
+      address = ip4.fromString "10.0.2.1/24";
       router = "10.0.2.1";
       postStart = ''
         ip route add dev ${config.networking.edgevpn.interface} 10.0.0.0/24
