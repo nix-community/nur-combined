@@ -1,17 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook
+, bison, flex, foma, pkg-config, icu, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "hfst";
-  version = "3.15.5";
+  version = "3.16.0";
 
   src = fetchFromGitHub {
     owner = "hfst";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-BvcueEdu+4rTeazvZ08BtNHkvGBIZi6W1+Fn3tJMxac=";
+    hash = "sha256-2ST0s08Pcp+hTn7rUTgPE1QkH6PPWtiuFezXV3QW0kU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook bison flex ];
+  nativeBuildInputs = [ autoreconfHook bison flex pkg-config ];
+
+  buildInputs = [ foma icu zlib ];
+
+  configureFlags = [
+    "--with-foma-upstream=true"
+  ];
+
+  enableParallelBuilding = true;
 
   meta = with lib; {
     description = "Helsinki Finite-State Technology (library and application suite)";

@@ -1,4 +1,4 @@
-{ lib, python3Packages, hfst, swig }:
+{ lib, python3Packages, hfst, icu, swig }:
 
 python3Packages.buildPythonPackage rec {
   pname = "python-hfst";
@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   sourceRoot = "${src.name}/python";
 
-  buildInputs = [ hfst ];
+  buildInputs = [ hfst icu ];
 
   nativeBuildInputs = [ swig ];
 
