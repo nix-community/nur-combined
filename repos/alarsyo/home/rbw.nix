@@ -42,8 +42,10 @@ in {
       Install.WantedBy = ["default.target"];
 
       Service = {
-        ExecStart = "${pkgs.rbw}/bin/rbw-agent --no-daemonize";
+        ExecStart = "${pkgs.rbw}/bin/rbw-agent";
         Restart = "on-abort";
+        Type = "forking";
+        PIDFile = "%t/rbw/pidfile";
       };
     };
   };
