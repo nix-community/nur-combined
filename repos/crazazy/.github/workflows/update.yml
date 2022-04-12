@@ -58,7 +58,7 @@ jobs:
           mv ../monorepo.tar.gz .
         
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: monorepo-file
           path: ./monorepo.tar.gz
