@@ -88,7 +88,7 @@ buildPythonPackage rec {
   ];
   meta = with lib; {
     homepage = "https://github.com/abhirooptalasila/AutoSub";
-    description = "generate subtitle files (SRT/VTT/TXT) for any video using DeepSpeech or Coqui";
+    description = "generate video subtitles with offline speech recognition (DeepSpeech, STT)";
     license = licenses.mit;
   };
 }
