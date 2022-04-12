@@ -40,9 +40,6 @@ with lib.kernel;
   # Fonts
   FONTS = yes;
   FONT_8x16 = yes;
-  FONT_TER16x32 = yes;
-  # FONT_CJK_16x16 = yes;
-  # FONT_CJK_32x32 = yes;
 
   # Ksmbd
   CIFS_SMB_DIRECT = yes;
