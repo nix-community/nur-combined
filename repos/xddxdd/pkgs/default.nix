@@ -42,6 +42,7 @@ rec {
   genshin-glyphs = pkg ./genshin-glyphs { };
   genshinhelper2 = pkg ./genshinhelper2 { };
   glibc-debian-openvz-files = pkg ./glibc-debian-openvz-files { };
+  hath =  pkg ./hath { };
   hesuvi-hrir = pkg ./hesuvi-hrir { };
   libltnginx = pkg ./libltnginx { };
   liboqs = pkg ./liboqs { };
@@ -75,7 +76,6 @@ rec {
   wine-wechat = pkg ./wine-wechat { };
   xray = pkg ./xray { };
 } // (if inputs == null then { } else {
-  hath = pkgs.callPackage "${inputs.hath-nix}/pkgs/hath.nix" { };
   keycloak-lantian = pkg ./keycloak-lantian {
     inherit (inputs) keycloak-lantian;
   };

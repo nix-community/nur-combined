@@ -3,7 +3,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    hath-nix.url = github:poscat0x04/hath-nix;
     keycloak-lantian = {
       url = "git+https://git.lantian.pub/lantian/keycloak-lantian.git";
       inputs.nixpkgs.follows = "nixpkgs";
