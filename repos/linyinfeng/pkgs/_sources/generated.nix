@@ -3,14 +3,14 @@
 {
   cf-terraforming = {
     pname = "cf-terraforming";
-    version = "v0.7.2";
+    version = "v0.7.3";
     src = fetchgit {
       url = "https://github.com/cloudflare/cf-terraforming";
-      rev = "v0.7.2";
+      rev = "v0.7.3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0fjs88ncxhl8qclk7503zz3i2mqz6n1wn7n8h703s4qs7vz3cph9";
+      sha256 = "194502nz85ffjlq2jhgapvg6llqkdnr5vxhfsf8z73rgc9lrr30r";
     };
   };
   clash-for-windows = {
