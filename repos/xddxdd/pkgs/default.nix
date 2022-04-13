@@ -42,7 +42,8 @@ rec {
   genshin-glyphs = pkg ./genshin-glyphs { };
   genshinhelper2 = pkg ./genshinhelper2 { };
   glibc-debian-openvz-files = pkg ./glibc-debian-openvz-files { };
-  hath =  pkg ./hath { };
+  gopherus = pkg ./gopherus { };
+  hath = pkg ./hath { };
   hesuvi-hrir = pkg ./hesuvi-hrir { };
   libltnginx = pkg ./libltnginx { };
   liboqs = pkg ./liboqs { };
