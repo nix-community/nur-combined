@@ -1,5 +1,5 @@
 { lib, stdenv, fetchurl, perlSupport, libX11, libXt, libXft, ncurses, perl,
-  fontconfig, freetype, pkgconfig, libXrender, gdkPixbufSupport, gdk_pixbuf,
+  fontconfig, freetype, pkgconfig, libXrender, gdkPixbufSupport, gdk-pixbuf,
   unicode3Support }:
 
 let
@@ -20,7 +20,7 @@ stdenv.mkDerivation (rec {
     [ libX11 libXt libXft ncurses /* required to build the terminfo file */
       fontconfig freetype pkgconfig libXrender ]
     ++ lib.optional perlSupport perl
-    ++ lib.optional gdkPixbufSupport gdk_pixbuf;
+    ++ lib.optional gdkPixbufSupport gdk-pixbuf;
 
   outputs = [ "out" "terminfo" ];
 
