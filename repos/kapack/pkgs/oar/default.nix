@@ -5,17 +5,17 @@ python3Packages.buildPythonPackage rec {
   version = "3.0.0.dev4";
   format = "pyproject";
   #disabled = pythonOlder "3.8";
-  
+
   src = fetchFromGitHub {
         owner = "oar-team";
         repo = "oar3";
         rev = "031a80749ad778fa52d80437c180c90f33e67fb1";
         sha256 = "sha256-bCkiVizmjVaGOtMu/NYkYblCGu00i5tEjw64b6dEFmk=";
   };
-  
+
 
   nativeBuildInputs = [ poetry ];
-  
+
   propagatedBuildInputs = with python3Packages; [
       pyzmq
       requests

@@ -57,7 +57,7 @@ rec {
   colmet-collector = pkgs.callPackage ./pkgs/colmet-collector { };
 
   ear =  pkgs.callPackage ./pkgs/ear { };
-  
+
   evalys = pkgs.callPackage ./pkgs/evalys { inherit procset; };
 
   flatbuffers = pkgs.callPackage ./pkgs/flatbuffers/2.0.nix { };
