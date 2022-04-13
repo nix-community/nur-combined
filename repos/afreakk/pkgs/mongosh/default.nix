@@ -1,17 +1,17 @@
-{
-  stdenv,
-  autoPatchelfHook,
-  fetchurl,
-  openssl, 
-  xz,
-  e2fsprogs,
-  cyrus_sasl
+{ stdenv
+, autoPatchelfHook
+, fetchurl
+, openssl
+, xz
+, e2fsprogs
+, cyrus_sasl
+, libkrb5
 }:
 stdenv.mkDerivation rec {
   name = "mongosh";
   version = "1.0.4";
   src = fetchurl {
-    url ="https://downloads.mongodb.com/compass/mongosh-${version}-linux-x64.tgz";
+    url = "https://downloads.mongodb.com/compass/mongosh-${version}-linux-x64.tgz";
     sha256 = "0w6hn1vlq6rxph2bnqnm1mn28chz00xkipxsnj970bzr4awg5g5g";
   };
   buildInputs = [
@@ -23,6 +23,7 @@ stdenv.mkDerivation rec {
     e2fsprogs
     # for libsasl2.so.3 & libkrb5.so.3 & libgssapi_krb5.so.2
     cyrus_sasl
+    libkrb5
   ];
   unpackPhase = "true";
   installPhase = ''
