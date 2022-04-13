@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.in \
       --replace "\$(DESTDIR)\$(sysconfdir)" "$out/etc"
     substituteInPlace src/session/session-utils.h \
-      --replace "DEFAULT_PATH \"" "DEFAULT_PATH \"$out/bin:"
+      --replace "DEFAULT_PATH \"" "DEFAULT_PATH \"$out/bin:/run/current-system/sw/bin:"
   '';
 
   postInstall = ''
