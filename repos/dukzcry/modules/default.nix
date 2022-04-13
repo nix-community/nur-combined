@@ -25,4 +25,5 @@ rec {
   hostapd = ./hostapd;
   hardware = import ./hardware.nix [ nvidia ];
   tun2socks = ./tun2socks.nix;
+  cockpit = ./cockpit.nix;
 }
