@@ -9,6 +9,10 @@ in {
     enable = mkEnableOption ''
       Cockpit web-based graphical interface for servers
     '';
+    port = mkOption {
+      type = types.port;
+      default = 9090;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -25,5 +29,7 @@ in {
 
     environment.systemPackages = [ cockpit ];
     environment.pathsToLink = [ "/share/cockpit" ];
+
+    systemd.sockets.cockpit.listenStreams = [ "" "${toString cfg.port}" ];
   };
 }
