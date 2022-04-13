@@ -63,9 +63,10 @@ rec {
   flatbuffers = pkgs.callPackage ./pkgs/flatbuffers/2.0.nix { };
 
   melissa = pkgs.callPackage ./pkgs/melissa { };
+  melissa-heat-pde = pkgs.callPackage ./pkgs/melissa-heat-pde { inherit melissa; };
 
   npb =  pkgs.callPackage ./pkgs/npb { };
-  
+
   go-swagger  = pkgs.callPackage ./pkgs/go-swagger { };
 
   gcovr = pkgs.callPackage ./pkgs/gcovr/csv.nix { };
