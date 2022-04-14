@@ -2,14 +2,14 @@
 
 python38Packages.buildPythonPackage rec {
   pname = "traffic";
-  version = "0.5.1";
+  version = "0.5.3";
   format = "pyproject";
  
   src = fetchFromGitHub {
     owner = "meain";
     repo = pname;
     rev = version;
-    sha256 = "sha256-K2FndFfwwaaj2tTNF/xP2RopcFOcb3w5IU2TQjX1H2Q=";
+    sha256 = "sha256-gHy1lD16U3ngsoHQeBmzvDOAYzD7a/t9s4shcJXSskI=";
   };
 
   # nativeBuildInputs = [ python38Packages.psutil ];
