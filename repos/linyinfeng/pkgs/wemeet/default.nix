@@ -63,9 +63,18 @@ stdenv.mkDerivation rec {
     fcitx-qt5
   ]);
 
-  autoPatchelfIgnoreMissingDeps = "true"; # TODO: remove this
+  autoPatchelfIgnoreMissingDeps = [
+    "libQt5EglDeviceIntegration.so.5"
+    "libcudart.so.9.0"
+    "libcudnn.so.7"
+    "libnvinfer.so.5"
+    "libnvinfer_plugin.so.5"
+  ];
 
   installPhase = ''
+    # TODO remove after #168584
+    declare -a autoPatchelfIgnoreMissingDeps=( $autoPatchelfIgnoreMissingDeps )
+
     mkdir -p "$out"
     cp -r opt "$out/opt"
 
