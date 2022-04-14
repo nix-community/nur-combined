@@ -41,7 +41,7 @@ let
 in
 buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
-  version = "0.18.3";
+  version = "0.19.0";
 
   disabled = pythonOlder "3.6";
 
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-J0T78NDhrv7CeBbVy7srs1PcEN9tGgshJIl3gS0NPNg=";
+    sha256 = "sha256-ODu8OgGpzlMjRX7ebMu4DXKj6jUyohCq4Hb8aV5eWIU=";
   };
 
   propagatedBuildInputs = [
@@ -60,6 +60,7 @@ buildPythonPackage rec {
     requests_ntlm
     websocket_client
     websocket-client
+    websockets
   ] ++ lib.optionals withVisualization visualizationPackages;
 
   postPatch = ''
@@ -74,7 +75,6 @@ buildPythonPackage rec {
     pproxy
     qiskit-aer
     vcrpy
-    websockets
   ] ++ lib.optionals (!withVisualization) visualizationPackages;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];

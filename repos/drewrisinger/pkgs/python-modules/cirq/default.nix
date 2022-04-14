@@ -39,12 +39,12 @@
 }:
 
 let
-  version = "0.14.0";
+  version = "0.14.1";
   src = fetchFromGitHub {
     owner = "quantumlib";
     repo = "cirq";
     rev = "v${version}";
-    sha256 = "sha256-Gqit834l08CWYQfs8YzavVOhXC3Zujqc99XmWvJlSpI=";
+    sha256 = "sha256-cIDwV3IBXrTJ4jC1/HYmduY3tLe/f6wj8CWZ4cnThG8=";
   };
   disabled = pythonOlder "3.6";
   cirqSubPackage = { pname, ... } @ args: buildPythonPackage ((builtins.removeAttrs args [ ]) // rec {
@@ -54,10 +54,6 @@ let
     propagatedBuildInputs = if pname != "cirq-core" then ((args.propagatedBuildInputs or [ ]) ++ [ cirq-core ]) else args.propagatedBuildInputs;
 
     checkInputs = args.checkInputs or [ pytestCheckHook ];
-    postPatch = args.postPatch or ''
-      substituteInPlace ${builtins.replaceStrings [ "-" ] [ "_" ] pname}/_version_test.py --replace "${version}.dev" "${version}"
-    '';
-    # pythonImportsCheck = args.pythonImportsCheck or [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
     meta = args.meta or cirq-core.meta;
   }
   );
@@ -70,7 +66,6 @@ let
         --replace "numpy~=1.16" "numpy"
 
       # test was written to expect the dev version, but fails when built against the release version
-      substituteInPlace cirq/_version_test.py --replace "0.14.0.dev" "0.14.0"
     '';
 
     propagatedBuildInputs = [
@@ -115,6 +110,9 @@ let
     ] ++ [
       # slow tests, >10 seconds locally
       "test_fsim_gate_with_symbols"
+      "test_controlled_operation_is_consistent"
+      "test_merge_operations_complexity"
+      "test_incremental_simulate"
     ] ++ lib.optionals (lib.versionAtLeast scipy.version "1.6.0") [
       "test_projector_matrix_missing_qid"
       "test_projector_from_np_array"
@@ -141,7 +139,6 @@ let
       substituteInPlace requirements.txt \
         --replace "protobuf~=3.13.0" "protobuf" \
         --replace "google-api-core[grpc] >= 1.14.0, < 2.0.0dev" "google-api-core[grpc] >= 1.14.0, < 3.0.0dev"
-      substituteInPlace cirq_google/_version_test.py --replace "0.14.0.dev" "${version}"
     '';
 
     propagatedBuildInputs = [
@@ -181,9 +178,7 @@ let
         --replace "httpx~=0.15.5" "httpx" \
         --replace "iso8601~=0.1.14" "iso8601" \
         --replace "~=" ">="
-
-      substituteInPlace cirq_rigetti/_version_test.py --replace "0.14.0.dev" "${version}"
-    '' + lib.optionalString (lib.versionAtLeast httpcore.version "0.14.0") ''
+    '' + lib.optionalString (lib.versionAtLeast httpcore.version "0.14.1") ''
       substituteInPlace cirq_rigetti/service_test.py \
         --replace "from httpcore._types import URL, Headers" "" \
         --replace ": URL" "" \

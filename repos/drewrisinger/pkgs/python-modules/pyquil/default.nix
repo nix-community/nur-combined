@@ -2,6 +2,7 @@
 , pythonOlder
 , buildPythonPackage
 , fetchFromGitHub
+, poetry-core
 , antlr4-python3-runtime
 , lark-parser ? null  # <= nixos-21.11
 , lark ? null # > nixos-21.11
@@ -24,7 +25,8 @@
 
 buildPythonPackage rec {
   pname = "pyquil";
-  version = "3.0.1";
+  version = "3.1.0";
+  format = "pyproject";
 
   disabled = pythonOlder "3.6";
 
@@ -32,17 +34,16 @@ buildPythonPackage rec {
     owner = "rigetti";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-OU7/LjcpCxvqlcfdlm5ll4f0DYXf0yxNprM8Muu2wyg=";
+    sha256 = "sha256-ejfzxCf2NucK/hfzswHu3h4DPPZQY8vkMAQ51XDRWKU=";
   };
   postPatch = ''
-    # remove numpy hard-pinning, not compatible with nixpkgs 20.09
-    substituteInPlace setup.py \
-      --replace ",>=1.20.0" "" \
-      --replace "lark==0.*,>=0.11.1" "${if lark != null then "lark" else "lark-parser"}" \
-      --replace "scipy==1.*,>=1.6.1" "scipy" \
-      --replace "networkx==2.*,>=2.5.0" "networkx" \
-      --replace "importlib-metadata==3.*,>=3.7.3" "importlib-metadata"
+    # remove hard-pinning
+    substituteInPlace pyproject.toml \
+      --replace "^" ">=" \
+      --replace "lark" "${if lark != null then "lark" else "lark-parser"}"
   '';
+
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     antlr4-python3-runtime

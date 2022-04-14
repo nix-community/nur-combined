@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "scs";
-  version = "3.0.1";
+  version = "3.2.0";
 
   # Uses specific version of lib-scs, doesn't work with newer. Just use version that's a submodule.
   src = fetchFromGitHub {

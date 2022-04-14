@@ -18,6 +18,7 @@ rec {
     {
       # Needed for nixpkgs < nixos-unstable
       docplex = overrideSuperVersionIfNewer py-super.docplex (py-self.callPackage ../pkgs/python-modules/docplex { });
+      websockets = overrideSuperVersionIfNewer py-super.websockets (py-self.callPackage ../pkgs/python-modules/websockets { });
       websocket_client = overrideSuperVersionIfNewer py-super.websocket_client (py-self.callPackage ../pkgs/python-modules/websocket-client { });
       yfinance = overrideSuperVersionIfNewer py-super.yfinance (py-self.callPackage ../pkgs/python-modules/yfinance { });
       dill = overrideSuperVersionIfNewer py-super.dill (py-self.callPackage ../pkgs/python-modules/dill { });
