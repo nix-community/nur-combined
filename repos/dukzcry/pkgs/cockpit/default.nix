@@ -1,7 +1,10 @@
 { lib, stdenv, fetchzip, pkgconfig, glib, systemd, json-glib, gnutls, krb5, polkit, libssh, pam, libxslt, xmlto
-, python3, gnused, coreutils, makeWrapper, openssl }:
+, python3, gnused, coreutils, makeWrapper, openssl
+, packages ? [] }:
 
-stdenv.mkDerivation rec {
+let
+  path = lib.makeSearchPath "bin" ([ "$out" "/run/wrappers" "/run/current-system/sw" python3 ] ++ packages);
+in stdenv.mkDerivation rec {
   pname = "cockpit";
   version = "267";
 
@@ -31,7 +34,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.in \
       --replace "\$(DESTDIR)\$(sysconfdir)" "$out/etc"
     substituteInPlace src/session/session-utils.h \
-      --replace "DEFAULT_PATH \"" "DEFAULT_PATH \"$out/bin:/run/wrappers/bin:/run/current-system/sw/bin:${python3}/bin:"
+      --replace "DEFAULT_PATH \"" "DEFAULT_PATH \"${path}:"
   '';
 
   postInstall = ''
