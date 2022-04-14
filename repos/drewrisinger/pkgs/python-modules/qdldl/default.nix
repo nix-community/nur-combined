@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "qdldl";
-  version = "0.1.5.post0";
+  version = "0.1.5.post2";
 
   src = fetchFromGitHub {
     owner = "oxfordcontrol";
     repo = "qdldl-python";
     rev = "v${version}";
-    sha256 = "sha256-ffXQhBS7+VAzjlA/cbIWvjL/i53VlXe/yFaCAOKg9E0=";
+    sha256 = "sha256-pMbsM8mrZQrmc/rA5XbcKZD8gDK0pyrPnYpCS6IBOps=";
     fetchSubmodules = true;
   };
 

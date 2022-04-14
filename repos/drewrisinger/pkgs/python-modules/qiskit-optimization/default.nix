@@ -18,7 +18,7 @@
 
 buildPythonPackage rec {
   pname = "qiskit-optimization";
-  version = "0.3.0";
+  version = "0.3.2";
 
   disabled = pythonOlder "3.6";
 
@@ -26,12 +26,8 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-gNW8zb5URXqKIvd4Fh9+XDzACi6/34G5km4cGUQFGqM=";
+    sha256 = "sha256-SWrHNHZjynpWcwwrWzRPpbNWz8EhVujMoY8uIJQeT6U=";
   };
-
-  postPatch = ''
-    substituteInPlace requirements.txt --replace "networkx>=2.2,<2.6" "networkx"
-  '';
 
   propagatedBuildInputs = [
     docplex

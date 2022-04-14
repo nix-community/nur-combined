@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "asteval";
-  version = "0.9.25";
+  version = "0.9.26";
 
   disabled = pythonOlder "3.5";
 
@@ -17,7 +17,7 @@ buildPythonPackage rec {
     owner = "newville";
     repo = "asteval";
     rev = version;
-    sha256 = "sha256-Jy+4NifItCGI1Jj25VakwoJcrpZw0Ng4cArf2M31WGs=";
+    sha256 = "sha256-S8TQ1ZIczmXaIxCcvaM5QLF18xrfbz+4KBZT5kPZUVA=";
   };
 
   nativeBuildInputs = [
