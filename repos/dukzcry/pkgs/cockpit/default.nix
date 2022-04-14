@@ -3,7 +3,7 @@
 , packages ? [] }:
 
 let
-  path = lib.makeSearchPath "bin" ([ "$out" "/run/wrappers" "/run/current-system/sw" python3 ] ++ packages);
+  path = lib.makeSearchPath "bin" ([ "$out" "/run/wrappers" "/run/current-system/sw" ] ++ packages);
 in stdenv.mkDerivation rec {
   pname = "cockpit";
   version = "267";
