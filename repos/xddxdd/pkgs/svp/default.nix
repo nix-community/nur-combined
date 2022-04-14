@@ -1,6 +1,7 @@
 { stdenv
 , bubblewrap
 , fetchurl
+, ffmpeg
 , glibc
 , gnome
 , lib
@@ -56,6 +57,7 @@ let
   ];
 
   execPath = lib.makeBinPath [
+    ffmpeg.bin
     gnome.zenity
     lsof
     xdg-utils
@@ -120,6 +122,7 @@ let
       --bind ${glibc}/lib /lib
       --bind ${glibc}/lib /lib64
       --bind /usr/bin/env /usr/bin/env
+      --bind ${ffmpeg.bin}/bin/ffmpeg /usr/bin/ffmpeg
       --bind ${lsof}/bin/lsof /usr/bin/lsof
       --setenv PATH "${execPath}:''${PATH}"
       --setenv LD_LIBRARY_PATH "${libPath}:''${LD_LIBRARY_PATH}"
