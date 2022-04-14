@@ -2,6 +2,7 @@
 , lib
 , fetchFromGitHub
 , cmake
+, ninja
 , fmt
 , nlohmann_json
 , python3
@@ -17,7 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wgrY5ajaMYxznyNvlD0ul1PFr3W8oV9I/OVsStlZEBM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  postPatch = ''
+    # failing compilation due to MINSIGSTKSZ not being constant expression, has call to sysconf(int)
+    substituteInPlace tests/catch2/catch.hpp --replace "sigStackSize = 32768 >= MINSIGSTKSZ ? 32768 : MINSIGSTKSZ" "sigStackSize = 32768"
+  '';
+
+  nativeBuildInputs = [ cmake ninja ];
   buildInputs = [
     nlohmann_json
     (python3.withPackages(ps: [ ps.pybind11 ]))

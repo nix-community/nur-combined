@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "qutip";
-  version = "4.6.3";
+  version = "4.7.0";
   format = "pyproject";
   disabled = pythonOlder "3.5";
 
@@ -47,6 +47,7 @@ buildPythonPackage rec {
   pytestFlagsArray = [
     "--durations=10"
     "-rfE"
+    "-m 'not slow'"
   ];
   disabledTests = [
     # Slow tests, > 10s. All pass. Brings test time ~20 mins -> ~5 mins
@@ -101,6 +102,10 @@ buildPythonPackage rec {
     "test_coefficient_c_ops_3ls"
     "test_varying_coefficient_hamiltonian"
     "test_states_and_expect"
+    "test_object_oriented_approach_and_gradient"
+    "test_06_2_compare_state_and_unitary_func"
+    "test_QobjEvo_pickle"
+    "test_ssesolve_heterodyne"
   ];
 
   meta = with lib; {
