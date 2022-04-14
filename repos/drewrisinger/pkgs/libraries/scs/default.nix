@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "scs";
-  version = "3.0.0";
+  version = "3.2.0";
 
   src = fetchFromGitHub {
     owner = "cvxgrp";
     repo = "scs";
-    rev = "v${version}";
-    sha256 = "sha256-XnpsPPtftEwpgGFzpeFRuPT5e/5n3mS0yKz5EB8yMKo=";
+    rev = version;
+    sha256 = "sha256-ewn7AGNqTXY3bp5itHTfAQ2Es2ZAIbuRFM5U600Px50=";
   };
 
   # Actually link and add libgfortran to the rpath
