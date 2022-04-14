@@ -25,7 +25,7 @@ in {
       '';
     };
 
-    security.pam.services.cockpit.allowNullPassword = true;
+    security.pam.services.cockpit = {};
 
     environment.systemPackages = [ cockpit ];
     environment.pathsToLink = [ "/share/cockpit" ];
