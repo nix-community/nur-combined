@@ -20,9 +20,9 @@ in
           listenPort = 51820;
           privateKeyFile = "/persist/etc/wireguard/private.key";
           peers = [
-            # Calaeno (phone)
+            # Asterope (phone)
             {
-              publicKey = "jKsTxxfV+oyIDz+0GxN3eMMsEuDTsIAg0BWMvOcHWBo=";
+              publicKey = "K5oExYphRVuBjvzAl3SrGx68khEZpODvWb0EqdJn0VM=";
               allowedIPs = [
                 # Wireguard IPs
                 "10.100.0.2/32"
