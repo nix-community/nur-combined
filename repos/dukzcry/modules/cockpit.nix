@@ -2,7 +2,7 @@
 
 with lib;
 let
-  cockpit = pkgs.nur.repos.dukzcry.cockpit;
+  cpkgs = pkgs.nur.repos.dukzcry;
   cfg = config.services.cockpit;
 in {
   options.services.cockpit = {
@@ -16,7 +16,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = with pkgs; [ cockpit ];
+    systemd.packages = with cpkgs; [ cockpit ];
 
     system.activationScripts = {
       cockpit = ''
@@ -27,7 +27,7 @@ in {
 
     security.pam.services.cockpit = {};
 
-    environment.systemPackages = [ cockpit ];
+    environment.systemPackages = with cpkgs; [ cockpit cockpit-machines ];
     environment.pathsToLink = [ "/share/cockpit" ];
 
     systemd.sockets.cockpit.listenStreams = [ "" "${toString cfg.port}" ];
