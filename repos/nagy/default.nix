@@ -29,6 +29,7 @@ in rec {
     warctools = pkgs.python3Packages.callPackage ./pkgs/warctools { };
     blender-file = pkgs.python3Packages.callPackage ./pkgs/blender-file { };
     piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
+    blender-asset-tracer = pkgs.python3Packages.callPackage ./pkgs/blender-asset-tracer { };
   };
 
   schemaorg = callPackage ./pkgs/schemaorg { };
