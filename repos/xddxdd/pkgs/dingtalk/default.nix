@@ -16,6 +16,7 @@
 , gnutls
 , graphite2
 , gtk2
+, krb5
 , libdrm
 , libgcrypt
 , libGLU
@@ -54,6 +55,7 @@ let
     gnutls
     graphite2
     gtk2
+    krb5
     libdrm
     libgcrypt
     libGLU
