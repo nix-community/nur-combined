@@ -19,6 +19,10 @@
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus_sentences_detailed.tsv.bz2",
     "hash": "sha256-IP7x45SA7K6AxCL7XXLadzjiCoM5y/D8kRLC4kZ5bIo="
   },
+  "swe_sentences_detailed": {
+    "url": "https://downloads.tatoeba.org/exports/per_language/swe/swe_sentences_detailed.tsv.bz2",
+    "hash": "sha256-mV5Ax1XCw1uRqCW7H+llLaO10ko7lT9w092Shh5h6V4="
+  },
   "ukr_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/ukr/ukr_sentences_detailed.tsv.bz2",
     "hash": "sha256-SxLBzgWgOHkYvQAzEQetrVUdoKybR+4MvLZ7qB0bNvo="
@@ -46,6 +50,10 @@
   "eng-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-rus_links.tsv.bz2",
     "hash": "sha256-ds4LylYy9WEIz7rbsbtP+ifvUU7nm/iYatdhavGP+Us="
+  },
+  "eng-swe_links": {
+    "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-swe_links.tsv.bz2",
+    "hash": "sha256-RHAMVUgjk78BE9+yyFA61ua2yibWX1tSmZjwATQncLQ="
   },
   "eng-ukr_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-ukr_links.tsv.bz2",
@@ -83,9 +91,21 @@
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-fin_links.tsv.bz2",
     "hash": "sha256-/9emOgvkQkFlUTpaIqmZ8xSd8NcMYFSpIqcLySwvWzM="
   },
+  "rus-swe_links": {
+    "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-swe_links.tsv.bz2",
+    "hash": "sha256-3iWEMEhA+LAd+kMArNBQH0Bs6OzqhPjp1vBhiBrVris="
+  },
   "rus-ukr_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-ukr_links.tsv.bz2",
     "hash": "sha256-nOa2vM9LPyumVQCyNij8DS4/9zULICWmCg4fmmIwBL0="
+  },
+  "swe-eng_links": {
+    "url": "https://downloads.tatoeba.org/exports/per_language/swe/swe-eng_links.tsv.bz2",
+    "hash": "sha256-xGsFfA5qt7cB5NEjHEG8FJrcFYisP198PsOMqij1QtA="
+  },
+  "swe-rus_links": {
+    "url": "https://downloads.tatoeba.org/exports/per_language/swe/swe-rus_links.tsv.bz2",
+    "hash": "sha256-zgMAGr2mxaOGszsYQG7ljmFIDZt1mNbf1DlCvG3DlQo="
   },
   "ukr-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/ukr/ukr-eng_links.tsv.bz2",

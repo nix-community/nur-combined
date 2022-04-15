@@ -3,10 +3,11 @@ let
   langs = [
     "deu eng"
     "deu rus"
-    "eng epo"
     "eng deu"
+    "eng epo"
     "eng fin"
     "eng rus"
+    "eng swe"
     "eng ukr"
     "epo eng"
     "epo rus"
@@ -16,7 +17,10 @@ let
     "rus eng"
     "rus epo"
     "rus fin"
+    "rus swe"
     "rus ukr"
+    "swe eng"
+    "swe rus"
     "ukr eng"
     "ukr rus"
   ];

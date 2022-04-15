@@ -142,6 +142,7 @@ lib.makeScope newScope (
     gmi2html = callPackage ./gemini/gmi2html { };
     gmnhg = callPackage ./gemini/gmnhg { };
     gmnigit = callPackage ./gemini/gmnigit { };
+    gplaces = callPackage ./gemini/gplaces { };
     gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl {
       zig = pkgs.zig_0_8_1;
