@@ -12,16 +12,13 @@
         "armv7l-linux"
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      templates = import ./templates;
     in
     {
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
-      templates = {
-        go-hello = {
-          path = ./templates/go/hello;
-          description = "A simple Go package";
-        };
-      };
+      templates = templates.templates;
+      defaultTemplate = templates.default;
     };
 }
