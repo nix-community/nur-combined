@@ -98,9 +98,11 @@ in {
   #   };
   # });
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
-    urls = [
-      "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip"
-    ];
+    src = prev.fetchzip {
+      url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip";
+      sha256 = old.src.outputHash;
+      stripRoot = false;
+    };
   });
   calibre = prev.calibre.override { # remove after #168071 is merged
   python3Packages = prev.python3Packages.overrideScope (orig: old: {
