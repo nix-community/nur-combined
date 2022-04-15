@@ -1,0 +1,13 @@
+diff --git a/fs/proc/uptime.c b/fs/proc/uptime.c
+index deb99bc9b7e6..82ec50f7a258 100644
+--- a/fs/proc/uptime.c
++++ b/fs/proc/uptime.c
+@@ -24,7 +24,7 @@ static int uptime_proc_show(struct seq_file *m, void *v)
+ 		idle_nsec += get_idle_time(&kcs, i);
+ 	}
+ 
+-	ktime_get_boottime_ts64(&uptime);
++	ktime_get_ts64(&uptime);
+ 	timens_add_boottime(&uptime);
+ 
+ 	idle.tv_sec = div_u64_rem(idle_nsec, NSEC_PER_SEC, &rem);

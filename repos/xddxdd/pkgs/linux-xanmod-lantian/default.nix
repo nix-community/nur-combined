@@ -33,5 +33,5 @@ buildLinux {
     })
     (builtins.attrNames (builtins.readDir ./patches)));
 
-  extraMeta.broken = !stdenv.hostPlatform.isx86_64;
+  extraMeta.platforms = [ "x86_64-linux" "aarch64-linux" ];
 }
