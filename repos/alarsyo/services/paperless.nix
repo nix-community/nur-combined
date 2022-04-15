@@ -44,7 +44,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.paperless-ng = {
+    services.paperless = {
       enable = true;
       port = cfg.port;
       passwordFile = cfg.passwordFile;
@@ -67,15 +67,15 @@ in {
     };
 
     systemd.services = {
-      paperless-ng-server.serviceConfig = {
+      paperless-server.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
       };
 
-      paperless-ng-consumer.serviceConfig = {
+      paperless-consumer.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
       };
 
-      paperless-ng-web.serviceConfig = {
+      paperless-web.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
       };
     };
@@ -91,7 +91,7 @@ in {
       ];
     };
 
-    systemd.services.paperless-ng-server = {
+    systemd.services.paperless-server = {
       # Make sure the DB is available
       after = ["postgresql.service"];
     };
@@ -124,8 +124,8 @@ in {
 
     my.services.restic-backup = mkIf cfg.enable {
       paths = [
-        config.services.paperless-ng.dataDir
-        config.services.paperless-ng.mediaDir
+        config.services.paperless.dataDir
+        config.services.paperless.mediaDir
       ];
     };
   };
