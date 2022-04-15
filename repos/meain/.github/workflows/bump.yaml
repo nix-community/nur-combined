@@ -13,14 +13,15 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v17
         with:
-          nix_path: "nixpkgs=channel:nixos-21.11"
+          nix_path: 'nixpkgs=channel:nixos-21.11'
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Update packages
         run: |
           # shuf as github might rate-limit the api to fetch latest version
-          echo fluent-theme gh-issues-to-rss gloc nn quickserve toffee tojson traffic grpc-gateway sirus prosemd-lsp |
+          echo fluent-theme gh-issues-to-rss gloc nn quickserve toffee tojson \
+          traffic grpc-gateway sirus prosemd-lsp activitywatch-bin |
           tr ' ' '\n' | shuf | xargs -L1 ./_scripts/autoupdate
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
