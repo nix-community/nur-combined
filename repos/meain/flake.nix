@@ -17,5 +17,11 @@
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
+      templates = {
+        go-hello = {
+          path = ./templates/go/hello;
+          description = "A simple Go package";
+        };
+      };
     };
 }
