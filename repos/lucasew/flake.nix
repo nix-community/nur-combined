@@ -18,6 +18,7 @@
     nixgram =            {url =  "github:lucasew/nixgram/master";                   flake = false;                      };
     nixos-hardware =     {url =  "nixos-hardware";                                  inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-generators =   {url =  "github:nix-community/nixos-generators";           inputs.nixpkgs.follows = "nixpkgs"; };
+    nixpkgs-stable =     {url =  "github:NixOS/nixpkgs/nixos-21.11";                                                    };
     nixpkgs =            {url =  "github:NixOS/nixpkgs/nixos-unstable";                                                 };
     nur =                {url =  "nur";                                             inputs.nixpkgs.follows = "nixpkgs"; };
     pocket2kindle =      {url =  "github:lucasew/pocket2kindle";                    flake = false;                      };
@@ -59,12 +60,16 @@
         #   ];
         # };
 
-        mkPkgs = args: import nixpkgs (args // {
-          config = (args.config or {}) // {
-            allowUnfree = true;
-          };
-          overlays = (args.overlays or []) ++ (builtins.attrValues overlays);
-        });
+        mkPkgs = { 
+          nixpkgs ? inputs.nixpkgs
+        , config ? {}
+        , overlays ? []
+        , system ? builtins.currentSystem
+        }: import nixpkgs {
+          config = config // { allowUnfree = true; };
+          overlays = overlays ++ (builtins.attrValues self.outputs.overlays);
+          inherit system;
+        };
         pkgs = mkPkgs { inherit system; };
 
         global = rec {
@@ -135,104 +140,110 @@
         rust-overlay = inputs.rust-overlay.overlay;
         blender-bin = inputs.blender-bin.overlay;
         this = import ./overlay.nix self;
+        stable = final: prev: {
+          stable = mkPkgs {
+            nixpkgs = inputs.nixpkgs-stable;
+            inherit system;
+          };
+        };
       };
   in {
     inherit global;
     inherit overlays;
         # packages = pkgs;
 
-        homeConfigurations = let 
-          hmConf = allConfig:
-          let
-            source = allConfig // {
-              extraSpecialArgs = extraArgs;
-              inherit pkgs;
-            };
-            evaluated = homeManagerConfiguration source;
-            doc = docConfig evaluated;
-          in evaluated // {
-            inherit source doc;
-          };
-        in {
-          main = hmConf {
-            configuration = import ./homes/main/default.nix;
-            homeDirectory = "/home/${global.username}";
-            inherit (global) system username;
-          };
+    homeConfigurations = let 
+      hmConf = allConfig:
+      let
+        source = allConfig // {
+          extraSpecialArgs = extraArgs;
+          inherit pkgs;
         };
-
-        nixosConfigurations = let
-          nixosConf = {
-            mainModule,
-            extraModules ? [],
-          }:
-          let
-            revModule = {pkgs, ...}: {
-              system.configurationRevision = if (self ? rev) then 
-              trace "detected flake hash: ${self.rev}" self.rev
-              else
-              trace "flake hash not detected!" null;
-            };
-            source = {
-              inherit pkgs system;
-              modules = [
-                revModule
-                (mainModule)
-              ] ++ extraModules;
-              specialArgs = extraArgs;
-            };
-            eval = import "${nixpkgs}/nixos/lib/eval-config.nix";
-            override = mySource: fn: let
-              sourceProcessed = mySource // (fn mySource);
-              evaluated = eval sourceProcessed;
-              doc = docConfig evaluated;
-            in evaluated // {
-              source = sourceProcessed;
-              inherit doc;
-              override = override sourceProcessed;
-            };
-          in override source (v: {});
-        in {
-          vps = nixosConf {
-            mainModule = ./nodes/vps/default.nix;
-          };
-          acer-nix = nixosConf {
-            mainModule = ./nodes/acer-nix/default.nix;
-          };
-          bootstrap = nixosConf {
-            mainModule = ./nodes/bootstrap/default.nix;
-          };
-        };
-        nixOnDroidConfigurations = let
-          nixOnDroidConf = {mainModule}:
-          import "${nix-on-droid}/modules" {
-            config = {
-              _module.args = extraArgs;
-              home-manager.config._module.args = extraArgs;
-              imports = [
-                mainModule
-              ];
-            };
-            pkgs = mkPkgs {
-              overlays = (import "${nix-on-droid}/overlays");
-            };
-            home-manager = import home-manager {};
-            isFlake = true;
-          };
-        in {
-          xiaomi = nixOnDroidConf {
-            mainModule = ./nodes/xiaomi/default.nix;
-          };
-        };
-
-        devShells.${system}.default = pkgs.mkShell {
-          name = "nixcfg-shell";
-          buildInputs = [];
-          shellHook = ''
-            ${global.environmentShell}
-            echo Shell setup complete!
-          '';
-        };
+        evaluated = homeManagerConfiguration source;
+        doc = docConfig evaluated;
+      in evaluated // {
+        inherit source doc;
       };
-    }
+    in {
+      main = hmConf {
+        configuration = import ./homes/main/default.nix;
+        homeDirectory = "/home/${global.username}";
+        inherit (global) system username;
+      };
+    };
+
+    nixosConfigurations = let
+      nixosConf = {
+        mainModule,
+        extraModules ? [],
+      }:
+      let
+        revModule = {pkgs, ...}: {
+          system.configurationRevision = if (self ? rev) then 
+          trace "detected flake hash: ${self.rev}" self.rev
+          else
+          trace "flake hash not detected!" null;
+        };
+        source = {
+          inherit pkgs system;
+          modules = [
+            revModule
+            (mainModule)
+          ] ++ extraModules;
+          specialArgs = extraArgs;
+        };
+        eval = import "${nixpkgs}/nixos/lib/eval-config.nix";
+        override = mySource: fn: let
+          sourceProcessed = mySource // (fn mySource);
+          evaluated = eval sourceProcessed;
+          doc = docConfig evaluated;
+        in evaluated // {
+          source = sourceProcessed;
+          inherit doc;
+          override = override sourceProcessed;
+        };
+      in override source (v: {});
+    in {
+      vps = nixosConf {
+        mainModule = ./nodes/vps/default.nix;
+      };
+      acer-nix = nixosConf {
+        mainModule = ./nodes/acer-nix/default.nix;
+      };
+      bootstrap = nixosConf {
+        mainModule = ./nodes/bootstrap/default.nix;
+      };
+    };
+    nixOnDroidConfigurations = let
+      nixOnDroidConf = {mainModule}:
+      import "${nix-on-droid}/modules" {
+        config = {
+          _module.args = extraArgs;
+          home-manager.config._module.args = extraArgs;
+          imports = [
+            mainModule
+          ];
+        };
+        pkgs = mkPkgs {
+          overlays = (import "${nix-on-droid}/overlays");
+        };
+        home-manager = import home-manager {};
+        isFlake = true;
+      };
+    in {
+      xiaomi = nixOnDroidConf {
+        mainModule = ./nodes/xiaomi/default.nix;
+      };
+    };
+
+    devShells.${system}.default = pkgs.mkShell {
+      name = "nixcfg-shell";
+      buildInputs = [];
+      shellHook = ''
+        ${global.environmentShell}
+        echo Shell setup complete!
+      '';
+    };
+  };
+}
 

@@ -559,6 +559,7 @@ timeout=10
           enable = true;
           noDesktop = true;
           enableXfwm = false;
+          enableScreensaver = false;
         };
       };
       windowManager.i3 = {
