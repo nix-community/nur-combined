@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   devspace = pkgs.callPackage ./pkgs/devspace { };
+  kim = pkgs.callPackage ./pkgs/kim { };
 }
