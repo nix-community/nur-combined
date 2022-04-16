@@ -3,13 +3,13 @@
 pkgs.stdenv.mkDerivation rec {
   pname = "warpd";
   name = pname;
-  version = "1.0.1-beta";
+  version = "1.1.2-beta";
 
   src = fetchFromGitHub {
     owner = "rvaiya";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "sha256-mj32/0Zngb38xgpo3lr6pC0fwrkJ5t7YmI97JlXOeLM=";
+    sha256 = "sha256-2gq5DZs5QGiz4kSDdqHjPX0uFh9WwomWWGV5YujE+Mc=";
   };
 
   nativeBuildInputs = [xorg.libX11 xorg.libXi xorg.libXinerama xorg.libXft xorg.libXtst xorg.libXext.dev];
