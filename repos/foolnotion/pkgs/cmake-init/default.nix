@@ -1,7 +1,7 @@
 { lib, buildPythonPackage, fetchFromGitHub, fetchPypi, python, git, cmake, clang-tools, cppcheck, lcov, codespell }:
 buildPythonPackage rec {
   pname = "cmake-init";
-  version = "0.27.4";
+  version = "0.28.1";
   format = "wheel";
 
   src = fetchPypi {
@@ -9,7 +9,7 @@ buildPythonPackage rec {
     pname = "cmake_init";
     dist = "py3";
     python = "py3";
-    sha256 = "sha256-u6g5w0+xkuE27N1eGk531eyAyeSFhTRyLctXlJnf85o=";
+    sha256 = "sha256-du4/JPs6jSf0GiH0H9WtEhNieLZ2U+4VNE+ZNuVx6ns=";
   };
 
   nativeBuildInputs = [ python git cmake ];
