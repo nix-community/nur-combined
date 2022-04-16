@@ -92,7 +92,10 @@ in wrapNeovim pkgs.neovim-unwrapped {
   ];
   configure = {
     plug.plugins = with vimPlugins; [
-      (coq_nvim.overrideAttrs (old: {patches = [ ./coq.patch ]; }))
+      (coq_nvim.overrideAttrs (old: {patches = [ 
+        ./coq.patch 
+        ./coq_venv.patch
+      ]; }))
       # coq_nvim
       dart-vim-plugin
       echodoc

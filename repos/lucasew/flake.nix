@@ -91,7 +91,7 @@
               nix repl "$NIXCFG_ROOT_PATH/repl.nix" "$@"
             }
             export LUA_PATH="${concatStringsSep ";" [
-              "${fennel}/share/lua/5.4.3/?.lua"
+              ''$(realpath ${fennel}/share/lua/*)/?.lua''
               "$NIXCFG_ROOT_PATH/scripts/?.lua"
               "$NIXCFG_ROOT_PATH/scripts/?/index.lua"
             ]}"

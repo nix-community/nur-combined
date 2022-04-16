@@ -83,8 +83,8 @@ self: super: {
     pname = "std2";
     version = "0.1.10";
     src = fetchurl {
-      url = "https://github.com/ms-jpq/std2/archive/9f5ea8993d533cd753d97c8b3cd766abdcfd1291.tar.gz";
-      sha256 = "sha256-b7vfIMHHNQ6ZmAEa0djWXQwF3BMFla6LqwVD0kYrcT8=";
+      url = "https://github.com/ms-jpq/std2/archive/c415a7ec8bd94b2c49a60f6f85ed529b0e574a9b.tar.gz";
+      sha256 = "sha256-9Gdp2NZSVTfAoWso5SJJ29PfXT/cJ42a9XHEr1e1w8Q=";
     };
     format = "setuptools";
     doCheck = false;
