@@ -7,15 +7,20 @@
 
 buildPythonPackage rec {
   pname = "homeassistant-stubs";
-  version = "2022.3.8";
+  version = "2022.4.4";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "KapJI";
     repo = pname;
     rev = "${version}";
-    sha256 = "1r8b4ikayv2wmwv5fdqi421pjg6g7jkfw6d0w79p0ry9mpy824mq";
+    sha256 = "0v688hdb51p1ilsc54830ql870sy23ibkgh1ync5kscz4if4ivb7";
   };
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace 'homeassistant = "2022.4.2"' 'homeassistant = "2022.4.4"'
+  '';
 
   nativeBuildInputs = [
     poetry-core
