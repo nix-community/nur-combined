@@ -283,13 +283,13 @@ let
         sha512 = "eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==";
       };
     };
-    "lru-cache-7.8.0" = {
+    "lru-cache-6.0.0" = {
       name = "lru-cache";
       packageName = "lru-cache";
-      version = "7.8.0";
+      version = "6.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/lru-cache/-/lru-cache-7.8.0.tgz";
-        sha512 = "AmXqneQZL3KZMIgBpaPTeI6pfwh+xQ2vutMsyqOu1TBdEXFZgpG/80wuJ531w2ZN7TI0/oc8CPxzh/DKQudZqg==";
+        url = "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz";
+        sha512 = "Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==";
       };
     };
     "minimatch-3.1.2" = {
@@ -427,13 +427,13 @@ let
         sha512 = "Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==";
       };
     };
-    "semver-7.3.6" = {
+    "semver-7.3.7" = {
       name = "semver";
       packageName = "semver";
-      version = "7.3.6";
+      version = "7.3.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.3.6.tgz";
-        sha512 = "HZWqcgwLsjaX1HBD31msI/rXktuIhS+lWvdE4kN9z+8IVT4Itc7vqU2WvYsyD6/sjYCt4dEKH/m1M3dwI9CC5w==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.3.7.tgz";
+        sha512 = "QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==";
       };
     };
     "shebang-command-2.0.0" = {
@@ -589,12 +589,21 @@ let
         sha512 = "LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==";
       };
     };
+    "yallist-4.0.0" = {
+      name = "yallist";
+      packageName = "yallist";
+      version = "4.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz";
+        sha512 = "3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==";
+      };
+    };
   };
   args = {
     name = "create-react-app";
     packageName = "create-react-app";
-    version = "5.0.0";
-    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-5.0.0.tgz"; sha1 = "443bb597f7fea2235f6c4570c4fb5da4d68d502f"; };
+    version = "5.0.1";
+    src = fetchurl { url = "https://registry.npmjs.org/create-react-app/-/create-react-app-5.0.1.tgz"; sha1 = "b0d30d89aaa4f09bbd8bc2f2bcb3fb5637e01af6"; };
     dependencies = [
       sources."ansi-styles-4.3.0"
       sources."balanced-match-1.0.2"
@@ -626,7 +635,7 @@ let
       sources."isexe-2.0.0"
       sources."jsonfile-6.1.0"
       sources."kleur-3.0.3"
-      sources."lru-cache-7.8.0"
+      sources."lru-cache-6.0.0"
       sources."minimatch-3.1.2"
       sources."minimist-1.2.6"
       sources."mkdirp-0.5.6"
@@ -639,7 +648,7 @@ let
       sources."readable-stream-1.1.14"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.1.2"
-      sources."semver-7.3.6"
+      sources."semver-7.3.7"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
       sources."sisteransi-1.0.5"
@@ -670,6 +679,7 @@ let
       sources."which-2.0.2"
       sources."wrappy-1.0.2"
       sources."xtend-4.0.2"
+      sources."yallist-4.0.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {
