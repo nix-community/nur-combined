@@ -2,18 +2,16 @@
 
 stdenv.mkDerivation rec {
   pname = "keyd";
-  version = "2.2.5-beta";
+  version = "2.3.1-rc";
 
   src = fetchFromGitHub {
     owner = "rvaiya";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-Mb5LU8xsX8H/k3yMQiaCw4BVMphxNo25HPE0sMWTD8Y=";
+    sha256 = "sha256-mb42IazLFOWYH0fDnNcMOpsq9X0xjWDfWyjszRGbwU8=";
   };
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
-
-  patches = [ ./keyd.patch ];
 
   meta = with lib; {
     homepage = "https://github.com/rvaiya/keyd";
