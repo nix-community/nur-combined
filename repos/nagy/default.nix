@@ -93,4 +93,6 @@ in rec {
   sasl2-oauth = callPackage ./pkgs/sasl2-oauth { };
 
   oauth2ms = pkgs.callPackage ./pkgs/oauth2ms { };
+
+  q = callPackage ./pkgs/q { };
 }
