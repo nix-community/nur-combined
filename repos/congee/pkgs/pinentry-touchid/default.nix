@@ -41,5 +41,7 @@ buildGoModule rec {
     maintainers = with maintainers; [ congee ];
     mainProgram = "pinentry-touchid";
     platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    # Well, not really. The GitHub CI just does not evaluate darwin only packages.
+    broken = true;
   };
 }
