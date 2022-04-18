@@ -16,7 +16,6 @@ jobs:
       matrix:
         system:
           - x86_64-linux
-          - aarch64-linux
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
