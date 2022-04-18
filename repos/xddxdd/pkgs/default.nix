@@ -71,6 +71,7 @@ rec {
   rime-zhwiki = pkg ./rime-zhwiki { };
   route-chain = pkg ./route-chain { };
   svp = pkg ./svp { };
+  tachidesk-server = pkg ./tachidesk-server { };
   vs-rife = pkg ./vs-rife { };
   wechat-uos = pkg ./wechat-uos { };
   wechat-uos-bin = pkg ./wechat-uos/official-bin.nix { };
