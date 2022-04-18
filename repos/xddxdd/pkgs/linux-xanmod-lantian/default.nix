@@ -34,4 +34,5 @@ buildLinux {
     (builtins.attrNames (builtins.readDir ./patches)));
 
   extraMeta.broken = !stdenv.hostPlatform.isx86_64;
+  preferLocalBuild = true;
 }
