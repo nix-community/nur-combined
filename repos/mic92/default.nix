@@ -114,6 +114,8 @@ rec {
     fonts = [ "SourceCodePro" ];
   };
 
+  #peerix = pkgs.python3.pkgs.callPackage ./pkgs/peerix { };
+
   traceshark = pkgs.qt5.callPackage ./pkgs/traceshark { };
 
   tmux-thumbs = pkgs.callPackage ./pkgs/tmux-thumbs { };
@@ -127,6 +129,8 @@ rec {
   noise-suppression-for-voice = pkgs.callPackage ./pkgs/noise-suppression-for-voice { };
 
   mailexporter = pkgs.callPackage ./pkgs/mailexporter { };
+
+  q = pkgs.callPackage ./pkgs/q { };
 
   modules = import ./modules;
 }
