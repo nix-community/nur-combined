@@ -16,6 +16,7 @@ in {
 
    (mkIf cfg.enable {
       environment.systemPackages = [ sunshine ];
+      systemd.packages = [ sunshine ];
       hardware.uinput.enable = true;
       users.extraUsers.${cfg.user}.extraGroups = [ "uinput" ];
       security.wrappers.sunshine = {
