@@ -10,6 +10,10 @@ in {
     user = mkOption {
       type = types.str;
     };
+    games = mkOption {
+      type = types.listOf types.package;
+      default = [];
+    };
   };
 
   config = mkMerge [
@@ -18,7 +22,10 @@ in {
       environment.systemPackages = [ sunshine ];
       systemd.packages = [ sunshine ];
       hardware.uinput.enable = true;
-      users.extraUsers.${cfg.user}.extraGroups = [ "uinput" ];
+      users.extraUsers.${cfg.user} = {
+        extraGroups = [ "uinput" ];
+        packages = cfg.games;
+      };
       security.wrappers.sunshine = {
         owner = "root";
         group = "root";
