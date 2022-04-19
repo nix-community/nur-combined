@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "json2tsv";
-  version = "0.8";
+  version = "0.9";
 
   src = fetchgit {
-    url = "git://git.codemadness.org/${pname}";
+    url = "git://git.codemadness.org/json2tsv";
     rev = version;
-    sha256 = "sha256-bpXEVWayFQYJDXDzaJIFuoNJubgbw5URNOpYz3K0DPI=";
+    sha256 = "sha256-z0hkFVYwELjGXgnA67TuCELC/P74+42hDLfOHrTE8kA=";
   };
 
   makeFlags = [ "RANLIB:=$(RANLIB)" ];
