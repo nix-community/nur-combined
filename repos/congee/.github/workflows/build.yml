@@ -72,7 +72,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       env:
-        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
+        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1  # for Darwin builds
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
