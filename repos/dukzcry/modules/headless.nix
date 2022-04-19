@@ -3,8 +3,8 @@
 with lib;
 let
   cfg = config.services.headless;
-  xorg = cfg.enable && config.services.headless.xorg;
-  wayland = cfg.enable && config.services.headless.wayland;
+  xorg = config.services.headless.xorg;
+  wayland = config.services.headless.wayland;
 in {
   options.services.headless = {
     xorg = mkEnableOption "via X.Org";
