@@ -17,4 +17,5 @@
   devspace = pkgs.callPackage ./pkgs/devspace { };
   kim = pkgs.callPackage ./pkgs/kim { };
   pinentry-touchid = pkgs.callPackage ./pkgs/pinentry-touchid { };
+  pam-touchid = pkgs.callPackage ./pkgs/pam-touchid { };
 }
