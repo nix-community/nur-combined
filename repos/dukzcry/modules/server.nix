@@ -24,6 +24,7 @@ in {
         jellyfin-media-player
         transmission-remote-gtk
         nextcloud-client
+        moonlight-qt
       ];
     };
     nix.buildMachines = [{
