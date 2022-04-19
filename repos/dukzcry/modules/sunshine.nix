@@ -23,7 +23,7 @@ in {
       systemd.packages = [ sunshine ];
       hardware.uinput.enable = true;
       users.extraUsers.${cfg.user} = {
-        extraGroups = [ "uinput" ];
+        extraGroups = [ "uinput" "video" ];
         packages = cfg.games;
       };
       security.wrappers.sunshine = {
