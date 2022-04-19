@@ -36,7 +36,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 sunshine $out/bin/sunshine
-    install -Dm644 sunshine.service $out/lib/systemd/user/sunshine.service
     install -Dm644 $src/assets/apps_linux.json $out/etc/sunshine/apps_linux.json
     install -Dm644 $src/assets/sunshine.conf $out/etc/sunshine/sunshine.conf
     cp -r $src/assets/web $out/etc/sunshine
