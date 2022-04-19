@@ -49,4 +49,5 @@ in rec {
   cockpit = pkgs.callPackage ./pkgs/cockpit {};
   cockpit-machines = pkgs.callPackage ./pkgs/cockpit/machines.nix {};
   libvirt-dbus = pkgs.callPackage ./pkgs/libvirt-dbus.nix {};
+  sunshine = pkgs.callPackage ./pkgs/sunshine.nix {};
 }
