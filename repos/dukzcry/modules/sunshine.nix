@@ -2,10 +2,10 @@
 
 with lib;
 let
-  cfg = config.services.sunshine;
+  cfg = config.programs.sunshine;
   sunshine = pkgs.nur.repos.dukzcry.sunshine;
 in {
-  options.services.sunshine = {
+  options.programs.sunshine = {
     enable = mkEnableOption "Sunshine headless server";
     user = mkOption {
       type = types.str;

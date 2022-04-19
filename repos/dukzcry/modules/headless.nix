@@ -3,8 +3,6 @@
 with lib;
 let
   cfg = config.services.headless;
-  xorg = config.services.headless.xorg;
-  wayland = config.services.headless.wayland;
 in {
   options.services.headless = {
     xorg = mkEnableOption "via X.Org";
@@ -29,7 +27,7 @@ in {
 
   config = mkMerge [
 
-   (mkIf xorg {
+   (mkIf cfg.xorg {
       boot.extraModprobeConfig = ''
         options amdgpu virtual_display=${cfg.devid}
       '';
@@ -50,7 +48,7 @@ in {
         ${cfg.commands}
       '';
    })
-   (mkIf wayland {
+   (mkIf cfg.wayland {
       programs.sway.enable = true;
       programs.sway.extraSessionCommands = ''
         export WLR_BACKENDS=headless WLR_LIBINPUT_NO_DEVICES=1 sway
@@ -63,9 +61,11 @@ in {
       systemd.user.services.headless = {
         wantedBy = optional cfg.autorun "default.target";
         description = "Graphical headless server";
-        path = [ "/run/current-system/sw" ];
         serviceConfig = {
-          ExecStart = "/run/current-system/sw/bin/sway";
+          ExecStart = pkgs.writeShellScript "sway" ''
+            . /etc/set-environment
+            sway
+          '';
         };
       };
       # https://github.com/NixOS/nixpkgs/issues/3702
