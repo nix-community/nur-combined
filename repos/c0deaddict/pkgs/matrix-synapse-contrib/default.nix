@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "matrix-synapse-contrib";
-  version = "1.55.0";
+  version = "1.56.0";
 
   src = fetchFromGitHub {
     owner = "matrix-org";
     repo = "synapse";
     rev = "v${version}";
-    sha256 = "sha256-ddrb+Py2I1JxKdiMx7f+1imO4gA76WH+Nbqf5JtaL3s=";
+    sha256 = "sha256-rzS2u5TkmwEb1cs7MwO/HrEmn1VHnrku9Q7Gw6CesOs=";
   };
 
   installPhase = ''
