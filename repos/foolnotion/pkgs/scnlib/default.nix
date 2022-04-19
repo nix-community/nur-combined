@@ -2,18 +2,18 @@
 
 stdenv.mkDerivation rec {
   pname = "scnlib";
-  version = "0.4-pre";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "eliaskosunen";
     repo = "scnlib";
-    rev = "815782badc1b548c21bb151372497e1516bee806";
-    sha256 = "sha256-Y5ANxykHH/Ry4vOTjNMC77PEMzwqC2FNY8qKRVyPREM=";
+    rev = "83b65b0f7d552fc09908487116cb73cadc453959";
+    sha256 = "sha256-SCi70Ag5mPbOzfORa9wI2h93ufHen0376UYoy+psNF8=";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DSCN_TESTS=OFF" "-DSCN_BENCHMARKS=OFF" ];
+  cmakeFlags = [ "-DSCN_TESTS=OFF" "-DSCN_BENCHMARKS=OFF" "-DSCN_EXAMPLES=OFF" ];
 
   meta = with lib; {
     description = "Modern C++ library for replacing scanf and std::istream. .";

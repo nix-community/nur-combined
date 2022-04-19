@@ -25,7 +25,7 @@
   xxhash,
   # build options
   useSinglePrecision ? true,
-  buildCliPrograms ? true,
+  buildCliPrograms ? false,
   buildSharedLibs ? true,
   useOpenLibm ? true,
   useJemalloc ? false
@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "operon";
-    rev = "2c1edf616dc51c8a6eb2ff214bb63d4766b28064";
-    sha256 = "sha256-GK7CCQcMHJGDuc1DWi0rg9/+TLfbC46cpd4K0HFLwJ0=";
+    rev = "067beaf50fcedfeff1d120beb43b3907a9a7314e";
+    sha256 = "sha256-zbxiYzxmJWyxPjMDWsOYwUw/Q2SA2B2ujb4jVKX69RU=";
   };
 
   nativeBuildInputs = [ cmake git ];
@@ -71,6 +71,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=${if buildSharedLibs then "ON" else "OFF"}"
     "-DUSE_JEMALLOC=${if useJemalloc then "ON" else "OFF"}"
     "-DUSE_OPENLIBM=${if useOpenLibm then "ON" else "OFF"}"
+    "-DCMAKE_CXX_FLAGS=${if stdenv.targetPlatform.isx86_64 then "-march=haswell" else ""}"
   ];
 
   meta = with lib; {

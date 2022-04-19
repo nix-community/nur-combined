@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "pyoperon";
-    rev = "ecd1307d5bf34b2e05909b8aff210ea73ac2e150";
-    sha256 = "sha256-cE5q6yUo1OfKAYPVHXzN8Cq2/tHolTe0mEu29GI4U1s=";
+    rev = "20127de3d5afe480762b56bc2d09298ffaaa4150";
+    sha256 = "sha256-tunhlBJPFKdqvAUD0S2TpsTJNcrvRcfUzTGW1MoTtvc=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -53,6 +53,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_CXX_FLAGS=${if stdenv.targetPlatform.isx86_64 then "-march=haswell" else ""}"
   ];
 
   meta = with lib; {
