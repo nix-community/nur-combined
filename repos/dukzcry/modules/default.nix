@@ -15,7 +15,7 @@ rec {
   job = ./job.nix;
   monitor = import ./monitor.nix unstable;
   server = import ./server.nix [ edgevpn ];
-  steam = ./steam.nix;
+  headless = ./headless.nix;
   sunshine = ./sunshine.nix;
   wifi = ./wifi.nix;
   rkn = import ./rkn.nix libidn [ tun2socks ];

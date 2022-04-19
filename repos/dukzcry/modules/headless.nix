@@ -2,12 +2,11 @@
 
 with lib;
 let
-  cfg = config.hardware.steam;
-  xorg = cfg.enable && config.hardware.steam.xorg;
-  wayland = cfg.enable && config.hardware.steam.wayland;
+  cfg = config.services.headless;
+  xorg = cfg.enable && config.services.headless.xorg;
+  wayland = cfg.enable && config.services.headless.wayland;
 in {
-  options.hardware.steam = {
-    enable = mkEnableOption "Steam headless server";
+  options.services.headless = {
     xorg = mkEnableOption "via X.Org";
     wayland = mkEnableOption "via Wayland";
     autorun = mkEnableOption "run by default";
@@ -19,17 +18,17 @@ in {
       type = types.str;
       default = "1920x1080";
     };
+    user = mkOption {
+      type = types.str;
+    };
+    commands = mkOption {
+      type = types.str;
+      default = "";
+    };
   };
 
   config = mkMerge [
 
-   (mkIf cfg.enable {
-    programs.steam.enable = true;
-    hardware.pulseaudio.enable = true;
-    users.extraUsers.steam = {
-      isNormalUser = true;
-    };
-   })
    (mkIf xorg {
       boot.extraModprobeConfig = ''
         options amdgpu virtual_display=${cfg.devid}
@@ -43,12 +42,12 @@ in {
         EndSubSection
       '';
       services.xserver.displayManager.autoLogin.enable = true;
-      services.xserver.displayManager.autoLogin.user = "steam";
+      services.xserver.displayManager.autoLogin.user = cfg.user;
       services.xserver.displayManager.defaultSession = "none+i3";
       services.xserver.windowManager.i3.enable = true;
       services.xserver.windowManager.i3.extraSessionCommands = ''
         exec ${pkgs.x11vnc}/bin/x11vnc -forever &
-        exec steam &
+        ${cfg.commands}
       '';
    })
    (mkIf wayland {
@@ -56,14 +55,14 @@ in {
       programs.sway.extraSessionCommands = ''
         export WLR_BACKENDS=headless WLR_LIBINPUT_NO_DEVICES=1 sway
       '';
-      environment.etc."sway/config.d/gaming.conf".source = pkgs.writeText "gaming.conf" ''
+      environment.etc."sway/config.d/headless.conf".source = pkgs.writeText "headless.conf" ''
         exec ${pkgs.wayvnc}/bin/wayvnc 0.0.0.0
-        exec steam
+        ${cfg.commands}
         output HEADLESS-1 resolution ${cfg.resolution}
       '';
-      systemd.user.services.steam = {
+      systemd.user.services.headless = {
         wantedBy = optional cfg.autorun "default.target";
-        description = "Steam headless server";
+        description = "Graphical headless server";
         path = [ "/run/current-system/sw" ];
         serviceConfig = {
           ExecStart = "/run/current-system/sw/bin/sway";
@@ -74,7 +73,7 @@ in {
         enableLingering = ''
           rm -r /var/lib/systemd/linger
           mkdir /var/lib/systemd/linger
-          touch /var/lib/systemd/linger/steam
+          touch /var/lib/systemd/linger/${cfg.user}
         '';
       };
     })
