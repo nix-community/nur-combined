@@ -17,6 +17,7 @@ in {
 
   config = mkIf cfg.enable {
     systemd.packages = with cpkgs; [ (cockpit.override { packages = with pkgs; [ virtmanager ]; }) ];
+    systemd.sockets.cockpit.wantedBy = [ "sockets.target" ];
 
     system.activationScripts = {
       cockpit = ''
