@@ -296,6 +296,7 @@ lib.makeScope newScope (
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
+    nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
     playonmac = callPackage ./misc/playonmac { };
