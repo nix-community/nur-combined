@@ -45,4 +45,12 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/sunshine \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ avahi mesa libGL ]}"
   '';
+
+  meta = with lib; {
+    description = "Host for Moonlight Streaming Client";
+    license = licenses.gpl3;
+    homepage = src.meta.homepage;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ ];
+  };
 }
