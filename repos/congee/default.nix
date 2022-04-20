@@ -21,4 +21,5 @@
   pam-reattach = pkgs.callPackage ./pkgs/pam-reattach { };
   sncli = pkgs.callPackage ./pkgs/sncli { };
   ory.hydra = pkgs.callPackage ./pkgs/ory/hydra { };
+  whereami = pkgs.callPackage ./pkgs/whereami { };
 }
