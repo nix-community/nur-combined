@@ -26,7 +26,6 @@ lib.makeScope newScope (
       pkgsFishPlugins = pkgs.fishPlugins;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
-    nix-gc-s3 = callPackage ./nix-gc-s3 { };
     telegram-send = callPackage ./telegram-send { };
     trojan = callPackage ./trojan { };
     vlmcsd = callPackage ./vlmcsd { };

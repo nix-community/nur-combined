@@ -15,7 +15,7 @@
         inherit self inputs;
 
         sharedOverlays = builtins.attrValues (self.overlays);
-        channels.nixpkgs.config = {
+        channelsConfig = {
           allowUnfree = true;
           allowAliases = false;
         };
