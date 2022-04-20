@@ -102,6 +102,10 @@ in {
     programs.nm-applet.enable = true;
     programs.steam.enable = true;
 
+    # this is necessary to set GTK stuff in home manager
+    # FIXME: better interdependency between this and the home part
+    programs.dconf.enable = true;
+
     # NOTE: needed for home emacs configuration
     nixpkgs.config.input-fonts.acceptLicense = true;
   };

@@ -8,6 +8,7 @@
     ./fish
     ./flameshot.nix
     ./git.nix
+    ./gtk.nix
     ./laptop.nix
     ./lorri.nix
     ./mail.nix
