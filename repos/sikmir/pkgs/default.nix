@@ -280,6 +280,7 @@ lib.makeScope newScope (
     csvquote = callPackage ./misc/csvquote { };
     csvtools = callPackage ./misc/csvtools { };
     didder = callPackage ./misc/didder { };
+    dns-filter = callPackage ./misc/dns-filter { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
     docx2csv = callPackage ./misc/docx2csv { };
     finalcut = callPackage ./misc/finalcut { };
