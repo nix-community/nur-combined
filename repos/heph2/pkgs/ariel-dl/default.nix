@@ -31,4 +31,6 @@ perlPackages.buildPerlPackage rec {
   postInstall = ''
    shortenPerlShebang $out/bin/ariel-dl
   '';
+
+  meta.broken = true;
 }

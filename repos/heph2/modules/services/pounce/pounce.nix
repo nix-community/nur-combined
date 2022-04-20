@@ -4,9 +4,7 @@ with lib;
 
 let
   cfg = config.services.pounce;
-
   defaultUser = "pounce";
-
   configFile = pkgs.writeText "pounce" ''
     ${optionalString (cfg.sslCa != null) "local-ca = "+cfg.sslCa}
     local-host = ${cfg.hostAddress}
@@ -57,9 +55,10 @@ in
 
       dataDir = mkOption {
         default = "/var/lib/pounce";
-        example = "/home/john/.znc";
+        example = "/home/john/.pounce";
         type = types.path;
         description = ''
+          Configuration directory
         '';
       };
 
@@ -67,20 +66,20 @@ in
         type = types.package;
         default = pkgs.pounce;
         defaultText = "pkgs.pounce";
-        description = "";
       };
       
       hostAddress = mkOption {
         type = types.str;
         default = "127.0.0.1";
         description = ''
+         Where pounce should listen for incoming connections
         '';
       };
 
       hostPort = mkOption {
         type = types.int;
         default = 6697;
-        description = ''
+        description = ''          
         '';
       };
 
@@ -89,6 +88,8 @@ in
         default = null;
         example = "~/.config/pounce/pouncecert.pem";
         description = ''
+          Path for TLS Certificate for CertFP. Needed
+          for logging to Pounce password-less.
         '';
       };
 
@@ -97,6 +98,7 @@ in
         default = null;
         example = "/etc/letsencrypt/cert/private.key";
         description = ''
+          Path to server TLS certificate key.
         '';
       };
 
@@ -105,6 +107,7 @@ in
         default = null;
         example = "/etc/letsencrypt/cert/cert.crt";
         description = ''
+           Path to server TLS certificate.
         '';
       };
 
@@ -113,9 +116,9 @@ in
         default = null;
         example = "/etc/pounce/libera-user.pem";
         description = ''
+           Path to certFP certificate for login to IRC server
         '';
       };
-
 
       # If you want to use password, you need to generate it with pounce -x
       hashedPass = mkOption {

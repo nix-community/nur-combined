@@ -8,6 +8,8 @@
 , ncurses
 , autoreconfHook
 , buildPackages
+, makeDesktopItem
+, copyDesktopItems
 }:
 
 stdenv.mkDerivation rec {
@@ -17,14 +19,15 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = pname;
-    rev = "bf5b33f40e876afe41fd486ff5d3eb182dfaf046";
-    sha256 = "lJlJ5ushTzF7j+BKQxVhV8zyB8XhSFOOzBS0FjwFWZk=";
+    rev = "19b1c23de9222d72aa0c57e00fdd9c3d01bcd485";
+    sha256 = "P/nixtQi0ae8fsdpTr25E7SxfrzFJW5kN7i/ZF4whio=";
   };
 
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
     bison
+    copyDesktopItems
   ];
 
   buildInputs = [
@@ -37,11 +40,24 @@ stdenv.mkDerivation rec {
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
   ];
 
+  desktopItems = [
+    (makeDesktopItem {
+      name = "Telescope";
+      exec = "${pname}";
+      icon = "com.omarpolo.Telescope";
+      desktopName = "Telescope";
+      terminal = true;
+      categories = "Network";
+      comment = "Multi-protocol browser for the small internet";
+    })
+  ];
+
   meta = with lib; {
     description = "Telescope is a w3m-like browser for Gemini";
     homepage = "https://telescope.omarpolo.com/";
     license = licenses.isc;
     maintainers = with maintainers; [ heph2 ];
     platforms = platforms.unix;
+    broken = true;
   };
 }

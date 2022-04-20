@@ -22,5 +22,6 @@ perlPackages.buildPerlPackage {
    shortenPerlShebang $out/bin/atlas
   '';
 
+  meta.broken = true;
 }
 
