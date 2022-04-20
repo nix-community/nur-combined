@@ -1,6 +1,6 @@
 { lib, fetchFromGitHub, python3Packages }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonPackage rec {
   pname = "wptools";
   version = "2022-02-22";
 
