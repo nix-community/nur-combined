@@ -14,4 +14,5 @@ rec {
     coeurl = pkgs.callPackage ./pkgs/coeurl { };
     mtxclient-unstable = pkgs.callPackage ./pkgs/mtxclient { inherit coeurl; };
     pktriggercord = pkgs.callPackage ./pkgs/pktriggercord { };
+    jday = pkgs.callPackage ./pkgs/jday { };
 }
