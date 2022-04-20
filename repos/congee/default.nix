@@ -19,4 +19,6 @@
   pinentry-touchid = pkgs.callPackage ./pkgs/pinentry-touchid { };
   pam-touchid = pkgs.callPackage ./pkgs/pam-touchid { };
   pam-reattach = pkgs.callPackage ./pkgs/pam-reattach { };
+  sncli = pkgs.callPackage ./pkgs/sncli { };
+  ory.hydra = pkgs.callPackage ./pkgs/hydra { };
 }
