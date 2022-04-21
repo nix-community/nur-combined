@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MhOy2GcvLGfrWM7xE5N9zD5Q7pYhiMdFPlBbfsF8HyY=";
   };
 
-  buildInputs = [ darwin.apple_sdk.MacOSX-SDK cmake ];
-  CMAKE_LIBRARY_PATH = [ "${darwin.apple_sdk.MacOSX-SDK}/usr/lib" ];
+  buildInputs = [ cmake ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.MacOSX-SDK ;
+  CMAKE_LIBRARY_PATH = lib.optional stdenv.isDarwin [ "${darwin.apple_sdk.MacOSX-SDK}/usr/lib" ];
 
   configurePhase = ''
     cmake \
