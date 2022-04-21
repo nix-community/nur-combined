@@ -48,7 +48,12 @@
         lib.filterAttrs f packages;
 
       importPkgs = system: import ./default.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+
+          config.allowUnfree = false;
+          config.cudaSupport = false;
+        };
       };
       allAttrs = forAllSystems (system: importPkgs system);
       allPackages = lib.mapAttrs (system: packages: builtins.removeAttrs packages [ "lib" "overlays" "modules" ]) allAttrs;

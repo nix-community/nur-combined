@@ -19,6 +19,7 @@
 , commentjson
 , certifi
 , python
+, symlinkJoin
 , cudaArch ? "86"
 }:
 
@@ -28,8 +29,20 @@ let
 
   is2205 = lib.versionAtLeast lib.version "22.05pre";
 
+  cudaJoined = symlinkJoin {
+    name = "cudatoolkit-root";
+    paths = with cudaPackages; [
+      cuda_nvcc
+      cuda_nvrtc
+      cuda_cudart
+    ];
+    postBuild = ''
+      ln -s $out/lib $out/lib64
+    '';
+  };
+
   cudnn' = if is2205 then cudaPackages.cudnn else cudnn;
-  cudatoolkit = if is2205 then cudaPackages.cudatoolkit else cudnn.cudatoolkit;
+  cudatoolkit = if is2205 then cudaJoined else cudnn.cudatoolkit;
 in
 buildPythonPackage {
   inherit pname version;
@@ -47,12 +60,9 @@ buildPythonPackage {
   };
   patches = [ ./0001-cmake-add-install-rules.patch ];
 
-  # Sets up an environment variable
-  # for tiny-cnn's cmake
-  TCNN_CUDA_ARCHITECTURES = cudaArch;
-
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=${placeholder "dev"}/${python.sitePackages}"
+    "-DCMAKE_CUDA_ARCHITECTURES=${cudaArch}"
   ];
 
   nativeBuildInputs = [
