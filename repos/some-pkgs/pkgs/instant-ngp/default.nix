@@ -7,7 +7,8 @@
 , openexr
 , glew
 , glfw3
-, cudnn
+, cudnn ? null
+, cudaPackages ? { }
 , xorg
 , numpy
 , scipy
@@ -22,9 +23,13 @@
 }:
 
 let
-  cudatoolkit = cudnn.cudatoolkit;
   pname = "instant-ngp";
   version = "unstable-2022-04-07";
+
+  is2205 = lib.versionAtLeast lib.version "22.05pre";
+
+  cudnn' = if is2205 then cudaPackages.cudnn else cudnn;
+  cudatoolkit = if is2205 then cudaPackages.cudatoolkit else cudnn.cudatoolkit;
 in
 buildPythonPackage {
   inherit pname version;
@@ -61,7 +66,7 @@ buildPythonPackage {
     openexr.dev
     glew.dev
     glfw3
-    cudnn
+    cudnn'
   ] ++ [
     xorg.libX11
     xorg.libXcursor.dev

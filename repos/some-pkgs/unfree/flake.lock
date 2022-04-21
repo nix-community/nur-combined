@@ -1,0 +1,61 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1650527056,
+        "narHash": "sha256-dyBthjAs6JlNNDMi7SY+d2CirgBDqjG8SvZKeUvTLqM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b06d35b406c2396dd1611dc8601138fa3d06ee60",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs-unfree": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1650538612,
+        "narHash": "sha256-XHr0liQrAZJsNRP8mQvNqTJdG/xnJ4YH2tRqLFp/xDk=",
+        "owner": "SomeoneSerge",
+        "repo": "nixpkgs-unfree",
+        "rev": "d4ab8e6eb69bc66bb47e5a61ab1f751410f6c41e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SomeoneSerge",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs-unfree",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs-unfree": "nixpkgs-unfree",
+        "some-pkgs": "some-pkgs"
+      }
+    },
+    "some-pkgs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unfree"
+        ]
+      },
+      "locked": {
+        "narHash": "sha256-Ljj7ctjnWtPpO1cooSS1DXoV/F1kHOzN9AvpCW7rLlU=",
+        "path": "/nix/store/93wgfpfhzdm9ja7ixwkvbhk5sfr9ninx-source",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/93wgfpfhzdm9ja7ixwkvbhk5sfr9ninx-source",
+        "type": "path"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

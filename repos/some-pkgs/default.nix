@@ -20,6 +20,7 @@ let
   self = {
     # The `lib`, `modules`, and `overlay` names are special
     inherit lib modules overlays;
+    inherit (pkgs) config;
 
     accelerate = pkgs.python3Packages.callPackage ./pkgs/accelerate.nix { inherit (self) lib accelerate; };
 
