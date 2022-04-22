@@ -22,7 +22,6 @@ in
     # custom things
     custom_neovim = p ./modules/neovim/package.nix;
     custom_rofi = p ./packages/custom_rofi.nix;
-    peazip = p ./packages/peazip.nix;
     tlauncher = p ./packages/tlauncher.nix;
     stremio = p ./packages/stremio.nix;
 

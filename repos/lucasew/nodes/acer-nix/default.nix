@@ -99,6 +99,7 @@ in
     pv
     # Extra
     intel-compute-runtime # OpenCL
+    distrobox # plan b
   ];
 
   programs.dconf.enable = true;
