@@ -3,10 +3,11 @@
 stdenv.mkDerivation rec {
   name = "pam-touchid";
   so_version = "2";
+  version =  "757cafcadfefc7601825577f51e80d4815900367";
 
   src = fetchgit {
     url = "https://github.com/Reflejo/pam-touchID";
-    rev = "757cafcadfefc7601825577f51e80d4815900367";
+    rev = version;
     sha256 = "sha256-8E2jwLHChrN1wCsejgCvnr6jgNluhiAYvkDBrZAV3M0=";
   };
 

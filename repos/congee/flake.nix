@@ -17,5 +17,16 @@
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
+
+      apps = forAllSystems (system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+          localpkgs = import ./mkver.nix { inherit (pkgs) lib pkgs; };
+        in
+        {
+          default = pkgs.writeScriptBin "foo" ''
+            echo '${builtins.toJSON localpkgs}'
+          '';
+        });
     };
 }
