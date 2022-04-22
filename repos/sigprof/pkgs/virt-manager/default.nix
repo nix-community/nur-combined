@@ -8,26 +8,17 @@ let
   # state from the current nixpkgs, like the `$GDK_PIXBUF_MODULE_FILE`
   # environment variable).
   #
-  # `./virt-manager-2.2.1.nix` is a copy of the virt-manager 2.2.1 Nix
-  # expression taken from an old nixpkgs revision:
+  # `./virt-manager-2.2.1.nix` is originally from the virt-manager 2.2.1 Nix
+  # expression taken from an old nixpkgs revision (but also includes further
+  # modifications to get the package to build in recent Nixpkgs):
   #
   #   https://github.com/NixOS/nixpkgs/raw/41f00c35d0444995be0e32aacbffc608ba293402/pkgs/applications/virtualization/virt-manager/default.nix
   #
   # (from the parent of commit 4eae3ac1ec586d3ea10bcf5c93af57ec97101cea
   # “virt-manager: 2.2.1 -> 3.1.0”)
   #
-  # The file is copied here instead of fetching it from GitHub, because
-  # importing the `fetchurl` output is apparently not compatible with the
-  # existing CI workflow (the “Check evaluation” step fails).
-  #
   virt-manager-2 = pkgs.callPackage ./virt-manager-2.2.1.nix {
     system-libvirt = pkgs.libvirt;
-
-    # The old code still uses `stdenv.lib`, which causes deprecation warnings
-    # on 21.05.
-    stdenv = pkgs.stdenv // {
-      inherit lib;
-    };
   };
 
 in

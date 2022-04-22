@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, python3Packages, intltool, file
+{ lib, fetchurl, fetchpatch, python3Packages, intltool, file
 , wrapGAppsHook, gtk-vnc, vte, avahi, dconf
 , gobject-introspection, libvirt-glib, system-libvirt
 , gsettings-desktop-schemas, glib, libosinfo, gnome3
@@ -7,7 +7,7 @@
 , cpio, e2fsprogs, findutils, gzip
 }:
 
-with stdenv.lib;
+with lib;
 
 python3Packages.buildPythonApplication rec {
   pname = "virt-manager";
@@ -35,7 +35,16 @@ python3Packages.buildPythonApplication rec {
       pygobject3 ipaddress libvirt libxml2 requests
     ];
 
-  patchPhase = ''
+  patches = [
+    # due to a recent change in setuptools-61, "packages=[]" needs to be included
+    (fetchpatch {
+      name = "fix-for-setuptools-61.patch";
+      url = "https://github.com/virt-manager/virt-manager/commit/46dc0616308a73d1ce3ccc6d716cf8bbcaac6474.patch";
+      sha256 = "sha256-/RZG+7Pmd7rmxMZf8Fvg09dUggs2MqXZahfRQ5cLcuM=";
+    })
+  ];
+
+  postPatch = ''
     sed -i 's|/usr/share/libvirt/cpu_map.xml|${system-libvirt}/share/libvirt/cpu_map.xml|g' virtinst/capabilities.py
     sed -i "/'install_egg_info'/d" setup.py
   '';
@@ -55,7 +64,7 @@ python3Packages.buildPythonApplication rec {
   # Failed tests
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "http://virt-manager.org";
     description = "Desktop user interface for managing virtual machines";
     longDescription = ''
