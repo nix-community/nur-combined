@@ -25,4 +25,5 @@
   openssl-tpm2-engine = pkgs.callPackage ./pkgs/openssl-tpm2-engine { };
   ibmtss = pkgs.callPackage ./pkgs/ibmtss { };
   cider = pkgs.callPackage ./pkgs/cider { };
+  mockoon = pkgs.callPackage ./pkgs/mockoon { };
 }
