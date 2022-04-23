@@ -35,6 +35,7 @@ let
       cuda_nvcc
       cuda_nvrtc
       cuda_cudart
+      libcublas
     ];
     postBuild = ''
       ln -s $out/lib $out/lib64

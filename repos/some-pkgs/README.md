@@ -1,4 +1,4 @@
-# some-pkgs
+# [some-pkgs](https://nur.nix-community.org/repos/some-pkgs/)
 
 - Based on [NUR](https://github.com/nix-community/NUR)
 - A template repo: https://github.com/nix-community/nur-packages-template
@@ -28,6 +28,14 @@ Now, have you really considered if there ever was a need for Docker or Kubernete
 Enter [Nix (for building things) and NixOS](https://nixos.org/) (for setting up the runtime environment, notably `/run/opengl-driver/lib`):
 
 https://user-images.githubusercontent.com/9720532/162585397-7528d249-4db1-4931-930c-3929775d61ea.mp4
+
+Transcript:
+
+```bash
+nix build github:SomeoneSerge/pkgs/unfree#instant-ngp.data
+nix build github:SomeoneSerge/pkgs/unfree#instant-ngp.configs
+nix run github:SomeoneSerge/pkgs/unfree#instant-ngp -- --scene ./result-data/nerf/fox/ --config ./result-configs/nerf/base.json
+```
 
 DISCLAIMER:
 
