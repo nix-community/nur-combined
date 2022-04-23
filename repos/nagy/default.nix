@@ -94,4 +94,6 @@ in rec {
   oauth2ms = pkgs.callPackage ./pkgs/oauth2ms { };
 
   q = callPackage ./pkgs/q { };
+
+  snid = callPackage ./pkgs/snid { };
 }
