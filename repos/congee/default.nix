@@ -24,4 +24,5 @@
   whereami = pkgs.callPackage ./pkgs/whereami { };
   openssl-tpm2-engine = pkgs.callPackage ./pkgs/openssl-tpm2-engine { };
   ibmtss = pkgs.callPackage ./pkgs/ibmtss { };
+  cider = pkgs.callPackage ./pkgs/cider { };
 }
