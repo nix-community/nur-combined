@@ -3,4 +3,6 @@
   web2ldap = callPackage ./web2ldap { inherit ldap0; };
 
   parsedmarc = callPackage ./parsedmarc { };
+
+  aioairctrl = callPackage ./aioairctrl { };
 }
