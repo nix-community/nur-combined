@@ -166,13 +166,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.8.1" = {
+    "is-core-module-2.9.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.8.1";
+      version = "2.9.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.8.1.tgz";
-        sha512 = "SdNCUs284hr40hFTFP6l0IfZ/RSrMXF3qgoRHd3/79unUTvrFO/JoXwkGm+5J/Oe3E/b5GsnG330uUNgRpu1PA==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.9.0.tgz";
+        sha512 = "+5FPy5PnwmO3lvfMb0AsoPaBG+5KHUI0wYFXOtYPnVVVspTFUuMZNfNaNVRt3FZadstu2c8x23vykRW/NBoU6A==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -470,7 +470,7 @@ let
       sources."human-signals-2.1.0"
       sources."import-local-3.1.0"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.8.1"
+      sources."is-core-module-2.9.0"
       sources."is-plain-object-2.0.4"
       sources."is-stream-2.0.1"
       sources."isexe-2.0.0"

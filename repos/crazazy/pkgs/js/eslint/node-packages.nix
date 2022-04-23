@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.2.1" = {
+    "@eslint/eslintrc-1.2.2" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.2.1";
+      version = "1.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.2.1.tgz";
-        sha512 = "bxvbYnBPN1Gibwyp6NrpnFzA3YtRL3BBAyEAFVIpNTm2Rn4Vy87GA5M4aSn3InRrlsbX5N0GW7XIx+U4SAEKdQ==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.2.2.tgz";
+        sha512 = "lTVWHs7O2hjBFZunXTZYnYqtB9GakA1lnxIf+gKq2nY5gxkkNi/lQvveW6t8gFdOHTg6nG50Xs95PrLqVpcaLg==";
       };
     };
     "@humanwhocodes/config-array-0.9.5" = {
@@ -737,10 +737,10 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.13.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.13.0.tgz"; sha1 = "6fcea43b6811e655410f5626cfcf328016badcd7"; };
+    version = "8.14.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.14.0.tgz"; sha1 = "62741f159d9eb4a79695b28ec4989fcdec623239"; };
     dependencies = [
-      sources."@eslint/eslintrc-1.2.1"
+      sources."@eslint/eslintrc-1.2.2"
       sources."@humanwhocodes/config-array-0.9.5"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."acorn-8.7.0"
