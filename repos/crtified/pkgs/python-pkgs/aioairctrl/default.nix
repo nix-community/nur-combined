@@ -2,7 +2,7 @@
 
 buildPythonPackage rec {
   pname = "aioairctrl";
-  version = "0.2.1+git";
+  version = "0.2.1-git";
 
   src = fetchFromGitHub {
     owner = "kongo09";
@@ -11,10 +11,12 @@ buildPythonPackage rec {
     hash = "sha256-QeFt8XA7eRWgfY73nUNnbWRxLxDJbdCGzOimFUoWl0c=";
   };
 
+  patches = [ ./0001-drop-version.patch ];
   propagatedBuildInputs = [ aiocoap pycryptodomex ];
-  
+
   meta = with lib; {
-    description = "library and commandline utilities for controlling philips air purifiers (using encrypted CoAP)";
+    description =
+      "library and commandline utilities for controlling philips air purifiers (using encrypted CoAP)";
     homepage = "https://github.com/kongo09/aioairctrl";
     license = licenses.mit;
   };
