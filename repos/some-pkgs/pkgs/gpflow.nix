@@ -15,7 +15,7 @@
 , build
 , keras
 , jupytext
-, pytest
+, pytestCheckHook
 , nbconvert
 }:
 buildPythonPackage rec {
@@ -52,11 +52,15 @@ buildPythonPackage rec {
     build
   ];
 
+  disabledTests = [
+    "test_ImageToTensorBoard"
+    "test_print_summary_for_keras_model"
+  ];
   disabledTestPaths = [
     "tests/integration/test_notebooks.py"
   ];
   checkInputs = [
-    pytest
+    pytestCheckHook
     # nbconvert
   ];
   pythonImportsCheck = [ "gpflow" ];

@@ -7,10 +7,11 @@
 , numpy
 , scipy
 , gpflow
-, pytest
+, pytestCheckHook
 , nbconvert
 , jupytext
 , matplotlib
+, tqdm
 }:
 buildPythonPackage rec {
   pname = "GPflux";
@@ -40,9 +41,10 @@ buildPythonPackage rec {
     scipy
   ];
   checkInputs = [
-    pytest
+    tqdm
+    matplotlib
+    pytestCheckHook
     # nbconvert
-    # matplotlib
   ];
 
   disabledTestPaths = [
@@ -60,5 +62,6 @@ buildPythonPackage rec {
     description = "Deep Gaussian processes built on top of TensorFlow/Keras and GPflow";
     homepage = "https://secondmind-labs.github.io/GPflux/";
     platforms = lib.platforms.unix;
+    broken = true; # some inconsistency with keras, I guess
   };
 }

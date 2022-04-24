@@ -1,7 +1,7 @@
 { lib
 , fetchFromGitHub
 , fetchpatch
-, bazel_0_26
+, bazel_3
 , buildBazelPackage
 , buildPythonPackage
 , python

@@ -12,6 +12,7 @@
 , pyyaml
 , scipy
 , torchvision
+, packaging
   # For tests
 , kornia
 }:
@@ -29,6 +30,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "'pytest-runner'" ""
   '';
 
+  buildInputs = [ packaging ];
   propagatedBuildInputs = [ pytorch ];
   checkInputs = [ pytestCheckHook scipy ];
 
