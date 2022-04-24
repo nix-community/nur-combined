@@ -120,7 +120,7 @@ in {
         example = "dark";
         default = let inherit (cfg.colors.base00.dec) r g b;
         in if r + g + b >= 382 then "light" else "dark";
-        defaultText = literalExample ''
+        defaultText = literalExpression ''
           "light", if sum of RGB components of base00 color ≥ 382,
           "dark", otherwise
         '';

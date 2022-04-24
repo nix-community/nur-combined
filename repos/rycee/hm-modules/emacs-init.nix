@@ -418,7 +418,7 @@ in {
     usePackage = mkOption {
       type = types.attrsOf usePackageType;
       default = { };
-      example = literalExample ''
+      example = literalExpression ''
         {
           dhall-mode = {
             mode = [ '''"\\.dhall\\'"''' ];

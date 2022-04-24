@@ -36,7 +36,10 @@ let
       "https://gitlab.com/rycee/nur-expressions/blob/master"
       + "/hm-modules/${path}#blob-content-holder";
     channelName = "nur-rycee";
-    docBook.id = "nur-rycee-hm-options";
+    docBook = {
+      id = "nur-rycee-hm-options";
+      optionIdPrefix = "hm-opt";
+    };
   };
 
   nixosModulesDocs = nmd.buildModulesDocs {
@@ -46,7 +49,10 @@ let
       "https://gitlab.com/rycee/nur-expressions/blob/master"
       + "/modules/${path}#blob-content-holder";
     channelName = "nur-rycee";
-    docBook.id = "nur-rycee-nixos-options";
+    docBook = {
+      id = "nur-rycee-nixos-options";
+      optionIdPrefix = "nixos-opt";
+    };
   };
 
   docs = nmd.buildDocBookDocs {
