@@ -30,8 +30,9 @@ buildPythonPackage rec {
   buildInputs = [
     tensorflow
     tensorflow-probability_8_0
-    jupytext
+    # jupytext
   ];
+
   propagatedBuildInputs = [
     gpflow
     deprecated
@@ -40,9 +41,14 @@ buildPythonPackage rec {
   ];
   checkInputs = [
     pytest
-    nbconvert
-    matplotlib
+    # nbconvert
+    # matplotlib
   ];
+
+  disabledTestPaths = [
+    "tests/test_notebooks.py"
+  ];
+
   pythonImportsCheck = [
     "gpflux"
     "gpflux.layers"

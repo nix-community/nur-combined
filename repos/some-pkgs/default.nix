@@ -36,7 +36,6 @@ let
     opensfm = pkgs.python3Packages.callPackage ./pkgs/opensfm { inherit lib; };
     kornia = pkgs.python3Packages.callPackage ./pkgs/kornia.nix { inherit (self) lib accelerate kornia; };
     gpytorch = pkgs.python3Packages.callPackage ./pkgs/gpytorch.nix { inherit lib; };
-    dm-tree = pkgs.python3Packages.callPackage ./pkgs/dm-tree { inherit lib; };
 
     instant-ngp = pkgs.python3Packages.callPackage ./pkgs/instant-ngp
       ({
@@ -47,7 +46,7 @@ let
         lark = pkgs.python3Packages.lark-parser;
       });
 
-    tensorflow-probability_8_0 = pkgs.python3Packages.callPackage ./pkgs/tfp/8.0.nix { inherit (self) lib dm-tree; };
+    tensorflow-probability_8_0 = pkgs.python3Packages.callPackage ./pkgs/tfp/8.0.nix { inherit (self) lib; };
   }
   // pkgs.lib.optionalAttrs (pkgs.lib.versionAtLeast pkgs.lib.version "22.05pre") {
     gpflow = pkgs.python3Packages.callPackage ./pkgs/gpflow.nix { inherit (self) lib tensorflow-probability_8_0; };

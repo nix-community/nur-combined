@@ -35,7 +35,7 @@ buildPythonPackage rec {
   buildInputs = [
     tensorflow
     tensorflow-probability_8_0
-    jupytext
+    # jupytext
   ];
   propagatedBuildInputs = [
     keras
@@ -51,9 +51,13 @@ buildPythonPackage rec {
     wheel
     build
   ];
+
+  disabledTestPaths = [
+    "tests/integration/test_notebooks.py"
+  ];
   checkInputs = [
     pytest
-    nbconvert
+    # nbconvert
   ];
   pythonImportsCheck = [ "gpflow" ];
 
