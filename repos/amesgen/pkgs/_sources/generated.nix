@@ -27,18 +27,18 @@
   };
   hlint = {
     pname = "hlint";
-    version = "3.3.6";
+    version = "3.4";
     src = fetchurl {
-      url = "https://github.com/ndmitchell/hlint/releases/download/v3.3.6/hlint-3.3.6-x86_64-linux.tar.gz";
-      sha256 = "00d1l48a4vc1aja77kkiq8j7fipr94hipdxd8vayzmn43f20dqfr";
+      url = "https://github.com/ndmitchell/hlint/releases/download/v3.4/hlint-3.4-x86_64-linux.tar.gz";
+      sha256 = "1jaqq682mjkhx5yvfzag4pjs7pn9idr3jqkrrfsipqwb27mm1k53";
     };
   };
   nix-index-database = {
     pname = "nix-index-database";
-    version = "2022-03-27";
+    version = "2022-04-10";
     src = fetchurl {
-      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-03-27/index-x86_64-linux";
-      sha256 = "0wsmr2c84a5mci0j95msc6pc1xwfz2df6r15hjbcdfw9zq40w0zb";
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-04-10/index-x86_64-linux";
+      sha256 = "08nhi8j2vynfscim2mdaq3dzh5qb91xlk7mp72s6fhvljx54qxwm";
     };
   };
   ormolu = {
