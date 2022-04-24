@@ -1,5 +1,9 @@
 # nur-packages
 
+**Superseded by https://github.com/Pamplemousse/nix-utils**
+
+---
+
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
 [![Build Status](https://travis-ci.org/Pamplemousse/nur-packages.svg?branch=master)](https://travis-ci.org/Pamplemousse/nur-packages)

@@ -10,11 +10,9 @@
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; };
+  lib = import ./lib;
   modules = import ./modules;
   overlays = import ./overlays;
-
-  wordlists = pkgs.callPackage ./pkgs/tools/security/wordlists {};
 
   python3Packages = {
     cooldict = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/cooldict {};
