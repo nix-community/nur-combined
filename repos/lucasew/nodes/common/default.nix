@@ -20,6 +20,7 @@
       wget
       curl
       unrar
+      direnv
     ];
   };
   services = {
@@ -70,6 +71,7 @@
       if [ -f "$HOME/.dotfilerc" ]; then
         source "$HOME/.dotfilerc"
       fi
+      eval "$(direnv hook bash)"
     '';
   };
 }

@@ -2,3 +2,4 @@ WIP
 result
 *.qcow2
 out.nar
+.direnv
