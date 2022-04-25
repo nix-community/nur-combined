@@ -36,7 +36,6 @@ let
         and can be used with any editor that supports the protocol, to offer good support for the Java Language.
       '';
       platforms = platforms.linux;
-      maintainers = with maintainers; [ marc-jakobi ];
     };
 
   };

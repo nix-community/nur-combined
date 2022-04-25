@@ -54,6 +54,5 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://ranger.github.io/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ marc-jakobi ];
   };
 }

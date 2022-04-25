@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   eclipse-jdt-language-server = pkgs.callPackage ./pkgs/eclipse-jdt-language-server { };
+  ranger-fm = pkgs.callPackage ./pkgs/ranger-fm { };
 
 }
