@@ -560,6 +560,10 @@ timeout=10
           noDesktop = true;
           enableXfwm = false;
           enableScreensaver = false;
+          thunarPlugins = with pkgs.xfce; [
+            thunar-media-tags-plugin
+            thunar-archive-plugin
+          ];
         };
       };
       windowManager.i3 = {
