@@ -67,7 +67,7 @@ in {
     };
 
     systemd.services = {
-      paperless-server.serviceConfig = {
+      paperless-scheduler.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
       };
 

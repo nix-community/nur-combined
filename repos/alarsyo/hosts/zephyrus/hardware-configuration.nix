@@ -48,9 +48,23 @@ in {
     fsType = "vfat";
   };
 
-  swapDevices = [];
+  fileSystems."/swap" = {
+    device = "/dev/disk/by-uuid/6395cef1-c30b-450a-917c-cfb3c0380642";
+    fsType = "btrfs";
+    options = ["subvol=@swap" "compress=zstd" "noatime"];
+  };
+
+  swapDevices = [
+    {
+      device = "/swap/swapfile";
+      size = 1024 * 8; # half of RAM size
+    }
+  ];
 
   powerManagement.cpuFreqGovernor = mkDefault "powersave";
 
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.intel.updateMicrocode = true;
+  };
 }
