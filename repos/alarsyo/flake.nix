@@ -158,14 +158,14 @@
           (import ./pkgs {pkgs = import nixpkgs {inherit system;};})
         )
         // {
-          emacsPgtkGcc =
+          emacsPgtkNativeComp =
             (
               import nixpkgs {
                 inherit system;
                 overlays = [inputs.emacs-overlay.overlay];
               }
             )
-            .emacsPgtkGcc;
+            .emacsPgtkNativeComp;
         };
     });
 }
