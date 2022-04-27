@@ -129,7 +129,6 @@ buildPythonPackage rec {
     ddt
     fixtures
     qiskit-terra
-    setuptools  # temporary workaround for pbr missing setuptools, see https://github.com/NixOS/nixpkgs/pull/132614
     testtools
   ];
 

@@ -58,7 +58,7 @@ in
 
 buildPythonPackage rec {
   pname = "qiskit-terra";
-  version = "0.20.0";
+  version = "0.20.1";
 
   disabled = pythonOlder "3.7" || lib.versionOlder used_rustPlatform.rust.rustc.version "1.55";
 
@@ -66,7 +66,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = pname;
     rev = version;
-    sha256 = "sha256-/t87IgazpJlfd8NT2Pkn5b6/Ut104DcJEFCubQ/bBiw=";
+    sha256 = "sha256-spKLPUlUXBmnIo/rnBPUFf72Vxd53xFhh409KzytpkI=";
   };
 
   nativeBuildInputs = [ setuptools-rust ] ++ (with used_rustPlatform; [ rust.rustc rust.cargo cargoSetupHook ]);
@@ -74,7 +74,7 @@ buildPythonPackage rec {
   cargoDeps = used_rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    sha256 = "sha256-tNiBXn32g1PTuTmKNXSac+4PLSc1Ao9n+oAMfvVYR30=";
+    sha256 = "sha256-KNx7c5Jc1AWIpldMQ1AcWYuMb4W+yLY/cgB87hzPuVY=";
   };
 
   propagatedBuildInputs = [
