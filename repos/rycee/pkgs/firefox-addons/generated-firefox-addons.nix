@@ -173,10 +173,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.57.0";
+      version = "1.58.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3925900/bitwarden_free_password_manager-1.57.0-an+fx.xpi";
-      sha256 = "7de0228befc3764154629e6644d8e00d5d10fe6d2d1886183e351c53aee85440";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940986/bitwarden_free_password_manager-1.58.0-an+fx.xpi";
+      sha256 = "55651784249ba6dfe7d5ae399fa2e13599ad7003e58cb015dc36f87a4b325b18";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -488,10 +488,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.4.18";
+      version = "2022.4.26";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3938060/duckduckgo_privacy_essentials-2022.4.18-fx.xpi";
-      sha256 = "a8f24075ce1d554c9737815533bd46c1bfd5a021b67c8730a2d3379413fac636";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941249/duckduckgo_privacy_essentials-2022.4.26-fx.xpi";
+      sha256 = "c8c8683ee6bdbe070dc640770a5c0353e1e9d5b45bc8c576d328b26026fe1b7a";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1917,10 +1917,10 @@
       };
     "tabliss" = buildFirefoxXpiAddon {
       pname = "tabliss";
-      version = "2.5.1";
+      version = "2.6.0";
       addonId = "extension@tabliss.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3930696/tabliss_new_tab-2.5.1-fx.xpi";
-      sha256 = "ec0f74b4a122f67031b2055af194c9489e1300442671646209c87f36e17d180a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940751/tabliss_new_tab-2.6.0-fx.xpi";
+      sha256 = "de766810f234b1c13ffdb7047ae6cbf06ed79c3d08b51a07e4766fadff089c0f";
       meta = with lib;
       {
         homepage = "https://tabliss.io";
@@ -2085,10 +2085,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.21";
+      version = "3.8.22";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3908159/tree_style_tab-3.8.21-fx.xpi";
-      sha256 = "80f83f6314f0c85f405fcbe76fec0fdcc69eb844417a1b2a450c1f46f4417021";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3939893/tree_style_tab-3.8.22-fx.xpi";
+      sha256 = "866dd252b40386e13d46ba832462352528a3b7770024305c6ddad148b01ab727";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
