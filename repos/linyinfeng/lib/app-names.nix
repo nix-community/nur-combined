@@ -6,7 +6,7 @@ let
       "${p}" = p;
     };
   };
-  empty = p: { "${p}" = {}; };
+  empty = p: { "${p}" = { }; };
   merge = lib.fold lib.recursiveUpdate { };
   appNamesDict = merge [
     (trivial "activate-dpt")
