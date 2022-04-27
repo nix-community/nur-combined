@@ -63,7 +63,8 @@ let
       substituteInPlace requirements.txt \
         --replace "matplotlib~=3.0" "matplotlib" \
         --replace "networkx~=2.4" "networkx" \
-        --replace "numpy~=1.16" "numpy"
+        --replace "numpy~=1.16" "numpy" \
+        --replace "sympy<1.10" "sympy"
 
       # test was written to expect the dev version, but fails when built against the release version
     '';
@@ -206,6 +207,17 @@ let
     pname = "cirq";
     inherit version src disabled;
 
+    # compatibility with setuptools >= 61.0.0. See https://github.com/quantumlib/Cirq/issues/5291
+    postPatch = ''
+      cat <<EOF >> setup.cfg
+      [options]
+      packages = find:
+
+      [options.packages.find]
+      exclude = check,rtd_docs,dev_tools,cirq*,benchmarks,examples
+      EOF
+    '';
+
     preCheck = ''
       rm -rf cirq-aqt
       rm -rf cirq-core
@@ -226,7 +238,7 @@ let
       cirq-web
     ];
 
-      checkInputs = [ pytestCheckHook ];
+    checkInputs = [ pytestCheckHook ];
     pytestFlagsArray = [
       "--ignore=dev_tools"
     ];
