@@ -14,6 +14,7 @@ esac
 
 STORED=`nix store add-path "$ITEM" -n "$ITEM_NAME"`
 # echo "$STORED"
+chmod +w -R "$ITEM" # no problem doing this, nix will reset the write bits
 rm -rf "$ITEM"
 nix-store -r $STORED --add-root "$ITEM" > /dev/null
 echo "$STORED"
