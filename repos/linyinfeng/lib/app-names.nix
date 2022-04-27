@@ -20,7 +20,6 @@ let
     (empty "fishPlugins/bang-bang")
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
-    (trivial "godns")
     (trivial "icalingua-plus-plus")
     (trivial "telegram-send")
     (trivial "trojan")

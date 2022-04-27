@@ -9,7 +9,7 @@ lib.makeScope newScope (
   let
     inherit (self) callPackage;
   in
-  ({
+  {
     sources = callPackage ./_sources/generated.nix { };
     updater = callPackage ./updater { };
 
@@ -31,7 +31,5 @@ lib.makeScope newScope (
     vlmcsd = callPackage ./vlmcsd { };
     wemeet = callPackage ./wemeet { };
     yacd = callPackage ./yacd { };
-  } // lib.optionalAttrs (! (pkgs ? godns)) {
-    godns = callPackage ./godns { };
-  })
+  }
 )

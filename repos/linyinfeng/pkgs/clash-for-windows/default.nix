@@ -75,7 +75,6 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken = !(versionAtLeast (versions.majorMinor trivial.version) "22.05");
     homepage = https://github.com/Fndroid/clash_for_windows_pkg;
     description = "A Windows/macOS/Linux GUI based on Clash and Electron";
     license = licenses.unfree;
