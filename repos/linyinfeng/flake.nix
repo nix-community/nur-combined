@@ -1,10 +1,14 @@
 {
   inputs = {
+    # main nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
+
+    # extra channels for checks
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-21.11";
   };
 
-  outputs = { self, nixpkgs, flake-utils-plus }@inputs:
+  outputs = { self, nixpkgs, flake-utils-plus, ... }@inputs:
     let
       utils = flake-utils-plus.lib;
       inherit (nixpkgs) lib;
@@ -19,41 +23,7 @@
           allowUnfree = true;
           allowAliases = false;
         };
-
-        outputsBuilder = channels:
-          let
-            pkgs = channels.nixpkgs;
-          in
-          rec {
-            packages = utils.flattenTree (makePackages pkgs);
-            apps = makeApps packages appNames;
-            devShells.default =
-              let
-                scripts = pkgs.callPackage ./scripts { };
-                simple = pkgs.mkShell {
-                  packages = [
-                    # currently nothing
-                  ];
-                };
-                withUpdater = pkgs.mkShell {
-                  inputsFrom = [
-                    simple
-                    packages.updater.env
-                  ];
-                  packages = [
-                    pkgs.nixpkgs-fmt
-                    pkgs.cabal-install
-                    pkgs.ormolu
-                  ] ++ (with scripts; [
-                    update
-                    lint
-                  ]);
-                };
-              in
-              if (packages ? updater) then withUpdater else simple;
-            checks = packages;
-          };
-
+        lib = import ./lib { inherit (nixpkgs) lib; };
         overlays = import ./overlays // {
           linyinfeng = final: prev: {
             linyinfeng = makePackages prev;
@@ -65,8 +35,17 @@
           };
         };
 
+        outputsBuilder = channels:
+          let
+            mainChannel = channels.nixpkgs;
+          in
+          rec {
+            packages = utils.flattenTree (mainChannel.linyinfeng);
+            apps = makeApps packages appNames;
+            devShells.default = (mainChannel.callPackage ./shell { }).shell;
+            checks = utils.flattenTree (lib.mapAttrs (name: c: lib.recurseIntoAttrs c.linyinfeng) channels);
+          };
 
-        lib = import ./lib { inherit (nixpkgs) lib; };
         nixosModules = import ./modules;
       };
 }

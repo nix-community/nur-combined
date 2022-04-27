@@ -6,6 +6,10 @@ let
     then lib.elem sys p.meta.platforms
     else true;
 
+  filterPackage = system: p:
+    !(p.meta.broken or false) &&
+    isSupportedUnderSystem system p;
+
   filter = system: t:
     if lib.isAttrs t
     then
@@ -15,7 +19,7 @@ let
           (_: p:
             !(lib.isDerivation p) ||
             # or p is a derivation
-            isSupportedUnderSystem system p)
+            filterPackage system p)
           t)
     else
       t;
