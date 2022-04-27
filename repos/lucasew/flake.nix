@@ -210,9 +210,9 @@
       acer-nix = nixosConf {
         mainModule = ./nodes/acer-nix/default.nix;
       };
-      bootstrap = nixosConf {
-        mainModule = ./nodes/bootstrap/default.nix;
-      };
+      # bootstrap = nixosConf {
+      #   mainModule = ./nodes/bootstrap/default.nix;
+      # };
     };
     nixOnDroidConfigurations = let
       nixOnDroidConf = {mainModule}:
