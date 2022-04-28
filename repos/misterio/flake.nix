@@ -27,7 +27,7 @@
 
   outputs = inputs:
     let
-      overlay = import ./overlays;
+      overlay = import ./overlays { inherit inputs; };
       overlays = with inputs; [
         overlay
         nur.overlay
@@ -72,7 +72,7 @@
 
           graphical = true;
           trusted = true;
-          colorscheme = "spaceduck";
+          colorscheme = "phd";
         };
         "misterio@pleione" = lib.mkHome {
           username = "misterio";
@@ -111,9 +111,7 @@
       templates = import ./templates;
 
     } // inputs.utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import inputs.nixpkgs { inherit system overlays; };
-      in
+      let pkgs = import inputs.nixpkgs { inherit system overlays; }; in
       {
         # Allows 'nix build .#package-name', including vanilla, overlayed, and custom packages
         packages = pkgs;
