@@ -3,13 +3,14 @@
   , nextcloud-client
   , libsecret
   , keepassxc
+  , symlinkJoin
 }:
 
 let 
 
-  name = "nectcloud";
+  name = "nextcloud-nd";
 
-in writeShellScriptBin "${name}" ''
+  nextcloud-wrapper = writeShellScriptBin "nextcloud-wrapper" ''
   if ! $(${libsecret}/bin/secret-tool lookup Title "Nextcloud" &> /dev/null)
   then
     echo "Waiting for keepassxc secret service integration..."
@@ -19,4 +20,9 @@ in writeShellScriptBin "${name}" ''
     sleep 1s
   done
   ${nextcloud-client}/bin/nextcloud "$@" &
-  ''
+  '';
+
+in symlinkJoin {
+  inherit name;
+  paths = [ nextcloud-client nextcloud-wrapper ];
+}
