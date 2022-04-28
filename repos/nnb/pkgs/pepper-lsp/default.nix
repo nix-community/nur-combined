@@ -2,14 +2,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "pepper-plugin-lsp";
-  version = "0.10.0";
+  version = "0.13.0";
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "16m2ggh0i699lnbf8hhfan9l4c6nkiwfaybd8scpgvw82v192f97";
+    sha256 = "1x7dgqfkfgam2p0smy905pwmw8ra2p6xcswrw7z75ibr066amijy";
   };
 
-  cargoSha256 = "1pfdv2hkx5asflmach0hhnyj0ndv82bchcpd2bylwjv8shsy773s";
+  cargoSha256 = "0zlzfghmjsjs7fqx07fgfns0qpyn36wk5ngz2pm44gikizxs2zp4";
 
   meta = with lib; {
     description = "Pepper editor with Language Server Protocol plugin";
