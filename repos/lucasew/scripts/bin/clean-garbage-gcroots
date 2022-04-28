@@ -1,11 +1,87 @@
 #!/usr/bin/env bash
 
-for f in /nix/var/nix/gcroots/auto/*; do
-    f="$(readlink $f)"
-    if [[ "$f" =~ ^/home ]]; then
-        rm "$f" || true
+set -eu -o pipefail
+
+
+function show_help () {
+cat << EOF
+$(tput bold)clean-garbage-gcroots$(tput sgr0): cleans gcroots in common locations like result and tmp ones
+ $(tput bold)-d$(tput sgr0): delete all the gcroots that were found
+ $(tput bold)-nt$(tput sgr0): don't look for gcroots in /tmp
+ $(tput bold)-nh$(tput sgr0): don't look for gcroots in /home
+ $(tput bold)-nr$(tput sgr0): don't look for result links only in /home
+ $(tput bold)-v$(tput sgr0): verbose, show more output
+
+ $(tput bold)-h$(tput sgr0): show this help message
+
+EOF
+}
+
+ENABLE_RM=0
+
+DONT_LOOK_TMP=0
+DONT_LOOK_HOME=0
+DONT_LOOK_ONLY_FOR_RESULT_IN_HOME=0
+VERBOSE=0
+
+function verbose() {
+    if [[ "$VERBOSE" == 1 ]]; then
+        echo "$@" > /dev/stderr
     fi
-    if [[ "$f" =~ ^/tmp ]]; then
-        rm "$f" || true
+}
+while true; do
+    if [[ $# -eq 0 ]]; then
+        break
+    fi
+    case "$1" in
+        -h)
+            show_help
+            exit 0
+        ;;
+        -nt)
+            DONT_LOOK_TMP=1
+        ;;
+        -nh)
+            DONT_LOOK_HOME=1
+        ;;
+        -d)
+            ENABLE_RM=1
+        ;;
+        -nr)
+            DONT_LOOK_ONLY_FOR_RESULT_IN_HOME=1
+        ;;
+        -v)
+            VERBOSE=1
+        ;;
+    esac
+    shift
+done
+
+function remove () {
+    if stat "$@" > /dev/null 2> /dev/null; then
+        echo "$@"
+        if [[ "$ENABLE_RM" == 1 ]]; then
+            verbose removed: $@
+            rm "$@" || true
+        fi
+    else
+        verbose want to delete but not found: $@
+    fi
+}
+
+for f in /nix/var/nix/gcroots/auto/*; do
+    f="$(readlink "$f")"
+    verbose gcroot input: $f
+    if [[ $DONT_LOOK_HOME == 0 ]]; then
+        if [[ "$f" =~ ^/home ]]; then
+            if [[ "$f" =~ /result$ ]] || [[ "$DONT_LOOK_ONLY_FOR_RESULT_IN_HOME" == 1 ]]; then
+                remove $f
+            fi
+        fi
+    fi
+    if [[ "$DONT_LOOK_TMP" == 0 ]]; then
+        if [[ "$f" =~ ^/tmp ]]; then
+            remove $f
+        fi
     fi
 done
