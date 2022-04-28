@@ -310,10 +310,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.0";
+      version = "1.0.2";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3931888/consent_o_matic-1.0.0-an+fx.xpi";
-      sha256 = "12b33a42f92fd53b9bd56f2978abeda86681361f2354695e5c29f6e334cf430d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941651/consent_o_matic-1.0.2-an+fx.xpi";
+      sha256 = "f0ebe316b8388026ecbaaddb41514d8aad7b1cd3ff737d4cee020a2994ae632c";
       meta = with lib;
       {
         description = "Automatic handling of GDPR consent forms";
@@ -502,10 +502,10 @@
       };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "4.0.4";
+      version = "4.0.5";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/964413/ecosia_the_search_engine_that_plants_trees-4.0.4-an+fx.xpi";
-      sha256 = "b74bdbd58766df623bc044e265d8880da2872c37007a5c6e954560aaf130d90b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941257/ecosia_the_search_engine_that_plants_trees-4.0.5-an+fx.xpi";
+      sha256 = "ddf3b95b6f4ffe29f3fe1c0800fe7af8720c7e44a785e2b3ea3437c5b9d67a8d";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -1325,10 +1325,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.2";
+      version = "2.3.3";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926702/1password-2.3.2-fx.xpi";
-      sha256 = "08ef8713819b302ad01b6438c3b2528b442bf3c28e7efd0cc5df5cccf41d4988";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940152/1password-2.3.3-fx.xpi";
+      sha256 = "3bba9a7c6d5250d5de79208dacd1354c6da0ad1a687a963a5b7d9e5cbed54f98";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1514,10 +1514,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.3.2";
+      version = "2.3.4";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926478/firefox_relay-2.3.2-fx.xpi";
-      sha256 = "6ab09b64c090a0dfa3723cc22405ff21391db70ebed0b604120f40b3360f81fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940990/firefox_relay-2.3.4-fx.xpi";
+      sha256 = "bd8ae69d29207085fb61eca27130f5ee0f9fe47f5f026c071ef523afc1445c25";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1640,10 +1640,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.0";
+      version = "3.0.0.1";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3935779/return_youtube_dislike-3.0.0.0-an+fx.xpi";
-      sha256 = "7bee0e51f6f55a342c1c954b4ab483303a9698856bc8f64ff841a608c23a26a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941589/return_youtube_dislike-3.0.0.1-an+fx.xpi";
+      sha256 = "13c084a45d8e3be7ff46c9a98e92f8751765845803647517f2fd23770d187d02";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -1736,10 +1736,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.20.2";
+      version = "1.20.4";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3938796/singlefile-1.20.2-an+fx.xpi";
-      sha256 = "6b4fec08b053d6f7ac614811269f47dee5138313014a32f673a738f386da6998";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941794/singlefile-1.20.4-an+fx.xpi";
+      sha256 = "e18b492c95d7e58dd739d818e8a315924a67733a502df81ae014f83cee4d1c13";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
