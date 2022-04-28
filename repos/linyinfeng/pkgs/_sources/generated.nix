@@ -107,10 +107,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.6.1";
+    version = "v2.6.2";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.1/app-x86_64.asar";
-      sha256 = "17bzmfhz312a5jf1yp5k5gb69dyvg1km34rq26gh70iz9irqv29x";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.2/app-x86_64.asar";
+      sha256 = "01w07w5yj8vxkizacaxkqjdnlhbd6sx80rslh2qbl9z2brkglk3s";
     };
   };
   icalingua-plus-plus-aur = {
