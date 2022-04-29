@@ -316,6 +316,7 @@
       sha256 = "f0ebe316b8388026ecbaaddb41514d8aad7b1cd3ff737d4cee020a2994ae632c";
       meta = with lib;
       {
+        homepage = "https://github.com/cavi-au/Consent-O-Matic";
         description = "Automatic handling of GDPR consent forms";
         license = licenses.mit;
         platforms = platforms.all;
@@ -674,10 +675,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "100.0buildid20220425.210429";
+      version = "100.0buildid20220428.192727";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941049/francais_language_pack-100.0buildid20220425.210429-fx.xpi";
-      sha256 = "13462d6a5def41ef7a29519777c457860f5587e55028b8cd4e7a0d1116738008";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942503/francais_language_pack-100.0buildid20220428.192727-fx.xpi";
+      sha256 = "4d945c63773aac2085c0c3e48fb6427173a26ca8a71bc007f3bf24828cbd821d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -927,10 +928,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.93.0.1";
+      version = "4.94.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3936399/lastpass_password_manager-4.93.0.1-an+fx.xpi";
-      sha256 = "e71388c43bf4a62337f80325e118c26069e033ad263ba2aa7e1bce2590ba5c0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941848/lastpass_password_manager-4.94.0.3-an+fx.xpi";
+      sha256 = "653d6b0bbc504b2f05843d8be69eb77ce9ea6cfb1bff6c2b87f9298206082199";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -2300,10 +2301,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.23";
+      version = "6.10.26";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3936790/wappalyzer-6.10.23-fx.xpi";
-      sha256 = "bc466167d89c62364cce62b1f200185bdd86cd931760fe21f9a61af607c47101";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942531/wappalyzer-6.10.26-fx.xpi";
+      sha256 = "128d6a20278822e42c6bc58745a8c6e0b40052264a56e3252d6dd19c4a857150";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2328,10 +2329,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.59.1";
+      version = "2.60.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940601/web_scrobbler-2.59.1-an+fx.xpi";
-      sha256 = "e11296149295a4645c5a597e259b2cbff86f6942f5dc64ec2e70160b1835f63f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942320/web_scrobbler-2.60.0-an+fx.xpi";
+      sha256 = "0131be505367a3af0dd713eeb6b9f5346447d76fc1b1fa4da5ebef32bf0bf1ba";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
