@@ -55,14 +55,14 @@ assert zstdSupport -> zstd != null;
 
 stdenv.mkDerivation rec {
   pname = "curl";
-  version = "7.82.0";
+  version = "7.83.0";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/${pname}-${version}.tar.bz2"
       "https://github.com/curl/curl/releases/download/${lib.replaceStrings ["."] ["_"] pname}-${version}/${pname}-${version}.tar.bz2"
     ];
-    sha256 = "sha256-RtmgQAozQI/ZkncLBKRKdDSzA28ugImsKLV1c9WdNx8=";
+    sha256 = "sha256-JHx+x1IcQljmVjTlKScNIU/jKWmXHMy3KEXnqkaDH5Y=";
   };
 
   patches = [
