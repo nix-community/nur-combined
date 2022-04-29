@@ -11,26 +11,19 @@ in rec {
     lua-curl = pkgs.lua53Packages.callPackage ./pkgs/lua-curl { };
   };
 
-  python3Packages = recurseIntoAttrs {
-    vosk = pkgs.python3Packages.callPackage ./pkgs/libvosk/python.nix {
-      inherit libvosk;
-    };
-    dbussy = pkgs.python3Packages.callPackage ./pkgs/dbussy { };
-    colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia { };
-    ssort = pkgs.python3Packages.callPackage ./pkgs/ssort { };
-    extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors {
-      inherit (python3Packages) convcolors;
-    };
-    convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors { };
-    pymatting = pkgs.python3Packages.callPackage ./pkgs/pymatting { };
-    rembg = pkgs.python3Packages.callPackage ./pkgs/rembg {
-      inherit (python3Packages) pymatting;
-    };
-    warctools = pkgs.python3Packages.callPackage ./pkgs/warctools { };
-    blender-file = pkgs.python3Packages.callPackage ./pkgs/blender-file { };
-    blender-asset-tracer =
-      pkgs.python3Packages.callPackage ./pkgs/blender-asset-tracer { };
-  };
+  python3Packages = pkgs.lib.makeScope pkgs.python3Packages.newScope (py3: {
+    vosk = py3.callPackage ./pkgs/libvosk/python.nix { inherit libvosk; };
+    dbussy = py3.callPackage ./pkgs/dbussy { };
+    colorpedia = py3.callPackage ./pkgs/colorpedia { };
+    ssort = py3.callPackage ./pkgs/ssort { };
+    extcolors = py3.callPackage ./pkgs/extcolors { };
+    convcolors = py3.callPackage ./pkgs/convcolors { };
+    pymatting = py3.callPackage ./pkgs/pymatting { };
+    rembg = py3.callPackage ./pkgs/rembg { };
+    warctools = py3.callPackage ./pkgs/warctools { };
+    blender-file = py3.callPackage ./pkgs/blender-file { };
+    blender-asset-tracer = py3.callPackage ./pkgs/blender-asset-tracer { };
+  });
 
   schemaorg = callPackage ./pkgs/schemaorg { };
 
