@@ -2,7 +2,7 @@
   lib, stdenv,
   fetchzip, fetchhg, fetchFromGitHub, fetchurl,
   substituteAll,
-  git, zlib, pcre, gd, zstd, perl, liboqs, openssl-oqs,
+  git, zlib, pcre, gd, zstd, perl, liboqs, openssl-oqs, libxcrypt,
   modules ? [],
   ...
 } @ args:
@@ -10,12 +10,12 @@
 stdenv.mkDerivation rec {
   pname = "openresty-lantian";
   nginxVersion = "1.21.4";
-  version = "${nginxVersion}.1rc1";
+  version = "${nginxVersion}.1rc3";
 
   srcs = [
     (fetchzip {
       url = "https://openresty.org/download/openresty-${version}.tar.gz";
-      sha256 = "sha256-HRp9DPrGEQAexJUWFRfP3WLRyQSQN7LLHkh77EB97HY=";
+      sha256 = "sha256-sIEeyXi2yjinPVFUyvMCxyUO1n4/xb7EqK06c4/rHXY=";
       name = "openresty";
     })
 
@@ -109,6 +109,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     liboqs
     openssl-oqs
+    libxcrypt
 
     zlib
     pcre
