@@ -6,10 +6,6 @@ fetch.github = "xddxdd/bird-lg-go"
 src.github = "open-quantum-safe/boringssl"
 fetch.github = "open-quantum-safe/boringssl"
 
-[calibre-cops]
-src.git = "https://github.com/seblucas/cops.git"
-fetch.github = "seblucas/cops"
-
 [drone-vault]
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"

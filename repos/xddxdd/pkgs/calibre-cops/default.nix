@@ -1,6 +1,7 @@
 { lib
 , stdenv
-, sources
+, fetchurl
+, unzip
 , ...
 } @ args:
 
@@ -8,7 +9,18 @@ let
   configFile = ./config_local.php;
 in
 stdenv.mkDerivation rec {
-  inherit (sources.calibre-cops) pname version src;
+  pname = "calibre-cops";
+  version = "1.1.3";
+  src = fetchurl {
+    url = "https://github.com/seblucas/cops/releases/download/${version}/cops-${version}.zip";
+    sha256 = "sha256-aMnvs0CrMJic2JoZoXPEWHLTPthd0CZ0+K8It3SMvHc=";
+  };
+
+  nativeBuildInputs = [ unzip ];
+
+  unpackPhase = ''
+    unzip $src
+  '';
 
   installPhase = ''
     mkdir $out

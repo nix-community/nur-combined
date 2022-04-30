@@ -25,18 +25,6 @@
       sha256 = "0lcxapfqj9b2p8q6f65w91320lvrsyfxr9602hhw2b83c25lxixh";
     };
   };
-  calibre-cops = {
-    pname = "calibre-cops";
-    version = "f65537cdc6f11e135fdc0fbfcaf05524f63ec667";
-    src = fetchgit {
-      url = "https://github.com/seblucas/cops";
-      rev = "f65537cdc6f11e135fdc0fbfcaf05524f63ec667";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "02hhr8c8rdyj1s4m2g41x9qgic4lkkd9jv4riznqpxb2y8lhps4p";
-    };
-  };
   drone-vault = {
     pname = "drone-vault";
     version = "v1.2.0";
