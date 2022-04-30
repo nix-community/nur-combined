@@ -31,13 +31,13 @@ let
         sha512 = "ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==";
       };
     };
-    "acorn-8.7.0" = {
+    "acorn-8.7.1" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.7.0";
+      version = "8.7.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.7.0.tgz";
-        sha512 = "V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.7.1.tgz";
+        sha512 = "Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==";
       };
     };
     "acorn-jsx-5.3.2" = {
@@ -743,7 +743,7 @@ let
       sources."@eslint/eslintrc-1.2.2"
       sources."@humanwhocodes/config-array-0.9.5"
       sources."@humanwhocodes/object-schema-1.2.1"
-      sources."acorn-8.7.0"
+      sources."acorn-8.7.1"
       sources."acorn-jsx-5.3.2"
       sources."ajv-6.12.6"
       sources."ansi-regex-5.0.1"
