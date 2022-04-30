@@ -1,2 +1,2 @@
 <?php
-require_once("/etc/phppgadmin/config.inc.php");
+require("/etc/phppgadmin/config.inc.php");

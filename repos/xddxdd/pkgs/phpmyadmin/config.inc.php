@@ -1,2 +1,2 @@
 <?php
-require_once("/etc/phpmyadmin/config.inc.php");
+require("/etc/phpmyadmin/config.inc.php");
