@@ -17,6 +17,4 @@
   bmono = pkgs.callPackage ./pkgs/bmono { };
   pepper = pkgs.callPackage ./pkgs/pepper { };
   pepper-lsp = pkgs.callPackage ./pkgs/pepper-lsp { };
-  pixel-vision-8 = pkgs.callPackage ./pkgs/pixel-vision-8 { };
-  # tic80 = pkgs.callPackage ./pkgs/tic80 { };
 }
