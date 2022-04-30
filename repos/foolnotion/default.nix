@@ -95,4 +95,6 @@
     vstat = vstat;
     xxhash = xxhash;
   };
+
+  quickcpplib = pkgs.callPackage ./pkgs/quickcpplib { };
 }
