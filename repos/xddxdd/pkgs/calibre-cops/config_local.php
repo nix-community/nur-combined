@@ -1,6 +1,2 @@
 <?php
-
-if (!isset($config))
-    $config = array();
-
-require_once("/etc/calibre-cops/config_local.php");
+require("/etc/calibre-cops/config_local.php");
