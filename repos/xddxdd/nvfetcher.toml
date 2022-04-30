@@ -6,6 +6,10 @@ fetch.github = "xddxdd/bird-lg-go"
 src.github = "open-quantum-safe/boringssl"
 fetch.github = "open-quantum-safe/boringssl"
 
+[calibre-cops]
+src.git = "https://github.com/seblucas/cops.git"
+fetch.github = "seblucas/cops"
+
 [drone-vault]
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
@@ -87,7 +91,7 @@ fetch.url = "https://github.com/outloudvi/mw2fcitx/releases/download/$ver/moegir
 [rime-zhwiki]
 src.webpage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases"
 src.regex = "zhwiki-([0-9]{8})\\.dict\\.yaml"
-fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-$ver.dict.yaml"
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-$ver.dict.yaml"
 
 [route-chain]
 src.git = "https://github.com/xddxdd/route-chain.git"

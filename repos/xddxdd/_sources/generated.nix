@@ -25,6 +25,18 @@
       sha256 = "0lcxapfqj9b2p8q6f65w91320lvrsyfxr9602hhw2b83c25lxixh";
     };
   };
+  calibre-cops = {
+    pname = "calibre-cops";
+    version = "f65537cdc6f11e135fdc0fbfcaf05524f63ec667";
+    src = fetchgit {
+      url = "https://github.com/seblucas/cops";
+      rev = "f65537cdc6f11e135fdc0fbfcaf05524f63ec667";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "02hhr8c8rdyj1s4m2g41x9qgic4lkkd9jv4riznqpxb2y8lhps4p";
+    };
+  };
   drone-vault = {
     pname = "drone-vault";
     version = "v1.2.0";
@@ -39,14 +51,14 @@
   };
   genshin-glyphs = {
     pname = "genshin-glyphs";
-    version = "0fa7c69928ddd7f849ab026e95bb5c27e24834ed";
+    version = "4f620a57d6753443fe401c67839a98b118a3dc4d";
     src = fetchgit {
       url = "https://github.com/SpeedyOrc-C/Genshin-Glyphs";
-      rev = "0fa7c69928ddd7f849ab026e95bb5c27e24834ed";
+      rev = "4f620a57d6753443fe401c67839a98b118a3dc4d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1228dx9345hpz1lj100kpdyqk3d0csv48v50fyrh1va8mrlfyzvb";
+      sha256 = "1dk6pmy45a31vqhj9ispy1y1ss9qiynzdlkbsvw44lp8y9rg7j82";
     };
   };
   libltnginx = {
@@ -75,18 +87,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.57";
+    version = "2.0.58";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.57/netboot.xyz.efi";
-      sha256 = "1r67h392a0jcxy16d3imvl6qv8q751fx0b5d61qhjnnc48ad4klh";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.58/netboot.xyz.efi";
+      sha256 = "0417cfj8ndzlgifp5ymcs2zqlb1q8g8p1fsg92bp3xvar3h6b66v";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.57";
+    version = "2.0.58";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.57/netboot.xyz.lkrn";
-      sha256 = "18972igpdnbs86yzlc2sam8zbn88n8y414q9wpmp98fjdnpd4nqa";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.58/netboot.xyz.lkrn";
+      sha256 = "1ybn6r9s02mnnglsakf2dic2lhxkwg59daaphswg9x067nry7pzi";
     };
   };
   netns-exec = {
@@ -171,18 +183,18 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "6.2+dfsg-3";
+    version = "7.0+dfsg-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-3_amd64.deb";
-      sha256 = "1r81ibirkn85w6dwqnl3dckrdrdj1fsjwq5zv0q7ilzvpaw8vrp8";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_amd64.deb";
+      sha256 = "11y9wr4qn7rczpdv4mi3x9yhnfbnn969312n2qbv92s45ii4rql3";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "6.2+dfsg-3";
+    version = "7.0+dfsg-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_6.2+dfsg-3_arm64.deb";
-      sha256 = "174n9zs2g4ry1yblflw33q1ljpzdrl5d4s9v73la8z862il0rc85";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_arm64.deb";
+      sha256 = "028mfrgvlyly95l8g6v16r3gcljgcmwvi2ing03164fh7rxcldkg";
     };
   };
   rime-aurora-pinyin = {
@@ -219,10 +231,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20220312";
+    version = "20220416";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220312.dict.yaml";
-      sha256 = "089hfvz7cw72cq9rhi61nhr5n33wpwxa6xqkhi2ngdgppazpwdcn";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220416.dict.yaml";
+      sha256 = "1kd3xyy67zwc0ff345jcwcvrfn6z303536bv8anycjnyv0161rka";
     };
   };
   route-chain = {
@@ -239,25 +251,25 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202203310042";
+    version = "202204280105";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202203310042/geoip.dat";
-      sha256 = "1ipxxddv60j2axfz2x9vvgkqijhi9bkwzmc978ywqky55pkwbfjl";
+      url = "https://github.com/v2fly/geoip/releases/download/202204280105/geoip.dat";
+      sha256 = "0w1iqn5c8cpsa4nql4527vdi00pa4r6g2jw09vqhr4i37yip5ziq";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220405035552";
+    version = "20220429034939";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220405035552/dlc.dat";
-      sha256 = "1b98mrwq7wgcpl56ggnzrd9995qcpjqdm3ryakzc71clqwdhy3j7";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220429034939/dlc.dat";
+      sha256 = "1ahiqc9ha65glmjssyvwmpjdqa1nii4d253y99c0csscipmypc1j";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202203310042";
+    version = "202204280105";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202203310042/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202204280105/private.dat";
       sha256 = "1s60xrnii6rmi6ca2sbhlnx0x6cmzfxd7g2lbvz0kchfxfnyhlfw";
     };
   };

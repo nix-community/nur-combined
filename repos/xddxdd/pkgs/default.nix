@@ -24,6 +24,7 @@ rec {
   boringssl-oqs = pkg ./boringssl-oqs {
     inherit liboqs;
   };
+  calibre-cops = pkg ./calibre-cops { };
   chmlib-utils = pkg ./chmlib-utils { };
   coredns = pkg ./coredns { };
   dingtalk = pkg ./dingtalk { };
