@@ -586,10 +586,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.49";
+      version = "6.1.50";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3929226/flagfox-6.1.49-fx.xpi";
-      sha256 = "ab7e010b236afde566fb5742f45db264b835256e4b7b14ae0dae8c3561417218";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942574/flagfox-6.1.50-fx.xpi";
+      sha256 = "227bc5d0db8e0205ce50a3bd55ba32eb4a3990f6e9e0207087a3654af35d4180";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -1557,10 +1557,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.24.3";
+      version = "4.24.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3932058/react_developer_tools-4.24.3-fx.xpi";
-      sha256 = "d39d640bc8292e9606b2d1e8a36ee604100dab11ac61d34ef7884aff11358ad1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920243/react_developer_tools-4.24.0-fx.xpi";
+      sha256 = "adffe8eb0c5c3c6cc7d9169fc0468ebbf87a6304cbfb35e65b68eccbf7fc064f";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
