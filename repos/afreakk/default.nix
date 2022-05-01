@@ -29,6 +29,7 @@ let
       systemd-cron = import ./modules/systemd-cron;
       scheduled-rsync = import ./modules/scheduled-rsync;
       joystickwake = import ./modules/joystickwake;
+      xscreensaver-fork = import ./modules/xscreensaver;
     };
     system-modules = {
       irc-link-informant = import ./modules/irc-link-informant;
