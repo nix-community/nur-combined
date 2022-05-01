@@ -237,6 +237,7 @@
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
         description = "Bypass Paywalls of (custom) news sites";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -1036,10 +1037,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.26";
+      version = "2.6.27";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3937192/localcdn-2.6.26-an+fx.xpi";
-      sha256 = "079da1d971e200d5f737f919b1f7d35a9f3e1037c888e1d286282577c296cde8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942962/localcdn-2.6.27-an+fx.xpi";
+      sha256 = "1f3356461151f37d7f4a1d89915de9b035500edc1206caf038c59780758ac12b";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
