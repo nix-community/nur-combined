@@ -1,9 +1,9 @@
-{ lib, stdenv, pkg-config, libgnome_keyring }:
+{ lib, stdenv, pkg-config, libgnome-keyring }:
 
 stdenv.mkDerivation {
   name = "lock-gnome-keyring";
 
-  buildInputs = [ libgnome_keyring ];
+  buildInputs = [ libgnome-keyring ];
   nativeBuildInputs = [ pkg-config ];
 
   src = ./src;
