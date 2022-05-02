@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "warpd";
-  version = "2022-05-02";
+  version = "unstable-2022-05-01";
 
   src = fetchFromGitHub {
     owner = "rvaiya";
