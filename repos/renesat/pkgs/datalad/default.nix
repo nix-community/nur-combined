@@ -1,16 +1,16 @@
-{ lib, stdenv, python39Packages, installShellFiles }:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, python3 }:
 
-with python39Packages;
-
-buildPythonPackage rec {
+python3.pkgs.buildPythonApplication rec {
   pname = "datalad";
   version = "0.16.2";
 
   doCheck = false;
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-H6stkrvRtoPuhkA6xjeVp1kgjUPX/yyC6SjGPyFP+HY=";
+  src = fetchFromGitHub {
+    owner = "datalad";
+    repo = pname;
+    rev = version;
+    hash = "sha256-0GGFud+Pjtz2Inst3u8lEVIdUsmvFVFxkWw76ZSmvdI=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -21,47 +21,55 @@ buildPythonPackage rec {
          --zsh  <($out/bin/datalad shell-completion)
   '';
 
-  propagatedBuildInputs = [
-    # core
-    platformdirs
-    chardet
-    distro # python_version >= "3.8"
-    importlib-metadata # python_version < "3.10"
-    iso8601
-    humanize
-    fasteners
-    packaging
-    patool
-    tqdm
-    annexremote
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      # core
+      platformdirs
+      chardet
+      iso8601
+      humanize
+      fasteners
+      packaging
+      patool
+      tqdm
+      annexremote
 
-    # downloaders
-    boto
-    keyrings-alt
-    keyring
-    msgpack
-    requests
+      # downloaders
+      boto
+      keyrings-alt
+      keyring
+      msgpack
+      requests
 
-    # publish
-    python-gitlab
+      # publish
+      python-gitlab
 
-    # misc
-    argcomplete
-    pyperclip
-    python-dateutil
+      # misc
+      argcomplete
+      pyperclip
+      python-dateutil
 
-    # metadata
-    simplejson
-    whoosh
+      # metadata
+      simplejson
+      whoosh
 
-    # metadata-extra
-    pyyaml
-    mutagen
-    exifread
-    python-xmp-toolkit
-    pillow
+      # metadata-extra
+      pyyaml
+      mutagen
+      exifread
+      python-xmp-toolkit
+      pillow
 
-    # duecredit
-    duecredit
-  ] ++ lib.lists.optional stdenv.hostPlatform.isWindows colorama;
+      # duecredit
+      duecredit
+    ] ++ lib.optional stdenv.hostPlatform.isWindows [ colorama ]
+    ++ lib.optional (python3.pythonAtLeast "3.8") [ distro ]
+    ++ lib.optional (python3.pythonOlder "3.10") [ importlib-metadata ];
+
+  meta = with lib; {
+    description =
+      "Keep code, data, containers under control with git and git-annex";
+    homepage = "https://www.datalad.org";
+    license = licenses.mit;
+  };
 }
