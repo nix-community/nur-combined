@@ -79,6 +79,7 @@ in {
     loader = cp ./packages/custom/loader/default.nix;
     polybar = cp ./packages/custom/polybar.nix;
   };
+  Geographical-Adventures = cp ./packages/Geographical-Adventures.nix;
   t-launcher = cp ./packages/tlauncher.nix;
   pkg = cp ./packages/pkg.nix;
   pipedream-cli = cp ./packages/pipedream-cli.nix;
