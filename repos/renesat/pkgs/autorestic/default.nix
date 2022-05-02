@@ -1,17 +1,17 @@
-{ lib, fetchFromGitHub, installShellFiles, buildGoModule }:
+{ lib, fetchFromGitHub, installShellFiles, buildGo118Module }:
 
-buildGoModule rec {
+buildGo118Module rec {
   pname = "autorestic";
-  version = "1.5.6";
+  version = "1.7.1";
 
   src = fetchFromGitHub {
     owner = "cupcakearmy";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-NhKAxybPLBR1Kaw2d4xI8WKS4cG0yAMHbUBDWgr5T0A=";
+    sha256 = "sha256-UUK5C26wM8LKQ7TE6DWEfzq+uPXH09B2Nybkfuqk+1o=";
   };
 
-  vendorSha256 = "sha256-WzmgV0wUsGfMVeho6M8wXJKD9adaAKRYmaJYaAcXwFc=";
+  vendorSha256 = "sha256-eB24vCElnnk3EMKniCblmeRsFk0BQ0wFeBf0B8OPanE=";
 
   nativeBuildInputs = [ installShellFiles ];
 
