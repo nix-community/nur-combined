@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.6.6.0";
+      version = "2.6.7.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940582/bypass_paywalls_clean-2.6.6.0-an+fx.xpi";
-      sha256 = "2213b7e6665977ac3e75fb76d3995231c7a978d56f4e2a143d84be3dc8580474";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943332/bypass_paywalls_clean-2.6.7.0-an+fx.xpi";
+      sha256 = "9bee2b0389f213755f761758e7a110a3e02e47f21718b69bf5b2f7ebc52555ec";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -2330,10 +2330,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.60.0";
+      version = "2.61.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942320/web_scrobbler-2.60.0-an+fx.xpi";
-      sha256 = "0131be505367a3af0dd713eeb6b9f5346447d76fc1b1fa4da5ebef32bf0bf1ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943373/web_scrobbler-2.61.0-an+fx.xpi";
+      sha256 = "1d4491d67366110a773b946d42b7fdb43c36309b299483a5f9b78ea0a27cdb8a";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
