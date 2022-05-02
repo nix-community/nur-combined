@@ -27,6 +27,8 @@ rec {
   calibre-cops = pkg ./calibre-cops { };
   chmlib-utils = pkg ./chmlib-utils { };
   coredns = pkg ./coredns { };
+  deepspeech-gpu = pkg ./deepspeech-gpu { };
+  deepspeech-wrappers = pkg ./deepspeech-gpu/wrappers.nix { };
   dingtalk = pkg ./dingtalk { };
   dngzwxdq = pkg ./dngzwxdq {
     inherit chmlib-utils;
