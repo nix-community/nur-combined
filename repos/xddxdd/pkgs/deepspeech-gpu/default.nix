@@ -23,7 +23,7 @@ let
   ];
 in
 buildPythonPackage rec {
-  pname = "deepspeech";
+  pname = "deepspeech-gpu";
   inherit version;
   wheelName = "deepspeech_gpu-${version}-cp${pythonVersion}-cp${pythonVersion}-manylinux1_x86_64.whl";
 
