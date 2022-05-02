@@ -56,7 +56,10 @@ in {
         User = "lohr";
         Group = "lohr";
       };
-      path = [pkgs.git];
+      path = [
+        pkgs.git
+        pkgs.openssh
+      ];
     };
 
     users.users.lohr = {

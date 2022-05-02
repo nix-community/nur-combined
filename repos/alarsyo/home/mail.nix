@@ -42,6 +42,26 @@ in {
             enable = true;
             create = "both";
             expunge = "both";
+            groups = {
+              alarsyo-main.channels.alarsyo-main = {
+                patterns = ["INBOX" "Sent" "Drafts" "Junk" "Trash"];
+                extraConfig = {
+                  Create = "Both";
+                  Expunge = "Both";
+                  Remove = "None";
+                  SyncState = "*";
+                };
+              };
+              alarsyo-full.channels.alarsyo-full = {
+                patterns = ["*" "!INBOX" "!Sent" "!Drafts" "!Junk" "!Trash"];
+                extraConfig = {
+                  Create = "Both";
+                  Expunge = "Both";
+                  Remove = "None";
+                  SyncState = "*";
+                };
+              };
+            };
           };
           msmtp.enable = true;
           mu.enable = true;
@@ -66,6 +86,7 @@ in {
             enable = true;
             create = "both";
             expunge = "both";
+            patterns = ["*" "!Archives*"];
             extraConfig.account = {
               # otherwise mbsync tries GSSAPI, but I don't have Kerberos setup
               # on this machine
