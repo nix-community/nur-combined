@@ -5,7 +5,9 @@
 
 let
   packages = {
-    autorestic = pkgs.callPackage ./pkgs/autorestic { };
+    autorestic = pkgs.callPackage ./pkgs/autorestic {
+      buildGoModule = pkgs.buildGo118Module;
+    };
     activitywatch-bin = pkgs.callPackage ./pkgs/activitywatch-bin { };
     datalad = pkgs.callPackage ./pkgs/datalad { };
     warpd = pkgs.callPackage ./pkgs/warpd { };

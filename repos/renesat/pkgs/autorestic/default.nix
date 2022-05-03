@@ -1,6 +1,6 @@
-{ lib, fetchFromGitHub, installShellFiles, buildGo118Module }:
+{ lib, fetchFromGitHub, installShellFiles, buildGoModule }:
 
-buildGo118Module rec {
+buildGoModule rec {
   pname = "autorestic";
   version = "1.7.1";
 
@@ -26,6 +26,5 @@ buildGo118Module rec {
     description = "High level CLI utility for restic";
     homepage = "https://github.com/cupcakearmy/autorestic";
     license = licenses.asl20;
-    platforms = platforms.linux ++ platforms.darwin;
   };
 }
