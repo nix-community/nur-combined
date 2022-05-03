@@ -8,12 +8,12 @@
 
 let 
 
-  version = "1.8.0";
-  binName = "jdt-language-server-1.8.0-202201261434";
+  version = "1.10.0";
+  binName = "jdt-language-server-1.10.0-202204131925";
 
   src = fetchurl {
     url = "https://download.eclipse.org/jdtls/milestones/${version}/${binName}.tar.gz";
-    sha256 = "68378599cca158f7aab4d54782efcda9258ef98389ba7757c68d59284ed69672";
+    sha256 = "0j90v0ryn8ib4pzh94dbwdnk1mmaifvm8bbcg9hawz41z17szymh";
   };
 
   jdtls = stdenv.mkDerivation rec {
