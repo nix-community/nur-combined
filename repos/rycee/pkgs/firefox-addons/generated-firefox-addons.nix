@@ -71,10 +71,10 @@
       };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
-      version = "2.3.1";
+      version = "2.3.2";
       addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3890859/augmented_steam-2.3.1-fx.xpi";
-      sha256 = "0e77580d86773c9dd8b392d75df22dd414ccde500c52ccc72f697f2f706d8c46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943117/augmented_steam-2.3.2-fx.xpi";
+      sha256 = "400a0935f9b5ea58cc0f596eeaf396e9aeb12e6764c534649eb1635ccfaf988f";
       meta = with lib;
       {
         homepage = "https://augmentedsteam.com/";
@@ -393,10 +393,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.48";
+      version = "4.9.50";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3938065/dark_reader-4.9.48-an+fx.xpi";
-      sha256 = "c1ada25b4687d6f0ce705ce80cb98cbdab14fc65f4a5b387eac5ace1df48b203";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943310/dark_reader-4.9.50-an+fx.xpi";
+      sha256 = "e726c87b43dc7965a07a8d88396ea966cd3ab5d9d03743d938cda34081d4e067";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "100.0buildid20220428.192727";
+      version = "101.0buildid20220502.145843";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942503/francais_language_pack-100.0buildid20220428.192727-fx.xpi";
-      sha256 = "4d945c63773aac2085c0c3e48fb6427173a26ca8a71bc007f3bf24828cbd821d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943709/francais_language_pack-101.0buildid20220502.145843-fx.xpi";
+      sha256 = "4aba16c192f56d89c07f81aa01c3eb4968029023b5e861618967f32ea209c6d8";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -948,10 +948,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.4.1";
+      version = "1.4.2";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3937647/leechblock_ng-1.4.1-an+fx.xpi";
-      sha256 = "fe374870c58ffd966858c1f7249da17602195e9bfd40409c67f42323aca80a36";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943368/leechblock_ng-1.4.2-an+fx.xpi";
+      sha256 = "6f8f20e614372e7ff14b6084d9d27579f2e3a5d82a2079aa9f5ab829708072f4";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1682,10 +1682,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "4.8.0";
+      version = "4.9.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3932724/search_by_image-4.8.0-an+fx.xpi";
-      sha256 = "b361bed0e65e9b32d6ff5411927fb608f43b08d3e8aa1007d2acded7cc982212";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943104/search_by_image-4.9.0-an+fx.xpi";
+      sha256 = "552a8eaf8ff48ae605d0ad1ac79479260b344405157fdd5a4c46fa3ea1edd65b";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -1738,10 +1738,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.20.4";
+      version = "1.20.5";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941794/singlefile-1.20.4-an+fx.xpi";
-      sha256 = "e18b492c95d7e58dd739d818e8a315924a67733a502df81ae014f83cee4d1c13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942898/singlefile-1.20.5-an+fx.xpi";
+      sha256 = "7e54f70d944b8e260fcfc7343008474f15512074befb0f42c56d75c2ef40653d";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1864,10 +1864,10 @@
       };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.0.4";
+      version = "1.0.6";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3904477/surfingkeys-1.0.4-fx.xpi";
-      sha256 = "b9cf09cc36ae09ae68eb760587fd3507557fd066ce00a00a3b72faf67bf52719";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943498/surfingkeys-1.0.6-fx.xpi";
+      sha256 = "73085800f37ec23bd03ab7df4daba9fc4a69476f6a5f6b8c993969b58a3090a4";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -2087,10 +2087,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.22";
+      version = "3.8.23";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3939893/tree_style_tab-3.8.22-fx.xpi";
-      sha256 = "866dd252b40386e13d46ba832462352528a3b7770024305c6ddad148b01ab727";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943215/tree_style_tab-3.8.23-fx.xpi";
+      sha256 = "531cea228e243f187407a6a25b7390984835c8d5879dcfe516d7b337ec2369be";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2330,10 +2330,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.61.0";
+      version = "2.62.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3943373/web_scrobbler-2.61.0-an+fx.xpi";
-      sha256 = "1d4491d67366110a773b946d42b7fdb43c36309b299483a5f9b78ea0a27cdb8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3943850/web_scrobbler-2.62.0-an+fx.xpi";
+      sha256 = "08940ff2358918aa7cc38605d9b30afdf6956a56fb95adbc9e9a8afaef7f5988";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
