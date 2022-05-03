@@ -20,4 +20,11 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/ani-cli \
       --prefix PATH : ${lib.makeBinPath [ bash mpv curl ffmpeg ]}
   '';
+
+  meta = with lib; {
+    homepage = "https://github.com/pystardust/ani-cli";
+    description = "A cli tool to browse and play anime";
+    license = licenses.gpl3;
+    platforms = with platforms; linux ++ darwin;
+  };
 }

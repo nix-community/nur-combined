@@ -7,6 +7,6 @@
 
 ## Packages
 
-+ [ani-cli](https://github.com/pystardust/ani-cli)
-+ [hybridbar](https://github.com/hcsubser/hybridbar) (no indicators packaged yet)
-+ [swayblur](https://github.com/willpower3309/swayblur)
++ [ani-cli](https://github.com/pystardust/ani-cli) 2.1
++ [hybridbar](https://github.com/hcsubser/hybridbar) 1.0.0 (no indicators packaged yet)
++ [swayblur](https://github.com/willpower3309/swayblur) 1.1.1
