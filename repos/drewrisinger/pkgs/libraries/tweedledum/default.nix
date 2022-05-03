@@ -1,6 +1,7 @@
 { stdenv
 , lib
 , fetchFromGitHub
+, fetchpatch
 , cmake
 , ninja
 , fmt
@@ -18,10 +19,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wgrY5ajaMYxznyNvlD0ul1PFr3W8oV9I/OVsStlZEBM=";
   };
 
-  postPatch = ''
-    # failing compilation due to MINSIGSTKSZ not being constant expression, has call to sysconf(int)
-    substituteInPlace tests/catch2/catch.hpp --replace "sigStackSize = 32768 >= MINSIGSTKSZ ? 32768 : MINSIGSTKSZ" "sigStackSize = 32768"
-  '';
+  patches = [
+    (fetchpatch {
+      name = "pr-173-update-catch2.patch";
+      url = "https://github.com/boschmitt/tweedledum/commit/2791ff2588c149ad10196b3989c8faa0e1237c32.patch";
+      sha256 = "sha256-ZRKrtr+xNKCPFC8Vzbql/0pENLytu8kuL7yLycr9CO8=";
+    })
+  ];
 
   nativeBuildInputs = [ cmake ninja ];
   buildInputs = [
