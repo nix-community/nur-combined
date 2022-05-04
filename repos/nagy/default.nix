@@ -2,6 +2,8 @@
 
 let inherit (pkgs) callPackage recurseIntoAttrs;
 in rec {
+  lib = callPackage ./lib.nix { };
+
   hyperspec = callPackage ./pkgs/hyperspec { };
 
   luaPackages = lua53Packages;
@@ -89,4 +91,6 @@ in rec {
   q = callPackage ./pkgs/q { };
 
   snid = callPackage ./pkgs/snid { };
+
+  npt = callPackage ./pkgs/npt { };
 }
