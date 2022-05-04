@@ -1,6 +1,6 @@
 {global, pkgs, lib, ...}:
 let
-  inherit (pkgs) vim nixFlakes writeText gitMinimal tmux;
+  inherit (pkgs) vim nixFlakes writeText gitMinimal tmux xclip;
   inherit (global) username;
 in {
   nix = {
@@ -24,6 +24,7 @@ in {
     vim
     gitMinimal
     tmux
+    xclip
   ];
   environment.variables.EDITOR = "nvim";
   # remote acess
