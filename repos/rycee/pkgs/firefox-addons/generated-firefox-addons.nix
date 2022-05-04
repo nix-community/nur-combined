@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220502.145843";
+      version = "101.0buildid20220503.185929";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3943709/francais_language_pack-101.0buildid20220502.145843-fx.xpi";
-      sha256 = "4aba16c192f56d89c07f81aa01c3eb4968029023b5e861618967f32ea209c6d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944293/francais_language_pack-101.0buildid20220503.185929-fx.xpi";
+      sha256 = "a5e2e65e22c1d2dc525f6f9d43a3a80092260dc3ce25efeba7ad55e22c344def";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1829,7 +1829,7 @@
       sha256 = "e7b5500da81cd360336780bbc7c8e92c6044ede40b4bfbcbdb401ecf38e9b439";
       meta = with lib;
       {
-        description = "This search engine extension protects users from being tracked while allowing them to search the web in complete privacy.";
+        description = "This extension protects users from being tracked while allowing them to search the web in complete private mode.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
