@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses5 SDL SDL_mixer ];
 
-  NIX_CFLAGS_COMPILE = lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation"
-    ++ lib.optional stdenv.cc.isClang "-Wno-error=mismatched-new-delete";
+  NIX_CFLAGS_COMPILE = [ "-Wno-error=mismatched-new-delete" ]
+    ++ lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation";
 
   installPhase = ''
     install -Dm755 main $out/bin/ascii-dash
