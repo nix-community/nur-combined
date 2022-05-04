@@ -17,14 +17,10 @@
   iptvnator = pkgs.callPackage ./pkgs/iptvnator { };
   librewolf-bin = pkgs.callPackage ./pkgs/librewolf-bin { };
   multifirefox = pkgs.callPackage ./pkgs/multifirefox { };
-  ssm-session-manager-plugin = pkgs.callPackage ./pkgs/ssm-session-manager-plugin { };
   stremio = pkgs.callPackage ./pkgs/stremio { };
   vdhcoapp = pkgs.callPackage ./pkgs/vdhcoapp {
-    nodejs = pkgs.nodejs-12_x;
     ffmpeg = if pkgs.stdenv.isLinux && pkgs.stdenv.isx86_64
                then pkgs.ffmpeg-full
                else pkgs.ffmpeg-full.override { libmfx = null; };
   };
-  # DEPRECATED
-  #freezer = pkgs.callPackage ./pkgs/freezer { };
 }
