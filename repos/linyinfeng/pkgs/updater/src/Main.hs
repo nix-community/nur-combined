@@ -49,7 +49,7 @@ commitNotifier =
     package "commit-notifier"
       `sourceGit` url
       `fetchGit` url
-      `hasCargoLock` "Cargo.lock"
+      `hasCargoLocks` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/commit-notifier.git"
 
@@ -59,7 +59,7 @@ dotTar =
     package "dot-tar"
       `sourceGit` url
       `fetchGit` url
-      `hasCargoLock` "Cargo.lock"
+      `hasCargoLocks` ["Cargo.lock"]
   where
     url = "https://github.com/linyinfeng/dot-tar.git"
 
