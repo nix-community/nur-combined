@@ -22,7 +22,7 @@ buildGoModule rec {
   meta = with lib; {
     description =
       "Fast face detection, pupil/eyes localization and facial landmark points detection library in pure Go";
-    homepage = "https://github.com/esimov/pico";
+    homepage = "https://github.com/esimov/pigo";
     license = with licenses; [ mit ];
   };
 }

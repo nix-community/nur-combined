@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools_scm, numba, scipy, openssl
-, installShellFiles, pillow }:
+{ lib, fetchPypi, buildPythonPackage, numba, scipy, openssl, installShellFiles
+, pillow }:
 
 buildPythonPackage rec {
   pname = "PyMatting";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pymatting" ];
 
-  nativeBuildInputs = [ setuptools_scm installShellFiles ];
+  nativeBuildInputs = [ installShellFiles ];
 
   propagatedBuildInputs = [ pillow numba scipy openssl ];
 

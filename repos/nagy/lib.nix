@@ -1,6 +1,7 @@
 { pkgs, lib ? pkgs.lib, ... }:
 
-rec {
+with builtins;
+with lib; rec {
   gltf-pipeline = let
     mypkgs = (import (pkgs.fetchFromGitHub {
       owner = "nagy";
@@ -12,13 +13,12 @@ rec {
 
   mkGlb2Gltf = src:
     let
-      isFile = lib.hasSuffix ".glb" (builtins.toString (baseNameOf src));
+      isFile = hasSuffix ".glb" (toString (baseNameOf src));
       thename = if isFile then
-        builtins.replaceStrings [ ".glb" ] [ ".gltf" ]
-        (builtins.toString (baseNameOf src))
+        replaceStrings [ ".glb" ] [ ".gltf" ] (toString (baseNameOf src))
       else
         "gltf-outputs";
-      thesrc = if isFile then src else lib.cleanSource src;
+      thesrc = if isFile then src else cleanSource src;
     in pkgs.runCommand thename {
       nativeBuildInputs = [ gltf-pipeline ];
       src = thesrc;
