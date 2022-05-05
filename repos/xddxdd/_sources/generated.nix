@@ -169,22 +169,6 @@
       sha256 = "00d57kvils4vdkscqly306kpcd3jixsyyvcfhy362pgamdpf738i";
     };
   };
-  qemu-user-static-amd64 = {
-    pname = "qemu-user-static-amd64";
-    version = "7.0+dfsg-1";
-    src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_amd64.deb";
-      sha256 = "11y9wr4qn7rczpdv4mi3x9yhnfbnn969312n2qbv92s45ii4rql3";
-    };
-  };
-  qemu-user-static-arm64 = {
-    pname = "qemu-user-static-arm64";
-    version = "7.0+dfsg-1";
-    src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_arm64.deb";
-      sha256 = "028mfrgvlyly95l8g6v16r3gcljgcmwvi2ing03164fh7rxcldkg";
-    };
-  };
   rime-aurora-pinyin = {
     pname = "rime-aurora-pinyin";
     version = "709398a009e964e17943717007dd4db98b5655b1";
@@ -239,38 +223,38 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202204280105";
+    version = "202205050051";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202204280105/geoip.dat";
-      sha256 = "0w1iqn5c8cpsa4nql4527vdi00pa4r6g2jw09vqhr4i37yip5ziq";
+      url = "https://github.com/v2fly/geoip/releases/download/202205050051/geoip.dat";
+      sha256 = "16ja4544w7zs1lmrczv9q4f7k1srl2hsfybsj0ashvky31agyglp";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220429034939";
+    version = "20220505022319";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220429034939/dlc.dat";
-      sha256 = "1ahiqc9ha65glmjssyvwmpjdqa1nii4d253y99c0csscipmypc1j";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220505022319/dlc.dat";
+      sha256 = "08n44z2g3lbicw7svpy92v2jywl9a77ml5r9zifqdq1dfgj8dd6f";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202204280105";
+    version = "202205050051";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202204280105/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202205050051/private.dat";
       sha256 = "1s60xrnii6rmi6ca2sbhlnx0x6cmzfxd7g2lbvz0kchfxfnyhlfw";
     };
   };
   xray = {
     pname = "xray";
-    version = "v1.5.4";
+    version = "v1.5.5";
     src = fetchgit {
       url = "https://github.com/XTLS/Xray-core";
-      rev = "v1.5.4";
+      rev = "v1.5.5";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "068i2sdykmr7xznsvq5d80ivzkmmnd8gy3v90n8g8h7aqkgx25w6";
+      sha256 = "1i3m361gbcp4v6accf1gwxd01x65v15166rl594a5pl7xw18srn7";
     };
   };
 }

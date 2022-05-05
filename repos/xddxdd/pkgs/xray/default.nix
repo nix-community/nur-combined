@@ -9,7 +9,7 @@
 
 let
   inherit (sources.xray) version src;
-  vendorSha256 = "sha256-ZFbYUybbKKqmFz7mi7QpgaRj0i7is4iM/aBbPAqCuSM=";
+  vendorSha256 = "sha256-PBcUKUP06QKTu3djxoTb7B7Ld86fZz7+SDewRZy1YmQ=";
 
   assetsDrv = linkFarm "xray-assets" (lib.mapAttrsToList
     (name: path: {

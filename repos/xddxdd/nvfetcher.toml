@@ -62,16 +62,6 @@ fetch.github = "phppgadmin/phppgadmin"
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
 fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
 
-[qemu-user-static-amd64]
-src.webpage = "https://packages.debian.org/sid/qemu-user-static"
-src.regex = "\\(1:(.*)\\)"
-fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_amd64.deb"
-
-[qemu-user-static-arm64]
-src.webpage = "https://packages.debian.org/sid/qemu-user-static"
-src.regex = "\\(1:(.*)\\)"
-fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_arm64.deb"
-
 [rime-aurora-pinyin]
 src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
 fetch.github = "hosxy/rime-aurora-pinyin"
