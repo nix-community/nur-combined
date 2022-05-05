@@ -32,6 +32,7 @@ rec {
 
   # instant WM and utils
   argtable3 = pkgs.callPackage ./pkgs/argtable3 { };
+  disper = pkgs.callPackage ./pkgs/disper { };
   gufw = with pkgs.python3Packages; pkgs.callPackage ./pkgs/gufw { inherit buildPythonApplication distutils_extra; };
   imenu = pkgs.callPackage ./pkgs/imenu { instantMenu = self.instantmenu; };
   instantconf = pkgs.callPackage ./pkgs/instantConf { };
@@ -57,10 +58,9 @@ rec {
     Paperbash = self.paperbash;
   };
   instantutils = pkgs.callPackage ./pkgs/instantUtils {
-    lxsession = lxsession;
-    rangerplugins = self.rangerplugins;
-    xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
-    zenity = pkgs.gnome3.zenity;
+    inherit lxsession rangerplugins disper;
+    inherit (pkgs.xfce) xfce4-power-manager;
+    inherit (pkgs.gnome3) zenity;
   };
   instantmenu = pkgs.callPackage ./pkgs/instantMenu {
     instantUtils = self.instantutils;
