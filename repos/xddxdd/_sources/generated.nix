@@ -49,6 +49,18 @@
       sha256 = "1dk6pmy45a31vqhj9ispy1y1ss9qiynzdlkbsvw44lp8y9rg7j82";
     };
   };
+  glauth = {
+    pname = "glauth";
+    version = "v2.1.0";
+    src = fetchgit {
+      url = "https://github.com/glauth/glauth";
+      rev = "v2.1.0";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1ahx3yiy83wdbraigz8c86pb2qj7vkgx01ifjy7ivi4nkvby4zwi";
+    };
+  };
   libltnginx = {
     pname = "libltnginx";
     version = "96698a667740ac45ca4571a04a6cfe39caf926c0";
@@ -231,10 +243,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220505022319";
+    version = "20220505153825";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220505022319/dlc.dat";
-      sha256 = "08n44z2g3lbicw7svpy92v2jywl9a77ml5r9zifqdq1dfgj8dd6f";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220505153825/dlc.dat";
+      sha256 = "1scjpd0wsfckv4k94x0sfad6cbdjj28xfx9fxl4srglnlqr5w5lg";
     };
   };
   v2fly-private = {

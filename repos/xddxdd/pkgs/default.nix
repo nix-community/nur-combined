@@ -44,6 +44,7 @@ rec {
   };
   genshin-glyphs = pkg ./genshin-glyphs { };
   genshinhelper2 = pkg ./genshinhelper2 { };
+  glauth = pkg ./glauth { };
   glibc-debian-openvz-files = pkg ./glibc-debian-openvz-files { };
   gopherus = pkg ./gopherus { };
   hath = pkg ./hath { };
