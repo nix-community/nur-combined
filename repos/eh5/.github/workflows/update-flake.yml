@@ -1,0 +1,60 @@
+name: update-flake
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 19 * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        if: ${{ !env.ACT }}
+        uses: docker/setup-qemu-action@v1
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable-small
+          extra_nix_config: |
+            extra-platforms = aarch64-linux
+            sandbox = false # can't install in act without this
+
+      - name: Set up cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: eh5
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Update flake.lock
+        run: nix flake update
+
+      - name: Update packages source info with nvfetcher
+        working-directory: ./packages
+        run: nix run ..#nvfetcher
+
+      - name: Run flake check
+        run: nix flake check
+
+      - name: Build develop profile (x86_64-linux)
+        run: nix develop .#devShells.x86_64-linux.default --profile dev -c true
+
+      - name: Build develop profile (aarch64-linux)
+        if: ${{ !env.ACT }}
+        run: nix develop .#devShells.aarch64-linux.default --profile dev-aarch64 -c true
+
+      - name: Build home configuration
+        run: nix build .#homeConfigurations.eh5.activationPackage --no-link
+
+      - name: Commit changes
+        if: ${{ !env.ACT }}
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          commit_message: "chore: update flake"

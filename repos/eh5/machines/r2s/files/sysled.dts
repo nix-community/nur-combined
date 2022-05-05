@@ -1,0 +1,13 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "friendlyarm,nanopi-r2s";
+    fragment@0 {
+        target-path = "/leds/led-1";
+        __overlay__ {
+            led-pattern = <200 200>;
+            linux,default-trigger = "timer";
+        };
+    };
+};

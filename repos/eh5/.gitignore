@@ -1,0 +1,16 @@
+# Build result
+source/
+outputs/
+result
+
+# IDE state files
+.vscode
+
+# Local files
+*.local
+*.todo
+.secrets
+
+# develop profile
+dev
+dev-*

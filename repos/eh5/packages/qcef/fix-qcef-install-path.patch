@@ -1,0 +1,25 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 8b66136..6b25028 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -14,7 +14,7 @@ endif ()
+ 
+ if (NOT DEFINED QCEF_INSTALL_PATH)
+   set(QCEF_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/lib")
+-  set(QCEF_OVERRIDE_PATH "${CMAKE_CURRENT_BINARY_DIR}/qcef")
++  set(QCEF_OVERRIDE_PATH "${QCEF_INSTALL_PATH}/qcef")
+ else ()
+   set(QCEF_OVERRIDE_PATH "${QCEF_INSTALL_PATH}/qcef")
+ endif ()
+@@ -288,11 +288,3 @@ install(FILES ${QCEF_PKG_CONFIG_FILE}
+ # Install cef binary files.
+ install(DIRECTORY "${CEF_TARGET_OUT_DIR}/qcef"
+         DESTINATION "${QCEF_INSTALL_PATH}")
+-
+-# Fix sandbox permission.
+-install(FILES "${CEF_TARGET_OUT_DIR}/qcef/chrome-sandbox"
+-        DESTINATION "${QCEF_OVERRIDE_PATH}"
+-        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+-        GROUP_READ GROUP_EXECUTE
+-        WORLD_READ WORLD_EXECUTE
+-        SETUID SETGID)
