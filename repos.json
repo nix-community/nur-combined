@@ -43,8 +43,8 @@
         "artturin": {
             "url": "https://github.com/Artturin/artturin-nur"
         },
-        "astralbijection": {
-            "url": "https://github.com/astralbijection/nur-packages"
+        "astridyu": {
+            "url": "https://github.com/astridyu/nur-packages"
         },
         "awl-fcarza": {
             "url": "https://github.com/francescocarzaniga/awl-fcarza"
@@ -394,6 +394,9 @@
         "nix-data": {
             "url": "https://github.com/Jake-Gillberg/nix-data"
         },
+        "nix-swift-packages": {
+            "url": "https://github.com/dduan/nix-swift-packages"
+        },
         "nnb": {
             "url": "https://github.com/NNBnh/nur-packages"
         },
@@ -509,6 +512,9 @@
         "sikmir": {
             "url": "https://github.com/sikmir/nur-packages"
         },
+        "sky": {
+            "url": "https://github.com/SkyLeite/nix-repository"
+        },
         "smaret": {
             "url": "https://github.com/smaret/nur-packages"
         },
@@ -586,7 +592,7 @@
             "url": "https://github.com/WillPower3309/nur-packages"
         },
         "wolfangaukang": {
-            "url": "https://github.com/wolfangaukang/nur-packages"
+            "url": "https://codeberg.org/wolfangaukang/nur-pakoj.git"
         },
         "xddxdd": {
             "url": "https://github.com/xddxdd/nur-packages"
