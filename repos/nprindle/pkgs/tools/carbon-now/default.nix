@@ -33,7 +33,7 @@ let
         --set PUPPETEER_EXECUTABLE_PATH "${pkgs.chromium}/bin/chromium"
     '';
 
-    meta = with pkgs.stdenv.lib; {
+    meta = with pkgs.lib; {
       description = "Beautiful images of your code-from right inside your terminal.";
       homepage = "https://github.com/mixn/carbon-now-cli";
       platforms = platforms.unix;

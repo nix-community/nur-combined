@@ -1,8 +1,7 @@
-#! /usr/bin/env nix-shell
-#! nix-shell -i bash -p bash
+#!/bin/sh
 
 if [ $# -eq 0 ]; then
-  branches=( "nixos-unstable" "nixpkgs-unstable" "nixos-20.03" )
+  branches=( "nixos-unstable" "nixpkgs-unstable" )
 else
   branches=( "$@" )
 fi

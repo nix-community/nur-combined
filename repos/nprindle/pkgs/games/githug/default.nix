@@ -1,4 +1,4 @@
-{ stdenv
+{ lib
 , ruby, buildRubyGem
 }:
 
@@ -11,7 +11,7 @@ buildRubyGem {
     sha256 = "0hk4pvbvjxipapzjr9rrhcvm2mxlw4a8f6bsfqgq1wnvlbmmrzc6";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "An interactive way to learn git";
     homepage = "https://github.com/Gazler/githug";
     platforms = platforms.unix;
