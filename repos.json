@@ -161,6 +161,9 @@
             "type": "gitea",
             "url": "https://git.marvid.fr/eeva/nur-packages"
         },
+        "eh5": {
+            "url": "https://github.com/EHfive/flakes"
+        },
         "emiller88": {
             "url": "https://github.com/emiller88/nur-packages"
         },
