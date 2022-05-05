@@ -703,10 +703,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.7.0";
+      version = "8.7.1";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3938439/ghostery_privacy_ad_blocker-8.7.0-an+fx.xpi";
-      sha256 = "a3f25e8f09fca5ed7b935965fade5d055c6db8005d3290d80c36c056557018c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944033/ghostery_privacy_ad_blocker-8.7.1-an+fx.xpi";
+      sha256 = "73d970a6357005644ac830204ec150c591a511a2217425c94adce03bc79adee9";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -731,10 +731,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.897.0";
+      version = "8.898.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3937122/grammarly_for_firefox-8.897.0-an+fx.xpi";
-      sha256 = "7db4456320521afd5124c7e134dea55b6ffaa8e2f294c0291ee1e0338913d235";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944487/grammarly_for_firefox-8.898.0-an+fx.xpi";
+      sha256 = "468b5e3680ebf41fe57e1d3847d89e5195e21b6465180766400da7c36e65cf9c";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1267,10 +1267,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.4.3";
+      version = "7.5.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924814/octotree_github_code_tree-7.4.3-fx.xpi";
-      sha256 = "815c55cd696b49456d4afa37ba6fc2d5beeda3e7dcc328b3441ab63b60c5a66f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944789/octotree_github_code_tree-7.5.0-fx.xpi";
+      sha256 = "3a4f41a7befcd350d36dc5ca00fdaa000353ff21449b993183b5997321f1b972";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1809,10 +1809,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.2.1";
+      version = "4.3.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923928/sponsorblock_skip_sponsorships_on_youtube-4.2.1-an+fx.xpi";
-      sha256 = "48f04439130a001e733e726bf54f07d83584acef97fcd8b6ca87f33cb947be01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944477/sponsorblock_skip_sponsorships_on_youtube-4.3.1-an+fx.xpi";
+      sha256 = "d88d220434269193e2308321e58a6b8a893112257288132fca60e643cd279a4a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
