@@ -23,8 +23,8 @@ let
     desktopName = "Caprine";
     genericName = "IM Client";
     comment = "Elegant Facebook Messenger desktop app";
-    categories = "GTK;InstantMessaging;Network;";
-    startupNotify = "true";
+    categories = [ "GTK" "InstantMessaging" "Network" ];
+    startupNotify = true;
   };
 in
 nodePackage.override {

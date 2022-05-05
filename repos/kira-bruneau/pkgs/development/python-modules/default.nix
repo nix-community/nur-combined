@@ -41,4 +41,14 @@ in
   rstb = callPackage ./rstb { };
 
   vdf = callPackage ./vdf { };
+
+  # fix version with setuptools-scm
+  # https://github.com/NixOS/nixpkgs/pull/169870
+  xxhash = prev.xxhash.overrideAttrs (attrs: {
+    nativeBuildInputs = attrs.nativeBuildInputs ++ [ setuptools-scm ];
+  }) // {
+    meta = prev.xxhash.meta // {
+      broken = !isPy3k;
+    };
+  };
 }

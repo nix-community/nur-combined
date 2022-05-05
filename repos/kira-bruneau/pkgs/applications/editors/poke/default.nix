@@ -22,11 +22,11 @@ let
   isCross = stdenv.hostPlatform != stdenv.buildPlatform;
 in stdenv.mkDerivation rec {
   pname = "poke";
-  version = "2.0";
+  version = "2.3";
 
   src = fetchurl {
     url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "sha256-W4Ir8+ESyftcDJqyKjCkWl1eTRbj90NgUrtyCqJrmlg=";
+    sha256 = "sha256-NpDPERbafLOp7GtPcAPiU+JotRAhKiiP04qv7Q68x2Y=";
   };
 
   outputs = [ "out" "dev" "info" "lib" "man" ];
@@ -89,6 +89,28 @@ in stdenv.mkDerivation rec {
     maintainers = with maintainers; [ AndersonTorres kira-bruneau ];
     platforms = platforms.unix;
     changelog = "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}";
+
+    # Undefined symbols for architecture arm64:
+    #   "_jitter_print_context_kind_destroy", referenced from:
+    #       _jitter_print_libtextstyle_finalize in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #   "_jitter_print_context_kind_make_trivial", referenced from:
+    #       _jitter_print_libtextstyle_initialize in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #   "_jitter_print_context_make", referenced from:
+    #       _jitter_print_context_make_libtextstyle in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #      (maybe you meant: _jitter_print_context_make_libtextstyle)
+    #   "_ostream_flush", referenced from:
+    #       _jitter_print_context_libtextstyle_flush in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #   "_ostream_write_mem", referenced from:
+    #       _jitter_print_context_libtextstyle_print_chars in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #   "_styled_ostream_begin_use_class", referenced from:
+    #       _jitter_print_context_libtextstyle_begin_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #   "_styled_ostream_end_use_class", referenced from:
+    #       _jitter_print_context_libtextstyle_end_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #   "_styled_ostream_set_hyperlink", referenced from:
+    #       _jitter_print_context_libtextstyle_begin_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    #       _jitter_print_context_libtextstyle_end_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
+    # ld: symbol(s) not found for architecture arm64
+    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }
 

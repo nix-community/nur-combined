@@ -48,14 +48,14 @@ let
   };
 in multiStdenv.mkDerivation rec {
   pname = "yabridge";
-  version = "3.8.0";
+  version = "3.8.1";
 
   # NOTE: Also update yabridgectl's cargoHash when this is updated
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = pname;
     rev = version;
-    sha256 = "sha256-XacJjHxsp60/l36pFPGonUyOsyFF2lmqplAaisHXZDY=";
+    sha256 = "sha256-5Mi/aIjOKbn7guTj+AKGQRv+k7w4gzfdA9Mw4ocUlOE=";
   };
 
   # Unpack subproject sources

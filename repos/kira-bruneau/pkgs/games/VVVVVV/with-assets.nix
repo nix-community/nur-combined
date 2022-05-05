@@ -16,7 +16,7 @@ let
     genericName = VVVVVV.meta.description;
     icon = "VVVVVV";
     exec = "VVVVVV";
-    categories = "Game;";
+    categories = [ "Game" ];
   };
 in
 stdenvNoCC.mkDerivation {

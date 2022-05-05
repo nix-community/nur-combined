@@ -18,14 +18,14 @@
 
 buildPythonPackage rec {
   pname = "debugpy";
-  version = "1.5.1";
+  version = "1.6.0";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "Microsoft";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-dPP4stLt5nl9B9afPmH6/hpGKXBsaTpvYZQSHxU6KaY=";
+    sha256 = "sha256-WfZz2SimOTpG8CWNUic8NSp4Qd2JTXk+7JSUEPhuQ6Q=";
   };
 
   patches = [
@@ -84,7 +84,6 @@ buildPythonPackage rec {
   # Override default arguments in pytest.ini
   pytestFlagsArray = [
     "--timeout=0"
-    "-n=$NIX_BUILD_CORES"
   ];
 
   disabledTests = lib.optionals (pythonAtLeast "3.10") [
@@ -111,5 +110,6 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin" "i686-darwin" "aarch64-darwin" ];
+    broken = !isPy3k;
   };
 }

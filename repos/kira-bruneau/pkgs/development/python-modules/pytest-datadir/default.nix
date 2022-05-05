@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , setuptools-scm
 , pytestCheckHook
-, cmake
 }:
 
 buildPythonPackage rec {

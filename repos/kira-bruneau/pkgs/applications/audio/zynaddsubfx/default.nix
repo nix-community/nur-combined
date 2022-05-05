@@ -16,7 +16,7 @@
 
   # Optional dependencies
 , alsaSupport ? stdenv.hostPlatform.isLinux
-, alsaLib
+, alsa-lib
 , dssiSupport ? false
 , dssi
 , ladspaH
@@ -76,7 +76,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake makeWrapper pkg-config ];
 
   buildInputs = [ fftw liblo minixml zlib ]
-    ++ lib.optionals alsaSupport [ alsaLib ]
+    ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals dssiSupport [ dssi ladspaH ]
     ++ lib.optionals jackSupport [ libjack2 ]
     ++ lib.optionals lashSupport [ lash ]
@@ -112,7 +112,7 @@ in stdenv.mkDerivation rec {
 
   # Use Zyn-Fusion logo for zest build
   # Derived from https://raw.githubusercontent.com/mruby-zest/mruby-zest/ea4894620bf80ae59593b5d404b950d436a91e6c/example/ZynLogo.qml
-  postInstall = lib.optional (guiModule == "zest") ''
+  postInstall = lib.optionalString (guiModule == "zest") ''
     rm -r "$out/share/pixmaps"
     mkdir -p "$out/share/icons/hicolor/scalable/apps"
     cp ${./ZynLogo.svg} "$out/share/icons/hicolor/scalable/apps/zynaddsubfx.svg"
@@ -120,7 +120,7 @@ in stdenv.mkDerivation rec {
 
   # When building with zest GUI, patch plugins
   # and standalone executable to properly locate zest
-  postFixup = lib.optional (guiModule == "zest") ''
+  postFixup = lib.optionalString (guiModule == "zest") ''
     for lib in "$out/lib/lv2/ZynAddSubFX.lv2/ZynAddSubFX_ui.so" "$out/lib/vst/ZynAddSubFX.so"; do
       patchelf --set-rpath "${mruby-zest}:$(patchelf --print-rpath "$lib")" "$lib"
     done

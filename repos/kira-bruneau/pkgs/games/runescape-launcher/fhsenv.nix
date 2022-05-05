@@ -11,16 +11,16 @@ buildFHSUserEnv rec {
     # Libraries, found with:
     # > patchelf --print-needed $out/share/games/runescape-launcher/runescape
     cairo
-    gdk_pixbuf
+    gdk-pixbuf
     glib
     glibc
     gtk2-x11
     libcap
     openssl
     pango
-    xlibs.libSM
-    xlibs.libX11
-    xlibs.libXxf86vm
+    xorg.libSM
+    xorg.libX11
+    xorg.libXxf86vm
     zlib
 
     # Libraries, found with:

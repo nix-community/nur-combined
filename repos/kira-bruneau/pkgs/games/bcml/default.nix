@@ -65,8 +65,8 @@ let
     desktopName = "BCML";
     genericName = "Mod Loader";
     comment = "A mod merging and managing tool for The Legend of Zelda: Breath of the Wild";
-    categories = "Game;";
-    mimeType = "x-scheme-handler/bcml;";
+    categories = [ "Game" ];
+    mimeTypes = [ "x-scheme-handler/bcml" ];
   };
 in
 buildPythonApplication rec {

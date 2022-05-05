@@ -55,6 +55,7 @@ in
 
   goverlay = callPackage ./tools/graphics/goverlay {
     inherit (qt5) wrapQtAppsHook;
+    inherit (plasma5Packages) breeze-qt5;
   };
 
   krane = callPackage ./applications/networking/cluster/krane { };

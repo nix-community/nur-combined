@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , setuptools-scm
 , pydantic
+, toml
 , typeguard
 , mock
 , pytest-asyncio
@@ -13,6 +14,7 @@
 buildPythonPackage rec {
   pname = "pygls";
   version = "0.11.3";
+  format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
@@ -30,6 +32,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     pydantic
+    toml
     typeguard
   ];
 

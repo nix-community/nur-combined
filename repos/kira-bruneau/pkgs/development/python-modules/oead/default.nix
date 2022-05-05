@@ -2,6 +2,7 @@
 , stdenv
 , buildPythonPackage
 , fetchFromGitHub
+, fetchpatch
 , substituteAll
 , cmake
 , isPy3k
@@ -24,6 +25,15 @@ buildPythonPackage rec {
     (substituteAll {
       src = ./hardcode-version.patch;
       inherit version;
+    })
+
+    # Fixes build with latest glibc
+    # TODO: Remove in next release
+    (fetchpatch {
+      url = "https://github.com/abseil/abseil-cpp/commit/a9831f1cbf93fb18dd951453635f488037454ce9.patch";
+      extraPrefix = "lib/abseil/";
+      stripLen = 1;
+      sha256 = "sha256-knrSYNeW3az2kqE0YAfIcW7VkUDkLHkIchUVgPApl/c=";
     })
   ];
 
