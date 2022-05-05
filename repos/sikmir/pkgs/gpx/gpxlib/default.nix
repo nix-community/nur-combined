@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_EXAMPLES=OFF"
-    "-DBUILD_TESTS=ON"
+    "-DBUILD_TESTS=OFF"
   ];
 
-  doCheck = true;
+  doCheck = false;
   checkPhase = ''
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$PWD/gpx
     export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH''${DYLD_LIBRARY_PATH:+:}$PWD/gpx
