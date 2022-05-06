@@ -61,6 +61,18 @@
       sha256 = "1ahx3yiy83wdbraigz8c86pb2qj7vkgx01ifjy7ivi4nkvby4zwi";
     };
   };
+  konnect = {
+    pname = "konnect";
+    version = "v0.34.0";
+    src = fetchgit {
+      url = "https://github.com/Kopano-dev/konnect";
+      rev = "v0.34.0";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "04fv0cwafdy0frmk6z8p2a00jg0sxap1dns2kfzk5zn3rkwq7d6b";
+    };
+  };
   libltnginx = {
     pname = "libltnginx";
     version = "96698a667740ac45ca4571a04a6cfe39caf926c0";

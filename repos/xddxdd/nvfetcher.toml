@@ -18,6 +18,10 @@ fetch.github = "SpeedyOrc-C/Genshin-Glyphs"
 src.github = "glauth/glauth"
 fetch.github = "glauth/glauth"
 
+[konnect]
+src.github_tag = "Kopano-dev/konnect"
+fetch.github = "Kopano-dev/konnect"
+
 [libltnginx]
 src.git = "https://github.com/xddxdd/libltnginx.git"
 fetch.github = "xddxdd/libltnginx"

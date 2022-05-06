@@ -49,6 +49,7 @@ rec {
   gopherus = pkg ./gopherus { };
   hath = pkg ./hath { };
   hesuvi-hrir = pkg ./hesuvi-hrir { };
+  konnect = pkg ./konnect { };
   libltnginx = pkg ./libltnginx { };
   liboqs = pkg ./liboqs { };
   linux-xanmod-lantian = pkg ./linux-xanmod-lantian { };
