@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220503.185929";
+      version = "101.0buildid20220505.190214";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944293/francais_language_pack-101.0buildid20220503.185929-fx.xpi";
-      sha256 = "a5e2e65e22c1d2dc525f6f9d43a3a80092260dc3ce25efeba7ad55e22c344def";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3945226/francais_language_pack-101.0buildid20220505.190214-fx.xpi";
+      sha256 = "eb1284e28a32a3d718c7bdbfb1c452f10e250f8f9d26fb24fb79eb1307eeedbe";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -829,10 +829,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.3.8";
+      version = "3.3.9";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3925251/i_dont_care_about_cookies-3.3.8-an+fx.xpi";
-      sha256 = "d03396e84c37be42eac3509b44744e2eeba7eddbc7fc8781e784a6d78386e4a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944980/i_dont_care_about_cookies-3.3.9-an+fx.xpi";
+      sha256 = "2dbc9d005f1479c9e506b1dc8e70941e5ea8089dd2a424e5a4e391c7c36b55d5";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1809,10 +1809,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.3.1";
+      version = "4.3.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944477/sponsorblock_skip_sponsorships_on_youtube-4.3.1-an+fx.xpi";
-      sha256 = "d88d220434269193e2308321e58a6b8a893112257288132fca60e643cd279a4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3945001/sponsorblock_skip_sponsorships_on_youtube-4.3.2-an+fx.xpi";
+      sha256 = "7f6ac132cd2c42dd08c08949919db4df8f0e41b0c1c3ed14a26128f40b5cce06";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -1891,10 +1891,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.11.1";
+      version = "6.12.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3853650/tab_session_manager-6.11.1-fx.xpi";
-      sha256 = "d80f4ebe51045dc252165bf736978e4688a7c393776420955ac5bf1be236d66c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944769/tab_session_manager-6.12.0-fx.xpi";
+      sha256 = "91daf01ed2f58117ef03b09e24bae388563c329fe87006a2a9bd3d2382b043bf";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -2134,10 +2134,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.5.2";
+      version = "7.5.3";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918227/ublacklist-7.5.2-an+fx.xpi";
-      sha256 = "bbdb61ce3a2897b7ecfc52af22d6e3f0e4b63a50a4fa353c2863ec737a4e3cf0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944948/ublacklist-7.5.3-an+fx.xpi";
+      sha256 = "053aa62f24d42f45d6aa1faad4f5e511c001e276def25ef91004a64dc3d9ec18";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
