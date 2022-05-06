@@ -1,0 +1,3 @@
+[submodule "misc/dotfiles"]
+	path = misc/dotfiles
+	url = https://codeberg.org/wolfangaukang/dotfiles

@@ -1,24 +1,228 @@
 {
   "nodes": {
-    "nixpkgs": {
+    "flake-utils": {
       "locked": {
-        "lastModified": 1624561540,
-        "narHash": "sha256-izJ2PYZMGMsSkg+e7c9A1x3t/yOLT+qzUM6WQsc2tqo=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c6a049a3d32293b24c0f894a840872cf67fd7c11",
+        "lastModified": 1610051610,
+        "narHash": "sha256-U9rPz/usA1/Aohhk7Cmc2gBrEEKRzcW4nwPWMPwja4Y=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3982c9903e93927c2164caa727cd3f6a0e6d14cc",
         "type": "github"
       },
       "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1651652192,
+        "narHash": "sha256-3FUsIJ81p57rOxODRVZ+anhnVav96VWbgNA1H3Np+TY=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "267462dfb36d447421c789a3adf9d460cd09c147",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixgl": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1651078744,
+        "narHash": "sha256-+S/NEzZoTt7EoSOMEUsR/LuNTtzYhbribFaIewNxdCQ=",
+        "owner": "guibou",
+        "repo": "nixGL",
+        "rev": "56f2fbcce7a08c60c98394a64e900d5e9227bcb2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "guibou",
+        "repo": "nixGL",
+        "type": "github"
+      }
+    },
+    "nixos": {
+      "locked": {
+        "lastModified": 1651558728,
+        "narHash": "sha256-8HzyRnWlgZluUrVFNOfZAOlA1fghpOSezXvxhalGMUo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "cbe587c735b734405f56803e267820ee1559e6c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1650522846,
+        "narHash": "sha256-SxWHXRI3qJwswyXAtzsi6PKVY3KLNNnb072KaJthII8=",
         "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "6b4ebea9093c997c5f275c820e679108de4871ab",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixos-hardware",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1651746324,
+        "narHash": "sha256-1z9bfBgMEgnjEHV52s3WiEyVF2murDj64o++kDPY0oU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c01480f0a32d8584e60f128b9c7fc6cb98d64ede",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1651746324,
+        "narHash": "sha256-1z9bfBgMEgnjEHV52s3WiEyVF2murDj64o++kDPY0oU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c01480f0a32d8584e60f128b9c7fc6cb98d64ede",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1642387963,
+        "narHash": "sha256-ZQy9h2FOOuUsNCf4A6ND4vf1oEAElnhsJTchgD8aVHE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "31f4289c2b49d426b59e551d2180f10350b8a36a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "release-21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1610729867,
+        "narHash": "sha256-bk/SBaBLqZX/PEqal27DMQwAHHl0dcZMp8NNksQr80s=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "04af07c659c6723a2259bb6bc00a47ec53330f20",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nur": {
+      "locked": {
+        "lastModified": 1651775195,
+        "narHash": "sha256-seJ564uq91VOuHhJ4h9ph5fAu7pCcWHgni3DuTttwig=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "3f73809d3dcd2b324fa8f78088ac5ed207272c11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
+    "poetry2nix": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1642215333,
+        "narHash": "sha256-hOs6lr62ITT8gAnpj5C248K0PW4IrCuXzgoan+VUgiM=",
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "rev": "7b5c8e3b838d534e0d4dcaa6bbe6530086ebf407",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "home-manager": "home-manager",
+        "nixgl": "nixgl",
+        "nixos": "nixos",
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs_2",
+        "nur": "nur",
+        "sab": "sab"
+      }
+    },
+    "sab": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3",
+        "poetry2nix": "poetry2nix",
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1646065630,
+        "narHash": "sha256-5qwHjZTKscpf/VKoVakPtnoAPMFkRJHFfQWpniExNy8=",
+        "ref": "main",
+        "rev": "4f5661f73e2a5fc71a2bee85956f3a723569a418",
+        "revCount": 118,
+        "type": "git",
+        "url": "https://codeberg.org/wolfangaukang/stream-alert-bot"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://codeberg.org/wolfangaukang/stream-alert-bot"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1638122382,
+        "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "74f7e4319258e287b0f9cb95426c9853b282730b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     }
   },

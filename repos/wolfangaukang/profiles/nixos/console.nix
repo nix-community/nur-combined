@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  console.keyMap = "colemak";
+}

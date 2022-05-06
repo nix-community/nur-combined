@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "Hello, human"
+exit 0

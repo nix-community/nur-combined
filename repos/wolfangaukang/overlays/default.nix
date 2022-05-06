@@ -1,5 +1,4 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  chromium-incognito = import ./chromium-incognito;
+  upwork = import ./upwork;
 }
