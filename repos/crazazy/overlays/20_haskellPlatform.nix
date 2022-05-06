@@ -42,7 +42,6 @@ self: super: let
       stm
       syb
       tar
-      template-haskell
       test-framework
       text
       text-icu
@@ -57,11 +56,11 @@ self: super: let
       zip-archive
       zlib
       # own preference
-      free
+      recursion-schemes
+      lens
       hnix
       rio
       stack
    ];
 in
    { haskellPlatform = nixpkgs.haskellPackages.ghcWithHoogle ghcPackages; }
-
