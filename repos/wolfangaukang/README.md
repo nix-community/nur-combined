@@ -1,5 +1,6 @@
 # Miaj Nix-Agordoj 
 
+[![ci.codeberg.org status](https://ci.codeberg.org/api/badges/wolfangaukang/nix-agordoj/status.svg)](https://ci.codeberg.org/wolfangaukang/nix-agordoj/)
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
 Here are my Nix/NixOS settings. For a better experience, please use Nix Flakes.
