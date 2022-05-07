@@ -142,10 +142,6 @@ in {
       exitNode = true;
     };
 
-    tgv = {
-      enable = true;
-    };
-
     transmission = {
       enable = true;
       username = "alarsyo";

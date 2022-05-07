@@ -20,7 +20,6 @@
     ./postgresql.nix
     ./restic-backup.nix
     ./tailscale.nix
-    ./tgv.nix
     ./transmission.nix
   ];
 }
