@@ -55,6 +55,7 @@ rec {
   liboqs = pkg ./liboqs { };
   linux-xanmod-lantian = pkg ./linux-xanmod-lantian { };
   linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
+  nbfc-lantian = pkg ./nbfc-lantian { };
   netboot-xyz = pkg ./netboot-xyz { };
   netns-exec = pkg ./netns-exec { };
   noise-suppression-for-voice = pkg ./noise-suppression-for-voice { };

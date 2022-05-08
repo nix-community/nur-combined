@@ -39,9 +39,12 @@
           pkgs = import nixpkgs { inherit system; };
         in
         {
-          nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
-            ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
-          '';
+          nvfetcher = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "nvfetcher" ''
+              ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
+            '');
+          };
         });
 
       nixosModules = import ./modules;
