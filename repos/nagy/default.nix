@@ -95,4 +95,6 @@ in rec {
   snid = callPackage ./pkgs/snid { };
 
   npt = callPackage ./pkgs/npt { };
+
+  rust-u2f = callPackage ./pkgs/rust-u2f { };
 }
