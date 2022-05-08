@@ -1,5 +1,5 @@
 { lib
-, fetchFromGitHub
+, fetchurl
 , symlinkJoin
 , buildGoModule
 , runCommand
@@ -20,6 +20,17 @@ let
     vendorSha256 = "sha256-jl0lu9z8wRaqRL4rhlk+VD8FEaJlwvpvoXIfNwOgR2Y=";
 
     doCheck = false;
+
+    patches = [
+      (fetchurl {
+        url = "https://patch-diff.githubusercontent.com/raw/v2fly/v2ray-core/pull/1771.diff";
+        sha256 = "sha256-+JbGF8VZeqXkmo0dxiSFo3kfqbNynzlMwvDRDwpZRlA=";
+      })
+      (fetchurl {
+        url = "https://patch-diff.githubusercontent.com/raw/v2fly/v2ray-core/pull/1772.diff";
+        sha256 = "sha256-2QDDMQuAtRMiKgBxIMPZrK9R06OLZbjgZumpjbmNc+s=";
+      })
+    ];
 
     buildPhase = ''
       buildFlagsArray=(-v -p $NIX_BUILD_CORES -ldflags="-s -w")
