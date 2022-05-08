@@ -26,7 +26,7 @@ rec {
   };
   calibre-cops = pkg ./calibre-cops { };
   chmlib-utils = pkg ./chmlib-utils { };
-  coredns = pkg ./coredns { };
+  coredns-lantian = pkg ./coredns-lantian { };
   deepspeech-gpu = pkg ./deepspeech-gpu { };
   deepspeech-wrappers = pkg ./deepspeech-gpu/wrappers.nix { };
   dingtalk = pkg ./dingtalk { };
