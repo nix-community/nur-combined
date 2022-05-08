@@ -1,3 +1,4 @@
+name: "NUR"
 on:
   push:
     branches:
@@ -8,7 +9,7 @@ on:
 
 jobs:
   update-nur:
-    name: "Update NUR repo"
+    name: "Ping NUR repo hook"
     runs-on: ubuntu-latest
     steps:
       - name: curl nur endpoint

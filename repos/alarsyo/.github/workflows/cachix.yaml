@@ -1,4 +1,4 @@
-name: "Populate Cachix binary cache"
+name: "Cachix"
 on:
   push:
     paths:
