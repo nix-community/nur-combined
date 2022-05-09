@@ -7,7 +7,7 @@ on:
       - 'pkgs/**'
       - 'flake.nix'
       - 'flake.lock'
-      - '.github/workflows/*'
+      - '.github/workflows/cachix.yaml'
 jobs:
   format-check:
     name: Format check
