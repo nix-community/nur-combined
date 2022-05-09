@@ -28,13 +28,9 @@ rec {
 
   lsix = pkgs.callPackage ./pkgs/lsix { };
 
-  nwg-dock = pkgs.callPackage ./pkgs/nwg-dock { };
-
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
 
   python-validity = python3Packages.python-validity;
-
-  valeronoi = pkgs.libsForQt5.callPackage ./pkgs/valeronoi { };
 }
 
