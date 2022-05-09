@@ -27,7 +27,7 @@
       ];
 
       # System build related
-      sab_overlay = final: prev: { stream-alert-bot = sab.defaultPackage.${prev.system}; };
+      sab_overlay = final: prev: { stream-alert-bot = sab.packages.${prev.system}.default; };
       overlays = [
         nixgl.overlay
         nur.overlay

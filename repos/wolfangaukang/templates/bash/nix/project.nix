@@ -1,4 +1,4 @@
-{ stdenv, lib }:
+{ stdenv, lib, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "project";
@@ -6,12 +6,16 @@ stdenv.mkDerivation rec {
 
   src = lib.cleanSource ../.;
 
-  nativeBuildInputs = [];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [];
 
   dontBuild = true;
   dontConfigure = true;
+
+  postPatch = ''
+    patchShebangs project
+  '';
 
   installPhase = ''
     runHook preInstall

@@ -16,6 +16,7 @@
       let
         pkgs = system: import nixpkgs {
           inherit system;
+          # Picking from ./nix/project.nix to have a single maintenance point
           overlays = [
             (final: prev: {
               ${name} = prev.callPackage ./nix/${name}.nix { };
