@@ -9,7 +9,7 @@
       pkgs = import nixpkgs { inherit system; };
       repo = import ./. { inherit pkgs; };
     in {
-      packages = { inherit (repo) lmt build-sh; };
+      packages = { inherit (repo) lmt build-sh carapace-bin; };
     }) // { 
       overlays = import ./overlays.nix;
     };
