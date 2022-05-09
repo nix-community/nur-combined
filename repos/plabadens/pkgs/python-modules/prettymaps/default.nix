@@ -1,11 +1,41 @@
 { lib
+, callPackage
 , buildPythonPackage
 , fetchFromGitHub
+, geopandas
 , osmnx
+, shapely
 , tabulate
 }:
 
-buildPythonPackage rec {
+let
+  descartes = callPackage
+    ({ lib
+    , buildPythonPackage
+    , fetchFromGitHub
+    , matplotlib
+    , shapely
+    }:
+
+    buildPythonPackage rec {
+      pname = "descartes";
+      version = "1.1.0";
+
+      src = fetchFromGitHub {
+        owner = "benjimin";
+        repo = pname;
+        rev = "0842f2d21c4fff7f4a3fd91a194de6408842720d";
+        sha256 = "BM+0vqSpHOxBDRID9M1up6dFyB1sgh36PiYE4oe6eIc=";
+      };
+
+      propagatedBuildInputs = [
+        matplotlib
+        shapely
+      ];
+
+      doCheck = false;
+    }) { };
+in buildPythonPackage rec {
   pname = "prettymaps";
   version = "2022-01-07";
 
@@ -20,9 +50,11 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace osmnx==1.0.1 osmnx>=1.0.1
   '';
 
-  doCheck = false;
+  doCheck = true;
 
   propagatedBuildInputs = [
+    descartes
+    geopandas
     osmnx
     tabulate
   ];
