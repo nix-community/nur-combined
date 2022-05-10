@@ -1738,10 +1738,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.20.5";
+      version = "1.21.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942898/singlefile-1.20.5-an+fx.xpi";
-      sha256 = "7e54f70d944b8e260fcfc7343008474f15512074befb0f42c56d75c2ef40653d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3946143/singlefile-1.21.0-an+fx.xpi";
+      sha256 = "03809aea4c8ccf5fd93cdb9123a3bf3fedcff159c0cf3811f961cb9d398f238d";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1809,10 +1809,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.3.2";
+      version = "4.3.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3945001/sponsorblock_skip_sponsorships_on_youtube-4.3.2-an+fx.xpi";
-      sha256 = "7f6ac132cd2c42dd08c08949919db4df8f0e41b0c1c3ed14a26128f40b5cce06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3945665/sponsorblock_skip_sponsorships_on_youtube-4.3.3-an+fx.xpi";
+      sha256 = "ce32f8e3685e62bd72426280348bf3b5506e79d37bca6479d167b77d7f109e5c";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
