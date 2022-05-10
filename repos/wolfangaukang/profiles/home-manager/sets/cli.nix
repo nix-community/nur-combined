@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../common/bashblog.nix
     ../common/git.nix
     ../common/gpg.nix
     ../common/neovim.nix
