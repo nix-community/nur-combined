@@ -22,4 +22,10 @@ stdenv.mkDerivation rec {
     rm -rf $out/conf/config.inc.php-dist
     cp ${configFile} $out/conf/config.inc.php
   '';
+
+  meta = with lib; {
+    description = "The premier web-based administration tool for PostgreSQL";
+    homepage = "https://github.com/phppgadmin/phppgadmin";
+    license = licenses.gpl2;
+  };
 }

@@ -1,5 +1,6 @@
 { stdenv
 , sources
+, lib
 , ...
 } @ args:
 
@@ -9,4 +10,9 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/rime-data
     find ${src} -name "*.dict.yaml" -exec cp {} $out/share/rime-data/ \;
   '';
+
+  meta = with lib; {
+    description = "RIME 词库增强";
+    homepage = "https://github.com/Iorest/rime-dict";
+  };
 }

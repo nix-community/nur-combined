@@ -15,4 +15,10 @@ stdenv.mkDerivation rec {
     cp ${sources.netboot-xyz-efi.src} $out/netboot.xyz.efi
     cp ${sources.netboot-xyz-lkrn.src} $out/netboot.xyz.lkrn
   '';
+
+  meta = with lib; {
+    description = "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.";
+    homepage = "https://netboot.xyz/";
+    license = licenses.asl20;
+  };
 }

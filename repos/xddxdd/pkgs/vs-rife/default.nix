@@ -32,4 +32,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   propagatedBuildInputs = [ setuptools pytorch numpy ];
+
+  meta = with lib; {
+    description = "Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth";
+    homepage = "https://github.com/HolyWu/vs-rife";
+    license = licenses.mit;
+  };
 }

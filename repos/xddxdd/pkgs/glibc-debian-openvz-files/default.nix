@@ -26,4 +26,9 @@ stdenv.mkDerivation rec {
     cd $out
     dpkg-scanpackages $out | gzip -9c > $out/Packages.gz
   '';
+
+  meta = with lib; {
+    description = "glibc for Debian v10 including 2.6.32 kernel compatibility as required when using OpenVZ v6";
+    homepage = "glibc for Debian v10 including 2.6.32 kernel compatibility as required when using OpenVZ v6";
+  };
 }

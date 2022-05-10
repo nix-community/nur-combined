@@ -1,5 +1,6 @@
 { stdenv
 , fetchurl
+, lib
 , unzip
 , jre_headless
 , makeWrapper
@@ -30,4 +31,10 @@ stdenv.mkDerivation rec {
       --add-flags "-jar" \
       --add-flags "$out/opt/HentaiAtHome.jar" \
   '';
+
+  meta = with lib; {
+    description = "Hentai@Home";
+    homepage = "https://e-hentai.org/";
+    license = licenses.gpl3;
+  };
 }

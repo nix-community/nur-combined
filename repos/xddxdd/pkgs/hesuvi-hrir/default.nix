@@ -1,11 +1,12 @@
 { stdenv
+, lib
 , fetchurl
 , p7zip
 , ...
 }:
 
 stdenv.mkDerivation rec {
-  pname = "hesuvi";
+  pname = "hesuvi-hrir";
   version = "2.0.0.1";
   src = fetchurl {
     url = "https://sourceforge.net/projects/hesuvi/files/HeSuVi_${version}.exe/download";
@@ -20,4 +21,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     cp -r HeSuVi/hrir $out
   '';
+
+  meta = with lib; {
+    description = "Headphone Surround Virtualizations for Equalizer APO";
+    homepage = "https://sourceforge.net/projects/hesuvi/";
+  };
 }

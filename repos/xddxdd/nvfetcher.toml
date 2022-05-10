@@ -10,13 +10,13 @@ fetch.github = "open-quantum-safe/boringssl"
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
 
-[genshin-glyphs]
-src.git = "https://github.com/SpeedyOrc-C/Genshin-Glyphs.git"
-fetch.github = "SpeedyOrc-C/Genshin-Glyphs"
-
 [glauth]
 src.github = "glauth/glauth"
 fetch.github = "glauth/glauth"
+
+[hoyo-glyphs]
+src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
+fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
 
 [konnect]
 src.github_tag = "Kopano-dev/konnect"

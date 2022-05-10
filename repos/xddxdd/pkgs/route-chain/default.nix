@@ -1,5 +1,6 @@
 { stdenv
 , sources
+, lib
 , ...
 } @ args:
 
@@ -9,4 +10,10 @@ stdenv.mkDerivation rec {
   installPhase = ''
     make install PREFIX=$out
   '';
+
+  meta = with lib; {
+    description = "A small app to generate a long path in traceroute.";
+    homepage = "https://github.com/xddxdd/route-chain";
+    license = licenses.unlicense;
+  };
 }

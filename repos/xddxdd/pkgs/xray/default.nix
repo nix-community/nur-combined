@@ -38,6 +38,12 @@ let
     installPhase = ''
       install -Dm755 xray -t $out/bin
     '';
+
+    meta = with lib; {
+      description = "Xray, Penetrates Everything. Also the best v2ray-core, with XTLS support. Fully compatible configuration.";
+      homepage = "https://t.me/projectXray";
+      license = licenses.mpl20;
+    };
   };
 
 in

@@ -1,8 +1,8 @@
-{
-  lib, stdenv,
-  ctags,
-  fetchurl,
-  ...
+{ lib
+, stdenv
+, ctags
+, fetchurl
+, ...
 } @ args:
 
 stdenv.mkDerivation rec {
@@ -22,4 +22,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp ftp.proxy $out/bin/ftp.proxy
   '';
+
+  meta = with lib; {
+    description = "ftp.proxy - FTP Proxy Server";
+    homepage = "http://www.ftpproxy.org/";
+    license = licenses.gpl2;
+  };
 }

@@ -18,7 +18,6 @@ let
   } // args);
 in
 rec {
-  babeld = pkg ./babeld { };
   bird-lg-go = pkg ./bird-lg-go { };
   bird-lgproxy-go = pkg ./bird-lgproxy-go { };
   boringssl-oqs = pkg ./boringssl-oqs {
@@ -42,13 +41,14 @@ rec {
   genshin-checkin-helper = pkg ./genshin-checkin-helper {
     inherit genshinhelper2 onepush;
   };
-  genshin-glyphs = pkg ./genshin-glyphs { };
   genshinhelper2 = pkg ./genshinhelper2 { };
   glauth = pkg ./glauth { };
   glibc-debian-openvz-files = pkg ./glibc-debian-openvz-files { };
   gopherus = pkg ./gopherus { };
+  grasscutter = pkg ./grasscutter { };
   hath = pkg ./hath { };
   hesuvi-hrir = pkg ./hesuvi-hrir { };
+  hoyo-glyphs = pkg ./hoyo-glyphs { };
   konnect = pkg ./konnect { };
   ldap-auth-proxy = pkg ./ldap-auth-proxy { };
   libltnginx = pkg ./libltnginx { };

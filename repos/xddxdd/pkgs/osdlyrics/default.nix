@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , sources
 , writeText
 , python3Packages
@@ -76,4 +77,10 @@ stdenv.mkDerivation rec {
   postInstall = ''
     rm -rf $out/lib/python*
   '';
+
+  meta = with lib; {
+    description = "Standalone lyrics fetcher/displayer (windowed and OSD mode).";
+    homepage = "https://github.com/osdlyrics/osdlyrics";
+    license = licenses.gpl3;
+  };
 }
