@@ -6,12 +6,12 @@
 
 stdenv.mkDerivation rec {
   pname = "nbfc-lantian";
-  version = "7669188fcd6a6391c2f53d27e65b8031f17c58e3";
+  version = "a11959cccc3fe1ef55e9ddd01ac2c4ae142eae00";
   src = fetchFromGitHub {
     owner = "xddxdd";
     repo = "nbfc-linux";
     rev = version;
-    sha256 = "sha256-cpLc6OYyXUwLz0gxq+HF9w9DVhe7M2qLqss6sizgQLY=";
+    sha256 = "sha256-FDi/zLrHEVleCrGoZ8Y7JJ+Av9u0e+2OB5FEwWGx6rI=";
   };
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
