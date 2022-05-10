@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
     ln -s ${genshinData}/Readable $out/opt/resources/Readable
     ln -s ${genshinData}/Subtitle $out/opt/resources/Subtitle
     ln -s ${genshinData}/TextMap $out/opt/resources/TextMap
-    ln -s ${srcRepo}/data $out/opt/data
     ln -s ${srcRepo}/keys $out/opt/keys
     ln -s ${srcRepo}/keystore.p12 $out/opt/keystore.p12
+    cp -r ${srcRepo}/data $out/opt/data
 
     pushd $out/opt/
     echo "en" | ${jre_headless}/bin/java -jar $out/grasscutter.jar -handbook
