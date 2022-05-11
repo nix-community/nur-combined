@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220508.185621";
+      version = "101.0buildid20220510.144626";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3946241/francais_language_pack-101.0buildid20220508.185621-fx.xpi";
-      sha256 = "2d3505fa2f8e60e2dc3dfe4f777ae6c017e7263bec11486f3a4cb5b89cb887aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3947161/francais_language_pack-101.0buildid20220510.144626-fx.xpi";
+      sha256 = "a4eb4f3af86210886e9de2b07685800f0a9d4d4239a078f119f475502f104f96";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1738,10 +1738,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.0";
+      version = "1.21.1";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3946143/singlefile-1.21.0-an+fx.xpi";
-      sha256 = "03809aea4c8ccf5fd93cdb9123a3bf3fedcff159c0cf3811f961cb9d398f238d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3946741/singlefile-1.21.1-an+fx.xpi";
+      sha256 = "f96fb964c0f2e966fa7b001bad2dbb92eeb429221e6a8a16f9e315699d021ed1";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1933,10 +1933,10 @@
       };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "4.16.6160";
+      version = "4.17.6161";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3931916/tampermonkey-4.16.6160-an+fx.xpi";
-      sha256 = "ec7d0acb8f3ad04668852dd1e97e2ab778b9e6c3de4a45c4f95f8592beeac39f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3947043/tampermonkey-4.17.6161-an+fx.xpi";
+      sha256 = "2f4c3e7a7f9709fef78969b9c0519e426b70725078406bd089312b81d834c58c";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
