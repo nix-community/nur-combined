@@ -18,6 +18,7 @@
     };
   };
   nixpkgs.config.allowUnfree = true;
+  system.stateVersion = config.system.nixos.release;
 
   networking.hostName = "nixos-r2s";
 
