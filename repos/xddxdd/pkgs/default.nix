@@ -60,6 +60,7 @@ rec {
   netns-exec = pkg ./netns-exec { };
   noise-suppression-for-voice = pkg ./noise-suppression-for-voice { };
   onepush = pkg ./onepush { };
+  openj9-ibm-semeru = pkg ./openj9-ibm-semeru { };
   openresty-lantian = pkg ./openresty-lantian {
     inherit liboqs openssl-oqs;
   };
