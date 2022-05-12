@@ -1,0 +1,359 @@
+{
+    "cf-terraforming": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "cf-terraforming",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "cloudflare",
+            "repo": "cf-terraforming",
+            "rev": "v0.7.4",
+            "sha256": "sha256-H85cuENmDhxIFAsKL0D8w2vOa/EoxN6qmyq5l1z9wAI=",
+            "type": "github"
+        },
+        "version": "v0.7.4"
+    },
+    "clash-for-windows": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-for-windows",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1St28ukom2yxjoj3ENEbWg4EWZJjZpS3rsa3Fo5RULo=",
+            "type": "url",
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.17/Clash.for.Windows-0.19.17-x64-linux.tar.gz"
+        },
+        "version": "0.19.17"
+    },
+    "clash-for-windows-icon": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-for-windows-icon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-4uLJzumIqF6T1yvrdKciqrSNYpJ1+6ecmonRzOsopP0=",
+            "type": "url",
+            "url": "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico"
+        },
+        "version": "0"
+    },
+    "clash-premium-aarch64-linux": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-premium-aarch64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-hmtsWXcu9Q5yWdnssBjgGTg08ZvPOsOLCKk9E/5ilzw=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.04.17.gz"
+        },
+        "version": "2022.04.17"
+    },
+    "clash-premium-i686-linux": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-premium-i686-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-E9bTtwQmF+TUFYc2bvY+qkjmSToWynNjQR3jFi3nFAw=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.04.17.gz"
+        },
+        "version": "2022.04.17"
+    },
+    "clash-premium-x86_64-darwin": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-premium-x86_64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-5t1rE0e5XA5wWKLx0VBR6xbFTj9oNrgZxMIKGOdQM0g=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.04.17.gz"
+        },
+        "version": "2022.04.17"
+    },
+    "clash-premium-x86_64-linux": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-premium-x86_64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-K/zqoh51mKr4jDA1BYF9bYxBbAZkLbB4UEzO7yjfOHs=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.04.17.gz"
+        },
+        "version": "2022.04.17"
+    },
+    "commit-notifier": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./commit-notifier-573c1eb7eabc97aa06e0e9ad85f5148110749876/Cargo.lock",
+                {}
+            ]
+        },
+        "extract": null,
+        "name": "commit-notifier",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "573c1eb7eabc97aa06e0e9ad85f5148110749876",
+            "sha256": "sha256-JiLwijB+Zqe5JgKLncr7r4w1lpDRWWVh9TAl+9nOiCo=",
+            "type": "git",
+            "url": "https://github.com/linyinfeng/commit-notifier.git"
+        },
+        "version": "573c1eb7eabc97aa06e0e9ad85f5148110749876"
+    },
+    "dot-tar": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./dot-tar-08f3652b54e8ee021bba933952df56aee22910b3/Cargo.lock",
+                {}
+            ]
+        },
+        "extract": null,
+        "name": "dot-tar",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "08f3652b54e8ee021bba933952df56aee22910b3",
+            "sha256": "sha256-g+CqJI+aRkerb99EvANBtTwsTOx2P2nwrWLEHC60gnI=",
+            "type": "git",
+            "url": "https://github.com/linyinfeng/dot-tar.git"
+        },
+        "version": "08f3652b54e8ee021bba933952df56aee22910b3"
+    },
+    "dpt-rp1-py": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "dpt-rp1-py",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "janten",
+            "repo": "dpt-rp1-py",
+            "rev": "v0.1.16",
+            "sha256": "sha256-cq9yHBQyqzlEb1Dvpx90MIixT8PxB8TBKv3+nFYCbn8=",
+            "type": "github"
+        },
+        "version": "v0.1.16"
+    },
+    "icalingua-plus-plus": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "icalingua-plus-plus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ekz6Zl7iJ7qwgFRngLo2bUFqm8SzK6Z+nH0j6Qs/gAc=",
+            "type": "url",
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.2/app-x86_64.asar"
+        },
+        "version": "v2.6.2"
+    },
+    "icalingua-plus-plus-aur": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "icalingua-plus-plus-aur",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "2044975fe20e33a9870ec513d62234f2869f6da9",
+            "sha256": "sha256-TdWHWnQW930YS+6CZ1qe9eQyfuimo910HNpdeq33tzw=",
+            "type": "git",
+            "url": "https://aur.archlinux.org/icalingua++.git"
+        },
+        "version": "2044975fe20e33a9870ec513d62234f2869f6da9"
+    },
+    "pisces": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "pisces",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e45e0869855d089ba1e628b6248434b2dfa709c4",
+            "sha256": "sha256-Oou2IeNNAqR00ZT3bss/DbhrJjGeMsn9dBBYhgdafBw=",
+            "type": "git",
+            "url": "https://github.com/laughedelic/pisces"
+        },
+        "version": "e45e0869855d089ba1e628b6248434b2dfa709c4"
+    },
+    "plugin-bang-bang": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "plugin-bang-bang",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "f969c618301163273d0a03d002614d9a81952c1e",
+            "sha256": "sha256-A8ydBX4LORk+nutjHurqNNWFmW6LIiBPQcxS3x4nbeQ=",
+            "type": "git",
+            "url": "https://github.com/oh-my-fish/plugin-bang-bang"
+        },
+        "version": "f969c618301163273d0a03d002614d9a81952c1e"
+    },
+    "plugin-git": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "plugin-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "2a3e35c05bdc5b9005f917d5281eb866b2e13104",
+            "sha256": "sha256-tWiGIB6yHfZ+QSNJrahHxRQCIOaOlSNFby4bGIOIwic=",
+            "type": "git",
+            "url": "https://github.com/jhillyerd/plugin-git"
+        },
+        "version": "2a3e35c05bdc5b9005f917d5281eb866b2e13104"
+    },
+    "replay-fish": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "replay-fish",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jorgebucaran",
+            "repo": "replay.fish",
+            "rev": "1.2.0",
+            "sha256": "sha256-Q/9YVdiRSJw1SdcfQv2h7Lj6EyFustRk+kmh1eRRQ6k=",
+            "type": "github"
+        },
+        "version": "1.2.0"
+    },
+    "telegram-send": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "telegram-send",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "693a555dd644042bc83e983607c0f81b1bb0a7e4",
+            "sha256": "sha256-TwK//dws5Rpg2BoFkkux1O0ZuEXIuZs9vNW6gfNBr5Y=",
+            "type": "git",
+            "url": "https://github.com/rahiel/telegram-send.git"
+        },
+        "version": "693a555dd644042bc83e983607c0f81b1bb0a7e4"
+    },
+    "trojan": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "trojan",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "trojan-gfw",
+            "repo": "trojan",
+            "rev": "v1.16.0",
+            "sha256": "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=",
+            "type": "github"
+        },
+        "version": "v1.16.0"
+    },
+    "vlmcsd": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "vlmcsd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Wind4",
+            "repo": "vlmcsd",
+            "rev": "svn1113",
+            "sha256": "sha256-OKysOm44T9wrAaopp9HfLlox5InlpV33AHGXRSjhDqc=",
+            "type": "github"
+        },
+        "version": "svn1113"
+    },
+    "wemeet": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "wemeet",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-76Bm4PaIo7APwYBKWXp14up+PXS+Eo7NLcWM6Q2nhZ8=",
+            "type": "url",
+            "url": "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e1f/TencentMeeting_0300000000_2.8.0.3_x86_64_default.publish.deb"
+        },
+        "version": "2.8.0.3"
+    },
+    "yacd": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "yacd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-wkaDd2/x0WzmbvZPyGtHwSVARt7TQy6NI4fQtsblAZM=",
+            "type": "url",
+            "url": "https://github.com/haishanh/yacd/releases/download/v0.3.4/yacd.tar.xz"
+        },
+        "version": "v0.3.4"
+    }
+}

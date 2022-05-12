@@ -1,6 +1,7 @@
 { writeShellScriptBin
 , nixVersions
 , nixpkgs-fmt
+, nix-prefetch
 , path
 , sourcesFile ? "./pkgs/_sources/generated.nix"
 , tmpDir ? "/tmp/linyinfeng-nur-packages-update"
@@ -15,6 +16,8 @@ in
 
 writeShellScriptBin "update" ''
   set -e
+
+  export PATH=${nix-prefetch}/bin:$PATH
 
   mkdir -p ${tmpDir}
 

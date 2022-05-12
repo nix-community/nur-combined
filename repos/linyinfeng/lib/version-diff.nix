@@ -3,7 +3,7 @@
 { oldSources, newSources }:
 
 let
-  params = { fetchgit = null; fetchurl = null; };
+  params = { fetchgit = null; fetchurl = null; fetchFromGitHub = null; };
   old = import oldSources params;
   new = import newSources params;
   oldNames = lib.attrNames old;

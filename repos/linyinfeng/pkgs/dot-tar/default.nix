@@ -2,7 +2,8 @@
 
 rustPlatform.buildRustPackage
 rec {
-  inherit (sources.dot-tar) pname version src cargoLock;
+  inherit (sources.dot-tar) pname version src;
+  cargoLock = sources.dot-tar.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [
     pkg-config
