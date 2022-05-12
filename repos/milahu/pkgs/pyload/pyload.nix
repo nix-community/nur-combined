@@ -105,22 +105,24 @@ in python3Packages.buildPythonApplication rec {
   # usage:
   # webinterface http://localhost:8000/ -> user: pyload + password: pyload
 
-  /*
+  # fix https://github.com/pyload/pyload/issues/4137
   version = "unstable-2022-05-06";
   src = fetchFromGitHub {
     owner = "pyload";
     repo = "pyload";
-    rev = "690f583b770076640924799ce48ecfba43c27b9e";
-    sha256 = "sha256-UwZQ/DYXIyvpgm5lRIYwkmHjlsbqCdU5xkqd9iG5glE=";
+    rev = "26420ef7da1835e0680b67576f27b637aa2a3a4c";
+    sha256 = "sha256-96NqVhFALnqxddw7W1ZArdKUJlGXAzf+QqKMnXpqlYM=";
   };
-  */
 
+  /*
+  # buggy
   version = "0.5.0b3.dev18";
   src = python3Packages.fetchPypi rec {
     pname = "pyload-ng";
     inherit version;
     sha256 = "sha256-VenQdxPIGZ5jAQWoTUYDZATngSGvfiedsOLOBuYpQ+o=";
   };
+  */
 
   /*
   # ERROR: Could not find a version that satisfies the requirement cryptography~=3.0
