@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "glibc for Debian v10 including 2.6.32 kernel compatibility as required when using OpenVZ v6";
-    homepage = "glibc for Debian v10 including 2.6.32 kernel compatibility as required when using OpenVZ v6";
+    homepage = "https://github.com/sdwru/glibc-debian-10";
   };
 }
