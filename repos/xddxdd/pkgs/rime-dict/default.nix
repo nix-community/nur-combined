@@ -1,10 +1,10 @@
-{ stdenv
+{ stdenvNoCC
 , sources
 , lib
 , ...
 } @ args:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-dict) pname version src;
   installPhase = ''
     mkdir -p $out/share/rime-data

@@ -1,11 +1,11 @@
 { lib
-, stdenv
+, stdenvNoCC
 , sources
 , ...
 } @ args:
 
 assert (sources.netboot-xyz-lkrn.version == sources.netboot-xyz-lkrn.version);
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   name = "netboot.xyz";
   inherit (sources.netboot-xyz-lkrn) version;
 

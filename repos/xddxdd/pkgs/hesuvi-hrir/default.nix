@@ -1,11 +1,11 @@
-{ stdenv
+{ stdenvNoCC
 , lib
 , fetchurl
 , p7zip
 , ...
 }:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "hesuvi-hrir";
   version = "2.0.0.1";
   src = fetchurl {

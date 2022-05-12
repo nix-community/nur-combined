@@ -13,7 +13,6 @@ with builtins;
 let
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
-  isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   flake = getFlake (toString ./.);
@@ -35,7 +34,7 @@ in
 eachSystem
   (system:
     let
-      nurAttrs = flake.packages."${system}";
+      nurAttrs = flake.ciPackages."${system}";
       nurPkgs = flattenPkgs nurAttrs;
     in
-    concatMap outputsOf (filter (p: (isBuildable p) && (isCacheable p)) nurPkgs))
+    concatMap outputsOf (filter isBuildable nurPkgs))

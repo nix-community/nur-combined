@@ -1,4 +1,4 @@
-{ stdenv
+{ stdenvNoCC
 , lib
 , fetchurl
 , fetchFromGitHub
@@ -31,7 +31,7 @@ let
     sha256 = "sha256-f1y5Ojhcyy2A+bb0UaJB9SaK6A4E3h2Mv5NS0iOcBzQ=";
   };
 in
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "grasscutter";
   inherit version;
 

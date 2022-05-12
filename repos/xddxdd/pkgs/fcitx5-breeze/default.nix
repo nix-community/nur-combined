@@ -1,10 +1,10 @@
-{ stdenv
+{ stdenvNoCC
 , lib
 , fetchurl
 , ...
 }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "fcitx5-breeze";
   version = "2.0.0";
   src = fetchurl {

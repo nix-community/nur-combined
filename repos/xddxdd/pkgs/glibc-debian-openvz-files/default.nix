@@ -1,12 +1,12 @@
 { lib
-, stdenv
+, stdenvNoCC
 , dpkg
 , fetchurl
 , unzip
 , ...
 } @ args:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "glibc-debian-openvz-files";
   version = "2.28-9910.0";
 

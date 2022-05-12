@@ -8,6 +8,7 @@
 
 { pkgs ? import <nixpkgs> { }
 , inputs ? null
+, ci ? false
 , ...
 }:
 
@@ -53,14 +54,11 @@ rec {
   ldap-auth-proxy = pkg ./ldap-auth-proxy { };
   libltnginx = pkg ./libltnginx { };
   liboqs = pkg ./liboqs { };
-  linux-xanmod-lantian = pkg ./linux-xanmod-lantian { };
-  linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
   nbfc-lantian = pkg ./nbfc-lantian { };
   netboot-xyz = pkg ./netboot-xyz { };
   netns-exec = pkg ./netns-exec { };
   noise-suppression-for-voice = pkg ./noise-suppression-for-voice { };
   onepush = pkg ./onepush { };
-  openj9-ibm-semeru = pkg ./openj9-ibm-semeru { };
   openresty-lantian = pkg ./openresty-lantian {
     inherit liboqs openssl-oqs;
   };
@@ -85,7 +83,15 @@ rec {
   wechat-uos-bin = pkg ./wechat-uos/official-bin.nix { };
   wine-wechat = pkg ./wine-wechat { };
   xray = pkg ./xray { };
-} // (if inputs == null then { } else {
+
+} // (if (!ci) then rec {
+  # These packages aren't built on CI
+  linux-xanmod-lantian = pkg ./linux-xanmod-lantian { };
+  linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
+  openj9-ibm-semeru = pkg ./openj9-ibm-semeru { };
+
+} else { }) // (if inputs == null then { } else rec {
+  # These packages require nix flakes support
   keycloak-lantian = pkg ./keycloak-lantian {
     inherit (inputs) keycloak-lantian;
   };

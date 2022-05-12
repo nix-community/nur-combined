@@ -1,4 +1,4 @@
-{ stdenv
+{ stdenvNoCC
 , lib
 , fetchurl
 , unzip
@@ -11,7 +11,7 @@ let
   ver = "0.6.2";
   rev = "1074";
 in
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "tachidesk-server";
   version = "${ver}-r${rev}";
   src = fetchurl {

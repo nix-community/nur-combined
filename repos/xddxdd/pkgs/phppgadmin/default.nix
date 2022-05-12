@@ -1,5 +1,5 @@
 { lib
-, stdenv
+, stdenvNoCC
 , sources
 , ...
 } @ args:
@@ -7,7 +7,7 @@
 let
   configFile = ./config.inc.php;
 in
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.phppgadmin) pname version src;
 
   patches = [

@@ -5,7 +5,7 @@
 , ...
 } @ args:
 
-lib.mapAttrs
+(lib.mapAttrs
   (k: v: {
     jdk = callPackage
       (import ./jdk-linux-base.nix {
@@ -20,4 +20,6 @@ lib.mapAttrs
       })
       { };
   })
-  (lib.importJSON ./sources.json)
+  (lib.importJSON ./sources.json)) // {
+  recurseForDerivations = true;
+}

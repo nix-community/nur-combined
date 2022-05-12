@@ -21,6 +21,16 @@
           inherit system;
           config.allowUnfree = true;
         };
+        ci = false;
+        inherit inputs;
+      });
+
+      ciPackages = eachSystem (system: import ./pkgs {
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        ci = true;
         inherit inputs;
       });
 
@@ -39,6 +49,18 @@
           pkgs = import nixpkgs { inherit system; };
         in
         {
+          ci = {
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "ci" ''
+              if [ "$1" == "" ]; then
+                echo "Usage: ci <system>";
+                exit 1;
+              fi
+
+              ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1
+            '');
+          };
+
           nvfetcher = {
             type = "app";
             program = builtins.toString (pkgs.writeShellScript "nvfetcher" ''

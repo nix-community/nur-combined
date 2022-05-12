@@ -1,4 +1,4 @@
-{ stdenv
+{ stdenvNoCC
 , fetchurl
 , lib
 , unzip
@@ -7,7 +7,7 @@
 , ...
 } @ args:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "hath";
   version = "1.6.1";
   src = fetchurl {

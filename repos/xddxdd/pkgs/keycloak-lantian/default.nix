@@ -1,5 +1,5 @@
 { lib
-, stdenv
+, stdenvNoCC
 , callPackage
 , keycloak-lantian
 , nodejs
@@ -10,7 +10,7 @@
 let
   nodeModules = "${keycloak-lantian.packages.${system}.package}/lib/node_modules/keycloak-lantian/node_modules";
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   name = "keycloak-lantian";
   src = "${keycloak-lantian}";
   buildInputs = [ nodejs ];

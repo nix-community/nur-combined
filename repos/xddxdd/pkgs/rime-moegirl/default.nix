@@ -1,10 +1,10 @@
-{ stdenv
+{ stdenvNoCC
 , sources
 , lib
 , ...
 } @ args:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-moegirl) pname version src;
   dontUnpack = true;
   installPhase = ''

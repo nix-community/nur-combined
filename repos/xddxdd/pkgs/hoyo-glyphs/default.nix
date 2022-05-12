@@ -1,10 +1,10 @@
-{ stdenv
+{ stdenvNoCC
 , lib
 , sources
 , ...
 } @ args:
 
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   inherit (sources.hoyo-glyphs) pname version src;
   installPhase = ''
     mkdir -p $out/share/fonts/opentype/

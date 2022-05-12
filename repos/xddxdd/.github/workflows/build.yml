@@ -51,7 +51,7 @@ jobs:
     - name: Build nix packages
       run: |
         nix flake update
-        nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A ${{ matrix.system }}
+        nix run .#ci -- ${{ matrix.system }}
 
   update-nur:
     runs-on: ubuntu-latest

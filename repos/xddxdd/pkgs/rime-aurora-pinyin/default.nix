@@ -1,11 +1,11 @@
 { sources
-, stdenv
+, stdenvNoCC
 , lib
 , fetchurl
 , ...
 }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   inherit (sources.rime-aurora-pinyin) pname version src;
   installPhase = ''
     mkdir -p $out/share/rime-data

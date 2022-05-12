@@ -1,5 +1,5 @@
 { lib
-, stdenv
+, stdenvNoCC
 , fetchurl
 , unzip
 , ...
@@ -8,7 +8,7 @@
 let
   configFile = ./config_local.php;
 in
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation rec {
   pname = "calibre-cops";
   version = "1.1.3";
   src = fetchurl {
