@@ -9,7 +9,6 @@ in rec {
   luaPackages = lua53Packages;
 
   lua53Packages = recurseIntoAttrs {
-    tl = pkgs.lua53Packages.callPackage ./pkgs/teal { };
     lua-curl = pkgs.lua53Packages.callPackage ./pkgs/lua-curl { };
   };
 
@@ -97,4 +96,8 @@ in rec {
   npt = callPackage ./pkgs/npt { };
 
   rust-u2f = callPackage ./pkgs/rust-u2f { };
+
+  u8strings = callPackage ./pkgs/u8strings { };
+
+  bzip3 = callPackage ./pkgs/bzip3 { };
 }
