@@ -46,6 +46,8 @@
 
   pareto = pkgs.python39Packages.callPackage ./pkgs/pareto { };
 
+  pegtl = pkgs.callPackage ./pkgs/pegtl { };
+
   pmlb = pkgs.python39Packages.callPackage ./pkgs/pmlb { };
 
   robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
