@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220510.144626";
+      version = "101.0buildid20220512.193916";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3947161/francais_language_pack-101.0buildid20220510.144626-fx.xpi";
-      sha256 = "a4eb4f3af86210886e9de2b07685800f0a9d4d4239a078f119f475502f104f96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948132/francais_language_pack-101.0buildid20220512.193916.xpi";
+      sha256 = "533035255c42ca09832f85375c7b2738f18771d8502db5e733f1af5582da6be6";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1738,10 +1738,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.1";
+      version = "1.21.2";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3946741/singlefile-1.21.1-an+fx.xpi";
-      sha256 = "f96fb964c0f2e966fa7b001bad2dbb92eeb429221e6a8a16f9e315699d021ed1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948090/single_file-1.21.2.xpi";
+      sha256 = "bfef8f47829d1b80c829dba140215cc735f00f93a6fc9e79af223b8a7d998b1c";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
