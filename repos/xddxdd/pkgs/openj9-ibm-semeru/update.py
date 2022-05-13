@@ -75,7 +75,7 @@ for source in sources:
         }
 
     add_java_revision(major_revision)
-    add_java_revision(version)
+    add_java_revision(version.replace('.', '_'))
 
 # Write as json
 with open('sources.json', 'w') as f:
