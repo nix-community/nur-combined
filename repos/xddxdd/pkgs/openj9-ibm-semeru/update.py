@@ -52,29 +52,29 @@ for source in sources:
     if jdk is None:
         continue
     def add_java_revision(key):
-        if key not in formatted_source:
-            formatted_source[key] = {
-                'jre': {},
-                'jdk': {},
-            }
-        if arch in formatted_source[key]['jdk']:
-            if version_to_number(formatted_source[key]['jdk'][arch]['version']) > version_to_number(version):
+        if ('jdk-bin-' + key) not in formatted_source:
+            formatted_source['jdk-bin-' + key] = {}
+        if ('jre-bin-' + key) not in formatted_source:
+            formatted_source['jre-bin-' + key] = {}
+
+        if arch in formatted_source['jdk-bin-' + key]:
+            if version_to_number(formatted_source['jdk-bin-' + key][arch]['version']) > version_to_number(version):
                 return
 
-        formatted_source[key]['jre'][arch] = {
-            'major_revision': major_revision,
+        formatted_source['jre-bin-' + key][arch] = {
             'version': version,
+            'type': 'jre',
             'url': jre['downloadLink'],
             'sha256': jre['checksum'],
         }
-        formatted_source[key]['jdk'][arch] = {
-            'major_revision': major_revision,
+        formatted_source['jdk-bin-' + key][arch] = {
             'version': version,
+            'type': 'jdk',
             'url': jdk['downloadLink'],
             'sha256': jdk['checksum'],
         }
 
-    add_java_revision(major_revision)
+    add_java_revision(str(major_revision))
     add_java_revision(version.replace('.', '_'))
 
 # Write as json

@@ -89,6 +89,7 @@ rec {
   linux-xanmod-lantian = pkg ./linux-xanmod-lantian { };
   linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
   openj9-ibm-semeru = pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { });
+  openjdk-adoptium = pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium { });
 
 } else { }) // (if inputs == null then { } else rec {
   # These packages require nix flakes support

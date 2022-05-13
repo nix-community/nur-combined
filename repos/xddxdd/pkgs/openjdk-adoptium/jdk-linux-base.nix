@@ -37,7 +37,7 @@ let
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
   result = stdenv.mkDerivation rec {
-    pname = "openj9-ibm-semeru-${thisSource.type}-bin";
+    pname = "openjdk-adoptium-${thisSource.type}-bin";
     version = thisSource.version;
     src = fetchurl {
       inherit (thisSource) url sha256;
@@ -112,8 +112,8 @@ let
 
     meta = with lib; {
       license = licenses.gpl2Classpath;
-      description = "OpenJ9 binaries built by IBM Semeru";
-      homepage = "https://developer.ibm.com/languages/java/semeru-runtimes/";
+      description = "OpenJDK binaries built by Eclipse Adoptium";
+      homepage = "https://adoptium.net/";
       platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sources; # some inherit jre.meta.platforms
       mainProgram = "java";
     };
