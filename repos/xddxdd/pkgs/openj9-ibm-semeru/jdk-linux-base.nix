@@ -27,7 +27,7 @@
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
-  thisSource = sources."${cpuName}";
+  thisSource = sources."${cpuName}" or null;
   runtimeDependencies = [
     cups
   ] ++ lib.optionals gtkSupport [
@@ -124,4 +124,4 @@ let
     };
   };
 in
-result
+if thisSource == null then null else result

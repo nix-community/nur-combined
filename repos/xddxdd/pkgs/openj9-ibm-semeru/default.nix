@@ -2,11 +2,12 @@
 , fetchurl
 , lib
 , callPackage
+, recurseIntoAttrs
 , ...
 } @ args:
 
 lib.mapAttrs
-  (k: v: {
+  (k: v: recurseIntoAttrs {
     jdk = callPackage
       (import ./jdk-linux-base.nix {
         isJDK = true;
