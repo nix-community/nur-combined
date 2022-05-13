@@ -35,18 +35,18 @@
   };
   nix-index-database = {
     pname = "nix-index-database";
-    version = "2022-04-10";
+    version = "2022-05-08";
     src = fetchurl {
-      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-04-10/index-x86_64-linux";
-      sha256 = "08nhi8j2vynfscim2mdaq3dzh5qb91xlk7mp72s6fhvljx54qxwm";
+      url = "https://github.com/Mic92/nix-index-database/releases/download/2022-05-08/index-x86_64-linux";
+      sha256 = "0kcq7cg2iwndjkwz0rq990n4gcrrwl7zn1y93yia0zabnh6l5xpj";
     };
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.4.0.0";
+    version = "0.5.0.0";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.4.0.0/ormolu-Linux.zip";
-      sha256 = "0b3qp1lbsb2idzn7fq9lwqa7i22d58ligsxl4bn14s5hg052dms5";
+      url = "https://github.com/tweag/ormolu/releases/download/0.5.0.0/ormolu-Linux.zip";
+      sha256 = "0rjsnvljvqd6vh4s7b8mpms9gzmybvnms900fxnxf58dp7payzp9";
     };
   };
 }
