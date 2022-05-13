@@ -88,7 +88,7 @@ rec {
   # These packages aren't built on CI
   linux-xanmod-lantian = pkg ./linux-xanmod-lantian { };
   linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
-  openj9-ibm-semeru = pkg ./openj9-ibm-semeru { };
+  openj9-ibm-semeru = pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { });
 
 } else { }) // (if inputs == null then { } else rec {
   # These packages require nix flakes support
