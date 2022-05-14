@@ -606,10 +606,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.13.1";
+      version = "4.14.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3938388/floccus-4.13.1-fx.xpi";
-      sha256 = "aec0575f18ff2ccde8d78952cd09c1a1158b08fc5c94c038956e18e96b39ed5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948609/floccus-4.14.0.xpi";
+      sha256 = "a07ff6c0682f06a427b215f1183e883b19bcf923bfb3d41ea53f8e4ea53e2395";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220512.193916";
+      version = "100.0.1buildid20220513.165813";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3948132/francais_language_pack-101.0buildid20220512.193916.xpi";
-      sha256 = "533035255c42ca09832f85375c7b2738f18771d8502db5e733f1af5582da6be6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948755/francais_language_pack-100.0.1buildid20220513.165813.xpi";
+      sha256 = "63b3adf135193c799857bbcc411ae80245d41826ee09505f88e49de864d1b173";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -829,10 +829,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.3.9";
+      version = "3.4.0";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944980/i_dont_care_about_cookies-3.3.9-an+fx.xpi";
-      sha256 = "2dbc9d005f1479c9e506b1dc8e70941e5ea8089dd2a424e5a4e391c7c36b55d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948477/i_dont_care_about_cookies-3.4.0.xpi";
+      sha256 = "bef0ac488b2db9a51abeb483884dc4c9d457b3270b6ba24c62fe282936d91c07";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -929,10 +929,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.94.0.3";
+      version = "4.95.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941848/lastpass_password_manager-4.94.0.3-an+fx.xpi";
-      sha256 = "653d6b0bbc504b2f05843d8be69eb77ce9ea6cfb1bff6c2b87f9298206082199";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948021/lastpass_password_manager-4.95.0.3.xpi";
+      sha256 = "447748fa07fe237eacb015a3a40d865139863522bebf99cfa31a86dcc7dbd681";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
