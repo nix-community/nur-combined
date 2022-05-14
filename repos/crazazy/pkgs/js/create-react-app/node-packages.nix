@@ -184,13 +184,13 @@ let
         sha1 = "9c31dae34767018fe1d249b24dada67d092da105";
       };
     };
-    "glob-7.2.0" = {
+    "glob-7.2.2" = {
       name = "glob";
       packageName = "glob";
-      version = "7.2.0";
+      version = "7.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob/-/glob-7.2.0.tgz";
-        sha512 = "lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==";
+        url = "https://registry.npmjs.org/glob/-/glob-7.2.2.tgz";
+        sha512 = "NzDgHDiJwKYByLrL5lONmQFpK/2G78SMMfo+E9CuGlX4IkvfKDsiQSNPwAYxEy+e6p7ZQ3uslSLlwlJcqezBmQ==";
       };
     };
     "graceful-fs-4.2.10" = {
@@ -625,7 +625,7 @@ let
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"
       sources."fstream-ignore-1.0.5"
-      sources."glob-7.2.0"
+      sources."glob-7.2.2"
       sources."graceful-fs-4.2.10"
       sources."has-flag-4.0.0"
       sources."hyperquest-2.1.3"

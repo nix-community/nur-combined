@@ -346,13 +346,13 @@ let
         sha1 = "1b0ab3bd553b2a0d6399d29c0e3ea0b252078327";
       };
     };
-    "glob-7.2.0" = {
+    "glob-7.2.2" = {
       name = "glob";
       packageName = "glob";
-      version = "7.2.0";
+      version = "7.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob/-/glob-7.2.0.tgz";
-        sha512 = "lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==";
+        url = "https://registry.npmjs.org/glob/-/glob-7.2.2.tgz";
+        sha512 = "NzDgHDiJwKYByLrL5lONmQFpK/2G78SMMfo+E9CuGlX4IkvfKDsiQSNPwAYxEy+e6p7ZQ3uslSLlwlJcqezBmQ==";
       };
     };
     "glob-parent-6.0.2" = {
@@ -364,13 +364,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.13.0" = {
+    "globals-13.15.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.13.0";
+      version = "13.15.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.13.0.tgz";
-        sha512 = "EQ7Q18AJlPwp3vUDL4mKA0KXrXyNIQyWon6T6XQiBQF0XHvRsiCSrWmmeATpUzdJN2HhWZU6Pdl0a9zdep5p6A==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.15.0.tgz";
+        sha512 = "bpzcOlgDhMG070Av0Vy5Owklpv1I6+j96GhUI7Rh7IzDCKLzboflLrrfqMu8NquDbiR4EOQk7XzJwqVJxicxog==";
       };
     };
     "has-flag-4.0.0" = {
@@ -781,9 +781,9 @@ let
       sources."flatted-3.2.5"
       sources."fs.realpath-1.0.0"
       sources."functional-red-black-tree-1.0.1"
-      sources."glob-7.2.0"
+      sources."glob-7.2.2"
       sources."glob-parent-6.0.2"
-      sources."globals-13.13.0"
+      sources."globals-13.15.0"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.0"
       sources."import-fresh-3.3.0"

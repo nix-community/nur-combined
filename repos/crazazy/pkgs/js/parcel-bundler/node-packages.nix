@@ -985,13 +985,13 @@ let
         sha512 = "GryiOJmNcWbovBxTfZSF71V/mXbgcV3MewDe3kIMCLyIh5e7SKAeUZs+rMnJ8jkMolZ/4/VsdBmMrw3l+VdZ3w==";
       };
     };
-    "@jridgewell/trace-mapping-0.3.10" = {
+    "@jridgewell/trace-mapping-0.3.13" = {
       name = "_at_jridgewell_slash_trace-mapping";
       packageName = "@jridgewell/trace-mapping";
-      version = "0.3.10";
+      version = "0.3.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.10.tgz";
-        sha512 = "Q0YbBd6OTsXm8Y21+YUSDXupHnodNC2M4O18jtd3iwJ3+vMZNdKGols0a9G6JOK0dcJ3IdUUHoh908ZI6qhk8Q==";
+        url = "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.13.tgz";
+        sha512 = "o1xbKhp9qnIAoHJSWd6KlCZfqslL4valSF81H8ImioOAxluWYWOpWkpyktY2vnt4tbrX9XYaxovq6cgowaJp2w==";
       };
     };
     "@mrmlnc/readdir-enhanced-2.2.1" = {
@@ -1705,13 +1705,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001338" = {
+    "caniuse-lite-1.0.30001340" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001338";
+      version = "1.0.30001340";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001338.tgz";
-        sha512 = "1gLHWyfVoRDsHieO+CaeYe7jSo/MT7D7lhaXUiwwbuR5BwQxORs0f1tAwUSQr3YbxRXJvxHM/PA5FfPQRnsPeQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001340.tgz";
+        sha512 = "jUNz+a9blQTQVu4uFcn17uAD8IDizPzQkIKh3LCJfg9BkyIqExYYdyc/ZSlWUSKb8iYiXxKsxbv4zYSvkqjrxw==";
       };
     };
     "caseless-0.12.0" = {
@@ -1966,13 +1966,13 @@ let
         sha512 = "Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==";
       };
     };
-    "core-js-compat-3.22.4" = {
+    "core-js-compat-3.22.5" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.22.4";
+      version = "3.22.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.22.4.tgz";
-        sha512 = "dIWcsszDezkFZrfm1cnB4f/J85gyhiCpxbgBdohWCDtSVuAaChTSpPV7ldOQf/Xds2U5xCIJZOK82G4ZPAIswA==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.22.5.tgz";
+        sha512 = "rEF75n3QtInrYICvJjrAgV03HwKiYvtKHdPtaba1KucG+cNZ4NJnH9isqt979e67KZlhpbCOTwnsvnIr+CVeOg==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -2515,13 +2515,13 @@ let
         sha1 = "590c61156b0ae2f4f0255732a158b266bc56b21d";
       };
     };
-    "electron-to-chromium-1.4.136" = {
+    "electron-to-chromium-1.4.137" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.136";
+      version = "1.4.137";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.136.tgz";
-        sha512 = "GnITX8rHnUrIVnTxU9UlsTnSemHUA2iF+6QrRqxFbp/mf0vfuSc/goEyyQhUX3TUUCE3mv/4BNuXOtaJ4ur0eA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.137.tgz";
+        sha512 = "0Rcpald12O11BUogJagX3HsCN3FE83DSqWjgXoHo5a72KUKMSfI39XBgJpgNNxS9fuGzytaFjE06kZkiVFy2qA==";
       };
     };
     "elliptic-6.5.4" = {
@@ -2758,13 +2758,13 @@ let
         sha1 = "96918440e3041a7a414f8c52e3c574eb3c3e1e05";
       };
     };
-    "falafel-2.2.4" = {
+    "falafel-2.2.5" = {
       name = "falafel";
       packageName = "falafel";
-      version = "2.2.4";
+      version = "2.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/falafel/-/falafel-2.2.4.tgz";
-        sha512 = "0HXjo8XASWRmsS0X1EkhwEMZaD3Qvp7FfURwjLKjG1ghfRm/MGZl2r4cWUTv41KdNghTw4OUMmVtdGQp3+H+uQ==";
+        url = "https://registry.npmjs.org/falafel/-/falafel-2.2.5.tgz";
+        sha512 = "HuC1qF9iTnHDnML9YZAdCDQwT0yKl/U55K4XSUXqGAA2GLoafFgWRqdAbhWJxXaYD4pyoVxAJ8wH670jMpI9DQ==";
       };
     };
     "fast-deep-equal-3.1.3" = {
@@ -2846,15 +2846,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz";
         sha1 = "81068d295a8142ec0ac726c6e2200c30fb6d5e80";
-      };
-    };
-    "foreach-2.0.5" = {
-      name = "foreach";
-      packageName = "foreach";
-      version = "2.0.5";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/foreach/-/foreach-2.0.5.tgz";
-        sha1 = "0bee005018aeb260d0a3af3ae658dd0136ec1b99";
       };
     };
     "forever-agent-0.6.1" = {
@@ -2992,13 +2983,13 @@ let
         sha1 = "5eff8e3e684d569ae4cb2b1282604e8ba62149fa";
       };
     };
-    "glob-7.2.0" = {
+    "glob-7.2.2" = {
       name = "glob";
       packageName = "glob";
-      version = "7.2.0";
+      version = "7.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob/-/glob-7.2.0.tgz";
-        sha512 = "lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==";
+        url = "https://registry.npmjs.org/glob/-/glob-7.2.2.tgz";
+        sha512 = "NzDgHDiJwKYByLrL5lONmQFpK/2G78SMMfo+E9CuGlX4IkvfKDsiQSNPwAYxEy+e6p7ZQ3uslSLlwlJcqezBmQ==";
       };
     };
     "glob-parent-3.1.0" = {
@@ -6698,7 +6689,7 @@ let
       sources."@jridgewell/resolve-uri-3.0.7"
       sources."@jridgewell/set-array-1.1.1"
       sources."@jridgewell/sourcemap-codec-1.4.13"
-      sources."@jridgewell/trace-mapping-0.3.10"
+      sources."@jridgewell/trace-mapping-0.3.13"
       sources."@mrmlnc/readdir-enhanced-2.2.1"
       sources."@nodelib/fs.stat-1.1.3"
       sources."@parcel/fs-1.11.0"
@@ -6819,7 +6810,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001338"
+      sources."caniuse-lite-1.0.30001340"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -6845,7 +6836,7 @@ let
       sources."convert-source-map-1.8.0"
       sources."copy-descriptor-0.1.1"
       sources."core-js-2.6.12"
-      (sources."core-js-compat-3.22.4" // {
+      (sources."core-js-compat-3.22.5" // {
         dependencies = [
           sources."semver-7.0.0"
         ];
@@ -6956,7 +6947,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.136"
+      sources."electron-to-chromium-1.4.137"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -6996,7 +6987,7 @@ let
         ];
       })
       sources."extsprintf-1.3.0"
-      sources."falafel-2.2.4"
+      sources."falafel-2.2.5"
       sources."fast-deep-equal-3.1.3"
       sources."fast-glob-2.2.7"
       sources."fast-json-stable-stringify-2.1.0"
@@ -7006,7 +6997,6 @@ let
       sources."filesize-3.6.1"
       sources."fill-range-4.0.0"
       sources."for-in-1.0.2"
-      sources."foreach-2.0.5"
       sources."forever-agent-0.6.1"
       sources."form-data-2.3.3"
       sources."fragment-cache-0.2.1"
@@ -7022,7 +7012,7 @@ let
       sources."get-symbol-description-1.0.0"
       sources."get-value-2.0.6"
       sources."getpass-0.1.7"
-      sources."glob-7.2.0"
+      sources."glob-7.2.2"
       (sources."glob-parent-3.1.0" // {
         dependencies = [
           sources."is-glob-3.1.0"
