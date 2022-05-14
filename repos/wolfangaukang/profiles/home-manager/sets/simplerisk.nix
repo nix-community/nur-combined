@@ -86,7 +86,7 @@
         };
         jenkins = {
           user = "pedro";
-          proxyCommand = "sh -c \"aws ssm start-session --target i-0963d49ce9352d143 --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
+          proxyCommand = "sh -c \"aws ssm start-session --target i-02e75aa4d27e485f2 --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
         };
         "simplerisk_i-* simplerisk_mi-*" = {
           proxyCommand = "sh -c \"aws ssm start-session --target $(echo %h | awk -F '_' 'NR==1{print $2}') --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";

@@ -7,6 +7,12 @@ with pkgs;
   iptvnator = callPackage ./iptvnator { };
   librewolf-bin = callPackage ./librewolf-bin { };
   multifirefox = callPackage ./multifirefox { };
+  npm-groovy-lint = callPackage ./npm-groovy-lint {
+    jdk = jdk11;
+  };
+  nuclear = callPackage ./nuclear {
+    electron = electron_13;
+  };
   sherlock = callPackage ./sherlock { };
   signumone-ks = callPackage ./signumone-ks { };
   stremio = callPackage ./stremio { };

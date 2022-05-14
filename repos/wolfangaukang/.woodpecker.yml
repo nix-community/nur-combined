@@ -5,6 +5,7 @@ pipeline:
     image: nixos/nix:2.8.0
     environment:
     - NIXPKGS_ALLOW_UNFREE=1
+    - NIXPKGS_ALLOW_INSECURE=1
     commands:
     - nix --version
     - echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
