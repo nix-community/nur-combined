@@ -14,10 +14,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.19.17";
+    version = "0.19.18";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.17/Clash.for.Windows-0.19.17-x64-linux.tar.gz";
-      sha256 = "sha256-1St28ukom2yxjoj3ENEbWg4EWZJjZpS3rsa3Fo5RULo=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.18/Clash.for.Windows-0.19.18-x64-linux.tar.gz";
+      sha256 = "sha256-NViAvod1lYSGgOJHmmyvny73lkKevFsvnAvUHxCpLBE=";
     };
   };
   clash-for-windows-icon = {
@@ -105,22 +105,22 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.6.2";
+    version = "v2.6.3";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.2/app-x86_64.asar";
-      sha256 = "sha256-ekz6Zl7iJ7qwgFRngLo2bUFqm8SzK6Z+nH0j6Qs/gAc=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.3/app-x86_64.asar";
+      sha256 = "sha256-1r0k5BO5vNwvImqd0R0NkInUa7+bVCB28fXErCLNoFo=";
     };
   };
   icalingua-plus-plus-aur = {
     pname = "icalingua-plus-plus-aur";
-    version = "2044975fe20e33a9870ec513d62234f2869f6da9";
+    version = "a9cae701f676e19127ba0895a3cc6e014310cfe1";
     src = fetchgit {
       url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "2044975fe20e33a9870ec513d62234f2869f6da9";
+      rev = "a9cae701f676e19127ba0895a3cc6e014310cfe1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-TdWHWnQW930YS+6CZ1qe9eQyfuimo910HNpdeq33tzw=";
+      sha256 = "sha256-fyD1RgMzlCHu8fecUT4P5Zj3MEc3J/rD5GybGiUxbrg=";
     };
   };
   pisces = {
@@ -172,14 +172,14 @@
   };
   telegram-send = {
     pname = "telegram-send";
-    version = "693a555dd644042bc83e983607c0f81b1bb0a7e4";
+    version = "34d7703754d441a6f4c4a7b5b3210759d36078e2";
     src = fetchgit {
       url = "https://github.com/rahiel/telegram-send.git";
-      rev = "693a555dd644042bc83e983607c0f81b1bb0a7e4";
+      rev = "34d7703754d441a6f4c4a7b5b3210759d36078e2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-TwK//dws5Rpg2BoFkkux1O0ZuEXIuZs9vNW6gfNBr5Y=";
+      sha256 = "sha256-/+hNnUT7kA19wpiHGNPVMQGostjoaDzHd91WYruJq0w=";
     };
   };
   trojan = {
@@ -214,10 +214,10 @@
   };
   yacd = {
     pname = "yacd";
-    version = "v0.3.4";
+    version = "v0.3.5";
     src = fetchurl {
-      url = "https://github.com/haishanh/yacd/releases/download/v0.3.4/yacd.tar.xz";
-      sha256 = "sha256-wkaDd2/x0WzmbvZPyGtHwSVARt7TQy6NI4fQtsblAZM=";
+      url = "https://github.com/haishanh/yacd/releases/download/v0.3.5/yacd.tar.xz";
+      sha256 = "sha256-j2sDOC7QqoP0ptQ9cKa6kHM2efid7kgNmsggODEQaSA=";
     };
   };
 }

@@ -3,11 +3,6 @@
 python3Packages.buildPythonApplication rec {
   inherit (sources.telegram-send) pname version src;
 
-  patches = [
-    # https://github.com/rahiel/telegram-send/pull/103
-    ./fix-delete.patch
-  ];
-
   propagatedBuildInputs = with python3Packages; [
     python-telegram-bot
     colorama
