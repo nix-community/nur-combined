@@ -1,6 +1,10 @@
-import requests, re, ast, json
+import requests
+import re
+import ast
+import json
 
-sources = requests.get('https://developer.ibm.com/middleware/v1/contents/static/semeru-runtime-downloads').json()
+sources = requests.get(
+    'https://developer.ibm.com/middleware/v1/contents/static/semeru-runtime-downloads').json()
 sources = sources['results'][0]['pagepost_custom_js_value']
 
 # Find body of json value
@@ -16,17 +20,20 @@ sources = sources['downloads']
 
 # Reformat source
 
+
 def version_to_number(v):
     vs = [int(vv) for vv in v.split('.')]
     while len(vs) < 4:
         vs.append(0)
     return vs[0] * 1000000000 + vs[1] * 1000000 + vs[2] * 1000 + vs[3]
 
+
 def find_tar_gz_link(v):
     for k in v:
         if v[k]['displayName'].endswith('tar.gz'):
             return v[k]
     return None
+
 
 formatted_source = {}
 for source in sources:
@@ -51,6 +58,7 @@ for source in sources:
     jdk = find_tar_gz_link(source['jdk']) if 'jdk' in source else None
     if jdk is None:
         continue
+
     def add_java_revision(key):
         if ('jdk-bin-' + key) not in formatted_source:
             formatted_source['jdk-bin-' + key] = {}

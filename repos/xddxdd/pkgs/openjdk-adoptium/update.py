@@ -1,6 +1,9 @@
-import requests, re, json
+import requests
+import re
+import json
 
-def normalize_version(version, isKey = False):
+
+def normalize_version(version, isKey=False):
     if version.startswith('jdk-'):
         version = version[4:]
     elif version.startswith('jdk'):
@@ -49,8 +52,10 @@ def filter_binaries(binaries, version):
 
 def get_source(major_revision):
     session = requests.Session()
-    session.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
-    source = session.get('https://api.adoptium.net/v3/assets/feature_releases/{major_revision}/ga?vendor=eclipse&page_size=100'.format(major_revision=major_revision)).json()
+    session.headers.update(
+        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
+    source = session.get(
+        'https://api.adoptium.net/v3/assets/feature_releases/{major_revision}/ga?vendor=eclipse&page_size=100'.format(major_revision=major_revision)).json()
 
     result = {}
     for s in source:
@@ -62,7 +67,7 @@ def get_source(major_revision):
 
 
 result = {}
-for v in [8,11,16,17,18]:
+for v in [8, 11, 16, 17, 18]:
     result.update(get_source(v))
 
 # Write as json
