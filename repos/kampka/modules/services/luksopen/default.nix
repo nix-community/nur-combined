@@ -5,7 +5,7 @@ let
   luksDevices = listToAttrs (
     map
       (device: {
-        name = "${substring 1 (stringLength device.source) "${replaceStrings [ "/" ] [ "-" ] "${device.source}"}"}";
+        name = "${removePrefix "-" "${replaceStrings [ "/" ] [ "-" ] "${device.source}"}"}";
         value = device;
       })
       cfg.devices
@@ -51,7 +51,7 @@ in
         (
           let
             key-service = lists.optionals (strings.hasPrefix "/run/keys" device.keyFile) [ "${strings.replaceStrings [ "." ] [ "-" ] (lists.last (strings.splitString "/" device.keyFile)) }-key.service" ];
-            device-service = [ "${substring 1 (stringLength device.source) "${replaceStrings [ "/" ] [ "-" ] (replaceStrings [ "-" ] [ "\\x2d" ] "${device.source}") }"}" ];
+            device-service = [ "${removePrefix "-" "${replaceStrings [ "/" ] [ "-" ] (replaceStrings [ "-" ] [ "\\\\x2d" ] "${device.source}") }"}.device" ];
           in
           {
             after = [ "local-fs.target" ] ++ device-service ++ key-service;
