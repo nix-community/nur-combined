@@ -715,6 +715,20 @@
         platforms = platforms.all;
         };
       };
+    "ghosttext" = buildFirefoxXpiAddon {
+      pname = "ghosttext";
+      version = "22.3.17";
+      addonId = "ghosttext@bfred.it";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923390/ghosttext-22.3.17-an+fx.xpi";
+      sha256 = "5bee3a5705a8ea1c3c87767ec217458aa0ba86d515168eb9a1e39970582a48de";
+      meta = with lib;
+      {
+        homepage = "https://github.com/fregante/GhostText";
+        description = "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
       version = "0.9.0";
