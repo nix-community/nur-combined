@@ -7,14 +7,14 @@
 
 buildPythonPackage rec {
   pname = "homeassistant-stubs";
-  version = "2022.4.7";
+  version = "2022.5.4";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "KapJI";
     repo = pname;
     rev = "${version}";
-    sha256 = "1h6pbyff7yrjrbxxcw5z9pngz705jzkfy5xznh0dpy9hkaq76brn";
+    sha256 = "1h49hbm1b8srzm82b3xhbcrgs3gzc2bdjp73vrvz65wpjd8hya26";
   };
 
   postPatch = ''

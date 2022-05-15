@@ -41,7 +41,7 @@ let
       python-socketio_4 = pySelf.callPackage ./pkgs/python-socketio/4.nix { };
       ring_doorbell = pySelf.callPackage ./pkgs/ring_doorbell { };
       smartbox = pySelf.callPackage ./pkgs/smartbox { };
-      typer = pySelf.callPackage ./pkgs/typer { };
+      # typer = pySelf.callPackage ./pkgs/typer { };
 
       # These use a conflicting version of python-socketio
       aioambient = null;

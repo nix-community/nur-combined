@@ -27,14 +27,14 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.8.12";
+  version = "0.9.2";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "1a2rjvbz5mk977k08hyn2l9lb78gmvsbirdm5aymykg7gi17yp3c";
+    sha256 = "1ic6gxbfpqy2jgim3ksax9fbqn5vxipvk37jrh0vq1ssk9whkg0s";
   };
 
   postPatch = ''
@@ -53,7 +53,7 @@ buildPythonPackage rec {
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
       --replace "responses==0.12.0" "responses>=0.12.0" \
       --replace "respx==0.19.0" "respx>=0.19.0" \
-      --replace "sqlalchemy==1.4.27" "sqlalchemy>=1.4.27" \
+      --replace "sqlalchemy==1.4.36" "sqlalchemy>=1.4.35" \
       --replace "stdlib-list==0.7.0" "" \
       --replace "tqdm==4.49.0" "tqdm>=4.49.0"
   '';
