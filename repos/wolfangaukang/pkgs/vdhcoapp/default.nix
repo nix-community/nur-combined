@@ -1,96 +1,92 @@
 { pkgs, lib, stdenv, nodejs, ffmpeg, glibc }:
 
 let
+  version = "1.6.3";
+
+  src = pkgs.fetchFromGitHub {
+    owner = "mi-g";
+    repo = "vdhcoapp";
+    rev = "v${version}";
+    sha256 = "sha256-kLdBWfVsfF/kjL0CEdNwn3HWterNuCLicR9NL6eH8js=";
+  };
+
   composition = import ./composition.nix {
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   };
 
-  # Do not "npm install" this package
-  nodeVdhcoapp = (
-    lib.findSingle
-      (drv: drv ? packageName && drv.packageName == "vdhcoapp")
-      (throw "no 'vdhcoapp' package found in nodePackages")
-      (throw "multiple 'vdhcoapp' packages found in nodePackages")
-      (lib.attrValues composition)
-  ).override (drv: { dontNpmInstall = true; });
+  nodeVdhcoapp = composition.nodeDependencies.override (old: {
+    src = src;
+    dontNpmInstall = true;
+  });
 
   appName = "net.downloadhelper.coapp";
-  commonManifest = {
-    name = appName;
-    description = "Video DownloadHelper companion app";
-    path = "DIR/${appName}";
-    type = "stdio";
-  };
-  firefoxManifest = pkgs.writeText "firefoxManifest" (
-    builtins.toJSON (lib.recursiveUpdate
-      commonManifest
-      {
-        allowed_extensions = [
-          "weh-native-test@downloadhelper.net"
-          "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}"
-        ];
-      }
-    ));
-  chromeManifest = pkgs.writeText "chromeManifest" (
-    builtins.toJSON (lib.recursiveUpdate
-      commonManifest
-      {
-        allowed_origins = [
-          "chrome-extension://lmjnegcaeklhafolokijcfjliaokphfk/"
-        ];
-      }
-    ));
 
-in
-stdenv.mkDerivation rec {
+  generateManifest = { allowedSet ? {} }:
+    pkgs.writeText "${appName}.json" (
+      builtins.toJSON (lib.recursiveUpdate
+        {
+          name = appName;
+          description = "Video DownloadHelper companion app";
+          path = "DIR/${appName}";
+          type = "stdio";
+        }
+        allowedSet
+      )
+    );
+
+  firefoxManifest = generateManifest {
+    allowedSet = { allowed_extensions = [ "weh-native-test@downloadhelper.net" "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" ]; };
+  };
+  chromeManifest = generateManifest {
+    allowedSet = { allowed_origins = [ "chrome-extension://lmjnegcaeklhafolokijcfjliaokphfk/" ]; };
+  };
+
+in stdenv.mkDerivation rec {
   pname = "vdhcoapp";
-  inherit (nodeVdhcoapp) version src;
+  inherit version src;
+
+  nativeBuildInputs = with pkgs; [
+    makeWrapper
+  ];
 
   buildInputs = [
     glibc
-    nodejs
     nodeVdhcoapp
   ];
 
   patches = [
-    ./0001-Make-the-app-runnable-without-pkg.patch
-    # Allows setting Brave and Vivaldi through user installation
+    (pkgs.substituteAll {
+      src = ./0001-Make-the-app-runnable-without-pkg.patch;
+      ffmpeg = "${ffmpeg}";
+    })
     ./0001-Adding-brave-and-vivaldi-user-installation.patch
   ];
 
-  postPatch = ''
-    sed -i 's#^\(const binaryDir =\).*$#\1 "${ffmpeg}/bin";#' app/converter.js
-    chmod -x *.js *.json app/*.js assets/*
-  '';
-
-  dontConfigure = true;
-  dontBuild = true;
-
   installPhase = ''
     mkdir -p $out/share/vdhcoapp
+
+    chmod -x *.js *.json app/*.js assets/*
     cp -pr -t $out/share/vdhcoapp/ \
       app \
       assets \
       config.json \
       index.js \
       package.json \
-      ${nodeVdhcoapp}/lib/node_modules/vdhcoapp/node_modules
-
-    cat << EOF > $out/share/vdhcoapp/${appName}
-    #!/bin/sh
-    NODE_PATH=$out/share/vdhcoapp/node_modules exec ${nodejs}/bin/node $out/share/vdhcoapp/index.js "\$@"
-    EOF
-    chmod +x $out/share/vdhcoapp/${appName}
+      ${nodeVdhcoapp}/lib/node_modules
 
     installManifest() {
-      install -d $out$2
-      cp $1 $out$2/${appName}.json
-      substituteInPlace $out$2/${appName}.json --replace DIR $out/share/vdhcoapp
+      install -d $2
+      cp $1 $2/${appName}.json
+      substituteInPlace $2/${appName}.json --replace DIR $out/share/vdhcoapp
     }
-    installManifest ${chromeManifest}  /etc/opt/chrome/native-messaging-hosts
-    installManifest ${chromeManifest}  /etc/chromium/native-messaging-hosts
-    installManifest ${firefoxManifest} /lib/mozilla/native-messaging-hosts
+    installManifest ${chromeManifest}  $out/etc/opt/chrome/native-messaging-hosts
+    installManifest ${chromeManifest}  $out/etc/chromium/native-messaging-hosts
+    installManifest ${firefoxManifest} $out/lib/mozilla/native-messaging-hosts
+
+    makeWrapper ${nodejs}/bin/node $out/share/vdhcoapp/${appName} \
+      --add-flags $out/share/vdhcoapp/index.js \
+      --set NODE_PATH $out/share/vdhcoapp/node_modules
   '';
 
   passthru.updateScript = ./update.sh;
@@ -100,5 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.downloadhelper.net/";
     license = licenses.gpl2;
     platforms = nodejs.meta.platforms;
+    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

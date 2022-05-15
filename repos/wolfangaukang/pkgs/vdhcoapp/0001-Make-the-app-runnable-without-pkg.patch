@@ -29,7 +29,7 @@ index 682b20d..ec7b6b3 100644
  	throw new Error("Unsupported architecture",process.arch);
  
 -const binaryDir = path.join(path.dirname(process.execPath),"..","converter","build",platform,arch);
-+const binaryDir = path.join(path.dirname(process.argv[1]),"converter","build",platform,arch);
++const binaryDir = "@ffmpeg@/bin";
  const binaryPath = path.join(binaryDir,"ffmpeg");
  const probeBinaryPath = path.join(binaryDir,"ffprobe");
  const playBinaryPath = path.join(binaryDir,"ffplay");
