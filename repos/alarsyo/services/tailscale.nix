@@ -28,6 +28,8 @@ in {
     networking.firewall = {
       trustedInterfaces = ["tailscale0"];
       allowedUDPPorts = [config.services.tailscale.port];
+      # needed for exit node usage
+      checkReversePath = "loose";
     };
 
     # enable IP forwarding to use as exit node

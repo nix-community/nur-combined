@@ -46,7 +46,6 @@ jobs:
       fail-fast: false
       matrix:
         name:
-        - emacsPgtkNativeComp
         - grafanaDashboards/nginx
         - grafanaDashboards/node-exporter
         - kaleidoscope-udev-rules

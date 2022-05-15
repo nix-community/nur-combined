@@ -42,7 +42,7 @@ in {
 
     programs.emacs = {
       enable = true;
-      package = pkgs.emacsPgtkNativeComp;
+      package = pkgs.emacsNativeComp;
       extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools];
     };
   };

@@ -21,13 +21,6 @@
       repo = "agenix";
     };
 
-    emacs-overlay = {
-      type = "github";
-      owner = "nix-community";
-      repo = "emacs-overlay";
-      ref = "master";
-    };
-
     home-manager = {
       type = "github";
       owner = "nix-community";
@@ -117,8 +110,6 @@
 
               {
                 nixpkgs.overlays = [
-                  inputs.emacs-overlay.overlay
-
                   # uncomment this to build everything from scratch, fun but takes a
                   # while
                   #
@@ -140,12 +131,6 @@
               inputs.nixos-hardware.nixosModules.common-cpu-intel
               inputs.nixos-hardware.nixosModules.common-pc-laptop
               inputs.nixos-hardware.nixosModules.common-pc-ssd
-
-              {
-                nixpkgs.overlays = [
-                  inputs.emacs-overlay.overlay
-                ];
-              }
             ]
             ++ sharedModules;
         };
@@ -153,19 +138,9 @@
     }
     // inputs.flake-utils.lib.eachDefaultSystem (system: {
       packages =
-        (
-          inputs.flake-utils.lib.flattenTree
-          (import ./pkgs {pkgs = import nixpkgs {inherit system;};})
-        )
-        // {
-          emacsPgtkNativeComp =
-            (
-              import nixpkgs {
-                inherit system;
-                overlays = [inputs.emacs-overlay.overlay];
-              }
-            )
-            .emacsPgtkNativeComp;
-        };
+        inputs.flake-utils.lib.flattenTree
+        (import ./pkgs {
+          pkgs = import nixpkgs {inherit system;};
+        });
     });
 }
