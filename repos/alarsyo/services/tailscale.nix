@@ -29,7 +29,7 @@ in {
       trustedInterfaces = ["tailscale0"];
       allowedUDPPorts = [config.services.tailscale.port];
       # needed for exit node usage
-      checkReversePath = "loose";
+      checkReversePath = mkIf (!cfg.exitNode) "loose";
     };
 
     # enable IP forwarding to use as exit node
