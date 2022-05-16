@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.6.8.0";
+      version = "2.6.9.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3946159/bypass_paywalls_clean-2.6.8.0-an+fx.xpi";
-      sha256 = "468bf1c5a5138045e0aac2e58c22f678cdb914714118af18b78989f689a3c18c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3949296/bypass_paywalls_clean-2.6.9.0.xpi";
+      sha256 = "e48198afd1ace2feda9b297e760655d993614d5104165ec23bdd83a541f27323";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "100.0.1buildid20220513.165813";
+      version = "101.0buildid20220515.185854";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3948755/francais_language_pack-100.0.1buildid20220513.165813.xpi";
-      sha256 = "63b3adf135193c799857bbcc411ae80245d41826ee09505f88e49de864d1b173";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3949424/francais_language_pack-101.0buildid20220515.185854.xpi";
+      sha256 = "9927a9739ad1463f3cc3684acae80c603346974bc0a26f4fa101fcdd7a51cc44";
       meta = with lib;
       {
         description = "Français Language Pack";
