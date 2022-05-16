@@ -20,6 +20,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.tmpOnTmpfs = true;
+
   services.btrfs = {
     autoScrub = {
       enable = true;
