@@ -11,11 +11,6 @@ stdenv.mkDerivation rec {
     hash = "sha256-5m3erToDFkYOV1xoM+BLWbUOgP0A7TXthzQ0Sk1Qj+U=";
   };
 
-  postPatch = ''
-    substituteInPlace tests/test.sh \
-      --replace "zig-cache" "zig-out"
-  '';
-
   nativeBuildInputs = [ zig scdoc installShellFiles ];
 
   buildPhase = ''

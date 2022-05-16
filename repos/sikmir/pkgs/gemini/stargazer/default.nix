@@ -1,19 +1,19 @@
-{ lib, stdenv, rustPlatform, fetchFromSourcehut, Security, scdoc, installShellFiles }:
+{ lib, stdenv, rustPlatform, fetchFromSourcehut, Security, scdoc }:
 
 rustPlatform.buildRustPackage rec {
   pname = "stargazer";
-  version = "0.6.1";
+  version = "1.0.2";
 
   src = fetchFromSourcehut {
     owner = "~zethra";
     repo = pname;
     rev = version;
-    hash = "sha256-8wYTqZoLiMsPWY3+tYBCbRPqs0K5+3syMSJr+iTcTrE=";
+    hash = "sha256-uTGLqgf0BLeZXf6msn7teZEmhgvtvzcjmcHDU1mlSjo=";
   };
 
-  cargoHash = "sha256-G0Wu/lseT5IFWkzc8PaU51ATMqw9nHJOwT3sXNYRMw4=";
+  cargoHash = "sha256-6VPvrGfcBRFGmUMMLPQXbCKqQmGjGbyG4Ogh0ZuEti0=";
 
-  nativeBuildInputs = [ scdoc installShellFiles ];
+  nativeBuildInputs = [ scdoc ];
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
@@ -23,14 +23,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   postInstall = ''
-    installManPage stargazer.1
-    installManPage stargazer.ini.5
-
-    install -Dm644 config.ini -t $out/share/stargazer
-
-    installShellCompletion --bash target/**/completions/stargazer.bash
-    installShellCompletion --fish target/**/completions/stargazer.fish
-    installShellCompletion --zsh target/**/completions/_stargazer
+    sh scripts/install \
+      --prefix=$out \
+      --bashdir=$out/share/bash-completion/completions \
+      --zshdir=$out/share/zsh/site-functions \
+      --fishdir=$out/share/fish/vendor_completions.d
   '';
 
   meta = with lib; {
