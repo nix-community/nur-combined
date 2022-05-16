@@ -47,7 +47,7 @@ in {
             statusCommand = "i3status-rs ${barConfigPath}";
             position = "top";
             fonts = {
-              names = ["DejaVuSansMono" "FontAwesome5Free"];
+              names = ["DejaVuSansMono" "FontAwesome6Free"];
               size = 9.0;
             };
 
