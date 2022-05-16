@@ -17,8 +17,34 @@ let
   pkg = path: args: pkgs.callPackage path ({
     inherit sources;
   } // args);
+  ifNotCI = p: if ci then null else p;
+  ifFlakes = p: if inputs != null then p else null;
 in
 rec {
+  # Package groups
+  lantianCustomized = pkgs.recurseIntoAttrs {
+    # Packages with significant customization by Lan Tian
+    coredns = pkg ./lantian-customized/coredns { };
+    keycloak-lantian = ifFlakes (pkg ./lantian-customized/keycloak-lantian {
+      inherit (inputs) keycloak-lantian;
+    });
+    linux-xanmod-lantian = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { });
+    linux-xanmod-lantian-config = ifNotCI lantianCustomized.linux-xanmod-lantian.configfile;
+    nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
+    openresty = pkg ./lantian-customized/openresty {
+      inherit liboqs openssl-oqs;
+    };
+  };
+  lantianPersonal = pkgs.recurseIntoAttrs {
+    # Personal packages with no intention to be used by others
+    dngzwxdq = pkg ./lantian-personal/dngzwxdq { inherit chmlib-utils; };
+    dnyjzsxj = pkg ./lantian-personal/dnyjzsxj { inherit chmlib-utils; };
+    glibc-debian-openvz-files = pkg ./lantian-personal/glibc-debian-openvz-files { };
+  };
+  openj9-ibm-semeru = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { }));
+  openjdk-adoptium = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium { }));
+
+  # Other packages
   bird-lg-go = pkg ./bird-lg-go { };
   bird-lgproxy-go = pkg ./bird-lgproxy-go { };
   boringssl-oqs = pkg ./boringssl-oqs {
@@ -26,16 +52,9 @@ rec {
   };
   calibre-cops = pkg ./calibre-cops { };
   chmlib-utils = pkg ./chmlib-utils { };
-  coredns-lantian = pkg ./coredns-lantian { };
   deepspeech-gpu = pkg ./deepspeech-gpu { };
   deepspeech-wrappers = pkg ./deepspeech-gpu/wrappers.nix { };
   dingtalk = pkg ./dingtalk { };
-  dngzwxdq = pkg ./dngzwxdq {
-    inherit chmlib-utils;
-  };
-  dnyjzsxj = pkg ./dnyjzsxj {
-    inherit chmlib-utils;
-  };
   drone-vault = pkg ./drone-vault { };
   fcitx5-breeze = pkg ./fcitx5-breeze { };
   ftp-proxy = pkg ./ftp-proxy { };
@@ -44,7 +63,6 @@ rec {
   };
   genshinhelper2 = pkg ./genshinhelper2 { };
   glauth = pkg ./glauth { };
-  glibc-debian-openvz-files = pkg ./glibc-debian-openvz-files { };
   gopherus = pkg ./gopherus { };
   grasscutter = pkg ./grasscutter { };
   hath = pkg ./hath { };
@@ -54,14 +72,10 @@ rec {
   ldap-auth-proxy = pkg ./ldap-auth-proxy { };
   libltnginx = pkg ./libltnginx { };
   liboqs = pkg ./liboqs { };
-  nbfc-lantian = pkg ./nbfc-lantian { };
   netboot-xyz = pkg ./netboot-xyz { };
   netns-exec = pkg ./netns-exec { };
   noise-suppression-for-voice = pkg ./noise-suppression-for-voice { };
   onepush = pkg ./onepush { };
-  openresty-lantian = pkg ./openresty-lantian {
-    inherit liboqs openssl-oqs;
-  };
   openssl-oqs = pkg ./openssl-oqs {
     inherit liboqs;
   };
@@ -83,17 +97,4 @@ rec {
   wechat-uos-bin = pkg ./wechat-uos/official-bin.nix { };
   wine-wechat = pkg ./wine-wechat { };
   xray = pkg ./xray { };
-
-} // (if (!ci) then rec {
-  # These packages aren't built on CI
-  linux-xanmod-lantian = pkg ./linux-xanmod-lantian { };
-  linux-xanmod-lantian-config = linux-xanmod-lantian.configfile;
-  openj9-ibm-semeru = pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { });
-  openjdk-adoptium = pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium { });
-
-} else { }) // (if inputs == null then { } else rec {
-  # These packages require nix flakes support
-  keycloak-lantian = pkg ./keycloak-lantian {
-    inherit (inputs) keycloak-lantian;
-  };
-})
+}

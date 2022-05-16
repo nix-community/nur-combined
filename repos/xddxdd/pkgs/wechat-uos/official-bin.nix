@@ -68,7 +68,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "微信官方原生桌面版 WeChat desktop";
+    description = "WeChat desktop (Official binary)";
     homepage = "https://weixin.qq.com/";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfreeRedistributable;
