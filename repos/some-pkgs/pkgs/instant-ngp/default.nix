@@ -7,8 +7,7 @@
 , openexr
 , glew
 , glfw3
-, cudnn ? null
-, cudaPackages ? { }
+, cudaPackages
 , xorg
 , numpy
 , scipy
@@ -27,9 +26,7 @@ let
   pname = "instant-ngp";
   version = "unstable-2022-04-07";
 
-  is2205 = lib.versionAtLeast lib.version "22.05pre";
-
-  cudaJoined = symlinkJoin {
+  cudatoolkit = symlinkJoin {
     name = "cudatoolkit-root";
     paths = with cudaPackages; [
       cuda_nvcc
@@ -42,8 +39,7 @@ let
     '';
   };
 
-  cudnn' = if is2205 then cudaPackages.cudnn else cudnn;
-  cudatoolkit = if is2205 then cudaJoined else cudnn.cudatoolkit;
+  inherit (cudaPackages) cudnn;
 in
 buildPythonPackage {
   inherit pname version;
@@ -77,7 +73,7 @@ buildPythonPackage {
     openexr.dev
     glew.dev
     glfw3
-    cudnn'
+    cudnn
   ] ++ [
     xorg.libX11
     xorg.libXcursor.dev

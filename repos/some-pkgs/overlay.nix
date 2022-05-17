@@ -1,15 +1,57 @@
-# You can use this file as a nixpkgs overlay. This is useful in the
-# case where you don't want to add the whole NUR namespace to your
-# configuration.
-
-self: super:
+final: prev:
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  nameValuePair = n: v: { name = n; value = v; };
-  nurAttrs = import ./default.nix { pkgs = super; };
-
+  lib' = prev.lib;
+  lib = lib'.recursiveUpdate lib' {
+    maintainers.SomeoneSerge = {
+      email = "sergei.kozlukov@aalto.fi";
+      matrix = "@ss:someonex.net";
+      github = "SomeoneSerge";
+      githubId = 9720532;
+      name = "Sergei K";
+    };
+  };
 in
-builtins.listToAttrs
-  (map (n: nameValuePair n nurAttrs.${n})
-    (builtins.filter (n: !isReserved n)
-      (builtins.attrNames nurAttrs)))
+{
+  inherit lib;
+
+  pythonPackagesOverlays = (prev.pythonPackagesOverlays or [ ]) ++ [
+    (final.callPackage ./python-overrides.nix { })
+  ];
+
+  python =
+    let
+      self = prev.python.override {
+        inherit self;
+        packageOverrides = lib.composeManyExtensions final.pythonPackagesOverlays;
+      }; in
+    self;
+
+  python3 =
+    let
+      self = prev.python3.override {
+        inherit self;
+        packageOverrides = lib.composeManyExtensions final.pythonPackagesOverlays;
+      }; in
+    self;
+
+  pythonPackages = final.python.pkgs;
+  python3Packages = final.python3.pkgs;
+
+  some-pkgs = {
+    inherit (final.python3Packages)
+      albumentations
+      instant-ngp
+      opensfm
+      ezy-expecttest
+      pyimgui dearpygui
+      kornia
+      accelerate
+      gpytorch
+      gpflow
+      gpflux
+      timm
+      trieste
+      quad-tree-attention
+      quad-tree-loftr;
+  };
+}

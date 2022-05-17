@@ -1,6 +1,6 @@
 {
   description = "Some NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:SomeoneSerge/nixpkgs/less-unstable";
 
   outputs = { self, nixpkgs }:
     let
@@ -22,7 +22,7 @@
       notBroken = name: pkg:
         let
           s = (builtins.tryEval (builtins.seq pkg.outPath true)).success;
-          marked = pkg.meta.broken or false;
+          marked = (builtins.tryEval (pkg.meta.broken or false)).value;
         in
         if s || marked then s else lib.warn "${name} must have broken dependencies" s;
 
@@ -35,9 +35,16 @@
         if ok then ok
         else lib.warn "not allowed to include ${name}; it's ${if isFree then "free" else "unfree"} and we ${if allowUnfree then "" else "don't "}allow unfree" ok;
 
+      reservedName = name: builtins.elem name [
+        "lib"
+        "python"
+        "python3"
+      ];
+
       filterUnsupported = system: packages:
         let
           filters = [
+            (name: _: ! reservedName name)
             (name: attr: attr ? type && attr.type == "derivation")
             (supportsPlatform system)
             (isRedist packages)
@@ -47,21 +54,21 @@
         in
         lib.filterAttrs f packages;
 
-      importPkgs = system: import ./default.nix {
-        pkgs = import nixpkgs {
-          inherit system;
+      overlay = import ./overlay.nix;
 
-          config.allowUnfree = false;
-          config.cudaSupport = false;
-        };
-      };
-      allAttrs = forAllSystems (system: importPkgs system);
-      allPackages = lib.mapAttrs (system: packages: builtins.removeAttrs packages [ "lib" "overlays" "modules" ]) allAttrs;
-      supportedPackages = lib.mapAttrs filterUnsupported allPackages;
+      pkgs = forAllSystems (system: import nixpkgs {
+        inherit system;
+        overlays = [ overlay ];
+      });
+
+      newAttrs = forAllSystems (system: pkgs.${system}.some-pkgs);
+      supportedPkgs = lib.mapAttrs filterUnsupported newAttrs;
+
       outputs = {
-        packages = supportedPackages;
-        overlays = allAttrs.x86_64-linux.overlays;
-        legacyPackages = allAttrs;
+        inherit overlay;
+
+        packages = supportedPkgs;
+        legacyPackages = newAttrs;
       };
     in
     outputs;
