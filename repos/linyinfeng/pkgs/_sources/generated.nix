@@ -30,34 +30,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2022.04.17";
+    version = "2022.05.17";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.04.17.gz";
-      sha256 = "sha256-hmtsWXcu9Q5yWdnssBjgGTg08ZvPOsOLCKk9E/5ilzw=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.05.17.gz";
+      sha256 = "sha256-FrxOUBzYXVgyooMss6P79FoJheMhypxFN9bD7StWUas=";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2022.04.17";
+    version = "2022.05.17";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.04.17.gz";
-      sha256 = "sha256-E9bTtwQmF+TUFYc2bvY+qkjmSToWynNjQR3jFi3nFAw=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.05.17.gz";
+      sha256 = "sha256-wes4lOOiiXTzttKqetOMCNr9j/qXHmV1TlbjdJx6pFU=";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2022.04.17";
+    version = "2022.05.17";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.04.17.gz";
-      sha256 = "sha256-5t1rE0e5XA5wWKLx0VBR6xbFTj9oNrgZxMIKGOdQM0g=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.05.17.gz";
+      sha256 = "sha256-5QPcIYktAbn9fSAJ8uAlvqQ5KPU1uqa+ZZow9BEcfVI=";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2022.04.17";
+    version = "2022.05.17";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.04.17.gz";
-      sha256 = "sha256-K/zqoh51mKr4jDA1BYF9bYxBbAZkLbB4UEzO7yjfOHs=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.05.17.gz";
+      sha256 = "sha256-I4A4ZKHZ1q1Vufz85/l4GYLvvbIQZtPiFSF1WRXSBh4=";
     };
   };
   commit-notifier = {
