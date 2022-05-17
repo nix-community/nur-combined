@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     export HOME=$TMPDIR
-    zig build -Drelease-safe=true
+    zig build -Drelease-safe=true -Dcpu=baseline
   '';
 
   installPhase = ''
