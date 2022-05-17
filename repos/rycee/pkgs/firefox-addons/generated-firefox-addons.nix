@@ -154,10 +154,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.25";
+      version = "7.4.27";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3930606/betterttv-7.4.25-fx.xpi";
-      sha256 = "b2fe30b39b2123910cef96f8ce1f5a7f7ac1b02a8761c303000bc420498fd364";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3949645/betterttv-7.4.27.xpi";
+      sha256 = "e0a69d1cb82324a888c8b3d28b8d953db42f885b469509563a1b420f9214eeac";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1752,10 +1752,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.2";
+      version = "1.21.4";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3948090/single_file-1.21.2.xpi";
-      sha256 = "bfef8f47829d1b80c829dba140215cc735f00f93a6fc9e79af223b8a7d998b1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3949062/single_file-1.21.4.xpi";
+      sha256 = "48294b03971433369520a117868147282569d6a4ec2f6a82f7eb7fe9b3e761b2";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
