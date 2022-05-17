@@ -11,13 +11,17 @@
     nur.url = "github:nix-community/NUR";
     nixgl.url = "github:guibou/nixGL";
     sab.url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot?ref=main";
+
+    # Testing
+    ly.url = "github:wolfangaukang/nixpkgs/ly-unstable";
   };
 
-  outputs = { self, nur, home-manager, nixpkgs, nixos-hardware, nixgl, sab, ... }@inputs:
+  outputs = { self, nur, home-manager, nixpkgs, nixos-hardware, nixgl, sab, ly, ... }@inputs:
     let
       inherit (home-manager.lib) homeManagerConfiguration;
       inherit (nixpkgs.lib) genAttrs nixosSystem;
-
+      vm-testing = ly.lib.nixosSystem;
+      
       importAttrset = path: builtins.mapAttrs (_: import) (import path);
       forAllSystems = f: genAttrs pkgs_systems (system: f system);
 
@@ -49,6 +53,7 @@
       nixosConfigurations = {
         eyjafjallajokull = nixosSystem ( import ./hosts/eyjafjallajokull/nixos-system.nix { inherit username system overlays; } inputs );
         holuhraun = nixosSystem ( import ./hosts/holuhraun/nixos-system.nix { inherit username system overlays; } inputs );
+        vm = vm-testing ( import ./hosts/vm/nixos-system.nix { inherit username system overlays; } inputs );
       };
 
       # Easy setup for testing

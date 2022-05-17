@@ -35,6 +35,22 @@
         "type": "github"
       }
     },
+    "ly": {
+      "locked": {
+        "lastModified": 1652752838,
+        "narHash": "sha256-fwG36M5N8GPWhjD50BdrzSNNaw4ZR68pj5lBWkHBuG0=",
+        "owner": "wolfangaukang",
+        "repo": "nixpkgs",
+        "rev": "4d007d25248b1a60ee21cd7a1718101b5bd50ed3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wolfangaukang",
+        "ref": "ly-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixgl": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -181,6 +197,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "ly": "ly",
         "nixgl": "nixgl",
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",

@@ -6,6 +6,7 @@ with pkgs;
   gogdl = python3Packages.callPackage ./gogdl { };
   iptvnator = callPackage ./iptvnator { };
   librewolf-bin = callPackage ./librewolf-bin { };
+  ly = callPackage ./ly { };
   multifirefox = callPackage ./multifirefox { };
   npm-groovy-lint = callPackage ./npm-groovy-lint {
     jdk = jdk11;
