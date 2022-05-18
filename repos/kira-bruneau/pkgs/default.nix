@@ -72,6 +72,8 @@ in
     inherit (pkgs.python3Packages) Mako;
   };
 
+  mozlz4 = callPackage ./tools/compression/mozlz4 { };
+
   newsflash = callPackage ./applications/networking/feedreaders/newsflash { };
 
   poke = callPackage ./applications/editors/poke { };
