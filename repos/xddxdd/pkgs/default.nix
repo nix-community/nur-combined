@@ -21,6 +21,37 @@ let
   ifFlakes = p: if inputs != null then p else null;
 in
 rec {
+  # Binary cache information
+  _binaryCache = pkgs.recurseIntoAttrs rec {
+    url = "https://xddxdd.cachix.org";
+    publicKey = "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=";
+
+    readme = pkgs.writeTextFile rec {
+      name = "00000-readme";
+      text = ''
+        This NUR has a binary cache. Use the following settings to access it:
+
+        nix.settings.substituters = [ "${url}" ];
+        nix settings.trusted-public-keys = [ "${publicKey}" ];
+
+        Or, use variables from this repository in case I change them:
+
+        nix.settings.substituters = [ nur.repos.xddxdd._binaryCache.url ];
+        nix settings.trusted-public-keys = [ nur.repos.xddxdd._binaryCache.publicKey ];
+
+        Or, if you use NixOS <= 21.11:
+
+        nix.binaryCaches = [ "${url}" ];
+        nix.binaryCachePublicKeys = [ "${publicKey}" ];
+      '';
+      meta = {
+        description = text;
+        homepage = "https://github.com/xddxdd/nur-packages";
+        license = pkgs.lib.licenses.unlicense;
+      };
+    };
+  };
+
   # Package groups
   lantianCustomized = pkgs.recurseIntoAttrs {
     # Packages with significant customization by Lan Tian
