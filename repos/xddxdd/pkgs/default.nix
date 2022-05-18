@@ -32,12 +32,12 @@ rec {
         This NUR has a binary cache. Use the following settings to access it:
 
         nix.settings.substituters = [ "${url}" ];
-        nix settings.trusted-public-keys = [ "${publicKey}" ];
+        nix.settings.trusted-public-keys = [ "${publicKey}" ];
 
         Or, use variables from this repository in case I change them:
 
         nix.settings.substituters = [ nur.repos.xddxdd._binaryCache.url ];
-        nix settings.trusted-public-keys = [ nur.repos.xddxdd._binaryCache.publicKey ];
+        nix.settings.trusted-public-keys = [ nur.repos.xddxdd._binaryCache.publicKey ];
 
         Or, if you use NixOS <= 21.11:
 
