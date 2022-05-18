@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220515.185854";
+      version = "101.0buildid20220517.185920";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3949424/francais_language_pack-101.0buildid20220515.185854.xpi";
-      sha256 = "9927a9739ad1463f3cc3684acae80c603346974bc0a26f4fa101fcdd7a51cc44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3950409/francais_language_pack-101.0buildid20220517.185920.xpi";
+      sha256 = "c2d7a83852eba131e06043f790e4279bb8fa6d3e262275fdbda9bdaa52b0fc54";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -924,10 +924,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.1.1";
+      version = "5.2.0";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3938898/grammar_and_spell_checker_languagetool-5.1.1-fx.xpi";
-      sha256 = "0db5bd85a4f44e9549b14ebe53decb05ff48e29421b68869dfe061e555743223";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3949869/languagetool-5.2.0.xpi";
+      sha256 = "56be532e00935b1dd94756b8de033b05629ad44df94391c057e53fe19080ba46";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1752,10 +1752,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.4";
+      version = "1.21.5";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3949062/single_file-1.21.4.xpi";
-      sha256 = "48294b03971433369520a117868147282569d6a4ec2f6a82f7eb7fe9b3e761b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3950003/single_file-1.21.5.xpi";
+      sha256 = "b4ea5319bcbc24692c0626a3d46edeecdc5f379afd1161029d93ed822397d125";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
