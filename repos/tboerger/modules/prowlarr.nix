@@ -8,6 +8,13 @@ in
 {
   options = {
     services.prowlarr = {
+      package = mkOption {
+        type = types.package;
+        default = pkgs.prowlarr;
+        defaultText = literalExpression "pkgs.prowlarr";
+        description = "Prowlarr package to use";
+      };
+
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/prowlarr";
@@ -38,11 +45,11 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = mkForce {
+      serviceConfig = {
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=${cfg.dataDir}";
+        ExecStart = mkForce "${cfg.package}/bin/Prowlarr -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };
