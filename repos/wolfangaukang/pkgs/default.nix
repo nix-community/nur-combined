@@ -2,8 +2,9 @@
 
 with pkgs;
 
-{
+rec {
   gogdl = python3Packages.callPackage ./gogdl { };
+  heroic = python3Packages.callPackage ./heroic { inherit gogdl; };
   iptvnator = callPackage ./iptvnator { };
   librewolf-bin = callPackage ./librewolf-bin { };
   ly = callPackage ./ly { };
