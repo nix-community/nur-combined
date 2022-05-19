@@ -1823,10 +1823,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.3.3";
+      version = "4.4.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3945665/sponsorblock_skip_sponsorships_on_youtube-4.3.3-an+fx.xpi";
-      sha256 = "ce32f8e3685e62bd72426280348bf3b5506e79d37bca6479d167b77d7f109e5c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3951009/sponsorblock-4.4.1.xpi";
+      sha256 = "0978ac7743c4352b7056e32022acecb4e60fa4cd1dfd4f2f0f4ed4d74f9a7d6a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2358,10 +2358,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.1";
+      version = "3.4.2";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3918765/windscribe_free_vpn_and_ad_blocker-3.4.1-fx.xpi";
-      sha256 = "05bd96f917f80c7202a2c604958af9040e5ab9f3cee35fd17456a0b1a1bcc2e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3951017/windscribe-3.4.2.xpi";
+      sha256 = "4802160ca1a4deb4522c081d99e3174820a70fcc920bc35756ed8a8530f00513";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
