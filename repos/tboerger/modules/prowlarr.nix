@@ -45,11 +45,11 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = {
+      serviceConfig = mkForce {
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = mkForce "${cfg.package}/bin/Prowlarr -nobrowser -data='${cfg.dataDir}'";
+        ExecStart = "${cfg.package}/bin/Prowlarr -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };
