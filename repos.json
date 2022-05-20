@@ -226,6 +226,9 @@
         "immae": {
             "url": "https://git.immae.eu/perso/Immae/Config/Nix/NUR.git"
         },
+        "imsofi": {
+            "url": "https://github.com/imsofi/nur-pkgs"
+        },
         "instantos": {
             "url": "https://github.com/instantOS/nix"
         },
