@@ -114,6 +114,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/qutip/qutip/releases";
     changelog = "http://qutip.org/docs/latest/changelog.html";
     license = licenses.bsd3;
-    maintainers = maintainers.drewrisinger;
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }

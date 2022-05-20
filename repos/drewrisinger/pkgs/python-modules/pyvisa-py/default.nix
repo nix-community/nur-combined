@@ -49,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://pyvisa-py.readthedocs.io";
     downloadPage = "https://github.com/pyvisa/pyvisa-py/releases";
     license = licenses.mit;
-    maintainers = maintainers.drewrisinger;
+    maintainers = with maintainers; [ drewrisinger ];
   };
 }

@@ -3,6 +3,7 @@
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
+, fetchpatch
 , duet
 , google-api-core
 , matplotlib
@@ -207,16 +208,13 @@ let
     pname = "cirq";
     inherit version src disabled;
 
-    # compatibility with setuptools >= 61.0.0. See https://github.com/quantumlib/Cirq/issues/5291
-    postPatch = ''
-      cat <<EOF >> setup.cfg
-      [options]
-      packages = find:
-
-      [options.packages.find]
-      exclude = check,rtd_docs,dev_tools,cirq*,benchmarks,examples
-      EOF
-    '';
+    patches = [
+      (fetchpatch {
+        url = "https://github.com/quantumlib/Cirq/commit/b832db606e5f1850b1eda168a6d4a8e77d8ec711.patch";
+        name = "pr-5330-prevent-implicit-packages.patch";
+        sha256 = "sha256-HTEH3fFxPiBedaz5GxZjXayvoiazwHysKZIOzqwZmbg=";
+      })
+    ];
 
     preCheck = ''
       rm -rf cirq-aqt
