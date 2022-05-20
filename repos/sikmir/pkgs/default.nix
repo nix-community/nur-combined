@@ -350,7 +350,6 @@ lib.makeScope newScope (
       inherit (darwin.apple_sdk.frameworks) Foundation;
     };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
-    tilemaker = callPackage ./osm/tilemaker { };
     vectiler = callPackage ./osm/vectiler { };
 
     ### RADIO
