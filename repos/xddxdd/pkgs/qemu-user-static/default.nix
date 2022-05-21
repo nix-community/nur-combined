@@ -11,13 +11,13 @@ let
     if stdenv.isx86_64 then
       fetchurl
         {
-          url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_amd64.deb";
+          url = "https://snapshot.debian.org/archive/debian/20220501T085721Z/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_amd64.deb";
           sha256 = "11y9wr4qn7rczpdv4mi3x9yhnfbnn969312n2qbv92s45ii4rql3";
         }
     else if stdenv.isAarch64 then
       fetchurl
         {
-          url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_arm64.deb";
+          url = "https://snapshot.debian.org/archive/debian/20220501T085721Z/pool/main/q/qemu/qemu-user-static_7.0+dfsg-1_arm64.deb";
           sha256 = "028mfrgvlyly95l8g6v16r3gcljgcmwvi2ing03164fh7rxcldkg";
         }
     else throw "Unsupported architecture";
