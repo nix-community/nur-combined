@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.2.3" = {
+    "@eslint/eslintrc-1.3.0" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.2.3";
+      version = "1.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.2.3.tgz";
-        sha512 = "uGo44hIwoLGNyduRpjdEpovcbMdd+Nv7amtmJxnKmI8xj6yd5LncmSwDa5NgX/41lIFJtkjD6YdVfgEzPfJ5UA==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.0.tgz";
+        sha512 = "UWW0TMTmk2d7hLcWD1/e2g5HDM/HQ3csaLSqXCfqwh4uNDuNqlaKWXmEsL4Cs41Z0KnILNvwbHAah3C2yt06kw==";
       };
     };
     "@humanwhocodes/config-array-0.9.5" = {
@@ -346,13 +346,13 @@ let
         sha1 = "1b0ab3bd553b2a0d6399d29c0e3ea0b252078327";
       };
     };
-    "glob-7.2.2" = {
+    "glob-7.2.3" = {
       name = "glob";
       packageName = "glob";
-      version = "7.2.2";
+      version = "7.2.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob/-/glob-7.2.2.tgz";
-        sha512 = "NzDgHDiJwKYByLrL5lONmQFpK/2G78SMMfo+E9CuGlX4IkvfKDsiQSNPwAYxEy+e6p7ZQ3uslSLlwlJcqezBmQ==";
+        url = "https://registry.npmjs.org/glob/-/glob-7.2.3.tgz";
+        sha512 = "nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==";
       };
     };
     "glob-parent-6.0.2" = {
@@ -737,10 +737,10 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.15.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.15.0.tgz"; sha1 = "fea1d55a7062da48d82600d2e0974c55612a11e9"; };
+    version = "8.16.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.16.0.tgz"; sha1 = "6d936e2d524599f2a86c708483b4c372c5d3bbae"; };
     dependencies = [
-      sources."@eslint/eslintrc-1.2.3"
+      sources."@eslint/eslintrc-1.3.0"
       sources."@humanwhocodes/config-array-0.9.5"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."acorn-8.7.1"
@@ -781,7 +781,7 @@ let
       sources."flatted-3.2.5"
       sources."fs.realpath-1.0.0"
       sources."functional-red-black-tree-1.0.1"
-      sources."glob-7.2.2"
+      sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
       sources."globals-13.15.0"
       sources."has-flag-4.0.0"
