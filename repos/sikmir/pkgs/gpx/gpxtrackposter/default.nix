@@ -47,6 +47,8 @@ python3Packages.buildPythonApplication rec {
     }))
   ];
 
+  doCheck = false;
+
   postInstall = "rm -fr $out/requirements*.txt";
 
   meta = with lib; {
