@@ -7,7 +7,6 @@ This is a [NUR](https://github.com/nix-community/NUR) repository for:
 
 - [dtn7-go](https://github.com/dtn7/dtn7-go): `dtn7-go` and `dtn7-go-unstable`
 - [dtn7-rs](https://github.com/dtn7/dtn7-rs): `dtn7-rs`
-- [µPCN](https://upcn.eu/): `upcn`
 
 
 ## Install

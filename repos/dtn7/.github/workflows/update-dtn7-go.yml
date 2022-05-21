@@ -8,18 +8,18 @@ jobs:
 
     steps:
     - name: Install Nix
-      uses: cachix/install-nix-action@07da2520eebede906fbeefa9dd0a2b635323909d # v12
+      uses: cachix/install-nix-action@v17
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
     - name: Checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
 
     - name: Update dtn7-go packages
       run: ./update-dtn7-go.sh
 
     - name: Commit and Push
-      uses: github-actions-x/commit@310f99bded869e47f73aa47de0955cbc022c4d74 # v2.4
+      uses: github-actions-x/commit@v2.9
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         push-branch: 'master'

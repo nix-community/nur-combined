@@ -18,6 +18,4 @@ rec {
   dtn7-go-unstable = pkgs.callPackage ./pkgs/dtn7-go/unstable.nix { };
 
   dtn7-rs = pkgs.callPackage ./pkgs/dtn7-rs { };
-
-  upcn = pkgs.callPackage ./pkgs/upcn { };
 }

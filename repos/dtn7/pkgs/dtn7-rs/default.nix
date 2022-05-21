@@ -2,20 +2,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "dtn7-rs";
-  version = "unstable-2020-04-05";
+  version = "0.17.3";
 
   src = fetchFromGitHub {
     owner = "dtn7";
     repo = "dtn7-rs";
-    rev = "5032ad0c1b19bb4af60c806f2b5125df323ac18b";
-    sha256 = "1bh9mc9sigsdrcnvdna0pzmbjcy6lx4vhzza4mw88jiqfgsmmr8d";
+    rev = "v${version}";
+    sha256 = "sha256-ML+/sUn9/cFH8CySQIwnFthGjFnTy549MrXNolSL5LY=";
   };
 
-  cargoPatches = [ ./cargo-lock.patch ]; # Cargo.lock is missing.
-  cargoSha256 = "1mfdf75mi3finv3k2k235lzzybh6lrj6a48srjhaixnp20aac62j";
+  cargoSha256 = "sha256-ZkO2853fPLTyqdJzIBHB+upBz5bZBsN9dhiQ6cJPiDQ=";
 
   meta = with lib; {
-    description = "Rust implementation of DTN7";
+    description = "Rust implementation of a DTN based on RFC9171";
     homepage = "https://github.com/dtn7/dtn7-rs";
     license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ oxzi ];
