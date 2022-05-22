@@ -4,6 +4,7 @@
 , electron
 , steam
 , lib
+, scrot
 , ...
 } @ args:
 
@@ -13,7 +14,7 @@
 ################################################################################
 
 let
-  version = "2.1.2";
+  version = "2.1.3";
 
   license = stdenv.mkDerivation rec {
     pname = "wechat-uos-license";
@@ -31,7 +32,7 @@ let
     inherit version;
     src = fetchurl {
       url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_${version}_amd64.deb";
-      sha256 = "13dyzq20wbirif5lvrzxyxyxf94134dlbjf76zhyhssxvi3jj5lz";
+      sha256 = "sha256-W3ckVWbmgpwrIjsEFz80wcN853CdIu1NiiR1czjPsKM=";
     };
 
     unpackPhase = ''
@@ -43,8 +44,13 @@ let
       tar xf data.tar.xz -C $out
       mv $out/usr/* $out/
       mv $out/opt/apps/com.tencent.weixin/files/weixin/resources/app $out/lib/wechat-uos
-      ln -sf $out/lib/license/libuosdevicea1.so $out/lib/license/libuosdevicea.so
+      chmod 0644 $out/lib/license/libuosdevicea.so
       rm -rf $out/opt $out/usr
+
+      # use system scrot
+      pushd $out/lib/wechat-uos/packages/main/dist/
+      sed -i 's|__dirname,"bin","scrot"|"${scrot}/bin/"|g' index.js
+      popd
     '';
   };
 
@@ -54,6 +60,11 @@ let
   }).run;
 
   startScript = writeShellScript "wechat-uos" ''
+    wechat_pid=`pidof wechat-uos`
+    if test $wechat_pid; then
+        kill -9 $wechat_pid
+    fi
+
     ${steam-run}/bin/steam-run \
       ${electron}/bin/electron \
       ${resource}/lib/wechat-uos
