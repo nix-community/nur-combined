@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, curl, openssl }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, curl, openssl, memstreamHook }:
 
 stdenv.mkDerivation rec {
   pname = "gplaces";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ curl openssl ];
+  buildInputs = [ curl openssl ] ++ lib.optional stdenv.isDarwin memstreamHook;
 
   installFlags = [ "PREFIX=$(out)" ];
 

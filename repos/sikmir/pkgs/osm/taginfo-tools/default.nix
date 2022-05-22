@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "taginfo-tools";
-  version = "2020-11-26";
+  version = "2022-05-04";
 
   src = fetchFromGitHub {
     owner = "taginfo";
     repo = pname;
-    rev = "52888a81d56e090f7e3b89c99342989ae476bb31";
-    sha256 = "sha256-VSO9J0ZAgp7FBJFaD1sm/z1NrehEcnwypBifsMwC3vc=";
+    rev = "3b54480e6f4fcfed7bfc064e074250ca97ec4644";
+    sha256 = "sha256-aJQy8BijmiLEOhEzdpzyCC6nK4b1EafZZ/UoZu18LDU=";
     fetchSubmodules = true;
   };
 

@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, memstreamHook }:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "nextvi";

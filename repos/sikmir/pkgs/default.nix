@@ -166,6 +166,7 @@ lib.makeScope newScope (
       click = click-6-7;
     };
     geographiclib = callPackage ./geospatial/geographiclib { };
+    geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
     mapsoft = callPackage ./geospatial/mapsoft {

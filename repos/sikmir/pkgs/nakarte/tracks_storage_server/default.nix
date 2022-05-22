@@ -71,5 +71,6 @@ python2Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.free;
     maintainers = with maintainers; [ sikmir ];
+    broken = true; # python2Packages.protobuf (error: mox-0.7.8 not supported for interpreter python2.7)
   };
 }

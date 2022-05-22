@@ -28,5 +28,6 @@ python2Packages.buildPythonApplication rec {
     homepage = "http://opendict.sf.net/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.sikmir ];
+    skip.ci = true;
   };
 }

@@ -28,6 +28,10 @@ python3Packages.buildPythonApplication rec {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
+  disabledTests = [
+    "test_process_tile"
+  ];
+
   meta = with lib; {
     description = "A plugin command for the Rasterio CLI that exports a raster dataset to an MBTiles 1.1 SQLite file";
     inherit (src.meta) homepage;
