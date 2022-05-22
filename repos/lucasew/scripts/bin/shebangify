@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# vim:ft=bash
+
+function show_help() {
+    echo "shebangify [filename] [extra nix-shell args]" >&2
+    exit 0
+}
+
+function die() {
+    echo "error: $@" >&2
+    exit 1
+}
+
+if [ "$#" == 0 ]; then
+    show_help
+fi
+
+script="$(realpath "$1")";shift
+
+[ -f "$script" ] || die the script "'$script'" does not exist
+
+script_filename="$(basename "$script")"
+script_name="${script_filename%.*}"
+script_extension="${script_filename##*.}"
+script_directory="$(dirname "$(realpath "$script")")"
+
+echo "filename $script_filename"
+echo "name $script_name"
+echo "extension $script_extension"
+echo "directory $script_directory"
+
+declare -A interpreters=(
+    ["py"]="python"
+    ["js"]="node"
+    ["sh"]="bash"
+)
+
+declare -A filetypes=(
+    ["py"]="python"
+    ["js"]="javascript"
+    ["sh"]="bash"
+)
+
+interpreter=${interpreters[$script_extension]}
+filetype=${filetypes[$script_extension]}
+
+[[ -z $interpreter ]] && die $script_extension has no shebang interpreter known
+
+echo "interpreter: $interpreter"
+tempfile=$(mktemp)
+echo "tempfile: $tempfile"
+
+mv "$script" "$tempfile"
+
+outfile="$script_directory/$script_name"
+
+echo "#!/usr/bin/env nix-shell" > $outfile
+echo "#!nix-shell -i $interpreter -p null $*" >> $outfile
+
+if [[ ! -z $filetype ]]; then
+    echo "# vim:ft=$filetype" >> $outfile
+fi
+
+cat $tempfile >> $outfile
+
+chmod +x $outfile
+
+rm $tempfile
+
+exit 0 # ok
+

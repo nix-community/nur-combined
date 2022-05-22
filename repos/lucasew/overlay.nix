@@ -87,6 +87,7 @@ in {
   wonderland-engine = cp ./packages/wonderland-engine.nix;
   preload = cp ./packages/preload.nix;
   nodePackages = prev.nodePackages // (cp ./packages/node_clis/package_data/default.nix);
+  null = prev.stdenv.mkDerivation { dontUnpack = true; installPhase = "mkdir $out"; };
   nur = import flake.inputs.nur {
     inherit (prev) pkgs;
     nurpkgs = prev.pkgs;
