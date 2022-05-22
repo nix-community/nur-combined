@@ -84,6 +84,8 @@ lib.makeScope newScope (
     geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
+    large-image = callPackage ./development/python-modules/large-image { };
+    large-image-source-gdal = (callPackage ./development/python-modules/large-image/sources.nix { }).source-gdal;
     lru-dict = callPackage ./development/python-modules/lru-dict { };
     portolan = callPackage ./development/python-modules/portolan { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
@@ -169,6 +171,7 @@ lib.makeScope newScope (
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
+    localtileserver = callPackage ./geospatial/localtileserver { };
     mapsoft = callPackage ./geospatial/mapsoft {
       proj = pkgs.proj_7;
     };
@@ -193,6 +196,8 @@ lib.makeScope newScope (
     rio-mucho = callPackage ./geospatial/rio-mucho { };
     rio-tiler = callPackage ./geospatial/rio-tiler { };
     sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
+    scooby = callPackage ./geospatial/scooby { };
+    server-thread = callPackage ./geospatial/server-thread { };
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
     tdh = callPackage ./geospatial/tdh { };
