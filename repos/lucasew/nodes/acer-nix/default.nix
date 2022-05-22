@@ -98,7 +98,7 @@ in
     p7zip unzip # archiving
     pv
     # Extra
-    intel-compute-runtime # OpenCL
+    # intel-compute-runtime # OpenCL
     distrobox # plan b
   ];
 

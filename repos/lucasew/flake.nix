@@ -136,9 +136,9 @@
 
       overlays = {
         home-manager = import (home-manager + "/overlay.nix");
-        borderless-browser = borderless-browser.overlay;
+        borderless-browser = borderless-browser.overlays.default;
+        blender-bin = inputs.blender-bin.overlays.default;
         rust-overlay = inputs.rust-overlay.overlay;
-        blender-bin = inputs.blender-bin.overlay;
         this = import ./overlay.nix self;
         stable = final: prev: {
           stable = mkPkgs {
@@ -245,5 +245,6 @@
       '';
     };
   };
+  # packages = pkgs;
 }
 

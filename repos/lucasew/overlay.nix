@@ -23,6 +23,7 @@ in {
   inherit dotenv;
   inherit wrapDotenv;
   inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generators;
+  inherit (flake.inputs.packages.comma);
   inherit flake;
 
   lib = prev.lib // {
@@ -31,7 +32,6 @@ in {
   p2k = cp inputs.pocket2kindle;
   redial_proxy = cp inputs.redial_proxy;
   send2kindle = cp inputs.send2kindle;
-  comma = cp inputs.comma;
   wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = prev;});
   wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = prev;});
   c4me = cp ./packages/c4me;
