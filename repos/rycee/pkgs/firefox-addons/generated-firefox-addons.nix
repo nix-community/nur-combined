@@ -31,7 +31,7 @@
       pname = "adsum-notabs";
       version = "1.1";
       addonId = "{c9f848fb-3fb6-4390-9fc1-e4dd4d1c5122}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/883289/no_tabs-1.1-an+fx-linux.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/883289/adsum_notabs-1.1.xpi";
       sha256 = "48e846a60b217c13ee693ac8bfe23a8bdef2ec073f5f713cce0e08814f280354";
       meta = with lib;
       {
@@ -59,7 +59,7 @@
       pname = "anonaddy";
       version = "2.0.15";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3912266/anonaddy_anonymous_email_forwarding-2.0.15-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3912266/anonaddy-2.0.15.xpi";
       sha256 = "833ad13e8bfac95eab3f0133dd6d3bacf7a3ae4f314b4509311b8f7cd896e371";
       meta = with lib;
       {
@@ -128,7 +128,7 @@
       pname = "belgium-eid";
       version = "1.0.32";
       addonId = "belgiumeid@eid.belgium.be";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3736679/eid_belgie-1.0.32-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3736679/belgium_eid-1.0.32.xpi";
       sha256 = "b76cdb139f08b8778094cf7594d5f8adb8962f3b79b10ab7e746f53d175263bc";
       meta = with lib;
       {
@@ -245,7 +245,7 @@
       pname = "c-c-search-extension";
       version = "0.2.0";
       addonId = "{e737d9cb-82de-4f23-83c6-76f70a82229c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3718138/cc_search_extension-0.2.0-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3718138/c_c_search_extension-0.2.0.xpi";
       sha256 = "7dc4ddd1bbb46a61bb4cea71baa72be55a34b84b7406d34b4cdcc88c7708b9b0";
       meta = with lib;
       {
@@ -286,7 +286,7 @@
       pname = "close-other-windows";
       version = "0.1";
       addonId = "{fab4ea0f-e0d3-4bb4-9515-aea14d709f69}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/589832/close_other_windows-0.1-an+fx-linux.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/589832/close_other_windows-0.1.xpi";
       sha256 = "6c189fb4d396f835bf8f0f09c9f1e9ae5dc7cde471b776d8c7d12592a373d3d3";
       meta = with lib;
       {
@@ -313,7 +313,7 @@
       pname = "consent-o-matic";
       version = "1.0.2";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941651/consent_o_matic-1.0.2-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941651/consent_o_matic-1.0.2.xpi";
       sha256 = "f0ebe316b8388026ecbaaddb41514d8aad7b1cd3ff737d4cee020a2994ae632c";
       meta = with lib;
       {
@@ -382,7 +382,7 @@
       pname = "dark-scroll-for-tweetdeck";
       version = "2.0.0";
       addonId = "{759d3eb8-baf1-49e0-938b-0f963fdac3ae}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1754743/dark_scroll_for_tweetdeck-2.0.0-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1754743/dark_scroll_for_tweetdeck-2.0.0.xpi";
       sha256 = "e0f4e625eda09e9c8300ef650373d5a582a8c77c18eba572aa39d0bd8e3eb596";
       meta = with lib;
       {
@@ -450,7 +450,7 @@
       pname = "disconnect";
       version = "20.3.1.1";
       addonId = "2.0@disconnect.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3655554/disconnect-20.3.1.1-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3655554/disconnect-20.3.1.1.xpi";
       sha256 = "f1e98b4b1189975753c5c806234de70cbd7f09ae3925ab65ef834da5915ac64d";
       meta = with lib;
       {
@@ -492,7 +492,7 @@
       pname = "duckduckgo-privacy-essentials";
       version = "2022.4.26";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941249/duckduckgo_privacy_essentials-2022.4.26-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3941249/duckduckgo_for_firefox-2022.4.26.xpi";
       sha256 = "c8c8683ee6bdbe070dc640770a5c0353e1e9d5b45bc8c576d328b26026fe1b7a";
       meta = with lib;
       {
@@ -520,7 +520,7 @@
       pname = "export-tabs-urls-and-titles";
       version = "0.2.12";
       addonId = "{17165bd9-9b71-4323-99a5-3d4ce49f3d75}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3398882/export_tabs_urls-0.2.12-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3398882/export_tabs_urls_and_titles-0.2.12.xpi";
       sha256 = "ff71ff6e300bf00e02ba79e127073f918aec79f951b749b2f06add006e773ac9";
       meta = with lib;
       {
@@ -664,7 +664,7 @@
       pname = "french-dictionary";
       version = "7.0b";
       addonId = "fr-dicollecte@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3581786/dictionnaire_francais-7.0b.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3581786/dictionnaire_francais1-7.0b.xpi";
       sha256 = "e0e90b88b177dc1b268b019c8672eb1be943f12e174ad474dbdc46f0e6fbaa6f";
       meta = with lib;
       {
@@ -747,7 +747,7 @@
       pname = "grammarly";
       version = "8.898.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944487/grammarly_for_firefox-8.898.0-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944487/grammarly_1-8.898.0.xpi";
       sha256 = "468b5e3680ebf41fe57e1d3847d89e5195e21b6465180766400da7c36e65cf9c";
       meta = with lib;
       {
@@ -766,7 +766,7 @@
       pname = "greasemonkey";
       version = "4.11";
       addonId = "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3716451/greasemonkey-4.11-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716451/greasemonkey-4.11.xpi";
       sha256 = "5eb85a96f76a9b16a47cf207991d4237bf597c7b767574559204e2e0ff1173f0";
       meta = with lib;
       {
@@ -873,7 +873,7 @@
       pname = "js-search-extension";
       version = "0.1";
       addonId = "{479ec4ee-fd16-4f95-b172-dd39fbd921ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3718212/js_search_extension-0.1-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3718212/js_search_extension-0.1.xpi";
       sha256 = "07d68e168d7137434cf5096efed581daa836a31096b0ca3f39a76a58e08b3ff5";
       meta = with lib;
       {
@@ -886,7 +886,7 @@
       pname = "keepass-helper";
       version = "1.3";
       addonId = "{e56fa932-ad2c-4cfa-b0d7-a35db1d9b0f6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/839803/keepass_helper_url_in_title-1.3-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/839803/keepass_helper_url_in_title-1.3.xpi";
       sha256 = "0ff5e82dd4526db8c7b8cddd7778f46d282de9f6fc4c1d11ac7aa7b0bbefe7e4";
       meta = with lib;
       {
@@ -899,7 +899,7 @@
       pname = "keepassxc-browser";
       version = "1.7.12";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3934394/keepassxc_browser-1.7.12-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3934394/keepassxc_browser-1.7.12.xpi";
       sha256 = "f89242f081f85fa6c9f59bb42e03aa0ef8eeb49a4ef3d56550001a0837c04688";
       meta = with lib;
       {
@@ -978,7 +978,7 @@
       pname = "lesspass";
       version = "9.6.6";
       addonId = "contact@lesspass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3899836/lesspass-9.6.6-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3899836/lesspass-9.6.6.xpi";
       sha256 = "5f419c4a2aa20f9e30a7111e90537c99aba3683b715ebfe5b09743ad373cd52f";
       meta = with lib;
       {
@@ -1081,7 +1081,7 @@
       pname = "markdownload";
       version = "3.1.0";
       addonId = "{1c5e4c6f-5530-49a3-b216-31ce7d744db0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3911043/markdownload_markdown_web_clipper-3.1.0-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3911043/markdownload-3.1.0.xpi";
       sha256 = "90162919e1517eb7b4fd75eade3573011550a9c6d081e23a606ec0bdfeadb2ab";
       meta = with lib;
       {
@@ -1094,7 +1094,7 @@
       pname = "matte-black-red";
       version = "2022.2.23";
       addonId = "{a7589411-c5f6-41cf-8bdc-f66527d9d930}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3913593/matte_black_red-2022.2.23-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3913593/matte_black_red-2022.2.23.xpi";
       sha256 = "1dd32994ec6e006544efe15efcfa96145c929ff65366a05d3b5c0e44c6a59ac6";
       meta = with lib;
       {
@@ -1120,7 +1120,7 @@
       pname = "momentumdash";
       version = "2.5.69";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940079/momentum-2.5.69-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940079/momentumdash-2.5.69.xpi";
       sha256 = "ec7676753b4c43e10b01adeec3f6f6507545eab94bd80299d167b09319a11515";
       meta = with lib;
       {
@@ -1153,7 +1153,7 @@
       pname = "musescore-downloader";
       version = "0.26.0";
       addonId = "{69856097-6e10-42e9-acc7-0c063550c7b8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3818223/musescore_downloader-0.26.0-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3818223/musescore_downloader-0.26.0.xpi";
       sha256 = "2d7d1d70d953231aa7464f89a33154b78019baeee855284bfe9dd2db505a8e76";
       meta = with lib;
       {
@@ -1208,7 +1208,7 @@
       pname = "nighttab";
       version = "7.3.0";
       addonId = "{47bf427e-c83d-457d-9b3d-3db4118574bd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3848032/nighttab-7.3.0-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848032/nighttab-7.3.0.xpi";
       sha256 = "ef53db7d9276a9f21533f8b21bc67114965c959802c0d2a92b8fce6cebed800d";
       meta = with lib;
       {
@@ -1222,7 +1222,7 @@
       pname = "ninja-cookie";
       version = "0.2.7";
       addonId = "debug@ninja-cookie.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3625855/ninja_cookie-0.2.7-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3625855/ninja_cookie-0.2.7.xpi";
       sha256 = "b48f03a79fec4dc47065088c11115de0159857e6f77f7ffcb7da89b010ad3e61";
       meta = with lib;
       {
@@ -1310,7 +1310,7 @@
       pname = "okta-browser-plugin";
       version = "6.9.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924296/okta_browser_plugin-6.9.0-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3924296/okta_browser_plugin-6.9.0.xpi";
       sha256 = "11ef4b752b584725e3d8ebfb192f4eb38617763fd9bfed5b32bbc98b210ddae1";
       meta = with lib;
       {
@@ -1343,7 +1343,7 @@
       pname = "onepassword-password-manager";
       version = "2.3.3";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940152/1password-2.3.3-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940152/1password_x_password_manager-2.3.3.xpi";
       sha256 = "3bba9a7c6d5250d5de79208dacd1354c6da0ad1a687a963a5b7d9e5cbed54f98";
       meta = with lib;
       {
@@ -1376,7 +1376,7 @@
       pname = "org-capture";
       version = "0.2.1";
       addonId = "{ddefd400-12ea-4264-8166-481f23abaa87}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1127481/org_capture-0.2.1-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1127481/org_capture-0.2.1.xpi";
       sha256 = "5683ee1ebfafc24abc2d759c7180c4e839c24fa90764d8cf3285c5d72fc81f0a";
       meta = with lib;
       {
@@ -1490,7 +1490,7 @@
       pname = "privacy-possum";
       version = "2019.7.18";
       addonId = "woop-NoopscooPsnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3360398/privacy_possum-2019.7.18-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3360398/privacy_possum-2019.7.18.xpi";
       sha256 = "0840a8c443e25d8a65da22ce1b557216456b900a699b3541e42e1b47e8cb6c0e";
       meta = with lib;
       {
@@ -1504,7 +1504,7 @@
       pname = "privacy-redirect";
       version = "1.1.49";
       addonId = "{b7f9d2cd-d772-4302-8c3f-eb941af36f76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3815058/privacy_redirect-1.1.49-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3815058/privacy_redirect-1.1.49.xpi";
       sha256 = "9f1cf6e58fa3f86d180b5b99549fa666fa853a827c48cb231558566b0c1c3c75";
       meta = with lib;
       {
@@ -1532,7 +1532,7 @@
       pname = "private-relay";
       version = "2.3.4";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940990/firefox_relay-2.3.4-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940990/private_relay-2.3.4.xpi";
       sha256 = "bd8ae69d29207085fb61eca27130f5ee0f9fe47f5f026c071ef523afc1445c25";
       meta = with lib;
       {
@@ -1630,7 +1630,7 @@
       pname = "reduxdevtools";
       version = "3.0.11";
       addonId = "extension@redux.devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3932897/redux_devtools-3.0.11-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3932897/reduxdevtools-3.0.11.xpi";
       sha256 = "97b2d14543a2f42c02948c05eef8d6dda24eba6eca559fd967e2638adc2da352";
       meta = with lib;
       {
@@ -1671,7 +1671,7 @@
       pname = "rust-search-extension";
       version = "1.6.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916115/rust_search_extension-1.6.0-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3916115/rust_search_extension-1.6.0.xpi";
       sha256 = "5715b4172cbc8426b921d3d614344a6a23e8d73e0b24c62d5f4c6184ecbf9f2c";
       meta = with lib;
       {
@@ -1768,7 +1768,7 @@
       pname = "skip-redirect";
       version = "2.3.6";
       addonId = "skipredirect@sblask";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920533/skip_redirect-2.3.6-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920533/skip_redirect-2.3.6.xpi";
       sha256 = "dbe8950245c1f475c5c1c6daab89c79b83ba4680621c91e80f15be7b09b618ae";
       meta = with lib;
       {
@@ -1781,7 +1781,7 @@
       pname = "snowflake";
       version = "0.5.5";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901265/snowflake-0.5.5-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3901265/torproject_snowflake-0.5.5.xpi";
       sha256 = "4d2f1e43d383e95c1fe22cd43abfb3035b5633fea7c98ba16db1efbbefc64597";
       meta = with lib;
       {
@@ -1907,7 +1907,7 @@
       pname = "tab-session-manager";
       version = "6.12.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944769/tab_session_manager-6.12.0-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3944769/tab_session_manager-6.12.0.xpi";
       sha256 = "91daf01ed2f58117ef03b09e24bae388563c329fe87006a2a9bd3d2382b043bf";
       meta = with lib;
       {
@@ -1921,7 +1921,7 @@
       pname = "tabcenter-reborn";
       version = "2.3.1";
       addonId = "tabcenter-reborn@ariasuni";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3829515/tab_center_reborn-2.3.1-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3829515/tabcenter_reborn-2.3.1.xpi";
       sha256 = "d31c693c896045d4326c7e9e0152830820009bd60f62b36043bb322cab713f34";
       meta = with lib;
       {
@@ -1996,7 +1996,7 @@
       pname = "text-contrast-for-dark-themes";
       version = "2.1.6";
       addonId = "jid1-nMVE2oP40qeQDQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3462082/text_contrast_for_dark_themes-2.1.6-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3462082/text_contrast_for_dark_themes-2.1.6.xpi";
       sha256 = "e768c13a4fa10e4dc2ce54f0539dd5a115c76babe6c044ae1115966f6062244d";
       meta = with lib;
       {
@@ -2077,7 +2077,7 @@
       pname = "translate-web-pages";
       version = "9.4.2";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3840048/traduzir_paginas_web-9.4.2-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3840048/traduzir_paginas_web-9.4.2.xpi";
       sha256 = "75a29e8c7ed1f974f5abbb5c4b59cc2d596711437493f3566f1c022f6fb355dd";
       meta = with lib;
       {
@@ -2122,7 +2122,7 @@
       pname = "tridactyl";
       version = "1.22.1";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926466/tridactyl-1.22.1-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3926466/tridactyl_vim-1.22.1.xpi";
       sha256 = "ed0337dd67516142d1f02a77cab910c7cb95ca575ec1ee4b1f5cf8971918b0f6";
       meta = with lib;
       {
@@ -2148,10 +2148,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.5.3";
+      version = "7.6.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944948/ublacklist-7.5.3-an+fx.xpi";
-      sha256 = "053aa62f24d42f45d6aa1faad4f5e511c001e276def25ef91004a64dc3d9ec18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3952316/ublacklist-7.6.0.xpi";
+      sha256 = "0c7ab0c3efaeec995fc093805570ff13453ba14c7ec31a62412d0d79308124a9";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2192,7 +2192,7 @@
       pname = "umatrix";
       version = "1.4.4";
       addonId = "uMatrix@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3812704/umatrix-1.4.4-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3812704/umatrix-1.4.4.xpi";
       sha256 = "1de172b1d82de28c334834f7b0eaece0b503f59e62cfc0ccf23222b8f2cb88e5";
       meta = with lib;
       {
@@ -2234,7 +2234,7 @@
       pname = "videospeed";
       version = "0.6.3.3";
       addonId = "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3756025/video_speed_controller-0.6.3.3-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3756025/videospeed-0.6.3.3.xpi";
       sha256 = "dea225f3520dd92b5ab3ef30515f37fbd127aa191c7eb3fa2547d2deae52102a";
       meta = with lib;
       {
@@ -2290,7 +2290,7 @@
       pname = "violentmonkey";
       version = "2.13.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3770708/violentmonkey-2.13.0-an+fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3770708/violentmonkey-2.13.0.xpi";
       sha256 = "c2b17f2fbad676304f8b3791602edd388a9df68c585168d04221c2851ff6346a";
       meta = with lib;
       {
@@ -2374,7 +2374,7 @@
       pname = "xbrowsersync";
       version = "1.5.2";
       addonId = "{019b606a-6f61-4d01-af2a-cea528f606da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3546070/xbrowsersync-1.5.2-fx.xpi";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3546070/xbs-1.5.2.xpi";
       sha256 = "8b58ad5498273e121b1ba5abaf108d2bc9f4fb4795bd5c7e6a3778196f7a0221";
       meta = with lib;
       {
