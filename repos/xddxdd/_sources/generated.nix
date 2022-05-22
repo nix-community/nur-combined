@@ -47,13 +47,13 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "32ae7ad5c0f5c43f14141a0eade9b9adca188ec7";
+    version = "b2bf17cd3d9637fbf55c23bf46fe380e4f7e0739";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "32ae7ad5c0f5c43f14141a0eade9b9adca188ec7";
+      rev = "b2bf17cd3d9637fbf55c23bf46fe380e4f7e0739";
       fetchSubmodules = false;
-      sha256 = "sha256-9d/rWaeDu+ztfygkI6P3Ud98MbxRd/VNvdTEzlmluwg=";
+      sha256 = "sha256-7Jx/7z3QxAi7lsV3JFwUDWJUpaKOmfZyGKL3MUrUopw=";
     });
   };
   konnect = {
@@ -230,25 +230,25 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202205120051";
+    version = "202205190058";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202205120051/geoip.dat";
-      sha256 = "sha256-zasUrh/0nZ335IvirTF0TFzYv3NM8o+b/cyMyYABiIM=";
+      url = "https://github.com/v2fly/geoip/releases/download/202205190058/geoip.dat";
+      sha256 = "sha256-RXYdjUWZFqJLEJCEGIKWKA2n9IBhNpPIX2Co7dcvzFY=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220512180118";
+    version = "20220521114354";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220512180118/dlc.dat";
-      sha256 = "sha256-oVtOIQ8ZgWHJG8ETMEEzknC42AQvsKktu3Q09v724Ak=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220521114354/dlc.dat";
+      sha256 = "sha256-Npks7pB+t8z0gjk5+P6CPIshOnuuBp+eKC84ZVu6l3s=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202205120051";
+    version = "202205190058";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202205120051/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202205190058/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };
