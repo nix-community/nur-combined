@@ -1,4 +1,4 @@
-{ lib, python3Packages, hfst, icu, swig }:
+{ lib, stdenv, python3Packages, hfst, icu, swig }:
 
 python3Packages.buildPythonPackage rec {
   pname = "python-hfst";
@@ -15,5 +15,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/hfst/python/wiki";
     license = hfst.meta.license;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # libfoma.0.dylib not found
   };
 }

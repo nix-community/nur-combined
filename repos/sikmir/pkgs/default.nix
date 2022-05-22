@@ -85,7 +85,6 @@ lib.makeScope newScope (
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     lru-dict = callPackage ./development/python-modules/lru-dict { };
-    morecantile = callPackage ./development/python-modules/morecantile { };
     portolan = callPackage ./development/python-modules/portolan { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
@@ -178,6 +177,7 @@ lib.makeScope newScope (
     };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
+    morecantile = callPackage ./geospatial/morecantile { };
     orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
     pmtiles = callPackage ./geospatial/pmtiles { };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };

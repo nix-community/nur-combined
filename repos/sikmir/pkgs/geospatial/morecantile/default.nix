@@ -23,6 +23,5 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://developmentseed.org/morecantile/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/161740
   };
 }

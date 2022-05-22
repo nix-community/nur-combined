@@ -33,6 +33,5 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/161740
   };
 }
