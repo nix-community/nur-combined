@@ -161,6 +161,7 @@ lib.makeScope newScope (
     ### GEOSPATIAL
 
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
+    cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
     datamaps = callPackage ./geospatial/datamaps { };
     elevation = callPackage ./geospatial/elevation {
       click = click-6-7;
@@ -186,17 +187,20 @@ lib.makeScope newScope (
     qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
     qmapshack-bin = callPackage ./geospatial/qmapshack/bin.nix { };
     render_geojson = callPackage ./geospatial/render_geojson { };
+    rio-cogeo = callPackage ./geospatial/rio-cogeo { };
     rio-color = callPackage ./geospatial/rio-color { };
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
     rio-mucho = callPackage ./geospatial/rio-mucho { };
     rio-tiler = callPackage ./geospatial/rio-tiler { };
     sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
+    starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
     tdh = callPackage ./geospatial/tdh { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
     tpkutils = callPackage ./geospatial/tpkutils { };
     vt2geojson = callPackage ./geospatial/vt2geojson { };
+    titiler = callPackage ./geospatial/titiler { };
 
     ### GNSS
 
