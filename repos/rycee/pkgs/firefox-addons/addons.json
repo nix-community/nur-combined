@@ -545,6 +545,13 @@
     "slug": "surfingkeys_ff"
   },
   {
+    "slug": "tab-counter-plus",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
+  },
+  {
     "slug": "tab-session-manager"
   },
   {

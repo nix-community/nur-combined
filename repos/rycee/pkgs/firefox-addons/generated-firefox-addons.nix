@@ -1903,6 +1903,20 @@
         platforms = platforms.all;
         };
       };
+    "tab-counter-plus" = buildFirefoxXpiAddon {
+      pname = "tab-counter-plus";
+      version = "3.4";
+      addonId = "tab-counter-plus@Loirooriol";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3722375/tab_counter_plus-3.4.xpi";
+      sha256 = "98e0d3b5c7f27c4811106a9564fd0fbd13c70856bb6f91bff25c6e9905fbdeb5";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Loirooriol/tab-counter-plus";
+        description = "Shows the number of tabs in each window. Efficient and customizable.";
+        license = licenses.asl20;
+        platforms = platforms.all;
+        };
+      };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
       version = "6.12.0";
