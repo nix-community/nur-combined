@@ -1,25 +1,23 @@
-{ lib, fetchurl, system, stdenv }:
+{ lib, fetchurl, system, stdenvNoCC, version ? "1.0.5"
+, sha256 ? "sha256-MA6wZj/fGCbdNMsKcjMcxWJCgwz1EAtpEAMnqteanEQ=" }:
 let
-  systemInfo = lib.systems.elaborate system;
   archMapping = {
     x86_64 = "amd64";
     aarch64 = "arm64";
     armv7l = "armv7";
   };
-
+  systemInfo = lib.systems.elaborate system;
   arch = archMapping."${systemInfo.uname.processor}";
   os = lib.toLower "${systemInfo.uname.system}";
-in 
-stdenv.mkDerivation rec {
-  pname = "talosctl";
-  version = "1.0.0";
-
+in stdenvNoCC.mkDerivation rec {
+  inherit version;
+  pname = "talosctl-bin";
   src = fetchurl {
-    url = "https://github.com/siderolabs/talos/releases/download/v1.0.0/talosctl-${os}-${arch}";
-    sha256 = "1c2d5p0mnpq380d4py9hf46784kgy304yjvbzdy81fwwh2nrf9j6";
+    inherit sha256;
+    url =
+      "https://github.com/siderolabs/talos/releases/download/v${version}/talosctl-${os}-${arch}";
   };
-
-  phases = ["installPhase"];
+  phases = [ "installPhase" ];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -30,9 +28,10 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   meta = with lib; {
     description = "The Kubernetes Operating System";
-    homepage    = "https://www.talos.dev/";
-    license     = licenses.mpl20;
-    platforms   = [
+    homepage = "https://www.talos.dev/";
+    license = licenses.mpl20;
+    mainProgram = "talosctl";
+    platforms = [
       "aarch64-darwin"
       "aarch64-linux"
       "armv7l-darwin"
