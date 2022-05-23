@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   version = "unstable-2022-02-26";
 
   src = fetchFromGitHub {
-    owner = "zigtools";
+    owner = "neel-bp";
     repo = "zls";
-    rev = "f3aabd6b7ca424b6aa1be9ef8a215a842301b994";
-    sha256 = "sha256-y3qu91itvO4AeZTDQooKt5QGS2czpFhDR8A6w2BEXdM=";
+    rev = "94b532ecbc56487858f8ed5f47848367669780b6";
+    sha256 = "sha256-qLEZz8jFoGvby84nziqx4kSgH7PRcM9CYrFVNNfRGxU=";
     fetchSubmodules = true;
   };
 
