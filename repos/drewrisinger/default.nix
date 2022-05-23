@@ -59,6 +59,7 @@ rec {
     pubchempy = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pubchempy { };
     python-box = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/python-box { };
     qutip = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qutip { };  # removed from nixpkgs b/c it was broken (presumably unused)
+    qutip-qip = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qutip-qip { inherit qutip; };
     openfermion = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/openfermion { inherit cirq pubchempy; };
     # openfermion-cirq has been deprecated. Its functionality is now rolled into openfermion as of v1.0
     # setuptools-rust has been removed b/c it has been integrated into nixpkgs. That probably has a better derivation to copy
