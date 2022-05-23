@@ -30,10 +30,10 @@
 
 stdenv.mkDerivation rec {
   pname = "cider";
-  version = "1.4.3-alpha.1834";
+  version = "1.4.7.2664";
   src = fetchurl {
-    url = "https://github.com/ciderapp/cider-releases/releases/download/v1.4.3.1834/cider_${version}_amd64.deb";
-    sha256 = "sha256-6vDYFmdZnRTnKF5c3QFYe/Tac/lZi+aHQtpWV+rc3qs=";
+    url = "https://github.com/ciderapp/cider-releases/releases/download/v${version}/cider_1.4.7-beta.undefined_amd64.deb";
+    sha256 = "1a3nkwn4n54myjbz51sqalbzx722s5405khdnhrvryld9gr332g8";
   };
 
   runtimeDependencies = [
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
 
     # Fix the desktop link
     substituteInPlace $out/share/applications/cider.desktop \
-      --replace /opt/Cignal/cider $out/bin/cider
+      --replace /opt/Cider/cider $out/bin/cider
   '';
 
   meta = with lib; {
