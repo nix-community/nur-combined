@@ -60,6 +60,8 @@ in {
     services.nextcloud = {
       enable = true;
 
+      phpPackage = lib.mkForce pkgs.php80;
+
       hostName = "cloud.${domain}";
       https = true;
       package = pkgs.nextcloud24;
