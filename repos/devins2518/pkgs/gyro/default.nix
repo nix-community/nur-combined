@@ -7,9 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "mattnite";
     repo = "gyro";
-    rev = "b3aa10462ccf073701023d74221e388d33b70820";
-    sha256 = "sha256-S0M2NwELnjBLqTlnJDfXGmzDv3KoswnxXF0j/HaISh4=";
-    fetchSubmodules = true;
+    rev = "1ae3ab36aac6a99beb82c284f356c89731ee9412";
+    sha256 = "sha256-f1YHARETTUNX89f6/RxVkbyirHsHWZKwFml6ljDnGCs=";
   };
 
   nativeBuildInputs = [ zig-master ];
