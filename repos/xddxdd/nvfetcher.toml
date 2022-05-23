@@ -1,3 +1,9 @@
+[bilibili]
+src.github_tag = "msojocs/bilibili-linux"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/v$ver/io.github.msojocs.bilibili_$ver_amd64.deb"
+
 [bird-lg-go]
 src.git = "https://github.com/xddxdd/bird-lg-go.git"
 fetch.github = "xddxdd/bird-lg-go"

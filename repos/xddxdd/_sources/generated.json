@@ -1,4 +1,18 @@
 {
+    "bilibili": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "bilibili",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-k38lBtkRzBXJm3vkj8FKnvyxpNq+lNJM90SW49t81dA=",
+            "type": "url",
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.1.2-2/io.github.msojocs.bilibili_1.1.2-2_amd64.deb"
+        },
+        "version": "1.1.2-2"
+    },
     "bird-lg-go": {
         "cargoLocks": null,
         "extract": null,
@@ -301,11 +315,11 @@
             "name": null,
             "owner": "c0re100",
             "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.4.2.10",
-            "sha256": "sha256-EY3jbqvqXWGGh45t73WPcjR2pwHDU8z0bJtoGvc8pQE=",
+            "rev": "release-4.4.3.10",
+            "sha256": "sha256-fKxko9KVZld6gDZz3sYkSBov8Dy1Y69S/82gQ5/s9rE=",
             "type": "github"
         },
-        "version": "release-4.4.2.10"
+        "version": "release-4.4.3.10"
     },
     "rime-aurora-pinyin": {
         "cargoLocks": null,
@@ -414,11 +428,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Npks7pB+t8z0gjk5+P6CPIshOnuuBp+eKC84ZVu6l3s=",
+            "sha256": "sha256-vJe0GHLkl0GKU1dNgsDjKpL5VDl7cFAQ08bsqjHgbic=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220521114354/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220523130000/dlc.dat"
         },
-        "version": "20220521114354"
+        "version": "20220523130000"
     },
     "v2fly-private": {
         "cargoLocks": null,

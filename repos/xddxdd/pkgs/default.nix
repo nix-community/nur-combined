@@ -76,6 +76,7 @@ rec {
   openjdk-adoptium = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium { }));
 
   # Other packages
+  bilibili = pkg ./bilibili { };
   bird-lg-go = pkg ./bird-lg-go { };
   bird-lgproxy-go = pkg ./bird-lgproxy-go { };
   boringssl-oqs = pkg ./boringssl-oqs {
