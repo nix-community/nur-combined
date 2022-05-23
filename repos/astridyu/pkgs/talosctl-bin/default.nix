@@ -1,5 +1,10 @@
-{ lib, fetchurl, system, stdenvNoCC, version ? "1.0.5"
-, sha256 ? "sha256-MA6wZj/fGCbdNMsKcjMcxWJCgwz1EAtpEAMnqteanEQ=" }:
+let
+  defaultShas = {
+    "x86_64-linux" = "sha256-MA6wZj/fGCbdNMsKcjMcxWJCgwz1EAtpEAMnqteanEQ=";
+    "x86_64-darwin" = "sha256-zEYLpTR/EbG6p5Nymp1HUxHFJfKb4O3rPUhoFrThX5o=";
+  };
+in { lib, fetchurl, system, stdenvNoCC, version ? "1.0.5"
+, sha256 ? defaultShas.${system} }:
 let
   archMapping = {
     x86_64 = "amd64";
