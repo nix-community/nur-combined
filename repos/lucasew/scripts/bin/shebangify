@@ -55,7 +55,7 @@ mv "$script" "$tempfile"
 outfile="$script_directory/$script_name"
 
 echo "#!/usr/bin/env nix-shell" > $outfile
-echo "#!nix-shell -i $interpreter -p null $*" >> $outfile
+echo "#!nix-shell -i $interpreter -p $*" >> $outfile
 
 if [[ ! -z $filetype ]]; then
     echo "# vim:ft=$filetype" >> $outfile
