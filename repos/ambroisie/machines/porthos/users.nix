@@ -1,8 +1,5 @@
 # User setup
-{ config, ... }:
-let
-  my = config.my;
-in
+{ ... }:
 {
   users.users.blog = {
     description = "Blog Publisher";

@@ -22,8 +22,27 @@ in
               block = "music";
               buttons = [ "prev" "play" "next" ];
               max_width = 50;
+              dynamic_width = true;
               hide_when_empty = true;
             }
+            (lib.optionalAttrs config.my.home.bluetooth.enable {
+              block = "bluetooth";
+              mac = "4C:87:5D:06:40:D9";
+              hide_disconnected = true;
+              format = "Boson {percentage}";
+            })
+            (lib.optionalAttrs config.my.home.bluetooth.enable {
+              block = "bluetooth";
+              mac = "94:DB:56:00:EE:93";
+              hide_disconnected = true;
+              format = "Protons {percentage}";
+            })
+            (lib.optionalAttrs config.my.home.bluetooth.enable {
+              block = "bluetooth";
+              mac = "F7:78:BA:76:52:F7";
+              hide_disconnected = true;
+              format = "MX Ergo {percentage}";
+            })
             {
               block = "cpu";
             }
@@ -49,6 +68,12 @@ in
             }
             {
               block = "sound";
+              device_kind = "source"; # Microphone status
+              format = ""; # Only show icon
+            }
+            {
+              block = "sound";
+              show_volume_when_muted = true;
             }
             {
               block = "time";

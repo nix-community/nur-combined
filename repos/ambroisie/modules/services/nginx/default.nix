@@ -1,5 +1,5 @@
 # A simple abstraction layer for almost all of my services' needs
-{ config, lib, pkgs, utils, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.my.services.nginx;
 
@@ -387,7 +387,8 @@ in
     users.users.nginx.extraGroups = [ "acme" ];
 
     security.acme = {
-      email = "bruno.acme@belanyi.fr";
+      defaults.email = lib.my.mkMailAddress "bruno.acme" "belanyi.fr";
+
       acceptTerms = true;
       # Use DNS wildcard certificate
       certs =

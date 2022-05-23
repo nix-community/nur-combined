@@ -7,10 +7,10 @@ let
   cfg = config.my.services.pirate;
 
   ports = {
-    sonarr = 8989;
-    radarr = 7878;
     bazarr = 6767;
     lidarr = 8686;
+    radarr = 7878;
+    sonarr = 8989;
   };
 
   managers = with lib.attrsets;

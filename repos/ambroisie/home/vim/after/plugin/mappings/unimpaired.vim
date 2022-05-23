@@ -1,7 +1,125 @@
-" Better fr layout mappings for vim-unimpaired and other '[' and ']' commands
-nmap ( [
-nmap ) ]
-omap ( [
-omap ) ]
-xmap ( [
-xmap ) ]
+lua << EOF
+local wk = require("which-key")
+
+local keys = {
+    -- Edition and navigation mappins
+    ["["] = {
+        name = "Previous",
+        ["<space>"] = "Insert blank line above",
+        ["<C-L>"] = "Previous location list file",
+        ["<C-Q>"] = "Previous quickfix list file",
+        ["<C-T>"] = "Previous tag in preview window",
+        a = "Previous argument",
+        A = "First argument",
+        b = "Previous buffer",
+        B = "First buffer",
+        e = "Exchange previous line",
+        f = "Previous file in directory",
+        l = "Previous location list entry",
+        L = "First Location list entry",
+        n = "Previous conflict marker/diff hunk",
+        p = "Paste line above",
+        P = "Paste line above",
+        q = "Previous quickfix list entry",
+        Q = "First quickfix list entry",
+        t = "Previous matching tag",
+        T = "First matching tag",
+        z = "Previous fold",
+        -- Encoding
+        C = "C string encode",
+        u = "URL encode",
+        x = "XML encode",
+        y = "C string encode",
+        -- Custom
+        d = { vim.diagnostic.goto_prev, "Previous diagnostic" }
+    },
+    ["]"] = {
+        name = "Next",
+        ["<space>"] = "Insert blank line below",
+        ["<C-L>"] = "Next location list file",
+        ["<C-Q>"] = "Next quickfix list file",
+        ["<C-T>"] = "Next tag in preview window",
+        a = "Next argument",
+        A = "Last argument",
+        b = "Next buffer",
+        B = "Last buffer",
+        e = "Exchange next line",
+        f = "Next file in directory",
+        l = "Next location list entry",
+        L = "Last Location list entry",
+        n = "Next conflict marker/diff hunk",
+        p = "Paste line below",
+        P = "Paste line below",
+        q = "Next quickfix list entry",
+        Q = "Last quickfix list entry",
+        t = "Next matching tag",
+        T = "Last matching tag",
+        z = "Next fold",
+        -- Decoding
+        C = "C string decode",
+        u = "URL decode",
+        x = "XML decode",
+        y = "C string decode",
+        -- Custom
+        d = { vim.diagnostic.goto_next, "Next diagnostic" }
+    },
+
+    -- Option mappings
+    ["[o"] = {
+        name = "Enable option",
+        b = "Light background",
+        c = "Cursor line",
+        d = "Diff",
+        e = { "<cmd>lwindow<CR>", "Location list" },
+        f = { "<cmd>cwindow<CR>", "Quickfix list" },
+        h = "Search high-lighting",
+        i = "Case insensitive search",
+        l = "List mode",
+        n = "Line numbers",
+        r = "Relative line numbers",
+        u = "Cursor column",
+        v = "Virtual editing",
+        w = "Text wrapping",
+        x = "Cursor line and column",
+        z = "Spell checking",
+    },
+    ["]o"] = {
+        name = "Option off",
+        b = "Light background",
+        c = "Cursor line",
+        d = "Diff",
+        e = { "<cmd>lclose<CR>", "Location list" },
+        f = { "<cmd>cclose<CR>", "Quickfix list" },
+        h = "Search high-lighting",
+        i = "Case insensitive search",
+        l = "List mode",
+        n = "Line numbers",
+        r = "Relative line numbers",
+        u = "Cursor column",
+        v = "Virtual editing",
+        w = "Text wrapping",
+        x = "Cursor line and column",
+        z = "Spell checking",
+    },
+    ["yo"] = {
+        name = "Option toggle",
+        b = "Light background",
+        c = "Cursor line",
+        d = "Diff",
+        e = { "<Plug>(qf_loc_toggle)", "Location list" },
+        f = { "<Plug>(qf_qf_toggle)", "Quickfix list" },
+        h = "Search high-lighting",
+        i = "Case insensitive search",
+        l = "List mode",
+        n = "Line numbers",
+        r = "Relative line numbers",
+        u = "Cursor column",
+        v = "Virtual editing",
+        w = "Text wrapping",
+        x = "Cursor line and column",
+        z = "Spell checking",
+    },
+}
+
+wk.register(keys)
+EOF

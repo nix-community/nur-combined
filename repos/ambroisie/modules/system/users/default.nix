@@ -30,6 +30,7 @@ in
             "media" # access to media files
             "networkmanager" # wireless configuration
             "plugdev" # usage of ZSA keyboard tools
+            "podman" # usage of `podman` socket
             "video" # screen control
             "wheel" # `sudo` for the user.
           ];

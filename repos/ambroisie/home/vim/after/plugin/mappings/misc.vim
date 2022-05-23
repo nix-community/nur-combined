@@ -1,8 +1,9 @@
-" Yank until the end of line with Y, to be more consistent with D and C
-nnoremap Y y$
+lua << EOF
+local wk = require("which-key")
 
-" Run make silently, then skip the 'Press ENTER to continue'
-noremap <Leader>m :silent! :make! \| :redraw!<CR>
+local keys = {
+    ["<leader>"] = { "<cmd>nohls<CR>", "Clear search highlight" },
+}
 
-" Remove search-highlighting
-noremap <Leader><Leader> :nohls<CR>
+wk.register(keys, { prefix = "<leader>" })
+EOF

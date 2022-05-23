@@ -19,6 +19,11 @@ in
       # Nix Flakes compatibility
       useGlobalPkgs = true;
       useUserPackages = true;
+
+      # Forward inputs to home-manager configuration
+      extraSpecialArgs = {
+        inherit inputs;
+      };
     };
   };
 }

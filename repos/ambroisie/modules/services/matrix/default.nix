@@ -19,10 +19,10 @@ in
   options.my.services.matrix = with lib; {
     enable = mkEnableOption "Matrix Synapse";
 
-    secret = mkOption {
+    secretFile = mkOption {
       type = with types; nullOr str;
       default = null;
-      example = "deadbeef";
+      example = "/var/lib/matrix/shared-secret-config.yaml";
       description = "Shared secret to register users";
     };
 
@@ -50,42 +50,46 @@ in
     services.matrix-synapse = {
       enable = true;
       dataDir = "/var/lib/matrix-synapse";
-      server_name = domain;
-      public_baseurl = "https://matrix.${domain}";
 
-      enable_registration = false;
-      registration_shared_secret = cfg.secret;
+      settings = {
+        server_name = domain;
+        public_baseurl = "https://matrix.${domain}";
 
-      listeners = [
-        # Federation
-        {
-          bind_address = "::1";
-          port = federationPort.private;
-          tls = false; # Terminated by nginx.
-          x_forwarded = true;
-          resources = [{ names = [ "federation" ]; compress = false; }];
-        }
+        enable_registration = false;
+        # registration_shared_secret = cfg.secret; # FIXME: use a secret file for this
 
-        # Client
-        {
-          bind_address = "::1";
-          port = clientPort.private;
-          tls = false; # Terminated by nginx.
-          x_forwarded = true;
-          resources = [{ names = [ "client" ]; compress = false; }];
-        }
-      ];
+        listeners = [
+          # Federation
+          {
+            bind_addresses = [ "::1" ];
+            port = federationPort.private;
+            tls = false; # Terminated by nginx.
+            x_forwarded = true;
+            resources = [{ names = [ "federation" ]; compress = false; }];
+          }
 
-      account_threepid_delegates.msisdn = "https://vector.im";
+          # Client
+          {
+            bind_addresses = [ "::1" ];
+            port = clientPort.private;
+            tls = false; # Terminated by nginx.
+            x_forwarded = true;
+            resources = [{ names = [ "client" ]; compress = false; }];
+          }
+        ];
 
-      extraConfig = ''
-        experimental_features:
-          spaces_enabled: true
-      '';
+        account_threepid_delegates = {
+          msisdn = "https://vector.im";
+        };
+
+        experimental_features = {
+          spaces_enabled = true;
+        };
+      };
 
       extraConfigFiles = [
         cfg.mailConfigFile
-      ];
+      ] ++ lib.optional (cfg.secretFile != null) cfg.secretFile;
     };
 
     my.services.nginx.virtualHosts = [

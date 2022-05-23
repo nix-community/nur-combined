@@ -26,31 +26,19 @@ let
   # Generate an attrset of movement bindings, using the mapper function
   genMovementBindings = f: addVimKeyBindings (lib.my.genAttrs' movementKeys f);
 
-  # Screen backlight management
-  changeBacklight =
-    let
-      brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-    in
-    pkgs.writeScript "change-backlight" ''
-      #!/bin/sh
-      if [ "$1" = "up" ]; then
-          upDown="+$2%"
-      else
-          upDown="$2%-"
-      fi
+  # Used in multiple scripts to show messages through keybindings
+  notify-send = "${pkgs.libnotify}/bin/notify-send";
 
-      newBrightness="$(${brightnessctl} -m set "$upDown" | cut -d, -f4)"
-      ${pkgs.libnotify}/bin/notify-send -u low \
-          -h string:x-canonical-private-synchronous:change-backlight \
-          -h "int:value:''${newBrightness/\%/}" \
-          -- "Set brightness to $newBrightness"
-    '';
+  # Screen backlight management
+  changeBacklight = "${pkgs.ambroisie.change-backlight}/bin/change-backlight";
+
+  # Audio and volume management
+  changeAudio = "${pkgs.ambroisie.change-audio}/bin/change-audio";
 
   # Lock management
   toggleXautolock =
     let
       systemctlUser = "${pkgs.systemd}/bin/systemctl --user";
-      notify-send = "${pkgs.libnotify}/bin/notify-send";
       notify = "${notify-send} -u low"
         + " -h string:x-canonical-private-synchronous:xautolock-toggle";
     in
@@ -70,6 +58,7 @@ in
 {
   config = lib.mkIf isEnabled {
     home.packages = with pkgs; [
+      ambroisie.dragger # drag-and-drop from the CLI
       ambroisie.i3-get-window-criteria # little helper for i3 configuration
       arandr # Used by a mapping
       pamixer # Used by a mapping
@@ -86,10 +75,12 @@ in
           let
             barConfigPath =
               config.xdg.configFile."i3status-rust/config-top.toml".target;
+            i3status-rs =
+              "${config.programs.i3status-rust.package}/bin/i3status-rs";
           in
           [
             {
-              statusCommand = "i3status-rs ${barConfigPath}";
+              statusCommand = "${i3status-rs} ${barConfigPath}";
               trayOutput = "primary";
               position = "top";
 
@@ -197,6 +188,12 @@ in
             "${modifier}+Shift+d" = "exec rofi -show run -disable-history";
             "${modifier}+p" = "exec --no-startup-id flameshot gui";
             "${modifier}+Shift+p" = "exec rofi -show emoji";
+            "${modifier}+b" =
+              let
+                inherit (config.my.home.bluetooth) enable;
+                prog = "${pkgs.ambroisie.rofi-bluetooth}/bin/rofi-bluetooth";
+              in
+              lib.mkIf enable "exec ${prog}";
           })
           (
             # Changing container focus
@@ -248,12 +245,18 @@ in
           )
           {
             # Media keys
-            "XF86AudioRaiseVolume" = "exec pamixer --allow-boost -i 5";
-            "XF86AudioLowerVolume" = "exec pamixer --allow-boost -d 5";
-            "Control+XF86AudioRaiseVolume" = "exec pamixer --allow-boost -i 1";
-            "Control+XF86AudioLowerVolume" = "exec pamixer --allow-boost -d 1";
-            "XF86AudioMute" = "exec pamixer --toggle-mute";
-            "XF86AudioMicMute" = "exec pamixer --default-source --toggle-mute";
+            "XF86AudioRaiseVolume" = "exec --no-startup-id ${changeAudio} up 5";
+            "XF86AudioLowerVolume" = "exec --no-startup-id ${changeAudio} down 5";
+            "Control+XF86AudioRaiseVolume" = "exec --no-startup-id ${changeAudio} up 1";
+            "Control+XF86AudioLowerVolume" = "exec --no-startup-id ${changeAudio} down 1";
+
+            "Shift+XF86AudioRaiseVolume" = "exec --no-startup-id ${changeAudio} up --force 5";
+            "Shift+XF86AudioLowerVolume" = "exec --no-startup-id ${changeAudio} down --force 5";
+            "Control+Shift+XF86AudioRaiseVolume" = "exec --no-startup-id ${changeAudio} up --force 1";
+            "Control+Shift+XF86AudioLowerVolume" = "exec --no-startup-id ${changeAudio} down --force 1";
+
+            "XF86AudioMute" = "exec --no-startup-id ${changeAudio} toggle";
+            "XF86AudioMicMute" = "exec --no-startup-id ${changeAudio} toggle mic";
 
             "XF86AudioPlay" = "exec playerctl play-pause";
             "XF86AudioNext" = "exec playerctl next";
@@ -262,10 +265,10 @@ in
           {
             # Screen management
             "XF86Display" = "exec arandr";
-            "XF86MonBrightnessUp" = "exec ${changeBacklight} up 10";
-            "XF86MonBrightnessDown" = "exec ${changeBacklight} down 10";
-            "Control+XF86MonBrightnessUp" = "exec ${changeBacklight} up 1";
-            "Control+XF86MonBrightnessDown" = "exec ${changeBacklight} down 1";
+            "XF86MonBrightnessUp" = "exec --no-startup-id ${changeBacklight} up 10";
+            "XF86MonBrightnessDown" = "exec --no-startup-id ${changeBacklight} down 10";
+            "Control+XF86MonBrightnessUp" = "exec --no-startup-id ${changeBacklight} up 1";
+            "Control+XF86MonBrightnessDown" = "exec --no-startup-id ${changeBacklight} down 1";
           }
           {
             # Sub-modes
@@ -367,6 +370,16 @@ in
           # FIXME
           # { commdand; always; notification; }
         ];
+
+        window = {
+          commands = [
+            # Make htop window bigger
+            {
+              criteria = { title = "^htop$"; };
+              command = "resize set 80 ppt 80 ppt, move position center";
+            }
+          ];
+        };
       };
     };
   };

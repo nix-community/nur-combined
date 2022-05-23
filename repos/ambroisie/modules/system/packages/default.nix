@@ -12,9 +12,6 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      git
-      git-crypt
-      mosh
       vim
       wget
     ];

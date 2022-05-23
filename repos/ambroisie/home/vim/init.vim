@@ -13,6 +13,13 @@ set wildmenu
 " Enable syntax high-lighting and file-type specific plugins
 syntax on
 filetype plugin indent on
+
+" Map leader to space (needs the noremap trick to avoid moving the cursor)
+nnoremap <Space> <Nop>
+let mapleader=" "
+
+" Map localleader to '!' (if I want to filter text, I use visual mode)
+let maplocalleader="!"
 " }}}
 
 " Indentation configuration {{{
@@ -65,6 +72,9 @@ set lazyredraw
 " Timeout quickly on shortcuts, I can't wait two seconds to delete in visual
 set timeoutlen=500
 
+" Timeout quickly for CursorHold events (and also swap file)
+set updatetime=250
+
 " Set dark mode by default
 set background=dark
 
@@ -72,6 +82,8 @@ set background=dark
 let g:gruvbox_plugin_hi_groups=1
 " Include filetype integration
 let g:gruvbox_filetype_hi_groups=1
+" 24 bit colors
+set termguicolors
 " Use my preferred colorscheme
 colorscheme gruvbox8
 " }}}

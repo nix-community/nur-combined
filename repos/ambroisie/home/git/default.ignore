@@ -24,3 +24,7 @@ compile_commands.json
 # Swap and backup files
 *~
 ~.swp
+
+# Direnv files
+.envrc
+.direnv/

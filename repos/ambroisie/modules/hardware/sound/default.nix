@@ -49,10 +49,6 @@ in
         jack = {
           enable = true;
         };
-
-        media-session = {
-          enable = true;
-        };
       };
     })
 

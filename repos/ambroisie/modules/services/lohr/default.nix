@@ -5,6 +5,9 @@ let
   settingsFormat = pkgs.formats.yaml { };
 
   lohrPkg = pkgs.ambroisie.lohr;
+
+  lohrStateDirectory = "lohr";
+  lohrHome = "/var/lib/lohr/";
 in
 {
   options.my.services.lohr = with lib; {
@@ -34,6 +37,15 @@ in
       example = "/run/secrets/lohr.env";
       description = "Shared secret between lohr and Gitea hook";
     };
+
+    sshKeyFile = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      example = "/run/secrets/lohr/ssh-key";
+      description = ''
+        The ssh key that should be used by lohr to mirror repositories
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -46,16 +58,31 @@ in
         Environment = [
           "ROCKET_PORT=${toString cfg.port}"
           "ROCKET_LOG_LEVEL=normal"
-          "LOHR_HOME=/var/lib/lohr/"
+          "LOHR_HOME=${lohrHome}"
           "LOHR_CONFIG="
         ];
+        ExecStartPre = lib.mkIf (cfg.sshKeyFile != null) ''+${
+          pkgs.writeScript "copy-ssh-key" ''
+            #!${pkgs.bash}/bin/bash
+            # Ensure the key is not there
+            mkdir -p '${lohrHome}/.ssh'
+            rm -f '${lohrHome}/.ssh/id_ed25519'
+
+            # Move the key into place
+            cp ${cfg.sshKeyFile} '${lohrHome}/.ssh/id_ed25519'
+
+            # Fix permissions
+            chown -R lohr:lohr '${lohrHome}/.ssh'
+            chmod -R 0700 '${lohrHome}/.ssh'
+          ''
+        }'';
         ExecStart =
           let
             configFile = settingsFormat.generate "lohr-config.yaml" cfg.setting;
           in
           "${lohrPkg}/bin/lohr --config ${configFile}";
-        StateDirectory = "lohr";
-        WorkingDirectory = "/var/lib/lohr";
+        StateDirectory = lohrStateDirectory;
+        WorkingDirectory = lohrHome;
         User = "lohr";
         Group = "lohr";
       };
@@ -66,7 +93,7 @@ in
 
     users.users.lohr = {
       isSystemUser = true;
-      home = "/var/lib/lohr";
+      home = lohrHome;
       createHome = true;
       group = "lohr";
     };

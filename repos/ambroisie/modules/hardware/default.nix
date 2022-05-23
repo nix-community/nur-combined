@@ -5,6 +5,7 @@
   imports = [
     ./bluetooth
     ./ergodox
+    ./firmware
     ./mx-ergo
     ./networking
     ./sound

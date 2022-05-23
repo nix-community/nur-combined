@@ -10,6 +10,8 @@ in
   config.programs.bat = lib.mkIf cfg.enable {
     enable = true;
     config = {
+      theme = "gruvbox-dark";
+
       pager = with config.home.sessionVariables; "${PAGER} ${LESS}";
     };
   };

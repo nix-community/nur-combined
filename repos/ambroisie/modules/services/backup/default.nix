@@ -97,8 +97,8 @@ in
       ;
       # Take care of creating the repository if it doesn't exist
       initialize = true;
-      # Hijack S3-related env to give B2 API key
-      s3CredentialsFile = cfg.credentialsFile;
+      # give B2 API key securely
+      environmentFile = cfg.credentialsFile;
 
       inherit (cfg) passwordFile pruneOpts timerConfig repository;
     };

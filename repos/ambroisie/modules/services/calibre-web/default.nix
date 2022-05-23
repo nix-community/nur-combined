@@ -49,7 +49,7 @@ in
 
     my.services.backup = {
       paths = [
-        "/var/lib/calibre-web" # For `app.db` and `gdrive.db`
+        "/var/lib/${config.services.calibre-web.dataDir}" # For `app.db` and `gdrive.db`
         cfg.libraryPath
       ];
     };

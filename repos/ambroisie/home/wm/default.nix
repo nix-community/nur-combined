@@ -78,7 +78,7 @@ in
 
       timeout = mkOption {
         type = types.ints.between 1 60;
-        default = 5;
+        default = 15;
         example = 1;
         description = "Inactive time interval to lock the screen automatically";
       };

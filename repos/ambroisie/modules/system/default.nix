@@ -8,6 +8,7 @@
     ./language
     ./nix
     ./packages
+    ./podman
     ./users
   ];
 }

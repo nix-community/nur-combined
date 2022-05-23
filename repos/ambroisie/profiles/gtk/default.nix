@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.profiles.gtk;
 in
 {
   options.my.profiles.gtk = with lib; {
-    enable = mkEnableOption "bluetooth profile";
+    enable = mkEnableOption "gtk profile";
   };
 
   config = lib.mkIf cfg.enable {

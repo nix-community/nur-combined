@@ -2,9 +2,15 @@
 pkgs.lib.makeScope pkgs.newScope (pkgs: {
   bw-pass = pkgs.callPackage ./bw-pass { };
 
+  change-audio = pkgs.callPackage ./change-audio { };
+
+  change-backlight = pkgs.callPackage ./change-backlight { };
+
   comma = pkgs.callPackage ./comma { };
 
   diff-flake = pkgs.callPackage ./diff-flake { };
+
+  dragger = pkgs.callPackage ./dragger { };
 
   drone-scp = pkgs.callPackage ./drone-scp { };
 
@@ -20,11 +26,15 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   nolimips = pkgs.callPackage ./nolimips { };
 
-  vimix-cursors = pkgs.callPackage ./vimix-cursors { };
+  psst = pkgs.callPackage ./psst { };
 
-  volantes-cursors = pkgs.callPackage ./volantes-cursors { };
+  rofi-bluetooth = pkgs.callPackage ./rofi-bluetooth { };
 
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
 
   unified-hosts-lists = pkgs.callPackage ./unified-hosts-lists { };
+
+  vimix-cursors = pkgs.callPackage ./vimix-cursors { };
+
+  volantes-cursors = pkgs.callPackage ./volantes-cursors { };
 })

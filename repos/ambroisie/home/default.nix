@@ -5,6 +5,7 @@
     ./bluetooth
     ./comma
     ./direnv
+    ./discord
     ./documentation
     ./feh
     ./firefox
@@ -40,4 +41,7 @@
 
   # Who am I?
   home.username = "ambroisie";
+
+  # Start services automatically
+  systemd.user.startServices = "sd-switch";
 }

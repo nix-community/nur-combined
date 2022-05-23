@@ -61,6 +61,7 @@ in
         # The files to be merged might not have the correct permissions
         ExecStartPre = ''+${pkgs.writeScript "merge-nginx-sso-config" ''
           #!${pkgs.bash}/bin/bash
+          rm -f '${confPath}'
           ${utils.genJqSecretsReplacementSnippet cfg.configuration confPath}
 
           # Fix permissions

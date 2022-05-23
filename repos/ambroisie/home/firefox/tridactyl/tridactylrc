@@ -12,7 +12,7 @@ set editorcmd termite --class tridactyl_editor -e 'vim %f'
 " Binds {{{
 " Reddit et al. {{{
 " Toggle comments on Reddit, Hacker News, Lobste.rs
-bind ;c hint -c [class*="expand"],[class="togg"],[class="comment_folder"]
+bind ;c hint -Jc [class*="expand"],[class*="togg"],[class="comment_folder"]
 
 " Make `gu` take me back to subreddit from comments
 bindurl reddit.com gu urlparent 3
@@ -22,8 +22,8 @@ bindurl www.google.com f hint -Jc #search div:not(.action-menu) > a
 bindurl www.google.com F hint -Jbc #search div:not(.action-menu) > a
 
 " Only hint search results on DuckDuckGo
-bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
-bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
+bindurl ^https://duckduckgo.com f hint -Jc [class~=result__a]
+bindurl ^https://duckduckgo.com F hint -Jbc [class~=result__a]
 
 " Only hint item pages on Hacker News
 bindurl news.ycombinator.com ;f hint -Jc .age > a
@@ -65,10 +65,13 @@ unbind <C-f>
 " Redirections {{{
 " Always redirect Reddit to the old site
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+" Use a better Twitter front-end
+autocmd DocStart ^http(s?)://twitter.com js tri.excmds.urlmodify("-t", "twitter.com", "nitter.net")
 " }}}
 
 " Disabled websites {{{
 blacklistadd netflix.com
+blacklistadd primevideo.com
 blacklistadd jellyfin.belanyi.fr
 " }}}
 

@@ -2,16 +2,16 @@
 let
   cfg = config.my.home.mail;
 
-  mkAddress = address: domain: "${address}@${domain}";
+  inherit (lib.my) mkMailAddress;
 
   mkConfig = { domain, address, passName, aliases ? [ ], primary ? false }: {
     realName = lib.mkDefault "Bruno BELANYI";
-    userName = lib.mkDefault (mkAddress address domain);
+    userName = lib.mkDefault (mkMailAddress address domain);
     passwordCommand =
       lib.mkDefault [ "${pkgs.ambroisie.bw-pass}/bin/bw-pass" "Mail" passName ];
 
-    address = mkAddress address domain;
-    aliases = builtins.map (lib.flip mkAddress domain) aliases;
+    address = mkMailAddress address domain;
+    aliases = builtins.map (lib.flip mkMailAddress domain) aliases;
 
     inherit primary;
 

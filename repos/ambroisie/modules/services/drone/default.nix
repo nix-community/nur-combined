@@ -2,7 +2,7 @@
 #
 # Inspired by [1]
 # [1]: https://github.com/Mic92/dotfiles/blob/master/nixos/eve/modules/drone.nix
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 {
   imports = [
     ./runner-docker

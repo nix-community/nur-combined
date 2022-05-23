@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$1" = "up" ]; then
+    upDown="+$2%"
+else
+    upDown="$2%-"
+fi
+
+newBrightness="$(brightnessctl -m set "$upDown" | cut -d, -f4)"
+notify-send -u low \
+    -h string:x-canonical-private-synchronous:change-backlight \
+    -h "int:value:${newBrightness/\%/}" \
+    -- "Set brightness to $newBrightness"

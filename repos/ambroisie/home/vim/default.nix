@@ -13,6 +13,7 @@ let
       "after"
       "autoload"
       "ftdetect"
+      "lua"
       "plugin"
     ];
 in
@@ -30,8 +31,9 @@ in
 
     plugins = with pkgs.vimPlugins; [
       # Theming
-      lightline-vim # Fancy status bar
       vim-gruvbox8 # Nice dark theme
+      lualine-nvim # A lua-based status line
+      lualine-lsp-progress # Show progress for LSP servers
 
       # tpope essentials
       vim-commentary # Easy comments
@@ -54,20 +56,52 @@ in
       vim-toml
 
       # General enhancements
-      fastfold # Better folding
       vim-qf # Better quick-fix list
 
       # Other wrappers
-      fzfWrapper # The vim plugin inside the 'fzf' package
-      fzf-vim # Fuzzy commands
       git-messenger-vim # A simple blame window
 
       # LSP and linting
-      ale # Asynchronous Linting Engine
-      lightline-ale # Status bar integration
+      lsp_lines-nvim # Show diagnostics *over* regions
+      null-ls-nvim # LSP integration for linters and formatters
+      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars)) # Better highlighting
+      nvim-treesitter-textobjects # More textobjects
+      nvim-ts-context-commentstring # Comment string in nested language blocks
+      plenary-nvim # 'null-ls', 'telescope' dependency
+
+      # Completion
+      nvim-cmp # Completion engine
+      cmp-buffer # Words from open buffers
+      cmp-nvim-lsp # LSP suggestions
+      cmp-nvim-lua # NeoVim lua API
+      cmp-path # Path name suggestions
+      cmp-under-comparator # Sort items that start with '_' lower
+      friendly-snippets # LSP snippets collection
+      luasnip # Snippet manager compatible with LSP
+
+      # UX improvements
+      dressing-nvim # Integrate native UI hooks with Telescope etc...
+      gitsigns-nvim # Fast git UI integration
+      telescope-fzf-native-nvim # Use 'fzf' fuzzy matching algorithm
+      telescope-lsp-handlers-nvim # Use 'telescope' for various LSP actions
+      telescope-nvim # Fuzzy finder interface
+      which-key-nvim # Show available mappings
     ];
 
     extraConfig = builtins.readFile ./init.vim;
+
+    # Linters, formatters, etc...
+    extraPackages = with pkgs; [
+      # C/C++
+      clang-tools
+
+      # Nix
+      nixpkgs-fmt
+
+      # Shell
+      shellcheck
+      shfmt
+    ];
   };
 
   config.xdg.configFile = lib.mkIf cfg.enable configFiles;

@@ -18,7 +18,6 @@ in
           follow = "keyboard"; # follow keyboard focus
           font = "Monospace 8"; # Simple looking font
           frame_width = 3; # small frame
-          geometry = "300x50-15+49";
           markup = "full"; # subset of HTML
           max_icon_size = 32; # avoid icons that are too big
           padding = 6; # distance between text and bubble border
@@ -26,6 +25,12 @@ in
           separator_color = "frame"; # use frame color to separate bubbles
           sort = true; # sort messages by urgency
           word_wrap = true; # Break long lines to make them readable
+
+          # Fixed size notifications, slightly recessed from the top right
+          width = 300;
+          height = 50;
+          origin = "top-right";
+          offset = "15x50";
         };
 
         urgency_low = {

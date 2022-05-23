@@ -18,11 +18,10 @@ in
   };
 
   config.home.packages = with pkgs; lib.mkIf cfg.enable ([
+    fd
     file
-    gitAndTools.git-absorb
-    gitAndTools.git-revise
-    gitAndTools.tig
-    rr
+    mosh
+    ripgrep
     termite.terminfo
   ] ++ cfg.additionalPackages);
 }

@@ -1,23 +1,32 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.my.home.git;
+
+  inherit (lib.my) mkMailAddress;
 in
 {
   options.my.home.git = with lib.my; {
     enable = mkDisableOption "git configuration";
   };
 
+  config.home.packages = with pkgs.gitAndTools; lib.mkIf cfg.enable [
+    gitAndTools.git-absorb
+    gitAndTools.git-revise
+    gitAndTools.tig
+  ];
+
   config.programs.git = lib.mkIf cfg.enable {
     enable = true;
 
     # Who am I?
-    userEmail = "bruno@belanyi.fr";
+    userEmail = mkMailAddress "bruno" "belanyi.fr";
     userName = "Bruno BELANYI";
 
     # I want the full experience
     package = pkgs.gitAndTools.gitFull;
 
     aliases = {
+      git = "!git";
       lol = "log --graph --decorate --pretty=oneline --abbrev-commit --topo-order";
       lola = "lol --all";
       assume = "update-index --assume-unchanged";
@@ -29,6 +38,34 @@ in
     };
 
     lfs.enable = true;
+
+    delta = {
+      enable = true;
+
+      options = {
+        features = "diff-highlight decorations";
+
+        # Less jarring style for `diff-highlight` emulation
+        diff-highlight = {
+          minus-style = "red";
+          minus-non-emph-style = "red";
+          minus-emph-style = "bold red 52";
+
+          plus-style = "green";
+          plus-non-emph-style = "green";
+          plus-emph-style = "bold green 22";
+
+          whitespace-error-style = "reverse red";
+        };
+
+        # Personal preference for easier reading
+        decorations = {
+          commit-style = "raw"; # Do not recolor meta information
+          keep-plus-minus-markers = true;
+          paging = "always";
+        };
+      };
+    };
 
     # There's more
     extraConfig = {
@@ -63,13 +100,6 @@ in
         whitespace = "red reverse";
       };
 
-      "color.diff-highlight" = {
-        oldNormal = "red bold";
-        oldHighlight = "red bold 52";
-        newNormal = "green bold";
-        newHighlight = "green bold 22";
-      };
-
       commit = {
         # Show my changes when writing the message
         verbose = true;
@@ -90,15 +120,9 @@ in
         defaultBranch = "main";
       };
 
-      pager =
-        let
-          diff-highlight = "${pkgs.gitAndTools.gitFull}/share/git/contrib/diff-highlight/diff-highlight";
-        in
-        {
-          diff = "${diff-highlight} | less";
-          log = "${diff-highlight} | less";
-          show = "${diff-highlight} | less";
-        };
+      merge = {
+        conflictStyle = "zdiff3";
+      };
 
       pull = {
         # Avoid useless merge commits
@@ -115,11 +139,33 @@ in
         autoSquash = true;
         autoStash = true;
       };
+
+      url = {
+        "git@gitea.belanyi.fr:" = {
+          insteadOf = "https://gitea.belanyi.fr/";
+        };
+
+        "git@github.com:" = {
+          insteadOf = "https://github.com/";
+        };
+
+        "git@gitlab.com:" = {
+          insteadOf = "https://gitlab.com/";
+        };
+      };
     };
 
     # Multiple identities
     includes = [
-      { path = ./epita.config; condition = "gitdir:~/git/EPITA/"; }
+      {
+        condition = "gitdir:~/git/EPITA/";
+        contents = {
+          user = {
+            name = "Bruno BELANYI";
+            email = mkMailAddress "bruno.belanyi" "epita.fr";
+          };
+        };
+      }
     ];
 
     ignores =

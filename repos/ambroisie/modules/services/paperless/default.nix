@@ -45,7 +45,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.paperless-ng = {
+    services.paperless = {
       enable = true;
 
       port = cfg.port;
@@ -83,15 +83,15 @@ in
     };
 
     systemd.services = {
-      paperless-ng-server.serviceConfig = {
+      paperless-scheduler.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
       };
 
-      paperless-ng-consumer.serviceConfig = {
+      paperless-consumer.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
       };
 
-      paperless-ng-web.serviceConfig = {
+      paperless-web.serviceConfig = {
         EnvironmentFile = cfg.secretKeyFile;
       };
     };
@@ -111,13 +111,13 @@ in
     # Set-up media group
     users.groups.media = { };
 
-    systemd.services.paperless-ng-server = {
+    systemd.services.paperless-server = {
       # Make sure the DB is available
       after = [ "postgresql.service" ];
     };
 
 
-    users.users.${config.services.paperless-ng.user} = {
+    users.users.${config.services.paperless.user} = {
       extraGroups = [ "media" ];
     };
 
@@ -138,7 +138,8 @@ in
 
     my.services.backup = {
       paths = [
-        config.services.paperless-ng.mediaDir
+        config.services.paperless.dataDir
+        config.services.paperless.mediaDir
       ];
     };
   };

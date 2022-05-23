@@ -35,6 +35,12 @@ let
         clientNum = 3;
         publicKey = "w4IADAj2Tt7Qe95a0RxDv9ovg/Dr/f3q1LrVOPF48Rk=";
       };
+
+      # Sarah's iPhone
+      milady = {
+        clientNum = 4;
+        publicKey = "3MKEu4F6o8kww54xeAao5Uet86fv8z/QsZ2L2mOzqDQ=";
+      };
     };
   thisPeer = peers."${hostName}";
   thisPeerIsServer = thisPeer ? externalIp;

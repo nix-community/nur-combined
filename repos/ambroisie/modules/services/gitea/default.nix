@@ -12,12 +12,45 @@ in
       example = 8080;
       description = "Internal port";
     };
+    mail = {
+      enable = mkEnableOption {
+        description = "mailer configuration";
+      };
+      host = mkOption {
+        type = types.str;
+        example = "smtp.example.com:465";
+        description = "Host for the mail account";
+      };
+      user = mkOption {
+        type = types.str;
+        example = "gitea@example.com";
+        description = "User for the mail account";
+      };
+      passwordFile = mkOption {
+        type = types.str;
+        example = "/run/secrets/gitea-mail-password.txt";
+        description = "Password for the mail account";
+      };
+      type = mkOption {
+        type = types.str;
+        default = "smtp";
+        example = "smtp";
+        description = "Password for the mail account";
+      };
+      tls = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Use TLS for connection";
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
     services.gitea =
       let
-        giteaDomain = "gitea.${config.networking.domain}";
+        inherit (config.networking) domain;
+        giteaDomain = "gitea.${domain}";
       in
       {
         enable = true;
@@ -45,6 +78,19 @@ in
         # but it produces a single .zip file that's not very backup friendly.
         # I configure my backup system manually below.
         dump.enable = false;
+
+        mailerPasswordFile = lib.mkIf cfg.mail.enable cfg.mail.passwordFile;
+
+        settings = {
+          mailer = lib.mkIf cfg.mail.enable {
+            ENABLED = true;
+            HOST = cfg.mail.host;
+            FROM = cfg.mail.user;
+            USER = cfg.mail.user;
+            MAILER_TYPE = cfg.mail.type;
+            IS_TLS_ENABLED = cfg.mail.tls;
+          };
+        };
       };
 
     users.users.git = {

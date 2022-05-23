@@ -25,7 +25,7 @@ in
 
     times = {
       dawn = mkTimeOption "Dawn time" "6:00-7:30";
-      dusk = mkTimeOption "Dawn time" "18:30-20:00";
+      dusk = mkTimeOption "Dusk time" "18:30-20:00";
     };
   };
 

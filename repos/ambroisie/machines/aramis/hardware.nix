@@ -22,13 +22,19 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  hardware = {
-    cpu.intel.updateMicrocode = true;
+  my.hardware = {
+    firmware = {
+      cpuFlavor = "intel";
+    };
+  };
 
+  hardware = {
     trackpoint = {
       enable = true;
 
       emulateWheel = true; # Holding middle buttons allows scrolling
+
+      device = "TPPS/2 Elan TrackPoint"; # Use the correct device name
     };
   };
 }

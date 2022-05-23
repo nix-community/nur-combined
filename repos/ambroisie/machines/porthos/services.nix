@@ -1,5 +1,5 @@
 # Deployed services
-{ config, ... }:
+{ config, lib, ... }:
 let
   secrets = config.age.secrets;
 in
@@ -39,11 +39,18 @@ in
       enable = true;
     };
     # Gitea forge
-    gitea.enable = true;
+    gitea = {
+      enable = true;
+      mail = {
+        enable = true;
+        host = "smtp.migadu.com:465";
+        user = lib.my.mkMailAddress "gitea" "belanyi.fr";
+        passwordFile = secrets."gitea/mail-password".path;
+      };
+    };
     # Meta-indexers
     indexers = {
-      jackett.enable = true;
-      nzbhydra.enable = true;
+      prowlarr.enable = true;
     };
     # Jellyfin media server
     jellyfin.enable = true;
@@ -51,6 +58,7 @@ in
     lohr = {
       enable = true;
       sharedSecretFile = secrets."lohr/secret".path;
+      sshKeyFile = secrets."lohr/ssh-key".path;
     };
     # Matrix backend and Element chat front-end
     matrix = {

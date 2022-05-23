@@ -21,12 +21,12 @@ in
     };
 
     iconTheme = {
-      package = pkgs.gnome3.gnome_themes_standard;
+      package = pkgs.gnome.gnome-themes-extra;
       name = "Adwaita";
     };
 
     theme = {
-      package = pkgs.gnome3.gnome_themes_standard;
+      package = pkgs.gnome.gnome-themes-extra;
       name = "Adwaita";
     };
   };

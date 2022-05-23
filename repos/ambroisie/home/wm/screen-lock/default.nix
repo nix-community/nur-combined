@@ -35,20 +35,22 @@ in
 
       lockCmd = cfg.command;
 
-      xautolockExtraOptions = lib.optionals cfg.cornerLock.enable [
-        # Mouse corners: instant lock on upper-left, never lock on lower-right
-        "-cornerdelay"
-        "${toString cfg.cornerLock.delay}"
-        "-cornerredelay"
-        "${toString cfg.cornerLock.delay}"
-        "-corners"
-        "+00-"
-      ] ++ lib.optionals cfg.notify.enable [
-        "-notify"
-        "${toString cfg.notify.delay}"
-        "-notifier"
-        notficationCmd
-      ];
+      xautolock = {
+        extraOptions = lib.optionals cfg.cornerLock.enable [
+          # Mouse corners: instant lock on upper-left, never lock on lower-right
+          "-cornerdelay"
+          "${toString cfg.cornerLock.delay}"
+          "-cornerredelay"
+          "${toString cfg.cornerLock.delay}"
+          "-corners"
+          "+00-"
+        ] ++ lib.optionals cfg.notify.enable [
+          "-notify"
+          "${toString cfg.notify.delay}"
+          "-notifier"
+          notficationCmd
+        ];
+      };
     };
   };
 }

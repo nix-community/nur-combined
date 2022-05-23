@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+NOTIFY=(
+    notify-send
+    -u low
+    -h string:x-canonical-private-synchronous:change-audio
+)
+
+do_change_volume() {
+    local args=()
+
+    if [ "$1" = "up" ]; then
+        args+=("-i")
+    else
+        args+=("-d")
+    fi
+    shift
+
+    # Do not boost over 100% unless explitily asked for
+    if [ "$1" = "--force" ] || [ "$1" = "-f" ]; then
+        args=("--allow-boost" "${args[@]}")
+        shift
+    fi
+
+    # Volume
+    args+=("$1")
+
+    pamixer "${args[@]}"
+
+    newVolume="$(pamixer --get-volume || true)"
+    [ "$(pamixer --get-volume-human)" = "muted" ] && isMuted=true
+
+    MSG="Set volume to $newVolume%"
+    if [ "${isMuted:-false}" = true ]; then
+        MSG="$MSG (muted)"
+    fi
+    "${NOTIFY[@]}" \
+        -h "int:value:$newVolume" \
+        -- "$MSG"
+}
+
+do_toggle() {
+    local args=()
+    if [ "${2:-audio}" = mic ]; then
+        args+=(--default-source)
+        MSG="Toggled microphone"
+    else
+        MSG="Toggled audio output"
+    fi
+
+    pamixer "${args[@]}" --toggle-mute
+
+    if [ "$(pamixer "${args[@]}" --get-mute)" = true ]; then
+        MSG="$MSG (muted)"
+    else
+        MSG="$MSG (unmuted)"
+    fi
+
+    "${NOTIFY[@]}" -- "$MSG"
+}
+
+case "$1" in
+    up|down)
+        do_change_volume "$@"
+        ;;
+    toggle)
+        do_toggle "$@"
+        ;;
+    *)
+        echo "No suche option '$1'" >&2
+        exit 1
+        ;;
+esac

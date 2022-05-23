@@ -18,7 +18,13 @@ in
   "drone/secret.age".publicKeys = all;
   "drone/ssh/private-key.age".publicKeys = all;
 
+  "gitea/mail-password.age" = {
+    owner = "git";
+    publicKeys = all;
+  };
+
   "lohr/secret.age".publicKeys = all;
+  "lohr/ssh-key.age".publicKeys = all;
 
   "matrix/mail.age" = {
     owner = "matrix-synapse";
@@ -54,6 +60,7 @@ in
   "users/root/hashed-password.age".publicKeys = all;
 
   "wireguard/aramis/private-key.age".publicKeys = all;
+  "wireguard/milady/private-key.age".publicKeys = all;
   "wireguard/porthos/private-key.age".publicKeys = all;
   "wireguard/richelieu/private-key.age".publicKeys = all;
 }

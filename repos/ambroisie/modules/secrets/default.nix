@@ -21,7 +21,7 @@
       in
       lib.mapAttrs' convertSecrets secrets;
 
-    sshKeyPaths = options.age.sshKeyPaths.default ++ [
+    identityPaths = options.age.identityPaths.default ++ [
       # FIXME: hard-coded path, could be inexistent
       "/home/ambroisie/.ssh/id_ed25519"
     ];
