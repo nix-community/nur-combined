@@ -41,6 +41,7 @@ stdenv.mkDerivation rec {
     cp libhpdbscan.so $out/bin
     cp hpdbscan.py $out/bin
     ln -s $(which python) $out/bin/python
+    ln -s $(which mpirun) $out/bin/mpirun
   '';
 
   meta = with lib; {
