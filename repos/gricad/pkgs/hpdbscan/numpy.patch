@@ -1,0 +1,40 @@
+Only in source/cmake: FindNumPy.cmake
+Only in source.new/cmake: FindNUMPY.cmake
+diff -r -u source/CMakeLists.txt source.new/CMakeLists.txt
+--- source/CMakeLists.txt	1970-01-01 01:00:01.000000000 +0100
++++ source.new/CMakeLists.txt	2022-05-24 17:27:50.902299536 +0200
+@@ -47,6 +47,12 @@
+ INCLUDE_DIRECTORIES("${HDF5_INCLUDE_DIRS}")
+ TARGET_LINK_LIBRARIES(hpdbscan-bin PRIVATE "${HDF5_LIBRARIES}")
+ 
++## numpy
++FIND_PACKAGE(NUMPY)
++IF(NUMPY_FOUND)
++	INCLUDE_DIRECTORIES(${NUMPY_INCLUDE_DIRS})
++ENDIF()
++
+ ## swig and python detection for optional bindings
+ FIND_PACKAGE(SWIG)
+ IF(SWIG_FOUND)
+@@ -58,8 +64,9 @@
+             MESSAGE("TRY INSTALLING THE python-dev OR python-devel PACKAGE")
+         ELSE()
+             INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS})
+-	    FIND_PACKAGE(NumPy)
++	    FIND_PACKAGE(NUMPY)
+ 	    IF(NUMPY_FOUND)
++		INCLUDE_DIRECTORIES(${NUMPY_INCLUDE_DIRS})
+ 		EXECUTE_PROCESS(COMMAND swig -c++ -python -I"${PYTHON_INCLUDE_DIRS}" -I"${NUMPY_INCLUDE_DIRS}" -o "${CMAKE_CURRENT_BINARY_DIR}/hpdbscan_wrap.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/swig/hpdbscan.i")
+                 ADD_LIBRARY(hpdbscan-binding SHARED ${CMAKE_CURRENT_BINARY_DIR}/hpdbscan_wrap.cpp)
+                 IF(MPI_FOUND)
+diff -r -u source/include/cxxopts.h source.new/include/cxxopts.h
+--- source/include/cxxopts.h	1970-01-01 01:00:01.000000000 +0100
++++ source.new/include/cxxopts.h	2022-05-24 17:27:41.443387315 +0200
+@@ -37,6 +37,7 @@
+ #include <unordered_map>
+ #include <unordered_set>
+ #include <vector>
++#include <limits>
+ 
+ #ifdef __cpp_lib_optional
+ #include <optional>

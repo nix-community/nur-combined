@@ -22,6 +22,7 @@ install:
 
 script:
 - export NIX_PATH=nixpkgs=channel:nixos-21.05
+- export NIXPKGS_ALLOW_UNFREE=1
 - set -o pipefail
 - nix-build ci.nix -A buildOutputs
 - nix eval -f default.nix 'lib'

@@ -96,7 +96,7 @@ rec {
   # Siesta
   siesta =  pkgs.callPackage ./pkgs/siesta { 
     useMpi = true;
-    mpi = openmpi3;
+    mpi = pkgs.mpich;
   };
 
   lammps-impi =  pkgs.callPackage ./pkgs/lammps {
@@ -108,8 +108,17 @@ rec {
 
   # osu micro benchmarks
   osu-micro-benchmarks =  pkgs.callPackage ./pkgs/osu-micro-benchmarks { 
-    mpi = openmpi3;
+    #mpi = openmpi3;
+    mpi = pkgs.mpich;
   };
+
+  hp2p = pkgs.callPackage ./pkgs/hp2p {};
+  hp2p-intel = pkgs.callPackage ./pkgs/hp2p/intel.nix {
+     intel-oneapi = intel-oneapi; 
+     gcc = pkgs.gcc; 
+  };
+  
+  hpdbscan = pkgs.callPackage ./pkgs/hpdbscan  { };
 
 }
 
