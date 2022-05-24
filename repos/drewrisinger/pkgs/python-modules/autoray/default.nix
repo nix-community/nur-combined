@@ -3,14 +3,17 @@
 , buildPythonPackage
 , fetchFromGitHub
 , numpy
+, opt-einsum
   # Check Inputs
 , pytestCheckHook
+, matplotlib
+, networkx
 , pytestcov
 }:
 
 buildPythonPackage rec {
   pname = "autoray";
-  version = "0.2.5";
+  version = "0.3.1";
 
   disabled = pythonOlder "3.5";
 
@@ -18,14 +21,20 @@ buildPythonPackage rec {
     owner = "jcmgray";
     repo = pname;
     rev = version;
-    sha256 = "sha256-/ceZtwno5et8GrXBqqCDw2ueo/F19JpG/IAa4k6eA8k=";
+    sha256 = "sha256-DSQCm9Pxlz+SNOVArQF6r08n2/8CH3sknsgEkmKu9Gs=";
   };
 
   propagatedBuildInputs = [
     numpy
+    opt-einsum
   ];
 
-  checkInputs = [ pytestCheckHook pytestcov ];
+  checkInputs = [
+    pytestCheckHook
+    matplotlib
+    networkx
+    pytestcov
+  ];
 
   meta = with lib; {
     description = "Write numeric code that automatically works with any numpy-ish libraries";
