@@ -16,15 +16,13 @@ rec {
   modules = import ./modules; # NixOS modules
   inherit overlays; # nixpkgs overlays
 
-  # Packages/updates accepted to nixpkgs/master, but need the update
+  # Packages/updates accepted to nixpkgs/master, but need the update or not made it to all stable branches
   lib-scs = pkgs.callPackage ./pkgs/libraries/scs { };
+  xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
 
   # New/unstable packages below
-  libcint = pkgs.callPackage ./pkgs/libraries/libcint { };
-  muparserx = pkgs.callPackage ./pkgs/libraries/muparserx { };
   tuna = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/tuna { };
   libtweedledum = pkgs.callPackage ./pkgs/libraries/tweedledum { };
-  xcfun = pkgs.callPackage ./pkgs/libraries/xcfun { };
 
   # Raspberry Pi Packages
   raspberryPi = pkgs.recurseIntoAttrs {
@@ -42,7 +40,7 @@ rec {
     dynaconf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/dynaconf { };
     # nose-timer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/nose-timer { };
     oitg = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/oitg { };
-    pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit libcint xcfun; };
+    pyscf = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pyscf { inherit xcfun; };
     pygsti = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/pygsti { inherit cvxpy csaps; };
     pygsti-cirq = pygsti.overridePythonAttrs (oldAttrs: {
       version = "unstable-2020-04-20";
@@ -103,7 +101,7 @@ rec {
       inherit retworkx tweedledum;
     };
     qiskit-aer = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-aer {
-      inherit cvxpy qiskit-terra muparserx;
+      inherit cvxpy qiskit-terra;
     };
     qiskit-ignis = pkgs.python3.pkgs.callPackage ./pkgs/python-modules/qiskit-ignis {
       inherit qiskit-aer qiskit-terra;
