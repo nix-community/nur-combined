@@ -39,6 +39,7 @@ stdenv.mkDerivation rec {
     cp hpdbscan $out/bin
     cp _hpdbscan.so $out/bin
     cp libhpdbscan.so $out/bin
+    cp hpdbscan.py $out/bin
     ln -s $(which python) $out/bin/python
   '';
 
