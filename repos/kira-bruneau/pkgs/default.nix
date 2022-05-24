@@ -92,10 +92,6 @@ in
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 
-  rofi-wayland = prev.rofi.override {
-    rofi-unwrapped = callPackage ./applications/misc/rofi-wayland { };
-  };
-
   runescape-launcher = callPackage ./games/runescape-launcher/fhsenv.nix { };
 
   texlab = callPackage ./development/tools/misc/texlab {
