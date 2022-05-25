@@ -321,6 +321,9 @@
             "file": "nur.nix",
             "url": "https://github.com/makefu/nur-packages"
         },
+        "marsupialgutz": {
+            "url": "https://github.com/marsupialgutz/nur-pkgs"
+        },
         "marzipankaiser": {
             "url": "https://github.com/marzipankaiser/nur-packages"
         },
