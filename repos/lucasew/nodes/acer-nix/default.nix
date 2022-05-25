@@ -66,6 +66,11 @@ in
     fira-code
   ];
 
+  gc-hold.paths = with pkgs; [
+    go gopls
+    nodejs yarn
+    openjdk11
+  ];
 
   services.auto-cpufreq.enable = true;
   # text expander in rust

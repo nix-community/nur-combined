@@ -210,6 +210,9 @@
       acer-nix = nixosConf {
         mainModule = ./nodes/acer-nix/default.nix;
       };
+      demo = nixosConf {
+        mainModule = ./nodes/demo/default.nix;
+      };
       # bootstrap = nixosConf {
       #   mainModule = ./nodes/bootstrap/default.nix;
       # };
