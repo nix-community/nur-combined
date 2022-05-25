@@ -182,6 +182,9 @@
         "fius": {
             "url": "https://github.com/Fius/nur-packages"
         },
+        "fliegendewurst": {
+            "url": "https://github.com/FliegendeWurst/nur-packages/"
+        },
         "foolnotion": {
             "url": "https://github.com/foolnotion/nur-pkg"
         },
