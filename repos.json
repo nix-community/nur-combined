@@ -494,6 +494,9 @@
         "rycee": {
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
+        "sagikazarmark": {
+            "url": "https://github.com/sagikazarmark/nur-packages"
+        },
         "schmittlauch": {
             "url": "https://github.com/schmittlauch/nur-packages"
         },
