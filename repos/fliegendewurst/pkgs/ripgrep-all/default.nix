@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false; # ...
 
   meta = with lib; {
-    description = "Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, and more";
+    description = "Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, and more [fork with email search support]";
     longDescription = ''
       Ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc.
 
@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       a multitude of file types. rga wraps the awesome ripgrep and enables it
       to search in pdf, docx, sqlite, jpg, movie subtitles (mkv, mp4), etc.
     '';
-    homepage = "https://github.com/phiresky/ripgrep-all";
+    homepage = "https://github.com/FliegendeWurst/ripgrep-all/tree/mail-adapter";
     license = with licenses; [ agpl3Plus ];
     maintainers = with maintainers; [ fliegendewurst ];
     mainProgram = "rga";

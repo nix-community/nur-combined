@@ -2,6 +2,8 @@
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
+List of packages: https://nur.nix-community.org/repos/fliegendewurst/
+
 ![Build and populate cache](https://github.com/FliegendeWurst/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
 <!--

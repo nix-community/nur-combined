@@ -14,6 +14,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
+  freqtop = pkgs.callPackage ./pkgs/freqtop { };
+  map = pkgs.callPackage ./pkgs/map { };
   ripgrep-all = pkgs.callPackage ./pkgs/ripgrep-all {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
