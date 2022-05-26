@@ -1,22 +1,22 @@
-{ lib, rustPlatform, fetchzip }:
-let
-  repo = "https://git.sr.ht/~priegger/rust-hello-world";
-  rev = "35c7974bc84d538283dea515d86b847d15f61591";
-in
+{ lib, rustPlatform, fetchFromSourcehut }:
+
 rustPlatform.buildRustPackage {
   name = "rust-hello-world";
   preferLocalBuild = true;
 
-  src = fetchzip {
-    url = "${repo}/archive/${rev}.tar.gz";
-    sha256 = "16xyirv3sg9jjp3h2h13s3a5hrnvwlymvqzzchzdl2xii71vj891";
+  src = fetchFromSourcehut {
+    owner = "~priegger";
+    repo = "rust-hello-world";
+    rev = "2cc1c9483a3139396b8f5afa2c17add415c64ee2";
+    hash = "sha256:0flycxaax26phzys67lppsclfcpwjqg02alyp1xm7ql92342v4cf";
   };
 
-  cargoVendorDir = "vendor";
+  cargoHash = "sha256:01sl7hmv6lzz3hr8gp4njnxnr9wx6byrd1xybwmv50vs2d1sc412";
 
   meta = with lib; {
-    description = "Hello World in Rust";
-    homepage = repo;
+    description = "A rust hello world service with rocket and prometheus metrics";
+    homepage = "https://git.sr.ht/~priegger/rust-hello-world";
     license = licenses.mit;
+    maintainers = [ maintainers.priegger ];
   };
 }

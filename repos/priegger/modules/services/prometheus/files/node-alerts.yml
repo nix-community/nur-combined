@@ -7,7 +7,7 @@ groups:
         annotations:
           summary: High CPU Usage on Instance
       - alert: LowDiskSpace
-        expr: max(1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|ramfs"} / node_filesystem_size_bytes{fstype!~"tmpfs|ramfs"}) ) by (device) > 0.85
+        expr: max by(instance, device) (1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|ramfs"} / node_filesystem_size_bytes{fstype!~"tmpfs|ramfs"})) > 0.85
         for: 10m
         annotations:
           summary: Low Disk Space on Instance

@@ -1,13 +1,14 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.14",
-    "file_name": "aai-programmable-vehicles_0.7.14.zip",
-    "download_url": "/download/aai-programmable-vehicles/612d6635d59fc730e0380db3",
-    "sha1": "e2b71cc74edb627953f6417182f5cc5bb85f31f0",
+    "version": "0.7.21",
+    "file_name": "aai-programmable-vehicles_0.7.21.zip",
+    "download_url": "/download/aai-programmable-vehicles/620ef1f9e4e59b7b67adab75",
+    "sha1": "e92b86687eff7242d58b92bfa90571d41ebe3cc6",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
+      "informatron >= 0.2.1",
       "?aai-zones >= 0.4.1",
       "?aai-programmable-structures >= 0.5.11",
       "?aai-industry >= 0.3.2",
@@ -55,10 +56,10 @@
   },
   {
     "name": "aai-vehicles-miner",
-    "version": "0.6.1",
-    "file_name": "aai-vehicles-miner_0.6.1.zip",
-    "download_url": "/download/aai-vehicles-miner/5fbd2281d0e33c92e4c33e4b",
-    "sha1": "6ddc932123ea53b75ac4a4241eb3e83f74cf0dcc",
+    "version": "0.6.3",
+    "file_name": "aai-vehicles-miner_0.6.3.zip",
+    "download_url": "/download/aai-vehicles-miner/61d98c7524fd900b8c299ce2",
+    "sha1": "bff647a46758c846bc06038a321e0537948dfba0",
     "dependencies": [
       "base >= 1.1.0"
     ]
@@ -75,10 +76,10 @@
   },
   {
     "name": "alien-biomes",
-    "version": "0.6.5",
-    "file_name": "alien-biomes_0.6.5.zip",
-    "download_url": "/download/alien-biomes/609f15d125138298d0258bb8",
-    "sha1": "30a5e6f9198f7afd212464a9fec3f3ff48bca533",
+    "version": "0.6.7",
+    "file_name": "alien-biomes_0.6.7.zip",
+    "download_url": "/download/alien-biomes/620eee4b9d48220f8ec267f6",
+    "sha1": "2382ac7bdfa41ba549dad3e61bdbf9ea3cb73352",
     "dependencies": [
       "base >= 1.1.0",
       "?alien-biomes-hr-terrain >= 0.3.1"
@@ -96,12 +97,12 @@
   },
   {
     "name": "angelsaddons-cab",
-    "version": "0.2.7",
-    "file_name": "angelsaddons-cab_0.2.7.zip",
-    "download_url": "/download/angelsaddons-cab/60ae7e14895bc4d29994f4c0",
-    "sha1": "3b4477856757b50dcb7e639228573b7cb240cee5",
+    "version": "0.2.8",
+    "file_name": "angelsaddons-cab_0.2.8.zip",
+    "download_url": "/download/angelsaddons-cab/61bf01ffc595ee0fb7956cf8",
+    "sha1": "25ece7270b214871348cd277704c6bcab4ce8c8c",
     "dependencies": [
-      "? angelsindustries >= 0.4.9",
+      "? angelsindustries >= 0.4.14",
       "base >= 1.1.33"
     ]
   },
@@ -149,10 +150,10 @@
   },
   {
     "name": "angelsaddons-storage",
-    "version": "0.0.7",
-    "file_name": "angelsaddons-storage_0.0.7.zip",
-    "download_url": "/download/angelsaddons-storage/6111e735a069b89bb98591d1",
-    "sha1": "c554fd143cf75f11740e04b2d0f242d073af1d05",
+    "version": "0.0.8",
+    "file_name": "angelsaddons-storage_0.0.8.zip",
+    "download_url": "/download/angelsaddons-storage/61bf01bb89084f18a59e8af0",
+    "sha1": "23e08d33d9e40c7e37f9b6b7a6f3014f9a8403c9",
     "dependencies": [
       "base >= 1.1.33",
       "(?) angelsrefining",
@@ -172,44 +173,44 @@
   },
   {
     "name": "angelsbioprocessing",
-    "version": "0.7.20",
-    "file_name": "angelsbioprocessing_0.7.20.zip",
-    "download_url": "/download/angelsbioprocessing/6111e760b7be0c36f926fb8b",
-    "sha1": "9ed05334b9d658ec7a400245e4e0aca5d6cdeae0",
+    "version": "0.7.21",
+    "file_name": "angelsbioprocessing_0.7.21.zip",
+    "download_url": "/download/angelsbioprocessing/61bf02035e7a45fea3c3c4fa",
+    "sha1": "35ebee6eb31c379bada5ff8f74f1d058f7e1d783",
     "dependencies": [
-      "angelsrefining >= 0.12.0",
-      "angelspetrochem >= 0.9.20",
+      "angelsrefining >= 0.12.1",
+      "angelspetrochem >= 0.9.21",
       "angelssmelting >= 0.6.17",
       "? bobenemies >= 0.18.5"
     ]
   },
   {
     "name": "angelsexploration",
-    "version": "0.3.11",
-    "file_name": "angelsexploration_0.3.11.zip",
-    "download_url": "/download/angelsexploration/6111e744b7be0c36f926fb8a",
-    "sha1": "5106761db0e5d21e66ebfe03517608d9b0bcef1e",
+    "version": "0.3.13",
+    "file_name": "angelsexploration_0.3.13.zip",
+    "download_url": "/download/angelsexploration/61c4c732e9be5f0257249a17",
+    "sha1": "fca9a79b6297b6a334eddb58695c5c7a31066af7",
     "dependencies": [
-      "angelsrefining >= 0.12.0",
-      "angelspetrochem >= 0.9.20",
-      "angelssmelting >= 0.6.17",
-      "angelsbioprocessing >= 0.7.20",
-      "angelsindustries >= 0.4.14",
+      "angelsrefining >= 0.12.1",
+      "angelspetrochem >= 0.9.21",
+      "angelssmelting >= 0.6.18",
+      "angelsbioprocessing >= 0.7.21",
+      "angelsindustries >= 0.4.15",
       "? bobenemies >= 0.18.5",
       "? bobwarfare >= 0.18.6"
     ]
   },
   {
     "name": "angelsindustries",
-    "version": "0.4.14",
-    "file_name": "angelsindustries_0.4.14.zip",
-    "download_url": "/download/angelsindustries/6111e79ae91028f2e2d2b39f",
-    "sha1": "47951c4db339a7f573c5acb9709250d00acc15ad",
+    "version": "0.4.15",
+    "file_name": "angelsindustries_0.4.15.zip",
+    "download_url": "/download/angelsindustries/61bf020e76864e3aef23a9b3",
+    "sha1": "aee5f42fc17225f114862110fe0eb8ab14919c7a",
     "dependencies": [
-      "angelsrefining >= 0.12.0",
+      "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.20",
       "angelssmelting >= 0.6.17",
-      "angelsbioprocessing >= 0.7.20",
+      "angelsbioprocessing >= 0.7.21",
       "(?) bobassembly >= 0.18.6",
       "(?) boblogistics >= 1.0.0",
       "(?) bobtech >= 0.18.3",
@@ -219,10 +220,10 @@
   },
   {
     "name": "angelsinfiniteores",
-    "version": "0.9.9",
-    "file_name": "angelsinfiniteores_0.9.9.zip",
-    "download_url": "/download/angelsinfiniteores/60ae7f22d33bab4dbb65ab06",
-    "sha1": "98deb048f87ee7cecdb5969a00d963bf90d2ecbd",
+    "version": "0.9.10",
+    "file_name": "angelsinfiniteores_0.9.10.zip",
+    "download_url": "/download/angelsinfiniteores/61bf021676864e3aef23a9b4",
+    "sha1": "58a1de9577569d0c88e547e33488f2efb8f4374f",
     "dependencies": [
       "base >= 1.1.33",
       "? angelsrefining >= 0.11.19",
@@ -241,12 +242,12 @@
   },
   {
     "name": "angelspetrochem",
-    "version": "0.9.20",
-    "file_name": "angelspetrochem_0.9.20.zip",
-    "download_url": "/download/angelspetrochem/6111e728b7be0c36f926fb89",
-    "sha1": "084fe60d34ffbca9d3c740b57ea3b3f13bece796",
+    "version": "0.9.21",
+    "file_name": "angelspetrochem_0.9.21.zip",
+    "download_url": "/download/angelspetrochem/61bf01e54f1c5c697e8e7c2c",
+    "sha1": "70ef0848f363905544264bbd06b66f2a7c239570",
     "dependencies": [
-      "angelsrefining >= 0.12.0",
+      "angelsrefining >= 0.12.1",
       "? bobplates >= 0.18.8",
       "? bobassembly >= 0.18.5",
       "? bobrevamp >= 0.18.5"
@@ -254,12 +255,12 @@
   },
   {
     "name": "angelsrefining",
-    "version": "0.12.0",
-    "file_name": "angelsrefining_0.12.0.zip",
-    "download_url": "/download/angelsrefining/6111e7cb7fd14564f251cd39",
-    "sha1": "57327e7327ccc44e0e61a42e63e437e930759a68",
+    "version": "0.12.1",
+    "file_name": "angelsrefining_0.12.1.zip",
+    "download_url": "/download/angelsrefining/61bf0232445e81d9abf39956",
+    "sha1": "d02c9574f350a83c5427e300c201a333c3e9727a",
     "dependencies": [
-      "base >= 1.1.33",
+      "base >= 1.1.43",
       "? bobplates >= 0.18.8",
       "? bobrevamp >= 0.18.5",
       "(?) bobmodules >= 0.18.0",
@@ -271,22 +272,22 @@
   },
   {
     "name": "angelssmelting",
-    "version": "0.6.17",
-    "file_name": "angelssmelting_0.6.17.zip",
-    "download_url": "/download/angelssmelting/6111e7a8a069b89bb98591d2",
-    "sha1": "18c00da6736224e23d7dc158a43f9059be1d0726",
+    "version": "0.6.18",
+    "file_name": "angelssmelting_0.6.18.zip",
+    "download_url": "/download/angelssmelting/61bf0217445e81d9abf39955",
+    "sha1": "4c9e9a585a04cbc235bddac767579182d40ce037",
     "dependencies": [
-      "angelsrefining >= 0.12.0",
+      "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.20",
       "? bobplates >= 0.18.8"
     ]
   },
   {
     "name": "ArmouredBiters",
-    "version": "1.1.4",
-    "file_name": "ArmouredBiters_1.1.4.zip",
-    "download_url": "/download/ArmouredBiters/604de0d379ab79e77ebb7545",
-    "sha1": "8dff321a9577524c3ede602b491c2b5952729c50",
+    "version": "1.1.5",
+    "file_name": "ArmouredBiters_1.1.5.zip",
+    "download_url": "/download/ArmouredBiters/621bfe5496770fb3aade7b56",
+    "sha1": "3f373a09efff3e847b3ac90935f4f091f1b0add5",
     "dependencies": [
       "base >= 1.1.1",
       "(?) alien-biomes"
@@ -520,10 +521,10 @@
   },
   {
     "name": "bullet-trails",
-    "version": "0.6.1",
-    "file_name": "bullet-trails_0.6.1.zip",
-    "download_url": "/download/bullet-trails/5fbc45a7d0e33c92e48f857d",
-    "sha1": "f18620b7d86dd6eed96a1c6f3d2b6784da44a5bd",
+    "version": "0.6.2",
+    "file_name": "bullet-trails_0.6.2.zip",
+    "download_url": "/download/bullet-trails/6229469f6d5a4787343dc6a3",
+    "sha1": "4517c11b6f347da92dc5b0ceccd94732e6f4baa3",
     "dependencies": [
       "base >= 1.1.0"
     ]
@@ -605,20 +606,20 @@
   },
   {
     "name": "flib",
-    "version": "0.9.2",
-    "file_name": "flib_0.9.2.zip",
-    "download_url": "/download/flib/6195e4ef4b62356f903c782a",
-    "sha1": "abf5831c1cbdf821b41889dd1a9a062c0534e9ac",
+    "version": "0.10.1",
+    "file_name": "flib_0.10.1.zip",
+    "download_url": "/download/flib/6217468d936a02e586aad1aa",
+    "sha1": "9063901409f7508c00c10cd2570687fed95cdb1f",
     "dependencies": [
       "? base >= 1.1.35"
     ]
   },
   {
     "name": "FluidMustFlow",
-    "version": "1.2.16",
-    "file_name": "FluidMustFlow_1.2.16.zip",
-    "download_url": "/download/FluidMustFlow/5fe65966e40cc06677859846",
-    "sha1": "d7e5f7ac9839619efe61eca811c1fb5267e4f461",
+    "version": "1.3.1",
+    "file_name": "FluidMustFlow_1.3.1.zip",
+    "download_url": "/download/FluidMustFlow/622d193f948eb0df8b76b60d",
+    "sha1": "255808cc796af18ffd0b4f14c7c655b095f9f9ca",
     "dependencies": [
       "base >= 1.1",
       "(?) Squeak Through >= 1.3.0"
@@ -646,10 +647,10 @@
   },
   {
     "name": "helmod",
-    "version": "0.12.5",
-    "file_name": "helmod_0.12.5.zip",
-    "download_url": "/download/helmod/60273daa2deab6f9ee003e76",
-    "sha1": "16dc3b0ca82c7dc7a4e18c98ff5a11835a7bec9b",
+    "version": "0.12.9",
+    "file_name": "helmod_0.12.9.zip",
+    "download_url": "/download/helmod/6228ed126d5a4787343dc695",
+    "sha1": "666daf923204b0789b3e064c89e6a1a7d04cddf4",
     "dependencies": [
       "base >= 1.1"
     ]
@@ -667,13 +668,14 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.1.6",
-    "file_name": "Krastorio2_1.1.6.zip",
-    "download_url": "/download/Krastorio2/61514e67c1e99dfef315ac63",
-    "sha1": "70da4c995f305fb0a8ea5e82e76005fecd1a38aa",
+    "version": "1.2.25",
+    "file_name": "Krastorio2_1.2.25.zip",
+    "download_url": "/download/Krastorio2/622c252f22084266958ac76d",
+    "sha1": "d067a709b3c7134c7c458f43f35a2e48a6bbc4ed",
     "dependencies": [
-      "base >= 1.1.21",
-      "flib >= 0.8.0",
+      "base >= 1.1.52",
+      "Krastorio2Assets >= 1.1.0",
+      "flib >= 0.9.2",
       "(?) aai-industry >= 0.3.17",
       "(?) aai-vehicles-chaingunner >= 0.5.2",
       "(?) Aircraft >= 1.6.6",
@@ -689,6 +691,7 @@
       "(?) Hovercrafts >= 0.17.15",
       "(?) rso-mod >= 6.0.6",
       "(?) space-exploration >= 0.2.1",
+      "(?) spidertrontiers >= 0.2.18",
       "(?) Squeak Through >= 1.3.0",
       "(?) Tral_robot_tree_farm >= 1.2.5",
       "(?) vtk-armor-plating >= 0.8.0",
@@ -713,13 +716,14 @@
   },
   {
     "name": "krastorio2_extended_endgame",
-    "version": "1.0.0",
-    "file_name": "krastorio2_extended_endgame_1.0.0.zip",
-    "download_url": "/download/krastorio2_extended_endgame/5fc3c602772c4ba6456d9478",
-    "sha1": "a5b63f87173bcf26d19f5421d82b966a92ec0449",
+    "version": "1.0.1",
+    "file_name": "krastorio2_extended_endgame_1.0.1.zip",
+    "download_url": "/download/krastorio2_extended_endgame/61d6020db9b4000d195ccd2c",
+    "sha1": "4151778c5e45326260c8998a5690437e53a93c05",
     "dependencies": [
       "base >= 1.1.2",
-      "Krastorio2 >= 1.0.10"
+      "Krastorio2 >= 1.2.11",
+      "Krastorio2Assets >= 1.1.0"
     ]
   },
   {
@@ -767,10 +771,10 @@
   },
   {
     "name": "Nanobots",
-    "version": "3.2.16",
-    "file_name": "Nanobots_3.2.16.zip",
-    "download_url": "/download/Nanobots/618811e1825187fdcb1b1a4c",
-    "sha1": "12e02015275ff625be8be75aea2d3354193432bd",
+    "version": "3.2.19",
+    "file_name": "Nanobots_3.2.19.zip",
+    "download_url": "/download/Nanobots/625b15050a25b55bb5dab5a3",
+    "sha1": "947a45f91b3ce977374f9f2eed15e29a1378ad0f",
     "dependencies": [
       "base >= 1.1.0",
       "stdlib >= 1.4.6",
@@ -779,29 +783,31 @@
   },
   {
     "name": "Rampant",
-    "version": "1.1.1",
-    "file_name": "Rampant_1.1.1.zip",
-    "download_url": "/download/Rampant/609f486f72a5b55129850441",
-    "sha1": "e1616ac55f8eaf837c7a210c8ccb5224a8dc1c65",
+    "version": "3.1.1",
+    "file_name": "Rampant_3.1.1.zip",
+    "download_url": "/download/Rampant/6279dc751670075b32d21087",
+    "sha1": "31617fd3d097e0034847080b1fca8af7e8e96954",
     "dependencies": [
-      "base >= 1.1.0",
+      "base >= 1.1.36",
       "? bobenemies",
       "? Natural_Evolution_Enemies >= 0.17.0",
       "? Clockwork",
+      "? Kux-OrbitalIonCannon",
       "? Orbital Ion Cannon",
       "? ArmouredBiters",
-      "? Krastorio2"
+      "? Krastorio2",
+      "? SchallAlienLoot >= 0.17.6"
     ]
   },
   {
     "name": "reskins-angels",
-    "version": "2.0.2",
-    "file_name": "reskins-angels_2.0.2.zip",
-    "download_url": "/download/reskins-angels/6153e1a455718ac31dd81c0f",
-    "sha1": "7b3a1811bdeb7a187a2a2d974a5f85f4750f66e3",
+    "version": "2.1.3",
+    "file_name": "reskins-angels_2.1.3.zip",
+    "download_url": "/download/reskins-angels/6249e3f9cb6db3f08afba56c",
+    "sha1": "c2b9d9b669f9c0c0571c830282d4ac31b927d102",
     "dependencies": [
       "base",
-      "reskins-library >= 2.0.0",
+      "reskins-library >= 2.1.0",
       "? reskins-bobs",
       "? angelsbioprocessing",
       "? angelsexploration",
@@ -816,13 +822,13 @@
   },
   {
     "name": "reskins-bobs",
-    "version": "2.0.3",
-    "file_name": "reskins-bobs_2.0.3.zip",
-    "download_url": "/download/reskins-bobs/6153e2ef8b12804fcd28f625",
-    "sha1": "50caa58da4ac4a80bb06b43856b4ba81a2d1cf40",
+    "version": "2.1.3",
+    "file_name": "reskins-bobs_2.1.3.zip",
+    "download_url": "/download/reskins-bobs/6249e3f2f870fdd8ade35bb3",
+    "sha1": "d06a6f67603a77b9779dfb10739bea3f444ef8b5",
     "dependencies": [
       "base",
-      "reskins-library >= 2.0.0",
+      "reskins-library >= 2.1.0",
       "? bobassembly",
       "? bobelectronics",
       "? bobgreenhouse",
@@ -839,22 +845,24 @@
       "? bobwarfare",
       "(?) angelssmelting",
       "(?) CircuitProcessing",
-      "(?) NauvisDay"
+      "(?) NauvisDay",
+      "! bobmods_gfxtweak"
     ]
   },
   {
     "name": "reskins-compatibility",
-    "version": "2.0.4",
-    "file_name": "reskins-compatibility_2.0.4.zip",
-    "download_url": "/download/reskins-compatibility/6154aff18837e299fa3e8951",
-    "sha1": "0a95ea56e5345fe245a392d9df6708a688f995b0",
+    "version": "2.1.2",
+    "file_name": "reskins-compatibility_2.1.2.zip",
+    "download_url": "/download/reskins-compatibility/6249e3d645634948ba15ab44",
+    "sha1": "18d5fb0e909f31153ff3c0bb6f7ab1e6f8425495",
     "dependencies": [
       "base",
-      "reskins-library >= 2.0.3",
+      "reskins-library >= 2.1.0",
       "(?) reskins-bobs",
       "(?) reskins-angels",
       "? aai-industry",
       "? angels-smelting-extended",
+      "? Bio_Industries",
       "? CircuitProcessing",
       "? classic-beacon",
       "? classic-mining-drill",
@@ -874,30 +882,32 @@
       "? RealisticReactorGlow",
       "(?) ScienceCostTweakerM",
       "? semi-classic-mining-drill",
+      "? spaceblock",
       "? vanilla-loaders-hd"
     ]
   },
   {
     "name": "reskins-library",
-    "version": "2.0.3",
-    "file_name": "reskins-library_2.0.3.zip",
-    "download_url": "/download/reskins-library/6153ded837a19d7c755e3afe",
-    "sha1": "3d601f8b252a791f325fcdaa98684f07fcb93606",
+    "version": "2.1.3",
+    "file_name": "reskins-library_2.1.3.zip",
+    "download_url": "/download/reskins-library/6249e3de733be071fe39d9e8",
+    "sha1": "3b972d0e762389c9b108837b1489391b16523cef",
     "dependencies": [
       "base",
       "flib",
       "(?) bobassembly",
       "(?) boblogistics",
       "(?) angelspetrochem",
-      "(?) angelsindustries"
+      "(?) angelsindustries",
+      "! bobmods_gfxtweak"
     ]
   },
   {
     "name": "reverse-factory",
-    "version": "8.1.2",
-    "file_name": "reverse-factory_8.1.2.zip",
-    "download_url": "/download/reverse-factory/6159447cb2be40c37a4c4ae4",
-    "sha1": "5ae0a769d56518ddb175b564c7d619626b786f0d",
+    "version": "8.1.8",
+    "file_name": "reverse-factory_8.1.8.zip",
+    "download_url": "/download/reverse-factory/625b8d55cd80dbaf8057cf47",
+    "sha1": "f83a72fd86b1c8b1b956e32d28871925b565aacd",
     "dependencies": [
       "base",
       "stdlib",
@@ -920,15 +930,17 @@
       "? IndustrialRevolution >= 2.0.2",
       "(?) anarchy",
       "(?) randotorio",
-      "(?) ZRecipeRandomizer"
+      "(?) ZRecipeRandomizer",
+      "(?) starry-sakura",
+      "(?) one-more-tier"
     ]
   },
   {
     "name": "robot_attrition",
-    "version": "0.5.11",
-    "file_name": "robot_attrition_0.5.11.zip",
-    "download_url": "/download/robot_attrition/60ee0b01a0fa0668c0a2044d",
-    "sha1": "9123975b0e50db9ce77c453b713cf6c100c154b4",
+    "version": "0.5.12",
+    "file_name": "robot_attrition_0.5.12.zip",
+    "download_url": "/download/robot_attrition/61d99090bdb9f7e97490e3fc",
+    "sha1": "427cad5e051b64c2bd9ff504b85353a6a9fcf67b",
     "dependencies": [
       "base >= 1.1.0"
     ]
@@ -945,10 +957,10 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.11",
-    "file_name": "rso-mod_6.2.11.zip",
-    "download_url": "/download/rso-mod/617adfc715cd2b27cb971b93",
-    "sha1": "db695a3245221378f22ae51963c3858792c3bce0",
+    "version": "6.2.14",
+    "file_name": "rso-mod_6.2.14.zip",
+    "download_url": "/download/rso-mod/6234f1b86d32354d58ee6014",
+    "sha1": "cd4ce2afc9e9704507ac0a7b002996698f93b165",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
@@ -974,16 +986,16 @@
   },
   {
     "name": "SeaBlock",
-    "version": "0.5.8",
-    "file_name": "SeaBlock_0.5.8.zip",
-    "download_url": "/download/SeaBlock/61ac507518d51e1e3004eb65",
-    "sha1": "5eb4461f84329ee3545c44e67dd547097e3b4785",
+    "version": "0.5.10",
+    "file_name": "SeaBlock_0.5.10.zip",
+    "download_url": "/download/SeaBlock/61cd19c424c78b280b53f6a3",
+    "sha1": "2619a1caa98aae601400d5de171fa3e6b30cee6f",
     "dependencies": [
       "base",
-      "angelsbioprocessing >= 0.7.20",
-      "angelspetrochem >= 0.9.20",
-      "angelsrefining >= 0.12.0",
-      "angelssmelting >= 0.6.17",
+      "angelsbioprocessing >= 0.7.21",
+      "angelspetrochem >= 0.9.21",
+      "angelsrefining >= 0.12.1",
+      "angelssmelting >= 0.6.18",
       "bobelectronics >= 1.1.3",
       "boblogistics >= 1.1.3",
       "bobplates >= 1.1.3",
