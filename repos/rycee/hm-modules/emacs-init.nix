@@ -160,6 +160,18 @@ let
         '';
       };
 
+      earlyInit = mkOption {
+        type = types.lines;
+        default = "";
+        description = ''
+          Lines to add to <option>programs.emacs.init.earlyInit</option> when
+          this package is enabled.
+          </para><para>
+          Note, the package is not automatically loaded so you will have to
+          <literal>require</literal> the necessary features yourself.
+        '';
+      };
+
       init = mkOption {
         type = types.lines;
         default = "";
@@ -437,8 +449,9 @@ in {
     home.packages = concatMap (v: v.extraPackages)
       (filter (getAttr "enable") (builtins.attrValues cfg.usePackage));
 
-    programs.emacs.init = {
-      earlyInit = mkBefore ''
+    programs.emacs.init.earlyInit = let
+
+      standardEarlyInit = mkBefore ''
         ${optionalString cfg.recommendedGcSettings gcSettings}
 
         ${if cfg.packageQuickstart then ''
@@ -451,7 +464,12 @@ in {
         ;; Avoid expensive frame resizing. Inspired by Doom Emacs.
         (setq frame-inhibit-implied-resize t)
       '';
-    };
+
+      # Collect the early initialization strings for each package.
+      packageEarlyInits = map (p: p.earlyInit)
+        (filter (p: p.earlyInit != "") (builtins.attrValues cfg.usePackage));
+
+    in mkMerge ([ standardEarlyInit ] ++ packageEarlyInits);
 
     programs.emacs.extraPackages = epkgs:
       let

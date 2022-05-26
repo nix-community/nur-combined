@@ -29,8 +29,12 @@ let
   };
 
   hmModulesDocs = nmd.buildModulesDocs {
-    modules =
-      [ ../hm-modules/emacs-init.nix ../hm-modules/theme-base16 setupModule ];
+    modules = [
+      ../hm-modules/emacs-init.nix
+      ../hm-modules/theme-base16
+      ../hm-modules/theme-base16/emacs.nix
+      setupModule
+    ];
     moduleRootPaths = [ ../hm-modules ];
     mkModuleUrl = path:
       "https://gitlab.com/rycee/nur-expressions/blob/master"
