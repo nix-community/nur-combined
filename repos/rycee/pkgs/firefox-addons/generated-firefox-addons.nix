@@ -752,7 +752,7 @@
       meta = with lib;
       {
         homepage = "http://grammarly.com";
-        description = "Grammarly’s writing assistant has you covered in any writing situation. With real-time suggestions to help with grammar, clarity, tone, and more, you can be confident that your writing will make the impression you want.";
+        description = "Improve your writing with Grammarly's communication assistance. Spell check, grammar check, and punctuation check in one tool. Real-time suggestions for improving tone and clarity help ensure your writing makes the impression you want.";
         license = {
           shortName = "grammarly";
           fullName = "Grammarly Terms of Service and License Agreement";
@@ -1823,10 +1823,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.4.2";
+      version = "4.4.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3951917/sponsorblock-4.4.2.xpi";
-      sha256 = "0af2fc1e52329a69638bcaaa770db43f857425c1fffc08129c8a4131b243b9a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954023/sponsorblock-4.4.5.xpi";
+      sha256 = "813d393b7997ec350a23deacef9c3f707c553abc32cf0ed2a4023edfb09d02ed";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
