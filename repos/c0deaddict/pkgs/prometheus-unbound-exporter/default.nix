@@ -2,21 +2,21 @@
 
 buildGoModule rec {
   pname = "unbound_exporter";
-  version = "0.3";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
-    owner = "c0deaddict";
+    owner = "letsencrypt";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0v752z3k5vikikph1z19bx9s2iqf8sb32jlcas27hvz52h7d78g8";
+    sha256 = "sha256-CR3ogt8jiGysneM+nIFavn6vIu3SeVd8ywnq/wntTAk=";
   };
 
-  vendorSha256 = "1shsvz8kdklnl18bgd3b9igs5bkpyac7hh8k252zh82fi4cl3n5b";
+  vendorSha256 = "sha256-3MpdH55Qs78Yqfev2MlfNC+wX2Xbi9Orn96awOAlRDg=";
   modSha256 = vendorSha256;
 
   meta = with lib; {
     description = "Prometheus exporter for Unbound";
-    homepage = "https://github.com/c0deaddict/unbound_exporter";
+    homepage = "https://github.com/letsencrypt/unbound_exporter";
     maintainers = [ maintainers.c0deaddict ];
     license = licenses.asl20;
   };
