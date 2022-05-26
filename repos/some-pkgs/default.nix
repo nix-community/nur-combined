@@ -1,5 +1,5 @@
 # Use pkgs provided by NUR
-{ pkgs }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   overlay = import ./overlay.nix;
