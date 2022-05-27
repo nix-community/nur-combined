@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220523.135024";
+      version = "101.0buildid20220526.203855";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3953102/francais_language_pack-101.0buildid20220523.135024.xpi";
-      sha256 = "51621728ef4a1701928fac153682fbdf0b608e7dd00686f35bc1928b111427ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954520/francais_language_pack-101.0buildid20220526.203855.xpi";
+      sha256 = "0a6063001ab6e89b92dbcfa8d1da4d18e11c4e61a5c20f38b0b8aeab89ec36b2";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -745,10 +745,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.898.0";
+      version = "8.899.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944487/grammarly_1-8.898.0.xpi";
-      sha256 = "468b5e3680ebf41fe57e1d3847d89e5195e21b6465180766400da7c36e65cf9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954081/grammarly_1-8.899.0.xpi";
+      sha256 = "c3c657124ff9ed02cf45fe55d55680f9944bcd803274d4560d2e3521690b4085";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -924,10 +924,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.2.0";
+      version = "5.2.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3949869/languagetool-5.2.0.xpi";
-      sha256 = "56be532e00935b1dd94756b8de033b05629ad44df94391c057e53fe19080ba46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3953856/languagetool-5.2.1.xpi";
+      sha256 = "9eb948e5458ecf6a4543e206f86ce797b4a14fdee2a3ce1a5edf4072cdfa1a70";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1004,10 +1004,10 @@
       };
     "limit-limit-distracting-sites" = buildFirefoxXpiAddon {
       pname = "limit-limit-distracting-sites";
-      version = "0.1.6";
+      version = "0.1.4";
       addonId = "{26ebede3-10ce-443c-bb0e-7f490cad0ec8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3589010/limit_limit_distracting_sites-0.1.6.xpi";
-      sha256 = "98a55100de3b2577393c37451c91965da5ef3a1925e77fca186ffb3908f94fe9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3531148/limit_limit_distracting_sites-0.1.4.xpi";
+      sha256 = "2e56919cab89815e80e4f0119d950e542697eb0b8dc1d63bfb9e34ccc80ad0bf";
       meta = with lib;
       {
         homepage = "https://freedom.to";
@@ -1752,10 +1752,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.6";
+      version = "1.21.7";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3951085/single_file-1.21.6.xpi";
-      sha256 = "11c7f916753077343b79653e893df91d41860e1a4512b4fc77aacd0fd1af2d0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954059/single_file-1.21.7.xpi";
+      sha256 = "27c97bb26ffb4ccb14ea3fa38ac003a997adf6b9cb752f42f689990ab47b0222";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
