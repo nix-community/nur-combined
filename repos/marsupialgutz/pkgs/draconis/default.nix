@@ -10,16 +10,16 @@ rustPlatform.buildRustPackage rec {
   ];
 
   pname = "draconis";
-  version = "2.4.4";
+  version = "2.4.7";
 
   src = fetchFromGitHub {
     owner = "marsupialgutz";
     repo = "draconis";
-    rev = "035ef1db0d4226f6d553fa96c3014b53430f97ef";
-    sha256 = "1fcnrdjgqkr1ah1wg1jvs1vs94nlkxkdjbqxphilhw7hj1mkdbam";
+    rev = "918fdc4bec4e79fa185b38679034f005747b44fa";
+    sha256 = "1d3lmr9kd95dxfps0llljwmp9cb4ib3zdnlbmhqyn8gacklanp9s";
   };
 
-  cargoSha256 = "AI2hOPGtLIewbu+ggGa2PBb5kVTA5TGUX5Rp9VXSW2o=";
+  cargoSha256 = "im2N5i/c6Z7bUC2so6b5CuLQDt2PqjMhNbfV4hiA9UQ=";
 
   meta = with lib; {
     description = "🪐 An out-of-this-world greeter for your terminal";
