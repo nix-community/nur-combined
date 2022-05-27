@@ -8,6 +8,7 @@
 
 Name | Attribute | Description
 -----|-----------|------------
+[arctype](https://www.arctype.com)|[nur.repos.kira-bruneau.arctype](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/development/tools/database/arctype/default.nix)|The SQL client and database management tool that's fun to use
 [bcml](https://github.com/NiceneNerd/BCML)|[nur.repos.kira-bruneau.bcml](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/games/bcml/default.nix)|A mod merging and managing tool for The Legend of Zelda: Breath of the Wild
 [caprine](https://sindresorhus.com/caprine)|[nur.repos.kira-bruneau.caprine](https://github.com/nix-community/nur-combined/tree/master/repos/kira-bruneau/pkgs/applications/networking/instant-messengers/caprine/default.nix)|Elegant Facebook Messenger desktop app
 [ccache](https://ccache.dev)|[nur.repos.kira-bruneau.ccache](https://github.com/nix-community/nur-combined/tree/master/repos/kira-bruneau/pkgs/tools/misc/ccache/default.nix)|Compiler cache for fast recompilation of C/C++ code

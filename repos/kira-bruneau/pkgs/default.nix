@@ -9,6 +9,8 @@ in
 {
   inherit callPackage;
 
+  arctype = callPackage ./development/tools/database/arctype { };
+
   bcml = bcml-qt;
 
   bcml-gtk = python3Packages.callPackage ./games/bcml {
