@@ -3,7 +3,6 @@ on:
   pull_request:
   push:
     branches:
-      - main
       - master
   schedule:
     # rebuild everyday at 4:55
@@ -34,9 +33,9 @@ jobs:
         #cachixName:
         #  - <YOUR_CACHIX_NAME>
         nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-21.11
+        #  - nixpkgs=channel:nixos-unstable
+        #  - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-22.05
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

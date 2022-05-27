@@ -17,6 +17,7 @@
   diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
   freqtop = pkgs.callPackage ./pkgs/freqtop { };
   map = pkgs.callPackage ./pkgs/map { };
+  q = pkgs.callPackage ./pkgs/q { };
   ripgrep-all = pkgs.callPackage ./pkgs/ripgrep-all {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
