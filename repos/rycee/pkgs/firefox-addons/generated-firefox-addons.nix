@@ -393,10 +393,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.50";
+      version = "4.9.51";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3943310/darkreader-4.9.50.xpi";
-      sha256 = "e726c87b43dc7965a07a8d88396ea966cd3ab5d9d03743d938cda34081d4e067";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954503/darkreader-4.9.51.xpi";
+      sha256 = "dfb84a0ca40959fd2a27d15fc60881b9839b5af46783ac390b69fac5960ad3ab";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1106,10 +1106,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.12.4";
+      version = "10.14.7";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3936095/ether_metamask-10.12.4.xpi";
-      sha256 = "112b049c8ca9237d779e9aa9366a1c6cf5381a422abf70de88e12f01e7e046d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3953574/ether_metamask-10.14.7.xpi";
+      sha256 = "e39fc2c2d74645dcc049563678aee9324a7d8659be8055d4b8bbe7c1d342b1aa";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1118,10 +1118,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.5.69";
+      version = "2.5.89";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940079/momentumdash-2.5.69.xpi";
-      sha256 = "ec7676753b4c43e10b01adeec3f6f6507545eab94bd80299d167b09319a11515";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954887/momentumdash-2.5.89.xpi";
+      sha256 = "d13fd321aa23960bbe51ac5b3ff2162f85c2cc7ed3ffbf99fac1a7a86969b48b";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1850,10 +1850,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.1.0";
+      version = "3.3.0";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3887477/steam_database-3.1.0.xpi";
-      sha256 = "82bbf254de0fe52c14018becad3a69d905829665fd41fed7b86ff62ceeca51b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954188/steam_database-3.3.0.xpi";
+      sha256 = "3c4b0d14d6696791f0dd9c39c55d70b320f6e24eb97c3ef3150b16e225c94cba";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -2400,10 +2400,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.6";
+      version = "19.7";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920210/zoom_page_we-19.6.xpi";
-      sha256 = "cec1f7cfded26b26217118ba08daaa02cd9e2545bc1da9fb3c5b6b989f9322f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954805/zoom_page_we-19.7.xpi";
+      sha256 = "d4ccd2333c73ac679f12430d97d82a3aa314a263907d3f372c8debd334e07b1c";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
