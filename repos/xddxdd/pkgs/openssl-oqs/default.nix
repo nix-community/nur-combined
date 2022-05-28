@@ -6,13 +6,8 @@
 , python3
 , coreutils
 , liboqs
-, withCryptodev ? false
 , cryptodev
 , static ? stdenv.hostPlatform.isStatic
-  # Used to avoid cross compiling perl, for example, in darwin bootstrap tools.
-  # This will cause c_rehash to refer to perl via the environment, but otherwise
-  # will produce a perfectly functional openssl binary and library.
-, withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
 , ...
 } @ args:
 
@@ -41,7 +36,6 @@ stdenv.mkDerivation rec {
                 '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
   '';
 
-  outputs = [ "bin" "dev" "out" "man" ];
   setOutputFlags = false;
   separateDebugInfo =
     !stdenv.hostPlatform.isDarwin &&
@@ -52,10 +46,7 @@ stdenv.mkDerivation rec {
     perl
     (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
   ];
-  buildInputs = lib.optional withCryptodev cryptodev
-    # perl is included to allow the interpreter path fixup hook to set the
-    # correct interpreter in c_rehash.
-    ++ lib.optional withPerl perl;
+  buildInputs = [ cryptodev ];
 
   preBuild = ''
     ln -s ${liboqs} oqs
@@ -100,6 +91,7 @@ stdenv.mkDerivation rec {
   dontAddStaticConfigureFlags = true;
   configureFlags = [
     "shared" # "shared" builds both shared and static libraries
+    "no-tests"
     "--libdir=lib"
     "--openssldir=etc/ssl"
   ] ++ lib.optional (versionAtLeast version "1.1.0" && stdenv.hostPlatform.isAarch64) "no-afalgeng"
@@ -108,16 +100,12 @@ stdenv.mkDerivation rec {
   # for a comprehensive list of configuration options.
   ++ lib.optional (versionAtLeast version "1.1.0" && static) "no-shared";
 
-  makeFlags = [
-    "MANDIR=$(man)/share/man"
-    # This avoids conflicts between man pages of openssl subcommands (for
-    # example 'ts' and 'err') man pages and their equivalent top-level
-    # command in other packages (respectively man-pages and moreutils).
-    # This is done in ubuntu and archlinux, and possiibly many other distros.
-    "MANSUFFIX=ssl"
-  ];
-
   enableParallelBuilding = true;
+  dontCheck = true;
+
+  installPhase = ''
+    make install_sw install_ssldirs
+  '';
 
   postInstall =
     lib.optionalString (!static) ''
@@ -126,24 +114,11 @@ stdenv.mkDerivation rec {
       if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
           rm "$out/lib/"*.a
       fi
-    '' + lib.optionalString (!stdenv.hostPlatform.isWindows)
-      # Fix bin/c_rehash's perl interpreter line
-      #
-      # - openssl 1_0_2: embeds a reference to buildPackages.perl
-      # - openssl 1_1:   emits "#!/usr/bin/env perl"
-      #
-      # In the case of openssl_1_0_2, reset the invalid reference and let the
-      # interpreter hook take care of it.
-      #
-      # In both cases, if withPerl = false, the intepreter line is expected be
-      # "#!/usr/bin/env perl"
-      ''
-        substituteInPlace $out/bin/c_rehash --replace ${buildPackages.perl}/bin/perl "/usr/bin/env perl"
-      '' + ''
+    '' + ''
+      substituteInPlace $out/bin/c_rehash --replace ${buildPackages.perl}/bin/perl "/usr/bin/env perl"
+
       mkdir -p $bin
       mv $out/bin $bin/bin
-      mkdir $dev
-      mv $out/include $dev/
       # remove dependency on Perl at runtime
       rm -r $out/etc/ssl/misc
       rmdir $out/etc/ssl/{certs,private}

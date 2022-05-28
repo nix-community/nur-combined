@@ -74,7 +74,8 @@ src.github = "werman/noise-suppression-for-voice"
 fetch.github = "werman/noise-suppression-for-voice"
 
 [openssl-oqs]
-src.github = "open-quantum-safe/openssl"
+src.git = "https://github.com/open-quantum-safe/openssl.git"
+src.branch = "OQS-OpenSSL_1_1_1-stable"
 fetch.github = "open-quantum-safe/openssl"
 
 [osdlyrics]
