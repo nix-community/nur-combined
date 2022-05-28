@@ -2,12 +2,25 @@
 
 let
   desktopItem = makeDesktopItem {
-    categories = "GTK;Network;WebBrowser;";
+    categories = [
+      "GTK"
+      "Network"
+      "WebBrowser"
+    ];
     desktopName = "Relay Browser";
     exec = "rbrowser %U";
     genericName = "Web Browser";
     icon = "chromium";
-    mimeType = "x-scheme-handler/unknown;x-scheme-handler/about;text/html;text/xml;application/xhtml+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;";
+    mimeTypes = [
+      "application/xhtml+xml"
+      "text/html"
+      "text/mml"
+      "text/xml"
+      "x-scheme-handler/about"
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+      "x-scheme-handler/unknown"
+    ];
     name = "rbrowser";
   };
 

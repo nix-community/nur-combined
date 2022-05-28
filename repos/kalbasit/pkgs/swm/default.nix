@@ -10,18 +10,18 @@
 
 buildGoModule rec {
   pname = "swm";
-  version = "0.4.0-alpha4";
+  version = "0.4.0-alpha5";
 
   src = fetchFromGitHub {
     owner = "kalbasit";
     repo = "swm";
     rev = "v${version}";
-    sha256 = "sha256-YpZSz7+Smiml1L+rSps0h1V81EdCDFlktObZkmKqPhc=";
+    sha256 = "sha256-KnqEmGdTXN//aCJ240Gaz551BIvpd9/X6THpbqbKMAY=";
   };
 
   vendorSha256 = null;
 
-  buildFlagsArray = [ "-ldflags=" "-X=github.com/kalbasit/swm/cmd.version=${version}" ];
+  ldflags = "-X=github.com/kalbasit/swm/cmd.version=${version}";
 
   nativeBuildInputs = [ fzf git tmux procps installShellFiles ];
 
