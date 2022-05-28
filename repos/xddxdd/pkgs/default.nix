@@ -110,6 +110,7 @@ rec {
   onepush = pkg ./onepush { };
   openssl-oqs = pkg ./openssl-oqs {
     inherit liboqs;
+    cryptodev = pkgs.linuxPackages.cryptodev;
   };
   osdlyrics = pkg ./osdlyrics { };
   phpmyadmin = pkg ./phpmyadmin { };
