@@ -43,7 +43,7 @@ in {
     programs.emacs = {
       enable = true;
       package = pkgs.emacsNativeComp;
-      extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools];
+      extraPackages = epkgs: [epkgs.vterm epkgs.pdf-tools pkgs.lilypond];
     };
   };
 }
