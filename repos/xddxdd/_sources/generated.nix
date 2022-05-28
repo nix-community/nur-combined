@@ -3,10 +3,10 @@
 {
   bilibili = {
     pname = "bilibili";
-    version = "1.1.2-2";
+    version = "1.1.3-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.1.2-2/io.github.msojocs.bilibili_1.1.2-2_amd64.deb";
-      sha256 = "sha256-k38lBtkRzBXJm3vkj8FKnvyxpNq+lNJM90SW49t81dA=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.1.3-1/io.github.msojocs.bilibili_1.1.3-1_amd64.deb";
+      sha256 = "sha256-B3h7uYtx+mlVjtmWXY3nzQOHyWD8oqOcxqE0SQtZasQ=";
     };
   };
   bird-lg-go = {
@@ -29,6 +29,17 @@
       rev = "OQS-BoringSSL-snapshot-2022-01";
       fetchSubmodules = false;
       sha256 = "sha256-sMdOi2ADLcEhFMCk3J3XeVMgRki8GGcwumIlid1VnVE=";
+    });
+  };
+  brotli = {
+    pname = "brotli";
+    version = "9801a2c5d6c67c467ffad676ac301379bb877fc3";
+    src = fetchFromGitHub ({
+      owner = "google";
+      repo = "brotli";
+      rev = "9801a2c5d6c67c467ffad676ac301379bb877fc3";
+      fetchSubmodules = false;
+      sha256 = "sha256-kSIQqWxalvyXBJSM8kts9cAKUWlbJDFkTxtFyjUAz2Y=";
     });
   };
   drone-vault = {
@@ -124,6 +135,50 @@
       sha256 = "sha256-CnIgzRb58KIvdx7T9LpervSB2Ol6JMxmSM/Ti3K1+Dg=";
     });
   };
+  nginx-module-stream-sts = {
+    pname = "nginx-module-stream-sts";
+    version = "54494ccd33ddfeb1b458409caf1261d16ba31c27";
+    src = fetchFromGitHub ({
+      owner = "vozlt";
+      repo = "nginx-module-stream-sts";
+      rev = "54494ccd33ddfeb1b458409caf1261d16ba31c27";
+      fetchSubmodules = false;
+      sha256 = "sha256-yquPvEhfY1nb+BLnDDyzC1d4Jp49mO5tonlQM+MMssk=";
+    });
+  };
+  nginx-module-sts = {
+    pname = "nginx-module-sts";
+    version = "06ea32162654401b08e5e486155b9a2981623298";
+    src = fetchFromGitHub ({
+      owner = "vozlt";
+      repo = "nginx-module-sts";
+      rev = "06ea32162654401b08e5e486155b9a2981623298";
+      fetchSubmodules = false;
+      sha256 = "sha256-HtUWMM6vrxcCOKpnEliNxd3sNGgik6FrAfa/I4L7POA=";
+    });
+  };
+  nginx-module-vts = {
+    pname = "nginx-module-vts";
+    version = "3c6cf41315bfcb48c35a3a0be81ddba6d0d01dac";
+    src = fetchFromGitHub ({
+      owner = "vozlt";
+      repo = "nginx-module-vts";
+      rev = "3c6cf41315bfcb48c35a3a0be81ddba6d0d01dac";
+      fetchSubmodules = false;
+      sha256 = "sha256-Iff50npAM1WPjiFt3aYtqC7hQL4kqNNqsat/Qo7cYkU=";
+    });
+  };
+  ngx_brotli = {
+    pname = "ngx_brotli";
+    version = "6e975bcb015f62e1f303054897783355e2a877dc";
+    src = fetchFromGitHub ({
+      owner = "google";
+      repo = "ngx_brotli";
+      rev = "6e975bcb015f62e1f303054897783355e2a877dc";
+      fetchSubmodules = false;
+      sha256 = "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=";
+    });
+  };
   noise-suppression-for-voice = {
     pname = "noise-suppression-for-voice";
     version = "v0.91";
@@ -178,13 +233,13 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.4.3.10";
+    version = "release-4.4.3.11";
     src = fetchFromGitHub ({
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.4.3.10";
+      rev = "release-4.4.3.11";
       fetchSubmodules = false;
-      sha256 = "sha256-fKxko9KVZld6gDZz3sYkSBov8Dy1Y69S/82gQ5/s9rE=";
+      sha256 = "sha256-z/PCGCI5iavHwyjmIeeFoqEGiJHOuJua6wtt3HMi1Wg=";
     });
   };
   rime-aurora-pinyin = {
@@ -236,27 +291,38 @@
       sha256 = "sha256-AW4Tc8RCP0vyRUtZxUuNSYh/iYZh9ExZrsbgZHkFPqU=";
     });
   };
+  stream-echo-nginx-module = {
+    pname = "stream-echo-nginx-module";
+    version = "b7b76b853131b6fa7579d20c2816b4b6abb16bea";
+    src = fetchFromGitHub ({
+      owner = "openresty";
+      repo = "stream-echo-nginx-module";
+      rev = "b7b76b853131b6fa7579d20c2816b4b6abb16bea";
+      fetchSubmodules = false;
+      sha256 = "sha256-Q7Zv/e296zPcmB+lshBsEXEhtt7TAfRjGgy09uBGxHA=";
+    });
+  };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202205190058";
+    version = "202205260055";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202205190058/geoip.dat";
-      sha256 = "sha256-RXYdjUWZFqJLEJCEGIKWKA2n9IBhNpPIX2Co7dcvzFY=";
+      url = "https://github.com/v2fly/geoip/releases/download/202205260055/geoip.dat";
+      sha256 = "sha256-yet6SJenva+tXUpx+WY0VnS9fz+KtIfLBVme0XsyUQY=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220523130000";
+    version = "20220527052102";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220523130000/dlc.dat";
-      sha256 = "sha256-vJe0GHLkl0GKU1dNgsDjKpL5VDl7cFAQ08bsqjHgbic=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220527052102/dlc.dat";
+      sha256 = "sha256-DCB/W5fVe83Etdi+tjuh2R4MGya5BrO8tdvSJv4vVbI=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202205190058";
+    version = "202205260055";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202205190058/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202205260055/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };
@@ -269,6 +335,17 @@
       rev = "v1.5.5";
       fetchSubmodules = false;
       sha256 = "sha256-x2aNAu+H3qJIKjQbE0rYxfQAWucvOMaU2eSy9YIZdcQ=";
+    });
+  };
+  zstd-nginx-module = {
+    pname = "zstd-nginx-module";
+    version = "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc";
+    src = fetchFromGitHub ({
+      owner = "tokers";
+      repo = "zstd-nginx-module";
+      rev = "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc";
+      fetchSubmodules = false;
+      sha256 = "sha256-dVRK5lG6WSCWE6uMofJxz7Ih87FJJ+x1oyVZkY7iZ6c=";
     });
   };
 }

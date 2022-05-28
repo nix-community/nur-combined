@@ -7,11 +7,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-k38lBtkRzBXJm3vkj8FKnvyxpNq+lNJM90SW49t81dA=",
+            "sha256": "sha256-B3h7uYtx+mlVjtmWXY3nzQOHyWD8oqOcxqE0SQtZasQ=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.1.2-2/io.github.msojocs.bilibili_1.1.2-2_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.1.3-1/io.github.msojocs.bilibili_1.1.3-1_amd64.deb"
         },
-        "version": "1.1.2-2"
+        "version": "1.1.3-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -50,6 +50,25 @@
             "type": "github"
         },
         "version": "OQS-BoringSSL-snapshot-2022-01"
+    },
+    "brotli": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "brotli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "google",
+            "repo": "brotli",
+            "rev": "9801a2c5d6c67c467ffad676ac301379bb877fc3",
+            "sha256": "sha256-kSIQqWxalvyXBJSM8kts9cAKUWlbJDFkTxtFyjUAz2Y=",
+            "type": "github"
+        },
+        "version": "9801a2c5d6c67c467ffad676ac301379bb877fc3"
     },
     "drone-vault": {
         "cargoLocks": null,
@@ -212,6 +231,82 @@
         },
         "version": "aa346fd058d47b238ae1b86250f414bcab2e7927"
     },
+    "nginx-module-stream-sts": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "nginx-module-stream-sts",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "vozlt",
+            "repo": "nginx-module-stream-sts",
+            "rev": "54494ccd33ddfeb1b458409caf1261d16ba31c27",
+            "sha256": "sha256-yquPvEhfY1nb+BLnDDyzC1d4Jp49mO5tonlQM+MMssk=",
+            "type": "github"
+        },
+        "version": "54494ccd33ddfeb1b458409caf1261d16ba31c27"
+    },
+    "nginx-module-sts": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "nginx-module-sts",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "vozlt",
+            "repo": "nginx-module-sts",
+            "rev": "06ea32162654401b08e5e486155b9a2981623298",
+            "sha256": "sha256-HtUWMM6vrxcCOKpnEliNxd3sNGgik6FrAfa/I4L7POA=",
+            "type": "github"
+        },
+        "version": "06ea32162654401b08e5e486155b9a2981623298"
+    },
+    "nginx-module-vts": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "nginx-module-vts",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "vozlt",
+            "repo": "nginx-module-vts",
+            "rev": "3c6cf41315bfcb48c35a3a0be81ddba6d0d01dac",
+            "sha256": "sha256-Iff50npAM1WPjiFt3aYtqC7hQL4kqNNqsat/Qo7cYkU=",
+            "type": "github"
+        },
+        "version": "3c6cf41315bfcb48c35a3a0be81ddba6d0d01dac"
+    },
+    "ngx_brotli": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ngx_brotli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "google",
+            "repo": "ngx_brotli",
+            "rev": "6e975bcb015f62e1f303054897783355e2a877dc",
+            "sha256": "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=",
+            "type": "github"
+        },
+        "version": "6e975bcb015f62e1f303054897783355e2a877dc"
+    },
     "noise-suppression-for-voice": {
         "cargoLocks": null,
         "extract": null,
@@ -315,11 +410,11 @@
             "name": null,
             "owner": "c0re100",
             "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.4.3.10",
-            "sha256": "sha256-fKxko9KVZld6gDZz3sYkSBov8Dy1Y69S/82gQ5/s9rE=",
+            "rev": "release-4.4.3.11",
+            "sha256": "sha256-z/PCGCI5iavHwyjmIeeFoqEGiJHOuJua6wtt3HMi1Wg=",
             "type": "github"
         },
-        "version": "release-4.4.3.10"
+        "version": "release-4.4.3.11"
     },
     "rime-aurora-pinyin": {
         "cargoLocks": null,
@@ -406,6 +501,25 @@
         },
         "version": "b2068ce2905588f445ff95a05c00f200ec96d5b5"
     },
+    "stream-echo-nginx-module": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "stream-echo-nginx-module",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "openresty",
+            "repo": "stream-echo-nginx-module",
+            "rev": "b7b76b853131b6fa7579d20c2816b4b6abb16bea",
+            "sha256": "sha256-Q7Zv/e296zPcmB+lshBsEXEhtt7TAfRjGgy09uBGxHA=",
+            "type": "github"
+        },
+        "version": "b7b76b853131b6fa7579d20c2816b4b6abb16bea"
+    },
     "v2fly-geoip": {
         "cargoLocks": null,
         "extract": null,
@@ -414,11 +528,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RXYdjUWZFqJLEJCEGIKWKA2n9IBhNpPIX2Co7dcvzFY=",
+            "sha256": "sha256-yet6SJenva+tXUpx+WY0VnS9fz+KtIfLBVme0XsyUQY=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202205190058/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202205260055/geoip.dat"
         },
-        "version": "202205190058"
+        "version": "202205260055"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -428,11 +542,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vJe0GHLkl0GKU1dNgsDjKpL5VDl7cFAQ08bsqjHgbic=",
+            "sha256": "sha256-DCB/W5fVe83Etdi+tjuh2R4MGya5BrO8tdvSJv4vVbI=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220523130000/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220527052102/dlc.dat"
         },
-        "version": "20220523130000"
+        "version": "20220527052102"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -444,9 +558,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202205190058/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202205260055/private.dat"
         },
-        "version": "202205190058"
+        "version": "202205260055"
     },
     "xray": {
         "cargoLocks": null,
@@ -466,5 +580,24 @@
             "type": "github"
         },
         "version": "v1.5.5"
+    },
+    "zstd-nginx-module": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "zstd-nginx-module",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tokers",
+            "repo": "zstd-nginx-module",
+            "rev": "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc",
+            "sha256": "sha256-dVRK5lG6WSCWE6uMofJxz7Ih87FJJ+x1oyVZkY7iZ6c=",
+            "type": "github"
+        },
+        "version": "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc"
     }
 }

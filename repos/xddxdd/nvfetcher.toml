@@ -12,6 +12,10 @@ fetch.github = "xddxdd/bird-lg-go"
 src.github = "open-quantum-safe/boringssl"
 fetch.github = "open-quantum-safe/boringssl"
 
+[brotli]
+src.git = "https://github.com/google/brotli.git"
+fetch.github = "google/brotli"
+
 [drone-vault]
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
@@ -48,6 +52,22 @@ fetch.url = "https://github.com/netbootxyz/netboot.xyz/releases/download/$ver/ne
 src.git = "https://github.com/pekman/netns-exec.git"
 fetch.github = "pekman/netns-exec"
 git.fetchSubmodules = true
+
+[nginx-module-stream-sts]
+src.git = "https://github.com/vozlt/nginx-module-stream-sts.git"
+fetch.github = "vozlt/nginx-module-stream-sts"
+
+[nginx-module-sts]
+src.git = "https://github.com/vozlt/nginx-module-sts.git"
+fetch.github = "vozlt/nginx-module-sts"
+
+[nginx-module-vts]
+src.git = "https://github.com/vozlt/nginx-module-vts.git"
+fetch.github = "vozlt/nginx-module-vts"
+
+[ngx_brotli]
+src.git = "https://github.com/google/ngx_brotli.git"
+fetch.github = "google/ngx_brotli"
 
 [noise-suppression-for-voice]
 src.github = "werman/noise-suppression-for-voice"
@@ -97,6 +117,10 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/xddxdd/route-chain.git"
 fetch.github = "xddxdd/route-chain"
 
+[stream-echo-nginx-module]
+src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
+fetch.github = "openresty/stream-echo-nginx-module"
+
 [v2fly-geoip]
 src.github = "v2fly/geoip"
 fetch.url = "https://github.com/v2fly/geoip/releases/download/$ver/geoip.dat"
@@ -112,3 +136,7 @@ fetch.url = "https://github.com/v2fly/domain-list-community/releases/download/$v
 [xray]
 src.github = "XTLS/Xray-core"
 fetch.github = "XTLS/Xray-core"
+
+[zstd-nginx-module]
+src.git = "https://github.com/tokers/zstd-nginx-module.git"
+fetch.github = "tokers/zstd-nginx-module"

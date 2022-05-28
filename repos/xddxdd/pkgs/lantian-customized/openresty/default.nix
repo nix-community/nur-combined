@@ -1,80 +1,33 @@
-{
-  lib, stdenv,
-  fetchzip, fetchhg, fetchFromGitHub, fetchurl,
-  substituteAll,
-  git, zlib, pcre, gd, zstd, perl, liboqs, openssl-oqs, libxcrypt,
-  modules ? [],
-  ...
+{ lib
+, sources
+, stdenv
+, fetchzip
+, fetchFromGitHub
+, fetchurl
+, substituteAll
+, git
+, zlib
+, pcre
+, gd
+, zstd
+, perl
+, liboqs
+, openssl-oqs
+, libxcrypt
+, modules ? [ ]
+, ...
 } @ args:
 
 stdenv.mkDerivation rec {
   pname = "openresty-lantian";
   nginxVersion = "1.21.4";
-  version = "${nginxVersion}.1rc3";
+  version = "${nginxVersion}.1";
 
-  srcs = [
-    (fetchzip {
-      url = "https://openresty.org/download/openresty-${version}.tar.gz";
-      sha256 = "sha256-sIEeyXi2yjinPVFUyvMCxyUO1n4/xb7EqK06c4/rHXY=";
-      name = "openresty";
-    })
-
-    (fetchFromGitHub rec {
-      owner = "google";
-      repo = "ngx_brotli";
-      rev = "9aec15e2aa6feea2113119ba06460af70ab3ea62";
-      sha256 = "02hfvfa6milj40qc2ikpb9f95sxqvxk4hly3x74kqhysbdi06hhv";
-      name = repo;
-    })
-
-    (fetchFromGitHub rec {
-      owner = "google";
-      repo = "brotli";
-      rev = "e61745a6b7add50d380cfd7d3883dd6c62fc2c71";
-      sha256 = "0xyp85h12sknl4pxg1x8lgx8simzhdv73h4a8c1m7gyslsny386g";
-      name = repo;
-    })
-
-    (fetchFromGitHub rec {
-      owner = "openresty";
-      repo = "stream-echo-nginx-module";
-      rev = "b7b76b853131b6fa7579d20c2816b4b6abb16bea";
-      sha256 = "0w648vhgdd0c39iz80fkvsv22w8idh8b598zk3f37sxxxpynzdj3";
-      name = repo;
-    })
-
-    (fetchFromGitHub rec {
-      owner = "tokers";
-      repo = "zstd-nginx-module";
-      rev = "d082422df33a5ff84a29afe7b74967a7106f49ac";
-      sha256 = "0p3n6plvz7bvdd0gzawlwkpm8r837gvrny7v6dfmwm77c1wlq1y7";
-      name = repo;
-    })
-
-    (fetchFromGitHub rec {
-      owner = "vozlt";
-      repo = "nginx-module-vts";
-      rev = "3c6cf41315bfcb48c35a3a0be81ddba6d0d01dac";
-      sha256 = "0ib2vj744zxbn5md7a14pr0f2bm85nkdsv91is7macs0gb9gkxr1";
-      name = repo;
-    })
-
-    (fetchFromGitHub rec {
-      owner = "vozlt";
-      repo = "nginx-module-sts";
-      rev = "06ea32162654401b08e5e486155b9a2981623298";
-      sha256 = "1q1wzf127gzn05ms34r2d0sfrpf5imc14rxa7011gbxgrqq1dm8y";
-      name = repo;
-    })
-
-    (fetchFromGitHub rec {
-      owner = "vozlt";
-      repo = "nginx-module-stream-sts";
-      rev = "54494ccd33ddfeb1b458409caf1261d16ba31c27";
-      sha256 = "1jdj1kik6l3rl9nyx61xkqk7hmqbncy0rrqjz3dmjqsz92y8zaya";
-      name = repo;
-    })
-  ];
+  src = fetchzip {
+    url = "https://openresty.org/download/openresty-${version}.tar.gz";
+    sha256 = "sha256-ZnNePXzcbNv1ZE2lD4Gcy7mBe54LjJFb3iEKojR6Whs=";
+    name = "openresty";
+  };
 
   sourceRoot = "openresty";
 
@@ -118,31 +71,49 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  postUnpack = let
-    patch = p: ''
-      echo ${p} && patch -p1 < ${p}
+  postUnpack =
+    let
+      extraSrcs = [
+        "brotli"
+        "nginx-module-stream-sts"
+        "nginx-module-sts"
+        "nginx-module-vts"
+        "ngx_brotli"
+        "stream-echo-nginx-module"
+        "zstd-nginx-module"
+      ];
+
+      patch = p: ''
+        echo ${p} && patch -p1 < ${p}
+      '';
+    in
+    builtins.concatStringsSep "\n"
+      (builtins.map
+        (k: ''
+          cp -r ${sources."${k}".src} ${k}
+        '')
+        extraSrcs)
+    + ''
+      export BUILDROOT=$(pwd)
+      chmod -R 755 .
+      patchShebangs .
+
+      cd $BUILDROOT/openresty/bundle/nginx-${nginxVersion}
+      ${patch patchUseOpensslMd5Sha1}
+      ${patch patchHpackDyntls}
+      ${patch patchPlain}
+      ${patch patchPlainProxy}
+      ${patch patchNixEtag}
+      ${patch patchNixSkipCheckLogsPath}
+
+      cd $BUILDROOT/stream-echo-nginx-module
+      ${patch patchModStreamEcho}
+
+      cd $BUILDROOT
+
+      rm -rf $BUILDROOT/ngx_brotli/deps/brotli
+      ln -s $BUILDROOT/brotli $BUILDROOT/ngx_brotli/deps/brotli
     '';
-  in ''
-    export BUILDROOT=$(pwd)
-    chmod -R 755 .
-    patchShebangs .
-
-    cd $BUILDROOT/openresty/bundle/nginx-${nginxVersion}
-    ${patch patchUseOpensslMd5Sha1}
-    ${patch patchHpackDyntls}
-    ${patch patchPlain}
-    ${patch patchPlainProxy}
-    ${patch patchNixEtag}
-    ${patch patchNixSkipCheckLogsPath}
-
-    cd $BUILDROOT/stream-echo-nginx-module
-    ${patch patchModStreamEcho}
-
-    cd $BUILDROOT
-
-    rm -rf $BUILDROOT/ngx_brotli/deps/brotli
-    ln -s $BUILDROOT/brotli $BUILDROOT/ngx_brotli/deps/brotli
-  '';
 
   configureFlags = [
     "--with-threads"
