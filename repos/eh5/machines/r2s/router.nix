@@ -3,10 +3,18 @@
     enable = true;
     rulesetFile = ./files/nftables.nft;
   };
-  systemd.services.nftables = {
-    wants = [ "systemd-udev-settle.service" ];
-    after = [ "systemd-udev-settle.service" ];
-  };
+  systemd.services.nftables =
+    let
+      ifNames = [ "intern0" "extern0" ];
+      afterNetDevices = (builtins.map
+        (name: "sys-subsystem-net-devices-${name}.device")
+        ifNames
+      );
+    in
+    {
+      wants = afterNetDevices;
+      after = afterNetDevices;
+    };
 
   services.resolved.enable = false;
   services.dnsmasq = {
@@ -24,18 +32,6 @@
       no-negcache
     '';
   };
-
-  users.groups.direct-net = { };
-
-  services.v2ray-next = {
-    enable = true;
-    useV5Format = true;
-    configFile = config.sops.secrets.v2rayConfig.path;
-  };
-  systemd.services.v2ray-next.serviceConfig = {
-    SupplementaryGroups = [ config.users.groups.direct-net.name ];
-  };
-  sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
 
   # slient redis
   boot.kernel.sysctl."vm.overcommit_memory" = 1;

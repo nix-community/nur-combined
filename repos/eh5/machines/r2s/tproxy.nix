@@ -18,6 +18,18 @@ let
   '';
 in
 {
+  users.groups.direct-net = { };
+
+  services.v2ray-next = {
+    enable = true;
+    useV5Format = true;
+    configFile = config.sops.secrets.v2rayConfig.path;
+  };
+  systemd.services.v2ray-next.serviceConfig = {
+    SupplementaryGroups = [ config.users.groups.direct-net.name ];
+  };
+  sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
+
   systemd.services.setup-tproxy = {
     bindsTo = [ "v2ray-next.service" ];
     after = [ "v2ray-next.service" ];

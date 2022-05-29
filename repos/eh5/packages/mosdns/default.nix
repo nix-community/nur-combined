@@ -1,6 +1,6 @@
 { lib
 , runCommand
-, buildGoModule
+, buildGo118Module
 , fetchFromGitHub
 , makeBinaryWrapper
 , symlinkJoin
@@ -16,10 +16,10 @@ let
       "${v2ray-domain-list-community}/share/v2ray"
     ];
   };
-  mosdns = buildGoModule {
+  mosdns = buildGo118Module {
     pname = "mosdns";
     inherit (sources.mosdns) version src;
-    vendorSha256 = "sha256-P9NLdNh1DiPoq8N3c1cUZVb8p4uStDO+HQTXzO1oJJw=";
+    vendorSha256 = "sha256-/C541ZhW8wAtWs2cbEPAW1H3ZXB1CYgQZKZwy5clvlQ=";
     doCheck = false;
 
     buildPhase = ''

@@ -23,6 +23,10 @@ let
 
     patches = [
       (fetchurl {
+        url = "https://github.com/v2fly/v2ray-core/commit/0468cdfa56e625377039fe9b496c892f58df60e7.diff";
+        sha256 = "sha256-TmFQmJC75oR2sYkv1JvzoJfekdmWw482CQY4LLR9wdI=";
+      })
+      (fetchurl {
         url = "https://patch-diff.githubusercontent.com/raw/v2fly/v2ray-core/pull/1771.diff";
         sha256 = "sha256-+JbGF8VZeqXkmo0dxiSFo3kfqbNynzlMwvDRDwpZRlA=";
       })

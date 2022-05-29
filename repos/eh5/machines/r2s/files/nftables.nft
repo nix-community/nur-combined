@@ -3,56 +3,81 @@
 flush ruleset
 
 define chn_ns = {
-    114.114.114.114
+  114.114.114.114
 }
 
 table ip filter {
-# allow all packets sent by the firewall machine itself
-    chain output {
-        type filter hook output priority 100; policy accept;
+  # allow all packets sent by the firewall machine itself
+  chain output {
+    type filter hook output priority 100; policy accept;
+  }
+
+  # allow LAN to firewall, disallow WAN to firewall
+  chain input {
+    type filter hook input priority 0; policy accept;
+
+    iifname { lo, intern0 } accept
+    ip daddr 192.168.0.0/16 accept
+    ip protocol icmp accept
+
+    ct state vmap {
+      established: accept,
+      related: accept,
+      invalid: drop
     }
 
-# allow LAN to firewall, disallow WAN to firewall
-    chain input {
-        type filter hook input priority 0; policy accept;
+    reject
+  }
 
-        iifname { lo, intern0 } accept
-        ip daddr 192.168.0.0/16 accept
-        ip protocol icmp accept
+  flowtable f {
+    hook ingress priority 0;
+    devices = { intern0, extern0 };
+  }
 
-        ct state vmap {
-            established: accept,
-            related: accept,
-            invalid: drop
-        }
+  # allow packets from LAN to WAN, and WAN to LAN if LAN initiated the connection
+  chain forward {
+    type filter hook forward priority 0; policy drop;
+    ip protocol {tcp, udp} flow offload @f
 
-        reject
-    }
-
-    flowtable f {
-        hook ingress priority 0;
-        devices = { intern0, extern0 };
-    }
-
-# allow packets from LAN to WAN, and WAN to LAN if LAN initiated the connection
-    chain forward {
-        type filter hook forward priority 0; policy drop;
-        ip protocol {tcp, udp} flow offload @f
-
-        iifname intern0 oifname extern0 accept
-        iifname extern0 oifname intern0 ct state { related, established } accept
-    }
+    iifname intern0 oifname extern0 accept
+    iifname extern0 oifname intern0 ct state { related, established } accept
+  }
 }
 
 table ip nat {
-    chain prerouting {
-        type nat hook prerouting priority -100; policy accept;
-        iifname intern0 ip daddr $chn_ns udp dport 53 counter dnat to 127.0.0.1
+  chain prerouting {
+    type nat hook prerouting priority -100; policy accept;
+    iifname intern0 ip daddr $chn_ns udp dport 53 counter dnat to 127.0.0.1
+  }
+
+  # for all packets to WAN, after routing, replace source address with primary IP of WAN interface
+  chain postrouting {
+    type nat hook postrouting priority 100; policy accept;
+    ip saddr 192.168.0.0/16 oifname extern0 masquerade
+  }
+}
+
+table ip6 filter {
+  chain output {
+    type filter hook output priority 100; policy accept;
+  }
+
+  chain input {
+    type filter hook input priority 0; policy accept;
+
+    iifname { lo, intern0 } accept
+    ip6 nexthdr icmpv6 accept
+
+    ct state vmap {
+      established: accept,
+      related: accept,
+      invalid: drop
     }
 
-# for all packets to WAN, after routing, replace source address with primary IP of WAN interface
-    chain postrouting {
-        type nat hook postrouting priority 100; policy accept;
-        ip saddr 192.168.0.0/16 oifname extern0 masquerade
-    }
+    reject
+  }
+
+  chain forward {
+    type filter hook forward priority 0; policy drop;
+  }
 }
