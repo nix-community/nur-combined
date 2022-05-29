@@ -87,6 +87,7 @@ rec {
   deepspeech-gpu = pkg ./deepspeech-gpu { };
   deepspeech-wrappers = pkg ./deepspeech-gpu/wrappers.nix { };
   dingtalk = pkg ./dingtalk { };
+  dn42-pingfinder = pkg ./dn42-pingfinder { };
   drone-vault = pkg ./drone-vault { };
   fcitx5-breeze = pkg ./fcitx5-breeze { };
   ftp-proxy = pkg ./ftp-proxy { };
