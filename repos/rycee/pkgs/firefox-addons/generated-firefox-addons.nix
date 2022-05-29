@@ -990,14 +990,14 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "1.7.0";
+      version = "2.0.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940677/libredirect-1.7.0.xpi";
-      sha256 = "f838e7b501336ce20c697142db15390c1d6916e53939f74142d5930dbdc3898b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3955094/libredirect-2.0.0.xpi";
+      sha256 = "c48336b7ce3aa02149d6bc72cca7843db38fd8f2d67be4428a680e788db0cf15";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
-        description = "Redirects Twitter, YouTube, Instagram and more to privacy friendly alternatives.";
+        description = "Redirects YouTube, Twitter, Instagram... requests to alternative privacy friendly frontends and backends.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
