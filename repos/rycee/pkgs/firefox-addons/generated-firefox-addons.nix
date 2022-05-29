@@ -1556,6 +1556,20 @@
         platforms = platforms.all;
         };
       };
+    "pywalfox" = buildFirefoxXpiAddon {
+      pname = "pywalfox";
+      version = "2.0.8";
+      addonId = "pywalfox@frewacom.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3942967/pywalfox-2.0.8.xpi";
+      sha256 = "9527552b0a80b4ca02d0622ab9e4364fbd880d843958eed04cfd0bad814516c0";
+      meta = with lib;
+      {
+        homepage = "https://github.com/frewacom/Pywalfox";
+        description = "Dynamic theming of Firefox using your Pywal colors";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
       version = "2.1.1";
