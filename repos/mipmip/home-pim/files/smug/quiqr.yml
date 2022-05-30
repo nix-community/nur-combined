@@ -1,0 +1,19 @@
+session: quiqr
+
+root: ~/cQuiqr/
+
+before_start:
+
+stop:
+
+windows:
+  - name: quiqr-app
+    root: ~/cQuiqr/quiqr-desktop
+    layout: main-horizontal
+    commands:
+      - vim ./
+
+  - name: sukoh
+    layout: main-horizontal
+    commands:
+      - cd ~/Sukoh

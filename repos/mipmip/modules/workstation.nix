@@ -5,17 +5,21 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.gdm.enable = false; # IF TRUE WAYLAND WILL BE USED
+  services.xserver.displayManager.gdm.enable = true; # IF TRUE WAYLAND WILL BE USED
+
+  services.flatpak.enable = true;
 
   # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+  services.xserver.layout = "us";
+  services.xserver.xkbOptions = "caps:none,terminate:ctrl_alt_bks";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [
     (pkgs.callPackage ../pkgs/hl4150cdn/default.nix {})
   ];
+
+  users.users.pim.initialPassword = "hallo";
 
   # Enable automatic discovery of the printer from other Linux systems with avahi running.
   # services.avahi.enable = true;

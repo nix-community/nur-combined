@@ -1,0 +1,11 @@
+session: tekst
+
+root: /home/pim/secondbrain
+
+stop:
+
+windows:
+  - name: tekst
+    layout: main-horizontal
+    commands:
+      - vim

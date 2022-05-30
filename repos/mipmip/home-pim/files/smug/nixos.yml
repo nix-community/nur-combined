@@ -1,0 +1,17 @@
+session: nixos
+root: "/home/pim/nixos"
+
+windows:
+  - name: nixos
+    commands:
+    - echo "NIXOS"
+
+  - name: switch
+    commands:
+    - echo "NIXOS"
+
+  - name: sync
+    layout: main-horizontal
+    commands:
+      - watch -n 10 git-sync -n
+

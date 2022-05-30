@@ -1,0 +1,15 @@
+session: ssh-killerberg
+
+windows:
+  - name: amy
+    commands:
+      - ssh pim@amy.node.snel.city
+  - name: cheetah
+    commands:
+      - ssh pim@cheetah.node.quiqr.org
+  - name: sailfish
+    commands:
+      - ssh pim@sailfish.node.quiqr.org
+  - name: slechtvalk
+    commands:
+      - ssh pim@slechtvalk.node.quiqr.org

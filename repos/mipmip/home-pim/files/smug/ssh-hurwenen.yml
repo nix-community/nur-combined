@@ -1,0 +1,6 @@
+session: ssh-poppygo
+
+windows:
+  - name: pihole
+    commands:
+      - ssh pim@192.168.13.16

@@ -1,0 +1,30 @@
+session: ssh-denbosch
+
+windows:
+  - name: schurk
+    commands:
+      - ssh pim@schurk.node.lingewoud.net
+  - name: droste
+    commands:
+      - ssh pim@droste.node.lingewoud.net
+  - name: xavier3
+    commands:
+      - ssh pim@xavier3.node.lingewoud.net
+  - name: ohmy
+    commands:
+      - ssh pim@ohmy.node.lingewoud.net
+  - name: blatter
+    commands:
+      - ssh pim@blatter.node.lingewoud.net
+  - name: volkert
+    commands:
+      - ssh pim@volkert.node.lingewoud.net
+  - name: bowie
+    commands:
+      - ssh pim@gitlab.brepi.eu
+  - name: xaviaar
+    commands:
+      - ssh pim@xaviaar.node.lingewoud.net
+  - name: valencia
+    commands:
+      - ssh pim@valencia.node.lingewoud.net

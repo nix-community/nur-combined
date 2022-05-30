@@ -1,0 +1,113 @@
+From bff176133618854676bbdc74c0099f184d3da365 Mon Sep 17 00:00:00 2001
+From: Steve Ward <planet36@gmail.com>
+Date: Sun, 31 May 2020 22:48:25 -0400
+Subject: [PATCH] Allow blinking cursor
+
+---
+ x.c          | 42 ++++++++++++++++++++++++++++++++----------
+ 2 files changed, 45 insertions(+), 16 deletions(-)
+
+diff --git a/x.c b/x.c
+index 210f184..bd80a5e 100644
+--- a/x.c	2021-06-27 00:57:21.262024559 +0200
++++ b/x.c	2021-06-27 01:06:18.595332899 +0200
+@@ -261,6 +261,7 @@ static char *opt_title = NULL;
+ static int focused = 0;
+ 
+ static int oldbutton = 3; /* button event on startup: 3 = release */
++static int cursorblinks = 0;
+ 
+ void
+ clipcopy(const Arg *dummy)
+@@ -1566,15 +1567,18 @@ xdrawcursor(int cx, int cy, Glyph g, int
+ 	/* draw the new one */
+ 	if (IS_SET(MODE_FOCUSED)) {
+ 		switch (win.cursor) {
+-		case 7: /* st extension */
+-			g.u = 0x2603; /* snowman (U+2603) */
++		case 0: /* Blinking block */
++		case 1: /* Blinking block (default) */
++			if (IS_SET(MODE_BLINK))
++				break;
+ 			/* FALLTHROUGH */
+-		case 0: /* Blinking Block */
+-		case 1: /* Blinking Block (Default) */
+ 		case 2: /* Steady Block */
+ 			xdrawglyph(g, cx, cy);
+ 			break;
+ 		case 3: /* Blinking Underline */
++			if (IS_SET(MODE_BLINK))
++				break;
++			/* FALLTHROUGH */
+ 		case 4: /* Steady Underline */
+ 			XftDrawRect(xw.draw, &drawcol,
+ 					win.hborderpx + cx * win.cw,
+@@ -1583,12 +1587,23 @@ xdrawcursor(int cx, int cy, Glyph g, int
+ 					win.cw, cursorthickness);
+ 			break;
+ 		case 5: /* Blinking bar */
++			if (IS_SET(MODE_BLINK))
++				break;
++			/* FALLTHROUGH */
+ 		case 6: /* Steady bar */
+ 			XftDrawRect(xw.draw, &drawcol,
+ 					win.hborderpx + cx * win.cw,
+ 					win.vborderpx + cy * win.ch,
+ 					cursorthickness, win.ch);
+ 			break;
++		case 7: /* Blinking st cursor */
++			if (IS_SET(MODE_BLINK))
++				break;
++			/* FALLTHROUGH */
++		case 8: /* Steady st cursor */
++			g.u = stcursor;
++			xdrawglyph(g, cx, cy);
++			break;
+ 		}
+ 	} else {
+ 		XftDrawRect(xw.draw, &drawcol,
+@@ -1730,9 +1745,12 @@ xsetmode(int set, unsigned int flags)
+ int
+ xsetcursor(int cursor)
+ {
+-	if (!BETWEEN(cursor, 0, 7)) /* 7: st extension */
++	if (!BETWEEN(cursor, 0, 8)) /* 7-8: st extensions */
+ 		return 1;
+ 	win.cursor = cursor;
++	cursorblinks = win.cursor == 0 || win.cursor == 1 ||
++	               win.cursor == 3 || win.cursor == 5 ||
++	               win.cursor == 7;
+ 	return 0;
+ }
+ 
+@@ -1986,6 +2004,10 @@ run(void)
+ 		if (FD_ISSET(ttyfd, &rfd) || xev) {
+ 			if (!drawing) {
+ 				trigger = now;
++				if (IS_SET(MODE_BLINK)) {
++					win.mode ^= MODE_BLINK;
++				}
++				lastblink = now;
+ 				drawing = 1;
+ 			}
+ 			timeout = (maxlatency - TIMEDIFF(now, trigger)) \
+@@ -1996,7 +2018,7 @@ run(void)
+ 
+ 		/* idle detected or maxlatency exhausted -> draw */
+ 		timeout = -1;
+-		if (blinktimeout && tattrset(ATTR_BLINK)) {
++		if (blinktimeout && (cursorblinks || tattrset(ATTR_BLINK))) {
+ 			timeout = blinktimeout - TIMEDIFF(now, lastblink);
+ 			if (timeout <= 0) {
+ 				if (-timeout > blinktimeout) /* start visible */
+@@ -2032,7 +2054,7 @@ main(int argc, char *argv[])
+ {
+ 	xw.l = xw.t = 0;
+ 	xw.isfixed = False;
+-	xsetcursor(cursorshape);
++	xsetcursor(cursorstyle);
+ 
+ 	ARGBEGIN {
+ 	case 'a':
+-- 
+2.20.1

@@ -1,4 +1,0 @@
-tmux display-message -p #S
-tmux list-windows -F #{window_id};#{window_name};#{window_layout};#{pane_current_path} -t 
-tmux list-panes -F #{pane_current_path} -t :@7
-tmux list-panes -F #{pane_current_path} -t :@8

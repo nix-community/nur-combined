@@ -1,0 +1,19 @@
+session: pogorun
+
+root: ~/cPoppyGo/poppygo-electron-app
+
+before_start:
+
+stop:
+
+windows:
+  - name: pogorun
+    layout: main-horizontal
+    commands:
+      - nix-shell
+      - npm run _electron-dev
+    panes:
+      - type: horizontal
+        commands:
+          - nix-shell
+          - npm run _react-dev

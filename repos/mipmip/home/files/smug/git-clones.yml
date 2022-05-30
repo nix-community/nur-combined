@@ -1,7 +1,0 @@
-session: git-clones
-root: "/home/pim/cClones/"
-before_start: []
-stop: []
-windows:
-- name: void-packages
-  root: /home/pim/cClones/void-packages

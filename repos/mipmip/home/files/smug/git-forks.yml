@@ -1,7 +1,0 @@
-session: git-forks
-root: "/home/pim/cForks/"
-before_start: []
-stop: []
-windows:
-- name: void-packages
-  root: /home/pim/cClones/void-packages

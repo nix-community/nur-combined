@@ -1,7 +1,0 @@
-session: rise
-root: ""
-before_start: []
-stop: []
-windows:
-- name: zsh
-  root: /home/pim

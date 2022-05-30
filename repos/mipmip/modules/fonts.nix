@@ -2,8 +2,9 @@
 
 {
   environment.systemPackages = with pkgs; [
-      awesome
-      dejavu_fonts
+    meslo-lg
+    awesome
+    dejavu_fonts
   ];
 
 }

@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Launchers",
+        "shortcuts": [
+            {
+                "key": "Super + Enter",
+                "description": "Open Terminal"
+            },
+            {
+                "key": "Shift + Super + B",
+                "description": "Open Firefox"
+            },
+            {
+                "key": "Shift + Super + F",
+                "description": "Open Files"
+            },
+            {
+                "key": "CTRL + Super + 4",
+                "description": "Open Screenshot"
+            },
+            {
+                "key": "Shift + Super + 1",
+                "description": "Open Tempo"
+            }
+        ]
+    },
+    {
+        "name": "Inkscape Shortcuts",
+        "shortcuts": [
+            {
+                "key": "S",
+                "description": "Select object"
+            },
+            {
+                "key": "N",
+                "description": "Select nodes"
+            },
+            {
+                "key": "Shift + CTRL + D",
+                "description": "Document Properties"
+            },
+            {
+                "key": "Shift + CTRL + E",
+                "description": "Export to PNG"
+            },
+            {
+                "key": "Shift + CTRL + N",
+                "description": "New layer"
+            },
+            {
+                "key": "CTRL + M",
+                "description": "Move selection to layer"
+            }
+        ]
+    },
+    {
+        "name": "Tmux",
+        "shortcuts": [
+            {
+                "key": "Prefix u",
+                "description": "Urlview"
+            }
+        ]
+    },
+    {
+        "name": "Gimp Shortcuts",
+        "shortcuts": [
+            {
+                "key": "R",
+                "description": "Select rectangle"
+            },
+            {
+                "key": "U",
+                "description": "Magic selection"
+            },
+            {
+                "key": "Shift + C",
+                "description": "Crop tool"
+            }
+        ]
+    }
+]

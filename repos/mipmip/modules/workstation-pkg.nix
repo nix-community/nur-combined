@@ -2,20 +2,25 @@
 
 {
 
+
   environment.systemPackages = with pkgs; [
     potrace
     weechat
     pandoc
     neofetch
-    neovim
+    unstable.neovim
     ffmpeg
     alacritty
     go
+    gox
+    goreleaser
 
     hugo # needed for linny
     mipmip_pkg.fred # needed for linny
 
     vimHugeX
+    #vim_configurable
+
     gitFull
   ]
 
@@ -23,17 +28,21 @@
      iterm2
   ]
   else [
+    zathura
+    x264
+
     docker
+    docker-compose
     nextcloud-client
     gimp
-    inkscape
+    unstable.inkscape-with-extensions
     blender
     libreoffice
     spotify
-    tdesktop
+    unstable.tdesktop
     keepassxc
-    firefox
 
+    gthumb
     peek
     cinnamon.nemo
     evolution
@@ -43,7 +52,12 @@
     gnome.gnome-tweaks
     baobab # GrandPerspective
     appimage-run
+    #unstable.gnome.gpaste
     gnome.gpaste
+    glib.dev
+    glade
+
+    whatsapp-for-linux
   ]);
 
 }

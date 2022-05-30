@@ -1,0 +1,4 @@
+session: lobby
+windows:
+- name: zsh
+  root: /home/pim

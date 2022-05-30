@@ -1,0 +1,19 @@
+session: quiqr-run
+
+root: ~/cQuiqr/quiqr-desktop
+
+before_start:
+
+stop:
+
+windows:
+  - name: runquiqr
+    layout: main-horizontal
+    commands:
+      - nix-shell
+      - npm run _electron-dev
+    panes:
+      - type: horizontal
+        commands:
+          - nix-shell
+          - npm run _react-dev

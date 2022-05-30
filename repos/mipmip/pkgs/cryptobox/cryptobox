@@ -1,0 +1,265 @@
+#!/usr/bin/env bash
+
+#
+# CryptoBox
+#
+# A script that makes it easy to create, mount
+# and unmount encrypted images in Linux using LUKS
+#
+# Written by Kevin MacMartin
+#
+# Released under the MIT license
+#
+
+[[ -t 1 ]] && {
+    c_d=$'\e[1;30m'   # DARK GREY
+    c_r=$'\e[1;31m'   # RED
+    c_g=$'\e[1;32m'   # GREEN
+    c_y=$'\e[1;33m'   # YELLOW
+    c_b=$'\e[1;34m'   # BLUE
+    c_m=$'\e[1;35m'   # VIOLET
+    c_t=$'\e[1;36m'   # TEAL
+    c_w=$'\e[1;37m'   # WHITE
+    c_u=$'\e[1;4;37m' # UNDERLINE WHITE
+    c_h=$'\e[1;41m'   # HIGHLIGHT RED
+    c_c=$'\e[0m'      # DISABLES COLOUR
+}
+
+# The name of the script
+scriptname="${0/*\/}"
+
+# Display uage information
+function usage {
+    printf '%s\n\n' "${c_w}Create, mount and unmount encrypted images${c_c}"
+    printf '%s\n' "${c_w}Usage:${c_c}"
+    printf ' %s\n' "${c_y}create${c_w}: ${c_m}c${c_w}|${c_m}-c${c_w}|${c_m}--create${c_c}   ${c_w}$scriptname${c_c} ${c_m}c${c_c} [${c_b}filename${c_c}] [${c_g}filesystem${c_c}] [${c_t}size-in-mb${c_c}]"
+    printf ' %s\n' "${c_y}mount${c_w}:  ${c_m}m${c_w}|${c_m}-m${c_w}|${c_m}--mount${c_c}    ${c_w}$scriptname${c_c} ${c_m}m${c_c} [${c_b}filename${c_c}] [${c_r}mountpoint${c_c}]"
+    printf ' %s\n' "${c_y}umount${c_w}: ${c_m}u${c_w}|${c_m}-u${c_w}|${c_m}--unmount${c_c}  ${c_w}$scriptname${c_c} ${c_m}u${c_c} [${c_r}mountpoint${c_c}]"
+    printf ' %s\n' "${c_y}help${c_w}:   ${c_m}h${c_w}|${c_m}-h${c_w}|${c_m}--help${c_c}     ${c_w}$scriptname${c_c} ${c_m}h${c_c}"
+    exit "$1"
+}
+
+# Exit with a nicely formatted error
+function error_exit {
+    printf '%s\n' "${c_r}Error${c_c}: ${c_w}$1${c_c}" >&2
+    exit 1
+}
+
+function luks_open {
+    loopdev="$1"
+    container="$2"
+
+    # Decrypt the image so we can use it
+    while (( 1 )); do
+        if cryptsetup luksOpen "$loopdev" "$container"; then
+            break
+        else
+            printf '%s' "${c_w}Failed to decrypt ${c_m}$container${c_w}, press return to try again or ctrl+c to exit$c_c"
+            read -r
+        fi
+    done
+}
+
+function luks_close {
+    loopdev="$1"
+    container="$2"
+
+    # Close the encrypted device
+    cryptsetup luksClose "$container" || error_exit "Unable to close the decrypted device for ${c_m}$container"
+    sleep 1
+
+    # Close the loop device
+    losetup -d "$loopdev" || error_exit "Unable to close the loop device ${c_m}$loopdev"
+}
+
+function create_image {
+    # Exit with an error if exactly 3 arguments haven't been given
+    [[ -n "$3" && -z "$4" ]] || error_exit 'Incorrect number of arguments for the create command'
+
+    # Store the provided arguments as named variables so they're easier to keep track of
+    filename="$1"
+    filesystem="$2"
+    size="$3"
+
+    # Exit with an error if the image file already exists
+    [[ ! -e "$filename" ]] || error_exit "$filename already exists"
+
+    # Exit with an error if the filesystem isn't available
+    mkfs_binaries=("$(type -P mkfs)".*)
+    grep -q mkfs."$filesystem" <<< "${mkfs_binaries[*]}" || error_exit "The filesystem ${c_m}$filesystem${c_w} is not available"
+
+    # Exit with an error if size isn't a number
+    [[ "$size" =~ ^[0-9]*$ ]] || error_exit 'The argument for the size is not a number'
+
+    # Exit with an error if size is less than 18
+    (( size >= 18 )) || error_exit 'The size of the image must be 18 megabytes or larger'
+
+    # Retrieve the first unused loop device name
+    loopdev=$(losetup -f)
+
+    # Retrieve an appropriate name for the container
+    container="${loopdev/*\/}"
+
+    # Exit with an error if a container already exists with this name
+    [[ ! -e "/dev/mapper/$container" ]] || error_exit "A container already exists at ${c_m}/dev/mapper/$container"
+
+    # Create the image file at the requested size and filled with random data
+    dd bs=1M count="$size" if=/dev/urandom of="$filename" || error_exit "Unable to create ${c_m}$filename"
+
+    # Setup the loop device
+    losetup "$loopdev" "$filename" || error_exit "Unable to connect ${c_m}$filename${c_w} to the loop device ${c_m}$loopdev"
+
+    # Initialize encryption on the image
+    while (( 1 )); do
+        if cryptsetup -c aes-xts-plain64 --pbkdf argon2id -y -s 512 luksFormat "$loopdev"; then
+            break
+        else
+            printf '%s' "${c_w}Failed to encrypt the image, press return to try again or ctrl+c to exit$c_c"
+            read -r
+        fi
+    done
+
+    # Decrypt the image so we can use it
+    luks_open "$loopdev" "$container"
+
+    # Initialize the target filesystem on the device
+    mkfs -t "$filesystem" "/dev/mapper/${container}" || error_exit "Unable to create the ${c_m}$filesystem${c_w} filesystem"
+    sync
+
+    # Close the decrypted image
+    luks_close "$loopdev" "$container"
+}
+
+function mount_image {
+    # Exit with an error if exactly 3 arguments haven't been given
+    [[ -n "$2" && -z "$3" ]] || error_exit 'Incorrect number of arguments for the create command'
+
+    # Store the provided arguments as named variables so they're easier to keep track of
+    filename="$1"
+    mountpoint="$2"
+
+    # Exit with an error if either the image file or mount point do not exist
+    [[ ! -e "$filename" ]] && error_exit "${c_m}$filename${c_w} does not exist"
+    [[ -e "$mountpoint" ]] || error_exit "${c_m}$mountpoint${c_w} does not exist"
+    [[ -d "$mountpoint" ]] || error_exit "${c_m}$mountpoint${c_w} is not a directory"
+
+    # Retrieve the first unused loop device name
+    loopdev=$(losetup -f)
+
+    # Retrieve an appropriate name for the container
+    container="${loopdev/*\/}"
+
+    # Exit with an error if a container already exists with this name
+    [[ ! -e "/dev/mapper/$container" ]] || error_exit "A container already exists at ${c_m}/dev/mapper/$container"
+
+    # Setup the loop device
+    losetup "$loopdev" "$filename" || error_exit "Unable to connect ${c_m}$filename${c_w} to the loop device ${c_m}$loopdev${c_w}"
+
+    # Decrypt the image so we can use it
+    luks_open "$loopdev" "$container"
+
+    # Mount the mapped decrypted image
+    mount "/dev/mapper/$container" "$mountpoint" || error_exit "Unable to mount ${c_m}/dev/mapper/${container}${c_w} on ${c_m}$mountpoint"
+}
+
+function unmount_image {
+    # Exit with an error if exactly 3 arguments haven't been given
+    [[ -n "$1" && -z "$2" ]] || error_exit 'Incorrect number of arguments for the create command'
+
+    # Store the the absolute path of the mount point
+    mountpoint="$(readlink -f "$1")"
+
+    # Exit with an error if the mount point does not exist or isn't a directory
+    [[ -e "$mountpoint" ]] || error_exit "${c_m}$mountpoint${c_w} does not exist"
+    [[ -d "$mountpoint" ]] || error_exit "${c_m}$mountpoint${c_w} is not a directory"
+
+    # Check the list of mounts for the mount point
+    mount=$(grep "$mountpoint" /proc/mounts)
+
+    # Exit with an error if the mount point isn't in the list of mounts
+    [[ -n "$mount" ]] || error_exit "${c_m}$mountpoint${c_w} is not mounted"
+
+    # Retrieve the name of the container
+    container_path="${mount/ *}"
+
+    # Retrieve the loop device associated with the mount
+    loopdev="${container_path/*\//\/dev\/}"
+
+    # Exit with an error if the container_path doesn't exist
+    [[ -e "$container_path" ]] || error_exit "The mount does not appear to be a decrypted container"
+
+    # Unmount the mount point
+    umount "$mountpoint" || error_exit "Unable to unmount ${c_m}$mountpoint"
+
+    # Close the decrypted image
+    luks_close "$loopdev" "${container_path/*\/}"
+}
+
+# Exit with an error on ctrl-c
+trap 'error_exit "$scriptname has been killed"' SIGINT SIGQUIT
+
+# Check for root
+(( UID == 0 )) || error_exit 'Must be run with root permissions'
+
+# Dependencies
+deps=('dd' 'losetup' 'cryptsetup' 'mkfs')
+
+# Check for missing dependencies
+declare -a missing_deps=()
+
+for dep in "${deps[@]}"; do
+    type -P "$dep" >/dev/null \
+        || missing_deps=( "${missing_deps[@]}" "$dep" )
+done
+
+[[ -n "${missing_deps[*]}" ]] && {
+    error_exit "${c_w}missing dependencies ($(
+        for (( x=0; x < ${#missing_deps[@]}; x++ )); do
+            printf '%s' "$c_m${missing_deps[$x]}$c_c"
+            (( (( x + 1 )) < ${#missing_deps[@]} )) && printf '%s' ', '
+        done
+    )$c_w)"
+}
+
+# Load the required modules if not already available
+modules=('loop' 'dm_mod')
+
+for module in "${modules[@]}"; do
+    modinfo "$module" >/dev/null 2>&1 || {
+        printf '%s ' "${c_w}Loading module: ${c_m}$module${c_w}..."
+
+        if modprobe "$module" >/dev/null 2>&1; then
+            printf '%s\n' "${c_g}done!${c_c}"
+        else
+            printf '%s\n' "${c_r}failed!${c_c}"
+            error_exit "Unable to load module ${c_m}$module"
+        fi
+    }
+done
+
+# Store the option and then drop it from the list of arguments
+option="$1"
+shift
+
+# Run the appropriate function based on the provided option
+case "$option" in
+    c|-c|--create)
+        create_image "$@"
+        ;;
+
+    m|-m|--mount)
+        mount_image "$@"
+        ;;
+
+    u|-u|--unmount)
+        unmount_image "$@"
+        ;;
+
+    h|-h|--help)
+        usage 0
+        ;;
+
+    *)
+        usage 1
+        ;;
+esac

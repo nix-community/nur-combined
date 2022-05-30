@@ -1,0 +1,15 @@
+session: ssh-poppygo
+
+windows:
+  - name: maanzaad
+    commands:
+      - ssh pim@maanzaad.node.poppygo.io
+  - name: opium
+    commands:
+      - ssh pim@opium.node.poppygo.io
+  - name: pogosite.com
+    commands:
+      - ssh -i ~/.ssh/terraform ubuntu@pogosite.com
+  - name: valencia
+    commands:
+      - ssh pim@valencia.node.lingewoud.net

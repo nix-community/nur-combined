@@ -1,0 +1,20 @@
+session: doen
+
+root: /home/pim/secondbrain
+
+stop:
+
+windows:
+  - name: doen
+    layout: main-horizontal
+    commands:
+      - vim
+  - name: sync
+    layout: main-horizontal
+    commands:
+      - watch -n 10 git-sync -n
+    panes:
+      - type: horizontal
+        commands:
+          - hugo server --renderToDisk --ignoreCache --forceSyncStatic --cleanDestinationDir --disableFastRender -e private -p 1314
+

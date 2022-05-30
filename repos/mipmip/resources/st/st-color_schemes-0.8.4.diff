@@ -1,0 +1,161 @@
+From 38a5bf5be05b28c8b258a151bc8bf35ea261395e Mon Sep 17 00:00:00 2001
+From: Pim Snel <post@pimsnel.com>
+Date: Sun, 2 Jan 2022 19:11:16 +0100
+Subject: [PATCH] update patch for st version 0.8.4
+
+---
+ config.def.h | 51 +++++++++++++++++++++------------------------------
+ x.c          | 32 +++++++++++++-------------------
+ 2 files changed, 34 insertions(+), 49 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 6f05dce..f980733 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -93,44 +93,25 @@ char *termname = "st-256color";
+  */
+ unsigned int tabspaces = 8;
+ 
+-/* Terminal colors (16 first used in escape sequence) */
+-static const char *colorname[] = {
+-	/* 8 normal colors */
+-	"black",
+-	"red3",
+-	"green3",
+-	"yellow3",
+-	"blue2",
+-	"magenta3",
+-	"cyan3",
+-	"gray90",
+-
+-	/* 8 bright colors */
+-	"gray50",
+-	"red",
+-	"green",
+-	"yellow",
+-	"#5c5cff",
+-	"magenta",
+-	"cyan",
+-	"white",
+-
+-	[255] = 0,
+-
+-	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
+-	"#555555",
++/* Terminal colors (16 used in escape sequence) */
++static const char *palettes[][16] = {
++  {"black", "red3", "green3", "yellow3", "blue2", "magenta3", "cyan3", "gray90", "gray50", "red", "green", "yellow", "#5c5cff", "magenta", "cyan", "white"},
++  {"#223", "#900", "#080", "#fe7", "#35e", "#fc5", "#18e", "#aaa", "#666", "#f25", "#0b0", "#ff6", "#46f", "#d6a", "#6bf", "#ddd"},
++  {"#ffffff", "#b7141f", "#457b24", "#fc7b08", "#134eb2", "#560088", "#0e717c", "#777777", "#424242", "#e83b3f", "#7aba3a", "#fd8e09", "#54a4f3", "#aa4dbc", "#26bbd1", "#aaaaaa"},
++  {"#20242d", "#b04b57", "#87b379", "#e5c179", "#7d8fa4", "#a47996", "#85a7a5", "#b3b8c3", "#000000", "#b04b57", "#87b379", "#e5c179", "#7d8fa4", "#a47996", "#85a7a5", "#ffffff"},
+ };
+ 
++static const char **colorname;
++
+ 
+ /*
+  * Default colors (colorname index)
+  * foreground, background, cursor, reverse cursor
+  */
+-unsigned int defaultfg = 7;
++unsigned int defaultfg = 5;
+ unsigned int defaultbg = 0;
+-static unsigned int defaultcs = 256;
+-static unsigned int defaultrcs = 257;
++static unsigned int defaultcs = 5;
++static unsigned int defaultrcs = 5;
+ 
+ /*
+  * Default shape of cursor
+@@ -199,6 +180,16 @@ static Shortcut shortcuts[] = {
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
++  { ControlMask,     XK_F1,          setpalette,     {.i =  0} },
++  { ControlMask,     XK_F2,          setpalette,     {.i =  1} },
++  { ControlMask,     XK_F3,          setpalette,     {.i =  2} },
++  { ControlMask,     XK_F4,          setpalette,     {.i =  3} },
++  { ControlMask,     XK_F5,          setpalette,     {.i =  4} },
++  { ControlMask,     XK_F6,          setpalette,     {.i =  5} },
++  { ControlMask,     XK_F7,          setpalette,     {.i =  6} },
++  { ControlMask,     XK_F8,          setpalette,     {.i =  7} },
++  { ControlMask,     XK_F9,          setpalette,     {.i =  8} },
++
+ };
+ 
+ /*
+diff --git a/x.c b/x.c
+index 89786b8..36dfede 100644
+--- a/x.c
++++ b/x.c
+@@ -58,6 +58,7 @@ static void selpaste(const Arg *);
+ static void zoom(const Arg *);
+ static void zoomabs(const Arg *);
+ static void zoomreset(const Arg *);
++static void setpalette(const Arg *);
+ static void ttysend(const Arg *);
+ 
+ /* config.h for applying patches and the configuration. */
+@@ -753,24 +754,7 @@ sixd_to_16bit(int x)
+ int
+ xloadcolor(int i, const char *name, Color *ncolor)
+ {
+-	XRenderColor color = { .alpha = 0xffff };
+-
+-	if (!name) {
+-		if (BETWEEN(i, 16, 255)) { /* 256 color */
+-			if (i < 6*6*6+16) { /* same colors as xterm */
+-				color.red   = sixd_to_16bit( ((i-16)/36)%6 );
+-				color.green = sixd_to_16bit( ((i-16)/6) %6 );
+-				color.blue  = sixd_to_16bit( ((i-16)/1) %6 );
+-			} else { /* greyscale */
+-				color.red = 0x0808 + 0x0a0a * (i - (6*6*6+16));
+-				color.green = color.blue = color.red;
+-			}
+-			return XftColorAllocValue(xw.dpy, xw.vis,
+-			                          xw.cmap, &color, ncolor);
+-		} else
+-			name = colorname[i];
+-	}
+-
++  if (!name)  name = colorname[i];
+ 	return XftColorAllocName(xw.dpy, xw.vis, xw.cmap, name, ncolor);
+ }
+ 
+@@ -785,7 +769,7 @@ xloadcols(void)
+ 		for (cp = dc.col; cp < &dc.col[dc.collen]; ++cp)
+ 			XftColorFree(xw.dpy, xw.vis, xw.cmap, cp);
+ 	} else {
+-		dc.collen = MAX(LEN(colorname), 256);
++    dc.collen = 16;
+ 		dc.col = xmalloc(dc.collen * sizeof(Color));
+ 	}
+ 
+@@ -1995,6 +1979,15 @@ usage(void)
+ 	    " [stty_args ...]\n", argv0, argv0);
+ }
+ 
++void setpalette(const Arg *arg) {
++
++  if ( arg->i < LEN(palettes) )   {
++    colorname = palettes[arg->i];
++    xloadcols();
++    cresize(win.w, win.h);
++  }
++}
++
+ int
+ main(int argc, char *argv[])
+ {
+@@ -2053,6 +2046,7 @@ run:
+ 	if (!opt_title)
+ 		opt_title = (opt_line || !opt_cmd) ? "st" : opt_cmd[0];
+ 
++  colorname = palettes[0];
+ 	setlocale(LC_CTYPE, "");
+ 	XSetLocaleModifiers("");
+ 	cols = MAX(cols, 1);
+-- 
+2.31.1
+

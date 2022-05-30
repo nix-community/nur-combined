@@ -5,14 +5,23 @@
     htop
     silver-searcher
     fzf
+    bat
     apg
     glow
     mipmip_pkg.smug
     ctags
     git-lfs
+    sc-im
     jq
+    yj
     imagemagick
-    python3
+    python3Full
+    python3Packages.pip
+    python3Packages.setuptools
+    openssl
+    direnv
+    zip
+    unzip
   ]
   ++ (if pkgs.stdenv.isDarwin then
   [
@@ -20,6 +29,7 @@
   ]
   else
   [
+    telnet
     vifm
     wtf
     binutils
@@ -29,10 +39,10 @@
     rake
     bind.dnsutils
     psmisc
-    util-linux
     file
     pkg-config
     whois
+    xorg.xkill
   ]
   );
 }
