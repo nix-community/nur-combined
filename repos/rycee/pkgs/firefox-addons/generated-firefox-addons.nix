@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.7.0.0";
+      version = "2.7.1.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3952606/bypass_paywalls_clean-2.7.0.0.xpi";
-      sha256 = "bdc7a96e1f22d9d10b7447691f6a432502f05df92b6e99b443a107c8549270cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3955420/bypass_paywalls_clean-2.7.1.0.xpi";
+      sha256 = "806dd295de8a882fcb9a7f12d9a422c291743e4bd8c9bdf4123c01d045d270b6";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1051,10 +1051,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.27";
+      version = "2.6.28";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942962/localcdn_fork_of_decentraleyes-2.6.27.xpi";
-      sha256 = "1f3356461151f37d7f4a1d89915de9b035500edc1206caf038c59780758ac12b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3955239/localcdn_fork_of_decentraleyes-2.6.28.xpi";
+      sha256 = "446273b889bda7cac67577a91009204495427732722b1beb7c3986943c000c92";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
