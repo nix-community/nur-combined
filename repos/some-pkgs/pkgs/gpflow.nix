@@ -3,30 +3,28 @@
 , buildPythonPackage
 , fetchFromGitHub
 , tensorflow
-, tensorflow-probability_8_0
+, tensorflow-probability
 , numpy
 , scipy
 , deprecated
+, lark
+, multipledispatch
 , typing-extensions
 , tabulate
-, multipledispatch
-, setuptools
-, wheel
-, build
 , keras
-, jupytext
+, packaging
 , pytestCheckHook
-, nbconvert
+, gpflow
 }:
 buildPythonPackage rec {
   pname = "GPflow";
-  version = "2.3.1";
+  version = "2.5.2";
 
   src = fetchFromGitHub {
     owner = "GPflow";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-YOZ1S25VED6RVsylPv8Gh8iWoj0OIyPhn+KIK560HiU=";
+    hash = "sha256-0ga8GcW5YZ26WQrHslYPBEmTm/J6OZcc6nKG4F2FCTs=";
   };
   postPatch = ''
     sed -i '/tensorflow>=/d' setup.py
@@ -34,22 +32,18 @@ buildPythonPackage rec {
 
   buildInputs = [
     tensorflow
-    tensorflow-probability_8_0
-    # jupytext
+    tensorflow-probability
   ];
   propagatedBuildInputs = [
     keras
     numpy
     scipy
     deprecated
+    lark
+    multipledispatch
+    packaging
     typing-extensions
     tabulate
-    multipledispatch
-  ];
-  nativeBuildInputs = [
-    setuptools
-    wheel
-    build
   ];
 
   disabledTests = [
@@ -61,11 +55,11 @@ buildPythonPackage rec {
   ];
   checkInputs = [
     pytestCheckHook
-    # nbconvert
   ];
   pythonImportsCheck = [ "gpflow" ];
 
-  doCheck = true;
+  doCheck = false;
+  passthru.tests.check = gpflow.overridePythonAttrs (_: { doCheck = true; });
 
   meta = {
     maintainers = [ lib.maintainers.SomeoneSerge ];

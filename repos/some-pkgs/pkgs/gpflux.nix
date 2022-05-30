@@ -2,26 +2,27 @@
 , buildPythonPackage
 , fetchFromGitHub
 , tensorflow
-, tensorflow-probability_8_0
+, tensorflow-probability
 , deprecated
 , numpy
 , scipy
 , gpflow
 , pytestCheckHook
-, nbconvert
-, jupytext
+, pytest-mock
+, pytest-cov
+, pytest-random-order
 , matplotlib
 , tqdm
 }:
 buildPythonPackage rec {
   pname = "GPflux";
-  version = "0.2.7";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "secondmind-labs";
     repo = pname;
-    rev = "744943768bc5ab79027adad9f04bd61a7b2d42a8";
-    sha256 = "sha256-rrlx/D9S5ZjFUh8ltQYZv688GAkgFwq2lkPHi2b87+o=";
+    rev = "v${version}";
+    hash = "sha256-y9GJIk0ZpyvJfcnLGCm4Ofdqkfmy1ko6TYqM8l9A1Fg=";
   };
   postPatch = ''
     # sed -i 's/tensorflow>/${builtins.replaceStrings ["-"] ["_"] tensorflow.pname}>/' setup.py
@@ -30,8 +31,7 @@ buildPythonPackage rec {
 
   buildInputs = [
     tensorflow
-    tensorflow-probability_8_0
-    # jupytext
+    tensorflow-probability
   ];
 
   propagatedBuildInputs = [
@@ -44,11 +44,17 @@ buildPythonPackage rec {
     tqdm
     matplotlib
     pytestCheckHook
-    # nbconvert
+    pytest-mock
+    pytest-cov
+    pytest-random-order
   ];
 
   disabledTestPaths = [
     "tests/test_notebooks.py"
+  ];
+
+  pytestFlagsArray = [
+    "--exitfirst"
   ];
 
   pythonImportsCheck = [
@@ -62,6 +68,5 @@ buildPythonPackage rec {
     description = "Deep Gaussian processes built on top of TensorFlow/Keras and GPflow";
     homepage = "https://secondmind-labs.github.io/GPflux/";
     platforms = lib.platforms.unix;
-    broken = true; # some inconsistency with keras, I guess
   };
 }
