@@ -78,6 +78,10 @@ src.git = "https://github.com/open-quantum-safe/openssl.git"
 src.branch = "OQS-OpenSSL_1_1_1-stable"
 fetch.github = "open-quantum-safe/openssl"
 
+[openssl-oqs-provider]
+src.git = "https://github.com/open-quantum-safe/oqs-provider.git"
+fetch.github = "open-quantum-safe/oqs-provider"
+
 [osdlyrics]
 src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"

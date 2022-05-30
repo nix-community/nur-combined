@@ -62,9 +62,7 @@ rec {
     linux-xanmod-lantian = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { });
     linux-xanmod-lantian-config = ifNotCI lantianCustomized.linux-xanmod-lantian.configfile;
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
-    openresty = pkg ./lantian-customized/openresty {
-      inherit liboqs openssl-oqs;
-    };
+    openresty = pkg ./lantian-customized/openresty { };
   };
   lantianPersonal = pkgs.recurseIntoAttrs {
     # Personal packages with no intention to be used by others
@@ -112,6 +110,9 @@ rec {
   openssl-oqs = pkg ./openssl-oqs {
     inherit liboqs;
     cryptodev = pkgs.linuxPackages.cryptodev;
+  };
+  openssl-oqs-provider = pkg ./openssl-oqs-provider {
+    inherit liboqs;
   };
   osdlyrics = pkg ./osdlyrics { };
   phpmyadmin = pkg ./phpmyadmin { };

@@ -11,8 +11,7 @@
 , gd
 , zstd
 , perl
-, liboqs
-, openssl-oqs
+, openssl_3_0
 , libxcrypt
 , modules ? [ ]
 , ...
@@ -60,8 +59,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    liboqs
-    openssl-oqs
+    openssl_3_0
     libxcrypt
 
     zlib
