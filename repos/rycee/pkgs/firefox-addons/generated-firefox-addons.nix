@@ -154,10 +154,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.28";
+      version = "7.4.29";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3952696/betterttv-7.4.28.xpi";
-      sha256 = "a3f0a4f625f7d2727b8e4a3a4191f793a4b89c83c8c094165bdcba77d37942d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3955205/betterttv-7.4.29.xpi";
+      sha256 = "07dd5b43d42ba5e7be0bea7c8eebffc5e835e5b241ec23c49d2bbf9485ac855c";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -317,7 +317,7 @@
       sha256 = "f0ebe316b8388026ecbaaddb41514d8aad7b1cd3ff737d4cee020a2994ae632c";
       meta = with lib;
       {
-        homepage = "https://github.com/cavi-au/Consent-O-Matic";
+        homepage = "https://consentomatic.au.dk/";
         description = "Automatic handling of GDPR consent forms";
         license = licenses.mit;
         platforms = platforms.all;
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0buildid20220526.203855";
+      version = "102.0buildid20220530.132252";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954520/francais_language_pack-101.0buildid20220526.203855.xpi";
-      sha256 = "0a6063001ab6e89b92dbcfa8d1da4d18e11c4e61a5c20f38b0b8aeab89ec36b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3955748/francais_language_pack-102.0buildid20220530.132252.xpi";
+      sha256 = "047afd390fa86e620751e8ca1d6aef56995c06ce4517da7dcd6a6fabaab89e47";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1253,10 +1253,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.5";
+      version = "11.4.6";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3937112/noscript-11.4.5.xpi";
-      sha256 = "2a43901bfdb9250d30b805e77acd9a344ba557bc325ad6fc4f95c80cba21b840";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954910/noscript-11.4.6.xpi";
+      sha256 = "5f917e54a52d7269959976ebb6eb41f1a14c047c30d5f7bd6a401fe4126f0b3a";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2386,10 +2386,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.2";
+      version = "3.4.3";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3951017/windscribe-3.4.2.xpi";
-      sha256 = "4802160ca1a4deb4522c081d99e3174820a70fcc920bc35756ed8a8530f00513";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956010/windscribe-3.4.3.xpi";
+      sha256 = "09f16bf5071a92c0cdbe59e136bc19ae000a399a1af3df64d8604adb1b23544f";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
