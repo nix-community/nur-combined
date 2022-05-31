@@ -13,6 +13,7 @@
     gpg.pinentry = "gtk2";
     # Machine specific packages
     packages.additionalPackages = with pkgs; [
+      element-desktop # Matrix client
       jellyfin-media-player # Wraps the webui and mpv together
       pavucontrol # Audio mixer GUI
       quasselClient # IRC client

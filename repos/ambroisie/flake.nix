@@ -117,6 +117,7 @@
       rec {
         apps = {
           diff-flake = futils.lib.mkApp { drv = packages.diff-flake; };
+          default = apps.diff-flake;
         };
 
         checks = {
@@ -134,8 +135,6 @@
             };
           };
         };
-
-        defaultApp = apps.diff-flake;
 
         devShells = {
           default = pkgs.mkShell {

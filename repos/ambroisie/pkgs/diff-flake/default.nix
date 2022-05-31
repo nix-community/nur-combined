@@ -1,7 +1,7 @@
 { lib, coreutils, git, gnused, makeWrapper, shellcheck, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "diff-flake";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = ./diff-flake;
 

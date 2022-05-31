@@ -28,7 +28,7 @@ add_shell() {
         SYSTEM="$(nix eval --raw --impure --expr 'builtins.currentSystem')"
     fi
     # Use 'inputDerivation' attribute to make sure that it is build-able
-    FLAKE_OUTPUTS+=("devShell.$SYSTEM.inputDerivation")
+    FLAKE_OUTPUTS+=("devShells.$SYSTEM.default.inputDerivation")
 }
 
 add_host() {
