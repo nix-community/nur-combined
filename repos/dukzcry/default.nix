@@ -48,6 +48,7 @@ in rec {
   tun2socks = pkgs.callPackage ./pkgs/tun2socks.nix {};
   cockpit = pkgs.callPackage ./pkgs/cockpit {};
   cockpit-machines = pkgs.callPackage ./pkgs/cockpit/machines.nix {};
+  cockpit-client = cockpit.override { client = true; };
   libvirt-dbus = pkgs.callPackage ./pkgs/libvirt-dbus.nix {};
   sunshine = pkgs.callPackage ./pkgs/sunshine.nix {};
 }

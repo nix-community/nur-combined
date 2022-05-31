@@ -19,8 +19,8 @@ in {
       services.gnome.gnome-keyring.enable = true;
       environment = {
         systemPackages = with pkgs; [
-          gnome3.networkmanagerapplet remmina
-          skype zoom-us mattermost-desktop
+          networkmanagerapplet remmina
+          skypeforlinux zoom-us mattermost-desktop
         ];
       };
     })

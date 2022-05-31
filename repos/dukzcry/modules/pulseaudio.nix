@@ -3,7 +3,16 @@
 with lib;
 let
   cfg = config.programs.pulseaudio;
-  package = pkgs.nur.repos.dukzcry.pulseaudio;
+  pulseaudio = pkgs.pulseaudioFull.overrideAttrs (oldAttrs: {
+    preConfigure = ''
+      # Disable PA_BLUETOOTH_UUID_A2DP_SINK
+      #substituteInPlace src/modules/bluetooth/bluez5-util.h \
+      #  --replace "0000110b-0000-1000-8000-00805f9b34fb" "0000110b-0000-1000-8000-00805f9b34fc"
+      # Disable output for PA_BLUETOOTH_PROFILE_HFP_HF
+      substituteInPlace src/modules/bluetooth/module-bluez5-device.c \
+        --replace "[PA_BLUETOOTH_PROFILE_HFP_HF] = PA_DIRECTION_INPUT | PA_DIRECTION_OUTPUT" "[PA_BLUETOOTH_PROFILE_HFP_HF] = PA_DIRECTION_INPUT"
+    '';
+  });
 in {
   options.programs.pulseaudio = {
     enable = mkEnableOption ''
@@ -24,6 +33,6 @@ in {
     #  sed -e 's/module-udev-detect$/module-udev-detect tsched=0/' \
     #    ${package}/etc/pulse/default.pa > $out
     #'';
-    hardware.pulseaudio.package = package;
+    hardware.pulseaudio.package = pulseaudio;
   };
 }

@@ -25,12 +25,13 @@ in {
         transmission-remote-gtk
         nextcloud-client
         moonlight-qt
+        pkgs.nur.repos.dukzcry.cockpit-client
       ];
     };
     nix.buildMachines = [{
       hostName = "robocat";
       system = "x86_64-linux";
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" "i686-linux" ];
       maxJobs = 8;
     }];
     nix.extraOptions = ''

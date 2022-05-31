@@ -19,6 +19,7 @@ rec {
         sha256 = "1spqbn2wyfh2dfsz2p60ap4194vnvf7rqfy4ky2r69dqij32h33c";
       };
       patches = [];
+      doCheck = false;
     });
   };
   lmms = super.lmms.overrideAttrs (oldAttrs: optionalAttrs (config.services.jack.enable or false) {
