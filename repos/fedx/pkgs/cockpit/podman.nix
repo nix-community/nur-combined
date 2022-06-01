@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile \
       --replace /usr/share $out/share
     touch dist/manifest.json
+    echo "yo"
   '';
 
   dontBuild = true;
@@ -27,5 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cockpit-project/cockpit-machines";
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
+    broken = true;
   };
 }

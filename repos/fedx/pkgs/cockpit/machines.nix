@@ -28,5 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cockpit-project/cockpit-machines";
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
+    broken = true;
   };
 }

@@ -75,5 +75,6 @@ in stdenv.mkDerivation rec {
     homepage = "https://cockpit-project.org/";
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
+    broken = true;
   };
 }
