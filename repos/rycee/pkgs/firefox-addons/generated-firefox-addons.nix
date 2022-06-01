@@ -606,10 +606,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.14.0";
+      version = "4.15.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3948609/floccus-4.14.0.xpi";
-      sha256 = "a07ff6c0682f06a427b215f1183e883b19bcf923bfb3d41ea53f8e4ea53e2395";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956158/floccus-4.15.0.xpi";
+      sha256 = "ee5022866defe99a1887b919157366c98e7c6368852e99061386fbfa94d8ccb0";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220530.132252";
+      version = "102.0buildid20220531.194922";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3955748/francais_language_pack-102.0buildid20220530.132252.xpi";
-      sha256 = "047afd390fa86e620751e8ca1d6aef56995c06ce4517da7dcd6a6fabaab89e47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956584/francais_language_pack-102.0buildid20220531.194922.xpi";
+      sha256 = "04afba9c579a4bc864baf4ff27c1cf0f0a6736f41656c8358584a758b0add4e9";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1697,10 +1697,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "27.4";
+      version = "27.5";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3938493/save_page_we-27.4.xpi";
-      sha256 = "245bd3e721aec19d998126b662daf1c2ac8a886cfe9e74f75e519c72dd34459b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956141/save_page_we-27.5.xpi";
+      sha256 = "0dd8b93fb05e4676d5cfd83fd9d7bd456c42d9e4b20f6732203aa9aa83cd2392";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -1878,10 +1878,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.21";
+      version = "1.5.24";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3828033/styl_us-1.5.21.xpi";
-      sha256 = "cb330a7d8748493a415ee0705839e519c7bb045d91c5068d15e1d02eb661634e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3955677/styl_us-1.5.24.xpi";
+      sha256 = "6fb4bd3030bb5e957354137fec783d1652d4c4c7906d578d7170555344393c2c";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
