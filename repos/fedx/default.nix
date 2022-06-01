@@ -19,5 +19,10 @@
   #cockpit-client = cockpit.override { client = true; };
   libvirt-dbus = pkgs.callPackage ./pkgs/libvirt-dbus {};
   cockpit-podman = pkgs.callPackage ./pkgs/cockpit/podman.nix { };
-  # ...
+  linux_sbos = pkgs.callPackage ./pkgs/linux {
+      kernelPatches = [
+        pkgs.kernelPatches.bridge_stp_helper
+        pkgs.kernelPatches.request_key_helper
+      ];
+  };
 }
