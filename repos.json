@@ -173,6 +173,9 @@
         "extends": {
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
+        "fedx": {
+            "url": "https://github.com/FedX-sudo/Nixpkgs_testing_NUR"
+        },
         "fendse": {
             "url": "https://github.com/fendse/nur"
         },
