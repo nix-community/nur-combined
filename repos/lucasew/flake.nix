@@ -48,18 +48,6 @@
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep;
     inherit (home-manager.lib) homeManagerConfiguration;
 
-        # nixpkgs = inputs.nixpkgs.legacyPackages.${system}.applyPatches {
-        #   name = "nixpkgs";
-        #   src = inputs.nixpkgs;
-        #   patches = map inputs.nixpkgs.legacyPackages.${system}.fetchpatch [
-        #     {
-        #       # fix remarshall
-        #       url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/159074.patch";
-        #       sha256 = "0mw667qrcwax66nx5bzfgaxyll4j2qkg1sp42ss860y8xyyyvjgv";
-        #     }
-        #   ];
-        # };
-
         mkPkgs = { 
           nixpkgs ? inputs.nixpkgs
         , config ? {}
@@ -218,7 +206,7 @@
       # };
     };
     nixOnDroidConfigurations = let
-      nixOnDroidConf = {mainModule}:
+      nixOnDroidConf = mainModule:
       import "${nix-on-droid}/modules" {
         config = {
           _module.args = extraArgs;
@@ -234,9 +222,7 @@
         isFlake = true;
       };
     in {
-      xiaomi = nixOnDroidConf {
-        mainModule = ./nodes/xiaomi/default.nix;
-      };
+      xiaomi = nixOnDroidConf ./nodes/xiaomi/default.nix;
     };
 
     devShells.${system}.default = pkgs.mkShell {

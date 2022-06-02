@@ -69,7 +69,7 @@ in
   gc-hold.paths = with pkgs; [
     go gopls
     nodejs yarn
-    openjdk11
+    openjdk11 maven ant
   ];
 
   services.auto-cpufreq.enable = true;
