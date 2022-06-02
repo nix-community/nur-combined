@@ -76,5 +76,6 @@ in stdenv.mkDerivation rec {
     homepage = src.meta.homepage;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
+    broken = true;
   };
 }

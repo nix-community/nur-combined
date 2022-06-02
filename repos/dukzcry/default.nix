@@ -44,7 +44,6 @@ in rec {
   wireless-regdb = pkgs.callPackage ./pkgs/wireless-regdb {};
   edgevpn = pkgs.callPackage ./pkgs/edgevpn.nix {};
   prometheus-nut-exporter = pkgs.callPackage ./pkgs/prometheus-nut-exporter.nix {};
-  pulseaudio = pkgs.callPackage ./pkgs/pulseaudio.nix {};
   tun2socks = pkgs.callPackage ./pkgs/tun2socks.nix {};
   cockpit = pkgs.callPackage ./pkgs/cockpit {};
   cockpit-machines = pkgs.callPackage ./pkgs/cockpit/machines.nix {};
