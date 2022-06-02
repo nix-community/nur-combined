@@ -340,6 +340,7 @@ lib.makeScope newScope (
 
     ### OSM
 
+    cykhash = callPackage ./osm/cykhash { };
     imposm = callPackage ./osm/imposm { };
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
@@ -354,6 +355,8 @@ lib.makeScope newScope (
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
     phyghtmap = callPackage ./osm/phyghtmap { };
     polytiles = callPackage ./osm/polytiles { };
+    pyrobuf = callPackage ./osm/pyrobuf { };
+    pyrosm = callPackage ./osm/pyrosm { };
     sdlmap = callPackage ./osm/sdlmap { };
     smopy = callPackage ./osm/smopy { };
     smrender = callPackage ./osm/smrender {
