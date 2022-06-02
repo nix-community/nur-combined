@@ -21,7 +21,6 @@ let
     buildVimPlugin
     buildVimPluginFrom2Nix
   ;
-  machNix = import "${inputs.mach-nix}" {inherit pkgs;};
 in
 let
   pluginNocapsquit = buildVimPlugin {
@@ -83,20 +82,9 @@ let
   };
 in wrapNeovim pkgs.neovim-unwrapped {
   withPython3 = true;
-  extraPython3Packages = p: 
-  with p;
-  with callPackage ./python.nix p p p; [
-    pynvim-pp
-    std2
-    pyyaml
-  ];
   configure = {
     plug.plugins = with vimPlugins; [
-      (coq_nvim.overrideAttrs (old: {patches = [ 
-        ./coq.patch 
-        ./coq_venv.patch
-      ]; }))
-      # coq_nvim
+      coq_nvim
       dart-vim-plugin
       echodoc
       embark-vim

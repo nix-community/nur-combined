@@ -21,6 +21,7 @@ in {
     custom.tixati
     custom.neovim
     custom.emacs
+    custom.firefox
     discord
     easyeffects # efeitos de audio
     feh

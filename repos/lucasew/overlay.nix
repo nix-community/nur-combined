@@ -106,13 +106,13 @@ in {
       stripRoot = false;
     };
   });
-  calibre = prev.calibre.override { # remove after #168071 is merged
-  python3Packages = prev.python3Packages.overrideScope (orig: old: {
-    apsw = old.apsw.overridePythonAttrs (old: {
-        version = "3.38.1-r1";
-        sha256 = "sha256-pbb6wCu1T1mPlgoydB1Y1AKv+kToGkdVUjiom2vTqf4=";
-        checkInputs = [];
-      });
-    });
-  };
+  # calibre = prev.calibre.override { # remove after #168071 is merged
+  # python3Packages = prev.python3Packages.overrideScope (orig: old: {
+  #   apsw = old.apsw.overridePythonAttrs (old: {
+  #       version = "3.38.1-r1";
+  #       sha256 = "sha256-pbb6wCu1T1mPlgoydB1Y1AKv+kToGkdVUjiom2vTqf4=";
+  #       checkInputs = [];
+  #     });
+  #   });
+  # };
 }

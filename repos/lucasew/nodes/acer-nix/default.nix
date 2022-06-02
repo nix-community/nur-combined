@@ -249,7 +249,7 @@ in
   #   }
   # ];
   # kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_15;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
