@@ -48,6 +48,8 @@ in {
           {
             "browser.privatebrowsing.autostart" = true;
             "browser.startup.homepage" = "about:blank";
+            # https://www.eff.org/https-everywhere/set-https-default-your-browser
+            "dom.security.https_only_mode" = true;
             "privacy.clearOnShutdown.cache" = true;
             "privacy.clearOnShutdown.cookies" = true;
             "privacy.clearOnShutdown.downloads" = true;

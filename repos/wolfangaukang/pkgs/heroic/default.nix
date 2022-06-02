@@ -14,11 +14,11 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "heroic";
-  version = "2.3.1";
+  version = "2.3.7";
 
   src = fetchurl {
     url = "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/releases/download/v${version}/heroic_${version}_amd64.deb";
-    sha256 = "sha256-GU7GEySMjwkIHGIQpZ3M8HWchpKHjpAb169+wZIaK6w=";
+    sha256 = "sha256-QQehVm2lUsvwsdfAeOEpDHScJ7IWAB8D5NbWlMJ13gg=";
   };
 
   nativeBuildInputs = [
@@ -39,7 +39,7 @@ in stdenv.mkDerivation rec {
     substituteInPlace $TMP/work/build/constants.js \
       --replace "return '/bin/bash'" "return '${stdenv.shell}'"
     substituteInPlace $TMP/work/build/tools.js \
-      --replace "return '/bin/bash'" "return '${stdenv.shell}'"
+      --replace "/bin/bash" "${stdenv.shell}"
     asar pack --unpack='{*.node,*.ftz,rect-overlay}' "$TMP/work" opt/Heroic/resources/app.asar
 
     runHook postBuild

@@ -11,6 +11,6 @@
   ];
 
   home.packages = with pkgs; [
-    tree p7zip nixpkgs-review
+    tree p7zip
   ];
 }

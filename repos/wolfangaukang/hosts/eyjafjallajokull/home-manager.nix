@@ -16,10 +16,9 @@ let
 in
 {
   imports = [
-    ../../profiles/home-manager/sets/cli.nix
+    ../../modules/home-manager/personal.nix
     ../../profiles/home-manager/sets/dev.nix
     ../../profiles/home-manager/sets/general.nix
-    ../../profiles/home-manager/sets/gui.nix
     ../../profiles/home-manager/common/ranger.nix
     ../../profiles/home-manager/common/syncthing.nix
     ../../profiles/home-manager/common/tmux.nix
@@ -28,6 +27,11 @@ in
   ];
 
   home.packages = nur_pkgs ++ upstream_pkgs;
+
+  defaultajAgordoj.gui = {
+    enable = true;
+    browsers.chromium.enable = true;
+  };
 
   programs = {
     neofetch.enable = true;

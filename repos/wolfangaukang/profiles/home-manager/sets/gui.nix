@@ -11,9 +11,8 @@
   home.packages = with pkgs; [
     qbittorrent 
     keepassxc
+    raven-reader
     thunderbird
     vlc
   ];
-
-  xdg.mimeApps.enable = true;
 }
