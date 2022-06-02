@@ -161,6 +161,7 @@ lib.makeScope newScope (
 
     ### GEOSPATIAL
 
+    apispec-webframeworks = callPackage ./geospatial/apispec-webframeworks { };
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
     datamaps = callPackage ./geospatial/datamaps { };
@@ -201,6 +202,7 @@ lib.makeScope newScope (
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
     tdh = callPackage ./geospatial/tdh { };
+    terracotta = callPackage ./geospatial/terracotta { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
     tpkutils = callPackage ./geospatial/tpkutils { };
