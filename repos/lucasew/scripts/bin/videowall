@@ -1,0 +1,12 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i bash -p xwinwrap mpv
+# vim:ft=bash
+
+set -eu
+
+if [ $# -eq 0 ]; then
+    echo "Missing video"
+    exit 1
+fi
+
+xwinwrap -ov -g 1366x768+0+0 -- mpv -wid WID "$1" --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-keepaspect --no-input-default-bindings --hwdec
