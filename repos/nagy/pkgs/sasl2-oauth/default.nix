@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, cyrus_sasl, pkgs, ... }:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, cyrus_sasl, sasl2-oauth, isync
+}:
 
 stdenv.mkDerivation rec {
   pname = "sasl2-oauth";
@@ -11,6 +12,18 @@ stdenv.mkDerivation rec {
   };
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ cyrus_sasl ];
+
+  passthru = rec {
+    cyrus_sasl_oauth = cyrus_sasl.overrideAttrs (old: rec {
+      postInstall = (old.postInstall or "") + ''
+        for lib in ${sasl2-oauth}/lib/sasl2/*; do
+          ln -sf $lib $out/lib/sasl2/
+        done
+      '';
+    });
+    isync_oauth = isync.override { cyrus_sasl = cyrus_sasl_oauth; };
+  };
+
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "An OAuth plugin for libsasl2";
