@@ -1,5 +1,5 @@
 { lib, stdenv, fetchurl, unzip, runtimeShell, writeScriptBin, python3
-, autoPatchelfHook, zlib }:
+, autoPatchelfHook, zlib, glibc }:
 
 let
 
@@ -17,7 +17,7 @@ in stdenv.mkDerivation rec {
     sha256 = "189gffg73sws1b5hbi1nna2q6qyvm1wfn5w10s9m03an87bgqxpb";
   };
 
-  buildInputs = [ autoPatchelfHook stdenv.glibc stdenv.cc.cc zlib ];
+  buildInputs = [ autoPatchelfHook glibc stdenv.cc.cc zlib ];
   nativeBuildInputs = [ unzip ];
 
   unpackPhase = ''
