@@ -243,10 +243,10 @@
       };
     "c-c-search-extension" = buildFirefoxXpiAddon {
       pname = "c-c-search-extension";
-      version = "0.2.0";
+      version = "0.3.0";
       addonId = "{e737d9cb-82de-4f23-83c6-76f70a82229c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3718138/c_c_search_extension-0.2.0.xpi";
-      sha256 = "7dc4ddd1bbb46a61bb4cea71baa72be55a34b84b7406d34b4cdcc88c7708b9b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957223/c_c_search_extension-0.3.0.xpi";
+      sha256 = "7cc6d2b11d4b5d1689feed6c4f9a45f467e2764f5a9fc12339172d0b348c7b1f";
       meta = with lib;
       {
         homepage = "https://cpp.extension.sh";
@@ -490,10 +490,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.4.26";
+      version = "2022.6.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941249/duckduckgo_for_firefox-2022.4.26.xpi";
-      sha256 = "c8c8683ee6bdbe070dc640770a5c0353e1e9d5b45bc8c576d328b26026fe1b7a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956871/duckduckgo_for_firefox-2022.6.1.xpi";
+      sha256 = "f9fd9b7a9dd8c734c8a7e69f1381ae7f7cd808fb660d5f1e508d480bf316f6c4";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -587,10 +587,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.50";
+      version = "6.1.51";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942574/flagfox-6.1.50.xpi";
-      sha256 = "227bc5d0db8e0205ce50a3bd55ba32eb4a3990f6e9e0207087a3654af35d4180";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956569/flagfox-6.1.51.xpi";
+      sha256 = "dabc64335ca9ac2e3b1ad9a93301f5902f3845a5043c8b13f1e470c9fd8c12fd";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220531.194922";
+      version = "102.0buildid20220602.190016";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956584/francais_language_pack-102.0buildid20220531.194922.xpi";
-      sha256 = "04afba9c579a4bc864baf4ff27c1cf0f0a6736f41656c8358584a758b0add4e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957400/francais_language_pack-102.0buildid20220602.190016.xpi";
+      sha256 = "b28861bb4cd0095abef351b2d172eafdfa6c9e73b36bd7505e96e90d4d28eb15";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -924,10 +924,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.2.1";
+      version = "5.2.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3953856/languagetool-5.2.1.xpi";
-      sha256 = "9eb948e5458ecf6a4543e206f86ce797b4a14fdee2a3ce1a5edf4072cdfa1a70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956771/languagetool-5.2.3.xpi";
+      sha256 = "e922a83577654dfafe36123ca1efa8ff206102426d86d16d86cab1dd4c263919";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -943,10 +943,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.95.0.3";
+      version = "4.96.0.8";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3948021/lastpass_password_manager-4.95.0.3.xpi";
-      sha256 = "447748fa07fe237eacb015a3a40d865139863522bebf99cfa31a86dcc7dbd681";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956008/lastpass_password_manager-4.96.0.8.xpi";
+      sha256 = "d594ea918d83dfde54d3ce379c03c4b51d435da3be2c8e2937ab88293f84f61c";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1118,10 +1118,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.5.89";
+      version = "2.5.92";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954887/momentumdash-2.5.89.xpi";
-      sha256 = "d13fd321aa23960bbe51ac5b3ff2162f85c2cc7ed3ffbf99fac1a7a86969b48b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957300/momentumdash-2.5.92.xpi";
+      sha256 = "4efa96de28846bf7cd3e97b5e83436efba5251db6917a2e3b7b3382eda0505c9";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1766,10 +1766,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.7";
+      version = "1.21.8";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954059/single_file-1.21.7.xpi";
-      sha256 = "27c97bb26ffb4ccb14ea3fa38ac003a997adf6b9cb752f42f689990ab47b0222";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957023/single_file-1.21.8.xpi";
+      sha256 = "d82d005e6be484ed8f6b3ef7a7259b7bfaf0d0130b77048e7c99847d4e83207f";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1878,10 +1878,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.24";
+      version = "1.5.25";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3955677/styl_us-1.5.24.xpi";
-      sha256 = "6fb4bd3030bb5e957354137fec783d1652d4c4c7906d578d7170555344393c2c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956290/styl_us-1.5.25.xpi";
+      sha256 = "64a872e97eb7ab4b571c4408ea3f2b69c09b5a2bf7a4c54387d31bd360a31277";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -2129,10 +2129,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.23";
+      version = "3.8.24";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3943215/tree_style_tab-3.8.23.xpi";
-      sha256 = "531cea228e243f187407a6a25b7390984835c8d5879dcfe516d7b337ec2369be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956945/tree_style_tab-3.8.24.xpi";
+      sha256 = "8f06b0442311ff83d427291585bb5cdcf654e279796d63c8e9e6e71e7bb9ed5c";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2274,10 +2274,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.6.2";
+      version = "3.6.4";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3915088/view_image-3.6.2.xpi";
-      sha256 = "6caf5c89fb9d8619ab71fe023ec2940a55f41e5ab3104ee74c5b399136c19176";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957154/view_image-3.6.4.xpi";
+      sha256 = "196821a7ce2559582cd7c9846cc5eadfee99a9ddf05387e3b5d5c87324fa9540";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
