@@ -39,7 +39,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace requirements_test.txt \
-      --replace "coverage==6.3.1" "coverage>=6.2" \
+      --replace "coverage==6.4" "coverage>=6.3.2" \
       --replace "jsonpickle==1.4.1" "jsonpickle>=1.4.1" \
       --replace "freezegun==1.2.1" "jsonpickle>=1.1.0" \
       --replace "pipdeptree==2.2.1" "" \
@@ -53,7 +53,7 @@ buildPythonPackage rec {
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
       --replace "responses==0.12.0" "responses>=0.12.0" \
       --replace "respx==0.19.0" "respx>=0.19.0" \
-      --replace "sqlalchemy==1.4.36" "sqlalchemy>=1.4.35" \
+      --replace "sqlalchemy==1.4.37" "sqlalchemy>=1.4.36" \
       --replace "stdlib-list==0.7.0" "" \
       --replace "tqdm==4.49.0" "tqdm>=4.49.0"
   '';
