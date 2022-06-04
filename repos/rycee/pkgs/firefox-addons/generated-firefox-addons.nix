@@ -1530,10 +1530,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.3.4";
+      version = "2.4.0";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940990/private_relay-2.3.4.xpi";
-      sha256 = "bd8ae69d29207085fb61eca27130f5ee0f9fe47f5f026c071ef523afc1445c25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956863/private_relay-2.4.0.xpi";
+      sha256 = "4a2f3856d04fe2f9329b28511a195a462d806ae7fb81987b1325e1a79fc231d5";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1766,10 +1766,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.8";
+      version = "1.21.9";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957023/single_file-1.21.8.xpi";
-      sha256 = "d82d005e6be484ed8f6b3ef7a7259b7bfaf0d0130b77048e7c99847d4e83207f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957561/single_file-1.21.9.xpi";
+      sha256 = "f6161586ac94f26cee4a176c619d589f0d5fc2b61267608a11cc8bb826bfb427";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
