@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }: with lib; let
-  # this partially exists to work around https://github.com/NixOS/nixpkgs/issues/25456
   cfg = config.boot.modprobe;
+  modules = partition (mod: mod.includeInInitrd) (attrValues cfg.modules);
   optionString = option: value: let
     str =
       if value == true then "1"
@@ -72,19 +72,10 @@ in {
       default = { };
     };
   };
-  config.boot = mkIf cfg.enable {
-    initrd.prepend = singleton "${pkgs.makeInitrd {
-      name = "initrd-modprobe";
-      inherit (config.boot.initrd) compressor;
-
-      contents = singleton {
-        symlink = "/etc/modprobe.d/nixos-arc.conf";
-        object = let
-          includedModules = filter (mod: mod.includeInInitrd) (attrValues cfg.modules);
-          modprobeConfig = concatMapStringsSep "\n" (mod: mod.modprobeConfig) includedModules;
-        in pkgs.writeText "modprobe.conf" modprobeConfig;
-      };
-    }}/initrd";
-    extraModprobeConfig = mkMerge (mapAttrsToList (_: mod: mod.modprobeConfig) cfg.modules);
+  config = mkIf cfg.enable {
+    boot.extraModprobeConfig = mkMerge (map (mod: mod.modprobeConfig) modules.right);
+    environment.etc."modprobe.d/excluded.conf" = mkIf (modules.wrong != []) {
+      text = mkMerge (map (mod: mod.modprobeConfig) modules.wrong);
+    };
   };
 }

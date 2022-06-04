@@ -27,7 +27,7 @@ in {
   };
   config = {
     services.matrix-synapse = {
-      app_service_config_files = mkIf enable (map (cfg: cfg.configuration.path) enabledAppservices);
+      settings.app_service_config_files = mkIf enable (map (cfg: cfg.configuration.path) enabledAppservices);
       appservices = mapAttrs (_: appservice: appservice.registration.set) localAppservices;
     };
     systemd.services.matrix-synapse = mkIf (config.services.matrix-synapse.enable && enable) {

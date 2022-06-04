@@ -96,7 +96,7 @@ in {
       };
       matrix-synapse = {
         enable = mkDefault config.services.matrix-synapse.enable;
-        databases.postgresql = mkIf (config.services.matrix-synapse.database_type == "psycopg2" && config.services.postgresql.enable) [ "matrix-synapse" ];
+        databases.postgresql = mkIf (config.services.matrix-synapse.settings.database.name == "psycopg2" && config.services.postgresql.enable) [ "matrix-synapse" ];
         paths = singleton config.services.matrix-synapse.dataDir;
       };
       vaultwarden = {

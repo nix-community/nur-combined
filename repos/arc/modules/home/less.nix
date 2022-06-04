@@ -1,28 +1,23 @@
 { config, pkgs, lib, ... }: with lib; let
   cfg = config.programs.less;
-  lesskey = conf: with pkgs; stdenvNoCC.mkDerivation {
+  lesskey = { stdenvNoCC, less }: conf: stdenvNoCC.mkDerivation {
     name = "lesskey";
-    conf = writeText "lesskey" conf;
-    nativeBuildInputs = [buildPackages.less];
+    nativeBuildInputs = singleton less;
+    passAsFile = singleton "conf";
+    inherit conf;
 
-    unpackPhase = "true";
-    installPhase = ''
-      lesskey -o $out $conf
+    buildCommand = ''
+      lesskey -o $out $confPath
     '';
   };
 in {
   options.programs.less = {
-    enable = mkEnableOption "less";
-    lesskey = {
-      extraConfig = mkOption {
-        type = types.lines;
-        default = "";
-      };
-    };
+    lesskey.enable = mkEnableOption "lesskey file";
   };
-  config = mkIf cfg.enable {
-    home.file.".less" = mkIf (cfg.lesskey.extraConfig != "") {
-      source = lesskey cfg.lesskey.extraConfig;
+  config = mkIf (cfg.enable or false && !cfg.lesskey.enable) {
+    home.file.".lesskey" = {
+      target = ".less";
+      source = pkgs.callPackage lesskey { } cfg.keys;
     };
   };
 }

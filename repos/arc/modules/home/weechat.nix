@@ -39,6 +39,8 @@
     plugins = with availablePlugins;
       optional cfg.plugins.perl.enable (
         perl
+      ) ++ optional cfg.plugins.lua.enable (
+        lua
       ) ++ optional cfg.plugins.python.enable (
         python.withPackages (ps: drvAttrsFor ps cfg.plugins.python.packages)
       ) ++ optional (cfg.environment != { }) {
@@ -85,6 +87,12 @@ in {
 
     plugins = {
       perl = {
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+        };
+      };
+      lua = {
         enable = mkOption {
           type = types.bool;
           default = true;

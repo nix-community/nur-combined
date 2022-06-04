@@ -1,4 +1,13 @@
-{ writeShellScriptBin, weechat-matrix, xdg-utils }: writeShellScriptBin "emxc" ''
+{ writeShellScriptBin
+, weechat-matrix
+, openMode ? "xdg-open"
+}: let
+  opener = {
+    # TODO: mimeo, and more: https://wiki.archlinux.org/title/Default_applications#Resource_openers
+    gio = "gio open";
+    xdg-open = "xdg-open";
+  }.${openMode} or (throw "unsupported openMode ${openMode}");
+in writeShellScriptBin "emxc" ''
   set -eu
 
   if [[ $# -gt 0 ]]; then
@@ -15,5 +24,5 @@
   fi
 
   ${weechat-matrix}/bin/matrix_decrypt "$EXMC" "$OUT"
-  ${xdg-utils}/bin/xdg-open "$OUT" || firefox "file://$OUT"
+  ${opener} "$OUT"
 ''

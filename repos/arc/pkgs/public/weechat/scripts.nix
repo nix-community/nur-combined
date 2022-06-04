@@ -1,14 +1,4 @@
 {
-  go = { buildWeechatScript }: buildWeechatScript {
-    pname = "go.py";
-    version = "2.7";
-    sha256 = "0bnbfpj1qg4yzwbikh1aw5ajc8l44lkb0y0m6mz8grpf5bxk5cwm";
-  };
-  highmon = { buildWeechatScript }: buildWeechatScript {
-    pname = "highmon.pl";
-    version = "2.7";
-    sha256 = "1vvgzscb12l3cp2nq954fx6j3awvpjsb0nqylal51ps9cq9a3wir";
-  };
   auto_away = { buildWeechatScript }: buildWeechatScript {
     pname = "auto_away.py";
     version = "0.4";
@@ -19,15 +9,10 @@
     version = "0.3";
     sha256 = "122krj58hvsn7z6221ra7f1l5h6xa4g0dsdsrxzwkvkq83j01f00";
   };
-  autosort = { buildWeechatScript }: buildWeechatScript {
-    pname = "autosort.py";
-    version = "3.8";
-    sha256 = "1y0xrblzlygggn05l95zb195w9pd85rig4y1mfqca2f922izcccp";
-  };
-  colorize_nicks = { buildWeechatScript }: buildWeechatScript {
-    pname = "colorize_nicks.py";
-    version = "27";
-    sha256 = "0hiay88vvy171jiq6ahflm0ipb7sslfxwhmmm8psv6qk19rv2sxs";
+  emoji = { buildWeechatScript }: buildWeechatScript {
+    pname = "emoji.lua";
+    version = "5";
+    sha256 = "072ampdhvvmah5hjc2raxvgjx632mmqa1j42sf3jabh0q4ha52ps";
   };
   parse_relayed_msg = { buildWeechatScript }: buildWeechatScript {
     pname = "parse_relayed_msg.pl";
@@ -57,20 +42,20 @@
     version = "0.8.1";
     sha256 = "1nz0y4w1r0whcrsqrwk6vc6f1lz62qkph5i445zjdgqy98x1v9bf";
   };
-  vimode-git = { fetchFromGitHub, stdenvNoCC, fetchurl }: stdenvNoCC.mkDerivation rec {
+  vimode-develop = { fetchFromGitHub, stdenvNoCC, fetchurl }: stdenvNoCC.mkDerivation rec {
     pname = "vimode.py";
-    version = "2019-11-10";
-    rev = "4e926c39bd21de15c146e2a0bea1b85684ef08f2";
+    version = "2021-03-13";
+    rev = "897a33b9fb28c98c4e0a1c292d13536dd57f85c7";
     src = fetchFromGitHub {
       owner = "GermainZ";
       repo = "weechat-vimode";
       rev = rev;
-      sha256 = "1h3r437vv5sg6f801praxm2prf4x8izkayi690qvfz2vsdzdxksv";
+      sha256 = "1mg6j2iwlg8y0ys7zy7vl2q6hk4hg5nqir02z26n2pg33rfb3hmm";
     };
 
     patches = let
-      fixrev = "bd3593834abc8f40f53c1bc8b68ab1e5d58241d9";
-      sha256 = "1930q1ngnhb4fl4isnfv2lz5vry3i6n91zdhjfrsywfrqna3y499";
+      fixrev = "a5b99eab821220d3803afb48eeb493dbfa3acccd";
+      sha256 = "04k38crya59sz6kk3cr7rbv9hdxq4vyc1nmmrqvisg3c5rp3spcr";
     in [ (fetchurl {
       name = "weechat-vimode-arc.patch";
       url = "https://github.com/GermainZ/weechat-vimode/compare/GermainZ:${rev}...arcnmx:${fixrev}.diff";
@@ -82,11 +67,6 @@
     '';
 
     passthru.scripts = [ pname ];
-  };
-  zncplayback = { buildWeechatScript }: buildWeechatScript {
-    pname = "zncplayback.py";
-    version = "0.2.1";
-    sha256 = "1k32p6naxg40g664ip48zvm61xza7l9az3v3rawmjw97i0mwz7y3";
   };
   weechat-matrix = { python3Packages, weechat-matrix }: python3Packages.weechat-matrix or weechat-matrix;
 }

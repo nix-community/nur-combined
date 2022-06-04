@@ -1,4 +1,5 @@
 {
+  nix = ./nix.nix;
   systemd = ./systemd.nix;
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
@@ -24,10 +25,12 @@
   mosh = ./mosh.nix;
   base16 = ./base16.nix;
   base16-shared = import ../home/base16.nix true;
+  doc-warnings = ./doc-warnings.nix;
 
   __functionArgs = { };
   __functor = self: { ... }: {
     imports = with self; [
+      nix
       systemd
       dht22-exporter
       glauth
@@ -48,6 +51,7 @@
       filebin
       mosh
       base16 base16-shared
+      doc-warnings
     ];
   };
 }

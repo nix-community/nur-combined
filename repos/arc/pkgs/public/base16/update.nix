@@ -37,7 +37,7 @@
       repo = parseRepo repoUrl;
     in ''
       echo "updating ${key}" >&2
-      timeout 30 ${sourcesGit} fetch -q ${repoUrl} :source-${key}
+      timeout 30 ${sourcesGit} fetch --force -q ${repoUrl} :source-${key}
       SOURCE_REV=$(${sourcesGit} show-ref -s source-${key})
       SOURCE_DATE=$(${sourcesGit} show -s --format=%cs source-${key})
       SOURCE_CHECKOUT=$(mktemp -d --tmpdir tmp.nixexprs.XXXXXXXX)

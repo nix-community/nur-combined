@@ -13,6 +13,13 @@
         type = types.str;
         default = name;
       };
+      source = mkOption {
+        type = types.nullOr types.str;
+        default =
+          if hasPrefix "DP-" config.output then "DisplayPort-1"
+          else if hasPrefix "HDMI-" config.output then "HDMI-1"
+          else null;
+      };
       width = mkOption {
         type = types.int;
       };
@@ -22,6 +29,20 @@
       primary = mkOption {
         type = types.bool;
         default = false;
+      };
+      edid = {
+        manufacturer = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
+        model = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
+        serial = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+        };
       };
       dpi = {
         x = mkOption {

@@ -76,7 +76,10 @@ in {
       type = with types; attrsOf str;
       default = { };
     };
-    # TODO: binds
+    binds = mkOption {
+      type = with types; attrsOf str;
+      default = { };
+    };
     config = mkOption {
       type = types.submodule {
         freeformType = with types; attrsOf (nullOr (oneOf [ bool int colourType str ]));
@@ -145,7 +148,14 @@ in {
   config = {
     home.packages = mkIf cfg.enable [ cfg.package ];
     xdg.configFile."imv/config" = mkIf cfg.enable {
-      source = ini.generate "imv" cfg.configContent;
+      source = pkgs.runCommand "imv.ini" {
+        configContent = ini.generate "imv" cfg.configContent;
+        binds = ini.generate "imv-binds" {
+          inherit (cfg) binds;
+        };
+      } ''
+        cat $configContent $binds > $out
+      '';
     };
     programs.imv = {
       config = {
@@ -161,7 +171,6 @@ in {
       };
       configContent = {
         options = mapAttrs (_: v: mkIf (v != null) (mkOptionDefault v)) cfg.config;
-        binds = { };
         aliases = cfg.aliases;
       };
     };

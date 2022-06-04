@@ -22,6 +22,7 @@
         name='@pname@',
         version='@version@',
         install_requires=['requests', 'matrix-nio'],
+        packages=[],
         scripts=['contrib/matrix_decrypt.py'],
       )
     '';

@@ -11,6 +11,16 @@
   sqlalchemy = if lib.versionAtLeast python3Packages.sqlalchemy.version "1.4"
     then sqlalchemy_1_3
     else python3Packages.sqlalchemy;
+  mautrix = (python3Packages.mautrix.override {
+    inherit sqlalchemy;
+  }).overrideAttrs (old: rec {
+    version = "0.10.11";
+    src = fetchPypi {
+      inherit version;
+      pname = "mautrix";
+      sha256 = "b3905fbd1381031b4c54258fdef9e99dd342c3a211abe0b827b2c480db4b1771";
+    };
+  });
   hangups = python3Packages.hangups or null;
   drv = buildPythonApplication rec {
     pname = "mautrix-hangouts";
@@ -35,7 +45,7 @@
       CommonMark
       python_magic
       hangups
-      (mautrix.override { inherit sqlalchemy; })
+      mautrix
       setuptools
     ] ++ lib.optionals e2be [
       asyncpg

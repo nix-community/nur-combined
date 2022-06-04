@@ -32,6 +32,34 @@
         type = types.path;
         default = "/var/lib/${config.name}";
       };
+      database = {
+        type = mkOption {
+          type = types.enum [ null "sqlite3" "postgresql" ];
+          default = null;
+        };
+        name = mkOption {
+          type = types.str;
+          default = if config.database.type == "postgresql"
+            then replaceStrings [ "-" ] [ "_" ] config.name
+            else config.name;
+        };
+        # for postgresql only...
+        user = mkOption {
+          type = types.str;
+          default = config.user;
+        };
+        password = mkOption {
+          type = with types; nullOr str;
+          default = null;
+        };
+        host = mkOption {
+          type = with types; nullOr str;
+          default = null;
+        };
+        postgresql.uri = mkOption {
+          type = types.str;
+        };
+      };
       name = mkOption {
         type = types.str;
         default = name;
@@ -67,6 +95,12 @@
           combinedPath = "/run/${config.name}/registration.yaml";
         };
       };
+      database.postgresql.uri = let
+        pw = optionalString (config.database.password != null) ":${config.database.password}";
+        host = if config.database.host == null
+          then "%2Frun%2Fpostgresql"
+          else config.database.host;
+      in mkOptionDefault "postgres://${config.database.user}${pw}@${host}/${config.database.name}";
       setSystemdService = {
         serviceConfig = mkMerge [ {
           ExecStart = config.cmdline;
@@ -87,6 +121,15 @@
   };
   appserviceType = types.submodule appserviceModule;
   mapService = cfg: unmerged.mergeAttrs cfg.setSystemdService;
+  mapPostgresql = cfg: {
+    ensureUsers = singleton {
+      name = cfg.database.user;
+      ensurePermissions = {
+        "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+      };
+    };
+    ensureDatabases = singleton cfg.database.name;
+  };
 in {
   options.services.matrix-appservices = mkOption {
     type = types.attrsOf appserviceType;
@@ -120,7 +163,7 @@ in {
           };
         };
         config = {
-          package = pkgs.mautrix-hangouts;
+          package = mkDefault pkgs.mautrix-hangouts or arc.pkgs.mautrix-hangouts;
           registration = {
             id = mkDefaultOverride "hangouts";
             namespaces.users = mkDefault [ {
@@ -147,7 +190,6 @@ in {
               displayname = mkDefaultOverride "Hangouts bridge bot";
               avatar = mkDefaultOverride "mxc://maunium.net/FBXZnpfORkBEruORbikmleAy";
             };
-            database = mkOptionDefault "sqlite:///mautrix-hangouts.db";
           };
           bridge = mapAttrs (_: mkOptionDefault) {
             username_template = "hangouts_{userid}";
@@ -169,7 +211,7 @@ in {
             permissions = mkMerge [
               { }
               (mkIf matrix-synapse.enable {
-                ${matrix-synapse.server_name} = mkOptionDefault "user";
+                ${matrix-synapse.settings.server_name} = mkOptionDefault "user";
                 #"@admin:example.com" = "admin";
               })
             ];
@@ -201,11 +243,123 @@ in {
           };
         };
       };
+      mautrix-googlechat = { config, ... }: {
+        imports = [
+          matrix-appservices.mautrix-python
+        ];
+        options = {
+          homeserver = {
+            asmux = mkOption {
+              type = types.bool;
+              default = false;
+            };
+          };
+          googlechat = {
+            deviceName = mkOption {
+              type = types.str;
+              default = "Mautrix-Google Chat bridge";
+            };
+          };
+          metrics = {
+            listenPort = mkOption {
+              type = types.port;
+              default = 8000;
+            };
+          };
+        };
+        config = {
+          package = mkDefault pkgs.mautrix-googlechat or arc.pkgs.mautrix-googlechat;
+          registration = {
+            id = mkDefaultOverride "googlechat";
+            namespaces.users = mkDefault [ {
+              regex = "@googlechat_.+";
+            } ];
+          };
+          configuration = {
+            settings = {
+              homeserver = {
+                inherit (config.homeserver) asmux;
+              };
+              hangouts = {
+                device_name = config.googlechat.deviceName;
+              };
+              metrics = {
+                listen_port = config.metrics.listenPort;
+              };
+            };
+          };
+          appservice = {
+            port = mkDefaultOverride 29320;
+            bot = {
+              username = mkDefaultOverride "googlechatbot";
+              displayname = mkDefaultOverride "Google Chat bridge bot";
+              avatar = mkDefaultOverride "mxc://maunium.net/BDIWAQcbpPGASPUUBuEGWXnQ";
+            };
+            database.opts = mapAttrs (_: mkOptionDefault) {
+              min_size = 5;
+              max_size = 10;
+            };
+          };
+          database.type = mkDefault "postgresql";
+          bridge = mapAttrs (_: mkOptionDefault) {
+            username_template = "googlechat_{userid}";
+            displayname_template = "{full_name} (Google Chat)";
+            command_prefix = "!gc";
+            initial_chat_sync = 10;
+            invite_own_puppet_to_pm = false;
+            sync_with_custom_puppets = config.registration.pushEphemeral != true;
+            sync_direct_chat_list = false;
+            double_puppet_allow_discovery = false;
+            update_avatar_initial_sync = true;
+            delivery_receipts = false;
+            resend_bridge_info = false;
+            unimportant_bridge_notices = true;
+            disable_bridge_notices = false;
+            double_puppet_server_map = { };
+            login_shared_secret_map = { };
+          } // {
+            permissions = mkMerge [
+              { }
+              (mkIf matrix-synapse.enable {
+                ${matrix-synapse.settings.server_name} = mkOptionDefault "user";
+                #"@admin:example.com" = "admin";
+              })
+            ];
+            encryption = {
+              allow = mkOptionDefault false;
+              default = mkOptionDefault false;
+              key_sharing = mapAttrs (_: mkOptionDefault) {
+                allow = false;
+                require_cross_signing = false;
+                require_verification = true;
+              };
+            };
+            backfill = mapAttrs (_: mkOptionDefault) {
+              invite_own_puppet = true;
+              initial_thread_limit = 10;
+              initial_thread_reply_limit = 500;
+              initial_nonthread_limit = 100;
+              missed_event_limit = 5000;
+              missed_event_page_size = 100;
+              disable_notifications = false;
+            };
+            reconnect = mapAttrs (_: mkOptionDefault) {
+              max_retries = 4;
+              retry_backoff_base = 1.5;
+            };
+            web.auth = mapAttrs (_: mkOptionDefault) {
+              public = "https://example.com/login/";
+              prefix = "/login";
+              shared_secret = "generate";
+            };
+          };
+        };
+      };
       mautrix-signal = {
-        package = pkgs.mautrix-signal;
+        package = mkDefault pkgs.mautrix-signal;
       };
       mautrix-telegram = {
-        package = pkgs.mautrix-telegram;
+        package = mkDefault pkgs.mautrix-telegram;
       };
       mautrix-whatsapp = { config, ... }: {
         imports = [ matrix-appservices.mautrix ];
@@ -237,12 +391,10 @@ in {
             };
             database = {
               type = mkOption {
-                type = types.str;
-                default = "sqlite3";
+                type = types.enum [ "sqlite3" "postgres" ];
               };
               uri = mkOption {
                 type = types.str;
-                default = "mautrix-whatsapp.db";
               };
               maxOpenConns = mkOption {
                 type = types.int;
@@ -290,7 +442,7 @@ in {
           };
         };
         config = {
-          package = pkgs.mautrix-whatsapp;
+          package = mkDefault pkgs.mautrix-whatsapp;
           registration = {
             id = mkDefaultOverride "whatsapp";
             senderLocalpart = mkDefaultOverride config.appservice.bot.username;
@@ -300,13 +452,24 @@ in {
             } ];
           };
           homeserver = mkIf matrix-synapse.enable {
-            address = mkOptionDefault matrix-synapse.public_baseurl;
-            domain = mkOptionDefault matrix-synapse.server_name;
+            address = mkOptionDefault matrix-synapse.settings.public_baseurl;
+            domain = mkOptionDefault matrix-synapse.settings.server_name;
           };
           appservice.bot = {
             username = mkDefaultOverride "whatsappbot";
             displayname = mkDefaultOverride "WhatsApp bridge bot";
             avatar = mkDefaultOverride "mxc://maunium.net/NeXNQarUbrlYBiPCpprYsRqr";
+          };
+          database.type = mkDefaultOverride "sqlite3";
+          appservice.database = {
+            type = mkMerge [
+              (mkIf (config.database.type == "sqlite3") (mkOptionDefault "sqlite3"))
+              (mkIf (config.database.type == "postgresql") (mkOptionDefault "postgres"))
+            ];
+            uri = mkMerge [
+              (mkIf (config.database.type == "sqlite3") (mkDefaultOverride "${config.database.name}.db"))
+              (mkIf (config.database.type == "postgresql") (mkDefaultOverride config.database.postgresql.uri))
+            ];
           };
           bridge = mapAttrs (_: mkOptionDefault) {
             username_template = "whatsapp_{{.}}";
@@ -368,7 +531,7 @@ in {
                 "*" = "relaybot";
               }
               (mkIf matrix-synapse.enable {
-                ${matrix-synapse.server_name} = mkOptionDefault "user";
+                ${matrix-synapse.settings.server_name} = mkOptionDefault "user";
                 #"@admin:example.com" = "admin";
               })
             ];
@@ -428,14 +591,14 @@ in {
       matrix-appservice-irc = { config, ... }: {
         imports = [ matrix-appservices.matrix-appservice-bridge ];
         config = {
-          package = pkgs.matrix-appservice-irc;
+          package = mkDefault pkgs.matrix-appservice-irc;
           port = mkOptionDefault 8090;
         };
       };
       matrix-appservice-discord = { config, ... }: {
         imports = [ matrix-appservices.matrix-appservice-bridge ];
         config = {
-          package = pkgs.matrix-appservice-discord;
+          package = mkDefault pkgs.matrix-appservice-discord;
           port = mkOptionDefault 9005;
           registration = {
             id = mkDefaultOverride "discord-bridge";
@@ -467,7 +630,7 @@ in {
           };
         };
         config = {
-          package = pkgs.mx-puppet-discord;
+          package = mkDefault pkgs.mx-puppet-discord;
           registrationPrefix = mkOptionDefault "_discordpuppet_";
           bridge = {
             port = mkDefaultOverride 8434;
@@ -520,8 +683,8 @@ in {
           };
         };
         config = {
-          package = pkgs.heisenbridge;
-          homeserverUrl = mkIf matrix-synapse.enable (mkOptionDefault matrix-synapse.public_baseurl);
+          package = mkDefault pkgs.heisenbridge;
+          homeserverUrl = mkIf matrix-synapse.enable (mkOptionDefault matrix-synapse.settings.public_baseurl);
           registration = {
             senderLocalpart = mkDefaultOverride "heisenbridge";
             port = mkDefaultOverride config.listen.port;
@@ -569,8 +732,12 @@ in {
         paths = singleton {
           path = cfg.dataDir;
         };
+        databases.postgresql = mkIf (cfg.database.type == "postgresql") [ cfg.database.name ];
       }) (attrValues cfg);
     };
+    services.postgresql = mkMerge (mapAttrsToList (_: cfg: mapPostgresql cfg) (
+      filterAttrs (_: cfg: cfg.enable && cfg.database.type == "postgresql") cfg
+    ));
     lib.matrix-appservices = {
       yaml-common = { config, ... }: {
         options = {
@@ -753,6 +920,14 @@ in {
               type = types.int;
               default = 4;
             };
+            statusEndpoint = mkOption {
+              type = with types; nullOr unspecified;
+              default = null;
+            };
+            messageSendCheckpointEndpoint = mkOption {
+              type = with types; nullOr unspecified;
+              default = null;
+            };
           };
           appservice = {
             hostname = mkOption {
@@ -767,12 +942,14 @@ in {
               type = types.int;
               default = 1;
             };
-            database = mkOption {
-              type = types.str;
-            };
-            databaseOpts = mkOption {
-              type = with types; attrsOf unspecified;
-              default = { };
+            database = {
+              uri = mkOption {
+                type = types.str;
+              };
+              opts = mkOption {
+                type = with types; attrsOf unspecified;
+                default = { };
+              };
             };
             communityId = mkOption {
               type = types.nullOr types.str;
@@ -793,6 +970,20 @@ in {
               default = "127.0.0.1:8001";
             };
           };
+          manhole = {
+            enabled = mkOption {
+              type = types.bool;
+              default = false;
+            };
+            path = mkOption {
+              type = types.path;
+              default = "/var/tmp/${config.name}.manhole";
+            };
+            whitelist = mkOption {
+              type = with types; listOf int;
+              default = singleton 0;
+            };
+          };
           bridge = mkOption {
             type = json.types.attrs; # TODO?
           };
@@ -803,9 +994,14 @@ in {
         };
         config = {
           homeserver = mkIf matrix-synapse.enable {
-            address = mkOptionDefault matrix-synapse.public_baseurl;
-            domain = mkOptionDefault matrix-synapse.server_name;
+            address = mkOptionDefault matrix-synapse.settings.public_baseurl;
+            domain = mkOptionDefault matrix-synapse.settings.server_name;
           };
+          database.type = mkDefaultOverride "sqlite3";
+          appservice.database.uri = mkMerge [
+            (mkIf (config.database.type == "postgresql") (mkOptionDefault config.database.postgresql.uri))
+            (mkIf (config.database.type == "sqlite3") (mkOptionDefault "sqlite:///${config.database.name}.db"))
+          ];
           registration = {
             port = mkDefaultOverride config.appservice.port;
             senderLocalpart = mkDefaultOverride "_${config.appservice.bot.username}";
@@ -837,14 +1033,16 @@ in {
                 inherit (config.homeserver) address domain;
                 verify_ssl = config.homeserver.verifySsl;
                 http_retry_count = config.homeserver.httpRetryCount;
+                status_endpoint = config.homeserver.statusEndpoint;
+                message_send_checkpoint_endpoint = config.homeserver.messageSendCheckpointEndpoint;
               };
               appservice = {
-                inherit (config.appservice) database;
                 address = config.registration.url;
                 hostname = config.appservice.hostname;
                 port = config.appservice.port;
                 max_body_size = config.appservice.maxBodySize;
-                database_opts = config.appservice.databaseOpts;
+                database = config.appservice.database.uri;
+                database_opts = config.appservice.database.opts;
 
                 inherit (config.registration) id;
                 bot_username = config.appservice.bot.username;
@@ -855,6 +1053,9 @@ in {
               };
               metrics = {
                 inherit (config.metrics) enabled listen;
+              };
+              manhole = {
+                inherit (config.manhole) enabled path whitelist;
               };
               bridge = removeAttrs config.bridge [ "login_shared_secret_map" ];
               inherit (config) logging;
@@ -876,7 +1077,10 @@ in {
               format = "[%(asctime)s] [%(levelname)s@%(name)s] %(message)s";
             in {
               colored = {
-                "()" = "mautrix_hangouts.util.ColorFormatter";
+                "()" = {
+                  mautrix-googlechat = "mautrix_googlechat.util.ColorFormatter";
+                  mautrix-hangouts = "mautrix_hangouts.util.ColorFormatter";
+                }.${config.name};
                 inherit format;
               };
               normal = {
@@ -898,6 +1102,7 @@ in {
             };
             loggers = {
               mau.level = mkDefault "DEBUG";
+              maugclib.level = mkDefault "INFO";
               hangups.level = mkDefault "INFO";
               aiohttp.level = mkDefault "INFO";
             };
@@ -1175,11 +1380,11 @@ in {
         };
         config = {
           provisioning.whitelist = mkIf matrix-synapse.enable (mkDefault [
-            "@.*:${escapeRegex matrix-synapse.server_name}"
+            "@.*:${escapeRegex matrix-synapse.settings.server_name}"
           ]);
           bridge = mkIf matrix-synapse.enable {
-            homeserverUrl = mkOptionDefault matrix-synapse.public_baseurl;
-            domain = mkOptionDefault matrix-synapse.server_name;
+            homeserverUrl = mkOptionDefault matrix-synapse.settings.public_baseurl;
+            domain = mkOptionDefault matrix-synapse.settings.server_name;
           };
           registration = {
             host = mkDefaultOverride config.bridge.bindAddress;

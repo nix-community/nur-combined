@@ -7,6 +7,7 @@
 , libxcb, libXfixes
 , nvidia-capture-sdk
 , enableNvfbc ? false
+, optimizeForArch ? null
 }: with lib; let
   namedPatches = import ./patches.nix { inherit fetchpatch; };
   # TODO: this seems like a problem mingw or cmake should handle?
@@ -17,19 +18,14 @@
   '';
 in stdenv.mkDerivation rec {
   pname = "looking-glass-host";
-  version = "2021-07-04";
+  version = "2021-07-24";
   src = fetchFromGitHub {
     owner = "gnif";
     repo = "LookingGlass";
-    rev = "6c545806abc5441be994a1f9315cfd75d4b89682";
-    sha256 = "01vlnrpzddlcj6hbbwabpn0sd19cjrzxd6kgdxqynkczg2h76wxp";
+    rev = "181b165a4ba45eeedcd8d908b3e786b6ff7a1a35";
+    sha256 = "180g44jym96hzmw0a9wj0gss9q4fr4402ir6v0csarz8aqc7rq8z";
     fetchSubmodules = true;
   };
-
-  patches = with namedPatches; [
-    cmake-rc-revert
-    cmake-rc
-  ];
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = optionals stdenv.isLinux [
@@ -37,12 +33,17 @@ in stdenv.mkDerivation rec {
     libxcb libXfixes
   ];
 
+  patches = with namedPatches; [
+    nvfbc-pointerthread
+    nvfbc-framesize nvfbc-scale
+  ];
+
   makeFlags = [
     "VERBOSE=1"
   ];
   cmakeFlags = [
     "-DVERSION=${version}"
-    "-DOPTIMIZE_FOR_NATIVE=OFF"
+    "-DOPTIMIZE_FOR_NATIVE=${if optimizeForArch == null then "OFF" else optimizeForArch}"
     "../host"
   ] ++ optionals stdenv.hostPlatform.isWindows ([
     "-DCMAKE_RC_COMPILER=${windres}/bin/windres"
@@ -50,6 +51,8 @@ in stdenv.mkDerivation rec {
     "-DUSE_NVFBC=ON"
     "-DNVFBC_SDK=${nvidia-capture-sdk.sdk}"
   ]);
+
+  hardeningDisable = [ "all" ];
 
   meta = looking-glass-client.meta or { } // {
     platforms = with platforms; linux ++ windows;

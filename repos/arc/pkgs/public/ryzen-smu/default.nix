@@ -71,6 +71,7 @@
       setup(
         name='@pname@',
         version='@version@',
+        packages=[],
         install_requires = ['ryzen-smu-cpuid'],
         scripts = [
           'scripts/dump_pm_table.py',

@@ -37,9 +37,13 @@ let
       doInstallCheck = false; # old.doInstallCheck or false && !nix.stdenv.isDarwin;
     });
 
+    nix-readline-2_3 = { nix-readline, nix_2_3 ? nix, nix }: nix-readline.override {
+      nix = nix_2_3;
+    };
+
     rink-readline = { lib, rink, rustPlatform, fetchpatch }: rustPlatform.buildRustPackage {
       pname = "${rink.pname}-readline";
-      inherit (rink) src version nativeBuildInputs buildInputs doCheck meta;
+      inherit (rink) src version nativeBuildInputs buildInputs doCheck;
 
       patches = rink.patches or [ ] ++ [ (fetchpatch {
         url = "https://github.com/kittywitch/rink-rs/commit/d69635621575af36dc1a4802843e085b4e66c903.patch";
@@ -52,13 +56,42 @@ let
       }) ];
 
       cargoSha256 = "1chxf0rgdps21rm3p2c0yn9z0gvzx095n74ryiv89y0d1gka5jy6";
+      meta = rink.meta or { } // {
+        broken = rink.meta.broken or false || true;
+      };
     };
 
-    looking-glass-kvmfr-develop = { looking-glass-kvmfr, looking-glass-client-develop, linux }:
-      looking-glass-kvmfr.override {
-        looking-glass-client = looking-glass-client-develop;
-        inherit linux;
+    page-develop = { page, fetchFromGitHub, rustPlatform }: rustPlatform.buildRustPackage {
+      inherit (page) pname nativeBuildInputs postInstall meta;
+      version = "2021-12-31";
+
+      src = fetchFromGitHub {
+        owner = "I60R";
+        repo = "page";
+        rev = "2bf1f53dfe9f2dd1724d67aea43511e466bfde17";
+        sha256 = "0pc8j2kqivr2jwwsnwf2zpcvjpykrqd1na60bfzn78y09g2v43cy";
       };
+
+      cargoSha256 = "15014y1330kvwcc4pxj4iprrypk4n2g47c55hl11n0ffnwshd54v";
+    };
+
+    gir-rs-0_14 = { gir-rs, fetchFromGitHub, rustPlatform }: rustPlatform.buildRustPackage rec {
+      inherit (gir-rs) pname meta;
+      version = "0.14-2021-10-08";
+      src = fetchFromGitHub {
+        owner = "gtk-rs";
+        repo = pname;
+        rev = "8891a2f2c34ba87828eddcc292f7bcbaab72b5de";
+        sha256 = "038af19w95a0bdn7dsgqxvb0lfxf1bxlqdcypasknj7cpimkjwg8";
+      };
+      cargoSha256 = "0vx5zv8p0dnayvrz75d332c7xf1mn5xhcknc4qvbhjyvr9gjla8v";
+
+      postPatch = ''
+        rm build.rs
+        sed -i '/build = "build\.rs"/d' Cargo.toml
+        echo "pub const VERSION: &str = \"$version\";" > src/gir_version.rs
+      '';
+    };
 
     rnnoise-plugin-extern = { stdenv, rnnoise-plugin, rnnoise, ladspaH, pkg-config }: rnnoise-plugin.overrideAttrs (old: rec {
       nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ pkg-config ];
@@ -116,25 +149,14 @@ let
 
       doCheck = false;
 
-      postInstall = ''
-        ${old.postInstall or ""}
-        make -C bindings/ruby exec_prefix=$out \
-          SHELL=$SHELL \
-          $makeFlags ''${makeFlagsArray+"''${makeFlagsArray[@]}"} \
-          $installFlags ''${installFlagsArray+"''${installFlagsArray[@]}"} \
-          install
-        mv $out/lib/ruby/vendor_ruby/* $out/lib/ruby/
-        rmdir $out/lib/ruby/vendor_ruby
-      '';
-
       meta = old.meta or {} // {
         broken = old.meta.broken or false || hostPlatform.isDarwin;
       };
     });
 
-    vim_configurable-pynvim = { vim_configurable, python3 }: (vim_configurable.override {
+    vim_configurable-pynvim = { lib, vim_configurable, python3 }: (vim_configurable.override {
       # vim with python3
-      python = python3.withPackages(ps: with ps; [ pynvim ]);
+      ${if lib.isNixpkgsUnstable then "python3" else "python"} = python3.withPackages(ps: with ps; [ pynvim ]);
       wrapPythonDrv = true;
       guiSupport = "no";
       luaSupport = false;
@@ -143,29 +165,9 @@ let
       # TODO: fully disable X11?
     });
 
-    rxvt-unicode-cvs-unwrapped = { rxvt-unicode-unwrapped ? null, fetchcvs, stdenv }: let
-      drv = rxvt-unicode-unwrapped.overrideAttrs (old: rec {
-        pname = "rxvt-unicode-cvs";
-        version = "2020-06-30";
-        enableParallelBuilding = true;
-        src = fetchcvs {
-          cvsRoot = ":pserver:anonymous@cvs.schmorp.de:/schmorpforge";
-          module = "rxvt-unicode";
-          date = version;
-          sha256 = "1kfd09fqls8ah9ydkh2bnsdx7ikg48hcp8rh2yxnsbagzjlmdwqf";
-        };
-        meta = old.meta or {} // {
-          broken = old.meta.broken or false || !rxvt-unicode-unwrapped.stdenv.isLinux;
-        };
-      });
-    in if rxvt-unicode-unwrapped == null then stdenv.mkDerivation {
-      name = "rxvt-unicode-cvs";
-      meta.broken = true;
-    } else drv;
-
-    rxvt-unicode-arc = { rxvt-unicode ? null, rxvt-unicode-cvs-unwrapped, rxvt-unicode-plugins ? { } }: let
+    rxvt-unicode-arc = { rxvt-unicode ? null, rxvt-unicode-unwrapped, rxvt-unicode-plugins ? { } }: let
       drv = (rxvt-unicode.override {
-        rxvt-unicode-unwrapped = rxvt-unicode-cvs-unwrapped;
+        rxvt-unicode-unwrapped = rxvt-unicode-unwrapped;
         configure = { availablePlugins, ... }: {
           plugins = with rxvt-unicode-plugins; with availablePlugins; [
             perl
@@ -180,10 +182,10 @@ let
       }).overrideAttrs (old: {
         pname = "rxvt-unicode-arc";
         meta = old.meta or {} // {
-          broken = old.meta.broken or false || rxvt-unicode-cvs-unwrapped.meta.broken or false;
+          broken = old.meta.broken or false || rxvt-unicode-unwrapped.meta.broken or false;
         };
       });
-    in if rxvt-unicode-cvs-unwrapped.meta.broken or false then rxvt-unicode-cvs-unwrapped
+    in if rxvt-unicode-unwrapped.meta.broken or false then rxvt-unicode-unwrapped
     else drv;
 
     bitlbee-libpurple = { bitlbee }: bitlbee.override { enableLibPurple = true; };
@@ -197,20 +199,15 @@ let
 
     ddclient-develop = { ddclient, autoreconfHook, makeWrapper, fetchFromGitHub, fetchpatch }: let
       drv = ddclient.overrideAttrs (old: {
-        version = "2021-09-04";
+        version = "2022-01-13";
         src = fetchFromGitHub {
           owner = "ddclient";
           repo = "ddclient";
-          rev = "c56ce4182471aaa33d916a5709c1b9316ddab9f0";
-          sha256 = "1rwwa9i11mr76z20bk2idmlgfbv5ywlqhqka6xqswd9z8rg5zmk9";
+          rev = "17160fb016448106d21742e53404f9e7a16348fc";
+          sha256 = "1izl028pbihii9zirj80l31gnbsk5bvg6j81p675sz9kxvmjj9nb";
         };
         patches = old.patches or [ ] ++ [
           ./ddclient-nodaemon.patch
-          (fetchpatch {
-            # fix cloudflare response parsing
-            url = "https://github.com/ddclient/ddclient/pull/353.patch";
-            sha256 = "0xmryrv6sbd919c1b9rakrqlwx80byj62xwsn9vqmf8fyzzbpadl";
-          })
         ];
         preConfigure = ''
           touch Makefile.PL
@@ -228,32 +225,13 @@ let
       });
     in drv;
 
-    mumble_1_4 = { mumble-develop, fetchFromGitHub }: mumble-develop.overrideAttrs (old: rec {
-      version = "1.4.0-release-candidate-01";
-      src = fetchFromGitHub {
-        owner = "mumble-voip";
-        repo = "mumble";
-        rev = version;
-        sha256 = "02mr9rp2b5cyj916jqxxm0fn879chwi24rs482n12a5mh83pi8pz";
-
-        # fetch a single submodule
-        fetchSubmodules = false;
-        leaveDotGit = true;
-        postFetch = ''
-          git -C $out reset -- themes/Mumble
-          git -C $out submodule update --init --depth 1 -- themes/Mumble &&
-            rm -r $out/.git
-        '';
-      };
-    });
-
-    mumble-develop = { fetchFromGitHub, lib, mumble, libpulseaudio, pipewire, libopus, libjack2, celt_0_7, poco, pcre, cmake, ninja, qt5, pkg-config, qtspeechSupport ? false }: let
+    mumble-develop = { fetchFromGitHub, lib, mumble, libpulseaudio, alsa-lib, pipewire, libopus, libjack2, flac, libogg, libvorbis, celt_0_7, nlohmann_json, microsoft_gsl, poco, cmake, ninja, qt5, pkg-config, qtspeechSupport ? false }: let
       drv = mumble.override {
         speechdSupport = true;
         jackSupport = true;
       };
-      version = "2021-08-31";
-      runtimeDependencies = [ libpulseaudio pipewire libopus libjack2 ];
+      version = "2022-04-01";
+      runtimeDependencies = [ libpulseaudio libopus libjack2 pipewire alsa-lib ];
     in with lib; drv.overrideAttrs (old: {
       pname = "mumble-develop";
       inherit version;
@@ -261,14 +239,14 @@ let
       src = fetchFromGitHub {
         owner = "mumble-voip";
         repo = "mumble";
-        rev = "207dbe0d8adffb24b807a7f1d39165a81e59785e";
-        sha256 = "1c7k6h77sfbsv7zr2hn86dq6gc54vkam60l59bkixv2hx4v3j59m";
+        rev = "7a6cbc8046009b773aafb1ea1501f7a320e8d871";
+        sha256 = "1870bbr0x2djyhgm8km37kn262w8jh8p0b49975ajscnjr8hw4i0";
         fetchSubmodules = false;
       };
 
       patches = [ ];
       nativeBuildInputs = [ pkg-config cmake ninja qt5.wrapQtAppsHook qt5.qttools ];
-      buildInputs = old.buildInputs ++ runtimeDependencies ++ [ celt_0_7 poco pcre ]
+      buildInputs = old.buildInputs ++ runtimeDependencies ++ [ celt_0_7 poco flac libogg libvorbis nlohmann_json microsoft_gsl ]
         ++ optional qtspeechSupport qt5.qtspeech;
       qtWrapperArgs = old.qtWrapperArgs or [ ] ++ [
         "--prefix" "LD_LIBRARY_PATH" ":" (makeLibraryPath runtimeDependencies)
@@ -279,24 +257,29 @@ let
         "-Dbundled-opus=NO"
         "-Dbundled-celt=NO"
         "-Dbundled-speex=NO"
+        "-Dbundled-rnnoise=NO"
+        "-Dbundled-json=NO"
+        "-Dbundled-gsl=NO"
         "-Dportaudio=NO"
         "-Dqtspeech=${if qtspeechSupport then "YES" else "NO"}"
         "-Dembed-qt-translations=NO"
+        "-Dbundle-qt-translations=NO"
         "-Dupdate=OFF"
+        "-Dtracy=OFF" "-DTRACY_ON_DEMAND=OFF"
+        "-Dwarnings-as-errors=OFF"
         "-Doverlay-xcompile=OFF"
       ];
 
       postPatch = old.postPatch or "" + ''
         echo '
-          pkg_search_module(RNNOISE IMPORTED_TARGET rnnoise)
-          add_library(rnnoise ALIAS PkgConfig::RNNOISE)
-        ' > 3rdparty/rnnoise-build/CMakeLists.txt
-
-        echo '
           pkg_search_module(PIPEWIRE IMPORTED_TARGET libpipewire-0.3)
-          target_link_libraries(mumble PRIVATE PkgConfig::PIPEWIRE)
+          target_link_libraries(mumble_client_object_lib PRIVATE PkgConfig::PIPEWIRE)
         ' >> src/mumble/CMakeLists.txt
 
+        sed -i src/CMakeLists.txt \
+          -e '/add_subdirectory.*tracy/d' \
+          -e '/disable_warnings_for.*tracy/d' \
+          -e '/target_link_libraries.*Tracy/d'
         sed -i src/mumble/CMakeLists.txt \
           -e /set_target_properties.rnnoise/d \
           -e /install_library.rnnoise/d
@@ -317,17 +300,6 @@ let
       '';
     });
 
-    pidgin-arc = { pidgin, purple-plugins-arc }: let
-      wrapped = pidgin.override {
-        plugins = purple-plugins-arc;
-      };
-    in wrapped.overrideAttrs (old: {
-      pname = "pidgin-arc";
-      meta = old.meta or {} // {
-        broken = pidgin.stdenv.isDarwin;
-      };
-    });
-
     weechat-arc = { lib, wrapWeechat, weechat-unwrapped, weechatScripts, python3Packages }: let
       filterBroken = lib.filter (s: ! s.meta.broken or false && s.meta.available or true); # matrix-nio is often broken
       weechat-wrapped = (wrapWeechat.override { inherit python3Packages; }) weechat-unwrapped {
@@ -338,7 +310,7 @@ let
             ]))
           ];
           scripts = with weechatScripts; filterBroken [
-            go auto_away autoconf autosort colorize_nicks unread_buffer urlgrab vimode-git weechat-matrix
+            weechat-go auto_away autoconf weechat-autosort colorize_nicks unread_buffer urlgrab vimode-develop weechat-matrix
           ];
         };
       };
@@ -348,8 +320,6 @@ let
         broken = old.meta.broken or false || weechat-unwrapped.stdenv.isDarwin;
       };
     });
-
-    xdg_utils-mimi = { xdg_utils }: xdg_utils.override { mimiSupport = true; };
 
     picom-next = { picom, fetchFromGitHub, lib }: picom.overrideAttrs (old: {
       version = "2021-04-13";
@@ -384,8 +354,8 @@ let
       src = fetchFromGitHub {
         owner = "mortie";
         repo = "swaylock-effects";
-        rev = "5cb9579faaf5662b111f5722311b701eff1c1d00";
-        sha256 = "036dkhfqgk7g9vbr5pxgrs66h5fz0rwdsc67i1w51aa9v01r35ca";
+        rev = "a8fc557b86e70f2f7a30ca9ff9b3124f89e7f204";
+        sha256 = "0f9571blnn7lg317js1j1spc5smz69i5aw6zkhskkm5m633rrpqq";
       };
 
       patches = [
@@ -426,9 +396,6 @@ let
       postFixup = "wrapPythonPrograms";
     });
 
-    yamllint = { python3Packages }: with python3Packages; toPythonApplication yamllint;
-    svdtools = { python3Packages }: with python3Packages; toPythonApplication svdtools;
-
     jimtcl-minimal = { lib, hostPlatform, tcl, jimtcl, readline }: (jimtcl.override { SDL = null; SDL_gfx = null; sqlite = null; }).overrideAttrs (old: {
       pname = "jimtcl-minimal";
       NIX_CFLAGS_COMPILE = "";
@@ -438,17 +405,6 @@ let
 
       doCheck = !hostPlatform.isDarwin;
     });
-
-    mustache = { nodeEnv, fetchurl }: nodeEnv.buildNodePackage rec {
-      name = "mustache";
-      packageName = "mustache";
-      version = "4.0.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/${packageName}/-/${packageName}-${version}.tgz";
-        sha512 = "34bjsgdkm5f3z2yx33z9jgk9jqmx31f1bz3svrhl571dnnm1jgyw84dhx6fz7a4aj5vcg25dalhl133irzw053n0pblcmn8gz4j760l";
-      };
-      production = true;
-    };
 
     mpd-youtube-dl = { lib, mpd, fetchpatch, makeWrapper, youtube-dl }: mpd.overrideAttrs (old: let
       patchVersion =
@@ -472,7 +428,7 @@ let
           else if patchVersion == "0.22.6" then "16fzj27m9xyh3aqnmfgwrbfr4rcljw7z7vdszlfgq8zj1z8zrdir"
           else if patchVersion == "0.22.7" then "1way27q3m9zzps2wkmjsqk22grp727fzky7ds30gdnzn4dygbcrp"
           else if patchVersion == "0.22.10" then "14sndl4b8zaf7l8ia4n6qq6l4iq5d9h7f495p0dzchw6ck536nhq"
-          else if patchVersion == "0.23.2" then "06dhl23n18ki6amplsqk5wf82l6j7criygfqksfwrn1j8k4m5drv"
+          else if patchVersion == "0.23.2" then "sha256-rFN/w/V/Mz+IQbkfZf1CD4Gpm4kd9bVwHOZXFOpXBAM"
           else lib.fakeSha256;
       }) ];
 
@@ -527,10 +483,23 @@ let
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/61050b3f3400cd8d984b4db63d104e2480682227.patch";
         sha256 = "0cpg18pq2a344l3x589ab7sg386smp6fb6iyj768qzflsdwn2fmq";
-      }) ++ lib.optional (lib.versionAtLeast qemu.version "6.1") (fetchpatch {
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "6.1" && lib.versionOlder qemu.version "6.2") (fetchpatch {
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/e3d3d8a836d5dd4d385def2959abae0eb23a1d69.patch";
         sha256 = "04lbhhp2dcy38zzy4qx2w55af2j1s144ibka6d0k9pqya0d040d5";
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "6.2" && lib.versionOlder qemu.version "7.0") (fetchpatch {
+        name = "qemu-cpu-pinning.patch";
+        url = "https://github.com/arcnmx/qemu/commit/3f466242dc8f7cbefdc2d56a71e4f8a9682eee2a.patch";
+        sha256 = "04g7m73d8jynfi1lric0vmkhbgdh24vclx08nal439y8qnfjzya9";
+      }) ++ lib.optional (lib.versionAtLeast qemu.version "7.0") (fetchpatch {
+        name = "qemu-cpu-pinning.patch";
+        url = "https://github.com/64kramsystem/qemu-pinning/commit/851970fe429b9ff8c24e935864bb8e7c235b1187.patch";
+        sha256 = "1732rxx1wsrx9nycpja4ixxhqn9sxv9sgdgylgqqybbzcl716hkg";
+      }) ++ lib.optional (qemu.version == "7.0.0") (fetchpatch {
+        # https://gitlab.com/qemu-project/qemu/-/issues/997
+        name = "iothread-spin.patch";
+        url = "https://github.com/arcnmx/qemu/commit/fd3a94d18d8a8133ccdeb7048e8da7e84ce232db.patch";
+        sha256 = "0rqprr1p9b7r07q9gr14y6z4i11nx7lr9x9ggci1lrwm89kj14nw";
       }) ++ lib.singleton (fetchpatch {
         name = "qemu-smb-symlinks.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/646a58799e0791c4074148a21d57786f100b7076.patch";
@@ -566,9 +535,6 @@ let
           sha256 = "18pavs8kdqsj43iapfs5x639w613xhahd168c2j86sizy04390ga";
         })
       ];
-      meta = old.meta or { } // {
-        broken = old.meta.broken or lib.isNixpkgsStable;
-      };
     });
 
     lieer-develop = { lieer, fetchFromGitHub }: lieer.overrideAttrs (old: {

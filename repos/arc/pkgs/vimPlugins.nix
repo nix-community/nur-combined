@@ -1,5 +1,5 @@
 {
-  notmuch-vim = { fetchFromGitHub, fetchurl, vimUtils, notmuch, ruby, buildRubyGem, buildEnv }:
+  notmuch-vim = { fetchFromGitHub, fetchurl, vimUtils, notmuch, ruby, buildRubyGem, buildEnv, lib }:
   let
     mail-gpg = buildRubyGem {
         inherit ruby;
@@ -29,16 +29,9 @@
     ];
     gemEnv = buildEnv {
       name = "notmuch-vim-gems";
-      paths = with ruby.gems; [ notmuch mail gpgme rack mail-gpg ];
+      paths = with ruby.gems; [ mail gpgme rack mail-gpg ]
+      ++ lib.optional (notmuch ? ruby) notmuch.ruby;
       pathsToLink = [ "/lib" "/nix-support" ];
-      # https://github.com/NixOS/nixpkgs/pull/76765
-      postBuild = ''
-        for gem in $out/lib/ruby/gems/*/gems/*; do
-          cp -a $gem/ $gem.new
-          rm $gem
-          mv $gem.new $gem
-        done
-      '';
     };
     buildPhase = let
     in ''
@@ -52,7 +45,7 @@
       done
       echo 'endif' >> plugin/notmuch.vim
     '';
-    meta.broken = notmuch.meta.broken or false;
+    meta.broken = notmuch.meta.broken or false || ! notmuch ? ruby;
   };
   vim-hug-neovim-rpc = { fetchFromGitHub, vimUtils }: vimUtils.buildVimPlugin rec {
     pname = "vim-hug-neovim-rpc";

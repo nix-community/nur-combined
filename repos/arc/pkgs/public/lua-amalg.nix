@@ -8,6 +8,4 @@
     sha256 = "1a569hrras5wm4gw5hr2i5hz899bwihz1hb31gfnd9z4dsi8wymb";
   };
   rockspecFilename = "amalg-scm-0.rockspec";
-
-  meta.broken = lib.isNixpkgsStable;
 }

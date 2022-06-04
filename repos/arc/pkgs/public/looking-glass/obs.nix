@@ -1,4 +1,13 @@
-{ stdenv, fetchpatch, looking-glass-client, looking-glass-host, lib, libbfd, obs-studio, libGLU, cmake, pkg-config, enableThreading ? false }: let
+{ stdenv
+, fetchpatch
+, looking-glass-client, looking-glass-host
+, lib
+, libbfd
+, obs-studio, libGLU
+, cmake, pkg-config
+, enableThreading ? false
+, optimizeForArch ? null
+}: let
   namedPatches = import ./patches.nix { inherit fetchpatch; };
 in stdenv.mkDerivation {
   pname = "looking-glass-obs";
@@ -15,10 +24,12 @@ in stdenv.mkDerivation {
   buildInputs = [ libbfd obs-studio libGLU ];
 
   cmakeFlags = [
-    "-DOPTIMIZE_FOR_NATIVE=OFF"
+    "-DOPTIMIZE_FOR_NATIVE=${if optimizeForArch == null then "OFF" else optimizeForArch}"
     "-DENABLE_THREADS=${if enableThreading then "ON" else "OFF"}"
     "../obs"
   ];
+
+  hardeningDisable = [ "all" ];
 
   passthru = {
     inherit namedPatches;

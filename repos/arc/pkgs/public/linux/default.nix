@@ -149,28 +149,6 @@ let
       meta.platforms = lib.platforms.linux;
     };
 
-    looking-glass-kvmfr = { stdenv, looking-glass-client, lib, linux }: stdenv.mkDerivation rec {
-      inherit (looking-glass-client) version;
-      pname = let
-        pname = "${looking-glass-client.pname}-kvmfr";
-        kernel-name = builtins.tryEval "${pname}-${linux.version}";
-      in if kernel-name.success then kernel-name.value else pname;
-
-      inherit (looking-glass-client) src;
-      sourceRoot = "source/module";
-
-      kernelVersion = linux.modDirVersion;
-      modules = [ "kvmfr" ];
-      makeFlags = kernelMakeFlags linux;
-      enableParallelBuilding = true;
-
-      installPhase = ''
-        install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/ kvmfr.ko
-      '';
-
-      meta.platforms = lib.platforms.linux;
-    };
-
     nvidia-patch = { stdenvNoCC, fetchFromGitHub, fetchpatch, writeShellScriptBin, lib, lndir, nvidia_x11 ? linuxPackages.nvidia_x11, linuxPackages ? { } }: let
       nvpatch = writeShellScriptBin "nvpatch" ''
         set -eu
@@ -192,26 +170,15 @@ let
       '';
     in stdenvNoCC.mkDerivation {
       pname = "nvidia-patch";
-      version = "2021-10-26";
+      version = "2022-04-30";
 
       src = fetchFromGitHub {
         # mirror: git clone https://ipfs.io/ipns/Qmed4r8yrBP162WK1ybd1DJWhLUi4t6mGuBoB9fLtjxR7u
         owner = "keylase";
         repo = "nvidia-patch";
-        rev = "6e7cdeef11bc2035438212b8ba74b4709d1b248b";
-        sha256 = "02ky2v69brk9ld9l1y649wvrik6vshgjpdmapdm2vraqnsa11iiy";
+        rev = "12dae07fda04e4a67e2273e9d5239a5449a1dec2";
+        sha256 = "1f0mjgvlijrdjlzl03r3y1a4qsd44hn9fymm5ic6ywjwkm5dpxh2";
       };
-
-      patches = [
-        (fetchpatch {
-          url = "https://github.com/keylase/nvidia-patch/pull/449.patch";
-          sha256 = "0rxq1xammgkrb03a0cjl6b1fjgnb8iam02dzv8m7ynclbqq0wnj6";
-        })
-        (fetchpatch {
-          url = "https://github.com/arcnmx/nvidia-patch/commit/a55fc5e22a097ca907facb41d15ce018c393dcbc.patch";
-          sha256 = "1v4iax6x1cx6lfkcap1b2iab36j6zby1rm1h5pfwd954ks3xq1lw";
-        })
-      ];
 
       nativeBuildInputs = [ nvpatch lndir ];
       patchedLibs = [

@@ -22,7 +22,7 @@
   in pkgs.writeText "${strings.sanitizeDerivationName name}" ''
     components = ${lua.serializeExpr componentsConfig}
   '';
-  pipewireModuleArgs = json.types.attrs;
+  pipewireModuleArgs = with types; either (attrsOf json.type) (listOf json.type);
   pipewireModuleType = types.submodule ({ config, ... }: {
     options = {
       name = mkOption {
@@ -131,6 +131,18 @@
         type = types.int;
         default = 0;
       };
+      class = mkOption {
+        type = types.str;
+        default = "Audio/Sink";
+      };
+      defaultAction = mkOption {
+        type = types.enum [ "mix" "cork" "duck" ];
+        default = "cork";
+      };
+      roleAction = mkOption {
+        type = with types; nullOr (enum [ "mix" "cork" "duck" ]);
+        default = "mix";
+      };
       actions = mkOption {
         type = with types; attrsOf str;
         default = { };
@@ -139,13 +151,17 @@
         enable = mkEnableOption "role endpoint" // { default = true; };
         name = mkOption {
           type = types.str;
-          default = name;
+          default = replaceStrings [ "-" ] [ "_" ] name;
         };
         class = mkOption {
           type = types.str;
-          default = "Audio/Sink";
+          default = config.class;
         };
       };
+    };
+    config.actions = {
+      default = mkOptionDefault config.defaultAction;
+      ${config.name} = mkIf (config.roleAction != null) (mkOptionDefault config.roleAction);
     };
   });
   constraintType = types.submodule ({ config, options, ... }: let
@@ -277,6 +293,52 @@
       default_permissions = config.permissions;
     };
   });
+  persistentProfileRuleType = types.submodule ({ config, ... }: {
+    options = {
+      enable = mkEnableOption "rule" // { default = true; };
+      matches = mkOption {
+        type = orConstraints;
+      };
+      profileNames = mkOption {
+        type = with types; listOf str;
+      };
+      out = {
+        properties = mkOption {
+          type = types.unspecified;
+        };
+      };
+    };
+    config.out.properties = {
+      matches = mapMatches config.matches;
+      profile_names = config.profileNames;
+    };
+  });
+  restoreRuleType = types.submodule ({ config, ... }: {
+    options = {
+      enable = mkEnableOption "rule" // { default = true; };
+      matches = mkOption {
+        type = orConstraints;
+      };
+      props = mkOption {
+        type = types.bool;
+        default = cfg.defaults.restore.props;
+      };
+      target = mkOption {
+        type = types.bool;
+        default = cfg.defaults.restore.target;
+      };
+      out = {
+        properties = mkOption {
+          type = types.unspecified;
+        };
+      };
+    };
+    config.out.properties = {
+      matches = mapMatches config.matches;
+      "state.restore-props" = config.props;
+      "state.restore-target" = config.target;
+    };
+  });
   fileType = types.submodule ({ config, name, ... }: {
     options = {
       text = mkOption {
@@ -294,7 +356,7 @@ in {
     enable = mkEnableOption "wireplumber";
     package = mkOption {
       type = types.package;
-      default = pkgs.wireplumber or arc.packages.wireplumber;
+      default = pkgs.wireplumber or arc.packages.wireplumber-0_4_4;
       defaultText = "pkgs.wireplumber";
     };
     service = {
@@ -343,6 +405,63 @@ in {
       persistent = mkEnableOption "store preferences to the file system and restore them at startup" // {
         default = true;
       };
+      volume = mkOption {
+        type = types.float;
+        default = 0.4;
+        description = "the default volume to apply to ACP device nodes, in the linear scale";
+      };
+      device = {
+        enable = mkEnableOption "Selects appropriate profile for devices" // {
+          default = true;
+        };
+        persistentProfiles = mkOption {
+          type = types.attrsOf persistentProfileRuleType;
+          default = { };
+          description = ''
+            persistent device profiles that should never change when wireplumber is running,
+            even if a new profile with higher priority becomes available
+          '';
+        };
+        properties = mkOption {
+          type = json.types.attrs;
+        };
+      };
+      restore = {
+        enable = mkEnableOption "Save and restore stream-specific properties" // {
+          default = true;
+        };
+        props = mkOption {
+          type = types.bool;
+          default = true;
+          description = "whether to restore the last stream properties or not";
+        };
+        target = mkOption {
+          type = types.bool;
+          default = true;
+          description = "whether to restore the last stream target or not";
+        };
+        rules = mkOption {
+          type = types.attrsOf restoreRuleType;
+          default = { };
+          description = "Rules to override settings per node";
+        };
+        properties = mkOption {
+          type = json.types.attrs;
+        };
+      };
+      echoCancel = {
+        enable = mkEnableOption "auto-switch to echo cancel sink and source nodes";
+        sink = mkOption {
+          type = types.str;
+          default = "echo-cancel-sink";
+          description = "the default echo-cancel-sink node name to automatically switch to";
+        };
+        source = mkOption {
+          type = types.str;
+          default = "echo-cancel-source";
+          description = "the default echo-cancel-source node name to automatically switch to";
+        };
+      };
       properties = mkOption {
         type = json.types.attrs;
       };
@@ -361,10 +480,23 @@ in {
         move = mkOption {
           type = types.bool;
           default = true;
+          description = "moves session items when metadata target.node changes";
         };
         follow = mkOption {
           type = types.bool;
           default = true;
+          description = "moves session items to the default device when it has changed";
+        };
+        filter = {
+          forwardFormat = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''
+              Whether to forward the ports format of filter stream nodes to their
+              associated filter device nodes. This is needed for application to stream
+              surround audio if echo-cancel is enabled.
+            '';
+          };
         };
       };
       duck = {
@@ -374,11 +506,13 @@ in {
         };
       };
       roles = {
+        enable = mkEnableOption "enable role-based endpoints - this is not yet ready for desktop use";
         role = mkOption {
           type = with types; attrsOf policyRoleType;
         };
         endpointsProperties = mkOption {
           type = json.types.attrs;
+          default = { };
         };
         properties = mkOption {
           type = json.types.attrs;
@@ -425,13 +559,16 @@ in {
       enable = mkEnableOption "Load v4l2 device monitor";
     };
     libcamera = {
-      enable = mkEnableOption "Load libcamera device monitor";
+      enable = mkEnableOption "Load libcamera device monitor" // {
+        default = true;
+      };
       properties = mkOption {
         type = json.types.attrs;
         default = { };
       };
       rules = mkOption {
         type = types.attrsOf alsaRuleType;
+        default = { };
       };
     };
     bluez = {
@@ -442,9 +579,6 @@ in {
     '' // { default = true; };
     suspend-node.enable = mkEnableOption ''
       Automatically suspends idle nodes after 3 seconds
-    '' // { default = true; };
-    device-activation.enable = mkEnableOption ''
-      Automatically sets device profiles to 'On'
     '' // { default = true; };
     pipewire = {
       modules = mkOption {
@@ -531,6 +665,7 @@ in {
           "audio.convert.*" = "audioconvert/libspa-audioconvert";
           "support.*" = "support/libspa-support";
         };
+        rt.enable = mkIf cfg.bluez.enable (mkDefault true);
       };
       access.rules = {
         flatpak = {
@@ -555,52 +690,109 @@ in {
           ];
           permissions = mkOptionDefault "all";
         };
+        restrictedAccess = {
+          # pulse TCP clients are assigned "restricted" access
+          matches = mkOptionDefault {
+            subject = "pipewire.access";
+            comparison = "restricted";
+            verb = "=";
+          };
+          permissions = mkOptionDefault "rx";
+        };
       };
       defaults.properties = mapAttrs (_: mkOptionDefault) {
         "use-persistent-storage" = cfg.defaults.persistent;
+        "auto-echo-cancel" = cfg.defaults.echoCancel.enable;
+        "echo-cancel-sink-name" = cfg.defaults.echoCancel.sink;
+        "echo-cancel-source-name" = cfg.defaults.echoCancel.source;
+        "default-volume" = cfg.defaults.volume;
+      };
+      defaults.restore.properties = {
+        properties = mapAttrs (_: mkOptionDefault) {
+          "restore-props" = cfg.defaults.restore.props;
+          "restore-target" = cfg.defaults.restore.target;
+        };
+        rules = mapRulesToLua cfg.defaults.restore.rules;
+      };
+      defaults.device = {
+        persistentProfiles = {
+          default = {
+            matches = mkOptionDefault {
+              subject = "device.name";
+              comparison = "*";
+              verb = "matches";
+            };
+            profileNames = mkOptionDefault [ "off" "pro-audio" ];
+          };
+        };
+        properties = {
+          persistent = mapRulesToLua cfg.defaults.device.persistentProfiles;
+        };
       };
       policy = {
         properties = mapAttrs (_: mkOptionDefault) {
           move = cfg.policy.session.move;
           follow = cfg.policy.session.follow;
+          "filter.forward-format" = cfg.policy.session.filter.forwardFormat;
           "audio.no-dsp" = !cfg.policy.session.dsp.enable;
           "duck.level" = cfg.policy.duck.level;
         } // {
-          roles = cfg.policy.roles.properties;
+          roles = mkIf cfg.policy.roles.enable cfg.policy.roles.properties;
         };
         roles = {
           role = {
+            capture = mapAttrs (_: mkDefault) {
+              name = "Capture";
+              aliases = [ "Multimedia" "Music" "Voice" "Capture" ];
+              priority = 25;
+              class = "Audio/Source";
+              roleAction = null;
+            } // {
+              actions.capture = mkOptionDefault "mix";
+            };
             multimedia = mapAttrs (_: mkDefault) {
               name = "Multimedia";
               aliases = [ "Movie" "Music" "Game" ];
-              priority = 10;
-            } // {
-              actions.default = mkOptionDefault "mix";
+              priority = 25;
+              roleAction = null;
             };
-            notification = mapAttrs (_: mkDefault) {
-              name = "Notification";
-              endpoint.name = "notifications";
-              priority = 20;
-            } // {
-              actions = mapAttrs (_: mkOptionDefault) {
-                default = "duck";
-                Notification = "mix";
-              };
-            };
-            alert = mapAttrs (_: mkDefault) {
-              name = "Alert";
+            speech-low = mapAttrs (_: mkDefault) {
+              name = "Speech-Low";
               priority = 30;
-            } // {
-              actions = mapAttrs (_: mkOptionDefault) {
-                default = "cork";
-                Alert = "mix";
-              };
+            };
+            custom-low = mapAttrs (_: mkDefault) {
+              name = "Custom-Low";
+              priority = 35;
+            };
+            navigation = mapAttrs (_: mkDefault) {
+              name = "Navigation";
+              priority = 50;
+              defaultAction = "duck";
+            };
+            speech-high = mapAttrs (_: mkDefault) {
+              name = "Speech-High";
+              priority = 60;
+            };
+            custom-high = mapAttrs (_: mkDefault) {
+              name = "Custom-High";
+              priority = 65;
+            };
+            communication = mapAttrs (_: mkDefault) {
+              name = "Communication";
+              priority = 75;
+            };
+            emergency = mapAttrs (_: mkDefault) {
+              name = "Emergency";
+              aliases = [ "Alert" ];
+              priority = 99;
             };
           };
-          endpointsProperties = mapAttrs' (_: role: nameValuePair "endpoint.${role.endpoint.name}" (mkIf (role.enable && role.endpoint.enable) {
-            "media.class" = mkOptionDefault role.endpoint.class;
-            role = role.name;
-          })) cfg.policy.roles.role;
+          endpointsProperties = mkIf cfg.policy.roles.enable (
+            mapAttrs' (_: role: nameValuePair "endpoint.${role.endpoint.name}" (mkIf (role.enable && role.endpoint.enable) {
+              "media.class" = mkOptionDefault role.endpoint.class;
+              role = role.name;
+            })) cfg.policy.roles.role
+          );
           properties = mapAttrs' (_: role: nameValuePair role.name (mkIf role.enable (
             mapAttrs' (key: action: nameValuePair "action.${key}" action) role.actions
             // {
@@ -644,20 +836,30 @@ in {
           { name = "libwireplumber-module-portal-permissionstore"; type = "module"; }
           { name = "access/access-portal.lua"; type = "script/lua"; }
         ];
+        policyRoutes = if versionOlder cfg.package.version "0.4.9"
+          then "default-routes.lua"
+          else "policy-device-routes.lua";
         defaults = [
           { name = "libwireplumber-module-default-nodes"; type = "module"; arguments = cfg.defaults.properties; }
-          { name = "default-routes.lua"; type = "script/lua"; arguments = cfg.defaults.properties; }
+        ] ++ optionals (cfg.defaults.device.enable && versionAtLeast cfg.package.version "0.4.9") [
+          { name = "policy-device-profile.lua"; type = "script/lua"; arguments = cfg.defaults.device.properties; }
+        ] ++ [
+          { name = policyRoutes; type = "script/lua"; arguments = cfg.defaults.properties; }
         ] ++ optionals cfg.defaults.persistent [
           { name = "libwireplumber-module-default-profile"; type = "module"; }
-          { name = "restore-stream.lua"; type = "script/lua"; }
-        ];
+        ] ++ optional cfg.defaults.restore.enable {
+          name = "restore-stream.lua"; type = "script/lua";
+          ${if versionAtLeast cfg.package.version "0.4.8" then "arguments" else null} = cfg.defaults.restore.properties;
+        };
         policy = [
           { name = "libwireplumber-module-si-node"; type = "module"; }
           { name = "libwireplumber-module-si-audio-adapter"; type = "module"; }
           { name = "libwireplumber-module-si-standard-link"; type = "module"; }
           { name = "libwireplumber-module-si-audio-endpoint"; type = "module"; }
           { name = "libwireplumber-module-default-nodes-api"; type = "module"; } # access default nodes from scripts
+        ] ++ optional (versionOlder cfg.package.version "0.4.8")
           { name = "libwireplumber-module-route-settings-api"; type = "module"; } # access volume of streams from scripts
+        ++ [
           { name = "libwireplumber-module-mixer-api"; type = "module"; } # needed for volume ducking
           { name = "static-endpoints.lua"; type = "script/lua"; arguments = cfg.policy.roles.endpointsProperties; }
           { name = "create-item.lua"; type = "script/lua"; arguments = cfg.policy.properties; }
@@ -690,6 +892,7 @@ in {
         (
           optionals cfg.alsa.enable alsa
           ++ optionals cfg.v4l2.enable v4l2
+          ++ optionals cfg.libcamera.enable libcamera
           ++ optionals cfg.bluez.enable bluez
         )
         (mkAfter (
@@ -700,7 +903,7 @@ in {
           ++ optional cfg.suspend-node.enable {
             name = "suspend-node.lua"; type = "script/lua";
           }
-          ++ optional cfg.device-activation.enable {
+          ++ optional (cfg.defaults.device.enable && versionOlder cfg.package.version "0.4.9") {
             name = "libwireplumber-module-device-activation"; type = "module";
           } ++ optionals cfg.policy.enable policy
         ))

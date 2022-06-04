@@ -182,10 +182,16 @@ let
         type = types.bool;
         default = options.binding.isDefined;
       };
+      port = mkOption { type = types.port; };
+      bind_addresses = mkOption { type = with types; listOf str; };
+      type = mkOption { type = types.str; default = "http"; };
+      tls = mkOption { type = types.bool; default = true; };
+      x_forwarded = mkOption { type = types.bool; default = false; };
+      resources = mkOption { type = with types; listOf attrs; };
     };
     config = mkIf config.hasBinding {
       port = mkDefault config.binding.port;
-      bind_address = config.binding.out.address;
+      bind_addresses = singleton config.binding.out.address;
     };
   };
   serviceMatrixSynapse = { config, options, lib, ... }: with lib; let
@@ -200,19 +206,25 @@ let
         public = mkOption {
           type = types.unspecified;
         };
-      };
-      listeners = mkOption {
-        type = with types; listOf (submodule matrixSynapseListener);
+        listeners = mkOption {
+          type = with types; attrsOf (submodule matrixSynapseListener);
+          default = { };
+        };
       };
     };
     config = {
       services.matrix-synapse = {
-        server_name = mkIf opts.domains.discovery.isDefined (mkDefault cfg.domains.discovery.fqdn);
-        public_baseurl = mkIf opts.domains.public.isDefined (mkDefault cfg.domains.public.url);
+        settings = {
+          server_name = mkIf opts.domains.discovery.isDefined (mkDefault cfg.domains.discovery.fqdn);
+          public_baseurl = mkIf opts.domains.public.isDefined (mkDefault cfg.domains.public.url);
+          listeners = mkIf (cfg.domains.listeners != { }) (mapAttrsToList (_: listener: {
+            inherit (listener) port bind_addresses type tls x_forwarded resources;
+          }) cfg.domains.listeners);
+        };
       };
-      networking.enabledBindings = mkIf cfg.enable (mkMerge (map (l:
+      networking.enabledBindings = mkIf cfg.enable (mkMerge (mapAttrsToList (_: l:
         mkIf l.hasBinding [ l.binding ]
-      ) cfg.listeners));
+      ) cfg.domains.listeners));
     };
   };
   serviceVaultwarden = { config, options, lib, ... }: with lib; let

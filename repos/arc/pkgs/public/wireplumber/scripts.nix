@@ -1,16 +1,41 @@
-{ stdenvNoCC, lua-amalg, fetchFromGitHub, lua5_4 ? lua5_3, lua5_3 }: stdenvNoCC.mkDerivation {
-  pname = "wireplumber-scripts";
-  version = "2021-10-31";
+{ rustPlatform
+, fetchFromGitHub
+, wireplumber ? wireplumber-0_4_4, pipewire, glib
+, wireplumber-0_4_4 ? null
+, stdenv, libclang
+, pkg-config
+, lib
+}: with lib; let
+in rustPlatform.buildRustPackage {
+  pname = "wireplumber-scripts-arc";
+  version = "0.1.0";
+
+  buildInputs = [ wireplumber pipewire glib ];
+  nativeBuildInputs = [ pkg-config ];
 
   src = fetchFromGitHub {
     owner = "arcnmx";
     repo = "wireplumber-scripts";
-    rev = "89c298039b685c88a6f016438b7da0883d6511d8";
-    sha256 = "0ikjxxlwzx3w5v1dwjd90v76fbq4hc5m4w9v444v094n5c9k5jyi";
+    rev = "e4d267f9b484430f05ee5d7c72245757cc6b7f7c";
+    sha256 = "1pd3alxmbmrgmjb161yx5n1cjyq8cafpqh7632mymilqn4cpifz0";
   };
+  cargoSha256 = "0ffzqkz7b09kwjs4yyiyxwvmdknharxhq8x7zmp8jp0b3gsgnr8c";
 
-  nativeBuildInputs = [ lua-amalg ];
-  checkInputs = [ lua5_4 ];
+  pluginExt = stdenv.hostPlatform.extensions.sharedLibrary;
+  wpLibDir = "${placeholder "out"}/lib/wireplumber-${versions.majorMinor wireplumber.version}";
+  postInstall = ''
+    install -d $wpLibDir
+    for pluginName in wpscripts_static_link; do
+      mv $out/lib/lib$pluginName$pluginExt $wpLibDir/
+    done
+  '';
 
-  installFlags = [ "INSTALLDIR=${placeholder "out"}" ];
+  # bindgen garbage, please clean up your act pipewire-rs :(
+  LIBCLANG_PATH = "${libclang.lib}/lib";
+  BINDGEN_EXTRA_CLANG_ARGS = [
+    "-I${stdenv.cc.cc}/lib/gcc/${stdenv.hostPlatform.config}/${stdenv.cc.cc.version}/include"
+    "-I${stdenv.cc.libc.dev}/include"
+  ];
+
+  meta.broken = versionOlder rustPlatform.rust.rustc.version "1.57";
 }

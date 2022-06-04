@@ -1,4 +1,19 @@
 {
+  rustdoc-stripper = {
+    rustPlatform, fetchFromGitHub,
+  }: rustPlatform.buildRustPackage rec {
+    pname = "rustdoc-stripper";
+    version = "0.1.18";
+    src = fetchFromGitHub {
+      owner = "GuillaumeGomez";
+      repo = pname;
+      rev = "f6643dd300a71c876625260f190c63a5be41f331";
+      sha256 = "01h15sczxgc778avxsk7zakf9sakg7rx9dkjhmq4smx4pr5l033r";
+    };
+
+    cargoSha256 = "17bj63lqx0wm39dxdc4mid80gzdpyv2z59fx5zndvz1ns260v5yy";
+  };
+
   cargo-download-arc = {
     fetchFromGitHub, rustPlatform, lib
   , openssl, pkgconfig, hostPlatform, darwin,
@@ -147,23 +162,20 @@
     lib, fetchFromGitHub, rustPlatform
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-call-stack";
-    version = "2020-07-07";
+    version = "0.1.6";
 
     src = fetchFromGitHub {
       owner = "japaric";
       repo = pname;
-      rev = "d8f4338adb4c8cc3dfaeba22b1a4d5d22168cb17";
-      sha256 = "1sdskiykx9bvnr8dny1dg138cm6m8zhvs8n25lksg2s34xdjzh3c";
+      rev = "v${version}";
+      sha256 = "00ka0yx3114wmpngs44fv2j3r6jxh1v1w9kzzmbklynpi3wmb65b";
     };
 
     cargoPatches = [ ./cargo-call-stack-lock.patch ];
     patches = [
       ./cargo-call-stack-udf.patch # https://github.com/japaric/cargo-call-stack/issues/20
     ];
-    cargoSha256 = "05gbh3kklr2d9m1mmj3lgnwqvgd53dzn5ibiz7ny75ch5ykqq720";
-
-    # Only because of the cargo lockfile version...
-    meta.broken = !lib.rustVersionAtLeast rustPlatform "1.41";
+    cargoSha256 = "14qdz805z5h9vryrjcy3vsqcaic8fh9f4x60pvbkbv3r2bz072vc";
   };
 
   cargo-stack-sizes = {
@@ -216,8 +228,8 @@
       owner = "arcnmx";
       repo = pname;
       # xinput branch
-      rev = "415a93acaa043de6e138d0a56276ae4b6adce803";
-      sha256 = "04fpgal5kizgz6zqsn0xqm1f4zmy27kwpmnf0iy4rndx9i0irr7z";
+      rev = "1e2e121f18d6f5e0ea18fe94e8a95feb87955e25";
+      sha256 = "02s33msf9dx9qrry42dnsn19chjqkxvvf9329zpxayw6rmjbzzmr";
     };
 
     nativeBuildInputs = [ pkg-config python3 ];

@@ -51,7 +51,7 @@
       ${if templateIsPath then null else "templateData"} = builtins.toJSON templateData;
       ${if templateIsPath then "templateDataPath" else null} = templateData;
       passAsFile = args.passAsFile or [ ] ++ optional (!templateIsPath) "templateData";
-      nativeBuildInputs = with self.buildPackages; args.nativeBuildInputs or [ ] ++ [ yq mustache ];
+      nativeBuildInputs = with self.buildPackages; args.nativeBuildInputs or [ ] ++ [ yq mustache-go ];
       preferLocalBuild = true;
 
       outputs = [ "out" "nix" ];

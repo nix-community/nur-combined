@@ -5,7 +5,10 @@
   sshd = ./sshd.nix;
   ssh = ./ssh.nix;
   konawall = ./konawall.nix;
+  screenstub = ./screenstub.nix;
   task = ./task.nix;
+  page = ./page.nix;
+  starship = ./starship.nix;
   kakoune = ./kakoune.nix;
   rustfmt = ./rustfmt.nix;
   base16 = import ./base16.nix false;
@@ -38,7 +41,10 @@
       git github bitbucket
       sshd ssh
       konawall
+      screenstub
       task
+      page
+      starship
       kakoune
       rustfmt
       base16

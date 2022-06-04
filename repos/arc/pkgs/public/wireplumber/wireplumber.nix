@@ -25,14 +25,14 @@
   ]);
 in stdenv.mkDerivation rec {
   pname = "wireplumber";
-  version = "0.4.5";
+  version = "0.4.4";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "pipewire";
     repo = pname;
     rev = version;
-    sha256 = "1k56i5cardwr03vkldg68714hyksyp1vb0b315yw1bilaj2ka30i";
+    sha256 = "0vr84xlnwlhrfq9l13rxh8cb8s389wlyafvi6bah444acmpx1lwv";
   };
 
   outputs = [ "out" "dev" ] ++ optional enableDocs "doc";
