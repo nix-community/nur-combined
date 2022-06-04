@@ -10,13 +10,6 @@
 , config ? ((import <nixpkgs/nixos/lib/eval-config.nix>){modules = [(import <nixos-config>)];}).config }:
 
 let
-  unstable' = pkgs.fetchFromGitHub {
-    owner = "nixos";
-    repo = "nixpkgs";
-    rev = "34ad3ffe08adfca17fcb4e4a47bb5f3b113687be";
-    sha256 = "02li241rz5668nfyp88zfjilxf0mr9yansa93fbl38hjwkhf3ix6";
-  };
-  unstable = import unstable' { config.allowUnfree = true; };
   # https://bugs.gentoo.org/804825
   libidn = pkgs.libidn.overrideAttrs (oldAttrs: rec {
     pname = "libidn";
@@ -29,8 +22,8 @@ let
 in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules { unstable-path = unstable'; inherit unstable; inherit libidn; }; # NixOS modules
-  overlays = import ./overlays { inherit unstable config; wireless-regdb' = wireless-regdb; }; # nixpkgs overlays
+  modules = import ./modules { inherit libidn; }; # NixOS modules
+  overlays = import ./overlays { inherit config; wireless-regdb' = wireless-regdb; }; # nixpkgs overlays
 
   k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf.nix { };
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };

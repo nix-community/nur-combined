@@ -1,4 +1,4 @@
-{ unstable, config, wireless-regdb' }:
+{ config, wireless-regdb' }:
 
 self: super: with super.lib;
 rec {

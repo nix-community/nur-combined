@@ -20,7 +20,7 @@ in {
       environment = {
         systemPackages = with pkgs; [
           networkmanagerapplet remmina
-          skypeforlinux zoom-us mattermost-desktop
+          skypeforlinux zoom-us mattermost-desktop whatsapp-for-linux
         ];
       };
     })

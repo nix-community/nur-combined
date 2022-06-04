@@ -1,4 +1,4 @@
-{ unstable-path, unstable, libidn }:
+{ libidn }:
 
 rec {
   # Add your NixOS modules here
@@ -13,7 +13,7 @@ rec {
   bambootracker = ./bambootracker.nix;
   nvidia = ./nvidia.nix;
   job = ./job.nix;
-  monitor = import ./monitor.nix unstable;
+  monitor = ./monitor.nix;
   server = import ./server.nix [ edgevpn ];
   headless = ./headless.nix;
   sunshine = ./sunshine.nix;
