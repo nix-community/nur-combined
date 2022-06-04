@@ -4,23 +4,23 @@ with python3Packages;
 
 toPythonModule (buildPythonApplication rec {
   pname = "searxng";
-  version = "1.0.0";
+  version = "1.0.0-searxng-alpha-202206022146";
 
   # pypi doesn't receive updates
   src = fetchFromGitHub {
     owner = "searxng";
     repo = "searxng";
-    rev = "v${version}";
-    sha256 = "sha256-sIJ+QXwUdsRIpg6ffUS3ItQvrFy0kmtI8whaiR7qEz4=";
+    rev = "96dc4369d535dc20178a3e7df793c8f2427d2c79";
+    sha256 = "sha256-ITTL0MypbuIIFt2xsB5tkjXu0jsH1l3fMHjbEid+zO0=";
   };
 
-  patches = [
-    # Fix a crash, remove with the next update
-    (fetchpatch {
-      url = "https://github.com/searx/searx/commit/9c10b150963babb7f0b52081693a42b2e61eede9.patch";
-      sha256 = "0svp8799628wja2hq59da6rxqi99am8p6hb8y27ciwzsjz0wwba7";
-    })
-  ];
+#   patches = [
+#     # Fix a crash, remove with the next update
+#     (fetchpatch {
+#       url = "https://github.com/searx/searx/commit/9c10b150963babb7f0b52081693a42b2e61eede9.patch";
+#       sha256 = "0svp8799628wja2hq59da6rxqi99am8p6hb8y27ciwzsjz0wwba7";
+#     })
+#   ];
 
   postPatch = ''
     sed -i 's/==.*$//' requirements.txt
@@ -30,7 +30,7 @@ toPythonModule (buildPythonApplication rec {
     export SEARX_DEBUG="true";
   '';
 
-  propagatedBuildInputs = [
+/*  propagatedBuildInputs = [
     Babel
     certifi
     python-dateutil
@@ -51,7 +51,28 @@ toPythonModule (buildPythonApplication rec {
     requests
     speaklater
     werkzeug
-  ];
+  ];*/
+   propagatedBuildInputs = [
+     certifi
+     babel
+     flaskbabel
+     flask
+     jinja2
+     lxml
+     pygments
+     python-dateutil
+     pyyaml
+     httpx
+     brotli
+     uvloop
+     httpx-socks
+     langdetect
+     setproctitle
+     redis
+     markdown-it-py
+     pkgs.kodiPackages.typing_extensions
+     h2
+   ];
 
   # tests try to connect to network
   doCheck = false;
