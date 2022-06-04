@@ -6,7 +6,8 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}
+, config ? ((import <nixpkgs/nixos/lib/eval-config.nix>){modules = [(import <nixos-config>)];}).config }:
 
 let
   unstable' = pkgs.fetchFromGitHub {
@@ -16,8 +17,6 @@ let
     sha256 = "02li241rz5668nfyp88zfjilxf0mr9yansa93fbl38hjwkhf3ix6";
   };
   unstable = import unstable' { config.allowUnfree = true; };
-  eval = import <nixpkgs/nixos/lib/eval-config.nix>;
-  config = (eval {modules = [(import <nixos-config>)];}).config;
   # https://bugs.gentoo.org/804825
   libidn = pkgs.libidn.overrideAttrs (oldAttrs: rec {
     pname = "libidn";
