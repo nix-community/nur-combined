@@ -244,7 +244,7 @@ let
       version = "1.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz";
-        sha1 = "1504ad2523158caa40db4a2787cb01411994ea4f";
+        sha512 = "OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==";
       };
     };
     "fstream-1.0.12" = {
@@ -298,7 +298,7 @@ let
       version = "1.0.6";
       src = fetchurl {
         url = "https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz";
-        sha1 = "49bd6331d7d02d0c09bc910a1075ba8165b56df9";
+        sha512 = "k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==";
       };
     };
     "inherits-2.0.4" = {
@@ -334,7 +334,7 @@ let
       version = "0.0.1";
       src = fetchurl {
         url = "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz";
-        sha1 = "8a18acfca9a8f4177e09abfc6038939b05d1eedf";
+        sha512 = "D2S+3GLxWH+uhrNEcoh/fnmYeP8E8/zHl644d/jdA0g2uyXvy3sb0qxotE+ne0LtccHknQzWwZEzhak7oJ0COQ==";
       };
     };
     "json-stable-stringify-1.0.1" = {
@@ -343,7 +343,7 @@ let
       version = "1.0.1";
       src = fetchurl {
         url = "https://registry.npmjs.org/json-stable-stringify/-/json-stable-stringify-1.0.1.tgz";
-        sha1 = "9a759d39c5f2ff503fd5300646ed445f88c4f9af";
+        sha512 = "i/J297TW6xyj7sDFa7AmBPkQvLIxWr2kKPWI26tXydnZrzVAocNqn5DMNT1Mzk0vit1V5UkRM7C1KdVNp7Lmcg==";
       };
     };
     "jsonfile-6.1.0" = {
@@ -361,7 +361,7 @@ let
       version = "0.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/jsonify/-/jsonify-0.0.0.tgz";
-        sha1 = "2c74b6ee41d93ca51b7b5aaee8f503631d252a73";
+        sha512 = "trvBk1ki43VZptdBI5rIlG4YOzyeH/WefQt5rj1grasPn4iiZWKet8nkgc4GlsAylaztn0qZfUYOiTsASJFdNA==";
       };
     };
     "lodash-4.17.21" = {
@@ -397,7 +397,7 @@ let
       version = "0.0.2";
       src = fetchurl {
         url = "https://registry.npmjs.org/match-stream/-/match-stream-0.0.2.tgz";
-        sha1 = "99eb050093b34dffade421b9ac0b410a9cfa17cf";
+        sha512 = "TbN21KrvmZ4mHzKqSFeNNNYeOGNNoEE0sQjhOGlHc+W6XhV4nEhJqaQTJj106NF+NYjyJ7pXh23+OQ1d306ORw==";
       };
     };
     "mimic-fn-2.1.0" = {
@@ -469,7 +469,7 @@ let
       version = "1.4.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/once/-/once-1.4.0.tgz";
-        sha1 = "583b1aa775961d4b113ac17d9c50baef9dd76bd1";
+        sha512 = "lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==";
       };
     };
     "onetime-5.1.2" = {
@@ -496,7 +496,7 @@ let
       version = "0.0.5";
       src = fetchurl {
         url = "https://registry.npmjs.org/over/-/over-0.0.5.tgz";
-        sha1 = "f29852e70fd7e25f360e013a8ec44c82aedb5708";
+        sha512 = "EEc3GCT5ce2VgLYKGeomTSgQT+4wkS13Ya9XzKiskHtemWPx0YhVErn7PtiowTOsYtRlFe6FksgwFeWG1aOJdg==";
       };
     };
     "path-is-absolute-1.0.1" = {
@@ -505,7 +505,7 @@ let
       version = "1.0.1";
       src = fetchurl {
         url = "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz";
-        sha1 = "174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f";
+        sha512 = "AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==";
       };
     };
     "pullstream-0.4.1" = {
@@ -514,7 +514,7 @@ let
       version = "0.4.1";
       src = fetchurl {
         url = "https://registry.npmjs.org/pullstream/-/pullstream-0.4.1.tgz";
-        sha1 = "d6fb3bf5aed697e831150eb1002c25a3f8ae1314";
+        sha512 = "8ckaufxE74rtbwA0lD0GO2Pk/miCfje3uZtGZd/MQpxkoRIBB004aKBnhdc4Y8L7sip0cis/ekib/1lUwUwxuA==";
       };
     };
     "readable-stream-1.0.34" = {
@@ -643,13 +643,13 @@ let
         sha1 = "717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9";
       };
     };
-    "underscore-1.13.3" = {
+    "underscore-1.13.4" = {
       name = "underscore";
       packageName = "underscore";
-      version = "1.13.3";
+      version = "1.13.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/underscore/-/underscore-1.13.3.tgz";
-        sha512 = "QvjkYpiD+dJJraRA8+dGAU4i7aBbb2s0S3jA45TFOvg2VgqvdCDd/3N6CqA8gluk1W91GLoXg5enMUx560QzuA==";
+        url = "https://registry.npmjs.org/underscore/-/underscore-1.13.4.tgz";
+        sha512 = "BQFnUDuAQ4Yf/cYY5LNrK9NCJFKriaRbD9uR1fTeXnBeoa97W0i41qkZfGO9pSo8I5KzjAcSY2XYtdf0oKd7KQ==";
       };
     };
     "universalify-2.0.0" = {
@@ -778,7 +778,7 @@ let
       sources."supports-color-7.2.0"
       sources."sylvester-0.0.12"
       sources."traverse-0.3.9"
-      sources."underscore-1.13.3"
+      sources."underscore-1.13.4"
       sources."universalify-2.0.0"
       sources."util-deprecate-1.0.2"
       sources."wcwidth-1.0.1"

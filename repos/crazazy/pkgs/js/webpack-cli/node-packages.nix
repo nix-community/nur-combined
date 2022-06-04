@@ -49,13 +49,13 @@ let
         sha512 = "neHB9xuzh/wk0dIHweyAXv2aPGZIVk3pLMe+/RNzINf17fe0OG96QroktYAUm7SM1PBnzTabaLboqqxDyMU+SQ==";
       };
     };
-    "colorette-2.0.16" = {
+    "colorette-2.0.17" = {
       name = "colorette";
       packageName = "colorette";
-      version = "2.0.16";
+      version = "2.0.17";
       src = fetchurl {
-        url = "https://registry.npmjs.org/colorette/-/colorette-2.0.16.tgz";
-        sha512 = "hUewv7oMjCp+wkBv5Rm0v87eJhq4woh5rSR+42YSQJKecCqgIqNkZ6lAlQms/BwHPJA5NKMRlpxPRv0n8HQW6g==";
+        url = "https://registry.npmjs.org/colorette/-/colorette-2.0.17.tgz";
+        sha512 = "hJo+3Bkn0NCHybn9Tu35fIeoOKGOk5OCC32y4Hz2It+qlCO2Q3DeQ1hRn/tDDMQKRYUEzqsl7jbF6dYKjlE60g==";
       };
     };
     "commander-7.2.0" = {
@@ -199,7 +199,7 @@ let
       version = "2.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz";
-        sha1 = "e8fbf374dc556ff8947a10dcb0572d633f2cfa10";
+        sha512 = "RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
       };
     };
     "isobject-3.0.1" = {
@@ -208,7 +208,7 @@ let
       version = "3.0.1";
       src = fetchurl {
         url = "https://registry.npmjs.org/isobject/-/isobject-3.0.1.tgz";
-        sha1 = "4e431e92b11a9731636aa1f9c8d1ccbcfdab78df";
+        sha512 = "WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==";
       };
     };
     "kind-of-6.0.3" = {
@@ -457,7 +457,7 @@ let
       sources."@webpack-cli/info-1.4.1"
       sources."@webpack-cli/serve-1.6.1"
       sources."clone-deep-4.0.1"
-      sources."colorette-2.0.16"
+      sources."colorette-2.0.17"
       sources."commander-7.2.0"
       sources."cross-spawn-7.0.3"
       sources."envinfo-7.8.1"
