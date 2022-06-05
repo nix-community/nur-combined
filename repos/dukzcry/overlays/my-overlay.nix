@@ -1,4 +1,4 @@
-{ config, wireless-regdb' }:
+{ pkgs, config }:
 
 self: super: with super.lib;
 rec {
@@ -32,7 +32,7 @@ rec {
         --prefix PATH : "${super.lib.makeBinPath [ super.mpv ]}"
     '';
   });
-  wireless-regdb = if (config.hardware.wifi.enable or false) then wireless-regdb' else super.wireless-regdb;
+  wireless-regdb = if (config.hardware.wifi.enable or false) then pkgs.nur.repos.dukzcry.wireless-regdb else super.wireless-regdb;
   crda = if (config.hardware.wifi.enable or false) then (super.crda.override {
     inherit wireless-regdb;
   }).overrideAttrs (oldAttrs: rec {
