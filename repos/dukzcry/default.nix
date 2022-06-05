@@ -6,8 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {}
-, config ? ((import <nixpkgs/nixos/lib/eval-config.nix>){modules = [(import <nixos-config>)];}).config }:
+{ pkgs ? import <nixpkgs> {} }:
 
 let
   # https://bugs.gentoo.org/804825
@@ -23,7 +22,7 @@ in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays { inherit pkgs config; }; # nixpkgs overlays
+  overlays = ./overlays; # nixpkgs overlays
 
   k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf.nix { };
   knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };
