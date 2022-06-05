@@ -22,7 +22,7 @@ let
 in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules { inherit libidn; }; # NixOS modules
+  modules = import ./modules; # NixOS modules
   overlays = import ./overlays { inherit pkgs config; }; # nixpkgs overlays
 
   k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf.nix { };
@@ -42,4 +42,4 @@ in rec {
   cockpit-client = cockpit.override { client = true; };
   libvirt-dbus = pkgs.callPackage ./pkgs/libvirt-dbus.nix {};
   sunshine = pkgs.callPackage ./pkgs/sunshine.nix {};
-}
+} // { inherit libidn; }

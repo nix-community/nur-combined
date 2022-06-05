@@ -1,5 +1,3 @@
-{ libidn }:
-
 rec {
   # Add your NixOS modules here
   #
@@ -18,7 +16,7 @@ rec {
   headless = ./headless.nix;
   sunshine = ./sunshine.nix;
   wifi = ./wifi.nix;
-  rkn = import ./rkn.nix libidn [ tun2socks ];
+  rkn = import ./rkn.nix [ tun2socks ];
   edgevpn = ./edgevpn.nix;
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;

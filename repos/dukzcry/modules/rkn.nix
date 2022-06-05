@@ -1,4 +1,4 @@
-libidn: imports: { config, lib, pkgs, ... }:
+imports: { config, lib, pkgs, ... }:
 
 with lib;
 
@@ -184,7 +184,7 @@ in {
     };
     systemd.services.rkn-script = {
       description = "Сервис выгрузки и обработки списка блокировок роскомпозора";
-      path = with pkgs; [ gnugrep coreutils gnused libidn glibc gawk git ];
+      path = with pkgs; with pkgs.nur.repos.dukzcry; [ gnugrep coreutils gnused libidn glibc gawk git ];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "rkn.sh" ''
