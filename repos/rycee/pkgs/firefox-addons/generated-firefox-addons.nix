@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220602.190016";
+      version = "102.0buildid20220605.185654";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957400/francais_language_pack-102.0buildid20220602.190016.xpi";
-      sha256 = "b28861bb4cd0095abef351b2d172eafdfa6c9e73b36bd7505e96e90d4d28eb15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958496/francais_language_pack-102.0buildid20220605.185654.xpi";
+      sha256 = "b41a43b46926911239533a1a754e38817f40a1ebc945f519b27bb075e9a461c6";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1683,10 +1683,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.6.0";
+      version = "1.7.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3916115/rust_search_extension-1.6.0.xpi";
-      sha256 = "5715b4172cbc8426b921d3d614344a6a23e8d73e0b24c62d5f4c6184ecbf9f2c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958381/rust_search_extension-1.7.0.xpi";
+      sha256 = "5d9d54a9fc9aa3c6df13a2ca5f4900605030bfb2fe8ce16e2783a67ba53280e8";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
