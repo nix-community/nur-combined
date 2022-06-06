@@ -6,13 +6,13 @@
 
 buildGo118Module rec {
   pname = "packwiz";
-  version = "2073e44";
+  version = "2022-06-05";
 
   src = fetchFromGitHub {
     owner = "packwiz";
     repo = pname;
-    rev = "2073e4475e94772f885fffa73f996876e6fa40db";
-    sha256 = "sha256-orKJ/IzL9Txuo6XjS2KUqJyE/MugYPlTcjUIWcFKfxw=";
+    rev = "d34728f3474f435ebed7e4a9c3ef1724b8a55d37";
+    sha256 = "sha256-A1WZDh2zagZE+IWxTKf/DXC6DA4P5scMyLYwazUAAq4=";
   };
 
   vendorSha256 = "sha256-M9u7N4IrL0B4pPRQwQG5TlMaGT++w3ZKHZ0RdxEHPKk=";
