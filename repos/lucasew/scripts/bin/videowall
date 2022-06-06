@@ -4,9 +4,22 @@
 
 set -eu
 
+systemctl --user list-units | grep 'videowall.service' | awk '{print $1}' | while read unit; do
+    systemctl stop --user $unit
+done
+
 if [ $# -eq 0 ]; then
     echo "Missing video"
     exit 1
 fi
+VIDEO="$1"; shift
 
-xwinwrap -ov -g 1366x768+0+0 -- mpv -wid WID "$1" --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-keepaspect --no-input-default-bindings --hwdec
+xrandr | grep connected | while IFS=" " read -ra screen; do
+    NAME=${screen[0]}
+    SHAPE=${screen[2]}
+    if [ $SHAPE == "primary" ]; then
+        SHAPE=${screen[3]}
+    fi
+    systemd-run -E "PATH=$PATH" -u $NAME-videowall --user xwinwrap -ov -g "$SHAPE" -- mpv -wid WID "$VIDEO" --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-keepaspect --no-input-default-bindings --hwdec
+    echo "name $NAME shape $SHAPE"
+done
