@@ -176,8 +176,8 @@ let
         # mirror: git clone https://ipfs.io/ipns/Qmed4r8yrBP162WK1ybd1DJWhLUi4t6mGuBoB9fLtjxR7u
         owner = "keylase";
         repo = "nvidia-patch";
-        rev = "12dae07fda04e4a67e2273e9d5239a5449a1dec2";
-        sha256 = "1f0mjgvlijrdjlzl03r3y1a4qsd44hn9fymm5ic6ywjwkm5dpxh2";
+        rev = "2e22e803e6db7c0aca95316d5a1510714271e3f0";
+        sha256 = "0san2dw0d3s5g8lrxkdx63hd2vxqkyg52yskaj4d5cg2qfxgxz5c";
       };
 
       nativeBuildInputs = [ nvpatch lndir ];
