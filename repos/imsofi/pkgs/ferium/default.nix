@@ -35,5 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "A CLI minecraft mod manager";
     homepage = "https://github.com/theRookieCoder/ferium";
     license = licenses.mpl20;
+    maintainers = with maintainers; [ imsofi ];
+    platforms = platforms.linux;
   };
 }

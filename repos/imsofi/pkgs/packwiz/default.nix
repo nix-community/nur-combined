@@ -21,6 +21,7 @@ buildGo118Module rec {
     description = "A command line tool for editing and distributing Minecraft modpacks";
     homepage = "https://github.com/packwiz/packwiz";
     license = licenses.mit;
+    maintainers = with maintainers; [ imsofi ];
     platforms = platforms.linux;
   };
 }
