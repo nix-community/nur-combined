@@ -1,0 +1,86 @@
+{
+    "cabal-docspec": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "cabal-docspec",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-4iRwDZ6Mnsfsa8P1QrpDPNmSWl01ZnbGKpvR8si+j4o=",
+            "type": "url",
+            "url": "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20211114/cabal-docspec-0.0.0.20211114.xz"
+        },
+        "version": "0.0.0.20211114"
+    },
+    "cabal-docspec-man": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "cabal-docspec-man",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-CYpAMfDsImBFHkuz/OmBlK7u0jfpidA0HJwbkJg7dZI=",
+            "type": "url",
+            "url": "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20211114/cabal-docspec/cabal-docspec.1"
+        },
+        "version": "0.0.0.20211114"
+    },
+    "hellsmack": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "hellsmack",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Bykic44/DRWKqzdgTyMGYI5luQzr3zt9UlYxGIstRj8=",
+            "type": "url",
+            "url": "https://github.com/amesgen/hellsmack/releases/download/v0.1.2.6/hellsmack-Linux.zip"
+        },
+        "version": "0.1.2.6"
+    },
+    "hlint": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "hlint",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-o8xQ6xGL4xu1y3liOXKLyd6j5SVPfbd96XDKKpDBWMk=",
+            "type": "url",
+            "url": "https://github.com/ndmitchell/hlint/releases/download/v3.4/hlint-3.4-x86_64-linux.tar.gz"
+        },
+        "version": "3.4"
+    },
+    "nix-index-database": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "nix-index-database",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-tUiu4D34UTA7Dtydp51IreT+rKb3pSrBSFJTErQ65H8=",
+            "type": "url",
+            "url": "https://github.com/Mic92/nix-index-database/releases/download/2022-06-05/index-x86_64-linux"
+        },
+        "version": "2022-06-05"
+    },
+    "ormolu": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ormolu",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-6X6v7rkNFddtdwAkXe1evv6XdL0VraMJ3KbhLem2WmY=",
+            "type": "url",
+            "url": "https://github.com/tweag/ormolu/releases/download/0.5.0.0/ormolu-Linux.zip"
+        },
+        "version": "0.5.0.0"
+    }
+}

@@ -2,7 +2,7 @@ pkgs:
 
 let
   inherit (pkgs) lib;
-  nv = import ./_sources/generated.nix { inherit (pkgs) fetchgit fetchurl; };
+  nv = pkgs.callPackage (import ./_sources/generated.nix) { };
   optparseApplicativeCompletions = pname: ''
     installShellCompletion --cmd ${pname} \
       --bash <($BIN --bash-completion-script $BIN) \
