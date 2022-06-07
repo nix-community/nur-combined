@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   version = "2019u3";
   name = "intel-compilers-${version}";
-  sourceRoot = "/data/scratch/intel/2019";
+  sourceRoot = "/home/scratch/intel/2019";
 
   propagatedBuildInputs = [ glibc gcc ];
 
