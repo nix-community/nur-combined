@@ -3,7 +3,7 @@
   sops.defaultSopsFormat = "binary";
   sops.secrets.mosdnsConfig.sopsFile = ./secrets/mosdns.yaml.sops;
   sops.secrets.tproxyRule.sopsFile = ./secrets/tproxy.nft.sops;
-  sops.secrets.v2rayConfig.sopsFile = ./secrets/v2ray.v5.json.sops;
+  sops.secrets.v2rayConfig.sopsFile = ./secrets/v2ray.v4.json.sops;
 
   nix = {
     settings = {
@@ -58,7 +58,7 @@
     iperf2
     lm_sensors
     lsof
-    nodejs-17_x
+    screen
     usbutils
   ] ++ (with config.boot.kernelPackages; [
     cpupower

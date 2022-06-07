@@ -22,7 +22,7 @@ in
 
   services.v2ray-next = {
     enable = true;
-    useV5Format = true;
+    useV5Format = false;
     configFile = config.sops.secrets.v2rayConfig.path;
   };
   systemd.services.v2ray-next.serviceConfig = {
