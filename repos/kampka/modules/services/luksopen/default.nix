@@ -51,8 +51,7 @@ in
         (
           let
             key-service = lists.optionals (strings.hasPrefix "/run/keys" device.keyFile) [ "${strings.replaceStrings [ "." ] [ "-" ] (lists.last (strings.splitString "/" device.keyFile)) }-key.service" ];
-            #device-service = [ "${removePrefix "-" "${replaceStrings [ "/" ] [ "-" ] (replaceStrings [ "-" ] [ "\\\\x2d" ] "${device.source}") }"}.device" ];
-            device-service = [ "${removePrefix "-" "${replaceStrings [ "/" ] [ "-" ] (device.source) }"}.device" ];
+            device-service = [ "${removePrefix "-" "${replaceStrings [ "/" ] [ "-" ] (replaceStrings [ "-" ] [ "\\x2d" ] "${device.source}") }"}.device" ];
           in
           {
             after = [ "local-fs.target" ] ++ device-service ++ key-service;
