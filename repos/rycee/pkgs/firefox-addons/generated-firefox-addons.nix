@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.7.1.0";
+      version = "2.7.2.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3955420/bypass_paywalls_clean-2.7.1.0.xpi";
-      sha256 = "806dd295de8a882fcb9a7f12d9a422c291743e4bd8c9bdf4123c01d045d270b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958850/bypass_paywalls_clean-2.7.2.0.xpi";
+      sha256 = "0d36a9a6d0a799f05b3ff19438134e41855f5ee00faeaaf47094cfac3d68298d";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1037,10 +1037,10 @@
       };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
-      version = "1.2.3";
+      version = "1.3.0";
       addonId = "linkhints@lydell.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3928071/linkhints-1.2.3.xpi";
-      sha256 = "8ac8f7925f9ebaa2dba5e5bf2f6675c5227a433fbf250bd6395f1be9d849a9d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958816/linkhints-1.3.0.xpi";
+      sha256 = "70593f03bc3f8cf8e8a83c6d2df1bdb79626f54110ba8a1d1c17f685ae4cc8a7";
       meta = with lib;
       {
         homepage = "https://lydell.github.io/LinkHints";
@@ -1461,10 +1461,10 @@
       };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.42.2";
+      version = "0.44.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3879725/polkadot_js_extension-0.42.2.xpi";
-      sha256 = "4a81850eb1dd83059f3638e15cfe8357e34b3cfed6e146b88d5de5c747bd44a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958783/polkadot_js_extension-0.44.1.xpi";
+      sha256 = "3ddaa83ab2b91f9bd7f35f52b7ae8163c2748ce6bd8e71714991e4eb1ef353b4";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -1766,10 +1766,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.9";
+      version = "1.21.11";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957561/single_file-1.21.9.xpi";
-      sha256 = "f6161586ac94f26cee4a176c619d589f0d5fc2b61267608a11cc8bb826bfb427";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958664/single_file-1.21.11.xpi";
+      sha256 = "35d2d3d1f664c4824dfe6360ec3118fc62888c69436a2270cfa3169746bc31f2";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1837,10 +1837,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.4.5";
+      version = "4.5.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954023/sponsorblock-4.4.5.xpi";
-      sha256 = "813d393b7997ec350a23deacef9c3f707c553abc32cf0ed2a4023edfb09d02ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958238/sponsorblock-4.5.1.xpi";
+      sha256 = "8c63c761066de4da1c7c51fd4f66ea42a7c54c8f38e0d02ec427a24025c5f404";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
