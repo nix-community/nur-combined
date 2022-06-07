@@ -103,7 +103,6 @@ in
     stubbySetting = mkOption
       {
         description = "List of upstream dns servers";
-        type = types.attrsOf settingsFormat.type;
         default = pkgs.stubby.passthru.settingsExample // {
           upstream_recursive_servers = [
             # Nameserver run by digitalcourage
@@ -161,153 +160,150 @@ in
             }
           ];
         };
-      }
+      };
 
-      dnsmasq = mkOption {
-    default = { };
-    type = types.submodule {
-      options = {
-        noNegCache = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Disable negative result caching";
-        };
+    dnsmasq = mkOption {
+      default = { };
+      type = types.submodule {
+        options = {
+          noNegCache = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Disable negative result caching";
+          };
 
-        allServers = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Enables querying all configured servers, using the first positive result";
-        };
+          allServers = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Enables querying all configured servers, using the first positive result";
+          };
 
-        bogusPriv = mkOption {
-          type = types.bool;
-          default = false;
-          description = ''Bogus private reverse lookups. All reverse lookups for private IP ranges (ie 192.168.x.x, etc) which are not found in /etc/hosts or the DHCP leases file are answered with "no such domain" rather than being forwarded upstream. The set of prefixes affected is the list given in RFC6303, for IPv4 and IPv6.'';
-        };
+          bogusPriv = mkOption {
+            type = types.bool;
+            default = false;
+            description = ''Bogus private reverse lookups. All reverse lookups for private IP ranges (ie 192.168.x.x, etc) which are not found in /etc/hosts or the DHCP leases file are answered with "no such domain" rather than being forwarded upstream. The set of prefixes affected is the list given in RFC6303, for IPv4 and IPv6.'';
+          };
 
-        interfaces = mkOption {
-          type = types.listOf types.str;
-          default = [ "lo" ];
-          description = "List of network interfaces to bind to.";
-        };
+          interfaces = mkOption {
+            type = types.listOf types.str;
+            default = [ "lo" ];
+            description = "List of network interfaces to bind to.";
+          };
 
-        cache-size = mkOption {
-          type = types.int;
-          default = 1500;
-          description = "Amount of DNS resolves to cache";
-        };
+          cache-size = mkOption {
+            type = types.int;
+            default = 1500;
+            description = "Amount of DNS resolves to cache";
+          };
 
-        dhcp = mkOption {
-          type = types.listOf (types.submodule dhcpOpts);
-          default = [ ];
-          description = "DNSMasq dhcp options";
-        };
+          dhcp = mkOption {
+            type = types.listOf (types.submodule dhcpOpts);
+            default = [ ];
+            description = "DNSMasq dhcp options";
+          };
 
-        logQueries = mkOption {
-          type = types.bool;
-          default = false;
-          description = "If enabled, DNSMasq logs all DNS queries";
-        };
+          logQueries = mkOption {
+            type = types.bool;
+            default = false;
+            description = "If enabled, DNSMasq logs all DNS queries";
+          };
 
-        validateDnsSec = mkOption {
-          type = types.bool;
-          default = true;
-          description = "If enabled, causes DNSMasq to validate DNSSEC records";
-        };
+          validateDnsSec = mkOption {
+            type = types.bool;
+            default = true;
+            description = "If enabled, causes DNSMasq to validate DNSSEC records";
+          };
 
-        extraConfig = mkOption {
-          type = types.str;
-          default = "";
+          extraConfig = mkOption {
+            type = types.str;
+            default = "";
+          };
         };
       };
     };
   };
-};
 
-config = mkIf cfg.enable {
+  config = mkIf cfg.enable {
 
-networking.nameservers = [ "127.0.0.1" ];
+    networking.nameservers = [ "127.0.0.1" ];
 
-services.stubby = {
-enable = true;
-debugLogging = false;
-settings = (cfg.stubbySetting // { resolution_type = "GETDNS_RESOLUTION_STUB"; });
-};
+    services.stubby = {
+      enable = true;
+      debugLogging = false;
+      settings = (cfg.stubbySetting // { resolution_type = "GETDNS_RESOLUTION_STUB"; });
+    };
 
-services.dnsmasq = {
-enable = true;
-servers = [ "127.0.0.1#5353" ];
-resolveLocalQueries = false;
-extraConfig = ''
-                  ${optionalString (cfg.dnsmasq.validateDnsSec) "
-        dnssec
-        dnssec-check-unsigned
-        conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
-        "}
-                  ${optionalString (cfg.dnsmasq.noNegCache) "
-        # Disable negative caching. Negative caching allows dnsmasq to remember 'no such domain' answers from upstream nameservers and answer identical queries without forwarding them again.
-        no-negcache
-        "}
-                  ${optionalString (cfg.dnsmasq.allServers) "
-        # Query all configured server for a successful dns resolve
-        all-servers
-        "}
+    services.dnsmasq = {
+      enable = true;
+      servers = [ "127.0.0.1#5353" ];
+      resolveLocalQueries = false;
+      extraConfig = ''
+                          ${optionalString (cfg.dnsmasq.validateDnsSec) "
+                dnssec
+                dnssec-check-unsigned
+                conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
+                "}
+                          ${optionalString (cfg.dnsmasq.noNegCache) "
+                # Disable negative caching. Negative caching allows dnsmasq to remember 'no such domain' answers from upstream nameservers and answer identical queries without forwarding them again.
+                no-negcache
+                "}
+                          ${optionalString (cfg.dnsmasq.allServers) "
+                # Query all configured server for a successful dns resolve
+                all-servers
+                "}
 
-                ${optionalString (cfg.dnsmasq.bogusPriv) ''
-                # Prevent queries for local networks from being sent upstream
-                bogus-priv
-              ''}
+                        ${optionalString (cfg.dnsmasq.bogusPriv) ''
+                        # Prevent queries for local networks from being sent upstream
+                        bogus-priv
+                      ''}
 
-                ${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
+                        ${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
 
-                ${optionalString (cfg.dnsmasq.dhcp != [ ]) "
-        no-dhcp-interface=lo
-        dhcp-ttl=180
-        "}
+                        ${optionalString (cfg.dnsmasq.dhcp != [ ]) "
+                no-dhcp-interface=lo
+                dhcp-ttl=180
+                "}
+
+                        ${concatStringsSep "\n" (
+        map
+        (
+        dhcp: ''
+
+                domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "") ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
 
                 ${concatStringsSep "\n" (
-map
-(
-dhcp: ''
+        map
+        (
+        range: "dhcp-range=set:${range.interface},${range.startAddr},${range.endAddr},${range.leaseTime}
+                "
+        )
+        dhcp.range
+        )}
 
-        domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "") ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
+                ${concatStringsSep "\n" (
+        map
+        (
+        host: ''
+                                dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
+                                ${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
+                              ''
+        )
+        dhcp.host
+        )}
 
-        ${concatStringsSep "\n" (
-map
-(
-range: "dhcp-range=set:${range.interface},${range.startAddr},${range.endAddr},${range.leaseTime}
-        "
-)
-dhcp.range
-)}
+                ''
+        )
+        cfg.dnsmasq.dhcp
+        )}
 
-        ${concatStringsSep "\n" (
-map
-(
-host: ''
-                        dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
-                        ${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
-                      ''
-)
-dhcp.host
-)}
+                        ${optionalString (cfg.dnsmasq.logQueries) "
+                log-queries
+                "}
 
-        ''
-)
-cfg.dnsmasq.dhcp
-)}
+                cache-size=${toString cfg.dnsmasq.cache-size}
 
-                ${optionalString (cfg.dnsmasq.logQueries) "
-        log-queries
-        "}
-
-        cache-size=${toString cfg.dnsmasq.cache-size}
-
-                ${cfg.dnsmasq.extraConfig}
+                        ${cfg.dnsmasq.extraConfig}
       '';
-};
-
-# Likely redundant in this case
-services.nscd.enable = mkDefault false;
-};
+    };
+  };
 }
