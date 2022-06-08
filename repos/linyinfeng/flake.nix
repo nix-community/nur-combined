@@ -5,7 +5,7 @@
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     # extra channels for checks
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-22.05";
   };
 
   outputs = { self, nixpkgs, flake-utils-plus, ... }@inputs:
