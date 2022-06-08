@@ -40,6 +40,7 @@ rec {
       "PUBKEY_DIR=${wireless-regdb}/lib/crda/pubkeys"
     ];
   }) else super.crda;
+  # https://github.com/jellyfin/jellyfin/issues/7642
   jellyfin-ffmpeg = super.jellyfin-ffmpeg.override (optionalAttrs (config.services.jellyfin.enable or false) {
     ffmpeg-full = super.ffmpeg-full.override {
       libva = let
