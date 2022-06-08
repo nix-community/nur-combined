@@ -12,6 +12,7 @@
     "World/Europe/FI/*.xml"
     "World/Europe/RU/*.xml"
     "World/CyclOSM.xml"
+    "World/Esri-OSM.xml"
     "World/Inkatlas-Outdoor.xml"
     "World/MapTiler.xml"
     "World/Mapbox.xml"
@@ -25,13 +26,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "gpxsee-maps";
-  version = "2022-01-20";
+  version = "2022-06-08";
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "GPXSee-maps";
-    rev = "82f476d1ae6851f936a882005f36b671149c35a3";
-    hash = "sha256-tWIcJMNWtXpvZg5MZW0n4GbI2l0FShLx+R3DmgBuXMQ=";
+    rev = "87ae3ae6e2ee74066cee7ba8f78968b77191fc51";
+    hash = "sha256-JT9/sNFP8jGBBxRZZgjlJ4OFvP9HxjFp7ehj2HVVrGs=";
   };
 
   postPatch = let
