@@ -103,63 +103,84 @@ in
     stubbySetting = mkOption
       {
         description = "List of upstream dns servers";
-        default = pkgs.stubby.passthru.settingsExample // {
-          upstream_recursive_servers = [
-            # Nameserver run by digitalcourage
-            {
-              address_data = "46.182.19.48";
-              tls_auth_name = "dns2.digitalcourage.de";
-              tls_pubkey_pinset = {
-                value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
-                digest = "sha256";
-              };
-            }
-            {
-              address_data = "2a02:2970:1002::18";
-              tls_auth_name = "dns2.digitalcourage.de";
-              tls_pubkey_pinset = {
-                value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
-                digest = "sha256";
-              };
-            }
+        default = pkgs.stubby.passthru.settingsExample //
+          {
+            listen_addresses = [
+              "127.0.0.1@5353"
+            ];
+            upstream_recursive_servers = [
+              # Nameserver run by digitalcourage
+              {
+                address_data = "5.9.164.112";
+                tls_auth_name = "dns3.digitalcourage.de";
+                tls_pubkey_pinset = {
+                  value = "2WFzfO2/56HpeR+v/l25NPf5dacfxLrudH5yZbWCfdo=";
+                  digest = "sha256";
+                };
+              }
+              {
+                address_data = "2a01:4f8:251:554::2";
+                tls_auth_name = "dns3.digitalcourage.de";
+                tls_pubkey_pinset = {
+                  value = "2WFzfO2/56HpeR+v/l25NPf5dacfxLrudH5yZbWCfdo=";
+                  digest = "sha256";
+                };
+              }
 
-            # Nameserver run by dismail.de
-            {
-              address_data = "80.241.218.68";
-              tls_auth_name = "fdns1.dismail.de";
-              tls_pubkey_pinset = {
-                value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
-                digest = "sha256";
-              };
-            }
-            {
-              address_data = "2a02:c205:3001:4558::1";
-              tls_auth_name = "fdns1.dismail.de";
-              tls_pubkey_pinset = {
-                value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
-                digest = "sha256";
-              };
-            }
+              {
+                address_data = "46.182.19.48";
+                tls_auth_name = "dns2.digitalcourage.de";
+                tls_pubkey_pinset = {
+                  value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
+                  digest = "sha256";
+                };
+              }
+              {
+                address_data = "2a02:2970:1002::18";
+                tls_auth_name = "dns2.digitalcourage.de";
+                tls_pubkey_pinset = {
+                  value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
+                  digest = "sha256";
+                };
+              }
 
-            # Nameserver run by dismail.de
-            {
-              address_data = "159.69.114.157";
-              tls_auth_name = "fdns2.dismail.de";
-              tls_pubkey_pinset = {
-                value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
-                digest = "sha256";
-              };
-            }
-            {
-              address_data = "2a01:4f8:c17:739a::2";
-              tls_auth_name = "fdns2.dismail.de";
-              tls_pubkey_pinset = {
-                value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
-                digest = "sha256";
-              };
-            }
-          ];
-        };
+              # Nameserver run by dismail.de
+              {
+                address_data = "80.241.218.68";
+                tls_auth_name = "fdns1.dismail.de";
+                tls_pubkey_pinset = {
+                  value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
+                  digest = "sha256";
+                };
+              }
+              {
+                address_data = "2a02:c205:3001:4558::1";
+                tls_auth_name = "fdns1.dismail.de";
+                tls_pubkey_pinset = {
+                  value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
+                  digest = "sha256";
+                };
+              }
+
+              # Nameserver run by dismail.de
+              {
+                address_data = "159.69.114.157";
+                tls_auth_name = "fdns2.dismail.de";
+                tls_pubkey_pinset = {
+                  value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
+                  digest = "sha256";
+                };
+              }
+              {
+                address_data = "2a01:4f8:c17:739a::2";
+                tls_auth_name = "fdns2.dismail.de";
+                tls_pubkey_pinset = {
+                  value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
+                  digest = "sha256";
+                };
+              }
+            ];
+          };
       };
 
     dnsmasq = mkOption {
@@ -238,71 +259,71 @@ in
       servers = [ "127.0.0.1#5353" ];
       resolveLocalQueries = false;
       extraConfig = ''
-                          ${optionalString (cfg.dnsmasq.validateDnsSec) "
-                dnssec
-                dnssec-check-unsigned
-                conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
-                "}
-                          ${optionalString (cfg.dnsmasq.noNegCache) "
-                # Disable negative caching. Negative caching allows dnsmasq to remember 'no such domain' answers from upstream nameservers and answer identical queries without forwarding them again.
-                no-negcache
-                "}
-                          ${optionalString (cfg.dnsmasq.allServers) "
-                # Query all configured server for a successful dns resolve
-                all-servers
-                "}
+                                  ${optionalString (cfg.dnsmasq.validateDnsSec) "
+                        dnssec
+                        dnssec-check-unsigned
+                        conf-file=${pkgs.dnsmasq}/share/dnsmasq/trust-anchors.conf
+                        "}
+                                  ${optionalString (cfg.dnsmasq.noNegCache) "
+                        # Disable negative caching. Negative caching allows dnsmasq to remember 'no such domain' answers from upstream nameservers and answer identical queries without forwarding them again.
+                        no-negcache
+                        "}
+                                  ${optionalString (cfg.dnsmasq.allServers) "
+                        # Query all configured server for a successful dns resolve
+                        all-servers
+                        "}
 
-                        ${optionalString (cfg.dnsmasq.bogusPriv) ''
-                        # Prevent queries for local networks from being sent upstream
-                        bogus-priv
-                      ''}
+                                ${optionalString (cfg.dnsmasq.bogusPriv) ''
+                                # Prevent queries for local networks from being sent upstream
+                                bogus-priv
+                              ''}
 
-                        ${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
+                                ${concatStringsSep "\n" (map (interface: "interface=${interface}") cfg.dnsmasq.interfaces)}
 
-                        ${optionalString (cfg.dnsmasq.dhcp != [ ]) "
-                no-dhcp-interface=lo
-                dhcp-ttl=180
-                "}
+                                ${optionalString (cfg.dnsmasq.dhcp != [ ]) "
+                        no-dhcp-interface=lo
+                        dhcp-ttl=180
+                        "}
 
-                        ${concatStringsSep "\n" (
+                                ${concatStringsSep "\n" (
         map
         (
         dhcp: ''
 
-                domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "") ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
+                        domain=${dhcp.domain.name}${optionalString (dhcp.domain.network != "") ",${dhcp.domain.network}${optionalString (dhcp.domain.local) ",local" }"}
 
-                ${concatStringsSep "\n" (
+                        ${concatStringsSep "\n" (
         map
         (
         range: "dhcp-range=set:${range.interface},${range.startAddr},${range.endAddr},${range.leaseTime}
-                "
+                        "
         )
         dhcp.range
         )}
 
-                ${concatStringsSep "\n" (
+                        ${concatStringsSep "\n" (
         map
         (
         host: ''
-                                dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
-                                ${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
-                              ''
+                                        dhcp-host=${host.hardwareAddress},${host.name},${host.ipAddress},${host.leaseTime},set:${host.name}
+                                        ${optionalString (host.staticRecord) "host-record=${host.name},${host.name}.${dhcp.domain.name},${host.ipAddress},120" }
+                                      ''
         )
         dhcp.host
         )}
 
-                ''
+                        ''
         )
         cfg.dnsmasq.dhcp
         )}
 
-                        ${optionalString (cfg.dnsmasq.logQueries) "
-                log-queries
-                "}
+                                ${optionalString (cfg.dnsmasq.logQueries) "
+                        log-queries
+                        "}
 
-                cache-size=${toString cfg.dnsmasq.cache-size}
+                        cache-size=${toString cfg.dnsmasq.cache-size}
 
-                        ${cfg.dnsmasq.extraConfig}
+                                ${cfg.dnsmasq.extraConfig}
       '';
     };
   };
