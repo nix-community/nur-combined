@@ -5,7 +5,7 @@ let
   cfg = config.programs.nix-index;
 in {
   options.programs.nix-index = {
-    enable = mkEnableOption "command-not-found replacement for flakes";
+    enable = mkEnableOption "command-not-found replacement";
   };
 
   config = mkIf cfg.enable {
