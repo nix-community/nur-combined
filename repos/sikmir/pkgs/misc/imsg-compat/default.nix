@@ -11,7 +11,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-TFwww3HnTuURVCSMWyaMfwjEWcgGQr1pyPkop6EoHIY=";
   };
 
-  installFlags = [ "PREFIX=$(out)" ];
+  postPatch = ''
+    substituteInPlace libimsg.pc.in \
+      --replace "@LIBDIR@" "lib"
+  '';
+
+  makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "Unofficial port of OpenBSD's imsg utilities";
