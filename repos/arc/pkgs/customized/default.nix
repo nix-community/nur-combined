@@ -13,7 +13,7 @@ let
     nix-readline = { nix, readline, fetchurl, lib }: nix.overrideAttrs (old: {
       pname = "nix-readline";
       buildInputs = old.buildInputs ++ [ readline ];
-      patches = old.patches or [] ++ [
+      patches = old.patches or [] ++ lib.optional (lib.versionOlder nix.version "2.9") [
         (fetchurl {
           name = "readline-completion.patch";
           url = "https://github.com/arcnmx/nix/commit/f4d1453c2b86aa576f1a707d47eb2174fd7e4a90.patch";
@@ -27,7 +27,11 @@ let
           url = "https://github.com/arcnmx/nix/commit/67789e9ff237d0e61de3fb8b05c8424c84493f12.patch";
           sha256 = "11w4bm5ica2czdiank10mrmli78n9lh694zi3zpb4nrkzjlc02kd";
         })
-      ] ++ lib.optional (lib.versionOlder nix.version "2.3.10") (fetchurl {
+      ] ++ lib.optional (lib.versionAtLeast nix.version "2.9") (fetchurl {
+        name = "readline-completion.patch";
+        url = "https://github.com/nixos/nix/compare/694b12052a2f3c830daa3acc7696b31a04afe329...arcnmx:ccf9184e142ce26465a0d59476ed35d47f1425d1.patch";
+        sha256 = "sha256-Np0SnSX13utWt33w7VsZAkw4ZiXUgy6GDvcwj+iOvCM";
+      }) ++ lib.optional (lib.versionOlder nix.version "2.3.10") (fetchurl {
         name = "json-uescape.patch";
         url = "https://github.com/nixos/nix/commit/52a8f9295b828872586c5b9e5587064a25dae9b2.patch";
         sha256 = "1dby05qwzxgiih6h2ka424qd7ia4krwxl4b8h96frv2v304lnrxl";
