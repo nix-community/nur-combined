@@ -11,13 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Y5OOA0GGnjl4614zicuS00Wz2x5lLzhEHVioNFADQto=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses w3m ueberzug ];
-
-  prePatch = ''
-    substituteInPlace Makefile \
-      --replace "CC = gcc" "" \
-      --replace "prefix = usr" "prefix=$out"
+  postPatch = ''
     substituteInPlace scripts/clearimg \
       --replace "/usr/lib/w3m/w3mimgdisplay" "${w3m}/bin/w3mimgdisplay"
     substituteInPlace scripts/displayimg \
@@ -25,6 +19,13 @@ stdenv.mkDerivation rec {
     substituteInPlace scripts/displayimg_uberzug \
       --replace "ueberzug" "${ueberzug}/bin/ueberzug"
   '';
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ ncurses w3m ueberzug ];
+
+  makeFlags = [ "CC:=$(CC)" ];
+
+  installFlags = [ "prefix=$(out)" ];
 
   meta = with lib; {
     description = "A ncurses file manager written in C with vim like keybindings";
