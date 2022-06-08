@@ -40,4 +40,26 @@ rec {
       "PUBKEY_DIR=${wireless-regdb}/lib/crda/pubkeys"
     ];
   }) else super.crda;
+  jellyfin-ffmpeg = super.jellyfin-ffmpeg.override (optionalAttrs (config.services.jellyfin.enable or false) {
+    ffmpeg-full = super.ffmpeg-full.override {
+      libva = let
+        mesa = super.mesa.overrideAttrs (oldAttrs: rec {
+          pname = "mesa";
+          version = "21.3.8";
+          branch  = versions.major version;
+          src = super.fetchurl {
+            urls = [
+              "https://mesa.freedesktop.org/archive/mesa-${version}.tar.xz"
+              "ftp://ftp.freedesktop.org/pub/mesa/mesa-${version}.tar.xz"
+              "ftp://ftp.freedesktop.org/pub/mesa/${version}/mesa-${version}.tar.xz"
+              "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
+            ];
+            sha256 = "19wx5plk6z0hhi0zdzxjx8ynl3lhlc5mbd8vhwqyk92kvhxjf3g7";
+          };
+        });
+      in super.libva.overrideAttrs (oldAttrs: rec {
+        mesonFlags = [ "-Ddriverdir=${mesa.drivers}/lib/dri" ];
+      });
+    };
+  });
 }
