@@ -9,16 +9,16 @@
 
 buildGo117Module rec {
   pname = "grpc-gateway";
-  version = "2.10.2";
+  version = "2.10.3";
 
   src = fetchFromGitHub {
     owner = "grpc-ecosystem";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-jnTerliLiBgaIMlhc3O0TkFuQ9qIL5rz8x1G+sKy8+U=";
+    sha256 = "sha256-4/iE+sK+ZbG6194i8E1ZHla/7C9blKGRHwM7iX7nvXU=";
   };
 
-  vendorSha256 = "sha256-AxyE9Xh3NDy4CbG6JRdfMkTf1b62/XKqVmp8N6Vpo5M=";
+  vendorSha256 = "sha256-FhiTU9VmDZNCPBWrmCqmQo/kPdDe8Da1T2E06CVN2kw=";
   subPackages = [ "protoc-gen-grpc-gateway" "protoc-gen-openapiv2" ];
 
   meta = with lib; {
