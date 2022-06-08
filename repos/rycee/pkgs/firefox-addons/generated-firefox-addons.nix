@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220605.185654";
+      version = "102.0buildid20220607.212916";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958496/francais_language_pack-102.0buildid20220605.185654.xpi";
-      sha256 = "b41a43b46926911239533a1a754e38817f40a1ebc945f519b27bb075e9a461c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3959615/francais_language_pack-102.0buildid20220607.212916.xpi";
+      sha256 = "b25c62ee8e64d34800cbbea6de788bead0cd5881b9036ab229b316056e189ddc";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -703,10 +703,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.7.1";
+      version = "8.7.3";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944033/ghostery-8.7.1.xpi";
-      sha256 = "73d970a6357005644ac830204ec150c591a511a2217425c94adce03bc79adee9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958821/ghostery-8.7.3.xpi";
+      sha256 = "72f9af4a38d587489d0694043fb102d8b8fb40033795277ae176647bc4c3d223";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -1341,10 +1341,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.3";
+      version = "2.3.5";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940152/1password_x_password_manager-2.3.3.xpi";
-      sha256 = "3bba9a7c6d5250d5de79208dacd1354c6da0ad1a687a963a5b7d9e5cbed54f98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957930/1password_x_password_manager-2.3.5.xpi";
+      sha256 = "37d16311f29754c7c99c672f157f920024d61bf5e2b3042be8f544c27995067b";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2344,10 +2344,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.26";
+      version = "6.10.27";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942531/wappalyzer-6.10.26.xpi";
-      sha256 = "128d6a20278822e42c6bc58745a8c6e0b40052264a56e3252d6dd19c4a857150";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3959536/wappalyzer-6.10.27.xpi";
+      sha256 = "86f669f2979b45e4540b53d1d63c19797c99a8dde61b3d6a7341777a3594b7e6";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
