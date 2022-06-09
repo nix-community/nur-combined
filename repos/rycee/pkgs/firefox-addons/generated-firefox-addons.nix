@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220607.212916";
+      version = "101.0.1buildid20220608.170832";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3959615/francais_language_pack-102.0buildid20220607.212916.xpi";
-      sha256 = "b25c62ee8e64d34800cbbea6de788bead0cd5881b9036ab229b316056e189ddc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960261/francais_language_pack-101.0.1buildid20220608.170832.xpi";
+      sha256 = "d6368950f7a6b79f936421fdd052b77a20d2230b74262ed0208004ce8808f79d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2372,10 +2372,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.62.1";
+      version = "2.63.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3947681/web_scrobbler-2.62.1.xpi";
-      sha256 = "fd693c073ebed784f3390b314d6e118f77076033a80d039cb46d7777b6dc6270";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960150/web_scrobbler-2.63.0.xpi";
+      sha256 = "a47c74cc740e53567831aaeb6eb71d84b9bc7f220353657cd54fba17b1a7c2ef";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
