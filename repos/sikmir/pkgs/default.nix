@@ -268,7 +268,6 @@ lib.makeScope newScope (
     lsdreader = callPackage ./linguistics/lsdreader { };
     mikatools = callPackage ./linguistics/mikatools { };
     odict = callPackage ./linguistics/odict { };
-    opendict = callPackage ./linguistics/opendict { };
     python-hfst = callPackage ./linguistics/python-hfst { };
     pytorchtext = callPackage ./linguistics/pytorchtext { };
     redict = libsForQt5.callPackage ./linguistics/redict { };
