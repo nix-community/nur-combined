@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+PID=$(ps -eo pid,cmd,nice,%mem,%cpu --sort=-%cpu | head -n2 |tail -n 1 | awk '{print $1}')
+renice 7 $PID
+ps $PID

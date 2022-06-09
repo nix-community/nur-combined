@@ -92,17 +92,17 @@ in {
     inherit (prev) pkgs;
     nurpkgs = prev.pkgs;
   };
-  # discord = prev.discord.overrideAttrs (old: rec {
-  #   version = "0.0.17";
-  #   src = prev.fetchurl {
-  #     url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-  #     sha256 = "058k0cmbm4y572jqw83bayb2zzl2fw2aaz0zj1gvg6sxblp76qil";
-  #   };
-  # });
+  discord = prev.discord.overrideAttrs (old: rec {
+    version = "0.0.18";
+    src = prev.fetchurl {
+      url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
+      sha256 = "sha256-BBc4n6Q3xuBE13JS3gz/6EcwdOWW57NLp2saOlwOgMI=";
+    };
+  });
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
     src = prev.fetchzip {
       url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip";
-      sha256 = old.src.outputHash;
+      sha256 = prev.lib.fakeSha256;
       stripRoot = false;
     };
   });

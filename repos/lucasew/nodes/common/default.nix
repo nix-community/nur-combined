@@ -25,6 +25,7 @@
   };
   services = {
     irqbalance.enable = true;
+    ananicy.enable = true;
   };
   cachix.enable = true;
   environment.etc."tmuxconfig".text = ''
