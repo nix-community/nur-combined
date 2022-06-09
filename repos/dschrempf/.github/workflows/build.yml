@@ -34,9 +34,7 @@ jobs:
         cachixName:
           - dschrempf
         nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-21.11
+          - nixpkgs=channel:nixos-unstable-small
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

@@ -7,6 +7,7 @@
 
 let
   pname = "finplot";
+  # WTNG: Numpy is blocking update to 1.8.2.
   version = "1.8";
   owner = "highfestiva";
 in

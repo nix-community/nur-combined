@@ -5,7 +5,7 @@
 
 let
   pname = "ccxt";
-  version = "1.65.17";
+  version = "1.86.7";
   owner = pname;
 in
 python3.pkgs.buildPythonPackage rec {
@@ -16,16 +16,10 @@ python3.pkgs.buildPythonPackage rec {
     inherit owner;
     repo = pname;
     rev = "${version}";
-    hash = "sha256-uXLdzAGPwJFrOlZSPUFlhgXG+qM1ZMWntv6lXD6ntRs=";
+    hash = "sha256-UJxDK6e89TU1gzmALo2D6KZcHRfnTpuXA9GZHOFj5JU=";
   };
 
   prePatch = "cd python";
-
-  # src = python3.pkgs.fetchPypi {
-  #   inherit pname;
-  #   inherit version;
-  #   hash = "sha256-/HKZ+tCJLHnsssSSUlfdY3jo1OHCcZ27+wMB+0fYlNo=";
-  # };
 
   nativeBuildInputs = with python3.pkgs; [ aiodns certifi yarl ];
   # buildInputs = [ ];

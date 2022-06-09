@@ -4,21 +4,24 @@
 , stdenv
 , fetchurl
 , python3
+, system
 }:
 
 let
   pname = "frida-python";
-  version = "15.1.17";
+  version = "15.1.24";
   namePypi = "frida";
   pythonVersion = "38";
   base = "https://files.pythonhosted.org/packages/${python3.pythonVersion}/${builtins.substring 0 1 namePypi}/${namePypi}";
-  eggs = {
-    # XXX: Avoid direct usage of 'system'.
-    x86_64-linux = fetchurl {
-      url = "${base}/${namePypi}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
-      sha256 = "sha256-uYQQrqWZQE2ORraHusVw4SKfBuF6ic1hfrZCx5Nw4ow=";
-    };
-  };
+  egg =
+    if system == "x86_64-linux"
+    then
+      fetchurl
+        {
+          url = "${base}/${namePypi}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
+          sha256 = "sha256-Ze8scGvlaRLvzEER3TyzMw2sqXcJLO54LI0jsyOIuCs=";
+        }
+    else throw "unsupported system: ${stdenv.hostPlatform.system}";
 in
 python3.pkgs.buildPythonPackage rec {
   inherit pname version;
@@ -27,11 +30,8 @@ python3.pkgs.buildPythonPackage rec {
   src = python3.pkgs.fetchPypi {
     pname = namePypi;
     inherit version;
-    sha256 = "sha256-fyqOQYZGSOO6uG0kpS+KwbRRs+beBpts4xHmGL1Zt1g=";
+    sha256 = "sha256-QnPjtB60iaB9/8L+gb3NeqwE+javo1keNpYn5iC4Qg8=";
   };
-
-  egg = eggs.${stdenv.hostPlatform.system}
-    or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
   postPatch = ''
     # sed -i "s/'build_ext': FridaPrebuiltExt//" setup.py

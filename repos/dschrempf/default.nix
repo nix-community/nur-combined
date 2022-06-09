@@ -21,8 +21,6 @@ rec {
 
   # Hacking.
   frida-python = pkgs.callPackage ./pkgs/hacking/frida-python {
-    # WTNG: Check when Frida is available for Python 3.9 which is now the
-    # default in Nixpkgs.
     python3 = pkgs.python38;
   };
   frida-tools = pkgs.callPackage ./pkgs/hacking/frida-tools {
