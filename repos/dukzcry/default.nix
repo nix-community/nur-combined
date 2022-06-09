@@ -8,37 +8,30 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-let
-  # https://bugs.gentoo.org/804825
-  libidn = pkgs.libidn.overrideAttrs (oldAttrs: rec {
-    pname = "libidn";
-    version = "1.36";
-    src = pkgs.fetchurl {
-      url = "mirror://gnu/libidn/${pname}-${version}.tar.gz";
-      sha256 = "07pyy0afqikfq51z5kbzbj9ldbd12mri0zvx0mfv3ds6bc0g26pi";
-    };
-  });
-in rec {
+with pkgs;
+
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = ./overlays; # nixpkgs overlays
 
-  k380-function-keys-conf = pkgs.callPackage ./pkgs/k380-function-keys-conf.nix { };
-  knobkraft-orm = pkgs.callPackage ./pkgs/knobkraft-orm.nix { };
-  realrtcw = pkgs.callPackage ./pkgs/realrtcw.nix { };
-  gamescope = pkgs.callPackage ./pkgs/gamescope.nix { };
-  re3 = pkgs.callPackage ./pkgs/re3 {};
-  revc = pkgs.callPackage ./pkgs/re3/revc.nix { inherit re3; };
-  bitwig-studio3 = pkgs.callPackage ./pkgs/bitwig-studio3.nix {};
-  massdns = pkgs.callPackage ./pkgs/massdns.nix {};
-  wireless-regdb = pkgs.callPackage ./pkgs/wireless-regdb {};
-  edgevpn = pkgs.callPackage ./pkgs/edgevpn.nix {};
-  prometheus-nut-exporter = pkgs.callPackage ./pkgs/prometheus-nut-exporter.nix {};
-  tun2socks = pkgs.callPackage ./pkgs/tun2socks.nix {};
-  cockpit = pkgs.callPackage ./pkgs/cockpit {};
-  cockpit-machines = pkgs.callPackage ./pkgs/cockpit/machines.nix {};
+  k380-function-keys-conf = callPackage ./pkgs/k380-function-keys-conf.nix { };
+  knobkraft-orm = callPackage ./pkgs/knobkraft-orm.nix { };
+  realrtcw = callPackage ./pkgs/realrtcw.nix { };
+  gamescope = callPackage ./pkgs/gamescope.nix { };
+  re3 = callPackage ./pkgs/re3 {};
+  revc = callPackage ./pkgs/re3/revc.nix { inherit re3; };
+  bitwig-studio3 = callPackage ./pkgs/bitwig-studio3.nix {};
+  massdns = callPackage ./pkgs/massdns.nix {};
+  wireless-regdb = callPackage ./pkgs/wireless-regdb {};
+  edgevpn = callPackage ./pkgs/edgevpn.nix {};
+  prometheus-nut-exporter = callPackage ./pkgs/prometheus-nut-exporter.nix {};
+  tun2socks = callPackage ./pkgs/tun2socks.nix {};
+  cockpit = callPackage ./pkgs/cockpit {};
+  cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};
   cockpit-client = cockpit.override { client = true; };
-  libvirt-dbus = pkgs.callPackage ./pkgs/libvirt-dbus.nix {};
-  sunshine = pkgs.callPackage ./pkgs/sunshine.nix {};
-} // { inherit libidn; }
+  libvirt-dbus = callPackage ./pkgs/libvirt-dbus.nix {};
+  sunshine = callPackage ./pkgs/sunshine.nix {};
+  libidn = callPackage ./pkgs/libidn.nix {};
+}
