@@ -1,0 +1,27 @@
+From 5d1a986a96cac00d66fe2057049f1515546a26e3 Mon Sep 17 00:00:00 2001
+From: Sofi <sofi+git@mailbox.org>
+Date: Tue, 7 Jun 2022 23:22:42 +0200
+Subject: [PATCH] Use poetry standards for executables
+
+---
+ pyproject.toml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index 65f84c9..b78211b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -67,8 +67,8 @@ sentry = ["sentry-sdk"]
+ "sphinx-rtd-theme" = "*"
+ "sphinx-issues" = "*"
+ 
+-[options.entry_points.console_scripts]
+-console_scripts = { sheraf = "canaille.commands:cli" }
++[tool.poetry.scripts]
++canaille = "canaille.commands:cli"
+ 
+ [options.packages.find]
+ exclude = [
+-- 
+2.36.0
+

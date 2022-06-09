@@ -25,9 +25,17 @@ rustPlatform.buildRustPackage rec {
   # Do not build the gui part of the package.
   buildNoDefaultFeatures = true;
 
-  # Tests are highly impure, accessing several pages
-  # directly (modrinth, cloudflare, github).
+  # Tests are highly impure, accessing several websites.
+  # Assuming upstream ensures all tests run correctly before
+  # tagging a release.
   doCheck = false;
+
+  # Sanity check that the compiled binary actually runs
+  # without any errors.
+  doInstallCheck = true;
+  installCheckPhase = ''
+    $out/bin/ferium --help > /dev/null
+  '';
 
   nativeBuildInputs = [ pkg-config ];
 
