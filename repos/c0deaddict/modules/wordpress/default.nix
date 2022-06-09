@@ -394,7 +394,6 @@ in {
     services.mysql =
       mkIf (any (v: v.database.createLocally) (attrValues eachSite)) {
         enable = true;
-        package = mkDefault pkgs.mariadb;
         ensureDatabases =
           mapAttrsToList (name: cfg: cfg.database.name) eachSite;
         ensureUsers = mapAttrsToList (name: cfg: {
