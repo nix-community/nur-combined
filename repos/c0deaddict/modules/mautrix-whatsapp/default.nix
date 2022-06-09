@@ -27,8 +27,8 @@ in {
       '';
       default = {
         homeserver = {
-          address = config.services.matrix-synapse.public_baseurl;
-          domain = config.services.matrix-synapse.server_name;
+          address = config.services.matrix-synapse.settings.public_baseurl;
+          domain = config.services.matrix-synapse.settings.server_name;
         };
         appservice = rec {
           port = 29318;
@@ -56,7 +56,7 @@ in {
         relaybot = {
           enabled = true;
           management = "!whatsappbot:${
-              toString (config.services.matrix-synapse.server_name)
+              toString (config.services.matrix-synapse.settings.server_name)
             }";
         };
         logging = {
@@ -136,7 +136,7 @@ in {
 
     users.groups.mautrix-whatsapp = { };
 
-    services.matrix-synapse.app_service_config_files = [ registrationFile ];
+    services.matrix-synapse.settings.app_service_config_files = [ registrationFile ];
 
   };
 }

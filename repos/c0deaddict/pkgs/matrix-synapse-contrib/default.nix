@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "matrix-synapse-contrib";
-  version = "1.59.1"; # matrix-synapse.version;
+  version = matrix-synapse.version;
 
   src = fetchFromGitHub rec {
     owner = "matrix-org";
@@ -13,6 +13,7 @@ stdenv.mkDerivation rec {
       "1.57.0" = "sha256-CRsBEt40j9kNxLipt2hczvlLC3KQVxRSSKJ5FoZbLJI=";
       "1.58.0" = "sha256-FF9FAo0LQqgOHkQ1WNBW/Q8Z5Wf4SOsvwtESNlfIVno=";
       "1.59.1" = "sha256-8YtBUossdvB5Gp9Ghs4sgf+fuz/jLxKMMHg9GdCvy+E=";
+      "1.60.0" = "sha256-TgbIQ1hXewttY+5sbLeUH7ULQw9GUhoo2KZzN2t+FNw=";
     }.${version};
   };
 
