@@ -504,14 +504,14 @@
       };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "4.0.5";
+      version = "4.1.0";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941257/ecosia_the_green_search-4.0.5.xpi";
-      sha256 = "ddf3b95b6f4ffe29f3fe1c0800fe7af8720c7e44a785e2b3ea3437c5b9d67a8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960424/ecosia_the_green_search-4.1.0.xpi";
+      sha256 = "cf5f9987e13a716ddd6c9d0f1ec2435997cdeebaa5083cb3dc437dbba07bc66c";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
-        description = "Ecosia is a search engine that uses 80% of its profits from ad revenue to plant trees. By searching with Ecosia you can help the environment for free. This extension adds <a href=\"https://outgoing.prod.mozaws.net/v1/c7a1fe7e1838aaf8fcdb3e88c6700a42c275a31c5fdea179157c9751846df4bf/http%3A//Ecosia.org\" rel=\"nofollow\">Ecosia.org</a> as the default search engine to your Firefox browser. Give it a try!";
+        description = "This extension adds <a href=\"https://outgoing.prod.mozaws.net/v1/c7a1fe7e1838aaf8fcdb3e88c6700a42c275a31c5fdea179157c9751846df4bf/http%3A//Ecosia.org\" rel=\"nofollow\">Ecosia.org</a> as the default search engine to your browser — it’s completely free!";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "101.0.1buildid20220608.170832";
+      version = "102.0buildid20220609.185805";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3960261/francais_language_pack-101.0.1buildid20220608.170832.xpi";
-      sha256 = "d6368950f7a6b79f936421fdd052b77a20d2230b74262ed0208004ce8808f79d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960635/francais_language_pack-102.0buildid20220609.185805.xpi";
+      sha256 = "a517d835e1561178958411611ab92daed15d1263b8d225e26d16e928cd5477ec";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -990,10 +990,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.0.0";
+      version = "2.1.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3955094/libredirect-2.0.0.xpi";
-      sha256 = "c48336b7ce3aa02149d6bc72cca7843db38fd8f2d67be4428a680e788db0cf15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960568/libredirect-2.1.0.xpi";
+      sha256 = "2430991c430ccc439a2e888a0864c2a653ead73f9c791e03e17ad35a9024ff07";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -1281,10 +1281,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.5.0";
+      version = "7.5.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944789/octotree-7.5.0.xpi";
-      sha256 = "3a4f41a7befcd350d36dc5ca00fdaa000353ff21449b993183b5997321f1b972";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960862/octotree-7.5.1.xpi";
+      sha256 = "56bc581580710fde7f08514003e902e4042be827c339195f1ef1ad127851cc23";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1308,10 +1308,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.9.0";
+      version = "6.10.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3924296/okta_browser_plugin-6.9.0.xpi";
-      sha256 = "11ef4b752b584725e3d8ebfb192f4eb38617763fd9bfed5b32bbc98b210ddae1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956279/okta_browser_plugin-6.10.0.xpi";
+      sha256 = "7b76c0f1117e97f018d202715e5892bf41d94b51c610031450af2cd37c508638";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
