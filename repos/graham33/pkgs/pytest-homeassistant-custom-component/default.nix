@@ -27,14 +27,14 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.9.10";
+  version = "0.9.13";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "1z62h145947p3s8im1sg24rywd6i6hsnb524ck0pil2n6h8l3sy2";
+    sha256 = "1ib9njgcchm0cnzrdakfp7v6cyzfmvrwdijm2cs6ifs6m4xrvg81";
   };
 
   postPatch = ''
