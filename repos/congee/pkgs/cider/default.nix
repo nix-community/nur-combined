@@ -30,10 +30,10 @@
 
 stdenv.mkDerivation rec {
   pname = "cider";
-  version = "1.4.7.2664";
+  version = "1.5.1-beta.30";
   src = fetchurl {
-    url = "https://github.com/ciderapp/cider-releases/releases/download/v${version}/cider_1.4.7-beta.undefined_amd64.deb";
-    sha256 = "1a3nkwn4n54myjbz51sqalbzx722s5405khdnhrvryld9gr332g8";
+    url = "https://github.com/ciderapp/cider-releases/releases/download/v${version}/cider_${version}_amd64.deb";
+    sha256 = "sha256-YBeewANk8T+IJtjqadYQiQFMjUcfzIzByQJm753LhyI=";
   };
 
   runtimeDependencies = [
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland }}"
     )
 
     # Fix the desktop link
