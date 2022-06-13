@@ -14,6 +14,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  ldap-sshkp = pkgs.haskellPackages.callPackage ./pkgs/ldap-sshkp { };
+
   klipper-firmware = pkgs.callPackage ./pkgs/klipper-firmware { };
 
   mfbot = pkgs.callPackage ./pkgs/mfbot { };

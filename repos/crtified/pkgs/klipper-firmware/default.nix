@@ -1,5 +1,5 @@
 { stdenvNoCC, lib, klipper, bintools-unwrapped, gcc-arm-embedded, gnumake
-, libffi, libusb, python2, fw_config ? ./skr_e3_dip.config }:
+, libffi, libusb, python2, fw_config ? ./fysetc_spider.config }:
 stdenvNoCC.mkDerivation rec {
   name = "klipper-firmware-${version}";
   version = klipper.version;
