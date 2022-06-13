@@ -28,7 +28,7 @@ let
       version = "1.0.1";
       src = fetchurl {
         url = "https://registry.npmjs.org/steeltoe/-/steeltoe-1.0.1.tgz";
-        sha1 = "5be2f44d6def856cc04d9b48f7f23180223aa8c9";
+        sha512 = "beMo5ArN5bRczhwUkaFlJJ39oGNLYotLTHTUgzAK02HwkE2gGLOPPsUHL6qTAfQoyt4lpkLVohhNY+PkdZRa3Q==";
       };
     };
   };

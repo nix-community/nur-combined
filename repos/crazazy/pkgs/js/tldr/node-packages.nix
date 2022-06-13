@@ -523,7 +523,7 @@ let
       version = "1.0.34";
       src = fetchurl {
         url = "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.34.tgz";
-        sha1 = "125820e34bc842d2f2aaafafe4c2916ee32c157c";
+        sha512 = "ok1qVCJuRkNmvebYikljxJA/UEsKwLl2nI1OmaqAu4/UE+h0wKCHok4XkL/gvi39OacXvw59RJUOFUkDib2rHg==";
       };
     };
     "readable-stream-3.6.0" = {
@@ -568,7 +568,7 @@ let
       version = "1.0.5";
       src = fetchurl {
         url = "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz";
-        sha1 = "290cbb232e306942d7d7ea9b83732ab7856f8285";
+        sha512 = "MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==";
       };
     };
     "signal-exit-3.0.7" = {
@@ -586,7 +586,7 @@ let
       version = "1.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/slice-stream/-/slice-stream-1.0.0.tgz";
-        sha1 = "5b33bd66f013b1a7f86460b03d463dec39ad3ea0";
+        sha512 = "fJu1TYTr85OZEkT4lqcCW6oPWPIS5omPnIsB/dL7QWo2sNk03VQ6did4plhh0y3Sf0nJlq5QEUR3vMYevydn7w==";
       };
     };
     "string_decoder-0.10.31" = {
@@ -595,7 +595,7 @@ let
       version = "0.10.31";
       src = fetchurl {
         url = "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz";
-        sha1 = "62e203bc41766c6c28c9fc84301dab1c5310fa94";
+        sha512 = "ev2QzSzWPYmy9GuqfIVildA4OdcGLeFZQrq5ys6RtiuF+RQQiZWr8TZNyAcuVXyQRYfEO+MsoB/1BuQVhOJuoQ==";
       };
     };
     "string_decoder-1.3.0" = {
@@ -631,7 +631,7 @@ let
       version = "0.0.12";
       src = fetchurl {
         url = "https://registry.npmjs.org/sylvester/-/sylvester-0.0.12.tgz";
-        sha1 = "5a884415cd2d002c57e7a3aac99462a75ce9fdb4";
+        sha512 = "SzRP5LQ6Ts2G5NyAa/jg16s8e3R7rfdFjizy1zeoecYWw+nGL+YA1xZvW/+iJmidBGSdLkuvdwTYEyJEb+EiUw==";
       };
     };
     "traverse-0.3.9" = {
@@ -640,7 +640,7 @@ let
       version = "0.3.9";
       src = fetchurl {
         url = "https://registry.npmjs.org/traverse/-/traverse-0.3.9.tgz";
-        sha1 = "717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9";
+        sha512 = "iawgk0hLP3SxGKDfnDJf8wTz4p2qImnyihM5Hh/sGvQ3K37dPi/w8sRhdNIxYA1TwFwc5mDhIJq+O0RsvXBKdQ==";
       };
     };
     "underscore-1.13.4" = {

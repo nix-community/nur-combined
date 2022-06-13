@@ -379,7 +379,7 @@ let
       version = "1.0.34";
       src = fetchurl {
         url = "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.34.tgz";
-        sha1 = "125820e34bc842d2f2aaafafe4c2916ee32c157c";
+        sha512 = "ok1qVCJuRkNmvebYikljxJA/UEsKwLl2nI1OmaqAu4/UE+h0wKCHok4XkL/gvi39OacXvw59RJUOFUkDib2rHg==";
       };
     };
     "readable-stream-1.1.14" = {
@@ -388,7 +388,7 @@ let
       version = "1.1.14";
       src = fetchurl {
         url = "https://registry.npmjs.org/readable-stream/-/readable-stream-1.1.14.tgz";
-        sha1 = "7cf4c54ef648e3813084c636dd2079e166c081d9";
+        sha512 = "+MeVjFf4L44XUkhM1eYbD8fyEsxcV81pqMSR5gblfcLCHfZvbrqy4/qYHE+/R5HoBUT11WV5O08Cr1n3YXkWVQ==";
       };
     };
     "readable-stream-2.3.7" = {
@@ -469,7 +469,7 @@ let
       version = "0.10.31";
       src = fetchurl {
         url = "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz";
-        sha1 = "62e203bc41766c6c28c9fc84301dab1c5310fa94";
+        sha512 = "ev2QzSzWPYmy9GuqfIVildA4OdcGLeFZQrq5ys6RtiuF+RQQiZWr8TZNyAcuVXyQRYfEO+MsoB/1BuQVhOJuoQ==";
       };
     };
     "string_decoder-1.1.1" = {
@@ -514,7 +514,7 @@ let
       version = "0.6.5";
       src = fetchurl {
         url = "https://registry.npmjs.org/through2/-/through2-0.6.5.tgz";
-        sha1 = "41ab9c67b29d57209071410e1d7a7a968cd3ad48";
+        sha512 = "RkK/CCESdTKQZHdmKICijdKKsCRVHs5KsLZ6pACAmF/1GPUQhonHSXWNERctxEp7RmvjdNbZTL5z9V7nSCXKcg==";
       };
     };
     "tmp-0.2.1" = {

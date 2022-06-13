@@ -217,7 +217,7 @@ let
       version = "2.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/resolve-from/-/resolve-from-2.0.0.tgz";
-        sha1 = "9480ab20e94ffa1d9e80a804c7ea147611966b57";
+        sha512 = "qpFcKaXsq8+oRoLilkwyc7zHGF5i9Q2/25NIgLQQ/+VVv9rU4qvr6nXVAw1DsnXJyQkZsR4Ytfbtg5ehfcUssQ==";
       };
     };
     "safe-buffer-5.1.2" = {

@@ -6,8 +6,5 @@ graalvm17-ce.overrideAttrs (old: {
       sha256 = "02n4qp3jv7bwm3yadcryflmmabm42n9fsm1l1hmcj62kzrflpg9i";
     })];
   autoPatchelfIgnoreMissingDeps = true;
-  unpackPhase = old.unpackPhase + ''
-    unpack_jar ''${arr[5]}
-    '';
   buildInputs = (old.buildInputs or []) ++ [ SDL2 autoPatchelfHook ];
   })
