@@ -35,13 +35,13 @@
 
 mkDerivation rec {
   pname = "nheko";
-  version = "unstable-2022-05-23";
+  version = "unstable-2022-06-13";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "ff6e4826e42dadc418e77e6d7ee02481cc6a4008";
-    sha256 = "sha256-fbqird0zHT4sNj/7eIJYF12kJ2Z56FUlDiOnjwB/6dM=";
+    rev = "6e1fec1e635039a7060c369ca03e0f970f9e449c";
+    sha256 = "sha256-LQI+JsRswHSDQOFM4W3bA8sjQiQXisf8vPeyOqLa0PA=";
   };
 
   nativeBuildInputs = [
