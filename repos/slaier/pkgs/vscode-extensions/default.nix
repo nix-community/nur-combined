@@ -21,6 +21,10 @@ mapAttrs'
           inherit (source) version;
         };
         vsix = source.src;
+        meta = {
+          inherit (source) homepage description;
+          license = pkgs.lib.licenses."${source.license}";
+        };
       })
   )
   vscodeExtensionSources
