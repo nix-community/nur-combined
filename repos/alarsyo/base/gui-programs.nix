@@ -74,26 +74,35 @@ in {
           in
             pkgs.writeShellScript "disable_wifi_on_ethernet" ''
               export LC_ALL=C
+              date >> /tmp/disable_wifi_on_ethernet.log
+              echo START "$@" >> /tmp/disable_wifi_on_ethernet.log
 
-              enable_disable_wifi ()
+              beginswith() { case $2 in "$1"*) true;; *) false;; esac; }
+
+              is_ethernet_interface ()
               {
-                  result=$(${nmcli} dev | ${grep} "ethernet" | ${grep} -w "connected")
-                  if [ -n "$result" ]; then
-                      if ! ${nmcli} dev | ${grep} -q "hotspot"; then
-                          ${nmcli} radio wifi off
-                      fi
-                  else
-                      ${nmcli} radio wifi on
-                  fi
+                  local type="$(${nmcli} dev show "$1" | grep 'GENERAL\.TYPE:' | awk '{ print $2 }')"
+                  test "$type" = "ethernet" || beginswith enp "$1"
               }
 
-              if [ "$2" = "up" ]; then
-                  enable_disable_wifi
-              fi
+              hotspot_enabled ()
+              {
+                ${nmcli} dev | ${grep} -q "hotspot"
+              }
 
-              if [ "$2" = "down" ]; then
-                  enable_disable_wifi
+              if is_ethernet_interface "$1" && ! hotspot_enabled; then
+                echo "change in ethernet and not in hotspot mode" >> /tmp/disable_wifi_on_ethernet.log
+                if [ "$2" = "up" ]; then
+                    echo "turning wifi off" >> /tmp/disable_wifi_on_ethernet.log
+                    nmcli radio wifi off
+                fi
+
+                if [ "$2" = "down" ]; then
+                    echo "turning wifi on" >> /tmp/disable_wifi_on_ethernet.log
+                    nmcli radio wifi on
+                fi
               fi
+              echo END "$@" >> /tmp/disable_wifi_on_ethernet.log
             '';
           type = "basic";
         }
