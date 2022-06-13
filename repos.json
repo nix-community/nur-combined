@@ -533,6 +533,9 @@
         "sky": {
             "url": "https://github.com/SkyLeite/nix-repository"
         },
+        "slaier": {
+            "url": "https://github.com/Slaier/nur-packages"
+        },
         "smaret": {
             "url": "https://github.com/smaret/nur-packages"
         },
@@ -583,6 +586,9 @@
         },
         "trevorriles": {
             "url": "https://github.com/trevorriles/nur-packages"
+        },
+        "twogn": {
+            "url": "https://github.com/2gn/nur-package"
         },
         "uleenucks": {
             "url": "https://github.com/uleenucks/nurpkgs"
