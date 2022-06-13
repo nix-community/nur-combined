@@ -13,7 +13,7 @@
 ################################################################################
 
 let
-  version = "2.1.3";
+  version = "2.1.4";
 
   license = stdenv.mkDerivation rec {
     pname = "wechat-uos-license";
@@ -31,7 +31,7 @@ let
     inherit version;
     src = fetchurl {
       url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_${version}_amd64.deb";
-      sha256 = "sha256-W3ckVWbmgpwrIjsEFz80wcN853CdIu1NiiR1czjPsKM=";
+      sha256 = "sha256-V74m+dFK9/f0QoHfvIjk7hyIil6FpV9HGkPqwJLvQhM=";
     };
 
     unpackPhase = ''

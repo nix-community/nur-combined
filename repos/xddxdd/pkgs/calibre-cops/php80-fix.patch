@@ -1,0 +1,15 @@
+diff --git a/vendor/seblucas/dot-php/doT.php b/vendor/seblucas/dot-php/doT.php
+index e6cf942..5d81c7b 100644
+--- a/vendor/seblucas/dot-php/doT.php
++++ b/vendor/seblucas/dot-php/doT.php
+@@ -91,7 +91,9 @@ class doT {
+ 
+         $this->functionBody = $func;
+ 
+-        return @create_function ('$it', $func);
++        return function ($it) use ($func) {
++            return eval($func);
++        };
+     }
+ 
+     public function execute ($data) {

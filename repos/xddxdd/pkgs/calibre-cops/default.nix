@@ -2,6 +2,7 @@
 , stdenvNoCC
 , fetchurl
 , unzip
+, dos2unix
 , ...
 } @ args:
 
@@ -16,7 +17,12 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-aMnvs0CrMJic2JoZoXPEWHLTPthd0CZ0+K8It3SMvHc=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [ unzip dos2unix ];
+
+  prePatch = ''
+    dos2unix vendor/seblucas/dot-php/doT.php
+  '';
+  patches = [ ./php80-fix.patch ];
 
   unpackPhase = ''
     unzip $src

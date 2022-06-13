@@ -119,6 +119,7 @@ rec {
   phppgadmin = pkg ./phppgadmin { };
   qbittorrent-enhanced-edition = pkg ./qbittorrent-enhanced-edition { };
   qemu-user-static = pkg ./qemu-user-static { };
+  qq = pkg ./qq { };
   qqmusic = pkg ./qqmusic { };
   rime-aurora-pinyin = pkg ./rime-aurora-pinyin { };
   rime-dict = pkg ./rime-dict { };

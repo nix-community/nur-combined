@@ -49,17 +49,6 @@ with lib.kernel;
   SMB_SERVER_KERBEROS5 = yes;
   SMB_SERVER_SMBDIRECT = yes;
 
-  # Linux RNG framework
-  LRNG = yes;
-  LRNG_IRQ = yes;
-  LRNG_CONTINUOUS_COMPRESSION_ENABLED = yes;
-  LRNG_ENABLE_CONTINUOUS_COMPRESSION = yes;
-  LRNG_JENT = yes;
-  LRNG_CPU = yes;
-  LRNG_DRNG_SWITCH = yes;
-  LRNG_KCAPI_HASH = yes;
-  LRNG_DRBG = yes;
-
   # Lockup detector
   LOCKUP_DETECTOR = yes;
   SOFTLOCKUP_DETECTOR = yes;
