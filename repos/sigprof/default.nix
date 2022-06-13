@@ -15,6 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   cosevka = pkgs.callPackage ./pkgs/cosevka {};
-  vdhcoapp = pkgs.callPackage ./pkgs/vdhcoapp {};
   virt-manager = pkgs.callPackage ./pkgs/virt-manager {};
 }
