@@ -173,10 +173,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "1.58.0";
+      version = "2022.5.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940986/bitwarden_password_manager-1.58.0.xpi";
-      sha256 = "55651784249ba6dfe7d5ae399fa2e13599ad7003e58cb015dc36f87a4b325b18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960137/bitwarden_password_manager-2022.5.0.xpi";
+      sha256 = "20cb58113166c744f65fdc49ba83e2bc5a279be08aa7bf058a9a5414240d637a";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220609.185805";
+      version = "102.0buildid20220612.185901";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3960635/francais_language_pack-102.0buildid20220609.185805.xpi";
-      sha256 = "a517d835e1561178958411611ab92daed15d1263b8d225e26d16e928cd5477ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3961719/francais_language_pack-102.0buildid20220612.185901.xpi";
+      sha256 = "c559ce7fd57a3058d461c86bc61ec93948cb75f46c15a471cdd75d5efeda1b07";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -943,10 +943,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.96.0.8";
+      version = "4.97.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956008/lastpass_password_manager-4.96.0.8.xpi";
-      sha256 = "d594ea918d83dfde54d3ce379c03c4b51d435da3be2c8e2937ab88293f84f61c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960563/lastpass_password_manager-4.97.0.2.xpi";
+      sha256 = "46516e9045008e03a5261d4cafde96b874f9b1271a487d87bd0bed05cd25b9f6";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1586,10 +1586,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.24.0";
+      version = "4.24.6";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920243/react_devtools-4.24.0.xpi";
-      sha256 = "adffe8eb0c5c3c6cc7d9169fc0468ebbf87a6304cbfb35e65b68eccbf7fc064f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3948041/react_devtools-4.24.6.xpi";
+      sha256 = "b8ef1c6cea3b773bfb8afe44ccb5f77379c78402f912aa638c23f420caca970e";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
