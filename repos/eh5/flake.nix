@@ -57,11 +57,12 @@
             config.allowUnfree = true;
             overlays = [ self.overlays.default ];
           };
-          appPkgs = utils.attrsFilterNonNull {
-            home-manager = home-manager.defaultPackage.${system};
-            deploy = deploy-rs.defaultPackage.${system};
-            nvfetcher = nvfetcher.defaultPackage.${system} or null;
-          };
+          appPkgs =
+            if system == systems.x86_64-linux then {
+              home-manager = home-manager.defaultPackage.${system};
+              deploy = deploy-rs.defaultPackage.${system};
+              nvfetcher = nvfetcher.defaultPackage.${system};
+            } else { };
         in
         rec {
           packages = myPkgs.packages pkgs;

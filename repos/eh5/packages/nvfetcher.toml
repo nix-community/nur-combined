@@ -1,5 +1,5 @@
 [mosdns]
-src.github_tag = "IrineSistiana/mosdns"
+src.github = "IrineSistiana/mosdns"
 fetch.github = "IrineSistiana/mosdns"
 
 [v2ray]
