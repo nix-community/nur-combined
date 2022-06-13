@@ -4,24 +4,25 @@
 , cargo 
 , rustPlatform
 , pkg-config
+, installShellFiles
 , lib
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ferium";
-  version = "4.1.1";
+  version = "4.1.4";
 
   src = fetchFromGitHub {
     owner = "gorilla-devs";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-5DYdeK6JdA7oLBkjP3WkwLwlBitdf4Yt2dNP7P0INN0=";
+    sha256 = "sha256-Xf1Mi6pst9A2R6gL6QR7z9dxeYPGAttUsGHfj+L8uFU=";
   };
 
   patches = [ ./0001-Remove-std-process-ExitCode.patch ];
 
-  cargoSha256 = "sha256-7rpxHfe+pWarPJ72WSXjgr63YctZ5+RrsEgmw7o66VI=";
-  
+  cargoSha256 = "sha256-cid9r/YIXcRu9TvptZSat0Fa3FJ8c133cut3LB365sQ=";
+
   # Do not build the gui part of the package.
   buildNoDefaultFeatures = true;
 
@@ -37,7 +38,23 @@ rustPlatform.buildRustPackage rec {
     $out/bin/ferium --help > /dev/null
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkg-config installShellFiles ];
+
+  # Due to the stateful nature of ferium, all commands require the config.json
+  # file being complete with at least one minecraft profile inside it.
+  # To be able to build the autocompletion with the included commands im adding in
+  # a minimal config.json to be able to run the command.
+  # It also requires read-write on the file, so i move it into the install process
+  # as well.
+  postInstall = ''
+    cp ${./config.json} config.json
+    chmod 0644 config.json
+
+    for shell in bash fish zsh; do
+      $out/bin/ferium --config-file=config.json complete $shell > ferium.$shell
+      installShellCompletion ferium.$shell
+    done
+  '';
 
   meta = with lib; {
     description = "A CLI minecraft mod manager";
