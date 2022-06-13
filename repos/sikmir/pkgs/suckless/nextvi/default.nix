@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "nextvi";
-  version = "2022-04-23";
+  version = "2022-06-10";
 
   src = fetchFromGitHub {
     owner = "kyx0r";
     repo = pname;
-    rev = "6e9433f8837d1fdbf1c33a5462809564a25b7d5f";
-    hash = "sha256-6zu6sKLFkfUx+tqR3xtaIRm0H8g5zaH9wVe801zffcw=";
+    rev = "ffe30839b4ab24ca17ad762ae1f882447f040882";
+    hash = "sha256-voS+v4DFNSN2rU3Njhc3ydo8PwVgcPyH7JQoIzrkow4=";
   };
 
   buildPhase = ''
@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
     description = "Next version of neatvi (a small vi/ex editor)";
     inherit (src.meta) homepage;
     license = licenses.mit;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
     maintainers = [ maintainers.sikmir ];
-    skip.ci = stdenv.isDarwin;
   };
 }

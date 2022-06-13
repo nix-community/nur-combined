@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "map-machine";
-  version = "2022-05-16";
+  version = "2022-06-07";
   disabled = python3Packages.pythonOlder "3.9";
 
   src = fetchFromGitHub {
     owner = "enzet";
     repo = pname;
-    rev = "2b6f2d8968e02d88e1c65b5d87aec787d9756608";
-    hash = "sha256-PfFayKH3GdOhxgfoX6jJHgDl95IdRQ9o76p1bs1O2MQ=";
+    rev = "18d475277d50ff47d113630faa0c2be970a642c7";
+    hash = "sha256-zdbTGK1uWlZ2lmcSdHvNA4M3NQHhoiRJ0+eh+r4RQm8=";
   };
 
   propagatedBuildInputs = with python3Packages; [

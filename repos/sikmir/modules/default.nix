@@ -1,5 +1,4 @@
 {
-  gmnisrv = ./services/gmnisrv.nix;
 
   home-manager = {
     programs = {

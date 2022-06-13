@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "imscript";
-  version = "2022-04-18";
+  version = "2022-06-09";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = pname;
-    rev = "9241aa67ce6b793f1075aadbee228a57ec552cbe";
-    hash = "sha256-TyebKCi3GaylOCfEZWvn1uzxUcUUPWtZiYOgqjByfmM=";
+    rev = "2d9fb483df60a15ca128a9f19a1b679ea48dfa2b";
+    hash = "sha256-hS2OqTCojfxyvdmfGKeR5LiFgPOUN7zEcadFOyn3pNo=";
   };
 
   buildInputs = [ libpng libjpeg libtiff libwebp fftwFloat libX11 gsl ];

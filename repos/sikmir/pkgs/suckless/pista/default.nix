@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pista";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "xandkar";
     repo = pname;
     rev = version;
-    sha256 = "sha256-Bdi9gLG4KG1BEk8BcU0FYg6Si7SF8YKN5iIafkTqlWk=";
+    sha256 = "sha256-lre6SIVyxCwEohLlvSfYs+JnHS1VXTbl3FlUNZ3TGy4=";
   };
 
   buildInputs = [ libX11 ];

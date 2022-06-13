@@ -2,16 +2,16 @@
 
 stdenv.mkDerivation rec {
   pname = "ffshot";
-  version = "2020-05-16";
+  version = "2022-05-29";
 
   src = fetchFromGitHub {
     owner = "shinyblink";
     repo = pname;
-    rev = "853b1eb3181affde1b56d6e364fe201f8260d0d0";
-    hash = "sha256-sSIpo0JJqJL8BbWDphAEosyfppFd6P+P+vGrA5m1gV8=";
+    rev = "07d86c717d764690cbb765ea658405f14364556c";
+    hash = "sha256-lPHPwieotSgA6qF3EGDZk+lME0rqglOnEreYLk0/oUY=";
   };
 
-  buildInputs = [ xorg.xcbutil xorg.xcbutilimage ];
+  buildInputs = [ xorg.libxcb xorg.xcbutilimage ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

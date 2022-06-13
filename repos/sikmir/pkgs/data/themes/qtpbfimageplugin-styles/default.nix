@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-    install -dm755 $out/share/gpxsee/style
-    cp -r Esri Mapbox OpenMapTiles OrdnanceSurvey Tilezen $out/share/gpxsee/style
+    install -dm755 $out
+    cp -r Esri Mapbox OpenMapTiles OrdnanceSurvey Tilezen $out
   '';
 
   meta = with lib; {
