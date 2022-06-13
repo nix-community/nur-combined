@@ -13,6 +13,8 @@
 
   cfg = config.my.services.monitoring;
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
 in {
   options.my.services.monitoring = let
     inherit (lib) types;
@@ -103,15 +105,17 @@ in {
     };
 
     services.nginx = {
-      virtualHosts.${config.services.grafana.domain} = {
+      virtualHosts.${cfg.domain} = {
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
           proxyWebsockets = true;
         };
 
         forceSSL = true;
-        useACMEHost = domain;
+        useACMEHost = fqdn;
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = [cfg.domain];
   };
 }

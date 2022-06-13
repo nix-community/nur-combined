@@ -14,6 +14,8 @@
   cfg = config.my.services.transmission;
 
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
   webuiDomain = "transmission.${domain}";
 
   transmissionRpcPort = 9091;
@@ -73,7 +75,7 @@ in {
 
     services.nginx.virtualHosts."${webuiDomain}" = {
       forceSSL = true;
-      useACMEHost = domain;
+      useACMEHost = fqdn;
 
       locations."/".proxyPass = "http://127.0.0.1:${toString transmissionRpcPort}";
 
@@ -91,5 +93,7 @@ in {
         }
       ];
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = [webuiDomain];
   };
 }

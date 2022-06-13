@@ -14,6 +14,8 @@
 
   cfg = config.my.services.navidrome;
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
 in {
   options.my.services.navidrome = let
     inherit (lib) types;
@@ -46,7 +48,7 @@ in {
 
     services.nginx.virtualHosts."music.${domain}" = {
       forceSSL = true;
-      useACMEHost = domain;
+      useACMEHost = fqdn;
 
       listen = [
         # FIXME: hardcoded tailscale IP
@@ -67,5 +69,7 @@ in {
         proxyWebsockets = true;
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = ["music.${domain}"];
   };
 }

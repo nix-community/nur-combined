@@ -15,6 +15,8 @@
   my = config.my;
 
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
 in {
   options.my.services.vaultwarden = let
     inherit (lib) types;
@@ -68,7 +70,7 @@ in {
       virtualHosts = {
         "pass.${domain}" = {
           forceSSL = true;
-          useACMEHost = domain;
+          useACMEHost = fqdn;
 
           locations."/" = {
             proxyPass = "http://127.0.0.1:${toString cfg.privatePort}";
@@ -85,6 +87,8 @@ in {
         };
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = ["pass.${domain}"];
 
     # FIXME: should be renamed to vaultwarden eventually
     my.services.restic-backup = mkIf cfg.enable {

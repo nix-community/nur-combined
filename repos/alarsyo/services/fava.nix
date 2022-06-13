@@ -13,7 +13,11 @@
 
   cfg = config.my.services.fava;
   my = config.my;
+
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
+
   secrets = config.my.secrets;
 in {
   options.my.services.fava = let
@@ -65,7 +69,7 @@ in {
     services.nginx.virtualHosts = {
       "fava.${domain}" = {
         forceSSL = true;
-        useACMEHost = domain;
+        useACMEHost = fqdn;
 
         listen = [
           # FIXME: hardcoded tailscale IP
@@ -86,5 +90,7 @@ in {
         };
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = ["fava.${domain}"];
   };
 }

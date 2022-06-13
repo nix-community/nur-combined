@@ -14,6 +14,8 @@
   cfg = config.my.services.paperless;
   my = config.my;
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
   paperlessDomain = "paperless.${domain}";
 in {
   options.my.services.paperless = let
@@ -99,7 +101,7 @@ in {
     services.nginx.virtualHosts = {
       "${paperlessDomain}" = {
         forceSSL = true;
-        useACMEHost = domain;
+        useACMEHost = fqdn;
 
         listen = [
           # FIXME: hardcoded tailscale IP
@@ -121,6 +123,8 @@ in {
         };
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = [paperlessDomain];
 
     my.services.restic-backup = mkIf cfg.enable {
       paths = [

@@ -15,6 +15,8 @@
   my = config.my;
 
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
 in {
   options.my.services.gitea = let
     inherit (lib) types;
@@ -101,7 +103,7 @@ in {
       virtualHosts = {
         "git.${domain}" = {
           forceSSL = true;
-          useACMEHost = domain;
+          useACMEHost = fqdn;
 
           locations."/" = {
             proxyPass = "http://127.0.0.1:${toString cfg.privatePort}";
@@ -109,6 +111,8 @@ in {
         };
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = ["git.${domain}"];
 
     systemd.services.gitea.preStart = "${pkgs.coreutils}/bin/ln -sfT ${./templates} ${config.services.gitea.stateDir}/custom/templates";
   };

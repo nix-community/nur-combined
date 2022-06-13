@@ -54,10 +54,11 @@ in {
 
       certs = let
         domain = config.networking.domain;
+        hostname = config.networking.hostName;
+        fqdn = "${hostname}.${domain}";
         gandiKey = config.my.secrets.gandiKey;
       in {
-        "${domain}" = {
-          extraDomainNames = ["*.${domain}"];
+        "${fqdn}" = {
           dnsProvider = "gandiv5";
           credentialsFile = config.age.secrets."gandi/api-key".path;
           group = "nginx";

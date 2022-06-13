@@ -15,6 +15,8 @@
   my = config.my;
 
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
 in {
   options.my.services.miniflux = let
     inherit (lib) types;
@@ -60,7 +62,7 @@ in {
       virtualHosts = {
         "reader.${domain}" = {
           forceSSL = true;
-          useACMEHost = domain;
+          useACMEHost = fqdn;
 
           locations."/" = {
             proxyPass = "http://127.0.0.1:${toString cfg.privatePort}";
@@ -68,5 +70,7 @@ in {
         };
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = ["reader.${domain}"];
   };
 }

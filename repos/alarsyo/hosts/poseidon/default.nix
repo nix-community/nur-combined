@@ -96,17 +96,6 @@ in {
       port = 8083;
     };
 
-    miniflux = {
-      enable = true;
-      adminCredentialsFile = config.age.secrets."miniflux/admin-credentials".path;
-      privatePort = 8080;
-    };
-
-    matrix = {
-      enable = true;
-      secretConfigFile = config.age.secrets."matrix-synapse/secret-config".path;
-    };
-
     monitoring = {
       enable = true;
       domain = "monitoring.${config.networking.domain}";

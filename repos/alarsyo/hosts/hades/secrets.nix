@@ -15,17 +15,14 @@
       lib.mapAttrs toSecret {
         "gandi/api-key" = {};
 
-        "lohr/shared-secret" = {};
-
-        "nextcloud/admin-pass" = {
-          owner = "nextcloud";
+        "matrix-synapse/secret-config" = {
+          owner = "matrix-synapse";
         };
 
-        "paperless/admin-password" = {};
-        "paperless/secret-key" = {};
+        "miniflux/admin-credentials" = {};
 
-        "restic-backup/poseidon-credentials" = {};
-        "restic-backup/poseidon-password" = {};
+        "restic-backup/hades-credentials" = {};
+        "restic-backup/hades-password" = {};
 
         "users/alarsyo-hashed-password" = {};
         "users/root-hashed-password" = {};

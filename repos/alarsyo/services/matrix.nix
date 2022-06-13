@@ -32,7 +32,10 @@
     public = 443;
     private = 11339;
   };
+
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
 in {
   options.my.services.matrix = let
     inherit (lib) types;
@@ -50,6 +53,14 @@ in {
   config = mkIf cfg.enable {
     services.postgresql = {
       enable = true;
+
+      ensureDatabases = ["matrix-synapse"];
+      ensureUsers = [
+        {
+          name = "matrix-synapse";
+          ensurePermissions."DATABASE \"matrix-synapse\"" = "ALL PRIVILEGES";
+        }
+      ];
     };
 
     services.postgresqlBackup = {
@@ -147,7 +158,7 @@ in {
       virtualHosts = {
         "matrix.${domain}" = {
           onlySSL = true;
-          useACMEHost = domain;
+          useACMEHost = fqdn;
 
           locations = let
             proxyToClientPort = {
@@ -181,7 +192,7 @@ in {
         "matrix.${domain}_federation" = rec {
           onlySSL = true;
           serverName = "matrix.${domain}";
-          useACMEHost = domain;
+          useACMEHost = fqdn;
 
           locations."/".return = "404";
 
@@ -205,7 +216,7 @@ in {
 
         "${domain}" = {
           forceSSL = true;
-          useACMEHost = domain;
+          useACMEHost = fqdn;
 
           locations."= /.well-known/matrix/server".extraConfig = let
             server = {"m.server" = "matrix.${domain}:${toString federationPort.public}";};
@@ -230,7 +241,7 @@ in {
         # Element Web app deployment
         #
         "chat.${domain}" = {
-          useACMEHost = domain;
+          useACMEHost = fqdn;
           forceSSL = true;
 
           root = pkgs.element-web.override {
@@ -259,6 +270,8 @@ in {
       };
     };
 
+    security.acme.certs.${fqdn}.extraDomainNames = ["chat.${domain}" "matrix.${domain}" domain];
+
     # For administration tools.
     environment.systemPackages = [pkgs.matrix-synapse];
 
@@ -269,11 +282,10 @@ in {
 
     my.services.restic-backup = let
       dataDir = config.services.matrix-synapse.dataDir;
-    in
-      mkIf cfg.enable {
-        paths = [dataDir];
-        # this is just caching for other servers media, doesn't need backup
-        exclude = ["${dataDir}/media/remote_*"];
-      };
+    in {
+      paths = [dataDir];
+      # this is just caching for other servers media, doesn't need backup
+      exclude = ["${dataDir}/media/remote_*"];
+    };
   };
 }

@@ -13,7 +13,11 @@
 
   cfg = config.my.services.lohr;
   my = config.my;
+
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
+
   secrets = config.my.secrets;
   lohrPkg = let
     flake = builtins.getFlake "github:alarsyo/lohr?rev=58503cc8b95c8b627f6ae7e56740609e91f323cd";
@@ -73,12 +77,14 @@ in {
     services.nginx.virtualHosts = {
       "lohr.${domain}" = {
         forceSSL = true;
-        useACMEHost = domain;
+        useACMEHost = fqdn;
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString cfg.port}";
         };
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = ["lohr.${domain}"];
   };
 }

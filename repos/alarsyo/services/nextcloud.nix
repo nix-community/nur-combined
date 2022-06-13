@@ -16,6 +16,8 @@ let
   cfg = config.my.services.nextcloud;
   my = config.my;
   domain = config.networking.domain;
+  hostname = config.networking.hostName;
+  fqdn = "${hostname}.${domain}";
   dbName = "nextcloud";
 in {
   options.my.services.nextcloud = let
@@ -85,10 +87,12 @@ in {
       virtualHosts = {
         "cloud.${domain}" = {
           forceSSL = true;
-          useACMEHost = domain;
+          useACMEHost = fqdn;
         };
       };
     };
+
+    security.acme.certs.${fqdn}.extraDomainNames = ["cloud.${domain}"];
 
     my.services.restic-backup = let
       nextcloudHome = config.services.nextcloud.home;

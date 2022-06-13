@@ -102,6 +102,15 @@
             ++ sharedModules;
         };
 
+        hades = nixpkgs.lib.nixosSystem rec {
+          inherit system;
+          modules =
+            [
+              ./hades.nix
+            ]
+            ++ sharedModules;
+        };
+
         boreal = nixpkgs.lib.nixosSystem rec {
           inherit system;
           modules =
