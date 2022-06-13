@@ -87,7 +87,7 @@ jobs:
         while read -r line; do echo "::add-mask::$line"; done < <( doppler secrets download --no-file --format=json | jq "." | grep -v 'DOPPLER_\(CONFIG\|ENVIRONMENT\|PROJECT\)' | jq -r 'to_entries|map("\(.value)\u0000")[]' )
       env:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
-    - uses: technote-space/workflow-conclusion-action@v2.2
+    - uses: technote-space/workflow-conclusion-action@v3.0
 
     - uses: yanzay/notify-telegram@v0.1.0
       with:
