@@ -23,7 +23,6 @@ in {
       systemPackages = with pkgs; [
         jellyfin-media-player
         transmission-remote-gtk
-        nextcloud-client
         moonlight-qt
         pkgs.nur.repos.dukzcry.cockpit-client
       ];
