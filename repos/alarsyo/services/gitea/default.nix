@@ -17,6 +17,8 @@
   domain = config.networking.domain;
   hostname = config.networking.hostName;
   fqdn = "${hostname}.${domain}";
+
+  giteaUser = "git";
 in {
   options.my.services.gitea = let
     inherit (lib) types;
@@ -33,11 +35,11 @@ in {
 
   config = mkIf cfg.enable {
     # use git as user to have `git clone git@git.domain`
-    users.users.git = {
+    users.users.${giteaUser} = {
       description = "Gitea Service";
       home = config.services.gitea.stateDir;
       useDefaultShell = true;
-      group = "git";
+      group = giteaUser;
 
       # the systemd service for the gitea module seems to hardcode the group as
       # gitea, so, uh, just in case?
@@ -45,11 +47,11 @@ in {
 
       isSystemUser = true;
     };
-    users.groups.git = {};
+    users.groups.${giteaUser} = {};
 
     services.gitea = {
       enable = true;
-      user = "git";
+      user = giteaUser;
       domain = "git.${domain}";
       appName = "Personal Forge";
       rootUrl = "https://git.${domain}/";
@@ -80,7 +82,7 @@ in {
       database = {
         type = "postgres";
         # user needs to be the same as gitea user
-        user = "git";
+        user = giteaUser;
       };
     };
 
@@ -95,6 +97,8 @@ in {
       ];
     };
 
+    # NOTE: no need to use postgresql.ensureDatabases because the gitea module
+    # takes care of this automatically
     services.postgresqlBackup = {
       databases = ["gitea"];
     };

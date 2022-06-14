@@ -82,11 +82,6 @@ in {
       filePath = "accounts/current.beancount";
     };
 
-    gitea = {
-      enable = true;
-      privatePort = 8082;
-    };
-
     jellyfin = {
       enable = true;
     };
@@ -120,10 +115,6 @@ in {
       port = 8085;
       passwordFile = config.age.secrets."paperless/admin-password".path;
       secretKeyFile = config.age.secrets."paperless/secret-key".path;
-    };
-
-    postgresql-backup = {
-      enable = true;
     };
 
     tailscale = {

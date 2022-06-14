@@ -13,7 +13,9 @@
   cfg = config.my.services.postgresql-backup;
 in {
   options.my.services.postgresql-backup = {
-    enable = mkEnableOption "Backup SQL databases";
+    enable =
+      (mkEnableOption "Backup SQL databases")
+      // {default = config.services.postgresql.enable;};
   };
 
   config = mkIf cfg.enable {

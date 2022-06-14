@@ -57,6 +57,11 @@ in {
   my.services = {
     fail2ban.enable = true;
 
+    gitea = {
+      enable = true;
+      privatePort = 8082;
+    };
+
     matrix = {
       enable = true;
       secretConfigFile = config.age.secrets."matrix-synapse/secret-config".path;
