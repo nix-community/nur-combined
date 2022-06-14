@@ -104,6 +104,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       vim-nix
       vim-startify
       vim-fetch # support for stacktrace paths
+      vim-terraform
       # custom
       pluginNocapsquit
       # pluginIonideVim

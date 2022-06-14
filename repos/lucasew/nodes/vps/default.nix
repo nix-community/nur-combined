@@ -53,7 +53,11 @@ in {
     dotenv
     htop
     neofetch
+    cudatoolkit
   ];
+  environment.variables = {
+    CUDA_PATH = "${pkgs.cudatoolkit}";
+  };
   networking.firewall = {
     enable = true;
     trustedInterfaces = [
@@ -76,7 +80,9 @@ in {
       description = "Ademir";
     };
   };
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+  };
   services = {
     # dnsmasq = {
     #   enable = true;
