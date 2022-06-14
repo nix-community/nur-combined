@@ -1,4 +1,5 @@
 {
+  mbtileserver = ./services/mbtileserver.nix;
 
   home-manager = {
     programs = {
