@@ -5,13 +5,13 @@
 } @ args:
 
 stdenv.mkDerivation rec {
-  pname = "nbfc-lantian";
-  version = "a11959cccc3fe1ef55e9ddd01ac2c4ae142eae00";
+  pname = "nbfc-linux";
+  version = "32a49117ca3ff17d7681713a8dc8812323142dcb";
   src = fetchFromGitHub {
     owner = "xddxdd";
     repo = "nbfc-linux";
     rev = version;
-    sha256 = "sha256-FDi/zLrHEVleCrGoZ8Y7JJ+Av9u0e+2OB5FEwWGx6rI=";
+    sha256 = "sha256-jKuCBKUm32ulgH0+/be2s+CgeBqTww+4K3RETFFCCOc=";
   };
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
