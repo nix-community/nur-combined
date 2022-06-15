@@ -10,13 +10,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "orchis";
-  version = "2022-01-15";
+  version = "2022-06-15";
 
   src = fetchFromGitHub {
     repo = "Fluent-gtk-theme";
     owner = "vinceliuice";
     rev = version;
-    sha256 = "sha256-vi7HS9tsCqSvIeZDLSTLj21Rj7/XpmVN1TDEtHjvYNk=";
+    sha256 = "sha256-7qTfg9N/41q0/7zUl0zNKCayFh2opIsiPJmB3z5N02Y=";
   };
 
   nativeBuildInputs = [ gtk3 sassc ];
