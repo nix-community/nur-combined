@@ -50,7 +50,7 @@ jobs:
           ###### Changelog
 
           ```text
-          ${{ env.UPDATER_CHANGELOG }}
+          ${{ env.CHANGELOG }}
           ```
         branch: 'create-pull-request/update'
         assignees: |
