@@ -16,8 +16,6 @@ let
 in
 {
   imports = [
-    ../../modules/home-manager/personal.nix
-    ../../profiles/home-manager/sets/dev.nix
     ../../profiles/home-manager/sets/general.nix
     ../../profiles/home-manager/common/ranger.nix
     ../../profiles/home-manager/common/syncthing.nix
@@ -28,9 +26,13 @@ in
 
   home.packages = nur_pkgs ++ upstream_pkgs;
 
-  defaultajAgordoj.gui = {
-    enable = true;
-    browsers.chromium.enable = true;
+  defaultajAgordoj = {
+    cli.enable = true;
+    gui = {
+      enable = true;
+      browsers.chromium.enable = true;
+    };
+    dev.enable = true;
   };
 
   programs = {

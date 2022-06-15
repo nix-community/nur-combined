@@ -18,9 +18,9 @@ inputs: {
         useUserPackages = true;
         sharedModules = [
           inputs.sab.hmModule
+          ../../modules/home-manager/personal
         ] ++ (with inputs.self.hmModules; [
           alacritty-tmux
-          gaming
           neofetch
         ]);
         users."${username}" = import ./home-manager.nix;

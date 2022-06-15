@@ -2,14 +2,14 @@
 
 buildPythonApplication rec {
   pname = "gogdl";
-  version = "0.2";
+  version = "0.3";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "Heroic-Games-Launcher";
     repo = "heroic-gogdl";
     rev = "v${version}";
-    sha256 = "sha256-UdxmDQiAzrcRGiGcqBNf5pus6bvuWID4ZVmFb5ITzhI=";
+    sha256 = "sha256-lVNvmdUK7rjSNVdhDuSxyfuEw2FeZt0rVf9pdtsfgqE=";
   };
 
   propagatedBuildInputs = [

@@ -16,19 +16,13 @@
     ly.url = "github:wolfangaukang/nixpkgs/ly-unstable";
   };
 
-  outputs = { self, nur, home-manager, nixpkgs, nixos-hardware, nixgl, sab, ly, ... }@inputs:
+  outputs = { self, nur, home-manager, nixos, nixpkgs, nixos-hardware, nixgl, sab, ly, ... }@inputs:
     let
       inherit (home-manager.lib) homeManagerConfiguration;
-      inherit (nixpkgs.lib) genAttrs nixosSystem;
+      inherit (nixos.lib) nixosSystem;
       vm-testing = ly.lib.nixosSystem;
-      
-      importAttrset = path: builtins.mapAttrs (_: import) (import path);
-      forAllSystems = f: genAttrs pkgs_systems (system: f system);
-
-      # Local NUR related
-      pkgs_systems = [
-        "x86_64-linux"
-      ];
+      custom-lib = import ./lib { inherit inputs; };
+      inherit (custom-lib) importAttrset forAllSystems;
 
       # System build related
       sab_overlay = final: prev: { stream-alert-bot = sab.packages.${prev.system}.default; };

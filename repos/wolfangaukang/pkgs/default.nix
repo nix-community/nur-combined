@@ -8,6 +8,7 @@ rec {
   iptvnator = callPackage ./iptvnator { };
   librewolf-bin = callPackage ./librewolf-bin { };
   ly = callPackage ./ly { };
+  mastopurge = callPackage ./mastopurge { };
   multifirefox = callPackage ./multifirefox { };
   npm-groovy-lint = callPackage ./npm-groovy-lint {
     jdk = jdk11;

@@ -2,13 +2,13 @@
 
 with lib;
 let
-  cfg = config.profile.gaming;
+  cfg = config.defaultajAgordoj.gaming;
 
 in
 {
   meta.maintainers = [ wolfangaukang ];
 
-  options.profile.gaming = {
+  options.defaultajAgordoj.gaming = {
     enable = mkOption {
       default = false;
       type = types.bool;

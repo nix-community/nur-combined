@@ -29,10 +29,6 @@ in stdenv.mkDerivation rec {
     nodejs
   ];
   
-  buildInputs = [
-    jdk
-  ];
-
   buildPhase = ''
     runHook preBuild
     
@@ -50,7 +46,8 @@ in stdenv.mkDerivation rec {
     cp -a . $out/opt/npm-groovy-lint
 
     makeWrapper ${nodejs}/bin/node $out/bin/npm-groovy-lint \
-      --add-flags $out/opt/npm-groovy-lint/lib/index.js
+      --add-flags $out/opt/npm-groovy-lint/lib/index.js \
+      --prefix PATH : ${lib.makeBinPath [ jdk ]}
 
     runHook postInstall
   '';

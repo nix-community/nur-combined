@@ -4,15 +4,18 @@
   imports = [
     ../../profiles/home-manager/common/syncthing.nix
     ../../profiles/home-manager/common/tmux.nix
-    ../../profiles/home-manager/sets/cli.nix
-    ../../profiles/home-manager/sets/dev.nix
     ../../profiles/home-manager/sets/general.nix
-    ../../profiles/home-manager/sets/gui.nix
     ../../profiles/home-manager/nixos/alacritty.nix
     ../../profiles/home-manager/nixos/zsh.nix
   ];
 
-  profile = {
+  defaultajAgordoj = {
+    cli.enable = true;
+    gui = {
+      enable = true;
+      browsers.chromium.enable = true;
+    };
+    dev.enable = true;
     gaming = {
       enable = true;
       enableProtontricks = false;
@@ -24,10 +27,6 @@
           bsnes-mercury-performance
         ];
       };
-      extraPkgs = with pkgs; [
-        heroic
-        legendary-gl
-      ];
     };
   };
   programs = {

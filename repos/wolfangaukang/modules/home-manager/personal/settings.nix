@@ -1,25 +1,31 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 let
   nur = pkgs.nur;
   nur_rycee = nur.repos.rycee;
   nur_wolfangaukang = nur.repos.wolfangaukang;
-  inherit (nur_wolfangaukang) vdhcoapp;
+  inherit (nur_wolfangaukang) vdhcoapp multifirefox;
+  inherit (nur_rycee) firefox-addons;
 
 in rec {
-  # GENERAL TOOLS
-  cli-tools = with pkgs; [
-    tree
-    p7zip
-  ];
-
-  gui-tools = with pkgs; [
-    keepassxc
-    qbittorrent
-    raven-reader
-    thunderbird
-    vlc
-  ];
+  packages = {
+    cli = with pkgs; [
+      tree
+      p7zip
+    ];
+    gui = with pkgs; [
+      keepassxc
+      qbittorrent
+      raven-reader
+      thunderbird
+      vlc
+    ];
+    dev = [ pkgs.shellcheck ];
+    browser = [ vdhcoapp ];
+    fonts = [
+      (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; })
+    ];
+  };
 
   mimelist = {
     "application/xml" = "neovim.desktop";
@@ -45,10 +51,7 @@ in rec {
      "x-scheme-handler/unknown" = "firefox.desktop";
   };
 
-  # BROWSER SETTINGS
-  browser-common = [ vdhcoapp ];
-
-  chromium-extensions = [
+  chromium.extensions = [
     "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
     "pkehgijcmpdhfbdbbnkijodmdjhbjlgp" # Privacy Badger
     "pmcmeagblkinmogikoikkdjiligflglb" # Privacy Redirect
@@ -65,7 +68,7 @@ in rec {
         DisableTelemetry = true;
       };
     };
-    extensions = with nur_rycee.firefox-addons; [
+    extensions = with firefox-addons; [
       auto-tab-discard
       darkreader
       decentraleyes
@@ -75,7 +78,7 @@ in rec {
       privacy-redirect
       ublock-origin
     ];
-    extraPkgs = browser-common ++ [ nur_wolfangaukang.multifirefox ];
+    extraPkgs = packages.browser ++ [ multifirefox ];
     settings = {
       common = {
         "browser.newtabpage.activity-stream.showSponsored" = false;
@@ -100,6 +103,45 @@ in rec {
         "privacy.clearOnShutdown.sessions" = true;
         "privacy.clearOnShutdown.siteSettings" = true;
         "signon.rememberSignons" = false;
+      };
+    };
+  };
+
+  vscode = {
+    extensions = (with pkgs.vscode-extensions; [
+      arrterian.nix-env-selector
+      gruntfuggly.todo-tree
+      hashicorp.terraform
+      jnoortheen.nix-ide
+      ms-python.python
+      timonwong.shellcheck
+      viktorqvarfordt.vscode-pitch-black-theme
+      vscodevim.vim
+      yzhang.markdown-all-in-one
+    ]);
+    # Example on how to add a extension from the marketplace
+    # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
+    #   name = "vscode-pitch-black-theme";
+    #   publisher = "ViktorQvarfordt";
+    #   version = "1.2.4";
+    #   sha256 = "sha256-HTXToZv0WWFjuQiofEJuaZNSDTmCUcZ0B3KOn+CVALw=";
+    # }];
+
+    userSettings = {
+      "editor.insertSpaces" = false;
+      "git.enableCommitSigning" = true;
+      "keyboard.dispatch" = "keyCode";
+      "python.pythonPath" = "${pkgs.python}/bin/python3";
+      "redhat.telemetry.enabled" = false;
+      "todo-tree.general.tags" = [ "BUG" "FIXME" "TODO" ];
+      "vim.enableNeovim" = true;
+      "vim.neovimPath" = "${pkgs.neovim}/bin/nvim";
+      "window.zoomLevel" = -1;
+      "window.restoreWindows" = "none";
+      "workbench.colorTheme" = "Pitch Black";
+      "[python]" = {
+        "editor.insertSpaces" = true;
+        "editor.tabSize" = 4;
       };
     };
   };
