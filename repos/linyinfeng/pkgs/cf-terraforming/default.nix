@@ -1,7 +1,14 @@
-{ sources, buildGoModule, fetchFromGitHub, lib }:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
-  inherit (sources.cf-terraforming) pname version src;
+  pname = "cf-terraforming";
+  version = "0.7.4";
+  src = fetchFromGitHub {
+    owner = "cloudflare";
+    repo = "cf-terraforming";
+    rev = "v${version}";
+    sha256 = "sha256-H85cuENmDhxIFAsKL0D8w2vOa/EoxN6qmyq5l1z9wAI=";
+  };
 
   vendorSha256 = "sha256-AJ01ykz4/q3q9sdW6L9e4BPn+XGedCrA9Cfh5cnLYaE=";
 

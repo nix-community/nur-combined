@@ -12,7 +12,6 @@ main = runNvFetcher packageSet
 packageSet :: PackageSet ()
 packageSet = do
   traverse_ (uncurry clashPremium) clashPremiumSystems
-  ghPkg "cloudflare" "cf-terraforming"
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
