@@ -16,4 +16,4 @@ let
   updateChangelogs = map (name: "${name}: ${old.${name}.version} -> ${new.${name}.version}") updatedPkgs;
   removeChangelogs = map (name: "${name}: remove") removedPkgs;
 in
-lib.concatStringsSep "\n" (lib.concatLists [ initChangelogs updateChangelogs removeChangelogs ])
+lib.concatStrings (map (l: l + "\n") (lib.concatLists [ initChangelogs updateChangelogs removeChangelogs ]))

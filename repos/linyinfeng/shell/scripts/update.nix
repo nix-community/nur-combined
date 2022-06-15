@@ -96,7 +96,7 @@ writeShellScriptBin "update" ''
 
   ## write to env file
   echo "writing information to $ENV_FILE"
-  echo "CHANGELOG<<EOF" >> $ENV_FILE
+  echo "CHANGELOG<<EOF" > $ENV_FILE
   cat ${changelogFile} >> $ENV_FILE
   echo "EOF" >> $ENV_FILE
 ''
