@@ -55,20 +55,6 @@
         },
         "version": "3.4"
     },
-    "nix-index-database": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "nix-index-database",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-tUiu4D34UTA7Dtydp51IreT+rKb3pSrBSFJTErQ65H8=",
-            "type": "url",
-            "url": "https://github.com/Mic92/nix-index-database/releases/download/2022-06-05/index-x86_64-linux"
-        },
-        "version": "2022-06-05"
-    },
     "ormolu": {
         "cargoLocks": null,
         "extract": null,

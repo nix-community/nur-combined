@@ -132,24 +132,4 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         platforms = [ "x86_64-linux" ];
       };
     };
-
-  nix-index-database =
-    { lib
-    , stdenv
-    }:
-    stdenv.mkDerivation {
-      inherit (nv.nix-index-database) pname version src;
-      dontUnpack = true;
-      installPhase = ''
-        mkdir -p $out
-        cp $src $out/files
-      '';
-
-      meta = {
-        description = "Weekly updated nix-index database";
-        homepage = "https://github.com/Mic92/nix-index-database";
-        license = lib.licenses.mit;
-        platforms = lib.platforms.all;
-      };
-    };
 }

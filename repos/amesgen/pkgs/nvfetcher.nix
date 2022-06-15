@@ -38,8 +38,4 @@ flatten {
     slug = "tweag/ormolu";
     restUrl = "$ver/ormolu-Linux.zip";
   };
-  nix-index-database = github {
-    slug = "Mic92/nix-index-database";
-    restUrl = "$ver/index-x86_64-linux";
-  };
 }
