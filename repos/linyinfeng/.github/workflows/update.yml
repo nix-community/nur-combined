@@ -37,27 +37,15 @@ jobs:
     - name: Run updater
       run: |
         # update and set variables
-        # - COMMIT_TITLE
-        # - COMMIT_BODY
-        # - UPDATER_CHANGELOG
+        # - CHANGELOG
         nix develop --command update
-    - name: Nix flake update
-      run: |
-        # do nix flake update if sources were updated
-        if [ -n "$(git status --porcelain)" ]; then
-          nix flake update
-        fi
     - name: Create pull request
-      if: ${{ format('{0}{1}', env.COMMIT_TITLE, env.COMMIT_BODY) != '' }}
+      if: ${{ env.CHANGELOG != '' }}
       uses: peter-evans/create-pull-request@main
       id: cpr
       with:
         token: '${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}'
-        commit-message: |
-          ${{ env.COMMIT_TITLE }}${{ env.COMMIT_BODY }}
         title: Automated update
-        author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-        committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
         body: |
           ###### Changelog
 
