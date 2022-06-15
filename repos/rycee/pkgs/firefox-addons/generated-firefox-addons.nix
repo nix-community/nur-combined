@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220612.185901";
+      version = "102.0buildid20220614.185842";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3961719/francais_language_pack-102.0buildid20220612.185901.xpi";
-      sha256 = "c559ce7fd57a3058d461c86bc61ec93948cb75f46c15a471cdd75d5efeda1b07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3962633/francais_language_pack-102.0buildid20220614.185842.xpi";
+      sha256 = "0df1e84cca2c0361a624b54c46f508be95fd225f8415d96cbb94899f1d578251";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -703,10 +703,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.7.3";
+      version = "8.7.4";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958821/ghostery-8.7.3.xpi";
-      sha256 = "72f9af4a38d587489d0694043fb102d8b8fb40033795277ae176647bc4c3d223";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3962358/ghostery-8.7.4.xpi";
+      sha256 = "a7710abc6a34945ca22c6a7de63a1aac4607e06f45ffc8fbca08526734f60321";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -924,10 +924,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.2.3";
+      version = "5.2.4";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956771/languagetool-5.2.3.xpi";
-      sha256 = "e922a83577654dfafe36123ca1efa8ff206102426d86d16d86cab1dd4c263919";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3960936/languagetool-5.2.4.xpi";
+      sha256 = "52cef052e81468c8d9e74fd37a7a5138065736f5a3599328d3dbd077734d27d9";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1118,10 +1118,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.5.92";
+      version = "2.6.0";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957300/momentumdash-2.5.92.xpi";
-      sha256 = "4efa96de28846bf7cd3e97b5e83436efba5251db6917a2e3b7b3382eda0505c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3962527/momentumdash-2.6.0.xpi";
+      sha256 = "08252e56bef19a99608d59fb3f2cbc85f0efbf1a063e5044ed2387081806fd47";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1766,10 +1766,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.11";
+      version = "1.21.13";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958664/single_file-1.21.11.xpi";
-      sha256 = "35d2d3d1f664c4824dfe6360ec3118fc62888c69436a2270cfa3169746bc31f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3962104/single_file-1.21.13.xpi";
+      sha256 = "42aa20b805b61db5975fdf9500a623c9bd0305c7148a28a09a0d505a4796fe32";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2190,10 +2190,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.42.4";
+      version = "1.43.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3933192/ublock_origin-1.42.4.xpi";
-      sha256 = "bc3c335c961269cb40dd11551788d0d8674aefcacdc8fbdf6c19845eaea339ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3961087/ublock_origin-1.43.0.xpi";
+      sha256 = "ab2d4fa8dfc4f50841093830ff131d7a6e99052ba6e7359f8592e84f39c18a16";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
