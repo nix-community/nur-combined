@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    ./cursor
     ./dunst
     ./i3
     ./i3bar
@@ -23,6 +24,10 @@ in
       default = null;
       example = "i3";
       description = "Which window manager to use for home session";
+    };
+
+    cursor = {
+      enable = mkRelatedOption "dunst configuration" [ "i3" ];
     };
 
     dunst = {

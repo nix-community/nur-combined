@@ -4,7 +4,6 @@ let
 in
 {
   imports = [
-    ./cursor
     ./keyboard
   ];
 
