@@ -233,6 +233,29 @@
         echo Shell setup complete!
       '';
     };
+    release = pkgs.stdenv.mkDerivation {
+      pname = "nixcfg-release";
+      version = "${self.rev or (builtins.throw "Commita!")}";
+
+      dontUnpack = true;
+      buildInputs = []
+        ++ (with pkgs.custom; [ neovim emacs firefox polybar tixati ])
+        ++ (with pkgs.custom.vscode; [ common programming ])
+        ++ (with self.nixosConfigurations; [
+          acer-nix.config.system.build.toplevel
+          vps.config.system.build.toplevel
+        ])
+        ++ (with self.homeConfigurations; [
+          main.activationPackage
+        ])
+      ;
+      installPhase = ''
+        echo $version > $out
+        for input in $buildInputs; do
+          echo $input >> $out
+        done
+      '';
+    };
   };
   # packages = pkgs;
 }

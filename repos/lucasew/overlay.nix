@@ -102,17 +102,8 @@ in {
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
     src = prev.fetchzip {
       url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip";
-      sha256 = prev.lib.fakeSha256;
+      sha256 = "sha256-4qaX7wTqxKSrRWeQv1Zrs6eTT0fKJ6g9QBFocugwd2E=";
       stripRoot = false;
     };
   });
-  # calibre = prev.calibre.override { # remove after #168071 is merged
-  # python3Packages = prev.python3Packages.overrideScope (orig: old: {
-  #   apsw = old.apsw.overridePythonAttrs (old: {
-  #       version = "3.38.1-r1";
-  #       sha256 = "sha256-pbb6wCu1T1mPlgoydB1Y1AKv+kToGkdVUjiom2vTqf4=";
-  #       checkInputs = [];
-  #     });
-  #   });
-  # };
 }

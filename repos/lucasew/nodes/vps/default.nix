@@ -12,6 +12,9 @@ in {
     ../../modules/cachix/system.nix
     ./modules
   ];
+  nix.settings.min-free = 64 * 1024 * 1024; # trigger do gc mais baixo
+
+  services.openssh.forwardX11 = true;
 
   fileSystems = {
     "/persist" = {
@@ -44,7 +47,7 @@ in {
   };
 
   swapDevices = [
-    { device = "/swapfile"; }
+    { device = "/persist/swapfile"; }
   ];
 
   nixpkgs.config.allowUnfree = true;

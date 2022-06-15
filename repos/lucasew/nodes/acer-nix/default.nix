@@ -30,6 +30,10 @@ in
  
   programs.steam.enable = true;
 
+  nix.settings = {
+      min-free = 1  * 1024*1024*1024;
+      max-free = 10 * 1024*1024*1024;
+  };
   nixpkgs = {
     config = {
       android_sdk.accept_license = true;
