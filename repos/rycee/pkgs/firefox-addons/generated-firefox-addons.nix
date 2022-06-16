@@ -325,10 +325,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.7.0";
+      version = "3.8.0";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3952421/cookie_autodelete-3.7.0.xpi";
-      sha256 = "31bb25ce11df60200c5a315f9a917e682805422a6a91b51f05ddc89ce5547486";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3961262/cookie_autodelete-3.8.0.xpi";
+      sha256 = "c54b1dc792854769ae5c5e8097d9e965bb76df1296756565669ff9c89ea1a63c";
       meta = with lib;
       {
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
@@ -1766,10 +1766,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.13";
+      version = "1.21.15";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3962104/single_file-1.21.13.xpi";
-      sha256 = "42aa20b805b61db5975fdf9500a623c9bd0305c7148a28a09a0d505a4796fe32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3962854/single_file-1.21.15.xpi";
+      sha256 = "802c5634859522fe3d0781b5e51f1f55a9c9cb561d9658467c9b3be1049f7a7b";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2274,10 +2274,10 @@
       };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "3.6.4";
+      version = "3.6.5";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957154/view_image-3.6.4.xpi";
-      sha256 = "196821a7ce2559582cd7c9846cc5eadfee99a9ddf05387e3b5d5c87324fa9540";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3962917/view_image-3.6.5.xpi";
+      sha256 = "45c8c7b12b53756dfb2a8579e72bd0ba4e22f0e9defe13fd4dfe7832255650e5";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
