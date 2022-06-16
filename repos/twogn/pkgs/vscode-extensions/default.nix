@@ -18,6 +18,8 @@ let
           sha256 = "sha256-pPPukV0LZ/ZFp5Q+O7MhuCK5Px1FPy1ENzl21Ro7KFA=";
         };
         meta = {
+          description = "platformio extension for vscode";
+          homepage = "https://platformio.org/";
           license = lib.licenses.asl20;
         };
       };
@@ -26,7 +28,8 @@ let
   aliases = self: super: {
     ms-vscode = lib.recursiveUpdate super.ms-vscode { inherit (super.golang) go; };
   };
-  overlays = lib.optionals config.allowAliases [ aliases ];
+  
+  overlays = [];
 
   toFix = lib.foldl' (lib.flip lib.extends) baseExtensions overlays;
 in
