@@ -39,12 +39,6 @@ let repo = rec {
     inherit pins;
   };
 
-  rxvt_unicode_24bit = pkgs.callPackage ./pkgs/rxvt_unicode_24bit {
-    perlSupport = true;
-    gdkPixbufSupport = true;
-    unicode3Support = true;
-  };
-
   tagsistant = pkgs.callPackage ./pkgs/tagsistant {
     inherit pins;
   };
