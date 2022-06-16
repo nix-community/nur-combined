@@ -29,7 +29,7 @@ in {
       cockpit = ''
         mkdir -p /etc/cockpit/ws-certs.d
         chmod 755 /etc/cockpit/ws-certs.d
-        ln -s ${config} /etc/cockpit/cockpit.conf
+        cp ${conf} /etc/cockpit/cockpit.conf
       '';
     };
 
