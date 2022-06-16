@@ -2,7 +2,7 @@
 , wayland, wayland-protocols, libxkbcommon, libcap
 , SDL2, mesa, libinput, pixman, xcbutilerrors, xcbutilwm, glslang
 , ninja, makeWrapper, xwayland, libuuid, xcbutilrenderutil
-, pipewire, stb, writeText, wlroots, vulkan-loader }:
+, pipewire, stb, writeText, wlroots, vulkan-loader, seatd }:
 
 let
   stbpc = writeText "stbpc" ''
@@ -31,11 +31,6 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  preConfigure = ''
-    substituteInPlace meson.build \
-      --replace "force_fallback_for=wlroots,libliftoff" "force_fallback_for=libliftoff"
-  '';
-
   postInstall = ''
     wrapProgram $out/bin/gamescope \
       --prefix PATH : "${lib.makeBinPath [ xwayland ]}"
@@ -46,7 +41,7 @@ in stdenv.mkDerivation rec {
     libXtst libdrm vulkan-loader wayland wayland-protocols
     libxkbcommon libcap SDL2 mesa libinput pixman xcbutilerrors
     xcbutilwm libXi libXres libuuid xcbutilrenderutil xwayland
-    pipewire wlroots
+    pipewire wlroots seatd
   ];
   nativeBuildInputs = [ meson pkgconfig glslang ninja makeWrapper stb_ ];
 
