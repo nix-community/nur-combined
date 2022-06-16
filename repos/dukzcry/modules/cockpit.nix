@@ -4,6 +4,8 @@ with lib;
 let
   cpkgs = pkgs.nur.repos.dukzcry;
   cfg = config.services.cockpit;
+  format = pkgs.formats.ini { };
+  conf = format.generate "cockpit.conf" cfg.settings;
 in {
   options.services.cockpit = {
     enable = mkEnableOption ''
@@ -12,6 +14,10 @@ in {
     port = mkOption {
       type = types.port;
       default = 9090;
+    };
+    settings = mkOption {
+      type = format.type;
+      default = { };
     };
   };
 
@@ -23,6 +29,7 @@ in {
       cockpit = ''
         mkdir -p /etc/cockpit/ws-certs.d
         chmod 755 /etc/cockpit/ws-certs.d
+        ln -s ${config} /etc/cockpit/cockpit.conf
       '';
     };
 
