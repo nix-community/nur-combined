@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     export HOME=$TMPDIR
-    zig build -Drelease-safe=true -Dcpu=baseline
+    zig build -Drelease-small=true -Dcpu=baseline
     scdoc < doc/gmi2html.scdoc > doc/gmi2html.1
   '';
 
