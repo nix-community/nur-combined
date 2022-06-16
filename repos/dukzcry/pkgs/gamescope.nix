@@ -4,22 +4,7 @@
 , ninja, makeWrapper, xwayland, libuuid, xcbutilrenderutil
 , pipewire, stb, writeText, wlroots, vulkan-loader, seatd }:
 
-let
-  stbpc = writeText "stbpc" ''
-    prefix=${stb}
-    includedir=''${prefix}/include/stb
-    Cflags: -I''${includedir}
-    Name: stb
-    Version: ${stb.version}
-    Description: stb
-  '';
-  stb_ = stb.overrideAttrs (oldAttrs: rec {
-    installPhase = ''
-      ${oldAttrs.installPhase}
-      install -Dm644 ${stbpc} $out/lib/pkgconfig/stb.pc
-    '';
-  });
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "gamescope";
   version = "3.11.32";
 
@@ -31,11 +16,6 @@ in stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  postInstall = ''
-    wrapProgram $out/bin/gamescope \
-      --prefix PATH : "${lib.makeBinPath [ xwayland ]}"
-  '';
-
   buildInputs = with xorg; [
     libX11 libXdamage libXcomposite libXrender libXext libXxf86vm
     libXtst libdrm vulkan-loader wayland wayland-protocols
@@ -43,7 +23,13 @@ in stdenv.mkDerivation rec {
     xcbutilwm libXi libXres libuuid xcbutilrenderutil xwayland
     pipewire wlroots seatd
   ];
-  nativeBuildInputs = [ meson pkgconfig glslang ninja makeWrapper stb_ ];
+  nativeBuildInputs = [ meson pkgconfig glslang ninja makeWrapper ];
+
+  prePatch = ''
+    cp -vr "${stb.src}" subprojects/stb
+    chmod -R +w subprojects/stb
+    cp "subprojects/packagefiles/stb/meson.build" "subprojects/stb/"
+  '';
 
   meta = with lib; {
     description = "The micro-compositor formerly known as steamcompmgr";
