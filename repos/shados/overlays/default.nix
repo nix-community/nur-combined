@@ -38,26 +38,6 @@
               --subst-var-by mosh-client "$out/bin/mosh-client"
         '';
       });
-    # Use a more recent Clementine 1.4 RC to fix some Clementine issues
-    clementine = if versionAtLeast (getVersion super.clementine) "1.3.2"
-      then super.clementine
-      else super.clementine.overrideAttrs (oa: rec {
-        name = "${pname}-${version}";
-        pname = "clementine";
-        version = "1.4.0rc1-591-g579d86904";
-        src = pins.clementine.outPath;
-        nativeBuildInputs = oa.nativeBuildInputs or [] ++ [
-          util-linux
-          libunwind
-          libselinux
-          elfutils
-          libsepol
-          orc
-        ];
-        buildInputs = oa.buildInputs or [] ++ [
-          alsaLib
-        ];
-      });
   };
 
   # Pinned old flashplayer versions

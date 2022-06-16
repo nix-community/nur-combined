@@ -6,19 +6,6 @@
         "url": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip",
         "url_template": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip"
     },
-    "clementine": {
-        "branch": "master",
-        "builtin": false,
-        "description": ":tangerine: Clementine Music Player",
-        "homepage": "https://www.clementine-player.org/",
-        "owner": "clementine-player",
-        "repo": "Clementine",
-        "rev": "1.4.0rc1-591-g579d86904",
-        "sha256": "1whsi1rrcd29a5qssfvnqspvfaz6yk334crmm1m3x0f0qqn4s5yl",
-        "type": "tarball",
-        "url": "https://github.com/clementine-player/Clementine/archive/1.4.0rc1-591-g579d86904.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "cparser": {
         "branch": "master",
         "builtin": false,
