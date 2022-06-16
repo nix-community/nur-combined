@@ -26,4 +26,5 @@ rec {
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
   nix-index = ./nix-index.nix;
+  archisteamfarm = ./archisteamfarm.nix;
 }
