@@ -23,6 +23,9 @@ in {
             Url = "http://*:1242";
           };
         };
+        KnownNetworks = [
+          "0.0.0.0/0"
+        ];
       };
     };
     services.archisteamfarm.bots = {
