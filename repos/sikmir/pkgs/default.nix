@@ -395,6 +395,7 @@ lib.makeScope newScope (
     imscript = callPackage ./suckless/imscript { };
     json2tsv = callPackage ./suckless/json2tsv { };
     lacc = callPackage ./suckless/lacc { };
+    lbm = callPackage ./suckless/lbm { };
     lel = callPackage ./suckless/lel { };
     libgrapheme = callPackage ./suckless/libgrapheme { };
     libst = callPackage ./suckless/libst { };
