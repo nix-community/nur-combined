@@ -49,8 +49,11 @@ writeShellScriptBin "update" ''
   attributes=(${toString nixUpdateAttributes})
   for attribute in "''${attributes[@]}"; do
     ${nix-update}/bin/nix-update "$attribute" --write-commit-message "${nixUpdateCommitMessageFile}"
-    commit --file="${nixUpdateCommitMessageFile}"
-    cat "${nixUpdateCommitMessageFile}" >> "${changelogFile}"
+    if [ -f "${nixUpdateCommitMessageFile}" ]; then
+      commit --file="${nixUpdateCommitMessageFile}"
+      cat "${nixUpdateCommitMessageFile}" >> "${changelogFile}"
+      rm "${nixUpdateCommitMessageFile}"
+    fi
   done
 
   # save old source file
