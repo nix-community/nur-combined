@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   name = "gyro";
-  version = "unstable-2022-02-26";
+  version = "unstable-2022-06-17";
 
   src = fetchFromGitHub {
     owner = "mattnite";
     repo = "gyro";
-    rev = "1ae3ab36aac6a99beb82c284f356c89731ee9412";
-    sha256 = "sha256-f1YHARETTUNX89f6/RxVkbyirHsHWZKwFml6ljDnGCs=";
+    rev = "c8d002b6decad7fa6917b8c9952cdddc2b0f2197";
+    sha256 = "sha256-qQoBUmbH05y1fVKEagJqG/cBN/jGBIiZAQNW6vgi9tA=";
   };
 
   nativeBuildInputs = [ zig-master ];
