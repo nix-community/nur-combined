@@ -71,7 +71,14 @@ qt5.mkDerivation rec {
       "''${libraries[@]}" "$out/wemeet/bin/"{wemeetapp,crashpad_handler}
 
     mkdir -p "$out/bin"
-    makeQtWrapper "$out/wemeet/bin/wemeetapp" "$out/bin/wemeetapp"
+    # TODO remove IBus and Qt style workaround
+    # https://aur.archlinux.org/cgit/aur.git/commit/?h=wemeet-bin&id=32fc5d3ba55649cb1143c2b8881ba806ee14b87b
+    makeQtWrapper "$out/wemeet/bin/wemeetapp" "$out/bin/wemeetapp" \
+      --set-default IBUS_USE_PORTAL 1 \
+      --set-default QT_STYLE_OVERRIDE fusion
+    makeWrapper "$out/bin/wemeetapp" "$out/bin/wemeetapp-force-x11" \
+      --set XDG_SESSION_TYPE x11 \
+      --unset WAYLAND_DISPLAY
 
     mkdir -p "$out/share/applications"
     install "${desktopItem}/share/applications/"* "$out/share/applications/"

@@ -25,7 +25,12 @@ let
     (trivial "trojan")
     (trivial "updater")
     (trivial "vlmcsd")
-    { "wemeet" = { "wemeet" = "wemeetapp"; }; }
+    {
+      "wemeet" = {
+        "wemeet" = "wemeetapp";
+        "wemeet-force-x11" = "wemeetapp-force-x11";
+      };
+    }
     (empty "yacd")
   ];
 in
