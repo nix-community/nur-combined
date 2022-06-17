@@ -1,13 +1,8 @@
-{ username, system, overlays }:
-inputs: {
-  inherit system;
+{ username, overlays }:
 
-  modules = (with inputs.self.nixosModules; [
-    mobile-devices
-    nix-setup
-    sound
-    virtualization
-  ]) ++ [
+inputs: {
+  # Personal modules are already loaded by fup
+  modules = [
     ./configuration.nix
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t430
     inputs.home-manager.nixosModules.home-manager {

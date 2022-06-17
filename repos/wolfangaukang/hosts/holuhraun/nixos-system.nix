@@ -1,15 +1,8 @@
-{ username, system, overlays }:
-inputs: {
-  inherit system;
+{ username, overlays }:
 
-  modules = (with inputs.self.nixosModules; [
-    gaming
-    mobile-devices
-    moonlander
-    nix-setup
-    sound
-    virtualization
-  ]) ++ [
+inputs: {
+  # Personal modules are being already loaded by fup
+  modules = [
     ./configuration.nix
     inputs.nixos-hardware.nixosModules.system76
     inputs.home-manager.nixosModules.home-manager {
