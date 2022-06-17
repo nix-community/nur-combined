@@ -3,10 +3,10 @@
 {
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.19.20";
+    version = "0.19.21";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.20/Clash.for.Windows-0.19.20-x64-linux.tar.gz";
-      sha256 = "sha256-MpmDxz3rD81N7BdJ5IrI63GDZiAgh+BwfzNPacmpTS4=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.21/Clash.for.Windows-0.19.21-x64-linux.tar.gz";
+      sha256 = "sha256-EzWLYHLrFEvWChaLKZ2JhBhLXfCfxxCOJwPActSP1rI=";
     };
   };
   clash-for-windows-icon = {
@@ -94,22 +94,22 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.6.4";
+    version = "v2.6.5";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.4/app-x86_64.asar";
-      sha256 = "sha256-NdWsuExby6MQTuliC659MAdupX2I76Za5XJVz96dfA8=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.5/app-x86_64.asar";
+      sha256 = "sha256-WJK6jrXWThXa/8DWWgISotdTxxoQs8LJJD+8dgGIVpk=";
     };
   };
   icalingua-plus-plus-aur = {
     pname = "icalingua-plus-plus-aur";
-    version = "3bd59065c1eedcf3ae0081780bcf2ec743e1d44c";
+    version = "c5a143089b923367237af9fa33bc3c2e25e1bb35";
     src = fetchgit {
       url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "3bd59065c1eedcf3ae0081780bcf2ec743e1d44c";
+      rev = "c5a143089b923367237af9fa33bc3c2e25e1bb35";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-QcNk7v3gwYgUQa8INxsRpJ37cmN7oVpxWTMjebuzeN4=";
+      sha256 = "sha256-uy/dEaLC4eZ87HvawXZlVd6n0koEtrT6It8Z9/KV3BQ=";
     };
   };
   pisces = {
