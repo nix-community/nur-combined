@@ -24,14 +24,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mapsoft2";
-  version = "1.6";
+  version = "1.7";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = pname;
-    #rev = "${version}-alt1";
-    rev = "0986827ffe1d733c815e5002ba027904b65b4088";
-    sha256 = "sha256-rR649zjVyMNS3TG4dtfi6QhHwdahsCvnd9TzEKYb+Bc=";
+    rev = "${version}-alt1";
+    sha256 = "sha256-wOxJdDl7y7iE6kKlfBNkknh68EJksjcKt6DFqkEdiIQ=";
     fetchSubmodules = true;
   };
 

@@ -163,6 +163,7 @@ lib.makeScope newScope (
 
     apispec-webframeworks = callPackage ./geospatial/apispec-webframeworks { };
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
+    c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
     datamaps = callPackage ./geospatial/datamaps { };
     elevation = callPackage ./geospatial/elevation {
@@ -172,6 +173,9 @@ lib.makeScope newScope (
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
+    hecate = callPackage ./geospatial/hecate {
+      inherit (darwin.apple_sdk.frameworks) Security;
+    };
     localtileserver = callPackage ./geospatial/localtileserver { };
     mapsoft = callPackage ./geospatial/mapsoft {
       proj = pkgs.proj_7;
@@ -184,6 +188,7 @@ lib.makeScope newScope (
     morecantile = callPackage ./geospatial/morecantile { };
     orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
     pmtiles = callPackage ./geospatial/pmtiles { };
+    pipfile = callPackage ./geospatial/pipfile { };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     pystac = callPackage ./geospatial/pystac { };
@@ -208,6 +213,7 @@ lib.makeScope newScope (
     tpkutils = callPackage ./geospatial/tpkutils { };
     vt2geojson = callPackage ./geospatial/vt2geojson { };
     titiler = callPackage ./geospatial/titiler { };
+    tilecloud = callPackage ./geospatial/tilecloud { };
 
     ### GNSS
 

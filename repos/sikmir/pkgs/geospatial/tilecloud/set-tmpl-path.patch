@@ -1,0 +1,28 @@
+diff --git i/tc-viewer w/tc-viewer
+index bf226d2..2ff2735 100755
+--- i/tc-viewer
++++ w/tc-viewer
+@@ -7,6 +7,8 @@ import sys
+ 
+ import bottle
+ 
++bottle.TEMPLATE_PATH = "@site_packages@/views"
++
+ from tilecloud import BoundingPyramid, Bounds, Tile, TileCoord, TileStore
+ from tilecloud.filter.contenttype import ContentTypeAdder
+ 
+@@ -146,12 +148,12 @@ def openwebglobe():
+ 
+ @bottle.route("/favicon.ico")
+ def favicon():
+-    return bottle.static_file("favicon.ico", root="static")
++    return bottle.static_file("favicon.ico", root="@site_packages@/static")
+ 
+ 
+ @bottle.route("/static/<path:re:.*>")
+ def static(path):
+-    return bottle.static_file(path, root="static")
++    return bottle.static_file(path, root="@site_packages@/static")
+ 
+ 
+ @bottle.route("/")
