@@ -1,6 +1,7 @@
-{ pkgs, lib  }:
-
-let
+{
+  pkgs,
+  lib,
+}: let
   # Build the virt-manager 2.2.1 package from the old Nix expression, but using
   # the current libraries (this works much better than trying to use the
   # package from an old nixpkgs snapshot, because that old package would use
@@ -20,21 +21,20 @@ let
   virt-manager-2 = pkgs.callPackage ./virt-manager-2.2.1.nix {
     system-libvirt = pkgs.libvirt;
   };
-
 in
-pkgs.virt-manager.overridePythonAttrs (oldAttrs: rec {
-  # Build a combined `virt-manager` package which included both the latest
-  # version (which supports only some recent `libvirt` versions) and the 2.x
-  # version (renamed to `virt-manager-2`).  This is safer than exporting the
-  # package with just `$out/bin/virt-manager-2` and nothing else, because there
-  # are some global things like GSettings schemas that need to be provided only
-  # once, but might be used by the older version too, and combining both
-  # versions in a single package ensures that those global things are handled
-  # appropriately.
-  #
-  # Using `postFixup` to avoid wrapping the symlink.
-  #
-  postFixup = ''
-    ln -s ${virt-manager-2}/bin/virt-manager $out/bin/virt-manager-2
-  '';
-})
+  pkgs.virt-manager.overridePythonAttrs (oldAttrs: rec {
+    # Build a combined `virt-manager` package which included both the latest
+    # version (which supports only some recent `libvirt` versions) and the 2.x
+    # version (renamed to `virt-manager-2`).  This is safer than exporting the
+    # package with just `$out/bin/virt-manager-2` and nothing else, because there
+    # are some global things like GSettings schemas that need to be provided only
+    # once, but might be used by the older version too, and combining both
+    # versions in a single package ensures that those global things are handled
+    # appropriately.
+    #
+    # Using `postFixup` to avoid wrapping the symlink.
+    #
+    postFixup = ''
+      ln -s ${virt-manager-2}/bin/virt-manager $out/bin/virt-manager-2
+    '';
+  })
