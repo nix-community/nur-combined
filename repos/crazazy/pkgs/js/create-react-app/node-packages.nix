@@ -532,7 +532,7 @@ let
       version = "0.0.6";
       src = fetchurl {
         url = "https://registry.npmjs.org/uid-number/-/uid-number-0.0.6.tgz";
-        sha1 = "0ea10e8035e8eb5b8e4449f06da1c730663baa81";
+        sha512 = "c461FXIljswCuscZn67xq9PpszkPT6RjheWFQTgCyabJrTUozElanb0YEqv2UGgk247YpcJkFBuSGNvBlpXM9w==";
       };
     };
     "universalify-2.0.0" = {
@@ -550,7 +550,7 @@ let
       version = "1.0.2";
       src = fetchurl {
         url = "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz";
-        sha1 = "450d4dc9fa70de732762fbd2d4a28981419a0ccf";
+        sha512 = "EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==";
       };
     };
     "validate-npm-package-name-3.0.0" = {
@@ -559,7 +559,7 @@ let
       version = "3.0.0";
       src = fetchurl {
         url = "https://registry.npmjs.org/validate-npm-package-name/-/validate-npm-package-name-3.0.0.tgz";
-        sha1 = "5fa912d81eb7d0c74afc140de7317f0ca7df437e";
+        sha512 = "M6w37eVCMMouJ9V/sdPGnC5H4uDr73/+xdq0FBLO3TFFX1+7wiUY6Es328NN+y43tmY+doUdN9g9J21vqB7iLw==";
       };
     };
     "which-2.0.2" = {
@@ -577,7 +577,7 @@ let
       version = "1.0.2";
       src = fetchurl {
         url = "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz";
-        sha1 = "b5243d8f3ec1aa35f1364605bc0d1036e30ab69f";
+        sha512 = "l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==";
       };
     };
     "xtend-4.0.2" = {

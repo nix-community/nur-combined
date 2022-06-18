@@ -730,15 +730,15 @@ let
       version = "1.0.2";
       src = fetchurl {
         url = "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz";
-        sha1 = "b5243d8f3ec1aa35f1364605bc0d1036e30ab69f";
+        sha512 = "l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==";
       };
     };
   };
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.17.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.17.0.tgz"; sha1 = "1cfc4b6b6912f77d24b874ca1506b0fe09328c21"; };
+    version = "8.18.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.18.0.tgz"; sha1 = "78d565d16c993d0b73968c523c0446b13da784fd"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.0"
       sources."@humanwhocodes/config-array-0.9.5"
