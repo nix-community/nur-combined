@@ -85,6 +85,11 @@ in {
           true
         '';
         ExecStop = pkgs.writeShellScript "tun2socks-stop" ''
+          set +e
+          ip rule del from ${value.address} table ${name}
+          ip route del default dev ${name} table ${name}
+          ip rule del from ${value.address} table main suppress_prefixlength 0
+          true
         '';
       };
     })) cfg.gateways);
