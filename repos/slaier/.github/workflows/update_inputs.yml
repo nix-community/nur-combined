@@ -1,5 +1,8 @@
 name: Update inputs
 on:
+  push:
+    branches:
+      - test-*
   schedule:
     # rebuild at 03:39 on Saturday
     - cron:  '39 3 * * 6'

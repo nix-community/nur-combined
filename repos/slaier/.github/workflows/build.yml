@@ -1,10 +1,12 @@
 name: "Build and populate cache"
 on:
   pull_request:
+    types: [opened, reopened]
   push:
     branches:
       - main
       - develop
+      - test-*
 env:
   nurRepo: slaier
   cachixName: slaier
