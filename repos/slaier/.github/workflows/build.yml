@@ -2,6 +2,9 @@ name: "Build and populate cache"
 on:
   pull_request:
   push:
+    branches:
+      - main
+      - develop
   schedule:
     # rebuild at 03:39 on Saturday
     - cron:  '39 3 * * 6'
@@ -57,5 +60,5 @@ jobs:
     if: github.ref_protected
     steps:
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ env.nurRepo }}"
+      run: echo 1 || curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ env.nurRepo }}"
 
