@@ -13,7 +13,6 @@ in {
     services.archisteamfarm.web-ui.enable = true;
     systemd.services.asf.wantedBy = mkForce [ ];
     services.archisteamfarm.settings = {
-      Statistics = false;
       SteamOwnerID = "76561198025431624";
     };
     services.archisteamfarm.ipcSettings = {
@@ -35,6 +34,7 @@ in {
           BotBehaviour = 8;
           OnlineStatus = 7;
           TradingPreferences = 1;
+          RemoteCommunication = 2;
         };
       };
       katedida = {
@@ -46,6 +46,7 @@ in {
           SteamUserPermissions = {
             "76561198025431624" = 3;
           };
+          RemoteCommunication = 2;
         };
       };
       p0n4ik = {
@@ -58,6 +59,7 @@ in {
           SteamUserPermissions = {
             "76561198025431624" = 3;
           };
+          RemoteCommunication = 2;
         };
       };
     };
