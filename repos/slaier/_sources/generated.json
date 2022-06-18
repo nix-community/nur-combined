@@ -10,12 +10,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "copilot-1.28.6134.zip",
-            "sha256": "sha256-o/vh80eTAquu82+nm1wDn/ZAaJwo6S39bNZVgjpuFxA=",
+            "name": "copilot-1.30.6165.zip",
+            "sha256": "sha256-2Y4zQphaPzTjvOJ4EluaVNFksJ2/PL7UE5ceAW7da6Q=",
             "type": "url",
-            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.28.6134/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.30.6165/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.28.6134"
+        "version": "1.30.6165"
     },
     "'vscode-extensions.LeetCode.vscode-leetcode'": {
         "cargoLocks": null,
@@ -64,12 +64,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "tabnine-vscode-3.5.55.zip",
-            "sha256": "sha256-HVwEB1wYH3nBbeZkNgcLU9b4UA96VJSUZLnhlWmW8sg=",
+            "name": "tabnine-vscode-3.5.58.zip",
+            "sha256": "sha256-jkz/qEHHJG8lhgsYCN0Txd2XECOi8ogrwaZxi5SWENg=",
             "type": "url",
-            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.55/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.58/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "3.5.55"
+        "version": "3.5.58"
     },
     "'vscode-extensions.ccls-project.ccls'": {
         "cargoLocks": null,
@@ -210,11 +210,11 @@
             "name": null,
             "owner": "arkenfox",
             "repo": "user.js",
-            "rev": "100.0",
-            "sha256": "sha256-gitVP21/l26hfR+r7+ST2o7pY8ikr2u92n2uzuLgnKs=",
+            "rev": "101.0",
+            "sha256": "sha256-lGRqHEL9I8VgvSiUjT1DngFCsmEzM8n5J7vIfRj6TZM=",
             "type": "github"
         },
-        "version": "100.0"
+        "version": "101.0"
     },
     "material-fox": {
         "cargoLocks": null,

@@ -3,11 +3,11 @@
 {
   "'vscode-extensions.GitHub.copilot'" = {
     pname = "'vscode-extensions.GitHub.copilot'";
-    version = "1.28.6134";
+    version = "1.30.6165";
     src = fetchurl {
-      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.28.6134/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.28.6134.zip";
-      sha256 = "sha256-o/vh80eTAquu82+nm1wDn/ZAaJwo6S39bNZVgjpuFxA=";
+      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.30.6165/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.30.6165.zip";
+      sha256 = "sha256-2Y4zQphaPzTjvOJ4EluaVNFksJ2/PL7UE5ceAW7da6Q=";
     };
     license = "cc-by-40";
     homepage = "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot";
@@ -39,11 +39,11 @@
   };
   "'vscode-extensions.TabNine.tabnine-vscode'" = {
     pname = "'vscode-extensions.TabNine.tabnine-vscode'";
-    version = "3.5.55";
+    version = "3.5.58";
     src = fetchurl {
-      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.55/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "tabnine-vscode-3.5.55.zip";
-      sha256 = "sha256-HVwEB1wYH3nBbeZkNgcLU9b4UA96VJSUZLnhlWmW8sg=";
+      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.58/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "tabnine-vscode-3.5.58.zip";
+      sha256 = "sha256-jkz/qEHHJG8lhgsYCN0Txd2XECOi8ogrwaZxi5SWENg=";
     };
     license = "mit";
     homepage = "https://github.com/codota/tabnine-vscode";
@@ -135,13 +135,13 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "100.0";
+    version = "101.0";
     src = fetchFromGitHub ({
       owner = "arkenfox";
       repo = "user.js";
-      rev = "100.0";
+      rev = "101.0";
       fetchSubmodules = false;
-      sha256 = "sha256-gitVP21/l26hfR+r7+ST2o7pY8ikr2u92n2uzuLgnKs=";
+      sha256 = "sha256-lGRqHEL9I8VgvSiUjT1DngFCsmEzM8n5J7vIfRj6TZM=";
     });
   };
   material-fox = {

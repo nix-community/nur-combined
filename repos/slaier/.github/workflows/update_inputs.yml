@@ -1,8 +1,5 @@
 name: Update inputs
 on:
-  push:
-    branches:
-      - test-*
   schedule:
     # rebuild at 03:39 on Saturday
     - cron:  '39 3 * * 6'
@@ -12,4 +9,6 @@ jobs:
     uses: slaier/reusable-workflows/.github/workflows/update_nix_inputs.yml@main
     with:
       config_path: nvfetcher.toml
+    secrets:
+      TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
