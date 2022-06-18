@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   CMAKE_LIBRARY_PATH = lib.optional stdenv.isDarwin [ "${darwin.apple_sdk.MacOSX-SDK}/usr/lib" ];
 
   configurePhase = ''
-    CMAKE_LIBRARY_PATH "${darwin.apple_sdk.MacOSX-SDK}/usr/lib" cmake \
+    CMAKE_LIBRARY_PATH="${darwin.apple_sdk.MacOSX-SDK}/usr/lib" cmake \
       -DCMAKE_INSTALL_PREFIX=$out \
       -DCMAKE_BUILD_TYPE=Release \
       -DENABLE_PAM=true \
