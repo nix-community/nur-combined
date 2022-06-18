@@ -1,13 +1,14 @@
 { username, overlays }:
 
 inputs: {
-  # Personal modules are being already loaded by fup
+  # Personal modules are already loaded by fup
+  specialArgs = { inherit username; };
   modules = [
     ./configuration.nix
-    inputs.nixos-hardware.nixosModules.system76
+    inputs.nixos-wsl.nixosModules.wsl
     inputs.home-manager.nixosModules.home-manager {
       home-manager = {
-	extraSpecialArgs = { inherit username; };
+        extraSpecialArgs = { inherit username; };
         useGlobalPkgs = true;
         useUserPackages = true;
         sharedModules = [

@@ -7,6 +7,7 @@ inputs: {
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t430
     inputs.home-manager.nixosModules.home-manager {
       home-manager = {
+	extraSpecialArgs = { inherit username; };
         useGlobalPkgs = true;
         useUserPackages = true;
         sharedModules = [

@@ -9,8 +9,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR";
     nixgl.url = "github:guibou/nixGL";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nur.url = "github:nix-community/NUR";
     sab.url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot?ref=main";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
@@ -18,7 +19,7 @@
     ly.url = "github:wolfangaukang/nixpkgs/ly-unstable";
   };
 
-  outputs = { self, nur, home-manager, nixos, nixos-stable, nixpkgs, nixos-hardware, nixgl, sab, utils, ly, ... }@inputs:
+  outputs = { self, nur, home-manager, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, sab, utils, ly, ... }@inputs:
     let
       inherit (utils.lib) mkFlake exportModules;
 
@@ -61,6 +62,11 @@
         nixpgks.input = nixpkgs;
       };
 
+      nix = {
+        generateRegistryFromInputs = true;
+        generateNixPathFromInputs = true;
+      };
+
       hostDefaults = {
         channelName = "nixos";
         modules = [ local-modules.personal ];
@@ -69,6 +75,7 @@
       hosts = {
         eyjafjallajokull = (import ./hosts/eyjafjallajokull/nixos-system.nix { inherit username overlays; } inputs);
         holuhraun = (import ./hosts/holuhraun/nixos-system.nix { inherit username overlays; } inputs );
+        Katla = (import ./hosts/katla/nixos-system.nix { inherit overlays; username = "nixos"; } inputs );
         vm = (import ./hosts/raudholar/nixos-system.nix { inherit username overlays; } inputs );
       };
 
@@ -81,12 +88,10 @@
 
       # Home-Manager specifics
       hmModules = importAttrset ./modules/home-manager;
-      homeManagerConfigurations = {
-        pop = homeManagerConfiguration ( import ./hosts/pop/hm-config.nix { inherit username system overlays; } inputs );
-        wsl = homeManagerConfiguration ( import ./hosts/wsl/hm-config.nix { inherit username system overlays; } inputs );
+      homeConfigurations = {
+        wsl = homeManagerConfiguration ( import ./hosts/katla/hm-config.nix { inherit system overlays; username = "nixos"; } inputs );
       };
-      pop = self.homeManagerConfigurations.pop.activationPackage;
-      wsl = self.homeManagerConfigurations.wsl.activationPackage;
+      wsl = self.homeConfigurations.wsl.activationPackage;
 
     };
 }

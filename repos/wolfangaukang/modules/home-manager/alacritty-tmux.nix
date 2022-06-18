@@ -32,7 +32,7 @@ in {
   config = {
     assertions = [
       {
-        assertion = cfg_tmux.enable;
+        assertion = cfg_tmux.enable -> config.programs.tmux.enable;
         message = "TMUX needs to be enabled first through `programs.tmux.enable`";
       }
     ];
