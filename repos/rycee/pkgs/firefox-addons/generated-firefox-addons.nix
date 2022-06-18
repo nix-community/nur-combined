@@ -2216,6 +2216,20 @@
         platforms = platforms.all;
         };
       };
+    "ukrainian-dictionary" = buildFirefoxXpiAddon {
+      pname = "ukrainian-dictionary";
+      version = "5.8.0";
+      addonId = "uk-ua@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3964213/ukrainian_dictionary-5.8.0.xpi";
+      sha256 = "ce91785c8aaff4efb0dc66eccaed66e1fd6786b8d5139e07c8ea6b71e8a1536c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/brown-uk/dict_uk";
+        description = "Ukrainian (uk-UA) spellchecking dictionary";
+        license = licenses.mpl11;
+        platforms = platforms.all;
+        };
+      };
     "umatrix" = buildFirefoxXpiAddon {
       pname = "umatrix";
       version = "1.4.4";

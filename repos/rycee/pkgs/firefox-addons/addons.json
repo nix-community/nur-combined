@@ -645,6 +645,13 @@
     "slug": "ubo-scope"
   },
   {
+    "slug": "ukrainian-dictionary",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mpl11"
+    }
+  },
+  {
     "slug": "umatrix"
   },
   {
