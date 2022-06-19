@@ -1,0 +1,39 @@
+[dwm-flexipatch]
+src.git = "https://github.com/bakkeby/dwm-flexipatch"
+fetch.github = "bakkeby/dwm-flexipatch"
+
+[st-flexipatch]
+src.git = "https://github.com/bakkeby/st-flexipatch"
+fetch.github = "bakkeby/st-flexipatch"
+
+[dmenu-flexipatch]
+src.git = "https://github.com/bakkeby/dmenu-flexipatch"
+fetch.github = "bakkeby/dmenu-flexipatch"
+
+[taffybar]
+src.git = "https://github.com/taffybar/taffybar"
+fetch.github = "taffybar/taffybar"
+
+[kmonad]
+src.git = "https://github.com/kmonad/kmonad"
+fetch.github = "kmonad/kmonad"
+
+[xmonad-entryhelper]
+src.git = "https://github.com/Javran/xmonad-entryhelper"
+fetch.github = "Javran/xmonad-entryhelper"
+
+[kiwmi]
+src.git = "https://github.com/buffet/kiwmi"
+fetch.github = "buffet/kiwmi"
+
+[zrythm]
+src.git = "https://git.sr.ht/~alextee/zrythm"
+fetch.git = "https://git.sr.ht/~alextee/zrythm"
+
+[libadwaita]
+src.git = "https://gitlab.gnome.org/GNOME/libadwaita"
+fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
+
+[libpanel]
+src.git = "https://gitlab.gnome.org/chergert/libpanel"
+fetch.git = "https://gitlab.gnome.org/chergert/libpanel"
