@@ -23,7 +23,7 @@ in
   # efm-langserver = callPackage ./efm-langserver { };
   guile-hall = callPackage ./guile-hall { };
   # for some reason unzip malfunctions on this right now. will check later
-  # truffleSqueak = callPackage ./truffleSqueak { };
+  truffleSqueak = callPackage ./truffleSqueak { };
 
   # impure packages. These packages cannot get evaluated by NUR because they
   # contain some techniques that make the import -> eval -> build flow not possible without trying
