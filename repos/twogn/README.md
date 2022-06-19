@@ -8,14 +8,19 @@ I requested [nixpkgs](https://github.com/nixos/nixpkgs/) to add platformio exten
 To use platformio-ide package, you need to add the following lines to your home-manager configuration. It is ~/.config/nixpkgs/home.nix by default, and is accessible by executing `home-manager edit`.
 
 ```nix
-let
-  nur-no-pkgs = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {};
-in
 {
+  nixpkgs = {
+    config.packageOverrides = pkgs: {
+      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+        inherit pkgs;
+      };
+    };
+  };
   programs.vscode = {
     enable = true;
-    extensions = [
-      nur-no-pkgs.repos.twogn.vscode-extensions.platformio.platformio-ide
+    extensions = with pkgs;[
+      nur.repos.twogn.vscode-extensions.platformio.platformio-ide
+      # for more informations about declaring vscode extensions, please check out the wiki written by nix community: https://nixos.wiki/wiki/Visual_Studio_Code
     ];
   };
 }
