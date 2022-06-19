@@ -216,6 +216,25 @@
         },
         "version": "101.0"
     },
+    "clash-speedtest": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-speedtest",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "starudream",
+            "repo": "clash-speedtest",
+            "rev": "v1.0.2",
+            "sha256": "sha256-ET9hVoHFV8uKeBRxaqP6hb7FcUngom2AUhRUWZV+GSU=",
+            "type": "github"
+        },
+        "version": "v1.0.2"
+    },
     "material-fox": {
         "cargoLocks": null,
         "extract": null,

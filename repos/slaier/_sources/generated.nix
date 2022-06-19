@@ -144,6 +144,17 @@
       sha256 = "sha256-lGRqHEL9I8VgvSiUjT1DngFCsmEzM8n5J7vIfRj6TZM=";
     });
   };
+  clash-speedtest = {
+    pname = "clash-speedtest";
+    version = "v1.0.2";
+    src = fetchFromGitHub ({
+      owner = "starudream";
+      repo = "clash-speedtest";
+      rev = "v1.0.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-ET9hVoHFV8uKeBRxaqP6hb7FcUngom2AUhRUWZV+GSU=";
+    });
+  };
   material-fox = {
     pname = "material-fox";
     version = "v93.1";

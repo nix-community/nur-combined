@@ -6,6 +6,10 @@ fetch.github = "muckSponge/MaterialFox"
 src.github_tag = "arkenfox/user.js"
 fetch.github = "arkenfox/user.js"
 
+[clash-speedtest]
+src.github_tag = "starudream/clash-speedtest"
+fetch.github = "starudream/clash-speedtest"
+
 ## VS Code Extensions
 
 ['vscode-extensions.mads-hartmann.bash-ide-vscode']
