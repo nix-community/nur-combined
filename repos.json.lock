@@ -1011,11 +1011,6 @@
             "sha256": "0zkwz8rhxqvnxxw1q50c16fhds9fkxkd4irng02ch0807qbdpj40",
             "url": "https://github.com/xeals/nur-packages"
         },
-        "xfix": {
-            "rev": "5ee728d23eb3de8f510678a2345bbab61cacaae2",
-            "sha256": "1mqaaqpb5fnjrvmnzw8k9jndqa911aivgsnfa78bi3ch97gp6dsk",
-            "url": "https://github.com/xfix/nur-packages"
-        },
         "yellowonion": {
             "rev": "3c221d50110140c582f86bce9bfd360dee254b11",
             "sha256": "0pp8q2vv2577gfk9nvndfpnvi0mi2lvcvi5zjrpdzllnhpx8cwa8",
