@@ -151,8 +151,8 @@
             "url": "https://github.com/cransom/nur-packages"
         },
         "crazazy": {
-            "rev": "834bbca4d7981379225e96caa5b70dae48f62e69",
-            "sha256": "1pzvxzr8sdbyr1r7x0n49ivyqppkhz6k47x8ymk54sj53kjf9l3z",
+            "rev": "2769281dc6549796b19124d923c6c5ca9ba45300",
+            "sha256": "1ip3c8jbylhgdyvkjiahpp2hbs7vc26nqybbbhyhirkh90lbm7yg",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
@@ -1010,6 +1010,11 @@
             "rev": "7414d45aa4575b32863d6651ee5e07cec152b3e9",
             "sha256": "0zkwz8rhxqvnxxw1q50c16fhds9fkxkd4irng02ch0807qbdpj40",
             "url": "https://github.com/xeals/nur-packages"
+        },
+        "xfix": {
+            "rev": "5ee728d23eb3de8f510678a2345bbab61cacaae2",
+            "sha256": "1mqaaqpb5fnjrvmnzw8k9jndqa911aivgsnfa78bi3ch97gp6dsk",
+            "url": "https://github.com/xfix/nur-packages"
         },
         "yellowonion": {
             "rev": "3c221d50110140c582f86bce9bfd360dee254b11",

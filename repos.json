@@ -630,6 +630,9 @@
         "xeals": {
             "url": "https://github.com/xeals/nur-packages"
         },
+        "xfix": {
+            "url": "https://github.com/xfix/nur-packages"
+        },
         "yellowonion": {
             "url": "https://github.com/yellowonion/nur-bcachefs"
         },
