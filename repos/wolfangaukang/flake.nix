@@ -31,12 +31,10 @@
       ];
 
       # Overlays
-      sab_overlay = final: prev: { stream-alert-bot = sab.packages.${prev.system}.default; };
       overlays = [
         nixgl.overlay
         nur.overlay
-        sab_overlay
-      ];
+      ] ++ (import ./overlays { inherit inputs; });
 
       # System settings
       username = "bjorn";

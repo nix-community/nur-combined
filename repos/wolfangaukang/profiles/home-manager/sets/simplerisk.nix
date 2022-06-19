@@ -2,13 +2,12 @@
 
 {
   imports = [
-    ../common/firefox.nix
     ../common/keybase.nix
   ];
 
   home.packages = with pkgs; [
     # GUI Tools
-    (callPackage ../../../pkgs/upwork/default.nix { }) # Upwork
+    upwork
     remmina
     signumone-ks
 
@@ -18,15 +17,11 @@
     ssm-session-manager-plugin
 
     # Development
-    (php74.withExtensions ({ enabled, all }: enabled ++ [ all.ast ]))
-    php74Packages.composer
+    # PHP 7.4 is not available on 22.11
+    (php81.withExtensions ({ enabled, all }: enabled ++ [ all.ast ]))
+    php81Packages.composer
     ruby
     yarn
-  ];
-
-  # Necessary for ovftool
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.0.2u"
   ];
 
   # Adding SimpleRisk Firefox profile
