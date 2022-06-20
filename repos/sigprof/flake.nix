@@ -8,6 +8,10 @@
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
     pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
+
+    devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
+    devshell.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = {
@@ -15,6 +19,7 @@
     nixpkgs,
     flake-utils,
     pre-commit-hooks,
+    devshell,
   }: let
     nurPackageOverlay = import ./overlay.nix;
   in
@@ -49,8 +54,13 @@
             };
           };
 
-          devShells.default = nixpkgs.legacyPackages.${system}.mkShell {
-            inherit (self.checks.${system}.pre-commit) shellHook;
+          devShells.default = devshell.legacyPackages.${system}.mkShell {
+            name = "sigprof/nur-packages";
+            motd = "{6}🔨 Welcome to {bold}sigprof/nur-packages{reset}";
+            packages = [
+              pre-commit-hooks.packages.${system}.alejandra
+            ];
+            devshell.startup.pre-commit-hooks.text = self.checks.${system}.pre-commit.shellHook;
           };
         })
     );
