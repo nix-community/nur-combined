@@ -1,4 +1,23 @@
 {
+    "baidupcs-go": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "baidupcs-go",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "qjfoidnh",
+            "repo": "BaiduPCS-Go",
+            "rev": "v3.8.7",
+            "sha256": "sha256-TSHcUWEzh3kZlp+oIdbE55HQ65VgNxsb8AHMNteEhVg=",
+            "type": "github"
+        },
+        "version": "v3.8.7"
+    },
     "bilibili": {
         "cargoLocks": null,
         "extract": null,
@@ -7,11 +26,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rZSnI++q4JhPpDnPkR044xHGLTkpT1SEtiZ2sDyWIYU=",
+            "sha256": "sha256-t/igezm0ipkOkKION8qTYGK9f6qI3c4iPuS/wWrMywQ=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.1.3-4/io.github.msojocs.bilibili_1.1.3-4_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.2.1-1/io.github.msojocs.bilibili_1.2.1-1_amd64.deb"
         },
-        "version": "1.1.3-4"
+        "version": "1.2.1-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -69,6 +88,25 @@
             "type": "github"
         },
         "version": "9801a2c5d6c67c467ffad676ac301379bb877fc3"
+    },
+    "cloudpan189-go": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "cloudpan189-go",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tickstep",
+            "repo": "cloudpan189-go",
+            "rev": "v0.1.1",
+            "sha256": "sha256-PUFykU9NoGra/YYNjKKvi6DEYRIaEEKXjyp1UlmeOgI=",
+            "type": "github"
+        },
+        "version": "v0.1.1"
     },
     "drone-vault": {
         "cargoLocks": null,
@@ -547,11 +585,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JPUlG8JvNbxhZCH7k/Dhre5tR8ZTzJk+KdbcL5ELsj4=",
+            "sha256": "sha256-NbGJlOVB5cPj1ko5rw0vgffYjMfIe/ul6l8gpROQpMY=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202206090051/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202206160052/geoip.dat"
         },
-        "version": "202206090051"
+        "version": "202206160052"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -561,11 +599,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HVelOVK13pxutlO3wqY+1kpgqJli1Hyil4NWHkkDovw=",
+            "sha256": "sha256-PVQWAFhFaRGkPX9RbVjXH/h1trsM54kXObx1cAzCIK8=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220610035630/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220617132201/dlc.dat"
         },
-        "version": "20220610035630"
+        "version": "20220617132201"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -577,9 +615,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202206090051/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202206160052/private.dat"
         },
-        "version": "202206090051"
+        "version": "202206160052"
     },
     "xray": {
         "cargoLocks": null,

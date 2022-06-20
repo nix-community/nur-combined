@@ -1,3 +1,7 @@
+[baidupcs-go]
+src.github = "qjfoidnh/BaiduPCS-Go"
+fetch.github = "qjfoidnh/BaiduPCS-Go"
+
 [bilibili]
 src.github_tag = "msojocs/bilibili-linux"
 src.from_pattern = "v(.*)"
@@ -15,6 +19,10 @@ fetch.github = "open-quantum-safe/boringssl"
 [brotli]
 src.git = "https://github.com/google/brotli.git"
 fetch.github = "google/brotli"
+
+[cloudpan189-go]
+src.github = "tickstep/cloudpan189-go"
+fetch.github = "tickstep/cloudpan189-go"
 
 [drone-vault]
 src.github_tag = "drone/drone-vault"

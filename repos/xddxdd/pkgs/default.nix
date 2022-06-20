@@ -75,6 +75,7 @@ rec {
   th-fonts = pkgs.recurseIntoAttrs (pkg ./th-fonts { });
 
   # Other packages
+  baidupcs-go = pkg ./baidupcs-go { };
   bilibili = pkg ./bilibili { };
   bird-lg-go = pkg ./bird-lg-go { };
   bird-lgproxy-go = pkg ./bird-lgproxy-go { };
@@ -83,6 +84,7 @@ rec {
   };
   calibre-cops = pkg ./calibre-cops { };
   chmlib-utils = pkg ./chmlib-utils { };
+  cloudpan189-go = pkg ./cloudpan189-go { };
   deepspeech-gpu = pkg ./deepspeech-gpu { };
   deepspeech-wrappers = pkg ./deepspeech-gpu/wrappers.nix { };
   dingtalk = pkg ./dingtalk { };
