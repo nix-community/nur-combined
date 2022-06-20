@@ -30,6 +30,7 @@
       tokei
       tree
       wget
+      jq
       # development
       
       alejandra
@@ -56,6 +57,7 @@
       
       nix-index
       agenix
+      cachix
       ;
 
     inherit
