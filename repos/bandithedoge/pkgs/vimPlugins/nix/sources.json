@@ -365,10 +365,10 @@
         "homepage": "",
         "owner": "lewis6991",
         "repo": "gitsigns.nvim",
-        "rev": "5ce7db00d4c24ab090c87df985764d69d331b20f",
-        "sha256": "1pvrjv60cnssq6y7lx1vpicqp199wiqbj2hbqgrc05pfgcn233rn",
+        "rev": "38f56c846d6057faf41402d84313d981841ddeb2",
+        "sha256": "03lb9bzh78s4ws8riyddl4973ypns6xwalqmsw9fzplq09d3xr0q",
         "type": "tarball",
-        "url": "https://github.com/lewis6991/gitsigns.nvim/archive/5ce7db00d4c24ab090c87df985764d69d331b20f.tar.gz",
+        "url": "https://github.com/lewis6991/gitsigns.nvim/archive/38f56c846d6057faf41402d84313d981841ddeb2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "guess-indent.nvim": {
@@ -869,10 +869,10 @@
         "homepage": "",
         "owner": "kyazdani42",
         "repo": "nvim-tree.lua",
-        "rev": "104292c8f908300e44c0142722746c50fdfa9859",
-        "sha256": "1f0xif7hb793pap2c7j619nj1fvv94966zw064wkdiwcsnklva7m",
+        "rev": "79258f1d670277016523e13c0a88daa25070879f",
+        "sha256": "1wrq3g6n82lyxzgbkfgpsi908ghwzp773fslrfyxk3mwgvdj396s",
         "type": "tarball",
-        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/104292c8f908300e44c0142722746c50fdfa9859.tar.gz",
+        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/79258f1d670277016523e13c0a88daa25070879f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
@@ -1157,10 +1157,10 @@
         "homepage": "",
         "owner": "lewis6991",
         "repo": "spellsitter.nvim",
-        "rev": "20664366601683c74d7cda05d668dcc46f60d0f4",
-        "sha256": "0pr13vk31iz2m7gvpflainsa39m0n8i7jn1x325r6qwpmz3md0yq",
+        "rev": "c1b318f8b959e015f5cc7941624d1ca0f84705dd",
+        "sha256": "17v7scc6574afmjfhhzawpxhhh31fz118xzbjg1l8qnbdnb159bh",
         "type": "tarball",
-        "url": "https://github.com/lewis6991/spellsitter.nvim/archive/20664366601683c74d7cda05d668dcc46f60d0f4.tar.gz",
+        "url": "https://github.com/lewis6991/spellsitter.nvim/archive/c1b318f8b959e015f5cc7941624d1ca0f84705dd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "sqlite.lua": {
