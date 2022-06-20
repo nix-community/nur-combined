@@ -12,6 +12,8 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   dragger = pkgs.callPackage ./dragger { };
 
+  drone-rsync = pkgs.callPackage ./drone-rsync { };
+
   drone-scp = pkgs.callPackage ./drone-scp { };
 
   ff2mpv-go = pkgs.callPackage ./ff2mpv-go { };

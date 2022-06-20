@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ARGS=(
+    # Show readable progress in log
+    --verbose
+    --human-readable
+    --progress
+    # Have a one-to-one copy
+    --archive
+    --compress
+    --recursive
+    --delete
+    # Configure ssh client
+    --rsh "ssh -p ${SYNC_PORT:-22} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+)
+
+eval "$(ssh-agent)"
+SSHPASS="${SYNC_PASSPHRASE:-}" sshpass -P 'passphrase' -v -e ssh-add <(echo "${SYNC_KEY}")
+
+if [ -n "${SYNC_DRY_RUN:-}" ]; then
+    ARGS+=(--dry-run)
+fi
+
+# shellcheck disable=2086
+# FIXME: have a safer way to allow globbing the source
+rsync \
+    "${ARGS[@]}" \
+    ${SYNC_SOURCE} \
+    "${SYNC_USERNAME}@${SYNC_HOST}:${SYNC_TARGET}"
