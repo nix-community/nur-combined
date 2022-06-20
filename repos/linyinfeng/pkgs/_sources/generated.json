@@ -247,11 +247,11 @@
             "name": null,
             "owner": "jorgebucaran",
             "repo": "replay.fish",
-            "rev": "1.2.0",
-            "sha256": "sha256-Q/9YVdiRSJw1SdcfQv2h7Lj6EyFustRk+kmh1eRRQ6k=",
+            "rev": "1.2.1",
+            "sha256": "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=",
             "type": "github"
         },
-        "version": "1.2.0"
+        "version": "1.2.1"
     },
     "telegram-send": {
         "cargoLocks": null,

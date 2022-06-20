@@ -150,13 +150,13 @@
   };
   replay-fish = {
     pname = "replay-fish";
-    version = "1.2.0";
+    version = "1.2.1";
     src = fetchFromGitHub ({
       owner = "jorgebucaran";
       repo = "replay.fish";
-      rev = "1.2.0";
+      rev = "1.2.1";
       fetchSubmodules = false;
-      sha256 = "sha256-Q/9YVdiRSJw1SdcfQv2h7Lj6EyFustRk+kmh1eRRQ6k=";
+      sha256 = "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=";
     });
   };
   telegram-send = {
