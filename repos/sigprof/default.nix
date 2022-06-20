@@ -12,5 +12,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   cosevka = pkgs.callPackage ./pkgs/cosevka {};
+  terminus-font-custom = pkgs.callPackage ./pkgs/terminus-font-custom {};
   virt-manager = pkgs.callPackage ./pkgs/virt-manager {};
 }
