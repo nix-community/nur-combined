@@ -25,7 +25,7 @@
 
       # Local exports
       local-lib = import ./lib { inherit inputs; };
-      inherit (local-lib) importAttrset forAllSystems;
+      inherit (local-lib) importAttrset forAllSystems mkHome mkSystem;
       local-modules = exportModules [
         ./modules/nixos/personal
       ];
@@ -71,10 +71,28 @@
       };
 
       hosts = {
-        eyjafjallajokull = (import ./hosts/eyjafjallajokull/nixos-system.nix { inherit username overlays; } inputs);
-        holuhraun = (import ./hosts/holuhraun/nixos-system.nix { inherit username overlays; } inputs );
-        Katla = (import ./hosts/katla/nixos-system.nix { inherit overlays; username = "nixos"; } inputs );
-        vm = (import ./hosts/raudholar/nixos-system.nix { inherit username overlays; } inputs );
+        eyjafjallajokull = mkSystem {
+          inherit inputs overlays username;
+          hostname = "eyjafjallajokull";
+          extra-modules = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
+        };
+        holuhraun = mkSystem {
+          inherit inputs overlays username;
+          hostname = "holuhraun";
+          extra-modules = [ nixos-hardware.nixosModules.system76 ];
+        };
+        Katla = let
+          username = "nixos";
+        in mkSystem {
+          inherit inputs overlays username;
+          hostname = "katla";
+          extra-modules = [ nixos-wsl.nixosModules.wsl ];
+        } // { specialArgs = { inherit username; }; };
+        vm = mkSystem {
+          inherit inputs overlays username;
+          hostname = "raudholar";
+          enable-hm = false;
+        } // { channelName = "ly"; };
       };
 
       # Common settings
@@ -87,7 +105,12 @@
       # Home-Manager specifics
       hmModules = importAttrset ./modules/home-manager;
       homeConfigurations = {
-        wsl = homeManagerConfiguration ( import ./hosts/katla/hm-config.nix { inherit system overlays; username = "nixos"; } inputs );
+        wsl = mkHome {
+          inherit overlays system;
+          hostname = "katla";
+          username = "nixos";
+          channel = inputs.ly;
+        };
       };
       wsl = self.homeConfigurations.wsl.activationPackage;
 
