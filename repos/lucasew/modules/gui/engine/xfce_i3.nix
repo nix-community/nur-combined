@@ -35,6 +35,8 @@ let
   '';
   locker = writeShellScript "locker" ''
     loginctl lock-session
+    sleep 1
+    xset dpms force off
   '';
   lockerSpace = makeDesktopItem {
     name = "locker";
