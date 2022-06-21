@@ -59,7 +59,6 @@ with lib;
 
     propagatedBuildInputs = with python3Packages; [
       pygobject3
-      ipaddress
       libvirt
       libxml2
       requests
