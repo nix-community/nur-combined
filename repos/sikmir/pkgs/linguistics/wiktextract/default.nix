@@ -8,13 +8,13 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "wiktextract";
-  version = "1.99.6";
+  version = "1.99.7";
 
   src = fetchFromGitHub {
     owner = "tatuylonen";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-XmpMzsuTzIbzyGNoWRs9twNVQ3kP6c7hXUVHPnR3m+c=";
+    rev = "3a3e5746305cf648a0386e089615aa533f68b66d";
+    hash = "sha256-iL3mFxX32OaD8UdPdvMyc/ksmeCH4iykM37DgHd+KwE=";
   };
 
   propagatedBuildInputs = with python3Packages; [ python-Levenshtein setuptools wikitextprocessor nltk ];

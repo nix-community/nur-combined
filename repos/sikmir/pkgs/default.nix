@@ -166,11 +166,13 @@ lib.makeScope newScope (
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
     datamaps = callPackage ./geospatial/datamaps { };
+    deegree = callPackage ./geospatial/deegree { };
     elevation = callPackage ./geospatial/elevation {
       click = click-6-7;
     };
     geographiclib = callPackage ./geospatial/geographiclib { };
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
+    geowebcache = callPackage ./geospatial/geowebcache { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
     hecate = callPackage ./geospatial/hecate {

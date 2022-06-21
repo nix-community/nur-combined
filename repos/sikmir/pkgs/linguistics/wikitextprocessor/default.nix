@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "wikitextprocessor";
-  version = "0.4.95";
+  version = "0.4.96";
 
   src = fetchFromGitHub {
     owner = "tatuylonen";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-YLlgjMGIifymdQfsZKnf3aRsMIyA35X/sQSqNj5t1TM=";
+    rev = "3fa4cb9418e05d1d462a53d629848196b7ade492";
+    hash = "sha256-cjhKgzqsPwVO2/fwC62IDilMhz6fg6qQrnm0xLQ3KPk=";
   };
 
   propagatedBuildInputs = with python3Packages; [ lupa dateparser lru-dict ];
