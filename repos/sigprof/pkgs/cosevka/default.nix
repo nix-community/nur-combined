@@ -12,12 +12,20 @@ in
     # output, because moving the font files to `$out/share/fonts/truetype` also
     # affects the hash.
 
+    # Note: The `if [ -f "$downloadedFile" ]` part below is needed when Nixpkgs
+    # does not have https://github.com/NixOS/nixpkgs/pull/173430 (i.e., before
+    # NixOS 22.05); it may be removed when any support for those old versions
+    # is dropped.
     postFetch = let
       basename = baseNameOf url;
     in ''
-      renamed="$TMPDIR/${basename}"
-      mv "$downloadedFile" "$renamed"
-      unpackFile "$renamed"
+      if [ -f "$downloadedFile" ]; then
+        renamed="$TMPDIR/${basename}"
+        mv "$downloadedFile" "$renamed"
+        unpackFile "$renamed"
+      else
+        mv $out/*.tt[fc] ./
+      fi
       install -m444 -D -t $out/share/fonts/truetype *.tt[fc]
     '';
 
