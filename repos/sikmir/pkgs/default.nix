@@ -194,8 +194,6 @@ lib.makeScope newScope (
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     pystac = callPackage ./geospatial/pystac { };
-    qgis-bin = callPackage ./geospatial/qgis/bin.nix { };
-    qgis-ltr-bin = qgis-bin.override { releaseType = "ltr"; };
     qmapshack-bin = callPackage ./geospatial/qmapshack/bin.nix { };
     render_geojson = callPackage ./geospatial/render_geojson { };
     rio-cogeo = callPackage ./geospatial/rio-cogeo { };
