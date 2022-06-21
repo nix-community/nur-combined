@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220616.185542";
+      version = "102.0buildid20220620.184213";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3963919/francais_language_pack-102.0buildid20220616.185542.xpi";
-      sha256 = "88a9c76c11b70f0a97044855e449c42486091a8e7efa2c3e8bca2813fb446b42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3965542/francais_language_pack-102.0buildid20220620.184213.xpi";
+      sha256 = "70022219a3728db5de9ea7cc50ce2ee3b302780b628fdea7812f9aa717829e74";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -924,10 +924,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.2.4";
+      version = "5.3.0";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3960936/languagetool-5.2.4.xpi";
-      sha256 = "52cef052e81468c8d9e74fd37a7a5138065736f5a3599328d3dbd077734d27d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3964226/languagetool-5.3.0.xpi";
+      sha256 = "d92cac3377af01f54d2ed096fbadd697997878a281740dcc6f7cc018fd10ca2f";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -990,10 +990,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3964552/libredirect-2.2.0.xpi";
-      sha256 = "cee5e14dbeea9cddb6726a4d019b822c1d1e41f686df34ee97c4e62f5032bccf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3965151/libredirect-2.2.1.xpi";
+      sha256 = "568591d3f7e48fd986815c5bc4a43ba40ca8788b68301686368a6f0918a14cb7";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io/";
@@ -1065,10 +1065,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.5.2";
+      version = "4.6.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3931074/mailvelope-4.5.2.xpi";
-      sha256 = "531b0d27b86e7b0a100423eb526370cf19deec4e31eef1deb12edf107f1606f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3965080/mailvelope-4.6.0.xpi";
+      sha256 = "f332e8a407f342f6144c7689e8f192fc94171ae2b896cec8bd0654f147ad4287";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1837,10 +1837,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.5.1";
+      version = "4.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958238/sponsorblock-4.5.1.xpi";
-      sha256 = "8c63c761066de4da1c7c51fd4f66ea42a7c54c8f38e0d02ec427a24025c5f404";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3964892/sponsorblock-4.6.xpi";
+      sha256 = "8762e34dd32e7d8b999be16c2676804b6a134485729ccddab66f02647ba23dcf";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2103,10 +2103,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.4.2";
+      version = "9.5";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3840048/traduzir_paginas_web-9.4.2.xpi";
-      sha256 = "75a29e8c7ed1f974f5abbb5c4b59cc2d596711437493f3566f1c022f6fb355dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3964648/traduzir_paginas_web-9.5.xpi";
+      sha256 = "3075506a9c04dd9dc65b2e870adb875ace2fb2fc0b9472a49e23920ce7e2eca6";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
