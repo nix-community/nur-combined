@@ -31,5 +31,6 @@ lib.makeScope newScope (
     vlmcsd = callPackage ./vlmcsd { };
     wemeet = callPackage ./wemeet { };
     yacd = callPackage ./yacd { };
+    zeronsd = callPackage ./zeronsd { };
   }
 )

@@ -32,6 +32,7 @@ let
       };
     }
     (empty "yacd")
+    (trivial "zeronsd")
   ];
 in
 p: appNamesDict.${p}

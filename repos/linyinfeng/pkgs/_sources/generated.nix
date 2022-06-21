@@ -62,7 +62,9 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./commit-notifier-573c1eb7eabc97aa06e0e9ad85f5148110749876/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+        
+      };
     };
   };
   dot-tar = {
@@ -78,7 +80,9 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./dot-tar-8719c34f81c94d50286a4120990eb0f134799fe1/Cargo.lock;
-      outputHashes = { };
+      outputHashes = {
+        
+      };
     };
   };
   dpt-rp1-py = {
@@ -207,6 +211,23 @@
     src = fetchurl {
       url = "https://github.com/haishanh/yacd/releases/download/v0.3.5/yacd.tar.xz";
       sha256 = "sha256-j2sDOC7QqoP0ptQ9cKa6kHM2efid7kgNmsggODEQaSA=";
+    };
+  };
+  zeronsd = {
+    pname = "zeronsd";
+    version = "v0.5.2";
+    src = fetchFromGitHub ({
+      owner = "zerotier";
+      repo = "zeronsd";
+      rev = "v0.5.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-TL0bgzQgge6j1SpZCdxv/s4pBMSg4/3U5QisjkVE6BE=";
+    });
+    cargoLock."Cargo.lock" = {
+      lockFile = ./zeronsd-v0.5.2/Cargo.lock;
+      outputHashes = {
+        
+      };
     };
   };
 }

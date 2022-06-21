@@ -25,6 +25,7 @@ packageSet = do
   icalinguaPlusPlusAur
   wemeet
   yacd
+  zeronsd
 
 fishPlugins :: PackageSet ()
 fishPlugins = do
@@ -124,3 +125,10 @@ yacd =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/haishanh/yacd/releases/download/" <> v <> "/yacd.tar.xz"
+
+zeronsd :: PackageSet ()
+zeronsd =
+  define $
+    package "zeronsd"
+      `fromGitHub` ("zerotier", "zeronsd")
+      `hasCargoLocks` ["Cargo.lock"]
