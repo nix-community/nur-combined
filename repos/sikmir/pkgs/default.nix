@@ -189,6 +189,7 @@ lib.makeScope newScope (
     mbutiles = callPackage ./geospatial/mbutiles { };
     morecantile = callPackage ./geospatial/morecantile { };
     orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
+    ossim = callPackage ./geospatial/ossim { };
     pmtiles = callPackage ./geospatial/pmtiles { };
     pipfile = callPackage ./geospatial/pipfile { };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
