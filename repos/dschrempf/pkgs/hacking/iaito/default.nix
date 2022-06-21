@@ -2,10 +2,10 @@
 , stdenv
 , fetchFromGitHub
 , pkg-config
-, radare2
-, qtbase
 , qttools
+, radare2
 , wrapQtAppsHook
+, zip
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     owner = "radareorg";
     repo = pname;
     rev = version;
-    hash = "sha256-xKVN377ETkMRCI5A0qs17ooAlxeYUv5WQrSr5+PVyt8=";
+    hash = "sha256-qEJTsS669eEwo2iiuybN72O5oopCaGEkju8+ekjw2zk=";
+    fetchSubmodules = true;
   };
 
   meta = with lib; {
@@ -26,8 +27,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ dschrempf ];
   };
 
-  # TODO: Not sure if qtbase or qttools need to be in here.
-  nativeBuildInputs = [ pkg-config qtbase qttools wrapQtAppsHook ];
+  nativeBuildInputs = [ pkg-config qttools wrapQtAppsHook zip ];
   buildInputs = [ radare2 ];
   # propagatedBuildInputs = [ ];
 }
