@@ -8,5 +8,6 @@
     ./nix-setup.nix
     ./sound.nix
     ./virtualization.nix
+    ./work.nix
   ];
 }
