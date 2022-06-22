@@ -4,13 +4,14 @@
   , ripgrep
   , libsecret
   , keepassxc
+  , symlinkJoin
 }:
 
 let 
 
   name = "yubikee-smartvpn";
 
-in writeShellScriptBin "${name}" ''
+  yubikee-smartvpn = writeShellScriptBin "${name}" ''
   VPN=$1
   echo "Stopping openvpn-$VPN service."
   sudo systemctl stop openvpn-$VPN
@@ -22,6 +23,7 @@ in writeShellScriptBin "${name}" ''
   while ! $(${libsecret}/bin/secret-tool lookup Title "$VPN-user" &> /dev/null); do
     sleep 1s
   done
+  ${yubikey-manager}/bin/ykman info
   YUBIKEY_OUT=$( ${yubikey-manager}/bin/ykman oath accounts code smartvpn | tee /dev/tty | ${ripgrep}/bin/rg smartvpn | sed 's/^.* //') 
   if test -z "$YUBIKEY_OUT"
   then
@@ -45,4 +47,15 @@ in writeShellScriptBin "${name}" ''
   echo "Starting openvpn-$VPN service."
   sudo systemctl start openvpn-$VPN
   rm /tmp/ovpn.txt
-  ''
+  '';
+
+in symlinkJoin {
+  name = "yubikee-smartvpn";
+  paths = [ 
+    yubikee-smartvpn
+    libsecret 
+    yubikey-manager 
+    ripgrep
+    keepassxc
+  ];
+}

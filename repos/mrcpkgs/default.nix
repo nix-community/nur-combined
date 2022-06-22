@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   eclipse-jdt-language-server = pkgs.callPackage ./pkgs/eclipse-jdt-language-server { };
-  ranger-fm = pkgs.callPackage ./pkgs/ranger-fm { };
   yubikee-smartvpn = pkgs.callPackage ./pkgs/yubikee-smartvpn { };
   nextcloud-no-de = pkgs.callPackage ./pkgs/nextcloud-no-de { };
 
