@@ -1,13 +1,15 @@
-{ stdenv,
-  lib,
-  fetchFromGitHub,
-  ant,
-  jdk8,
-  jre8,
-  makeWrapper }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, ant
+, jdk
+, jre
+, makeWrapper
+}:
 
-let pname = "tracer";
-    version = "1.7.2";
+let
+  pname = "tracer";
+  version = "1.7.2";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -19,9 +21,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-ZuXG2ZgwiLS+fpaH/UlF8oYgfeX8YjGyR6+uj/wfLbw=";
   };
 
-  nativeBuildInputs = [ ant jdk8 makeWrapper ];
+  nativeBuildInputs = [ ant jdk makeWrapper ];
 
-  propagatedBuildInputs = [ jre8 ];
+  propagatedBuildInputs = [ jre ];
 
   buildPhase = ''
     ant linux
@@ -34,7 +36,7 @@ stdenv.mkDerivation {
 
     # Binary.
     mkdir -p $out/bin
-    makeWrapper ${jre8}/bin/java $out/bin/tracer --add-flags "-jar $out/lib/tracer.jar"
+    makeWrapper ${jre}/bin/java $out/bin/tracer --add-flags "-jar $out/lib/tracer.jar"
   '';
 
   meta = with lib; {
