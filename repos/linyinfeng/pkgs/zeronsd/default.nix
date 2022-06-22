@@ -16,7 +16,7 @@ rec {
 
   # TODO integration test broken in sandbox
   doCheck = false;
-  
+
   meta = with lib; {
     homepage = "https://github.com/zerotier/zeronsd";
     description = "A DNS server for ZeroTier users";

@@ -62,9 +62,7 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./commit-notifier-573c1eb7eabc97aa06e0e9ad85f5148110749876/Cargo.lock;
-      outputHashes = {
-        
-      };
+      outputHashes = { };
     };
   };
   dot-tar = {
@@ -80,9 +78,7 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./dot-tar-8719c34f81c94d50286a4120990eb0f134799fe1/Cargo.lock;
-      outputHashes = {
-        
-      };
+      outputHashes = { };
     };
   };
   dpt-rp1-py = {
@@ -225,9 +221,7 @@
     });
     cargoLock."Cargo.lock" = {
       lockFile = ./zeronsd-v0.5.2/Cargo.lock;
-      outputHashes = {
-        
-      };
+      outputHashes = { };
     };
   };
 }
