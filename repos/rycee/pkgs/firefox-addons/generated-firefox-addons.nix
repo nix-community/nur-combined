@@ -311,10 +311,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.2";
+      version = "1.0.3";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941651/consent_o_matic-1.0.2.xpi";
-      sha256 = "f0ebe316b8388026ecbaaddb41514d8aad7b1cd3ff737d4cee020a2994ae632c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3965720/consent_o_matic-1.0.3.xpi";
+      sha256 = "67ecb75964d8f0399409add98c0d8f9f7c644586a8f1a582c7a7af304cd260a3";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -843,10 +843,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.0";
+      version = "3.4.1";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3948477/i_dont_care_about_cookies-3.4.0.xpi";
-      sha256 = "bef0ac488b2db9a51abeb483884dc4c9d457b3270b6ba24c62fe282936d91c07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3965730/i_dont_care_about_cookies-3.4.1.xpi";
+      sha256 = "dd52cbd31c24d11cc8c0fc6448a4697cfe4989a7c3fd501868e4b14e2cbeb96e";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -2176,10 +2176,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.6.0";
+      version = "7.7.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3952316/ublacklist-7.6.0.xpi";
-      sha256 = "0c7ab0c3efaeec995fc093805570ff13453ba14c7ec31a62412d0d79308124a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3965875/ublacklist-7.7.0.xpi";
+      sha256 = "a19cb3ca46861a0292ad199b8c73603fea34b2febd0ade7d259aa879aa074283";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
