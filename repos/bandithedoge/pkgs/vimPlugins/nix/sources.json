@@ -41,10 +41,10 @@
         "homepage": "https://www.schemastore.org/",
         "owner": "b0o",
         "repo": "SchemaStore.nvim",
-        "rev": "7561d31e5e668333d7e453c063ded5a2805f0e41",
-        "sha256": "0850akn3ik044dnz53d2ikdgw8b7yk6vhy58a346ac9cq1damz7r",
+        "rev": "186e4ad50f9f735e417f1d5f35447857bb16abd8",
+        "sha256": "1yfbw4l19si5lg0fp7jy92v769z13sj16p5amw1vraxxd2fz17d2",
         "type": "tarball",
-        "url": "https://github.com/b0o/SchemaStore.nvim/archive/7561d31e5e668333d7e453c063ded5a2805f0e41.tar.gz",
+        "url": "https://github.com/b0o/SchemaStore.nvim/archive/186e4ad50f9f735e417f1d5f35447857bb16abd8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "aniseed": {
@@ -749,10 +749,10 @@
         "homepage": "",
         "owner": "xiyaowong",
         "repo": "nvim-cursorword",
-        "rev": "08dfc44db4a4f54d4c1189e3873f24e3dde3e7bf",
-        "sha256": "1r1cxq87jkyisg03s78gc7gjcjn4hgpq7n104q06spc1inm5pc63",
+        "rev": "c0f2958ec729b47be2dba0d79ef43d005dac9f4e",
+        "sha256": "0lnmcsr9bn665szl5fayn5j2pqiqxhnvsj8w2gb7fgy24wgajg5n",
         "type": "tarball",
-        "url": "https://github.com/xiyaowong/nvim-cursorword/archive/08dfc44db4a4f54d4c1189e3873f24e3dde3e7bf.tar.gz",
+        "url": "https://github.com/xiyaowong/nvim-cursorword/archive/c0f2958ec729b47be2dba0d79ef43d005dac9f4e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-dap": {
@@ -977,10 +977,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "playground",
-        "rev": "71b00a3c665298e5155ad64a9020135808d4e3e8",
-        "sha256": "0cn6q7885ffn0yxv6frjsa8yx6mnil8lmdvml8inj3lvakyprzc8",
+        "rev": "ce7e4b757598f1c785ed0fd94fc65959acd7d39c",
+        "sha256": "0r3pjpzwjp1m563n80qp93y7f8gvpqjzlhsrd0hvi67qzm6pj87f",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/playground/archive/71b00a3c665298e5155ad64a9020135808d4e3e8.tar.gz",
+        "url": "https://github.com/nvim-treesitter/playground/archive/ce7e4b757598f1c785ed0fd94fc65959acd7d39c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "plenary.nvim": {
@@ -1013,10 +1013,10 @@
         "homepage": "",
         "owner": "andweeb",
         "repo": "presence.nvim",
-        "rev": "ebdf23b9b180c7f162e3afb4a250c313ca2b7271",
-        "sha256": "0wygl17k2adbsy3pjyyb6amsrx14r11ldbqj21kmkjq289n58f6n",
+        "rev": "615d4cb8b06abc7ae16cffe5b9999381a438d1d9",
+        "sha256": "0zm2nqhd3b48wm93wzkv9mj745428gy3qnzngfxbng14mafid9x7",
         "type": "tarball",
-        "url": "https://github.com/andweeb/presence.nvim/archive/ebdf23b9b180c7f162e3afb4a250c313ca2b7271.tar.gz",
+        "url": "https://github.com/andweeb/presence.nvim/archive/615d4cb8b06abc7ae16cffe5b9999381a438d1d9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pretty-fold.nvim": {
@@ -1109,10 +1109,10 @@
         "homepage": "",
         "owner": "sidebar-nvim",
         "repo": "sidebar.nvim",
-        "rev": "56f55a4e9adf055afa27d60787b923b5d0a0e388",
-        "sha256": "06qskbihhy0dxhrb8qpvjzi7bi2cmfx31ylmrj8la7ixh74jflmv",
+        "rev": "4e07c8ea5cc86e21d69bb000f9f8e5df536da8b4",
+        "sha256": "1w2nlr87654dyhl7bgydkfza1xky6iaf3xxz74i73s6g6l3ww5wb",
         "type": "tarball",
-        "url": "https://github.com/sidebar-nvim/sidebar.nvim/archive/56f55a4e9adf055afa27d60787b923b5d0a0e388.tar.gz",
+        "url": "https://github.com/sidebar-nvim/sidebar.nvim/archive/4e07c8ea5cc86e21d69bb000f9f8e5df536da8b4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "size-matters.nvim": {

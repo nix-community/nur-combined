@@ -36,25 +36,25 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "3e7f2aa3cdb4bf0a69dcb0b4c8ad38ff186ada8a";
+    version = "3011d359db5b6305625b6f4110457dbec0dc8409";
     src = fetchFromGitHub ({
       owner = "kmonad";
       repo = "kmonad";
-      rev = "3e7f2aa3cdb4bf0a69dcb0b4c8ad38ff186ada8a";
+      rev = "3011d359db5b6305625b6f4110457dbec0dc8409";
       fetchSubmodules = false;
-      sha256 = "sha256-rucwXriP49BWGUU0lLwjyp3NjUw2F9J7SdCq12e/sus=";
+      sha256 = "sha256-Rem/iND6YoM2lGFF+uSjiHo94bjLkzgwZFp6eyavl3Q=";
     });
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "ec85752f269fa0e4c8cb6d2e614317a2bf540c2c";
+    version = "a9b00cf8d78aea2450654d572082b4d565d553dd";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "ec85752f269fa0e4c8cb6d2e614317a2bf540c2c";
+      rev = "a9b00cf8d78aea2450654d572082b4d565d553dd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-FL+My0tbXAkn0EyRCkMwRkzAaNDfPYjnn2Lwl2YDfqM=";
+      sha256 = "sha256-s0ANTFYdMousIO/u1wt/IZIrl+au3R4uNlq4WfS3fIY=";
     };
   };
   libpanel = {

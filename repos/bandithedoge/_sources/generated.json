@@ -69,11 +69,11 @@
             "name": null,
             "owner": "kmonad",
             "repo": "kmonad",
-            "rev": "3e7f2aa3cdb4bf0a69dcb0b4c8ad38ff186ada8a",
-            "sha256": "sha256-rucwXriP49BWGUU0lLwjyp3NjUw2F9J7SdCq12e/sus=",
+            "rev": "3011d359db5b6305625b6f4110457dbec0dc8409",
+            "sha256": "sha256-Rem/iND6YoM2lGFF+uSjiHo94bjLkzgwZFp6eyavl3Q=",
             "type": "github"
         },
-        "version": "3e7f2aa3cdb4bf0a69dcb0b4c8ad38ff186ada8a"
+        "version": "3011d359db5b6305625b6f4110457dbec0dc8409"
     },
     "libadwaita": {
         "cargoLocks": null,
@@ -86,12 +86,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ec85752f269fa0e4c8cb6d2e614317a2bf540c2c",
-            "sha256": "sha256-FL+My0tbXAkn0EyRCkMwRkzAaNDfPYjnn2Lwl2YDfqM=",
+            "rev": "a9b00cf8d78aea2450654d572082b4d565d553dd",
+            "sha256": "sha256-s0ANTFYdMousIO/u1wt/IZIrl+au3R4uNlq4WfS3fIY=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "ec85752f269fa0e4c8cb6d2e614317a2bf540c2c"
+        "version": "a9b00cf8d78aea2450654d572082b4d565d553dd"
     },
     "libpanel": {
         "cargoLocks": null,
