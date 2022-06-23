@@ -2,7 +2,7 @@
 , wayland, wayland-protocols, libxkbcommon, libcap
 , SDL2, mesa, libinput, pixman, xcbutilerrors, xcbutilwm, glslang
 , ninja, makeWrapper, xwayland, libuuid, xcbutilrenderutil
-, pipewire, stb, writeText, wlroots, vulkan-loader, seatd }:
+, pipewire, stb, vulkan-loader, seatd }:
 
 stdenv.mkDerivation rec {
   pname = "gamescope";
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
     libXtst libdrm vulkan-loader wayland wayland-protocols
     libxkbcommon libcap SDL2 mesa libinput pixman xcbutilerrors
     xcbutilwm libXi libXres libuuid xcbutilrenderutil xwayland
-    pipewire wlroots seatd
+    pipewire seatd
   ];
-  nativeBuildInputs = [ meson pkgconfig glslang ninja makeWrapper ];
+  nativeBuildInputs = [ meson pkgconfig glslang ninja ];
 
   prePatch = ''
     cp -vr "${stb.src}" subprojects/stb
