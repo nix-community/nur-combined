@@ -3,6 +3,7 @@
 , stable
 , firefox-esr-91-unwrapped
 , fetchFirefoxAddon
+, firefox-bin
 , }:
 wrapFirefox firefox-esr-91-unwrapped {
   desktopName = "Firefox (wrapped)";
@@ -16,10 +17,10 @@ wrapFirefox firefox-esr-91-unwrapped {
     facebook-container
     grammarly
     i-dont-care-about-cookies
-    localcdn
     sponsorblock
     tampermonkey
     ublock-origin
+    xbrowsersync
   ];
   extraPolicies = {
     DisableFirefoxStudies = true;
@@ -31,3 +32,4 @@ wrapFirefox firefox-esr-91-unwrapped {
     };
   };
 }
+
