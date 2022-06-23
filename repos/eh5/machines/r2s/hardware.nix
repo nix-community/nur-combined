@@ -61,6 +61,17 @@
   powerManagement.cpuFreqGovernor = "schedutil";
 
   services.fake-hwclock.enable = true;
+  services.chrony.enable = true;
+  networking.timeServers = [
+    "ntp.aliyun.com"
+    "ntp1.aliyun.com"
+    "ntp2.aliyun.com"
+    "ntp3.aliyun.com"
+    "ntp4.aliyun.com"
+    "ntp5.aliyun.com"
+    "ntp6.aliyun.com"
+    "ntp7.aliyun.com"
+  ];
 
   systemd.services."setup-net-leds" = {
     description = "Setup network LEDs";
