@@ -1,4 +1,4 @@
-{ lib, makeWrapper, openssh, rsync, shellcheck, sshpass, stdenvNoCC }:
+{ lib, makeWrapper, openssh, rsync, sshpass, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "drone-rsync";
   version = "0.1.0";
@@ -7,14 +7,11 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    shellcheck
   ];
 
   dontUnpack = true;
 
-  buildPhase = ''
-    shellcheck $src
-  '';
+  dontBuild = true;
 
   installPhase = ''
     mkdir -p $out/bin

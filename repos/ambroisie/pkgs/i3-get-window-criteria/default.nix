@@ -1,4 +1,4 @@
-{ lib, coreutils, gnused, makeWrapper, shellcheck, stdenvNoCC, xorg }:
+{ lib, coreutils, gnused, makeWrapper, stdenvNoCC, xorg }:
 stdenvNoCC.mkDerivation rec {
   pname = "i3-get-window-criteria";
   version = "0.1.0";
@@ -7,14 +7,11 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    shellcheck
   ];
 
   dontUnpack = true;
 
-  buildPhase = ''
-    shellcheck $src
-  '';
+  dontBuild = true;
 
   installPhase = ''
     mkdir -p $out/bin

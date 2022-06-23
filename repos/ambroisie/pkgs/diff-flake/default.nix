@@ -1,4 +1,4 @@
-{ lib, coreutils, git, gnused, makeWrapper, shellcheck, stdenvNoCC }:
+{ lib, coreutils, git, gnused, makeWrapper, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "diff-flake";
   version = "0.2.0";
@@ -7,14 +7,11 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    shellcheck
   ];
 
   dontUnpack = true;
 
-  buildPhase = ''
-    shellcheck $src
-  '';
+  dontBuild = true;
 
   installPhase = ''
     mkdir -p $out/bin

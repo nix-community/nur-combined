@@ -1,4 +1,4 @@
-{ lib, fzf, makeWrapper, nix-index, shellcheck, stdenvNoCC }:
+{ lib, fzf, makeWrapper, nix-index, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "comma";
   version = "0.1.0";
@@ -7,14 +7,11 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    shellcheck
   ];
 
   dontUnpack = true;
 
-  buildPhase = ''
-    shellcheck $src
-  '';
+  dontBuild = true;
 
   installPhase = ''
     mkdir -p $out/bin

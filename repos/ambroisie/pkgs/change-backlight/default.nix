@@ -1,4 +1,4 @@
-{ lib, brightnessctl, libnotify, makeWrapper, shellcheck, stdenvNoCC }:
+{ lib, brightnessctl, libnotify, makeWrapper, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "change-backlight";
   version = "0.1.0";
@@ -7,14 +7,11 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    shellcheck
   ];
 
   dontUnpack = true;
 
-  buildPhase = ''
-    shellcheck $src
-  '';
+  dontBuild = true;
 
   installPhase = ''
     mkdir -p $out/bin

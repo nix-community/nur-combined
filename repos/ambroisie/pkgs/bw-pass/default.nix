@@ -1,4 +1,4 @@
-{ lib, bitwarden-cli, coreutils, jq, keyutils, makeWrapper, rofi, shellcheck, stdenvNoCC }:
+{ lib, bitwarden-cli, coreutils, jq, keyutils, makeWrapper, rofi, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "bw-pass";
   version = "0.1.0";
@@ -7,14 +7,11 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    shellcheck
   ];
 
   dontUnpack = true;
 
-  buildPhase = ''
-    shellcheck $src
-  '';
+  dontBuild = true;
 
   installPhase = ''
     mkdir -p $out/bin

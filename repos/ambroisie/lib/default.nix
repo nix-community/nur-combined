@@ -15,6 +15,4 @@ let
     mapModules ./. (file: import file { inherit self lib pkgs inputs; })
   );
 in
-mylib.extend (self: super:
-  foldr (a: b: a // b) { } (attrValues super)
-)
+mylib.extend (self: super: foldr (a: b: a // b) { } (attrValues super))

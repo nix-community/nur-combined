@@ -25,6 +25,7 @@
       ref = "master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        utils.follows = "futils";
       };
     };
 
@@ -68,7 +69,6 @@
       inherit (futils.lib) eachSystem system;
 
       mySystems = [
-        system.aarch64-darwin
         system.aarch64-linux
         system.x86_64-darwin
         system.x86_64-linux

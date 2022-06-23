@@ -1,4 +1,4 @@
-{ lib, libnotify, makeWrapper, pamixer, shellcheck, stdenvNoCC }:
+{ lib, libnotify, makeWrapper, pamixer, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "change-audio";
   version = "0.3.0";
@@ -7,14 +7,11 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    shellcheck
   ];
 
   dontUnpack = true;
 
-  buildPhase = ''
-    shellcheck $src
-  '';
+  dontBuild = true;
 
   installPhase = ''
     mkdir -p $out/bin
