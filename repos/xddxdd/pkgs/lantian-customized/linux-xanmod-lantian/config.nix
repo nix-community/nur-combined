@@ -4,6 +4,7 @@ with lib.kernel;
 {
   LOCALVERSION = freeform "-lantian";
   EXPERT = yes;
+  WERROR = no;
 
   # BBR & CAKE
   TCP_CONG_CUBIC = lib.mkForce module;
@@ -71,10 +72,6 @@ with lib.kernel;
   LOG_BUF_SHIFT = freeform "12";
   LOG_CPU_MAX_BUF_SHIFT = freeform "12";
   PRINTK_SAFE_LOG_BUF_SHIFT = freeform "10";
-
-  # # Ultra KSM
-  # UKSM = yes;
-  # KSM_LEGACY = no;
 
   # Various tunings
   ACPI_APEI = yes;

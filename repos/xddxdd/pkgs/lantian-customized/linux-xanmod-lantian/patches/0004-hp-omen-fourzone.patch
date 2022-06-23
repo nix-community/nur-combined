@@ -1,5 +1,5 @@
 diff --git a/drivers/platform/x86/hp-wmi.c b/drivers/platform/x86/hp-wmi.c
-index 48a46466f086..aeac67510c08 100644
+index 0e6ed75c70f3..e1b99946c35e 100644
 --- a/drivers/platform/x86/hp-wmi.c
 +++ b/drivers/platform/x86/hp-wmi.c
 @@ -9,6 +9,9 @@
@@ -20,26 +20,17 @@ index 48a46466f086..aeac67510c08 100644
  #include <linux/input/sparse-keymap.h>
  #include <linux/platform_device.h>
  #include <linux/platform_profile.h>
-@@ -84,6 +88,7 @@ enum hp_wmi_event_ids {
+@@ -89,6 +93,7 @@ enum hp_wmi_event_ids {
  	HPWMI_BACKLIT_KB_BRIGHTNESS	= 0x0D,
  	HPWMI_PEAKSHIFT_PERIOD		= 0x0F,
  	HPWMI_BATTERY_CHARGE_PERIOD	= 0x10,
 +	HPWMI_OMEN_KEY			= 0x1D,
  };
  
- struct bios_args {
-@@ -91,7 +96,7 @@ struct bios_args {
- 	u32 command;
- 	u32 commandtype;
- 	u32 datasize;
--	u8 data[128];
-+	u8 data[4096];
- };
- 
- enum hp_wmi_commandtype {
-@@ -108,6 +113,16 @@ enum hp_wmi_commandtype {
- 	HPWMI_WIRELESS2_QUERY		= 0x1b,
+ /*
+@@ -119,6 +124,16 @@ enum hp_wmi_commandtype {
  	HPWMI_POSTCODEERROR_QUERY	= 0x2a,
+ 	HPWMI_SYSTEM_DEVICE_MODE	= 0x40,
  	HPWMI_THERMAL_PROFILE_QUERY	= 0x4c,
 +
 +	HPWMI_MACRO_PROFILE_SET		= 15,
@@ -54,7 +45,7 @@ index 48a46466f086..aeac67510c08 100644
  };
  
  enum hp_wmi_gm_commandtype {
-@@ -122,6 +137,7 @@ enum hp_wmi_command {
+@@ -134,6 +149,7 @@ enum hp_wmi_command {
  	HPWMI_WRITE	= 0x02,
  	HPWMI_ODM	= 0x03,
  	HPWMI_GM	= 0x20008,
@@ -62,7 +53,7 @@ index 48a46466f086..aeac67510c08 100644
  };
  
  enum hp_wmi_hardware_mask {
-@@ -186,6 +202,9 @@ struct bios_rfkill2_state {
+@@ -204,6 +220,9 @@ struct bios_rfkill2_state {
  	struct bios_rfkill2_device_state device[HPWMI_MAX_RFKILL2_DEVICES];
  };
  
@@ -72,7 +63,7 @@ index 48a46466f086..aeac67510c08 100644
  static const struct key_entry hp_wmi_keymap[] = {
  	{ KE_KEY, 0x02,   { KEY_BRIGHTNESSUP } },
  	{ KE_KEY, 0x03,   { KEY_BRIGHTNESSDOWN } },
-@@ -196,6 +215,10 @@ static const struct key_entry hp_wmi_keymap[] = {
+@@ -214,6 +233,10 @@ static const struct key_entry hp_wmi_keymap[] = {
  	{ KE_KEY, 0x2169, { KEY_ROTATE_DISPLAY } },
  	{ KE_KEY, 0x216a, { KEY_SETUP } },
  	{ KE_KEY, 0x231b, { KEY_HELP } },
@@ -83,9 +74,9 @@ index 48a46466f086..aeac67510c08 100644
  	{ KE_END, 0 }
  };
  
-@@ -217,6 +240,18 @@ struct rfkill2_device {
- static int rfkill2_count;
- static struct rfkill2_device rfkill2[HPWMI_MAX_RFKILL2_DEVICES];
+@@ -249,6 +272,18 @@ static const char * const tablet_chassis_types[] = {
+ 
+ #define DEVICE_MODE_TABLET	0x06
  
 +/* Determine featureset for specific models */
 +
@@ -102,46 +93,7 @@ index 48a46466f086..aeac67510c08 100644
  /* map output size to the corresponding WMI method id */
  static inline int encode_outsize_for_pvsz(int outsize)
  {
-@@ -260,14 +295,8 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 	struct bios_return *bios_return;
- 	int actual_outsize;
- 	union acpi_object *obj;
--	struct bios_args args = {
--		.signature = 0x55434553,
--		.command = command,
--		.commandtype = query,
--		.datasize = insize,
--		.data = { 0 },
--	};
--	struct acpi_buffer input = { sizeof(struct bios_args), &args };
-+	struct bios_args *args = NULL;
-+	struct acpi_buffer input = { sizeof(struct bios_args), NULL };
- 	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER, NULL };
- 	int ret = 0;
- 
-@@ -275,11 +304,19 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 	if (WARN_ON(mid < 0))
- 		return mid;
- 
--	if (WARN_ON(insize > sizeof(args.data)))
-+	if (WARN_ON(insize > sizeof(args->data)))
- 		return -EINVAL;
--	memcpy(&args.data[0], buffer, insize);
-+
-+	args = kzalloc(sizeof(struct bios_args), GFP_KERNEL);
-+	args->signature = 0x55434553;
-+	args->command = command;
-+	args->commandtype = query;
-+	args->datasize = insize;
-+	memcpy(&args->data[0], buffer, insize);
-+	input.pointer = args;
- 
- 	wmi_evaluate_method(HPWMI_BIOS_GUID, 0, mid, &input, &output);
-+	kfree(args);
- 
- 	obj = output.pointer;
- 
-@@ -662,6 +699,14 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -750,6 +785,14 @@ static void hp_wmi_notify(u32 value, void *context)
  	int key_code;
  
  	status = wmi_get_event_data(value, &response);
@@ -156,7 +108,7 @@ index 48a46466f086..aeac67510c08 100644
  	if (status != AE_OK) {
  		pr_info("bad event status 0x%x\n", status);
  		return;
-@@ -695,6 +740,7 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -783,6 +826,7 @@ static void hp_wmi_notify(u32 value, void *context)
  	}
  	kfree(obj);
  
@@ -164,7 +116,7 @@ index 48a46466f086..aeac67510c08 100644
  	switch (event_id) {
  	case HPWMI_DOCK_EVENT:
  		if (test_bit(SW_DOCK, hp_wmi_input_dev->swbit))
-@@ -710,7 +756,15 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -798,7 +842,15 @@ static void hp_wmi_notify(u32 value, void *context)
  	case HPWMI_SMART_ADAPTER:
  		break;
  	case HPWMI_BEZEL_BUTTON:
@@ -180,7 +132,7 @@ index 48a46466f086..aeac67510c08 100644
  		if (key_code < 0)
  			break;
  
-@@ -1166,6 +1220,302 @@ static int thermal_profile_setup(void)
+@@ -1269,6 +1321,302 @@ static int thermal_profile_setup(void)
  
  static int hp_wmi_hwmon_init(void);
  
@@ -483,7 +435,7 @@ index 48a46466f086..aeac67510c08 100644
  static int __init hp_wmi_bios_setup(struct platform_device *device)
  {
  	int err;
-@@ -1183,6 +1533,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
+@@ -1286,6 +1634,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
  	if (err < 0)
  		return err;
  
@@ -494,7 +446,7 @@ index 48a46466f086..aeac67510c08 100644
  	thermal_profile_setup();
  
  	return 0;
-@@ -1213,6 +1567,8 @@ static int __exit hp_wmi_bios_remove(struct platform_device *device)
+@@ -1316,6 +1668,8 @@ static int __exit hp_wmi_bios_remove(struct platform_device *device)
  	if (platform_profile_support)
  		platform_profile_remove();
  
