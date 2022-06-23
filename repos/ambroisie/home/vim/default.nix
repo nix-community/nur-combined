@@ -62,6 +62,7 @@ in
       git-messenger-vim # A simple blame window
 
       # LSP and linting
+      nvim-lspconfig # Easy LSP configuration
       lsp_lines-nvim # Show diagnostics *over* regions
       null-ls-nvim # LSP integration for linters and formatters
       (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars)) # Better highlighting
