@@ -2,12 +2,12 @@
 
 buildPythonPackage rec {
     pname = "eli5";
-    version = "0.11.0";
+    version = "0.13.0";
 
     src = fetchPypi {
       inherit pname version;
 
-      sha256 = "0mm0b9sv6g4bh4wmd3ij2bd07pjqydki8w8rncaycz0mx4dvb9xf";
+      sha256 = "sha256-7IRZ6q8J1mdDxTp72xFcbNp+Uz16XQKlqLtxfuhD6zc=";
     };
 
     buildInputs = with pythonPackages; [ attrs scikitlearn graphviz six tabulate jinja2 ];

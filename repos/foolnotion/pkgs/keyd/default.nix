@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "keyd";
-  version = "2.4.0";
+  version = "2.4.1";
 
   src = fetchFromGitHub {
     owner = "rvaiya";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-YZSwXDrzly5OlNh8j+Y2/qYmGHXE5T3ZAvq7e45jVL0=";
+    sha256 = "sha256-p0f8iGT4QtyWAnlcG4SfOhD94ySNNkQrnVjnGCmQwAk=";
   };
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];

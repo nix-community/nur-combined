@@ -27,6 +27,7 @@
   useSinglePrecision ? true,
   buildCliPrograms ? false,
   buildSharedLibs ? true,
+  useCeres ? false,
   useOpenLibm ? true,
   useJemalloc ? false
 }:
@@ -37,15 +38,14 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "heal-research";
     repo = "operon";
-    rev = "067beaf50fcedfeff1d120beb43b3907a9a7314e";
-    sha256 = "sha256-zbxiYzxmJWyxPjMDWsOYwUw/Q2SA2B2ujb4jVKX69RU=";
+    rev = "1d035cdf4533808b8901a1d02c4e26e41e1dc157";
+    sha256 = "sha256-/fF1zwzzGskOe90HTIg62vbMqy9EC3SvVxLMgshaHgM=";
   };
 
   nativeBuildInputs = [ cmake git ];
 
   buildInputs = [
     aria-csv
-    ceres-solver
     eigen
     fast_float
     fmt
@@ -61,6 +61,7 @@ stdenv.mkDerivation rec {
     vstat
     xxhash
   ] ++ lib.optionals buildCliPrograms [ cxxopts ]
+    ++ lib.optionals useCeres [ ceres-solver ]
     ++ lib.optionals useOpenLibm [ openlibm ]
     ++ lib.optionals useJemalloc [ jemalloc ];
 
