@@ -1,25 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, bootstrapped ? true, ripgrep }:
+{ stdenv, lib, fetchFromGitHub, libffi, bootstrapped ? true, ripgrep }:
 
 let
   libBQN = fetchFromGitHub {
     owner = "mlochbaum";
     repo = "bqn";
-    rev = "40126f1df3998e30a47963c1aaaec4cea2003688";
-    sha256 = "sha256-BnKTA0rjbQLlk9+jJ42YRpcYOZnpAT+7oCKGwZgveFs=";
+    rev = "1c18950453d3b4281c921fdb79f80fe4bec6ec3e";
+    sha256 = "sha256-weGm0EkiwRp0XuRt8mZMX99TzhfS+5oUphvyzxKAqMc=";
   };
 
   bytecode = fetchFromGitHub {
     owner = "dzaima";
     repo = "cbqn";
-    rev = "4a1fe17b15b1752da683a203170c19efe745319b";
-    sha256 = "sha256-vh7i/z/GVk2wZVfiZcV9BQcySZmXQR9PbkaQsev7Vro=";
+    rev = "97bfb2e1d7858670c5f0d6d0e76d2718c29a8c16";
+    sha256 = "sha256-zL8z9/FaPa6FF+t2Ht6jiWLXgN9ZSSo2a82hnimaEns=";
   };
 
   src = fetchFromGitHub {
     owner = "dzaima";
     repo = "cbqn";
-    rev = "b9232a1f6843c254e16ba84458a53f190805740e";
-    sha256 = "sha256-moLgf2e2csb1tAZqRGGuH6EF/qxHG/g2Ovf7+uRLgPI=";
+    rev = "43b8b5e2a0616c45dec4e905cf5402e5d75b90c1";
+    sha256 = "sha256-FWg3Gf+YY001xzfJqJIsBRvAMYK5ESrE0VgCHlGXzYQ=";
   };
 
   generic = { useBytecode ? false, bqn ? null, fullTestSuite ? true }:
@@ -28,10 +28,11 @@ let
 
     stdenv.mkDerivation rec {
       pname = "cbqn" + lib.optionalString useBytecode "-bytecode";
-      version = "unstable-2021-12-09";
+      version = "unstable-2022-06-24";
 
       inherit src;
       patches = lib.optional useBytecode ./generated.patch;
+      buildInputs = [ libffi ];
       nativeBuildInputs = [ bqn ];
       checkInputs = lib.optional fullTestSuite ripgrep;
 
