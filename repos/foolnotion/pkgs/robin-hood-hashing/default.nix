@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "robin-hood-hashing";
-  version = "3.11.3";
+  version = "3.11.5";
 
   src = fetchFromGitHub {
     owner = "martinus";
     repo = "robin-hood-hashing";
     rev = "${version}";
-    sha256 = "sha256-9IamneqbZwQA63U2GyGTVWIHvwTtT+/oqQgaOCWno74=";
+    sha256 = "sha256-J4u9Q6cXF0SLHbomP42AAn5LSKBYeVgTooOhqxOIpuM=";
   };
 
   nativeBuildInputs = [ cmake ];

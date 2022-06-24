@@ -34,6 +34,8 @@
 
   eve = pkgs.callPackage ./pkgs/eve { };
 
+  expected-lite = pkgs.callPackage ./pkgs/expected-lite { };
+
   fast_float = pkgs.callPackage ./pkgs/fast_float { };
 
   keyd = pkgs.callPackage ./pkgs/keyd { };
