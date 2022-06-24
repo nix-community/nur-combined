@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, meson, pkgconfig, libdrm, xorg
 , wayland, wayland-protocols, libxkbcommon, libcap
 , SDL2, mesa, libinput, pixman, xcbutilerrors, xcbutilwm, glslang
-, ninja, makeWrapper, xwayland, libuuid, xcbutilrenderutil
+, ninja, xwayland, libuuid, xcbutilrenderutil
 , pipewire, stb, vulkan-loader, seatd }:
 
 stdenv.mkDerivation rec {
