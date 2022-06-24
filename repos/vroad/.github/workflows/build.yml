@@ -1,6 +1,10 @@
 name: "Build and populate cache"
 on:
+  pull_request:
   push:
+    branches:
+      - main
+      - master
 jobs:
   tests:
     strategy:
@@ -9,24 +13,31 @@ jobs:
           - vroad
         cachixName:
           - vroad
-        nixChannel:
-          - nixpkgs-unstable
-          - nixos-unstable
+        nixPath:
+          - nixpkgs=channel:nixos-21.11
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v3
     - name: Install nix
-      uses: cachix/install-nix-action@v13
-    - name: Set nix path
-      run: |
-        echo "NIX_PATH=nixpkgs=$(nix eval --raw '(with import ./nix/sources.nix;${{ matrix.nixChannel }}.outPath)')" >> $GITHUB_ENV
+      uses: cachix/install-nix-action@v17
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        # nix 2.6 breaks restrict-eval, when using the NIX_PATH
+        # see https://github.com/NixOS/nix/issues/5980
+        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
       uses: cachix/cachix-action@v10
+      # Don't replace <YOUR_CACHIX_NAME> here!
+      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Check evaluation
       run: |
@@ -35,8 +46,11 @@ jobs:
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
-      run: nix run nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs --arg pkgs 'import <nixpkgs> {}'
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
+      # Don't replace <YOUR_REPO_NAME> here!
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
