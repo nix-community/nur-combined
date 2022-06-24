@@ -9,13 +9,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "waylock";
-  version = "0.3.5";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "ifreund";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-Z3yLfReoWeA7mHkUSAnMR+ibTi7bpxOw7uj7eY4immc=";
+    sha256 = "sha256-PGf4snqaUWNGWCWWknofe0X0rfPGmmjeMh5Fu/BvHIE=";
   };
 
   nativeBuildInputs = [ pkg-config ];

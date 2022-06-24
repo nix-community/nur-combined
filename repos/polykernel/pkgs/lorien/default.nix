@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "Lorien";
-  version = "main";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "mbrlabs";
     repo = pname;
-    rev = "a2ee9cb83add85952a5a8b497ab9e15cf181b76d";
-    sha256 = "sha256-Butd4V7mdwSCT1KUAEvghFWobHv0AIarmuGSsk/UMe8=";
+    rev = "v${version}";
+    sha256 = "sha256-x81Obana2BEGrYSoJHDdCkL6UaULfQGQ94tlrH5+kdY=";
   };
 
   nativeBuildInputs = [ godot-headless godot-export-templates ];
