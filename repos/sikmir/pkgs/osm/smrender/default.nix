@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
-    $out/bin/smrender -v | grep "V${version}"
+    $out/bin/smrender -v | grep ${version} > /dev/null
     runHook postInstallCheck
   '';
 

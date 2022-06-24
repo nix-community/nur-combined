@@ -5,6 +5,10 @@ in
 lib.makeScope newScope (
   self: with self; {
 
+    # VSCODE EXTENSIONS
+
+    vscode-extensions = recurseIntoAttrs (callPackage ./vscode-extensions { });
+
     ### APPLICATIONS
 
     goldencheetah-bin = callPackage ./applications/goldencheetah/bin.nix { };

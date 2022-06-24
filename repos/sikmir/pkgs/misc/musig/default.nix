@@ -21,7 +21,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  installCheckPhase = "$out/bin/musig --version";
+  installCheckPhase = "$out/bin/musig --version | grep ${version} > /dev/null";
 
   meta = with lib; {
     description = "A shazam like tool to store songs fingerprints and retrieve them";

@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
-  installCheckPhase = "$out/bin/tilesets --version";
+  installCheckPhase = "$out/bin/tilesets --version | grep ${version} > /dev/null";
 
   meta = with lib; {
     description = "CLI for interacting with the Mapbox Tilesets API";

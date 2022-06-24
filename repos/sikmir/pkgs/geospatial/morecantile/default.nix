@@ -12,11 +12,11 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-QvqXpcjunRWzfdcoyt3pUulDd20Ga8Cs9NTeLnUf5c8=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ pydantic pyproj ];
+  propagatedBuildInputs = with python3Packages; [ attrs pydantic pyproj ];
 
   checkInputs = with python3Packages; [ mercantile pytestCheckHook ];
 
-  installCheckPhase = "$out/bin/morecantile --version";
+  installCheckPhase = "$out/bin/morecantile --version | grep ${version} > /dev/null";
 
   meta = with lib; {
     description = "Construct and use map tile grids in different projection";
