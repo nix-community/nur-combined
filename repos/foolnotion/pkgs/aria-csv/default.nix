@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "AriaFallah";
     repo = "csv-parser";
-    rev = "544c764d0585c61d4c3bd3a023a825f3d7de1f31";
-    sha256 = "sha256-KTuJHDDj1BYmpa+bRseZftCQxpcyf0Yy33osI/79BW8=";
+    rev = "70aa4793533ce9a04942cfe5af29c2b93c044e58";
+    sha256 = "sha256-VNU3yASc5W43KojYg6Q3TiLTndKd6zyoiGYDxV2XMk0=";
   };
 
   installPhase = ''
