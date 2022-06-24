@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220620.184213";
+      version = "102.0buildid20220623.063721";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3965542/francais_language_pack-102.0buildid20220620.184213.xpi";
-      sha256 = "70022219a3728db5de9ea7cc50ce2ee3b302780b628fdea7812f9aa717829e74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3966590/francais_language_pack-102.0buildid20220623.063721.xpi";
+      sha256 = "7159ed49bf01df36064a4b7b381b5852ca7a0b1c206cbec1a653a1ae4758010a";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -897,10 +897,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.7.12";
+      version = "1.8.0";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3934394/keepassxc_browser-1.7.12.xpi";
-      sha256 = "f89242f081f85fa6c9f59bb42e03aa0ef8eeb49a4ef3d56550001a0837c04688";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967015/keepassxc_browser-1.8.0.xpi";
+      sha256 = "792097f44b4565e28fd418c7e4a709324167e7c64464d2793764a829b3d20e1f";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1656,10 +1656,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.5.22";
+      version = "22.6.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3952576/refined_github-22.5.22.xpi";
-      sha256 = "d3d689e386ff82867f3f4023d271bcf74c49cb24ee17231c5b4f0b79fef2e622";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967043/refined_github-22.6.23.xpi";
+      sha256 = "a7791275f89fb1bd63f36bdc72f6be1ac7116c6f774bb4ac66722e7ec2816e0b";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
