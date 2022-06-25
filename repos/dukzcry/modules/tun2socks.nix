@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.programs.tun2socks;
-  serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd // {
+  serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd.default // {
     DeviceAllow = "/dev/net/tun";
     RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
     AmbientCapabilities = "CAP_NET_ADMIN";

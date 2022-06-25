@@ -6,7 +6,7 @@ let
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
   cfg = config.services.rkn;
   tor = cfg.transports.tor;
-  serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd // {
+  serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd.default // {
     PrivateDevices = true;
     RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
     DynamicUser = true;
