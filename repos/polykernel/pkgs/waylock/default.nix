@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     owner = "ifreund";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-PGf4snqaUWNGWCWWknofe0X0rfPGmmjeMh5Fu/BvHIE=";
+    sha256 = "sha256-b/YF6Q0/wkkbi86mZyFyj8mHABJ0Pk+e3tcQtQCsy0M=";
   };
 
   nativeBuildInputs = [ pkg-config ];
