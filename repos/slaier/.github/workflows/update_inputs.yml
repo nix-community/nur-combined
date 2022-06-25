@@ -1,8 +1,8 @@
 name: Update inputs
 on:
   schedule:
-    # rebuild at 03:39 on Saturday
-    - cron:  '39 3 * * 6'
+    # rebuild at 23:39 on Friday
+    - cron:  '39 23 * * 5'
   workflow_dispatch:
 jobs:
   update_nix_inputs:
