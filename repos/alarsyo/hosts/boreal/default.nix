@@ -22,6 +22,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.tmpOnTmpfs = true;
+
   boot.supportedFilesystems = [
     "btrfs"
     "ntfs"
