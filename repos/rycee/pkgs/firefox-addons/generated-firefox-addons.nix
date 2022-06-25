@@ -1118,10 +1118,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.0";
+      version = "2.6.7";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3962527/momentumdash-2.6.0.xpi";
-      sha256 = "08252e56bef19a99608d59fb3f2cbc85f0efbf1a063e5044ed2387081806fd47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967330/momentumdash-2.6.7.xpi";
+      sha256 = "619bb40e2d75cab6da4ed04ab43b57100603dfb4dabd092f68db00ecf1f51615";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1656,10 +1656,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.6.23";
+      version = "22.6.24";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967043/refined_github-22.6.23.xpi";
-      sha256 = "a7791275f89fb1bd63f36bdc72f6be1ac7116c6f774bb4ac66722e7ec2816e0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967313/refined_github-22.6.24.xpi";
+      sha256 = "8b423263793d0a1c1b434f953c5e2d9d5f7ffbd65cd18a973389ea10fda7f2f6";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1766,10 +1766,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.16";
+      version = "1.21.17";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3965961/single_file-1.21.16.xpi";
-      sha256 = "7f6697c862e3e844c72640e3e1cfa035d02d37a7914b27b13ae62c8d388144eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967023/single_file-1.21.17.xpi";
+      sha256 = "e1b77c2047071819577d690fa00e84a81dd14af38727a9415eb36a5b02f66f87";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
