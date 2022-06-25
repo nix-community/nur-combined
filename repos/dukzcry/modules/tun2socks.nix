@@ -4,26 +4,11 @@ with lib;
 
 let
   cfg = config.programs.tun2socks;
-  serviceOptions = {
-    LockPersonality = true;
+  serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd // {
     DeviceAllow = "/dev/net/tun";
-    PrivateIPC = true;
-    PrivateMounts = true;
-    ProtectClock = true;
-    ProtectControlGroups = true;
-    ProtectHostname = true;
-    ProtectKernelLogs = true;
-    ProtectKernelModules = true;
-    ProtectKernelTunables = true;
-    ProtectProc = "invisible";
     RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-    RestrictNamespaces = true;
-    RestrictRealtime = true;
     AmbientCapabilities = "CAP_NET_ADMIN";
     CapabilityBoundingSet = "CAP_NET_ADMIN";
-    MemoryDenyWriteExecute = true;
-    SystemCallArchitectures = "native";
-    SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
     DynamicUser = true;
   };
 in {

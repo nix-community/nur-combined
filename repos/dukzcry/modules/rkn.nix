@@ -6,24 +6,9 @@ let
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
   cfg = config.services.rkn;
   tor = cfg.transports.tor;
-  serviceOptions = {
-    LockPersonality = true;
+  serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd // {
     PrivateDevices = true;
-    PrivateIPC = true;
-    PrivateMounts = true;
-    ProtectClock = true;
-    ProtectControlGroups = true;
-    ProtectHostname = true;
-    ProtectKernelLogs = true;
-    ProtectKernelModules = true;
-    ProtectKernelTunables = true;
-    ProtectProc = "invisible";
     RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
-    RestrictNamespaces = true;
-    RestrictRealtime = true;
-    MemoryDenyWriteExecute = true;
-    SystemCallArchitectures = "native";
-    SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
     DynamicUser = true;
     StateDirectory = "rkn-script";
   };

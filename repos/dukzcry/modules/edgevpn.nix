@@ -7,23 +7,8 @@ let
   client = cfg.enable && !cfg.server;
   edgevpn = pkgs.nur.repos.dukzcry.edgevpn;
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
-  serviceOptions = {
-    LockPersonality = true;
+  serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd // {
     DeviceAllow = "/dev/net/tun";
-    PrivateIPC = true;
-    PrivateMounts = true;
-    ProtectClock = true;
-    ProtectControlGroups = true;
-    ProtectHostname = true;
-    ProtectKernelLogs = true;
-    ProtectKernelModules = true;
-    ProtectKernelTunables = true;
-    ProtectProc = "invisible";
-    RestrictNamespaces = true;
-    RestrictRealtime = true;
-    MemoryDenyWriteExecute = true;
-    SystemCallArchitectures = "native";
-    SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
     LoadCredential = "config.yaml:${cfg.config}";
   };
   envOptions = {
