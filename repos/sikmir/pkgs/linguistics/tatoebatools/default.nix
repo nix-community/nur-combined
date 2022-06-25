@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tatoebatools";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "LBeaudoux";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-S8DXsgws6QoOVFURu89mVR9PuzYnV2YRfsz+KojcCfo=";
+    hash = "sha256-ZsaXhGxlxFMpV4cvxfj23p4M2/zStq2VaRSSCiARd+8=";
   };
 
   patches = lib.optional (!checkLang) ./dont-check-lang-validity.patch
