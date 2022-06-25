@@ -562,13 +562,13 @@ let
         sha512 = "aNdbnj9P8PjdXU4ybaWLK2IF3jc/EoDYbC7AazW6to3TRsfXxscC9UXOB5iDiEQrkyIbWp2SLQda4+QAa7nc3w==";
       };
     };
-    "browserslist-4.20.4" = {
+    "browserslist-4.21.0" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.20.4";
+      version = "4.21.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.20.4.tgz";
-        sha512 = "ok1d+1WpnU24XYN7oC3QWgTyMhY/avPJ/r9T00xxvUOIparA/gc+UPUMaod3i+G6s+nI2nUb9xZ5k794uIwShw==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.21.0.tgz";
+        sha512 = "UQxE0DIhRB5z/zDz9iA03BOfxaN2+GQdBYH/2WrSIWEUrnpzTPJbhqt+umq6r3acaPRTW1FNTkrcp0PXgtFkvA==";
       };
     };
     "buffer-5.7.1" = {
@@ -607,13 +607,13 @@ let
         sha512 = "AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==";
       };
     };
-    "caniuse-lite-1.0.30001356" = {
+    "caniuse-lite-1.0.30001359" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001356";
+      version = "1.0.30001359";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001356.tgz";
-        sha512 = "/30854bktMLhxtjieIxsrJBfs2gTM1pel6MXKF3K+RdIVJZcsn2A2QdhsuR4/p9+R204fZw0zCBBhktX8xWuyQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001359.tgz";
+        sha512 = "Xln/BAsPzEuiVLgJ2/45IaqD9jShtk3Y33anKb4+yLwQzws3+v6odKfpgES/cDEaZMLzSChpIGdbOYtH9MyuHw==";
       };
     };
     "caseless-0.12.0" = {
@@ -922,13 +922,13 @@ let
         sha512 = "eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw==";
       };
     };
-    "electron-to-chromium-1.4.161" = {
+    "electron-to-chromium-1.4.170" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.161";
+      version = "1.4.170";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.161.tgz";
-        sha512 = "sTjBRhqh6wFodzZtc5Iu8/R95OkwaPNn7tj/TaDU5nu/5EFiQDtADGAXdR4tJcTEHlYfJpHqigzJqHvPgehP8A==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.170.tgz";
+        sha512 = "rZ8PZLhK4ORPjFqLp9aqC4/S1j4qWFsPPz13xmWdrbBkU/LlxMcok+f+6f8YnQ57MiZwKtOaW15biZZsY5Igvw==";
       };
     };
     "end-of-stream-1.4.4" = {
@@ -3082,6 +3082,15 @@ let
         sha512 = "PcA2tsuGSF9cnySLHTLSh2qrQiJ70mn+r+Glzxv2TWZblxsxCC52BDlZoPCsz7STd9pN7EZetkWZBAvk4cgZdQ==";
       };
     };
+    "update-browserslist-db-1.0.4" = {
+      name = "update-browserslist-db";
+      packageName = "update-browserslist-db";
+      version = "1.0.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.0.4.tgz";
+        sha512 = "jnmO2BEGUjsMOe/Fg9u0oczOe/ppIDZPebzccl1yDWGLFP16Pa1/RM5wEoKYPG2zstNcDuAStejyxsOuKINdGA==";
+      };
+    };
     "uri-js-4.4.1" = {
       name = "uri-js";
       packageName = "uri-js";
@@ -3300,12 +3309,12 @@ let
           sources."extend-shallow-2.0.1"
         ];
       })
-      sources."browserslist-4.20.4"
+      sources."browserslist-4.21.0"
       sources."buffer-5.7.1"
       sources."buffer-from-1.1.2"
       sources."buffer-peek-stream-1.1.0"
       sources."cache-base-1.0.1"
-      sources."caniuse-lite-1.0.30001356"
+      sources."caniuse-lite-1.0.30001359"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chownr-1.1.4"
@@ -3351,7 +3360,7 @@ let
       sources."detect-file-1.0.0"
       sources."detect-libc-1.0.3"
       sources."ecc-jsbn-0.1.2"
-      sources."electron-to-chromium-1.4.161"
+      sources."electron-to-chromium-1.4.170"
       sources."end-of-stream-1.4.4"
       sources."err-code-1.1.2"
       sources."errno-0.1.8"
@@ -3733,6 +3742,7 @@ let
           sources."has-values-0.1.4"
         ];
       })
+      sources."update-browserslist-db-1.0.4"
       sources."uri-js-4.4.1"
       sources."urix-0.1.0"
       sources."use-3.1.1"
