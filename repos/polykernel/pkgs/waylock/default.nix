@@ -1,13 +1,17 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, rustPlatform
+, zig
+, wayland
+, xwayland
+, wayland-protocols
 , pkg-config
+, scdoc
 , libxkbcommon
 , pam
 }:
 
-rustPlatform.buildRustPackage rec {
+stdenv.mkDerivation rec {
   pname = "waylock";
   version = "0.4.0";
 
@@ -15,17 +19,29 @@ rustPlatform.buildRustPackage rec {
     owner = "ifreund";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-b/YF6Q0/wkkbi86mZyFyj8mHABJ0Pk+e3tcQtQCsy0M=";
+    sha256 = "sha256-a9ioDR4crd14fzpPAUzVl5o/i4HSndZ0YI3iuufSsPI=";
+    fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ zig wayland scdoc pkg-config ];
 
   buildInputs = [
+    wayland-protocols
     libxkbcommon
     pam
   ];
 
-  cargoSha256 = "sha256-R2QEGITU+YAatdMzhl3IlMv/Qf2egl7fNWknFE4E+u4=";
+  dontConfigure = true;
+
+  preBuild = ''
+    export HOME=$TMPDIR
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    zig build -Drelease-safe -Dcpu=baseline -Dman-pages --prefix $out install
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description = "A simple screenlocker for wayland compositors.";
