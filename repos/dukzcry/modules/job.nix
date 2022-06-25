@@ -52,7 +52,7 @@ in {
         iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';
 
-      services.davmail.enable = true;
+      #services.davmail.enable = true;
       services.davmail.url = "https://sync2.renins.com/ews/exchange.asmx";
       services.davmail.config = {
         davmail.defaultDomain = "mos.renins.com";
