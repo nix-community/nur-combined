@@ -150,10 +150,10 @@
   },
   {
     "name": "angelsaddons-storage",
-    "version": "0.0.8",
-    "file_name": "angelsaddons-storage_0.0.8.zip",
-    "download_url": "/download/angelsaddons-storage/61bf01bb89084f18a59e8af0",
-    "sha1": "23e08d33d9e40c7e37f9b6b7a6f3014f9a8403c9",
+    "version": "0.0.9",
+    "file_name": "angelsaddons-storage_0.0.9.zip",
+    "download_url": "/download/angelsaddons-storage/629e0c9c869c69f6307deaf5",
+    "sha1": "7c284c6310ad4bcca760c4ab77d694a482c56a57",
     "dependencies": [
       "base >= 1.1.33",
       "(?) angelsrefining",
@@ -173,10 +173,10 @@
   },
   {
     "name": "angelsbioprocessing",
-    "version": "0.7.21",
-    "file_name": "angelsbioprocessing_0.7.21.zip",
-    "download_url": "/download/angelsbioprocessing/61bf02035e7a45fea3c3c4fa",
-    "sha1": "35ebee6eb31c379bada5ff8f74f1d058f7e1d783",
+    "version": "0.7.22",
+    "file_name": "angelsbioprocessing_0.7.22.zip",
+    "download_url": "/download/angelsbioprocessing/629e0cd32dd773a997029caa",
+    "sha1": "f04e305ffe05731985fedd932edf37d75fe20d84",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.21",
@@ -186,10 +186,10 @@
   },
   {
     "name": "angelsexploration",
-    "version": "0.3.13",
-    "file_name": "angelsexploration_0.3.13.zip",
-    "download_url": "/download/angelsexploration/61c4c732e9be5f0257249a17",
-    "sha1": "fca9a79b6297b6a334eddb58695c5c7a31066af7",
+    "version": "0.3.14",
+    "file_name": "angelsexploration_0.3.14.zip",
+    "download_url": "/download/angelsexploration/629e0ca8aa5cccbf816798ae",
+    "sha1": "56bd12ae117223e281997cc18b547d256efffad7",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.21",
@@ -202,10 +202,10 @@
   },
   {
     "name": "angelsindustries",
-    "version": "0.4.15",
-    "file_name": "angelsindustries_0.4.15.zip",
-    "download_url": "/download/angelsindustries/61bf020e76864e3aef23a9b3",
-    "sha1": "aee5f42fc17225f114862110fe0eb8ab14919c7a",
+    "version": "0.4.16",
+    "file_name": "angelsindustries_0.4.16.zip",
+    "download_url": "/download/angelsindustries/629e0cda812bd0d149a74f09",
+    "sha1": "6db5f874e0806d5cd23930be6b40d56c21374a14",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.20",
@@ -242,10 +242,10 @@
   },
   {
     "name": "angelspetrochem",
-    "version": "0.9.21",
-    "file_name": "angelspetrochem_0.9.21.zip",
-    "download_url": "/download/angelspetrochem/61bf01e54f1c5c697e8e7c2c",
-    "sha1": "70ef0848f363905544264bbd06b66f2a7c239570",
+    "version": "0.9.22",
+    "file_name": "angelspetrochem_0.9.22.zip",
+    "download_url": "/download/angelspetrochem/629e0cca2dd773a997029ca9",
+    "sha1": "bc64da35c78c1ba0105dc812c58dfeaca259a1ed",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "? bobplates >= 0.18.8",
@@ -255,15 +255,16 @@
   },
   {
     "name": "angelsrefining",
-    "version": "0.12.1",
-    "file_name": "angelsrefining_0.12.1.zip",
-    "download_url": "/download/angelsrefining/61bf0232445e81d9abf39956",
-    "sha1": "d02c9574f350a83c5427e300c201a333c3e9727a",
+    "version": "0.12.2",
+    "file_name": "angelsrefining_0.12.2.zip",
+    "download_url": "/download/angelsrefining/629e0d06aa5cccbf816798b0",
+    "sha1": "a2971a3749262c33337eccaa5fd0856f525210c6",
     "dependencies": [
       "base >= 1.1.43",
       "? bobplates >= 0.18.8",
       "? bobrevamp >= 0.18.5",
       "(?) bobmodules >= 0.18.0",
+      "(?) boblogistics",
       "? rso-mod >= 2.3.3",
       "? Yuoki >= 0.4.0",
       "? UraniumPower >= 0.6.4",
@@ -272,10 +273,10 @@
   },
   {
     "name": "angelssmelting",
-    "version": "0.6.18",
-    "file_name": "angelssmelting_0.6.18.zip",
-    "download_url": "/download/angelssmelting/61bf0217445e81d9abf39955",
-    "sha1": "4c9e9a585a04cbc235bddac767579182d40ce037",
+    "version": "0.6.19",
+    "file_name": "angelssmelting_0.6.19.zip",
+    "download_url": "/download/angelssmelting/629e0ce9aa5cccbf816798af",
+    "sha1": "954518f3e0d7b1c035ae9d21f994ac69702ea9d8",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.20",
@@ -295,10 +296,10 @@
   },
   {
     "name": "bobassembly",
-    "version": "1.1.3",
-    "file_name": "bobassembly_1.1.3.zip",
-    "download_url": "/download/bobassembly/607096e11d20f7c6ca1647fa",
-    "sha1": "bc2376e3a251ffb4aa658f8f273415b5c71fd893",
+    "version": "1.1.5",
+    "file_name": "bobassembly_1.1.5.zip",
+    "download_url": "/download/bobassembly/629e0f3da8abdd8da19fabb0",
+    "sha1": "2dedb576fc049c848c53109754d72b86f3d21454",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -307,10 +308,10 @@
   },
   {
     "name": "bobclasses",
-    "version": "1.1.0",
-    "file_name": "bobclasses_1.1.0.zip",
-    "download_url": "/download/bobclasses/5fbe8dddf6658f34bfcdeb12",
-    "sha1": "e25b0385578ae626f586169fd2ece97bd08ea2bb",
+    "version": "1.1.5",
+    "file_name": "bobclasses_1.1.5.zip",
+    "download_url": "/download/bobclasses/629e10414692fc11529dc8ab",
+    "sha1": "36c4d08eb9d423ccc60981c919ed5f922408aace",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -329,10 +330,10 @@
   },
   {
     "name": "bobelectronics",
-    "version": "1.1.3",
-    "file_name": "bobelectronics_1.1.3.zip",
-    "download_url": "/download/bobelectronics/600f5ef0732755af120479e9",
-    "sha1": "61563e18e5a5a12e11702a737eab3aa6cc58223e",
+    "version": "1.1.5",
+    "file_name": "bobelectronics_1.1.5.zip",
+    "download_url": "/download/bobelectronics/629e0f8a4692fc11529dc8aa",
+    "sha1": "96e42667f09e8a34bdd2e47834b6d56f8eb00cac",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -341,20 +342,20 @@
   },
   {
     "name": "bobenemies",
-    "version": "1.1.1",
-    "file_name": "bobenemies_1.1.1.zip",
-    "download_url": "/download/bobenemies/5fbfe3344d167703aa18306f",
-    "sha1": "eb20f5cf661bdb1f3c0c5145024fea121848b338",
+    "version": "1.1.5",
+    "file_name": "bobenemies_1.1.5.zip",
+    "download_url": "/download/bobenemies/629e1003aa5cccbf816798b1",
+    "sha1": "71d11a0d3116f2727cc8809eab4b0dbca75f4bba",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "bobequipment",
-    "version": "1.1.2",
-    "file_name": "bobequipment_1.1.2.zip",
-    "download_url": "/download/bobequipment/5fcd52a5c9e3e3813aff14cb",
-    "sha1": "fda1d86faf62851489400815d4d0e829d99695cd",
+    "version": "1.1.5",
+    "file_name": "bobequipment_1.1.5.zip",
+    "download_url": "/download/bobequipment/629e172a869c69f6307deaf9",
+    "sha1": "a59ff2297df0c8af950ec5bba4070f8357a4146f",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0"
@@ -374,30 +375,30 @@
   },
   {
     "name": "bobinserters",
-    "version": "1.1.0",
-    "file_name": "bobinserters_1.1.0.zip",
-    "download_url": "/download/bobinserters/5fbe8e5c3f24f8914d277ed7",
-    "sha1": "c66d95fa00a8c12a8f73a7f76ab71261e6e63ca5",
+    "version": "1.1.5",
+    "file_name": "bobinserters_1.1.5.zip",
+    "download_url": "/download/bobinserters/629e0ef7a8abdd8da19fabaf",
+    "sha1": "7024fd082b0cea0841e411bfa9a9f0e1a7aab950",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "boblibrary",
-    "version": "1.1.4",
-    "file_name": "boblibrary_1.1.4.zip",
-    "download_url": "/download/boblibrary/60982d1724346b5250345246",
-    "sha1": "7d5fda2a86bc453c716a241ed90c138229c089e0",
+    "version": "1.1.5",
+    "file_name": "boblibrary_1.1.5.zip",
+    "download_url": "/download/boblibrary/629e0d8e812bd0d149a74f0a",
+    "sha1": "49a297a3610ff9197cb9441622ba2c4c74bb282f",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "boblogistics",
-    "version": "1.1.3",
-    "file_name": "boblogistics_1.1.3.zip",
-    "download_url": "/download/boblogistics/60709704deebcbac82f7797e",
-    "sha1": "030f61275e26821576b78d017df43f9e4c5536dc",
+    "version": "1.1.5",
+    "file_name": "boblogistics_1.1.5.zip",
+    "download_url": "/download/boblogistics/629e0db1869c69f6307deaf6",
+    "sha1": "702811c7336c5a487f38fef059e9fc2871757de2",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -420,10 +421,10 @@
   },
   {
     "name": "bobmodules",
-    "version": "1.1.2",
-    "file_name": "bobmodules_1.1.2.zip",
-    "download_url": "/download/bobmodules/5fcd52eec9e3e3813aff2c98",
-    "sha1": "901f59666bc42bb87514c3919aaf1478458edfe6",
+    "version": "1.1.5",
+    "file_name": "bobmodules_1.1.5.zip",
+    "download_url": "/download/bobmodules/629e0fe5869c69f6307deaf8",
+    "sha1": "45b2d3e6a1890b2fb230aa5018ef8e80c30ff9fa",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -434,10 +435,10 @@
   },
   {
     "name": "bobores",
-    "version": "1.1.3",
-    "file_name": "bobores_1.1.3.zip",
-    "download_url": "/download/bobores/6070972b3c38f9906470dcee",
-    "sha1": "98e5b4e3ab04e2518ca85b15a2a4544201b51b91",
+    "version": "1.1.5",
+    "file_name": "bobores_1.1.5.zip",
+    "download_url": "/download/bobores/629e0fc7e8300fc3265dba37",
+    "sha1": "2418a015a31caf365a872e78a56e9981b4c478f2",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0"
@@ -445,23 +446,23 @@
   },
   {
     "name": "bobplates",
-    "version": "1.1.3",
-    "file_name": "bobplates_1.1.3.zip",
-    "download_url": "/download/bobplates/6070974256ec7a3407b14ac6",
-    "sha1": "75d13679b23fc15d47b5405630369a2ecfb66623",
+    "version": "1.1.5",
+    "file_name": "bobplates_1.1.5.zip",
+    "download_url": "/download/bobplates/629e0dcc4692fc11529dc8a7",
+    "sha1": "b998dee7a78260b78e7ea37141893912c3a57295",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
-      "? bobores >= 1.1.0",
+      "bobores >= 1.1.0",
       "? bobenemies >= 1.1.0"
     ]
   },
   {
     "name": "bobpower",
-    "version": "1.1.3",
-    "file_name": "bobpower_1.1.3.zip",
-    "download_url": "/download/bobpower/607097567f3b66214d64ab5e",
-    "sha1": "71eb5bfb311eccec33a49cfdebd0649a216afca2",
+    "version": "1.1.5",
+    "file_name": "bobpower_1.1.5.zip",
+    "download_url": "/download/bobpower/629e0ec7a8abdd8da19fabae",
+    "sha1": "ce6120dc8d9e963271d736841e288800b2554433",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -470,10 +471,10 @@
   },
   {
     "name": "bobrevamp",
-    "version": "1.1.3",
-    "file_name": "bobrevamp_1.1.3.zip",
-    "download_url": "/download/bobrevamp/607097673c38f9906470dcf0",
-    "sha1": "337794e636de30bf8937fc4d6905bfb6199dae75",
+    "version": "1.1.5",
+    "file_name": "bobrevamp_1.1.5.zip",
+    "download_url": "/download/bobrevamp/629e0fa9812bd0d149a74f0c",
+    "sha1": "3a4c8e54858dd40e4e8baeb201f4d832caeb5c46",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -482,10 +483,10 @@
   },
   {
     "name": "bobtech",
-    "version": "1.1.3",
-    "file_name": "bobtech_1.1.3.zip",
-    "download_url": "/download/bobtech/60709785fbcabe4a219e1a6a",
-    "sha1": "eaad6fece2b85d5d25e00fe4dc2ac451a3e344de",
+    "version": "1.1.5",
+    "file_name": "bobtech_1.1.5.zip",
+    "download_url": "/download/bobtech/629e0f63869c69f6307deaf7",
+    "sha1": "9d9ebdff37e8f49d8760d147c90feca04150c9c5",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -495,10 +496,10 @@
   },
   {
     "name": "bobvehicleequipment",
-    "version": "1.1.2",
-    "file_name": "bobvehicleequipment_1.1.2.zip",
-    "download_url": "/download/bobvehicleequipment/5fcd53520d257a3d1e883552",
-    "sha1": "c5acbeb54d407459adc94f3972590e572e50d577",
+    "version": "1.1.5",
+    "file_name": "bobvehicleequipment_1.1.5.zip",
+    "download_url": "/download/bobvehicleequipment/629e10232dd773a997029cac",
+    "sha1": "38f78c97530cffc1e9786c59f8fbd8bb478a08ed",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.0",
@@ -508,10 +509,10 @@
   },
   {
     "name": "bobwarfare",
-    "version": "1.1.3",
-    "file_name": "bobwarfare_1.1.3.zip",
-    "download_url": "/download/bobwarfare/6070979c56ec7a3407b14ac7",
-    "sha1": "2a9305d125b7938cd38645f303f6b19a3d0cb209",
+    "version": "1.1.5",
+    "file_name": "bobwarfare_1.1.5.zip",
+    "download_url": "/download/bobwarfare/629e0f134692fc11529dc8a9",
+    "sha1": "7865dfe40f74c1af2a2aa65841aa479d8b0388ec",
     "dependencies": [
       "base >= 1.1.0",
       "boblibrary >= 1.1.2",
@@ -783,10 +784,10 @@
   },
   {
     "name": "Rampant",
-    "version": "3.1.1",
-    "file_name": "Rampant_3.1.1.zip",
-    "download_url": "/download/Rampant/6279dc751670075b32d21087",
-    "sha1": "31617fd3d097e0034847080b1fca8af7e8e96954",
+    "version": "3.1.2",
+    "file_name": "Rampant_3.1.2.zip",
+    "download_url": "/download/Rampant/62ae3b41ff5f6874428896b6",
+    "sha1": "01feddc7cbc7a7a993310e57b6c25bae5dbb8f84",
     "dependencies": [
       "base >= 1.1.36",
       "? bobenemies",
@@ -904,10 +905,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.1.8",
-    "file_name": "reverse-factory_8.1.8.zip",
-    "download_url": "/download/reverse-factory/625b8d55cd80dbaf8057cf47",
-    "sha1": "f83a72fd86b1c8b1b956e32d28871925b565aacd",
+    "version": "8.1.9",
+    "file_name": "reverse-factory_8.1.9.zip",
+    "download_url": "/download/reverse-factory/62b1181e934f2fa5646c0cff",
+    "sha1": "cf23ccabf963b92c43e237ecde90d62425280594",
     "dependencies": [
       "base",
       "stdlib",
@@ -932,7 +933,8 @@
       "(?) randotorio",
       "(?) ZRecipeRandomizer",
       "(?) starry-sakura",
-      "(?) one-more-tier"
+      "(?) one-more-tier",
+      "(?) 248k"
     ]
   },
   {
@@ -957,10 +959,10 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.14",
-    "file_name": "rso-mod_6.2.14.zip",
-    "download_url": "/download/rso-mod/6234f1b86d32354d58ee6014",
-    "sha1": "cd4ce2afc9e9704507ac0a7b002996698f93b165",
+    "version": "6.2.16",
+    "file_name": "rso-mod_6.2.16.zip",
+    "download_url": "/download/rso-mod/62b340cbd336597649580738",
+    "sha1": "16719c698b4ff70653f7aeb7e93afbd9974c9035",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
@@ -986,17 +988,17 @@
   },
   {
     "name": "SeaBlock",
-    "version": "0.5.10",
-    "file_name": "SeaBlock_0.5.10.zip",
-    "download_url": "/download/SeaBlock/61cd19c424c78b280b53f6a3",
-    "sha1": "2619a1caa98aae601400d5de171fa3e6b30cee6f",
+    "version": "0.5.11",
+    "file_name": "SeaBlock_0.5.11.zip",
+    "download_url": "/download/SeaBlock/629e10c4e8300fc3265dba38",
+    "sha1": "f2fce8dc6de6c09c627deec1cb611328973ec9ac",
     "dependencies": [
       "base",
       "angelsbioprocessing >= 0.7.21",
       "angelspetrochem >= 0.9.21",
       "angelsrefining >= 0.12.1",
       "angelssmelting >= 0.6.18",
-      "bobelectronics >= 1.1.3",
+      "bobelectronics >= 1.1.4",
       "boblogistics >= 1.1.3",
       "bobplates >= 1.1.3",
       "? angelsaddons-storage",
@@ -1085,10 +1087,10 @@
   },
   {
     "name": "stdlib",
-    "version": "1.4.6",
-    "file_name": "stdlib_1.4.6.zip",
-    "download_url": "/download/stdlib/5fbda91abdbc78df51d4fa7d",
-    "sha1": "5c9ea0154d69f2e2f77d4a78d4af23fef0546996",
+    "version": "1.4.7",
+    "file_name": "stdlib_1.4.7.zip",
+    "download_url": "/download/stdlib/629bcb8211767610a2d2256c",
+    "sha1": "5e2df018ee71dc095c5430362844f973a70659ac",
     "dependencies": [
       "base >= 1.1.0"
     ]
