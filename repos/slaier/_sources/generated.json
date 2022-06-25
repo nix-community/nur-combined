@@ -10,12 +10,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "copilot-1.30.6165.zip",
-            "sha256": "sha256-2Y4zQphaPzTjvOJ4EluaVNFksJ2/PL7UE5ceAW7da6Q=",
+            "name": "copilot-1.31.6194.zip",
+            "sha256": "sha256-obUu3pHvdwzWBejVWl94Ki8YN7ujHukNX0gvRdWhBYw=",
             "type": "url",
-            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.30.6165/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.31.6194/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.30.6165"
+        "version": "1.31.6194"
     },
     "'vscode-extensions.LeetCode.vscode-leetcode'": {
         "cargoLocks": null,

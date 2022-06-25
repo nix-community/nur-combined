@@ -3,11 +3,11 @@
 {
   "'vscode-extensions.GitHub.copilot'" = {
     pname = "'vscode-extensions.GitHub.copilot'";
-    version = "1.30.6165";
+    version = "1.31.6194";
     src = fetchurl {
-      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.30.6165/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.30.6165.zip";
-      sha256 = "sha256-2Y4zQphaPzTjvOJ4EluaVNFksJ2/PL7UE5ceAW7da6Q=";
+      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.31.6194/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.31.6194.zip";
+      sha256 = "sha256-obUu3pHvdwzWBejVWl94Ki8YN7ujHukNX0gvRdWhBYw=";
     };
     license = "cc-by-40";
     homepage = "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot";
