@@ -217,15 +217,15 @@ in {
       AutomapHostsOnResolve = true;
       TransPort = [{ addr = tor.address.address; port = 9040; }];
 
-      UseBridges = true;
-      Bridge = "snowflake 192.0.2.3:1";
-      ClientTransportPlugin = ''
-        snowflake exec ${pkgs.snowflake}/bin/client \
-          -url https://snowflake-broker.azureedge.net/ \
-          -front ajax.aspnetcdn.com \
-          -ice stun:stun.l.google.com:19302 \
-          -max 3
-      '';
+      #UseBridges = true;
+      #Bridge = "snowflake 192.0.2.3:1";
+      #ClientTransportPlugin = ''
+      #  snowflake exec ${pkgs.snowflake}/bin/client \
+      #    -url https://snowflake-broker.azureedge.net/ \
+      #    -front ajax.aspnetcdn.com \
+      #    -ice stun:stun.l.google.com:19302 \
+      #    -max 3
+      #'';
     };
     networking.firewall.extraCommands = ''
       iptables -t nat -A PREROUTING -p tcp -d ${ip4.networkCIDR tor.torNetwork} -j DNAT --to-destination ${tor.address.address}:9040
