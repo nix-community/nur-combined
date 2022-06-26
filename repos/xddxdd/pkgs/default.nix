@@ -102,6 +102,7 @@ rec {
   hath = pkg ./hath { };
   hesuvi-hrir = pkg ./hesuvi-hrir { };
   hoyo-glyphs = pkg ./hoyo-glyphs { };
+  kaixinsong-fonts = pkg ./kaixinsong-fonts { };
   konnect = pkg ./konnect { };
   ldap-auth-proxy = pkg ./ldap-auth-proxy { };
   libltnginx = pkg ./libltnginx { };

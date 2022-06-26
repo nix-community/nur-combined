@@ -24,8 +24,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/share/fonts/opentype/
-    cp *.ttf *.ttc $out/share/fonts/opentype/
+    mkdir -p $out/share/fonts/truetype/
+    cp *.ttf *.ttc $out/share/fonts/truetype/
   '';
 
   meta = with lib; {

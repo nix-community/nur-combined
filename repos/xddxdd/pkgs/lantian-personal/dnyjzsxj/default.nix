@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   version = "1.0.0";
 
   src = fetchurl {
-    url = "https://backblaze.lantian.pub/file/lantian/dnyjzsxj.chm";
+    url = "https://backblaze.lantian.pub/dnyjzsxj.chm";
     sha256 = "11svflzscbanly6hgk8gxkdsl9n428apc5z565sdgx0vq9355ash";
   };
 
