@@ -64,7 +64,7 @@ in
     pname = "TH-Feon";
     version = "3.0.0";
     src = fetchurl {
-      url = "http://cheonhyeong.com/File/TH-Feon.ttf";
+      url = "https://backblaze.lantian.pub/TH-Feon.ttf";
       sha256 = "0wxjk92qz3zqdf8n7lqh13v17igphampmn6vmahb9x8572f0532g";
     };
 

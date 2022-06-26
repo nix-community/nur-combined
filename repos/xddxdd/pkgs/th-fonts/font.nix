@@ -13,7 +13,7 @@
 stdenvNoCC.mkDerivation rec {
   inherit pname version;
   src = fetchurl {
-    url = "http://cheonhyeong.com/File/${filename}.7z";
+    url = "https://backblaze.lantian.pub/${filename}.7z";
     inherit sha256;
   };
 
