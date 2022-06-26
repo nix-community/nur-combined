@@ -5,13 +5,7 @@ let
   cfg = config.hardware.logitech-k380;
 in {
   options.hardware.logitech-k380 = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether to make function keys default on Logitech k380 bluetooth keyboard.
-      '';
-    };
+    enable = mkEnableOption "function keys default on Logitech k380 bluetooth keyboard.";
   };
 
   config = mkIf cfg.enable {
