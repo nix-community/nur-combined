@@ -1,5 +1,5 @@
 # Don't run tmux if it is already running
-if [[ "$-" = *i* ]] && [ -z $TMUX ] && [ -z "$SSH_CLIENT" ]; then
+if [[ "$-" = *i* ]] && [ -z "$SSH_CLIENT" ]; then
 
     if [[ "$TERM" = "xterm-termite" ]] || [[ "$TERM" = "xterm-kitty" ]]; then
         export TERM="screen-256color"
@@ -8,13 +8,15 @@ if [[ "$-" = *i* ]] && [ -z $TMUX ] && [ -z "$SSH_CLIENT" ]; then
     if ! (( $+commands[tmux] )); then
         echo "tmux not found" 1>&2
     else
-        TMUX_SESSION_NAME="${TMUX_SESSION_NAME:-$USER@$(hostname)}"
+        export TMUX_SESSION_NAME="${TMUX_SESSION_NAME:-$USER@$(hostname)}"
 
-        if ! tmux has-session -t "$TMUX_SESSION_NAME" &>/dev/null; then
-            tmux new-session -d -s "$TMUX_SESSION_NAME"\; \
-            set-option -t "$TMUX_SESSION_NAME" destroy-unattached off &> /dev/null
+        if [[ "$(tmux list-panes -a -F '#{pane_tty} #{session_name}' | grep "$(tty)" | cut -d ' ' -f 2-)" != "$TMUX_SESSION_NAME" ]]; then
+            if ! tmux has-session -t "$TMUX_SESSION_NAME" &>/dev/null; then
+                tmux new-session -d -s "$TMUX_SESSION_NAME"\; \
+                    set-option -t "$TMUX_SESSION_NAME" destroy-unattached off &> /dev/null
+            fi
+
+            exec tmux attach-session -d -t "$TMUX_SESSION_NAME"
         fi
-
-        exec tmux attach-session -d -t "$TMUX_SESSION_NAME"
     fi
 fi
