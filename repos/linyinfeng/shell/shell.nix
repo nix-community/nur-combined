@@ -1,11 +1,12 @@
-{ mkShell, linyinfeng, lint, update, nixpkgs-fmt, cabal-install, ormolu }:
+{ mkShell, lib, linyinfeng, lint, update, nixpkgs-fmt, cabal-install, ormolu }:
 
 let
+  notBroken = p: !(p.meta.broken or false);
+  guard = p: lib.optional (notBroken p) p;
   simple = mkShell {
-    packages = [
-      nixpkgs-fmt
-      lint
-    ];
+    packages =
+      [ nixpkgs-fmt ] ++
+      guard lint;
   };
   withUpdater = mkShell {
     inputsFrom = [

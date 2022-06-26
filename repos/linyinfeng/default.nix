@@ -11,4 +11,4 @@ in
   overlays = import ./overlays;
 }
   //
-import ./pkgs { pkgs = pkgs'; }
+pkgs'.callPackage ./pkgs { }

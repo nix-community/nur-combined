@@ -1,8 +1,4 @@
-{ pkgs, sources ? pkgs.callPackage ./_sources/generated.nix { } }:
-
-let
-  inherit (pkgs) lib newScope;
-in
+{ lib, newScope, fishPlugins }:
 
 lib.makeScope newScope (
   self:
@@ -22,8 +18,7 @@ lib.makeScope newScope (
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
     fishPlugins = lib.recurseIntoAttrs (callPackage ./fish-plugins {
-      inherit (pkgs.fishPlugins) buildFishPlugin;
-      pkgsFishPlugins = pkgs.fishPlugins;
+      inherit (fishPlugins) buildFishPlugin;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     telegram-send = callPackage ./telegram-send { };

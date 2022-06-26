@@ -13,6 +13,9 @@
       utils = flake-utils-plus.lib;
       inherit (nixpkgs) lib;
       inherit (self.lib) makePackages makeApps appNames;
+      makePackages' = prev: (makePackages prev ./pkgs { }) // {
+        devShellPackages = makePackages prev ./shell { };
+      };
     in
     utils.mkFlake
       {
@@ -26,11 +29,11 @@
         lib = import ./lib { inherit (nixpkgs) lib; };
         overlays = import ./overlays // {
           linyinfeng = final: prev: {
-            linyinfeng = makePackages prev;
+            linyinfeng = makePackages' prev;
           };
           singleRepoNur = final: prev: {
             nur = prev.lib.recursiveUpdate (prev.nur or { }) {
-              repos.linyinfeng = makePackages prev;
+              repos.linyinfeng = makePackages' prev;
             };
           };
         };
@@ -42,7 +45,7 @@
           rec {
             packages = utils.flattenTree (mainChannel.linyinfeng);
             apps = makeApps packages appNames;
-            devShells.default = (mainChannel.callPackage ./shell { }).shell;
+            devShells.default = mainChannel.linyinfeng.devShellPackages.shell;
             checks = utils.flattenTree (lib.mapAttrs (name: c: lib.recurseIntoAttrs c.linyinfeng) channels);
           };
 

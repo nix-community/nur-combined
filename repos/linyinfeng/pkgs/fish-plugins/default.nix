@@ -1,4 +1,4 @@
-{ lib, newScope, buildFishPlugin, pkgsFishPlugins }:
+{ lib, newScope, buildFishPlugin }:
 
 lib.makeScope newScope (self:
 let
@@ -9,6 +9,4 @@ in
   bang-bang = callPackage ./bang-bang { };
   git = callPackage ./git { };
   replay = callPackage ./replay { };
-} // lib.optionalAttrs (! (pkgsFishPlugins ? pisces)) {
-  pisces = callPackage ./pisces { };
 })

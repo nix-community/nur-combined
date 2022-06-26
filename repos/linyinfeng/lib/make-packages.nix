@@ -25,7 +25,7 @@ let
       t;
 in
 
-pkgs:
+pkgs: path: extraArgs:
 
 filter pkgs.stdenv.hostPlatform.system
-  (import ../pkgs { inherit pkgs; })
+  (pkgs.callPackage path extraArgs)
