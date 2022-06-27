@@ -2,6 +2,8 @@ import requests
 import re
 import ast
 import json
+import os
+import sys
 
 sources = requests.get(
     'https://developer.ibm.com/middleware/v1/contents/static/semeru-runtime-downloads').json()
@@ -19,6 +21,10 @@ sources = ast.literal_eval(sources)
 sources = sources['downloads']
 
 # Reformat source
+
+
+def get_script_path():
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
 
 
 def version_to_number(v):
@@ -43,6 +49,9 @@ for source in sources:
     if 'os' not in source:
         continue
     if source['os'].lower() != 'linux':
+        continue
+
+    if source['license'].upper() != 'GPL':
         continue
 
     major_revision = source['version']
@@ -86,5 +95,5 @@ for source in sources:
     add_java_revision(version.replace('.', '_'))
 
 # Write as json
-with open('sources.json', 'w') as f:
+with open(get_script_path() + '/sources.json', 'w') as f:
     f.write(json.dumps(formatted_source, indent=4))

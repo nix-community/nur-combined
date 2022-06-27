@@ -14,10 +14,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.2.1-1";
+    version = "1.2.2-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.2.1-1/io.github.msojocs.bilibili_1.2.1-1_amd64.deb";
-      sha256 = "sha256-t/igezm0ipkOkKION8qTYGK9f6qI3c4iPuS/wWrMywQ=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.2.2-1/io.github.msojocs.bilibili_1.2.2-1_amd64.deb";
+      sha256 = "sha256-eFMwHP5ko095HI4v4UxChTYgCoezyJHH+mRrA6IrGHs=";
     };
   };
   bird-lg-go = {
@@ -88,13 +88,13 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "b2bf17cd3d9637fbf55c23bf46fe380e4f7e0739";
+    version = "d0bc664a4794564f1842c5cbcac622511fef598c";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "b2bf17cd3d9637fbf55c23bf46fe380e4f7e0739";
+      rev = "d0bc664a4794564f1842c5cbcac622511fef598c";
       fetchSubmodules = false;
-      sha256 = "sha256-7Jx/7z3QxAi7lsV3JFwUDWJUpaKOmfZyGKL3MUrUopw=";
+      sha256 = "sha256-lz+aczRFvOMDgaTSpQ7+IEv9zvwDuYwYLF2tKAmSiNg=";
     });
   };
   konnect = {
@@ -214,13 +214,13 @@
   };
   openssl-oqs = {
     pname = "openssl-oqs";
-    version = "802e3663db58a76b4861871a5b459d436fd6a5a8";
+    version = "7e8053fc09b003de788750e8a0178d3a66411883";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "openssl";
-      rev = "802e3663db58a76b4861871a5b459d436fd6a5a8";
+      rev = "7e8053fc09b003de788750e8a0178d3a66411883";
       fetchSubmodules = false;
-      sha256 = "sha256-0ErrsxMumfWbPFPd4wtLnT40Z/y050Z5WUblIIBIIUA=";
+      sha256 = "sha256-LhcLKGzF3Rzd2IMvCtnksuVvdBokSj/S+++2xuIXShw=";
     });
   };
   openssl-oqs-provider = {
@@ -337,25 +337,25 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202206160052";
+    version = "202206230045";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202206160052/geoip.dat";
-      sha256 = "sha256-NbGJlOVB5cPj1ko5rw0vgffYjMfIe/ul6l8gpROQpMY=";
+      url = "https://github.com/v2fly/geoip/releases/download/202206230045/geoip.dat";
+      sha256 = "sha256-cJUUGzoq6Ngb4vSwHFMT5bn1/BEkCKtEVMtsavXWEA8=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220617132201";
+    version = "20220626150812";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220617132201/dlc.dat";
-      sha256 = "sha256-PVQWAFhFaRGkPX9RbVjXH/h1trsM54kXObx1cAzCIK8=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220626150812/dlc.dat";
+      sha256 = "sha256-jR35MoLsqtsvn6jSmSK4zPWXKudil5BogbJ4+62RrQc=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202206160052";
+    version = "202206230045";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202206160052/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202206230045/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };

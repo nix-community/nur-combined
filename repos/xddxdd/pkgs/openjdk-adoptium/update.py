@@ -1,6 +1,12 @@
 import requests
 import re
 import json
+import os
+import sys
+
+
+def get_script_path():
+    return os.path.dirname(os.path.realpath(sys.argv[0]))
 
 
 def normalize_version(version, isKey=False):
@@ -71,5 +77,5 @@ for v in [8, 11, 16, 17, 18]:
     result.update(get_source(v))
 
 # Write as json
-with open('sources.json', 'w') as f:
+with open(get_script_path() + '/sources.json', 'w') as f:
     f.write(json.dumps(result, indent=4))

@@ -933,54 +933,106 @@
     },
     "jdk-bin-18": {
         "x86_64": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jdk_x64_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "6e146103169c4e3173c8ce32c549daa8a979c6389bfc3b0b9248f1ecaf37f5ea"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_x64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "708d7d7b5ac3c793f7fa9b045024276b54f973dcb833cccc0be697261884db4a"
         },
         "s390x": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jdk_s390x_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "2f730c5e8458b83c2372d35759ed87795986e65e4e50e61c6c1c6ca71180b437"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_s390x_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "5f5c90c86d007fed3923898a293babe82933f12085c6c59b828606f7e83e7864"
         },
         "ppc64le": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jdk_ppc64le_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "d3195f1999026545ff783c0f0798e5ff06190e90eed2319459345d8f3de4fc95"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_ppc64le_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "355e54e53f1b6578f4168a83de663707b65cd2f47645b4da914a815cccbf41b6"
         },
         "aarch64": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jdk",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jdk_aarch64_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "fdbad7dbbdaf1b0b8c2e9eb483ab025ece0ea7222966b8ebc9bbd6c074189b88"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_aarch64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "c1ef383b12460857dcc358284bda8fb1632d62b614a81d8b115903b53d294cc1"
         }
     },
     "jre-bin-18": {
         "x86_64": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jre_x64_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "9e23d79cc6d6aa6110f8ff2a4d89c4a323ba0470632ac925f2acd67c2c1b64b8"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_x64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "761807f0c13500b1e94824928050c3485932cb596e2a499935f67b734c644c97"
         },
         "s390x": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jre_s390x_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "e9cdbc40d53d7c5afaecbc8f1e7710c9be5541961b39545bee1c7f8a862ce9c0"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_s390x_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "e2b2c19e2db157ceaf1151e88bec94c0e197a593a37a7abf0ce6ae92ab320b45"
         },
         "ppc64le": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jre_ppc64le_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "60a3c1d32f60a924687efbccdd410df743cc4098088b5ca6a424509aa0a02eab"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_ppc64le_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "5b5e650847c39efa65e294df46c073091e9089579decdb125867af8e4bae2cb5"
         },
         "aarch64": {
-            "version": "18.0.1.0",
+            "version": "18.0.1.1",
             "type": "jre",
-            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jre_aarch64_linux_18.0.1_10_openj9-0.32.0.tar.gz",
-            "sha256": "637d1399d3e5da6dcbdaaf4ab0610b1320bdeb390e8bc7dd6a1f84d50161e8c8"
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_aarch64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "86bf05dae9510bd0679bf7489378b1411cf816885adbde7108d52e3b85d76d84"
+        }
+    },
+    "jdk-bin-18_0_1_1": {
+        "x86_64": {
+            "version": "18.0.1.1",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_x64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "708d7d7b5ac3c793f7fa9b045024276b54f973dcb833cccc0be697261884db4a"
+        },
+        "s390x": {
+            "version": "18.0.1.1",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_s390x_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "5f5c90c86d007fed3923898a293babe82933f12085c6c59b828606f7e83e7864"
+        },
+        "ppc64le": {
+            "version": "18.0.1.1",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_ppc64le_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "355e54e53f1b6578f4168a83de663707b65cd2f47645b4da914a815cccbf41b6"
+        },
+        "aarch64": {
+            "version": "18.0.1.1",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jdk_aarch64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "c1ef383b12460857dcc358284bda8fb1632d62b614a81d8b115903b53d294cc1"
+        }
+    },
+    "jre-bin-18_0_1_1": {
+        "x86_64": {
+            "version": "18.0.1.1",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_x64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "761807f0c13500b1e94824928050c3485932cb596e2a499935f67b734c644c97"
+        },
+        "s390x": {
+            "version": "18.0.1.1",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_s390x_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "e2b2c19e2db157ceaf1151e88bec94c0e197a593a37a7abf0ce6ae92ab320b45"
+        },
+        "ppc64le": {
+            "version": "18.0.1.1",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_ppc64le_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "5b5e650847c39efa65e294df46c073091e9089579decdb125867af8e4bae2cb5"
+        },
+        "aarch64": {
+            "version": "18.0.1.1",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1.1%2B2_openj9-0.32.0/ibm-semeru-open-jre_aarch64_linux_18.0.1.1_2_openj9-0.32.0.tar.gz",
+            "sha256": "86bf05dae9510bd0679bf7489378b1411cf816885adbde7108d52e3b85d76d84"
         }
     },
     "jdk-bin-18_0_1_0": {

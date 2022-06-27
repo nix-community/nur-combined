@@ -61,10 +61,12 @@
             '');
           };
 
-          nvfetcher = {
+          update = {
             type = "app";
-            program = builtins.toString (pkgs.writeShellScript "nvfetcher" ''
+            program = builtins.toString (pkgs.writeShellScript "update" ''
               ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
+              ${pkgs.python3}/bin/python3 pkgs/openj9-ibm-semeru/update.py
+              ${pkgs.python3}/bin/python3 pkgs/openjdk-adoptium/update.py
             '');
           };
         });
