@@ -17,6 +17,6 @@ stdenv.mkDerivation rec {
     description = "Lossy compression of PNG images";
     homepage = "https://github.com/foobaz/pngloss";
     license = licenses.mit;
-    platforms = platforms.darwin;
+    platforms = platforms.all;
   };
 }
