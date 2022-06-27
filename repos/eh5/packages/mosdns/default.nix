@@ -19,7 +19,7 @@ let
   mosdns = buildGo118Module {
     pname = "mosdns";
     inherit (sources.mosdns) version src;
-    vendorSha256 = "sha256-/C541ZhW8wAtWs2cbEPAW1H3ZXB1CYgQZKZwy5clvlQ=";
+    vendorSha256 = "sha256-bVGPQV7K3ud/9qVC7PLN0PC15RrpP3kz3WebpiECxVQ=";
     doCheck = false;
 
     buildPhase = ''
@@ -42,7 +42,7 @@ let
 in
 runCommand mosdns.name
 {
-  inherit (mosdns) version meta;
+  inherit (mosdns) version meta pname;
   nativeBuildInputs = [ makeBinaryWrapper ];
 } ''
   makeWrapper ${mosdns}/bin/mosdns "$out/bin/mosdns" --chdir ${assetsDrv}

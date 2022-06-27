@@ -34,7 +34,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.mosdns}/bin/mosdns -c ${configFile}";
+        ExecStart = "${pkgs.mosdns}/bin/mosdns start -c ${configFile}";
       };
     };
   };
