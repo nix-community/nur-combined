@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonApplication, feedparser, Mastodon }:
+{ lib, stdenv, fetchFromGitHub, buildPythonApplication, feedparser, mastodon-py }:
 
 buildPythonApplication rec {
   pname = "mastodon-hnbot";
@@ -11,7 +11,7 @@ buildPythonApplication rec {
   };
   propagatedBuildInputs = [
     feedparser
-    Mastodon
+    mastodon-py
   ];
   meta = with lib; {
     description = "A bot posting hnbot news";

@@ -38,9 +38,7 @@ rec {
 
   lualdap = pkgs.callPackage ./pkgs/lualdap { };
 
-  mastodon-hnbot = pkgs.python39Packages.callPackage ./pkgs/mastodon-hnbot {
-    inherit (python3Packages) Mastodon;
-  };
+  mastodon-hnbot = pkgs.python39Packages.callPackage ./pkgs/mastodon-hnbot {};
 
   mypyls = pkgs.python39.pkgs.callPackage ./pkgs/mypyls { };
 
@@ -73,13 +71,6 @@ rec {
   pyps4-2ndscreen = pkgs.python39.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
 
   rspamd-learn-spam-ham = pkgs.python39.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
-
-  rhasspyPackages = import ./pkgs/rhasspy {
-    inherit (pkgs.python39Packages) callPackage;
-    inherit (python3Packages) deepspeech;
-  };
-
-  inherit (rhasspyPackages) rhasspy;
 
   signald = pkgs.callPackage ./pkgs/signald { };
 
