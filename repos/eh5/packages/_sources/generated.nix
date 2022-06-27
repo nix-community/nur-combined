@@ -19,13 +19,13 @@
   };
   mosdns = {
     pname = "mosdns";
-    version = "v4.0.0";
+    version = "v4.1.2";
     src = fetchFromGitHub ({
       owner = "IrineSistiana";
       repo = "mosdns";
-      rev = "v4.0.0";
+      rev = "v4.1.2";
       fetchSubmodules = false;
-      sha256 = "sha256-rB3oLK2F5mO+QRK0C780pPp6gQXQwDdWVEhjVKXDsiE=";
+      sha256 = "sha256-bVtIxecGlcpxs/Rd0LCEZ3l+EBn8XhhWk6eLl8jIA7w=";
     });
   };
   v2ray = {
