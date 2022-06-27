@@ -20,6 +20,10 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     [ bluepy pygatt btlewrap ];
 
+  doCheck = false;
+
+  pythonImportsCheck = [ "miflora" ];
+
   meta = with lib; {
     description = "Library to read data from Mi Flora sensor";
     homepage = "https://github.com/basnijholt/miflora";

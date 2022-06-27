@@ -19,6 +19,10 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     [ bluepy pygatt ];
 
+  doCheck = false;
+
+  pythonImportsCheck = [ "btlewrap" ];
+
   meta = with lib; {
     description = "Wrapper around different bluetooth low energy backends";
     homepage = "https://github.com/ChristianKuehnel/btlewrap";
