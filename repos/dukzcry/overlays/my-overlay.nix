@@ -63,4 +63,14 @@ rec {
       });
     };
   });
+  evolution = super.symlinkJoin {
+    name = "evolution-without-background-processes";
+    paths = with super; [
+      (writeShellScriptBin "evolution" ''
+        ${super.evolution}/bin/evolution "$@"
+        ${super.evolution}/bin/evolution --force-shutdown
+      '')
+      super.evolution
+    ];
+  };
 }
