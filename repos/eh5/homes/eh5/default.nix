@@ -7,10 +7,15 @@
 , homeDirectory ? "/home/${username}"
 }:
 home-manager.lib.homeManagerConfiguration {
-  inherit system username homeDirectory;
-  configuration = ./home.nix;
-  extraModules = [
+  modules = [
+    ./home.nix
     ./dotfiles.nix
+    {
+      home = {
+        inherit username homeDirectory;
+        stateVersion = "22.05";
+      };
+    }
   ];
   pkgs = import nixpkgs {
     inherit system;
