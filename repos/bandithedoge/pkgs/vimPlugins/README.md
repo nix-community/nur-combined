@@ -29,6 +29,7 @@
 | [fm-nvim](https://github.com/is0n/fm-nvim) | 🗂 Neovim plugin that lets you use your favorite terminal file managers (and fuzzy finders) from within Neovim. |
 | [fold-cycle-nvim](https://github.com/jghauser/fold-cycle.nvim) | This neovim plugin allows you to cycle folds open or closed |
 | [foldsigns-nvim](https://github.com/lewis6991/foldsigns.nvim) | Signs for folded lines |
+| [formatter-nvim](https://github.com/mhartington/formatter.nvim) | None |
 | [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Set of preconfigured snippets for different languages.  |
 | [gitsigns-nvim](https://github.com/lewis6991/gitsigns.nvim) | Git integration for buffers |
 | [guess-indent-nvim](https://github.com/NMAC427/guess-indent.nvim) | Automatic indentation style detection for Neovim |
@@ -68,6 +69,7 @@
 | [nvim-expand-expr](https://github.com/Allendang/nvim-expand-expr) | Expand and repeat expression to multiple lines for neovim. |
 | [nvim-hlslens](https://github.com/kevinhwang91/nvim-hlslens) | Hlsearch Lens for Neovim |
 | [nvim-lightbulb](https://github.com/kosayoda/nvim-lightbulb) | VSCode 💡 for neovim's built-in LSP. |
+| [nvim-lint](https://github.com/mfussenegger/nvim-lint) | An asynchronous linter plugin for Neovim complementary to the built-in Language Server Protocol support. |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Quickstart configurations for the Nvim LSP client |
 | [nvim-luaref](https://github.com/milisims/nvim-luaref) | Add a vim :help reference for lua  |
 | [nvim-notify](https://github.com/rcarriga/nvim-notify) | A fancy, configurable, notification manager for NeoVim |
@@ -108,6 +110,7 @@
 | [todo-comments-nvim](https://github.com/folke/todo-comments.nvim) | ✅  Highlight, list and search todo comments in your projects |
 | [trouble-nvim](https://github.com/folke/trouble.nvim) | 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing. |
 | [ucw-nvim](https://github.com/Aetf/ucw.nvim) | nvimd - specify plugin dependencies using the familiar systemd unit wants/requires before/after concepts |
+| [vim-coffee-script](https://github.com/kchmck/vim-coffee-script) | CoffeeScript support for vim |
 | [vim-parinfer](https://github.com/bhurlow/vim-parinfer) | vim plugin to balance your parenthesis  |
 | [virtual-types-nvim](https://github.com/jubnzv/virtual-types.nvim) | Neovim plugin that shows type annotations as virtual text |
 | [which-key-nvim](https://github.com/folke/which-key.nvim) | 💥   Create key bindings that stick. WhichKey is a lua plugin for Neovim 0.5 that displays a popup with possible keybindings of the command you started typing. |
