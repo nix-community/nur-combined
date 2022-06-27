@@ -229,10 +229,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.7.2.0";
+      version = "2.7.3.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958850/bypass_paywalls_clean-2.7.2.0.xpi";
-      sha256 = "0d36a9a6d0a799f05b3ff19438134e41855f5ee00faeaaf47094cfac3d68298d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967785/bypass_paywalls_clean-2.7.3.0.xpi";
+      sha256 = "577f74206a16a276a32ffdf221077f4f01b977da229bcf0425ea5f9fc561b60c";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -606,10 +606,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.15.0";
+      version = "4.16.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956158/floccus-4.15.0.xpi";
-      sha256 = "ee5022866defe99a1887b919157366c98e7c6368852e99061386fbfa94d8ccb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967736/floccus-4.16.0.xpi";
+      sha256 = "e2f170e5a5cde4cc196e2d379ca4e41b0421cf560943c715fca649777bfb1bf4";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -2176,10 +2176,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.7.0";
+      version = "7.8.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3965875/ublacklist-7.7.0.xpi";
-      sha256 = "a19cb3ca46861a0292ad199b8c73603fea34b2febd0ade7d259aa879aa074283";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967840/ublacklist-7.8.0.xpi";
+      sha256 = "1c4cb4b8a8692bf6819e7b9210d00ddf4dc0ddcde2ee6a858ee05239cd312ab7";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
