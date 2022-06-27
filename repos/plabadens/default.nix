@@ -32,9 +32,6 @@ rec {
   python3Packages = pkgs.recurseIntoAttrs
     (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
 
-  python310Packages = pkgs.recurseIntoAttrs
-    (pkgs.python310Packages.callPackage ./pkgs/python-modules { });
-
   python-validity = python3Packages.python-validity;
 }
 
