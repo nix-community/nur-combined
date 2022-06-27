@@ -1,7 +1,11 @@
 { callPackage }:
 
-{
+rec {
+  btlewrap = callPackage ./btlewrap { };
+
   edmarketconnector = callPackage ./edmarketconnector { };
+
+  miflora = callPackage ./miflora { inherit btlewrap; };
 
   obspy = callPackage ./obspy { };
 
