@@ -17,7 +17,7 @@
       open = "xdg-open";
       t = "tmux a || smug start lobby && smug start doen && smug start sudo && smug start nixos && smug start tekst";
       tn = "tmux new -d -s";
-      smugs = "smug start doen && smug start sudo && smug start nixos && smug start tekst && smug start sshkillerberg";
+      smugs = "smug start doen && smug start sudo && smug start nixos && smug start tekst && smug start ssh-killerberg";
     };
 
     plugins = [

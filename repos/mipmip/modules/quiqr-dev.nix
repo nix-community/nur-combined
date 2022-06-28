@@ -6,6 +6,7 @@
     ansible
     terraform
     aws
+    act
   ]
   ++ (if pkgs.stdenv.isDarwin then
   [

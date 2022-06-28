@@ -1,7 +1,7 @@
 { lib, buildGoModule, fetchgit }:
 buildGoModule rec {
   pname = "embgit";
-  version = "0.3.6";
+  version = "0.4.1";
 
   src = fetchgit {
     url = "https://github.com/quiqr/embgit.git";

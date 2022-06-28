@@ -10,6 +10,7 @@ in
   home-manager.useGlobalPkgs = true;
 
   home-manager.users.root = {
+    home.stateVersion = "22.05";
     programs.zsh = {
       enable = true;
       autocd = true;

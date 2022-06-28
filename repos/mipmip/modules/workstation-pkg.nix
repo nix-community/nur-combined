@@ -5,13 +5,12 @@
 
   environment.systemPackages = with pkgs; [
     potrace
-    weechat
     pandoc
     neofetch
-    unstable.neovim
+    neovim
     ffmpeg
     alacritty
-    go
+    go_1_18
     gox
     goreleaser
 
@@ -39,8 +38,9 @@
     blender
     libreoffice
     spotify
-    unstable.tdesktop
+    tdesktop
     keepassxc
+    bitwarden
 
     gthumb
     peek
@@ -52,7 +52,6 @@
     gnome.gnome-tweaks
     baobab # GrandPerspective
     appimage-run
-    #unstable.gnome.gpaste
     gnome.gpaste
     glib.dev
     glade

@@ -2,14 +2,16 @@
 
 {
   environment.systemPackages = with pkgs; [
+    util-linux
     htop
     silver-searcher
     fzf
     bat
     apg
     glow
-    mipmip_pkg.smug
+    smug
     ctags
+    cheat
     git-lfs
     sc-im
     jq
@@ -29,7 +31,6 @@
   ]
   else
   [
-    telnet
     vifm
     wtf
     binutils

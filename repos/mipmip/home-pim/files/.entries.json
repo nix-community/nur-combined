@@ -1,40 +1,40 @@
 {
-    "_homepage_": "https://github.com/andreabenini/gnome-plugin.custom-menu-panel",
-    "_examples_": "https://github.com/andreabenini/gnome-plugin.custom-menu-panel/tree/main/examples",
-    "entries": [
+  "_homepage_": "https://github.com/andreabenini/gnome-plugin.custom-menu-panel",
+  "_examples_": "https://github.com/andreabenini/gnome-plugin.custom-menu-panel/tree/main/examples",
+  "entries": [
+    {
+      "type": "launcher",
+      "title": "Show Icons",
+      "command": "nemo-desktop"
+    },
+    {
+      "type": "launcher",
+      "title": "Hide Icons",
+      "command": "pkill nemo-desktop"
+    },
+    {
+      "type": "launcher",
+      "title": "Restart Systray",
+      "command": "gnome-extensions disable trayIconsReloaded@selfmade.pl && gnome-extensions enable trayIconsReloaded@selfmade.pl"
+    },
+    {
+      "type": "separator"
+    },
+    {
+      "title": "Custom Menu",
+      "type": "submenu",
+      "entries": [
         {
-            "type": "launcher",
-            "title": "Show Icons",
-            "command": "nemo-desktop"
+          "type": "launcher",
+          "title": "Restart This Menu",
+          "command": "gnome-extensions disable custom-menu-panel@AndreaBenini && gnome-extensions enable custom-menu-panel@AndreaBenini"
         },
         {
-            "type": "launcher",
-            "title": "Hide Icons",
-            "command": "killall -9 nemo-desktop"
-        },
-        {
-            "type": "launcher",
-            "title": "Restart Systray",
-            "command": "gnome-extensions disable trayIconsReloaded@selfmade.pl && gnome-extensions enable trayIconsReloaded@selfmade.pl"
-        },
-        {
-            "type": "separator"
-        },
-        {
-            "title": "Custom Menu",
-            "type": "submenu",
-	    "entries": [
-		    {
-			    "type": "launcher",
-			    "title": "Restart This Menu",
-			    "command": "gnome-extensions disable custom-menu-panel@AndreaBenini && gnome-extensions enable custom-menu-panel@AndreaBenini"
-		    },
-		    {
-			    "type": "launcher",
-			    "title": "Edit Menu",
-			    "command": "gvim $HOME/.entries.json"
-		    }
-	    ]
-	}
-    ]
+          "type": "launcher",
+          "title": "Edit Menu",
+          "command": "gvim $HOME/.entries.json"
+        }
+      ]
+    }
+  ]
 }
