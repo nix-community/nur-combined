@@ -893,10 +893,10 @@
         "homepage": "",
         "owner": "kyazdani42",
         "repo": "nvim-tree.lua",
-        "rev": "7a795d78fa2a102de197e81b85f5b1e6b5f366a3",
-        "sha256": "1ljbczyk2a4hmbgc4n157zd1j8h4rnaska5fbvx3m0zaxx7wk7g8",
+        "rev": "c18aa389a33a02c65beb3926cffef6bf1ec1a43a",
+        "sha256": "1dyq3p82408ccrhh1iak4v6254q7xsy42fxhg20d65nw9yqg5l9v",
         "type": "tarball",
-        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/7a795d78fa2a102de197e81b85f5b1e6b5f366a3.tar.gz",
+        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/c18aa389a33a02c65beb3926cffef6bf1ec1a43a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
@@ -977,10 +977,10 @@
         "homepage": "",
         "owner": "nvim-orgmode",
         "repo": "orgmode",
-        "rev": "07d0e00baedcbe8b4f2175f8d9fbefac2a2d38b5",
-        "sha256": "1hw5mk26aykjgxgkdpxfpmfp85sq1fnsil47cql0hcy8akc1nvv2",
+        "rev": "c297e5d99adaf68fe58e54df19bdb8941cda2024",
+        "sha256": "1gh602jh2fbgsl94k67f6phwgsckk44kfzxzz3dhdn26jv3pzwdy",
         "type": "tarball",
-        "url": "https://github.com/nvim-orgmode/orgmode/archive/07d0e00baedcbe8b4f2175f8d9fbefac2a2d38b5.tar.gz",
+        "url": "https://github.com/nvim-orgmode/orgmode/archive/c297e5d99adaf68fe58e54df19bdb8941cda2024.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "package-info.nvim": {
@@ -1037,10 +1037,10 @@
         "homepage": "",
         "owner": "andweeb",
         "repo": "presence.nvim",
-        "rev": "615d4cb8b06abc7ae16cffe5b9999381a438d1d9",
-        "sha256": "0zm2nqhd3b48wm93wzkv9mj745428gy3qnzngfxbng14mafid9x7",
+        "rev": "660bd8815ef8da029fa0058f76ac7fa2ca8f9ec7",
+        "sha256": "1v5vxh6kzvk4649x2mxckwcj1g8cggahxqr51knz0gjq5nz0qsp7",
         "type": "tarball",
-        "url": "https://github.com/andweeb/presence.nvim/archive/615d4cb8b06abc7ae16cffe5b9999381a438d1d9.tar.gz",
+        "url": "https://github.com/andweeb/presence.nvim/archive/660bd8815ef8da029fa0058f76ac7fa2ca8f9ec7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pretty-fold.nvim": {
