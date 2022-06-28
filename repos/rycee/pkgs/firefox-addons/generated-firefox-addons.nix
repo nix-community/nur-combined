@@ -311,10 +311,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.3";
+      version = "1.0.4";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3965720/consent_o_matic-1.0.3.xpi";
-      sha256 = "67ecb75964d8f0399409add98c0d8f9f7c644586a8f1a582c7a7af304cd260a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967913/consent_o_matic-1.0.4.xpi";
+      sha256 = "f7d7fb35713a79a7764f0e0043c261c250163e9ade5cdc2d86261492fb063b5b";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "102.0buildid20220623.063721";
+      version = "103.0buildid20220627.170120";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3966590/francais_language_pack-102.0buildid20220623.063721.xpi";
-      sha256 = "7159ed49bf01df36064a4b7b381b5852ca7a0b1c206cbec1a653a1ae4758010a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3968265/francais_language_pack-103.0buildid20220627.170120.xpi";
+      sha256 = "0bfefa5ea2e22d2c40f3a974a4bc4b4b6c58365da5af3830f21d7e2ebc94fcb7";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -745,10 +745,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.899.0";
+      version = "8.900.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954081/grammarly_1-8.899.0.xpi";
-      sha256 = "c3c657124ff9ed02cf45fe55d55680f9944bcd803274d4560d2e3521690b4085";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967047/grammarly_1-8.900.0.xpi";
+      sha256 = "970f5c66cb1c5e70293193a6a4fdfcd2444d38580af841b99b1bf1edefb45b86";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1793,10 +1793,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.5.5";
+      version = "0.6.0";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901265/torproject_snowflake-0.5.5.xpi";
-      sha256 = "4d2f1e43d383e95c1fe22cd43abfb3035b5633fea7c98ba16db1efbbefc64597";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3968024/torproject_snowflake-0.6.0.xpi";
+      sha256 = "97ee50d0b52711b4b38fb235bb6eb2a42a7d6c9d6e63104ff79af7a2a63eb7b9";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -2103,10 +2103,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.5";
+      version = "9.5.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3964648/traduzir_paginas_web-9.5.xpi";
-      sha256 = "3075506a9c04dd9dc65b2e870adb875ace2fb2fc0b9472a49e23920ce7e2eca6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967080/traduzir_paginas_web-9.5.1.xpi";
+      sha256 = "941a6e4af0eb5f570d2172d73b731674d6e70a345150ea1dbd06bd55bb66aaf0";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
