@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.programs.pulseaudio;
-  pulseaudio = pkgs.pulseaudioFull.overrideAttrs (oldAttrs: {
+  pulseaudio = pkgs.pulseaudioFull.overrideAttrs (oldAttrs: optionalAttrs cfg.bluetoothMic {
     preConfigure = ''
       # Disable PA_BLUETOOTH_UUID_A2DP_SINK
       #substituteInPlace src/modules/bluetooth/bluez5-util.h \
@@ -18,6 +18,13 @@ in {
     enable = mkEnableOption ''
       the PulseAudio sound server
     '';
+    bluetoothMic = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Prevent output to bluetooth headphones, converting them into bluetooth microphone
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
