@@ -393,10 +393,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.51";
+      version = "4.9.52";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954503/darkreader-4.9.51.xpi";
-      sha256 = "dfb84a0ca40959fd2a27d15fc60881b9839b5af46783ac390b69fac5960ad3ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3968561/darkreader-4.9.52.xpi";
+      sha256 = "418deb0a0aa6ee3e23c31babd57a5c1fc207945356f0617e8dd955496d80b46d";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -490,10 +490,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.6.1";
+      version = "2022.6.27";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956871/duckduckgo_for_firefox-2022.6.1.xpi";
-      sha256 = "f9fd9b7a9dd8c734c8a7e69f1381ae7f7cd808fb660d5f1e508d480bf316f6c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3968598/duckduckgo_for_firefox-2022.6.27.xpi";
+      sha256 = "204c644925241c37fb9f46ef9f7c42b423728654d7972a6f6de6ecfd00ec9e30";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0buildid20220627.170120";
+      version = "103.0buildid20220628.190840";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3968265/francais_language_pack-103.0buildid20220627.170120.xpi";
-      sha256 = "0bfefa5ea2e22d2c40f3a974a4bc4b4b6c58365da5af3830f21d7e2ebc94fcb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3968877/francais_language_pack-103.0buildid20220628.190840.xpi";
+      sha256 = "cf5489e6608cd61ee43169a2286b6ffb172f14c3a2978ac24aa1ad04673c2d6d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1281,10 +1281,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.5.1";
+      version = "7.5.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3960862/octotree-7.5.1.xpi";
-      sha256 = "56bc581580710fde7f08514003e902e4042be827c339195f1ef1ad127851cc23";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3968729/octotree-7.5.2.xpi";
+      sha256 = "624102bf031dbfc2d764ac73843398924adc1fcdcbe58563867de1322e042355";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -2176,10 +2176,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.8.0";
+      version = "7.8.2";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967840/ublacklist-7.8.0.xpi";
-      sha256 = "1c4cb4b8a8692bf6819e7b9210d00ddf4dc0ddcde2ee6a858ee05239cd312ab7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3968688/ublacklist-7.8.2.xpi";
+      sha256 = "3ad84581dd802da061f581e6ab2aff3db3a30a20b61a49a076ce3737aa4adf92";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
