@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple screenlocker for wayland compositors.";
     homepage = "https://github.com/ifreund/waylock";
-    license = licenses.mit;
+    license = licenses.isc;
     maintainers = [ maintainers.polykernel ];
     platforms = platforms.linux;
   };
