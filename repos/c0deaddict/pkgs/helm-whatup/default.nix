@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "helm-whatup";
-  version = "0.6.0";
+  version = "0.6.3";
 
   src = fetchFromGitHub {
     owner = "fabmation-gmbh";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1lhvm46dmrg68cg3aj5yminnac2vkivcwhfvg2ahy6fs7y3dchmj";
+    sha256 = "sha256-/xOa+mfRDKKbu0fNF/SFJZl+aCC0Wx1OFIzmtyyYLI8=";
   };
 
-  vendorSha256 = "0b4ljqnqag2rikdamhq0xdasbnkax7c541cw0nxbndn38n17k9kb";
+  vendorSha256 = "sha256-a6Z5gkXDNru6BZwFUtjpatqlVesAw6rajFk8hS2WlCw=";
 
   postFixup = ''
     install -dm755 $out/${pname}
