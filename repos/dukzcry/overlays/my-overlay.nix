@@ -73,4 +73,11 @@ rec {
       super.evolution
     ];
   };
+  ddccontrol = super.ddccontrol.overrideAttrs (oldAttrs: {
+    prePatch = ''
+      ${oldAttrs.prePatch}
+      substituteInPlace src/gddccontrol/notebook.c \
+        --replace "if (mon->fallback)" "if (0)"
+    '';
+  });
 }
