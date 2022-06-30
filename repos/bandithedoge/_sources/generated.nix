@@ -47,26 +47,26 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "21ae48722f3132ed41000db83069711e6145b07e";
+    version = "12f891a7d04951a471e0cc65b7c4a8b3e9dfb8bf";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "21ae48722f3132ed41000db83069711e6145b07e";
+      rev = "12f891a7d04951a471e0cc65b7c4a8b3e9dfb8bf";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-p2kH9VhGWaQg58dLE3Z9TCrmSGMNCQYzsMf3rRuEIBY=";
+      sha256 = "sha256-/N6ouEF9vPpmFsrncctt0x1W67+0FGK1hiKT5ne4ywI=";
     };
   };
   libpanel = {
     pname = "libpanel";
-    version = "80823f08b5b0c96dc2ef7ef0f51bd064f152f9ea";
+    version = "11a83c39014254540015999a262f41a4e0fc7579";
     src = fetchgit {
       url = "https://gitlab.gnome.org/chergert/libpanel";
-      rev = "80823f08b5b0c96dc2ef7ef0f51bd064f152f9ea";
+      rev = "11a83c39014254540015999a262f41a4e0fc7579";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-k5I0pfaNnxiDmkD2Lg9v/l7uclUn741wqZBM1YfqmMk=";
+      sha256 = "sha256-Y4zpGLdHaqeNj4cLpRo037sU3VnuiZgAuUAyw8TUsLs=";
     };
   };
   st-flexipatch = {
