@@ -1,3 +1,7 @@
+[haskellNix]
+src.git = "https://github.com/input-output-hk/haskell.nix"
+fetch.github = "input-output-hk/haskell.nix"
+
 [dwm-flexipatch]
 src.git = "https://github.com/bakkeby/dwm-flexipatch"
 fetch.github = "bakkeby/dwm-flexipatch"

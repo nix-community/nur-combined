@@ -147,4 +147,6 @@ pkgs.stdenv.mkDerivation rec {
   '';
 
   dontStrip = true;
+
+  inherit (pkgs.zrythm) meta;
 }

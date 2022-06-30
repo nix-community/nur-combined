@@ -45,4 +45,6 @@ in
       sed -ri -e 's!\<(dmenu|dmenu_path|stest)\>!'"$out/bin"'/&!g' dmenu_run
       sed -ri -e 's!\<stest\>!'"$out/bin"'/&!g' dmenu_path
     '';
+
+    inherit (pkgs.dmenu) meta;
   }

@@ -7,10 +7,7 @@
   mkConfig ? null,
 }:
 pkgs.stdenv.mkDerivation rec {
-  pname = "st-flexipatch";
-  version = "0.8.5";
-
-  inherit (sources.st-flexipatch) src;
+  inherit (sources.st-flexipatch) src pname version;
 
   nativeBuildInputs = with pkgs; [
     pkg-config

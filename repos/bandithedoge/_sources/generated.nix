@@ -23,6 +23,17 @@
       sha256 = "sha256-kyZnrZtqxTl6OHl15oRcEuHumBdSTznY/MDaFX/Dru4=";
     });
   };
+  haskellNix = {
+    pname = "haskellNix";
+    version = "54b86efe7c2f656a3d465b9b63242f81b611e4c0";
+    src = fetchFromGitHub ({
+      owner = "input-output-hk";
+      repo = "haskell.nix";
+      rev = "54b86efe7c2f656a3d465b9b63242f81b611e4c0";
+      fetchSubmodules = false;
+      sha256 = "sha256-M9MzaImKQCfHM9HSuEe7+9ZCnkluFVk7LOkNUG4QGTc=";
+    });
+  };
   kiwmi = {
     pname = "kiwmi";
     version = "822e5b5063059ae169b7690c66484c65097e4cdd";

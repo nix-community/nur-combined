@@ -281,10 +281,10 @@
         "homepage": "",
         "owner": "gpanders",
         "repo": "editorconfig.nvim",
-        "rev": "560c2ecf87d7e168074e516275c504d943a5a4e6",
+        "rev": "b96a75a470e5c26caf4e57c594e85ee5d0dc7bf1",
         "sha256": "0xbb0d4m1m8a406kpia71bnnjkk5w5yfp8ra1s8jj66c3j1hp3d7",
         "type": "tarball",
-        "url": "https://github.com/gpanders/editorconfig.nvim/archive/560c2ecf87d7e168074e516275c504d943a5a4e6.tar.gz",
+        "url": "https://github.com/gpanders/editorconfig.nvim/archive/b96a75a470e5c26caf4e57c594e85ee5d0dc7bf1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "fidget.nvim": {

@@ -5,10 +5,7 @@
   patches ? null,
 }:
 pkgs.stdenv.mkDerivation rec {
-  pname = "dwm-flexipatch";
-  version = "6.3";
-
-  inherit (sources.dwm-flexipatch) src;
+  inherit (sources.dwm-flexipatch) src pname version;
 
   buildInputs = with pkgs; [xorg.libX11 xorg.libXinerama xorg.libXft];
 
