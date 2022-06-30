@@ -1281,10 +1281,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.5.2";
+      version = "7.5.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3968729/octotree-7.5.2.xpi";
-      sha256 = "624102bf031dbfc2d764ac73843398924adc1fcdcbe58563867de1322e042355";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969105/octotree-7.5.3.xpi";
+      sha256 = "0e8997cedcb81db8781335488870752f57c39800862a083e30db18296a4de276";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1341,10 +1341,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.5";
+      version = "2.3.6";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957930/1password_x_password_manager-2.3.5.xpi";
-      sha256 = "37d16311f29754c7c99c672f157f920024d61bf5e2b3042be8f544c27995067b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969050/1password_x_password_manager-2.3.6.xpi";
+      sha256 = "841d1e37e976d96dd8f9a1f77ecf055685f6516b58979857900d585d008b5158";
       meta = with lib;
       {
         homepage = "https://1password.com";
