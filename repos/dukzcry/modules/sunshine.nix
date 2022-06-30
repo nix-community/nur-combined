@@ -31,13 +31,6 @@ in {
         capabilities = "cap_sys_admin+p";
         source = "${sunshine}/bin/sunshine";
       };
-      system.activationScripts = {
-        sunshine = ''
-          mkdir -p /etc/sunshine
-          chown -R ${cfg.user} /etc/sunshine
-          chmod u+w -R /etc/sunshine
-        '';
-      };
    })
   ];
 

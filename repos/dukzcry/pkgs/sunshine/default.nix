@@ -4,20 +4,22 @@
 
 stdenv.mkDerivation rec {
   pname = "sunshine";
-  version = "0.13.0";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "SunshineStream";
     repo = "Sunshine";
     rev = "v${version}";
-    sha256 = "1nwm2v62gpxs5wyyyxgj24xkf3hsbvfmj7pycdzp526kkv9l1yxm";
+    sha256 = "sha256-W9FzA8HCbHM4r2XNrZJejrqbPnNhT9x64cuVZpJRjHY=";
     fetchSubmodules = true;
   };
 
   cmakeFlags = [
-    "-DSUNSHINE_ASSETS_DIR=$(out)/etc/sunshine"
-    "-DSUNSHINE_CONFIG_DIR=/etc/sunshine"
+    "-DSUNSHINE_ASSETS_DIR=${placeholder "out"}/etc/sunshine"
+    "-DSUNSHINE_CONFIG_DIR=${placeholder "out"}/etc/sunshine"
   ];
+
+  patches = [ ./sunshine.patch ];
 
   hardeningDisable = [ "format" ];
 
@@ -32,16 +34,12 @@ stdenv.mkDerivation rec {
       --replace "Boost_USE_STATIC_LIBS ON" "Boost_USE_STATIC_LIBS OFF" \
       --replace "Boost::log" "Boost::log Boost::dynamic_linking" \
       --replace "/usr/include/libevdev-1.0" "${libevdev}/include/libevdev-1.0" \
+      --replace "/etc/udev/rules.d" "$out/etc/udev/rules.d" \
+      --replace "/usr/bin" "$out/bin" \
+      --replace "/usr/lib/systemd/user" "$out/lib/systemd/user"
   '';
 
-  installPhase = ''
-    install -Dm755 sunshine $out/bin/sunshine
-    install -Dm644 $src/assets/apps_linux.json $out/etc/sunshine/apps_linux.json
-    install -Dm644 $src/assets/sunshine.conf $out/etc/sunshine/sunshine.conf
-    cp -r $src/assets/web $out/etc/sunshine
-    mkdir -p $out/etc/sunshine/shaders
-    cp -r $src/assets/shaders/opengl $out/etc/sunshine/shaders
-
+  postInstall = ''
     wrapProgram $out/bin/sunshine \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ avahi mesa libGL ]}"
   '';

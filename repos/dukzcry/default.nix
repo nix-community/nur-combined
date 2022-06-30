@@ -32,6 +32,6 @@ rec {
   cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};
   cockpit-client = cockpit.override { client = true; };
   libvirt-dbus = callPackage ./pkgs/libvirt-dbus.nix {};
-  sunshine = callPackage ./pkgs/sunshine.nix {};
+  sunshine = callPackage ./pkgs/sunshine/default.nix {};
   libidn = callPackage ./pkgs/libidn.nix {};
 }
