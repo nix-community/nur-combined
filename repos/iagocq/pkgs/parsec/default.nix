@@ -17,7 +17,7 @@
 , libGL
 , libsamplerate
 , makeDesktopItem
-, libudev
+, udev
 , libva
 , vaapiVdpau
 , libxkbcommon
@@ -114,7 +114,7 @@ let
       freetype
       libGL
       libsamplerate
-      libudev
+      udev
       libva
       vaapiVdpau
       libxkbcommon
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
       comment = "Simple, low-latency game streaming.";
       exec = "parsec %u";
       icon = "parsecd";
-      categories = "Network;Game;Utility;";
+      categories = [ "Network" "Game" "Utility" ];
     })
   ];
 
