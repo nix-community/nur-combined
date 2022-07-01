@@ -53,6 +53,8 @@
     baobab # GrandPerspective
     appimage-run
     gnome.gpaste
+    gnome.gnome-screenshot
+    vlc
     glib.dev
     glade
 

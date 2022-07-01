@@ -35,10 +35,6 @@ in
   ];
 
 
-  environment.systemPackages = with pkgs; [
-    unity3d
-  ];
-
   networking.hosts = {
       "127.0.0.1" = [ "ojs" "localhost" ];
       "213.206.241.6" = [ "buwa.nl" "www.buwa.nl" ];
