@@ -384,6 +384,8 @@ in {
       ./patch/php56/php5640-81026.patch
       ./patch/php56/php5640-81122.patch
       ./patch/php56/php5640-81211.patch
+      ./patch/php56/php5640-81719.patch
+      ./patch/php56/php5640-81720.patch
     ];
   };
 
@@ -429,6 +431,8 @@ in {
       ./patch/php71/php7133-81026.patch
       ./patch/php71/php7133-81122.patch
       ./patch/php71/php7133-81211.patch
+      ./patch/php71/php7133-81719.patch
+      ./patch/php71/php7133-81720.patch
     ] 
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php71-darwin-isfinite.patch;
@@ -452,6 +456,8 @@ in {
       ./patch/php72/php7234-81026.patch
       ./patch/php72/php7234-81122.patch
       ./patch/php72/php7234-81211.patch
+      ./patch/php72/php7234-81719.patch
+      ./patch/php72/php7234-81720.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php72-darwin-isfinite.patch;
@@ -464,23 +470,28 @@ in {
     extraPatches = [
       # PKG_CONFIG need not be a relative path
       ./patch/fix-paths-pkgconfig-php73.patch
+      # Fix for pcre2 10.38
+      ./patch/php73/php7331-pcre1038.patch
+      # Backport security bug patches
+      ./patch/php73/php7331-81719.patch
+      ./patch/php73/php7331-81720.patch
     ]
       # https://bugs.php.net/bug.php?id=76826
       ++ optional stdenv.isDarwin ./patch/php73-darwin-isfinite.patch;
   };
 
   php74 = generic {
-    version = "7.4.29";
-    sha256 = "sha256-RtNUFR5iWAF0NujE5cQW6vymBF1riqd2UUTkB8wkVcI=";
+    version = "7.4.30";
+    sha256 = "sha256-qF30+STnI4iW2nCL+jCJPAiPq/dahyL8BuESzsTzBbk=";
   };
 
   php80 = generic {
-    version = "8.0.18";
-    sha256 = "sha256-qMVgbyhjvjCs87y715Ycl+Cj55ThDXowgbiILakepxM=";
+    version = "8.0.20";
+    sha256 = "sha256-LXNadNMKjuzGFvHGyRPLDbEJ1jo9aAqwd8BDUpfA2Qk=";
   };
 
   php81 = generic {
-    version = "8.1.5";
-    sha256 = "sha256-gmB2HaJzxZ1jSTdTp59mKePRvURD0p5EBj+kNxcMK7Y=";
+    version = "8.1.7";
+    sha256 = "sha256-gztwTpDbTzGdiRZoyylYNz5GOD+OjFCx7fXVFMyk1yE=";
   };
 }

@@ -98,12 +98,12 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.25";
+    version = "1.10.26";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-awib2LeLAMPBXXsTNT+8vfFqP1JIIDyaPnbxOUjy3pI=";
+      sha256 = "sha256-y/4fhSdsV6vkZNk0UD2TWqITSUrChidcjfq/qR49vcQ=";
     };
 
     dontUnpack = true;
@@ -127,12 +127,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.3.3";
+    version = "2.3.7";
     pname = "composer";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-1pMewrOLQb0K1i+dFXkI5miLrAkbvwvWphnBBnuSJAI=";
+      sha256 = "sha256-Py1GeH1RBw+SK/mRqggyRWb3JvGGB2wqXk6LAajqP9A=";
     };
 
     dontUnpack = true;
@@ -214,10 +214,10 @@ let
   };
 
   event = buildPecl {
-    version = "3.0.6";
+    version = "3.0.8";
     pname = "event";
 
-    sha256 = "sha256-BN43wydPQBCVla29YoPqKSVihSZCkLAIgDZb+CNQecw=";
+    sha256 = "sha256-4+ke3T3BXglpuSVMw2Jq4Hgl45vybWG0mTX2b2A9e2s=";
 
     configureFlags = with pkgs; [
       "--with-event-libevent-dir=${libevent.dev}"
@@ -297,10 +297,10 @@ let
   };
 
   mcrypt = buildPecl {
-    version = "1.0.4";
+    version = "1.0.5";
     pname = "mcrypt";
 
-    sha256 = "03d09rzfx06jfg1dgchc3898gjbfq71izznws3f4hyldjmw3w5cq";
+    sha256 = "sha256-yfUeIRZAoV0qmD9dgOJmYGVjUWUdb2gtZXvfHPoH2KM=";
 
     configureFlags = with pkgs; [
       "--with-mcrypt=${libmcrypt}"
@@ -384,7 +384,7 @@ let
     src = fetchgit {
       url = "https://github.com/php-memcached-dev/php-memcached";
       rev = "v${version}";
-      sha256 = "sha256-g9IzGSZUxLlOE32o9ZJOa3erb5Qs1ntR8nzS3kRd/EU=";
+      sha256 = "sha256-Je6k6gI1ruvSRc++rrIE0rhEOn4H6QnJ+AyjdLRGTZM=";
     };
 
     configureFlags = with pkgs; [
@@ -491,10 +491,10 @@ let
   };
 
   pdo_sqlsrv510 = buildPecl {
-    version = "5.10.0";
+    version = "5.10.1";
     pname = "pdo_sqlsrv";
 
-    sha256 = "sha256-BEa7i/8egvz9mT69dl0dxWcVo+dURT9Dzo6f6EdlESo=";
+    sha256 = "sha256-x4VBlqI2vINQijRvjG7x35mbwh7rvYOL2wUTIV4GKK0=";
 
     buildInputs = with pkgs; [ unixODBC ];
 
@@ -565,12 +565,12 @@ let
   };
 
   phpcbf = mkDerivation rec {
-    version = "3.6.1";
+    version = "3.7.1";
     pname = "phpcbf";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "0w8lq0zls457dfg7qy7sblamxcddx4ijmqcaqvbavgml1vfn1ljg";
+      sha256 = "sha256-yTwOg8vaIcIfhJzPD0tCl50gAEpaYXLtDqJw7Keub6g=";
     };
 
     phases = [ "installPhase" ];
@@ -592,12 +592,12 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.6.1";
+    version = "3.7.1";
     pname = "phpcs";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "0svhrqi1fcyqjpb2hafgmn8drmn40njmcqawjf37xzws8sm6iknh";
+      sha256 = "sha256-ehQyOhSvn1gwLRVEJJLuEHaozXLAGKgWy0SWW/OpsBU=";
     };
 
     phases = [ "installPhase" ];
@@ -619,12 +619,12 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "1.5.4";
+    version = "1.8.0";
     pname = "phpstan";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "sha256-6dXYrDpQ3E+z8mcZof7GSXOrUMoceuPTHO21Z8l4Wyw=";
+      sha256 = "sha256-sozvlN1dKxCc1M1gEr0S+AYjO5DDTXHbgw/KKZGWKLk=";
     };
 
     phases = [ "installPhase" ];
@@ -723,7 +723,7 @@ let
     };
   };
 
-  protobuf = if isPhp56 then protobuf312 else protobuf320;
+  protobuf = if isPhp56 then protobuf312 else protobuf321;
 
   protobuf312 = buildPecl {
     version = "3.12.4";
@@ -744,11 +744,11 @@ let
     };
   };
 
-  protobuf320 = buildPecl {
-    version = "3.20.0";
+  protobuf321 = buildPecl {
+    version = "3.21.2";
     pname = "protobuf";
 
-    sha256 = "sha256-Ejr1ukCIukaQrRJ0LybKLlycxn0Nts+oP37I0Oetm68=";
+    sha256 = "sha256-Csi4OjDLKtJAF8eU3ByUM2BxSDA6SWy5ZgExrkhVrPg=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -764,12 +764,12 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.22.0";
+    version = "4.24.0";
     pname = "psalm";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "sha256-XuO0DyEMC9+e9FRx8BYa5KdOYc2tQsUfWJ8AygS9z6w=";
+      sha256 = "sha256-KzGdhsYf8D+40pPNjr3rqrcek4xfK9BP9Gb+4BIRwAY=";
     };
 
     phases = [ "installPhase" ];
@@ -790,12 +790,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.11.2";
+    version = "0.11.5";
     pname = "psysh";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-u7VTlZw9k7VDWKGK/8fzFw0bjNu6DMGsoQnDedHgCWg=";
+      sha256 = "sha256-OCZWz4em1Mgv8Rk3O2APwE6Y30WmdD1UTtsyU/eGx+c=";
     };
 
     phases = [ "installPhase" ];
@@ -911,10 +911,10 @@ let
   };
 
   sqlsrv510 = buildPecl {
-    version = "5.10.0";
+    version = "5.10.1";
     pname = "sqlsrv";
 
-    sha256 = "sha256-drPwg6Go8QNYHCG6OkbWyiV76uZyjNFYpkpGq1miJrQ=";
+    sha256 = "sha256-XNrttNiihjQ+azuZmS2fy0So+2ndAqpde8IOsupeWdI=";
 
     buildInputs = with pkgs; [ unixODBC ];
 
@@ -922,12 +922,12 @@ let
   };
 
   snuffleupagus = buildPecl rec {
-    version = "0.7.1";
+    version = "0.8.2";
     pname = "snuffleupagus";
 
     src = pkgs.fetchurl {
       url = "https://github.com/jvoisin/snuffleupagus/archive/v${version}.tar.gz";
-      sha256 = "10crdlhs5d6nz91dp1396wa1s24as8irrspvz3bgf83xsy13pz0d";
+      sha256 = "sha256-o5dntvJojGBaCrgEyZN5rl2AzuH8c/Ruc2gH/tAbE14=";
     };
 
     sourceRoot = "snuffleupagus-${version}/src";
@@ -1005,10 +1005,10 @@ let
   };
 
   xdebug31 = buildPecl {
-    version = "3.1.4";
+    version = "3.1.5";
     pname = "xdebug";
 
-    sha256 = "sha256-QZWSb59sToAv90m7LKhaxQY2cZpy5TieNy4171I1Bfk=";
+    sha256 = "sha256-VfbvOBJF2gebL8XOHPvLeWEZfQwOBPnZd2E8+aqWmnk=";
 
     doCheck = true;
     checkTarget = "test";
