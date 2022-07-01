@@ -41,10 +41,10 @@
         "homepage": "https://www.schemastore.org/",
         "owner": "b0o",
         "repo": "SchemaStore.nvim",
-        "rev": "bdbe9e330c983c6acb22984a430b8dfa2f45032f",
-        "sha256": "0qddj0js0pg9z9a9ijw7d9x8q8cm25y5chmki6iw3ymchdnyw2js",
+        "rev": "e936d016c448388f88ff7ae46b96cf0687304776",
+        "sha256": "01438v20ryfg239sg13f7m337fil6pcaw0vb47wz6khhiz719w1q",
         "type": "tarball",
-        "url": "https://github.com/b0o/SchemaStore.nvim/archive/bdbe9e330c983c6acb22984a430b8dfa2f45032f.tar.gz",
+        "url": "https://github.com/b0o/SchemaStore.nvim/archive/e936d016c448388f88ff7ae46b96cf0687304776.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "aniseed": {
@@ -653,10 +653,10 @@
         "homepage": "",
         "owner": "EdenEast",
         "repo": "nightfox.nvim",
-        "rev": "b85c5c3a0e3b309ffa7d0a6ca33e430c91532ba0",
-        "sha256": "18q8w946qy37n0zv0hj1nr2w1p1xrfyikg7s5g372d083v0rqv9f",
+        "rev": "01bab5495d51500b08e80532ca0ed3c0f5c493cd",
+        "sha256": "0996y1ffh8h78yjvdbiqh9gij57n9jvcazvdbksf47qj4d7xvsza",
         "type": "tarball",
-        "url": "https://github.com/EdenEast/nightfox.nvim/archive/b85c5c3a0e3b309ffa7d0a6ca33e430c91532ba0.tar.gz",
+        "url": "https://github.com/EdenEast/nightfox.nvim/archive/01bab5495d51500b08e80532ca0ed3c0f5c493cd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nim.nvim": {
@@ -689,10 +689,10 @@
         "homepage": "",
         "owner": "MunifTanjim",
         "repo": "nui.nvim",
-        "rev": "1afa3982c37738bc0bace238e917d96d1e6ad788",
-        "sha256": "15ycijlzi1cw4bmyc3mk4sybvvvyq87s06zh8w1lcxz0x9r3r965",
+        "rev": "7fba5a3dd560f1dc5567d2a42adda93fff22caec",
+        "sha256": "0b1lm1yg63690rgl95chnfhf9ydg5vy36pnr811ch7fd7jh1gbwk",
         "type": "tarball",
-        "url": "https://github.com/MunifTanjim/nui.nvim/archive/1afa3982c37738bc0bace238e917d96d1e6ad788.tar.gz",
+        "url": "https://github.com/MunifTanjim/nui.nvim/archive/7fba5a3dd560f1dc5567d2a42adda93fff22caec.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "null-ls.nvim": {
@@ -1097,10 +1097,10 @@
         "homepage": null,
         "owner": "ThePrimeagen",
         "repo": "refactoring.nvim",
-        "rev": "f7167900ff3835bb43d279152dc4b83e941b1b55",
-        "sha256": "1lznw9ddhrkj8bv802lcf3fm9flfd21dxn5blwh2hl1c3ajgzjg3",
+        "rev": "50cc6e4e6010ca41aa60519f640a005e7a0f1f2c",
+        "sha256": "0432j6mz7x12hvmn38cdnzg9svij25c6ncxm8hzy882m86fy0bih",
         "type": "tarball",
-        "url": "https://github.com/ThePrimeagen/refactoring.nvim/archive/f7167900ff3835bb43d279152dc4b83e941b1b55.tar.gz",
+        "url": "https://github.com/ThePrimeagen/refactoring.nvim/archive/50cc6e4e6010ca41aa60519f640a005e7a0f1f2c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "remember.nvim": {
