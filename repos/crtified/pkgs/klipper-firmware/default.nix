@@ -1,19 +1,18 @@
 { stdenvNoCC, lib, klipper, bintools-unwrapped, gcc-arm-embedded, gnumake
-, libffi, libusb, python, fw_config ? ./fysetc_spider.config }:
+, libffi, libusb, fw_config ? ./fysetc_spider.config }:
 stdenvNoCC.mkDerivation rec {
   name = "klipper-firmware-${version}";
   version = klipper.version;
 
   src = klipper.src;
 
-  nativeBuildInputs = [
+  nativeBuildInputs = klipper.nativeBuildInputs ++ [
     fw_config
     bintools-unwrapped
     gcc-arm-embedded
     gnumake
     libffi
     libusb
-    python
   ];
 
   makeFlags = let cprefix = "arm-none-eabi-";
