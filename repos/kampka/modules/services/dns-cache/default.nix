@@ -95,93 +95,126 @@ let
     };
   };
 
+  stubby_settings = pkgs.stubby.passthru.settingsExample // { upstream_recursive_servers = cfg.stubby.upstreamServers; } // {
+    resolution_type = "GETDNS_RESOLUTION_STUB";
+    listen_addresses = [
+      "127.0.0.1@5353"
+    ];
+  };
+
 in
 {
   options.kampka.services.dns-cache = {
     enable = mkEnableOption "dns cache service with dns-over-tls";
 
-    stubbySetting = mkOption
-      {
+    stubby = {
+      upstreamServers = mkOption {
         description = "List of upstream dns servers";
-        default = pkgs.stubby.passthru.settingsExample //
+        default = [
+          # Nameserver run by digitalcourage
           {
-            listen_addresses = [
-              "127.0.0.1@5353"
-            ];
-            upstream_recursive_servers = [
-              # Nameserver run by digitalcourage
-              {
-                address_data = "5.9.164.112";
-                tls_auth_name = "dns3.digitalcourage.de";
-                tls_pubkey_pinset = {
-                  value = "2WFzfO2/56HpeR+v/l25NPf5dacfxLrudH5yZbWCfdo=";
-                  digest = "sha256";
-                };
-              }
-              {
-                address_data = "2a01:4f8:251:554::2";
-                tls_auth_name = "dns3.digitalcourage.de";
-                tls_pubkey_pinset = {
-                  value = "2WFzfO2/56HpeR+v/l25NPf5dacfxLrudH5yZbWCfdo=";
-                  digest = "sha256";
-                };
-              }
+            address_data = "5.9.164.112";
+            tls_auth_name = "dns3.digitalcourage.de";
+            tls_pubkey_pinset = {
+              value = "2WFzfO2/56HpeR+v/l25NPf5dacfxLrudH5yZbWCfdo=";
+              digest = "sha256";
+            };
+          }
+          {
+            address_data = "2a01:4f8:251:554::2";
+            tls_auth_name = "dns3.digitalcourage.de";
+            tls_pubkey_pinset = {
+              value = "2WFzfO2/56HpeR+v/l25NPf5dacfxLrudH5yZbWCfdo=";
+              digest = "sha256";
+            };
+          }
+          {
+            address_data = "46.182.19.48";
+            tls_auth_name = "dns2.digitalcourage.de";
+            tls_pubkey_pinset = {
+              value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
+              digest = "sha256";
+            };
+          }
+          {
+            address_data = "2a02:2970:1002::18";
+            tls_auth_name = "dns2.digitalcourage.de";
+            tls_pubkey_pinset = {
+              value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
+              digest = "sha256";
+            };
+          }
 
-              {
-                address_data = "46.182.19.48";
-                tls_auth_name = "dns2.digitalcourage.de";
-                tls_pubkey_pinset = {
-                  value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
-                  digest = "sha256";
-                };
-              }
-              {
-                address_data = "2a02:2970:1002::18";
-                tls_auth_name = "dns2.digitalcourage.de";
-                tls_pubkey_pinset = {
-                  value = "v7rm6OtQQD3x/wbsdHDZjiDg+utMZvnoX3jq3Vi8tGU=";
-                  digest = "sha256";
-                };
-              }
+          # Nameserver run by dismail.de
+          {
+            address_data = "80.241.218.68";
+            tls_auth_name = "fdns1.dismail.de";
+            tls_pubkey_pinset = {
+              value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
+              digest = "sha256";
+            };
+          }
+          {
+            address_data = "2a02:c205:3001:4558::1";
+            tls_auth_name = "fdns1.dismail.de";
+            tls_pubkey_pinset = {
+              value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
+              digest = "sha256";
+            };
+          }
 
-              # Nameserver run by dismail.de
-              {
-                address_data = "80.241.218.68";
-                tls_auth_name = "fdns1.dismail.de";
-                tls_pubkey_pinset = {
-                  value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
-                  digest = "sha256";
-                };
-              }
-              {
-                address_data = "2a02:c205:3001:4558::1";
-                tls_auth_name = "fdns1.dismail.de";
-                tls_pubkey_pinset = {
-                  value = "MMi3E2HZr5A5GL+badqe3tzEPCB00+OmApZqJakbqUU=";
-                  digest = "sha256";
-                };
-              }
-
-              # Nameserver run by dismail.de
-              {
-                address_data = "159.69.114.157";
-                tls_auth_name = "fdns2.dismail.de";
-                tls_pubkey_pinset = {
-                  value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
-                  digest = "sha256";
-                };
-              }
-              {
-                address_data = "2a01:4f8:c17:739a::2";
-                tls_auth_name = "fdns2.dismail.de";
-                tls_pubkey_pinset = {
-                  value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
-                  digest = "sha256";
-                };
-              }
-            ];
-          };
+          # Nameserver run by dismail.de
+          {
+            address_data = "159.69.114.157";
+            tls_auth_name = "fdns2.dismail.de";
+            tls_pubkey_pinset = {
+              value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
+              digest = "sha256";
+            };
+          }
+          {
+            address_data = "2a01:4f8:c17:739a::2";
+            tls_auth_name = "fdns2.dismail.de";
+            tls_pubkey_pinset = {
+              value = "yJYDim2Wb6tbxUB3yA5ElU/FsRZZhyMXye8sXhKEd1w=";
+              digest = "sha256";
+            };
+          }
+        ];
+        type = types.listOf (
+          types.submodule {
+            options = {
+              address_data = mkOption {
+                type = types.str;
+                example = "1.1.1.1";
+                description = "IP address of the upstream DNS server";
+              };
+              tls_auth_name = mkOption {
+                type = types.str;
+                description = "DNS name for which the certificate has to be valid";
+              };
+              tls_pubkey_pinset = mkOption {
+                default = null;
+                type = types.nullOr (types.submodule {
+                  options = {
+                    digest = mkOption {
+                      type = types.nullOr types.str;
+                      example = "sha256";
+                      default = "sha256";
+                      description = "Hash algorithm of the certificate hash";
+                    };
+                    value = mkOption {
+                      type = types.nullOr types.str;
+                      description = "Base64 encoded hash of servers TLS certificate";
+                    };
+                  };
+                });
+              };
+            };
+          }
+        );
       };
+    };
 
     dnsmasq = mkOption {
       default = { };
@@ -251,7 +284,7 @@ in
     services.stubby = {
       enable = true;
       debugLogging = false;
-      settings = (cfg.stubbySetting // { resolution_type = "GETDNS_RESOLUTION_STUB"; });
+      settings = stubby_settings;
     };
 
     services.dnsmasq = {
