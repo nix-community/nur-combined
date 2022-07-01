@@ -22,7 +22,7 @@ in rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "snui-0.1.0" = "sha256-FCSLSekGPTF7TH51zSZ29bEfUeCj+hd1TJouLCKB4uM=";
+      "snui-0.1.0" = "sha256-QIDSaqJTJsBlyXHLuekUpHel8pYnp+CHhulcQvp7d8k=";
     };
   };
 
