@@ -8,6 +8,13 @@
       ref = "nixos-unstable";
     };
 
+    nixpkgs-mu-1-6-11 = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      rev = "0100c5e564462ca83aed241c58a3427783737a26";
+    };
+
     nixpkgs-unstable-small = {
       type = "github";
       owner = "NixOS";
@@ -74,6 +81,7 @@
           [
             (self: super: {
               packages = import ./pkgs {pkgs = super;};
+              mu = (import inputs.nixpkgs-mu-1-6-11 {inherit system;}).mu;
 
               # packages accessible through pkgs.unstable.package
               unstable = import inputs.nixpkgs-unstable-small {
