@@ -497,7 +497,7 @@
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
-        description = "Privacy, simplified. Our add-on provides the privacy essentials you need to seamlessly take control of your personal information, no matter where the internet takes you: tracker blocking, smarter encryption, DuckDuckGo private search, and more.";
+        description = "Simple and seamless privacy protection for your browser: tracker blocking, cookie protection, DuckDuckGo private search, email protection, HTTPS upgrading, and much more.";
         license = licenses.asl20;
         platforms = platforms.all;
         };
@@ -676,10 +676,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0buildid20220628.190840";
+      version = "103.0buildid20220630.185738";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3968877/francais_language_pack-103.0buildid20220628.190840.xpi";
-      sha256 = "cf5489e6608cd61ee43169a2286b6ffb172f14c3a2978ac24aa1ad04673c2d6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969815/francais_language_pack-103.0buildid20220630.185738.xpi";
+      sha256 = "e49b74aa4166cf71f3c88c54bb0a200acc63bcd5d1828ed3efcb5894b216140e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2176,10 +2176,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.8.2";
+      version = "7.8.3";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3968688/ublacklist-7.8.2.xpi";
-      sha256 = "3ad84581dd802da061f581e6ab2aff3db3a30a20b61a49a076ce3737aa4adf92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969643/ublacklist-7.8.3.xpi";
+      sha256 = "e6f1e94c247673da9842cc71ddad90c3143d261138e7dcaf715c781545d72ca3";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2344,10 +2344,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.1.4";
+      version = "6.2.0";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3929128/vue_js_devtools-6.1.4.xpi";
-      sha256 = "fb7d09c5038b3c368c0e509161a9707349044c3f2bf87a0bebe4dad7e15da586";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3970011/vue_js_devtools-6.2.0.xpi";
+      sha256 = "1ebddd157c2342732bdb3072633c3f453cb6d764fdacf6e1abb01c8e4ead68b8";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
@@ -2358,10 +2358,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.27";
+      version = "6.10.36";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3959536/wappalyzer-6.10.27.xpi";
-      sha256 = "86f669f2979b45e4540b53d1d63c19797c99a8dde61b3d6a7341777a3594b7e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3970026/wappalyzer-6.10.36.xpi";
+      sha256 = "70417eabcb6e27fc413c7e7ec7aea3e541f5840ee730c86fe4d682d9785461bd";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2400,10 +2400,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.3";
+      version = "3.4.4";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956010/windscribe-3.4.3.xpi";
-      sha256 = "09f16bf5071a92c0cdbe59e136bc19ae000a399a1af3df64d8604adb1b23544f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969665/windscribe-3.4.4.xpi";
+      sha256 = "60a689617a3394891bc345f40b5f6923193bfcab8830ae80e83bc6757921c85f";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
