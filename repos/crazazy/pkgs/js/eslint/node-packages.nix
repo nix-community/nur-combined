@@ -319,13 +319,13 @@ let
         sha512 = "dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==";
       };
     };
-    "flatted-3.2.5" = {
+    "flatted-3.2.6" = {
       name = "flatted";
       packageName = "flatted";
-      version = "3.2.5";
+      version = "3.2.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/flatted/-/flatted-3.2.5.tgz";
-        sha512 = "WIWGi2L3DyTUvUrwRKgGi9TwxQMUEqPOPQBVi71R96jZXJdFskXEmf54BoZaS1kknGODoIGASGEzBUYdyMCBJg==";
+        url = "https://registry.npmjs.org/flatted/-/flatted-3.2.6.tgz";
+        sha512 = "0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==";
       };
     };
     "fs.realpath-1.0.0" = {
@@ -778,7 +778,7 @@ let
       sources."fast-levenshtein-2.0.6"
       sources."file-entry-cache-6.0.1"
       sources."flat-cache-3.0.4"
-      sources."flatted-3.2.5"
+      sources."flatted-3.2.6"
       sources."fs.realpath-1.0.0"
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.2.3"
