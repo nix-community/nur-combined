@@ -98,5 +98,5 @@
     xxhash = xxhash;
   };
 
-  quickcpplib = pkgs.callPackage ./pkgs/quickcpplib { };
+  #quickcpplib = pkgs.callPackage ./pkgs/quickcpplib { };
 }
