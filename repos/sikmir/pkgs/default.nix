@@ -319,6 +319,7 @@ lib.makeScope newScope (
     musig = callPackage ./misc/musig { };
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
+    o = callPackage ./misc/o { };
     objlab = callPackage ./misc/objlab { };
     playonmac = callPackage ./misc/playonmac { };
     pnoise = callPackage ./misc/pnoise { };
