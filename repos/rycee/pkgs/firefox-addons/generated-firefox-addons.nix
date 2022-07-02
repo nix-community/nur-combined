@@ -311,10 +311,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.4";
+      version = "1.0.8";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967913/consent_o_matic-1.0.4.xpi";
-      sha256 = "f7d7fb35713a79a7764f0e0043c261c250163e9ade5cdc2d86261492fb063b5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3970126/consent_o_matic-1.0.8.xpi";
+      sha256 = "0a75ccf41f2cb22b3897fb9170efe1b1886fef3a77f84b6c2ed6f172f819edbe";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -587,10 +587,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.51";
+      version = "6.1.52";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956569/flagfox-6.1.51.xpi";
-      sha256 = "dabc64335ca9ac2e3b1ad9a93301f5902f3845a5043c8b13f1e470c9fd8c12fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969994/flagfox-6.1.52.xpi";
+      sha256 = "b036b01c38f5bb865c76c7ecd212c174ec3b24c52959e9ec2cbc9300a55ca79a";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -1656,10 +1656,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.6.25";
+      version = "22.7.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967537/refined_github-22.6.25.xpi";
-      sha256 = "aefc9debb8b02234dd84908c7710eb9829e7c23b04db7e560c5ab6eaeef7d157";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3970145/refined_github-22.7.1.xpi";
+      sha256 = "35918c58c75c40b023a7bef5e3e4a7a000b6334291011233383b4f1a994996e0";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1837,10 +1837,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.6";
+      version = "4.6.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3964892/sponsorblock-4.6.xpi";
-      sha256 = "8762e34dd32e7d8b999be16c2676804b6a134485729ccddab66f02647ba23dcf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969978/sponsorblock-4.6.1.xpi";
+      sha256 = "f5f885c2f0618ecd6fc3afbbf67e20dea52a87083a420544eb2bb3109f148934";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2176,10 +2176,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.8.3";
+      version = "7.8.4";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3969643/ublacklist-7.8.3.xpi";
-      sha256 = "e6f1e94c247673da9842cc71ddad90c3143d261138e7dcaf715c781545d72ca3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3970205/ublacklist-7.8.4.xpi";
+      sha256 = "9f06b15b89ed888904c23b852ff385543f9ca10faf89ce8c75b4c6cb53abc901";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
