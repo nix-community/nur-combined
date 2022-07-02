@@ -18,9 +18,9 @@ rec {
   bunnyfetch-rs = pkgs.callPackage ./pkgs/bunnyfetch-rs { };
   gyro = pkgs.callPackage ./pkgs/gyro { zig-master = zig-master; };
   iosevka-serif = pkgs.callPackage ./pkgs/iosevka-serif { };
-  midle = pkgs.callPackage ./pkgs/midle { };
-  paper = pkgs.callPackage ./pkgs/paper { };
-  ristate = pkgs.callPackage ./pkgs/ristate { };
+  # midle = pkgs.callPackage ./pkgs/midle { };
+  # paper = pkgs.callPackage ./pkgs/paper { };
+  # ristate = pkgs.callPackage ./pkgs/ristate { };
   zig-master = pkgs.callPackage ./pkgs/zig-master { };
   zigup = pkgs.callPackage ./pkgs/zigup { };
   zls = pkgs.callPackage ./pkgs/zls { zig-master = zig-master; };
