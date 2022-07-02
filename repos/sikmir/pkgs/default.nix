@@ -362,6 +362,7 @@ lib.makeScope newScope (
     osm-tags-transform = callPackage ./osm/osm-tags-transform { };
     osm2geojson = callPackage ./osm/osm2geojson { };
     osmcoastline = callPackage ./osm/osmcoastline { };
+    osmdbt = callPackage ./osm/osmdbt { };
     osmosis = callPackage ./osm/osmosis { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
     phyghtmap = callPackage ./osm/phyghtmap { };
