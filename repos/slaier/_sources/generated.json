@@ -64,12 +64,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "tabnine-vscode-3.5.58.zip",
-            "sha256": "sha256-jkz/qEHHJG8lhgsYCN0Txd2XECOi8ogrwaZxi5SWENg=",
+            "name": "tabnine-vscode-3.5.60.zip",
+            "sha256": "sha256-SJ+kIfRmTDcPD1FRyasO05ngXd9SplHc1bfcrpDZTSA=",
             "type": "url",
-            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.58/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.60/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "3.5.58"
+        "version": "3.5.60"
     },
     "'vscode-extensions.ccls-project.ccls'": {
         "cargoLocks": null,

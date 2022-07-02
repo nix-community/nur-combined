@@ -39,11 +39,11 @@
   };
   "'vscode-extensions.TabNine.tabnine-vscode'" = {
     pname = "'vscode-extensions.TabNine.tabnine-vscode'";
-    version = "3.5.58";
+    version = "3.5.60";
     src = fetchurl {
-      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.58/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "tabnine-vscode-3.5.58.zip";
-      sha256 = "sha256-jkz/qEHHJG8lhgsYCN0Txd2XECOi8ogrwaZxi5SWENg=";
+      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.60/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "tabnine-vscode-3.5.60.zip";
+      sha256 = "sha256-SJ+kIfRmTDcPD1FRyasO05ngXd9SplHc1bfcrpDZTSA=";
     };
     license = "mit";
     homepage = "https://github.com/codota/tabnine-vscode";
