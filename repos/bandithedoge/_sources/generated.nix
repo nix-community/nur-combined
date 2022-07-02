@@ -25,13 +25,13 @@
   };
   haskellNix = {
     pname = "haskellNix";
-    version = "9c519fdb95e752e5cea0335b750cb19701c9d523";
+    version = "27e138b0d20db534c18679510b3f07c4b6e2cfe8";
     src = fetchFromGitHub ({
       owner = "input-output-hk";
       repo = "haskell.nix";
-      rev = "9c519fdb95e752e5cea0335b750cb19701c9d523";
+      rev = "27e138b0d20db534c18679510b3f07c4b6e2cfe8";
       fetchSubmodules = false;
-      sha256 = "sha256-HjkNR4STr301jqHJyPq00kl5Ryy86L+tcUHiPtwc440=";
+      sha256 = "sha256-YwZZsJie9JyIqtqkrTWvd/XwOxLaGrSt7M8m3zEnDRY=";
     });
   };
   kiwmi = {
