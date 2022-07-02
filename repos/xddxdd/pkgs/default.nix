@@ -75,6 +75,7 @@ rec {
   th-fonts = pkgs.recurseIntoAttrs (pkg ./th-fonts { });
 
   # Other packages
+  asterisk-g72x = pkg ./asterisk-g72x { };
   baidupcs-go = pkg ./baidupcs-go { };
   bilibili = pkg ./bilibili { };
   bird-lg-go = pkg ./bird-lg-go { };

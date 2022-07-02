@@ -1,3 +1,7 @@
+[asterisk-g72x]
+src.git = "https://github.com/arkadijs/asterisk-g72x.git"
+fetch.github = "arkadijs/asterisk-g72x"
+
 [baidupcs-go]
 src.github = "qjfoidnh/BaiduPCS-Go"
 fetch.github = "qjfoidnh/BaiduPCS-Go"
