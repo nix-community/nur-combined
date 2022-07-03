@@ -33,5 +33,7 @@ rec {
     (pkgs.python3Packages.callPackage ./pkgs/python-modules { });
 
   python-validity = python3Packages.python-validity;
+
+  vimPlugins = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/vimPlugins { inherit (pkgs.vimUtils) buildVimPlugin; });
 }
 
