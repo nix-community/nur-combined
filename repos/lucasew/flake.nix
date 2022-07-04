@@ -166,11 +166,15 @@
         extraModules ? [],
       }:
       let
-        revModule = {pkgs, ...}: {
-          system.configurationRevision = if (self ? rev) then 
-          trace "detected flake hash: ${self.rev}" self.rev
-          else
-          trace "flake hash not detected!" null;
+        revModule = {pkgs, ...}: let
+          rev = if (self ? rev) then 
+              trace "detected flake hash: ${self.rev}" self.rev
+            else
+              trace "flake hash not detected!" null
+          ;
+        in {
+          system.configurationRevision = rev;
+          system.nixos.label = "lucasew/nixcfg ${rev}";
         };
         source = {
           inherit pkgs system;

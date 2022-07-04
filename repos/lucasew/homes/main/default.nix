@@ -23,7 +23,6 @@ in {
     custom.emacs
     custom.firefox
     discord
-    easyeffects # efeitos de audio
     feh
     fortune
     graphviz

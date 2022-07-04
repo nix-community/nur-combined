@@ -51,6 +51,12 @@ in
         #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
         device = "nodev";
         useOSProber = true;
+        ipxe = {
+          netboot-xyz = ''
+            dhcp
+            chain --autofree https://boot.netboot.xyz
+          '';
+        };
       };
     };
   };
@@ -77,6 +83,7 @@ in
   ];
 
   services.auto-cpufreq.enable = true;
+  services.tlp.enable = true;
   # text expander in rust
   services.espanso.enable = true;
 
