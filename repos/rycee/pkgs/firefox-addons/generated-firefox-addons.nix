@@ -572,6 +572,20 @@
         platforms = platforms.all;
         };
       };
+    "firefox-translations" = buildFirefoxXpiAddon {
+      pname = "firefox-translations";
+      version = "1.1.2buildid20220523.151256";
+      addonId = "firefox-translations-addon@mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957101/firefox_translations-1.1.2buildid20220523.151256.xpi";
+      sha256 = "4fdc709b5d4eefef29347b8c1a4b08e1f842eb2d706c9e0a9051c0170fa82ede";
+      meta = with lib;
+      {
+        homepage = "https://browser.mt";
+        description = "Translate websites in your browser without using the cloud.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
       version = "0.2.12";
@@ -1542,6 +1556,20 @@
         platforms = platforms.all;
         };
       };
+    "promnesia" = buildFirefoxXpiAddon {
+      pname = "promnesia";
+      version = "1.1.2";
+      addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3953419/promnesia-1.1.2.xpi";
+      sha256 = "342a1025aa3a282c9dc088fe2b5225d316208d996f2164c81831f7efaed7058d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/karlicoss/promnesia";
+        description = "Enhancement of your browsing history";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "protondb-for-steam" = buildFirefoxXpiAddon {
       pname = "protondb-for-steam";
       version = "1.8.1";
@@ -1637,6 +1665,20 @@
         homepage = "https://www.reddit.com/r/toolbox";
         description = "This is bundled extension of the /r/toolbox moderator tools for <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/42268797a19a16a2ebeeda77cca1eda5a48db14e0cff56de4fab35eaef484216/http%3A//reddit.com\">reddit.com</a>\n\nContaining:\n\nMod Tools Enhanced\nMod Button\nMod Mail Pro\nMod Domain Tagger\nToolbox Notifier\nMod User Notes\nToolbox Config";
         license = licenses.asl20;
+        platforms = platforms.all;
+        };
+      };
+    "redirector" = buildFirefoxXpiAddon {
+      pname = "redirector";
+      version = "3.5.3";
+      addonId = "redirector@einaregilsson.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3535009/redirector-3.5.3.xpi";
+      sha256 = "eddbd3d5944e748d0bd6ecb6d9e9cf0e0c02dced6f42db21aab64190e71c0f71";
+      meta = with lib;
+      {
+        homepage = "http://einaregilsson.com/redirector/";
+        description = "Automatically redirects to user-defined urls on certain pages";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -1788,6 +1830,20 @@
       {
         description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "smart-referer" = buildFirefoxXpiAddon {
+      pname = "smart-referer";
+      version = "0.2.15";
+      addonId = "smart-referer@meh.paranoid.pk";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3470999/smart_referer-0.2.15.xpi";
+      sha256 = "4751ab905c4d9d13b1f21c9fc179efed7d248e3476effb5b393268b46855bf1a";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.com/smart-referer/smart-referer";
+        description = "Improve your privacy by limiting Referer information leak!";
+        license = licenses.wtfpl;
         platforms = platforms.all;
         };
       };

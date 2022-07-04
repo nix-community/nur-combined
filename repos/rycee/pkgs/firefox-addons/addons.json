@@ -162,6 +162,9 @@
     "slug": "firefox-color"
   },
   {
+    "slug": "firefox-translations"
+  },
+  {
     "slug": "firenvim"
   },
   {
@@ -452,6 +455,9 @@
     "slug": "private-relay"
   },
   {
+    "slug": "promnesia"
+  },
+  {
     "slug": "protondb-for-steam"
   },
   {
@@ -472,6 +478,9 @@
   {
     "slug": "reddit_comment_collapser",
     "pname": "reddit-comment-collapser"
+  },
+  {
+    "slug": "redirector"
   },
   {
     "slug": "reduxdevtools"
@@ -511,6 +520,13 @@
   },
   {
     "slug": "skip-redirect"
+  },
+  {
+    "slug": "smart-referer",
+    "license": {
+      "tag": "predefined",
+      "shortName": "wtfpl"
+    }
   },
   {
     "slug": "solarized-light",
