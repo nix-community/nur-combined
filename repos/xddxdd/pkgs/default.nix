@@ -53,6 +53,7 @@ rec {
   };
 
   # Package groups
+  asteriskDigiumCodecs = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs { });
   lantianCustomized = pkgs.recurseIntoAttrs {
     # Packages with significant customization by Lan Tian
     coredns = pkg ./lantian-customized/coredns { };
