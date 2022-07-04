@@ -120,5 +120,11 @@ rec {
   
   hpdbscan = pkgs.callPackage ./pkgs/hpdbscan  { };
 
+  kokkos =  pkgs.callPackage ./pkgs/kokkos {
+    withOneAPI = true;
+    intel-oneapi = intel-oneapi;
+    gcc = pkgs.gcc11;
+  };
+
 }
 
