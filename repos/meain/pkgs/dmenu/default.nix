@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "dmenu";
-  version = "3a6bc67fbd6df190b002d33f600a6465cad9cfb8";
+  version = "575252ee7570512226e1f55b45af0e6676f0bbb6";
 
   src = fetchFromGitHub {
     owner = "LukeSmithxyz";
     repo = "${pname}";
     rev = "${version}";
-    sha256 = "sha256-qwOcJqYGMftFwayfYA3XM0xaOo6ALV4gu1HpFRapbFg=";
+    sha256 = "sha256-qrnixNjLW0rODgJp/pHil3AkDNCYb/nmyGpKBJvGsJw=";
   };
 
   buildInputs = [ libX11 libXinerama zlib libXft ];
