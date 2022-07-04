@@ -1,0 +1,218 @@
+name: CI per system
+on:
+  workflow_call:
+    inputs:
+      system:
+        required: true
+        type: string
+        description: >
+          System name in the format used by Nix (e.g., `x86_64-linux`).
+      runs-on:
+        required: true
+        type: string
+        description: >
+          GitHub machine type to be used for the build (e.g., `ubuntu-latest`).
+          Needs to be compatible with the specified value of `system`.
+      flake-jobs:
+        type: string
+        default: ''
+        description: >
+          The description of flake-related build jobs in the JSON format, or an
+          empty string if no flake builds need to be performed.
+      nur-jobs:
+        type: string
+        default: ''
+        description: >
+          The description of NUR-related build jobs in the JSON format, or an
+          empty string if no NUR builds need to be performed.
+      cachix-name:
+        type: string
+        default: ''
+        description: >
+          Name of a Cachix cache to push and pull/substitute.
+      cachix-extra-pull-names:
+        type: string
+        default: ''
+        description: >
+          Comma-separated list of names for extra Cachix caches to
+          pull/substitute.
+    secrets:
+      cachix-auth-token:
+        required: false
+        description: >
+          Authentication token for Cachix; needed for private cache access and
+          for pushing objects to the cache.
+      cachix-signing-key:
+        required: false
+        description: >
+          Signing key secret for Cachix; needed for pushing objects to the
+          cache when signing is not managed by the Cachix service.
+
+jobs:
+  early-checks:
+    runs-on: ${{ inputs.runs-on }}
+    if: fromJSON(inputs.flake-jobs).earlyChecks.item[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.flake-jobs).earlyChecks }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}
+
+  pkgs:
+    runs-on: ${{ inputs.runs-on }}
+    if: fromJSON(inputs.flake-jobs).packages.item[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.flake-jobs).packages }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}
+
+  nur:
+    runs-on: ${{ inputs.runs-on }}
+    if: fromJSON(inputs.nur-jobs).other.include[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.nur-jobs).other }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          channel: ${{ matrix.channel }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}
+
+  nur1:
+    runs-on: ${{ inputs.runs-on }}
+    if: fromJSON(inputs.nur-jobs).stage1.include[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.nur-jobs).stage1 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          channel: ${{ matrix.channel }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}
+
+  nur2:
+    needs:
+      - pkgs
+    runs-on: ${{ inputs.runs-on }}
+    if: >
+      always() &&
+      (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped') &&
+      fromJSON(inputs.nur-jobs).stage2.include[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.nur-jobs).stage2 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          channel: ${{ matrix.channel }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}
+
+  nur3:
+    needs:
+      - nur1
+    runs-on: ${{ inputs.runs-on }}
+    if: >
+      always() &&
+      (needs.nur1.result == 'success' || needs.nur1.result == 'skipped') &&
+      fromJSON(inputs.nur-jobs).stage3.include[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.nur-jobs).stage3 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          channel: ${{ matrix.channel }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}
+
+  hosts:
+    needs:
+      - pkgs
+    runs-on: ${{ inputs.runs-on }}
+    if: >
+      always() &&
+      (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped') &&
+      fromJSON(inputs.flake-jobs).hosts.item[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.flake-jobs).hosts }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}
+
+  checks:
+    needs:
+      - pkgs
+    runs-on: ${{ inputs.runs-on }}
+    if: >
+      always() &&
+      (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped') &&
+      fromJSON(inputs.flake-jobs).checks.item[0]
+    strategy:
+      matrix: ${{ fromJSON(inputs.flake-jobs).checks }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+      - name: Build
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ toJSON(matrix.item) }}
+          system: ${{ inputs.system }}
+          cachix-name: ${{ inputs.cachix-name }}
+          cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
+          cachix-auth-token: ${{ secrets.cachix-auth-token }}
+          cachix-signing-key: ${{ secrets.cachix-signing-key }}

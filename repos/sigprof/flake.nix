@@ -14,24 +14,25 @@
     devshell.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nixpkgs,
     flake-utils,
     pre-commit-hooks,
     devshell,
-  }: let
-    nurPackageOverlay = import ./overlay.nix;
-  in
+  }:
     {
-      overlay = final: prev: nurPackageOverlay final prev;
+      lib = import ./lib inputs;
+      overlays.default = import ./overlay.nix;
     }
     // (
       flake-utils.lib.eachDefaultSystem (system: let
+        inherit (flake-utils.lib) filterPackages flattenTree;
         pkgs = nixpkgs.legacyPackages.${system};
-        nurPackages = nurPackageOverlay nurPackages pkgs;
-      in rec {
-        packages = flake-utils.lib.filterPackages system nurPackages;
+        legacyPackages = pkgs.callPackage ./pkgs {inherit inputs;};
+        packages = filterPackages system (flattenTree legacyPackages);
+      in {
+        inherit packages legacyPackages;
       })
     )
     // (

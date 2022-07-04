@@ -1,0 +1,307 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      flake_only:
+        description: 'Run flake tests only'
+        default: false
+        type: boolean
+  schedule:
+    # rebuild everyday at 1:30
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '30 1 * * *'
+
+defaults:
+  run:
+    # Use `bash` by default.  Note that, according to the documentation, the
+    # real command is `bash --noprofile --norc -eo pipefail {0}`, which makes
+    # the shell catch any errors in pipelines.
+    shell: bash
+
+env:
+  CACHIX_NAME: sigprof
+  NUR_REPO: sigprof
+
+  nur_systems: x86_64-linux x86_64-darwin
+  nur_channels: nixpkgs-unstable nixos-unstable nixos-22.05 nixos-21.11
+  nur_main_channel: nixos-22.05
+
+jobs:
+  setup_flake:
+    runs-on: ubuntu-latest
+    env:
+      this_system: x86_64-linux
+    outputs:
+      cachix_name: ${{ env.CACHIX_NAME }}
+      flake_jobs: ${{ steps.collect_flake_jobs.outputs.flake_jobs }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.2
+
+      - name: Install Nix
+        uses: sigprof/install-nix-action@6c5ba55bfdc791cfad61ac72e473340c1c3ac992
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: ${{ env.CACHIX_NAME }}
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          extraPullNames: "pre-commit-hooks"
+
+      - name: Check flake evaluation
+        run: nix flake check --no-build
+
+      - name: Collect flake jobs
+        id: collect_flake_jobs
+        run: |
+          # Collect flake jobs
+          flake_jobs="$(nix eval --json .\#lib.ciData.matrix)"
+          echo "::group::Flake jobs:"
+          printf '%s' "$flake_jobs" | jq
+          echo "::endgroup::"
+          printf '::set-output name=flake_jobs::%s\n' "$flake_jobs"
+
+      - name: Collect setup checks
+        id: collect_setup_checks
+        env:
+          flake_jobs: ${{ steps.collect_flake_jobs.outputs.flake_jobs }}
+        run: |
+          # Collect setup checks
+          setup_checks="$(
+            jq -nc --arg system "$this_system" '
+            env.flake_jobs | fromjson |
+              { checks: [ .[$system].flake.setupChecks.item[].checks[] ] }?
+            '
+          )"
+          echo "::group::Setup checks:"
+          printf '%s' "$setup_checks" | jq
+          echo "::endgroup::"
+          printf '::set-output name=setup_checks::%s\n' "$setup_checks"
+
+      - name: Run setup checks
+        if: ${{ steps.collect_setup_checks.outputs.setup_checks }}
+        uses: ./.github/actions/nix-build
+        with:
+          item: ${{ steps.collect_setup_checks.outputs.setup_checks }}
+          system: ${{ env.this_system }}
+          cachix-name: ${{ env.CACHIX_NAME }}
+          cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+  setup_nur:
+    runs-on: ubuntu-latest
+    outputs:
+      nur_jobs: ${{ steps.collect_nur_jobs.outputs.nur_jobs }}
+    if: >-
+      (!inputs.flake_only)
+      && !(
+        (github.event_name == 'pull_request')
+        && (github.event.pull_request.head.repo.full_name == 'sigprof/nur-packages')
+        && startsWith(github.event.pull_request.head.ref, 'automatic-flake-update/')
+      )
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.2
+
+      - name: Install Nix
+        uses: sigprof/install-nix-action@6c5ba55bfdc791cfad61ac72e473340c1c3ac992
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: ${{ env.CACHIX_NAME }}
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          extraPullNames: "pre-commit-hooks"
+
+      - name: Check NUR evaluation
+        run: |
+          # Check NUR evaluation
+          for channel in $nur_channels; do
+            echo "::group::NUR evaluation for $channel:"
+            nix-env -f . -qa \* --meta --xml \
+              --allowed-uris https://static.rust-lang.org \
+              --option restrict-eval true \
+              --option allow-import-from-derivation true \
+              --drv-path --show-trace \
+              -I nixpkgs=$(NIX_PATH="nixpkgs=channel:$channel" nix-instantiate --find-file nixpkgs) \
+              -I $PWD
+            echo "::endgroup::"
+          done
+
+      - name: Collect NUR jobs
+        id: collect_nur_jobs
+        run: |
+          # Collect NUR jobs
+
+          # Determine how to handle `nixpkgs-unstable` and `nixos-unstable`.
+          case "$nur_main_channel" in
+            (nixos-unstable|nixpkgs-unstable)
+              # If the flake follows one of the unstable channels, build NUR
+              # packages for both unstable channels after the flake (hoping
+              # that the packages would match the flake build results).
+              job_for_nixpkgs_unstable="stage2"
+              job_for_nixos_unstable="stage2"
+              ;;
+            (*)
+              # If the flake follows a stable channel, build NUR package for
+              # unstable channels independently from everything else ...
+              job_for_nixpkgs_unstable="other"
+              job_for_nixos_unstable="other"
+              # ... except when both `nixpkgs-unstable` and `nixos-unstable`
+              # are requested
+              have_nixpkgs_unstable=
+              have_nixos_unstable=
+              for channel in $nur_channels; do
+                case "$channel" in
+                  (nixpkgs-unstable) have_nixpkgs_unstable=t ;;
+                  (nixos-unstable) have_nixos_unstable=t ;;
+                esac
+              done
+              # If both unstable branches are requested, `nixpkgs-unstable`
+              # should be built in stage1, and `nixos-unstable` should be built
+              # in stage3 (this way any errors triggered by the newest code
+              # would be triggered early).
+              if [ -n "$have_nixpkgs_unstable" ] && [ -n "$have_nixos_unstable" ]; then
+                job_for_nixpkgs_unstable="stage1"
+                job_for_nixos_unstable="stage3"
+              fi
+              ;;
+          esac
+
+          # Collect NUR jobs for all possible (system, channel) combinations,
+          # accumulating them as multiple JSON values in $accumulated_nur_jobs.
+          accumulated_nur_jobs=""
+          for system in $nur_systems; do
+            for channel in $nur_channels; do
+              case "$channel" in
+                (nixpkgs-unstable) job="$job_for_nixpkgs_unstable" ;;
+                (nixos-unstable) job="$job_for_nixos_unstable" ;;
+                (*)
+                  if [ "$channel" = "$nur_main_channel" ]; then
+                    job="stage2"
+                  else
+                    job="other"
+                  fi
+                  ;;
+              esac
+              nur_jobs_part="$(
+                NIX_PATH="nixpkgs=channel:$channel" \
+                  nix eval --argstr system "$system" --json -f nur.nix lib.ciData.matrix |
+                  jq -c --arg system "$system" --arg channel "$channel" --arg job "$job" '
+                    path(.[].nur.nurPackages.item) as $x
+                    | getpath($x)
+                    | {
+                        ($x[0]): {
+                          nur: {
+                            ($job): {
+                              include: [
+                                {
+                                  channel: $channel,
+                                  item: .[]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                  '
+              )"
+              echo "::group::NUR jobs for $system, $channel:"
+              printf '%s' "$nur_jobs_part" | jq
+              echo "::endgroup::"
+              accumulated_nur_jobs="$accumulated_nur_jobs$nur_jobs_part"
+            done
+          done
+
+          # Now merge multiple JSON objects into a single JSON.
+          nur_jobs="$(
+            printf '%s' "$accumulated_nur_jobs" |
+              jq -c -n '
+                def mergeRecursive(a; b):
+                  a as $a | b as $b
+                  | if ($a|type) == "object" and ($b|type) == "object"
+                    then reduce ([$a, $b] | add | keys_unsorted[]) as $k (
+                      {};
+                      .[$k] = mergeRecursive($a[$k]; $b[$k])
+                    )
+                    elif ($a|type) == "array" and ($b|type) == "array"
+                    then $a + $b
+                    elif $b == null then $a
+                    else $b
+                end;
+                reduce inputs as $item ({}; mergeRecursive(.; $item))
+              '
+          )"
+          echo "::group::Collected NUR jobs:"
+          printf '%s' "$nur_jobs" | jq
+          echo "::endgroup::"
+          printf '::set-output name=nur_jobs::%s\n' "$nur_jobs"
+ 
+  x86_64-linux:
+    needs:
+      - setup_flake
+      - setup_nur
+    if: >-
+      always()
+      && (needs.setup_flake.result == 'success')
+      && (needs.setup_nur.result == 'success' || needs.setup_nur.result == 'skipped')
+    uses: ./.github/workflows/ci-per-system.yml
+    with:
+      system: x86_64-linux
+      runs-on: ubuntu-latest
+      flake-jobs: ${{ toJSON(fromJSON(needs.setup_flake.outputs.flake_jobs).x86_64-linux.flake) }}
+      nur-jobs: ${{ toJSON(fromJSON(needs.setup_nur.outputs.nur_jobs || '{}').x86_64-linux.nur) }}
+      cachix-name: ${{ needs.setup_flake.outputs.cachix_name }}
+    secrets:
+      cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+  x86_64-darwin:
+    needs:
+      - setup_flake
+      - setup_nur
+    if: >-
+      always()
+      && (needs.setup_flake.result == 'success')
+      && (needs.setup_nur.result == 'success' || needs.setup_nur.result == 'skipped')
+    uses: ./.github/workflows/ci-per-system.yml
+    with:
+      system: x86_64-darwin
+      runs-on: macos-latest
+      flake-jobs: ${{ toJSON(fromJSON(needs.setup_flake.outputs.flake_jobs).x86_64-darwin.flake) }}
+      nur-jobs: ${{ toJSON(fromJSON(needs.setup_nur.outputs.nur_jobs || '{}').x86_64-darwin.nur) }}
+      cachix-name: ${{ needs.setup_flake.outputs.cachix_name }}
+    secrets:
+      cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+  finish:
+    needs:
+      - setup_flake
+      - setup_nur
+      - x86_64-linux
+      - x86_64-darwin
+    runs-on: ubuntu-latest
+    if: always()
+    env:
+      ci_success: >-
+        ${{
+          (needs.setup_flake.result == 'success')
+          && (needs.setup_nur.result == 'success' || needs.setup_nur.result == 'skipped')
+          && (needs.x86_64-linux.result == 'success')
+          && (needs.x86_64-darwin.result == 'success' || needs.x86_64-darwin.result == 'skipped')
+        }}
+    steps:
+      - name: Trigger NUR update
+        if: >-
+          (github.event_name == 'push')
+          && (github.repository == 'sigprof/nur-packages')
+          && (github.ref == 'refs/heads/master')
+          && (env.ci_success == 'true')
+        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=$NUR_REPO"
+
+      - name: Report CI status
+        run: $ci_success

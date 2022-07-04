@@ -1,15 +1,14 @@
-# You can use this file as a nixpkgs overlay. This is useful in the
-# case where you don't want to add the whole NUR namespace to your
-# configuration.
-self: super: let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  nameValuePair = n: v: {
-    name = n;
-    value = v;
-  };
-  nurAttrs = import ./default.nix {pkgs = super;};
+# This file is an alternate entry point for NUR if you want to use the
+# repository as a simple Nixpkgs overlay instead of going through the central
+# NUR repo with the corresponding namespacing.
+#
+# Note that the usage of this overlay may result in some problems if the
+# packages defined in this repository actually have the same names as packages
+# from Nixpkgs or any other source.  The overlay also does not provide access
+# to other types of the content that may be present in the repository, such as
+# custom Nix functions, NixOS modules, or even other package overlays.
+#
+final: prev: let
+  self = import ./nur.nix {pkgs = prev;};
 in
-  builtins.listToAttrs
-  (map (n: nameValuePair n nurAttrs.${n})
-    (builtins.filter (n: !isReserved n)
-      (builtins.attrNames nurAttrs)))
+  self.nurPackages.${prev.system}

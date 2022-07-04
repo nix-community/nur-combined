@@ -1,6 +1,19 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
+      interval: daily
+    open-pull-requests-limit: 10
+
+  # At the moment every GitHub action that is not stored at the root of the
+  # repository must be listed explicitly (Dependabot does not search for
+  # `action.yml` files in subdirectories, and does not support wildcards):
+  #
+  #   https://github.com/dependabot/dependabot-core/issues/4178
+  #
+  - package-ecosystem: github-actions
+    directory: /.github/actions/nix-build
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
