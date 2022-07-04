@@ -16,6 +16,8 @@ in {
 
   services.openssh.forwardX11 = true;
 
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   fileSystems = {
     "/persist" = {
       neededForBoot = true;

@@ -7,6 +7,12 @@ terraform {
     }
 }
 
+variable "modo_turbo" {
+  type = bool
+  default = false
+  description = "VPS com mais CPU e GPU"
+}
+
 variable "gcp_zone" {
     type = string
     default = "us-central1-a"
@@ -44,11 +50,14 @@ resource "google_compute_instance" "vps" {
   }
 
   enable_display = true
-  machine_type   = "e2-micro"
-  /* guest_accelerator { */
-  /*   type = "nvidia-tesla-k80" */
-  /*   count = 1 */
-  /* } */
+
+  machine_type = var.modo_turbo ? "n1-highcpu-4" : "e2-micro"
+
+  guest_accelerator {
+    type = "nvidia-tesla-k80"
+    count = var.modo_turbo ? 1 : 0
+  }
+
   scheduling {
     preemptible = true
     automatic_restart = false
