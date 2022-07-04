@@ -35,6 +35,7 @@
   prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
   gcalendar = pkgs.python38.pkgs.callPackage ./pkgs/gcalendar { };
   activitywatch-bin = pkgs.python38.pkgs.callPackage ./pkgs/activitywatch-bin { };
+  spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
 
   ## programming
   # buf = pkgs.callPackage ./pkgs/buf {};
