@@ -58,10 +58,10 @@
             overlays = [ self.overlays.default ];
           };
           appPkgs =
-            if system == systems.x86_64-linux then {
+            (if system == systems.x86_64-linux then {
               home-manager = home-manager.defaultPackage.${system};
               nvfetcher = nvfetcher.defaultPackage.${system};
-            } else { } // {
+            } else { }) // {
               deploy = deploy-rs.defaultPackage.${system};
             };
         in
