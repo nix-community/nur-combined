@@ -24,21 +24,21 @@ in
 
   prePatch = ''
     cp -r ${sources.asterisk-alaw16.src}/* ./
-    # cp -r ${sources.asterisk-amr.src}/* ./
+    cp -r ${sources.asterisk-amr.src}/* ./
     cp -r ${sources.asterisk-evs.src}/* ./
-    # cp -r ${sources.asterisk-gsm-efr.src}/* ./
+    cp -r ${sources.asterisk-gsm-efr.src}/* ./
   '' + (old.prePatch or "");
 
   postPatch =
     let
       myPatches = [
         "${sources.asterisk-alaw16.src}/alaw16_transcoding.patch"
-        # "${sources.asterisk-amr.src}/codec_amr.patch"
-        # "${sources.asterisk-amr.src}/build_tools.patch"
+        "${sources.asterisk-amr.src}/codec_amr.patch"
+        "${sources.asterisk-amr.src}/build_tools.patch"
         ./codec_evs.patch
         "${sources.asterisk-evs.src}/build_evs.patch"
         "${sources.asterisk-evs.src}/force_limitations.patch"
-        # "${sources.asterisk-gsm-efr.src}/codec_gsm_efr.patch"
+        "${sources.asterisk-gsm-efr.src}/codec_gsm_efr.patch"
       ];
     in
     (builtins.concatStringsSep "\n" (builtins.map
