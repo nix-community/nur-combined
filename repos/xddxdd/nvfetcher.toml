@@ -1,6 +1,27 @@
+[asterisk]
+src.github_tag = "asterisk/asterisk"
+src.include_regex = "[0-9\\.]+"
+fetch.url = "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-$ver.tar.gz"
+
+[asterisk-alaw16]
+src.git = "https://github.com/traud/asterisk-alaw16.git"
+fetch.github = "traud/asterisk-alaw16"
+
+[asterisk-amr]
+src.git = "https://github.com/traud/asterisk-amr.git"
+fetch.github = "traud/asterisk-amr"
+
+[asterisk-evs]
+src.git = "https://github.com/traud/asterisk-evs.git"
+fetch.github = "traud/asterisk-evs"
+
 [asterisk-g72x]
 src.git = "https://github.com/arkadijs/asterisk-g72x.git"
 fetch.github = "arkadijs/asterisk-g72x"
+
+[asterisk-gsm-efr]
+src.git = "https://github.com/traud/asterisk-gsm-efr.git"
+fetch.github = "traud/asterisk-gsm-efr"
 
 [baidupcs-go]
 src.github = "qjfoidnh/BaiduPCS-Go"

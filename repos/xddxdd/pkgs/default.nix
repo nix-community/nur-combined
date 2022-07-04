@@ -56,6 +56,9 @@ rec {
   asteriskDigiumCodecs = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs { });
   lantianCustomized = pkgs.recurseIntoAttrs {
     # Packages with significant customization by Lan Tian
+    asterisk = pkg ./lantian-customized/asterisk {
+      inherit asteriskDigiumCodecs asterisk-g72x;
+    };
     coredns = pkg ./lantian-customized/coredns { };
     keycloak-lantian = ifFlakes (pkg ./lantian-customized/keycloak-lantian {
       inherit (inputs) keycloak-lantian;

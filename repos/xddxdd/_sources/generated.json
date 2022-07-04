@@ -1,4 +1,75 @@
 {
+    "asterisk": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "asterisk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-8XdXOP6WedZgL4OpbsZzUyT+elCAD8Ccl6cMx8fPAMg=",
+            "type": "url",
+            "url": "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-19.5.0.tar.gz"
+        },
+        "version": "19.5.0"
+    },
+    "asterisk-alaw16": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "asterisk-alaw16",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "traud",
+            "repo": "asterisk-alaw16",
+            "rev": "3f81697eec6388a3cdf74743a436ef4faea542d6",
+            "sha256": "sha256-A44u5jR+lBzvovS928DogFY8rxpmyxr9a9TeSa8X6hg=",
+            "type": "github"
+        },
+        "version": "3f81697eec6388a3cdf74743a436ef4faea542d6"
+    },
+    "asterisk-amr": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "asterisk-amr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "traud",
+            "repo": "asterisk-amr",
+            "rev": "420ab33f236e15955351e45bf9fbb256228afe21",
+            "sha256": "sha256-Q8q2fF7MtMlyrVYABaM9V5C0FJj0g9oihE6TLsoe28E=",
+            "type": "github"
+        },
+        "version": "420ab33f236e15955351e45bf9fbb256228afe21"
+    },
+    "asterisk-evs": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "asterisk-evs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "traud",
+            "repo": "asterisk-evs",
+            "rev": "c31d342330ddb6e11cb4ac7b516ac5ea409c1fb8",
+            "sha256": "sha256-soayTFbl0FHkH4ZxaeL+ApDsJ2e3CDIIW0KX5rzAAAM=",
+            "type": "github"
+        },
+        "version": "c31d342330ddb6e11cb4ac7b516ac5ea409c1fb8"
+    },
     "asterisk-g72x": {
         "cargoLocks": null,
         "extract": null,
@@ -17,6 +88,25 @@
             "type": "github"
         },
         "version": "3855cec2ef2667f3e9224006dbaf179575752218"
+    },
+    "asterisk-gsm-efr": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "asterisk-gsm-efr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "traud",
+            "repo": "asterisk-gsm-efr",
+            "rev": "e91ef643a7ff341e1fdaa1c6ff63b3cdc52ac8b4",
+            "sha256": "sha256-EzQA+j2QBilNWgoPzcNEkf/3XO6XNl8ygDD6Q65tdFk=",
+            "type": "github"
+        },
+        "version": "e91ef643a7ff341e1fdaa1c6ff63b3cdc52ac8b4"
     },
     "baidupcs-go": {
         "cargoLocks": null,
@@ -618,11 +708,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-W7m+Z13FyqQ65fuT5nXorLyffIenrL7LcrUZ4zkPrbs=",
+            "sha256": "sha256-vU/oWQJNHHyXm+cIr8pzJdOEvR5/r0+TvJMpai6wY+M=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220702092201/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220704031409/dlc.dat"
         },
-        "version": "20220702092201"
+        "version": "20220704031409"
     },
     "v2fly-private": {
         "cargoLocks": null,
