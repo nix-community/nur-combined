@@ -79,8 +79,6 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / PYTHON MODULES
 
-    cjkwrap = callPackage ./development/python-modules/cjkwrap { };
-    bson = callPackage ./development/python-modules/bson { };
     click-6-7 = callPackage ./development/python-modules/click { };
     contextily = callPackage ./development/python-modules/contextily { };
     curses-menu = callPackage ./development/python-modules/curses-menu { };
@@ -342,12 +340,22 @@ lib.makeScope newScope (
     ### NAKARTE
 
     elevation_server = callPackage ./nakarte/elevation_server { };
-    map-tiler = callPackage ./nakarte/map-tiler { };
-    maprec = callPackage ./nakarte/maprec { };
+    map-tiler = callPackage ./nakarte/map-tiler {
+      python3Packages = pkgs.python39Packages;
+    };
+    maprec = callPackage ./nakarte/maprec {
+      python3Packages = pkgs.python39Packages;
+    };
     nakarte = callPackage ./nakarte/nakarte { };
-    ozi_map = callPackage ./nakarte/ozi_map { };
-    pyimagequant = callPackage ./nakarte/pyimagequant { };
-    thinplatespline = callPackage ./nakarte/thinplatespline { };
+    ozi_map = callPackage ./nakarte/ozi_map {
+      python3Packages = pkgs.python39Packages;
+    };
+    pyimagequant = callPackage ./nakarte/pyimagequant {
+      python3Packages = pkgs.python39Packages;
+    };
+    thinplatespline = callPackage ./nakarte/thinplatespline {
+      python3Packages = pkgs.python39Packages;
+    };
     tracks_storage_server = callPackage ./nakarte/tracks_storage_server { };
 
     ### OSM
