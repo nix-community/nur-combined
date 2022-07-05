@@ -1,0 +1,94 @@
+diff --git i/Makefile w/Makefile
+index 5a598e3..af94705 100644
+--- i/Makefile
++++ w/Makefile
+@@ -6,7 +6,7 @@ SRCS=	amused.c control.c log.c xmalloc.c player.c ctl.c playlist.c \
+ 
+ CPPFLAGS += -I/usr/local/include -I/usr/local/include/opus
+ 
+-LDADD =	-levent -lm -lsndio -lutil \
++LDADD =	-levent -lm -lsndio -lutil -lbsd -limsg \
+ 	-L/usr/local/lib -lmpg123 -lvorbisfile -lopusfile -lFLAC
+ DPADD =	${LIBEVENT} ${LIBM} ${LIBSNDIO} ${LIBUTIL}
+ 
+@@ -16,7 +16,7 @@ BINDIR ?= ${PREFIX}/bin
+ MANDIR ?= ${PREFIX}/man/man
+ .else
+ NOMAN = Yes
+-CFLAGS += -Werror -Wall -Wstrict-prototypes -Wunused-variable
++CFLAGS += -Wall -Wstrict-prototypes -Wunused-variable
+ PREFIX ?= ${HOME}
+ BINDIR ?= ${PREFIX}/bin
+ BINOWN ?= ${USER}
+diff --git i/amused.h w/amused.h
+index 81634a0..ce89859 100644
+--- i/amused.h
++++ w/amused.h
+@@ -17,6 +17,18 @@
+ #ifndef AMUSED_H
+ #define AMUSED_H
+ 
++#ifndef __OpenBSD__
++#define pledge(a, b) (0)
++#endif
++
++#ifndef __dead
++#define __dead __attribute__((noreturn))
++#endif
++
++#ifndef INFTIM
++#define INFTIM -1
++#endif
++
+ extern char		*csock;
+ extern int		 debug;
+ extern int		 verbose;
+diff --git i/ctl.c w/ctl.c
+index 03560a0..e4964dc 100644
+--- i/ctl.c
++++ w/ctl.c
+@@ -824,7 +824,7 @@ ctl(int argc, char **argv)
+ 	ibuf = xmalloc(sizeof(*ibuf));
+ 	imsg_init(ibuf, ctl_sock);
+ 
+-	optreset = 1;
++	//optreset = 1;
+ 	optind = 1;
+ 
+ 	exit(parse(argc, argv));
+diff --git i/log.h w/log.h
+index 0fa046f..c2a424d 100644
+--- i/log.h
++++ w/log.h
+@@ -21,6 +21,10 @@
+ 
+ #include <stdarg.h>
+ 
++#ifndef __dead
++#define __dead __attribute__((noreturn))
++#endif
++
+ void	log_init(int, int);
+ void	log_procinit(const char *);
+ void	log_setverbose(int);
+diff --git i/player.c w/player.c
+index a1a9f1a..917dfe2 100644
+--- i/player.c
++++ w/player.c
+@@ -254,7 +254,7 @@ play(const void *buf, size_t len)
+ 
+ 		if (player_pfds[0].revents & (POLLHUP|POLLIN)) {
+ 			if (player_shouldstop()) {
+-				sio_flush(hdl);
++				sio_stop(hdl);
+ 				stopped = 1;
+ 				return 0;
+ 			}
+@@ -281,6 +281,7 @@ player(int debug, int verbose)
+ 	log_init(debug, LOG_DAEMON);
+ 	log_setverbose(verbose);
+ 
++    setproctitle_init();
+ 	setproctitle("player");
+ 	log_procinit("player");
+ 

@@ -405,6 +405,7 @@ lib.makeScope newScope (
 
     ### SUCKLESS
 
+    amused = callPackage ./suckless/amused { };
     blind = callPackage ./suckless/blind { };
     chibicc = callPackage ./suckless/chibicc { };
     cproc = callPackage ./suckless/cproc { };
