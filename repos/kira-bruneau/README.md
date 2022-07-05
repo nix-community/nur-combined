@@ -38,7 +38,6 @@ Name | Attribute | Description
 
 Name | Attribute | Description
 -----|-----------|------------
-[bluetooth-autoconnect](https://github.com/jrouleau/bluetooth-autoconnect)|[nur.repos.kira-bruneau.modules.bluetooth-autoconnect](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/modules/services/networking/bluetooth-autoconnect.nix)|A linux command line tool to automatically connect to all paired and trusted bluetooth devices
 [lightdm-webkit2-greeter](https://github.com/Antergos/web-greeter)|[nur.repos.kira-bruneau.modules.lightdm-webkit2-greeter](https://github.com/nix-community/nur-combined/tree/master/repos/kira-bruneau/modules/services/x11/display-managers/lightdm-greeters/webkit2.nix)|A modern, visually appealing greeter for LightDM
 [xpadneo](https://atar-axis.github.io/xpadneo)|[nur.repos.kira-bruneau.modules.xpadneo](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/modules/hardware/xpadneo.nix)|Advanced Linux driver for Xbox One wireless controllers
 

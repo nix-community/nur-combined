@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "runescape-launcher";
-  version = "2.2.9";
+  version = "2.2.10";
 
   # Debian Repo:
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/Release
   # curl https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
   src = fetchurl {
     url = "https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb";
-    sha256 = "sha256-k9Vxlfjnu1T4uLVYrmYY0FEFR+xeNN75ecak2/OVH/M=";
+    sha256 = "sha256-YnAxxs4MzXQns3Y1O/PoL7xnr51dGtoyDbehjLm3KjE=";
   };
 
   # What about fhs wrapper?

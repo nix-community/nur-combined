@@ -25,8 +25,6 @@ in
     nodejs = nodejs-14_x;
   };
 
-  bluetooth-autoconnect = python3Packages.callPackage ./tools/bluetooth/bluetooth-autoconnect { };
-
   caprine = callPackage ./applications/networking/instant-messengers/caprine {
     nodejs = nodejs-14_x;
   };
