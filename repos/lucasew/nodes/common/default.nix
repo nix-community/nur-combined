@@ -21,6 +21,7 @@
       curl
       unrar
       direnv
+      pciutils
     ];
   };
   services = {
