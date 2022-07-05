@@ -36,6 +36,7 @@
   gcalendar = pkgs.python38.pkgs.callPackage ./pkgs/gcalendar { };
   activitywatch-bin = pkgs.python38.pkgs.callPackage ./pkgs/activitywatch-bin { };
   spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
+  dbui = pkgs.callPackage ./pkgs/dbui { };
 
   ## programming
   # buf = pkgs.callPackage ./pkgs/buf {};
