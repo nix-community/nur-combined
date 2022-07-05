@@ -32,6 +32,7 @@
 | [formatter-nvim](https://github.com/mhartington/formatter.nvim) | None |
 | [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Set of preconfigured snippets for different languages.  |
 | [gitsigns-nvim](https://github.com/lewis6991/gitsigns.nvim) | Git integration for buffers |
+| [glow-hover-nvim](https://github.com/JASONews/glow-hover.nvim) | A Neovim plugin leveraging glow for LSPs hover responses. |
 | [guess-indent-nvim](https://github.com/NMAC427/guess-indent.nvim) | Automatic indentation style detection for Neovim |
 | [heirline-nvim](https://github.com/rebelot/heirline.nvim) | Heirline.nvim is a no-nonsense Neovim Statusline plugin designed around recursive inheritance to be exceptionally fast and versatile. |
 | [hibiscus-nvim](https://github.com/udayvir-singh/hibiscus.nvim) | :hibiscus: Flavored Fennel Macros for Neovim |
