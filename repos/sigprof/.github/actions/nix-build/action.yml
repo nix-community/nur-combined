@@ -125,8 +125,21 @@ runs:
         echo "::endgroup::"
         echo "::group::Building derivations"
         build_result=0
-        # Use nix-build-uncached from the locked version of nixpkgs
-        nix shell --impure --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.nix-build-uncached' \
+        #
+        # Use `nix-build-uncached` from the locked version of `nixpkgs`.
+        #
+        # WARNING: Do not use `builtins.getFlake (toString ./.)` - while it
+        # seems to work, it does not detect that the current directory is a Git
+        # checkout and copies the whole contents of the directory, including
+        # `.git` and any untracked files, into the Nix store, using an unique
+        # hash every time; then this store item may be pushed into Cachix,
+        # polluting the cache and leaking the contents of `.git` including any
+        # auth tokens that might be there.  The proper `git+file:` URL for the
+        # current flake may be obtained from `nix flake metadata`.
+        #
+        flake_url="$( nix flake metadata --json | jq -r '.url' )"
+        current_system="$( nix eval --raw --impure --expr 'builtins.currentSystem' )"
+        nix shell --expr "(builtins.getFlake \"$flake_url\").inputs.nixpkgs.legacyPackages.\"$current_system\".nix-build-uncached" \
           -c nix-build-uncached $drv_list || build_result=$?
         echo "::endgroup::"
         echo "::group::Saving build logs"
