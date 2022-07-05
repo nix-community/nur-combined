@@ -1544,10 +1544,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.4.0";
+      version = "2.4.2";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956863/private_relay-2.4.0.xpi";
-      sha256 = "4a2f3856d04fe2f9329b28511a195a462d806ae7fb81987b1325e1a79fc231d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3969667/private_relay-2.4.2.xpi";
+      sha256 = "47b1dbc08304bf773b53b4fdf5b2e589bf22f09ff51961665c72827aafd0ccc1";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1893,10 +1893,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.6.1";
+      version = "4.6.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3969978/sponsorblock-4.6.1.xpi";
-      sha256 = "f5f885c2f0618ecd6fc3afbbf67e20dea52a87083a420544eb2bb3109f148934";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3971009/sponsorblock-4.6.2.xpi";
+      sha256 = "9eff02597d7585f419f2cdd9bed947c8a1fa34e561ae69aca19db6a1a64bf1f1";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2442,10 +2442,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.63.0";
+      version = "2.64.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3960150/web_scrobbler-2.63.0.xpi";
-      sha256 = "a47c74cc740e53567831aaeb6eb71d84b9bc7f220353657cd54fba17b1a7c2ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3971297/web_scrobbler-2.64.0.xpi";
+      sha256 = "a87937186dd9b392f1f35409c9eebe85aafab566d82c20f0da182c774e5fb4f8";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
