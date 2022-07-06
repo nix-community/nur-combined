@@ -23,10 +23,10 @@ in
 
   home.stateVersion = mkDefault "20.03";
 
-  home.file.".dotfilerc".text = ''
-    #!/usr/bin/env bash
-    ${environmentShell}
-  '';
+  #home.file.".dotfilerc".text = ''
+  #  #!/usr/bin/env bash
+  #  ${environmentShell}
+  #'';
   programs = {
     tmux.enable = true;
     git = {

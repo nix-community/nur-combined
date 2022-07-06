@@ -2,6 +2,7 @@
 , makeDesktopItem
 , rdesktop
 , symlinkJoin
+, fechurl
 , ...
 }:
 let
@@ -11,7 +12,7 @@ let
   desktop = makeDesktopItem {
     name = "rdp-w10";
     desktopName = "Conectar na VM de Windows 10";
-    icon= builtins.fetchurl {
+    icon = fetchurl {
       url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/windows.png";
       sha256 = "1s9b1wnfl2hjsy2l03x7wwqam86qrsaflpyliyknj63z6i3h4k1j";
     };

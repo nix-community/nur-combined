@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, fetchurl, ... }: 
 let
   bin = pkgs.wrapWine {
     name = "among_us";
@@ -10,7 +10,7 @@ in pkgs.makeDesktopItem {
   desktopName = "Among Us";
   type = "Application";
   exec = ''${bin}/bin/among_us'';
-  icon = builtins.fetchurl {
+  icon = fetchurl {
     # icon from playstore
     name = "amongus.png";
     url = "https://play-lh.googleusercontent.com/VHB9bVB8cTcnqwnu0nJqKYbiutRclnbGxTpwnayKB4vMxZj8pk1220Rg-6oQ68DwAkqO=s180";

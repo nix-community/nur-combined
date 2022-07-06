@@ -5,7 +5,6 @@ let
   inherit (global) username rootPath;
   inherit (lib) mkOverride;
   # our_cudatoolkit = pkgs.cudaPackages_10.cudatoolkit;
-  our_cudatoolkit = pkgs.cudatoolkit;
 in {
   imports = [
     ../common/default.nix
@@ -13,19 +12,12 @@ in {
     "${inputs.impermanence}/nixos.nix"
     ../../modules/cachix/system.nix
     ./modules
+    ./nvidia.nix
   ];
 
   nix.settings.min-free = 64 * 1024 * 1024; # trigger do gc mais baixo
 
   services.openssh.forwardX11 = true;
-
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidia_x11_legacy470;
-    # nvidiaPersistenced = true;
-  };
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
   fileSystems = {
     "/persist" = {
       neededForBoot = true;
@@ -66,16 +58,7 @@ in {
     dotenv
     htop
     neofetch
-    our_cudatoolkit
-    our_cudatoolkit.lib
   ];
-  environment.variables = {
-    CUDA_PATH = "${our_cudatoolkit}";
-    CUDA_HOME = "${our_cudatoolkit}";
-    CUDA_VERSION = our_cudatoolkit.version;
-    EXTRA_LDFLAGS="-L/lib -L${config.hardware.nvidia.package}/lib";
-    EXTRA_CCFLAGS="-I/usr/include";
-  };
   networking.firewall = {
     enable = true;
     trustedInterfaces = [

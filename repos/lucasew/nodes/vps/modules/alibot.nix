@@ -1,15 +1,15 @@
 {pkgs, cfg, config, lib, ...}:
 let
-  inherit (builtins) fetchGit;
-  inherit (pkgs) callPackage dotenv;
+  inherit (pkgs) callPackage dotenv fetchFromGitHub;
   inherit (lib) mkEnableOption types mkOption mkIf;
   inherit (cfg) rootPath;
 
   module = config.vps.alibot;
   alibot = callPackage "${
-    fetchGit {
+    fetchFromGitHub {
       url = "ssh://git@github.com/lucasew/alibot";
       rev = "5bf5a883f7e600905280a9ea4a445f575e94a04d";
+      sha256 = lib.fakeSha256;
     }
   }/package.nix" {};
 in
