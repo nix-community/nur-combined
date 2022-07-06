@@ -21,6 +21,8 @@ let
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
+    (trivial "nvfetcher-changes")
+    (trivial "nvfetcher-changes-commit")
     (trivial "telegram-send")
     (trivial "trojan")
     (trivial "updater")

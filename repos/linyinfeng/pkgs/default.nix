@@ -21,6 +21,8 @@ lib.makeScope newScope (
       inherit (fishPlugins) buildFishPlugin;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
+    nvfetcher-changes = callPackage ./nvfetcher-changes { };
+    nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
     telegram-send = callPackage ./telegram-send { };
     trojan = callPackage ./trojan { };
     vlmcsd = callPackage ./vlmcsd { };

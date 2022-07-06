@@ -3,13 +3,12 @@
 , nixpkgs-fmt
 , nix-prefetch
 , nix-update
+, nvfetcher-changes-commit
 , path
 , nixUpdateAttributes ? [
     "cf-terraforming"
   ]
-, sourcesFile ? "./pkgs/_sources/generated.nix"
 , tmpDir ? "/tmp/linyinfeng-nur-packages-update"
-, oldSourcesFile ? "${tmpDir}/old-generated.nix"
 , changelogFile ? "${tmpDir}/changelog"
 , updaterChangelogFile ? "${tmpDir}/updater-changelog"
 , nixUpdateCommitMessageFile ? "${tmpDir}/commit-message"
@@ -37,8 +36,8 @@ writeShellScriptBin "update" ''
   fi
 
   # setup git
-  git config --global user.name "${authorName}"
-  git config --global user.email "${authorEmail}"
+  git config user.name "${authorName}"
+  git config user.email "${authorEmail}"
   function commit {
     git add --all
     git commit "$@"
@@ -56,8 +55,6 @@ writeShellScriptBin "update" ''
     fi
   done
 
-  # save old source file
-  cp ${sourcesFile} ${oldSourcesFile}
   # remove old Cargo.lock files
   pushd pkgs/_sources
   rm -f */Cargo.lock
@@ -68,26 +65,10 @@ writeShellScriptBin "update" ''
   pushd pkgs;
   ${nix}/bin/nix shell ..#updater --command updater "$@";
   popd
-  ${nixpkgs-fmt}/bin/nixpkgs-fmt ${sourcesFile}
+  ${nixpkgs-fmt}/bin/nixpkgs-fmt .
 
   # get changelog
-  ${nix}/bin/nix eval --expr '
-    (builtins.getFlake "'$PWD'").lib.versionDiff {
-      oldSources = ${oldSourcesFile};
-      newSources = ${sourcesFile};
-    }' --impure --raw > "${updaterChangelogFile}"
-  changelog_lines=$(wc --lines ${updaterChangelogFile} | cut -d ' ' -f 1)
-  if [ "$changelog_lines" -eq 0 ]; then
-    echo "updater changelog is empty, skip"
-  elif [ "$changelog_lines" -eq 1 ]; then
-    commit --file="${updaterChangelogFile}"
-  else
-    commit --file=- <<EOF
-  Update multiple packages
-
-  $(cat "${updaterChangelogFile}")
-  EOF
-  fi
+  ${nvfetcher-changes-commit}/bin/nvfetcher-changes-commit "pkgs/_sources/generated.nix" > "${updaterChangelogFile}"
   cat "${updaterChangelogFile}" >> "${changelogFile}"
 
   ## nix flake update

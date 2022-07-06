@@ -58,7 +58,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-JiLwijB+Zqe5JgKLncr7r4w1lpDRWWVh9TAl+9nOiCo=";
+      sha256 = "sha256-rOrD5+24uxzqpeyfY1Q0S4aoq2LP+el24D9wsPK2i8A=";
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./commit-notifier-573c1eb7eabc97aa06e0e9ad85f5148110749876/Cargo.lock;
@@ -74,7 +74,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-3ztQpXt8ZtVtgyXF4M1FCgTqVIAPtyNFvISa8HbkPYo=";
+      sha256 = "sha256-c1w8jUBZrhvsRNenjtbw0RWtaU/wdbpVDS6GZKJhZbk=";
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./dot-tar-8719c34f81c94d50286a4120990eb0f134799fe1/Cargo.lock;
@@ -109,7 +109,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-uy/dEaLC4eZ87HvawXZlVd6n0koEtrT6It8Z9/KV3BQ=";
+      sha256 = "sha256-iqblvoesrYPUdri9sO9Nz+b2aTjlPqDAeyouKUqs7CQ=";
     };
   };
   pisces = {
@@ -121,7 +121,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Oou2IeNNAqR00ZT3bss/DbhrJjGeMsn9dBBYhgdafBw=";
+      sha256 = "sha256-arglgJRZ+zRV8wjO+GB43XSbbuBVmAnwtJv8WpdGk/E=";
     };
   };
   plugin-bang-bang = {
@@ -133,7 +133,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-A8ydBX4LORk+nutjHurqNNWFmW6LIiBPQcxS3x4nbeQ=";
+      sha256 = "sha256-+z8+d3Zl4g16EpbmvyNYHyeiG7Flf5jwXPok7RmqHXQ=";
     };
   };
   plugin-git = {
@@ -145,7 +145,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-NaDZLmktuwlYxxzwDoVKgd8bEY+Wy9b2Qaz0CTf8V/Q=";
+      sha256 = "sha256-rkdvCyIjD0X4Sijk8/EmXc5zER+mzztIBWeiMMVKh7w=";
     };
   };
   replay-fish = {
@@ -168,7 +168,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-/+hNnUT7kA19wpiHGNPVMQGostjoaDzHd91WYruJq0w=";
+      sha256 = "sha256-zDIOKNpYSnnRjgWhyp5QXSnDuWiNcCSjrs9hCMX4B/8=";
     };
   };
   trojan = {

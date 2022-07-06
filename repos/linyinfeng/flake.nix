@@ -13,9 +13,13 @@
       utils = flake-utils-plus.lib;
       inherit (nixpkgs) lib;
       inherit (self.lib) makePackages makeApps appNames;
-      makePackages' = prev: (makePackages prev ./pkgs { }) // {
-        devShellPackages = makePackages prev ./shell { };
-      };
+      makePackages' = prev:
+        let
+          packages = makePackages prev ./pkgs { };
+        in
+        packages // {
+          devShellPackages = makePackages prev ./shell { inherit packages; };
+        };
     in
     utils.mkFlake
       {
