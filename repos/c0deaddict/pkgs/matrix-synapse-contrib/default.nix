@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
       "1.59.1" = "sha256-8YtBUossdvB5Gp9Ghs4sgf+fuz/jLxKMMHg9GdCvy+E=";
       "1.60.0" = "sha256-TgbIQ1hXewttY+5sbLeUH7ULQw9GUhoo2KZzN2t+FNw=";
       "1.61.0" = "sha256-er9alqTeC8WIaJyfgGn51peHepaMwF2+GiI5ARtp1RE=";
+      "1.61.1" = "sha256-GNSWJf5bG1ZxsAX/d9gDXiBLXnE++mR6qi2mcdBy5Tk=";
     }.${version};
   };
 
