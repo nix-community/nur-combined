@@ -325,10 +325,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.8.0";
+      version = "3.8.1";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3961262/cookie_autodelete-3.8.0.xpi";
-      sha256 = "c54b1dc792854769ae5c5e8097d9e965bb76df1296756565669ff9c89ea1a63c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3971429/cookie_autodelete-3.8.1.xpi";
+      sha256 = "443d4b0749b69202809597dfbb5580c046dd739c6666c4c6a5c1dc6efe1a4294";
       meta = with lib;
       {
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
@@ -690,10 +690,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0buildid20220703.190044";
+      version = "103.0buildid20220705.185846";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970887/francais_language_pack-103.0buildid20220703.190044.xpi";
-      sha256 = "5f5721fe3ee47bbf47a7d75d3f0246b2222b9b2601323de84f35a1920d779c6e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3971848/francais_language_pack-103.0buildid20220705.185846.xpi";
+      sha256 = "b638742c01f8f1bb3fbbc65bf5bd6a4bb4bfd9b33dfdfef3e7ee9f8097170ad9";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2442,10 +2442,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.64.0";
+      version = "2.64.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3971297/web_scrobbler-2.64.0.xpi";
-      sha256 = "a87937186dd9b392f1f35409c9eebe85aafab566d82c20f0da182c774e5fb4f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3971768/web_scrobbler-2.64.1.xpi";
+      sha256 = "3eadfb474ce8b53d991fcb6315b164bf0a84aa4b5a3b60cdfe16231efefe78d2";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
