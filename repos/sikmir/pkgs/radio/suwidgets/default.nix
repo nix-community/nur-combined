@@ -1,16 +1,16 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, pkg-config
+{ lib, stdenv, fetchFromGitHub, qmake, pkg-config
 , fftw, sigutils
 }:
 
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "suwidgets";
-  version = "2021-07-17";
+  version = "2022-04-03";
 
   src = fetchFromGitHub {
     owner = "BatchDrake";
     repo = "SuWidgets";
-    rev = "c45b2af3b24115335bf993671198f419fa3ed0f7";
-    hash = "sha256-p+kgmtDWuBLlh8IJP5FeximeJSfz9M6Il3SRYz0TJgI=";
+    rev = "826b3eeae5b682dc063f53b427caa9c7c48131ea";
+    hash = "sha256-cyFLsP+8GbALdlgEnVX4201Qq/KAxb/Vv+sJqbFpvUk=";
   };
 
   nativeBuildInputs = [ qmake pkg-config ];
@@ -20,6 +20,8 @@ mkDerivation rec {
   qmakeFlags = [ "SuWidgetsLib.pro" "PREFIX=/" ];
 
   installFlags = [ "INSTALL_ROOT=$(out)" ];
+
+  dontWrapQtApps = true;
 
   meta = with lib; {
     description = "Sigutils-related widgets";

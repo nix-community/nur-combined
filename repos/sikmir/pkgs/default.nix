@@ -395,10 +395,13 @@ lib.makeScope newScope (
     rtlsdr-airband = callPackage ./radio/rtlsdr-airband { };
     sigdigger = libsForQt5.callPackage ./radio/sigdigger {
       inherit sigutils suscan suwidgets;
+      soapysdr = pkgs.soapysdr.override { extraPackages = [ pkgs.soapyrtlsdr ]; };
     };
     sigutils = callPackage ./radio/sigutils { };
     smallrx = callPackage ./radio/smallrx { };
-    suscan = callPackage ./radio/suscan { };
+    suscan = callPackage ./radio/suscan {
+      soapysdr = pkgs.soapysdr.override { extraPackages = [ pkgs.soapyrtlsdr ]; };
+    };
     suwidgets = libsForQt5.callPackage ./radio/suwidgets {
       inherit sigutils;
     };

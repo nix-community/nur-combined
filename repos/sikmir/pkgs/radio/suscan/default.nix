@@ -4,19 +4,14 @@
 
 stdenv.mkDerivation rec {
   pname = "suscan";
-  version = "2021-07-17";
+  version = "2022-07-05";
 
   src = fetchFromGitHub {
     owner = "BatchDrake";
     repo = pname;
-    rev = "09fd8cf1f220ae707a877107163515114d9eb671";
-    hash = "sha256-KU3JaGIL65LWJWc6Iw/eyKdUMnVQ85g0MtmuSPGdp44=";
+    rev = "37dad542b97aff24654f0bb80fb8e85af7cb84ab";
+    hash = "sha256-h1ogtYjkqiHb1/NAJfJ0HQIvGnZM2K/PSP5nqLXUf9M=";
   };
-
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace "set(XML2_INCLUDE_DIRS" "#set(XML2_INCLUDE_DIRS"
-  '';
 
   nativeBuildInputs = [ cmake pkg-config ];
 

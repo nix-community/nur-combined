@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "sigutils";
-  version = "2021-07-17";
+  version = "2022-07-05";
 
   src = fetchFromGitHub {
     owner = "BatchDrake";
     repo = pname;
-    rev = "0b0be80d1c76803a1f463bb68a470d81afcc5101";
-    hash = "sha256-ImeyR6iDIfgu2Pp4JcCzp+pJXVMmPLUps4kHsjsqsxM=";
+    rev = "1d7559d427aadd253dd825eef26bf15e54860c5f";
+    hash = "sha256-wvd6sixwGmR9R4x+swLVqXre4Dqnj10jZIXUfaJcmBw=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];

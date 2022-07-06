@@ -1,27 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, qmake, pkg-config
-, fftwFloat, sigutils, suscan, suwidgets, volk
-, fftw, libsndfile, soapysdr, soapyrtlsdr
-, portaudio
+{ lib, stdenv, fetchFromGitHub, pkg-config, qmake, wrapQtAppsHook
+, curl, fftw, fftwFloat, libsndfile, portaudio
+, sigutils, soapysdr, suscan, suwidgets, volk
 }:
 
 stdenv.mkDerivation rec {
   pname = "sigdigger";
-  version = "0.2.0-rc1";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "BatchDrake";
     repo = "SigDigger";
     rev = "v${version}";
-    hash = "sha256-OWFPf1iIDhzgV7+pANp7lxzEBhxND0tIhB0VGNOeCak=";
+    hash = "sha256-dS+Fc0iQz7GIlGaR556Ur/EQh3Uzhqm9uBW42IuEqoE=";
   };
 
   nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
 
   buildInputs = [
-    fftwFloat sigutils suscan suwidgets volk
-    fftw libsndfile
+    curl
+    fftw
+    fftwFloat
+    libsndfile
     portaudio
-    (soapysdr.override { extraPackages = [ soapyrtlsdr ]; })
+    sigutils
+    soapysdr
+    suscan
+    suwidgets
+    volk
   ];
 
   qmakeFlags = [ "SUWIDGETS_PREFIX=${suwidgets}" "SigDigger.pro" ];
