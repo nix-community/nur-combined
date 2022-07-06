@@ -10,18 +10,18 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "ferium";
-  version = "4.1.4";
+  version = "4.1.5";
 
   src = fetchFromGitHub {
     owner = "gorilla-devs";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-Xf1Mi6pst9A2R6gL6QR7z9dxeYPGAttUsGHfj+L8uFU=";
+    sha256 = "sha256-NxrV8mi7xsr+x9oOp78DkHoPls0JLm5eol/8q9NwuTs=";
   };
 
   patches = [ ./0001-Remove-std-process-ExitCode.patch ];
 
-  cargoSha256 = "sha256-cid9r/YIXcRu9TvptZSat0Fa3FJ8c133cut3LB365sQ=";
+  cargoSha256 = "sha256-hR2PKQqSvtSBOOhZKW2IsGGjuU4jCdLMeruAHxErQtU=";
 
   # Do not build the gui part of the package.
   buildNoDefaultFeatures = true;

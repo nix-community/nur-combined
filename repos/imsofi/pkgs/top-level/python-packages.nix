@@ -1,5 +1,4 @@
-{ callPackage, ... }:
-rec {
+{ callPackage, ... }: {
   authlib1 = callPackage ../development/python-modules/authlib1 { };
 
   flask-themer = callPackage ../development/python-modules/flask-themer { };
@@ -8,7 +7,7 @@ rec {
 
   sphinx-issues = callPackage ../development/python-modules/sphinx-issues { };
 
-  slapd = callPackage ../development/python-modules/slapd { inherit sphinx-issues; };
+  slapd = callPackage ../development/python-modules/slapd { };
 
   smtpdfix = callPackage ../development/python-modules/smtpdfix { };
 }

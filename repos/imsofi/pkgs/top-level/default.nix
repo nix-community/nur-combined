@@ -6,7 +6,8 @@ rec {
   overlays = import ../../overlays; # nixpkgs overlays
 
   extraPython3Packages = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./python-packages.nix { }
+    let self = import ./python-packages.nix { callPackage = pkgs.python3Packages.newScope self; };
+    in self
   );
 
   ferium = pkgs.callPackage ../tools/games/minecraft/ferium { };

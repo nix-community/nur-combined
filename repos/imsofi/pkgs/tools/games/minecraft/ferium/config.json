@@ -1,14 +1,6 @@
 {
   "active_profile": 0,
   "active_modpack": 0,
-  "profiles": [
-    {
-      "name": "tmp",
-      "output_dir": "/tmp/minecraft",
-      "game_version": "1.19",
-      "mod_loader": "Quilt",
-      "mods": []
-    }
-  ],
+  "profiles": [],
   "modpacks": []
 }
