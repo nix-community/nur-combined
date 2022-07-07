@@ -58,7 +58,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-rOrD5+24uxzqpeyfY1Q0S4aoq2LP+el24D9wsPK2i8A=";
+      sha256 = "sha256-JiLwijB+Zqe5JgKLncr7r4w1lpDRWWVh9TAl+9nOiCo=";
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./commit-notifier-573c1eb7eabc97aa06e0e9ad85f5148110749876/Cargo.lock;
@@ -74,7 +74,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-c1w8jUBZrhvsRNenjtbw0RWtaU/wdbpVDS6GZKJhZbk=";
+      sha256 = "sha256-3ztQpXt8ZtVtgyXF4M1FCgTqVIAPtyNFvISa8HbkPYo=";
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./dot-tar-8719c34f81c94d50286a4120990eb0f134799fe1/Cargo.lock;
@@ -102,14 +102,14 @@
   };
   icalingua-plus-plus-aur = {
     pname = "icalingua-plus-plus-aur";
-    version = "c5a143089b923367237af9fa33bc3c2e25e1bb35";
+    version = "b8ba3aff093f6b67a27ed8e2c60dc70815522d93";
     src = fetchgit {
       url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "c5a143089b923367237af9fa33bc3c2e25e1bb35";
+      rev = "b8ba3aff093f6b67a27ed8e2c60dc70815522d93";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-iqblvoesrYPUdri9sO9Nz+b2aTjlPqDAeyouKUqs7CQ=";
+      sha256 = "sha256-nZuQtWmaW3t/gZ6qyiBnHxzLDWQp3shi6Ldr0kceb/8=";
     };
   };
   pisces = {
@@ -121,7 +121,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-arglgJRZ+zRV8wjO+GB43XSbbuBVmAnwtJv8WpdGk/E=";
+      sha256 = "sha256-Oou2IeNNAqR00ZT3bss/DbhrJjGeMsn9dBBYhgdafBw=";
     };
   };
   plugin-bang-bang = {
@@ -133,7 +133,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-+z8+d3Zl4g16EpbmvyNYHyeiG7Flf5jwXPok7RmqHXQ=";
+      sha256 = "sha256-A8ydBX4LORk+nutjHurqNNWFmW6LIiBPQcxS3x4nbeQ=";
     };
   };
   plugin-git = {
@@ -145,7 +145,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-rkdvCyIjD0X4Sijk8/EmXc5zER+mzztIBWeiMMVKh7w=";
+      sha256 = "sha256-NaDZLmktuwlYxxzwDoVKgd8bEY+Wy9b2Qaz0CTf8V/Q=";
     };
   };
   replay-fish = {
@@ -168,7 +168,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-zDIOKNpYSnnRjgWhyp5QXSnDuWiNcCSjrs9hCMX4B/8=";
+      sha256 = "sha256-/+hNnUT7kA19wpiHGNPVMQGostjoaDzHd91WYruJq0w=";
     };
   };
   trojan = {
