@@ -59,6 +59,8 @@
 
   scnlib = pkgs.callPackage ./pkgs/scnlib { };
 
+  seer = pkgs.libsForQt5.callPackage ./pkgs/seer { };
+
   span-lite = pkgs.callPackage ./pkgs/span-lite { };
 
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
