@@ -189,6 +189,7 @@ lib.makeScope newScope (
     };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
+    mod_mbtiles = callPackage ./geospatial/mod_mbtiles { };
     morecantile = callPackage ./geospatial/morecantile { };
     orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
     ossim = callPackage ./geospatial/ossim { };
@@ -264,9 +265,6 @@ lib.makeScope newScope (
 
     dict2rest = callPackage ./linguistics/dict2rest { };
     distance = callPackage ./linguistics/distance { };
-    foma = callPackage ./linguistics/foma {
-      libtool = if pkgs.stdenv.isDarwin then pkgs.darwin.cctools else null;
-    };
     gdcv = callPackage ./linguistics/gdcv { };
     goldendict-bin = callPackage ./linguistics/goldendict/bin.nix { };
     gt-bash-client = callPackage ./linguistics/gt-bash-client { };

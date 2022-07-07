@@ -28,6 +28,5 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # libfoma.0.dylib not found
   };
 }
