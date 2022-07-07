@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker ps -q | xargs -n 1 docker inspect --format '{{$name := .Name}}{{range $k, $v := .NetworkSettings.Networks}}{{.IPAddress}} {{ $name }}.{{ $k }}.docker{{end}}' | sed 's#\([^ ] \)/#\1#';

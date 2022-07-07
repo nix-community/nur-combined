@@ -13,6 +13,9 @@
       if test -f /etc/set-environment; then
         . /etc/set-environment
       fi
+      if test -v IN_NIX_SHELL; then
+        PS1="(shell:$IN_NIX_SHELL) $PS1"
+      fi
     '';
   };
 }
