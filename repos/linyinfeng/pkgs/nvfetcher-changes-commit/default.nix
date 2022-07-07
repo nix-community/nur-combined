@@ -17,7 +17,7 @@ writeShellScriptBin "nvfetcher-changes-commit" ''
   nvfetcher-changes "$@" > "$TMP_DIR/changes"
 
   function commit {
-    git add "$generated_nix_file" 1>&2
+    git add --all 1>&2
     git commit "$@" 1>&2
   }
 
