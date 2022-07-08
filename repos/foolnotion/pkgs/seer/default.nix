@@ -25,8 +25,9 @@ stdenv.mkDerivation rec {
     '';
 
   installPhase = ''
-    mkdir $out
-    install build/seer $out/seer
+    mkdir -p $out/bin
+    strip build/seer
+    install build/seer $out/bin/
     '';
 
   dontWrapQtApps = true;
