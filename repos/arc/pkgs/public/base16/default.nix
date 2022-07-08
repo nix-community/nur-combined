@@ -2,15 +2,15 @@
   base16-schemes-source = import ./source.nix {
     pname = "base16-schemes-source";
     version = "2021-04-14";
-    rev = "e720724b96f77f3d63f5cfbe8f9616ddc6ea0ecb";
-    sha256 = "1b64rzwdbwflhg52g9qiqf0paqa0a5m7lyh68ibxqdqqr5raj76w";
+    rev = "944dbc76180ddf3301289c59f143b8d6d37c1a9e";
+    sha256 = "sha256-ptSYeEvaHJKCJyzIt15ITdtr5x84p01LVAAsL+WH+qo=";
     sources = ./schemes.json;
   };
   base16-templates-source = import ./source.nix {
     pname = "base16-templates-source";
     version = "2021-04-14";
-    rev = "420ca457387950d93146748e44eb4cec94d79cee";
-    sha256 = "0i1bacsbyhmz3vaxrxslxbr16n5fgwgvxsikvz8p6n43k173msiw";
+    rev = "816b70a620664787cc74ac63354c5ec1f426bb81";
+    sha256 = "sha256-PjznHgJHUWTZR22kiajigcDWvmzL0KcE8wdJ6sZHwAg=";
     sources = ./templates.json;
   };
   base16-schemes = import ./schemes.nix;

@@ -515,20 +515,16 @@ let
       };
     });
 
-    scream-arc = { scream, fetchpatch, lib }: scream.overrideAttrs (old: {
+    scream-arc = { scream, fetchpatch, fetchFromGitHub, lib }: scream.overrideAttrs (old: {
       pname = "scream-arc";
+      version = "2022-06-19";
+      src = fetchFromGitHub {
+        owner = "duncanthrax";
+        repo = "scream";
+        rev = "375efee3f3b9e2af1d03dc8531ee767f803b72e0";
+        sha256 = "sha256-5r6ciGLGRdUg6702CxEms1LO2YnqxY4+cKpTe7chMe0=";
+      };
       patches = old.patches or [] ++ [
-        (fetchpatch {
-          # https://github.com/duncanthrax/scream/pull/90
-          # https://github.com/arcnmx/scream/commits/pulse-max-latency
-          url = "https://github.com/arcnmx/scream/commit/897b4f6bd8c38f395cf7cf1cef762575c09f9464.patch";
-          sha256 = "0irn67fk5azzzps00qz5fs2i208h6c907m362k3sxx8jl9xgysi7";
-        })
-        (fetchpatch {
-          # https://github.com/duncanthrax/scream/pull/91
-          url = "https://github.com/arcnmx/scream/commit/4b032957ea4e3038941b234c39da5bbb7b5dfb20.patch";
-          sha256 = "0lk9b5abcz1fzg7b26awcfjb6gbv8d7mx6a989sa4k94p080x4dz";
-        })
         (fetchpatch {
           # https://github.com/arcnmx/scream/commits/shmem-catch-up
           url = "https://github.com/arcnmx/scream/commit/756ded53e590d969fdd23871400f7b8c75317ce4.patch";
