@@ -189,7 +189,6 @@ lib.makeScope newScope (
     };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
-    mod_mbtiles = callPackage ./geospatial/mod_mbtiles { };
     morecantile = callPackage ./geospatial/morecantile { };
     orbisgis-bin = callPackage ./geospatial/orbisgis/bin.nix { jre = pkgs.jre8; };
     ossim = callPackage ./geospatial/ossim { };
