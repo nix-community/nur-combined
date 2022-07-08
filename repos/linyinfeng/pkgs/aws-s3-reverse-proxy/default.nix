@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "aws-s3-reverse-proxy";
-  version = "1.1.0";
+  version = "1.1.1";
   src = fetchFromGitHub {
-    owner = "Kriechi";
+    owner = "linyinfeng";
     repo = "aws-s3-reverse-proxy";
     rev = "v${version}";
-    sha256 = "sha256-mCnuR2fbtWx0j6bz48gZArOA9KOZnD3pOr079z9wStY=";
+    sha256 = "sha256-7wAjisl/KqZwtMWvnFYjFDAXKiH+yagqYX00p3nIg9g=";
   };
 
-  vendorSha256 = "sha256-y17kEOpaqmfNvUgvMMQ2pqGpvm43IHW8YpA4Axlyshg=";
+  vendorSha256 = "sha256-UXlDbhG2EXFgk0fGFrxdDHopiuFJtY/YH1BF4/tVrCU=";
 
   meta = with lib; {
     description = "Reverse-proxy all incoming S3 API calls to the public AWS S3 backend";
