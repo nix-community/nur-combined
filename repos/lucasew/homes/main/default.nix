@@ -51,6 +51,7 @@ in {
     xxd
     pavucontrol # controle de volume
     zeal
+    rnix-lsp
     # retroarchFull
     # texlive.combined.scheme-full
   ] ;

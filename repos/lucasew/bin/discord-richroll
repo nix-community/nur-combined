@@ -6,15 +6,17 @@ from pypresence import Presence
 from time import sleep, time
 from itertools import cycle
 
+client_id = '994691047747747950'
+
 LINHAS = [
-    "[=   ]",
-    "[==  ]",
-    "[=== ]",
-    "[====]",
-    "[=   ]",
-    "[==  ]",
-    "[=== ]",
-    "[====]",
+    # "[=   ]",
+    # "[==  ]",
+    # "[=== ]",
+    # "[====]",
+    # "[=   ]",
+    # "[==  ]",
+    # "[=== ]",
+    # "[====]",
     "We're no strangers to love",
     "You know the rules and so do I (do I)",
     "A full commitment's what I'm thinking of",
@@ -82,14 +84,12 @@ LINHAS = [
     "Never gonna tell a lie and hurt you"
 ]
 
-# client_id = '69420694206969'
-client_id = '937827341332267028'
-
 RPC = Presence(client_id, pipe = 0)
 RPC.connect()
 
 cycled = cycle(LINHAS)
 
+# print(help(RPC.update))
 while True:
-    RPC.update(state="You have been rickrolled", details = next(cycled))
+    RPC.update(details = next(cycled), large_image = '2329706')
     sleep(2)

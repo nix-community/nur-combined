@@ -1,5 +1,6 @@
 { pkgs
 , flake
+, lib
 , ...
 }:
 let
@@ -80,6 +81,18 @@ let
       sha256 = "sha256-N7GLBVxO9FbLqo9FKJJndnHRnekunxwVAjcgu4l8jLw=";
     };
   };
+  fennel-nvim = buildVimPlugin {
+    name = "fennel-nvim";
+    patchPhase = ''
+      substituteInPlace doc/fennel-nvim.txt --replace '*fennel.path*' 'fennel.path'
+    '';
+    src = fetchFromGitHub {
+      owner = "jaawerth";
+      repo = "fennel-nvim";
+      rev = "4792d26e0c98de5193f2c872dc57401dc8913479";
+      sha256 = "sha256-KpkLmd9GkpVtXS6xo9YEoeomoklp2DGC+X3PRAWVgGw=";
+    };
+  };
 in wrapNeovim pkgs.neovim-unwrapped {
   withPython3 = true;
   configure = {
@@ -90,6 +103,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       embark-vim
       emmet-vim
       fennel-vim
+      fennel-nvim
       indentLine
       lsp_signature-nvim
       luasnip
@@ -114,7 +128,9 @@ in wrapNeovim pkgs.neovim-unwrapped {
     ];
     customRC = ''
     lua << EOF
-    ${readFile ./init.lua}
+      package.preload.fennel = function () return dofile('${pkgs.fennel}/share/lua/5.2/fennel.lua') end
+      local fnl = require('fennel-nvim')
+      fnl.dofile('${./init.fnl}')
     EOF
     ${readFile ./rc.vim}
     '';

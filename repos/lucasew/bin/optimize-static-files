@@ -8,8 +8,10 @@ function log () {
 
 function optimize_path_stream () {
     while read line; do
-        store_item="$(storeify "$line")"
-        # echo "'$line' -> '$store_item'"
+        if [[ ! -L "$line" ]]; then
+            store_item="$(storeify "$line")"
+            echo "'$line' -> '$store_item'"
+        fi
     done
 }
 
@@ -49,7 +51,7 @@ function optimize_all_folders_that_has_a_file() {
     optimize_all_files_by_extension ~/.cache/winetricks msi
 
     # discord funnily loops in the install modules phase so excluding it
-    find ~ -type d  | grep 'node_modules' | grep -i 'discord' | while read line; do
+    find ~ -type d  | grep 'node_modules' | grep -v 'discord' | while read line; do
         if [ "$(basename "$line")" == "node_modules" ]; then
             for item in $(ls -1 "$line"); do
                 folder="$line/$item"

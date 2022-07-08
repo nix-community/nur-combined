@@ -95,6 +95,9 @@ autocmd VimEnter * set conceallevel=0
 " F-Sharp remapping
 autocmd BufNewFile,BufRead *.fs,*.fsx,*.fsi set filetype=fsharp
 
+" Fennel
+let g:fennel_nvim_auto_init = v:false
+
 " COQ
 let g:coq_settings = { 'xdg': v:true }
 
