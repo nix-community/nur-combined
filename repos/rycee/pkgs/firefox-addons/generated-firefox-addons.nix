@@ -690,10 +690,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0buildid20220705.185846";
+      version = "103.0buildid20220707.185904";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3971848/francais_language_pack-103.0buildid20220705.185846.xpi";
-      sha256 = "b638742c01f8f1bb3fbbc65bf5bd6a4bb4bfd9b33dfdfef3e7ee9f8097170ad9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3972891/francais_language_pack-103.0buildid20220707.185904.xpi";
+      sha256 = "a39fe71de7c396dc0783a84ede469fe8ba5eaa7c59e97c3068999f386c627e7e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1355,10 +1355,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.6";
+      version = "2.3.7";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3969050/1password_x_password_manager-2.3.6.xpi";
-      sha256 = "841d1e37e976d96dd8f9a1f77ecf055685f6516b58979857900d585d008b5158";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3972472/1password_x_password_manager-2.3.7.xpi";
+      sha256 = "9aaee3215d05faa802d83c5a355405d1ba8659f502aacd32aa44c036d2d6d354";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -1544,10 +1544,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.4.2";
+      version = "2.4.3";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3969667/private_relay-2.4.2.xpi";
-      sha256 = "47b1dbc08304bf773b53b4fdf5b2e589bf22f09ff51961665c72827aafd0ccc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3972235/private_relay-2.4.3.xpi";
+      sha256 = "622c4f2ed5f7d97bf24e2cecf6cfdc669cead583243a05a95ca2db01d99a91ee";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1698,10 +1698,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.7.1";
+      version = "22.7.7";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970145/refined_github-22.7.1.xpi";
-      sha256 = "35918c58c75c40b023a7bef5e3e4a7a000b6334291011233383b4f1a994996e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3972672/refined_github-22.7.7.xpi";
+      sha256 = "718c614a09baa8833747553ec198f44987ac39a91bc2b4e7c9e07d4851ecc2d5";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
