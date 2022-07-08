@@ -15,6 +15,7 @@ packageSet = do
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
+  gitPkg "aws-sigv4-proxy" "https://github.com/awslabs/aws-sigv4-proxy.git"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   fishPlugins
   commitNotifier
