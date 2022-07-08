@@ -10,6 +10,7 @@ lib.makeScope newScope (
     updater = callPackage ./updater { };
 
     activate-dpt = callPackage ./activate-dpt { };
+    aws-s3-reverse-proxy = callPackage ./aws-s3-reverse-proxy { };
     aws-sigv4-proxy = callPackage ./aws-sigv4-proxy { };
     canokey-udev-rules = callPackage ./canokey-udev-rules { };
     cf-terraforming = callPackage ./cf-terraforming { };

@@ -7,6 +7,7 @@
 , path
 , nixUpdateAttributes ? [
     "cf-terraforming"
+    "aws-s3-reverse-proxy"
   ]
 , tmpDir ? "/tmp/linyinfeng-nur-packages-update"
 , changelogFile ? "${tmpDir}/changelog"
