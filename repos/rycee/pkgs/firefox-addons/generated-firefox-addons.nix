@@ -173,10 +173,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.6.0";
+      version = "2022.6.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3971762/bitwarden_password_manager-2022.6.0.xpi";
-      sha256 = "fd202f34f8ea58332d7118d727701da9becf89ee5010f704793bbe43b079bd5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3972752/bitwarden_password_manager-2022.6.1.xpi";
+      sha256 = "ded8a3fd0e88deccb1354685c0ced8d6fd35af1dbb133f5341e903b9d49cc50d";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2185,10 +2185,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.24";
+      version = "3.8.25";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956945/tree_style_tab-3.8.24.xpi";
-      sha256 = "8f06b0442311ff83d427291585bb5cdcf654e279796d63c8e9e6e71e7bb9ed5c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3972784/tree_style_tab-3.8.25.xpi";
+      sha256 = "b1f8ed9f03bb02748561bf1f8760c5f70cdc7b801ab5c2e5885cbd50c84b1533";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
