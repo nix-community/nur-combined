@@ -34,6 +34,10 @@ rec {
     inherit pylink-square012;
     inherit cmsis-pack-manager;
   };
+
+  probe-rs-cli-ftdi = pkgs.callPackage ./pkgs/probe-rs-cli-ftdi { };
+
+  #
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
