@@ -364,13 +364,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.15.0" = {
+    "globals-13.16.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.15.0";
+      version = "13.16.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.15.0.tgz";
-        sha512 = "bpzcOlgDhMG070Av0Vy5Owklpv1I6+j96GhUI7Rh7IzDCKLzboflLrrfqMu8NquDbiR4EOQk7XzJwqVJxicxog==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.16.0.tgz";
+        sha512 = "A1lrQfpNF+McdPOnnFqY3kSN0AFTy485bTi1bkLk4mVPODIUEcSfhHgRqA+QdXPksrSTTztYXx37NFV+GpGk3Q==";
       };
     };
     "has-flag-4.0.0" = {
@@ -737,8 +737,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.18.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.18.0.tgz"; sha1 = "78d565d16c993d0b73968c523c0446b13da784fd"; };
+    version = "8.19.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.19.0.tgz"; sha1 = "7342a3cbc4fbc5c106a1eefe0fd0b50b6b1a7d28"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.0"
       sources."@humanwhocodes/config-array-0.9.5"
@@ -783,7 +783,7 @@ let
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
-      sources."globals-13.15.0"
+      sources."globals-13.16.0"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.0"
       sources."import-fresh-3.3.0"
