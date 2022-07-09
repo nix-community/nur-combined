@@ -50,11 +50,11 @@
             "name": null,
             "owner": "input-output-hk",
             "repo": "haskell.nix",
-            "rev": "3dadce6f09711ef473ea97d782ec2fe001903872",
-            "sha256": "sha256-NBRXxHfUZ2Ti5FeGaLLVh/RYOh7+Y7KUzQpO55N+tZ8=",
+            "rev": "76d714fb6a51766e1c57a1d89bfc6daf1f26914f",
+            "sha256": "sha256-hcoaMYyd9Kw8XOFBiWyM+niC0eQRVoHRfaGHOasWc5I=",
             "type": "github"
         },
-        "version": "3dadce6f09711ef473ea97d782ec2fe001903872"
+        "version": "76d714fb6a51766e1c57a1d89bfc6daf1f26914f"
     },
     "kiwmi": {
         "cargoLocks": null,
@@ -105,12 +105,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b0d548220e106c80c8a1bd7c1d4ee7b7599fd304",
-            "sha256": "sha256-IBB/gJ+EtiaJrW42Q//oH20O5RkQ7GqjZXhZl0c0J18=",
+            "rev": "0edce77ff5283ca05d03e8f15584193e5185aaad",
+            "sha256": "sha256-iRveDXhmwhufXZ6GAa2wRyBipPFGAgkMYZznffMkuDc=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "b0d548220e106c80c8a1bd7c1d4ee7b7599fd304"
+        "version": "0edce77ff5283ca05d03e8f15584193e5185aaad"
     },
     "libpanel": {
         "cargoLocks": null,
