@@ -64,12 +64,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "tabnine-vscode-3.5.60.zip",
-            "sha256": "sha256-SJ+kIfRmTDcPD1FRyasO05ngXd9SplHc1bfcrpDZTSA=",
+            "name": "tabnine-vscode-3.6.1.zip",
+            "sha256": "sha256-BwJ+vz/EMDZ26z0Zj+vKrr2FBLJo/kStPHda7UfZZc8=",
             "type": "url",
-            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.60/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "3.5.60"
+        "version": "3.6.1"
     },
     "'vscode-extensions.ccls-project.ccls'": {
         "cargoLocks": null,
@@ -118,12 +118,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "trailing-spaces-0.3.1.zip",
-            "sha256": "sha256-aCFtiONPjKewzOl7cRoQegU2J/6+5Cbn2ezgXF79YEA=",
+            "name": "trailing-spaces-0.4.0.zip",
+            "sha256": "sha256-qO+83RIVy0MYPP1zrK3oETZN4eKejCvXl6Zw8RlZUWQ=",
             "type": "url",
-            "url": "https://shardulm94.gallery.vsassets.io/_apis/public/gallery/publisher/shardulm94/extension/trailing-spaces/0.3.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://shardulm94.gallery.vsassets.io/_apis/public/gallery/publisher/shardulm94/extension/trailing-spaces/0.4.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "0.3.1"
+        "version": "0.4.0"
     },
     "'vscode-extensions.timonwong.shellcheck'": {
         "cargoLocks": null,
@@ -210,11 +210,11 @@
             "name": null,
             "owner": "arkenfox",
             "repo": "user.js",
-            "rev": "101.0",
-            "sha256": "sha256-lGRqHEL9I8VgvSiUjT1DngFCsmEzM8n5J7vIfRj6TZM=",
+            "rev": "102.0",
+            "sha256": "sha256-1M1lf3ah4I5KOPlTIZ52uEha8tuQu1wkgkdzEB4iK/0=",
             "type": "github"
         },
-        "version": "101.0"
+        "version": "102.0"
     },
     "clash-speedtest": {
         "cargoLocks": null,

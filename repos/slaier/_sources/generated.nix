@@ -39,11 +39,11 @@
   };
   "'vscode-extensions.TabNine.tabnine-vscode'" = {
     pname = "'vscode-extensions.TabNine.tabnine-vscode'";
-    version = "3.5.60";
+    version = "3.6.1";
     src = fetchurl {
-      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.5.60/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "tabnine-vscode-3.5.60.zip";
-      sha256 = "sha256-SJ+kIfRmTDcPD1FRyasO05ngXd9SplHc1bfcrpDZTSA=";
+      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "tabnine-vscode-3.6.1.zip";
+      sha256 = "sha256-BwJ+vz/EMDZ26z0Zj+vKrr2FBLJo/kStPHda7UfZZc8=";
     };
     license = "mit";
     homepage = "https://github.com/codota/tabnine-vscode";
@@ -75,11 +75,11 @@
   };
   "'vscode-extensions.shardulm94.trailing-spaces'" = {
     pname = "'vscode-extensions.shardulm94.trailing-spaces'";
-    version = "0.3.1";
+    version = "0.4.0";
     src = fetchurl {
-      url = "https://shardulm94.gallery.vsassets.io/_apis/public/gallery/publisher/shardulm94/extension/trailing-spaces/0.3.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "trailing-spaces-0.3.1.zip";
-      sha256 = "sha256-aCFtiONPjKewzOl7cRoQegU2J/6+5Cbn2ezgXF79YEA=";
+      url = "https://shardulm94.gallery.vsassets.io/_apis/public/gallery/publisher/shardulm94/extension/trailing-spaces/0.4.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "trailing-spaces-0.4.0.zip";
+      sha256 = "sha256-qO+83RIVy0MYPP1zrK3oETZN4eKejCvXl6Zw8RlZUWQ=";
     };
     license = "mit";
     homepage = "https://github.com/shardulm94/vscode-trailingspaces";
@@ -135,13 +135,13 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "101.0";
+    version = "102.0";
     src = fetchFromGitHub ({
       owner = "arkenfox";
       repo = "user.js";
-      rev = "101.0";
+      rev = "102.0";
       fetchSubmodules = false;
-      sha256 = "sha256-lGRqHEL9I8VgvSiUjT1DngFCsmEzM8n5J7vIfRj6TZM=";
+      sha256 = "sha256-1M1lf3ah4I5KOPlTIZ52uEha8tuQu1wkgkdzEB4iK/0=";
     });
   };
   clash-speedtest = {
