@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   vscode-extensions = pkgs.callPackage ./pkgs/vscode-extensions { };
-  pngloss = pkgs.callPackage ./pkgs/pngloss { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
