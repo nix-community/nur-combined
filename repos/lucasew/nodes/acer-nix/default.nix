@@ -24,6 +24,7 @@ in
       ./adb.nix
       ./vbox.nix
       ./networking.nix
+      ./plymouth.nix
     ]
   ;
  
@@ -117,10 +118,6 @@ in
   virtualisation = {
     docker.enable = true;
     libvirtd.enable = true;
-  };
-
-  boot.plymouth = {
-    enable = true;
   };
 
   # nix.distributedBuilds = true;
