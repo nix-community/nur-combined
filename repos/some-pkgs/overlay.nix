@@ -46,6 +46,7 @@ in
       pyimgui dearpygui
       kornia
       accelerate
+      geomstats
       gpytorch
       gpflow
       gpflux

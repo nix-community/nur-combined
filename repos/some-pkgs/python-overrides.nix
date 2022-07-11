@@ -24,6 +24,8 @@
 
   tensorflow-probability_8_0 = python-final.callPackage ./pkgs/tfp/8.0.nix { };
 
+  geomstats = python-final.callPackage ./pkgs/geomstats.nix { };
+
   gpflow = python-final.callPackage ./pkgs/gpflow.nix { };
   gpflux = python-final.callPackage ./pkgs/gpflux.nix { };
   trieste = python-final.callPackage ./pkgs/trieste.nix { };
