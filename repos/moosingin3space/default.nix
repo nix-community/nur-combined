@@ -35,7 +35,8 @@ rec {
     inherit cmsis-pack-manager;
   };
 
-  probe-rs-cli-ftdi = pkgs.callPackage ./pkgs/probe-rs-cli-ftdi { };
+  probe-rs-cli-ftdi = lib.applyFtdiFeature pkgs.probe-rs-cli;
+  cargo-embed-ftdi = lib.applyFtdiFeature pkgs.cargo-embed;
 
   #
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
