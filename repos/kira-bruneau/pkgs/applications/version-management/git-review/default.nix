@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , fetchFromGitea
 , buildPythonApplication
 , pbr
@@ -48,5 +49,9 @@ buildPythonApplication rec {
     homepage = "https://opendev.org/opendev/git-review";
     license = licenses.asl20;
     maintainers = with maintainers; [ kira-bruneau ];
+
+    # https://github.com/NixOS/nixpkgs/pull/172397
+    # https://github.com/pyca/pyopenssl/issues/873
+    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }
