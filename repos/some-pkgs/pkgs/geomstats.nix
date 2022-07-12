@@ -43,6 +43,10 @@ buildPythonPackage {
     "tests/tests_geomstats/test_poincare_ball.py"
   ];
 
+  pythonImportsCheck = [
+    "geomstats"
+  ];
+
   # disabledTestPaths = [
   #   "tests/tests_geomstats/test_backends.py"
   #   "tests/test_notebooks.py"

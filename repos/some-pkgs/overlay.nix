@@ -47,6 +47,7 @@ in
       kornia
       accelerate
       geomstats
+      geoopt
       gpytorch
       gpflow
       gpflux
