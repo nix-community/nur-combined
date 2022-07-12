@@ -45,6 +45,5 @@ in
     INPUTRC = "${configHome}/readline/inputrc";
     LESSHISTFILE = "${dataHome}/less/history";
     LESSKEY = "${configHome}/less/lesskey";
-    WGETRC = "${configHome}/wgetrc";
   };
 }
