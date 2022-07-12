@@ -29,7 +29,7 @@
       flake-utils.lib.eachDefaultSystem (system: let
         inherit (flake-utils.lib) filterPackages flattenTree;
         pkgs = nixpkgs.legacyPackages.${system};
-        legacyPackages = pkgs.callPackage ./pkgs {inherit inputs;};
+        legacyPackages = (pkgs.callPackage ./pkgs {inherit inputs;}).packages;
         packages = filterPackages system (flattenTree legacyPackages);
       in {
         inherit packages legacyPackages;

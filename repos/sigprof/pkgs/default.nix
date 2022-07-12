@@ -1,5 +1,7 @@
-{pkgs, ...}: {
-  cosevka = pkgs.callPackage ./cosevka {};
-  terminus-font-custom = pkgs.callPackage ./terminus-font-custom {};
-  virt-manager = pkgs.callPackage ./virt-manager {};
+{callPackage, ...}: {
+  packages = {
+    cosevka = callPackage ./cosevka {};
+    terminus-font-custom = callPackage ./terminus-font-custom {};
+    virt-manager = callPackage ./virt-manager {};
+  };
 }
