@@ -57,10 +57,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.0.15";
+      version = "2.0.18";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3912266/anonaddy-2.0.15.xpi";
-      sha256 = "833ad13e8bfac95eab3f0133dd6d3bacf7a3ae4f314b4509311b8f7cd896e371";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974372/anonaddy-2.0.18.xpi";
+      sha256 = "bfb2f27b432c3f19bc9fca29a25a3a66c6cbcb57eb7528592fb5e113f03aef3d";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -911,10 +911,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.0";
+      version = "1.8.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967015/keepassxc_browser-1.8.0.xpi";
-      sha256 = "792097f44b4565e28fd418c7e4a709324167e7c64464d2793764a829b3d20e1f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974246/keepassxc_browser-1.8.1.xpi";
+      sha256 = "5c1459e29b86b5f8e0a379d3b969e1e6e188ebb4d52071f368588ae97b797568";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -957,10 +957,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.97.0.2";
+      version = "4.99.0.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3960563/lastpass_password_manager-4.97.0.2.xpi";
-      sha256 = "46516e9045008e03a5261d4cafde96b874f9b1271a487d87bd0bed05cd25b9f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3973328/lastpass_password_manager-4.99.0.4.xpi";
+      sha256 = "86b62181b039d6e0eac5c1d3643888404187f81411e565f8a630f48448e41c7f";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1698,10 +1698,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.7.7";
+      version = "22.7.11";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3972672/refined_github-22.7.7.xpi";
-      sha256 = "718c614a09baa8833747553ec198f44987ac39a91bc2b4e7c9e07d4851ecc2d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974356/refined_github-22.7.11.xpi";
+      sha256 = "b28438b8f48e3f440bc61530b30a28090d4973c7d841d37f55ec02981f5a8581";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -1881,10 +1881,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.4.7.1712";
+      version = "22.7.11.926";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3933302/sourcegraph_for_firefox-22.4.7.1712.xpi";
-      sha256 = "19060a5bf9dcdc9271f697a5df4cfe0aad1185474082418d93b19e53cace11ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974271/sourcegraph_for_firefox-22.7.11.926.xpi";
+      sha256 = "1a4cce2a683ff65d8cf38293885ff785fbbb32d7e45bfd4aa8e2ad0ba187f32c";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
