@@ -56,10 +56,10 @@
   },
   {
     "name": "aai-vehicles-miner",
-    "version": "0.6.3",
-    "file_name": "aai-vehicles-miner_0.6.3.zip",
-    "download_url": "/download/aai-vehicles-miner/61d98c7524fd900b8c299ce2",
-    "sha1": "bff647a46758c846bc06038a321e0537948dfba0",
+    "version": "0.6.4",
+    "file_name": "aai-vehicles-miner_0.6.4.zip",
+    "download_url": "/download/aai-vehicles-miner/62c784af719aac88ae8d5719",
+    "sha1": "702c5318dc6cefefa1dc01962762672a114f96f5",
     "dependencies": [
       "base >= 1.1.0"
     ]
@@ -648,10 +648,10 @@
   },
   {
     "name": "helmod",
-    "version": "0.12.9",
-    "file_name": "helmod_0.12.9.zip",
-    "download_url": "/download/helmod/6228ed126d5a4787343dc695",
-    "sha1": "666daf923204b0789b3e064c89e6a1a7d04cddf4",
+    "version": "0.12.10",
+    "file_name": "helmod_0.12.10.zip",
+    "download_url": "/download/helmod/62cbeedb70d8ebd641de4c1d",
+    "sha1": "116668786f77ae5c5516cece37e6e41bd43b10a3",
     "dependencies": [
       "base >= 1.1"
     ]
@@ -669,14 +669,14 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.2.25",
-    "file_name": "Krastorio2_1.2.25.zip",
-    "download_url": "/download/Krastorio2/622c252f22084266958ac76d",
-    "sha1": "d067a709b3c7134c7c458f43f35a2e48a6bbc4ed",
+    "version": "1.3.3",
+    "file_name": "Krastorio2_1.3.3.zip",
+    "download_url": "/download/Krastorio2/62c7b378719aac88ae8d571a",
+    "sha1": "2dd9a0ae70355c4454f376ab3a5fba4435eae319",
     "dependencies": [
       "base >= 1.1.52",
-      "Krastorio2Assets >= 1.1.0",
-      "flib >= 0.9.2",
+      "Krastorio2Assets >= 1.2.0",
+      "flib >= 0.10.0",
       "(?) aai-industry >= 0.3.17",
       "(?) aai-vehicles-chaingunner >= 0.5.2",
       "(?) Aircraft >= 1.6.6",
@@ -684,6 +684,7 @@
       "(?) angelspetrochem >= 0.9.11",
       "(?) bobenemies >= 0.17.6",
       "(?) bullet-trails >= 0.4.1",
+      "(?) ElectricTrain",
       "(?) deadlock-beltboxes-loaders >= 2.1.13",
       "(?) DeadlockLargerLamp >= 1.3.1",
       "(?) Dectorio >= 0.10.5",
@@ -692,7 +693,6 @@
       "(?) Hovercrafts >= 0.17.15",
       "(?) rso-mod >= 6.0.6",
       "(?) space-exploration >= 0.2.1",
-      "(?) spidertrontiers >= 0.2.18",
       "(?) Squeak Through >= 1.3.0",
       "(?) Tral_robot_tree_farm >= 1.2.5",
       "(?) vtk-armor-plating >= 0.8.0",
@@ -959,10 +959,10 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.16",
-    "file_name": "rso-mod_6.2.16.zip",
-    "download_url": "/download/rso-mod/62b340cbd336597649580738",
-    "sha1": "16719c698b4ff70653f7aeb7e93afbd9974c9035",
+    "version": "6.2.19",
+    "file_name": "rso-mod_6.2.19.zip",
+    "download_url": "/download/rso-mod/62c86df36a21326586abe45e",
+    "sha1": "e178b8d371f326e2ce178dfbe8126658de9439d8",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
