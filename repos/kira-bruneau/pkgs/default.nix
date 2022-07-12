@@ -40,11 +40,6 @@ in
     inherit cmake;
   };
 
-  electron-wayland = callPackage ./development/tools/electron-wayland {
-    # electron_16 currently SEGFAULTS
-    electron = electron_15;
-  };
-
   gamemode = callPackage ./tools/games/gamemode rec {
     libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode {
       inherit libgamemode32;
