@@ -14,24 +14,24 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "5f7df0b0dc78ae00f21d5bbe892456c450506b9b";
+    version = "df5eba3f8fc32c3843fe6ba35b18743312ed27ed";
     src = fetchFromGitHub ({
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "5f7df0b0dc78ae00f21d5bbe892456c450506b9b";
+      rev = "df5eba3f8fc32c3843fe6ba35b18743312ed27ed";
       fetchSubmodules = false;
-      sha256 = "sha256-Gb7JjK6wGVnsgq6brmKDHaGvlpO4/pqnzo1NCw/j+PM=";
+      sha256 = "sha256-8q0pWM/rKix4puxH/QM8gGnRu+Zh5CyWYevTa1+KAB4=";
     });
   };
   haskellNix = {
     pname = "haskellNix";
-    version = "6fd5f3ce0bebe84c4a9506aea3c9130cd20c471a";
+    version = "1d8ca8b15d662d5137db52037342d10972cb3f36";
     src = fetchFromGitHub ({
       owner = "input-output-hk";
       repo = "haskell.nix";
-      rev = "6fd5f3ce0bebe84c4a9506aea3c9130cd20c471a";
+      rev = "1d8ca8b15d662d5137db52037342d10972cb3f36";
       fetchSubmodules = false;
-      sha256 = "sha256-0ZWUKkV2IIg2PtzmDpI0a4bJcVBYSDGlLfQ8tF9JNNw=";
+      sha256 = "sha256-Q8aWijNz5I3sIrpT7IRZrlZLqBafn6qcSGvr0fOXIT0=";
     });
   };
   kiwmi = {
@@ -58,26 +58,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "e35e7473977b8b105fdc7504eba30f24f33237fa";
+    version = "0475afa54ee12fc1f691102c8186c7fc06fcd357";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "e35e7473977b8b105fdc7504eba30f24f33237fa";
+      rev = "0475afa54ee12fc1f691102c8186c7fc06fcd357";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-XskZ9IJP0G9T0S0jhyF4rHkOOIWeXGdjvEa5cXFWPh0=";
-    };
-  };
-  libpanel = {
-    pname = "libpanel";
-    version = "11a83c39014254540015999a262f41a4e0fc7579";
-    src = fetchgit {
-      url = "https://gitlab.gnome.org/chergert/libpanel";
-      rev = "11a83c39014254540015999a262f41a4e0fc7579";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-Y4zpGLdHaqeNj4cLpRo037sU3VnuiZgAuUAyw8TUsLs=";
+      sha256 = "sha256-3ESu34HhsycVV2QNtcxfP7YffCGddKqLTtIkzeJc+GE=";
     };
   };
   st-flexipatch = {

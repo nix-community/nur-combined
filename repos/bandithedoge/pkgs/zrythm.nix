@@ -56,7 +56,13 @@ pkgs.stdenv.mkDerivation rec {
       inherit (sources.libadwaita) pname version src;
     }))
     (stdenv.mkDerivation {
-      inherit (sources.libpanel) pname version src;
+      pname = "libpanel";
+      version = "1.0.alpha";
+      src = pkgs.fetchgit {
+        url = "https://gitlab.gnome.org/chergert/libpanel.git";
+        rev = "11a83c39014254540015999a262f41a4e0fc7579";
+        sha256 = "1fxhsk2c6cj0p409i2gfb7fi9fyz6hdaa2w7iy6sfsj7nwcfk333";
+      };
       nativeBuildInputs = with pkgs; [
         pkg-config
         meson
@@ -120,14 +126,16 @@ pkgs.stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Drtmidi=enabled"
-    "-Drtaudio=enabled"
-    "-Dsdl=enabled"
-    "-Dcarla=enabled"
-    "-Dmanpage=true"
-    "-Dlsp_dsp=disabled"
     "-Db_lto=false"
     "-Ddebug=true"
+    "-Dextra_extra_optimizations=true"
+    "-Dlsp_dsp=disabled"
+    "-Dmanpage=true"
+    "-Dopus=true"
+    "-Dportaudio=enabled"
+    "-Drtaudio=enabled"
+    "-Drtmidi=enabled"
+    "-Dsdl=enabled"
   ];
 
   postPatch = ''

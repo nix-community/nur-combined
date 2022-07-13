@@ -37,7 +37,3 @@ fetch.git = "https://git.sr.ht/~alextee/zrythm"
 [libadwaita]
 src.git = "https://gitlab.gnome.org/GNOME/libadwaita"
 fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
-
-[libpanel]
-src.git = "https://gitlab.gnome.org/chergert/libpanel"
-fetch.git = "https://gitlab.gnome.org/chergert/libpanel"
