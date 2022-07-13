@@ -57,10 +57,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.0.18";
+      version = "2.0.19";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974372/anonaddy-2.0.18.xpi";
-      sha256 = "bfb2f27b432c3f19bc9fca29a25a3a66c6cbcb57eb7528592fb5e113f03aef3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974803/anonaddy-2.0.19.xpi";
+      sha256 = "ea4a5d3407bde7722341029a1ed5cf73b3265c879182c0314b457936aace2e91";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -690,10 +690,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0buildid20220710.185935";
+      version = "103.0buildid20220712.185923";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3973922/francais_language_pack-103.0buildid20220710.185935.xpi";
-      sha256 = "875f2c8908de5453ae32b5a4da95507f43e5d0e623c3ecd08aad0d645c2b843a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974991/francais_language_pack-103.0buildid20220712.185923.xpi";
+      sha256 = "1bf98fd77d52575f9dbdd4149f06f237df640899118eb904258c73df7f3edf1e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -717,10 +717,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.7.4";
+      version = "8.7.6";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3962358/ghostery-8.7.4.xpi";
-      sha256 = "a7710abc6a34945ca22c6a7de63a1aac4607e06f45ffc8fbca08526734f60321";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974763/ghostery-8.7.6.xpi";
+      sha256 = "aae4aa7251bbb0464927324f8d09bce9f5a60a5f5be0ad593295e5f027067db1";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -2400,10 +2400,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.2.0";
+      version = "6.2.1";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970011/vue_js_devtools-6.2.0.xpi";
-      sha256 = "1ebddd157c2342732bdb3072633c3f453cb6d764fdacf6e1abb01c8e4ead68b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3975216/vue_js_devtools-6.2.1.xpi";
+      sha256 = "bd8f661ea22e9a26f59ce4f1373fb5885ab702bcc4279c72fc8ce55f4b07a391";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
