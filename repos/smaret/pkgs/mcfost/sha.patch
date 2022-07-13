@@ -1,0 +1,10 @@
+diff --git a/src/sha.f90 b/src/sha.f90
+new file mode 100644
+index 0000000..e4707d8
+--- /dev/null
++++ b/src/sha.f90
+@@ -0,0 +1,4 @@
++module sha
++  implicit none
++  character(len=40), parameter :: sha_id = "@MCFOST_GIT_REV@"
++end module sha
