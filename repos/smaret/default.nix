@@ -11,6 +11,7 @@
       sundials = pkgs.callPackage ./pkgs/astrochem/dependencies/sundials5 { };
     }
   );
+  lmfit = pkgs.python3Packages.callPackage ./pkgs/python-modules/lmfit { };
   # FIXME: This fails to build because aplpy in broken in nixpkgs
   #pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
   # FIXME: This fails to build because astroquery is broken in nixpkgs
