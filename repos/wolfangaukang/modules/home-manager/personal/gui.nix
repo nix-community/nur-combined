@@ -18,6 +18,13 @@ in
         Enables the GUI tools, plus Feh as image viewer.
       '';
     };
+    enableMimeapps = mkOption {
+      default = false;
+      type = types.bool;
+      description = ''
+        Enables mimeapps management.
+      '';
+    };
     browsers = {
       firefox = {
         enable = mkOption {
@@ -59,7 +66,7 @@ in
       home.packages = settings.packages.gui;
       programs.feh.enable = true;
       xdg.mimeApps = {
-        enable = true;
+        enable = cfg.enableMimeapps;
         defaultApplications = settings.mimelist;
       };
     }

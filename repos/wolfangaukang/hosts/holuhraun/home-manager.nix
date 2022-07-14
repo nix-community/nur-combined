@@ -53,8 +53,6 @@
     packages = with pkgs; [
       # Personal GUI
       discord
-      # Android Dev
-      android-studio
       # Music
       musescore
 

@@ -15,6 +15,7 @@ in rec {
     ];
     gui = with pkgs; [
       keepassxc
+      libreoffice
       qbittorrent
       raven-reader
       thunderbird

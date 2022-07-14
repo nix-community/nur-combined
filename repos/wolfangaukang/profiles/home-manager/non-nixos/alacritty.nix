@@ -23,10 +23,6 @@ in {
     ../common/alacritty.nix
   ];
 
-  home = {
-    packages = [
-      alacritty-bin
-      alacritty-desktop
-    ];
-  };
+  programs.alacritty.package = alacritty-bin;
+  home.packages = [ alacritty-desktop ];
 }
