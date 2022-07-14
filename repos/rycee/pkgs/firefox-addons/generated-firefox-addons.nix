@@ -938,10 +938,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.3.0";
+      version = "5.3.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3964226/languagetool-5.3.0.xpi";
-      sha256 = "d92cac3377af01f54d2ed096fbadd697997878a281740dcc6f7cc018fd10ca2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974818/languagetool-5.3.3.xpi";
+      sha256 = "241739c92c2612b04d41cb7089359ff7535b92a185b7a7e4e1e95178aab68a4f";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1893,10 +1893,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.6.2";
+      version = "4.6.4";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3971009/sponsorblock-4.6.2.xpi";
-      sha256 = "9eff02597d7585f419f2cdd9bed947c8a1fa34e561ae69aca19db6a1a64bf1f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3975486/sponsorblock-4.6.4.xpi";
+      sha256 = "16174dd17e863a8d8e11325069a91912d3750e6e0f5967cfff29ebcaa70b44da";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
