@@ -11,9 +11,8 @@
 
 stdenv.mkDerivation rec {
 
-  name = "astrochem";
-
-#  version = "v0.9";
+  pname = "astrochem";
+  version = "v0.9";
 
   src = fetchFromGitHub {
     owner = "smaret";
