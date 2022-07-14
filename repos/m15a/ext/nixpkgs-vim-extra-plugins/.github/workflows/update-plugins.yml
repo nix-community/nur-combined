@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Update plugins
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.M15A_GITHUB_PAT }}
           ref: ${{ github.head_ref }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v17
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}

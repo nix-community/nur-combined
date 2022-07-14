@@ -122,7 +122,9 @@ jvgrootveld/telescope-zoxide
 kana/vim-textobj-indent
 kazhala/close-buffers.nvim
 kdheepak/monochrome.nvim
+kkharji/lspsaga.nvim
 klen/nvim-config-local
+kmonad/kmonad-vim
 konapun/vacuumline.nvim
 kristijanhusak/orgmode.nvim
 kvrohit/substrata.nvim
@@ -141,7 +143,6 @@ mcchrish/zenbones.nvim
 mfussenegger/nvim-ts-hint-textobject
 michaelb/sniprun
 mizlan/iswap.nvim
-mjlbach/babelfish.nvim
 mnacamura/iron.nvim::iron-nvim-mnacamura
 mnacamura/nvim-srcerite
 mnacamura/vim-fennel-syntax
@@ -209,7 +210,6 @@ stevearc/qf_helper.nvim
 svermeulen/vim-yoink
 svermeulen/vimpeccable
 tamago324/nlsp-settings.nvim
-tami5/lspsaga.nvim
 tamton-aquib/staline.nvim
 tanvirtin/monokai.nvim
 tanvirtin/vgit.nvim

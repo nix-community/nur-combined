@@ -99,7 +99,7 @@
 (fn nixpkgs.get-vim-plugins-manifest [channel]
   "Fetch manifest of the official nixpkgs vim plugins."
   (let [channel (or channel "nixpkgs-unstable")
-        path (string.format "/NixOS/nixpkgs/%s/pkgs/misc/vim-plugins/vim-plugin-names" channel)
+        path (string.format "/NixOS/nixpkgs/%s/pkgs/applications/editors/vim/plugins/vim-plugin-names" channel)
         url (string.format "https://raw.githubusercontent.com%s" path)
         specs (: (http.get url) :split)]
     ;; Return it as a map from spec to bool for later convenience.

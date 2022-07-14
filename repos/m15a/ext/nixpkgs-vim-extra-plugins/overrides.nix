@@ -13,6 +13,8 @@ let
   {
     alpha-nvim = true;
 
+    go-nvim = true;
+
     highlight-current-n-nvim = true;
 
     vacuumline-nvim = true;
@@ -93,8 +95,6 @@ let
     apprentice-nvim = [ lush-nvim ];
 
     auto-pandoc-nvim = [ plenary-nvim ];
-
-    babelfish-nvim = [ nvim-treesitter ];
 
     cmp-git = [ nvim-cmp plenary-nvim ];
 
