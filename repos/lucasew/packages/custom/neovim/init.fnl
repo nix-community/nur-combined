@@ -25,13 +25,38 @@
   "Run vimscript snippet"
   (vim.api.nvim_exec ...))
 
-(lsp_signature.setup { :bind true })
+(fn nmap [key func ...]
+  "Map key in normal mode to function"
+  (vim.keymap.set :n key func ...))
+
+; (lsp_signature.setup { :bind true })
 
 (fn lsp [name options]
   (local opts (or options {}))
+  (tset opts :on_attach (fn [client bufnr]
+      (when (and options (. options :on_attach))
+        ((. options :on_attach) client bufnr))
+      ;; LSP mappings
+      (local bufopts { :noremap true :silent true :buffer bufnr })
+      (nmap "gD" vim.lsp.buf.declaration  bufopts)
+      (nmap "gd" vim.lsp.buf.definition bufopts)
+      (nmap "K" vim.lsp.buf.hover bufopts)
+      (nmap "gi" vim.lsp.buf.implementation bufopts)
+      (nmap "<C-k>" vim.lsp.buf.signature_help bufopts)
+      (nmap "<space>wa" vim.lsp.buf.add_workspace_folder bufopts)
+      (nmap "<space>wr" vim.lsp.buf.remove_workspace_folder bufopts)
+      (nmap "<space>wl" (fn [] (print (vim.inspect (vim.lsp.buf.list_workspace_folders)))) bufopts)
+      (nmap "<space>D" vim.lsp.buf.type_definition bufopts)
+      (nmap "<space>rn" vim.lsp.buf.rename bufopts)
+      (nmap "<space>ca" vim.lsp.buf.code_action bufopts)
+      (nmap "gr" vim.lsp.buf.references bufopts)
+      (nmap "<space>f" vim.lsp.buf.formatting bufopts)
+      (print "LSP kicked in")
+  ))
   (local coqed (coq.lsp_ensure_capabilities opts))
   (assert (. lspconfig name) (.. "The server " name " is not defined on lspconfig"))
-  ((. (. lspconfig name) :setup) coqed))
+  ((. (. lspconfig name) :setup) coqed)
+)
 
 
 ;; LSP
@@ -65,9 +90,7 @@
 (lsp :zls) ;; Zig
 (lsp :svelte) ;; Svelte
 
-
 ;; Luasnip
-
 (ls.config.set_config {
   :history true
   :updateevents "TextChanged,TextChangedI"
@@ -98,13 +121,27 @@
     {:silent true})
 ))
 
-(when (not ls.snippets) (tset ls :snippets {}))
-(tset ls.snippets :all [
-  (ls.parser.parse_snippet :demo "* if this appears then it's working! *")
-])
+(let [
+    ;; :help luasnip
+    s ls.snippet
+    sn ls.snippet_node
+    isn ls.indent_snippet_node
+    t ls.text_node
+    i ls.insert_node
+    f ls.function_node
+    c ls.choice_node
+    d ls.dynamic_node
+    r ls.restore_node
+  ]
+  (do
+    (ls.add_snippets :all [
+      (s ":demo:" [ (i 1 "It works") ])
+    ])
+  ))
 
 ;; Telescope
 (cmd "nmap <C-p> :Telescope<CR>")
 (cmd "nmap <C-.> :Telescope lsp_code_actions<CR>")
 
+(print "Config fennel carregada")
 nil

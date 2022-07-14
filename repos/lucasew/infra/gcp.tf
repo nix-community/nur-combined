@@ -31,9 +31,23 @@ variable "gcp_token" {
     description = "Token GCP"
 }
 
-variable "nixos-image-url" {
-  type = string
-  description = "GCP Image"
+provider "google" {
+    project = var.gcp_project
+    zone = var.gcp_zone
+    credentials = var.gcp_token
+}
+
+resource "google_service_account" "service_account" {
+  account_id   = "lucasew-operator"
+
+  display_name = "Compute Engine default service account"
+  project      = var.gcp_project
+}
+# terraform import google_service_account.artimanhas-do-lucaum 178195340338-compute@developer.gserviceaccount.com
+
+data "google_storage_bucket_object" "nixos-image-bucket" {
+  name   = "nixos-image-lucasew:nixcfg-4b7b21ad0e11fd33133d31b43b7845609ddcfc63-x86_64-linux.raw.tar.gz"
+  bucket = "nixos-bootstrap"
 }
 
 resource "google_compute_instance" "vps" {
@@ -94,22 +108,7 @@ resource "google_compute_instance" "vps" {
   zone = var.gcp_zone
 }
 # terraform import google_compute_instance.vps vps
-
-provider "google" {
-    project = var.gcp_project
-    zone = var.gcp_zone
-    credentials = var.gcp_token
-}
-
-resource "google_service_account" "service_account" {
-  account_id   = "lucasew-operator"
-
-
-  display_name = "Compute Engine default service account"
-  project      = var.gcp_project
-}
-# terraform import google_service_account.artimanhas-do-lucaum 178195340338-compute@developer.gserviceaccount.com
-
+#
 resource "google_compute_disk" "nixos_rootfs" {
   image                     = google_compute_image.nixos_bootstrap.self_link
   name                      = "nixos-rootfs"
@@ -124,31 +123,15 @@ resource "google_compute_disk" "nixos_rootfs" {
 
 data "google_compute_disk" "persist" {
   name                      = "persist"
-  # physical_block_size_bytes = 4096
-  # project                   = var.gcp_project
-  # size                      = 10
-  # type                      = "pd-standard"
-  # zone                      = "us-central1-a"
 }
 # terraform import google_compute_disk.persist projects/artimanhas-do-lucaum/zones/us-central1-a/disks/persist
-
-resource "google_storage_bucket" "nixos_bootstrap" {
-  force_destroy               = false
-  location                    = "US-CENTRAL1"
-  name                        = "nixos-bootstrap"
-  project                     = var.gcp_project
-  /* public_access_prevention    = "enforced" */
-  storage_class               = "ARCHIVE"
-  uniform_bucket_level_access = true
-}
-# terraform import google_storage_bucket.nixos_bootstrap nixos-bootstrap
 
 resource "google_compute_image" "nixos_bootstrap" {
   name = "nixos"
   disk_size_gb = 5
   project      = var.gcp_project
   raw_disk {
-    source = var.nixos-image-url
+    source = data.google_storage_bucket_object.nixos-image-bucket.self_link
   }
 }
 

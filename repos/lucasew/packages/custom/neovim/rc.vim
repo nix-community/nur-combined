@@ -50,7 +50,7 @@ tab ball " Deixa menos bagunçado colocando um arquivo por aba
 
 " Colorscheme:
 let g:dark_mode = 1
-function HandleTheming()
+function! HandleTheming()
     if g:dark_mode
         colorscheme embark
     else
@@ -63,7 +63,7 @@ function! ToggleTheme()
     call HandleTheming()
 endfunction
 autocmd VimEnter * call HandleTheming()
-command ThemeToggle call ToggleTheme()
+command! ThemeToggle call ToggleTheme()
 
 " AutoPairs
 let g:AutoPairsMultilineClose=0
@@ -99,6 +99,7 @@ autocmd BufNewFile,BufRead *.fs,*.fsx,*.fsi set filetype=fsharp
 let g:fennel_nvim_auto_init = v:false
 
 " COQ
-let g:coq_settings = { 'xdg': v:true }
+let g:coq_settings = { 'xdg': v:true, "keymap.recommended": v:true, "auto_start": "shut-up" }
 
-COQnow --shut-up
+" Omnifunc
+set omnifunc=v:lua.vim.lsp.omnifunc

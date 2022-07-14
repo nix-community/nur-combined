@@ -97,34 +97,40 @@ in wrapNeovim pkgs.neovim-unwrapped {
   withPython3 = true;
   configure = {
     plug.plugins = with vimPlugins; [
+      # utils
       coq_nvim
-      dart-vim-plugin
       echodoc
-      embark-vim
       emmet-vim
-      fennel-vim
       fennel-nvim
-      indentLine
       lsp_signature-nvim
       luasnip
       nvim-lspconfig
-      nvim-web-devicons
-      onedark-vim
+      vim-commentary
+      vim-fetch # support for stacktrace paths
+      telescope-nvim
+      pluginNocapsquit
+
+      # language specific
+      dart-vim-plugin
+      fennel-vim
       plantuml-syntax
+      # pluginIonideVim
+      vim-nix
+      vim-terraform
+
+      # deps
       plenary-nvim # dep of telescope
       popup-nvim # dep of telescope
-      telescope-nvim
-      vim-commentary
-      vim-nix
-      vim-startify
-      vim-fetch # support for stacktrace paths
-      vim-terraform
-      # custom
-      pluginNocapsquit
-      # pluginIonideVim
+
+      # themes
+      embark-vim
+      onedark-vim
       themePaper
       themePreto
       themeStarrynight
+
+      indentLine
+      nvim-web-devicons
     ];
     customRC = ''
     lua << EOF

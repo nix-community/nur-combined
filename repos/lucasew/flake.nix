@@ -143,7 +143,7 @@
           ;
         in {
           system.configurationRevision = rev;
-          system.nixos.label = "lucasew/nixcfg ${rev}";
+          system.nixos.label = "lucasew:nixcfg-${rev}";
         };
         source = {
           inherit pkgs system;

@@ -4,7 +4,6 @@ let
   inherit (pkgs) dotenv;
   inherit (global) username rootPath;
   inherit (lib) mkOverride;
-  # our_cudatoolkit = pkgs.cudaPackages_10.cudatoolkit;
 in {
   imports = [
     ../common/default.nix
