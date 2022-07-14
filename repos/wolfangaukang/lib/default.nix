@@ -39,15 +39,18 @@ in
       inherit (inputs.home-manager.lib) homeManagerConfiguration;
 
     in homeManagerConfiguration {
-      inherit pkgs system username;
+      inherit pkgs;
       extraSpecialArgs = { inherit username; };
-      homeDirectory = "/home/${username}";
-      configuration = { ... }: {
-        imports = [
-          ../hosts/${hostname}/home-manager.nix
-          ../modules/home-manager/personal
-        ];
-        nixpkgs.overlays = overlays;
-      };
+      modules = [
+        ../hosts/${hostname}/home-manager.nix
+        ../modules/home-manager/personal
+        {
+          home = {
+            username = username;
+            homeDirectory = "/home/${username}";
+          };
+          nixpkgs.overlays = overlays;
+        }
+      ];
     };
 }
