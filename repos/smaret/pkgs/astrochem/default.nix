@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
 
   name = "astrochem";
 
-  version = "v0.9";
+#  version = "v0.9";
 
   src = fetchFromGitHub {
     owner = "smaret";
     repo = "astrochem";
-    rev = "v0.9";
-    sha256 = "1a1yrblpibcqj17sbl2fjmgphx0xiinngxkmyxgvyvpw1dnx2v2f";
+    rev = "5dc0b2e71c27d03696195741437cdb695e92ff70";
+    sha256 = "0qp5w3gn0v1fwqn29dvd0jqydh0v23mv8xmw1y24461q4dcn5403";
   };
 
   nativeBuildInputs = [ autoconf automake libtool ncurses ];
