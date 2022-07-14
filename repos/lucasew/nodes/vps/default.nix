@@ -19,11 +19,11 @@ in {
 
   services.openssh.forwardX11 = true;
   fileSystems = {
-    "/persist" = {
-      neededForBoot = true;
-      device = "/dev/sdb1";
-      fsType = "ext4";
-    };
+    # "/persist" = {
+    #   neededForBoot = true;
+    #   device = "/dev/sdb1";
+    #   fsType = "ext4";
+    # };
   };
 
   vps = {

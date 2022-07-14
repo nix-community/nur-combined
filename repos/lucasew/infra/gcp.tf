@@ -31,13 +31,18 @@ variable "gcp_token" {
     description = "Token GCP"
 }
 
+variable "nixos-image-url" {
+  type = string
+  description = "GCP Image"
+}
+
 resource "google_compute_instance" "vps" {
   name = "vps"
 
   attached_disk {
     device_name = "persist"
     mode        = "READ_WRITE"
-    source      = google_compute_disk.persist.self_link
+    source      = data.google_compute_disk.persist.self_link
   }
 
   boot_disk {
@@ -117,13 +122,13 @@ resource "google_compute_disk" "nixos_rootfs" {
 # terraform import google_compute_disk.nixos_rootfs projects/artimanhas-do-lucaum/zones/us-central1-a/disks/nixos-rootfs
 
 
-resource "google_compute_disk" "persist" {
+data "google_compute_disk" "persist" {
   name                      = "persist"
-  physical_block_size_bytes = 4096
-  project                   = var.gcp_project
-  size                      = 10
-  type                      = "pd-standard"
-  zone                      = "us-central1-a"
+  # physical_block_size_bytes = 4096
+  # project                   = var.gcp_project
+  # size                      = 10
+  # type                      = "pd-standard"
+  # zone                      = "us-central1-a"
 }
 # terraform import google_compute_disk.persist projects/artimanhas-do-lucaum/zones/us-central1-a/disks/persist
 
@@ -139,13 +144,13 @@ resource "google_storage_bucket" "nixos_bootstrap" {
 # terraform import google_storage_bucket.nixos_bootstrap nixos-bootstrap
 
 resource "google_compute_image" "nixos_bootstrap" {
+  name = "nixos"
   disk_size_gb = 5
-  family       = "nixos-77ea5e9cf0d1aa73f2fafacdbd1673c4b7dc8378"
-  name         = "nixos-bootstrap"
   project      = var.gcp_project
+  raw_disk {
+    source = var.nixos-image-url
+  }
 }
-# terraform import google_compute_image.nixos_bootstrap projects/artimanhas-do-lucaum/global/images/nixos-bootstrap
-
 
 resource "google_compute_firewall" "www" {
   name          = "www"

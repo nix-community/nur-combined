@@ -45,6 +45,7 @@ in {
     sshpass
     stremio
     tdesktop # communication
+    terraform
     t-launcher
     vlc # media
     wineApps.wine7zip

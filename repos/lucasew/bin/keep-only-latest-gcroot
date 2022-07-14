@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -eu
+
+REMOVE_ROOTS=0
+if [[ $# -gt 0 ]]; then
+    if [[ "$1" == "now" ]]; then
+        REMOVE_ROOTS=1
+    fi
+fi
+
+CURLINKS=$(sudo find /nix/var/nix/profiles -type l | sort | grep -e '/[a-z][-a-z]*$')
+
+for curlink in $CURLINKS; do
+    links=$(echo $curlink-* | sort)
+    pushd $(dirname $curlink) > /dev/null
+        echo "${links[@]}" | sed 's; ;\n;g' | while read line; do
+            if [[ $(basename $line) == $(readlink $curlink) ]]; then
+                continue
+            fi
+            echo $line
+            if [[ $REMOVE_ROOTS == 1 ]]; then
+                sudo rm $line
+                # echo removendo $line
+            fi
+        done
+    popd > /dev/null
+done
+
+# echo "${CURLINKS[@]}"
