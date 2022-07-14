@@ -40,6 +40,8 @@
 
   keyd = pkgs.callPackage ./pkgs/keyd { };
 
+  lexy = pkgs.callPackage ./pkgs/lexy { };
+
   linasm = pkgs.callPackage ./pkgs/linasm { };
 
   mathpresso = pkgs.callPackage ./pkgs/mathpresso { };
