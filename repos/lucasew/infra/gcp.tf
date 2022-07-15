@@ -31,6 +31,12 @@ variable "gcp_token" {
     description = "Token GCP"
 }
 
+variable "stop" {
+    type = bool
+    description = "Stop the instance?"
+    default = false
+}
+
 provider "google" {
     project = var.gcp_project
     zone = var.gcp_zone
@@ -71,6 +77,8 @@ resource "google_compute_instance" "vps" {
   enable_display = true
 
   machine_type = var.modo_turbo ? "n1-highcpu-4" : "e2-micro"
+
+  desired_status = var.stop ? "TERMINATED" : "RUNNING"
 
   guest_accelerator {
     type = "nvidia-tesla-k80"
@@ -128,7 +136,6 @@ data "google_compute_disk" "persist" {
 
 resource "google_compute_image" "nixos_bootstrap" {
   name = "nixos"
-  disk_size_gb = 5
   project      = var.gcp_project
   raw_disk {
     source = data.google_storage_bucket_object.nixos-image-bucket.self_link
