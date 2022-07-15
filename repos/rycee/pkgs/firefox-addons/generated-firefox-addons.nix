@@ -690,10 +690,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0buildid20220712.185923";
+      version = "103.0buildid20220714.185732";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974991/francais_language_pack-103.0buildid20220712.185923.xpi";
-      sha256 = "1bf98fd77d52575f9dbdd4149f06f237df640899118eb904258c73df7f3edf1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3975920/francais_language_pack-103.0buildid20220714.185732.xpi";
+      sha256 = "26a2f68a6ce63fd5160d739e800f8c6c361fce113955191d41730fcca0b49746";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1614,10 +1614,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.24.6";
+      version = "4.25.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3948041/react_devtools-4.24.6.xpi";
-      sha256 = "b8ef1c6cea3b773bfb8afe44ccb5f77379c78402f912aa638c23f420caca970e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3975827/react_devtools-4.25.0.xpi";
+      sha256 = "8547cb5044edc99c6408722913649102ec48e56a18eec73848325e02992155a3";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -1808,10 +1808,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.17";
+      version = "1.21.18";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967023/single_file-1.21.17.xpi";
-      sha256 = "e1b77c2047071819577d690fa00e84a81dd14af38727a9415eb36a5b02f66f87";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3975561/single_file-1.21.18.xpi";
+      sha256 = "ccb9b672f0e9f47acadfec6193efdb519a14c078ef13b85fed85c4f89cd7d610";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
