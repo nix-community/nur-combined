@@ -19,7 +19,7 @@ in
     lib,
     callPackage,
     fetchurl,
-    stdenv,
+    stdenvNoCC,
   }: let
     inherit (builtins) elem;
     inherit (lib) filterAttrs;
@@ -30,7 +30,7 @@ in
     langpack = mozLangpackSources.${app.name}.${app.majorKey}.${app.arch}.${mozLanguage};
     addonId = "langpack-${mozLanguage}@${app.addonIdSuffix}";
   in
-    stdenv.mkDerivation {
+    stdenvNoCC.mkDerivation {
       name = "${app.name}-langpack-${mozLanguage}-${langpack.version}";
       src = fetchurl {
         name = "${app.name}-langpack-${mozLanguage}-${langpack.version}-${app.arch}.xpi";
@@ -44,7 +44,7 @@ in
         };
 
       preferLocalBuild = true;
-      allowSubstitutes = false;
+      # Do not use `allowSubstitutes = false;`: https://github.com/NixOS/nix/issues/4442
 
       buildCommand = ''
         dst="$out/share/mozilla/extensions/${app.extensionDir}"
