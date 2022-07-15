@@ -9,8 +9,8 @@
   base16-templates-source = import ./source.nix {
     pname = "base16-templates-source";
     version = "2021-04-14";
-    rev = "816b70a620664787cc74ac63354c5ec1f426bb81";
-    sha256 = "sha256-PjznHgJHUWTZR22kiajigcDWvmzL0KcE8wdJ6sZHwAg=";
+    rev = "3af55c8b46289f61d733059758c2429233b4052c";
+    sha256 = "sha256-oBAIxoO71HVhjDgjaHT7LY8clWKV+YjkSyErKlEp/8o=";
     sources = ./templates.json;
   };
   base16-schemes = import ./schemes.nix;
