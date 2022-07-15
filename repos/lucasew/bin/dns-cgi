@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+set -eu
+PREFIX=.local
+
+if [ $# -gt 0 ]; then
+    PREFIX=$1; shift
+fi
+
+function log() {
+    echo "$@" >&2
+}
+
+function has_binary() {
+    which $1 > /dev/null 2> /dev/null
+}
+
+{
+    log "Fetching docker domains..."
+    docker ps -q | xargs -n 1 docker inspect --format '{{$name := .Name}}{{range $k, $v := .NetworkSettings.Networks}}{{.IPAddress}} {{ $name }}.{{ $k }}.docker{{end}}' | sed 's#\([^ ] \)/#\1#';
+
+    if [[ -v ZEROTIER_TOKEN ]]; then
+        log "Fetching zerotier nodes"
+        if [[ -v ZEROTIER_NETWORKS ]]; then
+            for network in $(echo "$ZEROTIER_NETWORKS" | sed 's; ;\n;g'); do
+                curl "http://my.zerotier.com/api/network/$network/member" -H "Authorization: bearer $ZEROTIER_TOKEN" | jq '. | map(select(.online == true and .config.authorized == true)) | map((if .name != "" then .name else .nodeId end) as $name | .config.ipAssignments | map("\(.) \($name)")) | flatten | join("\n")' -r | sed 's;$;.zt;'
+            done
+        fi
+    fi
+
+    if has_binary arp-scan; then
+        log "Fetching local network with arp-scan"
+        sudo arp-scan -localnet | grep -v -e '.*\t.*$' | sed 's;\t; ;g' | grep -v 'Unknown' | awk 'length($0) > 5 {split($3, a, " "); print $1 " " a[1] ".net" }'
+    fi
+
+
+} | grep -v -e '^[ \t]*$' | sed "s;$;$PREFIX;"
