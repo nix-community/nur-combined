@@ -135,11 +135,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-NUu96ndOprUbvp6RyjVecD/bNznfbEE8LkS4lfIgl4c=",
+            "sha256": "sha256-awyiV6RT+hxymqJsP15aJz8A/tdV8zk+WMewzJ9wMek=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.2.3-1/io.github.msojocs.bilibili_1.2.3-1_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.3.1-1/io.github.msojocs.bilibili_1.3.1-1_amd64.deb"
         },
-        "version": "1.2.3-1"
+        "version": "1.3.1-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -268,11 +268,11 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "a09e6c153a3fd002d64568c6ab913b7f8902b5b5",
-            "sha256": "sha256-FSdc3suTqS68hT0lXiKo5mWFg6LZQRwS2Wp0tHkJzBU=",
+            "rev": "89f6e19a2c9372157592685a941efd66910447dc",
+            "sha256": "sha256-UPL9LU0AZ91Frfd4QwStMX/mXTSjWpwiHU3f5LhQy6s=",
             "type": "github"
         },
-        "version": "a09e6c153a3fd002d64568c6ab913b7f8902b5b5"
+        "version": "89f6e19a2c9372157592685a941efd66910447dc"
     },
     "konnect": {
         "cargoLocks": null,
@@ -524,11 +524,11 @@
             "name": null,
             "owner": "osdlyrics",
             "repo": "osdlyrics",
-            "rev": "0.5.10",
-            "sha256": "sha256-x9gIT1JkfPIc4RmmQJLv9rOG2WqAftoTK5uiRlS65zU=",
+            "rev": "0.5.11",
+            "sha256": "sha256-VxLNaNe4hFwgSW4JEF1T4BWC2NwiOgfwVGiAIOszfGE=",
             "type": "github"
         },
-        "version": "0.5.10"
+        "version": "0.5.11"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -661,11 +661,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "route-chain",
-            "rev": "b2068ce2905588f445ff95a05c00f200ec96d5b5",
-            "sha256": "sha256-AW4Tc8RCP0vyRUtZxUuNSYh/iYZh9ExZrsbgZHkFPqU=",
+            "rev": "2ad303d7eb8aa35aced19b1baf757a0a78b3b843",
+            "sha256": "sha256-uzudFMeBtgKRPUiaUaSiExTLWTcxfp0VVe/IW9eDxAg=",
             "type": "github"
         },
-        "version": "b2068ce2905588f445ff95a05c00f200ec96d5b5"
+        "version": "2ad303d7eb8aa35aced19b1baf757a0a78b3b843"
     },
     "stream-echo-nginx-module": {
         "cargoLocks": null,
@@ -694,11 +694,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-l9xbQwI+Y2FwYjyHcTTbEs3+QkEaey7/WkRKbpUaqgM=",
+            "sha256": "sha256-HHhtEOOh+EtgiLbSaSzvp700wbRQjeB3CPjsuB/zzHw=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202207070057/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202207140057/geoip.dat"
         },
-        "version": "202207070057"
+        "version": "202207140057"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -708,11 +708,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OLrlLYIn5MMgP8lbovv9pIZPdffoR6meTS1jDTxS22g=",
+            "sha256": "sha256-IAy3Rg3f6cAcUWesxMY8Jx8z80Xd5P2PF3rRLvnhzcA=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220708161253/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220716164859/dlc.dat"
         },
-        "version": "20220708161253"
+        "version": "20220716164859"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -724,9 +724,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202207070057/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202207140057/private.dat"
         },
-        "version": "202207070057"
+        "version": "202207140057"
     },
     "xray": {
         "cargoLocks": null,
