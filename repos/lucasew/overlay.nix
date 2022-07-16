@@ -28,6 +28,7 @@ in {
 
   lib = prev.lib // {
     jpg2png = cp ./lib/jpg2png.nix;
+    buildDockerEnv = cp ./lib/buildDockerEnv.nix;
   };
   p2k = cp inputs.pocket2kindle;
   redial_proxy = cp inputs.redial_proxy;
@@ -87,6 +88,7 @@ in {
   preload = cp ./packages/preload.nix;
   nodePackages = prev.nodePackages // (cp ./packages/node_clis/package_data/default.nix);
   null = prev.stdenv.mkDerivation { dontUnpack = true; installPhase = "mkdir $out"; };
+  speech-recognition = cp ./packages/speech-recognition.nix;
   nur = import flake.inputs.nur {
     inherit (prev) pkgs;
     nurpkgs = prev.pkgs;
