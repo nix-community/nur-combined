@@ -3,13 +3,13 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-lkAqmREtGhWwHK3wdVSfqt+Q+xUhZmQ0UZyubeMJLR4=",
+        "narHash": "sha256-a1NzFJE27H2sr8qv8sazIF+/P3iTR9BNKBaeA+WGj6Q=",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/fae381cd12525fdfb5163ce0ac78c2705d5917c4.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/544cd93a77f162721b99f8322ae920b5c6fc632b.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/fae381cd12525fdfb5163ce0ac78c2705d5917c4.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/544cd93a77f162721b99f8322ae920b5c6fc632b.tar.gz"
       }
     },
     "alejandra": {
@@ -37,13 +37,13 @@
     "classicube": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-NPGDsTJcgsV9Y2UxIUVbFSQP3FqoshfCGwjuoYAXV3Y=",
+        "narHash": "sha256-+r3CJOYHwcmZ1QyBnn+k98DajiwnqosReFb25cK459w=",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/cf4104bd9683cc8ba63cf5f8bae9d515d9b21b27.tar.gz"
+        "url": "https://github.com/unknownshadow200/classicube/archive/bd94a9a89304759dfeb0fd331a129b6ef92a59c1.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/cf4104bd9683cc8ba63cf5f8bae9d515d9b21b27.tar.gz"
+        "url": "https://github.com/unknownshadow200/classicube/archive/bd94a9a89304759dfeb0fd331a129b6ef92a59c1.tar.gz"
       }
     },
     "crane": {
@@ -125,13 +125,13 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "narHash": "sha256-YTD7NqXnn3YmuQIdECCLqDPYtvZkho+wIfwsVdKlGvo=",
+        "narHash": "sha256-bxPOcu5hNNdUYTUoopMl+4qZiiHtL9dFQh4d4KTMI38=",
         "type": "tarball",
-        "url": "https://github.com/nix-community/dream2nix/archive/c246205a90dd4ebe1da04c705ed79adce0f6d9da.tar.gz"
+        "url": "https://github.com/nix-community/dream2nix/archive/fdd111cca7fae8470c9e2b4bcffe8dc1b2255a24.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nix-community/dream2nix/archive/c246205a90dd4ebe1da04c705ed79adce0f6d9da.tar.gz"
+        "url": "https://github.com/nix-community/dream2nix/archive/fdd111cca7fae8470c9e2b4bcffe8dc1b2255a24.tar.gz"
       }
     },
     "efm-langserver": {
@@ -329,13 +329,13 @@
     "gitignore": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-kekOlTlu45vuK2L9nq8iVN17V3sB0WWPqTTW3a2SQG0=",
+        "narHash": "sha256-5jIzNHKtDu06mA325K/5CshUVb5r7sSmnRiula6Gr7o=",
         "type": "tarball",
-        "url": "https://github.com/hercules-ci/gitignore/archive/bff2832ec341cf30acb3a4d3e2e7f1f7b590116a.tar.gz"
+        "url": "https://github.com/hercules-ci/gitignore/archive/f840a659d57e53fa751a9248b17149fd0cf2a221.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/hercules-ci/gitignore/archive/bff2832ec341cf30acb3a4d3e2e7f1f7b590116a.tar.gz"
+        "url": "https://github.com/hercules-ci/gitignore/archive/f840a659d57e53fa751a9248b17149fd0cf2a221.tar.gz"
       }
     },
     "gomod2nix": {
@@ -372,13 +372,13 @@
         "utils": "utils"
       },
       "locked": {
-        "narHash": "sha256-/aN3p2LaRNVXf7w92GWgXq9H5f23YRQPOvsm3BrBqzU=",
+        "narHash": "sha256-8VV0/kZed2z8fGtEc2zr+WLxTow+JTIlMjnSisyv0GQ=",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/8160b3b45b8457d58d2b3af2aeb2eb6f47042e0f.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/4c5106ed0f3168ff2df21b646aef67e86cbfc11c.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/8160b3b45b8457d58d2b3af2aeb2eb6f47042e0f.tar.gz"
+        "url": "https://github.com/rycee/home-manager/archive/4c5106ed0f3168ff2df21b646aef67e86cbfc11c.tar.gz"
       }
     },
     "impermanence": {
@@ -497,11 +497,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1655130522,
-        "narHash": "sha256-5dzlxE4okyu+M39yeVtHWQXzDZQxFF5rUB1iY9R6Lb4=",
+        "lastModified": 1657638268,
+        "narHash": "sha256-blBNtQSslAFkg0Gym9fWNJk+bPxGSZib4SOcPrmTPi4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "13f08d71ceff5101321e0291854495a1ec153a5e",
+        "rev": "d80993b5f885515254746ba6d1917276ee386149",
         "type": "github"
       },
       "original": {
@@ -559,13 +559,13 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "narHash": "sha256-fWuaUNXrHcz/ciHRHlcSO92dvV3EVS0GJQUSBO5JIB4=",
+        "narHash": "sha256-9+JWARSdlL8KiH3ymnKDXltE1vM+/WEJ78F5B1kjXys=",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/a5c867d9fe9e4380452628e8f171c26b69fa9d3d.tar.gz"
+        "url": "https://github.com/nixos/nixpkgs/archive/4a01ca36d6bfc133bc617e661916a81327c9bbc8.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/a5c867d9fe9e4380452628e8f171c26b69fa9d3d.tar.gz"
+        "url": "https://github.com/nixos/nixpkgs/archive/4a01ca36d6bfc133bc617e661916a81327c9bbc8.tar.gz"
       }
     },
     "nixpkgs_6": {
@@ -590,13 +590,13 @@
         "nmdSrc": "nmdSrc"
       },
       "locked": {
-        "narHash": "sha256-9vns64oXyJYzskvqZuvEHTnVZd0x6tXg72QUvVWNpxQ=",
+        "narHash": "sha256-nOcBIrBMbMLapJvsB01jiiAOf6t9BeTMYWWeVIKR0LA=",
         "type": "tarball",
-        "url": "https://github.com/pta2002/nixvim/archive/16523fa1fc36f7121722f0625d716d47efce051f.tar.gz"
+        "url": "https://github.com/pta2002/nixvim/archive/a4aefb22395afbafc8d001b0b05e8a4e018d2121.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/pta2002/nixvim/archive/16523fa1fc36f7121722f0625d716d47efce051f.tar.gz"
+        "url": "https://github.com/pta2002/nixvim/archive/a4aefb22395afbafc8d001b0b05e8a4e018d2121.tar.gz"
       }
     },
     "nmdSrc": {
