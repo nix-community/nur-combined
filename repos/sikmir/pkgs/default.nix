@@ -147,9 +147,7 @@ lib.makeScope newScope (
     gmnigit = callPackage ./gemini/gmnigit { };
     gplaces = callPackage ./gemini/gplaces { };
     gssg = callPackage ./gemini/gssg { };
-    gurl = callPackage ./gemini/gurl {
-      zig = pkgs.zig_0_8_1;
-    };
+    gurl = callPackage ./gemini/gurl { };
     kineto = callPackage ./gemini/kineto { };
     py-gmi2html = callPackage ./gemini/py-gmi2html { };
     qute-gemini = callPackage ./gemini/qute-gemini { };

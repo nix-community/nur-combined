@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "amused";
-  version = "2022-07-09";
+  version = "0.10";
 
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = pname;
-    rev = "33e8ddf3b1df91d66664dcf0dc7011d089a74611";
-    hash = "sha256-GNNkbd9f0fUArzDiMdnJ0JTwhsTBRyH/Z8t7287hWtg=";
+    rev = version;
+    hash = "sha256-A2f37oI3BT30bqRYgoWy4B1dvPeZBoE4F3lkmET0td8=";
   };
 
   nativeBuildInputs = [ bmake pkg-config ];
@@ -20,6 +20,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    platforms = platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 }

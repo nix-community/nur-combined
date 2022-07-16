@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/86299
+    broken = true; # https://github.com/MasterQ32/gurl/issues/5
   };
 }
