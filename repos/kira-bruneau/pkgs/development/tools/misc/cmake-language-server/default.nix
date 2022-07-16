@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildPythonApplication
 , fetchFromGitHub
 , poetry
@@ -44,6 +43,9 @@ buildPythonApplication rec {
     homepage = "https://github.com/regen100/cmake-language-server";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = stdenv.isDarwin; # https://github.com/pyca/pyopenssl/issues/873
+
+    # https://github.com/NixOS/nixpkgs/pull/172397
+    # https://github.com/pyca/pyopenssl/issues/873
+    badPlatforms = [ "aarch64-darwin" ];
   };
 }

@@ -1,5 +1,4 @@
 { lib
-, stdenv
 , buildPythonPackage
 , fetchFromGitHub
 , colorama
@@ -38,6 +37,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/krenyy/botw_havok";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = !isPy3k || stdenv.isDarwin; # oead cmake --build fails with exit code 2 on darwin
+    badPlatforms = platforms.darwin; # oead cmake --build fails with exit code 2 on darwin
+    broken = !isPy3k;
   };
 }

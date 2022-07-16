@@ -85,10 +85,10 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Interactive, extensible editor for binary data";
     homepage = "http://www.jemarch.net/poke";
+    changelog = "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ AndersonTorres kira-bruneau ];
     platforms = platforms.unix;
-    changelog = "https://git.savannah.gnu.org/cgit/poke.git/plain/ChangeLog?h=releases/poke-${version}";
 
     # Undefined symbols for architecture arm64:
     #   "_jitter_print_context_kind_destroy", referenced from:
@@ -110,7 +110,7 @@ in stdenv.mkDerivation rec {
     #       _jitter_print_context_libtextstyle_begin_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
     #       _jitter_print_context_libtextstyle_end_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
     # ld: symbol(s) not found for architecture arm64
-    broken = stdenv.isDarwin && stdenv.isAarch64;
+    badPlatforms = [ "aarch64-darwin" ];
   };
 }
 

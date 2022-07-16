@@ -48,6 +48,5 @@ stdenv.mkDerivation rec {
     };
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.all;
-    broken = stdenv.isDarwin; # libpulseaudio fails to compile on darwin
   };
 }

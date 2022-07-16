@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau stunkymonkey ];
     platforms = platforms.unix;
+    badPlatforms = platforms.darwin; # webkitgtk doesn't build on Darwin
     mainProgram = "com.gitlab.newsflash";
-    broken = stdenv.isDarwin; # webkitgtk doesn't build on Darwin
   };
 }
