@@ -20,7 +20,6 @@ in {
     appimage-run
     calibre # a dependency is broken
     chromium
-    custom.rofi # custom
     custom.tixati
     custom.neovim
     custom.emacs

@@ -4,6 +4,24 @@ let
   inherit (global) wallpaper;
   inherit (lib) mkForce;
 
+  custom_rofi = let
+      commonFlags = "-theme gruvbox-dark -show-icons";
+    in
+    pkgs.symlinkJoin {
+      name = "custom-rofi";
+      paths = [
+        (pkgs.writeShellScriptBin "rofi-launch" ''
+          ${pkgs.rofi}/bin/rofi -show combi -combi-modi drun ${commonFlags}
+        '')
+        (pkgs.writeShellScriptBin "rofi-window" ''
+          ${pkgs.rofi}/bin/rofi -show combi -combi-modi window ${commonFlags}
+        '')
+        (pkgs.writeShellScriptBin "dmenu" ''
+          ${pkgs.rofi}/bin/rofi -dmenu ${commonFlags}
+        '')
+      ];
+    };
+
   polybar = pkgs.polybar.override {
     alsaSupport = true;
     pulseSupport = true;
@@ -93,7 +111,8 @@ in
         bindsym $mod+Shift+r restart
         bindsym $mod+Up focus up
         bindsym $mod+a focus parent
-        bindsym $mod+d exec ${custom.rofi}/bin/my-rofi
+        bindsym $mod+d exec ${custom_rofi}/bin/rofi-launch
+        bindsym $mod+Shift+d exec ${custom_rofi}/bin/rofi-window
         bindsym $mod+e layout toggle split
         bindsym $mod+f fullscreen toggle
         bindsym $mod+h split h
@@ -579,6 +598,7 @@ timeout=10
       extraOptions = [];
     };
     environment.systemPackages = [
+      custom_rofi
       pkgs.xfce.xfce4-xkb-plugin
       lockerSpace
     ];

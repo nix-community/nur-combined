@@ -71,7 +71,6 @@ in {
     neovim = cp ./packages/custom/neovim;
     emacs = cp ./packages/custom/emacs;
     firefox = cp ./packages/custom/firefox.nix;
-    rofi = cp ./packages/custom/rofi.nix;
     tixati = cp ./packages/custom/tixati.nix;
     vscode = cp ./packages/custom/vscode;
     send2kindle = cp ./packages/custom/send2kindle.nix;

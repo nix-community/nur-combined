@@ -14,6 +14,14 @@
       # direnv
       eval "$(direnv hook bash)"
 
+      function title() {
+        if [[ -z "$ORIG" ]]; then
+          ORIG=$PS1
+        fi
+        TITLE="\[\e]2;$*\a\]"
+        PS1=${"$"}{ORIG}${"$"}{TITLE}
+      }
+
       # load set-environment on shell start
       if test -f /etc/set-environment; then
         . /etc/set-environment
