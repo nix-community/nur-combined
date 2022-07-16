@@ -49,6 +49,18 @@
     homepage = "https://github.com/codota/tabnine-vscode";
     description = "Tabnine is the AI code completion tool trusted by millions of developers to code faster with fewer errors.";
   };
+  "'vscode-extensions.bmalehorn.vscode-fish'" = {
+    pname = "'vscode-extensions.bmalehorn.vscode-fish'";
+    version = "1.0.29";
+    src = fetchurl {
+      url = "https://bmalehorn.gallery.vsassets.io/_apis/public/gallery/publisher/bmalehorn/extension/vscode-fish/1.0.29/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "vscode-fish-1.0.29.zip";
+      sha256 = "sha256-4luZUORDWqjNndHpnYC0QqaH5vrukfwStLZZlIECtIE=";
+    };
+    license = "mit";
+    homepage = "https://github.com/bmalehorn/vscode-fish";
+    description = "Add syntax highlighting, linting, code formatting and snippets for the fish shell";
+  };
   "'vscode-extensions.ccls-project.ccls'" = {
     pname = "'vscode-extensions.ccls-project.ccls'";
     version = "0.1.29";

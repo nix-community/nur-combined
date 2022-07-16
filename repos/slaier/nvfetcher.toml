@@ -67,3 +67,7 @@ src.vsmarketplace = "LeetCode.vscode-leetcode"
 fetch.vsmarketplace = "LeetCode.vscode-leetcode"
 passthru = { license = "mit", homepage = "https://github.com/LeetCode-OpenSource/vscode-leetcode", description="Solve LeetCode problems in VS Code"}
 
+['vscode-extensions.bmalehorn.vscode-fish']
+src.vsmarketplace = "bmalehorn.vscode-fish"
+fetch.vsmarketplace = "bmalehorn.vscode-fish"
+passthru = { license = "mit", homepage = "https://github.com/bmalehorn/vscode-fish", description="Add syntax highlighting, linting, code formatting and snippets for the fish shell"}

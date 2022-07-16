@@ -71,6 +71,24 @@
         },
         "version": "3.6.3"
     },
+    "'vscode-extensions.bmalehorn.vscode-fish'": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "'vscode-extensions.bmalehorn.vscode-fish'",
+        "passthru": {
+            "description": "Add syntax highlighting, linting, code formatting and snippets for the fish shell",
+            "homepage": "https://github.com/bmalehorn/vscode-fish",
+            "license": "mit"
+        },
+        "pinned": false,
+        "src": {
+            "name": "vscode-fish-1.0.29.zip",
+            "sha256": "sha256-4luZUORDWqjNndHpnYC0QqaH5vrukfwStLZZlIECtIE=",
+            "type": "url",
+            "url": "https://bmalehorn.gallery.vsassets.io/_apis/public/gallery/publisher/bmalehorn/extension/vscode-fish/1.0.29/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+        },
+        "version": "1.0.29"
+    },
     "'vscode-extensions.ccls-project.ccls'": {
         "cargoLocks": null,
         "extract": null,
