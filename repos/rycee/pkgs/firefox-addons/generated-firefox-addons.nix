@@ -588,10 +588,10 @@
       };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
-      version = "0.2.12";
+      version = "0.2.13";
       addonId = "firenvim@lacamb.re";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3891084/firenvim-0.2.12.xpi";
-      sha256 = "0bf99b380b5f7ff4650c8289b6c282c90d9307c4636d06cc7ada0d873ab5130b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3976212/firenvim-0.2.13.xpi";
+      sha256 = "572b08118340bcb3788221a9c4e7b299b88c74d702921f4d775c65ab61dd7e10";
       meta = with lib;
       {
         description = "Turn Firefox into a Neovim client.";
@@ -1281,10 +1281,10 @@
       };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
-      version = "6.10.3";
+      version = "6.10.4";
       addonId = "octolinker@stefanbuck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3933475/octolinker-6.10.3.xpi";
-      sha256 = "aefd8e6140bd2b801622f3079ae54b059d304453d4489c436e405eb5bf2c260d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3976430/octolinker-6.10.4.xpi";
+      sha256 = "140327b54f7a7afef4de8ffe2a741c1a48eb2b8413deabb99d14497b3e594227";
       meta = with lib;
       {
         homepage = "https://octolinker.vercel.app";
@@ -2185,10 +2185,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.25";
+      version = "3.8.26";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3972784/tree_style_tab-3.8.25.xpi";
-      sha256 = "b1f8ed9f03bb02748561bf1f8760c5f70cdc7b801ab5c2e5885cbd50c84b1533";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3975864/tree_style_tab-3.8.26.xpi";
+      sha256 = "fad45a87897df26613c89403f8dc0eb22eea55faeb98119810e8c1856114e4c1";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
