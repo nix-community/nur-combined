@@ -1,4 +1,7 @@
-{pkgs, lib, ...}:
+{self, pkgs, lib, ...}:
+let
+  inherit (self) inputs;
+in
 {
   imports = [
     ../bootstrap/default.nix
@@ -7,7 +10,9 @@
     ./tuning.nix
     ./tmux.nix
     ./bash.nix
+    "${inputs.simple-dashboard}/nixos-module.nix"
   ];
+
   boot.loader.grub.memtest86.enable = true;
   
   environment = {

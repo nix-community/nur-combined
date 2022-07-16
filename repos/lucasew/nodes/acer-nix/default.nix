@@ -27,6 +27,8 @@ in
       ./plymouth.nix
     ]
   ;
+
+  services.simple-dashboardd.enable = true;
  
   # programs.steam.enable = true;
   nixpkgs = {

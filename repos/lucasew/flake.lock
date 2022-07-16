@@ -438,7 +438,8 @@
         "pocket2kindle": "pocket2kindle",
         "redial_proxy": "redial_proxy",
         "rust-overlay": "rust-overlay",
-        "send2kindle": "send2kindle"
+        "send2kindle": "send2kindle",
+        "simple-dashboard": "simple-dashboard"
       }
     },
     "rust-overlay": {
@@ -477,6 +478,22 @@
       "original": {
         "owner": "lucasew",
         "repo": "send2kindle",
+        "type": "github"
+      }
+    },
+    "simple-dashboard": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1657915951,
+        "narHash": "sha256-MtKHxXGZ49O0DrHmFwaJgtpYedl7jDRYBL9+u0ffg6Q=",
+        "owner": "lucasew",
+        "repo": "simple-dashboard",
+        "rev": "6cd480ebc0464115a7b09a8aac23dd7002e71141",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "simple-dashboard",
         "type": "github"
       }
     },

@@ -25,6 +25,7 @@
     redial_proxy =       {url =  "github:lucasew/redial_proxy";                     flake = false;                      };
     rust-overlay =       {url =  "github:oxalica/rust-overlay"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
     send2kindle =        {url =  "github:lucasew/send2kindle";                      flake = false;                      };
+    simple-dashboard = { url = "github:lucasew/simple-dashboard"; flake = false; };
   };
 
   outputs = { self, flake-utils, ... }@inputs:
