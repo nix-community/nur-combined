@@ -148,6 +148,7 @@ runs:
           while read log_src; do
             log_src="${log_src##./}"
             log_dst="${log_src//\//}"
+            log_dst="${log_dst//[\\\":<>|*?]/_}"
             printf '%s\n' "$log_dst"
             cp /nix/var/log/nix/drvs/"$log_src" .build/logs/"$log_dst" || touch .build/logs_fail
           done

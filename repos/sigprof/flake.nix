@@ -24,6 +24,7 @@
     {
       lib = import ./lib inputs;
       nixosModules = import ./modules {inherit self inputs;};
+      nixosConfigurations = import ./hosts {inherit self inputs;};
       overlays.default = import ./overlay.nix;
     }
     // (
