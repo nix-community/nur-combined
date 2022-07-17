@@ -25,6 +25,7 @@ in
       ./vbox.nix
       ./networking.nix
       ./plymouth.nix
+      ./dns.nix
     ]
   ;
 

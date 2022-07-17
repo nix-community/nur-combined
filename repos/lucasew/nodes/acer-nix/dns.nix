@@ -1,0 +1,3 @@
+{ ... }: {
+  # networking.resolvconf.useLocalResolver = true;
+}
