@@ -1,15 +1,17 @@
 { lib
 , buildPythonPackage
+, pythonOlder
 , fetchFromGitHub
 , oead
 , pyyaml
 , sortedcontainers
-, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "byml";
   version = "2.4.2";
+
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "zeldamods";
@@ -42,6 +44,5 @@ buildPythonPackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
     badPlatforms = platforms.darwin; # oead cmake --build fails with exit code 2 on darwin
-    broken = !isPy3k;
   };
 }

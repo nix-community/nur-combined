@@ -62,6 +62,8 @@ stdenvNoCC.mkDerivation rec {
     done
   '';
 
+  strictDeps = true;
+
   installPhase = ''
     runHook preInstall
     mkdir -p "$out/share/undistract-me" "$out/etc/profile.d" "$out/share/licenses/undistract-me"

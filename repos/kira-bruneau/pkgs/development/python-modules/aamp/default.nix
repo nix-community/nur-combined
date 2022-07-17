@@ -1,13 +1,15 @@
 { lib
 , buildPythonPackage
+, pythonOlder
 , fetchFromGitHub
 , pyyaml
-, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "aamp";
   version = "1.4.1";
+
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "zeldamods";
@@ -37,6 +39,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/aamp";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = !isPy3k;
   };
 }

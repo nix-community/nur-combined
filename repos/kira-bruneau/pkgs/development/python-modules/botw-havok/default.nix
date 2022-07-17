@@ -1,15 +1,17 @@
 { lib
 , buildPythonPackage
+, pythonOlder
 , fetchFromGitHub
 , colorama
 , numpy
 , oead
-, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "botw-havok";
   version = "0.3.18";
+
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "krenyy";
@@ -38,6 +40,5 @@ buildPythonPackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
     badPlatforms = platforms.darwin; # oead cmake --build fails with exit code 2 on darwin
-    broken = !isPy3k;
   };
 }

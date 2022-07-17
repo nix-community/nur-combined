@@ -1,14 +1,16 @@
 { lib
 , buildPythonPackage
+, pythonOlder
 , fetchFromGitHub
 , oead
 , xxhash
-, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "botw-utils";
   version = "0.2.3";
+
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "NiceneNerd";
@@ -36,6 +38,5 @@ buildPythonPackage rec {
     license = licenses.unlicense;
     maintainers = with maintainers; [ kira-bruneau ];
     badPlatforms = platforms.darwin; # oead cmake --build fails with exit code 2 on darwin
-    broken = !isPy3k;
   };
 }

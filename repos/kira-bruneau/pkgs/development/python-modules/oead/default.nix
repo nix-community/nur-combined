@@ -1,15 +1,17 @@
 { lib
 , buildPythonPackage
+, pythonOlder
 , fetchFromGitHub
 , fetchpatch
 , substituteAll
 , cmake
-, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "oead";
   version = "1.2.3";
+
+  disabled = pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "zeldamods";
@@ -46,6 +48,5 @@ buildPythonPackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
     badPlatforms = platforms.darwin; # cmake --build fails with exit code 2 on darwin
-    broken = !isPy3k;
   };
 }

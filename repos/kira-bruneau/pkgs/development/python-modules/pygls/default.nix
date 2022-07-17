@@ -1,5 +1,6 @@
 { lib
 , buildPythonPackage
+, pythonOlder
 , fetchFromGitHub
 , setuptools-scm
 , pydantic
@@ -8,13 +9,14 @@
 , mock
 , pytest-asyncio
 , pytestCheckHook
-, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "pygls";
   version = "0.11.3";
   format = "setuptools";
+
+  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
@@ -52,6 +54,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/openlawlibrary/pygls";
     license = licenses.asl20;
     maintainers = with maintainers; [ kira-bruneau ];
-    broken = !isPy3k;
   };
 }

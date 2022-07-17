@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , buildPythonPackage
+, pythonOlder
 , fetchFromGitHub
 , substituteAll
 , fetchpatch
@@ -13,14 +14,14 @@
 , pytest-xdist
 , pytestCheckHook
 , requests
-, isPy3k
-, pythonAtLeast
 }:
 
 buildPythonPackage rec {
   pname = "debugpy";
   version = "1.6.2";
   format = "setuptools";
+
+  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "Microsoft";
@@ -76,8 +77,6 @@ buildPythonPackage rec {
     }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")}
   )'';
 
-  doCheck = isPy3k;
-
   checkInputs = [
     django
     flask
@@ -92,17 +91,6 @@ buildPythonPackage rec {
   # Override default arguments in pytest.ini
   pytestFlagsArray = [
     "--timeout=0"
-  ];
-
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [
-    "test_flask_breakpoint_multiproc"
-    "test_subprocess[program-launch-None]"
-    "test_systemexit[0-zero-uncaught-raised-launch(integratedTerminal)-module]"
-    "test_systemexit[0-zero-uncaught--attach_pid-program]"
-    "test_success_exitcodes[-break_on_system_exit_zero-0-attach_listen(cli)-module]"
-    "test_success_exitcodes[--0-attach_connect(api)-program]"
-    "test_run[code-attach_connect(api)]"
-    "test_subprocess[program-launch-None]"
   ];
 
   # Fixes hanging tests on Darwin
@@ -122,7 +110,5 @@ buildPythonPackage rec {
     # https://github.com/NixOS/nixpkgs/pull/172397
     # https://github.com/pyca/pyopenssl/issues/873
     badPlatforms = [ "aarch64-darwin" ];
-
-    broken = !isPy3k;
   };
 }
