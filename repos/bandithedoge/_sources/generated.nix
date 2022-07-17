@@ -25,13 +25,13 @@
   };
   haskellNix = {
     pname = "haskellNix";
-    version = "2b68ab788d9c3536c696a1f3a5e5cd0cc25b4b7d";
+    version = "41ea38450261e163e9e4afa55055cbf106c93aac";
     src = fetchFromGitHub ({
       owner = "input-output-hk";
       repo = "haskell.nix";
-      rev = "2b68ab788d9c3536c696a1f3a5e5cd0cc25b4b7d";
+      rev = "41ea38450261e163e9e4afa55055cbf106c93aac";
       fetchSubmodules = false;
-      sha256 = "sha256-kUqzbIFHdSTAI1MYplGWaghkEL683pB3fcdEIIrqQaQ=";
+      sha256 = "sha256-lvqWmKKJbXnUCtYrQymkfS51nFrHjBiLBMeVBvJfH8U=";
     });
   };
   kiwmi = {
@@ -58,14 +58,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "3664c99d52645ae387bbe442dec6652a8779577f";
+    version = "9909a38906246f3079a9bfe6383afe77d01316a9";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "3664c99d52645ae387bbe442dec6652a8779577f";
+      rev = "9909a38906246f3079a9bfe6383afe77d01316a9";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-eDxpZthkRNiQHD7/pSeVjsGO307CyWdEZnuozC4A9Rw=";
+      sha256 = "sha256-gBHMRQfVBAV+DzYfAFI0SScQAx360JWjDFpYeYEgABw=";
     };
   };
   st-flexipatch = {
@@ -103,14 +103,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "e5ebae347306979cbde0906d1cc04dd0713586eb";
+    version = "e6b20321edba6d4cb48b84d52a109f459a896ee1";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "e5ebae347306979cbde0906d1cc04dd0713586eb";
+      rev = "e6b20321edba6d4cb48b84d52a109f459a896ee1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-0KD5FlKuJ9dPxNPAnTlWClCC+VW09z1LVNF/VFn/gfk=";
+      sha256 = "sha256-r3ChJx6LxDTWPUBqxg/9hsqT2z2XdEjqIQNYRdQ65m8=";
     };
   };
 }
