@@ -1,42 +1,40 @@
-From b08e794c87d72963ea45db7a67ffeda10775f3bf Mon Sep 17 00:00:00 2001
+From 0055e9a9bf024dbd2f1142be4fdf6c5b9b4e99a0 Mon Sep 17 00:00:00 2001
 From: Sofi <sofi+git@mailbox.org>
-Date: Mon, 6 Jun 2022 17:14:24 +0200
-Subject: [PATCH] Remove `std::process::ExitCode`
+Date: Sun, 17 Jul 2022 15:55:17 +0200
+Subject: [PATCH] Remove `std::process:ExitCode`
 
-Nixpkgs 22.05 does not ship with Rust 1.61 by default.
-So the use of ExitCode will be patched out.
 ---
- Cargo.toml  | 2 +-
- src/main.rs | 9 ++++-----
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ Cargo.toml  | 3 +--
+ src/main.rs | 8 +++-----
+ 2 files changed, 4 insertions(+), 7 deletions(-)
 
 diff --git a/Cargo.toml b/Cargo.toml
-index 9283776..6f5ae0d 100644
+index ff3abcf..2e4c104 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -2,7 +2,7 @@
+@@ -2,8 +2,7 @@
  name = "ferium"
- version = "4.1.4"
+ version = "4.1.6"
  edition = "2021"
+-# Because of `std::process::ExitCode`
 -rust-version = "1.61"
 +rust-version = "1.60"
  authors = [
      "Ilesh Thiada (theRookieCoder) <ileshkt@gmail.com>",
      "薛詠謙 (KyleUltimate)",
 diff --git a/src/main.rs b/src/main.rs
-index 958432e..79e1dea 100644
+index d4df0e1..767b55f 100644
 --- a/src/main.rs
 +++ b/src/main.rs
-@@ -17,7 +17,7 @@ use libium::config::{
- };
- use octocrab::OctocrabBuilder;
+@@ -19,7 +19,6 @@ use octocrab::OctocrabBuilder;
  use online::check;
--use std::{process::ExitCode, sync::Arc};
-+use std::sync::Arc;
+ use std::{
+     env::{var, var_os},
+-    process::ExitCode,
+     sync::Arc,
+ };
  use tokio::{runtime, spawn};
- 
- const CROSS: &str = "×";
-@@ -35,7 +35,7 @@ lazy_static! {
+@@ -39,7 +38,7 @@ lazy_static! {
          .progress_chars("#>-");
  }
  
@@ -45,7 +43,7 @@ index 958432e..79e1dea 100644
      let cli = Ferium::parse();
      let mut builder = runtime::Builder::new_multi_thread();
      builder.enable_all();
-@@ -47,9 +47,8 @@ fn main() -> ExitCode {
+@@ -51,9 +50,8 @@ fn main() -> ExitCode {
      let runtime = builder.build().expect("Could not initialise Tokio runtime");
      if let Err(err) = runtime.block_on(actual_main(cli)) {
          eprintln!("{}", err.to_string().red().bold());
@@ -58,5 +56,5 @@ index 958432e..79e1dea 100644
  }
  
 -- 
-2.36.0
+2.36.1
 
