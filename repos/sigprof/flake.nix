@@ -23,6 +23,7 @@
   }:
     {
       lib = import ./lib inputs;
+      nixosModules = import ./modules {inherit self inputs;};
       overlays.default = import ./overlay.nix;
     }
     // (

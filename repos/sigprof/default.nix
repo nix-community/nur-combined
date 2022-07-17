@@ -13,5 +13,5 @@
 in
   self.nurPackages.${pkgs.system}
   // {
-    inherit (self) lib;
+    inherit (self) lib modules;
   }

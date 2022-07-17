@@ -17,6 +17,10 @@
     };
 
     lib = import ./lib self.inputs;
+    modules = import ./modules {
+      inherit self;
+      inherit (self) inputs;
+    };
     nurPackages.${system} =
       (pkgs.callPackage ./pkgs {inherit (self) inputs;})
       .packages;
