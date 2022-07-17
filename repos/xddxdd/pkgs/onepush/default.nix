@@ -1,5 +1,5 @@
 { lib
-, fetchFromGitLab
+, sources
 , python3Packages
 , ...
 } @ args:
@@ -7,15 +7,7 @@
 with python3Packages;
 
 buildPythonPackage rec {
-  pname = "onepush";
-  version = "1.1.0";
-
-  src = fetchFromGitLab {
-    owner = "y1ndan";
-    repo = pname;
-    rev = version;
-    sha256 = "sha256-lISVk+fOP3qKtWNtGiMNZ/F9fuxnlA6IfjPMWTgtK84=";
-  };
+  inherit (sources.onepush) pname version src;
 
   preBuild = ''
     # Override requests version

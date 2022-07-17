@@ -1,5 +1,5 @@
 { lib
-, fetchFromGitLab
+, sources
 , python3Packages
 , onepush
 , genshinhelper2
@@ -12,15 +12,7 @@ let
   setupPy = ./setup.py;
 in
 buildPythonApplication rec {
-  pname = "genshin-checkin-helper";
-  version = "1.0.3";
-
-  src = fetchFromGitLab {
-    owner = "y1ndan";
-    repo = pname;
-    rev = version;
-    sha256 = "sha256-l+l6HoKJP5XSnwXtyUivpz9MAWjcfpO/KxsKCeuoZRs=";
-  };
+  inherit (sources.genshin-checkin-helper) pname version src;
 
   preConfigure = ''
     cp ${setupPy} setup.py

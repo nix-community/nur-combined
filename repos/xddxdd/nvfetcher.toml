@@ -53,6 +53,14 @@ fetch.github = "tickstep/cloudpan189-go"
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
 
+[genshin-checkin-helper]
+src.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
+fetch.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
+
+[genshinhelper2]
+src.git = "https://github.com/y1ndan/genshinhelper2.git"
+fetch.github = "y1ndan/genshinhelper2"
+
 [glauth]
 src.github = "glauth/glauth"
 fetch.github = "glauth/glauth"
@@ -110,6 +118,10 @@ fetch.github = "werman/noise-suppression-for-voice"
 src.git = "https://github.com/open-quantum-safe/openssl.git"
 src.branch = "OQS-OpenSSL_1_1_1-stable"
 fetch.github = "open-quantum-safe/openssl"
+
+[onepush]
+src.git = "https://github.com/y1ndan/onepush.git"
+fetch.github = "y1ndan/onepush"
 
 [openssl-oqs-provider]
 src.git = "https://github.com/open-quantum-safe/oqs-provider.git"

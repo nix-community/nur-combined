@@ -1,5 +1,5 @@
 { lib
-, fetchFromGitLab
+, sources
 , python3Packages
 , gettext
 , ...
@@ -8,15 +8,7 @@
 with python3Packages;
 
 buildPythonPackage rec {
-  pname = "genshinhelper2";
-  version = "2.0.3";
-
-  src = fetchFromGitLab {
-    owner = "y1ndan";
-    repo = pname;
-    rev = version;
-    sha256 = "sha256-AzYu3651ItE+UdW07sgecXTU3Im62fCQkLUC6FAxvvc=";
-  };
+  inherit (sources.genshinhelper2) pname version src;
 
   preConfigure = ''
     substituteInPlace setup.py --replace "'msgfmt'" "'${gettext}/bin/msgfmt'"

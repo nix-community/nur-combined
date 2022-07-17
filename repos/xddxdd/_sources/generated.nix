@@ -138,6 +138,29 @@
       sha256 = "sha256-P6rOMqYu6uxGVG1CPNE9fjhntH8IBMyo3mfSOo16EAA=";
     });
   };
+  genshin-checkin-helper = {
+    pname = "genshin-checkin-helper";
+    version = "b9e36543bfe5b042e015463e5d0398cd234cba90";
+    src = fetchgit {
+      url = "https://gitlab.com/y1ndan/genshin-checkin-helper.git";
+      rev = "b9e36543bfe5b042e015463e5d0398cd234cba90";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-sweiJeZx+/uShHxT0gXiVxADeHSyeTtK1G6jgMcMpZE=";
+    };
+  };
+  genshinhelper2 = {
+    pname = "genshinhelper2";
+    version = "8095e9817cc98d17061830fda9af2e9d58d00d06";
+    src = fetchFromGitHub ({
+      owner = "y1ndan";
+      repo = "genshinhelper2";
+      rev = "8095e9817cc98d17061830fda9af2e9d58d00d06";
+      fetchSubmodules = false;
+      sha256 = "sha256-bcxOQbn9INXPZ/reCq7Y6h6AQHgn/lT1f59QpdTJrEY=";
+    });
+  };
   glauth = {
     pname = "glauth";
     version = "v2.1.0";
@@ -275,6 +298,17 @@
       sha256 = "sha256-jLcSFQz5kt+PcWetZUQ1NEQ2diI7Z/ZaBe/oyZaO/IY=";
     });
   };
+  onepush = {
+    pname = "onepush";
+    version = "d6d30a0b79243b75a0434bd977c4864a7659be72";
+    src = fetchFromGitHub ({
+      owner = "y1ndan";
+      repo = "onepush";
+      rev = "d6d30a0b79243b75a0434bd977c4864a7659be72";
+      fetchSubmodules = false;
+      sha256 = "sha256-d1uDezulPNPPYi8jZj0jvQ4iv6zVR6Dt+aaLVlTRG9Y=";
+    });
+  };
   openssl-oqs = {
     pname = "openssl-oqs";
     version = "907fdfd3e66cbde3b02584bb4c404161e50512af";
@@ -408,10 +442,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220716164859";
+    version = "20220717025946";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220716164859/dlc.dat";
-      sha256 = "sha256-IAy3Rg3f6cAcUWesxMY8Jx8z80Xd5P2PF3rRLvnhzcA=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220717025946/dlc.dat";
+      sha256 = "sha256-9xnCf2+g9JlXAuwDpWQtbuMaWePZpP6CW2p3R5pwfz4=";
     };
   };
   v2fly-private = {

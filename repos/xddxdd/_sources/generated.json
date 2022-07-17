@@ -236,6 +236,43 @@
         },
         "version": "v1.2.0"
     },
+    "genshin-checkin-helper": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "genshin-checkin-helper",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "b9e36543bfe5b042e015463e5d0398cd234cba90",
+            "sha256": "sha256-sweiJeZx+/uShHxT0gXiVxADeHSyeTtK1G6jgMcMpZE=",
+            "type": "git",
+            "url": "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
+        },
+        "version": "b9e36543bfe5b042e015463e5d0398cd234cba90"
+    },
+    "genshinhelper2": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "genshinhelper2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "y1ndan",
+            "repo": "genshinhelper2",
+            "rev": "8095e9817cc98d17061830fda9af2e9d58d00d06",
+            "sha256": "sha256-bcxOQbn9INXPZ/reCq7Y6h6AQHgn/lT1f59QpdTJrEY=",
+            "type": "github"
+        },
+        "version": "8095e9817cc98d17061830fda9af2e9d58d00d06"
+    },
     "glauth": {
         "cargoLocks": null,
         "extract": null,
@@ -473,6 +510,25 @@
         },
         "version": "v0.91"
     },
+    "onepush": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "onepush",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "y1ndan",
+            "repo": "onepush",
+            "rev": "d6d30a0b79243b75a0434bd977c4864a7659be72",
+            "sha256": "sha256-d1uDezulPNPPYi8jZj0jvQ4iv6zVR6Dt+aaLVlTRG9Y=",
+            "type": "github"
+        },
+        "version": "d6d30a0b79243b75a0434bd977c4864a7659be72"
+    },
     "openssl-oqs": {
         "cargoLocks": null,
         "extract": null,
@@ -708,11 +764,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IAy3Rg3f6cAcUWesxMY8Jx8z80Xd5P2PF3rRLvnhzcA=",
+            "sha256": "sha256-9xnCf2+g9JlXAuwDpWQtbuMaWePZpP6CW2p3R5pwfz4=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220716164859/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220717025946/dlc.dat"
         },
-        "version": "20220716164859"
+        "version": "20220717025946"
     },
     "v2fly-private": {
         "cargoLocks": null,
