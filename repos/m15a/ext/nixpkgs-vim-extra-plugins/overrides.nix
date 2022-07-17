@@ -40,6 +40,8 @@ let
 
     christmas-vim = [ mit ];
 
+    coc-tailwind-intellisense = [ mit ];
+
     distant-nvim = [ asl20 mit ];
 
     goimpl-nvim = [ mit ];

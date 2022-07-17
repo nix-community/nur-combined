@@ -260,7 +260,8 @@
           :github (if (full-name:match "feline%.nvim")
                       "feline-nvim/feline.nvim" ; hot fix due to organization change
                       full-name)
-          _ (error "undefined repo type"))))))
+          ;; Ignore plugins hosted by other than github/gitlab, e.g., sourcehut.
+          _ nil)))))
 
 ;;; ------------------------------------------------------------------------------------------------
 ;;; Manifest spec parser

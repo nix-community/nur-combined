@@ -65,6 +65,7 @@ booperlv/nvim-gomove
 catppuccin/nvim::catppuccin
 chipsenkbeil/distant.nvim
 clojure-vim/jazz.nvim
+coc-extensions/coc-svelte
 code-biscuits/nvim-biscuits
 crispgm/nvim-go
 crispgm/nvim-tabline
@@ -81,12 +82,14 @@ edolphin-ydf/goimpl.nvim
 ekickx/clipboard-image.nvim
 ellisonleao/glow.nvim
 ethanholz/nvim-lastplace
+evanleck/vim-svelte
 feline-nvim/feline.nvim
 folke/zen-mode.nvim
 fuenor/JpFormat.vim
 gbprod/cutlass.nvim
 gbprod/substitute.nvim
 gennaro-tedesco/nvim-commaround
+github/copilot.vim
 glacambre/firenvim
 glepnir/indent-guides.nvim
 glepnir/prodoc.nvim
@@ -97,6 +100,7 @@ henriquehbr/nvim-startup.lua
 hkupty/nvimux
 houtsnip/vim-emacscommandline
 hylang/vim-hy
+iamcco/coc-tailwindcss
 ibhagwan/fzf-lua
 inkch/vim-fish::vim-fish-inkch
 is0n/fm-nvim
@@ -130,6 +134,7 @@ kristijanhusak/orgmode.nvim
 kvrohit/substrata.nvim
 kyazdani42/blue-moon
 ldelossa/vimdark
+leafOfTree/vim-svelte-plugin
 lewis6991/spellsitter.nvim
 lourenci/github-colors
 luisiacc/gruvbox-baby
@@ -162,6 +167,7 @@ novakne/kosmikoa.nvim
 numToStr/Comment.nvim
 numToStr/Navigator.nvim
 nvim-telescope/telescope-bibtex.nvim
+nvim-telescope/telescope-media-files.nvim
 nxvu699134/vn-night.nvim
 nyngwang/NeoRoot.lua
 ojroques/nvim-hardline
@@ -190,6 +196,7 @@ rktjmp/paperplanes.nvim
 rlane/pounce.nvim
 rmehri01/onenord.nvim
 rockerBOO/boo-colorscheme-nvim
+rodrigore/coc-tailwind-intellisense
 rose-pine/neovim::rose-pine
 s1n7ax/nvim-comment-frame
 s1n7ax/nvim-terminal
@@ -214,6 +221,8 @@ tamton-aquib/staline.nvim
 tanvirtin/monokai.nvim
 tanvirtin/vgit.nvim
 terrortylor/nvim-comment
+thaerkh/vim-workspace
+themaxmarchuk/tailwindcss-colors.nvim
 theniceboy/nvim-deus
 tiagovla/tokyodark.nvim
 titanzero/zephyrium
