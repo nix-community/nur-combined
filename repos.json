@@ -7,6 +7,9 @@
             "type": "gitlab",
             "url": "https://gricad-gitlab.univ-grenoble-alpes.fr/Projets-INFO4/18-19/19/code"
         },
+        "YisuiMilena": {
+            "url": "https://github.com/YisuiDenghua/nur-apps"
+        },
         "aasg": {
             "url": "https://git.sr.ht/~aasg/nixexprs"
         },
@@ -274,6 +277,9 @@
         "joshuafern": {
             "url": "https://github.com/JoshuaFern/nur-package-lab"
         },
+        "k3a": {
+            "url": "https://github.com/k3a/nurpkgs"
+        },
         "kalbasit": {
             "url": "https://github.com/kalbasit/nur-packages"
         },
@@ -502,6 +508,9 @@
         },
         "rewine": {
             "url": "https://github.com/wineee/nur-packages"
+        },
+        "robertodr": {
+            "url": "https://github.com/robertodr/nur-packages"
         },
         "rummik": {
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
