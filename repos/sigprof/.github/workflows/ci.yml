@@ -24,6 +24,16 @@ defaults:
     # the shell catch any errors in pipelines.
     shell: bash
 
+concurrency:
+  # If the CI run is for a PR, allow a single concurrent run per PR and cancel
+  # all other runs for the same PR (e.g., if the PR was rebased).  If the CI
+  # run is for anything else (push, workflow_dispatch, schedule), allow a
+  # single concurrent run per commit and cancel all other runs for the same
+  # commit.  The last case with `github.run_id` should never happen.
+  #
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha || ('run-' + github.run_id) }}
+  cancel-in-progress: true
+
 env:
   CACHIX_NAME: sigprof
   NUR_REPO: sigprof

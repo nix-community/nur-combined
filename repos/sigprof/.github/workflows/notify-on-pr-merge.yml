@@ -1,0 +1,21 @@
+name: notify-on-pr-merge
+
+on:
+  pull_request_target:
+    types:
+      - closed
+
+jobs:
+  notify_if_merged:
+    if: >-
+      github.event.pull_request.merged
+    steps:
+      - name: Notify
+        uses: ivanmilov/telegram_notify_action@v1
+        with:
+          api_key: ${{ secrets.TELEGRAM_API_KEY }}
+          chat_id: ${{ secrets.TELEGRAM_CHAT_ID }}
+          message: |
+            🎯 A pull request was merged into *${{github.repository}}*
+
+            [${{ github.event.pull_request.title }}](${{ github.event.pull_request.html_url}})
