@@ -503,6 +503,9 @@
         "rewine": {
             "url": "https://github.com/wineee/nur-packages"
         },
+        "robertodr": {
+            "url": "https://github.com/robertodr/nur-packages"
+        },
         "rummik": {
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
