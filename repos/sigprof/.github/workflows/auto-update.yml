@@ -48,7 +48,7 @@ jobs:
         with:
           token: ${{ steps.token.outputs.token }}
           commit-message: "chore(${{ matrix.item }}): Automatic update"
-          author: "sigprof[bot] <sigprof[bot]@users.noreply.github.com>"
+          author: "sigprof[bot] <108069352+sigprof[bot]@users.noreply.github.com>"
           branch: "auto-update/${{ matrix.item }}"
           delete-branch: true
           title: "chore(${{ matrix.item }}): Automatic update"
