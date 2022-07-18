@@ -17,7 +17,7 @@ jobs:
       env:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
-    - uses: tibdex/github-app-token@v1.5
+    - uses: tibdex/github-app-token@v1.6
       id: generate-token
       with:
         app_id: ${{ env.APP_ID }}
