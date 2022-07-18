@@ -1,0 +1,92 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p python3Packages.flask python3Packages.flask-jwt-extended python3Packages.unidecode -i python
+# vim:ft=python
+from flask import Flask, jsonify, request
+from flask_jwt_extended import jwt_required, JWTManager
+from json import loads
+from unidecode import unidecode
+
+app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = "nhaa"
+jwt = JWTManager(app)
+
+class jwt():
+    @staticmethod
+    def generate():
+        from flask_jwt_extended import create_access_token
+        return create_access_token(identity="user")
+    @staticmethod
+    def verify():
+        from flask_jwt_extended import get_jwt_identity
+        assert get_jwt_identity() == "user"
+
+skillset = {}
+
+class skill():
+    def __init__(self, query = []):
+        if type(query) == str:
+            query = query.split(" ")
+        if len(query) == 0:
+            raise Exception("erro de skill: query não pode ser vazia")
+        self.query = query
+    def __call__(self, handler):
+        qr = self.query
+        skset = skillset
+        while len(qr) > 1:
+            if skset.get(qr[0]) is None:
+                skset[qr[0]] = {"__this__": []}
+            skset = skset[qr[0]]
+            qr = qr[1:]
+        if skset.get(qr[0]) is None:
+            skset[qr[0]] = {"__this__": []}
+        skset[qr[0]]["__this__"].append(handler)
+        return handler
+
+class rulez:
+    @skill(query="bom dia")
+    def bom_dia():
+        return "bom dia"
+
+    @skill(query="teste")
+    def teste():
+        return "tá funcionando"
+
+    @skill(query="ai carai")
+    def carai():
+        return "vamo dale pohaa"
+
+    @skill(query="e o que")
+    def eoq():
+        return "trabson"
+
+@app.route("/query", methods = ["GET", "POST"])
+# @jwt_required()
+def handle_query():
+    data = loads(request.data)
+    print(data)
+    if data.get('speak') is None:
+        return "", 200
+    if len(data['speak']) == 0:
+        return "não entendi foi nada", 200
+    for speak, confidence in zip(data['speak'], data['confidence']):
+        if confidence < 0.1:
+            continue
+        speak = unidecode(speak)
+        speak = speak.lower()
+        speak = speak.split(" ")
+        node = skillset
+        for q in speak:
+            node = node.get(q)
+            if node is None:
+                break
+            this = node.get("__this__")
+            if this is not None:
+                if len(this) > 0:
+                    return this[0](), 200
+    return "não sei lidar com isso ainda", 200
+
+print(skillset)
+if __name__ == "__main__":
+    with app.app_context():
+        print(f"Token: {jwt.generate()}")
+    app.run(host="0.0.0.0", debug=True)
