@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
@@ -20,6 +22,7 @@
     flake-utils,
     pre-commit-hooks,
     devshell,
+    ...
   }:
     {
       lib = import ./lib inputs;

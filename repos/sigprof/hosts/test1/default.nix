@@ -4,6 +4,7 @@
   ...
 }: let
   system = "x86_64-linux";
+  unstable = inputs.nixos-unstable.legacyPackages.${system};
 in
   inputs.nixpkgs.lib.nixosSystem {
     inherit system;
@@ -30,6 +31,9 @@ in
         environment.systemPackages = [
           pkgs.tor-browser-bundle-bin
           self.packages.${system}.virt-manager
+
+          unstable.tdesktop
+          unstable.vial
         ];
 
         fonts.fonts = [
