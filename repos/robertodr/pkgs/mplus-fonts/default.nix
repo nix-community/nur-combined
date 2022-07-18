@@ -8,8 +8,8 @@ fetchFromGitHub {
 
   owner = "coz-m";
   repo = "MPLUS_FONTS";
-  rev = "8690be3625964d9992e7be4bc3e1a61a80161cc6";
-  sha256 = "2uxVzQ2xKnkIU47I9epfM3DrKkuWQjns3U/kc4zN8sQ=";
+  rev = "f605e3524130b8d814911d869315bc4fd4c2148c";
+  sha256 = "ZGZxD2RRXDYRq82VvkO18BaQVpR9yj+z+pGR4O7ehnc=";
 
   postFetch = ''
     mkdir -p $out/share/fonts/{truetype,opentype}/${pname}
@@ -21,11 +21,20 @@ fetchFromGitHub {
   '';
 
   meta = with lib; {
-    description = "M+ Outline Fonts (GitHub release)";
-    longDescription = "A little nifty font family for everyday use.";
-    homepage = "https://mplusfonts.github.io";
+    description = " M + Outline Fonts (GitHub release) ";
+    longDescription = "
+    A
+    little
+    nifty
+    font
+    family
+    for
+    everyday
+    use.";
+    homepage = " https://mplusfonts.github.io ";
     maintainers = with maintainers; [ henrytill uakci robertodr ];
     platforms = platforms.all;
     license = licenses.ofl;
   };
 }
+
