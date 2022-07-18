@@ -636,6 +636,9 @@
         "xfix": {
             "url": "https://github.com/xfix/nur-packages"
         },
+        "xyenon": {
+            "url": "https://github.com/XYenon/nur-packages"
+        },
         "yellowonion": {
             "url": "https://github.com/yellowonion/nur-bcachefs"
         },
