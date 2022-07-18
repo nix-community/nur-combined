@@ -6,8 +6,8 @@ let
   optparseApplicativeCompletions = pname: ''
     installShellCompletion --cmd ${pname} \
       --bash <($BIN --bash-completion-script $BIN) \
-      --zsh <($BIN --zsh-completion-script $BIN) \
-      --fish <($BIN} --fish-completion-script $BIN)
+      --zsh  <($BIN --zsh-completion-script  $BIN) \
+      --fish <($BIN --fish-completion-script $BIN)
   '';
 in
 lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
