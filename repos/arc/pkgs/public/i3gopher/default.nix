@@ -4,16 +4,16 @@
 , hostPlatform
 }: lib.drvExec "bin/i3gopher" (buildGoModule rec {
   pname = "i3gopher";
-  version = "2020-09-02";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "quite";
     repo = "i3gopher";
-    rev = "d8ac71f6499d0d15dd011c49522efab14d599dff";
-    sha256 = "04qz33vb7cvg6ckg7c04x170d992z55n3mncjyj72bc1d02hplh9";
+    rev = "v${version}";
+    sha256 = "sha256-H/fhIjJ2FV2diTMt1Hf9OTLLmdd5+4y9UC1Q6Fjr2OQ=";
   };
 
-  vendorSha256 = "1v11zmazk9aplskkr7gslzni6klfwadyi6kgazjyh3zl97wf6bb4";
+  vendorSha256 = "sha256-DedUQXMA1V2vrLuUWHIABvtIaj2yeC9Uo5Xr6Mc0uvw=";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optional enableI3 i3 ++ lib.optional enableSway sway;
