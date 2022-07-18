@@ -1,0 +1,65 @@
+name: auto-update-flake
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate_matrix.outputs.matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@92d36226ca2887d9bfe391bf2d00894d88be3b64
+
+      - name: Generate matrix from flake inputs
+        id: generate_matrix
+        run: |
+          # Generate matrix from flake inputs
+          matrix="$(nix flake metadata --json | jq -rcM '.locks.nodes.root.inputs | {input: keys}')"
+          echo "::set-output name=matrix::$matrix"
+
+  update:
+    needs:
+      - setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix: ${{ fromJSON(needs.setup.outputs.matrix) }}
+    env:
+      automerge: ${{ (matrix.input == 'nixpkgs') || (matrix.input == 'nixos-unstable') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.2
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@92d36226ca2887d9bfe391bf2d00894d88be3b64
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Generate a GitHub token
+        id: token
+        uses: tibdex/github-app-token@v1.6.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Update ${{ matrix.input }}
+        uses: cpcloud/flake-update-action@v1.0.2
+        with:
+          dependency: ${{ matrix.input }}
+          pull-request-token: ${{ steps.token.outputs.token }}
+          pull-request-author: "sigprof[bot] <108069352+sigprof[bot]@users.noreply.github.com>"
+          pull-request-labels: "autorebase:opt-in"
+          delete-branch: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-branch-prefix: auto-update/flake/
+          automerge: ${{ env.automerge }}

@@ -1,0 +1,56 @@
+name: auto-rebase
+
+on:
+  # Run when a pull request gets labeled.  Note that the workflow runs from the
+  # base branch of the PR in this case, because `pull_request_target` is used
+  # instead of `pull_request`.
+  #
+  pull_request_target:
+    types:
+      - labeled
+
+  # Run when the `CI` workflow run is requested.  This roundabout way is used
+  # to hide the `auto-rebase` workflow from the list of checks at the cost of
+  # losing the possibility to autorebase PRs to branches that are not checked
+  # by CI on every push (or, more precisely, such PRs will be rebased only when
+  # something else triggers the `CI` workflow, not immediately after every push
+  # to the base branch).
+  #
+  # This also makes adding a schedule for this workflow mostly unnecessary,
+  # because the `CI` workflow already has a schedule.
+  #
+  workflow_run:
+    types:
+      - requested
+    workflows:
+      - CI
+
+  # Run when the workflow is invoked manually.
+  #
+  workflow_dispatch:
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    if: >-
+      (
+        (github.event_name == 'pull_request_target')
+        && (github.event.action == 'labeled')
+        && (github.event.label.name == 'autorebase:opt-in')
+      )
+      || (github.event_name == 'workflow_run')
+      || (github.event_name == 'workflow_dispatch')
+    steps:
+      - id: token
+        name: Generate a GitHub token
+        uses: tibdex/github-app-token@v1.6.0
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - id: rebase
+        name: Rebase the eligible PRs
+        uses: peter-evans/rebase@v2.0.0
+        with:
+          token: ${{ steps.token.outputs.token }}
+          include-labels: "autorebase:opt-in"
