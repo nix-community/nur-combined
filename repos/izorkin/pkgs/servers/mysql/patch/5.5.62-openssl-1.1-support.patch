@@ -1,0 +1,162 @@
+diff --git a/sql-common/client.c b/sql-common/client.c
+index 7938403..dba359e 100644
+--- a/sql-common/client.c
++++ b/sql-common/client.c
+@@ -1923,7 +1923,7 @@ static int ssl_verify_server_cert(Vio *vio, const char* server_hostname, const c
+ {
+   SSL *ssl;
+   X509 *server_cert= NULL;
+-  char *cn= NULL;
++  const char *cn= NULL;
+   int cn_loc= -1;
+   ASN1_STRING *cn_asn1= NULL;
+   X509_NAME_ENTRY *cn_entry= NULL;
+@@ -1995,7 +1995,11 @@ static int ssl_verify_server_cert(Vio *vio, const char* server_hostname, const c
+     goto error;
+   }
+ 
+-  cn= (char *) ASN1_STRING_data(cn_asn1);
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++  cn= (const char *) ASN1_STRING_data(cn_asn1);
++#else
++  cn= (const char *) ASN1_STRING_get0_data(cn_asn1);
++#endif
+ 
+   // There should not be any NULL embedded in the CN
+   if ((size_t)ASN1_STRING_length(cn_asn1) != strlen(cn))
+diff --git a/sql/mysqld.cc b/sql/mysqld.cc
+index e6175da..2b11a56 100644
+--- a/sql/mysqld.cc
++++ b/sql/mysqld.cc
+@@ -942,7 +942,7 @@ char *opt_ssl_ca= NULL, *opt_ssl_capath= NULL, *opt_ssl_cert= NULL,
+ 
+ #ifdef HAVE_OPENSSL
+ #include <openssl/crypto.h>
+-#ifndef HAVE_YASSL
++#if !defined(HAVE_YASSL) && (OPENSSL_VERSION_NUMBER < 0x10100000L)
+ typedef struct CRYPTO_dynlock_value
+ {
+   mysql_rwlock_t lock;
+@@ -1589,7 +1589,7 @@ static void clean_up_mutexes()
+   mysql_mutex_destroy(&LOCK_connection_count);
+ #ifdef HAVE_OPENSSL
+   mysql_mutex_destroy(&LOCK_des_key_file);
+-#ifndef HAVE_YASSL
++#if !defined(HAVE_YASSL) && (OPENSSL_VERSION_NUMBER < 0x10100000L)
+   for (int i= 0; i < CRYPTO_num_locks(); ++i)
+     mysql_rwlock_destroy(&openssl_stdlocks[i].lock);
+   OPENSSL_free(openssl_stdlocks);
+@@ -2097,7 +2097,7 @@ void close_connection(THD *thd, uint sql_errno)
+ 
+   thd->disconnect();
+ 
+-#ifdef HAVE_OPENSSL
++#if defined(HAVE_OPENSSL) && (OPENSSL_VERSION_NUMBER < 0x10100000L)
+   ERR_remove_state(0);
+ #endif
+ 
+@@ -3662,7 +3662,7 @@ static int init_thread_environment()
+ #ifdef HAVE_OPENSSL
+   mysql_mutex_init(key_LOCK_des_key_file,
+                    &LOCK_des_key_file, MY_MUTEX_INIT_FAST);
+-#ifndef HAVE_YASSL
++#if !defined(HAVE_YASSL) && (OPENSSL_VERSION_NUMBER < 0x10100000L)
+   openssl_stdlocks= (openssl_lock_t*) OPENSSL_malloc(CRYPTO_num_locks() *
+                                                      sizeof(openssl_lock_t));
+   for (int i= 0; i < CRYPTO_num_locks(); ++i)
+@@ -3708,7 +3708,8 @@ static int init_thread_environment()
+ }
+ 
+ 
+-#if defined(HAVE_OPENSSL) && !defined(HAVE_YASSL)
++#if defined(HAVE_OPENSSL) && !defined(HAVE_YASSL) && \
++    (OPENSSL_VERSION_NUMBER < 0x10100000L)
+ static unsigned long openssl_id_function()
+ { 
+   return (unsigned long) pthread_self();
+@@ -3789,7 +3790,7 @@ static void init_ssl()
+     ssl_acceptor_fd= new_VioSSLAcceptorFd(opt_ssl_key, opt_ssl_cert,
+ 					  opt_ssl_ca, opt_ssl_capath,
+ 					  opt_ssl_cipher, &error);
+-#ifdef HAVE_OPENSSL
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
+     ERR_remove_state(0);
+ #endif
+     DBUG_PRINT("info",("ssl_acceptor_fd: 0x%lx", (long) ssl_acceptor_fd));
+diff --git a/sql/slave.cc b/sql/slave.cc
+index 3b610b5..64427ac 100644
+--- a/sql/slave.cc
++++ b/sql/slave.cc
+@@ -3139,7 +3139,7 @@ err:
+ 
+   DBUG_LEAVE;                                   // Must match DBUG_ENTER()
+   my_thread_end();
+-#ifdef HAVE_OPENSSL
++#if defined(HAVE_OPENSSL) && (OPENSSL_VERSION_NUMBER < 0x10100000L)
+   ERR_remove_state(0);
+ #endif
+   pthread_exit(0);
+diff --git a/vio/vio.c b/vio/vio.c
+index c9d1955..19e640b 100644
+--- a/vio/vio.c
++++ b/vio/vio.c
+@@ -288,7 +288,9 @@ void vio_end(void)
+ #ifdef HAVE_YASSL
+   yaSSL_CleanUp();
+ #elif defined(HAVE_OPENSSL)
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
+   ERR_remove_state(0);
++#endif
+   ERR_free_strings();
+   EVP_cleanup();
+   CRYPTO_cleanup_all_ex_data();
+diff --git a/vio/viossl.c b/vio/viossl.c
+index f68e20f..2a253cd 100644
+--- a/vio/viossl.c
++++ b/vio/viossl.c
+@@ -153,7 +153,8 @@ static int ssl_do(struct st_VioSSLFd *ptr, Vio *vio, long timeout,
+   my_bool unused;
+   my_bool was_blocking;
+   /* Declared here to make compiler happy */
+-#if !defined(HAVE_YASSL) && !defined(DBUG_OFF)
++#if !defined(HAVE_YASSL) && !defined(DBUG_OFF) && \
++    (OPENSSL_VERSION_NUMBER < 0x10100000L)
+   int j, n;
+ #endif
+ 
+@@ -181,7 +182,8 @@ static int ssl_do(struct st_VioSSLFd *ptr, Vio *vio, long timeout,
+   sk_SSL_COMP_zero(SSL_COMP_get_compression_methods());
+ #endif
+ 
+-#if !defined(HAVE_YASSL) && !defined(DBUG_OFF)
++#if !defined(HAVE_YASSL) && !defined(DBUG_OFF) && \
++    (OPENSSL_VERSION_NUMBER < 0x10100000L)
+   {
+     STACK_OF(SSL_COMP) *ssl_comp_methods = NULL;
+     ssl_comp_methods = SSL_COMP_get_compression_methods();
+diff --git a/vio/viosslfactories.c b/vio/viosslfactories.c
+index 3aa1c87..70e1c6c 100644
+--- a/vio/viosslfactories.c
++++ b/vio/viosslfactories.c
+@@ -68,12 +68,18 @@ static DH *get_dh2048(void)
+   DH *dh;
+   if ((dh=DH_new()))
+   {
+-    dh->p=BN_bin2bn(dh2048_p,sizeof(dh2048_p),NULL);
+-    dh->g=BN_bin2bn(dh2048_g,sizeof(dh2048_g),NULL);
++    BIGNUM* p= BN_bin2bn(dh2048_p,sizeof(dh2048_p),NULL);
++    BIGNUM* g= BN_bin2bn(dh2048_g,sizeof(dh2048_g),NULL);
++#if OPENSSL_VERSION_NUMBER < 0x10100000L
++    dh->p= p;
++    dh->g= g;
+     if (! dh->p || ! dh->g)
++#else
++    if (!DH_set0_pqg(dh, p, NULL, g))
++#endif
+     {
+       DH_free(dh);
+-      dh=0;
++      dh= NULL;
+     }
+   }
+   return(dh);

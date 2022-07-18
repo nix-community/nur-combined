@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchurl, openssl, zlib, windows
-, hostPlatform
-}:
+{ lib, stdenv, fetchurl, openssl, zlib, windows }:
 
 stdenv.mkDerivation rec {
   pname = "libssh2";
@@ -13,8 +11,14 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" "devdoc" ];
 
+  patches = [
+    # https://github.com/libssh2/libssh2/pull/700
+    # openssl: add support for LibreSSL 3.5.x
+    ./patch/openssl_add_support_for_libressl_3_5.patch
+  ];
+
   buildInputs = [ openssl zlib ]
-    ++ lib.optional hostPlatform.isMinGW windows.mingw_w64;
+    ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64;
 
   meta = with lib; {
     description = "A client-side C library implementing the SSH2 protocol";

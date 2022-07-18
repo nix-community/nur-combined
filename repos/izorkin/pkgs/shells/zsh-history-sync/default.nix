@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  version = "2018-04-11";
   pname = "zsh-history-sync";
+  version = "2018-04-11";
 
   src = fetchFromGitHub {
     owner = "wulfgarpro";

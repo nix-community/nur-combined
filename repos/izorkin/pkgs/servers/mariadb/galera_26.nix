@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     owner = "codership";
     repo = "galera";
     rev = "release_${version}";
-    sha256 = "sha256-tRZh9JJ9Q2rIw5aRm/QvBWmN/mHK+sZLn7gthHbyFOg=";
+    sha256 = "sha256-1Jw99Eo8xhCNLd2XHm9M6DatzBl0w5VvgUahvKs4glg=";
     fetchSubmodules = true;
   };
 

@@ -10,7 +10,7 @@ let
     # Wrap mkDerivation to prepend pname with "php-" to make names consistent
     # with how buildPecl does it and make the file easier to overview.
     mkDerivation = { pname, ... }@args: pkgs.stdenv.mkDerivation (args // {
-      pname = "php-${pname}";
+      pname = "php-${php.version}-${pname}";
     });
 
     isPhp56 = pkgs.lib.versionOlder   php.version "7.0";
@@ -24,8 +24,8 @@ let
   apcu = if isPhp56 then apcu40 else apcu51;
 
   apcu40 = buildPecl {
-    version = "4.0.11";
     pname = "apcu";
+    version = "4.0.11";
 
     sha256 = "002d1gklkf0z170wkbhmm2z1p9p5ghhq3q1r9k54fq1sq4p30ks5";
 
@@ -35,8 +35,8 @@ let
   };
 
   apcu51 = buildPecl {
-    version = "5.1.21";
     pname = "apcu";
+    version = "5.1.21";
 
     sha256 = "1hgvxk7jlfb98nkz4bh7609zndaivzv50l68vv5ffvk990256cqh";
 
@@ -51,8 +51,8 @@ let
   };
 
   apcu_bc = buildPecl {
-    version = "1.0.5";
     pname = "apcu_bc";
+    version = "1.0.5";
 
     sha256 = "0ma00syhk2ps9k9p02jz7rii6x3i2p986il23703zz5npd6y9n20";
 
@@ -62,8 +62,8 @@ let
   };
 
   ast = buildPecl {
-    version = "1.0.16";
     pname = "ast";
+    version = "1.0.16";
 
     sha256 = "sha256-Rb2jS3gMRmHOd89lzYpQT7VlJtS0Vu3Ml9eRyG84ec4=";
 
@@ -71,8 +71,8 @@ let
   };
 
   box = mkDerivation rec {
-    version = "2.7.5";
     pname = "box";
+    version = "2.7.5";
 
     src = pkgs.fetchurl {
       url = "https://github.com/box-project/box2/releases/download/${version}/box-${version}.phar";
@@ -98,8 +98,8 @@ let
   };
 
   composer = mkDerivation rec {
-    version = "1.10.26";
     pname = "composer";
+    version = "1.10.26";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
@@ -127,12 +127,12 @@ let
   };
 
   composer2 = mkDerivation rec {
-    version = "2.3.7";
     pname = "composer";
+    version = "2.3.10";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-Py1GeH1RBw+SK/mRqggyRWb3JvGGB2wqXk6LAajqP9A=";
+      sha256 = "sha256-2AgnLyhPqOD4tHBwPhQ4rI82IDC7ydEuKVMCd9dnr/A=";
     };
 
     dontUnpack = true;
@@ -156,8 +156,8 @@ let
   };
 
   couchbase = buildPecl rec {
-    version = "2.6.2";
     pname = "couchbase";
+    version = "2.6.2";
 
     buildInputs = with pkgs; [ libcouchbase_2_10_4 zlib igbinary pcs ];
 
@@ -199,8 +199,8 @@ let
   };
 
   geoip = buildPecl {
-    version = "1.1.1";
     pname = "geoip";
+    version = "1.1.1";
 
     sha256 = "01hgijn91an7gf0fva5fk3paag6lvfh7ynlv4if16ilx041mrl5j";
 
@@ -214,8 +214,8 @@ let
   };
 
   event = buildPecl {
-    version = "3.0.8";
     pname = "event";
+    version = "3.0.8";
 
     sha256 = "sha256-4+ke3T3BXglpuSVMw2Jq4Hgl45vybWG0mTX2b2A9e2s=";
 
@@ -242,8 +242,8 @@ let
   igbinary = if isPhp56 then igbinary20 else igbinary30;
 
   igbinary20 = buildPecl {
-    version = "2.0.8";
     pname = "igbinary";
+    version = "2.0.8";
 
     sha256 = "105nyn703k9p9c7wwy6npq7xd9mczmmlhyn0gn2v2wz0f88spjxs";
 
@@ -258,8 +258,8 @@ let
   };
 
   igbinary30 = buildPecl {
-    version = "3.2.7";
     pname = "igbinary";
+    version = "3.2.7";
 
     sha256 = "sha256-0NwNC1aphfT1LOogcXEz09oFNoh2vA+UMXweYOAxnn0=";
 
@@ -274,8 +274,8 @@ let
   };
 
   imagick = buildPecl {
-    version = "3.7.0";
     pname = "imagick";
+    version = "3.7.0";
 
     sha256 = "sha256-WjZDVBCQKdIkvLsuguFbJIvptkEif0XmNCXAZTF5LT4=";
 
@@ -288,8 +288,8 @@ let
   };
 
   mailparse = buildPecl {
-    version = "3.1.3";
     pname = "mailparse";
+    version = "3.1.3";
 
     sha256 = "sha256-hlnKYtyaTX0V8H+XoOIULLWCUcjncs02Zp7HQNIpJHE=";
 
@@ -297,8 +297,8 @@ let
   };
 
   mcrypt = buildPecl {
-    version = "1.0.5";
     pname = "mcrypt";
+    version = "1.0.5";
 
     sha256 = "sha256-yfUeIRZAoV0qmD9dgOJmYGVjUWUdb2gtZXvfHPoH2KM=";
 
@@ -314,8 +314,8 @@ let
   memcache = if isPhp56 then memcache30 else (if isPhp80 then memcache80 else memcache40);
 
   memcache30 = buildPecl {
-    version = "3.0.8";
     pname = "memcache";
+    version = "3.0.8";
 
     sha256 = "04c35rj0cvq5ygn2jgmyvqcb0k8d03v4k642b6i37zgv7x15pbic";
 
@@ -329,8 +329,8 @@ let
   };
 
   memcache40 = buildPecl {
-    version = "4.0.5.2";
     pname = "memcache";
+    version = "4.0.5.2";
 
     sha256 = "0qzdm71800rsdkivfjpam0sz4gz4974bwjqp3xkh785f7f0nfxkv";
 
@@ -344,8 +344,8 @@ let
   };
 
   memcache80 = buildPecl {
-    version = "8.0";
     pname = "memcache";
+    version = "8.0";
 
     sha256 = "159krw2ha1fpy3rph4pjrcd56w0had5f359v52vq47c3yzk37zny";
 
@@ -361,8 +361,8 @@ let
   memcached = if isPhp56 then memcached22 else memcached31;
 
   memcached22 = buildPecl {
-    version = "2.2.0";
     pname = "memcached";
+    version = "2.2.0";
 
     sha256 = "0n4z2mp4rvrbmxq079zdsrhjxjkmhz6mzi7mlcipz02cdl7n1f8p";
 
@@ -378,13 +378,13 @@ let
   };
 
   memcached31 = buildPecl rec {
-    version = "3.2.0";
     pname = "memcached";
+    version = "3.2.0";
 
     src = fetchgit {
       url = "https://github.com/php-memcached-dev/php-memcached";
       rev = "v${version}";
-      sha256 = "sha256-Je6k6gI1ruvSRc++rrIE0rhEOn4H6QnJ+AyjdLRGTZM=";
+      sha256 = "sha256-g9IzGSZUxLlOE32o9ZJOa3erb5Qs1ntR8nzS3kRd/EU=";
     };
 
     configureFlags = with pkgs; [
@@ -458,8 +458,8 @@ let
   };
 
   pcov = buildPecl {
-    version = "1.0.11";
     pname = "pcov";
+    version = "1.0.11";
 
     sha256 = "sha256-rSLmTNOvBlMwGCrBQsHDq0Dek0SCzUAPi9dgZBMKwkI=";
 
@@ -469,8 +469,8 @@ let
   };
 
   pcs = buildPecl {
-    version = "1.3.7";
     pname = "pcs";
+    version = "1.3.7";
 
     sha256 = "097676akx2p6wvc58py2fjc3bv2x760z1g6mv0kh4wx5wr4n9zdx";
 
@@ -480,8 +480,8 @@ let
   pdo_sqlsrv = if !isPhp73 then pdo_sqlsrv58 else pdo_sqlsrv510;
 
   pdo_sqlsrv58 = buildPecl {
-    version = "5.8.1";
     pname = "pdo_sqlsrv";
+    version = "5.8.1";
 
     sha256 = "06ba4x34fgs092qq9w62y2afsm1nyasqiprirk4951ax9v5vcir0";
 
@@ -491,8 +491,8 @@ let
   };
 
   pdo_sqlsrv510 = buildPecl {
-    version = "5.10.1";
     pname = "pdo_sqlsrv";
+    version = "5.10.1";
 
     sha256 = "sha256-x4VBlqI2vINQijRvjG7x35mbwh7rvYOL2wUTIV4GKK0=";
 
@@ -502,12 +502,12 @@ let
   };
 
   php-cs-fixer = mkDerivation rec {
-    version = "3.8.0";
     pname = "php-cs-fixer";
+    version = "3.9.3";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "sha256-kOdJ2xuS095xVdPxoz4q/XM0BpyJEy6V/CtkuTN/Chk=";
+      sha256 = "sha256-aMQauV+P+SHr5oeJl+VkWJtdaEbPe1ngj7gDt9bgbck=";
     };
 
     phases = [ "installPhase" ];
@@ -529,8 +529,8 @@ let
   };
 
   php-parallel-lint = mkDerivation rec {
-    version = "1.0.0";
     pname = "php-parallel-lint";
+    version = "1.0.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "JakubOnderka";
@@ -565,8 +565,8 @@ let
   };
 
   phpcbf = mkDerivation rec {
-    version = "3.7.1";
     pname = "phpcbf";
+    version = "3.7.1";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
@@ -592,8 +592,8 @@ let
   };
 
   phpcs = mkDerivation rec {
-    version = "3.7.1";
     pname = "phpcs";
+    version = "3.7.1";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
@@ -619,8 +619,8 @@ let
   };
 
   phpstan = mkDerivation rec {
-    version = "1.8.0";
     pname = "phpstan";
+    version = "1.8.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
@@ -655,8 +655,8 @@ let
   pinba = if isPhp56 then pinba110 else (if isPhp73 then pinba112 else pinba111 );
 
   pinba110 = buildPecl {
-    version = "1.1.0";
     pname = "pinba";
+    version = "1.1.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "tony2001";
@@ -678,8 +678,8 @@ let
   };
 
   pinba111 = buildPecl {
-    version = "1.1.1";
     pname = "pinba";
+    version = "1.1.1";
 
     src = pkgs.fetchFromGitHub {
       owner = "tony2001";
@@ -701,8 +701,8 @@ let
   };
 
   pinba112 = buildPecl {
-    version = "1.1.2";
     pname = "pinba";
+    version = "1.1.2";
 
     src = pkgs.fetchFromGitHub {
       owner = "tony2001";
@@ -726,8 +726,8 @@ let
   protobuf = if isPhp56 then protobuf312 else protobuf321;
 
   protobuf312 = buildPecl {
-    version = "3.12.4";
     pname = "protobuf";
+    version = "3.12.4";
 
     sha256 = "109nyjym1c9x5f462wr1ilzv37bs57vridn9plq0vzam0drnp0mq";
 
@@ -745,8 +745,8 @@ let
   };
 
   protobuf321 = buildPecl {
-    version = "3.21.2";
     pname = "protobuf";
+    version = "3.21.2";
 
     sha256 = "sha256-Csi4OjDLKtJAF8eU3ByUM2BxSDA6SWy5ZgExrkhVrPg=";
 
@@ -764,8 +764,8 @@ let
   };
 
   psalm = mkDerivation rec {
-    version = "4.24.0";
     pname = "psalm";
+    version = "4.24.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
@@ -790,12 +790,12 @@ let
   };
 
   psysh = mkDerivation rec {
-    version = "0.11.5";
     pname = "psysh";
+    version = "0.11.7";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-OCZWz4em1Mgv8Rk3O2APwE6Y30WmdD1UTtsyU/eGx+c=";
+      sha256 = "sha256-P5ui+LyxV7LpMOIdl1yu3gQhJFLUv+YlOKxGJveonb4=";
     };
 
     phases = [ "installPhase" ];
@@ -819,8 +819,8 @@ let
   pthreads = if isPhp56 then pthreads20 else (if isPhp73 then pthreads32-dev else (if isPhp72 then pthreads32 else pthreads31));
 
   pthreads20 = buildPecl {
-    version = "2.0.10";
     pname = "pthreads";
+    version = "2.0.10";
 
     sha256 = "1xlcb1b1g10jd0xhm3c01a06yqpb5qln47pd1k522138324qvpwb";
 
@@ -830,8 +830,8 @@ let
   };
 
   pthreads31 = buildPecl {
-    version = "3.1.6-dev";
     pname = "pthreads";
+    version = "3.1.6-dev";
 
     src = pkgs.fetchFromGitHub {
       owner = "krakjoe";
@@ -846,8 +846,8 @@ let
   };
 
   pthreads32 = buildPecl rec {
-    version = "3.2.0";
     pname = "pthreads";
+    version = "3.2.0";
 
     src = pkgs.fetchFromGitHub {
       owner = "krakjoe";
@@ -862,8 +862,8 @@ let
   };
 
   pthreads32-dev = buildPecl {
-    version = "3.2.0-dev";
     pname = "pthreads";
+    version = "3.2.0-dev";
 
     src = pkgs.fetchFromGitHub {
       owner = "krakjoe";
@@ -880,8 +880,8 @@ let
   redis = if isPhp56 then redis43 else redis53;
 
   redis43 = buildPecl {
-    version = "4.3.0";
     pname = "redis";
+    version = "4.3.0";
 
     sha256 = "18hvll173mlp6dk6xvgajkjf4min8f5gn809nr1ahq4r6kn4rw60";
 
@@ -889,8 +889,8 @@ let
   };
 
   redis53 = buildPecl {
-    version = "5.3.7";
     pname = "redis";
+    version = "5.3.7";
 
     sha256 = "sha256-uVgWbM2k9AvRfGmY+eIjkCGuZERnzYrVwV3vQgqtZbA=";
 
@@ -900,8 +900,8 @@ let
   sqlsrv = if !isPhp73 then sqlsrv58 else sqlsrv510;
 
   sqlsrv58 = buildPecl {
-    version = "5.8.1";
     pname = "sqlsrv";
+    version = "5.8.1";
 
     sha256 = "0c9a6ghch2537vi0274vx0mn6nb1xg2qv7nprnf3xdfqi5ww1i9r";
 
@@ -911,8 +911,8 @@ let
   };
 
   sqlsrv510 = buildPecl {
-    version = "5.10.1";
     pname = "sqlsrv";
+    version = "5.10.1";
 
     sha256 = "sha256-XNrttNiihjQ+azuZmS2fy0So+2ndAqpde8IOsupeWdI=";
 
@@ -922,8 +922,8 @@ let
   };
 
   snuffleupagus = buildPecl rec {
-    version = "0.8.2";
     pname = "snuffleupagus";
+    version = "0.8.2";
 
     src = pkgs.fetchurl {
       url = "https://github.com/jvoisin/snuffleupagus/archive/v${version}.tar.gz";
@@ -938,8 +938,8 @@ let
   };
 
   spidermonkey = buildPecl {
-    version = "1.0.0";
     pname = "spidermonkey";
+    version = "1.0.0";
 
     sha256 = "1ywrsp90w6rlgq3v2vmvp2zvvykkgqqasab7h9bf3vgvgv3qasbg";
 
@@ -953,8 +953,8 @@ let
   };
 
   xcache = buildPecl rec {
-    version = "3.2.0";
     pname = "xcache";
+    version = "3.2.0";
 
     src = pkgs.fetchurl {
       url = "https://xcache.lighttpd.net/pub/Releases/${version}/${pname}.tar.bz2";
@@ -981,8 +981,8 @@ let
   xdebug = if isPhp56 then xdebug25 else (if isPhp72 then xdebug31 else xdebug29);
 
   xdebug25 = buildPecl {
-    version = "2.5.5";
     pname = "xdebug";
+    version = "2.5.5";
 
     sha256 = "197i1fcspbrdxki6rljvpjdxzhyaxl7nlihhiqcyfkjipkr8n43j";
 
@@ -993,8 +993,8 @@ let
   };
 
   xdebug29 = buildPecl {
-    version = "2.9.8";
     pname = "xdebug";
+    version = "2.9.8";
 
     sha256 = "12igfrdfisqfmfqpc321g93pm2w1y7h24bclmxjrjv6rb36bcmgm";
 
@@ -1005,8 +1005,8 @@ let
   };
 
   xdebug31 = buildPecl {
-    version = "3.1.5";
     pname = "xdebug";
+    version = "3.1.5";
 
     sha256 = "sha256-VfbvOBJF2gebL8XOHPvLeWEZfQwOBPnZd2E8+aqWmnk=";
 
@@ -1019,8 +1019,8 @@ let
   yaml = if isPhp56 then yaml13 else yaml22;
 
   yaml13 = buildPecl {
-    version = "1.3.2";
     pname = "yaml";
+    version = "1.3.2";
 
     sha256 = "16jr5v3pff3f1yd61hh4pb279ivb7np1kf8mhvfw16g0fsvx33js";
 
@@ -1034,8 +1034,8 @@ let
   };
 
   yaml22 = buildPecl {
-    version = "2.2.2";
     pname = "yaml";
+    version = "2.2.2";
 
     sha256 = "sha256-EZBS8EYdV9hvRMJS+cmy3XQ0hscBwaCroK6+zdDYuCo=";
 
@@ -1049,8 +1049,8 @@ let
   };
 
   zmq = buildPecl {
-    version = "1.1.3";
     pname = "zmq";
+    version = "1.1.3";
 
     sha256 = "1kj487vllqj9720vlhfsmv32hs2dy2agp6176mav6ldx31c3g4n4";
 

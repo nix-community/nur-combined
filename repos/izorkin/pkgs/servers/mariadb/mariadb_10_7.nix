@@ -52,6 +52,7 @@ common = rec { # attributes common to both builds
 
   patches = [
     ./patch/cmake-includedir.patch
+    ./patch/10.4-libressl-3.5-support.patch
   ]
   # Fixes a build issue as documented on
   # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073

@@ -52,7 +52,7 @@ rec {
   php80Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php-packages.nix { php = php80-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); inherit libcouchbase_2_10_4; });
   php81Packages-unit  = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/development/php/php-packages.nix { php = php81-unit; openssl = pkgs.libressl; libevent = pkgs.libevent.override ({ openssl = pkgs.libressl; }); inherit libcouchbase_2_10_4; });
 
-  php-info            = pkgs.callPackage  ./pkgs/web/php-info { };
   php-bench           = pkgs.callPackage  ./pkgs/web/php-bench { };
+  php-info            = pkgs.callPackage  ./pkgs/web/php-info { };
   php-prober          = pkgs.callPackage  ./pkgs/web/php-prober { };
 }

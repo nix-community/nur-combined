@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub}:
 
 stdenv.mkDerivation rec {
-  version = "8.6";
   pname = "php-x-prober";
+  version = "8.6";
 
   src = fetchFromGitHub {
     owner = "kmvan";

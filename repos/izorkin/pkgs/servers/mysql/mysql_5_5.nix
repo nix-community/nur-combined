@@ -13,7 +13,13 @@ self = stdenv.mkDerivation rec {
     sha256 = "1mwrzwk9ap09s430fpdkyhvx5j2syd3xj2hyfzvanjphq4xqbrxi";
   };
 
-  patches =
+  patches = [
+    # https://github.com/percona/percona-server/commit/c5f8e6fe6346b3837d5c23d9989073b47c326b7a
+    # https://github.com/percona/percona-server/commit/abfb28442745d60553270f342debe3b11573e28f
+    ./patch/5.5.62-numerous-valgrind-errors-in-openssl.patch
+    # https://github.com/percona/percona-server/commit/dddeabde2fc7f6896347d69a35880ab236498ee3
+    ./patch/5.5.62-openssl-1.1-support.patch
+  ] ++
     # Minor type error that is a build failure as of clang 6.
     lib.optional stdenv.cc.isClang (fetchpatch {
       url = "https://svn.freebsd.org/ports/head/databases/mysql55-server/files/patch-sql_sql_partition.cc?rev=469888";

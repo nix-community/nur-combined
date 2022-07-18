@@ -23,8 +23,8 @@
 with lib;
 
 stdenv.mkDerivation rec {
-  version = "1.27.0";
   pname = "unit";
+  version = "1.27.0";
 
   src = fetchFromGitHub {
     owner = "nginx";

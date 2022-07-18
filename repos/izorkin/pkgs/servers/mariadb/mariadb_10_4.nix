@@ -54,6 +54,7 @@ common = rec { # attributes common to both builds
 
   patches = [
     ./patch/cmake-includedir.patch
+    ./patch/10.4-libressl-3.5-support.patch
   ];
 
   cmakeFlags = [

@@ -1,0 +1,18 @@
+diff --git a/include/ssl_compat.h b/include/ssl_compat.h
+index c94b9671d5f..4af464dab78 100644
+--- a/include/ssl_compat.h
++++ b/include/ssl_compat.h
+@@ -19,11 +19,11 @@
+ /* OpenSSL version specific definitions */
+ #if !defined(HAVE_YASSL) && defined(OPENSSL_VERSION_NUMBER)
+
+-#if OPENSSL_VERSION_NUMBER >= 0x10002000L && !defined(LIBRESSL_VERSION_NUMBER)
++#if OPENSSL_VERSION_NUMBER >= 0x10002000L || LIBRESSL_VERSION_NUMBER >= 0x30500000L
+ #define HAVE_X509_check_host 1
+ #endif
+
+-#if OPENSSL_VERSION_NUMBER >= 0x10100000L && !defined(LIBRESSL_VERSION_NUMBER)
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L || LIBRESSL_VERSION_NUMBER >= 0x30500000L
+ #define HAVE_OPENSSL11 1
+ #define SSL_LIBRARY OpenSSL_version(OPENSSL_VERSION)
+ #define ERR_remove_state(X) ERR_clear_error()

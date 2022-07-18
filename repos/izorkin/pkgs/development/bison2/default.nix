@@ -6,10 +6,11 @@
 # files.
 
 stdenv.mkDerivation rec {
-  name = "bison-2.7.1";
+  pname = "bison";
+  version = "2.7.1";
 
   src = fetchurl {
-    url = "mirror://gnu/bison/${name}.tar.gz";
+    url = "mirror://gnu/bison/${pname}-${version}.tar.gz";
     sha256 = "0c9li3iaslzzr3zig6m3zlmb4r8i0wfvkcrvdyiqxasb09mjkqh8";
   };
 

@@ -1,29 +1,35 @@
 { lib, stdenv, fetchurl, fetchpatch, pam, openssl }:
 
-stdenv.mkDerivation ({
-  name = "uw-imap-2007f";
+stdenv.mkDerivation rec {
+  pname = "uw-imap";
+  version = "2007f";
 
   src = fetchurl {
-    url = "ftp://ftp.cac.washington.edu/imap/imap-2007f.tar.gz";
+    url = "ftp://ftp.cac.washington.edu/imap/imap-${version}.tar.gz";
     sha256 = "0a2a00hbakh0640r2wdpnwr8789z59wnk7rfsihh3j0vbhmmmqak";
   };
 
-  makeFlags = if stdenv.isDarwin
+  makeFlags = [ (if stdenv.isDarwin
     then "osx"
-    else "lnp" # Linux with PAM modules;
+    else "lnp") ]  # Linux with PAM modules;
     # -fPIC is required to compile php with imap on x86_64 systems
-    + lib.optionalString stdenv.isx86_64 " EXTRACFLAGS=-fPIC"
-    + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) " CC=${stdenv.hostPlatform.config}-gcc RANLIB=${stdenv.hostPlatform.config}-ranlib";
+    ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "CC=${stdenv.hostPlatform.config}-gcc" "RANLIB=${stdenv.hostPlatform.config}-ranlib" ];
 
   hardeningDisable = [ "format" ];
 
   buildInputs = [ openssl ]
     ++ lib.optional (!stdenv.isDarwin) pam;
 
+  patches = [ (fetchpatch {
+    url = "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
+    sha256 = "09xb58awvkhzmmjhrkqgijzgv7ia381ablf0y7i1rvhcqkb5wga7";
+  }) ];
+
   postPatch = ''
     sed -i src/osdep/unix/Makefile -e 's,/usr/local/ssl,${openssl.dev},'
     sed -i src/osdep/unix/Makefile -e 's,^SSLCERTS=.*,SSLCERTS=/etc/ssl/certs,'
-    sed -i src/osdep/unix/Makefile -e 's,^SSLLIB=.*,SSLLIB=${openssl.out}/lib,'
+    sed -i src/osdep/unix/Makefile -e 's,^SSLLIB=.*,SSLLIB=${lib.getLib openssl}/lib,'
   '';
 
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin
@@ -54,4 +60,4 @@ stdenv.mkDerivation ({
     echo "Cross-compilation, injecting make flags"
     makeFlagsArray+=("ARRC=${stdenv.hostPlatform.config}-ar rc")
   '';
-})
+}

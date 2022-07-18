@@ -342,6 +342,8 @@ in {
       ./patch/php56/php5640-sqlite3-defensive.patch
       # Openssl cert updates
       ./patch/php56/php5640-php-openssl-cert.patch
+      # Openssl 1.1.0 compatibility
+      ./patch/php56/php5640-php-openssl110-compatibility.patch
       # Backport security bug patches
       ./patch/php56/php5640-75457.patch
       ./patch/php56/php5640-76488.patch
@@ -393,7 +395,6 @@ in {
     version = "7.1.33";
     sha256 = "1lz90pyvqxwmi7z2pgr8zc05hss11m61xaqy4d86wh80yra3m5rg";
 
-    # https://bugs.php.net/bug.php?id=76826
     extraPatches = [
       # PKG_CONFIG need not be a relative path
       ./patch/fix-paths-pkgconfig-php71.patch
@@ -486,12 +487,12 @@ in {
   };
 
   php80 = generic {
-    version = "8.0.20";
-    sha256 = "sha256-LXNadNMKjuzGFvHGyRPLDbEJ1jo9aAqwd8BDUpfA2Qk=";
+    version = "8.0.21";
+    sha256 = "sha256-l6HvFZk5P1fpo7Hd5fdVldJrHetEchZl3GTXXc2PQCI=";
   };
 
   php81 = generic {
-    version = "8.1.7";
-    sha256 = "sha256-gztwTpDbTzGdiRZoyylYNz5GOD+OjFCx7fXVFMyk1yE=";
+    version = "8.1.8";
+    sha256 = "sha256-74rSZPLTaajHV2iA0pmUH7uEjUvCs/EUg99tcClyMvc=";
   };
 }
