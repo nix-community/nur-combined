@@ -17,7 +17,6 @@ in {
   ];
 
   home.packages = with pkgs; [
-    appimage-run
     calibre # a dependency is broken
     chromium
     custom.tixati

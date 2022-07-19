@@ -15,7 +15,6 @@ in
       ../common/default.nix
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.nix-ld.nixosModules.nix-ld
       inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
       inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
       ./audio.nix
