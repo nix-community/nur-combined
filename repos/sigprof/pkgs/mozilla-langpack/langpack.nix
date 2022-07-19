@@ -29,6 +29,12 @@ in
     };
     langpack = mozLangpackSources.${app.name}.${app.majorKey}.${app.arch}.${mozLanguage};
     addonId = "langpack-${mozLanguage}@${app.addonIdSuffix}";
+    homepage = let
+      matchResult = builtins.match "([^?#]*/)[^/?#]*([?#].*)?" langpack.url;
+    in
+      if matchResult == null
+      then null
+      else builtins.head matchResult;
   in
     stdenvNoCC.mkDerivation {
       name = "${app.name}-langpack-${mozLanguage}-${langpack.version}";
@@ -41,6 +47,9 @@ in
         filterAttrs (n: _: elem n ["homepage" "license" "platforms" "badPlatforms"]) mozApp.meta
         // {
           description = "${app.fullName} language pack for the '${mozLanguage}' language.";
+        }
+        // lib.optionalAttrs (homepage != null) {
+          inherit homepage;
         };
 
       preferLocalBuild = true;
