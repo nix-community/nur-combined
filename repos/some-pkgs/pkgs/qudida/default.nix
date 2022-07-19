@@ -6,6 +6,7 @@
 , typing-extensions
 , opencv4
 , pytestCheckHook
+, qudida
 }:
 
 let
@@ -36,6 +37,9 @@ buildPythonPackage {
   checkInputs = [
     pytestCheckHook
   ];
+
+  doCheck = false;
+  passthru.tests.pytest = qudida.overridePythonAttrs (_: { doCheck = true; });
 
   pythonImportsCheck = [ "qudida" ];
 
