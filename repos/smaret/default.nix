@@ -21,4 +21,11 @@
     voro = pkgs.callPackage ./pkgs/mcfost/dependencies/voro { };
     xgboost = pkgs.callPackage ./pkgs/mcfost/dependencies/xgboost { };
   };
+  pymcfost = pkgs.python3Packages.callPackage ./pkgs/python-modules/pymcfost {
+    mcfost = pkgs.callPackage ./pkgs/mcfost {
+        sprng2 = pkgs.callPackage ./pkgs/mcfost/dependencies/sprng2 { };
+        voro = pkgs.callPackage ./pkgs/mcfost/dependencies/voro { };
+        xgboost = pkgs.callPackage ./pkgs/mcfost/dependencies/xgboost { };
+    };
+  };
 }
