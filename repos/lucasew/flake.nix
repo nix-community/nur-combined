@@ -6,6 +6,7 @@
     blender-bin =        {url =  "blender-bin";                                     inputs.nixpkgs.follows = "nixpkgs"; };
     comma =              {url =  "github:Shopify/comma";                            flake = false;                      };
     dotenv =             {url =  "github:lucasew/dotenv";                           flake = false;                      };
+    erosanix =           {url =  "github:emmanuelrosa/erosanix";                    inputs.nixpkgs.follows = "nixpkgs"; };
     flake-utils =        {url =  "flake-utils";                                                                         };
     home-manager =       {url =  "home-manager/release-22.05";                      inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence =       {url =  "github:nix-community/impermanence";               inputs.nixpkgs.follows = "nixpkgs"; };

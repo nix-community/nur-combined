@@ -20,15 +20,17 @@ let
     '');
 
 in {
+  inherit flake;
+
   inherit dotenv;
   inherit wrapDotenv;
   inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generators;
   inherit (flake.inputs.packages.comma);
-  inherit flake;
 
   lib = prev.lib // {
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;
+    mkWindowsApp = inputs.erosanix.lib."${prev.system}".mkWindowsApp;
   };
   p2k = cp inputs.pocket2kindle;
   redial_proxy = cp inputs.redial_proxy;

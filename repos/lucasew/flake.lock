@@ -72,6 +72,43 @@
         "type": "github"
       }
     },
+    "erosanix": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1657991429,
+        "narHash": "sha256-zyaEBIg7CF8Jx8SZ9cpXKA+Rbe7KF+cuGNVWKB6SQKI=",
+        "owner": "emmanuelrosa",
+        "repo": "erosanix",
+        "rev": "ebcdadeec7ce8186f6d98c6f746badab5b8b3d1a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "emmanuelrosa",
+        "repo": "erosanix",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1656928814,
@@ -420,6 +457,7 @@
         "borderless-browser": "borderless-browser",
         "comma": "comma",
         "dotenv": "dotenv",
+        "erosanix": "erosanix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
