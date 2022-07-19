@@ -26,12 +26,12 @@ defaults:
 
 concurrency:
   # If the CI run is for a PR, allow a single concurrent run per PR and cancel
-  # all other runs for the same PR (e.g., if the PR was rebased).  If the CI
-  # run is for anything else (push, workflow_dispatch, schedule), allow a
-  # single concurrent run per commit and cancel all other runs for the same
-  # commit.  The last case with `github.run_id` should never happen.
+  # all other runs for the same PR (e.g., if the PR was rebased) even when
+  # those runs are for different commits.  If the CI run is for anything else
+  # (push, workflow_dispatch, schedule), allow a single concurrent run per
+  # commit and cancel other runs for the same commit.
   #
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha || ('run-' + github.run_id) }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
   cancel-in-progress: true
 
 env:
