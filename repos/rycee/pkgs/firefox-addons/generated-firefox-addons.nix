@@ -27,6 +27,20 @@
         platforms = platforms.all;
         };
       };
+    "adnauseam" = buildFirefoxXpiAddon {
+      pname = "adnauseam";
+      version = "3.13.1";
+      addonId = "adnauseam@rednoise.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3953369/adnauseam-3.13.1.xpi";
+      sha256 = "bdf16fa70f1217c7611c0458024cb5a380c07ac4053be3a03f4bda723d991ebb";
+      meta = with lib;
+      {
+        homepage = "https://adnauseam.io";
+        description = "Blocking ads and fighting back against advertising surveillance.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "adsum-notabs" = buildFirefoxXpiAddon {
       pname = "adsum-notabs";
       version = "1.1";
