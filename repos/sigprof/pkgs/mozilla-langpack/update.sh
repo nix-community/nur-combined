@@ -24,6 +24,16 @@ export GNUPGHOME="$tmpdir/gnupghome"
 # Get the signing key to verify the signatures on hash lists.
 gpg --receive-keys 14F26682D0916CDD81E37B6D61B7B526D98F0353
 
+# Language pack install dir, indexed by the app name.
+declare -A installDir
+installDir[firefox]="share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+installDir[thunderbird]="share/mozilla/extensions/{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+
+# Addon ID suffix, indexed by the app name.
+declare -A addonIdSuffix
+addonIdSuffix[firefox]="firefox.mozilla.org"
+addonIdSuffix[thunderbird]="thunderbird.mozilla.org"
+
 # URL and version list file for a particular app, indexed by the app name.
 declare -A releaseUrl releaseList
 
@@ -178,6 +188,32 @@ for appKey in "${!appMajorToVersion[@]}"; do
   }
 }
 EOF
+        addon_install_dir="${installDir[$app]}"
+        if [ -n "$addon_install_dir" ]; then
+          rm -rf "$tmpdir/nar"
+          mkdir -p "$tmpdir/nar/out/$addon_install_dir"
+          curl -o "$tmpdir/nar/file.xpi" "$this_url"
+          printf '%s  %s\n' "$sha512" "$tmpdir/nar/file.xpi" | \
+            sha512sum -c -
+          addon_path="${addon_install_dir}/langpack-${this_locale}@${addonIdSuffix[$app]}.xpi"
+          install -m444 "$tmpdir/nar/file.xpi" "$tmpdir/nar/out/${addon_path}"
+          nar_hash="$(nix hash path --sri --type sha512 "$tmpdir/nar/out")"
+          cat >> "$tmpdir/sources.mjson" <<EOF
+{
+  "${app}": {
+    "${majorKey}": {
+      "${arch}": {
+        "${this_locale}": {
+          "narHash": {
+            "${addon_path}": "${nar_hash}"
+          }
+        }
+      }
+    }
+  }
+}
+EOF
+        fi
       done
   done
 done

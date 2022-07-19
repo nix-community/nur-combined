@@ -29,35 +29,49 @@ in
     };
     langpack = mozLangpackSources.${app.name}.${app.majorKey}.${app.arch}.${mozLanguage};
     addonId = "langpack-${mozLanguage}@${app.addonIdSuffix}";
+    installFilePath = "share/mozilla/extensions/${app.extensionDir}/${addonId}.xpi";
+    narHash = langpack.narHash.${installFilePath} or null;
+    name = "${app.name}-langpack-${mozLanguage}-${langpack.version}";
     homepage = let
       matchResult = builtins.match "([^?#]*/)[^/?#]*([?#].*)?" langpack.url;
     in
       if matchResult == null
       then null
       else builtins.head matchResult;
-  in
-    stdenvNoCC.mkDerivation {
-      name = "${app.name}-langpack-${mozLanguage}-${langpack.version}";
-      src = fetchurl {
-        name = "${app.name}-langpack-${mozLanguage}-${langpack.version}-${app.arch}.xpi";
-        inherit (langpack) url hash;
+    meta =
+      filterAttrs (n: _: elem n ["homepage" "license" "platforms" "badPlatforms"]) mozApp.meta
+      // {
+        description = "${app.fullName} language pack for the '${mozLanguage}' language.";
+      }
+      // lib.optionalAttrs (homepage != null) {
+        inherit homepage;
       };
-
-      meta =
-        filterAttrs (n: _: elem n ["homepage" "license" "platforms" "badPlatforms"]) mozApp.meta
-        // {
-          description = "${app.fullName} language pack for the '${mozLanguage}' language.";
-        }
-        // lib.optionalAttrs (homepage != null) {
-          inherit homepage;
+  in
+    if narHash != null
+    then
+      fetchurl {
+        inherit name meta;
+        inherit (langpack) url;
+        hash = narHash;
+        recursiveHash = true;
+        downloadToTemp = true;
+        postFetch = ''
+          install -v -m444 -D "$downloadedFile" "$out/${installFilePath}"
+          rm "$downloadedFile"
+        '';
+      }
+    else
+      stdenvNoCC.mkDerivation {
+        inherit name meta;
+        src = fetchurl {
+          name = "${app.name}-langpack-${mozLanguage}-${langpack.version}-${app.arch}.xpi";
+          inherit (langpack) url hash;
         };
 
-      preferLocalBuild = true;
-      # Do not use `allowSubstitutes = false;`: https://github.com/NixOS/nix/issues/4442
+        preferLocalBuild = true;
+        # Do not use `allowSubstitutes = false;`: https://github.com/NixOS/nix/issues/4442
 
-      buildCommand = ''
-        dst="$out/share/mozilla/extensions/${app.extensionDir}"
-        mkdir -p "$dst"
-        install -v -m644 "$src" "$dst/${addonId}.xpi"
-      '';
-    }
+        buildCommand = ''
+          install -v -m444 -D "$src" "$out/${installFilePath}"
+        '';
+      }
