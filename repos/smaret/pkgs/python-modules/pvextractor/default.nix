@@ -33,6 +33,8 @@ buildPythonPackage rec {
   meta = {
     description = "Position-Velocity Diagram Extractor";
     homepage = http://radio-astro-tools.github.io;
+    # TODO: Fix build
+    broken = true;
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ smaret ];

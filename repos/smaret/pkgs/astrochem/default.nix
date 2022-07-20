@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , pythonPackages
 , autoconf
@@ -45,4 +46,11 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = true;
+
+  meta = with lib; {
+    description = "Code to compute the abundances of chemical species in the interstellar medium";
+    homepage = "https://github.com/smaret/astrochem";
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ smaret ];
+  };
 }

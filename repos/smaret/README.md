@@ -12,25 +12,14 @@ documentation](https://github.com/nix-community/NUR#installation).
 Once Nix has been set up, you can use or install packages from this
 repository with:
 
-```
-% nix-shell -p nur.repos.smaret.astrochem
-[nix-shell:~]$ astrochem
-Usage: astrochem [option...] [file]
-
-Options:
-   -h, --help         Display this help
-   -V, --version      Print program version
-   -v, --verbose      Verbose mode
-   -q, --quiet        Suppress all messages
-
-See the astrochem(1) manual page for more information.
-Report bugs to <http://github.com/smaret/astrochem/issues>.
+```sh
+nix-shell -p nur.repos.smaret.astrochem
 ```
 
 or
 
-```
-% nix-env -iA nur.repos.smaret.astrochem
+```sh
+nix-env -iA nur.repos.smaret.astrochem
 ```
 
 ## How to download binaries

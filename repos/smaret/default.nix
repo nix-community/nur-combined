@@ -12,10 +12,8 @@
     }
   );
   lmfit = pkgs.python3Packages.callPackage ./pkgs/python-modules/lmfit { };
-  # FIXME: This fails to build because aplpy in broken in nixpkgs
-  #pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
-  # FIXME: This fails to build because astroquery is broken in nixpkgs
-  #pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { };
+  pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
+  pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { };
   mcfost = pkgs.callPackage ./pkgs/mcfost {
     sprng2 = pkgs.callPackage ./pkgs/mcfost/dependencies/sprng2 { };
     voro = pkgs.callPackage ./pkgs/mcfost/dependencies/voro { };
