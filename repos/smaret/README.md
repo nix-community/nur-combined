@@ -1,7 +1,7 @@
 # NUR packages
 
-This repository contains a collection of packages for the [Nix package
-manager](https://nixos.org/nix/). This collection is available from the
+This repository contains a [collection of packages](https://nur.nix-community.org/repos/smaret/)
+for the [Nix package manager](https://nixos.org/nix/). This collection is available from the
 [Nix User Repository (NUR)](https://github.com/nix-community/NUR).
 
 ## Installation
