@@ -569,10 +569,10 @@
         "homepage": "",
         "owner": "nvim-lualine",
         "repo": "lualine.nvim",
-        "rev": "655411fb7aa3cf4d46094132d684d815453f5043",
-        "sha256": "13a272xba0814q2jmc96fr9msrss8yq1nnmrx7v2svscn08xhns4",
+        "rev": "8d956c18258bb128ecf42f95411bb26efd3a5d23",
+        "sha256": "1b0lz59nxj18icbcfw7kkl5ryknp5l3m2f11gf6qkic7k6zw877n",
         "type": "tarball",
-        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/655411fb7aa3cf4d46094132d684d815453f5043.tar.gz",
+        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/8d956c18258bb128ecf42f95411bb26efd3a5d23.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "luv-vimdocs": {
@@ -701,10 +701,10 @@
         "homepage": "",
         "owner": "MunifTanjim",
         "repo": "nui.nvim",
-        "rev": "2bc2ce904dd7f277c68418ea0d832ec619449ba2",
-        "sha256": "0528s3fw4ny55banfkq241panj0m42yfa0bbz7xg3g81khrz3gsq",
+        "rev": "34b0966bb086f48032b6e3bd0d218f69416c1ea8",
+        "sha256": "04fgrwgddmg7kdl96zlxm0vlv6d06xp20wwdzl4g2vbxys94drq5",
         "type": "tarball",
-        "url": "https://github.com/MunifTanjim/nui.nvim/archive/2bc2ce904dd7f277c68418ea0d832ec619449ba2.tar.gz",
+        "url": "https://github.com/MunifTanjim/nui.nvim/archive/34b0966bb086f48032b6e3bd0d218f69416c1ea8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "null-ls.nvim": {
@@ -749,10 +749,10 @@
         "homepage": "",
         "owner": "hrsh7th",
         "repo": "nvim-cmp",
-        "rev": "9897465a7663997b7b42372164ffc3635321a2fe",
-        "sha256": "1ic1h8h1h4v5f9f76vahl7yz7smq55x59r7j5h9gdmj97n0p0fp4",
+        "rev": "c4dcb1244a8942b8d2bd3c0a441481e12f91cdf1",
+        "sha256": "04bl2yja8p72alj5j0x0lahqjzvbgr896rij07bln9y54k9rzz9p",
         "type": "tarball",
-        "url": "https://github.com/hrsh7th/nvim-cmp/archive/9897465a7663997b7b42372164ffc3635321a2fe.tar.gz",
+        "url": "https://github.com/hrsh7th/nvim-cmp/archive/c4dcb1244a8942b8d2bd3c0a441481e12f91cdf1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-colorizer.lua": {
@@ -1061,10 +1061,10 @@
         "homepage": "",
         "owner": "anuvyklack",
         "repo": "pretty-fold.nvim",
-        "rev": "af4afff523fc1daee33bee32d6786c90d8bcc121",
-        "sha256": "03bd6y665mnd256j6bkh2vvppbm0nygchjghb5kj52v8zsbrhgp4",
+        "rev": "a7d8b424abe0eedf50116c460fbe6dfd5783b1d5",
+        "sha256": "0fjjd5zyh588czz886v29wff8jy5fwa4nbjfailwph4p9b1xj0rx",
         "type": "tarball",
-        "url": "https://github.com/anuvyklack/pretty-fold.nvim/archive/af4afff523fc1daee33bee32d6786c90d8bcc121.tar.gz",
+        "url": "https://github.com/anuvyklack/pretty-fold.nvim/archive/a7d8b424abe0eedf50116c460fbe6dfd5783b1d5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "prosesitter.nvim": {

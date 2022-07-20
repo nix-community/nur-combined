@@ -1,7 +1,3 @@
-[haskellNix]
-src.git = "https://github.com/input-output-hk/haskell.nix"
-fetch.github = "input-output-hk/haskell.nix"
-
 [dwm-flexipatch]
 src.git = "https://github.com/bakkeby/dwm-flexipatch"
 fetch.github = "bakkeby/dwm-flexipatch"
@@ -17,10 +13,6 @@ fetch.github = "bakkeby/dmenu-flexipatch"
 [taffybar]
 src.git = "https://github.com/taffybar/taffybar"
 fetch.github = "taffybar/taffybar"
-
-[kmonad]
-src.git = "https://github.com/kmonad/kmonad"
-fetch.github = "kmonad/kmonad"
 
 [xmonad-entryhelper]
 src.git = "https://github.com/Javran/xmonad-entryhelper"

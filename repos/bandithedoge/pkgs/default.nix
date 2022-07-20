@@ -7,7 +7,7 @@
 in {
   vimPlugins = (pkgs.callPackage ./vimPlugins {inherit pkgs;}).extend (import ./vimPlugins/overrides.nix {inherit pkgs;});
 
-  haskellPackages = callPackage' ./haskellPackages;
+  haskellPackages = pkgs.lib.recurseIntoAttrs (callPackage' ./haskellPackages);
 
   dmenu-flexipatch = callPackage' ./flexipatch/dmenu.nix;
   dwm-flexipatch = callPackage' ./flexipatch/dwm.nix;

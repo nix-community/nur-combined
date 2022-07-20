@@ -1,16 +1,46 @@
 {
   pkgs ? import <nixpkgs> {},
-  sources ? ../../_sources/generated.nix,
+  sources ?
+    import ../../_sources/generated.nix {
+      inherit (pkgs) fetchurl fetchgit fetchFromGitHub;
+    },
 }: let
-  callHaskellPackage = pkg: let
-    haskellNix = import sources.haskellNix.src {};
-  in
-    pkgs.callPackage pkg {
-      inherit pkgs sources;
-      haskellNix = (import haskellNix.sources.nixpkgs haskellNix.nixpkgsArgs).haskell-nix;
-    };
+  callHaskellPackage = pkg: {
+    compiler ? "ghc902",
+    attrs ? {},
+  }:
+    (pkgs.haskell.packages.${compiler}.callPackage pkg {}).overrideAttrs (oldAttrs: (
+      {
+        inherit (sources.${pkgs.lib.removeSuffix ".nix" (builtins.baseNameOf pkg)}) pname version src;
+      }
+      // attrs
+    ));
 in {
-  taffybar = callHaskellPackage ./taffybar.nix;
-  kmonad = callHaskellPackage ./kmonad.nix;
-  xmonad-entryhelper = callHaskellPackage ./xmonad-entryhelper.nix;
+  taffybar = callHaskellPackage ./taffybar.nix {
+    attrs = {
+      nativeBuildInputs = with pkgs; [
+        gcc
+        pkgconfig
+        removeReferencesTo
+      ];
+      buildInputs = with pkgs; [
+        cairo
+        gnome2.pango
+        gobject-introspection
+        gtk3
+        hicolor-icon-theme
+        libdbusmenu
+        libdbusmenu-gtk3
+        libxml2
+        xorg.libX11
+        xorg.libXScrnSaver
+        xorg.libXext
+        xorg.libXinerama
+        xorg.libXrandr
+        xorg.libXrender
+        zlib
+      ];
+    };
+  };
+  xmonad-entryhelper = callHaskellPackage ./xmonad-entryhelper.nix {};
 }
