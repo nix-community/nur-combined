@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   go-check = pkgs.callPackage ./pkgs/go-check { buildGoModule = pkgs.buildGo118Module; };
+  lux = pkgs.callPackage ./pkgs/lux { buildGoModule = pkgs.buildGo118Module; };
 }
