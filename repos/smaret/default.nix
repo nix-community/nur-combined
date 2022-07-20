@@ -28,4 +28,5 @@
         xgboost = pkgs.callPackage ./pkgs/mcfost/dependencies/xgboost { };
     };
   };
+  radmc3d = pkgs.callPackage ./pkgs/radmc3d { };
 }
