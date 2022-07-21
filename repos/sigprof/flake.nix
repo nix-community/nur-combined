@@ -50,13 +50,16 @@
           # No `i686-linux` because `pre-commit-hooks` does not evaluate
         ];
       in
-        flake-utils.lib.eachSystem checkedSystems (system: {
+        flake-utils.lib.eachSystem checkedSystems (system: let
+          alejandra = inputs.nixos-unstable.legacyPackages.${system}.alejandra;
+        in {
           checks = {
             pre-commit = pre-commit-hooks.lib.${system}.run {
               src = ./.;
               hooks = {
                 alejandra.enable = true;
               };
+              tools.alejandra = alejandra;
             };
           };
 
@@ -64,7 +67,7 @@
             name = "sigprof/nur-packages";
             motd = "{6}🔨 Welcome to {bold}sigprof/nur-packages{reset}";
             packages = [
-              pre-commit-hooks.packages.${system}.alejandra
+              alejandra
             ];
             devshell.startup.pre-commit-hooks.text = self.checks.${system}.pre-commit.shellHook;
           };
