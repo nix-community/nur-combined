@@ -168,10 +168,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.30";
+      version = "7.4.31";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3976994/betterttv-7.4.30.xpi";
-      sha256 = "8f0a002c682fa43bf16b58cca7b6e1b963953811d3c60dd1e99390ea03e735e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978120/betterttv-7.4.31.xpi";
+      sha256 = "ab9f4370d3fbf9fe05439f0865a3e3d8ff2c17c18a0f0a1d22dc5e13544f3f86";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -745,10 +745,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "22.7.19.2014";
+      version = "22.7.20";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978005/ghosttext-22.7.19.2014.xpi";
-      sha256 = "129ecd272d5496716f0728a16bbcf813b6fc8e42066191c82278629d73bb04b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978212/ghosttext-22.7.20.xpi";
+      sha256 = "3295cc2a2aa498d6082402ac23aa9f9501a3d20804b71957ae3db022edee7d97";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -773,10 +773,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.900.0";
+      version = "8.901.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967047/grammarly_1-8.900.0.xpi";
-      sha256 = "970f5c66cb1c5e70293193a6a4fdfcd2444d38580af841b99b1bf1edefb45b86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978044/grammarly_1-8.901.0.xpi";
+      sha256 = "439ab1f52f2f1709ccf73fb504c4d6bcb3e3cf9a4b4463c2c7d147fd753a94cd";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1712,10 +1712,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.7.11";
+      version = "22.7.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974356/refined_github-22.7.11.xpi";
-      sha256 = "b28438b8f48e3f440bc61530b30a28090d4973c7d841d37f55ec02981f5a8581";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978321/refined_github-22.7.20.xpi";
+      sha256 = "fddae1bf8779dbdb506c8168a07714d999ff80f6ded82d03946af156ebe0c980";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2428,10 +2428,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.36";
+      version = "6.10.38";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970026/wappalyzer-6.10.36.xpi";
-      sha256 = "70417eabcb6e27fc413c7e7ec7aea3e541f5840ee730c86fe4d682d9785461bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978438/wappalyzer-6.10.38.xpi";
+      sha256 = "10b118eda1d8863d8cb979b80b7979545281bc2fbd67247f9b70879a8838cb57";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
