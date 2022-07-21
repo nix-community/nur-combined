@@ -46,4 +46,6 @@ sed -E \
     -i "$nix_file"
 
 echo "Ensure the updated version works and commit:"
-echo "git commit -a -m \"$attr: $currentVersion -> $latestVersion\""
+echo "git commit -a -m \"$attr: $currentVersion -> $latestVersion\"" \
+    "&& git push" \
+    "&& curl -XPOST https://nur-update.herokuapp.com/update?repo=k3a"
