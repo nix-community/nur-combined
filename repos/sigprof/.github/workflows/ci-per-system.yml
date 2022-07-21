@@ -51,7 +51,9 @@ on:
 jobs:
   early-checks:
     runs-on: ${{ inputs.runs-on }}
-    if: fromJSON(inputs.flake-jobs).earlyChecks.item[0]
+    if: >-
+      (always() && !cancelled())
+      && fromJSON(inputs.flake-jobs).earlyChecks.item[0]
     strategy:
       matrix: ${{ fromJSON(inputs.flake-jobs).earlyChecks }}
     steps:
@@ -69,7 +71,9 @@ jobs:
 
   pkgs:
     runs-on: ${{ inputs.runs-on }}
-    if: fromJSON(inputs.flake-jobs).packages.item[0]
+    if: >-
+      (always() && !cancelled())
+      && fromJSON(inputs.flake-jobs).packages.item[0]
     strategy:
       matrix: ${{ fromJSON(inputs.flake-jobs).packages }}
     steps:
@@ -87,7 +91,9 @@ jobs:
 
   nur:
     runs-on: ${{ inputs.runs-on }}
-    if: fromJSON(inputs.nur-jobs).other.include[0]
+    if: >-
+      (always() && !cancelled())
+      && fromJSON(inputs.nur-jobs).other.include[0]
     strategy:
       matrix: ${{ fromJSON(inputs.nur-jobs).other }}
     steps:
@@ -106,7 +112,9 @@ jobs:
 
   nur1:
     runs-on: ${{ inputs.runs-on }}
-    if: fromJSON(inputs.nur-jobs).stage1.include[0]
+    if: >-
+      (always() && !cancelled())
+      && fromJSON(inputs.nur-jobs).stage1.include[0]
     strategy:
       matrix: ${{ fromJSON(inputs.nur-jobs).stage1 }}
     steps:
@@ -127,10 +135,10 @@ jobs:
     needs:
       - pkgs
     runs-on: ${{ inputs.runs-on }}
-    if: >
-      always() &&
-      (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped') &&
-      fromJSON(inputs.nur-jobs).stage2.include[0]
+    if: >-
+      (always() && !cancelled())
+      && (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped')
+      && fromJSON(inputs.nur-jobs).stage2.include[0]
     strategy:
       matrix: ${{ fromJSON(inputs.nur-jobs).stage2 }}
     steps:
@@ -151,10 +159,10 @@ jobs:
     needs:
       - nur1
     runs-on: ${{ inputs.runs-on }}
-    if: >
-      always() &&
-      (needs.nur1.result == 'success' || needs.nur1.result == 'skipped') &&
-      fromJSON(inputs.nur-jobs).stage3.include[0]
+    if: >-
+      (always() && !cancelled())
+      && (needs.nur1.result == 'success' || needs.nur1.result == 'skipped')
+      && fromJSON(inputs.nur-jobs).stage3.include[0]
     strategy:
       matrix: ${{ fromJSON(inputs.nur-jobs).stage3 }}
     steps:
@@ -175,10 +183,10 @@ jobs:
     needs:
       - pkgs
     runs-on: ${{ inputs.runs-on }}
-    if: >
-      always() &&
-      (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped') &&
-      fromJSON(inputs.flake-jobs).hosts.item[0]
+    if: >-
+      (always() && !cancelled())
+      && (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped')
+      && fromJSON(inputs.flake-jobs).hosts.item[0]
     strategy:
       matrix: ${{ fromJSON(inputs.flake-jobs).hosts }}
     steps:
@@ -198,10 +206,10 @@ jobs:
     needs:
       - pkgs
     runs-on: ${{ inputs.runs-on }}
-    if: >
-      always() &&
-      (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped') &&
-      fromJSON(inputs.flake-jobs).checks.item[0]
+    if: >-
+      (always() && !cancelled())
+      && (needs.pkgs.result == 'success' || needs.pkgs.result == 'skipped')
+      && fromJSON(inputs.flake-jobs).checks.item[0]
     strategy:
       matrix: ${{ fromJSON(inputs.flake-jobs).checks }}
     steps:

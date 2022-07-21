@@ -108,7 +108,8 @@ jobs:
     outputs:
       nur_jobs: ${{ steps.collect_nur_jobs.outputs.nur_jobs }}
     if: >-
-      (!inputs.flake_only)
+      (always() && !cancelled())
+      && (!inputs.flake_only)
       && !(
         (github.event_name == 'pull_request')
         && (github.event.pull_request.head.repo.full_name == 'sigprof/nur-packages')
@@ -257,7 +258,7 @@ jobs:
       - setup_flake
       - setup_nur
     if: >-
-      always()
+      (always() && !cancelled())
       && (needs.setup_flake.result == 'success')
       && (needs.setup_nur.result == 'success' || needs.setup_nur.result == 'skipped')
     uses: ./.github/workflows/ci-per-system.yml
@@ -275,7 +276,7 @@ jobs:
       - setup_flake
       - setup_nur
     if: >-
-      always()
+      (always() && !cancelled())
       && (needs.setup_flake.result == 'success')
       && (needs.setup_nur.result == 'success' || needs.setup_nur.result == 'skipped')
     uses: ./.github/workflows/ci-per-system.yml
@@ -295,7 +296,8 @@ jobs:
       - x86_64-linux
       - x86_64-darwin
     runs-on: ubuntu-latest
-    if: always()
+    if: >-
+      (always() && !cancelled())
     env:
       ci_success: >-
         ${{
