@@ -18,12 +18,7 @@
 
     newsflash
 
-    # tmux
-    urlview
-
     kooha
-    #zoom-us
-    #teams
 
     #DSTP
     dstp
@@ -31,6 +26,7 @@
     #TRANSLATION TOOLS
     poedit
     intltool
+
     notify
     slop
   ];

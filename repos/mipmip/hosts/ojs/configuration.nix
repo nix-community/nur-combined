@@ -24,6 +24,8 @@ in
       ../../modules/texlive.nix
       ../../modules/fonts.nix
       ../../modules/st.nix
+      ../../modules/terminal.nix
+      ../../modules/office-communication.nix
       ../../modules/browser-firefox.nix
       ../../modules/browser-chrome.nix
       ../../modules/nfspiet.nix
@@ -31,7 +33,6 @@ in
       ../../modules/nixos-utils.nix
       ../../modules/explore-pkg.nix
       ../../modules/hardware.nix
-      #<nix-ld/modules/nix-ld.nix>
   ];
 
 
