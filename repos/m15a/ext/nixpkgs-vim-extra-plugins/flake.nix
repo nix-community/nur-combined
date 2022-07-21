@@ -8,12 +8,12 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }: {
-    overlay = import ./overlay.nix;
+    overlays.default = import ./overlay.nix;
   } // (flake-utils.lib.eachDefaultSystem (system:
   let
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [ self.overlay ];
+      overlays = [ self.overlays.default ];
     };
 
     update-vim-plugins = pkgs.callPackage ./pkgs/update-vim-plugins.nix {};
@@ -48,7 +48,7 @@
       inherit update-vim-plugins;
     };
 
-    devShell = pkgs.mkShell {
+    devShells.default = pkgs.mkShell {
       inputsFrom = [
         update-vim-plugins
       ];

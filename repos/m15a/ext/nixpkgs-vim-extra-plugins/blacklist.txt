@@ -9,6 +9,7 @@ SmiteshP/nvim-gps
 ldelossa/calltree.nvim
 lukas-reineke/format.nvim
 ms-jpq/chadtree
+shaeinst/penvim
 shaunsingh/moonlight.nvim
 andersevenrud/compe-tmux
 gwatcha/reaper-keys

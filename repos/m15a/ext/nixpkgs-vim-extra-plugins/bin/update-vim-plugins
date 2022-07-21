@@ -450,7 +450,12 @@
     self.version
     self.url
     self.sha256
-    self.repo.description
+    ;; Escape special character sequences in double-quotes.  For more information, see
+    ;; <https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values>.
+    (-> self.repo.description
+        (: :gsub "\\" "\\\\")
+        (: :gsub "\"" "\\\"")
+        (: :gsub "${" "\\${"))
     self.repo.homepage
     (let [license (and self.repo.license
                        (nixpkgs.license-from-github-license self.repo.license))]

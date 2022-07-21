@@ -17,9 +17,15 @@ let
 
     highlight-current-n-nvim = true;
 
+    incline-nvim = true;
+
+    snippet-converter-nvim = true;
+
     vacuumline-nvim = true;
 
     vgit-nvim = true;
+
+    unruly-worker = true;
 
     zen-mode-nvim = true;
   };
