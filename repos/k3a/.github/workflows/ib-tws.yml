@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'pkgs/ib-tws/**'
-  workflow_dispatch:
+  repository_dispatch:
 
 jobs:
   update:
