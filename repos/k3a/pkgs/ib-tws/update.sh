@@ -45,7 +45,13 @@ sed -E \
     -e "s|etagHash = \"$currentEtagHash\";|etagHash = \"$latestEtagHash\";|" \
     -i "$nix_file"
 
-echo "Ensure the updated version works and commit:"
-echo "git commit -a -m \"$attr: $currentVersion -> $latestVersion\"" \
+# prepare a commit for automation
+cmd=`echo "git commit -a -m \"$attr: $currentVersion -> $latestVersion\"" \
     "&& git push" \
-    "&& curl -XPOST https://nur-update.herokuapp.com/update?repo=k3a"
+    "&& curl -XPOST https://nur-update.herokuapp.com/update?repo=k3a"`
+
+if [ -n "$GITHUB_ACTION" ]; then
+    eval $cmd
+else
+    echo $cmd
+fi
