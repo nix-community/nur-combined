@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
     description = "Trader Work Station of Interactive Brokers";
     homepage = "https://www.interactivebrokers.com";
     license = licenses.unfree;
-    maintainers = [ maintainers.k3a maintainers.tstrobel ];
+    maintainers = lib.optionals (maintainers ? k3a) [ maintainers.k3a ];
     platforms = [ "x86_64-linux" ];
   };
 }
