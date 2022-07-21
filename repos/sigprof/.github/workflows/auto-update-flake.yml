@@ -2,6 +2,9 @@ name: auto-update-flake
 
 on:
   workflow_dispatch:
+  schedule:
+    # Nominally 06:42 GMT+3, but actual start times apparently suffer from delays
+    - cron: '42 3 * * *'
 
 defaults:
   run:
