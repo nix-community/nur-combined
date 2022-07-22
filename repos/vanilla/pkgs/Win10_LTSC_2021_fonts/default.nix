@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ p7zip wimlib ];
-  unpackPhase = "7z x ${src}";
+  unpackPhase = "7z x $src";
 
   # https://wimlib.net/man1/wimextract.html
   buildPhase = ''
