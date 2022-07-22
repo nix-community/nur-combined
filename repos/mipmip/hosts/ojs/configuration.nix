@@ -15,7 +15,8 @@ in
       ../../modules/common.nix
       ../../modules/common-pkg.nix
 #      ../../modules/crystal-dev.nix
-      ../../modules/quiqr-dev.nix
+      ../../modules/dev-quiqr.nix
+      ../../modules/dev-technative.nix
       ../../modules/vim-large.nix
       ../../modules/workstation.nix
       ../../modules/virtualbox.nix
