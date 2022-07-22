@@ -168,10 +168,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.31";
+      version = "7.4.32";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978120/betterttv-7.4.31.xpi";
-      sha256 = "ab9f4370d3fbf9fe05439f0865a3e3d8ff2c17c18a0f0a1d22dc5e13544f3f86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978493/betterttv-7.4.32.xpi";
+      sha256 = "15df2e02a745d671085e91c90d88f2343b01f68c03faacc1f47c341284533499";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1558,10 +1558,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.4.3";
+      version = "2.4.5";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3972235/private_relay-2.4.3.xpi";
-      sha256 = "622c4f2ed5f7d97bf24e2cecf6cfdc669cead583243a05a95ca2db01d99a91ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978299/private_relay-2.4.5.xpi";
+      sha256 = "fd21090f5ea7d5642b65d9c1feba5176a7bc74bb0ed5b7153062c7e6460a155c";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -1907,10 +1907,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.6.4";
+      version = "4.7";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3975486/sponsorblock-4.6.4.xpi";
-      sha256 = "16174dd17e863a8d8e11325069a91912d3750e6e0f5967cfff29ebcaa70b44da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978433/sponsorblock-4.7.xpi";
+      sha256 = "29bb5326abd1cbffcd3733f1a9a8cce1e55bcb6fc97a56bebea6c918c166fbe3";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2456,10 +2456,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.64.2";
+      version = "2.65.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3972277/web_scrobbler-2.64.2.xpi";
-      sha256 = "284267df5f513666b3cdcb40f3c755facb43e393d6585952d98ed9cceb2b0533";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978778/web_scrobbler-2.65.0.xpi";
+      sha256 = "6584e9c91cc3e9d080de618eb3fd3ed627caeafa1942f31909eda5bb63f4fcca";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
