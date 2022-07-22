@@ -55,20 +55,13 @@ qt5.mkDerivation rec {
       --include "wemeet/lib/libxcast*" \
       --include "wemeet/lib/libImSDK.so" \
       --include "wemeet/lib/libui_framework.so" \
+      --include "wemeet/lib/libnxui*" \
       --include "wemeet/lib/libdesktop_common.so" \
       --exclude "wemeet/lib/*" \
       --exclude "wemeet/plugins" \
       --exclude "wemeet/icons" \
       --exclude "wemeet/wemeetapp.sh" \
       --exclude "wemeet/bin/Qt*"
-
-    # fix symbol issue
-    # TODO remove this workaround
-    libraries=($(fd '^.*\.so(\.\d+)?$' "$out"))
-    patchelf \
-      --clear-symbol-version "_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_assignERKS4_" \
-      --clear-symbol-version "_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_replaceEmmPKcm" \
-      "''${libraries[@]}" "$out/wemeet/bin/"{wemeetapp,crashpad_handler}
 
     mkdir -p "$out/bin"
     # TODO remove IBus and Qt style workaround

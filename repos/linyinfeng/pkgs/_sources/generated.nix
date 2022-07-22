@@ -207,10 +207,10 @@
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.8.0.2";
+    version = "3.9.0.1";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/MTZlNjg4ZjctOTAwMS00NDg2LWE3ZjMtMjNhZjBmODk3ZTIz/TencentMeeting_0300000000_3.8.0.2_x86_64_default.publish.deb";
-      sha256 = "sha256-ZwXCKA+a4VlOohxjSg10Cn4zMA/c2n+5g4fKjARWsWk=";
+      url = "https://updatecdn.meeting.qq.com/OTRhY2YwZTUtMzE5Ni00NDQyLTg0MTMtOTBjYzQzNzcxYTQz/TencentMeeting_0300000000_3.9.0.1_x86_64_default.publish.deb";
+      sha256 = "sha256-g1sYuTP0RU6gUbztP+rKR1i4WTkvjdSPUEIKPEqtmCc=";
     };
   };
   yacd = {
