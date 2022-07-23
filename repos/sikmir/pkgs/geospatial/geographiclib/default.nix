@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "geographiclib";
-  version = "1.52";
+  version = "2.1";
 
   src = fetchurl {
     url = "mirror://sourceforge/geographiclib/GeographicLib-${version}.tar.gz";
-    hash = "sha256-XUFFzRbr9Rov+XySRDMKNAeH0TEWXP0VDksoQMDorCs=";
+    hash = "sha256-ekvbz+dseEiWDxd7WXGH4Wq9MBQNoGf/UiHO6QDPwCk=";
   };
 
   meta = with lib; {
