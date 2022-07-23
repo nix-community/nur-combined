@@ -67,12 +67,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "84ab11a043b27c2f9db4ae582a698ccb5c072544",
-            "sha256": "sha256-P34on48bn9xn+ylqQhli2hycgtyi7u7Mniv9uMe9/EE=",
+            "rev": "39cc798fc8e0cdfd632ffda05b941d8b1489eee9",
+            "sha256": "sha256-hlSq3Wma+S1ci+497+L+mlW4Egn/6d5/W90GpBD/EY0=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "84ab11a043b27c2f9db4ae582a698ccb5c072544"
+        "version": "39cc798fc8e0cdfd632ffda05b941d8b1489eee9"
     },
     "st-flexipatch": {
         "cargoLocks": null,
