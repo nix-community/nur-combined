@@ -31,13 +31,13 @@ let
         sha512 = "ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==";
       };
     };
-    "acorn-8.7.1" = {
+    "acorn-8.8.0" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.7.1";
+      version = "8.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.7.1.tgz";
-        sha512 = "Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.8.0.tgz";
+        sha512 = "QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==";
       };
     };
     "acorn-jsx-5.3.2" = {
@@ -364,13 +364,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.16.0" = {
+    "globals-13.17.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.16.0";
+      version = "13.17.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.16.0.tgz";
-        sha512 = "A1lrQfpNF+McdPOnnFqY3kSN0AFTy485bTi1bkLk4mVPODIUEcSfhHgRqA+QdXPksrSTTztYXx37NFV+GpGk3Q==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.17.0.tgz";
+        sha512 = "1C+6nQRb1GwGMKm2dH/E7enFAMxGTmGI7/dEdhy/DNelv85w9B72t3uc5frtMNXIbzrarJJ/lTCjcaZwbLJmyw==";
       };
     };
     "has-flag-4.0.0" = {
@@ -737,13 +737,13 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.19.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.19.0.tgz"; sha1 = "7342a3cbc4fbc5c106a1eefe0fd0b50b6b1a7d28"; };
+    version = "8.20.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.20.0.tgz"; sha1 = "048ac56aa18529967da8354a478be4ec0a2bc81b"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.0"
       sources."@humanwhocodes/config-array-0.9.5"
       sources."@humanwhocodes/object-schema-1.2.1"
-      sources."acorn-8.7.1"
+      sources."acorn-8.8.0"
       sources."acorn-jsx-5.3.2"
       sources."ajv-6.12.6"
       sources."ansi-regex-5.0.1"
@@ -783,7 +783,7 @@ let
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
-      sources."globals-13.16.0"
+      sources."globals-13.17.0"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.0"
       sources."import-fresh-3.3.0"

@@ -85,13 +85,13 @@ let
         sha512 = "/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==";
       };
     };
-    "fastest-levenshtein-1.0.12" = {
+    "fastest-levenshtein-1.0.14" = {
       name = "fastest-levenshtein";
       packageName = "fastest-levenshtein";
-      version = "1.0.12";
+      version = "1.0.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fastest-levenshtein/-/fastest-levenshtein-1.0.12.tgz";
-        sha512 = "On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==";
+        url = "https://registry.npmjs.org/fastest-levenshtein/-/fastest-levenshtein-1.0.14.tgz";
+        sha512 = "tFfWHjnuUfKE186Tfgr+jtaFc0mZTApEgKDOeyN+FwOqRkO/zK/3h1AiRd8u8CY53owL3CUmGr/oI9p/RdyLTA==";
       };
     };
     "find-up-4.1.0" = {
@@ -371,7 +371,7 @@ let
       sources."commander-7.2.0"
       sources."cross-spawn-7.0.3"
       sources."envinfo-7.8.1"
-      sources."fastest-levenshtein-1.0.12"
+      sources."fastest-levenshtein-1.0.14"
       sources."find-up-4.1.0"
       sources."function-bind-1.1.1"
       sources."has-1.0.3"
