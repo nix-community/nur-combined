@@ -87,7 +87,7 @@
             ]}"
             export PATH="${concatStringsSep ":" [
               "$PATH"
-              "$NIXCFG_ROOT_PATH/scripts/bin"
+              "$NIXCFG_ROOT_PATH/bin"
             ]}"
             export LUA_INIT="pcall(require, 'adapter.fennel')"
             export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/compat/overlay.nix:home-manager=${home-manager}:nur=${nur}

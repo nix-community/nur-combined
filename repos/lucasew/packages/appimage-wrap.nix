@@ -29,6 +29,10 @@ let
       fuse3
       (writeShellScriptBin "sudo" "true") # suid wrappers messing with suff
       pulseaudio
+      vulkan-loader
+      mesa
+      libglvnd
+      mesa_drivers
 
       desktop-file-utils
       xorg.libXcomposite
@@ -154,13 +158,11 @@ let
   };
 in writeShellScriptBin "appimage-wrap" ''
 PATH=$PATH:${fhs}/bin
-APPIMAGE="$1";shift
-ENV_NAME="$(basename "$APPIMAGE")"
-ENVDIR="/tmp/appimage-wrap/$ENV_NAME"
-mkdir -p "$ENVDIR"
-if [ -z "$(ls -A $ENVDIR)" ]; then
-  echo "Mounting appimage"
-  sudo mount "$APPIMAGE" "$ENVDIR" -o "offset=$(appimage-env "$APPIMAGE" --appimage-offset | head -n 1)"
-fi
-appimage-env "$ENVDIR/AppRun" "$@"
+APPIMAGE="$1"; shift
+OFFSET="$(appimage-env "$APPIMAGE" --appimage-offset | head -n 1)"
+LOOP=$(udisksctl loop-setup -f "$APPIMAGE" --offset "$OFFSET" | sed 's;[ \.];\n;g' | grep '/dev/loop')
+MOUNTPOINT=$(udisksctl mount -b $LOOP | sed 's;[ \.];\n;g' | grep '/media')
+appimage-env "$MOUNTPOINT/AppRun" "$@"
+udisksctl unmount -b "$LOOP"
+udisksctl loop-delete -b "$LOOP"
 ''

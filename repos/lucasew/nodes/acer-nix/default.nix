@@ -25,6 +25,7 @@ in
       ./networking.nix
       ./plymouth.nix
       ./dns.nix
+      ./git.nix
     ]
   ;
 
