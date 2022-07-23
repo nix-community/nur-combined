@@ -71,10 +71,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.0.19";
+      version = "2.0.20";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974803/anonaddy-2.0.19.xpi";
-      sha256 = "ea4a5d3407bde7722341029a1ed5cf73b3265c879182c0314b457936aace2e91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978956/anonaddy-2.0.20.xpi";
+      sha256 = "83a9c8836e50694fd1cf8df34c3b0905aa5b031f9e346c79b5d3c6cb4355e54f";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -971,10 +971,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.99.0.4";
+      version = "4.100.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3973328/lastpass_password_manager-4.99.0.4.xpi";
-      sha256 = "86b62181b039d6e0eac5c1d3643888404187f81411e565f8a630f48448e41c7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978594/lastpass_password_manager-4.100.0.2.xpi";
+      sha256 = "e3eb860f95329906575afc661ed68f4de9c4e36c056b6b35bd3815b866865928";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1907,10 +1907,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.7";
+      version = "4.7.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978433/sponsorblock-4.7.xpi";
-      sha256 = "29bb5326abd1cbffcd3733f1a9a8cce1e55bcb6fc97a56bebea6c918c166fbe3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978884/sponsorblock-4.7.1.xpi";
+      sha256 = "00f5cbb335d6f40e019f28a8bc00499dc5f1bb9ac6ceb64c128af3a6a0aa0015";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
