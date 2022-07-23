@@ -34,6 +34,7 @@ NTBBloodbath/doom-one.nvim
 NTBBloodbath/galaxyline.nvim
 NTBBloodbath/rest.nvim
 Olical/aniseed
+Olical/conjure
 PHSix/nvim-hybrid
 Pocco81/AbbrevMan.nvim
 Pocco81/AutoSave.nvim
@@ -84,7 +85,9 @@ andersevenrud/nordic.nvim
 andrewferrier/textobj-diagnostic.nvim
 andweeb/presence.nvim
 anott03/nvim-lspinstall
+anuvyklack/fold-preview.nvim
 anuvyklack/hydra.nvim
+anuvyklack/keymap-amend.nvim
 anuvyklack/pretty-fold.nvim
 aserowy/tmux.nvim
 askfiy/nvim-picgo
@@ -161,6 +164,7 @@ gaborvecsei/cryptoprice.nvim
 gaborvecsei/memento.nvim
 gbprod/cutlass.nvim
 gbprod/phpactor.nvim
+gbprod/stay-in-place.nvim
 gbprod/substitute.nvim
 gbprod/yanky.nvim
 gelguy/wilder.nvim
