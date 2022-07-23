@@ -3,19 +3,12 @@
 with lib;
 let
   cfg = config.services.headless;
+  resolution = head cfg.resolutions;
 in {
   options.services.headless = {
     xorg = mkEnableOption "via X.Org";
     wayland = mkEnableOption "via Wayland";
     autorun = mkEnableOption "run by default";
-    devid = mkOption {
-      type = types.str;
-      example = "0000:07:00.0,1";
-    };
-    resolution = mkOption {
-      type = types.str;
-      default = "1920x1080";
-    };
     user = mkOption {
       type = types.str;
     };
@@ -23,22 +16,34 @@ in {
       type = types.str;
       default = "";
     };
+    dummy = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable monitor emulation";
+    };
+    resolutions = mkOption {
+      type = types.listOf types.attrs;
+      default = optionals cfg.dummy [ { x = 1920; y = 1080; } ];
+    };
+    devid = mkOption {
+      type = types.str;
+      example = "0000:07:00.0,1";
+    };
+    output = mkOption {
+      type = types.str;
+      default = if cfg.dummy then "HEADLESS-1" else "HDMI-A-1";
+    };
   };
 
   config = mkMerge [
 
    (mkIf cfg.xorg {
-      boot.extraModprobeConfig = ''
+      boot.extraModprobeConfig = optionalString cfg.dummy ''
         options amdgpu virtual_display=${cfg.devid}
       '';
       services.xserver.enable = true;
       services.xserver.autorun = cfg.autorun;
-      services.xserver.screenSection = ''
-        SubSection "Display"
-          Depth  24
-          Modes  "${cfg.resolution}"
-        EndSubSection
-      '';
+      services.xserver.resolutions = cfg.resolutions;
       services.xserver.displayManager.autoLogin.enable = true;
       services.xserver.displayManager.autoLogin.user = cfg.user;
       services.xserver.displayManager.defaultSession = "none+i3";
@@ -51,13 +56,14 @@ in {
    (mkIf cfg.wayland {
       programs.sway.enable = true;
       programs.sway.extraSessionCommands = ''
-        export WLR_BACKENDS=headless WLR_LIBINPUT_NO_DEVICES=1 sway
+        export ${optionalString cfg.dummy "WLR_BACKENDS=headless"} WLR_LIBINPUT_NO_DEVICES=1 sway
       '';
-      environment.etc."sway/config.d/headless.conf".source = pkgs.writeText "headless.conf" ''
+      environment.etc."sway/config.d/headless.conf".source = pkgs.writeText "headless.conf" (''
         exec ${pkgs.wayvnc}/bin/wayvnc 0.0.0.0
         ${cfg.commands}
-        output HEADLESS-1 resolution ${cfg.resolution}
-      '';
+      '' + optionalString (cfg.resolutions != []) ''
+        output ${cfg.output} resolution ${toString resolution.x}x${toString resolution.y}
+      '');
       systemd.user.services.headless = {
         wantedBy = optional cfg.autorun "default.target";
         description = "Graphical headless server";
