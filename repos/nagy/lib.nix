@@ -13,23 +13,12 @@ with lib; rec {
 
   mkGlb2Gltf = src:
     let
-      isFile = hasSuffix ".glb" (toString (baseNameOf src));
-      thename = if isFile then
-        replaceStrings [ ".glb" ] [ ".gltf" ] (toString (baseNameOf src))
-      else
-        "gltf-outputs";
-      thesrc = if isFile then src else cleanSource src;
+      thename =
+        replaceStrings [ ".glb" ] [ ".gltf" ] (toString (baseNameOf src));
     in pkgs.runCommand thename {
       nativeBuildInputs = [ gltf-pipeline ];
-      src = thesrc;
+      inherit src;
     } ''
-      if [[ -d $src ]]; then
-        cd -- $src
-        for g in *.glb; do
-          gltf-pipeline --input $g --output $out/${"$"}{g%.glb}.gltf
-        done
-      else
-        gltf-pipeline --input $src --output $out
-      fi
+      gltf-pipeline --input $src --output $out
     '';
 }

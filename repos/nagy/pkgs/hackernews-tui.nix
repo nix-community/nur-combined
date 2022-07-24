@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hackernews-tui";
-  version = "0.9.1";
+  version = "0.10.1";
 
   src = fetchFromGitHub {
     owner = "aome510";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-kAVH4ezdvm84Jc5llvdCdqfyTmsqBYKx/4S9VyP6keI=";
+    hash = "sha256-CWO6Ni+yNAUTyDPCw72cLDkn+WmsIdnY2mbYLbnySwI=";
   };
 
-  cargoSha256 = "sha256-uIP1Eh2dm9uXh628L8sB6bd4jJZetPqVQReptCsoCNk=";
+  cargoSha256 = "sha256-E4w/JssfGBzM1c0M38zN15t+EM5VYM7PL6TRss+6nEo=";
 
   meta = with lib; {
     description = "Terminal UI to browse Hacker News";
