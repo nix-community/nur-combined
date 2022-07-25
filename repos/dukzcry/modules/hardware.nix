@@ -13,7 +13,15 @@ in {
   };
 
   config = mkMerge [
-    (mkIf (config.networking.hostName == "li-si-tsin") {
+    (mkIf cfg.enable {
+      services.upower.enable = true;
+      # hybrid sleep hangs
+      services.upower.criticalPowerAction = "Hibernate";
+      services.upower.percentageLow = 7;
+      services.upower.percentageCritical = 6;
+      services.upower.percentageAction = 5;
+    })
+    (mkIf (cfg.enable && config.networking.hostName == "li-si-tsin") {
       boot.blacklistedKernelModules = [ "uvcvideo" ];
       boot.kernelParams = [ "mitigations=off" ];
       boot.extraModprobeConfig = ''
