@@ -1,6 +1,6 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, fetchpatch }:
+{ lib, stdenv, buildGo117Module, fetchFromGitHub, fetchpatch }:
 
-buildGoModule rec {
+buildGo117Module rec {
   pname = "edgevpn";
   version = "0.15.1";
 
