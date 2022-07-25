@@ -20,6 +20,7 @@
   ];
 
   users.users.pim.initialPassword = "hallo";
+  users.users.tim.initialPassword = "hallo";
 
   # Enable automatic discovery of the printer from other Linux systems with avahi running.
   # services.avahi.enable = true;
