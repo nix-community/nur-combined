@@ -53,7 +53,7 @@ let
       install -do named ${cfg.folder}
       true
     '';
-    services.bind.extraConfig = ''
+    services.bind.extraConfig = mkAfter ''
       view "${name}" {
         response-policy { zone "${name}"; };
         zone "${name}" {
@@ -135,10 +135,6 @@ in {
         localhost. IN A 127.0.0.1
       '';
     };
-    bindExtraConfig = mkOption {
-      type = types.str;
-      default = "";
-    };
     bindExtraView = mkOption {
       type = types.str;
       default = "";
@@ -160,7 +156,6 @@ in {
       check-names master ignore;
       #recursion yes;
     '';
-    services.bind.extraConfig = cfg.bindExtraConfig;
     systemd.timers.rkn-script = {
       timerConfig = {
         inherit (cfg) OnCalendar;
