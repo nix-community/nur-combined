@@ -16,90 +16,92 @@ rec {
   hmModules = import ./hm-modules; # Home-manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  keyhub-cli = pkgs.callPackage ./pkgs/keyhub-cli { };
-
-  import-garmin-connect =
-    pkgs.python3Packages.callPackage ./pkgs/import-garmin-connect { };
-
-  solaredge-influx =
-    pkgs.python3Packages.callPackage ./pkgs/solaredge-influx { };
-
-  salt-lint = pkgs.callPackage ./pkgs/salt-lint { };
-
-  prometheus-unbound-exporter =
-    pkgs.callPackage ./pkgs/prometheus-unbound-exporter { };
-
-  tplink-configurator = pkgs.callPackage ./pkgs/tplink-configurator { };
-
-  pg_flame = pkgs.callPackage ./pkgs/pg_flame { };
-
-  rofi-pulse = pkgs.callPackage ./pkgs/rofi-pulse { my-lib = lib; };
+  argo-rollouts = pkgs.callPackage ./pkgs/argo-rollouts { };
 
   bitwarden-rofi = pkgs.callPackage ./pkgs/bitwarden-rofi { };
 
-  marble-marcher = pkgs.callPackage ./pkgs/marble-marcher { };
+  dcpj315w = pkgs.callPackage ./pkgs/brother/dcpj315w { };
 
-  oversteer = pkgs.callPackage ./pkgs/oversteer { };
-
-  lock-gnome-keyring = pkgs.callPackage ./pkgs/lock-gnome-keyring { };
-
-  goreplay = pkgs.callPackage ./pkgs/goreplay { };
-
-  nsc = pkgs.callPackage ./pkgs/nats-nsc { };
-
-  fira-code_206 = pkgs.callPackage ./pkgs/fira-code { };
-
-  zpool_prometheus = pkgs.callPackage ./pkgs/zpool_prometheus { };
-
-  rds_exporter = pkgs.callPackage ./pkgs/rds_exporter { };
-
-  zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt { };
-
-  stolon = pkgs.callPackage ./pkgs/stolon { };
-
-  zsh-histdb = pkgs.callPackage ./pkgs/zsh-histdb { };
+  emacs-i3 = pkgs.callPackage ./pkgs/emacs-i3 { };
 
   enemyterritory = pkgs.callPackage_i686 ./pkgs/enemyterritory { };
 
   etlegacy = pkgs.callPackage_i686 ./pkgs/etlegacy { };
 
-  rofi-wayland-unwrapped =
-    pkgs.callPackage ./pkgs/rofi-wayland/unwrapped.nix { };
+  fira-code_206 = pkgs.callPackage ./pkgs/fira-code { };
 
-  rofi-wayland =
-    pkgs.rofi.override { rofi-unwrapped = rofi-wayland-unwrapped; };
+  gcfflasher = pkgs.callPackage ./pkgs/gcfflasher { };
+
+  goreplay = pkgs.callPackage ./pkgs/goreplay { };
 
   helm-whatup = pkgs.callPackage ./pkgs/helm-whatup { };
-
-  terraformer-aws = (pkgs.callPackage ./pkgs/terraformer { }).aws;
-
-  kubectl-crossplane = pkgs.callPackage ./pkgs/kubectl-crossplane { };
-
-  argo-rollouts = pkgs.callPackage ./pkgs/argo-rollouts { };
-
-  pamidicontrol = pkgs.callPackage ./pkgs/pamidicontrol { };
-
-  prometheus-nats-exporter =
-    pkgs.callPackage ./pkgs/prometheus-nats-exporter { };
-
-  rpi-imager = pkgs.libsForQt5.callPackage ./pkgs/rpi-imager { };
 
   i3-balance-workspace =
     pkgs.python3Packages.callPackage ./pkgs/i3-balance-workspace { };
 
+  import-garmin-connect =
+    pkgs.python3Packages.callPackage ./pkgs/import-garmin-connect { };
+
+  keyhub-cli = pkgs.callPackage ./pkgs/keyhub-cli { };
+
   kubectl-cert-manager = pkgs.callPackage ./pkgs/kubectl-cert-manager { };
 
-  emacs-i3 = pkgs.callPackage ./pkgs/emacs-i3 { };
+  kubectl-crossplane = pkgs.callPackage ./pkgs/kubectl-crossplane { };
 
-  gcfflasher = pkgs.callPackage ./pkgs/gcfflasher { };
+  lock-gnome-keyring = pkgs.callPackage ./pkgs/lock-gnome-keyring { };
 
-  dcpj315w = pkgs.callPackage ./pkgs/brother/dcpj315w { };
+  marble-marcher = pkgs.callPackage ./pkgs/marble-marcher { };
 
-  solo2-cli = pkgs.callPackage ./pkgs/solo2-cli {};
+  matrix-synapse-contrib = pkgs.callPackage ./pkgs/matrix-synapse-contrib { };
 
-  matrix-synapse-contrib = pkgs.callPackage ./pkgs/matrix-synapse-contrib {};
+  nsc = pkgs.callPackage ./pkgs/nats-nsc { };
 
+  oversteer = pkgs.callPackage ./pkgs/oversteer { };
 
-  rpi_ws281x = pkgs.callPackage ./pkgs/rpi_ws281x {};
+  pamidicontrol = pkgs.callPackage ./pkgs/pamidicontrol { };
+
+  pg_flame = pkgs.callPackage ./pkgs/pg_flame { };
+
+  prometheus-nats-exporter =
+    pkgs.callPackage ./pkgs/prometheus-nats-exporter { };
+
+  prometheus-openweathermap-exporter =
+    pkgs.callPackage ./pkgs/prometheus-openweathermap-exporter { };
+
+  prometheus-unbound-exporter =
+    pkgs.callPackage ./pkgs/prometheus-unbound-exporter { };
+
+  rds_exporter = pkgs.callPackage ./pkgs/rds_exporter { };
+
+  rofi-pulse = pkgs.callPackage ./pkgs/rofi-pulse { my-lib = lib; };
+
+  rofi-wayland =
+    pkgs.rofi.override { rofi-unwrapped = rofi-wayland-unwrapped; };
+
+  rofi-wayland-unwrapped =
+    pkgs.callPackage ./pkgs/rofi-wayland/unwrapped.nix { };
+
+  rpi-imager = pkgs.libsForQt5.callPackage ./pkgs/rpi-imager { };
+
+  rpi_ws281x = pkgs.callPackage ./pkgs/rpi_ws281x { };
+
+  salt-lint = pkgs.callPackage ./pkgs/salt-lint { };
+
+  solaredge-influx =
+    pkgs.python3Packages.callPackage ./pkgs/solaredge-influx { };
+
+  solo2-cli = pkgs.callPackage ./pkgs/solo2-cli { };
+
+  stolon = pkgs.callPackage ./pkgs/stolon { };
+
+  terraformer-aws = (pkgs.callPackage ./pkgs/terraformer { }).aws;
+
+  tplink-configurator = pkgs.callPackage ./pkgs/tplink-configurator { };
+
+  zpool_prometheus = pkgs.callPackage ./pkgs/zpool_prometheus { };
+
+  zsh-histdb = pkgs.callPackage ./pkgs/zsh-histdb { };
+
+  zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt { };
 
 }

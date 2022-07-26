@@ -14,7 +14,7 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://files.topicus-keyhub.com/manual/keyhub-cli-${version}.zip";
-    sha256 = "189gffg73sws1b5hbi1nna2q6qyvm1wfn5w10s9m03an87bgqxpb";
+    sha256 = "sha256-63b81kFWDVCTBoEX63io22ODhbI2xAXLCprrcZ5zL6E=";
   };
 
   buildInputs = [ autoPatchelfHook glibc stdenv.cc.cc zlib ];
