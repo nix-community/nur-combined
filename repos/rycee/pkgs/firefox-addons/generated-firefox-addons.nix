@@ -588,10 +588,10 @@
       };
     "firefox-translations" = buildFirefoxXpiAddon {
       pname = "firefox-translations";
-      version = "1.1.2buildid20220523.151256";
+      version = "1.1.3buildid20220722.083742";
       addonId = "firefox-translations-addon@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3957101/firefox_translations-1.1.2buildid20220523.151256.xpi";
-      sha256 = "4fdc709b5d4eefef29347b8c1a4b08e1f842eb2d706c9e0a9051c0170fa82ede";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3979078/firefox_translations-1.1.3buildid20220722.083742.xpi";
+      sha256 = "3cc496455973d2dfb695112c1415b21dc6b4432bf0a1d4fc59112003f174e66b";
       meta = with lib;
       {
         homepage = "https://browser.mt";
@@ -704,10 +704,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0buildid20220718.155818";
+      version = "104.0buildid20220725.154459";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3977525/francais_language_pack-103.0buildid20220718.155818.xpi";
-      sha256 = "2f16da3be580f7a615e3fab3b2650f881774a3d1093a35a7994e66547049e096";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3979948/francais_language_pack-104.0buildid20220725.154459.xpi";
+      sha256 = "80eb6890ee620ec5e17c6548b1c1cd555f5b517c5ae1ffbd107e9a385a782115";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1146,10 +1146,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.7";
+      version = "2.6.17";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967330/momentumdash-2.6.7.xpi";
-      sha256 = "619bb40e2d75cab6da4ed04ab43b57100603dfb4dabd092f68db00ecf1f51615";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3979911/momentumdash-2.6.17.xpi";
+      sha256 = "977baf584ac24270c86acc77e36c4d84d09ea733204c5f742d96ab8969c7006e";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1863,10 +1863,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.6.0";
+      version = "0.6.1";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3968024/torproject_snowflake-0.6.0.xpi";
-      sha256 = "97ee50d0b52711b4b38fb235bb6eb2a42a7d6c9d6e63104ff79af7a2a63eb7b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3979765/torproject_snowflake-0.6.1.xpi";
+      sha256 = "b54630c7a124821cfe24f80110b23b294ef0b92bf18799623a991b47e65e210f";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
