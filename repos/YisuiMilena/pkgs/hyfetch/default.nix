@@ -1,12 +1,14 @@
-{ python3Packages, lib }:
+{ python3Packages, lib, fetchFromGitHub }:
 
 python3Packages.buildPythonPackage rec {
   pname = "HyFetch";
-  version = "1.0.7";
+  version = "1.1.2";
 
-  src = python3Packages.fetchPypi {
-    inherit pname version;
-    hash = "sha256-3/6/3EtTqHXTMuRIo2nclIxYSzOFvQegR29OJsKMQU4=";
+  src = fetchFromGitHub {
+    repo = "hyfetch";
+    owner = "hykilpikonna";
+    rev = "92623417f90f0cf006c0dd2adcf3f24f4308fe0c";
+    sha256 = "sha256-26L2qt+RarRf3+L6+mMy/ZJNVBVirKs5oEclEsImtC0=";
   };
 
   propagatedBuildInputs = with python3Packages; [
