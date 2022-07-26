@@ -6,9 +6,6 @@
 
     ansible
     terraform
-    aws
-    awscli2
-
     act
   ]
   ++ (if pkgs.stdenv.isDarwin then

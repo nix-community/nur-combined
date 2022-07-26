@@ -7,6 +7,7 @@
   environment.systemPackages = with pkgs; [
     pre-commit
     rclone # OneDrive
+    aws-mfa
   ];
 }
 
