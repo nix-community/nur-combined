@@ -57,5 +57,7 @@ in
       qudida
       quad-tree-attention
       quad-tree-loftr;
+
+    lustre = final.callPackage ./pkgs/lustre { };
   };
 }
