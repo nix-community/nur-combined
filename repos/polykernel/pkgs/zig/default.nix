@@ -13,8 +13,8 @@ llvmPackages.stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ziglang";
     repo = pname;
-    rev = "291c08f7b0ea4e333c37a0ac378176891f255fa0";
-    sha256 = "sha256-DNCFbSS0eQ5GDCd1/hYc/BcupQkF5Yv57IA+cvBgr04=";
+    rev = "8f3ab96b0e8cd22dc98f9fe352c5d4fff491dd0e";
+    sha256 = "sha256-TMESKLjFZKvZPC/6is4OmL0wscrRVgdqRqxFBcBhQY8=";
   };
 
   nativeBuildInputs = [
@@ -26,8 +26,20 @@ llvmPackages.stdenv.mkDerivation rec {
     libxml2
     llvmPackages.libclang
     llvmPackages.lld
-    llvmPackages.llvm
+    llvmPackages.bintools
     zlib
+  ];
+
+  cmakeFlags = [
+    # lld cannot find the system zlib after the llvm14 toolchain upgrade
+    # https://github.com/ziglang/zig/issues/12069
+    # https://github.com/ziglang/zig/issues/12167
+    "-DZIG_STATIC_ZLIB=ON"
+
+    # workaround for `file RPATH_CHANGE could not write new RPATH` error
+    # https://github.com/NixOS/nixpkgs/issues/22060
+    # https://github.com/ziglang/zig/issues/12218
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
 
   preBuild = ''
