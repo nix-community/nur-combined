@@ -34,13 +34,13 @@ in {
       default = if cfg.dummy then "HEADLESS-1" else "HDMI-A-1";
     };
   };
-
   config = mkMerge [
-
-   (mkIf cfg.xorg {
-      boot.extraModprobeConfig = optionalString cfg.dummy ''
+    (mkIf (cfg.xorg && cfg.dummy) {
+      boot.extraModprobeConfig = ''
         options amdgpu virtual_display=${cfg.devid}
       '';
+    })
+    (mkIf cfg.xorg {
       services.xserver.enable = true;
       services.xserver.autorun = cfg.autorun;
       services.xserver.resolutions = cfg.resolutions;
@@ -52,18 +52,11 @@ in {
         exec ${pkgs.x11vnc}/bin/x11vnc -forever &
         ${cfg.commands}
       '';
-   })
-   (mkIf cfg.wayland {
-      programs.sway.enable = true;
+    })
+    (mkIf (cfg.wayland && cfg.dummy) {
       programs.sway.extraSessionCommands = ''
-        export ${optionalString cfg.dummy "WLR_BACKENDS=headless"} WLR_LIBINPUT_NO_DEVICES=1 sway
+        export WLR_BACKENDS=headless WLR_LIBINPUT_NO_DEVICES=1 sway
       '';
-      environment.etc."sway/config.d/headless.conf".source = pkgs.writeText "headless.conf" (''
-        exec ${pkgs.wayvnc}/bin/wayvnc 0.0.0.0
-        ${cfg.commands}
-      '' + optionalString (cfg.resolutions != []) ''
-        output ${cfg.output} resolution ${toString resolution.x}x${toString resolution.y}
-      '');
       systemd.user.services.headless = {
         wantedBy = optional cfg.autorun "default.target";
         description = "Graphical headless server";
@@ -83,6 +76,21 @@ in {
         '';
       };
     })
+    (mkIf (cfg.wayland && !cfg.dummy) {
+      services.xserver.enable = true;
+      services.xserver.autorun = cfg.autorun;
+      services.xserver.displayManager.autoLogin.enable = true;
+      services.xserver.displayManager.autoLogin.user = cfg.user;
+      services.xserver.displayManager.defaultSession = "sway";
+    })
+    (mkIf cfg.wayland {
+      programs.sway.enable = true;
+      environment.etc."sway/config.d/headless.conf".source = pkgs.writeText "headless.conf" (''
+        exec ${pkgs.wayvnc}/bin/wayvnc 0.0.0.0
+        ${cfg.commands}
+      '' + optionalString (cfg.resolutions != []) ''
+        output ${cfg.output} resolution ${toString resolution.x}x${toString resolution.y}
+      '');
+    })
   ];
-
 }
