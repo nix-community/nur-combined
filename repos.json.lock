@@ -504,8 +504,8 @@
             "url": "https://github.com/lheckemann/nixwip"
         },
         "linyinfeng": {
-            "rev": "5b6a5e924c8d6b315449122d084047652f41c517",
-            "sha256": "17fi6kvhs8vsvgpj73z5wclr5ajdcxzjv7rwdi1r57406w6fic7r",
+            "rev": "2452d4b6f5b74c3992321b590b879393a3cebd26",
+            "sha256": "062cjj4yj38rr20sxvz0cd243ns9ggg52qg5w2nl1kf9z4w1c9jl",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "lourkeur": {
@@ -822,8 +822,8 @@
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
         "rycee": {
-            "rev": "65f47d11a576e3585dfa597003f0cb42aa14085f",
-            "sha256": "0jkpp7hf55pd16ggpiiammviza9wvzmqjf18lh0nqhacgac4y0ma",
+            "rev": "9226910148c154adcd2c998f5b847249d14d5d4c",
+            "sha256": "197q9zpbcwlw9fhbcmybfdlj59zd5wncqznc17p4lbds5sg50n00",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "sagikazarmark": {
