@@ -5,6 +5,7 @@ with lib;
 let
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
   cfg = config.services.rkn;
+  hasAttr' = x: y: cfg.enable && hasAttr x y;
   tor = cfg.transports.tor;
   serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd.default // {
     PrivateDevices = true;
@@ -202,7 +203,7 @@ in {
     };
   })
 
-  (mkIf (hasAttr "tor" cfg.transports) {
+  (mkIf (hasAttr' "tor" cfg.transports) {
     services.tor.enable = true;
     services.tor.client.enable = true;
     services.tor.settings = {
@@ -236,8 +237,8 @@ in {
       };
     };
   })
-  (mkIf (hasAttr "tor" cfg.transports) (nginx "tor" tor))
-  (mkIf (hasAttr "tor" cfg.transports) (bind "tor" tor
+  (mkIf (hasAttr' "tor" cfg.transports) (nginx "tor" tor))
+  (mkIf (hasAttr' "tor" cfg.transports) (bind "tor" tor
       ''
         zone "onion" {
           type forward;
@@ -246,7 +247,7 @@ in {
         };
       ''
   ))
-  (mkIf (hasAttr "tor" cfg.transports) (script "tor" tor))
+  (mkIf (hasAttr' "tor" cfg.transports) (script "tor" tor))
 
   ];
 }
