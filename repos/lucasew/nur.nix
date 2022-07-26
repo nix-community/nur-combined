@@ -12,27 +12,27 @@ in
   };
   packages = {
     # wine packages
-    wrapWine = p ./packages/wrapWine.nix;
-    mspaint = p ./packages/wineApps/mspaint.nix;
-    pinball = p ./packages/wineApps/pinball.nix;
-    sosim = p ./packages/wineApps/sosim.nix;
-    tora = p ./packages/wineApps/tora.nix;
-    wine7zip = p ./packages/wineApps/7zip.nix;
+    wrapWine = p ./pkgs/wrapWine.nix;
+    mspaint = p ./pkgs/wineApps/mspaint.nix;
+    pinball = p ./pkgs/wineApps/pinball.nix;
+    sosim = p ./pkgs/wineApps/sosim.nix;
+    tora = p ./pkgs/wineApps/tora.nix;
+    wine7zip = p ./pkgs/wineApps/7zip.nix;
 
     # custom things
     custom_neovim = p ./modules/neovim/package.nix;
-    custom_rofi = p ./packages/custom_rofi.nix;
-    tlauncher = p ./packages/tlauncher.nix;
-    stremio = p ./packages/stremio.nix;
+    custom_rofi = p ./pkgs/custom_rofi.nix;
+    tlauncher = p ./pkgs/tlauncher.nix;
+    stremio = p ./pkgs/stremio.nix;
 
     # webapp stuff
-    webapp = p ./packages/webapp.nix;
-    webapps = p ./packages/chromeapps.nix;
+    webapp = p ./pkgs/webapp.nix;
+    webapps = p ./pkgs/chromeapps.nix;
 
     # utils
-    pkg = p ./packages/pkg.nix;
-    c4me = p ./packages/c4me/default.nix;
-    fhsctl = p ./packages/fhsctl.nix;
+    pkg = p ./pkgs/pkg.nix;
+    c4me = p ./pkgs/c4me/default.nix;
+    fhsctl = p ./pkgs/fhsctl.nix;
   };
   lib = {
     filter = import ./lib/filter.nix;
