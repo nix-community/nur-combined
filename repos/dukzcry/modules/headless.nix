@@ -55,7 +55,7 @@ in {
     })
     (mkIf (cfg.wayland && cfg.dummy) {
       programs.sway.extraSessionCommands = ''
-        export WLR_BACKENDS=headless WLR_LIBINPUT_NO_DEVICES=1 sway
+        export WLR_BACKENDS=headless sway
       '';
       systemd.user.services.headless = {
         wantedBy = optional cfg.autorun "default.target";
