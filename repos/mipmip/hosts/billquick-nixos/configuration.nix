@@ -15,8 +15,9 @@ in
         ../../modules/base-minimal.nix
         ../../modules/common.nix
         ../../modules/common-pkg.nix
-        ../../modules/crystal-dev.nix
-        ../../modules/quiqr-dev.nix
+        ../../modules/dev-crystal.nix
+        ../../modules/dev-quiqr.nix
+        ../../modules/dev-technative.nix
         ../../modules/vim-large.nix
         ../../modules/workstation.nix
         ../../modules/workstation-pkg.nix
@@ -30,7 +31,6 @@ in
         ../../modules/virtualbox.nix
         ../../modules/since-nixos-21-05.nix
         ../../modules/texlive.nix
-        ../../modules/quiqr-dev.nix
       ];
 
       services.xserver.displayManager.sessionCommands = "${pkgs.xorg.xmodmap}/bin/xmodmap ${myCustomLayout}";
