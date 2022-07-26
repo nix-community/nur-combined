@@ -34,10 +34,10 @@ in {
     youtube-music =  {
       desktopName = "Youtube Music";
       url = "music.youtube.com";
-      icon = (fetchurl {
-        url = "https://vancedapp.com/static/media/logo.866a4e0b.svg";
-        sha256 = "1axznpmfgmfqjgnq7z7vdjwmdsrk0qpc1rdlv9yyrcxfkyzqmvdv";
-      }).outPath;
+      # icon = (fetchurl {
+      #  url = "https://vancedapp.com/static/media/logo.866a4e0b.svg";
+      #  sha256 = "sha256-ctMsRKAITCRWDewvv4biPWNyJFyPKIrpOaHYaNTd3d8=";
+      # }).outPath;
     };
     planttext =  {
       desktopName = "PlantText";
@@ -63,10 +63,10 @@ in {
     keymash =  {
       desktopName = "keyma.sh: Keyboard typing train";
       url = "https://keyma.sh/learn";
-      icon = (fetchurl {
-        url = "https://keyma.sh/static/media/logo_svg.ead5cacb.svg";
-        sha256 = "1i6py2gnpmf548zwakh9gscnk5ggsd1j98z80yb6mr0fm84bgizy";
-      }).outPath;
+      #icon = (fetchurl {
+      #  url = "https://keyma.sh/static/media/logo_svg.ead5cacb.svg";
+      #  sha256 = "1i6py2gnpmf548zwakh9gscnk5ggsd1j98z80yb6mr0fm84bgizy";
+      #}).outPath;
     };
     calendar =  {
       desktopName = "Calendário";

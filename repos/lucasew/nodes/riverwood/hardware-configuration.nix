@@ -2,37 +2,46 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-let
-  inherit (lib) mkDefault;
-in
+
 {
   imports =
-    [
-      "${modulesPath}/installer/scan/not-detected.nix"
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [];
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/b507634c-ec64-4b10-90b5-02952e3bd31d";
+    { device = "/dev/disk/by-uuid/3be24643-5581-4320-b941-5ba05d56bac4";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/4965-391F";
+    { device = "/dev/disk/by-uuid/DB64-E118";
       fsType = "vfat";
     };
 
   swapDevices =
-    [
-      { device = "/dev/disk/by-uuid/3b3c6e98-9d58-4c20-83c6-cadb228423f4"; }
+    [ { device = "/dev/disk/by-uuid/974e5068-efe2-4f50-847e-8c94b43073f0"; }
     ];
 
-  nix.settings.max-jobs = mkDefault 4;
-  powerManagement.cpuFreqGovernor = mkDefault "powersave";
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.br-0c8eb46b9081.useDHCP = lib.mkDefault true;
+  # networking.interfaces.br-4cf5dc5aed3a.useDHCP = lib.mkDefault true;
+  # networking.interfaces.br-b85c75800bf4.useDHCP = lib.mkDefault true;
+  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp2s0f1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.vboxnet0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ztppi77yi3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ztrta2rlts.useDHCP = lib.mkDefault true;
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
