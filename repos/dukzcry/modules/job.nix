@@ -27,12 +27,14 @@ in {
     (mkIf cfg.server {
       environment.systemPackages = [(
         pkgs.writeShellScriptBin "openconnect" ''
-           ${pkgs.openconnect}/bin/openconnect --background \
-              --script "${pkgs.vpn-slice}/bin/vpn-slice --prevent-idle-timeout msk-vdi-t005.mos.renins.com --no-host-names --no-ns-hosts" \
+           ${pkgs.openconnect}/bin/openconnect \
+              --background \
+              --script "${pkgs.vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com --prevent-idle-timeout --no-host-names --no-ns-hosts" \
               --interface job \
               --user "ALukyanov" \
               --authgroup "xFA" \
               --useragent "Cisco AnyConnect VPN Agent for Windows 4.8.03036" \
+              --version-string "4.8.03036" \
               --local-hostname "DESKTOP-DS0VFGI" \
               --os=win \
               vpn.renins.ru
