@@ -7,7 +7,7 @@ let
   inherit (self) inputs;
   inherit (global) wallpaper username;
   inherit (builtins) storePath;
-  hostname = "acer-nix";
+  hostname = "riverwood";
 in
 {
   imports =
@@ -26,6 +26,7 @@ in
       ./plymouth.nix
       ./dns.nix
       ./git.nix
+      ./kvm.nix
     ]
   ;
 

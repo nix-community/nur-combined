@@ -168,8 +168,8 @@
       vps = nixosConf {
         mainModule = ./nodes/vps/default.nix;
       };
-      acer-nix = nixosConf {
-        mainModule = ./nodes/acer-nix/default.nix;
+      riverwood = nixosConf {
+        mainModule = ./nodes/riverwood/default.nix;
       };
       demo = nixosConf {
         mainModule = ./nodes/demo/default.nix;
