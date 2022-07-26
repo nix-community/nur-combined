@@ -3,6 +3,9 @@ imports: { config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.hardware;
+  any' = l: any (x: x == config.networking.hostName) l;
+  laptop = any' [ "li-si-tsin" ];
+  server = any' [ "robocat" ];
 in {
   inherit imports;
 
@@ -14,22 +17,32 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.upower.enable = true;
-      # hybrid sleep hangs
-      services.upower.criticalPowerAction = "Hibernate";
-      services.upower.percentageLow = 7;
-      services.upower.percentageCritical = 6;
-      services.upower.percentageAction = 5;
-
-      services.tlp.enable = true;
+      services.fstrim.enable = true;
+      boot.kernel.sysctl."vm.swappiness" = 1;
+      boot.loader.systemd-boot.enable = true;
     })
-    (mkIf (cfg.enable && config.networking.hostName == "li-si-tsin") {
+    (mkIf (cfg.enable && server) {
+      systemd.watchdog.runtimeTime = "30s";
+      systemd.watchdog.rebootTime = "10m";
+      systemd.watchdog.kexecTime = "10m";
+      powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+    })
+    (mkIf (cfg.enable && laptop) {
+      hardware.bluetooth.enable = true;
+      services.upower = {
+        enable = true;
+        criticalPowerAction = "Hibernate";
+        percentageLow = 7;
+        percentageCritical = 6;
+        percentageAction = 5;
+      };
       boot.blacklistedKernelModules = [ "uvcvideo" ];
       boot.kernelParams = [ "mitigations=off" ];
       boot.extraModprobeConfig = ''
         options snd-hda-intel model=dell-headset-multi
       '';
       services.tlp = {
+        enable = true;
         settings = {
           CPU_SCALING_GOVERNOR_ON_AC = "powersave";
           CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
