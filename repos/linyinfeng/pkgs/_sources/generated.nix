@@ -215,10 +215,10 @@
   };
   yacd = {
     pname = "yacd";
-    version = "v0.3.6";
+    version = "v0.3.5";
     src = fetchurl {
-      url = "https://github.com/haishanh/yacd/releases/download/v0.3.6/yacd.tar.xz";
-      sha256 = "sha256-YIx+IcHubP7mJoxaOVGkwh3EB+6mcEkFjOwpnAsR4vs=";
+      url = "https://github.com/haishanh/yacd/releases/download/v0.3.5/yacd.tar.xz";
+      sha256 = "sha256-j2sDOC7QqoP0ptQ9cKa6kHM2efid7kgNmsggODEQaSA=";
     };
   };
   zeronsd = {

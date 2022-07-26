@@ -349,11 +349,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YIx+IcHubP7mJoxaOVGkwh3EB+6mcEkFjOwpnAsR4vs=",
+            "sha256": "sha256-j2sDOC7QqoP0ptQ9cKa6kHM2efid7kgNmsggODEQaSA=",
             "type": "url",
-            "url": "https://github.com/haishanh/yacd/releases/download/v0.3.6/yacd.tar.xz"
+            "url": "https://github.com/haishanh/yacd/releases/download/v0.3.5/yacd.tar.xz"
         },
-        "version": "v0.3.6"
+        "version": "v0.3.5"
     },
     "zeronsd": {
         "cargoLocks": {
