@@ -135,6 +135,10 @@ in {
         localhost. IN A 127.0.0.1
       '';
     };
+    bindExtraConfig = mkOption {
+      type = types.str;
+      default = "";
+    };
     bindExtraView = mkOption {
       type = types.str;
       default = "";
@@ -153,9 +157,10 @@ in {
   (mkIf cfg.enable {
     #services.bind.cacheNetworks = [ "any" ];
     services.bind.extraOptions = ''
-      #recursion yes;
       check-names master ignore;
+      #recursion yes;
     '';
+    services.bind.extraConfig = cfg.bindExtraConfig;
     systemd.timers.rkn-script = {
       timerConfig = {
         inherit (cfg) OnCalendar;
