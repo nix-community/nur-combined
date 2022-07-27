@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     gnome.networkmanager-openvpn
-    youtube-dl
+#    youtube-dl
     kitty
     git-sync
 

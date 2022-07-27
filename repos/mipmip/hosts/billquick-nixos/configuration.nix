@@ -15,9 +15,10 @@ in
         ../../modules/base-minimal.nix
         ../../modules/common.nix
         ../../modules/common-pkg.nix
-        ../../modules/dev-crystal.nix
+#        ../../modules/dev-crystal.nix
         ../../modules/dev-quiqr.nix
         ../../modules/dev-technative.nix
+        ../../modules/office-communication.nix
         ../../modules/vim-large.nix
         ../../modules/workstation.nix
         ../../modules/workstation-pkg.nix
@@ -28,8 +29,8 @@ in
         ../../modules/nfspiet.nix
         ../../modules/peripherals_hurwenen.nix
         ../../modules/nixos-utils.nix
-        ../../modules/virtualbox.nix
-        ../../modules/since-nixos-21-05.nix
+#        ../../modules/virtualbox.nix
+#        ../../modules/since-nixos-21-05.nix
         ../../modules/texlive.nix
       ];
 
