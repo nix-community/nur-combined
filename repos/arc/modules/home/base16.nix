@@ -173,7 +173,7 @@ in {
     homeConf = {
       programs = mkMerge [
         (mkIf enableShellInit shellInit)
-        (mkIf cfg.shell.enable vimConf)
+        (mkIf cfg.vim.enable vimConf)
       ];
       home.packages = mkIf cfg.shell.enable (attrValues shellScripts);
     };
