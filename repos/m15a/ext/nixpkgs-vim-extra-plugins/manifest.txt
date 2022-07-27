@@ -11,6 +11,7 @@ David-Kunz/cmp-npm
 David-Kunz/jester
 EdenEast/nightfox.nvim
 EthanJWright/vs-tasks.nvim
+Everblush/everblush.nvim
 FeiyouG/command_center.nvim
 FrenzyExists/aquarium-vim
 Fymyte/rasi.vim
@@ -258,6 +259,7 @@ ldelossa/vimdark
 leafOfTree/vim-svelte-plugin
 lewis6991/gitsigns.nvim
 lewis6991/spellsitter.nvim
+lewpoly/sherbet.nvim
 linty-org/key-menu.nvim
 linty-org/readline.nvim
 lmburns/kimbox
@@ -422,6 +424,7 @@ startup-nvim/startup.nvim
 stevearc/aerial.nvim
 stevearc/dressing.nvim
 stevearc/gkeep.nvim
+stevearc/overseer.nvim
 stevearc/qf_helper.nvim
 sudormrfbin/cheatsheet.nvim
 sunjon/Shade.nvim
@@ -460,6 +463,7 @@ vijaymarupudi/nvim-fzf
 vuki656/package-info.nvim
 wbthomason/packer.nvim
 weilbith/nvim-code-action-menu
+williamboman/mason.nvim
 williamboman/nvim-lsp-installer
 windwp/nvim-autopairs
 windwp/nvim-projectconfig
