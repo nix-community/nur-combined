@@ -24,6 +24,7 @@ in
         ../../modules/workstation-pkg.nix
         ../../modules/fonts.nix
         ../../modules/browser-firefox.nix
+        ../../modules/browser-chrome.nix
         ../../modules/explore-pkg.nix
         ../../modules/st.nix
         ../../modules/nfspiet.nix
