@@ -1,5 +1,7 @@
 # Dotfiles and Nix/NixOS settings
 
+[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+
 - home-manager: dotfile manager, runs as a configuration.nix extension
 
 - the way it is organized its not necessary to place the nix files in the default locations like
@@ -39,3 +41,4 @@ module structure and nix imports it automagically, same for `machine/acer`
     - (yes, I have used arch btw for around 1 year, it's a good distro but NixOS is better)
     - `nix-shell` rocks
     - the possibility of rollback at any time in a simple way, even if the distro fails to boot, is like magic
+    - you can also replicate very precisely your configuration on another machine, but only if that is defined in Nix, imperative settings are left behind

@@ -229,7 +229,8 @@
         done
       '';
     };
+
+    inherit pkgs;
   };
-  # packages = pkgs;
 }
 
