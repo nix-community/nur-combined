@@ -1,4 +1,16 @@
 {
+    "HVM": {
+        "branch": "master",
+        "description": "A massively parallel, optimal functional runtime in Rust",
+        "homepage": "",
+        "owner": "kindelia",
+        "repo": "HVM",
+        "rev": "83024cc63eff2f97cabc5d76a60f9ff70133e023",
+        "sha256": "0ka242q4vhkmwf917ab6lyhwzmvj9h6mvsqvpg9fcwsxwy5snih3",
+        "type": "tarball",
+        "url": "https://github.com/kindelia/HVM/archive/83024cc63eff2f97cabc5d76a60f9ff70133e023.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "NUR": {
         "branch": "master",
         "description": "Nix User Repository: User contributed nix packages [maintainer=@Mic92]",
