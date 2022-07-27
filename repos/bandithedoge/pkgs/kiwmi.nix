@@ -2,7 +2,7 @@
   pkgs,
   sources,
 }:
-pkgs.stdenv.mkDerivation {
+pkgs.stdenv.mkDerivation rec {
   inherit (sources.kiwmi) src pname version;
 
   nativeBuildInputs = with pkgs; [
@@ -24,4 +24,6 @@ pkgs.stdenv.mkDerivation {
 
   mesonBuildType = "release";
   mesonAutoFeatures = "auto";
+
+  mesonFlags = ["-Dkiwmi-version=${version}"];
 }
