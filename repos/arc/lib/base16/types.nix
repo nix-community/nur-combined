@@ -207,7 +207,7 @@
       };
       has16Bit = mkOption {
         type = types.bool;
-        default = any (c: c.has16bit) [ config.red config.green config.blue config.alpha ];
+        default = any (c: c.has16Bit) [ config.red config.green config.blue config.alpha ];
       };
       set = mkOption {
         type = types.unspecified;
