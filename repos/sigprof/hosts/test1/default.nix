@@ -32,6 +32,10 @@ in
           pkgs.tor-browser-bundle-bin
           self.packages.${system}.virt-manager
 
+          # Temporary until the Home Manager config is ported
+          self.packages.${system}.firefox-langpack-ru
+          self.packages.${system}.thunderbird-langpack-ru
+
           unstable.tdesktop
           unstable.vial
         ];
