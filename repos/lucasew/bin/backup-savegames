@@ -1,0 +1,67 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -p python3 -i python
+# vim:ft=python
+
+from pathlib import Path
+from os import environ, chdir
+from shutil import copy2, SameFileError
+from datetime import datetime
+from subprocess import run
+
+HOME_DIR=Path.home()
+STATE_BACKUP_DIR=Path(environ["STATE_BACKUP_DIR"].replace("~", str(HOME_DIR)))
+
+run(["notify-send", "Iniciando backup"], shell = True)
+
+def log(*args, **kwargs):
+    from sys import stderr
+    print(*args, **kwargs, file = stderr)
+
+def mkdirp(path: Path):
+    log(f"Criando pasta '{str(path)}' se inexistente")
+    path.mkdir(exist_ok=True, parents=True)
+
+def bring(app: str, origin: Path):
+    if str(origin).startswith("~"):
+        origin = str(origin).replace("~", str(HOME_DIR))
+    origin = Path(origin).resolve()
+    origin_transformed = str(origin)
+    origin_transformed = origin_transformed.replace(str(HOME_DIR), "HOME")
+    if origin_transformed[0] == "/":
+        origin_transformed = origin_transformed[1:]
+    DEST_DIR=(STATE_BACKUP_DIR / app / origin_transformed).parent
+    mkdirp(DEST_DIR)
+    if origin.is_file():
+        try:
+            copy2(origin, DEST_DIR)
+            log(f"Copying '{origin}'")
+        except SameFileError:
+            pass
+        return
+    if origin.is_dir():
+        if origin.name != ".git":
+            for item in origin.glob("*"):
+                bring(app, item)
+
+
+mkdirp(STATE_BACKUP_DIR)
+chdir(STATE_BACKUP_DIR)
+
+try:
+    if environ.get("SAVEGAMES_FOLDERS") is not None:
+        from json import loads
+        bring_data = loads(environ["SAVEGAMES_FOLDERS"])
+        for app, items in bring_data.items():
+            for item in items:
+                if item.startswith("~"):
+                    item.replace("~", str(HOME_DIR))
+                bring(app, item)
+except Exception as e:
+    run(["notify-send", f"Backup realizado com erro {str(type(e))}\nOs logs tem mais detalhes"], shell = True)
+    raise e
+finally:
+    run("git add -A", shell = True, check = True)
+    run(["git", "commit", "-sm", str(datetime.now())])
+    run("git push", shell = True)
+
+run(["notify-send", "Execução do backup finalizada"])

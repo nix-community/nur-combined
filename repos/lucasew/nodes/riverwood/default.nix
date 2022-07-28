@@ -27,6 +27,7 @@ in
       ./dns.nix
       ./git.nix
       ./kvm.nix
+      ./backup-saves.nix
     ]
   ;
 
