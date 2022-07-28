@@ -8,6 +8,7 @@
     pre-commit
     aws-mfa
     unstable.cloud-nuke
+    awsweeper
     awscli2
   ];
 }
