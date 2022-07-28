@@ -10,6 +10,10 @@ fetch.github = "bakkeby/st-flexipatch"
 src.git = "https://github.com/bakkeby/dmenu-flexipatch"
 fetch.github = "bakkeby/dmenu-flexipatch"
 
+[slock-flexipatch]
+src.git = "https://github.com/bakkeby/slock-flexipatch"
+fetch.github = "bakkeby/slock-flexipatch"
+
 [taffybar]
 src.git = "https://github.com/taffybar/taffybar"
 fetch.github = "taffybar/taffybar"

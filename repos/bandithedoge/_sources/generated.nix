@@ -49,6 +49,17 @@
       sha256 = "sha256-Z3edsOLxnFM7N1o7LsfZQGuQBOBwv5KfDMQ+/YVGJTs=";
     };
   };
+  slock-flexipatch = {
+    pname = "slock-flexipatch";
+    version = "3131706fc5f202759cbf81c661df14578d721fb8";
+    src = fetchFromGitHub {
+      owner = "bakkeby";
+      repo = "slock-flexipatch";
+      rev = "3131706fc5f202759cbf81c661df14578d721fb8";
+      fetchSubmodules = false;
+      sha256 = "sha256-w+C/SfK4DgqtgFqhBTejgAE3+SJwPYGb4oq/oO+TRXU=";
+    };
+  };
   st-flexipatch = {
     pname = "st-flexipatch";
     version = "9e0e41978125213d4469a30d05047a3484b13a7d";
@@ -84,14 +95,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "239105f393ee88d0c6db98c0ad5fdec4cf7362d5";
+    version = "70f016900d33734c9b2578dbba819e82992daf4a";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "239105f393ee88d0c6db98c0ad5fdec4cf7362d5";
+      rev = "70f016900d33734c9b2578dbba819e82992daf4a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Bos6x2BWhdI3Z2BstH8TrYRgJnvd5qU8Qw4hmuCl+34=";
+      sha256 = "sha256-inatRc8vN1L0L3sStRJThSqktySgFGYHLXAZmqy/lfs=";
     };
   };
 }

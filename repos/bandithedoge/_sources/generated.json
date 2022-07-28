@@ -74,6 +74,25 @@
         },
         "version": "703407281a661ec2b731189cb2120f3c69b56173"
     },
+    "slock-flexipatch": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "slock-flexipatch",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bakkeby",
+            "repo": "slock-flexipatch",
+            "rev": "3131706fc5f202759cbf81c661df14578d721fb8",
+            "sha256": "sha256-w+C/SfK4DgqtgFqhBTejgAE3+SJwPYGb4oq/oO+TRXU=",
+            "type": "github"
+        },
+        "version": "3131706fc5f202759cbf81c661df14578d721fb8"
+    },
     "st-flexipatch": {
         "cargoLocks": null,
         "extract": null,
@@ -142,11 +161,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "239105f393ee88d0c6db98c0ad5fdec4cf7362d5",
-            "sha256": "sha256-Bos6x2BWhdI3Z2BstH8TrYRgJnvd5qU8Qw4hmuCl+34=",
+            "rev": "70f016900d33734c9b2578dbba819e82992daf4a",
+            "sha256": "sha256-inatRc8vN1L0L3sStRJThSqktySgFGYHLXAZmqy/lfs=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "239105f393ee88d0c6db98c0ad5fdec4cf7362d5"
+        "version": "70f016900d33734c9b2578dbba819e82992daf4a"
     }
 }
