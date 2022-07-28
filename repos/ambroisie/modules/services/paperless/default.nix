@@ -83,16 +83,28 @@ in
     };
 
     systemd.services = {
-      paperless-scheduler.serviceConfig = {
-        EnvironmentFile = cfg.secretKeyFile;
+      paperless-scheduler = {
+        after = [ "postgresql.service" ];
+
+        serviceConfig = {
+          EnvironmentFile = cfg.secretKeyFile;
+        };
       };
 
-      paperless-consumer.serviceConfig = {
-        EnvironmentFile = cfg.secretKeyFile;
+      paperless-consumer = {
+        after = [ "postgresql.service" ];
+
+        serviceConfig = {
+          EnvironmentFile = cfg.secretKeyFile;
+        };
       };
 
-      paperless-web.serviceConfig = {
-        EnvironmentFile = cfg.secretKeyFile;
+      paperless-web = {
+        after = [ "postgresql.service" ];
+
+        serviceConfig = {
+          EnvironmentFile = cfg.secretKeyFile;
+        };
       };
     };
 
@@ -110,12 +122,6 @@ in
 
     # Set-up media group
     users.groups.media = { };
-
-    systemd.services.paperless-server = {
-      # Make sure the DB is available
-      after = [ "postgresql.service" ];
-    };
-
 
     users.users.${config.services.paperless.user} = {
       extraGroups = [ "media" ];

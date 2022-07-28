@@ -9,6 +9,7 @@
     ./drone
     ./flood
     ./gitea
+    ./grocy
     ./indexers
     ./jellyfin
     ./lohr
