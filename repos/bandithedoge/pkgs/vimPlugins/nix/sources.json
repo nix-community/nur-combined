@@ -569,10 +569,10 @@
         "homepage": "",
         "owner": "nvim-lualine",
         "repo": "lualine.nvim",
-        "rev": "e9b05e7f35ab11a59c10226017153a4c6f836352",
-        "sha256": "0cyrs5h2y6pkc76w8mwl5w8mkyaspkkg2zagvx4290dhqasqa5iy",
+        "rev": "788805771c1ca7fe2c6652c38523cf208908934c",
+        "sha256": "1hl8125v1bm7b50nl6xjzmcypndlkbmzihjc86gx0id7n4rrdssj",
         "type": "tarball",
-        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/e9b05e7f35ab11a59c10226017153a4c6f836352.tar.gz",
+        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/788805771c1ca7fe2c6652c38523cf208908934c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "luv-vimdocs": {
@@ -593,10 +593,10 @@
         "homepage": "",
         "owner": "echasnovski",
         "repo": "mini.nvim",
-        "rev": "004a53297d1360b604d725acd86e21865fccbcec",
-        "sha256": "0cypyf6w96hpm4lhhgbfdxhf5il1ggqrns6f646lfr399r5vgvyb",
+        "rev": "bca7dabca76606ab101009e7b0fe128fa037bf54",
+        "sha256": "0cslh0fa5yda2iazsjiz6kdvjk72n5g20m04v34qkhmnc5k3in66",
         "type": "tarball",
-        "url": "https://github.com/echasnovski/mini.nvim/archive/004a53297d1360b604d725acd86e21865fccbcec.tar.gz",
+        "url": "https://github.com/echasnovski/mini.nvim/archive/bca7dabca76606ab101009e7b0fe128fa037bf54.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mkdir.nvim": {
@@ -713,10 +713,10 @@
         "homepage": "",
         "owner": "jose-elias-alvarez",
         "repo": "null-ls.nvim",
-        "rev": "255b7c806997771834c190f4063c89136c6662d6",
-        "sha256": "07248bm12jach73zr58plkp3mkchariwzs83nhvgg59vgl3c362g",
+        "rev": "47c04991af80b6acdf08a5db057908b52f4d0699",
+        "sha256": "0zbpclcq94x4gaimkk7vvdggpwndmyn7ngw296spnyiy6jnvjxy1",
         "type": "tarball",
-        "url": "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/255b7c806997771834c190f4063c89136c6662d6.tar.gz",
+        "url": "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/47c04991af80b6acdf08a5db057908b52f4d0699.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "numbers.nvim": {
@@ -905,10 +905,10 @@
         "homepage": "",
         "owner": "kyazdani42",
         "repo": "nvim-tree.lua",
-        "rev": "2928f8fe31bacc287a988e02b7fe930f19c6a972",
-        "sha256": "0qklzigwxxq7avc7s7mdhlq232c1w6paxypp34kqd0krxqpxpw2m",
+        "rev": "7fcb48c852b9d58709169a4dc1ec634fa9ea56f9",
+        "sha256": "176ramc1r1747szv1n41w3whi90bw91a8gw20cxib1ifpfc867nv",
         "type": "tarball",
-        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/2928f8fe31bacc287a988e02b7fe930f19c6a972.tar.gz",
+        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/7fcb48c852b9d58709169a4dc1ec634fa9ea56f9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {

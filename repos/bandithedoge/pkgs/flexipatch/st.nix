@@ -1,10 +1,6 @@
 {
   pkgs,
   sources,
-  patches ? null,
-  extraLibs ? [],
-  conf ? null,
-  mkConfig ? null,
 }:
 pkgs.stdenv.mkDerivation rec {
   inherit (sources.st-flexipatch) src pname version;
@@ -16,12 +12,10 @@ pkgs.stdenv.mkDerivation rec {
     freetype
   ];
 
-  buildInputs = with pkgs;
-    [
-      xorg.libX11
-      xorg.libXft
-    ]
-    ++ extraLibs;
+  buildInputs = with pkgs; [
+    xorg.libX11
+    xorg.libXft
+  ];
 
   strictDeps = true;
 
@@ -29,29 +23,9 @@ pkgs.stdenv.mkDerivation rec {
     "PKG_CONFIG=${pkgs.stdenv.cc.targetPrefix}pkg-config"
   ];
 
-  configFile =
-    pkgs.lib.optionalString (conf != null)
-    (pkgs.writeText "config.def.h" conf);
-
-  prePatch = let
-    patchesFile =
-      if pkgs.lib.isDerivation conf || builtins.isPath patches
-      then patches
-      else pkgs.writeText "patches.def.h" patches;
-    mkConfigFile =
-      if pkgs.lib.isDerivation mkConfig || builtins.isPath mkConfig
-      then mkConfig
-      else pkgs.writeText "config.mk" mkConfig;
-  in ''
-    ${pkgs.lib.optionalString (conf != null) "cp ${patchesFile} patches.def.h"}
-    ${pkgs.lib.optionalString (mkConfig != null) "cp ${mkConfigFile} config.mk"}
+  postPatch = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+    substituteInPlace config.mk --replace "-lrt" ""
   '';
-
-  postPatch =
-    pkgs.lib.optionalString (conf != null) "cp ${configFile} config.def.h"
-    + pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
-      substituteInPlace config.mk --replace "-lrt" ""
-    '';
 
   preInstall = ''
     export TERMINFO=$out/share/terminfo
@@ -59,5 +33,10 @@ pkgs.stdenv.mkDerivation rec {
 
   installFlags = ["PREFIX=$(out)"];
 
-  inherit (pkgs.st) meta;
+  meta = with pkgs.lib; {
+    description = "An st build with preprocessor directives to decide which patches to include during build time";
+    homepage = "https://github.com/bakkeby/st-flexipatch";
+    license = licenses.mit;
+    platforms = platforms.linux;
+  };
 }

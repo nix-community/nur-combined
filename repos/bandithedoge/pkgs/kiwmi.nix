@@ -26,4 +26,11 @@ pkgs.stdenv.mkDerivation rec {
   mesonAutoFeatures = "auto";
 
   mesonFlags = ["-Dkiwmi-version=${version}"];
+
+  meta = with pkgs.lib; {
+    description = "A fully programmable Wayland Compositor";
+    homepage = "https://github.com/buffet/kiwmi";
+    license = licenses.mpl20;
+    platforms = platforms.linux;
+  };
 }

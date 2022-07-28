@@ -1,5 +1,17 @@
-{ mkDerivation, base, directory, extensible-exceptions, fetchgit
-, filepath, lib, mtl, process, unix, X11, xmonad, xmonad-contrib
+{
+  mkDerivation,
+  base,
+  directory,
+  extensible-exceptions,
+  fetchgit,
+  filepath,
+  lib,
+  mtl,
+  process,
+  unix,
+  X11,
+  xmonad,
+  xmonad-contrib,
 }:
 mkDerivation {
   pname = "xmonad-entryhelper";
@@ -11,8 +23,16 @@ mkDerivation {
     fetchSubmodules = true;
   };
   libraryHaskellDepends = [
-    base directory extensible-exceptions filepath mtl process unix X11
-    xmonad xmonad-contrib
+    base
+    directory
+    extensible-exceptions
+    filepath
+    mtl
+    process
+    unix
+    X11
+    xmonad
+    xmonad-contrib
   ];
   homepage = "https://github.com/Javran/xmonad-entryhelper";
   description = "XMonad config entry point wrapper";
