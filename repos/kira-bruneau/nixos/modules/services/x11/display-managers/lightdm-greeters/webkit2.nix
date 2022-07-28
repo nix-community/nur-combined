@@ -2,7 +2,6 @@
 
 with lib;
 let
-  nur = import ../../../../.. { inherit pkgs; };
   dmcfg = config.services.xserver.displayManager;
   ldmcfg = dmcfg.lightdm;
   cfg = ldmcfg.greeters.webkit2;
@@ -136,13 +135,13 @@ in
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
     # Install package, for manpages and the ability to run the greeter while logged in
-    environment.systemPackages = [ nur.lightdm-webkit2-greeter ];
+    environment.systemPackages = [ pkgs.lightdm-webkit2-greeter ];
 
     services = {
       xserver.displayManager.lightdm = {
         greeters.gtk.enable = false;
         greeter = mkDefault {
-          package = nur.lightdm-webkit2-greeter.xgreeters;
+          package = pkgs.lightdm-webkit2-greeter.xgreeters;
           name = "lightdm-webkit2-greeter";
         };
       };

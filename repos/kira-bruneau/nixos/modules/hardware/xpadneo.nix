@@ -2,7 +2,6 @@
 
 with lib;
 let
-  nur = import ../.. { inherit pkgs; };
   cfg = config.hardware.xpadneo;
 in
 {
@@ -20,10 +19,11 @@ in
           "options bluetooth disable_ertm=1";
 
       extraModulePackages = [
-        (nur.xpadneo.override {
+        (pkgs.xpadneo.override {
           inherit (config.boot.kernelPackages) kernel;
         })
       ];
+
       kernelModules = [ "hid_xpadneo" ];
     };
   };

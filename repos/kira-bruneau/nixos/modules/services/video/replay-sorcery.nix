@@ -3,7 +3,6 @@
 with lib;
 
 let
-  nur = import ../../.. { inherit pkgs; };
   cfg = config.services.replay-sorcery;
   configFile = generators.toKeyValue {} cfg.settings;
 in
@@ -27,7 +26,7 @@ in
         type = attrsOf (oneOf [ str int ]);
         default = {};
         description = "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf).";
-        example = literalExample ''
+        example = literalExpression ''
           {
             videoInput = "hwaccel"; # requires `services.replay-sorcery.enableSysAdminCapability = true`
             videoFramerate = 60;
@@ -39,19 +38,21 @@ in
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [ nur.replay-sorcery ];
+      systemPackages = [ pkgs.replay-sorcery ];
       etc."replay-sorcery.conf".text = configFile;
     };
 
     security.wrappers = mkIf cfg.enableSysAdminCapability {
       replay-sorcery = {
-        source = "${nur.replay-sorcery}/bin/replay-sorcery";
+        owner = "root";
+        group = "root";
         capabilities = "cap_sys_admin+ep";
+        source = "${pkgs.replay-sorcery}/bin/replay-sorcery";
       };
     };
 
     systemd = {
-      packages = [ nur.replay-sorcery ];
+      packages = [ pkgs.replay-sorcery ];
       user.services.replay-sorcery = {
         wantedBy = mkIf cfg.autoStart [ "graphical-session.target" ];
         partOf = mkIf cfg.autoStart [ "graphical-session.target" ];

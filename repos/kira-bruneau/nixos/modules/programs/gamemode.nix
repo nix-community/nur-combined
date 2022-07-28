@@ -3,7 +3,6 @@
 with lib;
 
 let
-  nur = import ../.. { inherit pkgs; };
   cfg = config.programs.gamemode;
   settingsFormat = pkgs.formats.ini { };
   configFile = settingsFormat.generate "gamemode.ini" cfg.settings;
@@ -24,7 +23,7 @@ in
           System-wide configuration for GameMode (/etc/gamemode.ini).
           See gamemoded(8) man page for available settings.
         '';
-        example = literalExample ''
+        example = literalExpression ''
           {
             general = {
               renice = 10;
@@ -49,7 +48,7 @@ in
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [ nur.gamemode ];
+      systemPackages = [ pkgs.gamemode ];
       etc."gamemode.ini".source = configFile;
     };
 
@@ -57,31 +56,35 @@ in
       polkit.enable = true;
       wrappers = mkIf cfg.enableRenice {
         gamemoded = {
-          source = "${nur.gamemode}/bin/gamemoded";
+          owner = "root";
+          group = "root";
+          source = "${pkgs.gamemode}/bin/gamemoded";
           capabilities = "cap_sys_nice+ep";
         };
       };
     };
 
     systemd = {
-      packages = [ nur.gamemode ];
-      user.services.gamemoded.serviceConfig = {
-        Environment = [
-          # Use pkexec from the security wrappers to allow users to
-          # run libexec/cpugovctl & libexec/gpuclockctl as root with
-          # the the actions defined in share/polkit-1/actions.
-          #
-          # Use a link farm to make sure other wrapped executables
-          # aren't included in PATH.
-          "PATH=${pkgs.linkFarm "pkexec" [
-            {
-              name = "pkexec";
-              path = "${config.security.wrapperDir}/pkexec";
-            }
-          ]}"
-        ];
+      packages = [ pkgs.gamemode ];
+      user.services.gamemoded = {
+        # The upstream service already defines this, but doesn't get applied.
+        # See https://github.com/NixOS/nixpkgs/issues/81138
+        wantedBy = [ "default.target" ];
 
-        ExecStart = mkIf cfg.enableRenice [
+        # Use pkexec from the security wrappers to allow users to
+        # run libexec/cpugovctl & libexec/gpuclockctl as root with
+        # the the actions defined in share/polkit-1/actions.
+        #
+        # This uses a link farm to make sure other wrapped executables
+        # aren't included in PATH.
+        environment.PATH = mkForce (pkgs.linkFarm "pkexec" [
+          {
+            name = "pkexec";
+            path = "${config.security.wrapperDir}/pkexec";
+          }
+        ]);
+
+        serviceConfig.ExecStart = mkIf cfg.enableRenice [
           "" # Tell systemd to clear the existing ExecStart list, to prevent appending to it.
           "${config.security.wrapperDir}/gamemoded"
         ];

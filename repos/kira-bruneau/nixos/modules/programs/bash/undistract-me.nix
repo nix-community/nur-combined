@@ -3,7 +3,6 @@
 with lib;
 
 let
-  nur = import ../../.. { inherit pkgs; };
   cfg = config.programs.bash.undistractMe;
 in
 {
@@ -27,7 +26,7 @@ in
     programs.bash.promptPluginInit = ''
       export LONG_RUNNING_COMMAND_TIMEOUT=${toString cfg.timeout}
       export UDM_PLAY_SOUND=${if cfg.playSound then "1" else "0"}
-      . "${nur.undistract-me}/etc/profile.d/undistract-me.sh"
+      . "${pkgs.undistract-me}/etc/profile.d/undistract-me.sh"
     '';
   };
 
