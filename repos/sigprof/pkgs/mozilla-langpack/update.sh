@@ -114,22 +114,46 @@ processAppNameWithVersion() {
   fi
 }
 
-# If there are no command line parameters, use the default list of packages.
+# processAppsFromNixpkgs nixpkgsChannel
+#
+# Get the names and versions of the `firefox`, `firefox-esr` and `thunderbird`
+# packages from the specified Nixpkgs channel, then process them using
+# `processAppNameWithVersion`.  As a special case, if the channel name is
+# `flake`, use the pinned version of Nixpkgs from this flake.
+#
+processAppsFromNixpkgs() {
+  local nixpkgsChannel="$1" && shift
+  local -a appNames=(firefox firefox-esr thunderbird)
+  if [ "$nixpkgsChannel" = "flake" ]; then
+    # Get the list of packages from the `nixpkgs` input of the current flake.
+    flakeUrl="$( cd "$source_dir" && nix flake metadata --json | jq -r '.url' )"
+    currentSystem="$( nix eval --raw --impure --expr 'builtins.currentSystem' )"
+    for pkg in "${appNames[@]}"; do
+      # `--impure` is needed to work with a dirty flake
+      nameWithVersion="$( nix eval --no-warn-dirty --impure --raw --expr "(builtins.getFlake \"$flakeUrl\").inputs.nixpkgs.legacyPackages.\"$currentSystem\".${pkg}.name" )"
+      processAppNameWithVersion "$nameWithVersion"
+    done
+  else
+    for pkg in "${appNames[@]}"; do
+      nameWithVersion="$( NIX_PATH="nixpkgs=channel:${nixpkgsChannel}" nix-instantiate --eval --json '<nixpkgs>' -A "${pkg}.name" | jq -r )"
+      processAppNameWithVersion "$nameWithVersion"
+    done
+  fi
+}
+
+# If there are no command line parameters, use the default list of packages,
+# taking their versions from the current flake.
 if [ $# = 0 ]; then
-  defaultAppNames=(firefox firefox-esr thunderbird)
-  # Get the list of packages from the `nixpkgs` input of the current flake.
-  flakeUrl="$( cd "$source_dir" && nix flake metadata --json | jq -r '.url' )"
-  currentSystem="$( nix eval --raw --impure --expr 'builtins.currentSystem' )"
-  for pkg in "${defaultAppNames[@]}"; do
-    # `--impure` is needed to work with a dirty flake
-    nameWithVersion="$( nix eval --no-warn-dirty --impure --raw --expr "(builtins.getFlake \"$flakeUrl\").inputs.nixpkgs.legacyPackages.\"$currentSystem\".${pkg}.name" )"
-    set -- "$@" "$nameWithVersion"
-  done
+  set -- @flake
 fi
 
 # Parse the command line.
-for nameWithVersion in "$@"; do
-  processAppNameWithVersion "$nameWithVersion"
+for param in "$@"; do
+  if [ -z "${param##@*}" ]; then
+    processAppsFromNixpkgs "${param#@}"
+  else
+    processAppNameWithVersion "$param"
+  fi
 done
 
 # Add latest versions for all mentioned apps.

@@ -9,6 +9,8 @@ defaults:
 env:
   CACHIX_NAME: sigprof
 
+  nur_channels: nixpkgs-unstable nixos-unstable nixos-22.05 nixos-21.11
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -34,7 +36,22 @@ jobs:
           extraPullNames: "pre-commit-hooks"
 
       - name: Run the update script
-        run: ${{ matrix.item }}/update.sh
+        env:
+          item: ${{ matrix.item }}
+        run: |
+          # Run the update script
+          case "$item" in
+            pkgs/mozilla-langpack)
+              set -- @flake
+              for channel in $nur_channels; do
+                set -- "$@" "@$channel"
+              done
+              "$item"/update.sh "$@"
+              ;;
+            *)
+              "$item"/update.sh
+              ;;
+          esac
 
       - name: Generate a GitHub token
         id: token
