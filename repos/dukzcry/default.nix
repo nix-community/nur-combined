@@ -34,4 +34,5 @@ rec {
   libvirt-dbus = callPackage ./pkgs/libvirt-dbus.nix {};
   sunshine = callPackage ./pkgs/sunshine/default.nix {};
   libidn = callPackage ./pkgs/libidn.nix {};
+  gitupdate = callPackage ./pkgs/gitupdate.nix {};
 }

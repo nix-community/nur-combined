@@ -29,7 +29,7 @@ in {
         pkgs.writeShellScriptBin "openconnect" ''
            ${pkgs.openconnect}/bin/openconnect \
               --background \
-              --script "${pkgs.vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com --prevent-idle-timeout --no-host-names --no-ns-hosts" \
+              --script "${pkgs.vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com --prevent-idle-timeout" \
               --interface job \
               --user "ALukyanov" \
               --authgroup "xFA" \
@@ -38,8 +38,10 @@ in {
               --local-hostname "DESKTOP-DS0VFGI" \
               --os=win \
               vpn.renins.ru
+            systemctl restart dnsmasq
         ''
       )];
+      environment.etc.hosts.mode = "0644";
       networking.firewall.extraCommands = ''
         iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';

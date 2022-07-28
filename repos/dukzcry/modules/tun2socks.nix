@@ -33,6 +33,14 @@ in {
               type = types.str;
               default = "info";
             };
+            execStart = mkOption {
+              type = types.str;
+              default = "";
+            };
+            execStop = mkOption {
+              type = types.str;
+              default = "";
+            };
           };
         });
       };
@@ -63,24 +71,15 @@ in {
           set +e
           ip addr add ${value.address} dev ${name}
           ip link set dev ${name} up
-
-          ip rule add from ${value.address} table ${name}
-          ip route add default dev ${name} table ${name}
-          ip rule add from ${value.address} table main suppress_prefixlength 0
+          ${value.execStart}
           true
         '';
         ExecStop = pkgs.writeShellScript "tun2socks-stop" ''
           set +e
-          ip rule del from ${value.address} table ${name}
-          ip route del default dev ${name} table ${name}
-          ip rule del from ${value.address} table main suppress_prefixlength 0
+          ${value.execStop}
           true
         '';
       };
     })) cfg.gateways);
-    networking.iproute2.enable = true;
-    networking.iproute2.rttablesExtraConfig = concatStringsSep "\n" (
-      imap1 (i: v: "${toString i} ${v}") (attrNames cfg.gateways)
-    );
   };
 }

@@ -27,4 +27,5 @@ rec {
   cockpit = ./cockpit.nix;
   nix-index = ./nix-index.nix;
   archisteamfarm = ./archisteamfarm.nix;
+  adblock = ./adblock.nix;
 }
