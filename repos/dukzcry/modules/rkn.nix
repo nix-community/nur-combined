@@ -7,52 +7,21 @@ let
   cfg = config.services.rkn;
   serviceOptions = pkgs.nur.repos.dukzcry.lib.systemd.default // {
     PrivateDevices = true;
-    RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
-    User = "dnsmasq";
+    RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
     Group = "dnsmasq";
     StateDirectory = "rkn";
   };
-  start = ''
-    ip rule add from ${cfg.address.address} table ${cfg.table}
-    ip route add default dev rkn table ${cfg.table}
-    ip rule add from ${cfg.address.address} table main suppress_prefixlength 0
-  '';
-  stop = ''
-    ip rule del from ${cfg.address.address} table ${cfg.table}
-    ip route del default dev rkn table ${cfg.table}
-    ip rule del from ${cfg.address.address} table main suppress_prefixlength 0
-  '';
 in {
   inherit imports;
 
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
     address = mkOption {
-      type = types.anything;
-      example = ''
-        ip4.fromString "10.0.0.1/24"
-      '';
+      type = types.str;
     };
     OnCalendar = mkOption {
       type = types.str;
       default = "weekly";
-    };
-    resolver = mkOption {
-      type = types.submodule {
-        options = {
-          addresses = mkOption {
-            type = types.listOf types.str;
-          };
-          ipv6 = mkOption {
-            type = types.bool;
-            default = false;
-          };
-        };
-      };
-    };
-    table = mkOption {
-      type = types.str;
-      default = "1";
     };
     tor = mkOption {
       type = types.submodule {
@@ -61,7 +30,7 @@ in {
             type = types.bool;
             default = true;
           };
-          address = mkOption {
+          network = mkOption {
             type = types.anything;
             default = ip4.fromString "10.123.0.1/16";
           };
@@ -73,44 +42,16 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      # dns спуфинг
       services.dnsmasq.enable = true;
       services.dnsmasq.extraConfig = ''
-        hostsdir=/var/lib/rkn/dnsmasq
+        conf-file=/var/lib/rkn/dnsmasq
       '';
-      # datapipe прокси
-      services.nginx.enable = true;
-      services.nginx.proxyResolveWhileRunning = true;
-      services.nginx.resolver = {
-        addresses = cfg.resolver.addresses;
-        ipv6 = cfg.resolver.ipv6;
-      };
-      services.nginx.virtualHosts = {
-        rkn = {
-          default = true;
-          listen = [{ addr = cfg.address.address; port = 80; }];
-          locations."/" = {
-            proxyPass = "http://$http_host:80";
-            extraConfig = ''
-              proxy_bind ${cfg.address.address};
-            '';
-          };
-        };
-      };
-      services.nginx.streamConfig = ''
-        server {
-          resolver ${toString cfg.resolver.addresses} ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
-          listen ${cfg.address.address}:443;
-          ssl_preread on;
-          proxy_pass $ssl_preread_server_name:443;
-          proxy_bind ${cfg.address.address};
-        }
+      networking.firewall.extraPackages = [ pkgs.ipset ];
+      networking.firewall.extraCommands = ''
+        if ! ipset --quiet list rkn; then
+          ipset create rkn hash:ip family inet
+        fi
       '';
-      systemd.services.nginx = {
-        after = [ "sys-devices-virtual-net-rkn.device" ];
-        bindsTo = [ "sys-devices-virtual-net-rkn.device" ];
-      };
-      # список ркн
       systemd.timers.rkn = {
         timerConfig = {
           inherit (cfg) OnCalendar;
@@ -132,9 +73,9 @@ in {
             cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump.txt
             # remove wildcard
             sed -i 's/^*.//' dump.txt
-            mkdir -p /var/lib/rkn/dnsmasq
-            cat dump.txt | sort | uniq | idn --no-tld > /var/lib/rkn/dnsmasq/hosts
-            sed -i 's#\(.*\)#${cfg.address.address} \1#' /var/lib/rkn/dnsmasq/hosts
+            cat dump.txt | sort | uniq | idn --no-tld > /var/lib/rkn/dnsmasq
+            sed -i 's#\(.*\)#ipset=/\1/rkn#' /var/lib/rkn/dnsmasq
+            systemctl restart dnsmasq
           '';
         } // serviceOptions;
       };
@@ -144,10 +85,12 @@ in {
       services.tor.client.enable = true;
       services.tor.settings = {
         ExcludeExitNodes = "{RU}";
-        DNSPort = [{ addr = cfg.address.address; port = 9053; }];
-        VirtualAddrNetworkIPv4 = ip4.networkCIDR cfg.tor.address;
+        # onion
+        DNSPort = [{ addr = cfg.address; port = 9053; }];
+        VirtualAddrNetworkIPv4 = ip4.networkCIDR cfg.tor.network;
         AutomapHostsOnResolve = true;
-        TransPort = [{ addr = cfg.address.address; port = 9040; }];
+        TransPort = [{ addr = cfg.address; port = 9040; }];
+        # bridges
         #UseBridges = true;
         #Bridge = "snowflake 192.0.2.3:1";
         #ClientTransportPlugin = ''
@@ -158,25 +101,14 @@ in {
         #    -max 3
         #'';
       };
+      # onion
       networking.firewall.extraCommands = ''
-        iptables -t nat -A PREROUTING -p tcp -d ${ip4.networkCIDR cfg.tor.address} -j DNAT --to-destination ${cfg.address.address}:9040
+        iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set rkn dst -j DNAT --to-destination ${cfg.address}:9040
+        iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
       '';
       services.dnsmasq.extraConfig = ''
-        server=/onion/${cfg.address.address}#9053
+        server=/onion/${cfg.address}#9053
       '';
-      # tun устройство
-      programs.tun2socks = {
-        enable = true;
-        gateways = {
-          rkn = {
-            address = ip4.toCIDR cfg.address;
-            proxy = "socks5://${config.services.tor.client.socksListenAddress.addr}:${toString config.services.tor.client.socksListenAddress.port}";
-            logLevel = "error";
-            execStart = start;
-            execStop = stop;
-          };
-        };
-      };
     })
   ];
 }

@@ -19,4 +19,5 @@ writeShellScriptBin "gitupdate" ''
     echo "Diverged"
   fi
   [ -z $do ] && exit 1
+  exit 0
 ''
