@@ -144,7 +144,7 @@ in {
       services.tor.client.enable = true;
       services.tor.settings = {
         ExcludeExitNodes = "{RU}";
-        DNSPort = [{ addr = cfg.address.address; port = 5353; }];
+        DNSPort = [{ addr = cfg.address.address; port = 9053; }];
         VirtualAddrNetworkIPv4 = ip4.networkCIDR cfg.tor.address;
         AutomapHostsOnResolve = true;
         TransPort = [{ addr = cfg.address.address; port = 9040; }];
@@ -162,7 +162,7 @@ in {
         iptables -t nat -A PREROUTING -p tcp -d ${ip4.networkCIDR cfg.tor.address} -j DNAT --to-destination ${cfg.address.address}:9040
       '';
       services.dnsmasq.extraConfig = ''
-        server=/onion/${cfg.address.address}#5353
+        server=/onion/${cfg.address.address}#9053
       '';
       # tun устройство
       programs.tun2socks = {
