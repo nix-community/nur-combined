@@ -9,7 +9,7 @@ let
   numberEclipses = builtins.length eclipseNames;
   allEclipses = builtins.concatStringsSep "\" \"" eclipseNames;
 
-  conditionalCommands = map (package: 
+  conditionalCommands = map (package:
     ''
       if [ "$variant" == "${package.name}" ] ;then
           executable="${package}/bin/eclipse"
@@ -24,13 +24,13 @@ let
       echo "${package.name} : ${package}"
     ''
   ) additionalJREs;
-  
-  printJRELinesWithDescription = [ 
+
+  printJRELinesWithDescription = [
     ''
      echo "These are the additional JREs and their base path for configuring them in eclipse:"
-    '' 
+    ''
     ] ++ printJRELines;
-  
+
   additionalJREInfo = builtins.concatStringsSep "\n" printJRELinesWithDescription;
 
   startEclipse = writeShellScriptBin "eclipse"
@@ -50,24 +50,24 @@ let
       ${additionalJREInfo}
 
       ${coreutils}/bin/nohup $executable -configuration $HOME/.eclipse/eclipse-$variant/configuration >${logFile} &
-      
+
       sleep 0.1
     '';
   desktopItem = makeDesktopItem {
     name = "Eclipse";
-    exec = "eclipse";
+    exec = "${startEclipse}/bin/eclipse";
     icon = "eclipse";
     comment = "Integrated Development Environment";
     desktopName = "Eclipse IDE";
     genericName = "Integrated Development Environment";
-    categories = "Development;";
-    terminal = "true";
+    categories = ["Development"];
+    terminal = true;
   };
 in symlinkJoin {
   name = "multiEclipse";
   paths = [ startEclipse ];
 
-  postBuild = 
+  postBuild =
     ''
       mkdir -p $out/share/applications
       cp ${desktopItem}/share/applications/* $out/share/applications
@@ -83,4 +83,3 @@ in symlinkJoin {
     platforms = platforms.linux;
   };
 }
-
