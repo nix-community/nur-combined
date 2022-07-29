@@ -704,10 +704,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220726.185717";
+      version = "104.0buildid20220728.185815";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3980684/francais_language_pack-104.0buildid20220726.185717.xpi";
-      sha256 = "2b4998fc54cfbf22537775c98b1a99d6e8ee75a16bfcb3d583d13878b328ca9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3981687/francais_language_pack-104.0buildid20220728.185815.xpi";
+      sha256 = "932f76d22f106525c1027858edbf5e9b2c3e6de43c6d89dc891fcf4f1b2ae424";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1220,10 +1220,10 @@
       };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
-      version = "2.2.1";
+      version = "2.2.2";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3789058/news_feed_eradicator-2.2.1.xpi";
-      sha256 = "90a7c9d3041e54100bc814eea323e58c736cf498c1f5ff57962b5268039b668a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3981935/news_feed_eradicator-2.2.2.xpi";
+      sha256 = "72066af596767ce4087e0f6afc7ca370f28f5d7a3bb3f3a46bef5ae3f02a8d6a";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
@@ -2246,10 +2246,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.8.4";
+      version = "7.8.5";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970205/ublacklist-7.8.4.xpi";
-      sha256 = "9f06b15b89ed888904c23b852ff385543f9ca10faf89ce8c75b4c6cb53abc901";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3981518/ublacklist-7.8.5.xpi";
+      sha256 = "8c530bb5333dbe2a37fe8da30daf3e3f0b216c4529a0b4e5faca0892609355cf";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
