@@ -116,3 +116,4 @@
 | [virtual-types-nvim](https://github.com/jubnzv/virtual-types.nvim) | Neovim plugin that shows type annotations as virtual text |
 | [which-key-nvim](https://github.com/folke/which-key.nvim) | 💥   Create key bindings that stick. WhichKey is a lua plugin for Neovim 0.5 that displays a popup with possible keybindings of the command you started typing. |
 | [yaml-companion-nvim](https://github.com/someone-stole-my-name/yaml-companion.nvim) | Get, set and autodetect YAML schemas in your buffers. |
+| [yuck-vim](https://github.com/elkowar/yuck.vim) | None |

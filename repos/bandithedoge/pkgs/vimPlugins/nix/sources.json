@@ -701,10 +701,10 @@
         "homepage": "",
         "owner": "MunifTanjim",
         "repo": "nui.nvim",
-        "rev": "d85e5988c50da056eb555afab2abffe18a0becb6",
-        "sha256": "15q229bp41j8xkqzdkjnb8jdn7f9975xb890gismjs5cldgjwwqn",
+        "rev": "51cbd0ccc9410e317a947eea1e99966226a5f8b5",
+        "sha256": "100k3ymp60c9bzsiffs05cycbxhsmnhi7yas113kmn6wxd3mnbs3",
         "type": "tarball",
-        "url": "https://github.com/MunifTanjim/nui.nvim/archive/d85e5988c50da056eb555afab2abffe18a0becb6.tar.gz",
+        "url": "https://github.com/MunifTanjim/nui.nvim/archive/51cbd0ccc9410e317a947eea1e99966226a5f8b5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "null-ls.nvim": {
@@ -905,10 +905,10 @@
         "homepage": "",
         "owner": "kyazdani42",
         "repo": "nvim-tree.lua",
-        "rev": "7fcb48c852b9d58709169a4dc1ec634fa9ea56f9",
-        "sha256": "176ramc1r1747szv1n41w3whi90bw91a8gw20cxib1ifpfc867nv",
+        "rev": "665813b9e6e247c633346b861e08f03e44e3ac91",
+        "sha256": "0k967ikzws4rr2nkszd17d4r3kbaqs2ydmaf236iz9z3z82ka13j",
         "type": "tarball",
-        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/7fcb48c852b9d58709169a4dc1ec634fa9ea56f9.tar.gz",
+        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/665813b9e6e247c633346b861e08f03e44e3ac91.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
@@ -1389,6 +1389,18 @@
         "sha256": "1m1kwg7hxkfz54nb1c508vqck0avkdav9jcycf579is8azdmxxr0",
         "type": "tarball",
         "url": "https://github.com/someone-stole-my-name/yaml-companion.nvim/archive/ab42ea608dfb8e82adb506cc90f85786efa37923.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "yuck.vim": {
+        "branch": "master",
+        "description": null,
+        "homepage": null,
+        "owner": "elkowar",
+        "repo": "yuck.vim",
+        "rev": "6dc3da77c53820c32648cf67cbdbdfb6994f4e08",
+        "sha256": "0890cyxnnvbbhv1irm0nxl5x7a49h1327cmhl1gmayigd4jym7ln",
+        "type": "tarball",
+        "url": "https://github.com/elkowar/yuck.vim/archive/6dc3da77c53820c32648cf67cbdbdfb6994f4e08.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
