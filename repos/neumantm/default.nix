@@ -15,5 +15,9 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   multiEclipse = pkgs.callPackage ./pkgs/multiEclipse { };
+  prettifyJsonLog = pkgs.callPackage ./pkgs/prettifyJsonLog {
+    buildPythonPackage = pkgs.python39Packages.buildPythonPackage;
+    fetchPypi = pkgs.python39Packages.fetchPypi;
+    setuptools_scm = pkgs.python39Packages.setuptools_scm;
+  };
 }
-
