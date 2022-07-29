@@ -7,6 +7,13 @@
       sha256 = "00h6r5znb8hbjr69ihx8qxvbj9fls2723k82dnaky6yq2g42v9d7";
     };
   });
+  asyncpg = python3Packages.asyncpg.overridePythonAttrs (old: rec {
+    version = "0.25.0";
+    src = old.src.override {
+      inherit version;
+      hash = "sha256-Y/jmppczsoVJfChVRko03mV/LMzSWurutQcYcuk4JUA=";
+    };
+  });
 
 in buildPythonApplication rec {
   pname = "mautrix-googlechat";
