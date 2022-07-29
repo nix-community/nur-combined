@@ -17,17 +17,10 @@ in {
   firefox-addons =
     pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
 
-  firefox-addons-generator = let
-    hpkgs = pkgs.haskellPackages;
-    haskellPackages = if hpkgs ? relude_1_0_0_1 then
-      hpkgs.override {
-        overrides = self: super: { relude = self.relude_1_0_0_1; };
-      }
-    else
-      hpkgs;
-  in haskellPackages.callPackage ./pkgs/firefox-addons-generator { };
-
   materia-theme = pkgs.callPackage ./pkgs/materia-theme { };
+
+  mozilla-addons-to-nix =
+    pkgs.haskellPackages.callPackage ./pkgs/mozilla-addons-to-nix { };
 
   nix-stray-roots = pkgs.callPackage ./pkgs/nix-stray-roots { };
 

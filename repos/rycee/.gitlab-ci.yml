@@ -54,14 +54,14 @@ Update Firefox addons:
   before_script:
     - nix-env -f '<nixpkgs>' -iA cachix
     - cachix use rycee
-    - nix-env -f . -iA firefox-addons-generator
+    - nix-env -f . -iA mozilla-addons-to-nix
     - nix-env -f '<nixpkgs>' -iA gitMinimal
     - git remote set-url origin $REMOTE_URL
     - git config --global user.email 'rybot@rycee.net'
     - git config --global user.name 'rybot'
   script:
     - git pull --ff-only origin $CI_COMMIT_REF_NAME
-    - nixpkgs-firefox-addons $ADDONS_INPUT $ADDONS_OUTPUT
+    - mozilla-addons-to-nix $ADDONS_INPUT $ADDONS_OUTPUT
     - |
       if [ "$(git status --porcelain --untracked-files=no)" ] ; then
         git commit -m "Automatic update of Firefox addons" $ADDONS_OUTPUT
