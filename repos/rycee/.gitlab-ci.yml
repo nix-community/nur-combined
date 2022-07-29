@@ -1,8 +1,8 @@
-image: nixos/nix:2.3.12
+image: nixos/nix:2.10.3
 
 variables:
-  # Pinned 2022-04-15.
-  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/0b43a436fbbf96ecda249c4b8df5a349fe9f5e15.tar.gz"
+  # Pinned 2022-07-30.
+  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/8f73de28e63988da02426ebb17209e3ae07f103b.tar.gz"
 
 stages:
   - build
@@ -30,11 +30,11 @@ Build NUR:
     - cachix use rycee
   script:
     - nix-build ci.nix -A buildOutputs
-    - nix eval -f default.nix hmModules
-    - nix eval -f default.nix lib
-    - nix eval -f default.nix modules
-    - nix eval -f default.nix ndModules
-    - nix eval -f default.nix overlays
+    - nix --experimental-features 'nix-command' eval -f default.nix hmModules
+    - nix --experimental-features 'nix-command' eval -f default.nix lib
+    - nix --experimental-features 'nix-command' eval -f default.nix modules
+    - nix --experimental-features 'nix-command' eval -f default.nix ndModules
+    - nix --experimental-features 'nix-command' eval -f default.nix overlays
     - |
       if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then
         nix-build ci.nix -A cacheOutputs | cachix push rycee

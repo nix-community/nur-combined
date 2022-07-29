@@ -34,10 +34,10 @@ in packages // {
 
   proxydocile = buildFirefoxXpiAddon {
     pname = "proxydocile";
-    version = "2.2";
+    version = "2.3";
     addonId = "proxydocile@unipd.it";
     url = "https://softwarecab.cab.unipd.it/proxydocile/proxydocile.xpi";
-    sha256 = "4O4fB/1Mujn1x18UvUJcWDEGc+K+ejkFlFtiNbtYvmc=";
+    sha256 = "sha256-Xz6BpDHtqbLfTbmlXiNMzUkqRxmEtPw3q+JzvpzA938=";
     meta = with lib; {
       homepage =
         "https://bibliotecadigitale.cab.unipd.it/bd/proxy/proxy-docile";
