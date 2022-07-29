@@ -1,21 +1,13 @@
-{ lib, stdenv, fetchurl, routino }:
+{ lib, stdenv, fetchurl, routino, prefix ? "Russia-NWFD" }:
 
 stdenv.mkDerivation rec {
   pname = "routinodb";
-  version = "220615";
+  version = "220728";
 
   srcs = [
     (fetchurl {
-      url = "https://download.geofabrik.de/europe/finland-${version}.osm.pbf";
-      hash = "sha256-L766WI5TWbh5vmaAWvS2xHxGa936KilUpnSBLz9z+ug=";
-    })
-    (fetchurl {
-      url = "https://download.geofabrik.de/europe/estonia-${version}.osm.pbf";
-      hash = "sha256-XxkZCC9cSHFiKfFvFCIgmxssq1D170GbBV8sG9Wcej8=";
-    })
-    (fetchurl {
       url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-      hash = "sha256-aGhS/1n4tvoCrzMQHjerzM3mGhhQ/lNd7pGLsMe3YCU=";
+      hash = "sha256-1TdnM3OFkzIeHOgxXv7/iKmbtCZ/AKY5qT6ph1yt6C4=";
     })
   ];
 
@@ -27,20 +19,20 @@ stdenv.mkDerivation rec {
     for src in $srcs; do
       ${routino}/bin/planetsplitter \
         --dir=$out \
-        --prefix=RussiaNW \
+        --prefix=${prefix} \
         --tagging=${routino}/share/routino/tagging.xml \
         --parse-only --append $src
     done
 
     ${routino}/bin/planetsplitter \
       --dir=$out \
-      --prefix=RussiaNW \
+      --prefix=${prefix} \
       --tagging=${routino}/share/routino/tagging.xml \
       --process-only
   '';
 
   meta = with lib; {
-    description = "Routino Database (FIN+EST+NWFD)";
+    description = "Routino Database";
     homepage = "https://download.geofabrik.de/index.html";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
