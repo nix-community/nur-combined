@@ -15,7 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     fileSystems."/data" = {
-      device = "robocat:/data";
+      device = "10.0.0.1:/data";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
@@ -28,7 +28,7 @@ in {
       ];
     };
     nix.buildMachines = [{
-      hostName = "robocat";
+      hostName = "10.0.0.1";
       system = "x86_64-linux";
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" "i686-linux" ];
       maxJobs = 8;
