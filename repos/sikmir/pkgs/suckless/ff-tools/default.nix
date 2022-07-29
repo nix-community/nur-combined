@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "sirjofri";
-    repo = pname;
+    repo = "ff-tools";
     rev = "ca02af149a0915caae2c4b8de39baac21d3e596b";
     hash = "sha256-V++8FI8u7N9ALDjoAyd/wD7vg/43E9D/wuwwKiB1NfQ=";
   };

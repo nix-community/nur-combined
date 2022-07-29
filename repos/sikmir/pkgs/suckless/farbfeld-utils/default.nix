@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "farbfeld-utils";
-  version = "2021-06-22";
+  version = "2022-07-12";
 
   src = fetchfossil {
     url = "http://zzo38computer.org/fossil/farbfeld.ui";
-    rev = "c3ca188ebb3bdff06aedd2941964e20c76293d2d";
-    sha256 = "sha256-JPzEb3ZHQzKTSBGEt0v8iqDV/KmzhRmUiHxsaov1LNQ=";
+    rev = "76efb47dff46e97052f3215d40c2b7cfa277d048";
+    sha256 = "sha256-guxTyZmi6w4jrGp+sdLddAur+PJUV3sUoyXC0lmC1LA=";
   };
 
   buildInputs = [ libGL libX11 SDL ghostscript ];

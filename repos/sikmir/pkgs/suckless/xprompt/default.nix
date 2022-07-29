@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "xprompt";
-  version = "2.4.0";
+  version = "2.5.0";
 
   src = fetchFromGitHub {
     owner = "phillbush";
-    repo = pname;
+    repo = "xprompt";
     rev = "v${version}";
-    hash = "sha256-/Hyi0ZvOxS2MWzeX4Ng0QqOGzPGQytkBHwQufT39JAI=";
+    hash = "sha256-pOayKngUlrMY3bFsP4Fi+VsOLKCUQU3tdkZ+0OY1SCo=";
   };
 
   buildInputs = [ libX11 libXft libXinerama ];

@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "shinyblink";
-    repo = pname;
+    repo = "ffshot";
     rev = "07d86c717d764690cbb765ea658405f14364556c";
     hash = "sha256-lPHPwieotSgA6qF3EGDZk+lME0rqglOnEreYLk0/oUY=";
   };

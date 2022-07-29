@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "nextvi";
-  version = "2022-06-10";
+  version = "2022-07-17";
 
   src = fetchFromGitHub {
     owner = "kyx0r";
-    repo = pname;
-    rev = "ffe30839b4ab24ca17ad762ae1f882447f040882";
-    hash = "sha256-voS+v4DFNSN2rU3Njhc3ydo8PwVgcPyH7JQoIzrkow4=";
+    repo = "nextvi";
+    rev = "7c9f5b609ae95cc85916366d1880ac2c91b31e84";
+    hash = "sha256-6MfX9oj7obr83+azPA1hmQzM6ACzqCOGCsZ3nfpzvEg=";
   };
 
   buildPhase = ''

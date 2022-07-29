@@ -2,19 +2,21 @@
 
 stdenv.mkDerivation rec {
   pname = "nsxiv";
-  version = "29";
+  version = "30";
 
   src = fetchFromGitHub {
     owner = "nsxiv";
-    repo = pname;
+    repo = "nsxiv";
     rev = "v${version}";
-    hash = "sha256-JUF2cF6QeAXk6G76uMu3reaMgxp2RcqHDbamkNufwqE=";
+    hash = "sha256-swzTdQ6ow1At4bKRORqz6fb0Ej92yU9rlI/OgcinPu4=";
   };
 
   configFile = lib.optionalString (conf!=null) (builtins.toFile "config.def.h" conf);
   preBuild = lib.optionalString (conf!=null) "cp ${configFile} config.def.h";
 
   buildInputs = [ libXft imlib2 giflib libexif libwebp ];
+
+  makeFlags = [ "CC:=$(CC)" ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

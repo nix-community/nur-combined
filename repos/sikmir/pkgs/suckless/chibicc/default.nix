@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "rui314";
-    repo = pname;
+    repo = "chibicc";
     rev = "90d1f7f199cc55b13c7fdb5839d1409806633fdb";
     hash = "sha256-sGSPQv9JPXTnyv+7CnmzWq1objCJRctK4wKII8GM26s=";
   };

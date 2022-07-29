@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "jeremybobbin";
-    repo = pname;
+    repo = "libst";
     rev = "4bcd511e6dd0d88730b9359fd5a4d12781c2344a";
     hash = "sha256-vpU1Hbd6c/c0M/eUvQqW7RXHG2bz707LkcKlgFrzHtc=";
   };
