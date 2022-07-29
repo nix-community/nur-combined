@@ -39,14 +39,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "703407281a661ec2b731189cb2120f3c69b56173";
+    version = "161249fa953fb06a146d8d22612711707ede1ea9";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "703407281a661ec2b731189cb2120f3c69b56173";
+      rev = "161249fa953fb06a146d8d22612711707ede1ea9";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Z3edsOLxnFM7N1o7LsfZQGuQBOBwv5KfDMQ+/YVGJTs=";
+      sha256 = "sha256-RyIUpBB1flkFgzv2X6PlfOxSYWGPtkdehiV7Gf1zprA=";
     };
   };
   slock-flexipatch = {
