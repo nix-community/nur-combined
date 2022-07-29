@@ -10,6 +10,7 @@
     unstable.cloud-nuke
     awsweeper
     awscli2
+    aws-vault
   ];
 }
 
