@@ -161,11 +161,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "70f016900d33734c9b2578dbba819e82992daf4a",
-            "sha256": "sha256-inatRc8vN1L0L3sStRJThSqktySgFGYHLXAZmqy/lfs=",
+            "rev": "fe3b8422ca5f72d42eb3b0f27d2cf182325bd26a",
+            "sha256": "sha256-DwUrHSpBzzTppVgKw3zZQgG8Avi5d5U3zvFgdvXHA04=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "70f016900d33734c9b2578dbba819e82992daf4a"
+        "version": "fe3b8422ca5f72d42eb3b0f27d2cf182325bd26a"
     }
 }

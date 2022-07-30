@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "L3MON4D3",
         "repo": "LuaSnip",
-        "rev": "53e812a6f51c9d567c98215733100f0169bcc20a",
-        "sha256": "0qr84j39d4202ag1gvi26xilcsqwfw32d9lv96zc96a51l6r40y0",
+        "rev": "d8cacf83a214b7dd80986a8a24e4adf3fdd4f069",
+        "sha256": "144qx4ypw1f36pmnk0q787a5mppbmlind4p1pivjqlg7gfzwdsnq",
         "type": "tarball",
-        "url": "https://github.com/L3MON4D3/LuaSnip/archive/53e812a6f51c9d567c98215733100f0169bcc20a.tar.gz",
+        "url": "https://github.com/L3MON4D3/LuaSnip/archive/d8cacf83a214b7dd80986a8a24e4adf3fdd4f069.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "SchemaStore.nvim": {
@@ -365,10 +365,10 @@
         "homepage": "",
         "owner": "rafamadriz",
         "repo": "friendly-snippets",
-        "rev": "8c95fecb3960eb0d3d3b9bd582d49a613bd7a7fb",
-        "sha256": "1y34pb7v7pk4zvjbab5bs5shcbxh0msiy6aijrkp119a1r0zpndj",
+        "rev": "1db69684a27eec0b9f520a5d7d95d414fc30ba91",
+        "sha256": "1qsb92sl6nyihy63h0dyif8fnb39gpggf8s7xv4yf1wrlzxx30al",
         "type": "tarball",
-        "url": "https://github.com/rafamadriz/friendly-snippets/archive/8c95fecb3960eb0d3d3b9bd582d49a613bd7a7fb.tar.gz",
+        "url": "https://github.com/rafamadriz/friendly-snippets/archive/1db69684a27eec0b9f520a5d7d95d414fc30ba91.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gitsigns.nvim": {
@@ -485,10 +485,10 @@
         "homepage": null,
         "owner": "Chromosore",
         "repo": "lazily-nvim",
-        "rev": "b70a2a430a4bb1220bd78214149a1e88b0902ade",
-        "sha256": "0wfv0aj8qwcswz7q8y909rnp9ab8zqwmf7lrnbl60vryddn9203m",
+        "rev": "c52106d87ecc97e67f8f1074c0a872e13ef1c3c5",
+        "sha256": "104bhxxw9y09q0rrwk8jb7gfhp9sw5nw20h930n6wvs5k3qffqn0",
         "type": "tarball",
-        "url": "https://github.com/Chromosore/lazily-nvim/archive/b70a2a430a4bb1220bd78214149a1e88b0902ade.tar.gz",
+        "url": "https://github.com/Chromosore/lazily-nvim/archive/c52106d87ecc97e67f8f1074c0a872e13ef1c3c5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lsp_extensions.nvim": {
@@ -569,10 +569,10 @@
         "homepage": "",
         "owner": "nvim-lualine",
         "repo": "lualine.nvim",
-        "rev": "788805771c1ca7fe2c6652c38523cf208908934c",
-        "sha256": "1hl8125v1bm7b50nl6xjzmcypndlkbmzihjc86gx0id7n4rrdssj",
+        "rev": "6d11f9f50817020cf634903a235628cabe0c56f8",
+        "sha256": "0sm7w6nngdqlhwrclmxhxawl4g9hm7nan6lr12pn42ikwkm56641",
         "type": "tarball",
-        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/788805771c1ca7fe2c6652c38523cf208908934c.tar.gz",
+        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/6d11f9f50817020cf634903a235628cabe0c56f8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "luv-vimdocs": {
