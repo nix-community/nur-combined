@@ -292,13 +292,13 @@ let
         sha512 = "WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==";
       };
     };
-    "@types/node-18.0.6" = {
+    "@types/node-18.6.2" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.0.6";
+      version = "18.6.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.0.6.tgz";
-        sha512 = "/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.6.2.tgz";
+        sha512 = "KcfkBq9H4PI6Vpu5B/KoPeuVDAbmi+2mDBqGPGUgoL7yXQtcWGu2vJWmmRkneWK3Rh0nIAX192Aa87AqKHYChQ==";
       };
     };
     "abbrev-1.1.1" = {
@@ -562,13 +562,13 @@ let
         sha512 = "aNdbnj9P8PjdXU4ybaWLK2IF3jc/EoDYbC7AazW6to3TRsfXxscC9UXOB5iDiEQrkyIbWp2SLQda4+QAa7nc3w==";
       };
     };
-    "browserslist-4.21.2" = {
+    "browserslist-4.21.3" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.21.2";
+      version = "4.21.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.21.2.tgz";
-        sha512 = "MonuOgAtUB46uP5CezYbRaYKBNt2LxP0yX+Pmj4LkcDFGkn9Cbpi83d9sCjwQDErXsIJSzY5oKGDbgOlF/LPAA==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.21.3.tgz";
+        sha512 = "898rgRXLAyRkM1GryrrBHGkqA5hlpkV5MhtZwg9QXeiyLUYs2k00Un05aX5l2/yJIOObYKOpS2JNo8nJDE7fWQ==";
       };
     };
     "buffer-5.7.1" = {
@@ -607,13 +607,13 @@ let
         sha512 = "AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==";
       };
     };
-    "caniuse-lite-1.0.30001368" = {
+    "caniuse-lite-1.0.30001373" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001368";
+      version = "1.0.30001373";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001368.tgz";
-        sha512 = "wgfRYa9DenEomLG/SdWgQxpIyvdtH3NW8Vq+tB6AwR9e56iOIcu1im5F/wNdDf04XlKHXqIx4N8Jo0PemeBenQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001373.tgz";
+        sha512 = "pJYArGHrPp3TUqQzFYRmP/lwJlj8RCbVe3Gd3eJQkAV8SAC6b19XS9BjMvRdvaS8RMkaTN8ZhoHP6S1y8zzwEQ==";
       };
     };
     "caseless-0.12.0" = {
@@ -922,13 +922,13 @@ let
         sha512 = "eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw==";
       };
     };
-    "electron-to-chromium-1.4.199" = {
+    "electron-to-chromium-1.4.206" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.199";
+      version = "1.4.206";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.199.tgz";
-        sha512 = "WIGME0Cs7oob3mxsJwHbeWkH0tYkIE/sjkJ8ML2BYmuRcjhRl/q5kVDXG7W9LOOKwzPU5M0LBlXRq9rlSgnNlg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.206.tgz";
+        sha512 = "h+Fadt1gIaQ06JaIiyqPsBjJ08fV5Q7md+V8bUvQW/9OvXfL2LRICTz2EcnnCP7QzrFTS6/27MRV6Bl9Yn97zA==";
       };
     };
     "end-of-stream-1.4.4" = {
@@ -3267,7 +3267,7 @@ let
       sources."@jspm/npm-1.0.2"
       sources."@jspm/resolve-1.0.0"
       sources."@types/estree-1.0.0"
-      sources."@types/node-18.0.6"
+      sources."@types/node-18.6.2"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3309,12 +3309,12 @@ let
           sources."extend-shallow-2.0.1"
         ];
       })
-      sources."browserslist-4.21.2"
+      sources."browserslist-4.21.3"
       sources."buffer-5.7.1"
       sources."buffer-from-1.1.2"
       sources."buffer-peek-stream-1.1.0"
       sources."cache-base-1.0.1"
-      sources."caniuse-lite-1.0.30001368"
+      sources."caniuse-lite-1.0.30001373"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chownr-1.1.4"
@@ -3360,7 +3360,7 @@ let
       sources."detect-file-1.0.0"
       sources."detect-libc-1.0.3"
       sources."ecc-jsbn-0.1.2"
-      sources."electron-to-chromium-1.4.199"
+      sources."electron-to-chromium-1.4.206"
       sources."end-of-stream-1.4.4"
       sources."err-code-1.1.2"
       sources."errno-0.1.8"

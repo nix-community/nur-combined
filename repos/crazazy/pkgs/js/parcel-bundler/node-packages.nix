@@ -94,13 +94,13 @@ let
         sha512 = "7LcpH1wnQLGrI+4v+nPp+zUvIkF9x0ddv1Hkdue10tg3gmRnLy97DXh4STiOf1qeIInyD69Qv5kKSZzKD8B/7A==";
       };
     };
-    "@babel/helper-define-polyfill-provider-0.3.1" = {
+    "@babel/helper-define-polyfill-provider-0.3.2" = {
       name = "_at_babel_slash_helper-define-polyfill-provider";
       packageName = "@babel/helper-define-polyfill-provider";
-      version = "0.3.1";
+      version = "0.3.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helper-define-polyfill-provider/-/helper-define-polyfill-provider-0.3.1.tgz";
-        sha512 = "J9hGMpJQmtWmj46B3kBHmL38UhJGhYX7eqkcq+2gsstyYt341HmPeWspihX43yVRA0mS+8GGk2Gckc7bY/HCmA==";
+        url = "https://registry.npmjs.org/@babel/helper-define-polyfill-provider/-/helper-define-polyfill-provider-0.3.2.tgz";
+        sha512 = "r9QJJ+uDWrd+94BSPcP6/de67ygLtvVy6cK4luE6MOuDsZIdoaPBnfSpbO/+LTifjPckbKXRuI9BB/Z2/y3iTg==";
       };
     };
     "@babel/helper-environment-visitor-7.18.9" = {
@@ -1390,22 +1390,22 @@ let
         sha512 = "jZVI+s9Zg3IqA/kdi0i6UDCybUI3aSBLnglhYbSSjKlV7yF1F/5LWv8MakQmvYpnbJDS6fcBL2KzHSxNCMtWSQ==";
       };
     };
-    "babel-plugin-polyfill-corejs2-0.3.1" = {
+    "babel-plugin-polyfill-corejs2-0.3.2" = {
       name = "babel-plugin-polyfill-corejs2";
       packageName = "babel-plugin-polyfill-corejs2";
-      version = "0.3.1";
+      version = "0.3.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.3.1.tgz";
-        sha512 = "v7/T6EQcNfVLfcN2X8Lulb7DjprieyLWJK/zOWH5DUYcAgex9sP3h25Q+DLsX9TloXe3y1O8l2q2Jv9q8UVB9w==";
+        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.3.2.tgz";
+        sha512 = "LPnodUl3lS0/4wN3Rb+m+UK8s7lj2jcLRrjho4gLw+OJs+I4bvGXshINesY5xx/apM+biTnQ9reDI8yj+0M5+Q==";
       };
     };
-    "babel-plugin-polyfill-corejs3-0.5.2" = {
+    "babel-plugin-polyfill-corejs3-0.5.3" = {
       name = "babel-plugin-polyfill-corejs3";
       packageName = "babel-plugin-polyfill-corejs3";
-      version = "0.5.2";
+      version = "0.5.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs3/-/babel-plugin-polyfill-corejs3-0.5.2.tgz";
-        sha512 = "G3uJih0XWiID451fpeFaYGVuxHEjzKTHtc9uGFEjR6hHrvNzeS/PX+LLLcetJcytsB5m4j+K3o/EpXJNb/5IEQ==";
+        url = "https://registry.npmjs.org/babel-plugin-polyfill-corejs3/-/babel-plugin-polyfill-corejs3-0.5.3.tgz";
+        sha512 = "zKsXDh0XjnrUEW0mxIHLfjBfnXSMr5Q/goMe/fxpQnLm07mcOZiIZHBNWCMx60HmdvjxfXcalac0tfFg0wqxyw==";
       };
     };
     "babel-plugin-polyfill-regenerator-0.3.1" = {
@@ -1624,13 +1624,13 @@ let
         sha512 = "Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==";
       };
     };
-    "browserslist-4.21.2" = {
+    "browserslist-4.21.3" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.21.2";
+      version = "4.21.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.21.2.tgz";
-        sha512 = "MonuOgAtUB46uP5CezYbRaYKBNt2LxP0yX+Pmj4LkcDFGkn9Cbpi83d9sCjwQDErXsIJSzY5oKGDbgOlF/LPAA==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.21.3.tgz";
+        sha512 = "898rgRXLAyRkM1GryrrBHGkqA5hlpkV5MhtZwg9QXeiyLUYs2k00Un05aX5l2/yJIOObYKOpS2JNo8nJDE7fWQ==";
       };
     };
     "buffer-4.9.2" = {
@@ -1741,13 +1741,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001368" = {
+    "caniuse-lite-1.0.30001373" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001368";
+      version = "1.0.30001373";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001368.tgz";
-        sha512 = "wgfRYa9DenEomLG/SdWgQxpIyvdtH3NW8Vq+tB6AwR9e56iOIcu1im5F/wNdDf04XlKHXqIx4N8Jo0PemeBenQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001373.tgz";
+        sha512 = "pJYArGHrPp3TUqQzFYRmP/lwJlj8RCbVe3Gd3eJQkAV8SAC6b19XS9BjMvRdvaS8RMkaTN8ZhoHP6S1y8zzwEQ==";
       };
     };
     "caseless-0.12.0" = {
@@ -2002,13 +2002,13 @@ let
         sha512 = "Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==";
       };
     };
-    "core-js-compat-3.23.5" = {
+    "core-js-compat-3.24.1" = {
       name = "core-js-compat";
       packageName = "core-js-compat";
-      version = "3.23.5";
+      version = "3.24.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.23.5.tgz";
-        sha512 = "fHYozIFIxd+91IIbXJgWd/igXIc8Mf9is0fusswjnGIWVG96y2cwyUdlCkGOw6rMLHKAxg7xtCIVaHsyOUnJIg==";
+        url = "https://registry.npmjs.org/core-js-compat/-/core-js-compat-3.24.1.tgz";
+        sha512 = "XhdNAGeRnTpp8xbD+sR/HFDK9CbeeeqXT6TuofXh3urqEevzkWmLRgrVoykodsw8okqo2pu1BOmuCKrHx63zdw==";
       };
     };
     "core-util-is-1.0.2" = {
@@ -2551,13 +2551,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.4.199" = {
+    "electron-to-chromium-1.4.206" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.199";
+      version = "1.4.206";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.199.tgz";
-        sha512 = "WIGME0Cs7oob3mxsJwHbeWkH0tYkIE/sjkJ8ML2BYmuRcjhRl/q5kVDXG7W9LOOKwzPU5M0LBlXRq9rlSgnNlg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.206.tgz";
+        sha512 = "h+Fadt1gIaQ06JaIiyqPsBjJ08fV5Q7md+V8bUvQW/9OvXfL2LRICTz2EcnnCP7QzrFTS6/27MRV6Bl9Yn97zA==";
       };
     };
     "elliptic-6.5.4" = {
@@ -6631,7 +6631,7 @@ let
       })
       sources."@babel/helper-create-class-features-plugin-7.18.9"
       sources."@babel/helper-create-regexp-features-plugin-7.18.6"
-      (sources."@babel/helper-define-polyfill-provider-0.3.1" // {
+      (sources."@babel/helper-define-polyfill-provider-0.3.2" // {
         dependencies = [
           sources."semver-6.3.0"
         ];
@@ -6799,12 +6799,12 @@ let
       sources."aws-sign2-0.7.0"
       sources."aws4-1.11.0"
       sources."babel-plugin-dynamic-import-node-2.3.3"
-      (sources."babel-plugin-polyfill-corejs2-0.3.1" // {
+      (sources."babel-plugin-polyfill-corejs2-0.3.2" // {
         dependencies = [
           sources."semver-6.3.0"
         ];
       })
-      sources."babel-plugin-polyfill-corejs3-0.5.2"
+      sources."babel-plugin-polyfill-corejs3-0.5.3"
       sources."babel-plugin-polyfill-regenerator-0.3.1"
       (sources."babel-runtime-6.26.0" // {
         dependencies = [
@@ -6849,7 +6849,7 @@ let
           sources."pako-1.0.11"
         ];
       })
-      sources."browserslist-4.21.2"
+      sources."browserslist-4.21.3"
       (sources."buffer-4.9.2" // {
         dependencies = [
           sources."isarray-1.0.0"
@@ -6866,7 +6866,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001368"
+      sources."caniuse-lite-1.0.30001373"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -6892,7 +6892,7 @@ let
       sources."convert-source-map-1.8.0"
       sources."copy-descriptor-0.1.1"
       sources."core-js-2.6.12"
-      (sources."core-js-compat-3.23.5" // {
+      (sources."core-js-compat-3.24.1" // {
         dependencies = [
           sources."semver-7.0.0"
         ];
@@ -7003,7 +7003,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.199"
+      sources."electron-to-chromium-1.4.206"
       (sources."elliptic-6.5.4" // {
         dependencies = [
           sources."bn.js-4.12.0"

@@ -148,13 +148,13 @@ let
         sha512 = "I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==";
       };
     };
-    "cli-spinners-2.6.1" = {
+    "cli-spinners-2.7.0" = {
       name = "cli-spinners";
       packageName = "cli-spinners";
-      version = "2.6.1";
+      version = "2.7.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.6.1.tgz";
-        sha512 = "x/5fWmGMnbKQAaNwN+UZlV79qBLM9JFnJuJ03gIi5whrob0xV0ofNVHy9DhwGdsMJQc2OKv0oGmLzvaqvAVv+g==";
+        url = "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.7.0.tgz";
+        sha512 = "qu3pN8Y3qHNgE2AFweciB1IfMnmZ/fsNTEE+NOFjmGB2F/7rLhnhzppvpCnN4FovtP26k8lHyy9ptEbNwWFLzw==";
       };
     };
     "clone-1.0.4" = {
@@ -725,7 +725,7 @@ let
       sources."chainsaw-0.1.0"
       sources."chalk-4.1.2"
       sources."cli-cursor-3.1.0"
-      sources."cli-spinners-2.6.1"
+      sources."cli-spinners-2.7.0"
       sources."clone-1.0.4"
       sources."color-convert-2.0.1"
       sources."color-name-1.1.4"
