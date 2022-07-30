@@ -41,7 +41,7 @@ in {
       default = "edgevpn0";
     };
     address = mkOption {
-      type = types.anything;
+      type = ip4.type;
       default = ip4.fromString "10.1.0.1/24";
     };
     dhcp = mkOption {

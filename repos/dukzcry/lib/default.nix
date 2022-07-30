@@ -15,6 +15,14 @@ with pkgs.lib; {
   };
   # https://github.com/NixOS/nixpkgs/issues/36299
   ip4 = rec {
+    type = types.attrs // {
+      name = "ip4";
+      description = "ip4 address";
+      check = x:
+        let
+          ints = attrsets.attrVals ["a" "b" "c" "d" "prefixLength"] x;
+        in all isInt ints && isString x.address;
+    };
     pow = n : i :
       if i == 1 then
         n

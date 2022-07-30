@@ -23,7 +23,7 @@ in {
       default = "cjdns0";
     };
     address = mkOption {
-      type = types.anything;
+      type = ip4.type;
       example = ''
         ip4.fromString "10.0.2.1/24"
       '';

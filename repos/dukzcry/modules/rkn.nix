@@ -31,7 +31,7 @@ in {
             default = true;
           };
           network = mkOption {
-            type = types.anything;
+            type = ip4.type;
             default = ip4.fromString "10.123.0.1/16";
           };
         };
