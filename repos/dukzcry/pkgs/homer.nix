@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, unzip, configuration ? {}, writeText }:
 
 let
-  config = writeText "config.yml" (builtins.toJSON configuration);
+  configuration' = writeText "config.yml" (builtins.toJSON configuration);
 in stdenv.mkDerivation rec {
   pname = "homer";
   version = "22.07.2";
@@ -19,7 +19,7 @@ in stdenv.mkDerivation rec {
   unpackCmd = "${unzip}/bin/unzip -d $out $curSrc";
 
   buildPhase = lib.optionalString (configuration != {}) ''
-    cp ${config} $out/assets
+    cp ${configuration'} $out/assets/config.yml
   '';
 
   meta = with lib; {
