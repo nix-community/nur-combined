@@ -9,14 +9,14 @@
 let
   cmd = buildGoModule rec {
     inherit (sources.cloudpan189-go) pname version src;
-    vendorSha256 = "sha256-2zqCpOvrXCv7/oeR6bCLt1esdlMFQ33gD8Y36CghXYo=";
+    vendorSha256 = "sha256-R8des9hxsHC/16GtBsVLpO1KfEJhnEpToPhImsoQZZw=";
 
     # Dirty way to fix dependency issue
-    preBuild = ''
-      chmod -R +w vendor
-      sed -i '/go:linkname/d' vendor/github.com/tickstep/library-go/expires/expires.go
-      chmod -R -w vendor
-    '';
+    overrideModAttrs = _: {
+      postInstall = ''
+        sed -i '/go:linkname/d' $out/github.com/tickstep/library-go/expires/expires.go
+      '';
+    };
 
     doCheck = false;
   };
