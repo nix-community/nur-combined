@@ -55,7 +55,6 @@ Update Firefox addons:
     - nix-env -f '<nixpkgs>' -iA cachix
     - cachix use rycee
     - nix-env -f . -iA mozilla-addons-to-nix
-    - nix-env -f '<nixpkgs>' -iA gitMinimal
     - git remote set-url origin $REMOTE_URL
     - git config --global user.email 'rybot@rycee.net'
     - git config --global user.name 'rybot'
@@ -78,7 +77,6 @@ Update Home Manager:
     FETCH_DATA: pkgs/home-manager/$HM_BRANCH.json
     REMOTE_URL: https://nur-updates:$RYBOT_TOKEN@gitlab.com/rycee/nur-expressions.git
   before_script:
-    - nix-env -f '<nixpkgs>' -iA gitMinimal
     - git remote set-url origin $REMOTE_URL
     - git config --global user.email 'rybot@rycee.net'
     - git config --global user.name 'rybot'
