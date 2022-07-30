@@ -35,4 +35,5 @@ rec {
   sunshine = callPackage ./pkgs/sunshine/default.nix {};
   libidn = callPackage ./pkgs/libidn.nix {};
   gitupdate = callPackage ./pkgs/gitupdate.nix {};
+  homer = callPackage ./pkgs/homer.nix {};
 }
