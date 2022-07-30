@@ -1,10 +1,10 @@
 [
   {
     "name": "aai-programmable-vehicles",
-    "version": "0.7.21",
-    "file_name": "aai-programmable-vehicles_0.7.21.zip",
-    "download_url": "/download/aai-programmable-vehicles/620ef1f9e4e59b7b67adab75",
-    "sha1": "e92b86687eff7242d58b92bfa90571d41ebe3cc6",
+    "version": "0.7.22",
+    "file_name": "aai-programmable-vehicles_0.7.22.zip",
+    "download_url": "/download/aai-programmable-vehicles/62d35b037597ba6deb340a08",
+    "sha1": "14dbb6af973cb7a1f3dc357f2cfa3708fa6d745b",
     "dependencies": [
       "base >= 1.1.0",
       "aai-signals >= 0.4.1",
@@ -285,10 +285,10 @@
   },
   {
     "name": "ArmouredBiters",
-    "version": "1.1.5",
-    "file_name": "ArmouredBiters_1.1.5.zip",
-    "download_url": "/download/ArmouredBiters/621bfe5496770fb3aade7b56",
-    "sha1": "3f373a09efff3e847b3ac90935f4f091f1b0add5",
+    "version": "1.1.6",
+    "file_name": "ArmouredBiters_1.1.6.zip",
+    "download_url": "/download/ArmouredBiters/62d5bd2ed0ad17fb9c31f7ee",
+    "sha1": "492961c098601ecc04add0e62702fa097a03073f",
     "dependencies": [
       "base >= 1.1.1",
       "(?) alien-biomes"
@@ -557,10 +557,10 @@
   },
   {
     "name": "Clockwork",
-    "version": "1.1.0",
-    "file_name": "Clockwork_1.1.0.zip",
-    "download_url": "/download/Clockwork/5fbc3c3cd0e33c92e48d1085",
-    "sha1": "b4bdef4d444624e3c35b54823fb82e365f9a09dc",
+    "version": "1.1.1",
+    "file_name": "Clockwork_1.1.1.zip",
+    "download_url": "/download/Clockwork/62cfbeec2f7323c5991b564b",
+    "sha1": "c43fb2d43d585c1ea106d802ccae20e2fb9996d0",
     "dependencies": [
       "base >= 1.1"
     ]
@@ -648,10 +648,10 @@
   },
   {
     "name": "helmod",
-    "version": "0.12.10",
-    "file_name": "helmod_0.12.10.zip",
-    "download_url": "/download/helmod/62cbeedb70d8ebd641de4c1d",
-    "sha1": "116668786f77ae5c5516cece37e6e41bd43b10a3",
+    "version": "0.12.11",
+    "file_name": "helmod_0.12.11.zip",
+    "download_url": "/download/helmod/62dadf7620d75216a3476469",
+    "sha1": "c4e280765e280ab5477e31a9fdbc16959f4cdaa0",
     "dependencies": [
       "base >= 1.1"
     ]
@@ -669,10 +669,10 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.3.3",
-    "file_name": "Krastorio2_1.3.3.zip",
-    "download_url": "/download/Krastorio2/62c7b378719aac88ae8d571a",
-    "sha1": "2dd9a0ae70355c4454f376ab3a5fba4435eae319",
+    "version": "1.3.4",
+    "file_name": "Krastorio2_1.3.4.zip",
+    "download_url": "/download/Krastorio2/62d78cc39e83d93a651a451d",
+    "sha1": "a6078700cdec068fec7d3aee236ec0296633c204",
     "dependencies": [
       "base >= 1.1.52",
       "Krastorio2Assets >= 1.2.0",
@@ -949,20 +949,20 @@
   },
   {
     "name": "RPGsystem",
-    "version": "1.2.0",
-    "file_name": "RPGsystem_1.2.0.zip",
-    "download_url": "/download/RPGsystem/6176bb02eb75ee3c6910a95f",
-    "sha1": "bcdc98698a127a38a400a184bf7f218a457c0b14",
+    "version": "1.2.1",
+    "file_name": "RPGsystem_1.2.1.zip",
+    "download_url": "/download/RPGsystem/62d6917b42c955be9b4d5c56",
+    "sha1": "d10bd0b437a3bb26d95b5ab735dadda345792575",
     "dependencies": [
       "base >= 1.1.0"
     ]
   },
   {
     "name": "rso-mod",
-    "version": "6.2.19",
-    "file_name": "rso-mod_6.2.19.zip",
-    "download_url": "/download/rso-mod/62c86df36a21326586abe45e",
-    "sha1": "e178b8d371f326e2ce178dfbe8126658de9439d8",
+    "version": "6.2.20",
+    "file_name": "rso-mod_6.2.20.zip",
+    "download_url": "/download/rso-mod/62e034728b507aa981ef3122",
+    "sha1": "50a870af505333548b9ff01967c4eecea24bfdd5",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
