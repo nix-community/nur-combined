@@ -103,6 +103,8 @@ in {
       };
       # onion
       networking.firewall.extraCommands = ''
+        iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -m set --match-set rkn dst -j DNAT --to-destination ${cfg.address}:9040
+        iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set rkn dst -j DNAT --to-destination ${cfg.address}:9040
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
       '';
