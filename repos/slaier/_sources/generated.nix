@@ -3,11 +3,11 @@
 {
   "'vscode-extensions.GitHub.copilot'" = {
     pname = "'vscode-extensions.GitHub.copilot'";
-    version = "1.34.6280";
+    version = "1.36.6340";
     src = fetchurl {
-      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.34.6280/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.34.6280.zip";
-      sha256 = "sha256-yMemm2hIowznjHostr3BTlu5oh1nSr910MqpJ78x0Bc=";
+      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.36.6340/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.36.6340.zip";
+      sha256 = "sha256-dyjvD8mcK1KSwbRTmxGno9GGqcLwT2ikSobc/7FZbA0=";
     };
     license = "cc-by-40";
     homepage = "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot";
@@ -39,11 +39,11 @@
   };
   "'vscode-extensions.TabNine.tabnine-vscode'" = {
     pname = "'vscode-extensions.TabNine.tabnine-vscode'";
-    version = "3.6.4";
+    version = "3.6.6";
     src = fetchurl {
-      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.4/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "tabnine-vscode-3.6.4.zip";
-      sha256 = "sha256-QNMjzymnKh2JzmVFw5d81QeHFpNdOKX1/xYNsWkLEjI=";
+      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.6/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "tabnine-vscode-3.6.6.zip";
+      sha256 = "sha256-kqm679mD7VqmO2XNXAUAkX2NVsE0L2JyG5LoRdIiAdI=";
     };
     license = "mit";
     homepage = "https://github.com/codota/tabnine-vscode";
