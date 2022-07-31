@@ -28,25 +28,25 @@
   };
   kiwmi = {
     pname = "kiwmi";
-    version = "1e30855dfbc69e6849344cd64f651f9c2e7a5fb9";
+    version = "17814972abe6a8811a586fa87c99a2b16a86075f";
     src = fetchFromGitHub {
       owner = "buffet";
       repo = "kiwmi";
-      rev = "1e30855dfbc69e6849344cd64f651f9c2e7a5fb9";
+      rev = "17814972abe6a8811a586fa87c99a2b16a86075f";
       fetchSubmodules = false;
-      sha256 = "sha256-b/0xE8zzz9JoggQbZ2qfUW8nAdY8SoiZR54o+D2Qckk=";
+      sha256 = "sha256-n9PA6cyEjSlnDcRrqIkO83UaCE/hovbi/oZon1B+nuw=";
     };
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "abc160a311bd80bdd641633c52e12e1bfc4feb1d";
+    version = "4d23fd0c2013a014c5e8470b6e79756bec770a21";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "abc160a311bd80bdd641633c52e12e1bfc4feb1d";
+      rev = "4d23fd0c2013a014c5e8470b6e79756bec770a21";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-ajXezLjTIhk+PJODJ6LLIfsFrX3ncA1kXk54jV8Z1oU=";
+      sha256 = "sha256-MjSLJLlxHdQs+VafbYAeOON5pxNJJFkOfUV54ILj9uc=";
     };
   };
   slock-flexipatch = {
