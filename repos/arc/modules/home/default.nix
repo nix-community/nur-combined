@@ -4,6 +4,7 @@
   bitbucket = ./bitbucket.nix;
   sshd = ./sshd.nix;
   ssh = ./ssh.nix;
+  gmail = ./gmail.nix;
   konawall = ./konawall.nix;
   screenstub = ./screenstub.nix;
   task = ./task.nix;
@@ -40,6 +41,7 @@
     imports = with self; [
       git github bitbucket
       sshd ssh
+      gmail
       konawall
       screenstub
       task
