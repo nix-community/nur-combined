@@ -49,7 +49,7 @@
 | [lsp_lines-nvim](https://github.com/Maan2003/lsp_lines.nvim) | Forked from https://git.sr.ht/~whynothugo/lsp_lines.nvim |
 | [lsp_signature-nvim](https://github.com/ray-x/lsp_signature.nvim) | LSP signature hint as you type |
 | [lspkind-nvim](https://github.com/onsails/lspkind.nvim) | vscode-like pictograms for neovim lsp completion items |
-| [lspsaga-nvim](https://github.com/tami5/lspsaga.nvim) | The neovim language-server-client UI |
+| [lspsaga-nvim](https://github.com/glepnir/lspsaga.nvim) | neovim lsp plugin  |
 | [lua-dev-nvim](https://github.com/folke/lua-dev.nvim) | 💻  Dev setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API. |
 | [lualine-nvim](https://github.com/nvim-lualine/lualine.nvim) | A blazing fast and easy to configure neovim statusline plugin written in pure lua. |
 | [luv-vimdocs](https://github.com/nanotee/luv-vimdocs) | None |
