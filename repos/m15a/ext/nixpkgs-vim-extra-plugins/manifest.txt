@@ -188,6 +188,7 @@ h-hg/fcitx.nvim
 haringsrob/nvim_context_vt
 henriquehbr/ataraxis.lua
 henriquehbr/nvim-startup.lua
+hkupty/iron.nvim
 hkupty/nvimux
 houtsnip/vim-emacscommandline
 hrsh7th/cmp-buffer
@@ -430,6 +431,7 @@ sudormrfbin/cheatsheet.nvim
 sunjon/Shade.nvim
 svermeulen/vim-yoink
 svermeulen/vimpeccable
+sychen52/smart-term-esc.nvim
 tamago324/lir.nvim
 tamago324/nlsp-settings.nvim
 tamton-aquib/staline.nvim

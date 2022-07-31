@@ -259,6 +259,16 @@ let
       ];
     });
 
+    glow-nvim = super.glow-nvim.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [
+        # https://github.com/ellisonleao/glow.nvim/pull/80
+        (final.fetchpatch {
+          url = "https://github.com/ellisonleao/glow.nvim/pull/80/commits/16a348ffa8022945f735caf708c2bd601b08272c.patch";
+          sha256 = "sha256-fljlBTHcoPjnavF37yoIs3zrZ3+iOX6oQ0e20AKtNI8=";
+        })
+      ];
+    });
+
     guihua-lua = super.guihua-lua.overrideAttrs (old: {
       buildPhase = ''
         (
