@@ -17,6 +17,7 @@
 | [cmp-path](https://github.com/hrsh7th/cmp-path) | nvim-cmp source for path |
 | [cmp-under-comparator](https://github.com/lukas-reineke/cmp-under-comparator) | nvim-cmp comparator function for completion items that start with one or more underlines |
 | [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip) | luasnip completion source for nvim-cmp |
+| [coq_nvim](https://github.com/ms-jpq/coq_nvim) | Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization. |
 | [crates-nvim](https://github.com/Saecki/crates.nvim) | A neovim plugin that helps managing crates.io dependencies |
 | [diaglist-nvim](https://github.com/onsails/diaglist.nvim) | Live render workspace diagnostics in quickfix with current buf errors on top, buffer diagnostics in loclist |
 | [direnv-vim](https://github.com/direnv/direnv.vim) | vim plugin for direnv support |
@@ -37,7 +38,10 @@
 | [heirline-nvim](https://github.com/rebelot/heirline.nvim) | Heirline.nvim is a no-nonsense Neovim Statusline plugin designed around recursive inheritance to be exceptionally fast and versatile. |
 | [hibiscus-nvim](https://github.com/udayvir-singh/hibiscus.nvim) | :hibiscus: Flavored Fennel Macros for Neovim |
 | [hlargs-nvim](https://github.com/m-demare/hlargs.nvim) | Highlight arguments' definitions and usages, using Treesitter |
+| [hover-nvim](https://github.com/lewis6991/hover.nvim) | Hover plugin framework for Neovim |
+| [icon-picker-nvim](https://github.com/ziontee113/icon-picker.nvim) | This is a Neovim plugin that helps you pick Nerd Font Icons, Symbols & Emojis |
 | [impatient-nvim](https://github.com/lewis6991/impatient.nvim) | Improve startup time for Neovim |
+| [inc-rename-nvim](https://github.com/smjonas/inc-rename.nvim) | Incremental LSP renaming based on Neovim's command-preview feature. |
 | [incline-nvim](https://github.com/b0o/incline.nvim) | 🎈 Floating winbar statuslines for Neovim |
 | [indent-blankline-nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indent guides  for Neovim |
 | [lazily-nvim](https://github.com/Chromosore/lazily-nvim) | A standalone plugin lazy loader for Neovim |
@@ -62,6 +66,7 @@
 | [null-ls-nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) | Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. |
 | [numbers-nvim](https://github.com/nkakouros-original/numbers.nvim) | Toggles relativenumbers when not needed |
 | [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | autopairs for neovim written by lua |
+| [nvim-biscuits](https://github.com/code-biscuits/nvim-biscuits) | A neovim port of Assorted Biscuits. Ends up with more supported languages too. |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | A completion plugin for neovim coded in Lua. |
 | [nvim-colorizer-lua](https://github.com/xiyaowong/nvim-colorizer.lua) | The fastest Neovim colorizer. |
 | [nvim-cursorword](https://github.com/xiyaowong/nvim-cursorword) | highlight the word under the cursor. |
@@ -73,7 +78,9 @@
 | [nvim-lint](https://github.com/mfussenegger/nvim-lint) | An asynchronous linter plugin for Neovim complementary to the built-in Language Server Protocol support. |
 | [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | Quickstart configurations for the Nvim LSP client |
 | [nvim-luaref](https://github.com/milisims/nvim-luaref) | Add a vim :help reference for lua  |
+| [nvim-nonicons](https://github.com/yamatsum/nvim-nonicons) | Icon set using nonicons for neovim plugins and settings |
 | [nvim-notify](https://github.com/rcarriga/nvim-notify) | A fancy, configurable, notification manager for NeoVim |
+| [nvim-numbertoggle](https://github.com/sitiom/nvim-numbertoggle) | Neovim plugin to automatically toggle between relative and absolute line numbers. Written in Lua. |
 | [nvim-scrollbar](https://github.com/petertriho/nvim-scrollbar) | Extensible Neovim Scrollbar |
 | [nvim-tree-lua](https://github.com/kyazdani42/nvim-tree.lua) | A file explorer tree for neovim written in lua |
 | [nvim-treesitter-textsubjects](https://github.com/RRethy/nvim-treesitter-textsubjects) | Location and syntax aware text objects which *do what you mean* |
@@ -97,6 +104,7 @@
 | [satellite-nvim](https://github.com/lewis6991/satellite.nvim) | Decorate scrollbar for Neovim |
 | [sidebar-nvim](https://github.com/sidebar-nvim/sidebar.nvim) | A generic and modular lua sidebar for Neovim |
 | [size-matters-nvim](https://github.com/tenxsoydev/size-matters.nvim) | Dynamic font scaling for modern neovim GUI clients. |
+| [smart-term-esc-nvim](https://github.com/sychen52/smart-term-esc.nvim) | Escape terminal "smartly" with <Esc> in Neovim |
 | [sort-nvim](https://github.com/sQVe/sort.nvim) | Sorting plugin for Neovim that supports line-wise and delimiter sorting. |
 | [specs-nvim](https://github.com/edluffy/specs.nvim) | 👓 A fast and lightweight Neovim lua plugin to keep an eye on where your cursor has jumped. |
 | [spellsitter-nvim](https://github.com/lewis6991/spellsitter.nvim) | Treesitter powered spellchecker |
@@ -107,8 +115,12 @@
 | [telescope-frecency-nvim](https://github.com/nvim-telescope/telescope-frecency.nvim) | A telescope.nvim extension that offers intelligent prioritization when selecting files from your editing history. |
 | [telescope-fzy-native-nvim](https://github.com/nvim-telescope/telescope-fzy-native.nvim) | FZY style sorter that is compiled |
 | [telescope-symbols-nvim](https://github.com/nvim-telescope/telescope-symbols.nvim) | None |
+| [telescope-tele-tabby-nvim](https://github.com/TC72/telescope-tele-tabby.nvim) | A telescope extension to switch tabs. |
+| [telescope-ui-select-nvim](https://github.com/nvim-telescope/telescope-ui-select.nvim) | None |
+| [telescope-zf-native-nvim](https://github.com/natecraddock/telescope-zf-native.nvim) | native telescope bindings to zf for sorting results |
 | [telescope-nvim](https://github.com/nvim-telescope/telescope.nvim) | Find, Filter, Preview, Pick. All lua, all the time. |
 | [todo-comments-nvim](https://github.com/folke/todo-comments.nvim) | ✅  Highlight, list and search todo comments in your projects |
+| [toggleterm-nvim](https://github.com/akinsho/toggleterm.nvim) | A neovim lua plugin to help easily manage multiple terminal windows |
 | [trouble-nvim](https://github.com/folke/trouble.nvim) | 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing. |
 | [ucw-nvim](https://github.com/Aetf/ucw.nvim) | nvimd - specify plugin dependencies using the familiar systemd unit wants/requires before/after concepts |
 | [vim-coffee-script](https://github.com/kchmck/vim-coffee-script) | CoffeeScript support for vim |

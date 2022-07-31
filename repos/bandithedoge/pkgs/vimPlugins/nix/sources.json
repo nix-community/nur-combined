@@ -203,6 +203,18 @@
         "url": "https://github.com/saadparwaiz1/cmp_luasnip/archive/a9de941bcbda508d0a45d28ae366bb3f08db2e36.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "coq_nvim": {
+        "branch": "coq",
+        "description": "Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization.",
+        "homepage": "",
+        "owner": "ms-jpq",
+        "repo": "coq_nvim",
+        "rev": "7176d5403fb284e17b66236a0d8c7c13d1be7a06",
+        "sha256": "1h6j9gkls3nlv7q2r06y8l3x170jhc3h921b0g8vch7ax5fm9xm0",
+        "type": "tarball",
+        "url": "https://github.com/ms-jpq/coq_nvim/archive/7176d5403fb284e17b66236a0d8c7c13d1be7a06.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "crates.nvim": {
         "branch": "main",
         "description": "A neovim plugin that helps managing crates.io dependencies",
@@ -443,6 +455,30 @@
         "url": "https://github.com/m-demare/hlargs.nvim/archive/4cc31100445cac3093f1e8ee6f73ea529c3bc0a1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "hover.nvim": {
+        "branch": "main",
+        "description": "Hover plugin framework for Neovim",
+        "homepage": null,
+        "owner": "lewis6991",
+        "repo": "hover.nvim",
+        "rev": "5018f91263bcb43e34303edab8c487c9238ac8e2",
+        "sha256": "12lmwf55bzllvsn1l76nyqinjyx62wypxniy9qgl1bfmcc72pp2h",
+        "type": "tarball",
+        "url": "https://github.com/lewis6991/hover.nvim/archive/5018f91263bcb43e34303edab8c487c9238ac8e2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "icon-picker.nvim": {
+        "branch": "master",
+        "description": "This is a Neovim plugin that helps you pick Nerd Font Icons, Symbols & Emojis",
+        "homepage": "",
+        "owner": "ziontee113",
+        "repo": "icon-picker.nvim",
+        "rev": "045914d00daf27eb7a38816bd229fd2d70598302",
+        "sha256": "050hqak5ibjs3mj4jis62nils7n7hfjji6dpribv0nvh2bx6iza7",
+        "type": "tarball",
+        "url": "https://github.com/ziontee113/icon-picker.nvim/archive/045914d00daf27eb7a38816bd229fd2d70598302.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "impatient.nvim": {
         "branch": "main",
         "description": "Improve startup time for Neovim",
@@ -453,6 +489,18 @@
         "sha256": "0v15pbxhrz1ndb12pl6pwfynsfzlaqqam5kn9gpc7y9kfdb7yby3",
         "type": "tarball",
         "url": "https://github.com/lewis6991/impatient.nvim/archive/2aa872de40dbbebe8e2d3a0b8c5651b81fe8b235.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "inc-rename.nvim": {
+        "branch": "main",
+        "description": "Incremental LSP renaming based on Neovim's command-preview feature.",
+        "homepage": "",
+        "owner": "smjonas",
+        "repo": "inc-rename.nvim",
+        "rev": "25ec4c8ca5b4a3f5cfaaad9e91c27e385d801067",
+        "sha256": "19q53v2bskj0fzf8xw1q2js19pqwscqwarlcnvghixxdv4gcsn6h",
+        "type": "tarball",
+        "url": "https://github.com/smjonas/inc-rename.nvim/archive/25ec4c8ca5b4a3f5cfaaad9e91c27e385d801067.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "incline.nvim": {
@@ -593,10 +641,10 @@
         "homepage": "",
         "owner": "echasnovski",
         "repo": "mini.nvim",
-        "rev": "fcfc4271beb26ba2e1445b861aa8626f367a6cc2",
-        "sha256": "165y77wpmzjq16s2b4pf1gals7av1mvb8w2dbkf2b5cg4bv59s6k",
+        "rev": "3b66b74490e52c6e589cd5655c43ddd08bf3b6b4",
+        "sha256": "0xb7gplcal69a35473w00waa82nkr9n1qcny8fl5b77s19cjhlfw",
         "type": "tarball",
-        "url": "https://github.com/echasnovski/mini.nvim/archive/fcfc4271beb26ba2e1445b861aa8626f367a6cc2.tar.gz",
+        "url": "https://github.com/echasnovski/mini.nvim/archive/3b66b74490e52c6e589cd5655c43ddd08bf3b6b4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mkdir.nvim": {
@@ -743,6 +791,18 @@
         "url": "https://github.com/windwp/nvim-autopairs/archive/972a7977e759733dd6721af7bcda7a67e40c010e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nvim-biscuits": {
+        "branch": "main",
+        "description": "A neovim port of Assorted Biscuits. Ends up with more supported languages too.",
+        "homepage": null,
+        "owner": "code-biscuits",
+        "repo": "nvim-biscuits",
+        "rev": "75f5e457b97ac0ac11cd94f2f861eceae05b19b0",
+        "sha256": "0yhiq2ad0jlw1c252fqbxr4ghy6dndyk4gnx30kyqmirsja0dwdv",
+        "type": "tarball",
+        "url": "https://github.com/code-biscuits/nvim-biscuits/archive/75f5e457b97ac0ac11cd94f2f861eceae05b19b0.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nvim-cmp": {
         "branch": "main",
         "description": "A completion plugin for neovim coded in Lua.",
@@ -857,10 +917,10 @@
         "homepage": "",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "60f2993b9661d9844cee3bebdbd1b5860577eb3c",
-        "sha256": "0029s9i40x5ri104ray7hzw7c6xfryb18rq4rz8yq2wz65rr9npw",
+        "rev": "df3be5006530ff73b57d6c302b4da7ed2b0e159d",
+        "sha256": "06x7c30jds26b8kqd8hmqifqlja6inxwmzdrs58pmlcb2md8wpx4",
         "type": "tarball",
-        "url": "https://github.com/neovim/nvim-lspconfig/archive/60f2993b9661d9844cee3bebdbd1b5860577eb3c.tar.gz",
+        "url": "https://github.com/neovim/nvim-lspconfig/archive/df3be5006530ff73b57d6c302b4da7ed2b0e159d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-luaref": {
@@ -875,6 +935,18 @@
         "url": "https://github.com/milisims/nvim-luaref/archive/9cd3ed50d5752ffd56d88dd9e395ddd3dc2c7127.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nvim-nonicons": {
+        "branch": "main",
+        "description": "Icon set using nonicons for neovim plugins and settings",
+        "homepage": "",
+        "owner": "yamatsum",
+        "repo": "nvim-nonicons",
+        "rev": "cdb104f58c46a62ff9f484f49f8660d46db6326f",
+        "sha256": "0xqhcfp9qxnqn96ykycsyamwjjqrp7qfv7hshs9h4xa6c51yaqy4",
+        "type": "tarball",
+        "url": "https://github.com/yamatsum/nvim-nonicons/archive/cdb104f58c46a62ff9f484f49f8660d46db6326f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nvim-notify": {
         "branch": "master",
         "description": "A fancy, configurable, notification manager for NeoVim",
@@ -885,6 +957,18 @@
         "sha256": "14mfvlp44qn3jb4fnicay3cxy0vya5jix41hnvfz1j3bi2c0zng1",
         "type": "tarball",
         "url": "https://github.com/rcarriga/nvim-notify/archive/cd2a59f16d3dc8c54dabc58c31c9c539fcef3c2b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nvim-numbertoggle": {
+        "branch": "main",
+        "description": "Neovim plugin to automatically toggle between relative and absolute line numbers. Written in Lua.",
+        "homepage": "",
+        "owner": "sitiom",
+        "repo": "nvim-numbertoggle",
+        "rev": "1b10222a338b511a9f54ad4ace9abe1d054fdf3b",
+        "sha256": "15jr05all7mzg4g02naipzjr21m23v1wgi1k10z5bkjd4c4gjzxi",
+        "type": "tarball",
+        "url": "https://github.com/sitiom/nvim-numbertoggle/archive/1b10222a338b511a9f54ad4ace9abe1d054fdf3b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-scrollbar": {
@@ -905,10 +989,10 @@
         "homepage": "",
         "owner": "kyazdani42",
         "repo": "nvim-tree.lua",
-        "rev": "9bbf95e61691feb6696880701cdb1b6cafa97d41",
-        "sha256": "009jpf0qfs93ag9nl705j6r4dsmc0qxcv1cd6s6v9ps84mpvjnqp",
+        "rev": "451901ca9c4a0d97d7b7cb93276be7ed5588b3ab",
+        "sha256": "0xjbnx32wqx640xglrjccpbz51aky6cnnmflsqdrrwqc1lvjrm7q",
         "type": "tarball",
-        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/9bbf95e61691feb6696880701cdb1b6cafa97d41.tar.gz",
+        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/451901ca9c4a0d97d7b7cb93276be7ed5588b3ab.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
@@ -1163,6 +1247,18 @@
         "url": "https://github.com/tenxsoydev/size-matters.nvim/archive/bc5ae8db3c31eec3b121f03d5de0444ab6a9a983.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "smart-term-esc.nvim": {
+        "branch": "main",
+        "description": "Escape terminal \"smartly\" with <Esc> in Neovim",
+        "homepage": "",
+        "owner": "sychen52",
+        "repo": "smart-term-esc.nvim",
+        "rev": "168cd1a9e4649038e356b293005e5714e6e9f190",
+        "sha256": "0ydzi9dnmlzgkhcczbiyz4l7w8pv8gbvz2mfrgk1gmx9ikaiwdzy",
+        "type": "tarball",
+        "url": "https://github.com/sychen52/smart-term-esc.nvim/archive/168cd1a9e4649038e356b293005e5714e6e9f190.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "sort.nvim": {
         "branch": "main",
         "description": "Sorting plugin for Neovim that supports line-wise and delimiter sorting.",
@@ -1283,6 +1379,42 @@
         "url": "https://github.com/nvim-telescope/telescope-symbols.nvim/archive/f7d7c84873c95c7bd5682783dd66f84170231704.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "telescope-tele-tabby.nvim": {
+        "branch": "main",
+        "description": "A telescope extension to switch tabs.",
+        "homepage": "",
+        "owner": "TC72",
+        "repo": "telescope-tele-tabby.nvim",
+        "rev": "cfbafaf5961f598f897f6daa38d22ae6cca804c4",
+        "sha256": "0bnndfw0qks5jpr1w9ddafm90wl5xnxvpciai4pi5gqgirnasyh2",
+        "type": "tarball",
+        "url": "https://github.com/TC72/telescope-tele-tabby.nvim/archive/cfbafaf5961f598f897f6daa38d22ae6cca804c4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "telescope-ui-select.nvim": {
+        "branch": "master",
+        "description": null,
+        "homepage": null,
+        "owner": "nvim-telescope",
+        "repo": "telescope-ui-select.nvim",
+        "rev": "62ea5e58c7bbe191297b983a9e7e89420f581369",
+        "sha256": "09mbi1x2r2xsbgfmmpb7113jppjmfwym4sr7nfvpc9glgqlkd4zw",
+        "type": "tarball",
+        "url": "https://github.com/nvim-telescope/telescope-ui-select.nvim/archive/62ea5e58c7bbe191297b983a9e7e89420f581369.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "telescope-zf-native.nvim": {
+        "branch": "master",
+        "description": "native telescope bindings to zf for sorting results",
+        "homepage": "",
+        "owner": "natecraddock",
+        "repo": "telescope-zf-native.nvim",
+        "rev": "3f64df2cb1e8c4a399154b21dabb2734a1afb8f1",
+        "sha256": "0ix4cimzwvbifgx9dsiklm6bbksbnygn1d2rj6qmkisqdbi3ygdg",
+        "type": "tarball",
+        "url": "https://github.com/natecraddock/telescope-zf-native.nvim/archive/3f64df2cb1e8c4a399154b21dabb2734a1afb8f1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "telescope.nvim": {
         "branch": "master",
         "description": "Find, Filter, Preview, Pick. All lua, all the time.",
@@ -1305,6 +1437,18 @@
         "sha256": "02qjn45qpvxhw7zifw0a86alika5r8b5a98y1199jpdx2d7zks7j",
         "type": "tarball",
         "url": "https://github.com/folke/todo-comments.nvim/archive/98b1ebf198836bdc226c0562b9f906584e6c400e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "toggleterm.nvim": {
+        "branch": "main",
+        "description": "A neovim lua plugin to help easily manage multiple terminal windows",
+        "homepage": "",
+        "owner": "akinsho",
+        "repo": "toggleterm.nvim",
+        "rev": "a7c9a6fd135f96639e2ac686691a32db6d011471",
+        "sha256": "03avxz9l9kz3c99dqjk63zw5wi1s0vakas9wx8l74sqrr9b8pba0",
+        "type": "tarball",
+        "url": "https://github.com/akinsho/toggleterm.nvim/archive/a7c9a6fd135f96639e2ac686691a32db6d011471.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "trouble.nvim": {
