@@ -704,10 +704,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220728.185815";
+      version = "103.0.1buildid20220729.222726";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3981687/francais_language_pack-104.0buildid20220728.185815.xpi";
-      sha256 = "932f76d22f106525c1027858edbf5e9b2c3e6de43c6d89dc891fcf4f1b2ae424";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3982330/francais_language_pack-103.0.1buildid20220729.222726.xpi";
+      sha256 = "7d0fad49c43856c262126d5b53e9bb3c8786290881a0ba8b8bd024855f75de79";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -947,6 +947,7 @@
       {
         homepage = "https://github.com/kristofferhagen/firefox-nord-theme";
         description = "Firefox theme inspired by <a href=\"https://outgoing.prod.mozaws.net/v1/276dc50c9e2710aa17b441df1ee87a9f5f023f5ded676ddd689d8f998d92713a/https%3A//www.nordtheme.com/\" rel=\"nofollow\">https://www.nordtheme.com/</a>";
+        license = licenses.cc-by-30;
         platforms = platforms.all;
         };
       };
@@ -1134,10 +1135,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.14.7";
+      version = "10.18.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3953574/ether_metamask-10.14.7.xpi";
-      sha256 = "e39fc2c2d74645dcc049563678aee9324a7d8659be8055d4b8bbe7c1d342b1aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3980615/ether_metamask-10.18.1.xpi";
+      sha256 = "b7f2512613d55981ee28ca95501b23c8c9e3b20e3ac4eb5431a131108f1129b0";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1822,10 +1823,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.18";
+      version = "1.21.20";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3975561/single_file-1.21.18.xpi";
-      sha256 = "ccb9b672f0e9f47acadfec6193efdb519a14c078ef13b85fed85c4f89cd7d610";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3981860/single_file-1.21.20.xpi";
+      sha256 = "4bfd7d02527a2175ca3007fa0df812327d413d68f6ae3ce4f30806e5447b1792";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -1895,10 +1896,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.7.11.926";
+      version = "22.7.29.851";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974271/sourcegraph_for_firefox-22.7.11.926.xpi";
-      sha256 = "1a4cce2a683ff65d8cf38293885ff785fbbb32d7e45bfd4aa8e2ad0ba187f32c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3981990/sourcegraph_for_firefox-22.7.29.851.xpi";
+      sha256 = "83141fd1b755b57c76de7bc2ec3ee16080abe5aa66671c1add13909118aa5942";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2232,10 +2233,10 @@
       };
     "tst-tab-search" = buildFirefoxXpiAddon {
       pname = "tst-tab-search";
-      version = "0.0.4";
+      version = "0.0.5";
       addonId = "@tst-search";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3866215/tst_search-0.0.4.xpi";
-      sha256 = "4aff3d65425b46d2a1cfe489bc2777118e4b2c86b9e53fd59cd1035f44ffc13f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3982203/tst_search-0.0.5.xpi";
+      sha256 = "767614427624c41a63946c7e0eb10d8e0237f65a3e5cd8a5e28f03f9ed3acebd";
       meta = with lib;
       {
         homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
