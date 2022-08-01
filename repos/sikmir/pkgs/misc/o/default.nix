@@ -1,24 +1,29 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper, pkg-config, vte }:
 
 buildGoModule rec {
   pname = "o";
-  version = "2.53.0";
+  version = "2.55.0";
 
   src = fetchFromGitHub {
     owner = "xyproto";
-    repo = pname;
+    repo = "o";
     rev = "v${version}";
-    hash = "sha256-3tr0q/0xw/NHvicrY0ZB+7A1isSDVZhcuFpzFadW7Js=";
+    hash = "sha256-AWRR/plPgOV6MoZnZYpQpeG2WLrzZNckDtK6BrEehtc=";
   };
 
   vendorSha256 = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [ installShellFiles makeWrapper pkg-config ];
+
+  buildInputs = [ vte ];
 
   preBuild = "cd v2";
 
   postInstall = ''
-    installManPage ../o.1
+    cd ..
+    installManPage o.1
+    make install-gui PREFIX=$out
+    wrapProgram $out/bin/ko --prefix PATH : $out/bin
   '';
 
   meta = with lib; {
