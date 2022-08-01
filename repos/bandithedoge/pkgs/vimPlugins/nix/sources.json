@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "numToStr",
         "repo": "Comment.nvim",
-        "rev": "78ab4e9785b6da9b7a539df3bd6f70300dc9482b",
-        "sha256": "1dgbhf8l3212rvhs424cdb2qh07k95biazyc0qy5xa7asrdwj1m7",
+        "rev": "006724e38c244c3128b2840ea40bd61dd6c419f0",
+        "sha256": "1aq8k68hfvqiawgk7pgvqh7c4f86c86zw7z634wmsrjvl1cckv22",
         "type": "tarball",
-        "url": "https://github.com/numToStr/Comment.nvim/archive/78ab4e9785b6da9b7a539df3bd6f70300dc9482b.tar.gz",
+        "url": "https://github.com/numToStr/Comment.nvim/archive/006724e38c244c3128b2840ea40bd61dd6c419f0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "FTerm.nvim": {
@@ -377,10 +377,10 @@
         "homepage": "",
         "owner": "rafamadriz",
         "repo": "friendly-snippets",
-        "rev": "1db69684a27eec0b9f520a5d7d95d414fc30ba91",
-        "sha256": "1qsb92sl6nyihy63h0dyif8fnb39gpggf8s7xv4yf1wrlzxx30al",
+        "rev": "8880d7257e6f25e177a8192ef35d4ba8874b004d",
+        "sha256": "1mh44wjnm2q0424gkasav3cv5344ky6nwsvcdb8gbw5268ijjz7a",
         "type": "tarball",
-        "url": "https://github.com/rafamadriz/friendly-snippets/archive/1db69684a27eec0b9f520a5d7d95d414fc30ba91.tar.gz",
+        "url": "https://github.com/rafamadriz/friendly-snippets/archive/8880d7257e6f25e177a8192ef35d4ba8874b004d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "gitsigns.nvim": {
@@ -773,10 +773,10 @@
         "homepage": "",
         "owner": "jose-elias-alvarez",
         "repo": "null-ls.nvim",
-        "rev": "47c04991af80b6acdf08a5db057908b52f4d0699",
-        "sha256": "0zbpclcq94x4gaimkk7vvdggpwndmyn7ngw296spnyiy6jnvjxy1",
+        "rev": "9b66c33191598d56c705e87016d48d46f57f98fb",
+        "sha256": "0a6gfaxqm7db1q002krlcq2yxn6q2dc03pwzg4qn01531833f649",
         "type": "tarball",
-        "url": "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/47c04991af80b6acdf08a5db057908b52f4d0699.tar.gz",
+        "url": "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/9b66c33191598d56c705e87016d48d46f57f98fb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "numbers.nvim": {
