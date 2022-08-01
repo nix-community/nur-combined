@@ -1,9 +1,6 @@
 Here are some additional nix packages for my personal use.
 
-### Package list
-
-- gnomeExtensions.onedrive
-- lx-music-desktop
+Package list: https://nur.nix-community.org/repos/yes/
 
 ### Flakes?
 
