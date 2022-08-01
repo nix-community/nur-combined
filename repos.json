@@ -654,6 +654,9 @@
         "yellowonion": {
             "url": "https://github.com/yellowonion/nur-bcachefs"
         },
+        "yes": {
+            "url": "https://github.com/SamLukeYes/nix-custom-packages"
+        },
         "ysndr": {
             "url": "https://github.com/ysndr/nur-packages"
         },
