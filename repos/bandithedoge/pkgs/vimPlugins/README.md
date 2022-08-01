@@ -82,6 +82,7 @@
 | [nvim-nonicons](https://github.com/yamatsum/nvim-nonicons) | Icon set using nonicons for neovim plugins and settings |
 | [nvim-notify](https://github.com/rcarriga/nvim-notify) | A fancy, configurable, notification manager for NeoVim |
 | [nvim-numbertoggle](https://github.com/sitiom/nvim-numbertoggle) | Neovim plugin to automatically toggle between relative and absolute line numbers. Written in Lua. |
+| [nvim-parinfer](https://github.com/gpanders/nvim-parinfer) | parinfer for Neovim |
 | [nvim-scrollbar](https://github.com/petertriho/nvim-scrollbar) | Extensible Neovim Scrollbar |
 | [nvim-tree-lua](https://github.com/kyazdani42/nvim-tree.lua) | A file explorer tree for neovim written in lua |
 | [nvim-treesitter-textsubjects](https://github.com/RRethy/nvim-treesitter-textsubjects) | Location and syntax aware text objects which *do what you mean* |

@@ -209,10 +209,10 @@
         "homepage": "",
         "owner": "ms-jpq",
         "repo": "coq_nvim",
-        "rev": "7176d5403fb284e17b66236a0d8c7c13d1be7a06",
-        "sha256": "1h6j9gkls3nlv7q2r06y8l3x170jhc3h921b0g8vch7ax5fm9xm0",
+        "rev": "0e424a7036f5a9630b989d70e2d5f1f7b9b08afa",
+        "sha256": "0h5yaq8iy7w7hs083bnvba6jzcjrxhb9d32wqsc2x9hx1smp294s",
         "type": "tarball",
-        "url": "https://github.com/ms-jpq/coq_nvim/archive/7176d5403fb284e17b66236a0d8c7c13d1be7a06.tar.gz",
+        "url": "https://github.com/ms-jpq/coq_nvim/archive/0e424a7036f5a9630b989d70e2d5f1f7b9b08afa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "crates.nvim": {
@@ -981,6 +981,18 @@
         "sha256": "15jr05all7mzg4g02naipzjr21m23v1wgi1k10z5bkjd4c4gjzxi",
         "type": "tarball",
         "url": "https://github.com/sitiom/nvim-numbertoggle/archive/1b10222a338b511a9f54ad4ace9abe1d054fdf3b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nvim-parinfer": {
+        "branch": "master",
+        "description": "parinfer for Neovim",
+        "homepage": "",
+        "owner": "gpanders",
+        "repo": "nvim-parinfer",
+        "rev": "82bce5798993f4fe5ced20e74003b492490b4fe8",
+        "sha256": "1dzhlaxxf6cf6jcd2a5y97y7li6wkwjhg1q7rny3lkwrf2kxyp0f",
+        "type": "tarball",
+        "url": "https://github.com/gpanders/nvim-parinfer/archive/82bce5798993f4fe5ced20e74003b492490b4fe8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-scrollbar": {
