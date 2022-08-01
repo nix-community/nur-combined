@@ -1,15 +1,5 @@
-From 3fa0db0c930a117d62bcf54ac22305c10035feae Mon Sep 17 00:00:00 2001
-From: "P. R. d. O" <d.ol.rod@tutanota.com>
-Date: Mon, 16 May 2022 12:18:29 -0600
-Subject: [PATCH] NixOS adaptation
-
----
- src/config.c | 23 +++++++++--------------
- src/main.c   |  2 +-
- 2 files changed, 10 insertions(+), 15 deletions(-)
-
 diff --git a/src/config.c b/src/config.c
-index 640aa97..4170ea0 100644
+index bf7f20e..107ea06 100644
 --- a/src/config.c
 +++ b/src/config.c
 @@ -10,13 +10,8 @@
@@ -28,7 +18,7 @@ index 640aa97..4170ea0 100644
  
  static void lang_handle(void* data, char** pars, const int pars_count)
  {
-@@ -282,22 +277,22 @@ void config_defaults()
+@@ -283,23 +278,23 @@ void config_defaults()
  	config.max_desktop_len = 100;
  	config.max_login_len = 255;
  	config.max_password_len = 255;
@@ -52,6 +42,7 @@ index 640aa97..4170ea0 100644
  	config.waylandsessions = strdup("/usr/share/wayland-sessions");
 -	config.x_cmd = strdup("/usr/bin/X");
 +	config.x_cmd = strdup("@xorgserver@/bin/X");
+ 	config.xinitrc = strdup("~/.xinitrc");
  	config.x_cmd_setup = strdup(DATADIR "/xsetup.sh");
 -	config.xauth_cmd = strdup("/usr/bin/xauth");
 +	config.xauth_cmd = strdup("@xauth@/bin/xauth");
@@ -59,10 +50,10 @@ index 640aa97..4170ea0 100644
  }
  
 diff --git a/src/main.c b/src/main.c
-index 7cc0d69..dd06410 100644
+index 8aea32f..8a5547f 100644
 --- a/src/main.c
 +++ b/src/main.c
-@@ -284,7 +284,7 @@ int main(int argc, char** argv)
+@@ -292,7 +292,7 @@ int main(int argc, char** argv)
  				}
  
  				load(&desktop, &login);
@@ -71,6 +62,3 @@ index 7cc0d69..dd06410 100644
  				break;
  			default:
  				(*input_handles[active_input])(
--- 
-2.36.0
-

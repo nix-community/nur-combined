@@ -4,6 +4,7 @@ let
   pythonEnv = python3.withPackages (pkg: with pkg; [
     certifi
     colorama
+    pandas
     pysocks
     requests
     requests-futures
@@ -13,13 +14,13 @@ let
 
 in stdenv.mkDerivation {
   pname = "sherlock";
-  version = "unstable-2022-06-04";
+  version = "unstable-2022-07-26";
 
   src = fetchFromGitHub {
     owner = "sherlock-project";
     repo = "sherlock";
-    rev = "9db8c213ffdad873380c9de41c142923ba0dc260";
-    sha256 = "sha256-0/toTz5qLedWdXfh80j6yxH3iXGxboys6mKOjka/nUQ=";
+    rev = "531e79003ffb387321e4facd0de2082af0896038";
+    sha256 = "sha256-cIRBl0c5nfbGBKznZqz5Rs8wj7Yq2slp0mRLcxECcI4=";
   };
 
   nativeBuildInputs = [ makeWrapper ];

@@ -9,12 +9,12 @@
 
 stdenv.mkDerivation rec {
   pname = "nuclear";
-  version = "unstable-2022-05-18";
-  releaseCode = "9f77fc";
+  version = "unstable-2022-06-27";
+  releaseCode = "3f9007";
 
   src = fetchurl {
     url = "https://github.com/nukeop/nuclear/releases/download/${releaseCode}/${pname}-${releaseCode}.tar.gz";
-    sha256 = "sha256-+u0S/95T8oEzmDxj2hhYv9n6+cdD6RuXXQrhnd3Yn0I=";
+    sha256 = "sha256-637jq+ak1K5IJS0WRjpBTU3iorQi/YIiUXlLPoSqFxA=";
   };
 
   nativeBuildInputs = [
