@@ -683,6 +683,18 @@
         "url": "https://github.com/fedepujol/move.nvim/archive/902110c584d214951b8bac52374afc7263d02a6a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "neo-tree-diagnostics.nvim": {
+        "branch": "main",
+        "description": "A diagnostics source for neo-tree.nvim",
+        "homepage": "",
+        "owner": "mrbjarksen",
+        "repo": "neo-tree-diagnostics.nvim",
+        "rev": "bd57f1c98e08210b8b62a4a8e16f1fdfc8afb432",
+        "sha256": "0q5v9yscsh31148in1mm81wc9vgsr423d14c184j7c7kx3l6pyr8",
+        "type": "tarball",
+        "url": "https://github.com/mrbjarksen/neo-tree-diagnostics.nvim/archive/bd57f1c98e08210b8b62a4a8e16f1fdfc8afb432.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "neo-tree.nvim": {
         "branch": "v2.x",
         "description": "Neovim plugin to manage the file system and other tree like structures.",

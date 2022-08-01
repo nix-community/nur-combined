@@ -57,6 +57,7 @@
 | [mkdir-nvim](https://github.com/jghauser/mkdir.nvim) | This neovim plugin creates missing folders on save. |
 | [modes-nvim](https://github.com/mvllow/modes.nvim) | Prismatic line decorations for the adventurous vim user |
 | [move-nvim](https://github.com/fedepujol/move.nvim) | Gain the power to move lines and blocks and auto-indent them! |
+| [neo-tree-diagnostics-nvim](https://github.com/mrbjarksen/neo-tree-diagnostics.nvim) | A diagnostics source for neo-tree.nvim |
 | [neo-tree-nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | Neovim plugin to manage the file system and other tree like structures. |
 | [neogen](https://github.com/danymat/neogen) | A better annotation generator. Supports multiple languages and annotation conventions. |
 | [nightfox-nvim](https://github.com/EdenEast/nightfox.nvim) | 🦊A highly customizable theme for vim and neovim with support for lsp, treesitter and a variety of plugins. |
