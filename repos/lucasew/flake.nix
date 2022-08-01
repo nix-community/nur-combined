@@ -215,7 +215,7 @@
         ++ (with pkgs.custom; [ neovim emacs firefox polybar tixati ])
         ++ (with pkgs.custom.vscode; [ common programming ])
         ++ (with self.nixosConfigurations; [
-          acer-nix.config.system.build.toplevel
+          riverwood.config.system.build.toplevel
           vps.config.system.build.toplevel
         ])
         ++ (with self.homeConfigurations; [

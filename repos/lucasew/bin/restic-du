@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# vim:ft=bash
+
+set -eu
+
+function assert_binary {
+    which $1 2> /dev/null > /dev/null || {
+        echo "Missing restic"
+        exit 1
+    }
+}
+assert_binary restic
+assert_binary awk
+
+printf "Password: "
+read -s repo_passwd
+export RESTIC_PASSWORD="$repo_passwd"
+printf "\n"
+
+export RESTIC_REPOSITORY=$1;shift
+
+restic snapshots | grep -e '^[0-9abcdef][0-9abcdef][0-9abcdef][0-9abcdef][0-9abcdef][0-9abcdef][^$]*' | while read -ra snapshot; do
+    SNAPSHOT_ID="${snapshot[0]}"
+    DATE="${snapshot[1]}"
+    TIME="${snapshot[2]}"
+    NODE="${snapshot[3]}"
+    SIZE="$(restic forget $SNAPSHOT_ID --prune --dry-run 2> /dev/null | grep 'total prune' | awk '{ print $6 $7 }')"
+    echo $SNAPSHOT_ID $DATE $TIME $NODE $SIZE
+done
