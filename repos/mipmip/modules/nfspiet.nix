@@ -9,6 +9,10 @@
     device = "192.168.13.37:/volume1/Archief";
     fsType = "nfs";
   };
+  fileSystems."/mnt/piethein3" = {
+    device = "192.168.13.37:/volume1/CathalijneArchief";
+    fsType = "nfs";
+  };
 }
 
 # 192.168.13.37:/volume1/HurwenenShare      /mnt/piethein nfs rsize=32768,wsize=32768,timeo=14,noatime,intr 0 0
