@@ -449,10 +449,10 @@
         "homepage": "",
         "owner": "m-demare",
         "repo": "hlargs.nvim",
-        "rev": "4cc31100445cac3093f1e8ee6f73ea529c3bc0a1",
-        "sha256": "1wkilr9p4qz8888dpd3z4gah4x2xplv4qwd0njw2cijh2gv578pr",
+        "rev": "1908f857666133f98dc6292bfc40ecda29b1acd9",
+        "sha256": "0ihxglcspzyczr2dh6mv0gw362iwvjzrhxy7kfwcvrkpmx8sydpf",
         "type": "tarball",
-        "url": "https://github.com/m-demare/hlargs.nvim/archive/4cc31100445cac3093f1e8ee6f73ea529c3bc0a1.tar.gz",
+        "url": "https://github.com/m-demare/hlargs.nvim/archive/1908f857666133f98dc6292bfc40ecda29b1acd9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "hover.nvim": {
@@ -857,10 +857,10 @@
         "homepage": "",
         "owner": "mfussenegger",
         "repo": "nvim-dap",
-        "rev": "fed27e740b81bb2f3139a3001a3cbe006e6a3aed",
-        "sha256": "0v1jk1209lspw3g1rvhmxwgkb1pmi422caf1bw2lqi8s6hswnmbl",
+        "rev": "3aa863c4cadc03ea7b973456dfaf2de9f40bcb68",
+        "sha256": "18qkzjnf6gfysmby7zgx57ilr9184gxycpgl647klfpiaa000m57",
         "type": "tarball",
-        "url": "https://github.com/mfussenegger/nvim-dap/archive/fed27e740b81bb2f3139a3001a3cbe006e6a3aed.tar.gz",
+        "url": "https://github.com/mfussenegger/nvim-dap/archive/3aa863c4cadc03ea7b973456dfaf2de9f40bcb68.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-dap-ui": {
