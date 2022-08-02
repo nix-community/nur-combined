@@ -214,15 +214,29 @@ for appKey in "${!appMajorToVersion[@]}"; do
 EOF
         addon_install_dir="${installDir[$app]}"
         if [ -n "$addon_install_dir" ]; then
-          rm -rf "$tmpdir/nar"
-          mkdir -p "$tmpdir/nar/out/$addon_install_dir"
-          curl -o "$tmpdir/nar/file.xpi" "$this_url"
-          printf '%s  %s\n' "$sha512" "$tmpdir/nar/file.xpi" | \
-            sha512sum -c -
           addon_path="${addon_install_dir}/langpack-${this_locale}@${addonIdSuffix[$app]}.xpi"
-          install -m444 "$tmpdir/nar/file.xpi" "$tmpdir/nar/out/${addon_path}"
-          nar_hash="$(nix hash path --sri --type sha512 "$tmpdir/nar/out")"
-          cat >> "$tmpdir/sources.mjson" <<EOF
+          found_nar_hash=
+          if [ -s "$source_dir/sources.json" ]; then
+            jq 'getpath($ARGS.positional) == $value or ("" | halt_error) | empty' \
+                "$source_dir/sources.json" \
+                --arg value "$hash" \
+                --args "$app" "$majorKey" "$arch" "$this_locale" "hash" \
+              && jq 'getpath($ARGS.positional) // ("" | halt_error) | . as $v | {} | setpath($ARGS.positional; $v)' \
+                "$source_dir/sources.json" \
+                --args "$app" "$majorKey" "$arch" "$this_locale" "narHash" "$addon_path" \
+                >> "$tmpdir/sources.mjson" \
+              && found_nar_hash=true \
+              ||:
+          fi
+          if [ -z "$found_nar_hash" ]; then
+            rm -rf "$tmpdir/nar"
+            mkdir -p "$tmpdir/nar/out/$addon_install_dir"
+            curl -o "$tmpdir/nar/file.xpi" "$this_url"
+            printf '%s  %s\n' "$sha512" "$tmpdir/nar/file.xpi" | \
+              sha512sum -c -
+            install -m444 "$tmpdir/nar/file.xpi" "$tmpdir/nar/out/${addon_path}"
+            nar_hash="$(nix hash path --sri --type sha512 "$tmpdir/nar/out")"
+            cat >> "$tmpdir/sources.mjson" <<EOF
 {
   "${app}": {
     "${majorKey}": {
@@ -237,6 +251,7 @@ EOF
   }
 }
 EOF
+          fi
         fi
       done
   done
