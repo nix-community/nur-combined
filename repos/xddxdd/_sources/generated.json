@@ -135,11 +135,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-awyiV6RT+hxymqJsP15aJz8A/tdV8zk+WMewzJ9wMek=",
+            "sha256": "sha256-56rf23hMnIrN1TZSNcjh0kKwqpVn/TM0URAwZUJJTpI=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.3.1-1/io.github.msojocs.bilibili_1.3.1-1_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.3.1-2/io.github.msojocs.bilibili_1.3.1-2_amd64.deb"
         },
-        "version": "1.3.1-1"
+        "version": "1.3.1-2"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -154,11 +154,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "6f6b2bd28332c0655fce945ade52881473bb6eda",
-            "sha256": "sha256-Uf/yTCv35Efhe4AjKfEmI4/3ozAMP44Gx3kLrRg/pGw=",
+            "rev": "4b3980f6bd358d5f4c2b4f939df5f77ae5295c7f",
+            "sha256": "sha256-XxKZtx34IWkUXUdy+W1ZGtIc2eg/F8p1aBXj85mpzuw=",
             "type": "github"
         },
-        "version": "6f6b2bd28332c0655fce945ade52881473bb6eda"
+        "version": "4b3980f6bd358d5f4c2b4f939df5f77ae5295c7f"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
@@ -267,11 +267,11 @@
             "name": null,
             "owner": "y1ndan",
             "repo": "genshinhelper2",
-            "rev": "8095e9817cc98d17061830fda9af2e9d58d00d06",
-            "sha256": "sha256-bcxOQbn9INXPZ/reCq7Y6h6AQHgn/lT1f59QpdTJrEY=",
+            "rev": "8977f60d17d7f9265f38c0d59d55a33ef9e25916",
+            "sha256": "sha256-+Kb9xjM94j/QeTshaVzyoMujftAXIltK96VRNm4CCVc=",
             "type": "github"
         },
-        "version": "8095e9817cc98d17061830fda9af2e9d58d00d06"
+        "version": "8977f60d17d7f9265f38c0d59d55a33ef9e25916"
     },
     "glauth": {
         "cargoLocks": null,
@@ -305,11 +305,11 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "89f6e19a2c9372157592685a941efd66910447dc",
-            "sha256": "sha256-UPL9LU0AZ91Frfd4QwStMX/mXTSjWpwiHU3f5LhQy6s=",
+            "rev": "586b1123d1e03b644e3581bd9ce657e0803ae85b",
+            "sha256": "sha256-6AVGd3cch9faXTCHoBoTP8WK991ksETqaaeq/uTSzCo=",
             "type": "github"
         },
-        "version": "89f6e19a2c9372157592685a941efd66910447dc"
+        "version": "586b1123d1e03b644e3581bd9ce657e0803ae85b"
     },
     "konnect": {
         "cargoLocks": null,
@@ -376,11 +376,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iOQceSCeiMfvDvU5YeJkhm/rAKOLK7Yju89m29yusEE=",
+            "sha256": "sha256-E4NiziF1W1U0FcV2KWj3YVCGtbrKI48RDBpSw2NAMc0=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.59/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.60/netboot.xyz.efi"
         },
-        "version": "2.0.59"
+        "version": "2.0.60"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -390,11 +390,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-f1eFJ0qg5f6VGo9lXcLnVnmc9oowrz17py5KnIT+48g=",
+            "sha256": "sha256-ckdmpWBr7zqwScShThVSfAYpZfvuQbA96WkG841PVpo=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.59/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.60/netboot.xyz.lkrn"
         },
-        "version": "2.0.59"
+        "version": "2.0.60"
     },
     "netns-exec": {
         "cargoLocks": null,
@@ -504,11 +504,11 @@
             "name": null,
             "owner": "werman",
             "repo": "noise-suppression-for-voice",
-            "rev": "v0.91",
-            "sha256": "sha256-jLcSFQz5kt+PcWetZUQ1NEQ2diI7Z/ZaBe/oyZaO/IY=",
+            "rev": "v1.03",
+            "sha256": "sha256-1DgrpGYF7G5Zr9vbgtKm/Yv0HSdI7LrFYPSGKYNnNDQ=",
             "type": "github"
         },
-        "version": "v0.91"
+        "version": "v1.03"
     },
     "onepush": {
         "cargoLocks": null,
@@ -542,11 +542,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "openssl",
-            "rev": "907fdfd3e66cbde3b02584bb4c404161e50512af",
-            "sha256": "sha256-Gfms7sPel1hG5I6ylgH/ALDJPrNP5T4n9g/NXrzbvpU=",
+            "rev": "ea1ab6797ec829e8440639995b061c3b81234b14",
+            "sha256": "sha256-QCK8WzxgzJKp83YceTddB4XIpXPEOpc9TGFSeMtHRUY=",
             "type": "github"
         },
-        "version": "907fdfd3e66cbde3b02584bb4c404161e50512af"
+        "version": "ea1ab6797ec829e8440639995b061c3b81234b14"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
@@ -561,11 +561,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "ec60cde5cc894814016f821a1162fe1a4b888a75",
-            "sha256": "sha256-NyT5CpQeclSJ0b4Qr4McAJXwKgy6SWiUijkAgu6TTNM=",
+            "rev": "821554e571fff1508c125f9f437fbddc91f38ef5",
+            "sha256": "sha256-05+b80MUNQgoJjQlXhGpo9jYICqgtwM4VC6D8ckfw4A=",
             "type": "github"
         },
-        "version": "ec60cde5cc894814016f821a1162fe1a4b888a75"
+        "version": "821554e571fff1508c125f9f437fbddc91f38ef5"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -698,11 +698,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RyaQiFYPwmvVNzQUC6qQguENvPv+1XwwctlnSlejEgM=",
+            "sha256": "sha256-swROyS8iqbgkdxhvv/+a9v8r3xgBIWO2LC7pmfRTxcY=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220529.dict.yaml"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220722.dict.yaml"
         },
-        "version": "20220529"
+        "version": "20220722"
     },
     "route-chain": {
         "cargoLocks": null,
@@ -750,11 +750,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HHhtEOOh+EtgiLbSaSzvp700wbRQjeB3CPjsuB/zzHw=",
+            "sha256": "sha256-m1rL5Keg55TPIQKDEivcUMtjXW/wnwcj1kbQJRjW2aY=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202207140057/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202207280056/geoip.dat"
         },
-        "version": "202207140057"
+        "version": "202207280056"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -764,11 +764,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9xnCf2+g9JlXAuwDpWQtbuMaWePZpP6CW2p3R5pwfz4=",
+            "sha256": "sha256-gJhmKyUk37yirRu5SKp8+PxdF24BwRgNSWWnTnOXc4s=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220717025946/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220801153942/dlc.dat"
         },
-        "version": "20220717025946"
+        "version": "20220801153942"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -780,9 +780,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202207140057/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202207280056/private.dat"
         },
-        "version": "202207140057"
+        "version": "202207280056"
     },
     "xray": {
         "cargoLocks": null,
