@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "FeralInteractive";
     repo = pname;
-    rev = version;
+    rev = "refs/tags/${version}";
     sha256 = "sha256-DIFcmWFkoZOklo1keYcCl6n2GJgzWKC8usHFcJmfarU=";
   };
 

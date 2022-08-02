@@ -42,7 +42,7 @@ let
     src = fetchFromGitHub {
       owner = "ocornut";
       repo = "imgui";
-      rev = "v${version}";
+      rev = "refs/tags/v${version}";
       sha256 = "sha256-rRkayXk3xz758v6vlMSaUu5fui6NR8Md3njhDB0gJ18=";
     };
     patch = fetchurl {
@@ -57,7 +57,7 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "flightlessmango";
     repo = "MangoHud";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     fetchSubmodules = true;
     sha256 = "sha256-60cZYo+d679KRggLBGbpLYM5Iu1XySEEGp+MxZs6wF0=";
   };

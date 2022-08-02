@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
-    rev = version;
+    rev = "refs/tags/${version}";
     sha256 = "sha256-fLG7oYt+gdl3Lwnu6c7VLJWSHCFY5LyNeDKoUNGg3Yw=";
   };
 

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "matanui159";
     repo = "ReplaySorcery";
-    rev = version;
+    rev = "refs/tags/${version}";
     fetchSubmodules = true;
     sha256 = "sha256-HPkSOwfwcg4jLUzKfqdXgLu7mgD5H4wb9d2BrqWQeHc=";
   };

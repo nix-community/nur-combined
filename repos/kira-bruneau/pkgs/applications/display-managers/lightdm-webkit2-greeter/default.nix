@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Antergos";
     repo = "web-greeter";
-    rev = version;
+    rev = "refs/tags/${version}";
     sha256 = "sha256-LY7sVaxBwjojzFa00OkvgR9+TIZuH/WW12UsfpffOIE=";
   };
 

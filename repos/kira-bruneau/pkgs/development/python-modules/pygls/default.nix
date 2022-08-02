@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "0.11.3";
+  version = "0.12";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -21,13 +21,9 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "openlawlibrary";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-/nmDaA67XzrrmfwlBm5syTS4hn25m30Zb3gvOdL+bR8=";
+    rev = "refs/tags/v${version}";
+    sha256 = "sha256-PEfGxOUsiZ5WLmoQkOP2RRWJlIKi+42lOu55C3C+k8A=";
   };
-
-  patches = [
-    ./relax-requirements.patch
-  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
   nativeBuildInputs = [ setuptools-scm ];

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "coringao";
     repo = pname;
-    rev = version;
+    rev = "refs/tags/${version}";
     sha256 = "sha256-uSbnXBpkeGM9X6DU7AikT7hG/emu67PXuGdm6xfB8To=";
   };
 

@@ -17,7 +17,7 @@ let
   asio = fetchFromGitHub {
     owner = "chriskohlhoff";
     repo = "asio";
-    rev = "asio-1-22-1";
+    rev = "refs/tags/asio-1-22-1";
     sha256 = "sha256-UDLhx2yI6Txg0wP5H4oNIhgKIB2eMxUGCyT2x/7GgVg=";
   };
 
@@ -25,7 +25,7 @@ let
   bitsery = fetchFromGitHub {
     owner = "fraillt";
     repo = "bitsery";
-    rev = "v5.2.2";
+    rev = "refs/tags/v5.2.2";
     sha256 = "sha256-VwzVtxt+E/SVcxqIJw8BKPO2q7bu/hkhY+nB7FHrZpY=";
   };
 
@@ -33,7 +33,7 @@ let
   function2 = fetchFromGitHub {
     owner = "Naios";
     repo = "function2";
-    rev = "4.2.0";
+    rev = "refs/tags/4.2.0";
     sha256 = "sha256-wrt+fCcM6YD4ZRZYvqqB+fNakCNmltdPZKlNkPLtgMs=";
   };
 
@@ -41,7 +41,7 @@ let
   ghc_filesystem = fetchFromGitHub {
     owner = "gulrak";
     repo = "filesystem";
-    rev = "v1.5.12";
+    rev = "refs/tags/v1.5.12";
     sha256 = "sha256-j4RE5Ach7C7Kef4+H9AHSXa2L8OVyJljDwBduKcC4eE=";
   };
 
@@ -49,7 +49,7 @@ let
   tomlplusplus = fetchFromGitHub {
     owner = "marzer";
     repo = "tomlplusplus";
-    rev = "v3.0.1";
+    rev = "refs/tags/v3.0.1";
     sha256 = "sha256-l8ckbCqjz3GUfwStcl3H2C+un5dZfT2uLtayvdu93D4=";
   };
 
@@ -57,7 +57,7 @@ let
   vst3 = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = "vst3sdk";
-    rev = "v3.7.5_build_44-patched";
+    rev = "refs/tags/v3.7.5_build_44-patched";
     fetchSubmodules = true;
     sha256 = "sha256-6cuEUa+BXa6MnAYIBq873n0NRLadcPfMX+kpf4ysE6M=";
   };
@@ -69,7 +69,7 @@ in multiStdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = pname;
-    rev = version;
+    rev = "refs/tags/${version}";
     sha256 = "sha256-rce6gxnB+RpG84Xakw0h4vZ8lyEQ41swWQGuwpomV2I=";
   };
 

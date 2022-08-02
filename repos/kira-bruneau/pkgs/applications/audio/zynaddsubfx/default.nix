@@ -61,7 +61,7 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = version;
+    rev = "refs/tags/${version}";
     fetchSubmodules = true;
     sha256 = "sha256-1lk3s5KV67yEVFG7I+24i4BXi/Hd0+DIYdtdRLlWdpU=";
   };

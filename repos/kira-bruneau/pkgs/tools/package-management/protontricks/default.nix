@@ -19,7 +19,7 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Matoking";
     repo = pname;
-    rev = version;
+    rev = "refs/tags/${version}";
     sha256 = "sha256-StI9UdSILcCUmViQnxteOJr6xLSz+EgtxRpJis57lBY=";
   };
 

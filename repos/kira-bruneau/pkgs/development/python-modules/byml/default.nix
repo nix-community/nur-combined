@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "zeldamods";
     repo = "${pname}-v2";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     sha256 = "sha256-j2iixPkZJNXG+2Kag84yMXZeYSX8C4w065BeR8zgqSY=";
   };
 

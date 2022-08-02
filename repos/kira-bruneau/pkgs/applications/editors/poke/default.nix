@@ -5,10 +5,9 @@
 , help2man
 , pkg-config
 , texinfo
-, makeWrapper
 , boehmgc
 , readline
-, guiSupport ? false, tcl, tcllib, tk
+, guiSupport ? false, makeWrapper, tcl, tcllib, tk
 , miSupport ? true, json_c
 , nbdSupport ? !stdenv.isDarwin, libnbd
 , textStylingSupport ? true
@@ -22,14 +21,17 @@ let
   isCross = stdenv.hostPlatform != stdenv.buildPlatform;
 in stdenv.mkDerivation rec {
   pname = "poke";
-  version = "2.3";
+  version = "2.4";
 
   src = fetchurl {
     url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
-    sha256 = "sha256-NpDPERbafLOp7GtPcAPiU+JotRAhKiiP04qv7Q68x2Y=";
+    sha256 = "sha256-hB4oWRfGc4zpgqaTDjDr6t7PsGVaedkYTxb4dqn+bkc=";
   };
 
-  outputs = [ "out" "dev" "info" "lib" "man" ];
+  outputs = [ "out" "dev" "info" "lib" ]
+  # help2man can't cross compile because it runs `poke --help` to
+  # generate the man page
+  ++ lib.optional (!isCross) "man";
 
   postPatch = ''
     patchShebangs .
@@ -39,21 +41,28 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     gettext
-    help2man
     pkg-config
     texinfo
-  ] ++ lib.optional guiSupport makeWrapper;
+  ] ++ lib.optionals (!isCross) [
+    help2man
+  ] ++ lib.optionals guiSupport [
+    makeWrapper
+    tcl.tclPackageHook
+  ];
 
   buildInputs = [ boehmgc readline ]
-  ++ lib.optionals guiSupport [ tk tcl.tclPackageHook tcllib ]
+  ++ lib.optionals guiSupport [ tcl tcllib tk ]
   ++ lib.optional miSupport json_c
   ++ lib.optional nbdSupport libnbd
   ++ lib.optional textStylingSupport gettext
   ++ lib.optional (!isCross) dejagnu;
 
   configureFlags = [
+    # libpoke depends on $datadir/poke, so we specify the datadir in
+    # $lib, and later move anything else it doesn't depend on to $out
     "--datadir=${placeholder "lib"}/share"
   ] ++ lib.optionals guiSupport [
+    "--enable-gui"
     "--with-tcl=${tcl}/lib"
     "--with-tk=${tk}/lib"
     "--with-tkinclude=${tk.dev}/include"
@@ -66,6 +75,16 @@ in stdenv.mkDerivation rec {
 
   postInstall = ''
     moveToOutput share/emacs "$out"
+    moveToOutput share/vim "$out"
+  '';
+
+  postFixup = lib.optionalString guiSupport ''
+    wrapProgram "$out/bin/poke-gui" \
+      --prefix TCLLIBPATH ' ' "$TCLLIBPATH"
+
+    # Prevent tclPackageHook from auto-wrapping all binaries, we only
+    # need to wrap poke-gui
+    unset TCLLIBPATH
   '';
 
   passthru = {
@@ -89,28 +108,7 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ AndersonTorres kira-bruneau ];
     platforms = platforms.unix;
-
-    # Undefined symbols for architecture arm64:
-    #   "_jitter_print_context_kind_destroy", referenced from:
-    #       _jitter_print_libtextstyle_finalize in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #   "_jitter_print_context_kind_make_trivial", referenced from:
-    #       _jitter_print_libtextstyle_initialize in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #   "_jitter_print_context_make", referenced from:
-    #       _jitter_print_context_make_libtextstyle in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #      (maybe you meant: _jitter_print_context_make_libtextstyle)
-    #   "_ostream_flush", referenced from:
-    #       _jitter_print_context_libtextstyle_flush in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #   "_ostream_write_mem", referenced from:
-    #       _jitter_print_context_libtextstyle_print_chars in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #   "_styled_ostream_begin_use_class", referenced from:
-    #       _jitter_print_context_libtextstyle_begin_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #   "_styled_ostream_end_use_class", referenced from:
-    #       _jitter_print_context_libtextstyle_end_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #   "_styled_ostream_set_hyperlink", referenced from:
-    #       _jitter_print_context_libtextstyle_begin_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    #       _jitter_print_context_libtextstyle_end_decoration in libjitter-libtextstyle.a(jitter-print-libtextstyle.o)
-    # ld: symbol(s) not found for architecture arm64
-    badPlatforms = [ "aarch64-darwin" ];
+    broken = stdenv.isDarwin && stdenv.isAarch64; # Undefined symbols for architecture arm64
   };
 }
 
