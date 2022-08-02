@@ -44,7 +44,8 @@ in {
       services.dnsmasq.extraConfig = ''
         conf-file=/var/lib/rkn/dnsmasq
       '';
-      networking.firewall.extraPackages = [ pkgs.ipset ];
+      environment.systemPackages = with pkgs; [ ipset ];
+      networking.firewall.extraPackages = with pkgs; [ ipset ];
       networking.firewall.extraCommands = ''
         if ! ipset --quiet list rkn; then
           ipset create rkn hash:ip family inet
