@@ -16,7 +16,7 @@ rec {
   headless = ./headless.nix;
   sunshine = ./sunshine.nix;
   wifi = ./wifi.nix;
-  rkn = import ./rkn.nix [ tun2socks ];
+  rkn = ./rkn.nix;
   edgevpn = ./edgevpn.nix;
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;

@@ -1,4 +1,4 @@
-imports: { config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +12,6 @@ let
     StateDirectory = "rkn";
   };
 in {
-  inherit imports;
-
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
     address = mkOption {
