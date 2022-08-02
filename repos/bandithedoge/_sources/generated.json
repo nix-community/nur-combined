@@ -31,11 +31,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "dwm-flexipatch",
-            "rev": "2e496ed931b93c46ea89ee4f14f4c0ae2e68533f",
-            "sha256": "sha256-Hx8/bv80/MiWe2WYozjjeWkFKHAU/MPLJ2s5oeaa3Q8=",
+            "rev": "4b20c92b4c7969472b31cf364ee081f58874f40a",
+            "sha256": "sha256-JUosE22X6CKbh2KyypjTco7cAP6ev7XPDMwqNdS6vDM=",
             "type": "github"
         },
-        "version": "2e496ed931b93c46ea89ee4f14f4c0ae2e68533f"
+        "version": "4b20c92b4c7969472b31cf364ee081f58874f40a"
     },
     "kiwmi": {
         "cargoLocks": null,
@@ -67,12 +67,31 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "af7c3bde518150eb37f9da69b5365eaa9100cb57",
-            "sha256": "sha256-zQTP8JSGcvH4dRr4ltZRilAPeeYMseaS2ZiILkB/D5c=",
+            "rev": "6ae0f2518b4e86a604e67cf657ad649ab2a0ff26",
+            "sha256": "sha256-dhC0XhZYJq2n1Hl8UBctMJtmE+8KJu9x3m3RKagrKJ0=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "af7c3bde518150eb37f9da69b5365eaa9100cb57"
+        "version": "6ae0f2518b4e86a604e67cf657ad649ab2a0ff26"
+    },
+    "luakit": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "luakit",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "luakit",
+            "repo": "luakit",
+            "rev": "6cac83342bfe87ea57f05b67976f8def814b3934",
+            "sha256": "sha256-yPxYsi5cQEKKQqNHrMPkWF7UdKSPsPSVg7/brq9vvME=",
+            "type": "github"
+        },
+        "version": "6cac83342bfe87ea57f05b67976f8def814b3934"
     },
     "slock-flexipatch": {
         "cargoLocks": null,

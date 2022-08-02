@@ -33,3 +33,8 @@ fetch.git = "https://git.sr.ht/~alextee/zrythm"
 [libadwaita]
 src.git = "https://gitlab.gnome.org/GNOME/libadwaita"
 fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
+
+[luakit]
+src.git = "https://github.com/luakit/luakit"
+src.branch = "develop"
+fetch.github = "luakit/luakit"

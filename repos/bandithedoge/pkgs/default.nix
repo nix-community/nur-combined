@@ -16,5 +16,7 @@ in {
 
   kiwmi = callPackage' ./kiwmi.nix;
 
+  luakit = callPackage' ./luakit.nix;
+
   zrythm = callPackage' ./zrythm.nix;
 }
