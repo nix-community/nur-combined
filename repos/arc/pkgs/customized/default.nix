@@ -65,20 +65,6 @@ let
       };
     };
 
-    page-develop = { page, fetchFromGitHub, rustPlatform }: rustPlatform.buildRustPackage {
-      inherit (page) pname nativeBuildInputs postInstall meta;
-      version = "2021-12-31";
-
-      src = fetchFromGitHub {
-        owner = "I60R";
-        repo = "page";
-        rev = "2bf1f53dfe9f2dd1724d67aea43511e466bfde17";
-        sha256 = "0pc8j2kqivr2jwwsnwf2zpcvjpykrqd1na60bfzn78y09g2v43cy";
-      };
-
-      cargoSha256 = "15014y1330kvwcc4pxj4iprrypk4n2g47c55hl11n0ffnwshd54v";
-    };
-
     gir-rs-0_14 = { gir-rs, fetchFromGitHub, rustPlatform }: rustPlatform.buildRustPackage rec {
       inherit (gir-rs) pname meta;
       version = "0.14-2021-10-08";
