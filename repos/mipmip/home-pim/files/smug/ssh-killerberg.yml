@@ -7,9 +7,3 @@ windows:
   - name: cheetah
     commands:
       - ssh pim@cheetah.node.quiqr.org
-  - name: sailfish
-    commands:
-      - ssh pim@sailfish.node.quiqr.org
-  - name: slechtvalk
-    commands:
-      - ssh pim@slechtvalk.node.quiqr.org
