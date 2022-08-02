@@ -615,10 +615,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.52";
+      version = "6.1.53";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3969994/flagfox-6.1.52.xpi";
-      sha256 = "b036b01c38f5bb865c76c7ecd212c174ec3b24c52959e9ec2cbc9300a55ca79a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3982666/flagfox-6.1.53.xpi";
+      sha256 = "57d4eaadb4648100d777949b32a8a16bb7f7816b9e5112d8766a14bbcb0672e0";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -1713,10 +1713,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.7.20";
+      version = "22.8.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978321/refined_github-22.7.20.xpi";
-      sha256 = "fddae1bf8779dbdb506c8168a07714d999ff80f6ded82d03946af156ebe0c980";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3983335/refined_github-22.8.1.xpi";
+      sha256 = "fb02313939188d2d78bb6cd2d5d7036610284daea6070db0d6648aa27e2f0af1";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
