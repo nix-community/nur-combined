@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
+  an-anime-game-launcher-gtk = pkgs.callPackage ./pkgs/an-anime-game-launcher-gtk { };
   bitwarden-rofi-patched = pkgs.callPackage ./pkgs/bitwarden-rofi { };
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   rctpm = pkgs.callPackage ./pkgs/rctpm { };
