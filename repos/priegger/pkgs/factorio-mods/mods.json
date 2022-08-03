@@ -567,10 +567,10 @@
   },
   {
     "name": "Companion_Drones",
-    "version": "1.0.22",
-    "file_name": "Companion_Drones_1.0.22.zip",
-    "download_url": "/download/Companion_Drones/61a8d082a8a2bffbcdeda3e1",
-    "sha1": "606d5133fb47b3c326172e2aaff2d2e08642a42b",
+    "version": "1.0.24",
+    "file_name": "Companion_Drones_1.0.24.zip",
+    "download_url": "/download/Companion_Drones/62e7be60fe86fb8fcb047c2c",
+    "sha1": "6f96ebdff67ac162291c9a61323a2e2b6815e9ea",
     "dependencies": [
       "base >= 1.1.5",
       "(?)alien-biomes",
