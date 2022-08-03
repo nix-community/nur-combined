@@ -47,6 +47,7 @@ in {
       services.xserver.displayManager.autoLogin.enable = true;
       services.xserver.displayManager.autoLogin.user = cfg.user;
       services.xserver.displayManager.defaultSession = "none+i3";
+      services.xserver.displayManager.lightdm.greeter.enable = false;
       services.xserver.windowManager.i3.enable = true;
       services.xserver.windowManager.i3.extraSessionCommands = ''
         exec ${pkgs.x11vnc}/bin/x11vnc -forever &
@@ -82,6 +83,7 @@ in {
       services.xserver.displayManager.autoLogin.enable = true;
       services.xserver.displayManager.autoLogin.user = cfg.user;
       services.xserver.displayManager.defaultSession = "sway";
+      services.xserver.displayManager.lightdm.greeter.enable = false;
     })
     (mkIf cfg.wayland {
       programs.sway.enable = true;
