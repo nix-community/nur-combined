@@ -17,13 +17,13 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "4b20c92b4c7969472b31cf364ee081f58874f40a";
+    version = "10aa27171f87b88bfb48747e9d57361ec7bdaacd";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "4b20c92b4c7969472b31cf364ee081f58874f40a";
+      rev = "10aa27171f87b88bfb48747e9d57361ec7bdaacd";
       fetchSubmodules = false;
-      sha256 = "sha256-JUosE22X6CKbh2KyypjTco7cAP6ev7XPDMwqNdS6vDM=";
+      sha256 = "sha256-3Vq/arLveuoCquBuEwfz7Dd6VXHr/5zca7UtO24eJzQ=";
     };
   };
   kiwmi = {
@@ -39,14 +39,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "6ae0f2518b4e86a604e67cf657ad649ab2a0ff26";
+    version = "e351779dd2cd916273a60fbfd5a119c03b4a9622";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "6ae0f2518b4e86a604e67cf657ad649ab2a0ff26";
+      rev = "e351779dd2cd916273a60fbfd5a119c03b4a9622";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-dhC0XhZYJq2n1Hl8UBctMJtmE+8KJu9x3m3RKagrKJ0=";
+      sha256 = "sha256-IsCN2Q40OWmAthAWvOVWMRECMxU2n7EfpJnogom1g+Q=";
     };
   };
   luakit = {

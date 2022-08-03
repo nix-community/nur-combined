@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "numToStr",
         "repo": "Comment.nvim",
-        "rev": "1855716bd9d0f71b03d447dc75df5060575d1367",
-        "sha256": "02gccf82ix2ksv45dpnkvkzqwcikp7pnfy9s8kfdk0j8qfh36nin",
+        "rev": "538dac19fb982278613688627bef7c0d9c442748",
+        "sha256": "05wzrb2nx5zjrhc9r9gh0ylhdyqqg0ybsyw6gb5akhw8dvmvd1kq",
         "type": "tarball",
-        "url": "https://github.com/numToStr/Comment.nvim/archive/1855716bd9d0f71b03d447dc75df5060575d1367.tar.gz",
+        "url": "https://github.com/numToStr/Comment.nvim/archive/538dac19fb982278613688627bef7c0d9c442748.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "FTerm.nvim": {
@@ -77,10 +77,10 @@
         "homepage": "",
         "owner": "akinsho",
         "repo": "bufferline.nvim",
-        "rev": "c4dd9b4de03b891f648b098c25e4dc1bc48a13e5",
-        "sha256": "0i9xpsg49m4m16m22iixhsfajnbcyw383iql1r9s5r8cwmzax0kq",
+        "rev": "21aeb945db6a1c037e42ab6a6f05e357ea623a7b",
+        "sha256": "1ssz14j3f59byszarh4hn780vyr0wfbr0227rk9hjs81cl9zgmrj",
         "type": "tarball",
-        "url": "https://github.com/akinsho/bufferline.nvim/archive/c4dd9b4de03b891f648b098c25e4dc1bc48a13e5.tar.gz",
+        "url": "https://github.com/akinsho/bufferline.nvim/archive/21aeb945db6a1c037e42ab6a6f05e357ea623a7b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "cheatsheet.nvim": {
@@ -593,10 +593,10 @@
         "homepage": "",
         "owner": "glepnir",
         "repo": "lspsaga.nvim",
-        "rev": "14ccbe682fb3060b70760468935dc306d67d876d",
-        "sha256": "12b448sabzcnsir1f5bxsyy10qp1q1ypyhaw61gpgwy57i1iz4g6",
+        "rev": "db9b4adcc14ed42ba8c912bf91e57a1af89cd866",
+        "sha256": "18l9frdzy3jf3f096iypn48rm72h0wbl89ld2iliqqvia5cyzbj7",
         "type": "tarball",
-        "url": "https://github.com/glepnir/lspsaga.nvim/archive/14ccbe682fb3060b70760468935dc306d67d876d.tar.gz",
+        "url": "https://github.com/glepnir/lspsaga.nvim/archive/db9b4adcc14ed42ba8c912bf91e57a1af89cd866.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lua-dev.nvim": {

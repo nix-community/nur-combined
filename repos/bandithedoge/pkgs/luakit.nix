@@ -13,7 +13,8 @@ pkgs.stdenv.mkDerivation {
     [
       glib-networking
       gtk3
-      (luajit.withPackages (ps: with ps; [luafilesystem]))
+      luajit
+      luajitPackages.luafilesystem
       sqlite
       webkitgtk
     ]
