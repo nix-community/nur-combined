@@ -617,10 +617,10 @@
         "homepage": "",
         "owner": "nvim-lualine",
         "repo": "lualine.nvim",
-        "rev": "e37d5d325da9c472c73d97bd0210c480c5d9babc",
-        "sha256": "0qyn8ilyzag6yi7nn8c4a9f3a23dw8npr02z6ci173rphdslz6cc",
+        "rev": "f50ce0f9f69ce4db1d1efa8c7f7f44d90bb7916a",
+        "sha256": "0qap0bjx34smlqlik3zpf2f72vqdfkzyf9nqlas6b5gdajchds2a",
         "type": "tarball",
-        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/e37d5d325da9c472c73d97bd0210c480c5d9babc.tar.gz",
+        "url": "https://github.com/nvim-lualine/lualine.nvim/archive/f50ce0f9f69ce4db1d1efa8c7f7f44d90bb7916a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "luv-vimdocs": {
