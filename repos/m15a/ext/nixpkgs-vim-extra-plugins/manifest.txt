@@ -236,6 +236,7 @@ kazhala/close-buffers.nvim
 kdheepak/lazygit.nvim
 kdheepak/monochrome.nvim
 kdheepak/tabline.nvim
+keaising/im-select.nvim
 kevinhwang91/nvim-bqf
 kevinhwang91/nvim-hlslens
 kevinhwang91/nvim-ufo
