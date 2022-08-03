@@ -26,7 +26,6 @@
 , vulkan-loader
 , libXNVCtrl
 , wayland
-, spdlog
 , glew
 , glfw
 , nlohmann_json
@@ -50,6 +49,21 @@ let
       sha256 = "sha256-bQC0QmkLalxdj4mDEdqvvOFtNwz2T1MpTDuMXGYeQ18=";
     };
   };
+
+  # Derived from subprojects/spdlog.wrap
+  spdlog = rec {
+    version = "1.8.5";
+    src = fetchFromGitHub {
+      owner = "gabime";
+      repo = "spdlog";
+      rev = "refs/tags/v${version}";
+      sha256 = "sha256-D29jvDZQhPscaOHlrzGN1s7/mXlcsovjbqYpXd7OM50=";
+    };
+    patch = fetchurl {
+      url = "https://wrapdb.mesonbuild.com/v2/spdlog_${version}-1/get_patch";
+      sha256 = "sha256-PDjyddV5KxKGORECWUMp6YsXc3kks0T5gxKrCZKbdL4=";
+    };
+  };
 in stdenv.mkDerivation rec {
   pname = "mangohud";
   version = "0.6.7-1";
@@ -68,7 +82,7 @@ in stdenv.mkDerivation rec {
   postUnpack = ''(
     cd "$sourceRoot/subprojects"
     cp -R --no-preserve=mode,ownership ${imgui.src} imgui-${imgui.version}
-    unzip ${imgui.patch}
+    cp -R --no-preserve=mode,ownership ${spdlog.src} spdlog-${spdlog.version}
   )'';
 
   patches = [
@@ -110,11 +124,16 @@ in stdenv.mkDerivation rec {
     })
   ];
 
+  postPatch = ''(
+    cd subprojects
+    unzip ${imgui.patch}
+    unzip ${spdlog.patch}
+  )'';
+
   mesonFlags = [
     "-Duse_system_vulkan=enabled"
     "-Dvulkan_datadir=${vulkan-headers}/share"
     "-Dwith_wayland=enabled"
-    "-Duse_system_spdlog=enabled"
   ] ++ lib.optionals gamescopeSupport [
     "-Dmangoapp_layer=true"
     "-Dmangoapp=true"
@@ -137,7 +156,6 @@ in stdenv.mkDerivation rec {
     libX11
     libXNVCtrl
     wayland
-    spdlog
   ] ++ lib.optionals gamescopeSupport [
     glew
     glfw
