@@ -49,7 +49,7 @@ in
   clonehero-xdg-wrapper = callPackage ./games/clonehero/xdg-wrapper.nix { };
 
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
-    inherit cmake;
+    inherit cmake cmake-format;
   };
 
   gamemode = callPackage ./tools/games/gamemode rec {

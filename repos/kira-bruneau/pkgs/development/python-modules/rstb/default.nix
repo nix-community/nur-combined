@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
@@ -38,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/rstb";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    badPlatforms = platforms.darwin; # oead cmake --build fails with exit code 2 on darwin
+    broken = stdenv.isDarwin; # oead cmake --build fails with exit code 2 on darwin
   };
 }

@@ -1,4 +1,5 @@
 { lib
+, stdenv
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
@@ -47,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeldamods/oead";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
-    badPlatforms = platforms.darwin; # cmake --build fails with exit code 2 on darwin
+    broken = stdenv.isDarwin; # cmake --build fails with exit code 2 on darwin
   };
 }

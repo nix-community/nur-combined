@@ -109,6 +109,6 @@ buildPythonPackage rec {
 
     # https://github.com/NixOS/nixpkgs/pull/172397
     # https://github.com/pyca/pyopenssl/issues/873
-    badPlatforms = [ "aarch64-darwin" ];
+    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

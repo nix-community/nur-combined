@@ -140,6 +140,6 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ goibhniu kira-bruneau ];
     platforms = platforms.all;
-    badPlatforms = platforms.darwin;
+    broken = stdenv.isDarwin;
   };
 }
