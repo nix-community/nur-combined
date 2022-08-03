@@ -5,6 +5,7 @@ rec {
   logitech-k380 = ./logitech-k380.nix;
   qt5 = ./qt5.nix;
   gtk = ./gtk.nix;
+  cursor = ./cursor.nix;
   jack = ./jack.nix;
   pulseaudio = ./pulseaudio.nix;
   pipewire = ./pipewire.nix;
