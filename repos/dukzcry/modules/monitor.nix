@@ -69,10 +69,10 @@ in {
       hooks.postswitch = {
         xrdb = ''
           case "$AUTORANDR_CURRENT_PROFILE" in
-            laptop)
+            laptop|integer)
               DPI=96
               ;;
-            monitor|integer|both)
+            monitor|both)
               DPI=144
               ;;
             *)
