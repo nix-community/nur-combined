@@ -10,13 +10,43 @@
 , gobject-introspection
 , makeWrapper
 , gsettings-desktop-schemas
-, wrapGAppsHook
+, wrapGAppsHook4
 , runtimeShell
 , mangohud
 , xdelta
-, steam-run
+, steam
+, writeShellScriptBin
+, callPackage
+, libunwind
+, librsvg
 }:
+let
 
+
+  fakePkExec = writeShellScriptBin "pkexec" ''
+    declare -a final
+    positional=""
+    for value in "$@"; do
+      if [[ -n "$positional" ]]; then
+        final+=("$value")
+      elif [[ "$value" == "-n" ]]; then
+        :
+      else
+        positional="y"
+        final+=("$value")
+      fi
+    done
+    exec "''${final[@]}"
+  '';
+
+  steam-run-custom = (steam.override {
+    extraPkgs = p: [ mangohud xdelta ];
+    extraLibraries = p: [ libunwind ];
+    extraProfile = ''
+      export PATH=${fakePkExec}/bin:$PATH
+    '';
+  }).run;
+in
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher-gtk";
   version = "0.6.1";
@@ -37,37 +67,30 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [
     pkg-config
+    gtk4
+    glib
     blueprint-compiler
-    wrapGAppsHook
+    wrapGAppsHook4
+    gobject-introspection
   ];
 
   buildInputs = [
     gdk-pixbuf
-    gobject-introspection
-    glib
     openssl
+    librsvg
     pango
     gsettings-desktop-schemas
-    gtk4
     libadwaita
   ];
 
-  preFixup = ''
+  postFixup = ''
     mv $out/bin/anime-game-launcher $out/bin/.anime-game-launcher-unwrapped
-    makeWrapper ${steam-run}/bin/steam-run $out/bin/anime-game-launcher \
-      --add-flags $out/bin/.anime-game-launcher-unwrapped
+    makeWrapper ${steam-run-custom}/bin/steam-run $out/bin/anime-game-launcher \
+      --add-flags $out/bin/.anime-game-launcher-unwrapped \
+      "''${gappsWrapperArgs[@]}"
   '';
 
   dontWrapGApps = true;
-
-  postFixup = ''
-    for f in "$out"/bin/*; do
-      echo "Wrapping $f"
-      wrapProgram "$f" \
-        --prefix PATH : ${lib.makeBinPath [ mangohud xdelta ]} \
-        "''${gappsWrapperArgs[@]}"
-    done
-  '';
 
   meta = with lib; {
     description = "An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library";
