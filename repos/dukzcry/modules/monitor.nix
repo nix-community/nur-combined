@@ -17,73 +17,73 @@ in {
     enable = mkEnableOption ''
       Adoptions for monitor
     '';
-    user = mkOption {
-      type = types.str;
-    };
     config = mkOption {
       type = types.attrs;
       default = {};
     };
   };
 
-  config = mkIf cfg.enable {
-    programs.light.enable = if cfg.config != {} then true else false;
-    users.users.${cfg.user}.extraGroups = optionals (cfg.config != {}) [ "video" ];
-
-    services.ddccontrol.enable = true;
-    hardware.i2c.enable = true;
-
-    services.autorandr = with pkgs; {
-      enable = true;
-      defaultTarget = if cfg.config != {} then "laptop" else "monitor";
-      profiles = rec {
-        laptop = optionalAttrs (cfg.config != {}) {
-          fingerprint."${cfg.config.name}" = cfg.config.setup;
-          config = {
-            "${cfg.config.name}" = cfg.config.config;
-            "${monitor'.name}".enable = false;
+  config = mkMerge [
+    (mkIf cfg.enable {
+      services.ddccontrol.enable = true;
+      hardware.i2c.enable = true;
+    })
+    (mkIf (cfg.enable && config.services.xserver.windowManager.i3.enable) {
+      services.autorandr.hooks.postswitch = {
+        notify-i3 = "${pkgs.i3}/bin/i3-msg restart";
+      };
+    })
+    (mkIf (cfg.enable && config.services.xserver.enable) {
+      services.autorandr = {
+        enable = true;
+        defaultTarget = if cfg.config != {} then "laptop" else "monitor";
+        profiles = rec {
+          laptop = optionalAttrs (cfg.config != {}) {
+            fingerprint."${cfg.config.name}" = cfg.config.setup;
+            config = {
+              "${cfg.config.name}" = cfg.config.config;
+              "${monitor'.name}".enable = false;
+            };
           };
-        };
-        monitor = {
-          fingerprint."${monitor'.name}" = monitor'.setup;
-          config = {
-            "${monitor'.name}" = monitor'.config;
-          } // optionalAttrs (cfg.config != {}) {
-            "${cfg.config.name}".enable = false;
+          monitor = {
+            fingerprint."${monitor'.name}" = monitor'.setup;
+            config = {
+              "${monitor'.name}" = monitor'.config;
+            } // optionalAttrs (cfg.config != {}) {
+              "${cfg.config.name}".enable = false;
+            };
           };
-        };
-        integer = monitor // {
-          hooks.postswitch.xrandr = "${xorg.xrandr}/bin/xrandr --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
-        };
-        both = optionalAttrs (cfg.config != {}) {
-          fingerprint."${cfg.config.name}" = cfg.config.setup;
-          fingerprint."${monitor'.name}" = monitor'.setup;
-          config = {
-            "${cfg.config.name}" = cfg.config.config;
-            "${monitor'.name}" = monitor'.config // {
-              position = "${position' cfg.config.config.mode}x0";
+          integer = monitor // {
+            hooks.postswitch.xrandr = "${pkgs.xorg.xrandr}/bin/xrandr --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
+          };
+          both = optionalAttrs (cfg.config != {}) {
+            fingerprint."${cfg.config.name}" = cfg.config.setup;
+            fingerprint."${monitor'.name}" = monitor'.setup;
+            config = {
+              "${cfg.config.name}" = cfg.config.config;
+              "${monitor'.name}" = monitor'.config // {
+                position = "${position' cfg.config.config.mode}x0";
+              };
             };
           };
         };
+        hooks.postswitch = {
+          xrdb = ''
+            case "$AUTORANDR_CURRENT_PROFILE" in
+              laptop|integer)
+                DPI=96
+                ;;
+              monitor|both)
+                DPI=144
+                ;;
+              *)
+                echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
+                exit 1
+            esac
+            echo "Xft.dpi: $DPI" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
+          '';
+        };
       };
-      hooks.postswitch = {
-        xrdb = ''
-          case "$AUTORANDR_CURRENT_PROFILE" in
-            laptop|integer)
-              DPI=96
-              ;;
-            monitor|both)
-              DPI=144
-              ;;
-            *)
-              echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
-              exit 1
-          esac
-          echo "Xft.dpi: $DPI" | ${xorg.xrdb}/bin/xrdb -merge
-      '';
-      } // optionalAttrs config.services.xserver.windowManager.i3.enable {
-        notify-i3 = "${i3}/bin/i3-msg restart";
-      };
-    };
-  };
+    })
+  ];
 }

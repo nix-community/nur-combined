@@ -13,6 +13,9 @@ in {
     enable = mkEnableOption ''
       Hardware tweaks for different hosts
     '';
+    user = mkOption {
+      type = types.str;
+    };
   };
 
   config = mkMerge [
@@ -59,6 +62,8 @@ in {
           mode = "1920x1080";
         };
       };
+      programs.light.enable = true;
+      users.users.${cfg.user}.extraGroups = [ "video" ];
     })
   ];
 }
