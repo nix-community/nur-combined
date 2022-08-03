@@ -51,6 +51,17 @@ in {
       };
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
       services.nvidia.enable = true;
+      hardware.monitor.config = {
+        name = "eDP-1";
+        setup = "00ffffffffffff004d104714000000002d190104a51d117806de50a3544c99260f5054000000010101010101010101010101010101011a3680a070381f403020350026a510000018000000100000000000000000000000000000000000100000000000000000000000000000000000fe004c513133334d314a5731350a2000cf";
+        config = {
+          enable = true;
+          crtc = 0;
+          mode = "1920x1080";
+          position = "0x0";
+          rate = "59.93";
+        };
+      };
     })
   ];
 }
