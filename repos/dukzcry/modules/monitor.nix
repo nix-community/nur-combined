@@ -53,7 +53,7 @@ in {
           };
         };
         integer = monitor // {
-          hooks.postswitch.xrandr = "${xorg.xrandr} --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
+          hooks.postswitch.xrandr = "${xorg.xrandr}/bin/xrandr --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
         };
         both = optionalAttrs (cfg.config != {}) {
           fingerprint."${cfg.config.name}" = cfg.config.setup;
