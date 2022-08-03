@@ -32,4 +32,5 @@ set yankto both
 
 blacklistadd netflix.com
 blacklistadd primevideo.com
+blacklistadd youtube.com
 blacklistadd localhost
