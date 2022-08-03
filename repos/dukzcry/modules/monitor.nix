@@ -29,8 +29,10 @@ in {
   config = mkIf cfg.enable {
     programs.light.enable = if cfg.config != {} then true else false;
     users.users.${cfg.user}.extraGroups = optionals (cfg.config != {}) [ "video" ];
+
     services.ddccontrol.enable = true;
     hardware.i2c.enable = true;
+
     services.autorandr = with pkgs; {
       enable = true;
       defaultTarget = if cfg.config != {} then "laptop" else "monitor";
