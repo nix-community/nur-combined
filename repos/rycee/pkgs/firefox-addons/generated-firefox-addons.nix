@@ -504,10 +504,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.6.27";
+      version = "2022.7.26";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3968598/duckduckgo_for_firefox-2022.6.27.xpi";
-      sha256 = "204c644925241c37fb9f46ef9f7c42b423728654d7972a6f6de6ecfd00ec9e30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3983576/duckduckgo_for_firefox-2022.7.26.xpi";
+      sha256 = "35b13f2092e18d5ad5e626dcf889d5204eefe673694ede96abb2b1d3fff8a8ed";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -704,10 +704,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220731.190208";
+      version = "104.0buildid20220802.185803";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3982864/francais_language_pack-104.0buildid20220731.190208.xpi";
-      sha256 = "a4bd9c90a81f1c7666ee41b54eb8b9a6177d311dbbe34006c4307b88fa301481";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3983813/francais_language_pack-104.0buildid20220802.185803.xpi";
+      sha256 = "33a0baba440962f71e41dba9025d6125ebd29221ccbde63f07137d826c68ea97";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1727,10 +1727,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.1";
+      version = "3.0.0.4";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3941589/return_youtube_dislikes-3.0.0.1.xpi";
-      sha256 = "13c084a45d8e3be7ff46c9a98e92f8751765845803647517f2fd23770d187d02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3983624/return_youtube_dislikes-3.0.0.4.xpi";
+      sha256 = "8a9980fd1cc3b45af6ecd667fcfcf1ec6bfa7680fa684a897d828cd28f42f73c";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -2174,10 +2174,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.5.1";
+      version = "9.5.3";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967080/traduzir_paginas_web-9.5.1.xpi";
-      sha256 = "941a6e4af0eb5f570d2172d73b731674d6e70a345150ea1dbd06bd55bb66aaf0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3983461/traduzir_paginas_web-9.5.3.xpi";
+      sha256 = "86b03b47cd5096a0b3bbfaf1dae1d69fdfbdf8ec3aac4af861c9e60c0dc2564f";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
