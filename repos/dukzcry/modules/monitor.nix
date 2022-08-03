@@ -9,10 +9,7 @@ let
     setup = "00ffffffffffff0030aee66100000000331e0104b53e22783bb4a5ad4f449e250f5054a10800d100d1c0b30081c081809500a9c081004dd000a0f0703e80302035006d552100001a000000fd00283c858538010a202020202020000000fc004c454e20533238752d31300a20000000ff00564e4135433339420a2020202001f002031bf14e61605f101f05140413121103020123097f0783010000a36600a0f0701f80302035006d552100001a565e00a0a0a02950302035006d552100001ae26800a0a0402e60302036006d552100001a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002f";
     config = {
       enable = true;
-      crtc = 1;
       mode = "3840x2160";
-      position = "0x0";
-      rate = "60.00";
     };
   };
 in {
@@ -30,8 +27,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.light.enable = true;
-    users.users.${cfg.user}.extraGroups = [ "video" ];
+    programs.light.enable = if cfg.config != {} then true else false;
+    users.users.${cfg.user}.extraGroups = optionals (cfg.config != {}) [ "video" ];
     services.ddccontrol.enable = true;
     hardware.i2c.enable = true;
     services.autorandr = with pkgs; {
@@ -62,7 +59,6 @@ in {
           config = {
             "${cfg.config.name}" = cfg.config.config;
             "${monitor'.name}" = monitor'.config // {
-              primary = true;
               position = "${position' cfg.config.config.mode}x0";
             };
           };
