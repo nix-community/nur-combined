@@ -593,10 +593,10 @@
         "homepage": "",
         "owner": "glepnir",
         "repo": "lspsaga.nvim",
-        "rev": "db9b4adcc14ed42ba8c912bf91e57a1af89cd866",
-        "sha256": "18l9frdzy3jf3f096iypn48rm72h0wbl89ld2iliqqvia5cyzbj7",
+        "rev": "3a38f00cace3fa4d0e9e728bf8f28a0ad412f8c7",
+        "sha256": "02bl4cn1pxg4bf653zxjr02k5zfaplkgy4m0zdkkvv5fh2bvd8zx",
         "type": "tarball",
-        "url": "https://github.com/glepnir/lspsaga.nvim/archive/db9b4adcc14ed42ba8c912bf91e57a1af89cd866.tar.gz",
+        "url": "https://github.com/glepnir/lspsaga.nvim/archive/3a38f00cace3fa4d0e9e728bf8f28a0ad412f8c7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lua-dev.nvim": {
@@ -857,10 +857,10 @@
         "homepage": "",
         "owner": "mfussenegger",
         "repo": "nvim-dap",
-        "rev": "3aa863c4cadc03ea7b973456dfaf2de9f40bcb68",
-        "sha256": "18qkzjnf6gfysmby7zgx57ilr9184gxycpgl647klfpiaa000m57",
+        "rev": "458c5f5c3f94ec104beba923d1e0fa4780e39372",
+        "sha256": "1608gjvqrfiz2gyidwraznrzc9k74g5ag9yrzps5pqdg22z81arl",
         "type": "tarball",
-        "url": "https://github.com/mfussenegger/nvim-dap/archive/3aa863c4cadc03ea7b973456dfaf2de9f40bcb68.tar.gz",
+        "url": "https://github.com/mfussenegger/nvim-dap/archive/458c5f5c3f94ec104beba923d1e0fa4780e39372.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-dap-ui": {
@@ -929,10 +929,10 @@
         "homepage": "",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "06744ba3783ce2d502838f988dec95378543f5d7",
-        "sha256": "1hlwxm97wri9w40m1d90j9spzs29mi5xjr7iw86dvhhs2pa8xln4",
+        "rev": "4bec857a983f732009ad96ba4936d389a93fdc98",
+        "sha256": "0xa62xbj4zp9cswmx1ikwq0jw3glkn97ydd282vhl1r5fhjm06vw",
         "type": "tarball",
-        "url": "https://github.com/neovim/nvim-lspconfig/archive/06744ba3783ce2d502838f988dec95378543f5d7.tar.gz",
+        "url": "https://github.com/neovim/nvim-lspconfig/archive/4bec857a983f732009ad96ba4936d389a93fdc98.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-luaref": {

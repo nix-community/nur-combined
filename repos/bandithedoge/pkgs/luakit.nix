@@ -7,14 +7,14 @@ pkgs.stdenv.mkDerivation {
 
   nativeBuildInputs = with pkgs; [
     pkgconfig
+    wrapGAppsHook
   ];
 
   buildInputs = with pkgs;
     [
       glib-networking
       gtk3
-      luajit
-      luajitPackages.luafilesystem
+      (luajit.withPackages (ps: with ps; [luafilesystem]))
       sqlite
       webkitgtk
     ]
