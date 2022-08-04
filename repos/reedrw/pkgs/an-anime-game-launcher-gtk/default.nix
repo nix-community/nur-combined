@@ -1,27 +1,8 @@
-{ lib, rustPlatform, fetchFromGitLab
-, pkg-config
-, openssl
-, glib
-, pango
-, gdk-pixbuf
-, gtk4
-, libadwaita
-, blueprint-compiler
-, gobject-introspection
-, makeWrapper
-, gsettings-desktop-schemas
-, wrapGAppsHook4
-, runtimeShell
-, mangohud
-, xdelta
-, steam
-, writeShellScriptBin
-, callPackage
-, libunwind
-, librsvg
+{ lib, writeShellScriptBin, callPackage, steam, mangohud, xdelta, libunwind, symlinkJoin
 }:
 let
 
+  anime-game-launcher-unwrapped = callPackage ./unwrapped.nix { };
 
   fakePkExec = writeShellScriptBin "pkexec" ''
     declare -a final
@@ -46,50 +27,14 @@ let
       export PATH=${fakePkExec}/bin:$PATH
     '';
   }).run;
-in
-rustPlatform.buildRustPackage rec {
-  pname = "an-anime-game-launcher-gtk";
-  version = "1.0.0-rc1";
 
-  src = fetchFromGitLab {
-    owner = "an-anime-team";
-    repo = "an-anime-game-launcher-gtk";
-    rev = "bcdb0217ade88eb9ac226d76a884f041ae11049d";
-    sha256 = "sha256-vSnt1UDdH/5L+9we5fgj2thtb9qx0zZe2voK0SFvqFA=";
-    fetchSubmodules = true;
-  };
-
-  patches = [
-    ./blp-compiler.patch
-  ];
-
-  cargoSha256 = "sha256-3YxwKWBduF3B0fKOhC+RqGgE+SldoqGuMMw/TassTNs=";
-
-  nativeBuildInputs = [
-    pkg-config
-    gtk4
-    glib
-    blueprint-compiler
-    wrapGAppsHook4
-  ];
-
-  buildInputs = [
-    gdk-pixbuf
-    openssl
-    librsvg
-    pango
-    gsettings-desktop-schemas
-    libadwaita
-  ];
-
-  postFixup = ''
-    mv $out/bin/anime-game-launcher $out/bin/.anime-game-launcher-unwrapped
-    makeWrapper ${steam-run-custom}/bin/steam-run $out/bin/anime-game-launcher \
-      --add-flags $out/bin/.anime-game-launcher-unwrapped \
-      "''${gappsWrapperArgs[@]}"
+  wrapper = writeShellScriptBin "anime-game-launcher" ''
+    ${steam-run-custom}/bin/steam-run ${anime-game-launcher-unwrapped}/bin/anime-game-launcher
   '';
-
-  dontWrapGApps = true;
+in
+symlinkJoin {
+  inherit (anime-game-launcher-unwrapped) pname version name;
+  paths = [ wrapper ];
 
   meta = with lib; {
     description = "An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library";
