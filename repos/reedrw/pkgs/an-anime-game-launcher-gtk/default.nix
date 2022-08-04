@@ -49,13 +49,13 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "an-anime-game-launcher-gtk";
-  version = "0.6.1";
+  version = "1.0.0-rc1";
 
   src = fetchFromGitLab {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher-gtk";
-    rev = "67a34d9d4c0a66598e3be85f9aaa0ff95e6fc451";
-    sha256 = "sha256-/NeGX0XvlRLV/HsP0WHUumd3ORjByKgxtfdAup2TfKU=";
+    rev = "bcdb0217ade88eb9ac226d76a884f041ae11049d";
+    sha256 = "sha256-vSnt1UDdH/5L+9we5fgj2thtb9qx0zZe2voK0SFvqFA=";
     fetchSubmodules = true;
   };
 
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage rec {
     ./blp-compiler.patch
   ];
 
-  cargoSha256 = "sha256-x2X/tZSpILvd9xj8t75VpvbuADq794J7zgV66oPddtw=";
+  cargoSha256 = "sha256-3YxwKWBduF3B0fKOhC+RqGgE+SldoqGuMMw/TassTNs=";
 
   nativeBuildInputs = [
     pkg-config
@@ -71,7 +71,6 @@ rustPlatform.buildRustPackage rec {
     glib
     blueprint-compiler
     wrapGAppsHook4
-    gobject-introspection
   ];
 
   buildInputs = [
