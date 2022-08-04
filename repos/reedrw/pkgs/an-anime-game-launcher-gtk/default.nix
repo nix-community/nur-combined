@@ -1,4 +1,11 @@
-{ lib, writeShellScriptBin, callPackage, steam, mangohud, xdelta, libunwind, symlinkJoin
+{ lib
+, callPackage
+, libunwind
+, mangohud
+, steam
+, symlinkJoin
+, writeShellScriptBin
+, xdelta
 }:
 let
 
