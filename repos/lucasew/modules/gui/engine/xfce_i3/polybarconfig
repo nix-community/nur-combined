@@ -1,0 +1,308 @@
+[bar/primary]
+monitor=%primary_monitor%
+background=#77000000
+border-color=#00000000
+border-size=0
+cursor-click=pointer
+cursor-scroll=ns-resize
+enable-ipc=true
+fixed-center=true
+font-0=Noto:pixelsize=10;1
+font-1=pango:Roboto, Light 7
+font-2=siji:pixelsize=10;1
+foreground=#dfdfdf
+height=20
+line-color=#f00
+line-size=0
+module-margin-left=1
+module-margin-right=1
+modules-center=cpu memory xkeyboard wlan netusage-wifi eth netusage-ethernet temperature pulseaudio battery date
+modules-left=i3
+padding-left=0
+padding-right=0
+radius=0
+tray-padding=4
+tray-position=right
+width=100%
+
+[bar/secondary]
+monitor=%secondary_monitor%
+background=#77000000
+border-color=#00000000
+border-size=0
+cursor-click=pointer
+cursor-scroll=ns-resize
+enable-ipc=true
+fixed-center=true
+font-0=Noto:pixelsize=10;1
+font-1=pango:Roboto, Light 7
+font-2=siji:pixelsize=10;1
+foreground=#dfdfdf
+height=20
+line-color=#f00
+line-size=0
+module-margin-left=1
+module-margin-right=1
+modules-center=temperature date
+modules-left=i3
+padding-left=0
+padding-right=0
+radius=0
+width=100%
+
+[global/wm]
+margin-bottom=5
+margin-top=5
+
+[module/alsa]
+bar-volume-empty=─
+bar-volume-empty-font=2
+bar-volume-empty-foreground=#555
+bar-volume-fill=─
+bar-volume-fill-font=2
+bar-volume-foreground-0=#55aa55
+bar-volume-foreground-1=#55aa55
+bar-volume-foreground-2=#55aa55
+bar-volume-foreground-3=#55aa55
+bar-volume-foreground-4=#55aa55
+bar-volume-foreground-5=#f5a70a
+bar-volume-foreground-6=#ff5555
+bar-volume-gradient=false
+bar-volume-indicator=|
+bar-volume-indicator-font=2
+bar-volume-width=10
+format-muted-prefix=
+format-volume=<label-volume> <bar-volume>
+label-muted=sound muted
+label-volume=VOL
+label-volume-foreground=#dfdfdf
+type=internal/alsa
+
+[module/backlight-acpi]
+card=intel_backlight
+inherit=module/xbacklight
+type=internal/backlight
+
+[module/battery]
+adapter=ACAD
+animation-charging-0=
+animation-charging-1=
+animation-charging-2=
+animation-charging-framerate=750
+animation-discharging-0=
+animation-discharging-1=
+animation-discharging-2=
+animation-discharging-framerate=750
+battery=BAT1
+format-charging=<animation-charging> <label-charging>
+format-charging-underline=#ffb52a
+format-discharging=<animation-discharging> <label-discharging>
+format-discharging-underline=#ffb52a
+format-full-prefix=" "
+format-full-underline=#ffb52a
+full-at=98
+ramp-capacity-0=
+ramp-capacity-1=
+ramp-capacity-2=
+type=internal/battery
+
+[module/cpu]
+format-prefix=" "
+format-underline=#f90000
+interval=2
+label=%percentage:2%%
+type=internal/cpu
+
+[module/date]
+date=
+date-alt=%Y-%m-%d
+format-prefix=
+format-underline=#0a6cf5
+interval=5
+label=%date% %time%
+time=%H:%M
+time-alt=%H:%M:%S
+type=internal/date
+
+[module/eth]
+format-connected-prefix=" "
+format-connected-underline=#00ff00
+format-disconnected=  OFF
+format-disconnected-underline=#ff0000
+interface=enp2s0f1
+interval=3
+label-connected=%local_ip%
+type=internal/network
+
+[module/filesystem]
+interval=25
+label-mounted=%{F#0a81f5}%mountpoint:0:10:---%%{F-}: %percentage_used%%
+label-unmounted=%mountpoint% OFF
+label-unmounted-foreground=#555
+mount-0=/
+mount-1=/run/media/lucasew/Dados/
+type=internal/fs
+
+[module/i3]
+format=<label-state> <label-mode>
+index-sort=true
+label-focused=%index%
+label-focused-background=ee000000
+label-focused-padding=2
+label-focused-underline=#ffb52a
+label-mode-background=ee000000
+label-mode-foreground=#000
+label-mode-padding=2
+label-unfocused=%index%
+label-unfocused-padding=2
+label-urgent=%index%
+label-urgent-background=#77ff0000
+label-urgent-padding=4
+label-visible=%index%
+label-visible-background=99000000
+label-visible-padding=2
+label-visible-underline=#ffb52a
+pin-workspaces=true
+type=internal/i3
+wrapping-scroll=false
+
+[module/memory]
+format-prefix-foreground=#555
+format-underline=#4bffdc
+interval=2
+label= %percentage_used%%
+type=internal/memory
+
+[module/netusage-ethernet]
+format-connected-underline=#00ff00
+format-disconnected-underline=#ff0000
+interface=enp2s0f1
+interval=1
+label-connected=↓ %downspeed% ↑ %upspeed%
+label-disconnected=
+type=internal/network
+
+[module/netusage-wifi]
+format-connected-underline=#00ff00
+format-disconnected-underline=#ff0000
+interface=wlp3s0
+interval=1
+label-connected=↓ %downspeed% ↑ %upspeed%
+label-disconnected=
+type=internal/network
+
+[module/powermenu]
+expand-right=true
+format-spacing=1
+label-close= cancel
+label-close-foreground=#e60053
+label-open=
+label-open-foreground=#e60053
+label-separator=|
+label-separator-foreground=#555
+menu-0-0=reboot
+menu-0-0-exec=menu-open-1
+menu-0-1=power off
+menu-0-1-exec=menu-open-2
+menu-1-0=cancel
+menu-1-0-exec=menu-open-0
+menu-1-1=reboot
+menu-1-1-exec=sudo reboot
+menu-2-0=power off
+menu-2-0-exec=sudo poweroff
+menu-2-1=cancel
+menu-2-1-exec=menu-open-0
+type=custom/menu
+
+[module/pulseaudio]
+bar-volume-empty=-
+bar-volume-empty-font=2
+bar-volume-empty-foreground=#555
+bar-volume-fill=-
+bar-volume-fill-font=2
+bar-volume-foreground-0=#55aa55
+bar-volume-foreground-1=#55aa55
+bar-volume-foreground-2=#55aa55
+bar-volume-foreground-3=#55aa55
+bar-volume-foreground-4=#55aa55
+bar-volume-foreground-5=#f5a70a
+bar-volume-foreground-6=#ff5555
+bar-volume-gradient=false
+bar-volume-indicator=o
+bar-volume-indicator-font=2
+bar-volume-width=10
+format-volume=♫  <label-volume>
+label-muted=
+label-volume=%percentage%
+type=internal/pulseaudio
+
+[module/temperature]
+format=<ramp> <label>
+format-underline=#f50a4d
+format-warn=<ramp> <label-warn>
+format-warn-underline=#50a4d
+label=%temperature-c%
+label-warn=%temperature-c%
+label-warn-foreground=#e60053
+ramp-0=
+ramp-1=
+ramp-2=
+thermal-zone=0
+type=internal/temperature
+warn-temperature=70
+
+[module/wlan]
+format-connected=<ramp-signal> <label-connected>
+format-connected-underline=#00ff00
+format-disconnected=  OFF
+format-disconnected-underline=#ff0000
+interface=wlp3s0
+interval=3
+label-connected=%essid%
+label-disconnected-foreground=#555
+ramp-signal-0=
+ramp-signal-1=
+ramp-signal-2=
+ramp-signal-3=
+ramp-signal-4=
+type=internal/network
+
+[module/xbacklight]
+bar-empty=─
+bar-empty-font=2
+bar-empty-foreground=#555
+bar-fill=─
+bar-fill-font=2
+bar-fill-foreground=#9f78e1
+bar-indicator=|
+bar-indicator-font=2
+bar-indicator-foreground=#fff
+bar-width=10
+format=<label> <bar>
+label=BL
+type=internal/xbacklight
+
+[module/xkeyboard]
+format=  <label-indicator> <label-layout>
+format-prefix-foreground=#555
+format-prefix-underline=#e60053
+label-indicator-background=#e60053
+label-indicator-margin=1
+label-indicator-off-capslock=c
+label-indicator-off-numlock=n
+label-indicator-off-scrolllock=s
+label-indicator-on-capslock=C
+label-indicator-on-numlock=N
+label-indicator-on-scrolllock=S
+label-indicator-padding=2
+label-indicator-underline=#e60053
+label-layout-underline=#e60053
+type=internal/xkeyboard
+
+[module/xwindow]
+label=%title%
+type=internal/xwindow
+
+[settings]
+screenchange-reload=true
+
