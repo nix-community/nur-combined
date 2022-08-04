@@ -60,6 +60,16 @@ in {
           integer = monitor // {
             hooks.postswitch.xrandr = "${pkgs.xorg.xrandr}/bin/xrandr --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
           };
+          both = optionalAttrs (cfg.config != {}) {
+            fingerprint."${cfg.config.name}" = cfg.config.setup;
+            fingerprint."${monitor'.name}" = monitor'.setup;
+            config = {
+              "${cfg.config.name}" = cfg.config.config;
+              "${monitor'.name}" = monitor'.config // {
+                position = "${position' cfg.config.config.mode}x0";
+              };
+            };
+          };
         };
         hooks.postswitch = {
           xrdb = ''
