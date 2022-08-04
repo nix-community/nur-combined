@@ -168,10 +168,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.32";
+      version = "7.4.33";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978493/betterttv-7.4.32.xpi";
-      sha256 = "15df2e02a745d671085e91c90d88f2343b01f68c03faacc1f47c341284533499";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3984027/betterttv-7.4.33.xpi";
+      sha256 = "08a945893037298bd0be29f0a15986b549bd68cf3bcfeb189cc965d388cf0164";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -588,10 +588,10 @@
       };
     "firefox-translations" = buildFirefoxXpiAddon {
       pname = "firefox-translations";
-      version = "1.1.3buildid20220722.083742";
+      version = "1.1.4buildid20220803.111909";
       addonId = "firefox-translations-addon@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3979078/firefox_translations-1.1.3buildid20220722.083742.xpi";
-      sha256 = "3cc496455973d2dfb695112c1415b21dc6b4432bf0a1d4fc59112003f174e66b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3984258/firefox_translations-1.1.4buildid20220803.111909.xpi";
+      sha256 = "cd2cec8c83eaa60cd5bea490bd66de9393a0ea1c8a38cfbc82594b6161dcc00a";
       meta = with lib;
       {
         homepage = "https://browser.mt";
@@ -745,10 +745,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "22.7.20";
+      version = "22.7.19.2014";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978212/ghosttext-22.7.20.xpi";
-      sha256 = "3295cc2a2aa498d6082402ac23aa9f9501a3d20804b71957ae3db022edee7d97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3978005/ghosttext-22.7.19.2014.xpi";
+      sha256 = "129ecd272d5496716f0728a16bbcf813b6fc8e42066191c82278629d73bb04b2";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -2174,10 +2174,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.5.3";
+      version = "9.5.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3983461/traduzir_paginas_web-9.5.3.xpi";
-      sha256 = "86b03b47cd5096a0b3bbfaf1dae1d69fdfbdf8ec3aac4af861c9e60c0dc2564f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3967080/traduzir_paginas_web-9.5.1.xpi";
+      sha256 = "941a6e4af0eb5f570d2172d73b731674d6e70a345150ea1dbd06bd55bb66aaf0";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
