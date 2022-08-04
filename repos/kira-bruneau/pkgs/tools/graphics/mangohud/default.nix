@@ -1,12 +1,10 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , fetchurl
 , substituteAll
 , coreutils
 , curl
-, gawk
 , glxinfo
 , gnugrep
 , gnused
@@ -16,6 +14,7 @@
 , libX11
 , mangohud32
 , vulkan-headers
+, appstream
 , glslang
 , makeWrapper
 , Mako
@@ -51,6 +50,12 @@ let
   };
 
   # Derived from subprojects/spdlog.wrap
+  #
+  # NOTE: We only statically link spdlog due to a bug in pressure-vessel:
+  # https://github.com/ValveSoftware/steam-runtime/issues/511
+  #
+  # Once this fix is released upstream, we should switch back to using
+  # the system provided spdlog
   spdlog = rec {
     version = "1.8.5";
     src = fetchFromGitHub {
@@ -66,14 +71,14 @@ let
   };
 in stdenv.mkDerivation rec {
   pname = "mangohud";
-  version = "0.6.7-1";
+  version = "0.6.8";
 
   src = fetchFromGitHub {
     owner = "flightlessmango";
     repo = "MangoHud";
     rev = "refs/tags/v${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-60cZYo+d679KRggLBGbpLYM5Iu1XySEEGp+MxZs6wF0=";
+    sha256 = "sha256-jfmgN90kViHa7vMOjo2x4bNY2QbLk93uYEvaA4DxYvg=";
   };
 
   outputs = [ "out" "doc" "man" ];
@@ -94,7 +99,6 @@ in stdenv.mkDerivation rec {
       path = lib.makeBinPath [
         coreutils
         curl
-        gawk
         glxinfo
         gnugrep
         gnused
@@ -103,12 +107,6 @@ in stdenv.mkDerivation rec {
 
       libdbus = dbus.lib;
       inherit hwdata libX11;
-    })
-
-    (fetchpatch {
-      name = "allow-system-nlohmann-json.patch";
-      url = "https://github.com/flightlessmango/MangoHud/commit/e1ffa0f85820abea44639438fca2152290c87ee8.patch";
-      sha256 = "sha256-CaJb0RpXmNGCBidMXM39VJVLIXb6NbN5HXWkH/5Sfvo=";
     })
   ] ++ lib.optional (stdenv.hostPlatform.system == "x86_64-linux") [
     # Support 32bit OpenGL applications by appending the mangohud32
@@ -141,6 +139,7 @@ in stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
+    appstream
     glslang
     makeWrapper
     Mako

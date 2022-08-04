@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "pygls";
-  version = "0.12";
+  version = "0.12.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -22,7 +22,7 @@ buildPythonPackage rec {
     owner = "openlawlibrary";
     repo = pname;
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-PEfGxOUsiZ5WLmoQkOP2RRWJlIKi+42lOu55C3C+k8A=";
+    sha256 = "sha256-L2KTNiI+I+r2fF88B1NSunowokrDzGCw3PXbxekg/oE=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
