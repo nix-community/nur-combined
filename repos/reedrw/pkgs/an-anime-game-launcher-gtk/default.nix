@@ -6,6 +6,7 @@
 , symlinkJoin
 , writeShellScriptBin
 , xdelta
+, runtimeShell
 }:
 let
 
@@ -13,25 +14,29 @@ let
 
   fakePkExec = writeShellScriptBin "pkexec" ''
     declare -a final
-    positional=""
     for value in "$@"; do
-      if [[ -n "$positional" ]]; then
-        final+=("$value")
-      elif [[ "$value" == "-n" ]]; then
-        :
-      else
-        positional="y"
-        final+=("$value")
-      fi
+      final+=("$value")
     done
     exec "''${final[@]}"
+  '';
+
+  # Nasty hack for mangohud
+  fakeBash = writeShellScriptBin "bash" ''
+    declare -a final
+    for value in "$@"; do
+      final+=("$value")
+    done
+    if [[ "$MANGOHUD" == "1" ]]; then
+      exec mangohud ${runtimeShell} "''${final[@]}"
+    fi
+    exec ${runtimeShell} "''${final[@]}"
   '';
 
   steam-run-custom = (steam.override {
     extraPkgs = p: [ mangohud xdelta ];
     extraLibraries = p: [ libunwind ];
     extraProfile = ''
-      export PATH=${fakePkExec}/bin:$PATH
+      export PATH=${fakePkExec}/bin:${fakeBash}/bin:$PATH
     '';
   }).run;
 
