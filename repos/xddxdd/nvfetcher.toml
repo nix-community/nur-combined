@@ -114,6 +114,10 @@ fetch.github = "google/ngx_brotli"
 src.github = "werman/noise-suppression-for-voice"
 fetch.github = "werman/noise-suppression-for-voice"
 
+[nullfs]
+src.git = "https://github.com/xrgtn/nullfs.git"
+fetch.github = "xrgtn/nullfs"
+
 [openssl-oqs]
 src.git = "https://github.com/open-quantum-safe/openssl.git"
 src.branch = "OQS-OpenSSL_1_1_1-stable"

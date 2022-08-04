@@ -115,6 +115,7 @@ rec {
   netboot-xyz = pkg ./netboot-xyz { };
   netns-exec = pkg ./netns-exec { };
   noise-suppression-for-voice = pkg ./noise-suppression-for-voice { };
+  nullfs = pkg ./nullfs { };
   onepush = pkg ./onepush { };
   openssl-oqs = pkg ./openssl-oqs {
     inherit liboqs;
