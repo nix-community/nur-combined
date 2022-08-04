@@ -1,0 +1,30 @@
+name: Update
+
+on:
+  repository_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          for f in "$GITHUB_WORKSPACE/pkgs"/* ; do
+            cd "$f"
+            OUT=`./update.sh`
+            if [ "$?" != "0" ]; then
+              echo "$OUT" >&2
+            else
+              echo "$OUT" | grep up-to-date || update="1"
+            fi
+          done
+
+          if [ "$update" = "1" ]; then
+            git push && curl -XPOST 'https://nur-update.herokuapp.com/update?repo=k3a'
+          fi

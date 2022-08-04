@@ -46,9 +46,7 @@ sed -E \
     -i "$nix_file"
 
 # prepare a commit for automation
-cmd=`echo "git commit -a -m \"$attr: $currentVersion -> $latestVersion\"" \
-    "&& git push" \
-    "&& curl -XPOST https://nur-update.herokuapp.com/update?repo=k3a"`
+cmd=`echo "git commit -a -m \"$attr: $currentVersion -> $latestVersion\""`
 
 if [ -n "$GITHUB_ACTION" ]; then
     eval $cmd
