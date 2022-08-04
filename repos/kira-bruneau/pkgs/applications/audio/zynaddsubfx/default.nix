@@ -33,7 +33,7 @@
   # Optional GUI dependencies
 , guiModule ? "off"
 , cairo
-, fltk13
+, fltk
 , libGL
 , libjpeg
 , libX11
@@ -53,17 +53,18 @@ let
     "ntk" = "NTK";
     "zest" = "Zyn-Fusion";
   }.${guiModule};
+
   mruby-zest = callPackage ./mruby-zest { };
 in stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
-  version = "3.0.6-rc4";
+  version = "3.0.6";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
     rev = "refs/tags/${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-1lk3s5KV67yEVFG7I+24i4BXi/Hd0+DIYdtdRLlWdpU=";
+    sha256 = "sha256-0siAx141DZx39facXWmKbsi0rHBNpobApTdey07EcXg=";
   };
 
   outputs = [ "out" "doc" ];
@@ -82,7 +83,7 @@ in stdenv.mkDerivation rec {
     ++ lib.optionals lashSupport [ lash ]
     ++ lib.optionals portaudioSupport [ portaudio ]
     ++ lib.optionals sndioSupport [ sndio ]
-    ++ lib.optionals (guiModule == "fltk") [ fltk13 libjpeg libXpm ]
+    ++ lib.optionals (guiModule == "fltk") [ fltk libjpeg libXpm ]
     ++ lib.optionals (guiModule == "ntk") [ ntk cairo libXpm ]
     ++ lib.optionals (guiModule == "zest") [ libGL libX11 ];
 
@@ -96,6 +97,7 @@ in stdenv.mkDerivation rec {
   doCheck = true;
   checkInputs = [ cxxtest ruby ];
 
+  # TODO: Update cmake hook to make it simpler to selectively disable cmake tests: #113829
   checkPhase = let
     disabledTests =
       # PortChecker test fails when lashSupport is enabled because
@@ -106,12 +108,12 @@ in stdenv.mkDerivation rec {
       ++ lib.optionals stdenv.isAarch64 [ "MessageTest" "UnisonTest" ];
   in ''
     runHook preCheck
-    ctest --force-new-ctest-process -E '^${lib.concatStringsSep "|" disabledTests}$'
+    ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
     runHook postCheck
   '';
 
   # Use Zyn-Fusion logo for zest build
-  # Derived from https://raw.githubusercontent.com/mruby-zest/mruby-zest/ea4894620bf80ae59593b5d404b950d436a91e6c/example/ZynLogo.qml
+  # Manually derived from https://github.com/mruby-zest/mruby-zest-build/blob/3.0.6/src/mruby-zest/example/ZynLogo.qml#L65-L97
   postInstall = lib.optionalString (guiModule == "zest") ''
     rm -r "$out/share/pixmaps"
     mkdir -p "$out/share/icons/hicolor/scalable/apps"

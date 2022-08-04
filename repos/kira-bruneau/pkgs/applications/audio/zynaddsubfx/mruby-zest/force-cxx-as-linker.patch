@@ -1,5 +1,5 @@
 diff --git a/mruby/tasks/toolchains/gcc.rake b/mruby/tasks/toolchains/gcc.rake
-index 8714e185..ec95a2d0 100644
+index 51bda6517..9bc96d0e2 100644
 --- a/mruby/tasks/toolchains/gcc.rake
 +++ b/mruby/tasks/toolchains/gcc.rake
 @@ -23,7 +23,7 @@ MRuby::Toolchain.new(:gcc) do |conf, params|

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 let
@@ -19,12 +19,7 @@ in
            (lib.versionOlder config.boot.kernelPackages.kernel.version "5.12"))
           "options bluetooth disable_ertm=1";
 
-      extraModulePackages = [
-        (pkgs.xpadneo.override {
-          inherit (config.boot.kernelPackages) kernel;
-        })
-      ];
-
+      extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
       kernelModules = [ "hid_xpadneo" ];
     };
   };

@@ -3,7 +3,7 @@ final: prev:
 with final;
 
 let
-  callPackage = pkgs.newScope final;
+  callPackage = prev.newScope final;
 
   mapDisabledToBroken = attrs:
     (removeAttrs attrs [ "disabled" ]) // lib.optionalAttrs (attrs.disabled or false) {
@@ -12,7 +12,12 @@ let
       };
     };
 
-  pythonOverlay = pyfinal:
+  linuxModulesOverlay =
+    if stdenv.isLinux
+    then import ./os-specific/linux/modules.nix final
+    else lfinal: lprev: {};
+
+  pythonModulesOverlay = pyfinal:
     import ./development/python-modules final (pyfinal // {
       buildPythonApplication = attrs: pyfinal.buildPythonApplication (mapDisabledToBroken attrs);
       buildPythonPackage = attrs: pyfinal.buildPythonPackage (mapDisabledToBroken attrs);
@@ -69,14 +74,16 @@ in
 
   lightdm-webkit2-greeter = callPackage ./applications/display-managers/lightdm-webkit2-greeter { };
 
+  linuxPackages = recurseIntoAttrs (linuxModulesOverlay (prev.linuxPackages // linuxPackages) prev.linuxPackages);
+
   mangohud = callPackage ./tools/graphics/mangohud rec {
-    libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
+    libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
     mangohud32 = pkgsi686Linux.callPackage ./tools/graphics/mangohud {
-      libXNVCtrl = linuxPackages.nvidia_x11.settings.libXNVCtrl;
+      libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
       inherit mangohud32;
-      inherit (pkgs.python3Packages) Mako;
+      inherit (prev.python3Packages) Mako;
     };
-    inherit (pkgs.python3Packages) Mako;
+    inherit (prev.python3Packages) Mako;
   };
 
   mozlz4 = callPackage ./tools/compression/mozlz4 { };
@@ -94,9 +101,9 @@ in
     inherit steam-run yad;
   };
 
-  python2Packages = recurseIntoAttrs (pythonOverlay (pkgs.python2Packages // python2Packages) pkgs.python2Packages);
+  python2Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python2Packages // python2Packages) prev.python2Packages);
 
-  python3Packages = recurseIntoAttrs (pythonOverlay (pkgs.python3Packages // python3Packages) pkgs.python3Packages);
+  python3Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages);
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 
@@ -124,10 +131,6 @@ in
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
-  xpadneo = callPackage ./os-specific/linux/xpadneo {
-    kernel = linux;
-  };
-
   yabridge = callPackage ./tools/audio/yabridge {
     wine = wineWowPackages.staging;
   };
@@ -136,17 +139,16 @@ in
     wine = wineWowPackages.staging;
   };
 
-  zynaddsubfx = zyn-fusion;
+  zynaddsubfx = callPackage ./applications/audio/zynaddsubfx {
+    guiModule = "zest";
+    fftw = fftwSinglePrec;
+  };
 
-  zynaddsubfx-fltk = callPackage ./applications/audio/zynaddsubfx {
+  zynaddsubfx-fltk = zynaddsubfx.override {
     guiModule = "fltk";
   };
 
-  zynaddsubfx-ntk = callPackage ./applications/audio/zynaddsubfx {
+  zynaddsubfx-ntk = zynaddsubfx.override {
     guiModule = "ntk";
-  };
-
-  zyn-fusion = callPackage ./applications/audio/zynaddsubfx {
-    guiModule = "zest";
   };
 }

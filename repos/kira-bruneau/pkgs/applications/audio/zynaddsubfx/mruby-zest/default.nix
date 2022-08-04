@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , bison
+, pkg-config
 , python2
 , rake
 , ruby
@@ -12,23 +13,33 @@
 
 stdenv.mkDerivation rec {
   pname = "mruby-zest";
-  version = "3.0.6-rc1";
+  version = "3.0.6";
 
   src = fetchFromGitHub {
     owner = pname;
     repo = "${pname}-build";
     rev = "refs/tags/${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-Y6XyeGOQMX+fRmEp0q+b2UM0zL95oKJZgdpDPJSSblY=";
+    sha256 = "sha256-rIb6tQimwrUj+623IU5zDyKNWsNYYBElLQClOsP+5Dc=";
   };
 
   patches = [
     ./force-cxx-as-linker.patch
-    ./system-libuv.patch
   ];
 
-  nativeBuildInputs = [ bison python2 rake ruby ];
-  buildInputs = [ libGL libuv libX11 ];
+  nativeBuildInputs = [
+    bison
+    pkg-config
+    python2
+    rake
+    ruby
+  ];
+
+  buildInputs = [
+    libGL
+    libuv
+    libX11
+  ];
 
   # Force optimization to fix:
   # warning: #warning _FORTIFY_SOURCE requires compiling with optimization (-O)
@@ -47,8 +58,8 @@ stdenv.mkDerivation rec {
 
     # mruby-widget-lib/src/api.c requires MainWindow.qml as part of a
     # sanity check, even though qml files are compiled into the binary
-    # https://github.com/mruby-zest/mruby-zest-build/tree/3.0.5/src/mruby-widget-lib/src/api.c#L99-L116
-    # https://github.com/mruby-zest/mruby-zest-build/tree/3.0.5/linux-pack.sh#L17-L18
+    # https://github.com/mruby-zest/mruby-zest-build/blob/3.0.6/src/mruby-widget-lib/src/api.c#L107-L124
+    # https://github.com/mruby-zest/mruby-zest-build/blob/3.0.6/linux-pack.sh#L17-L18
     mkdir -p "$out/qml"
     touch "$out/qml/MainWindow.qml"
   '';
