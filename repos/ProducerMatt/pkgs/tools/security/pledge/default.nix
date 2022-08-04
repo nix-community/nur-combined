@@ -13,18 +13,8 @@ let
   commonMeta = rec {
     name = "pledge";
     version = "1.4"; # July 25th 2022
-    rev = "${name}-${version}"; # looks redundant but useful if you want a specific Git commit
-
-    # NOTE(ProducerMatt): Cosmo embeds relevant licenses near the top of the
-    # executable. You can manually inspect by viewing the binary with `less`.
-    # Grep for "Copyright".
-    #
-    # At the time of this writing in MODE=rel: ISC for Cosmo, BSD3 for getopt
-    license = with lib.licenses; [ isc bsd3 ];
-    #e if compiling in MODE=asan or dbg, add licenses.zlib
-
-    maintainers = [ lib.maintainers.ProducerMatt ];
   };
+
   cosmoMeta = {
     mode="rel";
     path="tool/build";
@@ -38,7 +28,7 @@ let
   cosmoSrc = fetchFromGitHub {
     owner = "jart";
     repo = "cosmopolitan";
-    rev = commonMeta.rev;
+    rev = "${commonMeta.name}-${commonMeta.version}";
     sha256 = "FDyQC8WoTB1dRwRp+BRuV9k8QsZbX2A9SXKuVpX/11c=";
   };
 in
@@ -64,5 +54,15 @@ in
     meta = {
       homepage = "https://justine.lol/pledge/";
       platforms = [ "x86_64-linux" ];
+
+      # NOTE(ProducerMatt): Cosmo embeds relevant licenses near the top of the
+      # executable. You can manually inspect by viewing the binary with `less`.
+      # Grep for "Copyright".
+      #
+      # At the time of this writing in MODE=rel: ISC for Cosmo, BSD3 for getopt
+      license = with lib.licenses; [ isc bsd3 ];
+      # if compiling in MODE=asan or dbg, add licenses.zlib
+
+      maintainers = [ lib.maintainers.ProducerMatt ];
     };
   }
