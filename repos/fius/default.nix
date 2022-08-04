@@ -13,7 +13,5 @@
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  prusa-slicer-2_3-alpha = pkgs.callPackage ./pkgs/prusa-slicer-2_3-alpha { };
 }
 

@@ -2,6 +2,8 @@ name: "Build and populate cache"
 on:
   pull_request:
   push:
+    branches:
+      - main
   schedule:
     - cron:  '43 3 * * *'
 jobs:
@@ -13,15 +15,21 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-21.05
+          - nixpkgs=channel:nixos-22.05
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v3
     - name: Install nix
-      uses: cachix/install-nix-action@v13
+      uses: cachix/install-nix-action@v17
       with:
         nix_path: "${{ matrix.nixPath }}"
+        # nix 2.6 breaks restrict-eval, when using the NIX_PATH
+        # see https://github.com/NixOS/nix/issues/5980
+        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Check evaluation
@@ -34,8 +42,8 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
-      # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
-      run: nix run -I 'nixpkgs=channel:nixos-unstable' nixpkgs.nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
+      # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
