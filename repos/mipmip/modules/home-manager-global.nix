@@ -1,11 +1,5 @@
 { config, pkgs, ...}:
 
-
-  environment.systemPackages = with pkgs; [
-    firefox
-  ];
-
-
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-22.05.tar.gz";
 in
