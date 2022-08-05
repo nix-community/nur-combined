@@ -25,8 +25,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitLab {
     owner = "an-anime-team";
     repo = "an-anime-game-launcher-gtk";
-    rev = "7938da4b45281d644169b9107a0dbab8f5c72b78";
-    sha256 = "sha256-kpQpSFjQDml5i6MdVFmUPemK42+2FmbGzUHDQ9lO9KA=";
+    rev = "08a6e3bc5e1802a2041ccc91889ce6d47970cfc6";
+    sha256 = "sha256-d9xaUHcfPryDD8Rz8ntwfToacMPBRJUQNTjUccUKZqc=";
     fetchSubmodules = true;
   };
 
