@@ -229,6 +229,19 @@
     "slug": "ghosttext"
   },
   {
+    "slug": "gitpod",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
+    "slug": "gnome-shell-integration"
+  },
+  {
     "slug": "google-cal-event-merge"
   },
   {
@@ -247,6 +260,9 @@
   },
   {
     "slug": "greasemonkey"
+  },
+  {
+    "slug": "gsconnect"
   },
   {
     "slug": "görans-hemmasnickrade-ordli",
@@ -298,11 +314,14 @@
     "slug": "kristofferhagen-nord-theme"
   },
   {
+    "slug": "laboratory-by-mozilla"
+  },
+  {
     "slug": "languagetool",
     "license": {
       "tag": "custom",
-      "shortName": "allrightsreserved",
-      "fullName": "All Rights Reserved",
+      "shortName": "languagetool",
+      "fullName": "Custom License for LanguageTool",
       "url": "https://languagetool.org/legal/",
       "free": false
     }
@@ -432,6 +451,16 @@
   },
   {
     "slug": "old-reddit-redirect"
+  },
+  {
+    "slug": "onetab",
+    "license": {
+      "tag": "custom",
+      "shortName": "onetab",
+      "fullName": "Custom License for OneTab",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/onetab/license/",
+      "free": false
+    }
   },
   {
     "slug": "open-in-browser"
@@ -739,6 +768,9 @@
   },
   {
     "slug": "vue-js-devtools"
+  },
+  {
+    "slug": "wallabagger"
   },
   {
     "slug": "wappalyzer"

@@ -818,6 +818,39 @@
         platforms = platforms.all;
         };
       };
+    "gitpod" = buildFirefoxXpiAddon {
+      pname = "gitpod";
+      version = "1.15";
+      addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3950347/gitpod-1.15.xpi";
+      sha256 = "19b3fe5ccdd6a692a7fe5ca7c7270d3b10c5d51db5349203d291f06e1f5daf6c";
+      meta = with lib;
+      {
+        homepage = "http://www.gitpod.io";
+        description = "Gitpod streamlines developer workflows by providing ready-to-code development environments in your browser - powered by VS Code.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
+    "gnome-shell-integration" = buildFirefoxXpiAddon {
+      pname = "gnome-shell-integration";
+      version = "11.1";
+      addonId = "chrome-gnome-shell@gnome.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974897/gnome_shell_integration-11.1.xpi";
+      sha256 = "dff05cff4e53254c03a91d047e776f77aeb1d069540aecd5e48209fae2a44c3b";
+      meta = with lib;
+      {
+        homepage = "https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome";
+        description = "This extension provides integration with GNOME Shell and the corresponding extensions repository <a href=\"https://outgoing.prod.mozaws.net/v1/b16ff805576d83628b80265636b483e6f56c58d6e812e04045626ff602eff739/https%3A//extensions.gnome.org\" rel=\"nofollow\">https://extensions.gnome.org</a>";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "google-cal-event-merge" = buildFirefoxXpiAddon {
       pname = "google-cal-event-merge";
       version = "2.2.1";
@@ -875,6 +908,20 @@
         homepage = "http://www.greasespot.net/";
         description = "Customize the way a web page displays or behaves, by using small bits of JavaScript.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "gsconnect" = buildFirefoxXpiAddon {
+      pname = "gsconnect";
+      version = "8";
+      addonId = "gsconnect@andyholmes.github.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3626312/gsconnect-8.xpi";
+      sha256 = "68b2fe0a9e064ccf869af5a9021f4d90661b8b05ca330c39d852a6cc1aa92274";
+      meta = with lib;
+      {
+        homepage = "https://github.com/andyholmes/gnome-shell-extension-gsconnect";
+        description = "Share links with GSConnect, direct to the browser or by SMS. Requires at least v7 of the Gnome Shell extension to function.";
+        license = licenses.gpl2;
         platforms = platforms.all;
         };
       };
@@ -1025,6 +1072,20 @@
         platforms = platforms.all;
         };
       };
+    "laboratory-by-mozilla" = buildFirefoxXpiAddon {
+      pname = "laboratory-by-mozilla";
+      version = "3.0.8";
+      addonId = "1b2383b324c8520974ee097e46301d5ca4e076de387c02886f1c6b1503671586@pokeinthe.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3716439/laboratory_by_mozilla-3.0.8.xpi";
+      sha256 = "b75b09012587686df87afef671bf9f0e27a9812e94781d425032a36f38a5aba2";
+      meta = with lib;
+      {
+        homepage = "https://github.com/april/laboratory";
+        description = "Because good website security shouldn't only be available to mad scientists! Laboratory is a WebExtension that helps you generate a Content Security Policy (CSP) header for your website.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
       version = "5.3.3";
@@ -1036,8 +1097,8 @@
         homepage = "https://languagetool.org";
         description = "With this extension you can check text with the free style and grammar checker LanguageTool. It finds many errors that a simple spell checker cannot detect, like mixing up there/their, a/an, or repeating a word.";
         license = {
-          shortName = "allrightsreserved";
-          fullName = "All Rights Reserved";
+          shortName = "languagetool";
+          fullName = "Custom License for LanguageTool";
           url = "https://languagetool.org/legal/";
           free = false;
           };
@@ -1469,6 +1530,25 @@
           shortName = "1pwd";
           fullName = "Service Agreement for 1Password users and customers";
           url = "https://1password.com/legal/terms-of-service/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
+    "onetab" = buildFirefoxXpiAddon {
+      pname = "onetab";
+      version = "1.59";
+      addonId = "extension@one-tab.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3946687/onetab-1.59.xpi";
+      sha256 = "8976b6841f3f729d349a23333e6544c4e973ada7486a8a20f85e151d65ca6191";
+      meta = with lib;
+      {
+        homepage = "http://www.one-tab.com";
+        description = "OneTab - Too many tabs? Convert tabs to a list and reduce browser memory";
+        license = {
+          shortName = "onetab";
+          fullName = "Custom License for OneTab";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/onetab/license/";
           free = false;
           };
         platforms = platforms.all;
@@ -2543,6 +2623,20 @@
       {
         homepage = "https://devtools.vuejs.org";
         description = "DevTools extension for debugging Vue.js applications.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "wallabagger" = buildFirefoxXpiAddon {
+      pname = "wallabagger";
+      version = "1.14.0";
+      addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3923281/wallabagger-1.14.0.xpi";
+      sha256 = "0cf005740093b42fd1a129fc3430e21ddcce9699e611c18aab641547a02d0b90";
+      meta = with lib;
+      {
+        homepage = "https://github.com/wallabag/wallabagger";
+        description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
         license = licenses.mit;
         platforms = platforms.all;
         };
