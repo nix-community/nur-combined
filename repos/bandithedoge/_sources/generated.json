@@ -67,12 +67,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e351779dd2cd916273a60fbfd5a119c03b4a9622",
-            "sha256": "sha256-IsCN2Q40OWmAthAWvOVWMRECMxU2n7EfpJnogom1g+Q=",
+            "rev": "5263b5453edeef2cee495880dea054ea2386b86e",
+            "sha256": "sha256-+/hyb63oV43BXxcWbLUI52p8Gp3nhJLdkVwV3YU28sQ=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "e351779dd2cd916273a60fbfd5a119c03b4a9622"
+        "version": "5263b5453edeef2cee495880dea054ea2386b86e"
     },
     "luakit": {
         "cargoLocks": null,
@@ -180,11 +180,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fe3b8422ca5f72d42eb3b0f27d2cf182325bd26a",
-            "sha256": "sha256-DwUrHSpBzzTppVgKw3zZQgG8Avi5d5U3zvFgdvXHA04=",
+            "rev": "dfeb655874b36a88ec21913a08e635590c04333b",
+            "sha256": "sha256-KnRF+U1Wt1HT8X8OYnoGRkD3B3H3b43dMJG04coEs7U=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "fe3b8422ca5f72d42eb3b0f27d2cf182325bd26a"
+        "version": "dfeb655874b36a88ec21913a08e635590c04333b"
     }
 }
