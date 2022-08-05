@@ -58,6 +58,9 @@
     }
   },
   {
+    "slug": "beyond-20"
+  },
+  {
     "slug": "bitwarden-password-manager",
     "pname": "bitwarden"
   },
@@ -147,6 +150,16 @@
   {
     "slug": "ecosia-the-green-search",
     "pname": "ecosia"
+  },
+  {
+    "slug": "enhancer-for-youtube",
+    "license": {
+      "tag": "custom",
+      "shortName": "enhancer-for-youtube",
+      "fullName": "Custom License for Enhancer for YouTube™",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/",
+      "free": false
+    }
   },
   {
     "slug": "ether-metamask",
@@ -357,6 +370,9 @@
     "slug": "new-window-without-toolbar"
   },
   {
+    "slug": "new-zealand-english-dict"
+  },
+  {
     "slug": "news-feed-eradicator"
   },
   {
@@ -411,6 +427,16 @@
     "slug": "org-capture"
   },
   {
+    "slug": "pay-by-privacy-com",
+    "license": {
+      "tag": "custom",
+      "shortName": "pay-by-privacy.com",
+      "fullName": "Custom License for Pay by Privacy.com",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy-com/license/",
+      "free": false
+    }
+  },
+  {
     "slug": "peertubeify"
   },
   {
@@ -440,6 +466,9 @@
   {
     "slug": "privacy-badger17",
     "pname": "privacy-badger"
+  },
+  {
+    "slug": "privacy-pass"
   },
   {
     "slug": "privacy-possum"

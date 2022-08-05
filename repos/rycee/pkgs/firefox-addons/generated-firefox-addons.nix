@@ -185,6 +185,20 @@
         platforms = platforms.all;
         };
       };
+    "beyond-20" = buildFirefoxXpiAddon {
+      pname = "beyond-20";
+      version = "2.7.0";
+      addonId = "beyond20@kakaroto.homelinux.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3964482/beyond_20-2.7.0.xpi";
+      sha256 = "87b0e02a010a734b4491230019612dd6950233048a34abd0fcd47a519ab5b20f";
+      meta = with lib;
+      {
+        homepage = "https://beyond20.here-for-more.info";
+        description = "Integrates the D&amp;D Beyond Character Sheet into Roll20 and Foundry VTT.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
       version = "2022.6.1";
@@ -527,6 +541,25 @@
         homepage = "http://www.ecosia.org";
         description = "This extension adds <a href=\"https://outgoing.prod.mozaws.net/v1/c7a1fe7e1838aaf8fcdb3e88c6700a42c275a31c5fdea179157c9751846df4bf/http%3A//Ecosia.org\" rel=\"nofollow\">Ecosia.org</a> as the default search engine to your browser — it’s completely free!";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "enhancer-for-youtube" = buildFirefoxXpiAddon {
+      pname = "enhancer-for-youtube";
+      version = "2.0.115";
+      addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3964540/enhancer_for_youtube-2.0.115.xpi";
+      sha256 = "a0728584ad2b36b10aec9e857fec477cbcd84f90e52a60771eb77f8f98e3b1d7";
+      meta = with lib;
+      {
+        homepage = "https://www.mrfdev.com/enhancer-for-youtube";
+        description = "Take control of YouTube and boost your user experience!";
+        license = {
+          shortName = "enhancer-for-youtube";
+          fullName = "Custom License for Enhancer for YouTube™";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };
@@ -1219,6 +1252,19 @@
         platforms = platforms.all;
         };
       };
+    "new-zealand-english-dict" = buildFirefoxXpiAddon {
+      pname = "new-zealand-english-dict";
+      version = "1.0.1.2webext";
+      addonId = "en-NZ@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1163918/new_zealand_english_dict-1.0.1.2webext.xpi";
+      sha256 = "d5c1a77b2f38073c0c0500a0c2ad449759da01c4697c58ebb2f7032f2ea04f33";
+      meta = with lib;
+      {
+        description = "New Zealand English Dictionary 1.0.1 for Firefox.";
+        license = licenses.lgpl21;
+        platforms = platforms.all;
+        };
+      };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
       version = "2.2.2";
@@ -1415,6 +1461,25 @@
         platforms = platforms.all;
         };
       };
+    "pay-by-privacy-com" = buildFirefoxXpiAddon {
+      pname = "pay-by-privacy-com";
+      version = "1.6.3";
+      addonId = "privacy@privacy.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3596835/pay_by_privacy_com-1.6.3.xpi";
+      sha256 = "d04c7bf29b7905534687ccf4ca1050b6daa2a7aef65a138987380252e7ef714d";
+      meta = with lib;
+      {
+        homepage = "https://privacy.com";
+        description = "<a href=\"https://outgoing.prod.mozaws.net/v1/adc81a532e2c6239668fcd0691327d16fe545090b6e7073ccfdbaa2a69eda0c2/http%3A//Privacy.com\" rel=\"nofollow\">Privacy.com</a>'s Firefox add-on allows you to generate a new virtual card number with 1-click on any checkout page. Keep your payment info safe from data breaches, shady merchants, and sneaky subscription billing.";
+        license = {
+          shortName = "pay-by-privacy.com";
+          fullName = "Custom License for Pay by Privacy.com";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy-com/license/";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "peertubeify" = buildFirefoxXpiAddon {
       pname = "peertubeify";
       version = "0.6.0";
@@ -1512,6 +1577,20 @@
         homepage = "https://privacybadger.org/";
         description = "Automatically learns to block invisible trackers.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "privacy-pass" = buildFirefoxXpiAddon {
+      pname = "privacy-pass";
+      version = "3.0.3";
+      addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3962152/privacy_pass-3.0.3.xpi";
+      sha256 = "41fbbd038b3fb9b18edf41f8b10c9726ea3108753e3906112ab222afdccb9884";
+      meta = with lib;
+      {
+        homepage = "https://privacypass.github.io";
+        description = "Client support for Privacy Pass anonymous authorization protocol.";
+        license = licenses.bsd2;
         platforms = platforms.all;
         };
       };
