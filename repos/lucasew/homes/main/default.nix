@@ -1,11 +1,10 @@
-{ global, pkgs, config, lib, self, ... }:
+{ global, colors, pkgs, config, lib, self, ... }:
 let 
   inherit (global) username email rootPath;
   inherit (builtins) fetchurl;
   inherit (self) inputs outputs;
   inherit (pkgs) writeShellScript espeak wrapDotenv p2k;
-  inherit (lib.hm.gvariant) mkTuple;
-  environmentShell = outputs.environmentShell.x86_64-linux;
+  inherit (lib.hm.gvariant) mkTuple; environmentShell = outputs.environmentShell.x86_64-linux;
 in {
   imports = [
     ../base/default.nix
@@ -14,13 +13,15 @@ in {
     ./dconf.nix
     ./nixgram.nix
     ./borderless-browser.nix
+    ./theme.nix
+
   ];
 
   home.packages = with pkgs; [
     calibre # a dependency is broken
     chromium
     custom.tixati
-    custom.neovim
+    (custom.neovim.override { inherit colors; })
     custom.emacs
     custom.firefox
     discord
@@ -86,10 +87,16 @@ in {
 
   gtk = {
     enable = true;
-    theme.name = "Adwaita-dark";
   };
   qt = {
     enable = true;
     platformTheme = "gtk";
+  };
+
+  programs.terminator = {
+    enable = true;
+    config = {
+      global_config.borderless = true;
+    };
   };
 }

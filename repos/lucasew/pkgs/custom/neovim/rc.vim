@@ -51,10 +51,14 @@ tab ball " Deixa menos bagunçado colocando um arquivo por aba
 " Colorscheme:
 let g:dark_mode = 1
 function! HandleTheming()
-    if g:dark_mode
-        colorscheme embark
+    if !exists("g:nix_colors_theme")
+        if g:dark_mode
+            colorscheme embark
+        else
+            colorscheme paper
+        endif
     else
-        colorscheme paper
+        execute 'colorscheme ' . g:nix_colors_theme
     endif
 endfunction
 

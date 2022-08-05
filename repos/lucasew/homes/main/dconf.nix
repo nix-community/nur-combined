@@ -13,11 +13,6 @@ in {
       sources = [(mkTuple ["xkb" "br"]) (mkTuple ["xkb" "us"])];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
     };
-    "org/gnome/desktop/interface" = {
-      cursor-theme = "Adwaita";
-      gtk-im-module = "gtk-im-context-simple";
-      gtk-theme = "Adwaita-dark";
-    };
     "org/gnome/desktop/peripherals/keyboard" = {
       numlock-state = false;
     };

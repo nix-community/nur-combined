@@ -1,6 +1,7 @@
 { pkgs
 , flake
 , lib
+, colors ? null
 , ...
 }:
 let
@@ -131,8 +132,15 @@ in wrapNeovim pkgs.neovim-unwrapped {
 
       indentLine
       nvim-web-devicons
-    ];
+    ] ++ (lib.optional (colors != null) (let
+        colors-lib-contrib = flake.inputs.nix-colors.lib-contrib { inherit pkgs; };
+    in {
+        rtp = colors-lib-contrib.vimThemeFromScheme { scheme = colors; };
+      }
+    ));
+
     customRC = ''
+    ${if colors != null then ''let g:nix_colors_theme="nix-${colors.slug}"'' else ""}
     ${readFile ./rc.vim}
     lua << EOF
       package.preload.fennel = function () return dofile('${pkgs.fennel}/share/lua/5.2/fennel.lua') end

@@ -11,7 +11,7 @@
     home-manager =       {url =  "home-manager/release-22.05";                      inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence =       {url =  "github:nix-community/impermanence";               inputs.nixpkgs.follows = "nixpkgs"; };
     mach-nix =           {url =  "mach-nix";                                        inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-ld =             {url =  "github:Mic92/nix-ld";                             inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-colors =         {url =  "github:misterio77/nix-colors";                                                        };
     nix-vscode =         {url =  "github:lucasew/nix-vscode";                       flake = false;                      };
     nix-emacs =          {url =  "github:nixosbrasil/nix-emacs";                    flake = false;                      };
     nix-option =         {url =  "github:lucasew/nix-option";                       flake = false;                      };
@@ -29,24 +29,25 @@
     simple-dashboard = { url = "github:lucasew/simple-dashboard"; flake = false; };
   };
 
-  outputs = { self, flake-utils, ... }@inputs:
+  outputs = {
+      self
+    , borderless-browser
+    , dotenv
+    , flake-utils
+    , home-manager
+    , nix-colors
+    , nix-on-droid
+    , nix-vscode
+    , nixgram
+    , nixos-hardware
+    , nixpkgs
+    , nur
+    , pocket2kindle
+    , redial_proxy
+    , ...
+  }@inputs:
   let
     system = builtins.currentSystem or "x86_64-linux";
-    inherit (inputs)
-    borderless-browser
-    dotenv
-    flake-utils
-    home-manager
-    nix-ld
-    nix-vscode
-    nixgram
-    nixpkgs
-    nixos-hardware
-    nix-on-droid
-    nur
-    pocket2kindle
-    redial_proxy
-    ;
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep;
     inherit (home-manager.lib) homeManagerConfiguration;
 
@@ -94,10 +95,12 @@
           '';
         };
 
+
         extraArgs = {
           inherit self;
           inherit global;
           cfg = throw "your past self made a trap for non compliant code after a migration you did, now follow the stacktrace and go fix it";
+          colors = nix-colors.colorSchemes.dracula;
         };
 
       overlays = {
