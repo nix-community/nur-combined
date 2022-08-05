@@ -704,10 +704,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220802.185803";
+      version = "104.0buildid20220804.185707";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3983813/francais_language_pack-104.0buildid20220802.185803.xpi";
-      sha256 = "33a0baba440962f71e41dba9025d6125ebd29221ccbde63f07137d826c68ea97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3984774/francais_language_pack-104.0buildid20220804.185707.xpi";
+      sha256 = "a952895d63e60a24593b5e0abbc470358bd79e127d17cca48530399235156f75";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2174,10 +2174,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.5.1";
+      version = "9.5.4";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967080/traduzir_paginas_web-9.5.1.xpi";
-      sha256 = "941a6e4af0eb5f570d2172d73b731674d6e70a345150ea1dbd06bd55bb66aaf0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3984229/traduzir_paginas_web-9.5.4.xpi";
+      sha256 = "bcdf8c18338da42910b672f9c6889c1f967e25ef74cbee60064051878d568e2d";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
