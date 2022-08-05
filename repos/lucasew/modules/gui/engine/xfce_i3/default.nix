@@ -71,12 +71,12 @@ in
         set $mod ${mod}
 
         # Property Name         Border    Background Text     Indicator  Child
-        client.focused          ${base05} ${base0D} ${base00} ${base0D} ${base0C}
-        client.focused_inactive ${base01} ${base01} ${base05} ${base03} ${base01}
-        client.unfocused        ${base01} ${base00} ${base05} ${base01} ${base01}
-        client.urgent           ${base08} ${base08} ${base00} ${base08} ${base08}
-        client.placeholder      ${base00} ${base00} ${base05} ${base00} ${base00}
-        client.background       ${base07}
+        client.focused          #${base05} #${base0D} #${base00} #${base0D} #${base0C}
+        client.focused_inactive #${base01} #${base01} #${base05} #${base03} #${base01}
+        client.unfocused        #${base01} #${base00} #${base05} #${base01} #${base01}
+        client.urgent           #${base08} #${base08} #${base00} #${base08} #${base08}
+        client.placeholder      #${base00} #${base00} #${base05} #${base00} #${base00}
+        client.background       #${base07}
 
         bindsym $mod+0 workspace number 10
         bindsym $mod+1 workspace number 1
@@ -151,7 +151,8 @@ in
           exec_always systemctl restart --user polybar.service
           exec_always ${feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '/home/lucasew/.dotfiles/wall.jpg'
 
-          new_window 1pixel
+          default_border pixel 2
+          hide_edge_borders smart
     '';
 
     environment.etc."polybarconfig".text = ''
@@ -438,8 +439,6 @@ label=BL
 [module/xkeyboard]
 type=internal/xkeyboard
 format=  <label-indicator> <label-layout>
-# format-prefix-foreground=${base05}
-# label-indicator-background=${base00}
 label-indicator-margin=1
 label-indicator-off-capslock=c
 label-indicator-off-numlock=n
@@ -526,18 +525,18 @@ context="ctrl+shift+period"
 history="ctrl+grave"
 
 [urgency_critical]
-background="${base08}"
-foreground="${base06}"
+background="#${base08}"
+foreground="#${base06}"
 timeout=10
 
 [urgency_low]
-background="${base01}"
-foreground="${base03}"
+background="#${base01}"
+foreground="#${base03}"
 timeout=5
 
 [urgency_normal]
-background="${base02}"
-foreground="${base05}"
+background="#${base02}"
+foreground="#${base05}"
 timeout=10
     '';
     systemd.user.services.dunst = {

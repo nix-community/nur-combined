@@ -99,4 +99,5 @@ in {
       global_config.borderless = true;
     };
   };
+  programs.bash.enable = true;
 }

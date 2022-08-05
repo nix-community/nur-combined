@@ -15,29 +15,37 @@ in
       scheme = colors;
     }}
   '';
-  programs.terminator.config.profiles.default = {
-    background_color = "#${base00}";
-    foreground_color = "#${base05}";
-    cursor_color = "#${base06}";
-    pallete = builtins.concatStringsSep ":" (map (i: "#${i}") [
-      base00
-      base08
-      base0B
-      base0A
-      base0D
-      base0E
-      base0C
-      base06
-      "65737e"
-      base08
-      base0B
-      base0A
-      base0D
-      base0E
-      base0C
-      base07
-    ]);
-    font = "Monospace 10";
-    use_system_font = false;
+  programs.terminator.config = {
+    profiles.default = {
+      background_color = "#${base00}";
+      foreground_color = "#${base05}";
+      cursor_color = "#${base06}";
+      pallete = builtins.concatStringsSep ":" (map (i: "#${i}") [
+        base00
+        base08
+        base0B
+        base0A
+        base0D
+        base0E
+        base0C
+        base06
+        "65737e"
+        base08
+        base0B
+        base0A
+        base0D
+        base0E
+        base0C
+        base07
+      ]);
+      font = "Monospace 10";
+      use_system_font = false;
+    };
+    global_config = {
+      title_transmit_fg_color = "#${base05}";
+      title_transmit_bg_color = "#${base0D}";
+      title_inactive_fg_color = "#${base01}";
+      title_inactive_bg_color = "#${base00}";
+    };
   };
 }

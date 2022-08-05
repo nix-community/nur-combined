@@ -1,5 +1,6 @@
-{pkgs, lib, ...}:
+{pkgs, lib, colors ? null, ...}:
 pkgs.wrapEmacs {
+  
   magit.enable = true;
   lsp = {
     enable = true;
@@ -31,7 +32,7 @@ pkgs.wrapEmacs {
   };
   helm.enable = true;
   # nogui = true;
-  themes.selected = "wombat";
+  themes.base16-pallete = colors.colors or null;
   plugins = with pkgs.emacsPackages; [
     auctex
     org-roam-ui
