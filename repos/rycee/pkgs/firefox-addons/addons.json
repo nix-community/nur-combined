@@ -23,6 +23,9 @@
     "slug": "adsum-notabs"
   },
   {
+    "slug": "amp2html"
+  },
+  {
     "slug": "anchors-reveal"
   },
   {
@@ -197,6 +200,13 @@
     "slug": "floccus"
   },
   {
+    "slug": "forget_me_not",
+    "license": {
+      "tag": "predefined",
+      "shortName": "zlib"
+    }
+  },
+  {
     "slug": "form-history-control"
   },
   {
@@ -217,6 +227,9 @@
   },
   {
     "slug": "ghosttext"
+  },
+  {
+    "slug": "google-cal-event-merge"
   },
   {
     "slug": "gopass-bridge"

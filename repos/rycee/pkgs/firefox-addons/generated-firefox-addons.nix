@@ -55,6 +55,20 @@
         platforms = platforms.all;
         };
       };
+    "amp2html" = buildFirefoxXpiAddon {
+      pname = "amp2html";
+      version = "2.1.0";
+      addonId = "{569456be-2850-4f7e-b669-71e55140ee0a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3546077/amp2html-2.1.0.xpi";
+      sha256 = "762e4032782c30d3d4805371c7730ac36255ab57f5ce5279b4849f0d4ca65790";
+      meta = with lib;
+      {
+        homepage = "https://www.daniel.priv.no/web-extensions/amp2html.html";
+        description = "Automatically redirects AMP pages to the regular web page variant.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "anchors-reveal" = buildFirefoxXpiAddon {
       pname = "anchors-reveal";
       version = "1.1";
@@ -679,6 +693,20 @@
         platforms = platforms.all;
         };
       };
+    "forget_me_not" = buildFirefoxXpiAddon {
+      pname = "forget_me_not";
+      version = "2.2.8";
+      addonId = "forget-me-not@lusito.info";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3577046/forget_me_not-2.2.8.xpi";
+      sha256 = "0784456f4f992c143b7897ea7879ce6324d9cce295c29a848e7ed55d9c762be3";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Lusito/forget-me-not/";
+        description = "Make the browser forget website data (like cookies, local storage, etc.), except for the data you want to keep by adding domains to a whitelist, graylist, blacklist, or redlist.";
+        license = licenses.zlib;
+        platforms = platforms.all;
+        };
+      };
     "form-history-control" = buildFirefoxXpiAddon {
       pname = "form-history-control";
       version = "2.5.6.1";
@@ -787,6 +815,19 @@
         homepage = "https://github.com/fregante/GhostText";
         description = "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "google-cal-event-merge" = buildFirefoxXpiAddon {
+      pname = "google-cal-event-merge";
+      version = "2.2.1";
+      addonId = "{8b4a69b6-0502-45e6-ba61-92c041c46ac3}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3286178/google_cal_event_merge-2.2.1.xpi";
+      sha256 = "ab8096ae6e5e822dcabacf74bf9e566e49cc9baf94b37b33e574dfec8086ecd8";
+      meta = with lib;
+      {
+        description = "Chrome extension that visually merges the same event on multiple Google Calendars into one event.\n\nSource: <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/342b7a3d66f39d16cdbc5cd1d4cc26f85aeb1f94cae54867035888d93d484554/https%3A//github.com/imightbeamy/gcal-multical-event-merge\">https://github.com/imightbeamy/gcal-multical-event-merge</a>";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
