@@ -7,10 +7,9 @@
 , writeShellScriptBin
 , xdelta
 , runtimeShell
+, an-anime-game-launcher-gtk-unwrapped
 }:
 let
-
-  anime-game-launcher-unwrapped = callPackage ./unwrapped.nix { };
 
   fakePkExec = writeShellScriptBin "pkexec" ''
     declare -a final
@@ -41,11 +40,11 @@ let
   }).run;
 
   wrapper = writeShellScriptBin "anime-game-launcher" ''
-    ${steam-run-custom}/bin/steam-run ${anime-game-launcher-unwrapped}/bin/anime-game-launcher
+    ${steam-run-custom}/bin/steam-run ${an-anime-game-launcher-gtk-unwrapped}/bin/anime-game-launcher
   '';
 in
 symlinkJoin {
-  inherit (anime-game-launcher-unwrapped) pname version name;
+  inherit (an-anime-game-launcher-gtk-unwrapped) pname version name;
   paths = [ wrapper ];
 
   meta = with lib; {
