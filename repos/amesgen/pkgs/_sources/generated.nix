@@ -27,18 +27,18 @@
   };
   hlint = {
     pname = "hlint";
-    version = "3.4";
+    version = "3.4.1";
     src = fetchurl {
-      url = "https://github.com/ndmitchell/hlint/releases/download/v3.4/hlint-3.4-x86_64-linux.tar.gz";
-      sha256 = "sha256-o8xQ6xGL4xu1y3liOXKLyd6j5SVPfbd96XDKKpDBWMk=";
+      url = "https://github.com/ndmitchell/hlint/releases/download/v3.4.1/hlint-3.4.1-x86_64-linux.tar.gz";
+      sha256 = "sha256-L+fRbNyz8a/+345RprJ0v7k11ZAfMmBrNxU7V8AK4No=";
     };
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.5.0.0";
+    version = "0.5.0.1";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.5.0.0/ormolu-Linux.zip";
-      sha256 = "sha256-6X6v7rkNFddtdwAkXe1evv6XdL0VraMJ3KbhLem2WmY=";
+      url = "https://github.com/tweag/ormolu/releases/download/0.5.0.1/ormolu-Linux.zip";
+      sha256 = "sha256-azsO/b7pUDfNL+xeo5iKrhfKfOLzpi9L06Xmvcpj0ig=";
     };
   };
 }

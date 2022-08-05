@@ -49,11 +49,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-o8xQ6xGL4xu1y3liOXKLyd6j5SVPfbd96XDKKpDBWMk=",
+            "sha256": "sha256-L+fRbNyz8a/+345RprJ0v7k11ZAfMmBrNxU7V8AK4No=",
             "type": "url",
-            "url": "https://github.com/ndmitchell/hlint/releases/download/v3.4/hlint-3.4-x86_64-linux.tar.gz"
+            "url": "https://github.com/ndmitchell/hlint/releases/download/v3.4.1/hlint-3.4.1-x86_64-linux.tar.gz"
         },
-        "version": "3.4"
+        "version": "3.4.1"
     },
     "ormolu": {
         "cargoLocks": null,
@@ -63,10 +63,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6X6v7rkNFddtdwAkXe1evv6XdL0VraMJ3KbhLem2WmY=",
+            "sha256": "sha256-azsO/b7pUDfNL+xeo5iKrhfKfOLzpi9L06Xmvcpj0ig=",
             "type": "url",
-            "url": "https://github.com/tweag/ormolu/releases/download/0.5.0.0/ormolu-Linux.zip"
+            "url": "https://github.com/tweag/ormolu/releases/download/0.5.0.1/ormolu-Linux.zip"
         },
-        "version": "0.5.0.0"
+        "version": "0.5.0.1"
     }
 }
