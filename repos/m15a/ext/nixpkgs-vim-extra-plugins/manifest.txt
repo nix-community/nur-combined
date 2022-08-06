@@ -1,5 +1,6 @@
 0styx0/abbreinder.nvim
 Abstract-IDE/penvim
+AckslD/nvim-FeMaco.lua
 AckslD/nvim-gfold.lua
 AckslD/nvim-neoclip.lua
 AckslD/nvim-revJ.lua
@@ -85,6 +86,7 @@ amrbashir/nvim-docs-view
 andersevenrud/nordic.nvim
 andrewferrier/textobj-diagnostic.nvim
 andweeb/presence.nvim
+andythigpen/nvim-coverage
 anott03/nvim-lspinstall
 anuvyklack/fold-preview.nvim
 anuvyklack/hydra.nvim
