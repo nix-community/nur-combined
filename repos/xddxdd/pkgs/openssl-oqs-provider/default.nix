@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
+    # (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
   ];
 
   buildInputs = [
@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
     openssl_3_0
   ];
 
-  preConfigure = ''
-    cp ${sources.openssl-oqs.src}/oqs-template/generate.yml oqs-template/generate.yml
-    sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml
-    LIBOQS_SRC_DIR=${sources.liboqs.src} python oqs-template/generate.py
-  '';
+  # preConfigure = ''
+  #   cp ${sources.openssl-oqs.src}/oqs-template/generate.yml oqs-template/generate.yml
+  #   sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml
+  #   LIBOQS_SRC_DIR=${sources.liboqs.src} python oqs-template/generate.py
+  # '';
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
