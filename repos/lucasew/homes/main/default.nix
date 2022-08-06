@@ -1,10 +1,11 @@
-{ global, colors, pkgs, config, lib, self, ... }:
+{ global, pkgs, config, lib, self, ... }:
 let 
   inherit (global) username email rootPath;
   inherit (builtins) fetchurl;
   inherit (self) inputs outputs;
   inherit (pkgs) writeShellScript espeak wrapDotenv p2k;
   inherit (lib.hm.gvariant) mkTuple; environmentShell = outputs.environmentShell.x86_64-linux;
+  inherit (pkgs.custom) colors;
 in {
   imports = [
     ../base/default.nix

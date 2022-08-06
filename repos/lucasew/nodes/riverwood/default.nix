@@ -5,8 +5,7 @@
 {self, global, pkgs, config, lib, ... }:
 let
   inherit (self) inputs;
-  inherit (global) wallpaper username;
-  inherit (builtins) storePath;
+  inherit (global) username;
   hostname = "riverwood";
 in
 {

@@ -70,7 +70,7 @@ in {
   };
   fhsctl = cp ./pkgs/fhsctl.nix;
   comby = cp ./pkgs/comby.nix;
-  custom = {
+  custom = rec {
     ncdu = cp ./pkgs/custom/ncdu.nix;
     neovim = cp ./pkgs/custom/neovim;
     emacs = cp ./pkgs/custom/emacs;
@@ -81,6 +81,15 @@ in {
     retroarch = cp ./pkgs/custom/retroarch.nix;
     loader = cp ./pkgs/custom/loader/default.nix;
     polybar = cp ./pkgs/custom/polybar.nix;
+    colors-lib-contrib = inputs.nix-colors.lib-contrib { pkgs = prev; };
+    # wallpaper = ./wall.jpg;
+    wallpaper = colors-lib-contrib.nixWallpaperFromScheme {
+      scheme = colors;
+      width = 1366;
+      height = 768;
+      logoScale = 2;
+    };
+    inherit (flake.outputs) colors;
   };
   Geographical-Adventures = cp ./pkgs/Geographical-Adventures.nix;
   t-launcher = cp ./pkgs/tlauncher.nix;

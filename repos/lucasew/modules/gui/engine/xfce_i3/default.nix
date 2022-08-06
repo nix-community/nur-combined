@@ -1,11 +1,10 @@
-{ global, colors, config, pkgs, lib, ... }:
-with colors;
+{ global, config, pkgs, lib, ... }:
 let
-  inherit (pkgs) i3lock-color writeTextFile writeShellScript pulseaudio playerctl makeDesktopItem custom brightnessctl networkmanagerapplet feh blueberry xorg gawk dunst;
-  inherit (global) wallpaper;
   inherit (lib) mkForce;
 
-  inherit (colors.colors) base00 base01 base02 base03 base04 base05 base06 base07 base08 base09 base0A base0B base0C base0D base0E base0F;
+  inherit (pkgs) i3lock-color writeTextFile writeShellScript pulseaudio playerctl makeDesktopItem custom brightnessctl networkmanagerapplet feh blueberry xorg gawk dunst;
+  inherit (pkgs.custom) wallpaper;
+  inherit (pkgs.custom.colors.colors) base00 base01 base02 base03 base04 base05 base06 base07 base08 base09 base0A base0B base0C base0D base0E base0F;
   custom_rofi = let
       commonFlags = "-theme gruvbox-dark -show-icons";
     in
@@ -30,10 +29,6 @@ let
     i3Support = true;
   };
 
-  wallPng = pkgs.lib.jpg2png {
-    name = "wallpaper.jpg";
-    image = wallpaper;
-  };
   mod = "Mod4";
   pactl = "${pulseaudio}/bin/pactl";
   playerctl-bin = "${playerctl}/bin/playerctl";
@@ -149,7 +144,7 @@ in
           exec --no-startup-id ${feh}/bin/feh --bg-center ~/.background-image
           exec --no-startup-id ${blueberry}/bin/blueberry-tray
           exec_always systemctl restart --user polybar.service
-          exec_always ${feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '/home/lucasew/.dotfiles/wall.jpg'
+          exec_always ${feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '${wallpaper}'
 
           default_border pixel 2
           hide_edge_borders smart
@@ -572,7 +567,7 @@ timeout=10
     };
     programs.xss-lock = {
       enable = true;
-      lockerCommand = "${i3lock-color}/bin/i3lock-color -B 5 --image ${wallPng} --tiling --ignore-empty-password --show-failed-attempts --clock --pass-media-keys --pass-screen-keys --pass-volume-keys";
+      lockerCommand = "${i3lock-color}/bin/i3lock-color -B 5 --image ${wallpaper} --tiling --ignore-empty-password --show-failed-attempts --clock --pass-media-keys --pass-screen-keys --pass-volume-keys";
       extraOptions = [];
     };
     environment.systemPackages = [

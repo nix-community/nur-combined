@@ -3,7 +3,7 @@
     ../../modules/gui/system.nix
   ];
   services.xserver.displayManager.lightdm = {
-    background = global.wallpaper;
+    background = pkgs.custom.wallpaper;
     greeters.enso = {
       enable = true;
       blur = true;

@@ -1,17 +1,19 @@
-{ pkgs, config, colors, self, ... }:
+{ pkgs, config, self, ... }:
 let
-  colors-lib-contrib = self.inputs.nix-colors.lib-contrib { inherit pkgs; };
+  inherit (pkgs.custom.colors-lib-contrib) gtkThemeFromScheme shellThemeFromScheme;
+  inherit (builtins) concatStringsSep;
+  inherit (pkgs.custom) colors;
   inherit (colors.colors) base00 base01 base02 base03 base04 base05 base06 base07 base08 base09 base0A base0B base0C base0D base0E base0F;
 in
 {
   gtk.theme = {
-    package = colors-lib-contrib.gtkThemeFromScheme {
+    package = gtkThemeFromScheme {
       scheme = colors;
     };
     name = colors.slug;
   };
   programs.bash.bashrcExtra = ''
-    ${colors-lib-contrib.shellThemeFromScheme {
+    ${shellThemeFromScheme {
       scheme = colors;
     }}
   '';
@@ -20,7 +22,7 @@ in
       background_color = "#${base00}";
       foreground_color = "#${base05}";
       cursor_color = "#${base06}";
-      pallete = builtins.concatStringsSep ":" (map (i: "#${i}") [
+      pallete = concatStringsSep ":" (map (i: "#${i}") [
         base00
         base08
         base0B
