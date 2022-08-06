@@ -1,6 +1,5 @@
 {pkgs, lib, colors ? null, ...}:
 pkgs.wrapEmacs {
-  
   magit.enable = true;
   lsp = {
     enable = true;

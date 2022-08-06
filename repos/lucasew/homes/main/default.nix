@@ -22,7 +22,7 @@ in {
     chromium
     custom.tixati
     (custom.neovim.override { inherit colors; })
-    custom.emacs
+    (custom.emacs.override { inherit colors; })
     custom.firefox
     discord
     feh
