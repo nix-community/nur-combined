@@ -1,16 +1,25 @@
 name: "Build and populate cache"
 on:
-  pull_request:
-    types: [opened, reopened]
   push:
-    branches:
-      - main
-      - develop
+  pull_request:
+  workflow_dispatch:
 env:
   nurRepo: slaier
-  cachixName: slaier
 jobs:
+  get_info:
+    name: Get branch names
+    runs-on: ubuntu-latest
+    outputs:
+      current_branch: ${{ steps.branch-names.outputs.current_branch }}
+    steps:
+      - name: Get branch names
+        id: branch-names
+        uses: tj-actions/branch-names@v5.4
   tests:
+    needs: get_info
+    concurrency:
+      group: ${{ needs.get_info.outputs.current_branch }}
+      cancel-in-progress: true
     strategy:
       matrix:
         nixPath:
@@ -18,45 +27,27 @@ jobs:
           - nixpkgs=channel:nixos-22.05
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Install nix
-      uses: cachix/install-nix-action@v17
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        # nix 2.6 breaks restrict-eval, when using the NIX_PATH
-        # see https://github.com/NixOS/nix/issues/5980
-        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          substituters = https://slaier.cachix.org https://cache.nixos.org
-          trusted-public-keys = slaier.cachix.org-1:NyXPOqlxuGWgyn0ApNHMopkbix3QjMUAcR+JOjjxLtU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v10
-      with:
-        name: ${{ env.cachixName }}
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Check flake evaluation
-      run: nix -Lv flake check --show-trace
-    - name: Check legacy evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
-    - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install nix
+        uses: cachix/install-nix-action@v17
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://slaier.cachix.org https://cache.nixos.org
+            trusted-public-keys = slaier.cachix.org-1:NyXPOqlxuGWgyn0ApNHMopkbix3QjMUAcR+JOjjxLtU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - name: Check
+        uses: ./.github/workflows/check
+        with:
+          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
   update_nur:
     runs-on: ubuntu-latest
     needs: tests
     if: github.ref_protected
     steps:
-    - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ env.nurRepo }}"
-
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ env.nurRepo }}"

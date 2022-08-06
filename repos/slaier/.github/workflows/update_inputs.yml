@@ -2,13 +2,42 @@ name: Update inputs
 on:
   schedule:
     # rebuild at 23:39 on Friday
-    - cron:  '39 23 * * 5'
+    - cron: "39 23 * * 5"
   workflow_dispatch:
 jobs:
-  update_nix_inputs:
-    uses: slaier/reusable-workflows/.github/workflows/update_nix_inputs.yml@main
-    with:
-      config_path: nvfetcher.toml
-    secrets:
-      TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-
+  update_inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: dependabot
+      - name: Install nix
+        uses: cachix/install-nix-action@v17
+        with:
+          nix_path: "nixpkgs=channel:nixos-unstable"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            substituters = https://slaier.cachix.org https://cache.nixos.org
+            trusted-public-keys = slaier.cachix.org-1:NyXPOqlxuGWgyn0ApNHMopkbix3QjMUAcR+JOjjxLtU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare
+        run: |
+          git reset --hard origin/main
+          git merge origin/main --ff-only
+          git config user.name "dependabot[bot]"
+          git config user.email "<49699333+dependabot[bot]@users.noreply.github.com>"
+      - name: Update flake lock
+        run: |
+          nix flake update --commit-lock-file --commit-lockfile-summary "nix(deps): update inputs"
+      - name: Update nvfetcher sources
+        run: |
+          nix shell nixpkgs#nvfetcher -c nvfetcher --commit-changes
+      - name: Push
+        run: |
+          git push --force-with-lease
+      - name: Check
+        uses: ./.github/workflows/check
+        with:
+          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
