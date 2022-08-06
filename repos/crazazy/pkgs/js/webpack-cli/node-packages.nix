@@ -85,13 +85,13 @@ let
         sha512 = "/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==";
       };
     };
-    "fastest-levenshtein-1.0.14" = {
+    "fastest-levenshtein-1.0.16" = {
       name = "fastest-levenshtein";
       packageName = "fastest-levenshtein";
-      version = "1.0.14";
+      version = "1.0.16";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fastest-levenshtein/-/fastest-levenshtein-1.0.14.tgz";
-        sha512 = "tFfWHjnuUfKE186Tfgr+jtaFc0mZTApEgKDOeyN+FwOqRkO/zK/3h1AiRd8u8CY53owL3CUmGr/oI9p/RdyLTA==";
+        url = "https://registry.npmjs.org/fastest-levenshtein/-/fastest-levenshtein-1.0.16.tgz";
+        sha512 = "eRnCtTTtGZFpQCwhJiUOuxPQWRXVKYDn0b2PeHfXL6/Zi53SLAzAHfVhVWK2AryC/WH05kGfxhFIPvTF0SXQzg==";
       };
     };
     "find-up-4.1.0" = {
@@ -139,13 +139,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.9.0" = {
+    "is-core-module-2.10.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.9.0";
+      version = "2.10.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.9.0.tgz";
-        sha512 = "+5FPy5PnwmO3lvfMb0AsoPaBG+5KHUI0wYFXOtYPnVVVspTFUuMZNfNaNVRt3FZadstu2c8x23vykRW/NBoU6A==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.10.0.tgz";
+        sha512 = "Erxj2n/LDAZ7H8WNJXd9tw38GYM3dv8rk8Zcs+jJuxYTW7sozH+SS8NtrSjVL1/vpLvWi1hxy96IzjJ3EHTJJg==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -371,13 +371,13 @@ let
       sources."commander-7.2.0"
       sources."cross-spawn-7.0.3"
       sources."envinfo-7.8.1"
-      sources."fastest-levenshtein-1.0.14"
+      sources."fastest-levenshtein-1.0.16"
       sources."find-up-4.1.0"
       sources."function-bind-1.1.1"
       sources."has-1.0.3"
       sources."import-local-3.1.0"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.9.0"
+      sources."is-core-module-2.10.0"
       sources."is-plain-object-2.0.4"
       sources."isexe-2.0.0"
       sources."isobject-3.0.1"
