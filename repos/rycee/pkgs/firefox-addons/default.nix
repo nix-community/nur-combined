@@ -40,10 +40,12 @@ in packages // {
     sha256 = "vJKe77kKcEOrSkpDJ3nGW3j155heOgojFkDroySE0r8=";
     meta = with lib; {
       homepage = "https://tools.google.com/dlpage/gaoptout";
-      description = "Tells the Google Analytics JavaScript not to send information to Google Analytics.";
+      description =
+        "Tells the Google Analytics JavaScript not to send information to Google Analytics.";
       license = {
         shortName = "gaooba";
-        fullName = "Google Analytics Opt-out Browser Add-on - Additional Terms of Service";
+        fullName =
+          "Google Analytics Opt-out Browser Add-on - Additional Terms of Service";
         url = "http://tools.google.com/dlpage/gaoptout/intl/en/eula_text.html";
         free = false;
       };
@@ -61,6 +63,22 @@ in packages // {
       homepage =
         "https://bibliotecadigitale.cab.unipd.it/bd/proxy/proxy-docile";
       description = "Automatically connect to university proxy.";
+      platforms = platforms.all;
+    };
+  };
+
+  trilium-web-clipper = let version = "0.3.1";
+  in buildFirefoxXpiAddon {
+    pname = "trilium-web-clipper";
+    inherit version;
+    addonId = "{1410742d-b377-40e7-a9db-63dc9c6ec99c}";
+    url =
+      "https://github.com/zadam/trilium-web-clipper/releases/download/v${version}/trilium_web_clipper-${version}-an+fx.xpi";
+    sha256 = "sha256-P9ZBUWISJ3MqVpLUWSmiuHhrX4yPCVRnw8WQ7C4SaVs=";
+    meta = with lib; {
+      homepage = "https://github.com/zadam/trilium-web-clipper";
+      description = "Save web clippings to Trilium Notes";
+      license = licenses.gpl3Plus;
       platforms = platforms.all;
     };
   };
