@@ -19,7 +19,6 @@ in
   seamonkey = callPackage ./seamonkey { };
   nix-gen-node-tools = callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;};
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
-  hvm = callPackage ./HVM {};
   # vendor broken. Also in nixpkgs already
   # efm-langserver = callPackage ./efm-langserver { };
   guile-hall = callPackage ./guile-hall { };
@@ -32,6 +31,7 @@ in
   hidden = {
     emacs = callPackage ./emacs { };
     grin = callPackage ./grin { };
+    hvm = callPackage ./HVM {};
     inherit monorepo;
   };
   # below package is borked again, leaving it out for now
