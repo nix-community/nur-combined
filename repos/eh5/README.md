@@ -104,8 +104,8 @@ Overrides `v2ray-geoip` and `v2ray-rules-dat-geosite` with `v2ray-rules-dat-geoi
 | mosdns                  | mosdns service                | `services.mosdns.enable`         | boolean        |
 |                         |                               | `services.mosdns.config`         | YAML value     |
 |                         |                               | `services.mosdns.configFile`     | string \| null |
-| v2ray-next              | V2Ray v5 service              | `services.v2ray-next.enable`     | boolean        |
 | system-tarball-extlinux | `config.system.build.tarball` |                                  |                |
+| v2ray-next              | V2Ray v5 service              | `services.v2ray-next.enable`     | boolean        |
 |                         |                               | `services.v2ray-next.config`     | JSON value     |
 |                         |                               | `services.v2ray-next.configFile` | string \| null |
 
