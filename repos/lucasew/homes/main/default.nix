@@ -25,6 +25,7 @@ in {
     (custom.neovim.override { inherit colors; })
     (custom.emacs.override { inherit colors; })
     custom.firefox
+    dotenv
     discord
     feh
     fortune
