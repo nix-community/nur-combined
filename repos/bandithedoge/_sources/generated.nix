@@ -39,14 +39,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "553c1cc931c1f7a144ce4023151ab9cf14b3df94";
+    version = "0d902059d6a9fb818edc8d3a8ccaaf5b692ba60f";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "553c1cc931c1f7a144ce4023151ab9cf14b3df94";
+      rev = "0d902059d6a9fb818edc8d3a8ccaaf5b692ba60f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Dc1SoI3vbMDN9aiH4lowfLEr721wVpHIufLFW2mCTOE=";
+      sha256 = "sha256-NpiXSl1bkSvjtWwLEYXc+LuVUxvearEEfsQifIsbRW4=";
     };
   };
   luakit = {
