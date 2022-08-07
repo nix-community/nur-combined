@@ -182,10 +182,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.33";
+      version = "7.4.35";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984027/betterttv-7.4.33.xpi";
-      sha256 = "08a945893037298bd0be29f0a15986b549bd68cf3bcfeb189cc965d388cf0164";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3984942/betterttv-7.4.35.xpi";
+      sha256 = "c3475bf8ac2f6e5d799dad6b49c097fd04eace87a82471ee9224b4a194d64fe3";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1107,10 +1107,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.100.0.2";
+      version = "4.101.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978594/lastpass_password_manager-4.100.0.2.xpi";
-      sha256 = "e3eb860f95329906575afc661ed68f4de9c4e36c056b6b35bd3815b866865928";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3984651/lastpass_password_manager-4.101.0.2.xpi";
+      sha256 = "44294c1cb711a5d566a17de6087e4825755e81944735e6f182de4cf9d63e8cfc";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1927,10 +1927,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.4";
+      version = "3.0.0.5";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3983624/return_youtube_dislikes-3.0.0.4.xpi";
-      sha256 = "8a9980fd1cc3b45af6ecd667fcfcf1ec6bfa7680fa684a897d828cd28f42f73c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985341/return_youtube_dislikes-3.0.0.5.xpi";
+      sha256 = "92119081c594065e7d55c4cb3f5f7a2a35738e02cd012d44c0bc9cb9406f6503";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -2671,10 +2671,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.65.0";
+      version = "2.66.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978778/web_scrobbler-2.65.0.xpi";
-      sha256 = "6584e9c91cc3e9d080de618eb3fd3ed627caeafa1942f31909eda5bb63f4fcca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985536/web_scrobbler-2.66.0.xpi";
+      sha256 = "d09ee7c6fd99c9ec1b4b4419a526aa4a1d8cde98278790078ca2694cd8c0b99f";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
