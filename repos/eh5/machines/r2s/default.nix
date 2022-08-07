@@ -13,6 +13,7 @@ lib.nixosSystem rec {
     self.nixosModules.fake-hwclock
     self.nixosModules.mosdns
     self.nixosModules.v2ray-next
+    self.nixosModules.system-tarball-extlinux
     sops-nix.nixosModules.sops
     {
       _module.args = { inherit nixpkgs; };

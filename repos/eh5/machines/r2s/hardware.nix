@@ -22,9 +22,15 @@
   ];
 
   fileSystems = {
+    "/boot" = {
+      device = "/dev/disk/by-label/NIXOS_BOOT";
+      fsType = "ext4";
+      options = [ "noauto" ];
+    };
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
+      fsType = "f2fs";
+      options = [ "compress_algorithm=zstd:6" "compress_chksum" "atgc" "gc_merge" "lazytime" ];
     };
   };
 

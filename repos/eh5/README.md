@@ -98,14 +98,15 @@ Overrides `v2ray-geoip` and `v2ray-rules-dat-geosite` with `v2ray-rules-dat-geoi
 
 ## nixosModules
 
-| Module       | Option                           | Type           | Description                 |
-| ------------ | -------------------------------- | -------------- | --------------------------- |
-| fake-hwclock | `services.fake-hwclock.enable`   | boolean        | Fake hardware clock service |
-| mosdns       | `services.mosdns.enable`         | boolean        | mosdns service              |
-|              | `services.mosdns.config`         | YAML value     |                             |
-|              | `services.mosdns.configFile`     | string \| null |                             |
-| v2ray-next   | `services.v2ray-next.enable`     | boolean        | V2Ray v5 service            |
-|              | `services.v2ray-next.config`     | JSON value     |                             |
-|              | `services.v2ray-next.configFile` | string \| null |                             |
+| Module                  | Description                   | Option                           | Type           |
+| ----------------------- | ----------------------------- | -------------------------------- | -------------- |
+| fake-hwclock            | Fake hardware clock service   | `services.fake-hwclock.enable`   | boolean        |
+| mosdns                  | mosdns service                | `services.mosdns.enable`         | boolean        |
+|                         |                               | `services.mosdns.config`         | YAML value     |
+|                         |                               | `services.mosdns.configFile`     | string \| null |
+| v2ray-next              | V2Ray v5 service              | `services.v2ray-next.enable`     | boolean        |
+| system-tarball-extlinux | `config.system.build.tarball` |                                  |                |
+|                         |                               | `services.v2ray-next.config`     | JSON value     |
+|                         |                               | `services.v2ray-next.configFile` | string \| null |
 
 Some of the modules requires some packages declared above, hence requiring `.#overlays.default` to be applied.

@@ -56,6 +56,7 @@
 
   environment.systemPackages = with pkgs; [
     bind
+    f2fs-tools
     file
     htop
     iperf2
