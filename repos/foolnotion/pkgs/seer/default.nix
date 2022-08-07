@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qtcharts, qtbase }:
+{ lib, stdenv, fetchFromGitHub, cmake, qtcharts, qtbase, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "seer";
@@ -12,31 +12,17 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ qtbase qtcharts ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
-  nativeBuildInputs = [ cmake ];
-
-  configurePhase = ''
-    mkdir build
-    cmake -B build -S /build/source/src
-    '';
-
-  buildPhase = ''
-    cmake --build build -j
-    '';
-
-  installPhase = ''
-    mkdir -p $out/bin
-    strip build/seer
-    install build/seer $out/bin/
-    '';
-
-  dontWrapQtApps = true;
+  preConfigure = ''
+    cd src
+  '';
 
   meta = with lib; {
     description = "A Qt gui frontend for GDB.";
     homepage = "https://github.com/epasveer/seer";
     license = licenses.gpl3;
-    platforms = platforms.all;
+    platforms = platforms.linux;
     #maintainers = with maintainers; [ foolnotion ];
   };
 }

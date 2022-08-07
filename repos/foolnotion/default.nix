@@ -52,6 +52,8 @@
 
   pmlb = pkgs.python39Packages.callPackage ./pkgs/pmlb { };
 
+  scid = pkgs.callPackage ./pkgs/scid { };
+
   robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
 
   pratt-parser = pkgs.callPackage ./pkgs/pratt-parser {

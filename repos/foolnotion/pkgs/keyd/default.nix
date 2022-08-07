@@ -1,30 +1,43 @@
-{ lib, fetchFromGitHub, stdenv }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, cmake
+, pkg-config
+, systemd
+}:
 
 stdenv.mkDerivation rec {
   pname = "keyd";
-  version = "2.4.1";
+  version = "2.4.2";
 
   src = fetchFromGitHub {
     owner = "rvaiya";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-p0f8iGT4QtyWAnlcG4SfOhD94ySNNkQrnVjnGCmQwAk=";
+    repo = "keyd";
+    rev = "v" + version;
+    hash = "sha256-nQyvnZuGD8XmltKQDifbo2u8AOIHsyI58+mN9sGAy28=";
   };
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
+  postPatch = ''
+    substituteInPlace Makefile \
+      --replace DESTDIR= DESTDIR=${placeholder "out"} \
+      --replace /usr "" \
+      --replace /var/log/keyd.log /var/log/keyd/keyd.log
+    substituteInPlace keyd.service \
+      --replace /usr/bin $out/bin
+  '';
+
+  buildInputs = [ systemd ];
+
+  enableParallelBuilding = true;
+
+  postInstall = ''
+    rm -rf $out/etc
+  '';
 
   meta = with lib; {
-    homepage = "https://github.com/rvaiya/keyd";
-    description = "A key remapping daemon for linux";
-    longDescription = ''
-      Keyd has several unique features many of which are traditionally
-      only found in custom keyboard firmware like QMK as well as some
-      which are unique to keyd.
-      It expects a configuration file at /etc/keyd/default.conf. For
-      more details check out the homepage.
-    '';
+    description = "A key remapping daemon for linux.";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.linux;
   };
 }

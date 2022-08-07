@@ -1,5 +1,5 @@
 { lib, stdenv, fetchFromGitHub, qmake, qtbase, qt3d, mupdf, mujs, gumbo
-, jbig2dec, openjpeg }:
+, jbig2dec, openjpeg, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "sioyek";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qtbase qt3d mupdf mujs gumbo jbig2dec openjpeg ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
   preConfigure = ''
     substituteInPlace pdf_viewer/main.cpp \
@@ -34,8 +34,6 @@ stdenv.mkDerivation rec {
     cp pdf_viewer/keys.config $out/etc/keys.config
     cp pdf_viewer/keys_user.config $out/etc/keys_user.config
   '';
-
-  dontWrapQtApps = true;
 
   meta = with lib; {
     description =
