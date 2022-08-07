@@ -25,7 +25,6 @@
     "/boot" = {
       device = "/dev/disk/by-label/NIXOS_BOOT";
       fsType = "ext4";
-      options = [ "noauto" ];
     };
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
