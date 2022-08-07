@@ -8,8 +8,8 @@
 
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
 let
-  version = "5.18.11";
-  release = "1";
+  version = "5.19.0";
+  release = "2";
 in
 buildLinux {
   inherit stdenv lib version;
@@ -17,7 +17,7 @@ buildLinux {
     owner = "xanmod";
     repo = "linux";
     rev = "${version}-xanmod${release}";
-    sha256 = "sha256-UPLwaEWhBu1yriCUJu9L/B8yy+1zxnTQzHaKlT507UY=";
+    sha256 = "sha256-PJY80r5jciVJwB1S82zhii+nplb+D+V7btNq/pVS/NI=";
   };
   modDirVersion = "${version}-xanmod${release}-lantian";
 

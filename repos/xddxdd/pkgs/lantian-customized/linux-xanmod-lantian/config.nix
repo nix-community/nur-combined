@@ -24,7 +24,6 @@ with lib.kernel;
   KEXEC_FILE = lib.mkForce no;
   PROVIDE_OHCI1394_DMA_INIT = no;
   SECURITY_SELINUX = no;
-  STACKTRACE = no;
   X86_SGX = lib.mkForce no;
 
   # Disable unused features - clear errors
