@@ -422,7 +422,6 @@ lib.makeScope newScope (
     mage = callPackage ./suckless/mage { };
     makel = callPackage ./suckless/makel { };
     nextvi = callPackage ./suckless/nextvi { };
-    nsxiv = callPackage ./suckless/nsxiv { };
     pista = callPackage ./suckless/pista { };
     saait = callPackage ./suckless/saait { };
     sbase = callPackage ./suckless/sbase { };
