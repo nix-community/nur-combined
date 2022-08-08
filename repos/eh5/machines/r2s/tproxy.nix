@@ -32,7 +32,8 @@ in
 
   systemd.services.setup-tproxy = {
     bindsTo = [ "v2ray-next.service" ];
-    after = [ "v2ray-next.service" ];
+    wants = [ "systemd-time-wait-sync.service" ];
+    after = [ "v2ray-next.service" "systemd-time-wait-sync.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "oneshot";

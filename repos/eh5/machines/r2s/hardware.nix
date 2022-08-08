@@ -65,8 +65,13 @@
 
   powerManagement.cpuFreqGovernor = "schedutil";
 
+  services.timesyncd.extraConfig = ''
+    PollIntervalMinSec=16
+    PollIntervalMaxSec=180
+    ConnectionRetrySec=3
+  '';
+  systemd.additionalUpstreamSystemUnits = [ "systemd-time-wait-sync.service" ];
   services.fake-hwclock.enable = true;
-  services.chrony.enable = true;
   networking.timeServers = [
     "ntp.aliyun.com"
     "ntp1.aliyun.com"

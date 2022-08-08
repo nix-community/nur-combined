@@ -12,8 +12,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.fake-hwclock = {
       description = "Restore system time on boot and save it on shutdown";
-      after = [ "sysinit.target" ];
-      wantedBy = [ "sysinit.target" ];
+      after = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${fakeHwClockBin} load";
