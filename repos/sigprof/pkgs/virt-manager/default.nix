@@ -39,6 +39,13 @@ in
     '';
 
     meta = lib.mergeAttrs oldAttrs.meta {
+      description = ''
+        Desktop user interface for managing virtual machines.
+        This package also includes virt-manager ${virt-manager-2.version} as
+        "virt-manager-2"; that old version of virt-manager may be required to
+        connect to old hosts with obsolete libvirt versions.
+      '';
+
       # This package is available only when both the current and the old
       # versions of virt-manager are available; combine the corresponding meta
       # attributes in the appropriate way.
