@@ -9,7 +9,7 @@ fetchzip {
   stripRoot = false;
   sha256 = "sha256-m0pC2TrYAcL4Mn39B+D5Hn9VSXgu5NtQ6+WUGEuE8/M=";
 
-  extraPostFetch = ''
+  postFetch = ''
     mkdir -p "$out/share/"
     mv -- $out/HyperSpec* "$out/share/"
   '';
