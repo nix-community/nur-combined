@@ -14,6 +14,9 @@
     aws-vault
     drawio
     terraformer
+
+    #RANDSTAD
+    citrix_workspace
   ];
 }
 
