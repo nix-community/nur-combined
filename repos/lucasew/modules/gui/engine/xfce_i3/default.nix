@@ -144,7 +144,8 @@ in
           exec --no-startup-id ${feh}/bin/feh --bg-center ~/.background-image
           exec --no-startup-id ${blueberry}/bin/blueberry-tray
           exec_always systemctl restart --user polybar.service
-          exec_always ${feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '${wallpaper}'
+          # exec_always ${feh}/bin/feh --bg-fill --no-xinerama --no-fehbg '${wallpaper}'
+          exec_always ${feh}/bin/feh --bg-fill --no-fehbg '${wallpaper}'
 
           default_border pixel 2
           hide_edge_borders smart

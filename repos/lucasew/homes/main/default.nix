@@ -50,6 +50,7 @@ in {
     t-launcher
     vlc # media
     wineApps.wine7zip
+    wineApps.skyrim
     xxd
     pavucontrol # controle de volume
     zeal

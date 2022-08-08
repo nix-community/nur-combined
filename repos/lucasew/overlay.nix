@@ -67,6 +67,7 @@ in {
     flatout2 = cp ./pkgs/wineApps/flatout2.nix;
     watchdogs2 = cp ./pkgs/wineApps/watchdogs2.nix;
     rimworld = cp ./pkgs/wineApps/rimworld.nix;
+    skyrim = cp ./pkgs/wineApps/skyrim.nix;
   };
   fhsctl = cp ./pkgs/fhsctl.nix;
   comby = cp ./pkgs/comby.nix;
