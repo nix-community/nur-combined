@@ -949,10 +949,10 @@
   },
   {
     "name": "RPGsystem",
-    "version": "1.2.1",
-    "file_name": "RPGsystem_1.2.1.zip",
-    "download_url": "/download/RPGsystem/62d6917b42c955be9b4d5c56",
-    "sha1": "d10bd0b437a3bb26d95b5ab735dadda345792575",
+    "version": "1.3.1",
+    "file_name": "RPGsystem_1.3.1.zip",
+    "download_url": "/download/RPGsystem/62f0e83f923686bc2c0eb739",
+    "sha1": "e9c9766ee84248637d8f1e658cfd16397747a5bf",
     "dependencies": [
       "base >= 1.1.0"
     ]
