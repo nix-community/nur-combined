@@ -37,4 +37,13 @@ in
     postFixup = ''
       ln -s ${virt-manager-2}/bin/virt-manager $out/bin/virt-manager-2
     '';
+
+    meta = lib.mergeAttrs oldAttrs.meta {
+      # This package is available only when both the current and the old
+      # versions of virt-manager are available; combine the corresponding meta
+      # attributes in the appropriate way.
+      broken = (oldAttrs.meta.broken or false) || (virt-manager-2.meta.broken or false);
+      platforms = lib.intersectLists oldAttrs.meta.platforms virt-manager-2.meta.platforms;
+      badPlatforms = lib.unique ((oldAttrs.meta.badPlatforms or []) ++ (virt-manager-2.meta.badPlatforms or []));
+    };
   })
