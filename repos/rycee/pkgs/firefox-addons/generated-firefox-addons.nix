@@ -271,10 +271,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.7.8.0";
+      version = "2.7.9.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3982796/bypass_paywalls_clean-2.7.8.0.xpi";
-      sha256 = "10d9f3d97d8f173da26d8e72e34b8ac1649ca1a52930dee8408b75b6ef354b50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985765/bypass_paywalls_clean-2.7.9.0.xpi";
+      sha256 = "bafe851f3179462bb2a9a72e3fb7a822771504702900648170ec45a66fa4c723";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -681,10 +681,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.16.0";
+      version = "4.17.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3967736/floccus-4.16.0.xpi";
-      sha256 = "e2f170e5a5cde4cc196e2d379ca4e41b0421cf560943c715fca649777bfb1bf4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985748/floccus-4.17.0.xpi";
+      sha256 = "f343343fcd4a5e00351ce2221bd1af581d7a3e2243e4404e2ad34651b5df482b";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220804.185707";
+      version = "104.0buildid20220807.190148";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984774/francais_language_pack-104.0buildid20220804.185707.xpi";
-      sha256 = "a952895d63e60a24593b5e0abbc470358bd79e127d17cca48530399235156f75";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985884/francais_language_pack-104.0buildid20220807.190148.xpi";
+      sha256 = "a630e110ef2f2bd1ae923582ce18c6dd24d483fd5f0674fd83855710d9d006ad";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1201,10 +1201,10 @@
       };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
-      version = "1.3.0";
+      version = "1.3.1";
       addonId = "linkhints@lydell.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958816/linkhints-1.3.0.xpi";
-      sha256 = "70593f03bc3f8cf8e8a83c6d2df1bdb79626f54110ba8a1d1c17f685ae4cc8a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985677/linkhints-1.3.1.xpi";
+      sha256 = "ca0d9ed8d52e3ab62a9d3d7c2be29ae30d22f2ecd37eff5b38e34c130d96711b";
       meta = with lib;
       {
         homepage = "https://lydell.github.io/LinkHints";
@@ -1215,10 +1215,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.31";
+      version = "2.6.32";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3979425/localcdn_fork_of_decentraleyes-2.6.31.xpi";
-      sha256 = "ec77fbccd694a4e236f533fd39364c833145a87443ea1a30407e257822c896ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985626/localcdn_fork_of_decentraleyes-2.6.32.xpi";
+      sha256 = "20f260078ecdf6148a927bd2d22de651a324dca8b7e6019b4b268476db067b10";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2671,10 +2671,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.66.0";
+      version = "2.66.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985536/web_scrobbler-2.66.0.xpi";
-      sha256 = "d09ee7c6fd99c9ec1b4b4419a526aa4a1d8cde98278790078ca2694cd8c0b99f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985648/web_scrobbler-2.66.1.xpi";
+      sha256 = "c8fdceeb9f9a6896ed14dc17ac6f7ccc3663067a4b4d627d67d7a92b63fdfcca";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
