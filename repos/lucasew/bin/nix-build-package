@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+FILENAME="$1"
+if [ -z "$FILENAME" ]; then
+    FILENAME=default.nix
+fi
+FILENAME="$(realpath "$FILENAME")"
+
+tempfile="$(mktemp).nix"
+
+{
+echo '{ pkgs ? import <nixpkgs> {} }:'
+echo "pkgs.callPackage "$FILENAME" {}"
+} > $tempfile
+
+nix-build $tempfile "$@"
+
+rm $tempfile

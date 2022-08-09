@@ -5,6 +5,7 @@
 , firefox-esr-91-unwrapped
 , fetchFirefoxAddon
 , firefox-bin
+, callPackage
 , }:
 wrapFirefox firefox-esr-91-unwrapped {
   desktopName = "Firefox (wrapped)";
@@ -32,7 +33,10 @@ wrapFirefox firefox-esr-91-unwrapped {
       url = "https://addons.mozilla.org/firefox/downloads/file/3927389/tweak_new_twitter-2.15.0.xpi";
       sha256 = "sha256-0PwcclKg27Q1Dur/BUUHBXNbCo3MnX8sZRfTqjQXP+Y=";
     }
-  ])
+  ]
+  ++ ([
+    (callPackage ./base16-ext {})
+  ]))
   ;
   extraPolicies = {
     DisableFirefoxStudies = true;

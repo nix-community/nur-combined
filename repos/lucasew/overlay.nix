@@ -75,7 +75,7 @@ in {
     ncdu = cp ./pkgs/custom/ncdu.nix;
     neovim = cp ./pkgs/custom/neovim;
     emacs = cp ./pkgs/custom/emacs;
-    firefox = cp ./pkgs/custom/firefox.nix;
+    firefox = cp ./pkgs/custom/firefox;
     tixati = cp ./pkgs/custom/tixati.nix;
     vscode = cp ./pkgs/custom/vscode;
     send2kindle = cp ./pkgs/custom/send2kindle.nix;

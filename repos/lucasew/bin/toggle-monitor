@@ -9,10 +9,10 @@ function handler {
         xrandr --auto
         xrandr --output HDMI-1 --right-of eDP-1
         if [ $num_fields == 16 ]; then
-            if [ $mode == left ]; then
-                xrandr --output HDMI-1 --rotation normal
+            if [ $mode == normal ]; then
+                xrandr --output HDMI-1 --rotation right
             else
-                xrandr --output HDMI-1 --rotation left
+                xrandr --output HDMI-1 --rotation normal
             fi
         fi
         sleep 1

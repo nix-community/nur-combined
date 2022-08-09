@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "base16-theme",
+  "version": "1.0",
+
+  "description": "Add the current base16-theme as css variables to sites",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["base16.js"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_end"
+    }
+  ],
+  "applications": {
+      "gecko": {
+          "id": "nixos@base16"
+      }
+  }
+
+}
