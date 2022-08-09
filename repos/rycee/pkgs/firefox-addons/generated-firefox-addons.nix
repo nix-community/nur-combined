@@ -215,10 +215,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.6.1";
+      version = "2022.8.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3972752/bitwarden_password_manager-2022.6.1.xpi";
-      sha256 = "ded8a3fd0e88deccb1354685c0ced8d6fd35af1dbb133f5341e903b9d49cc50d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986147/bitwarden_password_manager-2022.8.0.xpi";
+      sha256 = "208fba348f86fde8bd6663e0ed0540a993d74c4a35d71bf899c106bbcd555400";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220807.190148";
+      version = "103.0.2buildid20220808.125904";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985884/francais_language_pack-104.0buildid20220807.190148.xpi";
-      sha256 = "a630e110ef2f2bd1ae923582ce18c6dd24d483fd5f0674fd83855710d9d006ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986325/francais_language_pack-103.0.2buildid20220808.125904.xpi";
+      sha256 = "3c1cbaa693e547b771c456ae2702cf5e71c8e8baa86efa4282d8e787f02ed92b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1088,10 +1088,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.3.3";
+      version = "5.4.3";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974818/languagetool-5.3.3.xpi";
-      sha256 = "241739c92c2612b04d41cb7089359ff7535b92a185b7a7e4e1e95178aab68a4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985810/languagetool-5.4.3.xpi";
+      sha256 = "0a5fd00fd7a6fdd0e18479783596b553b18fc06507ff54ebba425d6d0f25f76e";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1126,10 +1126,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.4.2";
+      version = "1.5";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3943368/leechblock_ng-1.4.2.xpi";
-      sha256 = "6f8f20e614372e7ff14b6084d9d27579f2e3a5d82a2079aa9f5ab829708072f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985806/leechblock_ng-1.5.xpi";
+      sha256 = "66fb858a5495bfc09e07879bf55a3cf9c753fe1806285cea920650b0d3c85a13";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1430,10 +1430,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.6";
+      version = "11.4.7";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954910/noscript-11.4.6.xpi";
-      sha256 = "5f917e54a52d7269959976ebb6eb41f1a14c047c30d5f7bd6a401fe4126f0b3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986164/noscript-11.4.7.xpi";
+      sha256 = "8716d4e99690281823427da65346dbdcae459df67545861ae1190841dd7ea2a1";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1913,10 +1913,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.8.1";
+      version = "22.8.8";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3983335/refined_github-22.8.1.xpi";
-      sha256 = "fb02313939188d2d78bb6cd2d5d7036610284daea6070db0d6648aa27e2f0af1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986172/refined_github-22.8.8.xpi";
+      sha256 = "1936a380d825565baa5f99717706a31c159919bbc57c8506fafce9d8261cd793";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
