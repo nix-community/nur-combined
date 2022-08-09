@@ -3,18 +3,6 @@
     enable = true;
     rulesetFile = ./files/nftables.nft;
   };
-  systemd.services.nftables =
-    let
-      ifNames = [ "intern0" "extern0" ];
-      afterNetDevices = (builtins.map
-        (name: "sys-subsystem-net-devices-${name}.device")
-        ifNames
-      );
-    in
-    {
-      wants = afterNetDevices;
-      after = afterNetDevices;
-    };
 
   services.resolved.enable = false;
   services.dnsmasq = {
