@@ -23,6 +23,8 @@ in
 
   home.stateVersion = mkDefault "20.03";
 
+  home.enableNixpkgsReleaseCheck = true;
+
   #home.file.".dotfilerc".text = ''
   #  #!/usr/bin/env bash
   #  ${environmentShell}

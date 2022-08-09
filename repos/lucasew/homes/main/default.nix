@@ -55,6 +55,7 @@ in {
     pavucontrol # controle de volume
     zeal
     rnix-lsp
+    (runCommand "bin" {} "mkdir $out; cp -r ${../../bin} $out/bin")
     # retroarchFull
     # texlive.combined.scheme-full
   ] ;

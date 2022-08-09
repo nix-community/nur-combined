@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+function handler {
+    mode=$1
+    state=$2
+    num_fields=$3
+    notify-send "Configurando monitor secundário..."
+    if [ $state == connected ]; then
+        xrandr --auto
+        xrandr --output HDMI-1 --right-of eDP-1
+        if [ $num_fields == 16 ]; then
+            if [ $mode == left ]; then
+                xrandr --output HDMI-1 --rotation normal
+            else
+                xrandr --output HDMI-1 --rotation left
+            fi
+        fi
+        sleep 1
+        i3-msg -t command restart
+    else
+        xrandr --output HDMI-1 --off
+    fi
+    notify-send "Configuração finalizada"
+}
+handler $(xrandr --query --verbose | awk '$1 == "HDMI-1" { print $5 " " $2 " " NF}')
