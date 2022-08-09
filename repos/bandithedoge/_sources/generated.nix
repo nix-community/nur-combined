@@ -6,24 +6,24 @@
 }: {
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
-    version = "333a73870906790560ee4d2ae77d477284649abf";
+    version = "ff2f1552b3d3242355895c1d0a73a16fe6a56834";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dmenu-flexipatch";
-      rev = "333a73870906790560ee4d2ae77d477284649abf";
+      rev = "ff2f1552b3d3242355895c1d0a73a16fe6a56834";
       fetchSubmodules = false;
-      sha256 = "sha256-dKCk1F3RH3DKGQnfC3mpypba47jn4Qh6ophLpecgFxE=";
+      sha256 = "sha256-GWMtNPww99lVVhDwpJpM+An3ZbyFgJ3chQBEudr864s=";
     };
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "d6205e3e89ca4ecb3dac4f384efaad91f28d9d5a";
+    version = "91cb32c3edcc6d5049b6d0115309d75ecda547bb";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "d6205e3e89ca4ecb3dac4f384efaad91f28d9d5a";
+      rev = "91cb32c3edcc6d5049b6d0115309d75ecda547bb";
       fetchSubmodules = false;
-      sha256 = "sha256-74vvE6gRuns6LWjwzmpE5+fNMpLZCmNfnKZndTUdLRY=";
+      sha256 = "sha256-NdGolOpnwPVw8mTnDQoX7dSvnD7VakBjS8fvnJXAyZ8=";
     };
   };
   kiwmi = {
@@ -39,14 +39,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "2a37cc84b84807769bc1069eedc5277256cc8ae1";
+    version = "7af874ea254ba924e42619ed3bbd27ec23340fcc";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "2a37cc84b84807769bc1069eedc5277256cc8ae1";
+      rev = "7af874ea254ba924e42619ed3bbd27ec23340fcc";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-gx9KD9kj8RXHSlNAas7ftuBvdFR1SDki95IMjp44l5c=";
+      sha256 = "sha256-rPR3pNj32hFNbvMsNRXwUI1q3NmaH63T7Ca2Uoy4P4c=";
     };
   };
   luakit = {
@@ -106,14 +106,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "c1e5bdebcf829d0b30d7101cc903c8c305e6ea8b";
+    version = "43e1fa769a460f285ddaa713dd4d14312a036731";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "c1e5bdebcf829d0b30d7101cc903c8c305e6ea8b";
+      rev = "43e1fa769a460f285ddaa713dd4d14312a036731";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-LodKKK+twTXh34VmKV9FkOPztSqyDmB5sAa7RQ2b9dc=";
+      sha256 = "sha256-1c87u6KttOGXJDS6hXJbkxLBSI6ByqYws3sWRKpoCyk=";
     };
   };
 }
