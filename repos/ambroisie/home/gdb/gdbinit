@@ -19,6 +19,6 @@ set print demangle on
 set auto-load python-scripts
 
 # Allow autoloading project-local .gdbinit files
-set auto-load safe-path ~/git/
+add-auto-load-safe-path ~/git/
 # Allow autoloading from the Nix store
-set auto-load safe-path /nix/store
+add-auto-load-safe-path /nix/store
