@@ -435,10 +435,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.52";
+      version = "4.9.53";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3968561/darkreader-4.9.52.xpi";
-      sha256 = "418deb0a0aa6ee3e23c31babd57a5c1fc207945356f0617e8dd955496d80b46d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986773/darkreader-4.9.53.xpi";
+      sha256 = "6bdb2dabde53e0db9c6b3f11f731030f24da96151dae7eef7f26285d6ff00915";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "103.0.2buildid20220808.125904";
+      version = "104.0buildid20220809.195844";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986325/francais_language_pack-103.0.2buildid20220808.125904.xpi";
-      sha256 = "3c1cbaa693e547b771c456ae2702cf5e71c8e8baa86efa4282d8e787f02ed92b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986944/francais_language_pack-104.0buildid20220809.195844.xpi";
+      sha256 = "36a5192e63c6655c58c6a9e6c9e4bc7f718375d20503e65436cada9f8c258401";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -806,10 +806,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "22.7.19.2014";
+      version = "22.7.22";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978005/ghosttext-22.7.19.2014.xpi";
-      sha256 = "129ecd272d5496716f0728a16bbcf813b6fc8e42066191c82278629d73bb04b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986563/ghosttext-22.7.22.xpi";
+      sha256 = "cd2062a9e2076519288398ebad601a3e41cf15e947636861d6ddfbe72033a620";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -1282,10 +1282,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.17";
+      version = "2.6.25";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3979911/momentumdash-2.6.17.xpi";
-      sha256 = "977baf584ac24270c86acc77e36c4d84d09ea733204c5f742d96ab8969c7006e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986826/momentumdash-2.6.25.xpi";
+      sha256 = "433dd7acd10ce1732328223dbc377700bcc0fea09b5b2476f34f65e741780090";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1458,10 +1458,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.5.3";
+      version = "7.6.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3969105/octotree-7.5.3.xpi";
-      sha256 = "0e8997cedcb81db8781335488870752f57c39800862a083e30db18296a4de276";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3986528/octotree-7.6.0.xpi";
+      sha256 = "e93da6d90d93c4a1500f78703ce40fdf1e705a50577c00cd450f4b07bb502d1c";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
