@@ -67,12 +67,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7af874ea254ba924e42619ed3bbd27ec23340fcc",
-            "sha256": "sha256-rPR3pNj32hFNbvMsNRXwUI1q3NmaH63T7Ca2Uoy4P4c=",
+            "rev": "7e59620a8713097433576c41370bfa486220d530",
+            "sha256": "sha256-/jmut5HmzubF0BxOwrw4Qcr5ts/jeUivX6G6h/aXXfM=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "7af874ea254ba924e42619ed3bbd27ec23340fcc"
+        "version": "7e59620a8713097433576c41370bfa486220d530"
     },
     "luakit": {
         "cargoLocks": null,
@@ -125,11 +125,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "st-flexipatch",
-            "rev": "9e0e41978125213d4469a30d05047a3484b13a7d",
-            "sha256": "sha256-o7kh5i6shCtuUo/GXx46bS0abX6JypN59pZKuJ96dkA=",
+            "rev": "2eca2629694bd1f4e734d30b9c027c2704e5b056",
+            "sha256": "sha256-K0eRzxnH/sphTrlllx1lr00BxMzBKpwEFJr1ICfMYy8=",
             "type": "github"
         },
-        "version": "9e0e41978125213d4469a30d05047a3484b13a7d"
+        "version": "2eca2629694bd1f4e734d30b9c027c2704e5b056"
     },
     "taffybar": {
         "cargoLocks": null,
@@ -150,6 +150,25 @@
         },
         "version": "945a08452660de603193da8d297d559fdca497d1"
     },
+    "tailwindcss-intellisense": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "tailwindcss-intellisense",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tailwindlabs",
+            "repo": "tailwindcss-intellisense",
+            "rev": "112fae6a6ccec932e1824a85e5086bbe866e1ec2",
+            "sha256": "sha256-JfhJD2EARTXbwYbuz+xg5GyAq5XcF7H/+JwYywTGBSU=",
+            "type": "github"
+        },
+        "version": "112fae6a6ccec932e1824a85e5086bbe866e1ec2"
+    },
     "xmonad-entryhelper": {
         "cargoLocks": null,
         "extract": null,
@@ -169,6 +188,25 @@
         },
         "version": "ee2d0c14f9258503d7bd62907aa731dd64fa34d0"
     },
+    "zix": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "zix",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "drobilla",
+            "repo": "zix",
+            "rev": "9cdc083d0d88bc222fa04849948fab8a9b4deee0",
+            "sha256": "sha256-uBtgXVuJDKjm37+r/eGN7vNRQzIiubtvFCl7b3WzfYY=",
+            "type": "github"
+        },
+        "version": "9cdc083d0d88bc222fa04849948fab8a9b4deee0"
+    },
     "zrythm": {
         "cargoLocks": null,
         "extract": null,
@@ -180,11 +218,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "43e1fa769a460f285ddaa713dd4d14312a036731",
-            "sha256": "sha256-1c87u6KttOGXJDS6hXJbkxLBSI6ByqYws3sWRKpoCyk=",
+            "rev": "2e4135a47b6535e927036492f85d47a8bf1dca43",
+            "sha256": "sha256-90ibLqQIamDOoobEbc+GKYWPyqCHk2PGyP7qZ9NeqbU=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "43e1fa769a460f285ddaa713dd4d14312a036731"
+        "version": "2e4135a47b6535e927036492f85d47a8bf1dca43"
     }
 }

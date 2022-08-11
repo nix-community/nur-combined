@@ -9,6 +9,8 @@ in {
 
   haskellPackages = pkgs.lib.recurseIntoAttrs (callPackage' ./haskellPackages);
 
+  nodePackages = pkgs.lib.recurseIntoAttrs (callPackage' ./nodePackages);
+
   dmenu-flexipatch = callPackage' ./flexipatch/dmenu.nix;
   dwm-flexipatch = callPackage' ./flexipatch/dwm.nix;
   slock-flexipatch = callPackage' ./flexipatch/slock.nix;

@@ -39,14 +39,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "7af874ea254ba924e42619ed3bbd27ec23340fcc";
+    version = "7e59620a8713097433576c41370bfa486220d530";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "7af874ea254ba924e42619ed3bbd27ec23340fcc";
+      rev = "7e59620a8713097433576c41370bfa486220d530";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-rPR3pNj32hFNbvMsNRXwUI1q3NmaH63T7Ca2Uoy4P4c=";
+      sha256 = "sha256-/jmut5HmzubF0BxOwrw4Qcr5ts/jeUivX6G6h/aXXfM=";
     };
   };
   luakit = {
@@ -73,13 +73,13 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "9e0e41978125213d4469a30d05047a3484b13a7d";
+    version = "2eca2629694bd1f4e734d30b9c027c2704e5b056";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "9e0e41978125213d4469a30d05047a3484b13a7d";
+      rev = "2eca2629694bd1f4e734d30b9c027c2704e5b056";
       fetchSubmodules = false;
-      sha256 = "sha256-o7kh5i6shCtuUo/GXx46bS0abX6JypN59pZKuJ96dkA=";
+      sha256 = "sha256-K0eRzxnH/sphTrlllx1lr00BxMzBKpwEFJr1ICfMYy8=";
     };
   };
   taffybar = {
@@ -93,6 +93,17 @@
       sha256 = "sha256-3H8sRK7qszYpVnX9o1UMCDUGTGtS+KLhyZ+Pu0h8EbY=";
     };
   };
+  tailwindcss-intellisense = {
+    pname = "tailwindcss-intellisense";
+    version = "112fae6a6ccec932e1824a85e5086bbe866e1ec2";
+    src = fetchFromGitHub {
+      owner = "tailwindlabs";
+      repo = "tailwindcss-intellisense";
+      rev = "112fae6a6ccec932e1824a85e5086bbe866e1ec2";
+      fetchSubmodules = false;
+      sha256 = "sha256-JfhJD2EARTXbwYbuz+xg5GyAq5XcF7H/+JwYywTGBSU=";
+    };
+  };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
     version = "ee2d0c14f9258503d7bd62907aa731dd64fa34d0";
@@ -104,16 +115,27 @@
       sha256 = "sha256-CGaibR0Yejng9IQInm92Zx0pEZS29tJjWvPgaiWgUNQ=";
     };
   };
+  zix = {
+    pname = "zix";
+    version = "9cdc083d0d88bc222fa04849948fab8a9b4deee0";
+    src = fetchFromGitHub {
+      owner = "drobilla";
+      repo = "zix";
+      rev = "9cdc083d0d88bc222fa04849948fab8a9b4deee0";
+      fetchSubmodules = false;
+      sha256 = "sha256-uBtgXVuJDKjm37+r/eGN7vNRQzIiubtvFCl7b3WzfYY=";
+    };
+  };
   zrythm = {
     pname = "zrythm";
-    version = "43e1fa769a460f285ddaa713dd4d14312a036731";
+    version = "2e4135a47b6535e927036492f85d47a8bf1dca43";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "43e1fa769a460f285ddaa713dd4d14312a036731";
+      rev = "2e4135a47b6535e927036492f85d47a8bf1dca43";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-1c87u6KttOGXJDS6hXJbkxLBSI6ByqYws3sWRKpoCyk=";
+      sha256 = "sha256-90ibLqQIamDOoobEbc+GKYWPyqCHk2PGyP7qZ9NeqbU=";
     };
   };
 }

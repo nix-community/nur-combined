@@ -1,3 +1,20 @@
+# libraries
+
+[xmonad-entryhelper]
+src.git = "https://github.com/Javran/xmonad-entryhelper"
+fetch.github = "Javran/xmonad-entryhelper"
+
+[libadwaita]
+src.git = "https://gitlab.gnome.org/GNOME/libadwaita"
+fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
+
+[zix]
+src.git = "https://github.com/drobilla/zix"
+src.branch = "atomic-ring"
+fetch.github = "drobilla/zix"
+
+# programs
+
 [dwm-flexipatch]
 src.git = "https://github.com/bakkeby/dwm-flexipatch"
 fetch.github = "bakkeby/dwm-flexipatch"
@@ -18,10 +35,6 @@ fetch.github = "bakkeby/slock-flexipatch"
 src.git = "https://github.com/taffybar/taffybar"
 fetch.github = "taffybar/taffybar"
 
-[xmonad-entryhelper]
-src.git = "https://github.com/Javran/xmonad-entryhelper"
-fetch.github = "Javran/xmonad-entryhelper"
-
 [kiwmi]
 src.git = "https://github.com/buffet/kiwmi"
 fetch.github = "buffet/kiwmi"
@@ -30,11 +43,11 @@ fetch.github = "buffet/kiwmi"
 src.git = "https://git.sr.ht/~alextee/zrythm"
 fetch.git = "https://git.sr.ht/~alextee/zrythm"
 
-[libadwaita]
-src.git = "https://gitlab.gnome.org/GNOME/libadwaita"
-fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
-
 [luakit]
 src.git = "https://github.com/luakit/luakit"
 src.branch = "develop"
 fetch.github = "luakit/luakit"
+
+[tailwindcss-intellisense]
+src.git = "https://github.com/tailwindlabs/tailwindcss-intellisense"
+fetch.github = "tailwindlabs/tailwindcss-intellisense"

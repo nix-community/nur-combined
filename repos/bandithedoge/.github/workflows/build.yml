@@ -41,6 +41,9 @@ jobs:
           chmod +x update_list.py
           ./update_list.py
 
+      - name: Update Node packages
+        run: "cd pkgs/nodePackages/node2nix && nix run nixpkgs#node2nix -- -i node-packages.json"
+
       - name: Format Nix expressions
         run: nix run github:kamadorueda/alejandra .
 
