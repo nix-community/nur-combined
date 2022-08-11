@@ -105,7 +105,7 @@ in
         bindsym $mod+Shift+e exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'xfce4-session-logout'
         bindsym $mod+Shift+f floating toggle
         bindsym $mod+Shift+minus move scratchpad
-        bindsym $mod+Shift+p exec ${../../../../bin/toggle-monitor}
+        bindsym $mod+Shift+p exec toggle-monitor
         bindsym $mod+Shift+q kill
         bindsym $mod+Shift+r restart
         bindsym $mod+Up focus up
