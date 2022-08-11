@@ -56,6 +56,5 @@ nodePackage.override {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = electron.meta.platforms;
     mainProgram = nodePackage.packageName;
-    broken = stdenv.isDarwin; # GPU process isn't usable. Goodbye.
   });
 }
