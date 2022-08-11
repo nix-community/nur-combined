@@ -107,8 +107,6 @@ in
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 
-  runescape-launcher = callPackage ./games/runescape-launcher/fhsenv.nix { };
-
   texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
   };

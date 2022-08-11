@@ -43,7 +43,10 @@ in rustPlatform.buildRustPackage rec {
     # See https://github.com/djudd/human-name/blob/master/Cargo.toml#L43
     rm "$out/lib/libhuman_name${stdenv.hostPlatform.extensions.sharedLibrary}"
     rmdir "$out/lib"
-  '' + lib.optionalString (!isCross) ''
+  ''
+  # When we cross compile we cannot run the output executable to
+  # generate the man page
+  + lib.optionalString (!isCross) ''
     # TexLab builds man page separately in CI:
     # https://github.com/latex-lsp/texlab/blob/v4.2.1/.github/workflows/publish.yml#L131-L135
     help2man --no-info "$out/bin/texlab" > texlab.1
