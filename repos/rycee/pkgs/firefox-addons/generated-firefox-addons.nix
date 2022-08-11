@@ -85,10 +85,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.0.20";
+      version = "2.1.1";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978956/anonaddy-2.0.20.xpi";
-      sha256 = "83a9c8836e50694fd1cf8df34c3b0905aa5b031f9e346c79b5d3c6cb4355e54f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987231/anonaddy-2.1.1.xpi";
+      sha256 = "02b232132b95b572dfadae47661a5c0a76320d61a2ae12b7885b6df66567310c";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -435,10 +435,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.53";
+      version = "4.9.54";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986773/darkreader-4.9.53.xpi";
-      sha256 = "6bdb2dabde53e0db9c6b3f11f731030f24da96151dae7eef7f26285d6ff00915";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987157/darkreader-4.9.54.xpi";
+      sha256 = "4d8d748b3552102952fda877ea8f2a318a171e1e66e9dfb7f217948d014c746d";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1270,10 +1270,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.18.1";
+      version = "10.18.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3980615/ether_metamask-10.18.1.xpi";
-      sha256 = "b7f2512613d55981ee28ca95501b23c8c9e3b20e3ac4eb5431a131108f1129b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987382/ether_metamask-10.18.3.xpi";
+      sha256 = "4d2e3bd8a4cc35b6368965791be500e460a133112c882a22a5a6fa9c6ce68782";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
