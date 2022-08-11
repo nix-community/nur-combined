@@ -35,6 +35,7 @@ NTBBloodbath/cheovim
 NTBBloodbath/doom-one.nvim
 NTBBloodbath/galaxyline.nvim
 NTBBloodbath/rest.nvim
+NvChad/nvim-colorizer.lua
 Olical/aniseed
 Olical/conjure
 PHSix/nvim-hybrid
@@ -107,6 +108,7 @@ bkegley/gloombuddy
 bluz71/vim-moonfly-colors
 bluz71/vim-nightfly-guicolors
 booperlv/nvim-gomove
+brendalf/mix.nvim
 camspiers/snap
 cappyzawa/trim.nvim
 catppuccin/nvim::catppuccin
@@ -317,7 +319,6 @@ nkakouros-original/numbers.nvim
 noib3/cokeline.nvim
 noib3/nvim-compleet
 norcalli/nvim-base16.lua
-norcalli/nvim-colorizer.lua
 norcalli/nvim-terminal.lua
 norcalli/snippets.nvim
 notomo/cmdbuf.nvim
