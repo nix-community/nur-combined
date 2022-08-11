@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    formatador (1.1.0)
+    psych (2.0.0)
+    rvpacker (1.2.0)
+      formatador
+      psych (= 2.0.0)
+      trollop
+    scanf (1.0.0)
+    trollop (2.9.10)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  rvpacker
+  scanf
+
+BUNDLED WITH
+   2.3.9
