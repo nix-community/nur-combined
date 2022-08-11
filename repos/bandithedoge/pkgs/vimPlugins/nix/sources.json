@@ -1037,10 +1037,10 @@
         "homepage": "",
         "owner": "windwp",
         "repo": "nvim-ts-autotag",
-        "rev": "044a05c4c51051326900a53ba98fddacd15fea22",
-        "sha256": "0c94vnhl216p36x19cplhypr1b3z0f7l5jdr19hl79qvdfp9djk2",
+        "rev": "fdefe46c6807441460f11f11a167a2baf8e4534b",
+        "sha256": "0cwz18risvkgwr3ppc2vqs6rk94kgra4vmhswn4699fnsmha5lcn",
         "type": "tarball",
-        "url": "https://github.com/windwp/nvim-ts-autotag/archive/044a05c4c51051326900a53ba98fddacd15fea22.tar.gz",
+        "url": "https://github.com/windwp/nvim-ts-autotag/archive/fdefe46c6807441460f11f11a167a2baf8e4534b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-ts-context-commentstring": {

@@ -1,1 +1,1 @@
-["@tailwindcss/language-server"]
+["@tailwindcss/language-server", "emmet-ls"]
