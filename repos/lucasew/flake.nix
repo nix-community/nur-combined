@@ -155,15 +155,8 @@
           ] ++ extraModules;
           specialArgs = extraArgs;
         };
-        eval = import "${nixpkgs}/nixos/lib/eval-config.nix";
-        override = mySource: fn: let
-          sourceProcessed = mySource // (fn mySource);
-          evaluated = eval sourceProcessed;
-        in evaluated // {
-          source = sourceProcessed;
-          override = override sourceProcessed;
-        };
-      in override source (v: {});
+      in
+        nixpkgs.lib.nixosSystem source;
     in {
       vps = nixosConf {
         mainModule = ./nodes/vps/default.nix;

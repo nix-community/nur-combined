@@ -548,7 +548,7 @@ timeout=10
 
     services.xserver = {
       enable = true;
-      displayManager.defaultSession = "xfce+i3";
+      displayManager.defaultSession = "none+i3";
       desktopManager = {
         xterm.enable = false;
         xfce = {
