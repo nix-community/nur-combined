@@ -67,6 +67,7 @@ in {
               "${cfg.config.name}" = cfg.config.config;
               "${monitor'.name}" = monitor'.config // {
                 position = "${position' cfg.config.config.mode}x0";
+                primary = true;
               };
             };
           };
