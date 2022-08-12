@@ -100,6 +100,10 @@ in
       ConnectTimeout=5
     '';
   };
+  services.shellhub-agent = {
+    enable = true;
+    tenantId = "c574bf33-a21a-49ef-a7a5-1d8fbd823e4e";
+  };
   programs.gnupg.agent = {
     enable = true;
     # enableSSHSupport = true;
@@ -110,7 +114,7 @@ in
   # services.printing.enable = true;
   # Themes
   # this is crashing calibre
-  # programs.qt5ct.enable = true;
+  programs.qt5ct.enable = true;
 
   # Users
   users.users = {

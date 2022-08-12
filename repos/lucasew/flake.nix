@@ -116,7 +116,7 @@
     inherit global;
     inherit overlays;
 
-    colors = inputs.nix-colors.colorSchemes.solarized-dark;
+    colors = inputs.nix-colors.colorSchemes."3024";
 
     homeConfigurations = let 
       hmConf = source: homeManagerConfiguration (source // {
