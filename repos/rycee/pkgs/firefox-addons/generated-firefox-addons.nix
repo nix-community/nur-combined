@@ -85,10 +85,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.1.1";
+      version = "2.1.2";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987231/anonaddy-2.1.1.xpi";
-      sha256 = "02b232132b95b572dfadae47661a5c0a76320d61a2ae12b7885b6df66567310c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987616/anonaddy-2.1.2.xpi";
+      sha256 = "748bf71700fced3bb25eb280133d264cf91ae72befcf415331aba3d83d480655";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -435,10 +435,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.54";
+      version = "4.9.55";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987157/darkreader-4.9.54.xpi";
-      sha256 = "4d8d748b3552102952fda877ea8f2a318a171e1e66e9dfb7f217948d014c746d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987418/darkreader-4.9.55.xpi";
+      sha256 = "c5a90f909c568fc29fa2578f386c4b0b8f02dbb1b084f3f24b1a15c3e24f04fa";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -532,10 +532,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.7.26";
+      version = "2022.8.9";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3983576/duckduckgo_for_firefox-2022.7.26.xpi";
-      sha256 = "35b13f2092e18d5ad5e626dcf889d5204eefe673694ede96abb2b1d3fff8a8ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987636/duckduckgo_for_firefox-2022.8.9.xpi";
+      sha256 = "313b8afb43b8f5444453252c8ea334c85b6d2f0bc2270bde5506c88ef818a64b";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220809.195844";
+      version = "104.0buildid20220811.191329";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986944/francais_language_pack-104.0buildid20220809.195844.xpi";
-      sha256 = "36a5192e63c6655c58c6a9e6c9e4bc7f718375d20503e65436cada9f8c258401";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987879/francais_language_pack-104.0buildid20220811.191329.xpi";
+      sha256 = "fb13ad47863af85c960a6359251c2386d4df88a3bf9ea2137cfc2b1f62c13321";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1430,10 +1430,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.7";
+      version = "11.4.8";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986164/noscript-11.4.7.xpi";
-      sha256 = "8716d4e99690281823427da65346dbdcae459df67545861ae1190841dd7ea2a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987465/noscript-11.4.8.xpi";
+      sha256 = "cc240b88226d92088f43b90dbfdcd49bd25168dde55af9f4fdb490eb496b530b";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2447,10 +2447,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "7.8.5";
+      version = "8.0.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3981518/ublacklist-7.8.5.xpi";
-      sha256 = "8c530bb5333dbe2a37fe8da30daf3e3f0b216c4529a0b4e5faca0892609355cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987733/ublacklist-8.0.0.xpi";
+      sha256 = "84557b77a32da4440b50e0a568b2978eb2e81f730c1eea1d5a2cebf899f86c36";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2671,10 +2671,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.66.1";
+      version = "2.67.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985648/web_scrobbler-2.66.1.xpi";
-      sha256 = "c8fdceeb9f9a6896ed14dc17ac6f7ccc3663067a4b4d627d67d7a92b63fdfcca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3987800/web_scrobbler-2.67.0.xpi";
+      sha256 = "4c991cac3c1659a2d9f9b6086ba8de842482d698185031dfd245415287daaa03";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
