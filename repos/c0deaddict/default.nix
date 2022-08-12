@@ -34,6 +34,8 @@ rec {
 
   goreplay = pkgs.callPackage ./pkgs/goreplay { };
 
+  helm-2to3 = pkgs.callPackage ./pkgs/helm-2to3 { };
+
   helm-whatup = pkgs.callPackage ./pkgs/helm-whatup { };
 
   i3-balance-workspace =
