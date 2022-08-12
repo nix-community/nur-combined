@@ -1,6 +1,6 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGo116Module, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGo116Module rec {
   pname = "gloc";
   version = "0.0.9";
 
