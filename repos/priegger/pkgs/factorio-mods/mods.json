@@ -905,10 +905,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.1.9",
-    "file_name": "reverse-factory_8.1.9.zip",
-    "download_url": "/download/reverse-factory/62b1181e934f2fa5646c0cff",
-    "sha1": "cf23ccabf963b92c43e237ecde90d62425280594",
+    "version": "8.1.11",
+    "file_name": "reverse-factory_8.1.11.zip",
+    "download_url": "/download/reverse-factory/62f270bb5e868d7134790cc8",
+    "sha1": "0c05d2d8bff5f186f6415f1036fb9a81f7cbc4fa",
     "dependencies": [
       "base",
       "stdlib",
