@@ -44,7 +44,7 @@ in
       instant-ngp
       opensfm
       ezy-expecttest
-      pyimgui dearpygui
+      imviz pyimgui dearpygui
       kornia
       accelerate
       geomstats

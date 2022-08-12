@@ -7,6 +7,9 @@
 
   cppimport = python-final.callPackage ./pkgs/cppimport.nix { };
 
+  imviz = python-final.callPackage ./pkgs/imviz.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa OpenGL CoreVideo IOKit;
+  };
   pyimgui = python-final.callPackage ./pkgs/pyimgui {
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa OpenGL CoreVideo IOKit;
   };
