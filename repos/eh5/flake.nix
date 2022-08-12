@@ -45,7 +45,6 @@
     let
       inherit (flake-utils.lib) eachDefaultSystem mkApp;
       systems = flake-utils.lib.system;
-      utils = import ./utils;
       myPkgs = import ./packages;
     in
     eachDefaultSystem
@@ -55,7 +54,6 @@
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
-            overlays = [ self.overlays.default ];
           };
           appPkgs =
             (if system == systems.x86_64-linux then {
@@ -80,8 +78,6 @@
         }
       )
     // {
-      lib.utils = utils;
-
       overlays = myPkgs.overlays;
 
       nixosModules = import ./modules;

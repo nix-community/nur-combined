@@ -1,41 +1,12 @@
-let
-  utils = import ../utils;
-  specialPackages = pkgs: {
-    sources = pkgs.callPackage ./_sources/generated.nix { };
-  };
-  allPackages = pkgs:
-    let
-      callPackage = fn: args:
-        utils.ifTrueWithOr
-          (utils.checkPlatform pkgs.system)
-          (pkgs.lib.callPackageWith
-            (pkgs // specialPackages pkgs)
-            fn
-            args
-          )
-          null;
-    in
-    (import ./packages.nix { inherit callPackage; });
-in
 rec {
-  packages = pkgs: builtins.foldl'
-    (sum: name:
-      if builtins.hasAttr name pkgs && pkgs.${name} != null then
-        sum // { ${name} = pkgs.${name}; }
-      else sum
-    )
-    { }
-    (builtins.attrNames (allPackages pkgs));
+  packages = pkgs: import ./packages.nix { inherit pkgs; filterByPlatform = true; };
 
-  nurPackages = pkgs: (import ./packages.nix {
-    callPackage = pkgs.lib.callPackageWith
-      (pkgs // specialPackages pkgs // nurPackages pkgs);
-  });
+  legacyPackages = pkgs: import ./packages.nix { inherit pkgs; filterByPlatform = false; };
 
-  overlays.default = final: prev: allPackages final;
+  overlays.default = final: prev: legacyPackages prev;
 
   overlays.v2ray-rules-dat = final: prev:
-    let pkgs = allPackages prev; in
+    let pkgs = legacyPackages prev; in
     {
       v2ray-geoip = pkgs.v2ray-rules-dat-geoip;
       v2ray-domain-list-community = pkgs.v2ray-rules-dat-geosite;
