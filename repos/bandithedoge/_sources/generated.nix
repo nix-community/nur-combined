@@ -39,14 +39,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "7e59620a8713097433576c41370bfa486220d530";
+    version = "4d08418032565a29bc35ebf0bb4a236ac5b05814";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "7e59620a8713097433576c41370bfa486220d530";
+      rev = "4d08418032565a29bc35ebf0bb4a236ac5b05814";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-/jmut5HmzubF0BxOwrw4Qcr5ts/jeUivX6G6h/aXXfM=";
+      sha256 = "sha256-V3lnd2yeep3XdIW9WhlGXmC33deNjcQan1Y/aL0CQ8A=";
     };
   };
   luakit = {
@@ -73,13 +73,13 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "2eca2629694bd1f4e734d30b9c027c2704e5b056";
+    version = "bcfa5b9b7f72ef7ef15ac3375bf6ef32b1f04fc2";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "2eca2629694bd1f4e734d30b9c027c2704e5b056";
+      rev = "bcfa5b9b7f72ef7ef15ac3375bf6ef32b1f04fc2";
       fetchSubmodules = false;
-      sha256 = "sha256-K0eRzxnH/sphTrlllx1lr00BxMzBKpwEFJr1ICfMYy8=";
+      sha256 = "sha256-qhMH0nZgYE+yf1JNuS1quAVvWs8g+OuxcpBJMmhA7+4=";
     };
   };
   taffybar = {
@@ -117,25 +117,25 @@
   };
   zix = {
     pname = "zix";
-    version = "9cdc083d0d88bc222fa04849948fab8a9b4deee0";
+    version = "9fc129c7dc1a0fa6b034f08d49d8e2f995585082";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "9cdc083d0d88bc222fa04849948fab8a9b4deee0";
+      rev = "9fc129c7dc1a0fa6b034f08d49d8e2f995585082";
       fetchSubmodules = false;
-      sha256 = "sha256-uBtgXVuJDKjm37+r/eGN7vNRQzIiubtvFCl7b3WzfYY=";
+      sha256 = "sha256-74bn9NkUmXoOhec7k7SG47bUr/8V4TadoWJF2O5JXl4=";
     };
   };
   zrythm = {
     pname = "zrythm";
-    version = "2e4135a47b6535e927036492f85d47a8bf1dca43";
+    version = "ae30202ebfbed68afeac9754366361dfe08f0eb7";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "2e4135a47b6535e927036492f85d47a8bf1dca43";
+      rev = "ae30202ebfbed68afeac9754366361dfe08f0eb7";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-90ibLqQIamDOoobEbc+GKYWPyqCHk2PGyP7qZ9NeqbU=";
+      sha256 = "sha256-3Hiegd85XC6lbytI62n1w8NcQEDuggyxtOE5r280lD8=";
     };
   };
 }
