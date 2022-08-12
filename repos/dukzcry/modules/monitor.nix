@@ -18,8 +18,12 @@ in {
       Adoptions for monitor
     '';
     config = mkOption {
-      type = types.attrs;
+      type = types.nullOr types.attrs;
       default = {};
+    };
+    postswitch = mkOption {
+      type = types.nullOr types.str;
+      default = null;
     };
   };
 
@@ -28,17 +32,12 @@ in {
       services.ddccontrol.enable = true;
       hardware.i2c.enable = true;
     })
-    (mkIf (cfg.enable && config.services.xserver.windowManager.i3.enable) {
-      services.autorandr.hooks.postswitch = {
-        notify-i3 = "${pkgs.i3}/bin/i3-msg restart";
-      };
-    })
     (mkIf (cfg.enable && config.services.xserver.enable) {
       services.autorandr = {
         enable = true;
-        defaultTarget = if cfg.config != {} then "laptop" else "monitor";
+        defaultTarget = if cfg.config != null then "laptop" else "monitor";
         profiles = rec {
-          laptop = optionalAttrs (cfg.config != {}) {
+          laptop = optionalAttrs (cfg.config != null) {
             fingerprint."${cfg.config.name}" = cfg.config.setup;
             config = {
               "${cfg.config.name}" = cfg.config.config;
@@ -48,19 +47,19 @@ in {
           monitor = {
             fingerprint = {
               "${monitor'.name}" = monitor'.setup;
-            } // optionalAttrs (cfg.config != {}) {
+            } // optionalAttrs (cfg.config != null) {
               "${cfg.config.name}" = cfg.config.setup;
             };
             config = {
               "${monitor'.name}" = monitor'.config;
-            } // optionalAttrs (cfg.config != {}) {
+            } // optionalAttrs (cfg.config != null) {
               "${cfg.config.name}".enable = false;
             };
           };
           integer = monitor // {
             hooks.postswitch.xrandr = "${pkgs.xorg.xrandr}/bin/xrandr --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
           };
-          both = optionalAttrs (cfg.config != {}) {
+          both = optionalAttrs (cfg.config != null) {
             fingerprint."${cfg.config.name}" = cfg.config.setup;
             fingerprint."${monitor'.name}" = monitor'.setup;
             config = {
@@ -72,23 +71,27 @@ in {
             };
           };
         };
-        hooks.postswitch = {
-          xrdb = ''
-            case "$AUTORANDR_CURRENT_PROFILE" in
-              laptop|integer)
-                DPI=96
-                SIZE=16
-                ;;
-              monitor|both)
-                DPI=144
-                SIZE=32
-                ;;
-              *)
-                echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
-                exit 1
-            esac
-            printf "Xft.dpi:%s\nXcursor.size:%s\n" "$DPI" "$SIZE" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
-          '';
+        hooks = {
+          postswitch = {
+            xrdb = ''
+              case "$AUTORANDR_CURRENT_PROFILE" in
+                laptop|integer)
+                  DPI=96
+                  SIZE=16
+                  ;;
+                monitor|both)
+                  DPI=144
+                  SIZE=32
+                  ;;
+                *)
+                  echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
+                  exit 1
+              esac
+              printf "Xft.dpi:%s\nXcursor.size:%s\n" "$DPI" "$SIZE" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
+            '';
+          } // optionalAttrs (cfg.postswitch != null) {
+            inherit (cfg) postswitch;
+          };
         };
       };
     })
