@@ -14,7 +14,7 @@ in {
     ./dconf.nix
     ./nixgram.nix
     ./borderless-browser.nix
-    ./theme.nix
+    ./theme
 
   ];
 

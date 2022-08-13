@@ -1,6 +1,6 @@
 {global, pkgs, lib, self, ...}:
 let
-  inherit (pkgs) vim gitMinimal tmux xclip;
+  inherit (pkgs) vim gitMinimal tmux xclip writeShellScriptBin;
   inherit (global) username;
 in {
   imports = [
@@ -9,6 +9,7 @@ in {
     ./zerotier.nix
     ./user.nix
     ./ssh.nix
+    ./colors.nix
   ];
   
   boot.cleanTmpDir = true;
