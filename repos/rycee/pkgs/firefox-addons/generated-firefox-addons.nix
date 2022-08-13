@@ -992,10 +992,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.1";
+      version = "3.4.2";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3965730/i_dont_care_about_cookies-3.4.1.xpi";
-      sha256 = "dd52cbd31c24d11cc8c0fc6448a4697cfe4989a7c3fd501868e4b14e2cbeb96e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3988152/i_dont_care_about_cookies-3.4.2.xpi";
+      sha256 = "bee737e7ecdac55be8d7ee49ba75ce475054c8e5c370d51671ade960363d3039";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -2333,13 +2333,13 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.5.3";
+      version = "0.6.0";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3870889/to_deepl-0.5.3.xpi";
-      sha256 = "7b1bfd9beff583304655691778b196c4a6fc723483e062133c06f02d1ef60f79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3988276/to_deepl-0.6.0.xpi";
+      sha256 = "79cfce1b7da7607bd1e93d4f7d75dc34d269589fee18101db6005d8fd52e6cf3";
       meta = with lib;
       {
-        homepage = "https://github.com/rewkha/firefox-to-deepl/";
+        homepage = "https://github.com/xpmn/firefox-to-deepl/";
         description = "Right-click on a section of text and click on \"To DeepL\" to translate it to your language. Default language is selected in extension preferences.";
         license = licenses.mit;
         platforms = platforms.all;
