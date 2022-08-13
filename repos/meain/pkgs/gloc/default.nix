@@ -1,6 +1,6 @@
-{ pkgs, lib, buildGoModule, fetchFromGitHub }:
+{ pkgs, lib, buildGo117Module, fetchFromGitHub }:
 
-buildGoModule rec {
+buildGo117Module rec {
   pname = "gloc";
   version = "0.0.9";
 
@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-VgfbFEUmfW4KJLnaimUkwx7T3kyVp0kvQ0NzEQYJK+I=";
   };
 
-  vendorSha256 = "sha256-IJaNnZSNJWoCuw4sIxQD91pcjPtWoa0XP9uflXmQeLg=";
+  vendorSha256 = "sha256-4E6Plktk91pMqUEnTy5iqzae2jqbd5c28GiPuxffrfI=";
   proxyVendor = true;
 
   meta = with lib; {
