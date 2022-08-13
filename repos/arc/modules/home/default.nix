@@ -2,6 +2,7 @@
   git = ./git.nix;
   github = ./github.nix;
   bitbucket = ./bitbucket.nix;
+  devops = ./devops.nix;
   sshd = ./sshd.nix;
   ssh = ./ssh.nix;
   gmail = ./gmail.nix;
@@ -39,7 +40,7 @@
   __functionArgs = { };
   __functor = self: { ... }: {
     imports = with self; [
-      git github bitbucket
+      git github bitbucket devops
       sshd ssh
       gmail
       konawall
