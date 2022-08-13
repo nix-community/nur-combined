@@ -1,4 +1,4 @@
-{ stdenvNoCC, makeWrapper, nix, fennel, luajit }:
+{ stdenvNoCC, makeWrapper, nix, nix-prefetch-git, fennel, luajit }:
 
 stdenvNoCC.mkDerivation {
   pname = "update-vim-plugins";
@@ -10,6 +10,7 @@ stdenvNoCC.mkDerivation {
 
   buildInputs = [
     nix
+    nix-prefetch-git
     (fennel.override { lua = luajit; })
   ] ++ (with luajit.pkgs; [
     http

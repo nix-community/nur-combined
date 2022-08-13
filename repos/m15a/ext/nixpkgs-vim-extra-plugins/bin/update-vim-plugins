@@ -11,7 +11,7 @@
 ;;; General utilities
 
 (fn basename [path]
-  "Get base name of a path."
+  "Get file name of path."
   (string.gsub path "(.*/)(.*)" "%2"))
 
 (fn program-name []
@@ -19,17 +19,17 @@
   (basename (. arg 0)))
 
 (fn io.slurp [file]
-  "Read all contents of a file."
+  "Read all contents of file."
   (with-open [buf (assert (io.open file))]
     (buf:read :*all)))
 
 (fn string.chomp [str pattern]
-  "Remove trailing pattern, defaulting to newlines: \\n, \\r, or \\r\\n."
+  "Remove trailing pattern (default: newline) in string."
   (let [pattern ( .. (or pattern "[\r\n]+") "$")]
     (string.gsub str pattern "")))
 
 (fn string.split [str sep]
-  "Split string by the separator into a table."
+  "Split string by separator, collecting into sequencial table."
   (let [regex (match sep
                 "" "."
                 x (.. "[^" x "]+")
@@ -38,7 +38,7 @@
       chunk)))
 
 (fn table.unique [tbl]
-  "Remove duplicated items in the sequencial table."
+  "Remove duplicated items in sequencial table."
   (let [items (collect [_ item (ipairs tbl)]
                 item true)]
     (icollect [item _ (pairs items)]
@@ -50,7 +50,7 @@
 (local http {})
 
 (fn http.get [uri headers]
-  "Get contents of uri. The second value is its headers."
+  "Get contents of uri. The second return value is its headers."
   (let [request (http-request.new_from_uri uri)]
     (each [key value (pairs (or headers {}))]
       (request.headers:append key value))
@@ -73,13 +73,23 @@
     (pipe:close)
     sha256))
 
+(fn nix.prefetch-git [url]
+  "Prefetch git url and get its sha256 hash."
+  (let [cmd (string.format "nix-prefetch-git %s 2>/dev/null" url)
+        pipe (assert (io.popen cmd))
+        sha256 (-> (assert (pipe:read :*all))
+                   (cjson.decode)
+                   (. :sha256))]
+    (pipe:close)
+    sha256))
+
 ;;; ------------------------------------------------------------------------------------------------
 ;;; Nixpkgs helpers
 
 (local nixpkgs {})
 
 (fn nixpkgs.license-from-github-license [github-license]
-  "Translate GitHub API license to Nixpkgs license attr name in lib.licenses."
+  "Translate GitHub API license name to Nixpkgs license attr name in lib.licenses."
   (let [map {:agpl-3.0 "agpl3Only"
              :apache-2.0 "asl20"
              :bsd-2-clause "bsd2"
@@ -97,34 +107,35 @@
     (. map github-license.key)))
 
 (fn nixpkgs.get-vim-plugins-manifest [channel]
-  "Fetch manifest of the official nixpkgs vim plugins."
+  "Fetch manifest of official nixpkgs vim plugins."
   (let [channel (or channel "nixpkgs-unstable")
-        path (string.format "/NixOS/nixpkgs/%s/pkgs/applications/editors/vim/plugins/vim-plugin-names" channel)
-        url (string.format "https://raw.githubusercontent.com%s" path)
+        path "/pkgs/applications/editors/vim/plugins/vim-plugin-names"
+        url (string.format "https://raw.githubusercontent.com/NixOS/nixpkgs/%s%s" channel path)
         specs (: (http.get url) :split)]
     ;; Return it as a map from spec to bool for later convenience.
     (collect [_ spec (ipairs specs)]
       spec true)))
 
 ;;; ------------------------------------------------------------------------------------------------
-;;; GitHub things
+;;; GitHub helpers
 
 (local github {:token-missing-warned false})
 
+(fn github.get-token []
+  "Get access token from environment variable GITHUB_TOKEN.  Warn only once if not available."
+  (or (os.getenv "GITHUB_TOKEN")
+      (when (not github.token-missing-warned)
+        (io.stderr:write "GITHUB_TOKEN missing...")
+        (set github.token-missing-warned true)
+        nil)))
+
 (fn github.get [query token]
-  "Get contents by query using GitHub REST API."
-  (let [token (or token
-                  (os.getenv "GITHUB_TOKEN")
-                  (when (not github.token-missing-warned)
-                    (io.stderr:write "GITHUB_TOKEN missing...")
-                    (set github.token-missing-warned true)
-                    nil))
+  "Retrieve contents of query using GitHub REST API."
+  (let [token (or token (github.get-token))
+        request-headers {:content-type "application/json"
+                         :authorization (when token (string.format "token %s" token))}
         (body headers) (http.get (string.format "https://api.github.com/%s" query)
-                                 (let [request-headers {:content-type "application/json"}]
-                                   (when token
-                                     (set request-headers.authorization
-                                          (string.format "token %s" token)))
-                                   request-headers))]
+                                 request-headers)]
     (values (cjson.decode body) headers)))
 
 (fn github.null? [x]
@@ -133,13 +144,15 @@
       (= x "")
       (= (type x) :userdata))) ; #<userdata NULL>
 
+;;; ------------------------------------------------------------------------------------------------
+;;; GitHub repository
 
 (set github.repo {:type "github"})
 
 (set github.repo.__index github.repo)
 
 (fn github.repo.new [full-name-or-owner name]
-  "Create object representing GitHub repo."
+  "Create object representing GitHub repository."
   (let [info (let [full-name (if (not name)
                                  full-name-or-owner
                                  (string.format "%s/%s" full-name-or-owner name))]
@@ -160,7 +173,7 @@
     (setmetatable obj github.repo)))
 
 (fn github.repo.get-recent-commit [self branch]
-  "Get recent commit of the branch."
+  "Get recent commit of branch."
   (let [branch (or branch self.default-branch)
         response (github.get (string.format "repos/%s/commits/%s" self.full-name branch))]
     {: branch
@@ -168,26 +181,29 @@
      :sha response.sha}))
 
 (fn github.repo.get-url [self sha]
-  "Get download url of the given hash."
+  "Get download url of sha hash."
   (string.format "https://github.com/%s/archive/%s.tar.gz"
                  self.full-name
                  sha))
 
 ;;; ------------------------------------------------------------------------------------------------
-;;; GitLab things
+;;; GitLab helpers
 
 (local gitlab {})
 
 (fn gitlab.get [query]
-  "Get contents by query using GitLab REST API."
-  (let [(body headers) (http.get (string.format "https://gitlab.com/api/v4/%s" query)
-                                 {:content-type "application/json"})]
+  "Retrieve contents of query using GitLab REST API."
+  (let [request-headers {:content-type "application/json"}
+        (body headers) (http.get (string.format "https://gitlab.com/api/v4/%s" query)
+                                 request-headers)]
     (values (cjson.decode body) headers)))
 
 (fn gitlab.escape-path-with-namespace [path-with-namespace]
-  "Replace / with %2F in the path with namespace."
+  "Replace `/` with `%2F` in path-with-namespace."
   (string.gsub path-with-namespace "/" "%%2F"))
  
+;;; ------------------------------------------------------------------------------------------------
+;;; GitLab project (repository)
 
 (set gitlab.project {:type "gitlab"})
 
@@ -213,7 +229,7 @@
     (setmetatable obj gitlab.project)))
 
 (fn gitlab.project.get-recent-commit [self branch]
-  "Get recent commit of the branch."
+  "Get recent commit of branch."
   (let [branch (or branch self.default-branch)
         response (gitlab.get (string.format "projects/%s/repository/branches/%s"
                                             (gitlab.escape-path-with-namespace self.full-name)
@@ -223,13 +239,75 @@
      :sha response.commit.id}))
 
 (fn gitlab.project.get-url [self sha]
-  "Get download url of the given hash."
+  "Get download url of sha hash."
   (string.format "https://gitlab.com/api/v4/projects/%s/repository/archive.tar.gz?sha=%s"
                  (gitlab.escape-path-with-namespace self.full-name)
                  sha))
 
 ;;; ------------------------------------------------------------------------------------------------
-;;; awesome-neovim
+;;; Sourcehut helpers
+
+(local sourcehut {:token-missing-warned false})
+
+(fn sourcehut.get-token []
+  "Get access token from environment variable SOURCEHUT_TOKEN.  Warn only once if not available."
+  (or (os.getenv "SOURCEHUT_TOKEN")
+      (when (not sourcehut.token-missing-warned)
+        (io.stderr:write "SOURCEHUT_TOKEN missing...")
+        (set sourcehut.token-missing-warned true)
+        nil)))
+
+(fn sourcehut.get [query token]
+  "Get contents by query using sourcehut REST API."
+  (let [token (or token (sourcehut.get-token))
+        request-headers {:content-type "application/json"
+                         :authorization (when token (string.format "token %s" token))}
+        (body headers) (http.get (string.format "https://git.sr.ht/api/%s" query)
+                                 request-headers)]
+    (values (cjson.decode body) headers)))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; Sourcehut repository
+
+(set sourcehut.repo {:type "sourcehut"})
+
+(set sourcehut.repo.__index sourcehut.repo)
+
+(fn sourcehut.repo.new [full-name-or-username name]
+  "Create object representing sourcehut repo."
+  (let [info (let [(username name) (if (not name)
+                                       (unpack (string.split full-name-or-username "/"))
+                                       (values full-name-or-username name))]
+               (sourcehut.get (string.format "~%s/repos/%s" username name)))
+        obj {:full-name (string.format "%s/%s" info.owner.name info.name)
+             :owner info.owner.name
+             :name info.name
+             :default-branch nil  ; default branch cannot be identified by REST API.
+             :description (if (not info.description)
+                              info.description
+                              "No description")
+             :fork? nil
+             :homepage (string.format "https://sr.ht/%s/%s/" info.owner.canonical_name info.name)
+             :license nil}]
+    (setmetatable obj sourcehut.repo)))
+
+(fn sourcehut.repo.get-recent-commit [self branch]
+  "Get recent commit of the branch."
+  (let [response (sourcehut.get
+                   (if branch 
+                       (string.format "~%s/repos/%s/log/%s" self.owner self.name branch)
+                       (string.format "~%s/repos/%s/log" self.owner self.name)))
+        latest-commit (. response.results 1)]
+    {: branch
+     :date latest-commit.timestamp
+     :sha latest-commit.id}))
+
+(fn sourcehut.repo.get-url [self]
+  "Get git url to clone."
+  (string.format "https://git.sr.ht/%s" (string.gsub self.full-name "^" "~")))
+
+;;; ------------------------------------------------------------------------------------------------
+;;; awesome-neovim helpers
 
 (local awesome-neovim {})
 
@@ -238,30 +316,30 @@
   (let [path "/rockerBOO/awesome-neovim/main/README.md"
         url (string.format "https://raw.githubusercontent.com%s" path)
         readme (http.get url)
-        out []]
+        collected-url-paths []]
     (var state :init)
     (each [_ line (ipairs (readme:split "\n"))]
       (match state
-        :init   (when (line:match "^## Plugin")
-                  (set state :active))
+        :init (when (line:match "^## Plugin")
+                (set state :active))
         :active (if (line:match "^%s*-%s+%[")
                     ;; trim mini.nvim#foobar
-                    (table.insert out (line:match "%[[^%]]+%]%(https://([^%)#]+)"))
+                    (table.insert collected-url-paths (line:match "%[[^%]]+%]%(https://([^%)#]+)"))
                     (line:match "^### Preconfigured Configuration")
                     (set state :skip)
                     (line:match "^## External")
                     (set state :done))
-        :skip   (when (line:match "^### Keybinding")
-                  (set state :active))))
-    (icollect [_ line (ipairs out)]
-      (let [(repo-type full-name) (line:match "^([^/]+)%.com/([^/]+/[^/]+)$")]
-        (match repo-type
-          :gitlab (string.format "%s:%s" repo-type full-name)
-          :github (if (full-name:match "feline%.nvim")
-                      "feline-nvim/feline.nvim" ; hot fix due to organization change
-                      full-name)
-          ;; Ignore plugins hosted by other than github/gitlab, e.g., sourcehut.
-          _ nil)))))
+        :skip (when (line:match "^### Keybinding")
+                (set state :active))))
+    (icollect [_ url-path (ipairs collected-url-paths)]
+      (match (url-path:match "^%s*([^/]+)/~?([^/]+/[^/]+)/?%s*$")
+        (host-name full-name)
+        (if (= host-name "github.com")
+            full-name
+            (= host-name "gitlab.com")
+            (string.format "%s:%s" :gitlab full-name)
+            (host-name:match "sr%.ht$") ;; <git.sr.ht> or <sr.ht> found in awesome-neovim README.md
+            (string.format "%s:%s" :sourcehut full-name))))))
 
 ;;; ------------------------------------------------------------------------------------------------
 ;;; Manifest spec parser
@@ -273,7 +351,7 @@
 (set manifest.spec {})
 
 (fn manifest.spec.decode [line]
-  "Parse a line as manifest spec and return a table containing spec properties."
+  "Parse string as manifest spec line and return table containing spec properties."
   (let [space (^ lpeg.space 0)
         repo-identifier (^ (+ lpeg.alnum (lpeg.S "_.-")) 1)
         ;; This is not exactly correct; see https://git-scm.com/docs/git-check-ref-format
@@ -281,7 +359,8 @@
         attr-identifier (* (+ lpeg.alpha (lpeg.S "_"))
                            (^ (+ lpeg.alnum (lpeg.S "_-")) 0))
         repo-type (lpeg.Cg (+ (lpeg.P :github)
-                              (lpeg.P :gitlab))
+                              (lpeg.P :gitlab)
+                              (lpeg.P :sourcehut))
                            :type)
         owner (lpeg.Cg repo-identifier
                        :owner)
@@ -311,7 +390,7 @@
       _ (error (string.format "invalid manifest spec: %s" line)))))
 
 (fn manifest.spec.encode [spec]
-  "Encode a table of spec properties to a line of manifest spec."
+  "Encode table of spec properties to manifest spec line."
   (.. (if (and spec.type (not= spec.type :github))
           (string.format "%s:" spec.type)
           "")
@@ -325,7 +404,7 @@
           "")))
 
 (fn manifest.spec.format [line]
-  "Format a line of manifest spec."
+  "Format manifest spec line."
   (-> line
       (manifest.spec.decode)
       (manifest.spec.encode)))
@@ -341,12 +420,12 @@
     (set self.specs specs)))
 
 (fn manifest.changed? [self]
-  "Return true of manifest specs are changed since its loaded time."
+  "Return true if manifest specs are changed since its loaded time."
   (not= self.origin
         (table.concat self.specs "\n")))
 
 (fn manifest.load [file]
-  "Load manifest from a file, defaulting to `manifest.txt`."
+  "Load manifest from file (default: `manifest.txt`)."
   (let [file (or file "manifest.txt")
         specs (icollect [spec (io.lines file)] spec)
         obj {: file
@@ -355,22 +434,22 @@
     (setmetatable obj manifest)))
 
 (fn manifest.save [self]
-  "Save manifest to the file."
+  "Save manifest to its file."
   (when (self:changed?)
     (with-open [buf (io.open self.file :w)]
       (buf:write (.. (table.concat self.specs "\n") "\n")))
     (io.stderr:write (string.format "%s: manifest saved to %s\n" (program-name) self.file))))
 
 ;;; ------------------------------------------------------------------------------------------------
-;;; Cache file
+;;; Cache of previous updating
 
 (local cache {})
 
 (set cache.__index cache)
 
-(fn cache.load []
+(fn cache.load [file]
   "Load cache of previous update."
-  (let [file ".previous-update.json"
+  (let [file (or file ".previous-update.json")
         (ok data) (pcall io.slurp file)
         data (if ok
                  (cjson.decode data)
@@ -386,7 +465,7 @@
     (io.stderr:write (string.format "%s: cache saved to %s\n" (program-name) self.file))))
 
 ;;; ------------------------------------------------------------------------------------------------
-;;; Vim plugin
+;;; Vim plugin helpers
 
 (local plugin {})
 
@@ -409,12 +488,16 @@
     (set self.repo.description (string.chomp desc "%.+"))
     self))
 
+;;; ------------------------------------------------------------------------------------------------
+;;; Vim plugin
+
 (fn plugin.new [spec]
   "Create object representing Vim plugin."
   (let [spec (manifest.spec.decode spec)
         repo (match spec.type
                :gitlab (gitlab.project.new spec.full-name)
                :github (github.repo.new spec.full-name)
+               :sourcehut (sourcehut.repo.new spec.full-name)
                _ (error "undefined repo type"))
         recent-commit (repo:get-recent-commit spec.branch)
         url (repo:get-url recent-commit.sha)
@@ -422,21 +505,27 @@
         obj {: attr-name 
              :pname attr-name
              :version (plugin.get-date recent-commit.date)
+             :fetcher (match spec.type
+                        :sourcehut :fetchgit
+                        _ :fetchurl)
              : repo
              :branch recent-commit.branch
              : url
-             :sha256 (nix.prefetch-url url)}
+             :rev recent-commit.sha
+             :sha256 (match spec.type
+                       :sourcehut (nix.prefetch-git url)
+                       _ (nix.prefetch-url url))}
         obj (plugin.preprocess obj)]
      (setmetatable obj plugin)))
 
 (fn plugin.to-nixexpr [self]
-  "Generate snippet of Nix expression in an attr set."
+  "Generate snippet of Nix expression."
   (string.format
     "  %s = buildVimPluginFrom2Nix {
     pname = \"%s\";
     version = \"%s\";
-    src = fetchurl {
-      url = \"%s\";
+    src = %s {
+      url = \"%s\";%s
       sha256 = \"%s\";
     };
     meta = with lib; {
@@ -448,7 +537,11 @@
     self.attr-name
     self.pname
     self.version
+    self.fetcher
     self.url
+    (match self.fetcher
+      :fetchgit (string.format "\n      rev = \"%s\";" self.rev)
+      _ "")
     self.sha256
     ;; Escape special character sequences in double-quotes.  For more information, see
     ;; <https://nixos.org/manual/nix/stable/expressions/language-values.html#simple-values>.
@@ -470,6 +563,7 @@
     (match plugin.repo.type
       :github plugin.repo.full-name
       :gitlab (string.format "gitlab:%s" plugin.repo.full-name)
+      :sourcehut (string.format "sourcehut:%s" plugin.repo.full-name)
       _ (error "undefined plugin repo type"))
     plugin.repo.homepage
     (if (= plugin.branch plugin.repo.default-branch)
@@ -501,7 +595,7 @@
         %cache (cache.load)]
     (with-open [nix (io.open "pkgs/vim-plugins.nix" :w)
                 readme (io.open "README.md" :w)]
-      (nix:write "{ lib, buildVimPluginFrom2Nix, fetchurl }:\n\n{\n")
+      (nix:write "{ lib, buildVimPluginFrom2Nix, fetchurl, fetchgit }:\n\n{\n")
       (readme:write (io.slurp "assets/README_header.md"))
       (each [_ spec (ipairs %manifest.specs)]
         (if (or update-all?

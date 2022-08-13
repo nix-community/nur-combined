@@ -191,7 +191,7 @@ gpanders/editorconfig.nvim
 h-hg/fcitx.nvim
 haringsrob/nvim_context_vt
 henriquehbr/ataraxis.lua
-henriquehbr/nvim-startup.lua
+sourcehut:henriquehbr/nvim-startup.lua
 hkupty/iron.nvim
 hkupty/nvimux
 houtsnip/vim-emacscommandline
@@ -233,6 +233,7 @@ jose-elias-alvarez/nvim-lsp-ts-utils
 jubnzv/mdeval.nvim
 jubnzv/virtual-types.nvim
 jvgrootveld/telescope-zoxide
+kaiuri/github-vscode-theme.nvim
 kaiuri/nvim-juliana
 kana/vim-textobj-indent
 karb94/neoscroll.nvim
@@ -260,6 +261,7 @@ kyazdani42/nvim-tree.lua
 kyazdani42/nvim-web-devicons
 kylechui/nvim-surround
 lalitmee/cobalt2.nvim
+lcheylus/overlength.nvim
 ldelossa/gh.nvim
 ldelossa/vimdark
 leafOfTree/vim-svelte-plugin
@@ -298,6 +300,7 @@ mhartington/oceanic-next
 michaelb/sniprun
 mickael-menu/zk-nvim
 milisims/nvim-luaref
+miversen33/import.nvim
 mizlan/iswap.nvim
 mnacamura/iron.nvim::iron-nvim-mnacamura
 mnacamura/nvim-srcerite
@@ -469,6 +472,7 @@ vijaymarupudi/nvim-fzf
 vuki656/package-info.nvim
 wbthomason/packer.nvim
 weilbith/nvim-code-action-menu
+sourcehut:whynothugo/lsp_lines.nvim
 williamboman/mason.nvim
 williamboman/nvim-lsp-installer
 windwp/nvim-autopairs

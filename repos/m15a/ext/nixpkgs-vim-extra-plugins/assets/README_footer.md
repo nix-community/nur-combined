@@ -12,13 +12,13 @@ An entry is specified by
 ```bnf
 <entry> ::= [ <repo-type>  ":" ] <repo-full-name> [ ":"  [ <git-ref> ] [ ":" <attr-name> ] ]
 
-<repo-type> ::= "github" | "gitlab"
+<repo-type> ::= "github" | "gitlab" | "sourcehut"
 
 <repo-full-name> ::= <owner-name> "/" <repo-name>
 ```
 
 - If `<repo-type>` is omitted, it defaults to GitHub.
-  Only GitHub and GitLab are supported.
+  Only GitHub, GitLab, and Sourcehut are supported.
 - `<git-ref>` can be either branch name or commit hash. If omitted,
   the latest commit hash in the default branch will be used.
 - Attribute name of a plugin (`pkgs.vimExtraPlugins.${attr-name}`) is

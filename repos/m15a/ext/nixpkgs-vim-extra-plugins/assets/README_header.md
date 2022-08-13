@@ -46,7 +46,7 @@ Use it as you normally do, like
   let
     pkgs = import nixpkgs {
       inherit system;
-      overlays = [ vim-extra-plugins.overlay ];
+      overlays = [ vim-extra-plugins.overlays.default ];
     };
   in {
     packages = {
@@ -72,7 +72,7 @@ It is handy to use `builtins.getFlake`, which was [introduced in Nix 2.4][1]. Fo
 ```nix
 with import <nixpkgs> {
   overlays = [
-    (builtins.getFlake "github:m15a/nixpkgs-vim-extra-plugins").overlay
+    (builtins.getFlake "github:m15a/nixpkgs-vim-extra-plugins").overlays.default
   ];
 };
 ```
@@ -84,7 +84,7 @@ with import <nixpkgs> {
   overlays = [
     (import (builtins.fetchTarball {
       url = "https://github.com/m15a/nixpkgs-vim-extra-plugins/archive/main.tar.gz";
-    })).overlay
+    })).overlays.default
   ];
 };
 ```
