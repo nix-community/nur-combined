@@ -367,6 +367,7 @@ lib.makeScope newScope (
     osm2geojson = callPackage ./osm/osm2geojson { };
     osmcoastline = callPackage ./osm/osmcoastline { };
     osmdbt = callPackage ./osm/osmdbt { };
+    osmium-surplus = callPackage ./osm/osmium-surplus { };
     osmosis = callPackage ./osm/osmosis { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
     phyghtmap = callPackage ./osm/phyghtmap { };
