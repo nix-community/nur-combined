@@ -20,6 +20,8 @@
 
   autodiff = pkgs.callPackage ./pkgs/autodiff { };
 
+  berserk = pkgs.callPackage ./pkgs/berserk { };
+
   cmake-init = pkgs.python39Packages.callPackage ./pkgs/cmake-init { };
 
   cmaketools = pkgs.python39Packages.callPackage ./pkgs/cmaketools { };
