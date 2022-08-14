@@ -7,28 +7,12 @@ tcl.mkTclDerivation rec {
   src = fetchFromGitHub {
     owner = "benini";
     repo = "scid";
-    rev = "v${version}";
-    sha256 = "sha256-7uRshBTNjNea9PRPgnkF+fDHec0V6DDJ8h1llguXqq0=";
+    rev = "5a1e3dbfd36529a52cb90004ac4fa4a1b6bbb60e";
+    sha256 = "sha256-iXNqDLgMBg0Gtupvji+YoXTIBYvdpACVJf19y+dlWNA=";
   };
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ tk libX11 zlib ];
-
-  prePatch = ''
-    sed -i -e '/^ *set headerPath *{/a ${tcl}/include ${tk}/include' \
-           -e '/^ *set libraryPath *{/a ${tcl}/lib ${tk}/lib' \
-           -e '/^ *set x11Path *{/a ${libX11}/lib/' \
-           configure
-  '';
-
-  configureFlags = [
-    "BINDIR=$(out)/bin"
-    "SHAREDIR=$(out)/share"
-  ];
-
-  hardeningDisable = [ "format" ];
-
-  dontPatchShebangs = true;
 
   # TODO: can this use tclWrapperArgs?
   postFixup = ''
@@ -37,12 +21,16 @@ tcl.mkTclDerivation rec {
       wrapProgram "$cmd" \
         --set TK_LIBRARY "${tk}/lib/${tk.libPrefix}"
     done
+    wrapProgram $out/scid/scid \
+        --set TK_LIBRARY "${tk}/lib/${tk.libPrefix}" \
+        --set TCLLIBPATH "${tk}/lib/${tk.libPrefix}"
+    ln -s $out/scid/scid $out/bin/
   '';
 
   meta = {
     description = "Chess database with play and training functionality";
     maintainers = with lib.maintainers; [ agbrooks ];
-    homepage = "http://scid.sourceforge.net/";
-    license = lib.licenses.gpl2;
+    homepage = "https://github.com/benini/scid";
+    license = lib.licenses.gpl2Only;
   };
 }
