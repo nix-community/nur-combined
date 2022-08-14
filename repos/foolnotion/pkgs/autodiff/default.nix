@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
     homepage = "https://autodiff.github.io/";
     license = licenses.mit;
     platforms = platforms.all;
+    broken = true; # marked broken because it requires a cmake version that is not available on 21.11
     #maintainers = with maintainers; [ foolnotion ];
   };
 }
