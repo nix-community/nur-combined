@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     owner = "rvaiya";
     repo = "keyd";
     rev = "v" + version;
-    hash = "sha256-nQyvnZuGD8XmltKQDifbo2u8AOIHsyI58+mN9sGAy28=";
+    hash = "sha256-QWr+xog16MmybhQlEWbskYa/dypb9Ld54MOdobTbyMo=";
   };
 
   postPatch = ''
@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
       --replace DESTDIR= DESTDIR=${placeholder "out"} \
       --replace /usr "" \
       --replace /var/log/keyd.log /var/log/keyd/keyd.log
+
     substituteInPlace keyd.service \
       --replace /usr/bin $out/bin
   '';
