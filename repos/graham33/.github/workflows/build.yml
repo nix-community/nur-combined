@@ -34,16 +34,14 @@ jobs:
         cachixName:
           - graham33
         nixPath:
-          - nixpkgs=channel:nixos-unstable
-          # TODO: reinstate once nixos-unstable in sync
-          #- nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixpkgs-unstable
           #- nixpkgs=channel:nixos-21.11
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2.4.0
     - name: Install nix
-      uses: cachix/install-nix-action@v16
+      uses: cachix/install-nix-action@v17
       with:
         nix_path: "${{ matrix.nixPath }}"
         # nix 2.6 breaks restrict-eval, when using the NIX_PATH
