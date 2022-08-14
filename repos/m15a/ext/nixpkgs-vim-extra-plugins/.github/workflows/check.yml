@@ -26,11 +26,13 @@ jobs:
     name: Check builds in nixpkgs-unstable
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
       - uses: cachix/install-nix-action@v17
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/cachix-action@v10
+        with:
+          name: nixpkgs-vim-extra-plugins
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - run: |
           nix flake check --update-input nixpkgs

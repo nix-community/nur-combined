@@ -11,8 +11,6 @@ let
     meta = old.meta // { inherit broken; };
   }))
   {
-    alpha-nvim = true;
-
     go-nvim = true;
 
     highlight-current-n-nvim = true;
@@ -26,8 +24,6 @@ let
     vgit-nvim = true;
 
     unruly-worker = true;
-
-    zen-mode-nvim = true;
   };
 
   /*
@@ -41,8 +37,6 @@ let
     ariake-vim-colors = [ mit ];
 
     bats-vim = [ vim ];
-
-    bullets-vim = [ mit ];
 
     christmas-vim = [ mit ];
 
@@ -59,8 +53,6 @@ let
     nvim-cartographer = [ gpl3Plus ];
 
     nvim-deus = [ gpl3Plus ];
-
-    nvim-luapad = [ gpl3Only ];
 
     nvim-pqf = [ mpl20 ];
 
@@ -98,29 +90,15 @@ let
     inherit dependencies;
   })) (with final.vimPlugins;
   {
-    alpha-nvim = [ nvim-web-devicons ];
-
     apprentice-nvim = [ lush-nvim ];
 
     auto-pandoc-nvim = [ plenary-nvim ];
-
-    cmp-git = [ nvim-cmp plenary-nvim ];
-
-    cmp-npm = [ nvim-cmp plenary-nvim ];
-
-    cmp-nvim-ultisnips = [ nvim-cmp ];
-
-    cmp-rg = [ nvim-cmp ];
 
     code-runner-nvim = [ plenary-nvim ];
 
     codeschool-nvim = [ lush-nvim ];
 
-    coq-nvim = [ nvim-lspconfig ];
-
     express-line-nvim = [ plenary-nvim ];
-
-    flutter-tools-nvim = [ plenary-nvim ];
 
     follow-md-links-nvim = [ nvim-treesitter ];
 
@@ -148,11 +126,7 @@ let
 
     neogen = [ nvim-treesitter ];
 
-    neorg = [ plenary-nvim ];
-
     nlsp-settings-nvim = [ nvim-lspconfig ];
-
-    nvim-biscuits = [ nvim-treesitter ];
 
     nvim-comment-frame = [ nvim-treesitter ];
 
@@ -180,17 +154,11 @@ let
 
     nvim-ts-context-commentstring = [ nvim-treesitter ];
 
-    octo-nvim = [ nvim-web-devicons telescope-nvim ];
-
     one-small-step-for-vimkind = [ nvim-dap ];
 
     onebuddy = [ colorbuddy-nvim ];
 
-    orgmode = [ nvim-treesitter ];
-
     reaper-nvim = [ self.osc-nvim ];
-
-    rest-nvim = [ plenary-nvim ];
 
     sqls-nvim = [ nvim-lspconfig ];
 
@@ -207,8 +175,6 @@ let
     telescope-heading-nvim = [ telescope-nvim ];
 
     telescope-tmuxinator-nvim = [ telescope-nvim ];
-
-    telescope-zoxide = [ telescope-nvim ];
 
     vacuumline-nvim = [ galaxyline-nvim ];
 
@@ -241,8 +207,186 @@ let
     project-nvim
     renamer-nvim
     surround-nvim
+    nvim-neoclip-lua
+    nvcode-color-schemes-vim
+    cmp-npm
+    nightfox-nvim
+    nvim-highlite
+    lean-nvim
+    galaxyline-nvim
+    rest-nvim
+    aniseed
+    conjure
+    nvim-base16
+    vim-illuminate
+    nvim-lsputils
+    one-nvim
+    harpoon
+    vim-apm
+    neogit
+    scrollbar-nvim
+    bufferline-nvim
+    flutter-tools-nvim
+    luatab-nvim
+    nordic-nvim
+    presence-nvim
+    urlview-nvim
+    SchemaStore-nvim
+    kommentary
+    snap
+    marks-nvim
+    coc-svelte
+    nvim-biscuits
+    nvim-snippy
+    bullets-vim
+    nvim-scrollview
+    specs-nvim
+    gruvbox-nvim
+    nvim-lastplace
+    vim-svelte
+    git-blame-nvim
+    cmp-spell
+    bufdelete-nvim
+    falcon
+    lsp-colors-nvim
+    todo-comments-nvim
+    tokyonight-nvim
+    trouble-nvim
+    twilight-nvim
+    which-key-nvim
+    zen-mode-nvim
+    wilder-nvim
+    nvim-jqx
+    nvim-peekup
+    fzf-lsp-nvim
+    lightspeed-nvim
+    copilot-vim
+    dashboard-nvim
+    zephyr-nvim
+    alpha-nvim
+    editorconfig-nvim
+    cmp-buffer
+    cmp-nvim-lsp
+    cmp-nvim-lua
+    cmp-path
+    nvim-cmp
+    coc-tailwindcss
+    fzf-lua
+    nvim-solarized-lua
+    fidget-nvim
+    venn-nvim
+    nterm-nvim
+    nvim-lsp-ts-utils
+    telescope-zoxide
+    neoscroll-nvim
+    lazygit-nvim
+    tabline-nvim
+    nvim-bqf
+    nvim-hlslens
+    rnvimr
+    nvim-config-local
+    nvim-lightbulb
+    substrata-nvim
+    nvim-tree-lua
+    nvim-web-devicons
+    gitsigns-nvim
+    spellsitter-nvim
+    cmp-rg
+    cmp-under-comparator
+    indent-blankline-nvim
+    stabilize-nvim
+    material-nvim
+    better-escape-nvim
+    jellybeans-nvim
+    nvim-dap
+    nvim-lint
+    formatter-nvim
+    oceanic-next
+    zk-nvim
+    numb-nvim
+    nvim-lspconfig
+    nvim-terminal-lua
+    snippets-nvim
+    FTerm-nvim
+    Navigator-nvim
+    lsp-status-nvim
+    plenary-nvim
+    popup-nvim
+    lualine-nvim
+    neorg
+    orgmode
+    telescope-media-files-nvim
+    telescope-nvim
+    nvim-treesitter
+    nvim-treesitter-textobjects
+    neuron-nvim
+    onedarkpro-nvim
+    diaglist-nvim
+    nvim-ts-rainbow
+    cmp-git
+    hop-nvim
+    octo-nvim
+    cmp-nvim-ultisnips
+    neon
+    nvim-luapad
+    aurora
+    cmp-dap
+    nvim-dap-ui
+    nvim-notify
+    vim-ultest
+    hotpot-nvim
+    lush-nvim
+    auto-session
+    goto-preview
+    barbar-nvim
+    gitlinker-nvim
+    edge
+    everforest
+    gruvbox-material
+    sonokai
+    nvim-gdb
+    neoformat
+    nvim-metals
+    nord-nvim
+    rust-tools-nvim
+    symbols-outline-nvim
+    diffview-nvim
+    winshift-nvim
+    aerial-nvim
+    dressing-nvim
+    cheatsheet-nvim
+    Shade-nvim
+    lir-nvim
+    nvim-comment
+    colorbuddy-nvim
+    nlua-nvim
+    train-nvim
+    vim-code-dark
+    registers-nvim
+    cmp-fuzzy-buffer
+    cmp-fuzzy-path
+    # NOTE: `nix flake check` fails since tabline is unfree package.
+    # cmp-tabnine
+    nvim-fzf
+    package-info-nvim
+    packer-nvim
+    nvim-code-action-menu
+    nvim-autopairs
+    range-highlight-nvim
+    nvim-cursorline
+    nvim-nonicons
+    vim-printer
     ;
-  };
+  } // (with final.vimPlugins; {
+    # FIXME: error: Alias TrueZen-nvim is still in vim-plugins
+    # true-zen-nvim = TrueZen-nvim;
+    coq-nvim = coq_nvim;
+    nvim-context-vt = nvim_context_vt;
+    cmp-luasnip = cmp_luasnip;
+    lsp-lines-nvim = lsp_lines-nvim;
+    lsp-extensions-nvim = lsp_extensions-nvim;
+    lsp-signature-nvim = lsp_signature-nvim;
+  });
 
   /*
    * Add other overrides here.
@@ -284,13 +428,6 @@ let
             -e 's@(get_command\(string\.format\(")mkdir@\1${final.coreutils}/bin/mkdir@' \
             -e 's@(get_command\(string\.format\(")rm@\1${final.coreutils}/bin/rm@' \
             -e 's@(2>&1; )echo@\1${final.coreutils}/bin/echo@'
-      '';
-    });
-
-    rest-nvim = super.rest-nvim.overrideAttrs (old: {
-      postPatch = (old.postPatch or "") + ''
-        sed -Ei lua/rest-nvim/curl/init.lua \
-            -e 's@(vim\.fn\.system\s*\(\s*")jq(")@\1${final.jq}/bin/jq\2@'
       '';
     });
 

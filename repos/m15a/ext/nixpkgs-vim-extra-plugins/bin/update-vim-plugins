@@ -84,6 +84,105 @@
     sha256))
 
 ;;; ------------------------------------------------------------------------------------------------
+;;; Manifest spec parser
+
+(local manifest {})
+
+(set manifest.__index manifest)
+
+(set manifest.spec {})
+
+(fn manifest.spec.decode [line]
+  "Parse string as manifest spec line and return table containing spec properties."
+  (let [space (^ lpeg.space 0)
+        repo-identifier (^ (+ lpeg.alnum (lpeg.S "_.-")) 1)
+        ;; This is not exactly correct; see https://git-scm.com/docs/git-check-ref-format
+        gitref-identifier (^ (+ lpeg.alnum (lpeg.S "@/_.-{}")) 1)
+        attr-identifier (* (+ lpeg.alpha (lpeg.S "_"))
+                           (^ (+ lpeg.alnum (lpeg.S "_-")) 0))
+        repo-type (lpeg.Cg (+ (lpeg.P :github)
+                              (lpeg.P :gitlab)
+                              (lpeg.P :sourcehut))
+                           :type)
+        owner (lpeg.Cg repo-identifier
+                       :owner)
+        name (lpeg.Cg repo-identifier
+                      :name)
+        full-name (* owner space (lpeg.S "/") space name)
+        gitref (lpeg.Cg ( + gitref-identifier (lpeg.P ""))
+                        :gitref)
+        rename (lpeg.Cg attr-identifier
+                        :rename)
+        parser (lpeg.Ct (* space
+                           (^ (* repo-type space (lpeg.S ":")) -1)
+                           space
+                           full-name
+                           space
+                           (^ (*  (lpeg.S ":") space gitref) -1)
+                           space
+                           (^ (* (lpeg.S ":") space rename) -1)
+                           space
+                           (lpeg.P -1)))]
+    (match (parser:match line)
+      result {:type (or result.type :github)
+              :full-name (.. result.owner "/" result.name)
+              :branch (when (and result.gitref (not= result.gitref ""))
+                        result.gitref)
+              :rename result.rename}
+      _ (error (string.format "invalid manifest spec: %s" line)))))
+
+(fn manifest.spec.encode [spec]
+  "Encode table of spec properties to manifest spec line."
+  (.. (if (and spec.type (not= spec.type :github))
+          (string.format "%s:" spec.type)
+          "")
+      spec.full-name
+      (if (and spec.branch spec.rename)
+          (string.format ":%s:%s" spec.branch spec.rename)
+          (and spec.branch (not spec.rename))
+          (string.format ":%s" spec.branch)
+          (and (not spec.branch) spec.rename)
+          (string.format "::%s" spec.rename)
+          "")))
+
+(fn manifest.spec.format [line]
+  "Format manifest spec line."
+  (-> line
+      (manifest.spec.decode)
+      (manifest.spec.encode)))
+
+(fn manifest.lint [self]
+  "Sort specs, remove duplicated specs, format specs, etc."
+  (let [specs (table.unique (icollect [_ line (ipairs self.specs)]
+                              (manifest.spec.format line)))]
+    (table.sort specs
+                (fn [left right]
+                  (< (string.gsub left "^[^/]+:" "")
+                     (string.gsub right "^[^/]+:" ""))))
+    (set self.specs specs)))
+
+(fn manifest.changed? [self]
+  "Return true if manifest specs are changed since its loaded time."
+  (not= self.origin
+        (table.concat self.specs "\n")))
+
+(fn manifest.load [file]
+  "Load manifest from file (default: `manifest.txt`)."
+  (let [file (or file "manifest.txt")
+        specs (icollect [spec (io.lines file)] spec)
+        obj {: file
+             : specs
+             :origin (table.concat specs "\n")}]
+    (setmetatable obj manifest)))
+
+(fn manifest.save [self]
+  "Save manifest to its file."
+  (when (self:changed?)
+    (with-open [buf (io.open self.file :w)]
+      (buf:write (.. (table.concat self.specs "\n") "\n")))
+    (io.stderr:write (string.format "%s: manifest saved to %s\n" (program-name) self.file))))
+
+;;; ------------------------------------------------------------------------------------------------
 ;;; Nixpkgs helpers
 
 (local nixpkgs {})
@@ -106,15 +205,39 @@
              :wtfpl "wtfpl"}]
     (. map github-license.key)))
 
+(fn nixpkgs.decode-row-in-vim-plugins-names [row]
+  "Parse row in `vim-plugin-names` CSV file and return its spec in the format of this repo."
+  (match (row:match "^https://([^/]+)%.com/([^/]+/[^/]+)/?,([^,]*),([^,]*)$")
+    (repo-type repo-full-name branch rename)
+    (manifest.spec.encode {:type repo-type
+                           :full-name repo-full-name
+                           :branch (when (and (not= branch "")
+                                              (not= branch "HEAD"))
+                                     branch)
+                           :rename (when (not= rename "")
+                                     rename)})
+    _ (match (row:match "^https://[^/]*sr%.ht/~([^/]+/[^/]+)/?,([^,]*),([^,]*)$")
+        (repo-full-name branch rename)
+        (manifest.spec.encode {:type :sourcehut
+                               :full-name repo-full-name
+                               :branch (when (and (not= branch "")
+                                                  (not= branch "HEAD"))
+                                         branch)
+                               :rename (when (not= rename "")
+                                         rename)})
+        _ nil)))
+
 (fn nixpkgs.get-vim-plugins-manifest [channel]
   "Fetch manifest of official nixpkgs vim plugins."
   (let [channel (or channel "nixpkgs-unstable")
         path "/pkgs/applications/editors/vim/plugins/vim-plugin-names"
         url (string.format "https://raw.githubusercontent.com/NixOS/nixpkgs/%s%s" channel path)
-        specs (: (http.get url) :split)]
+        rows (: (http.get url) :split)]
     ;; Return it as a map from spec to bool for later convenience.
-    (collect [_ spec (ipairs specs)]
-      spec true)))
+    (collect [_ row (ipairs rows)]
+      (let [spec (nixpkgs.decode-row-in-vim-plugins-names row)]
+        (when spec
+          (values spec true))))))
 
 ;;; ------------------------------------------------------------------------------------------------
 ;;; GitHub helpers
@@ -342,105 +465,6 @@
             (string.format "%s:%s" :sourcehut full-name))))))
 
 ;;; ------------------------------------------------------------------------------------------------
-;;; Manifest spec parser
-
-(local manifest {})
-
-(set manifest.__index manifest)
-
-(set manifest.spec {})
-
-(fn manifest.spec.decode [line]
-  "Parse string as manifest spec line and return table containing spec properties."
-  (let [space (^ lpeg.space 0)
-        repo-identifier (^ (+ lpeg.alnum (lpeg.S "_.-")) 1)
-        ;; This is not exactly correct; see https://git-scm.com/docs/git-check-ref-format
-        gitref-identifier (^ (+ lpeg.alnum (lpeg.S "@/_.-{}")) 1)
-        attr-identifier (* (+ lpeg.alpha (lpeg.S "_"))
-                           (^ (+ lpeg.alnum (lpeg.S "_-")) 0))
-        repo-type (lpeg.Cg (+ (lpeg.P :github)
-                              (lpeg.P :gitlab)
-                              (lpeg.P :sourcehut))
-                           :type)
-        owner (lpeg.Cg repo-identifier
-                       :owner)
-        name (lpeg.Cg repo-identifier
-                      :name)
-        full-name (* owner space (lpeg.S "/") space name)
-        gitref (lpeg.Cg ( + gitref-identifier (lpeg.P ""))
-                        :gitref)
-        rename (lpeg.Cg attr-identifier
-                        :rename)
-        parser (lpeg.Ct (* space
-                           (^ (* repo-type space (lpeg.S ":")) -1)
-                           space
-                           full-name
-                           space
-                           (^ (*  (lpeg.S ":") space gitref) -1)
-                           space
-                           (^ (* (lpeg.S ":") space rename) -1)
-                           space
-                           (lpeg.P -1)))]
-    (match (parser:match line)
-      result {:type (or result.type :github)
-              :full-name (.. result.owner "/" result.name)
-              :branch (when (and result.gitref (not= result.gitref ""))
-                        result.gitref)
-              :rename result.rename}
-      _ (error (string.format "invalid manifest spec: %s" line)))))
-
-(fn manifest.spec.encode [spec]
-  "Encode table of spec properties to manifest spec line."
-  (.. (if (and spec.type (not= spec.type :github))
-          (string.format "%s:" spec.type)
-          "")
-      spec.full-name
-      (if (and spec.branch spec.rename)
-          (string.format ":%s:%s" spec.branch spec.rename)
-          (and spec.branch (not spec.rename))
-          (string.format ":%s" spec.branch)
-          (and (not spec.branch) spec.rename)
-          (string.format "::%s" spec.rename)
-          "")))
-
-(fn manifest.spec.format [line]
-  "Format manifest spec line."
-  (-> line
-      (manifest.spec.decode)
-      (manifest.spec.encode)))
-
-(fn manifest.lint [self]
-  "Sort specs, remove duplicated specs, format specs, etc."
-  (let [specs (table.unique (icollect [_ line (ipairs self.specs)]
-                              (manifest.spec.format line)))]
-    (table.sort specs
-                (fn [left right]
-                  (< (string.gsub left "^[^/]+:" "")
-                     (string.gsub right "^[^/]+:" ""))))
-    (set self.specs specs)))
-
-(fn manifest.changed? [self]
-  "Return true if manifest specs are changed since its loaded time."
-  (not= self.origin
-        (table.concat self.specs "\n")))
-
-(fn manifest.load [file]
-  "Load manifest from file (default: `manifest.txt`)."
-  (let [file (or file "manifest.txt")
-        specs (icollect [spec (io.lines file)] spec)
-        obj {: file
-             : specs
-             :origin (table.concat specs "\n")}]
-    (setmetatable obj manifest)))
-
-(fn manifest.save [self]
-  "Save manifest to its file."
-  (when (self:changed?)
-    (with-open [buf (io.open self.file :w)]
-      (buf:write (.. (table.concat self.specs "\n") "\n")))
-    (io.stderr:write (string.format "%s: manifest saved to %s\n" (program-name) self.file))))
-
-;;; ------------------------------------------------------------------------------------------------
 ;;; Cache of previous updating
 
 (local cache {})
@@ -641,7 +665,7 @@
           (and (not (. whitelist spec))
                (. official-manifest spec))
           (do (io.stderr:write
-                (string.format "%s: %s is provided by official\n" (program-name) spec))
+                (string.format "%s: %s is provided by the official nixpkgs\n" (program-name) spec))
               (when (not force?)
                 (table.insert specs spec)))
           (table.insert specs spec)))
