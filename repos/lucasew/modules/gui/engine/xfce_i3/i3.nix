@@ -50,14 +50,6 @@ in {
       brightnessctl
     ];
   };
-  systemd.user.services.nm-applet = {
-    path = with pkgs; [ networkmanagerapplet ];
-    script = "nm-applet";
-  };
-  systemd.user.services.blueberry-tray = {
-    path = with pkgs; [ blueberry ];
-    script = "blueberry-tray; while true; do sleep 3600; done";
-  };
   environment.etc."i3config".text = lib.mkForce ''
 set $mod ${mod}
 
