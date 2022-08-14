@@ -19,7 +19,7 @@ in {
     '';
     config = mkOption {
       type = types.nullOr types.attrs;
-      default = {};
+      default = null;
     };
     postswitch = mkOption {
       type = types.nullOr types.str;
@@ -75,7 +75,7 @@ in {
           postswitch = {
             xrdb = ''
               case "$AUTORANDR_CURRENT_PROFILE" in
-                laptop|integer)
+                integer)
                   DPI=96
                   SIZE=16
                   ;;
@@ -83,6 +83,12 @@ in {
                   DPI=144
                   SIZE=32
                   ;;
+            '' + optionalString (cfg.config != null) ''
+                  laptop)
+                    DPI=${toString cfg.config.dpi}
+                    SIZE=${toString cfg.config.size}
+                    ;;
+            '' + ''
                 *)
                   echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
                   exit 1

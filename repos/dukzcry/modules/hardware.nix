@@ -61,6 +61,8 @@ in {
           enable = true;
           mode = "1920x1080";
         };
+        dpi = 96;
+        size = 16;
       };
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
