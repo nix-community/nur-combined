@@ -9,3 +9,4 @@ else
   cat "$BETTERDISCORD_CSS_TEMPLATE" | colorpipe > ~/.config/BetterDiscord/data/stable/custom.css
 fi
 
+$DRY_RUN_CMD betterdiscordctl install || true

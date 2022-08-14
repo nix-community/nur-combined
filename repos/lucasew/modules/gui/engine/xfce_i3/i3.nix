@@ -46,11 +46,17 @@ in {
       playerctl
       custom.rofi
       pulseaudio
-      networkmanagerapplet
       feh
-      blueberry
       brightnessctl
     ];
+  };
+  systemd.user.services.nm-applet = {
+    path = with pkgs; [ networkmanagerapplet ];
+    script = "nm-applet";
+  };
+  systemd.user.services.blueberry-tray = {
+    path = with pkgs; [ blueberry ];
+    script = "blueberry-tray; while true; do sleep 3600; done";
   };
   environment.etc."i3config".text = lib.mkForce ''
 set $mod ${mod}
@@ -131,12 +137,11 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
-exec --no-startup-id nm-applet
-# exec --no-startup-id feh --bg-center ~/.background-image
-exec --no-startup-id blueberry-tray
-exec_always systemctl restart --user polybar.service
+
 # exec_always feh --bg-fill --no-xinerama --no-fehbg '/etc/wallpaper'
 exec_always feh --bg-fill --no-fehbg '/etc/wallpaper'
+
+exec_always systemctl restart --user polybar.service nm-applet.service blueberry-tray.service
 
 default_border pixel 2
 hide_edge_borders smart
