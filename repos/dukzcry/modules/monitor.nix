@@ -31,6 +31,7 @@ in {
     (mkIf cfg.enable {
       services.ddccontrol.enable = true;
       hardware.i2c.enable = true;
+      environment.systemPackages = with pkgs; [ ddcutil ];
     })
     (mkIf (cfg.enable && config.services.xserver.enable) {
       services.autorandr = {
