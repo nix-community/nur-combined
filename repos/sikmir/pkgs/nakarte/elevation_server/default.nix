@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildGoPackage, lz4 }:
+{ lib, stdenv, fetchFromGitHub, buildGoPackage, lz4 }:
 
 buildGoPackage rec {
   pname = "elevation_server";
@@ -6,7 +6,7 @@ buildGoPackage rec {
 
   src = fetchFromGitHub {
     owner = "wladich";
-    repo = pname;
+    repo = "elevation_server";
     rev = version;
     hash = "sha256-2mpBboPKIV+Wm2p3FHy3a+6H3+qJUOu2+F28MufzBwU=";
   };
@@ -25,5 +25,6 @@ buildGoPackage rec {
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin;
   };
 }
