@@ -2,23 +2,29 @@
 
 buildGoModule rec {
   pname = "astronaut";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
-    repo = pname;
+    repo = "astronaut";
     rev = version;
-    hash = "sha256-42n7XB7hJcuB7vvWB2chUUWFyZQkRTsdUnqEloU22GU=";
+    hash = "sha256-eiUStCM9rJB4O+LVWxih6untjTPynj9cHX2b8Gz9/nQ=";
   };
 
   nativeBuildInputs = [ scdoc ];
 
   vendorSha256 = "sha256-7SyawlfJ9toNVuFehGr5GQF6mNmS9E4kkNcqWllp8No=";
 
-  installPhase = ''
-    runHook preInstall
-    make PREFIX=$out install
-    runHook postInstall
+  ldflags = [ "-X main.ShareDir=${placeholder "out"}/share/astronaut" ];
+
+  postBuild = ''
+    scdoc < docs/astronaut.1.scd > docs/astronaut.1
+  '';
+
+  postInstall = ''
+	install -Dm644 docs/astronaut.1 $out/share/man/man1/astronaut.1
+	install -Dm644 config/astronaut.conf $out/share/astronaut/astronaut.conf
+	install -Dm644 config/style.conf $out/share/astronaut/style.conf
   '';
 
   meta = with lib; {

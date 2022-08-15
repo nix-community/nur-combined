@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "stargazer";
-  version = "1.0.2";
+  version = "1.0.3";
 
   src = fetchFromSourcehut {
     owner = "~zethra";
-    repo = pname;
+    repo = "stargazer";
     rev = version;
-    hash = "sha256-uTGLqgf0BLeZXf6msn7teZEmhgvtvzcjmcHDU1mlSjo=";
+    hash = "sha256-Xf3nclb+qYNADzPv878DLut1PeDIAZPaiTi1yFeSz2k=";
   };
 
-  cargoHash = "sha256-6VPvrGfcBRFGmUMMLPQXbCKqQmGjGbyG4Ogh0ZuEti0=";
+  cargoHash = "sha256-iHh5s046sZI3/KGUgvIVADzA6AceOVfe9d5RJPWy8o0=";
 
   nativeBuildInputs = [ scdoc ];
 

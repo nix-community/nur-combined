@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gplaces";
-  version = "2022-04-14";
+  version = "0.16.27";
 
   src = fetchFromGitHub {
     owner = "dimkr";
-    repo = pname;
-    rev = "439f5e856c7aa6d1664e4d381623e5ec3d845980";
-    hash = "sha256-1ckdpG1VwI7kmbc36NePDsBOPe6scNZY6QTHbgqQBFA=";
+    repo = "gplaces";
+    rev = "v${version}";
+    hash = "sha256-mC45OsDb1+qE8cYhuNsSwLEvOXjui33ENC3eYviyLyk=";
     fetchSubmodules = true;
   };
 
