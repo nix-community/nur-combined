@@ -1,8 +1,7 @@
 {pkgs, lib, ...}: 
 with pkgs.custom.colors.colors;
 let
-
-  inherit (pkgs.custom) rofi;
+  custom_rofi = pkgs.custom.rofi.override { inherit (pkgs.custom) colors; };
   inherit (pkgs) writeShellScript makeDesktopItem;
   mod = "Mod4";
   modn = writeShellScript "modn" ''
@@ -37,14 +36,14 @@ in {
   environment.systemPackages = with pkgs; [
     xfce.xfce4-xkb-plugin
     lockerSpace
-    custom.rofi
+    custom_rofi
   ];
   services.xserver.windowManager.i3 = {
     enable = true;
     configFile = "/etc/i3config";
     extraPackages = with pkgs; [
       playerctl
-      custom.rofi
+      custom_rofi
       pulseaudio
       feh
       brightnessctl
