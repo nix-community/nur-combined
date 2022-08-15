@@ -3,7 +3,7 @@
   SF-Pro = (pkgs.callPackage ./common.nix {
     name = "SF-Pro";
     fontName = "SF Pro Fonts";
-    sha256 = "sha256-g/SzgU3vOzm8uRuA6AN/N8Tnrl2Vpya58hx99dGfecI=";
+    sha256 = "sha256-o1Zis9kymOicTyDdTPGON2A5LNpDbgOD1XtyQOdxc0M=";
   });
   SF-Compact = (pkgs.callPackage ./common.nix {
     name = "SF-Compact";
