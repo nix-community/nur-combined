@@ -9,6 +9,14 @@
         type = "gem";
         version = "0.4.2";
       };
+    mail = buildRubyGem {
+      inherit ruby;
+      pname = "mail";
+      gemName = "mail";
+      source.sha256 = "00wwz6ys0502dpk8xprwcqfwyf3hmnx6lgxaiq6vj43mkx43sapc";
+      type = "gem";
+      version = "2.7.1";
+    };
   in vimUtils.buildVimPlugin {
     pname = "notmuch-vim";
     version = "2018-08-23";
