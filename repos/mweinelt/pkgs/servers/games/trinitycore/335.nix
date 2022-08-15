@@ -1,9 +1,9 @@
 { callPackage, pkgs, ... } @ args:
 
 callPackage ./generic.nix (args // {
-  version = "TDB335.22041";
-  commit = "c0a120669dafe0688e6b7fc1e487e3dfd6220087";
+  version = "TDB335.22081";
+  commit = "c04fe4974b9403f555d0d405aa4d3f4f1f02eb65";
   branch = "3.3.5";
-  sha256 = "sha256-UOkfEYVVruJgn8zsZzu/A9Srb0uXRkvnshTo2+5vW3U=";
+  sha256 = "sha256-rKIjUNofQbRNA0x4CZ0rv/tl17yA8CCjnMrp1Y93d44=";
   boost = pkgs.boost17x;
 })
