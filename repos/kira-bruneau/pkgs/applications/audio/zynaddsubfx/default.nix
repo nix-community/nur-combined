@@ -15,7 +15,7 @@
 , zlib
 
   # Optional dependencies
-, alsaSupport ? stdenv.hostPlatform.isLinux
+, alsaSupport ? stdenv.isLinux
 , alsa-lib
 , dssiSupport ? false
 , dssi
@@ -27,7 +27,7 @@
 , ossSupport ? true
 , portaudioSupport ? true
 , portaudio
-, sndioSupport ? stdenv.hostPlatform.isOpenBSD
+, sndioSupport ? stdenv.isOpenBSD
 , sndio
 
   # Optional GUI dependencies
@@ -70,7 +70,7 @@ in stdenv.mkDerivation rec {
   outputs = [ "out" "doc" ];
 
   postPatch = ''
-    patchShebangs .
+    patchShebangs rtosc/test/test-port-checker.rb src/Tests/check-ports.rb
     substituteInPlace src/Misc/Config.cpp --replace /usr $out
   '';
 
@@ -113,7 +113,9 @@ in stdenv.mkDerivation rec {
   '';
 
   # Use Zyn-Fusion logo for zest build
-  # Manually derived from https://github.com/mruby-zest/mruby-zest-build/blob/3.0.6/src/mruby-zest/example/ZynLogo.qml#L65-L97
+  # An SVG version of the logo isn't hosted anywhere we can fetch, I
+  # had to manually derive it from the code that draws it in-app:
+  # https://github.com/mruby-zest/mruby-zest-build/blob/3.0.6/src/mruby-zest/example/ZynLogo.qml#L65-L97
   postInstall = lib.optionalString (guiModule == "zest") ''
     rm -r "$out/share/pixmaps"
     mkdir -p "$out/share/icons/hicolor/scalable/apps"
@@ -142,6 +144,12 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ goibhniu kira-bruneau ];
     platforms = platforms.all;
+
+    # On macOS:
+    # - Tests don't compile (ld: unknown option: --no-as-needed)
+    # - ZynAddSubFX LV2 & VST plugin fail to compile (not setup to use ObjC version of pugl)
+    # - TTL generation crashes (`pointer being freed was not allocated`) for all VST plugins using AbstractFX
+    # - Zest UI fails to start on pulg_setup: Could not open display, aborting.
     broken = stdenv.isDarwin;
   };
 }
