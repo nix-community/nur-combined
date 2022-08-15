@@ -271,10 +271,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.7.9.0";
+      version = "2.8.0.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985765/bypass_paywalls_clean-2.7.9.0.xpi";
-      sha256 = "bafe851f3179462bb2a9a72e3fb7a822771504702900648170ec45a66fa4c723";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3988821/bypass_paywalls_clean-2.8.0.0.xpi";
+      sha256 = "7cc23898d449db059655c1fe3c65b873904a67cea236f14fcd1ef9c7ca963d36";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1940,10 +1940,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.7.0";
+      version = "1.8.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958381/rust_search_extension-1.7.0.xpi";
-      sha256 = "5d9d54a9fc9aa3c6df13a2ca5f4900605030bfb2fe8ce16e2783a67ba53280e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3988745/rust_search_extension-1.8.0.xpi";
+      sha256 = "6068fac8e6f5f3b5cfd5eaefc8baf03d6ab0507d28a7e3dbaa0cbcaa55a390df";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
