@@ -2,22 +2,17 @@
 
 buildGoModule rec {
   pname = "telegabber";
-  version = "1.1.3";
+  version = "1.3.0";
 
   src = fetchFromGitea {
     domain = "dev.narayana.im";
     owner = "narayana";
-    repo = pname;
+    repo = "telegabber";
     rev = "v${version}";
-    hash = "sha256-QGe3sUalYfh1tb2gUDkXw9O0khMg0g8LwGJssDaz5nk=";
+    hash = "sha256-zctfACwvjgSI5EgXEZIRKCM4Jsjj9RtwJMbAq4vWV1M=";
   };
 
-  vendorSha256 = "sha256-rRP3+HVc18VycJazJsmU1WOOo3m4fRLfouywTlXZVr8=";
-
-  postPatch = ''
-    substituteInPlace telegram/utils_test.go \
-      --replace "TestOnlineOfflineAway" "SkipOnlineOfflineAway"
-  '';
+  vendorSha256 = "sha256-bh/+zEfZuk7l0t2didxlCnTObY3ThqsUXI8cD1oVeNk=";
 
   buildInputs = [ openssl tdlib zlib ];
 

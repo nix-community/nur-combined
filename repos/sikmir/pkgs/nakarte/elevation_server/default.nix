@@ -25,6 +25,5 @@ buildGoPackage rec {
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin;
   };
 }

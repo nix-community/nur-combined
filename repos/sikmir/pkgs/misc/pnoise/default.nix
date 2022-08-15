@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "pnoise";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "plottertools";
-    repo = pname;
+    repo = "pnoise";
     rev = version;
-    hash = "sha256-3NoU+7U2Mv+0v7EfEmxoyfdSVSNSH/hM+6nio3rr8tg=";
+    hash = "sha256-JwWzLvgCNSLRs/ToZNFH6fN6VLEsQTmsgxxkugwjA9k=";
   };
 
   postPatch = "sed -i 's/>=.*\"/\"/' setup.py";

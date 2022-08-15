@@ -129,12 +129,16 @@ lib.makeScope newScope (
     ### GEMINI
 
     agunua = callPackage ./gemini/agunua { };
-    astronaut = callPackage ./gemini/astronaut { };
+    astronaut = callPackage ./gemini/astronaut {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     comitium = callPackage ./gemini/comitium { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
     gemget = callPackage ./gemini/gemget { };
-    gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
+    gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
     gemserv = callPackage ./gemini/gemserv {
@@ -211,7 +215,9 @@ lib.makeScope newScope (
     tile-stitch = callPackage ./geospatial/tile-stitch { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
     tpkutils = callPackage ./geospatial/tpkutils { };
-    vt2geojson = callPackage ./geospatial/vt2geojson { };
+    vt2geojson = callPackage ./geospatial/vt2geojson {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     titiler = callPackage ./geospatial/titiler { };
     tilecloud = callPackage ./geospatial/tilecloud { };
 
@@ -269,7 +275,9 @@ lib.makeScope newScope (
     i18n-editor-bin = callPackage ./linguistics/i18n-editor { jre = pkgs.jdk11; };
     lsdreader = callPackage ./linguistics/lsdreader { };
     mikatools = callPackage ./linguistics/mikatools { };
-    odict = callPackage ./linguistics/odict { };
+    odict = callPackage ./linguistics/odict {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     python-hfst = callPackage ./linguistics/python-hfst { };
     pytorchtext = callPackage ./linguistics/pytorchtext { };
     redict = libsForQt5.callPackage ./linguistics/redict { };
@@ -298,7 +306,9 @@ lib.makeScope newScope (
     docx2csv = callPackage ./misc/docx2csv { };
     finalcut = callPackage ./misc/finalcut { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
-    glauth = callPackage ./misc/glauth { };
+    glauth = callPackage ./misc/glauth {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     huami-token = callPackage ./misc/huami-token { };
     imsg-compat = callPackage ./misc/imsg-compat { };
@@ -308,7 +318,9 @@ lib.makeScope newScope (
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
-    musig = callPackage ./misc/musig { };
+    musig = callPackage ./misc/musig {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     o = callPackage ./misc/o { };
@@ -323,7 +335,9 @@ lib.makeScope newScope (
     sdorfehs = callPackage ./misc/sdorfehs { };
     taskcoach = callPackage ./misc/taskcoach { };
     tcvt = callPackage ./misc/tcvt { };
-    telegabber = callPackage ./misc/telegabber { };
+    telegabber = callPackage ./misc/telegabber {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     tlstunnel = callPackage ./misc/tlstunnel { };
     wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
@@ -333,7 +347,9 @@ lib.makeScope newScope (
 
     ### NAKARTE
 
-    elevation_server = callPackage ./nakarte/elevation_server { };
+    elevation_server = callPackage ./nakarte/elevation_server {
+      buildGoPackage = pkgs.buildGo117Package;
+    };
     map-tiler = callPackage ./nakarte/map-tiler {
       python3Packages = pkgs.python39Packages;
     };
