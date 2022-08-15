@@ -14,6 +14,7 @@
     aws-vault
     drawio
     terraformer
+    authenticator
 
     #RANDSTAD
     citrix_workspace
