@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, glibc }:
+{ lib, stdenv, fetchurl, fetchFromGitHub }:
 
 let
   nnueFile = "berserk-70370ef71611.nn";
@@ -14,25 +14,24 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jhonnold";
     repo = "berserk";
-    rev = "${version}";
-    sha256 = "sha256-z3D1mwVpwozXOlWg2+jpO6ZXcl2wWqpk67LGCnqpqZs=";
+    rev = "beddea23b7d27057748ac6765937fe843cbfe076";
+    sha256 = "sha256-ptFJOPrvRwLbG9W3zKMOWSPaGNnksrpYq1qbGG/WjIg=";
   };
 
-  postUnpack = ''
-    sourceRoot+=/src
-    echo ${nnue}
-    cp "${nnue}" "$sourceRoot/networks/${nnueFile}"
+  preConfigure = ''
+    cd src
+    substituteInPlace makefile --replace native x86-64-v3
+    substituteInPlace makefile --replace ": clone-networks" ":"
+    cp ${nnue} networks/${nnueFile}
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    install berserk-${version}* $out/bin/
+    install berserk $out/bin/
+    install networks/${nnueFile} $out/bin/
   '';
 
-  buildInputs = [ glibc.static ];
-  makeFlags = [ "EVALFILE=networks/${nnueFile}" "PREFIX=$(out)"];
-  buildFlags = [ "release" ];
-
+  makeFlags = [ "VERSION=${version}" "PREFIX=$(out)"];
   enableParallelBuilding = true;
 
   meta = with lib; {

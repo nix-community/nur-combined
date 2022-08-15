@@ -42,6 +42,8 @@
 
   keyd = pkgs.callPackage ./pkgs/keyd { };
 
+  koivisto = pkgs.callPackage ./pkgs/koivisto { };
+
   lexy = pkgs.callPackage ./pkgs/lexy { };
 
   linasm = pkgs.callPackage ./pkgs/linasm { };
