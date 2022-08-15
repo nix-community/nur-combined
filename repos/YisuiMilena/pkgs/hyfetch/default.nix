@@ -7,7 +7,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     repo = "hyfetch";
     owner = "hykilpikonna";
-    rev = version;
+    rev = "d31c87796f34bf20ae7de610e57bbc70d1ccd958";
     sha256 = "sha256-8Mp3MV9HVzXzT/W6F/lD34tT0uOgqyydg31PlR3sMUA=";
   };
 
