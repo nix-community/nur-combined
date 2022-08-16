@@ -74,6 +74,25 @@
         },
         "version": "6b57d17d7843412091432d80e1bb6cb4cab38043"
     },
+    "lua-dbus_proxy": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "lua-dbus_proxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "stefano-m",
+            "repo": "lua-dbus_proxy",
+            "rev": "c9253bde3fa5a64261953d1b196c57fabf9f8561",
+            "sha256": "sha256-mf49sgSO3zkeDDyezSr9BmvX2Fah8Hc59eLREP5G+p4=",
+            "type": "github"
+        },
+        "version": "c9253bde3fa5a64261953d1b196c57fabf9f8561"
+    },
     "luakit": {
         "cargoLocks": null,
         "extract": null,
@@ -125,11 +144,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "st-flexipatch",
-            "rev": "bcfa5b9b7f72ef7ef15ac3375bf6ef32b1f04fc2",
-            "sha256": "sha256-qhMH0nZgYE+yf1JNuS1quAVvWs8g+OuxcpBJMmhA7+4=",
+            "rev": "427895a7c2a3704bd8a0c1480a8620ee8507ea81",
+            "sha256": "sha256-DAclljZk+b3/wgCTzmJZ+wGpQG8ujOn/aJt+0mlBNr0=",
             "type": "github"
         },
-        "version": "bcfa5b9b7f72ef7ef15ac3375bf6ef32b1f04fc2"
+        "version": "427895a7c2a3704bd8a0c1480a8620ee8507ea81"
     },
     "taffybar": {
         "cargoLocks": null,

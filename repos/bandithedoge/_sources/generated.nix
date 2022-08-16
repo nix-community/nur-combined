@@ -49,6 +49,17 @@
       sha256 = "sha256-TrhmBJf6RRN1TjAsaK9rI89k7ctmC6IVJynZFYtcuWc=";
     };
   };
+  lua-dbus_proxy = {
+    pname = "lua-dbus_proxy";
+    version = "c9253bde3fa5a64261953d1b196c57fabf9f8561";
+    src = fetchFromGitHub {
+      owner = "stefano-m";
+      repo = "lua-dbus_proxy";
+      rev = "c9253bde3fa5a64261953d1b196c57fabf9f8561";
+      fetchSubmodules = false;
+      sha256 = "sha256-mf49sgSO3zkeDDyezSr9BmvX2Fah8Hc59eLREP5G+p4=";
+    };
+  };
   luakit = {
     pname = "luakit";
     version = "6cac83342bfe87ea57f05b67976f8def814b3934";
@@ -73,13 +84,13 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "bcfa5b9b7f72ef7ef15ac3375bf6ef32b1f04fc2";
+    version = "427895a7c2a3704bd8a0c1480a8620ee8507ea81";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "bcfa5b9b7f72ef7ef15ac3375bf6ef32b1f04fc2";
+      rev = "427895a7c2a3704bd8a0c1480a8620ee8507ea81";
       fetchSubmodules = false;
-      sha256 = "sha256-qhMH0nZgYE+yf1JNuS1quAVvWs8g+OuxcpBJMmhA7+4=";
+      sha256 = "sha256-DAclljZk+b3/wgCTzmJZ+wGpQG8ujOn/aJt+0mlBNr0=";
     };
   };
   taffybar = {

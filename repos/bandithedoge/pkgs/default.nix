@@ -11,6 +11,8 @@ in {
 
   nodePackages = pkgs.lib.recurseIntoAttrs (callPackage' ./nodePackages);
 
+  luaPackages = pkgs.lib.recurseIntoAttrs (callPackage' ./luaPackages);
+
   dmenu-flexipatch = callPackage' ./flexipatch/dmenu.nix;
   dwm-flexipatch = callPackage' ./flexipatch/dwm.nix;
   slock-flexipatch = callPackage' ./flexipatch/slock.nix;

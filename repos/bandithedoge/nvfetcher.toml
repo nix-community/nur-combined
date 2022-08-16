@@ -13,6 +13,10 @@ src.git = "https://github.com/drobilla/zix"
 src.branch = "atomic-ring"
 fetch.github = "drobilla/zix"
 
+[lua-dbus_proxy]
+src.git = "https://github.com/stefano-m/lua-dbus_proxy"
+fetch.github = "stefano-m/lua-dbus_proxy"
+
 # programs
 
 [dwm-flexipatch]
