@@ -10,10 +10,6 @@ in
 stdenvNoCC.mkDerivation rec {
   inherit (sources.phppgadmin) pname version src;
 
-  patches = [
-    ./fix-virtual-class-cannot-instantiate.patch
-  ];
-
   installPhase = ''
     mkdir -p $out
     cp -r * $out/

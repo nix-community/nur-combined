@@ -143,8 +143,8 @@ src.to_pattern = "\\1.\\2.\\3"
 fetch.url = "https://files.phpmyadmin.net/phpMyAdmin/$ver/phpMyAdmin-$ver-all-languages.tar.xz"
 
 [phppgadmin]
-src.github = "phppgadmin/phppgadmin"
-fetch.github = "phppgadmin/phppgadmin"
+src.github = "ReimuHakurei/phppgadmin"
+fetch.github = "ReimuHakurei/phppgadmin"
 
 [qbittorrent-enhanced-edition]
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
