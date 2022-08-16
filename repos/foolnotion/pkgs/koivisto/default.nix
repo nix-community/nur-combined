@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/Luecx/Koivisto";
     description = "A strong open-source C++ chess engine";
-    maintainers = with maintainers; [ foolnotion ];
+    #maintainers = with maintainers; [ foolnotion ];
     platforms = [ "x86_64-linux" "i686-linux" ];
     license = licenses.gpl3Only;
   };
