@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220811.191329";
+      version = "104.0buildid20220815.150936";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987879/francais_language_pack-104.0buildid20220811.191329.xpi";
-      sha256 = "fb13ad47863af85c960a6359251c2386d4df88a3bf9ea2137cfc2b1f62c13321";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3989303/francais_language_pack-104.0buildid20220815.150936.xpi";
+      sha256 = "8cd09d5ec788943ac420c95c86d8f448416e7dc6b79b6f7dc9ebe619421476c1";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1430,10 +1430,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.8";
+      version = "11.4.9";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987465/noscript-11.4.8.xpi";
-      sha256 = "cc240b88226d92088f43b90dbfdcd49bd25168dde55af9f4fdb490eb496b530b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3988352/noscript-11.4.9.xpi";
+      sha256 = "47a740f90258de755b709168c4985d9fc6721ff7f32f9cfc4c7094316cc5f960";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1485,10 +1485,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.10.0";
+      version = "6.12.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956279/okta_browser_plugin-6.10.0.xpi";
-      sha256 = "7b76c0f1117e97f018d202715e5892bf41d94b51c610031450af2cd37c508638";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3989523/okta_browser_plugin-6.12.0.xpi";
+      sha256 = "415983806400cf9f9a9ddf706e2bfd6f822f84faf5f104b0fb62f47b59db1cce";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
