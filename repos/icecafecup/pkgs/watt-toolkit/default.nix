@@ -14,10 +14,10 @@
 
 stdenv.mkDerivation rec {
   pname = "watt-toolkit";
-  version = "2.8.3";
+  version = "2.8.4";
   src = fetchurl {
     url = "https://github.com/BeyondDimension/SteamTools/releases/download/${version}/Steam++_linux_x64_v${version}.tar.zst";
-    sha256 = "sha256-ln1bOiMHhK6eD9uWEywvBcT8ZdNgF/8bQLlwvNmMV/U=";
+    sha256 = "sha256-VDmPp/3ccl3yY7zhMYQhUcSqe83TwZ51x3UeHpo+V9M=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper zstd ];
