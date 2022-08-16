@@ -7,6 +7,8 @@
 , zlib
 , libcxx
 , fontconfig
+, icu
+, openssl
 , ...
 }:
 
@@ -23,6 +25,8 @@ stdenv.mkDerivation rec {
     zlib
     libcxx
     fontconfig
+    icu
+    openssl
   ];
 
   unpackPhase = ''
