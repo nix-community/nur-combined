@@ -32,14 +32,6 @@ rec {
         --prefix PATH : "${super.lib.makeBinPath [ super.mpv ]}"
     '';
   });
-  wireless-regdb = if (config.hardware.wifi.enable or false) then pkgs.nur.repos.dukzcry.wireless-regdb else super.wireless-regdb;
-  crda = if (config.hardware.wifi.enable or false) then (super.crda.override {
-    inherit wireless-regdb;
-  }).overrideAttrs (oldAttrs: rec {
-    makeFlags = oldAttrs.makeFlags ++ [
-      "PUBKEY_DIR=${wireless-regdb}/lib/crda/pubkeys"
-    ];
-  }) else super.crda;
   # https://github.com/jellyfin/jellyfin/issues/7642
   jellyfin-ffmpeg = super.jellyfin-ffmpeg.override (optionalAttrs (config.services.jellyfin.enable or false) {
     ffmpeg-full = super.ffmpeg-full.override {
@@ -80,4 +72,14 @@ rec {
         --replace "if (mon->fallback)" "if (0)"
     '';
   });
+} // optionalAttrs (config.hardware.wifi.enable or false) {
+  inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
+  crda = super.crda.override {
+    inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
+  };
+  #}).overrideAttrs (oldAttrs: rec {
+  #  makeFlags = oldAttrs.makeFlags ++ [
+  #    "PUBKEY_DIR=${wireless-regdb}/lib/crda/pubkeys"
+  #  ];
+  #});
 }
