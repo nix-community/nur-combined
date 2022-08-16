@@ -802,10 +802,10 @@
   },
   {
     "name": "reskins-angels",
-    "version": "2.1.3",
-    "file_name": "reskins-angels_2.1.3.zip",
-    "download_url": "/download/reskins-angels/6249e3f9cb6db3f08afba56c",
-    "sha1": "c2b9d9b669f9c0c0571c830282d4ac31b927d102",
+    "version": "2.1.4",
+    "file_name": "reskins-angels_2.1.4.zip",
+    "download_url": "/download/reskins-angels/62f99b1dc1c4ebbb21a19006",
+    "sha1": "9055f12485b10a4cd613cb30e0e6c13215fa1730",
     "dependencies": [
       "base",
       "reskins-library >= 2.1.0",
@@ -813,9 +813,9 @@
       "? angelsbioprocessing",
       "? angelsexploration",
       "? angelsindustries",
-      "? angelspetrochem",
-      "? angelsrefining",
-      "? angelssmelting",
+      "? angelspetrochem >= 0.9.21",
+      "? angelsrefining >= 0.12.1",
+      "? angelssmelting >= 0.6.15",
       "(?) angelsaddons-cab",
       "(?) angelsaddons-mobility",
       "(?) angelsaddons-storage"
@@ -823,10 +823,10 @@
   },
   {
     "name": "reskins-bobs",
-    "version": "2.1.3",
-    "file_name": "reskins-bobs_2.1.3.zip",
-    "download_url": "/download/reskins-bobs/6249e3f2f870fdd8ade35bb3",
-    "sha1": "d06a6f67603a77b9779dfb10739bea3f444ef8b5",
+    "version": "2.1.4",
+    "file_name": "reskins-bobs_2.1.4.zip",
+    "download_url": "/download/reskins-bobs/62f99ae5c1c4ebbb21a19005",
+    "sha1": "6358131535f365f6a746f6f4a5fe1903d7a6849e",
     "dependencies": [
       "base",
       "reskins-library >= 2.1.0",
@@ -852,10 +852,10 @@
   },
   {
     "name": "reskins-compatibility",
-    "version": "2.1.2",
-    "file_name": "reskins-compatibility_2.1.2.zip",
-    "download_url": "/download/reskins-compatibility/6249e3d645634948ba15ab44",
-    "sha1": "18d5fb0e909f31153ff3c0bb6f7ab1e6f8425495",
+    "version": "2.1.4",
+    "file_name": "reskins-compatibility_2.1.4.zip",
+    "download_url": "/download/reskins-compatibility/62fb11b951a52c4b87a5eaf4",
+    "sha1": "12e704a7b709336a8e7a65a546a086f47654c656",
     "dependencies": [
       "base",
       "reskins-library >= 2.1.0",
@@ -905,10 +905,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.1.11",
-    "file_name": "reverse-factory_8.1.11.zip",
-    "download_url": "/download/reverse-factory/62f270bb5e868d7134790cc8",
-    "sha1": "0c05d2d8bff5f186f6415f1036fb9a81f7cbc4fa",
+    "version": "8.1.12",
+    "file_name": "reverse-factory_8.1.12.zip",
+    "download_url": "/download/reverse-factory/62f6d8efc19ed12ad1eca772",
+    "sha1": "bdb472e6e27757a98168eb0b96418446c48e9ac9",
     "dependencies": [
       "base",
       "stdlib",
