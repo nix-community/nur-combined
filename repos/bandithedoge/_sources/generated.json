@@ -74,6 +74,25 @@
         },
         "version": "6b57d17d7843412091432d80e1bb6cb4cab38043"
     },
+    "lua-dbus": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "lua-dbus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dodo",
+            "repo": "lua-dbus",
+            "rev": "cdef26d09aa61d7f1f175675040383f6ae0becbb",
+            "sha256": "sha256-S+W6QTqv4kdyR86GCyDLnkml10dO4ZVNXEd3/7vDFGE=",
+            "type": "github"
+        },
+        "version": "cdef26d09aa61d7f1f175675040383f6ae0becbb"
+    },
     "lua-dbus_proxy": {
         "cargoLocks": null,
         "extract": null,
@@ -237,11 +256,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "096b03402159f749b8859b9768f53320bed38581",
-            "sha256": "sha256-4+zUrF1Z7zNMygrTsmK52QTPh80gFm3uTfpcaLRSV/k=",
+            "rev": "3e90502fcccab7b40071811145e2ec45c0ed58f2",
+            "sha256": "sha256-AEReyZ/CGEJQ5scofi4XiN2I3gVSY0kiJU3PQPUweOs=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "096b03402159f749b8859b9768f53320bed38581"
+        "version": "3e90502fcccab7b40071811145e2ec45c0ed58f2"
     }
 }

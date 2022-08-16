@@ -49,6 +49,17 @@
       sha256 = "sha256-TrhmBJf6RRN1TjAsaK9rI89k7ctmC6IVJynZFYtcuWc=";
     };
   };
+  lua-dbus = {
+    pname = "lua-dbus";
+    version = "cdef26d09aa61d7f1f175675040383f6ae0becbb";
+    src = fetchFromGitHub {
+      owner = "dodo";
+      repo = "lua-dbus";
+      rev = "cdef26d09aa61d7f1f175675040383f6ae0becbb";
+      fetchSubmodules = false;
+      sha256 = "sha256-S+W6QTqv4kdyR86GCyDLnkml10dO4ZVNXEd3/7vDFGE=";
+    };
+  };
   lua-dbus_proxy = {
     pname = "lua-dbus_proxy";
     version = "c9253bde3fa5a64261953d1b196c57fabf9f8561";
@@ -139,14 +150,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "096b03402159f749b8859b9768f53320bed38581";
+    version = "3e90502fcccab7b40071811145e2ec45c0ed58f2";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "096b03402159f749b8859b9768f53320bed38581";
+      rev = "3e90502fcccab7b40071811145e2ec45c0ed58f2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-4+zUrF1Z7zNMygrTsmK52QTPh80gFm3uTfpcaLRSV/k=";
+      sha256 = "sha256-AEReyZ/CGEJQ5scofi4XiN2I3gVSY0kiJU3PQPUweOs=";
     };
   };
 }

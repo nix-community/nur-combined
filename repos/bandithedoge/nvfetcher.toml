@@ -17,6 +17,10 @@ fetch.github = "drobilla/zix"
 src.git = "https://github.com/stefano-m/lua-dbus_proxy"
 fetch.github = "stefano-m/lua-dbus_proxy"
 
+[lua-dbus]
+src.git = "https://github.com/dodo/lua-dbus"
+fetch.github = "dodo/lua-dbus"
+
 # programs
 
 [dwm-flexipatch]

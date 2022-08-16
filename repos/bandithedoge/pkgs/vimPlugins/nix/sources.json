@@ -41,10 +41,10 @@
         "homepage": "https://www.schemastore.org/",
         "owner": "b0o",
         "repo": "SchemaStore.nvim",
-        "rev": "a89daef1c5f644323fe8142ebb207707a795828e",
-        "sha256": "0kflrpqd1zif2l0z94aalfw48gd6cccsjdm9gfxiyasl3wfs16pr",
+        "rev": "f55842dc797faad8cf7b0d9ce75c59da654aa018",
+        "sha256": "1gizk5miqpfayf8hlk6030a0ncphzxcyhkwqjh1jlcrngj2q66kc",
         "type": "tarball",
-        "url": "https://github.com/b0o/SchemaStore.nvim/archive/a89daef1c5f644323fe8142ebb207707a795828e.tar.gz",
+        "url": "https://github.com/b0o/SchemaStore.nvim/archive/f55842dc797faad8cf7b0d9ce75c59da654aa018.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "aniseed": {
