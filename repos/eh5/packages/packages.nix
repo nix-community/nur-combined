@@ -6,12 +6,12 @@ let
   });
   self = {
     fake-hwclock = callPackage ./fake-hwclock { };
-    mosdns = callPackage ./mosdns { };
+    mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo119Module; };
     netease-cloud-music = callPackage ./netease-cloud-music { };
-    nix-gfx-mesa = callPackage ./nix-gfx-mesa {};
+    nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
     qcef = callPackage ./qcef { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
-    v2ray-next = callPackage ./v2ray-next { };
+    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo118Module; };
     v2ray-rules-dat-geoip = callPackage ./v2ray-geoip { };
     v2ray-rules-dat-geosite = callPackage ./v2ray-geosite { };
   };

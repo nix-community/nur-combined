@@ -13,12 +13,10 @@
 let
   mesaDrivers = [ mesa.drivers ]
     ++ lib.optional enable32bits pkgsi686Linux.mesa.drivers;
-  glxindirect = runCommand "mesa_glxindirect" { } (
-    ''
-      mkdir -p $out/lib
-      ln -s ${mesa.drivers}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
-    ''
-  );
+  glxindirect = runCommand "mesa_glxindirect" { } ''
+    mkdir -p $out/lib
+    ln -s ${mesa.drivers}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
+  '';
 
   driPath = lib.makeSearchPath "lib/dri" mesaDrivers;
   vdpauPath = lib.makeSearchPath "lib/vdpau" mesaDrivers;
