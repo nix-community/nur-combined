@@ -8,4 +8,5 @@
   fcitx5-nord = pkgs.callPackage ./pkgs/fcitx5-nord { };
   watt-toolkit = pkgs.callPackage ./pkgs/watt-toolkit { };
   apple-fonts = pkgs.callPackage ./pkgs/apple-fonts { };
+  lux = pkgs.callPackage ./pkgs/lux { };
 }
