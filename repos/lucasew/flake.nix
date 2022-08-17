@@ -2,31 +2,79 @@
   description = "nixcfg";
 
   inputs = {
-    borderless-browser = {url =  "github:lucasew/borderless-browser.nix";           inputs.nixpkgs.follows = "nixpkgs"; };
-    blender-bin =        {url =  "blender-bin";                                     inputs.nixpkgs.follows = "nixpkgs"; };
-    comma =              {url =  "github:Shopify/comma";                            flake = false;                      };
-    dotenv =             {url =  "github:lucasew/dotenv";                           flake = false;                      };
-    erosanix =           {url =  "github:emmanuelrosa/erosanix";                    inputs.nixpkgs.follows = "nixpkgs"; };
-    flake-utils =        {url =  "flake-utils";                                                                         };
-    home-manager =       {url =  "home-manager/release-22.05";                      inputs.nixpkgs.follows = "nixpkgs"; };
-    impermanence =       {url =  "github:nix-community/impermanence";               inputs.nixpkgs.follows = "nixpkgs"; };
-    mach-nix =           {url =  "mach-nix";                                        inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-colors =         {url =  "github:misterio77/nix-colors";                                                        };
-    nix-vscode =         {url =  "github:lucasew/nix-vscode";                       flake = false;                      };
-    nix-emacs =          {url =  "github:nixosbrasil/nix-emacs";                    flake = false;                      };
-    nix-option =         {url =  "github:lucasew/nix-option";                       flake = false;                      };
-    nix-on-droid =       {url =  "github:t184256/nix-on-droid/master";              inputs.nixpkgs.follows = "nixpkgs"; inputs.flake-utils.follows = "flake-utils"; inputs.home-manager.follows = "home-manager"; };
-    nixgram =            {url =  "github:lucasew/nixgram/master";                   flake = false;                      };
-    nixos-hardware =     {url =  "nixos-hardware";                                  inputs.nixpkgs.follows = "nixpkgs"; };
-    nixos-generators =   {url =  "github:nix-community/nixos-generators";           inputs.nixpkgs.follows = "nixpkgs"; };
-    nixpkgs-stable =     {url =  "github:NixOS/nixpkgs/nixos-22.05";                                                    };
-    nixpkgs        =     {url =  "github:NixOS/nixpkgs/nixos-22.05";                                                    };
-    nur =                {url =  "nur";                                             inputs.nixpkgs.follows = "nixpkgs"; };
-    pocket2kindle =      {url =  "github:lucasew/pocket2kindle";                    flake = false;                      };
-    redial_proxy =       {url =  "github:lucasew/redial_proxy";                     flake = false;                      };
-    rust-overlay =       {url =  "github:oxalica/rust-overlay"; inputs.flake-utils.follows = "flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
-    send2kindle =        {url =  "github:lucasew/send2kindle";                      flake = false;                      };
-    simple-dashboard = { url = "github:lucasew/simple-dashboard"; flake = false; };
+    borderless-browser.url =  "github:lucasew/borderless-browser.nix";
+    borderless-browser.inputs.nixpkgs.follows = "nixpkgs";
+
+    blender-bin.url =  "blender-bin";
+    blender-bin.inputs.nixpkgs.follows = "nixpkgs";
+
+    comma.url =  "github:Shopify/comma";
+    comma.flake = false;
+
+    dotenv.url =  "github:lucasew/dotenv";
+    dotenv.flake = false;
+
+    erosanix.url = "github:emmanuelrosa/erosanix";
+    erosanix.inputs.nixpkgs.follows = "nixpkgs";
+
+    flake-utils.url =  "flake-utils";
+
+    home-manager.url =  "home-manager/release-22.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    impermanence.url =  "github:nix-community/impermanence";
+    impermanence.inputs.nixpkgs.follows = "nixpkgs";
+
+    mach-nix.url =  "mach-nix";
+    mach-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-colors.url = "github:misterio77/nix-colors";
+
+    nix-vscode.url =  "github:lucasew/nix-vscode";
+    nix-vscode.flake = false;
+
+    nix-emacs.url =  "github:nixosbrasil/nix-emacs";
+    nix-emacs.flake = false;
+
+    nix-option.url =  "github:lucasew/nix-option";
+    nix-option.flake = false;
+
+    nix-on-droid.url =  "github:t184256/nix-on-droid/master";
+    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
+    nix-on-droid.inputs.flake-utils.follows = "flake-utils";
+    nix-on-droid.inputs.home-manager.follows = "home-manager";
+
+    nixgram.url =  "github:lucasew/nixgram/master";
+    nixgram.flake = false;
+
+    nixos-hardware.url =  "nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixos-generators.url =  "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixpkgs-stable.url =  "github:NixOS/nixpkgs/nixos-22.05";
+
+    nixpkgs.url =  "github:NixOS/nixpkgs/nixos-22.05";
+
+    nur.url =  "nur";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+
+    pocket2kindle.url =  "github:lucasew/pocket2kindle";
+    pocket2kindle.flake = false;
+
+    redial_proxy.url =  "github:lucasew/redial_proxy";
+    redial_proxy.flake = false;
+
+    rust-overlay.url =  "github:oxalica/rust-overlay";
+    rust-overlay.inputs.flake-utils.follows = "flake-utils";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+
+    send2kindle.url =  "github:lucasew/send2kindle";
+    send2kindle.flake = false;
+
+    simple-dashboard.url = "github:lucasew/simple-dashboard";
+    simple-dashboard.flake = false;
   };
 
   outputs = {
@@ -51,7 +99,7 @@
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep;
     inherit (home-manager.lib) homeManagerConfiguration;
 
-        mkPkgs = { 
+        mkPkgs = {
           nixpkgs ? inputs.nixpkgs
         , config ? {}
         , overlays ? []
@@ -71,14 +119,9 @@
           rootPathNix = "${rootPath}";
           environmentShell = with pkgs; ''
             export NIXPKGS_ALLOW_UNFREE=1
-            export NIXCFG_ROOT_PATH="$HOME/.dotfiles"
-            export NIX_LD="$(cat "${stdenv.cc.outPath}/nix-support/dynamic-linker")"
-            export NIX_LD_LIBRARY_PATH=${lib.makeLibraryPath [
-              stdenv.cc.cc
-            ]}
-            function nix-repl {
-              nix repl "$NIXCFG_ROOT_PATH/repl.nix" "$@"
-            }
+            if [[ ! -v NIXCFG_ROOT_PATH ]]; then
+              NIXCFG_ROOT_PATH="$(pwd)"
+            fi
             export LUA_PATH="${concatStringsSep ";" [
               ''$(realpath ${fennel}/share/lua/*)/?.lua''
               "$NIXCFG_ROOT_PATH/scripts/?.lua"
