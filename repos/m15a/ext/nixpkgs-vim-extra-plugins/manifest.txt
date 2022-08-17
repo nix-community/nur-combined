@@ -20,6 +20,7 @@ LinArcX/telescope-command-palette.nvim
 LionC/nest.nvim
 LoricAndre/OneTerm.nvim
 Mangeshrex/uwu.vim
+Mofiqul/adwaita.nvim
 Mofiqul/dracula.nvim
 Mofiqul/vscode.nvim
 MunifTanjim/nui.nvim
@@ -55,6 +56,7 @@ adelarsq/neoline.vim
 adisen99/apprentice.nvim
 adisen99/codeschool.nvim
 akinsho/dependency-assist.nvim
+akinsho/git-conflict.nvim
 akinsho/nvim-toggleterm.lua
 alaviss/nim.nvim
 alec-gibson/nvim-tetris
@@ -62,6 +64,7 @@ alexaandru/nvim-lspupdate
 aliou/bats.vim
 amirrezaask/fuzzy.nvim
 amrbashir/nvim-docs-view
+andrewferrier/debugprint.nvim
 andrewferrier/textobj-diagnostic.nvim
 andythigpen/nvim-coverage
 anott03/nvim-lspinstall
@@ -82,6 +85,7 @@ bluz71/vim-moonfly-colors
 bluz71/vim-nightfly-guicolors
 booperlv/nvim-gomove
 brendalf/mix.nvim
+brenoprata10/nvim-highlight-colors
 cappyzawa/trim.nvim
 catppuccin/nvim::catppuccin
 chipsenkbeil/distant.nvim
@@ -234,7 +238,9 @@ nyngwang/NeoNoName.lua
 nyngwang/NeoRoot.lua
 ojroques/nvim-hardline
 ojroques/nvim-lspfuzzy
+olexsmir/gopher.nvim
 olimorris/persisted.nvim
+olivercederborg/poimandres.nvim
 onsails/lspkind.nvim
 p00f/cphelper.nvim
 petertriho/nvim-scrollbar
