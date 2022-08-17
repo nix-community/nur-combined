@@ -31,8 +31,8 @@
   };
   urlgrab = { buildWeechatScript }: buildWeechatScript {
     pname = "urlgrab.py";
-    version = "3.0";
-    sha256 = "1z940g7r5w7qsay5jl7mr4ra9nyw3cgp5398i9xkmd0cxqw9aiw7";
+    version = "3.1";
+    sha256 = "0mxdaxadmzybv0hdyjqwix37sfn75c0w0c2nwblrvgks3rrqf9ri";
     patches = [
       ./urlgrab-homedir.patch
     ];
