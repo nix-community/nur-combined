@@ -387,6 +387,7 @@ lib.makeScope newScope (
     osmosis = callPackage ./osm/osmosis { };
     osmwalkthrough = callPackage ./osm/osmwalkthrough { };
     phyghtmap = callPackage ./osm/phyghtmap { };
+    planetiler = callPackage ./osm/planetiler { };
     polytiles = callPackage ./osm/polytiles { };
     pyrobuf = callPackage ./osm/pyrobuf { };
     pyrosm = callPackage ./osm/pyrosm { };
