@@ -435,10 +435,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.55";
+      version = "4.9.56";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987418/darkreader-4.9.55.xpi";
-      sha256 = "c5a90f909c568fc29fa2578f386c4b0b8f02dbb1b084f3f24b1a15c3e24f04fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3990001/darkreader-4.9.56.xpi";
+      sha256 = "3610535118e039d463a4e215682ef011befd6e1d30891d28904533cab00b6ae6";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220815.150936";
+      version = "104.0buildid20220816.115024";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3989303/francais_language_pack-104.0buildid20220815.150936.xpi";
-      sha256 = "8cd09d5ec788943ac420c95c86d8f448416e7dc6b79b6f7dc9ebe619421476c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3989850/francais_language_pack-104.0buildid20220816.115024.xpi";
+      sha256 = "402b6860204b4bc9b4c352beebc7dc12b32844e128ac46dbca7bed9d1246937b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1126,10 +1126,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5";
+      version = "1.5.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985806/leechblock_ng-1.5.xpi";
-      sha256 = "66fb858a5495bfc09e07879bf55a3cf9c753fe1806285cea920650b0d3c85a13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3988385/leechblock_ng-1.5.1.xpi";
+      sha256 = "6b733e6b9cd42c994e7e12a90b013d9a8376aa823b8914d78c656cb682141f06";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1967,10 +1967,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.0.0";
+      version = "5.2.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3952391/search_by_image-5.0.0.xpi";
-      sha256 = "fcb73f1965c55c718a326d65118a7a38fdeeedb2d9fb0f45d694d1b983cb7a5c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3988785/search_by_image-5.2.0.xpi";
+      sha256 = "340cb228a9ef2f9506e314f3b372c4041b8fd459d5c6534019e1d546d3ed582f";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -2447,10 +2447,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.0.0";
+      version = "8.0.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987733/ublacklist-8.0.0.xpi";
-      sha256 = "84557b77a32da4440b50e0a568b2978eb2e81f730c1eea1d5a2cebf899f86c36";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3989794/ublacklist-8.0.1.xpi";
+      sha256 = "05c143b14f02ec64aef7dfadd2ef2224efaf3f080cc0787a96d59dda9bef238b";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2461,10 +2461,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.43.0";
+      version = "1.44.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3961087/ublock_origin-1.43.0.xpi";
-      sha256 = "ab2d4fa8dfc4f50841093830ff131d7a6e99052ba6e7359f8592e84f39c18a16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3989793/ublock_origin-1.44.0.xpi";
+      sha256 = "ae761fe4014e328fdef838b81d43c30c84422cb8140cceedf0ed7a7c1f8e70aa";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
