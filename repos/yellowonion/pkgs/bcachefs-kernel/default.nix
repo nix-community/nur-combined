@@ -3,8 +3,8 @@
 with lib;
 
 let
-  commit = "600598598b7c6d2069a374a14ad4925f39a30faa";
-  diffHash = "1dy90zq39hpihr3zzzkn0x0smv37daa4xh0vvyzkjr4426g50bly";
+  commit = "b2d19c24fdc91b6dcd83aebc8ded4571b1bc72d9";
+  diffHash = "1zghd7vnpj32qavijrkmslpr9066dr2kkqp3i1n776ch8z2sjhk5";
   shorthash = lib.strings.substring 0 7 commit;
   kernelVersion = kernel.version;
   oldPatches = kernelPatches;
@@ -24,6 +24,6 @@ let
         url = "https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${commit}&id2=v${lib.versions.majorMinor kernelVersion}";
         sha256 = diffHash;
       };
-      extraConfig = "BCACHEFS_FS m";
+      extraConfig = "BCACHEFS_FS y";
   }] ++ oldPatches;
 }))
