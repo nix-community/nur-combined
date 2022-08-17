@@ -53,15 +53,27 @@
         flake-utils.lib.eachSystem checkedSystems (system: let
           alejandra = inputs.nixos-unstable.legacyPackages.${system}.alejandra;
         in {
-          checks = {
-            pre-commit = pre-commit-hooks.lib.${system}.run {
-              src = ./.;
-              hooks = {
-                alejandra.enable = true;
+          checks =
+            {
+              pre-commit = pre-commit-hooks.lib.${system}.run {
+                src = ./.;
+                hooks = {
+                  alejandra.enable = true;
+                };
+                tools.alejandra = alejandra;
               };
-              tools.alejandra = alejandra;
-            };
-          };
+            }
+            // (
+              let
+                inherit (nixpkgs.lib) filterAttrs mapAttrs mapAttrs' nameValuePair pipe;
+                inherit (self.legacyPackages.${system}.lib) forceCached;
+              in
+                pipe self.nixosConfigurations [
+                  (mapAttrs' (name: host: (nameValuePair ("host/" + name) host.config.system.build.toplevel)))
+                  (filterAttrs (_: drv: drv.system == system))
+                  (mapAttrs (_: drv: forceCached drv))
+                ]
+            );
 
           devShells.default = devshell.legacyPackages.${system}.mkShell {
             name = "sigprof/nur-packages";
