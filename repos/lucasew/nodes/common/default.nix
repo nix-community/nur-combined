@@ -8,8 +8,8 @@ in
     ../../modules/cachix/system.nix
     ../../modules/hold-gc/system.nix
     ./tuning.nix
-    ./tmux.nix
-    ./bash.nix
+    ./tmux
+    ./bash
     "${inputs.simple-dashboard}/nixos-module.nix"
   ];
 

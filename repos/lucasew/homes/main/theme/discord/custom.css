@@ -45,8 +45,8 @@
 .theme-dark {
   --accent-color: #%base04%;
   --background-1: #%base00%;
-  --background-2: #%base01%;
-  --background-accent: #%base02%;
+  --background-2: #%base02%;
+  --background-accent: #%base03%;
   --border-color: #%base05%22;
 }
 /*-------------LIGHT MODE------------*/

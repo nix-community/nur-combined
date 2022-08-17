@@ -165,7 +165,7 @@ let
       bash
     fi
 
-    /lib/ld*.so.2 "$@"
+    "$@"
     '';
   };
 in stdenv.mkDerivation {
