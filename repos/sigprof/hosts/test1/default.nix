@@ -36,6 +36,7 @@ in
           self.packages.${system}.firefox-langpack-ru
           self.packages.${system}.thunderbird-langpack-ru
 
+          unstable.kicad-small
           unstable.tdesktop
           unstable.vial
         ];
