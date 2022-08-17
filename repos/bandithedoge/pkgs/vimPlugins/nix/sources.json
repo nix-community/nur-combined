@@ -209,10 +209,10 @@
         "homepage": "",
         "owner": "ms-jpq",
         "repo": "coq_nvim",
-        "rev": "164209045fb0b2e355d05c837bb86f012a98b26d",
-        "sha256": "0754xh7fag2ybxar7ifwx2rp8b540q2jwdw5if1n7aa6107gicn7",
+        "rev": "bd02c9c9a6638da8546a6f61f6b7a31aa6192a74",
+        "sha256": "1apcwzmbd1cqi4425zqn3aaq14n1ilaz8hcz38v57ci7qvan5jl8",
         "type": "tarball",
-        "url": "https://github.com/ms-jpq/coq_nvim/archive/164209045fb0b2e355d05c837bb86f012a98b26d.tar.gz",
+        "url": "https://github.com/ms-jpq/coq_nvim/archive/bd02c9c9a6638da8546a6f61f6b7a31aa6192a74.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "crates.nvim": {
