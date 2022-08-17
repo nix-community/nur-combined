@@ -8,6 +8,7 @@ let
     fake-hwclock = callPackage ./fake-hwclock { };
     mosdns = callPackage ./mosdns { };
     netease-cloud-music = callPackage ./netease-cloud-music { };
+    nix-gfx-mesa = callPackage ./nix-gfx-mesa {};
     qcef = callPackage ./qcef { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
     v2ray-next = callPackage ./v2ray-next { };

@@ -27,10 +27,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
-    nixgl = {
-      url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     { self

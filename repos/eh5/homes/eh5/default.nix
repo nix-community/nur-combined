@@ -22,7 +22,6 @@ home-manager.lib.homeManagerConfiguration {
     config.allowUnfree = true;
     overlays = [
       self.overlays.default
-      inputs.nixgl.overlay
     ];
   };
 }

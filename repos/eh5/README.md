@@ -79,6 +79,7 @@ $ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-c
 | ----------------------- | ---------------------------------------------------------------------- | ------------- |
 | fake-hwclock            | Fake hardware clock                                                    | \*            |
 | mosdns                  | A DNS proxy                                                            | \*            |
+| nix-gfx-mesa            | [nixGL](https://github.com/guibou/nixGL) but for Mesa only             | \*            |
 | netease-cloud-music     | (no bundled libs, fixes FLAC playback and IME input)                   | x86_64-linux  |
 | qcef                    | Qt5 binding of CEF                                                     | x86_64-linux  |
 | ubootNanopiR2s          | U-Boot images for NanoPi R2S                                           | aarch64-linux |
