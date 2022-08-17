@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , bison
 , pkg-config
-, python2
 , rake
 , ruby
 , libGL
@@ -30,7 +29,6 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     bison
     pkg-config
-    python2
     rake
     ruby
   ];
