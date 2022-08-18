@@ -15,6 +15,7 @@
     drawio
     terraformer
     authenticator
+    git-crypt
 
     #RANDSTAD
     citrix_workspace
