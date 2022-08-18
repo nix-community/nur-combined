@@ -9,8 +9,8 @@
 , withPHP74 ? false, php74
 , withPHP80 ? false, php80
 , withPHP81 ? false, php81
-, withPerl532 ? false, perl532
-, withPerl534 ? true, perl534
+, withPerl534 ? false, perl534
+, withPerl536 ? true, perl536
 , withPerldevel ? false, perldevel
 , withRuby_2_7 ? false, ruby_2_7
 , withRuby_3_0 ? true, ruby_3_0
@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     ++ optional withPHP74 php74
     ++ optional withPHP80 php80
     ++ optional withPHP81 php81
-    ++ optional withPerl532 perl532
     ++ optional withPerl534 perl534
+    ++ optional withPerl536 perl536
     ++ optional withPerldevel perldevel
     ++ optional withRuby_2_7 ruby_2_7
     ++ optional withRuby_3_0 ruby_3_0
@@ -72,8 +72,8 @@ stdenv.mkDerivation rec {
     ${optionalString withPHP74      "./configure php    --module=php74    --config=${php74.dev}/bin/php-config    --lib-path=${php74}/lib"}
     ${optionalString withPHP80      "./configure php    --module=php80    --config=${php80.dev}/bin/php-config    --lib-path=${php80}/lib"}
     ${optionalString withPHP81      "./configure php    --module=php81    --config=${php81.dev}/bin/php-config    --lib-path=${php81}/lib"}
-    ${optionalString withPerl532    "./configure perl   --module=perl532  --perl=${perl532}/bin/perl"}
     ${optionalString withPerl534    "./configure perl   --module=perl534  --perl=${perl534}/bin/perl"}
+    ${optionalString withPerl536    "./configure perl   --module=perl536  --perl=${perl536}/bin/perl"}
     ${optionalString withPerldevel  "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}
     ${optionalString withRuby_2_7   "./configure ruby   --module=ruby27   --ruby=${ruby_2_7}/bin/ruby"}
     ${optionalString withRuby_3_0   "./configure ruby   --module=ruby30   --ruby=${ruby_3_0}/bin/ruby"}

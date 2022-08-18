@@ -61,13 +61,24 @@ let
     meta.broken = (isPhp56 || isPhp80);
   };
 
-  ast = buildPecl {
+  ast = if isPhp72 then ast11 else ast10;
+
+  ast10 = buildPecl {
     pname = "ast";
     version = "1.0.16";
 
     sha256 = "sha256-Rb2jS3gMRmHOd89lzYpQT7VlJtS0Vu3Ml9eRyG84ec4=";
 
     meta.broken = isPhp56;
+  };
+
+  ast11 = buildPecl {
+    pname = "ast";
+    version = "1.1.0";
+
+    sha256 = "sha256-7j1PZ+JNguTTQIBqJAUgEuSVTSIxIpSTd2ZUJ0Q+bRM=";
+
+    meta.broken = !isPhp72;
   };
 
   box = mkDerivation rec {
@@ -128,11 +139,11 @@ let
 
   composer2 = mkDerivation rec {
     pname = "composer";
-    version = "2.3.10";
+    version = "2.4.0";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-2AgnLyhPqOD4tHBwPhQ4rI82IDC7ydEuKVMCd9dnr/A=";
+      sha256 = "sha256-HNx090llkI0OmNAP7so3wjuG2lEXCjoRoVONif9E1N0=";
     };
 
     dontUnpack = true;
@@ -398,9 +409,9 @@ let
     meta.broken = isPhp56;
   };
 
-  mongodb = if isPhp56 then mongodb17 else (if isPhp72 then mongodb1112 else mongodb1111);
+  mongodb = if isPhp56 then mongodb175 else (if isPhp72 then mongodb114 else mongodb111);
 
-  mongodb17 = buildPecl {
+  mongodb175 = buildPecl {
     pname = "mongodb";
     version = "1.7.5";
 
@@ -419,7 +430,7 @@ let
     meta.broken = !isPhp56;
   };
 
-  mongodb1111 = buildPecl {
+  mongodb111 = buildPecl {
     pname = "mongodb";
     version = "1.11.1";
 
@@ -438,11 +449,11 @@ let
     meta.broken = (isPhp56 || isPhp72);
   };
 
-  mongodb1112 = buildPecl {
+  mongodb114 = buildPecl {
     pname = "mongodb";
-    version = "1.13.0";
+    version = "1.14.0";
 
-    sha256 = "sha256-IoZbYdJkyQyeqoXZTy9fV+VkFAyth8jCYB+jP4Dv4Ls=";
+    sha256 = "sha256-VXdeaSB6f5xDxiiDIg87xgDT4/Zjr1AAC+cK0+5RgY4=";
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [
@@ -503,11 +514,11 @@ let
 
   php-cs-fixer = mkDerivation rec {
     pname = "php-cs-fixer";
-    version = "3.9.3";
+    version = "3.10.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "sha256-aMQauV+P+SHr5oeJl+VkWJtdaEbPe1ngj7gDt9bgbck=";
+      sha256 = "sha256-dhXktw9wctIwvIlME4c4yBw7qBffetiERt1C6QWCrQo=";
     };
 
     phases = [ "installPhase" ];
@@ -746,9 +757,9 @@ let
 
   protobuf321 = buildPecl {
     pname = "protobuf";
-    version = "3.21.2";
+    version = "3.21.5";
 
-    sha256 = "sha256-Csi4OjDLKtJAF8eU3ByUM2BxSDA6SWy5ZgExrkhVrPg=";
+    sha256 = "sha256-B8ytFyUJ8fLBwHmaKXxfOy0h6tRELjqc5IxUUl/YU5w=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -765,11 +776,11 @@ let
 
   psalm = mkDerivation rec {
     pname = "psalm";
-    version = "4.24.0";
+    version = "4.26.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "sha256-KzGdhsYf8D+40pPNjr3rqrcek4xfK9BP9Gb+4BIRwAY=";
+      sha256 = "sha256-pKgNRkLmJfPQVkHGj2YE+pjCjA8VF1YXZFUmRm5P4Eg=";
     };
 
     phases = [ "installPhase" ];
@@ -791,11 +802,11 @@ let
 
   psysh = mkDerivation rec {
     pname = "psysh";
-    version = "0.11.7";
+    version = "0.11.8";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-P5ui+LyxV7LpMOIdl1yu3gQhJFLUv+YlOKxGJveonb4=";
+      sha256 = "sha256-VK1e3qQGaN6Kc/5dUaGwrHAqk9yiJCwbW29x6i6nHQ4=";
     };
 
     phases = [ "installPhase" ];
