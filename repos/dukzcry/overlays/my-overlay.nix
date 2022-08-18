@@ -49,6 +49,13 @@ rec {
         --replace "if (mon->fallback)" "if (0)"
     '';
   });
+  autorandr = super.autorandr.overrideAttrs (oldAttrs: {
+    buildPhase = ''
+      ${oldAttrs.buildPhase}
+      substituteInPlace autorandr.py \
+        --replace 'process_environ["UID"] = str(uid)' 'process_environ["UID"] = str(uid); process_environ["XDG_CONFIG_HOME"] = "/etc/xdg"'
+    '';
+  });
 } // optionalAttrs (config.hardware.wifi.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
