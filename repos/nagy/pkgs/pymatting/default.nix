@@ -3,11 +3,11 @@
 
 buildPythonPackage rec {
   pname = "PyMatting";
-  version = "1.1.5";
+  version = "1.1.8";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-8rFIF0VhuejHZ3fU5L5+t5jII98N6lDSID9bm4FFOps=";
+    sha256 = "sha256-pzUI7wh0mWgx39KE47xjFRoJSE14n9EO3AP0mzFTKsw=";
   };
 
   pythonImportsCheck = [ "pymatting" ];

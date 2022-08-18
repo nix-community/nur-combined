@@ -2,11 +2,11 @@
 
 buildPythonApplication rec {
   pname = "ssort";
-  version = "0.11.5";
+  version = "0.11.6";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-Q7m1+uOf25V2HMdGTLILoVWZTnEh0FLw82aZ/JkONkU=";
+    sha256 = "sha256-If7Ek0h/Mt/1DTDvpbaq0YKG6YF2ALZL/mhq4GK6564=";
   };
 
   buildInputs = [
