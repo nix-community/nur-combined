@@ -1,10 +1,6 @@
 { lib
 , buildGo117Module
 , fetchFromGitHub
-, protobuf
-, git
-, testVersion
-, buf
 }:
 
 buildGo117Module rec {
