@@ -85,10 +85,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.1.2";
+      version = "2.1.3";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987616/anonaddy-2.1.2.xpi";
-      sha256 = "748bf71700fced3bb25eb280133d264cf91ae72befcf415331aba3d83d480655";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3990409/anonaddy-2.1.3.xpi";
+      sha256 = "6a311098d968a964289e9c4e27882d2fe141a90fa745469f95d82d9f364e1dfe";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -1485,10 +1485,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.12.0";
+      version = "6.10.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3989523/okta_browser_plugin-6.12.0.xpi";
-      sha256 = "415983806400cf9f9a9ddf706e2bfd6f822f84faf5f104b0fb62f47b59db1cce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3956279/okta_browser_plugin-6.10.0.xpi";
+      sha256 = "7b76c0f1117e97f018d202715e5892bf41d94b51c610031450af2cd37c508638";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1940,10 +1940,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.8.0";
+      version = "1.8.1";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3988745/rust_search_extension-1.8.0.xpi";
-      sha256 = "6068fac8e6f5f3b5cfd5eaefc8baf03d6ab0507d28a7e3dbaa0cbcaa55a390df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3990385/rust_search_extension-1.8.1.xpi";
+      sha256 = "a09895131b0e1fde06dbcc6f5596160b1511f070152022ca1ada36fd64c1e8d9";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
