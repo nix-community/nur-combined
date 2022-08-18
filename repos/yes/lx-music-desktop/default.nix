@@ -1,12 +1,12 @@
 { appimageTools, lib, fetchurl, rp ? "" }:
 let
   pname = "lx-music-desktop";
-  version = "1.22.1";
+  version = "1.22.2";
   name = "${pname}-v${version}";
 
   src = fetchurl {
     url = "${rp}https://github.com/lyswhut/${pname}/releases/download/v${version}/${name}-x64.AppImage";
-    sha256 = "d0a490f26f4056fb5f49ee70dd2aac0a9771d51824e3133112ec5e66d876db8a";
+    sha256 = "sha256-7pQbgY/eIknuUKmrn2YGKop75TVN7tLWAJjTIP/mjvY=";
   };
 
   appimageContents = appimageTools.extract { inherit name src; };
