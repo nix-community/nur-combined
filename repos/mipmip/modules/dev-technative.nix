@@ -16,6 +16,8 @@
     terraformer
     authenticator
     git-crypt
+    gnupg
+    pinentry
 
     #RANDSTAD
     citrix_workspace
