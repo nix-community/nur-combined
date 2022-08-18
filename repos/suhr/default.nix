@@ -12,11 +12,11 @@ rec {
   deadbeef-waveform-seekbar-plugin =
     pkgs.callPackage ./pkgs/deadbeef-waveform-seekbar-plugin { };
   augr = pkgs.callPackage ./pkgs/augr { };
-  pcem = pkgs.callPackage ./pkgs/pcem { };
   ciao = pkgs.callPackage ./pkgs/ciao { };
   iosevka-term = pkgs.callPackage ./pkgs/iosevka/term.nix { };
   cbqn = pkgs.callPackage ./pkgs/cbqn { stdenv = pkgs.clangStdenv; };
   ssb-patchbay = pkgs.callPackage ./pkgs/ssb-patchbay { };
   frame = pkgs.callPackage ./pkgs/frame { };
   why3 = pkgs.callPackage ./pkgs/why3 { };
+  pianoteq-stage = pkgs.callPackage ./pkgs/pianoteq-stage { };
 }
