@@ -20,7 +20,7 @@
     pinentry
     pass
     pinentry-gtk2
-
+    graphviz
     #RANDSTAD
     citrix_workspace
   ];
