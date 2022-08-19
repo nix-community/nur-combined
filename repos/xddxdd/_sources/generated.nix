@@ -3,10 +3,10 @@
 {
   asterisk = {
     pname = "asterisk";
-    version = "19.5.0";
+    version = "19.6.0";
     src = fetchurl {
-      url = "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-19.5.0.tar.gz";
-      sha256 = "sha256-8XdXOP6WedZgL4OpbsZzUyT+elCAD8Ccl6cMx8fPAMg=";
+      url = "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-19.6.0.tar.gz";
+      sha256 = "sha256-Sjgtlln13ebmVN/Vx9wbSRzKpiUVd8bFG5S8CaqMZXI=";
     };
   };
   asterisk-alaw16 = {
@@ -85,13 +85,13 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "5ce0f55f353eb977ce814ac319c4e92f07af73b9";
+    version = "d029d6684c14336bed1b54daf3021e7b3e25b52e";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "5ce0f55f353eb977ce814ac319c4e92f07af73b9";
+      rev = "d029d6684c14336bed1b54daf3021e7b3e25b52e";
       fetchSubmodules = false;
-      sha256 = "sha256-hlTWKeykls8ijrNa4NJgx9M23SlTZzjKWJzeFkKt5AE=";
+      sha256 = "sha256-Fv8mybSHquAwMx+gZAyekKuapwSKIN4q26IcP/zmFVM=";
     });
   };
   boringssl-oqs = {
@@ -118,13 +118,13 @@
   };
   cloudpan189-go = {
     pname = "cloudpan189-go";
-    version = "v0.1.1";
+    version = "v0.1.2";
     src = fetchFromGitHub ({
       owner = "tickstep";
       repo = "cloudpan189-go";
-      rev = "v0.1.1";
+      rev = "v0.1.2";
       fetchSubmodules = false;
-      sha256 = "sha256-PUFykU9NoGra/YYNjKKvi6DEYRIaEEKXjyp1UlmeOgI=";
+      sha256 = "sha256-NzMEXeTVDamHOewjflUKhYuFjugGjjrFpKye63o7Q7g=";
     });
   };
   drone-vault = {
@@ -152,13 +152,13 @@
   };
   genshinhelper2 = {
     pname = "genshinhelper2";
-    version = "639dfa832bfe00c48f83ba76d32dee337f125eff";
+    version = "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74";
     src = fetchFromGitHub ({
       owner = "y1ndan";
       repo = "genshinhelper2";
-      rev = "639dfa832bfe00c48f83ba76d32dee337f125eff";
+      rev = "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74";
       fetchSubmodules = false;
-      sha256 = "sha256-WqI3iCkaC/ja/3YHDhhCuZGHtNvUw/QExI/skGfmV4s=";
+      sha256 = "sha256-QXswk4wAA/Pq8IKCvYKH2HMiJBuYiB3E37aL2+W/C5A=";
     });
   };
   glauth = {
@@ -311,13 +311,13 @@
   };
   onepush = {
     pname = "onepush";
-    version = "d6d30a0b79243b75a0434bd977c4864a7659be72";
+    version = "085ceeef728a870f604ba664ba7c9e271ea30808";
     src = fetchFromGitHub ({
       owner = "y1ndan";
       repo = "onepush";
-      rev = "d6d30a0b79243b75a0434bd977c4864a7659be72";
+      rev = "085ceeef728a870f604ba664ba7c9e271ea30808";
       fetchSubmodules = false;
-      sha256 = "sha256-d1uDezulPNPPYi8jZj0jvQ4iv6zVR6Dt+aaLVlTRG9Y=";
+      sha256 = "sha256-+aHnbuxXL14XRxCfsPPJkDEAU7RsEF+jO6mAbNgiJwc=";
     });
   };
   openssl-oqs = {
@@ -333,13 +333,13 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "3f4096b6883a5ef1a9e8642922aa0607f33dace6";
+    version = "3f3d8a8cf331c73a26fe93a598273997cb54eb4f";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "3f4096b6883a5ef1a9e8642922aa0607f33dace6";
+      rev = "3f3d8a8cf331c73a26fe93a598273997cb54eb4f";
       fetchSubmodules = false;
-      sha256 = "sha256-oPY4p+Ul0LDnFoKH8Ajbx6ExICPzZf/prTEMvXGIkPw=";
+      sha256 = "sha256-i3R9xfPmdFrF1jMR+iN8dd9SrpTFr7ffl34Ri7VDh40=";
     });
   };
   osdlyrics = {
@@ -445,25 +445,25 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202208110837";
+    version = "202208180100";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202208110837/geoip.dat";
-      sha256 = "sha256-A0kZn/CSa/eR1GC8A91TVU4wISNuRL9bDUEs5es7lVA=";
+      url = "https://github.com/v2fly/geoip/releases/download/202208180100/geoip.dat";
+      sha256 = "sha256-AkNYl47iDRLyv7nruTXek8ET39NsPXX8qWEdOlovMOg=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220816023240";
+    version = "20220819021032";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220816023240/dlc.dat";
-      sha256 = "sha256-g8B0L1wejcL96xb5o84vYw4so6Mj/wpYlRKldrSbV6w=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220819021032/dlc.dat";
+      sha256 = "sha256-wvmlp3TBF571P6VrSAL5irnbpzpb3f2boqXWKPVZI80=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202208110837";
+    version = "202208180100";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202208110837/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202208180100/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };

@@ -358,7 +358,7 @@
             "version": "11.0.16.0",
             "type": "jre",
             "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.16%2B8_openj9-0.33.0/ibm-semeru-open-jre_x64_linux_11.0.16_8_openj9-0.33.0.tar.gz",
-            "sha256": "0efeb4205413b30ba983510a850027d283960395c51c247f9840d306daaea39f"
+            "sha256": "ba09711193b8b8664478f3f949b5320232f65c1bdf61f32a885d84de73c02767"
         },
         "s390x": {
             "version": "11.0.16.0",
@@ -410,7 +410,7 @@
             "version": "11.0.16.0",
             "type": "jre",
             "url": "https://github.com/ibmruntimes/semeru11-binaries/releases/download/jdk-11.0.16%2B8_openj9-0.33.0/ibm-semeru-open-jre_x64_linux_11.0.16_8_openj9-0.33.0.tar.gz",
-            "sha256": "0efeb4205413b30ba983510a850027d283960395c51c247f9840d306daaea39f"
+            "sha256": "ba09711193b8b8664478f3f949b5320232f65c1bdf61f32a885d84de73c02767"
         },
         "s390x": {
             "version": "11.0.16.0",

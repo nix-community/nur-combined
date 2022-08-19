@@ -7,11 +7,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8XdXOP6WedZgL4OpbsZzUyT+elCAD8Ccl6cMx8fPAMg=",
+            "sha256": "sha256-Sjgtlln13ebmVN/Vx9wbSRzKpiUVd8bFG5S8CaqMZXI=",
             "type": "url",
-            "url": "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-19.5.0.tar.gz"
+            "url": "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-19.6.0.tar.gz"
         },
-        "version": "19.5.0"
+        "version": "19.6.0"
     },
     "asterisk-alaw16": {
         "cargoLocks": null,
@@ -154,11 +154,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "5ce0f55f353eb977ce814ac319c4e92f07af73b9",
-            "sha256": "sha256-hlTWKeykls8ijrNa4NJgx9M23SlTZzjKWJzeFkKt5AE=",
+            "rev": "d029d6684c14336bed1b54daf3021e7b3e25b52e",
+            "sha256": "sha256-Fv8mybSHquAwMx+gZAyekKuapwSKIN4q26IcP/zmFVM=",
             "type": "github"
         },
-        "version": "5ce0f55f353eb977ce814ac319c4e92f07af73b9"
+        "version": "d029d6684c14336bed1b54daf3021e7b3e25b52e"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
@@ -211,11 +211,11 @@
             "name": null,
             "owner": "tickstep",
             "repo": "cloudpan189-go",
-            "rev": "v0.1.1",
-            "sha256": "sha256-PUFykU9NoGra/YYNjKKvi6DEYRIaEEKXjyp1UlmeOgI=",
+            "rev": "v0.1.2",
+            "sha256": "sha256-NzMEXeTVDamHOewjflUKhYuFjugGjjrFpKye63o7Q7g=",
             "type": "github"
         },
-        "version": "v0.1.1"
+        "version": "v0.1.2"
     },
     "drone-vault": {
         "cargoLocks": null,
@@ -267,11 +267,11 @@
             "name": null,
             "owner": "y1ndan",
             "repo": "genshinhelper2",
-            "rev": "639dfa832bfe00c48f83ba76d32dee337f125eff",
-            "sha256": "sha256-WqI3iCkaC/ja/3YHDhhCuZGHtNvUw/QExI/skGfmV4s=",
+            "rev": "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74",
+            "sha256": "sha256-QXswk4wAA/Pq8IKCvYKH2HMiJBuYiB3E37aL2+W/C5A=",
             "type": "github"
         },
-        "version": "639dfa832bfe00c48f83ba76d32dee337f125eff"
+        "version": "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74"
     },
     "glauth": {
         "cargoLocks": null,
@@ -542,11 +542,11 @@
             "name": null,
             "owner": "y1ndan",
             "repo": "onepush",
-            "rev": "d6d30a0b79243b75a0434bd977c4864a7659be72",
-            "sha256": "sha256-d1uDezulPNPPYi8jZj0jvQ4iv6zVR6Dt+aaLVlTRG9Y=",
+            "rev": "085ceeef728a870f604ba664ba7c9e271ea30808",
+            "sha256": "sha256-+aHnbuxXL14XRxCfsPPJkDEAU7RsEF+jO6mAbNgiJwc=",
             "type": "github"
         },
-        "version": "d6d30a0b79243b75a0434bd977c4864a7659be72"
+        "version": "085ceeef728a870f604ba664ba7c9e271ea30808"
     },
     "openssl-oqs": {
         "cargoLocks": null,
@@ -580,11 +580,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "3f4096b6883a5ef1a9e8642922aa0607f33dace6",
-            "sha256": "sha256-oPY4p+Ul0LDnFoKH8Ajbx6ExICPzZf/prTEMvXGIkPw=",
+            "rev": "3f3d8a8cf331c73a26fe93a598273997cb54eb4f",
+            "sha256": "sha256-i3R9xfPmdFrF1jMR+iN8dd9SrpTFr7ffl34Ri7VDh40=",
             "type": "github"
         },
-        "version": "3f4096b6883a5ef1a9e8642922aa0607f33dace6"
+        "version": "3f3d8a8cf331c73a26fe93a598273997cb54eb4f"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -769,11 +769,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-A0kZn/CSa/eR1GC8A91TVU4wISNuRL9bDUEs5es7lVA=",
+            "sha256": "sha256-AkNYl47iDRLyv7nruTXek8ET39NsPXX8qWEdOlovMOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202208110837/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202208180100/geoip.dat"
         },
-        "version": "202208110837"
+        "version": "202208180100"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -783,11 +783,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-g8B0L1wejcL96xb5o84vYw4so6Mj/wpYlRKldrSbV6w=",
+            "sha256": "sha256-wvmlp3TBF571P6VrSAL5irnbpzpb3f2boqXWKPVZI80=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220816023240/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220819021032/dlc.dat"
         },
-        "version": "20220816023240"
+        "version": "20220819021032"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -799,9 +799,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202208110837/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202208180100/private.dat"
         },
-        "version": "202208110837"
+        "version": "202208180100"
     },
     "xray": {
         "cargoLocks": null,
