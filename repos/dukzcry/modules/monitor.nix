@@ -34,6 +34,15 @@ in {
       environment.systemPackages = with pkgs; [ ddcutil ];
     })
     (mkIf (cfg.enable && config.services.xserver.enable) {
+      systemd.user.services.autorandr = {
+        description = "autorandr start on login";
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.autorandr}/bin/autorandr --change";
+        };
+      };
       services.autorandr = {
         enable = true;
         defaultTarget = if cfg.config != null then "laptop" else "monitor";

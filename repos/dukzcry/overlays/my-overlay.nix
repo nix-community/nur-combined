@@ -53,7 +53,7 @@ rec {
     buildPhase = ''
       ${oldAttrs.buildPhase}
       substituteInPlace autorandr.py \
-        --replace 'process_environ["UID"] = str(uid)' 'process_environ["UID"] = str(uid); process_environ["XDG_CONFIG_HOME"] = "/etc/xdg"'
+        --replace 'os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config"))' '"/etc/xdg"'
     '';
   });
 } // optionalAttrs (config.hardware.wifi.enable or false) {
