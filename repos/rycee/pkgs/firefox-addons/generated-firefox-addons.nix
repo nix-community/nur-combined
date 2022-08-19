@@ -29,10 +29,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.13.1";
+      version = "3.14.4";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3953369/adnauseam-3.13.1.xpi";
-      sha256 = "bdf16fa70f1217c7611c0458024cb5a380c07ac4053be3a03f4bda723d991ebb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3990479/adnauseam-3.14.4.xpi";
+      sha256 = "c1367cc0a27a8f335abf2ff34f8369866d49bfa30835e84413fdc39d3e248c1b";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220816.115024";
+      version = "104.0buildid20220818.191623";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3989850/francais_language_pack-104.0buildid20220816.115024.xpi";
-      sha256 = "402b6860204b4bc9b4c352beebc7dc12b32844e128ac46dbca7bed9d1246937b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3991008/francais_language_pack-104.0buildid20220818.191623.xpi";
+      sha256 = "3e85b0f64cfffea9196de2de58afbff81141cfeea8604fbdb5dea38ecde433f4";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1485,10 +1485,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.10.0";
+      version = "6.12.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956279/okta_browser_plugin-6.10.0.xpi";
-      sha256 = "7b76c0f1117e97f018d202715e5892bf41d94b51c610031450af2cd37c508638";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3989523/okta_browser_plugin-6.12.0.xpi";
+      sha256 = "415983806400cf9f9a9ddf706e2bfd6f822f84faf5f104b0fb62f47b59db1cce";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
