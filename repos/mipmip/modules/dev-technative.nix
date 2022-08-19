@@ -21,6 +21,7 @@
     pass
     pinentry-gtk2
     graphviz
+    unstable.terracognita
     #RANDSTAD
     citrix_workspace
   ];
