@@ -75,6 +75,17 @@
       sha256 = "sha256-A9Tpz3v/JhcE9Smuv+42vAN7CV17OhfUaYuHLrOv7eg=";
     };
   };
+  bird-babel-rtt = {
+    pname = "bird-babel-rtt";
+    version = "4c582913ec44c4fd53ffef208f8c65046ee004a2";
+    src = fetchFromGitHub ({
+      owner = "tohojo";
+      repo = "bird";
+      rev = "4c582913ec44c4fd53ffef208f8c65046ee004a2";
+      fetchSubmodules = false;
+      sha256 = "sha256-YeEf86oT9gY+BiQBqX2jtJkSfTbX+KfgUc2geEMat6E=";
+    });
+  };
   bird-lg-go = {
     pname = "bird-lg-go";
     version = "d029d6684c14336bed1b54daf3021e7b3e25b52e";

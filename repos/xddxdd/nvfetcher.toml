@@ -28,6 +28,11 @@ src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
 fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/v$ver/io.github.msojocs.bilibili_$ver_amd64.deb"
 
+[bird-babel-rtt]
+src.git = "https://github.com/tohojo/bird.git"
+src.branch = "babel-rtt-01"
+fetch.github = "tohojo/bird"
+
 [bird-lg-go]
 src.git = "https://github.com/xddxdd/bird-lg-go.git"
 fetch.github = "xddxdd/bird-lg-go"

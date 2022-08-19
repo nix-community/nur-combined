@@ -82,6 +82,7 @@ rec {
   asterisk-g72x = pkg ./asterisk-g72x { };
   baidupcs-go = pkg ./baidupcs-go { };
   bilibili = pkg ./bilibili { };
+  bird-babel-rtt = pkg ./bird-babel-rtt { };
   bird-lg-go = pkg ./bird-lg-go { };
   bird-lgproxy-go = pkg ./bird-lgproxy-go { };
   boringssl-oqs = pkg ./boringssl-oqs {

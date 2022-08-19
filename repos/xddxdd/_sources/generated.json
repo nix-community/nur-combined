@@ -127,6 +127,25 @@
         },
         "version": "1.4.1-1"
     },
+    "bird-babel-rtt": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "bird-babel-rtt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tohojo",
+            "repo": "bird",
+            "rev": "4c582913ec44c4fd53ffef208f8c65046ee004a2",
+            "sha256": "sha256-YeEf86oT9gY+BiQBqX2jtJkSfTbX+KfgUc2geEMat6E=",
+            "type": "github"
+        },
+        "version": "4c582913ec44c4fd53ffef208f8c65046ee004a2"
+    },
     "bird-lg-go": {
         "cargoLocks": null,
         "extract": null,
