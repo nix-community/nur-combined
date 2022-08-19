@@ -48,6 +48,10 @@ fetch.github = "tickstep/cloudpan189-go"
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
 
+[etherguard]
+src.git = "https://github.com/KusakabeShi/EtherGuard-VPN.git"
+fetch.github = "KusakabeShi/EtherGuard-VPN"
+
 [genshin-checkin-helper]
 src.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
 fetch.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"

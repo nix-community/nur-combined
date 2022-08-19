@@ -95,6 +95,7 @@ rec {
   dingtalk = pkg ./dingtalk { };
   dn42-pingfinder = pkg ./dn42-pingfinder { };
   drone-vault = pkg ./drone-vault { };
+  etherguard = pkg ./etherguard { };
   fcitx5-breeze = pkg ./fcitx5-breeze { };
   ftp-proxy = pkg ./ftp-proxy { };
   genshin-checkin-helper = pkg ./genshin-checkin-helper {

@@ -222,6 +222,25 @@
         },
         "version": "v1.2.0"
     },
+    "etherguard": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "etherguard",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "KusakabeShi",
+            "repo": "EtherGuard-VPN",
+            "rev": "1356780d7d37ad5c44d3d25d2137be6120b8bf87",
+            "sha256": "sha256-sIJBWvVC7nF2ZJrI6IQxgqA2svqU4XQ0vbz9zh0HEBE=",
+            "type": "github"
+        },
+        "version": "1356780d7d37ad5c44d3d25d2137be6120b8bf87"
+    },
     "genshin-checkin-helper": {
         "cargoLocks": null,
         "extract": null,
@@ -253,11 +272,11 @@
             "name": null,
             "owner": "y1ndan",
             "repo": "genshinhelper2",
-            "rev": "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74",
-            "sha256": "sha256-QXswk4wAA/Pq8IKCvYKH2HMiJBuYiB3E37aL2+W/C5A=",
+            "rev": "e6081815281b0997dee118ae5c834c9d69843c2f",
+            "sha256": "sha256-rj0Lyh68iwAguWruy4G+emTD9qc4boHe7QF4UU5nGa4=",
             "type": "github"
         },
-        "version": "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74"
+        "version": "e6081815281b0997dee118ae5c834c9d69843c2f"
     },
     "glauth": {
         "cargoLocks": null,
@@ -769,11 +788,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wvmlp3TBF571P6VrSAL5irnbpzpb3f2boqXWKPVZI80=",
+            "sha256": "sha256-A+wj93/2HiIbLUZ91govKTAqPVKBKzNzyyt23zoQ3no=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220819021032/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220819070517/dlc.dat"
         },
-        "version": "20220819021032"
+        "version": "20220819070517"
     },
     "v2fly-private": {
         "cargoLocks": null,

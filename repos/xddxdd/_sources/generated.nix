@@ -130,6 +130,17 @@
       sha256 = "sha256-P6rOMqYu6uxGVG1CPNE9fjhntH8IBMyo3mfSOo16EAA=";
     });
   };
+  etherguard = {
+    pname = "etherguard";
+    version = "1356780d7d37ad5c44d3d25d2137be6120b8bf87";
+    src = fetchFromGitHub ({
+      owner = "KusakabeShi";
+      repo = "EtherGuard-VPN";
+      rev = "1356780d7d37ad5c44d3d25d2137be6120b8bf87";
+      fetchSubmodules = false;
+      sha256 = "sha256-sIJBWvVC7nF2ZJrI6IQxgqA2svqU4XQ0vbz9zh0HEBE=";
+    });
+  };
   genshin-checkin-helper = {
     pname = "genshin-checkin-helper";
     version = "b9e36543bfe5b042e015463e5d0398cd234cba90";
@@ -144,13 +155,13 @@
   };
   genshinhelper2 = {
     pname = "genshinhelper2";
-    version = "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74";
+    version = "e6081815281b0997dee118ae5c834c9d69843c2f";
     src = fetchFromGitHub ({
       owner = "y1ndan";
       repo = "genshinhelper2";
-      rev = "d89476f14aeaad4126bc461eb0fcc4a6b67b3c74";
+      rev = "e6081815281b0997dee118ae5c834c9d69843c2f";
       fetchSubmodules = false;
-      sha256 = "sha256-QXswk4wAA/Pq8IKCvYKH2HMiJBuYiB3E37aL2+W/C5A=";
+      sha256 = "sha256-rj0Lyh68iwAguWruy4G+emTD9qc4boHe7QF4UU5nGa4=";
     });
   };
   glauth = {
@@ -445,10 +456,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220819021032";
+    version = "20220819070517";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220819021032/dlc.dat";
-      sha256 = "sha256-wvmlp3TBF571P6VrSAL5irnbpzpb3f2boqXWKPVZI80=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220819070517/dlc.dat";
+      sha256 = "sha256-A+wj93/2HiIbLUZ91govKTAqPVKBKzNzyyt23zoQ3no=";
     };
   };
   v2fly-private = {
