@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitea {
     domain = "git.rawtext.club";
     owner = "sloum";
-    repo = pname;
+    repo = "stagit-gemini";
     rev = "2710449792748ac3fefe4ba2500afce1ed193e37";
     sha256 = "sha256-Tm9jXkGtUNeZNhtHjozWN35z8gL/KcACLvby2Z73vxU=";
   };
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Fork of stagit-gopher that ports the output to gemini";
-    homepage = "https://git.rawtext.club/sloum/stagit-gemini";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.sikmir ];
