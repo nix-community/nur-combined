@@ -10,7 +10,6 @@ fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
 
 [zix]
 src.git = "https://github.com/drobilla/zix"
-src.branch = "atomic-ring"
 fetch.github = "drobilla/zix"
 
 [lua-dbus_proxy]

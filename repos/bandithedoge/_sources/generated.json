@@ -67,12 +67,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6b57d17d7843412091432d80e1bb6cb4cab38043",
-            "sha256": "sha256-TrhmBJf6RRN1TjAsaK9rI89k7ctmC6IVJynZFYtcuWc=",
+            "rev": "34dc7484b4ecbd1256d33910040f3147d64f1d9f",
+            "sha256": "sha256-0ennLhBVzlaFhl/PzrBx3EM1PGvxW97OjLDFDljzn/I=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "6b57d17d7843412091432d80e1bb6cb4cab38043"
+        "version": "34dc7484b4ecbd1256d33910040f3147d64f1d9f"
     },
     "lua-dbus": {
         "cargoLocks": null,
@@ -163,11 +163,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "st-flexipatch",
-            "rev": "427895a7c2a3704bd8a0c1480a8620ee8507ea81",
-            "sha256": "sha256-DAclljZk+b3/wgCTzmJZ+wGpQG8ujOn/aJt+0mlBNr0=",
+            "rev": "cd1aa57a0650d62f15182d0103e0971784d26e7e",
+            "sha256": "sha256-YPqTXjXGBY3fn7484Uz4WyCSKXJdtCpFF50KanaISC8=",
             "type": "github"
         },
-        "version": "427895a7c2a3704bd8a0c1480a8620ee8507ea81"
+        "version": "cd1aa57a0650d62f15182d0103e0971784d26e7e"
     },
     "taffybar": {
         "cargoLocks": null,
@@ -239,11 +239,11 @@
             "name": null,
             "owner": "drobilla",
             "repo": "zix",
-            "rev": "9fc129c7dc1a0fa6b034f08d49d8e2f995585082",
-            "sha256": "sha256-74bn9NkUmXoOhec7k7SG47bUr/8V4TadoWJF2O5JXl4=",
+            "rev": "12cac42e31653323ec607ba3b6512fe9a734d083",
+            "sha256": "sha256-jzUD1vNHzY7E7cZukIPh4CJXYQcIVCJQiuZRtmhGW54=",
             "type": "github"
         },
-        "version": "9fc129c7dc1a0fa6b034f08d49d8e2f995585082"
+        "version": "12cac42e31653323ec607ba3b6512fe9a734d083"
     },
     "zrythm": {
         "cargoLocks": null,
@@ -256,11 +256,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4af59410a577bb3aad236ffb3737e680341ca7ba",
-            "sha256": "sha256-Ejr6sjvEX7SiI3w+A23fecwLGmRo1g1tBlMi8ty82YY=",
+            "rev": "737d4167350526373977a5b852d0b020dbf3c1e6",
+            "sha256": "sha256-gb7JfPWUrdkYOmvKj/nYRrYhw1MRUQS+FHq/0O4YF6o=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "4af59410a577bb3aad236ffb3737e680341ca7ba"
+        "version": "737d4167350526373977a5b852d0b020dbf3c1e6"
     }
 }
