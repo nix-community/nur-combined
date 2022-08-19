@@ -129,6 +129,11 @@ in
         '';
         description = "The GTK+ theme to use.";
       };
+
+      gtk3noCsd = mkOption {
+        type = types.bool;
+        default = false;
+      };
     };
   };
 
@@ -153,6 +158,11 @@ in
 
       # TODO: support Wayland/XSettings
       # once https://github.com/NixOS/nixpkgs/issues/54150 is fixed
+    })
+
+    (mkIf cfg.gtk3noCsd {
+      environment.variables.GTK_CSD = "0";
+      environment.variables.LD_PRELOAD = "${pkgs.nur.repos.dukzcry.gtk3-nocsd}/lib/libgtk3-nocsd.so.0";
     })
   ];
 }

@@ -15,8 +15,6 @@ in {
 
   config = mkMerge [
     (mkIf cfg.client {
-      # remember Skype password
-      services.gnome.gnome-keyring.enable = true;
       environment = {
         systemPackages = with pkgs; [
           networkmanagerapplet remmina

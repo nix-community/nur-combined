@@ -36,4 +36,5 @@ rec {
   libidn = callPackage ./pkgs/libidn.nix {};
   gitupdate = callPackage ./pkgs/gitupdate.nix {};
   homer = callPackage ./pkgs/homer.nix {};
+  gtk3-nocsd = callPackage ./pkgs/gtk3-nocsd.nix {};
 }
