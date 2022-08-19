@@ -61,7 +61,7 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Create a PR
-        uses: peter-evans/create-pull-request@v4.1.0
+        uses: peter-evans/create-pull-request@v4.1.1
         with:
           token: ${{ steps.token.outputs.token }}
           commit-message: "chore(${{ matrix.item }}): Automatic update"
