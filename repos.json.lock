@@ -514,8 +514,8 @@
             "url": "https://github.com/lheckemann/nixwip"
         },
         "linyinfeng": {
-            "rev": "406d481a97bdb6c6b6c94cf8766c1d84296d3d48",
-            "sha256": "08y3m8lnw1rbxdcr3aw9dkh4bkypv50nxbnckgbsv842p60289f9",
+            "rev": "7fbf4a2e774b9674fc1a527d94dcc9e3610eaf80",
+            "sha256": "0vzvrj2h9xwwks76qlmh97hifsxrnysgs67q3k1yjb4p5vig8fg1",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "lourkeur": {
