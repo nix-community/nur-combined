@@ -1,6 +1,7 @@
 {
   nix = ./nix.nix;
   systemd = ./systemd.nix;
+  cpuinfo = ./cpuinfo.nix;
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
   kernel = ./kernel.nix;
@@ -32,6 +33,7 @@
     imports = with self; [
       nix
       systemd
+      cpuinfo
       dht22-exporter
       glauth
       modprobe
