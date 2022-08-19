@@ -11,8 +11,6 @@
 } @ args:
 
 (asterisk.override { withOpus = false; }).overrideAttrs (old: {
-  inherit (sources.asterisk) pname version src;
-
   buildInputs = (old.buildInputs or [ ]) ++ [
     codec2
     libvorbis

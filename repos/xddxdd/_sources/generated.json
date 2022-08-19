@@ -1,18 +1,4 @@
 {
-    "asterisk": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "asterisk",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-Sjgtlln13ebmVN/Vx9wbSRzKpiUVd8bFG5S8CaqMZXI=",
-            "type": "url",
-            "url": "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-19.6.0.tar.gz"
-        },
-        "version": "19.6.0"
-    },
     "asterisk-alaw16": {
         "cargoLocks": null,
         "extract": null,
