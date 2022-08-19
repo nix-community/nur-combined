@@ -7,7 +7,7 @@ let
   thePackages = lib.mapAttrs' (k: v:
     lib.nameValuePair (lib.removeSuffix ".nix" k)
     (callPackage (./pkgs + ("/" + k)) { })) nixFiles;
-in (thePackages // rec {
+in thePackages // rec {
 
   lib = callPackage ./lib.nix { };
 
@@ -51,4 +51,4 @@ in (thePackages // rec {
   ksv = callPackage ./pkgs/ksv { };
 
   sasl2-oauth = callPackage ./pkgs/sasl2-oauth.nix { inherit sasl2-oauth; };
-})
+}
