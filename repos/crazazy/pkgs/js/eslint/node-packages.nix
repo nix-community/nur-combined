@@ -418,13 +418,13 @@ let
         sha512 = "dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg==";
       };
     };
-    "flatted-3.2.6" = {
+    "flatted-3.2.7" = {
       name = "flatted";
       packageName = "flatted";
-      version = "3.2.6";
+      version = "3.2.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/flatted/-/flatted-3.2.6.tgz";
-        sha512 = "0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==";
+        url = "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz";
+        sha512 = "5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==";
       };
     };
     "fs.realpath-1.0.0" = {
@@ -998,8 +998,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.21.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.21.0.tgz"; sha1 = "1940a68d7e0573cef6f50037addee295ff9be9ef"; };
+    version = "8.22.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.22.0.tgz"; sha1 = "78fcb044196dfa7eef30a9d65944f6f980402c48"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.0"
       sources."@humanwhocodes/config-array-0.10.4"
@@ -1054,7 +1054,7 @@ let
       sources."fill-range-7.0.1"
       sources."find-up-5.0.0"
       sources."flat-cache-3.0.4"
-      sources."flatted-3.2.6"
+      sources."flatted-3.2.7"
       sources."fs.realpath-1.0.0"
       sources."functional-red-black-tree-1.0.1"
       sources."glob-7.2.3"
