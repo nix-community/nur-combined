@@ -2,14 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gtk3-nocsd";
-
-  version = "3.0";
+  version = "2016-07-17";
 
   src = fetchFromGitHub {
     owner = "PCMan";
     repo = "gtk3-nocsd";
-    rev = "v${lib.versions.major version}";
-    sha256 = "sha256-i9KvM4HeYRuHoJT4vTSnQfCiIzSCv35eXtvSiAeYa/Q=";
+    rev = "82ff5a0da54aa6da27232b55eb93e5f4b5de22f2";
+    sha256 = "sha256-RxZgSdaRsknyjYrhK3WZCpoqYuGb4RjqA32N4rglN5g=";
   };
 
   buildInputs = [
