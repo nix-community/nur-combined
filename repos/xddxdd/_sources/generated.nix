@@ -77,13 +77,13 @@
   };
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "4c582913ec44c4fd53ffef208f8c65046ee004a2";
+    version = "6a7ff0bd1f02aa1c13dd32586075a444e69b426a";
     src = fetchFromGitHub ({
-      owner = "tohojo";
+      owner = "NickCao";
       repo = "bird";
-      rev = "4c582913ec44c4fd53ffef208f8c65046ee004a2";
+      rev = "6a7ff0bd1f02aa1c13dd32586075a444e69b426a";
       fetchSubmodules = false;
-      sha256 = "sha256-YeEf86oT9gY+BiQBqX2jtJkSfTbX+KfgUc2geEMat6E=";
+      sha256 = "sha256-pf7zyzJGaBfoqF/W+hNNUzmN39yINLD4DIe5Q/9iab4=";
     });
   };
   bird-lg-go = {
@@ -467,10 +467,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220819070517";
+    version = "20220820051407";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220819070517/dlc.dat";
-      sha256 = "sha256-A+wj93/2HiIbLUZ91govKTAqPVKBKzNzyyt23zoQ3no=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220820051407/dlc.dat";
+      sha256 = "sha256-XEcY7p2dGYkxTdPJ2fzHAG02MpaxofPwgPf5ZkB7eaM=";
     };
   };
   v2fly-private = {
