@@ -239,11 +239,11 @@
             "name": null,
             "owner": "drobilla",
             "repo": "zix",
-            "rev": "12cac42e31653323ec607ba3b6512fe9a734d083",
-            "sha256": "sha256-jzUD1vNHzY7E7cZukIPh4CJXYQcIVCJQiuZRtmhGW54=",
+            "rev": "f2fc88e136fc92328b86575fdfed1cc7c7729ef3",
+            "sha256": "sha256-WuTjoK/4LGK4LwXtnlAjF7aOv6qfTLRajImpehfEQe4=",
             "type": "github"
         },
-        "version": "12cac42e31653323ec607ba3b6512fe9a734d083"
+        "version": "f2fc88e136fc92328b86575fdfed1cc7c7729ef3"
     },
     "zrythm": {
         "cargoLocks": null,
@@ -256,11 +256,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "737d4167350526373977a5b852d0b020dbf3c1e6",
-            "sha256": "sha256-gb7JfPWUrdkYOmvKj/nYRrYhw1MRUQS+FHq/0O4YF6o=",
+            "rev": "cd416e499d6b91ce62479b980487b3e75943cd4c",
+            "sha256": "sha256-7u8xPJzln9hIgy0rKiEo67RiW+okVRr1bEC+KZRJSbA=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "737d4167350526373977a5b852d0b020dbf3c1e6"
+        "version": "cd416e499d6b91ce62479b980487b3e75943cd4c"
     }
 }
