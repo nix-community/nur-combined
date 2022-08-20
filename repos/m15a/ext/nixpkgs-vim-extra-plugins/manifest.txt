@@ -236,6 +236,7 @@ nvim-treesitter/nvim-treesitter-context
 nxvu699134/vn-night.nvim
 nyngwang/NeoNoName.lua
 nyngwang/NeoRoot.lua
+ofirgall/goto-breakpoints.nvim
 ojroques/nvim-hardline
 ojroques/nvim-lspfuzzy
 olexsmir/gopher.nvim

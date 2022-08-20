@@ -112,12 +112,12 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [Darazaki/indent-o-matic](https://github.com/Darazaki/indent-o-matic) | 2022-06-14 | `indent-o-matic` |
 | [David-Kunz/jester](https://github.com/David-Kunz/jester) | 2022-07-12 | `jester` |
 | [EthanJWright/vs-tasks.nvim](https://github.com/EthanJWright/vs-tasks.nvim) | 2022-08-10 | `vs-tasks-nvim` |
-| [Everblush/everblush.nvim](https://github.com/Everblush/everblush.nvim) | 2022-08-13 | `everblush-nvim` |
+| [Everblush/everblush.nvim](https://github.com/Everblush/everblush.nvim) | 2022-08-19 | `everblush-nvim` |
 | [FeiyouG/command_center.nvim](https://github.com/FeiyouG/command_center.nvim) | 2022-08-13 | `command-center-nvim` |
 | [FrenzyExists/aquarium-vim](https://github.com/FrenzyExists/aquarium-vim) | 2022-06-22 | `aquarium-vim` |
 | [Fymyte/rasi.vim](https://github.com/Fymyte/rasi.vim) | 2022-02-16 | `rasi-vim` |
 | [Iron-E/nvim-cartographer](https://github.com/Iron-E/nvim-cartographer) | 2022-04-18 | `nvim-cartographer` |
-| [JoosepAlviste/nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) | 2022-08-09 | `nvim-ts-context-commentstring` |
+| [JoosepAlviste/nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) | 2022-08-19 | `nvim-ts-context-commentstring` |
 | [junnplus/lsp-setup.nvim](https://github.com/junnplus/lsp-setup.nvim) | 2022-08-16 | `lsp-setup-nvim` |
 | [L3MON4D3/LuaSnip](https://github.com/L3MON4D3/LuaSnip) | 2022-08-18 | `LuaSnip` |
 | [LinArcX/telescope-command-palette.nvim](https://github.com/LinArcX/telescope-command-palette.nvim) | 2022-01-31 | `telescope-command-palette-nvim` |
@@ -127,7 +127,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [Mofiqul/adwaita.nvim](https://github.com/Mofiqul/adwaita.nvim) | 2022-08-12 | `adwaita-nvim` |
 | [Mofiqul/dracula.nvim](https://github.com/Mofiqul/dracula.nvim) | 2022-07-08 | `dracula-nvim` |
 | [Mofiqul/vscode.nvim](https://github.com/Mofiqul/vscode.nvim) | 2022-08-08 | `vscode-nvim` |
-| [MunifTanjim/nui.nvim](https://github.com/MunifTanjim/nui.nvim) | 2022-08-17 | `nui-nvim` |
+| [MunifTanjim/nui.nvim](https://github.com/MunifTanjim/nui.nvim) | 2022-08-19 | `nui-nvim` |
 | [NFrid/due.nvim](https://github.com/NFrid/due.nvim) | 2022-04-15 | `due-nvim` |
 | [NMAC427/guess-indent.nvim](https://github.com/NMAC427/guess-indent.nvim) | 2022-07-17 | `guess-indent-nvim` |
 | [NTBBloodbath/cheovim](https://github.com/NTBBloodbath/cheovim) | 2021-08-25 | `cheovim` |
@@ -232,7 +232,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [gbprod/substitute.nvim](https://github.com/gbprod/substitute.nvim) | 2022-07-10 | `substitute-nvim` |
 | [gbprod/yanky.nvim](https://github.com/gbprod/yanky.nvim) | 2022-07-29 | `yanky-nvim` |
 | [gennaro-tedesco/nvim-commaround](https://github.com/gennaro-tedesco/nvim-commaround) | 2022-01-14 | `nvim-commaround` |
-| [ggandor/leap.nvim](https://github.com/ggandor/leap.nvim) | 2022-08-16 | `leap-nvim` |
+| [ggandor/leap.nvim](https://github.com/ggandor/leap.nvim) | 2022-08-18 | `leap-nvim` |
 | [ghillb/cybu.nvim](https://github.com/ghillb/cybu.nvim) | 2022-07-30 | `cybu-nvim` |
 | [glacambre/firenvim](https://github.com/glacambre/firenvim) | 2022-08-16 | `firenvim` |
 | [glepnir/indent-guides.nvim](https://github.com/glepnir/indent-guides.nvim) | 2021-03-26 | `indent-guides-nvim` |
@@ -268,7 +268,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [jose-elias-alvarez/null-ls.nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) | 2022-08-18 | `null-ls-nvim` |
 | [jubnzv/mdeval.nvim](https://github.com/jubnzv/mdeval.nvim) | 2022-06-03 | `mdeval-nvim` |
 | [jubnzv/virtual-types.nvim](https://github.com/jubnzv/virtual-types.nvim) | 2022-03-17 | `virtual-types-nvim` |
-| [kaiuri/github-vscode-theme.nvim](https://github.com/kaiuri/github-vscode-theme.nvim) | 2022-08-17 | `github-vscode-theme-nvim` |
+| [kaiuri/github-vscode-theme.nvim](https://github.com/kaiuri/github-vscode-theme.nvim) | 2022-08-19 | `github-vscode-theme-nvim` |
 | [kaiuri/nvim-juliana](https://github.com/kaiuri/nvim-juliana) | 2022-08-18 | `nvim-juliana` |
 | [kana/vim-textobj-indent](https://github.com/kana/vim-textobj-indent) | 2013-01-18 | `vim-textobj-indent` |
 | [kazhala/close-buffers.nvim](https://github.com/kazhala/close-buffers.nvim) | 2021-11-14 | `close-buffers-nvim` |
@@ -294,7 +294,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [linty-org/readline.nvim](https://github.com/linty-org/readline.nvim) | 2022-08-13 | `readline-nvim` |
 | [lmburns/kimbox](https://github.com/lmburns/kimbox) | 2022-08-18 | `kimbox` |
 | [lourenci/github-colors](https://github.com/lourenci/github-colors) | 2022-07-23 | `github-colors` |
-| [luisiacc/gruvbox-baby](https://github.com/luisiacc/gruvbox-baby) | 2022-08-18 | `gruvbox-baby` |
+| [luisiacc/gruvbox-baby](https://github.com/luisiacc/gruvbox-baby) | 2022-08-19 | `gruvbox-baby` |
 | [lukas-reineke/lsp-format.nvim](https://github.com/lukas-reineke/lsp-format.nvim) | 2022-05-21 | `lsp-format-nvim` |
 | [luukvbaal/nnn.nvim](https://github.com/luukvbaal/nnn.nvim) | 2022-08-16 | `nnn-nvim` |
 | [m-demare/attempt.nvim](https://github.com/m-demare/attempt.nvim) | 2022-06-11 | `attempt-nvim` |
@@ -332,7 +332,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [notomo/cmdbuf.nvim](https://github.com/notomo/cmdbuf.nvim) | 2022-08-18 | `cmdbuf-nvim` |
 | [notomo/gesture.nvim](https://github.com/notomo/gesture.nvim) | 2022-07-31 | `gesture-nvim` |
 | [novakne/kosmikoa.nvim](https://github.com/novakne/kosmikoa.nvim) | 2021-11-19 | `kosmikoa-nvim` |
-| [numToStr/Comment.nvim](https://github.com/numToStr/Comment.nvim) | 2022-08-17 | `Comment-nvim` |
+| [numToStr/Comment.nvim](https://github.com/numToStr/Comment.nvim) | 2022-08-19 | `Comment-nvim` |
 | [nvim-neo-tree/neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | 2022-08-16 | `neo-tree-nvim` |
 | [nvim-neotest/neotest](https://github.com/nvim-neotest/neotest) | 2022-08-18 | `neotest` |
 | [nvim-telescope/telescope-bibtex.nvim](https://github.com/nvim-telescope/telescope-bibtex.nvim) | 2022-07-30 | `telescope-bibtex-nvim` |
@@ -340,6 +340,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [nxvu699134/vn-night.nvim](https://github.com/nxvu699134/vn-night.nvim) | 2022-06-04 | `vn-night-nvim` |
 | [nyngwang/NeoNoName.lua](https://github.com/nyngwang/NeoNoName.lua) | 2022-06-20 | `NeoNoName-lua` |
 | [nyngwang/NeoRoot.lua](https://github.com/nyngwang/NeoRoot.lua) | 2022-04-19 | `NeoRoot-lua` |
+| [ofirgall/goto-breakpoints.nvim](https://github.com/ofirgall/goto-breakpoints.nvim) | 2022-08-18 | `goto-breakpoints-nvim` |
 | [ojroques/nvim-hardline](https://github.com/ojroques/nvim-hardline) | 2022-06-18 | `nvim-hardline` |
 | [ojroques/nvim-lspfuzzy](https://github.com/ojroques/nvim-lspfuzzy) | 2022-05-22 | `nvim-lspfuzzy` |
 | [olexsmir/gopher.nvim](https://github.com/olexsmir/gopher.nvim) | 2022-07-11 | `gopher-nvim` |
@@ -360,7 +361,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [ray-x/guihua.lua](https://github.com/ray-x/guihua.lua) | 2022-08-06 | `guihua-lua` |
 | [ray-x/navigator.lua](https://github.com/ray-x/navigator.lua) | 2022-08-09 | `navigator-lua` |
 | [rebelot/heirline.nvim](https://github.com/rebelot/heirline.nvim) | 2022-08-13 | `heirline-nvim` |
-| [renerocksai/telekasten.nvim](https://github.com/renerocksai/telekasten.nvim) | 2022-08-18 | `telekasten-nvim` |
+| [renerocksai/telekasten.nvim](https://github.com/renerocksai/telekasten.nvim) | 2022-08-19 | `telekasten-nvim` |
 | [rgroli/other.nvim](https://github.com/rgroli/other.nvim) | 2022-08-03 | `other-nvim` |
 | [rhysd/vim-gfm-syntax](https://github.com/rhysd/vim-gfm-syntax) | 2022-08-01 | `vim-gfm-syntax` |
 | [rktjmp/highlight-current-n.nvim](https://github.com/rktjmp/highlight-current-n.nvim) | 2022-07-14 | `highlight-current-n-nvim` |
@@ -394,7 +395,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [svermeulen/vim-yoink](https://github.com/svermeulen/vim-yoink) | 2021-09-15 | `vim-yoink` |
 | [svermeulen/vimpeccable](https://github.com/svermeulen/vimpeccable) | 2021-12-28 | `vimpeccable` |
 | [sychen52/smart-term-esc.nvim](https://github.com/sychen52/smart-term-esc.nvim) | 2021-09-27 | `smart-term-esc-nvim` |
-| [tamago324/nlsp-settings.nvim](https://github.com/tamago324/nlsp-settings.nvim) | 2022-08-18 | `nlsp-settings-nvim` |
+| [tamago324/nlsp-settings.nvim](https://github.com/tamago324/nlsp-settings.nvim) | 2022-08-19 | `nlsp-settings-nvim` |
 | [tamton-aquib/staline.nvim](https://github.com/tamton-aquib/staline.nvim) | 2022-08-03 | `staline-nvim` |
 | [tanvirtin/monokai.nvim](https://github.com/tanvirtin/monokai.nvim) | 2022-07-10 | `monokai-nvim` |
 | [tanvirtin/vgit.nvim](https://github.com/tanvirtin/vgit.nvim) | 2022-05-29 | `vgit-nvim` |
@@ -413,7 +414,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [udayvir-singh/hibiscus.nvim](https://github.com/udayvir-singh/hibiscus.nvim) | 2022-08-12 | `hibiscus-nvim` |
 | [udayvir-singh/tangerine.nvim](https://github.com/udayvir-singh/tangerine.nvim) | 2022-08-09 | `tangerine-nvim` |
 | [vigoux/complementree.nvim](https://github.com/vigoux/complementree.nvim) | 2022-08-16 | `complementree-nvim` |
-| [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim) | 2022-08-18 | `mason-nvim` |
+| [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim) | 2022-08-19 | `mason-nvim` |
 | [williamboman/nvim-lsp-installer](https://github.com/williamboman/nvim-lsp-installer) | 2022-08-17 | `nvim-lsp-installer` |
 | [windwp/nvim-projectconfig](https://github.com/windwp/nvim-projectconfig) | 2021-11-10 | `nvim-projectconfig` |
 | [nvim-pack/nvim-spectre](https://github.com/nvim-pack/nvim-spectre) | 2022-08-02 | `nvim-spectre` |
@@ -431,7 +432,7 @@ You can also use it via [NUR][2] at `nur.repos.m15a.vimExtraPlugins`, see [the p
 | [gitlab:yorickpeterse/nvim-window](https://gitlab.com/yorickpeterse/nvim-window) | 2022-03-23 | `nvim-window` |
 | [zbirenbaum/copilot-cmp](https://github.com/zbirenbaum/copilot-cmp) | 2022-08-11 | `copilot-cmp` |
 | [ziontee113/color-picker.nvim](https://github.com/ziontee113/color-picker.nvim) | 2022-08-16 | `color-picker-nvim` |
-| [ziontee113/icon-picker.nvim](https://github.com/ziontee113/icon-picker.nvim) | 2022-07-29 | `icon-picker-nvim` |
+| [ziontee113/icon-picker.nvim](https://github.com/ziontee113/icon-picker.nvim) | 2022-08-19 | `icon-picker-nvim` |
 | [ziontee113/syntax-tree-surfer](https://github.com/ziontee113/syntax-tree-surfer) | 2022-08-03 | `syntax-tree-surfer` |
 
 ## Contribution
