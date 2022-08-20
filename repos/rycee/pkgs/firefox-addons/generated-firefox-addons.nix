@@ -29,10 +29,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.14.4";
+      version = "3.14.5";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3990479/adnauseam-3.14.4.xpi";
-      sha256 = "c1367cc0a27a8f335abf2ff34f8369866d49bfa30835e84413fdc39d3e248c1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3991157/adnauseam-3.14.5.xpi";
+      sha256 = "93555ea7525a020248e5626a6e55f508064f21214b99452933fd00418d1565c0";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -2023,10 +2023,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.20";
+      version = "1.21.21";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3981860/single_file-1.21.20.xpi";
-      sha256 = "4bfd7d02527a2175ca3007fa0df812327d413d68f6ae3ce4f30806e5447b1792";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3990955/single_file-1.21.21.xpi";
+      sha256 = "68b81fa27aa28535863d41211daf77b6f9c472b740dddd2cec5461ba05f6a1b1";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
