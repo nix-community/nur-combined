@@ -3,11 +3,11 @@
 {
   "'vscode-extensions.GitHub.copilot'" = {
     pname = "'vscode-extensions.GitHub.copilot'";
-    version = "1.40.6471";
+    version = "1.42.6544";
     src = fetchurl {
-      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.40.6471/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.40.6471.zip";
-      sha256 = "sha256-x/IAaRVgkOPkdrfOzTwidTQiSCDYJA/o/L5yVi5KE6U=";
+      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.42.6544/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.42.6544.zip";
+      sha256 = "sha256-5YXz+lGD+HT8c+iAXL5NLKxYqqUJjgyHSccZULdilAE=";
     };
     license = "cc-by-40";
     homepage = "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot";
@@ -39,11 +39,11 @@
   };
   "'vscode-extensions.TabNine.tabnine-vscode'" = {
     pname = "'vscode-extensions.TabNine.tabnine-vscode'";
-    version = "3.6.11";
+    version = "3.6.12";
     src = fetchurl {
-      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.11/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "tabnine-vscode-3.6.11.zip";
-      sha256 = "sha256-vVQpPVrJgXl0iYYQh552wo00G/bocLj90STjeIsGrKI=";
+      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.12/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "tabnine-vscode-3.6.12.zip";
+      sha256 = "sha256-lw9km2WEO0c50XaBICZIs3SOjqEblktXvIy/MPNzUAQ=";
     };
     license = "mit";
     homepage = "https://github.com/codota/tabnine-vscode";
@@ -99,11 +99,11 @@
   };
   "'vscode-extensions.timonwong.shellcheck'" = {
     pname = "'vscode-extensions.timonwong.shellcheck'";
-    version = "0.19.6";
+    version = "0.20.0";
     src = fetchurl {
-      url = "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.19.6/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "shellcheck-0.19.6.zip";
-      sha256 = "sha256-2kR/qfVvD0If9TvKEiNfWCdryJ+ptAfL0b8YyxVyPN0=";
+      url = "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.20.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "shellcheck-0.20.0.zip";
+      sha256 = "sha256-ub7Sp3a+P9K46GpjEtEaZiXrGT7wIPMwHWrk2jVinDg=";
     };
     license = "mit";
     homepage = "https://github.com/vscode-shellcheck/vscode-shellcheck";
@@ -147,13 +147,13 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "102.1";
+    version = "103.0";
     src = fetchFromGitHub ({
       owner = "arkenfox";
       repo = "user.js";
-      rev = "102.1";
+      rev = "103.0";
       fetchSubmodules = false;
-      sha256 = "sha256-aOufNe+ShT27pasvj/UqEFaMkgFlkd1q8XcoO+3T6Rg=";
+      sha256 = "sha256-MhlZav86gz8bH1aEWyNFNLnc6T7MBU1d3dGHtG2lEnA=";
     });
   };
   clash-speedtest = {
