@@ -3,16 +3,16 @@
 let
   os = if stdenv.isLinux then "linux" else "macos";
   arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
-  v = "0.10.0-dev.3513+e218b7ea0";
+  v = "0.10.0-dev.3659+e5e6eb983";
   shas = {
     x86_64-linux =
-      "3b4ac3c1acda20ad28e9edc8c2b73a11090aba4c06b4eeab0ab8cc99e3e1a1d9";
+      "7358576b8f4e503c04884ad7d399231674519fb12e09d97e3bec64ad76bca0e2";
     aarch64-linux =
-      "b42cb3b89ad4e67398c3df04360eb363fa318c1b9b9944e850db07a2632d9dd3";
+      "ae2b6df070eaf4c6d0062cccf27206cd716aa9e12f45e14818b3451494998e34";
     x86_64-darwin =
-      "3b2b6f04d95764a337f2764756045d7cc1375d18954946a50da500a05b85e053";
+      "a5e6d500dcb3c771eca30b639d53ec05bcd07880ba049b8a3de28e8810f17646";
     aarch64-darwin =
-      "cfb976a6a2601149d5ea1ee4cc9b1134f8ea518985cfbcfb9828d495b0d48266";
+      "d230f5871e21e70df2ae1028978eb23d1684a866ce4dd418608e3327fd40efdd";
   };
 in stdenv.mkDerivation rec {
   pname = "zig-master";
