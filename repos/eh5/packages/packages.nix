@@ -11,7 +11,7 @@ let
     nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
     qcef = callPackage ./qcef { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
-    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo118Module; };
+    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo119Module; };
     v2ray-rules-dat-geoip = callPackage ./v2ray-geoip { };
     v2ray-rules-dat-geosite = callPackage ./v2ray-geosite { };
   };

@@ -17,20 +17,9 @@ let
 
   core = buildGoModule rec {
     inherit (sources.v2ray) pname version src;
-    vendorSha256 = "sha256-bxasyCuu8hBTxgYnr4lfLdWq5WXiyvHySRgWLOqpVTM=";
+    vendorSha256 = "sha256-RuDCAgTzqwe5fUwa9ce2wRx4FPT8siRLbP7mU8/jg/Y=";
 
     doCheck = false;
-
-    patches = [
-      (fetchurl {
-        url = "https://patch-diff.githubusercontent.com/raw/v2fly/v2ray-core/pull/1771.diff";
-        sha256 = "sha256-+JbGF8VZeqXkmo0dxiSFo3kfqbNynzlMwvDRDwpZRlA=";
-      })
-      (fetchurl {
-        url = "https://patch-diff.githubusercontent.com/raw/v2fly/v2ray-core/pull/1772.diff";
-        sha256 = "sha256-2QDDMQuAtRMiKgBxIMPZrK9R06OLZbjgZumpjbmNc+s=";
-      })
-    ];
 
     buildPhase = ''
       buildFlagsArray=(-v -p $NIX_BUILD_CORES -ldflags="-s -w")

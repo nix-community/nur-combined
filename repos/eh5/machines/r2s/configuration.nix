@@ -6,7 +6,10 @@
     sopsFile = ./secrets/mosdns.yaml.sops;
   };
   sops.secrets.tproxyRule.sopsFile = ./secrets/tproxy.nft.sops;
-  sops.secrets.v2rayConfig.sopsFile = ./secrets/v2ray.v4.json.sops;
+  sops.secrets.v2rayConfig = {
+    name = "v2ray.json";
+    sopsFile = ./secrets/v2ray.v4.json.sops;
+  };
 
   nix = {
     settings = {
@@ -50,9 +53,12 @@
   nix.gc.automatic = true;
   nix.optimise.automatic = true;
 
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3wDrWMAdPILZrRGggLHrvV3qsctMS/TrQkFdc4c81r"
-  ];
+  users.users.root = {
+    initialHashedPassword = "$6$I7u4S2QGNHl7OG5g$ClRYXRX0kZ1VtiyrGta.7EG0pkdGhVrattNX9j.H71iTgnafT7gzyli9sEuvk0oSJ7YrH6OiOmmJuIh40BPEa1";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3wDrWMAdPILZrRGggLHrvV3qsctMS/TrQkFdc4c81r"
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     bind
