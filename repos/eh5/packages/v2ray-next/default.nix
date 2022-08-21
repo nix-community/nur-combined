@@ -21,6 +21,13 @@ let
 
     doCheck = false;
 
+    patches = [
+      (fetchurl {
+        url = "https://patch-diff.githubusercontent.com/raw/v2fly/v2ray-core/pull/1923.diff";
+        sha256 = "sha256-CASkxR9knylGNmi3dldmBLT5mXMuAKkHczhFXnJkcjY=";
+      })
+    ];
+
     buildPhase = ''
       buildFlagsArray=(-v -p $NIX_BUILD_CORES -ldflags="-s -w")
       runHook preBuild
