@@ -21,4 +21,48 @@ with lib; rec {
     } ''
       gltf-pipeline --input $src --output $out
     '';
+
+  mkAvrdudeFlasher = { name, hex }@args:
+    pkgs.writeShellScriptBin "${name}-flasher" ''
+      exec ${pkgs.avrdude}/bin/avrdude -p atmega32u4 -c avr109 -P /dev/ttyACM0 -U flash:w:${hex}:i
+    '';
+
+  mkQmkFirmware = { name, keyboard, keymap ? "default", ... }@args:
+    let
+      self = pkgs.stdenv.mkDerivation (args // {
+        inherit keymap;
+        # may later be replaced with pkgs.qmk-udev-rules
+        # no, because fetchSubmodules
+        src = pkgs.fetchFromGitHub {
+          owner = "qmk";
+          repo = "qmk_firmware";
+          rev = "0.16.9";
+          sha256 = "sha256-gnQ/hehxPiYujakJWZynAJ7plJiDciAG3NAy0Xl18/A=";
+          fetchSubmodules = true;
+        };
+
+        nativeBuildInputs = [ pkgs.qmk ];
+
+        # this allows us to not need the .git folder
+        SKIP_VERSION = "1";
+
+        outputs = [ "out" "hex" ];
+
+        passthru.flasher = mkAvrdudeFlasher { inherit (self) name hex; };
+
+        buildPhase = ''
+          runHook preBuild
+          make --jobs=1 $keyboard:default
+          runHook postBuild
+        '';
+
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/share/qmk
+          install -Dm444 *.hex $hex
+          ln -s $hex $out/share/qmk/${name}.hex
+          runHook postInstall
+        '';
+      });
+    in self;
 }
