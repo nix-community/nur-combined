@@ -110,5 +110,8 @@
     xxhash = xxhash;
   };
 
+  qpdfview = pkgs.libsForQt5.callPackage ./pkgs/qpdfview {
+  };
+
   #quickcpplib = pkgs.callPackage ./pkgs/quickcpplib { };
 }
