@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "revbayes";
-  version = "1.1.1";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "revbayes";
     repo = "revbayes";
-    rev = "${version}";
-    sha256 = "09rrmq74fn0l2zzycsay1pnmdfy2zl9df2yq67gn7zw7j4y4bz06";
+    rev = "v${version}";
+    hash = "sha256-5zyWYrOOK8IOuBPH/6WY9VEQXdXT3X1PiGAtB4C5HJ8=";
     fetchSubmodules = true;
   };
 

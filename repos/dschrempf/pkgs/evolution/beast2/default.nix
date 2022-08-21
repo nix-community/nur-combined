@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "beast2";
-  version = "2.6.6";
+  version = "2.6.7";
 
   src = fetchFromGitHub {
     owner = "CompEvol";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-kmo0C55holJthZwB6F1xJg8R0H3oeZqZ9BD6ASmiGbQ=";
+    hash = "sha256-2xIrqCaQD5h/QhUDkRUpf82BRlgaPLdAr23o0lMgBTU=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];

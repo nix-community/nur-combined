@@ -19,7 +19,7 @@ let
       fetchurl
         {
           url = "${base}/${namePypi}-${version}-py${python3.pythonVersion}-linux-x86_64.egg";
-          sha256 = "sha256-Ze8scGvlaRLvzEER3TyzMw2sqXcJLO54LI0jsyOIuCs=";
+          hash = "sha256-Ze8scGvlaRLvzEER3TyzMw2sqXcJLO54LI0jsyOIuCs=";
         }
     else throw "unsupported system: ${stdenv.hostPlatform.system}";
 in
@@ -30,7 +30,7 @@ python3.pkgs.buildPythonPackage rec {
   src = python3.pkgs.fetchPypi {
     pname = namePypi;
     inherit version;
-    sha256 = "sha256-QnPjtB60iaB9/8L+gb3NeqwE+javo1keNpYn5iC4Qg8=";
+    hash = "sha256-QnPjtB60iaB9/8L+gb3NeqwE+javo1keNpYn5iC4Qg8=";
   };
 
   postPatch = ''

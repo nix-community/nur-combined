@@ -1,6 +1,7 @@
 { lib
 , fetchFromGitHub
-, python3 }:
+, python3
+}:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "biblib";
@@ -10,7 +11,7 @@ python3.pkgs.buildPythonPackage rec {
     owner = "colour-science";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "065ihxlc3pjiyaw4pbkc8y30jrn2r36li3xncb86ggkfc2mg9r4s";
+    hash = "sha256-muT0qmBuvmfQYraPSM3IwmYJhkdsrku48lHewWiHsRg=";
   };
 
   meta = with lib; {

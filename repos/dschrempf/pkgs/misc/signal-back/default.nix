@@ -13,7 +13,7 @@ buildGoPackage rec {
     owner = "xeals";
     repo = "signal-back";
     rev = "v${version}";
-    sha256 = "19zqfl7n7y05bmj926pabffcqf4iflcrn75c9gl277i25zsczhc5";
+    hash = "sha256-hcHP9C8iniPoS6wcmxl1kTjMnFvqGpFkXQX4Yw91+Kc=";
   };
 
   goDeps = ./deps.nix;

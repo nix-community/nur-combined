@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     owner = "jkboyce";
     repo = "jugglinglab";
     rev = "v${version}";
-    sha256 = "sha256-GQm/TMQ1WSEn/6xOSqO0X3D8e/KpkQVz9Imtn6NDbOI=";
+    hash = "sha256-GQm/TMQ1WSEn/6xOSqO0X3D8e/KpkQVz9Imtn6NDbOI=";
   };
 
   nativeBuildInputs = [ ant jdk makeWrapper ];

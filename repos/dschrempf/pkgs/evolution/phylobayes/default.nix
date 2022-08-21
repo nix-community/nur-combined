@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   #   owner = "bayesiancook";
   #   repo = "pbmpi";
   #   rev = "v${version}";
-  #   sha256 = "sha256-M62YxCC/eLAmhyzTOiPJoAvSy9Pzsr3t71IB4y8Td/Y=";
+  #   hash = "sha256-M62YxCC/eLAmhyzTOiPJoAvSy9Pzsr3t71IB4y8Td/Y=";
   # };
 
   # Sequential version.
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     owner = "bayesiancook";
     repo = "phylobayes";
     rev = "v${version}";
-    sha256 = "sha256-iWRfGo90Ni/piNLJceesSAG3ZIppR/F+c36k9KGRJzI=";
+    hash = "sha256-iWRfGo90Ni/piNLJceesSAG3ZIppR/F+c36k9KGRJzI=";
   };
 
   sourceRoot = "source/sources";

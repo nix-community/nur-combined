@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     owner = "beast-dev";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "sha256-ZuXG2ZgwiLS+fpaH/UlF8oYgfeX8YjGyR6+uj/wfLbw=";
+    hash = "sha256-ZuXG2ZgwiLS+fpaH/UlF8oYgfeX8YjGyR6+uj/wfLbw=";
   };
 
   nativeBuildInputs = [ ant jdk makeWrapper ];

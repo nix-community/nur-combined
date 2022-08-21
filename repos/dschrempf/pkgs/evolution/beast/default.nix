@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation {
   pname = "beast";
-  version = "1.10.5";
+  version = "sars-cov-2-origins";
 
   src = fetchFromGitHub {
     owner = "beast-dev";
     repo = "beast-mcmc";
-    rev = "v1.10.5pre_thorney_v0.1.2";
-    sha256 = "sha256-pL7spytNCB0zIN1B1ugMVBrUoEBr/dMzld2hvlQ0S5A=";
+    rev = "sars-cov-2-origins";
+    hash = "sha256-RvJy3TZPdXV+c8L5rULnWnbaAjBTQKoWLcOFU8drSis=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];

@@ -1,10 +1,11 @@
-{ stdenv,
-  lib,
-  fetchFromGitHub,
-  ant,
-  jdk8,
-  jre8,
-  makeWrapper }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, ant
+, jdk8
+, jre8
+, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   pname = "figtree";
@@ -14,7 +15,7 @@ stdenv.mkDerivation rec {
     owner = "rambaut";
     repo = "${pname}";
     rev = "v${version}";
-    sha256 = "1fymmyqwvvyyh7kpi7mhjx763s1gp3zskfnlv8j6fh7kmbqnyb5g";
+    hash = "sha256-ryxv8arzQGck2tS6qf+4L+hhTpewnnjngd7vzbGv1bs=";
   };
 
   nativeBuildInputs = [ ant jdk8 makeWrapper ];
