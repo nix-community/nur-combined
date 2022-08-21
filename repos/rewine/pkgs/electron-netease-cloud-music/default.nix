@@ -8,11 +8,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "electron-netease-cloud-music";
-  version = "0.9.34";
+  version = "0.9.36";
 
   src = fetchurl {
     url = "https://github.com/Rocket1184/${pname}/releases/download/v${version}/${pname}_v${version}.asar";
-    sha256 = "sha256-8yX4VJ/QfAnXaSNPmxN9AquRuvJ/YU+L8kb/z/rEGG0=";
+    sha256 = "sha256-ElJKdI+yuvvjUtqEulyFHz3VvMKXgAbX9QXwRk1oQkg=";
   };
 
   desktopItems = [
