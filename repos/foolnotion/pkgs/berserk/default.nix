@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, fetchFromGitHub }:
 
 let
-  nnueFile = "berserk-70370ef71611.nn";
+  nnueFile = "berserk-11a8ee076cec.nn";
   nnue = fetchurl {
     name = nnueFile;
     url = "https://github.com/jhonnold/berserk-networks/raw/main/${nnueFile}";
-    sha256 = "sha256-cDcO9xYRWOHJmMGGpeFiEAH2kSF+Km2x0Dah6PTNEbc=";
+    sha256 = "sha256-EajuB2zs+XF7M+jSi7LXE5DNAXDX22sz18SVLMuH00A=";
   };
 in stdenv.mkDerivation rec {
   pname = "berserk";
@@ -14,8 +14,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jhonnold";
     repo = "berserk";
-    rev = "beddea23b7d27057748ac6765937fe843cbfe076";
-    sha256 = "sha256-ptFJOPrvRwLbG9W3zKMOWSPaGNnksrpYq1qbGG/WjIg=";
+    rev = "527334e771ce9c48eab66136508ee94f7af575d3";
+    sha256 = "sha256-ibuPBW8y725RGo14wdvrxnZ+eDvaOU8ptQ+6KuGMQQY=";
   };
 
   preConfigure = ''
