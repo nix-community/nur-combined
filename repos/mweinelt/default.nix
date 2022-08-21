@@ -47,6 +47,7 @@
   trinitycore_915 = pkgs.callPackage ./pkgs/servers/games/trinitycore/915.nix { };
   trinitycore_920 = pkgs.callPackage ./pkgs/servers/games/trinitycore/920.nix { };
   trinitycore_925 = pkgs.callPackage ./pkgs/servers/games/trinitycore/925.nix { };
+  trinitycore_927 = pkgs.callPackage ./pkgs/servers/games/trinitycore/927.nix { };
 
   vmangos = pkgs.callPackage ./pkgs/servers/games/vmangos {};
   vmangos-worlddb = pkgs.callPackage ./pkgs/servers/games/vmangos/worlddb.nix {};
