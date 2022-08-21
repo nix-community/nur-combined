@@ -4,7 +4,7 @@ in
 import ./lib/make-test.nix (
   { ... }: {
     name = "opensmtpd-relay";
-    machine = { pkgs, ... }: {
+    nodes.machine = { pkgs, ... }: {
       environment.systemPackages = with pkgs; [ mailutils ];
 
       services.mailhog.enable = true;

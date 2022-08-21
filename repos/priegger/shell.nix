@@ -1,5 +1,5 @@
 let
-  sources = import ./nix/sources.nix;
+  sources = import ./npins;
   pkgs = import sources.nixpkgs { };
 in
 pkgs.mkShell {
@@ -7,8 +7,8 @@ pkgs.mkShell {
 
   buildInputs = with pkgs; [
     cachix
-    niv
     nixpkgs-fmt
+    npins
     shellcheck
   ];
 }
