@@ -32,6 +32,7 @@
 | [foldsigns-nvim](https://github.com/lewis6991/foldsigns.nvim) | Signs for folded lines |
 | [formatter-nvim](https://github.com/mhartington/formatter.nvim) | None |
 | [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Set of preconfigured snippets for different languages.  |
+| [fzf-lua](https://github.com/ibhagwan/fzf-lua) | Improved fzf.vim written in lua |
 | [gitsigns-nvim](https://github.com/lewis6991/gitsigns.nvim) | Git integration for buffers |
 | [glow-hover-nvim](https://github.com/JASONews/glow-hover.nvim) | A Neovim plugin leveraging glow for LSPs hover responses. |
 | [guess-indent-nvim](https://github.com/NMAC427/guess-indent.nvim) | Automatic indentation style detection for Neovim |
