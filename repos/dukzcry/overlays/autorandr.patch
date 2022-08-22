@@ -1,0 +1,30 @@
+--- ./autorandr.py.orig	1970-01-01 03:00:01.000000000 +0300
++++ ./autorandr.py	2022-08-22 14:38:36.425312291 +0300
+@@ -600,7 +600,7 @@ def load_profiles(profile_path):
+         profiles[profile] = {
+             "config": config,
+             "path": os.path.join(profile_path, profile),
+-            "config-mtime": os.stat(config_name).st_mtime,
++            "config-mtime": os.stat(nixos_mtime(config_name)).st_mtime,
+         }
+ 
+     return profiles
+@@ -742,11 +742,17 @@ def save_configuration(profile_path, pro
+     with open(setup_path, "w") as setup:
+         output_setup(configuration, setup)
+ 
++def nixos_mtime(filename):
++  path = os.path.expanduser("~/.config")
++  newfilename = filename.replace('/etc/xdg', path)
++  if not os.path.exists(newfilename):
++    os.makedirs(newfilename)
++  return newfilename
+ 
+ def update_mtime(filename):
+     "Update a file's mtime"
+     try:
+-        os.utime(filename, None)
++        os.utime(nixos_mtime(filename), None)
+         return True
+     except:
+         return False
