@@ -66,6 +66,7 @@ in {
               "${cfg.config.name}".enable = false;
             };
           };
+          # filter isn't supported before next version of autorandr
           integer = monitor // {
             hooks.postswitch.xrandr = "${pkgs.xorg.xrandr}/bin/xrandr --output ${monitor'.name} --scale 0.5x0.5 --filter nearest";
           };

@@ -1,4 +1,4 @@
---- ./autorandr.py.orig	1970-01-01 03:00:01.000000000 +0300
+--- ./autorandr.py	1970-01-01 03:00:01.000000000 +0300
 +++ ./autorandr.py	2022-08-22 14:38:36.425312291 +0300
 @@ -600,7 +600,7 @@ def load_profiles(profile_path):
          profiles[profile] = {
@@ -28,3 +28,21 @@
          return True
      except:
          return False
+@@ -1108,7 +1114,7 @@ def exec_scripts(profile_path, script_na
+ 
+     user_profile_path = os.path.expanduser("~/.autorandr")
+     if not os.path.isdir(user_profile_path):
+-        user_profile_path = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "autorandr")
++        user_profile_path = os.path.join("/etc/xdg", "autorandr")
+ 
+     candidate_directories = []
+     if profile_path:
+@@ -1332,7 +1338,7 @@ def main(argv):
+         profile_path = os.path.expanduser("~/.autorandr")
+         if not os.path.isdir(profile_path):
+             # Elsewise, follow the XDG specification
+-            profile_path = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")), "autorandr")
++            profile_path = os.path.join("/etc/xdg", "autorandr")
+         if os.path.isdir(profile_path):
+             profiles.update(load_profiles(profile_path))
+             profile_symlinks.update(get_symlinks(profile_path))
