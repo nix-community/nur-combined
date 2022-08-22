@@ -53,6 +53,7 @@ in
       carla
       chromaprint
       curl
+      dbus
       dconf
       fftw
       fftwFloat
