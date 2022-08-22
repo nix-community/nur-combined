@@ -14,6 +14,7 @@ let
     v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo119Module; };
     v2ray-rules-dat-geoip = callPackage ./v2ray-geoip { };
     v2ray-rules-dat-geosite = callPackage ./v2ray-geosite { };
+    vlmcsd = callPackage ./vlmcsd {};
   };
 in
 if filterByPlatform

@@ -43,6 +43,8 @@
     permitRootLogin = "yes";
   };
 
+  services.vlmcsd.enable = true;
+
   system.autoUpgrade = {
     enable = true;
     dates = "04:00";
@@ -70,6 +72,8 @@
     lsof
     screen
     usbutils
+    v2ray-next
+    vlmcsd
   ] ++ (with config.boot.kernelPackages; [
     cpupower
   ]);
