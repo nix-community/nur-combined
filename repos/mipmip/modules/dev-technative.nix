@@ -24,6 +24,7 @@
     unstable.terracognita
     #RANDSTAD
     citrix_workspace
+    sq
   ];
 }
 
