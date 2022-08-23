@@ -1,4 +1,3 @@
-PATH=$PATH:@fhs@/bin:@binutils@/bin
 if [ $# == 0 ]; then
     echo "No AppImage provided"
     exit 1

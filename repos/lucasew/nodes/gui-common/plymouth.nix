@@ -1,4 +1,7 @@
-{pkgs, lib, ...}: {
+{pkgs, lib, ...}:
+let
+  theme = "circle_hud";
+in {
   boot.plymouth = {
     enable = true;
     # theme = "breeze";
@@ -16,7 +19,7 @@
     #     convert -resize 50% $src $out
     #   '';
     # };
-    theme = "alienware";
+    inherit theme;
     themePackages = [
       (pkgs.stdenv.mkDerivation {
         name = "plymouth-themes";
@@ -29,7 +32,7 @@
         installPhase = ''
           mkdir $out/share/plymouth/themes -p
           chmod +w -R $out/share/plymouth
-          for f in $src/pack_*/*; do
+          for f in $src/pack_*/${theme}; do
             cp -r $f $out/share/plymouth/themes/
           done
           chmod +w $out -R

@@ -19,6 +19,18 @@ in
     };
     libvirtd.enable = true;
   };
+
+  imports = [
+    ({config, ...}: {
+      config = lib.mkIf (config.virtualisation.kvmgt.enable) {
+        boot = {
+          kernelParams = [ "intel_iommu=on" "i915.enable_gvt=1" ];
+          kernelModules = [ "kvmgt" "vfio-iommu-type1" "mdev" ];
+        };
+      };
+    })
+  ];
+
   environment.systemPackages = with pkgs; [
     virt-manager
   ];

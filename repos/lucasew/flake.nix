@@ -207,6 +207,9 @@
       riverwood = nixosConf {
         mainModule = ./nodes/riverwood/default.nix;
       };
+      whiterun = nixosConf {
+        mainModule = ./nodes/whiterun/default.nix;
+      };
       demo = nixosConf {
         mainModule = ./nodes/demo/default.nix;
       };
@@ -252,6 +255,7 @@
         ++ (with pkgs.custom.vscode; [ common programming ])
         ++ (with self.nixosConfigurations; [
           riverwood.config.system.build.toplevel
+          whiterun.config.system.build.toplevel
           vps.config.system.build.toplevel
         ])
         ++ (with self.homeConfigurations; [

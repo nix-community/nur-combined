@@ -40,7 +40,6 @@ in {
   wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = prev;});
   c4me = cp ./pkgs/c4me;
   encore = cp ./pkgs/encore.nix;
-  parsec = cp ./pkgs/parsec.nix;
   weston-run = cp ./pkgs/weston-desktop.nix;
   xplr = cp ./pkgs/xplr.nix;
   personal-utils = cp ./pkgs/personal-utils.nix;

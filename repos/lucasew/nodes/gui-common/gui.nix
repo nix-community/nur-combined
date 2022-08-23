@@ -20,7 +20,6 @@
   services.xserver = {
     layout = "br,us";
     xkbOptions = "grp:win_space_toggle,terminate:ctrl_alt_bksp";
-    xkbModel = "acer_laptop";
     xkbVariant = ",";
   };
 

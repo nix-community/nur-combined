@@ -11,33 +11,26 @@ in
 {
   imports =
     [
-      ../common/default.nix
+      ../gui-common
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
       inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-      ./audio.nix
-      ./gui.nix
+      inputs.nixos-hardware.nixosModules.common-gpu-intel
+      inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+
       ./tuning.nix
-      ./adb.nix
-      ./vbox.nix
       ./networking.nix
-      ./plymouth.nix
       ./dns.nix
-      ./git.nix
       ./kvm.nix
       ./backup-saves.nix
     ]
   ;
 
+  services.xserver.xkbModel = "acer_laptop";
+
   services.simple-dashboardd.enable = true;
  
   # programs.steam.enable = true;
-  nixpkgs = {
-    config = {
-      android_sdk.accept_license = true;
-    };
-  };
 
   boot = {
     supportedFilesystems = [ "ntfs" ];
@@ -50,12 +43,6 @@ in
         #efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
         device = "nodev";
         useOSProber = true;
-        ipxe = {
-          netboot-xyz = ''
-            dhcp
-            chain --autofree https://boot.netboot.xyz
-          '';
-        };
       };
     };
   };
@@ -70,64 +57,10 @@ in
   ];
 
   networking.hostName = hostname; # Define your hostname.
-
-  systemd.extraConfig = ''
-  DefaultTimeoutStartSec=10s
-  '';
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    gparted
-    paper-icon-theme
-    p7zip unzip # archiving
-    pv
-    # Extra
-    # intel-compute-runtime # OpenCL
-    distrobox # plan b
-  ];
-
-  programs.dconf.enable = true;
-  services.dbus.packages = with pkgs; [ dconf ];
-  services.gvfs.enable = true;
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.ssh = {
-    startAgent = true;
-    extraConfig = ''
-      ConnectTimeout=5
-    '';
-  };
-  services.shellhub-agent = {
-    enable = true;
-    tenantId = "c574bf33-a21a-49ef-a7a5-1d8fbd823e4e";
-  };
-  programs.gnupg.agent = {
-    enable = true;
-    # enableSSHSupport = true;
-    pinentryFlavor = "gnome3";
-  };
-  
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-  # Themes
-  # this is crashing calibre
-  programs.qt5ct.enable = true;
-
-  # Users
-  users.users = {
-    ${username} = {
-      description = "Lucas Eduardo";
-    };
-  };
-
-  virtualisation = {
-    docker.enable = true;
-    libvirtd.enable = true;
-  };
-
+ 
   # nix.distributedBuilds = true;
   # nix.buildMachines = [
   #   {
@@ -139,6 +72,7 @@ in
   #     supportedFeatures = [ "big-parallel" "kvm" ];
   #   }
   # ];
+
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_5_15;
 
