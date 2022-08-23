@@ -139,13 +139,13 @@
   };
   zix = {
     pname = "zix";
-    version = "f2fc88e136fc92328b86575fdfed1cc7c7729ef3";
+    version = "16a8597f4d52de948291825698b7d2458998a510";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "f2fc88e136fc92328b86575fdfed1cc7c7729ef3";
+      rev = "16a8597f4d52de948291825698b7d2458998a510";
       fetchSubmodules = false;
-      sha256 = "sha256-WuTjoK/4LGK4LwXtnlAjF7aOv6qfTLRajImpehfEQe4=";
+      sha256 = "sha256-oPTzvVd/JRCidQxh3wOjcL/R3LnhZ885WJtoqct72Z0=";
     };
   };
   zrythm = {
