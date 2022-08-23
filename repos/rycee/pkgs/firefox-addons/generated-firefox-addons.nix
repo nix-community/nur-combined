@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0buildid20220818.191623";
+      version = "105.0buildid20220822.142820";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3991008/francais_language_pack-104.0buildid20220818.191623.xpi";
-      sha256 = "3e85b0f64cfffea9196de2de58afbff81141cfeea8604fbdb5dea38ecde433f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3992323/francais_language_pack-105.0buildid20220822.142820.xpi";
+      sha256 = "effec06d6ba2f5a65b91fb8bb77b0353810b3f57106e5b77daa78cf3b0773cc1";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1871,10 +1871,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.0.0";
+      version = "6.0.1";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3991628/reddit_moderator_toolbox-6.0.0.xpi";
-      sha256 = "5cc9bcfbc4e49b55677a273efc79c2e0784ff91d562a187827d3e4df343f21b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3992276/reddit_moderator_toolbox-6.0.1.xpi";
+      sha256 = "e74efca7ae5fcfb7937db16fc86eb23ca695dcf7783168292d3edb992657b916";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -2671,10 +2671,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.67.1";
+      version = "2.68.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3988579/web_scrobbler-2.67.1.xpi";
-      sha256 = "89b53dcf08e9fa4d14c866f7cf192c9089258e127041ec3cbebbc0eeaeff3232";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3992221/web_scrobbler-2.68.0.xpi";
+      sha256 = "4c70cf5c7ae6b1d648fa28c1449a2626e54ace7ff2a3e1839cc781fcf7ae6c81";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
