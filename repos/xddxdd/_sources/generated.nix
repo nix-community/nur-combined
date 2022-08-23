@@ -69,10 +69,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.4.1-1";
+    version = "1.5.0-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.4.1-1/io.github.msojocs.bilibili_1.4.1-1_amd64.deb";
-      sha256 = "sha256-A9Tpz3v/JhcE9Smuv+42vAN7CV17OhfUaYuHLrOv7eg=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.5.0-1/io.github.msojocs.bilibili_1.5.0-1_amd64.deb";
+      sha256 = "sha256-HyRG2dsf611WeaUd5krgDujd0Zrdh4++8dpO9NLMkB4=";
     };
   };
   bird-babel-rtt = {
@@ -221,13 +221,13 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "0.7.1";
+    version = "0.7.2";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "0.7.1";
+      rev = "0.7.2";
       fetchSubmodules = false;
-      sha256 = "sha256-m20M4+3zsH40hTpMJG9cyIjXp0xcCUBS+cCiRVLXFqM=";
+      sha256 = "sha256-cwrTHj/WFDZ9Ez2FhjpRhEx9aC5xBnh7HR/9T+zUpZc=";
     });
   };
   netboot-xyz-efi = {
@@ -467,10 +467,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220820051407";
+    version = "20220822040801";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220820051407/dlc.dat";
-      sha256 = "sha256-XEcY7p2dGYkxTdPJ2fzHAG02MpaxofPwgPf5ZkB7eaM=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220822040801/dlc.dat";
+      sha256 = "sha256-gEG+BOaaCOIMHB4N+0cKhxwyyKNGpJGYSHmJYM61aJE=";
     };
   };
   v2fly-private = {

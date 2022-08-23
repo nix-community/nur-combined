@@ -3,8 +3,8 @@
   # WeChat replaces this download link with newer versions from time to time.
   # This package will inevitably break by then, but there's nothing I can do.
   # If that happens, change these two parameters.
-, version ? "3.7.5"
-, sha256 ? "0lf3q0q2j1a106knd3knx8cfdddb7jlkq09pgc6a228vfb85c669"
+, version ? "3.7.6"
+, sha256 ? "sha256-FjK59BxgwLCmkDjgE2fsItCWwqBw0DOgtfrO/NuYwaY="
 
 , fetchurl
 , lib

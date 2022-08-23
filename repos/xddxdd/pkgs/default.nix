@@ -143,6 +143,9 @@ rec {
   vs-rife = pkg ./vs-rife { };
   wechat-uos = pkg ./wechat-uos { };
   wechat-uos-bin = pkg ./wechat-uos/official-bin.nix { };
-  wine-wechat = pkg ./wine-wechat { };
+
+  # In case of wechat update, use (wine-wechat.override { version = "1.2.3"; sha256 = "xxx";})
+  wine-wechat = pkgs.lib.makeOverridable pkg ./wine-wechat { };
+
   xray = pkg ./xray { };
 }

@@ -44,14 +44,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     perl
-    (python3.withPackages (p: with p; [ jinja2 pyyaml tabulate ]))
   ];
   buildInputs = [ cryptodev ];
 
   preBuild = ''
     ln -s ${liboqs} oqs
-    sed -i "s/enable: false/enable: true/g" oqs-template/generate.yml
-    LIBOQS_DOCS_DIR=${sources.liboqs.src}/docs python oqs-template/generate.py
     make generate_crypto_objects
   '';
 
