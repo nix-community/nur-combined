@@ -3,14 +3,15 @@ let
   pkgs = prev;
 in
 {
-  zig = (pkgs.zig.override { llvmPackages = pkgs.llvmPackages_13; }).overrideAttrs (old: rec {
+  zig = (pkgs.zig.override { llvmPackages = pkgs.llvmPackages_14; }).overrideAttrs (old: rec {
     version = "0.10.0-dev";
     src = pkgs.fetchFromGitHub {
       owner = "ziglang";
       repo = "zig";
-      rev = "a5c7742ba6fc793608b8bb7ba058e33eccd9cfec";
-      hash = "sha256-nObE1WX5nY40v6ryaAB75kVKeE+Q76yKgfR/DYRDcwA=";
+      rev = "c84e5ee87852eafff0cbf986bf02c5221cbcec35";
+      hash = "sha256-GicNLPwUIXfKLs8M6ZQ8UX7PGOTy5r31FBQMWUGoEUE=";
     };
+    patches = [];
   });
 
   zls = pkgs.zls.overrideAttrs (old: rec {
@@ -19,8 +20,8 @@ in
       fetchSubmodules = true;
       owner = "zigtools";
       repo = "zls";
-      rev = "189de1768dfc95086a15664123c11144e9ac1402";
-      sha256 = "sha256-iTYwK76N0efm/e0JZbxKKZ/j+dej9BX/SNWeox+iLjA=";
+      rev = "a18ec394f16a17cc1db20dedaabc42ce9b7f9a9d";
+      sha256 = "sha256-lSGsUSHS1gQXzn0rKoKFKkQFOs9Ig7MUpL54PaLxLq8=";
     };
   });
 }
