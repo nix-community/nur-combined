@@ -57,9 +57,7 @@ in
   
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.enableProtontricks {
-      home.packages = with pkgs; [
-        protontricks winetricks
-      ];
+      home.packages = settings.packages.gaming;
     })
     (mkIf cfg.retroarch.enable (mkMerge [
       (mkIf (cfg.retroarch.coresToLoad == [ ]) {

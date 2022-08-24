@@ -24,7 +24,7 @@ in
       home.packages = settings.packages.dev;
       programs.vscode = {
         enable = true;
-        package = pkgs.vscodium;
+        package = settings.vscode.package;
         extensions = settings.vscode.extensions;
         userSettings = settings.vscode.userSettings;
       };

@@ -22,6 +22,7 @@ in rec {
       vlc
     ];
     dev = [ pkgs.shellcheck ];
+    gaming = with pkgs; [ protontricks winetricks ];
     browser = [ vdhcoapp ];
     fonts = [
       (pkgs.nerdfonts.override { fonts = [ "Iosevka" ]; })
@@ -108,7 +109,15 @@ in rec {
     };
   };
 
+  neovim = {
+    package = pkgs.neovim-unwrapped;
+    plugins = with pkgs.vimPlugins; [
+      vim-nix
+    ];
+  };
+
   vscode = {
+    package = pkgs.vscodium;
     extensions = (with pkgs.vscode-extensions; [
       arrterian.nix-env-selector
       gruntfuggly.todo-tree

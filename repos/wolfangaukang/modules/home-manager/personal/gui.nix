@@ -91,6 +91,13 @@ in
               settings.firefox.settings.common
             ];
           };
+          gnaujep = {
+            id = 2;
+            name = "Gnaujep";
+            settings = lib.mkMerge [
+              settings.firefox.settings.common
+            ];
+          };
         };
       };
     })

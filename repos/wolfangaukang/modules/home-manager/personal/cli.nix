@@ -36,10 +36,8 @@ in
         gpg.enable = true;
         neovim = {
           enable = true;
-          package = pkgs.neovim-unwrapped;
-          plugins = with pkgs.vimPlugins; [
-            vim-nix
-          ];
+          package = settings.neovim.package;
+          plugins = settings.neovim.plugins;
           viAlias = true;
         };
         ssh = {

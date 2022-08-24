@@ -27,7 +27,7 @@ in
         # GUI Tools
         keybase-gui
         remmina
-        upwork
+        upwork-download
         signumone-ks
 
         # CLI Tools
@@ -45,7 +45,7 @@ in
       programs = {
         firefox = {
           profiles.work = {
-            id = 2;
+            id = 3;
             name = "SimpleRisk";
           };
         };
