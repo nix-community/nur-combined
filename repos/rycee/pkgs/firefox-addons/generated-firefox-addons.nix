@@ -435,10 +435,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.56";
+      version = "4.9.57";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3990001/darkreader-4.9.56.xpi";
-      sha256 = "3610535118e039d463a4e215682ef011befd6e1d30891d28904533cab00b6ae6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3992744/darkreader-4.9.57.xpi";
+      sha256 = "235281b6419dd1b78683caa4ca95d509538b1b03ad22afb9bbbbe85861ee23a5";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220822.142820";
+      version = "105.0buildid20220823.185840";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3992323/francais_language_pack-105.0buildid20220822.142820.xpi";
-      sha256 = "effec06d6ba2f5a65b91fb8bb77b0353810b3f57106e5b77daa78cf3b0773cc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3992976/francais_language_pack-105.0buildid20220823.185840.xpi";
+      sha256 = "e35bc186974c824075e50fafec7ddbc1d15b96b5aceb5abcadb1e3e7b66dd615";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -778,10 +778,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.2.5";
+      version = "3.2.6";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3934429/gesturefy-3.2.5.xpi";
-      sha256 = "3a15d627e12dd735b0a76c42247613cadf915bd3b7c3fec39239c64a1652e0db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3992898/gesturefy-3.2.6.xpi";
+      sha256 = "8721a65aa243c5c8672f9dabed299c45fe90c1f12acd51069784453e46fc935a";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -1913,10 +1913,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.8.8";
+      version = "22.8.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986172/refined_github-22.8.8.xpi";
-      sha256 = "1936a380d825565baa5f99717706a31c159919bbc57c8506fafce9d8261cd793";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3992877/refined_github-22.8.23.xpi";
+      sha256 = "30888735ebae43511715a85bcb72839c04e11916036fcd158f393c13a2418431";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
