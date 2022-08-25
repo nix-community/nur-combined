@@ -7,6 +7,10 @@ in {
       desktopName = "Teste";
       url = "https://google.com";
     };
+    reemo = {
+      desktopName = "Remote control";
+      url = "https://reemo.io";
+    };
     whatsapp = {
       desktopName = "WhatsApp";
       url = "web.whatsapp.com";

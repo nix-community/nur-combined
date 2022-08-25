@@ -57,6 +57,7 @@ in
   ];
 
   networking.hostName = hostname; # Define your hostname.
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
