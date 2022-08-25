@@ -174,11 +174,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3SR2HncwiR7AVeEJfMDKtHUVImvgal9iq9aW4cCfGe4=",
+            "sha256": "sha256-syQ9dkA8BIhtzlMdOolG9U0kn4YF0ba9OzwwNPU2ITw=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.6/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.7/app-x86_64.asar"
         },
-        "version": "v2.6.6"
+        "version": "v2.6.7"
     },
     "icalingua-plus-plus-aur": {
         "cargoLocks": null,
@@ -191,12 +191,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b8ba3aff093f6b67a27ed8e2c60dc70815522d93",
-            "sha256": "sha256-nZuQtWmaW3t/gZ6qyiBnHxzLDWQp3shi6Ldr0kceb/8=",
+            "rev": "f181b3ff7f42370e300493f4359b6c66a3c0f5bf",
+            "sha256": "sha256-5rBewzNrgG6BeWaJeuG+ZX/RAqGP0yRMk0o+jEB1Sio=",
             "type": "git",
             "url": "https://aur.archlinux.org/icalingua++.git"
         },
-        "version": "b8ba3aff093f6b67a27ed8e2c60dc70815522d93"
+        "version": "f181b3ff7f42370e300493f4359b6c66a3c0f5bf"
     },
     "pisces": {
         "cargoLocks": null,
