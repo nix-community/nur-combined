@@ -364,6 +364,9 @@ let
       meta = old.meta // {
         broken = old.meta.broken or false || electrum.stdenv.isDarwin;
       };
+      passthru = old.passthru or { } // {
+        ci.warn = true;
+      };
     });
 
     duc-cli = { lib, duc }: let
