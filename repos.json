@@ -232,9 +232,6 @@
             "file": "nur.nix",
             "url": "https://github.com/iagocq/nix"
         },
-        "icecafecup": {
-            "url": "https://github.com/icecafecup/nur-packages"
-        },
         "ijohanne": {
             "url": "https://github.com/ijohanne/nur-packages"
         },
