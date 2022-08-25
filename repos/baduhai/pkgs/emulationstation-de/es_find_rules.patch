@@ -7,7 +7,7 @@ index 3616bb79..bd08a931 100644
              <!-- NetBSD repository -->
              <entry>/usr/pkg/lib/libretro</entry>
 +            <!-- NixOS and nixpkgs repository -->
-+            <entry>/run/current-system/sw/lib/</entry>
++            <entry>/run/current-system/sw/lib</entry>
          </rule>
      </core>
      <emulator name="ATARI800">
