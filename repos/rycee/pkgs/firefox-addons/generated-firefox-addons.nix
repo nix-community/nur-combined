@@ -1871,10 +1871,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.0.1";
+      version = "6.0.2";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3992276/reddit_moderator_toolbox-6.0.1.xpi";
-      sha256 = "e74efca7ae5fcfb7937db16fc86eb23ca695dcf7783168292d3edb992657b916";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3993282/reddit_moderator_toolbox-6.0.2.xpi";
+      sha256 = "4877f8bfde2569293c656d9af32794700b50b0c8bb329ab0b7361a26258590a6";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -1954,10 +1954,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "27.5";
+      version = "27.6";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956141/save_page_we-27.5.xpi";
-      sha256 = "0dd8b93fb05e4676d5cfd83fd9d7bd456c42d9e4b20f6732203aa9aa83cd2392";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3993363/save_page_we-27.6.xpi";
+      sha256 = "a982f3e08d768f4ef6882d4564d83b5d43f803468693e0c298def6f17ea0238a";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2643,10 +2643,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.38";
+      version = "6.10.39";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978438/wappalyzer-6.10.38.xpi";
-      sha256 = "10b118eda1d8863d8cb979b80b7979545281bc2fbd67247f9b70879a8838cb57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3993587/wappalyzer-6.10.39.xpi";
+      sha256 = "0ce1b28b8e30569501430884b8bde3a29d737b63e1833d5e6f4f501f6c2a6af0";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2713,10 +2713,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.7";
+      version = "19.8";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954805/zoom_page_we-19.7.xpi";
-      sha256 = "d4ccd2333c73ac679f12430d97d82a3aa314a263907d3f372c8debd334e07b1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3993370/zoom_page_we-19.8.xpi";
+      sha256 = "218f55f15f7fe220579228553ee65535bd34313ff58707aeddbd5fcd720060b6";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
