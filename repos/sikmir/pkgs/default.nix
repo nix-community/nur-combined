@@ -432,7 +432,6 @@ lib.makeScope newScope (
     hurl = callPackage ./suckless/hurl { };
     imscript = callPackage ./suckless/imscript { };
     json2tsv = callPackage ./suckless/json2tsv { };
-    kilo = callPackage ./suckless/kilo { };
     lacc = callPackage ./suckless/lacc { };
     lbm = callPackage ./suckless/lbm { };
     lchat = callPackage ./suckless/lchat { };
