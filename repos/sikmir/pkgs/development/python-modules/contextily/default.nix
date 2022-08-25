@@ -1,15 +1,15 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub }:
+{ lib, stdenv, python3Packages, fetchFromGitHub, xyzservices }:
 
 python3Packages.buildPythonPackage rec {
   pname = "contextily";
-  version = "1.1.0";
+  version = "1.2.0";
   disabled = python3Packages.pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "geopandas";
-    repo = pname;
+    repo = "contextily";
     rev = "v${version}";
-    hash = "sha256-ftsZRLeOWmqXbgw8E2FIoRSkjz4tuhQgHVbhNULaauQ=";
+    hash = "sha256-ByLPd75MZCsa8l24lkIZVNX4RrT8LN3D0O4tLOb6hTI=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -20,6 +20,7 @@ python3Packages.buildPythonPackage rec {
     rasterio
     requests
     joblib
+    xyzservices
   ];
 
   doCheck = false;
