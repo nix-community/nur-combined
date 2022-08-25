@@ -106,4 +106,6 @@ rec {
 
   zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt { };
 
+  pomo = pkgs.callPackage ./pkgs/pomo {};
+
 }
