@@ -60,9 +60,14 @@ in {
         config = {
           enable = true;
           mode = "1920x1080";
+          transform = [
+            [ 1.3 0.0 0.0 ]
+            [ 0.0 1.3 0.0 ]
+            [ 0.0 0.0 1.0 ]
+          ];
+          dpi = 144;
         };
-        dpi = 96;
-        size = 16;
+        scale = 1.3;
       };
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];

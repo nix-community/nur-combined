@@ -31,6 +31,11 @@ in
         example = "Adwaita";
         description = "The name of the defualt cursor theme.";
       };
+
+      size = mkOption {
+        type = types.nullOr types.int;
+        default = null;
+      };
     };
   };
 
@@ -38,5 +43,7 @@ in
     environment.systemPackages = [
       defaultCursorPkg
     ];
+
+    environment.variables.XCURSOR_SIZE = optionalString (cfg.size != null) (toString cfg.size);
   };
 }

@@ -3,13 +3,17 @@
 with lib;
 let
   cfg = config.hardware.monitor;
-  position' = s: head (splitString "x" s);
+  position' = mode: scale:
+    let
+      res = toString ((toInt (head (splitString "x" mode))) * scale);
+    in (head (splitString "." res));
   monitor' = {
     name = "DP-1";
     setup = "00ffffffffffff0030aee66100000000331e0104b53e22783bb4a5ad4f449e250f5054a10800d100d1c0b30081c081809500a9c081004dd000a0f0703e80302035006d552100001a000000fd00283c858538010a202020202020000000fc004c454e20533238752d31300a20000000ff00564e4135433339420a2020202001f002031bf14e61605f101f05140413121103020123097f0783010000a36600a0f0701f80302035006d552100001a565e00a0a0a02950302035006d552100001ae26800a0a0402e60302036006d552100001a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002f";
     config = {
       enable = true;
       mode = "3840x2160";
+      dpi = 144;
     };
   };
 in {
@@ -76,38 +80,10 @@ in {
             config = {
               "${cfg.config.name}" = cfg.config.config;
               "${monitor'.name}" = monitor'.config // {
-                position = "${position' cfg.config.config.mode}x0";
+                position = "${position' cfg.config.config.mode cfg.config.scale}x0";
                 primary = true;
               };
             };
-          };
-        };
-        hooks = {
-          postswitch = {
-            xrdb = ''
-              case "$AUTORANDR_CURRENT_PROFILE" in
-                integer)
-                  DPI=96
-                  SIZE=16
-                  ;;
-                monitor|both)
-                  DPI=144
-                  SIZE=32
-                  ;;
-            '' + optionalString (cfg.config != null) ''
-                  laptop)
-                    DPI=${toString cfg.config.dpi}
-                    SIZE=${toString cfg.config.size}
-                    ;;
-            '' + ''
-                *)
-                  echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
-                  exit 1
-              esac
-              printf "Xft.dpi:%s\nXcursor.size:%s\n" "$DPI" "$SIZE" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
-            '';
-          } // optionalAttrs (cfg.postswitch != null) {
-            inherit (cfg) postswitch;
           };
         };
       };
