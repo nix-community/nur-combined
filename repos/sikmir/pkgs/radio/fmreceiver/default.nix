@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fftwFloat, libsamplerate, libsndfile, libusb1
+{ lib, stdenv, fetchFromGitHub, fetchpatch, fftwFloat, libsamplerate, libsndfile, libusb1
 , portaudio, rtl-sdr, qmake, qwt, wrapQtAppsHook
 }:
 
@@ -12,6 +12,14 @@ stdenv.mkDerivation rec {
     rev = version;
     hash = "sha256-U0m9PIB+X+TBoz5FfXMvR/tZjkNIy7B613I7eLT5UIs=";
   };
+
+  patches = [
+    # support qwt-6.2.0
+    (fetchpatch {
+      url = "https://github.com/JvanKatwijk/sdr-j-fm/commit/4ca2f3a28e3e3460dc95be851fcd923e91488573.patch";
+      hash = "sha256-tjNsg9Rc8kBn+6UzPsf1WLt+ZRYv8neG/CSyZKjObh0=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace fmreceiver.pro \
@@ -47,6 +55,5 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = true;
   };
 }

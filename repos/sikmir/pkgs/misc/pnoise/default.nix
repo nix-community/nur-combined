@@ -11,8 +11,6 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-JwWzLvgCNSLRs/ToZNFH6fN6VLEsQTmsgxxkugwjA9k=";
   };
 
-  postPatch = "sed -i 's/>=.*\"/\"/' setup.py";
-
   propagatedBuildInputs = with python3Packages; [ numpy ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
