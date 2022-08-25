@@ -1,4 +1,3 @@
-# Build command: nix-build -E 'with import <nixpkgs> {}; pkgs.callPackage ./default.nix {}'
 { lib, stdenv, fetchFromGitLab, cmake, SDL2, curl, ffmpeg,
 pugixml, pkgconf, freetype, freeimage, alsa-lib }:
 
