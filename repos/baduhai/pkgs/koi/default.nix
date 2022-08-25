@@ -2,13 +2,13 @@
 
 mkDerivation rec{
   name = "koi";
-  version = "0.2.1";
+  version = "0.2.2";
   
   src = fetchFromGitHub {
     owner = "baduhai";
     repo = "Koi";
-    rev = "26b6364890afbfa3281bcc959a3c49d4609447a7";
-    sha256 = "7RpPwlG5Qt8kunrbJx1Cs3pdh+sCPpdvSsv1usWMnNo=";
+    rev = "${version}";
+    sha256 = "l4NHZayCzsMZxJi6hIBs0qxT/svLeEEQ31qcsTNFMYQ=";
   };
   
   nativeBuildInputs = [ cmake ];
