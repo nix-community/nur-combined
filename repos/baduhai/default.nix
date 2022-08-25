@@ -15,5 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   koi = pkgs.libsForQt5.callPackage ./pkgs/koi { };
-  # ...
+  emulationstation-de = pkgs.callPackage ./pkgs/emulationstation-de { };
 }
