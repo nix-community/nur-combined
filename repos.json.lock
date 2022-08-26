@@ -882,8 +882,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "66baf83ab998a4c658c85169cb99d4b747eef0ce",
-            "sha256": "1djcy2l2y1vyb68zw1dsg35iq0r9hsdxmbqkzbyxc04l97mnl0r8",
+            "rev": "994836a23b62f6b51369a4e272eaa8d33ff41b36",
+            "sha256": "1hrjipjaflp7s9g2whklzgpcnkxnanlvgcdv1l5h6ayccvmd06f4",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "sky": {
