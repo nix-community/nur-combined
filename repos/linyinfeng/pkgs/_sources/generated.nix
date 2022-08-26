@@ -31,34 +31,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2022.08.26";
+    version = "2022.07.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.08.26.gz";
-      sha256 = "sha256-w4ZRrHFejXGUgQQ/N46AqVe/8+Bo5y1zRkA9p1OMQF0=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.07.07.gz";
+      sha256 = "sha256-umncReUWYHXaJd+ZMftJ70/W2MKFYg/lkJE8mXVMVZc=";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2022.08.26";
+    version = "2022.07.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.08.26.gz";
-      sha256 = "sha256-+wRLqFJIVf6lAkfK7war3xXdIFxbGLP5BnbE9yylrzM=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.07.07.gz";
+      sha256 = "sha256-E7RIWhjcEGOioXy+zPsrhwIVLcHyO7e7jetlcHBRTBY=";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2022.08.26";
+    version = "2022.07.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.08.26.gz";
-      sha256 = "sha256-2zQ1oeqo5w6lZYVkOcKph9Z9spfvgiImOUjlGYR3p6s=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.07.07.gz";
+      sha256 = "sha256-zNsnYL5IwvURBvzBbJlcvX0aZM1fdC9Eycuo3cm8upw=";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2022.08.26";
+    version = "2022.07.07";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.08.26.gz";
-      sha256 = "sha256-F3Gn2b5zhgd+galkJIt5Hw2fDs9SGKPE7vxi+GRR3h0=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.07.07.gz";
+      sha256 = "sha256-JmGP9ziouzSQFI1kvpM+ejmQibKP8UNPDXhmNkBCWi8=";
     };
   };
   commit-notifier = {
@@ -106,10 +106,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.7.0";
+    version = "v2.6.8";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.0/app-x86_64.asar";
-      sha256 = "sha256-PWDWQQM4BIm+U4aZU8DSOfb9a34Pp8r5mZ/LuH41DSw=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.8/app-x86_64.asar";
+      sha256 = "sha256-BZTCjWbv93bqBDAbOy4F0utW+uw4P7UgRmayH6lKXrI=";
     };
   };
   icalingua-plus-plus-aur = {
