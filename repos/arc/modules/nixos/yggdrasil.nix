@@ -172,7 +172,7 @@ in {
     services.yggdrasil = {
       address = mkIf opt.publicKey.isDefined (mkOptionDefault address);
       openMulticastPort = mkIf (cfg.linkLocalTcpPort != 0) (mkDefault true);
-      extraConfig = mkMerge [ cfg.config {
+      extraConfig = mkMerge [ (cfg.settings or cfg.config) {
         Peers = mkIf (cfg.peers != [ ]) (mkOptionDefault cfg.peers);
         InterfacePeers = mkIf (cfg.interfacePeers != [ ]) (mkOptionDefault cfg.interfacePeers);
         Listen = mkIf (cfg.listen != [ ]) (mkOptionDefault cfg.listen);

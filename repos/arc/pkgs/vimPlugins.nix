@@ -9,6 +9,14 @@
         type = "gem";
         version = "0.4.2";
       };
+    mini_mime = buildRubyGem {
+      inherit ruby;
+      pname = "mini_mime";
+      gemName = "mini_mime";
+      source.sha256 = "0lbim375gw2dk6383qirz13hgdmxlan0vc5da2l072j3qw6fqjm5";
+      type = "gem";
+      version = "1.1.2";
+    };
     mail = buildRubyGem {
       inherit ruby;
       pname = "mail";
@@ -37,7 +45,7 @@
     ];
     gemEnv = buildEnv {
       name = "notmuch-vim-gems";
-      paths = with ruby.gems; [ mail gpgme rack mail-gpg ]
+      paths = with ruby.gems; [ mail mini_mime gpgme rack mail-gpg ]
       ++ lib.optional (notmuch ? ruby) notmuch.ruby;
       pathsToLink = [ "/lib" "/nix-support" ];
     };

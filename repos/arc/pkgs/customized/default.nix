@@ -497,8 +497,8 @@ let
         sha256 = "0rqprr1p9b7r07q9gr14y6z4i11nx7lr9x9ggci1lrwm89kj14nw";
       }) ++ lib.singleton (fetchpatch {
         name = "qemu-smb-symlinks.patch";
-        url = "https://github.com/64kramsystem/qemu-pinning/commit/646a58799e0791c4074148a21d57786f100b7076.patch";
-        sha256 = "18sqw3sbsa5w7w5580g1b6l98grm0w3bhj7mrgnjgnir8m0as678";
+        url = "https://github.com/arcnmx/qemu/commit/cc4ea56e68242cb4b8e107f07a9601f64916958e.patch";
+        sha256 = "sha256-xayO0creV7+g1yrgFP35cCPWkDFOB2Qve3HsCjJKbfg=";
       });
 
       meta = old.meta or {} // {
