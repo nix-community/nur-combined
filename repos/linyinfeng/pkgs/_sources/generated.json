@@ -53,11 +53,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-umncReUWYHXaJd+ZMftJ70/W2MKFYg/lkJE8mXVMVZc=",
+            "sha256": "sha256-w4ZRrHFejXGUgQQ/N46AqVe/8+Bo5y1zRkA9p1OMQF0=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.07.07.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-armv8-2022.08.26.gz"
         },
-        "version": "2022.07.07"
+        "version": "2022.08.26"
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
@@ -67,11 +67,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-E7RIWhjcEGOioXy+zPsrhwIVLcHyO7e7jetlcHBRTBY=",
+            "sha256": "sha256-+wRLqFJIVf6lAkfK7war3xXdIFxbGLP5BnbE9yylrzM=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.07.07.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2022.08.26.gz"
         },
-        "version": "2022.07.07"
+        "version": "2022.08.26"
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
@@ -81,11 +81,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zNsnYL5IwvURBvzBbJlcvX0aZM1fdC9Eycuo3cm8upw=",
+            "sha256": "sha256-2zQ1oeqo5w6lZYVkOcKph9Z9spfvgiImOUjlGYR3p6s=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.07.07.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2022.08.26.gz"
         },
-        "version": "2022.07.07"
+        "version": "2022.08.26"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -95,11 +95,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JmGP9ziouzSQFI1kvpM+ejmQibKP8UNPDXhmNkBCWi8=",
+            "sha256": "sha256-F3Gn2b5zhgd+galkJIt5Hw2fDs9SGKPE7vxi+GRR3h0=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.07.07.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2022.08.26.gz"
         },
-        "version": "2022.07.07"
+        "version": "2022.08.26"
     },
     "commit-notifier": {
         "cargoLocks": {
@@ -174,11 +174,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BZTCjWbv93bqBDAbOy4F0utW+uw4P7UgRmayH6lKXrI=",
+            "sha256": "sha256-PWDWQQM4BIm+U4aZU8DSOfb9a34Pp8r5mZ/LuH41DSw=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.6.8/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.0/app-x86_64.asar"
         },
-        "version": "v2.6.8"
+        "version": "v2.7.0"
     },
     "icalingua-plus-plus-aur": {
         "cargoLocks": null,
