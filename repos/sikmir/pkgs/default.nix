@@ -390,7 +390,6 @@ lib.makeScope newScope (
     phyghtmap = callPackage ./osm/phyghtmap { };
     planetiler = callPackage ./osm/planetiler { };
     polytiles = callPackage ./osm/polytiles { };
-    prettymapp = callPackage ./osm/prettymapp { };
     pyrobuf = callPackage ./osm/pyrobuf { };
     pyrosm = callPackage ./osm/pyrosm { };
     sdlmap = callPackage ./osm/sdlmap { };
