@@ -62,17 +62,25 @@ in
   # started in user sessions.
   # programs.mtr.enable = true;
  
-  # nix.distributedBuilds = true;
-  # nix.buildMachines = [
-  #   {
-  #     hostName = "mtpc.local";
-  #     sshUser = "lucas59356";
-  #     system = "x86_64-linux";
-  #     maxJobs = 3;
-  #     speedFactor = 2;
-  #     supportedFeatures = [ "big-parallel" "kvm" ];
-  #   }
-  # ];
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+    {
+      hostName = "192.168.100.52"; # pc dos testes
+      sshUser = "lucasew";
+      system = "x86_64-linux";
+      maxJobs = 4;
+      speedFactor = 2;
+      supportedFeatures = [ "big-parallel" "kvm" ];
+    }
+    {
+      hostName = "192.168.69.1"; # whiterun
+      sshUser = "lucasew";
+      system = "x86_64-linux";
+      maxJobs = 12;
+      speedFactor = 4;
+      supportedFeatures = [ "big-parallel" "kvm" ];
+    }
+  ];
 
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_5_15;
