@@ -54,13 +54,13 @@
         sha512 = "pLS4PBPDdxuUAmw7Me7+TcHbykTsBKN/S9XJbUOMFQrNv9MoshzyMFK/R57JBm94/6HSL4vHnDeEmxlC82NQ4A==";
       };
     };
-    "typescript-4.7.4" = {
+    "typescript-4.8.2" = {
       name = "typescript";
       packageName = "typescript";
-      version = "4.7.4";
+      version = "4.8.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typescript/-/typescript-4.7.4.tgz";
-        sha512 = "C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==";
+        url = "https://registry.npmjs.org/typescript/-/typescript-4.8.2.tgz";
+        sha512 = "C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==";
       };
     };
     "vscode-jsonrpc-6.0.0" = {
@@ -141,7 +141,7 @@ in {
       sources."@emmetio/scanner-1.0.0"
       sources."@types/node-17.0.45"
       sources."emmet-2.3.6"
-      sources."typescript-4.7.4"
+      sources."typescript-4.8.2"
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"
       sources."vscode-languageserver-protocol-3.16.0"
