@@ -99,10 +99,10 @@
       };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
-      version = "2.3.2";
+      version = "2.3.3";
       addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3943117/augmented_steam-2.3.2.xpi";
-      sha256 = "400a0935f9b5ea58cc0f596eeaf396e9aeb12e6764c534649eb1635ccfaf988f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3993774/augmented_steam-2.3.3.xpi";
+      sha256 = "2789764199797bc15ccd2ec5351a90a0a1cd564c6f285ab139fc10fbe25cabc1";
       meta = with lib;
       {
         homepage = "https://augmentedsteam.com/";
@@ -532,10 +532,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.8.9";
+      version = "2022.8.25";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987636/duckduckgo_for_firefox-2022.8.9.xpi";
-      sha256 = "313b8afb43b8f5444453252c8ea334c85b6d2f0bc2270bde5506c88ef818a64b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3993826/duckduckgo_for_firefox-2022.8.25.xpi";
+      sha256 = "d19eb3852b51931f602bf728864ace26c5d3a7efa3ffdfebc8b77e72a58d1f25";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220823.185840";
+      version = "105.0buildid20220825.185816";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3992976/francais_language_pack-105.0buildid20220823.185840.xpi";
-      sha256 = "e35bc186974c824075e50fafec7ddbc1d15b96b5aceb5abcadb1e3e7b66dd615";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3994077/francais_language_pack-105.0buildid20220825.185816.xpi";
+      sha256 = "b257760d7a8f5dfec03eb1723b396a6b4ac08cb6bec8798fd6f916e4223a8718";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -880,10 +880,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.901.0";
+      version = "8.902.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978044/grammarly_1-8.901.0.xpi";
-      sha256 = "439ab1f52f2f1709ccf73fb504c4d6bcb3e3cf9a4b4463c2c7d147fd753a94cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3993435/grammarly_1-8.902.0.xpi";
+      sha256 = "2a939ec337512e4513c6523655397cbe358ed8f0ce3093e392172dc2f39842ba";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
