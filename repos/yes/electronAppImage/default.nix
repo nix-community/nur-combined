@@ -22,7 +22,7 @@ in
 
 if (electron != null)
 then stdenvNoCC.mkDerivation rec {
-  inherit name src;
+  inherit meta name src;
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -48,7 +48,7 @@ then stdenvNoCC.mkDerivation rec {
   '';
 }
 else appimageTools.wrapType2 {
-  inherit name src;
+  inherit meta name src;
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
