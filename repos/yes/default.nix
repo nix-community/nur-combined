@@ -23,7 +23,7 @@ with pkgs;
   };
 
   ppet = callPackage ./electronAppImage rec {
-    electron = electron_16;
+    electron = electron_19;
     pname = "ppet3";
     version = "3.3.0";
     description = "Live2D on desktop";
