@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitLab, cmake, SDL2, curl, ffmpeg, pugixml, pkgconf, freetype, freeimage, alsa-lib }:
 
 stdenv.mkDerivation rec{
-  name = "emulationstation-de";
+  pname = "emulationstation-de";
   version = "1.2.6";
 
   src = fetchFromGitLab {

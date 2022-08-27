@@ -1,7 +1,7 @@
 { lib, mkDerivation, fetchFromGitHub, cmake, qtbase, wrapQtAppsHook, kcoreaddons, kwidgetsaddons, kconfig }:
 
 mkDerivation rec{
-  name = "koi";
+  pname = "koi";
   version = "0.2.2";
   
   src = fetchFromGitHub {
