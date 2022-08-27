@@ -442,6 +442,9 @@
         "nprindle": {
             "url": "https://github.com/nprindle/nur-packages"
         },
+        "ocfox": {
+            "url": "https://github.com/ocfox/nur-pkgs"
+        },
         "ondt": {
             "url": "https://github.com/ondt/nur-packages"
         },
