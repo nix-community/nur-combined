@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.3.0" = {
+    "@eslint/eslintrc-1.3.1" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.3.0";
+      version = "1.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.0.tgz";
-        sha512 = "UWW0TMTmk2d7hLcWD1/e2g5HDM/HQ3csaLSqXCfqwh4uNDuNqlaKWXmEsL4Cs41Z0KnILNvwbHAah3C2yt06kw==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.1.tgz";
+        sha512 = "OhSY22oQQdw3zgPOOwdoj01l/Dzl1Z+xyUP33tkSN+aqyEhymJCcPHyXt+ylW8FSe0TfRC2VG+ROQOapD0aZSQ==";
       };
     };
     "@humanwhocodes/config-array-0.10.4" = {
@@ -29,6 +29,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@humanwhocodes/gitignore-to-minimatch/-/gitignore-to-minimatch-1.0.2.tgz";
         sha512 = "rSqmMJDdLFUsyxR6FMtD00nfQKKLFb1kv+qBbOVKqErvloEIJLo5bDTJTQNTYgeyp78JsA7u/NPi5jT1GR/MuA==";
+      };
+    };
+    "@humanwhocodes/module-importer-1.0.1" = {
+      name = "_at_humanwhocodes_slash_module-importer";
+      packageName = "@humanwhocodes/module-importer";
+      version = "1.0.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz";
+        sha512 = "bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==";
       };
     };
     "@humanwhocodes/object-schema-1.2.1" = {
@@ -292,13 +301,13 @@ let
         sha512 = "mQ+suqKJVyeuwGYHAdjMFqjCyfl8+Ldnxuyp3ldiMBFKkvytrXUZWaiPCEav8qDHKty44bD+qV1IP4T+w+xXRA==";
       };
     };
-    "espree-9.3.3" = {
+    "espree-9.4.0" = {
       name = "espree";
       packageName = "espree";
-      version = "9.3.3";
+      version = "9.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/espree/-/espree-9.3.3.tgz";
-        sha512 = "ORs1Rt/uQTqUKjDdGCyrtYxbazf5umATSf/K4qxjmZHORR6HJk+2s/2Pqe+Kk49HHINC/xNIrGfgh8sZcll0ng==";
+        url = "https://registry.npmjs.org/espree/-/espree-9.4.0.tgz";
+        sha512 = "DQmnRpLj7f6TgN/NYb0MTzJXL+vJF9h3pHy4JhCIs3zwcgez8xmGg3sXHcEO97BrmO2OSvCwMdfdlyl+E9KjOw==";
       };
     };
     "esquery-1.4.0" = {
@@ -949,15 +958,6 @@ let
         sha512 = "7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==";
       };
     };
-    "v8-compile-cache-2.3.0" = {
-      name = "v8-compile-cache";
-      packageName = "v8-compile-cache";
-      version = "2.3.0";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz";
-        sha512 = "l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==";
-      };
-    };
     "which-2.0.2" = {
       name = "which";
       packageName = "which";
@@ -998,12 +998,13 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.22.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.22.0.tgz"; sha1 = "78fcb044196dfa7eef30a9d65944f6f980402c48"; };
+    version = "8.23.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.23.0.tgz"; sha1 = "a184918d288820179c6041bb3ddcc99ce6eea040"; };
     dependencies = [
-      sources."@eslint/eslintrc-1.3.0"
+      sources."@eslint/eslintrc-1.3.1"
       sources."@humanwhocodes/config-array-0.10.4"
       sources."@humanwhocodes/gitignore-to-minimatch-1.0.2"
+      sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
@@ -1036,7 +1037,7 @@ let
         ];
       })
       sources."eslint-visitor-keys-3.3.0"
-      sources."espree-9.3.3"
+      sources."espree-9.4.0"
       sources."esquery-1.4.0"
       sources."esrecurse-4.3.0"
       sources."estraverse-5.3.0"
@@ -1112,7 +1113,6 @@ let
       sources."type-check-0.4.0"
       sources."type-fest-0.20.2"
       sources."uri-js-4.4.1"
-      sources."v8-compile-cache-2.3.0"
       sources."which-2.0.2"
       sources."word-wrap-1.2.3"
       sources."wrappy-1.0.2"
