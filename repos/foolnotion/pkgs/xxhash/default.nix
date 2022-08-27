@@ -1,11 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  buildXXHSum ? false,
-  buildSharedLibs ? true
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, enableXXHSum ? false
+, enableShared ? !stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "xxhash";
@@ -24,18 +18,18 @@ stdenv.mkDerivation rec {
     mkdir build
     cmake -S . -B ./build ./cmake_unofficial \
       -DCMAKE_BUILD_TYPE=Release \
-      -DXXHASH_BUILD_XXHSUM=${if buildXXHSum then "ON" else "OFF"} \
-      -DBUILD_SHARED_LIBS=${if buildSharedLibs then "ON" else "OFF"} \
+      -DXXHASH_BUILD_XXHSUM=${if enableXXHSum then "ON" else "OFF"} \
+      -DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"} \
       -DCMAKE_INSTALL_PREFIX=$out
-    '';
+  '';
 
   buildPhase = ''
     cmake --build build -j
-    '';
+  '';
 
   installPhase = ''
     cmake --install build
-    '';
+  '';
 
   meta = with lib; {
     description = "Extremely fast non-cryptographic hash algorithm.";

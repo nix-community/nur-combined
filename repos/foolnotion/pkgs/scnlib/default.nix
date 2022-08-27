@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake
+, enableShared ? !stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "scnlib";
@@ -13,7 +14,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DSCN_TESTS=OFF" "-DSCN_BENCHMARKS=OFF" "-DSCN_EXAMPLES=OFF" ];
+  cmakeFlags = [
+    "-DSCN_TESTS=OFF"
+    "-DSCN_BENCHMARKS=OFF"
+    "-DSCN_EXAMPLES=OFF"
+    "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
+  ];
 
   meta = with lib; {
     description = "Modern C++ library for replacing scanf and std::istream. .";
