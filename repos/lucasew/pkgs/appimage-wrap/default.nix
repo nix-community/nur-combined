@@ -4,6 +4,7 @@
 , copyDesktopItems
 , makeDesktopItem
 , binutils-unwrapped
+, elfutils
 , ... }:
 let
   fhs = buildFHSUserEnv {
@@ -172,7 +173,7 @@ in stdenv.mkDerivation {
   name = "appimage-wrap";
   dontUnpack = true;
 
-  buildInputs = [ fhs binutils-unwrapped ];
+  buildInputs = [ fhs binutils-unwrapped elfutils ];
   desktopItems = [
     (makeDesktopItem {
       name = "appimage-wrap";

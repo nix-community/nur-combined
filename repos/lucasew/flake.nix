@@ -158,6 +158,8 @@
   in {
     inherit global;
     inherit overlays;
+    inherit pkgs;
+    inherit self;
 
     colors = inputs.nix-colors.colorSchemes."classic-dark";
 
@@ -269,8 +271,6 @@
         done
       '';
     };
-
-    inherit pkgs;
   };
 }
 

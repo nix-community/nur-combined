@@ -8,7 +8,7 @@ in
   };
   virtualisation = {
     kvmgt = {
-      enable = true;
+      enable = lib.mkDefault true;
       vgpus = {
         "i91-GVTg_V5_8" = {
           uuid = [
