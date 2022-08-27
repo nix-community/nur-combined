@@ -23,6 +23,9 @@ in
       unrar
       direnv
       pciutils
+      htop
+      lm_sensors
+      neofetch
     ];
   };
   cachix.enable = true;

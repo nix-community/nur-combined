@@ -66,6 +66,13 @@ in {
     libvirtd.enable = true;
   };
 
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport32Bit = true;
+    };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = lib.mkDefault true;
 

@@ -17,8 +17,6 @@
   hardware = {
     bluetooth.enable = true;
     opengl = {
-      enable = true;
-      driSupport32Bit = true;
       extraPackages = with pkgs; [
         intel-ocl
         vaapiIntel
