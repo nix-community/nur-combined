@@ -39,14 +39,14 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "c8ec0a3326d910e074d6751af1aeefc6da91f9e2";
+    version = "4fcd13758a76daed50e781137b77699dbfaaf833";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "c8ec0a3326d910e074d6751af1aeefc6da91f9e2";
+      rev = "4fcd13758a76daed50e781137b77699dbfaaf833";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-cf4rJ44C3owHShaOi9nMjOrRYdfko55/2vYJcu5dWtU=";
+      sha256 = "sha256-RiAni6Yb4sgRDqxHOCsSsyJVd1kaaWACsU2jcn4zuXE=";
     };
   };
   lua-dbus = {
@@ -150,14 +150,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "4d3a7ef45f1e8e88d223526d1b72abcabab68fe5";
+    version = "88fc70730b83ccab1aa2926b52e45f78334976fc";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "4d3a7ef45f1e8e88d223526d1b72abcabab68fe5";
+      rev = "88fc70730b83ccab1aa2926b52e45f78334976fc";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-sW42X0rKd5d3bllXvum5BB8Y4NCduGwJOXyeyVn/uSY=";
+      sha256 = "sha256-XKBkJhM8dAooagWUOS0wyVXNCZUHa5wWpBB/EWLbBpo=";
     };
   };
 }
