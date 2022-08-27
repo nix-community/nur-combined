@@ -7,7 +7,7 @@ stdenv.mkDerivation rec{
   src = fetchFromGitLab {
     owner  = "es-de";
     repo   = "emulationstation-de";
-    rev    = "${version}";
+    rev    = "v${version}";
     sha256 = "BiQnHtcKheEhwp0KKy9BCDIuZuAjmS8tWNyNw4nl5Fk=";
   };
 
