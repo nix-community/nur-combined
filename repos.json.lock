@@ -166,8 +166,8 @@
             "url": "https://github.com/cransom/nur-packages"
         },
         "crazazy": {
-            "rev": "bcb5db31444ecaa11214f6cac2450978e97f1d2e",
-            "sha256": "1a5rsrkqqpx70k07rggj285zkp3xd270cm6aqax4bygd14qcpin9",
+            "rev": "616ea57258f5eb69efc6c6c585a014ae4614c654",
+            "sha256": "0vdhvldldy50wnqhydvqy0b0algw4cvxa7nqz9sj9i1wk7cagq15",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
@@ -514,8 +514,8 @@
             "url": "https://github.com/lheckemann/nixwip"
         },
         "linyinfeng": {
-            "rev": "a4b11882f347fc1eac7ce34070d0adc169e21da3",
-            "sha256": "08d314p6j85qgfcgpwsw8hfa6mwx8dnaq2b280j99brwn9dz04s1",
+            "rev": "58f03ac5863c07ef157bbc8ab2fcb0fe6cfb8da1",
+            "sha256": "1qxa103qaahblj9g4xk6wcfccczcw3bkvl0v9j15an8nx6w6zbyg",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "lourkeur": {
@@ -529,8 +529,8 @@
             "url": "https://github.com/lschuermann/nur-packages"
         },
         "lucasew": {
-            "rev": "d8dd7ff00aa59d3b481c47808eb6d45470522954",
-            "sha256": "01c6d18v3sd071rbjfa4812nzgkqzi88isd11s6xw0nfnkr32gsh",
+            "rev": "ff65fb8860a59591e9d112734927f868ba303449",
+            "sha256": "092nz2vxca2g098prqnr5jm9h064cg77r4ck99s61ijaxvgravn2",
             "url": "https://github.com/lucasew/nixcfg"
         },
         "m15a": {
