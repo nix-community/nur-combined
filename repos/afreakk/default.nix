@@ -16,12 +16,12 @@ let
       pluginName = "url-handler-tmux";
       # version = "lolx";
       # src = ~/coding/url-handler-tmux;
-      version = "260432bef882b161a5a5314cdce17147af88c4c0";
+      version = "4d243ab6fe6806b1bec46f0b961b024ca0051865";
       src = pkgs.fetchFromGitHub {
         owner = "afreakk";
         repo = pluginName;
         rev = version;
-        sha256 = "1v4igddc3dijnygddsr6zs8664vwhl1v4lpfnb3xxpzlbfyb8j6b";
+        sha256 = "0000000000000000000000000000000000000000000000000000";
       };
     };
     modules = {
