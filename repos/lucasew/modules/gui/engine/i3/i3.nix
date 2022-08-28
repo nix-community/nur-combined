@@ -72,7 +72,7 @@ bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+Down focus down
 bindsym $mod+Left focus left
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Right focus right
 bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+1 move container to workspace number 1
@@ -89,7 +89,7 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Right move right
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+e exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'xfce4-session-logout'
+bindsym $mod+Shift+e exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'loginctl kill-session $XDG_SESSION_ID'
 bindsym $mod+Shift+f floating toggle
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+Shift+p exec toggle-monitor
@@ -128,6 +128,8 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+
+exec --no-startup-id ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1
 
 # exec_always feh --bg-fill --no-xinerama --no-fehbg '/etc/wallpaper'
 exec_always feh --bg-fill --no-fehbg '/etc/wallpaper'

@@ -4,7 +4,7 @@ let
     "gnome" = ./engine/gnome;
     "kde" = ./engine/kde;
     "xfce" = ./engine/xfce;
-    "xfce_i3" = ./engine/xfce_i3;
+    "i3" = ./engine/i3;
   };
   inherit (global) selectedDesktopEnvironment;
 in {

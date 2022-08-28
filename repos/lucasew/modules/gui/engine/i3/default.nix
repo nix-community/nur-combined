@@ -15,16 +15,6 @@ in {
     displayManager.defaultSession = "none+i3";
     desktopManager = {
       xterm.enable = false;
-      xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = false;
-        enableScreensaver = false;
-        thunarPlugins = with pkgs.xfce; [
-          thunar-media-tags-plugin
-          thunar-archive-plugin
-        ];
-      };
     };
     windowManager.i3 = {
       enable = true;
