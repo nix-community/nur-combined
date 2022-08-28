@@ -4,8 +4,8 @@
 pkgs.stdenv.mkDerivation {
   name = "languagetool-code-comments";
   src = pkgs.fetchurl {
-    url = "https://github.com/dustinblackman/languagetool-code-comments/releases/download/v0.1.3/languagetool-code-comments_0.1.3_linux_amd64.tar.gz";
-    sha256 = "0j0m0a9wl59a2q61c0vdf298r25d8dx16z108dvp7kn41mzn597i";
+    url = "https://github.com/dustinblackman/languagetool-code-comments/releases/download/v0.2.0/languagetool-code-comments_0.2.0_linux_amd64.tar.gz";
+    sha256 = "0q3mna66j717303iz7n4rm0kdxrpzh7vxww45bpyvv1g248l9nc8";
   };
   phases = [ "installPhase" ];
   installPhase = ''
