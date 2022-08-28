@@ -18,6 +18,7 @@ stdenvNoCC.mkDerivation rec {
   '';
   meta = with lib; {
     description = "Arch Linux PGP keyring";
+    homepage = "https://gitlab.archlinux.org/archlinux/archlinux-keyring/";
     license = licenses.gpl3Plus;
   };
 }
