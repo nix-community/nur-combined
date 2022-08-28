@@ -14,7 +14,7 @@ let
   commit = "aa19f27fe8117bdc9e630d59676eb7fc20b5b5cc";
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   inherit version;
   pname = "gnome-shell-extension-onedrive";
 

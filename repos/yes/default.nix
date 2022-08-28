@@ -6,6 +6,10 @@
 with pkgs;
 
 {
+  archlinux = recurseIntoAttrs (import ./archlinux {
+    inherit pkgs rp;
+  });
+  
   gnomeExtensions = recurseIntoAttrs (import ./gnomeExtensions {
     inherit pkgs rp;
   });

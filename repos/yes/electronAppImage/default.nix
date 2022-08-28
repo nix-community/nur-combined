@@ -21,7 +21,7 @@ let
 in
 
 if (electron != null)
-then stdenvNoCC.mkDerivation rec {
+then stdenvNoCC.mkDerivation {
   inherit meta name src;
 
   nativeBuildInputs = [ makeWrapper ];
