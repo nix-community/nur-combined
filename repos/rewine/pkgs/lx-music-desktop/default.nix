@@ -7,11 +7,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "lx-music-desktop";
-  version = "1.22.0";
+  version = "1.22.2";
 
   src = fetchurl {
     url = "https://github.com/lyswhut/lx-music-desktop/releases/download/v${version}/lx-music-desktop-v${version}-x64.AppImage";
-    sha256 = "sha256-+AedYjmUNP5ltGw7jHWRlHogE7PiQARhAvZPGTtgtnc=";
+    sha256 = "sha256-7pQbgY/eIknuUKmrn2YGKop75TVN7tLWAJjTIP/mjvY=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
