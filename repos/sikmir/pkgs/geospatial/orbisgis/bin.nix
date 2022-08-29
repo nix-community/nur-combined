@@ -32,6 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://orbisgis.org/";
     description = "An opensource GIS software";
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = jre.meta.platforms;
