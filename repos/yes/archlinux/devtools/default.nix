@@ -71,26 +71,12 @@ in stdenvNoCC.mkDerivation rec {
     do
       substituteInPlace $file --replace "/usr/share/makepkg" "${pacman}/share/makepkg"
     done
-    # for file in ./commitpkg.in ./rebuildpkgs.in; do
-    #   substituteInPlace $file --replace "'/etc/makepkg.conf'" "'${pacman}/etc/makepkg.conf'"
-    # done
     substituteInPlace ./offload-build.in --replace "/usr/share/devtools" "$out/share/devtools"
     echo "export PATH=${path}:$PATH" >> ./lib/common.sh
   '';
 
-  # postFixup = ''
-  #   for script in $out/bin/*; do
-  #     if [ -h $script ]; then
-  #       target=$(readlink -f $script)
-  #       rm -v $script
-  #       cp -v $target $script
-  #     fi
-  #     wrapProgram $script --prefix PATH : ${path}
-  #   done
-  # '';
-
   meta = with lib; {
-    description = "[WIP] Tools for Arch Linux package maintainers";
+    description = "[Experimental] Tools for Arch Linux package maintainers";
     homepage = "https://gitlab.archlinux.org/archlinux/devtools";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -1,0 +1,44 @@
+-r-xr-xr-x  2 root root 12130 Jan  1  1970 archbuild
+-r-xr-xr-x  2 root root  8170 Jan  1  1970 archco
+-r-xr-xr-x  2 root root 12990 Jan  1  1970 arch-nspawn
+-r-xr-xr-x  2 root root 10241 Jan  1  1970 archrelease
+-r-xr-xr-x  2 root root 11643 Jan  1  1970 checkpkg
+-r-xr-xr-x  2 root root 13842 Jan  1  1970 commitpkg
+lrwxrwxrwx  3 root root    13 Jan  1  1970 community2extra -> crossrepomove
+lrwxrwxrwx  2 root root     6 Jan  1  1970 communityco -> archco
+lrwxrwxrwx 12 root root     9 Jan  1  1970 communitypkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 community-stagingpkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 community-testingpkg -> commitpkg
+-r-xr-xr-x  2 root root 10147 Jan  1  1970 crossrepomove
+-r-xr-xr-x  2 root root 12837 Jan  1  1970 diffpkg
+-r-xr-xr-x  2 root root  9209 Jan  1  1970 export-pkgbuild-keys
+lrwxrwxrwx  3 root root    13 Jan  1  1970 extra2community -> crossrepomove
+lrwxrwxrwx 12 root root     9 Jan  1  1970 extrapkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 extra-x86_64-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 extra-x86_64_v3-build -> archbuild
+-r-xr-xr-x  2 root root  8732 Jan  1  1970 finddeps
+-r-xr-xr-x  2 root root  9936 Jan  1  1970 find-libdeps
+lrwxrwxrwx  2 root root    12 Jan  1  1970 find-libprovides -> find-libdeps
+lrwxrwxrwx 12 root root     9 Jan  1  1970 gnome-unstablepkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 gnome-unstable-x86_64-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 kde-unstablepkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 kde-unstable-x86_64-build -> archbuild
+-r-xr-xr-x  2 root root  9470 Jan  1  1970 lddd
+-r-xr-xr-x  2 root root 20907 Jan  1  1970 makechrootpkg
+-r-xr-xr-x  2 root root 17673 Jan  1  1970 makerepropkg
+-r-xr-xr-x  2 root root 11301 Jan  1  1970 mkarchroot
+lrwxrwxrwx 12 root root     9 Jan  1  1970 multilib-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 multilibpkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 multilib-staging-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 multilib-stagingpkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 multilib-testing-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 multilib-testingpkg -> commitpkg
+-r-xr-xr-x  2 root root  4101 Jan  1  1970 offload-build
+-r-xr-xr-x  2 root root 10409 Jan  1  1970 rebuildpkgs
+-r-xr-xr-x  2 root root 12959 Jan  1  1970 sogrep
+lrwxrwxrwx 12 root root     9 Jan  1  1970 stagingpkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 staging-x86_64-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 staging-x86_64_v3-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 testingpkg -> commitpkg
+lrwxrwxrwx 12 root root     9 Jan  1  1970 testing-x86_64-build -> archbuild
+lrwxrwxrwx 12 root root     9 Jan  1  1970 testing-x86_64_v3-build -> archbuild
