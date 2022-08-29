@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec{
   pname = "zarchive";
-  version = "48914a07df3c213333c580bb5e5bb3393442ca5b";
+  version = "git";
   
   src = fetchFromGitHub {
     owner = "Exzap";
     repo = "ZArchive";
-    rev = "${version}";
+    rev = "48914a07df3c213333c580bb5e5bb3393442ca5b";
     sha256 = "MN8P1zqvOPmXcOgpw4Y0c8AvPQS3nY/HBnwS2HPEsts=";
   };
   
