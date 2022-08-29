@@ -127,7 +127,7 @@
     "dot-tar": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./dot-tar-56769243e896b6894b99c5e5b849b71698a27d1f/Cargo.lock",
+                "./dot-tar-8719c34f81c94d50286a4120990eb0f134799fe1/Cargo.lock",
                 {}
             ]
         },
@@ -140,12 +140,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "56769243e896b6894b99c5e5b849b71698a27d1f",
-            "sha256": "sha256-iRCs5Js0i3uhG2vrNnYKtdndRorTKjmlaNJA/5kyyaM=",
+            "rev": "8719c34f81c94d50286a4120990eb0f134799fe1",
+            "sha256": "sha256-3ztQpXt8ZtVtgyXF4M1FCgTqVIAPtyNFvISa8HbkPYo=",
             "type": "git",
             "url": "https://github.com/linyinfeng/dot-tar.git"
         },
-        "version": "56769243e896b6894b99c5e5b849b71698a27d1f"
+        "version": "8719c34f81c94d50286a4120990eb0f134799fe1"
     },
     "dpt-rp1-py": {
         "cargoLocks": null,

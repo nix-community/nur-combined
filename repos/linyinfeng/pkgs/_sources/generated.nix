@@ -79,17 +79,17 @@
   };
   dot-tar = {
     pname = "dot-tar";
-    version = "56769243e896b6894b99c5e5b849b71698a27d1f";
+    version = "8719c34f81c94d50286a4120990eb0f134799fe1";
     src = fetchgit {
       url = "https://github.com/linyinfeng/dot-tar.git";
-      rev = "56769243e896b6894b99c5e5b849b71698a27d1f";
+      rev = "8719c34f81c94d50286a4120990eb0f134799fe1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-iRCs5Js0i3uhG2vrNnYKtdndRorTKjmlaNJA/5kyyaM=";
+      sha256 = "sha256-3ztQpXt8ZtVtgyXF4M1FCgTqVIAPtyNFvISa8HbkPYo=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./dot-tar-56769243e896b6894b99c5e5b849b71698a27d1f/Cargo.lock;
+      lockFile = ./dot-tar-8719c34f81c94d50286a4120990eb0f134799fe1/Cargo.lock;
       outputHashes = { };
     };
   };
