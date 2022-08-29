@@ -526,6 +526,9 @@ let
           sha256 = "18pavs8kdqsj43iapfs5x639w613xhahd168c2j86sizy04390ga";
         })
       ];
+      meta = old.meta or { } // {
+        mainProgram = "scream";
+      };
     });
 
     lieer-develop = { lieer, fetchFromGitHub }: lieer.overrideAttrs (old: {
