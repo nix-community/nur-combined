@@ -164,7 +164,6 @@ johann2357/nvim-smartbufs
 jose-elias-alvarez/null-ls.nvim
 jubnzv/mdeval.nvim
 jubnzv/virtual-types.nvim
-kaiuri/github-vscode-theme.nvim
 kaiuri/nvim-juliana
 kana/vim-textobj-indent
 kazhala/close-buffers.nvim
