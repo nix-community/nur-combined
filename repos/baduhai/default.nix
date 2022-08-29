@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  zarchive = pkgs.callPackage ./pkgs/zarchive { };
-  koi = pkgs.libsForQt5.callPackage ./pkgs/koi { };
   emulationstation-de = pkgs.callPackage ./pkgs/emulationstation-de { };
+  koi = pkgs.libsForQt5.callPackage ./pkgs/koi { };
 }
