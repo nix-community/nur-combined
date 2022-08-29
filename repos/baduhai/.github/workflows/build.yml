@@ -34,9 +34,10 @@ jobs:
         cachixName:
           - baduhai
         nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-22.05
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixpkgs-22.05
+          - nixpkgs=channel:nixpkgs-unstable
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
