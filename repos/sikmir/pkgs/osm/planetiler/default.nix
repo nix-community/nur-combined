@@ -14,7 +14,9 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  buildInputs = [ jre makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
+
+  buildInputs = [ jre ];
 
   installPhase = ''
     install -dm755 $out/bin
@@ -27,6 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Flexible tool to build planet-scale vector tilesets from OpenStreetMap data";
     inherit (src.meta) homepage;
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = jre.meta.platforms;

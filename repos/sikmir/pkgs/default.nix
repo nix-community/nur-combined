@@ -340,6 +340,7 @@ lib.makeScope newScope (
       buildGoModule = pkgs.buildGo117Module;
     };
     tlstunnel = callPackage ./misc/tlstunnel { };
+    worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr {

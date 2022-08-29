@@ -11,6 +11,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
+  buildInputs = [ jre ];
+
   dontUnpack = true;
 
   installPhase = ''
@@ -24,6 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GPX Animator";
     homepage = "https://gpx-animator.app/";
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = jre.meta.platforms;
