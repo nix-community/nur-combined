@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [ unzip ];
 
-  buildInputs = [ jre ];
+  buildInputs = [ jre makeWrapper ];
 
   installPhase = ''
     install -dm755 $out/bin
@@ -29,7 +29,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GUI for editing your i18n translation files";
     inherit (src.meta) homepage;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = jre.meta.platforms;

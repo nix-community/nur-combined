@@ -32,9 +32,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ unzip makeWrapper ];
 
-  # Post install regedit:
-  # * increase font size: https://askubuntu.com/a/1313810
-  # * dark theme: https://gist.github.com/Zeinok/ceaf6ff204792dde0ae31e0199d89398
   installPhase = ''
     mkdir -p $out/opt/sasplanet
     cp -r . $out/opt/sasplanet

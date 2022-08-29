@@ -12,11 +12,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-zfLRJLDTitzzcg5LRqaNcrgnL8ruZcTgugso/5wqS9Q=";
   };
 
-  checkInputs = with python3Packages; [
-    pytestCheckHook
-    requests
-    mercantile
-  ];
+  checkInputs = with python3Packages; [ pytestCheckHook requests mercantile ];
 
   meta = with lib; {
     description = "Source of XYZ tiles providers";
