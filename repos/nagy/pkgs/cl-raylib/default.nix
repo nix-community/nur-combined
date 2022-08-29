@@ -3,7 +3,7 @@
 lispPackages.buildLispPackage {
 
   baseName = "cl-raylib";
-  version = "unstable-2021-07-30";
+  version = "unstable-2022-08-24";
 
   buildSystems = [ ];
 
@@ -16,7 +16,7 @@ lispPackages.buildLispPackage {
   src = fetchFromGitHub {
     owner = "longlene";
     repo = "cl-raylib";
-    rev = "20d2c33718804762b7ca78030d1743ca3481c30a";
-    sha256 = "0v619ix3lkchqa8a2rrag5z4j4xlwxba4kbf461kfj2ivlh6w24d";
+    rev = "8bf7ee09e46dc5724a440800a28352ec7fe64a5a";
+    sha256 = "1xx86ydns3gd0ynx47ajfyqmg1iki0182ahbjw69vcck55dhxc9g";
   };
 }

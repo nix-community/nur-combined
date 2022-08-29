@@ -31,6 +31,7 @@ in thePackages // rec {
       warctools = py3.callPackage ./pkgs/warctools { };
       blender-file = py3.callPackage ./pkgs/blender-file { };
       blender-asset-tracer = py3.callPackage ./pkgs/blender-asset-tracer { };
+      jtbl = py3.callPackage ./pkgs/jtbl { };
     }));
 
   lttoolbox = callPackage ./pkgs/lttoolbox { };
