@@ -3,6 +3,7 @@
 , fetchpatch
 , fetchurl
 , asciidoc
+, binutils
 , bzip2
 , coreutils
 , curl
@@ -85,6 +86,8 @@ stdenv.mkDerivation rec {
     installShellCompletion --bash scripts/pacman --zsh scripts/_pacman
     wrapProgram $out/bin/pacman-key \
       --prefix PATH : ${lib.makeBinPath [ gnupg ]}
+    wrapProgram $out/bin/makepkg \
+      --prefix PATH : ${lib.makeBinPath [ binutils ]}
     rm -rf "$out/{var,share/libalpm}"
   '';
 

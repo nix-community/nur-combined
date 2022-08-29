@@ -1,0 +1,11 @@
+-r-xr-xr-x 2 root root  41987 Jan  1  1970 makepkg
+-r-xr-xr-x 2 root root   6655 Jan  1  1970 makepkg-template
+-r-xr-xr-x 2 root root 169928 Jan  1  1970 pacman
+-r-xr-xr-x 2 root root 101456 Jan  1  1970 pacman-conf
+-r-xr-xr-x 2 root root   6991 Jan  1  1970 pacman-db-upgrade
+-r-xr-xr-x 2 root root    404 Jan  1  1970 pacman-key
+-r-xr-xr-x 2 root root  19274 Jan  1  1970 repo-add
+lrwxrwxrwx 7 root root      8 Jan  1  1970 repo-elephant -> repo-add
+lrwxrwxrwx 7 root root      8 Jan  1  1970 repo-remove -> repo-add
+-r-xr-xr-x 2 root root  16280 Jan  1  1970 testpkg
+-r-xr-xr-x 3 root root  16112 Jan  1  1970 vercmp
