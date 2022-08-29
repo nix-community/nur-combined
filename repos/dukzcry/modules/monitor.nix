@@ -25,10 +25,6 @@ in {
       type = types.nullOr types.attrs;
       default = null;
     };
-    postswitch = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-    };
   };
 
   config = mkMerge [

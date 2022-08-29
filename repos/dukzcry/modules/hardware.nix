@@ -34,6 +34,7 @@ in {
       hardware.bluetooth.enable = true;
       services.upower = {
         enable = true;
+        # hybrid sleep hangs
         criticalPowerAction = "Hibernate";
         percentageLow = 7;
         percentageCritical = 6;
@@ -60,6 +61,7 @@ in {
         config = {
           enable = true;
           mode = "1920x1080";
+          # scale doesn't work correctly
           transform = [
             [ 1.3 0.0 0.0 ]
             [ 0.0 1.3 0.0 ]
