@@ -57,21 +57,21 @@ in {
       rootUrl = "https://git.${domain}/";
       httpAddress = "127.0.0.1";
       httpPort = cfg.privatePort;
-      log.level = "Warn"; # [ "Trace" "Debug" "Info" "Warn" "Error" "Critical" ]
       lfs.enable = true;
 
-      # NOTE: temporarily remove this for initial setup
-      disableRegistration = true;
-
-      # only send cookies via HTTPS
-      cookieSecure = true;
-
       settings = {
+        log.LEVEL = "Warn"; # [ "Trace" "Debug" "Info" "Warn" "Error" "Critical" ]
         other.SHOW_FOOTER_VERSION = false;
         repository = {
           ENABLE_PUSH_CREATE_USER = true;
           DEFAULT_BRANCH = "main";
         };
+
+        # NOTE: temporarily remove this for initial setup
+        service.DISABLE_REGISTRATION = true;
+
+        # only send cookies via HTTPS
+        session.COOKIE_SECURE = true;
       };
 
       # NixOS module uses `gitea dump` to backup repositories and the database,

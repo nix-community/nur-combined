@@ -106,10 +106,6 @@ in {
       adminpassFile = config.age.secrets."nextcloud/admin-pass".path;
     };
 
-    nuage = {
-      enable = true;
-    };
-
     paperless = {
       enable = true;
       port = 8085;

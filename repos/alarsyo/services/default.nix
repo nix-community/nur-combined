@@ -13,7 +13,6 @@
     ./navidrome.nix
     ./nextcloud.nix
     ./nginx.nix
-    ./nuage.nix
     ./paperless.nix
     ./pipewire.nix
     ./postgresql-backup.nix
