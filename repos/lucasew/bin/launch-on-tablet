@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TABLET_ID="52c0f4e7611e708b"
+TABLET_ID="5d4ff2e96ea80ec1"
 
 URL="$1"
 

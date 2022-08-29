@@ -33,7 +33,7 @@ in {
     global_config = {
       title_transmit_fg_color = "#${base05}";
       title_transmit_bg_color = "#${base02}";
-      title_inactive_fg_color = "#${base01}";
+      title_inactive_fg_color = "#${base05}";
       title_inactive_bg_color = "#${base00}";
     };
   };
