@@ -1,6 +1,9 @@
 name: "Build and populate cache"
 on:
   push:
+    branches:
+      - main
+      - develop
   pull_request:
   workflow_dispatch:
 env:
@@ -14,7 +17,7 @@ jobs:
     steps:
       - name: Get branch names
         id: branch-names
-        uses: tj-actions/branch-names@v5.5
+        uses: tj-actions/branch-names@v6
   tests:
     needs: get_info
     concurrency:

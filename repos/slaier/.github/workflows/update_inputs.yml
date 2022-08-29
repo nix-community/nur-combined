@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: dependabot
+          ref: main
       - name: Install nix
         uses: cachix/install-nix-action@v17
         with:
@@ -24,8 +24,7 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Prepare
         run: |
-          git reset --hard origin/main
-          git merge origin/main --ff-only
+          git checkout -B wip-update-inputs
           git config user.name "dependabot[bot]"
           git config user.email "<49699333+dependabot[bot]@users.noreply.github.com>"
       - name: Update flake lock
@@ -36,7 +35,7 @@ jobs:
           nix shell nixpkgs#nvfetcher -c nvfetcher --commit-changes
       - name: Push
         run: |
-          git push --force-with-lease
+          git push origin wip-update-inputs --force-with-lease
       - name: Check
         uses: ./.github/workflows/check
         with:
