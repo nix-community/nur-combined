@@ -19,6 +19,7 @@ in
       ../../modules/dev-technative.nix
       ../../modules/vim-large.nix
       ../../modules/workstation.nix
+      ../../modules/docker.nix
       ../../modules/virtualbox.nix
       ../../modules/workstation-pkg.nix
       ../../modules/home-manager-global.nix

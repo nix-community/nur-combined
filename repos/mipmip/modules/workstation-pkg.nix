@@ -32,6 +32,7 @@
 
     docker
     docker-compose
+
     nextcloud-client
     gimp
     unstable.inkscape-with-extensions
