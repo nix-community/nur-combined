@@ -86,6 +86,7 @@
 | [nvim-parinfer](https://github.com/gpanders/nvim-parinfer) | parinfer for Neovim |
 | [nvim-scrollbar](https://github.com/petertriho/nvim-scrollbar) | Extensible Neovim Scrollbar |
 | [nvim-tree-lua](https://github.com/kyazdani42/nvim-tree.lua) | A file explorer tree for neovim written in lua |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Nvim Treesitter configurations and abstraction layer |
 | [nvim-treesitter-textsubjects](https://github.com/RRethy/nvim-treesitter-textsubjects) | Location and syntax aware text objects which *do what you mean* |
 | [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) | Use treesitter to auto close and auto rename html tag |
 | [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) | Neovim treesitter plugin for setting the commentstring based on the cursor location in a file. |

@@ -11,4 +11,16 @@
   telescope-frecency-nvim = prev.telescope-frecency-nvim.overrideAttrs (_: {
     buildInputs = [final.sqlite-lua];
   });
+
+  nvim-treesitter = prev.nvim-treesitter.overrideAttrs (old: {
+    passthru.withPlugins = grammarFn:
+      final.nvim-treesitter.overrideAttrs (_: {
+        postPatch = let
+          grammars = pkgs.tree-sitter.withPlugins grammarFn;
+        in ''
+          rm -r parser
+          ln -s ${grammars} parser
+        '';
+      });
+  });
 }

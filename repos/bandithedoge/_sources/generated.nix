@@ -117,13 +117,13 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "112fae6a6ccec932e1824a85e5086bbe866e1ec2";
+    version = "92410c1bf8f1cc3f6fb7cc19c30654bb6ea41ad0";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "112fae6a6ccec932e1824a85e5086bbe866e1ec2";
+      rev = "92410c1bf8f1cc3f6fb7cc19c30654bb6ea41ad0";
       fetchSubmodules = false;
-      sha256 = "sha256-JfhJD2EARTXbwYbuz+xg5GyAq5XcF7H/+JwYywTGBSU=";
+      sha256 = "sha256-Q7kgXisz5FvVQxpsZtly3r5/Lu2Tp5hXAUA0y+pLx9I=";
     };
   };
   xmonad-entryhelper = {
