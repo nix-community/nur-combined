@@ -109,6 +109,7 @@ in {
       '';
       services.dnsmasq.extraConfig = ''
         server=/onion/${cfg.address}#9053
+        rebind-domain-ok=onion
       '';
     })
   ];
