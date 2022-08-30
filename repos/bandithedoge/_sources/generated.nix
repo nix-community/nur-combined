@@ -17,13 +17,13 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "90f9b2d9820b8da03d54a64e523aa1f104b4ff2b";
+    version = "2c180b8d9cf3e962cf51224dde1d143fa15920dd";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "90f9b2d9820b8da03d54a64e523aa1f104b4ff2b";
+      rev = "2c180b8d9cf3e962cf51224dde1d143fa15920dd";
       fetchSubmodules = false;
-      sha256 = "sha256-OVQ2hZgWB3zGUQnTC6KvfXrk6KDp17PLG6ymeSn/oFo=";
+      sha256 = "sha256-hZBhYxDey0lBW3w1qetdHNz5POo2vJTHbeMC1mD3ll8=";
     };
   };
   kiwmi = {
@@ -95,13 +95,13 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "2906447fefd258d4001855ee06c9c7bc40d011f0";
+    version = "89ced627cdd856837dd849c4032530d980bfa661";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "2906447fefd258d4001855ee06c9c7bc40d011f0";
+      rev = "89ced627cdd856837dd849c4032530d980bfa661";
       fetchSubmodules = false;
-      sha256 = "sha256-Eh0Uyr9KhDhUCJgUN0frP/iQsyjBHLocpLOkiQFenkk=";
+      sha256 = "sha256-HLDB/WBuOU/VtExqp4A9Isn1sJLNZX/X/MYhRMhlwpc=";
     };
   };
   taffybar = {
