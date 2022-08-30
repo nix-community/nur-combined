@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220828.190315";
+      version = "104.0.1buildid20220829.141339";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3995172/francais_language_pack-105.0buildid20220828.190315.xpi";
-      sha256 = "03451aa81911f55829476f0bb8ae28dda41aa361f32f7668c43052d79c6dbc39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3995679/francais_language_pack-104.0.1buildid20220829.141339.xpi";
+      sha256 = "6b197d9d6e38c8c132c3e07fdf9997297fecdd54464a0ee99abddc66bef0e2d0";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1995,10 +1995,10 @@
       };
     "sidebery" = buildFirefoxXpiAddon {
       pname = "sidebery";
-      version = "4.10.1";
+      version = "4.10.2";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3939103/sidebery-4.10.1.xpi";
-      sha256 = "ee2c96dff631b4d4dd110f826bfb2c0edde8ea3272a56ace491e9b9f651de42d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3994928/sidebery-4.10.2.xpi";
+      sha256 = "60e35f2bfac88e5b2b4e044722dde49b4ed0eca9e9216f3d67dafdd9948273ac";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
