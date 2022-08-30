@@ -8,6 +8,7 @@
 , breezy
 , btrfs-progs
 , coreutils
+, curl
 , diffutils
 , gawk
 , gettext
@@ -62,14 +63,20 @@ in stdenvNoCC.mkDerivation rec {
   nativeBuildInputs = [ asciidoc gnum4 ];
 
   preBuild = ''
-    for file in \
+    for script in \
       ./lib/common.sh \
       ./makechrootpkg.in \
       ./makerepropkg.in \
       ./offload-build.in \
       ./sogrep.in
     do
-      substituteInPlace $file --replace "/usr/share/makepkg" "${pacman}/share/makepkg"
+      substituteInPlace $script --replace "/usr/share/makepkg" "${pacman}/share/makepkg"
+    done
+    for conf in makepkg*.conf; do
+      substituteInPlace $conf \
+        --replace "/usr/bin/curl" "${curl}/bin/curl" \
+        --replace "/usr/bin/rsync" "${rsync}/bin/rsync" \
+        --replace "/usr/bin/scp" "${openssh}/bin/scp"
     done
     substituteInPlace ./offload-build.in --replace "/usr/share/devtools" "$out/share/devtools"
     echo "export PATH=${path}:$PATH" >> ./lib/common.sh
