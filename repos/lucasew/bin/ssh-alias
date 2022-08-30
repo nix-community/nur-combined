@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+EXPR="$(cat ~/.dotfiles/secrets/ssh-alias | grep -e "^$1" | awk 'NR=1 { print $2 }')"
+IP="$( echo "$EXPR" | sed 's;\([^\:]*\)[^$]*;\1;g' )"
+PORT="$( echo "$EXPR" | sed 's;[^:]*:\([^$]*\);\1;g' )"
+
+shift
+if [ -z "$IP" ]; then
+    echo error: ssh alias not found
+    exit 1
+fi
+echo port $PORT
+ARGS=()
+ARGS+=("$IP")
+if [ ! -z "$PORT" ]; then
+    ARGS+=("-p" "$PORT")
+fi
+# echo ${ARGS[@]}
+ssh "${ARGS[@]}" "$@"

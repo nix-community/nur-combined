@@ -551,11 +551,11 @@
     "simple-dashboard": {
       "flake": false,
       "locked": {
-        "lastModified": 1657915951,
-        "narHash": "sha256-MtKHxXGZ49O0DrHmFwaJgtpYedl7jDRYBL9+u0ffg6Q=",
+        "lastModified": 1661738132,
+        "narHash": "sha256-SjFrM3sXEChPT0sPS7jE2NDZBs/7JIRXsb9ak+HU+DE=",
         "owner": "lucasew",
         "repo": "simple-dashboard",
-        "rev": "6cd480ebc0464115a7b09a8aac23dd7002e71141",
+        "rev": "aab8580b89944d5ea928dd144a49149c49b44e87",
         "type": "github"
       },
       "original": {
