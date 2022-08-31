@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0.1buildid20220829.141339";
+      version = "105.0buildid20220830.185924";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3995679/francais_language_pack-104.0.1buildid20220829.141339.xpi";
-      sha256 = "6b197d9d6e38c8c132c3e07fdf9997297fecdd54464a0ee99abddc66bef0e2d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3996201/francais_language_pack-105.0buildid20220830.185924.xpi";
+      sha256 = "efc3c2f31f0c38845452a2e6299df774f072bbd287af4fc73f836106e269d07f";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2149,10 +2149,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.25";
+      version = "1.5.26";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3956290/styl_us-1.5.25.xpi";
-      sha256 = "64a872e97eb7ab4b571c4408ea3f2b69c09b5a2bf7a4c54387d31bd360a31277";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3995806/styl_us-1.5.26.xpi";
+      sha256 = "b30b14e9c4fa0c8d490d57e6b7d8afe6cc71e2f459b974b5c6fa2bfa32210294";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
