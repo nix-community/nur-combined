@@ -69,7 +69,6 @@ in
     "hid_apple.fnmode=2"
   ];
 
-  virtualisation.docker.enable = true;
 
   system.stateVersion = "21.11"; # Did you read the comment?
 }
