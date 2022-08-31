@@ -3,17 +3,20 @@
 CMDS=();DESC=();NARGS=$#;ARG1=$1;make_command(){ CMDS+=($1);DESC+=("$2");};usage(){ printf "\nUsage: %s [command]\n\nCommands:\n" $0;line="              ";for((i=0;i<=$(( ${#CMDS[*]} -1));i++));do printf "  %s %s ${DESC[$i]}\n" ${CMDS[$i]} "${line:${#CMDS[$i]}}";done;echo;};runme(){ if test $NARGS -eq 1;then eval "$ARG1"||usage;else usage;fi;}
 
 
-make_command "clean" "Run nix garbage collector"
+make_command "sysclean" "Run nix garbage collector"
 sysclean(){
   sudo nix-collect-garbage -d
   nix-collect-garbage -d
 }
 
-make_command "rebuild" "NixOS Rebuild"
+make_command "sysrebuild" "NixOS Rebuild"
 sysrebuild(){
   sudo nixos-rebuild switch
 }
 
-
+make_command "homerebuild" "Home Manager Rebuild"
+homerebuild(){
+  home-manager switch
+}
 
 runme
