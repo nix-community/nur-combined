@@ -219,6 +219,7 @@ nanotee/nvim-lsp-basics
 nanotee/sqls.nvim
 nanozuki/tabby.nvim
 nekonako/xresources-nvim
+nguyenvukhang/nvim-toggler
 nikvdp/neomux
 nkakouros-original/numbers.nvim
 noib3/cokeline.nvim
@@ -228,6 +229,7 @@ notomo/cmdbuf.nvim
 notomo/gesture.nvim
 novakne/kosmikoa.nvim
 numToStr/Comment.nvim
+nvim-colortils/colortils.nvim
 nvim-neo-tree/neo-tree.nvim
 nvim-neotest/neotest
 nvim-telescope/telescope-bibtex.nvim
@@ -255,6 +257,9 @@ raimon49/requirements.txt.vim
 ray-x/go.nvim
 ray-x/guihua.lua
 ray-x/navigator.lua
+ray-x/sad.nvim
+ray-x/starry.nvim
+ray-x/web-tools.nvim
 rebelot/heirline.nvim
 renerocksai/telekasten.nvim
 rgroli/other.nvim
