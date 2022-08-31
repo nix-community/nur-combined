@@ -1,18 +1,13 @@
-{ lib, stdenvNoCC, fetchurl, unzip, pname, version, filename, sha256, description }:
+{ lib, srcOnly, fetchzip, unzip, pname, version, filename, hash, description }:
 
-stdenvNoCC.mkDerivation {
+srcOnly {
   inherit pname version;
 
-  src = fetchurl {
+  src = fetchzip {
     url = "http://dadako.narod.ru/GoldenDict/${filename}";
-    inherit sha256;
+    inherit hash;
+    stripRoot = false;
   };
-
-  dontUnpack = true;
-
-  installPhase = "${unzip}/bin/unzip $src -d $out";
-
-  preferLocalBuild = true;
 
   meta = with lib; {
     inherit description;

@@ -32,13 +32,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mapsoft";
-  version = "2021-06-10";
+  version = "20220624-alt1";
 
   src = fetchFromGitHub {
     owner = "ushakov";
-    repo = pname;
-    rev = "0fbf1e39f3d7fbe3f5c67f56997745ac6526c8b4";
-    hash = "sha256-fU7Nwa5jtt07JTOnuai0d2Tyk8N9Jq9PdwDOCl7FigE=";
+    repo = "mapsoft";
+    rev = "e51645da7bbb7f6ca6505dd6e6f9a009556a78c1";
+    hash = "sha256-GPlLVMWqYXs0K3UzQnYlWPm0t9qz6rzQmW1dTOUtPDY=";
   };
 
   patches = [ ./0001-fix-build.patch ];

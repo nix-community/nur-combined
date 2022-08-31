@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "routinodb";
-  version = "220814";
+  version = "220830";
 
   srcs = [
     (fetchurl {
       url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-      hash = "sha256-G3WylejNaEmCUXfbPAf/4c2E9+0+RehpECwKwJfeGIs=";
+      hash = "sha256-kzn8Rs/ZRekHF5CJ5SZeY+q1s642o+ZSJdRhNvwutZw=";
     })
   ];
 

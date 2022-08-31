@@ -8,7 +8,7 @@ in
     inherit version;
     filename = "rus-fin_Pogovorki_${lib.replaceStrings [ "." ] [ "_" ] version}GD.zip";
     description = "Русские поговорки и их финские аналоги (Rus-Fin)";
-    sha256 = "0zvzkdl2wb8dvfbnyv3azzxygqhzcpcj93l422kb2snssfm2451v";
+    hash = "sha256-9tOdf+5INmhbsek9HT5reBTrflhOJ614tRfMOHfMdFA=";
   };
 
   fin-fin-synonyms = callPackage ./base.nix {
@@ -16,6 +16,6 @@ in
     inherit version;
     filename = "fin-fin_Synonyms_${lib.replaceStrings [ "." ] [ "_" ] version}GD.zip";
     description = "Finnish Synonyms (Fin-Fin)";
-    sha256 = "1757v6x89jghl9hz57hq9dm8lgx6d48rnrpfc2zpijxv8xk8g5w7";
+    hash = "sha256-Yc+L9v6gNrGaD8FJ36CtkPovWEekwuaLYsG7E/WH5Dk=";
   };
 }

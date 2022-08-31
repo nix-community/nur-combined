@@ -1,16 +1,12 @@
-{ lib, stdenvNoCC, fetchurl, pname, version, filename, hash, description }:
+{ lib, srcOnly, fetchurl, pname, version, filename, hash, description }:
 
-stdenvNoCC.mkDerivation {
+srcOnly {
   inherit pname version;
 
   src = fetchurl {
     url = "http://download.huzheng.org/${filename}";
     inherit hash;
   };
-
-  installPhase = "cp -a . $out";
-
-  preferLocalBuild = true;
 
   meta = with lib; {
     inherit description;
