@@ -64,10 +64,6 @@ in
         lfs.enable = true;
 
         useWizard = false;
-        disableRegistration = true;
-
-        # only send cookies via HTTPS
-        cookieSecure = true;
 
         database = {
           type = "postgres"; # Automatic setup
@@ -89,6 +85,15 @@ in
             USER = cfg.mail.user;
             MAILER_TYPE = cfg.mail.type;
             IS_TLS_ENABLED = cfg.mail.tls;
+          };
+
+          service = {
+            DISABLE_REGISTRATION = true;
+          };
+
+          session = {
+            # only send cookies via HTTPS
+            COOKIE_SECURE = true;
           };
         };
       };

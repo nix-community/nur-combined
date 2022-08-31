@@ -51,21 +51,7 @@ let
   };
 
   office365Config = {
-    imap = {
-      host = "outlook.office365.com";
-      port = 993;
-      tls = {
-        enable = true;
-      };
-    };
-    smtp = {
-      host = "outlook.office365.com";
-      port = 587;
-      tls = {
-        enable = true;
-        useStartTls = true;
-      };
-    };
+    flavor = "outlook.office365.com";
   };
 in
 {
