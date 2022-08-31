@@ -41,6 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ahrm/sioyek";
     license = licenses.gpl3;
     platforms = platforms.all;
+    broken = true;
     #maintainers = with maintainers; [ foolnotion ];
   };
 }
