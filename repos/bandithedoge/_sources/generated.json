@@ -125,11 +125,11 @@
             "name": null,
             "owner": "luakit",
             "repo": "luakit",
-            "rev": "6cac83342bfe87ea57f05b67976f8def814b3934",
-            "sha256": "sha256-yPxYsi5cQEKKQqNHrMPkWF7UdKSPsPSVg7/brq9vvME=",
+            "rev": "7009d505263c9fdf9cde40f018fe683aeaf49a6d",
+            "sha256": "sha256-Y9bBPlpeOJ+wdAW4/DJReD9a6m/qOZEeEp4GCFp5JQg=",
             "type": "github"
         },
-        "version": "6cac83342bfe87ea57f05b67976f8def814b3934"
+        "version": "7009d505263c9fdf9cde40f018fe683aeaf49a6d"
     },
     "slock-flexipatch": {
         "cargoLocks": null,
@@ -256,11 +256,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "88fc70730b83ccab1aa2926b52e45f78334976fc",
-            "sha256": "sha256-XKBkJhM8dAooagWUOS0wyVXNCZUHa5wWpBB/EWLbBpo=",
+            "rev": "9f93fe6f5f550d4fdb046a39c3d296223764991f",
+            "sha256": "sha256-6O7wG1Ub5J/lRNA2NrT0gLYv6B9rNGRMkiwCM0bFJKo=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "88fc70730b83ccab1aa2926b52e45f78334976fc"
+        "version": "9f93fe6f5f550d4fdb046a39c3d296223764991f"
     }
 }

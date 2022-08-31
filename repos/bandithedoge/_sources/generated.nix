@@ -73,13 +73,13 @@
   };
   luakit = {
     pname = "luakit";
-    version = "6cac83342bfe87ea57f05b67976f8def814b3934";
+    version = "7009d505263c9fdf9cde40f018fe683aeaf49a6d";
     src = fetchFromGitHub {
       owner = "luakit";
       repo = "luakit";
-      rev = "6cac83342bfe87ea57f05b67976f8def814b3934";
+      rev = "7009d505263c9fdf9cde40f018fe683aeaf49a6d";
       fetchSubmodules = false;
-      sha256 = "sha256-yPxYsi5cQEKKQqNHrMPkWF7UdKSPsPSVg7/brq9vvME=";
+      sha256 = "sha256-Y9bBPlpeOJ+wdAW4/DJReD9a6m/qOZEeEp4GCFp5JQg=";
     };
   };
   slock-flexipatch = {
@@ -150,14 +150,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "88fc70730b83ccab1aa2926b52e45f78334976fc";
+    version = "9f93fe6f5f550d4fdb046a39c3d296223764991f";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "88fc70730b83ccab1aa2926b52e45f78334976fc";
+      rev = "9f93fe6f5f550d4fdb046a39c3d296223764991f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-XKBkJhM8dAooagWUOS0wyVXNCZUHa5wWpBB/EWLbBpo=";
+      sha256 = "sha256-6O7wG1Ub5J/lRNA2NrT0gLYv6B9rNGRMkiwCM0bFJKo=";
     };
   };
 }
