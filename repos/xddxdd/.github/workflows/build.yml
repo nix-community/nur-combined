@@ -13,14 +13,15 @@ on:
 jobs:
   tests:
     strategy:
+      fail-fast: false
       matrix:
         system:
           - x86_64-linux
           - aarch64-linux
         nixPath:
           - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixos-unstable-small
           - nixpkgs=channel:nixpkgs-unstable
-          # - nixpkgs=channel:nixos-21.05
     runs-on: ubuntu-latest
     env:
       GIT_SSL_NO_VERIFY: "true"
