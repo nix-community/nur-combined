@@ -6,10 +6,10 @@ in
 fetchurl {
   name = "${pname}-${version}";
   url = "https://biogeo.ucdavis.edu/data/gadm${version}/gpkg/gadm${lib.replaceStrings [ "." ] [ "" ] version}_${country}_gpkg.zip";
-  sha256 = {
-    RUS = "1zmkaydf3pz0znxzqc87c090nx1dhzkkiccld0jwd08vkfp9vqbf";
-    FIN = "0r4hlm59j8aanz62jw762fcxvpsid03ps6vksxzjqnjfpsnd1w3a";
-    EST = "1bkaxsvma5igirr7llklvpsn9n0bbis8ds2d3fg9vfxg6jnw9nzv";
+  hash = {
+    RUS = "sha256-buGdrpsbgcYlaJSxOOeHLXQLEmAHMfy7/eDf4ZpXs/4=";
+    FIN = "sha256-avDQrL5OWix/13MbfQdoUd/dmRPmcCnMt0ohmUqlkGQ=";
+    EST = "sha256-+9vErTSvu52eG03ohnRcC9hk9d10Unpyji8WVbfuaq4=";
   }.${country};
   downloadToTemp = true;
   recursiveHash = true;

@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-ufP617XMkNyntdjB7EMhhkSDau/8j2UP1UAPegqP1sU=";
   };
 
-  vendorSha256 = null;
+  vendorHash = null;
 
   buildInputs = [ leveldb geos ];
 

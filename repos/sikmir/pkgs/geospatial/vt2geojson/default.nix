@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-2wBMWrraWFDLHc/s/RMW4a4moftwTFeBj7FfaCJgdU0=";
   };
 
-  vendorSha256 = "sha256-FnLxhhytgNC4OIvh9pUM+cVDdNfqVOocjmkzFDU1fmA=";
+  vendorHash = "sha256-FnLxhhytgNC4OIvh9pUM+cVDdNfqVOocjmkzFDU1fmA=";
 
   meta = with lib; {
     description = "Command line tool to dump Mapbox Vector Tiles to GeoJSON";

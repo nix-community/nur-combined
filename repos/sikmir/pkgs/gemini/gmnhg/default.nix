@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-c60dBp9jY8ZepLkQzy1VCZ5DK/y2eey+cdXrexDlCDM=";
   };
 
-  vendorSha256 = "sha256-q6302+asnOyZ59cRKg3ZUvrCtO7+nYohkmNSuVdKiLE=";
+  vendorHash = "sha256-q6302+asnOyZ59cRKg3ZUvrCtO7+nYohkmNSuVdKiLE=";
 
   meta = with lib; {
     description = "Hugo-to-Gemini Markdown converter";

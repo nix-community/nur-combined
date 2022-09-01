@@ -13,7 +13,7 @@ buildGoModule rec {
 
   patches = [ ./extra-tileproviders.patch ];
 
-  vendorSha256 = "sha256-VwdQsm7VghVtX2O41jNxILTuiLff4rTfXP41+IzUmMs=";
+  vendorHash = "sha256-VwdQsm7VghVtX2O41jNxILTuiLff4rTfXP41+IzUmMs=";
 
   meta = with lib; {
     description = "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles";

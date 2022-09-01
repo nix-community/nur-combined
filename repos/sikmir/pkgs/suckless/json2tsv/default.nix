@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "git://git.codemadness.org/json2tsv";
     rev = version;
-    sha256 = "sha256-z0hkFVYwELjGXgnA67TuCELC/P74+42hDLfOHrTE8kA=";
+    hash = "sha256-z0hkFVYwELjGXgnA67TuCELC/P74+42hDLfOHrTE8kA=";
   };
 
   makeFlags = [ "RANLIB:=$(RANLIB)" ];

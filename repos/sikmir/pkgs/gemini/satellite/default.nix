@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-fOsgTuJb/UFmOKb7xV+pvqOhokEuOgt47IYDEpa0DWg=";
   };
 
-  vendorSha256 = "188v7nax3yss7hqin41mjin8inkh6q7bv8pmbls2dwd809pxj5rp";
+  vendorHash = "sha256-NxfZbwKo8SY0XfWivQ42cNqIbJQ1EBsxPFr70ZU9G6E=";
 
   meta = with lib; {
     description = "Small Gemini server for serving static files";

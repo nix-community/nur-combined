@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "git://git.suckless.org/sbase";
     rev = "371f3cb5ec3b8ef3135b3729326bfd6c7b7cb85c";
-    sha256 = "sha256-0q3v7E82agburNaOKtXqKBHSLQHuq8swLvPdHsTJmIM=";
+    hash = "sha256-0q3v7E82agburNaOKtXqKBHSLQHuq8swLvPdHsTJmIM=";
   };
 
   makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" ];

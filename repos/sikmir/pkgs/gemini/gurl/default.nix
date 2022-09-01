@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "MasterQ32";
     repo = pname;
     rev = "c6491a0760c125ca50d86860f77b544f729d8885";
-    sha256 = "sha256-l7WasR1rdD6DV3JWDIGcUlVkypnIKLNoKaVbibdibQc=";
+    hash = "sha256-l7WasR1rdD6DV3JWDIGcUlVkypnIKLNoKaVbibdibQc=";
     fetchSubmodules = true;
   };
 

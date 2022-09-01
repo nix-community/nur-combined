@@ -4,30 +4,30 @@
   pripolarural = callPackage ./base.nix {
     pname = "PripolarUralIMG";
     version = "2011-08-21";
-    sha256 = "0jgmn81skr4vq1h0bcxm5647gg4wip74mrq88mr9fi5s0z0v59bf";
+    hash = "sha256-bqWywQe6RJdyRQjnSs6NnLx3iCm1swVgwJvkqQOy9Uk=";
   };
 
   middleural = callPackage ./base.nix {
     pname = "MiddleUral";
     version = "2019-12-26";
-    sha256 = "1pal12kfkgi8iild0jym27fch8g189krkkwpsphlglf1r8544aqf";
+    hash = "sha256-DitCCsrB0Ufh1ZfPmWdC4SHI3BHVS9BojCi+6aYIVN0=";
   };
 
   guh = callPackage ./base.nix {
     pname = "GUH";
     version = "2018-01-19";
-    sha256 = "03ylyyng5qhp202pq0b0lmsnh6yigcbmkm3yblgawsz7crz7xwl4";
+    hash = "sha256-51WV39SyR4nIQOywvmOCO6ej+1HVMDTJ0DILkBzjj5g=";
   };
 
   manpup = callPackage ./base.nix {
     pname = "MANPUP";
     version = "2018-01-19";
-    sha256 = "19546w5752y21i9z6r4d5sy3b09dqn3plnyhj4z8aar00p7j1dal";
+    hash = "sha256-VLUgzwUgK4U+kdBbeofFLYE1vC6NZPNTDMKLcgo3pKQ=";
   };
 
   polarural = callPackage ./base.nix {
     pname = "PolarUral";
     version = "2010-12-05";
-    sha256 = "1hdw8a565c1f65iv26y04sjw90q5kcqjw2q6jj10r1aksx0vwlxx";
+    hash = "sha256-vVO+QddThQyClAYLLjGbBYPEpSbAG7FjMS6wYopCvME=";
   };
 }

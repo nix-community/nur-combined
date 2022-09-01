@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-as8WpwJFX/sXsUueLIchcBj8/FWKCpEB5vdZBZe4xpU=";
   };
 
-  vendorSha256 = "sha256-/UIfgwPFZxdnSywA7ysyVIFQXTRud/nlkOdzGEESEbY=";
+  vendorHash = "sha256-/UIfgwPFZxdnSywA7ysyVIFQXTRud/nlkOdzGEESEbY=";
 
   meta = with lib; {
     description = "Static git gemini viewer";

@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   src = fetchgit {
     url = "https://notabug.org/irdvo/gpxtools.git";
     rev = "45b7b8f5a42d8426f2fc998d017d2f224943f959";
-    sha256 = "sha256-hhvxQ+2jOvY0OVt8iKQ9XcHgRN4ECywV1W1fKV7Q9Mo=";
+    hash = "sha256-hhvxQ+2jOvY0OVt8iKQ9XcHgRN4ECywV1W1fKV7Q9Mo=";
   };
 
   nativeBuildInputs = [ cmake ];

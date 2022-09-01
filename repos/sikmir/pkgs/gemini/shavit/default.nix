@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-LEI7cJkyLPVtkplbRwGFHKXiKiiMerE9EDgQ0vWL4Qk=";
   };
 
-  vendorSha256 = "sha256-qsHmiYjj7jEDIEbU52NIdWtrUPzImm9u/4Q/aH/2WwE=";
+  vendorHash = "sha256-qsHmiYjj7jEDIEbU52NIdWtrUPzImm9u/4Q/aH/2WwE=";
 
   meta = with lib; {
     description = "Gemini server";

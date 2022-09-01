@@ -8,7 +8,7 @@ python3Packages.buildPythonApplication rec {
     owner = "aspectumapp";
     repo = pname;
     rev = "068b83afe19cff1ae15b9efc2a9ff5a9be8928e7";
-    sha256 = "sha256-9+xB/fd97HtnzdkJ2BawVW9AqDyArWUv6H1SZ7a8gkw=";
+    hash = "sha256-9+xB/fd97HtnzdkJ2BawVW9AqDyArWUv6H1SZ7a8gkw=";
     fetchSubmodules = true;
   };
 

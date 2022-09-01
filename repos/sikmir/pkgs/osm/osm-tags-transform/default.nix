@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     owner = "osmcode";
     repo = pname;
     rev = "d8f8f729cddee97964081de25e591428dd610a9a";
-    sha256 = "sha256-PBxH5RGoimX+pyr17UAMJVbdknciT8M8WCzw6tWLwEs=";
+    hash = "sha256-PBxH5RGoimX+pyr17UAMJVbdknciT8M8WCzw6tWLwEs=";
   };
 
   nativeBuildInputs = [ cmake ];

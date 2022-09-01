@@ -13,7 +13,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ scdoc ];
 
-  vendorSha256 = "sha256-7SyawlfJ9toNVuFehGr5GQF6mNmS9E4kkNcqWllp8No=";
+  vendorHash = "sha256-7SyawlfJ9toNVuFehGr5GQF6mNmS9E4kkNcqWllp8No=";
 
   ldflags = [ "-X main.ShareDir=${placeholder "out"}/share/astronaut" ];
 

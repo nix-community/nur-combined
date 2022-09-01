@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "xandkar";
     repo = "pista";
     rev = version;
-    sha256 = "sha256-lre6SIVyxCwEohLlvSfYs+JnHS1VXTbl3FlUNZ3TGy4=";
+    hash = "sha256-lre6SIVyxCwEohLlvSfYs+JnHS1VXTbl3FlUNZ3TGy4=";
   };
 
   buildInputs = [ libX11 ];

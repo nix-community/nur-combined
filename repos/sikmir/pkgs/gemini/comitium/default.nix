@@ -7,10 +7,10 @@ buildGoModule rec {
   src = fetchgit {
     url = "git://git.nytpu.com/comitium";
     rev = "v${version}";
-    sha256 = "sha256-an3favwpTTf61ecfAmasZY4fBV8gIH3hWDbIiImtIVs=";
+    hash = "sha256-an3favwpTTf61ecfAmasZY4fBV8gIH3hWDbIiImtIVs=";
   };
 
-  vendorSha256 = "sha256-dEywsGjLuaZ+Yv5IfuPHcKYZ8hyZ1Qf46LOF2RGcpxo=";
+  vendorHash = "sha256-dEywsGjLuaZ+Yv5IfuPHcKYZ8hyZ1Qf46LOF2RGcpxo=";
 
   nativeBuildInputs = [ scdoc ];
 

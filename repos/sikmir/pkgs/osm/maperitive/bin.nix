@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://maperitive.net/download/Maperitive-${version}.zip";
-    sha256 = "0j9lfc7pik6hzayb4zz3df4x5fzhyf74r47qj8s4d3827r32a6ya";
+    hash = "sha256-yhslRj4CjUY0kviQTI7z8LvSiWvjf7K8+tDMeA9zNEk=";
   };
 
   nativeBuildInputs = [ unzip makeWrapper ];

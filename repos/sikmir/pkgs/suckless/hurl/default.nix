@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "git://git.codemadness.org/${pname}";
     rev = version;
-    sha256 = "sha256-OXzt5sc1sZesKY1YmeGc3zuo9GxMYfYDvovCSt/kIdE=";
+    hash = "sha256-OXzt5sc1sZesKY1YmeGc3zuo9GxMYfYDvovCSt/kIdE=";
   };
 
   buildInputs = [ libressl libbsd ];

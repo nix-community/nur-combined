@@ -8,7 +8,7 @@ python3Packages.buildPythonPackage rec {
     owner = "CabbageDevelopment";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-VM4+HNqqiVfGS6FzOjf2LAfcIFA3VuNAhpwkxzOlLOE=";
+    hash = "sha256-VM4+HNqqiVfGS6FzOjf2LAfcIFA3VuNAhpwkxzOlLOE=";
   };
 
   doCheck = false;

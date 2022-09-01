@@ -13,7 +13,7 @@ let
   maps = fetchgit {
     url = "http://parasite.kicks-ass.org:3000/sasgis/maps.git";
     rev = "950e1b8a02ae7ac84a6ba55e93b57d63cd064688";
-    sha256 = "sha256-Zz9//kVxqrNhDvgq3YNDRwRUd+mebFgVcXsSmEx1KzQ=";
+    hash = "sha256-Zz9//kVxqrNhDvgq3YNDRwRUd+mebFgVcXsSmEx1KzQ=";
   };
   extremum = fetchgdrive {
     id = "12PM_mEE8Xck036vXd5TAzPsUZeCnztJ5";

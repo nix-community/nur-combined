@@ -1,11 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, unrar, pname, version, sha256 }:
+{ lib, stdenvNoCC, fetchurl, unrar, pname, version, hash }:
 
 stdenvNoCC.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
     url = "http://meridian.perm.ru/04_maps/gpsmap/${pname}.rar";
-    inherit sha256;
+    inherit hash;
   };
 
   sourceRoot = ".";

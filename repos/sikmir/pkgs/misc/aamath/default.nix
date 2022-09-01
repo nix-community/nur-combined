@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   patches = (fetchpatch {
     url = "https://raw.githubusercontent.com/macports/macports-ports/6c3088afddcf34ca2bcc5c209f85f264dcf0bc69/math/aamath/files/patch-expr.h.diff";
-    sha256 = "sha256-JtLcqdBq/88Bemj4NQYnpEVVTUyiCLWX2zE3CuXtRlM=";
+    hash = "sha256-JtLcqdBq/88Bemj4NQYnpEVVTUyiCLWX2zE3CuXtRlM=";
   });
 
   patchFlags = [ "-p0" ];

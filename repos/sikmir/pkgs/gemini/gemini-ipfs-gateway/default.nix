@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-50viZnrgrxXNmpmfV1NQn/QTAlSEO505jbz1pzPfypA=";
   };
 
-  vendorSha256 = "sha256-nSeVJrQKbUHhLPggIfir+YGoXuMLwmon+ZgJHfNNqdM=";
+  vendorHash = "sha256-nSeVJrQKbUHhLPggIfir+YGoXuMLwmon+ZgJHfNNqdM=";
 
   meta = with lib; {
     description = "IPFS access over the Gemini protocol";

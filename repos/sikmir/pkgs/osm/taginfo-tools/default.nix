@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "taginfo";
     repo = pname;
     rev = "3b54480e6f4fcfed7bfc064e074250ca97ec4644";
-    sha256 = "sha256-aJQy8BijmiLEOhEzdpzyCC6nK4b1EafZZ/UoZu18LDU=";
+    hash = "sha256-aJQy8BijmiLEOhEzdpzyCC6nK4b1EafZZ/UoZu18LDU=";
     fetchSubmodules = true;
   };
 

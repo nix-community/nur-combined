@@ -8,7 +8,7 @@ python3Packages.buildPythonPackage rec {
     owner = "pytorch";
     repo = "text";
     rev = "v${version}";
-    sha256 = "sha256-UCH/12jVeUY+h3Qop/RPtjIeXdddA1upsWIiwAs8+bc=";
+    hash = "sha256-UCH/12jVeUY+h3Qop/RPtjIeXdddA1upsWIiwAs8+bc=";
     fetchSubmodules = true;
   };
 

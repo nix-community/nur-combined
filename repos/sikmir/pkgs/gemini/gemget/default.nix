@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-PmtIgxnzfLduNGTx8SNDky6juv+NTJ8Cr++SOCk/QNU=";
   };
 
-  vendorSha256 = "sha256-Ep6HAJgurxFbA4L77z8V2ar06BBVWlAJS9VoSSUg27U=";
+  vendorHash = "sha256-Ep6HAJgurxFbA4L77z8V2ar06BBVWlAJS9VoSSUg27U=";
 
   meta = with lib; {
     description = "Command line downloader for the Gemini protocol";

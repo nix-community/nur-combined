@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-jUDaTQ4vImKWaSAdKrIZqO7YjwWvzi1ob7MTbieDeCQ=";
   };
 
-  vendorSha256 = null;
+  vendorHash = null;
 
   meta = with lib; {
     description = "Read/write library & concurrent caching proxy for PMTiles archives";

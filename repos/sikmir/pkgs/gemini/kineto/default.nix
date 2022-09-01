@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-yRFH0pf/ocsug99spAupRYQpAFnt48f8FfgZdMS0i40=";
   };
 
-  vendorSha256 = "sha256-+CLJJ4najojIE/0gMlhZxb1P7owdY9+cTnRk+UmHogk=";
+  vendorHash = "sha256-+CLJJ4najojIE/0gMlhZxb1P7owdY9+cTnRk+UmHogk=";
 
   meta = with lib; {
     description = "An HTTP to Gemini proxy";

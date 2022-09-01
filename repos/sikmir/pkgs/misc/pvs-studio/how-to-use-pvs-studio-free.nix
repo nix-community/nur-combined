@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       url = "https://github.com/viva64/how-to-use-pvs-studio-free/commit/5685a069d9538242a79d099fed3057de37a8d766.patch";
-      sha256 = "sha256-xffOthjpBVP1aijdO6LTnHNQ3pvrO0/W3YJWIWLMuuQ=";
+      hash = "sha256-xffOthjpBVP1aijdO6LTnHNQ3pvrO0/W3YJWIWLMuuQ=";
     })
   ];
 

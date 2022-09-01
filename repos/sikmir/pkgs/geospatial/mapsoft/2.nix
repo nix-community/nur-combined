@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     owner = "slazav";
     repo = pname;
     rev = "${version}-alt1";
-    sha256 = "sha256-wOxJdDl7y7iE6kKlfBNkknh68EJksjcKt6DFqkEdiIQ=";
+    hash = "sha256-wOxJdDl7y7iE6kKlfBNkknh68EJksjcKt6DFqkEdiIQ=";
     fetchSubmodules = true;
   };
 

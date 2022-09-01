@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-2oIgBcdq2tJCKyh5ob2cn2mLRd7YoeRsKy5qqu0+jPk=";
   };
 
-  vendorSha256 = "sha256-KBG7RvWb0nzW9ZSPL1a65Jq9DsSHea8bKLvz6Ft5FsY=";
+  vendorHash = "sha256-KBG7RvWb0nzW9ZSPL1a65Jq9DsSHea8bKLvz6Ft5FsY=";
 
   nativeBuildInputs = [ scdoc ];
 

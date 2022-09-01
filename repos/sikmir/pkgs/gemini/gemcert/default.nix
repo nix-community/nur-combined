@@ -7,7 +7,7 @@ buildGoPackage {
   src = fetchgit {
     url = "https://tildegit.org/solderpunk/gemcert";
     rev = "fc14deb2751274d2df01f8d5abef023ec7e12a8c";
-    sha256 = "sha256-za3pS6WlOJ+NKqhyCfhlj7gH4U5yFXtJ6gLta7WXhb0=";
+    hash = "sha256-za3pS6WlOJ+NKqhyCfhlj7gH4U5yFXtJ6gLta7WXhb0=";
   };
 
   goPackagePath = "tildegit.org/solderpunk/gemcert";

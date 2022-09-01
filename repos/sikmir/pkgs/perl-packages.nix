@@ -6,7 +6,7 @@ rec {
     version = "0.010";
     src = fetchurl {
       url = "mirror://cpan/authors/id/T/TO/TOBYINK/${pname}-${version}.tar.gz";
-      sha256 = "1jvngzqq38cdkwks9cw0q58nb4irzl3wkgcg6p1hs9209r6h3mla";
+      hash = "sha256-itYBTU5AJA3DNY+9yQf9OZJlUcGAs6Qnn42hgfF/dss=";
     };
     buildInputs = [ TestFatal ];
     propagatedBuildInputs = [ ExporterTiny ScalarListUtils SubInfix ];
@@ -22,7 +22,7 @@ rec {
     version = "0.004";
     src = fetchurl {
       url = "mirror://cpan/authors/id/T/TO/TOBYINK/${pname}-${version}.tar.gz";
-      sha256 = "1jsyq60mhkc31br33yf1lyll61c8k7h27h2nmvyzsjmbcvdambjw";
+      hash = "sha256-XK6q2marSv39rlbAI+CZiAVDqafB+THyCoNNWIHBXss=";
     };
     buildInputs = [ TestFatal ];
     meta = with lib; {
@@ -37,7 +37,7 @@ rec {
     version = "1.10";
     src = fetchurl {
       url = "mirror://cpan/authors/id/M/MA/MARKOV/${pname}-${version}.tar.gz";
-      sha256 = "1my2vwmv1yk5hwyr8q2p9mvyca2mjdggnk93hpj1gnpkgxp5y382";
+      hash = "sha256-Ag1fbn/z2hfkhSNN+16TVSjmd01XYJQ9h2X6sCvfwtc=";
     };
     meta = with lib; {
       homepage = "https://metacpan.org/pod/Math::Polygon";
@@ -51,7 +51,7 @@ rec {
     version = "0.08";
     src = fetchurl {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
-      sha256 = "1332sn0r1p5jpgddcx1h5jppysy5y8jkicgk1wfcvzqw5hgx344w";
+      hash = "sha256-nJDRHywc/80cD/OxOCXyxWt/rywwdNbau7LckIHVYow=";
     };
     propagatedBuildInputs = [ ListMoreUtils MathGeometryPlanarGPCPolygonXS ];
     meta = with lib; {
@@ -66,7 +66,7 @@ rec {
     version = "0.052";
     src = fetchurl {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
-      sha256 = "0hdjxk74lpcsc51q8adnaxlfg4wsxn10jwd0l1zw8r76xgzljlgl";
+      hash = "sha256-9FFJ/+vmZMR/oKBxCYLtmpPnaFe2KYRDYZpdSs7sskE=";
     };
     meta = with lib; {
       homepage = "https://metacpan.org/pod/Math::Geometry::Planar::GPC::PolygonXS";
@@ -80,7 +80,7 @@ rec {
     version = "0.072";
     src = fetchurl {
       url = "mirror://cpan/authors/id/A/AJ/AJOLMA/${pname}-${version}.tar.gz";
-      sha256 = "0f2lvc1cgzv62xxr1zq3lxr7kzc9vs7gvcyk7dksi3cvqmyjkwgd";
+      hash = "sha256-7fEpfcWbjahnO9Oz/Y7eif15cqcD/5B7F2b/xwLbVDg=";
     };
     meta = with lib; {
       homepage = "https://metacpan.org/pod/Tree::R";
@@ -94,7 +94,7 @@ rec {
     version = "0.03";
     src = fetchurl {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
-      sha256 = "14s63ymcmrxhvnxjfjfqiiqm5yj5x2if246z62w1rynsj4rjqa4b";
+      hash = "sha256-iygsM5Ha+hy4MN8Q4aLoRfpScYzYSSe73bDnyqofRpM=";
     };
     propagatedBuildInputs = [ ListMoreUtils XMLParser ];
     meta = with lib; {
@@ -109,7 +109,7 @@ rec {
     version = "0.02";
     src = fetchurl {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
-      sha256 = "1jlrz18xgwcbicpfyfp9mi6dlnqd9j46lmygacn6aqwbk35jiv4s";
+      hash = "sha256-muwoy5iLY2UsU89XaohMDVvaTKzpOu8ui4vx11H4mco=";
     };
     propagatedBuildInputs = [ ListMoreUtils EncodeLocale ];
     meta = with lib; {
@@ -124,12 +124,27 @@ rec {
     version = "0.002";
     src = fetchurl {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
-      sha256 = "0caxw619l1bk7fgdqxb52sb6vlkrd9qd4cn1i24q4lani3lvfx3b";
+      hash = "sha256-a3S36YhWUYKJiMEy0nBqedJtlhZlddyeO3MFmoLhXTE=";
     };
     propagatedBuildInputs = [ DateTimeFormatBuilder ];
     meta = with lib; {
       homepage = "https://metacpan.org/pod/DateTime::Format::EXIF";
       description = "DateTime::Format::EXIF - DateTime parser for EXIF timestamps";
+      license = licenses.free;
+    };
+  };
+
+  IpcShareLite = buildPerlPackage rec {
+    pname = "IPC-ShareLite";
+    version = "0.17";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/A/AN/ANDYA/${pname}-${version}.tar.gz";
+      hash = "sha256-FNQGuR2pbWUh0NGoLSKjBidHZSJrhrClbn/93Plq578=";
+    };
+    propagatedBuildInputs = [  ];
+    meta = with lib; {
+      homepage = "https://metacpan.org/pod/IPC::ShareLite";
+      description = "IPC::ShareLite - Lightweight interface to shared memory";
       license = licenses.free;
     };
   };

@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "02qkfpykbq35id8glfgwc38yc430427yd05z1wc5cnld8zgicmgi";
+    hash = "sha256-8VUW30eNWlYYD7+A5o8gYBDm0WD8OfpQi2XgNf11Ews=";
   };
 
   patches = lib.optional (lib.versionAtLeast version "6.7") (

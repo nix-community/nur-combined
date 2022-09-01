@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "git://git.subdivi.de/~helmut/tcvt.git";
     rev = "2747b2ba0dff190380f9eb7a078c94192dd310f1";
-    sha256 = "sha256-/QT5/NfaIpPKR88Byo7HgS6qs3Zwq06jiMCTRR/tcBU=";
+    hash = "sha256-/QT5/NfaIpPKR88Byo7HgS6qs3Zwq06jiMCTRR/tcBU=";
   };
 
   buildInputs = [ python3 ];

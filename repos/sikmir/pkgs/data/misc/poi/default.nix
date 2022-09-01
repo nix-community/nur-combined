@@ -63,7 +63,7 @@
     name = "westra-2020-12-30";
     url = "https://nakarte.me/westraPasses/westra_passes.json";
     timestamp = "20201230113603";
-    sha256 = "sha256-yW3gAc2izsLkjWrz8TgU1F/kYNYJrixEZyIKyv0vGuU=";
+    hash = "sha256-yW3gAc2izsLkjWrz8TgU1F/kYNYJrixEZyIKyv0vGuU=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -84,7 +84,7 @@
   strelki = fetchurl {
     name = "strelki-2022-01-31";
     url = "https://strelki.extremum.org/s/p/47p";
-    sha256 = "sha256-p+KYOaEJCQAwEQSl4VPdxxK6Kt/QLPlRHNbxi/RVrj0=";
+    hash = "sha256-p+KYOaEJCQAwEQSl4VPdxxK6Kt/QLPlRHNbxi/RVrj0=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''
@@ -125,7 +125,7 @@
   novgorod-roads = fetchymaps {
     name = "novgorod-roads-2013-06-05";
     um = "_WjokOS8OVNds5FVsSPwRN_dXQFBv99B";
-    sha256 = "1hyilj5h24rdfnhmks3zk4z76zi3y6mn5qc47w9wd2yv2vzjdp53";
+    hash = "sha256-cN/iJ7aV4329UU5Qbfwp16K7yCU15ZOKQu8DnBbJE1M=";
     downloadToTemp = true;
     recursiveHash = true;
     postFetch = ''

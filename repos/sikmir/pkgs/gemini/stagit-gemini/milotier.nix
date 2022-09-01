@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "https://git.milotier.net/stagit-gemini";
     rev = "eddfa077851ffcdbdf377f7920fb481025f7ba31";
-    sha256 = "sha256-U97Ex0OtR8eXvd6vK3rbrGlK7moEvBnVWUTwPyMUgPI=";
+    hash = "sha256-U97Ex0OtR8eXvd6vK3rbrGlK7moEvBnVWUTwPyMUgPI=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

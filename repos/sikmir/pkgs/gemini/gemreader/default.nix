@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-1IqxMBLmcfFIdv11FbGbXVRPc05LmSqPieeaj4uf0nA=";
   };
 
-  vendorSha256 = "0wvxq1sbkw274bcihkh3axvg7fbqm3xcs5zvsr2jngsycy3xjfip";
+  vendorHash = "sha256-NzrZh2dePytF1vsXzfqoeLnzdlcDThjZIkfwuXTAfXM=";
 
   meta = with lib; {
     description = "Feed reader for the Geminispace";

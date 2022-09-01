@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     owner = "sloum";
     repo = "stagit-gemini";
     rev = "2710449792748ac3fefe4ba2500afce1ed193e37";
-    sha256 = "sha256-Tm9jXkGtUNeZNhtHjozWN35z8gL/KcACLvby2Z73vxU=";
+    hash = "sha256-Tm9jXkGtUNeZNhtHjozWN35z8gL/KcACLvby2Z73vxU=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];

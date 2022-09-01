@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "VisualGPS";
     repo = "VisualGPSqt";
     rev = "f2e213208a48e1f7d7294bc832a848de4efb4fd4";
-    sha256 = "sha256-1x9V75Y2QgMw3oTERHiFopFxFyWRJhGKaDK/raPqxjg=";
+    hash = "sha256-1x9V75Y2QgMw3oTERHiFopFxFyWRJhGKaDK/raPqxjg=";
     fetchSubmodules = true;
   };
 

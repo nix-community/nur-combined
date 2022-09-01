@@ -12,7 +12,7 @@ buildGoModule rec {
     hash = "sha256-zctfACwvjgSI5EgXEZIRKCM4Jsjj9RtwJMbAq4vWV1M=";
   };
 
-  vendorSha256 = "sha256-bh/+zEfZuk7l0t2didxlCnTObY3ThqsUXI8cD1oVeNk=";
+  vendorHash = "sha256-bh/+zEfZuk7l0t2didxlCnTObY3ThqsUXI8cD1oVeNk=";
 
   buildInputs = [ openssl tdlib zlib ];
 
