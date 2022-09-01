@@ -57,7 +57,7 @@
                 exit 1;
               fi
 
-              ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1
+              exec ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace
             '');
           };
 
