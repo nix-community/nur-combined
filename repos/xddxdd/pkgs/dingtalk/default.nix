@@ -40,7 +40,7 @@
 ################################################################################
 
 let
-  version = "1.4.0.20425";
+  version = "1.4.0.20829";
 
   openldap = callPackage ./openldap-2_4.nix { };
 
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
   inherit version;
   src = fetchurl {
     url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb";
-    sha256 = "sha256-UKkFuuFK/Ae+XIWbPYYsqwS/FOJfOqm9e1i18JB8UfA=";
+    sha256 = "sha256-db0VryCPwYJ+b3EKJnVrVRm/0AupJ1kssI4mlDE9WcA=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
@@ -114,6 +114,8 @@ stdenv.mkDerivation rec {
     rm -f release/dingtalk_updater
     rm -f release/libgtk-x11-2.0.so.*
     rm -f release/libm.so.*
+    rm -f release/libcurl.so.*
+    rm -f release/libz*
   '';
 
   installPhase = ''
