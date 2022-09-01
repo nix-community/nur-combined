@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "archlinux-keyring";
-  version = "20220727-1";
+  version = "20220831-1";
   src = fetchzip {
     nativeBuildInputs = [ zstd ];
     url = "${rp}https://geo.mirror.pkgbuild.com/core/os/x86_64/${pname}-${version}-any.pkg.tar.zst";
-    sha256 = "sha256-6Qq9sxGleOmaU9iqn5dlarlYx7hIfFbaT7lJ7U41efU=";
+    sha256 = "sha256-m/YHTpT1r639KoLQbhs37OJ68IBKlwoRC8j1WNzMINg=";
   };
   installPhase = ''
     cp -r $src $out
