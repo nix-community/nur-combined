@@ -11,30 +11,28 @@
 
 with builtins;
 let
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
-  shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
-
   flake = getFlake (toString ./.);
   inherit (flake) eachSystem;
   inherit (flake.lib) concatMap nameValuePair;
-
-  flattenPkgs = s:
-    let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [ p ]
-        else [ ];
-    in
-    concatMap f (attrValues s);
-
-  outputsOf = p: map (o: p.${o}) p.outputs;
-
 in
-eachSystem
-  (system:
-    let
-      nurAttrs = flake.ciPackages."${system}";
-      nurPkgs = flattenPkgs nurAttrs;
-    in
-    concatMap outputsOf (filter isBuildable nurPkgs))
+eachSystem (system:
+  let
+    isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
+    isTargetPlatform = p: elem system (p.meta.platforms or [ system ]);
+    isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+    shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
+
+    flattenPkgs = s:
+      let
+        f = p:
+          if shouldRecurseForDerivations p then flattenPkgs p
+          else if isDerivation p && isTargetPlatform p && isBuildable p then [ p ]
+          else [ ];
+      in
+      concatMap f (attrValues s);
+
+    outputsOf = p: map (o: p.${o}) p.outputs;
+
+    nurPkgs = flattenPkgs flake.ciPackages."${system}";
+  in
+  concatMap outputsOf nurPkgs)

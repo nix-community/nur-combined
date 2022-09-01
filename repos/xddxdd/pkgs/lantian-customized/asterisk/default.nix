@@ -29,4 +29,6 @@
     ln -s ${asteriskDigiumCodecs.siren14}/codec_siren14.so $out/lib/asterisk/modules/codec_siren14.so
     ln -s ${asterisk-g72x}/lib/asterisk/modules/codec_g729.so $out/lib/asterisk/modules/codec_g729.so
   '';
+
+  meta.platforms = [ "x86_64-linux" ];
 })

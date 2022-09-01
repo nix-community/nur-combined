@@ -73,6 +73,7 @@ rec {
     dngzwxdq = pkg ./lantian-personal/dngzwxdq { inherit chmlib-utils; };
     dnyjzsxj = pkg ./lantian-personal/dnyjzsxj { inherit chmlib-utils; };
     glibc-debian-openvz-files = pkg ./lantian-personal/glibc-debian-openvz-files { };
+    libltnginx = pkg ./lantian-personal/libltnginx { };
   };
   openj9-ibm-semeru = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { }));
   openjdk-adoptium = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium { }));
@@ -112,7 +113,6 @@ rec {
   kaixinsong-fonts = pkg ./kaixinsong-fonts { };
   konnect = pkg ./konnect { };
   ldap-auth-proxy = pkg ./ldap-auth-proxy { };
-  libltnginx = pkg ./libltnginx { };
   liboqs = pkg ./liboqs { };
   netboot-xyz = pkg ./netboot-xyz { };
   netns-exec = pkg ./netns-exec { };
