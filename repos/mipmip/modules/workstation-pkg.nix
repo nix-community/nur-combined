@@ -21,6 +21,7 @@
     #vim_configurable
 
     gitFull
+    gh # GitHub Cli
   ]
 
   ++ (if pkgs.stdenv.isDarwin then [
@@ -30,8 +31,6 @@
     zathura
     x264
 
-    docker
-    docker-compose
 
     nextcloud-client
     gimp
