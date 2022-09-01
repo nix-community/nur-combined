@@ -37,4 +37,5 @@ rec {
   gitupdate = callPackage ./pkgs/gitupdate.nix {};
   homer = callPackage ./pkgs/homer.nix {};
   gtk3-nocsd = callPackage ./pkgs/gtk3-nocsd.nix {};
+  aml-upgrade-package-extract = callPackage ./pkgs/aml-upgrade-package-extract.nix {};
 }
