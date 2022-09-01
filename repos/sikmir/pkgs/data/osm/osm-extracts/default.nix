@@ -1,7 +1,7 @@
-{ lib, stdenv, fetchurl, osmium-tool, region ? "RU-LEN" }:
+{ lib, stdenv, fetchurl, osmium-tool }:
 
 stdenv.mkDerivation rec {
-  pname = "osm-extracts-${region}";
+  pname = "osm-extracts";
   version = "220830";
 
   src = fetchurl {
@@ -14,11 +14,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ osmium-tool ];
 
   buildPhase = ''
-    osmium tags-filter -o ${region}-boundary.osm $src r/ISO3166-2=${region}
-    osmium extract -p ${region}-boundary.osm $src --set-bounds -s simple -o ${region}.osm.pbf
-    osmium export ${region}-boundary.osm -o ${region}-boundary.geojson
-    osmium tags-filter -o ${region}-water.osm ${region}.osm.pbf a/natural=water
-    osmium export ${region}-water.osm -o ${region}-water.geojson
+    runHook preBuild
+
+    for region in RU-{ARK,KO,KR,LEN,MUR,NEN,NGR,PSK,SPE,VLG}; do
+      osmium tags-filter -o $region-boundary.osm $src r/ISO3166-2=$region
+      osmium extract -p $region-boundary.osm $src --set-bounds -s simple -o $region.osm.pbf
+      osmium export $region-boundary.osm -o $region-boundary.geojson
+      osmium tags-filter -o $region-water.osm $region.osm.pbf a/natural=water
+      osmium export $region-water.osm -o $region-water.geojson
+    done
+
+    runHook postBuild
   '';
 
   installPhase = ''
@@ -26,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Administrative boundaries (${region})";
+    description = "Administrative boundaries";
     homepage = "https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];

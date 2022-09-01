@@ -1,30 +1,25 @@
-{ lib, stdenv, fetchurl, routino, prefix ? "Russia-NWFD" }:
+{ lib, stdenv, fetchurl, routino, osm-extracts, prefix ? "Russia-NWFD" }:
 
 stdenv.mkDerivation rec {
   pname = "routinodb";
-  version = "220830";
-
-  srcs = [
-    (fetchurl {
-      url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-      hash = "sha256-kzn8Rs/ZRekHF5CJ5SZeY+q1s642o+ZSJdRhNvwutZw=";
-    })
-  ];
+  inherit (osm-extracts) version;
 
   dontUnpack = true;
+
+  nativeBuildInputs = [ routino ];
 
   installPhase = ''
     install -dm755 $out
 
-    for src in $srcs; do
-      ${routino}/bin/planetsplitter \
+    for region in RU-{ARK,KO,KR,LEN,MUR,NEN,NGR,PSK,SPE,VLG}; do
+      planetsplitter \
         --dir=$out \
         --prefix=${prefix} \
         --tagging=${routino}/share/routino/tagging.xml \
-        --parse-only --append $src
+        --parse-only --append ${osm-extracts}/$region.osm.pbf
     done
 
-    ${routino}/bin/planetsplitter \
+    planetsplitter \
       --dir=$out \
       --prefix=${prefix} \
       --tagging=${routino}/share/routino/tagging.xml \
@@ -33,7 +28,6 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Routino Database";
-    homepage = "https://download.geofabrik.de/index.html";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;

@@ -53,9 +53,11 @@ lib.makeScope newScope (
     usa-osm-topo-routable = callPackage ./data/maps/usa-osm-topo-routable { };
 
     gadm = callPackage ./data/misc/gadm { };
-    osm-extracts = callPackage ./data/misc/osm-extracts { };
     poi = callPackage ./data/misc/poi { };
-    routinodb = callPackage ./data/misc/routinodb { };
+
+    osm-extracts = callPackage ./data/osm/osm-extracts { };
+    overpassdb = callPackage ./data/osm/overpassdb { };
+    routinodb = callPackage ./data/osm/routinodb { };
 
     goldendict-arc-dark-theme =
       callPackage ./data/themes/goldendict-themes/arc-dark-theme.nix { };
