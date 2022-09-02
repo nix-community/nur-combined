@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "tumic0";
-    repo = pname;
+    repo = "qtpbfimageplugin-styles";
     rev = "5b7d248d064b9c9dd9dbb51ebbb0ff9b259045e3";
     hash = "sha256-BbkDHZ/rNbXz7raeQnNiJ4HnhyH5Y/pISYZuk3BYYss=";
   };

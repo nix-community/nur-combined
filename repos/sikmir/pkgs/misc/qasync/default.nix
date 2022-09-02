@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "CabbageDevelopment";
-    repo = pname;
+    repo = "qasync";
     rev = "v${version}";
     hash = "sha256-VM4+HNqqiVfGS6FzOjf2LAfcIFA3VuNAhpwkxzOlLOE=";
   };

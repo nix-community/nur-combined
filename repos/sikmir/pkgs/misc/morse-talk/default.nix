@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "morse-talk";
-    repo = pname;
+    repo = "morse-talk";
     rev = "71e09ace0aa554d28cada5ee658e43758305b8fa";
     hash = "sha256-fvQCETz0Lv0hyfKG7HC2Whm+xoZ9233hF/1ogsfZ10o=";
   };

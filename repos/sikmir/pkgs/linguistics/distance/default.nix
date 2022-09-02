@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "doukremt";
-    repo = pname;
+    repo = "distance";
     rev = "ad7f9dc7e9b0e88a08d0cefd1442f4ab1dd1779b";
     hash = "sha256-nu/vT1KHlhHJVE92L16laBH2fzlUy9al78j4ZkABlu0=";
   };

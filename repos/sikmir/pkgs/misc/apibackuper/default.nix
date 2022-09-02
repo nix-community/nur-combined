@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "ruarxive";
-    repo = pname;
+    repo = "apibackuper";
     rev = version;
     hash = "sha256-2vNuzQK6Wm6DBWRSLFuy6loCLAbcql3CqSktMjGE8JE=";
   };

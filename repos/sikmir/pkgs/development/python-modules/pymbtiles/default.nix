@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "consbio";
-    repo = pname;
+    repo = "pymbtiles";
     rev = "5094f77de6fb920092952df68aa64f91bf2aa097";
     hash = "sha256-aBp3ocXkHsb9vimvhgOn2wgfTM0GMuA4mTcqeFsLQzc=";
   };

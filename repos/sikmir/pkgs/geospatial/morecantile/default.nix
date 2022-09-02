@@ -7,7 +7,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "developmentseed";
-    repo = pname;
+    repo = "morecantile";
     rev = version;
     hash = "sha256-QvqXpcjunRWzfdcoyt3pUulDd20Ga8Cs9NTeLnUf5c8=";
   };

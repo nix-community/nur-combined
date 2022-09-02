@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "camptocamp";
-    repo = pname;
+    repo = "tilecloud";
     rev = version;
     hash = "sha256-TaBwrh+bvyMBx8IlCLZ/S/7Sb0Gp9tz02204qbWStBA=";
   };

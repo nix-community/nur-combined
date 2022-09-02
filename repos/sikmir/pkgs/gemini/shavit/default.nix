@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromSourcehut {
     owner = "~yotam";
-    repo = pname;
+    repo = "shavit";
     rev = "129b3e7fc700d02843c4fbd3e7cc73bf714f9cc2";
     hash = "sha256-LEI7cJkyLPVtkplbRwGFHKXiKiiMerE9EDgQ0vWL4Qk=";
   };

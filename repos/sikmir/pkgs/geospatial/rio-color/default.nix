@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "mapbox";
-    repo = pname;
+    repo = "rio-color";
     rev = version;
     hash = "sha256-bkXDw8MW0Q+xhYbfN7vexNUzTIjT9c67e6adavQSP1A=";
   };

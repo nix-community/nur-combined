@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "wladich";
-    repo = pname;
+    repo = "pyimagequant";
     rev = "a467b3b2566f4edd31a272738f7c5e646c0d84a9";
     hash = "sha256-yBtZsCaFJxPfI8EWyGatepGzE6+1BFUQ2h+ElH9Unqo=";
     fetchSubmodules = true;

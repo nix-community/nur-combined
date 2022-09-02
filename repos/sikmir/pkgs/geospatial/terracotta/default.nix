@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "DHI-GRAS";
-    repo = pname;
+    repo = "terracotta";
     rev = "refs/tags/v${version}";
     hash = "sha256-Q1rn7Rm1W0itXyuph/aApP+mCSy1VybIoBdEJm6GO68=";
   };

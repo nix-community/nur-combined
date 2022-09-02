@@ -6,7 +6,7 @@ buildGoPackage rec {
 
   src = fetchFromGitHub {
     owner = "Sina-Ghaderi";
-    repo = pname;
+    repo = "nanodns";
     rev = "fb0c62f7123cb39c0e327ff1515536ce2ed6c3db";
     hash = "sha256-Paz59YJkwK0v9/e7NrqpQjx0r/iHMpSCLd2heHw8KlA=";
   };

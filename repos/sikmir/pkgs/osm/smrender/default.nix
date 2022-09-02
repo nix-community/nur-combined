@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "rahra";
-    repo = pname;
+    repo = "smrender";
     rev = "v${version}";
     hash = "sha256-b9xuOPLxA9zZzIwWl+FTSW5XHgJ2sFoC578ZH6iwjaM=";
   };

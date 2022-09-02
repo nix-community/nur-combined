@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromGitLab {
     owner = "timosaarinen";
-    repo = pname;
+    repo = "garta";
     rev = "9c873318ba9d2dad8990b6439cf93c99e2702215";
     hash = "sha256-Swlhej0Q8SAWgpl/fh2pgTS/AWGtFh5wdE1O6RlBV60=";
   };

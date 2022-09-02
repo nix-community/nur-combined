@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "developmentseed";
-    repo = pname;
+    repo = "starlette-cramjam";
     rev = version;
     hash = "sha256-aCZnXsCkzq278aAj4QNz2gSIVWGn1IsL2QG9TAaNWg0=";
   };

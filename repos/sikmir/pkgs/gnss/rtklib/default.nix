@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "tomojitakasu";
-    repo = pname;
+    repo = "rtklib";
     rev = "v${version}";
     hash = "sha256-d9hpvmIdSZ3BervVZVvfRTc+q7wUWoWLF81TAsMGe68=";
   };

@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "tkrajina";
-    repo = pname;
+    repo = "gpx-cmd-tools";
     rev = "e042c4d65cc153ddf3589b4d8723bed5f71a9d0d";
     hash = "sha256-x3/PNACBrT5XSlgpZj0WO27KW0DiF6Je2z3gX5g/Gz0=";
   };

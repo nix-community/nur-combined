@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchfromgh {
     owner = "MacPass";
-    repo = pname;
+    repo = "MacPass";
     name = "MacPass-${version}.zip";
     sha256 = "1gikixbrz1pvyjspp62msdmhjdy1rfkx8jhy7rajjr8bzm8pzpmc";
     inherit version;

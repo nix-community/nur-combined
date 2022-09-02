@@ -6,7 +6,7 @@ buildPerlPackage rec {
 
   src = fetchFromGitHub {
     owner = "e-n-f";
-    repo = pname;
+    repo = "gpx-layer";
     rev = "746b4723cf1f69fb86d45cf2d4efeaae9e711d2d";
     hash = "sha256-I9/ZkfrDNT0AZzcUAIShfSviP5dLvVvByJW6UrF0u2w=";
   };

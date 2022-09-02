@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "irdvo";
-    repo = pname;
+    repo = "gpxlib";
     rev = "43df92be29412b7f3b58e63ebea516df9f15b883";
     hash = "sha256-Ai6d2N0H+V/xzWVYL/jfJtQMaUVpY0ecNCISfugbE2k=";
   };

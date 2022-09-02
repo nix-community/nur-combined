@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "floooh";
-    repo = pname;
+    repo = "qoiview";
     rev = "ccc7ae1fa1b80716f243115d3855aba7a49aa6b8";
     hash = "sha256-8QIDEBlzUSKPdOhmzbSwhfgy/A2QceWeinIQQe3J7h4=";
   };

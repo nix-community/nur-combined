@@ -9,7 +9,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "tarwirdur";
-    repo = pname;
+    repo = "mbtiles2osmand";
     rev = "5084a6ff9c60794044a751cc62ef84b6e37a342e";
     hash = "sha256-vghESjT6Pklq7IjxTEIHfTxX2B3eCgUl9CP+eJntByA=";
   };

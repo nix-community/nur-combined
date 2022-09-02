@@ -7,7 +7,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "enzet";
-    repo = pname;
+    repo = "map-machine";
     rev = "v${version}";
     hash = "sha256-uVg9s1S9CXjBS8VdqZf+jDIR94pieD2nuoP94Jyce7U=";
   };

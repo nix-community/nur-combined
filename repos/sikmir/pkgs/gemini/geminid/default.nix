@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "jovoro";
-    repo = pname;
+    repo = "geminid";
     rev = "bf6148baf91847e8dc011c3a101bee547142f4b5";
     hash = "sha256-yiD3GMrYi9KhKgCWAs+tdenP/0Q1E16FdhatdbTkYK4=";
   };

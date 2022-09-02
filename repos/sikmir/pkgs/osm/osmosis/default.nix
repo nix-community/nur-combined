@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchfromgh {
     owner = "openstreetmap";
-    repo = pname;
+    repo = "osmosis";
     name = "osmosis-${version}.tgz";
     hash = "sha256-skxgFXjqTLDKiDAr5naP0GAr3obCVKDguQUTWB26Z/8=";
     inherit version;

@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "flopp";
-    repo = pname;
+    repo = "go-staticmaps";
     rev = "56e3560e444bd7855f8de837dd491cb0a4bd5ae9";
     hash = "sha256-r1PQ45hLy/akquN1vhuhCu+71E8ptjT1boCXupbH8lw=";
   };

@@ -7,7 +7,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "pmbarrett314";
-    repo = pname;
+    repo = "curses-menu";
     rev = "574d2b32db937be9442ce9140c42368668bd7d77";
     hash = "sha256-0oBPhdigQ78RaVl0zLAdGN22cF7jXlH4xHXZzE6AedM=";
   };

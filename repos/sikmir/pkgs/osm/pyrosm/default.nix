@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "HTenkanen";
-    repo = pname;
+    repo = "pyrosm";
     rev = "v${version}";
     hash = "sha256-/VS8TWSn/UACtRIRX9iaA39ikIzL1pzgNzZntPFYNmw=";
   };

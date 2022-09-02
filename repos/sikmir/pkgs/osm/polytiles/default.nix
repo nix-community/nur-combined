@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "Zverik";
-    repo = pname;
+    repo = "polytiles";
     rev = "c0a057594de9041c7b3ac234a3590101e3825f2d";
     hash = "sha256-7rsMx8sQgl8cRiUncP3/mPne6ARj3K2FICU+frUeEUs=";
   };

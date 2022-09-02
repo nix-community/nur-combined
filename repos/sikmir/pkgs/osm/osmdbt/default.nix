@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
-    repo = pname;
+    repo = "osmdbt";
     rev = "v${version}";
     hash = "sha256-hXwWOOfvBrJqjMXsG/59J83PHwZqIKm+2B00QYoJD80=";
   };

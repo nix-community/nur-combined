@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "consbio";
-    repo = pname;
+    repo = "tpkutils";
     rev = "5f3694451a1759548af579b689f478cefc633252";
     hash = "sha256-6eEDRGpBP27jT2KAg7EtsUm9wxEYrlKa8EkB/7/1JWc=";
   };

@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "dbro";
-    repo = pname;
+    repo = "csvquote";
     rev = "baf37fa4cccc656282551db4ea7ce4ec6b9c318e";
     hash = "sha256-Pi50Gd1YSBmCHuaPs0WLQzt6pIubcJj5riBSW0V5fxo=";
   };

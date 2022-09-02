@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "Absolute-Tinkerer";
-    repo = pname;
+    repo = "map-stylizer";
     rev = "6279f40408aff823a4eb1071334bd2acd10cb921";
     hash = "sha256-vUMHdUn5IZkB21Wg83lRZ/HwSnmgzem4ZBjELcizNE0=";
   };

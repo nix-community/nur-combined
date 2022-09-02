@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "ivbeg";
-    repo = pname;
+    repo = "lazyscraper";
     rev = "2e14bd829311cde19ef32d7f0e11c3c4a3c08e1b";
     hash = "sha256-gnhJB+ZMKQIYZNHMeRrlICgz5UhyHy72Js/I4kbp8Qo=";
   };

@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "wangyoucao577";
-    repo = pname;
+    repo = "vt2geojson";
     rev = "v${version}";
     hash = "sha256-2wBMWrraWFDLHc/s/RMW4a4moftwTFeBj7FfaCJgdU0=";
   };

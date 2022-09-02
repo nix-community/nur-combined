@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "makeworld-the-better-one";
-    repo = pname;
+    repo = "didder";
     rev = "v${version}";
     hash = "sha256-3tK7UaHzARlrhT1hzlekwSqclrDwoSv+vHzpSPTmxrs=";
   };

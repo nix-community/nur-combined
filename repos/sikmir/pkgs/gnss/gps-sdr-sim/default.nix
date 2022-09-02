@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "osqzss";
-    repo = pname;
+    repo = "gps-sdr-sim";
     rev = "becf3a33e9d1ffa445e5341137bdf31006072650";
     hash = "sha256-Z+fGsqQUzTCKgbbH8B4qttHFnEfgUulxuttINHJT6IA=";
   };

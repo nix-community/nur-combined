@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "argrento";
-    repo = pname;
+    repo = "huami-token";
     rev = "c88162682dd16671ea22ea0e8e6f913494b3bd78";
     hash = "sha256-LMVFlpMueQV8jfX2A968AYftIT2pAe+FTOS7X21ml8w=";
   };

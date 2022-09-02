@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "hessu";
-    repo = pname;
+    repo = "aprsc";
     rev = "release/${version}";
     hash = "sha256-lPVhGYdd80XCXgOD8m09LvudbC6poNhSRS2ILcapMwE=";
   };

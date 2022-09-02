@@ -25,7 +25,7 @@ buildPerlPackage rec {
 
   src = fetchFromGitHub {
     owner = "liosha";
-    repo = pname;
+    repo = "osm2mp";
     rev = "748f93792ead174ad0e94a183a173ef3fcacf200";
     hash = "sha256-YxtEOuoLeglpdpmStrcEkXwRGHRE+N1hKDB2Rr8rokw=";
   };

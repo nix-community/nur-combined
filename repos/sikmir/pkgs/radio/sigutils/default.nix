@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "BatchDrake";
-    repo = pname;
+    repo = "sigutils";
     rev = "1d7559d427aadd253dd825eef26bf15e54860c5f";
     hash = "sha256-wvd6sixwGmR9R4x+swLVqXre4Dqnj10jZIXUfaJcmBw=";
   };

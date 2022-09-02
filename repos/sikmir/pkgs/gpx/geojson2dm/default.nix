@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromSourcehut {
     owner = "~sikmir";
-    repo = pname;
+    repo = "geojson2dm";
     rev = "64357dfb409f891be1afd5261b918b8bb9987774";
     hash = "sha256-2mn84/YOkUDiYjr9uE27ucOUeUpzj29X0fZXywBAz0I=";
   };

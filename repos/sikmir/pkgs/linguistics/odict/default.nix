@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "TheOpenDictionary";
-    repo = pname;
+    repo = "odict";
     rev = "639dbab4feac15c4f69049bfb9b7bcfecaf68b47";
     hash = "sha256-cshWHsFTcejNNz/95FNkadXx8XWOW0fjlJTl4POR07k=";
   };

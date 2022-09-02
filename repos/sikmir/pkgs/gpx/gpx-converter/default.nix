@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "nidhaloff";
-    repo = pname;
+    repo = "gpx-converter";
     rev = "77790e9258ce845daf640f25614cd2e51cef7eb6";
     hash = "sha256-T7CxFeWoK7lR0oL4kIQoKqirw5oLnh6+SBC5fcnaANc=";
   };

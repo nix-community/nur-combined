@@ -6,7 +6,7 @@ let
 
   src = fetchFromGitHub {
     owner = "developmentseed";
-    repo = pname;
+    repo = "titiler";
     rev = version;
     hash = "sha256-BfN/d2FEFTIuiOHxKltn1SHUdOzDrAkbJcEQANY6UtA=";
   };

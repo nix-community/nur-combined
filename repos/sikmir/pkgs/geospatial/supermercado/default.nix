@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "mapbox";
-    repo = pname;
+    repo = "supermercado";
     rev = "44841a07adff32665fae736f9ba7df8c7b24ac44";
     hash = "sha256-k2S1aOHQEJq//4mdWZ5GhJQJjKqJuDbBztoHi373s6w=";
   };

@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "flopp";
-    repo = pname;
+    repo = "gpxtrackposter";
     rev = "d7ff0ba61f6396938efd075d841a7c4a226a6f5d";
     hash = "sha256-J1CZ2wrL8Myd++skUOyyXLDPyRpOsBWEGxzqhk7OKqU=";
   };

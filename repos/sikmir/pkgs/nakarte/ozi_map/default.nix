@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "wladich";
-    repo = pname;
+    repo = "ozi_map";
     rev = "4d6bd3f234960ba90d82e6d58da9c1bf4677eb16";
     hash = "sha256-sbAKi9GZEPmbI1Nq3l4uSh/tVNLXAY2siXu3YtHI5qo=";
   };

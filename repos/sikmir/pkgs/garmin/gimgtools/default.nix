@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "wuyongzheng";
-    repo = pname;
+    repo = "gimgtools";
     rev = "92d015749e105c5fb8eb704ae503a5c7e51af2bd";
     hash = "sha256-AgZqczhYr5frD9Id75if/38O057BC6YfeGquFpidKZI=";
   };

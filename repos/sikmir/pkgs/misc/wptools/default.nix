@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "siznax";
-    repo = pname;
+    repo = "wptools";
     rev = "a98a544f206a62c9f04fd34c0805825a8d531936";
     hash = "sha256-l1sCEhveK9fefZY6tL/kh2bOcq4ids4HZu6pXvn17AA=";
   };

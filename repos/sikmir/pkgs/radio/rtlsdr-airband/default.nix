@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "szpajder";
-    repo = pname;
+    repo = "rtlsdr-airband";
     rev = "v${version}";
     hash = "sha256-KWuhffRUaCRvJgJWOBbSkqKDXtBsZ8Gln0sIp7bZqw0=";
   };

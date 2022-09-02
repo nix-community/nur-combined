@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
-    repo = pname;
+    repo = "kineto";
     rev = "a8c54c1a32764d38727fb7c9f02ed9bc298e3174";
     hash = "sha256-yRFH0pf/ocsug99spAupRYQpAFnt48f8FfgZdMS0i40=";
   };

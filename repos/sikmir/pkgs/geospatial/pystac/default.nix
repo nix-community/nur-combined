@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "stac-utils";
-    repo = pname;
+    repo = "pystac";
     rev = "v${version}";
     hash = "sha256-khhiCUNiaxC744J+fZiJOXruNILOXvAwe3UNygr2M8U=";
   };

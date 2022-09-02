@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "BatchDrake";
-    repo = pname;
+    repo = "suscan";
     rev = "37dad542b97aff24654f0bb80fb8e85af7cb84ab";
     hash = "sha256-h1ogtYjkqiHb1/NAJfJ0HQIvGnZM2K/PSP5nqLXUf9M=";
   };

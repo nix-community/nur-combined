@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "sidewalklabs";
-    repo = pname;
+    repo = "s2sphere";
     rev = "d1d067e8c06e5fbaf0cc0158bade947b4a03a438";
     hash = "sha256-6hNIuyLTcGcXpLflw2ajCOjel0IaZSFRlPFi81Z5LUo=";
   };

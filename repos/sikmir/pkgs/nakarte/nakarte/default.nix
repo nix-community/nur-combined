@@ -8,7 +8,7 @@ mkYarnPackage {
 
   src = fetchFromGitHub {
     owner = "wladich";
-    repo = pname;
+    repo = "nakarte";
     rev = "4163b36921d867f314de5351e079bd3d8ce6e444";
     hash = "sha256-9klRyrnpdL0RJ8FupICbViG/oa3IFwqDcA6xoP9CvIs=";
   };

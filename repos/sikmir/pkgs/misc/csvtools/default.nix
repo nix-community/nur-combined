@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "DavyLandman";
-    repo = pname;
+    repo = "csvtools";
     rev = "efd3ef1c94c26c673e958ecb045056bfc2c7b4f3";
     hash = "sha256-hNEI5vQ3j6zyn31H2G+0xywdff7uaXi0kv2q4Hjiimg=";
   };

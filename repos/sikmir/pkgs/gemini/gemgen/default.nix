@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromSourcehut {
     owner = "~kota";
-    repo = pname;
+    repo = "gemgen";
     rev = "v${version}";
     hash = "sha256-2oIgBcdq2tJCKyh5ob2cn2mLRd7YoeRsKy5qqu0+jPk=";
   };

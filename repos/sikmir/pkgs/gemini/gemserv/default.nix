@@ -6,7 +6,7 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromSourcehut {
     owner = "~int80h";
-    repo = pname;
+    repo = "gemserv";
     rev = "v${version}";
     hash = "sha256-JA+mxljfYPWP5RcsknP+5gBSczKNSa5/BuDiY7mS3TY=";
   };

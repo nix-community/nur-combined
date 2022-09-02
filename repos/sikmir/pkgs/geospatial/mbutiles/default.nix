@@ -6,7 +6,7 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromGitHub {
     owner = "amarant";
-    repo = pname;
+    repo = "mbutiles";
     rev = version;
     hash = "sha256-XVMmTqZsfIkCmZAdGi70HWiV10iawUpN3XbH93VEh7I=";
   };

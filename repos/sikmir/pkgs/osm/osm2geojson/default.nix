@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "aspectumapp";
-    repo = pname;
+    repo = "osm2geojson";
     rev = "068b83afe19cff1ae15b9efc2a9ff5a9be8928e7";
     hash = "sha256-9+xB/fd97HtnzdkJ2BawVW9AqDyArWUv6H1SZ7a8gkw=";
     fetchSubmodules = true;

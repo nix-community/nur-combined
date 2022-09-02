@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromSourcehut {
     owner = "~gsthnz";
-    repo = pname;
+    repo = "satellite";
     rev = "v${version}";
     hash = "sha256-fOsgTuJb/UFmOKb7xV+pvqOhokEuOgt47IYDEpa0DWg=";
   };

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "osmcode";
-    repo = pname;
+    repo = "osm-area-tools";
     rev = "b96db0ced55f1bb574084620ca34f0a2e9d19b5a";
     hash = "sha256-bMD+8Md3rwlpsAu48YerfIFGq86PDfqTsKw5JeQUi6s=";
   };

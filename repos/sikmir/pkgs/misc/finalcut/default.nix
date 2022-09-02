@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "gansm";
-    repo = pname;
+    repo = "finalcut";
     rev = version;
     hash = "sha256-FaloxuRx9p9oMyuKyJhYZve/WyQoMSGTYwY6A2uE0F0=";
   };

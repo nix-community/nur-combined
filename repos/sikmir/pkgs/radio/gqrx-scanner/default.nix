@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "neural75";
-    repo = pname;
+    repo = "gqrx-scanner";
     rev = "v${version}";
     hash = "sha256-CHM1Q54ephZA4vNUPnaLCncgnfSiNeUq6u+X6PhhxD8=";
   };

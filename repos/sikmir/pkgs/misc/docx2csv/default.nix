@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "ivbeg";
-    repo = pname;
+    repo = "docx2csv";
     rev = "e397b6bd17c73d76b21404ce3422496b8da262db";
     hash = "sha256-7l8gWzwhIScWixzm+mRLntfilEgG7cZOvFhhiRhPEFg=";
   };

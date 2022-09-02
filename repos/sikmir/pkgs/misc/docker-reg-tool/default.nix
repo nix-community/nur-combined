@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "byrnedo";
-    repo = pname;
+    repo = "docker-reg-tool";
     rev = "23292d234289b1fd114b53786c9e4f9fece3674b";
     hash = "sha256-o2ug69zM1lfG+vgHAcOKxJxDp5UMag8ZbOWU5/tsjG8=";
   };

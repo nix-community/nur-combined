@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "karimnaaji";
-    repo = pname;
+    repo = "vectiler";
     rev = "76e71c852b020fb5b877c0b03dfeb263a632df71";
     hash = "sha256-O21XTkKAKRVqc7iItT8MroxM6PtTDNCoEdXvkpnxWus=";
     fetchSubmodules = true;

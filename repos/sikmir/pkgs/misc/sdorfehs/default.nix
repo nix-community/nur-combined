@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "jcs";
-    repo = pname;
+    repo = "sdorfehs";
     rev = "v${version}";
     hash = "sha256-efid6lRa8CTD+xObbop68hti5WRJReyKW57AmN7DS90=";
   };

@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "appnexus";
-    repo = pname;
+    repo = "pyrobuf";
     rev = "811a9325eed1c0070ceb424020fe81eeef317e0c";
     hash = "sha256-7NEzRM9B/9f5ODNzDKws7t/9gqbJK7T9AuET+pT26P0=";
   };

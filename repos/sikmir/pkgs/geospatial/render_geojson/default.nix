@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "pedro-vicente";
-    repo = pname;
+    repo = "render_geojson";
     rev = "ed65a22f45fc09784fa113fe93254492d88663c2";
     hash = "sha256-X8l4eIt6K8B6w2whZFdnKHRUBM2jQQDVIrAFxO1Xbhg=";
   };

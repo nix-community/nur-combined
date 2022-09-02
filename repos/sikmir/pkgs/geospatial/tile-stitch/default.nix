@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "e-n-f";
-    repo = pname;
+    repo = "tile-stitch";
     rev = "f14d113c54bb7dcffee05a7608a806b8557139e5";
     hash = "sha256-EEQ/8NbcB1O1rqlDWyYw7ERDQCm4j8YGv7z8WTVVCfc=";
   };

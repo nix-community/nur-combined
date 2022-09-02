@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromSourcehut {
     owner = "~kornellapacz";
-    repo = pname;
+    repo = "gmnigit";
     rev = "b266bf6f6d32162d83df91c35ab4f43e3da445eb";
     hash = "sha256-as8WpwJFX/sXsUueLIchcBj8/FWKCpEB5vdZBZe4xpU=";
   };

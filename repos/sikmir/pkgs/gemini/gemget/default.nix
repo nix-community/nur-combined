@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "makeworld-the-better-one";
-    repo = pname;
+    repo = "gemget";
     rev = "v${version}";
     hash = "sha256-PmtIgxnzfLduNGTx8SNDky6juv+NTJ8Cr++SOCk/QNU=";
   };

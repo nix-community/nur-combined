@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromSourcehut {
     owner = "~hsanjuan";
-    repo = pname;
+    repo = "gemini-ipfs-gateway";
     rev = "fc646a2089758c1af9aba790a991c19a2e6b37e8";
     hash = "sha256-50viZnrgrxXNmpmfV1NQn/QTAlSEO505jbz1pzPfypA=";
   };

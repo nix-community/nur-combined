@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "tatuylonen";
-    repo = pname;
+    repo = "wikitextprocessor";
     rev = "3fa4cb9418e05d1d462a53d629848196b7ade492";
     hash = "sha256-cjhKgzqsPwVO2/fwC62IDilMhz6fg6qQrnm0xLQ3KPk=";
   };

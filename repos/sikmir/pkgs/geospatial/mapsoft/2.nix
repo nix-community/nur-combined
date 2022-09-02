@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "slazav";
-    repo = pname;
+    repo = "mapsoft2";
     rev = "${version}-alt1";
     hash = "sha256-wOxJdDl7y7iE6kKlfBNkknh68EJksjcKt6DFqkEdiIQ=";
     fetchSubmodules = true;

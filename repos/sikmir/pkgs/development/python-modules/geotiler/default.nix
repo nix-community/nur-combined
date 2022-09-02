@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "wrobell";
-    repo = pname;
+    repo = "geotiler";
     rev = "geotiler-${version}";
     hash = "sha256-OEz7LhkmAkfGNTSu5aUeMsNaUa4Whzg9520n3ILbDKw=";
   };

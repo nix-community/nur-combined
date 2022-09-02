@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "kk7ds";
-    repo = pname;
+    repo = "gaiagpsclient";
     rev = "db3c8d197fa00d0bededa4ae96f06c39d7a85abc";
     hash = "sha256-yA3reda+ik3koHdb4OXDERfI01D7iEqgem8+XFn4YOM=";
   };

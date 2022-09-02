@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "wladich";
-    repo = pname;
+    repo = "map-tiler";
     rev = "1dc5be65e58638f5899cd6cdc2010e00ce5e62d4";
     hash = "sha256-2wDhU1wbvyEAAYUQXUGASmK5X0/XNQF9P2y9pfHhHHg=";
   };

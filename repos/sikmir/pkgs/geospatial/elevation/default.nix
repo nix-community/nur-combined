@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "bopen";
-    repo = pname;
+    repo = "elevation";
     rev = version;
     hash = "sha256-sZStJgToQtWYrBH1BjqxCUwQUT5dcAlyZwnb4aYga+4=";
   };

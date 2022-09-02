@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "taginfo";
-    repo = pname;
+    repo = "taginfo-tools";
     rev = "3b54480e6f4fcfed7bfc064e074250ca97ec4644";
     hash = "sha256-aJQy8BijmiLEOhEzdpzyCC6nK4b1EafZZ/UoZu18LDU=";
     fetchSubmodules = true;

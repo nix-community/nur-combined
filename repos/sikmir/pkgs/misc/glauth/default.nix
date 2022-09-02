@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "glauth";
-    repo = pname;
+    repo = "glauth";
     rev = "v${version}";
     hash = "sha256-2U9LmK+gqVaYnVBvqS3CeNmrK2pFmS5X/oQqFb4MQKk=";
   };

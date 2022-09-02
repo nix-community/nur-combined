@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "viva64";
-    repo = pname;
+    repo = "how-to-use-pvs-studio-free";
     rev = version;
     hash = "sha256-aFqk0WsMylRQqvlb+M5IfDHVwMBuKNQpCiiGPrj+jEw=";
   };

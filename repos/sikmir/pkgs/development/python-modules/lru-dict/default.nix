@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "amitdev";
-    repo = pname;
+    repo = "lru-dict";
     rev = "v${version}";
     hash = "sha256-+6E5vqjNjKXDfkx/rklsSIvP+JfsTtukCXp7NKxVUrY=";
   };

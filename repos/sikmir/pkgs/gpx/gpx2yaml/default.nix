@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromSourcehut {
     owner = "~sikmir";
-    repo = pname;
+    repo = "gpx2yaml";
     rev = "d4a102ab079edf239a095bdd3564be3cac193971";
     hash = "sha256-82RYdC1tUYwYZELTHOC+Llz+KcdLgyipB9wEWekDRww=";
   };

@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   version = "0.7";
 
   src = fetchgit {
-    url = "git://git.codemadness.org/${pname}";
+    url = "git://git.codemadness.org/hurl";
     rev = version;
     hash = "sha256-OXzt5sc1sZesKY1YmeGc3zuo9GxMYfYDvovCSt/kIdE=";
   };

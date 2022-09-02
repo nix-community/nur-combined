@@ -7,7 +7,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitLab {
     domain = "framagit.org";
     owner = "bortzmeyer";
-    repo = pname;
+    repo = "agunua";
     #rev = "release-${version}";
     rev = "d9700a4781afc283f279e1ec93dbb984bfe95079";
     hash = "sha256-FVTD8QYfSaVOI8qbxQbZ2w+dktg1tpp6eb4IltEpltU=";

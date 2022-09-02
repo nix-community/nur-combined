@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "tatuylonen";
-    repo = pname;
+    repo = "wiktextract";
     rev = "3a3e5746305cf648a0386e089615aa533f68b66d";
     hash = "sha256-iL3mFxX32OaD8UdPdvMyc/ksmeCH4iykM37DgHd+KwE=";
   };

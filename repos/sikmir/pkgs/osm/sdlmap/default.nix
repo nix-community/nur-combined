@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "jhawthorn";
-    repo = pname;
+    repo = "sdlmap";
     rev = "0baa8fb4472751c28bfe8b063070ea8b2d459224";
     hash = "sha256-W09WzCKmuMjV1L2c1bvlBCmNvXxYgGNU/MLtu6TTsIg=";
   };

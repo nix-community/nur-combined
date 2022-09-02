@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "camptocamp";
-    repo = pname;
+    repo = "c2cwsgiutils";
     rev = version;
     hash = "sha256-O+uh+9NurjnohCbpxJxrpvUUkb1gPHsqvG7+F4WNjQg=";
   };

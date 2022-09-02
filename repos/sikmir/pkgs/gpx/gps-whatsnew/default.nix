@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "centurn";
-    repo = pname;
+    repo = "gps-whatsnew";
     rev = "b856f0b7472ed6287920a41568d951e0a0330387";
     hash = "sha256-lZSjFdaQizXYi0OTChOKrSwllgzOCy6gTbBohcegJxk=";
   };

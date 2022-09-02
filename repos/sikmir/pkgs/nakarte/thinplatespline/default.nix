@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "wladich";
-    repo = pname;
+    repo = "thinplatespline";
     rev = "55fecd22c7160577b925e03169e74bd488a41cf3";
     hash = "sha256-t15iO+3UZKnORiQaYoGD4RLZx2SHtCbjg+Qr+sAHQHY=";
   };

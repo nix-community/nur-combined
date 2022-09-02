@@ -32,7 +32,7 @@ python2Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "wladich";
-    repo = pname;
+    repo = "tracks_storage_server";
     rev = "58ecde50bdc41e8b71590f62b7019d641e69da88";
     hash = "sha256-rHh3iuhQhhVzGAfyNXfhBB41PzQF7rSmOMtYM10bFkU=";
   };

@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "konstare";
-    repo = pname;
+    repo = "gdcv";
     rev = "39fd2667362710f69c13dd596e112b0391e0a57e";
     hash = "sha256-JmT6n+VC6bbOOg+j+3bpUaoMn/Wr2Q4XDbQ6kxuLNe0=";
   };

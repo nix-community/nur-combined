@@ -7,7 +7,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
-    repo = pname;
+    repo = "rio-cogeo";
     rev = version;
     hash = "sha256-Xv3HgQP0PQZeu59LYCt3BuAUPPzKvdHndiemoSIcUec=";
   };

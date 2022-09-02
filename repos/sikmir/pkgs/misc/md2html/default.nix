@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "nocd5";
-    repo = pname;
+    repo = "md2html";
     rev = "v${version}";
     hash = "sha256-RVTKLueo9yY/rgSoHW4ILmDeGfw3O6TcAZh3ydHnAto=";
   };

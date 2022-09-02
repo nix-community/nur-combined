@@ -6,7 +6,7 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchFromSourcehut {
     owner = "~matthiasbeyer";
-    repo = pname;
+    repo = "repolocli";
     rev = "32b24f4e03d0dc48db7f7d9927501b07b4821c33";
     hash = "sha256-hNT+DilBpzjoJBVgXTB9kU4Obh8cszXFLCTaNhiOZHM=";
   };

@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "leotrubach";
-    repo = pname;
+    repo = "osmwalkthrough";
     rev = "e96bbfd1e0465d7447c51056f5845da251b50cff";
     hash = "sha256-M727uDMHBkBie2g6Cl5QPGwQtcAnC3goJ9qM8VVEoUU=";
   };

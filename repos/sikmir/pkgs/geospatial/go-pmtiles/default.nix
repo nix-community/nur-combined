@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "protomaps";
-    repo = pname;
+    repo = "go-pmtiles";
     rev = "82ab855965337a9497eb6d1ff1026c125b8c2a7d";
     hash = "sha256-jUDaTQ4vImKWaSAdKrIZqO7YjwWvzi1ob7MTbieDeCQ=";
   };

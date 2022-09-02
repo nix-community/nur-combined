@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "mocnik-science";
-    repo = pname;
+    repo = "osm-python-tools";
     rev = "4ae053f65c1639bb8f0fe961c94594d31eada952";
     hash = "sha256-3Eru0pXJtKDBs3mSpW+Z+r8d2XLmuMRTEhA4IMPrPpQ=";
   };

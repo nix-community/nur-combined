@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromSourcehut {
     owner = "~sotirisp";
-    repo = pname;
+    repo = "qute-gemini";
     rev = "v${version}";
     hash = "sha256-0e0DvnhPtdtA2ZSGTaWuMNgVlP6fA1P0cuze7AFG3bM=";
   };

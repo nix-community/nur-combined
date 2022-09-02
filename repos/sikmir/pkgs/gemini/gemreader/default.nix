@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
-    repo = pname;
+    repo = "gemreader";
     rev = "7f9df147d6785d5f2b77ce9d44513de65985657a";
     hash = "sha256-1IqxMBLmcfFIdv11FbGbXVRPc05LmSqPieeaj4uf0nA=";
   };

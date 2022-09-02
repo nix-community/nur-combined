@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "remisalmon";
-    repo = pname;
+    repo = "gpx_interpolate";
     rev = "24236e45e3d8baa0662c329b735b79a17e84c1bd";
     hash = "sha256-bN8ED3H4FXjfG9q7sIC7UmhvIFCgkbueUSFW/Q7uKD4=";
   };

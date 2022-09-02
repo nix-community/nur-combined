@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "developmentseed";
-    repo = pname;
+    repo = "cogeo-mosaic";
     rev = version;
     hash = "sha256-6pUuCEa2O0MT5UsOjnAeF1bLlnSpmuBMoZl5s8WJZoE=";
   };

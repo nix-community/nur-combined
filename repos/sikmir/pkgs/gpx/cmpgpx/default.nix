@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "jonblack";
-    repo = pname;
+    repo = "cmpgpx";
     rev = "ec3ff781da9b7bcbc2dee44a3bd641cbd5005efe";
     hash = "sha256-iJajSbDDPkBmGKZp0QH03RK9VBMmLHWvHViojlQJArs=";
   };

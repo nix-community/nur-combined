@@ -6,7 +6,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "zdict";
-    repo = pname;
+    repo = "zdict";
     rev = version;
     hash = "sha256-uiCD2ZuVP1Pu7r/uOEctjMhsupxm++i0kiHxU9DNp9M=";
   };

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "osmcode";
-    repo = pname;
+    repo = "osmcoastline";
     rev = "v${version}";
     hash = "sha256-z72xDag3CDik/zGhQjlmE/Yfz/KEwK/A1clyP3AY7Uo=";
   };

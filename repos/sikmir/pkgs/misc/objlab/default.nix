@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "lighttransport";
-    repo = pname;
+    repo = "objlab";
     rev = "c9d50b466f477722578ddf14565561d778c1b4b9";
     hash = "sha256-mE4s+viW6fGfnd8+LlDH4LyRLQ91nwe9dtxyI+dIhsM=";
   };

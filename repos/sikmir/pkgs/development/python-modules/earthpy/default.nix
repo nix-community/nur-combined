@@ -6,7 +6,7 @@ python3Packages.buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "earthlab";
-    repo = pname;
+    repo = "earthpy";
     rev = "v${version}";
     hash = "sha256-LMKExIyhtI+gqcxBxhBPWKMyMHr/mJEJwQRSlNUXQP8=";
   };

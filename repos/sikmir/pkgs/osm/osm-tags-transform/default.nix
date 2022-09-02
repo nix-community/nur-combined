@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "osmcode";
-    repo = pname;
+    repo = "osm-tags-transform";
     rev = "d8f8f729cddee97964081de25e591428dd610a9a";
     hash = "sha256-PBxH5RGoimX+pyr17UAMJVbdknciT8M8WCzw6tWLwEs=";
   };
