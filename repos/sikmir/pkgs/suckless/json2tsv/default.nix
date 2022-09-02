@@ -2,13 +2,17 @@
 
 stdenv.mkDerivation rec {
   pname = "json2tsv";
-  version = "0.9";
+  version = "1.0";
 
   src = fetchgit {
     url = "git://git.codemadness.org/json2tsv";
     rev = version;
-    hash = "sha256-z0hkFVYwELjGXgnA67TuCELC/P74+42hDLfOHrTE8kA=";
+    hash = "sha256-xYF+qYyjz0kzOnez1pMwJKnlx0UCYlXZJEpjwdSqhhk=";
   };
+
+  postPatch = ''
+    substituteInPlace jaq --replace "json2tsv" "$out/bin/json2tsv"
+  '';
 
   makeFlags = [ "RANLIB:=$(RANLIB)" ];
 
