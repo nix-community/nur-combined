@@ -34,5 +34,8 @@ in {
     enable = true;
     vSync = true;
   };
+  environment.systemPackages = with pkgs; [
+    xfce.xfce4-screenshooter
+  ];
   environment.etc.wallpaper.source = wallpaper;
 }
