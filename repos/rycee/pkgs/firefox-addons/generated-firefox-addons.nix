@@ -2,10 +2,10 @@
   {
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
-      version = "1.2.1";
+      version = "1.3.0";
       addonId = "a11y.css@ffoodd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3889115/a11ycss-1.2.1.xpi";
-      sha256 = "db0dbda6eaffac5a3df7e72c6062981bf5107f8e2ec5fbbf26f868659991d8a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3997242/a11ycss-1.3.0.xpi";
+      sha256 = "33ed6c73adcd6a3501b3b9320a4e3adcd7ea50820a0e16e97b57efe22fcb4132";
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
@@ -257,10 +257,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "1.3.1";
+      version = "1.3.2";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3861819/buster_captcha_solver-1.3.1.xpi";
-      sha256 = "e64f8c043c34325e60b7050b616ebef2df4dc35d15602961ccfabd0a9a0e637a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3997075/buster_captcha_solver-1.3.2.xpi";
+      sha256 = "bd8b13aebb7437b57acd898c5f0a1326e5af61ac41316abbca30c075636fa1f7";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster";
@@ -662,10 +662,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.53";
+      version = "6.1.54";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3982666/flagfox-6.1.53.xpi";
-      sha256 = "57d4eaadb4648100d777949b32a8a16bb7f7816b9e5112d8766a14bbcb0672e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3996798/flagfox-6.1.54.xpi";
+      sha256 = "5f7cebaea3d24d42fd170e623bd9c257eaaca238cdf116d9588348e59b03f435";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220830.185924";
+      version = "105.0buildid20220901.185735";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3996201/francais_language_pack-105.0buildid20220830.185924.xpi";
-      sha256 = "efc3c2f31f0c38845452a2e6299df774f072bbd287af4fc73f836106e269d07f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3997199/francais_language_pack-105.0buildid20220901.185735.xpi";
+      sha256 = "3711fe0735811dd659550ad7cf72aa2c4c68f0d40b2e487e4f84a0dfebccec6a";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1430,10 +1430,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.9";
+      version = "11.4.10";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3988352/noscript-11.4.9.xpi";
-      sha256 = "47a740f90258de755b709168c4985d9fc6721ff7f32f9cfc4c7094316cc5f960";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3996751/noscript-11.4.10.xpi";
+      sha256 = "80bf407f0cb4cc5168e1f28e8bdcc569067f9b5dac650bcf521800856d2a64c3";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2135,10 +2135,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.3.0";
+      version = "3.5.0";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3954188/steam_database-3.3.0.xpi";
-      sha256 = "3c4b0d14d6696791f0dd9c39c55d70b320f6e24eb97c3ef3150b16e225c94cba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3996895/steam_database-3.5.0.xpi";
+      sha256 = "cd6c0dca56d81a069a0b7d3e81a1dce0c65be11dc06a799f98ca1da6445af001";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
