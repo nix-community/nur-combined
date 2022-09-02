@@ -42,7 +42,6 @@ in
       vim-git # Sane git syntax files
       vim-repeat # Enanche '.' for plugins
       vim-rsi # Readline mappings
-      vim-surround # Deal with pairs
       vim-unimpaired # Some ex command mappings
       vim-vinegar # Better netrw
 
@@ -83,6 +82,7 @@ in
       # UX improvements
       dressing-nvim # Integrate native UI hooks with Telescope etc...
       gitsigns-nvim # Fast git UI integration
+      nvim-surround # Deal with pairs, now in Lua
       telescope-fzf-native-nvim # Use 'fzf' fuzzy matching algorithm
       telescope-lsp-handlers-nvim # Use 'telescope' for various LSP actions
       telescope-nvim # Fuzzy finder interface
