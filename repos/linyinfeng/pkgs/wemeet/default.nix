@@ -71,6 +71,7 @@ qt5.mkDerivation rec {
       --set-default QT_STYLE_OVERRIDE fusion
     makeWrapper "$out/bin/wemeetapp" "$out/bin/wemeetapp-force-x11" \
       --set XDG_SESSION_TYPE x11 \
+      --set QT_QPA_PLATFORM xcb \
       --unset WAYLAND_DISPLAY
 
     mkdir -p "$out/share/applications"
