@@ -6,7 +6,7 @@ in
 buildGo118Module {
   inherit (source) pname version src;
 
-  vendorSha256 = "sha256-93EV12MUG0OPSDCE/96+WrXLdB7IHpROEPSA147ijik=";
+  vendorSha256 = "sha256-2lHtOS7+A9xycC7gmiXoDkXtlJdBDLudDwEClJwDN6g=";
 
   ldflags = [
     "-s"
@@ -27,4 +27,3 @@ buildGo118Module {
     license = licenses.asl20;
   };
 }
-

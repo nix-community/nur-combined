@@ -51,11 +51,11 @@
   };
   "'vscode-extensions.bmalehorn.vscode-fish'" = {
     pname = "'vscode-extensions.bmalehorn.vscode-fish'";
-    version = "1.0.29";
+    version = "1.0.31";
     src = fetchurl {
-      url = "https://bmalehorn.gallery.vsassets.io/_apis/public/gallery/publisher/bmalehorn/extension/vscode-fish/1.0.29/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "vscode-fish-1.0.29.zip";
-      sha256 = "sha256-4luZUORDWqjNndHpnYC0QqaH5vrukfwStLZZlIECtIE=";
+      url = "https://bmalehorn.gallery.vsassets.io/_apis/public/gallery/publisher/bmalehorn/extension/vscode-fish/1.0.31/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "vscode-fish-1.0.31.zip";
+      sha256 = "sha256-jDWW43ozUPIzhK/qQ+a+JSNdDHrjvgosyGe8kzBX6xM=";
     };
     license = "mit";
     homepage = "https://github.com/bmalehorn/vscode-fish";
@@ -99,11 +99,11 @@
   };
   "'vscode-extensions.timonwong.shellcheck'" = {
     pname = "'vscode-extensions.timonwong.shellcheck'";
-    version = "0.21.1";
+    version = "0.22.0";
     src = fetchurl {
-      url = "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.21.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "shellcheck-0.21.1.zip";
-      sha256 = "sha256-nrl6b/DrLdPjOL2CBLaAd/laDmq6nzf9xsEJIQynz60=";
+      url = "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.22.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "shellcheck-0.22.0.zip";
+      sha256 = "sha256-dlXe9Cs38ZokZHnUZOw95GQXwm4/+x6FmWoIpUmg8EE=";
     };
     license = "mit";
     homepage = "https://github.com/vscode-shellcheck/vscode-shellcheck";
@@ -135,11 +135,11 @@
   };
   "'vscode-extensions.vscode-icons-team.vscode-icons'" = {
     pname = "'vscode-extensions.vscode-icons-team.vscode-icons'";
-    version = "11.15.0";
+    version = "11.16.0";
     src = fetchurl {
-      url = "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.15.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "vscode-icons-11.15.0.zip";
-      sha256 = "sha256-LsqdEcDLhS8UJBn7jdKDC+PTq3bPOl8n3c6cwuN7Z84=";
+      url = "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.16.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "vscode-icons-11.16.0.zip";
+      sha256 = "sha256-m7FJ6oMIpQ3rfHaigxli2mf+qMVw4Y6qYAgva8rI9zk=";
     };
     license = "mit";
     homepage = "https://github.com/vscode-icons/vscode-icons";
@@ -158,13 +158,13 @@
   };
   clash-speedtest = {
     pname = "clash-speedtest";
-    version = "v1.0.2";
+    version = "v2.0.0";
     src = fetchFromGitHub ({
       owner = "starudream";
       repo = "clash-speedtest";
-      rev = "v1.0.2";
+      rev = "v2.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-ET9hVoHFV8uKeBRxaqP6hb7FcUngom2AUhRUWZV+GSU=";
+      sha256 = "sha256-AFGqW4QJdPF2atGRo7IAJOv40yssSR5xC8Boa2a0A5A=";
     });
   };
   material-fox = {

@@ -8,21 +8,11 @@ on:
   workflow_dispatch:
 env:
   nurRepo: slaier
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
-  get_info:
-    name: Get branch names
-    runs-on: ubuntu-latest
-    outputs:
-      current_branch: ${{ steps.branch-names.outputs.current_branch }}
-    steps:
-      - name: Get branch names
-        id: branch-names
-        uses: tj-actions/branch-names@v6
   tests:
-    needs: get_info
-    concurrency:
-      group: ${{ needs.get_info.outputs.current_branch }}
-      cancel-in-progress: true
     strategy:
       matrix:
         nixPath:

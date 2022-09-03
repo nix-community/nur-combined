@@ -82,12 +82,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "vscode-fish-1.0.29.zip",
-            "sha256": "sha256-4luZUORDWqjNndHpnYC0QqaH5vrukfwStLZZlIECtIE=",
+            "name": "vscode-fish-1.0.31.zip",
+            "sha256": "sha256-jDWW43ozUPIzhK/qQ+a+JSNdDHrjvgosyGe8kzBX6xM=",
             "type": "url",
-            "url": "https://bmalehorn.gallery.vsassets.io/_apis/public/gallery/publisher/bmalehorn/extension/vscode-fish/1.0.29/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://bmalehorn.gallery.vsassets.io/_apis/public/gallery/publisher/bmalehorn/extension/vscode-fish/1.0.31/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.0.29"
+        "version": "1.0.31"
     },
     "'vscode-extensions.ccls-project.ccls'": {
         "cargoLocks": null,
@@ -154,12 +154,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "shellcheck-0.21.1.zip",
-            "sha256": "sha256-nrl6b/DrLdPjOL2CBLaAd/laDmq6nzf9xsEJIQynz60=",
+            "name": "shellcheck-0.22.0.zip",
+            "sha256": "sha256-dlXe9Cs38ZokZHnUZOw95GQXwm4/+x6FmWoIpUmg8EE=",
             "type": "url",
-            "url": "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.21.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.22.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "0.21.1"
+        "version": "0.22.0"
     },
     "'vscode-extensions.twxs.cmake'": {
         "cargoLocks": null,
@@ -208,12 +208,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "vscode-icons-11.15.0.zip",
-            "sha256": "sha256-LsqdEcDLhS8UJBn7jdKDC+PTq3bPOl8n3c6cwuN7Z84=",
+            "name": "vscode-icons-11.16.0.zip",
+            "sha256": "sha256-m7FJ6oMIpQ3rfHaigxli2mf+qMVw4Y6qYAgva8rI9zk=",
             "type": "url",
-            "url": "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.15.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.16.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "11.15.0"
+        "version": "11.16.0"
     },
     "arkenfox-userjs": {
         "cargoLocks": null,
@@ -247,11 +247,11 @@
             "name": null,
             "owner": "starudream",
             "repo": "clash-speedtest",
-            "rev": "v1.0.2",
-            "sha256": "sha256-ET9hVoHFV8uKeBRxaqP6hb7FcUngom2AUhRUWZV+GSU=",
+            "rev": "v2.0.0",
+            "sha256": "sha256-AFGqW4QJdPF2atGRo7IAJOv40yssSR5xC8Boa2a0A5A=",
             "type": "github"
         },
-        "version": "v1.0.2"
+        "version": "v2.0.0"
     },
     "material-fox": {
         "cargoLocks": null,
