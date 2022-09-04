@@ -106,7 +106,6 @@ rec {
   genshinhelper2 = pkg ./genshinhelper2 { };
   glauth = pkg ./glauth { };
   gopherus = pkg ./gopherus { };
-  grasscutter = pkg ./grasscutter { };
   hath = pkg ./hath { };
   hesuvi-hrir = pkg ./hesuvi-hrir { };
   hoyo-glyphs = pkg ./hoyo-glyphs { };
