@@ -457,5 +457,6 @@ lib.makeScope newScope (
     se = callPackage ./suckless/se { };
     sthkd = callPackage ./suckless/sthkd { };
     svtm = callPackage ./suckless/svtm { };
+    xprompt = callPackage ./suckless/xprompt { };
   }
 )

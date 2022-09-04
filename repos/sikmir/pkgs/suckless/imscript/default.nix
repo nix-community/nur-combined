@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromSourcehut, installShellFiles
-, libpng, libjpeg, libtiff, libwebp, fftwFloat, libX11, gsl }:
+{ lib, stdenv, fetchFromSourcehut, libpng, libjpeg, libtiff, libwebp, fftwFloat, libX11, gsl }:
 
 stdenv.mkDerivation rec {
   pname = "imscript";
@@ -12,8 +11,6 @@ stdenv.mkDerivation rec {
     hash = "sha256-8iU4dEwKHWXACLUSAzGP7ykeWmZBdkydiwUg8ip1bBQ=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
-
   buildInputs = [ libpng libjpeg libtiff libwebp fftwFloat libX11 gsl ];
 
   makeFlags = [ "DISABLE_HDF5=1" "full" ];
@@ -22,7 +19,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 bin/* -t $out/bin
-    installManPage doc/man/*
+    install -Dm644 doc/man/* -t $out/share/man/man1
   '';
 
   meta = with lib; {

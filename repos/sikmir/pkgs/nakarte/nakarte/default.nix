@@ -1,7 +1,7 @@
 { lib, stdenv, mkYarnPackage, fetchFromGitHub, secretsConfig ? null }:
 let
   pname = "nakarte";
-  version = "2022-09-02";
+  version = "2021-07-17";
 in
 mkYarnPackage {
   name = "${pname}-${version}";
@@ -9,8 +9,8 @@ mkYarnPackage {
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "nakarte";
-    rev = "c4392875048eeca01a50015f42d0a3d042b76989";
-    hash = "sha256-VcZ/Ga8C67rWqmdeqWMHOSIa8v80LCLEqMhnHyzY3Pg=";
+    rev = "4163b36921d867f314de5351e079bd3d8ce6e444";
+    hash = "sha256-9klRyrnpdL0RJ8FupICbViG/oa3IFwqDcA6xoP9CvIs=";
   };
 
   postPatch =
@@ -19,13 +19,7 @@ mkYarnPackage {
     else
       "cp src/secrets.js{.template,}";
 
-  buildPhase = ''
-    runHook preBuild
-
-    yarn build
-
-    runHook postBuild
-  '';
+  buildPhase = "yarn build";
 
   installPhase = ''
     install -dm755 $out

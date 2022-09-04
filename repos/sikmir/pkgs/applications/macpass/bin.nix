@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "MacPass-bin";
-  version = "0.8.1";
+  version = "0.7.12";
 
   src = fetchfromgh {
     owner = "MacPass";
     repo = "MacPass";
     name = "MacPass-${version}.zip";
-    hash = "sha256-LQ073JRbQsDB/nmx63Tllptfdo/8VqoobXPTSShzsXM=";
+    sha256 = "1gikixbrz1pvyjspp62msdmhjdy1rfkx8jhy7rajjr8bzm8pzpmc";
     inherit version;
   };
 

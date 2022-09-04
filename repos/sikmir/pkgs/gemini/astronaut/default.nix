@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromSourcehut, scdoc, installShellFiles }:
+{ lib, buildGoModule, fetchFromSourcehut, scdoc }:
 
 buildGoModule rec {
   pname = "astronaut";
@@ -11,7 +11,7 @@ buildGoModule rec {
     hash = "sha256-eiUStCM9rJB4O+LVWxih6untjTPynj9cHX2b8Gz9/nQ=";
   };
 
-  nativeBuildInputs = [ scdoc installShellFiles ];
+  nativeBuildInputs = [ scdoc ];
 
   vendorHash = "sha256-7SyawlfJ9toNVuFehGr5GQF6mNmS9E4kkNcqWllp8No=";
 
@@ -22,8 +22,9 @@ buildGoModule rec {
   '';
 
   postInstall = ''
-    installManPage docs/astronaut.1
-    install -Dm644 config/*.conf -t $out/share/astronaut
+	install -Dm644 docs/astronaut.1 $out/share/man/man1/astronaut.1
+	install -Dm644 config/astronaut.conf $out/share/astronaut/astronaut.conf
+	install -Dm644 config/style.conf $out/share/astronaut/style.conf
   '';
 
   meta = with lib; {
