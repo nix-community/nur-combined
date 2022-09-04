@@ -5,7 +5,6 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
