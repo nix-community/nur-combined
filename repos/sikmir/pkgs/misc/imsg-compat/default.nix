@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, validatePkgConfig }:
 
 stdenv.mkDerivation rec {
   pname = "imsg-compat";
@@ -13,8 +13,10 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace libimsg.pc.in \
-      --replace "@LIBDIR@" "lib"
+      --subst-var-by LIBDIR "lib"
   '';
+
+  nativeBuildInputs = [ validatePkgConfig ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
