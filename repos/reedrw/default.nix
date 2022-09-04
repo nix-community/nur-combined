@@ -15,7 +15,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
-  bitwarden-rofi-patched = pkgs.callPackage ./pkgs/bitwarden-rofi { };
+  bitwarden-rofi = pkgs.callPackage ./pkgs/bitwarden-rofi { };
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   rctpm = pkgs.callPackage ./pkgs/rctpm { };
   shairport-sync-metadata-reader = pkgs.callPackage ./pkgs/shairport-sync-metadata-reader { };

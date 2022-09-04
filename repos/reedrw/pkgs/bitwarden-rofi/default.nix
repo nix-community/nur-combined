@@ -32,22 +32,17 @@ let
 in
 stdenv.mkDerivation {
   pname = "bitwarden-rofi";
-  version = "git-2020-03-27";
+  version = "git-2022-05-02";
 
   src = fetchFromGitHub {
     owner = "mattydebie";
     repo = "bitwarden-rofi";
-    rev = "a53cc1e21097c201a56b560b8f634a032330d61b";
-    sha256 = "0cwpc3am9kqn9pxqq8kaqg8150y3bln8a6gzm5nfh61357m55xba";
+    rev = "732aa060ca04442cc16de43a7144ba817cda7f95";
+    sha256 = "sha256-AHoKU1J43K41eYeHopdMi6p4cro3f6I7TUrX2xjPbHc=";
   };
 
   buildInputs = [
     makeWrapper
-  ];
-
-  patches = [
-    ./fix-quotes.patch
-    ./copy-totp.patch
   ];
 
   installPhase = ''
