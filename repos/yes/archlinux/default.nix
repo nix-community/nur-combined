@@ -5,15 +5,16 @@
 
 with pkgs; rec {
   archlinux-keyring = callPackage ./archlinux-keyring { inherit rp; };
-  pacman = callPackage ./pacman { inherit rp; };
+
+  asp = callPackage ./asp { inherit rp; };
+
+  devtools = callPackage ./devtools { inherit rp; };
+
   pacman-gnupg = callPackage ./pacman/gnupg.nix {
-    inherit pacman;
     keyrings = [ archlinux-keyring ];
   };
-  arch-install-scripts = callPackage ./arch-install-scripts {
-    inherit rp pacman; 
-  };
-  devtools = callPackage ./devtools {
-    inherit rp pacman arch-install-scripts;
-  };
+
+  paru-unwrapped = callPackage ./paru/unwrapped.nix { inherit rp; };
+
+  paru = callPackage ./paru { inherit asp devtools paru-unwrapped; };
 }
