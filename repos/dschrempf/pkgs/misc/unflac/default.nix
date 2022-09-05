@@ -1,20 +1,21 @@
 { lib
 , buildGoModule
 , fetchFromSourcehut
+, ffmpeg
 }:
 
 buildGoModule rec {
   pname = "unflac";
-  version = "f7506edc9b820a727a18b358c7e42a16399a0958";
+  version = "0.9";
 
   src = fetchFromSourcehut {
     owner = "~ft";
     repo = "unflac";
     rev = version;
-    hash = "sha256-bkEExEQlDQEYRTlkagZffzXbDb9ehUrOHXFhf3Qu28s=";
+    hash = "sha256-SO/iHuReTlm7j/sH5pi5V2TV/ks9MVu92UQ1LVRu54o=";
   };
 
-  vendorSha256 = "sha256-hGzbYj3yKTK2cK9syNd7dDQJZmKBhipGr3qdWvF37Hw=";
+  vendorSha256 = "sha256-VEWfUinVQNhqK72yliRNi2NUClR9GVHve0uBt0IHKB0=";
 
   meta = with lib; {
     description = "A command line tool for fast frame accurate audio image + cue sheet splitting";
@@ -25,5 +26,5 @@ buildGoModule rec {
 
   # nativeBuildInputs = [ ];
   # buildInputs = [ ];
-  # propagatedBuildInputs = [ ];
+  propagatedBuildInputs = [ ffmpeg ];
 }
