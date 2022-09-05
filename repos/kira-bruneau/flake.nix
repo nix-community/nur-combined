@@ -31,6 +31,14 @@
         checker = flake-checker.lib.makeFlakeChecker {
           root = ./.;
           settings = {
+            markdownlint = {
+              paths = paths.markdown;
+              extraSettings = {
+                default = true;
+                MD013 = false;
+              };
+            };
+
             nixpkgs-fmt.paths =
               (builtins.filter
                 (path:
@@ -43,6 +51,7 @@
                       "node-packages.nix"
                     ]))
                 paths.nix);
+
             prettier.paths = paths.markdown;
           };
 

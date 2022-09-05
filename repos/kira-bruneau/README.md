@@ -4,7 +4,7 @@
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-kira--bruneau-blue.svg)](https://kira-bruneau.cachix.org)
 
-# Packages
+## Packages
 
 | Name                                                                                 | Attribute                                                                                                                                                                                  | Description                                                                                         |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
@@ -33,14 +33,14 @@
 | [yabridgectl](https://github.com/robbert-vdh/yabridge/tree/master/tools/yabridgectl) | [nur.repos.kira-bruneau.yabridgectl](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/tools/audio/yabridgectl/default.nix)                                | A small, optional utility to help set up and update yabridge for several directories at once        |
 | [zynaddsubfx](https://zynaddsubfx.sourceforge.io)                                    | [nur.repos.kira-bruneau.zynaddsubfx](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/applications/audio/zynaddsubfx/default.nix)                         | High quality software synthesizer                                                                   |
 
-# NixOS Modules
+## NixOS Modules
 
 | Name                                                               | Attribute                                                                                                                                                                                                 | Description                                             |
 | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | [lightdm-webkit2-greeter](https://github.com/Antergos/web-greeter) | [nur.repos.kira-bruneau.modules.lightdm-webkit2-greeter](https://github.com/nix-community/nur-combined/tree/master/repos/kira-bruneau/modules/services/x11/display-managers/lightdm-greeters/webkit2.nix) | A modern, visually appealing greeter for LightDM        |
 | [xpadneo](https://atar-axis.github.io/xpadneo)                     | [nur.repos.kira-bruneau.modules.xpadneo](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/modules/hardware/xpadneo.nix)                                                       | Advanced Linux driver for Xbox One wireless controllers |
 
-# Python Packages
+## Python Packages
 
 | Name                                                                                     | Attribute                                                                                                                                                                                                               | Description                                                     |
 | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
@@ -58,7 +58,7 @@
 | [rstb](https://github.com/zeldamods/rstb)                                                | [nur.repos.kira-bruneau.pythonPackages.rstb](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/development/python-modules/rstb/default.nix)                                             | Breath of the Wild RSTB parser and editing tool                 |
 | [vdf](https://github.com/ValvePython/vdf)                                                | [nur.repos.kira-bruneau.pythonPackages.vdf](https://github.com/nix-community/nur-combined/blob/master/repos/kira-bruneau/pkgs/development/python-modules/vdf/default.nix)                                               | Library for working with Valve's VDF text format                |
 
-# Themes
+## Themes
 
 | Name                                                                                       | Attribute                                                                                                                                                                                                    | Description                   |
 | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- |
