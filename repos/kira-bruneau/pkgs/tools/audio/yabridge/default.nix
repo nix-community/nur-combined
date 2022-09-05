@@ -61,7 +61,8 @@ let
     fetchSubmodules = true;
     sha256 = "sha256-6cuEUa+BXa6MnAYIBq873n0NRLadcPfMX+kpf4ysE6M=";
   };
-in multiStdenv.mkDerivation rec {
+in
+multiStdenv.mkDerivation rec {
   pname = "yabridge";
   version = "4.0.2";
 

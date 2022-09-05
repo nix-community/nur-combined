@@ -55,7 +55,8 @@ let
   }.${guiModule};
 
   mruby-zest = callPackage ./mruby-zest { };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "zynaddsubfx";
   version = "3.0.6";
 
@@ -98,19 +99,21 @@ in stdenv.mkDerivation rec {
   checkInputs = [ cxxtest ruby ];
 
   # TODO: Update cmake hook to make it simpler to selectively disable cmake tests: #113829
-  checkPhase = let
-    disabledTests =
-      # PortChecker test fails when lashSupport is enabled because
-      # zynaddsubfx takes to long to start trying to connect to lash
-      lib.optionals lashSupport [ "PortChecker" ]
+  checkPhase =
+    let
+      disabledTests =
+        # PortChecker test fails when lashSupport is enabled because
+        # zynaddsubfx takes to long to start trying to connect to lash
+        lib.optionals lashSupport [ "PortChecker" ]
 
-      # Tests fail on aarch64
-      ++ lib.optionals stdenv.isAarch64 [ "MessageTest" "UnisonTest" ];
-  in ''
-    runHook preCheck
-    ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
-    runHook postCheck
-  '';
+        # Tests fail on aarch64
+        ++ lib.optionals stdenv.isAarch64 [ "MessageTest" "UnisonTest" ];
+    in
+    ''
+      runHook preCheck
+      ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
+      runHook postCheck
+    '';
 
   # Use Zyn-Fusion logo for zest build
   # An SVG version of the logo isn't hosted anywhere we can fetch, I

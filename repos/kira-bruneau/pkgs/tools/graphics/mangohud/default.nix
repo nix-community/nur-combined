@@ -69,7 +69,8 @@ let
       sha256 = "sha256-PDjyddV5KxKGORECWUMp6YsXc3kks0T5gxKrCZKbdL4=";
     };
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "mangohud";
   version = "0.6.8";
 

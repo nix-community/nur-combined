@@ -47,7 +47,8 @@ let
     "pkgs/tools/package-management/protontricks"
     "pkgs/tools/video/replay-sorcery"
   ]);
-in writeScript "sync" ''
+in
+writeScript "sync" ''
   set -eu
   export PATH=${lib.makeBinPath [
     coreutils

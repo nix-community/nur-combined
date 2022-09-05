@@ -7,7 +7,7 @@ let
 
   mapDisabledToBroken = attrs:
     (removeAttrs attrs [ "disabled" ]) // lib.optionalAttrs (attrs.disabled or false) {
-      meta = (attrs.meta or {}) // {
+      meta = (attrs.meta or { }) // {
         broken = attrs.disabled;
       };
     };
@@ -15,7 +15,7 @@ let
   linuxModulesOverlay =
     if stdenv.isLinux
     then import ./os-specific/linux/modules.nix final
-    else lfinal: lprev: {};
+    else lfinal: lprev: { };
 
   pythonModulesOverlay = pyfinal:
     import ./development/python-modules final (pyfinal // {

@@ -14,13 +14,14 @@
 , textStylingSupport ? true
 , dejagnu
 
-# update script only
+  # update script only
 , writeScript
 }:
 
 let
   isCross = stdenv.hostPlatform != stdenv.buildPlatform;
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "poke";
   version = "2.4";
 
@@ -30,9 +31,9 @@ in stdenv.mkDerivation rec {
   };
 
   outputs = [ "out" "dev" "info" "lib" ]
-  # help2man can't cross compile because it runs `poke --help` to
-  # generate the man page
-  ++ lib.optional (!isCross) "man";
+    # help2man can't cross compile because it runs `poke --help` to
+    # generate the man page
+    ++ lib.optional (!isCross) "man";
 
   postPatch = ''
     patchShebangs .
@@ -53,11 +54,11 @@ in stdenv.mkDerivation rec {
   ];
 
   buildInputs = [ boehmgc readline ]
-  ++ lib.optionals guiSupport [ tcl tcllib tk ]
-  ++ lib.optional miSupport json_c
-  ++ lib.optional nbdSupport libnbd
-  ++ lib.optional textStylingSupport gettext
-  ++ lib.optional (!isCross) dejagnu;
+    ++ lib.optionals guiSupport [ tcl tcllib tk ]
+    ++ lib.optional miSupport json_c
+    ++ lib.optional nbdSupport libnbd
+    ++ lib.optional textStylingSupport gettext
+    ++ lib.optional (!isCross) dejagnu;
 
   configureFlags = [
     # libpoke depends on $datadir/poke, so we specify the datadir in
