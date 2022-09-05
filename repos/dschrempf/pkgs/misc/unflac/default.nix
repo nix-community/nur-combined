@@ -2,6 +2,7 @@
 , buildGoModule
 , fetchFromSourcehut
 , ffmpeg
+, makeWrapper
 }:
 
 buildGoModule rec {
@@ -17,14 +18,19 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-VEWfUinVQNhqK72yliRNi2NUClR9GVHve0uBt0IHKB0=";
 
+  postInstall = ''
+    wrapProgram $out/bin/unflac \
+      --prefix PATH : ${lib.getBin ffmpeg}/bin
+  '';
+
+  nativeBuildInputs = [ makeWrapper ];
+  # buildInputs = [];
+  # propagatedBuildInputs = [ ];
+
   meta = with lib; {
     description = "A command line tool for fast frame accurate audio image + cue sheet splitting";
     homepage = "https://git.sr.ht/~ft/unflac";
     license = licenses.mit;
     maintainers = with maintainers; [ dschrempf ];
   };
-
-  # nativeBuildInputs = [ ];
-  # buildInputs = [ ];
-  propagatedBuildInputs = [ ffmpeg ];
 }
