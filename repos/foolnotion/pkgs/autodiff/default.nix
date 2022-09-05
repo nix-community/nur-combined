@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "autodiff";
-  version = "v0.6.8";
+  version = "v0.6.11";
 
   src = fetchFromGitHub {
     owner = "autodiff";
     repo = "autodiff";
     rev = "${version}";
-    sha256 = "sha256-n89UNoY3x8on4H/PRhLbRQm+GVoDSHhf38BmDz43TMs=";
+    sha256 = "sha256-o5oSTQTs+VRW+/f37Z88ynq9v8cfvJNtSD7ETHeGc8M=";
   };
 
   nativeBuildInputs = [ cmake ];
