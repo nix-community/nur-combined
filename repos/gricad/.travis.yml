@@ -13,7 +13,7 @@ env:
 install:
 - nix --version
 - echo "trusted-users = $USER" | sudo tee -a /etc/nix/nix.conf
-- echo "sandbox = true" | sudo tee -a /etc/nix/nix.conf
+- echo "sandbox = false" | sudo tee -a /etc/nix/nix.conf
 - echo "require-sigs = false" | sudo tee -a /etc/nix/nix.conf
 - echo "trusted-substituters = http://nix-binary-cache.u-ga.fr/nix.cache https://cache.nixos.org https://gricad.cachix.org" | sudo tee -a /etc/nix/nix.conf
 - echo "substituters = http://nix-binary-cache.u-ga.fr/nix.cache https://cache.nixos.org https://gricad.cachix.org" | sudo tee -a /etc/nix/nix.conf
@@ -21,7 +21,7 @@ install:
 - sudo systemctl restart nix-daemon.service
 
 script:
-- export NIX_PATH=nixpkgs=channel:nixos-21.05
+- export NIX_PATH=nixpkgs=channel:nixos-21.11
 - export NIXPKGS_ALLOW_UNFREE=1
 - set -o pipefail
 - nix-build ci.nix -A buildOutputs
