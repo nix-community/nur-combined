@@ -8,8 +8,8 @@ fetchFromGitHub {
 
   owner = "coz-m";
   repo = "MPLUS_FONTS";
-  rev = "f605e3524130b8d814911d869315bc4fd4c2148c";
-  sha256 = "ZGZxD2RRXDYRq82VvkO18BaQVpR9yj+z+pGR4O7ehnc=";
+  rev = "63ce7171ca56844c1b27cbc1a5de8e59d61135e2";
+  sha256 = "sha256-Mck9aBpVYksTR/OSbFoRi5bLE3eEQlV3qfhWHiWZEuk=";
 
   postFetch = ''
     mkdir -p $out/share/fonts/{truetype,opentype}/${pname}
