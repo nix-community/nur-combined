@@ -17,6 +17,7 @@
   pledge = pkgs.callPackage ./pkgs/tools/security/pledge { };
   hugs98 = pkgs.callPackage ./pkgs/development/compilers/hugs98 { };
   ripsecrets = pkgs.callPackage ./pkgs/tools/security/ripsecrets { };
+  orgmk = pkgs.callPackage ./pkgs/applications/misc/orgmk { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
