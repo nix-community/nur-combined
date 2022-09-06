@@ -14,14 +14,15 @@
 let
   commonMeta = rec {
     name = "pledge";
-    version = "1.7"; # September 6th 2022
+    version = "2022-09-06"; # September 6th 2022
   };
 
   cosmoMeta = {
     mode="rel";
     path="tool/build";
-    target = "${commonMeta.name}.com";
-    make = "./build/bootstrap/make.com";
+    targets = [ "pledge.com" "unveil.com" ];
+    make = "make";
+    #make = "./build/bootstrap/make.com";
     platformFlag = "";
     # Since we're only compiling for Linux, it makes sense to pass
     # "CPPFLAGS=-DSUPPORT_VECTOR=0b00000001", which disables all non-Linux code.
@@ -30,9 +31,18 @@ let
   cosmoSrc = fetchFromGitHub {
     owner = "jart";
     repo = "cosmopolitan";
-    rev = "${commonMeta.name}-${commonMeta.version}";
-    sha256 = "+co5n0p41qAAiLSVmBHHSOTE2WZeytu/09mEStU1HtA=";
+    rev = "dbf12c3";
+    sha256 = "k8L2KuaWTvn838Uqr8/rX/IfVrG4IptSuZE8Ft7Wqx4=";
   };
+  buildStuff = toString (map (item: ''
+      ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
+          ${cosmoMeta.platformFlag} V=0 \
+          o/${cosmoMeta.mode}/${cosmoMeta.path}/${item}
+      '') cosmoMeta.targets);
+  installStuff = toString (map (item: ''
+      o/${cosmoMeta.mode}/${cosmoMeta.path}/${item} --assimilate
+      cp o/${cosmoMeta.mode}/${cosmoMeta.path}/${item} $out/bin/
+      '') cosmoMeta.targets);
 in
   stdenv.mkDerivation {
     name = "${commonMeta.name}-${commonMeta.version}";
@@ -44,23 +54,19 @@ in
       sh ./build/bootstrap/cocmd.com --assimilate
       sh ./build/bootstrap/echo.com --assimilate
       sh ./build/bootstrap/rm.com --assimilate
-
-      #${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
-      make MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
-          ${cosmoMeta.platformFlag} V=0 \
-          o/${cosmoMeta.mode}/${cosmoMeta.path}/${cosmoMeta.target}
+      '' + buildStuff + ''
       echo "" # workaround for nix's "malformed json" errors
     '';
     installPhase = ''
       mkdir $out
       mkdir $out/bin
-      o/${cosmoMeta.mode}/${cosmoMeta.path}/${cosmoMeta.target} --assimilate
-      cp o/${cosmoMeta.mode}/${cosmoMeta.path}/${cosmoMeta.target} $out/bin/${commonMeta.name}
-    '';
+      '' + installStuff;
 
     meta = {
       homepage = "https://justine.lol/pledge/";
-      description = "Easily launch linux commands in a sandbox inspired by the design of openbsd's pledge() system call.";
+      mainProgram = "pledge.com";
+      changelog = "https://github.com/jart/cosmopolitan/commits/dbf12c30b05e8bffaa73356c229391538fd0b322";
+      description = "Easily launch commands in a sandbox inspired by the design of openbsd's pledge() and unveil() system calls.";
       platforms = [ "x86_64-linux" ];
 
       # NOTE(ProducerMatt): Cosmo embeds relevant licenses near the top of the
@@ -68,8 +74,8 @@ in
       # Grep for "Copyright".
       #
       # At the time of this writing in MODE=rel: ISC for Cosmo, BSD3 for getopt,
-      # and zlib
-      license = with lib.licenses; [ isc bsd3 zlib ];
+      # zlib. Unveil includes gdtoa which is MIT.
+      license = with lib.licenses; [ isc bsd3 zlib mit ];
 
       maintainers = [ lib.maintainers.ProducerMatt ];
     };
