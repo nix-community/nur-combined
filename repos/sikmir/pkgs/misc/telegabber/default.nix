@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromGitea, openssl, tdlib, zlib }:
+{ lib, buildGoModule, fetchFromGitea, openssl, tdlib, zlib, testers, telegabber }:
 
 buildGoModule rec {
   pname = "telegabber";
@@ -19,6 +19,10 @@ buildGoModule rec {
   postInstall = ''
     install -Dm644 config_schema.json config.yml.example -t $out/share/telegabber
   '';
+
+  passthru.tests.version = testers.testVersion {
+    package = telegabber;
+  };
 
   meta = with lib; {
     description = "XMPP/Jabber transport to Telegram network";

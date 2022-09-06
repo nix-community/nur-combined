@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{ lib, stdenv, fetchFromGitHub, python3Packages, testers, morecantile }:
 
 python3Packages.buildPythonPackage rec {
   pname = "morecantile";
@@ -16,7 +16,9 @@ python3Packages.buildPythonPackage rec {
 
   checkInputs = with python3Packages; [ mercantile pytestCheckHook ];
 
-  installCheckPhase = "$out/bin/morecantile --version | grep ${version} > /dev/null";
+  passthru.tests.version = testers.testVersion {
+    package = morecantile;
+  };
 
   meta = with lib; {
     description = "Construct and use map tile grids in different projection";

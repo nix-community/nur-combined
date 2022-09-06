@@ -1,17 +1,24 @@
-{ lib, fetchFromGitHub, python3Packages, pymbtiles }:
+{ lib, fetchFromGitHub, python3Packages, pymbtiles, poetry }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tpkutils";
-  version = "2021-02-10";
+  version = "0.8.2";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "consbio";
     repo = "tpkutils";
-    rev = "5f3694451a1759548af579b689f478cefc633252";
-    hash = "sha256-6eEDRGpBP27jT2KAg7EtsUm9wxEYrlKa8EkB/7/1JWc=";
+    rev = version;
+    hash = "sha256-iKM+tEEOtSkwDdkBN+n35q3D2IBi7a/bnY/fSlGDowU=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ mercantile pymbtiles setuptools six ];
+  nativeBuildInputs = [ poetry ];
+
+  propagatedBuildInputs = with python3Packages; [
+    mercantile
+    pymbtiles
+    six
+  ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
@@ -20,5 +27,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "tpk";
   };
 }

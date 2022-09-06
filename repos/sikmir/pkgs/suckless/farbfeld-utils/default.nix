@@ -13,10 +13,14 @@ stdenv.mkDerivation {
   buildInputs = [ libGL libX11 SDL ghostscript ];
 
   buildPhase = ''
+    runHook preBuild
+
     mkdir -p $out/bin
     $CC -c lodepng.c
     find . -name '*.c' -exec grep 'gcc' {} + -print0 | \
       awk -F: '{print $2}' | sed 's#~/bin#$out/bin#;s#gcc#$CC#;s#/usr/lib/libgs.so.9#-lgs#' | xargs -0 sh -c
+
+    runHook postBuild
   '';
 
   dontInstall = true;

@@ -1,5 +1,6 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, cairo, librsvg
 , Foundation, memstreamHook
+, testers, smrender
 }:
 
 stdenv.mkDerivation rec {
@@ -18,12 +19,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ cairo librsvg ]
     ++ lib.optionals stdenv.isDarwin [ Foundation memstreamHook ];
 
-  doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
-    $out/bin/smrender -v | grep ${version} > /dev/null
-    runHook postInstallCheck
-  '';
+  passthru.tests.version = testers.testVersion {
+    package = smrender;
+    version = "V${version}";
+  };
 
   meta = with lib; {
     description = "A powerful, flexible, and modular rule-based rendering engine for OSM data";

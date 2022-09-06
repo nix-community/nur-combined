@@ -1,4 +1,6 @@
-{ lib, fetchFromGitHub, python3Packages, jsonseq, supermercado }:
+{ lib, fetchFromGitHub, python3Packages, jsonseq, supermercado
+, testers, tilesets-cli
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tilesets-cli";
@@ -27,12 +29,22 @@ python3Packages.buildPythonApplication rec {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
-  installCheckPhase = "$out/bin/tilesets --version | grep ${version} > /dev/null";
+  disabledTests = [
+    "test_cli_create_private_invalid"
+    "test_cli_add_source"
+    "test_cli_upload_source_replace"
+    "test_cli_upload_source_no_replace"
+  ];
+
+  passthru.tests.version = testers.testVersion {
+    package = tilesets-cli;
+  };
 
   meta = with lib; {
     description = "CLI for interacting with the Mapbox Tilesets API";
     homepage = "https://docs.mapbox.com/mapbox-tiling-service";
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "tilesets";
   };
 }

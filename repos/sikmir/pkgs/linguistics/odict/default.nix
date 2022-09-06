@@ -1,17 +1,21 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoModule, testers, odict }:
 
 buildGoModule rec {
   pname = "odict";
-  version = "2021-01-08";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "TheOpenDictionary";
     repo = "odict";
-    rev = "639dbab4feac15c4f69049bfb9b7bcfecaf68b47";
-    hash = "sha256-cshWHsFTcejNNz/95FNkadXx8XWOW0fjlJTl4POR07k=";
+    rev = version;
+    hash = "sha256-2520kNT3aTylE0ZVGuX92z1NehdCKKvGKd8OgdJ1q3M=";
   };
 
-  vendorSha256 = "sha256-+gHYFbCZkfsfsdSZvmbQho4JUn3RRQpKBcxrylpaB9g=";
+  vendorHash = "sha256-8vDlrbdmGfpCLZIU3rxuk004T9om/CGTc8vJElvlP3s=";
+
+  passthru.tests.version = testers.testVersion {
+    package = odict;
+  };
 
   meta = with lib; {
     description = "A blazingly-fast portable dictionary file format";

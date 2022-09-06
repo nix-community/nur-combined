@@ -132,9 +132,7 @@ lib.makeScope newScope (
     ### GEMINI
 
     agunua = callPackage ./gemini/agunua { };
-    astronaut = callPackage ./gemini/astronaut {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
@@ -219,9 +217,7 @@ lib.makeScope newScope (
     tile-stitch = callPackage ./geospatial/tile-stitch { };
     tilesets-cli = callPackage ./geospatial/tilesets-cli { };
     tpkutils = callPackage ./geospatial/tpkutils { };
-    vt2geojson = callPackage ./geospatial/vt2geojson {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    vt2geojson = callPackage ./geospatial/vt2geojson { };
     titiler = callPackage ./geospatial/titiler { };
     tilecloud = callPackage ./geospatial/tilecloud { };
 
@@ -279,9 +275,7 @@ lib.makeScope newScope (
     i18n-editor-bin = callPackage ./linguistics/i18n-editor { jre = pkgs.jdk11; };
     lsdreader = callPackage ./linguistics/lsdreader { };
     mikatools = callPackage ./linguistics/mikatools { };
-    odict = callPackage ./linguistics/odict {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    odict = callPackage ./linguistics/odict { };
     python-hfst = callPackage ./linguistics/python-hfst { };
     pytorchtext = callPackage ./linguistics/pytorchtext { };
     redict = libsForQt5.callPackage ./linguistics/redict { };
@@ -322,9 +316,7 @@ lib.makeScope newScope (
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
-    musig = callPackage ./misc/musig {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    musig = callPackage ./misc/musig { };
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
@@ -338,9 +330,7 @@ lib.makeScope newScope (
     sdorfehs = callPackage ./misc/sdorfehs { };
     taskcoach = callPackage ./misc/taskcoach { };
     tcvt = callPackage ./misc/tcvt { };
-    telegabber = callPackage ./misc/telegabber {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    telegabber = callPackage ./misc/telegabber { };
     tlstunnel = callPackage ./misc/tlstunnel { };
     worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };

@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilecloud";
-  version = "1.8.0";
+  version = "1.8.2";
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "tilecloud";
     rev = version;
-    hash = "sha256-TaBwrh+bvyMBx8IlCLZ/S/7Sb0Gp9tz02204qbWStBA=";
+    hash = "sha256-rg85xlmPq5pSrHAjA+9YlkQLndhNha8+OsqbGqe8JSM=";
   };
 
   patches = [ ./set-tmpl-path.patch ];

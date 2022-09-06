@@ -32,6 +32,7 @@ mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
+    mainProgram = "polyvector_thing";
     skip.ci = stdenv.isDarwin;
   };
 }

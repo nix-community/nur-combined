@@ -7,6 +7,8 @@
 , unzip
 , gzip
 , gdal
+, testers
+, elevation
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -19,6 +21,10 @@ python3Packages.buildPythonApplication rec {
     rev = version;
     hash = "sha256-sZStJgToQtWYrBH1BjqxCUwQUT5dcAlyZwnb4aYga+4=";
   };
+
+  nativeBuildInputs = with python3Packages; [ setuptools-scm ];
+
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   propagatedBuildInputs = with python3Packages; [ fasteners appdirs click setuptools ];
 
@@ -43,14 +49,15 @@ python3Packages.buildPythonApplication rec {
     install -Dm644 elevation/datasource.mk -t $out/lib/${python3Packages.python.libPrefix}/site-packages/elevation
   '';
 
-  doInstallCheck = true;
-
-  installCheckPhase = "$out/bin/eio selfcheck";
+  passthru.tests.version = testers.testVersion {
+    package = elevation;
+  };
 
   meta = with lib; {
     description = "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM";
     homepage = "http://elevation.bopen.eu/";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
+    mainProgram = "eio";
   };
 }
