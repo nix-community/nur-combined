@@ -681,10 +681,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.17.0";
+      version = "4.17.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985748/floccus-4.17.0.xpi";
-      sha256 = "f343343fcd4a5e00351ce2221bd1af581d7a3e2243e4404e2ad34651b5df482b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3998783/floccus-4.17.1.xpi";
+      sha256 = "b646b439290052c9793b9c9f35f01a2753ed524663f71f8bc73f15091c809180";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220904.185841";
+      version = "104.0.2buildid20220902.153754";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3998316/francais_language_pack-105.0buildid20220904.185841.xpi";
-      sha256 = "1d8df837279a02a52c4796ee230429c21e9de226a5f1091ec7e88d35cdec5685";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3998612/francais_language_pack-104.0.2buildid20220902.153754.xpi";
+      sha256 = "cb702c4871ea31b905f13efd5ed1ca98e262c1625bb4645995e7ad8db50a98ed";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2135,10 +2135,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.5.0";
+      version = "3.5.1";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3996895/steam_database-3.5.0.xpi";
-      sha256 = "cd6c0dca56d81a069a0b7d3e81a1dce0c65be11dc06a799f98ca1da6445af001";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3997664/steam_database-3.5.1.xpi";
+      sha256 = "407f2d207556e972d48306d39dc2d7a78d73c33621840ad38e33af79e9d52e5b";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -2461,10 +2461,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.44.0";
+      version = "1.44.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3989793/ublock_origin-1.44.0.xpi";
-      sha256 = "ae761fe4014e328fdef838b81d43c30c84422cb8140cceedf0ed7a7c1f8e70aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3998742/ublock_origin-1.44.2.xpi";
+      sha256 = "00f4d9b50f9e3395c6d8c1c6306bac3c43fd8b20fb62e0307d21834ba5967a7f";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
