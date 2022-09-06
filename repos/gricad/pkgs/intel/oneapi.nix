@@ -1,5 +1,6 @@
 { lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, 
-  at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515, zlib, xorg }:
+  at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515, zlib, xorg, atk, nspr, dbus,
+  pango, cairo, gdk_pixbuf, x11, cups, expat, libxkbcommon, alsaLib, file, at-spi2-atk }:
 
 stdenv.mkDerivation rec {
   version = "2022.2.0.262";
@@ -22,9 +23,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  propagatedBuildInputs = [ glibc glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa qt515.full zlib xorg.xlibsWrapper ];
+  nativeBuildInputs = [ file ];
+ 
+  propagatedBuildInputs = [ glibc glib libnotify xdg-utils ncurses nss 
+                           at-spi2-core libxcb libdrm gtk3 mesa qt515.full 
+                           zlib xorg.xlibsWrapper ];
 
-  libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils ncurses nss at-spi2-core libxcb libdrm gtk3 mesa qt515.full zlib xorg.xlibsWrapper ];
+  libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils 
+                                  ncurses nss at-spi2-core libxcb libdrm gtk3 
+                                  mesa qt515.full zlib atk nspr dbus pango cairo 
+                                  gdk_pixbuf x11 cups expat libxkbcommon alsaLib
+                                  at-spi2-atk xorg.libXcomposite xorg.libxshmfence 
+                                  xorg.libXdamage xorg.libXext xorg.libXfixes
+                                  xorg.libXrandr ];
 
   phases = [ "installPhase" "fixupPhase" "installCheckPhase" "distPhase" ];
 
@@ -39,6 +50,7 @@ stdenv.mkDerivation rec {
        base_kit=`echo $srcs|cut -d" " -f1`
        hpc_kit=`echo $srcs|cut -d" " -f2`
      fi
+     # Extract files
      bash $base_kit --log $out/basekit_install_log --extract-only --extract-folder $out/tmp -a --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp -s --eula accept
      bash $hpc_kit --log $out/hpckit_install_log --extract-only --extract-folder $out/tmp -a --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp -s --eula accept
      for file in `grep -l -r "/bin/sh" $out/tmp`
@@ -46,6 +58,14 @@ stdenv.mkDerivation rec {
        sed -e "s,/bin/sh,${stdenv.shell},g" -i $file
      done
      export HOME=$out
+     # Patch the bootstraper binaries and libs
+     for files in `find $out/tmp/l_BaseKit_p_${version}_offline/lib`
+     do
+       patchelf --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $file 2>/dev/null || true
+     done
+     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath "${glibc}/lib:$libPath:$out/tmp/l_BaseKit_p_${version}_offline/lib" $out/tmp/l_BaseKit_p_${version}_offline/bootstrapper
+     # launch install
+     export LD_LIBRARY_PATH=${zlib}/lib
      $out/tmp/l_BaseKit_p_${version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
      $out/tmp/l_HPCKit_p_${hpc_version}_offline/install.sh --install-dir $out --download-cache $out/tmp --download-dir $out/tmp --log-dir $out/tmp --eula accept -s --ignore-errors
      rm -rf $out/tmp
@@ -58,10 +78,10 @@ stdenv.mkDerivation rec {
     for dir in `find $out -mindepth 1 -maxdepth 1 -type d`
     do
       echo "   $dir"
-      for file in `find $dir -type f`
+      for file in `find $dir -type f -exec file {} + | grep ELF| awk -F: '{print $1}'`
       do
-        echo "       $file"
-        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath '$ORIGIN'":${glibc}/lib:$libPath:$dir/latest/lib64" $file 2>/dev/null || true
+          echo "       $file"
+          patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath '$ORIGIN'":${glibc}/lib:$libPath:$dir/latest/lib64" $file 2>/dev/null || true
       done
     done
   '';
