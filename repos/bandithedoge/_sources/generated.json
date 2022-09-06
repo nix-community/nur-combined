@@ -12,11 +12,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "dmenu-flexipatch",
-            "rev": "ff2f1552b3d3242355895c1d0a73a16fe6a56834",
-            "sha256": "sha256-GWMtNPww99lVVhDwpJpM+An3ZbyFgJ3chQBEudr864s=",
+            "rev": "dc169b1971f06a95b227ad89d4b8b94d635a0db7",
+            "sha256": "sha256-6ek0lYi93D+h+E8FUh3gcrRtgAt98Igc22/Pc1vPs8Q=",
             "type": "github"
         },
-        "version": "ff2f1552b3d3242355895c1d0a73a16fe6a56834"
+        "version": "dc169b1971f06a95b227ad89d4b8b94d635a0db7"
     },
     "dwm-flexipatch": {
         "cargoLocks": null,
@@ -67,12 +67,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1fad46c54df250809f1b6a2c38f81a341ecceb46",
-            "sha256": "sha256-gxADhgP+uuMgZzowm6lhd+dua3R6/4bt8xawQVPSv88=",
+            "rev": "a578ebe7cb8727ca5158113704ecc63d65b4f7eb",
+            "sha256": "sha256-+DyXEtDq6aR4RSu1GffcI7zPFQwVydlL0D6Rs4Fmj7Y=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "1fad46c54df250809f1b6a2c38f81a341ecceb46"
+        "version": "a578ebe7cb8727ca5158113704ecc63d65b4f7eb"
     },
     "lua-dbus": {
         "cargoLocks": null,
@@ -256,11 +256,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "63fe86cf185fc2f871da2942ba781434c8fb88db",
-            "sha256": "sha256-J5yS33vShq/xQI2lNWGvskXp8fCBn0gqb4adG16Fnnw=",
+            "rev": "6150b20dae3be5fb92e34f46adb64d9de7aaa80e",
+            "sha256": "sha256-QKX3geGwAG+SfEBJV8+0vouiMr6yqWR7wM57+I2L514=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "63fe86cf185fc2f871da2942ba781434c8fb88db"
+        "version": "6150b20dae3be5fb92e34f46adb64d9de7aaa80e"
     }
 }
