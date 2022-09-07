@@ -1,4 +1,4 @@
-{ pkgs, lib ? pkgs.lib, ... }:
+{ pkgs, lib ? pkgs.lib }:
 
 with builtins;
 with lib; rec {
@@ -22,9 +22,9 @@ with lib; rec {
       gltf-pipeline --input $src --output $out
     '';
 
-  mkAvrdudeFlasher = { name, hex }@args:
-    pkgs.writeShellScriptBin "${name}-flasher" ''
-      exec ${pkgs.avrdude}/bin/avrdude -p atmega32u4 -c avr109 -P /dev/ttyACM0 -U flash:w:${hex}:i
+  mkAvrdudeFlasher = firmware:
+    pkgs.writeShellScriptBin "${firmware.name}-flasher" ''
+      exec ${pkgs.avrdude}/bin/avrdude -p atmega32u4 -c avr109 -P /dev/ttyACM0 -U flash:w:${firmware.hex}:i
     '';
 
   mkQmkFirmware = { name, keyboard, keymap ? "default", ... }@args:
@@ -48,7 +48,7 @@ with lib; rec {
 
         outputs = [ "out" "hex" ];
 
-        passthru.flasher = mkAvrdudeFlasher { inherit (self) name hex; };
+        passthru.flasher = mkAvrdudeFlasher self;
 
         buildPhase = ''
           runHook preBuild
