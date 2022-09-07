@@ -72,7 +72,7 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'christoomey/vim-tmux-navigator'
 
 " SYNTAX FILES
-"Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 Plug 'LnL7/vim-nix'
 Plug 'posva/vim-vue'
 "Plug 'elmar-hinz/vim.typoscript'
