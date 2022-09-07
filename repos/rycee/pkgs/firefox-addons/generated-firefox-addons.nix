@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "104.0.2buildid20220902.153754";
+      version = "105.0buildid20220906.185728";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3998612/francais_language_pack-104.0.2buildid20220902.153754.xpi";
-      sha256 = "cb702c4871ea31b905f13efd5ed1ca98e262c1625bb4645995e7ad8db50a98ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3999228/francais_language_pack-105.0buildid20220906.185728.xpi";
+      sha256 = "279d54697f5b77190a8098d26dc5332f8c09fef64b0f8a1ef6e5e6b3355fc8f6";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1046,10 +1046,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.1";
+      version = "1.8.2";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974246/keepassxc_browser-1.8.1.xpi";
-      sha256 = "5c1459e29b86b5f8e0a379d3b969e1e6e188ebb4d52071f368588ae97b797568";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3999165/keepassxc_browser-1.8.2.xpi";
+      sha256 = "183f705678350afc7605cca4af838ea818216a765a32eeda3247209c465bd925";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
