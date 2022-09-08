@@ -57,6 +57,7 @@ qt5.mkDerivation rec {
       --include "wemeet/lib/libui_framework.so" \
       --include "wemeet/lib/libnxui*" \
       --include "wemeet/lib/libdesktop_common.so" \
+      --include "wemeet/lib/libqt_*" \
       --exclude "wemeet/lib/*" \
       --exclude "wemeet/plugins" \
       --exclude "wemeet/icons" \

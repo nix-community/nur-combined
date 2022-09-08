@@ -106,22 +106,22 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.7.1";
+    version = "v2.7.2";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.1/app-x86_64.asar";
-      sha256 = "sha256-tWYOGjzLbpILzoWL15KJALvpCr71qzerhA2hu9GZp0w=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.2/app-x86_64.asar";
+      sha256 = "sha256-tmgcUSeR/RoUrkuowZ/Bxapuq50ihKw/855Eu1YAvxE=";
     };
   };
   icalingua-plus-plus-aur = {
     pname = "icalingua-plus-plus-aur";
-    version = "a0c47807b82216d1a3d41218b7c4935d78b35db2";
+    version = "d837300f601acb3a4c6c3c5d8057aa4a03f59812";
     src = fetchgit {
       url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "a0c47807b82216d1a3d41218b7c4935d78b35db2";
+      rev = "d837300f601acb3a4c6c3c5d8057aa4a03f59812";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-ewzIhAvARo1WzULF1WhQNiCgWXC25UHRfGi2AjqV87A=";
+      sha256 = "sha256-6Aa1C1YzN+qi8xEtINRVjLZW8rwiydPKTxUFfXGpEDM=";
     };
   };
   pisces = {
@@ -207,10 +207,10 @@
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.9.0.1";
+    version = "3.10.0.400";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/OTRhY2YwZTUtMzE5Ni00NDQyLTg0MTMtOTBjYzQzNzcxYTQz/TencentMeeting_0300000000_3.9.0.1_x86_64_default.publish.deb";
-      sha256 = "sha256-g1sYuTP0RU6gUbztP+rKR1i4WTkvjdSPUEIKPEqtmCc=";
+      url = "https://updatecdn.meeting.qq.com/cos/60bbaecfb3bf32615331b07d46001353/TencentMeeting_0300000000_3.10.0.400_x86_64_default.publish.deb";
+      sha256 = "sha256-Ekc0QDZmMXAJKd0nMZ0016VcGQpkmtL5q3o786G1KNg=";
     };
   };
   yacd = {
