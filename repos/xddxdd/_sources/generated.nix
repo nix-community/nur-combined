@@ -130,6 +130,17 @@
       sha256 = "sha256-NzMEXeTVDamHOewjflUKhYuFjugGjjrFpKye63o7Q7g=";
     });
   };
+  douban-openapi-server = {
+    pname = "douban-openapi-server";
+    version = "78d5ef82233b681c47b5c37af4b9a63d9c94e052";
+    src = fetchFromGitHub ({
+      owner = "caryyu";
+      repo = "douban-openapi-server";
+      rev = "78d5ef82233b681c47b5c37af4b9a63d9c94e052";
+      fetchSubmodules = false;
+      sha256 = "sha256-Nk7PrV+GENbqX9DkMBzj0UAUyKqBcfc56Z3dgctqP84=";
+    });
+  };
   drone-vault = {
     pname = "drone-vault";
     version = "v1.2.0";
@@ -150,6 +161,17 @@
       rev = "1356780d7d37ad5c44d3d25d2137be6120b8bf87";
       fetchSubmodules = false;
       sha256 = "sha256-sIJBWvVC7nF2ZJrI6IQxgqA2svqU4XQ0vbz9zh0HEBE=";
+    });
+  };
+  flasgger = {
+    pname = "flasgger";
+    version = "0.9.5";
+    src = fetchFromGitHub ({
+      owner = "flasgger";
+      repo = "flasgger";
+      rev = "0.9.5";
+      fetchSubmodules = false;
+      sha256 = "sha256-cYFMKZxpi69gVWqyZUltCL0ZwcfIABNsJKqAhN2TTSg=";
     });
   };
   genshin-checkin-helper = {
@@ -467,10 +489,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220907153354";
+    version = "20220908131416";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220907153354/dlc.dat";
-      sha256 = "sha256-P9eWXSLaO+OSc9yFfSgXgKY/SocgeEqGVJYdB+XvfYw=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220908131416/dlc.dat";
+      sha256 = "sha256-VpiToQGw0o4g3E9xnzNuM8C0ymCs49xwyoBgYwoU2yc=";
     };
   };
   v2fly-private = {

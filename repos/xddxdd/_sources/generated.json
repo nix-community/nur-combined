@@ -222,6 +222,25 @@
         },
         "version": "v0.1.2"
     },
+    "douban-openapi-server": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "douban-openapi-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "caryyu",
+            "repo": "douban-openapi-server",
+            "rev": "78d5ef82233b681c47b5c37af4b9a63d9c94e052",
+            "sha256": "sha256-Nk7PrV+GENbqX9DkMBzj0UAUyKqBcfc56Z3dgctqP84=",
+            "type": "github"
+        },
+        "version": "78d5ef82233b681c47b5c37af4b9a63d9c94e052"
+    },
     "drone-vault": {
         "cargoLocks": null,
         "extract": null,
@@ -259,6 +278,25 @@
             "type": "github"
         },
         "version": "1356780d7d37ad5c44d3d25d2137be6120b8bf87"
+    },
+    "flasgger": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "flasgger",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "flasgger",
+            "repo": "flasgger",
+            "rev": "0.9.5",
+            "sha256": "sha256-cYFMKZxpi69gVWqyZUltCL0ZwcfIABNsJKqAhN2TTSg=",
+            "type": "github"
+        },
+        "version": "0.9.5"
     },
     "genshin-checkin-helper": {
         "cargoLocks": null,
@@ -807,11 +845,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-P9eWXSLaO+OSc9yFfSgXgKY/SocgeEqGVJYdB+XvfYw=",
+            "sha256": "sha256-VpiToQGw0o4g3E9xnzNuM8C0ymCs49xwyoBgYwoU2yc=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220907153354/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220908131416/dlc.dat"
         },
-        "version": "20220907153354"
+        "version": "20220908131416"
     },
     "v2fly-private": {
         "cargoLocks": null,

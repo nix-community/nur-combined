@@ -96,9 +96,13 @@ rec {
   deepspeech-wrappers = pkg ./deepspeech-gpu/wrappers.nix { };
   dingtalk = pkg ./dingtalk { };
   dn42-pingfinder = pkg ./dn42-pingfinder { };
+  douban-openapi-server = pkg ./douban-openapi-server {
+    inherit flasgger;
+  };
   drone-vault = pkg ./drone-vault { };
   etherguard = pkg ./etherguard { };
   fcitx5-breeze = pkg ./fcitx5-breeze { };
+  flasgger = pkg ./flasgger { };
   ftp-proxy = pkg ./ftp-proxy { };
   genshin-checkin-helper = pkg ./genshin-checkin-helper {
     inherit genshinhelper2 onepush;

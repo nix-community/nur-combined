@@ -48,6 +48,10 @@ fetch.github = "google/brotli"
 src.github = "tickstep/cloudpan189-go"
 fetch.github = "tickstep/cloudpan189-go"
 
+[douban-openapi-server]
+src.git = "https://github.com/caryyu/douban-openapi-server.git"
+fetch.github = "caryyu/douban-openapi-server"
+
 [drone-vault]
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
@@ -55,6 +59,10 @@ fetch.github = "drone/drone-vault"
 [etherguard]
 src.git = "https://github.com/KusakabeShi/EtherGuard-VPN.git"
 fetch.github = "KusakabeShi/EtherGuard-VPN"
+
+[flasgger]
+src.github = "flasgger/flasgger"
+fetch.github = "flasgger/flasgger"
 
 [genshin-checkin-helper]
 src.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
