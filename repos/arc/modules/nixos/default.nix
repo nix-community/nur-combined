@@ -2,6 +2,7 @@
   nix = ./nix.nix;
   systemd = ./systemd.nix;
   polkit-systemd = ./polkit-systemd.nix;
+  users-chroot = ./users-chroot.nix;
   cpuinfo = ./cpuinfo.nix;
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
@@ -35,6 +36,7 @@
       nix
       systemd
       polkit-systemd
+      users-chroot
       cpuinfo
       dht22-exporter
       glauth

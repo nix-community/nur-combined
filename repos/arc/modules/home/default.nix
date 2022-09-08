@@ -36,6 +36,7 @@
   systemd = ./systemd.nix;
   swaylock = ./swaylock.nix;
   xdg = ./xdg.nix;
+  watchdog = ./watchdog.nix;
 
   __functionArgs = { };
   __functor = self: { ... }: {
@@ -72,6 +73,7 @@
       systemd
       swaylock
       xdg
+      watchdog
     ];
   };
 }

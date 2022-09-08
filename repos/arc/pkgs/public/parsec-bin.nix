@@ -8,9 +8,10 @@
 , fetchurl
 , alsaLib, openssl, udev
 , libglvnd
-, libX11, libXcursor, libXi
+, libX11, libXcursor, libXi, libXrandr
 , libpulseaudio
 , libva
+, ffmpeg
 }:
 
 stdenvNoCC.mkDerivation {
@@ -42,9 +43,11 @@ stdenvNoCC.mkDerivation {
     alsaLib
     libpulseaudio
     libva
+    ffmpeg
     libX11
     libXcursor
     libXi
+    libXrandr
   ];
 
   prepareParsec = ''
