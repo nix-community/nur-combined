@@ -125,6 +125,24 @@
         },
         "version": "1.14.0"
     },
+    "'vscode-extensions.ms-vscode-remote.remote-containers'": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "'vscode-extensions.ms-vscode-remote.remote-containers'",
+        "passthru": {
+            "description": "Open any folder or repository inside a Docker container.",
+            "homepage": "https://github.com/Microsoft/vscode-remote-release",
+            "license": "free"
+        },
+        "pinned": false,
+        "src": {
+            "name": "remote-containers-0.252.0.zip",
+            "sha256": "sha256-pXd2IjbRwYgUAGVIMLE9mQwR8mG/x0MoMfK8zVh3Mvs=",
+            "type": "url",
+            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.252.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+        },
+        "version": "0.252.0"
+    },
     "'vscode-extensions.shardulm94.trailing-spaces'": {
         "cargoLocks": null,
         "extract": null,

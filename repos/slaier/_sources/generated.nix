@@ -85,6 +85,18 @@
     homepage = "https://github.com/bash-lsp/bash-language-server";
     description = "Bash language server implementation based on Tree Sitter and its grammar for Bash with explainshell integration.";
   };
+  "'vscode-extensions.ms-vscode-remote.remote-containers'" = {
+    pname = "'vscode-extensions.ms-vscode-remote.remote-containers'";
+    version = "0.252.0";
+    src = fetchurl {
+      url = "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.252.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "remote-containers-0.252.0.zip";
+      sha256 = "sha256-pXd2IjbRwYgUAGVIMLE9mQwR8mG/x0MoMfK8zVh3Mvs=";
+    };
+    license = "free";
+    homepage = "https://github.com/Microsoft/vscode-remote-release";
+    description = "Open any folder or repository inside a Docker container.";
+  };
   "'vscode-extensions.shardulm94.trailing-spaces'" = {
     pname = "'vscode-extensions.shardulm94.trailing-spaces'";
     version = "0.4.1";

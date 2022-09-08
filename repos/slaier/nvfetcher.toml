@@ -71,3 +71,8 @@ passthru = { license = "mit", homepage = "https://github.com/LeetCode-OpenSource
 src.vsmarketplace = "bmalehorn.vscode-fish"
 fetch.vsmarketplace = "bmalehorn.vscode-fish"
 passthru = { license = "mit", homepage = "https://github.com/bmalehorn/vscode-fish", description="Add syntax highlighting, linting, code formatting and snippets for the fish shell"}
+
+['vscode-extensions.ms-vscode-remote.remote-containers']
+src.vsmarketplace = "ms-vscode-remote.remote-containers"
+fetch.vsmarketplace = "ms-vscode-remote.remote-containers"
+passthru = { license = "free", homepage = "https://github.com/Microsoft/vscode-remote-release", description="Open any folder or repository inside a Docker container." }
