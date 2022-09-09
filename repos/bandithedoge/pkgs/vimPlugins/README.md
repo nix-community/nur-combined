@@ -6,6 +6,7 @@
 | [SchemaStore-nvim](https://github.com/b0o/SchemaStore.nvim) | 🛍 JSON schemas for Neovim |
 | [aniseed](https://github.com/Olical/aniseed) | Neovim configuration and plugins in Fennel (Lisp compiled to Lua) |
 | [barbar-nvim](https://github.com/romgrk/barbar.nvim) | The neovim tabline plugin. |
+| [better-comments-nvim](https://github.com/Djancyp/better-comments.nvim) | Nvim Plugin |
 | [bufferline-nvim](https://github.com/akinsho/bufferline.nvim) | A snazzy bufferline for Neovim |
 | [cheatsheet-nvim](https://github.com/sudormrfbin/cheatsheet.nvim) | A cheatsheet plugin for neovim with bundled cheatsheets for the editor, multiple vim plugins, nerd-fonts, regex, etc. with a Telescope fuzzy finder interface ! |
 | [cinnamon-nvim](https://github.com/declancm/cinnamon.nvim) | Smooth scrolling for ANY movement command 🤯. A Neovim plugin written in Lua! |
@@ -17,10 +18,12 @@
 | [cmp-path](https://github.com/hrsh7th/cmp-path) | nvim-cmp source for path |
 | [cmp-under-comparator](https://github.com/lukas-reineke/cmp-under-comparator) | nvim-cmp comparator function for completion items that start with one or more underlines |
 | [cmp_luasnip](https://github.com/saadparwaiz1/cmp_luasnip) | luasnip completion source for nvim-cmp |
+| [colortils-nvim](https://github.com/nvim-colortils/colortils.nvim) | Some color utils for neovim |
 | [coq_nvim](https://github.com/ms-jpq/coq_nvim) | Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization. |
 | [crates-nvim](https://github.com/Saecki/crates.nvim) | A neovim plugin that helps managing crates.io dependencies |
 | [diaglist-nvim](https://github.com/onsails/diaglist.nvim) | Live render workspace diagnostics in quickfix with current buf errors on top, buffer diagnostics in loclist |
 | [direnv-vim](https://github.com/direnv/direnv.vim) | vim plugin for direnv support |
+| [document-color-nvim](https://github.com/mrshmllow/document-color.nvim) | 🌈 LSP-based colorizer for neovim |
 | [dressing-nvim](https://github.com/stevearc/dressing.nvim) | Neovim plugin to improve the default vim.ui interfaces |
 | [dwm-nvim](https://github.com/delphinus/dwm.nvim) | None |
 | [e-kaput-nvim](https://github.com/kaputi/e-kaput.nvim) | Diagnostics floating window for Neovim Lsp written in lua |
@@ -64,13 +67,14 @@
 | [nightfox-nvim](https://github.com/EdenEast/nightfox.nvim) | 🦊A highly customizable theme for vim and neovim with support for lsp, treesitter and a variety of plugins. |
 | [nim-nvim](https://github.com/alaviss/nim.nvim) | Nim plugin for NeoVim |
 | [nim-vim](https://github.com/zah/nim.vim) | Nim language plugin for vim |
+| [notifier-nvim](https://github.com/vigoux/notifier.nvim) | Non-intrusive notification system for neovim |
 | [nui-nvim](https://github.com/MunifTanjim/nui.nvim) | UI Component Library for Neovim. |
 | [null-ls-nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) | Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. |
 | [numbers-nvim](https://github.com/nkakouros-original/numbers.nvim) | Toggles relativenumbers when not needed |
 | [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | autopairs for neovim written by lua |
 | [nvim-biscuits](https://github.com/code-biscuits/nvim-biscuits) | A neovim port of Assorted Biscuits. Ends up with more supported languages too. |
 | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) | A completion plugin for neovim coded in Lua. |
-| [nvim-colorizer-lua](https://github.com/xiyaowong/nvim-colorizer.lua) | The fastest Neovim colorizer. |
+| [nvim-colorizer-lua](https://github.com/NvChad/nvim-colorizer.lua) | The fastest Neovim colorizer. |
 | [nvim-cursorword](https://github.com/xiyaowong/nvim-cursorword) | highlight the word under the cursor. |
 | [nvim-dap](https://github.com/mfussenegger/nvim-dap) | Debug Adapter Protocol client implementation for Neovim |
 | [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui) | A UI for nvim-dap |
@@ -83,6 +87,7 @@
 | [nvim-nonicons](https://github.com/yamatsum/nvim-nonicons) | Icon set using nonicons for neovim plugins and settings |
 | [nvim-notify](https://github.com/rcarriga/nvim-notify) | A fancy, configurable, notification manager for NeoVim |
 | [nvim-numbertoggle](https://github.com/sitiom/nvim-numbertoggle) | Neovim plugin to automatically toggle between relative and absolute line numbers. Written in Lua. |
+| [nvim-osc52](https://github.com/ojroques/nvim-osc52) | A Neovim plugin to copy text through SSH with OSC52 |
 | [nvim-parinfer](https://github.com/gpanders/nvim-parinfer) | parinfer for Neovim |
 | [nvim-scrollbar](https://github.com/petertriho/nvim-scrollbar) | Extensible Neovim Scrollbar |
 | [nvim-tree-lua](https://github.com/kyazdani42/nvim-tree.lua) | A file explorer tree for neovim written in lua |

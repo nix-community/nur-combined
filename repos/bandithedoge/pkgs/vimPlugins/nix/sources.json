@@ -71,16 +71,28 @@
         "url": "https://github.com/romgrk/barbar.nvim/archive/c41ad6e3f68c2c9f6aa268c6232cdef885107303.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "better-comments.nvim": {
+        "branch": "main",
+        "description": "Nvim Plugin",
+        "homepage": null,
+        "owner": "Djancyp",
+        "repo": "better-comments.nvim",
+        "rev": "0630bb0d0c280886edc05a15c24e53a1f5e5197a",
+        "sha256": "06rl152i9lndmi9kyjwn68xd36mm6ywjyac4bwjm7aq98rhk1y32",
+        "type": "tarball",
+        "url": "https://github.com/Djancyp/better-comments.nvim/archive/0630bb0d0c280886edc05a15c24e53a1f5e5197a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "bufferline.nvim": {
         "branch": "main",
         "description": "A snazzy bufferline for Neovim",
         "homepage": "",
         "owner": "akinsho",
         "repo": "bufferline.nvim",
-        "rev": "4548b8618c667f61989825dae703207dcb43d1e3",
-        "sha256": "0vnk5s8dniq0nbnwb8jk1zq2av43rnazj6k22jzp1i078zji8zya",
+        "rev": "ffa1d0009f5e52d3d32d08c9a781f18b2b2ef507",
+        "sha256": "0i2ppbcgqm1cbrv850mkhqqbmrdy7p25ywbz8svq7i5kwizpha2f",
         "type": "tarball",
-        "url": "https://github.com/akinsho/bufferline.nvim/archive/4548b8618c667f61989825dae703207dcb43d1e3.tar.gz",
+        "url": "https://github.com/akinsho/bufferline.nvim/archive/ffa1d0009f5e52d3d32d08c9a781f18b2b2ef507.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "cheatsheet.nvim": {
@@ -203,6 +215,18 @@
         "url": "https://github.com/saadparwaiz1/cmp_luasnip/archive/a9de941bcbda508d0a45d28ae366bb3f08db2e36.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "colortils.nvim": {
+        "branch": "master",
+        "description": "Some color utils for neovim",
+        "homepage": null,
+        "owner": "nvim-colortils",
+        "repo": "colortils.nvim",
+        "rev": "00baa1ec60be94bc52b0fed32d2aa32f146cddfb",
+        "sha256": "1ssgd7cqv9g1p37yxm1h23k8cxsvnh3lbnhp9jhf9v8sr45b5qg2",
+        "type": "tarball",
+        "url": "https://github.com/nvim-colortils/colortils.nvim/archive/00baa1ec60be94bc52b0fed32d2aa32f146cddfb.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "coq_nvim": {
         "branch": "coq",
         "description": "Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization.",
@@ -249,6 +273,18 @@
         "sha256": "1yjrjdwgsv6vi7mlabinxwfaizrd09jkg4w57gkch4xxw7sk6y23",
         "type": "tarball",
         "url": "https://github.com/direnv/direnv.vim/archive/4c858b8cd8cbfac998534096e6ffb710d7a07358.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "document-color.nvim": {
+        "branch": "main",
+        "description": "🌈 LSP-based colorizer for neovim",
+        "homepage": "",
+        "owner": "mrshmllow",
+        "repo": "document-color.nvim",
+        "rev": "74c487f0e5accfaae033755451b9e367220693fd",
+        "sha256": "1xcyw72y4v1l2839hp1c7q84g4lbi2yfm3789spi6981407lk4dw",
+        "type": "tarball",
+        "url": "https://github.com/mrshmllow/document-color.nvim/archive/74c487f0e5accfaae033755451b9e367220693fd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "dressing.nvim": {
@@ -767,6 +803,18 @@
         "url": "https://github.com/zah/nim.vim/archive/a15714fea392b0f06ff2b282921a68c7033e39a2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "notifier.nvim": {
+        "branch": "master",
+        "description": "Non-intrusive notification system for neovim",
+        "homepage": null,
+        "owner": "vigoux",
+        "repo": "notifier.nvim",
+        "rev": "1681622e3078205bdf7d8585f0b0644a27aa5dbf",
+        "sha256": "0i8xcvyj55gb0f0ldb5qpjhxhmpwf9551rv5b9paxj3w8n639x30",
+        "type": "tarball",
+        "url": "https://github.com/vigoux/notifier.nvim/archive/1681622e3078205bdf7d8585f0b0644a27aa5dbf.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nui.nvim": {
         "branch": "main",
         "description": "UI Component Library for Neovim.",
@@ -840,15 +888,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-colorizer.lua": {
-        "branch": "mine",
+        "branch": "master",
         "description": "The fastest Neovim colorizer.",
         "homepage": "",
-        "owner": "xiyaowong",
+        "owner": "NvChad",
         "repo": "nvim-colorizer.lua",
-        "rev": "6683d64ac08a2131dcb7550033eb3cd2dd3642a2",
-        "sha256": "0qhb1k6w1zxij9qi5ic5322yl4hms3xkpxvv4hg957rhxragh3s2",
+        "rev": "b23c0f2014a78d7854b8005e3d036e990bd2ba43",
+        "sha256": "1ggn3863ba0a06psqpakz4ifi9dmviz5rs127iz3xp60x9xvc3yd",
         "type": "tarball",
-        "url": "https://github.com/xiyaowong/nvim-colorizer.lua/archive/6683d64ac08a2131dcb7550033eb3cd2dd3642a2.tar.gz",
+        "url": "https://github.com/NvChad/nvim-colorizer.lua/archive/b23c0f2014a78d7854b8005e3d036e990bd2ba43.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-cursorword": {
@@ -995,6 +1043,18 @@
         "url": "https://github.com/sitiom/nvim-numbertoggle/archive/1b10222a338b511a9f54ad4ace9abe1d054fdf3b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nvim-osc52": {
+        "branch": "main",
+        "description": "A Neovim plugin to copy text through SSH with OSC52",
+        "homepage": "",
+        "owner": "ojroques",
+        "repo": "nvim-osc52",
+        "rev": "6ebd6f3fec198b7b4d7aedd2b0619cd05ebcbaac",
+        "sha256": "0jqglb3cpc5lrdxk5zpq7wpbccp94xydxdqs75r0mi9619lx9jkh",
+        "type": "tarball",
+        "url": "https://github.com/ojroques/nvim-osc52/archive/6ebd6f3fec198b7b4d7aedd2b0619cd05ebcbaac.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nvim-parinfer": {
         "branch": "master",
         "description": "parinfer for Neovim",
@@ -1037,10 +1097,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "17d0990a733a6be0194ca4c892351bfe4ac374fa",
-        "sha256": "07jzlygip49fncm5z5z9hr313mhsd0fx26sy7ys4ggdrsxlc6r5d",
+        "rev": "e37e0c9b140491f76074183b5057f09509de59f0",
+        "sha256": "0gza1n73qv92xzc6sri7jvh44xwkr2cwsp601v474jhmyp1paixn",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/17d0990a733a6be0194ca4c892351bfe4ac374fa.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/e37e0c9b140491f76074183b5057f09509de59f0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
