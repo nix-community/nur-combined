@@ -3,22 +3,22 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "c1ff099576404c50956ed6c0233919434746bcbf";
+    version = "3ea99853f65979cc80f726770836693624ddeabe";
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "c1ff099576404c50956ed6c0233919434746bcbf";
+      rev = "3ea99853f65979cc80f726770836693624ddeabe";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-E3PnQDUdz3HDPSUCMy2/poCGbnINe9s2zUHaAIIjxfw=";
+      sha256 = "sha256-6nm9akNDwJq1l0hZdRaMlczlVFBp4gdRq0+lWcWfGBk=";
     };
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.19.29";
+    version = "0.20.0";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.19.29/Clash.for.Windows-0.19.29-x64-linux.tar.gz";
-      sha256 = "sha256-ICw9ZBGzjF/lPOqTYfTawcTciNGCbNnWR+1jejZR6bQ=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.0/Clash.for.Windows-0.20.0-x64-linux.tar.gz";
+      sha256 = "sha256-GkhbNWlg5QUV4Y3ngcvTRNlljRgJkUucmx9qfXyFn8w=";
     };
   };
   clash-for-windows-icon = {
