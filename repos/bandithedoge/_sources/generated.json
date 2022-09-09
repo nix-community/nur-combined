@@ -67,12 +67,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "15cbb86911599235f1db7d86922eb9444632913f",
-            "sha256": "sha256-IuRVW75XlpW0aUBfMpqhn8TqITaTQMeAnuoQ+7QL7A8=",
+            "rev": "4274bc7b57f84b875252f982a7756832a5d84fac",
+            "sha256": "sha256-rMTW0EYicKE++rAfuA1BFzHO2XAJxZi04h5SrA+Ms7U=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "15cbb86911599235f1db7d86922eb9444632913f"
+        "version": "4274bc7b57f84b875252f982a7756832a5d84fac"
     },
     "lua-dbus": {
         "cargoLocks": null,
@@ -239,11 +239,11 @@
             "name": null,
             "owner": "drobilla",
             "repo": "zix",
-            "rev": "afc6ef7e54988fd68f33df21ec2a220e6bfc49f4",
-            "sha256": "sha256-JW0D1sfyeE2/RzyX1iZ73xGFp/6WE5CgaUqstlh1yMk=",
+            "rev": "a0293511f4d82d7cb800f568ff5c0d82be5c40c7",
+            "sha256": "sha256-HxFIb/ux2YLVHrlgNOtxQsoQzCEPvAEG8UVXU2qN9Io=",
             "type": "github"
         },
-        "version": "afc6ef7e54988fd68f33df21ec2a220e6bfc49f4"
+        "version": "a0293511f4d82d7cb800f568ff5c0d82be5c40c7"
     },
     "zrythm": {
         "cargoLocks": null,
@@ -256,11 +256,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bc92190c8bbd71c380914e0303509dd04dbfaaae",
-            "sha256": "sha256-WQ73ZMg4VpAgvlw31bOJHtDaZG62k4kFgEOAQl6mjbw=",
+            "rev": "c44b2ed0870d006b2f9c67f87630f251385a305e",
+            "sha256": "sha256-3bzbqIXh28f9qDODKKSTynQnqhjwyUbZrtkR96bZTlo=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "bc92190c8bbd71c380914e0303509dd04dbfaaae"
+        "version": "c44b2ed0870d006b2f9c67f87630f251385a305e"
     }
 }
