@@ -36,7 +36,13 @@ jobs:
       - name: Push
         run: |
           git push origin wip-update-inputs --force-with-lease
-      - name: Check
-        uses: ./.github/workflows/check
+      - name: Trigger Workflow
+        uses: actions/github-script@v6
         with:
-          cachix_auth_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'build.yml',
+              ref: 'wip-update-inputs',
+            })

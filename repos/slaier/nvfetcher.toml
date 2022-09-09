@@ -9,6 +9,7 @@ fetch.github = "arkenfox/user.js"
 [clash-speedtest]
 src.github_tag = "starudream/clash-speedtest"
 fetch.github = "starudream/clash-speedtest"
+pinned = true
 
 ## VS Code Extensions
 
