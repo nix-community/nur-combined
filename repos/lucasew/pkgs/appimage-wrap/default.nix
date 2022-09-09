@@ -1,10 +1,11 @@
 { buildFHSUserEnv
-, writeShellScript
+, writeShellScriptBin
 , stdenv
 , copyDesktopItems
 , makeDesktopItem
 , binutils-unwrapped
 , elfutils
+, lib
 , ... }:
 let
   fhs = buildFHSUserEnv {
@@ -173,7 +174,6 @@ in stdenv.mkDerivation {
   name = "appimage-wrap";
   dontUnpack = true;
 
-  buildInputs = [ fhs binutils-unwrapped elfutils ];
   desktopItems = [
     (makeDesktopItem {
       name = "appimage-wrap";
@@ -187,12 +187,14 @@ in stdenv.mkDerivation {
       ];
     })
   ];
+  propagatedBuildInputs = [ fhs ];
+  PATH = lib.strings.makeBinPath [ fhs binutils-unwrapped elfutils ];
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
     install -m755 ${./entrypoint.sh} $out/bin/appimage-wrap
-    chmod +x $out/bin/appimage-wrap
-    ln -s ${fhs}/bin/appimage-env $out/bin/appimage-env
+    substituteInPlace $out/bin/appimage-wrap \
+      --subst-var PATH
     mkdir -p $out/share/mime/packages
     cp ${./xdg.xml} $out/share/mime/packages/application-appimage.xml
     runHook postInstall

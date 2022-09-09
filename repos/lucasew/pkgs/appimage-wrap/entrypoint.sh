@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+PATH="@PATH@:$PATH"
+
 if [ $# == 0 ]; then
     echo "No AppImage provided"
     exit 1

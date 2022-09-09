@@ -11,7 +11,7 @@ in {
       isNormalUser = true;
       extraGroups = [
         "wheel"
-        "docker"
+        "podman"
       ];
       initialPassword = "changeme";
       openssh.authorizedKeys.keyFiles = [

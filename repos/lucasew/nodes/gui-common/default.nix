@@ -61,14 +61,12 @@ in {
     };
   };
 
-  virtualisation = {
-    docker.enable = true;
-    libvirtd.enable = true;
-  };
+  virtualisation.libvirtd.enable = true;
 
   hardware = {
     opengl = {
       enable = true;
+      driSupport = true;
       driSupport32Bit = true;
     };
   };

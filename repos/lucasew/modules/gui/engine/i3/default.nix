@@ -36,6 +36,8 @@ in {
   };
   environment.systemPackages = with pkgs; [
     xfce.xfce4-screenshooter
+    xfce.ristretto
+    xfce.thunar
   ];
   environment.etc.wallpaper.source = wallpaper;
 }

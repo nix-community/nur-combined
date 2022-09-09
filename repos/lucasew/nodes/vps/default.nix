@@ -80,9 +80,6 @@ in {
       description = "Ademir";
     };
   };
-  virtualisation.docker = {
-    enable = true;
-  };
   services = {
     # dnsmasq = {
     #   enable = true;

@@ -14,7 +14,15 @@ in
   ];
 
   boot.loader.grub.memtest86.enable = true;
-  
+
+  virtualisation.podman = {
+    enable = true;
+    dockerSocket.enable = true;
+    dockerCompat = true;
+    enableNvidia = true;
+  };
+  boot.enableContainers = false;
+
   environment = {
     systemPackages = with pkgs; [
       rlwrap
@@ -23,6 +31,7 @@ in
       unrar
       direnv
       pciutils
+      usbutils
       htop
       lm_sensors
       neofetch
