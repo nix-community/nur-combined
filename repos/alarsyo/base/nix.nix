@@ -4,6 +4,13 @@
   nix = {
     package = pkgs.nixStable;
 
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 60d";
+      persistent = true;
+    };
+
     settings = {
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["@wheel"];
