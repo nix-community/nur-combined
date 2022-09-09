@@ -593,10 +593,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.2";
+      version = "2.3.4";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923300/facebook_container-2.3.2.xpi";
-      sha256 = "a1851f15ae4ec790c40f9a751ad6d64a44a6bf47f70ee497ef4ee17115bb7e06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4000006/facebook_container-2.3.4.xpi";
+      sha256 = "9013f91f1e5ecdafdc9eb3cb75e3a1947d5a13b551c6bd6a78625972e9024d61";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220906.185728";
+      version = "105.0buildid20220908.185813";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999228/francais_language_pack-105.0buildid20220906.185728.xpi";
-      sha256 = "279d54697f5b77190a8098d26dc5332f8c09fef64b0f8a1ef6e5e6b3355fc8f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4000202/francais_language_pack-105.0buildid20220908.185813.xpi";
+      sha256 = "aa07a48f7d17dff13a3f4ee7591eaff0e3a4406fbfd7e6c4e30b6e6b2dab461c";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1046,10 +1046,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.2";
+      version = "1.8.2.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999165/keepassxc_browser-1.8.2.xpi";
-      sha256 = "183f705678350afc7605cca4af838ea818216a765a32eeda3247209c465bd925";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3999932/keepassxc_browser-1.8.2.1.xpi";
+      sha256 = "6857b21e68477206967f36cf3767eb21171b6e77a0af377696322f40d3b48321";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1458,10 +1458,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.6.0";
+      version = "7.6.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986528/octotree-7.6.0.xpi";
-      sha256 = "e93da6d90d93c4a1500f78703ce40fdf1e705a50577c00cd450f4b07bb502d1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3999843/octotree-7.6.1.xpi";
+      sha256 = "135b563cf69f8887394699255d1e827e8a15736454daa7280228f113c38f368d";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1485,10 +1485,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.12.0";
+      version = "6.13.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3989523/okta_browser_plugin-6.12.0.xpi";
-      sha256 = "415983806400cf9f9a9ddf706e2bfd6f822f84faf5f104b0fb62f47b59db1cce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3999434/okta_browser_plugin-6.13.0.xpi";
+      sha256 = "2ffaf591afe41c384fa695382279abdfd8b8db396d7417fb109aa873c04d67f3";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -2333,10 +2333,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.6.0";
+      version = "0.7.0";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3988276/to_deepl-0.6.0.xpi";
-      sha256 = "79cfce1b7da7607bd1e93d4f7d75dc34d269589fee18101db6005d8fd52e6cf3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4000018/to_deepl-0.7.0.xpi";
+      sha256 = "925617f88af98468c761f81484e10f070f1f0d821b4a22626c45121812abb334";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
