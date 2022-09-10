@@ -21,7 +21,7 @@ jobs:
         run: |
           # shuf as github might rate-limit the api to fetch latest version
           echo fluent-theme gh-issues-to-rss gloc nn quickserve toffee tojson \
-          traffic grpc-gateway sirus prosemd-lsp activitywatch-bin |
+          traffic grpc-gateway sirus prosemd-lsp |
           tr ' ' '\n' | shuf | xargs -L1 ./_scripts/autoupdate
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
