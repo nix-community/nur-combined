@@ -44,7 +44,10 @@
           }.${config.type} or config.type;
           what = config.source;
           where = cfg.root + config.target;
-          unitConfig.RequiresMountsFor = [ (builtins.dirOf config.target) ];
+          unitConfig.RequiresMountsFor = [
+            config.source
+            (builtins.dirOf (cfg.root + config.target))
+          ];
         }
         (mkIf (config.type == "bind") {
           mountConfig.Options = [ "bind" ];
@@ -116,7 +119,7 @@ in {
       ++ map (username: {
         type = "none";
         mountConfig.Options = [ "bind" ];
-        unitConfig.RequiresMountsFor = mapAttrsToList (_: mount: mount.target) mounts;
+        unitConfig.RequiresMountsFor = mapAttrsToList (_: mount: cfg.root + mount.target) mounts;
         what = config.users.users.${username}.home;
         where = "${cfg.root}/home/${username}";
       }) cfg.users;
