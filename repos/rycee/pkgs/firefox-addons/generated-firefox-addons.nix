@@ -880,10 +880,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.902.0";
+      version = "8.903.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3993435/grammarly_1-8.902.0.xpi";
-      sha256 = "2a939ec337512e4513c6523655397cbe358ed8f0ce3093e392172dc2f39842ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3997355/grammarly_1-8.903.0.xpi";
+      sha256 = "b65ee4c171bfe9881f910448f8939f6392c9723f40f21bb069c194d80757af4c";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1229,10 +1229,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.6.0";
+      version = "4.6.1";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3965080/mailvelope-4.6.0.xpi";
-      sha256 = "f332e8a407f342f6144c7689e8f192fc94171ae2b896cec8bd0654f147ad4287";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4000537/mailvelope-4.6.1.xpi";
+      sha256 = "dc9e8f83bb14517a1714a29c066ae3d559a92ac65688a9effcb713d7e6749c86";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1913,10 +1913,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.8.23";
+      version = "22.9.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3992877/refined_github-22.8.23.xpi";
-      sha256 = "30888735ebae43511715a85bcb72839c04e11916036fcd158f393c13a2418431";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4000641/refined_github-22.9.9.xpi";
+      sha256 = "68ba8bb1820944350d709f6378957515fb275be5f2f8ec78ada743ede39f945d";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2685,10 +2685,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.4";
+      version = "3.4.6";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3969665/windscribe-3.4.4.xpi";
-      sha256 = "60a689617a3394891bc345f40b5f6923193bfcab8830ae80e83bc6757921c85f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4000725/windscribe-3.4.6.xpi";
+      sha256 = "b971be8fb833005d659ae53103fe8d990d15e0b33e95420ca1be35d4606eccf7";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
