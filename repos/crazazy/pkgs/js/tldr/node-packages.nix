@@ -382,13 +382,13 @@ let
         sha512 = "8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==";
       };
     };
-    "marked-2.1.3" = {
+    "marked-4.1.0" = {
       name = "marked";
       packageName = "marked";
-      version = "2.1.3";
+      version = "4.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/marked/-/marked-2.1.3.tgz";
-        sha512 = "/Q+7MGzaETqifOMWYEA7HVMaZb4XbcRfaOzcSsHZEith83KGlvaSG33u0SKu89Mj5h+T8V2hM+8O45Qc5XTgwA==";
+        url = "https://registry.npmjs.org/marked/-/marked-4.1.0.tgz";
+        sha512 = "+Z6KDjSPa6/723PQYyc1axYZpYYpDnECDaU6hkaf5gqBieBkMKYReL5hteF2QizhlMbgbo8umXl/clZ67+GlsA==";
       };
     };
     "match-stream-0.0.2" = {
@@ -701,8 +701,8 @@ let
   args = {
     name = "tldr";
     packageName = "tldr";
-    version = "3.3.7";
-    src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.7.tgz"; sha1 = "ea553b55bebbb84a2c483467a17ddf8c4beb7260"; };
+    version = "3.3.8";
+    src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.3.8.tgz"; sha1 = "47617adec3e579a053c529e93125629fbc59f219"; };
     dependencies = [
       sources."afinn-165-1.0.4"
       sources."ansi-regex-5.0.1"
@@ -751,7 +751,7 @@ let
       sources."jsonify-0.0.0"
       sources."lodash-4.17.21"
       sources."log-symbols-4.1.0"
-      sources."marked-2.1.3"
+      sources."marked-4.1.0"
       sources."match-stream-0.0.2"
       sources."mimic-fn-2.1.0"
       sources."minimatch-3.1.2"
