@@ -51,7 +51,7 @@ in
   networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
-  networking.interfaces.wlp0s20u2.useDHCP = true;
+  #networking.interfaces.wlp0s20u2.useDHCP = false;
 
 #  networking.hosts = {
 #      "127.0.0.1" = [ "billquick" "localhost" ];
