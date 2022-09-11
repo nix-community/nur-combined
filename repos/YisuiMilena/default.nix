@@ -15,6 +15,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   hyfetch = pkgs.callPackage ./pkgs/hyfetch { };
+  
+  devtools-riscv64 = pkgs.callPackage ./pkgs/devtools-riscv64 { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
