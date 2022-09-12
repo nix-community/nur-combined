@@ -20,6 +20,7 @@
     mini-media-player = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-media-player {};
     multiple-entity-row = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/multiple-entity-row {};
     mushroom = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mushroom {};
+    rgb-light-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/rgb-light-card {};
     rmv-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/rmv-card {};
     sun-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/sun-card {};
     slider-button-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/slider-button-card {};
