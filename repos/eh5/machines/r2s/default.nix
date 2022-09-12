@@ -1,6 +1,7 @@
 { self, system ? "aarch64-linux", nixpkgs, sops-nix }:
 let
   inherit (nixpkgs) lib;
+  inherit (self.packages.${system}) sops-install-secrets-nonblock;
 in
 lib.nixosSystem rec {
   inherit system;
@@ -26,6 +27,7 @@ lib.nixosSystem rec {
         self.overlays.default
         self.overlays.v2ray-rules-dat
       ];
+      sops.package = sops-install-secrets-nonblock;
     }
   ];
 }

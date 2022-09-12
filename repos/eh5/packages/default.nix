@@ -1,5 +1,5 @@
 rec {
-  packages = pkgs: import ./packages.nix { inherit pkgs; filterByPlatform = true; };
+  packages = import ./packages.nix;
 
   legacyPackages = pkgs: import ./packages.nix { inherit pkgs; filterByPlatform = false; };
 

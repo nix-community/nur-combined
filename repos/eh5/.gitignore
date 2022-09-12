@@ -8,7 +8,7 @@ result
 
 # Local files
 *.local
-*.todo
+*.local.*
 .secrets
 
 # develop profile

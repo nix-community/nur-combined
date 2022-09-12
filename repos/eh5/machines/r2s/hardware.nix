@@ -35,14 +35,14 @@
 
   boot = {
     loader = {
-      timeout = 0;
+      timeout = 1;
       grub.enable = false;
       generic-extlinux-compatible = {
         enable = true;
-        configurationLimit = 0;
+        configurationLimit = 3;
       };
     };
-    kernelPackages = pkgs.linuxKernel.packages.linux_5_18;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "console=ttyS2,1500000"
       "earlycon=uart8250,mmio32,0xff130000"

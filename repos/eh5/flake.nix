@@ -38,6 +38,7 @@
     , ...
     } @ inputs:
     let
+      inherit (nixpkgs) lib;
       inherit (flake-utils.lib) eachDefaultSystem mkApp;
       systems = flake-utils.lib.system;
       myPkgs = import ./packages;
@@ -59,16 +60,13 @@
             };
         in
         rec {
-          packages = myPkgs.packages pkgs;
+          packages = myPkgs.packages { inherit pkgs inputs; filterByPlatform = true; };
           checks = packages;
           apps = builtins.mapAttrs (name: drv: mkApp { inherit name drv; }) appPkgs;
           devShells.default = pkgs.mkShell {
             buildInputs = builtins.filter (f: f != null)
               ((builtins.attrValues packages)
-              ++ (builtins.attrValues appPkgs)
-              ++ [
-                sops-nix.packages.${system}.sops-install-secrets or null
-              ]);
+              ++ (builtins.attrValues appPkgs));
           };
         }
       )
