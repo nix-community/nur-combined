@@ -11,11 +11,15 @@ lib.nixosSystem rec {
     ./router.nix
     ./networking.nix
     ./hardware.nix
-    self.nixosModules.fake-hwclock
-    self.nixosModules.mosdns
-    self.nixosModules.v2ray-next
-    self.nixosModules.vlmcsd
-    self.nixosModules.system-tarball-extlinux
+  ] ++
+  (with self.nixosModules; [
+    fake-hwclock
+    mosdns
+    v2ray-next
+    vlmcsd
+    system-tarball-extlinux
+  ]) ++
+  [
     sops-nix.nixosModules.sops
     {
       _module.args = { inherit nixpkgs; };
