@@ -113,14 +113,15 @@ in {
   "@tailwindcss/language-server" = nodeEnv.buildNodePackage {
     name = "_at_tailwindcss_slash_language-server";
     packageName = "@tailwindcss/language-server";
-    version = "0.0.7";
+    version = "0.0.8";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.7.tgz";
-      sha512 = "4N/MwW91BjMr1BHF3ywXlYOaoYsFWV77hO+xXMEGxBxBNdOJRawvS5fHxUSmfNMXyqR7l2F5PlzKiFZ7QJgXDg==";
+      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.8.tgz";
+      sha512 = "WIGh9lImzgELxxY6Y9C2thtQH9caiH2/BD6ptCj7QQ2cowjcd9VjK46/V4LSC4vZH+kEM4itXNbKJznALD6rcA==";
     };
     buildInputs = globalBuildInputs;
     meta = {
       description = "Tailwind CSS Language Server";
+      homepage = "https://github.com/tailwindlabs/tailwindcss-intellisense/tree/HEAD/packages/tailwindcss-language-server#readme";
       license = "MIT";
     };
     production = true;
