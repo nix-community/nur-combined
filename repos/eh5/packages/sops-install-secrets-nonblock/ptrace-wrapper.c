@@ -12,6 +12,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#define STR(s) #s
+
 #define LOG(...)                                                               \
   do {                                                                         \
     fprintf(stderr, "ptrace-wrapper:%d : ", __LINE__);                         \
@@ -46,6 +48,8 @@
 #define R_ARG5(r) (r.regs[4])
 #define R_ARG6(r) (r.regs[5])
 
+#else
+#error "Platform not supported."
 #endif
 
 int main(int argc, char **argv) {
@@ -78,6 +82,17 @@ int main(int argc, char **argv) {
   ptrace(PTRACE_SETOPTIONS, pid, 0,
          PTRACE_O_TRACEFORK | PTRACE_O_TRACEEXEC | PTRACE_O_EXITKILL);
 
+  static int grnd_insecure_avaliable = 0;
+  {
+    int buf[1] = {0};
+    /* NOTE: GRND_INSECURE only works on Linux >= 5.6 */
+    int ret = syscall(SYS_getrandom, buf, 1, GRND_INSECURE);
+    grnd_insecure_avaliable = ret != -1 || errno != EINVAL;
+  }
+
+  LOG("wrapping %s to force non-blocking getrandom(2) (%s)", argv[1],
+      grnd_insecure_avaliable ? STR(GRND_INSECURE) : STR(GRND_NONBLOCK));
+
   while (1) {
     if (ptrace(PTRACE_SYSCALL, pid, 0, 0) == -1) {
       FATAL("%s", strerror(errno));
@@ -90,11 +105,12 @@ int main(int argc, char **argv) {
     }
 
     ptrace(PTRACE_GETREGSET, pid, NT_PRSTATUS, &iov);
-    if (R_SYSCALL(uregs) == SYS_getrandom && R_ARG3(uregs) == 0) {
-      LOG("forcing syscall getreandom(__BUFFER__, %llu, %llu) to non-blocking",
-          R_ARG2(uregs), R_ARG3(uregs));
-
-      R_ARG3(uregs) = GRND_NONBLOCK;
+    if (R_SYSCALL(uregs) == SYS_getrandom) {
+#ifndef NDEBUG
+      LOG("forcing syscall getrandom(%p, %llu, %llu) as non-blocking",
+          (void *)R_ARG1(uregs), R_ARG2(uregs), R_ARG3(uregs));
+#endif
+      R_ARG3(uregs) |= grnd_insecure_avaliable ? GRND_INSECURE : GRND_NONBLOCK;
       if (ptrace(PTRACE_SETREGSET, pid, NT_PRSTATUS, &iov) == -1)
         FATAL("%s", strerror(errno));
     }
