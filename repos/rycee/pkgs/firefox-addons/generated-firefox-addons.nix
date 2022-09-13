@@ -113,10 +113,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.6.2";
+      version = "0.6.3.1";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999034/auto_tab_discard-0.6.2.xpi";
-      sha256 = "d2bfb9c684f89d25c51e4c6e191464c1ba55fd9e143986214a903cc15edf88a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4000753/auto_tab_discard-0.6.3.1.xpi";
+      sha256 = "415ee2c7bf9222e7af537b7c627b98d73ad42a035224539dda2de19ab3b810b8";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220908.185813";
+      version = "105.0buildid20220912.145803";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000202/francais_language_pack-105.0buildid20220908.185813.xpi";
-      sha256 = "aa07a48f7d17dff13a3f4ee7591eaff0e3a4406fbfd7e6c4e30b6e6b2dab461c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4001687/francais_language_pack-105.0buildid20220912.145803.xpi";
+      sha256 = "c1576502fb379c48a02b7ca600a1e63f9e33b8c794133a1c7ddc1f7ff38cd998";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1046,10 +1046,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.2.1";
+      version = "1.8.2.2";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999932/keepassxc_browser-1.8.2.1.xpi";
-      sha256 = "6857b21e68477206967f36cf3767eb21171b6e77a0af377696322f40d3b48321";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4001390/keepassxc_browser-1.8.2.2.xpi";
+      sha256 = "586db406dcdeaa62a0421884c7e3fd5a6ed8964a7d182eeec33673e797a0f4ab";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1967,10 +1967,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.2.0";
+      version = "5.3.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3988785/search_by_image-5.2.0.xpi";
-      sha256 = "340cb228a9ef2f9506e314f3b372c4041b8fd459d5c6534019e1d546d3ed582f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4001344/search_by_image-5.3.0.xpi";
+      sha256 = "9bfb6f0397b9ff85135d81393d84bd05be99ebb5993b79181e76a7e624d30b43";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -2135,10 +2135,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.5.1";
+      version = "3.6.0";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3997664/steam_database-3.5.1.xpi";
-      sha256 = "407f2d207556e972d48306d39dc2d7a78d73c33621840ad38e33af79e9d52e5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4001340/steam_database-3.6.0.xpi";
+      sha256 = "20471181c2ae53df18a4460fbe68623e0a2eb197598fc1cb00d24d60ed094082";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -2400,10 +2400,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.8.26";
+      version = "3.9.0";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3975864/tree_style_tab-3.8.26.xpi";
-      sha256 = "fad45a87897df26613c89403f8dc0eb22eea55faeb98119810e8c1856114e4c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4001583/tree_style_tab-3.9.0.xpi";
+      sha256 = "e5355fe7f5a1c7c9a0bf99ecbc32090d805dde78c8ea1fa4480b03e676092542";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
