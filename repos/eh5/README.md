@@ -84,7 +84,6 @@ $ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-c
 | nix-gfx-mesa                  | [nixGL](https://github.com/guibou/nixGL) but for Mesa only                                            | \*                     |
 | netease-cloud-music           | (no bundled libs, fixes FLAC playback and IME input)                                                  | x86_64-linux           |
 | qcef                          | Qt5 binding of CEF                                                                                    | x86_64-linux           |
-| sops-install-secrets-nonblock | sops-install-secrets but using non-blocking [getrandom(2)](https://man.archlinux.org/man/getrandom.2) | {x86_64,aarch64}-linux |
 | ubootNanopiR2s                | U-Boot images for NanoPi R2S                                                                          | aarch64-linux          |
 | v2ray-next                    | V2Ray v5                                                                                              | \*                     |
 | v2ray-rules-dat-geoip         | See [v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)                                | \*                     |
