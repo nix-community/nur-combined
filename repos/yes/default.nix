@@ -38,4 +38,6 @@ with pkgs;
       sha256 = "sha256-zdRZm0T6tBqNxvaUaiWAlAfuug/CQX0S+B5uDNdiQ/s=";
     };
   };
+
+  pypvz = callPackage ./pypvz { inherit rp; };
 }
