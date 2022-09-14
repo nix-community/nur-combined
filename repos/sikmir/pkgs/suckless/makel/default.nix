@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   installFlags = [ "PREFIX=$(out)" ];
 
   installPhase = ''
-    install -Dm755 makel $out/bin/makel
+    install -Dm755 makel -t $out/bin
   '';
 
   meta = with lib; {
