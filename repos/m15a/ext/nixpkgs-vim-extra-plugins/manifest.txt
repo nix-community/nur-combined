@@ -5,6 +5,7 @@ AckslD/nvim-gfold.lua
 AckslD/nvim-revJ.lua
 AllenDang/nvim-expand-expr
 CRAG666/code_runner.nvim
+Chaitanyabsprip/present.nvim
 Darazaki/indent-o-matic
 David-Kunz/jester
 EthanJWright/vs-tasks.nvim
@@ -19,6 +20,7 @@ L3MON4D3/LuaSnip
 LinArcX/telescope-command-palette.nvim
 LionC/nest.nvim
 LoricAndre/OneTerm.nvim
+LudoPinelli/comment-box.nvim
 Mangeshrex/uwu.vim
 Mofiqul/adwaita.nvim
 Mofiqul/dracula.nvim
