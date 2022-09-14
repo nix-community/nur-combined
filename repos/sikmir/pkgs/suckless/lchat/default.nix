@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lchat";
-  version = "2022-09-07";
+  version = "2022-01-26";
 
   src = fetchFromGitHub {
     owner = "younix";
     repo = "lchat";
-    rev = "fe93b05cea7431d7d240ae0d1d9842d288f66c4e";
-    hash = "sha256-XRekfeCRCtYzy5n0NrILWCZXW6Y68W48PretW+yCtD4=";
+    rev = "adcc7010548fdd11b1d80e1da1d9410c4d8e095b";
+    hash = "sha256-fiyempu1ay7TP0cCWzaAQBPMxljIVCJoYUHlZ37S1hA=";
   };
 
   buildInputs = [ libutf ncurses ];

@@ -1,16 +1,16 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, cairo, librsvg
 , Foundation, memstreamHook
-, testers
+, testers, smrender
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "smrender";
   version = "4.3.0";
 
   src = fetchFromGitHub {
     owner = "rahra";
     repo = "smrender";
-    rev = "v${finalAttrs.version}";
+    rev = "v${version}";
     hash = "sha256-b9xuOPLxA9zZzIwWl+FTSW5XHgJ2sFoC578ZH6iwjaM=";
   };
 
@@ -20,15 +20,15 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals stdenv.isDarwin [ Foundation memstreamHook ];
 
   passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    version = "V${finalAttrs.version}";
+    package = smrender;
+    version = "V${version}";
   };
 
   meta = with lib; {
     description = "A powerful, flexible, and modular rule-based rendering engine for OSM data";
-    inherit (finalAttrs.src.meta) homepage;
+    inherit (src.meta) homepage;
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-})
+}

@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lPHPwieotSgA6qF3EGDZk+lME0rqglOnEreYLk0/oUY=";
   };
 
-  buildInputs = with xorg; [ libxcb xcbutilimage ];
+  buildInputs = [ xorg.libxcb xorg.xcbutilimage ];
 
   installFlags = [ "PREFIX=$(out)" ];
 
