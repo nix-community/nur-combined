@@ -30,7 +30,10 @@ with python3Packages; buildPythonApplication rec {
       version = "${version}",
       packages = find_namespace_packages(),
       scripts = ["pypvz.py"],
-      package_data = {"": ["*.ttf", "*.png", "*.opus", "*.ogg"]}
+      package_data = {"": [
+        "*.png", "*.jpg", "*.bmp", "*.gif", "*.webp",
+        "*.ttf", "*.opus", "*.ogg"
+      ]}
     )
     EOF
   '';
