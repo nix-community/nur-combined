@@ -1759,10 +1759,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.4.5";
+      version = "2.4.6";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978299/private_relay-2.4.5.xpi";
-      sha256 = "fd21090f5ea7d5642b65d9c1feba5176a7bc74bb0ed5b7153062c7e6460a155c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3999199/private_relay-2.4.6.xpi";
+      sha256 = "36859027e11275fd068565a62dbf537e509f8eaa72225e98fd010f5442b5a391";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2671,10 +2671,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.69.0";
+      version = "2.70.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3996730/web_scrobbler-2.69.0.xpi";
-      sha256 = "26937f15fa7c39237266ffd93844f78b81db513c0849d6176072786af314558d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002172/web_scrobbler-2.70.0.xpi";
+      sha256 = "9e73cebdba25f272c33b3851cc387ff1471934c488ab1ef9bf0676bcbce27da3";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
