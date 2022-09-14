@@ -1,13 +1,13 @@
 { lib, fetchFromGitHub, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "unified-hosts-lists";
-  version = "3.10.1";
+  version = "3.11.16";
 
   src = fetchFromGitHub {
     owner = "StevenBlack";
     repo = "hosts";
     rev = version;
-    sha256 = "sha256-PFKKYtssjAJGrP3AQE32ZJGlxwxnFa0vUTpCn94fCFI=";
+    sha256 = "sha256-YB/3v6qMz/iERRV/AvbOMoLgtqHdXarCrZApfUqzwmo=";
   };
 
   dontUnpack = true;
