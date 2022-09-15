@@ -95,6 +95,18 @@
         "url": "https://github.com/akinsho/bufferline.nvim/archive/ffa1d0009f5e52d3d32d08c9a781f18b2b2ef507.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "chartoggle.nvim": {
+        "branch": "main",
+        "description": "Toggle character in Neovim",
+        "homepage": null,
+        "owner": "saifulapm",
+        "repo": "chartoggle.nvim",
+        "rev": "e96641c7ee7972033f832b7f4af78d9ed04b130f",
+        "sha256": "0lxj7znqa94ka8j84if1lzkqpy8jbp8bshmyn6h50lzdhi78zyj7",
+        "type": "tarball",
+        "url": "https://github.com/saifulapm/chartoggle.nvim/archive/e96641c7ee7972033f832b7f4af78d9ed04b130f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "cheatsheet.nvim": {
         "branch": "master",
         "description": "A cheatsheet plugin for neovim with bundled cheatsheets for the editor, multiple vim plugins, nerd-fonts, regex, etc. with a Telescope fuzzy finder interface !",
@@ -251,6 +263,18 @@
         "url": "https://github.com/Saecki/crates.nvim/archive/003442e2448870f6f2fab6ec7ac7b4de21e6d1d4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "detect-language.nvim": {
+        "branch": "main",
+        "description": "neovim plugin for better language auto-detection, powered by tree-sitter",
+        "homepage": "",
+        "owner": "spywhere",
+        "repo": "detect-language.nvim",
+        "rev": "5735c97f1bafbc4dcd577e47893e9ce0aee646be",
+        "sha256": "12b715lmphqvhs4rh45vxjr70y162gix4cbiv0jlha0xa3kzvjp4",
+        "type": "tarball",
+        "url": "https://github.com/spywhere/detect-language.nvim/archive/5735c97f1bafbc4dcd577e47893e9ce0aee646be.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "diaglist.nvim": {
         "branch": "master",
         "description": "Live render workspace diagnostics in quickfix with current buf errors on top, buffer diagnostics in loclist",
@@ -293,10 +317,10 @@
         "homepage": "",
         "owner": "stevearc",
         "repo": "dressing.nvim",
-        "rev": "b188b7750c78c0dbe0c61d79d824673a53ff82db",
-        "sha256": "1098vj0fgz1zazbw1a4nk5zsgq5gf38nc2xck0nlqwankrzasl2d",
+        "rev": "fbc798c34c21a4d7914a41f5b2263af2f75750c8",
+        "sha256": "0sd03zqv60kpd8ip60hk7aa1aw2g0ciycs6mawzjfjgcql5nygp2",
         "type": "tarball",
-        "url": "https://github.com/stevearc/dressing.nvim/archive/b188b7750c78c0dbe0c61d79d824673a53ff82db.tar.gz",
+        "url": "https://github.com/stevearc/dressing.nvim/archive/fbc798c34c21a4d7914a41f5b2263af2f75750c8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "dwm.nvim": {
@@ -437,10 +461,10 @@
         "homepage": "",
         "owner": "lewis6991",
         "repo": "gitsigns.nvim",
-        "rev": "facca89a95aa5e492505270a60a30825be576d14",
-        "sha256": "0kz0bav8z21y0ilxyzpxxwfmgrqfy3lafsjjkmwckxkkgydbpyv9",
+        "rev": "231fa923fbc2797eef92b24860ab882cebf645b2",
+        "sha256": "1v1sgc4ndgpvjh79k0m8r1gkpc74a4l82n76rqsdm5pzlza72gfa",
         "type": "tarball",
-        "url": "https://github.com/lewis6991/gitsigns.nvim/archive/facca89a95aa5e492505270a60a30825be576d14.tar.gz",
+        "url": "https://github.com/lewis6991/gitsigns.nvim/archive/231fa923fbc2797eef92b24860ab882cebf645b2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "glow-hover.nvim": {
@@ -509,10 +533,10 @@
         "homepage": null,
         "owner": "lewis6991",
         "repo": "hover.nvim",
-        "rev": "e9f7e065a1be7e3aafe305d3901c16ff58ef8395",
-        "sha256": "123gy64laqakypb9in1ian62h07l8m6qczb6r99i71n17ihs5iqp",
+        "rev": "e338a354acc465a2b285d7ea5e7820384f052e74",
+        "sha256": "0h8ripcfjmrlbx1m9smwfj8ag4qmaav6wgk7h82a2bvxiq58hvgj",
         "type": "tarball",
-        "url": "https://github.com/lewis6991/hover.nvim/archive/e9f7e065a1be7e3aafe305d3901c16ff58ef8395.tar.gz",
+        "url": "https://github.com/lewis6991/hover.nvim/archive/e338a354acc465a2b285d7ea5e7820384f052e74.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "icon-picker.nvim": {
@@ -585,6 +609,18 @@
         "sha256": "0n7bv98mv24x3d5bq5giia6qblw9y5p8aslgnnixsnip622pkjnz",
         "type": "tarball",
         "url": "https://github.com/Chromosore/lazily-nvim/archive/a12d7eddf8d56ae14fe617c3bce2d7ba47572d45.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "legendary.nvim": {
+        "branch": "master",
+        "description": "🗺️ A legend for your keymaps, commands, and autocmds, with which-key.nvim integration",
+        "homepage": "",
+        "owner": "mrjones2014",
+        "repo": "legendary.nvim",
+        "rev": "a7ded867f33600ae7cefdcdd8cdb1ab486427b33",
+        "sha256": "0hz5n1jnbjyr985ynk25xdjpwkwbwkkam4463x4d8y46x388sk21",
+        "type": "tarball",
+        "url": "https://github.com/mrjones2014/legendary.nvim/archive/a7ded867f33600ae7cefdcdd8cdb1ab486427b33.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lsp_extensions.nvim": {
@@ -689,10 +725,10 @@
         "homepage": "",
         "owner": "echasnovski",
         "repo": "mini.nvim",
-        "rev": "02e22656f1b78aa9f9a678e0ff31b62bbaf0dee6",
-        "sha256": "10zsypp2rbiwhambk6zsfsp0k4c6zzc3cbxvfjvp10da3lqi52na",
+        "rev": "7cdef92809c1e531d5f90b16834149a7e7f00de1",
+        "sha256": "0a84v7g5j1w1v6wplzzabipgnq80b8kvpvpr7zrv89pyg012piq6",
         "type": "tarball",
-        "url": "https://github.com/echasnovski/mini.nvim/archive/02e22656f1b78aa9f9a678e0ff31b62bbaf0dee6.tar.gz",
+        "url": "https://github.com/echasnovski/mini.nvim/archive/7cdef92809c1e531d5f90b16834149a7e7f00de1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mkdir.nvim": {
@@ -753,6 +789,18 @@
         "sha256": "0z7qak1b448vrmw9j3d2fkqk69h6aqi6vhn1r59bd16vsqa1fix9",
         "type": "tarball",
         "url": "https://github.com/nvim-neo-tree/neo-tree.nvim/archive/b13425d57111a7885961110f8e51907fa630642b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "neodim": {
+        "branch": "master",
+        "description": "Neovim plugin for dimming the highlights of unused functions, variables, parameters, and more",
+        "homepage": "",
+        "owner": "zbirenbaum",
+        "repo": "neodim",
+        "rev": "6632650ca9789b8073e2d85e7a6665e8035e6941",
+        "sha256": "0skqay8zxrgm3i8kn41h418z53w7q13sz5i0i92p3gx1wkp8aqq4",
+        "type": "tarball",
+        "url": "https://github.com/zbirenbaum/neodim/archive/6632650ca9789b8073e2d85e7a6665e8035e6941.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "neogen": {
@@ -893,10 +941,10 @@
         "homepage": "",
         "owner": "NvChad",
         "repo": "nvim-colorizer.lua",
-        "rev": "8ed446e0dbb6b8c71eb7d6141368076396b45c17",
-        "sha256": "15zw9p993c0mi226by2anfzdmhv1hi94g6fhav368pzrqmz4md93",
+        "rev": "004a2b3ef62b01d3d1db454d1efe76d31934d43b",
+        "sha256": "0ya9qnp294lldarab7cc6fddjc3wad8zsqn2bl9b4dlypgcz7g1g",
         "type": "tarball",
-        "url": "https://github.com/NvChad/nvim-colorizer.lua/archive/8ed446e0dbb6b8c71eb7d6141368076396b45c17.tar.gz",
+        "url": "https://github.com/NvChad/nvim-colorizer.lua/archive/004a2b3ef62b01d3d1db454d1efe76d31934d43b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-cursorword": {
@@ -1097,10 +1145,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "cd9dfc1e48e8ad27b75cf883ba036e83b7079b9a",
-        "sha256": "0zq2ic6la1idwf5rky5cnglg7d5g0halcwr6rvrjx23vy4sd4zhq",
+        "rev": "6d486212ed8028ada5401e4ceea66dbf58296665",
+        "sha256": "1m2s6s5vs1z6p2917ig9shgs917rwp43wgc9yr5gr5444a323s1w",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/cd9dfc1e48e8ad27b75cf883ba036e83b7079b9a.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/6d486212ed8028ada5401e4ceea66dbf58296665.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
@@ -1145,10 +1193,10 @@
         "homepage": "",
         "owner": "p00f",
         "repo": "nvim-ts-rainbow",
-        "rev": "620a24f6ace51d1407d186e9e94253d463d0bc3e",
-        "sha256": "0ghj1lk24pi3rckvlk6924flwxgp0za95s1iq5gk9dxpli25q53v",
+        "rev": "a48d442d47e2760fdc63f00e8edf470c51548ae9",
+        "sha256": "1zix6sa7dr5qqg2zskj0v981j5zrm2w6bqa1mr5j2394yyv9ffl9",
         "type": "tarball",
-        "url": "https://github.com/p00f/nvim-ts-rainbow/archive/620a24f6ace51d1407d186e9e94253d463d0bc3e.tar.gz",
+        "url": "https://github.com/p00f/nvim-ts-rainbow/archive/a48d442d47e2760fdc63f00e8edf470c51548ae9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-web-devicons": {
@@ -1413,6 +1461,18 @@
         "sha256": "1yx3bar8gsapaka0x9bkm5d7frzz3k1kpwbc7n110f5x3cirf1yx",
         "type": "tarball",
         "url": "https://github.com/tami5/sqlite.lua/archive/56c5aacd5e31496d9b3cd3d1b0e570bb9a65d35b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "stabilize.nvim": {
+        "branch": "master",
+        "description": "Neovim plugin to stabilize window open/close events.",
+        "homepage": "",
+        "owner": "luukvbaal",
+        "repo": "stabilize.nvim",
+        "rev": "f7c4d93d6822df1770a90b7fdb46f6df5c94052e",
+        "sha256": "01ngpjnpppazq4dqfwrdc2jkgz5ikpxkscsy0gc89lyi4q2srpai",
+        "type": "tarball",
+        "url": "https://github.com/luukvbaal/stabilize.nvim/archive/f7c4d93d6822df1770a90b7fdb46f6df5c94052e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tabby.nvim": {

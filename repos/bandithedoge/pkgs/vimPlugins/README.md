@@ -8,6 +8,7 @@
 | [barbar-nvim](https://github.com/romgrk/barbar.nvim) | The neovim tabline plugin. |
 | [better-comments-nvim](https://github.com/Djancyp/better-comments.nvim) | Nvim Plugin |
 | [bufferline-nvim](https://github.com/akinsho/bufferline.nvim) | A snazzy bufferline for Neovim |
+| [chartoggle-nvim](https://github.com/saifulapm/chartoggle.nvim) | Toggle character in Neovim |
 | [cheatsheet-nvim](https://github.com/sudormrfbin/cheatsheet.nvim) | A cheatsheet plugin for neovim with bundled cheatsheets for the editor, multiple vim plugins, nerd-fonts, regex, etc. with a Telescope fuzzy finder interface ! |
 | [cinnamon-nvim](https://github.com/declancm/cinnamon.nvim) | Smooth scrolling for ANY movement command 🤯. A Neovim plugin written in Lua! |
 | [cmp-cmdline](https://github.com/hrsh7th/cmp-cmdline) | nvim-cmp source for vim's cmdline |
@@ -21,6 +22,7 @@
 | [colortils-nvim](https://github.com/nvim-colortils/colortils.nvim) | Some color utils for neovim |
 | [coq_nvim](https://github.com/ms-jpq/coq_nvim) | Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization. |
 | [crates-nvim](https://github.com/Saecki/crates.nvim) | A neovim plugin that helps managing crates.io dependencies |
+| [detect-language-nvim](https://github.com/spywhere/detect-language.nvim) | neovim plugin for better language auto-detection, powered by tree-sitter |
 | [diaglist-nvim](https://github.com/onsails/diaglist.nvim) | Live render workspace diagnostics in quickfix with current buf errors on top, buffer diagnostics in loclist |
 | [direnv-vim](https://github.com/direnv/direnv.vim) | vim plugin for direnv support |
 | [document-color-nvim](https://github.com/mrshmllow/document-color.nvim) | 🌈 LSP-based colorizer for neovim |
@@ -49,6 +51,7 @@
 | [incline-nvim](https://github.com/b0o/incline.nvim) | 🎈 Floating winbar statuslines for Neovim |
 | [indent-blankline-nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indent guides  for Neovim |
 | [lazily-nvim](https://github.com/Chromosore/lazily-nvim) | A standalone plugin lazy loader for Neovim |
+| [legendary-nvim](https://github.com/mrjones2014/legendary.nvim) | 🗺️ A legend for your keymaps, commands, and autocmds, with which-key.nvim integration |
 | [lsp_extensions-nvim](https://github.com/nvim-lua/lsp_extensions.nvim) | Repo to hold a bunch of info & extension callbacks for built-in LSP. Use at your own risk :wink: |
 | [lsp_lines-nvim](https://github.com/Maan2003/lsp_lines.nvim) | Forked from https://git.sr.ht/~whynothugo/lsp_lines.nvim |
 | [lsp_signature-nvim](https://github.com/ray-x/lsp_signature.nvim) | LSP signature hint as you type |
@@ -63,6 +66,7 @@
 | [move-nvim](https://github.com/fedepujol/move.nvim) | Gain the power to move lines and blocks and auto-indent them! |
 | [neo-tree-diagnostics-nvim](https://github.com/mrbjarksen/neo-tree-diagnostics.nvim) | A diagnostics source for neo-tree.nvim |
 | [neo-tree-nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | Neovim plugin to manage the file system and other tree like structures. |
+| [neodim](https://github.com/zbirenbaum/neodim) | Neovim plugin for dimming the highlights of unused functions, variables, parameters, and more |
 | [neogen](https://github.com/danymat/neogen) | A better annotation generator. Supports multiple languages and annotation conventions. |
 | [nightfox-nvim](https://github.com/EdenEast/nightfox.nvim) | 🦊A highly customizable theme for vim and neovim with support for lsp, treesitter and a variety of plugins. |
 | [nim-nvim](https://github.com/alaviss/nim.nvim) | Nim plugin for NeoVim |
@@ -118,6 +122,7 @@
 | [specs-nvim](https://github.com/edluffy/specs.nvim) | 👓 A fast and lightweight Neovim lua plugin to keep an eye on where your cursor has jumped. |
 | [spellsitter-nvim](https://github.com/lewis6991/spellsitter.nvim) | Treesitter powered spellchecker |
 | [sqlite-lua](https://github.com/tami5/sqlite.lua) | SQLite/LuaJIT binding for lua and neovim |
+| [stabilize-nvim](https://github.com/luukvbaal/stabilize.nvim) | Neovim plugin to stabilize window open/close events. |
 | [tabby-nvim](https://github.com/nanozuki/tabby.nvim) | A minimal, configurable, neovim style tabline. Use your nvim tabs as workspace multiplexer. |
 | [tangerine-nvim](https://github.com/udayvir-singh/tangerine.nvim) | 🍊 Sweet Fennel integration for Neovim |
 | [telescope-dap-nvim](https://github.com/nvim-telescope/telescope-dap.nvim) | Integration for nvim-dap with telescope.nvim |
