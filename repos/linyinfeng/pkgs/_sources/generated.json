@@ -10,12 +10,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3ea99853f65979cc80f726770836693624ddeabe",
-            "sha256": "sha256-6nm9akNDwJq1l0hZdRaMlczlVFBp4gdRq0+lWcWfGBk=",
+            "rev": "1e9b8a4661de633634125c314e53339fcd0117c7",
+            "sha256": "sha256-CoQZwv9E7w418M6/2zrmftEQdVe6FhAxUhOff3t8wFw=",
             "type": "git",
             "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
         },
-        "version": "3ea99853f65979cc80f726770836693624ddeabe"
+        "version": "1e9b8a4661de633634125c314e53339fcd0117c7"
     },
     "clash-for-windows": {
         "cargoLocks": null,
@@ -25,11 +25,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GkhbNWlg5QUV4Y3ngcvTRNlljRgJkUucmx9qfXyFn8w=",
+            "sha256": "sha256-fBVCcvWjj/l+Rcj7PKP2MGrMaouy009pDEbwH6c/ObI=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.0/Clash.for.Windows-0.20.0-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.2/Clash.for.Windows-0.20.2-x64-linux.tar.gz"
         },
-        "version": "0.20.0"
+        "version": "0.20.2"
     },
     "clash-for-windows-icon": {
         "cargoLocks": null,
