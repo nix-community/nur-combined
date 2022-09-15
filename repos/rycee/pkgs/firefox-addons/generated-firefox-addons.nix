@@ -1430,10 +1430,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.10";
+      version = "11.4.11";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3996751/noscript-11.4.10.xpi";
-      sha256 = "80bf407f0cb4cc5168e1f28e8bdcc569067f9b5dac650bcf521800856d2a64c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002416/noscript-11.4.11.xpi";
+      sha256 = "d1430ddc3f3bc3a5c403dbf39ff8c8275a2e7ecd4a2f079be39c193d462a2a0b";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2096,10 +2096,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.7.29.851";
+      version = "22.9.14.1616";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3981990/sourcegraph_for_firefox-22.7.29.851.xpi";
-      sha256 = "83141fd1b755b57c76de7bc2ec3ee16080abe5aa66671c1add13909118aa5942";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002472/sourcegraph_for_firefox-22.9.14.1616.xpi";
+      sha256 = "4f33a94308524150e0ec2acb42b449c05c9e40e2c3df414a00269909da2650a8";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2400,10 +2400,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.0";
+      version = "3.9.1";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001583/tree_style_tab-3.9.0.xpi";
-      sha256 = "e5355fe7f5a1c7c9a0bf99ecbc32090d805dde78c8ea1fa4480b03e676092542";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002324/tree_style_tab-3.9.1.xpi";
+      sha256 = "e6a04bf368ea6bcffe0df8466024a0a13c845435cb763ea786f0bc124e9cd6b6";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
