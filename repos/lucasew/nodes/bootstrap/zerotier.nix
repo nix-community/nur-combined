@@ -7,6 +7,7 @@
       "e5cd7a9e1c857f07"
     ];
   };
+  networking.firewall.trustedInterfaces = [ "ztppi77yi3" ];
   networking.extraHosts = ''
     192.168.69.1 vps.local
     192.168.69.1 utils.vps.local

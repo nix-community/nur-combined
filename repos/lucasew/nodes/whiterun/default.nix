@@ -28,6 +28,8 @@ in {
 
   boot.kernelPackages = pkgs.linuxPackages_5_15;
 
+  virtualisation.libvirtd.enable = true;
+
   services.openssh.forwardX11 = true;
 
   # This value determines the NixOS release from which the default

@@ -22,8 +22,6 @@ in {
   DefaultTimeoutStartSec=10s
   '';
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     gparted
     paper-icon-theme
@@ -60,8 +58,6 @@ in {
       description = "Lucas Eduardo";
     };
   };
-
-  virtualisation.libvirtd.enable = true;
 
   hardware = {
     opengl = {

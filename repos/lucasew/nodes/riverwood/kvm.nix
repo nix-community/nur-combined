@@ -3,9 +3,6 @@ let
   inherit (global) username;
 in
 {
-  users.users.${username} = {
-    extraGroups = [ "kvm" "libvirt" ];
-  };
   virtualisation = {
     kvmgt = {
       enable = lib.mkDefault true;
@@ -29,9 +26,5 @@ in
         };
       };
     })
-  ];
-
-  environment.systemPackages = with pkgs; [
-    virt-manager
   ];
 }

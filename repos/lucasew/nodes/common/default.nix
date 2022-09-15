@@ -10,6 +10,7 @@ in
     ./tuning.nix
     ./tmux
     ./bash
+    ./kvm.nix
     "${inputs.simple-dashboard}/nixos-module.nix"
   ];
 
