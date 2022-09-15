@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "arcgis2geojson";
-  version = "2.0.1";
+  version = "3.0.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "chris48s";
     repo = "arcgis2geojson";
     rev = version;
-    hash = "sha256-NA1yNNZbx7ATFhgo2Be38liHQ5DWr66FDd24FaYur3M=";
+    hash = "sha256-6lXfQoazBABryyuch1PJF/7yPq7cOBuvGWCqBUVPdts=";
   };
 
   nativeBuildInputs = [ poetry ];

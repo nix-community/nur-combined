@@ -13,9 +13,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ cython pytest-runner ];
 
-  propagatedBuildInputs = with python3Packages; [
-    jinja2
-  ];
+  propagatedBuildInputs = with python3Packages; [ jinja2 ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 

@@ -132,7 +132,10 @@ lib.makeScope newScope (
     ### GEMINI
 
     agunua = callPackage ./gemini/agunua { };
-    astronaut = callPackage ./gemini/astronaut { };
+    astronaut = callPackage ./gemini/astronaut {
+      # Go 1.18 build error on darwin, caused by an old version of golang.org/x/sys
+      buildGoModule = pkgs.buildGo117Module;
+    };
     comitium = callPackage ./gemini/comitium { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };

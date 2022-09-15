@@ -2,13 +2,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "c2cwsgiutils";
-  version = "5.0.0";
+  version = "5.1.5";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "c2cwsgiutils";
     rev = version;
-    hash = "sha256-O+uh+9NurjnohCbpxJxrpvUUkb1gPHsqvG7+F4WNjQg=";
+    hash = "sha256-lPE21SLMgfnNu0qiM3e2qz6zJJ7u5YaNkqOSNTF1FVg=";
   };
 
   propagatedBuildInputs = with python3Packages; [
