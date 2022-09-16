@@ -29,6 +29,7 @@
   ]
   else [
     zathura
+    pdftk
     x264
 
 
