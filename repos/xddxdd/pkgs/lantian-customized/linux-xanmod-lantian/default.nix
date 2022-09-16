@@ -8,7 +8,7 @@
 
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
 let
-  version = "5.19.7";
+  version = "5.19.9";
   release = "1";
 in
 buildLinux {
@@ -17,7 +17,7 @@ buildLinux {
     owner = "xanmod";
     repo = "linux";
     rev = "${version}-xanmod${release}";
-    sha256 = "sha256-FdhZrympcqdu5hIo768W8YHNn1j4YB2gi78RZ0KrOcI=";
+    sha256 = "sha256-S053aUXmTL/wErNbGtj12V5ZtPNtRBdbjxQeR6lioVk=";
   };
   modDirVersion = "${version}-xanmod${release}-lantian";
 

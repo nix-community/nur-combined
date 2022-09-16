@@ -7,7 +7,7 @@
 buildGoModule rec {
   pname = "bird-lg-go";
   inherit (sources.bird-lg-go) version src;
-  vendorSha256 = "sha256-p1qwhxLXKcVOT2pspuN2aV2juvHRO17QqY3QnXeWDZc=";
+  vendorSha256 = "sha256-h7K6V5S/9y2dzz3SMwGwngCtgNoQHJGBKdBDLjvF8QA=";
 
   modRoot = "frontend";
 
