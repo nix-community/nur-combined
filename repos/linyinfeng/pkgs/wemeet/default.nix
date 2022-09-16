@@ -13,17 +13,15 @@ let
   desktopItem = makeDesktopItem
     {
       name = "wemeetapp";
-      desktopName = "Wemeet App";
+      desktopName = "Wemeet";
       exec = "wemeetapp %u";
       icon = "wemeetapp";
       categories = [ "AudioVideo" ];
-    } //
-  (if with lib; (versionAtLeast (versions.majorMinor trivial.version) "22.05")
-  then {
-    mimeTypes = [ "x-scheme-handler/wemeet" ];
-  } else {
-    mimeType = "x-scheme-handler/wemeet";
-  });
+      mimeTypes = [ "x-scheme-handler/wemeet" ];
+      extraConfig = {
+        "Name[zh_CN]" = "腾讯会议";
+      };
+    };
 in
 qt5.mkDerivation rec {
   inherit (sources.wemeet) pname version src;
