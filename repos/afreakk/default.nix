@@ -21,7 +21,7 @@ let
         owner = "afreakk";
         repo = pluginName;
         rev = version;
-        sha256 = "0000000000000000000000000000000000000000000000000000";
+        sha256 = "sha256-uaX4MDs29kwdDsI6oI3WMn+CgI07ygC2EHZ30+Qi8LA=";
       };
     };
     modules = {
