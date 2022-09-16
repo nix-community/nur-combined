@@ -1,22 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, unzip, mkgmap, mkgmap-splitter }:
+{ lib, stdenv, fetchFromGitHub, fetchurl, unzip, mkgmap, mkgmap-splitter, osm-extracts }:
 let
-  version = "220808";
-  data = fetchurl {
-    url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-    hash = "sha256-YEIsIPrJQYF9HI5lzkU9BOR4D3FxFeTbBMecojunx7A=";
-  };
   bounds = fetchurl {
-    url = "http://osm.thkukuk.de/data/bounds-20220729.zip";
-    hash = "sha256-u/8uDVR0RCWn28wez39J4fya5czIG2tTLyAAExiYcFM=";
+    url = "http://osm.thkukuk.de/data/bounds-20220909.zip";
+    hash = "sha256-79zepbGXulWr2QGlFVcIMkzASlTg5DqOEPvx0jcWLYw=";
   };
   sea = fetchurl {
-    url = "http://osm.thkukuk.de/data/sea-20220809001529.zip";
-    hash = "sha256-0Nnt7tDZ/qvKfkCfE6Q1CjrqpPRxv1Gd762CK75a0Mo=";
+    url = "http://osm.thkukuk.de/data/sea-20220914001527.zip";
+    hash = "sha256-ntafRbfMMnHy2IlhqKE/DaMinsu9NaXA41HhXb6YVf4=";
   };
 in
 stdenv.mkDerivation rec {
   pname = "opentopomap";
-  inherit version;
+  inherit (osm-extracts) version;
 
   src = fetchFromGitHub {
     owner = "der-stefan";
@@ -36,7 +31,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
-    (cd data && splitter --precomp-sea=../sea --output=o5m ${data})
+    (cd data && splitter --precomp-sea=../sea --output=o5m ${osm-extracts.src})
     (cd style/typ && mkgmap --family-id=35 opentopomap.txt)
 
     mkgmap \

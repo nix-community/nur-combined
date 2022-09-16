@@ -2,14 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "Amethyst-bin";
-  version = "0.15.4";
+  version = "0.16.0";
 
   src = fetchfromgh {
     owner = "ianyh";
     repo = "Amethyst";
     version = "v${version}";
     name = "Amethyst.zip";
-    sha256 = "16n5vdyjs6m4saqibv3fb420w6x83lsiw182qm3prnilh4q9qld3";
+    hash = "sha256-pghX74T0JsAWkxAaAaQ5NIhYqj89fo0ZqRtxPThJZ/M=";
   };
 
   sourceRoot = ".";
