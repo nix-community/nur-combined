@@ -44,8 +44,9 @@ in {
 
     networking.edgevpn = {
       enable = true;
+      dhcp = false;
       logLevel = "debug";
-      address = ip4.fromString "10.0.1.1/24";
+      address = ip4.fromString "10.0.1.2/24";
       router = "10.0.1.1";
       postStart = ''
         ip route add dev ${config.networking.edgevpn.interface} 10.0.0.0/24
