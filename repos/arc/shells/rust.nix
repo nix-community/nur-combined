@@ -2,7 +2,7 @@
   mapPlatform = rustPlatform: makeOverridable rustPlatform.mkShell {
     allowBroken = true;
     cargoCommands = [
-      "download" "outdated" "deps" "info"
+      "download-arc" "outdated" "deps" "info"
       "bloat" "llvm-lines"
       "with" "watch"
       "release"

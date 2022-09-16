@@ -30,7 +30,7 @@
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
     buildInputs = lib.optional hostPlatform.isLinux openssl
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
-    cargoSha256 = "1bgiwnppbhrhx376fba4bqh1bhick80zrknwnw0qz425vxhffl5k";
+    cargoSha256 = "sha256-oH+BBf9R5KHjj4shkngiOafRmMA2YXuC96acCV6VQwU=";
     cargoPatches = [ ./cargo-download-lock.patch ];
   };
 
@@ -54,22 +54,15 @@
   , openssl, pkgconfig
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-info";
-    version = "0.5.14";
+    version = "0.7.3";
     src = fetchFromGitLab {
       owner = "imp";
       repo = pname;
       rev = version;
-      sha256 = "0gpzcfw607wfb1pv8z46yk4l2rx6pn64mhw5jrj7x8331vl2dvwv";
+      sha256 = "sha256-m8YytirD9JBwssZFO6oQ9TGqjqvu1GxHN3z8WKLiKd4=";
     };
 
-    cargoPatches = [ (fetchurl {
-      # https://gitlab.com/imp/cargo-info/merge_requests/6
-      # NOTE: there's also https://gitlab.com/imp/cargo-info/merge_requests/7 which is about equivalent?
-      name = "update-deps.patch";
-      url = "https://gitlab.com/imp/cargo-info/commit/635a128a9e46ee9f3c443ed070da63b3ebb78033.diff";
-      sha256 = "14vz860a40njx4fdaxdw1iy92isihgab65x5c6kxb68iha6bg4j9";
-    }) ];
-    cargoSha256 = "1fvdpx60v3cv07b9vzybki519x10xgmm65bj5a57gjg6vii3ywfd";
+    cargoSha256 = "sha256-gI/DGPCVEi4Mg9nYLaPpeqpV7LBbxoLP0ditU6hPS1w=";
 
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
     buildInputs = lib.optional hostPlatform.isLinux openssl
