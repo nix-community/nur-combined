@@ -56,6 +56,22 @@
         "type": "github"
       }
     },
+    "climod": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1663269698,
+        "narHash": "sha256-F4F5csoHy9XkdxktpZmSeICIbvQS3w23KO7aw9u62Y4=",
+        "owner": "nixosbrasil",
+        "repo": "climod",
+        "rev": "8973f7b03059b5fefacc0a1ee9a673861ce818c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixosbrasil",
+        "repo": "climod",
+        "type": "github"
+      }
+    },
     "comma": {
       "flake": false,
       "locked": {
@@ -484,6 +500,7 @@
       "inputs": {
         "blender-bin": "blender-bin",
         "borderless-browser": "borderless-browser",
+        "climod": "climod",
         "comma": "comma",
         "dotenv": "dotenv",
         "erosanix": "erosanix",

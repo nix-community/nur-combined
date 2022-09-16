@@ -31,8 +31,10 @@ in {
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;
     mkWindowsApp = inputs.erosanix.lib."${prev.system}".mkWindowsApp;
+    climod = cp inputs.climod;
   };
   appimage-wrap = cp ./pkgs/appimage-wrap;
+  ctl = cp ./pkgs/ctl;
   p2k = cp inputs.pocket2kindle;
   redial_proxy = cp inputs.redial_proxy;
   send2kindle = cp inputs.send2kindle;

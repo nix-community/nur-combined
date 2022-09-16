@@ -9,6 +9,7 @@ in {
     ./i3.nix
     ./dunst.nix
     ./lockscreen.nix
+    ./kdeconnect.nix
   ];
   services.xserver = {
     enable = true;

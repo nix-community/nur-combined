@@ -11,8 +11,16 @@ in
     ./tmux
     ./bash
     ./kvm.nix
+    ./unstore.nix
     "${inputs.simple-dashboard}/nixos-module.nix"
   ];
+
+  services.unstore = {
+    enable = true;
+    paths = [
+      "flake.nix"
+    ];
+  };
 
   boot.loader.grub.memtest86.enable = true;
 

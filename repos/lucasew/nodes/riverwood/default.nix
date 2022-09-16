@@ -37,6 +37,8 @@ in
  
   # programs.steam.enable = true;
 
+  programs.kdeconnect.enable = true;
+
   boot = {
     supportedFilesystems = [ "ntfs" ];
     loader = {
