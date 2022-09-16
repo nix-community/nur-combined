@@ -10,6 +10,7 @@ drv.overrideAttrs (old: {
       --prefix PATH : "${lib.makeBinPath [nvchecker nix-prefetch-git]}"
   '';
   meta = with lib; {
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "22.05");
     platforms = [ "x86_64-linux" ];
   };
 })
