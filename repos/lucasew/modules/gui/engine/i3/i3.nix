@@ -134,7 +134,7 @@ exec --no-startup-id ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication
 # exec_always feh --bg-fill --no-xinerama --no-fehbg '/etc/wallpaper'
 exec_always feh --bg-fill --no-fehbg '/etc/wallpaper'
 
-exec_always systemctl restart --user polybar.service nm-applet.service blueberry-tray.service
+exec_always systemctl restart --user polybar.service nm-applet.service blueberry-tray.service kdeconnect.service kdeconnect-indicator.service
 
 default_border pixel 2
 hide_edge_borders smart
