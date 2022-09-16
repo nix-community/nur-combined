@@ -146,7 +146,7 @@ let
 
     vim_configurable-pynvim = { lib, vim_configurable, python3 }: (vim_configurable.override {
       # vim with python3
-      ${if lib.isNixpkgsUnstable then "python3" else "python"} = python3.withPackages(ps: with ps; [ pynvim ]);
+      python3 = python3.withPackages(ps: with ps; [ pynvim ]);
       wrapPythonDrv = true;
       guiSupport = "no";
       luaSupport = false;
@@ -215,8 +215,9 @@ let
       });
     in drv;
 
-    mumble-develop = { fetchFromGitHub, lib, mumble, libpulseaudio, alsa-lib, pipewire, libopus, libjack2, flac, libogg, libvorbis, celt_0_7, nlohmann_json, microsoft_gsl, poco, cmake, ninja, qt5, pkg-config, qtspeechSupport ? false }: let
+    mumble-develop = { fetchFromGitHub, lib, mumble, libpulseaudio, alsa-lib, pipewire, libopus, libjack2, celt_0_7, nlohmann_json, microsoft_gsl, ninja, qt5, qtspeechSupport ? false, celtSupport ? true }: let
       drv = mumble.override {
+        grpcSupport = true;
         speechdSupport = true;
         jackSupport = true;
       };
@@ -234,26 +235,32 @@ let
         fetchSubmodules = false;
       };
 
+      meta = old.meta or { } // {
+        broken = old.meta.broken or false || isNixpkgsStable;
+      };
+
       patches = [ ];
-      nativeBuildInputs = [ pkg-config cmake ninja qt5.wrapQtAppsHook qt5.qttools ];
-      buildInputs = old.buildInputs ++ runtimeDependencies ++ [ celt_0_7 poco flac libogg libvorbis nlohmann_json microsoft_gsl ]
+      nativeBuildInputs = old.nativeBuildInputs ++ [ ninja ];
+      buildInputs = old.buildInputs ++ runtimeDependencies ++ [ nlohmann_json microsoft_gsl ]
+        ++ optional celtSupport celt_0_7
         ++ optional qtspeechSupport qt5.qtspeech;
       qtWrapperArgs = old.qtWrapperArgs or [ ] ++ [
         "--prefix" "LD_LIBRARY_PATH" ":" (makeLibraryPath runtimeDependencies)
       ];
+      postFixup = null;
       cmakeFlags = [
         "-Dserver=OFF"
         "-DRELEASE_ID=${version}"
-        "-Dbundled-opus=NO"
-        "-Dbundled-celt=NO"
-        "-Dbundled-speex=NO"
-        "-Dbundled-rnnoise=NO"
-        "-Dbundled-json=NO"
-        "-Dbundled-gsl=NO"
-        "-Dportaudio=NO"
-        "-Dqtspeech=${if qtspeechSupport then "YES" else "NO"}"
-        "-Dembed-qt-translations=NO"
-        "-Dbundle-qt-translations=NO"
+        "-Dbundled-opus=OFF"
+        "-Dbundled-celt=${if celtSupport then "OFF" else "ON"}"
+        "-Dbundled-speex=OFF"
+        "-Dbundled-rnnoise=OFF"
+        "-Dbundled-json=OFF"
+        "-Dbundled-gsl=OFF"
+        "-Dportaudio=OFF"
+        "-Dqtspeech=${if qtspeechSupport then "ON" else "OFF"}"
+        "-Dembed-qt-translations=OFF"
+        "-Dbundle-qt-translations=OFF"
         "-Dupdate=OFF"
         "-Dtracy=OFF" "-DTRACY_ON_DEMAND=OFF"
         "-Dwarnings-as-errors=OFF"
