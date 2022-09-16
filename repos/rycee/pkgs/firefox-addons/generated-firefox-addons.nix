@@ -765,10 +765,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220912.145803";
+      version = "105.0buildid20220915.150737";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001687/francais_language_pack-105.0buildid20220912.145803.xpi";
-      sha256 = "c1576502fb379c48a02b7ca600a1e63f9e33b8c794133a1c7ddc1f7ff38cd998";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002989/francais_language_pack-105.0buildid20220915.150737.xpi";
+      sha256 = "b9faab39dc5ad7688b26a192814037473c41ca8150b7b8df9de20c04518e2b40";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -880,10 +880,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.903.0";
+      version = "8.904.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3997355/grammarly_1-8.903.0.xpi";
-      sha256 = "b65ee4c171bfe9881f910448f8939f6392c9723f40f21bb069c194d80757af4c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002770/grammarly_1-8.904.0.xpi";
+      sha256 = "453e0d15fdc910eeddc901345810bdfd9f3a733d79a45102aafb9b832cb805e4";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -992,10 +992,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.2";
+      version = "3.4.3";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3988152/i_dont_care_about_cookies-3.4.2.xpi";
-      sha256 = "bee737e7ecdac55be8d7ee49ba75ce475054c8e5c370d51671ade960363d3039";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002797/i_dont_care_about_cookies-3.4.3.xpi";
+      sha256 = "0758e06ba59b183e7933dab1d636b9b741036d24e309e6a583026d5d1ae747d7";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1913,10 +1913,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.9.9";
+      version = "22.9.15";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000641/refined_github-22.9.9.xpi";
-      sha256 = "68ba8bb1820944350d709f6378957515fb275be5f2f8ec78ada743ede39f945d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002791/refined_github-22.9.15.xpi";
+      sha256 = "97efbe4c9db31485e174c45277e9e5639f265aee8ebdc4c51137d7565db52453";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2400,10 +2400,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.1";
+      version = "3.9.2";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002324/tree_style_tab-3.9.1.xpi";
-      sha256 = "e6a04bf368ea6bcffe0df8466024a0a13c845435cb763ea786f0bc124e9cd6b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002516/tree_style_tab-3.9.2.xpi";
+      sha256 = "1cc960c77aeeeaefb6583b78851e8fe33550711b21959891f35718e82d551606";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
