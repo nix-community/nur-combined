@@ -1,15 +1,11 @@
 { pkgs ? import <nixpkgs> { } }:
-
-{
-  typora-legacy = pkgs.callPackage ./pkgs/typora-legacy { };
-  landrop = pkgs.callPackage ./pkgs/landrop { };
-  graphbuilder = pkgs.callPackage ./pkgs/graphbuilder { };
-  cmd-markdown = pkgs.callPackage ./pkgs/cmd-markdown { };
-  electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
-  ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
-  ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
-  lx-music-desktop = pkgs.callPackage ./pkgs/lx-music-desktop { };
-  aliyunpan = pkgs.callPackage ./pkgs/aliyunpan { };
-  nextssh = pkgs.callPackage ./pkgs/nextssh { };
-  v2raya = pkgs.callPackage ./pkgs/v2raya { };
-}
+let
+  genPkg = f: name: {
+    inherit name;
+    value = f name;
+  };
+  pkgDir = ./packages;
+  names = with builtins; attrNames (readDir pkgDir);
+  withContents = f: with builtins; listToAttrs (map (genPkg f) names);
+in
+  withContents (name: pkgs.callPackage (pkgDir + "/${name}") {})
