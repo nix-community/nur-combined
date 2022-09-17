@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = with pkgs; [
-    openssl
+    openssl_1_1
     SDL2
     SDL2_image
   ];
