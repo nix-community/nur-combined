@@ -27,35 +27,27 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.11.11";
+  version = "0.11.20";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "1640svcl2d29lw27q3lkx6f5hn9y4sdyiw159hamk87kv44w44z2";
+    sha256 = "0558gf16nrmmwqnvmwq4fvxgpcncwk0k1bsf6imqy9hkx1pm22wx";
   };
 
   postPatch = ''
     substituteInPlace requirements_test.txt \
-      --replace "coverage==6.4.1" "coverage>=6.3.2" \
-      --replace "jsonpickle==1.4.1" "jsonpickle>=1.4.1" \
+      --replace "coverage==6.4.4" "coverage>=6.4.2" \
       --replace "freezegun==1.2.1" "jsonpickle>=1.1.0" \
       --replace "pipdeptree==2.2.1" "" \
-      --replace "pylint-strict-informational==0.1" "" \
       --replace "pytest==7.1.2" "pytest>=7.1.1" \
-      --replace "pytest-cov==2.12.1" "pytest-cov>=2.12.1" \
-      --replace "pytest-socket==0.4.1" "pytest-socket>=0.4.0" \
+      --replace "pytest-sugar==0.9.5" "pytest-sugar>=0.9.4" \
       --replace "pytest-test-groups==1.0.3" "" \
       --replace "pytest-timeout==2.1.0" "pytest-timeout>=2.0.2" \
-      --replace "pytest-xdist==2.4.0" "pytest-xdist>=2.3.0" \
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
-      --replace "responses==0.12.0" "responses>=0.12.0" \
-      --replace "respx==0.19.0" "respx>=0.19.0" \
-      --replace "sqlalchemy==1.4.38" "sqlalchemy>=1.4.38" \
-      --replace "stdlib-list==0.7.0" "" \
-      --replace "tqdm==4.49.0" "tqdm>=4.49.0"
+      --replace "stdlib-list==0.7.0" ""
   '';
 
   propagatedBuildInputs = [
