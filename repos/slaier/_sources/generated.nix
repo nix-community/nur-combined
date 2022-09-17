@@ -3,11 +3,11 @@
 {
   "'vscode-extensions.GitHub.copilot'" = {
     pname = "'vscode-extensions.GitHub.copilot'";
-    version = "1.44.6735";
+    version = "1.45.6792";
     src = fetchurl {
-      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.44.6735/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.44.6735.zip";
-      sha256 = "sha256-8Z16yfG4I6TpzzKUm6xLSEr6NT//pEjfW5+biC4G+4M=";
+      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.45.6792/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.45.6792.zip";
+      sha256 = "sha256-nHYxPC+T2YYP46YybQNf7SEz4Jz2j6nrxn4osYdRebw=";
     };
     license = "cc-by-40";
     homepage = "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot";
@@ -39,11 +39,11 @@
   };
   "'vscode-extensions.TabNine.tabnine-vscode'" = {
     pname = "'vscode-extensions.TabNine.tabnine-vscode'";
-    version = "3.6.14";
+    version = "3.6.15";
     src = fetchurl {
-      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.14/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "tabnine-vscode-3.6.14.zip";
-      sha256 = "sha256-HdQrVvpWuAMzFUgcjIDC+Op2f/h1gKEHyFgVIEp7TJY=";
+      url = "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.15/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "tabnine-vscode-3.6.15.zip";
+      sha256 = "sha256-1/9XO3lBgrjd4bw4tmAjSJBlKwXDp3QSElRD7qYGQSg=";
     };
     license = "mit";
     homepage = "https://github.com/codota/tabnine-vscode";
@@ -147,11 +147,11 @@
   };
   "'vscode-extensions.vscode-icons-team.vscode-icons'" = {
     pname = "'vscode-extensions.vscode-icons-team.vscode-icons'";
-    version = "11.16.0";
+    version = "11.17.0";
     src = fetchurl {
-      url = "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.16.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "vscode-icons-11.16.0.zip";
-      sha256 = "sha256-m7FJ6oMIpQ3rfHaigxli2mf+qMVw4Y6qYAgva8rI9zk=";
+      url = "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.17.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "vscode-icons-11.17.0.zip";
+      sha256 = "sha256-WZE/nAc8YAipCRQHxi4VqyEfj3RwFHOedaaaeJPAqck=";
     };
     license = "mit";
     homepage = "https://github.com/vscode-icons/vscode-icons";
@@ -159,13 +159,13 @@
   };
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "103.0";
+    version = "104.0";
     src = fetchFromGitHub ({
       owner = "arkenfox";
       repo = "user.js";
-      rev = "103.0";
+      rev = "104.0";
       fetchSubmodules = false;
-      sha256 = "sha256-MhlZav86gz8bH1aEWyNFNLnc6T7MBU1d3dGHtG2lEnA=";
+      sha256 = "sha256-NyP/kJlV1Ai7os3gMqukKMdRSQ78GAjPCJkZDZtDdeo=";
     });
   };
   clash-speedtest = {
