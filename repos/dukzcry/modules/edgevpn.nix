@@ -112,6 +112,9 @@ in {
           Group = "edgevpn";
           RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
         } // serviceOptions;
+        unitConfig = {
+          Upholds = "network-addresses-${cfg.interface}.service";
+        };
       };
     })
     (mkIf client {
