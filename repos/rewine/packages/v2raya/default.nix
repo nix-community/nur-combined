@@ -12,7 +12,6 @@
 let
   pname = "v2raya";
   version = "1.5.9.1698.1";
-  git-rev = "a61825f14b22b981afcb8e2f2bef2cdd50f0189c";
   src = fetchFromGitHub {
     owner = "v2rayA";
     repo = "v2rayA";
