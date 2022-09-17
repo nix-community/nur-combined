@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.3.1" = {
+    "@eslint/eslintrc-1.3.2" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.3.1";
+      version = "1.3.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.1.tgz";
-        sha512 = "OhSY22oQQdw3zgPOOwdoj01l/Dzl1Z+xyUP33tkSN+aqyEhymJCcPHyXt+ylW8FSe0TfRC2VG+ROQOapD0aZSQ==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.2.tgz";
+        sha512 = "AXYd23w1S/bv3fTs3Lz0vjiYemS08jWkI3hYyS9I1ry+0f+Yjs1wm+sU0BS8qDOPrBIkp4qHYC16I8uVtpLajQ==";
       };
     };
     "@humanwhocodes/config-array-0.10.4" = {
@@ -445,15 +445,6 @@ let
         sha512 = "OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==";
       };
     };
-    "functional-red-black-tree-1.0.1" = {
-      name = "functional-red-black-tree";
-      packageName = "functional-red-black-tree";
-      version = "1.0.1";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz";
-        sha512 = "dsKNQNdj6xA3T+QlADDA7mOSlX0qiMINjn0cgr+eGHGsbSHzTabcIogz2+p/iqP1Xs6EP/sS2SbqH+brGTbq0g==";
-      };
-    };
     "glob-7.2.3" = {
       name = "glob";
       packageName = "glob";
@@ -596,6 +587,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz";
         sha512 = "RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
+      };
+    };
+    "js-sdsl-4.1.4" = {
+      name = "js-sdsl";
+      packageName = "js-sdsl";
+      version = "4.1.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.1.4.tgz";
+        sha512 = "Y2/yD55y5jteOAmY50JbUZYwk3CP3wnLPEZnlR1w9oKhITrBEtAxwuWKebFf8hMrPMgbYwFoWK/lH2sBkErELw==";
       };
     };
     "js-yaml-4.1.0" = {
@@ -998,10 +998,10 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.23.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.23.0.tgz"; sha1 = "a184918d288820179c6041bb3ddcc99ce6eea040"; };
+    version = "8.23.1";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.23.1.tgz"; sha1 = "cfd7b3f7fdd07db8d16b4ac0516a29c8d8dca5dc"; };
     dependencies = [
-      sources."@eslint/eslintrc-1.3.1"
+      sources."@eslint/eslintrc-1.3.2"
       sources."@humanwhocodes/config-array-0.10.4"
       sources."@humanwhocodes/gitignore-to-minimatch-1.0.2"
       sources."@humanwhocodes/module-importer-1.0.1"
@@ -1057,7 +1057,6 @@ let
       sources."flat-cache-3.0.4"
       sources."flatted-3.2.7"
       sources."fs.realpath-1.0.0"
-      sources."functional-red-black-tree-1.0.1"
       sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
       sources."globals-13.17.0"
@@ -1073,6 +1072,7 @@ let
       sources."is-glob-4.0.3"
       sources."is-number-7.0.0"
       sources."isexe-2.0.0"
+      sources."js-sdsl-4.1.4"
       sources."js-yaml-4.1.0"
       sources."json-schema-traverse-0.4.1"
       sources."json-stable-stringify-without-jsonify-1.0.1"
