@@ -353,10 +353,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.8";
+      version = "1.0.10";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970126/consent_o_matic-1.0.8.xpi";
-      sha256 = "0a75ccf41f2cb22b3897fb9170efe1b1886fef3a77f84b6c2ed6f172f819edbe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003406/consent_o_matic-1.0.10.xpi";
+      sha256 = "8d465f05d0beed30e7eeb3908d2ef51d25709f2e469b8f984ef63d9488141d4b";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -1270,10 +1270,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.18.3";
+      version = "10.18.4";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3987382/ether_metamask-10.18.3.xpi";
-      sha256 = "4d2e3bd8a4cc35b6368965791be500e460a133112c882a22a5a6fa9c6ce68782";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003278/ether_metamask-10.18.4.xpi";
+      sha256 = "7a10cebf3b4445561f2217cc83ce1e8b00568042f01aaefaeaaafbf028d724e7";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -2204,10 +2204,10 @@
       };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.12.0";
+      version = "6.12.1";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3944769/tab_session_manager-6.12.0.xpi";
-      sha256 = "91daf01ed2f58117ef03b09e24bae388563c329fe87006a2a9bd3d2382b043bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002882/tab_session_manager-6.12.1.xpi";
+      sha256 = "a3128a187fa42d45f7beca2480ebd3117a40bc591e6df726336932e081860747";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -2601,10 +2601,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.0";
+      version = "2.13.1";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3770708/violentmonkey-2.13.0.xpi";
-      sha256 = "c2b17f2fbad676304f8b3791602edd388a9df68c585168d04221c2851ff6346a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003302/violentmonkey-2.13.1.xpi";
+      sha256 = "f6b8e2e5abc885e5ff781f759337866c734e8413bc9d136b9f97e4b4c7b76582";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
