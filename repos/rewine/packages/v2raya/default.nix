@@ -4,7 +4,6 @@
 , fetchYarnDeps
 , buildGoModule
 , makeWrapper
-
 , v2ray
 , v2ray-geoip
 , v2ray-domain-list-community
@@ -47,7 +46,7 @@ buildGoModule {
   subPackages = [ "." ];
   nativeBuildInputs = [ makeWrapper ];
   preBuild = ''
-    cp -a ${web} server/router/web
+    ln -s ${web} server/router/web
   '';
   postInstall = ''
     wrapProgram $out/bin/v2rayA \
