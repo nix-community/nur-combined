@@ -30,10 +30,6 @@ let
     packageJSON = ./package.json;
 
     # https://github.com/webpack/webpack/issues/14532
-    yarnPreBuild = ''
-      export NODE_OPTIONS=--openssl-legacy-provider
-    '';
-    
     buildPhase = ''
       export NODE_OPTIONS=--openssl-legacy-provider
       ln -s $src/postcss.config.js postcss.config.js
@@ -47,7 +43,7 @@ in
 buildGoModule {
   inherit pname version;
   src = "${src}/service";
-  vendorSha256 = "sha256-E3UAOaUo28Bztmsy1URr6VNAT7Ice3Gqlh47rnLcHWg=";
+  vendorSha256 = "sha256-RqpXfZH0OvoG0vU17oAHn1dGLQunlUJEW89xuCSGEoE=";
   subPackages = [ "." ];
   nativeBuildInputs = [ makeWrapper ];
   preBuild = ''
