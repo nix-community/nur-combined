@@ -11,4 +11,5 @@
   lx-music-desktop = pkgs.callPackage ./pkgs/lx-music-desktop { };
   aliyunpan = pkgs.callPackage ./pkgs/aliyunpan { };
   nextssh = pkgs.callPackage ./pkgs/nextssh { };
+  v2raya = pkgs.callPackage ./pkgs/v2raya { };
 }
