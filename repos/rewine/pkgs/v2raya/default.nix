@@ -27,6 +27,12 @@ let
       sha256 = "sha256-2n9qD9AsMPplyhguVFULq7TQYpOpsrw6XXjptbOaYF8=";
     };
     packageJSON = ./package.json;
+
+    # https://github.com/webpack/webpack/issues/14532
+    yarnPreBuild = ''
+      export NODE_OPTIONS=--openssl-legacy-provider
+    '';
+    
     buildPhase = ''
       ln -s $src/postcss.config.js postcss.config.js
       OUTPUT_DIR=$out yarn --offline build
