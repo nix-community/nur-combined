@@ -19,7 +19,8 @@ let
       sha256 = "sha256-o4YeDsiNsqbGYO1VcvGzYKuZIMpvPSKvG5JkeSzFxUw=";
     };
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   inherit pname version;
 
   src = srcs.asar;
@@ -40,7 +41,7 @@ in stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
   ];
-  
+
   dontUnpack = true;
 
   installPhase = ''

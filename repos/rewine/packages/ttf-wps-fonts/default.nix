@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/BannedPatriot/ttf-wps-fonts";
-    description = "Symbol fonts required by wps-office"; 
+    description = "Symbol fonts required by wps-office";
     longDescription = ''
       These are the symbol fonts required by wps-office.
       They are used to display math formulas.

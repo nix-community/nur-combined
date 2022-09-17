@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     autoPatchelfHook
     makeWrapper
   ];
-  buildInputs = [ 
+  buildInputs = [
     glib
     gtk2
     alsa-lib
@@ -51,26 +51,28 @@ stdenv.mkDerivation {
     xorg.libXrandr
     libudev0-shim
   ];
-  
+
   installPhase = ''
     mkdir -p $out/bin
     mv * $out/ 
     ln -s $out/'Cmd Markdown' $out/bin/cmdmarkdown
   '';
 
-  preFixup = let
-    runtimeLibs = lib.makeLibraryPath [ libudev0-shim ];
-  in ''
-    wrapProgram "$out/bin/cmdmarkdown" --prefix LD_LIBRARY_PATH : ${runtimeLibs}
-  '';
- 
+  preFixup =
+    let
+      runtimeLibs = lib.makeLibraryPath [ libudev0-shim ];
+    in
+    ''
+      wrapProgram "$out/bin/cmdmarkdown" --prefix LD_LIBRARY_PATH : ${runtimeLibs}
+    '';
+
   dontStrip = true;
 
   meta = with lib; {
     description = "An easy to use markdown editor";
     homepage = "https://www.zybuluo.com";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }
 

@@ -4,10 +4,11 @@
 , libsForQt515
 , pkg-config
 }:
-let 
+let
   qmake = libsForQt515.qmake;
   wrapQtAppsHook = libsForQt515.qt5.wrapQtAppsHook;
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "GraphBuilder";
   version = "1.3.0";
 

@@ -5,10 +5,11 @@
 , pkg-config
 , libsodium
 }:
-let 
+let
   qmake = libsForQt515.qmake;
   wrapQtAppsHook = libsForQt515.qt5.wrapQtAppsHook;
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "LANDrop";
   version = "0.4.0";
 

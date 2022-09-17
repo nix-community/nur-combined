@@ -1,5 +1,7 @@
 { config, pkgs, nurpkgs, lib, ... }:
-{
+let
+  v2raya = pkgs.callPackage ./../../packages/v2raya { };
+in {
   options = {
     services.v2raya = {
       enable = lib.options.mkEnableOption "the v2rayA service";
@@ -17,7 +19,7 @@
 
       serviceConfig = {
         User = "root";
-        ExecStart = "${nurpkgs.${system}.v2raya}/bin/v2rayA --log-disable-timestamp";
+        ExecStart = "${v2raya}/bin/v2rayA --log-disable-timestamp";
         LimitNPROC = 500;
         LimitNOFILE = 1000000;
         Restart = "on-failure";
