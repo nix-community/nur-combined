@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, nurpkgs, lib, ... }:
 
 {
   options = {
@@ -18,7 +18,7 @@
 
       serviceConfig = {
         User = "root";
-        ExecStart = "${pkgs.v2raya}/bin/v2rayA --log-disable-timestamp";
+        ExecStart = "${nurpkgs.${system}.v2raya}/bin/v2rayA --log-disable-timestamp";
         LimitNPROC = 500;
         LimitNOFILE = 1000000;
         Restart = "on-failure";

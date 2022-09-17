@@ -12,8 +12,7 @@
         "armv7l-linux"
       ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-    in
-    {
+    in rec {
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { 
           inherit system;
@@ -23,6 +22,6 @@
           };
         };
       });
-      nixosModules = import ./modules;
+      nixosModules = import ./modules { nurpkgs = packages; };
     };
 }
