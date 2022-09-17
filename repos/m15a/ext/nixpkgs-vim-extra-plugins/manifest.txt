@@ -6,6 +6,7 @@ AckslD/nvim-revJ.lua
 AllenDang/nvim-expand-expr
 CRAG666/code_runner.nvim
 Chaitanyabsprip/present.nvim
+CosmicNvim/cosmic-ui
 Darazaki/indent-o-matic
 David-Kunz/jester
 EthanJWright/vs-tasks.nvim
