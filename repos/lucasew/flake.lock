@@ -59,11 +59,11 @@
     "climod": {
       "flake": false,
       "locked": {
-        "lastModified": 1663269698,
-        "narHash": "sha256-F4F5csoHy9XkdxktpZmSeICIbvQS3w23KO7aw9u62Y4=",
+        "lastModified": 1663422736,
+        "narHash": "sha256-+g5iIkNVjmkJ6sNA14azuLmdC5Frxp08/5GVIH0eJbU=",
         "owner": "nixosbrasil",
         "repo": "climod",
-        "rev": "8973f7b03059b5fefacc0a1ee9a673861ce818c3",
+        "rev": "6e8de65afd5f37254e0e24c1ec4090203f53551c",
         "type": "github"
       },
       "original": {

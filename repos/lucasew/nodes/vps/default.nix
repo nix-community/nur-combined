@@ -60,9 +60,6 @@ in {
   ];
   networking.firewall = {
     enable = true;
-    trustedInterfaces = [
-      "ztppi77yi3" # zerotier
-    ];
     allowedTCPPortRanges = [
       {from = 6969; to = 6980; }
     ];

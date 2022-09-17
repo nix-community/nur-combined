@@ -26,6 +26,11 @@ in
     ]
   ;
 
+  environment.systemPackages = with pkgs; [
+    kubectl
+    terraform
+  ];
+
   services.xserver.xkbModel = "acer_laptop";
 
   services.simple-dashboardd = {

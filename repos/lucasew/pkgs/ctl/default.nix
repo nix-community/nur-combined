@@ -1,7 +1,8 @@
 { lib, pkgs }:
 lib.climod {
   imports = [
-    ./deploy.nix
+    ./deploy
+    ./options
   ];
   name = "ctl";
   description = "lucasew's control CLI";

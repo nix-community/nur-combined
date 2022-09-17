@@ -244,7 +244,9 @@
 
     devShells.${system}.default = pkgs.mkShell {
       name = "nixcfg-shell";
-      buildInputs = with pkgs; [ ctl ];
+      buildInputs = with pkgs; [
+        # ctl
+      ];
       shellHook = ''
         ${global.environmentShell}
         echo Shell setup complete!
