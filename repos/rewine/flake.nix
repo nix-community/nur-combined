@@ -19,11 +19,10 @@
           inherit system;
           config = {
             allowUnfree = true;
-            permittedInsecurePackages = [
-              "electron-9.4.4"
-            ];
+            permittedInsecurePackages = [ "electron-9.4.4" ];
           };
         };
       });
+      nixosModules = import ./modules;
     };
 }
