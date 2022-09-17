@@ -3,14 +3,14 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "51cd68d55aa58b15b35cb74128b3760b50cbd178";
+    version = "a628d90ea557eb7439db05f286378176f80e8897";
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "51cd68d55aa58b15b35cb74128b3760b50cbd178";
+      rev = "a628d90ea557eb7439db05f286378176f80e8897";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Uk8JV31PtetHPIREohITt5GGWNgQX7VJRV7ZQwfZQDI=";
+      sha256 = "sha256-zN9Rjo1ruEC68j7A9yJVyS+TzhoLHe+MzBGOMMUN30A=";
     };
   };
   clash-for-windows = {
