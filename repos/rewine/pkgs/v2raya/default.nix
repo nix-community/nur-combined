@@ -24,12 +24,9 @@ let
     src = "${src}/gui";
     offlineCache = fetchYarnDeps {
       yarnLock = src + "/gui/yarn.lock";
-      sha256 = "sha256-OITdn3XfFl3W/HqaiufcStepEL6kRM8FQBD5hlpZ034=";
+      sha256 = "sha256-2n9qD9AsMPplyhguVFULq7TQYpOpsrw6XXjptbOaYF8=";
     };
-
-    #yarnNix = ./yarn.nix;
     packageJSON = ./package.json;
-    #yarnLock = "${src}/gui/yarn.lock";
     buildPhase = ''
       ln -s $src/postcss.config.js postcss.config.js
       OUTPUT_DIR=$out yarn --offline build
