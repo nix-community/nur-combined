@@ -7,5 +7,6 @@ let
   pkgDir = ./packages;
   names = with builtins; attrNames (readDir pkgDir);
   withContents = f: with builtins; listToAttrs (map (genPkg f) names);
-in
-  withContents (name: pkgs.callPackage (pkgDir + "/${name}") {})
+in {
+  modules = import ./modules; # NixOS modules
+} // withContents (name: pkgs.callPackage (pkgDir + "/${name}") { })
