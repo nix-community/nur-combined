@@ -4,6 +4,7 @@
 , fetchYarnDeps
 , buildGoModule
 , makeWrapper
+
 , v2ray
 , v2ray-geoip
 , v2ray-domain-list-community
@@ -34,6 +35,7 @@ let
     '';
     
     buildPhase = ''
+      export NODE_OPTIONS=--openssl-legacy-provider
       ln -s $src/postcss.config.js postcss.config.js
       OUTPUT_DIR=$out yarn --offline build
     '';
