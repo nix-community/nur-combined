@@ -1,4 +1,4 @@
-{ config, pkgs, nurpkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   v2raya = pkgs.callPackage ./../../packages/v2raya { };
 in {
