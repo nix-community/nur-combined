@@ -26,6 +26,17 @@ crystal.buildCrystalPackage rec {
   shardsFile = ./shards.nix;
   doCheck = false;
 
+  #crystalBinaries.webview.src = "src/lucky.cr";
+
+  buildPhase = ''
+       ls -al
+       ls -al src
+       ls -al lib
+       cd lib/webview && make
+       cd lib/common_marker/ext make
+       crystal build --release src/mip.cr
+  '';
+
   nativeBuildInputs = [
     pkg-config
     cmake
@@ -34,19 +45,19 @@ crystal.buildCrystalPackage rec {
     crystal
     shards
     nodejs
-    yarn
+    #yarn
     webkitgtk
     cmake
   ];
-#  buildInputs = [
-#    fswatch
-#    openssl
-#    crystal
-#    nodejs
-#    yarn
-#    webkitgtk
-#    cmake
-#  ];
+  buildInputs = [
+    fswatch
+    openssl
+    crystal
+    nodejs
+    yarn
+   webkitgtk
+    cmake
+  ];
 
 
   meta = with lib; {
