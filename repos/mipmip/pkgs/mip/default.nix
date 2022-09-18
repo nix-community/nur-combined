@@ -9,35 +9,63 @@
   shards,
   nodejs,
   yarn,
-  webkitgtk
+  webkitgtk,
+  cmark-gfm
 }:
 
+
 crystal.buildCrystalPackage rec {
+
+  markdfsrc = fetchFromGitHub {
+    owner = "github";
+    repo = "cmark-gfm";
+    rev = "9d57d8a23142b316282bdfc954cb0ecda40a8655";
+    sha256 = "ekHY5EGSrJrQwlXNjKpyj7k0Bzq1dYPacRsfNZ8K+lk=";
+  };
+
   pname = "mip";
-  version = "0.1.3";
+  version = "0.1.4";
 
   src = fetchFromGitHub {
     owner = "mipmip";
     repo = "mip";
-    rev = "0ec44d08ee4dacba063564f6a89bf1b7fcc635b1";
-    sha256 = "sY9gypkDwT4+KGhCvu832G3h4YdGGRpd8eB37Zp1BUo=";
+    rev = "6887a84689c3f8717b09d63188a187fbff28c291";
+    sha256 = "44E6cZ/hiRCpuI7r0E6o3AeqhPvoAEu4zxOxDT19NW4=";
   };
 
   shardsFile = ./shards.nix;
   doCheck = false;
 
-  #crystalBinaries.webview.src = "src/lucky.cr";
-
   buildPhase = ''
+       mkdir lib2
+       for d in lib/*; do cp -Lr $d lib2/ ; done
+       mv lib lib3
+       mv lib2 lib
+       chmod -R +w lib
+
+       cd lib/webview
+       make
+       cd ../..
+
+       cd lib/common_marker/ext
+       cp -a ${markdfsrc} ./cmark-gfm
+       chmod -R +w ./cmark-gfm
        ls -al
-       ls -al src
-       ls -al lib
-       cd lib/webview && make
-       cd lib/common_marker/ext make
+       ls -al ./cmark-gfm
+       sed -i 's/git/echo/g' Makefile
+       make
+       cd ../../..
        crystal build --release src/mip.cr
+       ls -al
+  '';
+
+  installPhase = ''
+    mkdir -p $out/{bin,share}
+    cp ./mip $out/bin/
   '';
 
   nativeBuildInputs = [
+    cmark-gfm
     pkg-config
     cmake
     fswatch
@@ -45,7 +73,6 @@ crystal.buildCrystalPackage rec {
     crystal
     shards
     nodejs
-    #yarn
     webkitgtk
     cmake
   ];
