@@ -80,75 +80,75 @@ rec {
   th-fonts = pkgs.recurseIntoAttrs (pkg ./th-fonts { });
 
   # Other packages
-  asterisk-g72x = pkg ./asterisk-g72x { };
-  baidupcs-go = pkg ./baidupcs-go { };
-  bilibili = pkg ./bilibili { };
-  bird-babel-rtt = pkg ./bird-babel-rtt { };
-  bird-lg-go = pkg ./bird-lg-go { };
-  bird-lgproxy-go = pkg ./bird-lgproxy-go { };
-  boringssl-oqs = pkg ./boringssl-oqs {
+  asterisk-g72x = pkg ./uncategorized/asterisk-g72x { };
+  baidupcs-go = pkg ./uncategorized/baidupcs-go { };
+  bilibili = pkg ./uncategorized/bilibili { };
+  bird-babel-rtt = pkg ./uncategorized/bird-babel-rtt { };
+  bird-lg-go = pkg ./uncategorized/bird-lg-go { };
+  bird-lgproxy-go = pkg ./uncategorized/bird-lgproxy-go { };
+  boringssl-oqs = pkg ./uncategorized/boringssl-oqs {
     inherit liboqs;
   };
-  calibre-cops = pkg ./calibre-cops { };
-  chmlib-utils = pkg ./chmlib-utils { };
-  cloudpan189-go = pkg ./cloudpan189-go { };
-  deepspeech-gpu = pkg ./deepspeech-gpu { };
-  deepspeech-wrappers = pkg ./deepspeech-gpu/wrappers.nix { };
-  dingtalk = pkg ./dingtalk { };
-  dn42-pingfinder = pkg ./dn42-pingfinder { };
-  douban-openapi-server = pkg ./douban-openapi-server {
+  calibre-cops = pkg ./uncategorized/calibre-cops { };
+  chmlib-utils = pkg ./uncategorized/chmlib-utils { };
+  cloudpan189-go = pkg ./uncategorized/cloudpan189-go { };
+  deepspeech-gpu = pkg ./uncategorized/deepspeech-gpu { };
+  deepspeech-wrappers = pkg ./uncategorized/deepspeech-gpu/wrappers.nix { };
+  dingtalk = pkg ./uncategorized/dingtalk { };
+  dn42-pingfinder = pkg ./uncategorized/dn42-pingfinder { };
+  douban-openapi-server = pkg ./uncategorized/douban-openapi-server {
     inherit flasgger;
   };
-  drone-vault = pkg ./drone-vault { };
-  etherguard = pkg ./etherguard { };
-  fcitx5-breeze = pkg ./fcitx5-breeze { };
-  flasgger = pkg ./flasgger { };
-  ftp-proxy = pkg ./ftp-proxy { };
-  genshin-checkin-helper = pkg ./genshin-checkin-helper {
+  drone-vault = pkg ./uncategorized/drone-vault { };
+  etherguard = pkg ./uncategorized/etherguard { };
+  fcitx5-breeze = pkg ./uncategorized/fcitx5-breeze { };
+  flasgger = pkg ./uncategorized/flasgger { };
+  ftp-proxy = pkg ./uncategorized/ftp-proxy { };
+  genshin-checkin-helper = pkg ./uncategorized/genshin-checkin-helper {
     inherit genshinhelper2 onepush;
   };
-  genshinhelper2 = pkg ./genshinhelper2 { };
-  glauth = pkg ./glauth { };
-  gopherus = pkg ./gopherus { };
-  hath = pkg ./hath { };
-  hesuvi-hrir = pkg ./hesuvi-hrir { };
-  hoyo-glyphs = pkg ./hoyo-glyphs { };
-  kaixinsong-fonts = pkg ./kaixinsong-fonts { };
-  konnect = pkg ./konnect { };
-  ldap-auth-proxy = pkg ./ldap-auth-proxy { };
-  liboqs = pkg ./liboqs { };
-  netboot-xyz = pkg ./netboot-xyz { };
-  netns-exec = pkg ./netns-exec { };
-  noise-suppression-for-voice = pkg ./noise-suppression-for-voice { };
-  nullfs = pkg ./nullfs { };
-  onepush = pkg ./onepush { };
-  openssl-oqs = pkg ./openssl-oqs {
+  genshinhelper2 = pkg ./uncategorized/genshinhelper2 { };
+  glauth = pkg ./uncategorized/glauth { };
+  gopherus = pkg ./uncategorized/gopherus { };
+  hath = pkg ./uncategorized/hath { };
+  hesuvi-hrir = pkg ./uncategorized/hesuvi-hrir { };
+  hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs { };
+  kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts { };
+  konnect = pkg ./uncategorized/konnect { };
+  ldap-auth-proxy = pkg ./uncategorized/ldap-auth-proxy { };
+  liboqs = pkg ./uncategorized/liboqs { };
+  netboot-xyz = pkg ./uncategorized/netboot-xyz { };
+  netns-exec = pkg ./uncategorized/netns-exec { };
+  noise-suppression-for-voice = pkg ./uncategorized/noise-suppression-for-voice { };
+  nullfs = pkg ./uncategorized/nullfs { };
+  onepush = pkg ./uncategorized/onepush { };
+  openssl-oqs = pkg ./uncategorized/openssl-oqs {
     inherit liboqs;
     cryptodev = pkgs.linuxPackages.cryptodev;
   };
-  openssl-oqs-provider = pkg ./openssl-oqs-provider {
+  openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider {
     inherit liboqs;
   };
-  osdlyrics = pkg ./osdlyrics { };
-  phpmyadmin = pkg ./phpmyadmin { };
-  phppgadmin = pkg ./phppgadmin { };
-  qbittorrent-enhanced-edition = pkg ./qbittorrent-enhanced-edition { };
-  qemu-user-static = pkg ./qemu-user-static { };
-  qq = pkg ./qq { };
-  qqmusic = pkg ./qqmusic { };
-  rime-aurora-pinyin = pkg ./rime-aurora-pinyin { };
-  rime-dict = pkg ./rime-dict { };
-  rime-moegirl = pkg ./rime-moegirl { };
-  rime-zhwiki = pkg ./rime-zhwiki { };
-  route-chain = pkg ./route-chain { };
-  svp = pkg ./svp { };
-  tachidesk-server = pkg ./tachidesk-server { };
-  vs-rife = pkg ./vs-rife { };
-  wechat-uos = pkg ./wechat-uos { };
-  wechat-uos-bin = pkg ./wechat-uos/official-bin.nix { };
+  osdlyrics = pkg ./uncategorized/osdlyrics { };
+  phpmyadmin = pkg ./uncategorized/phpmyadmin { };
+  phppgadmin = pkg ./uncategorized/phppgadmin { };
+  qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition { };
+  qemu-user-static = pkg ./uncategorized/qemu-user-static { };
+  qq = pkg ./uncategorized/qq { };
+  qqmusic = pkg ./uncategorized/qqmusic { };
+  rime-aurora-pinyin = pkg ./uncategorized/rime-aurora-pinyin { };
+  rime-dict = pkg ./uncategorized/rime-dict { };
+  rime-moegirl = pkg ./uncategorized/rime-moegirl { };
+  rime-zhwiki = pkg ./uncategorized/rime-zhwiki { };
+  route-chain = pkg ./uncategorized/route-chain { };
+  svp = pkg ./uncategorized/svp { };
+  tachidesk-server = pkg ./uncategorized/tachidesk-server { };
+  vs-rife = pkg ./uncategorized/vs-rife { };
+  wechat-uos = pkg ./uncategorized/wechat-uos { };
+  wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix { };
 
   # In case of wechat update, use (wine-wechat.override { version = "1.2.3"; sha256 = "xxx";})
-  wine-wechat = pkgs.lib.makeOverridable pkg ./wine-wechat { };
+  wine-wechat = pkgs.lib.makeOverridable pkg ./uncategorized/wine-wechat { };
 
-  xray = pkg ./xray { };
+  xray = pkg ./uncategorized/xray { };
 }

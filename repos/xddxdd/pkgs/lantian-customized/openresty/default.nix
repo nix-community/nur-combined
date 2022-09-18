@@ -17,19 +17,7 @@
 , ...
 } @ args:
 
-stdenv.mkDerivation rec {
-  pname = "openresty-lantian";
-  nginxVersion = "1.21.4";
-  version = "${nginxVersion}.1";
-
-  src = fetchzip {
-    url = "https://openresty.org/download/openresty-${version}.tar.gz";
-    sha256 = "sha256-ZnNePXzcbNv1ZE2lD4Gcy7mBe54LjJFb3iEKojR6Whs=";
-    name = "openresty";
-  };
-
-  sourceRoot = "openresty";
-
+let
   patchModStreamEcho = ./patches/stream-echo-nginx-module.patch;
 
   patchUseOpensslMd5Sha1 = fetchurl {
@@ -51,6 +39,15 @@ stdenv.mkDerivation rec {
     '';
   };
   patchNixSkipCheckLogsPath = ./patches/nix-skip-check-logs-path.patch;
+in
+stdenv.mkDerivation rec {
+  pname = "openresty-lantian";
+  nginxVersion = "1.21.4";
+  version = "${nginxVersion}.1";
+  src = fetchzip {
+    url = "https://openresty.org/download/openresty-${version}.tar.gz";
+    sha256 = "sha256-ZnNePXzcbNv1ZE2lD4Gcy7mBe54LjJFb3iEKojR6Whs=";
+  };
 
   enableParallelBuilding = true;
 
@@ -59,17 +56,16 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    openssl_3_0
-    libxcrypt
-
-    zlib
-    pcre
     gd
-    zstd
+    libxcrypt
+    openssl_3_0
+    pcre
     perl
+    zlib
+    zstd
   ];
 
-  postUnpack =
+  preConfigure =
     let
       extraSrcs = [
         "brotli"
@@ -81,36 +77,29 @@ stdenv.mkDerivation rec {
         "zstd-nginx-module"
       ];
 
-      patch = p: ''
-        echo ${p} && patch -p1 < ${p}
-      '';
+      patch = p: "echo ${p} && patch -p1 < ${p}";
     in
-    builtins.concatStringsSep "\n"
-      (builtins.map
-        (k: ''
-          cp -r ${sources."${k}".src} ${k}
-        '')
-        extraSrcs)
-    + ''
-      export BUILDROOT=$(pwd)
+    ''
+      ${builtins.concatStringsSep "\n"
+        (builtins.map (k: "cp -r ${sources."${k}".src} bundle/${k}") extraSrcs)}
       chmod -R 755 .
       patchShebangs .
 
-      cd $BUILDROOT/openresty/bundle/nginx-${nginxVersion}
+      pushd bundle/nginx-${nginxVersion}
       ${patch patchUseOpensslMd5Sha1}
       ${patch patchHpackDyntls}
       ${patch patchPlain}
       ${patch patchPlainProxy}
       ${patch patchNixEtag}
       ${patch patchNixSkipCheckLogsPath}
+      popd
 
-      cd $BUILDROOT/stream-echo-nginx-module
+      pushd bundle/stream-echo-nginx-module
       ${patch patchModStreamEcho}
+      popd
 
-      cd $BUILDROOT
-
-      rm -rf $BUILDROOT/ngx_brotli/deps/brotli
-      ln -s $BUILDROOT/brotli $BUILDROOT/ngx_brotli/deps/brotli
+      rm -rf bundle/ngx_brotli/deps/brotli
+      mv bundle/brotli bundle/ngx_brotli/deps/brotli
     '';
 
   configureFlags = [
@@ -133,13 +122,13 @@ stdenv.mkDerivation rec {
     "--with-stream_realip_module"
     "--with-stream_ssl_module"
     "--with-stream_ssl_preread_module"
-    "--add-module=../ngx_brotli"
-    "--add-module=../stream-echo-nginx-module"
-    "--add-module=../zstd-nginx-module"
-    "--add-module=../nginx-module-vts"
-    "--add-module=../nginx-module-sts"
-    "--add-module=../nginx-module-stream-sts"
-    "--without-http_encrypted_session_module" # Conflict with quic stuff
+    "--add-module=bundle/ngx_brotli"
+    "--add-module=bundle/stream-echo-nginx-module"
+    "--add-module=bundle/zstd-nginx-module"
+    "--add-module=bundle/nginx-module-vts"
+    "--add-module=bundle/nginx-module-sts"
+    "--add-module=bundle/nginx-module-stream-sts"
+    # "--without-http_encrypted_session_module" # Conflict with quic stuff
 
     # NixOS paths
     "--http-log-path=/var/log/nginx/access.log"
