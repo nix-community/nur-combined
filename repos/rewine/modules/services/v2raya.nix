@@ -22,6 +22,7 @@ in {
         ExecStart = "${v2raya}/bin/v2rayA --log-disable-timestamp";
         LimitNPROC = 500;
         LimitNOFILE = 1000000;
+        Environment = "V2RAYA_LOG_FILE=/var/log/v2raya/v2raya.log";
         Restart = "on-failure";
         Type = "simple";
       };
