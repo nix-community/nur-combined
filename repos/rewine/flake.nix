@@ -22,6 +22,6 @@
           };
         };
       });
-      nixosModules = import ./modules { nurpkgs = packages; };
+      nixosModules = import ./modules;
     };
 }
