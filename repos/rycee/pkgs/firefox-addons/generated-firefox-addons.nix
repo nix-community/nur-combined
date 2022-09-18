@@ -558,6 +558,20 @@
         platforms = platforms.all;
         };
       };
+    "enhanced-github" = buildFirefoxXpiAddon {
+      pname = "enhanced-github";
+      version = "5.0.11";
+      addonId = "{72bd91c9-3dc5-40a8-9b10-dec633c0873f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3764141/enhanced_github-5.0.11.xpi";
+      sha256 = "a75d7844b261289d099cf99b1c8915210919b371069f066af139d5a7892967b6";
+      meta = with lib;
+      {
+        homepage = "https://github.com/softvar/enhanced-github";
+        description = "Display repo size, size of each file, download link and option to copy file contents";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
       version = "2.0.115";
@@ -643,6 +657,20 @@
       {
         homepage = "https://browser.mt";
         description = "Translate websites in your browser without using the cloud.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "firemonkey" = buildFirefoxXpiAddon {
+      pname = "firemonkey";
+      version = "2.60";
+      addonId = "firemonkey@eros.man";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3991511/firemonkey-2.60.xpi";
+      sha256 = "1440bcf82cf88a5e708986238b1953c376a240c328053f40f902f56dba9e5801";
+      meta = with lib;
+      {
+        homepage = "https://github.com/erosman/support/issues";
+        description = "Super Lightweight User Script and Style Manager";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -834,6 +862,20 @@
           url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
           free = false;
           };
+        platforms = platforms.all;
+        };
+      };
+    "gloc" = buildFirefoxXpiAddon {
+      pname = "gloc";
+      version = "8.2.65";
+      addonId = "{bc2166c4-e7a2-46d5-ad9e-342cef57f1f7}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3973334/gloc-8.2.65.xpi";
+      sha256 = "6c791b35fce67f3ddad3648e8ecdc75220255a392e2755f6339439107f0e3081";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kas-elvirov/gloc";
+        description = "Сounts lines of code on GitHub\nWorks for public and private repositories.\nCounts lines of code from:\n- project detail page,\n- user's repositories,\n- organization page,\n- search results page, \n- trending page.";
+        license = licenses.gpl2;
         platforms = platforms.all;
         };
       };
@@ -1227,6 +1269,20 @@
         platforms = platforms.all;
         };
       };
+    "lovely-forks" = buildFirefoxXpiAddon {
+      pname = "lovely-forks";
+      version = "3.7.2";
+      addonId = "github-forks-addon@musicallyut.in";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3805375/lovely_forks-3.7.2.xpi";
+      sha256 = "a96c0da726fd46ce6a14ea39ceaaf571e7cf9a2d467b2e2e72543a7c57312b78";
+      meta = with lib;
+      {
+        homepage = "https://github.com/musically-ut/lovely-forks";
+        description = "Show notable forks of Github projects.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
       version = "4.6.1";
@@ -1277,6 +1333,25 @@
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
+        platforms = platforms.all;
+        };
+      };
+    "modheader" = buildFirefoxXpiAddon {
+      pname = "modheader";
+      version = "4.0.21";
+      addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3996739/modheader_firefox-4.0.21.xpi";
+      sha256 = "3e5099314ad725208eaa3079bc351e68caaf7249f58bf48c991ee8ac65976228";
+      meta = with lib;
+      {
+        homepage = "https://modheader.com/";
+        description = "Add and modify the HTTP request headers and response headers.\n\nUse ModHeader to:\n- Add / modify request and response headers\n- Add / modify cookies\n- Multi-profile support\n- Filtering based on URL, tab, or window\n- Export and share profiles";
+        license = {
+          shortName = "modheader";
+          fullName = "Terms of Use for ModHeader";
+          url = "https://modheader.com/terms#license-terms";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };
@@ -1338,6 +1413,20 @@
         homepage = "https://github.com/TheGoddessInari/netflix-1080p-firefox";
         description = "Forces 1080p playback for Netflix in Firefox. Originated with truedread/netflix-1080p-firefox, basic functionality has been rewritten.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "new-tab-override" = buildFirefoxXpiAddon {
+      pname = "new-tab-override";
+      version = "15.1.1";
+      addonId = "newtaboverride@agenedia.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3782413/new_tab_override-15.1.1.xpi";
+      sha256 = "74d97de74c1d4d5cc146182dbbf9cdc3f383ba4c5d1492edbdb14351549a9d64";
+      meta = with lib;
+      {
+        homepage = "https://www.soeren-hentzschel.at/firefox-webextensions/new-tab-override/";
+        description = "New Tab Override allows you to set the page that shows whenever you open a new tab.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -2185,6 +2274,20 @@
       {
         description = "Swedish spell-check dictionary.";
         license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
+    "switchyomega" = buildFirefoxXpiAddon {
+      pname = "switchyomega";
+      version = "2.5.20";
+      addonId = "switchyomega@feliscatus.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1056777/switchyomega-2.5.20.xpi";
+      sha256 = "360da61f908a00a1900241ede20f8a3f82675b2365cfdf386efa35fb284cca38";
+      meta = with lib;
+      {
+        homepage = "https://github.com/FelisCatus/SwitchyOmega";
+        description = "Manage and switch between multiple proxies quickly &amp; easily.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };

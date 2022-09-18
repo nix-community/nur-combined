@@ -155,6 +155,9 @@
     "pname": "ecosia"
   },
   {
+    "slug": "enhanced-github"
+  },
+  {
     "slug": "enhancer-for-youtube",
     "license": {
       "tag": "custom",
@@ -182,6 +185,9 @@
   },
   {
     "slug": "firefox-translations"
+  },
+  {
+    "slug": "firemonkey"
   },
   {
     "slug": "firenvim"
@@ -237,6 +243,9 @@
       "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
       "free": false
     }
+  },
+  {
+    "slug": "gloc"
   },
   {
     "slug": "gnome-shell-integration"
@@ -366,6 +375,9 @@
     "pname": "localcdn"
   },
   {
+    "slug": "lovely-forks"
+  },
+  {
     "slug": "mailvelope"
   },
   {
@@ -376,6 +388,17 @@
     "license": {
       "tag": "predefined",
       "shortName": "cc-by-nc-sa-30"
+    }
+  },
+  {
+    "slug": "modheader-firefox",
+    "pname": "modheader",
+    "license": {
+      "tag": "custom",
+      "shortName": "modheader",
+      "fullName": "Terms of Use for ModHeader",
+      "url": "https://modheader.com/terms#license-terms",
+      "free": false
     }
   },
   {
@@ -397,6 +420,9 @@
   {
     "slug": "netflix-1080p-firefox",
     "pname": "netflix-1080p"
+  },
+  {
+    "slug": "new-tab-override"
   },
   {
     "slug": "new-window-without-toolbar"
@@ -636,6 +662,9 @@
   {
     "pname": "surfingkeys",
     "slug": "surfingkeys_ff"
+  },
+  {
+    "slug": "switchyomega"
   },
   {
     "slug": "tab-counter-plus",
