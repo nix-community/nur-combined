@@ -184,25 +184,6 @@
         },
         "version": "OQS-BoringSSL-snapshot-2022-08"
     },
-    "brotli": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "brotli",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "google",
-            "repo": "brotli",
-            "rev": "9801a2c5d6c67c467ffad676ac301379bb877fc3",
-            "sha256": "sha256-kSIQqWxalvyXBJSM8kts9cAKUWlbJDFkTxtFyjUAz2Y=",
-            "type": "github"
-        },
-        "version": "9801a2c5d6c67c467ffad676ac301379bb877fc3"
-    },
     "cloudpan189-go": {
         "cargoLocks": null,
         "extract": null,
@@ -367,11 +348,11 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "4b78d96c00a3f629e15c0abe528b9ff14f8b7f5e",
-            "sha256": "sha256-YwsyUC4WLBccvQuP8+WjSL4dsdpiAU9H2xfUPHeOXO8=",
+            "rev": "8ab5a41c552f9f2cfefa1874104b63e5ac58e0c9",
+            "sha256": "sha256-JCLchcutv/RSlqUW6Hd54NYhaFEaW5V6bP0N5nOatDk=",
             "type": "github"
         },
-        "version": "4b78d96c00a3f629e15c0abe528b9ff14f8b7f5e"
+        "version": "8ab5a41c552f9f2cfefa1874104b63e5ac58e0c9"
     },
     "konnect": {
         "cargoLocks": null,
@@ -528,11 +509,11 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "99b03891425b81270d7355c04ec295d292cbacfa",
-            "sha256": "sha256-hw2HGHMAl8YQtkXFlWlFn6Kk69NbmWA+4IGewkG/Tq8=",
+            "rev": "0009b3bc668a7d73751c4cd8f8c0a161cba96832",
+            "sha256": "sha256-x4ry5ljPeJQY+7Mp04/xYIGf22d6Nee7CSqHezdK4gQ=",
             "type": "github"
         },
-        "version": "99b03891425b81270d7355c04ec295d292cbacfa"
+        "version": "0009b3bc668a7d73751c4cd8f8c0a161cba96832"
     },
     "ngx_brotli": {
         "cargoLocks": null,
@@ -642,11 +623,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "3f3d8a8cf331c73a26fe93a598273997cb54eb4f",
-            "sha256": "sha256-i3R9xfPmdFrF1jMR+iN8dd9SrpTFr7ffl34Ri7VDh40=",
+            "rev": "e2b22b0d6a2b029e8728e3e9c46be89861eedecf",
+            "sha256": "sha256-s2Lbn5Nio9XJOn2FMxGcRrHYSSLnO4PbCR/iCfS7vn4=",
             "type": "github"
         },
-        "version": "3f3d8a8cf331c73a26fe93a598273997cb54eb4f"
+        "version": "e2b22b0d6a2b029e8728e3e9c46be89861eedecf"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -831,11 +812,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EIRYqQhcEVSOGq3RR295WRt+xUae9VP0NltE9PVdcvI=",
+            "sha256": "sha256-zrDP3w+rORQegH/nu4oJcsaz9harzRCXrDDCY2jzaKU=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202209150105/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202209170841/geoip.dat"
         },
-        "version": "202209150105"
+        "version": "202209170841"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -845,11 +826,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PPz9jVrFEgg3g5yMdO+K3RLI7j5MZLgDEzwNlWc5gyk=",
+            "sha256": "sha256-00QuaayqVFX/CToDys45u0NOvWi6s7bFWpCxJgPsXxQ=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220916160215/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220918041236/dlc.dat"
         },
-        "version": "20220916160215"
+        "version": "20220918041236"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -861,9 +842,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202209150105/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202209170841/private.dat"
         },
-        "version": "202209150105"
+        "version": "202209170841"
     },
     "xray": {
         "cargoLocks": null,

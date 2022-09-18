@@ -40,10 +40,6 @@ fetch.github = "xddxdd/bird-lg-go"
 src.github = "open-quantum-safe/boringssl"
 fetch.github = "open-quantum-safe/boringssl"
 
-[brotli]
-src.git = "https://github.com/google/brotli.git"
-fetch.github = "google/brotli"
-
 [cloudpan189-go]
 src.github = "tickstep/cloudpan189-go"
 fetch.github = "tickstep/cloudpan189-go"

@@ -6,20 +6,19 @@
 , fetchurl
 , substituteAll
 , git
-, zlib
-, pcre
+, brotli
 , gd
-, zstd
-, perl
-, openssl_3_0
 , libxcrypt
+, openssl_3_0
+, pcre
+, perl
+, zlib
+, zstd
 , modules ? [ ]
 , ...
 } @ args:
 
 let
-  patchModStreamEcho = ./patches/stream-echo-nginx-module.patch;
-
   patchUseOpensslMd5Sha1 = fetchurl {
     url = "https://github.com/kn007/patch/raw/master/use_openssl_md5_sha1.patch";
     sha256 = "1db5mjkxl6vxg4pic4v6g8bi8q9v5psj8fbjmjls1nfvxpz6nhvr";
@@ -30,15 +29,12 @@ let
     sha256 = "0dp2lcyxcv41lcridny6fbc2yr95s2sx0bd2bxs59p437d3dm7qp";
   };
 
-  patchPlain = ./patches/nginx-plain.patch;
-  patchPlainProxy = ./patches/nginx-plain-proxy.patch;
   patchNixEtag = substituteAll {
     src = ./patches/nix-etag-1.15.4.patch;
     preInstall = ''
       export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
     '';
   };
-  patchNixSkipCheckLogsPath = ./patches/nix-skip-check-logs-path.patch;
 in
 stdenv.mkDerivation rec {
   pname = "openresty-lantian";
@@ -56,6 +52,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
+    brotli
     gd
     libxcrypt
     openssl_3_0
@@ -68,7 +65,6 @@ stdenv.mkDerivation rec {
   preConfigure =
     let
       extraSrcs = [
-        "brotli"
         "nginx-module-stream-sts"
         "nginx-module-sts"
         "nginx-module-vts"
@@ -88,18 +84,20 @@ stdenv.mkDerivation rec {
       pushd bundle/nginx-${nginxVersion}
       ${patch patchUseOpensslMd5Sha1}
       ${patch patchHpackDyntls}
-      ${patch patchPlain}
-      ${patch patchPlainProxy}
+      ${patch ./patches/nginx-plain.patch}
+      ${patch ./patches/nginx-plain-proxy.patch}
       ${patch patchNixEtag}
-      ${patch patchNixSkipCheckLogsPath}
+      ${patch ./patches/nix-skip-check-logs-path.patch}
+      popd
+
+      pushd bundle/ngx_brotli
+      rm -rf deps
+      ${patch ./patches/ngx-brotli-use-system-lib.patch}
       popd
 
       pushd bundle/stream-echo-nginx-module
-      ${patch patchModStreamEcho}
+      ${patch ./patches/stream-echo-nginx-module.patch}
       popd
-
-      rm -rf bundle/ngx_brotli/deps/brotli
-      mv bundle/brotli bundle/ngx_brotli/deps/brotli
     '';
 
   configureFlags = [
