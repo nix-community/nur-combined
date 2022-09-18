@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   emulationstation-de = pkgs.callPackage ./pkgs/emulationstation-de { };
+  fancontrol-gui = pkgs.libsForQt5.callPackage ./pkgs/fancontrol-gui { };
   koi = pkgs.libsForQt5.callPackage ./pkgs/koi { };
 }
