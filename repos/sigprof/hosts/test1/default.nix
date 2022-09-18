@@ -29,6 +29,7 @@ in
         sigprof.i18n.ru_RU.enable = true;
 
         environment.systemPackages = [
+          pkgs.kicad-small
           pkgs.tor-browser-bundle-bin
           self.packages.${system}.virt-manager
 
@@ -36,7 +37,6 @@ in
           self.packages.${system}.firefox-langpack-ru
           self.packages.${system}.thunderbird-langpack-ru
 
-          unstable.kicad-small
           unstable.tdesktop
           unstable.vial
         ];
