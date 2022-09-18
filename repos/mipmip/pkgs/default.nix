@@ -19,6 +19,7 @@ let
     #dstp      = pkgs.callPackage ./dstp      { };
 
     #open3d    = pkgs.python38Packages.callPackage ./open3d    { };
+    mip           = pkgs.callPackage ./mip      { };
 
   };
 in self
