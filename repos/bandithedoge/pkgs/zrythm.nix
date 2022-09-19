@@ -2,13 +2,16 @@
   pkgs,
   sources,
 }: let
+  libadwaita = pkgs.libadwaita.overrideAttrs (oldAttrs: {
+    inherit (sources.libadwaita) pname version src;
+  });
   libpanel = pkgs.stdenv.mkDerivation {
     pname = "libpanel";
     version = "1.0.alpha";
     src = pkgs.fetchgit {
-      url = "https://gitlab.gnome.org/chergert/libpanel.git";
-      rev = "11a83c39014254540015999a262f41a4e0fc7579";
-      sha256 = "1fxhsk2c6cj0p409i2gfb7fi9fyz6hdaa2w7iy6sfsj7nwcfk333";
+      url = "https://gitlab.gnome.org/GNOME/libpanel";
+      rev = "aaa0a3ade2e0708f2eafc0b963d9e9d7e54fc108";
+      sha256 = "1qcrqgnq2s90wfa9lq6qp3441skrczx71g4chbm5rg7bl4530ffb";
     };
     nativeBuildInputs = with pkgs; [
       pkg-config
@@ -17,16 +20,14 @@
       cmake
     ];
     buildInputs = with pkgs; [
-      libadwaita
-      gobject-introspection
+      gi-docgen
       glib
+      gobject-introspection
       gtk4
+      libadwaita
       vala
     ];
   };
-  libadwaita = pkgs.libadwaita.overrideAttrs (oldAttrs: {
-    inherit (sources.libadwaita) pname version src;
-  });
 in
   pkgs.stdenv.mkDerivation rec {
     inherit (sources.zrythm) pname version src;
@@ -64,7 +65,6 @@ in
       gtksourceview5
       guile
       json-glib
-      libadwaita
       libadwaita
       libbacktrace
       libcyaml
