@@ -526,24 +526,16 @@ let
 
     scream-arc = { scream, fetchpatch, fetchFromGitHub, lib }: scream.overrideAttrs (old: {
       pname = "scream-arc";
-      version = "2022-06-19";
-      src = fetchFromGitHub {
-        owner = "duncanthrax";
-        repo = "scream";
-        rev = "375efee3f3b9e2af1d03dc8531ee767f803b72e0";
-        sha256 = "sha256-5r6ciGLGRdUg6702CxEms1LO2YnqxY4+cKpTe7chMe0=";
-      };
       patches = old.patches or [] ++ [
         (fetchpatch {
           # https://github.com/arcnmx/scream/commits/shmem-catch-up
           url = "https://github.com/arcnmx/scream/commit/756ded53e590d969fdd23871400f7b8c75317ce4.patch";
           sha256 = "1z96fcvhgnwkbinv3ix3dkm9fhy8fvxvmhx45zpg4nig2snqyqmb";
         })
-        (fetchpatch {
-          url = "https://github.com/arcnmx/scream/commit/fd8ae24a5261bbdb901ec1aed9fa8960741b6c46.patch";
-          sha256 = "18pavs8kdqsj43iapfs5x639w613xhahd168c2j86sizy04390ga";
-        })
-      ];
+      ] ++ lib.optional (lib.versionOlder scream.version "4.0") (fetchpatch {
+        url = "https://github.com/arcnmx/scream/commit/fd8ae24a5261bbdb901ec1aed9fa8960741b6c46.patch";
+        sha256 = "18pavs8kdqsj43iapfs5x639w613xhahd168c2j86sizy04390ga";
+      });
       meta = old.meta or { } // {
         mainProgram = "scream";
       };
