@@ -59,6 +59,7 @@
     vlc
     glib.dev
     glade
+    protonmail-bridge
 
     whatsapp-for-linux
   ]);
