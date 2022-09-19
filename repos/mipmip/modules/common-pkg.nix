@@ -20,6 +20,7 @@
     python3Full
     python3Packages.pip
     python3Packages.setuptools
+    python3Packages.requests
     openssl
     direnv
     zip
