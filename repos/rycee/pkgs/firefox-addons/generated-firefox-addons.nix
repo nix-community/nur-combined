@@ -271,10 +271,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.4.0";
+      version = "2.8.5.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001190/bypass_paywalls_clean-2.8.4.0.xpi";
-      sha256 = "a3fc89823c8170fa4ccd9677d0e750eba42c3e540a2aaaac3296b569ad9e5181";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003883/bypass_paywalls_clean-2.8.5.0.xpi";
+      sha256 = "09fc16733722e4f950cc19b08ddac2567ead132cb875af4a9bcbef32ee79fd2e";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1257,10 +1257,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.34";
+      version = "2.6.35";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3994960/localcdn_fork_of_decentraleyes-2.6.34.xpi";
-      sha256 = "2987fa7c69f7e27f569677dd8d2cebd578fa0ba743c79e45c09c31d3689be857";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003760/localcdn_fork_of_decentraleyes-2.6.35.xpi";
+      sha256 = "a2afe65bf398121078a9ece90d9dcd21175ea3fb2294359874de3bf6ef3d73d6";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2550,10 +2550,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.0.1";
+      version = "8.0.2";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3989794/ublacklist-8.0.1.xpi";
-      sha256 = "05c143b14f02ec64aef7dfadd2ef2224efaf3f080cc0787a96d59dda9bef238b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003811/ublacklist-8.0.2.xpi";
+      sha256 = "167c4edbda983fa17e048207704742122b5eeae8487ceb05e1e305274dea526a";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
