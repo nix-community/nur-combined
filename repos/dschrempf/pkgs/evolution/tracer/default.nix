@@ -25,6 +25,7 @@ stdenv.mkDerivation {
 
   propagatedBuildInputs = [ jre ];
 
+  patches = [ ./all-extensions.patch ];
   buildPhase = ''
     ant linux
   '';

@@ -1,0 +1,22 @@
+diff --git a/src/tracer/application/TracerFrame.java b/src/tracer/application/TracerFrame.java
+index d8bed33..fca679b 100644
+--- a/src/tracer/application/TracerFrame.java
++++ b/src/tracer/application/TracerFrame.java
+@@ -1201,8 +1201,8 @@ public class TracerFrame extends DocumentFrame implements TracerFileMenuHandler,
+             final JFileChooser chooser = new JFileChooser(openDefaultDirectory);
+             chooser.setMultiSelectionEnabled(true);
+ 
+-            FileNameExtensionFilter filter = new FileNameExtensionFilter("BEAST log (*.log) Files", "log", "txt");
+-            chooser.setFileFilter(filter);
++            // FileNameExtensionFilter filter = new FileNameExtensionFilter("BEAST log (*.log) Files", "log", "txt");
++            // chooser.setFileFilter(filter);
+ 
+             final int returnVal = chooser.showOpenDialog(this);
+             if (returnVal == JFileChooser.APPROVE_OPTION) {
+@@ -2059,4 +2059,4 @@ public class TracerFrame extends DocumentFrame implements TracerFileMenuHandler,
+         }
+     };
+ 
+-}
+\ No newline at end of file
++}
