@@ -68,8 +68,8 @@
       platforms = platforms.all;
     };
   };
-  "don-t-fuck-with-paste" = buildFirefoxXpiAddon {
-    pname = "don-t-fuck-with-paste";
+  "dont-fuck-with-paste" = buildFirefoxXpiAddon {
+    pname = "dont-fuck-with-paste";
     version = "2.7";
     addonId = "DontFuckWithPaste@raim.ist";
     url = "https://addons.mozilla.org/firefox/downloads/file/3630212/don_t_fuck_with_paste-2.7.xpi";
@@ -78,6 +78,19 @@
       homepage = "https://github.com/aaronraimist/DontFuckWithPaste";
       description = "This add-on stops websites from blocking copy and paste for password fields and other input fields.";
       license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+  "downthemall" = buildFirefoxXpiAddon {
+    pname = "downthemall";
+    version = "4.5.2";
+    addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3983650/downthemall-4.5.2.xpi";
+    sha256 = "4ca00c6219157c7250ac1796daf0a840d6a43fb98bdc7a0a5b6d96b50a4dac06";
+    meta = with lib; {
+      homepage = "https://www.downthemall.org/";
+      description = "The Mass Downloader for your browser";
+      license = licenses.gpl2;
       platforms = platforms.all;
     };
   };
@@ -106,8 +119,8 @@
       platforms = platforms.all;
     };
   };
-  "gitako-github-file-tree" = buildFirefoxXpiAddon {
-    pname = "gitako-github-file-tree";
+  "gitako" = buildFirefoxXpiAddon {
+    pname = "gitako";
     version = "3.9.0";
     addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
     url = "https://addons.mozilla.org/firefox/downloads/file/3995578/gitako_github_file_tree-3.9.0.xpi";
@@ -273,8 +286,8 @@
       platforms = platforms.all;
     };
   };
-  "refined-github-" = buildFirefoxXpiAddon {
-    pname = "refined-github-";
+  "refined-github" = buildFirefoxXpiAddon {
+    pname = "refined-github";
     version = "22.9.15";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
     url = "https://addons.mozilla.org/firefox/downloads/file/4002791/refined_github-22.9.15.xpi";
@@ -312,10 +325,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "4.7.1";
+    version = "5.0.3";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3978884/sponsorblock-4.7.1.xpi";
-    sha256 = "00f5cbb335d6f40e019f28a8bc00499dc5f1bb9ac6ceb64c128af3a6a0aa0015";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4003998/sponsorblock-5.0.3.xpi";
+    sha256 = "d61f9d276015cb13b12ec45081ba5ffd81a74244cefb137ca9c8709eb90d4266";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -336,8 +349,8 @@
       platforms = platforms.all;
     };
   };
-  "styl-us" = buildFirefoxXpiAddon {
-    pname = "styl-us";
+  "stylus" = buildFirefoxXpiAddon {
+    pname = "stylus";
     version = "1.5.26";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
     url = "https://addons.mozilla.org/firefox/downloads/file/3995806/styl_us-1.5.26.xpi";

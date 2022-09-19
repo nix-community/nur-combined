@@ -15,6 +15,7 @@
         "slug": "csgofloat"
     },
     {
+        "pname": "dont-fuck-with-paste",
         "slug": "don-t-fuck-with-paste"
     },
     {
@@ -24,6 +25,7 @@
         "slug": "enhancer-for-youtube"
     },
     {
+        "pname": "gitako",
         "slug": "gitako-github-file-tree"
     },
     {
@@ -63,6 +65,7 @@
         "slug": "reddit-enhancement-suite"
     },
     {
+        "pname": "refined-github",
         "slug": "refined-github-"
     },
     {
@@ -78,6 +81,7 @@
         "slug": "steam-database"
     },
     {
+        "pname": "stylus",
         "slug": "styl-us"
     },
     {
@@ -85,5 +89,8 @@
     },
     {
         "slug": "violentmonkey"
+    },
+    {
+        "slug": "downthemall"
     }
 ]
