@@ -59,7 +59,7 @@ in {
             [
               {
                 block = "pomodoro";
-                length = 60;
+                length = 50;
                 break_length = 10;
                 notifier = "i3nag";
               }
