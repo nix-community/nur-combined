@@ -215,14 +215,20 @@ let
       });
     in drv;
 
-    mumble-develop = { fetchFromGitHub, lib, mumble, libpulseaudio, alsa-lib, pipewire, libopus, libjack2, celt_0_7, nlohmann_json, microsoft_gsl, ninja, qt5, qtspeechSupport ? false, celtSupport ? true }: let
+    mumble-develop = { fetchFromGitHub, lib, mumble, libpulseaudio, alsa-lib, pipewire, libopus, libjack2, nlohmann_json, microsoft_gsl, ninja, qt5, qtspeechSupport ? false }: let
       drv = mumble.override {
         grpcSupport = true;
         speechdSupport = true;
         jackSupport = true;
       };
-      version = "2022-04-01";
+      version = "2022-09-16";
       runtimeDependencies = [ libpulseaudio libopus libjack2 pipewire alsa-lib ];
+      FindPythonInterpreter = fetchFromGitHub {
+        owner = "Krzmbrzl";
+        repo = "FindPythonInterpreter";
+        rev = "bb4d3ea8434eebef40df35434a9b6ef410fce0b2";
+        sha256 = "sha256-dRUoPA+1eMWo2tCQs3cMjzLdmK6iPNcstzA/7IVq0Oc=";
+      };
     in with lib; drv.overrideAttrs (old: {
       pname = "mumble-develop";
       inherit version;
@@ -230,10 +236,11 @@ let
       src = fetchFromGitHub {
         owner = "mumble-voip";
         repo = "mumble";
-        rev = "7a6cbc8046009b773aafb1ea1501f7a320e8d871";
-        sha256 = "1870bbr0x2djyhgm8km37kn262w8jh8p0b49975ajscnjr8hw4i0";
+        rev = "40f2edb3023ec4584cbfa4be57e6726304566d67";
+        sha256 = "sha256-yRW9asxYikUza9XqmY7ojnBmRykt5pUKA5hGOXBZgS8=";
         fetchSubmodules = false;
       };
+      inherit FindPythonInterpreter;
 
       meta = old.meta or { } // {
         broken = old.meta.broken or false || isNixpkgsStable;
@@ -242,7 +249,6 @@ let
       patches = [ ];
       nativeBuildInputs = old.nativeBuildInputs ++ [ ninja ];
       buildInputs = old.buildInputs ++ runtimeDependencies ++ [ nlohmann_json microsoft_gsl ]
-        ++ optional celtSupport celt_0_7
         ++ optional qtspeechSupport qt5.qtspeech;
       qtWrapperArgs = old.qtWrapperArgs or [ ] ++ [
         "--prefix" "LD_LIBRARY_PATH" ":" (makeLibraryPath runtimeDependencies)
@@ -252,7 +258,6 @@ let
         "-Dserver=OFF"
         "-DRELEASE_ID=${version}"
         "-Dbundled-opus=OFF"
-        "-Dbundled-celt=${if celtSupport then "OFF" else "ON"}"
         "-Dbundled-speex=OFF"
         "-Dbundled-rnnoise=OFF"
         "-Dbundled-json=OFF"
@@ -273,6 +278,9 @@ let
           target_link_libraries(mumble_client_object_lib PRIVATE PkgConfig::PIPEWIRE)
         ' >> src/mumble/CMakeLists.txt
 
+        rmdir 3rdparty/FindPythonInterpreter
+        ln -sf $FindPythonInterpreter 3rdparty/FindPythonInterpreter
+
         sed -i src/CMakeLists.txt \
           -e '/add_subdirectory.*tracy/d' \
           -e '/disable_warnings_for.*tracy/d' \
@@ -282,8 +290,11 @@ let
           -e /install_library.rnnoise/d
         sed -i cmake/qt-utils.cmake \
           -e /include.FindPythonInterpreter/d
-        sed -i src/mumble/{CELTCodec.h,AudioOutputSpeech.h,AudioOutput.cpp,AudioInput.cpp} \
-          -e s-celt\\.h-celt/celt.h-
+        sed -i cmake/install-paths.cmake \
+          -e '/message(FATAL_ERROR "Encountered .*/d'
+        sed -i scripts/generate_license_header.py \
+          -e 's/with open.* as file:/if True:/' \
+          -e 's/file.read().strip()/""/'
 
         rm -r 3rdparty/{jack,opus,pipewire,portaudio,pulseaudio,*-src}
       '';

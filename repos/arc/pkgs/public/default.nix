@@ -23,6 +23,7 @@
   switch-lan-play = import ./switch-lan-play.nix;
   parsec-bin = import ./parsec-bin.nix;
 }
+// (import ./bolin)
 // (import ./droid.nix)
 // (import ./base16)
 // (import ./weechat)

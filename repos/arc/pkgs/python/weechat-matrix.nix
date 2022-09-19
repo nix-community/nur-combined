@@ -1,4 +1,4 @@
-{ lib, pythonPackages, weechat-matrix, enableOlm ? true }:
+{ lib, pythonPackages, weechat-matrix, fetchFromGitHub, enableOlm ? true }:
 
 with pythonPackages;
 
@@ -15,7 +15,15 @@ buildPythonPackage rec {
     pygments
     requests
     python_magic
-    matrix-nio
+    (matrix-nio.overridePythonAttrs (old: {
+      version = "2022-09-13";
+      src = fetchFromGitHub {
+        owner = "poljar";
+        repo = "matrix-nio";
+        rev = "9acf5edd7b11a69d03e5dbf36cbda0f19ad25636";
+        sha256 = "sha256-QL4mvvoYG1M01sPRJZCaCDIVVHUKCFDGXW79N4HiL88=";
+      };
+    }))
   ] ++ lib.optional (pythonOlder "3.5") typing
   ++ lib.optional (pythonOlder "3.2") future
   ++ lib.optional (pythonAtLeast "3.5") aiohttp;

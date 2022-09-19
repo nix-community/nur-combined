@@ -1,32 +1,29 @@
 { fetchFromGitHub, fetchpatch, lib, python3Packages, e2be ? true, metrics ? false }: with python3Packages; let
 
   mautrix = python3Packages.mautrix.overridePythonAttrs (old: rec {
-    version = "0.15.0";
+    version = "0.18.1";
     src = old.src.override {
       inherit version;
-      sha256 = "00h6r5znb8hbjr69ihx8qxvbj9fls2723k82dnaky6yq2g42v9d7";
-    };
-  });
-  asyncpg = python3Packages.asyncpg.overridePythonAttrs (old: rec {
-    version = "0.25.0";
-    src = old.src.override {
-      inherit version;
-      hash = "sha256-Y/jmppczsoVJfChVRko03mV/LMzSWurutQcYcuk4JUA=";
+      sha256 = "sha256-flHww6jvelE4fYkQzPFylMPGR6W4x0THkKwz8bVGE5Y=";
     };
   });
 
 in buildPythonApplication rec {
   pname = "mautrix-googlechat";
-  version = "0.3.1";
+  version = "2022-09-15";
 
   src = fetchFromGitHub {
     owner = "mautrix";
     repo = "googlechat";
-    rev = "v${version}";
-    sha256 = "1wwmj2wcyzw89q34vbya20idwy13wpiinl2wr7f0bbwqp0xicjak";
+    rev = "bf2724cbc85c4ae56a17d805753f2a52ba0b0865";
+    sha256 = "sha256-ZPHB4DSoGGGyDhX80qpKT/7zfpYWOl6d5WhWmYMvV+Q=";
   };
 
   patches = [ ./entrypoint.patch ];
+
+  postPatch = ''
+    sed -i -e 's/asyncpg>=.*/asyncpg/' requirements.txt
+  '';
 
   propagatedBuildInputs = [
     aiohttp
@@ -46,7 +43,7 @@ in buildPythonApplication rec {
     prometheus_client
   ];
 
-  meta.broken = lib.versionOlder mautrix.version "0.14.6";
+  meta.broken = lib.versionOlder mautrix.version "0.16.6";
   passthru = {
     pythonModule = python;
     pythonPackage = "mautrix_googlechat";
