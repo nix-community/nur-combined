@@ -13,6 +13,8 @@ in {
 
   luaPackages = pkgs.lib.recurseIntoAttrs (callPackage' ./luaPackages);
 
+  firefoxAddons = pkgs.lib.recurseIntoAttrs (callPackage' ./firefoxAddons);
+
   dmenu-flexipatch = callPackage' ./flexipatch/dmenu.nix;
   dwm-flexipatch = callPackage' ./flexipatch/dwm.nix;
   slock-flexipatch = callPackage' ./flexipatch/slock.nix;

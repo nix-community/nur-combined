@@ -33,16 +33,21 @@ jobs:
       - name: Update vim plugins
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: "nix run nixpkgs#niv -- -s pkgs/vimPlugins/nix/sources.json update"
-
-      - name: Update vim plugins README
         run: |
+          nix run "nixpkgs#niv" -- -s pkgs/vimPlugins/nix/sources.json update
           cd pkgs/vimPlugins/
           chmod +x update_list.py
           ./update_list.py
 
       - name: Update Node packages
-        run: "cd pkgs/nodePackages/node2nix && nix run nixpkgs#node2nix -- -i node-packages.json"
+        run: |
+          cd pkgs/nodePackages/node2nix
+          nix run "nixpkgs#node2nix" -- -i node-packages.json
+
+      - name: Update Firefox addons
+        run: |
+          cd pkgs/firefoxAddons
+          nix run "sourcehut:~rycee/mozilla-addons-to-nix" -- addons.json generated.nix
 
       - name: Format Nix expressions
         run: nix run github:kamadorueda/alejandra .
