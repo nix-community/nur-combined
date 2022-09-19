@@ -14,7 +14,7 @@
 let
   commonMeta = rec {
     name = "pledge";
-    version = "2022-09-06"; # September 6th 2022
+    version = "2022-09-18"; # September 6th 2022
   };
 
   cosmoMeta = {
@@ -23,16 +23,13 @@ let
     targets = [ "pledge.com" "unveil.com" ];
     make = "make";
     #make = "./build/bootstrap/make.com";
-    platformFlag = "";
-    # Since we're only compiling for Linux, it makes sense to pass
-    # "CPPFLAGS=-DSUPPORT_VECTOR=0b00000001", which disables all non-Linux code.
-    # However this currently fails.
+    platformFlag = "CPPFLAGS=-DSUPPORT_VECTOR=1";
   };
   cosmoSrc = fetchFromGitHub {
     owner = "jart";
     repo = "cosmopolitan";
-    rev = "dbf12c3";
-    sha256 = "k8L2KuaWTvn838Uqr8/rX/IfVrG4IptSuZE8Ft7Wqx4=";
+    rev = "be29b709b7e74807f9c7bb965847f1c294e0ff4c";
+    sha256 = "NG7nsnQNxLp20vPViaHIMfy/HcghImL1Z+5cZ45vjlI=";
   };
   buildStuff = toString (map (item: ''
       ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
@@ -40,7 +37,8 @@ let
           o/${cosmoMeta.mode}/${cosmoMeta.path}/${item}
       '') cosmoMeta.targets);
   installStuff = toString (map (item: ''
-      o/${cosmoMeta.mode}/${cosmoMeta.path}/${item} --assimilate
+      ## strip APE header. comment if building with platform flag
+      #o/${cosmoMeta.mode}/${cosmoMeta.path}/${item} --assimilate
       cp o/${cosmoMeta.mode}/${cosmoMeta.path}/${item} $out/bin/
       '') cosmoMeta.targets);
 in

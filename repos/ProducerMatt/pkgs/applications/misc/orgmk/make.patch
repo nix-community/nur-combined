@@ -1,0 +1,72 @@
+diff --git a/Makefile b/Makefile
+index f99c1ac..73f2aef 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,19 +4,16 @@
+ 
+ PWD=$(shell pwd)
+ 
+-BIN_DIR=/usr/local/bin
++BIN_DIR=${out}/bin
+ 
+ -include Make.params
+ 
+-ORGMK_ROOT=$(PWD)
++ORGMK_ROOT=${out}/share/orgmk
+ ORGMK_EL=$(ORGMK_ROOT)/site-lisp/orgmk.el
+ 
+ # WARNING -- ORGMK_EL must contain the correct path to the `orgmk.el' file
+ # according to the Emacs version used (Windows, Cygwin or Linux path).
+ EMACS_SYSTEM_TYPE=$(shell emacs -batch --eval "(message \"%s\" system-type)" 2>&1)
+-ifeq ($(EMACS_SYSTEM_TYPE),windows-nt)
+-	ORGMK_EL:="$(shell cygpath --mixed $(ORGMK_EL))"
+-endif
+ 
+ ORGMK_INIT=orgmk-init
+ ORGMK_SYSTEM_CONFIG=orgmk.conf
+@@ -47,7 +44,7 @@ bin/$(ORGMK_SYSTEM_CONFIG):                    # Create file with location of `o
+ bin/$(ORGMK_MAKE_SETUP):                          # Create core file for `orgmk'
+ 	@echo "Generating setup file..."
+ 	echo "#!/bin/sh" > bin/$(ORGMK_MAKE_SETUP)
+-	echo "ln -f -s $(PWD)/bin/orgmk.mk orgmk.mk" >> bin/$(ORGMK_MAKE_SETUP)
++	echo "ln -f -s ${out}/bin/orgmk.mk orgmk.mk" >> bin/$(ORGMK_MAKE_SETUP)
+ 	chmod u+x bin/$(ORGMK_MAKE_SETUP)
+ 	@echo
+ 
+@@ -56,20 +53,21 @@ bin/$(ORGMK_MAKE_SETUP):                          # Create core file for `orgmk'
+ .PHONY: install
+ install: all                            # Create symlinks to Orgmk scripts
+ 	@echo "Creating symlinks..."
+-	ln -f -s $(PWD)/bin/$(ORGMK_INIT)              $(BIN_DIR)/$(ORGMK_INIT)
+-	ln -f -s $(PWD)/bin/$(ORGMK_SYSTEM_CONFIG)     $(BIN_DIR)/$(ORGMK_SYSTEM_CONFIG)
+-	ln -f -s $(PWD)/bin/$(ORGMK_UPDATE_CHECK_DIFF) $(BIN_DIR)/$(ORGMK_UPDATE_CHECK_DIFF)
+-	ln -f -s $(PWD)/bin/$(ORG2HTML)                $(BIN_DIR)/$(ORG2HTML)
+-	ln -f -s $(PWD)/bin/$(ORG2GFM)                 $(BIN_DIR)/$(ORG2GFM)
+-	ln -f -s $(PWD)/bin/$(ORG2MD)                  $(BIN_DIR)/$(ORG2MD)
+-	# ln -f -s $(PWD)/bin/$(ORG2REVEAL)              $(BIN_DIR)/$(ORG2REVEAL)
+-	ln -f -s $(PWD)/bin/$(ORG2LATEX)               $(BIN_DIR)/$(ORG2LATEX)
+-	ln -f -s $(PWD)/bin/$(ORG2PDF)                 $(BIN_DIR)/$(ORG2PDF)
+-	ln -f -s $(PWD)/bin/$(ORG2BEAMERPDF)           $(BIN_DIR)/$(ORG2BEAMERPDF)
+-	ln -f -s $(PWD)/bin/$(ORG2ODT)                 $(BIN_DIR)/$(ORG2ODT)
+-	ln -f -s $(PWD)/bin/$(ORG2TXT)                 $(BIN_DIR)/$(ORG2TXT)
+-	ln -f -s $(PWD)/bin/$(ORGTANGLE)               $(BIN_DIR)/$(ORGTANGLE)
+-	ln -f -s $(PWD)/bin/$(ORGMK_MAKE_SETUP)        $(BIN_DIR)/$(ORGMK_MAKE_SETUP)
+-	ln -f -s $(PWD)/bin/$(ORGMK_MAKE_RUN)          $(BIN_DIR)/$(ORGMK_MAKE_RUN)
++	cp bin/$(ORGMK_INIT)              $(BIN_DIR)/$(ORGMK_INIT)
++	cp bin/$(ORGMK_SYSTEM_CONFIG)     $(BIN_DIR)/$(ORGMK_SYSTEM_CONFIG)
++	cp bin/$(ORGMK_UPDATE_CHECK_DIFF) $(BIN_DIR)/$(ORGMK_UPDATE_CHECK_DIFF)
++	cp bin/$(ORG2HTML)                $(BIN_DIR)/$(ORG2HTML)
++	cp bin/$(ORG2GFM)                 $(BIN_DIR)/$(ORG2GFM)
++	cp bin/$(ORG2MD)                  $(BIN_DIR)/$(ORG2MD)
++  # cp bin/$(ORG2REVEAL)              $(BIN_DIR)/$(ORG2REVEAL)
++	cp bin/$(ORG2LATEX)               $(BIN_DIR)/$(ORG2LATEX)
++	cp bin/$(ORG2PDF)                 $(BIN_DIR)/$(ORG2PDF)
++	cp bin/$(ORG2BEAMERPDF)           $(BIN_DIR)/$(ORG2BEAMERPDF)
++	cp bin/$(ORG2ODT)                 $(BIN_DIR)/$(ORG2ODT)
++	cp bin/$(ORG2TXT)                 $(BIN_DIR)/$(ORG2TXT)
++	cp bin/$(ORGTANGLE)               $(BIN_DIR)/$(ORGTANGLE)
++	cp bin/$(ORGMK_MAKE_SETUP)        $(BIN_DIR)/$(ORGMK_MAKE_SETUP)
++	cp bin/$(ORGMK_MAKE_RUN)          $(BIN_DIR)/$(ORGMK_MAKE_RUN)
+ 
++	cp -r lisp site-lisp ${out}/share/orgmk/
+ ### Makefile ends here

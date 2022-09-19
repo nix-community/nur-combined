@@ -5,20 +5,23 @@ let
     name = "orgmk";
     version = "2022-01-20";
   };
+  myEmacs = pkgs.emacs28NativeComp;
+  emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 in stdenv.mkDerivation {
   name = "${commonMeta.name}_${commonMeta.version}";
 
-  buildInputs = with pkgs; [
-    emacs28NativeComp
+  buildInputs = [
+    (emacsWithPackages (epkgs: (with epkgs.melpaPackages; [
+      #org-plus-contrib
+      htmlize
+      ox-gfm
+    ])))
   ];
-  patches = [ ./params.patch ];
+  patches = [ ./make.patch ];
   preBuild = ''
-  '';
-  dontInstall = true;
-  preFixup = ''
+    emacs --batch -f package-initialize
     mkdir -p $out/bin
     mkdir -p $out/share/orgmk
-    cp -r bin/* $out/bin/
   '';
   src = fetchFromGitHub {
     owner = "fniessen";
@@ -31,5 +34,6 @@ in stdenv.mkDerivation {
     platforms = [ "x86_64-linux" ];
     license = with lib.licenses; [ gpl3 ];
     maintainers = [ lib.maintainers.ProducerMatt ];
+    broken = true; #FIXME
   };
 }
