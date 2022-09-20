@@ -1,4 +1,4 @@
-{ mkDerivation, stdenv, lib, pkg-config, fetchFromGitHub, qtbase, qtsvg, qtmultimedia, qtimageformats, qmake, boost, openssl, wrapQtAppsHook }:
+{ mkDerivation, stdenv, lib, pkg-config, fetchFromGitHub, qtbase, qttools, qtsvg, qtmultimedia, qtimageformats, qmake, boost, openssl, wrapQtAppsHook }:
 
 mkDerivation rec {
   pname = "chatterino7";
@@ -11,7 +11,7 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
   nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
-  buildInputs = [ qtbase qtsvg qtmultimedia qtimageformats boost openssl ];
+  buildInputs = [ qtbase qttools qtsvg qtmultimedia qtimageformats boost openssl ];
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p "$out/Applications"
     mv bin/chatterino.app "$out/Applications/"
