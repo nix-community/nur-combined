@@ -87,11 +87,11 @@
   };
   "'vscode-extensions.ms-vscode-remote.remote-containers'" = {
     pname = "'vscode-extensions.ms-vscode-remote.remote-containers'";
-    version = "0.252.0";
+    version = "0.247.0";
     src = fetchurl {
-      url = "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.252.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "remote-containers-0.252.0.zip";
-      sha256 = "sha256-pXd2IjbRwYgUAGVIMLE9mQwR8mG/x0MoMfK8zVh3Mvs=";
+      url = "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.247.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "remote-containers-0.247.0.zip";
+      sha256 = "sha256-gWFNjkx2+zjkpKDC5a1qIZ5SbcDN8ahtXDPX1upWUg8=";
     };
     license = "free";
     homepage = "https://github.com/Microsoft/vscode-remote-release";

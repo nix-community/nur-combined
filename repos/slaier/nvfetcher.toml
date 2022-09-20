@@ -77,3 +77,4 @@ passthru = { license = "mit", homepage = "https://github.com/bmalehorn/vscode-fi
 src.vsmarketplace = "ms-vscode-remote.remote-containers"
 fetch.vsmarketplace = "ms-vscode-remote.remote-containers"
 passthru = { license = "free", homepage = "https://github.com/Microsoft/vscode-remote-release", description="Open any folder or repository inside a Docker container." }
+pinned = true
