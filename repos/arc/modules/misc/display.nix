@@ -1,9 +1,10 @@
 { config, lib, ... }: with lib; let
+  cfg = config;
   xvalue = value:
     if isString value then ''"${value}"''
     else if isBool value then ''"${if value then "true" else "false"}"''
     else toString value;
-  monitorType = { name, config, ... }: {
+  monitorType = { name, options, config, ... }: {
     options = {
       enable = mkOption {
         type = types.bool;
@@ -45,13 +46,31 @@
         };
       };
       dpi = {
+        target = mkOption {
+          type = types.int;
+        };
         x = mkOption {
           type = types.int;
-          default = 96;
         };
         y = mkOption {
           type = types.int;
-          default = 96;
+        };
+        out = mkOption {
+          type = types.attrs;
+        };
+      };
+      size = {
+        diagonal = mkOption {
+          type = types.float;
+          description = "diagonal length in inches";
+        };
+        width = mkOption {
+          type = types.int;
+          description = "physical width in mm";
+        };
+        height = mkOption {
+          type = types.int;
+          description = "physical height in mm";
         };
       };
       refreshRate = mkOption {
@@ -118,6 +137,25 @@
       };
     };
     config = {
+      dpi.out = let
+        x = if options.size.width.isDefined
+          then config.width / (config.size.width / mmPerInch)
+          else if options.dpi.x.isDefined then config.dpi.x
+          else 96;
+        y = if options.size.height.isDefined
+          then config.height / (config.size.height / mmPerInch)
+          else if options.dpi.y.isDefined then config.dpi.y
+          else 96;
+        scale = if options.dpi.target.isDefined
+          then 96.0 / config.dpi.target
+          else 1.0;
+      in {
+        dpi = (config.dpi.out.x + config.dpi.out.y) / 2;
+        x = x * scale;
+        y = y * scale;
+        width = floor (config.width / config.dpi.out.x * mmPerInch);
+        height = floor (config.height / config.dpi.out.y * mmPerInch);
+      };
       nvidia = {
         options = {
           Rotation = mkIf (config.rotation != "normal") {
@@ -140,7 +178,8 @@
       xserver = {
         options = {
           Enable = mkIf (!config.enable) false;
-          DPI = "${toString config.dpi.x} x ${toString config.dpi.y}";
+          DPI = mkIf cfg.nvidia.enable "${toIntString config.dpi.out.x} x ${toIntString config.dpi.out.y}";
+          DisplaySize = mkIf (config.dpi.out.x != 96 || config.dpi.out.y != 96) "${toString config.dpi.out.width} ${toString config.dpi.out.height}";
           Primary = mkIf config.primary true;
           Position = "${toString config.x} ${toString config.y}";
           PreferredMode = "${toString config.width}x${toString config.height}";
@@ -150,6 +189,12 @@
       };
     };
   };
+  mmPerInch = 25.4;
+  matchNum = builtins.match "([0-9]+)(\\.[0-9]+)?";
+  floor' = v: if isInt v then v
+    else builtins.fromJSON (elemAt (matchNum (toString v)) 0);
+  floor = builtins.floor or floor';
+  toIntString = v: toString (floor v);
 in {
   options = {
     enable = mkOption {
@@ -188,7 +233,7 @@ in {
         Option "MetaModes" "${config.nvidia.metaModes}"
       '';
       deviceSection = mkMerge (mapAttrsToList (_: mon: ''
-        Option "Monitor-${mon.output}" "${mon.xserver.sectionName}"
+        Option "monitor-${mon.output}" "${mon.xserver.sectionName}"
       '') config.monitors);
     };
   };
