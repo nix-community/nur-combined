@@ -98,6 +98,7 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
+    settings.General.Experimental = true;
   };
 
   programs.light.enable = true;
