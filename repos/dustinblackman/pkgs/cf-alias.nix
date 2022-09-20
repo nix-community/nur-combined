@@ -4,8 +4,8 @@
 pkgs.stdenv.mkDerivation {
   name = "cf-alias";
   src = pkgs.fetchurl {
-    url = "https://github.com/dustinblackman/cf-alias/releases/download/v0.1.4/cf-alias_0.1.4_linux_amd64.tar.gz";
-    sha256 = "0xqzzci1vyf9hkg9v1f665ijlgmp7yj3i0agqcirzfcwp6i9l7yj";
+    url = "https://github.com/dustinblackman/cf-alias/releases/download/v0.1.5/cf-alias_0.1.5_linux_amd64.tar.gz";
+    sha256 = "0frbqmyh269qrqv2159va7rw32ld5b8py9i4syi9clccyzmy0dvn";
   };
   phases = [ "installPhase" ];
   installPhase = ''
