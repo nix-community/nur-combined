@@ -113,10 +113,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.6.3.1";
+      version = "0.6.3.2";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000753/auto_tab_discard-0.6.3.1.xpi";
-      sha256 = "415ee2c7bf9222e7af537b7c627b98d73ad42a035224539dda2de19ab3b810b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4004129/auto_tab_discard-0.6.3.2.xpi";
+      sha256 = "2703b74e746d522eb1fd7f457bfdb910fa225dda0c079157d372b0e85cc5936e";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -182,10 +182,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.35";
+      version = "7.4.39";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984942/betterttv-7.4.35.xpi";
-      sha256 = "c3475bf8ac2f6e5d799dad6b49c097fd04eace87a82471ee9224b4a194d64fe3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003496/betterttv-7.4.39.xpi";
+      sha256 = "72a7fce63372eed71d0ad50f31c8448912b235f70d6ead1e2c6f464266a39d50";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -793,10 +793,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0buildid20220915.150737";
+      version = "106.0buildid20220919.121755";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002989/francais_language_pack-105.0buildid20220915.150737.xpi";
-      sha256 = "b9faab39dc5ad7688b26a192814037473c41ca8150b7b8df9de20c04518e2b40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4004268/francais_language_pack-106.0buildid20220919.121755.xpi";
+      sha256 = "d699aa73d337ecef136a2085128acca3332a9d5326471d729a2e1ff10c0a216b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2197,10 +2197,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "4.7.1";
+      version = "5.0.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3978884/sponsorblock-4.7.1.xpi";
-      sha256 = "00f5cbb335d6f40e019f28a8bc00499dc5f1bb9ac6ceb64c128af3a6a0aa0015";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003998/sponsorblock-5.0.3.xpi";
+      sha256 = "d61f9d276015cb13b12ec45081ba5ffd81a74244cefb137ca9c8709eb90d4266";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2224,10 +2224,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.0";
+      version = "3.6.1";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001340/steam_database-3.6.0.xpi";
-      sha256 = "20471181c2ae53df18a4460fbe68623e0a2eb197598fc1cb00d24d60ed094082";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003523/steam_database-3.6.1.xpi";
+      sha256 = "1eabb49a99f1cee7b0c8659266a79a6ee19edc2b2304ece1e12f0554e753aa2c";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -2503,10 +2503,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.2";
+      version = "3.9.3";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002516/tree_style_tab-3.9.2.xpi";
-      sha256 = "1cc960c77aeeeaefb6583b78851e8fe33550711b21959891f35718e82d551606";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003852/tree_style_tab-3.9.3.xpi";
+      sha256 = "b4a368aa2c9dc35db7b1cb7e57549daa594f5cc7a8e8295c809bf1d6f588a5f9";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2564,10 +2564,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.44.2";
+      version = "1.44.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3998742/ublock_origin-1.44.2.xpi";
-      sha256 = "00f4d9b50f9e3395c6d8c1c6306bac3c43fd8b20fb62e0307d21834ba5967a7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003969/ublock_origin-1.44.4.xpi";
+      sha256 = "0be550c9a27c040d04ad71954dd9e9a4967a27d48ffa2cdfe91171752e152685";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
