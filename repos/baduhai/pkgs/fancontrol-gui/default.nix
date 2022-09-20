@@ -11,9 +11,9 @@ mkDerivation rec{
     sha256 = "hJaU8SL0b6GmTONGSIzUzzbex6KxHf2Np0bCX8YSSVM=";
   };
   
-  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
   
-  buildInputs = [ qtbase wrapQtAppsHook qtquickcontrols2 qtdeclarative lm_sensors kirigami2 kdbusaddons knotifications kdeclarative kauth kpackage ki18n kconfig systemd kcmutils plasma-framework ];
+  buildInputs = [ qtbase qtquickcontrols2 qtdeclarative lm_sensors kirigami2 kdbusaddons knotifications kdeclarative kauth kpackage ki18n kconfig systemd kcmutils plasma-framework ];
   
   cmakeFlags = [
     "-DCMAKE_INSTALL_PREFIX=/usr"

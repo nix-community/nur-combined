@@ -11,9 +11,9 @@ mkDerivation rec{
     sha256 = "Psmsi9lic4bUVk7xJCqbi+d7eNVR6c7X8wFwsM1tXRo=";
   };
   
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
   
-  buildInputs = [ wrapQtAppsHook kcoreaddons kwidgetsaddons kconfig ];
+  buildInputs = [ kcoreaddons kwidgetsaddons kconfig ];
   
   sourceRoot = "source/src";
   
