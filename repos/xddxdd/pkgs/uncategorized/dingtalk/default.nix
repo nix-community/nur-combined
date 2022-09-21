@@ -142,6 +142,7 @@ stdenv.mkDerivation rec {
     description = "钉钉";
     homepage = "https://www.dingtalk.com/";
     platforms = [ "x86_64-linux" ];
+    broken = true;
     license = licenses.unfreeRedistributable;
   };
 }
