@@ -1,6 +1,7 @@
 { lib, pkgs, ... }:
 {
   subcommands.deploy = {
+    description = "Deploy components in specific nodes";
     flags = [
       { description = "Repo root"; keywords = ["-r"]; variable = "NIXCFG_ROOT_PATH"; validator = "dir"; }
     ];

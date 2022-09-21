@@ -3,6 +3,7 @@ let
   inherit (lib) mapAttrs;
 in {
   subcommands.options = {
+    description = "Show options for each configuration";
     subcommands = mapAttrs (k: v: {
       allowExtraArguments = true;
       action.bash = ''
@@ -25,6 +26,7 @@ in {
     }) {
       riverwood = "nixosConfigurations.riverwood";
       whiterun = "nixosConfigurations.whiterun";
+      home-main = "homeConfigurations.main";
     };
   };
 }

@@ -110,10 +110,10 @@ in {
     nurpkgs = prev.pkgs;
   };
   discord = prev.discord.overrideAttrs (old: rec {
-    version = "0.0.19";
+    version = "0.0.20";
     src = prev.fetchurl {
       url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-      sha256 = "1403vdc7p6a8mhr114brfp4dqvikaj5s71wrx20ca5y6srsv5x0r";
+      sha256 = "sha256-3f7yuxigEF3e8qhCetCHKBtV4XUHsx/iYiaCCXjspYw";
     };
   });
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {

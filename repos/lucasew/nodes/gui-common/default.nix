@@ -24,6 +24,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     gparted
+    home-manager
     paper-icon-theme
     p7zip unzip # archiving
     pv

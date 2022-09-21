@@ -59,11 +59,11 @@
     "climod": {
       "flake": false,
       "locked": {
-        "lastModified": 1663422736,
-        "narHash": "sha256-+g5iIkNVjmkJ6sNA14azuLmdC5Frxp08/5GVIH0eJbU=",
+        "lastModified": 1663719114,
+        "narHash": "sha256-5G6bAwzXjlH6OQaz/sISyl4oHmfk7Uw7xS5JIUjv7E0=",
         "owner": "nixosbrasil",
         "repo": "climod",
-        "rev": "6e8de65afd5f37254e0e24c1ec4090203f53551c",
+        "rev": "b756461071cbbb105e7913e743795c09337e45b6",
         "type": "github"
       },
       "original": {
@@ -552,11 +552,11 @@
     "send2kindle": {
       "flake": false,
       "locked": {
-        "lastModified": 1617294349,
-        "narHash": "sha256-fmZlCaGqxDqCndwIbGT9k0FmQG+GOd4/1oiqCw3HD9M=",
+        "lastModified": 1663719539,
+        "narHash": "sha256-o5fFWl71953BGDmRmSmtMj2GlG4DCSirDmv1fRlCzLE=",
         "owner": "lucasew",
         "repo": "send2kindle",
-        "rev": "82dced627ba2421586fa07c9cc09a946043e09d9",
+        "rev": "adee92dd3bf7037dcac3a5c8d7d55533e4825990",
         "type": "github"
       },
       "original": {
