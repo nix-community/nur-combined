@@ -335,11 +335,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ekc0QDZmMXAJKd0nMZ0016VcGQpkmtL5q3o786G1KNg=",
+            "sha256": "sha256-ifWQKGR9y9udUTY0ceNM1mZ4BF2OdhVZO/zmYFy5hvI=",
             "type": "url",
-            "url": "https://updatecdn.meeting.qq.com/cos/60bbaecfb3bf32615331b07d46001353/TencentMeeting_0300000000_3.10.0.400_x86_64_default.publish.deb"
+            "url": "https://updatecdn.meeting.qq.com/cos/249fc9a44733d846162296934bbf52fa/TencentMeeting_0300000000_3.10.0.401_x86_64_default.publish.deb"
         },
-        "version": "3.10.0.400"
+        "version": "3.10.0.401"
     },
     "yacd": {
         "cargoLocks": null,
