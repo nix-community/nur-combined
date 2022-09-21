@@ -25,6 +25,8 @@
     #RANDSTAD
     citrix_workspace
     sq
+    terraform-docs
+    tflint
   ];
 }
 
