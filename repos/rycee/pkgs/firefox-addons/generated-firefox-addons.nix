@@ -793,10 +793,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0buildid20220919.121755";
+      version = "106.0buildid20220920.185943";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4004268/francais_language_pack-106.0buildid20220919.121755.xpi";
-      sha256 = "d699aa73d337ecef136a2085128acca3332a9d5326471d729a2e1ff10c0a216b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4004943/francais_language_pack-106.0buildid20220920.185943.xpi";
+      sha256 = "6f5abf5f584b8412499a4d12da7ab4f6d643c9dc9a0cb0c7079462ae21221d69";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2592,10 +2592,10 @@
       };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "5.8.0";
+      version = "5.9.0";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3964213/ukrainian_dictionary-5.8.0.xpi";
-      sha256 = "ce91785c8aaff4efb0dc66eccaed66e1fd6786b8d5139e07c8ea6b71e8a1536c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4004782/ukrainian_dictionary-5.9.0.xpi";
+      sha256 = "a0b650b45ab7229a1244c7250dcd3e7bf0052a4e999d3fb90af0443357c4abd2";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
