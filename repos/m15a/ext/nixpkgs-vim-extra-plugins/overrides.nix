@@ -11,6 +11,8 @@ let
     meta = old.meta // { inherit broken; };
   }))
   {
+    SmoothCursor-nvim = true;
+
     go-nvim = true;
 
     highlight-current-n-nvim = true;
