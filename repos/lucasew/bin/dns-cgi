@@ -34,4 +34,4 @@ function has_binary() {
     fi
 
 
-} | grep -v -e '^[ \t]*$' | sed "s;$;$PREFIX;"
+} | grep -v -e '^[ \t]*$'  | sed "s;$;$PREFIX;" | grep -v -e "^[a-z\.]*$PREFIX$"

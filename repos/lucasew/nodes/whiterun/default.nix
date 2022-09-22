@@ -12,6 +12,7 @@ in {
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia
     ./kubernetz.nix
     ./sshfs.nix
+    ./deluge.nix
   ];
   boot = {
     supportedFilesystems = [ "ntfs" ];
