@@ -2002,10 +2002,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.9.15";
+      version = "22.9.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002791/refined_github-22.9.15.xpi";
-      sha256 = "97efbe4c9db31485e174c45277e9e5639f265aee8ebdc4c51137d7565db52453";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005173/refined_github-22.9.21.xpi";
+      sha256 = "aa2e6476fcc594338d13655edbfd22c31c0b04696a487face3af288620925f5d";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2016,10 +2016,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.5";
+      version = "3.0.0.6";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985341/return_youtube_dislikes-3.0.0.5.xpi";
-      sha256 = "92119081c594065e7d55c4cb3f5f7a2a35738e02cd012d44c0bc9cb9406f6503";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005382/return_youtube_dislikes-3.0.0.6.xpi";
+      sha256 = "568885aefe2ff80ad3fd8c0e2a56b93282e2bc7a3c00e4c4853c45de3d8d0d46";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -2503,10 +2503,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.3";
+      version = "3.9.5";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003852/tree_style_tab-3.9.3.xpi";
-      sha256 = "b4a368aa2c9dc35db7b1cb7e57549daa594f5cc7a8e8295c809bf1d6f588a5f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4004810/tree_style_tab-3.9.5.xpi";
+      sha256 = "f867a2790e3e149c1fc8ff7ad547b4c03beb7a5164cd67a188bbba83590a0144";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2774,10 +2774,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.70.0";
+      version = "2.70.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002172/web_scrobbler-2.70.0.xpi";
-      sha256 = "9e73cebdba25f272c33b3851cc387ff1471934c488ab1ef9bf0676bcbce27da3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005430/web_scrobbler-2.70.1.xpi";
+      sha256 = "7349d7f068d64946f72d587eb698dff90f0563584c2d204d27b595069ecdcb78";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
