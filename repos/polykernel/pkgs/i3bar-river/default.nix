@@ -3,10 +3,19 @@
 , fetchFromGitHub
 , pkg-config
 , pango
-, makeWrapper
+, cairo
+, glib
 , wayland
-, wayland-scanner
 }:
+
+let
+  rpathLibs = [
+    pango
+    glib
+    cairo
+    wayland
+  ];
+in    
 
 rustPlatform.buildRustPackage rec {
   pname = "i3bar-river";
@@ -15,20 +24,24 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "MaxVerevkin";
     repo = pname;
-    rev = "c8fd8516e20eb5600abecf621c47f8ab7f26e562";
-    sha256 = "sha256-tBwsguqbCuTii1rTvqHzdYlUISFK6y5AKM6WrHXkHQQ=";
+    rev = "9ddde2d2ee9833412e39afbd1ed907cdea22f08f";
+    sha256 = "sha256-58Rw/PBvQX90L99aI32lA+pcO2jfwmiHKeV6ZdDp07Q=";
   };
 
-  cargoHash = "sha256-5kF9buxQYWugy+iBXcAR2hBNbBNL4HqBUkVeuUCc7yc=";
+  cargoHash = "sha256-lhrFGNyQ0zBdmT6QbMuDEAnZk39uDkRwgWqXibYRJxY=";
 
-  nativeBuildInputs = [ wayland-scanner makeWrapper pkg-config ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [ pango ];
 
   postInstall = ''
-    wrapProgram "$out/bin/i3bar-river" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ wayland ]}"
+    # Strip executable and set RPATH
+    # Stolen from https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/terminal-emulators/alacritty/default.nix#L107
+    strip -s $out/bin/i3bar-river
+    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/i3bar-river
   '';
+
+  dontPatchELF = true;
 
   meta = with lib; {
     description = "A port of i3bar for river.";

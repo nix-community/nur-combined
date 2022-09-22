@@ -1,11 +1,11 @@
 { stdenv
 , lib
 , fetchFromSourcehut
-, zig
-, wayland
-, pixman
-, wayland-protocols
 , pkg-config
+, zig
+, pixman
+, wayland
+, wayland-protocols
 , fcft
 , pulseaudio
 , udev
@@ -18,14 +18,15 @@ stdenv.mkDerivation rec {
   src = fetchFromSourcehut {
     owner = "~andreafeletto";
     repo = pname;
-    rev = "c0f0e5a8160064e8dfbf98b7895a4dab9a03ffd9";
-    sha256 = "sha256-h1nSShx60gUw4JBuFBsrgsg6Hfu7hp/voYxgXOUWE/U=";
+    rev = "a28f39e9f7014e1cea6976522693c0ec740d094f";
+    sha256 = "sha256-iTUvlYF6Z6BbTNc3aekWj/NXkHVJPlGvbw9X3/hNVww=";
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ zig wayland pkg-config ];
+  nativeBuildInputs = [ pkg-config zig ];
 
   buildInputs = [
+    wayland.dev
     wayland-protocols
     pixman
     fcft
@@ -39,9 +40,14 @@ stdenv.mkDerivation rec {
     export HOME=$TMPDIR
   '';
 
+  buildPhase = ''
+    runHook preBuild
+    zig build -Drelease-safe -Dcpu=baseline --prefix $out install
+    runHook postBuild
+  '';
+
   installPhase = ''
     runHook preInstall
-    zig build -Drelease-safe -Dcpu=baseline --prefix $out install
     runHook postInstall
   '';
 
