@@ -8,5 +8,6 @@
     i3bar-river = pkgs.callPackage ./pkgs/i3bar-river { };
     levee = pkgs.callPackage ./pkgs/levee { };
     kickoff = pkgs.callPackage ./pkgs/kickoff { };
+    wired-notify = pkgs.callPackage ./pkgs/wired-notify { };
   };
 }
