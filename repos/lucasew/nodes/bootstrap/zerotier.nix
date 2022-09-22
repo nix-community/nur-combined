@@ -8,13 +8,10 @@
     ];
   };
   networking.firewall.trustedInterfaces = [ "ztppi77yi3" ];
-  networking.extraHosts = ''
-    192.168.69.1 vps.local
-    192.168.69.1 utils.vps.local
-    192.168.69.1 vaultwarden.vps.local
-    192.168.69.1 *.vps.local
-    192.168.69.2 nb.local
-    192.168.69.3 mtpc.local
-    192.168.69.4 cel.local
+  services.dnsmasq.extraConfig = ''
+address=/controlplane.lucao.net/192.168.69.1
+address=/whiterun.lucao.net/192.168.69.1
+address=/riverwood.lucao.net/192.168.69.2
+address=/xiaomi.lucao.net/192.168.69.4
   '';
 }

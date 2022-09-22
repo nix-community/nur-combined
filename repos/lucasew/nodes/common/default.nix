@@ -12,6 +12,7 @@ in
     ./bash
     ./kvm.nix
     ./unstore.nix
+    ./dns.nix
     "${inputs.simple-dashboard}/nixos-module.nix"
   ];
 
