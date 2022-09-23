@@ -22,6 +22,7 @@ rec {
     pkgs.python3.pkgs.toPythonApplication python3Packages.edmarketconnector;
 
   hassLovelaceModules = pkgs.recurseIntoAttrs {
+    mini-graph-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-graph-card { };
     vacuum-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/vacuum-card { };
     valetudo-map-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/lovelace-valetudo-map-card { };
     zigbee2mqtt-networkmap = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/zigbee2mqtt-networkmap { };
