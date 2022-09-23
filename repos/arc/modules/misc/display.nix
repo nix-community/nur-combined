@@ -1,5 +1,7 @@
 { config, lib, ... }: with lib; let
   cfg = config;
+  arc'lib = import ../../lib { inherit lib; };
+  inherit (arc'lib) floor;
   xvalue = value:
     if isString value then ''"${value}"''
     else if isBool value then ''"${if value then "true" else "false"}"''
@@ -190,10 +192,6 @@
     };
   };
   mmPerInch = 25.4;
-  matchNum = builtins.match "([0-9]+)(\\.[0-9]+)?";
-  floor' = v: if isInt v then v
-    else builtins.fromJSON (elemAt (matchNum (toString v)) 0);
-  floor = builtins.floor or floor';
   toIntString = v: toString (floor v);
 in {
   options = {

@@ -63,6 +63,13 @@
     if sh == 0 then v
     else bitShr (sh - 1) (v / 2);
 
+  floor = let
+    matchNum = builtins.match "([0-9]+)(\\.[0-9]+)?";
+    floor' = v: if isInt v
+      then v
+      else builtins.fromJSON (elemAt (matchNum (toString v)) 0);
+  in builtins.floor or floor';
+
   # https://stackoverflow.com/a/42936293
   # example: (parseTime builtins.currentTime).y
   parseTime = s: let
