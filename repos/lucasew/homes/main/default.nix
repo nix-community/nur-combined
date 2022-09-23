@@ -42,6 +42,7 @@ in {
     pkg
     rclone
     ripgrep
+    remmina
     sqlite
     sshpass
     stremio
