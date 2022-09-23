@@ -28,4 +28,5 @@
   telescope = pkgs.callPackage ./pkgs/telescope { };
   ndpi-dev = pkgs.callPackage ./pkgs/ndpi { };
   ndpid = pkgs.callPackage ./pkgs/ndpid { };
+  google-cloud-sdk-auth-plugin = pkgs.callPackage ./pkgs/google-cloud-sdk-auth-plugin { };
 }
