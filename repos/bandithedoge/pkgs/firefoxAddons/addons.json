@@ -53,6 +53,7 @@
         "slug": "octolinker"
     },
     {
+        "pname": "privacy-badger",
         "slug": "privacy-badger17"
     },
     {
@@ -69,9 +70,11 @@
         "slug": "refined-github-"
     },
     {
+        "pname": "ruffle",
         "slug": "ruffle_rs"
     },
     {
+        "pname": "sourcegraph",
         "slug": "sourcegraph-for-firefox"
     },
     {
@@ -85,6 +88,7 @@
         "slug": "styl-us"
     },
     {
+        "pname": "tridactyl",
         "slug": "tridactyl-vim"
     },
     {
@@ -92,5 +96,11 @@
     },
     {
         "slug": "downthemall"
+    },
+    {
+        "slug": "sidebery"
+    },
+    {
+        "slug": "tree-style-tab"
     }
 ]

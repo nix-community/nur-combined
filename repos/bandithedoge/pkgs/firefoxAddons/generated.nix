@@ -234,8 +234,8 @@
       platforms = platforms.all;
     };
   };
-  "privacy-badger17" = buildFirefoxXpiAddon {
-    pname = "privacy-badger17";
+  "privacy-badger" = buildFirefoxXpiAddon {
+    pname = "privacy-badger";
     version = "2021.11.23.1";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
     url = "https://addons.mozilla.org/firefox/downloads/file/3872283/privacy_badger17-2021.11.23.1.xpi";
@@ -299,8 +299,8 @@
       platforms = platforms.all;
     };
   };
-  "ruffle_rs" = buildFirefoxXpiAddon {
-    pname = "ruffle_rs";
+  "ruffle" = buildFirefoxXpiAddon {
+    pname = "ruffle";
     version = "0.1.0.603";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
     url = "https://addons.mozilla.org/firefox/downloads/file/4006252/ruffle_rs-0.1.0.603.xpi";
@@ -312,8 +312,21 @@
       platforms = platforms.all;
     };
   };
-  "sourcegraph-for-firefox" = buildFirefoxXpiAddon {
-    pname = "sourcegraph-for-firefox";
+  "sidebery" = buildFirefoxXpiAddon {
+    pname = "sidebery";
+    version = "4.10.2";
+    addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3994928/sidebery-4.10.2.xpi";
+    sha256 = "60e35f2bfac88e5b2b4e044722dde49b4ed0eca9e9216f3d67dafdd9948273ac";
+    meta = with lib; {
+      homepage = "https://github.com/mbnuqw/sidebery";
+      description = "Tabs tree and bookmarks in sidebar with advanced containers configuration.";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+  "sourcegraph" = buildFirefoxXpiAddon {
+    pname = "sourcegraph";
     version = "22.9.14.1616";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
     url = "https://addons.mozilla.org/firefox/downloads/file/4002472/sourcegraph_for_firefox-22.9.14.1616.xpi";
@@ -325,10 +338,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.0.3";
+    version = "5.0.4";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4003998/sponsorblock-5.0.3.xpi";
-    sha256 = "d61f9d276015cb13b12ec45081ba5ffd81a74244cefb137ca9c8709eb90d4266";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4006317/sponsorblock-5.0.4.xpi";
+    sha256 = "e62bf90a22567b81f7d583dda7a6cd7a302831dbd344865d2b79f5e9b4501b3f";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -362,8 +375,20 @@
       platforms = platforms.all;
     };
   };
-  "tridactyl-vim" = buildFirefoxXpiAddon {
-    pname = "tridactyl-vim";
+  "tree-style-tab" = buildFirefoxXpiAddon {
+    pname = "tree-style-tab";
+    version = "3.9.5";
+    addonId = "treestyletab@piro.sakura.ne.jp";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4004810/tree_style_tab-3.9.5.xpi";
+    sha256 = "f867a2790e3e149c1fc8ff7ad547b4c03beb7a5164cd67a188bbba83590a0144";
+    meta = with lib; {
+      homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
+      description = "Show tabs like a tree.";
+      platforms = platforms.all;
+    };
+  };
+  "tridactyl" = buildFirefoxXpiAddon {
+    pname = "tridactyl";
     version = "1.22.1";
     addonId = "tridactyl.vim@cmcaine.co.uk";
     url = "https://addons.mozilla.org/firefox/downloads/file/3926466/tridactyl_vim-1.22.1.xpi";
