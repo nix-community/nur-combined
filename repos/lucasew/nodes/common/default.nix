@@ -17,7 +17,7 @@ in
   ];
 
   services.unstore = {
-    enable = true;
+    # enable = true;
     paths = [
       "flake.nix"
     ];
