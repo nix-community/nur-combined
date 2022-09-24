@@ -119,6 +119,19 @@
       platforms = platforms.all;
     };
   };
+  "gesturefy" = buildFirefoxXpiAddon {
+    pname = "gesturefy";
+    version = "3.2.6";
+    addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3992898/gesturefy-3.2.6.xpi";
+    sha256 = "8721a65aa243c5c8672f9dabed299c45fe90c1f12acd51069784453e46fc935a";
+    meta = with lib; {
+      homepage = "https://github.com/Robbendebiene/Gesturefy";
+      description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
+      license = licenses.gpl3;
+      platforms = platforms.all;
+    };
+  };
   "gitako" = buildFirefoxXpiAddon {
     pname = "gitako";
     version = "3.9.0";
