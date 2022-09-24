@@ -435,10 +435,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.57";
+      version = "4.9.58";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3992744/darkreader-4.9.57.xpi";
-      sha256 = "235281b6419dd1b78683caa4ca95d509538b1b03ad22afb9bbbbe85861ee23a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005595/darkreader-4.9.58.xpi";
+      sha256 = "2adf7f533055e50a5d7840f5ea738577d58c14fac15fc3a62fb559829edb65ba";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2160,7 +2160,7 @@
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
-        description = "Snowflake is a WebRTC pluggable transport for Tor.\n\nEnabling this extension turns your browser into a proxy that connects Tor users in censored regions to the Tor network.";
+        description = "Help people in censored countries access the Internet without restrictions. Once you install and enable the extension, wait for the snowflake icon to turn green, this means a censored user is connecting through your extension to access the Internet!";
         license = licenses.bsd3;
         platforms = platforms.all;
         };
@@ -2197,10 +2197,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.0.3";
+      version = "5.0.4";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003998/sponsorblock-5.0.3.xpi";
-      sha256 = "d61f9d276015cb13b12ec45081ba5ffd81a74244cefb137ca9c8709eb90d4266";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4006317/sponsorblock-5.0.4.xpi";
+      sha256 = "e62bf90a22567b81f7d583dda7a6cd7a302831dbd344865d2b79f5e9b4501b3f";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2774,10 +2774,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.70.1";
+      version = "2.71.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005430/web_scrobbler-2.70.1.xpi";
-      sha256 = "7349d7f068d64946f72d587eb698dff90f0563584c2d204d27b595069ecdcb78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4006637/web_scrobbler-2.71.0.xpi";
+      sha256 = "b963aef0d6f6e495fdc4f93b9b9ece747755198d4dc21e64fb8777864f54e349";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
