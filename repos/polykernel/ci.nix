@@ -8,41 +8,42 @@
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
-
-{ pkgs ? import <nixpkgs> { } }:
-
-let
-
-  /* Library imports */
+{pkgs ? import <nixpkgs> {}}: let
+  /*
+  Library imports
+  */
   inherit (pkgs) lib;
-  inherit (lib.attrsets)
+  inherit
+    (lib.attrsets)
     attrValues
     isAttrs
     isDerivation
     ;
-  inherit (lib.lists)
+  inherit
+    (lib.lists)
     concatMap
     filter
     listToAttrs
     map
     ;
 
-  /* Helper functions */
+  /*
+  Helper functions
+  */
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
   genOutputList = p: map (output: p.${output}) p.outputs;
   collectDrvs = p:
-    if shouldRecurseForDerivations p then concatMap collectDrvs (attrValues p)
-    else if isDerivation p then [ p ]
-    else [ ];
+    if shouldRecurseForDerivations p
+    then concatMap collectDrvs (attrValues p)
+    else if isDerivation p
+    then [p]
+    else [];
 
-  nurCore = import ./default.nix { inherit pkgs; };
-  nurPkgs = concatMap collectDrvs (attrValues nurCore.packages);
-
-in
-
-rec {
+  nurCore = import ./default.nix {inherit pkgs;};
+  nurPkgs = concatMap collectDrvs (attrValues nurCore.pkgs);
+in rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
 

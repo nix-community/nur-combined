@@ -1,13 +1,15 @@
-{ pkgs ? import <nixpkgs> { } }:
+# This file describes your repository contents.
+# It should return a set of nix derivations
+# and optionally the special attributes `lib`, `modules` and `overlays`.
+# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
+# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
+# commands such as:
+#     nix-build -A mypackage
+{pkgs ? import <nixpkgs> {}}: {
+  # The `lib`, `modules`, and `overlay` names are special
+  #lib = import ./lib { inherit pkgs; }; # functions
+  modules = import ./modules; # Generic modules
+  #overlays = import ./overlays; # nixpkgs overlays
 
-{
-  packages = {
-    zig-master = pkgs.callPackage ./pkgs/zig { llvmPackages = pkgs.llvmPackages_14; };
-    lorien = pkgs.callPackage ./pkgs/lorien { };
-    waylock = pkgs.callPackage ./pkgs/waylock { };
-    i3bar-river = pkgs.callPackage ./pkgs/i3bar-river { };
-    levee = pkgs.callPackage ./pkgs/levee { };
-    kickoff = pkgs.callPackage ./pkgs/kickoff { };
-    wired-notify = pkgs.callPackage ./pkgs/wired-notify { };
-  };
+  pkgs = pkgs.recurseIntoAttrs (import ./pkgs {inherit pkgs;});
 }

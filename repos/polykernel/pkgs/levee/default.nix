@@ -1,16 +1,16 @@
-{ stdenv
-, lib
-, fetchFromSourcehut
-, pkg-config
-, zig
-, pixman
-, wayland
-, wayland-protocols
-, fcft
-, pulseaudio
-, udev
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  pkg-config,
+  zig,
+  pixman,
+  wayland,
+  wayland-protocols,
+  fcft,
+  pulseaudio,
+  udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "levee";
   version = "main";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config zig ];
+  nativeBuildInputs = [pkg-config zig];
 
   buildInputs = [
     wayland.dev
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Statusbar for the river wayland compositor.";
     homepage = "https://git.sr.ht/~andreafeletto/levee";
     license = licenses.mit;
-    maintainers = [ maintainers.polykernel ];
+    maintainers = [maintainers.polykernel];
     platforms = platforms.linux;
   };
 }

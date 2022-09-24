@@ -1,0 +1,3 @@
+{
+  kickoff = ./kickoff.nix;
+}

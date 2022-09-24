@@ -1,13 +1,13 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, dbus
-, cairo
-, pango
-, xorg
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  dbus,
+  cairo,
+  pango,
+  xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wired-notify";
   version = "0.10.2";
@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-eWjX2DdRlXHBzzjFS97++zFJjlvNRu/cR0Li6k3y8z8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     dbus
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     description = "Lightweight notification daemon with highly customizable layout blocks, written in Rust.";
     homepage = "https://github.com/Toqozz/wired-notify";
     license = licenses.mit;
-    maintainers = [ maintainers.polykernel ];
+    maintainers = [maintainers.polykernel];
     platforms = platforms.linux;
   };
 }

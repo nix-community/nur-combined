@@ -1,11 +1,11 @@
-{ lib
-, cmake
-, fetchFromGitHub
-, libxml2
-, llvmPackages
-, zlib
+{
+  lib,
+  cmake,
+  fetchFromGitHub,
+  libxml2,
+  llvmPackages,
+  zlib,
 }:
-
 llvmPackages.stdenv.mkDerivation rec {
   pname = "zig";
   version = "master";
@@ -58,7 +58,7 @@ llvmPackages.stdenv.mkDerivation rec {
     description = "A general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software.";
     homepage = "https://github.com/ziglang/zig";
     license = licenses.mit;
-    maintainers = [ maintainers.polykernel ];
+    maintainers = [maintainers.polykernel];
     platforms = platforms.unix;
     # See https://github.com/NixOS/nixpkgs/issues/86299
     broken = llvmPackages.stdenv.hostPlatform.isDarwin;

@@ -1,15 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, zig
-, wayland
-, wayland-protocols
-, scdoc
-, libxkbcommon
-, pam
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  zig,
+  wayland,
+  wayland-protocols,
+  scdoc,
+  libxkbcommon,
+  pam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "waylock";
   # Note: the ext_session_lock_manager_v1 protocol is not yet supported by released versions of Sway and river.
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config zig scdoc ];
+  nativeBuildInputs = [pkg-config zig scdoc];
 
   buildInputs = [
     wayland.dev
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "A simple screenlocker for wayland compositors.";
     homepage = "https://github.com/ifreund/waylock";
     license = licenses.isc;
-    maintainers = [ maintainers.polykernel ];
+    maintainers = [maintainers.polykernel];
     platforms = platforms.linux;
   };
 }
