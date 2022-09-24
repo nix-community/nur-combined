@@ -13,13 +13,13 @@ let
         sha512 = "AXYd23w1S/bv3fTs3Lz0vjiYemS08jWkI3hYyS9I1ry+0f+Yjs1wm+sU0BS8qDOPrBIkp4qHYC16I8uVtpLajQ==";
       };
     };
-    "@humanwhocodes/config-array-0.10.4" = {
+    "@humanwhocodes/config-array-0.10.5" = {
       name = "_at_humanwhocodes_slash_config-array";
       packageName = "@humanwhocodes/config-array";
-      version = "0.10.4";
+      version = "0.10.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.10.4.tgz";
-        sha512 = "mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==";
+        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.10.5.tgz";
+        sha512 = "XVVDtp+dVvRxMoxSiSfasYaG02VEe1qH5cKgMQJWhol6HwzbcqoCMJi8dAGoYAO57jhUyhI6cWuRiTcRaDaYug==";
       };
     };
     "@humanwhocodes/gitignore-to-minimatch-1.0.2" = {
@@ -998,11 +998,11 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.23.1";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.23.1.tgz"; sha1 = "cfd7b3f7fdd07db8d16b4ac0516a29c8d8dca5dc"; };
+    version = "8.24.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.24.0.tgz"; sha1 = "489516c927a5da11b3979dbfb2679394523383c8"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.2"
-      sources."@humanwhocodes/config-array-0.10.4"
+      sources."@humanwhocodes/config-array-0.10.5"
       sources."@humanwhocodes/gitignore-to-minimatch-1.0.2"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"

@@ -643,13 +643,13 @@ let
         sha512 = "iawgk0hLP3SxGKDfnDJf8wTz4p2qImnyihM5Hh/sGvQ3K37dPi/w8sRhdNIxYA1TwFwc5mDhIJq+O0RsvXBKdQ==";
       };
     };
-    "underscore-1.13.4" = {
+    "underscore-1.13.6" = {
       name = "underscore";
       packageName = "underscore";
-      version = "1.13.4";
+      version = "1.13.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/underscore/-/underscore-1.13.4.tgz";
-        sha512 = "BQFnUDuAQ4Yf/cYY5LNrK9NCJFKriaRbD9uR1fTeXnBeoa97W0i41qkZfGO9pSo8I5KzjAcSY2XYtdf0oKd7KQ==";
+        url = "https://registry.npmjs.org/underscore/-/underscore-1.13.6.tgz";
+        sha512 = "+A5Sja4HP1M08MaXya7p5LvjuM7K6q/2EaC0+iovj/wOcMsTzMvDFbasi/oSapiwOlt252IqsKqPjCl7huKS0A==";
       };
     };
     "universalify-2.0.0" = {
@@ -778,7 +778,7 @@ let
       sources."supports-color-7.2.0"
       sources."sylvester-0.0.12"
       sources."traverse-0.3.9"
-      sources."underscore-1.13.4"
+      sources."underscore-1.13.6"
       sources."universalify-2.0.0"
       sources."util-deprecate-1.0.2"
       sources."wcwidth-1.0.1"
