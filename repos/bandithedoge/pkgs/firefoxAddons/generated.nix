@@ -399,6 +399,19 @@
       platforms = platforms.all;
     };
   };
+  "ublock-origin" = buildFirefoxXpiAddon {
+    pname = "ublock-origin";
+    version = "1.44.4";
+    addonId = "uBlock0@raymondhill.net";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4003969/ublock_origin-1.44.4.xpi";
+    sha256 = "0be550c9a27c040d04ad71954dd9e9a4967a27d48ffa2cdfe91171752e152685";
+    meta = with lib; {
+      homepage = "https://github.com/gorhill/uBlock#ublock-origin";
+      description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
+      license = licenses.gpl3;
+      platforms = platforms.all;
+    };
+  };
   "violentmonkey" = buildFirefoxXpiAddon {
     pname = "violentmonkey";
     version = "2.13.1";

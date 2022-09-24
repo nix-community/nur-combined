@@ -95,13 +95,13 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "34cd955f148709e5adc5fce380f6528944f144e2";
+    version = "2d74e49c4faf4d9a6a5901e22cab8df1f0c5f4c5";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "34cd955f148709e5adc5fce380f6528944f144e2";
+      rev = "2d74e49c4faf4d9a6a5901e22cab8df1f0c5f4c5";
       fetchSubmodules = false;
-      sha256 = "sha256-R5NZ/9c2uea1WxZ5sFvlCf+zzFvo7E3CM4iiXLYZasA=";
+      sha256 = "sha256-IpwfS27ftWXw+A3nEBsDxqviuamix/JyQCjotJ7UMFI=";
     };
   };
   taffybar = {
@@ -150,14 +150,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "38098d50a53e70159bad55c879a6f731d14decee";
+    version = "50d8b78c0729c24860a15f872f8373468f06e526";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "38098d50a53e70159bad55c879a6f731d14decee";
+      rev = "50d8b78c0729c24860a15f872f8373468f06e526";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-pIjp6im3EyMvOMx9eJ2ciacyLQRTc2ent8WaYejsqKw=";
+      sha256 = "sha256-MvmqUxZVLAyOBktg2dSyFZfWkkPax0vgvqDcETAuYjU=";
     };
   };
 }
