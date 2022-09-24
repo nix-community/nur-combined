@@ -125,6 +125,7 @@ elihunter173/dirbuf.nvim
 ellisonleao/carbon-now.nvim
 ellisonleao/glow.nvim
 ellisonleao/nvim-plugin-template
+epwalsh/obsidian.nvim
 esensar/nvim-dev-container
 feline-nvim/feline.nvim
 frabjous/knap
@@ -248,6 +249,7 @@ nxvu699134/vn-night.nvim
 nyngwang/NeoNoName.lua
 nyngwang/NeoRoot.lua
 ofirgall/goto-breakpoints.nvim
+ofirgall/ofirkai.nvim
 ojroques/nvim-hardline
 ojroques/nvim-lspfuzzy
 olexsmir/gopher.nvim
