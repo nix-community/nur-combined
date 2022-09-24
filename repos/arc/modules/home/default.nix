@@ -26,6 +26,7 @@
   tridactyl = ./tridactyl.nix;
   ncpamixer = ./ncpamixer.nix;
   ncmpcpp = ./ncmpcpp.nix;
+  mpc = ./mpc.nix;
   mpd = ./mpd.nix;
   pulsemixer = ./pulsemixer.nix;
   nix-path = ./nix-path.nix;
@@ -37,6 +38,8 @@
   swaylock = ./swaylock.nix;
   xdg = ./xdg.nix;
   watchdog = ./watchdog.nix;
+  user = ./user.nix;
+  bindings = ./bindings.nix;
 
   __functionArgs = { };
   __functor = self: { ... }: {
@@ -62,7 +65,7 @@
       firefox
       tridactyl
       ncpamixer
-      ncmpcpp
+      ncmpcpp mpc
       mpd
       pulsemixer
       nix-path
@@ -74,6 +77,8 @@
       swaylock
       xdg
       watchdog
+      user
+      bindings
     ];
   };
 }

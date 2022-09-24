@@ -233,10 +233,17 @@
   in if val != "" then fn val else fallback;
 
   # create a url and omit explicit ports if default
-  genUrl = {
+  genUrl = let
+    portDefaults = {
+      ssh = 22;
+      http = 80;
+      https = 443;
+    };
+  in {
     protocol
   , host
   , port ? null
+  , explicitPort ? port != null && (portDefaults.${protocol} or 0) != port
   , user ? null
   , password ? null
   , path ? ""
@@ -244,12 +251,6 @@
   , query ? { }
   , isUrl ? true
   }: let
-    portDefaults = {
-      ssh = 22;
-      http = 80;
-      https = 443;
-    };
-    explicitPort = port != null && (portDefaults.${protocol} or 0) != port;
     portStr = optionalString explicitPort ":${toString port}";
     queryStr = optionalString (queryString != null) "?${queryString}";
     passwordStr = optionalString (password != null) ":${password}";

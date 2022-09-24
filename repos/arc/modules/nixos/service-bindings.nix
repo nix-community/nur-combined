@@ -7,7 +7,6 @@ let
     ipv4 = "0.0.0.0";
     ipv6 = "::";
   };
-  inherit (import ./bindings.nix) connectionModule;
   nginxDomainModule = { config, lib, ... }: with lib; {
     options = {
       nginx = {
@@ -67,7 +66,7 @@ let
     options = {
       proxyPassConnection = mkOption {
         type = types.submodule [
-          connectionModule
+          ../misc/connection.nix
           ({ config, ... }: {
             options.enable = mkEnableOption "proxyPass" // { default = true; };
             config.isLocal = mkDefault (commonRoot config.binding);
@@ -129,7 +128,7 @@ let
         default = options.binding.isDefined;
       };
       connection = mkOption {
-        type = types.submodule connectionModule;
+        type = types.submodule ../misc/connection.nix;
       };
     };
     config = {
