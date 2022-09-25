@@ -29,7 +29,11 @@ recurseIntoAttrs rec {
 
         set IMAGE image.qcow2
         catch {set IMAGE $::env(QEMU_IMAGE)}
-        system rm -f $IMAGE
+        set USER pi
+        catch {set USER $::env(QEMU_USER)}
+        set PASSWORD raspberry
+        catch {set PASSWORD $::env(QEMU_PASSWORD)}
+
         system ${qemu}/bin/qemu-img create -f qcow2 -F qcow2 -b ${image} $IMAGE
 
         spawn ${qemu}/bin/qemu-system-arm  \
@@ -44,16 +48,21 @@ recurseIntoAttrs rec {
                    -drive "file=$IMAGE,index=0,media=disk"
 
         expect "login: "
-        send "pi\n"
+        send "$USER\n"
 
         expect "Password: "
-        send "raspberry\n"
+        send "$PASSWORD\n"
 
         expect "$ "
         send "ls -lah /\n"
         expect "$ "
-        send "sudo shutdown -h now\n"
-        wait
+
+        if {[info exists ::env(QEMU_INTERACT)]} {
+           interact
+        } else {
+           send "sudo shutdown -h now\n"
+           wait
+        }
       '';
   };
   raspberryPi = recurseIntoAttrs rec {
@@ -68,8 +77,10 @@ recurseIntoAttrs rec {
     };
     buster-lite-qcow2 = lib.makeCompressedQcow2 buster-lite;
     buster-lite-script = lib.makeExpectScript buster-lite-qcow2;
-    buster-lite-newimage = runCommand "newimage.qcow2" { } ''
-      QEMU_IMAGE=$out ${pkgs.lib.getExe buster-lite-script}
-    '';
+    buster-lite-newimage = runCommand "newimage.qcow2" {
+      QEMU_USER = "pi";
+      QEMU_PASSWORD = "raspberry";
+      QEMU_IMAGE = (placeholder "out");
+    } (pkgs.lib.getExe buster-lite-script);
   };
 }
