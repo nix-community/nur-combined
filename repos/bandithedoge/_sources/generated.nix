@@ -14,6 +14,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-6ek0lYi93D+h+E8FUh3gcrRtgAt98Igc22/Pc1vPs8Q=";
     };
+    date = "2022-09-05";
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
@@ -25,6 +26,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-TKf7fJ1eMjqORXeSEampAIBHXnEw2Hdl/FodeBSpMnY=";
     };
+    date = "2022-09-18";
   };
   kiwmi = {
     pname = "kiwmi";
@@ -36,6 +38,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-n9PA6cyEjSlnDcRrqIkO83UaCE/hovbi/oZon1B+nuw=";
     };
+    date = "2022-07-30";
   };
   libadwaita = {
     pname = "libadwaita";
@@ -48,6 +51,7 @@
       leaveDotGit = false;
       sha256 = "sha256-U+1Ki9+6j1gLa8G9bzu3MqCECKxqxr7r7svlwA1dD8s=";
     };
+    date = "2022-09-23";
   };
   lua-dbus = {
     pname = "lua-dbus";
@@ -59,6 +63,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-S+W6QTqv4kdyR86GCyDLnkml10dO4ZVNXEd3/7vDFGE=";
     };
+    date = "2015-04-22";
   };
   lua-dbus_proxy = {
     pname = "lua-dbus_proxy";
@@ -70,6 +75,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-mf49sgSO3zkeDDyezSr9BmvX2Fah8Hc59eLREP5G+p4=";
     };
+    date = "2022-07-30";
   };
   luakit = {
     pname = "luakit";
@@ -81,6 +87,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-ZF2tmZMuv5tbflWSh+0sCd0tE/rmHu0X4LqSygbH16w=";
     };
+    date = "2022-08-31";
   };
   slock-flexipatch = {
     pname = "slock-flexipatch";
@@ -92,6 +99,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-w+C/SfK4DgqtgFqhBTejgAE3+SJwPYGb4oq/oO+TRXU=";
     };
+    date = "2022-06-03";
   };
   st-flexipatch = {
     pname = "st-flexipatch";
@@ -103,6 +111,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-IpwfS27ftWXw+A3nEBsDxqviuamix/JyQCjotJ7UMFI=";
     };
+    date = "2022-09-24";
   };
   taffybar = {
     pname = "taffybar";
@@ -114,6 +123,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-3H8sRK7qszYpVnX9o1UMCDUGTGtS+KLhyZ+Pu0h8EbY=";
     };
+    date = "2022-05-30";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
@@ -125,6 +135,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-L0wtRtnV6hPzZM2wm5VjsQGRGebNjbTz75Hy8LK0BU4=";
     };
+    date = "2022-09-13";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
@@ -136,6 +147,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-CGaibR0Yejng9IQInm92Zx0pEZS29tJjWvPgaiWgUNQ=";
     };
+    date = "2022-05-18";
   };
   zix = {
     pname = "zix";
@@ -147,6 +159,7 @@
       fetchSubmodules = false;
       sha256 = "sha256-HxFIb/ux2YLVHrlgNOtxQsoQzCEPvAEG8UVXU2qN9Io=";
     };
+    date = "2022-09-08";
   };
   zrythm = {
     pname = "zrythm";
@@ -159,5 +172,6 @@
       leaveDotGit = false;
       sha256 = "sha256-MvmqUxZVLAyOBktg2dSyFZfWkkPax0vgvqDcETAuYjU=";
     };
+    date = "2022-09-24";
   };
 }
