@@ -2718,10 +2718,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.2.1";
+      version = "6.3.0";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3975216/vue_js_devtools-6.2.1.xpi";
-      sha256 = "bd8f661ea22e9a26f59ce4f1373fb5885ab702bcc4279c72fc8ce55f4b07a391";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4006905/vue_js_devtools-6.3.0.xpi";
+      sha256 = "755c155563e29973cb8eb1a3ecbaf7da77a7a102452c39fe937cffe6e75cb3d3";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
