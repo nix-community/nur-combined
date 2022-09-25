@@ -1,7 +1,7 @@
-{ stdenv, fetchFromRepoOrCz, autoreconfHook, pkgconfig, libusb1 }: stdenv.mkDerivation {
+{ stdenv, fetchFromRepoOrCz, autoreconfHook, pkg-config, libusb1 }: stdenv.mkDerivation {
   pname = "libjaylink";
   version = "2021-03-14";
-  nativeBuildInputs = [ pkgconfig autoreconfHook ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
   buildInputs = [ libusb1 ];
 
   src = fetchFromRepoOrCz {

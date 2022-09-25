@@ -16,7 +16,7 @@
 
   cargo-download-arc = {
     fetchFromGitHub, rustPlatform, lib
-  , openssl, pkgconfig, hostPlatform, darwin,
+  , openssl, pkg-config, hostPlatform, darwin,
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-download";
     version = "0.1.2";
@@ -27,7 +27,7 @@
       sha256 = "1knwxx9d9vnkxib44xircgw1zhwjnf6mlpkcq81dixp3f070yabl";
     };
 
-    nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
+    nativeBuildInputs = lib.optional hostPlatform.isLinux pkg-config;
     buildInputs = lib.optional hostPlatform.isLinux openssl
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
     cargoSha256 = "sha256-oH+BBf9R5KHjj4shkngiOafRmMA2YXuC96acCV6VQwU=";
@@ -51,7 +51,7 @@
   cargo-info = {
     fetchFromGitLab, fetchurl, rustPlatform, lib
   , hostPlatform, darwin
-  , openssl, pkgconfig
+  , openssl, pkg-config
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-info";
     version = "0.7.3";
@@ -64,7 +64,7 @@
 
     cargoSha256 = "sha256-gI/DGPCVEi4Mg9nYLaPpeqpV7LBbxoLP0ditU6hPS1w=";
 
-    nativeBuildInputs = lib.optional hostPlatform.isLinux pkgconfig;
+    nativeBuildInputs = lib.optional hostPlatform.isLinux pkg-config;
     buildInputs = lib.optional hostPlatform.isLinux openssl
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
   };
