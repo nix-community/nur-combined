@@ -19,6 +19,7 @@
   map = pkgs.callPackage ./pkgs/map { };
   q = pkgs.callPackage ./pkgs/q { };
   raspi-oled = pkgs.callPackage ./pkgs/raspi-oled { };
+  raspi-oled-cross = pkgs.pkgsCross.muslpi.callPackage ./pkgs/raspi-oled { };
   ripgrep-all = pkgs.callPackage ./pkgs/ripgrep-all {
     inherit (pkgs.darwin.apple_sdk.frameworks) Security;
   };
