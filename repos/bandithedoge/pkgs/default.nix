@@ -25,4 +25,6 @@ in {
   luakit = callPackage' ./luakit.nix;
 
   zrythm = callPackage' ./zrythm.nix;
+
+  lv2vst = callPackage' ./lv2vst.nix;
 }

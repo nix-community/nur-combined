@@ -89,6 +89,18 @@
     };
     date = "2022-08-31";
   };
+  lv2vst = {
+    pname = "lv2vst";
+    version = "30a669a021812da05258519cef9d4202f5ce26c3";
+    src = fetchFromGitHub {
+      owner = "x42";
+      repo = "lv2vst";
+      rev = "30a669a021812da05258519cef9d4202f5ce26c3";
+      fetchSubmodules = false;
+      sha256 = "sha256-WFVscNivFrsADl7w5pSYx9g+UzK2XUBF7x0Iqg8WKiQ=";
+    };
+    date = "2020-06-07";
+  };
   slock-flexipatch = {
     pname = "slock-flexipatch";
     version = "3131706fc5f202759cbf81c661df14578d721fb8";

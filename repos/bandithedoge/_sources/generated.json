@@ -138,6 +138,26 @@
         },
         "version": "a8b1cd5c0cc0c9a0126e44ccc78b78e962092adc"
     },
+    "lv2vst": {
+        "cargoLocks": null,
+        "date": "2020-06-07",
+        "extract": null,
+        "name": "lv2vst",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "x42",
+            "repo": "lv2vst",
+            "rev": "30a669a021812da05258519cef9d4202f5ce26c3",
+            "sha256": "sha256-WFVscNivFrsADl7w5pSYx9g+UzK2XUBF7x0Iqg8WKiQ=",
+            "type": "github"
+        },
+        "version": "30a669a021812da05258519cef9d4202f5ce26c3"
+    },
     "slock-flexipatch": {
         "cargoLocks": null,
         "date": "2022-06-03",

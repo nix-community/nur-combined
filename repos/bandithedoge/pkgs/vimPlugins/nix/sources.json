@@ -677,10 +677,10 @@
         "homepage": "",
         "owner": "glepnir",
         "repo": "lspsaga.nvim",
-        "rev": "dfd219cd46f817c55961de05b0267b871139d8d6",
-        "sha256": "15wnrh8lykzdl1gwz1s7r4h7d4v32kqkv5fp1skvvxmi6zvnhm21",
+        "rev": "c8bbcb598e5d63ce927d0f93d2f243532dd602c5",
+        "sha256": "1p8h6vvajw2mpbm3cipjxllk5iaxnqmn9n015s8rbhf41ckp025z",
         "type": "tarball",
-        "url": "https://github.com/glepnir/lspsaga.nvim/archive/dfd219cd46f817c55961de05b0267b871139d8d6.tar.gz",
+        "url": "https://github.com/glepnir/lspsaga.nvim/archive/c8bbcb598e5d63ce927d0f93d2f243532dd602c5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lua-dev.nvim": {
@@ -1001,10 +1001,10 @@
         "homepage": "",
         "owner": "kevinhwang91",
         "repo": "nvim-hlslens",
-        "rev": "25fcedc0b28292c3e818b91525c28b8154d9094a",
-        "sha256": "08m326lyhnls7iv59xjj9lgffyzz7npvcj314xlwf5q0fq9j3h90",
+        "rev": "72c378a132c0af78e5967ad09aee57a89fc7db1f",
+        "sha256": "0pgm77qpdzk3isd1798a8khijv7hsl6hf0mjcyl9chgqsawnfpwm",
         "type": "tarball",
-        "url": "https://github.com/kevinhwang91/nvim-hlslens/archive/25fcedc0b28292c3e818b91525c28b8154d9094a.tar.gz",
+        "url": "https://github.com/kevinhwang91/nvim-hlslens/archive/72c378a132c0af78e5967ad09aee57a89fc7db1f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-lightbulb": {
