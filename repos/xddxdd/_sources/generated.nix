@@ -69,10 +69,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.5.0-3";
+    version = "1.6.1-3";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.5.0-3/io.github.msojocs.bilibili_1.5.0-3_amd64.deb";
-      sha256 = "sha256-Xpn7/f8CMVH67OQQpaIrmORm2SIK0BlBFneDfQY7UmE=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.6.1-3/io.github.msojocs.bilibili_1.6.1-3_amd64.deb";
+      sha256 = "sha256-8uggg3gjS+j4oiO/AAnrRQhjIJnKUElyYCCGTq9nfwg=";
     };
   };
   bird-babel-rtt = {
@@ -88,13 +88,13 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "675cb26ed13d9754906de54ba5495d2c3757d5f3";
+    version = "3b1d001543e438d9a28a13bf64f674193079ee20";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "675cb26ed13d9754906de54ba5495d2c3757d5f3";
+      rev = "3b1d001543e438d9a28a13bf64f674193079ee20";
       fetchSubmodules = false;
-      sha256 = "sha256-ETO/g7E2HquUJrQ0WYVD0B5xrGLMG4NjwhaVxKugfCU=";
+      sha256 = "sha256-XGgrBPHJP7Q2WIH6EGY458gAuGdWcSaM+1Ke8jYNYMQ=";
     });
   };
   boringssl-oqs = {
@@ -199,13 +199,13 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "8ab5a41c552f9f2cfefa1874104b63e5ac58e0c9";
+    version = "7e59383c308291a77a75c5a420abca555a8ee945";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "8ab5a41c552f9f2cfefa1874104b63e5ac58e0c9";
+      rev = "7e59383c308291a77a75c5a420abca555a8ee945";
       fetchSubmodules = false;
-      sha256 = "sha256-JCLchcutv/RSlqUW6Hd54NYhaFEaW5V6bP0N5nOatDk=";
+      sha256 = "sha256-OSFJF2zoFwJ+NlNR/abJjIDFWIjN22PHxcOyf+5toPA=";
     });
   };
   konnect = {
@@ -397,6 +397,17 @@
       sha256 = "sha256-ST3m5SZ94K/EAP0gltDfJfDeXCyBDthntz7OetH9Ips=";
     });
   };
+  plangothic-fonts = {
+    pname = "plangothic-fonts";
+    version = "V0.5.5691";
+    src = fetchFromGitHub ({
+      owner = "Fitzgerald-Porthmouth-Koenigsegg";
+      repo = "Plangothic";
+      rev = "V0.5.5691";
+      fetchSubmodules = false;
+      sha256 = "sha256-vUXZSXcGORgkz9PpmLBYwdzoQ7mpq4tWx1+XSu0l7t8=";
+    });
+  };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
     version = "release-4.4.5.10";
@@ -432,10 +443,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20220218";
+    version = "20220925";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20220218/moegirl.dict.yaml";
-      sha256 = "sha256-ut1oWd88hCq4eJ0rI0a4YuVEmo6/nwG80tC/i/oxJLA=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20220925/moegirl.dict.yaml";
+      sha256 = "sha256-RhKF0V+BOU6ZOKK7+q4/NPqyK2UvCGIE3Mufzp0Ergw=";
     };
   };
   rime-zhwiki = {
@@ -470,37 +481,37 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202209170841";
+    version = "202209220104";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202209170841/geoip.dat";
-      sha256 = "sha256-zrDP3w+rORQegH/nu4oJcsaz9harzRCXrDDCY2jzaKU=";
+      url = "https://github.com/v2fly/geoip/releases/download/202209220104/geoip.dat";
+      sha256 = "sha256-IPbOqh45qd5Uc9lJeYVf4+uTpbpKJyhipY1Zx71K6Qg=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20220918041236";
+    version = "20220925064442";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20220918041236/dlc.dat";
-      sha256 = "sha256-00QuaayqVFX/CToDys45u0NOvWi6s7bFWpCxJgPsXxQ=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20220925064442/dlc.dat";
+      sha256 = "sha256-qk7PSUB6sp8x1+K39m/jqAWhbcn8nBzbpg2S3CoE7BE=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202209170841";
+    version = "202209220104";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202209170841/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202209220104/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };
   xray = {
     pname = "xray";
-    version = "v1.5.5";
+    version = "v1.6.0";
     src = fetchFromGitHub ({
       owner = "XTLS";
       repo = "Xray-core";
-      rev = "v1.5.5";
+      rev = "v1.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-x2aNAu+H3qJIKjQbE0rYxfQAWucvOMaU2eSy9YIZdcQ=";
+      sha256 = "sha256-pklGXlrGOXdIZttb6Ov+D1W3uKRIdRnKGoLAS17aR8k=";
     });
   };
   zstd-nginx-module = {

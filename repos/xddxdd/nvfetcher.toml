@@ -153,6 +153,10 @@ fetch.url = "https://files.phpmyadmin.net/phpMyAdmin/$ver/phpMyAdmin-$ver-all-la
 src.github = "ReimuHakurei/phppgadmin"
 fetch.github = "ReimuHakurei/phppgadmin"
 
+[plangothic-fonts]
+src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
+fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
+
 [qbittorrent-enhanced-edition]
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
 fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
