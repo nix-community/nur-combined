@@ -19,6 +19,8 @@ let
 
       luaPackages = lua53Packages;
 
+      qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
+
       lua53Packages = recurseIntoAttrs {
         lua-curl = pkgs.lua53Packages.callPackage ./pkgs/lua-curl { };
       };

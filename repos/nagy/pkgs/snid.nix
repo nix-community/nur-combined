@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "snid";
-  version = "0.1.2";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "AGWA";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-B1j3cR0ahBUJBgK9MYbl6pg35RZg0/BMwBGWJj1krwQ=";
+    sha256 = "sha256-A0+X407zYp+XiwOSFljIJ0S7dZqQViAhJn6tZJQYxlM=";
   };
 
-  vendorSha256 = "sha256-2sJPMN4cKQOhFV/b73a7bd6BZQc5MfIFfItk8FanD0A=";
+  vendorSha256 = "sha256-69H57AzzAmvLQarg7cli6FiGarVE79j/leq8bPnn92g=";
 
   meta = with lib; {
     description = "Zero config SNI proxy server";
