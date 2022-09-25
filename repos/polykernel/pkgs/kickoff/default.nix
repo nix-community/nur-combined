@@ -17,20 +17,22 @@
 in
   rustPlatform.buildRustPackage rec {
     pname = "kickoff";
-    version = "0.5.1";
+    version = "main";
 
     src = fetchFromGitHub {
       owner = "j0ru";
       repo = pname;
-      rev = "refs/tags/v${version}";
-      sha256 = "sha256-dfbstCnuaUaA8Nk140kGalyD6IvF5ECVgGSBatKXUZ4=";
+      rev = "41fac1e663facd6dc3a041cd2192e017b7f57f32";
+      sha256 = "sha256-2xsOCGHsQmyy8CVmfVfbRxB89EDbj29fr/c7NYuUjHo=";
     };
 
-    cargoHash = "sha256-wJbE1TJ8/UkSJ0DcgX/4zKePohAUaTVM+krOxXH2sWI=";
+    cargoHash = "sha256-NsMDGGA4LA9ofPVBCHVKS/MGthThcTZ1QywHENSXgfQ=";
 
     nativeBuildInputs = [pkg-config];
 
-    buildInputs = [fontconfig];
+    buildInputs = [
+      fontconfig
+    ];
 
     postInstall = ''
       # Strip executable and set RPATH
