@@ -3,18 +3,18 @@
 {
   geoip-dat = {
     pname = "geoip-dat";
-    version = "202209222214";
+    version = "202209232216";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209222214/geoip.dat";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209232216/geoip.dat";
       sha256 = "sha256-DY+ynkNSSGIF2NrmCrRVs+adUJEd8ulKhUy/HXCSGBM=";
     };
   };
   geosite-dat = {
     pname = "geosite-dat";
-    version = "202209222214";
+    version = "202209232216";
     src = fetchurl {
-      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209222214/geosite.dat";
-      sha256 = "sha256-R51m9HuE+aFuu6NcNCADsLz25787tuqE6ft5DcyArlQ=";
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209232216/geosite.dat";
+      sha256 = "sha256-mK8OkqdHZ5UBG85O329Jvb6JEg1hWY4n8YwqcfJ1XWw=";
     };
   };
   mosdns = {
