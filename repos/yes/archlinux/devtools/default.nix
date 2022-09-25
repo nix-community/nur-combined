@@ -10,11 +10,15 @@
 , coreutils
 , curl
 , diffutils
+, findutils
 , gawk
 , gettext
 , git
 , glibc
+, gnugrep
 , gnum4
+, gnused
+, gzip
 , mercurial
 , openssh
 , pacman
@@ -36,10 +40,14 @@ let
     btrfs-progs
     coreutils
     diffutils
+    findutils
     gawk
     gettext
     git
     glibc
+    gnugrep
+    gnused
+    gzip
     mercurial
     openssh
     pacman
@@ -79,7 +87,7 @@ in stdenvNoCC.mkDerivation rec {
         --replace "/usr/bin/scp" "${openssh}/bin/scp"
     done
     substituteInPlace ./offload-build.in --replace "/usr/share/devtools" "$out/share/devtools"
-    echo "export PATH=${path}:$PATH" >> ./lib/common.sh
+    echo "export PATH=${path}" >> ./lib/common.sh
   '';
 
   meta = with lib; {
