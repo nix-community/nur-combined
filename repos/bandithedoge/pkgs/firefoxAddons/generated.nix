@@ -17,6 +17,19 @@
       platforms = platforms.all;
     };
   };
+  "auto-tab-discard" = buildFirefoxXpiAddon {
+    pname = "auto-tab-discard";
+    version = "0.6.3.2";
+    addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4004129/auto_tab_discard-0.6.3.2.xpi";
+    sha256 = "2703b74e746d522eb1fd7f457bfdb910fa225dda0c079157d372b0e85cc5936e";
+    meta = with lib; {
+      homepage = "http://add0n.com/tab-discard.html";
+      description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
+      license = licenses.mpl20;
+      platforms = platforms.all;
+    };
+  };
   "base64-decoder" = buildFirefoxXpiAddon {
     pname = "base64-decoder";
     version = "1.0";
@@ -385,6 +398,19 @@
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
       license = licenses.gpl3;
+      platforms = platforms.all;
+    };
+  };
+  "tabcenter-reborn" = buildFirefoxXpiAddon {
+    pname = "tabcenter-reborn";
+    version = "2.3.1";
+    addonId = "tabcenter-reborn@ariasuni";
+    url = "https://addons.mozilla.org/firefox/downloads/file/3829515/tabcenter_reborn-2.3.1.xpi";
+    sha256 = "d31c693c896045d4326c7e9e0152830820009bd60f62b36043bb322cab713f34";
+    meta = with lib; {
+      homepage = "https://framagit.org/ariasuni/tabcenter-reborn";
+      description = "Simple and powerful vertical tab bar";
+      license = licenses.mpl20;
       platforms = platforms.all;
     };
   };
