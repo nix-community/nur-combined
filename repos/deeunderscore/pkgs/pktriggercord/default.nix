@@ -1,6 +1,6 @@
 { stdenv, lib
 , fetchFromGitHub
-, pkgconfig
+, pkg-config
 , gtk2
 }:
 stdenv.mkDerivation rec {
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace 'GROUP="users"' 'GROUP="camera"'
   '';
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
     gtk2
