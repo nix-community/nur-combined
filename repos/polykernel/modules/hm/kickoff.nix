@@ -46,6 +46,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    assertions = [(hm.assertions.assertPlatform "programs.kickoff" pkgs platforms.linux)];
     home.packages = [cfg.package];
 
     home.file."${configDir}/kickoff/config.toml" = mkIf (cfg.settings != {}) {
