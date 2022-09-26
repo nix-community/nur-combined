@@ -115,7 +115,7 @@ runs:
         printf '  %s\n' $build_args
         echo "::endgroup::"
         echo "::group::Creating derivations for build"
-        build_output="$( nix build --dry-run --json $build_args )"
+        build_output="$( nix build --show-trace --dry-run --json $build_args )"
         drv_list="$(
           printf '%s' "$build_output" | jq -r '.[].drvPath'
         )"
