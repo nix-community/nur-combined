@@ -17,6 +17,7 @@
 , glibc
 , gnugrep
 , gnum4
+, gnupg
 , gnused
 , gzip
 , mercurial
@@ -35,6 +36,7 @@ let
     "/run/wrappers"
     "${placeholder "out"}"
     arch-install-scripts
+    bash
     binutils
     breezy
     btrfs-progs
@@ -46,6 +48,7 @@ let
     git
     glibc
     gnugrep
+    gnupg
     gnused
     gzip
     mercurial
