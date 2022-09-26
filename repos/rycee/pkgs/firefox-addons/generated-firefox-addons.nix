@@ -271,10 +271,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.5.0";
+      version = "2.8.6.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003883/bypass_paywalls_clean-2.8.5.0.xpi";
-      sha256 = "09fc16733722e4f950cc19b08ddac2567ead132cb875af4a9bcbef32ee79fd2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007095/bypass_paywalls_clean-2.8.6.0.xpi";
+      sha256 = "c3e64b277facb189fdd09651805b6f51683f93db83f02610e9a99a0555046013";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -793,10 +793,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0buildid20220922.185808";
+      version = "106.0buildid20220925.185751";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4006044/francais_language_pack-106.0buildid20220922.185808.xpi";
-      sha256 = "968ced8ab45b0502a402ebf46236efeafcb008e0d5f3349169de2ad01bfe8a82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007235/francais_language_pack-106.0buildid20220925.185751.xpi";
+      sha256 = "5d6a9d696b91c3bfa55c91cb05e87bfb424478b6e91044f3102c071783371f6d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2002,10 +2002,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.9.21";
+      version = "22.9.25";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005173/refined_github-22.9.21.xpi";
-      sha256 = "aa2e6476fcc594338d13655edbfd22c31c0b04696a487face3af288620925f5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4006995/refined_github-22.9.25.xpi";
+      sha256 = "613d3e2ea79573bb31c9b25b099af8b445b81b04d312e1087ce46e745bde659b";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2774,10 +2774,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.71.0";
+      version = "2.72.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4006637/web_scrobbler-2.71.0.xpi";
-      sha256 = "b963aef0d6f6e495fdc4f93b9b9ece747755198d4dc21e64fb8777864f54e349";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007158/web_scrobbler-2.72.0.xpi";
+      sha256 = "6b5fd8f8b7fe1c38c7adbc7c673fd359fd0cd4af0bbeb56f4ce46b77b4bc5df7";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
