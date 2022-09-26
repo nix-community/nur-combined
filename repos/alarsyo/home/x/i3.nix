@@ -31,7 +31,7 @@ in {
       flameshot.enable = true;
     };
 
-    home.packages = [pkgs.betterlockscreen];
+    home.packages = [pkgs.betterlockscreen pkgs.playerctl];
 
     xsession.windowManager.i3 = {
       enable = true;
@@ -96,8 +96,13 @@ in {
           "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "XF86AudioMicMute" = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
-          "XF86AudioPlay" = "exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play";
-          "XF86AudioPause" = "exec --no-startup-id dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause";
+          # I need play-pause everywhere because somehow, keycode 172 seems to
+          # be interpreted as pause everytime when sent by my keyboard. Ugh,
+          # computers.
+          "XF86AudioPlay" = "exec --no-startup-id playerctl play-pause";
+          "XF86AudioPause" = "exec --no-startup-id playerctl play-pause";
+          "XF86AudioPrev" = "exec --no-startup-id playerctl previous";
+          "XF86AudioNext" = "exec --no-startup-id playerctl next";
 
           "XF86MonBrightnessDown" = "exec --no-startup-id light -U 5";
           "XF86MonBrightnessUp" = "exec --no-startup-id light -A 5";
