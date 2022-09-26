@@ -27,9 +27,9 @@
         else warn "${pkg.name} has no license";
         msg' = nixpkgs.lib.replaceStrings [" "] ["-"] msg;
       in
-      pkgs.runCommandNoCC msg' {} "echo : > $out";
+      pkgs.runCommand msg' {} "echo : > $out";
     in
-    pkgs.runCommandNoCC "check-missing-licenses" {
+    pkgs.runCommand "check-missing-licenses" {
       buildInputs = nixpkgs.lib.mapAttrsToList
       (_: pkg: hasLicense pkg)
       self.packages.${system};
