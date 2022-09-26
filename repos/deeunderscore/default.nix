@@ -1,6 +1,5 @@
 { pkgs ? import <nixpkgs> {} }:
 rec {
-    cubeglobe-bot = pkgs.callPackage ./pkgs/cubeglobe-bot { };
     faq = pkgs.callPackage ./pkgs/faq { };
     git-archive-all = pkgs.callPackage ./pkgs/git-archive-all { };
     moar = pkgs.callPackage ./pkgs/moar { };
