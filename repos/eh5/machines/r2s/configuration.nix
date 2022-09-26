@@ -37,6 +37,7 @@
 
   programs.command-not-found.enable = true;
   programs.vim.defaultEditor = true;
+  programs.git.enable = true;
 
   services.openssh = {
     enable = true;

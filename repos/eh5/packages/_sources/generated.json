@@ -1,6 +1,7 @@
 {
     "geoip-dat": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "geoip-dat",
         "passthru": null,
@@ -9,26 +10,28 @@
             "name": null,
             "sha256": "sha256-DY+ynkNSSGIF2NrmCrRVs+adUJEd8ulKhUy/HXCSGBM=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209232216/geoip.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209252213/geoip.dat"
         },
-        "version": "202209232216"
+        "version": "202209252213"
     },
     "geosite-dat": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "geosite-dat",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mK8OkqdHZ5UBG85O329Jvb6JEg1hWY4n8YwqcfJ1XWw=",
+            "sha256": "sha256-Siiq/0t5OnCFefqBAtvBpYfTDmGya2EousRGEsGtEg8=",
             "type": "url",
-            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209232216/geosite.dat"
+            "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202209252213/geosite.dat"
         },
-        "version": "202209232216"
+        "version": "202209252213"
     },
     "mosdns": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "mosdns",
         "passthru": null,
@@ -40,14 +43,15 @@
             "name": null,
             "owner": "IrineSistiana",
             "repo": "mosdns",
-            "rev": "v4.1.10",
-            "sha256": "sha256-vlDGxxuewy+I+tzz4SIMGyarPiHSr7b7qj2rmBovXto=",
+            "rev": "v4.2.0",
+            "sha256": "sha256-ifkvZt+d1YWfi0g8sof0gsN0W+98qEC2J/SfPGXtmZc=",
             "type": "github"
         },
-        "version": "v4.1.10"
+        "version": "v4.2.0"
     },
     "v2ray": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "v2ray",
         "passthru": null,
