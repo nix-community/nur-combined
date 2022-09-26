@@ -16,7 +16,7 @@
   gsettings-desktop-schemas,
   glib,
   libosinfo,
-  gnome3,
+  gnome,
   gtksourceview4,
   spiceSupport ? true,
   spice-gtk ? null,
@@ -48,7 +48,7 @@ with lib;
         vte
         dconf
         gtk-vnc
-        gnome3.adwaita-icon-theme
+        gnome.adwaita-icon-theme
         avahi
         gsettings-desktop-schemas
         libosinfo
