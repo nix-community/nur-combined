@@ -25,11 +25,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OkbedsVDbi7HCzsp8yuJgqNDQlzJIpQqvPL1yCNkyKQ=",
+            "sha256": "sha256-Tpodeg6A1kGYMNqhVuZFjpKm4J22YLJU/zReFrj5EjY=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.3/Clash.for.Windows-0.20.3-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.4/Clash.for.Windows-0.20.4-x64-linux.tar.gz"
         },
-        "version": "0.20.3"
+        "version": "0.20.4"
     },
     "clash-for-windows-icon": {
         "cargoLocks": null,
@@ -174,11 +174,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tmgcUSeR/RoUrkuowZ/Bxapuq50ihKw/855Eu1YAvxE=",
+            "sha256": "sha256-BbvTGtI676Fy1AJ61rTRWRiVyg5MIDFTvd3/gfH2j8U=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.2/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.3/app-x86_64.asar"
         },
-        "version": "v2.7.2"
+        "version": "v2.7.3"
     },
     "icalingua-plus-plus-aur": {
         "cargoLocks": null,
@@ -191,12 +191,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d837300f601acb3a4c6c3c5d8057aa4a03f59812",
-            "sha256": "sha256-6Aa1C1YzN+qi8xEtINRVjLZW8rwiydPKTxUFfXGpEDM=",
+            "rev": "96274fa337ba384539ab8fb3f84fb2234c3898e5",
+            "sha256": "sha256-g/pB2iyZYwPLCF2knzshHQi6UH3K1wf3Q7UW1lWi2E0=",
             "type": "git",
             "url": "https://aur.archlinux.org/icalingua++.git"
         },
-        "version": "d837300f601acb3a4c6c3c5d8057aa4a03f59812"
+        "version": "96274fa337ba384539ab8fb3f84fb2234c3898e5"
     },
     "pisces": {
         "cargoLocks": null,
