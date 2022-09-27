@@ -1,42 +1,3 @@
-terraform {
-    cloud {
-        organization = "lucasew"
-        workspaces {
-            name = "infra"
-        }
-    }
-}
-
-variable "modo_turbo" {
-  type = bool
-  default = false
-  description = "VPS com mais CPU e GPU"
-}
-
-variable "gcp_zone" {
-    type = string
-    default = "us-central1-a"
-    description = "Zona do GCP pra subir as coisas"
-}
-
-variable "gcp_project" {
-    type = string
-    default = "artimanhas-do-lucaum"
-    description = "Projeto que tudo pertence"
-}
-
-variable "gcp_token" {
-    type = string
-    sensitive = true
-    description = "Token GCP"
-}
-
-variable "stop" {
-    type = bool
-    description = "Stop the instance?"
-    default = false
-}
-
 provider "google" {
     project = var.gcp_project
     zone = var.gcp_zone
@@ -51,13 +12,8 @@ resource "google_service_account" "service_account" {
 }
 # terraform import google_service_account.artimanhas-do-lucaum 178195340338-compute@developer.gserviceaccount.com
 
-data "google_storage_bucket_object" "nixos-image-bucket" {
-  name   = "nixos-image-lucasew:nixcfg-4b7b21ad0e11fd33133d31b43b7845609ddcfc63-x86_64-linux.raw.tar.gz"
-  bucket = "nixos-bootstrap"
-}
-
-resource "google_compute_instance" "vps" {
-  name = "vps"
+resource "google_compute_instance" "ivarstead" {
+  name = "ivarstead"
 
   attached_disk {
     device_name = "persist"
@@ -76,13 +32,13 @@ resource "google_compute_instance" "vps" {
 
   enable_display = true
 
-  machine_type = var.modo_turbo ? "n1-highcpu-4" : "e2-micro"
+  machine_type = var.gcp_ivarstead_modo_turbo ? "n1-highcpu-4" : "e2-micro"
 
-  desired_status = var.stop ? "TERMINATED" : "RUNNING"
+  count = var.gcp_ivarstead_stop ? 0 : 1
 
   guest_accelerator {
     type = "nvidia-tesla-k80"
-    count = var.modo_turbo ? 1 : 0
+    count = var.gcp_ivarstead_modo_turbo ? 1 : 0
   }
 
   scheduling {
@@ -115,8 +71,8 @@ resource "google_compute_instance" "vps" {
 
   zone = var.gcp_zone
 }
-# terraform import google_compute_instance.vps vps
-#
+# terraform import google_compute_instance.ivarstead ivarstead
+
 resource "google_compute_disk" "nixos_rootfs" {
   image                     = google_compute_image.nixos_bootstrap.self_link
   name                      = "nixos-rootfs"

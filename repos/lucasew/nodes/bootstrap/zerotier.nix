@@ -1,4 +1,4 @@
-{...}:
+{config, ...}:
 {
   services.zerotierone = {
     enable = true;
@@ -9,9 +9,9 @@
   };
   networking.firewall.trustedInterfaces = [ "ztppi77yi3" ];
   services.dnsmasq.extraConfig = ''
-address=/controlplane.lucao.net/192.168.69.1
-address=/whiterun.lucao.net/192.168.69.1
-address=/riverwood.lucao.net/192.168.69.2
-address=/xiaomi.lucao.net/192.168.69.4
+address=/controlplane.${config.networking.domain}/192.168.69.1
+address=/whiterun.${config.networking.domain}/192.168.69.1
+address=/riverwood.${config.networking.domain}/192.168.69.2
+address=/xiaomi.${config.networking.domain}/192.168.69.4
   '';
 }

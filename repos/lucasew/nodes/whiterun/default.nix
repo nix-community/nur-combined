@@ -32,6 +32,14 @@ in {
 
   services.openssh.forwardX11 = true;
 
+  services.nginx = {
+    enable = true;
+    appendHttpConfig = ''
+      allow 192.168.69.0/24;
+      deny all;
+    '';
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

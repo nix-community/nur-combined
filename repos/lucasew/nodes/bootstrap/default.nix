@@ -28,4 +28,5 @@ in {
   programs.bash = {
     promptInit = builtins.readFile ./bash_init.sh;
   };
+  networking.domain = lib.mkDefault "lucao.net";
 }
