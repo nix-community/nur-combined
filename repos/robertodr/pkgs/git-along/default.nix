@@ -16,6 +16,6 @@ buildGoPackage rec {
   meta = with lib; {
     description = "Manage project configuration and environment in side branches";
     homepage = https://github.com/nyarly/git-along;
-    maintaines = [ maintainers.robertodr ];
+    maintainers = [ maintainers.robertodr ];
   };
 }
