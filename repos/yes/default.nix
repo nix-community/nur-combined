@@ -13,6 +13,8 @@ with pkgs;
   gnomeExtensions = recurseIntoAttrs (import ./gnomeExtensions {
     inherit pkgs rp;
   });
+
+  jnu-open = callPackage ./jnu-open { inherit rp; };
   
   lx-music-desktop = callPackage ./electronAppImage rec {
     pname = "lx-music-desktop";
