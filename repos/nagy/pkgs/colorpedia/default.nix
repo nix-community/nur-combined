@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools, setuptools_scm, fire
+{ lib, fetchPypi, buildPythonApplication, setuptools, setuptools-scm, fire
 , installShellFiles }:
 
 buildPythonApplication rec {
@@ -10,7 +10,7 @@ buildPythonApplication rec {
     sha256 = "01a2vy941sxwqdaiyxyhixx0vbadwzqnafncmrglkpzdmdk7gl9l";
   };
 
-  nativeBuildInputs = [ setuptools_scm installShellFiles ];
+  nativeBuildInputs = [ setuptools-scm installShellFiles ];
 
   propagatedBuildInputs = [ fire setuptools ];
 

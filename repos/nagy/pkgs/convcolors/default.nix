@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools_scm }:
+{ lib, fetchPypi, buildPythonPackage, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "convcolors";
@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "convcolors" ];
 
-  nativeBuildInputs = [ setuptools_scm ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   meta = with lib; {
     description =

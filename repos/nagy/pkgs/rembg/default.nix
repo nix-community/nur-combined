@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildPythonPackage, setuptools_scm, pymatting, filetype
+{ lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, pymatting, filetype
 , scikitimage, installShellFiles, pillow, flask, tqdm, waitress, requests
 , fastapi, gdown, numpy, uvicorn, flatbuffers, asyncer, onnxruntime, coloredlogs
 , sympy, opencv4, pytorch, torchvision, requireFile, runCommand, makeWrapper
@@ -62,7 +62,7 @@ in buildPythonPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ setuptools_scm installShellFiles ];
+  nativeBuildInputs = [ setuptools-scm installShellFiles ];
 
   prePatch = ''
     substituteInPlace requirements-gpu.txt --replace "==" ">="

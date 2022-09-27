@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools_scm, installShellFiles
+{ lib, fetchPypi, buildPythonApplication, setuptools-scm, installShellFiles
 , pillow, convcolors }:
 
 buildPythonApplication rec {
@@ -12,7 +12,7 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "extcolors" ];
 
-  nativeBuildInputs = [ setuptools_scm installShellFiles ];
+  nativeBuildInputs = [ setuptools-scm installShellFiles ];
 
   propagatedBuildInputs = [ pillow convcolors ];
 
