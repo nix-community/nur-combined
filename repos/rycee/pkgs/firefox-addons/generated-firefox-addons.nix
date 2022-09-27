@@ -663,10 +663,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.60";
+      version = "2.61";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3991511/firemonkey-2.60.xpi";
-      sha256 = "1440bcf82cf88a5e708986238b1953c376a240c328053f40f902f56dba9e5801";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007490/firemonkey-2.61.xpi";
+      sha256 = "35edd83dea850dd59936f2bfa8b8df7f875aabc3e43838e2d45ef8c0eada4d31";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -1299,10 +1299,10 @@
       };
     "markdownload" = buildFirefoxXpiAddon {
       pname = "markdownload";
-      version = "3.1.0";
+      version = "3.2.1";
       addonId = "{1c5e4c6f-5530-49a3-b216-31ce7d744db0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3911043/markdownload-3.1.0.xpi";
-      sha256 = "90162919e1517eb7b4fd75eade3573011550a9c6d081e23a606ec0bdfeadb2ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007848/markdownload-3.2.1.xpi";
+      sha256 = "9cb65bf5c48a38d43ca3b2c47b5f424c2d27eaca66f1d7d2473eddd9ea73f63f";
       meta = with lib;
       {
         homepage = "https://github.com/deathau/markdown-clipper";
@@ -1357,10 +1357,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.25";
+      version = "2.6.48";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986826/momentumdash-2.6.25.xpi";
-      sha256 = "433dd7acd10ce1732328223dbc377700bcc0fea09b5b2476f34f65e741780090";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007706/momentumdash-2.6.48.xpi";
+      sha256 = "32e5c53a006e6170dfb6cc6a164a7a289bc60d0fd34fb86d21141173afac57c0";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1458,10 +1458,10 @@
       };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
-      version = "2.2.2";
+      version = "2.2.3";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3981935/news_feed_eradicator-2.2.2.xpi";
-      sha256 = "72066af596767ce4087e0f6afc7ca370f28f5d7a3bb3f3a46bef5ae3f02a8d6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007898/news_feed_eradicator-2.2.3.xpi";
+      sha256 = "5d8c10081f0192865176f11c35b4ebceb3c78d9e3ba72ef45e0df8907df82721";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
@@ -2718,10 +2718,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.3.0";
+      version = "6.4.1";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4006905/vue_js_devtools-6.3.0.xpi";
-      sha256 = "755c155563e29973cb8eb1a3ecbaf7da77a7a102452c39fe937cffe6e75cb3d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007776/vue_js_devtools-6.4.1.xpi";
+      sha256 = "17f2041dd580c5c4b2d093ed225ee6e78fb6825996f697b3d940746cb330e748";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
@@ -2746,10 +2746,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.39";
+      version = "6.10.40";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3993587/wappalyzer-6.10.39.xpi";
-      sha256 = "0ce1b28b8e30569501430884b8bde3a29d737b63e1833d5e6f4f501f6c2a6af0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007825/wappalyzer-6.10.40.xpi";
+      sha256 = "a8100dc744ac4a500a6d6ae93b29533ab667c3fde890b8340f29485f6894e72f";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2774,10 +2774,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.72.0";
+      version = "2.73.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007158/web_scrobbler-2.72.0.xpi";
-      sha256 = "6b5fd8f8b7fe1c38c7adbc7c673fd359fd0cd4af0bbeb56f4ce46b77b4bc5df7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007753/web_scrobbler-2.73.0.xpi";
+      sha256 = "df813b536fc3065ff78065652eb66a52f2d999c92085246b9ad6783faf4c4c34";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
