@@ -451,6 +451,9 @@
         "ocfox": {
             "url": "https://github.com/ocfox/nur-pkgs"
         },
+        "oluceps": {
+            "url": "https://github.com/oluceps/nur-pkgs"
+        },
         "ondt": {
             "url": "https://github.com/ondt/nur-packages"
         },
