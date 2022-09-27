@@ -720,11 +720,6 @@
             "sha256": "1lr4rwsgq11cf912ssvmn3cyvcnsdljrypbr8nkqcv4j63f5285a",
             "url": "https://github.com/ocfox/nur-pkgs"
         },
-        "oluceps": {
-            "rev": "d41be6f866c9e12fb68cdb4552a2f7c2e16840dd",
-            "sha256": "1yj1219ladzqxjn2b2idvrxp93985zlasxjbslkkvrhq50zdwg8j",
-            "url": "https://github.com/oluceps/nur-pkgs"
-        },
         "ondt": {
             "rev": "53fc0e8fbc374eed1ac83960934729c22726d5aa",
             "sha256": "1n761y30kdcjfm2zilqihqldnmqrgly9vf3iblbgga5j5vg0wsqa",
