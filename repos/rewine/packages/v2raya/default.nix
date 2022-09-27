@@ -49,7 +49,7 @@ buildGoModule {
   '';
   postInstall = ''
     wrapProgram $out/bin/v2rayA \
-      --prefix PATH ":" "${lib.makeBinPath [ v2ray.core ]}" \
+      --prefix PATH ":" "${lib.makeBinPath [ v2ray ]}" \
       --prefix XDG_DATA_DIRS ":" ${symlinkJoin {
         name = "assets";
         paths = [ v2ray-geoip v2ray-domain-list-community ];
