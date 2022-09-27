@@ -2,7 +2,7 @@
 , sources
 , lib
 , cmake
-, pkgconfig
+, pkg-config
 , alsa-lib
   # Dependencies
 , at-spi2-core
@@ -29,7 +29,7 @@
 
 stdenv.mkDerivation rec {
   inherit (sources.noise-suppression-for-voice) pname version src;
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
     alsa-lib
     at-spi2-core

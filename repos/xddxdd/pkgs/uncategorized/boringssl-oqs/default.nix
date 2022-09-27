@@ -5,7 +5,7 @@
 , cmake
 , ninja
 , perl
-, pkgconfig
+, pkg-config
 , liboqs
 , ...
 } @ args:
@@ -20,7 +20,7 @@ buildGoModule rec {
     cmake
     ninja
     perl
-    pkgconfig
+    pkg-config
   ];
 
   preBuild = ''

@@ -1,5 +1,6 @@
 { stdenv
 , fetchurl
+, fetchFromGitHub
 , autoPatchelfHook
 , makeWrapper
 , lib
@@ -17,6 +18,7 @@
 , gnutls
 , graphite2
 , gtk2
+, harfbuzz
 , krb5
 , libdrm
 , libgcrypt
@@ -24,10 +26,11 @@
 , libpulseaudio
 , libthai
 , libxkbcommon
-, mesa_drivers
+, mesa
 , nspr
 , nss
 , openldap
+, pango
 , rtmpdump
 , udev
 , util-linux
@@ -55,7 +58,14 @@ let
     glib
     gnutls
     graphite2
-    gtk2
+    (gtk2.override {
+      pango = pango.override {
+        harfbuzz = callPackage ./harfbuzz {
+          ApplicationServices = null;
+          CoreText = null;
+        };
+      };
+    })
     krb5
     libdrm
     libgcrypt
@@ -63,7 +73,7 @@ let
     libpulseaudio
     libthai
     libxkbcommon
-    mesa_drivers
+    mesa.drivers
     nspr
     nss
     openldap
@@ -142,7 +152,6 @@ stdenv.mkDerivation rec {
     description = "钉钉";
     homepage = "https://www.dingtalk.com/";
     platforms = [ "x86_64-linux" ];
-    broken = true;
     license = licenses.unfreeRedistributable;
   };
 }
