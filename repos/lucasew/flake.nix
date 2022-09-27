@@ -206,8 +206,8 @@
       in
         nixpkgs.lib.nixosSystem source;
     in {
-      vps = nixosConf {
-        mainModule = ./nodes/vps/default.nix;
+      ivarstead = nixosConf {
+        mainModule = ./nodes/ivarstead/default.nix;
       };
       riverwood = nixosConf {
         mainModule = ./nodes/riverwood/default.nix;

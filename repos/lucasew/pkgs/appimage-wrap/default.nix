@@ -3,9 +3,14 @@
 , stdenv
 , copyDesktopItems
 , makeDesktopItem
+, coreutils
 , binutils-unwrapped
 , elfutils
 , lib
+, udisks
+, gnused
+, gnugrep
+, gawk
 , ... }:
 let
   fhs = buildFHSUserEnv {
@@ -188,13 +193,13 @@ in stdenv.mkDerivation {
     })
   ];
   propagatedBuildInputs = [ fhs ];
-  PATH = lib.strings.makeBinPath [ fhs binutils-unwrapped elfutils ];
+  scriptPATH = lib.strings.makeBinPath [ fhs udisks coreutils elfutils gnused gnugrep gawk binutils-unwrapped ];
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
     install -m755 ${./entrypoint.sh} $out/bin/appimage-wrap
     substituteInPlace $out/bin/appimage-wrap \
-      --subst-var PATH
+      --subst-var scriptPATH
     mkdir -p $out/share/mime/packages
     cp ${./xdg.xml} $out/share/mime/packages/application-appimage.xml
     runHook postInstall
