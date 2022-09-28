@@ -34,10 +34,10 @@ in {
 
   services.nginx = {
     enable = true;
-    # appendHttpConfig = ''
-    #   allow 192.168.69.0/24;
-    #   deny all;
-    # '';
+    appendHttpConfig = ''
+      allow 192.168.69.0/24;
+      deny all;
+    '';
   };
 
   # This value determines the NixOS release from which the default

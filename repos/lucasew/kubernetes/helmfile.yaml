@@ -1,0 +1,25 @@
+# helm install ingress nginx-stable/nginx-ingress --set controller.service.type=NodePort --set controller.service.httpPort.nodePort=30001
+
+repositories:
+  - name: nginx-stable
+    url: https://helm.nginx.com/stable
+commonLabels:
+  repo: github:lucasew/nixcfg
+releases:
+  - name: ingress
+    chart: nginx-stable/nginx-ingress
+    namespace: nginx-ingress
+    createNamespace: true
+    set:
+      - name: controller.service.type
+        value: ClusterIP
+    atomic: true
+    strategicMergePatches:
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: ingress-nginx-ingress
+          namespace: nginx-ingress
+        spec:
+          clusterIP: 10.0.0.253
+

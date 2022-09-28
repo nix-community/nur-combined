@@ -33,7 +33,7 @@ in {
       # future reference http://nginx.org/en/docs/http/server_names.html
       "*.${config.networking.hostName}.${config.networking.domain}" = {
         locations."/" = {
-          proxyPass = "http://localhost:30001";
+          proxyPass = "http://10.0.0.253";
           extraConfig = ''
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header Host $host;
