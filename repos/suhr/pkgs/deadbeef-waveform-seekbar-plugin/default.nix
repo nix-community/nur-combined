@@ -1,6 +1,6 @@
 { stdenv, lib, fetchFromGitHub
 , deadbeef, glib, gtk3, sqlite
-, pkgconfig
+, pkg-config
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1yv2c40xn633nx710rxw4yf3fqac4p23j3aw2d7n4f1npw97mq01";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ deadbeef glib gtk3 sqlite ];
 
   buildFlags = [ "gtk3" ];

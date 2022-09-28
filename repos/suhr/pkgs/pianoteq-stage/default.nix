@@ -1,4 +1,4 @@
-{ requireFile, lib, stdenv, p7zip, libX11, libXext, alsaLib, freetype, lv2, libjack2 }:
+{ requireFile, lib, stdenv, p7zip, libX11, libXext, alsa-lib, freetype, lv2, libjack2 }:
 
 let
   version = "7.5.4";
@@ -20,7 +20,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ p7zip ];
 
   libPath = lib.makeLibraryPath [
-    libX11 libXext alsaLib freetype lv2 libjack2 stdenv.cc.cc
+    libX11 libXext alsa-lib freetype lv2 libjack2 stdenv.cc.cc
   ];
 
   buildPhase = ":";
