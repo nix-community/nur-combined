@@ -10,7 +10,7 @@ let
   commit = "8c876594cb5d288c8de507f670e2522dfc63b03d";
 in
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   inherit version;
   pname = "jnu-open";
   
