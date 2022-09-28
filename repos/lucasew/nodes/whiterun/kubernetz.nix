@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{config, pkgs, lib, ...}:
 let
   masterIp = "192.168.69.1";
   masterAPIServerPort = 6443;
@@ -12,6 +12,7 @@ in {
     kubelet = {
       extraOpts = "--fail-swap-on=false";
       kubeconfig.server = api;
+      hostname = config.networking.hostName;
     };
     apiserver = {
       securePort = masterAPIServerPort;
@@ -29,10 +30,27 @@ in {
   ];
   services.nginx = {
     virtualHosts = {
+      # future reference http://nginx.org/en/docs/http/server_names.html
+      "*.${config.networking.hostName}.${config.networking.domain}" = {
+        locations."/" = {
+          proxyPass = "http://localhost:30001";
+          extraConfig = ''
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          '';
+        };
+      };
       "kubernetes.${config.networking.hostName}.${config.networking.domain}" = {
+        # rejectSSL = true;
         # forceSSL = true;
         locations."/" = {
           proxyPass = "https://localhost:6443";
+          extraConfig = ''
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          '';
         };
       };
     };

@@ -66,6 +66,8 @@
     pocket2kindle.url =  "github:lucasew/pocket2kindle";
     pocket2kindle.flake = false;
 
+    pollymc.url = "github:fn2006/PollyMC";
+
     redial_proxy.url =  "github:lucasew/redial_proxy";
     redial_proxy.flake = false;
 
@@ -95,6 +97,7 @@
     , nur
     , pocket2kindle
     , redial_proxy
+    , pollymc
     , ...
   }@inputs:
   let
@@ -150,6 +153,7 @@
         borderless-browser = borderless-browser.overlays.default;
         blender-bin = inputs.blender-bin.overlays.default;
         rust-overlay = inputs.rust-overlay.overlays.default;
+        pollymc = inputs.pollymc.overlay;
         this = import ./overlay.nix self;
         stable = final: prev: {
           stable = mkPkgs {
