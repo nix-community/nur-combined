@@ -663,10 +663,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.61";
+      version = "2.62";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007490/firemonkey-2.61.xpi";
-      sha256 = "35edd83dea850dd59936f2bfa8b8df7f875aabc3e43838e2d45ef8c0eada4d31";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007959/firemonkey-2.62.xpi";
+      sha256 = "056ceb0a4c160730fb08ef98ff35e2b0d196e4a082ea13a6434109245abf1b25";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -793,10 +793,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0buildid20220925.185751";
+      version = "106.0buildid20220927.185813";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007235/francais_language_pack-106.0buildid20220925.185751.xpi";
-      sha256 = "5d6a9d696b91c3bfa55c91cb05e87bfb424478b6e91044f3102c071783371f6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4008245/francais_language_pack-106.0buildid20220927.185813.xpi";
+      sha256 = "e8b6b139599b47d3bb28e9bc1c8362275dc4dd70e11838cc5b16f83c8771b098";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2185,10 +2185,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.9.14.1616";
+      version = "22.9.27.1330";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002472/sourcegraph_for_firefox-22.9.14.1616.xpi";
-      sha256 = "4f33a94308524150e0ec2acb42b449c05c9e40e2c3df414a00269909da2650a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4008084/sourcegraph_for_firefox-22.9.27.1330.xpi";
+      sha256 = "2f405da746b55a10d5133a660a1817a80148ec4c09be5aeb7857ec26589ba3fe";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2197,10 +2197,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.0.4";
+      version = "5.0.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4006317/sponsorblock-5.0.4.xpi";
-      sha256 = "e62bf90a22567b81f7d583dda7a6cd7a302831dbd344865d2b79f5e9b4501b3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4006940/sponsorblock-5.0.5.xpi";
+      sha256 = "78b2a992a90d0b8ba559c1c99fd44388ee7051daccac672982c989f0940cada7";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2774,10 +2774,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.73.0";
+      version = "2.73.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007753/web_scrobbler-2.73.0.xpi";
-      sha256 = "df813b536fc3065ff78065652eb66a52f2d999c92085246b9ad6783faf4c4c34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007968/web_scrobbler-2.73.1.xpi";
+      sha256 = "c2b67c1659374ccadddb7654c30cf5d81c4cb3f77cdfc1d10ab12579fbeef5ab";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
@@ -2816,10 +2816,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.8";
+      version = "19.9";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3993370/zoom_page_we-19.8.xpi";
-      sha256 = "218f55f15f7fe220579228553ee65535bd34313ff58707aeddbd5fcd720060b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007525/zoom_page_we-19.9.xpi";
+      sha256 = "6feecd64c9b043a51255c28aab7dccbfac945f2cb9ee57cca273295ad9bcd7ef";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
