@@ -3,22 +3,22 @@
   SF-Pro = (pkgs.callPackage ./common.nix {
     name = "SF-Pro";
     fontName = "SF Pro Fonts";
-    sha256 = "sha256-o1Zis9kymOicTyDdTPGON2A5LNpDbgOD1XtyQOdxc0M=";
+    sha256 = "sha256-HtJ/KdIVOdYocuzQ8qkzTAm7bMITCq3Snv+Bo9WO9iA=";
   });
   SF-Compact = (pkgs.callPackage ./common.nix {
     name = "SF-Compact";
     fontName = "SF Compact Fonts";
-    sha256 = "sha256-Ot/p5Wo84AibMjEjesdTDj/MpzYE1XNECsUH2aszR/o=";
+    sha256 = "sha256-7gRJxuB+DOxS6bzHXFNjNH2X4kmO1MhJN2zK5he2XRU=";
   });
   SF-Mono = (pkgs.callPackage ./common.nix {
     name = "SF-Mono";
     fontName = "SF Mono Fonts";
-    sha256 = "sha256-jnhTTmSy5J8MJotbsI8g5hxotgjvyDbccymjABwajYw=";
+    sha256 = "sha256-ulmhu5kXy+A7//frnD2mzBs6q5Jx8r6KwwaY7gmoYYM=";
   });
   SF-Arabic = (pkgs.callPackage ./common.nix {
     name = "SF-Arabic";
     fontName = "SF Arabic Fonts";
-    sha256 = "sha256-99vnv+z3liEhaHw4rqdGcAOe74fPuWmMiBmLLd3/DP0=";
+    sha256 = "sha256-8382K8rq/Myas47Pe0SZ6ZpmQljz2ut+X8Orkm1yemo=";
   });
   NY = (pkgs.callPackage ./common.nix {
     name = "NY";
