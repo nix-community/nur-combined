@@ -31,6 +31,7 @@ rec {
 
   # Misc.
   biblib = pkgs.callPackage ./pkgs/misc/biblib { };
+  cups-brother-hll2310d = pkgs.callPackage ./pkgs/misc/cups-brother-hll2310d { };
   jugglinglab = pkgs.callPackage ./pkgs/misc/jugglinglab { };
   signal-back = pkgs.callPackage ./pkgs/misc/signal-back { };
   unflac = pkgs.callPackage ./pkgs/misc/unflac { };
