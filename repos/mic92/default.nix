@@ -48,9 +48,7 @@ rec {
   # compatibility
   nix-review-unstable = nixpkgs-review-unstable;
 
-  inherit (pkgs.callPackages ./pkgs/nix-build-uncached { })
-    nix-build-uncached
-    nix-build-uncached-flakes;
+  inherit (pkgs.callPackages ./pkgs/nix-build-uncached { }) nix-build-uncached;
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
 

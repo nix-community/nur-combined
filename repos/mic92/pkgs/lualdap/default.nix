@@ -1,4 +1,4 @@
-{ luaPackages, fetchFromGitHub, openldap, lua, pkgconfig }:
+{ luaPackages, fetchFromGitHub, openldap, lua, pkg-config }:
 
 luaPackages.buildLuaPackage rec {
   pname = "lualdap";
@@ -18,6 +18,6 @@ luaPackages.buildLuaPackage rec {
   ];
 
   nativeBuildInputs = [
-    pkgconfig
+    pkg-config
   ];
 }
