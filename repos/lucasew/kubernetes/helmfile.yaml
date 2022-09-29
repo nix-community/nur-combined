@@ -3,6 +3,10 @@
 repositories:
   - name: nginx-stable
     url: https://helm.nginx.com/stable
+  - name: kubernetes-dashboard
+    url: https://kubernetes.github.io/dashboard
+  - name: weave-scope
+    url: https://dasmeta.github.io/helm/
 commonLabels:
   repo: github:lucasew/nixcfg
 releases:
@@ -20,6 +24,61 @@ releases:
         metadata:
           name: ingress-nginx-ingress
           namespace: nginx-ingress
+          annotations:
+            nginx.ingress.kubernetes.io/ssl-redirect: "false"
         spec:
           clusterIP: 10.0.0.253
-
+  - name: kubernetes-dashboard
+    chart: kubernetes-dashboard/kubernetes-dashboard
+    namespace: app-kubernetes-dashboard
+    createNamespace: true
+    values:
+      - ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: nginx
+          hosts:
+            - kubernetes-dashboard.whiterun.lucao.net
+      - apiVersion: rbac.authorization.k8s.io/v1
+        kind: ClusterRoleBinding
+        metadata:
+          name: kubernetes-dashboard
+          namespace: app-kubernetes-dashboard
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: ClusterRole
+          name: cluster-admin
+        subjects:
+        - kind: ServiceAccount
+          name: kubernetes-dashboard
+          namespace: app-kubernetes-dashboard
+    strategicMergePatches:
+      - apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: kubernetes-dashboard
+        spec:
+          template:
+            spec:
+              containers:
+                - name: kubernetes-dashboard
+                  args:
+                  - --enable-insecure-login
+                  - --enable-skip-login
+                  - --namespace=app-kubernetes-dashboard
+                  - --disable-settings-authorizer
+                  - --insecure-bind-address=0.0.0.0
+                  - --port=6969
+                  - --insecure-port=8443
+                  livenessProbe:
+                    httpGet:
+                      scheme: HTTP
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          name: kubernetes-dashboard
+        spec:
+          ports:
+          - name: http
+            port: 80
+            targetPort: 8443
