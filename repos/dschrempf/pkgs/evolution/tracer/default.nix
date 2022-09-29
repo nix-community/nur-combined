@@ -42,7 +42,6 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "View and analyze traces of MCMC runs";
-    license = null;
     homepage = "https://github.com/beast-dev/tracer";
     maintainers = with maintainers; [ dschrempf ];
     platforms = platforms.all;

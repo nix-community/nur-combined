@@ -55,7 +55,6 @@ stdenv.mkDerivation rec {
     description = "Phylogenetic reconstruction using infinite mixtures";
     # Git repository: https://github.com/bayesiancook/phylobayes.
     homepage = "http://www.atgc-montpellier.fr/phylobayes/";
-    license = null;
     maintainers = with maintainers; [ dschrempf ];
   };
 }
