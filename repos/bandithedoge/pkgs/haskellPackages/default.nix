@@ -20,7 +20,7 @@ in {
     attrs = {
       nativeBuildInputs = with pkgs; [
         gcc
-        pkgconfig
+        pkg-config
         removeReferencesTo
       ];
       buildInputs = with pkgs; [

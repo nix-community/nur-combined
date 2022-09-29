@@ -110,6 +110,7 @@ in
       "-Drtaudio=enabled"
       "-Drtmidi=enabled"
       "-Dsdl=enabled"
+      "-Dfftw3_threads_separate=false"
     ];
 
     # for some reason meson can't find zix when it's build as a pkgconfig package and inserted into buildInputs
