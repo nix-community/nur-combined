@@ -1778,10 +1778,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2021.11.23.1";
+      version = "2022.9.27";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3872283/privacy_badger17-2021.11.23.1.xpi";
-      sha256 = "50274cd280413bd0e7c4b53d2ef3d019f6a3ce14a7396fed6d248f295ae7f63e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4008174/privacy_badger17-2022.9.27.xpi";
+      sha256 = "8a0e456dfac801ea437164192f0a0659ee7227a519db97aceeb221f48f74d44a";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -2477,10 +2477,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.5.4";
+      version = "9.6";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984229/traduzir_paginas_web-9.5.4.xpi";
-      sha256 = "bcdf8c18338da42910b672f9c6889c1f967e25ef74cbee60064051878d568e2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4007458/traduzir_paginas_web-9.6.xpi";
+      sha256 = "80b7fa8ce2e03c4d7a861a6f63d846795065279bab7fae9f1e5061d7d951e1cf";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
