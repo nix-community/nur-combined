@@ -6,7 +6,7 @@ pkgs.stdenv.mkDerivation {
   inherit (sources.luakit) pname version src;
 
   nativeBuildInputs = with pkgs; [
-    pkgconfig
+    pkg-config
     wrapGAppsHook
   ];
 

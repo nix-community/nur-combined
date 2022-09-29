@@ -9,7 +9,7 @@ pkgs.stdenv.mkDerivation rec {
     git
     meson
     ninja
-    pkgconfig
+    pkg-config
   ];
 
   buildInputs = with pkgs; [
