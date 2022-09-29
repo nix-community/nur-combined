@@ -215,10 +215,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.8.0";
+      version = "2022.9.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986147/bitwarden_password_manager-2022.8.0.xpi";
-      sha256 = "208fba348f86fde8bd6663e0ed0540a993d74c4a35d71bf899c106bbcd555400";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002564/bitwarden_password_manager-2022.9.1.xpi";
+      sha256 = "a9239572037cfc5643a0054b5783cf0caf9d3b0994ca0e97b45fea7e850b076a";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1607,10 +1607,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.7";
+      version = "2.3.8";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3972472/1password_x_password_manager-2.3.7.xpi";
-      sha256 = "9aaee3215d05faa802d83c5a355405d1ba8659f502aacd32aa44c036d2d6d354";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005261/1password_x_password_manager-2.3.8.xpi";
+      sha256 = "504ede6aef639030e40667356abfe04bd3a8311a2d959801c3e767fed28f455e";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2536,10 +2536,10 @@
       };
     "tst-tab-search" = buildFirefoxXpiAddon {
       pname = "tst-tab-search";
-      version = "0.0.5";
+      version = "0.0.6";
       addonId = "@tst-search";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3982203/tst_search-0.0.5.xpi";
-      sha256 = "767614427624c41a63946c7e0eb10d8e0237f65a3e5cd8a5e28f03f9ed3acebd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009035/tst_search-0.0.6.xpi";
+      sha256 = "1c4ebfaadb2af712684acc96d12da69e86d4bcff9db84c97c20d3576722a4981";
       meta = with lib;
       {
         homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
@@ -2718,10 +2718,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.4.1";
+      version = "6.4.2";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007776/vue_js_devtools-6.4.1.xpi";
-      sha256 = "17f2041dd580c5c4b2d093ed225ee6e78fb6825996f697b3d940746cb330e748";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009041/vue_js_devtools-6.4.2.xpi";
+      sha256 = "7980bb640083e7c7b4ac80e92a1ad4930ec91095a3399858e4a14979470bee29";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
@@ -2811,6 +2811,19 @@
         homepage = "https://www.xbrowsersync.org/";
         description = "Browser syncing as it should be: secure, anonymous and free! Sync bookmarks across your browsers and devices, no sign up required.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "youtube-shorts-block" = buildFirefoxXpiAddon {
+      pname = "youtube-shorts-block";
+      version = "1.2.0";
+      addonId = "{34daeb50-c2d2-4f14-886a-7160b24d66a4}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3927452/youtube_shorts_block-1.2.0.xpi";
+      sha256 = "053f41d012a0b88769a7d6872fc64f76ee93e6feb04bf6e97c5bb2a50670e506";
+      meta = with lib;
+      {
+        description = "Play the Youtube shorts video as if it were a normal video.\nand hide \"shorts\"tab and videos (optional).";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
