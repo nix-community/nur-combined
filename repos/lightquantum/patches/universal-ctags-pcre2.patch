@@ -1,0 +1,16 @@
+1c1
+< { lib, stdenv, buildPackages, fetchFromGitHub, autoreconfHook, coreutils, pkg-config, perl, python3Packages, libiconv, jansson }:
+---
+> { lib, stdenv, buildPackages, fetchFromGitHub, autoreconfHook, coreutils, pkg-config, perl, python3Packages, libiconv, jansson, pcre2 }:
+4c4
+<   pname = "universal-ctags";
+---
+>   pname = "universal-ctags-pcre2";
+16c16
+<   buildInputs = [ jansson ] ++ lib.optional stdenv.isDarwin libiconv;
+---
+>   buildInputs = [ jansson pcre2 ] ++ lib.optional stdenv.isDarwin libiconv;
+46c46
+<     description = "A maintained ctags implementation";
+---
+>     description = "A maintained ctags implementation (with PCRE2 support)";
