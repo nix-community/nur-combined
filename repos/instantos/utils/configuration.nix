@@ -83,7 +83,7 @@ in {
     sddm.enable = false;
   };
   services.xserver.desktopManager = {
-    gnome3.enable = false;
+    gnome.enable = false;
     plasma5.enable = false;
     xterm.enable = false;
   };
@@ -150,7 +150,7 @@ in {
     nix-prefetch-scripts nix-update nixpkgs-review cachix
     nur.repos.instantos.instantnix
     papirus-icon-theme arc-theme
-    #gnome3.nautilus gsettings-desktop-schemas gnome3.dconf-editor
+    #gnome3nautilus gsettings-desktop-schemas gnome.dconf-editor
     (neovim.override {viAlias = true; vimAlias = true;})
   ];
 

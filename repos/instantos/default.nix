@@ -60,7 +60,7 @@ rec {
   instantutils = pkgs.callPackage ./pkgs/instantUtils {
     inherit lxsession rangerplugins disper;
     inherit (pkgs.xfce) xfce4-power-manager;
-    inherit (pkgs.gnome3) zenity;
+    inherit (pkgs.gnome) zenity;
   };
   instantmenu = pkgs.callPackage ./pkgs/instantMenu {
     instantUtils = self.instantutils;
@@ -73,7 +73,7 @@ rec {
     instantConf = self.instantconf;
     instantUtils = self.instantutils;
     Paperbash = self.paperbash;
-    inherit (pkgs.gnome3) zenity;
+    inherit (pkgs.gnome) zenity;
   };
   instantsettings = with pkgs.python3Packages; pkgs.callPackage ./pkgs/instantSettings {
     instantAssist = self.instantassist;
@@ -81,7 +81,7 @@ rec {
     instantUtils = self.instantutils;
     instantWallpaper = self.instantwallpaper;
     gufw = self.gufw;
-    gnome-disk-utility = pkgs.gnome3.gnome-disk-utility;
+    gnome-disk-utility = pkgs.gnome.gnome-disk-utility;
     xfce4-power-manager = pkgs.xfce.xfce4-power-manager;
     firaCodeNerd = self.firacodenerd;
   };

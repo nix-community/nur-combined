@@ -23,7 +23,7 @@
 , system-config-printer
 , udiskie
 , xfce4-power-manager
-, gnome3
+, gnome
 }:
 let
   utilities = [
@@ -48,7 +48,7 @@ let
     papirus-icon-theme
     arc-theme
     hicolor-icon-theme
-    gnome3.zenity
+    gnome.zenity
   ];
 in
 stdenv.mkDerivation {

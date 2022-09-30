@@ -87,7 +87,7 @@
     sddm.enable = false;
   };  
   services.xserver.desktopManager = { 
-    gnome3.enable = false;
+    gnome.enable = false;
     plasma5.enable = false;
     xterm.enable = false;
   };  
