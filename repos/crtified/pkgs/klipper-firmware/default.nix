@@ -1,5 +1,5 @@
 { stdenvNoCC, lib, klipper, bintools-unwrapped, gcc-arm-embedded, gnumake
-, libffi, libusb, fw_config ? ./fysetc_spider.config }:
+, libffi, libusb1, fw_config ? ./fysetc_spider.config }:
 stdenvNoCC.mkDerivation rec {
   name = "klipper-firmware-${version}";
   version = klipper.version;
@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation rec {
     gcc-arm-embedded
     gnumake
     libffi
-    libusb
+    libusb1
   ];
 
   makeFlags = let cprefix = "arm-none-eabi-";
