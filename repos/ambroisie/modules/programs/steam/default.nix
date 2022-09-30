@@ -32,7 +32,7 @@ in
       (pkgs.writeScriptBin "steam-run" ''
         #!/bin/sh
         mkdir -p "${cfg.dataDir}"
-        HOME="${cfg.dataDir}" exec ${pkgs.steam-run-native}/bin/steam-run "$@"
+        HOME="${cfg.dataDir}" exec ${pkgs.steam-run}/bin/steam-run "$@"
       '')
     ];
   };

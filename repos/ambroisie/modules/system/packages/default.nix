@@ -7,6 +7,8 @@ in
   options.my.system.packages = with lib; {
     enable = my.mkDisableOption "packages configuration";
 
+    allowAliases = mkEnableOption "allow package aliases";
+
     allowUnfree = my.mkDisableOption "allow unfree packages";
   };
 
@@ -27,7 +29,7 @@ in
     };
 
     nixpkgs.config = {
-      allowUnfree = cfg.allowUnfree; # Because I don't care *that* much.
+      inherit (cfg) allowAliases allowUnfree;
     };
   };
 }

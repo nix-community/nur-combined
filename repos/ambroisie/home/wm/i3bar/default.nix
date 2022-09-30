@@ -5,7 +5,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      alsaUtils # Used by `sound` block
+      alsa-utils # Used by `sound` block
       lm_sensors # Used by `temperature` block
       font-awesome # Icon font
     ];

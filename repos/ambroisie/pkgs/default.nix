@@ -28,8 +28,6 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   nolimips = pkgs.callPackage ./nolimips { };
 
-  psst = pkgs.callPackage ./psst { };
-
   rofi-bluetooth = pkgs.callPackage ./rofi-bluetooth { };
 
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };

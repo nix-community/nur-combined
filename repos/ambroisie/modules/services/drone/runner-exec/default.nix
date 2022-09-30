@@ -15,14 +15,14 @@ in
         git
         gnutar
         bash
-        nixUnstable
+        nix
         gzip
       ];
       path = with pkgs; [
         git
         gnutar
         bash
-        nixUnstable
+        nix
         gzip
       ];
       serviceConfig = {

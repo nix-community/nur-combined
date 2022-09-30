@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i bash -p bitwarden-cli git gnupg jq nixFlakes
+#! nix-shell -i bash -p bitwarden-cli git gnupg jq nix
 
 # Command failure is script failure
 set -e

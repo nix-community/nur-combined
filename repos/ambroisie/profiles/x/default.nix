@@ -13,7 +13,7 @@ in
     # Nice wallpaper
     services.xserver.displayManager.lightdm.background =
       let
-        wallpapers = "${pkgs.plasma-workspace-wallpapers}/share/wallpapers";
+        wallpapers = "${pkgs.plasma5Packages.plasma-workspace-wallpapers}/share/wallpapers";
       in
       "${wallpapers}/summer_1am/contents/images/2560x1600.jpg";
 

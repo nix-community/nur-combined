@@ -46,7 +46,7 @@ vim /mnt/etc/nixos/hardware-configuration.nix
 mkdir -p /mnt/home/ambroisie/git/nix/config
 cd /mnt/home/ambroisie/git/nix/config
 
-nix-env -iA nixos.git nixos.nixFlakes nixos.git-crypt
+nix-env -iA nixos.git nixos.nix nixos.git-crypt
 git clone <this-repo> .
 # Assuming you set up GPG key correctly
 git crypt unlock
