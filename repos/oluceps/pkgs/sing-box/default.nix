@@ -24,6 +24,14 @@ buildGoModule rec {
     "-w"
     "-X github.com/sagernet/sing-box/constant.Commit=${version}"
   ];
+  
+  tags = [
+    "with_quic"
+    "with_grpc"
+    "with_wireguard"
+    "with_ech"
+    "with_gvisor"
+  ];
 
   CGO_ENABLED = 1;
   doCheck = false;
