@@ -18,6 +18,9 @@
   rustplayer = pkgs.callPackage ./pkgs/RustPlayer { };
   sing-box = pkgs.callPackage ./pkgs/sing-box { };
   oppo-sans = pkgs.callPackage ./pkgs/oppo-sans { };
+  san-francisco = pkgs.callPackage ./pkgs/san-francisco { };
+  v2ray-plugin = pkgs.callPackage ./pkgs/v2ray-plugin { };
+  plangothic = pkgs.callPackage ./pkgs/plangothic { };
 
 #surrealdb = pkgs.callPackage ./pkgs/surrealdb { };  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
