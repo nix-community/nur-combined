@@ -14,5 +14,7 @@ rec {
     mtxclient-unstable = pkgs.callPackage ./pkgs/mtxclient { inherit coeurl; };
     pktriggercord = pkgs.callPackage ./pkgs/pktriggercord { };
     jday = pkgs.callPackage ./pkgs/jday { };
-    geographiclib-cpp = pkgs.callPackage ./pkgs/geographiclib-cpp { };
+    # Throwing here breaks CI
+    # See https://github.com/nix-community/NUR/issues/320
+    # geographiclib-cpp = throw "geographiclib-cpp has been dropped from repos.deeunderscore. See repos.sikmir.geographiclib for alternative";
 }
