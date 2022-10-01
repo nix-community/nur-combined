@@ -698,7 +698,7 @@ in {
       };
     };
     environment = mkIf cfg.enable {
-      systemPackages = singleton pkgs.alsaUtils;
+      systemPackages = singleton pkgs.alsa-utils;
       etc = {
         "alsa/conf.d/99-config.conf" = mkIf (cfg.config != { }) {
           text = alsaConf cfg.config;
