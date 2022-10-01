@@ -158,6 +158,26 @@
         },
         "version": "30a669a021812da05258519cef9d4202f5ce26c3"
     },
+    "raze": {
+        "cargoLocks": null,
+        "date": "2022-10-01",
+        "extract": null,
+        "name": "raze",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ZDoom",
+            "repo": "Raze",
+            "rev": "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180",
+            "sha256": "sha256-pLxgWqW/MsH8gaT9fxVpzhtfeGfF/Gy8boI4ybUnkAU=",
+            "type": "github"
+        },
+        "version": "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180"
+    },
     "slock-flexipatch": {
         "cargoLocks": null,
         "date": "2022-06-03",
@@ -277,6 +297,26 @@
             "type": "github"
         },
         "version": "a0293511f4d82d7cb800f568ff5c0d82be5c40c7"
+    },
+    "zmusic": {
+        "cargoLocks": null,
+        "date": "2022-08-14",
+        "extract": null,
+        "name": "zmusic",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ZDoom",
+            "repo": "ZMusic",
+            "rev": "47255178329bab4efa4408a4e4d373fb9264e8c5",
+            "sha256": "sha256-zDMXbUmSvvh4kJGQnsEYSfxCWedo9o51CnzHbMcgN7k=",
+            "type": "github"
+        },
+        "version": "47255178329bab4efa4408a4e4d373fb9264e8c5"
     },
     "zrythm": {
         "cargoLocks": null,

@@ -20,6 +20,10 @@ fetch.github = "stefano-m/lua-dbus_proxy"
 src.git = "https://github.com/dodo/lua-dbus"
 fetch.github = "dodo/lua-dbus"
 
+[zmusic]
+src.git = "https://github.com/ZDoom/ZMusic"
+fetch.github = "ZDoom/ZMusic"
+
 # programs
 
 [dwm-flexipatch]
@@ -62,3 +66,7 @@ fetch.github = "tailwindlabs/tailwindcss-intellisense"
 [lv2vst]
 src.git = "https://github.com/x42/lv2vst"
 fetch.github = "x42/lv2vst"
+
+[raze]
+src.git = "https://github.com/ZDoom/Raze"
+fetch.github = "ZDoom/Raze"

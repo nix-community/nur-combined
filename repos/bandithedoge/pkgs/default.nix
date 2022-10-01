@@ -27,4 +27,6 @@ in {
   zrythm = callPackage' ./zrythm.nix;
 
   lv2vst = callPackage' ./lv2vst.nix;
+
+  raze = callPackage' ./raze.nix;
 }

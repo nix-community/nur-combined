@@ -7,7 +7,7 @@ self: super: let
     name = n;
     value = v;
   };
-  nurAttrs = import ./default.nix {pkgs = super;};
+  nurAttrs = import ./default.nix {pkgs = self;};
 in
   builtins.listToAttrs (map (n: nameValuePair n nurAttrs.${n})
     (builtins.filter (n: !isReserved n) (builtins.attrNames nurAttrs)))

@@ -101,6 +101,18 @@
     };
     date = "2020-06-07";
   };
+  raze = {
+    pname = "raze";
+    version = "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180";
+    src = fetchFromGitHub {
+      owner = "ZDoom";
+      repo = "Raze";
+      rev = "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180";
+      fetchSubmodules = false;
+      sha256 = "sha256-pLxgWqW/MsH8gaT9fxVpzhtfeGfF/Gy8boI4ybUnkAU=";
+    };
+    date = "2022-10-01";
+  };
   slock-flexipatch = {
     pname = "slock-flexipatch";
     version = "3131706fc5f202759cbf81c661df14578d721fb8";
@@ -172,6 +184,18 @@
       sha256 = "sha256-HxFIb/ux2YLVHrlgNOtxQsoQzCEPvAEG8UVXU2qN9Io=";
     };
     date = "2022-09-08";
+  };
+  zmusic = {
+    pname = "zmusic";
+    version = "47255178329bab4efa4408a4e4d373fb9264e8c5";
+    src = fetchFromGitHub {
+      owner = "ZDoom";
+      repo = "ZMusic";
+      rev = "47255178329bab4efa4408a4e4d373fb9264e8c5";
+      fetchSubmodules = false;
+      sha256 = "sha256-zDMXbUmSvvh4kJGQnsEYSfxCWedo9o51CnzHbMcgN7k=";
+    };
+    date = "2022-08-14";
   };
   zrythm = {
     pname = "zrythm";
