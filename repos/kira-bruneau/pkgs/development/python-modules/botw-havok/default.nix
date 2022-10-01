@@ -8,7 +8,7 @@
 , oead
 }:
 
-buildPythonPackage rec {
+buildPythonPackage {
   pname = "botw-havok";
   version = "0.3.18";
 

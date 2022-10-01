@@ -29,12 +29,12 @@
 }:
 
 let
-  unwrapped = stdenv.mkDerivation rec {
+  unwrapped = stdenv.mkDerivation (finalAttrs: {
     pname = "virtualparadise";
     version = "0.4.3";
 
     src = fetchurl {
-      url = "https://static.virtualparadise.org/downloads/arch/virtualparadise-${version}-1-x86_64.pkg.tar.zst";
+      url = "https://static.virtualparadise.org/downloads/arch/virtualparadise-${finalAttrs.version}-1-x86_64.pkg.tar.zst";
       sha256 = "sha256-mTLbR1I6nP1LXe6750oUSl1hcI+0Yhop19tU7f0LLF8=";
     };
 
@@ -96,7 +96,7 @@ let
       platforms = [ "x86_64-linux" ];
       broken = true; # requires bullet 2.89
     };
-  };
+  });
 in
 buildFHSUserEnv {
   name = unwrapped.pname;

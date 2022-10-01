@@ -19,7 +19,7 @@ buildPythonApplication rec {
   src = fetchFromGitea {
     domain = "opendev.org";
     owner = "opendev";
-    repo = pname;
+    repo = "git-review";
     rev = version;
     sha256 = "sha256-C8M4b/paHJB9geizc1eIhXsTuLeeS4dDisCfCQF1RuU=";
   };

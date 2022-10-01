@@ -15,14 +15,14 @@
 , libpulseaudio
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pokemmo-installer";
   version = "1.4.8";
 
   src = fetchFromGitLab {
     owner = "coringao";
-    repo = pname;
-    rev = "refs/tags/${version}";
+    repo = "pokemmo-installer";
+    rev = "refs/tags/${finalAttrs.version}";
     sha256 = "sha256-uSbnXBpkeGM9X6DU7AikT7hG/emu67PXuGdm6xfB8To=";
   };
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram "$out/bin/${pname}" \
+    wrapProgram "$out/bin/pokemmo-installer" \
       --prefix PATH : ${lib.makeBinPath [
         coreutils
         findutils
@@ -61,4 +61,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
-}
+})

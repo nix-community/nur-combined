@@ -70,14 +70,14 @@ let
     };
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mangohud";
   version = "0.6.8";
 
   src = fetchFromGitHub {
     owner = "flightlessmango";
     repo = "MangoHud";
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     fetchSubmodules = true;
     sha256 = "sha256-jfmgN90kViHa7vMOjo2x4bNY2QbLk93uYEvaA4DxYvg=";
   };
@@ -192,4 +192,4 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau zeratax ];
   };
-}
+})

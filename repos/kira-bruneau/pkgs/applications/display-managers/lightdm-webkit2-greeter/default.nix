@@ -13,14 +13,14 @@
 , lightdm-webkit2-greeter
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lightdm-webkit2-greeter";
   version = "2.2.5";
 
   src = fetchFromGitHub {
     owner = "Antergos";
     repo = "web-greeter";
-    rev = "refs/tags/${version}";
+    rev = "refs/tags/${finalAttrs.version}";
     sha256 = "sha256-LY7sVaxBwjojzFa00OkvgR9+TIZuH/WW12UsfpffOIE=";
   };
 
@@ -78,4 +78,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
-}
+})

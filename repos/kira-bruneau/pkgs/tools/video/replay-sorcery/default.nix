@@ -11,14 +11,14 @@
 , pulseaudioSupport ? true, libpulseaudio
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "replay-sorcery";
   version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "matanui159";
     repo = "ReplaySorcery";
-    rev = "refs/tags/${version}";
+    rev = "refs/tags/${finalAttrs.version}";
     fetchSubmodules = true;
     sha256 = "sha256-HPkSOwfwcg4jLUzKfqdXgLu7mgD5H4wb9d2BrqWQeHc=";
   };
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
-}
+})

@@ -23,8 +23,8 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
-    owner = "Microsoft";
-    repo = pname;
+    owner = "microsoft";
+    repo = "debugpy";
     rev = "refs/tags/v${version}";
     sha256 = "sha256-ERsqs+pCJfYQInOWPBhM/7hC5TTfQAksYJwFCcd+vlk=";
   };

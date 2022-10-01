@@ -56,14 +56,14 @@ let
 
   mruby-zest = callPackage ./mruby-zest { };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "zynaddsubfx";
   version = "3.0.6";
 
   src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "refs/tags/${version}";
+    owner = "zynaddsubfx";
+    repo = "zynaddsubfx";
+    rev = "refs/tags/${finalAttrs.version}";
     fetchSubmodules = true;
     sha256 = "sha256-0siAx141DZx39facXWmKbsi0rHBNpobApTdey07EcXg=";
   };
@@ -155,4 +155,4 @@ stdenv.mkDerivation rec {
     # - Zest UI fails to start on pulg_setup: Could not open display, aborting.
     broken = stdenv.isDarwin;
   };
-}
+})

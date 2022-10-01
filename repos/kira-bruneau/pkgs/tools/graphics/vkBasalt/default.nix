@@ -11,14 +11,14 @@
 , vkBasalt32
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "vkBasalt";
   version = "0.3.2.6";
 
   src = fetchFromGitHub {
     owner = "DadSchoorse";
-    repo = pname;
-    rev = "refs/tags/v${version}";
+    repo = "vkBasalt";
+    rev = "refs/tags/v${finalAttrs.version}";
     sha256 = "sha256-wk/bmbwdE1sBZPlD+EqXfQWDITIfCelTpoFBtNtZV8Q=";
   };
 
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
-}
+})

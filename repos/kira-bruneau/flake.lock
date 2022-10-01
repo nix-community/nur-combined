@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "flake-checker": {
+    "flake-linter": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
@@ -10,16 +10,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1662344938,
-        "narHash": "sha256-XIi7FFzUhfiEnXW4sJg/TBQQy3gm0x4v1zqMpUZOops=",
+        "lastModified": 1663096025,
+        "narHash": "sha256-SJZIGSBm6RW/ftkeOopFkrpMJSFBU6kYOLyGf35rAcw=",
         "owner": "kira-bruneau",
-        "repo": "flake-checker",
-        "rev": "c6182624e0e4524426d3c3d0b603ef782d6848b2",
+        "repo": "flake-linter",
+        "rev": "fe5dc4800f1774c4f4aad0be1cb7ca58436b0877",
         "type": "gitlab"
       },
       "original": {
         "owner": "kira-bruneau",
-        "repo": "flake-checker",
+        "repo": "flake-linter",
         "type": "gitlab"
       }
     },
@@ -40,11 +40,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1660639432,
-        "narHash": "sha256-2WDiboOCfB0LhvnDVMXOAr8ZLDfm3WdO54CkoDPwN1A=",
+        "lastModified": 1662934689,
+        "narHash": "sha256-mXi8hmhiunOVTeHiuouWXb0vTqjzp9v9kshMmI561Us=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6c6409e965a6c883677be7b9d87a95fab6c3472e",
+        "rev": "a0b7e70db7a55088d3de0cc370a59f9fbcc906c3",
         "type": "github"
       },
       "original": {
@@ -56,7 +56,7 @@
     },
     "root": {
       "inputs": {
-        "flake-checker": "flake-checker",
+        "flake-linter": "flake-linter",
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       }

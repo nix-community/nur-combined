@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "openlawlibrary";
-    repo = pname;
+    repo = "pygls";
     rev = "refs/tags/v${version}";
     sha256 = "sha256-L2KTNiI+I+r2fF88B1NSunowokrDzGCw3PXbxekg/oE=";
   };

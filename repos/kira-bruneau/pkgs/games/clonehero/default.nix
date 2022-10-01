@@ -10,15 +10,12 @@
 , zlib
 }:
 
-let
-  name = "clonehero";
-in
-stdenv.mkDerivation rec {
-  pname = "${name}-unwrapped";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "clonehero-unwrapped";
   version = "0.23.2.2";
 
   src = fetchurl {
-    url = "http://dl.clonehero.net/${name}-v${lib.removePrefix "0" version}/${name}-linux.tar.gz";
+    url = "http://dl.clonehero.net/clonehero-v${lib.removePrefix "0" finalAttrs.version}/clonehero-linux.tar.gz";
     sha256 = "sha256-sR7svBuAc3EJQp/My8Ykt1GPQtO+MiSfIBn6UpplMk0=";
   };
 
@@ -42,11 +39,11 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p "$out/bin" "$out/share"
-    install -Dm755 ${name} "$out/bin"
+    install -Dm755 clonehero "$out/bin"
     cp -r clonehero_Data "$out/share"
 
-    mkdir -p "$doc/share/${name}"
-    cp README.txt "$doc/share/${name}"
+    mkdir -p "$doc/share/clonehero"
+    cp README.txt "$doc/share/clonehero"
     runHook postInstall
   '';
 
@@ -62,7 +59,7 @@ stdenv.mkDerivation rec {
       --add-needed libudev.so.1 \
       --add-needed libXrandr.so.2 \
       --add-needed libXss.so.1 \
-      "$out/bin/${name}"
+      "$out/bin/clonehero"
   '';
 
   meta = with lib; {
@@ -72,4 +69,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" ];
   };
-}
+})

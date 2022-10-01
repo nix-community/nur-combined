@@ -7,14 +7,14 @@
 , Foundation
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "VVVVVV";
   version = "2.3.6";
 
   src = fetchFromGitHub {
     owner = "TerryCavanagh";
     repo = "VVVVVV";
-    rev = "refs/tags/${version}";
+    rev = "refs/tags/${finalAttrs.version}";
     sha256 = "sha256-sLNO4vkmlirsqJmCV9YWpyNnIiigU1KMls7rOgWgSmQ=";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.all;
   };
-}
+})

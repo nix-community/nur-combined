@@ -37,14 +37,14 @@ let
     done
   '';
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "goverlay";
   version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "benjamimgois";
-    repo = pname;
-    rev = "refs/tags/${version}";
+    repo = "goverlay";
+    rev = "refs/tags/${finalAttrs.version}";
     sha256 = "sha256-oXkGrMHjs8uui0pzGYW8jnttet/5IX0r8eat0n5saFk=";
   };
 
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     libX11
   ];
 
-  NIX_LDFLAGS = "-lGLU -rpath ${lib.makeLibraryPath buildInputs}";
+  NIX_LDFLAGS = "-lGLU -rpath ${lib.makeLibraryPath finalAttrs.buildInputs}";
 
   buildPhase = ''
     runHook preBuild
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru.updateScript = nix-update-script {
-    attrPath = pname;
+    attrPath = finalAttrs.pname;
   };
 
   meta = with lib; {
@@ -117,4 +117,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
   };
-}
+})

@@ -19,20 +19,20 @@
 , xdg-utils
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "newsflash";
   version = "1.5.1";
 
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
-    rev = "refs/tags/${version}";
+    rev = "refs/tags/${finalAttrs.version}";
     sha256 = "sha256-fLG7oYt+gdl3Lwnu6c7VLJWSHCFY5LyNeDKoUNGg3Yw=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src;
-    name = "${pname}-${version}";
+    name = "${finalAttrs.pname}-${finalAttrs.version}";
+    src = finalAttrs.src;
     sha256 = "sha256-dQlbK3SfY6p1xinroXz5wcaBbq2LuDM9sMlfJ6ueTTg=";
   };
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
   ]);
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [
+    gappsWrapperArgs+=(--suffix PATH : "${lib.makeBinPath [
       # Open links in browser
       xdg-utils
     ]}")
@@ -102,4 +102,4 @@ stdenv.mkDerivation rec {
     mainProgram = "com.gitlab.newsflash";
     broken = stdenv.isDarwin; # webkitgtk doesn't build on Darwin
   };
-}
+})

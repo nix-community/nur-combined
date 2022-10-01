@@ -13,15 +13,15 @@
 , nix-update-script
 }:
 
-let ccache = stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ccache";
-  version = "4.6.1";
+  version = "4.6.3";
 
   src = fetchFromGitHub {
-    owner = pname;
-    repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-XcelGBb5bRLZKSbtC2J40d6CsSF/ZF3eJW0UXe1Y40A=";
+    owner = "ccache";
+    repo = "ccache";
+    rev = "refs/tags/v${finalAttrs.version}";
+    sha256 = "sha256-uMGM3YW85wgJFin9IGrKafOkSLmN5/q/LP1sttN7/u0=";
   };
 
   outputs = [ "out" "man" ];
@@ -87,7 +87,7 @@ let ccache = stdenv.mkDerivation rec {
         wrap() {
           local cname="$1"
           if [ -x "${unwrappedCC}/bin/$cname" ]; then
-            makeWrapper ${ccache}/bin/ccache $out/bin/$cname \
+            makeWrapper ${finalAttrs.finalPackage}/bin/ccache $out/bin/$cname \
               --run ${lib.escapeShellArg extraConfig} \
               --add-flags ${unwrappedCC}/bin/$cname
           fi
@@ -112,7 +112,7 @@ let ccache = stdenv.mkDerivation rec {
     };
 
     updateScript = nix-update-script {
-      attrPath = pname;
+      attrPath = finalAttrs.pname;
     };
   };
 
@@ -124,6 +124,4 @@ let ccache = stdenv.mkDerivation rec {
     maintainers = with maintainers; [ kira-bruneau r-burns ];
     platforms = platforms.unix;
   };
-};
-in
-ccache
+})

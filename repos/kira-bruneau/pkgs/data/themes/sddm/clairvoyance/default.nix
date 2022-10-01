@@ -15,13 +15,13 @@ let
     enableHDPI=${lib.boolToString enableHDPI}
   '';
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "sddm-theme-clairvoyance";
   version = "unstable-2019-05-30";
 
   src = fetchFromGitHub {
     owner = "eayus";
-    repo = pname;
+    repo = "sddm-theme-clairvoyance";
     rev = "dfc5984ff8f4a0049190da8c6173ba5667904487";
     sha256 = "sha256-AcVQpG6wPkMtAudqyu/iwZ4N6a2bCdfumCmdqE1E548=";
   };

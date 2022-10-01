@@ -17,7 +17,7 @@ buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "regen100";
-    repo = pname;
+    repo = "cmake-language-server";
     rev = "refs/tags/v${version}";
     sha256 = "sha256-B7dhCQo3g2E8+fzyl1RhaYQE6TFoqoLtp9Z7sZcv5xk=";
   };

@@ -4,19 +4,21 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    flake-checker = {
-      url = "gitlab:kira-bruneau/flake-checker";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
+    flake-linter = {
+      url = "gitlab:kira-bruneau/flake-linter";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
+
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = { self, flake-utils, flake-checker, nixpkgs }:
+  outputs = { self, flake-utils, flake-linter, nixpkgs }:
     {
       overlays = import ./overlays;
-      nixosModules = nixpkgs.lib.mapAttrs (name: value: import value) (import ./nixos/modules);
+      nixosModules = builtins.mapAttrs (name: value: import value) (import ./nixos/modules);
     } // flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -24,12 +26,23 @@
           inherit system;
         };
 
-        paths = flake-checker.lib.partitionToAttrs
-          flake-checker.lib.commonFlakePaths
-          (flake-checker.lib.walkFlake ./.);
+        paths = flake-linter.lib.partitionToAttrs
+          flake-linter.lib.commonFlakePaths
+          (builtins.filter
+            (path:
+              (builtins.all
+                (ignore: !(nixpkgs.lib.hasSuffix ignore path))
+                [
+                  "gemset.nix"
+                  "node-composition.nix"
+                  "node-env.nix"
+                  "node-packages.nix"
+                ]))
+            (flake-linter.lib.walkFlake ./.));
 
-        checker = flake-checker.lib.makeFlakeChecker {
+        linter = flake-linter.lib.makeFlakeLinter {
           root = ./.;
+
           settings = {
             markdownlint = {
               paths = paths.markdown;
@@ -39,20 +52,7 @@
               };
             };
 
-            nixpkgs-fmt.paths =
-              (builtins.filter
-                (path:
-                  (builtins.all
-                    (ignore: !(nixpkgs.lib.hasSuffix ignore path))
-                    [
-                      "gemset.nix"
-                      "node-composition.nix"
-                      "node-env.nix"
-                      "node-packages.nix"
-                    ]))
-                paths.nix);
-
-            prettier.paths = paths.markdown;
+            nixpkgs-fmt.paths = paths.nix;
           };
 
           inherit pkgs;
@@ -73,7 +73,7 @@
             });
           };
 
-          inherit (checker) fix;
+          inherit (linter) fix;
         };
       }
     );
