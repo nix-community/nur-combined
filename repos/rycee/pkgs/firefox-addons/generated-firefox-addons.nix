@@ -2349,10 +2349,10 @@
       };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "4.17.6161";
+      version = "4.18.0";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3947043/tampermonkey-4.17.6161.xpi";
-      sha256 = "2f4c3e7a7f9709fef78969b9c0519e426b70725078406bd089312b81d834c58c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009746/tampermonkey-4.18.0.xpi";
+      sha256 = "08b152619b4f715d217adcb77cbb1e8fcf4610e48622b80d1023bdf7c5a87848";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
