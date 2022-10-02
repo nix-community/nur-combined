@@ -4,16 +4,12 @@
 src.git = "https://github.com/Javran/xmonad-entryhelper"
 fetch.github = "Javran/xmonad-entryhelper"
 
-[libadwaita]
-src.git = "https://gitlab.gnome.org/GNOME/libadwaita"
-fetch.git = "https://gitlab.gnome.org/GNOME/libadwaita"
-
 [zix]
 src.git = "https://github.com/drobilla/zix"
 fetch.github = "drobilla/zix"
 
 [lua-dbus_proxy]
-src.git = "https://github.com/stefano-m/lua-dbus_proxy"
+src.github_tag = "stefano-m/lua-dbus_proxy"
 fetch.github = "stefano-m/lua-dbus_proxy"
 
 [lua-dbus]
@@ -21,7 +17,7 @@ src.git = "https://github.com/dodo/lua-dbus"
 fetch.github = "dodo/lua-dbus"
 
 [zmusic]
-src.git = "https://github.com/ZDoom/ZMusic"
+src.github = "ZDoom/ZMusic"
 fetch.github = "ZDoom/ZMusic"
 
 # programs
@@ -68,5 +64,5 @@ src.git = "https://github.com/x42/lv2vst"
 fetch.github = "x42/lv2vst"
 
 [raze]
-src.git = "https://github.com/ZDoom/Raze"
+src.github = "ZDoom/Raze"
 fetch.github = "ZDoom/Raze"

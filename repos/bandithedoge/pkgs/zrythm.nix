@@ -2,9 +2,6 @@
   pkgs,
   sources,
 }: let
-  libadwaita = pkgs.libadwaita.overrideAttrs (oldAttrs: {
-    inherit (sources.libadwaita) pname version src;
-  });
   libpanel = pkgs.stdenv.mkDerivation {
     pname = "libpanel";
     version = "1.0.alpha";

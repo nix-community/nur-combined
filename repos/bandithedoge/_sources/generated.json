@@ -59,25 +59,6 @@
         },
         "version": "17814972abe6a8811a586fa87c99a2b16a86075f"
     },
-    "libadwaita": {
-        "cargoLocks": null,
-        "date": "2022-10-01",
-        "extract": null,
-        "name": "libadwaita",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "f1bf3f247d119c795361e7372efd6481d6c0cda9",
-            "sha256": "sha256-qDkt0ZSIXR5d/FpEqVeDleaJeYXDzNPh0l0uZtDyCgw=",
-            "type": "git",
-            "url": "https://gitlab.gnome.org/GNOME/libadwaita"
-        },
-        "version": "f1bf3f247d119c795361e7372efd6481d6c0cda9"
-    },
     "lua-dbus": {
         "cargoLocks": null,
         "date": "2015-04-22",
@@ -100,7 +81,7 @@
     },
     "lua-dbus_proxy": {
         "cargoLocks": null,
-        "date": "2022-07-30",
+        "date": null,
         "extract": null,
         "name": "lua-dbus_proxy",
         "passthru": null,
@@ -112,11 +93,11 @@
             "name": null,
             "owner": "stefano-m",
             "repo": "lua-dbus_proxy",
-            "rev": "c9253bde3fa5a64261953d1b196c57fabf9f8561",
-            "sha256": "sha256-mf49sgSO3zkeDDyezSr9BmvX2Fah8Hc59eLREP5G+p4=",
+            "rev": "v0.10.3",
+            "sha256": "sha256-Yd8TN/vKiqX7NOZyy8OwOnreWS5gdyVMTAjFqoAuces=",
             "type": "github"
         },
-        "version": "c9253bde3fa5a64261953d1b196c57fabf9f8561"
+        "version": "v0.10.3"
     },
     "luakit": {
         "cargoLocks": null,
@@ -160,7 +141,7 @@
     },
     "raze": {
         "cargoLocks": null,
-        "date": "2022-10-01",
+        "date": null,
         "extract": null,
         "name": "raze",
         "passthru": null,
@@ -172,11 +153,11 @@
             "name": null,
             "owner": "ZDoom",
             "repo": "Raze",
-            "rev": "631bea6a9805bbebed4e24c31d24787d5b9efe6d",
-            "sha256": "sha256-w/Cjv+r0EApNUdw5LgI4t/D6VindqUSDkye79LAQxXI=",
+            "rev": "1.5.0",
+            "sha256": "sha256-b7RFC90v5Kj2rTWdil2A8OLF6wicA08X87uS6nb4l5c=",
             "type": "github"
         },
-        "version": "631bea6a9805bbebed4e24c31d24787d5b9efe6d"
+        "version": "1.5.0"
     },
     "slock-flexipatch": {
         "cargoLocks": null,
@@ -300,7 +281,7 @@
     },
     "zmusic": {
         "cargoLocks": null,
-        "date": "2022-08-14",
+        "date": null,
         "extract": null,
         "name": "zmusic",
         "passthru": null,
@@ -312,11 +293,11 @@
             "name": null,
             "owner": "ZDoom",
             "repo": "ZMusic",
-            "rev": "47255178329bab4efa4408a4e4d373fb9264e8c5",
-            "sha256": "sha256-zDMXbUmSvvh4kJGQnsEYSfxCWedo9o51CnzHbMcgN7k=",
+            "rev": "1.1.3",
+            "sha256": "sha256-wrNWfTIbNU/S2qFObUSkb6qyaceh+Y7Loxqudl86+W4=",
             "type": "github"
         },
-        "version": "47255178329bab4efa4408a4e4d373fb9264e8c5"
+        "version": "1.1.3"
     },
     "zrythm": {
         "cargoLocks": null,
