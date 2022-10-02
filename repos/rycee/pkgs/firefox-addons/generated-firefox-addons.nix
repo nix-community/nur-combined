@@ -1257,10 +1257,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.35";
+      version = "2.6.36";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003760/localcdn_fork_of_decentraleyes-2.6.35.xpi";
-      sha256 = "a2afe65bf398121078a9ece90d9dcd21175ea3fb2294359874de3bf6ef3d73d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009967/localcdn_fork_of_decentraleyes-2.6.36.xpi";
+      sha256 = "2411cb3dc8aedcc373e86d0a800ff48b20ef8fe34a28524e0bac7b96cf435623";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2774,10 +2774,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.73.1";
+      version = "2.74.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007968/web_scrobbler-2.73.1.xpi";
-      sha256 = "c2b67c1659374ccadddb7654c30cf5d81c4cb3f77cdfc1d10ab12579fbeef5ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010154/web_scrobbler-2.74.0.xpi";
+      sha256 = "1be6806bd6ac7e81c2a2b53b75e66fe0359bfaf0830b3c97df882871a32f12aa";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
