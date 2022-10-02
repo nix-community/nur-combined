@@ -61,7 +61,7 @@
     },
     "libadwaita": {
         "cargoLocks": null,
-        "date": "2022-09-28",
+        "date": "2022-10-01",
         "extract": null,
         "name": "libadwaita",
         "passthru": null,
@@ -71,12 +71,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ab94d7c0589b8894ccca33ae75e945dd1e3a2c73",
-            "sha256": "sha256-XJkIlAfO451Iu+YZ1kB86ou73svuEPH2DG2HYNYD1Sg=",
+            "rev": "f1bf3f247d119c795361e7372efd6481d6c0cda9",
+            "sha256": "sha256-qDkt0ZSIXR5d/FpEqVeDleaJeYXDzNPh0l0uZtDyCgw=",
             "type": "git",
             "url": "https://gitlab.gnome.org/GNOME/libadwaita"
         },
-        "version": "ab94d7c0589b8894ccca33ae75e945dd1e3a2c73"
+        "version": "f1bf3f247d119c795361e7372efd6481d6c0cda9"
     },
     "lua-dbus": {
         "cargoLocks": null,
@@ -172,11 +172,11 @@
             "name": null,
             "owner": "ZDoom",
             "repo": "Raze",
-            "rev": "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180",
-            "sha256": "sha256-pLxgWqW/MsH8gaT9fxVpzhtfeGfF/Gy8boI4ybUnkAU=",
+            "rev": "631bea6a9805bbebed4e24c31d24787d5b9efe6d",
+            "sha256": "sha256-w/Cjv+r0EApNUdw5LgI4t/D6VindqUSDkye79LAQxXI=",
             "type": "github"
         },
-        "version": "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180"
+        "version": "631bea6a9805bbebed4e24c31d24787d5b9efe6d"
     },
     "slock-flexipatch": {
         "cargoLocks": null,

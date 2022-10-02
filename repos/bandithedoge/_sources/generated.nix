@@ -42,16 +42,16 @@
   };
   libadwaita = {
     pname = "libadwaita";
-    version = "ab94d7c0589b8894ccca33ae75e945dd1e3a2c73";
+    version = "f1bf3f247d119c795361e7372efd6481d6c0cda9";
     src = fetchgit {
       url = "https://gitlab.gnome.org/GNOME/libadwaita";
-      rev = "ab94d7c0589b8894ccca33ae75e945dd1e3a2c73";
+      rev = "f1bf3f247d119c795361e7372efd6481d6c0cda9";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-XJkIlAfO451Iu+YZ1kB86ou73svuEPH2DG2HYNYD1Sg=";
+      sha256 = "sha256-qDkt0ZSIXR5d/FpEqVeDleaJeYXDzNPh0l0uZtDyCgw=";
     };
-    date = "2022-09-28";
+    date = "2022-10-01";
   };
   lua-dbus = {
     pname = "lua-dbus";
@@ -103,13 +103,13 @@
   };
   raze = {
     pname = "raze";
-    version = "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180";
+    version = "631bea6a9805bbebed4e24c31d24787d5b9efe6d";
     src = fetchFromGitHub {
       owner = "ZDoom";
       repo = "Raze";
-      rev = "d1b4bef98d2a2bc45cc3f8594cd4dace86fb1180";
+      rev = "631bea6a9805bbebed4e24c31d24787d5b9efe6d";
       fetchSubmodules = false;
-      sha256 = "sha256-pLxgWqW/MsH8gaT9fxVpzhtfeGfF/Gy8boI4ybUnkAU=";
+      sha256 = "sha256-w/Cjv+r0EApNUdw5LgI4t/D6VindqUSDkye79LAQxXI=";
     };
     date = "2022-10-01";
   };
