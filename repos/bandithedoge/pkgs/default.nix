@@ -29,4 +29,6 @@ in {
   lv2vst = callPackage' ./lv2vst.nix;
 
   raze = callPackage' ./raze.nix;
+
+  cardinal = callPackage' ./cardinal.nix;
 }

@@ -66,3 +66,8 @@ fetch.github = "x42/lv2vst"
 [raze]
 src.github = "ZDoom/Raze"
 fetch.github = "ZDoom/Raze"
+
+[cardinal]
+src.git = "https://github.com/DISTRHO/Cardinal"
+fetch.github = "DISTRHO/Cardinal"
+git.fetchSubmodules = true

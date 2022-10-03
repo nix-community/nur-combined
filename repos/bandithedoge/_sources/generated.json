@@ -1,4 +1,24 @@
 {
+    "cardinal": {
+        "cargoLocks": null,
+        "date": "2022-09-27",
+        "extract": null,
+        "name": "cardinal",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "DISTRHO",
+            "repo": "Cardinal",
+            "rev": "a62f0327b9ed937d8bc426fabd27a9147726273b",
+            "sha256": "sha256-UV/Std7rFqjczfvjlOzD0KJu/b0XEC8Ps44uqKtN2VU=",
+            "type": "github"
+        },
+        "version": "a62f0327b9ed937d8bc426fabd27a9147726273b"
+    },
     "dmenu-flexipatch": {
         "cargoLocks": null,
         "date": "2022-09-26",
