@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgs, lib, nodejs-14_x, nodePackages, nodeEnv, pkg-config, libjpeg
+{ stdenv, fetchFromGitHub, pkgs, lib, nodejs-14_x, nodeEnv, pkg-config, libjpeg
 , vips, pixman, cairo, pango
 , fetchgit, fetchurl
 }:
@@ -26,7 +26,7 @@ in myNodePackages.package.override {
 
   inherit src;
 
-  nativeBuildInputs = [ nodePackages.node-pre-gyp pkg-config ];
+  nativeBuildInputs = [ nodejs.pkgs.node-pre-gyp pkg-config ];
   buildInputs = [ libjpeg vips pixman cairo pango ];
 
   postInstall = ''

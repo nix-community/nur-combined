@@ -13,6 +13,8 @@ in nodeEnv.buildNodePackage rec {
 
   postInstall = ''
     install -d $out/bin
-    ln -s $out/lib/node_modules/$packageName/bin/$packageName.js $out/bin/$packageName
+    if [[ ! -e $out/bin/$packageName ]]; then
+      ln -s $out/lib/node_modules/$packageName/bin/$packageName.js $out/bin/$packageName
+    fi
   '';
 }
