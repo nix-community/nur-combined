@@ -22,3 +22,4 @@ jobs:
           pr-labels: |                  # Labels to be set on the PR
             dependencies
             automated
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
