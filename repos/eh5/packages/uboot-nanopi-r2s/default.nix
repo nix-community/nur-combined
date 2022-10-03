@@ -1,6 +1,7 @@
 { buildUBoot, armTrustedFirmwareRK3328 } @ args:
 let
   armTrustedFirmwareRK3328 = args.armTrustedFirmwareRK3328.overrideAttrs (_: {
+    NIX_LDFLAGS = "--no-warn-execstack --no-warn-rwx-segments";
     enableParallelBuilding = true;
   });
 in

@@ -44,6 +44,9 @@ runCommand mosdns.name
 {
   inherit (mosdns) version meta pname;
   nativeBuildInputs = [ makeBinaryWrapper ];
+  passthru = {
+    original = mosdns;
+  };
 } ''
   makeWrapper ${mosdns}/bin/mosdns "$out/bin/mosdns" --chdir ${assetsDrv}
 ''
