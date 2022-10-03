@@ -4,11 +4,26 @@
 }: let
   zmusic = pkgs.stdenv.mkDerivation {
     inherit (sources.zmusic) src pname version;
+
     nativeBuildInputs = with pkgs; [
       cmake
       pkg-config
     ];
-    buildInputs = with pkgs; [glib];
+
+    buildInputs = with pkgs; [
+      alsa-lib
+      libsndfile
+      mpg123
+      zlib
+      fluidsynth
+    ];
+
+    cmakeFlags = [
+      "-DDYN_SNDFILE=OFF"
+      "-DDYN_MPG123=OFF"
+      "-DDYN_FLUIDSYNTH=OFF"
+    ];
+
     preConfigure = ''
       sed -i \
         -e "s@/usr/share/sounds/sf2/@${pkgs.soundfont-fluid}/share/soundfonts/@g" \
@@ -31,19 +46,24 @@ in
       SDL2
       bzip2
       fluidsynth
-      libvpx
-      game-music-emu
+      glib
       gtk3
       libGL
       libjpeg
       libsndfile
-      mpg123
+      libvpx
       openal
+      pcre
       zlib
       zmusic
     ];
 
-    NIX_CFLAGS_LINK = "-lopenal -lfluidsynth";
+    cmakeFlags = [
+      "-DDYN_GTK=OFF"
+      "-DDYN_OPENAL=OFF"
+    ];
+
+    NIX_CFLAGS_LINK = "-lfluidsynth";
 
     desktopItems = [
       (pkgs.makeDesktopItem {
