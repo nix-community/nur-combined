@@ -70,9 +70,6 @@ rec {
   };
   lantianPersonal = pkgs.recurseIntoAttrs {
     # Personal packages with no intention to be used by others
-    dngzwxdq = pkg ./lantian-personal/dngzwxdq { inherit chmlib-utils; };
-    dnyjzsxj = pkg ./lantian-personal/dnyjzsxj { inherit chmlib-utils; };
-    glibc-debian-openvz-files = pkg ./lantian-personal/glibc-debian-openvz-files { };
     libltnginx = pkg ./lantian-personal/libltnginx { };
   };
   openj9-ibm-semeru = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { }));
