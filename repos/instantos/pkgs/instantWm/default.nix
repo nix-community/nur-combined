@@ -4,7 +4,7 @@
 , gnumake
 , pavucontrol
 , rofi
-, rxvt_unicode
+, rxvt-unicode-unwrapped
 , st
 , cantarell-fonts
 #, joypixels
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     substituteInPlace config.def.h \
       --replace "\"pavucontrol\"" "\"${pavucontrol}/bin/pavucontrol\"" \
       --replace "\"rofi\"" "\"${rofi}/bin/rofi\"" \
-      --replace "\"urxvt\"" "\"${rxvt_unicode}/bin/urxvt\"" \
+      --replace "\"urxvt\"" "\"${rxvt-unicode-unwrapped}/bin/urxvt\"" \
       --replace "\"st\"" "\"${defaultTerminal}/bin/${builtins.head (builtins.match "(.*)-.*" defaultTerminal.name)}\"" \
       --replace /usr/share/instantassist/ "${instantAssist}/share/instantassist/" \
       --replace /usr/share/instantdotfiles/ "${instantDotfiles}/share/instantdotfiles/"
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
     #joypixels
     pavucontrol
     rofi
-    rxvt_unicode
+    rxvt-unicode-unwrapped
     defaultTerminal
   ] ++
   [
