@@ -1,4 +1,10 @@
-{ fetchFromGitHub, fetchpatch, lib, python3Packages, e2be ? true, metrics ? false }: with python3Packages; let
+{ fetchFromGitHub, fetchpatch
+, lib
+, python3Packages
+, protobuf3_19 ? protobuf
+, protobuf
+, e2be ? true, metrics ? false
+}: with python3Packages; let
 
   mautrix = python3Packages.mautrix.overridePythonAttrs (old: rec {
     version = "0.18.1";
@@ -32,7 +38,9 @@ in buildPythonApplication rec {
     ruamel_yaml
     CommonMark
     python_magic
-    protobuf
+    (python3Packages.protobuf.override {
+      protobuf = protobuf3_19;
+    })
     mautrix
     setuptools
   ] ++ lib.optionals e2be [
