@@ -271,10 +271,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.6.0";
+      version = "2.8.7.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007095/bypass_paywalls_clean-2.8.6.0.xpi";
-      sha256 = "c3e64b277facb189fdd09651805b6f51683f93db83f02610e9a99a0555046013";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010387/bypass_paywalls_clean-2.8.7.0.xpi";
+      sha256 = "27ae07742b10c3da1cfc75f54e9c131639c7431dd9c132f09439629859c8f389";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -793,10 +793,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0buildid20220929.195234";
+      version = "106.0buildid20221002.185807";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009336/francais_language_pack-106.0buildid20220929.195234.xpi";
-      sha256 = "87d4ee99b7f0e5e0a30ec7a7d63485c6ab9e65be788ecdc0edaa6a0ba42d31a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010504/francais_language_pack-106.0buildid20221002.185807.xpi";
+      sha256 = "cc7d89ac5c2ddee6ee154873470d35ccf4b7970578527e70bcbab50bdd88fe1b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2002,10 +2002,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.9.25";
+      version = "22.10.2";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4006995/refined_github-22.9.25.xpi";
-      sha256 = "613d3e2ea79573bb31c9b25b099af8b445b81b04d312e1087ce46e745bde659b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010247/refined_github-22.10.2.xpi";
+      sha256 = "1ae6e2a25ea8f771987018240dfdda9d306f663062f3765be52e9be1643f231c";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
