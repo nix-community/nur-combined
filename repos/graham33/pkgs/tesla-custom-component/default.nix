@@ -29,6 +29,7 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   ];
 
   propagatedBuildInputs = [
+    setuptools
     teslajsonpy
   ];
 

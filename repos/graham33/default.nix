@@ -66,6 +66,9 @@ in rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # for CI
+  inherit (pkgs) nix-build-uncached;
+
   inherit (myPackages)
     ha-dyson
     ha-dyson-cloud

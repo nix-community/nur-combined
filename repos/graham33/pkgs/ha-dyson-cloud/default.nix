@@ -22,6 +22,7 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
 
   propagatedBuildInputs = [
     libdyson
+    setuptools
   ];
 
   installPhase = ''

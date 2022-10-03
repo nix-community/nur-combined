@@ -14,7 +14,7 @@
 , pyyaml
 , requests
 , requests-mock
-, websocket_client
+, websocket-client
 }:
 
 buildPythonPackage rec {
@@ -36,7 +36,7 @@ buildPythonPackage rec {
                             python-socketio_4
                             pyyaml
                             requests
-                            websocket_client
+                            websocket-client
                           ];
 
   checkInputs = [

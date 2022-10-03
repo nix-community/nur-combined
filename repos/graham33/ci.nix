@@ -9,10 +9,13 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { } }:
+{}:
 
 with builtins;
 let
+  outputs = builtins.getFlake (toString ./.);
+  pkgs = import outputs.inputs.nixpkgs {};
+
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
