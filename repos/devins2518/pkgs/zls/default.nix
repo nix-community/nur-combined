@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "leecannon";
     repo = "zls";
-    rev = "ea138bc231dc0bd248bc7f9cc0b5b00220917c50";
-    sha256 = "sha256-6IPcCDN4IlOzhLVRr3odmen1B3S5ORE2eop/sy0cPgg=";
+    rev = "ac6353add7b1dc5fdee25333b02d8c52e589502a";
+    sha256 = "sha256-K/YCUUy/AfE0f0sihzk6mChTOy29c4V91LHzxhUxPs4=";
     fetchSubmodules = true;
   };
 
