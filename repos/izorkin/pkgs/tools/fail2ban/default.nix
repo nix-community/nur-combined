@@ -67,7 +67,7 @@ python3.pkgs.buildPythonApplication rec {
     in
     ''
       # Add custom filters
-      cd ${./filter.d} && cp * $out/etc/fail2ban/filter.d
+      cp ${./filter.d}/*.conf $out/etc/fail2ban/filter.d
 
       # see https://github.com/NixOS/nixpkgs/issues/4968
       rm -r "${sitePackages}/etc"
