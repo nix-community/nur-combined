@@ -20,4 +20,11 @@ stdenvNoCC.mkDerivation rec {
     cp */*.otf $out/share/fonts/opentype/
     cp */*.ttc $out/share/fonts/truetype/
   '';
+  meta = with lib; {
+    description =
+      ''
+        Apple fonts
+      '';
+    homepage = "https://developer.apple.com/fonts";
+  };
 }
