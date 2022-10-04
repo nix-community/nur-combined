@@ -6,15 +6,15 @@
 }: {
   cardinal = {
     pname = "cardinal";
-    version = "a62f0327b9ed937d8bc426fabd27a9147726273b";
+    version = "f9841bb333a5f7b013c89a326649a15749469b19";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "a62f0327b9ed937d8bc426fabd27a9147726273b";
+      rev = "f9841bb333a5f7b013c89a326649a15749469b19";
       fetchSubmodules = true;
-      sha256 = "sha256-UV/Std7rFqjczfvjlOzD0KJu/b0XEC8Ps44uqKtN2VU=";
+      sha256 = "sha256-E46989ABFVDIcYr/XC0LLkwNANFHL2K+OLbqmZovZD8=";
     };
-    date = "2022-09-27";
+    date = "2022-10-04";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
