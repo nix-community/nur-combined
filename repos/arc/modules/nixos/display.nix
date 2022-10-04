@@ -11,7 +11,7 @@ in {
   config = {
     hardware.display.nvidia.enable = mkDefault config.hardware.nvidia.modesetting.enable;
     services.xserver = mkIf cfg.enable {
-      inherit (cfg.xserver) deviceSection screenSection;
+      inherit (cfg.xserver) deviceSection screenSection serverLayoutSection;
       inherit (primary.xserver) monitorSection;
       extraConfig = mkMerge (mapAttrsToList (_: mon: mon.xserver.monitorSectionRaw) rest);
     };

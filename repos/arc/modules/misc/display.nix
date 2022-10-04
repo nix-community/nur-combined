@@ -211,12 +211,26 @@ in {
       };
     };
 
+    dpms = {
+      enable = mkEnableOption "DPMS" // {
+        default = true;
+      };
+      standbyMinutes = mkOption {
+        type = types.int;
+        default = 10;
+      };
+    };
+
     xserver = {
       screenSection = mkOption {
         type = types.lines;
         default = "";
       };
       deviceSection = mkOption {
+        type = types.lines;
+        default = "";
+      };
+      serverLayoutSection = mkOption {
         type = types.lines;
         default = "";
       };
@@ -233,6 +247,11 @@ in {
       deviceSection = mkMerge (mapAttrsToList (_: mon: ''
         Option "monitor-${mon.output}" "${mon.xserver.sectionName}"
       '') config.monitors);
+      serverLayoutSection = mkIf config.dpms.enable ''
+        Option "StandbyTime" "0"
+        Option "SuspendTime" "0"
+        Option "OffTime" "${toString config.dpms.standbyMinutes}"
+      '';
     };
   };
 }
