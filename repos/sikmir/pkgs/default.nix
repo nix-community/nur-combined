@@ -323,6 +323,8 @@ lib.makeScope newScope (
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
+    paho-mqtt-c = callPackage ./misc/paho-mqtt-c { };
+    paho-mqtt-cpp = callPackage ./misc/paho-mqtt-cpp { };
     playonmac = callPackage ./misc/playonmac { };
     pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };

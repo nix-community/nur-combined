@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   };
 
   propagatedBuildInputs = with python3Packages; [
-    dateutil
+    python-dateutil
   ];
 
   doCheck = false;
