@@ -15,10 +15,17 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_DOCUMENTATION=ON"
+    "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
   meta = with lib; {
-    description = "GeographicLib offers a C++ interfaces to a small (but important!) set of geographic transformations";
+    description = "C++ geographic library";
+    longDescription = ''
+      GeographicLib is a small C++ library for:
+      * geodesic and rhumb line calculations
+      * conversions between geographic, UTM, UPS, MGRS, geocentric, and local cartesian coordinates
+      * gravity (e.g., EGM2008) and geomagnetic field (e.g., WMM2020) calculations
+    '';
     homepage = "https://geographiclib.sourceforge.io/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];

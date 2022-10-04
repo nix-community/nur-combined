@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Eclipse Paho MQTT C++ Client Library";
-    inherit (src.meta) homepage;
+    homepage = "https://www.eclipse.org/paho/";
     license = licenses.epl10;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

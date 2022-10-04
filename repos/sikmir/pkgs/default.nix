@@ -310,6 +310,7 @@ lib.makeScope newScope (
     glauth = callPackage ./misc/glauth {
       buildGoModule = pkgs.buildGo117Module;
     };
+    gsl-lite = callPackage ./misc/gsl-lite { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     huami-token = callPackage ./misc/huami-token { };
     imsg-compat = callPackage ./misc/imsg-compat { };
@@ -333,9 +334,11 @@ lib.makeScope newScope (
     qoiview = callPackage ./misc/qoiview { };
     repolocli = callPackage ./misc/repolocli { };
     sdorfehs = callPackage ./misc/sdorfehs { };
+    serverpp = callPackage ./misc/serverpp { };
     taskcoach = callPackage ./misc/taskcoach { };
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };
+    telnetpp = callPackage ./misc/telnetpp { };
     tlstunnel = callPackage ./misc/tlstunnel { };
     worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
