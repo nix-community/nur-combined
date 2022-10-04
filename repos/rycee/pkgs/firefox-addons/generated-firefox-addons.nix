@@ -182,10 +182,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.39";
+      version = "7.4.40";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003496/betterttv-7.4.39.xpi";
-      sha256 = "72a7fce63372eed71d0ad50f31c8448912b235f70d6ead1e2c6f464266a39d50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009945/betterttv-7.4.40.xpi";
+      sha256 = "1353faa304cd7e6bf0039d9897afbf8014e1ff0ef5646db3207405e2a00684dd";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -690,10 +690,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.54";
+      version = "6.1.55";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3996798/flagfox-6.1.54.xpi";
-      sha256 = "5f7cebaea3d24d42fd170e623bd9c257eaaca238cdf116d9588348e59b03f435";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009925/flagfox-6.1.55.xpi";
+      sha256 = "bb7324a9c248b657c5779a347ad96923a7c5bb9d61dc3396863c19e7b082742d";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -793,10 +793,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0buildid20221002.185807";
+      version = "105.0.2buildid20221003.135607";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010504/francais_language_pack-106.0buildid20221002.185807.xpi";
-      sha256 = "cc7d89ac5c2ddee6ee154873470d35ccf4b7970578527e70bcbab50bdd88fe1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011056/francais_language_pack-105.0.2buildid20221003.135607.xpi";
+      sha256 = "88193d3bb4200babc721ee69906a3300fdcc9ff10bdc10c74f2904e108bf5e3e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2002,10 +2002,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.2";
+      version = "22.10.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010247/refined_github-22.10.2.xpi";
-      sha256 = "1ae6e2a25ea8f771987018240dfdda9d306f663062f3765be52e9be1643f231c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010795/refined_github-22.10.3.xpi";
+      sha256 = "8ef201df21a08f6fe986d2bf0c080516ea64ae5e9798ec132b548266980582ce";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2197,10 +2197,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.0.5";
+      version = "5.0.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4006940/sponsorblock-5.0.5.xpi";
-      sha256 = "78b2a992a90d0b8ba559c1c99fd44388ee7051daccac672982c989f0940cada7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4009820/sponsorblock-5.0.6.xpi";
+      sha256 = "cdbbc9cb794c867b17fe0a56dbf8a4a760936720a0b656d24e029717d3034708";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2718,10 +2718,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.4.2";
+      version = "6.4.3";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009041/vue_js_devtools-6.4.2.xpi";
-      sha256 = "7980bb640083e7c7b4ac80e92a1ad4930ec91095a3399858e4a14979470bee29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4010813/vue_js_devtools-6.4.3.xpi";
+      sha256 = "aa14c09e09eb3af3a4161f73d7b2faadcad949d716d2164b72653f44b58491a0";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
