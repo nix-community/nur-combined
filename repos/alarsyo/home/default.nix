@@ -24,4 +24,8 @@
   home.stateVersion = "21.05";
 
   home.username = "alarsyo";
+
+  home.sessionVariables = {
+    BROWSER = "firefox";
+  };
 }
