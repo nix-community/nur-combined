@@ -125,9 +125,6 @@ with lib.kernel;
   NO_HZ_FULL = yes;
   HZ_1000 = yes;
 
-  # Graysky's additional CPU optimizations
-  CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
-
   # Futex WAIT_MULTIPLE implementation for Wine / Proton Fsync.
   FUTEX = yes;
   FUTEX_PI = yes;
