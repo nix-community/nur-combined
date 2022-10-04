@@ -1,44 +1,40 @@
-{ lib, stdenv, fetchurl
+{ pkgsi686Linux, lib, stdenv, fetchurl
 , dpkg, makeWrapper
-, cups, ghostscript, a2ps, gawk
-, gnused, file, coreutils, gnugrep, which
+, ghostscript, gnused, perl, coreutils, gnugrep, which
 }:
 
 let
-  version = "3.5.0";
   model = "dcpt720dw";
+  version = "3.5.0";
+  src = fetchurl {
+    url = "https://download.brother.com/welcome/dlf105179/dcpt720dwpdrv-3.5.0-1.i386.deb";
+    sha256 = "sha256-ToUFGnHxd6rnLdfhdDGzhvsgFJukEAVzlm79hmkSV3E=";
+  };
+  reldir = "opt/brother/Printers/${model}/";
 in
 rec {
-  driver = stdenv.mkDerivation {
+  driver = pkgsi686Linux.stdenv.mkDerivation {
     pname = "${model}-lpr";
-    inherit version;
-
-    src = fetchurl {
-      url = "https://download.brother.com/welcome/dlf105179/dcpt720dwpdrv-3.5.0-1.i386.deb";
-      sha256 = "sha256-ToUFGnHxd6rnLdfhdDGzhvsgFJukEAVzlm79hmkSV3E=";
-    };
+    inherit src version;
 
     nativeBuildInputs = [ dpkg makeWrapper ];
-    buildInputs = [ cups ghostscript a2ps gawk ];
     unpackPhase = "dpkg-deb -x $src $out";
 
     installPhase = ''
-      substituteInPlace $out/opt/brother/Printers/${model}/lpd/filter_${model} \
-        --replace /opt "$out/opt"
-
-      patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-        $out/opt/brother/Printers/${model}/lpd/i686/br${model}filter
-      patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-        $out/opt/brother/Printers/${model}/lpd/x86_64/br${model}filter
-
-      mkdir -p $out/lib/cups/filter/
-      ln -s $out/opt/brother/Printers/${model}/lpd/filter_${model} \
-        $out/lib/cups/filter/brother_lpdwrapper_${model}
-
-      wrapProgram $out/opt/brother/Printers/${model}/lpd/filter_${model} \
-        --prefix PATH ":" ${lib.makeBinPath [
-          gawk ghostscript a2ps file gnused gnugrep coreutils which
+      dir="$out/${reldir}"
+      substituteInPlace $dir/lpd/filter_${model} \
+        --replace /usr/bin/perl ${perl}/bin/perl \
+        --replace "BR_PRT_PATH =~" "BR_PRT_PATH = \"$dir\"; #" \
+        --replace "PRINTER =~" "PRINTER = \"${model}\"; #"
+      wrapProgram $dir/lpd/filter_${model} \
+        --prefix PATH : ${lib.makeBinPath [
+          coreutils ghostscript gnugrep gnused which
         ]}
+
+      patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
+        $dir/lpd/i686/br${model}filter
+      patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
+        $dir/lpd/x86_64/br${model}filter
     '';
 
     meta = with lib; {
@@ -54,25 +50,24 @@ rec {
 
   cupswrapper = stdenv.mkDerivation {
     pname = "${model}-cupswrapper";
-    inherit version;
-
-    src = fetchurl {
-      url = "https://download.brother.com/welcome/dlf105179/dcpt720dwpdrv-3.5.0-1.i386.deb";
-      sha256 = "sha256-ToUFGnHxd6rnLdfhdDGzhvsgFJukEAVzlm79hmkSV3E=";
-    };
+    inherit src version;
 
     nativeBuildInputs = [ dpkg makeWrapper ];
-    buildInputs = [ cups ghostscript a2ps gawk ];
     unpackPhase = "dpkg-deb -x $src $out";
 
     installPhase = ''
-      for f in $out/opt/brother/Printers/${model}/cupswrapper/cupswrapper${model}; do
-        wrapProgram $f --prefix PATH : ${lib.makeBinPath [ coreutils ghostscript gnugrep gnused ]}
-      done
-
+      basedir=${driver}/${reldir}
+      dir=$out/${reldir}
+      substituteInPlace $dir/cupswrapper/brother_lpdwrapper_${model} \
+        --replace /usr/bin/perl ${perl}/bin/perl \
+        --replace "basedir =~" "basedir = \"$basedir\"; #" \
+        --replace "PRINTER =~" "PRINTER = \"${model}\"; #"
+      wrapProgram $dir/cupswrapper/brother_lpdwrapper_${model} \
+        --prefix PATH : ${lib.makeBinPath [ coreutils gnugrep gnused ]}
+      mkdir -p $out/lib/cups/filter
       mkdir -p $out/share/cups/model
-      ln -s $out/opt/brother/Printers/${model}/cupswrapper/brother_${model}_printer_en.ppd \
-        $out/share/cups/model/
+      ln $dir/cupswrapper/brother_lpdwrapper_${model} $out/lib/cups/filter
+      ln $dir/cupswrapper/brother_${model}_printer_en.ppd $out/share/cups/model
     '';
 
     meta = with lib; {
