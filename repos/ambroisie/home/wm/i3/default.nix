@@ -175,6 +175,10 @@ in
             "${modifier}+Control+space" = "floating toggle";
             # Change focus between tiling/floating
             "${modifier}+space" = "focus mode_toggle";
+            # Center floating window
+            "${modifier}+c" = "move absolute position center";
+            # Center floating window
+            "${modifier}+Shift+s" = "sticky toggle";
           }
           {
             # Focus parent container
