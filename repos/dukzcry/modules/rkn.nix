@@ -54,6 +54,10 @@ in {
         if ! ipset --quiet list rkn; then
           ipset create rkn hash:ip family inet
         fi
+      '' + optionalString (cfg.tor.excludes != []) ''
+        if ! ipset --quiet list erkn; then
+          ipset create erkn hash:ip family inet
+        fi
       '';
       systemd.timers.rkn = {
         timerConfig = {
@@ -111,13 +115,15 @@ in {
         iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
       '' + optionalString (cfg.tor.excludes != []) ''
-        iptables -t nat -I PREROUTING -p tcp -m multiport --dports 80,443 -d ${concatStringsSep "," cfg.tor.excludes} -j RETURN
-        iptables -t nat -I POSTROUTING -p tcp -m multiport --dports 80,443 -d ${concatStringsSep "," cfg.tor.excludes} -j MASQUERADE
-        iptables -t nat -I OUTPUT -p tcp -m multiport --dports 80,443 -d ${concatStringsSep "," cfg.tor.excludes} -j RETURN
+        iptables -t nat -I PREROUTING -p tcp -m multiport --dports 80,443 -m set --match-set erkn dst -j RETURN
+        iptables -t nat -I POSTROUTING -p tcp -m multiport --dports 80,443 -m set --match-set erkn dst -j MASQUERADE
+        iptables -t nat -I OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set erkn dst -j RETURN
       '';
       services.dnsmasq.extraConfig = ''
         server=/onion/${cfg.address}#9053
         rebind-domain-ok=onion
+      '' + optionalString (cfg.tor.excludes != []) ''
+        ipset=/${concatStringsSep "/" cfg.tor.excludes}/erkn
       '';
     })
   ];
