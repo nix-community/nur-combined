@@ -100,7 +100,7 @@ in
         example = literalExample ''
           {
             name = "Adwaita";
-            package = pkgs.gnome3.adwaita-icon-theme;
+            package = pkgs.gnome.adwaita-icon-theme;
           };
         '';
         description = "The icon theme to use.";
@@ -112,7 +112,7 @@ in
         example = literalExample ''
           {
             name = "Adwaita";
-            package = pkgs.gnome3.adwaita-icon-theme;
+            package = pkgs.gnome.adwaita-icon-theme;
           };
         '';
         description = "The cursor theme to use.";

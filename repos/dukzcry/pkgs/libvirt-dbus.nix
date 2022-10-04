@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitLab, meson, pkgconfig, glib, libvirt, libvirt-glib
+{ lib, stdenv, fetchFromGitLab, meson, pkg-config, glib, libvirt, libvirt-glib
 , docutils, ninja }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    meson pkgconfig docutils ninja
+    meson pkg-config docutils ninja
   ];
   buildInputs = [
     glib libvirt libvirt-glib

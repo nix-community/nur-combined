@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, gtk3, pkgconfig, gobject-introspection }:
+{ stdenv, lib, fetchFromGitHub, gtk3, pkg-config, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "gtk3-nocsd";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     gtk3 gobject-introspection
   ];
   nativeBuildInputs = [
-    pkgconfig
+    pkg-config
   ];
 
   makeFlags = [

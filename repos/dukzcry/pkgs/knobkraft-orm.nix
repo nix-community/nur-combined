@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, cmake, python3, pkgconfig, gtk3
-, glew, webkitgtk, icu, boost, curl, alsaLib, makeWrapper
-, gnome3, makeDesktopItem, gcc-unwrapped
+{ stdenv, lib, fetchFromGitHub, cmake, python3, pkg-config, gtk3
+, glew, webkitgtk, icu, boost, curl, alsa-lib, makeWrapper
+, gnome, makeDesktopItem, gcc-unwrapped
 , debug ? false }:
 
 let
@@ -34,17 +34,17 @@ in stdenv.mkDerivation rec {
   ] ++ optional debug [ "-DCMAKE_BUILD_TYPE=Debug" ];
 
   buildInputs = [
-    gtk3 glew webkitgtk icu boost curl alsaLib
+    gtk3 glew webkitgtk icu boost curl alsa-lib
   ];
   nativeBuildInputs = [
-    cmake python3 pkgconfig makeWrapper
+    cmake python3 pkg-config makeWrapper
   ];
 
   installPhase = ''
     install -Dm755 ./The-Orm/KnobKraftOrm $out/bin/KnobKraftOrm
     # make file dialogs work under JUCE
     ${optionalString (!debug) ''
-      wrapProgram $out/bin/KnobKraftOrm --prefix PATH ":" ${gnome3.zenity}/bin
+      wrapProgram $out/bin/KnobKraftOrm --prefix PATH ":" ${gnome.zenity}/bin
     ''}
 
     mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps

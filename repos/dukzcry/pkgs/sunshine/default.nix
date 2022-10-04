@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, openssl, ffmpeg, pkgconfig, libopus
+{ lib, stdenv, fetchFromGitHub, cmake, boost, openssl, ffmpeg, pkg-config, libopus
 , libX11, libXfixes, libXrandr, libpulseaudio, libevdev, mesa, makeWrapper, libdrm
 , wayland, avahi, libGL }:
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [ cmake pkgconfig makeWrapper ];
+  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
   buildInputs = [
     openssl boost ffmpeg libopus libX11 libXfixes libXrandr libpulseaudio
     libevdev libdrm wayland

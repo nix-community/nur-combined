@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchzip, pkgconfig, glib, systemd, json-glib, gnutls, krb5, polkit, libssh, pam, libxslt, xmlto
+{ lib, stdenv, fetchzip, pkg-config, glib, systemd, json-glib, gnutls, krb5, polkit, libssh, pam, libxslt, xmlto
 , python3, gnused, coreutils, makeWrapper, openssl
 , packages ? []
 , client ? false, python3Packages, wrapGAppsHook, gtk3, gobject-introspection, webkitgtk, glib-networking, openssh }:
@@ -24,7 +24,7 @@ in stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    pkgconfig python3 gnused makeWrapper
+    pkg-config python3 gnused makeWrapper
   ] ++ lib.optionals client [
     python3Packages.wrapPython wrapGAppsHook gobject-introspection
   ];

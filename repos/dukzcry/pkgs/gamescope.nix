@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, meson, pkgconfig, libdrm, xorg
+{ lib, stdenv, fetchFromGitHub, meson, pkg-config, libdrm, xorg
 , wayland, wayland-protocols, libxkbcommon, libcap
 , SDL2, mesa, libinput, pixman, xcbutilerrors, xcbutilwm, glslang
 , ninja, xwayland, libuuid, xcbutilrenderutil
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     xcbutilwm libXi libXres libuuid xcbutilrenderutil xwayland
     pipewire seatd
   ];
-  nativeBuildInputs = [ meson pkgconfig glslang ninja ];
+  nativeBuildInputs = [ meson pkg-config glslang ninja ];
 
   prePatch = ''
     cp -vr "${stb.src}" subprojects/stb
