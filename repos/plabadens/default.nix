@@ -16,6 +16,8 @@ rec {
   #modules = import ./modules; # NixOS modules
   #overlays = import ./overlays; # nixpkgs overlays
 
+  ceserver = pkgs.callPackage ./pkgs/ceserver { };
+
   diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
 
   edmarketconnector =
