@@ -19,7 +19,7 @@ buildLinux {
     rev = "${version}-xanmod${release}";
     sha256 = "sha256-E7T8eHwMKYShv4KWdCbHQmpn+54edJoKdimZY3GFbPU=";
   };
-  modDirVersion = "${version}-xanmod${release}-lantian";
+  modDirVersion = "${version}-lantian-xanmod${release}";
 
   structuredExtraConfig = import ./config.nix args;
 
