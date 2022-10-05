@@ -8,6 +8,7 @@ function handler {
     if [ $state == connected ]; then
         xrandr --auto
         xrandr --output HDMI-1 --right-of eDP-1
+        xrandr --output HDMI-1 --dpi 100
         if [ $num_fields == 16 ]; then
             if [ $mode == normal ]; then
                 xrandr --output HDMI-1 --rotation right
@@ -20,6 +21,7 @@ function handler {
     else
         xrandr --output HDMI-1 --off
     fi
+    xrandr --output eDP-1 --dpi 100
     notify-send "Configuração finalizada"
 }
 handler $(xrandr --query --verbose | awk '$1 == "HDMI-1" { print $5 " " $2 " " NF}')
