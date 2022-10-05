@@ -68,5 +68,8 @@ buildPythonPackage rec {
     description = "Deep Gaussian processes built on top of TensorFlow/Keras and GPflow";
     homepage = "https://secondmind-labs.github.io/GPflux/";
     platforms = lib.platforms.unix;
+
+    # Something about "TrackableLayer" and gpflux simply being permanently broken for almost all versions of tf and tfp
+    broken = lib.versionAtLeast tensorflow.version "2.10";
   };
 }

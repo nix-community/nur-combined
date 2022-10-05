@@ -34,7 +34,7 @@ let
     };
 in
 buildPythonPackage rec {
-  name = "imviz";
+  pname = "imviz";
   version = "unstable-2022-08-12";
 
   src = fetchFromGitHub {

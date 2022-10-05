@@ -11,7 +11,7 @@
 
 let
   pname = "cppimport";
-  version = "22.05.10";
+  version = "22.08.02";
 in
 buildPythonPackage {
   inherit pname version;
@@ -20,7 +20,7 @@ buildPythonPackage {
     owner = "tbenthompson";
     repo = pname;
     rev = "${version}";
-    hash = "sha256-Q92H6tGIyKsaHsl9NPiZf3k2NxUi0CS1llpQgvVBVKY=";
+    hash = "sha256-L41Vu7t9xAjgK7HaOX3I4FczbQdGVlQl507q1gUjK6s=";
   };
 
   propagatedBuildInputs = [

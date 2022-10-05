@@ -12,7 +12,7 @@
 
 let
   pname = "albumentations";
-  version = "1.1.0";
+  version = "1.3.0";
 in
 buildPythonPackage {
   inherit pname version;
@@ -21,7 +21,7 @@ buildPythonPackage {
     owner = "albumentations-team";
     repo = pname;
     rev = version;
-    hash = "sha256-23nlt411/Kxh/2xAmY/UzyvEdLjBzg1GEX83bzZkpJk=";
+    hash = "sha256-iqWCSusgZVWpREsDp3Tz+wXZgJX7e9mD/KH+k4sSUH0=";
   };
 
   postPatch = ''

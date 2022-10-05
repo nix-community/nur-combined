@@ -44,13 +44,13 @@ let
 in
 buildPythonPackage rec {
   pname = "OpenSfM";
-  version = "unstable-2022-03-10";
+  version = "unstable-0.5.1";
 
   src = fetchFromGitHub {
     owner = "mapillary";
     repo = pname;
     rev = "536b6e1414c8a93f0815dbae85d03749daaa5432";
-    sha256 = "Nfl20dFF2PKOkIvHbRxu1naU+qhz4whLXJvX5c5Wnwo=";
+    sha256 = "sha256-Nfl20dFF2PKOkIvHbRxu1naU+qhz4whLXJvX5c5Wnwo=";
   };
   patches = [
     ./0002-cmake-find-system-distributed-gtest.patch

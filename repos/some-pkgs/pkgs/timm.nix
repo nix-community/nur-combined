@@ -11,7 +11,7 @@
 
 let
   pname = "timm";
-  version = "0.5.4";
+  version = "0.6.11";
 in
 buildPythonPackage {
   inherit pname version;
@@ -20,7 +20,7 @@ buildPythonPackage {
     owner = "rwightman";
     repo = "pytorch-image-models";
     rev = "v${version}";
-    hash = "sha256-sI+WMHUmNWxTlpfDq1Q0yC1yZOR45qJ9LRAPKumuaVk=";
+    hash = "sha256-wtxqK4VsBK2456UI6AXDAeCJTvylNPUc81SPL5xA6NI=";
   };
 
   # Bring your own instance

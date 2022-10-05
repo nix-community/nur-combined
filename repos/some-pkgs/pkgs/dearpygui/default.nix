@@ -13,14 +13,14 @@
 , IOKit
 }:
 buildPythonPackage rec {
-  name = "dearpygui";
-  version = "1.5.0";
+  pname = "dearpygui";
+  version = "1.7";
   src = fetchFromGitHub {
     owner = "hoffstadt";
     repo = "DearPyGui";
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-a7tT27H3WHqCdeTC9j+HtWu59amXQzjJvUadZBQJN/8=";
+    hash = "sha256-XN1RS6DN79VNAhVrVw0iqMxFz/u2dn6UtZEugjkCsDs=";
   };
   cmakeFlags = [ "-DMVDIST_ONLY=True" ];
   postConfigure = ''
