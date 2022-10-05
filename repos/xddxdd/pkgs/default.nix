@@ -128,6 +128,7 @@ rec {
     inherit liboqs;
   };
   osdlyrics = pkg ./uncategorized/osdlyrics { };
+  payload-dumper-go = pkg ./uncategorized/payload-dumper-go { };
   phpmyadmin = pkg ./uncategorized/phpmyadmin { };
   phppgadmin = pkg ./uncategorized/phppgadmin { };
   qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition { };

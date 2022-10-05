@@ -490,11 +490,11 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-sts",
-            "rev": "d35f58516acb51cfafa39661e43942cd43dd69c4",
-            "sha256": "sha256-hEfm3QOHNGNKsifiDbrTWenwf6x2notKl1WesJbDDbE=",
+            "rev": "3c10d42f8c3f78b6310906eab5c8e066ee753330",
+            "sha256": "sha256-rAWQDBLW2gQjShC6G+w9tfeML4pFCBTHplcgiW9+Tsc=",
             "type": "github"
         },
-        "version": "d35f58516acb51cfafa39661e43942cd43dd69c4"
+        "version": "3c10d42f8c3f78b6310906eab5c8e066ee753330"
     },
     "nginx-module-vts": {
         "cargoLocks": null,
@@ -509,11 +509,11 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "0009b3bc668a7d73751c4cd8f8c0a161cba96832",
-            "sha256": "sha256-x4ry5ljPeJQY+7Mp04/xYIGf22d6Nee7CSqHezdK4gQ=",
+            "rev": "443d88373e56916d69f5a4a7b75d2329a11a534b",
+            "sha256": "sha256-RA1hSYnw7rYfHIyeShRrOes//ILz061/gdKOHZ5FYU8=",
             "type": "github"
         },
-        "version": "0009b3bc668a7d73751c4cd8f8c0a161cba96832"
+        "version": "443d88373e56916d69f5a4a7b75d2329a11a534b"
     },
     "ngx_brotli": {
         "cargoLocks": null,
@@ -648,6 +648,25 @@
         },
         "version": "0.5.12"
     },
+    "payload-dumper-go": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "payload-dumper-go",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ssut",
+            "repo": "payload-dumper-go",
+            "rev": "1.2.2",
+            "sha256": "sha256-P20/Nd2YOW9A9/OkpavVRBAi/ueYp812zZvVLnwX67Y=",
+            "type": "github"
+        },
+        "version": "1.2.2"
+    },
     "phpmyadmin": {
         "cargoLocks": null,
         "extract": null,
@@ -694,11 +713,11 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic",
-            "rev": "V0.5.5691",
-            "sha256": "sha256-vUXZSXcGORgkz9PpmLBYwdzoQ7mpq4tWx1+XSu0l7t8=",
+            "rev": "V0.5.5694",
+            "sha256": "sha256-MT2sFbYHdtulWMddfZBe3LaPFwhaOO64zliiTTXriYs=",
             "type": "github"
         },
-        "version": "V0.5.5691"
+        "version": "V0.5.5694"
     },
     "qbittorrent-enhanced-edition": {
         "cargoLocks": null,
@@ -831,11 +850,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IPbOqh45qd5Uc9lJeYVf4+uTpbpKJyhipY1Zx71K6Qg=",
+            "sha256": "sha256-zcrvIaxujgSAx53aApccK3DXIh2dYsH1YkGIjldBVZA=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202209220104/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202209290111/geoip.dat"
         },
-        "version": "202209220104"
+        "version": "202209290111"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -845,11 +864,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qk7PSUB6sp8x1+K39m/jqAWhbcn8nBzbpg2S3CoE7BE=",
+            "sha256": "sha256-afdpSdXGieJ66RyTh8IoFp85rRcXZlI9PAYM+1DE1Po=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20220925064442/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221004035013/dlc.dat"
         },
-        "version": "20220925064442"
+        "version": "20221004035013"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -861,9 +880,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202209220104/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202209290111/private.dat"
         },
-        "version": "202209220104"
+        "version": "202209290111"
     },
     "xray": {
         "cargoLocks": null,
