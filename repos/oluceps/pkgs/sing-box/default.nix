@@ -31,6 +31,7 @@ buildGoModule rec {
     "with_wireguard"
     "with_ech"
     "with_gvisor"
+    "with_clash_api"
   ];
 
   CGO_ENABLED = 1;
