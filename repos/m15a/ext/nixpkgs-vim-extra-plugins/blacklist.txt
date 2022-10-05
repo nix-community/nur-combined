@@ -200,3 +200,4 @@ winston0410/range-highlight.nvim
 yamatsum/nvim-cursorline
 yamatsum/nvim-nonicons
 meain/vim-printer
+kkharji/lspsaga.nvim

@@ -378,6 +378,7 @@ let
     nvim-cursorline
     nvim-nonicons
     vim-printer
+    lspsaga-nvim
     ;
   } // (with final.vimPlugins; {
     # FIXME: error: Alias TrueZen-nvim is still in vim-plugins

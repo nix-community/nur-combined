@@ -144,6 +144,7 @@ ggandor/leap.nvim
 ghillb/cybu.nvim
 glacambre/firenvim
 glepnir/indent-guides.nvim
+glepnir/lspsaga.nvim
 glepnir/prodoc.nvim
 h-hg/fcitx.nvim
 sourcehut:henriquehbr/ataraxis.lua
@@ -171,6 +172,7 @@ jghauser/fold-cycle.nvim
 jghauser/follow-md-links.nvim
 jghauser/kitty-runner.nvim
 jghauser/mkdir.nvim
+jghauser/papis.nvim
 jim-at-jibba/ariake-vim-colors
 johann2357/nvim-smartbufs
 jose-elias-alvarez/null-ls.nvim
@@ -182,7 +184,6 @@ kazhala/close-buffers.nvim
 kdheepak/monochrome.nvim
 keaising/im-select.nvim
 kevinhwang91/nvim-ufo
-kkharji/lspsaga.nvim
 kkharji/sqlite.lua
 klen/nvim-test
 kmonad/kmonad-vim
