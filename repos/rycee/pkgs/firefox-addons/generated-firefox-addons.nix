@@ -793,10 +793,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0.2buildid20221003.135607";
+      version = "106.0buildid20221004.185850";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4011056/francais_language_pack-105.0.2buildid20221003.135607.xpi";
-      sha256 = "88193d3bb4200babc721ee69906a3300fdcc9ff10bdc10c74f2904e108bf5e3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011633/francais_language_pack-106.0buildid20221004.185850.xpi";
+      sha256 = "e5d0ba18144486cba2a946490d75231748e74890d05360645c2c76e87567c66d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -848,10 +848,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "1.15";
+      version = "1.16";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3950347/gitpod-1.15.xpi";
-      sha256 = "19b3fe5ccdd6a692a7fe5ca7c7270d3b10c5d51db5349203d291f06e1f5daf6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011327/gitpod-1.16.xpi";
+      sha256 = "f18716b56f81a529b0ac3b8063ee80f9d05a1769f536659f84fb759c5cdb9d5d";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -1326,10 +1326,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.18.4";
+      version = "10.20.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003278/ether_metamask-10.18.4.xpi";
-      sha256 = "7a10cebf3b4445561f2217cc83ce1e8b00568042f01aaefaeaaafbf028d724e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011769/ether_metamask-10.20.0.xpi";
+      sha256 = "fb5b151dc6d358a6511cf52631351cab62aaf45aba8f8723d7d96f4320a934bc";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1357,10 +1357,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.48";
+      version = "2.6.51";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007706/momentumdash-2.6.48.xpi";
-      sha256 = "32e5c53a006e6170dfb6cc6a164a7a289bc60d0fd34fb86d21141173afac57c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011761/momentumdash-2.6.51.xpi";
+      sha256 = "fab6b92f9ceba81428311d3939fca2176ff789f441f1670e0092f3303a65c8a4";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2153,10 +2153,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.6.1";
+      version = "0.6.2";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3979765/torproject_snowflake-0.6.1.xpi";
-      sha256 = "b54630c7a124821cfe24f80110b23b294ef0b92bf18799623a991b47e65e210f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011528/torproject_snowflake-0.6.2.xpi";
+      sha256 = "21c74bf22440b80245ca7c551cc0f2f879cb805b5aea19745765751f577ebaf7";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -2477,10 +2477,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.6";
+      version = "9.6.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007458/traduzir_paginas_web-9.6.xpi";
-      sha256 = "80b7fa8ce2e03c4d7a861a6f63d846795065279bab7fae9f1e5061d7d951e1cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011167/traduzir_paginas_web-9.6.1.xpi";
+      sha256 = "3cc0c107f68b3c483c7f2cf1a9d6b734fcbee2762911e0531c3ee9afd64359c1";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
