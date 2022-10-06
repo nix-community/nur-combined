@@ -8,7 +8,7 @@ Plug 'mipmip/panelmanager.vim'
 
 "if filereadable($HOME."/.i-am-desktop-machine")
 "  Plug 'mipmip/vim-run-in-blender'
-"  Plug 'mipmip/vim-show-in-filemanager', { 'branch': 'main' }
+Plug 'mipmip/vim-show-in-filemanager', { 'branch': 'main' }
 "endif
 
 if filereadable($HOME."/.i-am-second-brain")
