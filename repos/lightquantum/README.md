@@ -7,3 +7,12 @@
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-lightquantum-blue.svg?style=for-the-badge)](https://lightquantum.cachix.org)
 
+x86_64-linux and x86_64-darwin targets are built on GitHub Actions, while aarch64-darwin is built on Bitrise.
+
+## Packages
+
+Check [nur](https://nur.nix-community.org/repos/lightquantum/) for the list of packages.
+
+## Scheduled builds
+
+The x86_64-linux and x86_64-darwin targets are built everyday at 3:20 UTC, while the aarch64-darwin target is built each friday at 19:10 UTC.

@@ -1,14 +1,26 @@
-.CLONE:
-	./partial-clone.sh https://github.com/NixOS/nixpkgs pkgs/development/tools/misc/universal-ctags pkgs/universal-ctags-pcre2
-	touch .CLONE
+REMOTE_universal-ctags-pcre2 := pkgs/development/tools/misc/universal-ctags
+REMOTE_tectonic := pkgs/tools/typesetting/tectonic
 
-pkgs/universal-ctags-pcre2/default.nix: .CLONE
-	patch -N < patches/universal-ctags-pcre2.patch pkgs/universal-ctags-pcre2/default.nix
+PATCH_PKGS = universal-ctags-pcre2 tectonic
+PATCH_PKGS_DIRS = $(addprefix pkgs/, $(PATCH_PKGS))
+PATCH_PKGS_TARGETS = $(addsuffix /default.nix, $(PATCH_PKGS_DIRS))
 
-.PHONY: clean all pkgs/universal-ctags-pcre2/default.nix
+.CLONE/%:
+	@echo "[+] Cloning $(REMOTE_$*) into pkgs/$*"
+	rm -rf "pkgs/$*"
+	./partial-clone.sh https://github.com/NixOS/nixpkgs "$(REMOTE_$*)" "pkgs/$*"
+	mkdir -p .CLONE
+	touch "$@"
+
+pkgs/%/default.nix: .CLONE/% patches/%.patch
+	@echo "[+] Patching $*"
+	patch -N < "patches/$*.patch" "pkgs/$*/default.nix"
+
+.PHONY: clean all PATCH_PKGS_TARGETS
+
+all: $(PATCH_PKGS_TARGETS)
 
 clean:
-	rm -rf pkgs/universal-ctags-pcre2
-	rm .CLONE
-
-all: pkgs/universal-ctags-pcre2/default.nix
+	rm -rf $(PATCH_PKGS_DIRS)
+	rm -rf temp-clone
+	rm -rf .CLONE
