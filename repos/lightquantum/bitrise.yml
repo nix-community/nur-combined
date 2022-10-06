@@ -17,6 +17,7 @@ workflows:
 
             sh <(curl -L https://nixos.org/nix/install)
 
+            echo "trusted-users = root $(whoami)" | sudo tee -a /etc/nix/nix.conf
             mkdir -p ~/.config/nix
             echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
