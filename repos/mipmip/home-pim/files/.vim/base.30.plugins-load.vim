@@ -5,11 +5,8 @@ call plug#begin('~/.vim/plugged')
 "Plug 'mipmip/vim-petra'
 Plug 'mipmip/vim-hotpop'
 Plug 'mipmip/panelmanager.vim'
-
-"if filereadable($HOME."/.i-am-desktop-machine")
-"  Plug 'mipmip/vim-run-in-blender'
 Plug 'mipmip/vim-show-in-filemanager', { 'branch': 'main' }
-"endif
+Plug 'mipmip/vim-open-mip', { 'branch': 'main' }
 
 if filereadable($HOME."/.i-am-second-brain")
   Plug 'mipmip/vim-scimark'

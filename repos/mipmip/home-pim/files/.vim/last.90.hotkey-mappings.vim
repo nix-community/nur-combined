@@ -24,6 +24,10 @@ function! OpenPandocPDF()
  exe ':AsyncRun nautilus -s "'.filen.'"'
 endfunction
 
+function! OpenCurrentInNerdTree()
+  exe ':call panelmanager#PMPrepareToggleView("nerdtree")<cr>:NERDTreeFind<cr>:call panelmanager#PMSetCurrentViewForIdentifier("nerdtree")<cr>'
+endfunction
+
 
 call panelmanager#init()
 call PMRegisterPanelView('left',   'nerdtree', 'NERDTree',       'NERDTreeClose')
@@ -47,47 +51,58 @@ call HotpopMap('map',  '', '<leader>0', ":call PMToggleView('minimap')<CR>",  'R
 
 
 
-call HotpopMap('nmap',     '',         ',fp',        ':let @" = expand("%:p")<CR>',         'File',    'Place complete path of current file in register')
-call HotpopMap('nnoremap', '<expr>',   '<leader>sa', 'Saveas()',                            'File',    'Save current file as...')
-call HotpopMap('nmap',     '',         ',vc',        ':call VimInNerdTree()<CR>',           'File',    'Open Vim configfiles in NERDTree')
-call HotpopMap('nmap',     '',         ',vr',        ':source ~/.vim/vimrc<CR>',            'File',    'Reload vim configuration ')
+
 call HotpopMap('nmap',     '',         ',b',         ':silent w<CR> :RunInBlender<CR><CR>', 'Blender', 'Run current script in Blender with listener')
 call HotpopMap('nmap',     '',         ',bk',        ':!killall -9 blender<CR>',            'Blender', 'Killall blender procs')
+
 call HotpopMap('map',      '',         '<leader>d',  ':set background=dark<cr>',            "Colors",  "Change to dark background")
 call HotpopMap('map',      '',         '<leader>l',  ':set background=light<cr>',           "Colors",  "Change to light background")
+call HotpopMap('nmap',     '',         '\c',        ':RainbowLevelsToggle<CR>',                             'Colors',  'Toggle RainbowLevels')
+
 call HotpopMap('map',      '',         '<leader>b',  ':Buffers<cr>',                        'FZF',     'FZF with open buffers')
 call HotpopMap('map',      '',         '<leader>f',  ':Files<cr>',                          'FZF',     'FZF with files in current directory')
+call HotpopMap('nmap',    '', '\/',                             ':Ag ', 'FZF', 'Silver Search in current directory')
+call HotpopMap('noremap', '', '<c-]>', ':call SearchUnderCursor()<CR>', 'FZF',     'SilverSearch word under cursor')
+
 call HotpopMap('map',      '',         '<leader>w',  ':silent FixWhitespace<cr>',           'Format',    'Fix all whitespace')
+call HotpopMap('nmap',     '',         '\jf',       ':%!jq '.'<CR>',                        'Format',  'Format JSON')
+
 call HotpopMap('nnoremap', '',         '<Leader>gc', ':Gcommit<CR>',                        'Git',     'Git commit')
 call HotpopMap('nnoremap', '',         '<Leader>gs', ':Gstatus<CR>',                        'Git',     'Git status')
 call HotpopMap('nnoremap', '',         '<Leader>gd', ':Gdiff<CR>',                          'Git',     'Git diff')
 call HotpopMap('nnoremap', '',         '<Leader>gb', ':Gblame<CR>',                         'Git',     'Git blame')
 call HotpopMap('nnoremap', '',         '<Leader>gp', ':Git push<CR>',                       'Git',     'Git push')
+
+call HotpopMap('nmap',     '',         ',fp',        ':let @" = expand("%:p")<CR>',         'File',    'Place complete path of current file in register')
+call HotpopMap('nnoremap', '<expr>',   '<leader>sa', 'Saveas()',                            'File',    'Save current file as...')
+call HotpopMap('nmap',     '',         ',vc',        ':call VimInNerdTree()<CR>',           'File',    'Open Vim configfiles in NERDTree')
+call HotpopMap('nmap',     '',         ',vr',        ':source ~/.vim/vimrc<CR>',            'File',    'Reload vim configuration ')
 call HotpopMap('map',      '<silent>', ',f',         ':!open "%:p:h"<CR><CR>',              'File',    'Open current file with OS default application')
 call HotpopMap('map',      '<silent>', ',o',         ':OIFM<CR>',                           'File',    'Show current file in Filemanager')
+call HotpopMap('map',      '<silent>', ',m',         ':MIP<CR>',                            'File',    'Open current file in MIP')
+call HotpopMap('map',      '',         ',,',         ':call OpenCurrentInNerdTree()<CR>',   'File',    'Open directory of current file in NERDTree')
+
 call HotpopMap('map',      '',         '<leader>r',  ':silent redraw!<cr>',                 'Misc',    'Redraw screen')
+
 call HotpopMap('map',      '',         '<leader>tc', ':tabclose<cr>',                       'Tabs',    'close current tab')
 call HotpopMap('nnoremap', '',         'td',         ':tabclose<CR>',                       'Tabs',    'Close tab')
 call HotpopMap('nnoremap', '',         'tl',         ':tabnext<CR>',                        'Tabs',    'Next tab')
 call HotpopMap('nnoremap', '',         'th',         ':tabprev<CR>',                        'Tabs',    'Previous tab')
 call HotpopMap('nnoremap', '',         'tn',         ':tabnew<CR>',                         'Tabs',    'New tab')
 
-call HotpopMap('nmap',    '', '\/',                             ':Ag ', 'SilverSearch', 'Silver Search in current directory')
-call HotpopMap('noremap', '', '<c-]>', ':call SearchUnderCursor()<CR>', 'SilverSearch',     'SilverSearch word under cursor')
 
 call HotpopMap('nnoremap', '<silent>', '<Leader>=', ' :exe "vertical resize " . (winwidth(0) * 16/15)<CR>', 'Resize',  'Make window wider')
 call HotpopMap('nnoremap', '<silent>', '<Leader>-', ' :exe "vertical resize " . (winwidth(0) * 14/15)<CR>', 'Resize',  'Make window smaller')
+
 call HotpopMap('xmap',     '',         'ga',        '<Plug>(EasyAlign)',                                    'Align',   'Start interactive EasyAlign in visual mode (e.g. vipga)')
 call HotpopMap('nmap',     '',         'ga',        '<Plug>(EasyAlign)',                                    'Align',   'Start interactive EasyAlign for a motion/text object (e.g. gaip)')
+
 call HotpopMap('nmap',     '',         '\g',        ':Goyo<CR>',                                            'Writing', 'Toggle Goyo')
-call HotpopMap('nmap',     '',         '\jf',       ':%!jq '.'<CR>',                                        'Format',  'Format JSON')
 call HotpopMap('nmap',     '',         '\s',        ':call ToggleSpell()<CR>',                              'Writing', 'Toggle Spellcheck')
-call HotpopMap('nmap',     '',         '\c',        ':RainbowLevelsToggle<CR>',                             'Colors',  'Toggle RainbowLevels')
+
 call HotpopMap('nmap',     '',         ',mt',       ':call PandocMakePDF()<CR>',                            'Pandoc',  'Create PDF from Markdown file')
 call HotpopMap('nmap',     '',         ',mo',       ':call OpenPandocPDF()<CR>',                            'Pandoc',  'Open last created PDF')
-call HotpopMap('nmap',     '',         ',mv',       ':AsyncRun -silent showdown -B %<CR>',                  'Pandoc',  'Open Markdown in viewer')
 
-call HotpopMap('map','',',,', ':call panelmanager#PMPrepareToggleView("nerdtree")<cr>:NERDTreeFind<cr>:call panelmanager#PMSetCurrentViewForIdentifier("nerdtree")<cr>',"File", "Open directory of current file in NERDTree")
 
 call HotpopMap('map',      '<silent>', ',w',    ':call linny#FilenameToWordToUnamedRegister()<CR>',         'Linny', 'Put Linny Link of filename in register')
 call HotpopMap('inoremap', '',         '<C-k>', '<C-R>=linny#browse_taxonomies()<CR>',                      'Linny', 'Browse through Taxonomies')
