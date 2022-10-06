@@ -4,6 +4,7 @@
 , callPackage
 , einops
 , pytorch
+, pybind11
 , torchvision
 , cudaPackages
 , symlinkJoin
@@ -57,6 +58,7 @@ let
 
     buildInputs = [
       pytorch.dev
+      pybind11
     ];
     nativeBuildInputs = [
       which

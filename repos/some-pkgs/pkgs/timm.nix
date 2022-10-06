@@ -6,6 +6,7 @@
 , pytestCheckHook
 , pytest-xdist
 , ezy-expecttest
+, huggingface-hub
 }:
 
 
@@ -27,6 +28,10 @@ buildPythonPackage {
   buildInputs = [
     pytorch
     torchvision
+  ];
+
+  propagatedBuildInputs = [
+    huggingface-hub
   ];
 
   checkInputs = [
