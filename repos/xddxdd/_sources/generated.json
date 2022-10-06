@@ -184,6 +184,20 @@
         },
         "version": "OQS-BoringSSL-snapshot-2022-08"
     },
+    "chromium-oqs-bin": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "chromium-oqs-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Gt2kucYmnMwfnPO15dhasA0Pus8m+70nDQfnfwMUxAE=",
+            "type": "url",
+            "url": "https://github.com/open-quantum-safe/oqs-demos/releases/download/0.7.2/chromium-ubuntu-0.7.2.tgz"
+        },
+        "version": "0.7.2"
+    },
     "cloudpan189-go": {
         "cargoLocks": null,
         "extract": null,

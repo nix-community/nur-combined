@@ -138,6 +138,10 @@ fetch.github = "open-quantum-safe/openssl"
 src.git = "https://github.com/open-quantum-safe/oqs-provider.git"
 fetch.github = "open-quantum-safe/oqs-provider"
 
+[chromium-oqs-bin]
+src.github = "open-quantum-safe/oqs-demos"
+fetch.url = "https://github.com/open-quantum-safe/oqs-demos/releases/download/$ver/chromium-ubuntu-$ver.tgz"
+
 [osdlyrics]
 src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"

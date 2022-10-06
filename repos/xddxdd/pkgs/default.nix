@@ -89,6 +89,7 @@ rec {
   };
   calibre-cops = pkg ./uncategorized/calibre-cops { };
   chmlib-utils = pkg ./uncategorized/chmlib-utils { };
+  chromium-oqs-bin = pkg ./uncategorized/chromium-oqs-bin { };
   cloudpan189-go = pkg ./uncategorized/cloudpan189-go { };
   deepspeech-gpu = pkg ./uncategorized/deepspeech-gpu { };
   deepspeech-wrappers = pkg ./uncategorized/deepspeech-gpu/wrappers.nix { };
