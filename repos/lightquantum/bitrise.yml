@@ -59,3 +59,8 @@ meta:
 trigger_map:
 - push_branch: master
   workflow: primary
+app:
+  envs:
+  - opts:
+      is_expand: false
+    NIX_PATH: 'nixpkgs=channel:nixpkgs-unstable'
