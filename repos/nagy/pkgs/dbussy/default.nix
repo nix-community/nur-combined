@@ -2,13 +2,13 @@
 
 buildPythonPackage rec {
   pname = "dbussy";
-  version = "unstable-2022-01-28";
+  version = "unstable-2022-09-03";
 
   src = fetchFromGitHub {
     owner = "Ldo";
     repo = pname;
-    rev = "60d3c155d07ce11bdf89a201ae0026525ac65aca";
-    sha256 = "0grffr3xpnqhsbfjsb95zp66dkgg1b0qyhr0n6y5ign45ngyxf6g";
+    rev = "71616a370d3f59ef1681d26f5df77c1545d5bc04";
+    sha256 = "sha256-WlyiW1LlVpYsIHOR/SUhA5+vGMp/RZmPK7T63iycyvc=";
   };
 
   pythonImportsCheck = [ "dbussy" ];

@@ -1,8 +1,8 @@
-{ stdenvNoCC, lib, python3, fetchFromGitHub }:
+{ stdenv, lib, python3, fetchFromGitHub }:
 
 let
   python3WithDeps = python3.withPackages (p: [ p.pyxdg p.msal p.python-gnupg ]);
-in stdenvNoCC.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "oauth2ms";
   version = "unstable-2021-07-10";
 
@@ -15,7 +15,7 @@ in stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm755 oauth2ms $out/bin/oauth2ms
+    install -Dm555 oauth2ms $out/bin/oauth2ms
     runHook postInstall
   '';
 

@@ -1,6 +1,6 @@
-{ stdenvNoCC, lib, fetchFromBitbucket, python3 }:
+{ stdenv, lib, fetchFromBitbucket, python3 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "zippey";
   version = "unstable-2014-05-28";
 
@@ -15,7 +15,8 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm755 zippey.py $out/bin/zippey
+    install -Dm555 zippey.py $out/bin/zippey
+    install -Dm444 -t $out/share/doc/${pname} README.md
     runHook postInstall
   '';
 
