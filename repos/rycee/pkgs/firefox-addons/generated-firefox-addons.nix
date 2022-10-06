@@ -558,6 +558,20 @@
         platforms = platforms.all;
         };
       };
+    "edit-with-emacs" = buildFirefoxXpiAddon {
+      pname = "edit-with-emacs";
+      version = "1.16";
+      addonId = "{8dd384e7-fc9e-4b6a-a744-497edc3408c3}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3708541/edit_with_emacs1-1.16.xpi";
+      sha256 = "f670a66c37e139f3d40fe963b0e9d77d4f84ac92e02f1f97434480a23cb85b94";
+      meta = with lib;
+      {
+        homepage = "https://github.com/stsquad/emacs_chrome";
+        description = "Allow user to edit web-page textareas with Emacs (and other editors).";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "enhanced-github" = buildFirefoxXpiAddon {
       pname = "enhanced-github";
       version = "5.0.11";
