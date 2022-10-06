@@ -1202,7 +1202,7 @@
       sha256 = "568591d3f7e48fd986815c5bc4a43ba40ca8788b68301686368a6f0918a14cb7";
       meta = with lib;
       {
-        homepage = "https://libredirect.github.io/";
+        homepage = "https://libredirect.codeberg.page";
         description = "Redirects YouTube, Twitter, Instagram... requests to alternative privacy friendly frontends and backends.";
         license = licenses.gpl3;
         platforms = platforms.all;
@@ -2197,10 +2197,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.0.6";
+      version = "5.0.7";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009820/sponsorblock-5.0.6.xpi";
-      sha256 = "cdbbc9cb794c867b17fe0a56dbf8a4a760936720a0b656d24e029717d3034708";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4011816/sponsorblock-5.0.7.xpi";
+      sha256 = "fd7aa43a78cf887272c8d26de9c267a9b89605b4118f9ce1fd7c1b75f631eae4";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
