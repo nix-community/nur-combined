@@ -15,9 +15,10 @@ workflows:
             #!/usr/bin/env bash
             set -euo pipefail
 
-            sudo mkdir -p /etc/nix
-            echo "trusted-users = root $(whoami)" | sudo tee -a /etc/nix/nix.conf
             sh <(curl -L https://nixos.org/nix/install)
+
+            echo "trusted-users = root $(whoami)" | sudo tee -a /etc/nix/nix.conf
+            sudo launchctl kickstart -kp system/org.nixos.nix-daemon
 
             mkdir -p ~/.config/nix
             echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
@@ -28,9 +29,7 @@ workflows:
             nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
             nix-env -iA cachix -f https://cachix.org/api/v1/install
-            cat /etc/nix/nix.conf
             cachix use "lightquantum"
-            cat ~/.config/nix/nix.conf
     - script@1:
         inputs:
         - content: |-
