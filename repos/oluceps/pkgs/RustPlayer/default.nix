@@ -13,16 +13,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "RustPlayer";
-  version = "d37026dcc3c0b77e527b8e3e814de7e5be894d46";
+  version = "772774ac03be3b45c2bc60e0d32eea1ff68c2dd9";
 
   src = fetchFromGitHub {
     rev = "${version}";
     owner = "Kingtous";
     repo = pname;
-    sha256 = "sha256-lmVdqc9SlDndMDlgY8ULRSUdQRV1mW5p2uz14eShF+k=";
+    sha256 = "sha256-iaXaT5O6zDVBdCKeNQ+p/Gk6gXbTOus9com70HRfJXU=";
   };
   LIBCLANG_PATH = "${llvmPackages_latest.libclang.lib}/lib";
-  cargoSha256 = "sha256-4CplfS8JVLKzsJjT/FdQLa4WXhB2Z2yYz855xDXrMNs=";
+  cargoSha256 = "sha256-MruPP/sk3JaGfrk95DhouyM698xJWSOLXPrJGKM7m58=";
   nativeBuildInputs = [ pkg-config llvmPackages_latest.clang ];
   buildInputs = [ alsa-lib openssl ffmpeg ];
   # network required
