@@ -16,7 +16,6 @@ There is a Cachix cache available for these packages: <https://deeunderscore-nur
 * **faq**: <https://github.com/jzelinskie/faq>
 * **git-archive-all**: <https://github.com/Kentzo/git-archive-all>
 * **rdrview**: <https://github.com/eafer/rdrview>
-* **libuiohook**: <https://github.com/kwhat/libuiohook>
 * **input-overlay** (obs-input-overlay): <https://github.com/univrsal/input-overlay/>
 * **moebius**: <https://blocktronics.github.io/moebius/>
 * **linx-client**: <https://github.com/andreimarcu/linx-client>
