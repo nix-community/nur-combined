@@ -310,6 +310,19 @@
         platforms = platforms.all;
         };
       };
+    "censor-tracker" = buildFirefoxXpiAddon {
+      pname = "censor-tracker";
+      version = "7.1.0";
+      addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3974326/censor_tracker-7.1.0.xpi";
+      sha256 = "594afca4a39584237e150e718905a20305b6dc11f4e990eac4d69f34a4638cb9";
+      meta = with lib;
+      {
+        description = "Censor Tracker is an extension that allows you to bypass Internet censorship, warns you about sites that transmit your data with government agencies, and detect new acts of censorship.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
       version = "1.25.0";
