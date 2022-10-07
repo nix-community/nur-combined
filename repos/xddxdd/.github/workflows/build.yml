@@ -41,7 +41,7 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          extra-platforms = aarch64-linux arm-linux
+          extra-platforms = i686-linux aarch64-linux arm-linux
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
