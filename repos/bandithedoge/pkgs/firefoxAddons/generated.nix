@@ -153,7 +153,7 @@
     sha256 = "57834c58cb5e08509f82aea6e67c515ed7ab6fac974d8ad459a8c295e133a2a4";
     meta = with lib; {
       homepage = "https://github.com/EnixCoda/Gitako";
-      description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://outgoing.prod.mozaws.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://outgoing.prod.mozaws.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
+      description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
       license = licenses.mit;
       platforms = platforms.all;
     };
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.615";
+    version = "0.1.0.617";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4011770/ruffle_rs-0.1.0.615.xpi";
-    sha256 = "e70c3d83a3b3c3078cae87d1a32d17ba550d2759c01131fa08a5af701bb22cb4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4012779/ruffle_rs-0.1.0.617.xpi";
+    sha256 = "5f5833032d830703b486d4e5955231deb6e044006352ba4fd01beebc4793fe77";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
@@ -364,10 +364,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.0.6";
+    version = "5.0.7";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4009820/sponsorblock-5.0.6.xpi";
-    sha256 = "cdbbc9cb794c867b17fe0a56dbf8a4a760936720a0b656d24e029717d3034708";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4011816/sponsorblock-5.0.7.xpi";
+    sha256 = "fd7aa43a78cf887272c8d26de9c267a9b89605b4118f9ce1fd7c1b75f631eae4";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -459,7 +459,7 @@
     sha256 = "f6b8e2e5abc885e5ff781f759337866c734e8413bc9d136b9f97e4b4c7b76582";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
-      description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://outgoing.prod.mozaws.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
+      description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
       license = licenses.mit;
       platforms = platforms.all;
     };
