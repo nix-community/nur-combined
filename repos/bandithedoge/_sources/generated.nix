@@ -6,15 +6,15 @@
 }: {
   cardinal = {
     pname = "cardinal";
-    version = "f9841bb333a5f7b013c89a326649a15749469b19";
+    version = "e4840dfbf0fd925b05e64e6a5cfa9bbcfa662f9b";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "f9841bb333a5f7b013c89a326649a15749469b19";
+      rev = "e4840dfbf0fd925b05e64e6a5cfa9bbcfa662f9b";
       fetchSubmodules = true;
-      sha256 = "sha256-E46989ABFVDIcYr/XC0LLkwNANFHL2K+OLbqmZovZD8=";
+      sha256 = "sha256-V1RQjzghkP0h++VRqoQJ+zId6+74p8xHztip+YKMfM0=";
     };
-    date = "2022-10-04";
+    date = "2022-10-07";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -136,27 +136,27 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "945a08452660de603193da8d297d559fdca497d1";
+    version = "deb531b7f37ddab46ce86fc84e77c4e04e48f605";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "945a08452660de603193da8d297d559fdca497d1";
+      rev = "deb531b7f37ddab46ce86fc84e77c4e04e48f605";
       fetchSubmodules = false;
-      sha256 = "sha256-3H8sRK7qszYpVnX9o1UMCDUGTGtS+KLhyZ+Pu0h8EbY=";
+      sha256 = "sha256-Y1Ri8h75mkhOc270OfmyUitG2WdpHzEda0NpGgZYZWU=";
     };
-    date = "2022-05-30";
+    date = "2022-10-07";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "72569b00ddef5154a714b778f6f3d717fb91a2fd";
+    version = "d073bb9de61c6ddf6bf21d77d3a187fe96743b06";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "72569b00ddef5154a714b778f6f3d717fb91a2fd";
+      rev = "d073bb9de61c6ddf6bf21d77d3a187fe96743b06";
       fetchSubmodules = false;
-      sha256 = "sha256-Y9sZr8OeXy0RMNbX9yTLGZya61asmPrVTHQVA4TAQiQ=";
+      sha256 = "sha256-4IV5ZZok8klZA5qBeSuI5ccDYV1/GE4LD1BQb7o1AH8=";
     };
-    date = "2022-09-30";
+    date = "2022-10-07";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
@@ -172,15 +172,15 @@
   };
   zix = {
     pname = "zix";
-    version = "a0293511f4d82d7cb800f568ff5c0d82be5c40c7";
+    version = "98fdc7a3e012c177f23eeee7de7076339860ca3e";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "a0293511f4d82d7cb800f568ff5c0d82be5c40c7";
+      rev = "98fdc7a3e012c177f23eeee7de7076339860ca3e";
       fetchSubmodules = false;
-      sha256 = "sha256-HxFIb/ux2YLVHrlgNOtxQsoQzCEPvAEG8UVXU2qN9Io=";
+      sha256 = "sha256-mTv0kNJtei48K+/QGfleHw9RXX39AWaUTvvUP/14X0I=";
     };
-    date = "2022-09-08";
+    date = "2022-10-07";
   };
   zmusic = {
     pname = "zmusic";

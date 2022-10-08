@@ -223,10 +223,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.7.1";
+    version = "1.7.2";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3991754/material_icons_for_github-1.7.1.xpi";
-    sha256 = "c3c091ea5da95e6cc60849422b0f68d983ea3d218a3a1d4b743bd843fb6976dd";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4013277/material_icons_for_github-1.7.2.xpi";
+    sha256 = "f617ec7021e7f6158c6aa7b32c919da46bb71eccf4f32ea8084f42d9245b1262";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.617";
+    version = "0.1.0.618";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4012779/ruffle_rs-0.1.0.617.xpi";
-    sha256 = "5f5833032d830703b486d4e5955231deb6e044006352ba4fd01beebc4793fe77";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4013239/ruffle_rs-0.1.0.618.xpi";
+    sha256 = "1d4e4b39f4a965053472c8a19541d4bd2caf0f7b656940e24c97b0f71741933e";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";

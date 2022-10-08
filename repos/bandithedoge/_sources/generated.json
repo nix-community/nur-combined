@@ -1,7 +1,7 @@
 {
     "cardinal": {
         "cargoLocks": null,
-        "date": "2022-10-04",
+        "date": "2022-10-07",
         "extract": null,
         "name": "cardinal",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "DISTRHO",
             "repo": "Cardinal",
-            "rev": "f9841bb333a5f7b013c89a326649a15749469b19",
-            "sha256": "sha256-E46989ABFVDIcYr/XC0LLkwNANFHL2K+OLbqmZovZD8=",
+            "rev": "e4840dfbf0fd925b05e64e6a5cfa9bbcfa662f9b",
+            "sha256": "sha256-V1RQjzghkP0h++VRqoQJ+zId6+74p8xHztip+YKMfM0=",
             "type": "github"
         },
-        "version": "f9841bb333a5f7b013c89a326649a15749469b19"
+        "version": "e4840dfbf0fd925b05e64e6a5cfa9bbcfa662f9b"
     },
     "dmenu-flexipatch": {
         "cargoLocks": null,
@@ -221,7 +221,7 @@
     },
     "taffybar": {
         "cargoLocks": null,
-        "date": "2022-05-30",
+        "date": "2022-10-07",
         "extract": null,
         "name": "taffybar",
         "passthru": null,
@@ -233,15 +233,15 @@
             "name": null,
             "owner": "taffybar",
             "repo": "taffybar",
-            "rev": "945a08452660de603193da8d297d559fdca497d1",
-            "sha256": "sha256-3H8sRK7qszYpVnX9o1UMCDUGTGtS+KLhyZ+Pu0h8EbY=",
+            "rev": "deb531b7f37ddab46ce86fc84e77c4e04e48f605",
+            "sha256": "sha256-Y1Ri8h75mkhOc270OfmyUitG2WdpHzEda0NpGgZYZWU=",
             "type": "github"
         },
-        "version": "945a08452660de603193da8d297d559fdca497d1"
+        "version": "deb531b7f37ddab46ce86fc84e77c4e04e48f605"
     },
     "tailwindcss-intellisense": {
         "cargoLocks": null,
-        "date": "2022-09-30",
+        "date": "2022-10-07",
         "extract": null,
         "name": "tailwindcss-intellisense",
         "passthru": null,
@@ -253,11 +253,11 @@
             "name": null,
             "owner": "tailwindlabs",
             "repo": "tailwindcss-intellisense",
-            "rev": "72569b00ddef5154a714b778f6f3d717fb91a2fd",
-            "sha256": "sha256-Y9sZr8OeXy0RMNbX9yTLGZya61asmPrVTHQVA4TAQiQ=",
+            "rev": "d073bb9de61c6ddf6bf21d77d3a187fe96743b06",
+            "sha256": "sha256-4IV5ZZok8klZA5qBeSuI5ccDYV1/GE4LD1BQb7o1AH8=",
             "type": "github"
         },
-        "version": "72569b00ddef5154a714b778f6f3d717fb91a2fd"
+        "version": "d073bb9de61c6ddf6bf21d77d3a187fe96743b06"
     },
     "xmonad-entryhelper": {
         "cargoLocks": null,
@@ -281,7 +281,7 @@
     },
     "zix": {
         "cargoLocks": null,
-        "date": "2022-09-08",
+        "date": "2022-10-07",
         "extract": null,
         "name": "zix",
         "passthru": null,
@@ -293,11 +293,11 @@
             "name": null,
             "owner": "drobilla",
             "repo": "zix",
-            "rev": "a0293511f4d82d7cb800f568ff5c0d82be5c40c7",
-            "sha256": "sha256-HxFIb/ux2YLVHrlgNOtxQsoQzCEPvAEG8UVXU2qN9Io=",
+            "rev": "98fdc7a3e012c177f23eeee7de7076339860ca3e",
+            "sha256": "sha256-mTv0kNJtei48K+/QGfleHw9RXX39AWaUTvvUP/14X0I=",
             "type": "github"
         },
-        "version": "a0293511f4d82d7cb800f568ff5c0d82be5c40c7"
+        "version": "98fdc7a3e012c177f23eeee7de7076339860ca3e"
     },
     "zmusic": {
         "cargoLocks": null,
