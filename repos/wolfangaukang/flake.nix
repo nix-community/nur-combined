@@ -17,9 +17,10 @@
 
     # Testing
     ly.url = "github:wolfangaukang/nixpkgs/ly-unstable";
+    cloudflare-warp.url = "github:wolfangaukang/nixpkgs/cloudflare-warp-mod";
   };
 
-  outputs = { self, nur, home-manager, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, sab, utils, ly, ... }@inputs:
+  outputs = { self, nur, home-manager, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, sab, utils, ly, cloudflare-warp }@inputs:
     let
       inherit (utils.lib) mkFlake exportModules;
 
@@ -92,7 +93,7 @@
           inherit inputs overlays username;
           hostname = "raudholar";
           enable-hm = false;
-        } // { channelName = "ly"; };
+        } // { channelName = "cloudflare-warp"; };
       };
 
       # Common settings
@@ -109,7 +110,7 @@
           inherit overlays system;
           hostname = "katla";
           username = "nixos";
-          channel = inputs.ly;
+          channel = inputs.nixpkgs;
         };
       };
       wsl = self.homeConfigurations.wsl.activationPackage;

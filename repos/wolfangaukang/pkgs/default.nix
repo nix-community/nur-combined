@@ -3,6 +3,8 @@
 with pkgs;
 
 rec {
+  access-undenied-aws = python3Packages.callPackage ./access-undenied-aws { inherit aws-error-utils; };
+  aws-error-utils = python3Packages.callPackage ./aws-error-utils { };
   gogdl = python3Packages.callPackage ./gogdl { };
   heroic = callPackage ./heroic { inherit gogdl; };
   iptvnator = callPackage ./iptvnator { };
@@ -10,9 +12,7 @@ rec {
   ly = callPackage ./ly { };
   mastopurge = callPackage ./mastopurge { };
   multifirefox = callPackage ./multifirefox { };
-  npm-groovy-lint = callPackage ./npm-groovy-lint {
-    jdk = jdk11;
-  };
+  npm-groovy-lint = callPackage ./npm-groovy-lint { };
   nuclear = callPackage ./nuclear {
     electron = electron_13;
   };

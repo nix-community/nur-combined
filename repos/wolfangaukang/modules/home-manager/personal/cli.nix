@@ -48,6 +48,10 @@ in
               user = "marx";
               identityFile = ["~/.ssh/surtsey"];
             };
+            grimsnes = {
+              hostname = "10.11.12.112";
+              user = "marx";
+            };
           };
         };
       };

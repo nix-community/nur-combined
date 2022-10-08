@@ -14,6 +14,7 @@ in rec {
       p7zip
     ];
     gui = with pkgs; [
+      calibre
       keepassxc
       libreoffice
       qbittorrent
@@ -22,6 +23,18 @@ in rec {
       vlc
     ];
     dev = [ pkgs.shellcheck ];
+    work = with pkgs; [
+      # GUI
+      keybase-gui
+      remmina
+      signumone-ks
+      upwork-download
+
+      # CLI
+      awscli2
+      aws-mfa
+      ssm-session-manager-plugin
+    ];
     gaming = with pkgs; [ protontricks winetricks ];
     browser = [ vdhcoapp ];
     fonts = [
@@ -113,6 +126,7 @@ in rec {
     package = pkgs.neovim-unwrapped;
     plugins = with pkgs.vimPlugins; [
       vim-nix
+      vim-nixhash
     ];
   };
 

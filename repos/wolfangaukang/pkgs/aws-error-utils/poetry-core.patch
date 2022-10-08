@@ -1,0 +1,10 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 75c0ee9..0f9ba87 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -29,4 +29,4 @@ types-dataclasses = { version = "*", python = "<3.7" }
+ 
+ [build-system]
+ requires = ["poetry>=0.12"]
+-build-backend = "poetry.masonry.api"
++build-backend = "poetry.core.masonry.api"

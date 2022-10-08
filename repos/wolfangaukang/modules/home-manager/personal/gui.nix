@@ -98,6 +98,13 @@ in
               settings.firefox.settings.common
             ];
           };
+          j = {
+            id = 3;
+            name = "J";
+            settings = lib.mkMerge [
+              settings.firefox.settings.common
+            ];
+          };
         };
       };
     })

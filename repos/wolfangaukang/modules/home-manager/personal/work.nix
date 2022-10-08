@@ -23,29 +23,11 @@ in
 
   config = mkMerge [
     (mkIf cfg.simplerisk.enable {
-      home.packages = with pkgs; [
-        # GUI Tools
-        keybase-gui
-        remmina
-        upwork-download
-        signumone-ks
-
-        # CLI Tools
-        awscli2
-        aws-mfa
-        ssm-session-manager-plugin
-
-        # Development
-        # TODO: Create flake.nix
-        (php81.withExtensions ({ enabled, all }: enabled ++ [ all.ast ]))
-        php81Packages.composer
-        ruby
-        yarn
-      ];
+      home.packages = settings.packages.work;
       programs = {
         firefox = {
           profiles.work = {
-            id = 3;
+            id = 4;
             name = "SimpleRisk";
           };
         };
@@ -64,7 +46,7 @@ in
             };
             elk = {
               user = "pedror";
-              proxyCommand = "sh -c \"aws ssm start-session --target i-0693e8247e055bd61 --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
+              proxyCommand = "sh -c \"aws ssm start-session --target i-0fd41698004c0d538 --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
             };
             dev-k8s-m = {
               user = "pedro";
@@ -96,7 +78,7 @@ in
             };
             jenkins = {
               user = "pedro";
-              proxyCommand = "sh -c \"aws ssm start-session --target i-0786454c5189a718f --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
+              proxyCommand = "sh -c \"aws ssm start-session --target i-0be4a98f7c293d93b --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
             };
             "simplerisk_i-* simplerisk_mi-*" = {
               proxyCommand = "sh -c \"aws ssm start-session --target $(echo %h | awk -F '_' 'NR==1{print $2}') --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
@@ -146,6 +128,7 @@ in
               "!Split"
               "!Split sequence"
             ];
+            "yaml.validate" = true;
           };
         };
       };
