@@ -312,10 +312,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "7.1.0";
+      version = "8.5.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974326/censor_tracker-7.1.0.xpi";
-      sha256 = "594afca4a39584237e150e718905a20305b6dc11f4e990eac4d69f34a4638cb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4012993/censor_tracker-8.5.0.xpi";
+      sha256 = "170ce39facd54264d8ba64d02a27c7880e7a8be0684829c16e6a2f54befe86a2";
       meta = with lib;
       {
         description = "Censor Tracker is an extension that allows you to bypass Internet censorship, warns you about sites that transmit your data with government agencies, and detect new acts of censorship.";
@@ -820,10 +820,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0buildid20221006.191955";
+      version = "105.0.3buildid20221007.134813";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4012572/francais_language_pack-106.0buildid20221006.191955.xpi";
-      sha256 = "a32e6268757075b192c3abe302c24400b83ddc0bfc2cd09dd420893e69619255";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013121/francais_language_pack-105.0.3buildid20221007.134813.xpi";
+      sha256 = "ab20a92ff1a0916663de8e2745be55202e724733f65ba01566b7ffa6edc0b11e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2773,10 +2773,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.40";
+      version = "6.10.41";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007825/wappalyzer-6.10.40.xpi";
-      sha256 = "a8100dc744ac4a500a6d6ae93b29533ab667c3fde890b8340f29485f6894e72f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013204/wappalyzer-6.10.41.xpi";
+      sha256 = "8752a7be3516e245570e611392a04def9c0f9f3d6b829d5d20eb30d252a87ba1";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2801,10 +2801,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.74.0";
+      version = "2.75.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010154/web_scrobbler-2.74.0.xpi";
-      sha256 = "1be6806bd6ac7e81c2a2b53b75e66fe0359bfaf0830b3c97df882871a32f12aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4012825/web_scrobbler-2.75.0.xpi";
+      sha256 = "2f8a77596bdee2d025dcbf90a542c2ef8e9c315f6fbf994cb7689982a47fb544";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
