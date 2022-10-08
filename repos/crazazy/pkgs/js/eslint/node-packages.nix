@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.3.2" = {
+    "@eslint/eslintrc-1.3.3" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.3.2";
+      version = "1.3.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.2.tgz";
-        sha512 = "AXYd23w1S/bv3fTs3Lz0vjiYemS08jWkI3hYyS9I1ry+0f+Yjs1wm+sU0BS8qDOPrBIkp4qHYC16I8uVtpLajQ==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.3.tgz";
+        sha512 = "uj3pT6Mg+3t39fvLrj8iuCIJ38zKO9FpGtJ4BBJebJhEwjoT+KLVNCcHT5QC9NGRIEi7fZ0ZR8YRb884auB4Lg==";
       };
     };
     "@humanwhocodes/config-array-0.10.7" = {
@@ -20,15 +20,6 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.10.7.tgz";
         sha512 = "MDl6D6sBsaV452/QSdX+4CXIjZhIcI0PELsxUjk4U828yd58vk3bTIvk/6w5FY+4hIy9sLW0sfrV7K7Kc++j/w==";
-      };
-    };
-    "@humanwhocodes/gitignore-to-minimatch-1.0.2" = {
-      name = "_at_humanwhocodes_slash_gitignore-to-minimatch";
-      packageName = "@humanwhocodes/gitignore-to-minimatch";
-      version = "1.0.2";
-      src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/gitignore-to-minimatch/-/gitignore-to-minimatch-1.0.2.tgz";
-        sha512 = "rSqmMJDdLFUsyxR6FMtD00nfQKKLFb1kv+qBbOVKqErvloEIJLo5bDTJTQNTYgeyp78JsA7u/NPi5jT1GR/MuA==";
       };
     };
     "@humanwhocodes/module-importer-1.0.1" = {
@@ -589,13 +580,13 @@ let
         sha512 = "RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
       };
     };
-    "js-sdsl-4.1.4" = {
+    "js-sdsl-4.1.5" = {
       name = "js-sdsl";
       packageName = "js-sdsl";
-      version = "4.1.4";
+      version = "4.1.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.1.4.tgz";
-        sha512 = "Y2/yD55y5jteOAmY50JbUZYwk3CP3wnLPEZnlR1w9oKhITrBEtAxwuWKebFf8hMrPMgbYwFoWK/lH2sBkErELw==";
+        url = "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.1.5.tgz";
+        sha512 = "08bOAKweV2NUC1wqTtf3qZlnpOX/R2DU9ikpjOHs0H+ibQv3zpncVQg6um4uYtRtrwIX8M4Nh3ytK4HGlYAq7Q==";
       };
     };
     "js-yaml-4.1.0" = {
@@ -998,12 +989,11 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.24.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.24.0.tgz"; sha1 = "489516c927a5da11b3979dbfb2679394523383c8"; };
+    version = "8.25.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.25.0.tgz"; sha1 = "00eb962f50962165d0c4ee3327708315eaa8058b"; };
     dependencies = [
-      sources."@eslint/eslintrc-1.3.2"
+      sources."@eslint/eslintrc-1.3.3"
       sources."@humanwhocodes/config-array-0.10.7"
-      sources."@humanwhocodes/gitignore-to-minimatch-1.0.2"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."@nodelib/fs.scandir-2.1.5"
@@ -1072,7 +1062,7 @@ let
       sources."is-glob-4.0.3"
       sources."is-number-7.0.0"
       sources."isexe-2.0.0"
-      sources."js-sdsl-4.1.4"
+      sources."js-sdsl-4.1.5"
       sources."js-yaml-4.1.0"
       sources."json-schema-traverse-0.4.1"
       sources."json-stable-stringify-without-jsonify-1.0.1"
