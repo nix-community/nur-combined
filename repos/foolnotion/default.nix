@@ -26,6 +26,8 @@
 
   cmaketools = pkgs.python39Packages.callPackage ./pkgs/cmaketools { };
 
+  cpp-lazy = pkgs.callPackage ./pkgs/cpp-lazy { };
+
   cpp-sort = pkgs.callPackage ./pkgs/cpp-sort { };
 
   cutechess = pkgs.libsForQt5.callPackage ./pkgs/cutechess { };
