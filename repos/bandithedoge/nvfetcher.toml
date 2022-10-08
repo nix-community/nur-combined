@@ -71,3 +71,7 @@ fetch.github = "ZDoom/Raze"
 src.git = "https://github.com/DISTRHO/Cardinal"
 fetch.github = "DISTRHO/Cardinal"
 git.fetchSubmodules = true
+
+[keepmenu]
+src.github = "firecat53/keepmenu"
+fetch.github = "firecat53/keepmenu"

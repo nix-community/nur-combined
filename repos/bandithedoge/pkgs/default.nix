@@ -31,4 +31,6 @@ in {
   raze = callPackage' ./raze.nix;
 
   cardinal = callPackage' ./cardinal.nix;
+
+  keepmenu = callPackage' ./keepmenu.nix;
 }

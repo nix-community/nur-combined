@@ -40,6 +40,17 @@
     };
     date = "2022-10-06";
   };
+  keepmenu = {
+    pname = "keepmenu";
+    version = "1.3.1";
+    src = fetchFromGitHub {
+      owner = "firecat53";
+      repo = "keepmenu";
+      rev = "1.3.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-1s+vl5j0oPERUvJCKFTvLubCF8Nhx7OtkPjpWmpEG/o=";
+    };
+  };
   kiwmi = {
     pname = "kiwmi";
     version = "17814972abe6a8811a586fa87c99a2b16a86075f";
