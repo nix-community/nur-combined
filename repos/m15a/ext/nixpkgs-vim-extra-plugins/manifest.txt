@@ -48,6 +48,7 @@ RishabhRD/lspactions:nvim-0.6-compatible:lspactions-nvim06-compatible
 RishabhRD/nvim-rdark
 Saecki/crates.nvim
 Shatur/neovim-session-manager
+Shatur/neovim-tasks
 SidOfc/carbon.nvim
 SmiteshP/nvim-navic
 Th3Whit3Wolf/onebuddy
@@ -241,6 +242,7 @@ norcalli/nvim-base16.lua
 notomo/cmdbuf.nvim
 notomo/gesture.nvim
 novakne/kosmikoa.nvim
+numToStr/BufOnly.nvim
 numToStr/Comment.nvim
 nvim-colortils/colortils.nvim
 nvim-neo-tree/neo-tree.nvim
