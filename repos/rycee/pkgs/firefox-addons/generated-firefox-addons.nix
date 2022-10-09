@@ -2731,10 +2731,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.1";
+      version = "2.13.2";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003302/violentmonkey-2.13.1.xpi";
-      sha256 = "f6b8e2e5abc885e5ff781f759337866c734e8413bc9d136b9f97e4b4c7b76582";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013376/violentmonkey-2.13.2.xpi";
+      sha256 = "f3c30b47d6f2abc70c0c31e43fb4e9e13355f043adcf3464a5b50d2392a56e9a";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -2745,10 +2745,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.4.3";
+      version = "6.4.4";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010813/vue_js_devtools-6.4.3.xpi";
-      sha256 = "aa14c09e09eb3af3a4161f73d7b2faadcad949d716d2164b72653f44b58491a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013327/vue_js_devtools-6.4.4.xpi";
+      sha256 = "bf7552a0cff5af43eb6c9099c1b1cd230f4ed880438b1bf5a341fde4814c7676";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
