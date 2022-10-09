@@ -453,10 +453,10 @@
   };
   "violentmonkey" = buildFirefoxXpiAddon {
     pname = "violentmonkey";
-    version = "2.13.1";
+    version = "2.13.2";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4003302/violentmonkey-2.13.1.xpi";
-    sha256 = "f6b8e2e5abc885e5ff781f759337866c734e8413bc9d136b9f97e4b4c7b76582";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4013376/violentmonkey-2.13.2.xpi";
+    sha256 = "f3c30b47d6f2abc70c0c31e43fb4e9e13355f043adcf3464a5b50d2392a56e9a";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";

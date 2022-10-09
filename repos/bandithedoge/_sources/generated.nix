@@ -30,15 +30,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "4912e3129aa8e1e9bb5f56d20377102575aca2b7";
+    version = "cc58ad2ef41bf0b9a298366fbdc5afbde31edb17";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "4912e3129aa8e1e9bb5f56d20377102575aca2b7";
+      rev = "cc58ad2ef41bf0b9a298366fbdc5afbde31edb17";
       fetchSubmodules = false;
-      sha256 = "sha256-bQRqasX9d2lFHQoD2uIFq+3Fep6KIhGXWOjJFEBxgVw=";
+      sha256 = "sha256-wz0FkgPqrB6EN4vxeXbEC8gvLv0k5lyNO79VRnQF2LA=";
     };
-    date = "2022-10-06";
+    date = "2022-10-08";
   };
   keepmenu = {
     pname = "keepmenu";
