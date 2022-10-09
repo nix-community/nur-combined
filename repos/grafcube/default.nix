@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   lora-cyrillic = pkgs.callPackage ./pkgs/lora-cyrillic { };
+  doasedit = pkgs.callPackage ./pkgs/doasedit { };
 }
