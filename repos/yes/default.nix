@@ -28,7 +28,7 @@ with pkgs;
     };
   };
 
-  nodePackages = dontRecurseIntoAttrs (import ./nodePackages {
+  nodePackages = recurseIntoAttrs (import ./nodePackages {
     inherit pkgs;
   });
 
