@@ -28,6 +28,10 @@ with pkgs;
     };
   };
 
+  nodePackages = dontRecurseIntoAttrs (import ./nodePackages {
+    inherit pkgs;
+  });
+
   ppet = callPackage ./electronAppImage rec {
     electron = electron_19;
     pname = "ppet3";
