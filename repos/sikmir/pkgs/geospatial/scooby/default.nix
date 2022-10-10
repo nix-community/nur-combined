@@ -12,6 +12,8 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-vCZahb9PxII9xX+MztMT3H6NwChD2eCoR08OytGvd74=";
   };
 
+  propagatedBuildInputs = with python3Packages; [ setuptools ];
+
   doCheck = false;
 
   meta = with lib; {

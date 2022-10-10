@@ -3,6 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "gpx_interpolate";
   version = "2021-01-24";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "remisalmon";
