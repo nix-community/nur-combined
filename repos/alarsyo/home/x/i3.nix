@@ -87,6 +87,7 @@ in {
 
         keybindings = mkOptionDefault {
           "${modifier}+Shift+e" = ''mode "${logoutMode}"'';
+          "${modifier}+b" = "exec --no-startup-id bluetoothctl power on";
           "${modifier}+i" = "exec emacsclient --create-frame";
           "${modifier}+o" = "exec emacsclient --create-frame --eval '(load \"${config.xdg.configHome}/doom/launch-agenda.el\")'";
 
