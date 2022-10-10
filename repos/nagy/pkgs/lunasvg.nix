@@ -2,18 +2,19 @@
 
 stdenv.mkDerivation rec {
   pname = "lunasvg";
-  version = "2.3.2";
+  version = "2.3.3";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "lunasvg";
     rev = "v${version}";
-    sha256 = "sha256-SCui/R/7cznAqfkqDFzmm4Atsd6r4PTIm0bJyx/L3t4=";
+    sha256 = "sha256-xNiv9dZy8vAFr5kU3o9KGGOQQRjxHot6vSUY7HJ9jBI=";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DBUILD_SHARED_LIBS=TRUE" ];
+  cmakeFlags = lib.optionals (!stdenv.hostPlatform.isStatic)
+    [ "-DBUILD_SHARED_LIBS:BOOL=ON" ];
 
   meta = with lib; {
     description =
