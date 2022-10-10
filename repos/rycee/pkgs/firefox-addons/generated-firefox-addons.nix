@@ -271,10 +271,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.7.0";
+      version = "2.8.8.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010387/bypass_paywalls_clean-2.8.7.0.xpi";
-      sha256 = "27ae07742b10c3da1cfc75f54e9c131639c7431dd9c132f09439629859c8f389";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013804/bypass_paywalls_clean-2.8.8.0.xpi";
+      sha256 = "a98c938acef41f8fa81e61c910a00ae7cd455024c81197be6e2406ab91ad9ef8";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1223,10 +1223,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.2.1";
+      version = "2.3.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3965151/libredirect-2.2.1.xpi";
-      sha256 = "568591d3f7e48fd986815c5bc4a43ba40ca8788b68301686368a6f0918a14cb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013817/libredirect-2.3.0.xpi";
+      sha256 = "acc0ef37b7851ca487ea6e80c0fb1129166f7c5098551ba5f05ca65cb224a023";
       meta = with lib;
       {
         homepage = "https://libredirect.codeberg.page";
@@ -2801,10 +2801,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.75.0";
+      version = "2.75.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4012825/web_scrobbler-2.75.0.xpi";
-      sha256 = "2f8a77596bdee2d025dcbf90a542c2ef8e9c315f6fbf994cb7689982a47fb544";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013730/web_scrobbler-2.75.1.xpi";
+      sha256 = "e754c27756c6350180cd36877a208160f6b09c6bd9cfb7920a1ce586fbe88eaf";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
