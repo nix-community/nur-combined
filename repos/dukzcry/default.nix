@@ -25,7 +25,7 @@ rec {
   bitwig-studio3 = callPackage ./pkgs/bitwig-studio3.nix {};
   massdns = callPackage ./pkgs/massdns.nix {};
   wireless-regdb = callPackage ./pkgs/wireless-regdb {};
-  edgevpn = callPackage ./pkgs/edgevpn.nix {};
+  edgevpn = callPackage ./pkgs/edgevpn {};
   prometheus-nut-exporter = callPackage ./pkgs/prometheus-nut-exporter.nix {};
   tun2socks = callPackage ./pkgs/tun2socks.nix {};
   cockpit = callPackage ./pkgs/cockpit {};
