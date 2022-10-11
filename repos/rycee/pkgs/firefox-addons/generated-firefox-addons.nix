@@ -820,10 +820,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "105.0.3buildid20221007.134813";
+      version = "106.0buildid20221010.110315";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013121/francais_language_pack-105.0.3buildid20221007.134813.xpi";
-      sha256 = "ab20a92ff1a0916663de8e2745be55202e724733f65ba01566b7ffa6edc0b11e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4014262/francais_language_pack-106.0buildid20221010.110315.xpi";
+      sha256 = "1da2b557b3c3768fabcee87331c02912b37da3228626e72f4b059d9136f4ce6b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2029,10 +2029,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.3";
+      version = "22.10.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4010795/refined_github-22.10.3.xpi";
-      sha256 = "8ef201df21a08f6fe986d2bf0c080516ea64ae5e9798ec132b548266980582ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4013995/refined_github-22.10.10.xpi";
+      sha256 = "cca26b918adbd23b242c84ed71e5a10571a7110a006efc2dd095a5be66a45751";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2856,10 +2856,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.9";
+      version = "19.10";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007525/zoom_page_we-19.9.xpi";
-      sha256 = "6feecd64c9b043a51255c28aab7dccbfac945f2cb9ee57cca273295ad9bcd7ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4012865/zoom_page_we-19.10.xpi";
+      sha256 = "3cfcc25621f92d329364e2237a7feb30aa74f7103e07aeb7bf34dab258efef75";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
