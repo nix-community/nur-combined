@@ -19,6 +19,7 @@
         # some websites only work there :(
         
         chromium
+        darktable
         # dev
         
         rustup
