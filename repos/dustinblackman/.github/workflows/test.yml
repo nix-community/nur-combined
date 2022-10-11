@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2.3.5
+      uses: actions/checkout@v3.1.0
     - name: Install nix
-      uses: cachix/install-nix-action@v14.1
+      uses: cachix/install-nix-action@v17
       with:
         nix_path: "${{ matrix.nixPath }}"
     - name: Show nixpkgs version
