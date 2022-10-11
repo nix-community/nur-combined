@@ -6,7 +6,7 @@
 , parsecDrv ? null
 , dpkg, autoPatchelfHook, makeWrapper
 , fetchurl
-, alsaLib, openssl, udev
+, alsa-lib, openssl, udev
 , libglvnd
 , libX11, libXcursor, libXi, libXrandr
 , libpulseaudio
@@ -40,7 +40,7 @@ stdenvNoCC.mkDerivation {
     libglvnd
     openssl
     udev
-    alsaLib
+    alsa-lib
     libpulseaudio
     libva
     ffmpeg
