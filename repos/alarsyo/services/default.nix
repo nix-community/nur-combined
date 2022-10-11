@@ -14,6 +14,7 @@
     ./nextcloud.nix
     ./nginx.nix
     ./paperless.nix
+    ./photoprism.nix
     ./pipewire.nix
     ./postgresql-backup.nix
     ./postgresql.nix
