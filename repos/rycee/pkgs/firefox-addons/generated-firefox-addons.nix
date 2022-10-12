@@ -634,10 +634,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.4";
+      version = "2.3.5";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000006/facebook_container-2.3.4.xpi";
-      sha256 = "9013f91f1e5ecdafdc9eb3cb75e3a1947d5a13b551c6bd6a78625972e9024d61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4005358/facebook_container-2.3.5.xpi";
+      sha256 = "d93db9c05b787dd75d39b3802fdd5861e5f2f6bd6d1d207d41ba114b8de95729";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -1384,10 +1384,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.51";
+      version = "2.6.53";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4011761/momentumdash-2.6.51.xpi";
-      sha256 = "fab6b92f9ceba81428311d3939fca2176ff789f441f1670e0092f3303a65c8a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4014885/momentumdash-2.6.53.xpi";
+      sha256 = "9a9f37bfbead14968f6d8e04302be3b987bccef6500b3392fd798016f4080135";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2029,10 +2029,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.10";
+      version = "22.10.11";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013995/refined_github-22.10.10.xpi";
-      sha256 = "cca26b918adbd23b242c84ed71e5a10571a7110a006efc2dd095a5be66a45751";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4014608/refined_github-22.10.11.xpi";
+      sha256 = "ba29ab62fde76c07696263c43988a197f06a82e4ee1131760357fb7f07aafa0f";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
