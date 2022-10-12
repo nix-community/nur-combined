@@ -52,6 +52,8 @@
 
   mathpresso = pkgs.callPackage ./pkgs/mathpresso { };
 
+  mdspan = pkgs.callPackage ./pkgs/mdspan { };
+
   pareto = pkgs.python39Packages.callPackage ./pkgs/pareto { };
 
   pegtl = pkgs.callPackage ./pkgs/pegtl { };
