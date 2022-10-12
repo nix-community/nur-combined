@@ -1,7 +1,7 @@
 { stdenv
 , fetchurl
 , writeShellScript
-, electron
+, electron_20
 , steam
 , lib
 , scrot
@@ -66,7 +66,7 @@ let
     fi
 
     ${steam-run}/bin/steam-run \
-      ${electron}/bin/electron \
+      ${electron_20}/bin/electron \
       ${resource}/lib/wechat-uos
   '';
 in
