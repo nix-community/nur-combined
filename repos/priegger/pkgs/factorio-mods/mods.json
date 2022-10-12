@@ -607,10 +607,10 @@
   },
   {
     "name": "flib",
-    "version": "0.10.1",
-    "file_name": "flib_0.10.1.zip",
-    "download_url": "/download/flib/6217468d936a02e586aad1aa",
-    "sha1": "9063901409f7508c00c10cd2570687fed95cdb1f",
+    "version": "0.11.2",
+    "file_name": "flib_0.11.2.zip",
+    "download_url": "/download/flib/6327622f60b04988f400598f",
+    "sha1": "9d0e03dacfdd8ca2a574b71ab295f401e331f198",
     "dependencies": [
       "? base >= 1.1.35"
     ]
@@ -669,10 +669,10 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.3.4",
-    "file_name": "Krastorio2_1.3.4.zip",
-    "download_url": "/download/Krastorio2/62d78cc39e83d93a651a451d",
-    "sha1": "a6078700cdec068fec7d3aee236ec0296633c204",
+    "version": "1.3.6",
+    "file_name": "Krastorio2_1.3.6.zip",
+    "download_url": "/download/Krastorio2/631ad21d8719bc2610b3ba76",
+    "sha1": "a62b250582990f6c465b7a29ef9dbd48cd60eab2",
     "dependencies": [
       "base >= 1.1.52",
       "Krastorio2Assets >= 1.2.0",
@@ -802,10 +802,10 @@
   },
   {
     "name": "reskins-angels",
-    "version": "2.1.4",
-    "file_name": "reskins-angels_2.1.4.zip",
-    "download_url": "/download/reskins-angels/62f99b1dc1c4ebbb21a19006",
-    "sha1": "9055f12485b10a4cd613cb30e0e6c13215fa1730",
+    "version": "2.1.5",
+    "file_name": "reskins-angels_2.1.5.zip",
+    "download_url": "/download/reskins-angels/633ef0d8c0175c52cc692793",
+    "sha1": "490b4b825324f1b0ca1b856e566cb95b80e058ab",
     "dependencies": [
       "base",
       "reskins-library >= 2.1.0",
@@ -852,10 +852,10 @@
   },
   {
     "name": "reskins-compatibility",
-    "version": "2.1.4",
-    "file_name": "reskins-compatibility_2.1.4.zip",
-    "download_url": "/download/reskins-compatibility/62fb11b951a52c4b87a5eaf4",
-    "sha1": "12e704a7b709336a8e7a65a546a086f47654c656",
+    "version": "2.1.5",
+    "file_name": "reskins-compatibility_2.1.5.zip",
+    "download_url": "/download/reskins-compatibility/633ef0300f1f6f128481b512",
+    "sha1": "4015bbcb93c07528972c9317076760002e93f82a",
     "dependencies": [
       "base",
       "reskins-library >= 2.1.0",
@@ -889,10 +889,10 @@
   },
   {
     "name": "reskins-library",
-    "version": "2.1.3",
-    "file_name": "reskins-library_2.1.3.zip",
-    "download_url": "/download/reskins-library/6249e3de733be071fe39d9e8",
-    "sha1": "3b972d0e762389c9b108837b1489391b16523cef",
+    "version": "2.1.4",
+    "file_name": "reskins-library_2.1.4.zip",
+    "download_url": "/download/reskins-library/633ef0af0f1f6f128481b513",
+    "sha1": "8c4801191efa29ded66efefd244ba64e5878d6fd",
     "dependencies": [
       "base",
       "flib",
@@ -905,10 +905,10 @@
   },
   {
     "name": "reverse-factory",
-    "version": "8.1.12",
-    "file_name": "reverse-factory_8.1.12.zip",
-    "download_url": "/download/reverse-factory/62f6d8efc19ed12ad1eca772",
-    "sha1": "bdb472e6e27757a98168eb0b96418446c48e9ac9",
+    "version": "8.1.13",
+    "file_name": "reverse-factory_8.1.13.zip",
+    "download_url": "/download/reverse-factory/6340ae28a2613fa457ab4418",
+    "sha1": "7814117937eedd434ada4042589617dd8eb106cb",
     "dependencies": [
       "base",
       "stdlib",

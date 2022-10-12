@@ -129,10 +129,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1a5nnsx2y32r5b3nhljmghrbd7frwf0p6njfg0sk79m4ij0p1dv5";
+      sha256 = "14479wvhllyyvcxclxmfvdyrwjgsf0pv9yp2h2hl88pim1a5ya1f";
       type = "gem";
     };
-    version = "4.12.7";
+    version = "4.12.9";
   };
   nanoc-checking = {
     dependencies = [ "nanoc-cli" "nanoc-core" ];
@@ -151,10 +151,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0733sky75x9izvjn7i7qy853b4g5awilr5n90vsmhninsm4am26a";
+      sha256 = "1fjpcv5z1dz5nws4a9c364xanm35351i0s7vy0sp25ahm5lm9g78";
       type = "gem";
     };
-    version = "4.12.7";
+    version = "4.12.9";
   };
   nanoc-core = {
     dependencies = [ "concurrent-ruby" "ddmetrics" "ddplugin" "hamster" "json_schema" "memo_wise" "psych" "slow_enumerator_tools" "tty-platform" "zeitwerk" ];
@@ -162,10 +162,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "00k927dln2h09b4a4jmxm9yr6cgy0pw2pyil09kxn0c7rks6i18a";
+      sha256 = "0a5ryz7cpf38bmw1xa4yqv8v1i182h2jghlrakkfjv5cwhs8ljx6";
       type = "gem";
     };
-    version = "4.12.7";
+    version = "4.12.9";
   };
   nanoc-deploying = {
     dependencies = [ "nanoc-checking" "nanoc-cli" "nanoc-core" ];
@@ -205,10 +205,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0c2lz03mkn43rf2a2xiy8vqgir1dvds0a0fpx7m7my6a21ygryw2";
+      sha256 = "0xmq609h7j0xjr7jwayg8kmvcpp347cp0wnyq7jgpn58vk1ja17p";
       type = "gem";
     };
-    version = "4.0.4";
+    version = "4.0.6";
   };
   public_suffix = {
     groups = [ "default" ];
@@ -306,9 +306,9 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0xjdr2szxvn3zb1sb5l8nfd6k9jr3b4qqbbg1mj9grf68m3fxckc";
+      sha256 = "18hihq3hxs2ywxh3ixm366cawwy4k733mh680ldaa1vxjiraxj58";
       type = "gem";
     };
-    version = "2.6.0";
+    version = "2.6.1";
   };
 }
