@@ -2,28 +2,31 @@
   pkgs,
   sources,
 }: let
-  libpanel = pkgs.stdenv.mkDerivation {
-    pname = "libpanel";
-    version = "1.0.alpha";
-    src = pkgs.fetchgit {
-      url = "https://gitlab.gnome.org/GNOME/libpanel";
-      rev = "aaa0a3ade2e0708f2eafc0b963d9e9d7e54fc108";
-      sha256 = "1qcrqgnq2s90wfa9lq6qp3441skrczx71g4chbm5rg7bl4530ffb";
-    };
+  # remove when 2.6.0 gets added to nixpkgs
+  carla = pkgs.stdenv.mkDerivation {
+    inherit (sources.carla) pname version src;
+
     nativeBuildInputs = with pkgs; [
       pkg-config
-      meson
-      ninja
-      cmake
     ];
+
     buildInputs = with pkgs; [
-      gi-docgen
-      glib
-      gobject-introspection
-      gtk4
-      libadwaita
-      vala
+      file
+      fluidsynth
+      freetype
+      gtk2
+      gtk3
+      liblo
+      libsForQt5.qt5.qtbase
+      xorg.libXcursor
+      xorg.libXext
     ];
+
+    enableParallelBuilding = true;
+
+    dontWrapQtApps = true;
+
+    installFlags = ["PREFIX=$(out)"];
   };
 in
   pkgs.stdenv.mkDerivation rec {

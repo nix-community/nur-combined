@@ -20,6 +20,10 @@ fetch.github = "dodo/lua-dbus"
 src.github = "ZDoom/ZMusic"
 fetch.github = "ZDoom/ZMusic"
 
+[carla]
+src.git = "https://github.com/falkTX/Carla"
+fetch.github = "falkTX/Carla"
+
 # programs
 
 [dwm-flexipatch]

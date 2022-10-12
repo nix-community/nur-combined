@@ -6,15 +6,27 @@
 }: {
   cardinal = {
     pname = "cardinal";
-    version = "e4840dfbf0fd925b05e64e6a5cfa9bbcfa662f9b";
+    version = "3a9b6623c52f57f2819acd1b7e251f914210b8be";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "e4840dfbf0fd925b05e64e6a5cfa9bbcfa662f9b";
+      rev = "3a9b6623c52f57f2819acd1b7e251f914210b8be";
       fetchSubmodules = true;
-      sha256 = "sha256-V1RQjzghkP0h++VRqoQJ+zId6+74p8xHztip+YKMfM0=";
+      sha256 = "sha256-qORQHwmUQjene4sqHcPlRaANYACtryE9XwxT0io0+CQ=";
     };
-    date = "2022-10-07";
+    date = "2022-10-12";
+  };
+  carla = {
+    pname = "carla";
+    version = "bae7149b0d9145b23d98be625b9ed98342783e29";
+    src = fetchFromGitHub {
+      owner = "falkTX";
+      repo = "Carla";
+      rev = "bae7149b0d9145b23d98be625b9ed98342783e29";
+      fetchSubmodules = false;
+      sha256 = "sha256-6tCh2G33Q7mfqzscWmeIf1r56qcYcJwuariNJfIldAM=";
+    };
+    date = "2022-10-12";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -30,15 +42,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "cc58ad2ef41bf0b9a298366fbdc5afbde31edb17";
+    version = "9a5378440c57718e6d219418eee4fd4f90704e74";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "cc58ad2ef41bf0b9a298366fbdc5afbde31edb17";
+      rev = "9a5378440c57718e6d219418eee4fd4f90704e74";
       fetchSubmodules = false;
-      sha256 = "sha256-wz0FkgPqrB6EN4vxeXbEC8gvLv0k5lyNO79VRnQF2LA=";
+      sha256 = "sha256-BgftYzaJf0e/o111xYcU83KboVniuwKzUReah5WwbAY=";
     };
-    date = "2022-10-08";
+    date = "2022-10-10";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -147,15 +159,15 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "deb531b7f37ddab46ce86fc84e77c4e04e48f605";
+    version = "4129b2aed4349752dd9a1b47676d457883d95490";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "deb531b7f37ddab46ce86fc84e77c4e04e48f605";
+      rev = "4129b2aed4349752dd9a1b47676d457883d95490";
       fetchSubmodules = false;
-      sha256 = "sha256-Y1Ri8h75mkhOc270OfmyUitG2WdpHzEda0NpGgZYZWU=";
+      sha256 = "sha256-nlClc8iPZhgn+95CmGuKMsueHdruPpYWBtUCD9fgDig=";
     };
-    date = "2022-10-07";
+    date = "2022-10-10";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
@@ -206,15 +218,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "dfc551581db496dcb3c3338a95690d59790ab53a";
+    version = "f248f3475abf62d773629213c92ad11d942cc4c0";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "dfc551581db496dcb3c3338a95690d59790ab53a";
+      rev = "f248f3475abf62d773629213c92ad11d942cc4c0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-+YPaWe/Tu29DPtsFLCi5c18nlL12DxR4md/TDWZ6ekE=";
+      sha256 = "sha256-l/rzh6oLpHaym8x1ISHvkmQ+i6OB/yKjnms2zIRT4mk=";
     };
-    date = "2022-10-03";
+    date = "2022-10-12";
   };
 }
