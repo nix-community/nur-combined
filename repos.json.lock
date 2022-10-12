@@ -534,8 +534,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "c76dc792814420b2b109ce7704799d2205ea0e2f",
-            "sha256": "16ngkcidm77y7f581ay3l76dqpqf2di1brqars5x9hx0n6awmvrf",
+            "rev": "3ef1378d8f5cee4ded6e6692d2b951a2b60f0df1",
+            "sha256": "063fck7w8n1j0kg48zzcbq90jich7icc5y3cijk5hscn6vx326v4",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "lourkeur": {
@@ -1092,8 +1092,8 @@
             "url": "https://github.com/yellowonion/nur-bcachefs"
         },
         "yes": {
-            "rev": "3e10e28a9dcf83ec0a89e70087afa96473db96df",
-            "sha256": "183vcyf7lj596j7h1wsrkw4mb8psamlah57kn8gw7s4rqn3a6pld",
+            "rev": "eefdeee71c312bf5f5e6b16553d201f55e8c0de5",
+            "sha256": "10r04lsljydvx2gawnl24sxrn6p3d3m8m0igbnr5vlykj34jvmfj",
             "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
         "ysndr": {
