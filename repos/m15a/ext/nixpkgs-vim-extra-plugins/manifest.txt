@@ -216,6 +216,7 @@ matbme/JABS.nvim
 mcauley-penney/tidy.nvim
 mcchrish/zenbones.nvim
 meliora-theme/neovim
+melkster/modicator.nvim
 mfussenegger/nvim-ts-hint-textobject
 michaelb/sniprun
 milisims/nvim-luaref
