@@ -84,6 +84,7 @@ call HotpopMap('nnoremap', '<silent>', '<Leader>=',  ' :exe "vertical resize " .
 call HotpopMap('nnoremap', '<silent>', '<Leader>-',  ' :exe "vertical resize " . (winwidth(0) * 14/15)<CR>',     'Resize',        'Make window smaller')
 call HotpopMap('xmap',     '',         'ga',         '<Plug>(EasyAlign)',                                        'Align',         'Start interactive EasyAlign in visual mode (e.g. vipga)')
 call HotpopMap('nmap',     '',         'ga',         '<Plug>(EasyAlign)',                                        'Align',         'Start interactive EasyAlign for a motion/text object (e.g. gaip)')
+call HotpopMap('map',      '',         '<leader>tb', ':silent TableModeRealign<CR>',                                    'Align',         'Markdown Table re-aling')
 call HotpopMap('nmap',     '',         '\g',         ':Goyo<CR>',                                                'Writing',       'Toggle Goyo')
 call HotpopMap('nmap',     '',         '\s',         ':call ToggleSpell()<CR>',                                  'Writing',       'Toggle Spellcheck')
 call HotpopMap('nmap',     '',         ',mt',        ':call PandocMakePDF()<CR>',                                'Pandoc',        'Create PDF from Markdown file')
