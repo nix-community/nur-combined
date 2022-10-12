@@ -54,6 +54,52 @@
         ]
     },
     {
+        "name": "git",
+        "shortcuts": [
+            {
+                "key": "gsb",
+                "description": "git status"
+            },
+            {
+                "key": "gd",
+                "description": "git diff"
+            },
+            {
+                "key": "gc",
+                "description": "git commit"
+            },
+            {
+                "key": "gp",
+                "description": "git push"
+            },
+            {
+                "key": "gl",
+                "description": "git pull"
+            },
+            {
+                "key": "gf",
+                "description": "git fetch"
+            },
+            {
+                "key": "gb",
+                "description": "git branch"
+            },
+            {
+                "key": "gm",
+                "description": "git merge"
+            }
+        ]
+    },
+    {
+        "name": "st",
+        "shortcuts": [
+            {
+                "key": "Shift + CTRL + J/K",
+                "description": "Scale fonts"
+            }
+        ]
+    },
+    {
         "name": "Tmux",
         "shortcuts": [
             {

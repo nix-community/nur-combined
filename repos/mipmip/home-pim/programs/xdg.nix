@@ -1,3 +1,7 @@
+# LOOKING FOR ICONS?
+# cd /run/current-system/sw/share/icons/hicolor/scalable/apps
+
+
 { config, pkgs, ... }:
 {
 
@@ -15,7 +19,7 @@
       terminal       = false;
       startupNotify  = true;
       type           = "Application";
-      icon           = "org.gnome.Terminal";
+      icon           = "org.gnome.Console";
       settings       = {
         Keywords = "shell;prompt;command;commandline;cmd;";
         StartupWMClass = "st-256color";

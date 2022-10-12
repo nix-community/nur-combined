@@ -20,9 +20,6 @@
       t = "tmux a || smug start lobby && smug start doen && smug start sudo && smug start nixos && smug start tekst";
       tn = "tmux new -d -s";
       smugs = "smug start doen && smug start sudo && smug start nixos && smug start tekst && smug start ssh-killerberg";
-
-      hmswitch = "nix-shell -p home-manager --run 'home-manager switch'";
-
       crb_status = "mount | grep /mnt/cryptobox";
       crb_mount = "crb_status || sudo cryptobox --mount /home/pim/Nextcloud/Vaults/keys.luks.ext4.img /mnt/cryptobox";
       crb_umount = "sudo umount /mnt/cryptobox";
