@@ -10,12 +10,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a628d90ea557eb7439db05f286378176f80e8897",
-            "sha256": "sha256-zN9Rjo1ruEC68j7A9yJVyS+TzhoLHe+MzBGOMMUN30A=",
+            "rev": "6db827baf64c9a18dd05b7b13e8e418f4165bb88",
+            "sha256": "sha256-pHSiLF/k/ZL7FLD7RGc6QXm00UEefUE32J1seUmnsig=",
             "type": "git",
             "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
         },
-        "version": "a628d90ea557eb7439db05f286378176f80e8897"
+        "version": "6db827baf64c9a18dd05b7b13e8e418f4165bb88"
     },
     "clash-for-windows": {
         "cargoLocks": null,
