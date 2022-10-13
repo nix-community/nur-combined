@@ -16,6 +16,10 @@ fetch.github = "stefano-m/lua-dbus_proxy"
 src.git = "https://github.com/dodo/lua-dbus"
 fetch.github = "dodo/lua-dbus"
 
+[bling]
+src.git = "https://github.com/blingcorp/bling"
+fetch.github = "blingcorp/bling"
+
 [zmusic]
 src.github = "ZDoom/ZMusic"
 fetch.github = "ZDoom/ZMusic"

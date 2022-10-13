@@ -15,4 +15,10 @@
     propagatedBuildInputs = with pkgs.luaPackages; [ldbus];
     knownRockspec = src + "/${pname}-scm-0.rockspec";
   };
+
+  bling = pkgs.luaPackages.buildLuarocksPackage rec {
+    inherit (sources.bling) src pname version;
+
+    knownRockspec = src + "/${pname}-dev-1.rockspec";
+  };
 }
