@@ -9,6 +9,8 @@
 , jsonpickle
 , lru-dict
 , mock-open
+, numpy
+, pipdeptree
 , pytest
 , pytest-aiohttp
 , pytest-cov
@@ -27,21 +29,21 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.11.26";
+  version = "0.12.8";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "09x4zgr9aksff0f745bizxcz4ifgsx9nm6x1mj1nwl5jxcx7kiqp";
+    sha256 = "1ckwlvz8pdrhhr2k8i5a41csmy3fks5azhndjprc3r3ba1x74m3a";
   };
 
   postPatch = ''
     substituteInPlace requirements_test.txt \
       --replace "coverage==6.4.4" "coverage>=6.4.2" \
       --replace "freezegun==1.2.1" "jsonpickle>=1.1.0" \
-      --replace "pipdeptree==2.2.1" "" \
+      --replace "numpy==1.23.2" "numpy>=1.23.2" \
       --replace "pytest==7.1.2" "pytest>=7.1.1" \
       --replace "pytest-sugar==0.9.5" "pytest-sugar>=0.9.4" \
       --replace "pytest-test-groups==1.0.3" "" \
@@ -56,6 +58,8 @@ buildPythonPackage rec {
     fnvhash
     homeassistant
     lru-dict
+    numpy
+    pipdeptree
     pytest
     pytest-socket
     requests-mock
