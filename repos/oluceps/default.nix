@@ -22,5 +22,6 @@
   v2ray-plugin = pkgs.callPackage ./pkgs/v2ray-plugin { };
   plangothic = pkgs.callPackage ./pkgs/plangothic { };
   maple-font = pkgs.callPackage ./pkgs/maple-font { }; #surrealdb = pkgs.callPackage ./pkgs/surrealdb { };  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+  maoken-tangyuan = pkgs.callPackage ./pkgs/maoken-tangyuan { };
   # ...
 }

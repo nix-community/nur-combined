@@ -32,6 +32,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/fonts/truetype/
     cp *.ttf $out/share/fonts/truetype/
   '';
+  
+  
   meta = with lib; {
     homepage = "https://github.com/welai/glow-sans";
     description = ''
