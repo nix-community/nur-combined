@@ -76,6 +76,7 @@ in {
           proxy_read_timeout 600;
           proxy_send_timeout 600;
           client_max_body_size 100m;
+          access_log /var/log/nginx/photoprism_access.log;
         '';
       };
     };
@@ -89,6 +90,24 @@ in {
       exclude = [
         "${cfg.home}/storage"
       ];
+    };
+
+    services.fail2ban.jails = {
+      photoprism = ''
+        enabled = true
+        filter = vaultwarden
+        port = http,https
+        maxretry = 3
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/photoprism.conf".text = ''
+        [Definition]
+        failregex = ^<HOST> -.*"POST \/api\/v1\/session HTTP[^"]*" 400 .*$
+        ignoreregex =
+        journalmatch = _SYSTEMD_UNIT=vaultwarden.service
+      '';
     };
   };
 }
