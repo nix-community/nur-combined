@@ -634,10 +634,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.5";
+      version = "2.3.6";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005358/facebook_container-2.3.5.xpi";
-      sha256 = "d93db9c05b787dd75d39b3802fdd5861e5f2f6bd6d1d207d41ba114b8de95729";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015054/facebook_container-2.3.6.xpi";
+      sha256 = "ff9944fb0d6041127f85b19485198cb030e9afdf639ca99ffcfa2eba554d27ea";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -1875,10 +1875,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.4.6";
+      version = "2.5.3";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999199/private_relay-2.4.6.xpi";
-      sha256 = "36859027e11275fd068565a62dbf537e509f8eaa72225e98fd010f5442b5a391";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015197/private_relay-2.5.3.xpi";
+      sha256 = "f4d4e1073685104af76e9cec48e0a879d91b3376cd183623dca14858b18e7802";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2029,10 +2029,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.11";
+      version = "22.10.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4014608/refined_github-22.10.11.xpi";
-      sha256 = "ba29ab62fde76c07696263c43988a197f06a82e4ee1131760357fb7f07aafa0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015172/refined_github-22.10.12.xpi";
+      sha256 = "3f84eb1a714d92721e17b85a480998f7b7d530a5eb3a9081bd6c1d4465efa6e9";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2530,10 +2530,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.5";
+      version = "3.9.6";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4004810/tree_style_tab-3.9.5.xpi";
-      sha256 = "f867a2790e3e149c1fc8ff7ad547b4c03beb7a5164cd67a188bbba83590a0144";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4014811/tree_style_tab-3.9.6.xpi";
+      sha256 = "094fad60d7828d593e323e9e110dc2dd3d1b34e54578d10d19294f56aae3950d";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
