@@ -28,10 +28,10 @@ in
   magireco-cn-local-server = nodeEnv.buildNodePackage {
     name = "magireco-cn-local-server";
     packageName = "magireco-cn-local-server";
-    version = "1.6.1";
+    version = "1.6.2";
     src = fetchurl {
-      url = "https://registry.npmjs.org/magireco-cn-local-server/-/magireco-cn-local-server-1.6.1.tgz";
-      sha512 = "aWU8+fpgfZtASJUM/ck3/N8+P2c2pwt0ocFjRrHEXS2bX+HPC8eP8WegPJS+NeOQxiARyPl9cYktLPfNAesu5A==";
+      url = "https://registry.npmjs.org/magireco-cn-local-server/-/magireco-cn-local-server-1.6.2.tgz";
+      sha512 = "mNRNMXyXy3jzL+zfCg8CsBhcgR481IslhGKrZUjF6aj30EkSTLtVtujbAagRoQ1gxSoJAPUhjLqjj58mw/xrOQ==";
     };
     dependencies = [
       sources."node-forge-1.3.1"

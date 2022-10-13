@@ -62,11 +62,11 @@ let
 
 in stdenvNoCC.mkDerivation rec {
   pname = "devtools";
-  version = "20220621";
+  version = "20221012";
 
   src = fetchzip {
     url = "${rp}https://gitlab.archlinux.org/archlinux/devtools/-/archive/${version}/devtools-${version}.zip";
-    hash = "sha256-p7UiZg18K5frrC3td/Ewty2AnzKUogSiKj/0yeF3338=";
+    hash = "sha256-1Kq6QUhpLGoce+kZbDCrXy9Coc8PjzvZN0vhHq+EbEU=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
@@ -76,20 +76,21 @@ in stdenvNoCC.mkDerivation rec {
   preBuild = ''
     for script in \
       ./lib/common.sh \
-      ./makechrootpkg.in \
-      ./makerepropkg.in \
-      ./offload-build.in \
-      ./sogrep.in
+      ./src/makechrootpkg.in \
+      ./src/makerepropkg.in \
+      ./src/offload-build.in \
+      ./src/sogrep.in
     do
-      substituteInPlace $script --replace "/usr/share/makepkg" "${pacman}/share/makepkg"
+      substituteInPlace $script \
+        --replace "/usr/share/makepkg" "${pacman}/share/makepkg" \
+        --replace "/usr/share/devtools" "$out/share/devtools"
     done
-    for conf in makepkg*.conf; do
+    for conf in ./config/makepkg/*.conf; do
       substituteInPlace $conf \
         --replace "/usr/bin/curl" "${curl}/bin/curl" \
         --replace "/usr/bin/rsync" "${rsync}/bin/rsync" \
         --replace "/usr/bin/scp" "${openssh}/bin/scp"
     done
-    substituteInPlace ./offload-build.in --replace "/usr/share/devtools" "$out/share/devtools"
     echo "export PATH=${path}" >> ./lib/common.sh
   '';
 
