@@ -95,18 +95,18 @@ in {
     services.fail2ban.jails = {
       photoprism = ''
         enabled = true
-        filter = vaultwarden
+        filter = photoprism-failed-login
         port = http,https
         maxretry = 3
+        logpath = /var/log/nginx/photoprism_access.log
       '';
     };
 
     environment.etc = {
-      "fail2ban/filter.d/photoprism.conf".text = ''
+      "fail2ban/filter.d/photoprism-failed-login.conf".text = ''
         [Definition]
         failregex = ^<HOST> -.*"POST \/api\/v1\/session HTTP[^"]*" 400 .*$
         ignoreregex =
-        journalmatch = _SYSTEMD_UNIT=vaultwarden.service
       '';
     };
   };
