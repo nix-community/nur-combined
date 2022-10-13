@@ -1,5 +1,4 @@
-{ lib, fetchPypi, buildPythonApplication, installShellFiles, makeWrapper, rclone
-, p7zip }:
+{ lib, fetchPypi, buildPythonApplication, rclone, p7zip }:
 
 buildPythonApplication rec {
   pname = "git-remote-rclone";

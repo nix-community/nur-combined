@@ -19,5 +19,6 @@ python3Packages.buildPythonPackage rec {
     description = "Simple cli tools to create and use oauth2token";
     inherit (src.meta) homepage;
     license = licenses.gpl3;
+    mainProgram = "oauth2get";
   };
 }

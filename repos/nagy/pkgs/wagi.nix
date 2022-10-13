@@ -1,4 +1,4 @@
-{ pkgs, lib, rustPlatform, fetchFromGitHub, openssl, pkg-config }:
+{ lib, rustPlatform, fetchFromGitHub, openssl, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wagi";
@@ -21,9 +21,9 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
+    inherit (src.meta) homepage;
     description =
       "Write HTTP handlers in WebAssembly with a minimal amount of work";
-    homepage = "https://github.com/deislabs/wagi";
     license = licenses.asl20;
   };
 }
