@@ -52,20 +52,6 @@ in {
         forceSSL = true;
         useACMEHost = fqdn;
 
-        listen = [
-          # FIXME: hardcoded tailscale IP
-          {
-            addr = "100.115.172.44";
-            port = 443;
-            ssl = true;
-          }
-          {
-            addr = "100.115.172.44";
-            port = 80;
-            ssl = false;
-          }
-        ];
-
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString cfg.port}";
           proxyWebsockets = true;
@@ -76,7 +62,7 @@ in {
           proxy_read_timeout 600;
           proxy_send_timeout 600;
           client_max_body_size 100m;
-          access_log /var/log/nginx/photoprism_access.log;
+          access_log syslog:server=unix:/dev/log,tag=photoprism;
         '';
       };
     };
@@ -98,15 +84,15 @@ in {
         filter = photoprism-failed-login
         port = http,https
         maxretry = 3
-        logpath = /var/log/nginx/photoprism_access.log
       '';
     };
 
     environment.etc = {
       "fail2ban/filter.d/photoprism-failed-login.conf".text = ''
         [Definition]
-        failregex = ^<HOST> -.*"POST \/api\/v1\/session HTTP[^"]*" 400 .*$
+        failregex = ^.* photoprism: <HOST> - .*"POST \/api\/v1\/session HTTP[^"]*" 400 .*$
         ignoreregex =
+        journalmatch = _SYSTEMD_UNIT=nginx.service _TRANSPORT=syslog
       '';
     };
   };
