@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-m7Kr+HlakdkCv2VxmK+KUUj76Xj7eN/eeE7Cg0tn1Ic=";
   };
 
-  cargoSha256 = "sha256-eHKCFT2Ct6zFTQdJqtb7odMK8Gn49ZLPSHa4lBGTQRM=";
+  cargoSha256 = "sha256-vaAfOsbIdQXpx7v4onXY1J8ANKCccVRuWxdvX5+f2no=";
   buildInputs = [
     llvmPackages_latest.llvm
     llvmPackages_latest.bintools
