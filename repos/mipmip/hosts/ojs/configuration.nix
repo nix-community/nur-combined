@@ -21,6 +21,7 @@ in
       ../../modules/workstation.nix
       ../../modules/docker.nix
       ../../modules/virtualbox.nix
+      ../../modules/comma.nix
       ../../modules/workstation-pkg.nix
       ../../modules/home-manager-global.nix
       ../../modules/texlive.nix
