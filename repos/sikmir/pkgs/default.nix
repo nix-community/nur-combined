@@ -333,6 +333,7 @@ lib.makeScope newScope (
     qasync = callPackage ./misc/qasync { };
     qoiview = callPackage ./misc/qoiview { };
     repolocli = callPackage ./misc/repolocli { };
+    rst2txt = callPackage ./misc/rst2txt { };
     sdorfehs = callPackage ./misc/sdorfehs { };
     serverpp = callPackage ./misc/serverpp { };
     taskcoach = callPackage ./misc/taskcoach { };
