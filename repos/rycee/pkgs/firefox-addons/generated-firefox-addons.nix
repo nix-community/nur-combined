@@ -215,10 +215,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.9.1";
+      version = "2022.10.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002564/bitwarden_password_manager-2022.9.1.xpi";
-      sha256 = "a9239572037cfc5643a0054b5783cf0caf9d3b0994ca0e97b45fea7e850b076a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015122/bitwarden_password_manager-2022.10.0.xpi";
+      sha256 = "3b722aeb9d254627bf45d519ffb701a9c802625fa8dd9ca69fd5455a8910c2e4";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2801,10 +2801,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.75.1";
+      version = "2.76.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013730/web_scrobbler-2.75.1.xpi";
-      sha256 = "e754c27756c6350180cd36877a208160f6b09c6bd9cfb7920a1ce586fbe88eaf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015677/web_scrobbler-2.76.0.xpi";
+      sha256 = "a4816c7054cf77bb9c8a6ef854828408307ba92e015e0494f6cb67644cf40654";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
