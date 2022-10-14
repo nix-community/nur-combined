@@ -15,25 +15,24 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "surrealdb";
-  version = "1.0.0-beta.7";
+  version = "1.0.0-beta.8";
 
   src = fetchFromGitHub {
-    rev = "a97ff7ac32f7f6eaf28f7b925319768462c1a8d8";
-    owner = "oluceps";
+    rev = "2b92d2447696058e1f8c9ef629be97eb03afe816";
+    owner = "surrealdb";
     repo = pname;
-    sha256 = "sha256-xYIp1k2jpdjamkOxc0WCrHwYGIdNBQl7e+g0vjJTyYM=";
-  };
-  
-  cargoLock = {
-    lockFile = ./Cargo.lock;
+    sha256 = "sha256-m7Kr+HlakdkCv2VxmK+KUUj76Xj7eN/eeE7Cg0tn1Ic=";
   };
 
+  cargoSha256 = "sha256-eHKCFT2Ct6zFTQdJqtb7odMK8Gn49ZLPSHa4lBGTQRM=";
   buildInputs = [
     llvmPackages_latest.llvm
     llvmPackages_latest.bintools
     openssl
     rustup
   ];
+  
+  nativeBuildInputs = [ pkg-config ];
 
   LIBCLANG_PATH = lib.makeLibraryPath [ llvmPackages_latest.libclang.lib ];
   # Add libvmi precompiled library to rustc search path
@@ -48,12 +47,12 @@ rustPlatform.buildRustPackage rec {
       ''-I"${glib.dev}/include/glib-2.8"''
       ''-I${glib.out}/lib/glib-2.8/include/''
     ];
-  
+
 
   meta = with lib; {
     homepage = "https://github.com/surrealdb/surrealdb";
     description = "A scalable, distributed, collaborative, document-graph database, for the realtime web";
-    license = licenses.mit;
-    maintainers = [ maintainers.oluceps ];
+    #license = licenses.mit;
+    #maintainers = [ maintainers.oluceps ];
   };
 }
