@@ -54,6 +54,7 @@ buildPythonApplication rec {
 
     # https://github.com/NixOS/nixpkgs/pull/172397
     # https://github.com/pyca/pyopenssl/issues/873
-    broken = stdenv.isDarwin && stdenv.isAarch64;
+    # pandas (required by poetry) is marked as broken on i686
+    broken = stdenv.isDarwin && stdenv.isAarch64 || stdenv.isi686;
   };
 }

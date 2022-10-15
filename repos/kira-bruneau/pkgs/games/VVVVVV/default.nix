@@ -29,6 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
     Foundation
   ];
 
+  NIX_CFLAGS_COMPILE = "-I${SDL2_mixer.dev}/include/SDL2";
+
   installPhase = ''
     runHook preInstall
     mkdir -p "$out/bin" "$out/share/licenses/VVVVVV"

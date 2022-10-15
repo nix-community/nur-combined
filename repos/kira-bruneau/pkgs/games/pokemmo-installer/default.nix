@@ -60,5 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;
+
+    # gradle (required by jre) is not supported on i686-linux
+    badPlatforms = [ "i686-linux" ];
   };
 })

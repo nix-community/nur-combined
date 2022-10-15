@@ -5,35 +5,35 @@
 , meson
 , ninja
 , pkg-config
-, wrapGAppsHook
+, wrapGAppsHook4
 , gdk-pixbuf
 , glib
-, gtk3
-, libhandy
+, gtk4
+, libadwaita
+, libxml2
 , openssl
 , sqlite
 , webkitgtk
 , glib-networking
 , librsvg
 , gst_all_1
-, xdg-utils
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "newsflash";
-  version = "1.5.1";
+  version = "2.1.0";
 
   src = fetchFromGitLab {
     owner = "news-flash";
     repo = "news_flash_gtk";
-    rev = "refs/tags/${finalAttrs.version}";
-    sha256 = "sha256-fLG7oYt+gdl3Lwnu6c7VLJWSHCFY5LyNeDKoUNGg3Yw=";
+    rev = "refs/tags/v.${finalAttrs.version}";
+    sha256 = "sha256-QDGoA22olhafL2geLf1Jxriqc4++3yxGN/ZnNyEAqjA=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     name = "${finalAttrs.pname}-${finalAttrs.version}";
     src = finalAttrs.src;
-    sha256 = "sha256-dQlbK3SfY6p1xinroXz5wcaBbq2LuDM9sMlfJ6ueTTg=";
+    sha256 = "sha256-21v/4VAgolk/12mj7CTu8d5CKMCovE1FQuGyMar8idY=";
   };
 
   patches = [
@@ -46,14 +46,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    patchShebangs .
+    patchShebangs build-aux/cargo.sh
   '';
 
   nativeBuildInputs = [
     meson
     ninja
     pkg-config
-    wrapGAppsHook
+    wrapGAppsHook4
 
     # Provides setup hook to fix "Unrecognized image file format"
     gdk-pixbuf
@@ -67,8 +67,9 @@ stdenv.mkDerivation (finalAttrs: {
   ]);
 
   buildInputs = [
-    gtk3
-    libhandy
+    gtk4
+    libadwaita
+    libxml2
     openssl
     sqlite
     webkitgtk
@@ -85,13 +86,6 @@ stdenv.mkDerivation (finalAttrs: {
     gst-plugins-good
     gst-plugins-bad
   ]);
-
-  preFixup = ''
-    gappsWrapperArgs+=(--suffix PATH : "${lib.makeBinPath [
-      # Open links in browser
-      xdg-utils
-    ]}")
-  '';
 
   meta = with lib; {
     description = "A modern feed reader designed for the GNOME desktop";
