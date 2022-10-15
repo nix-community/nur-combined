@@ -10,12 +10,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "copilot-1.50.6974.zip",
-            "sha256": "sha256-RrnwyE5gkqnSIfe/tgv1cByaXBXrpkGASGu+K+ZqKM8=",
+            "name": "copilot-1.53.7011.zip",
+            "sha256": "sha256-eNYT+f6hyLpWcbqHjh+2+NSnL2zfJ4vB41yXfaiR7as=",
             "type": "url",
-            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.50.6974/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.53.7011/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.50.6974"
+        "version": "1.53.7011"
     },
     "'vscode-extensions.LeetCode.vscode-leetcode'": {
         "cargoLocks": null,
@@ -226,12 +226,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "vscode-icons-11.19.0.zip",
-            "sha256": "sha256-JFyfXjFaWJrZM2nEya+tRUJCNt56qV/1PA+4b+1SFO8=",
+            "name": "vscode-icons-11.20.0.zip",
+            "sha256": "sha256-wcSYTDMhqY2EgLmVVoXt9652THWxyPBpTI3GHfwYsQ4=",
             "type": "url",
-            "url": "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.19.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/11.20.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "11.19.0"
+        "version": "11.20.0"
     },
     "arkenfox-userjs": {
         "cargoLocks": null,
