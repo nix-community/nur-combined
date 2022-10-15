@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.624";
+    version = "0.1.0.625";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4015753/ruffle_rs-0.1.0.624.xpi";
-    sha256 = "af8b5b3065366a3b38f5bcbc6ffa5a18784f93397c5fbd67a1b8452973ca6ca9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4016103/ruffle_rs-0.1.0.625.xpi";
+    sha256 = "c6827d3a6309c638d02f14c8cb0bd038319f61dbb7ce5381ddc80938417c68ae";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
@@ -453,10 +453,10 @@
   };
   "violentmonkey" = buildFirefoxXpiAddon {
     pname = "violentmonkey";
-    version = "2.13.2";
+    version = "2.13.3";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4013376/violentmonkey-2.13.2.xpi";
-    sha256 = "f3c30b47d6f2abc70c0c31e43fb4e9e13355f043adcf3464a5b50d2392a56e9a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4015933/violentmonkey-2.13.3.xpi";
+    sha256 = "1dbbf2ebbddd13d27acc0248a5bcc8b7e3e4a52988a85b0c26a317fd230cea81";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
