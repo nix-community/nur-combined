@@ -60,6 +60,7 @@ Weissle/persistent-breakpoints.nvim
 Xuyuanp/yanil
 ZhiyuanLck/smart-pairs
 abecodes/tabout.nvim
+adelarsq/image_preview.nvim
 adelarsq/neoline.vim
 adisen99/apprentice.nvim
 adisen99/codeschool.nvim
@@ -177,6 +178,7 @@ jghauser/papis.nvim
 jim-at-jibba/ariake-vim-colors
 johann2357/nvim-smartbufs
 jose-elias-alvarez/null-ls.nvim
+jose-elias-alvarez/typescript.nvim
 jubnzv/mdeval.nvim
 jubnzv/virtual-types.nvim
 kaiuri/nvim-juliana
@@ -284,6 +286,7 @@ rgroli/other.nvim
 rhysd/vim-gfm-syntax
 rktjmp/highlight-current-n.nvim
 rktjmp/paperplanes.nvim
+rktjmp/shenzhen-solitaire.nvim
 rlane/pounce.nvim
 rmehri01/onenord.nvim
 rockerBOO/boo-colorscheme-nvim
@@ -294,6 +297,7 @@ s1n7ax/nvim-comment-frame
 s1n7ax/nvim-terminal
 sQVe/sort.nvim
 saifulapm/chartoggle.nvim
+samodostal/image.nvim
 savq/melange
 savq/paq-nvim
 seandewar/killersheep.nvim
