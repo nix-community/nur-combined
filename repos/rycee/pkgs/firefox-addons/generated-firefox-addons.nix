@@ -1,5 +1,19 @@
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
+    "10ten-ja-reader" = buildFirefoxXpiAddon {
+      pname = "10ten-ja-reader";
+      version = "1.12.5";
+      addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003493/10ten_ja_reader-1.12.5.xpi";
+      sha256 = "4f87a4eec5a7d92df71661ec46c72af3bb9620826d3502abd321b3a5ce4ebcc8";
+      meta = with lib;
+      {
+        homepage = "https://github.com/birchill/10ten-ja-reader/";
+        description = "Quickly translate Japanese by hovering over words. Formerly released as Rikaichamp.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
       version = "1.3.0";
@@ -646,6 +660,20 @@
         platforms = platforms.all;
         };
       };
+    "fastforward" = buildFirefoxXpiAddon {
+      pname = "fastforward";
+      version = "0.1992";
+      addonId = "addon@fastforward.team";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3950379/fastforwardteam-0.1992.xpi";
+      sha256 = "050cce41f8740b6b91519d247bf4b7d4753491629a69f9a71188dc5d36e19efe";
+      meta = with lib;
+      {
+        homepage = "https://fastforward.team";
+        description = "Don't waste time with compliance. Use FastForward to skip annoying URL \"shorteners\".";
+        license = licenses.unlicense;
+        platforms = platforms.all;
+        };
+      };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
       version = "4.0.0";
@@ -1018,6 +1046,20 @@
         homepage = "http://team.firefoxcn.net";
         description = "Manage browser's requests, include modify the request headers and response headers, redirect requests, cancel requests";
         license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
+    "history-cleaner" = buildFirefoxXpiAddon {
+      pname = "history-cleaner";
+      version = "1.4.0";
+      addonId = "{a138007c-5ff6-4d10-83d9-0afaf0efbe5e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3853325/history_cleaner-1.4.0.xpi";
+      sha256 = "9aa09f68d29c499180c37a4cc6e7b93eae9d6a96e13a525417eeeb68afb85a6d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Rayquaza01/HistoryCleaner";
+        description = "Deletes browsing history older than a specified number of days.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2246,6 +2288,20 @@
       {
         description = "This extension protects users from being tracked while allowing them to search the web in complete private mode.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "statshunters" = buildFirefoxXpiAddon {
+      pname = "statshunters";
+      version = "1.0.9";
+      addonId = "browserextension@statshunters.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4003603/statshunters-1.0.9.xpi";
+      sha256 = "da1b34046f56d48b9b00f2d8aff968c647ba6a86e3e979650085dbdb0e83832b";
+      meta = with lib;
+      {
+        homepage = "https://www.statshunters.com";
+        description = "Show tiles on Strava, Komoot, Brouter, RWGPS, Garmin and <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/a56490334fb034ba5435e2c86dcc1b7178abea1af61a6939f8af580c0b188354/http%3A//Mapy.cz\" rel=\"nofollow\">Mapy.cz</a> route builder";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };

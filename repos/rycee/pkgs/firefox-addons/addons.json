@@ -1,5 +1,8 @@
 [
   {
+    "slug": "10ten-ja-reader"
+  },
+  {
     "pname": "onepassword-password-manager",
     "slug": "1password-x-password-manager",
     "license": {
@@ -185,6 +188,14 @@
     "slug": "facebook-container"
   },
   {
+    "slug": "fastforwardteam",
+    "pname": "fastforward",
+    "license": {
+      "tag": "predefined",
+      "shortName": "unlicense"
+    }
+  },
+  {
     "slug": "ff2mpv"
   },
   {
@@ -289,6 +300,9 @@
   },
   {
     "slug": "header-editor"
+  },
+  {
+    "slug": "history-cleaner"
   },
   {
     "slug": "honey",
@@ -654,6 +668,9 @@
   },
   {
     "slug": "startpage-private-search"
+  },
+  {
+    "slug": "statshunters"
   },
   {
     "slug": "steam-database",
