@@ -93,10 +93,10 @@ in
       runHook postInstall
     '';
 
-    meta = {
-      homepage = "https://github.com/ZDoom/Raze";
+    meta = with pkgs.lib; {
       description = "Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed.";
-      license = pkgs.lib.licenses.gpl2;
-      platforms = ["x86_64-linux"];
+      homepage = "https://github.com/ZDoom/Raze";
+      license = licenses.gpl2;
+      platforms = platforms.linux;
     };
   }

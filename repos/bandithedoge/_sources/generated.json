@@ -261,7 +261,7 @@
     },
     "st-flexipatch": {
         "cargoLocks": null,
-        "date": "2022-10-06",
+        "date": "2022-10-15",
         "extract": null,
         "name": "st-flexipatch",
         "passthru": null,
@@ -273,11 +273,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "st-flexipatch",
-            "rev": "13f2b133eb71b5af106c2930c1fad2531a8347a9",
-            "sha256": "sha256-n2yCs2msbzW0zzriEx74FThgMH2cb6mCHO3hAQeSb8U=",
+            "rev": "d58abd56384f977152ed32ce3cdaeb634cde5a58",
+            "sha256": "sha256-R/+dL0UQarVVUCr0iBuY9dGrMLLXyEtlASGU7/Tx4Z0=",
             "type": "github"
         },
-        "version": "13f2b133eb71b5af106c2930c1fad2531a8347a9"
+        "version": "d58abd56384f977152ed32ce3cdaeb634cde5a58"
     },
     "taffybar": {
         "cargoLocks": null,
@@ -381,7 +381,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2022-10-15",
+        "date": "2022-10-16",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -391,11 +391,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7793b5153ba8395043a34839e894000f8edaa526",
-            "sha256": "sha256-RiVWGd64esVB68C09zaH11e2lBI+lEYnE3o66UFR5xg=",
+            "rev": "624838c3e3ba4d5f20acdc7aad6fedac28d80ca9",
+            "sha256": "sha256-dhKEwgUcYc9EURFpL6ojsAeVE9wQIN2Km6MKUg6Sd9I=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "7793b5153ba8395043a34839e894000f8edaa526"
+        "version": "624838c3e3ba4d5f20acdc7aad6fedac28d80ca9"
     }
 }

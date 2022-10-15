@@ -137,5 +137,10 @@ in
 
     dontStrip = true;
 
-    inherit (pkgs.zrythm) meta;
+    meta = with pkgs.lib; {
+      description = "A highly automated and intuitive digital audio workstation";
+      homepage = "https://www.zrythm.org/";
+      license = licenses.agpl3;
+      platforms = platforms.linux;
+    };
   }

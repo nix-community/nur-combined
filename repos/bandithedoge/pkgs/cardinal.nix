@@ -3,7 +3,8 @@
   sources,
 }:
 pkgs.stdenv.mkDerivation {
-  inherit (sources.cardinal) src pname version;
+  inherit (sources.cardinal) src pname;
+  version = sources.cardinal.date;
 
   nativeBuildInputs = with pkgs; [
     pkg-config
@@ -59,7 +60,10 @@ pkgs.stdenv.mkDerivation {
 
   hardeningDisable = ["format"];
 
-  meta = {
-    inherit (pkgs.cardinal.meta) description homepage license platforms;
+  meta = with pkgs.lib; {
+    description = "Virtual modular synthesizer plugin";
+    homepage = "https://github.com/DISTRHO/Cardinal";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
   };
 }

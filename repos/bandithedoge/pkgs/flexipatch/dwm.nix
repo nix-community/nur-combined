@@ -3,7 +3,8 @@
   sources,
 }:
 pkgs.stdenv.mkDerivation rec {
-  inherit (sources.dwm-flexipatch) src pname version;
+  inherit (sources.dwm-flexipatch) src pname;
+  version = sources.dwm-flexipatch.date;
 
   buildInputs = with pkgs; [xorg.libX11 xorg.libXinerama xorg.libXft];
 

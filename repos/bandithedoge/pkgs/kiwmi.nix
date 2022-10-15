@@ -3,7 +3,8 @@
   sources,
 }:
 pkgs.stdenv.mkDerivation rec {
-  inherit (sources.kiwmi) src pname version;
+  inherit (sources.kiwmi) src pname;
+  version = sources.kiwmi.date;
 
   nativeBuildInputs = with pkgs; [
     git

@@ -3,7 +3,8 @@
   sources,
 }:
 pkgs.stdenv.mkDerivation rec {
-  inherit (sources.st-flexipatch) src pname version;
+  inherit (sources.st-flexipatch) src pname;
+  version = sources.st-flexipatch.date;
 
   nativeBuildInputs = with pkgs; [
     pkg-config

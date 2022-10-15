@@ -3,7 +3,8 @@
   sources,
 }:
 pkgs.stdenv.mkDerivation {
-  inherit (sources.slock-flexipatch) pname version src;
+  inherit (sources.slock-flexipatch) pname src;
+  version = sources.slock-flexipatch.date;
 
   buildInputs = with pkgs; [
     xorg.libX11

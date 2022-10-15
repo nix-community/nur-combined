@@ -3,7 +3,8 @@
   sources,
 }:
 pkgs.stdenv.mkDerivation {
-  inherit (sources.luakit) pname version src;
+  inherit (sources.luakit) pname src;
+  version = sources.luakit.date;
 
   nativeBuildInputs = with pkgs; [
     pkg-config
@@ -51,5 +52,10 @@ pkgs.stdenv.mkDerivation {
     export LUA_PATH="$LUA_PATH;./?.lua;./?/init.lua"
   '';
 
-  inherit (pkgs.luakit) meta;
+  meta = with pkgs.lib; {
+    description = "Fast, small, webkit based browser framework extensible by Lua.";
+    homepage = "https://luakit.github.io/";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+  };
 }

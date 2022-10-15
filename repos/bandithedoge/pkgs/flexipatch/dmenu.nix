@@ -5,7 +5,8 @@
   source = sources.dmenu-flexipatch;
 in
   pkgs.stdenv.mkDerivation rec {
-    inherit (source) pname version src;
+    inherit (source) pname src;
+    version = source.date;
 
     buildInputs = with pkgs; [
       xorg.libX11
