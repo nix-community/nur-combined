@@ -33,18 +33,14 @@ in
   bcml-gtk = python3Packages.callPackage ./games/bcml {
     gui = "gtk";
     wrapQtAppsHook = null;
-    nodejs = nodejs-14_x;
   };
 
   bcml-qt = python3Packages.callPackage ./games/bcml {
     gui = "qt";
     inherit (qt5) wrapQtAppsHook;
-    nodejs = nodejs-14_x;
   };
 
-  caprine = callPackage ./applications/networking/instant-messengers/caprine {
-    nodejs = nodejs-14_x;
-  };
+  caprine = callPackage ./applications/networking/instant-messengers/caprine { };
 
   ccache = callPackage ./development/tools/misc/ccache { };
 

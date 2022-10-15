@@ -22,6 +22,7 @@ let
     "nixos/modules/programs/bash/undistract-me.nix"
     "nixos/modules/programs/gamemode.nix"
     "nixos/modules/services/video/replay-sorcery.nix"
+    "nixos/tests/xpadneo.nix"
     "pkgs/applications/audio/zynaddsubfx"
     "pkgs/applications/editors/poke"
     "pkgs/applications/networking/cluster/krane"

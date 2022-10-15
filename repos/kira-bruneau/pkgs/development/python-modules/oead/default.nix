@@ -3,14 +3,13 @@
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
-, fetchpatch
 , substituteAll
 , cmake
 }:
 
 buildPythonPackage rec {
   pname = "oead";
-  version = "1.2.3";
+  version = "1.2.4-2";
 
   disabled = pythonOlder "3.6";
 
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     repo = "oead";
     rev = "refs/tags/v${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-DABG9ta1MJaSuNl70kXJ514zpBxPB0/hh61YTwbB/E4=";
+    sha256 = "sha256-MQyE1fAZ1IMC1yIVcMgtha3vxgYVz4fLItL7MLCT5tw=";
   };
 
   patches = [
@@ -27,15 +26,6 @@ buildPythonPackage rec {
     (substituteAll {
       src = ./hardcode-version.patch;
       inherit version;
-    })
-
-    # Fixes build with latest glibc
-    # TODO: Remove in next release
-    (fetchpatch {
-      url = "https://github.com/abseil/abseil-cpp/commit/a9831f1cbf93fb18dd951453635f488037454ce9.patch";
-      extraPrefix = "lib/abseil/";
-      stripLen = 1;
-      sha256 = "sha256-knrSYNeW3az2kqE0YAfIcW7VkUDkLHkIchUVgPApl/c=";
     })
   ];
 
