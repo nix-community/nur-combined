@@ -1,8 +1,8 @@
-let
-  nixpkgs = import (import ./flake-compat.nix).inputs.nixpkgs {};
-in { pkgs ? nixpkgs }: let
-  checkedPkgs = if (builtins.tryEval pkgs).success then pkgs else nixpkgs;
-in with checkedPkgs; rec {
+{ pkgs ? null }: ({ ... } @ args: let
+  pkgs = if args ? pkgs && (builtins.tryEval args.pkgs).success && args.pkgs != null
+    then args.pkgs
+    else import (import ./flake-compat.nix).inputs.nixpkgs {};
+in with pkgs; rec {
   modules = import ./modules;
 
   overlays = import ./overlays;
@@ -35,13 +35,13 @@ in with checkedPkgs; rec {
 
     # C++20 is required, darwin has Clang 7 by default, aarch64 has gcc 9 by default
     stdenv = if stdenv.isDarwin
-      then llvmPackages_12.libcxxStdenv
+      then clang12Stdenv
       else if stdenv.isAarch64 then gcc10Stdenv else stdenv;
 
     # tdesktop has random crashes when jemalloc is built with gcc.
     # Apparently, it triggers some bug due to usage of gcc's builtin
     # functions like __builtin_ffsl by jemalloc when it's built with gcc.
-    jemalloc = (jemalloc.override { stdenv = llvmPackages.stdenv; }).overrideAttrs(_: {
+    jemalloc = (jemalloc.override { stdenv = clangStdenv; }).overrideAttrs(_: {
       doCheck = false;
     });
 
@@ -55,15 +55,6 @@ in with checkedPkgs; rec {
   libayatana-common = callPackage ./pkgs/libayatana-common {
     inherit cmake-extras;
   };
-
-  mesa-drivers-amd = (pkgs.mesa.override {
-  	galliumDrivers = [ "radeonsi" ];
-  	driDrivers = [];
-  	vulkanDrivers = [ "amd" ];
-  	enableGalliumNine = false;
-  	enableOSMesa = false;
-  	enableOpenCL = false;
-  }).drivers;
 
   mir = callPackage ./pkgs/mir {};
 
@@ -100,4 +91,4 @@ in with checkedPkgs; rec {
   #wlcs = callPackage ./pkgs/wlcs {};
 
   wlrootsqt = libsForQt5.callPackage ./pkgs/wlrootsqt {};
-}
+}) { inherit pkgs; }

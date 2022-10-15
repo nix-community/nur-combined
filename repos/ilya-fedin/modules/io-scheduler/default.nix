@@ -22,7 +22,6 @@ in {
       optimalSchedulers = mkOption {
         type = types.bool;
         default = false;
-        internal = true;
         description = ''
           Use optimal I/O schedulers from https://wiki.archlinux.org/index.php/Improving_performance#Changing_I/O_scheduler.
         '';

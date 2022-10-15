@@ -205,7 +205,6 @@ in {
       useNotoCjk = mkOption {
         type = types.bool;
         default = false;
-        internal = true;
         description = ''
           Add Noto CJK, a pan-CJK font.
         '';

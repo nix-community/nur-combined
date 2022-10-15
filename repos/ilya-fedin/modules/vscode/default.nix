@@ -9,7 +9,6 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        internal = true;
         description = ''
           Install Visual Studio Code with native extensions.
         '';

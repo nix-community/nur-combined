@@ -2,7 +2,7 @@
 # It's what gets built by CI, so if you correctly mark broken packages as
 # broken your CI will not try to build them and the non-broken packages will
 # be added to the cache.
-{ pkgs ? null }:
+{ ... } @ args:
 
 let
   filterSet =
@@ -38,4 +38,4 @@ filterSet
         && (!p.meta.available)
     )
   )
-  (if pkgs != null then import ./. { inherit pkgs; } else import ./. {})
+  (import ./. args)

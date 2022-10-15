@@ -98,6 +98,7 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
+    ./kf594.patch
     ./shortcuts-binary-path.patch
     ./0001-Add-an-option-to-hide-messages-from-blocked-users-in.patch
     # let it build with nixpkgs 10.12 sdk

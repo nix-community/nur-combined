@@ -9,8 +9,7 @@
 
   outputs = { nixpkgs, ... }: let
     lib = import (nixpkgs + "/lib");
-    systems = lib.systems.supported.hydra;
-    forAllSystems = f: lib.genAttrs systems (system: f system);
+    forAllSystems = f: lib.genAttrs lib.systems.flakeExposed (system: f system);
   in {
     packages = forAllSystems (system: import ./. {
       pkgs = import nixpkgs { inherit system; };

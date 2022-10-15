@@ -94,7 +94,6 @@ in {
       crOSMaps = mkOption {
         type = types.bool;
         default = false;
-        internal = true;
         description = ''
           Map specific families to CrOS ones.
         '';

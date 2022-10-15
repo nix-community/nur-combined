@@ -202,7 +202,6 @@ in {
       extraEmojiConfiguration = mkOption {
         type = types.bool;
         default = false;
-        internal = true;
         description = ''
           Add a config for better emoji support.
         '';

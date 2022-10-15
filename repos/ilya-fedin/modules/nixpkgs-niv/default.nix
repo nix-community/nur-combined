@@ -39,7 +39,6 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        internal = true;
         description = ''
           Whether to use niv-based nixpkgs.
         '';
@@ -48,7 +47,6 @@ in {
       builtin = mkOption {
         type = types.bool;
         default = true;
-        internal = true;
         description = ''
           Whether to use builtin fetch functions.
         '';

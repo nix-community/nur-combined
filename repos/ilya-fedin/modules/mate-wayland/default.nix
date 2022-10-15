@@ -65,7 +65,6 @@ let
   '';
 
   sessionPkg = pkgs.runCommand "mate-wayland-session" {
-    preferLocalBuild = true;
     passthru.providedSessions = [ "mate-wayland" ];
   } ''
     mkdir -p "$out/share/wayland-sessions"
@@ -79,7 +78,7 @@ let
     EOF
   '';
 
-  backgroundPkg = pkgs.runCommand "mate-gtk-layer-background" { preferLocalBuild = true; } ''
+  backgroundPkg = pkgs.runCommand "mate-gtk-layer-background-autostart" {} ''
     mkdir -p "$out/share/applications/autostart"
     cat <<EOF > "$out/share/applications/mate-gtk-layer-background.desktop"
     [Desktop Entry]
@@ -99,35 +98,33 @@ let
   nixos-gsettings-desktop-schemas = let
     defaultPackages = with pkgs; [ mate.mate-session-manager mate.mate-panel ];
   in
-  pkgs.runCommand "nixos-gsettings-desktop-schemas" { preferLocalBuild = true; }
-    ''
-     mkdir -p $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
+  pkgs.runCommand "nixos-gsettings-desktop-schemas" {} ''
+    mkdir -p $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
 
-     ${concatMapStrings
-        (pkg: "cp -rf ${pkg}/share/gsettings-schemas/*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas\n")
-        defaultPackages}
+    ${concatMapStrings
+      (pkg: "cp -rf ${pkg}/share/gsettings-schemas/*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas\n")
+      defaultPackages}
 
-     chmod -R a+w $out/share/gsettings-schemas/nixos-gsettings-overrides
-     cat - > $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/nixos-defaults.gschema.override <<- EOF
-       [org.mate.session]
-       required-components-list=['panel', 'filemanager', 'dock']
+    chmod -R a+w $out/share/gsettings-schemas/nixos-gsettings-overrides
+    cat - > $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/nixos-defaults.gschema.override <<- EOF
+      [org.mate.session]
+      required-components-list=['panel', 'filemanager', 'dock']
 
-       [org.mate.session.required-components]
-       filemanager='mate-gtk-layer-background'
+      [org.mate.session.required-components]
+      filemanager='mate-gtk-layer-background'
 
-       [org.mate.panel]
-       disabled-applets=['NotificationAreaAppletFactory::NotificationArea', 'WnckletFactory::WorkspaceSwitcherApplet', 'WnckletFactory::ShowDesktopApplet']
-     EOF
+      [org.mate.panel]
+      disabled-applets=['NotificationAreaAppletFactory::NotificationArea', 'WnckletFactory::WorkspaceSwitcherApplet', 'WnckletFactory::ShowDesktopApplet']
+    EOF
 
-     ${pkgs.glib.dev}/bin/glib-compile-schemas $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/
-    '';
+    ${pkgs.glib.dev}/bin/glib-compile-schemas $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/
+  '';
 in {
   options = {
     programs.mate-wayland = {
       enable = mkOption {
         type = types.bool;
         default = false;
-        internal = true;
         description = ''
           Enable MATE Wayland session.
         '';
