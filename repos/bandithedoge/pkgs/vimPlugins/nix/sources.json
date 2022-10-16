@@ -455,6 +455,18 @@
         "url": "https://github.com/ibhagwan/fzf-lua/archive/025d8c5ef8495aef838ac8e6be47f8da1bd9cc2c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "galaxyline.nvim": {
+        "branch": "main",
+        "description": "neovim statusline plugin written in lua ",
+        "homepage": null,
+        "owner": "glepnir",
+        "repo": "galaxyline.nvim",
+        "rev": "eb81be07bf690c5ef7474ace72920b32ad089585",
+        "sha256": "1i4khr7nigmnxxsbrnas3aw3fw56p5pgnfchg36q2yzv5mr0mpzg",
+        "type": "tarball",
+        "url": "https://github.com/glepnir/galaxyline.nvim/archive/eb81be07bf690c5ef7474ace72920b32ad089585.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "gitsigns.nvim": {
         "branch": "main",
         "description": "Git integration for buffers",
@@ -929,10 +941,10 @@
         "homepage": "",
         "owner": "hrsh7th",
         "repo": "nvim-cmp",
-        "rev": "3347dd3c59b6c62288d861ddb92b9ba1227257a8",
-        "sha256": "1ca9mpxq7cqi36mqz0cgyhl9w1dwcalwh6v4kj377g1vqslyl5ay",
+        "rev": "e94d3489311f941788756953df23ca84f83eec95",
+        "sha256": "1v6iw2bqaqxzspl239jw3aqj64mc9sq2xxibvll7rmxxgv2mgyb5",
         "type": "tarball",
-        "url": "https://github.com/hrsh7th/nvim-cmp/archive/3347dd3c59b6c62288d861ddb92b9ba1227257a8.tar.gz",
+        "url": "https://github.com/hrsh7th/nvim-cmp/archive/e94d3489311f941788756953df23ca84f83eec95.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-colorizer.lua": {
@@ -1145,10 +1157,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "addc129a4f272aba0834bd0a7b6bd4ad5d8c801b",
-        "sha256": "08v6p29kmfyhkmk5nmqsi5xxp3mz788chxn3kqg3m6rwc6wkj809",
+        "rev": "4cccb6f494eb255b32a290d37c35ca12584c74d0",
+        "sha256": "0035chn92y69mfvpddqrmas19bk3gbc4c3anx7lhnc04lrfl1mjy",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/addc129a4f272aba0834bd0a7b6bd4ad5d8c801b.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/4cccb6f494eb255b32a290d37c35ca12584c74d0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
@@ -1229,10 +1241,10 @@
         "homepage": "",
         "owner": "nvim-orgmode",
         "repo": "orgmode",
-        "rev": "5f489c0af519526ea69db35e72f9b30f36f622da",
-        "sha256": "0n23cynn2ivkgcdnspfzbb878lkgasxndpzmc0zzda4k3w6fhsq8",
+        "rev": "7979893dc5d480b7f5f148f4c4db36841d720917",
+        "sha256": "04k0xy9i60mqfa8y8r7zspprclws2qw1z5g9ia4ba1ydi76i7y4v",
         "type": "tarball",
-        "url": "https://github.com/nvim-orgmode/orgmode/archive/5f489c0af519526ea69db35e72f9b30f36f622da.tar.gz",
+        "url": "https://github.com/nvim-orgmode/orgmode/archive/7979893dc5d480b7f5f148f4c4db36841d720917.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "package-info.nvim": {
@@ -1473,6 +1485,18 @@
         "sha256": "0ik3p1p3wndclw7a72rx507fzk6d9zv6b75lahd0sp9ra9xhzc86",
         "type": "tarball",
         "url": "https://github.com/luukvbaal/stabilize.nvim/archive/34069870a8e72632c5447188e638e1c6bfebc353.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "staline.nvim": {
+        "branch": "main",
+        "description": "A modern lightweight statusline and bufferline plugin for neovim in lua. Mainly uses unicode symbols for showing info.",
+        "homepage": "",
+        "owner": "tamton-aquib",
+        "repo": "staline.nvim",
+        "rev": "c2ac9411815cf7fb135d798174ff5782e1b64075",
+        "sha256": "15wpb6fk7q467blydj6fas716l47vyvxkkr4g4zdyq5h5g6fxfyb",
+        "type": "tarball",
+        "url": "https://github.com/tamton-aquib/staline.nvim/archive/c2ac9411815cf7fb135d798174ff5782e1b64075.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tabby.nvim": {

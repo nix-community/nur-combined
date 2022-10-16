@@ -38,6 +38,7 @@
 | [formatter-nvim](https://github.com/mhartington/formatter.nvim) | None |
 | [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) | Set of preconfigured snippets for different languages.  |
 | [fzf-lua](https://github.com/ibhagwan/fzf-lua) | Improved fzf.vim written in lua |
+| [galaxyline-nvim](https://github.com/glepnir/galaxyline.nvim) | neovim statusline plugin written in lua  |
 | [gitsigns-nvim](https://github.com/lewis6991/gitsigns.nvim) | Git integration for buffers |
 | [glow-hover-nvim](https://github.com/JASONews/glow-hover.nvim) | A Neovim plugin leveraging glow for LSPs hover responses. |
 | [guess-indent-nvim](https://github.com/NMAC427/guess-indent.nvim) | Automatic indentation style detection for Neovim |
@@ -123,6 +124,7 @@
 | [spellsitter-nvim](https://github.com/lewis6991/spellsitter.nvim) | Treesitter powered spellchecker |
 | [sqlite-lua](https://github.com/tami5/sqlite.lua) | SQLite/LuaJIT binding for lua and neovim |
 | [stabilize-nvim](https://github.com/luukvbaal/stabilize.nvim) | Neovim plugin to stabilize window open/close events. |
+| [staline-nvim](https://github.com/tamton-aquib/staline.nvim) | A modern lightweight statusline and bufferline plugin for neovim in lua. Mainly uses unicode symbols for showing info. |
 | [tabby-nvim](https://github.com/nanozuki/tabby.nvim) | A minimal, configurable, neovim style tabline. Use your nvim tabs as workspace multiplexer. |
 | [tangerine-nvim](https://github.com/udayvir-singh/tangerine.nvim) | 🍊 Sweet Fennel integration for Neovim |
 | [telescope-dap-nvim](https://github.com/nvim-telescope/telescope-dap.nvim) | Integration for nvim-dap with telescope.nvim |
