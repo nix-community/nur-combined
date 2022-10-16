@@ -718,10 +718,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.62";
+      version = "2.63";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007959/firemonkey-2.62.xpi";
-      sha256 = "056ceb0a4c160730fb08ef98ff35e2b0d196e4a082ea13a6434109245abf1b25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016188/firemonkey-2.63.xpi";
+      sha256 = "f8d6880930a18f3ea0a8cbeba7577c748d7eec39e88cc2d99aa16f41854b5293";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -1326,10 +1326,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.36";
+      version = "2.6.37";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009967/localcdn_fork_of_decentraleyes-2.6.36.xpi";
-      sha256 = "2411cb3dc8aedcc373e86d0a800ff48b20ef8fe34a28524e0bac7b96cf435623";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016148/localcdn_fork_of_decentraleyes-2.6.37.xpi";
+      sha256 = "085101da0b8d254248f8679480e44af697089f11985f98c721652aaf7a15d4d6";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
