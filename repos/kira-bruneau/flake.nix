@@ -27,7 +27,7 @@
         };
 
         paths = flake-linter.lib.partitionToAttrs
-          flake-linter.lib.commonFlakePaths
+          flake-linter.lib.commonPaths
           (builtins.filter
             (path:
               (builtins.all
@@ -46,7 +46,7 @@
           settings = {
             markdownlint = {
               paths = paths.markdown;
-              extraSettings = {
+              settings = {
                 default = true;
                 MD013 = false;
               };
