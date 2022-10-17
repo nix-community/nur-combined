@@ -353,10 +353,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "22.9.27.1330";
+    version = "22.10.17.1112";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4008084/sourcegraph_for_firefox-22.9.27.1330.xpi";
-    sha256 = "2f405da746b55a10d5133a660a1817a80148ec4c09be5aeb7857ec26589ba3fe";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4016724/sourcegraph_for_firefox-22.10.17.1112.xpi";
+    sha256 = "a633e84d5d6a6fd599d2635122e015cd38de5bdb48a87457bf1fa39b09562d5d";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       platforms = platforms.all;
@@ -364,10 +364,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.0.7";
+    version = "5.1.1";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4011816/sponsorblock-5.0.7.xpi";
-    sha256 = "fd7aa43a78cf887272c8d26de9c267a9b89605b4118f9ce1fd7c1b75f631eae4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4016632/sponsorblock-5.1.1.xpi";
+    sha256 = "6528a9d519dbe0dabc2827d00e187ac04aac3bb048fe159c000f9443169afb37";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
