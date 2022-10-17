@@ -134,10 +134,10 @@
   };
   "gesturefy" = buildFirefoxXpiAddon {
     pname = "gesturefy";
-    version = "3.2.6";
+    version = "3.2.7";
     addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3992898/gesturefy-3.2.6.xpi";
-    sha256 = "8721a65aa243c5c8672f9dabed299c45fe90c1f12acd51069784453e46fc935a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4016417/gesturefy-3.2.7.xpi";
+    sha256 = "24eeac920b89d6760e6134471ecf14916a1d2fb470aea6ab9ba52cb2330db83b";
     meta = with lib; {
       homepage = "https://github.com/Robbendebiene/Gesturefy";
       description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.626";
+    version = "0.1.0.627";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4016359/ruffle_rs-0.1.0.626.xpi";
-    sha256 = "ab82a7981f98bd2bed759122c3538d702bae53697b11d152bcbd5831908c72d1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4016616/ruffle_rs-0.1.0.627.xpi";
+    sha256 = "4bbca8141228d8cab55880373d20b879a1e73476e1884f896edad22706734f24";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
