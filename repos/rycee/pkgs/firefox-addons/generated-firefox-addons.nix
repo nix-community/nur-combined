@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.8.0";
+      version = "2.8.9.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013804/bypass_paywalls_clean-2.8.8.0.xpi";
-      sha256 = "a98c938acef41f8fa81e61c910a00ae7cd455024c81197be6e2406ab91ad9ef8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016551/bypass_paywalls_clean-2.8.9.0.xpi";
+      sha256 = "495332975143acca4d2accfe478b2a0dae59556768435cef00ad78a4d5414308";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -718,10 +718,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.63";
+      version = "2.64";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016188/firemonkey-2.63.xpi";
-      sha256 = "f8d6880930a18f3ea0a8cbeba7577c748d7eec39e88cc2d99aa16f41854b5293";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016398/firemonkey-2.64.xpi";
+      sha256 = "c8d909160acdf599c71c6ead3221457161104c08b9fd60c05429c5645cd74125";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -1265,10 +1265,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.3.0";
+      version = "2.3.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013817/libredirect-2.3.0.xpi";
-      sha256 = "acc0ef37b7851ca487ea6e80c0fb1129166f7c5098551ba5f05ca65cb224a023";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016524/libredirect-2.3.1.xpi";
+      sha256 = "b339dcc638ce3fa622ce987a2606d747a910af6b88ce2567ff0e47f054c23fa9";
       meta = with lib;
       {
         homepage = "https://libredirect.codeberg.page";
