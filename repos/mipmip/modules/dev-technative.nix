@@ -26,6 +26,7 @@
     citrix_workspace
     sq
     terraform-docs
+    terrascan
     tflint
   ];
 }
