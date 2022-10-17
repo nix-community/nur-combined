@@ -60,8 +60,8 @@ except Exception as e:
     run(["notify-send", f"Backup realizado com erro {str(type(e))}\nOs logs tem mais detalhes"], shell = True)
     raise e
 finally:
-    run("git add -A", shell = True, check = True)
-    run(["git", "commit", "-sm", str(datetime.now())])
+    run("git annex add .", shell = True, check = True)
+    run("git annex sync", shell = True, check = True)
     run("git push", shell = True)
 
 run(["notify-send", "Execução do backup finalizada"])

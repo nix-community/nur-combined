@@ -32,7 +32,7 @@ kind: Ingress
 metadata:
   name: httpd-teste-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
   - host: teste.whiterun.lucao.net

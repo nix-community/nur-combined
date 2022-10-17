@@ -1,7 +1,7 @@
 { appimage-wrap, makeDesktopItem, writeShellScriptBin, buildEnv }:
 let
   entry = writeShellScriptBin "skyrim" ''
-    ${appimage-wrap}/bin/appimage-wrap ~/Downloads/The_Elder_Scrolls_V_Skyrim_Special_Edition.AppImage "$@"
+    ${appimage-wrap}/bin/appimage-wrap ~/WORKSPACE/ANNEX/Software/AppImage/The_Elder_Scrolls_V_Skyrim_Special_Edition.AppImage "$@"
   '';
   desktop = makeDesktopItem {
     name = "tes-skyrim";

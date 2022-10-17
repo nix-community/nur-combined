@@ -31,6 +31,7 @@ in {
     # Extra
     # intel-compute-runtime # OpenCL
     distrobox # plan b
+    git-annex
   ];
 
   programs.dconf.enable = true;

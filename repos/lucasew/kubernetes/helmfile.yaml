@@ -7,8 +7,10 @@ repositories:
     url: https://kubernetes.github.io/dashboard
   - name: weave-scope
     url: https://dasmeta.github.io/helm/
-  - name: jenkins-x
-    url: https://jenkins-x-charts.github.io/v2/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: metrics-server
+    url: https://kubernetes-sigs.github.io/metrics-server
 commonLabels:
   repo: github:lucasew/nixcfg
 releases:
@@ -20,23 +22,19 @@ releases:
     namespace: app-traefik-test
     createNamespace: true
     chart: app-traefik-test
-  - name: ingress
-    chart: nginx-stable/nginx-ingress
-    namespace: nginx-ingress
-    createNamespace: true
-    set:
-      - name: controller.service.type
-        value: ClusterIP
-    atomic: true
-    strategicMergePatches:
-      - apiVersion: v1
-        kind: Service
-        # name: ingress-nginx-ingress
-        metadata:
-          namespace: nginx-ingress
-          name: ingress-nginx-ingress
-        spec:
-          clusterIP: 10.0.0.253
+  # - name: metrics-server
+  #   chart: metrics-server/metrics-server
+  #   namespace: app-metrics-server
+  #   createNamespace: true
+  #   values:
+  #     - serviceAccount:
+  #         create: true
+  #       serviceMonitor:
+  #         enabled: true
+  #       metrics:
+  #         enabled: true
+  #       apiService:
+  #         create: false
   - name: kubernetes-dashboard
     chart: kubernetes-dashboard/kubernetes-dashboard
     namespace: app-kubernetes-dashboard
@@ -44,21 +42,20 @@ releases:
     values:
       - ingress:
           enabled: true
-          annotations:
-            kubernetes.io/ingress.class: nginx
           hosts:
             - kubernetes-dashboard.whiterun.lucao.net
-      - apiVersion: rbac.authorization.k8s.io/v1
-        kind: ClusterRoleBinding
-        metadata:
-          name: kubernetes-dashboard
-        roleRef:
-          apiGroup: rbac.authorization.k8s.io
-          kind: ClusterRole
-          name: cluster-admin
-        subjects:
-        - kind: ServiceAccount
-          name: kubernetes-dashboard
+          annotations:
+            kubernetes.io/ingress.class: "traefik"
+            traefik.ingress.kubernetes.io/auth-remove-header: "true"
+            traefik.ingress.kubernetes.io/frontend-entry-points: https
+            traefik.ingress.kubernetes.io/auth-type: "basic"
+        metricsScraper:
+          enabled: true
+        rbac:
+          create: true
+          clusterReadOnlyRole: true
+        serviceAccount:
+          create: true
     strategicMergePatches:
       - apiVersion: apps/v1
         kind: Deployment
@@ -75,19 +72,10 @@ releases:
                   - --enable-insecure-login
                   - --enable-skip-login
                   - --namespace=app-kubernetes-dashboard
-                  - --disable-settings-authorizer
+                  # - --disable-settings-authorizer
                   - --insecure-bind-address=0.0.0.0
                   - --port=6969
                   - --insecure-port=8443
                   livenessProbe:
                     httpGet:
                       scheme: HTTP
-      - apiVersion: v1
-        kind: Service
-        metadata:
-          name: kubernetes-dashboard
-        spec:
-          ports:
-          - name: http
-            port: 80
-            targetPort: 8443

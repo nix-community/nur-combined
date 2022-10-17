@@ -13,7 +13,7 @@
     '';
     startAt = "*-*-* *:00:00"; # hourly, i guess
     environment = {
-      STATE_BACKUP_DIR = "~/WORKSPACE/SAVES";
+      STATE_BACKUP_DIR = "~/WORKSPACE/ANNEX/SAVES";
       SAVEGAMES_FOLDERS = builtins.toJSON (let
         listSeqRecur = accum: val: if val == null then accum else (listSeqRecur (accum ++ [val]));
         listSeq = listSeqRecur [];
