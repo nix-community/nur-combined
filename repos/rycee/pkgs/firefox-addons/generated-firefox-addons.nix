@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0buildid20221010.110315";
+      version = "107.0buildid20221017.134228";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4014262/francais_language_pack-106.0buildid20221010.110315.xpi";
-      sha256 = "1da2b557b3c3768fabcee87331c02912b37da3228626e72f4b059d9136f4ce6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016950/francais_language_pack-107.0buildid20221017.134228.xpi";
+      sha256 = "f84adbc047d609820ea1584e74019d1abe6a0394618ce060fb99afde10b7ea3b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -861,10 +861,10 @@
       };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.2.6";
+      version = "3.2.7";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3992898/gesturefy-3.2.6.xpi";
-      sha256 = "8721a65aa243c5c8672f9dabed299c45fe90c1f12acd51069784453e46fc935a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016417/gesturefy-3.2.7.xpi";
+      sha256 = "24eeac920b89d6760e6134471ecf14916a1d2fb470aea6ab9ba52cb2330db83b";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -1959,10 +1959,10 @@
       };
     "pywalfox" = buildFirefoxXpiAddon {
       pname = "pywalfox";
-      version = "2.0.8";
+      version = "2.0.9";
       addonId = "pywalfox@frewacom.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3942967/pywalfox-2.0.8.xpi";
-      sha256 = "9527552b0a80b4ca02d0622ab9e4364fbd880d843958eed04cfd0bad814516c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016698/pywalfox-2.0.9.xpi";
+      sha256 = "93d0af40d17f0a2683fffdeb32b6ecbaf466f525bec0df5c6763f561db01c95d";
       meta = with lib;
       {
         homepage = "https://github.com/frewacom/Pywalfox";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.21";
+      version = "1.21.22";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3990955/single_file-1.21.21.xpi";
-      sha256 = "68b81fa27aa28535863d41211daf77b6f9c472b740dddd2cec5461ba05f6a1b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016609/single_file-1.21.22.xpi";
+      sha256 = "a0405d144556f5986dc319d9a13215ab3239383abaa28fcf536e13054b24f57b";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2254,10 +2254,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.9.27.1330";
+      version = "22.10.17.1112";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4008084/sourcegraph_for_firefox-22.9.27.1330.xpi";
-      sha256 = "2f405da746b55a10d5133a660a1817a80148ec4c09be5aeb7857ec26589ba3fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016724/sourcegraph_for_firefox-22.10.17.1112.xpi";
+      sha256 = "a633e84d5d6a6fd599d2635122e015cd38de5bdb48a87457bf1fa39b09562d5d";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2266,10 +2266,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.0.7";
+      version = "5.1.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4011816/sponsorblock-5.0.7.xpi";
-      sha256 = "fd7aa43a78cf887272c8d26de9c267a9b89605b4118f9ce1fd7c1b75f631eae4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016632/sponsorblock-5.1.1.xpi";
+      sha256 = "6528a9d519dbe0dabc2827d00e187ac04aac3bb048fe159c000f9443169afb37";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2773,10 +2773,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.67.1";
+      version = "1.67.2";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3898202/vimium_ff-1.67.1.xpi";
-      sha256 = "12740802748e7abff8f13014c845db182b5266f280e2f9e22fae0af82789fe6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017172/vimium_ff-1.67.2.xpi";
+      sha256 = "7fc94359b7584f7f121cb709101940d3f0dc8e80a41dd83dadc3c4446675face";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
