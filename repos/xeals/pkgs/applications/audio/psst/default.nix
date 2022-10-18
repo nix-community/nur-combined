@@ -5,6 +5,8 @@
 
 , cmake
 , pkg-config
+, alsaLib
+, dbus
 , openssl
 
   # GUI
@@ -22,20 +24,20 @@ assert withGui -> gtk3.meta.available;
 
 rustPlatform.buildRustPackage rec {
   pname = "psst";
-  version = "20210122.gec114ac";
+  version = "20221012.d70ed81";
   src = fetchFromGitHub {
     owner = "jpochyla";
     repo = "psst";
-    rev = "ec114ac8299179c8dd51bc026d6060dc75658b83";
-    sha256 = "02mh6hjnlimadc3w899hccss31p1r4sxgb5880zwn7yiycbq3yyj";
+    rev = "d70ed8104533dc15bc36b989ba8428872c9b578f";
+    hash = "sha256-ZKhHN0ruLb6ZVKkrKv/YawRsVop6SP1QF/nrtkmA8P8=";
     fetchSubmodules = true;
   };
-  cargoSha256 = "1m01rycnpy9asspih1x9l5ppfbjnqcfdycmzgkrmdwzah3x8s8xc";
+  cargoSha256 = "sha256-zH6+EV78FDVOYEFXk0f54pH2Su0QpK1I0bHqzIiMdBo=";
 
   nativeBuildInputs = [ pkg-config ]
     ++ optional withGui copyDesktopItems;
 
-  buildInputs = [ openssl ]
+  buildInputs = [ alsaLib dbus openssl ]
     ++ optional withGui gtk3;
 
   cargoBuildFlags = optionals (!withGui) [
