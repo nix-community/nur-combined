@@ -6,7 +6,6 @@ in {
     ../common
     ./audio.nix
     ./gui.nix
-    ./plymouth.nix
     ./networking.nix
     ./git.nix
     ./adb.nix

@@ -2,12 +2,12 @@
 , lib
 , wrapFirefox
 , stable
-, firefox-esr-91-unwrapped
+, firefox-esr-102-unwrapped
 , fetchFirefoxAddon
 , firefox-bin
 , callPackage
 , }:
-wrapFirefox firefox-esr-91-unwrapped {
+wrapFirefox firefox-esr-102-unwrapped {
   desktopName = "Firefox (wrapped)";
   applicationName = "firefox";
   nixExtensions = let

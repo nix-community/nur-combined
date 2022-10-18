@@ -267,7 +267,7 @@
         ++ (with self.nixosConfigurations; [
           riverwood.config.system.build.toplevel
           whiterun.config.system.build.toplevel
-          vps.config.system.build.toplevel
+          # ivarstead.config.system.build.toplevel
         ])
         ++ (with self.homeConfigurations; [
           main.activationPackage

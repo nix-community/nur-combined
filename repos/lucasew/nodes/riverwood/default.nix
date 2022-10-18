@@ -23,6 +23,7 @@ in
       ./dns.nix
       ./kvm.nix
       ./backup-saves.nix
+      ./plymouth.nix
     ]
   ;
 
