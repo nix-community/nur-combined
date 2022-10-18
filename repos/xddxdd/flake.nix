@@ -57,7 +57,12 @@
                 exit 1;
               fi
 
-              exec ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace
+              # Workaround https://github.com/NixOS/nix/issues/6572
+              for i in {1..3}; do
+                ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace && exit 0
+              done
+
+              exit 1
             '');
           };
 
