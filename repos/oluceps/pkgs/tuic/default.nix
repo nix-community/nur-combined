@@ -11,6 +11,7 @@ let
 #      sha256 = "sha256:1l0j43iks97lk70s3zb43vfbbjf1j1x2nrpbfx559xfv0ivn45br";
 #    })
 #    { system = "x86_64-linux"; };
+  ## WARNING: ONLY FLAKE USER COULD USE THIS DERIVATION DIRECTLY
   rustPlatform = pkgs.makeRustPlatform { inherit (fenix.minimal) cargo rustc; };
 in
 rustPlatform.buildRustPackage rec{
