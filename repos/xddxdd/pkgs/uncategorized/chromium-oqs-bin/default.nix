@@ -2,7 +2,7 @@
 , lib
 , sources
 , makeWrapper
-, steam
+, steam-run
 , ...
 } @ args:
 
@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $out/bin $out/opt $out/share/applications
     tar xf $src -C $out/opt
 
-    makeWrapper ${steam.run}/bin/steam-run $out/bin/chromium \
+    makeWrapper ${steam-run}/bin/steam-run $out/bin/chromium \
       --argv0 "chrome" \
       --add-flags "$out/opt/chrome"
 
