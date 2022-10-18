@@ -22,6 +22,7 @@
     #vim_configurable
 
     gitFull
+    github-desktop
     gh # GitHub Cli
   ]
 
