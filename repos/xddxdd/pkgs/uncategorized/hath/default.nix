@@ -1,7 +1,6 @@
 { stdenvNoCC
-, fetchurl
+, fetchzip
 , lib
-, unzip
 , jre_headless
 , makeWrapper
 , ...
@@ -10,16 +9,13 @@
 stdenvNoCC.mkDerivation rec {
   pname = "hath";
   version = "1.6.1";
-  src = fetchurl {
+  src = fetchzip {
     url = "https://repo.e-hentai.org/hath/HentaiAtHome_${version}.zip";
-    sha256 = "sha256-uIibLDVZMAS+BhBk/LbWkP+MvalWTYn3Bvfjzq+ChyY=";
+    stripRoot = false;
+    sha256 = "sha256-a690bpznUEqe4Z6vn6QClUBToSqpcj3vPyklURZlgW0=";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
-
-  unpackPhase = ''
-    unzip ${src}
-  '';
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt

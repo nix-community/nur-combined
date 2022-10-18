@@ -1,7 +1,6 @@
 { lib
 , stdenvNoCC
-, fetchurl
-, unzip
+, fetchzip
 , dos2unix
 , ...
 } @ args:
@@ -12,21 +11,18 @@ in
 stdenvNoCC.mkDerivation rec {
   pname = "calibre-cops";
   version = "1.1.3";
-  src = fetchurl {
+  src = fetchzip {
     url = "https://github.com/seblucas/cops/releases/download/${version}/cops-${version}.zip";
-    sha256 = "sha256-aMnvs0CrMJic2JoZoXPEWHLTPthd0CZ0+K8It3SMvHc=";
+    stripRoot = false;
+    sha256 = "sha256-D32TRvo9U07Mukb2hXGWEq/ZI9kBEYkNWidw2CeGEHQ=";
   };
 
-  nativeBuildInputs = [ unzip dos2unix ];
+  nativeBuildInputs = [ dos2unix ];
 
   prePatch = ''
     dos2unix vendor/seblucas/dot-php/doT.php
   '';
   patches = [ ./php80-fix.patch ];
-
-  unpackPhase = ''
-    unzip $src
-  '';
 
   installPhase = ''
     mkdir $out
