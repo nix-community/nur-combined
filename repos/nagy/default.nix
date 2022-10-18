@@ -43,6 +43,7 @@ let
           jtbl = py3.callPackage ./pkgs/jtbl { };
           git-remote-rclone = py3.callPackage ./pkgs/git-remote-rclone { };
           oauth2token = py3.callPackage ./pkgs/oauth2token { };
+          images-upload-cli = py3.callPackage ./pkgs/images-upload-cli { };
         }));
 
       lttoolbox = callPackage ./pkgs/lttoolbox { };
