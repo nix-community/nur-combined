@@ -15,7 +15,12 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   inkscape-isometric-projections = pkgs.callPackage ./pkgs/inkscape-isometric-projection { };
+
+  enso = pkgs.callPackage ./pkgs/enso { };
+
   git-along = pkgs.callPackage ./pkgs/git-along { };
+
   mplus-fonts = pkgs.callPackage ./pkgs/mplus-fonts { };
+
   tlclient = pkgs.callPackage ./pkgs/tlclient { };
 }
