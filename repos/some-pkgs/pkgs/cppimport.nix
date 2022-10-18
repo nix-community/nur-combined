@@ -7,6 +7,7 @@
 , pytestCheckHook
 , cppimport
 , setuptools
+, setuptools-scm
 }:
 
 let
@@ -22,6 +23,10 @@ buildPythonPackage {
     rev = "${version}";
     hash = "sha256-L41Vu7t9xAjgK7HaOX3I4FczbQdGVlQl507q1gUjK6s=";
   };
+
+  buildInputs = [
+    setuptools-scm
+  ];
 
   propagatedBuildInputs = [
     Mako
@@ -44,6 +49,8 @@ buildPythonPackage {
   pythonImportsCheck = [
     "cppimport"
   ];
+
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
   meta = {
     maintainers = [ lib.maintainers.SomeoneSerge ];
