@@ -4,6 +4,8 @@ rec {
   # Alacritty with the unmerged ligature patches applied.
   alacritty-ligatures = pkgs.callPackage ../applications/terminal-emulators/alacritty-ligatures { };
 
+  atlauncher = pkgs.callPackage ../games/atlauncher { };
+
   amdgpu-fan = pkgs.callPackage ../tools/misc/amdgpu-fan { };
 
   cardboard = pkgs.callPackage ../applications/window-managers/cardboard { };
