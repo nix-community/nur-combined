@@ -25,5 +25,7 @@
   surrealdb = pkgs.callPackage ./pkgs/surrealdb { };  
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   maoken-tangyuan = pkgs.callPackage ./pkgs/maoken-tangyuan { };
+  shadow-tls = pkgs.callPackage ./pkgs/shadow-tls { };
+  tuic = pkgs.callPackage ./pkgs/tuic { };
   # ...
 }
