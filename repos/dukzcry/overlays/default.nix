@@ -52,6 +52,18 @@ rec {
   autorandr = super.autorandr.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or []) ++ [ ./autorandr.patch ];
   });
+  # https://github.com/Mange/rtl8192eu-linux-driver/issues/275
+  linuxPackages = super.linuxPackages.extend (lpself: lpsuper: {
+    rtl8192eu = super.linuxPackages.rtl8192eu.overrideAttrs (oldAttrs: rec {
+      version = "issue-275";
+      src = super.fetchFromGitHub {
+        owner = "Mange";
+        repo = "rtl8192eu-linux-driver";
+        rev = "41fddb43b3a351fce500cdc867807bfa2d3151c3";
+        sha256 = "sha256-4UW1wLLRRe2IXhqpmTLIZZOLtXb3Bpj6qMwYKT6EjZM=";
+      };
+    });
+  });
 } // optionalAttrs (config.hardware.wifi.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
