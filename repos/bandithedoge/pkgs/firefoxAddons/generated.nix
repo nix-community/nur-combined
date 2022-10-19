@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.628";
+    version = "0.1.0.629";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4017138/ruffle_rs-0.1.0.628.xpi";
-    sha256 = "48f7736d02e6b36f6f989337d26cb96c0342b169cad7cfd7a8047796464c4d1f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4017742/ruffle_rs-0.1.0.629.xpi";
+    sha256 = "a589e9a9dda3701427c369cfd2a50285ccfc4474e66bbc2f381a8a14278221e9";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
@@ -353,10 +353,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "22.10.17.1112";
+    version = "22.10.18.1133";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4016724/sourcegraph_for_firefox-22.10.17.1112.xpi";
-    sha256 = "a633e84d5d6a6fd599d2635122e015cd38de5bdb48a87457bf1fa39b09562d5d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4017292/sourcegraph_for_firefox-22.10.18.1133.xpi";
+    sha256 = "0a065ed6865e998d425aee69acc2d37730d79731b6139d79d2401f7cad4547f8";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       platforms = platforms.all;
@@ -416,10 +416,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "3.9.6";
+    version = "3.9.7";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4014811/tree_style_tab-3.9.6.xpi";
-    sha256 = "094fad60d7828d593e323e9e110dc2dd3d1b34e54578d10d19294f56aae3950d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4017073/tree_style_tab-3.9.7.xpi";
+    sha256 = "27334de2f5bd890149775ba3b28f8ddc45e971f1d497466e0aedeeec5fb6e6ac";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";

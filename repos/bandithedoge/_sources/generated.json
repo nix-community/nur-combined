@@ -41,7 +41,7 @@
     },
     "carla": {
         "cargoLocks": null,
-        "date": "2022-10-17",
+        "date": "2022-10-18",
         "extract": null,
         "name": "carla",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "falkTX",
             "repo": "Carla",
-            "rev": "2f3b4d4bb4c8ee4983c83c3dbd29a3131ad21be7",
-            "sha256": "sha256-/ucClq6ZfiIY5tCa+bc0A3eJQwZpMwZZmFpUc2cNqV4=",
+            "rev": "6cdfc2e9cd018b05e08569edf3fa3ea4b6b1222c",
+            "sha256": "sha256-TrWsHE91lO7uJ9evYiOvrtiM7BiV6qpkxAeyQQpd/fU=",
             "type": "github"
         },
-        "version": "2f3b4d4bb4c8ee4983c83c3dbd29a3131ad21be7"
+        "version": "6cdfc2e9cd018b05e08569edf3fa3ea4b6b1222c"
     },
     "dmenu-flexipatch": {
         "cargoLocks": null,
@@ -301,7 +301,7 @@
     },
     "tailwindcss-intellisense": {
         "cargoLocks": null,
-        "date": "2022-10-13",
+        "date": "2022-10-18",
         "extract": null,
         "name": "tailwindcss-intellisense",
         "passthru": null,
@@ -313,11 +313,11 @@
             "name": null,
             "owner": "tailwindlabs",
             "repo": "tailwindcss-intellisense",
-            "rev": "c9acd0d12493cee03aeddb942a8ace1fbe674556",
-            "sha256": "sha256-UuMz+B9Gn9Yd6Tuow1uG/24q+MMsNDqDA1JxYRQ/jso=",
+            "rev": "a12e3ae6864696912b7cd57f5d308473265fc9d5",
+            "sha256": "sha256-hUZdrQ8A1ohqfMMqr225BP3cshsy4ycpEgMuv9fLmkM=",
             "type": "github"
         },
-        "version": "c9acd0d12493cee03aeddb942a8ace1fbe674556"
+        "version": "a12e3ae6864696912b7cd57f5d308473265fc9d5"
     },
     "xmonad-entryhelper": {
         "cargoLocks": null,
