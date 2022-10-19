@@ -35,7 +35,7 @@ in {
     mkWindowsApp = inputs.erosanix.lib."${prev.system}".mkWindowsApp;
     climod = cp inputs.climod;
   };
-  appimage-wrap = prev.nbr.appimage-wrap;
+  appimage-wrap = final.nbr.appimage-wrap;
   ctl = cp ./pkgs/ctl;
   p2k = cp inputs.pocket2kindle;
   redial_proxy = cp inputs.redial_proxy;

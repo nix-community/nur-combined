@@ -118,6 +118,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       # pluginIonideVim
       vim-nix
       vim-terraform
+      vim-svelte
 
       # deps
       plenary-nvim # dep of telescope
