@@ -58,7 +58,7 @@ jobs:
         uses: cachix/install-nix-action@daddc62a2e67d1decb56e028c9fa68344b9b7c2a
 
       - name: Setup Cachix
-        uses: cachix/cachix-action@v11
+        uses: sigprof/cachix-action@3fea4e0b704f4ec6a652bb4c28391efb5a0b7a8c
         with:
           name: ${{ env.CACHIX_NAME }}
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
@@ -75,7 +75,7 @@ jobs:
           echo "::group::Flake jobs:"
           printf '%s' "$flake_jobs" | jq
           echo "::endgroup::"
-          printf '::set-output name=flake_jobs::%s\n' "$flake_jobs"
+          printf 'flake_jobs=%s\n' "$flake_jobs" >> $GITHUB_OUTPUT
 
       - name: Collect setup checks
         id: collect_setup_checks
@@ -92,7 +92,7 @@ jobs:
           echo "::group::Setup checks:"
           printf '%s' "$setup_checks" | jq
           echo "::endgroup::"
-          printf '::set-output name=setup_checks::%s\n' "$setup_checks"
+          printf 'setup_checks=%s\n' "$setup_checks" >> $GITHUB_OUTPUT
 
       - name: Run setup checks
         if: ${{ steps.collect_setup_checks.outputs.setup_checks }}
@@ -123,7 +123,7 @@ jobs:
         uses: cachix/install-nix-action@daddc62a2e67d1decb56e028c9fa68344b9b7c2a
 
       - name: Setup Cachix
-        uses: cachix/cachix-action@v11
+        uses: sigprof/cachix-action@3fea4e0b704f4ec6a652bb4c28391efb5a0b7a8c
         with:
           name: ${{ env.CACHIX_NAME }}
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
@@ -251,7 +251,7 @@ jobs:
           echo "::group::Collected NUR jobs:"
           printf '%s' "$nur_jobs" | jq
           echo "::endgroup::"
-          printf '::set-output name=nur_jobs::%s\n' "$nur_jobs"
+          printf 'nur_jobs=%s\n' "$nur_jobs" >> $GITHUB_OUTPUT
  
   x86_64-linux:
     needs:

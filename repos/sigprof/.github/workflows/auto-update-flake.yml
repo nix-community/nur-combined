@@ -27,7 +27,7 @@ jobs:
         run: |
           # Generate matrix from flake inputs
           matrix="$(nix flake metadata --json | jq -rcM '.locks.nodes.root.inputs | {input: keys}')"
-          echo "::set-output name=matrix::$matrix"
+          printf 'matrix=%s\n' "$matrix" >> $GITHUB_OUTPUT
 
   update:
     needs:
