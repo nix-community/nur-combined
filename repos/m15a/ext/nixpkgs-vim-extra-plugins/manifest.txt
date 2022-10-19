@@ -263,6 +263,7 @@ olexsmir/gopher.nvim
 olimorris/persisted.nvim
 olivercederborg/poimandres.nvim
 onsails/lspkind.nvim
+ostralyan/scribe.nvim
 p00f/cphelper.nvim
 petertriho/nvim-scrollbar
 phha/zenburn.nvim
@@ -297,6 +298,7 @@ s1n7ax/nvim-comment-frame
 s1n7ax/nvim-terminal
 sQVe/sort.nvim
 saifulapm/chartoggle.nvim
+samjwill/nvim-unception
 samodostal/image.nvim
 savq/melange
 savq/paq-nvim
