@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221017.134228";
+      version = "107.0buildid20221018.185850";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016950/francais_language_pack-107.0buildid20221017.134228.xpi";
-      sha256 = "f84adbc047d609820ea1584e74019d1abe6a0394618ce060fb99afde10b7ea3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017590/francais_language_pack-107.0buildid20221018.185850.xpi";
+      sha256 = "49a9bcae62e79e6ccb9712df05e4ecc0ba64bef24107bc6a00483bc9dc9887ae";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1326,10 +1326,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.37";
+      version = "2.6.38";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016148/localcdn_fork_of_decentraleyes-2.6.37.xpi";
-      sha256 = "085101da0b8d254248f8679480e44af697089f11985f98c721652aaf7a15d4d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017192/localcdn_fork_of_decentraleyes-2.6.38.xpi";
+      sha256 = "92bf19bb06d87f5290d529055fc049277168cb74180d4aed4c232d3275e2fd18";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1426,10 +1426,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.53";
+      version = "2.6.57";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4014885/momentumdash-2.6.53.xpi";
-      sha256 = "9a9f37bfbead14968f6d8e04302be3b987bccef6500b3392fd798016f4080135";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017741/momentumdash-2.6.57.xpi";
+      sha256 = "1be9ce928647787c639a97a7585a93fb38f8a7c452fc08d3c36b18d73dafa86b";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2254,10 +2254,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.10.17.1112";
+      version = "22.10.18.1133";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016724/sourcegraph_for_firefox-22.10.17.1112.xpi";
-      sha256 = "a633e84d5d6a6fd599d2635122e015cd38de5bdb48a87457bf1fa39b09562d5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017292/sourcegraph_for_firefox-22.10.18.1133.xpi";
+      sha256 = "0a065ed6865e998d425aee69acc2d37730d79731b6139d79d2401f7cad4547f8";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2586,10 +2586,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.6";
+      version = "3.9.7";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4014811/tree_style_tab-3.9.6.xpi";
-      sha256 = "094fad60d7828d593e323e9e110dc2dd3d1b34e54578d10d19294f56aae3950d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017073/tree_style_tab-3.9.7.xpi";
+      sha256 = "27334de2f5bd890149775ba3b28f8ddc45e971f1d497466e0aedeeec5fb6e6ac";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2801,10 +2801,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.4.4";
+      version = "6.4.5";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013327/vue_js_devtools-6.4.4.xpi";
-      sha256 = "bf7552a0cff5af43eb6c9099c1b1cd230f4ed880438b1bf5a341fde4814c7676";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017333/vue_js_devtools-6.4.5.xpi";
+      sha256 = "b5e13b4fac716e4993bd140cb49f47d0d163cbae406985e2edd1c9cc93e4a5e5";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
