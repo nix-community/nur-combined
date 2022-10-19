@@ -72,6 +72,7 @@
 | [nightfox-nvim](https://github.com/EdenEast/nightfox.nvim) | 🦊A highly customizable theme for vim and neovim with support for lsp, treesitter and a variety of plugins. |
 | [nim-nvim](https://github.com/alaviss/nim.nvim) | Nim plugin for NeoVim |
 | [nim-vim](https://github.com/zah/nim.vim) | Nim language plugin for vim |
+| [noice-nvim](https://github.com/folke/noice.nvim) | 💥 Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu. |
 | [notifier-nvim](https://github.com/vigoux/notifier.nvim) | Non-intrusive notification system for neovim |
 | [nui-nvim](https://github.com/MunifTanjim/nui.nvim) | UI Component Library for Neovim. |
 | [null-ls-nvim](https://github.com/jose-elias-alvarez/null-ls.nvim) | Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. |

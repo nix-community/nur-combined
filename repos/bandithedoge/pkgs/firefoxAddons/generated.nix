@@ -19,10 +19,10 @@
   };
   "auto-tab-discard" = buildFirefoxXpiAddon {
     pname = "auto-tab-discard";
-    version = "0.6.3.2";
+    version = "0.6.4";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4004129/auto_tab_discard-0.6.3.2.xpi";
-    sha256 = "2703b74e746d522eb1fd7f457bfdb910fa225dda0c079157d372b0e85cc5936e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4017803/auto_tab_discard-0.6.4.xpi";
+    sha256 = "6c7ce240cf617cac1070239341dafb0f22ced67de44220b38812e02de48e2023";
     meta = with lib; {
       homepage = "http://add0n.com/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.115";
+    version = "2.0.117.1";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3964540/enhancer_for_youtube-2.0.115.xpi";
-    sha256 = "a0728584ad2b36b10aec9e857fec477cbcd84f90e52a60771eb77f8f98e3b1d7";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4017813/enhancer_for_youtube-2.0.117.1.xpi";
+    sha256 = "b4785e77ed566f8d3e8f6d086839734b4b7bbb26da6131b4dc9d6a3d01748c24";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";
