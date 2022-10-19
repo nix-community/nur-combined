@@ -46,4 +46,18 @@ with pkgs;
   };
 
   pypvz = callPackage ./pypvz { inherit rp; };
+
+  wewechatpp = callPackage ./electronAppImage rec {
+    electron = null;
+    pname = "wewechat";
+    version = "1.2.4";
+    description = "Make wewechat great again";
+    homepage = "https://gitee.com/spark-community-works-collections/wewechat-plus-plus";
+    license = lib.licenses.mit;
+    src = fetchurl {
+      url = "${rp}${homepage}/releases/download/${version}/wewechat-${version}-linux-x86_64.AppImage";
+      hash = "sha256-hkyREXHnsccnvn5XAPETJBb0cUyvne2dgkd5k5FimfY=";
+    };
+    # resourcesParentDir = "app";
+  };
 }

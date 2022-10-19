@@ -7,6 +7,7 @@
 
 , pname, version, src, homepage, description, license
 , _name ? null
+, resourcesParentDir ? ""
 }:
 
 let
@@ -32,9 +33,8 @@ then stdenvNoCC.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    
-    mkdir -p $out/bin $out/share $out/share/applications
-    cp -a ${appimageContents}/resources $out/share/
+    mkdir -p $out/bin $out/share/applications
+    cp -a ${appimageContents}/${resourcesParentDir}/resources $out/share/${pname}
     cp -a ${appimageContents}/${pname}.desktop $out/share/applications/
     cp -a ${appimageContents}/usr/share/icons $out/share/
     substituteInPlace $out/share/applications/${pname}.desktop \
@@ -44,7 +44,7 @@ then stdenvNoCC.mkDerivation {
 
   postFixup = ''
     makeWrapper ${electron}/bin/electron $out/bin/${pname} \
-      --add-flags $out/share/resources/app.asar
+      --add-flags $out/share/${pname}/app.asar
   '';
 }
 else appimageTools.wrapType2 {
