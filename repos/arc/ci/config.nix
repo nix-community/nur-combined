@@ -1,7 +1,5 @@
 { lib, config, pkgs, channels, env, import, ... }: with lib; let
-  skipModules = if env.gh-event-name or null == "schedule" then "scheduled build"
-    else if config.channels.home-manager.version != "master" then "home-manager release channel"
-    else false;
+  skipModules = true;
   arc = import ../. { inherit pkgs; overlay = true; };
   channel = channels.cipkgs.nix-gitignore.gitignoreSourcePure [ ../.gitignore ''
     /ci/

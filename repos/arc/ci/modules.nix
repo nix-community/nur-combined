@@ -8,6 +8,7 @@
       imports = [home];
       config.home.stateVersion = "21.05";
     };
+    system.stateVersion = "21.05";
   };
   # TODO: support nix-darwin
 in pkgs.lib.optional pkgs.hostPlatform.isLinux system.toplevel
