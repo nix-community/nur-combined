@@ -6,7 +6,6 @@
 , makeWrapper
 , wrapGAppsHook
 , jdk
-, alsa-lib
 , xorg
 , wayland
 , libpulseaudio
@@ -16,9 +15,8 @@
 , glfw
 , makeDesktopItem
 , copyDesktopItems
-, type ? "jar"
-, sourceProvenance ? (if type == "jar" then [ lib.sourceTypes.binaryBytecode ] else [])
-, openal }:
+, openal
+}:
 
 stdenv.mkDerivation rec {
   name = "hmcl-bin";
@@ -36,7 +34,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KYmhtTAbjHua/a5Wlsak5SRq+i1PHz09rVwZLwNqm0w";
   };
 
-  buildInputs = [ (lib.getLib dconf) glib ];
+  buildInputs = [ glib ];
   nativeBuildInputs = [ jdk wrapGAppsHook makeWrapper file copyDesktopItems ];
 
   installPhase = let
@@ -75,14 +73,18 @@ stdenv.mkDerivation rec {
   });
 
 
-  meta = with lib; {
-    homepage = "https://hmcl.huangyuhui.net/";
-    description = "A Minecraft Launcher which is multi-functional, cross-platform and popular";
-    longDescription = ''
-      HMCL is a cross-platform Minecraft launcher which supports Mod Management, Game Customizing, Auto Installing (Forge, Fabric, Quilt, LiteLoader and OptiFine), Modpack Creating, UI Customization, and more.
-    '';
-    license = licenses.gpl3Plus;
-    sourceProvenance = sourceProvenance;
-    maintainers = with maintainers; [ yisuidenghua ];
-  };
+  # meta = with lib; {
+  #   homepage = "https://hmcl.huangyuhui.net/";
+  #   description = "A Minecraft Launcher which is multi-functional, cross-platform and popular";
+  #   longDescription = ''
+  #     HMCL is a cross-platform Minecraft launcher which supports
+  #     Mod Management, Game Customizing, Auto Installing (Forge,
+  #     Fabric, Quilt, LiteLoader and OptiFine), Modpack Creating,
+  #     UI Customization, and more.
+  #   '';
+  #   license = licenses.gpl3Plus;
+  #   sourceProvenance = with sourceTypes; [ binaryBytecode ];
+  #   maintainers = with maintainers; [ yisuidenghua ];
+  # };
 }
+
