@@ -80,6 +80,8 @@
 
     simple-dashboard.url = "github:lucasew/simple-dashboard";
     simple-dashboard.flake = false;
+
+    nbr.url = "github:nixosbrasil/nixpkgs-brasil";
   };
 
   outputs = {

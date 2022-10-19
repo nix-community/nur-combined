@@ -27,13 +27,15 @@ in {
   inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generators;
   inherit (flake.inputs.packages.comma);
 
+  nbr = import "${inputs.nbr}" { pkgs = final; };
+
   lib = prev.lib // {
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;
     mkWindowsApp = inputs.erosanix.lib."${prev.system}".mkWindowsApp;
     climod = cp inputs.climod;
   };
-  appimage-wrap = cp ./pkgs/appimage-wrap;
+  appimage-wrap = prev.nbr.appimage-wrap;
   ctl = cp ./pkgs/ctl;
   p2k = cp inputs.pocket2kindle;
   redial_proxy = cp inputs.redial_proxy;

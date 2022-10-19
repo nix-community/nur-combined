@@ -31,6 +31,7 @@ in {
     # intel-compute-runtime # OpenCL
     distrobox # plan b
     git-annex
+    appimage-wrap
   ];
 
   programs.dconf.enable = true;

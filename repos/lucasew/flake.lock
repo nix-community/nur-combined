@@ -258,6 +258,21 @@
         "type": "indirect"
       }
     },
+    "nbr": {
+      "locked": {
+        "lastModified": 1666140938,
+        "narHash": "sha256-pVUXxjwpdRPWTV0kKnZs4T7H3PKx4Hb04n+N3sWyHZI=",
+        "owner": "nixosbrasil",
+        "repo": "nixpkgs-brasil",
+        "rev": "0589180d051fa9994061d6c887fbf63b64f4928b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixosbrasil",
+        "repo": "nixpkgs-brasil",
+        "type": "github"
+      }
+    },
     "nix-colors": {
       "inputs": {
         "base16-schemes": "base16-schemes",
@@ -576,6 +591,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "mach-nix": "mach-nix",
+        "nbr": "nbr",
         "nix-colors": "nix-colors",
         "nix-emacs": "nix-emacs",
         "nix-on-droid": "nix-on-droid",
