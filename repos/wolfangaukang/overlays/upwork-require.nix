@@ -2,9 +2,9 @@ final: prev:
 {
   upwork = prev.upwork.overrideAttrs ( old: rec {
     src = prev.requireFile {
-      name = "${old.pname}_${old.version}_amd64.deb";
+      name = "${old.pname}_5.6.10.23_amd64.deb";
       url = "https://www.upwork.com/ab/downloads/os/linux/";
-      sha256 = "c3e1ecf14c99596f434edf93a2e08f031fbaa167025d1280cf19f68b829d6b79";
+      sha256 = "bda27388df444e291842cc306b719d7e91836ad172b196689d108d8f287dc89e";
     };
   } );
   upwork-download = final.upwork;
