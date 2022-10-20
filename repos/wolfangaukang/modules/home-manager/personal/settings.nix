@@ -28,7 +28,7 @@ in rec {
       keybase-gui
       remmina
       signumone-ks
-      upwork-download
+      upwork-require
 
       # CLI
       awscli2

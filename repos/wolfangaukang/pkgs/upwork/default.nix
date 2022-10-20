@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook
+{ lib, stdenv, requireFile, dpkg, wrapGAppsHook, autoPatchelfHook
 , alsa-lib, atk, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, fontconfig, freetype
 , gdk-pixbuf, glib, gtk3, libcxx, libdrm, libnotify, libpulseaudio, libuuid, libX11, libxcb
 , libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
@@ -6,11 +6,12 @@
 
 stdenv.mkDerivation rec {
   pname = "upwork";
-  version = "5.6.10.13";
+  version = "5.6.10.23";
 
-  src = fetchurl {
-    url = "https://upwork-usw2-desktopapp.upwork.com/binaries/v5_6_10_13_3c485d1dd2af4f61/${pname}_${version}_amd64.deb";
-    sha256 = "c3e1ecf14c99596f434edf93a2e08f031fbaa167025d1280cf19f68b829d6b79";
+  src = requireFile {
+    name = "${pname}_${version}_amd64.deb";
+    url = "https://www.upwork.com/ab/downloads/os/linux/";
+    sha256 = "bda27388df444e291842cc306b719d7e91836ad172b196689d108d8f287dc89e";
   };
 
   nativeBuildInputs = [
@@ -61,6 +62,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Online freelancing platform desktop application for time tracking";
     homepage = "https://www.upwork.com/ab/downloads/";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ zakkor wolfangaukang ];
