@@ -57,6 +57,18 @@
         "name": "git",
         "shortcuts": [
             {
+                "key": "ga",
+                "description": "git add"
+            },
+            {
+                "key": "gcl",
+                "description": "git clone --recurse-submodules"
+            },
+            {
+                "key": "gco",
+                "description": "git checkout"
+            },
+            {
                 "key": "gsb",
                 "description": "git status"
             },
