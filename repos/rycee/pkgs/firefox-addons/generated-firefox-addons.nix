@@ -127,10 +127,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.6.3.2";
+      version = "0.6.4";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4004129/auto_tab_discard-0.6.3.2.xpi";
-      sha256 = "2703b74e746d522eb1fd7f457bfdb910fa225dda0c079157d372b0e85cc5936e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017803/auto_tab_discard-0.6.4.xpi";
+      sha256 = "6c7ce240cf617cac1070239341dafb0f22ced67de44220b38812e02de48e2023";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.115";
+      version = "2.0.117.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3964540/enhancer_for_youtube-2.0.115.xpi";
-      sha256 = "a0728584ad2b36b10aec9e857fec477cbcd84f90e52a60771eb77f8f98e3b1d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4017813/enhancer_for_youtube-2.0.117.1.xpi";
+      sha256 = "b4785e77ed566f8d3e8f6d086839734b4b7bbb26da6131b4dc9d6a3d01748c24";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221018.185850";
+      version = "106.0.1buildid20221019.185550";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017590/francais_language_pack-107.0buildid20221018.185850.xpi";
-      sha256 = "49a9bcae62e79e6ccb9712df05e4ecc0ba64bef24107bc6a00483bc9dc9887ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018199/francais_language_pack-106.0.1buildid20221019.185550.xpi";
+      sha256 = "6385485510ec9a59cc056ba4527dea26c639bebbbc7d3fadbadae8cd73561533";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1643,10 +1643,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.13.0";
+      version = "6.14.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999434/okta_browser_plugin-6.13.0.xpi";
-      sha256 = "2ffaf591afe41c384fa695382279abdfd8b8db396d7417fb109aa873c04d67f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4016013/okta_browser_plugin-6.14.0.xpi";
+      sha256 = "e95f5f6a54d4aba25ef1c87db3ed07ec821cc4e08a64e687ea6cc1451d102a6d";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
