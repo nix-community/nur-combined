@@ -44,6 +44,14 @@ in
               user = "pedro";
               proxyCommand = "sh -c \"aws ssm start-session --target i-009d4ed7fd7372feb --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";
             };
+            vpn-canada = {
+              user = "pedro";
+              proxyCommand = "sh -c \"aws ssm start-session --target i-0436147dded5cfdc4 --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro --region=ca-central-1\"";
+            };
+            vpn-london = {
+              user = "pedro";
+              proxyCommand = "sh -c \"aws ssm start-session --target i-04f0c4defbaba5c0d --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro --region=eu-west-2\"";
+            };
             elk = {
               user = "pedror";
               proxyCommand = "sh -c \"aws ssm start-session --target i-0fd41698004c0d538 --document-name AWS-StartSSHSession --parameters 'portNumber=%p' --profile=pedro\"";

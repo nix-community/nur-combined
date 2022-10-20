@@ -14,7 +14,10 @@
       };
     };
     loader = {
-      efi.canTouchEfiVariables = true;
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi/";
+      };
       systemd-boot = {
         enable = true;
         configurationLimit = 10;
