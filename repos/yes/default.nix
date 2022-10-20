@@ -3,11 +3,27 @@
   rp ? "",
 }:
 
-with pkgs;
-
-{
+with pkgs; rec {
   archlinux = recurseIntoAttrs (import ./archlinux {
     inherit pkgs rp;
+  });
+
+  electron_2 = electron.overrideAttrs (old: rec {
+    version = "2.0.18";
+    src = fetchurl {
+      url = "${rp}https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-x64.zip";
+      sha256 = "f196e06b6ecfa33bffb02b3d6c4a64bd5a076014e2f21c4a67356474ee014000";
+    };
+    postFixup = ''
+      patchelf \
+          --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+          --set-rpath "${atomEnv.libPath}:${lib.makeLibraryPath [
+            libuuid at-spi2-atk at-spi2-core libappindicator-gtk3
+            gnome2.GConf
+          ]}:$out/lib/electron" \
+          $out/lib/electron/electron
+      wrapProgram $out/lib/electron/electron "''${gappsWrapperArgs[@]}"
+    '';
   });
   
   gnomeExtensions = recurseIntoAttrs (import ./gnomeExtensions {
@@ -48,7 +64,7 @@ with pkgs;
   pypvz = callPackage ./pypvz { inherit rp; };
 
   wewechatpp = callPackage ./electronAppImage rec {
-    electron = null;
+    electron = electron_2;
     pname = "wewechat";
     version = "1.2.4";
     description = "Make wewechat great again";
@@ -58,6 +74,6 @@ with pkgs;
       url = "${rp}${homepage}/releases/download/${version}/wewechat-${version}-linux-x86_64.AppImage";
       hash = "sha256-hkyREXHnsccnvn5XAPETJBb0cUyvne2dgkd5k5FimfY=";
     };
-    # resourcesParentDir = "app";
+    resourcesParentDir = "app";
   };
 }
