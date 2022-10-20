@@ -23,9 +23,6 @@
         # dev
         
         rustup
-        # keyboard goodness
-        
-        chrysalis
         ;
 
       inherit (pkgs.packages) spot;

@@ -25,6 +25,7 @@
         # dev
         
         rustup
+        arandr
         ;
 
       inherit (pkgs.packages) spot;

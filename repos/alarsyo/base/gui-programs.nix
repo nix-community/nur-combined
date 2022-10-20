@@ -40,7 +40,9 @@ in {
     environment.systemPackages = builtins.attrValues {
       inherit
         (pkgs)
+        chrysalis
         element-desktop
+        evince
         feh
         firefox
         ffmpeg

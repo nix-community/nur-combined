@@ -91,8 +91,6 @@
   };
   my.gui.enable = true;
 
-  environment.systemPackages = [pkgs.arandr pkgs.chrysalis];
-
   services.udev.packages = [pkgs.chrysalis];
 
   hardware.bluetooth = {
