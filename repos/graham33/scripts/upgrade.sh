@@ -1,4 +1,5 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env nix-shell
+#! nix-shell -i zsh -p pkgs.git pkgs.semver-tool
 # Script for helping with bumps and upgrades
 
 set -euo pipefail
