@@ -8,14 +8,18 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+with pkgs;
+
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  aws-cdk-local = pkgs.callPackage ./pkgs/aws-cdk-local { };
+  aws-cdk-local = callPackage ./pkgs/aws-cdk-local { };
 
-  awscli-local = pkgs.callPackage ./pkgs/awscli-local { };
+  awscli-local = callPackage ./pkgs/awscli-local { };
+
+  terraform-local = callPackage ./pkgs/terraform-local { };
 
 }
