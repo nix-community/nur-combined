@@ -83,30 +83,57 @@ let
       '';
     };
 
-    rnnoise-plugin-extern = { stdenv, rnnoise-plugin, rnnoise, ladspaH, pkg-config }: rnnoise-plugin.overrideAttrs (old: rec {
+    rnnoise-plugin-extern = { rnnoise-plugin
+    , rnnoise, ladspaH
+    , util-linux, libselinux, libsepol
+    , libthai, libdatrie
+    , libXdmcp, libxkbcommon, libXtst
+    , epoxy, sqlite, libsysprof-capture, libpsl
+    , pcre2, alsa-lib, freetype, curl
+    , pkg-config, fetchpatch
+    , hostPlatform, lib
+    , enableJUCE ? false
+    }: with lib; rnnoise-plugin.overrideAttrs (old: rec {
       nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ pkg-config ];
-      buildInputs = old.buildInputs or [ ] ++ [ rnnoise ladspaH ];
+      buildInputs = old.buildInputs or [ ]
+      ++ [ rnnoise ladspaH ]
+      ++ optionals (enableJUCE && versionAtLeast rnnoise-plugin.version "1.0") ([
+        pcre2 alsa-lib freetype curl epoxy
+        libthai libdatrie
+        sqlite libsysprof-capture libpsl
+      ] ++ optionals hostPlatform.isLinux [
+        util-linux libselinux libsepol
+        libXdmcp libxkbcommon libXtst
+      ]);
 
-      patches = old.patches or [ ] ++ [ ./rnnoise-plugin.diff ];
+      cmakeFlags = [
+        "-DBUILD_TESTS=OFF"
+        "-DBUILD_FOR_RELEASE=ON"
+      ] ++ optionals (!enableJUCE) [
+        "-DBUILD_VST_PLUGIN=OFF"
+        "-DBUILD_VST3_PLUGIN=OFF"
+        "-DBUILD_LV2_PLUGIN=OFF"
+        "-DBUILD_AU_PLUGIN=OFF"
+        "-DBUILD_AUV3_PLUGIN=OFF"
+      ] ++ optionals (!hostPlatform.isLinux) [
+        "-DBUILD_LADSPA_PLUGIN=OFF"
+        "-DBUILD_LV2_PLUGIN=OFF"
+      ];
 
-      postPatch = old.postPatch or "" + ''
-        rm src/ladspa_plugin/ladspa.h
-        substituteInPlace src/ladspa_plugin/CMakeLists.txt \
-          --replace "ladspa.h" ""
-      '';
+      patches = old.patches or [ ]
+      ++ singleton (fetchpatch {
+        url = "https://github.com/arcnmx/noise-suppression-for-voice/commit/e15ea1f2969ac772cf101cc51b995af2dade7b85.patch";
+        sha256 = "sha256-TVCQLDIq4/YAPHiqK//xb2OnnfW0NYeT3HIKZtQFb64";
+      }) ++ optional (versionOlder rnnoise-plugin.version "1.0") (fetchpatch {
+        url = "https://github.com/arcnmx/noise-suppression-for-voice/commit/0e4540ae60278f22c4f2c7e1dd0bc42eafc17783.patch";
+        sha256 = "sha256-DMxuFd3f0196VUFIjOUdj5NUoADISaKQHqeN9H9fwZU=";
+      }) ++ optional (versionAtLeast rnnoise-plugin.version "1.0") (fetchpatch {
+        url = "https://github.com/arcnmx/noise-suppression-for-voice/commit/3b01ba433c87ebc9b4b4aa94ebdcadd4b7da28f2.patch";
+        sha256 = "sha256-jEOvx616WUSFP7j5WzLLgytRNNyVZMKWTOL/qFVJ7BU=";
+      });
 
-      meta = old.meta or { } // {
-        broken = old.meta.broken or false || stdenv.isDarwin;
-      };
-    });
-
-    rnnoise-plugin-develop = { rnnoise-plugin-extern, fetchFromGitHub }: rnnoise-plugin-extern.overrideAttrs (old: rec {
-      version = "2021-05-21";
-      src = fetchFromGitHub {
-        owner = "werman";
-        repo = "noise-suppression-for-voice";
-        rev = "89496c24cbc7d8660609f9add5560bf33d78b737";
-        sha256 = "09xqxph6gs81sgcy5zyik8yq51flqq9j0jf5k945sdl4mlva2325";
+      passthru = old.passthru or { } // {
+        ci.skip = if hostPlatform.isDarwin then "darwin" else false;
       };
     });
 
