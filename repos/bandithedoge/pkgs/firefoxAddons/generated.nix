@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.117.1";
+    version = "2.0.117.2";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4017813/enhancer_for_youtube-2.0.117.1.xpi";
-    sha256 = "b4785e77ed566f8d3e8f6d086839734b4b7bbb26da6131b4dc9d6a3d01748c24";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4018539/enhancer_for_youtube-2.0.117.2.xpi";
+    sha256 = "4e1a3938acd8a2ac832a2c9bfefc15e540da8466c9a74b7fd4333f1d7e73ce2e";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.629";
+    version = "0.1.0.631";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4017742/ruffle_rs-0.1.0.629.xpi";
-    sha256 = "a589e9a9dda3701427c369cfd2a50285ccfc4474e66bbc2f381a8a14278221e9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4018989/ruffle_rs-0.1.0.631.xpi";
+    sha256 = "dd20f188b8277f8956f98cd468034320f7df1044f5661929f5e7de458804551c";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
