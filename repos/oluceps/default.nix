@@ -27,5 +27,6 @@
   maoken-tangyuan = pkgs.callPackage ./pkgs/maoken-tangyuan { };
   shadow-tls = pkgs.callPackage ./pkgs/shadow-tls { };
   tuic = pkgs.callPackage ./pkgs/tuic { };
+  techmino = pkgs.callPackage ./pkgs/techmino { };
   # ...
 }
