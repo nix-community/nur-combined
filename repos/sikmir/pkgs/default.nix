@@ -315,6 +315,7 @@ lib.makeScope newScope (
     huami-token = callPackage ./misc/huami-token { };
     imsg-compat = callPackage ./misc/imsg-compat { };
     ish = callPackage ./misc/ish { };
+    jenkins-cli = callPackage ./misc/jenkins-cli { };
     lazyscraper = callPackage ./misc/lazyscraper { };
     libnbcompat = callPackage ./misc/libnbcompat { };
     md2html = callPackage ./misc/md2html { };
