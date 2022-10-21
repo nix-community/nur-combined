@@ -48,6 +48,9 @@
         "angr": {
             "url": "https://github.com/angr/nixpkgs"
         },
+        "anthonyroussel": {
+            "url": "https://github.com/anthonyroussel/nur-packages"
+        },
         "arc": {
             "file": "nur.nix",
             "url": "https://github.com/arcnmx/nixexprs"
