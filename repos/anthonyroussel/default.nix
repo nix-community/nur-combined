@@ -20,6 +20,8 @@ with pkgs;
 
   awscli-local = callPackage ./pkgs/awscli-local { };
 
+  bundler = callPackage ./pkgs/bundler { };
+
   terraform-local = callPackage ./pkgs/terraform-local { };
 
 }
