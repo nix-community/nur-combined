@@ -229,10 +229,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.10.0";
+      version = "2022.10.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015122/bitwarden_password_manager-2022.10.0.xpi";
-      sha256 = "3b722aeb9d254627bf45d519ffb701a9c802625fa8dd9ca69fd5455a8910c2e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018008/bitwarden_password_manager-2022.10.1.xpi";
+      sha256 = "453a932a48dda6722fa824f30414ffae3efc4797c6df9e76c6a07b2ff412bbe7";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.1";
+      version = "2.0.117.2";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017813/enhancer_for_youtube-2.0.117.1.xpi";
-      sha256 = "b4785e77ed566f8d3e8f6d086839734b4b7bbb26da6131b4dc9d6a3d01748c24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018539/enhancer_for_youtube-2.0.117.2.xpi";
+      sha256 = "4e1a3938acd8a2ac832a2c9bfefc15e540da8466c9a74b7fd4333f1d7e73ce2e";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -718,10 +718,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.64";
+      version = "2.65";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016398/firemonkey-2.64.xpi";
-      sha256 = "c8d909160acdf599c71c6ead3221457161104c08b9fd60c05429c5645cd74125";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019032/firemonkey-2.65.xpi";
+      sha256 = "b2bbe051a646538e8a3e920390f44fa0fd7cc1f8276544940eeff5fbbaf851fb";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0.1buildid20221019.185550";
+      version = "107.0buildid20221020.202724";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4018199/francais_language_pack-106.0.1buildid20221019.185550.xpi";
-      sha256 = "6385485510ec9a59cc056ba4527dea26c639bebbbc7d3fadbadae8cd73561533";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018808/francais_language_pack-107.0buildid20221020.202724.xpi";
+      sha256 = "a06d8cd02ea29599aa8f2ff3a69b9e4e40fa37fcfb90b7b1ad978a4a41567b66";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1265,10 +1265,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.3.1";
+      version = "2.3.2";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016524/libredirect-2.3.1.xpi";
-      sha256 = "b339dcc638ce3fa622ce987a2606d747a910af6b88ce2567ff0e47f054c23fa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019033/libredirect-2.3.2.xpi";
+      sha256 = "254de86a091b929a77991d98bb4b68294deb801105e0849487dca01df2fb5d07";
       meta = with lib;
       {
         homepage = "https://libredirect.codeberg.page";
@@ -1616,10 +1616,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.6.1";
+      version = "7.7.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3999843/octotree-7.6.1.xpi";
-      sha256 = "135b563cf69f8887394699255d1e827e8a15736454daa7280228f113c38f368d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018464/octotree-7.7.0.xpi";
+      sha256 = "e73730768caee30f15f9ea741b972b4812a74fa15ca230b847651b50a45f8c2a";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.22";
+      version = "1.21.23";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016609/single_file-1.21.22.xpi";
-      sha256 = "a0405d144556f5986dc319d9a13215ab3239383abaa28fcf536e13054b24f57b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4018118/single_file-1.21.23.xpi";
+      sha256 = "1c51ccb8b2cb6ee68cd94b8b69b0a2875a0eb7b9383dc0f342be5e38135fdc11";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
