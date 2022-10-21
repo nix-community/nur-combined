@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.117.2";
+    version = "2.0.117.3";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4018539/enhancer_for_youtube-2.0.117.2.xpi";
-    sha256 = "4e1a3938acd8a2ac832a2c9bfefc15e540da8466c9a74b7fd4333f1d7e73ce2e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4019070/enhancer_for_youtube-2.0.117.3.xpi";
+    sha256 = "8c12346623af1eb873a99f18649b81b2229bdbe37a79807033fa674e5bdfdce8";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";

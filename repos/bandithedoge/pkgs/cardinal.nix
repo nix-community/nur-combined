@@ -35,10 +35,6 @@ pkgs.stdenv.mkDerivation {
     patchShebangs ./dpf/utils/generate-ttl.sh
   '';
 
-  postInstall = ''
-    cp -r bin/Cardinal.clap $out/lib/clap
-  '';
-
   desktopItems = [
     (pkgs.makeDesktopItem {
       name = "cardinal";
