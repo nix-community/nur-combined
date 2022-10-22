@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = [ "PREFIX=$(out)" "LDCONFIG=" ];
 
   meta = with lib; {
     description = "Unicode string library";
