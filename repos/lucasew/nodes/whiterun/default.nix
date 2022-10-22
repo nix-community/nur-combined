@@ -25,6 +25,16 @@ in {
       };
     };
   };
+  hardware.opengl.driSupport = true;
+  hardware.opengl.extraPackages = with pkgs; [
+     rocm-runtime
+     rocm-opencl-icd
+     rocm-opencl-runtime
+  ];
+  hardware.opengl.extraPackages32 = with pkgs; [
+    driversi686Linux.amdvlk
+  ];
+
   networking.hostName = hostname;
 
   boot.kernelPackages = pkgs.linuxPackages_5_15;
