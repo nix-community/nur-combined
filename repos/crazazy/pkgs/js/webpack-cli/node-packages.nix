@@ -139,13 +139,13 @@ let
         sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
       };
     };
-    "is-core-module-2.10.0" = {
+    "is-core-module-2.11.0" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.10.0";
+      version = "2.11.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.10.0.tgz";
-        sha512 = "Erxj2n/LDAZ7H8WNJXd9tw38GYM3dv8rk8Zcs+jJuxYTW7sozH+SS8NtrSjVL1/vpLvWi1hxy96IzjJ3EHTJJg==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.11.0.tgz";
+        sha512 = "RRjxlvLDkD1YJwDbroBHMb+cukurkDWNyHx7D3oNB5x9rb5ogcksMC5wHCadcXoo67gVr/+3GFySh3134zi6rw==";
       };
     };
     "is-plain-object-2.0.4" = {
@@ -377,7 +377,7 @@ let
       sources."has-1.0.3"
       sources."import-local-3.1.0"
       sources."interpret-2.2.0"
-      sources."is-core-module-2.10.0"
+      sources."is-core-module-2.11.0"
       sources."is-plain-object-2.0.4"
       sources."isexe-2.0.0"
       sources."isobject-3.0.1"
