@@ -1,12 +1,13 @@
-{ lib, stdenv, fetchurl }:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   pname = "libgrapheme";
-  version = "1";
+  version = "2.0.1";
 
-  src = fetchurl {
-    url = "https://dl.suckless.org/libgrapheme/libgrapheme-${version}.tar.gz";
-    hash = "sha256-hiLfUVDOlB1cRmXQ4JodQsLCX2KKJ/SMoeZpV2Fi0PY=";
+  src = fetchgit {
+    url = "git://git.suckless.org/libgrapheme";
+    rev = "30766915c37d88fc423a4d750227a769e7a307ae";
+    hash = "sha256-cBpXRce4494ZVPRFjUQa5UJ6wvEfik2eUzv2bdEbz5E=";
   };
 
   makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" ];
