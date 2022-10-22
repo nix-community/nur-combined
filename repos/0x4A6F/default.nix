@@ -44,7 +44,7 @@
 
   gobi_loader = pkgs.callPackage ./pkgs/gobi_loader { };
 
-  innernet = pkgs.callPackage ./pkgs/innernet { };
+  # innernet = pkgs.callPackage ./pkgs/innernet { };
 
   libcerror = pkgs.callPackage ./pkgs/libcerror { };
 
@@ -54,7 +54,7 @@
 
   mumble-web-proxy = pkgs.callPackage ./pkgs/mumble-web-proxy { };
 
-  nixpkgs-check = pkgs.callPackage ./pkgs/nixpkgs-check { };
+  # nixpkgs-check = pkgs.callPackage ./pkgs/nixpkgs-check { };
 
   pixelpwnr = pkgs.callPackage ./pkgs/pixelpwnr { };
 
