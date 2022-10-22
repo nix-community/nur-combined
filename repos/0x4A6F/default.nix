@@ -18,7 +18,7 @@
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 
-  acmed = pkgs.callPackage ./pkgs/acmed { };
+  # acmed = pkgs.callPackage ./pkgs/acmed { };
 
   alquitran = pkgs.callPackage ./pkgs/alquitran { };
 
