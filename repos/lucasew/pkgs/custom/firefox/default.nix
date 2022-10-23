@@ -1,4 +1,4 @@
-{ nur
+{ nbr
 , lib
 , wrapFirefox
 , stable
@@ -10,33 +10,18 @@
 wrapFirefox firefox-esr-102-unwrapped {
   desktopName = "Firefox (wrapped)";
   applicationName = "firefox";
-  nixExtensions = let
-    ryceeExtensions = with nur.repos.rycee.firefox-addons;[
-      darkreader
-      facebook-container
-      grammarly
-      i-dont-care-about-cookies
-      sponsorblock
-      tampermonkey
-      ublock-origin
-      xbrowsersync
-    ];
-  in  []
-  ++ (map (e: fetchFirefoxAddon {
-      inherit (e) name;
-      url = builtins.elemAt e.src.urls 0;
-      sha256 = e.src.outputHash;
-    }) ryceeExtensions)
-  ++ (map fetchFirefoxAddon [
-    {
-      name = "tweak-new-twitter";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3927389/tweak_new_twitter-2.15.0.xpi";
-      sha256 = "sha256-0PwcclKg27Q1Dur/BUUHBXNbCo3MnX8sZRfTqjQXP+Y=";
-    }
-  ]
+  nixExtensions = (with nbr.firefoxExtensions; [
+    darkreader
+    facebook-container
+    languagetool
+    i-dont-care-about-cookies
+    sponsorblock
+    tampermonkey
+    ublock-origin
+  ])
   ++ ([
     (callPackage ./base16-ext {})
-  ]))
+  ])
   ;
   extraPolicies = {
     DisableFirefoxStudies = true;
