@@ -1,8 +1,8 @@
 { stdenv
 , fetchurl
+, buildFHSUserEnvBubblewrap
 , writeShellScript
 , electron_20
-, steam
 , lib
 , scrot
 , ...
@@ -54,21 +54,24 @@ let
     '';
   };
 
-  steam-run = (steam.override {
-    extraPkgs = p: [ license resource ];
-    runtimeOnly = true;
-  }).run;
-
   startScript = writeShellScript "wechat-uos" ''
     wechat_pid=`pidof wechat-uos`
     if test $wechat_pid; then
         kill -9 $wechat_pid
     fi
 
-    ${steam-run}/bin/steam-run \
-      ${electron_20}/bin/electron \
+    ${electron_20}/bin/electron \
       ${resource}/lib/wechat-uos
   '';
+
+  fhs = buildFHSUserEnvBubblewrap {
+    name = "wechat-uos";
+    targetPkgs = pkgs: with pkgs; [
+      license openssl_1_1 resource
+    ];
+    runScript = startScript;
+    unsharePid = false;
+  };
 in
 stdenv.mkDerivation {
   pname = "wechat-uos";
@@ -76,7 +79,7 @@ stdenv.mkDerivation {
   phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin $out/share/applications
-    ln -s ${startScript} $out/bin/wechat-uos
+    ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
     ln -s ${./wechat-uos.desktop} $out/share/applications/wechat-uos.desktop
     ln -s ${resource}/share/icons $out/share/icons
   '';
