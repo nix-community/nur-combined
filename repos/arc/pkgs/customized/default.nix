@@ -323,6 +323,9 @@ let
           -e 's/with open.* as file:/if True:/' \
           -e 's/file.read().strip()/""/'
 
+        sed -i src/mumble/TextToSpeech_unix.cpp \
+          -e 's/speech-dispatcher\///'
+
         rm -r 3rdparty/{jack,opus,pipewire,portaudio,pulseaudio,*-src}
       '';
 

@@ -1,4 +1,5 @@
 {
+  # https://weechat.org/scripts/
   auto_away = { buildWeechatScript }: buildWeechatScript {
     pname = "auto_away.py";
     version = "0.4";
@@ -16,8 +17,8 @@
   };
   parse_relayed_msg = { buildWeechatScript }: buildWeechatScript {
     pname = "parse_relayed_msg.pl";
-    version = "1.9.6";
-    sha256 = "01zj5g4wv7bx6i0bikl6zsda0dfccp04r273mz9zsi9z6kvj26bm";
+    version = "1.9.7";
+    sha256 = "sha256-Q9CWSfEkDe1H0ncuJVcede5q8UtaqroYHHin9IlsJgY=";
   };
   title = { buildWeechatScript }: buildWeechatScript {
     pname = "title.py";
