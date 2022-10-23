@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.631";
+    version = "0.1.0.633";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4018989/ruffle_rs-0.1.0.631.xpi";
-    sha256 = "dd20f188b8277f8956f98cd468034320f7df1044f5661929f5e7de458804551c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4019725/ruffle_rs-0.1.0.633.xpi";
+    sha256 = "14cb5dd2bcc9a0ca200098c6eec3b76d232f551c32a298998f75fc0e2b0be603";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
