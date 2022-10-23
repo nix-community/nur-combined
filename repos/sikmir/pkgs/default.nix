@@ -178,7 +178,6 @@ lib.makeScope newScope (
     elevation = callPackage ./geospatial/elevation {
       click = click-6-7;
     };
-    geographiclib = callPackage ./geospatial/geographiclib { };
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     geowebcache = callPackage ./geospatial/geowebcache { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
@@ -321,12 +320,12 @@ lib.makeScope newScope (
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
-    musig = callPackage ./misc/musig { };
+    musig = callPackage ./misc/musig {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
-    paho-mqtt-c = callPackage ./misc/paho-mqtt-c { };
-    paho-mqtt-cpp = callPackage ./misc/paho-mqtt-cpp { };
     playonmac = callPackage ./misc/playonmac { };
     pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };

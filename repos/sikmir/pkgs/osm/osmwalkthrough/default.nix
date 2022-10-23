@@ -3,6 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "osmwalkthrough";
   version = "2021-09-24";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "leotrubach";

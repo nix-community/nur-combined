@@ -11,6 +11,8 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-zKloFO7uCLkqgayxC11JRfMpNxIR+UkT/Xabb9AH8To=";
   };
 
+  propagatedBuildInputs = with python3Packages; [ setuptools ];
+
   meta = with lib; {
     description = "Convert between compass points and degrees";
     inherit (src.meta) homepage;

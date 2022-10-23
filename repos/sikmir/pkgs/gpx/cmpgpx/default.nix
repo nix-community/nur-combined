@@ -3,6 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "cmpgpx";
   version = "2015-06-05";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "jonblack";

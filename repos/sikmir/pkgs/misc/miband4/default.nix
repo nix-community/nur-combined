@@ -2,13 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "miband4";
-  version = "2021-03-31";
+  version = "2022-10-07";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "satcar77";
     repo = "miband4";
-    rev = "4fdf6e9b4f4c5fd5c90b4ce2fbe5965d6bb82ea7";
-    hash = "sha256-vLY9NhlZPCqqLvv6yW6L2gt0zwGGrxDmQK9+Z3PLVqI=";
+    rev = "166f15bd6a3534fc1054501025a79d8d4db83f12";
+    hash = "sha256-18ymMXMZLvC3JDCVgvSOQYHg7U3s76HHdVmiQEoBJzo=";
   };
 
   dontUseSetuptoolsBuild = true;
@@ -34,7 +35,7 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "Access Xiaomi MiBand 4 from Linux using Bluetooth LE";
     inherit (src.meta) homepage;
-    license = licenses.free;
+    license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;

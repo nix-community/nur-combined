@@ -3,6 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "huami-token";
   version = "2021-10-30";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "argrento";
