@@ -28,11 +28,25 @@
 
     installFlags = ["PREFIX=$(out)"];
   };
+
+  zix = pkgs.stdenv.mkDerivation {
+    inherit (sources.zix) pname src version;
+
+    nativeBuildInputs = with pkgs; [
+      pkg-config
+      meson
+      ninja
+    ];
+
+    buildInputs = with pkgs; [glib];
+
+    mesonFlags = ["-Ddocs=disabled"];
+  };
 in
   pkgs.stdenv.mkDerivation rec {
     inherit (sources.zrythm) pname version src;
+
     nativeBuildInputs = with pkgs; [
-      pkg-config
       help2man
       jq
       libaudec
@@ -40,13 +54,14 @@ in
       meson
       ninja
       pandoc
+      pkg-config
       python3
       python3.pkgs.sphinx
       texi2html
       wrapGAppsHook
     ];
+
     buildInputs = with pkgs; [
-      SDL2
       alsa-lib
       bash-completion
       boost
@@ -73,8 +88,8 @@ in
       libjack2
       libpanel
       libpulseaudio
-      libsForQt5.breeze-icons
       libsamplerate
+      libsForQt5.breeze-icons
       libsndfile
       libsoundio
       libyaml
@@ -87,19 +102,20 @@ in
       rtmidi
       rubberband
       sassc
+      SDL2
       serd
       sord
       sratom
       vamp-plugin-sdk
       xdg-utils
       xxHash
+      zix
       zstd
     ];
 
     mesonFlags = [
       "-Db_lto=false"
       "-Ddebug=true"
-      "-Dextra_extra_optimizations=true"
       "-Dextra_optimizations=true"
       "-Dlsp_dsp=disabled"
       "-Dmanpage=true"
@@ -112,12 +128,6 @@ in
       "-Dsdl=enabled"
       "-Dfftw3_threads_separate=false"
     ];
-
-    # for some reason meson can't find zix when it's build as a pkgconfig package and inserted into buildInputs
-    # therefore we link its source to zrythm's source dir so it's treated as a kinda vendored dependency
-    prePatch = ''
-      ln -s ${sources.zix.src} subprojects/zix
-    '';
 
     postPatch = ''
       chmod +x scripts/meson-post-install.sh

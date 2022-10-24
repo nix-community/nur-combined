@@ -41,7 +41,7 @@
     },
     "carla": {
         "cargoLocks": null,
-        "date": "2022-10-22",
+        "date": "2022-10-24",
         "extract": null,
         "name": "carla",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "falkTX",
             "repo": "Carla",
-            "rev": "de6833ab6064f08b7b3d0ecb02eec9163fcaba92",
-            "sha256": "sha256-kNnfE/e6wabniB0BhHNTlcgnI1lIS8pGDKGphUDmIPM=",
+            "rev": "3c10dcee953fb2af12eebac5578bc64f266ee0ec",
+            "sha256": "sha256-kvIFMOOVMhxRoAEqEVDuhqibMtVVknBOxclEffKX2TE=",
             "type": "github"
         },
-        "version": "de6833ab6064f08b7b3d0ecb02eec9163fcaba92"
+        "version": "3c10dcee953fb2af12eebac5578bc64f266ee0ec"
     },
     "dmenu-flexipatch": {
         "cargoLocks": null,
@@ -261,7 +261,7 @@
     },
     "st-flexipatch": {
         "cargoLocks": null,
-        "date": "2022-10-17",
+        "date": "2022-10-24",
         "extract": null,
         "name": "st-flexipatch",
         "passthru": null,
@@ -273,11 +273,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "st-flexipatch",
-            "rev": "6ce9ec69ade63fd32c3768cfc96ff1bdad4f5076",
-            "sha256": "sha256-2q8RTZp4/Y3UsezZo/azR+vSjCyNYgJqLw0qIwcdGTg=",
+            "rev": "d8529b66a477fb65de13cd1a15610cb86e06341a",
+            "sha256": "sha256-YOmQT+F3FaXrv5Xq+WSWTavJMMCab08BOgFIdh6Ko5U=",
             "type": "github"
         },
-        "version": "6ce9ec69ade63fd32c3768cfc96ff1bdad4f5076"
+        "version": "d8529b66a477fb65de13cd1a15610cb86e06341a"
     },
     "taffybar": {
         "cargoLocks": null,
@@ -341,7 +341,7 @@
     },
     "zix": {
         "cargoLocks": null,
-        "date": "2022-10-07",
+        "date": "2022-10-23",
         "extract": null,
         "name": "zix",
         "passthru": null,
@@ -353,11 +353,11 @@
             "name": null,
             "owner": "drobilla",
             "repo": "zix",
-            "rev": "98fdc7a3e012c177f23eeee7de7076339860ca3e",
-            "sha256": "sha256-mTv0kNJtei48K+/QGfleHw9RXX39AWaUTvvUP/14X0I=",
+            "rev": "bc4b359747466f760f8861dad6d99d7005ff6a04",
+            "sha256": "sha256-n357/TEyreZdnYntDQLb1ujQEv/w2gG3DqAuYyIP4/Y=",
             "type": "github"
         },
-        "version": "98fdc7a3e012c177f23eeee7de7076339860ca3e"
+        "version": "bc4b359747466f760f8861dad6d99d7005ff6a04"
     },
     "zmusic": {
         "cargoLocks": null,
@@ -381,7 +381,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2022-10-22",
+        "date": "2022-10-25",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -391,11 +391,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "85a6c06ffacbb619d584c0107b6bb4c51a4a7c0b",
-            "sha256": "sha256-f+F3Gole0ZJGSj2n9OLd+d7L9HRkhPTk/pMLZc64G3A=",
+            "rev": "abbe24d71d09de6718d40321390b7ae96b1f6b3b",
+            "sha256": "sha256-0y67QAfOO/W+2O1lUPbTxq/02oZ2ibphwQEwgp2vRXY=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "85a6c06ffacbb619d584c0107b6bb4c51a4a7c0b"
+        "version": "abbe24d71d09de6718d40321390b7ae96b1f6b3b"
     }
 }
