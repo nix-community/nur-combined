@@ -6,7 +6,6 @@
     htop
     silver-searcher
     fzf
-    bat
     apg
     glow
     smug
