@@ -31,17 +31,18 @@
 , libevent
 , curl
 , coeurl
+, re2
 }:
 
 mkDerivation rec {
   pname = "nheko";
-  version = "unstable-2022-08-30";
+  version = "unstable-2022-10-19";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "130e1b43fbc62eec1d3a5add8e15b1ef8863dcff";
-    sha256 = "sha256-PaILsDykG+n+2LKKC6QgWpLbp6zBQYdhd2Ph4/P+5pI=";
+    rev = "74128cf8bd4d22bc001d840f5b6f7510cc400327";
+    sha256 = "sha256-zz0fE1KaKOv5QYzltnepx0dBmH4YM5SkFTGBFSzk8hw=";
   };
 
   nativeBuildInputs = [
@@ -70,6 +71,7 @@ mkDerivation rec {
     libevent
     curl
     coeurl
+    re2
   ] ++ lib.optional stdenv.isDarwin qtmacextras
     ++ lib.optionals voipSupport (with gst_all_1; [
       gstreamer

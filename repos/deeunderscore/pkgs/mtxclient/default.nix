@@ -13,16 +13,17 @@
 , libevent
 , curl
 , coeurl
+, re2
 }:
 stdenv.mkDerivation rec {
   pname = "mtxclient";
-  version = "unstable-2022-08-30";
+  version = "unstable-2022-10-17";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
-    rev = "43e88905659b027bc47c40fe0d31cf28fd639ef9";
-    sha256 = "sha256-i5reNWwqybYWSFHKZ0JAG1elSTVyDSnXDJuck74T4p0=";
+    rev = "e139f8b98fb2cfb0d89b44b63af86d037c2f2c55";
+    sha256 = "sha256-qhkogVSulxuh1O3nFhSSKaO8qOSetQeB9DkM2ylZ9is=";
   };
 
   cmakeFlags = [
@@ -51,6 +52,7 @@ stdenv.mkDerivation rec {
     libevent
     curl
     coeurl
+    re2
   ];
 
   meta = with lib; {
