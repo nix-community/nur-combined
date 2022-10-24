@@ -37,7 +37,7 @@
 
     nextcloud-client
     gimp
-    unstable.inkscape-with-extensions
+    #unstable.inkscape-with-extensions
     blender
     libreoffice
     spotify

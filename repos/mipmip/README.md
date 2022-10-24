@@ -20,5 +20,14 @@ showing my writing environment.
 
 ![writing in vim](./docs/gelukkigmetvim.png)
 
+### TODO
+
+unstable packages
+comma package
+billquick
+darwin confs
+vm ware confs
+minimal homemanager conf
+
 
 

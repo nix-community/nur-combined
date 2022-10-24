@@ -5,6 +5,7 @@
     bat
     tldr
     cheat
+    httpie
     xh
     duf
   ]

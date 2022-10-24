@@ -7,9 +7,9 @@
   environment.systemPackages = with pkgs; [
     pre-commit
     aws-mfa
-    unstable.cloud-nuke
+    #unstable.cloud-nuke
     awsweeper
-    unstable.aws-nuke
+    #unstable.aws-nuke
     awscli2
     aws-vault
     drawio
@@ -21,7 +21,7 @@
     pass
     pinentry-gtk2
     graphviz
-    unstable.terracognita
+    #unstable.terracognita
     #RANDSTAD
     citrix_workspace
     sq

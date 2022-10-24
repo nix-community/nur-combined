@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  nixpkgs.config.packageOverrides = pkgs: {
   environment.systemPackages =
     let
       comma = (import (pkgs.fetchFromGitHub {

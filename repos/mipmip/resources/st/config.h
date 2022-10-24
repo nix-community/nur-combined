@@ -37,7 +37,7 @@ static float cwscale = 1.0;
 static float chscale = 1.0;
 
 /* line height cycle with fonts. should be same size at fonts array */
-static float chscales[] = { 1.0, 1.5 };
+static float chscales[] = { 1.0, 1.2 };
 
 /*
  * word delimiter string

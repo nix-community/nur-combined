@@ -108,6 +108,14 @@
             {
                 "key": "Shift + CTRL + J/K",
                 "description": "Scale fonts"
+            },
+            {
+                "key": "Shift + CTRL + F1-F4",
+                "description": "Set BG Color"
+            },
+            {
+                "key": "Shift + CTRL + S",
+                "description": "Cycle fonts"
             }
         ]
     },

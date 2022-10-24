@@ -4,8 +4,8 @@
 
   nixpkgs.config.packageOverrides = pkgs: {
 
-    unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-    nixos05 = import <nixos05> { config = { allowUnfree = true; }; };
+    #unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+    #nixos05 = import <nixos05> { config = { allowUnfree = true; }; };
 
     nix-software-center = (import (pkgs.fetchFromGitHub {
       owner = "vlinkz";
