@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.8.9.0";
+      version = "2.9.0.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016551/bypass_paywalls_clean-2.8.9.0.xpi";
-      sha256 = "495332975143acca4d2accfe478b2a0dae59556768435cef00ad78a4d5414308";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019911/bypass_paywalls_clean-2.9.0.0.xpi";
+      sha256 = "f54711550b84e860833654fb716d0241b842fddcf923d2c3f313e18ab6321de2";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221020.202724";
+      version = "107.0buildid20221023.190001";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4018808/francais_language_pack-107.0buildid20221020.202724.xpi";
-      sha256 = "a06d8cd02ea29599aa8f2ff3a69b9e4e40fa37fcfb90b7b1ad978a4a41567b66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019979/francais_language_pack-107.0buildid20221023.190001.xpi";
+      sha256 = "479eb49723bbcff4d4d0cebcd5b99adac7af56d75734eb6462d713d3f0aafcb3";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1265,10 +1265,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.3.2";
+      version = "2.3.3";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019033/libredirect-2.3.2.xpi";
-      sha256 = "254de86a091b929a77991d98bb4b68294deb801105e0849487dca01df2fb5d07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019676/libredirect-2.3.3.xpi";
+      sha256 = "71502280f26b0621a5f335bc9b86d407ed2d6bec3edd172d5a705769a7a4ef3f";
       meta = with lib;
       {
         homepage = "https://libredirect.codeberg.page";
