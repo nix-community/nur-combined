@@ -33,8 +33,9 @@ def bring(app: str, origin: Path):
     mkdirp(DEST_DIR)
     if origin.is_file():
         try:
-            copy2(origin, DEST_DIR)
+            run("git", "annex" "unlock", str(DEST_DIR), check = True)
             log(f"Copying '{origin}'")
+            copy2(origin, DEST_DIR)
         except SameFileError:
             pass
         return
@@ -61,7 +62,7 @@ except Exception as e:
     raise e
 finally:
     run("git annex add .", shell = True, check = True)
-    run("git annex sync", shell = True, check = True)
+    run("git", "annex", "sync", "--content", "-C", STATE_BACKUP_DIR, check = True)
     run("git push", shell = True)
 
 run(["notify-send", "Execução do backup finalizada"])

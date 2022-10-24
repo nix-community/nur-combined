@@ -31,6 +31,7 @@ in {
     # intel-compute-runtime # OpenCL
     distrobox # plan b
     git-annex
+    git-remote-gcrypt
     appimage-wrap
   ];
 
