@@ -7,8 +7,7 @@
 
 let
   pname = "finplot";
-  # WTNG: Numpy is blocking update to 1.8.2.
-  version = "1.8";
+  version = "1.8.4";
   owner = "highfestiva";
 in
 python3.pkgs.buildPythonPackage rec {
@@ -19,7 +18,7 @@ python3.pkgs.buildPythonPackage rec {
     inherit owner;
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-MzS9ogRysx50DDHnV/tSKrm6xG3f3n746oSienX5mX4=";
+    hash = "sha256-jXIN3iKGA4cViKxRC6rrBMte5A1FVHCfyf0rXJA3m9Q=";
   };
 
   nativeBuildInputs = [ wrapQtAppsHook ];
