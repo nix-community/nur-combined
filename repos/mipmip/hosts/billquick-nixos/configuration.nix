@@ -20,6 +20,7 @@ in
         ../../modules/dev-technative.nix
         ../../modules/office-communication.nix
         ../../modules/docker.nix
+        ../../modules/modern-unix.nix
         ../../modules/vim-large.nix
         ../../modules/workstation.nix
         ../../modules/workstation-pkg.nix

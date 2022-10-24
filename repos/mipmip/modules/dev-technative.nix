@@ -23,7 +23,7 @@
     graphviz
     #unstable.terracognita
     #RANDSTAD
-    citrix_workspace
+#    citrix_workspace
     sq
     terraform-docs
     terrascan
