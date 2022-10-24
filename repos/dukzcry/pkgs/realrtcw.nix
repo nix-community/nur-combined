@@ -1,4 +1,4 @@
-{ callPackage, fetchFromGitHub, iortcw_sp, libjpeg_original, opusfile }:
+{ callPackage, fetchFromGitHub, iortcw_sp, libjpeg_original }:
 
 iortcw_sp.overrideAttrs (oldAttrs: rec {
   pname = "RealRTCW";
@@ -15,7 +15,7 @@ iortcw_sp.overrideAttrs (oldAttrs: rec {
 
   hardeningDisable = [ "format" ];
 
-  buildInputs = [ libjpeg_original opusfile ] ++ oldAttrs.buildInputs;
+  buildInputs = [ libjpeg_original ] ++ oldAttrs.buildInputs;
 
   meta = oldAttrs.meta // {
     description = "RealRTCW mod based on ioRTCW engine";
