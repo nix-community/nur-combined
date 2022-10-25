@@ -160,7 +160,7 @@ runs:
 
     - name: Upload build logs
       if: always()
-      uses: actions/upload-artifact@v3.1.0
+      uses: actions/upload-artifact@v3.1.1
       with:
         name: build-logs-${{inputs.system}}-${{github.job}}-${{strategy.job-index}}
         path: ".build/logs/*"
