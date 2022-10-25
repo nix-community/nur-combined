@@ -14,10 +14,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    fileSystems."/mnt/data" = {
+    fileSystems."/data" = {
       device = "10.0.0.1:/data";
       fsType = "nfs";
-      options = [ "x-systemd.automount" "noauto" ];
+      options = [ "x-systemd.automount" "noauto" "soft" ];
     };
     environment = {
       systemPackages = with pkgs; [
