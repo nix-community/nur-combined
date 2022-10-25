@@ -9,6 +9,7 @@
 , pytest
 , pyyaml
 , requests
+, rtoml
 , setuptools
 , tomlkit
 , librouteros
@@ -16,20 +17,20 @@
 
 buildPythonPackage rec {
   pname = "bundlewrap";
-  version = "4.13.6";
+  version = "4.15.0";
 
-  disabled = pythonOlder "3.6";
+  disabled = pythonOlder "3.7";
 
   src = fetchFromGitHub {
     owner = "bundlewrap";
     repo = "bundlewrap";
     rev = "${version}";
-    sha256 = "0r6645kfylx08xx2pv233vcywsan23w8i899jdwdvbzg8132vcgl";
+    sha256 = "sha256-O31lh43VyaFnd/IUkx44wsgxkWubZKzjsKXzHwcGox0";
   };
 
   propagatedBuildInputs = [
     cryptography jinja2 Mako passlib pyyaml requests setuptools tomlkit librouteros
-  ];
+  ] ++ lib.optional (pythonOlder "3.11") [ rtoml ];
 
   checkInputs = [ pytest ];
 
