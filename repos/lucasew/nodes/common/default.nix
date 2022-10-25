@@ -25,10 +25,10 @@ in
 
   boot.loader.grub.memtest86.enable = true;
 
-  virtualisation.podman = {
+  virtualisation.docker = {
     enable = true;
-    dockerSocket.enable = true;
-    dockerCompat = true;
+    # dockerSocket.enable = true;
+    # dockerCompat = true;
     enableNvidia = true;
   };
   boot.enableContainers = false;

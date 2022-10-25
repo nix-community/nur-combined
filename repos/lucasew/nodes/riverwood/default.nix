@@ -77,25 +77,27 @@ in
  
   nix.distributedBuilds = true;
   nix.buildMachines = [
-    {
-      hostName = "192.168.100.52"; # pc dos testes
-      sshUser = "lucasew";
-      system = "x86_64-linux";
-      sshKey = "/etc/ssh/ssh_host_ed25519_key";
-      maxJobs = 4;
-      speedFactor = 2;
-      supportedFeatures = [ "big-parallel" "kvm" ];
-    }
-    {
-      hostName = "192.168.69.1"; # whiterun
-      sshUser = "lucasew";
-      system = "x86_64-linux";
-      sshKey = "/etc/ssh/ssh_host_ed25519_key";
-      maxJobs = 12;
-      speedFactor = 4;
-      supportedFeatures = [ "big-parallel" "kvm" ];
-    }
+    # {
+    #   hostName = "192.168.100.52"; # pc dos testes
+    #   sshUser = "lucasew";
+    #   system = "x86_64-linux";
+    #   sshKey = "/etc/ssh/ssh_host_ed25519_key";
+    #   maxJobs = 4;
+    #   speedFactor = 2;
+    #   supportedFeatures = [ "big-parallel" "kvm" ];
+    # }
+    # {
+    #   hostName = "192.168.69.1"; # whiterun
+    #   sshUser = "lucasew";
+    #   system = "x86_64-linux";
+    #   sshKey = "/etc/ssh/ssh_host_ed25519_key";
+    #   maxJobs = 12;
+    #   speedFactor = 4;
+    #   supportedFeatures = [ "big-parallel" "kvm" ];
+    # }
   ];
+
+  services.dotd."trab/nhaa".enable = true;
 
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_5_15;

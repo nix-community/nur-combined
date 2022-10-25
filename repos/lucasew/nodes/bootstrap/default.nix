@@ -11,6 +11,7 @@ in {
     ./ssh.nix
     ./colors.nix
     ./motd.nix
+    ./dotd.nix
   ];
   
   boot.cleanTmpDir = true;

@@ -10,7 +10,7 @@ in {
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia
-    ./kubernetz.nix
+    # ./kubernetz.nix
     ./sshfs.nix
     ./plymouth.nix
   ];
