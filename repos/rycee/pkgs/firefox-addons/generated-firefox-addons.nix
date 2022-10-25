@@ -127,10 +127,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.6.4";
+      version = "0.6.5";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017803/auto_tab_discard-0.6.4.xpi";
-      sha256 = "6c7ce240cf617cac1070239341dafb0f22ced67de44220b38812e02de48e2023";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019536/auto_tab_discard-0.6.5.xpi";
+      sha256 = "1823795d78dea1cb34e49285834a7953aa4838b100e0fee3044fe30315ee705c";
       meta = with lib;
       {
         homepage = "http://add0n.com/tab-discard.html";
@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.3";
+      version = "2.0.117.4";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019070/enhancer_for_youtube-2.0.117.3.xpi";
-      sha256 = "8c12346623af1eb873a99f18649b81b2229bdbe37a79807033fa674e5bdfdce8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4020367/enhancer_for_youtube-2.0.117.4.xpi";
+      sha256 = "dd10934b540770dc69bd11770d66ab333f9fe8412b9d416aa7092e836f9f5ec6";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -903,10 +903,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "1.16";
+      version = "1.17";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4011327/gitpod-1.16.xpi";
-      sha256 = "f18716b56f81a529b0ac3b8063ee80f9d05a1769f536659f84fb759c5cdb9d5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4020297/gitpod-1.17.xpi";
+      sha256 = "e7131b5d870c41ed77ee6a219bfa8d449e4682f867864324a7b42aaca3a4a860";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -1157,10 +1157,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.2.2";
+      version = "1.8.3";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001390/keepassxc_browser-1.8.2.2.xpi";
-      sha256 = "586db406dcdeaa62a0421884c7e3fd5a6ed8964a7d182eeec33673e797a0f4ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4020279/keepassxc_browser-1.8.3.xpi";
+      sha256 = "d214b340068d61d09e8393802b1df25b3a7554d2b8b41a482ca4b14f79e1e50a";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1265,10 +1265,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.3.3";
+      version = "2.3.4";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019676/libredirect-2.3.3.xpi";
-      sha256 = "71502280f26b0621a5f335bc9b86d407ed2d6bec3edd172d5a705769a7a4ef3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4020597/libredirect-2.3.4.xpi";
+      sha256 = "2e9e956a2ea123a4785999c9f18c352d3e2f6f6e152223b16dfaa73f291960b5";
       meta = with lib;
       {
         homepage = "https://libredirect.codeberg.page";
@@ -1426,10 +1426,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.57";
+      version = "2.6.58";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017741/momentumdash-2.6.57.xpi";
-      sha256 = "1be9ce928647787c639a97a7585a93fb38f8a7c452fc08d3c36b18d73dafa86b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4020602/momentumdash-2.6.58.xpi";
+      sha256 = "e7608e2d2e20ec2ef03e73d6175846d92d98aed4486b60cce7335825b42a5208";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.23";
+      version = "1.21.24";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4018118/single_file-1.21.23.xpi";
-      sha256 = "1c51ccb8b2cb6ee68cd94b8b69b0a2875a0eb7b9383dc0f342be5e38135fdc11";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019568/single_file-1.21.24.xpi";
+      sha256 = "72bb74c13a772148e67f6089f384e268a7b109ce9507a5eeb852eeb210f6e024";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2335,10 +2335,10 @@
       };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.0.6";
+      version = "1.1.1";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3943498/surfingkeys_ff-1.0.6.xpi";
-      sha256 = "73085800f37ec23bd03ab7df4daba9fc4a69476f6a5f6b8c993969b58a3090a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4020296/surfingkeys_ff-1.1.1.xpi";
+      sha256 = "3cd552b9f68f7960fb003638416b3654dcd05b02acbe31ea5cf78a72580ef261";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
