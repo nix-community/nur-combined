@@ -28,10 +28,10 @@
       };
 
       overlays = import ./overlays // {
-        pkgs = final: prev: import ./pkgs/top-level/all-packages.nix { pkgs = prev; };
+        pkgs = _final: prev: import ./pkgs/top-level/all-packages.nix { pkgs = prev; };
       };
 
-      overlay = final: prev: {
+      overlay = _final: _prev: {
         xeals = nixpkgs.lib.composeExtensions self.overlays.pkgs;
       };
 
@@ -41,7 +41,7 @@
           xPkgs = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
         in
         lib.filterAttrs
-          (attr: drv: builtins.elem system (drv.meta.platforms or [ ]))
+          (_attr: drv: builtins.elem system (drv.meta.platforms or [ ]))
           xPkgs);
 
       apps = forAllSystems (system:

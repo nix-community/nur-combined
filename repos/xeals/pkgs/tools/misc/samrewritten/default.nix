@@ -1,8 +1,6 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, makeWrapper
-
 , curl
 , gnumake
 , gnutls

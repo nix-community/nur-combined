@@ -20,14 +20,16 @@ let
     inherit lib;
   };
 
-in lib.makeScope newScope (self: lib.makeOverridable ({
-  jetbrainsPlugins ? mkJetbrainsPlugins self
-  , ideaPlugins ? mkIdeaPlugins self
-}: ({ }
-  // jetbrainsPlugins // { inherit jetbrainsPlugins; }
-  // ideaPlugins // { inherit ideaPlugins; }
-  // {
+in
+lib.makeScope newScope (self: lib.makeOverridable
+  ({ jetbrainsPlugins ? mkJetbrainsPlugins self
+   , ideaPlugins ? mkIdeaPlugins self
+   }: ({ }
+    // jetbrainsPlugins // { inherit jetbrainsPlugins; }
+    // ideaPlugins // { inherit ideaPlugins; }
+    // {
     inherit variant;
     jetbrainsWithPlugins = jetbrainsWithPlugins self variant;
   })
-) { })
+  )
+  { })

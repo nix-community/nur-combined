@@ -42,7 +42,7 @@ rec {
 
   pam_gnupg = pkgs.callPackage ../os-specific/linux/pam_gnupg { };
 
-  picom-animations = pkgs.picom.overrideAttrs (oldAttrs: {
+  picom-animations = pkgs.picom.overrideAttrs (_oldAttrs: {
     pname = "picom-animations";
     src = pkgs.fetchFromGitHub {
       owner = "jonaburg";

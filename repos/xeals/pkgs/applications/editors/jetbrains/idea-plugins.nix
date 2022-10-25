@@ -9,21 +9,25 @@ let
     jetbrainsPlatforms = [ "idea-community" "idea-ultimate" ];
   };
 
-  generateIdea = lib.makeOverridable ({
-    idea ? ./manual-idea-packages.nix
-  }: let
+  generateIdea = lib.makeOverridable (
+    { idea ? ./manual-idea-packages.nix
+    }:
+    let
 
-    imported = import idea {
-      inherit (self) callPackage;
-    };
+      imported = import idea {
+        inherit (self) callPackage;
+      };
 
-    super = imported;
+      super = imported;
 
-    overrides = { };
+      overrides = { };
 
-    ideaPlugins = super // overrides;
+      ideaPlugins = super // overrides;
 
-  in ideaPlugins // { inherit ideaBuild; });
+    in
+    ideaPlugins // { inherit ideaBuild; }
+  );
 
-in generateIdea { }
+in
+generateIdea { }
 

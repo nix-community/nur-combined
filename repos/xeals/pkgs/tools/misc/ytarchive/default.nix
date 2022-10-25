@@ -3,7 +3,8 @@
 , fetchFromGitHub
 
 , python3
-, ffmpeg }:
+, ffmpeg
+}:
 
 stdenv.mkDerivation rec {
   pname = "ytarchive";

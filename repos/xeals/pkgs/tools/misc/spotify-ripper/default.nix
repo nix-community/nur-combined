@@ -1,24 +1,30 @@
-{ stdenv
-, lib
+{ lib
 , fetchFromGitHub
 
 , python3Packages
 , lame
 
-, aacSupport ? false, faac
-, alacSupport ? false, libav
-, flacSupport ? false, flac
-, m4aSupport ? false, mp4Support ? false, fdk-aac-encoder
-, oggSupport ? false, vorbisTools
-, opusSupport ? false, opusTools
+, aacSupport ? false
+, faac
+, alacSupport ? false
+, libav
+, flacSupport ? false
+, flac
+, m4aSupport ? false
+, mp4Support ? false
+, fdk-aac-encoder
+, oggSupport ? false
+, vorbisTools
+, opusSupport ? false
+, opusTools
 }:
 
-assert aacSupport               -> faac.meta.available;
-assert alacSupport              -> libav.meta.available;
-assert flacSupport              -> flac.meta.available;
+assert aacSupport -> faac.meta.available;
+assert alacSupport -> libav.meta.available;
+assert flacSupport -> flac.meta.available;
 assert m4aSupport || mp4Support -> fdk-aac-encoder.meta.available;
-assert oggSupport               -> vorbisTools.meta.available;
-assert opusSupport              -> opusTools.meta.available;
+assert oggSupport -> vorbisTools.meta.available;
+assert opusSupport -> opusTools.meta.available;
 
 python3Packages.buildPythonApplication rec {
   pname = "spotify-ripper";

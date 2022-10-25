@@ -1,16 +1,12 @@
 { stdenv
 , lib
 , fetchFromGitLab
-, fetchzip
-
 , cereal
 , cmake
-, git
 , libGL
 , libX11
 , libinput
 , libxkbcommon
-, mesa
 , meson
 , ninja
 , pixman

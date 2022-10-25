@@ -21,21 +21,25 @@ let
     ];
   };
 
-  generateCommon = lib.makeOverridable ({
-    common ? ./manual-common-packages.nix
-  }: let
+  generateCommon = lib.makeOverridable (
+    { common ? ./manual-common-packages.nix
+    }:
+    let
 
-    imported = import common {
-      inherit (self) callPackage;
-    };
+      imported = import common {
+        inherit (self) callPackage;
+      };
 
-    super = imported;
+      super = imported;
 
-    overrides = { };
+      overrides = { };
 
-    jetbrainsPlugins = super // overrides;
+      jetbrainsPlugins = super // overrides;
 
-  in jetbrainsPlugins // { inherit commonBuild; });
+    in
+    jetbrainsPlugins // { inherit commonBuild; }
+  );
 
-in generateCommon { }
+in
+generateCommon { }
 
