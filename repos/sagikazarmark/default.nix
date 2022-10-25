@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   sf-pro = pkgs.callPackage ./pkgs/sf-pro { };
+  temporalite = pkgs.callPackage ./pkgs/temporalite { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
