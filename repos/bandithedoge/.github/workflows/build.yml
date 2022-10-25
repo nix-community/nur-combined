@@ -68,7 +68,7 @@ jobs:
             -I $PWD
 
       - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs --show-trace
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
