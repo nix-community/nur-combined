@@ -15,12 +15,19 @@ let
   src = fetchFromGitHub {
     owner = "v2rayA";
     repo = "v2rayA";
-    rev = "v${version}";
-    sha256 = "sha256-h0ZYp/QY+UhQmhCiRkUAGy9zlkmDY7h+QxNzYvweJz0=";
+    rev = "11aa2b0a982989983fd086510f8fea864ed92deb";
+    sha256 = "sha256-da5fpbNQBRvXNUe0CRbW5CjLfxYRgLUX+nlsp1JnnmA=";
   };
   web = mkYarnPackage {
     inherit pname version;
     src = "${src}/gui";
+
+    postPatch = ''
+      substituteInPlace gui/yarn.lock \
+        --replace "sha512-DJ8vmYyRdq8oX2l1/sGNmJjAD1KGaVvhtNUtHPJLbXpe5GoZut5UFQLM4FoFK9eyoZA1Y7chJEmEkNfs9Bdjrw==" "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670" \
+        --replace "sha512-P1BJAEAW3E2DJUlkgq4tOL3RyMunoWXqbSCygWo5ZIWTjUgN1YnaXWW4VWl/oc8vs/XoYibEGBKP0uZyF4AHig=="  "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670"
+    '';
+
     offlineCache = fetchYarnDeps {
       yarnLock = src + "/gui/yarn.lock";
       sha256 = "sha256-2n9qD9AsMPplyhguVFULq7TQYpOpsrw6XXjptbOaYF8=";
