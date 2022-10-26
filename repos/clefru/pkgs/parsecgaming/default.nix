@@ -30,12 +30,13 @@ in buildFHSUserEnv {
     libGL
     libpulseaudio
     libsamplerate
-    libudev
+    udev
     libva
     libxkbcommon
     nas
     stdenv.cc.cc.lib
     vulkan-loader
+    openssl
     xorg.libX11
     xorg.libXScrnSaver
     xorg.libXcursor
