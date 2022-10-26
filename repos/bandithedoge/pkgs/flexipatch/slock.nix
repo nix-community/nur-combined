@@ -7,6 +7,7 @@ pkgs.stdenv.mkDerivation {
   version = sources.slock-flexipatch.date;
 
   buildInputs = with pkgs; [
+    libxcrypt
     xorg.libX11
     xorg.libXext
     xorg.libXrandr

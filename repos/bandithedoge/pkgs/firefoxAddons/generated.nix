@@ -19,10 +19,10 @@
   };
   "auto-tab-discard" = buildFirefoxXpiAddon {
     pname = "auto-tab-discard";
-    version = "0.6.4";
+    version = "0.6.5";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4017803/auto_tab_discard-0.6.4.xpi";
-    sha256 = "6c7ce240cf617cac1070239341dafb0f22ced67de44220b38812e02de48e2023";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4019536/auto_tab_discard-0.6.5.xpi";
+    sha256 = "1823795d78dea1cb34e49285834a7953aa4838b100e0fee3044fe30315ee705c";
     meta = with lib; {
       homepage = "http://add0n.com/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.117.3";
+    version = "2.0.117.4";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4019070/enhancer_for_youtube-2.0.117.3.xpi";
-    sha256 = "8c12346623af1eb873a99f18649b81b2229bdbe37a79807033fa674e5bdfdce8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4020367/enhancer_for_youtube-2.0.117.4.xpi";
+    sha256 = "dd10934b540770dc69bd11770d66ab333f9fe8412b9d416aa7092e836f9f5ec6";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";
@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "22.10.12";
+    version = "22.10.26.814";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4015172/refined_github-22.10.12.xpi";
-    sha256 = "3f84eb1a714d92721e17b85a480998f7b7d530a5eb3a9081bd6c1d4465efa6e9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4021486/refined_github-22.10.26.814.xpi";
+    sha256 = "7b78accbd392432779b6974c838df9bb879c28ec2af75f06a305cf39a151a4ef";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.633";
+    version = "0.1.0.636";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4019725/ruffle_rs-0.1.0.633.xpi";
-    sha256 = "14cb5dd2bcc9a0ca200098c6eec3b76d232f551c32a298998f75fc0e2b0be603";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4021369/ruffle_rs-0.1.0.636.xpi";
+    sha256 = "3c91afa8d05e35b4ae0f60f4d255360d52f465d57bc57903f6d82f05a02fea6c";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
