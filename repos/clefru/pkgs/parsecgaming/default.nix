@@ -37,6 +37,7 @@ in buildFHSUserEnv {
     stdenv.cc.cc.lib
     vulkan-loader
     openssl
+    ffmpeg_4
     xorg.libX11
     xorg.libXScrnSaver
     xorg.libXcursor
