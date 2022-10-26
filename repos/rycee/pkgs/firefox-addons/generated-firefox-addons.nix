@@ -462,10 +462,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.58";
+      version = "4.9.59";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005595/darkreader-4.9.58.xpi";
-      sha256 = "2adf7f533055e50a5d7840f5ea738577d58c14fac15fc3a62fb559829edb65ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019888/darkreader-4.9.59.xpi";
+      sha256 = "4180b53e40f82c3435bd7fc7cdb564bf29fd22a781c5e0db232e1e2b8f83e8c8";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221023.190001";
+      version = "107.0buildid20221025.185841";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019979/francais_language_pack-107.0buildid20221023.190001.xpi";
-      sha256 = "479eb49723bbcff4d4d0cebcd5b99adac7af56d75734eb6462d713d3f0aafcb3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021192/francais_language_pack-107.0buildid20221025.185841.xpi";
+      sha256 = "e0e4e3aea9911203b13066f48812ae7affd5aaac6b1b603fc352484d79c28aa6";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2871,10 +2871,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.6";
+      version = "3.4.7";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000725/windscribe-3.4.6.xpi";
-      sha256 = "b971be8fb833005d659ae53103fe8d990d15e0b33e95420ca1be35d4606eccf7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021336/windscribe-3.4.7.xpi";
+      sha256 = "307da4047eb7f27016b88e0f3c69a70ca73423c7360e1fc0ba4cb5a777ca281a";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
