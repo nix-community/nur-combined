@@ -2,7 +2,11 @@
 
 This is my mono-repository for my machines configuration and my dotfiles.
 
-_documentation is work in progress_
+## MacOS Provisioning
+
+For macOS provisioning I only use Home-Manager from Nix. Cli tools are declared
+in home-pim/programs/macos-bundle.nix. Other mac-apps are in
+home-pim/files-macos/Brewfile. Install them with `brew bundle install`
 
 ## Linux Desktop Highlights
 

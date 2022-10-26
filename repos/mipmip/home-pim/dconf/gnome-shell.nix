@@ -51,11 +51,6 @@ in
           "custom-menu-panel@AndreaBenini"
           "rrc@ogarcia.me"
           "trayIconsReloaded@selfmade.pl"
-#          "blur-me@nunchucks"
-#          "horizontal-workspace-indicator@tty2.io"
-#          "material-shell@papyelgringo"
-          #"titlebar-screenshot@jmaargh.github.com"
-          #"transparent-top-bar@ftpix.com"
           ];
           */
 

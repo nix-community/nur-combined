@@ -4,6 +4,6 @@
   imports =
     [
       ./shared-configuration.nix
-      ./hosts/billquick-darwin.nix
+      ./hosts/billquick-darwin/configuration.nix
     ];
 }
