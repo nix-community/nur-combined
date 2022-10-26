@@ -28,5 +28,6 @@
   shadow-tls = pkgs.callPackage ./pkgs/shadow-tls { };
   tuic = pkgs.callPackage ./pkgs/tuic { };
   techmino = pkgs.callPackage ./pkgs/techmino { };
+  naiveproxy = pkgs.callPackage ./pkgs/naiveproxy { };
   # ...
 }
