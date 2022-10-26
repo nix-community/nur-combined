@@ -113,5 +113,7 @@
   qpdfview = pkgs.libsForQt5.callPackage ./pkgs/qpdfview {
   };
 
+  unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
+
   #quickcpplib = pkgs.callPackage ./pkgs/quickcpplib { };
 }
