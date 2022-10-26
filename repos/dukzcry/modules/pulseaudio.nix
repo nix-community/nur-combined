@@ -20,7 +20,7 @@ in {
     '';
     bluetoothMic = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = ''
         Prevent output to bluetooth headphones, converting them into bluetooth microphone
       '';
