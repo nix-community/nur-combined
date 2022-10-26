@@ -188,11 +188,13 @@ kazhala/close-buffers.nvim
 kdheepak/monochrome.nvim
 keaising/im-select.nvim
 kevinhwang91/nvim-ufo
+kiran94/s3edit.nvim
 kkharji/sqlite.lua
 klen/nvim-test
 kmonad/kmonad-vim
 koenverburg/peepsight.nvim
 konapun/vacuumline.nvim
+kvrohit/mellow.nvim
 kvrohit/rasmus.nvim
 kyazdani42/blue-moon
 kylechui/nvim-surround
