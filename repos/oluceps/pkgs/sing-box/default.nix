@@ -29,6 +29,7 @@ buildGoModule rec {
     "with_quic"
     "with_grpc"
     "with_wireguard"
+    "with_utls"
     "with_ech"
     "with_gvisor"
     "with_clash_api"
