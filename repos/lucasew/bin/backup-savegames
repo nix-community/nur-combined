@@ -7,6 +7,7 @@ from os import environ, chdir
 from shutil import copy2, SameFileError
 from datetime import datetime
 from subprocess import run
+from sys import stdout, stderr
 
 HOME_DIR=Path.home()
 STATE_BACKUP_DIR=Path(environ["STATE_BACKUP_DIR"].replace("~", str(HOME_DIR)))
@@ -33,7 +34,7 @@ def bring(app: str, origin: Path):
     mkdirp(DEST_DIR)
     if origin.is_file():
         try:
-            run("git", "annex" "unlock", str(DEST_DIR), check = True)
+            run(["git", "annex", "unlock", str(DEST_DIR)], check = True, stdout=stdout, stderr=stderr)
             log(f"Copying '{origin}'")
             copy2(origin, DEST_DIR)
         except SameFileError:
@@ -46,7 +47,7 @@ def bring(app: str, origin: Path):
 
 
 mkdirp(STATE_BACKUP_DIR)
-chdir(STATE_BACKUP_DIR)
+chdir(str(STATE_BACKUP_DIR))
 
 try:
     if environ.get("SAVEGAMES_FOLDERS") is not None:
@@ -57,12 +58,11 @@ try:
                 if item.startswith("~"):
                     item.replace("~", str(HOME_DIR))
                 bring(app, item)
+    run(["git", "annex", "add", '.'], check=True, stdout=stdout, stderr=stderr)
+    run(["git", "annex", "sync", "--content", "-C", '.'], check = True, stdout=stdout, stderr=stderr)
+    run(["git", "push"], shell = True, stdout=stdout, stderr=stderr)
 except Exception as e:
-    run(["notify-send", f"Backup realizado com erro {str(type(e))}\nOs logs tem mais detalhes"], shell = True)
+    run(["notify-send", f"Backup realizado com erro {str(type(e))}\nOs logs tem mais detalhes"], shell = True, stdout=stdout, stderr=stderr)
     raise e
 finally:
-    run("git annex add .", shell = True, check = True)
-    run("git", "annex", "sync", "--content", "-C", STATE_BACKUP_DIR, check = True)
-    run("git push", shell = True)
-
-run(["notify-send", "Execução do backup finalizada"])
+    run(["notify-send", "Execução do backup finalizada"])

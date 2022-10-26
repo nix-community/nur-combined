@@ -4,12 +4,11 @@
   systemd.user.services."backup-saves" = {
     enable = true;
     description = "Backup some paths to a Git repo";
-    path = with pkgs; [ git openssh libnotify ];
+    path = with pkgs; [ git openssh libnotify git-annex git-remote-gcrypt rsync ];
     script = ''
       set -eu
-      SSH_AUTH_SOCK=/run/user/$(id -u)/ssh-agent
+      export SSH_AUTH_SOCK=/run/user/$(id -u)/ssh-agent
       ${pkgs.python3Packages.python.interpreter} ${../../bin/backup-savegames}
-      
     '';
     startAt = "*-*-* *:00:00"; # hourly, i guess
     environment = {
