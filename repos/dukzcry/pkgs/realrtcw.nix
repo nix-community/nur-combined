@@ -20,5 +20,6 @@ iortcw_sp.overrideAttrs (oldAttrs: rec {
   meta = oldAttrs.meta // {
     description = "RealRTCW mod based on ioRTCW engine";
     homepage = src.meta.homepage;
+    broken = true;
   };
 })
