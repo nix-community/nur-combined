@@ -74,7 +74,7 @@ Replaces VPPApiJSONFiles.find_api_dir with placeholder variable vpp
 -                return dir
 -
 -        return None
-+        return "@vpp@/share/vpp/api"
++        return "@vppApiSchemas@"
  
      @classmethod
      def find_api_files(cls, api_dir=None, patterns="*"):  # -> list

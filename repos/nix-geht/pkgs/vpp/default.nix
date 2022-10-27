@@ -2,7 +2,7 @@
 runtimeShell, python3,
 enableDpdk ? true,
 enableRdma ? stdenv.isLinux,
-enableAfXdp ? stdenv.isLinux}:
+enableAfXdp ? false}:
 
 assert (lib.asserts.assertMsg (!enableRdma || stdenv.isLinux) "Can't enable rdma_plugin - rdma-core only works on Linux");
 assert (lib.asserts.assertMsg (!enableAfXdp || stdenv.isLinux) "Can't enable af_xdp_plugin - Only exists on Linux");
@@ -103,13 +103,18 @@ in {
       ./vpp_papi-replace-find_api_dir.patch
     ];
 
-    postPatch = ''sh
+    postPatch = ''
       # Replace the placeholder with the nix store path of our dependency.
-      substituteInPlace vpp_papi/vpp_papi.py --subst-var-by vpp ${vpp}
+      substituteInPlace vpp_papi/vpp_papi.py --subst-var-by vppApiSchemas $out/share/vpp/api
 
       # Remove broken tests.
       rm vpp_papi/tests/test_vpp_papi.py # References old shmem transport, doesn't work with new variant. Ugh.
       rm vpp_papi/tests/test_vpp_serializer.py # Test wants logs DEBUG or higher, but none are triggered?
+    '';
+
+    postInstall = ''
+      mkdir -p $out/share/vpp/
+      cp -r ${vpp}/share/vpp/api $out/share/vpp
     '';
   };
 }
