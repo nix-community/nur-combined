@@ -21,6 +21,10 @@
 
         "miniflux/admin-credentials" = {};
 
+        "nextcloud/admin-pass" = {
+          owner = "nextcloud";
+        };
+
         "restic-backup/hades-credentials" = {};
         "restic-backup/hades-password" = {};
 

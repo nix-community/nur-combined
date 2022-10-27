@@ -76,12 +76,6 @@ in {
       enable = true;
     };
 
-    fava = {
-      enable = true;
-      port = 8084;
-      filePath = "accounts/current.beancount";
-    };
-
     jellyfin = {
       enable = true;
     };
@@ -91,19 +85,9 @@ in {
       port = 8083;
     };
 
-    monitoring = {
-      enable = true;
-      domain = "monitoring.${config.networking.domain}";
-    };
-
     navidrome = {
       enable = true;
       musicFolder.path = "${config.services.nextcloud.home}/data/alarsyo/files/Musique/Songs";
-    };
-
-    nextcloud = {
-      enable = true;
-      adminpassFile = config.age.secrets."nextcloud/admin-pass".path;
     };
 
     paperless = {

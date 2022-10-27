@@ -19,7 +19,7 @@ in {
 
   "miniflux/admin-credentials.age".publicKeys = [alarsyo hades];
 
-  "nextcloud/admin-pass.age".publicKeys = [alarsyo poseidon];
+  "nextcloud/admin-pass.age".publicKeys = [alarsyo hades];
 
   "paperless/admin-password.age".publicKeys = [alarsyo poseidon];
   "paperless/secret-key.age".publicKeys = [alarsyo poseidon];

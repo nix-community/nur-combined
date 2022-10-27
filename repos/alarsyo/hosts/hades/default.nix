@@ -73,6 +73,11 @@ in {
       privatePort = 8080;
     };
 
+    nextcloud = {
+      enable = true;
+      adminpassFile = config.age.secrets."nextcloud/admin-pass".path;
+    };
+
     photoprism = {
       enable = true;
       port = 8084;

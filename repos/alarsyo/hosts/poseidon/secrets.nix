@@ -17,10 +17,6 @@
 
         "lohr/shared-secret" = {};
 
-        "nextcloud/admin-pass" = {
-          owner = "nextcloud";
-        };
-
         "paperless/admin-password" = {};
         "paperless/secret-key" = {};
 
