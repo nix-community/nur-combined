@@ -1407,10 +1407,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.0.21";
+      version = "4.1.0";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3996739/modheader_firefox-4.0.21.xpi";
-      sha256 = "3e5099314ad725208eaa3079bc351e68caaf7249f58bf48c991ee8ac65976228";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021696/modheader_firefox-4.1.0.xpi";
+      sha256 = "5ee4c5e04649c55e501337f54572696777beccbc5197a101efc7a20d2c0ca320";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2071,10 +2071,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.12";
+      version = "22.10.26.814";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015172/refined_github-22.10.12.xpi";
-      sha256 = "3f84eb1a714d92721e17b85a480998f7b7d530a5eb3a9081bd6c1d4465efa6e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021486/refined_github-22.10.26.814.xpi";
+      sha256 = "7b78accbd392432779b6974c838df9bb879c28ec2af75f06a305cf39a151a4ef";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2293,10 +2293,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019291/statshunters-1.0.10.xpi";
-      sha256 = "8403c0fe1c308ed289736e943821c2c85ac112cbd98e3dae2f492ddc7f6a21a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021533/statshunters-1.0.11.xpi";
+      sha256 = "37cd6b78c4ddc452886afdfc8ba2e24206197d3565fd1f5fffda6441f96f8645";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
