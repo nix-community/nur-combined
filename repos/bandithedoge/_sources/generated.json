@@ -281,7 +281,7 @@
     },
     "taffybar": {
         "cargoLocks": null,
-        "date": "2022-10-10",
+        "date": "2022-10-26",
         "extract": null,
         "name": "taffybar",
         "passthru": null,
@@ -293,11 +293,11 @@
             "name": null,
             "owner": "taffybar",
             "repo": "taffybar",
-            "rev": "4129b2aed4349752dd9a1b47676d457883d95490",
-            "sha256": "sha256-nlClc8iPZhgn+95CmGuKMsueHdruPpYWBtUCD9fgDig=",
+            "rev": "8050417e576e6b5b6825132577a9d046efdd6b04",
+            "sha256": "sha256-ekXdAPf37WKejPeINjYCx6z74UCbVi8rCRLQnq113HM=",
             "type": "github"
         },
-        "version": "4129b2aed4349752dd9a1b47676d457883d95490"
+        "version": "8050417e576e6b5b6825132577a9d046efdd6b04"
     },
     "tailwindcss-intellisense": {
         "cargoLocks": null,
@@ -341,7 +341,7 @@
     },
     "zix": {
         "cargoLocks": null,
-        "date": "2022-10-25",
+        "date": "2022-10-26",
         "extract": null,
         "name": "zix",
         "passthru": null,
@@ -353,11 +353,11 @@
             "name": null,
             "owner": "drobilla",
             "repo": "zix",
-            "rev": "124355ee047073166345df58234ef38a2dffac25",
-            "sha256": "sha256-dIzdpTxBcTLnhemHAybrCVu7nuQkbakLXPZ3L9hVr9U=",
+            "rev": "67613373ec117e648d4554458cf2e9d54b9eba00",
+            "sha256": "sha256-qoUYG6Dybg6PPx4Mm+qqENP0D41L8+UyjBFHRYxrm2g=",
             "type": "github"
         },
-        "version": "124355ee047073166345df58234ef38a2dffac25"
+        "version": "67613373ec117e648d4554458cf2e9d54b9eba00"
     },
     "zmusic": {
         "cargoLocks": null,
@@ -381,7 +381,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2022-10-26",
+        "date": "2022-10-27",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -391,11 +391,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d87da2cb57c7f1b7aa5e8161d4d63a9c7ff98aec",
-            "sha256": "sha256-8hKmMPwVJL9g8QtsS0sWfZbaNn8evVzTi2S1MAl7iYI=",
+            "rev": "46085c93b03dd88d53251f8a12ae28a8ed76580b",
+            "sha256": "sha256-qEvUfFgomsAEDZel/vtMbxKk7+esk8Q2YKeQh7Qa0/A=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "d87da2cb57c7f1b7aa5e8161d4d63a9c7ff98aec"
+        "version": "46085c93b03dd88d53251f8a12ae28a8ed76580b"
     }
 }

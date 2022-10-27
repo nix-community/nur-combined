@@ -171,15 +171,15 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "4129b2aed4349752dd9a1b47676d457883d95490";
+    version = "8050417e576e6b5b6825132577a9d046efdd6b04";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "4129b2aed4349752dd9a1b47676d457883d95490";
+      rev = "8050417e576e6b5b6825132577a9d046efdd6b04";
       fetchSubmodules = false;
-      sha256 = "sha256-nlClc8iPZhgn+95CmGuKMsueHdruPpYWBtUCD9fgDig=";
+      sha256 = "sha256-ekXdAPf37WKejPeINjYCx6z74UCbVi8rCRLQnq113HM=";
     };
-    date = "2022-10-10";
+    date = "2022-10-26";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
@@ -207,15 +207,15 @@
   };
   zix = {
     pname = "zix";
-    version = "124355ee047073166345df58234ef38a2dffac25";
+    version = "67613373ec117e648d4554458cf2e9d54b9eba00";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "124355ee047073166345df58234ef38a2dffac25";
+      rev = "67613373ec117e648d4554458cf2e9d54b9eba00";
       fetchSubmodules = false;
-      sha256 = "sha256-dIzdpTxBcTLnhemHAybrCVu7nuQkbakLXPZ3L9hVr9U=";
+      sha256 = "sha256-qoUYG6Dybg6PPx4Mm+qqENP0D41L8+UyjBFHRYxrm2g=";
     };
-    date = "2022-10-25";
+    date = "2022-10-26";
   };
   zmusic = {
     pname = "zmusic";
@@ -230,15 +230,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "d87da2cb57c7f1b7aa5e8161d4d63a9c7ff98aec";
+    version = "46085c93b03dd88d53251f8a12ae28a8ed76580b";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "d87da2cb57c7f1b7aa5e8161d4d63a9c7ff98aec";
+      rev = "46085c93b03dd88d53251f8a12ae28a8ed76580b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-8hKmMPwVJL9g8QtsS0sWfZbaNn8evVzTi2S1MAl7iYI=";
+      sha256 = "sha256-qEvUfFgomsAEDZel/vtMbxKk7+esk8Q2YKeQh7Qa0/A=";
     };
-    date = "2022-10-26";
+    date = "2022-10-27";
   };
 }
