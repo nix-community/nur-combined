@@ -23,6 +23,7 @@
         # dev
         
         rustup
+        lilypond-with-fonts
         ;
 
       inherit (pkgs.packages) spot;
