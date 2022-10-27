@@ -25,8 +25,7 @@ let
        "i686-freebsd" "x86_64-freebsd" "aarch64-freebsd"
      ];
    };
-
-  # Ideally, this'd be down below, but I need it the JSON files for Python API. Maybe have a seperate build for *just* the Schemas?
+in rec {
   vpp = stdenv.mkDerivation rec {
     pname = "vpp";
     inherit version;
@@ -80,8 +79,6 @@ let
     # Link against system DPDK. Note that this is actually statically linked as well.
     ++ lib.optional enableDpdk "-DVPP_USE_SYSTEM_DPDK=true";
   };
-in {
-  inherit vpp;
 
   vpp_papi = python3.pkgs.buildPythonPackage rec {
     pname = "vpp_papi";

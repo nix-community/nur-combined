@@ -20,6 +20,9 @@ in
   vpp = vpp-pkgs.vpp;
 
   python3Packages = {
+    # Marker for ci.nix to also build this.
+    recurseForDerivations = true;
+
     vpp_papi = vpp-pkgs.vpp_papi;
   };
 }
