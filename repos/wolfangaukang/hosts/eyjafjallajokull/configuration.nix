@@ -21,6 +21,22 @@
 
   networking.hostName = "eyjafjallajokull";
 
+  # IMPERMANENCE
+  environment.persistence."/nix/persist" = {
+    hideMounts = true;
+    directories = [
+      "/etc/NetworkManager/system-connections"
+      "/etc/nixos"
+      "/etc/secrets/initrd"
+      "/home"
+      "/var/lib"
+      "/var/log"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
+
   profile = {
     nix = {
       enableAutoOptimise = true;

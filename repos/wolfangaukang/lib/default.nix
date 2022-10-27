@@ -21,8 +21,10 @@ in
     }:
 
     {
-      modules = [ ../hosts/${hostname}/configuration.nix ]
-        ++ extra-modules
+      modules = [
+        ../hosts/${hostname}/configuration.nix
+        inputs.impermanence.nixosModules.impermanence
+      ] ++ extra-modules
         ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( import ../hosts/common/hm-module.nix { inherit inputs hostname overlays username; } ) ];
     };
 

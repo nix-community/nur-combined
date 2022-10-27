@@ -9,6 +9,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
     nixgl.url = "github:guibou/nixGL";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nur.url = "github:nix-community/NUR";
@@ -20,7 +21,7 @@
     cloudflare-warp.url = "github:wolfangaukang/nixpkgs/cloudflare-warp-mod";
   };
 
-  outputs = { self, nur, home-manager, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, sab, utils, ly, cloudflare-warp }@inputs:
+  outputs = { self, nur, home-manager, impermanence, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, sab, utils, ly, cloudflare-warp }@inputs:
     let
       inherit (utils.lib) mkFlake exportModules;
 
