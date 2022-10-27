@@ -8,11 +8,18 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  vpp-pkgs = pkgs.callPackage ./pkgs/vpp { };
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  vpp = pkgs.callPackage ./pkgs/vpp { };
+  vpp = vpp-pkgs.vpp;
+
+  python3Packages = {
+    vpp_papi = vpp-pkgs.vpp_papi;
+  };
 }

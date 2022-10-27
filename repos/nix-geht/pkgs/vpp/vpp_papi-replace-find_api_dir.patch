@@ -1,0 +1,80 @@
+Replaces VPPApiJSONFiles.find_api_dir with placeholder variable vpp
+--- a/vpp_papi/vpp_papi.py
++++ b/vpp_papi/vpp_papi.py
+@@ -166,75 +166,7 @@ class VPPApiJSONFiles:
+             could be found.
+         """
+ 
+-        # perhaps we're in the 'src/scripts' or 'src/vpp-api/python' dir;
+-        # in which case, plot a course to likely places in the src tree
+-        import __main__ as main
+-
+-        if hasattr(main, "__file__"):
+-            # get the path of the calling script
+-            localdir = os.path.dirname(os.path.realpath(main.__file__))
+-        else:
+-            # use cwd if there is no calling script
+-            localdir = os.getcwd()
+-        localdir_s = localdir.split(os.path.sep)
+-
+-        def dmatch(dir):
+-            """Match dir against right-hand components of the script dir"""
+-            d = dir.split("/")  # param 'dir' assumes a / separator
+-            length = len(d)
+-            return len(localdir_s) > length and localdir_s[-length:] == d
+-
+-        def sdir(srcdir, variant):
+-            """Build a path from srcdir to the staged API files of
+-            'variant'  (typically '' or '_debug')"""
+-            # Since 'core' and 'plugin' files are staged
+-            # in separate directories, we target the parent dir.
+-            return os.path.sep.join(
+-                (
+-                    srcdir,
+-                    "build-root",
+-                    "install-vpp%s-native" % variant,
+-                    "vpp",
+-                    "share",
+-                    "vpp",
+-                    "api",
+-                )
+-            )
+-
+-        srcdir = None
+-        if dmatch("src/scripts"):
+-            srcdir = os.path.sep.join(localdir_s[:-2])
+-        elif dmatch("src/vpp-api/python"):
+-            srcdir = os.path.sep.join(localdir_s[:-3])
+-        elif dmatch("test"):
+-            # we're apparently running tests
+-            srcdir = os.path.sep.join(localdir_s[:-1])
+-
+-        if srcdir:
+-            # we're in the source tree, try both the debug and release
+-            # variants.
+-            dirs.append(sdir(srcdir, "_debug"))
+-            dirs.append(sdir(srcdir, ""))
+-
+-        # Test for staged copies of the scripts
+-        # For these, since we explicitly know if we're running a debug versus
+-        # release variant, target only the relevant directory
+-        if dmatch("build-root/install-vpp_debug-native/vpp/bin"):
+-            srcdir = os.path.sep.join(localdir_s[:-4])
+-            dirs.append(sdir(srcdir, "_debug"))
+-        if dmatch("build-root/install-vpp-native/vpp/bin"):
+-            srcdir = os.path.sep.join(localdir_s[:-4])
+-            dirs.append(sdir(srcdir, ""))
+-
+-        # finally, try the location system packages typically install into
+-        dirs.append(os.path.sep.join(("", "usr", "share", "vpp", "api")))
+-
+-        # check the directories for existence; first one wins
+-        for dir in dirs:
+-            if os.path.isdir(dir):
+-                return dir
+-
+-        return None
++        return "@vpp@/share/vpp/api"
+ 
+     @classmethod
+     def find_api_files(cls, api_dir=None, patterns="*"):  # -> list
