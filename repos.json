@@ -442,6 +442,9 @@
         "nix-data": {
             "url": "https://github.com/Jake-Gillberg/nix-data"
         },
+        "nix-geht": {
+            "url": "https://github.com/vifino/nix-geht"
+        },
         "nix-swift-packages": {
             "url": "https://github.com/dduan/nix-swift-packages"
         },
