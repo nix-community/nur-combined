@@ -11,5 +11,8 @@
     pkgs.tldr
     pkgs.yarn
     pkgs.yq
+    pkgs.smug
+    pkgs.unixtools.watch
+    pkgs.git-sync
   ];
 }
