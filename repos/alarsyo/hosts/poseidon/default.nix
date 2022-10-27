@@ -76,18 +76,9 @@ in {
       enable = true;
     };
 
-    jellyfin = {
-      enable = true;
-    };
-
     lohr = {
       enable = true;
       port = 8083;
-    };
-
-    navidrome = {
-      enable = true;
-      musicFolder.path = "${config.services.nextcloud.home}/data/alarsyo/files/Musique/Songs";
     };
 
     paperless = {
@@ -100,11 +91,6 @@ in {
     tailscale = {
       enable = true;
       exitNode = true;
-    };
-
-    transmission = {
-      enable = true;
-      username = "alarsyo";
     };
   };
 

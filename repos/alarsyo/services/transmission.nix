@@ -67,7 +67,7 @@ in {
         };
 
         # automatically allow transmission.settings.peer-port
-        openFirewall = true;
+        openPeerPorts = true;
       }
       // (optionalAttrs (cfg.secretConfigFile != null) {
         credentialsFile = cfg.secretConfigFile;
@@ -82,12 +82,12 @@ in {
       listen = [
         # FIXME: hardcoded tailscale IP
         {
-          addr = "100.80.61.67";
+          addr = "100.115.172.44";
           port = 443;
           ssl = true;
         }
         {
-          addr = "100.80.61.67";
+          addr = "100.115.172.44";
           port = 80;
           ssl = false;
         }

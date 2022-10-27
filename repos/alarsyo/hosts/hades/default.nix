@@ -62,6 +62,10 @@ in {
       privatePort = 8082;
     };
 
+    jellyfin = {
+      enable = true;
+    };
+
     matrix = {
       enable = true;
       secretConfigFile = config.age.secrets."matrix-synapse/secret-config".path;
@@ -71,6 +75,11 @@ in {
       enable = true;
       adminCredentialsFile = config.age.secrets."miniflux/admin-credentials".path;
       privatePort = 8080;
+    };
+
+    navidrome = {
+      enable = true;
+      musicFolder.path = "${config.services.nextcloud.home}/data/alarsyo/files/Musique/Songs";
     };
 
     nextcloud = {
@@ -94,6 +103,11 @@ in {
     tailscale = {
       enable = true;
       exitNode = true;
+    };
+
+    transmission = {
+      enable = true;
+      username = "alarsyo";
     };
   };
 
