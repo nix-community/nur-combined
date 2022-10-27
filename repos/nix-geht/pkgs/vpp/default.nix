@@ -1,25 +1,30 @@
 { stdenv, pkgs, lib,
 runtimeShell, python3,
 enableDpdk ? true,
-enableRdma ? true,
+enableRdma ? stdenv.isLinux,
 enableAfXdp ? false}:
 
+assert (lib.asserts.assertMsg (!enableRdma || stdenv.isLinux) "Can't enable rdma_plugin - rdma-core only works on Linux");
+assert (lib.asserts.assertMsg (!enableAfXdp || stdenv.isLinux) "Can't enable af_xdp_plugin - Only exists on Linux");
+
 let
-  version = "22.10-rc2";
+  version = "22.10";
   src = pkgs.fetchFromGitHub {
     owner = "FDio";
     repo = "vpp";
-    rev = "v${version}"; #"61bae8a54d14899337b0d0a7ca9b9367f6321951";
-    hash = "sha256-3b+cnEjbReCg+svVD4DZwgcLwoA/IDWTGoP9ALYZFR4=";
+    rev = "v${version}";
+    hash = "sha256-wyUjtyPZXYO9PAv48qDfm17WoTPwZr7sa+6s8zgmA1k=";
   };
   getMeta = description: with lib; {
      homepage = "https://fd.io/";
      inherit description;
      license = with licenses; [ asl20 ];
      maintainers = with maintainers; [ vifino ];
-     platforms = [ "x86_64-linux" "aarch64-linux" ];
+     platforms = [
+       "i686-linux" "x86_64-linux" "aarch64-linux"
+       "i686-freebsd" "x86_64-freebsd" "aarch64-freebsd"
+     ];
    };
-
 
   # Ideally, this'd be down below, but I need it the JSON files for Python API. Maybe have a seperate build for *just* the Schemas?
   vpp = stdenv.mkDerivation rec {
