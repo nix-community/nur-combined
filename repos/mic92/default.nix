@@ -96,7 +96,5 @@ rec {
 
   mailexporter = pkgs.callPackage ./pkgs/mailexporter { };
 
-  q = pkgs.callPackage ./pkgs/q { };
-
   modules = import ./modules;
 }
