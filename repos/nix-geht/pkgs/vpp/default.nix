@@ -2,7 +2,7 @@
 runtimeShell, python3,
 enableDpdk ? true,
 enableRdma ? stdenv.isLinux,
-enableAfXdp ? false}:
+enableAfXdp ? stdenv.isLinux}:
 
 assert (lib.asserts.assertMsg (!enableRdma || stdenv.isLinux) "Can't enable rdma_plugin - rdma-core only works on Linux");
 assert (lib.asserts.assertMsg (!enableAfXdp || stdenv.isLinux) "Can't enable af_xdp_plugin - Only exists on Linux");
@@ -55,7 +55,7 @@ let
     # af_xdp deps - broken: af_xdp plugins - no working libbpf found - af_xdp plugin disabled
     ++ lib.optional enableAfXdp libbpf
     # Shared deps for DPDK and AF_XDP
-    ++ lib.optional (enableDpdk || enableAfXdp) libelf;
+    ++ lib.optional (enableDpdk || enableAfXdp) elfutils;
 
     # Needs a few patches.
     patchPhase = ''
