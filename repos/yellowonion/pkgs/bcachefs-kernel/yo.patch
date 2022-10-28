@@ -1,0 +1,399 @@
+diff --git a/arch/um/Makefile b/arch/um/Makefile
+index f1d4d67157be..cf3e8972b468 100644
+--- a/arch/um/Makefile
++++ b/arch/um/Makefile
+@@ -21,7 +21,7 @@ ARCH_DIR := arch/um
+ OS := $(shell uname -s)
+ # We require bash because the vmlinux link and loader script cpp use bash
+ # features.
+-SHELL := /bin/bash
++SHELL := /usr/bin/env bash
+ 
+ core-y			+= $(ARCH_DIR)/kernel/		\
+ 			   $(ARCH_DIR)/drivers/		\
+diff --git a/fs/bcachefs/btree_cache.c b/fs/bcachefs/btree_cache.c
+index 1bb730437163..42afd3efb779 100644
+--- a/fs/bcachefs/btree_cache.c
++++ b/fs/bcachefs/btree_cache.c
+@@ -20,6 +20,8 @@ do {						 \
+ 		bc->not_freed_##counter++;	 \
+ } while (0)
+ 
++#define SCAN_AMOUNT_BINS 8
++
+ const char * const bch2_btree_node_flags[] = {
+ #define x(f)	#f,
+ 	BTREE_FLAGS()
+@@ -318,13 +320,17 @@ static unsigned long bch2_btree_cache_scan(struct shrinker *shrink,
+ 	unsigned long touched = 0;
+ 	unsigned i, flags;
+ 	unsigned long ret = SHRINK_STOP;
++	u64 start_time;
+ 	bool trigger_writes = atomic_read(&bc->dirty) + nr >=
+ 		bc->used * 3 / 4;
+ 
+ 	if (bch2_btree_shrinker_disabled)
+ 		return SHRINK_STOP;
+ 
++	start_time = ktime_get_ns();
+ 	mutex_lock(&bc->lock);
++	__bch2_time_stats_update(&bc->cache_scan_get_lock_times, start_time, ktime_get_ns());
++
+ 	flags = memalloc_nofs_save();
+ 
+ 	/*
+@@ -404,6 +410,7 @@ static unsigned long bch2_btree_cache_scan(struct shrinker *shrink,
+ 	ret = freed;
+ 	memalloc_nofs_restore(flags);
+ 	trace_and_count(c, btree_cache_scan, sc->nr_to_scan, can_free, ret);
++	__bch2_time_stats_update(&bc->cache_scan_times, start_time, ktime_get_ns());
+ 	return ret;
+ }
+ 
+@@ -507,12 +514,15 @@ int bch2_fs_btree_cache_init(struct bch_fs *c)
+ 
+ 	list_splice_init(&bc->live, &bc->freeable);
+ 
++	for (i = 0; i < 8; i++)
++		bch2_time_stats_init(&bc->cache_scan_times);
++	bch2_time_stats_init(&bc->cache_scan_get_lock_times);
+ 	mutex_init(&c->verify_lock);
+ 
+ 	bc->shrink.count_objects	= bch2_btree_cache_count;
+ 	bc->shrink.scan_objects		= bch2_btree_cache_scan;
+ 	bc->shrink.to_text		= bch2_btree_cache_shrinker_to_text;
+-	bc->shrink.seeks		= 4;
++	bc->shrink.seeks		= 2;
+ 	ret = register_shrinker(&bc->shrink, "%s/btree_cache", c->name);
+ out:
+ 	pr_verbose_init(c->opts, "ret %i", ret);
+@@ -762,7 +772,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
+ 		return NULL;
+ 	}
+ 
+-	set_btree_node_read_in_flight(b);
++	set_btree_node_read_in_flight_acct(c, b);
+ 
+ 	six_unlock_write(&b->c.lock);
+ 	seq = b->c.lock.state.seq;
+@@ -932,6 +942,10 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+ 			trace_and_count(c, trans_restart_btree_node_reused, trans, trace_ip, path);
+ 			return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_lock_node_reused));
+ 		}
++
++		/* avoid atomic set bit if it's not needed */
++		if (!btree_node_accessed(b))
++			set_btree_node_accessed(b);
+ 	}
+ 
+ 	if (unlikely(btree_node_read_in_flight(b))) {
+@@ -969,10 +983,6 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+ 		prefetch(p + L1_CACHE_BYTES * 2);
+ 	}
+ 
+-	/* avoid atomic set bit if it's not needed: */
+-	if (!btree_node_accessed(b))
+-		set_btree_node_accessed(b);
+-
+ 	if (unlikely(btree_node_read_error(b))) {
+ 		six_unlock_type(&b->c.lock, lock_type);
+ 		return ERR_PTR(-EIO);
+@@ -1180,6 +1190,7 @@ void bch2_btree_cache_to_text(struct printbuf *out, struct btree_cache *bc)
+ {
+ 	prt_printf(out, "nr nodes:\t\t%u\n", bc->used);
+ 	prt_printf(out, "nr dirty:\t\t%u\n", atomic_read(&bc->dirty));
++	prt_printf(out, "nr reads in flight:\t\t%u\n", atomic_read(&bc->reads_in_flight));
+ 	prt_printf(out, "cannibalize lock:\t%p\n", bc->alloc_lock);
+ 
+ 	prt_printf(out, "freed:\t\t\t\t%u\n", bc->freed);
+@@ -1193,4 +1204,11 @@ void bch2_btree_cache_to_text(struct printbuf *out, struct btree_cache *bc)
+ 	prt_printf(out, "not freed, write blocked:\t%u\n", bc->not_freed_write_blocked);
+ 	prt_printf(out, "not freed, will make reachable:\t%u\n", bc->not_freed_will_make_reachable);
+ 
++	prt_printf(out, "cache scan get lock:");
++	prt_newline(out);
++	bch2_time_stats_to_text(out, &bc->cache_scan_get_lock_times);
++
++	prt_printf(out, "cache scan completion:");
++	prt_newline(out);
++	bch2_time_stats_to_text(out, &bc->cache_scan_times);
+ }
+diff --git a/fs/bcachefs/btree_io.c b/fs/bcachefs/btree_io.c
+index dd6b536ced6a..7b4fc0be5bb9 100644
+--- a/fs/bcachefs/btree_io.c
++++ b/fs/bcachefs/btree_io.c
+@@ -1204,7 +1204,7 @@ static void btree_node_read_work(struct work_struct *work)
+ 	if (saw_error && !btree_node_read_error(b))
+ 		bch2_btree_node_rewrite_async(c, b);
+ 
+-	clear_btree_node_read_in_flight(b);
++	clear_btree_node_read_in_flight_acct(c, b);
+ 	wake_up_bit(&b->flags, BTREE_NODE_read_in_flight);
+ }
+ 
+@@ -1390,7 +1390,7 @@ static void btree_node_read_all_replicas_done(struct closure *cl)
+ 	kfree(ra);
+ 	printbuf_exit(&buf);
+ 
+-	clear_btree_node_read_in_flight(b);
++	clear_btree_node_read_in_flight_acct(c, b);
+ 	wake_up_bit(&b->flags, BTREE_NODE_read_in_flight);
+ }
+ 
+@@ -1511,7 +1511,7 @@ void bch2_btree_node_read(struct bch_fs *c, struct btree *b,
+ 			bch2_fatal_error(c);
+ 
+ 		set_btree_node_read_error(b);
+-		clear_btree_node_read_in_flight(b);
++		clear_btree_node_read_in_flight_acct(c, b);
+ 		wake_up_bit(&b->flags, BTREE_NODE_read_in_flight);
+ 		printbuf_exit(&buf);
+ 		return;
+@@ -1580,7 +1580,7 @@ int bch2_btree_root_read(struct bch_fs *c, enum btree_id id,
+ 	bkey_copy(&b->key, k);
+ 	BUG_ON(bch2_btree_node_hash_insert(&c->btree_cache, b, level, id));
+ 
+-	set_btree_node_read_in_flight(b);
++	set_btree_node_read_in_flight_acct(c, b);
+ 
+ 	bch2_btree_node_read(c, b, true);
+ 
+diff --git a/fs/bcachefs/btree_io.h b/fs/bcachefs/btree_io.h
+index 8af853642123..44f7477202a4 100644
+--- a/fs/bcachefs/btree_io.h
++++ b/fs/bcachefs/btree_io.h
+@@ -27,6 +27,18 @@ static inline void clear_btree_node_dirty_acct(struct bch_fs *c, struct btree *b
+ 		atomic_dec(&c->btree_cache.dirty);
+ }
+ 
++static inline void set_btree_node_read_in_flight_acct(struct bch_fs *c, struct btree *b)
++{
++	if (!test_and_set_bit(BTREE_NODE_read_in_flight, &b->flags))
++		atomic_inc(&c->btree_cache.reads_in_flight);
++}
++
++static inline void clear_btree_node_read_in_flight_acct(struct bch_fs *c, struct btree *b)
++{
++	if (test_and_clear_bit(BTREE_NODE_read_in_flight, &b->flags))
++		atomic_dec(&c->btree_cache.reads_in_flight);
++}
++
+ static inline unsigned btree_ptr_sectors_written(struct bkey_i *k)
+ {
+ 	return k->k.type == KEY_TYPE_btree_ptr_v2
+diff --git a/fs/bcachefs/btree_types.h b/fs/bcachefs/btree_types.h
+index 32bfdc02df2d..51e94ec58ca7 100644
+--- a/fs/bcachefs/btree_types.h
++++ b/fs/bcachefs/btree_types.h
+@@ -171,6 +171,11 @@ struct btree_cache {
+ 	unsigned		not_freed_will_make_reachable;
+ 	unsigned		not_freed_access_bit;
+ 	atomic_t		dirty;
++	atomic_t		reads_in_flight;
++
++	struct time_stats       cache_scan_times;
++	struct time_stats       cache_scan_get_lock_times;
++
+ 	struct shrinker		shrink;
+ 
+ 	/*
+diff --git a/fs/bcachefs/checksum.c b/fs/bcachefs/checksum.c
+index b5850a761b91..5e9d3c1fe84f 100644
+--- a/fs/bcachefs/checksum.c
++++ b/fs/bcachefs/checksum.c
+@@ -391,12 +391,11 @@ int bch2_rechecksum_bio(struct bch_fs *c, struct bio *bio,
+ 	struct crc_split {
+ 		struct bch_extent_crc_unpacked	*crc;
+ 		unsigned			len;
+-		unsigned			csum_type;
+ 		struct bch_csum			csum;
+ 	} splits[3] = {
+-		{ crc_a, len_a, new_csum_type },
+-		{ crc_b, len_b, new_csum_type },
+-		{ NULL,	 bio_sectors(bio) - len_a - len_b, new_csum_type },
++		{ crc_a, len_a },
++		{ crc_b, len_b },
++		{ NULL,	 bio_sectors(bio) - len_a - len_b },
+ 	}, *i;
+ 	bool mergeable = crc_old.csum_type == new_csum_type &&
+ 		bch2_checksum_mergeable(new_csum_type);
+@@ -411,7 +410,7 @@ int bch2_rechecksum_bio(struct bch_fs *c, struct bio *bio,
+ 	for (i = splits; i < splits + ARRAY_SIZE(splits); i++) {
+ 		iter.bi_size = i->len << 9;
+ 		if (mergeable || i->crc)
+-			i->csum = __bch2_checksum_bio(c, i->csum_type,
++			i->csum = __bch2_checksum_bio(c, new_csum_type,
+ 						      nonce, bio, &iter);
+ 		else
+ 			bio_advance_iter(bio, &iter, i->len << 9);
+@@ -441,7 +440,7 @@ int bch2_rechecksum_bio(struct bch_fs *c, struct bio *bio,
+ 	for (i = splits; i < splits + ARRAY_SIZE(splits); i++) {
+ 		if (i->crc)
+ 			*i->crc = (struct bch_extent_crc_unpacked) {
+-				.csum_type		= i->csum_type,
++				.csum_type		= new_csum_type,
+ 				.compression_type	= crc_old.compression_type,
+ 				.compressed_size	= i->len,
+ 				.uncompressed_size	= i->len,
+diff --git a/fs/bcachefs/io.c b/fs/bcachefs/io.c
+index 558d0c232816..fafc630cd7fd 100644
+--- a/fs/bcachefs/io.c
++++ b/fs/bcachefs/io.c
+@@ -44,6 +44,26 @@ const char *bch2_blk_status_to_str(blk_status_t status)
+ 	return blk_status_to_str(status);
+ }
+ 
++static inline void validate_op_crc(struct bch_fs *c,
++				   struct bch_write_op *op,
++				   struct bch_extent_crc_unpacked crc, u8 compression_type, const char *file, int line)
++{
++	if (op->compression_type
++	    && op->compression_type != crc.compression_type
++	    && crc.compression_type != BCH_COMPRESSION_TYPE_incompressible) {
++		bch_err(c, "%s:%u, compression types don't match "	\
++			"op->compression_type %u"			\
++			", op->crc.compression_type %u, "		\
++			"crc.compression_type %u, "			\
++			"compression_type %u\n",
++			file, line,
++			op->compression_type,
++			op->crc.compression_type,
++			crc.compression_type,
++			compression_type);
++	}
++}
++
+ static bool bch2_target_congested(struct bch_fs *c, u16 target)
+ {
+ 	const struct bch_devs_mask *devs;
+@@ -926,8 +946,7 @@ static int bch2_write_extent(struct bch_write_op *op, struct write_point *wp,
+ 	saved_iter = dst->bi_iter;
+ 
+ 	do {
+-		struct bch_extent_crc_unpacked crc =
+-			(struct bch_extent_crc_unpacked) { 0 };
++		struct bch_extent_crc_unpacked crc = { 0 };
+ 		struct bversion version = op->version;
+ 		size_t dst_len, src_len;
+ 
+@@ -975,10 +994,13 @@ static int bch2_write_extent(struct bch_write_op *op, struct write_point *wp,
+ 			}
+ 		}
+ 
++		validate_op_crc(c, op, crc, crc.compression_type, __FILE__, __LINE__);
+ 		if ((op->flags & BCH_WRITE_DATA_ENCODED) &&
+ 		    !crc_is_compressed(crc) &&
+ 		    bch2_csum_type_is_encryption(op->crc.csum_type) ==
+ 		    bch2_csum_type_is_encryption(op->csum_type)) {
++			u8 compression_type = crc.compression_type;
++			u16 nonce = crc.nonce;
+ 			/*
+ 			 * Note: when we're using rechecksum(), we need to be
+ 			 * checksumming @src because it has all the data our
+@@ -997,6 +1019,14 @@ static int bch2_write_extent(struct bch_write_op *op, struct write_point *wp,
+ 					bio_sectors(src) - (src_len >> 9),
+ 					op->csum_type))
+ 				goto csum_err;
++			/*
++			 * rchecksum_bio sets compression_type on crc from op->crc,
++			 * this isn't always correct as sometimes we're changing
++			 * an extent from uncompressed to incompressible.
++			 */
++			crc.compression_type = compression_type;
++			crc.nonce = nonce;
++			validate_op_crc(c, op, crc, compression_type, __FILE__, __LINE__);
+ 		} else {
+ 			if ((op->flags & BCH_WRITE_DATA_ENCODED) &&
+ 			    bch2_rechecksum_bio(c, src, version, op->crc,
+@@ -1010,6 +1040,8 @@ static int bch2_write_extent(struct bch_write_op *op, struct write_point *wp,
+ 			crc.uncompressed_size	= src_len >> 9;
+ 			crc.live_size		= src_len >> 9;
+ 
++			validate_op_crc(c, op, crc, 0, __FILE__, __LINE__);
++
+ 			swap(dst->bi_iter.bi_size, dst_len);
+ 			ret = bch2_encrypt_bio(c, op->csum_type,
+ 					       extent_nonce(version, crc), dst);
+@@ -1022,6 +1054,7 @@ static int bch2_write_extent(struct bch_write_op *op, struct write_point *wp,
+ 			swap(dst->bi_iter.bi_size, dst_len);
+ 		}
+ 
++		validate_op_crc(c, op, crc, 0, __FILE__, __LINE__);
+ 		init_append_extent(op, wp, version, crc);
+ 
+ 		if (dst != src)
+diff --git a/fs/bcachefs/rebalance.c b/fs/bcachefs/rebalance.c
+index 17b289b051f2..068f95b000d6 100644
+--- a/fs/bcachefs/rebalance.c
++++ b/fs/bcachefs/rebalance.c
+@@ -29,6 +29,8 @@ static bool rebalance_pred(struct bch_fs *c, void *arg,
+ 			   struct data_update_opts *data_opts)
+ {
+ 	struct bkey_ptrs_c ptrs = bch2_bkey_ptrs_c(k);
++	unsigned replicas = 0;
++	unsigned durability = 0;
+ 	unsigned i;
+ 
+ 	data_opts->rewrite_ptrs		= 0;
+@@ -57,10 +59,24 @@ static bool rebalance_pred(struct bch_fs *c, void *arg,
+ 		i = 0;
+ 		bkey_for_each_ptr(ptrs, ptr) {
+ 			if (!ptr->cached &&
+-			    !bch2_dev_in_target(c, ptr->dev, io_opts->background_target))
++			    !bch2_dev_in_target(c, ptr->dev, io_opts->background_target)) {
++				struct bch_dev *ca;
+ 				data_opts->rewrite_ptrs |= 1U << i;
++				ca = bch_dev_bkey_exists(c, ptr->dev);
++				replicas++;
++				durability += ca->mi.durability;
++			}
+ 			i++;
+ 		}
++		/*
++		 * We don't want to degrade data migrating from device with durability > 1
++		 * We also don't want to reimplement the rereplicate data job.
++		 * and finally we don't want more replicas than necessary.
++		 */
++		data_opts->extra_replicas =
++			min_t(unsigned,
++			      durability > replicas ? durability - replicas: 0,
++			      io_opts->data_replicas - replicas);
+ 	}
+ 
+ 	return data_opts->rewrite_ptrs != 0;
+diff --git a/fs/bcachefs/util.c b/fs/bcachefs/util.c
+index f08215af359f..8ce8d337f1b9 100644
+--- a/fs/bcachefs/util.c
++++ b/fs/bcachefs/util.c
+@@ -433,7 +433,7 @@ static void pr_time_units(struct printbuf *out, u64 ns)
+ 
+ static inline void pr_name_and_units(struct printbuf *out, const char *name, u64 ns)
+ {
+-	prt_printf(out, name);
++	prt_str(out, name);
+ 	prt_tab(out);
+ 	pr_time_units(out, ns);
+ 	prt_newline(out);
+diff --git a/kernel/locking/six.c b/kernel/locking/six.c
+index 39f7ea79fdb1..85a8faafde53 100644
+--- a/kernel/locking/six.c
++++ b/kernel/locking/six.c
+@@ -342,7 +342,7 @@ static bool __six_relock_type(struct six_lock *lock, enum six_lock_type type,
+ 	return true;
+ }
+ 
+-#ifdef CONFIG_LOCK_SPIN_ON_OWNER
++#if 0
+ 
+ static inline bool six_optimistic_spin(struct six_lock *lock,
+ 				       struct six_lock_waiter *wait)
+diff --git a/scripts/faddr2line b/scripts/faddr2line
+index 5514c23f45c2..1ff00e9fbe00 100755
+--- a/scripts/faddr2line
++++ b/scripts/faddr2line
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/usr/bin/env bash
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # Translate stack dump function offsets.
