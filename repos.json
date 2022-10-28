@@ -133,6 +133,9 @@
         "dandellion": {
             "url": "https://git.dodsorf.as/Dandellion/NUR"
         },
+        "darkkirb": {
+            "url": "https://git.chir.rs/darkkirb/nix-packages"
+        },
         "dawidsowa": {
             "url": "https://github.com/dawidsowa/nur-packages"
         },
