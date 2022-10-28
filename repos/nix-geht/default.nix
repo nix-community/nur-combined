@@ -10,14 +10,14 @@
 
 let
   vpp-pkgs = pkgs.callPackage ./pkgs/vpp { };
-in
-{
+in rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   vpp = vpp-pkgs.vpp;
+  vppcfg = pkgs.callPackage ./pkgs/vppcfg { inherit vpp-pkgs; };
 
   python3Packages = {
     # Marker for ci.nix to also build this.

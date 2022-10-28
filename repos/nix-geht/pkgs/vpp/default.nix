@@ -87,6 +87,7 @@ in rec {
     inherit src;
     sourceRoot = "source/src/vpp-api/python";
 
+    propagatedBuildInputs = with pkgs.python3Packages; [ setuptools ];
     nativeBuildInputs = [ 
       # Only needed if we'd actually build the JSON API Schemas, but instead we just depend on vpp.
       #ply
