@@ -20,6 +20,7 @@
 , gnupg
 , gnused
 , gzip
+, libarchive
 , mercurial
 , openssh
 , pacman
@@ -32,7 +33,7 @@
 }:
 
 let
-  path = lib.strings.makeBinPath [
+  path = lib.makeBinPath [
     "/run/wrappers"
     "${placeholder "out"}"
     arch-install-scripts
@@ -51,6 +52,7 @@ let
     gnupg
     gnused
     gzip
+    libarchive
     mercurial
     openssh
     pacman
