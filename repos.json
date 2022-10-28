@@ -221,6 +221,9 @@
         "genesis": {
             "url": "https://github.com/bignaux/nur-packages"
         },
+        "geonix": {
+            "url": "https://github.com/imincik/geonix"
+        },
         "grafcube": {
             "url": "https://github.com/Grafcube/nur-packages"
         },
