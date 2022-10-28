@@ -16,6 +16,9 @@
 
   dssp = pkgs.callPackage ./pkgs/dssp { };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
+  mmseqs2 = pkgs.callPackage ./pkgs/mmseqs2 {
+    inherit (pkgs.llvmPackages) openmp;
+  };
   psipred = pkgs.callPackage ./pkgs/psipred { };
   hackgen = pkgs.callPackage ./pkgs/data/fonts/hackgen { };
   hackgen-nf = pkgs.callPackage ./pkgs/data/fonts/hackgen-nf { };
