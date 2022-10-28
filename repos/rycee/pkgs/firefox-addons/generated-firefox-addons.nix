@@ -462,10 +462,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.59";
+      version = "4.9.60";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019888/darkreader-4.9.59.xpi";
-      sha256 = "4180b53e40f82c3435bd7fc7cdb564bf29fd22a781c5e0db232e1e2b8f83e8c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4021899/darkreader-4.9.60.xpi";
+      sha256 = "202eccf8088bd2842158f5fe4f4b751217a05b2f0ada02057c16314c174df01b";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221025.185841";
+      version = "107.0buildid20221027.185833";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021192/francais_language_pack-107.0buildid20221025.185841.xpi";
-      sha256 = "e0e4e3aea9911203b13066f48812ae7affd5aaac6b1b603fc352484d79c28aa6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022291/francais_language_pack-107.0buildid20221027.185833.xpi";
+      sha256 = "b7891205abb6ae484c57fd8f4f16956fe4a1c881670cad94e4d5da4eb9af29e3";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1917,10 +1917,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.5.3";
+      version = "2.5.4";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015197/private_relay-2.5.3.xpi";
-      sha256 = "f4d4e1073685104af76e9cec48e0a879d91b3376cd183623dca14858b18e7802";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4020467/private_relay-2.5.4.xpi";
+      sha256 = "0fe3e5bfba1c27017b848646cbed0ae027a47bc64f830c5b3e52220fbfdf0674";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2293,10 +2293,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.11";
+      version = "1.0.12";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021533/statshunters-1.0.11.xpi";
-      sha256 = "37cd6b78c4ddc452886afdfc8ba2e24206197d3565fd1f5fffda6441f96f8645";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022043/statshunters-1.0.12.xpi";
+      sha256 = "b3b7ecb510be3b6aa5a0185ead013b50e11acb7be67dc200df766c2bf31817f4";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -2633,10 +2633,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.0.2";
+      version = "8.1.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003811/ublacklist-8.0.2.xpi";
-      sha256 = "167c4edbda983fa17e048207704742122b5eeae8487ceb05e1e305274dea526a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022056/ublacklist-8.1.0.xpi";
+      sha256 = "4e4f45a7528eb8ad472fc11a39aca5b412455136cf865ac6c203e25180391056";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
