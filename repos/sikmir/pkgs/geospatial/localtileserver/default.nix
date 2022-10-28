@@ -52,5 +52,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://localtileserver.banesullivan.com/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = true;
   };
 }

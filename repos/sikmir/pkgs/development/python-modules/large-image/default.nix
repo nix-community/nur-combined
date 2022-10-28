@@ -24,5 +24,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "http://girder.github.io/large_image/";
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
+    broken = true;
   };
 }

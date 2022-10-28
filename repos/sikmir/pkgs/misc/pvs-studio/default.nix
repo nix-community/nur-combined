@@ -10,17 +10,17 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "pvs-studio";
-  version = "7.20.63487.255";
+  version = "7.21.64848.262";
 
   src = fetchurl {
     url = "https://cdn.pvs-studio.com/pvs-studio-${version}-${suffix}.tgz";
     hash = {
-      x86_64-linux = "sha256-sFTE12t3unROXiY+W7pFKb0NVgIOVkElR/b260gw/Q0=";
-      x86_64-darwin = "sha256-NBiWy/mEBSwcxZ2jiBcgQob2zfFgvJn9FF389xrSOLE=";
+      x86_64-linux = "sha256-oOi7xQxv3I8hEnF62TSeA+ZIjIpabTN+ulMNImURECM=";
+      x86_64-darwin = "sha256-BgONtKPE3Osd8g6ElebEyYUs9qFcuIU0HvsrdYSZEzc=";
     }.${system} or throwSystem;
   };
 
-  installPhase = "./install.sh $out";
+  installPhase = "sh ./install.sh $out";
 
   meta = with lib; {
     description = "Static code analyzer for C, C++";

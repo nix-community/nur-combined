@@ -189,9 +189,7 @@ lib.makeScope newScope (
     mapsoft = callPackage ./geospatial/mapsoft {
       proj = pkgs.proj_7;
     };
-    mapsoft2 = callPackage ./geospatial/mapsoft/2.nix {
-      proj = pkgs.proj_7;
-    };
+    mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
     morecantile = callPackage ./geospatial/morecantile { };
