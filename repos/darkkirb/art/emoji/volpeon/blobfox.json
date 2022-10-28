@@ -1,0 +1,18 @@
+{
+    "blobfox": {
+        "description": "Like Blobcat, but with foxes",
+        "files":       "blobfox.json",
+        "homepage":    "https://volpeon.ink/art/emojis/blobfox/",
+        "src":         "https://volpeon.ink/art/emojis/blobfox/blobfox.zip",
+        "src_sha256":  "728f95c37921616d86a925a2cc07017467d09e1de988b5b32f9dec3fe244d7d9",
+        "license":     "Apache 2.0"
+    },
+    "blobfox_flip": {
+        "description": "Like Blobcat, but with foxes (flipped version)",
+        "files":       "blobfox_flip.json",
+        "homepage":    "https://volpeon.ink/art/emojis/blobfox/",
+        "src":         "https://volpeon.ink/art/emojis/blobfox/blobfox_flip.zip",
+        "src_sha256":  "09a216cfb073e5589deca1dd0fa6d61e5c4363c487c0992d35524ac648d9fb78",
+        "license":     "Apache 2.0"
+    }
+}

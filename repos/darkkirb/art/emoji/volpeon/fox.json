@@ -1,0 +1,10 @@
+{
+    "fox": {
+        "description": "Fox emojis inspired by the Windows 11 fox emoji",
+        "files":       "fox.json",
+        "homepage":    "https://volpeon.ink/art/emojis/fox/",
+        "src":         "https://volpeon.ink/art/emojis/fox/fox.zip",
+        "src_sha256":  "2f3e4b5ba1e74c81e7c6095c8d6054e2ed8ff99e502bce363b8ffc448e0682b6",
+        "license":     "CC BY-NC-SA 4.0"
+    }
+}

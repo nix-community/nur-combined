@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/ETBCOR/nasin-nanpa",
+  "rev": "4cf4a762576d8ca2818683139ab1d04d149c9bec",
+  "date": "2022-05-22T16:25:11-07:00",
+  "path": "/nix/store/riz85kank0n3d94jnhyl8yn4cy100653-nasin-nanpa",
+  "sha256": "172asramnmp0m8h6sm8mvzap1ys2zngbrd4m5gq2w899vr8qzpbz",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

@@ -1,0 +1,18 @@
+{
+    "bunhd": {
+        "description": "High-res version of the bun emojis",
+        "files":       "bunhd.json",
+        "homepage":    "https://volpeon.ink/art/emojis/bunhd/",
+        "src":         "https://volpeon.ink/art/emojis/bunhd/bunhd.zip",
+        "src_sha256":  "52c4493731bf7f9bf3526ed35a57ac684c9af8808cbb79d42060cc65e2b70dd6",
+        "license":     "Apache 2.0"
+    },
+    "bunhd_flip": {
+        "description": "High-res version of the bun emojis (flipped version)",
+        "files":       "bunhd_flip.json",
+        "homepage":    "https://volpeon.ink/art/emojis/bunhd/",
+        "src":         "https://volpeon.ink/art/emojis/bunhd/bunhd_flip.zip",
+        "src_sha256":  "5007099c627760a2f2391d20facb94973c5ff2467cb5692e8829a15fad4abc31",
+        "license":     "Apache 2.0"
+    }
+}

@@ -1,0 +1,59 @@
+---
+kind: pipeline
+type: docker
+name: update-script
+
+steps:
+  - name: Update flake
+    image: nixos/nix
+    commands:
+      - echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+      - nix flake update
+  - name: Run update script
+    image: nixos/nix
+    commands:
+      - yes | nix-shell ./scripts/update.nix
+    depends_on:
+      - Update flake
+  - name: Format nix
+    image: nixery.dev/shell/alejandra
+    commands:
+      - alejandra .
+    depends_on:
+      - Run update script
+  - name: Push git
+    image: nixery.dev/shell/gitfull/git-lfs/shadow
+    commands:
+      - groupadd -g 0 root
+      - useradd -u 0 -g root -d $HOME root
+      - mkdir ~/.ssh
+      - echo "$SSH_KEY" > ~/.ssh/id_ed25519
+      - chmod 600 ~/.ssh/id_ed25519
+      - echo "git.chir.rs ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICQ77jA9S5qXDFGPLZRsC++AtxiXXeF8gVbkLlglx0GQ" > ~/.ssh/known_hosts
+      - echo "git.chir.rs ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDY0pZzNTAqaVqqfC31gYFixFs5KySv0UqvlDEAzEXJMB/pBWkE5GAd5Ik1NxD4QiAVWc2UARdmJEBbYf8mk5JiAv6fjsodJdJVRau4Ax7FtIfbxdFyzBgFery/KUnNIr6cmAWU2Af8JhzrnpEbhe5U3LftYnkdE1lI+iVqaQRARp0qikdzoAl3uMUhbdTxp1/6rtfN6bP2XZCsUx3t3W5ZG1QTQz8l7nrbXZX1TT3pZ2vcUANcMtOxEAwO6lbL210GX63C8XEoE7+4lLxRrSiaq3SkVlG07VspozKEtrrcsqCRNLebiaapmNWVoEq9Wd9VGAEjja5efyU6/HUlRogAOo1WP73UwoQLv5LTFH+ECoHhKS14xfPeXeVG8dbYyh5+CnmiVe43dH1qZw+ceYuYel31f47cAgScbxFvNkct0spK9m9mivnoUmYcxwTc+VbFbmnJvSuZw3a+OEYn9biitP/tTkYFiLZVdPZTxDkvd1oOyuVH9d4RMXbVgNS92/lr2iKFZkyhWMJ61hFMc2tupwmkp5Us5ce42XA0zC/aVY3vYoih/c5Ib0eZF1AEJdB6Bt5dWqITVsB3mip3Jn/mqVBIPTGXT6+FnGSEuL68Dj2yKBD7kj8YO/1SWpkVMy+bfoLXY/usgcaLCxpUu8dDrdrcKExLigCVbi3rdRmg7w==" >> ~/.ssh/known_hosts
+      - git remote set-url origin gitea@git.chir.rs:darkkirb/nix-packages.git
+      - git config --global 'user.email' 'gitea-bot@chir.rs'
+      - git config --global 'user.name' 'Gitea Bot'
+      - git add .
+      - git commit -am "Update packages"
+      - git push --force origin main:update-package
+    environment:
+      SSH_KEY:
+        from_secret: SSH_KEY
+    depends_on: 
+      - Format nix
+  - name: Create pull request
+    image: nixery.dev/shell/curl
+    commands:
+      - |
+        echo '{ "assignee": "DarkKirb", "base": "main", "head": "update-package", "title": "Update packages", "body": "" }' | curl -XPOST  'https://git.chir.rs/api/v1/repos/DarkKirb/nix-packages/pulls' -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer $AUTHORISATION" --data-binary @-
+    environment:
+      AUTHORISATION:
+        from_secret: GITEA_KEY
+    depends_on:
+      - Push git
+trigger:
+  event:
+    - cron
+  cron:
+    - updater

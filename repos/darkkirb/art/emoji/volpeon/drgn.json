@@ -1,0 +1,10 @@
+{
+  "drgn": {
+    "description": "Character by @volpeon@mk.vulpes.one",
+    "files": "drgn.json",
+    "homepage": "https://volpeon.ink/art/emojis/drgn/",
+    "src": "https://volpeon.ink/art/emojis/drgn/drgn.zip",
+    "src_sha256": "b55381001db827ac05886f856872bbfe13dc7672d4ac94ece05f818d70035704",
+    "license": "CC BY-NC-SA 4.0"
+  }
+}

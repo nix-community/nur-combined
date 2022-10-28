@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/mautrix/telegram",
+  "rev": "1c479246249a39204e64e9fdfe4e6521ee68b8ce",
+  "date": "2022-10-24T22:02:49+03:00",
+  "path": "/nix/store/4dbgxg1znkbxxvpj60jy0mpyqv4h79fw-telegram",
+  "sha256": "1jf2ypw0jwdl0jpwh6i3a7gzcmam4hir3sbcpqh26shwlrnywrjf",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/PaperMC/Paper",
+  "rev": "bd496d0e0ddd5b4ec7702fde28e0fe9b4b703e0f",
+  "date": "2022-09-28T04:27:26+01:00",
+  "path": "/nix/store/qh5sza3l8kbbfcplkjjx81q32rjc47il-Paper",
+  "sha256": "0w6ivh36da46lwkrf88fdbnngdac9ss41v3qvydgqsiicf150x0y",
+  "fetchLFS": false,
+  "fetchSubmodules": true,
+  "deepClone": false,
+  "leaveDotGit": true
+}

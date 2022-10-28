@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/openstenoproject/plover",
+  "rev": "3066a9a47269861ac1d66f8f05cdb26f7251b98d",
+  "date": "2022-08-09T00:40:56+02:00",
+  "path": "/nix/store/3jk73wkfcb2xy267c0vnssabdnw91fxq-plover",
+  "sha256": "0vk6nh2gpn7f7rv2spi2a7n3m0d9kaan6r22mx3vwxprpbvrkbm8",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/dnaq/plover-machine-hid",
+  "rev": "7c7ceeb1e653b8df61626a2f4739ed365c54a713",
+  "date": "2022-06-15T21:17:36+02:00",
+  "path": "/nix/store/k47dnvmm4kidi35zqyx3ihdg0ll5k0p1-plover-machine-hid",
+  "sha256": "12s6b8148gk3s9r8phrgsbnj81w6vn6963iq9hfjpgdw2jiv24sx",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

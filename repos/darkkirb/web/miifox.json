@@ -1,0 +1,11 @@
+{
+  "url": "https://git.chir.rs/CarolineHusky/MiiFox.net",
+  "rev": "7826b9a3bec5dddd4b8a879c3396a1406fc37370",
+  "date": "2022-03-25T14:54:52+01:00",
+  "path": "/nix/store/cb9yh3x2vsgk8w8zw1w84lf3nkfk4qki-MiiFox.net",
+  "sha256": "1yhg1b7mbdxrv344zgd7c04izz9b7khlhjr2rvbpcrb30v0qz89q",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

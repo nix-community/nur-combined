@@ -1,0 +1,1461 @@
+diff --git a/MANIFEST.in b/MANIFEST.in
+index e2095bb7..87539b99 100644
+--- a/MANIFEST.in
++++ b/MANIFEST.in
+@@ -20,6 +20,7 @@ include plover/gui_qt/resources/*.qrc
+ include plover/gui_qt/resources/*.svg
+ include plover/messages/*/LC_MESSAGES/*.po
+ include plover/messages/plover.pot
++include plover/oslayer/wayland/*.xml
+ include plover_build_utils/*.sh
+ include pyproject.toml
+ include pytest.ini
+@@ -34,4 +35,7 @@ exclude .gitignore
+ exclude plover/gui_qt/*_rc.py
+ exclude plover/gui_qt/*_ui.py
+ exclude plover/gui_qt/.gitignore
++exclude plover/oslayer/wayland/.gitignore
++prune plover/oslayer/wayland/input_method_unstable_v2
++prune plover/oslayer/wayland/virtual_keyboard_unstable_v1
+ prune .github
+diff --git a/news.d/feature/1461.linux.md b/news.d/feature/1461.linux.md
+new file mode 100644
+index 00000000..9c04de6b
+--- /dev/null
++++ b/news.d/feature/1461.linux.md
+@@ -0,0 +1 @@
++Add support for wlroots-based Wayland compositors like Sway, and other compositors that implement the `virtual_keyboard_unstable_v1` and `input_method_unstable_v2` protocols.
+diff --git a/plover/oslayer/linux/keyboardcontrol.py b/plover/oslayer/linux/keyboardcontrol.py
+index bb135614..ee7abd91 100644
+--- a/plover/oslayer/linux/keyboardcontrol.py
++++ b/plover/oslayer/linux/keyboardcontrol.py
+@@ -1 +1,6 @@
+-from .keyboardcontrol_x11 import KeyboardCapture, KeyboardEmulation # pylint: disable=unused-import
++import os
++
++if os.environ.get('WAYLAND_DISPLAY', None):
++    from plover.oslayer.wayland.keyboardcontrol import KeyboardCapture, KeyboardEmulation # pylint: disable=unused-import
++else:
++    from .keyboardcontrol_x11 import KeyboardCapture, KeyboardEmulation # pylint: disable=unused-import
+diff --git a/plover/oslayer/wayland/.gitignore b/plover/oslayer/wayland/.gitignore
+new file mode 100644
+index 00000000..3a543112
+--- /dev/null
++++ b/plover/oslayer/wayland/.gitignore
+@@ -0,0 +1,2 @@
++input_method_unstable_v2
++virtual_keyboard_unstable_v1
+diff --git a/plover/oslayer/wayland/__init__.py b/plover/oslayer/wayland/__init__.py
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/plover/oslayer/wayland/input-method-unstable-v2.xml b/plover/oslayer/wayland/input-method-unstable-v2.xml
+new file mode 100644
+index 00000000..51bccf28
+--- /dev/null
++++ b/plover/oslayer/wayland/input-method-unstable-v2.xml
+@@ -0,0 +1,494 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<protocol name="input_method_unstable_v2">
++
++  <copyright>
++    Copyright © 2008-2011 Kristian Høgsberg
++    Copyright © 2010-2011 Intel Corporation
++    Copyright © 2012-2013 Collabora, Ltd.
++    Copyright © 2012, 2013 Intel Corporation
++    Copyright © 2015, 2016 Jan Arne Petersen
++    Copyright © 2017, 2018 Red Hat, Inc.
++    Copyright © 2018       Purism SPC
++
++    Permission is hereby granted, free of charge, to any person obtaining a
++    copy of this software and associated documentation files (the "Software"),
++    to deal in the Software without restriction, including without limitation
++    the rights to use, copy, modify, merge, publish, distribute, sublicense,
++    and/or sell copies of the Software, and to permit persons to whom the
++    Software is furnished to do so, subject to the following conditions:
++
++    The above copyright notice and this permission notice (including the next
++    paragraph) shall be included in all copies or substantial portions of the
++    Software.
++
++    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++    DEALINGS IN THE SOFTWARE.
++  </copyright>
++
++  <description summary="Protocol for creating input methods">
++    This protocol allows applications to act as input methods for compositors.
++
++    An input method context is used to manage the state of the input method.
++
++    Text strings are UTF-8 encoded, their indices and lengths are in bytes.
++
++    This document adheres to the RFC 2119 when using words like "must",
++    "should", "may", etc.
++
++    Warning! The protocol described in this file is experimental and
++    backward incompatible changes may be made. Backward compatible changes
++    may be added together with the corresponding interface version bump.
++    Backward incompatible changes are done by bumping the version number in
++    the protocol and interface names and resetting the interface version.
++    Once the protocol is to be declared stable, the 'z' prefix and the
++    version number in the protocol and interface names are removed and the
++    interface version number is reset.
++  </description>
++
++  <interface name="zwp_input_method_v2" version="1">
++    <description summary="input method">
++      An input method object allows for clients to compose text.
++
++      The objects connects the client to a text input in an application, and
++      lets the client to serve as an input method for a seat.
++
++      The zwp_input_method_v2 object can occupy two distinct states: active and
++      inactive. In the active state, the object is associated to and
++      communicates with a text input. In the inactive state, there is no
++      associated text input, and the only communication is with the compositor.
++      Initially, the input method is in the inactive state.
++
++      Requests issued in the inactive state must be accepted by the compositor.
++      Because of the serial mechanism, and the state reset on activate event,
++      they will not have any effect on the state of the next text input.
++
++      There must be no more than one input method object per seat.
++    </description>
++
++    <enum name="error">
++      <entry name="role" value="0" summary="wl_surface has another role"/>
++    </enum>
++
++    <event name="activate">
++      <description summary="input method has been requested">
++        Notification that a text input focused on this seat requested the input
++        method to be activated.
++
++        This event serves the purpose of providing the compositor with an
++        active input method.
++
++        This event resets all state associated with previous enable, disable,
++        surrounding_text, text_change_cause, and content_type events, as well
++        as the state associated with set_preedit_string, commit_string, and
++        delete_surrounding_text requests. In addition, it marks the
++        zwp_input_method_v2 object as active, and makes any existing
++        zwp_input_popup_surface_v2 objects visible.
++
++        The surrounding_text, and content_type events must follow before the
++        next done event if the text input supports the respective
++        functionality.
++
++        State set with this event is double-buffered. It will get applied on
++        the next zwp_input_method_v2.done event, and stay valid until changed.
++      </description>
++    </event>
++
++    <event name="deactivate">
++      <description summary="deactivate event">
++        Notification that no focused text input currently needs an active 
++        input method on this seat.
++
++        This event marks the zwp_input_method_v2 object as inactive. The
++        compositor must make all existing zwp_input_popup_surface_v2 objects
++        invisible until the next activate event.
++
++        State set with this event is double-buffered. It will get applied on
++        the next zwp_input_method_v2.done event, and stay valid until changed.
++      </description>
++    </event>
++
++    <event name="surrounding_text">
++      <description summary="surrounding text event">
++        Updates the surrounding plain text around the cursor, excluding the
++        preedit text.
++
++        If any preedit text is present, it is replaced with the cursor for the
++        purpose of this event.
++
++        The argument text is a buffer containing the preedit string, and must
++        include the cursor position, and the complete selection. It should
++        contain additional characters before and after these. There is a
++        maximum length of wayland messages, so text can not be longer than 4000
++        bytes.
++
++        cursor is the byte offset of the cursor within the text buffer.
++
++        anchor is the byte offset of the selection anchor within the text
++        buffer. If there is no selected text, anchor must be the same as
++        cursor.
++
++        If this event does not arrive before the first done event, the input
++        method may assume that the text input does not support this
++        functionality and ignore following surrounding_text events.
++
++        Values set with this event are double-buffered. They will get applied
++        and set to initial values on the next zwp_input_method_v2.done
++        event.
++
++        The initial state for affected fields is empty, meaning that the text
++        input does not support sending surrounding text. If the empty values
++        get applied, subsequent attempts to change them may have no effect.
++      </description>
++      <arg name="text" type="string"/>
++      <arg name="cursor" type="uint"/>
++      <arg name="anchor" type="uint"/>
++    </event>
++
++    <event name="text_change_cause">
++      <description summary="indicates the cause of surrounding text change">
++        Tells the input method why the text surrounding the cursor changed.
++
++        Whenever the client detects an external change in text, cursor, or
++        anchor position, it must issue this request to the compositor. This
++        request is intended to give the input method a chance to update the
++        preedit text in an appropriate way, e.g. by removing it when the user
++        starts typing with a keyboard.
++
++        cause describes the source of the change.
++
++        The value set with this event is double-buffered. It will get applied
++        and set to its initial value on the next zwp_input_method_v2.done
++        event.
++
++        The initial value of cause is input_method.
++      </description>
++      <arg name="cause" type="uint" enum="zwp_text_input_v3.change_cause"/>
++    </event>
++
++    <event name="content_type">
++      <description summary="content purpose and hint">
++        Indicates the content type and hint for the current
++        zwp_input_method_v2 instance.
++
++        Values set with this event are double-buffered. They will get applied
++        on the next zwp_input_method_v2.done event.
++
++        The initial value for hint is none, and the initial value for purpose
++        is normal.
++      </description>
++      <arg name="hint" type="uint" enum="zwp_text_input_v3.content_hint"/>
++      <arg name="purpose" type="uint" enum="zwp_text_input_v3.content_purpose"/>
++    </event>
++
++    <event name="done">
++      <description summary="apply state">
++        Atomically applies state changes recently sent to the client.
++
++        The done event establishes and updates the state of the client, and
++        must be issued after any changes to apply them.
++
++        Text input state (content purpose, content hint, surrounding text, and
++        change cause) is conceptually double-buffered within an input method
++        context.
++
++        Events modify the pending state, as opposed to the current state in use
++        by the input method. A done event atomically applies all pending state,
++        replacing the current state. After done, the new pending state is as
++        documented for each related request.
++
++        Events must be applied in the order of arrival.
++
++        Neither current nor pending state are modified unless noted otherwise.
++      </description>
++    </event>
++
++    <request name="commit_string">
++      <description summary="commit string">
++        Send the commit string text for insertion to the application.
++
++        Inserts a string at current cursor position (see commit event
++        sequence). The string to commit could be either just a single character
++        after a key press or the result of some composing.
++
++        The argument text is a buffer containing the string to insert. There is
++        a maximum length of wayland messages, so text can not be longer than
++        4000 bytes.
++
++        Values set with this event are double-buffered. They must be applied
++        and reset to initial on the next zwp_text_input_v3.commit request.
++
++        The initial value of text is an empty string.
++      </description>
++      <arg name="text" type="string"/>
++    </request>
++
++    <request name="set_preedit_string">
++      <description summary="pre-edit string">
++        Send the pre-edit string text to the application text input.
++
++        Place a new composing text (pre-edit) at the current cursor position.
++        Any previously set composing text must be removed. Any previously
++        existing selected text must be removed. The cursor is moved to a new
++        position within the preedit string.
++
++        The argument text is a buffer containing the preedit string. There is
++        a maximum length of wayland messages, so text can not be longer than
++        4000 bytes.
++
++        The arguments cursor_begin and cursor_end are counted in bytes relative
++        to the beginning of the submitted string buffer. Cursor should be
++        hidden by the text input when both are equal to -1.
++
++        cursor_begin indicates the beginning of the cursor. cursor_end
++        indicates the end of the cursor. It may be equal or different than
++        cursor_begin.
++
++        Values set with this event are double-buffered. They must be applied on
++        the next zwp_input_method_v2.commit event.
++
++        The initial value of text is an empty string. The initial value of
++        cursor_begin, and cursor_end are both 0.
++      </description>
++      <arg name="text" type="string"/>
++      <arg name="cursor_begin" type="int"/>
++      <arg name="cursor_end" type="int"/>
++    </request>
++
++    <request name="delete_surrounding_text">
++      <description summary="delete text">
++        Remove the surrounding text.
++
++        before_length and after_length are the number of bytes before and after
++        the current cursor index (excluding the preedit text) to delete.
++
++        If any preedit text is present, it is replaced with the cursor for the
++        purpose of this event. In effect before_length is counted from the
++        beginning of preedit text, and after_length from its end (see commit
++        event sequence).
++
++        Values set with this event are double-buffered. They must be applied
++        and reset to initial on the next zwp_input_method_v2.commit request.
++
++        The initial values of both before_length and after_length are 0.
++      </description>
++      <arg name="before_length" type="uint"/>
++      <arg name="after_length" type="uint"/>
++    </request>
++
++    <request name="commit">
++      <description summary="apply state">
++        Apply state changes from commit_string, set_preedit_string and
++        delete_surrounding_text requests.
++
++        The state relating to these events is double-buffered, and each one
++        modifies the pending state. This request replaces the current state
++        with the pending state.
++
++        The connected text input is expected to proceed by evaluating the
++        changes in the following order:
++
++        1. Replace existing preedit string with the cursor.
++        2. Delete requested surrounding text.
++        3. Insert commit string with the cursor at its end.
++        4. Calculate surrounding text to send.
++        5. Insert new preedit text in cursor position.
++        6. Place cursor inside preedit text.
++
++        The serial number reflects the last state of the zwp_input_method_v2
++        object known to the client. The value of the serial argument must be
++        equal to the number of done events already issued by that object. When
++        the compositor receives a commit request with a serial different than
++        the number of past done events, it must proceed as normal, except it
++        should not change the current state of the zwp_input_method_v2 object.
++      </description>
++      <arg name="serial" type="uint"/>
++    </request>
++
++    <request name="get_input_popup_surface">
++      <description summary="create popup surface">
++        Creates a new zwp_input_popup_surface_v2 object wrapping a given
++        surface.
++
++        The surface gets assigned the "input_popup" role. If the surface
++        already has an assigned role, the compositor must issue a protocol
++        error.
++      </description>
++      <arg name="id" type="new_id" interface="zwp_input_popup_surface_v2"/>
++      <arg name="surface" type="object" interface="wl_surface"/>
++    </request>
++
++    <request name="grab_keyboard">
++      <description summary="grab hardware keyboard">
++        Allow an input method to receive hardware keyboard input and process
++        key events to generate text events (with pre-edit) over the wire. This
++        allows input methods which compose multiple key events for inputting
++        text like it is done for CJK languages.
++
++        The compositor should send all keyboard events on the seat to the grab
++        holder via the returned wl_keyboard object. Nevertheless, the
++        compositor may decide not to forward any particular event. The
++        compositor must not further process any event after it has been
++        forwarded to the grab holder.
++
++        Releasing the resulting wl_keyboard object releases the grab.
++      </description>
++      <arg name="keyboard" type="new_id"
++        interface="zwp_input_method_keyboard_grab_v2"/>
++    </request>
++
++    <event name="unavailable">
++      <description summary="input method unavailable">
++        The input method ceased to be available.
++
++        The compositor must issue this event as the only event on the object if
++        there was another input_method object associated with the same seat at
++        the time of its creation.
++
++        The compositor must issue this request when the object is no longer
++        usable, e.g. due to seat removal.
++
++        The input method context becomes inert and should be destroyed after
++        deactivation is handled. Any further requests and events except for the
++        destroy request must be ignored.
++      </description>
++    </event>
++
++    <request name="destroy" type="destructor">
++      <description summary="destroy the text input">
++        Destroys the zwp_text_input_v2 object and any associated child
++        objects, i.e. zwp_input_popup_surface_v2 and
++        zwp_input_method_keyboard_grab_v2.
++      </description>
++    </request>
++  </interface>
++
++  <interface name="zwp_input_popup_surface_v2" version="1">
++    <description summary="popup surface">
++      This interface marks a surface as a popup for interacting with an input
++      method.
++
++      The compositor should place it near the active text input area. It must
++      be visible if and only if the input method is in the active state.
++
++      The client must not destroy the underlying wl_surface while the
++      zwp_input_popup_surface_v2 object exists.
++    </description>
++
++    <event name="text_input_rectangle">
++      <description summary="set text input area position">
++        Notify about the position of the area of the text input expressed as a
++        rectangle in surface local coordinates.
++
++        This is a hint to the input method telling it the relative position of
++        the text being entered.
++      </description>
++      <arg name="x" type="int"/>
++      <arg name="y" type="int"/>
++      <arg name="width" type="int"/>
++      <arg name="height" type="int"/>
++    </event>
++
++    <request name="destroy" type="destructor"/>
++  </interface>
++
++  <interface name="zwp_input_method_keyboard_grab_v2" version="1">
++    <!-- Closely follows wl_keyboard version 6 -->
++    <description summary="keyboard grab">
++      The zwp_input_method_keyboard_grab_v2 interface represents an exclusive
++      grab of the wl_keyboard interface associated with the seat.
++    </description>
++
++    <event name="keymap">
++      <description summary="keyboard mapping">
++        This event provides a file descriptor to the client which can be
++        memory-mapped to provide a keyboard mapping description.
++      </description>
++      <arg name="format" type="uint" enum="wl_keyboard.keymap_format"
++        summary="keymap format"/>
++      <arg name="fd" type="fd" summary="keymap file descriptor"/>
++      <arg name="size" type="uint" summary="keymap size, in bytes"/>
++    </event>
++
++    <event name="key">
++      <description summary="key event">
++        A key was pressed or released.
++        The time argument is a timestamp with millisecond granularity, with an
++        undefined base.
++      </description>
++      <arg name="serial" type="uint" summary="serial number of the key event"/>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="key" type="uint" summary="key that produced the event"/>
++      <arg name="state" type="uint" enum="wl_keyboard.key_state"
++        summary="physical state of the key"/>
++    </event>
++
++    <event name="modifiers">
++      <description summary="modifier and group state">
++        Notifies clients that the modifier and/or group state has changed, and
++        it should update its local state.
++      </description>
++      <arg name="serial" type="uint" summary="serial number of the modifiers event"/>
++      <arg name="mods_depressed" type="uint" summary="depressed modifiers"/>
++      <arg name="mods_latched" type="uint" summary="latched modifiers"/>
++      <arg name="mods_locked" type="uint" summary="locked modifiers"/>
++      <arg name="group" type="uint" summary="keyboard layout"/>
++    </event>
++
++    <request name="release" type="destructor">
++      <description summary="release the grab object"/>
++    </request>
++
++    <event name="repeat_info">
++      <description summary="repeat rate and delay">
++        Informs the client about the keyboard's repeat rate and delay.
++
++        This event is sent as soon as the zwp_input_method_keyboard_grab_v2
++        object has been created, and is guaranteed to be received by the
++        client before any key press event.
++
++        Negative values for either rate or delay are illegal. A rate of zero
++        will disable any repeating (regardless of the value of delay).
++
++        This event can be sent later on as well with a new value if necessary,
++        so clients should continue listening for the event past the creation
++        of zwp_input_method_keyboard_grab_v2.
++      </description>
++      <arg name="rate" type="int"
++	   summary="the rate of repeating keys in characters per second"/>
++      <arg name="delay" type="int"
++	   summary="delay in milliseconds since key down until repeating starts"/>
++    </event>
++  </interface>
++
++  <interface name="zwp_input_method_manager_v2" version="1">
++    <description summary="input method manager">
++      The input method manager allows the client to become the input method on
++      a chosen seat.
++
++      No more than one input method must be associated with any seat at any
++      given time.
++    </description>
++
++    <request name="get_input_method">
++      <description summary="request an input method object">
++        Request a new input zwp_input_method_v2 object associated with a given
++        seat.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat"/>
++      <arg name="input_method" type="new_id" interface="zwp_input_method_v2"/>
++    </request>
++
++    <request name="destroy" type="destructor">
++      <description summary="destroy the input method manager">
++        Destroys the zwp_input_method_manager_v2 object.
++
++        The zwp_input_method_v2 objects originating from it remain valid.
++      </description>
++    </request>
++  </interface>
++</protocol>
+diff --git a/plover/oslayer/wayland/keyboardcontrol.py b/plover/oslayer/wayland/keyboardcontrol.py
+new file mode 100644
+index 00000000..ec1057bb
+--- /dev/null
++++ b/plover/oslayer/wayland/keyboardcontrol.py
+@@ -0,0 +1,389 @@
++"""Keyboard capture and control on Wayland.
++
++This module provides an interface for capturing and emulating keyboard events
++on Wayland compositors that support the 'virtual_keyboard_unstable_v1' and
++'input_method_unstable_v2' protocols (that is, wlroots-based compositors
++like Sway, as of January 2022).
++"""
++
++import os
++import select
++import threading
++import time
++
++from pywayland.client.display import Display
++from pywayland.protocol.wayland.wl_seat import WlSeat
++
++from plover.oslayer.linux.keyboardcontrol_x11 import KEYCODE_TO_KEY
++
++from .keyboardlayout import PLOVER_TAG, KeyComboLayout, StringOutputLayout
++# Protocol modules generated from XML description files at build time.
++from .input_method_unstable_v2 import ZwpInputMethodManagerV2
++from .virtual_keyboard_unstable_v1 import ZwpVirtualKeyboardManagerV1
++
++
++class KeyboardHandler:
++
++    _INTERFACES = {
++        interface.name: (nick, interface)
++        for nick, interface in (
++            ('seat', WlSeat),
++            ('input_method', ZwpInputMethodManagerV2),
++            ('virtual_keyboard', ZwpVirtualKeyboardManagerV1),
++        )}
++
++    def __init__(self):
++        super().__init__()
++        self._lock = threading.RLock()
++        self._loop_thread = None
++        self._pipe = None
++        # Common for capture and emulation.
++        self._display = None
++        self._interface = None
++        self._keyboard = None
++        self._keymap = None
++        self._replay_keyboard = None
++        self._replay_layout = None
++        # For capture only.
++        self._refcount_capture = 0
++        self._grabbed_keyboard = None
++        self._input_method = None
++        self._event_listeners = {
++            'grab_key': set(),
++            'grab_modifiers': set(),
++        }
++        # For emulation only.
++        self._refcount_emulate = 0
++        self._output_keyboard = None
++        self._output_layout = None
++
++    def _event_loop(self):
++        with self._lock:
++            readfds = (self._pipe[0], self._display.get_fd())
++        while True:
++            # Sleep until we get new data on the display connection,
++            # or on the pipe used to signal the end of the loop.
++            rlist, wlist, xlist = select.select(readfds, (), ())
++            assert not wlist
++            assert not xlist
++            if self._pipe[0] in rlist:
++                break
++            # If we're here, rlist should contains
++            # the display fd, process pending events.
++            with self._lock:
++                self._display.dispatch(block=True)
++                self._display.flush()
++
++    def __enter__(self):
++        self._lock.__enter__()
++        return self
++
++    def __exit__(self, exc_type, exc_value, traceback):
++        if exc_type is None and self._display is not None:
++            self._display.flush()
++        self._lock.__exit__(exc_type, exc_value, traceback)
++
++    def _on_registry_global(self, obj, name, interface_name, interface_version):
++        if interface_name not in self._INTERFACES:
++            return
++        nick, interface = self._INTERFACES[interface_name]
++        self._interface[nick] = obj.bind(name, interface, interface_version)
++
++    def _on_keymap(self, __keyboard, fmt, fd, size):
++        try:
++            os.lseek(fd, 0, os.SEEK_SET)
++            keymap = os.read(fd, size)
++            is_generated = PLOVER_TAG in keymap
++            if is_generated or keymap == self._keymap:
++                return
++            self._replay_layout = KeyComboLayout(keymap)
++            self._replay_keyboard.keymap(fmt, fd, size)
++            self._keymap = keymap
++        finally:
++            os.close(fd)
++
++    def _on_grab_key(self, __grabbed_keyboard, __serial, origtime, keycode, state):
++        suppressed = False
++        try:
++            for cb in self._event_listeners['grab_key']:
++                suppressed |= cb(origtime, keycode, state)
++        finally:
++            if not suppressed:
++                self._replay_keyboard.key(origtime, keycode, state)
++
++    def _on_grab_modifiers(self, __grabbed_keyboard, __serial, depressed, latched, locked, layout):
++        suppressed = False
++        try:
++            for cb in self._event_listeners['grab_modifiers']:
++                suppressed |= cb(depressed, latched, locked, layout)
++        finally:
++            if not suppressed:
++                self._replay_keyboard.modifiers(depressed, latched, locked, layout)
++
++    def _update_output_keymap(self):
++        xkb_keymap = self._output_layout.to_xkb_def()
++        fd = os.memfd_create('emulated_keymap.xkb')
++        try:
++            os.lseek(fd, 0, os.SEEK_SET)
++            os.write(fd, xkb_keymap)
++            self._output_keyboard.keymap(1, fd, len(xkb_keymap))
++        finally:
++            os.close(fd)
++
++    def _ensure_interfaces(self, mode, interface_list):
++        missing_interfaces = [
++            interface_name
++            for interface_name in interface_list
++            if interface_name not in self._interface
++        ]
++        if missing_interfaces:
++            missing_interfaces = ', '.join(f'\'{name}\'' for name in missing_interfaces)
++            raise RuntimeError(f'Cannot {mode} keyboard events: your '
++                               f'Wayland compositor does not support '
++                               f'the following interfaces: '
++                               f'{missing_interfaces}')
++
++    def _setup_base(self):
++        self._display = Display()
++        self._display.connect()
++        self._interface = {}
++        reg = self._display.get_registry()
++        reg.dispatcher['global'] = self._on_registry_global
++        self._display.roundtrip()
++        self._replay_keyboard = self._interface['virtual_keyboard'].create_virtual_keyboard(self._interface['seat'])
++        self._keyboard = self._interface['seat'].get_keyboard()
++        self._keyboard.dispatcher['keymap'] = self._on_keymap
++        self._display.roundtrip()
++        self._pipe = os.pipe()
++        self._loop_thread = threading.Thread(target=self._event_loop)
++        self._loop_thread.start()
++
++    def _teardown_base(self):
++        if self._loop_thread is not None:
++            # Wake up the capture thread...
++            os.write(self._pipe[1], b'quit')
++            # ...and wait for it to terminate.
++            self._loop_thread.join()
++            self._loop_thread = None
++            for fd in self._pipe:
++                os.close(fd)
++            self._pipe = None
++        self._replay_keyboard = None
++        self._replay_layout = None
++        self._keymap = None
++        if self._keyboard is not None:
++            self._keyboard.release()
++            self._keyboard = None
++        while self._interface:
++            self._interface.popitem()[1].release()
++        self._interface = None
++        if self._display is not None:
++            self._display.disconnect()
++            self._display = None
++
++    def _setup_capture(self):
++        self._ensure_interfaces('capture', ('seat', 'input_method', 'virtual_keyboard'))
++        self._input_method = self._interface['input_method'].get_input_method(self._interface['seat'])
++        self._grabbed_keyboard = self._input_method.grab_keyboard()
++        self._grabbed_keyboard.dispatcher['key'] = self._on_grab_key
++        self._grabbed_keyboard.dispatcher['modifiers'] = self._on_grab_modifiers
++
++    def _teardown_capture(self):
++        self._event_listeners['grab_key'].clear()
++        self._event_listeners['grab_modifiers'].clear()
++        if self._grabbed_keyboard is not None:
++            self._grabbed_keyboard.destroy()
++            self._grabbed_keyboard = None
++        if self._input_method is not None:
++            self._input_method.destroy()
++            self._input_method = None
++
++    def _setup_emulate(self):
++        self._ensure_interfaces('emulate', ('seat', 'virtual_keyboard'))
++        self._output_keyboard = self._interface['virtual_keyboard'].create_virtual_keyboard(self._interface['seat'])
++        self._output_layout = StringOutputLayout()
++        self._update_output_keymap()
++
++    def _teardown_emulate(self):
++        self._output_keyboard = None
++        self._output_layout = None
++
++    def incref(self, mode):
++        if mode not in ('capture', 'emulate'):
++            raise ValueError(mode)
++        refattr = '_refcount_' + mode
++        refcount = getattr(self, refattr) + 1
++        assert refcount >= 1
++        setattr(self, refattr, refcount)
++        try:
++            total_refcount = self._refcount_capture + self._refcount_emulate
++            if total_refcount == 1:
++                self._setup_base()
++            if refcount == 1:
++                getattr(self, '_setup_' + mode)()
++        except:
++            self.decref(mode)
++            raise
++
++    def decref(self, mode):
++        if mode not in ('capture', 'emulate'):
++            raise ValueError(mode)
++        refattr = '_refcount_' + mode
++        refcount = getattr(self, refattr) - 1
++        assert refcount >= 0
++        setattr(self, refattr, refcount)
++        if refcount == 0:
++            getattr(self, '_teardown_' + mode)()
++        if self._refcount_capture + self._refcount_emulate == 0:
++            self._teardown_base()
++
++    def add_event_listener(self, event, callback):
++        self._event_listeners[event].add(callback)
++
++    def remove_event_listener(self, event, callback):
++        self._event_listeners[event].discard(callback)
++
++    def send_string(self, string):
++        timestamp = time.thread_time_ns() // (10 ** 3)
++        keymap_updated, combo_list = self._output_layout.string_to_combos(string)
++        if keymap_updated:
++            self._update_output_keymap()
++        mods_state = 0
++        for keycode, mods in combo_list:
++            if mods != mods_state:
++                self._output_keyboard.modifiers(mods_depressed=mods,
++                                                mods_latched=0,
++                                                mods_locked=0,
++                                                group=0)
++                mods_state = mods
++            self._output_keyboard.key(timestamp, keycode, 1)
++            self._output_keyboard.key(timestamp, keycode, 0)
++        if mods_state:
++            self._output_keyboard.modifiers(mods_depressed=0,
++                                            mods_latched=0,
++                                            mods_locked=0,
++                                            group=0)
++
++    def send_backspaces(self, count):
++        timestamp = time.thread_time_ns() // (10 ** 3)
++        for __ in range(count):
++            self._output_keyboard.key(timestamp, 0, 1)
++            self._output_keyboard.key(timestamp, 0, 0)
++
++    def send_key_combination(self, combo_string):
++        timestamp = time.thread_time_ns() // (10 ** 3)
++        mods_state = 0
++        for (keycode, mods), pressed in self._replay_layout.parse_key_combo(combo_string):
++            self._replay_keyboard.key(timestamp, keycode, int(pressed))
++            if mods:
++                if pressed:
++                    mods_state |= mods
++                else:
++                    mods_state &= ~mods
++                self._replay_keyboard.modifiers(mods_depressed=mods_state,
++                                                mods_latched=0,
++                                                mods_locked=0,
++                                                group=0)
++        assert not mods_state
++
++
++_keyboard = KeyboardHandler()
++
++
++class KeyboardCapture:
++    """Listen to keyboard press and release events.
++
++    This uses the 'input_method_unstable_v2' protocol to grab the Wayland
++    keyboard. This grab is global and unconditional, therefore a virtual
++    keyboard input is also created (using the 'virtual_keyboard_unstable_v1'
++    protocol) to forward events that do not need to be captured by Plover.
++    Note that this grab will also capture events generated by the
++    KeyboardEmulation class, those events need to be actively filtered out
++    to avoid infinite feedback loops.
++    """
++    def __init__(self):
++        self._started = False
++        self._mod_state = 0
++        self._grabbed_keyboard = None
++        self._suppressed_keys = set()
++        # Callbacks that receive keypresses.
++        self.key_down = lambda key: None
++        self.key_up = lambda key: None
++
++    def start(self):
++        """Connect to the Wayland compositor and start the event loop."""
++        with _keyboard:
++            _keyboard.add_event_listener('grab_key', self._on_grab_key)
++            _keyboard.add_event_listener('grab_modifiers', self._on_grab_modifiers)
++            _keyboard.incref('capture')
++        self._started = True
++
++    def cancel(self):
++        """Cancel grabbing the keyboard and free resources."""
++        if not self._started:
++            return
++        with _keyboard:
++            _keyboard.decref('capture')
++            _keyboard.remove_event_listener('grab_key', self._on_grab_key)
++            _keyboard.remove_event_listener('grab_modifiers', self._on_grab_modifiers)
++        self._started = False
++
++    def _on_grab_key(self, __origtime, keycode, state):
++        """Callback for when a new key event arrives."""
++        key = KEYCODE_TO_KEY.get(keycode + 8)
++        if key is None:
++            # Unhandled, ignore and don't suppress.
++            return False
++        suppressed = key in self._suppressed_keys
++        if state == 1:
++            if self._mod_state:
++                # Modifier(s) pressed, ignore.
++                suppressed = False
++            else:
++                self.key_down(key)
++        else:
++            self.key_up(key)
++        return suppressed
++
++    def _on_grab_modifiers(self, depressed, latched, locked, __layout):
++        """Callback for when the set of active modifiers changes."""
++        # Note: ignore numlock state.
++        self._mod_state = (depressed | latched | locked) & ~0x10
++        return False
++
++    def suppress(self, keys=()):
++        """Change the set of keys to capture."""
++        self._suppressed_keys = set(keys)
++
++
++class KeyboardEmulation:
++    """Emulate keyboard events to send strings on Wayland.
++
++    This emulation layer uses the 'virtual_keyboard_unstable_v1' protocol.
++    Since the protocol allows using any XKB layout, a new layout is generated
++    each time a string needs to be sent, containing just the needed symbols.
++    This makes the emulation independent of the user’s current keyboard layout.
++    To signal emulated events to KeyboardCapture, a special tag is inserted in
++    generated XKB layouts.
++    """
++    def __init__(self):
++        with _keyboard:
++            _keyboard.incref('emulate')
++
++    @staticmethod
++    def send_string(string):
++        """Emulate a complete string."""
++        with _keyboard:
++            _keyboard.send_string(string)
++
++    @staticmethod
++    def send_backspaces(count):
++        """Emulate a sequence of backspaces."""
++        with _keyboard:
++            _keyboard.send_backspaces(count)
++
++    @staticmethod
++    def send_key_combination(combo_string):
++        """Emulate a key combo."""
++        with _keyboard:
++            _keyboard.send_key_combination(combo_string)
+diff --git a/plover/oslayer/wayland/keyboardlayout.py b/plover/oslayer/wayland/keyboardlayout.py
+new file mode 100644
+index 00000000..f4006d67
+--- /dev/null
++++ b/plover/oslayer/wayland/keyboardlayout.py
+@@ -0,0 +1,203 @@
++from xkbcommon import xkb
++
++from plover.key_combo import add_modifiers_aliases, parse_key_combo
++from plover.oslayer.linux.keyboardcontrol_x11 import uchr_to_keysym
++
++
++XKB_KEYCODE_OFFSET = 8
++XKB_KEYCODE_MAX = 255
++
++PLOVER_TAG = b'<PLVR>'
++PLOVER_KEYMAP_TEMPLATE = (
++b'''
++xkb_keymap {
++xkb_keycodes {
++minimum = %u;
++maximum = %u;
++%s
++};
++xkb_types { include "complete" };
++xkb_compatibility { include "complete" };
++xkb_symbols {
++%s
++};
++};
++'''
++)
++
++XKB_ALIASES = (
++    ('apostrophe', 'quoteright'),
++    ('f11', 'l1'),
++    ('f12', 'l2'),
++    ('f13', 'l3'),
++    ('f14', 'l4'),
++    ('f15', 'l5'),
++    ('f16', 'l6'),
++    ('f17', 'l7'),
++    ('f18', 'l8'),
++    ('f19', 'l9'),
++    ('f20', 'l10'),
++    ('f21', 'r1'),
++    ('f22', 'r2'),
++    ('f23', 'r3'),
++    ('f24', 'r4'),
++    ('f25', 'r5'),
++    ('f26', 'r6'),
++    ('f27', 'r7'),
++    ('f28', 'r8'),
++    ('f29', 'r9'),
++    ('f30', 'r10'),
++    ('f31', 'r11'),
++    ('f32', 'r12'),
++    ('f33', 'r13'),
++    ('f34', 'r14'),
++    ('f35', 'r15'),
++    ('grave', 'quoteleft'),
++    ('henkan', 'henkan_mode'),
++    ('kp_next', 'kp_page_down'),
++    ('kp_page_up', 'kp_prior'),
++    ('mae_koho', 'previouscandidate'),
++    ('mode_switch', 'script_switch'),
++    ('multiplecandidate', 'zen_koho'),
++    ('next', 'page_down'),
++    ('page_up', 'prior'),
++)
++
++
++class KeyComboLayout:
++
++    def __init__(self, xkb_def_bytestring):
++        '''Create a basic keyboard layout from a XKB keymap definition.'''
++        # Ignore terminating null character.
++        if xkb_def_bytestring.endswith(b'\x00'):
++            xkb_def_bytestring = xkb_def_bytestring[:-1]
++        keymap = xkb.Context().keymap_new_from_buffer(xkb_def_bytestring)
++        modifiers = {
++            keymap.mod_get_name(mod_index).lower(): 1 << mod_index
++            for mod_index in range(keymap.num_mods())
++        }
++        for mod_name in ('alt', 'control', 'shift', 'super'):
++            mods = modifiers.get(mod_name)
++            if mods is not None:
++                modifiers[mod_name + '_l'] = mods
++                modifiers[mod_name + '_r'] = mods
++        combo_from_keyname = {}
++        keysym_level = {}
++        for keycode in keymap:
++            for level in range(keymap.num_levels_for_key(keycode, 0)):
++                keysym = keymap.key_get_syms_by_level(keycode, 0, level)
++                if len(keysym) != 1:
++                    continue
++                keysym = keysym[0]
++                if not keysym:
++                    # Ignore NoSymbol.
++                    continue
++                try:
++                    keysym_name = xkb.keysym_get_name(keysym)
++                except xkb.XKBInvalidKeysym:
++                    continue
++                if keysym_name.startswith('XF86'):
++                    alias = keysym_name[4:].lower()
++                    keysym_name = 'xf86_' + alias
++                else:
++                    alias = None
++                    keysym_name = keysym_name.lower()
++                if keysym_name in combo_from_keyname and level >= keysym_level.get(keysym, 0):
++                    # Ignore if already available at a lower level.
++                    continue
++                assert keycode >= XKB_KEYCODE_OFFSET
++                combo = (keycode - XKB_KEYCODE_OFFSET, modifiers.get(keysym_name, 0))
++                combo_from_keyname[keysym_name] = combo
++                if alias is not None:
++                    combo_from_keyname[alias] = combo
++                keysym_level[keysym] = level
++        add_modifiers_aliases(combo_from_keyname)
++        # Ensure all aliases for the same keysim are available.
++        for alias_list in XKB_ALIASES:
++            combo = next(filter(None, map(combo_from_keyname.get, alias_list)), None)
++            if combo is not None:
++                for alias in alias_list:
++                    if alias not in combo_from_keyname:
++                        combo_from_keyname[alias] = combo
++        self._combo_from_keyname = combo_from_keyname
++
++    def parse_key_combo(self, combo_string):
++        return parse_key_combo(combo_string, self._combo_from_keyname.__getitem__)
++
++
++class StringOutputLayout:
++
++    def __init__(self):
++        '''Create a custom layout for output strings.'''
++        printable = {
++            c
++            for c in map(chr, range(XKB_KEYCODE_MAX))
++            for c in (c.lower(), c.upper())
++            if len(c) == 1 and c.isprintable()
++        }
++        # Note: we reserve the firt keycode for tagging the keymap
++        # with our <PLVR> key and mapping the BackSpace keysym.
++        max_mappings = XKB_KEYCODE_MAX - XKB_KEYCODE_OFFSET
++        levels = 2
++        char_to_combo = {}
++        keymap = [[None] * levels for __ in range(max_mappings)]
++        free_mappings = iter([
++            (keycode, mod_level)
++            for mod_level in range(levels)
++            for keycode in range(1, max_mappings)
++        ])
++        for c in sorted(printable):
++            keycode, mod_level = next(free_mappings)
++            char_to_combo[c] = (keycode, 1 << mod_level >> 1)
++            keymap[keycode][mod_level] = uchr_to_keysym(c)
++        self._keymap = keymap
++        self._char_to_combo = char_to_combo
++        self._next_extra_mapping_index = 0
++        self._extra_mappings = [[keycode, mod_level, None]
++                                for keycode, mod_level in free_mappings]
++
++    def string_to_combos(self, string):
++        '''Return a tuple pair:
++            - a boolean indicading if the keymap was updated
++            - a list of `(keycode, modifiers)`
++        '''
++        combo_list = []
++        updated = False
++        for char in string:
++            combo = self._char_to_combo.get(char)
++            if combo is not None:
++                combo_list.append(combo)
++                continue
++            extra_mapping = self._extra_mappings[self._next_extra_mapping_index]
++            self._next_extra_mapping_index += 1
++            self._next_extra_mapping_index %= len(self._extra_mappings)
++            keycode, mod_level, old_char = extra_mapping
++            if old_char is not None:
++                del self._char_to_combo[old_char]
++            extra_mapping[-1] = char
++            self._keymap[keycode][mod_level] = uchr_to_keysym(char)
++            self._char_to_combo[char] = combo = (keycode, 1 << mod_level >> 1)
++            combo_list.append(combo)
++            updated = True
++        return updated, combo_list
++
++    def to_xkb_def(self):
++        '''Generate an XKB keymap definition for the layout.'''
++        # Sway is more permissive than Xwayland on what an XKB keymap must
++        # or must not include. We need to take care if we want to ensure
++        # compatibility with both. See <https://github.com/atx/wtype/issues/1>
++        keycodes_list = [b'%s = %u;' % (PLOVER_TAG, XKB_KEYCODE_OFFSET)]
++        symbols_list = [b'key %s {[BackSpace]};' % PLOVER_TAG]
++        for keycode, keysym_list in enumerate(self._keymap):
++            keysym_list = [b'%#x' % keysym
++                           for keysym in keysym_list
++                           if keysym is not None]
++            if not keysym_list:
++                continue
++            keycodes_list.append(b'<C%u> = %u;' % (keycode, XKB_KEYCODE_OFFSET + keycode))
++            symbols_list.append(b'key <C%u> {[%s]};' % (keycode, b', '.join(keysym_list)))
++        return PLOVER_KEYMAP_TEMPLATE % (
++            XKB_KEYCODE_OFFSET, XKB_KEYCODE_OFFSET + len(self._keymap),
++            b'\n'.join(keycodes_list),
++            b'\n'.join(symbols_list),
++        )
+diff --git a/plover/oslayer/wayland/virtual-keyboard-unstable-v1.xml b/plover/oslayer/wayland/virtual-keyboard-unstable-v1.xml
+new file mode 100644
+index 00000000..5095c91b
+--- /dev/null
++++ b/plover/oslayer/wayland/virtual-keyboard-unstable-v1.xml
+@@ -0,0 +1,113 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<protocol name="virtual_keyboard_unstable_v1">
++  <copyright>
++    Copyright © 2008-2011  Kristian Høgsberg
++    Copyright © 2010-2013  Intel Corporation
++    Copyright © 2012-2013  Collabora, Ltd.
++    Copyright © 2018       Purism SPC
++
++    Permission is hereby granted, free of charge, to any person obtaining a
++    copy of this software and associated documentation files (the "Software"),
++    to deal in the Software without restriction, including without limitation
++    the rights to use, copy, modify, merge, publish, distribute, sublicense,
++    and/or sell copies of the Software, and to permit persons to whom the
++    Software is furnished to do so, subject to the following conditions:
++
++    The above copyright notice and this permission notice (including the next
++    paragraph) shall be included in all copies or substantial portions of the
++    Software.
++
++    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++    DEALINGS IN THE SOFTWARE.
++  </copyright>
++
++  <interface name="zwp_virtual_keyboard_v1" version="1">
++    <description summary="virtual keyboard">
++      The virtual keyboard provides an application with requests which emulate
++      the behaviour of a physical keyboard.
++
++      This interface can be used by clients on its own to provide raw input
++      events, or it can accompany the input method protocol.
++    </description>
++
++    <request name="keymap">
++      <description summary="keyboard mapping">
++        Provide a file descriptor to the compositor which can be
++        memory-mapped to provide a keyboard mapping description.
++
++        Format carries a value from the keymap_format enumeration.
++      </description>
++      <arg name="format" type="uint" summary="keymap format"/>
++      <arg name="fd" type="fd" summary="keymap file descriptor"/>
++      <arg name="size" type="uint" summary="keymap size, in bytes"/>
++    </request>
++
++    <enum name="error">
++      <entry name="no_keymap" value="0" summary="No keymap was set"/>
++    </enum>
++
++    <request name="key">
++      <description summary="key event">
++        A key was pressed or released.
++        The time argument is a timestamp with millisecond granularity, with an
++        undefined base. All requests regarding a single object must share the
++        same clock.
++
++        Keymap must be set before issuing this request.
++
++        State carries a value from the key_state enumeration.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="key" type="uint" summary="key that produced the event"/>
++      <arg name="state" type="uint" summary="physical state of the key"/>
++    </request>
++
++    <request name="modifiers">
++      <description summary="modifier and group state">
++        Notifies the compositor that the modifier and/or group state has
++        changed, and it should update state.
++
++        The client should use wl_keyboard.modifiers event to synchronize its
++        internal state with seat state.
++
++        Keymap must be set before issuing this request.
++      </description>
++      <arg name="mods_depressed" type="uint" summary="depressed modifiers"/>
++      <arg name="mods_latched" type="uint" summary="latched modifiers"/>
++      <arg name="mods_locked" type="uint" summary="locked modifiers"/>
++      <arg name="group" type="uint" summary="keyboard layout"/>
++    </request>
++
++    <request name="destroy" type="destructor" since="1">
++      <description summary="destroy the virtual keyboard keyboard object"/>
++    </request>
++  </interface>
++
++  <interface name="zwp_virtual_keyboard_manager_v1" version="1">
++    <description summary="virtual keyboard manager">
++      A virtual keyboard manager allows an application to provide keyboard
++      input events as if they came from a physical keyboard.
++    </description>
++
++    <enum name="error">
++      <entry name="unauthorized" value="0" summary="client not authorized to use the interface"/>
++    </enum>
++
++    <request name="create_virtual_keyboard">
++      <description summary="Create a new virtual keyboard">
++        Creates a new virtual keyboard associated to a seat.
++
++        If the compositor enables a keyboard to perform arbitrary actions, it
++        should present an error when an untrusted client requests a new
++        keyboard.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat"/>
++      <arg name="id" type="new_id" interface="zwp_virtual_keyboard_v1"/>
++    </request>
++  </interface>
++</protocol>
+diff --git a/plover_build_utils/setup.py b/plover_build_utils/setup.py
+index 0be32e26..92e3f206 100644
+--- a/plover_build_utils/setup.py
++++ b/plover_build_utils/setup.py
+@@ -1,14 +1,20 @@
++from pathlib import Path
+ import contextlib
++import glob
+ import importlib
+ import os
+ import subprocess
++import shutil
+ import sys
++import logging
+ 
+ from setuptools.command.build_py import build_py
+ from setuptools.command.develop import develop
+ import pkg_resources
+ import setuptools
+ 
++logging.basicConfig()
++log = logging.getLogger("plover setup")
+ 
+ class Command(setuptools.Command):
+ 
+@@ -150,6 +156,38 @@ class BuildUi(Command):
+ 
+ # }}}
+ 
++# Wayland protocols generation. {{{
++
++class BuildWayland(Command):
++
++    description = 'build Wayland protocol modules'
++
++    def initialize_options(self):
++        pass
++
++    def finalize_options(self):
++        pass
++
++    def run(self):
++        log.info('generating Wayland protocol modules')
++        base = 'plover/oslayer/wayland'
++        defs = glob.glob(base + '/*.xml') + ['/usr/share/wayland/wayland.xml']
++        cmd = (
++            sys.executable, '-m', 'pywayland.scanner',
++            '-i', *defs, '-o', base,
++        )
++        subprocess.check_call(cmd)
++        shutil.rmtree('plover/oslayer/wayland/wayland')
++        for py in Path('plover/oslayer/wayland').glob('*/*.py'):
++            contents = py.read_text()
++            contents = contents.replace(
++                '\nfrom ..wayland import ',
++                '\nfrom pywayland.protocol.wayland import ',
++            )
++            py.write_text(contents)
++
++# }}}
++
+ # Patched `build_py` command. {{{
+ 
+ class BuildPy(build_py):
+diff --git a/pyproject.toml b/pyproject.toml
+index b6c48999..0b0a8134 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -2,6 +2,7 @@
+ requires = [
+ 	"Babel",
+ 	"PyQt5>=5.8.2",
++	"pywayland; ('linux' in sys_platform or 'bsd' in sys_platform)",
+ 	"setuptools>=38.2.4",
+ 	"wheel",
+ ]
+diff --git a/reqs/constraints.txt b/reqs/constraints.txt
+index 928d34af..1be0f8af 100644
+--- a/reqs/constraints.txt
++++ b/reqs/constraints.txt
+@@ -52,6 +52,7 @@ pytest==6.2.5
+ pytest-qt==4.0.2
+ python-xlib==0.31
+ pytz==2021.3
++pywayland==0.4.11
+ PyYAML==6.0
+ readme-renderer==30.0
+ requests==2.26.0
+@@ -73,6 +74,7 @@ urllib3==1.26.7
+ wcwidth==0.2.5
+ webencodings==0.5.1
+ wheel==0.37.0
++xkbcommon==0.4
+ zipp==3.6.0
+ 
+ # vim: ft=cfg commentstring=#\ %s list
+diff --git a/reqs/dist.txt b/reqs/dist.txt
+index 43102086..ceddfefb 100644
+--- a/reqs/dist.txt
++++ b/reqs/dist.txt
+@@ -7,8 +7,10 @@ pyobjc-framework-Quartz>=4.0; "darwin" in sys_platform
+ pyserial>=2.7
+ python-xlib>=0.16; ("linux" in sys_platform or "bsd" in sys_platform) and python_version < "3.9"
+ python-xlib>=0.29; ("linux" in sys_platform or "bsd" in sys_platform) and python_version >= "3.9"
++pywayland; ("linux" in sys_platform or "bsd" in sys_platform)
+ rtf_tokenize
+ setuptools
+ wcwidth
++xkbcommon>=0.4; ("linux" in sys_platform or "bsd" in sys_platform)
+ 
+ # vim: ft=cfg commentstring=#\ %s list
+diff --git a/reqs/setup.txt b/reqs/setup.txt
+index ec915a75..4af23620 100644
+--- a/reqs/setup.txt
++++ b/reqs/setup.txt
+@@ -1,5 +1,6 @@
+ Babel
+ PyQt5>=5.8.2
++pywayland; ("linux" in sys_platform or "bsd" in sys_platform)
+ setuptools>=38.2.4
+ wheel
+ 
+diff --git a/setup.cfg b/setup.cfg
+index 8a1ef9c3..921c1ea0 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -47,6 +47,7 @@ packages =
+ 	plover.oslayer
+ 	plover.oslayer.linux
+ 	plover.oslayer.osx
++	plover.oslayer.wayland
+ 	plover.oslayer.windows
+ 	plover.output
+ 	plover.scripts
+@@ -107,6 +108,9 @@ plover.system =
+ [options.package_data]
+ plover =
+ 	messages/*/LC_MESSAGES/*.mo
++plover.oslayer.wayland =
++	input_method_unstable_v2/*.py
++	virtual_keyboard_unstable_v1/*.py
+ 
+ [options.exclude_package_data]
+ plover =
+@@ -117,5 +121,7 @@ plover =
+ plover.gui_qt =
+ 	*.ui
+ 	resources/*
++plover.oslayer =
++	wayland/*.xml
+ 
+ # vim: commentstring=#\ %s list
+diff --git a/setup.py b/setup.py
+index beab2d75..17364dc9 100755
+--- a/setup.py
++++ b/setup.py
+@@ -22,7 +22,7 @@ with open(os.path.join(__software_name__, '__init__.py')) as fp:
+     exec(fp.read())
+ 
+ from plover_build_utils.setup import (
+-    BuildPy, BuildUi, Command, Develop, babel_options
++    BuildPy, BuildUi, BuildWayland, Command, Develop, babel_options
+ )
+ 
+ 
+@@ -35,6 +35,10 @@ cmdclass = {
+ }
+ options = {}
+ 
++if sys.platform.startswith(('linux', 'freebsd', 'openbsd')):
++    BuildPy.build_dependencies.insert(0, 'build_wayland')
++    cmdclass['build_wayland'] = BuildWayland
++
+ PACKAGE = '%s-%s' % (
+     __software_name__,
+     __version__,
+diff --git a/tox.ini b/tox.ini
+index b608544f..634a27cd 100644
+--- a/tox.ini
++++ b/tox.ini
+@@ -86,6 +86,7 @@ description = launch plover
+ passenv =
+ 	{[testenv]passenv}
+ 	DISPLAY
++	WAYLAND_DISPLAY
+ 	XDG_RUNTIME_DIR
+ commands =
+ 	{envpython} setup.py launch -- {posargs}

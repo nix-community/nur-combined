@@ -1,0 +1,10 @@
+{
+  "vlpn": {
+    "description": "More realistic fox emojis",
+    "files": "vlpn.json",
+    "homepage": "https://volpeon.ink/art/emojis/vlpn/",
+    "src": "https://volpeon.ink/art/emojis/vlpn/vlpn.zip",
+    "src_sha256": "4b3764559782dff24aef19b7cef5f40cdd6da73b0985cde416cd11d3fc4be24a",
+    "license": "Apache 2.0"
+  }
+}

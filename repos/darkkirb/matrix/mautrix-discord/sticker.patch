@@ -1,0 +1,35 @@
+diff --git a/portal.go b/portal.go
+index d93ad17..198a12c 100644
+--- a/portal.go
++++ b/portal.go
+@@ -874,7 +874,7 @@ func (portal *Portal) sendMatrixMessage(intent *appservice.IntentAPI, eventType
+ 
+ func (portal *Portal) handleMatrixMessages(msg portalMatrixMessage) {
+ 	switch msg.evt.Type {
+-	case event.EventMessage:
++	case event.EventMessage, event.EventSticker:
+ 		portal.handleMatrixMessage(msg.user, msg.evt)
+ 	case event.EventRedaction:
+ 		portal.handleMatrixRedaction(msg.user, msg.evt)
+@@ -1138,13 +1138,20 @@ func (portal *Portal) handleMatrixMessage(sender *User, evt *event.Event) {
+ 			}
+ 		}
+ 		sendReq.Content = portal.parseMatrixHTML(sender, content)
+-	case event.MsgAudio, event.MsgFile, event.MsgImage, event.MsgVideo:
++	case event.MsgAudio, event.MsgFile, event.MsgImage, event.MsgVideo, "": // MsgType is empty when the message is a sticker
+ 		data, err := portal.downloadMatrixAttachment(content)
+ 		if err != nil {
+ 			go portal.sendMessageMetrics(evt, err, "Error downloading media in")
+ 			return
+ 		}
+ 
++    // extract file suffix from mime type
++    mimeParts := strings.Split(content.Info.MimeType, "/")
++
++    if content.MsgType == "" && !strings.HasSuffix(content.Body, "." + mimeParts[1]) {
++      content.Body += mimeParts[1]
++    }
++
+ 		sendReq.Files = []*discordgo.File{{
+ 			Name:        content.Body,
+ 			ContentType: content.Info.MimeType,

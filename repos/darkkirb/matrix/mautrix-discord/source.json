@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/mautrix/discord",
+  "rev": "6be531685f308f081675034904d89c9e920be996",
+  "date": "2022-09-20T00:18:06+03:00",
+  "path": "/nix/store/mypn7mac96gbirbys1vg75v2b5cz99an-discord",
+  "sha256": "13nlz7l619fh7yy2g487ghjw4cvypjrvqb5w9va3r3asimgy7wlg",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}
