@@ -41,6 +41,7 @@ in
   };
 
   virtualisation.kvmgt.enable = false;
+  virtualisation.spiceUSBRedirection.enable = true;
  
   # programs.steam.enable = true;
 
@@ -76,7 +77,8 @@ in
   # started in user sessions.
   # programs.mtr.enable = true;
  
-  services.dotd."trab/nhaa".enable = true;
+  environment.dotd."trab/nhaa".enable = true;
+  services.screenkey.enable = true;
 
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_5_15;

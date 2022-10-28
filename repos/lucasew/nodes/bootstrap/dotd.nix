@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
 let
   inherit (lib) mkOption mkMerge mkIf mkEnableOption types;
-  cfg = config.services.dotd;
+  cfg = config.environment.dotd;
 in {
   options = {
-    services.dotd = mkOption {
+    environment.dotd = mkOption {
       description = "dotd abstraction services";
       default = {};
       type = types.attrsOf (types.submodule {

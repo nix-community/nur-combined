@@ -12,6 +12,7 @@ in {
     ./colors.nix
     ./motd.nix
     ./dotd.nix
+    ./screenkey.nix
   ];
   
   boot.cleanTmpDir = true;

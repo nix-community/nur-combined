@@ -40,6 +40,7 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_5_15;
 
   virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   services.openssh.forwardX11 = true;
 
