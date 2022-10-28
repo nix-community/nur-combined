@@ -53,6 +53,7 @@ in {
           unit = cfg.units;
           ${if cfg.mqtt.username != null then "mqtt-username" else null} = cfg.mqtt.username;
         });
+        Restart = "on-failure";
         Environment = [
           "RUST_LOG=warn"
         ];
