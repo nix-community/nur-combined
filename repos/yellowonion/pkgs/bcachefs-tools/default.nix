@@ -53,7 +53,6 @@ stdenv.mkDerivation {
     rm tests/test_fuse.py
   '';
 
-  buildFlags = [ "EXTRA_CFLAGS=-Wno-error=format-security"  ];
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   passthru.tests = {

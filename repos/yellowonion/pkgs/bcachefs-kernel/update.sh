@@ -7,7 +7,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 COMMIT=$(git ls-remote https://evilpiepirate.org/git/bcachefs.git HEAD | awk '{ print $1; }')
 
 echo $COMMIT
-VERSION="6.0"
+VERSION="5.19"
 URL="https://evilpiepirate.org/git/bcachefs.git/rawdiff/?id=${COMMIT}&id2=v${VERSION}"
 diffHash=$(nix-prefetch-url $URL --name bcachefs-${COMMIT}.diff)
 echo $diffHash
