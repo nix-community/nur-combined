@@ -34,7 +34,6 @@
 
 let
   path = lib.makeBinPath [
-    "/run/wrappers"
     "${placeholder "out"}"
     arch-install-scripts
     bash
@@ -93,7 +92,7 @@ in stdenvNoCC.mkDerivation rec {
         --replace "/usr/bin/rsync" "${rsync}/bin/rsync" \
         --replace "/usr/bin/scp" "${openssh}/bin/scp"
     done
-    echo "export PATH=${path}" >> ./lib/common.sh
+    echo "export PATH=${path}:\$PATH" >> ./lib/common.sh
   '';
 
   meta = with lib; {
