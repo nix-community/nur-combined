@@ -1,6 +1,23 @@
-{ ... }:
+{ lib, ... }:
 
 {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
+  # Extra options to filesystem
+  fileSystems = let
+    diskOptions = [ "defaults" "ssd" "compress=zstd" "noatime" "discard=async" "space_cache=v2" ];
+  in {
+    "/".options = [ "defaults" "size=3G" "mode=755" ];
+    "/nix".options = diskOptions;
+    "/home".options = (lib.remove "noatime" diskOptions);
+    "/persist" = {
+      neededForBoot = true;
+      options = diskOptions;
+    };
+    "/.snapshots".options = diskOptions;
+  };
   boot = {
     initrd = {
       luks.devices."root" = {

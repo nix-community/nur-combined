@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -22,13 +22,12 @@
   networking.hostName = "eyjafjallajokull";
 
   # IMPERMANENCE
-  environment.persistence."/nix/persist" = {
+  environment.persistence."/persist" = {
     hideMounts = true;
     directories = [
       "/etc/NetworkManager/system-connections"
       "/etc/nixos"
       "/etc/secrets/initrd"
-      "/home"
       "/var/lib"
       "/var/log"
     ];
@@ -62,6 +61,9 @@
   hardware.acpilight.enable = true;
   services.illum.enable = true;
   users.extraGroups.video.members = [ "bjorn" ];
+
+  # Extra settings (22.11)
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "20.09";
 }

@@ -16,21 +16,39 @@
   fileSystems."/" =
     { device = "none";
       fsType = "tmpfs";
-      options = [ "defaults" "size=3G" "mode=755" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/6ec53c4e-ec69-47c7-8ade-909bb2f28c5d";
-      fsType = "xfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/C672-7E0A";
+    { device = "/dev/disk/by-uuid/B364-8AA4";
       fsType = "vfat";
     };
 
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/7b93bdc2-7fa7-4422-893b-e0e293010350";
+      fsType = "btrfs";
+      options = [ "subvol=@home" ];
+    };
+
+  fileSystems."/.snapshots" =
+    { device = "/dev/disk/by-uuid/7b93bdc2-7fa7-4422-893b-e0e293010350";
+      fsType = "btrfs";
+      options = [ "subvol=@snapshots" ];
+    };
+
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-uuid/7b93bdc2-7fa7-4422-893b-e0e293010350";
+      fsType = "btrfs";
+      options = [ "subvol=@persist" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/7b93bdc2-7fa7-4422-893b-e0e293010350";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" ];
+    };
+
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/05b0086a-0b2f-4d6c-8316-c0f3e46ef2d7"; }
+    [ { device = "/dev/disk/by-uuid/0cf9c2a0-5981-4759-8709-43c87e8a1b92"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -41,6 +59,5 @@
   # networking.interfaces.enp0s25.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
