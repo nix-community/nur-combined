@@ -13,13 +13,13 @@ let
         sha512 = "uj3pT6Mg+3t39fvLrj8iuCIJ38zKO9FpGtJ4BBJebJhEwjoT+KLVNCcHT5QC9NGRIEi7fZ0ZR8YRb884auB4Lg==";
       };
     };
-    "@humanwhocodes/config-array-0.11.6" = {
+    "@humanwhocodes/config-array-0.11.7" = {
       name = "_at_humanwhocodes_slash_config-array";
       packageName = "@humanwhocodes/config-array";
-      version = "0.11.6";
+      version = "0.11.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.6.tgz";
-        sha512 = "jJr+hPTJYKyDILJfhNSHsjiwXYf26Flsz8DvNndOsHs5pwSnpGUEy8yzF0JYhCEvTDdV2vuOK5tt8BVhwO5/hg==";
+        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.7.tgz";
+        sha512 = "kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==";
       };
     };
     "@humanwhocodes/module-importer-1.0.1" = {
@@ -67,13 +67,13 @@ let
         sha512 = "oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==";
       };
     };
-    "acorn-8.8.0" = {
+    "acorn-8.8.1" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.8.0";
+      version = "8.8.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.8.0.tgz";
-        sha512 = "QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.8.1.tgz";
+        sha512 = "7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==";
       };
     };
     "acorn-jsx-5.3.2" = {
@@ -876,13 +876,13 @@ let
     src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.26.0.tgz"; sha1 = "2bcc8836e6c424c4ac26a5674a70d44d84f2181d"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.3"
-      sources."@humanwhocodes/config-array-0.11.6"
+      sources."@humanwhocodes/config-array-0.11.7"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
-      sources."acorn-8.8.0"
+      sources."acorn-8.8.1"
       sources."acorn-jsx-5.3.2"
       sources."ajv-6.12.6"
       sources."ansi-regex-5.0.1"
