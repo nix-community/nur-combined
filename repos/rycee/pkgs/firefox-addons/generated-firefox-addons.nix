@@ -1103,10 +1103,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.3";
+      version = "3.4.4";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002797/i_dont_care_about_cookies-3.4.3.xpi";
-      sha256 = "0758e06ba59b183e7933dab1d636b9b741036d24e309e6a583026d5d1ae747d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022610/i_dont_care_about_cookies-3.4.4.xpi";
+      sha256 = "faab96295f7df7d83a736ddf4c133571ffbad85b1bdbe92f05b54ef538444479";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -2266,10 +2266,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.1";
+      version = "5.1.2";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016632/sponsorblock-5.1.1.xpi";
-      sha256 = "6528a9d519dbe0dabc2827d00e187ac04aac3bb048fe159c000f9443169afb37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022527/sponsorblock-5.1.2.xpi";
+      sha256 = "6bd188bb8e97ab736a058bf1ef80e66d0fc225e1c1b3984b5244febac3e941e8";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2633,10 +2633,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.1.0";
+      version = "8.1.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022056/ublacklist-8.1.0.xpi";
-      sha256 = "4e4f45a7528eb8ad472fc11a39aca5b412455136cf865ac6c203e25180391056";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022687/ublacklist-8.1.1.xpi";
+      sha256 = "c81dc9dc3a60901f25374a4f8015e8bdeda3556dd72ce5a831b009b5cf0a39a7";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
