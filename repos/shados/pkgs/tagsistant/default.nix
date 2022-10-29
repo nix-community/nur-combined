@@ -11,6 +11,12 @@ stdenv.mkDerivation {
   buildInputs = [
     glib fuse libdbi libdbiDrivers libextractor
   ];
+  CFLAGS = [
+    # -fnocommon being default in GCC 10+ causes tagsistant build to break with
+    # a linker error, see https://gcc.gnu.org/gcc-10/porting_to.html for
+    # details
+    "-fcommon"
+  ];
   prePatch = ''
     # Replace broken aclocal symlinks
     rm -f m4/*

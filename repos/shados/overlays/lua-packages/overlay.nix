@@ -1,13 +1,10 @@
-selfPkgs: superPkgs: let pkgs = superPkgs; in
-pkgs.lib.defineLuaPackageOverrides pkgs (
-let
-  generatedPackages = pkgs.callPackage ./generated-packages.nix { };
-  overridePackages = self: super: let
-    callPackage = super.callPackage;
-    inherit (super) luaOlder luaAtLeast isLuaJIT;
-  pins = import ../../nix/sources.nix pkgs.path pkgs.targetPlatform.system;
-in
-  with self; {
+selfPkgs: superPkgs: let
+  pkgs = superPkgs;
+  generatedLuaPackages = pkgs.callPackage ./generated-packages.nix { };
+  overridenLuaPackages = self: super: let
+    inherit (super) callPackage luaOlder luaAtLeast isLuaJIT;
+    pins = import ../../nix/sources.nix pkgs.path pkgs.targetPlatform.system;
+  in with self; {
     /* Bespoke packages */
     cparser = callPackage ./cparser.nix {
       inherit pins;
@@ -102,6 +99,4 @@ in
       ];
     });
   };
-in
-  pkgs.lib.composeExtensions generatedPackages overridePackages
-)
+in pkgs.lib.defineLuaPackageOverrides pkgs [ generatedLuaPackages overridenLuaPackages ]
