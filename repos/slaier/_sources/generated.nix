@@ -3,11 +3,11 @@
 {
   "'vscode-extensions.GitHub.copilot'" = {
     pname = "'vscode-extensions.GitHub.copilot'";
-    version = "1.54.7077";
+    version = "1.56.7152";
     src = fetchurl {
-      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.54.7077/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "copilot-1.54.7077.zip";
-      sha256 = "sha256-IwBApJKMljJBXSddtoGUylmzvudv2GFQOXOwsXVI2rE=";
+      url = "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.56.7152/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "copilot-1.56.7152.zip";
+      sha256 = "sha256-9WEvTcVY/yMF00GJVj4h57aWhfBYTSatbw10DjjAaAM=";
     };
     license = "cc-by-40";
     homepage = "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot";
@@ -111,11 +111,11 @@
   };
   "'vscode-extensions.timonwong.shellcheck'" = {
     pname = "'vscode-extensions.timonwong.shellcheck'";
-    version = "0.26.0";
+    version = "0.26.2";
     src = fetchurl {
-      url = "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.26.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "shellcheck-0.26.0.zip";
-      sha256 = "sha256-m8BZwlW/99UtOx1GdZXBBi30uCWDXLxKsLQg3kAAzu0=";
+      url = "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.26.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "shellcheck-0.26.2.zip";
+      sha256 = "sha256-OLMSi/z2IOBZFbtoL23nGfXod+7OkvHVUpugqJYqiuc=";
     };
     license = "mit";
     homepage = "https://github.com/vscode-shellcheck/vscode-shellcheck";
@@ -147,11 +147,11 @@
   };
   "'vscode-extensions.vscode-icons-team.vscode-icons'" = {
     pname = "'vscode-extensions.vscode-icons-team.vscode-icons'";
-    version = "12.0.0";
+    version = "12.0.1";
     src = fetchurl {
-      url = "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/12.0.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "vscode-icons-12.0.0.zip";
-      sha256 = "sha256-TQ/GPxNgbMBVlp+KNRd+M0vMxFSAjld/CCbVS9C1DuA=";
+      url = "https://vscode-icons-team.gallery.vsassets.io/_apis/public/gallery/publisher/vscode-icons-team/extension/vscode-icons/12.0.1/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "vscode-icons-12.0.1.zip";
+      sha256 = "sha256-zxKD+8PfuaBaNoxTP1IHwG+25v0hDkYBj4RPn7mSzzU=";
     };
     license = "mit";
     homepage = "https://github.com/vscode-icons/vscode-icons";
