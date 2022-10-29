@@ -21,7 +21,7 @@
     },
     "cardinal": {
         "cargoLocks": null,
-        "date": "2022-10-24",
+        "date": "2022-10-28",
         "extract": null,
         "name": "cardinal",
         "passthru": null,
@@ -33,11 +33,11 @@
             "name": null,
             "owner": "DISTRHO",
             "repo": "Cardinal",
-            "rev": "7f9c2379f896cf0203ab5c82984d61693eabcc76",
-            "sha256": "sha256-ojvWZa+7ijeg/4NmQa6Ua9Ek0POWp1bFBpFtfn+SuQo=",
+            "rev": "c368317009567ca4c1d1d50081524632605011ce",
+            "sha256": "sha256-LVqu9iasHYsJqUopHqj0KmfX0gY996OLwin88x+n6No=",
             "type": "github"
         },
-        "version": "7f9c2379f896cf0203ab5c82984d61693eabcc76"
+        "version": "c368317009567ca4c1d1d50081524632605011ce"
     },
     "carla": {
         "cargoLocks": null,
@@ -381,7 +381,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2022-10-27",
+        "date": "2022-10-28",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -391,11 +391,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "232946f2671bde0dd40896ef913dd1c4207f2e14",
-            "sha256": "sha256-ugEkHYOy7pWkFUS2nv3TZ++A+fmvU8t88IeRWN+MODs=",
+            "rev": "d64078a8a05c3f418910880803a04675aad5573d",
+            "sha256": "sha256-ubwRiMKTU9WGAzAZJWm4pNCGhh5c216aAheBp/OEo24=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "232946f2671bde0dd40896ef913dd1c4207f2e14"
+        "version": "d64078a8a05c3f418910880803a04675aad5573d"
     }
 }

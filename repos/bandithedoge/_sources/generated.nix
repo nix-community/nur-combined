@@ -18,15 +18,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "7f9c2379f896cf0203ab5c82984d61693eabcc76";
+    version = "c368317009567ca4c1d1d50081524632605011ce";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "7f9c2379f896cf0203ab5c82984d61693eabcc76";
+      rev = "c368317009567ca4c1d1d50081524632605011ce";
       fetchSubmodules = true;
-      sha256 = "sha256-ojvWZa+7ijeg/4NmQa6Ua9Ek0POWp1bFBpFtfn+SuQo=";
+      sha256 = "sha256-LVqu9iasHYsJqUopHqj0KmfX0gY996OLwin88x+n6No=";
     };
-    date = "2022-10-24";
+    date = "2022-10-28";
   };
   carla = {
     pname = "carla";
@@ -230,15 +230,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "232946f2671bde0dd40896ef913dd1c4207f2e14";
+    version = "d64078a8a05c3f418910880803a04675aad5573d";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "232946f2671bde0dd40896ef913dd1c4207f2e14";
+      rev = "d64078a8a05c3f418910880803a04675aad5573d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-ugEkHYOy7pWkFUS2nv3TZ++A+fmvU8t88IeRWN+MODs=";
+      sha256 = "sha256-ubwRiMKTU9WGAzAZJWm4pNCGhh5c216aAheBp/OEo24=";
     };
-    date = "2022-10-27";
+    date = "2022-10-28";
   };
 }
