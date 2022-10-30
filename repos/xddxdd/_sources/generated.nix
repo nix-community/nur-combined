@@ -207,13 +207,13 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "23a183c760a8a13ab26919c67961a8d8c9c6c6d9";
+    version = "7d66de3253bdd896dd2dba5b1f46ab761d6a916f";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "23a183c760a8a13ab26919c67961a8d8c9c6c6d9";
+      rev = "7d66de3253bdd896dd2dba5b1f46ab761d6a916f";
       fetchSubmodules = false;
-      sha256 = "sha256-+Q6mrBHecyhnrIu0swaaOFuXCz7pba8uUguz6ZXPcXE=";
+      sha256 = "sha256-6C8PptQc2Sj6Y8v2EYJPn3v8swLI/5TTSFIrjqKKCww=";
     });
   };
   konnect = {
@@ -251,18 +251,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.62";
+    version = "2.0.63";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.62/netboot.xyz.efi";
-      sha256 = "sha256-fBYbev8bMOcgZYlmcorKEA8/HhS3FV6x8RVfXFznk5U=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.63/netboot.xyz.efi";
+      sha256 = "sha256-pdpgV/x6xZLbEgNpLvnSPY6JwP7iCTgRk/rmi5hpyOY=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.62";
+    version = "2.0.63";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.62/netboot.xyz.lkrn";
-      sha256 = "sha256-dg4bs/kcVs53ZUEq7nKvyjB9TmETM6CTMFHFg3ao3rg=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.63/netboot.xyz.lkrn";
+      sha256 = "sha256-rIM0UoOJEwUDo3FM0hlYBlfa08nwyFamVwiZgkYhs0Y=";
     };
   };
   netns-exec = {
@@ -300,13 +300,13 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "443d88373e56916d69f5a4a7b75d2329a11a534b";
+    version = "46e431b57f292765dae015c5c43bd34b4763b43b";
     src = fetchFromGitHub ({
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "443d88373e56916d69f5a4a7b75d2329a11a534b";
+      rev = "46e431b57f292765dae015c5c43bd34b4763b43b";
       fetchSubmodules = false;
-      sha256 = "sha256-RA1hSYnw7rYfHIyeShRrOes//ILz061/gdKOHZ5FYU8=";
+      sha256 = "sha256-f3HEctyJBwBXVMO0uwyFz5u218Yavi/hXYXfX34CFQQ=";
     });
   };
   ngx_brotli = {
@@ -366,13 +366,13 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "7c6ce54a6f11c97a0d9a984086168df9cc15448b";
+    version = "9e5410cf6d5f60aed105477a01425073b1afa0ee";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "7c6ce54a6f11c97a0d9a984086168df9cc15448b";
+      rev = "9e5410cf6d5f60aed105477a01425073b1afa0ee";
       fetchSubmodules = false;
-      sha256 = "sha256-xbtzAYStXNxE+9G9pkxic02JkvVRY7F7oX7irv0jHys=";
+      sha256 = "sha256-fMXynPqC3KVLc1d9+HWjwvbDxEUSPGNxnprTz4n0kpM=";
     });
   };
   osdlyrics = {
@@ -470,10 +470,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20220722";
+    version = "20220529";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220722.dict.yaml";
-      sha256 = "sha256-swROyS8iqbgkdxhvv/+a9v8r3xgBIWO2LC7pmfRTxcY=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220529.dict.yaml";
+      sha256 = "sha256-RyaQiFYPwmvVNzQUC6qQguENvPv+1XwwctlnSlejEgM=";
     };
   };
   route-chain = {
@@ -500,37 +500,37 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202210130107";
+    version = "202210270100";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202210130107/geoip.dat";
-      sha256 = "sha256-F5rH8i6rruBMpI36u0ZN60QdhF5bqFzU//akw9JPEEE=";
+      url = "https://github.com/v2fly/geoip/releases/download/202210270100/geoip.dat";
+      sha256 = "sha256-uaDK1FfTtdnsqLlDi9+6NG1KzeGpzOlD5Q0xlNR8Go8=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20221017132030";
+    version = "20221028133619";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20221017132030/dlc.dat";
-      sha256 = "sha256-vqEpEmTIeRexuJJivb/y6cCWY0zCX87beG/wJyFED4o=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20221028133619/dlc.dat";
+      sha256 = "sha256-eVgjVNVuTmrg6N5IiWDeZSUY3RQObAGIj7Cg/MSlNIc=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202210130107";
+    version = "202210270100";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202210130107/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202210270100/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };
   xray = {
     pname = "xray";
-    version = "v1.6.0";
+    version = "v1.6.1";
     src = fetchFromGitHub ({
       owner = "XTLS";
       repo = "Xray-core";
-      rev = "v1.6.0";
+      rev = "v1.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-pklGXlrGOXdIZttb6Ov+D1W3uKRIdRnKGoLAS17aR8k=";
+      sha256 = "sha256-K5S8xgV1U7NmsGPvLb2kxLW4RvQYjvUyuBFSIYqvSzw=";
     });
   };
   zstd-nginx-module = {

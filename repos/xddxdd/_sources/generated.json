@@ -362,11 +362,11 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "23a183c760a8a13ab26919c67961a8d8c9c6c6d9",
-            "sha256": "sha256-+Q6mrBHecyhnrIu0swaaOFuXCz7pba8uUguz6ZXPcXE=",
+            "rev": "7d66de3253bdd896dd2dba5b1f46ab761d6a916f",
+            "sha256": "sha256-6C8PptQc2Sj6Y8v2EYJPn3v8swLI/5TTSFIrjqKKCww=",
             "type": "github"
         },
-        "version": "23a183c760a8a13ab26919c67961a8d8c9c6c6d9"
+        "version": "7d66de3253bdd896dd2dba5b1f46ab761d6a916f"
     },
     "konnect": {
         "cargoLocks": null,
@@ -433,11 +433,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fBYbev8bMOcgZYlmcorKEA8/HhS3FV6x8RVfXFznk5U=",
+            "sha256": "sha256-pdpgV/x6xZLbEgNpLvnSPY6JwP7iCTgRk/rmi5hpyOY=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.62/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.63/netboot.xyz.efi"
         },
-        "version": "2.0.62"
+        "version": "2.0.63"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -447,11 +447,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dg4bs/kcVs53ZUEq7nKvyjB9TmETM6CTMFHFg3ao3rg=",
+            "sha256": "sha256-rIM0UoOJEwUDo3FM0hlYBlfa08nwyFamVwiZgkYhs0Y=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.62/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.63/netboot.xyz.lkrn"
         },
-        "version": "2.0.62"
+        "version": "2.0.63"
     },
     "netns-exec": {
         "cargoLocks": null,
@@ -523,11 +523,11 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "443d88373e56916d69f5a4a7b75d2329a11a534b",
-            "sha256": "sha256-RA1hSYnw7rYfHIyeShRrOes//ILz061/gdKOHZ5FYU8=",
+            "rev": "46e431b57f292765dae015c5c43bd34b4763b43b",
+            "sha256": "sha256-f3HEctyJBwBXVMO0uwyFz5u218Yavi/hXYXfX34CFQQ=",
             "type": "github"
         },
-        "version": "443d88373e56916d69f5a4a7b75d2329a11a534b"
+        "version": "46e431b57f292765dae015c5c43bd34b4763b43b"
     },
     "ngx_brotli": {
         "cargoLocks": null,
@@ -637,11 +637,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "7c6ce54a6f11c97a0d9a984086168df9cc15448b",
-            "sha256": "sha256-xbtzAYStXNxE+9G9pkxic02JkvVRY7F7oX7irv0jHys=",
+            "rev": "9e5410cf6d5f60aed105477a01425073b1afa0ee",
+            "sha256": "sha256-fMXynPqC3KVLc1d9+HWjwvbDxEUSPGNxnprTz4n0kpM=",
             "type": "github"
         },
-        "version": "7c6ce54a6f11c97a0d9a984086168df9cc15448b"
+        "version": "9e5410cf6d5f60aed105477a01425073b1afa0ee"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -812,11 +812,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-swROyS8iqbgkdxhvv/+a9v8r3xgBIWO2LC7pmfRTxcY=",
+            "sha256": "sha256-RyaQiFYPwmvVNzQUC6qQguENvPv+1XwwctlnSlejEgM=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220722.dict.yaml"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220529.dict.yaml"
         },
-        "version": "20220722"
+        "version": "20220529"
     },
     "route-chain": {
         "cargoLocks": null,
@@ -864,11 +864,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-F5rH8i6rruBMpI36u0ZN60QdhF5bqFzU//akw9JPEEE=",
+            "sha256": "sha256-uaDK1FfTtdnsqLlDi9+6NG1KzeGpzOlD5Q0xlNR8Go8=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202210130107/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202210270100/geoip.dat"
         },
-        "version": "202210130107"
+        "version": "202210270100"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -878,11 +878,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vqEpEmTIeRexuJJivb/y6cCWY0zCX87beG/wJyFED4o=",
+            "sha256": "sha256-eVgjVNVuTmrg6N5IiWDeZSUY3RQObAGIj7Cg/MSlNIc=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221017132030/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221028133619/dlc.dat"
         },
-        "version": "20221017132030"
+        "version": "20221028133619"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -894,9 +894,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202210130107/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202210270100/private.dat"
         },
-        "version": "202210130107"
+        "version": "202210270100"
     },
     "xray": {
         "cargoLocks": null,
@@ -911,11 +911,11 @@
             "name": null,
             "owner": "XTLS",
             "repo": "Xray-core",
-            "rev": "v1.6.0",
-            "sha256": "sha256-pklGXlrGOXdIZttb6Ov+D1W3uKRIdRnKGoLAS17aR8k=",
+            "rev": "v1.6.1",
+            "sha256": "sha256-K5S8xgV1U7NmsGPvLb2kxLW4RvQYjvUyuBFSIYqvSzw=",
             "type": "github"
         },
-        "version": "v1.6.0"
+        "version": "v1.6.1"
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
