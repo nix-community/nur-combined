@@ -17,6 +17,8 @@ python3Packages.buildPythonPackage rec {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
 
+  doCheck = false;
+
   meta = with lib; {
     description = "A Cython based protobuf compiler";
     inherit (src.meta) homepage;
