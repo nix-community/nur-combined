@@ -2,16 +2,19 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "ozi_map";
-  version = "2019-10-24";
+  version = "2022-08-05";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "ozi_map";
-    rev = "4d6bd3f234960ba90d82e6d58da9c1bf4677eb16";
-    hash = "sha256-sbAKi9GZEPmbI1Nq3l4uSh/tVNLXAY2siXu3YtHI5qo=";
+    rev = "abd9e86d621ef5de89986e92b9e97e54b3173af4";
+    hash = "sha256-leYn+Z0BLptvtmHglwvmhzjHUZh0XEZ9LEBQHDCjfNc=";
   };
 
-  postPatch = "2to3 -n -w ozi_map/*.py";
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace " @ git+https://github.com/wladich/maprec.git" ""
+  '';
 
   propagatedBuildInputs = with python3Packages; [ maprec pyproj ];
 

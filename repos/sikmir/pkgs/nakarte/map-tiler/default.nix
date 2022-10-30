@@ -4,60 +4,50 @@
 , fetchFromGitHub
 , gobject-introspection
 , pango
+, thinplatespline
 , maprec
 , ozi_map
 , pyimagequant
+, wrapGAppsHook
 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "map-tiler";
-  version = "2019-10-24";
+  version = "2022-08-06";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "map-tiler";
-    rev = "1dc5be65e58638f5899cd6cdc2010e00ce5e62d4";
-    hash = "sha256-2wDhU1wbvyEAAYUQXUGASmK5X0/XNQF9P2y9pfHhHHg=";
+    rev = "28372c77f73282c234a236ad59672ed28721d88b";
+    hash = "sha256-P5HXWCxxcGX/QRcRVsMAng/aZI0zBjkOgSEyVCjuAYg=";
   };
 
-  patches = [
-    ./gobject.patch
-    ./python3.patch
-  ];
-
   postPatch = ''
-    2to3 -n -w *.py lib/*.py
-    substituteInPlace tiles_update.py \
-      --replace "from . import image_store" "import image_store" \
-      --replace "from .lib" "from lib"
+    substituteInPlace setup.cfg \
+      --replace " @ git+https://github.com/wladich/thinplatespline.git" "" \
+      --replace " @ git+https://github.com/wladich/maprec.git" "" \
+      --replace " @ git+https://github.com/wladich/ozi_map.git" "" \
+      --replace " @ git+https://github.com/wladich/pyimagequant.git" ""
   '';
 
-  nativeBuildInputs = [ gobject-introspection pango ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
-  pythonPath = with python3Packages; [
+  buildInputs = [ gobject-introspection pango ];
+
+  propagatedBuildInputs = with python3Packages; [
+    pyyaml
+    pyproj
+    pypng
     pillow
-    purepng
-    pygobject3
     pycairo
+    thinplatespline
     maprec
     ozi_map
     pyimagequant
+    pygobject3
   ];
 
-  dontUseSetuptoolsBuild = true;
-
   doCheck = false;
-
-  installPhase = ''
-    site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
-    mkdir -p $site_packages
-    cp -r *.py lib $site_packages
-
-    buildPythonPath "$out $pythonPath"
-    makeWrapper $site_packages/tiles_update.py $out/bin/tiles_update \
-      --set PYTHONPATH $site_packages:$program_PYTHONPATH \
-      --set GI_TYPELIB_PATH $GI_TYPELIB_PATH
-  '';
 
   meta = with lib; {
     description = "Raster maps to map tiles";

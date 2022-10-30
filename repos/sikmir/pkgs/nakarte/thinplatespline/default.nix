@@ -2,19 +2,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "thinplatespline";
-  version = "2013-01-23";
+  version = "2022-06-02";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "thinplatespline";
-    rev = "55fecd22c7160577b925e03169e74bd488a41cf3";
-    hash = "sha256-t15iO+3UZKnORiQaYoGD4RLZx2SHtCbjg+Qr+sAHQHY=";
+    rev = "acedd7aa9eef7f66a54df53a9596a0b4d95af92b";
+    hash = "sha256-/RLcB+xq1U7AKx26brw4gG29AMJB1LedC+5MNbK/rxI=";
   };
-
-  postPatch = ''
-    2to3 -n -w tps/*.py
-    substituteInPlace tps/__init__.py --replace "_tps" "._tps"
-  '';
 
   doCheck = false;
 

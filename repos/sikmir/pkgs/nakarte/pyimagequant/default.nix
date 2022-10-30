@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyimagequant";
-  version = "2019-10-24";
+  version = "2022-06-10";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "pyimagequant";
-    rev = "a467b3b2566f4edd31a272738f7c5e646c0d84a9";
-    hash = "sha256-yBtZsCaFJxPfI8EWyGatepGzE6+1BFUQ2h+ElH9Unqo=";
+    rev = "55a76cb90c75b598d40bd92cf61e6ec9aa846d1e";
+    hash = "sha256-80SsAcN0iEaEEQpNTsi81n71DEQksSYiaSe/LQpqMbc=";
     fetchSubmodules = true;
   };
 

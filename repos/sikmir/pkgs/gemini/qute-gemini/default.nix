@@ -3,6 +3,7 @@
 python3Packages.buildPythonApplication rec {
   pname = "qute-gemini";
   version = "1.0.0";
+  format = "other";
 
   src = fetchFromSourcehut {
     owner = "~sotirisp";

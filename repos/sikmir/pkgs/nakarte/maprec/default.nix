@@ -2,18 +2,19 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "maprec";
-  version = "2019-10-24";
+  version = "2022-08-06";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "maprec";
-    rev = "20f5177cae7454455b21cd5f7178f5639c02d385";
-    hash = "sha256-8lLCzqy4W35/WV83aRnARuAdoBO+977nbuXJfpdOxP8=";
+    rev = "3332183a8010bceba564078cdb05ab6c02ac852e";
+    hash = "sha256-2V1n6XEXPePA5YB8dKlBgTtbL2/2qG2KBdsHbekETXE=";
   };
 
-  patches = [ ./python3.patch ];
-
-  postPatch = "2to3 -n -w maprec/*.py";
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace " @ git+https://github.com/wladich/thinplatespline.git" ""
+  '';
 
   propagatedBuildInputs = with python3Packages; [ pyyaml pyproj thinplatespline ];
 
