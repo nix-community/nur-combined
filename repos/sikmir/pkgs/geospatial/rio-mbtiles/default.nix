@@ -30,6 +30,7 @@ python3Packages.buildPythonApplication rec {
 
   disabledTests = [
     "test_process_tile"
+    "test_export_count"
   ];
 
   meta = with lib; {
