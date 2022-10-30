@@ -318,6 +318,9 @@ lib.makeScope newScope (
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
+    mqtt-benchmark = callPackage ./misc/mqtt-benchmark {
+      buildGoModule = pkgs.buildGo117Module;
+    };
     musig = callPackage ./misc/musig {
       buildGoModule = pkgs.buildGo117Module;
     };
