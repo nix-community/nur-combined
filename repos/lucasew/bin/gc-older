@@ -1,0 +1,50 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i python3 -p python3Packages.tqdm
+# vim:ft=python
+import os
+from sys import stderr
+from subprocess import run, CalledProcessError, DEVNULL
+from json import loads
+from tqdm import tqdm
+import time
+
+STORE_PATH = "/nix/store"
+
+
+# log("Iniciando...")
+
+paths = []
+# log("Obtendo caminhos")
+all_store_paths = os.listdir(STORE_PATH)
+# log(f"{len(all_store_paths)} caminhos obtidos")
+# log("Obtendo data de criação dos caminhos")
+for path in all_store_paths:
+    ctime = os.path.getctime(os.path.join(STORE_PATH, path))
+    paths.append((ctime, path))
+paths.sort()
+
+size_deleted = 0
+
+ops = tqdm(paths)
+
+def log(*args, **kwargs):
+    print(*args, **kwargs, file=ops)
+
+for (ctime, path) in ops:
+    if path == ".links":
+        continue
+    res = run(["nix", "path-info", "--json", os.path.join(STORE_PATH, path)],check=True, capture_output=True)
+    path_to_delete = loads(res.stdout.decode('utf8'))[0]
+
+    path = path_to_delete['path']
+    mbs = size_deleted/1024/1024
+    timestamp = time.strftime("%d/%m/%Y %H:%M", time.localtime(ctime))
+    ops.set_description(f"{mbs:.2f}MB {timestamp} '{path}'")
+    if path_to_delete.get("valid") == False:
+        continue
+    try:
+        size = path_to_delete['narSize']
+        run(["nix-store", "--delete", path], stdout=DEVNULL, stderr=DEVNULL)
+        size_deleted += size
+    except CalledProcessError:
+        ops.write(f"Não é possível apagar '{path}'. Ainda tem dependentes.")
