@@ -11,6 +11,7 @@
   nodePackages,
   writeScript,
   applyPatches,
+  callPackage,
 }: let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   src = applyPatches {
@@ -22,10 +23,7 @@
     };
     patches = [./pleroma-fe.patch];
   };
-  nodeOptions =
-    if builtins.compareVersions nodejs.version "18" >= 0
-    then "--openssl-legacy-provider"
-    else "";
+  nodeOptions = callPackage ../../lib/opensslLegacyProvider.nix {};
 in
   mkYarnPackage rec {
     pname = "pleroma-fe";

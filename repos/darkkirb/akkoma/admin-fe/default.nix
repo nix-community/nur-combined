@@ -14,6 +14,7 @@
   python3,
   libsass,
   pkg-config,
+  callPackage,
 }: let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   src = applyPatches {
@@ -25,10 +26,7 @@
     };
     patches = [./admin-fe.patch];
   };
-  nodeOptions =
-    if builtins.compareVersions nodejs.version "18" >= 0
-    then "--openssl-legacy-provider"
-    else "";
+  nodeOptions = callPackage ../../lib/opensslLegacyProvider.nix {};
 in
   mkYarnPackage rec {
     pname = "admin-fe";
