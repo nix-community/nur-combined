@@ -20,7 +20,6 @@ python3Packages.buildPythonPackage rec {
     psycopg2
     pyramid
     requests
-    setuptools
   ];
 
   doCheck = false;
