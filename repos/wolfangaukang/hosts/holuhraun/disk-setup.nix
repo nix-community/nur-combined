@@ -1,12 +1,24 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
+  imports = [ ./hardware-configuration.nix ];
+
+  fileSystems = let
+    diskOptions = [ "defaults" "ssd" "compress=zstd" "noatime" "discard=async" "space_cache=v2" ];
+  in {
+    "/".options = [ "defaults" "size=3G" "mode=755" ];
+    "/home".options = (lib.remove "noatime" diskOptions);
+    "/home/.snapshots".options = diskOptions;
+    "/persist".neededForBoot = true;
+  };
+  # Needed by ZFS
+  networking.hostId = "e416e925";
   boot = {
     initrd = {
       luks.devices = {
-        "root" = {
+        "nixos" = {
           allowDiscards = true;
-          device = "/dev/disk/by-uuid/e04ada96-abd7-4805-bd25-72efe36ba507";
+          device = "/dev/disk/by-uuid/34bedc50-ac58-4a0f-9e76-09ec9381872f";
           keyFile = "/keyfile0.bin";
           preLVM = true;
         };
@@ -14,7 +26,7 @@
           allowDiscards = true;
           keyFile = "/keyfile1.bin";
         };
-        "speed" = {
+        "data" = {
           allowDiscards = true;
           keyFile = "/keyfile2.bin";
         };
@@ -26,10 +38,7 @@
       };
     };
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
+      efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
         device = "nodev";

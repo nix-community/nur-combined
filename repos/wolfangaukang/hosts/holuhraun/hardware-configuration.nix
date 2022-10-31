@@ -8,45 +8,63 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/0c3fbe64-d390-420e-9a5b-ab87111acbe1";
-      fsType = "ext4";
+    { device = "none";
+      fsType = "tmpfs";
     };
 
-  fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/43BB-B46F";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/0427-BFFC";
       fsType = "vfat";
     };
 
+  fileSystems."/nix" =
+    { device = "rpool/local/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/persist" =
+    { device = "rpool/system/persist";
+      fsType = "zfs";
+    };
+
   fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/a4b9b56f-169e-4161-ae2e-9016e18e9252";
+      fsType = "btrfs";
+      options = [ "subvol=@home" ];
+    };
+
+  fileSystems."/home/.snapshots" =
+    { device = "/dev/disk/by-uuid/a4b9b56f-169e-4161-ae2e-9016e18e9252";
+      fsType = "btrfs";
+      options = [ "subvol=@snapshots" ];
+    };
+
+  boot.initrd.luks.devices."home".device = "/dev/disk/by-uuid/f07f117f-b46a-41d1-a51d-ba9249366c68";
+
+  fileSystems."/data" =
     { device = "/dev/disk/by-uuid/0bd5611e-96d1-40b1-81d5-9717bcc032b2";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."home".device = "/dev/disk/by-uuid/a4748398-8c8a-48d8-aca8-f4c0109457ff";
-
-  fileSystems."/speed" =
-    { device = "/dev/disk/by-uuid/3704171b-f7eb-4593-9ab7-97cc7688aba2";
-      fsType = "ext4";
-    };
-
-  boot.initrd.luks.devices."speed".device = "/dev/disk/by-uuid/ded2d0df-bd2e-4df8-9779-51ecc4fce04e";
+  boot.initrd.luks.devices."data".device = "/dev/disk/by-uuid/a4748398-8c8a-48d8-aca8-f4c0109457ff";
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/4f005034-041d-4763-b10f-0ea14adf9d87"; }
+    [ { device = "/dev/disk/by-uuid/76659df0-e1e6-4e10-b181-f8f683c6a9b2"; }
     ];
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = lib.mkDefault false;
-  networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
-  networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

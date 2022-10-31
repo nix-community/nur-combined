@@ -88,7 +88,9 @@ in rec {
       darkreader
       decentraleyes
       disable-javascript
-      https-everywhere
+      # 1: Following guide from EFF and dephasing the extension usage
+      # https://www.eff.org/https-everywhere/set-https-default-your-browser
+      #https-everywhere
       privacy-badger
       privacy-redirect
       ublock-origin
@@ -106,7 +108,7 @@ in rec {
       sandbox = {
         "browser.privatebrowsing.autostart" = true;
         "browser.startup.homepage" = "about:blank";
-        # https://www.eff.org/https-everywhere/set-https-default-your-browser
+        # 1
         "dom.security.https_only_mode" = true;
         "privacy.clearOnShutdown.cache" = true;
         "privacy.clearOnShutdown.cookies" = true;
