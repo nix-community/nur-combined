@@ -5,11 +5,11 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "terraform-local";
-  version = "0.5";
+  version = "0.6";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    hash = "sha256-UoDkNMRgFfqqU1GuOAW6zbtyRW1jrzB1BjDMpR/P/oM=";
+    hash = "sha256-1FaYAXLuxu3tQkm/BIccCql/boSV5g7LwlT//h4wT4k=";
   };
 
   propagatedBuildInputs = [
