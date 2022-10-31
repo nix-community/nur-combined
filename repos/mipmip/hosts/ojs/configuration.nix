@@ -68,38 +68,49 @@ in
   networking.interfaces.enp9s0.useDHCP = true;
   networking.interfaces.wlp0s29f7u5.useDHCP = true;
 
-  # Enable WireGuard (TrackLib)
+  # Enable WireGuard
   networking.wireguard.interfaces = {
-
     wg0 = {
-
       ips = [ "10.0.0.126/32" ];
-
-      privateKeyFile = "path to private key file";
-
+      privateKeyFile = "/etc/secrets/wg-tracklib-key";
       peers = [
-        # For a client configuration, one peer entry for the server will suffice.
-
         {
-          # Public key of the server (not a file path).
-          publicKey = "{server public key}";
+          publicKey = "QGTFSDQ3KirYWvoUaLeVvWkupuDGy+0Kw5o5w3i6bBk=";
+          allowedIPs = [
+            "18.34.240.0/22"
+            "18.34.32.0/20"
+            "3.248.191.174/32"
+            "3.249.205.218/32"
+            "3.251.110.208/28"
+            "3.251.110.224/28"
+            "3.5.64.0/21"
+            "3.5.72.0/23"
+            "34.240.195.73/32"
+            "34.242.244.140/32"
+            "34.244.143.75/32"
+            "34.245.13.201/32"
+            "34.246.190.131/32"
+            "34.253.203.229/32"
+            "34.253.65.159/32"
+            "52.17.210.58/32"
+            "52.214.62.56/32"
+            "52.214.93.103/32"
+            "52.215.227.9/32"
+            "52.218.0.0/17"
+            "52.49.234.215/32"
+            "52.50.3.164/32"
+            "52.92.0.0/17"
+            "54.229.51.218/32"
+            "63.33.57.42/32"
+            "63.33.80.225/32"
+          ];
 
-          # Forward all the traffic via VPN.
-          allowedIPs = [ "0.0.0.0/0" ];
-          # Or forward only particular subnets
-          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
-
-          # Set this to the server IP and port.
-          endpoint = "{server ip}:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
-
-          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
+          endpoint = "108.128.244.6:51820";
           persistentKeepalive = 25;
         }
       ];
     };
   };
-  ...
-}
 
 
   # Use the systemd-boot EFI boot loader.
