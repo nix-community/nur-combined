@@ -1,6 +1,6 @@
 { ... }: {
   config = {
-    environment.dotd."nix/machines".enable = true;
+    environment.dotd."/etc/nix/machines".enable = true;
     nix.distributedBuilds = true;
     nix.buildMachines = [
       # {

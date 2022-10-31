@@ -13,8 +13,8 @@ in {
     ./motd.nix
     ./screenkey.nix
     (builtins.fetchurl {
-      url = "https://raw.githubusercontent.com/NixOS/nixpkgs/3f8204a2aceef536a1c0cbbce8f8dde602b68ba2/nixos/modules/config/dotd.nix";
-      sha256 = "1z1sjdjm7ciaps6ai5ms01vm2g35s9sxzgqqxjyr2wbz1x3x2gfs";
+      url = "https://raw.githubusercontent.com/NixOS/nixpkgs/60c696e31b14797a346241e4f553399d92ba2b69/nixos/modules/config/dotd.nix";
+      sha256 = "0n66xqb2vlv97fcfd3s74qv3dh9yslnvhxhzx3p3rq0vmsq4i2ml";
     })
   ];
   

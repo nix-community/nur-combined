@@ -77,7 +77,7 @@ in
   # started in user sessions.
   # programs.mtr.enable = true;
  
-  environment.dotd."trab/nhaa".enable = true;
+  environment.dotd."/etc/trab/nhaa".enable = true;
   services.screenkey.enable = true;
 
   # kernel
