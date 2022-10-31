@@ -68,6 +68,40 @@ in
   networking.interfaces.enp9s0.useDHCP = true;
   networking.interfaces.wlp0s29f7u5.useDHCP = true;
 
+  # Enable WireGuard (TrackLib)
+  networking.wireguard.interfaces = {
+
+    wg0 = {
+
+      ips = [ "10.0.0.126/32" ];
+
+      privateKeyFile = "path to private key file";
+
+      peers = [
+        # For a client configuration, one peer entry for the server will suffice.
+
+        {
+          # Public key of the server (not a file path).
+          publicKey = "{server public key}";
+
+          # Forward all the traffic via VPN.
+          allowedIPs = [ "0.0.0.0/0" ];
+          # Or forward only particular subnets
+          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
+
+          # Set this to the server IP and port.
+          endpoint = "{server ip}:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
+
+          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
+  ...
+}
+
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -82,6 +116,12 @@ in
   boot.kernelParams = [
     "hid_apple.fnmode=2"
   ];
+
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.broadcom_sta
+#    config.boot.kernelPackages.wireguard
+  ];
+
 
 
   system.stateVersion = "21.11"; # Did you read the comment?

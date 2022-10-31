@@ -7,6 +7,7 @@
     nix-index
     patchelf
     #nix-software-center
+    nix-tree
   ];
 }
 

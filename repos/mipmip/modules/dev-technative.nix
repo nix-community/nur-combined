@@ -28,6 +28,11 @@
     terraform-docs
     terrascan
     tflint
+
+    #TRACKLIB
+    wireguard-tools
+
+
   ];
 }
 
