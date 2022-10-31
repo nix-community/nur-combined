@@ -53,7 +53,7 @@ jobs:
         run: nix run github:kamadorueda/alejandra .
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v11
+        uses: cachix/cachix-action@v12
         with:
           name: bandithedoge
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
