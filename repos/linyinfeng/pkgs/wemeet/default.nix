@@ -83,7 +83,12 @@ qt5.mkDerivation rec {
 
     mkdir -p "$out/share/applications"
     install "${desktopItem}/share/applications/"*         "$out/share/applications/"
-    install "${desktopItemForceX11}/share/applications/"* "$out/share/applications/"
+    ${
+      with lib;
+      if versionAtLeast (versions.majorMinor trivial.version) "22.11"
+      then ''install "${desktopItemForceX11}/share/applications/"* "$out/share/applications/"''
+      else ""
+    }
 
     mkdir -p "$out/share"
     cp -r opt/wemeet/icons "$out/share"
