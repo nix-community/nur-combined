@@ -1,0 +1,113 @@
+From dd76910a496985186c306f6666e0cc57a2128635 Mon Sep 17 00:00:00 2001
+From: Daniel Hill <daniel@gluo.nz>
+Date: Wed, 19 Oct 2022 17:39:03 +1300
+Subject: [PATCH 1/4] bcachefs: data_update_init() no longer degrades when
+ rewriting ptrs.
+
+If the underlying member provides some redundancy we need to provide
+extra replicas to account for those redundancies.
+
+Signed-off-by: Daniel Hill <daniel@gluo.nz>
+
+diff --git a/fs/bcachefs/data_update.c b/fs/bcachefs/data_update.c
+index b75ff07e5921..87d1bb6d0e8f 100644
+--- a/fs/bcachefs/data_update.c
++++ b/fs/bcachefs/data_update.c
+@@ -302,6 +302,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+ 	const union bch_extent_entry *entry;
+ 	struct extent_ptr_decoded p;
+ 	unsigned i, reserve_sectors = k.k->size * data_opts.extra_replicas;
++	unsigned extra_replicas = 0;
+ 	int ret;
+ 
+ 	bch2_bkey_buf_init(&m->k);
+@@ -328,6 +329,13 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+ 
+ 	i = 0;
+ 	bkey_for_each_ptr_decode(k.k, ptrs, p, entry) {
++		struct bch_dev *ca = bch_dev_bkey_exists(c, p.ptr.dev);
++
++		if (((1U << i) & m->data_opts.rewrite_ptrs) && ca->mi.durability > 1) {
++			extra_replicas += ca->mi.durability - 1;
++			reserve_sectors += (ca->mi.durability - 1) * k.k->size;
++		}
++
+ 		if (((1U << i) & m->data_opts.rewrite_ptrs) &&
+ 		    p.ptr.cached)
+ 			BUG();
+@@ -365,7 +373,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+ 	}
+ 
+ 	m->op.nr_replicas = m->op.nr_replicas_required =
+-		hweight32(m->data_opts.rewrite_ptrs) + m->data_opts.extra_replicas;
++		hweight32(m->data_opts.rewrite_ptrs) + extra_replicas + m->data_opts.extra_replicas;
+ 
+ 	BUG_ON(!m->op.nr_replicas);
+ 	return 0;
+-- 
+2.37.3
+
+
+From 254dc58798f20c0348fcac0f6316623e709176d3 Mon Sep 17 00:00:00 2001
+From: Daniel Hill <daniel@gluo.nz>
+Date: Fri, 14 Oct 2022 20:47:55 +1300
+Subject: [PATCH 2/4] bcachefs: btree_cache improvements.
+
+We should try to keep nodes that are only access frequently.
+Instead of always setting the access bit only set it on second access.
+
+Signed-off-by: Daniel Hill <daniel@gluo.nz>
+
+diff --git a/fs/bcachefs/btree_cache.c b/fs/bcachefs/btree_cache.c
+index 75e744792a92..133f132ae545 100644
+--- a/fs/bcachefs/btree_cache.c
++++ b/fs/bcachefs/btree_cache.c
+@@ -940,6 +940,10 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+ 			trace_and_count(c, trans_restart_btree_node_reused, trans, trace_ip, path);
+ 			return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_lock_node_reused));
+ 		}
++
++		/* avoid atomic set bit if it's not needed */
++		if (!btree_node_accessed(b))
++			set_btree_node_accessed(b);
+ 	}
+ 
+ 	if (unlikely(btree_node_read_in_flight(b))) {
+@@ -977,10 +981,6 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+ 		prefetch(p + L1_CACHE_BYTES * 2);
+ 	}
+ 
+-	/* avoid atomic set bit if it's not needed: */
+-	if (!btree_node_accessed(b))
+-		set_btree_node_accessed(b);
+-
+ 	if (unlikely(btree_node_read_error(b))) {
+ 		six_unlock_type(&b->c.lock, lock_type);
+ 		return ERR_PTR(-EIO);
+-- 
+2.37.3
+
+
+From 7db7c0e8e5dabaddf738aed31dd0bc0533a4df7b Mon Sep 17 00:00:00 2001
+From: "Daniel B. Hill" <daniel@gluo.nz>
+Date: Tue, 18 Oct 2022 09:19:13 +1300
+Subject: [PATCH 4/4] bcachefs: seeks test.
+
+Signed-off-by: Daniel Hill <daniel@gluo.nz>
+
+diff --git a/fs/bcachefs/btree_cache.c b/fs/bcachefs/btree_cache.c
+index 133f132ae545..8271e8fbc820 100644
+--- a/fs/bcachefs/btree_cache.c
++++ b/fs/bcachefs/btree_cache.c
+@@ -519,7 +519,7 @@ int bch2_fs_btree_cache_init(struct bch_fs *c)
+ 	bc->shrink.count_objects	= bch2_btree_cache_count;
+ 	bc->shrink.scan_objects		= bch2_btree_cache_scan;
+ 	bc->shrink.to_text		= bch2_btree_cache_shrinker_to_text;
+-	bc->shrink.seeks		= 4;
++	bc->shrink.seeks		= 2;
+ 	ret = register_shrinker(&bc->shrink, "%s/btree_cache", c->name);
+ out:
+ 	pr_verbose_init(c->opts, "ret %i", ret);
+-- 
+2.37.3
+

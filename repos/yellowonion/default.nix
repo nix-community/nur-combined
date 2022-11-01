@@ -6,29 +6,41 @@
 let
   lib = import ./lib { inherit pkgs; }; # functions
 
+  mkKernel = name: debug: extraPatches : (pkgs.callPackage ./pkgs/bcachefs-kernel {
+    debug = debug;
+    kernel = pkgs.linuxKernel.kernels.linux_6_0;
+    version = name ;
+    kernelPatches = [
+      pkgs.kernelPatches.bridge_stp_helper
+      pkgs.kernelPatches.request_key_helper
+    ] ++ extraPatches;
+  });
+
   bcachefs-tools = pkgs.callPackage ./pkgs/bcachefs-tools { };
-  bcachefs-master = pkgs.callPackage ./pkgs/bcachefs-kernel {
-    kernel = pkgs.linuxKernel.kernels.linux_6_0;
-    version = "kent-master";
-    kernelPatches = [
-      pkgs.kernelPatches.bridge_stp_helper
-      pkgs.kernelPatches.request_key_helper
+  bcachefs-kernel-kent = mkKernel "kent-master" false [];
+  bcachefs-kernel-kent-debug = mkKernel "kent-master" true [];
+  bcachefs-kernel-woob = mkKernel "woob-testing" false [
+    # { name = "Multi-Gen-LRU-Framework.patch" ;
+    #  patch = ./pkgs/bcachefs-kernel/Multi-Gen-LRU-Framework.patch ; }
+    { name = "woob-bcachefs-testing.patch";
+      patch = ./pkgs/bcachefs-kernel/woob.patch; }
     ];
-  };
-  bcachefs-yo-testing = pkgs.callPackage ./pkgs/bcachefs-kernel {
-    kernel = pkgs.linuxKernel.kernels.linux_6_0;
-    version = "yo-testing";
-    kernelPatches = [
-      pkgs.kernelPatches.bridge_stp_helper
-      pkgs.kernelPatches.request_key_helper
-      { name = "yo-bcachefs-testing.patch";
-        patch = ./pkgs/bcachefs-kernel/yo.patch; }
-    ];
-  };
-  overlay = (super: final: { inherit bcachefs-tools bcachefs-master bcachefs-yo-testing; });
+  bcachefs-kernel-woob-debug = mkKernel "woob-testing" true [
+    # { name = "Multi-Gen-LRU-Framework.patch" ;
+    #  patch = ./pkgs/bcachefs-kernel/Multi-Gen-LRU-Framework.patch ; }
+    { name = "woob-bcachefs-testing.patch";
+      patch = ./pkgs/bcachefs-kernel/woob.patch; }
+  ];
+  overlay = (super: final: { inherit bcachefs-tools bcachefs-kernel-kent bcachefs-kernel-woob; });
 in
 {
-  inherit bcachefs-tools bcachefs-master bcachefs-yo-testing lib;
+  inherit
+    bcachefs-tools
+    bcachefs-kernel-kent
+    bcachefs-kernel-kent-debug
+    bcachefs-kernel-woob
+    bcachefs-kernel-woob-debug
+    lib;
   # The `lib`, `modules`, and `overlay` names are special
   modules = import ./modules; # NixOS modules
   overlays = [overlay]; # nixpkgs overlays
