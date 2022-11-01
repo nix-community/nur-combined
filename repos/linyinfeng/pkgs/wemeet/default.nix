@@ -22,6 +22,14 @@ let
         "Name[zh_CN]" = "腾讯会议";
       };
     };
+  desktopItemForceX11 = desktopItem.override {
+    name = "wemeetapp-force-x11";
+    desktopName = "Wemeet (X)";
+    exec = "wemeetapp-force-x11 %u";
+    extraConfig = {
+      "Name[zh_CN]" = "腾讯会议 (X)";
+    };
+  };
 in
 qt5.mkDerivation rec {
   inherit (sources.wemeet) pname version src;
@@ -74,7 +82,8 @@ qt5.mkDerivation rec {
       --unset WAYLAND_DISPLAY
 
     mkdir -p "$out/share/applications"
-    install "${desktopItem}/share/applications/"* "$out/share/applications/"
+    install "${desktopItem}/share/applications/"*         "$out/share/applications/"
+    install "${desktopItemForceX11}/share/applications/"* "$out/share/applications/"
 
     mkdir -p "$out/share"
     cp -r opt/wemeet/icons "$out/share"
