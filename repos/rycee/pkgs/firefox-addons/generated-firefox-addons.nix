@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.0.0";
+      version = "2.9.1.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019911/bypass_paywalls_clean-2.9.0.0.xpi";
-      sha256 = "f54711550b84e860833654fb716d0241b842fddcf923d2c3f313e18ab6321de2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023655/bypass_paywalls_clean-2.9.1.0.xpi";
+      sha256 = "9b5e289d4967a4b0cf1decc0feca0aca071cefab45d5f2c6e76b4cfcb91b0174";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221027.185833";
+      version = "106.0.3buildid20221030.091646";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022291/francais_language_pack-107.0buildid20221027.185833.xpi";
-      sha256 = "b7891205abb6ae484c57fd8f4f16956fe4a1c881670cad94e4d5da4eb9af29e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023529/francais_language_pack-106.0.3buildid20221030.091646.xpi";
+      sha256 = "9ec6527618684490daf14ff3cb5ec1bb40d9975be9869a477fb911a2362dcd6c";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1157,10 +1157,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.3";
+      version = "1.8.3.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4020279/keepassxc_browser-1.8.3.xpi";
-      sha256 = "d214b340068d61d09e8393802b1df25b3a7554d2b8b41a482ca4b14f79e1e50a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023682/keepassxc_browser-1.8.3.1.xpi";
+      sha256 = "f97fb93e03f9a66fc089c16b7448a1669291cd5700365955b977bb2f01141dd1";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1199,10 +1199,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.4.3";
+      version = "5.8.6";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985810/languagetool-5.4.3.xpi";
-      sha256 = "0a5fd00fd7a6fdd0e18479783596b553b18fc06507ff54ebba425d6d0f25f76e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023476/languagetool-5.8.6.xpi";
+      sha256 = "3229e53c3d06541521e9055a7a281616d439bef1f00a4e17f702e2a89fcf88d0";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1326,10 +1326,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.38";
+      version = "2.6.39";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017192/localcdn_fork_of_decentraleyes-2.6.38.xpi";
-      sha256 = "92bf19bb06d87f5290d529055fc049277168cb74180d4aed4c232d3275e2fd18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4022992/localcdn_fork_of_decentraleyes-2.6.39.xpi";
+      sha256 = "6f1baa3c8a2b1563e1e1f9042319231f16b990411a749e02311724d58e6efd8a";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1395,10 +1395,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.20.0";
+      version = "10.21.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4011769/ether_metamask-10.20.0.xpi";
-      sha256 = "fb5b151dc6d358a6511cf52631351cab62aaf45aba8f8723d7d96f4320a934bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024073/ether_metamask-10.21.1.xpi";
+      sha256 = "767a702a9345d0a807300973e5bb64919c928ccb27ad71024b7e429640f65c77";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -2098,10 +2098,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.8.1";
+      version = "1.8.2";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3990385/rust_search_extension-1.8.1.xpi";
-      sha256 = "a09895131b0e1fde06dbcc6f5596160b1511f070152022ca1ada36fd64c1e8d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023616/rust_search_extension-1.8.2.xpi";
+      sha256 = "451756b4e4ea0ffe8118f3b97577fb6e0c3488ad5d13dbde0094141a93fb449d";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -2266,10 +2266,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.2";
+      version = "5.1.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022527/sponsorblock-5.1.2.xpi";
-      sha256 = "6bd188bb8e97ab736a058bf1ef80e66d0fc225e1c1b3984b5244febac3e941e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023660/sponsorblock-5.1.3.xpi";
+      sha256 = "6aee461a7db69f88ba56b74e2aa34c3ab59d3285427292dd8cedb0c11bf2c7b1";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2773,10 +2773,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.67.2";
+      version = "1.67.3";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017172/vimium_ff-1.67.2.xpi";
-      sha256 = "7fc94359b7584f7f121cb709101940d3f0dc8e80a41dd83dadc3c4446675face";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023331/vimium_ff-1.67.3.xpi";
+      sha256 = "313d4111ebea07fda90c16a182c8d31bf2d8356bb845fd022aad5d8783022ea2";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
