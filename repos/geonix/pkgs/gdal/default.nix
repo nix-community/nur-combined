@@ -7,13 +7,13 @@
 }:
 
 gdal.overrideAttrs (oldAttrs: rec {
-  version = "3.5.2";
+  version = "3.5.3";
 
   src = fetchFromGitHub {
     owner = "OSGeo";
     repo = "gdal";
     rev = "v${version}";
-    sha256 = "sha256-jtAFI1J64ZaTqIljqQL1xOiTGC79AZWcIgidozWczMM="; # lib.fakeHash;
+    sha256 = "sha256-WzHb60qqDaPeh3quWpKnxMsWO3EOaNAZup7uCItvgSU="; # lib.fakeHash;
   };
 
   sourceRoot = "source";
