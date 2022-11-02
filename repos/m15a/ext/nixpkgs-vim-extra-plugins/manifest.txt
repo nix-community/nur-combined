@@ -57,6 +57,7 @@ Th3Whit3Wolf/space-nvim
 TheBlob42/drex.nvim
 ThePrimeagen/vim-be-good
 TimUntersberger/neofs
+Weissle/easy-action
 Weissle/persistent-breakpoints.nvim
 Xuyuanp/yanil
 ZhiyuanLck/smart-pairs
@@ -263,6 +264,7 @@ nyngwang/NeoNoName.lua
 nyngwang/NeoRoot.lua
 ofirgall/goto-breakpoints.nvim
 ofirgall/ofirkai.nvim
+ofirgall/open.nvim
 ojroques/nvim-hardline
 ojroques/nvim-lspfuzzy
 olexsmir/gopher.nvim
@@ -352,6 +354,7 @@ windwp/nvim-projectconfig
 windwp/nvim-spectre
 windwp/windline.nvim
 winston0410/commented.nvim
+woosaaahh/sj.nvim
 xeluxee/competitest.nvim
 xiyaowong/link-visitor.nvim
 xiyaowong/nvim-cursorword
