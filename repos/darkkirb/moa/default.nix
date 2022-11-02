@@ -57,6 +57,9 @@ in
     pname = "moa";
     version = source.date;
     inherit src;
+    patchPhase = ''
+      substituteInPlace moa/models.py --replace "engine, reflect=True" "autoload_with=engine"
+    '';
     buildPhase = ''
       echo "#!/bin/sh" > start.sh
       echo "cd $out" >> start.sh
