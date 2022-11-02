@@ -99,10 +99,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.1.3";
+      version = "2.1.4";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3990409/anonaddy-2.1.3.xpi";
-      sha256 = "6a311098d968a964289e9c4e27882d2fe141a90fa745469f95d82d9f364e1dfe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024305/anonaddy-2.1.4.xpi";
+      sha256 = "69aebfe3a90f4a94b08f0fc0cf5b51476e9d8f4a44a8e2ce69124d1d8b5f5e02";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -133,7 +133,7 @@
       sha256 = "1823795d78dea1cb34e49285834a7953aa4838b100e0fee3044fe30315ee705c";
       meta = with lib;
       {
-        homepage = "http://add0n.com/tab-discard.html";
+        homepage = "https://add0n.com/tab-discard.html";
         description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
         license = licenses.mpl20;
         platforms = platforms.all;
@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.4";
+      version = "2.0.117.5";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4020367/enhancer_for_youtube-2.0.117.4.xpi";
-      sha256 = "dd10934b540770dc69bd11770d66ab333f9fe8412b9d416aa7092e836f9f5ec6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024297/enhancer_for_youtube-2.0.117.5.xpi";
+      sha256 = "3f717756ce940dc9a69d14de9fc7dea88eec953ecdbc7e00fb8eb49ff0ca493c";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -745,10 +745,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.55";
+      version = "6.1.56";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009925/flagfox-6.1.55.xpi";
-      sha256 = "bb7324a9c248b657c5779a347ad96923a7c5bb9d61dc3396863c19e7b082742d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023780/flagfox-6.1.56.xpi";
+      sha256 = "8e5eb11aafde9b4fbf1862102e01ce02519f6b781a3539cfc28e2ce997f4ef04";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0.3buildid20221030.091646";
+      version = "107.0buildid20221101.190031";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023529/francais_language_pack-106.0.3buildid20221030.091646.xpi";
-      sha256 = "9ec6527618684490daf14ff3cb5ec1bb40d9975be9869a477fb911a2362dcd6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024574/francais_language_pack-107.0buildid20221101.190031.xpi";
+      sha256 = "fc2f879d35b9f3714c6c6fd01f9802dc0edbdc2d4073102db54363fcedf3a5ac";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.24";
+      version = "1.21.25";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019568/single_file-1.21.24.xpi";
-      sha256 = "72bb74c13a772148e67f6089f384e268a7b109ce9507a5eeb852eeb210f6e024";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4023970/single_file-1.21.25.xpi";
+      sha256 = "1e1cd20f2c9b112ba8c2bf38e81f97f8dd00f6d280c16624555c2b79036cd4cc";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2829,10 +2829,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.41";
+      version = "6.10.45";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4013204/wappalyzer-6.10.41.xpi";
-      sha256 = "8752a7be3516e245570e611392a04def9c0f9f3d6b829d5d20eb30d252a87ba1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024680/wappalyzer-6.10.45.xpi";
+      sha256 = "ba28e3a8e73b0ee2769b99546c99c51dd307ff407de05329ba154b2422b5a0ae";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
