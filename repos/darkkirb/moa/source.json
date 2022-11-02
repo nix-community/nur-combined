@@ -1,0 +1,11 @@
+{
+  "url": "https://gitlab.com/hexchen/moa",
+  "rev": "51d1ea9a39845133b1dd3db130d276ea2592c80b",
+  "date": "2022-09-27T11:21:56+00:00",
+  "path": "/nix/store/slv4k84fw83fp8yxdkvhw7ffpx4dd4xg-moa",
+  "sha256": "1sjilfg06n543qpjd0cg52hnnqgmx1mixrzrgm0myf0kk84y2qbf",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/foozmeat/python-instagram",
+  "rev": "2d362a1557f1010da8d755f4dec30e96f7505d3b",
+  "date": "2019-11-13T09:46:29-08:00",
+  "path": "/nix/store/6kvrivy42gkxznbm3j9ari0qlbzx1siv-python-instagram",
+  "sha256": "1azjndl45khgx79bwbkk45clzb2fcb7dbl4j77wv1pgs4xxc3gry",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}
