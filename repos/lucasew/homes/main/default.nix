@@ -46,7 +46,7 @@ in {
     sqlite
     sshpass
     stremio
-    tdesktop # communication
+    nbr.telegram-desktop-bin # communication
     terraform
     t-launcher
     vlc # media
