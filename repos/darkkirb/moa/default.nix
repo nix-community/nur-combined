@@ -63,7 +63,7 @@ in
       echo "${moa-env}/bin/python -m moa.models" >> start.sh
       cp start.sh start-worker.sh
       mv start.sh start-app.sh
-      echo "exec ${moa-env}/bin/python -m moa.worker" >> start-worker.sh
+      echo "while true; do ${moa-env}/bin/python -m moa.worker; sleep 60; done" >> start-worker.sh
       echo "exec ${moa-env}/bin/python app.py" >> start-app.sh
       chmod +x start-*.sh
     '';
@@ -77,6 +77,7 @@ in
       substituteInPlace $out/moa/worker.py --replace "Path(f'" "Path(f'/tmp/moa_"
       substituteInPlace $out/app.py --replace "logHandler = logging.FileHandler('logs/app.log')" "import sys; logHandler = logging.StreamHandler(sys.stderr)"
       substituteInPlace $out/moa/worker.py --replace "sqlite" "postgresql"
+      substituteInPlace $out/app.py --replace "app.run()" "app.run(host='::1')"
     '';
     meta = {
       description = "Mastodon-Twitter crossposter";
