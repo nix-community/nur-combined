@@ -1,7 +1,6 @@
 REMOTE_universal-ctags-pcre2 := pkgs/development/tools/misc/universal-ctags
-REMOTE_tectonic := pkgs/tools/typesetting/tectonic
 
-PATCH_PKGS = universal-ctags-pcre2 tectonic
+PATCH_PKGS = universal-ctags-pcre2
 PATCH_PKGS_DIRS = $(addprefix pkgs/, $(PATCH_PKGS))
 PATCH_PKGS_TARGETS = $(addsuffix /default.nix, $(PATCH_PKGS_DIRS))
 

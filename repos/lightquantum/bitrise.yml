@@ -40,7 +40,7 @@ workflows:
             bash ./utils/list-nix-store.sh > /tmp/store-path-pre-build
 
             nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org \
+            --allowed-uris https:// \
             --option restrict-eval true \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \

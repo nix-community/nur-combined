@@ -1,5 +1,5 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  # Home Manager Modules
+  chsh = ./chsh.nix;
+  wallpaper = ./wallpaper.nix;
 }
