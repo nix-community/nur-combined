@@ -8,8 +8,7 @@ let
       source = import file;
       params = builtins.functionArgs source;
       args = builtins.mapAttrs (_: _: null) params;
-    in
-    source args;
+    in source args;
   old = importAndCallWithNullBuilders oldSources;
   new = importAndCallWithNullBuilders newSources;
   oldNames = lib.attrNames old;
