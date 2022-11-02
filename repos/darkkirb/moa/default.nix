@@ -22,6 +22,7 @@
   stdenvNoCC,
   lib,
   setuptools,
+  psycopg2,
 }: let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   src = fetchFromGitLab {
@@ -49,6 +50,7 @@
     wheel
     setuptools
     (callPackage ../python/instagram.nix {})
+    psycopg2
   ]);
 in
   stdenvNoCC.mkDerivation {
