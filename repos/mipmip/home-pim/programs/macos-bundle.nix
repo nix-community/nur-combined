@@ -14,5 +14,11 @@
     pkgs.smug
     pkgs.unixtools.watch
     pkgs.git-sync
+    pkgs.silver-searcher
+    pkgs.fzf
+    pkgs.apg
+    pkgs.smug
+    pkgs.ctags
+
   ];
 }
