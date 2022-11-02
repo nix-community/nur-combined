@@ -116,7 +116,8 @@ wemeet =
       `sourceAur` "wemeet-bin"
       `fetchUrl` url
   where
-    url (Version v) = "https://updatecdn.meeting.qq.com/cos/9544ca942e643718153b4ad908ff440d/TencentMeeting_0300000000_" <> v <> "_x86_64_default.publish.deb"
+    md5 = "1ee0de1d3bf77c3dcfbcf47fea67f5dc" -- TODO auto update md5
+    url (Version v) = "https://updatecdn.meeting.qq.com/cos/" <> md5 <> "/TencentMeeting_0300000000_" <> v <> "_x86_64_default.publish.deb"
 
 yacd :: PackageSet ()
 yacd =

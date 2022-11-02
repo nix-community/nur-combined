@@ -3,9 +3,14 @@
 { oldSources, newSources }:
 
 let
-  params = { fetchgit = null; fetchurl = null; fetchFromGitHub = null; };
-  old = import oldSources params;
-  new = import newSources params;
+  importAndCallWithNullBuilders = file:
+    let
+      source = import file;
+      params = builtins.functionArgs source;
+      args = builtins.mapAttrs (_: _: null) params;
+    in source args;
+  old = importAndCallWithNullBuilders oldSources;
+  new = importAndCallWithNullBuilders newSources;
   oldNames = lib.attrNames old;
   newNames = lib.attrNames new;
   initedPkgs = lib.filter (name: ! old ? ${name}) newNames;
