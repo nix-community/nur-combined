@@ -57,9 +57,6 @@ in
     pname = "moa";
     version = source.date;
     inherit src;
-    patchPhase = ''
-      substituteInPlace moa/models.py --replace "engine, reflect=True" "autoload_with=engine"
-    '';
     buildPhase = ''
       echo "#!/bin/sh" > start.sh
       echo "cd $out" >> start.sh
@@ -73,8 +70,13 @@ in
 
     installPhase = ''
       cp -rv $src $out
-      chmod +w $out
+      chmod -R +w $out
       cp start-*.sh $out
+      sed -i 's/, reflect=True//' $out/moa/models.py
+      substituteInPlace $out/app.py --replace "from authlib.integrations._client import MissingRequestTokenError" "class MissingRequestTokenError(Exception): pass"
+      substituteInPlace $out/moa/worker.py --replace "Path(f'" "Path(f'/tmp/moa_"
+      substituteInPlace $out/app.py --replace "logHandler = logging.FileHandler('logs/app.log')" "import sys; logHandler = logging.StreamHandler(sys.stderr)"
+      substituteInPlace $out/moa/worker.py --replace "sqlite" "postgresql"
     '';
     meta = {
       description = "Mastodon-Twitter crossposter";
