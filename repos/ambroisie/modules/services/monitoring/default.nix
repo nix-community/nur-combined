@@ -49,19 +49,25 @@ in
   config = lib.mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      domain = "monitoring.${config.networking.domain}";
-      port = cfg.grafana.port;
-      addr = "127.0.0.1"; # Proxied through Nginx
 
-      security = {
-        adminUser = cfg.grafana.username;
-        adminPasswordFile = cfg.grafana.passwordFile;
+      settings = {
+        server = {
+          domain = "monitoring.${config.networking.domain}";
+          root_url = "https://monitoring.${config.networking.domain}/";
+          http_port = cfg.grafana.port;
+          http_addr = "127.0.0.1"; # Proxied through Nginx
+        };
+
+        security = {
+          admin_user = cfg.grafana.username;
+          admin_password = "$__file{${cfg.grafana.passwordFile}}";
+        };
       };
 
       provision = {
         enable = true;
 
-        datasources = [
+        datasources.settings.datasources = [
           {
             name = "Prometheus";
             type = "prometheus";
@@ -72,7 +78,7 @@ in
           }
         ];
 
-        dashboards = [
+        dashboards.settings.providers = [
           {
             name = "Node Exporter";
             options.path = pkgs.nur.repos.alarsyo.grafanaDashboards.node-exporter;

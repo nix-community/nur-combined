@@ -405,7 +405,7 @@ in
         };
     };
 
-    services.grafana.provision.dashboards = lib.mkIf cfg.monitoring.enable [
+    services.grafana.provision.dashboards.settings.providers = lib.mkIf cfg.monitoring.enable [
       {
         name = "NGINX";
         options.path = pkgs.nur.repos.alarsyo.grafanaDashboards.nginx;
