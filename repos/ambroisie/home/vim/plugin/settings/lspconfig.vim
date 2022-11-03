@@ -4,8 +4,7 @@ local lsp = require("ambroisie.lsp")
 local utils = require("ambroisie.utils")
 
 -- Inform servers we are able to do completion, snippets, etc...
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- C/C++
 if utils.is_executable("clangd") then

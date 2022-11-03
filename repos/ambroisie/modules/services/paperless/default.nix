@@ -84,6 +84,7 @@ in
 
     systemd.services = {
       paperless-scheduler = {
+        requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
 
         serviceConfig = {
@@ -92,6 +93,7 @@ in
       };
 
       paperless-consumer = {
+        requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
 
         serviceConfig = {
@@ -100,6 +102,7 @@ in
       };
 
       paperless-web = {
+        requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
 
         serviceConfig = {
