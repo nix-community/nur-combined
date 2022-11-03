@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221101.190031";
+      version = "106.0.4buildid20221102.214123";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024574/francais_language_pack-107.0buildid20221101.190031.xpi";
-      sha256 = "fc2f879d35b9f3714c6c6fd01f9802dc0edbdc2d4073102db54363fcedf3a5ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025113/francais_language_pack-106.0.4buildid20221102.214123.xpi";
+      sha256 = "081da6d3db81c43f58a90253f23dfae50426bcb8b33c200d57237544e40dfaee";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1426,10 +1426,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.58";
+      version = "2.6.62";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4020602/momentumdash-2.6.58.xpi";
-      sha256 = "e7608e2d2e20ec2ef03e73d6175846d92d98aed4486b60cce7335825b42a5208";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024935/momentumdash-2.6.62.xpi";
+      sha256 = "24c3e304312b9128976ad8f4473f9a9d2f9ae30dfb77e42c9f65634512077a16";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
