@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/dnaq/plover-machine-hid",
-  "rev": "7c7ceeb1e653b8df61626a2f4739ed365c54a713",
-  "date": "2022-06-15T21:17:36+02:00",
-  "path": "/nix/store/k47dnvmm4kidi35zqyx3ihdg0ll5k0p1-plover-machine-hid",
-  "sha256": "12s6b8148gk3s9r8phrgsbnj81w6vn6963iq9hfjpgdw2jiv24sx",
+  "rev": "8ffb50daf234a5a1da6af684a9958c8c643edacd",
+  "date": "2022-10-30T15:08:11+01:00",
+  "path": "/nix/store/qn60rjbigkrrbijj1i2p0dmhzwpa88wj-plover-machine-hid",
+  "sha256": "0a8ifbwr85065mi073q7yjl33b7xsqsws3196y43qrfk91qmn7iz",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,

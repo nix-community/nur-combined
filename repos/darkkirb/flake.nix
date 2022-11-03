@@ -17,11 +17,6 @@
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [
-            (self: super: {
-              openssl = super.openssl_1_1; # TODO: workaround for openssl critical vuln
-            })
-          ];
         };
         inherit (pkgs) lib;
         nur = import ./default.nix {inherit pkgs;};
