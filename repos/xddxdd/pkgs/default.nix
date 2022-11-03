@@ -63,8 +63,10 @@ rec {
     keycloak-lantian = ifFlakes (pkg ./lantian-customized/keycloak-lantian {
       inherit (inputs) keycloak-lantian;
     });
-    linux-xanmod-lantian = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { });
+    linux-xanmod-lantian = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = false; });
     linux-xanmod-lantian-config = ifNotCI lantianCustomized.linux-xanmod-lantian.configfile;
+    linux-xanmod-lantian-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = true; });
+    linux-xanmod-lantian-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-lto.configfile;
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
     openresty = pkg ./lantian-customized/openresty { };
   };
