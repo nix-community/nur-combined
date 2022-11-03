@@ -1,0 +1,1189 @@
+diff --git a/.envrc b/.envrc
+new file mode 100644
+index 0000000..3550a30
+--- /dev/null
++++ b/.envrc
+@@ -0,0 +1 @@
++use flake
+diff --git a/.gitignore b/.gitignore
+index b8c6716..4dbdfbb 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -19,3 +19,4 @@ worker_*.lock
+ .idea/moa.iml
+ Pipfile
+ Pipefile.lock
++/.direnv
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+new file mode 100644
+index 0000000..30e36e9
+--- /dev/null
++++ b/.vscode/settings.json
+@@ -0,0 +1,3 @@
++{
++  "python.formatting.provider": "yapf"
++}
+diff --git a/app.py b/app.py
+index 8a53602..bdaf082 100644
+--- a/app.py
++++ b/app.py
+@@ -3,12 +3,12 @@ import os
+ import random
+ from datetime import datetime, timedelta
+ from urllib.error import URLError
++import sys
+ 
+ import pandas as pd
+ import pygal
+ import twitter
+ from authlib.common.errors import AuthlibBaseError
+-from authlib.integrations._client import MissingRequestTokenError
+ from flask import Flask, flash, g, redirect, render_template, request, session, url_for
+ from flask_migrate import Migrate
+ from authlib.integrations.flask_client import OAuth
+@@ -30,12 +30,17 @@ from moa.forms import MastodonIDForm, SettingsForm
+ from moa.helpers import blacklisted, email_bridge_details, send_blacklisted_email, timespan, FORMAT
+ from moa.models import Bridge, MastodonHost, TSettings, WorkerStat, metadata, BridgeStat, BridgeMetadata
+ 
++
++class MissingRequestTokenError(Exception):
++    pass
++
++
+ app = Flask(__name__)
+ 
+ formatter = logging.Formatter(FORMAT)
+ 
+ # initialize the log handler
+-logHandler = logging.FileHandler('logs/app.log')
++logHandler = logging.StreamHandler(sys.stderr)
+ logHandler.setFormatter(formatter)
+ 
+ # set the app logger level
+@@ -45,7 +50,6 @@ app.logger.addHandler(logHandler)
+ 
+ app.logger.info("Starting up...")
+ 
+-
+ config = os.environ.get('MOA_CONFIG', 'DevelopmentConfig')
+ # this is needed to get this in line with other modules, where we expect MOA_CONFIG to be an object in config.py.
+ app.config.from_object('config.' + config)
+@@ -59,14 +63,15 @@ if app.config['SENTRY_DSN']:
+     from sentry_sdk.integrations.flask import FlaskIntegration
+ 
+     sentry_logging = LoggingIntegration(
+-            level=logging.INFO,  # Capture info and above as breadcrumbs
+-            event_level=logging.FATAL  # Only send fatal errors as events
++        level=logging.INFO,  # Capture info and above as breadcrumbs
++        event_level=logging.FATAL  # Only send fatal errors as events
+     )
+ 
+-    sentry_sdk.init(
+-            dsn=app.config['SENTRY_DSN'],
+-            integrations=[FlaskIntegration(), sentry_logging, SqlalchemyIntegration()]
+-    )
++    sentry_sdk.init(dsn=app.config['SENTRY_DSN'],
++                    integrations=[
++                        FlaskIntegration(), sentry_logging,
++                        SqlalchemyIntegration()
++                    ])
+ 
+ db = SQLAlchemy(metadata=metadata)
+ migrate = Migrate(app, db)
+@@ -76,17 +81,17 @@ oauth = OAuth(app)
+ 
+ if app.config.get('TWITTER_CONSUMER_KEY', None):
+     oauth.register(
+-            name='twitter',
+-            client_id=app.config['TWITTER_CONSUMER_KEY'],
+-            client_secret=app.config['TWITTER_CONSUMER_SECRET'],
+-            request_token_url='https://api.twitter.com/oauth/request_token',
+-            request_token_params=None,
+-            access_token_url='https://api.twitter.com/oauth/access_token',
+-            access_token_params=None,
+-            authorize_url='https://api.twitter.com/oauth/authenticate',
+-            authorize_params=None,
+-            api_base_url='https://api.twitter.com/1.1/',
+-            client_kwargs=None,
++        name='twitter',
++        client_id=app.config['TWITTER_CONSUMER_KEY'],
++        client_secret=app.config['TWITTER_CONSUMER_SECRET'],
++        request_token_url='https://api.twitter.com/oauth/request_token',
++        request_token_params=None,
++        access_token_url='https://api.twitter.com/oauth/access_token',
++        access_token_params=None,
++        authorize_url='https://api.twitter.com/oauth/authenticate',
++        authorize_params=None,
++        api_base_url='https://api.twitter.com/1.1/',
++        client_kwargs=None,
+     )
+ 
+ # mastodon_scopes = ["write:statuses", "write:media", "read:accounts", "read:statuses"]
+@@ -116,28 +121,32 @@ def index():
+     form = SettingsForm(obj=settings)
+ 
+     if 'bridge_id' in session:
+-        bridge = db.session.query(Bridge).filter_by(id=session['bridge_id']).first()
++        bridge = db.session.query(Bridge).filter_by(
++            id=session['bridge_id']).first()
+ 
+         if bridge:
+             g.bridge = bridge
+             settings = bridge.t_settings
+-            app.logger.debug(f"Existing settings found: {enabled} {settings.__dict__}")
++            app.logger.debug(
++                f"Existing settings found: {enabled} {settings.__dict__}")
+ 
+             form = SettingsForm(obj=settings)
+ 
+             if not bridge.mastodon_access_code or not bridge.twitter_oauth_token:
+                 form.remove_masto_and_twitter_fields()
+ 
+-    return render_template('index.html.j2',
+-                           form=form,
+-                           mform=mform,
+-                           )
++    return render_template(
++        'index.html.j2',
++        form=form,
++        mform=mform,
++    )
+ 
+ 
+ @app.route('/options', methods=["POST"])
+ def options():
+     if 'bridge_id' in session:
+-        bridge = db.session.query(Bridge).filter_by(id=session['bridge_id']).first()
++        bridge = db.session.query(Bridge).filter_by(
++            id=session['bridge_id']).first()
+     else:
+         flash('ERROR: Please log in to an account')
+         return redirect(url_for('index'))
+@@ -177,11 +186,11 @@ def catch_up_twitter(bridge):
+     if bridge.twitter_last_id == 0 and bridge.twitter_oauth_token:
+         # get twitter ID
+         twitter_api = twitter.Api(
+-                consumer_key=app.config['TWITTER_CONSUMER_KEY'],
+-                consumer_secret=app.config['TWITTER_CONSUMER_SECRET'],
+-                access_token_key=bridge.twitter_oauth_token,
+-                access_token_secret=bridge.twitter_oauth_secret,
+-                tweet_mode='extended'  # Allow tweets longer than 140 raw characters
++            consumer_key=app.config['TWITTER_CONSUMER_KEY'],
++            consumer_secret=app.config['TWITTER_CONSUMER_SECRET'],
++            access_token_key=bridge.twitter_oauth_token,
++            access_token_secret=bridge.twitter_oauth_secret,
++            tweet_mode='extended'  # Allow tweets longer than 140 raw characters
+         )
+         try:
+             tl = twitter_api.GetUserTimeline()
+@@ -190,7 +199,8 @@ def catch_up_twitter(bridge):
+         else:
+             if len(tl) > 0:
+                 bridge.twitter_last_id = tl[0].id
+-                d = datetime.strptime(tl[0].created_at, '%a %b %d %H:%M:%S %z %Y')
++                d = datetime.strptime(tl[0].created_at,
++                                      '%a %b %d %H:%M:%S %z %Y')
+                 bridge.md.last_tweet = d
+             else:
+                 bridge.twitter_last_id = 0
+@@ -225,13 +235,15 @@ def catch_up_mastodon(bridge):
+ @app.route('/delete', methods=["POST"])
+ def delete():
+     if 'bridge_id' in session:
+-        bridge = db.session.query(Bridge).filter_by(id=session['bridge_id']).first()
++        bridge = db.session.query(Bridge).filter_by(
++            id=session['bridge_id']).first()
+ 
+         if bridge:
+             app.logger.info(f"Deleting settings for Bridge {bridge.id}")
+             settings = bridge.t_settings
+             md = bridge.md
+-            db.session.query(BridgeStat).filter_by(bridge_id=bridge.id).delete()
++            db.session.query(BridgeStat).filter_by(
++                bridge_id=bridge.id).delete()
+             db.session.delete(bridge)
+             db.session.delete(settings)
+             db.session.delete(md)
+@@ -246,11 +258,9 @@ def delete():
+ 
+ @app.route('/twitter_login')
+ def twitter_login():
+-    callback_url = url_for(
+-            'twitter_oauthorized',
+-            _external=True,
+-            next=request.args.get('next')
+-    )
++    callback_url = url_for('twitter_oauthorized',
++                           _external=True,
++                           next=request.args.get('next'))
+ 
+     app.logger.debug(callback_url)
+ 
+@@ -273,9 +283,12 @@ def twitter_oauthorized():
+         return redirect(url_for('index'))
+ 
+     if resp is None:
+-        flash('ERROR: You denied the request to sign in or have cookies disabled.')
++        flash(
++            'ERROR: You denied the request to sign in or have cookies disabled.'
++        )
+ 
+-    elif blacklisted(resp['screen_name'], app.config.get('TWITTER_BLACKLIST', [])):
++    elif blacklisted(resp['screen_name'],
++                     app.config.get('TWITTER_BLACKLIST', [])):
+         flash('ERROR: Access Denied.')
+         send_blacklisted_email(app, resp['screen_name'])
+ 
+@@ -306,18 +319,18 @@ def twitter_oauthorized():
+ 
+ 
+ def get_or_create_host(hostname):
+-    mastodonhost = db.session.query(MastodonHost).filter_by(hostname=hostname).first()
++    mastodonhost = db.session.query(MastodonHost).filter_by(
++        hostname=hostname).first()
+ 
+     if not mastodonhost:
+ 
+         try:
+             client_id, client_secret = Mastodon.create_app(
+-                    "Moa",
+-                    scopes=mastodon_scopes,
+-                    api_base_url=f"https://{hostname}",
+-                    website="https://moa.party/",
+-                    redirect_uris=url_for("mastodon_oauthorized", _external=True)
+-            )
++                "Moa",
++                scopes=mastodon_scopes,
++                api_base_url=f"https://{hostname}",
++                website="https://moa.party/",
++                redirect_uris=url_for("mastodon_oauthorized", _external=True))
+ 
+             app.logger.info(f"New host created for {hostname}")
+ 
+@@ -344,13 +357,11 @@ def mastodon_api(hostname, access_code=None):
+     mastodonhost = get_or_create_host(hostname)
+ 
+     if mastodonhost:
+-        api = Mastodon(
+-                client_id=mastodonhost.client_id,
+-                client_secret=mastodonhost.client_secret,
+-                api_base_url=f"https://{mastodonhost.hostname}",
+-                access_token=access_code,
+-                debug_requests=False
+-        )
++        api = Mastodon(client_id=mastodonhost.client_id,
++                       client_secret=mastodonhost.client_secret,
++                       api_base_url=f"https://{mastodonhost.hostname}",
++                       access_token=access_code,
++                       debug_requests=False)
+ 
+         return api
+     return None
+@@ -408,12 +419,11 @@ def mastodon_login():
+ 
+         if api:
+             return redirect(
+-                    api.auth_request_url(
+-                            scopes=mastodon_scopes,
+-                            force_login=True,
+-                            redirect_uris=url_for("mastodon_oauthorized", _external=True)
+-                    )
+-            )
++                api.auth_request_url(scopes=mastodon_scopes,
++                                     force_login=True,
++                                     redirect_uris=url_for(
++                                         "mastodon_oauthorized",
++                                         _external=True)))
+         else:
+             flash(f"There was a problem connecting to the mastodon server.")
+     else:
+@@ -435,7 +445,9 @@ def mastodon_oauthorized():
+         app.logger.info(f"Authorization code {authorization_code} for {host}")
+ 
+         if not host:
+-            flash('There was an error. Please ensure you allow this site to use cookies.')
++            flash(
++                'There was an error. Please ensure you allow this site to use cookies.'
++            )
+             return redirect(url_for('index'))
+ 
+         session.pop('mastodon_host', None)
+@@ -445,19 +457,23 @@ def mastodon_oauthorized():
+         local_scopes = mastodon_scopes
+ 
+         try:
+-            access_code = api.log_in(
+-                    code=authorization_code,
+-                    scopes=local_scopes,
+-                    redirect_uri=url_for("mastodon_oauthorized", _external=True)
+-            )
++            access_code = api.log_in(code=authorization_code,
++                                     scopes=local_scopes,
++                                     redirect_uri=url_for(
++                                         "mastodon_oauthorized",
++                                         _external=True))
+         except MastodonAPIError as e:
+             # Possibly a scopes problem?
+-            flash(f"There was a problem connecting to the mastodon server. The error was {e}")
++            flash(
++                f"There was a problem connecting to the mastodon server. The error was {e}"
++            )
+             return redirect(url_for('index'))
+ 
+         except MastodonIllegalArgumentError as e:
+ 
+-            flash(f"There was a problem connecting to the mastodon server. The error was {e}")
++            flash(
++                f"There was a problem connecting to the mastodon server. The error was {e}"
++            )
+             return redirect(url_for('index'))
+ 
+         # app.logger.info(f"Access code {access_code}")
+@@ -468,13 +484,17 @@ def mastodon_oauthorized():
+             creds = api.account_verify_credentials()
+ 
+         except (MastodonUnauthorizedError, MastodonAPIError) as e:
+-            flash(f"There was a problem connecting to the mastodon server. The error was {e}")
++            flash(
++                f"There was a problem connecting to the mastodon server. The error was {e}"
++            )
+             return redirect(url_for('index'))
+ 
+         username = creds["username"]
+         account_id = creds["id"]
+ 
+-        bridge = db.session.query(Bridge).filter_by(mastodon_account_id=account_id, mastodon_host_id=masto_host.id).first()
++        bridge = db.session.query(Bridge).filter_by(
++            mastodon_account_id=account_id,
++            mastodon_host_id=masto_host.id).first()
+ 
+         if bridge:
+             session['bridge_id'] = bridge.id
+@@ -520,7 +540,9 @@ def instagram_activate():
+     # app.logger.info(redirect_uri)
+ 
+     scope = ["basic"]
+-    api = InstagramAPI(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri)
++    api = InstagramAPI(client_id=client_id,
++                       client_secret=client_secret,
++                       redirect_uri=redirect_uri)
+ 
+     try:
+         redirect_uri = api.get_authorize_login_url(scope=scope)
+@@ -540,7 +562,9 @@ def instagram_oauthorized():
+         client_id = app.config['INSTAGRAM_CLIENT_ID']
+         client_secret = app.config['INSTAGRAM_SECRET']
+         redirect_uri = url_for('instagram_oauthorized', _external=True)
+-        api = InstagramAPI(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri)
++        api = InstagramAPI(client_id=client_id,
++                           client_secret=client_secret,
++                           redirect_uri=redirect_uri)
+ 
+         try:
+             access_token = api.exchange_code_for_access_token(code)
+@@ -565,15 +589,18 @@ def instagram_oauthorized():
+         bridge.instagram_account_id = data['id']
+         bridge.instagram_handle = data['username']
+ 
+-        user_api = InstagramAPI(access_token=bridge.instagram_access_code, client_secret=client_secret)
++        user_api = InstagramAPI(access_token=bridge.instagram_access_code,
++                                client_secret=client_secret)
+ 
+         try:
+-            latest_media, _ = user_api.user_recent_media(user_id=bridge.instagram_account_id, count=1)
++            latest_media, _ = user_api.user_recent_media(
++                user_id=bridge.instagram_account_id, count=1)
+         except Exception:
+             latest_media = []
+ 
+         if len(latest_media) > 0:
+-            bridge.instagram_last_id = datetime_to_timestamp(latest_media[0].created_time)
++            bridge.instagram_last_id = datetime_to_timestamp(
++                latest_media[0].created_time)
+         else:
+             bridge.instagram_last_id = 0
+ 
+@@ -595,8 +622,7 @@ def logout():
+ def stats():
+     hours = request.args.get('hours', 24)
+ 
+-    return render_template('stats.html.j2',
+-                           hours=hours)
++    return render_template('stats.html.j2', hours=hours)
+ 
+ 
+ @app.route('/deactivate_account')
+@@ -634,9 +660,10 @@ def time_graph():
+     hours = int(request.args.get('hours', 24))
+ 
+     since = datetime.now() - timedelta(hours=hours)
+-    stats_query = db.session.query(WorkerStat).filter(WorkerStat.created > since).with_entities(WorkerStat.created,
+-                                                                                                WorkerStat.time,
+-                                                                                                WorkerStat.worker)
++    stats_query = db.session.query(WorkerStat).filter(
++        WorkerStat.created > since).with_entities(WorkerStat.created,
++                                                  WorkerStat.time,
++                                                  WorkerStat.worker)
+ 
+     df = pd.read_sql(stats_query.statement, stats_query.session.bind)
+ 
+@@ -682,10 +709,11 @@ def count_graph():
+     hours = int(request.args.get('hours', 24))
+     since = datetime.now() - timedelta(hours=hours)
+ 
+-    stats_query = db.session.query(WorkerStat).filter(WorkerStat.created > since).with_entities(WorkerStat.created,
+-                                                                                                WorkerStat.toots,
+-                                                                                                WorkerStat.tweets,
+-                                                                                                WorkerStat.instas)
++    stats_query = db.session.query(WorkerStat).filter(
++        WorkerStat.created > since).with_entities(WorkerStat.created,
++                                                  WorkerStat.toots,
++                                                  WorkerStat.tweets,
++                                                  WorkerStat.instas)
+ 
+     df = pd.read_sql(stats_query.statement, stats_query.session.bind)
+     df.set_index(['created'], inplace=True)
+@@ -700,9 +728,10 @@ def count_graph():
+     tweets = r['tweets'].tolist()
+     instas = r['instas'].tolist()
+ 
+-    chart = pygal.StackedBar(title=f"# of Incoming Messages ({timespan(hours)})\n{total} total",
+-                             human_readable=True,
+-                             legend_at_bottom=True)
++    chart = pygal.StackedBar(
++        title=f"# of Incoming Messages ({timespan(hours)})\n{total} total",
++        human_readable=True,
++        legend_at_bottom=True)
+     chart.add('Toots', toots)
+     chart.add('Tweets', tweets)
+     chart.add('Instas', instas)
+@@ -715,10 +744,11 @@ def percent_graph():
+     hours = int(request.args.get('hours', 24))
+     since = datetime.now() - timedelta(hours=hours)
+ 
+-    stats_query = db.session.query(WorkerStat).filter(WorkerStat.created > since).with_entities(WorkerStat.created,
+-                                                                                                WorkerStat.toots,
+-                                                                                                WorkerStat.tweets,
+-                                                                                                WorkerStat.instas)
++    stats_query = db.session.query(WorkerStat).filter(
++        WorkerStat.created > since).with_entities(WorkerStat.created,
++                                                  WorkerStat.toots,
++                                                  WorkerStat.tweets,
++                                                  WorkerStat.instas)
+ 
+     df = pd.read_sql(stats_query.statement, stats_query.session.bind)
+     df.set_index(['created'], inplace=True)
+@@ -736,9 +766,10 @@ def percent_graph():
+     tweets_p = r['tweets_p'].tolist()
+     instas_p = r['instas_p'].tolist()
+ 
+-    chart = pygal.StackedBar(title=f"Ratio of Incoming Messages ({timespan(hours)})",
+-                             human_readable=True,
+-                             legend_at_bottom=True)
++    chart = pygal.StackedBar(
++        title=f"Ratio of Incoming Messages ({timespan(hours)})",
++        human_readable=True,
++        legend_at_bottom=True)
+     chart.add('Toots', toots_p)
+     chart.add('Tweets', tweets_p)
+     chart.add('Instas', instas_p)
+@@ -751,7 +782,8 @@ def user_graph():
+     hours = int(request.args.get('hours', 24))
+     since = datetime.now() - timedelta(hours=hours)
+ 
+-    stats_query = db.session.query(Bridge).filter(Bridge.created > since).filter(Bridge.enabled == 1).with_entities(
++    stats_query = db.session.query(Bridge).filter(
++        Bridge.created > since).filter(Bridge.enabled == 1).with_entities(
+             Bridge.created)
+ 
+     base_count_query = db.session.query(func.count(Bridge.id)).scalar()
+@@ -793,4 +825,4 @@ def page_not_found(e):
+ 
+ if __name__ == '__main__':
+ 
+-    app.run()
++    app.run(host="::1")
+diff --git a/flake.lock b/flake.lock
+new file mode 100644
+index 0000000..ddbf123
+--- /dev/null
++++ b/flake.lock
+@@ -0,0 +1,66 @@
++{
++  "nodes": {
++    "flake-utils": {
++      "locked": {
++        "lastModified": 1667395993,
++        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
++        "owner": "numtide",
++        "repo": "flake-utils",
++        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
++        "type": "github"
++      },
++      "original": {
++        "owner": "numtide",
++        "repo": "flake-utils",
++        "type": "github"
++      }
++    },
++    "nix-packages": {
++      "inputs": {
++        "flake-utils": [
++          "flake-utils"
++        ],
++        "nixpkgs": [
++          "nixpkgs"
++        ]
++      },
++      "locked": {
++        "lastModified": 1667423076,
++        "narHash": "sha256-0QUa2SBk/+S+q4hBpTSembUtHdiWjIex7tgb6jIoPkA=",
++        "ref": "refs/heads/main",
++        "rev": "31d36925f77febc11189dbc015f2593f17b9a4ff",
++        "revCount": 331,
++        "type": "git",
++        "url": "https://git.chir.rs/darkkirb/nix-packages"
++      },
++      "original": {
++        "type": "git",
++        "url": "https://git.chir.rs/darkkirb/nix-packages"
++      }
++    },
++    "nixpkgs": {
++      "locked": {
++        "lastModified": 1667456235,
++        "narHash": "sha256-bhRXd2WJt6uFTNPGVGJ0/KjssSmmz4kls/1Ggm3gZ0s=",
++        "owner": "NixOS",
++        "repo": "nixpkgs",
++        "rev": "60974988b3e1e5d61341a5ef0357e7ae99fcf7f1",
++        "type": "github"
++      },
++      "original": {
++        "owner": "NixOS",
++        "repo": "nixpkgs",
++        "type": "github"
++      }
++    },
++    "root": {
++      "inputs": {
++        "flake-utils": "flake-utils",
++        "nix-packages": "nix-packages",
++        "nixpkgs": "nixpkgs"
++      }
++    }
++  },
++  "root": "root",
++  "version": 7
++}
+diff --git a/flake.nix b/flake.nix
+new file mode 100644
+index 0000000..ff25756
+--- /dev/null
++++ b/flake.nix
+@@ -0,0 +1,53 @@
++{
++  inputs = {
++    nixpkgs.url = github:NixOS/nixpkgs;
++    flake-utils.url = github:numtide/flake-utils;
++    nix-packages.url = git+https://git.chir.rs/darkkirb/nix-packages;
++    nix-packages.inputs = {
++      nixpkgs.follows = "nixpkgs";
++      flake-utils.follows = "flake-utils";
++    };
++  };
++  outputs = {
++    self,
++    nixpkgs,
++    flake-utils,
++    nix-packages,
++  }:
++    flake-utils.lib.eachDefaultSystem (system: let
++      pkgs = import nixpkgs {inherit system;};
++      nix-pkgs = import nix-packages {inherit pkgs;};
++    in {
++      formatter = pkgs.alejandra;
++      devShells.default = pkgs.mkShell {
++        MOA_CONFIG = "DevelopmentConfig";
++        nativeBuildInputs = [
++          (pkgs.python3.withPackages (ps:
++            with ps; [
++              certifi
++              flask
++              flask_sqlalchemy
++              flask_mail
++              flask_migrate
++              flask_wtf
++              mastodon-py
++              pandas
++              psutil
++              pygal
++              python-twitter
++              pymysql
++              sentry-sdk
++              authlib
++              cairosvg
++              werkzeug
++              wheel
++              setuptools
++              nix-pkgs.python-instagram
++              psycopg2
++            ]))
++          pkgs.yapf
++          pkgs.sqlite
++        ];
++      };
++    });
++}
+diff --git a/migrations/alembic.ini b/migrations/alembic.ini
+index f8ed480..5301449 100644
+--- a/migrations/alembic.ini
++++ b/migrations/alembic.ini
+@@ -7,6 +7,7 @@
+ # set to 'true' to run the environment during
+ # the 'revision' command, regardless of autogenerate
+ # revision_environment = false
++script_location = .
+ 
+ 
+ # Logging configuration
+diff --git a/migrations/env.py b/migrations/env.py
+index 690d48b..c996c74 100755
+--- a/migrations/env.py
++++ b/migrations/env.py
+@@ -18,6 +18,7 @@ logger = logging.getLogger('alembic.env')
+ # from myapp import mymodel
+ # target_metadata = mymodel.Base.metadata
+ from flask import current_app
++
+ config.set_main_option('sqlalchemy.url',
+                        current_app.config.get('SQLALCHEMY_DATABASE_URI'))
+ target_metadata = current_app.extensions['migrate'].db.metadata
+@@ -82,6 +83,7 @@ def run_migrations_online():
+     finally:
+         connection.close()
+ 
++
+ if context.is_offline_mode():
+     run_migrations_offline()
+ else:
+diff --git a/migrations/versions/b0780999e063_allow_deny_list.py b/migrations/versions/b0780999e063_allow_deny_list.py
+new file mode 100644
+index 0000000..5344b25
+--- /dev/null
++++ b/migrations/versions/b0780999e063_allow_deny_list.py
+@@ -0,0 +1,38 @@
++"""Allow/Deny list
++
++Revision ID: b0780999e063
++Revises: 3ac471544742
++Create Date: 2022-11-03 07:53:00
++
++"""
++from alembic import op
++import sqlalchemy as sa
++
++# revision identifiers, used by Alembic.
++revision = 'b0780999e063'
++down_revision = '3ac471544742'
++branch_labels = None
++depends_on = None
++
++
++def upgrade():
++    # ### commands auto generated by Alembic - please adjust! ###
++    op.create_table('block_allow_list',
++                    sa.Column('id', sa.Integer(), nullable=False),
++                    sa.Column('pattern', sa.String(length=100),
++                              nullable=False),
++                    sa.Column('allow', sa.Boolean(), nullable=False),
++                    sa.Column('settings_id', sa.Integer(), nullable=False),
++                    sa.PrimaryKeyConstraint('id'),
++                    mysql_charset='utf8mb4',
++                    mysql_collate='utf8mb4_general_ci')
++    op.create_foreign_key(None, 'block_allow_list', 'settings',
++                          ['settings_id'], ['id'])
++
++    # ### end Alembic commands ###
++
++
++def downgrade():
++    # ### commands auto generated by Alembic - please adjust! ###
++    op.drop_table('block_allow_list')
++    # ### end Alembic commands ###
+diff --git a/moa/models.py b/moa/models.py
+index e57604b..050e87c 100644
+--- a/moa/models.py
++++ b/moa/models.py
+@@ -51,22 +51,33 @@ CON_XP_ONLYIF_TAGS = ['moa', 'xp']
+ CON_XP_UNLESS = 'unless'
+ CON_XP_UNLESS_TAGS = ['nomoa', 'noxp']
+ 
++
+ class TSettings(Base):
+     __tablename__ = 'settings'
+-    __table_args__ = {'mysql_charset': 'utf8mb4', 'mysql_collate': 'utf8mb4_general_ci'}
++    __table_args__ = {
++        'mysql_charset': 'utf8mb4',
++        'mysql_collate': 'utf8mb4_general_ci'
++    }
+ 
+     id = Column(Integer, primary_key=True)
+     bridge = relationship('Bridge', backref='t_settings', lazy='dynamic')
+-    conditional_posting = Column(String(10), nullable=False, server_default=CON_XP_DISABLED, default=CON_XP_DISABLED)
++    allow_deny_list = relationship('AllowDenyList', lazy='dynamic')
++    conditional_posting = Column(String(10),
++                                 nullable=False,
++                                 server_default=CON_XP_DISABLED,
++                                 default=CON_XP_DISABLED)
+ 
+     # Masto -> Twitter
+-    post_to_twitter = Column(Boolean, nullable=False, default=True)  # This means post public toots
++    post_to_twitter = Column(Boolean, nullable=False,
++                             default=True)  # This means post public toots
+     post_private_to_twitter = Column(Boolean, nullable=False, default=False)
+     post_unlisted_to_twitter = Column(Boolean, nullable=False, default=False)
+     split_twitter_messages = Column(Boolean, nullable=False, default=True)
+     post_boosts_to_twitter = Column(Boolean, nullable=False, default=True)
+     post_sensitive_behind_link = Column(Boolean, nullable=False, default=False)
+-    sensitive_link_text = Column(String(100), nullable=False, default='(NSFW Image)')
++    sensitive_link_text = Column(String(100),
++                                 nullable=False,
++                                 default='(NSFW Image)')
+     remove_cw = Column(Boolean, nullable=False, default=False)
+ 
+     # Twitter -> Masto
+@@ -75,7 +86,9 @@ class TSettings(Base):
+     post_quotes_to_mastodon = Column(Boolean, nullable=False, default=True)
+     toot_visibility = Column(String(40), nullable=False, default='public')
+     tweets_behind_cw = Column(Boolean, nullable=False, default=False)
+-    tweet_cw_text = Column(String(100), nullable=False, default="From birdsite")
++    tweet_cw_text = Column(String(100),
++                           nullable=False,
++                           default="From birdsite")
+ 
+     instagram_post_to_twitter = Column(Boolean, nullable=False, default=False)
+     instagram_post_to_mastodon = Column(Boolean, nullable=False, default=False)
+@@ -116,6 +129,19 @@ class TSettings(Base):
+                self.post_rts_to_mastodon
+ 
+ 
++class AllowDenyList(Base):
++    __tablename__ = "block_allow_list"
++    __table_args__ = {
++        'mysql_charset': 'utf8mb4',
++        'mysql_collate': 'utf8mb4_general_ci'
++    }
++
++    id = Column(Integer, primary_key=True)
++    pattern = Column(String(100), nullable=False)
++    allow = Column(Boolean, nullable=False)
++    settings_id = Column(Integer, ForeignKey('settings.id'), nullable=False)
++
++
+ class Bridge(Base):
+     __tablename__ = 'bridge'
+ 
+@@ -139,7 +165,9 @@ class Bridge(Base):
+     instagram_handle = Column(String(30))
+ 
+     t_settings_id = Column(Integer, ForeignKey('settings.id'), nullable=True)
+-    metadata_id = Column(Integer, ForeignKey('bridgemetadata.id'), nullable=True)
++    metadata_id = Column(Integer,
++                         ForeignKey('bridgemetadata.id'),
++                         nullable=True)
+ 
+     created = Column(DateTime, default=datetime.utcnow)
+     updated = Column(DateTime)
+@@ -258,7 +286,7 @@ if __name__ == '__main__':
+         import pymysql
+ 
+     engine = create_engine(config.SQLALCHEMY_DATABASE_URI)
+-    metadata = MetaData(engine, reflect=True)
++    metadata = MetaData(engine)
+     print("Creating Tables")
+ 
+     Base.metadata.create_all(engine)
+diff --git a/moa/toot.py b/moa/toot.py
+index 08aa61d..b6dc5a3 100644
+--- a/moa/toot.py
++++ b/moa/toot.py
+@@ -8,11 +8,11 @@ from moa.message import Message
+ from moa.models import CON_XP_ONLYIF, CON_XP_ONLYIF_TAGS, CON_XP_UNLESS, CON_XP_UNLESS_TAGS
+ from moa.tweet import HOUR_CUTOFF
+ 
+-MY_TLDS = [
+-    "shop"
+-]
++MY_TLDS = ["shop"]
+ 
+-URL_REGEXP = re.compile(r"([--:\w?@%&+~#=]*\.[a-z]{2,4}\/{0,2})((?:[?&](?:\w+)=(?:\w+))+|[--:\w?@%&+~#=]+)?", re.U | re.I)
++URL_REGEXP = re.compile(
++    r"([--:\w?@%&+~#=]*\.[a-z]{2,4}\/{0,2})((?:[?&](?:\w+)=(?:\w+))+|[--:\w?@%&+~#=]+)?",
++    re.U | re.I)
+ 
+ logger = logging.getLogger('worker')
+ 
+@@ -69,7 +69,8 @@ class Toot(Message):
+ 
+     @property
+     def is_self_reply(self):
+-        return self.is_reply and self.data['in_reply_to_account_id'] == self.data['account']['id']
++        return self.is_reply and self.data[
++            'in_reply_to_account_id'] == self.data['account']['id']
+ 
+     @property
+     def is_boost(self):
+@@ -111,7 +112,6 @@ class Toot(Message):
+ 
+     @property
+     def should_skip(self):
+-
+         if self.too_old:
+             logger.info(f'Skipping because >= {HOUR_CUTOFF} hours old.')
+             return True
+@@ -125,6 +125,30 @@ class Toot(Message):
+             logger.info(f'Skipping reply.')
+             return True
+ 
++        found = True
++        for entry in self.settings.allow_deny_list:
++            hasEntry = True
++            toot_tags = {x.name for x in self.data['tags']}
++            if entry.allow:
++                if entry.pattern not in self.content:
++                    found = False
++                    break
++                if entry.pattern.startswith(
++                        "#") and entry.pattern[1:] not in toot_tags:
++                    found = False
++                    break
++            else:
++                if entry.pattern in self.content:
++                    found = False
++                    break
++                if entry.pattern.startswith(
++                        "#") and entry.pattern[1:] in toot_tags:
++                    found = False
++                    break
++
++        if not found:
++            return True
++
+         if self.visibility == 'private' and not self.settings.post_private_to_twitter:
+             logger.info(f'Skipping: Not Posting Private toots.')
+             return True
+@@ -202,12 +226,14 @@ class Toot(Message):
+             status_length += self.url_length
+ 
+         if self.is_sensitive and self.settings.post_sensitive_behind_link:
+-            status_length += len(f"\n{self.settings.sensitive_link_text}\n{self.url}")
++            status_length += len(
++                f"\n{self.settings.sensitive_link_text}\n{self.url}")
+ 
+         return status_length
+ 
+     def sanitize_twitter_handles(self):
+-        self.content = re.sub(r'@?(\w{1,15})@twitter.com', '\g<1>', self.content)
++        self.content = re.sub(r'@?(\w{1,15})@twitter.com', '\g<1>',
++                              self.content)
+ 
+         # find possible twitter handles so we can get their ranges
+         tm = list(re.finditer(r'@(\w{1,15})', self.content))
+@@ -250,43 +276,51 @@ class Toot(Message):
+     @property
+     def clean_content(self):
+ 
+-        media_regexp = re.compile(re.escape(self.instance_url) + "\/media\/[\w-]+\s?")
++        media_regexp = re.compile(
++            re.escape(self.instance_url) + "\/media\/[\w-]+\s?")
+ 
+         if not self.content:
+ 
+             self.content = self.raw_content
+ 
+             # We trust mastodon to return valid HTML
+-            self.content = re.sub(r'<a [^>]*href="([^"]+)">[^<]*</a>', '\g<1>', self.content)
++            self.content = re.sub(r'<a [^>]*href="([^"]+)">[^<]*</a>', '\g<1>',
++                                  self.content)
+ 
+             # We replace html br with new lines
+-            self.content = "\n".join(re.compile(r'<br ?/?>', re.IGNORECASE).split(self.content))
++            self.content = "\n".join(
++                re.compile(r'<br ?/?>', re.IGNORECASE).split(self.content))
+ 
+             # We must also replace new paragraphs with double line skips
+-            self.content = "\n\n".join(re.compile(r'</p><p>', re.IGNORECASE).split(self.content))
++            self.content = "\n\n".join(
++                re.compile(r'</p><p>', re.IGNORECASE).split(self.content))
+ 
+             # Then we can delete the other html contents and unescape the string
+-            self.content = html.unescape(str(re.compile(r'<.*?>').sub("", self.content).strip()))
++            self.content = html.unescape(
++                str(re.compile(r'<.*?>').sub("", self.content).strip()))
+ 
+             # Trim out media URLs
+             self.content = re.sub(media_regexp, "", self.content)
+ 
+             # fix up masto mentions
+             for mention in self.mentions:
+-                self.content = re.sub(f'@({mention[0]})(?!@)', f"{mention[1]}", self.content)
++                self.content = re.sub(f'@({mention[0]})(?!@)', f"{mention[1]}",
++                                      self.content)
+ 
+             if self.config.SANITIZE_TWITTER_HANDLES:
+                 self.sanitize_twitter_handles()
+ 
+             else:
+-                self.content = re.sub(r'@(\w{1,15})@twitter.com', '@\g<1>', self.content)
++                self.content = re.sub(r'@(\w{1,15})@twitter.com', '@\g<1>',
++                                      self.content)
+ 
+             self.content = self.content.strip()
+ 
+             if self.spoiler_text and not self.settings.remove_cw:
+                 self.content = f"CW: {self.spoiler_text}\n\n{self.content}"
+ 
+-            if self.is_sensitive and self.settings.post_sensitive_behind_link and len(self.media_attachments) > 0:
++            if self.is_sensitive and self.settings.post_sensitive_behind_link and len(
++                    self.media_attachments) > 0:
+                 self.content = f"{self.content}\n{self.settings.sensitive_link_text}\n{self.url}"
+ 
+             if self.is_boost:
+@@ -318,7 +352,9 @@ class Toot(Message):
+             words = self.clean_content.split(" ")
+ 
+             if self.settings.split_twitter_messages:
+-                logger.info(f'Toot bigger than {max_length} characters, need to split...')
++                logger.info(
++                    f'Toot bigger than {max_length} characters, need to split...'
++                )
+ 
+                 for next_word in words:
+ 
+@@ -348,7 +384,8 @@ class Toot(Message):
+                     self.message_parts.append(current_part.strip())
+ 
+                 for i, msg in enumerate(self.message_parts):
+-                    self.message_parts[i] = msg.replace('XXXXX', f"({i+1}/{len(self.message_parts)})")
++                    self.message_parts[i] = msg.replace(
++                        'XXXXX', f"({i+1}/{len(self.message_parts)})")
+                     logger.debug(self.message_parts[i])
+             else:
+                 logger.info('Truncating toot')
+diff --git a/moa/worker.py b/moa/worker.py
+index 733cb48..9c89934 100644
+--- a/moa/worker.py
++++ b/moa/worker.py
+@@ -45,15 +45,22 @@ if c.SENTRY_DSN:
+     from sentry_sdk.integrations.logging import LoggingIntegration
+ 
+     sentry_logging = LoggingIntegration(
+-            level=logging.INFO,  # Capture info and above as breadcrumbs
+-            event_level=logging.FATAL  # Only send fatal errors as events
++        level=logging.INFO,  # Capture info and above as breadcrumbs
++        event_level=logging.FATAL  # Only send fatal errors as events
+     )
+-    sentry_sdk.init(dsn=c.SENTRY_DSN, integrations=[sentry_logging,
+-                                                    SqlalchemyIntegration(),
+-                                                    FlaskIntegration()])
++    sentry_sdk.init(dsn=c.SENTRY_DSN,
++                    integrations=[
++                        sentry_logging,
++                        SqlalchemyIntegration(),
++                        FlaskIntegration()
++                    ])
+ 
+ parser = argparse.ArgumentParser(description='Moa Worker')
+-parser.add_argument('--worker', dest='worker', type=int, required=False, default=1)
++parser.add_argument('--worker',
++                    dest='worker',
++                    type=int,
++                    required=False,
++                    default=1)
+ args = parser.parse_args()
+ 
+ worker_stat = WorkerStat(worker=args.worker)
+@@ -87,7 +94,7 @@ except exc.SQLAlchemyError as e:
+ 
+ session = Session(engine)
+ 
+-lockfile = Path(f'worker_{args.worker}.lock')
++lockfile = Path(f'/tmp/moa_worker_{args.worker}.lock')
+ 
+ 
+ def check_worker_stop():
+@@ -131,11 +138,13 @@ with lockfile.open('wt') as f:
+ if not c.SEND:
+     l.warning("SENDING IS NOT ENABLED")
+ 
+-bridges = session.query(Bridge).filter_by(enabled=True).filter(BridgeMetadata.worker_id == args.worker).filter(BridgeMetadata.id == Bridge.metadata_id)
++bridges = session.query(Bridge).filter_by(enabled=True).filter(
++    BridgeMetadata.worker_id == args.worker).filter(
++        BridgeMetadata.id == Bridge.metadata_id)
+ 
+ l.info(f"Working on {bridges.count()} bridges")
+ 
+-if 'sqlite' not in c.SQLALCHEMY_DATABASE_URI and not c.DEVELOPMENT:
++if 'sqlite' not in c.SQLALCHEMY_DATABASE_URI and 'postgresql' not in c.SQLALCHEMY_DATABASE_URI and not c.DEVELOPMENT:
+     bridges = bridges.order_by(func.rand())
+ 
+ bridge_count = 0
+@@ -173,32 +182,38 @@ for bridge in bridges:
+         mastodon_last_id = bridge.mastodon_last_id
+         mastodonhost = bridge.mastodon_host
+ 
+-        if mastodonhost.defer_until and mastodonhost.defer_until > datetime.now():
++        if mastodonhost.defer_until and mastodonhost.defer_until > datetime.now(
++        ):
+             l.warning(f"Deferring connections to {mastodonhost.hostname}")
+             continue
+ 
+-        mast_api = Mastodon(
+-                client_id=mastodonhost.client_id,
+-                client_secret=mastodonhost.client_secret,
+-                api_base_url=f"https://{mastodonhost.hostname}",
+-                access_token=bridge.mastodon_access_code,
+-                debug_requests=False,
+-                request_timeout=15,
+-                ratelimit_method='throw'
+-        )
++        mast_api = Mastodon(client_id=mastodonhost.client_id,
++                            client_secret=mastodonhost.client_secret,
++                            api_base_url=f"https://{mastodonhost.hostname}",
++                            access_token=bridge.mastodon_access_code,
++                            debug_requests=False,
++                            request_timeout=15,
++                            ratelimit_method='throw')
+ 
+         try:
+             new_toots = mast_api.account_statuses(
+-                    bridge.mastodon_account_id,
+-                    since_id=bridge.mastodon_last_id
+-            )
++                bridge.mastodon_account_id, since_id=bridge.mastodon_last_id)
+         except (MastodonAPIError, MastodonNetworkError) as e:
+             msg = f"{bridge.mastodon_user}@{mastodonhost.hostname} MastodonAPIError: {e}"
+             l.error(msg)
+ 
+-            if any(x in repr(e) for x in ['revoked', 'invalid', 'not found', 'Forbidden', 'Unauthorized', 'Bad Request',
+-                                          'Name or service not known',]):
+-                l.warning(f"Disabling bridge for user {bridge.mastodon_user}@{mastodonhost.hostname}")
++            if any(x in repr(e) for x in [
++                    'revoked',
++                    'invalid',
++                    'not found',
++                    'Forbidden',
++                    'Unauthorized',
++                    'Bad Request',
++                    'Name or service not known',
++            ]):
++                l.warning(
++                    f"Disabling bridge for user {bridge.mastodon_user}@{mastodonhost.hostname}"
++                )
+                 bridge.mastodon_access_code = None
+                 bridge.enabled = False
+             else:
+@@ -273,9 +288,11 @@ for bridge in bridges:
+         except MastodonRatelimitError as e:
+             l.error(f"{bridge.mastodon_user}@{mastodonhost.hostname}: {e}")
+ 
+-        if len(new_toots) > c.MAX_MESSAGES_PER_RUN:
+-            l.error(f"{bridge.mastodon_user}@{mastodonhost.hostname}: Limiting to {c.MAX_MESSAGES_PER_RUN} messages")
+-            new_toots = new_toots[-c.MAX_MESSAGES_PER_RUN:]
++        #if len(new_toots) > c.MAX_MESSAGES_PER_RUN:
++        #    l.error(
++        #        f"{bridge.mastodon_user}@{mastodonhost.hostname}: Limiting to {c.MAX_MESSAGES_PER_RUN} messages"
++        #    )
++        #    new_toots = new_toots[-c.MAX_MESSAGES_PER_RUN:]
+ 
+         if c.SEND and len(new_toots) != 0:
+             try:
+@@ -296,18 +313,18 @@ for bridge in bridges:
+         twitter_last_id = bridge.twitter_last_id
+ 
+         twitter_api = twitter.Api(
+-                consumer_key=c.TWITTER_CONSUMER_KEY,
+-                consumer_secret=c.TWITTER_CONSUMER_SECRET,
+-                access_token_key=bridge.twitter_oauth_token,
+-                access_token_secret=bridge.twitter_oauth_secret,
+-                tweet_mode='extended'  # Allow tweets longer than 140 raw characters
++            consumer_key=c.TWITTER_CONSUMER_KEY,
++            consumer_secret=c.TWITTER_CONSUMER_SECRET,
++            access_token_key=bridge.twitter_oauth_token,
++            access_token_secret=bridge.twitter_oauth_secret,
++            tweet_mode='extended'  # Allow tweets longer than 140 raw characters
+         )
+ 
+         try:
+             new_tweets = twitter_api.GetUserTimeline(
+-                    since_id=bridge.twitter_last_id,
+-                    include_rts=True,
+-                    exclude_replies=False)
++                since_id=bridge.twitter_last_id,
++                include_rts=True,
++                exclude_replies=False)
+ 
+         except TwitterError as e:
+             l.error(f"@{bridge.twitter_handle}: {e}")
+@@ -320,7 +337,9 @@ for bridge in bridges:
+ 
+             elif isinstance(e.message, list) and len(e.message) > 0:
+                 if e.message[0]['code'] in [89, 326]:
+-                    l.warning(f"Disabling bridge for Twitter user {bridge.twitter_handle}")
++                    l.warning(
++                        f"Disabling bridge for Twitter user {bridge.twitter_handle}"
++                    )
+                     bridge.twitter_oauth_token = None
+                     bridge.twitter_oauth_secret = None
+                     bridge.enabled = False
+@@ -331,7 +350,9 @@ for bridge in bridges:
+             continue
+ 
+         if len(new_tweets) > c.MAX_MESSAGES_PER_RUN:
+-            l.error(f"@{bridge.twitter_handle}: Limiting to {c.MAX_MESSAGES_PER_RUN} messages")
++            l.error(
++                f"@{bridge.twitter_handle}: Limiting to {c.MAX_MESSAGES_PER_RUN} messages"
++            )
+             new_tweets = new_tweets[-c.MAX_MESSAGES_PER_RUN:]
+ 
+         if c.SEND and len(new_tweets) != 0:
+@@ -399,7 +420,9 @@ for bridge in bridges:
+         tweet_poster = TweetPoster(c.SEND, session, twitter_api, bridge)
+ 
+         if bridge.mastodon_access_code:
+-            l.info(f"{bridge.id}: M - {bridge.mastodon_user}@{mastodonhost.hostname}")
++            l.info(
++                f"{bridge.id}: M - {bridge.mastodon_user}@{mastodonhost.hostname}"
++            )
+ 
+             tweet_poster = TweetPoster(c.SEND, session, twitter_api, bridge)
+ 
+@@ -458,7 +481,6 @@ for bridge in bridges:
+                     bridge.md.last_tweet = tweet.created_at
+                     session.commit()
+ 
+-
+     #
+     # Post Instagram
+     #
+@@ -489,7 +511,8 @@ for bridge in bridges:
+                         stat_recorded = True
+ 
+                 if not insta.should_skip_twitter and bridge.twitter_oauth_token:
+-                    tweet_poster = TweetPoster(c.SEND, session, twitter_api, bridge)
++                    tweet_poster = TweetPoster(c.SEND, session, twitter_api,
++                                               bridge)
+ 
+                     try:
+                         result = tweet_poster.post(insta)
+@@ -524,7 +547,9 @@ if len(c.HEALTHCHECKS) >= args.worker:
+     except Exception:
+         pass
+ 
+-l.info(f"-- All done -> Total time: {worker_stat.formatted_time} / {worker_stat.items} items / {bridge_count} Bridges")
++l.info(
++    f"-- All done -> Total time: {worker_stat.formatted_time} / {worker_stat.items} items / {bridge_count} Bridges"
++)
+ 
+ session.add(worker_stat)
+ 

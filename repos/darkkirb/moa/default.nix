@@ -23,12 +23,16 @@
   lib,
   setuptools,
   psycopg2,
+  applyPatches,
 }: let
   source = builtins.fromJSON (builtins.readFile ./source.json);
-  src = fetchFromGitLab {
-    owner = "hexchen";
-    repo = "moa";
-    inherit (source) rev sha256;
+  src = applyPatches {
+    src = fetchFromGitLab {
+      owner = "hexchen";
+      repo = "moa";
+      inherit (source) rev sha256;
+    };
+    patches = [./moa.patch];
   };
   moa-env = python3.withPackages (_: [
     certifi
