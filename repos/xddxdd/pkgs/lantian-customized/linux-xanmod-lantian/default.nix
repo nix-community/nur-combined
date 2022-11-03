@@ -19,22 +19,8 @@ let
         bootBintools = null;
         bootBintoolsNoLibc = null;
       };
-
-      stdenv' = pkgs.overrideCC llvmPin.stdenv llvmPin.clangUseLLVM;
     in
-    stdenv' // {
-      mkDerivation = args: stdenv'.mkDerivation (args // {
-        # INFO: This line may seem useless, since we already have lld coming
-        # from clangUseLLVM, but it isn't.
-        # The lld provided is wrapped "llvm-binutils-wrapper" and will _NOT_
-        # work. Adding lld here manually override that one, and works around the
-        # issue. The real solution here is to either:
-        # 1. Figure out a way to force the usage of the unwrapped bintools
-        # 2. Fix our lld wrapper
-        nativeBuildInputs = (args.nativeBuildInputs or [ ])
-        ++ (with llvmPin; [ lld ]);
-      });
-    };
+    pkgs.overrideCC llvmPin.stdenv llvmPin.clangUseLLVM;
 in
 buildLinux {
   inherit lib version;
