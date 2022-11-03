@@ -10,11 +10,11 @@
 
 resholve.mkDerivation rec {
   pname = "run_archiso";
-  version = "67";
+  version = "68";
 
   src = fetchzip {
     url = "${rp}https://gitlab.archlinux.org/archlinux/archiso/-/archive/v${version}/archiso-v${version}.zip";
-    hash = "sha256-cw3U+amIPXLVKHDkME7pXmPiXCZ7e+T1l3Vm6bsGO6Y=";
+    hash = "sha256-xQ6CLaktfeUx/fdNmXDWVMWZ1zAh8KSzLHMisUe6ml0=";
   };
 
   postPatch = ''
