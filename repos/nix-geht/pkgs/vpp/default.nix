@@ -69,9 +69,9 @@ in rec {
     '';
 
     enableParallelBuilding = true;
-    cmakeFlags = [ 
+    cmakeFlags = [
       "-DCMAKE_INSTALL_LIBDIR=lib" # wants a relative path
-      
+
       # For debugging CMake:
       #"--trace-source=CMakeLists.txt"
       #"--trace-expand"
@@ -88,7 +88,7 @@ in rec {
     sourceRoot = "source/src/vpp-api/python";
 
     propagatedBuildInputs = with pkgs.python3Packages; [ setuptools ];
-    nativeBuildInputs = [ 
+    nativeBuildInputs = [
       # Only needed if we'd actually build the JSON API Schemas, but instead we just depend on vpp.
       #ply
       vpp

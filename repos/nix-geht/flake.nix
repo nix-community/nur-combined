@@ -4,18 +4,16 @@
   outputs = { self, nixpkgs }:
     let
       systems = [
-        "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
+        "aarch64-linux" "x86_64-linux" "i686-linux"
+        "aarch64-freebsd" "x86_64-freebsd" "i686-freebsd"
+        "aarch64-darwin" "x86_64-darwin"
       ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+
+      nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
     in
     {
-      packages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
-      });
+      packages = forAllSystems (system: (import ./pkgs { inherit system; lib = nixpkgs.lib; pkgs = nixpkgsFor.${system}; }));
+      nixosModules = import ./modules;
     };
 }

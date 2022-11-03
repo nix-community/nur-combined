@@ -1,8 +1,7 @@
-{ stdenv, pkgs,
-vpp-pkgs }:
+{ pkgs,
+vpp_papi }:
 
 with pkgs.python3Packages;
-
 buildPythonPackage rec {
   pname = "vppcfg";
   version = "0.0.2";
@@ -13,5 +12,5 @@ buildPythonPackage rec {
     hash = "sha256-YFfLUBxdC30YbmB0EQKXOZE5a+hOW2hSI641poVfybM=";
   };
 
-  propagatedBuildInputs = [ requests yamale netaddr vpp-pkgs.vpp_papi ];
+  propagatedBuildInputs = [ requests yamale netaddr vpp_papi ];
 }

@@ -34,14 +34,14 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nix-geht = import ./default.nix { inherit pkgs; };
 
   nurPkgs =
     flattenPkgs
       (listToAttrs
-        (map (n: nameValuePair n nurAttrs.${n})
+        (map (n: nameValuePair n nix-geht.${n})
           (filter (n: !isReserved n)
-            (attrNames nurAttrs))));
+            (attrNames nix-geht.pkgs))));
 
 in
 rec {
