@@ -1,33 +1,25 @@
 { lib
 , rustPlatform
-, fetchzip
+, fetchFromGitHub
 , gettext
 , installShellFiles
 , openssl
 , pacman
 , pkg-config
-, rp ? ""
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "paru-unwrapped";
   version = "1.11.1";
 
-  src = fetchzip {
-    url = "${rp}https://github.com/Morganamilo/paru/archive/refs/tags/v${version}.zip";
+  src = fetchFromGitHub {
+    owner = "Morganamilo";
+    repo = "paru";
+    rev = "v${version}";
     hash = "sha256-Lnyjmli3vO1utp6LtDa3VsmXL4UE37ahOmpwwcpSeWM=";
   };
 
   cargoHash = "sha256-Tf0gk36k/ECgMZkXtfW6npsSX2IslG9Qz3vxqwyGIWY=";
-
-  cargoUpdateHook = ''
-    cat >> $CARGO_CONFIG <<EOF
-    [source.crates-io]
-    replace-with = "rp"
-    [source.rp]
-    registry = "${rp}https://github.com/rust-lang/crates.io-index"
-    EOF
-  '';
 
   postPatch = ''
     substituteInPlace src/lib.rs --replace "/usr/share" "$out/share"

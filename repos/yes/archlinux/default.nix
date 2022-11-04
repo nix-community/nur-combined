@@ -14,7 +14,7 @@ with pkgs; rec {
     keyrings = [ archlinux-keyring ];
   };
 
-  paru-unwrapped = callPackage ./paru/unwrapped.nix { inherit rp; };
+  paru-unwrapped = callPackage ./paru/unwrapped.nix {};
 
   paru = callPackage ./paru { inherit asp devtools paru-unwrapped; };
 
