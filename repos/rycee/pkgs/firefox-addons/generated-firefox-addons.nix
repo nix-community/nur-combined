@@ -559,10 +559,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.8.25";
+      version = "2022.10.31";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3993826/duckduckgo_for_firefox-2022.8.25.xpi";
-      sha256 = "d19eb3852b51931f602bf728864ace26c5d3a7efa3ffdfebc8b77e72a58d1f25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024974/duckduckgo_for_firefox-2022.10.31.xpi";
+      sha256 = "cd12ed0da27e08897e88e711323313bff66c02a2d524c9b057ae9aeda89dc308";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.5";
+      version = "2.0.117.6";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024297/enhancer_for_youtube-2.0.117.5.xpi";
-      sha256 = "3f717756ce940dc9a69d14de9fc7dea88eec953ecdbc7e00fb8eb49ff0ca493c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024809/enhancer_for_youtube-2.0.117.6.xpi";
+      sha256 = "5d13d084a0c18ce639a3bdfcdb02952e8bd5890b96829ed6a9dd848338703a9c";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -648,10 +648,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.6";
+      version = "2.3.9";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015054/facebook_container-2.3.6.xpi";
-      sha256 = "ff9944fb0d6041127f85b19485198cb030e9afdf639ca99ffcfa2eba554d27ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024031/facebook_container-2.3.9.xpi";
+      sha256 = "f4cdd84471e2f6d3195a3f90aa511b0aba7f138f888bd239d8cb71684611ef78";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0.4buildid20221102.214123";
+      version = "107.0buildid20221103.190044";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025113/francais_language_pack-106.0.4buildid20221102.214123.xpi";
-      sha256 = "081da6d3db81c43f58a90253f23dfae50426bcb8b33c200d57237544e40dfaee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025608/francais_language_pack-107.0buildid20221103.190044.xpi";
+      sha256 = "8265d8338ba338c0213b3f7bd9a6bb248b790a159dbc055e4caec60fec6b1fe3";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2586,10 +2586,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.7";
+      version = "3.9.8";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017073/tree_style_tab-3.9.7.xpi";
-      sha256 = "27334de2f5bd890149775ba3b28f8ddc45e971f1d497466e0aedeeec5fb6e6ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025276/tree_style_tab-3.9.8.xpi";
+      sha256 = "ea509937742b045d5764ee64b590051c72b43496ea69da7f4e651cf5c0140db4";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
