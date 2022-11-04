@@ -8,6 +8,7 @@
 
   # talosctl-bin = pkgs.callPackage ./pkgs/talosctl-bin { };
   akkoma-bin = pkgs.callPackage ./pkgs/akkoma-bin { };
+  pleroma-ebooks = pkgs.callPackage ./pkgs/pleroma-ebooks { };
 
   # intiface-desktop = pkgs.callPackage ./pkgs/intiface-desktop { };
   # intiface-nix-patcher = pkgs.callPackage ./pkgs/intiface-nix-patcher { };
