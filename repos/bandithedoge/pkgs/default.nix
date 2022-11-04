@@ -1,7 +1,5 @@
 {pkgs ? import <nixpkgs> {}}: let
-  sources = import ../_sources/generated.nix {
-    inherit (pkgs) fetchurl fetchgit fetchFromGitHub;
-  };
+  sources = pkgs.callPackage ../_sources/generated.nix {};
 
   callPackage' = pkg: pkgs.callPackage pkg {inherit pkgs sources;};
 in {
