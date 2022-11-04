@@ -15,12 +15,16 @@ let
   # https://github.com/NixOS/nixpkgs/pull/129806
   stdenvLLVM =
     let
-      llvmPin = pkgs.buildPackages.llvmPackages.override {
+      llvmPin = pkgs.llvmPackages_latest.override {
         bootBintools = null;
         bootBintoolsNoLibc = null;
       };
+
+      stdenv' = pkgs.overrideCC llvmPin.stdenv llvmPin.clangUseLLVM;
     in
-    pkgs.overrideCC llvmPin.stdenv llvmPin.clangUseLLVM;
+    stdenv'.override {
+      extraNativeBuildInputs = with llvmPin; [ lld ];
+    };
 in
 buildLinux {
   inherit lib version;
