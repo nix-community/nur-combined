@@ -804,7 +804,7 @@ index e57604b..050e87c 100644
  
      Base.metadata.create_all(engine)
 diff --git a/moa/toot.py b/moa/toot.py
-index 08aa61d..02cee13 100644
+index 08aa61d..afce494 100644
 --- a/moa/toot.py
 +++ b/moa/toot.py
 @@ -8,11 +8,11 @@ from moa.message import Message
@@ -833,6 +833,15 @@ index 08aa61d..02cee13 100644
  
      @property
      def is_boost(self):
+@@ -92,7 +93,7 @@ class Toot(Message):
+     @property
+     def media_attachments(self):
+         if self.is_boost:
+-            return self.data['reblog']['media_attachments']
++            return []
+         else:
+             return self.data['media_attachments']
+ 
 @@ -111,7 +112,6 @@ class Toot(Message):
  
      @property
@@ -889,7 +898,7 @@ index 08aa61d..02cee13 100644
  
          # find possible twitter handles so we can get their ranges
          tm = list(re.finditer(r'@(\w{1,15})', self.content))
-@@ -250,50 +276,56 @@ class Toot(Message):
+@@ -250,50 +276,55 @@ class Toot(Message):
      @property
      def clean_content(self):
  
@@ -954,11 +963,10 @@ index 08aa61d..02cee13 100644
 -                else:
 -                    self.content = f"RT {self.boost_author}\n{self.url}\n"
 +                self.content = f"RT {self.boost_author}\n{self.url}\n"
-+                self.media_attachments = []
  
              # logger.debug(self.content)
  
-@@ -318,7 +350,9 @@ class Toot(Message):
+@@ -318,7 +349,9 @@ class Toot(Message):
              words = self.clean_content.split(" ")
  
              if self.settings.split_twitter_messages:
@@ -969,7 +977,7 @@ index 08aa61d..02cee13 100644
  
                  for next_word in words:
  
-@@ -348,7 +382,8 @@ class Toot(Message):
+@@ -348,7 +381,8 @@ class Toot(Message):
                      self.message_parts.append(current_part.strip())
  
                  for i, msg in enumerate(self.message_parts):
@@ -980,7 +988,7 @@ index 08aa61d..02cee13 100644
              else:
                  logger.info('Truncating toot')
 diff --git a/moa/tweet.py b/moa/tweet.py
-index b156967..0578338 100644
+index b156967..c5c556a 100644
 --- a/moa/tweet.py
 +++ b/moa/tweet.py
 @@ -20,6 +20,7 @@ HANDLE_SUFFIX = ''
@@ -1001,7 +1009,16 @@ index b156967..0578338 100644
  
      @property
      def too_old(self) -> bool:
-@@ -67,13 +69,11 @@ class Tweet(Message):
+@@ -48,6 +50,8 @@ class Tweet(Message):
+ 
+     @property
+     def media(self):
++        if self.is_retweet:
++            return []
+ 
+         if not self.__fetched_attachments:
+ 
+@@ -67,13 +71,11 @@ class Tweet(Message):
                  target_id = self.data.id
  
              try:
@@ -1020,7 +1037,7 @@ index b156967..0578338 100644
                  self.__fetched_attachments = fetched_tweet.media
  
              except (TwitterError, ConnectionError) as e:
-@@ -122,7 +122,7 @@ class Tweet(Message):
+@@ -122,7 +124,7 @@ class Tweet(Message):
                  logger.info(f'Skipping because {local_tags} found')
                  return True
  
@@ -1029,7 +1046,7 @@ index b156967..0578338 100644
              logger.info(f'Skipping regular tweets.')
              return True
  
-@@ -130,7 +130,7 @@ class Tweet(Message):
+@@ -130,7 +132,7 @@ class Tweet(Message):
  
      @property
      def url(self):
@@ -1038,7 +1055,7 @@ index b156967..0578338 100644
          user = self.data.user.screen_name
          status = self.data.id
  
-@@ -185,9 +185,11 @@ class Tweet(Message):
+@@ -185,9 +187,11 @@ class Tweet(Message):
      def mentions(self):
  
          if self.is_retweet:
@@ -1052,7 +1069,7 @@ index b156967..0578338 100644
  
          return m
  
-@@ -195,7 +197,8 @@ class Tweet(Message):
+@@ -195,7 +199,8 @@ class Tweet(Message):
      def quoted_mentions(self):
  
          if self.data.quoted_status:
@@ -1062,7 +1079,7 @@ index b156967..0578338 100644
  
          return m
  
-@@ -246,12 +249,14 @@ class Tweet(Message):
+@@ -246,12 +251,14 @@ class Tweet(Message):
                  content = re.sub(r'https://twitter.com/.*$', '', content)
  
                  quoted_text = self.data.quoted_status.full_text
@@ -1079,17 +1096,25 @@ index b156967..0578338 100644
  
              else:
                  content = self.data.full_text
-@@ -271,6 +276,9 @@ class Tweet(Message):
+@@ -271,6 +278,8 @@ class Tweet(Message):
                  content = re.sub(url.url, url.expanded_url, content)
  
              if self.is_retweet:
-+                self.__fetched_attachments = []
 +                self.__content = f"RT @{self.data.retweeted_status.user.screen_name}{HANDLE_SUFFIX}\n{self.url}"
 +                return self.__content
                  if len(content) > 0:
                      content = f"RT @{self.data.retweeted_status.user.screen_name}{HANDLE_SUFFIX}\n{content}"
                  else:
-@@ -366,13 +374,16 @@ class Tweet(Message):
+@@ -310,6 +319,8 @@ class Tweet(Message):
+ 
+     @property
+     def media_attachments(self):
++        if self.is_retweet:
++            return []
+ 
+         attachments = []
+ 
+@@ -366,13 +377,16 @@ class Tweet(Message):
                      except (ConnectionError, NewConnectionError) as e:
                          logger.error(f"{e}")
                          attachment_url = None
