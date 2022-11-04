@@ -2,7 +2,8 @@ selfPkgs: superPkgs: let
   pkgs = superPkgs;
   generatedLuaPackages = pkgs.callPackage ./generated-packages.nix { };
   overridenLuaPackages = self: super: let
-    inherit (super) callPackage luaOlder luaAtLeast isLuaJIT;
+    inherit (super) luaOlder luaAtLeast isLuaJIT;
+    inherit (self) callPackage;
     pins = import ../../nix/sources.nix pkgs.path pkgs.targetPlatform.system;
   in with self; {
     /* Bespoke packages */
