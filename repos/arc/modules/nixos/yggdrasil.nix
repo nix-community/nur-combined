@@ -31,8 +31,14 @@ in {
     };
 
     multicastInterfaces = mkOption {
-      type = types.listOf types.str;
-      default = [ ".*" ];
+      type = types.listOf types.attrs;
+      default = singleton {
+        Regex = ".*";
+        Beacon = true;
+        Listen = true;
+        Port = 0;
+        Priority = 0;
+      };
     };
 
     allowedPublicKeys = mkOption {
@@ -177,7 +183,10 @@ in {
         InterfacePeers = mkIf (cfg.interfacePeers != [ ]) (mkOptionDefault cfg.interfacePeers);
         Listen = mkIf (cfg.listen != [ ]) (mkOptionDefault cfg.listen);
         AdminListen = mkOptionDefault (if cfg.adminListen == null then "none" else "unix://${cfg.adminListen}");
-        MulticastInterfaces = mkIf (cfg.multicastInterfaces != [ ]) (mkOptionDefault cfg.multicastInterfaces);
+        MulticastInterfaces = mkIf (cfg.multicastInterfaces != [ ]) (mkOptionDefault (
+          if versionOlder cfg.package.version "0.4" then map (i: i.Regex) cfg.multicastInterfaces
+          else cfg.multicastInterfaces
+        ));
         AllowedPublicKeys = mkIf (cfg.allowedPublicKeys != [ ]) (mkOptionDefault cfg.allowedPublicKeys);
         PublicKey = mkIf (opt.publicKey.isDefined) (mkOptionDefault cfg.publicKey);
         PrivateKey = mkIf (opt.privateKey.isDefined && !isPath cfg.privateKey) (mkOptionDefault cfg.privateKey);
