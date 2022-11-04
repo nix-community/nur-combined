@@ -804,7 +804,7 @@ index e57604b..050e87c 100644
  
      Base.metadata.create_all(engine)
 diff --git a/moa/toot.py b/moa/toot.py
-index 08aa61d..b6dc5a3 100644
+index 08aa61d..29426a3 100644
 --- a/moa/toot.py
 +++ b/moa/toot.py
 @@ -8,11 +8,11 @@ from moa.message import Message
@@ -889,7 +889,7 @@ index 08aa61d..b6dc5a3 100644
  
          # find possible twitter handles so we can get their ranges
          tm = list(re.finditer(r'@(\w{1,15})', self.content))
-@@ -250,43 +276,51 @@ class Toot(Message):
+@@ -250,50 +276,56 @@ class Toot(Message):
      @property
      def clean_content(self):
  
@@ -949,7 +949,16 @@ index 08aa61d..b6dc5a3 100644
                  self.content = f"{self.content}\n{self.settings.sensitive_link_text}\n{self.url}"
  
              if self.is_boost:
-@@ -318,7 +352,9 @@ class Toot(Message):
+-                if len(self.content) > 0:
+-                    self.content = f"RT {self.boost_author}\n{self.content}\n{self.url}"
+-                else:
+-                    self.content = f"RT {self.boost_author}\n{self.url}\n"
++                self.content = f"RT {self.boost_author}\n{self.url}\n"
++                self.media_attachments = []
+ 
+             # logger.debug(self.content)
+ 
+@@ -318,7 +350,9 @@ class Toot(Message):
              words = self.clean_content.split(" ")
  
              if self.settings.split_twitter_messages:
@@ -960,7 +969,7 @@ index 08aa61d..b6dc5a3 100644
  
                  for next_word in words:
  
-@@ -348,7 +384,8 @@ class Toot(Message):
+@@ -348,7 +382,8 @@ class Toot(Message):
                      self.message_parts.append(current_part.strip())
  
                  for i, msg in enumerate(self.message_parts):
@@ -970,6 +979,126 @@ index 08aa61d..b6dc5a3 100644
                      logger.debug(self.message_parts[i])
              else:
                  logger.info('Truncating toot')
+diff --git a/moa/tweet.py b/moa/tweet.py
+index b156967..5d02abb 100644
+--- a/moa/tweet.py
++++ b/moa/tweet.py
+@@ -20,6 +20,7 @@ HANDLE_SUFFIX = ''
+ 
+ 
+ class Tweet(Message):
++
+     def __init__(self, settings, data, api):
+ 
+         super().__init__(settings, data)
+@@ -38,7 +39,8 @@ class Tweet(Message):
+ 
+     @property
+     def created_at(self):
+-        return datetime.strptime(self.data.created_at, '%a %b %d %H:%M:%S %z %Y')
++        return datetime.strptime(self.data.created_at,
++                                 '%a %b %d %H:%M:%S %z %Y')
+ 
+     @property
+     def too_old(self) -> bool:
+@@ -67,13 +69,11 @@ class Tweet(Message):
+                 target_id = self.data.id
+ 
+             try:
+-                fetched_tweet = self.api.GetStatus(
+-                        status_id=target_id,
+-                        trim_user=True,
+-                        include_my_retweet=False,
+-                        include_entities=True,
+-                        include_ext_alt_text=True
+-                )
++                fetched_tweet = self.api.GetStatus(status_id=target_id,
++                                                   trim_user=True,
++                                                   include_my_retweet=False,
++                                                   include_entities=True,
++                                                   include_ext_alt_text=True)
+                 self.__fetched_attachments = fetched_tweet.media
+ 
+             except (TwitterError, ConnectionError) as e:
+@@ -130,7 +130,7 @@ class Tweet(Message):
+ 
+     @property
+     def url(self):
+-        base = "https://twitter.com"
++        base = "https://twitter.catcatnya.com"
+         user = self.data.user.screen_name
+         status = self.data.id
+ 
+@@ -185,9 +185,11 @@ class Tweet(Message):
+     def mentions(self):
+ 
+         if self.is_retweet:
+-            m = [(u.screen_name, u._json['indices']) for u in self.data.retweeted_status.user_mentions]
++            m = [(u.screen_name, u._json['indices'])
++                 for u in self.data.retweeted_status.user_mentions]
+         else:
+-            m = [(u.screen_name, u._json['indices']) for u in self.data.user_mentions]
++            m = [(u.screen_name, u._json['indices'])
++                 for u in self.data.user_mentions]
+ 
+         return m
+ 
+@@ -195,7 +197,8 @@ class Tweet(Message):
+     def quoted_mentions(self):
+ 
+         if self.data.quoted_status:
+-            m = [(u.screen_name, u._json['indices']) for u in self.data.quoted_status.user_mentions]
++            m = [(u.screen_name, u._json['indices'])
++                 for u in self.data.quoted_status.user_mentions]
+ 
+         return m
+ 
+@@ -246,12 +249,14 @@ class Tweet(Message):
+                 content = re.sub(r'https://twitter.com/.*$', '', content)
+ 
+                 quoted_text = self.data.quoted_status.full_text
+-                quoted_text = self.expand_handles(quoted_text, self.quoted_mentions)
++                quoted_text = self.expand_handles(quoted_text,
++                                                  self.quoted_mentions)
+                 quoted_text = html.unescape(quoted_text)
+ 
+                 for url in self.data.quoted_status.urls:
+                     # Unshorten URLs
+-                    quoted_text = re.sub(url.url, url.expanded_url, quoted_text)
++                    quoted_text = re.sub(url.url, url.expanded_url,
++                                         quoted_text)
+ 
+             else:
+                 content = self.data.full_text
+@@ -271,6 +276,8 @@ class Tweet(Message):
+                 content = re.sub(url.url, url.expanded_url, content)
+ 
+             if self.is_retweet:
++                self.__content = f"RT @{self.data.retweeted_status.user.screen_name}{HANDLE_SUFFIX}\n{self.url}"
++                return self.__content
+                 if len(content) > 0:
+                     content = f"RT @{self.data.retweeted_status.user.screen_name}{HANDLE_SUFFIX}\n{content}"
+                 else:
+@@ -366,13 +373,16 @@ class Tweet(Message):
+                     except (ConnectionError, NewConnectionError) as e:
+                         logger.error(f"{e}")
+                         attachment_url = None
+-                        raise MoaMediaUploadException("Connection Error fetching attachments")
++                        raise MoaMediaUploadException(
++                            "Connection Error fetching attachments")
+ 
+             else:
+                 attachment_url = attachment.media_url
+ 
+             if attachment_url:
+-                attachments.append({'url':         attachment_url,
+-                                    'description': attachment.ext_alt_text})
++                attachments.append({
++                    'url': attachment_url,
++                    'description': attachment.ext_alt_text
++                })
+ 
+         return attachments
 diff --git a/moa/worker.py b/moa/worker.py
 index 733cb48..9c89934 100644
 --- a/moa/worker.py
