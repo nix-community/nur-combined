@@ -28,7 +28,3 @@ An example reverse proxy that can be deployed on cloudflare workers: https://git
 ### Arch Linux packages
 
 See [wiki](https://github.com/SamLukeYes/nix-custom-packages/wiki/Arch-Linux-packages) for details.
-
-### Experimental binary cache
-
-Hosted on [garnix](https://garnix.io/docs/caching).
