@@ -804,7 +804,7 @@ index e57604b..050e87c 100644
  
      Base.metadata.create_all(engine)
 diff --git a/moa/toot.py b/moa/toot.py
-index 08aa61d..29426a3 100644
+index 08aa61d..02cee13 100644
 --- a/moa/toot.py
 +++ b/moa/toot.py
 @@ -8,11 +8,11 @@ from moa.message import Message
@@ -903,8 +903,8 @@ index 08aa61d..29426a3 100644
  
              # We trust mastodon to return valid HTML
 -            self.content = re.sub(r'<a [^>]*href="([^"]+)">[^<]*</a>', '\g<1>', self.content)
-+            self.content = re.sub(r'<a [^>]*href="([^"]+)">[^<]*</a>', '\g<1>',
-+                                  self.content)
++            self.content = re.sub(r'<a [^>]*href="([^"]+)">([^<]*)</a>',
++                                  '\g<1> (\g<2>)', self.content)
  
              # We replace html br with new lines
 -            self.content = "\n".join(re.compile(r'<br ?/?>', re.IGNORECASE).split(self.content))
@@ -980,7 +980,7 @@ index 08aa61d..29426a3 100644
              else:
                  logger.info('Truncating toot')
 diff --git a/moa/tweet.py b/moa/tweet.py
-index b156967..5d02abb 100644
+index b156967..0578338 100644
 --- a/moa/tweet.py
 +++ b/moa/tweet.py
 @@ -20,6 +20,7 @@ HANDLE_SUFFIX = ''
@@ -1020,6 +1020,15 @@ index b156967..5d02abb 100644
                  self.__fetched_attachments = fetched_tweet.media
  
              except (TwitterError, ConnectionError) as e:
+@@ -122,7 +122,7 @@ class Tweet(Message):
+                 logger.info(f'Skipping because {local_tags} found')
+                 return True
+ 
+-        if not self.settings.post_to_mastodon:
++        elif not self.settings.post_to_mastodon:
+             logger.info(f'Skipping regular tweets.')
+             return True
+ 
 @@ -130,7 +130,7 @@ class Tweet(Message):
  
      @property
@@ -1070,16 +1079,17 @@ index b156967..5d02abb 100644
  
              else:
                  content = self.data.full_text
-@@ -271,6 +276,8 @@ class Tweet(Message):
+@@ -271,6 +276,9 @@ class Tweet(Message):
                  content = re.sub(url.url, url.expanded_url, content)
  
              if self.is_retweet:
++                self.__fetched_attachments = []
 +                self.__content = f"RT @{self.data.retweeted_status.user.screen_name}{HANDLE_SUFFIX}\n{self.url}"
 +                return self.__content
                  if len(content) > 0:
                      content = f"RT @{self.data.retweeted_status.user.screen_name}{HANDLE_SUFFIX}\n{content}"
                  else:
-@@ -366,13 +373,16 @@ class Tweet(Message):
+@@ -366,13 +374,16 @@ class Tweet(Message):
                      except (ConnectionError, NewConnectionError) as e:
                          logger.error(f"{e}")
                          attachment_url = None
