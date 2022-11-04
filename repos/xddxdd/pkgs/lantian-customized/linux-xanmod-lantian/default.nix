@@ -9,7 +9,7 @@
 
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
 let
-  version = "6.0.6";
+  version = "6.0.7";
   release = "1";
 
   # https://github.com/NixOS/nixpkgs/pull/129806
@@ -23,7 +23,7 @@ let
       stdenv' = pkgs.overrideCC llvmPin.stdenv llvmPin.clangUseLLVM;
     in
     stdenv'.override {
-      extraNativeBuildInputs = with llvmPin; [ lld ];
+      extraNativeBuildInputs = [ llvmPin.lld pkgs.patchelf ];
     };
 in
 buildLinux {
@@ -36,7 +36,7 @@ buildLinux {
     owner = "xanmod";
     repo = "linux";
     rev = "${version}-xanmod${release}";
-    sha256 = "sha256-JMfAtiPDgoVF+ypeFXev06PL39ZM2H7m07IxpasjAoM=";
+    sha256 = "sha256-qeM2oswuop42rvyBGlrH6VvODScLCpAOjTc4KR5a2Ec=";
   };
   modDirVersion = "${version}-lantian-xanmod${release}";
 
