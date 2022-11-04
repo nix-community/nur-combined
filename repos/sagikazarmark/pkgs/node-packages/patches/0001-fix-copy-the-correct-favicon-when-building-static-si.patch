@@ -1,0 +1,38 @@
+From f08548457de3518e902d9e7938ad8f2086cc2ba6 Mon Sep 17 00:00:00 2001
+From: Mark Sagi-Kazar <mark.sagikazar@gmail.com>
+Date: Fri, 4 Nov 2022 07:26:27 +0100
+Subject: [PATCH] fix: copy the correct favicon when building static site
+
+Signed-off-by: Mark Sagi-Kazar <mark.sagikazar@gmail.com>
+---
+ lib/static.js | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/lib/static.js b/lib/static.js
+index e866b53..0e795e6 100644
+--- a/lib/static.js
++++ b/lib/static.js
+@@ -2,7 +2,7 @@
+ const fs = require('fs-extra');
+ const path = require('path');
+ const _ = require('lodash');
+-const { getOptions, getAssetsDir, getPath, getStaticDir, getSlideOptions, getFilesGlob } = require('./config');
++const { getOptions, getAssetsDir, getPath, getStaticDir, getSlideOptions, getFilesGlob, getFaviconPath } = require('./config');
+ const { md, isDirectory, isFile, parseYamlFrontMatter, getFilePaths, isAbsoluteURL } = require('./util');
+ const { revealBasePath, highlightThemePath } = require('./constants');
+ const { renderFile } = require('./render');
+@@ -113,9 +113,8 @@ module.exports = async () => {
+ 
+   await writeMarkupFiles(getPath(), staticDir);
+ 
+-  const faviconPath = path.join(process.cwd(), getPath(), 'favicon.ico');
+-  const hasFavicon = (await fs.pathExists(faviconPath)) && isFile(faviconPath);
+-  await cp(hasFavicon ? faviconPath : path.join(__dirname, 'favicon.ico'), path.join(staticDir, 'favicon.ico'));
++  const faviconPath = await getFaviconPath();
++  await cp(faviconPath, path.join(staticDir, 'favicon.ico'));
+ 
+   console.log(`Wrote static site to ${staticDir}`);
+ };
+-- 
+2.37.3
+

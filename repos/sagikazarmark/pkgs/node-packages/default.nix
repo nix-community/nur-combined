@@ -1,10 +1,23 @@
-{ pkgs, system, nodejs-14_x, makeWrapper }:
+{ pkgs, lib, nodejs, stdenv}:
+
 let
-  nodePackages = import ./composition.nix {
-    inherit pkgs system;
-    nodejs = nodejs-14_x;
+  inherit (lib) composeManyExtensions extends makeExtensible mapAttrs;
+
+  nodePackages = final: import ./composition.nix {
+    inherit pkgs nodejs;
+    inherit (stdenv.hostPlatform) system;
   };
+
+  mainProgramOverrides = final: prev:
+    mapAttrs (pkgName: mainProgram:
+      prev.${pkgName}.override (oldAttrs: {
+        meta = oldAttrs.meta // { inherit mainProgram; };
+      })
+    ) (import ./main-programs.nix);
+
+  extensions = composeManyExtensions [
+    mainProgramOverrides
+    (import ./overrides.nix { inherit pkgs nodejs; })
+  ];
 in
-(
-  nodePackages
-)
+  makeExtensible (extends extensions nodePackages)
