@@ -50,7 +50,7 @@ in {
     terraform
     t-launcher
     vlc # media
-    wineApps.wine7zip
+    nbr.wine-apps._7zip
     wineApps.skyrim
     xxd
     pavucontrol # controle de volume
