@@ -24,7 +24,7 @@
     url = "https://addons.mozilla.org/firefox/downloads/file/4019536/auto_tab_discard-0.6.5.xpi";
     sha256 = "1823795d78dea1cb34e49285834a7953aa4838b100e0fee3044fe30315ee705c";
     meta = with lib; {
-      homepage = "http://add0n.com/tab-discard.html";
+      homepage = "https://add0n.com/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
       license = licenses.mpl20;
       platforms = platforms.all;
@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.117.4";
+    version = "2.0.117.7";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4020367/enhancer_for_youtube-2.0.117.4.xpi";
-    sha256 = "dd10934b540770dc69bd11770d66ab333f9fe8412b9d416aa7092e836f9f5ec6";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4025405/enhancer_for_youtube-2.0.117.7.xpi";
+    sha256 = "3dcc02cc5a571ae446a36a0c0781b0469b743b02c7ca1c8db74b96dfd0213970";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.640";
+    version = "0.1.0.645";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4023403/ruffle_rs-0.1.0.640.xpi";
-    sha256 = "6e7fa0ad92a17121ec0cd61160d1ea8174c4db3b6a7580b25c80c12b88d19ee0";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4025792/ruffle_rs-0.1.0.645.xpi";
+    sha256 = "d8a8c17fb83dd77bb843108a84c5cd4c1cd85550206c406f0b7ab648c76152b9";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
@@ -364,10 +364,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.1.2";
+    version = "5.1.3";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4022527/sponsorblock-5.1.2.xpi";
-    sha256 = "6bd188bb8e97ab736a058bf1ef80e66d0fc225e1c1b3984b5244febac3e941e8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4023660/sponsorblock-5.1.3.xpi";
+    sha256 = "6aee461a7db69f88ba56b74e2aa34c3ab59d3285427292dd8cedb0c11bf2c7b1";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -416,10 +416,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "3.9.7";
+    version = "3.9.8";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4017073/tree_style_tab-3.9.7.xpi";
-    sha256 = "27334de2f5bd890149775ba3b28f8ddc45e971f1d497466e0aedeeec5fb6e6ac";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4025276/tree_style_tab-3.9.8.xpi";
+    sha256 = "ea509937742b045d5764ee64b590051c72b43496ea69da7f4e651cf5c0140db4";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
