@@ -10,12 +10,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "copilot-1.56.7152.zip",
-            "sha256": "sha256-9WEvTcVY/yMF00GJVj4h57aWhfBYTSatbw10DjjAaAM=",
+            "name": "copilot-1.57.7193.zip",
+            "sha256": "sha256-DdR5RqkJWlJvAhY7Rs51GDo+blBAMYmzGaoplHn3vso=",
             "type": "url",
-            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.56.7152/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/copilot/1.57.7193/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "1.56.7152"
+        "version": "1.57.7193"
     },
     "'vscode-extensions.LeetCode.vscode-leetcode'": {
         "cargoLocks": null,
@@ -64,12 +64,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "tabnine-vscode-3.6.18.zip",
-            "sha256": "sha256-uJbsmGDz+2wI4c1EdIfCkh4Nc0BduJvHJenBcQZBPBg=",
+            "name": "tabnine-vscode-3.6.19.zip",
+            "sha256": "sha256-g2xEaGsxPJ0xpdXQY1IiYKTBjCGqNjBW2EYatA8/Izs=",
             "type": "url",
-            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.18/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://TabNine.gallery.vsassets.io/_apis/public/gallery/publisher/TabNine/extension/tabnine-vscode/3.6.19/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "3.6.18"
+        "version": "3.6.19"
     },
     "'vscode-extensions.bmalehorn.vscode-fish'": {
         "cargoLocks": null,
@@ -172,12 +172,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "shellcheck-0.26.2.zip",
-            "sha256": "sha256-OLMSi/z2IOBZFbtoL23nGfXod+7OkvHVUpugqJYqiuc=",
+            "name": "shellcheck-0.26.3.zip",
+            "sha256": "sha256-GlyOLc2VrRnA50MkaG83qa0yLUyJYwueqEO+ZeAStYs=",
             "type": "url",
-            "url": "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.26.2/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://timonwong.gallery.vsassets.io/_apis/public/gallery/publisher/timonwong/extension/shellcheck/0.26.3/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "0.26.2"
+        "version": "0.26.3"
     },
     "'vscode-extensions.twxs.cmake'": {
         "cargoLocks": null,
