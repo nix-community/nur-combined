@@ -89,9 +89,6 @@ rec {
 
   salt-lint = pkgs.callPackage ./pkgs/salt-lint { };
 
-  solaredge-influx =
-    pkgs.python3Packages.callPackage ./pkgs/solaredge-influx { };
-
   solo2-cli = pkgs.callPackage ./pkgs/solo2-cli { };
 
   stolon = pkgs.callPackage ./pkgs/stolon { };
