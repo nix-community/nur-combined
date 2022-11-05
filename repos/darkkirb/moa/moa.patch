@@ -24,7 +24,7 @@ index 0000000..30e36e9
 +  "python.formatting.provider": "yapf"
 +}
 diff --git a/app.py b/app.py
-index 8a53602..bdaf082 100644
+index 8a53602..7734583 100644
 --- a/app.py
 +++ b/app.py
 @@ -3,12 +3,12 @@ import os
@@ -279,7 +279,18 @@ index 8a53602..bdaf082 100644
  
          return api
      return None
-@@ -408,12 +419,11 @@ def mastodon_login():
+@@ -401,6 +412,10 @@ def mastodon_login():
+         if host in app.config.get('MASTODON_BLACKLIST', []):
+             flash('Access Denied')
+             return redirect(url_for('index'))
++        allow_list = app.config.get('MASTODON_ALLOWLIST', [])
++        if len(allow_list) != 0 and host not in allow_list:
++            flash('Access Denied')
++            return redirect(url_for('index'))
+ 
+         session['mastodon_host'] = host
+ 
+@@ -408,12 +423,11 @@ def mastodon_login():
  
          if api:
              return redirect(
@@ -297,7 +308,7 @@ index 8a53602..bdaf082 100644
          else:
              flash(f"There was a problem connecting to the mastodon server.")
      else:
-@@ -435,7 +445,9 @@ def mastodon_oauthorized():
+@@ -435,7 +449,9 @@ def mastodon_oauthorized():
          app.logger.info(f"Authorization code {authorization_code} for {host}")
  
          if not host:
@@ -308,7 +319,7 @@ index 8a53602..bdaf082 100644
              return redirect(url_for('index'))
  
          session.pop('mastodon_host', None)
-@@ -445,19 +457,23 @@ def mastodon_oauthorized():
+@@ -445,19 +461,23 @@ def mastodon_oauthorized():
          local_scopes = mastodon_scopes
  
          try:
@@ -339,7 +350,7 @@ index 8a53602..bdaf082 100644
              return redirect(url_for('index'))
  
          # app.logger.info(f"Access code {access_code}")
-@@ -468,13 +484,17 @@ def mastodon_oauthorized():
+@@ -468,13 +488,17 @@ def mastodon_oauthorized():
              creds = api.account_verify_credentials()
  
          except (MastodonUnauthorizedError, MastodonAPIError) as e:
@@ -359,7 +370,7 @@ index 8a53602..bdaf082 100644
  
          if bridge:
              session['bridge_id'] = bridge.id
-@@ -520,7 +540,9 @@ def instagram_activate():
+@@ -520,7 +544,9 @@ def instagram_activate():
      # app.logger.info(redirect_uri)
  
      scope = ["basic"]
@@ -370,7 +381,7 @@ index 8a53602..bdaf082 100644
  
      try:
          redirect_uri = api.get_authorize_login_url(scope=scope)
-@@ -540,7 +562,9 @@ def instagram_oauthorized():
+@@ -540,7 +566,9 @@ def instagram_oauthorized():
          client_id = app.config['INSTAGRAM_CLIENT_ID']
          client_secret = app.config['INSTAGRAM_SECRET']
          redirect_uri = url_for('instagram_oauthorized', _external=True)
@@ -381,7 +392,7 @@ index 8a53602..bdaf082 100644
  
          try:
              access_token = api.exchange_code_for_access_token(code)
-@@ -565,15 +589,18 @@ def instagram_oauthorized():
+@@ -565,15 +593,18 @@ def instagram_oauthorized():
          bridge.instagram_account_id = data['id']
          bridge.instagram_handle = data['username']
  
@@ -403,7 +414,7 @@ index 8a53602..bdaf082 100644
          else:
              bridge.instagram_last_id = 0
  
-@@ -595,8 +622,7 @@ def logout():
+@@ -595,8 +626,7 @@ def logout():
  def stats():
      hours = request.args.get('hours', 24)
  
@@ -413,7 +424,7 @@ index 8a53602..bdaf082 100644
  
  
  @app.route('/deactivate_account')
-@@ -634,9 +660,10 @@ def time_graph():
+@@ -634,9 +664,10 @@ def time_graph():
      hours = int(request.args.get('hours', 24))
  
      since = datetime.now() - timedelta(hours=hours)
@@ -427,7 +438,7 @@ index 8a53602..bdaf082 100644
  
      df = pd.read_sql(stats_query.statement, stats_query.session.bind)
  
-@@ -682,10 +709,11 @@ def count_graph():
+@@ -682,10 +713,11 @@ def count_graph():
      hours = int(request.args.get('hours', 24))
      since = datetime.now() - timedelta(hours=hours)
  
@@ -443,7 +454,7 @@ index 8a53602..bdaf082 100644
  
      df = pd.read_sql(stats_query.statement, stats_query.session.bind)
      df.set_index(['created'], inplace=True)
-@@ -700,9 +728,10 @@ def count_graph():
+@@ -700,9 +732,10 @@ def count_graph():
      tweets = r['tweets'].tolist()
      instas = r['instas'].tolist()
  
@@ -457,7 +468,7 @@ index 8a53602..bdaf082 100644
      chart.add('Toots', toots)
      chart.add('Tweets', tweets)
      chart.add('Instas', instas)
-@@ -715,10 +744,11 @@ def percent_graph():
+@@ -715,10 +748,11 @@ def percent_graph():
      hours = int(request.args.get('hours', 24))
      since = datetime.now() - timedelta(hours=hours)
  
@@ -473,7 +484,7 @@ index 8a53602..bdaf082 100644
  
      df = pd.read_sql(stats_query.statement, stats_query.session.bind)
      df.set_index(['created'], inplace=True)
-@@ -736,9 +766,10 @@ def percent_graph():
+@@ -736,9 +770,10 @@ def percent_graph():
      tweets_p = r['tweets_p'].tolist()
      instas_p = r['instas_p'].tolist()
  
@@ -487,7 +498,7 @@ index 8a53602..bdaf082 100644
      chart.add('Toots', toots_p)
      chart.add('Tweets', tweets_p)
      chart.add('Instas', instas_p)
-@@ -751,7 +782,8 @@ def user_graph():
+@@ -751,7 +786,8 @@ def user_graph():
      hours = int(request.args.get('hours', 24))
      since = datetime.now() - timedelta(hours=hours)
  
@@ -497,7 +508,7 @@ index 8a53602..bdaf082 100644
              Bridge.created)
  
      base_count_query = db.session.query(func.count(Bridge.id)).scalar()
-@@ -793,4 +825,4 @@ def page_not_found(e):
+@@ -793,4 +829,4 @@ def page_not_found(e):
  
  if __name__ == '__main__':
  
