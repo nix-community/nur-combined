@@ -7,6 +7,8 @@ with pkgs; rec {
   archlinux = recurseIntoAttrs (import ./archlinux {
     inherit pkgs rp;
   });
+
+  electronic-wechat = callPackage ./electronic-wechat { inherit rp; };
   
   gnomeExtensions = recurseIntoAttrs (import ./gnomeExtensions {
     inherit pkgs rp;
