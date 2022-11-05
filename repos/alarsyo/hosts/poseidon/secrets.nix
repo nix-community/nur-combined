@@ -17,9 +17,6 @@
 
         "lohr/shared-secret" = {};
 
-        "paperless/admin-password" = {};
-        "paperless/secret-key" = {};
-
         "restic-backup/poseidon-credentials" = {};
         "restic-backup/poseidon-password" = {};
 

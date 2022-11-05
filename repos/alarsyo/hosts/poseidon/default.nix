@@ -81,13 +81,6 @@ in {
       port = 8083;
     };
 
-    paperless = {
-      enable = true;
-      port = 8085;
-      passwordFile = config.age.secrets."paperless/admin-password".path;
-      secretKeyFile = config.age.secrets."paperless/secret-key".path;
-    };
-
     tailscale = {
       enable = true;
       exitNode = true;

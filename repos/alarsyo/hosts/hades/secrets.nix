@@ -25,6 +25,9 @@
           owner = "nextcloud";
         };
 
+        "paperless/admin-password" = {};
+        "paperless/secret-key" = {};
+
         "restic-backup/hades-credentials" = {};
         "restic-backup/hades-password" = {};
 

@@ -64,6 +64,8 @@
         # don't backup nixpkgs
         "/home/alarsyo/work/nixpkgs"
 
+        "/home/alarsyo/go"
+
         # C build crap
         "*.a"
         "*.o"

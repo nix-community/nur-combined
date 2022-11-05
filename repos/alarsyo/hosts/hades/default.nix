@@ -87,6 +87,13 @@ in {
       adminpassFile = config.age.secrets."nextcloud/admin-pass".path;
     };
 
+    paperless = {
+      enable = true;
+      port = 8085;
+      passwordFile = config.age.secrets."paperless/admin-password".path;
+      secretKeyFile = config.age.secrets."paperless/secret-key".path;
+    };
+
     photoprism = {
       enable = true;
       port = 8084;
