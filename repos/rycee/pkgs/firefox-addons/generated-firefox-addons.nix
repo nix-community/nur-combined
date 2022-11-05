@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.6";
+      version = "2.0.117.7";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024809/enhancer_for_youtube-2.0.117.6.xpi";
-      sha256 = "5d13d084a0c18ce639a3bdfcdb02952e8bd5890b96829ed6a9dd848338703a9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025405/enhancer_for_youtube-2.0.117.7.xpi";
+      sha256 = "3dcc02cc5a571ae446a36a0c0781b0469b743b02c7ca1c8db74b96dfd0213970";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221103.190044";
+      version = "106.0.5buildid20221104.133228";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025608/francais_language_pack-107.0buildid20221103.190044.xpi";
-      sha256 = "8265d8338ba338c0213b3f7bd9a6bb248b790a159dbc055e4caec60fec6b1fe3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026118/francais_language_pack-106.0.5buildid20221104.133228.xpi";
+      sha256 = "954924ddf5d65cc2cb43d93b7a70a7e97f8e5220b3a4d8095e9d1f004537f897";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2293,10 +2293,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.12";
+      version = "1.0.13";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022043/statshunters-1.0.12.xpi";
-      sha256 = "b3b7ecb510be3b6aa5a0185ead013b50e11acb7be67dc200df766c2bf31817f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4025954/statshunters-1.0.13.xpi";
+      sha256 = "36bb6a78fa790f088d561057041f6fe19fd39ce2a1d024598047ce7483ec7ff4";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -2857,10 +2857,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.76.0";
+      version = "2.80.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015677/web_scrobbler-2.76.0.xpi";
-      sha256 = "a4816c7054cf77bb9c8a6ef854828408307ba92e015e0494f6cb67644cf40654";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026233/web_scrobbler-2.80.0.xpi";
+      sha256 = "6931e1babe5c0dafe5f26b8c20dd7705036b3b9fcec3749443474b237470420c";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
