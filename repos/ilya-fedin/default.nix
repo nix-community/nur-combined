@@ -64,6 +64,11 @@ in with pkgs; rec {
 
   nerd-fonts-symbols = callPackage ./pkgs/nerd-fonts-symbols {};
 
+  nixos-collect-garbage = writeShellScriptBin "nixos-collect-garbage" ''
+    ${nix}/bin/nix-collect-garbage "$@"
+    /run/current-system/bin/switch-to-configuration switch
+  '';
+
   qtgreet = libsForQt5.callPackage ./pkgs/qtgreet {
     inherit wlrootsqt;
   };
