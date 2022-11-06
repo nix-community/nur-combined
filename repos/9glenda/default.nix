@@ -14,7 +14,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+
   xqp = pkgs.callPackage ./pkgs/xqp { };
+  neatroff = pkgs.callPackage ./pkgs/neatroff { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
