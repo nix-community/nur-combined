@@ -44,6 +44,7 @@ buildPythonPackage rec {
       --replace "coverage==6.4.4" "coverage>=6.4.2" \
       --replace "freezegun==1.2.1" "jsonpickle>=1.1.0" \
       --replace "numpy==1.23.2" "numpy>=1.23.2" \
+      --replace "pipdeptree==2.3.1" "pipdeptree>=2.3.1" \
       --replace "pytest==7.1.2" "pytest>=7.1.1" \
       --replace "pytest-sugar==0.9.5" "pytest-sugar>=0.9.4" \
       --replace "pytest-test-groups==1.0.3" "" \
