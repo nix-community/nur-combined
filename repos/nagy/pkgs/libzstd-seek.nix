@@ -14,8 +14,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=YES" ];
 
   patchPhase = ''
+    runHook prePatch
     echo "install(TARGETS zstd-seek)" >> CMakeLists.txt
     echo "install(FILES zstd-seek.h DESTINATION include/)" >> CMakeLists.txt
+    runHook postPatch
   '';
 
   nativeBuildInputs = [ cmake ];

@@ -1,16 +1,16 @@
-{ lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, pymatting, filetype
+{ pkgs, lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, pymatting, filetype
 , scikitimage, installShellFiles, pillow, flask, tqdm, waitress, requests
 , fastapi, gdown, numpy, uvicorn, flatbuffers, asyncer, onnxruntime, coloredlogs
 , sympy, opencv4, pytorch, torchvision, requireFile, runCommand, makeWrapper
 , rembg, symlinkJoin }:
 
 let
-  # 168MB
   mkGdriveDownload = { name, gdriveId, sha256 }:
     requireFile {
       inherit name sha256;
       url = "https://docs.google.com/uc?export=download&id=${gdriveId}";
     };
+  # 168MB
   U2NET_PATH = mkGdriveDownload {
     name = "u2net.onnx";
     gdriveId = "1tCU5MM1LhRgGou5OpmpjBQbSrYIUoYab";
@@ -39,7 +39,7 @@ let
   U2NET_HOME = symlinkJoin {
     name = "u2net_home";
     paths = map (u2:
-      runCommand "u2net as directory" { }
+      runCommand "u2net-as-directory" { }
       "mkdir $out && ln -s ${u2} $out/${u2.name}") [
         U2NET_PATH
         U2NETP_PATH
@@ -111,6 +111,7 @@ in buildPythonPackage rec {
       runCommand "rembg-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
         mkdir -p $out/bin
         makeWrapper ${rembg}/bin/rembg $out/bin/rembg \
+              --prefix LD_LIBRARY_PATH : ${pkgs.onnxruntime}/lib \
               --set U2NET_HOME ${U2NET_HOME}
       '';
   };
