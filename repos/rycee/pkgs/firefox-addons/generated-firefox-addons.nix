@@ -732,10 +732,10 @@
       };
     "firenvim" = buildFirefoxXpiAddon {
       pname = "firenvim";
-      version = "0.2.13";
+      version = "0.2.14";
       addonId = "firenvim@lacamb.re";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3976212/firenvim-0.2.13.xpi";
-      sha256 = "572b08118340bcb3788221a9c4e7b299b88c74d702921f4d775c65ab61dd7e10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026386/firenvim-0.2.14.xpi";
+      sha256 = "a8c495a59e30eaabbb3fcd188db9b5e28b40bffefe41a3f0fa22ecc58c80c2b6";
       meta = with lib;
       {
         description = "Turn Firefox into a Neovim client.";
@@ -1407,10 +1407,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.1.0";
+      version = "4.1.3";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021696/modheader_firefox-4.1.0.xpi";
-      sha256 = "5ee4c5e04649c55e501337f54572696777beccbc5197a101efc7a20d2c0ca320";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026505/modheader_firefox-4.1.3.xpi";
+      sha256 = "4e8028b0993a3fab662edd7c69583e99ea8cafb73a9d5cda37f250c38852f00e";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
