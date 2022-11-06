@@ -24,6 +24,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-Cl7Umi/hn+Kbd5YDV89EmpsL6vm+n5Snt3ceiH4clUY=";
   };
 
+  postPatch = lib.optionalString stdenv.isDarwin ''
+    # broken on darwin
+    substituteInPlace src/CMakeLists.txt \
+      --replace "exec(osp-find-multipolygon-problems" "#" \
+      --replace "exec(osp-find-relation-problems" "#"
+  '';
+
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
@@ -44,6 +51,5 @@ stdenv.mkDerivation rec {
     license = with licenses; [ gpl3Plus boost ];
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin;
   };
 }

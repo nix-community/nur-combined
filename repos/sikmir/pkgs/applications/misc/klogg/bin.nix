@@ -4,21 +4,21 @@ let
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "klogg-bin";
-  version = "20.12";
+  version = "22.06";
 
   suffix = {
-    x86_64-linux = "x86_64.AppImage";
-    x86_64-darwin = "OSX.dmg";
+    x86_64-linux = "Linux-amd64.AppImage";
+    x86_64-darwin = "OSX-Qt5.dmg";
   }.${system} or throwSystem;
 
   src = fetchfromgh {
     owner = "variar";
     repo = "klogg";
     version = "v${version}";
-    name = "klogg-${version}.0.813-${suffix}";
-    sha256 = {
-      x86_64-linux = "1m0yl6bd6ahxqljqfjvd6p9nm4vyr4pyrr1qzm70nn2rn4vi4w83";
-      x86_64-darwin = "07iyg1i6n5ydg99q75wlbl1jh1n1cdjl3rbia2kx6y7dg80lx0d1";
+    name = "klogg-${version}.0.1289-${suffix}";
+    hash = {
+      x86_64-linux = "sha256-XawJ6VOF0XtMrl7iefm13quv83X171k9eKiXClrklZI=";
+      x86_64-darwin = "sha256-5d93ItDYUYUt2cw0Sd1C0f7z507dqMINwEs4y4UrD+w=";
     }.${system} or throwSystem;
   };
 
@@ -41,7 +41,7 @@ let
     extraInstallCommands = ''
       mv $out/bin/{${pname}-${version},klogg}
       install -Dm644 ${appimageContents}/klogg.desktop -t $out/share/applications
-      install -Dm644 ${appimageContents}/klogg.svg -t $out/share/icons/hicolor/scalable/apps
+      install -Dm644 ${appimageContents}/klogg.png -t $out/share/icons/hicolor/scalable/apps
     '';
   };
 
