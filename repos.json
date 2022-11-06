@@ -554,6 +554,9 @@
         "robertodr": {
             "url": "https://github.com/robertodr/nur-packages"
         },
+        "rseops": {
+            "url": "https://github.com/rse-ops/nix"
+        },
         "rummik": {
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
