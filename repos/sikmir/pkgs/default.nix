@@ -95,13 +95,14 @@ lib.makeScope newScope (
     s2sphere = callPackage ./development/python-modules/s2sphere { };
     xyzservices = callPackage ./development/python-modules/xyzservices { };
 
-    ### EMBOX
+    ### EMBEDDED
 
-    embox-aarch64 = callPackage ./embox { arch = "aarch64"; };
-    embox-arm = callPackage ./embox { arch = "arm"; };
-    embox-ppc = callPackage ./embox { arch = "ppc"; };
-    embox-riscv64 = callPackage ./embox { arch = "riscv64"; };
-    embox-x86 = callPackage ./embox {
+    chdk = callPackage ./embedded/chdk { };
+    embox-aarch64 = callPackage ./embedded/embox { arch = "aarch64"; };
+    embox-arm = callPackage ./embedded/embox { arch = "arm"; };
+    embox-ppc = callPackage ./embedded/embox { arch = "ppc"; };
+    embox-riscv64 = callPackage ./embedded/embox { arch = "riscv64"; };
+    embox-x86 = callPackage ./embedded/embox {
       stdenv = pkgs.gccMultiStdenv;
     };
 
