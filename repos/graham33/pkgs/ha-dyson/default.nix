@@ -5,14 +5,14 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "ha-dyson";
-  version = "0.16.2";
+  version = "0.16.4-4";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "shenxn";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1fx1q57a5pr7rxmxszax6icp3ramflmqj80fhwyyjwhwjm4z7szl";
+    sha256 = "sha256-HLY8+eXzfVasO1EVZQ46mooJ4beID01RvYo4BfjHfnc=";
   };
 
   propagatedBuildInputs = [
