@@ -18,7 +18,6 @@ python3Packages.buildPythonApplication rec {
     mercantile
     pymbtiles
     six
-    setuptools # pkg_resources
   ];
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
