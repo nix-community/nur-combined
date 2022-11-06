@@ -60,20 +60,22 @@
 
   pmlb = pkgs.python39Packages.callPackage ./pkgs/pmlb { };
 
-  scid = pkgs.callPackage ./pkgs/scid { };
-
-  robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
-
   pratt-parser = pkgs.callPackage ./pkgs/pratt-parser {
     fast_float = fast_float;
     robin-hood-hashing = robin-hood-hashing;
   };
+
+  robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
+
+  scid = pkgs.callPackage ./pkgs/scid { };
 
   scnlib = pkgs.callPackage ./pkgs/scnlib { };
 
   span-lite = pkgs.callPackage ./pkgs/span-lite { };
 
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
+
+  tessil-robin-map = pkgs.callPackage ./pkgs/tessil-robin-map { };
 
   vectorclass = pkgs.callPackage ./pkgs/vectorclass {
     vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
