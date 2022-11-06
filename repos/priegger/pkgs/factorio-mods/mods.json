@@ -76,10 +76,10 @@
   },
   {
     "name": "alien-biomes",
-    "version": "0.6.7",
-    "file_name": "alien-biomes_0.6.7.zip",
-    "download_url": "/download/alien-biomes/620eee4b9d48220f8ec267f6",
-    "sha1": "2382ac7bdfa41ba549dad3e61bdbf9ea3cb73352",
+    "version": "0.6.8",
+    "file_name": "alien-biomes_0.6.8.zip",
+    "download_url": "/download/alien-biomes/63631ebd67c9c38c946248fe",
+    "sha1": "fb361e299c45491142e07fbf17af8f0e7aa6d82e",
     "dependencies": [
       "base >= 1.1.0",
       "?alien-biomes-hr-terrain >= 0.3.1"

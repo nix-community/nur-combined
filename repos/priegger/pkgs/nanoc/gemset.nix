@@ -129,10 +129,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "14479wvhllyyvcxclxmfvdyrwjgsf0pv9yp2h2hl88pim1a5ya1f";
+      sha256 = "01hq202dbwyr2vb4ds9w71245hsy9njgjryw04r5aldr1ghmiydf";
       type = "gem";
     };
-    version = "4.12.9";
+    version = "4.12.10";
   };
   nanoc-checking = {
     dependencies = [ "nanoc-cli" "nanoc-core" ];
@@ -151,10 +151,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1fjpcv5z1dz5nws4a9c364xanm35351i0s7vy0sp25ahm5lm9g78";
+      sha256 = "1ibb9j4wzniiyzilkrhms7dh9syhb3v4pzy1fwn6bmik2lz0qh3c";
       type = "gem";
     };
-    version = "4.12.9";
+    version = "4.12.10";
   };
   nanoc-core = {
     dependencies = [ "concurrent-ruby" "ddmetrics" "ddplugin" "hamster" "json_schema" "memo_wise" "psych" "slow_enumerator_tools" "tty-platform" "zeitwerk" ];
@@ -162,10 +162,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0a5ryz7cpf38bmw1xa4yqv8v1i182h2jghlrakkfjv5cwhs8ljx6";
+      sha256 = "01fbv16s9xyy8d4q6piwmps5b2j3iy1wvjxccj4jm9gbdpg43r9c";
       type = "gem";
     };
-    version = "4.12.9";
+    version = "4.12.10";
   };
   nanoc-deploying = {
     dependencies = [ "nanoc-checking" "nanoc-cli" "nanoc-core" ];
@@ -306,9 +306,9 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "18hihq3hxs2ywxh3ixm366cawwy4k733mh680ldaa1vxjiraxj58";
+      sha256 = "10ipi1b3rh2vgwskfzcrgagc6hw5ppsz7jamsimglvww8bvya3zy";
       type = "gem";
     };
-    version = "2.6.1";
+    version = "2.6.5";
   };
 }
