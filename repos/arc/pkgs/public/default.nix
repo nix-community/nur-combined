@@ -22,6 +22,7 @@
   rustfmt-nightly = import ./rustfmt.nix;
   switch-lan-play = import ./switch-lan-play.nix;
   parsec-bin = import ./parsec-bin.nix;
+  mdns-scan = import ./mdns-scan.nix;
 }
 // (import ./bolin)
 // (import ./droid.nix)
