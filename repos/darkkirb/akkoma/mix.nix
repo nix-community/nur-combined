@@ -104,12 +104,12 @@
 
     castore = buildMix rec {
       name = "castore";
-      version = "0.1.17";
+      version = "0.1.18";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "1yb3470p0mfawdy34gaa5lkhqrb8d35jai9235snxljjxlkl516r";
+        sha256 = "01kawrhxcc0i7zkygss5ia8hmkzv39q4bnrwnf0fz0mpa9jazfv1";
       };
 
       beamDeps = [];
@@ -546,15 +546,15 @@
 
     finch = buildMix rec {
       name = "finch";
-      version = "0.10.2";
+      version = "0.13.0";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "0l3mvf0jnh49rj58vj1051fvsj6294wjhlh8ycpfqb07har132yx";
+        sha256 = "1k56zfbadpppn8flavb4aczq0npcqnlhg993l51c1k8dw76pv5a9";
       };
 
-      beamDeps = [castore mint nimble_options nimble_pool telemetry];
+      beamDeps = [castore mime mint nimble_options nimble_pool telemetry];
     };
 
     flake_id = buildMix rec {
@@ -624,12 +624,12 @@
 
     hpax = buildMix rec {
       name = "hpax";
-      version = "0.1.1";
+      version = "0.1.2";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "09n8qrmcxlrhlyz5mh0nrk15rwvnqhzcz7x3yz5612jan2hdbrqa";
+        sha256 = "04wci9ifsfyd2pbcrnpgh2aq0a8fi1lpkrzb91kz3x93b8yq91rc";
       };
 
       beamDeps = [];
