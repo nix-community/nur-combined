@@ -98,7 +98,7 @@
   toHex = toHexLower;
   toHexLower = int: let
     rest = int / 16;
-  in optionalString (int > 16) (toHexLower (int / 16)) + elemAt hexChars (mod int 16);
+  in optionalString (int >= 16) (toHexLower rest) + elemAt hexChars (mod int 16);
   toHexUpper = int: toUpper (toHexLower int);
 
   escapeRegex = let

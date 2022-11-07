@@ -7,22 +7,22 @@
 }: with python3Packages; let
 
   mautrix = python3Packages.mautrix.overridePythonAttrs (old: rec {
-    version = "0.18.1";
+    version = "0.18.6";
     src = old.src.override {
       inherit version;
-      sha256 = "sha256-flHww6jvelE4fYkQzPFylMPGR6W4x0THkKwz8bVGE5Y=";
+      sha256 = "sha256-IpFtdDCGSM6A6l0/IYkfTgV+fLlco340Tos4msx9XEs=";
     };
   });
 
 in buildPythonApplication rec {
   pname = "mautrix-googlechat";
-  version = "2022-09-15";
+  version = "2022-10-20";
 
   src = fetchFromGitHub {
     owner = "mautrix";
     repo = "googlechat";
-    rev = "bf2724cbc85c4ae56a17d805753f2a52ba0b0865";
-    sha256 = "sha256-ZPHB4DSoGGGyDhX80qpKT/7zfpYWOl6d5WhWmYMvV+Q=";
+    rev = "98cd8c31422adad0bd8242c54c2701d58a34a629";
+    sha256 = "sha256-QMQBgZEhY4xw8bu83KtEm1ReHzSVT6Y9GL5qsHJXqcg=";
   };
 
   patches = [ ./entrypoint.patch ];
@@ -51,7 +51,7 @@ in buildPythonApplication rec {
     prometheus_client
   ];
 
-  meta.broken = lib.versionOlder mautrix.version "0.16.6";
+  meta.broken = lib.versionOlder mautrix.version "0.18.5";
   passthru = {
     pythonModule = python;
     pythonPackage = "mautrix_googlechat";
