@@ -12,6 +12,7 @@
     inherit
       (config.my.services)
       jellyfin
+      nextcloud
       transmission
       ;
   };

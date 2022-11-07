@@ -83,6 +83,8 @@ in {
       };
     };
 
+    users.groups.media.members = ["nextcloud"];
+
     services.nginx = {
       virtualHosts = {
         "cloud.${domain}" = {
