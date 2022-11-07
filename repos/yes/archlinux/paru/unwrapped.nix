@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "paru-unwrapped";
-  version = "1.11.1";
+  version = "1.11.2";
 
   src = fetchFromGitHub {
     owner = "Morganamilo";
     repo = "paru";
     rev = "v${version}";
-    hash = "sha256-Lnyjmli3vO1utp6LtDa3VsmXL4UE37ahOmpwwcpSeWM=";
+    hash = "sha256-9MzT4AIMeFaNLbtiatKcyVL83bsL3+nawwKl9WvOinY=";
   };
 
-  cargoHash = "sha256-Tf0gk36k/ECgMZkXtfW6npsSX2IslG9Qz3vxqwyGIWY=";
+  cargoHash = "sha256-unhcIXCvw26GQpG7yX94mq2RPD5vLeJfDWxJhJ7ZRj0=";
 
   postPatch = ''
     substituteInPlace src/lib.rs --replace "/usr/share" "$out/share"
