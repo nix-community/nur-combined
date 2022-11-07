@@ -16,6 +16,7 @@
     ./paperless.nix
     ./photoprism.nix
     ./pipewire.nix
+    ./pleroma.nix
     ./postgresql-backup.nix
     ./postgresql.nix
     ./restic-backup.nix

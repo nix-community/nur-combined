@@ -28,6 +28,10 @@
         "paperless/admin-password" = {};
         "paperless/secret-key" = {};
 
+        "pleroma/pleroma-config" = {
+          owner = "pleroma";
+        };
+
         "restic-backup/hades-credentials" = {};
         "restic-backup/hades-password" = {};
 

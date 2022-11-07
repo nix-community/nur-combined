@@ -24,6 +24,8 @@ in {
   "paperless/admin-password.age".publicKeys = [alarsyo hades];
   "paperless/secret-key.age".publicKeys = [alarsyo hades];
 
+  "pleroma/pleroma-config.age".publicKeys = [alarsyo hades];
+
   "restic-backup/boreal-password.age".publicKeys = [alarsyo boreal];
   "restic-backup/boreal-credentials.age".publicKeys = [alarsyo boreal];
   "restic-backup/hades-password.age".publicKeys = [alarsyo hades];

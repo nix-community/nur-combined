@@ -99,6 +99,12 @@ in {
       port = 8084;
     };
 
+    pleroma = {
+      enable = true;
+      port = 8086;
+      secretConfigFile = config.age.secrets."pleroma/pleroma-config".path;
+    };
+
     restic-backup = {
       enable = true;
       repo = "b2:hades-backup-alarsyo";
