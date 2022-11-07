@@ -245,12 +245,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cc5999fa296c18105fb62f1637deec1d12454129",
-            "sha256": "sha256-NaDZLmktuwlYxxzwDoVKgd8bEY+Wy9b2Qaz0CTf8V/Q=",
+            "rev": "a7bf861097d34f4db0fd7384bc19c712148feb55",
+            "sha256": "sha256-wEodvtKkv9zxCDJcziCx2+KEdFo+yKgBnLOc/cu9mJ8=",
             "type": "git",
             "url": "https://github.com/jhillyerd/plugin-git"
         },
-        "version": "cc5999fa296c18105fb62f1637deec1d12454129"
+        "version": "a7bf861097d34f4db0fd7384bc19c712148feb55"
     },
     "replay-fish": {
         "cargoLocks": null,
