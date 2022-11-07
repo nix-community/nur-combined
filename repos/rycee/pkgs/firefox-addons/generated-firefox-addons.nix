@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.1.0";
+      version = "2.9.2.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023655/bypass_paywalls_clean-2.9.1.0.xpi";
-      sha256 = "9b5e289d4967a4b0cf1decc0feca0aca071cefab45d5f2c6e76b4cfcb91b0174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026721/bypass_paywalls_clean-2.9.2.0.xpi";
+      sha256 = "e5efe9179d2a8ade5c1884bee7f38cc7459c2426d800b5fa35a7a573d0e6a538";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -2071,10 +2071,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.10.26.814";
+      version = "22.11.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021486/refined_github-22.10.26.814.xpi";
-      sha256 = "7b78accbd392432779b6974c838df9bb879c28ec2af75f06a305cf39a151a4ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026634/refined_github-22.11.6.xpi";
+      sha256 = "3b86ddcbbf6878440a9b77e6f48323a654c2b71bd0cd87b8be7040bd9de332f5";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2829,10 +2829,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.45";
+      version = "6.10.46";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024680/wappalyzer-6.10.45.xpi";
-      sha256 = "ba28e3a8e73b0ee2769b99546c99c51dd307ff407de05329ba154b2422b5a0ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026806/wappalyzer-6.10.46.xpi";
+      sha256 = "a931234a60592a6ee3c47f15bbeaf06b9259d39e7e1319e4ed7c7041ad5e164d";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
