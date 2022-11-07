@@ -20,13 +20,13 @@ rustPlatform.buildRustPackage rec{
   version = "0.2.3";
 
   src = fetchFromGitHub {
-    rev = "v${version}";
+    rev = "44ed093e69097f611a890651152e2d721a51c6f3";
     owner = "ihciah";
     repo = pname;
-    sha256 = "sha256-jNXXICQf7ukX+lU4pjOf5OL99ymKVxkq52IcZPWQY8E=";
+    sha256 = "sha256-k9Ig/PoQ2HLIBd9lUvH6Tb7JAa7wnJJ+kNGfvJH6bOw=";
   };
 
-  cargoSha256 = "sha256-dV5MKsmpSxQxKUe6WKf6IfNQo/YGD9JYhWu7Rv58nN4=";
+  cargoSha256 = "sha256-3jTrJqwClIrokotfedjVsrYnlB/BKDeKgtpHlc8gWFU=";
 
   meta = with lib; {
     homepage = "https://github.com/ihciah/shadow-tls";
