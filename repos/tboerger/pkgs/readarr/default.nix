@@ -10,15 +10,15 @@ let
   }."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   hash = {
-    x64-linux_hash = "sha256-GC/hwoQkzqkTOQrdO40C10K1MNmlcn9XTwwWHo96l4Q=";
-    arm64-linux_hash = "sha256-x8BnAuDWudbSKrtmXm6PFeFxNrfVYJot1r7VyB6YuWs=";
-    x64-osx_hash = "sha256-P5JeiPCJjoWGei6a8LZToShcRzAZQP73/+VpRydyTPs=";
-    arm64-osx_hash = "sha256-fRXTIjvmxo7DueKt8NoWhxDIakx5MtHwFF5FKg3nKN0=";
+    x64-linux_hash = "sha256-ufyHzCjqvbhz7EY/tsUgCFofGKQcsFp9wMkYqFAqXnE=";
+    arm64-linux_hash = "sha256-Z9K9XY+kJ7JEdBGJPqewodfjtQwQJZ+2LXBH8aQyb1c=";
+    x64-osx_hash = "sha256-zLwfAOXIjr3YCs7aVdC1spBhEkPld0ndBPueOTSgkN0=";
+    arm64-osx_hash = "sha256-DP8y6/ccG64lR5BJHGQg5PM21wlqhH6TfTiP3CTJI50=";
   }."${arch}-${os}_hash";
 
 in stdenv.mkDerivation rec {
   pname = "readarr";
-  version = "0.1.0.1248";
+  version = "0.1.1.1320";
 
   src = fetchurl {
     url = "https://github.com/Readarr/Readarr/releases/download/v${version}/Readarr.develop.${version}.${os}-core-${arch}.tar.gz";
