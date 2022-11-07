@@ -17,7 +17,6 @@ with lib.kernel;
   DEBUG_MISC = no;
   DEBUG_PREEMPT = no;
   DEFAULT_SECURITY_APPARMOR = yes;
-  FTRACE = lib.mkForce no;
   GCC_PLUGINS = no;
   HIBERNATION = no;
   KEXEC = no;
@@ -27,19 +26,15 @@ with lib.kernel;
   X86_SGX = lib.mkForce no;
 
   # Disable unused features - clear errors
-  BPF_EVENTS = lib.mkForce (option no);
-  FTRACE_SYSCALLS = lib.mkForce (option no);
-  FUNCTION_PROFILER = lib.mkForce (option no);
-  FUNCTION_TRACER = lib.mkForce (option no);
-  NET_DROP_MONITOR = lib.mkForce (option no);
-  RING_BUFFER_BENCHMARK = lib.mkForce (option no);
-  SCHED_TRACER = lib.mkForce (option no);
-  STACK_TRACER = lib.mkForce (option no);
   X86_SGX_KVM = lib.mkForce (option no);
 
   # Fonts
   FONTS = yes;
   FONT_8x16 = yes;
+
+  # Ftrace (for ECC RAM monitoring)
+  FTRACE = yes;
+  FTRACE_SYSCALLS = yes;
 
   # Ksmbd
   CIFS_SMB_DIRECT = yes;
