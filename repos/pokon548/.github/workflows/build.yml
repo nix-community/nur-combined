@@ -20,7 +20,7 @@ jobs:
         # The repo name as used in
         # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
-          - nur-packages
+          - pokon548
         # Set this to cache your build results in cachix for faster builds
         # in CI and for everyone who uses your cache.
         #
