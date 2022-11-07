@@ -19,8 +19,28 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/0427-BFFC";
+    { device = "/dev/disk/by-uuid/21adb950-9d20-417f-8011-34c65ad33a65";
+      fsType = "ext4";
+    };
+
+  fileSystems."/boot/efi" =
+    { device = "/dev/disk/by-uuid/9520-0592";
       fsType = "vfat";
+    };
+
+  fileSystems."/data" =
+    { device = "dpool/data";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "hpool/users";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/bjorn" =
+    { device = "hpool/users/bjorn";
+      fsType = "zfs";
     };
 
   fileSystems."/nix" =
@@ -33,29 +53,8 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/a4b9b56f-169e-4161-ae2e-9016e18e9252";
-      fsType = "btrfs";
-      options = [ "subvol=@home" ];
-    };
-
-  fileSystems."/home/.snapshots" =
-    { device = "/dev/disk/by-uuid/a4b9b56f-169e-4161-ae2e-9016e18e9252";
-      fsType = "btrfs";
-      options = [ "subvol=@snapshots" ];
-    };
-
-  boot.initrd.luks.devices."home".device = "/dev/disk/by-uuid/f07f117f-b46a-41d1-a51d-ba9249366c68";
-
-  fileSystems."/data" =
-    { device = "/dev/disk/by-uuid/0bd5611e-96d1-40b1-81d5-9717bcc032b2";
-      fsType = "ext4";
-    };
-
-  boot.initrd.luks.devices."data".device = "/dev/disk/by-uuid/a4748398-8c8a-48d8-aca8-f4c0109457ff";
-
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/76659df0-e1e6-4e10-b181-f8f683c6a9b2"; }
+    [ { device = "/dev/disk/by-uuid/51c8dd7d-bd2c-4af6-95dc-54ef4b75c152"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -63,8 +62,8 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
