@@ -1,4 +1,4 @@
-{ appimageTools, lib, fetchurl, electron, libsecret }:
+{ appimageTools, lib, fetchurl, electron, makeWrapper, libsecret }:
 
 let
   pname = "todoist";
@@ -13,7 +13,7 @@ let
   appimageContents = appimageTools.extract { inherit name src; };
 
 in appimageTools.wrapType2 {
-  inherit name src;
+  inherit version name src;
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
@@ -23,8 +23,9 @@ in appimageTools.wrapType2 {
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
+  passthru.version = version;
+
   extraPkgs = pkgs: with pkgs; [
-    electron
     libsecret
     libappindicator-gtk3
   ];
