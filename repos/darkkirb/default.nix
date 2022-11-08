@@ -14,6 +14,7 @@
   akkoma = pkgs.callPackage ./akkoma {};
   pleroma-fe = pkgs.callPackage ./akkoma/pleroma-fe {};
   admin-fe = pkgs.callPackage ./akkoma/admin-fe {};
+  emoji-lotte = pkgs.callPackage ./art/emoji/lotte {};
   emoji-volpeon-blobfox = pkgs.callPackage ./art/emoji/volpeon/blobfox.nix {};
   emoji-volpeon-blobfox-flip = pkgs.callPackage ./art/emoji/volpeon/blobfox_flip.nix {};
   emoji-volpeon-bunhd = pkgs.callPackage ./art/emoji/volpeon/bunhd.nix {};
