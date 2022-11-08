@@ -16,10 +16,12 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  geos = pkgs.callPackage ./pkgs/geos { };
+  proj = pkgs.callPackage ./pkgs/proj { };
+
   gdal = pkgs.callPackage ./pkgs/gdal {
     inherit proj;
     pythonPackages = python3Packages;
     autoreconfHook = buildPackages.autoreconfHook269;
   };
-  proj = pkgs.callPackage ./pkgs/proj { };
 }
