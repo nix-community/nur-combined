@@ -9,6 +9,7 @@
 { pkgs ? import <nixpkgs> { }
 , inputs ? null
 , ci ? false
+, nvidia_x11 ? pkgs.linuxPackages_latest.nvidia_x11
 , ...
 }:
 
@@ -94,10 +95,10 @@ rec {
   chromium-oqs-bin = pkg ./uncategorized/chromium-oqs-bin { };
   cloudpan189-go = pkg ./uncategorized/cloudpan189-go { };
   deepspeech-gpu = pkg ./uncategorized/deepspeech-gpu {
-    inherit (pkgs.linuxPackages_latest) nvidia_x11;
+    inherit nvidia_x11;
   };
   deepspeech-wrappers = pkg ./uncategorized/deepspeech-gpu/wrappers.nix {
-    inherit (pkgs.linuxPackages_latest) nvidia_x11;
+    inherit nvidia_x11;
   };
   dingtalk = pkg ./uncategorized/dingtalk { };
   dn42-pingfinder = pkg ./uncategorized/dn42-pingfinder { };
@@ -149,7 +150,7 @@ rec {
   rime-zhwiki = pkg ./uncategorized/rime-zhwiki { };
   route-chain = pkg ./uncategorized/route-chain { };
   svp = pkg ./uncategorized/svp {
-    inherit (pkgs.linuxPackages_latest) nvidia_x11;
+    inherit nvidia_x11;
   };
   tachidesk-server = pkg ./uncategorized/tachidesk-server { };
   vs-rife = pkg ./uncategorized/vs-rife { };
