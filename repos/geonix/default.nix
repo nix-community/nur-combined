@@ -28,4 +28,8 @@ rec {
     pythonPackages = python3Packages;
     autoreconfHook = buildPackages.autoreconfHook269;
   };
+
+  pdal = pkgs.callPackage ./pkgs/pdal {
+    inherit gdal libgeotiff;
+  };
 }
