@@ -1,5 +1,5 @@
 let
-  mkTemplate = path: description: { path = path; description = description; };
+  mkTemplate = path: description: { inherit path; inherit description; };
 
   templates = {
     generic = mkTemplate ./generic "Generic template";
@@ -9,6 +9,6 @@ let
   default = templates.generic;
 in
 {
-  templates = templates;
-  default = default;
+  inherit templates;
+  inherit default;
 }

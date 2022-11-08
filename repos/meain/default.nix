@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ## personal
-  traffic = pkgs.callPackage ./pkgs/traffic { };
+  traffic = pkgs.python38.pkgs.callPackage ./pkgs/traffic { };
   gh-issues-to-rss = pkgs.callPackage ./pkgs/gh-issues-to-rss { };
   tojson = pkgs.callPackage ./pkgs/tojson { };
   toffee = pkgs.callPackage ./pkgs/toffee { };
@@ -46,7 +46,7 @@
   grpc-gateway = pkgs.callPackage ./pkgs/grpc-gateway { };
   # golang-migrate::tags: postgres mysql redshift cassandra spanner cockroachdb clickhouse file go_bindata github aws_s3 google_cloud_storage godoc_vfs gitlab
   golang-migrate-pg = pkgs.callPackage ./pkgs/golang-migrate { tags = [ "postgres" "file" ]; }; # with proper build tags
-  protodot = pkgs.python38.pkgs.callPackage ./pkgs/protodot { };
+  protodot = pkgs.callPackage ./pkgs/protodot { };
 
   ## fonts
   victor-mono-nf = pkgs.callPackage ./pkgs/victor-mono-nf { }; # nerd-font version of victor mono
