@@ -8,12 +8,18 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+with pkgs;
+
 rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  gdal = pkgs.callPackage ./pkgs/gdal { };
+  gdal = pkgs.callPackage ./pkgs/gdal {
+    inherit proj;
+    pythonPackages = python3Packages;
+    autoreconfHook = buildPackages.autoreconfHook269;
+  };
   proj = pkgs.callPackage ./pkgs/proj { };
 }
