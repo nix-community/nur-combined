@@ -1,9 +1,9 @@
 {
   "url": "https://akkoma.dev/AkkomaGang/akkoma.git",
-  "rev": "c0eecb55bf67afe0e199482a52d38d4d976e4bd6",
-  "date": "2022-11-07T13:32:34+00:00",
-  "path": "/nix/store/s52wfhn9g770f1fb7rfigaj4f7hrjf6d-akkoma",
-  "sha256": "18dgf7smvqkrd9nsh4rv2a44f0jhrp4ppwjqjxckv92996kzz9ld",
+  "rev": "0681a26dbb58b420105275fdaca11ec627257837",
+  "date": "2022-11-08T13:54:43+00:00",
+  "path": "/nix/store/x265bdq62706jygp61jm19k5bwr1hbn8-akkoma",
+  "sha256": "1mmfni8pl4n4jzvrjx24cw26zrrar6c2wsycr1376gwmmn6562rx",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
