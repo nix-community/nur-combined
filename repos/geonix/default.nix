@@ -19,8 +19,12 @@ rec {
   geos = pkgs.callPackage ./pkgs/geos { };
   proj = pkgs.callPackage ./pkgs/proj { };
 
-  gdal = pkgs.callPackage ./pkgs/gdal {
+  libgeotiff = pkgs.callPackage ./pkgs/libgeotiff {
     inherit proj;
+  };
+
+  gdal = pkgs.callPackage ./pkgs/gdal {
+    inherit geos proj;
     pythonPackages = python3Packages;
     autoreconfHook = buildPackages.autoreconfHook269;
   };
