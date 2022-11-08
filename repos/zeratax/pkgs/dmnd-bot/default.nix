@@ -18,6 +18,11 @@ pkgs.crystal.buildCrystalPackage rec {
     pkgs.openssl
   ];
 
+  checkInputs = [
+    pkgs.openssl
+    pkgs.syncplay
+  ];
+
   postPatch = ''
     substituteInPlace spec/syncplay_bot_spec.cr \
         --replace 'syncplay' '${pkgs.syncplay}/bin/syncplay'
@@ -30,8 +35,4 @@ pkgs.crystal.buildCrystalPackage rec {
     popd                          
     echo "done!"                  
   '';                             
-
-  checkInputs = [
-    pkgs.syncplay
-  ];
 }

@@ -2,13 +2,13 @@
 let repository = (buildMaven ./project-info.json).repo;
 in stdenv.mkDerivation rec {
   pname = "harbor";
-  version = "1.6.3";
+  version = "1.6.4-b1";
 
   src = fetchFromGitHub {
     owner = "nkomarn";
     repo = pname;
     rev = version;
-    sha256 = "1zh0cdbyzh6d4b4cg72bm30l6nbf0djb6lxrqcf8r3c29zi5yhyb";
+    sha256 = "xUu5f9FfLRkZIQslNVZuQH89eQhuzrBxmO2+GkMW538=";
     };
 
   buildInputs = [ maven ];
@@ -19,7 +19,7 @@ in stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm644 target/Harbor-${version}.jar $out/${pname}.jar
+    install -Dm644 target/Harbor-*.jar $out/${pname}.jar
   '';
 
   meta = with lib; {
