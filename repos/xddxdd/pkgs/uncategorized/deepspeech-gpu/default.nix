@@ -3,7 +3,7 @@
 { lib
 , python39Packages
 , cudaPackages_10_1
-, linuxPackages_latest
+, nvidia_x11
 , fetchurl
 , autoPatchelfHook
 , stdenv
@@ -19,7 +19,7 @@ let
     cudaPackages_10_1.cudatoolkit.lib
     cudaPackages_10_1.cudatoolkit.out
     cudaPackages_10_1.cudnn_7_6_5
-    linuxPackages_latest.nvidia_x11
+    nvidia_x11
   ];
 in
 buildPythonPackage rec {
@@ -51,5 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mozilla/DeepSpeech";
     license = licenses.mpl20;
     platforms = [ "x86_64-linux" ];
+    broken = true;
   };
 }

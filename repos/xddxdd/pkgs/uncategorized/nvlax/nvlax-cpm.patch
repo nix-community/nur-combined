@@ -1,0 +1,49 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5fa8620..232aadd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -13,17 +13,8 @@ cmake_minimum_required(VERSION 3.14)
+ 
+ project(nvlax CXX)
+ 
+-include(ExternalProject)
+-include(cmake/FetchCPM.cmake)
+-
+-CPMAddPackage("gh:zyantific/zydis#master")
+-
+-CPMAddPackage(
+-        NAME LIEF_SRC
+-        GIT_TAG master
+-        GITHUB_REPOSITORY lief-project/LIEF
+-        DOWNLOAD_ONLY YES
+-)
++find_package(Zydis REQUIRED)
++find_package(LIEF REQUIRED)
+ 
+ if (LIEF_SRC_ADDED)
+     set(LIEF_PREFIX       "${CMAKE_CURRENT_BINARY_DIR}/LIEF")
+@@ -57,12 +48,7 @@ endif()
+ message(STATUS "LIEF include directory: ${LIEF_INCLUDE_DIRS}")
+ message(STATUS "LIEF library: ${LIEF_LIBRARIES}")
+ 
+-CPMAddPackage(
+-        NAME PPK_ASSERT
+-        GIT_TAG master
+-        GITHUB_REPOSITORY gpakosz/PPK_ASSERT
+-        DOWNLOAD_ONLY YES
+-)
++set(PPK_ASSERT_ADDED YES)
+ 
+ if (PPK_ASSERT_ADDED)
+     add_library(PPK_ASSERT STATIC
+@@ -89,8 +75,8 @@ add_executable(nvlax_fbc
+         src/lax_fbc.cc
+ )
+ 
+-add_dependencies(nvlax_encode LIEF)
+-add_dependencies(nvlax_fbc LIEF)
++include_directories(${zydis_INCLUDE_DIR})
++link_directories(${zydis_LIB_DIR})
+ 
+ target_compile_features(nvlax_encode PRIVATE cxx_std_17)
+ target_compile_features(nvlax_fbc PRIVATE cxx_std_17)

@@ -69,10 +69,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.6.1-3";
+    version = "1.7.2-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.6.1-3/io.github.msojocs.bilibili_1.6.1-3_amd64.deb";
-      sha256 = "sha256-8uggg3gjS+j4oiO/AAnrRQhjIJnKUElyYCCGTq9nfwg=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.7.2-1/io.github.msojocs.bilibili_1.7.2-1_amd64.deb";
+      sha256 = "sha256-0EFjfr2XljQ72XSw8wqCpggHSsvzMtioBGQOxvWuMyM=";
     };
   };
   bird-babel-rtt = {
@@ -88,13 +88,13 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "3b1d001543e438d9a28a13bf64f674193079ee20";
+    version = "6ec0f2e7a6a2ecda9da752265f964b1e85b606f8";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "3b1d001543e438d9a28a13bf64f674193079ee20";
+      rev = "6ec0f2e7a6a2ecda9da752265f964b1e85b606f8";
       fetchSubmodules = false;
-      sha256 = "sha256-XGgrBPHJP7Q2WIH6EGY458gAuGdWcSaM+1Ke8jYNYMQ=";
+      sha256 = "sha256-ygd0OkxkP6jPMZIU7GLTuDK66zQTIHiJmOeHPG/99/k=";
     });
   };
   boringssl-oqs = {
@@ -508,10 +508,10 @@
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20221103024626";
+    version = "20221107211252";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20221103024626/dlc.dat";
-      sha256 = "sha256-Vzpth5Y97GAcVn49jBnRyY1Z4L4Og5Zeu7NfSuJ5s4Y=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20221107211252/dlc.dat";
+      sha256 = "sha256-r3QZm3Iil/U/yjTKz06sOw5PC58enBkJwvyJo2ivWus=";
     };
   };
   v2fly-private = {
