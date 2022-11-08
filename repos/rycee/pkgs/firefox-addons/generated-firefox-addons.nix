@@ -43,10 +43,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.14.5";
+      version = "3.15.1";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3991157/adnauseam-3.14.5.xpi";
-      sha256 = "93555ea7525a020248e5626a6e55f508064f21214b99452933fd00418d1565c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026151/adnauseam-3.15.1.xpi";
+      sha256 = "47281957e3881f5db85acae64c4b9d1dda04d4b4d904bd9e28b1681f7dc7df53";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.2.0";
+      version = "2.9.2.2";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026721/bypass_paywalls_clean-2.9.2.0.xpi";
-      sha256 = "e5efe9179d2a8ade5c1884bee7f38cc7459c2426d800b5fa35a7a573d0e6a538";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026939/bypass_paywalls_clean-2.9.2.2.xpi";
+      sha256 = "be677ad2a3484cc6f95da8e14f509e80a81e41301e127a3a23dbfdf983b7dc7f";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "106.0.5buildid20221104.133228";
+      version = "107.0buildid20221107.173030";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026118/francais_language_pack-106.0.5buildid20221104.133228.xpi";
-      sha256 = "954924ddf5d65cc2cb43d93b7a70a7e97f8e5220b3a4d8095e9d1f004537f897";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027230/francais_language_pack-107.0buildid20221107.173030.xpi";
+      sha256 = "a402ffe5f4caec2cc79c69c90114482885d03aa20467ab497771afa4f4c2f8cd";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1199,10 +1199,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.8.6";
+      version = "5.8.10";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023476/languagetool-5.8.6.xpi";
-      sha256 = "3229e53c3d06541521e9055a7a281616d439bef1f00a4e17f702e2a89fcf88d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026397/languagetool-5.8.10.xpi";
+      sha256 = "dce3f0e68543e64a97f669f154e9b9a4459228d8aa255c7cc2187f6c4bab7a61";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1395,10 +1395,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.21.1";
+      version = "10.21.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024073/ether_metamask-10.21.1.xpi";
-      sha256 = "767a702a9345d0a807300973e5bb64919c928ccb27ad71024b7e429640f65c77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027250/ether_metamask-10.21.2.xpi";
+      sha256 = "bee5e5152032976fa059841300a736e14b289b0f39b89c8a8cb5a72352acdc0a";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -2125,10 +2125,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.3.0";
+      version = "5.4.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4001344/search_by_image-5.3.0.xpi";
-      sha256 = "9bfb6f0397b9ff85135d81393d84bd05be99ebb5993b79181e76a7e624d30b43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026447/search_by_image-5.4.0.xpi";
+      sha256 = "3631a3ef95be1f07e1ab78e4517b8d54f9cfe1c90b50374c0c9e525251d2df8c";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.25";
+      version = "1.21.26";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023970/single_file-1.21.25.xpi";
-      sha256 = "1e1cd20f2c9b112ba8c2bf38e81f97f8dd00f6d280c16624555c2b79036cd4cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026276/single_file-1.21.26.xpi";
+      sha256 = "13aeb64bf04be235d8d36bfb5957a6d29b863d5cbf56471f34923099a128b7d7";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2266,10 +2266,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.3";
+      version = "5.1.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023660/sponsorblock-5.1.3.xpi";
-      sha256 = "6aee461a7db69f88ba56b74e2aa34c3ab59d3285427292dd8cedb0c11bf2c7b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026759/sponsorblock-5.1.6.xpi";
+      sha256 = "f67c8deedcbcfc87ec955c7431028bfdf5c25c0addb12356ea87786bf4fe6640";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2307,10 +2307,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.1";
+      version = "3.6.2";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003523/steam_database-3.6.1.xpi";
-      sha256 = "1eabb49a99f1cee7b0c8659266a79a6ee19edc2b2304ece1e12f0554e753aa2c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026911/steam_database-3.6.2.xpi";
+      sha256 = "fd0ee7a05a7df29a8e4a7e7141b391c9e243874de59116bbd543b1c9ebe08a60";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -2857,10 +2857,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.80.0";
+      version = "2.80.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026233/web_scrobbler-2.80.0.xpi";
-      sha256 = "6931e1babe5c0dafe5f26b8c20dd7705036b3b9fcec3749443474b237470420c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4026904/web_scrobbler-2.80.1.xpi";
+      sha256 = "3e550f8501c47c2e1e05ea3021727a6b92765d47f631253b1db3e649fddd30e0";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
@@ -2899,10 +2899,10 @@
       };
     "youtube-shorts-block" = buildFirefoxXpiAddon {
       pname = "youtube-shorts-block";
-      version = "1.2.0";
+      version = "1.3.4";
       addonId = "{34daeb50-c2d2-4f14-886a-7160b24d66a4}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3927452/youtube_shorts_block-1.2.0.xpi";
-      sha256 = "053f41d012a0b88769a7d6872fc64f76ee93e6feb04bf6e97c5bb2a50670e506";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027038/youtube_shorts_block-1.3.4.xpi";
+      sha256 = "8c2500bffd27d13c066afb705f795b2c6fbf54ae49fa5efa64ccdeb7455c3052";
       meta = with lib;
       {
         description = "Play the Youtube shorts video as if it were a normal video.\nand hide \"shorts\"tab and videos (optional).";
