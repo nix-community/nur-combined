@@ -34,10 +34,11 @@ in {
   hardware.opengl.extraPackages32 = with pkgs; [
     driversi686Linux.amdvlk
   ];
+  services.xserver.videoDrivers = [
+    "amdgpu-pro"
+  ];
 
   networking.hostName = hostname;
-
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;

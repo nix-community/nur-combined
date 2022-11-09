@@ -67,8 +67,11 @@ in
     terraform
     gnumake cmake
     clang gdb ccls
+    python3Packages.pylsp-mypy
     nodejs yarn
     openjdk11 maven ant
+    docker-compose
+    jre
   ];
 
   networking.hostName = hostname; # Define your hostname.

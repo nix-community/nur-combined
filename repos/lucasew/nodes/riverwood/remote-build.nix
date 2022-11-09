@@ -29,7 +29,7 @@
     environment.etc."nix/machines.d/.00-genetsec".text = ''
       ssh-ng://lucasew@192.168.0.101 x86_64-linux /etc/ssh/ssh_host_ed25519_key 4 4 big-parallel,kvm,nixos-test,benchmark
       ssh-ng://lucasew@192.168.0.102 x86_64-linux /etc/ssh/ssh_host_ed25519_key 4 4 big-parallel,kvm,nixos-test,benchmark
-      ssh-ng://lucasew@192.168.0.103 x86_64-linux /etc/ssh/ssh_host_ed25519_key4 4 big-parallel,kvm,nixos-test,benchmark
+      ssh-ng://lucasew@192.168.0.103 x86_64-linux /etc/ssh/ssh_host_ed25519_key 4 4 big-parallel,kvm,nixos-test,benchmark
     '';
   };
 
