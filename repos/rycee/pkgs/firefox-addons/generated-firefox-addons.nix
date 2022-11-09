@@ -710,7 +710,7 @@
       sha256 = "cd2cec8c83eaa60cd5bea490bd66de9393a0ea1c8a38cfbc82594b6161dcc00a";
       meta = with lib;
       {
-        homepage = "https://browser.mt";
+        homepage = "https://blog.mozilla.org/en/mozilla/local-translation-add-on-project-bergamot/";
         description = "Translate websites in your browser without using the cloud.";
         license = licenses.mpl20;
         platforms = platforms.all;
@@ -1218,10 +1218,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.101.0.2";
+      version = "4.102.1.8";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984651/lastpass_password_manager-4.101.0.2.xpi";
-      sha256 = "44294c1cb711a5d566a17de6087e4825755e81944735e6f182de4cf9d63e8cfc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4019352/lastpass_password_manager-4.102.1.8.xpi";
+      sha256 = "ee484e832186d44200ffad465cfd25835d62e42406981d942b6148b26c36bf5a";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1354,10 +1354,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.6.1";
+      version = "4.7.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000537/mailvelope-4.6.1.xpi";
-      sha256 = "dc9e8f83bb14517a1714a29c066ae3d559a92ac65688a9effcb713d7e6749c86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027599/mailvelope-4.7.0.xpi";
+      sha256 = "5cb57a8e9d7517aaaa5dc8afa38ae0076aff15462f362799575a220fd5758561";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1407,10 +1407,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.1.3";
+      version = "4.1.4";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026505/modheader_firefox-4.1.3.xpi";
-      sha256 = "4e8028b0993a3fab662edd7c69583e99ea8cafb73a9d5cda37f250c38852f00e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027762/modheader_firefox-4.1.4.xpi";
+      sha256 = "5e055836325ff9aa5bf8d62bf139ca7ec4108a2834ecf9cfe8941072ff0713b0";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2829,10 +2829,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.46";
+      version = "6.10.47";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026806/wappalyzer-6.10.46.xpi";
-      sha256 = "a931234a60592a6ee3c47f15bbeaf06b9259d39e7e1319e4ed7c7041ad5e164d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027805/wappalyzer-6.10.47.xpi";
+      sha256 = "82d6fea2e97a63a787d2a9f0144fd92589457f9505bd95a360133b2d5fffb873";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
