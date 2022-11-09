@@ -6,4 +6,5 @@
   overlays = import ./overlays;
 
   readarr = pkgs.callPackage ./pkgs/readarr { };
+  jellyseerr = pkgs.callPackage ./pkgs/jellyseerr { };
 }
