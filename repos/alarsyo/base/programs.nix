@@ -31,6 +31,8 @@
       tree
       wget
       jq
+      pciutils
+      usbutils
       # development
       
       alejandra
