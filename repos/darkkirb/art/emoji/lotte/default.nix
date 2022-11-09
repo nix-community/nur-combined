@@ -14,7 +14,7 @@
       nativeBuildInputs = [libjxl imagemagick];
       buildPhase = ''
         djxl $name.jxl $name.png
-        convert $name.png -scale 128x1:28\> $name-scaled.png
+        convert $name.png -scale 128x128\> $name-scaled.png
       '';
       installPhase = ''
         cp $name-scaled.png $out
