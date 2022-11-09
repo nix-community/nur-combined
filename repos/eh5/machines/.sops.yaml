@@ -1,9 +1,15 @@
 keys:
   - &admin age1gthghs3z7u4d43lthvg2rsx8may0rjltfud8urkughra9kc04aqqlzz8z0
   - &machine_r2s age1x5u22utzm52d2apd3klpz8u39l5pd7v6xlyv2kef748edl2meysqrrkz25
+  - &machine_srv_m age1s9mhuu5grlqwkesns3jz5skevkmm5jry9uqp5vs8dza0542stsksqcssd0
 creation_rules:
   - path_regex: r2s/.*
     key_groups:
       - age:
           - *admin
           - *machine_r2s
+  - path_regex: srv-m/.*
+    key_groups:
+      - age:
+          - *admin
+          - *machine_srv_m

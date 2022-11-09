@@ -86,13 +86,22 @@
           system = systems.aarch64-linux;
           inherit self nixpkgs sops-nix;
         };
+        nixos-srv-m = import ./machines/srv-m {
+          system = systems.x86_64-linux;
+          inherit self nixpkgs sops-nix;
+        };
       };
 
-      deploy.nodes.nixos-r2s = with deploy-rs.lib.aarch64-linux; {
+      deploy.nodes.r2s = with deploy-rs.lib.aarch64-linux; {
         hostname = "r2s";
         sshUser = "root";
         fastConnection = true;
         profiles.system.path = activate.nixos self.nixosConfigurations.nixos-r2s;
+      };
+      deploy.nodes.srv-m = with deploy-rs.lib.x86_64-linux; {
+        hostname = "srv-m";
+        sshUser = "root";
+        profiles.system.path = activate.nixos self.nixosConfigurations.nixos-srv-m;
       };
     };
 }

@@ -1,20 +1,44 @@
 { config, pkgs, lib, ... }:
+let
+  secrets = config.sops.secrets;
+  rspamdUser = config.services.rspamd.user;
+in
 {
-  sops.defaultSopsFormat = "binary";
-  sops.secrets.mosdnsConfig = {
-    name = "mosdns.yaml";
-    sopsFile = ./secrets/mosdns.yaml.sops;
+  sops = {
+    defaultSopsFormat = "yaml";
+    defaultSopsFile = ./secrets/secrets.yaml;
+    secrets = {
+      acmeEnv = { };
+      postScript = { mode = "0500"; };
+      trustedNetworks = { };
+      passwdFile = { };
+      vaccounts = { };
+      virtual = { };
+      vmailbox = { };
+      "eh5.me.dkim.key".owner = rspamdUser;
+      "sokka.cn.dkim.key".owner = rspamdUser;
+      "chika.xin.dkim.key".owner = rspamdUser;
+    };
   };
-  sops.secrets.tproxyRule.sopsFile = ./secrets/tproxy.nft.sops;
   sops.secrets.v2rayConfig = {
     name = "v2ray.json";
-    sopsFile = ./secrets/v2ray.v4.json.sops;
+    format = "binary";
+    sopsFile = ./secrets/v2ray.v5.json.sops;
+  };
+  sops.secrets.mailCryptPrivKey = {
+    name = "ecprivkey.pem";
+    format = "binary";
+    sopsFile = ./secrets/ecprivkey.pem.sops;
+  };
+  sops.secrets.mailCryptPubKey = {
+    name = "ecpubkey.pem";
+    format = "binary";
+    sopsFile = ./secrets/ecpubkey.pem.sops;
   };
 
   nix = {
     settings = {
       substituters = lib.mkForce [
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://cache.nixos.org"
         "https://eh5.cachix.org"
       ];
@@ -26,7 +50,7 @@
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = config.system.nixos.release;
 
-  networking.hostName = "nixos-r2s";
+  networking.hostName = "srv-m";
 
   time.timeZone = "Asia/Shanghai";
 
@@ -42,12 +66,11 @@
   services.openssh = {
     enable = true;
     permitRootLogin = "yes";
+    ports = lib.mkForce [ 8080 ];
   };
 
-  services.vlmcsd.enable = true;
-
   system.autoUpgrade = {
-    enable = true;
+    enable = false;
     dates = "04:00";
     randomizedDelaySec = "60min";
     flake = "github:EHfive/flakes";
@@ -63,18 +86,44 @@
     ];
   };
 
+  security.acme = {
+    acceptTerms = true;
+    defaults = {
+      email = "i+acme@eh5.me";
+      keyType = "ec256";
+      dnsProvider = "cloudflare";
+      credentialsFile = secrets.acmeEnv.path;
+    };
+    certs."eh5.me" = {
+      extraDomainNames = [
+        "sokka.cn"
+        "*.eh5.me"
+        "*.sokka.cn"
+      ];
+      postRun = ''
+        export PATH="$PATH:${pkgs.sshpass}/bin"
+        bash ${secrets.postScript.path}
+      '';
+    };
+  };
+  security.dhparams.enable = true;
+
+  services.v2ray-next = {
+    enable = true;
+    useV5Format = true;
+    configFile = config.sops.secrets.v2rayConfig.path;
+  };
+
   environment.systemPackages = with pkgs; [
     bind
-    f2fs-tools
     file
     htop
     iperf
+    libarchive
     lm_sensors
     lsof
     screen
-    usbutils
     v2ray-next
-    vlmcsd
   ] ++ (with config.boot.kernelPackages; [
     cpupower
   ]);
