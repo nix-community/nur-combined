@@ -18,9 +18,14 @@ rec {
 
   geos = pkgs.callPackage ./pkgs/geos { };
   proj = pkgs.callPackage ./pkgs/proj { };
+  libspatialindex = pkgs.callPackage ./pkgs/libspatialindex { };
 
   libgeotiff = pkgs.callPackage ./pkgs/libgeotiff {
     inherit proj;
+  };
+
+  libspatialite = pkgs.callPackage ./pkgs/libspatialite {
+    inherit geos proj;
   };
 
   gdal = pkgs.callPackage ./pkgs/gdal {
