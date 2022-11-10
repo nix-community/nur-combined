@@ -10,7 +10,7 @@
 
     <incomingServer type="imap">
       <hostname>mail.eh5.me</hostname>
-      <port>995</port>
+      <port>993</port>
       <socketType>SSL</socketType>
       {{if $mailaddr}}
       <username>{{$mailaddr}}</username>
@@ -27,5 +27,9 @@
       {{end}}
       <authentication>password-cleartext</authentication>
     </outgoingServer>
+    <documentation url="https://mail.eh5.me">
+      <descr lang="zh">文档</descr>
+      <descr lang="en">Documentation</descr>
+    </documentation>
   </emailProvider>
 </clientConfig>

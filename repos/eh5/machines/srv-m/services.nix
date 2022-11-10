@@ -94,8 +94,8 @@ in
       install -d $PERM ${caddyCfg.dataDir}
       rm -rf ${caddyCfg.dataDir}/autoconfig ${caddyCfg.dataDir}/autodiscover
       install -d $PERM ${caddyCfg.dataDir} ${caddyCfg.dataDir}/autoconfig ${caddyCfg.dataDir}/autodiscover
-      cp -rt ${caddyCfg.dataDir}/autoconfig ${./files/autoconfig}/.
-      cp -rt ${caddyCfg.dataDir}/autodiscover ${./files/autodiscover}/.
+      cp -r -t ${caddyCfg.dataDir}/autoconfig ${./files/autoconfig}/.
+      cp -r -t ${caddyCfg.dataDir}/autodiscover ${./files/autodiscover}/.
       chown -R ${caddyCfg.user}:${caddyCfg.group} ${caddyCfg.dataDir}/autoconfig ${caddyCfg.dataDir}/autodiscover
     '';
     requiredBy = [ "caddy.service" ];

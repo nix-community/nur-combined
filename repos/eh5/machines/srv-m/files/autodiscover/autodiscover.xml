@@ -11,7 +11,7 @@
       <Protocol>
         <Type>IMAP</Type>
         <Server>mail.eh5.me</Server>
-        <Port>995</Port>
+        <Port>993</Port>
         <DomainRequired>on</DomainRequired>
         <SPA>off</SPA>
         <SSL>on</SSL>
