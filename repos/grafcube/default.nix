@@ -16,4 +16,5 @@
 
   lora-cyrillic = pkgs.callPackage ./pkgs/lora-cyrillic { };
   doasedit = pkgs.callPackage ./pkgs/doasedit { };
+  antidot = pkgs.callPackage ./pkgs/antidot { };
 }
