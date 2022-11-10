@@ -31,13 +31,14 @@ mkYarnPackage rec {
 
   buildPhase = ''
     runHook preBuild
-    yarn --offline build
-    runHook postbuild
+    yarn build
+    runHook postBuild
   '';
 
   postInstall = ''
     makeWrapper '${nodejs}/bin/node' "$out/bin/jellyseerr" --add-flags \
-        "$out/libexec/jellyseerr/deps/jellyseerr/dist/index.js"
+        "$out/libexec/jellyseerr/deps/jellyseerr/dist/index.js" \
+        --set NODE_ENV production
   '';
 
   passthru.updateScript = ./update.sh;
