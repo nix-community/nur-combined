@@ -6,8 +6,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "cyrealtype";
-    repo = "Lora-Cyrillic";
-    rev = "v3.003";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "1vdw2c4q18fvjnls541xg4031sswphd71wr3ybydv77m9dwp2szn";
   };
 
