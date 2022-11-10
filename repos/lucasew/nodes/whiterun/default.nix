@@ -13,6 +13,7 @@ in {
     # ./kubernetz.nix
     ./sshfs.nix
     ./plymouth.nix
+    ./rocm-gambiarra.nix
   ];
   boot = {
     supportedFilesystems = [ "ntfs" ];
