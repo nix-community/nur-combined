@@ -87,6 +87,10 @@
           };
         });
 
-      nixosModules = import ./modules { inherit overlays; };
+      nixosModules = {
+        qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix {
+          inherit overlays packages lib;
+        };
+      };
     };
 }
