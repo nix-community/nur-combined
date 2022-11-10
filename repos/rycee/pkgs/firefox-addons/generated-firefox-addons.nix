@@ -718,10 +718,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.65";
+      version = "2.66";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019032/firemonkey-2.65.xpi";
-      sha256 = "b2bbe051a646538e8a3e920390f44fa0fd7cc1f8276544940eeff5fbbaf851fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027989/firemonkey-2.66.xpi";
+      sha256 = "a85d461f22ac567787974ffbe6ef9714819ce4ebf3cbe1f900a4166ee1fe05c8";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -2586,10 +2586,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.8";
+      version = "3.9.9";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025276/tree_style_tab-3.9.8.xpi";
-      sha256 = "ea509937742b045d5764ee64b590051c72b43496ea69da7f4e651cf5c0140db4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027767/tree_style_tab-3.9.9.xpi";
+      sha256 = "c052095b9aa6c9c69d942ac12bf4bb3ef91690dbcc5825b21dd6c79d696fd003";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2647,10 +2647,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.44.4";
+      version = "1.45.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003969/ublock_origin-1.44.4.xpi";
-      sha256 = "0be550c9a27c040d04ad71954dd9e9a4967a27d48ffa2cdfe91171752e152685";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4027736/ublock_origin-1.45.0.xpi";
+      sha256 = "dd7e1147e19d4091a598de8da3d2f426d1b1c8b036120f91760aff013ac0ced7";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
