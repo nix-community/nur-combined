@@ -50,7 +50,7 @@
     "2021-07-02-sammythetanuki-lottegrab"
     "2021-07-16-sammythetanuki-lottecarostacc"
     "2021-08-03-sammythetanuki-everyonesproblem"
-    "2021-08-10-mizuki-peekabu-sticker"
+    "2021-08-20-mizuki-peekabu-sticker"
     "2021-09-13-sammythetanuki-plushhug"
     "2021-10-28-pulexart-me-climbTree"
     "2021-10-28-pulexart-me-dab"
