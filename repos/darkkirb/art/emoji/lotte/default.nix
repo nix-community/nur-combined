@@ -39,15 +39,18 @@
     "2020-01-17-workerq-lottehug"
     "2020-01-17-workerq-lottesmile"
     "2021-03-23-sammythetanuki-lottegoodsalt"
+    "2021-03-26-zomlette-agender-screen-tp"
     "2021-04-21-sammythetanuki-lottecoffeemachine"
     "2021-05-03-sammythetanuki-lotteflatfuck"
     "2021-05-03-sammythetanuki-lottehug"
     "2021-05-03-sammythetanuki-lottesnuggle"
     "2021-05-03-sammythetanuki-lottetrash"
+    "2021-05-04-mizuki-lotteshocked-sticker"
     "2021-05-29-sammythetanuki-lottepizza"
     "2021-07-02-sammythetanuki-lottegrab"
     "2021-07-16-sammythetanuki-lottecarostacc"
     "2021-08-03-sammythetanuki-everyonesproblem"
+    "2021-08-10-mizuki-peekabu-sticker"
     "2021-09-13-sammythetanuki-plushhug"
     "2021-10-28-pulexart-me-climbTree"
     "2021-10-28-pulexart-me-dab"
@@ -79,6 +82,7 @@
     "2022-06-13-sammythetanuki-lotteplushnothoughts"
     "2022-07-14-sammythetanuki-maybecringe-transparent"
     "2022-11-06-pulexart-me-heartTherian"
+    "2022-11-10-mizuki-peekabu"
   ];
 in
   stdenvNoCC.mkDerivation {
