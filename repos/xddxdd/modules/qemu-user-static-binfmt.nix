@@ -3,7 +3,7 @@
 { config, pkgs, ... }:
 let
   qemuPackage = packages."${pkgs.system}".qemu-user-static;
-  qemuSuffix = "-suffix";
+  qemuSuffix = "-static";
 
   # https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh
   qemu-user-static = {
