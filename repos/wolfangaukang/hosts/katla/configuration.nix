@@ -1,4 +1,4 @@
-{ lib, pkgs, config, modulesPath, username, ... }:
+{  config, pkgs, modulesPath, username, ... }:
 
 {
   imports = [
@@ -7,9 +7,9 @@
 
   wsl = {
     enable = true;
-    automountPath = "/mnt";
     defaultUser = username;
     startMenuLaunchers = true;
+    wslConf.automount.root = "/mnt";
 
     # Enable integration with Docker Desktop (needs to be installed)
     # docker.enable = true;

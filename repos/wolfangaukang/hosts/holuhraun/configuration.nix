@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hostname, ... }:
 
 {
   imports =
@@ -15,26 +15,9 @@
       ../../profiles/nixos/security.nix
       ../../profiles/nixos/time.nix
       ../../profiles/nixos/users.nix
-      # This will be commented because we are using flakes
-      # ./hardware-extras.nix
     ];
 
-  networking.hostName = "holuhraun";
-
-  # IMPERMANENCE
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    directories = [
-      "/etc/NetworkManager/system-connections"
-      "/etc/nixos"
-      "/etc/secrets/initrd"
-      "/var/lib"
-      "/var/log"
-    ];
-    files = [
-      "/etc/machine-id"
-    ];
-  };
+  networking.hostName = hostname;
 
   profile = {
     gaming = {

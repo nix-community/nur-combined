@@ -9,6 +9,8 @@ in
 {
   importAttrset = path: builtins.mapAttrs (_: import) (import path);
 
+  importHmUsers = users: builtins.listToAttrs (map (user: { name = "users.${user}"; value = import ../home/${user}/home.nix; }) users);
+
   forAllSystems = f: genAttrs pkgs_systems (system: f system);
 
   mkSystem =
@@ -18,14 +20,22 @@ in
     , extra-modules ? []
     , overlays ? []
     , enable-hm ? true
+    , enable-impermanence ? true
     }:
 
+    let
+      hostConfig = [ ../hosts/${hostname}/configuration.nix ];
+
+    in
     {
-      modules = [
-        ../hosts/${hostname}/configuration.nix
-        inputs.impermanence.nixosModules.impermanence
-      ] ++ extra-modules
-        ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( import ../hosts/common/hm-module.nix { inherit inputs hostname overlays username; } ) ];
+      modules = hostConfig
+        ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( import ../hosts/common/hm-module.nix { inherit inputs hostname overlays username; } ) ]
+        ++ optionals (enable-impermanence) [
+          inputs.impermanence.nixosModules.impermanence
+          ../hosts/${hostname}/impermanence.nix
+        ]
+        ++ extra-modules;
+      extraArgs = { inherit hostname; };
     };
 
   mkHome =

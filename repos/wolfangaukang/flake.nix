@@ -28,9 +28,7 @@
       # Local exports
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) importAttrset forAllSystems mkHome mkSystem;
-      local-modules = exportModules [
-        ./modules/nixos/personal
-      ];
+      local-modules = exportModules [ ./modules/nixos/personal ];
 
       # Overlays
       overlays = [
@@ -73,27 +71,40 @@
       };
 
       hosts = {
-        eyjafjallajokull = mkSystem {
-          inherit inputs overlays username;
-          hostname = "eyjafjallajokull";
-          extra-modules = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
-        };
-        holuhraun = mkSystem {
-          inherit inputs overlays username;
-          hostname = "holuhraun";
-          extra-modules = [ nixos-hardware.nixosModules.system76 ];
-        };
-        Katla = let
-          username = "nixos";
-        in mkSystem {
-          inherit inputs overlays username;
-          hostname = "katla";
-          extra-modules = [ nixos-wsl.nixosModules.wsl ];
-        } // { specialArgs = { inherit username; }; };
+        eyjafjallajokull =
+          let
+            nixosHardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
+          in mkSystem {
+            inherit inputs overlays username;
+            hostname = "eyjafjallajokull";
+            extra-modules = nixosHardware;
+          };
+
+        holuhraun =
+          let
+            nixosHardware = [ nixos-hardware.nixosModules.system76 ];
+          in mkSystem {
+            inherit inputs overlays username;
+            hostname = "holuhraun";
+            extra-modules = nixosHardware;
+          };
+
+        Katla =
+          let
+            username = "nixos";
+            nixosWSL = [ nixos-wsl.nixosModules.wsl ];
+          in mkSystem {
+            inherit inputs overlays username;
+            hostname = "katla";
+            extra-modules = nixosWSL;
+            enable-impermanence = false;
+          } // { specialArgs = { inherit username; }; };
+
         vm = mkSystem {
           inherit inputs overlays username;
           hostname = "raudholar";
           enable-hm = false;
+          enable-impermanence = false;
         } // { channelName = "cloudflare-warp"; };
       };
 
