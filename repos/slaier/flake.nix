@@ -3,7 +3,7 @@
   inputs.nixos.url = "github:NixOS/nixpkgs/nixos-22.05";
   outputs = { self, nixos }:
     let
-      inherit (nixos.lib.attrsets) filterAttrs genAttrs;
+      inherit (nixos.lib.attrsets) filterAttrs genAttrs mapAttrs;
       inherit (nixos.lib.trivial) flip pipe;
 
       systems = [
@@ -28,6 +28,7 @@
         # Remove packages not compatible with this system.
         (filterAttrs (attr: drv: drv ? meta.platforms -> builtins.elem system drv.meta.platforms))
       ]);
+      nixosModules = mapAttrs (name: path: import path) (import ./modules);
       formatter = forAllSystems (system: pkgs: pkgs.nixpkgs-fmt);
     };
 }
