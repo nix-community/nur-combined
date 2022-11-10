@@ -7,6 +7,8 @@ lib.nixosSystem rec {
   inherit system;
   modules = [
     ./configuration.nix
+    ./fail2ban.nix
+    ./services.nix
     ./mail.nix
     ./mail-dovecot.nix
     ./mail-postfix.nix

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
+  <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a">
+    <User>
+      <DisplayName>eh5's Mail</DisplayName>
+    </User>
+    <Account>
+      <AccountType>email</AccountType>
+      <Action>settings</Action>
+      <ServiceHome>https://mail.eh5.me</ServiceHome>
+      <Protocol>
+        <Type>IMAP</Type>
+        <Server>mail.eh5.me</Server>
+        <Port>995</Port>
+        <DomainRequired>on</DomainRequired>
+        <SPA>off</SPA>
+        <SSL>on</SSL>
+        <AuthRequired>on</AuthRequired>
+      </Protocol>
+      <Protocol>
+        <Type>SMTP</Type>
+        <Server>mail.eh5.me</Server>
+        <Port>465</Port>
+        <LoginName>johndoe</LoginName>
+        <DomainRequired>on</DomainRequired>
+        <SPA>off</SPA>
+        <SSL>on</SSL>
+        <AuthRequired>on</AuthRequired>
+        <SMTPLast>off</SMTPLast>
+      </Protocol>
+    </Account>
+  </Response>
+</Autodiscover>

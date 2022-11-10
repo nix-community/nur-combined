@@ -43,7 +43,6 @@ in
     workers.controller = {
       count = 1;
       bindSockets = [
-        "*:11334"
         {
           socket = "/run/rspamd/worker-controller.sock";
           mode = "0666";

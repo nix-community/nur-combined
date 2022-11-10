@@ -86,36 +86,9 @@ in
     ];
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults = {
-      email = "i+acme@eh5.me";
-      keyType = "ec256";
-      dnsProvider = "cloudflare";
-      credentialsFile = secrets.acmeEnv.path;
-    };
-    certs."eh5.me" = {
-      extraDomainNames = [
-        "sokka.cn"
-        "*.eh5.me"
-        "*.sokka.cn"
-      ];
-      postRun = ''
-        export PATH="$PATH:${pkgs.sshpass}/bin"
-        bash ${secrets.postScript.path}
-      '';
-    };
-  };
-  security.dhparams.enable = true;
-
-  services.v2ray-next = {
-    enable = true;
-    useV5Format = true;
-    configFile = config.sops.secrets.v2rayConfig.path;
-  };
-
   environment.systemPackages = with pkgs; [
     bind
+    caddy
     file
     htop
     iperf

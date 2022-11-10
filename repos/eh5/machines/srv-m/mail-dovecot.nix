@@ -7,7 +7,7 @@ let
   stateDir = "/var/lib/dovecot";
   pipeBin = pkgs.stdenv.mkDerivation {
     name = "pipe_bin";
-    src = ./dovecot/pipe_bin;
+    src = ./files/pipe_bin;
     buildInputs = with pkgs; [ makeWrapper coreutils bash rspamd ];
     buildCommand = ''
       mkdir -p $out/pipe/bin
@@ -144,11 +144,11 @@ in
         port = 993
         ssl = yes
       }
-      inet_listener imap {
+      inet_listener imap_haproxy {
         port = 10143
         haproxy = yes
       }
-      inet_listener imaps {
+      inet_listener imaps_haproxy {
         port = 10993
         ssl = yes
         haproxy = yes
@@ -185,15 +185,13 @@ in
     }
   '';
 
-  systemd.services.dovecot2 = {
-    preStart = ''
-      rm -rf '${stateDir}/imap_sieve'
-      mkdir '${stateDir}/imap_sieve'
-      cp -p "${./dovecot/imap_sieve}"/*.sieve '${stateDir}/imap_sieve/'
-      for k in "${stateDir}/imap_sieve"/*.sieve ; do
-        ${pkgs.dovecot_pigeonhole}/bin/sievec "$k"
-      done
-      chown -R '${dovecot2Cfg.mailUser}:${dovecot2Cfg.mailGroup}' '${stateDir}/imap_sieve'
-    '';
-  };
+  systemd.services.dovecot2.preStart = ''
+    rm -rf '${stateDir}/imap_sieve'
+    mkdir '${stateDir}/imap_sieve'
+    cp -p "${./files/imap_sieve}"/*.sieve '${stateDir}/imap_sieve/'
+    for k in "${stateDir}/imap_sieve"/*.sieve ; do
+      ${pkgs.dovecot_pigeonhole}/bin/sievec "$k"
+    done
+    chown -R '${dovecot2Cfg.mailUser}:${dovecot2Cfg.mailGroup}' '${stateDir}/imap_sieve'
+  '';
 }

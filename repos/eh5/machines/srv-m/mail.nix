@@ -5,7 +5,8 @@
 with lib;
 let
   cfg = config.mail;
-  certDir = config.security.acme.certs."eh5.me".directory;
+  certName = "eh5.me";
+  certDir = config.security.acme.certs.${certName}.directory;
 in
 {
   options.mail = {
@@ -15,11 +16,9 @@ in
     };
     certFile = mkOption {
       type = types.path;
-      default = "${certDir}/cert.pem";
     };
     keyFile = mkOption {
       type = types.path;
-      default = "${certDir}/key.pem";
     };
     vmailUser = mkOption {
       type = types.str;
@@ -40,6 +39,15 @@ in
   };
 
   config = {
+    mail.certFile = "${certDir}/cert.pem";
+    mail.keyFile = "${certDir}/key.pem";
+    security.acme.certs.${certName}.reloadServices = [
+      "dovecot2.service"
+      "postfix.service"
+    ];
+    systemd.services.dovecot2.requires = [ "acme-finished-${certName}.target" ];
+    systemd.services.postfix.requires = [ "acme-finished-${certName}.target" ];
+
     services.dovecot2.createMailUser = false;
     users.groups.${cfg.vmailGroup} = {
       gid = cfg.vmailUid;
