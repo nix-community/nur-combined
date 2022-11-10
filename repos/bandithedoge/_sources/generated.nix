@@ -113,15 +113,15 @@
   };
   luakit = {
     pname = "luakit";
-    version = "e9c7693f387835bdf2d1ada85c2ba0b813686ebb";
+    version = "68e4ffc74ce2381f09e242d95bf03d0a4f1cc95e";
     src = fetchFromGitHub {
       owner = "luakit";
       repo = "luakit";
-      rev = "e9c7693f387835bdf2d1ada85c2ba0b813686ebb";
+      rev = "68e4ffc74ce2381f09e242d95bf03d0a4f1cc95e";
       fetchSubmodules = false;
-      sha256 = "sha256-rN9yBWCBzLp6l2x0DMXL4VBfaHbMXJAEnzC8Cp5Y5ew=";
+      sha256 = "sha256-DtoixcLq+ddbacTAo+Qq6q4k1i6thirACw1zqUeOxXo=";
     };
-    date = "2022-10-05";
+    date = "2022-11-09";
   };
   lv2vst = {
     pname = "lv2vst";
@@ -184,15 +184,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "9bff008eaedf56f7f34d46a656e672d99b4fe933";
+    version = "a740b0e240874699e9483ce71dbd737334da5a32";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "9bff008eaedf56f7f34d46a656e672d99b4fe933";
+      rev = "a740b0e240874699e9483ce71dbd737334da5a32";
       fetchSubmodules = false;
-      sha256 = "sha256-7/WOerzOzSdOxWboApy3+89SIp5hp1je+PDFHOLvNJU=";
+      sha256 = "sha256-bgbjeD2uiVxf/naPpUpiVKI3s8IHYN89SkIMT6oB+F4=";
     };
-    date = "2022-11-07";
+    date = "2022-11-09";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
