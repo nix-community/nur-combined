@@ -1,6 +1,6 @@
 # Grafcube's NUR Packages
 
-**My personal [NUR](https://github.com/Grafcube/NUR) repository**
+**My personal [NUR](https://github.com/Grafcube/nur-packages) repository**
 
 <!-- Remove this if you don't use github actions -->
 ![Build and populate cache](https://github.com/Grafcube/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
