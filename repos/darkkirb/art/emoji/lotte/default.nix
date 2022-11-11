@@ -39,7 +39,7 @@
     "2020-01-17-workerq-lottehug"
     "2020-01-17-workerq-lottesmile"
     "2021-03-23-sammythetanuki-lottegoodsalt"
-    "2021-03-26-zomlette-agender-screen-tp"
+    "2021-03-26-zomlette-agender-screem-tp"
     "2021-04-21-sammythetanuki-lottecoffeemachine"
     "2021-05-03-sammythetanuki-lotteflatfuck"
     "2021-05-03-sammythetanuki-lottehug"
