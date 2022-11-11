@@ -18,6 +18,7 @@ rec {
   sunshine = ./sunshine.nix;
   wifi = ./wifi.nix;
   rkn = ./rkn.nix;
+  rkn2 = ./rkn2.nix;
   edgevpn = ./edgevpn.nix;
   cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
