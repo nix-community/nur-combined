@@ -15,7 +15,7 @@ in {
 
   config = mkIf cfg.enable {
     fileSystems."/mnt/data" = {
-      device = "10.0.0.1:/data";
+      device = "robocat:/data";
       fsType = "nfs";
       options = [ "x-systemd.automount" "noauto" ];
     };
@@ -28,7 +28,7 @@ in {
       ];
     };
     nix.buildMachines = [{
-      hostName = "10.0.0.1";
+      hostName = "robocat";
       system = "x86_64-linux";
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" "i686-linux" ];
       maxJobs = 8;
@@ -50,6 +50,10 @@ in {
       router = "10.0.1.1";
       postStart = ''
         ip route add dev ${config.networking.edgevpn.interface} 10.0.0.0/24
+        echo -e "nameserver 10.0.0.1\nsearch local" | resolvconf -a ${config.networking.edgevpn.interface}
+      '';
+      postStop = ''
+        resolvconf -d ${config.networking.edgevpn.interface}
       '';
     };
   };
