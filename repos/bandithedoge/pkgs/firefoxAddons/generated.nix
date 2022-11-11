@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.117.7";
+    version = "2.0.117.8";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4025405/enhancer_for_youtube-2.0.117.7.xpi";
-    sha256 = "3dcc02cc5a571ae446a36a0c0781b0469b743b02c7ca1c8db74b96dfd0213970";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4028084/enhancer_for_youtube-2.0.117.8.xpi";
+    sha256 = "688d8b27c2b75feab56df73e63f1cfa99178aa00cda7b378c8541f98190aa675";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.650";
+    version = "0.1.0.652";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4027826/ruffle_rs-0.1.0.650.xpi";
-    sha256 = "7752443ae8eb20c86884893a3f1e8d7c56248469de7de074dacdf2eb73e78a4c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4028766/ruffle_rs-0.1.0.652.xpi";
+    sha256 = "1b833fb2c408ed5ce4476770f13da634cf6d32ebe6d8d6e83fd68664f4e6ff64";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
@@ -416,10 +416,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "3.9.9";
+    version = "3.9.10";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4027767/tree_style_tab-3.9.9.xpi";
-    sha256 = "c052095b9aa6c9c69d942ac12bf4bb3ef91690dbcc5825b21dd6c79d696fd003";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4028300/tree_style_tab-3.9.10.xpi";
+    sha256 = "4a26348d5aadfb0d14aa1be33c23cecf89dc1f39edc87dfe26b6e81782c1eba2";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
