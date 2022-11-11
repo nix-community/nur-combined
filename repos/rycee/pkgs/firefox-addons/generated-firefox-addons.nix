@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.7";
+      version = "2.0.117.8";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025405/enhancer_for_youtube-2.0.117.7.xpi";
-      sha256 = "3dcc02cc5a571ae446a36a0c0781b0469b743b02c7ca1c8db74b96dfd0213970";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028084/enhancer_for_youtube-2.0.117.8.xpi";
+      sha256 = "688d8b27c2b75feab56df73e63f1cfa99178aa00cda7b378c8541f98190aa675";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221107.173030";
+      version = "107.0buildid20221110.173214";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027230/francais_language_pack-107.0buildid20221107.173030.xpi";
-      sha256 = "a402ffe5f4caec2cc79c69c90114482885d03aa20467ab497771afa4f4c2f8cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028647/francais_language_pack-107.0buildid20221110.173214.xpi";
+      sha256 = "bce73ad635ef9d985e2437f5162f41ee77f3b153c6381d97028360d45ce02338";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2586,10 +2586,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.9";
+      version = "3.9.10";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027767/tree_style_tab-3.9.9.xpi";
-      sha256 = "c052095b9aa6c9c69d942ac12bf4bb3ef91690dbcc5825b21dd6c79d696fd003";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028300/tree_style_tab-3.9.10.xpi";
+      sha256 = "4a26348d5aadfb0d14aa1be33c23cecf89dc1f39edc87dfe26b6e81782c1eba2";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
