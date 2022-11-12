@@ -145,7 +145,7 @@ in {
       systemd.services.edgevpn-script = {
         after = [ "sys-devices-virtual-net-${cfg.interface}.device" ];
         bindsTo = [ "sys-devices-virtual-net-${cfg.interface}.device" ];
-        wantedBy = [ "sys-devices-virtual-net-${cfg.interface}.device" ];
+        wantedBy = [ "multi-user.target" ];
         description = "EdgeVPN script";
         path = with pkgs; [ iproute2 openresolv ];
         serviceConfig = {
