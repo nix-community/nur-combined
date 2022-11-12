@@ -301,7 +301,7 @@
     },
     "tailwindcss-intellisense": {
         "cargoLocks": null,
-        "date": "2022-11-09",
+        "date": "2022-11-11",
         "extract": null,
         "name": "tailwindcss-intellisense",
         "passthru": null,
@@ -313,11 +313,11 @@
             "name": null,
             "owner": "tailwindlabs",
             "repo": "tailwindcss-intellisense",
-            "rev": "a740b0e240874699e9483ce71dbd737334da5a32",
-            "sha256": "sha256-bgbjeD2uiVxf/naPpUpiVKI3s8IHYN89SkIMT6oB+F4=",
+            "rev": "6b3e598e5378812b42db8a208db4980c82b60a10",
+            "sha256": "sha256-CfeGATXOfpzw/tjjZm2bmawyArCHIjd3/WnIyFR8vP4=",
             "type": "github"
         },
-        "version": "a740b0e240874699e9483ce71dbd737334da5a32"
+        "version": "6b3e598e5378812b42db8a208db4980c82b60a10"
     },
     "xmonad-entryhelper": {
         "cargoLocks": null,

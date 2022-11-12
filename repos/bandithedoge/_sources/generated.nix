@@ -184,15 +184,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "a740b0e240874699e9483ce71dbd737334da5a32";
+    version = "6b3e598e5378812b42db8a208db4980c82b60a10";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "a740b0e240874699e9483ce71dbd737334da5a32";
+      rev = "6b3e598e5378812b42db8a208db4980c82b60a10";
       fetchSubmodules = false;
-      sha256 = "sha256-bgbjeD2uiVxf/naPpUpiVKI3s8IHYN89SkIMT6oB+F4=";
+      sha256 = "sha256-CfeGATXOfpzw/tjjZm2bmawyArCHIjd3/WnIyFR8vP4=";
     };
-    date = "2022-11-09";
+    date = "2022-11-11";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";

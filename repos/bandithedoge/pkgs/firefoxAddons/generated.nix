@@ -275,13 +275,13 @@
   };
   "privacy-pass" = buildFirefoxXpiAddon {
     pname = "privacy-pass";
-    version = "3.0.3";
+    version = "3.0.4";
     addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3962152/privacy_pass-3.0.3.xpi";
-    sha256 = "41fbbd038b3fb9b18edf41f8b10c9726ea3108753e3906112ab222afdccb9884";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4029152/privacy_pass-3.0.4.xpi";
+    sha256 = "acb6d3001e2af078792bdde7154113dacb9434eb0d55d81e96923b11a0594a9b";
     meta = with lib; {
       homepage = "https://privacypass.github.io";
-      description = "Client support for Privacy Pass anonymous authorization protocol.";
+      description = "Client-side of the Privacy Pass protocol providing unlinkable cryptographic tokens.";
       license = licenses.bsd2;
       platforms = platforms.all;
     };
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.652";
+    version = "0.1.0.653";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4028766/ruffle_rs-0.1.0.652.xpi";
-    sha256 = "1b833fb2c408ed5ce4476770f13da634cf6d32ebe6d8d6e83fd68664f4e6ff64";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4029123/ruffle_rs-0.1.0.653.xpi";
+    sha256 = "07a42151ef819dd76151fcc4322f7afdc1043366bc0ee6910f258f1938b01a71";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
