@@ -265,13 +265,13 @@ let
         sha512 = "mQ+suqKJVyeuwGYHAdjMFqjCyfl8+Ldnxuyp3ldiMBFKkvytrXUZWaiPCEav8qDHKty44bD+qV1IP4T+w+xXRA==";
       };
     };
-    "espree-9.4.0" = {
+    "espree-9.4.1" = {
       name = "espree";
       packageName = "espree";
-      version = "9.4.0";
+      version = "9.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/espree/-/espree-9.4.0.tgz";
-        sha512 = "DQmnRpLj7f6TgN/NYb0MTzJXL+vJF9h3pHy4JhCIs3zwcgez8xmGg3sXHcEO97BrmO2OSvCwMdfdlyl+E9KjOw==";
+        url = "https://registry.npmjs.org/espree/-/espree-9.4.1.tgz";
+        sha512 = "XwctdmTO6SIvCzd9810yyNzIrOrqNYV9Koizx4C/mRhf9uq0o4yHoCEU/670pOxOL/MSraektvSAji79kX90Vg==";
       };
     };
     "esquery-1.4.0" = {
@@ -872,8 +872,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.26.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.26.0.tgz"; sha1 = "2bcc8836e6c424c4ac26a5674a70d44d84f2181d"; };
+    version = "8.27.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.27.0.tgz"; sha1 = "d547e2f7239994ad1faa4bb5d84e5d809db7cf64"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.3"
       sources."@humanwhocodes/config-array-0.11.7"
@@ -907,7 +907,7 @@ let
         ];
       })
       sources."eslint-visitor-keys-3.3.0"
-      sources."espree-9.4.0"
+      sources."espree-9.4.1"
       sources."esquery-1.4.0"
       sources."esrecurse-4.3.0"
       sources."estraverse-5.3.0"
