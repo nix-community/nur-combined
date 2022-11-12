@@ -1861,14 +1861,14 @@
       };
     "privacy-pass" = buildFirefoxXpiAddon {
       pname = "privacy-pass";
-      version = "3.0.3";
+      version = "3.0.4";
       addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3962152/privacy_pass-3.0.3.xpi";
-      sha256 = "41fbbd038b3fb9b18edf41f8b10c9726ea3108753e3906112ab222afdccb9884";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029152/privacy_pass-3.0.4.xpi";
+      sha256 = "acb6d3001e2af078792bdde7154113dacb9434eb0d55d81e96923b11a0594a9b";
       meta = with lib;
       {
         homepage = "https://privacypass.github.io";
-        description = "Client support for Privacy Pass anonymous authorization protocol.";
+        description = "Client-side of the Privacy Pass protocol providing unlinkable cryptographic tokens.";
         license = licenses.bsd2;
         platforms = platforms.all;
         };
@@ -2222,10 +2222,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.6.3";
+      version = "0.7.0";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4012423/torproject_snowflake-0.6.3.xpi";
-      sha256 = "51dc0901b066229669ebbca8b51faa57d7fd967c7bf0e475d62c2674af812084";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029067/torproject_snowflake-0.7.0.xpi";
+      sha256 = "ff6211ebcbf1ac9352e31845a974f28a9bb7faea749bab96a1e0eee2efe39ea5";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
