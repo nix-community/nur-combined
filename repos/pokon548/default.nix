@@ -17,4 +17,5 @@ rec {
   allowUnfree = true;
 
   todoist = pkgs.callPackage ./packages/todoist {};
+  #plasma5-wallpapers-dynamic = pkgs.callPackage ./packages/plasma5-wallpapers-dynamic {};
 }
