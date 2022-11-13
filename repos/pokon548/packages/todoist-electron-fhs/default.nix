@@ -10,9 +10,9 @@ let
     sha256 = "sha256-DfNFDiGYTFGetVRlAjpV/cdWcGzRDEGZjR0Dc9aAtXc=";
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extractType2 { inherit name src; };
 
-in appimageTools.wrapType2 {
+in appimageTools.wrapType2 rec {
   inherit version name src;
 
   extraInstallCommands = ''
