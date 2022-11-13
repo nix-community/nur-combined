@@ -16,6 +16,7 @@ rec {
 
   allowUnfree = true;
 
-  todoist = pkgs.callPackage ./packages/todoist {};
+  todoist-electron = pkgs.callPackage ./packages/todoist-electron {};
+  latte-dock-git = pkgs.callPackage ./packages/latte-dock-git {};
   #plasma5-wallpapers-dynamic = pkgs.callPackage ./packages/plasma5-wallpapers-dynamic {};
 }
