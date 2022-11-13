@@ -14,5 +14,7 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  allowUnfree = true;
+
   todoist = pkgs.callPackage ./packages/todoist {};
 }
