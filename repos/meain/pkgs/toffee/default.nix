@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "toffee";
-  version = "0.5.1";
+  version = "0.5.2";
 
   src = fetchFromGitHub {
     owner = "meain";
     repo = pname;
     rev = version;
-    sha256 = "sha256-L2w7NAMasRZ/MM0AqHkPE4OmbEQ4KKtHuhKvJTX51kI=";
+    sha256 = "sha256-Itwz7FdF6cuwEww1/8L8qEvrA3O69isFe4bjuWxXzZA=";
   };
 
-  cargoSha256 = "sha256-UJikH+IcuRCHAYOOr1Wf1YSutQAlybzuJzl/6JjGFpQ=";
+  cargoSha256 = "sha256-4qAIRs649oQHmRTRyAddPXJG3R/Tah7tFRbj/h6L3Xk=";
 
   doInstallCheck = true;
 
