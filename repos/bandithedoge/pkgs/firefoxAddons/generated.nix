@@ -288,10 +288,10 @@
   };
   "pronoundb" = buildFirefoxXpiAddon {
     pname = "pronoundb";
-    version = "0.10.0";
+    version = "0.11.0";
     addonId = "firefox-addon@pronoundb.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4000981/pronoundb-0.10.0.xpi";
-    sha256 = "7af3a69e9d5aad03d5efe2025f5ee53d1d34148d468eecfb3230d0aa117c6552";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4029378/pronoundb-0.11.0.xpi";
+    sha256 = "2230ce017ec8be488421845ca8345fbb9253ba9ad31cfac047d761102b51ef56";
     meta = with lib; {
       homepage = "https://pronoundb.org";
       description = "PronounDB is a browser extension that helps people know each other's pronouns easily and instantly. Whether hanging out on a Twitch chat, or on any of the supported platforms, PronounDB will make your life easier.";
