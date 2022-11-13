@@ -31,6 +31,7 @@ jobs:
         run: |
           nix flake update --commit-lock-file --commit-lockfile-summary "nix(deps): update inputs"
       - name: Update nvfetcher sources
+        working-directory: ./pkgs
         run: |
           nix shell nixpkgs#nvfetcher -c nvfetcher --commit-changes
       - name: Push

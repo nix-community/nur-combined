@@ -17,7 +17,7 @@ fetch.url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/$ver/C
 
 [yacd]
 src.github_tag = "haishanh/yacd"
-fetch.tarball = "https://github.com/haishanh/yacd/releases/download/$ver/yacd.tar.xz"
+fetch.url = "https://github.com/haishanh/yacd/releases/download/$ver/yacd.tar.xz"
 
 ## VS Code Extensions
 

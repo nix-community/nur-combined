@@ -59,9 +59,9 @@
   yacd = {
     pname = "yacd";
     version = "v0.3.8";
-    src = fetchTarball {
+    src = fetchurl {
       url = "https://github.com/haishanh/yacd/releases/download/v0.3.8/yacd.tar.xz";
-      sha256 = "0wziqgk6lp482qss8khniqc2hbsc3ykagkglrj085d4a3i2q3fk2";
+      sha256 = "sha256-1dfs3pGnCKeThhFnU+MqWfMsjLjuyA3tVsOrlOURulA=";
     };
   };
 }

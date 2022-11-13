@@ -97,8 +97,9 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "0wziqgk6lp482qss8khniqc2hbsc3ykagkglrj085d4a3i2q3fk2",
-            "type": "tarball",
+            "name": null,
+            "sha256": "sha256-1dfs3pGnCKeThhFnU+MqWfMsjLjuyA3tVsOrlOURulA=",
+            "type": "url",
             "url": "https://github.com/haishanh/yacd/releases/download/v0.3.8/yacd.tar.xz"
         },
         "version": "v0.3.8"

@@ -11,9 +11,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A GeoLite2 data created by MaxMind";
-    homepage = "https://github.com/Dreamacro/maxmind-geoip";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ candyc1oud ];
+    description = "Yet Another Clash Dashboard";
+    homepage = "https://github.com/haishanh/yacd";
+    license = licenses.mit;
   };
 }
