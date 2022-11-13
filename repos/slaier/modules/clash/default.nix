@@ -24,14 +24,14 @@ let
 
       dashboard.path = mkOption {
         type = types.path;
-        default = "${pkgs.nur.slaier.yacd}";
+        default = "${pkgs.nur.repos.slaier.yacd}";
         description = "Path to YACD dashboard pages.";
       };
 
-      geoip.package = mkOption {
-        type = types.package;
-        default = pkgs.clash-geoip;
-        description = "Package of clash geoip db.";
+      geoip.path = mkOption {
+        type = types.path;
+        default = "${pkgs.clash-geoip}/etc/clash/Country.mmdb";
+        description = "Path to clash geoip db.";
       };
 
       clashUserName = mkOption {
@@ -72,6 +72,12 @@ in
   };
 
   config = mkIf (cfg.enable) {
+    system.activationScripts.clash.text = ''
+      mkdir -p /etc/clash
+      chown -R clash:clash /etc/clash
+    '';
+    environment.etc."clash/Country.mmdb".source = cfg.geoip.path;
+
     # Yacd
     services.lighttpd = {
       enable = true;
@@ -85,10 +91,6 @@ in
       group = "clash";
     };
     users.groups.clash = { };
-
-    environment.systemPackages = [
-      cfg.geoip.package
-    ];
 
     systemd.services.clash = {
       path = with pkgs; [ clash ];
