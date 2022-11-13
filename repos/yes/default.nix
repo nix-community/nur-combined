@@ -3,7 +3,7 @@
   rp ? "",
 }:
 
-with pkgs; rec {
+with pkgs; {
   archlinux = recurseIntoAttrs (import ./archlinux {
     inherit pkgs rp;
   });
@@ -22,7 +22,7 @@ with pkgs; rec {
     license = lib.licenses.asl20;
     src = fetchurl {
       url = "${rp}https://github.com/lyswhut/${pname}/releases/download/v${version}/${pname}-v${version}-x64.AppImage";
-      sha256 = "sha256-mlT1FOPeg9mMwOVmRdy+fm/PR3ME0RsftQ9BcIbuauI=";
+      hash = "sha256-mlT1FOPeg9mMwOVmRdy+fm/PR3ME0RsftQ9BcIbuauI=";
     };
   };
 
@@ -39,7 +39,7 @@ with pkgs; rec {
     license = lib.licenses.mit;
     src = fetchurl {
       url = "${rp}${homepage}/releases/download/v${version}/PPet3-${version}.AppImage";
-      sha256 = "sha256-zdRZm0T6tBqNxvaUaiWAlAfuug/CQX0S+B5uDNdiQ/s=";
+      hash = "sha256-zdRZm0T6tBqNxvaUaiWAlAfuug/CQX0S+B5uDNdiQ/s=";
     };
   };
 

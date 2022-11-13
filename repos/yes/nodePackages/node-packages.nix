@@ -4,6 +4,33 @@
 
 let
   sources = {
+    "@huggycn/bittorrent-peerid-1.3.4" = {
+      name = "_at_huggycn_slash_bittorrent-peerid";
+      packageName = "@huggycn/bittorrent-peerid";
+      version = "1.3.4";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/@huggycn/bittorrent-peerid/-/bittorrent-peerid-1.3.4.tgz";
+        sha512 = "6NSI0XPSPg8EiANHZnoFsu6+9MMlUbSikyacDB5eTpUGGuHmP8ekIcEVZDkRIqMMx2/l2S+Onp1f0+/S3GAS6g==";
+      };
+    };
+    "axios-0.26.1" = {
+      name = "axios";
+      packageName = "axios";
+      version = "0.26.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/axios/-/axios-0.26.1.tgz";
+        sha512 = "fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==";
+      };
+    };
+    "follow-redirects-1.15.2" = {
+      name = "follow-redirects";
+      packageName = "follow-redirects";
+      version = "1.15.2";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz";
+        sha512 = "VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==";
+      };
+    };
     "node-forge-1.3.1" = {
       name = "node-forge";
       packageName = "node-forge";
@@ -22,9 +49,42 @@ let
         sha512 = "ck5zaMF0ydjGfejNMnlo5YU2oJ+pT+80Jb1y4ybanT27j+zbVP/jkYmCrUGsEln0Ox/hZmuvgy8Ra7AxbXP2Mw==";
       };
     };
+    "yargs-parser-21.1.1" = {
+      name = "yargs-parser";
+      packageName = "yargs-parser";
+      version = "21.1.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/yargs-parser/-/yargs-parser-21.1.1.tgz";
+        sha512 = "tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==";
+      };
+    };
   };
 in
 {
+  aria2b = nodeEnv.buildNodePackage {
+    name = "aria2b";
+    packageName = "aria2b";
+    version = "1.0.7";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/aria2b/-/aria2b-1.0.7.tgz";
+      sha512 = "mCZajRN3XkH69onX54jw67xhBZh0TV+Me85O6dBnEHwReV5G61DyaOu901MI5trH+ztBLNEYbfDsahP4AP2D1g==";
+    };
+    dependencies = [
+      sources."@huggycn/bittorrent-peerid-1.3.4"
+      sources."axios-0.26.1"
+      sources."follow-redirects-1.15.2"
+      sources."yargs-parser-21.1.1"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "aria2 自动 ban 掉迅雷等不受欢迎客户端的脚本（仅限 Linux）";
+      homepage = "https://github.com/makeding/aria2b#readme";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
   magireco-cn-local-server = nodeEnv.buildNodePackage {
     name = "magireco-cn-local-server";
     packageName = "magireco-cn-local-server";
