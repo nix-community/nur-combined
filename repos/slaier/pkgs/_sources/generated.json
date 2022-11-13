@@ -1,0 +1,79 @@
+{
+    "arkenfox-userjs": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "arkenfox-userjs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "arkenfox",
+            "repo": "user.js",
+            "rev": "106.0",
+            "sha256": "sha256-WB9w/UoFqp/WyRhe87dNqwbMAXa8lmsK/QCeTzRWmj8=",
+            "type": "github"
+        },
+        "version": "106.0"
+    },
+    "clash-speedtest": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-speedtest",
+        "passthru": null,
+        "pinned": true,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "starudream",
+            "repo": "clash-speedtest",
+            "rev": "v2.0.0",
+            "sha256": "sha256-AFGqW4QJdPF2atGRo7IAJOv40yssSR5xC8Boa2a0A5A=",
+            "type": "github"
+        },
+        "version": "v2.0.0"
+    },
+    "material-fox": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "material-fox",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "muckSponge",
+            "repo": "MaterialFox",
+            "rev": "v93.1",
+            "sha256": "sha256-M20PD3RvkOqZGv4+SzSMGkKdmJ4ZVEDH7WHB4QKFlRw=",
+            "type": "github"
+        },
+        "version": "v93.1"
+    },
+    "remote-containers": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "remote-containers",
+        "passthru": {
+            "collection": "vscode-extensions",
+            "description": "Open any folder or repository inside a Docker container.",
+            "homepage": "https://github.com/Microsoft/vscode-remote-release",
+            "license": "free",
+            "publisher": "ms-vscode-remote"
+        },
+        "pinned": true,
+        "src": {
+            "name": "remote-containers-0.263.0.zip",
+            "sha256": "sha256-atB1LeG+lIZWSaJ4yGeRGoVEz4r4Fakbofe6SIgaRpE=",
+            "type": "url",
+            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.263.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+        },
+        "version": "0.263.0"
+    }
+}

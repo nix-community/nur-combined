@@ -1,34 +1,21 @@
 {
   description = "My personal NUR repository";
-  inputs.nixos.url = "github:NixOS/nixpkgs/nixos-22.05";
-  outputs = { self, nixos }:
-    let
-      inherit (nixos.lib.attrsets) filterAttrs genAttrs mapAttrs;
-      inherit (nixos.lib.trivial) flip pipe;
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        inherit (nixpkgs.lib.attrsets) mapAttrs;
 
-      systems = [
-        "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
-      ];
-      forAllSystems = f: genAttrs systems (system:
-        let
-          pkgs = import nixos { inherit system; };
-        in
-        f system pkgs);
-    in
-    {
-      packages = forAllSystems (system: pkgs: pipe
-        (import ./default.nix { inherit pkgs; }) [
-        # Remove non–package attributes.
-        (flip builtins.removeAttrs [ "lib" "modules" "overlays" ])
-        # Remove packages not compatible with this system.
-        (filterAttrs (attr: drv: drv ? meta.platforms -> builtins.elem system drv.meta.platforms))
-      ]);
-      nixosModules = mapAttrs (name: path: import path) (import ./modules);
-      formatter = forAllSystems (system: pkgs: pkgs.nixpkgs-fmt);
-    };
+        pkgs = import nixpkgs { inherit system; };
+        legacyPackages = import ./pkgs { inherit pkgs; };
+      in
+      {
+        formatter = pkgs.nixpkgs-fmt;
+        nixosModules = mapAttrs (name: path: import path) (import ./modules);
+        inherit legacyPackages;
+        packages = flake-utils.lib.flattenTree legacyPackages;
+      });
 }

@@ -1,0 +1,26 @@
+[material-fox]
+src.github_tag = "muckSponge/MaterialFox"
+fetch.github = "muckSponge/MaterialFox"
+
+[arkenfox-userjs]
+src.github_tag = "arkenfox/user.js"
+fetch.github = "arkenfox/user.js"
+
+[clash-speedtest]
+src.github_tag = "starudream/clash-speedtest"
+fetch.github = "starudream/clash-speedtest"
+pinned = true
+
+## VS Code Extensions
+
+[remote-containers]
+src.vsmarketplace = "ms-vscode-remote.remote-containers"
+fetch.vsmarketplace = "ms-vscode-remote.remote-containers"
+pinned = true
+
+[remote-containers.passthru]
+license = "free"
+homepage = "https://github.com/Microsoft/vscode-remote-release"
+description="Open any folder or repository inside a Docker container."
+collection = "vscode-extensions"
+publisher = "ms-vscode-remote"
