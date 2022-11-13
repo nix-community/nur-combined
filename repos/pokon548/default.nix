@@ -14,5 +14,5 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  todoist = pkgs.callPackage ./packages/todoist-electron-fhs {};
+  todoist = pkgs.callPackage ./packages/todoist {};
 }
