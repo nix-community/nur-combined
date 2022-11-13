@@ -8,16 +8,6 @@ let
   cfg = config.slaier.services.clash;
   inherit (cfg) clashUserName;
 
-  yacd = pkgs.fetchzip {
-    url = "https://github.com/haishanh/yacd/releases/download/v0.3.7/yacd.tar.xz";
-    sha256 = "sha256-nuDyFXwzpE9Wb56VL8472SBX0yzv9joDudVyjDc44E4=";
-  };
-
-  maxmind-geoip = pkgs.fetchurl {
-    url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20220912/Country.mmdb";
-    sha256 = "sha256-YIQjuWbizheEE9kgL+hBS1GAGf2PbpaW5mu/lim9Q9A=";
-  };
-
   clashModule = types.submodule {
     options = {
       enable = mkOption {
@@ -30,6 +20,18 @@ let
         type = types.port;
         default = 3333;
         description = "Port for YACD dashboard to listen on.";
+      };
+
+      dashboard.path = mkOption {
+        type = types.path;
+        default = "${pkgs.nur.slaier.yacd}";
+        description = "Path to YACD dashboard pages.";
+      };
+
+      geoip.package = mkOption {
+        type = types.package;
+        default = pkgs.clash-geoip;
+        description = "Package of clash geoip db.";
       };
 
       clashUserName = mkOption {
@@ -70,13 +72,11 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    environment.etc."clash/Country.mmdb".source = "${maxmind-geoip}";
-
     # Yacd
     services.lighttpd = {
       enable = true;
       port = cfg.dashboard.port;
-      document-root = "${yacd}";
+      document-root = cfg.dashboard.path;
     };
 
     users.users.${clashUserName} = {
@@ -85,6 +85,10 @@ in
       group = "clash";
     };
     users.groups.clash = { };
+
+    environment.systemPackages = [
+      cfg.geoip.package
+    ];
 
     systemd.services.clash = {
       path = with pkgs; [ clash ];

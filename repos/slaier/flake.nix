@@ -9,7 +9,10 @@
       let
         inherit (nixpkgs.lib.attrsets) mapAttrs;
 
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
         legacyPackages = import ./pkgs { inherit pkgs; };
       in
       {

@@ -18,6 +18,20 @@
         },
         "version": "106.0"
     },
+    "clash-geoip": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clash-geoip",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-si/RzJvXbAcG7Wyv780Hwr+1oiWB+uvc2RYbnYpE0MA=",
+            "type": "url",
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221112/Country.mmdb"
+        },
+        "version": "20221112"
+    },
     "clash-speedtest": {
         "cargoLocks": null,
         "extract": null,
@@ -75,5 +89,18 @@
             "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.263.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
         "version": "0.263.0"
+    },
+    "yacd": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "yacd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "0wziqgk6lp482qss8khniqc2hbsc3ykagkglrj085d4a3i2q3fk2",
+            "type": "tarball",
+            "url": "https://github.com/haishanh/yacd/releases/download/v0.3.8/yacd.tar.xz"
+        },
+        "version": "v0.3.8"
     }
 }

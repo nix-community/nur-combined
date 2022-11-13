@@ -12,6 +12,14 @@
       sha256 = "sha256-WB9w/UoFqp/WyRhe87dNqwbMAXa8lmsK/QCeTzRWmj8=";
     });
   };
+  clash-geoip = {
+    pname = "clash-geoip";
+    version = "20221112";
+    src = fetchurl {
+      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221112/Country.mmdb";
+      sha256 = "sha256-si/RzJvXbAcG7Wyv780Hwr+1oiWB+uvc2RYbnYpE0MA=";
+    };
+  };
   clash-speedtest = {
     pname = "clash-speedtest";
     version = "v2.0.0";
@@ -47,5 +55,13 @@
     collection = "vscode-extensions";
     description = "Open any folder or repository inside a Docker container.";
     publisher = "ms-vscode-remote";
+  };
+  yacd = {
+    pname = "yacd";
+    version = "v0.3.8";
+    src = fetchTarball {
+      url = "https://github.com/haishanh/yacd/releases/download/v0.3.8/yacd.tar.xz";
+      sha256 = "0wziqgk6lp482qss8khniqc2hbsc3ykagkglrj085d4a3i2q3fk2";
+    };
   };
 }
