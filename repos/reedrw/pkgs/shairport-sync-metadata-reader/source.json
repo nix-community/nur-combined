@@ -1,8 +1,8 @@
 {
     "owner": "mikebrady",
     "repo": "shairport-sync-metadata-reader",
-    "rev": "323422246fce40a2ff0b749387353f3aa9b29700",
-    "sha256": "EBO3pt4iVRtqbeOOD+uo1Z7tiNookxLodMMlanOmSVA=",
+    "rev": "ad1c050ba7f29e95ccf88bcc3e53dfa66c40773b",
+    "sha256": "ARNetO8+SBSCS5GkGejmUVt9mtpIpsOkkcLmcbJfjgk=",
     "fetchSubmodules": true,
     "leaveDotGit": false,
     "deepClone": false
