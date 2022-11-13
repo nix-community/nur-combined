@@ -26,7 +26,7 @@ with pkgs; {
     };
   };
 
-  nodePackages = recurseIntoAttrs (import ./nodePackages {
+  nodePackages = recurseIntoAttrs (import ./nodePackages/override.nix {
     inherit pkgs;
   });
 
