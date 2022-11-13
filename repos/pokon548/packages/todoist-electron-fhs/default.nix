@@ -1,19 +1,26 @@
-{ appimageTools, lib, fetchurl, electron, makeWrapper, libsecret }:
+{ appimageTools, lib, fetchurl, gtk3, gsettings-desktop-schemas}:
 
+# Based on zettlr nixpkgs
 let
   pname = "todoist";
   version = "1.0.9";
-  name = "Todoist-${version}";
-
+  name = "${pname}-${version}";
   src = fetchurl {
     url = "https://electron-dl.todoist.com/linux/Todoist-${version}.AppImage";
     sha256 = "sha256-DfNFDiGYTFGetVRlAjpV/cdWcGzRDEGZjR0Dc9aAtXc=";
   };
-
-  appimageContents = appimageTools.extractType2 { inherit name src; };
-
+  appimageContents = appimageTools.extractType2 {
+    inherit name src;
+  };
 in appimageTools.wrapType2 rec {
-  inherit version name src;
+  inherit name src;
+
+  profile = ''
+    export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
+  '';
+
+  multiPkgs = null; # no 32bit needed
+  extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
@@ -23,16 +30,10 @@ in appimageTools.wrapType2 rec {
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
-  extraPkgs = pkgs: with pkgs; [
-    libsecret
-    libappindicator-gtk3
-  ];
-
   meta = with lib; {
     description = "The official Todoist electron app";
     homepage = "https://todoist.com";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ pokon548 ];
     platforms = [ "x86_64-linux" ];
+    license = licenses.unfree;
   };
 }
