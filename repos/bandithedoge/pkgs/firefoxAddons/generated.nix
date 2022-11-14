@@ -249,10 +249,10 @@
   };
   "octolinker" = buildFirefoxXpiAddon {
     pname = "octolinker";
-    version = "6.10.4";
+    version = "6.10.5";
     addonId = "octolinker@stefanbuck.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3976430/octolinker-6.10.4.xpi";
-    sha256 = "140327b54f7a7afef4de8ffe2a741c1a48eb2b8413deabb99d14497b3e594227";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4029754/octolinker-6.10.5.xpi";
+    sha256 = "36a953c5bd3a60648a45ec04fb131664f54f2d31caf26853c2b3d438d50674c1";
     meta = with lib; {
       homepage = "https://octolinker.vercel.app";
       description = "It turns language-specific module-loading statements like include, require or import into links. Depending on the language it will either redirect you to the referenced file or to an external website like a manual page or another service.";
@@ -288,10 +288,10 @@
   };
   "pronoundb" = buildFirefoxXpiAddon {
     pname = "pronoundb";
-    version = "0.11.0";
+    version = "0.11.1";
     addonId = "firefox-addon@pronoundb.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4029378/pronoundb-0.11.0.xpi";
-    sha256 = "2230ce017ec8be488421845ca8345fbb9253ba9ad31cfac047d761102b51ef56";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4029663/pronoundb-0.11.1.xpi";
+    sha256 = "7b56fef02a781bc9839a72aaf620c718193e2208f5fa206e8ab9e45e49fecbf9";
     meta = with lib; {
       homepage = "https://pronoundb.org";
       description = "PronounDB is a browser extension that helps people know each other's pronouns easily and instantly. Whether hanging out on a Twitch chat, or on any of the supported platforms, PronounDB will make your life easier.";
