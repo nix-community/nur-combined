@@ -33,8 +33,17 @@ in
     mailLocation = "maildir:~/Maildir";
     sslServerCert = cfg.certFile;
     sslServerKey = cfg.keyFile;
-    modules = [ pkgs.dovecot_pigeonhole ];
-    mailPlugins.globally.enable = [ "acl" "zlib" "mail_crypt" "listescape" "notify" "mail_log" ];
+    modules = with pkgs; [ dovecot_pigeonhole dovecot-fts-flatcurve ];
+    mailPlugins.globally.enable = [
+      "acl"
+      "zlib"
+      "mail_crypt"
+      "listescape"
+      "notify"
+      "mail_log"
+      "fts"
+      "fts_flatcurve"
+    ];
     mailPlugins.perProtocol.imap.enable = [ "imap_acl" "imap_zlib" "imap_sieve" ];
     mailPlugins.perProtocol.lmtp.enable = [ "sieve" ];
     mailboxes = {
@@ -111,6 +120,15 @@ in
       mail_crypt_save_version = 2
 
       zlib_save = lz4
+
+      fts = flatcurve
+      fts_autoindex = yes
+      fts_enforced = body
+      fts_filters = lowercase stopwords snowball
+      fts_tokenizers = generic email-address
+      # sadly they don't have Chinese support,
+      # see https://doc.dovecot.org/settings/plugin/fts-plugin/#fts-languages
+      fts_languages = en
     }
 
     passdb {

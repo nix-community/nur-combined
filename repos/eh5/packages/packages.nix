@@ -8,6 +8,7 @@ let
   self = self_base // (lib.optionalAttrs (inputs != null) self_extra);
 
   self_base = {
+    dovecot-fts-flatcurve = callPackage ./dovecot-fts-flatcurve { };
     fake-hwclock = callPackage ./fake-hwclock { };
     mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo119Module; };
     netease-cloud-music = callPackage ./netease-cloud-music { };
