@@ -15,7 +15,7 @@ with lib;
     home.activation.wallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] (mkIf (config.home.wallpapers != null)
       (
         let
-          set_osa = ''
+          script = ''
             tell application "System Events"
                 set wallpapers to { ${(concatStringsSep "," (map1 (x: ''"${x}"'') config.home.wallpapers))} }
             	set n_desktop to count of desktop
