@@ -182,10 +182,10 @@
       };
     "better-tweetdeck" = buildFirefoxXpiAddon {
       pname = "better-tweetdeck";
-      version = "4.8.6";
+      version = "4.9.0";
       addonId = "BetterTweetDeck@erambert.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3933944/better_tweetdeck_17-4.8.6.xpi";
-      sha256 = "661a9a84041f15a1ab91c794118a269f398e3df1c8db854b15ef7fb84961b3df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029612/better_tweetdeck_17-4.9.0.xpi";
+      sha256 = "e87f99f621f079cd143a7187943733ec38cf781a8d998f7df183d5aca49d80fa";
       meta = with lib;
       {
         homepage = "https://better.tw/";
@@ -215,10 +215,10 @@
       };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.7.0";
+      version = "2.8.0";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3964482/beyond_20-2.7.0.xpi";
-      sha256 = "87b0e02a010a734b4491230019612dd6950233048a34abd0fcd47a519ab5b20f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029811/beyond_20-2.8.0.xpi";
+      sha256 = "d7b1a3a5551f6150d93715fcb8f86ed25464909ae6dfc3c91a0a3bd8308dd2b4";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.2.2";
+      version = "2.9.3.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026939/bypass_paywalls_clean-2.9.2.2.xpi";
-      sha256 = "be677ad2a3484cc6f95da8e14f509e80a81e41301e127a3a23dbfdf983b7dc7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029691/bypass_paywalls_clean-2.9.3.0.xpi";
+      sha256 = "54720c81b2b254d8af443079d32bf70e3d337877daa514f521bda816310664d9";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1602,10 +1602,10 @@
       };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
-      version = "6.10.4";
+      version = "6.10.5";
       addonId = "octolinker@stefanbuck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3976430/octolinker-6.10.4.xpi";
-      sha256 = "140327b54f7a7afef4de8ffe2a741c1a48eb2b8413deabb99d14497b3e594227";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029754/octolinker-6.10.5.xpi";
+      sha256 = "36a953c5bd3a60648a45ec04fb131664f54f2d31caf26853c2b3d438d50674c1";
       meta = with lib;
       {
         homepage = "https://octolinker.vercel.app";
