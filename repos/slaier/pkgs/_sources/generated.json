@@ -70,6 +70,20 @@
         },
         "version": "v93.1"
     },
+    "programs-db": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "programs-db",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-9DL0rYolWmtd1jota14JisBYGGPnM1No87OXNsBPIT8=",
+            "type": "url",
+            "url": "https://releases.nixos.org/nixos/22.05/nixos-22.05.4098.c5091eec689/nixexprs.tar.xz"
+        },
+        "version": "22.05.4098.c5091eec689"
+    },
     "remote-containers": {
         "cargoLocks": null,
         "extract": null,

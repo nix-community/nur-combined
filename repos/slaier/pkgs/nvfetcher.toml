@@ -15,6 +15,10 @@ pinned = true
 src.github_tag = "Dreamacro/maxmind-geoip"
 fetch.url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/$ver/Country.mmdb"
 
+[programs-db]
+src.cmd = "curl -w '%{url_effective}\n' -I -L -s -S $URL -o /dev/null https://nixos.org/channels/nixos-22.05/nixexprs.tar.xz | grep -o '22\\.05\\.[^/]*'"
+fetch.url = "https://releases.nixos.org/nixos/22.05/nixos-$ver/nixexprs.tar.xz"
+
 [yacd]
 src.github_tag = "haishanh/yacd"
 fetch.url = "https://github.com/haishanh/yacd/releases/download/$ver/yacd.tar.xz"

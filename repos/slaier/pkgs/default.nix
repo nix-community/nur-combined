@@ -12,6 +12,7 @@ in
   arkenfox-userjs = callPackage ./arkenfox-userjs { };
   clash-geoip = callPackage ./clash-geoip { };
   clash-speedtest = callPackage ./clash-speedtest { };
+  programs-db = callPackage ./programs-db { };
   vscode-extensions = recurseIntoAttrs (mapAttrs (_n: recurseIntoAttrs) (callPackages ./vscode-extensions { }));
   yacd = callPackage ./yacd { };
 }

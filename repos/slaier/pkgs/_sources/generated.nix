@@ -42,6 +42,14 @@
       sha256 = "sha256-M20PD3RvkOqZGv4+SzSMGkKdmJ4ZVEDH7WHB4QKFlRw=";
     });
   };
+  programs-db = {
+    pname = "programs-db";
+    version = "22.05.4098.c5091eec689";
+    src = fetchurl {
+      url = "https://releases.nixos.org/nixos/22.05/nixos-22.05.4098.c5091eec689/nixexprs.tar.xz";
+      sha256 = "sha256-9DL0rYolWmtd1jota14JisBYGGPnM1No87OXNsBPIT8=";
+    };
+  };
   remote-containers = {
     pname = "remote-containers";
     version = "0.263.0";
