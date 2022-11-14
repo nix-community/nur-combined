@@ -2,9 +2,12 @@
   description = "wolfangaukang's flakes";
 
   inputs = {
+    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-stable.url = "github:nixos/nixpkgs/release-22.05";
+
+    # Nix utilities
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,8 +16,10 @@
     nixgl.url = "github:guibou/nixGL";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nur.url = "github:nix-community/NUR";
-    sab.url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot?ref=main";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+
+    # Personal projects
+    sab.url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot?ref=main";
 
     # Testing
     ly.url = "github:wolfangaukang/nixpkgs/ly-unstable";
@@ -26,9 +31,9 @@
       inherit (utils.lib) mkFlake exportModules;
 
       # Local exports
+      local-modules = exportModules [ ./modules/nixos/personal ];
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) importAttrset forAllSystems mkHome mkSystem;
-      local-modules = exportModules [ ./modules/nixos/personal ];
 
       # Overlays
       overlays = [
@@ -37,17 +42,15 @@
       ] ++ (import ./overlays { inherit inputs; });
 
       # System settings
-      username = "bjorn";
-
-      # Home-Manager settings
-      inherit (home-manager.lib) homeManagerConfiguration;
+      users = [ "bjorn" ];
+      # Currently only supporting this system
       system = "x86_64-linux";
 
     in mkFlake {
       inherit self inputs;
 
       # FUP settings
-      supportedSystems = [ "x86_64-linux" ];
+      supportedSystems = [ system ];
 
       # Need to test this later
       channelsConfig = { allowUnfree = true; };
@@ -70,43 +73,54 @@
         modules = [ local-modules.personal ];
       };
 
-      hosts = {
-        eyjafjallajokull =
-          let
-            nixosHardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
-          in mkSystem {
-            inherit inputs overlays username;
-            hostname = "eyjafjallajokull";
-            extra-modules = nixosHardware;
-          };
+      hosts =
+        let
+          usersWithRoot = users ++ [ "root" ];
 
-        holuhraun =
-          let
-            nixosHardware = [ nixos-hardware.nixosModules.system76 ];
-          in mkSystem {
-            inherit inputs overlays username;
-            hostname = "holuhraun";
-            extra-modules = nixosHardware;
-          };
+        in {
+          eyjafjallajokull =
+            let
+              nixosHardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
+            in mkSystem {
+              inherit inputs overlays;
+              users = usersWithRoot;
+              hostname = "eyjafjallajokull";
+              extra-modules = nixosHardware;
+              hm-users = users;
+            };
 
-        Katla =
-          let
-            username = "nixos";
-            nixosWSL = [ nixos-wsl.nixosModules.wsl ];
-          in mkSystem {
-            inherit inputs overlays username;
-            hostname = "katla";
-            extra-modules = nixosWSL;
+          holuhraun =
+            let
+              nixosHardware = [ nixos-hardware.nixosModules.system76 ];
+            in mkSystem {
+              inherit inputs overlays;
+              users = usersWithRoot;
+              hostname = "holuhraun";
+              extra-modules = nixosHardware;
+              hm-users = users;
+            };
+
+          Katla =
+            let
+              users = [ "nixos" ];
+              username = builtins.elemAt users 0;
+              nixosWSL = [ nixos-wsl.nixosModules.wsl ];
+            in mkSystem {
+              inherit inputs overlays users;
+              hostname = "katla";
+              extra-modules = nixosWSL;
+              enable-impermanence = false;
+              hm-users = users;
+            } // { specialArgs = { inherit username; }; };
+
+          vm = mkSystem {
+            inherit inputs overlays;
+            users = usersWithRoot;
+            hostname = "raudholar";
+            enable-hm = false;
             enable-impermanence = false;
-          } // { specialArgs = { inherit username; }; };
-
-        vm = mkSystem {
-          inherit inputs overlays username;
-          hostname = "raudholar";
-          enable-hm = false;
-          enable-impermanence = false;
-        } // { channelName = "cloudflare-warp"; };
-      };
+          } // { channelName = "cloudflare-warp"; };
+        };
 
       # Common settings
       nixosModules = importAttrset ./modules/nixos;

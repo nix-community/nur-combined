@@ -17,12 +17,6 @@
   # assertion: You must set the option ‘boot.loader.grub.devices’ or 'boot.loader.grub.mirroredBoots' to make the system bootable.
   boot.loader.grub.enable = lib.mkDefault false;
 
-  users.users.bjorn = {
-    initialHashedPassword = "$6$y2Nhv2IH5i7hdlH.$P8GBuxWT.AILbsS6b3eUnGpUUaeAMjW4xyuAVbAdT8QcxxHAArEiZKvOIf9R7VD2O0I3tOoQZKFUonCc0wLIe.";
-    isNormalUser = true;
-    extraGroups = [ "wheel" "video" ];
-  };
-
   environment.systemPackages = with pkgs; [
     vim
   ];

@@ -44,9 +44,9 @@ in
           enable = true;
           matchBlocks = {
             surtsey = {
-              hostname = "192.168.8.203";
+              hostname = "10.11.12.203";
               user = "marx";
-              identityFile = ["~/.ssh/surtsey"];
+              identityFile = [ "~/.ssh/surtsey" ];
             };
             grimsnes = {
               hostname = "10.11.12.112";
