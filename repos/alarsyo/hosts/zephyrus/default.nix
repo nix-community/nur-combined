@@ -85,11 +85,7 @@
       };
     };
     fwupd.enable = true;
-    openssh = {
-      enable = true;
-      permitRootLogin = "no";
-      passwordAuthentication = false;
-    };
+    openssh.enable = true;
   };
   my.gui.enable = true;
 

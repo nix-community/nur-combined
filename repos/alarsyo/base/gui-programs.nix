@@ -20,6 +20,12 @@ in {
   config = mkIf config.my.gui.enable {
     my.displayManager.sddm.enable = true;
 
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "gnome3";
+    };
+
     services = {
       xserver = {
         enable = true;

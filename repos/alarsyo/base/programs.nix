@@ -1,21 +1,19 @@
 {pkgs, ...}: {
   programs = {
     fish.enable = true;
-    gnupg.agent = {
-      enable = true;
-      pinentryFlavor = "gnome3";
-    };
     less.enable = true;
     mosh.enable = true;
-    ssh = {
-      startAgent = true;
-      extraConfig = ''
-        AddKeysToAgent yes
-      '';
-    };
 
     # setcap wrapper for network permissions
     bandwhich.enable = true;
+  };
+
+  services.openssh = {
+    passwordAuthentication = false;
+    permitRootLogin = "no";
+    extraConfig = ''
+      StreamLocalBindUnlink yes
+    '';
   };
 
   environment.systemPackages = builtins.attrValues {

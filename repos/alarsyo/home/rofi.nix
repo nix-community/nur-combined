@@ -21,9 +21,6 @@ in {
       enable = true;
 
       terminal = "${pkgs.alacritty}/bin/alacritty";
-      extraConfig = {
-        ssh-client = "${pkgs.mosh}/bin/mosh";
-      };
     };
   };
 }
