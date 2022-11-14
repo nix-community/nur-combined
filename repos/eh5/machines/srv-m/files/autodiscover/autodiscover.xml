@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
-  <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a">
+  <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006">
+    <User>
+      <EMailAddress>username@eh5.me</EMailAddress>
+    </User>
+    <Action>
+      <Settings>
+        <Server>
+          <Type>MobileSync</Type>
+          <Url>https://mail.eh5.me/Microsoft-Server-ActiveSync</Url>
+          <Name>https://mail.eh5.me/Microsoft-Server-ActiveSync</Name>
+        </Server>
+      </Settings>
+    </Action>
+  </Response>
+  <!-- <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a">
     <User>
       <DisplayName>eh5's Mail</DisplayName>
     </User>
@@ -21,13 +35,22 @@
         <Type>SMTP</Type>
         <Server>mail.eh5.me</Server>
         <Port>465</Port>
-        <LoginName>johndoe</LoginName>
         <DomainRequired>on</DomainRequired>
         <SPA>off</SPA>
         <SSL>on</SSL>
         <AuthRequired>on</AuthRequired>
         <SMTPLast>off</SMTPLast>
       </Protocol>
+      <Protocol>
+        <Type>CalDAV</Type>
+        <Server>https://mail.eh5.me/SOGo/dav</Server>
+        <DomainRequired>on</DomainRequired>
+      </Protocol>
+      <Protocol>
+        <Type>CardDAV</Type>
+        <Server>https://mail.eh5.me/SOGo/dav</Server>
+        <DomainRequired>on</DomainRequired>
+      </Protocol>
     </Account>
-  </Response>
+  </Response> -->
 </Autodiscover>

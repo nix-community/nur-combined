@@ -10,6 +10,18 @@
     bantime-increment.overalljails = true;
   };
   services.fail2ban.jails = {
+    DEFAULT = ''
+      bantime = 600
+    '';
+    sshd = ''
+      enabled = true
+      mode = aggressive
+      port = ${lib.concatMapStringsSep "," (p: toString p) config.services.openssh.ports}
+    '';
+    # OpenLDAP
+    slapd = ''
+      enabled = true
+    '';
     dovecot = ''
       enabled = true
     '';

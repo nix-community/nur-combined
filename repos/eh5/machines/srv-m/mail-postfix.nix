@@ -12,7 +12,7 @@ let
     smtpd_sasl_security_options = "noanonymous";
     smtpd_sasl_local_domain = "$myhostname";
     smtpd_client_restrictions = "permit_sasl_authenticated,reject";
-    smtpd_sender_login_maps = mappedFile "vaccounts";
+    smtpd_sender_login_maps = "ldap:${secrets.vaccountLdap.path}";
     smtpd_sender_restrictions = "reject_sender_login_mismatch";
     smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
     cleanup_service_name = "submission-header-cleanup";
@@ -45,11 +45,6 @@ in
     enableSubmissions = true;
     sslCert = cfg.certFile;
     sslKey = cfg.keyFile;
-    mapFiles = {
-      "vaccounts" = secrets.vaccounts.path;
-      "virtual" = secrets.virtual.path;
-      "vmailbox" = secrets.vmailbox.path;
-    };
     submissionOptions = submissionOptions;
     submissionsOptions = submissionOptions;
   };
@@ -64,9 +59,10 @@ in
     virtual_transport = "lmtp:unix:/run/dovecot2/postfix-lmtp";
     virtual_uid_maps = "static:${builtins.toString cfg.vmailUid}";
     virtual_gid_maps = "static:${builtins.toString cfg.vmailUid}";
-    virtual_alias_maps = mappedFile "virtual";
+    virtual_alias_maps = "ldap:${secrets.valiasLdap.path}";
     virtual_mailbox_base = cfg.maildirRoot;
-    virtual_mailbox_maps = mappedFile "vmailbox";
+    virtual_mailbox_domains = [ "eh5.me" "sokka.cn" "chika.xin" ];
+    virtual_mailbox_maps = "ldap:${secrets.vaccountLdap.path}";
 
     smtpd_sasl_type = "dovecot";
     smtpd_sasl_path = "/run/dovecot2/postfix-auth";
@@ -146,7 +142,7 @@ in
   };
 
   systemd.services.postfix = {
-    requires = [ "dovecot2.service" "rspamd.service" ];
-    after = [ "dovecot2.service" "rspamd.service" ];
+    requires = [ "openldap.service" "dovecot2.service" "rspamd.service" ];
+    after = [ "openldap.service" "dovecot2.service" "rspamd.service" ];
   };
 }

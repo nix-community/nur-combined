@@ -9,10 +9,12 @@ lib.nixosSystem rec {
     ./configuration.nix
     ./fail2ban.nix
     ./services.nix
+    ./ldap.nix
     ./mail.nix
     ./mail-dovecot.nix
     ./mail-postfix.nix
     ./mail-rspamd.nix
+    ./mail-sogo.nix
     ./networking.nix
     ./hardware.nix
   ] ++

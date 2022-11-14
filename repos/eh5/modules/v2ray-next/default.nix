@@ -43,6 +43,7 @@ in
       description = "V2Ray v5 Daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
+      restartTriggers = [ configFile ];
       serviceConfig = {
         # TODO: use `-confdir` so both `cfg.config` and `cfg.configFile` can be included,
         #       and allows specifying multiple config files.

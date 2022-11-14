@@ -33,6 +33,7 @@ in
       description = "mosdns Daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
+      restartTriggers = [ configFile ];
       serviceConfig = {
         ExecStart = "${pkgs.mosdns}/bin/mosdns start -c ${configFile}";
       };

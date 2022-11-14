@@ -57,11 +57,5 @@ in
       isSystemUser = true;
       group = cfg.vmailGroup;
     };
-
-    environment.systemPackages = with pkgs; [
-      dovecot
-      postfix
-      rspamd
-    ];
   };
 }

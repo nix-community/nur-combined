@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 let
   secrets = config.sops.secrets;
+  dovecotUser = config.services.dovecot2.user;
+  postfixUser = config.services.postfix.user;
   rspamdUser = config.services.rspamd.user;
 in
 {
@@ -11,29 +13,36 @@ in
       acmeEnv = { };
       postScript = { mode = "0500"; };
       trustedNetworks = { };
-      passwdFile = { };
-      vaccounts = { };
-      virtual = { };
-      vmailbox = { };
+      bindDnPw = { };
+      passdbLdap.owner = dovecotUser;
+      # sieveLdap = { mode = "440"; owner = dovecotUser; };
+      vaccountLdap.owner = postfixUser;
+      valiasLdap.owner = postfixUser;
       "eh5.me.dkim.key".owner = rspamdUser;
       "sokka.cn.dkim.key".owner = rspamdUser;
       "chika.xin.dkim.key".owner = rspamdUser;
+      v2rayConfig = {
+        name = "v2ray.json";
+        format = "binary";
+        sopsFile = ./secrets/v2ray.v5.json.sops;
+      };
+      mailCryptPrivKey = {
+        name = "ecprivkey.pem";
+        format = "binary";
+        sopsFile = ./secrets/ecprivkey.pem.sops;
+      };
+      mailCryptPubKey = {
+        name = "ecpubkey.pem";
+        format = "binary";
+        sopsFile = ./secrets/ecpubkey.pem.sops;
+      };
+      "dc_eh5_dc_me.ldif" = {
+        format = "binary";
+        sopsFile = ./secrets/dc_eh5_dc_me.ldif.sops;
+        owner = config.services.openldap.user;
+        restartUnits = [ "openldap.service" ];
+      };
     };
-  };
-  sops.secrets.v2rayConfig = {
-    name = "v2ray.json";
-    format = "binary";
-    sopsFile = ./secrets/v2ray.v5.json.sops;
-  };
-  sops.secrets.mailCryptPrivKey = {
-    name = "ecprivkey.pem";
-    format = "binary";
-    sopsFile = ./secrets/ecprivkey.pem.sops;
-  };
-  sops.secrets.mailCryptPubKey = {
-    name = "ecpubkey.pem";
-    format = "binary";
-    sopsFile = ./secrets/ecpubkey.pem.sops;
   };
 
   nix = {
@@ -48,9 +57,13 @@ in
     };
   };
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = config.system.nixos.release;
+  system.stateVersion = "22.05";
 
   networking.hostName = "srv-m";
+  networking.hosts = {
+    "127.0.0.1" = [ "mx.eh5.me" ];
+    "::1" = [ "mx.eh5.me" ];
+  };
 
   time.timeZone = "Asia/Shanghai";
 
@@ -66,7 +79,7 @@ in
   services.openssh = {
     enable = true;
     permitRootLogin = "yes";
-    ports = lib.mkForce [ 8080 ];
+    ports = lib.mkForce [ 8022 ];
   };
 
   system.autoUpgrade = {

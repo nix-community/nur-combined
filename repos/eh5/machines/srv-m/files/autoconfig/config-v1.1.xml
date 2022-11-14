@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <clientConfig version="1.1">
   {{$mailaddr := placeholder "http.request.uri.query.emailaddress"}}
   <emailProvider id="eh5.me">
@@ -32,4 +32,20 @@
       <descr lang="en">Documentation</descr>
     </documentation>
   </emailProvider>
+
+  <addressBook type="carddav">
+    <username>{{$mailaddr}}</username>
+    <authentication>http-basic</authentication>
+    <serverURL>https://mail.eh5.me/SOGo/dav</serverURL>
+  </addressBook>
+
+  <calendar type="caldav">
+    <username>{{$mailaddr}}</username>
+    <authentication>http-basic</authentication>
+    <serverURL>https://mail.eh5.me/SOGo/dav</serverURL>
+  </calendar>
+
+  <webMail>
+    <loginPage url="https://mail.eh5.me/SOGo" />
+  </webMail>
 </clientConfig>

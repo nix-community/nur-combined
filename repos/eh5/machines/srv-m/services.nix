@@ -57,7 +57,9 @@ in
       extraConfig = ''
         redir /rspamd /rspamd/
         handle_path /rspamd/* {
-          reverse_proxy unix//run/rspamd/worker-controller.sock
+          reverse_proxy unix//run/rspamd/worker-controller.sock {
+            header_up X-Real-IP {remote_host}
+          }
         }
       '';
     };
@@ -66,10 +68,9 @@ in
       useACMEHost = certName;
       extraConfig = ''
         handle_path /mail/* {
-          header Content-Type application/xml
-          root * `${caddyCfg.dataDir}/autoconfig`
+          root * `${./files/autoconfig}`
           templates {
-            mime application/xml text/xml text/html text/plain
+            mime application/xml text/xml
           }
           file_server
         }
@@ -79,27 +80,24 @@ in
       serverAliases = [ "autodiscover.sokka.cn" ];
       useACMEHost = certName;
       extraConfig = ''
+        rewrite /Autodiscover/Autodiscover.xml /autodiscover/autodiscover.xml
+        rewrite /Autodiscover/Autodiscover.json /autodiscover/autodiscover.json
         handle_path /autodiscover/* {
-          header Content-Type application/xml
-          root * `${caddyCfg.dataDir}/autodiscover`
+          root * `${./files/autodiscover}`
+          templates {
+            mime application/json application/xml text/xml
+          }
           file_server
         }
       '';
     };
   };
+  systemd.services.caddy.serviceConfig.ReadOnlyPaths = "/nix/store";
 
-  systemd.services.autoconfig-setup = {
-    script = ''
-      PERM="-o${caddyCfg.user} -g${caddyCfg.group}"
-      install -d $PERM ${caddyCfg.dataDir}
-      rm -rf ${caddyCfg.dataDir}/autoconfig ${caddyCfg.dataDir}/autodiscover
-      install -d $PERM ${caddyCfg.dataDir} ${caddyCfg.dataDir}/autoconfig ${caddyCfg.dataDir}/autodiscover
-      cp -r -t ${caddyCfg.dataDir}/autoconfig ${./files/autoconfig}/.
-      cp -r -t ${caddyCfg.dataDir}/autodiscover ${./files/autodiscover}/.
-      chown -R ${caddyCfg.user}:${caddyCfg.group} ${caddyCfg.dataDir}/autoconfig ${caddyCfg.dataDir}/autodiscover
-    '';
-    requiredBy = [ "caddy.service" ];
-    before = [ "caddy.service" ];
-    serviceConfig.Type = "oneshot";
+  # PostgreSQL
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_15;
+    enableTCPIP = false;
   };
 }

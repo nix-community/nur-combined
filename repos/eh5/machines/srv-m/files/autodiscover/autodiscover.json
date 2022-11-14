@@ -1,0 +1,18 @@
+{{$raw_protocol := placeholder "http.request.uri.query.Protocol"}}
+{{$protocol := lower $raw_protocol}}
+{{if eq $protocol "activesync"}}
+{
+  "Protocol": "ActiveSync",
+  "Url": "https://mail.eh5.me/Microsoft-Server-ActiveSync"
+}
+{{else if eq $protocol "autodiscoverv1"}}
+{
+  "Protocol": "AutodiscoverV1",
+  "Url": "https://autodiscover.eh5.me/Autodiscover/Autodiscover.xml"
+}
+{{else}}
+{
+  "ErrorCode": "InvalidProtocol",
+  "ErrorMessage": "The given protocol value '{{$raw_protocol}}' is invalid. Supported values are 'ActiveSync', 'AutodiscoverV1'"
+}
+{{end}}

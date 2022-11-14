@@ -1,0 +1,56 @@
+dn: cn=mozillaabpersonalpha,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: mozillaabpersonalpha
+olcAttributeTypes: {0}( 1.3.6.1.4.1.13769.4.1 NAME 'mozillaCustom1' EQUALITY c
+ aseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.1
+ 21.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {1}( 1.3.6.1.4.1.13769.4.2 NAME 'mozillaCustom2' EQUALITY c
+ aseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.1
+ 21.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {2}( 1.3.6.1.4.1.13769.4.3 NAME 'mozillaCustom3' EQUALITY c
+ aseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.1
+ 21.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {3}( 1.3.6.1.4.1.13769.4.4 NAME 'mozillaCustom4' EQUALITY c
+ aseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.115.1
+ 21.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {4}( 1.3.6.1.4.1.13769.3.1 NAME 'mozillaHomeStreet' EQUALIT
+ Y caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.11
+ 5.121.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {5}( 1.3.6.1.4.1.13769.3.2 NAME 'mozillaHomeStreet2' EQUALI
+ TY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.1
+ 15.121.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {6}( 1.3.6.1.4.1.13769.3.3 NAME 'mozillaHomeLocalityName' S
+ UP name SINGLE-VALUE )
+olcAttributeTypes: {7}( 1.3.6.1.4.1.13769.3.4 NAME 'mozillaHomeState' SUP name
+  SINGLE-VALUE )
+olcAttributeTypes: {8}( 1.3.6.1.4.1.13769.3.5 NAME 'mozillaHomePostalCode' EQU
+ ALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.146
+ 6.115.121.1.15{40} SINGLE-VALUE )
+olcAttributeTypes: {9}( 1.3.6.1.4.1.13769.3.6 NAME 'mozillaHomeCountryName' SU
+ P name SINGLE-VALUE )
+olcAttributeTypes: {10}( 1.3.6.1.4.1.13769.3.7 NAME 'mozillaHomeUrl' EQUALITY c
+ aseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {11}( 1.3.6.1.4.1.13769.3.8 NAME 'mozillaWorkStreet2' EQUAL
+ ITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch SYNTAX 1.3.6.1.4.1.1466.
+ 115.121.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {12}( 1.3.6.1.4.1.13769.3.9 NAME 'mozillaWorkUrl' EQUALITY c
+ aseIgnoreMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128} SINGLE-VALUE )
+olcAttributeTypes: {13}( 1.3.6.1.4.1.13769.2.1 NAME ( 'mozillaNickname' 'xmozi
+ llanickname' ) SUP name )
+olcAttributeTypes: {14}( 1.3.6.1.4.1.13769.2.2 NAME ( 'mozillaSecondEmail' 'xm
+ ozillasecondemail' ) EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Substrin
+ gsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} SINGLE-VALUE )
+olcAttributeTypes: {15}( 1.3.6.1.4.1.13769.2.3 NAME ( 'mozillaUseHtmlMail' 'xm
+ ozillausehtmlmail' ) SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 SINGLE-VALUE )
+olcAttributeTypes: {16}( 1.3.6.1.4.1.13769.2.4 NAME ( 'nsAIMid' 'nscpaimscreen
+ name' ) EQUALITY telephoneNumberMatch SUBSTR telephoneNumberSubstringsMatch S
+ YNTAX 1.3.6.1.4.1.1466.115.121.1.50 )
+olcObjectClasses: {0}( 1.3.6.1.4.1.13769.9.1 NAME 'mozillaAbPersonAlpha' SUP t
+ op AUXILIARY MUST cn MAY ( c $ description $ displayName $ facsimileTelephone
+ Number $ givenName $ homePhone $ l $ mail $ mobile $ mozillaCustom1 $ mozilla
+ Custom2 $ mozillaCustom3 $ mozillaCustom4 $ mozillaHomeCountryName $ mozillaH
+ omeLocalityName $ mozillaHomePostalCode $ mozillaHomeState $ mozillaHomeStree
+ t $ mozillaHomeStreet2 $ mozillaHomeUrl $ mozillaNickname $ mozillaSecondEmai
+ l $ mozillaUseHtmlMail $ mozillaWorkStreet2 $ mozillaWorkUrl $ nsAIMid $ o $ o
+ u $ pager $ postalCode $ postOfficeBox $ sn $ st $ street $ telephoneNumber $
+  title ) )
