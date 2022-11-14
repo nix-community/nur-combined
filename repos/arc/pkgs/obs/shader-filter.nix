@@ -1,4 +1,4 @@
-{ fetchFromGitHub, stdenv, obs-studio, ffmpeg, qtbase ? qt5.qtbase, qt5 ? { }, cmake, pkg-config }: stdenv.mkDerivation rec {
+{ fetchFromGitHub, stdenv, obs-studio, ffmpeg, qtbase ? qt5.qtbase, qt5 ? { }, cmake, pkg-config, lib }: stdenv.mkDerivation rec {
   pname = "obs-shader-filter";
   version = "2.3.0";
 
@@ -19,4 +19,5 @@
   buildInputs = [ obs-studio ffmpeg qtbase ];
 
   dontWrapQtApps = true;
+  meta.broken = lib.versionAtLeast obs-studio.version "28";
 }
