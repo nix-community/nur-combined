@@ -16,6 +16,7 @@
 
   hassLovelaceModules = pkgs.recurseIntoAttrs {
     apexcharts-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/apexcharts-card {};
+    button-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/button-card {};
     mini-graph-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-graph-card {};
     mini-media-player = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-media-player {};
     multiple-entity-row = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/multiple-entity-row {};
