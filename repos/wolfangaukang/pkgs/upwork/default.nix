@@ -6,12 +6,12 @@
 
 stdenv.mkDerivation rec {
   pname = "upwork";
-  version = "5.6.10.24";
+  version = "5.8.0.24";
 
   src = requireFile {
     name = "${pname}_${version}_amd64.deb";
     url = "https://www.upwork.com/ab/downloads/os/linux/";
-    sha256 = "af540cf7799598788f920b2a5ab5b0f5e50aa934b06d457e4ca2c9c1e5bbacdf";
+    sha256 = "f57d54fc8988f067c28982e92c3fa320260062c02bd4d24b94e32f79c5caee17";
   };
 
   nativeBuildInputs = [
