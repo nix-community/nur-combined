@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "107.0buildid20221110.173214";
+      version = "108.0buildid20221114.145411";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4028647/francais_language_pack-107.0buildid20221110.173214.xpi";
-      sha256 = "bce73ad635ef9d985e2437f5162f41ee77f3b153c6381d97028360d45ce02338";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030171/francais_language_pack-108.0buildid20221114.145411.xpi";
+      sha256 = "8220e9fb5f084c79e07a9dcdb2f0dfb0c87e329b30b9013f8e8af578ba4681ff";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1527,10 +1527,10 @@
       };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
-      version = "2.2.3";
+      version = "2.2.4";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4007898/news_feed_eradicator-2.2.3.xpi";
-      sha256 = "5d8c10081f0192865176f11c35b4ebceb3c78d9e3ba72ef45e0df8907df82721";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030420/news_feed_eradicator-2.2.4.xpi";
+      sha256 = "fe31c99ee6befbe9fbcbebf4e74391e3dd68802ce8c9c5ebe17466045e3ef88e";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
@@ -1917,10 +1917,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.5.4";
+      version = "2.5.6";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4020467/private_relay-2.5.4.xpi";
-      sha256 = "0fe3e5bfba1c27017b848646cbed0ae027a47bc64f830c5b3e52220fbfdf0674";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4024032/private_relay-2.5.6_CVOBhwn.xpi";
+      sha256 = "41caf04a319623363806ba76ef7f9674ce9904c6bfeee8ed7f6a6470be86916c";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2254,10 +2254,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.10.18.1133";
+      version = "22.11.14.1521";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017292/sourcegraph_for_firefox-22.10.18.1133.xpi";
-      sha256 = "0a065ed6865e998d425aee69acc2d37730d79731b6139d79d2401f7cad4547f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030032/sourcegraph_for_firefox-22.11.14.1521.xpi";
+      sha256 = "edddff58e32db6fad0220d9dcb19881d25d00d5ac24602d609535d4a68790a17";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2335,10 +2335,10 @@
       };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.1.1";
+      version = "1.12";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4020296/surfingkeys_ff-1.1.1.xpi";
-      sha256 = "3cd552b9f68f7960fb003638416b3654dcd05b02acbe31ea5cf78a72580ef261";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030019/surfingkeys_ff-1.12.xpi";
+      sha256 = "f4cb16c84ab104d93cb6ae2b3a6dcd7b3ce658b1c35e54fcce9d78f724238b44";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -2647,10 +2647,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.45.0";
+      version = "1.45.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027736/ublock_origin-1.45.0.xpi";
-      sha256 = "dd7e1147e19d4091a598de8da3d2f426d1b1c8b036120f91760aff013ac0ced7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028976/ublock_origin-1.45.2.xpi";
+      sha256 = "fb173895c76c3b05f132caf87a716c75e3db21be861ead1b14ba6abc7e715e8b";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
