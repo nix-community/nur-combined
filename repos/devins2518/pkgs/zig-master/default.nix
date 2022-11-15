@@ -3,20 +3,20 @@
 let
   os = if stdenv.isLinux then "linux" else "macos";
   arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
-  v = "0.10.0-dev.4217+9d8cdb855";
+  v = "0.11.0-dev.174+d823680e1";
   shas = {
     x86_64-linux =
-      "795daa1bed55b10a5fb22de8e8e5eb58bfbcb445bcbf9ffbc2150bd01b6dbe1b";
+      "9d0e4724c7bc999f0445af1e5e2e10b69989344e3f8ee126fbbe57397a6f66aa";
     aarch64-linux =
       "c1544a01bd0faf8cd5508329a71cfa35d4ba56c741929529c46bc351deaa9905";
     x86_64-darwin =
-      "64dee888be7d71b6516557bb8cd3d71a373684c6fc2ae3444954dc01512f48cb";
+      "d3aea33d16f7105dfe3cf4c48d02a938a6f750e099767879b8ee19bd51b7aa39";
     aarch64-darwin =
-      "0675d47dff0ad23d43f43b672caab5c1e37043c8ac1b2fbad542b1d425159940";
+      "c8d712ac0078f160479f7bc46b1f5afa7f9cadb736a4b865058da1605c57bb26";
   };
 in stdenv.mkDerivation rec {
   pname = "zig-master";
-  version = "unstable-2022-08-10";
+  version = "unstable-2022-11-14";
 
   src = fetchurl {
     url = "https://ziglang.org/builds/zig-${os}-${arch}-${v}.tar.xz";
@@ -28,7 +28,7 @@ in stdenv.mkDerivation rec {
     install -D LICENSE "$out/usr/share/licenses/zig/LICENSE"
     cp -r lib "$out/lib"
     install -d "$out/usr/share/doc"
-    cp -r docs "$out/usr/share/doc/zig"
+    cp -r doc "$out/usr/share/doc/zig"
   '';
 
   meta = with lib; {
