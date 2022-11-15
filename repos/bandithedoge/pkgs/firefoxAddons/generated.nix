@@ -236,10 +236,10 @@
   };
   "npm-hub" = buildFirefoxXpiAddon {
     pname = "npm-hub";
-    version = "2017.8.30";
+    version = "2022.11.14";
     addonId = "npm-hub@sikelianos.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/712323/npm_hub-2017.8.30.xpi";
-    sha256 = "35e616fb2f11a8aedec8b1b3a629fef9e622e59a9e47e3cac6a1d8dfefc90223";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4029875/npm_hub-2022.11.14.xpi";
+    sha256 = "f4b353425af8914ae1991bc6ca18968771b5aa5c10d1c3f14efd100f49152318";
     meta = with lib; {
       homepage = "https://github.com/npmhub/npmhub";
       description = "Explore npm dependencies on GitHub repos";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.653";
+    version = "0.1.0.656";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4029123/ruffle_rs-0.1.0.653.xpi";
-    sha256 = "07a42151ef819dd76151fcc4322f7afdc1043366bc0ee6910f258f1938b01a71";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4030408/ruffle_rs-0.1.0.656.xpi";
+    sha256 = "719f59116ec3c437c50c43a7eeaf7473c09075a220d5942d0a16de492462003a";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
@@ -353,10 +353,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "22.10.18.1133";
+    version = "22.11.14.1521";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4017292/sourcegraph_for_firefox-22.10.18.1133.xpi";
-    sha256 = "0a065ed6865e998d425aee69acc2d37730d79731b6139d79d2401f7cad4547f8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4030032/sourcegraph_for_firefox-22.11.14.1521.xpi";
+    sha256 = "edddff58e32db6fad0220d9dcb19881d25d00d5ac24602d609535d4a68790a17";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       platforms = platforms.all;
@@ -440,10 +440,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.45.0";
+    version = "1.45.2";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4027736/ublock_origin-1.45.0.xpi";
-    sha256 = "dd7e1147e19d4091a598de8da3d2f426d1b1c8b036120f91760aff013ac0ced7";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4028976/ublock_origin-1.45.2.xpi";
+    sha256 = "fb173895c76c3b05f132caf87a716c75e3db21be861ead1b14ba6abc7e715e8b";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
