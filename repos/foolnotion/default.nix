@@ -83,7 +83,7 @@
 
   vstat = pkgs.callPackage ./pkgs/vstat { vectorclass = vectorclass; };
 
-  xxhash = pkgs.callPackage ./pkgs/xxhash { };
+  xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
 
   operon = pkgs.callPackage ./pkgs/operon {
     aria-csv = aria-csv;
@@ -95,7 +95,7 @@
     taskflow = taskflow;
     vectorclass = vectorclass;
     vstat = vstat;
-    xxhash = xxhash;
+    xxhash = pkgs.xxHash;
   };
 
   pyoperon = pkgs.callPackage ./pkgs/pyoperon {
@@ -109,7 +109,7 @@
     taskflow = taskflow;
     vectorclass = vectorclass;
     vstat = vstat;
-    xxhash = xxhash;
+    xxhash = pkgs.xxHash;
   };
 
   qpdfview = pkgs.libsForQt5.callPackage ./pkgs/qpdfview {
