@@ -62,7 +62,7 @@ in {
     (mapAttrs' (name: value: nameValuePair "tun2socks-${name}-script" ({
       after = [ "sys-devices-virtual-net-${name}.device" ];
       bindsTo = [ "sys-devices-virtual-net-${name}.device" ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "sys-devices-virtual-net-${name}.device" ];
       description = "tun2socks ${name} script";
       path = with pkgs; [ iproute2 ];
       serviceConfig = {
