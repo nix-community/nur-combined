@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jfalcou";
     repo = "eve";
-    rev = "a3dd116346d8b2d2e940f279e5b2aa3e32c0f88b";
-    sha256 = "sha256-AjbWdUIswkdIhd10alafcc6Kpw8Q++bxxpkq3ulrj0w=";
+    rev = "v${version}";
+    sha256 = "sha256-YNTZYVPeXIH92GLE3BRBhRsiZYPKFdCUGL/lJKTBcwQ=";
   };
 
   nativeBuildInputs = [ cmake ];

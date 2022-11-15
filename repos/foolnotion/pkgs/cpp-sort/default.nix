@@ -13,6 +13,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  cmakeFlags = [
+    "-DCPPSORT_BUILD_TESTING=OFF"
+    "-DCPPSORT_BUILD_EXAMPLES=OFF"
+  ];
+
   meta = with lib; {
     description = "Generic header-only C++14 sorting library.";
     homepage = "https://github.com/Morwenn/cpp-sort";
