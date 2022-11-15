@@ -12,7 +12,7 @@ with lib;
       };
   };
   config = {
-    home.activation.wallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] (mkIf (config.home.wallpapers != null)
+    home.activation.wallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] (mkIf (config.home.wallpapers != [])
       (
         let
           script = ''
