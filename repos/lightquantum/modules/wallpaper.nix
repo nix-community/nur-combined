@@ -13,7 +13,7 @@ with lib;
   };
   config = {
     home.activation.wallpapers =
-      (mkIf (config.home.wallpapers != [ ]) lib.hm.dag.entryAfter [ "writeBoundary" ]
+      (mkIf (config.home.wallpapers != [ ]) (lib.hm.dag.entryAfter [ "writeBoundary" ]
         (
           let
             script = ''
@@ -36,6 +36,6 @@ with lib;
 
             $DRY_RUN_CMD osascript -e '${script}'
           ''
-        ));
+        )));
   };
 }
