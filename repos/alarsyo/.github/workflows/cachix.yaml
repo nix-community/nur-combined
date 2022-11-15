@@ -13,9 +13,9 @@ jobs:
     name: Format check
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - uses: cachix/install-nix-action@v16
+    - uses: cachix/install-nix-action@v18
 
     - name: Run alejandra
       run: nix run nixpkgs#alejandra -- --check .
@@ -24,11 +24,11 @@ jobs:
     name: Flake check
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - uses: cachix/install-nix-action@v16
+    - uses: cachix/install-nix-action@v18
 
-    - uses: cachix/cachix-action@v10
+    - uses: cachix/cachix-action@v12
       with:
         name: alarsyo
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
@@ -53,11 +53,11 @@ jobs:
         - spot
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - uses: cachix/install-nix-action@v16
+    - uses: cachix/install-nix-action@v18
 
-    - uses: cachix/cachix-action@v10
+    - uses: cachix/cachix-action@v12
       with:
         name: alarsyo
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
@@ -81,11 +81,11 @@ jobs:
         - zephyrus
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - uses: cachix/install-nix-action@v16
+    - uses: cachix/install-nix-action@v18
 
-    - uses: cachix/cachix-action@v10
+    - uses: cachix/cachix-action@v12
       with:
         name: alarsyo
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
