@@ -7,6 +7,5 @@ buildFishPlugin rec {
     description = "Fish shell plugin that helps you to work with paired symbols in the command line";
     homepage = "https://github.com/laughedelic/pisces";
     license = licenses.mit;
-    maintainers = with maintainers; [ yinfeng ];
   };
 }

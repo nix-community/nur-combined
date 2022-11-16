@@ -23,7 +23,6 @@ let
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
-    { "minio-latest" = { "minio" = "minio"; }; }
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
     (trivial "telegram-send")

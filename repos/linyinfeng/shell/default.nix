@@ -1,4 +1,4 @@
-{ lib, newScope, packages, selfLib }:
+{ lib, newScope, packages }:
 
 lib.makeScope newScope (
   self:
@@ -7,11 +7,7 @@ lib.makeScope newScope (
   in
   {
     shell = callPackage ./shell.nix { };
-    update = callPackage ./scripts/update.nix {
-      inherit selfLib;
-      inherit (packages) nvfetcher-changes-commit;
-      repoPackages = packages;
-    };
+    update = callPackage ./scripts/update.nix { inherit (packages) nvfetcher-changes-commit; };
     lint = callPackage ./scripts/lint.nix { };
   }
 )

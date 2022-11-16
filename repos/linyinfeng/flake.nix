@@ -12,16 +12,13 @@
     let
       utils = flake-utils-plus.lib;
       inherit (nixpkgs) lib;
-      selfLib = self.lib;
-      inherit (selfLib) makePackages makeApps appNames;
+      inherit (self.lib) makePackages makeApps appNames;
       makePackages' = prev:
         let
           packages = makePackages prev ./pkgs { };
         in
         packages // {
-          devShellPackages = makePackages prev ./shell {
-            inherit packages selfLib;
-          };
+          devShellPackages = makePackages prev ./shell { inherit packages; };
         };
     in
     utils.mkFlake
@@ -36,15 +33,12 @@
         lib = import ./lib { inherit (nixpkgs) lib; };
         overlays = import ./overlays // {
           linyinfeng = final: prev: {
-            linyinfeng = lib.recurseIntoAttrs (makePackages' prev);
+            linyinfeng = makePackages' prev;
           };
           singleRepoNur = final: prev: {
-            nur = prev.lib.recursiveUpdate (prev.nur or { })
-              (lib.recurseIntoAttrs {
-                repos = lib.recurseIntoAttrs {
-                  linyinfeng = lib.recurseIntoAttrs (makePackages' prev);
-                };
-              });
+            nur = prev.lib.recursiveUpdate (prev.nur or { }) {
+              repos.linyinfeng = makePackages' prev;
+            };
           };
         };
 
@@ -56,7 +50,7 @@
             packages = utils.flattenTree (mainChannel.linyinfeng);
             apps = makeApps packages appNames;
             devShells.default = mainChannel.linyinfeng.devShellPackages.shell;
-            checks = utils.flattenTree (lib.mapAttrs (name: c: c.linyinfeng) channels);
+            checks = utils.flattenTree (lib.mapAttrs (name: c: lib.recurseIntoAttrs c.linyinfeng) channels);
           };
 
         nixosModules = import ./modules;

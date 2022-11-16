@@ -18,6 +18,5 @@ rec {
     homepage = "https://github.com/linyinfeng/commit-notifier";
     description = "A simple telegram bot monitoring commit status";
     license = licenses.mit;
-    maintainers = with maintainers; [ yinfeng ];
   };
 }

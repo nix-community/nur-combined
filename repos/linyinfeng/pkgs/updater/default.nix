@@ -11,6 +11,5 @@ drv.overrideAttrs (old: {
   '';
   meta = with lib; {
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ yinfeng ];
   };
 })

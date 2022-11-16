@@ -48,6 +48,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/icalingua-plus-plus/icalingua-plus-plus";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ yinfeng ];
   };
 }

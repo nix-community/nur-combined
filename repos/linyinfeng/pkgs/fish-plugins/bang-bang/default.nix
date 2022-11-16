@@ -7,6 +7,5 @@ buildFishPlugin rec {
     description = "Bash style history substitution for Oh My Fish";
     homepage = "https://github.com/oh-my-fish/plugin-bang-bang";
     license = licenses.mit;
-    maintainers = with maintainers; [ yinfeng ];
   };
 }
