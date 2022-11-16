@@ -99,5 +99,6 @@ qt5.mkDerivation rec {
     description = "Tencent Video Conferencing, tencent meeting";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

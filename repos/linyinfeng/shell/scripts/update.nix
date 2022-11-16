@@ -1,25 +1,24 @@
-{ writeShellScriptBin
+{ lib
+, selfLib
+, writeShellScriptBin
 , nixVersions
 , nixpkgs-fmt
 , nix-prefetch
 , nix-update
 , nvfetcher-changes-commit
 , path
-, nixUpdateAttributes ? [
-    "cf-terraforming"
-    "aws-s3-reverse-proxy"
-  ]
+, repoPackages
 , tmpDir ? "/tmp/linyinfeng-nur-packages-update"
 , changelogFile ? "${tmpDir}/changelog"
 , updaterChangelogFile ? "${tmpDir}/updater-changelog"
-, nixUpdateCommitMessageFile ? "${tmpDir}/commit-message"
+, updateScriptCommitMessageFile ? "${tmpDir}/commit-message"
 , alternativeEnvFile ? "${tmpDir}/github-env"
-, authorName ? "github-actions[bot]"
-, authorEmail ? "github-actions[bot]@users.noreply.github.com"
 }:
 
 let
   nix = nixVersions.unstable;
+  updateScripts = selfLib.getUpdateScripts repoPackages;
+  escapedUpdateScripts = builtins.map lib.escapeShellArgs updateScripts;
 in
 
 writeShellScriptBin "update" ''
@@ -37,24 +36,22 @@ writeShellScriptBin "update" ''
   fi
 
   # setup git
-  git config user.name "${authorName}"
-  git config user.email "${authorEmail}"
   function commit {
     git add --all
     git commit "$@"
   }
 
-  ## nix-update
-  echo "run nix-update"
-  attributes=(${toString nixUpdateAttributes})
-  for attribute in "''${attributes[@]}"; do
-    ${nix-update}/bin/nix-update "$attribute" --write-commit-message "${nixUpdateCommitMessageFile}"
-    if [ -f "${nixUpdateCommitMessageFile}" ]; then
-      commit --file="${nixUpdateCommitMessageFile}"
-      cat "${nixUpdateCommitMessageFile}" >> "${changelogFile}"
-      rm "${nixUpdateCommitMessageFile}"
+  ## update scripts
+  echo "run update scripts"
+  function handle_update_script {
+    "$@" --write-commit-message "${updateScriptCommitMessageFile}"
+    if [ -f "${updateScriptCommitMessageFile}" ]; then
+      commit --file="${updateScriptCommitMessageFile}"
+      cat "${updateScriptCommitMessageFile}" >> "${changelogFile}"
+      rm "${updateScriptCommitMessageFile}"
     fi
-  done
+  }
+  ${ lib.concatStringsSep "\n" (builtins.map (s: "handle_update_script ${s}") escapedUpdateScripts) }
 
   # remove old Cargo.lock files
   pushd pkgs/_sources

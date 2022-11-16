@@ -7,5 +7,6 @@ buildFishPlugin rec {
     description = "Git plugin for Oh My Fish";
     homepage = "https://github.com/jhillyerd/plugin-git";
     license = licenses.mit;
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

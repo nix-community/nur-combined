@@ -14,5 +14,6 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "udev rules for CanoKey";
     homepage = "https://docs.canokeys.org/userguide/setup";
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

@@ -16,5 +16,6 @@ rec {
     homepage = "https://github.com/linyinfeng/dot-tar";
     description = "A tiny web server converting files to singleton tar files";
     license = licenses.mit;
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

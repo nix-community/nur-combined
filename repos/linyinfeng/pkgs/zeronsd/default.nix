@@ -21,5 +21,6 @@ rec {
     homepage = "https://github.com/zerotier/zeronsd";
     description = "A DNS server for ZeroTier users";
     license = licenses.bsd3;
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

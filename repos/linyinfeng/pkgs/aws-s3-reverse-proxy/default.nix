@@ -1,4 +1,4 @@
-{ buildGoModule, fetchFromGitHub, lib }:
+{ buildGoModule, fetchFromGitHub, lib, nix-update-script }:
 
 buildGoModule rec {
   pname = "aws-s3-reverse-proxy";
@@ -12,10 +12,15 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-UXlDbhG2EXFgk0fGFrxdDHopiuFJtY/YH1BF4/tVrCU=";
 
+  passthru = {
+    updateScriptEnabled = true;
+    updateScript = nix-update-script { attrPath = pname; };
+  };
+
   meta = with lib; {
     description = "Reverse-proxy all incoming S3 API calls to the public AWS S3 backend";
     homepage = "https://github.com/Kriechi/aws-s3-reverse-proxy";
     license = licenses.mit;
+    maintainers = with maintainers; [ yinfeng ];
   };
 }
-
