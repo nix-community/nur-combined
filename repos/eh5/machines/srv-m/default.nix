@@ -15,10 +15,12 @@ lib.nixosSystem rec {
     ./mail-postfix.nix
     ./mail-rspamd.nix
     ./mail-sogo.nix
+    ./mail-stalwart.nix
     ./networking.nix
     ./hardware.nix
   ] ++
   (with self.nixosModules; [
+    stalwart-jmap
     v2ray-next
   ]) ++
   [

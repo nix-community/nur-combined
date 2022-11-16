@@ -14,6 +14,9 @@ let
     netease-cloud-music = callPackage ./netease-cloud-music { };
     nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
     qcef = callPackage ./qcef { };
+    stalwart-cli = callPackage ./stalwart-cli {};
+    stalwart-imap = callPackage ./stalwart-imap {};
+    stalwart-jmap = callPackage ./stalwart-jmap {};
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
     v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo119Module; };
     v2ray-rules-dat-geoip = callPackage ./v2ray-geoip { };

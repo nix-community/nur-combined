@@ -1,0 +1,82 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index fb04c3c..a2dde38 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1495,16 +1495,6 @@ dependencies = [
+  "winapi",
+ ]
+ 
+-[[package]]
+-name = "gethostname"
+-version = "0.3.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "bb65d4ba3173c56a500b555b532f72c42e8d1fe64962b518897f8959fae2c177"
+-dependencies = [
+- "libc",
+- "winapi",
+-]
+-
+ [[package]]
+ name = "gethostname"
+ version = "0.4.0"
+@@ -1843,7 +1833,7 @@ version = "0.1.0"
+ dependencies = [
+  "jmap",
+  "jmap_sieve",
+- "mail-builder 0.2.3 (git+https://github.com/stalwartlabs/mail-builder)",
++ "mail-builder",
+  "mail-parser",
+  "mail-send",
+  "serde",
+@@ -2066,19 +2056,10 @@ dependencies = [
+ 
+ [[package]]
+ name = "mail-builder"
+-version = "0.2.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "55cec8aafd052a9937cee8f55619a392f00cc969c434c4d70c450c4275718e1c"
+-dependencies = [
+- "gethostname 0.3.0",
+-]
+-
+-[[package]]
+-name = "mail-builder"
+-version = "0.2.3"
+-source = "git+https://github.com/stalwartlabs/mail-builder#fd401b75fdafc3c98e096d992e6d3dc352838983"
++version = "0.2.4"
++source = "git+https://github.com/stalwartlabs/mail-builder#497bf1e6339f3d9001de08995278d2731caad08f"
+ dependencies = [
+- "gethostname 0.3.0",
++ "gethostname 0.4.0",
+ ]
+ 
+ [[package]]
+@@ -2097,7 +2078,7 @@ source = "git+https://github.com/stalwartlabs/mail-send#1d157d43a2a4c7b34258f460
+ dependencies = [
+  "base64",
+  "gethostname 0.2.3",
+- "mail-builder 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
++ "mail-builder",
+  "md5",
+  "rand",
+  "rsa",
+@@ -3167,7 +3148,7 @@ source = "git+https://github.com/stalwartlabs/sieve#cc7a44cc7a9db7f316e4a49a4b4c
+ dependencies = [
+  "ahash 0.8.0",
+  "bincode",
+- "mail-builder 0.2.3 (registry+https://github.com/rust-lang/crates.io-index)",
++ "mail-builder",
+  "mail-parser",
+  "phf",
+  "regex",
+diff --git a/Cargo.toml b/Cargo.toml
+index a45fcd0..892a6e9 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -136,3 +136,6 @@ assets = [
+ conf-files = [
+     "/etc/stalwart-jmap/config.yml"
+ ]
++
++[patch.crates-io]
++mail-builder = { git = "https://github.com/stalwartlabs/mail-builder" }

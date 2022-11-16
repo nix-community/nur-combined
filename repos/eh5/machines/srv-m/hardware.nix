@@ -6,6 +6,10 @@
     version = 2;
     device = "/dev/vda";
   };
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_instances" = 65535;
+    "fs.inotify.max_user_watches" = 65535;
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";

@@ -28,10 +28,10 @@ let
     /^User-Agent:/          IGNORE
     /^X-Enigmail:/          IGNORE
 
-     # Replaces the user submitted hostname with the server's FQDN to hide the
-     # user's host or network.
+    # Replaces the user submitted hostname with the server's FQDN to hide the
+    # user's host or network.
 
-     /^Message-ID:\s+<(.*?)@.*?>/ REPLACE Message-ID: <$1@${cfg.fqdn}>
+    /^Message-ID:\s+<(.*?)@.*?>/ REPLACE Message-ID: <$1@${cfg.fqdn}>
   '';
   policyd-spf = pkgs.writeText "policyd-spf.conf" ''
   '';
@@ -47,6 +47,9 @@ in
     sslKey = cfg.keyFile;
     submissionOptions = submissionOptions;
     submissionsOptions = submissionOptions;
+    mapFiles = {
+      # name = builtins.toFile "name" "key value"
+    };
   };
 
   services.postfix.config = {
@@ -56,14 +59,24 @@ in
     smtputf8_enable = false; # Dovecot does not support UTF-8
 
     lmtp_destination_recipient_limit = "1";
+    transport_maps = [
+      "inline:{ { chika.xin = lmtp:127.0.0.1:11200 } }"
+    ];
     virtual_transport = "lmtp:unix:/run/dovecot2/postfix-lmtp";
     virtual_uid_maps = "static:${builtins.toString cfg.vmailUid}";
     virtual_gid_maps = "static:${builtins.toString cfg.vmailUid}";
-    virtual_alias_maps = "ldap:${secrets.valiasLdap.path}";
+    virtual_alias_maps = [
+      ("regexp:" + builtins.toFile "alias" "/^(.+@chika.xin)$/ $1")
+      "ldap:${secrets.valiasLdap.path}"
+    ];
     virtual_mailbox_base = cfg.maildirRoot;
     virtual_mailbox_domains = [ "eh5.me" "sokka.cn" "chika.xin" ];
-    virtual_mailbox_maps = "ldap:${secrets.vaccountLdap.path}";
+    virtual_mailbox_maps = [
+      "inline:{ { @chika.xin = @chika.xin } }"
+      "ldap:${secrets.vaccountLdap.path}"
+    ];
 
+    # allow relay on port 25 for authed user
     smtpd_sasl_type = "dovecot";
     smtpd_sasl_path = "/run/dovecot2/postfix-auth";
     smtpd_sasl_auth_enable = true;

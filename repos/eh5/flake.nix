@@ -58,15 +58,32 @@
             } else { }) // {
               deploy = deploy-rs.defaultPackage.${system};
             };
+          platformPackages = myPkgs.packages { inherit pkgs inputs; filterByPlatform = true; };
+          shellPackages =
+            if system == systems.x86_64-linux
+            then platformPackages
+            else if system == systems.aarch64-linux
+            then
+              lib.getAttrs
+                [
+                  "mosdns"
+                  "sops-install-secrets-nonblock"
+                  "ubootNanopiR2s"
+                  "v2ray-next"
+                  "v2ray-rules-dat-geoip"
+                  "v2ray-rules-dat-geosite"
+                  "vlmcsd"
+                ]
+                platformPackages
+            else { };
         in
         rec {
-          packages = myPkgs.packages { inherit pkgs inputs; filterByPlatform = true; };
-          checks = packages;
+          packages = platformPackages;
+          checks = platformPackages;
           apps = builtins.mapAttrs (name: drv: mkApp { inherit name drv; }) appPkgs;
           devShells.default = pkgs.mkShell {
             buildInputs = builtins.filter (f: f != null)
-              ((builtins.attrValues packages)
-              ++ (builtins.attrValues appPkgs));
+              ((builtins.attrValues shellPackages) ++ (builtins.attrValues appPkgs));
           };
         }
       )

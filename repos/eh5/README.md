@@ -79,7 +79,7 @@ $ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-c
 
 | Name                    | Description                                                            | Platforms     |
 | ----------------------- | ---------------------------------------------------------------------- | ------------- |
-| dovecot-fts-flatcurve   | Dovecot FTS Flatcurve plugin (Xapi                                     | \*-linux      |
+| dovecot-fts-flatcurve   | Dovecot FTS Flatcurve plugin (Xapian)                                  | \*-linux      |
 | fake-hwclock            | Fake hardware clock                                                    | \*            |
 | mosdns                  | A DNS proxy                                                            | \*            |
 | nix-gfx-mesa            | [nixGL](https://github.com/guibou/nixGL) but for Mesa only             | \*            |

@@ -68,6 +68,7 @@ in
         specialUse = "Junk";
       };
       Spam.specialUse = "Junk";
+      Templates.auto = "create";
     };
     sieveScripts = {
       after = builtins.toFile "spam.sieve" ''
@@ -96,7 +97,10 @@ in
   services.dovecot2.extraConfig = ''
     mail_home = "${cfg.maildirRoot}/%d/%n"
     mail_location = maildir:~/Maildir
+    mail_temp_dir = /dev/shm/
     ssl_prefer_server_ciphers = yes
+
+    imap_hibernate_timeout = 5s
 
     recipient_delimiter = +
     lmtp_save_to_detail_mailbox = no
@@ -154,6 +158,12 @@ in
         mode = 0600
         user = ${postfixCfg.user}
         group = ${postfixCfg.group}
+      }
+    }
+
+    service imap {
+      unix_listener imap-master {
+        user = $default_internal_user
       }
     }
 

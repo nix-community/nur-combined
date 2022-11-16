@@ -6,7 +6,21 @@ in
 {
   nixpkgs.overlays = [
     (final: prev: {
-      sogo = prev.sogo.override { enableActiveSync = true; };
+      sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (_: attrs: rec {
+        version = assert attrs.version == "5.7.0"; "5.7.1";
+        src = pkgs.fetchFromGitHub {
+          owner = "inverse-inc";
+          repo = attrs.pname;
+          rev = "SOGo-${version}";
+          hash = "sha256-GCgnguNZ02HyRZoy8Rivl+LSxe6HCqv/Wqyj4oYST4U=";
+        };
+        patches = attrs.patches ++ [
+          (pkgs.fetchurl {
+            url = "https://github.com/Alinto/sogo/compare/SOGo-5.7.1...714acfc838ab26fc9de52cbf382faa410708ab4c.patch";
+            sha256 = "sha256-KPvL4mQhzCNkdkqy7XbanI074e/MBlJFdZ/8+r3Qe/4=";
+          })
+        ];
+      });
     })
   ];
 
@@ -44,7 +58,7 @@ in
         IDFieldName = cn;
         UIDFieldName = mail;
         MailFieldNames = ( "mail" );
-        baseDN = "ou=%d,ou=domains,dc=eh5,dc=me";
+        baseDN = "ou=domains,dc=eh5,dc=me";
         filter = "objectClass='PostfixBookMailAccount'";
         bindDN = "cn=admin,dc=eh5,dc=me";
         bindPassword = "__LDAP_BINDPW__";
@@ -79,6 +93,8 @@ in
     SOGoGravatarEnabled = YES;
     SOGoMailComposeMessageType = text;
     SOGoEnableEMailAlarms = YES;
+    /* Microsoft Enterprise ActiveSync */
+    SOGoEASSearchInBody = YES;
   '';
   systemd.services.sogo =
     let
