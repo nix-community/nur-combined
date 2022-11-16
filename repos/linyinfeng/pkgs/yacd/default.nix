@@ -11,5 +11,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/haishanh/yacd";
     description = "Yet Another Clash Dashboard";
     license = licenses.mit;
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

@@ -24,5 +24,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.mit;
     # TODO https://github.com/pyca/pyopenssl/issues/873
     broken = python3Packages.pyopenssl.meta.broken;
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

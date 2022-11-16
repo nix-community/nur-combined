@@ -14,5 +14,6 @@ stdenv.mkDerivation rec {
     description = "An unidentifiable mechanism that helps you bypass GFW";
     homepage = "https://trojan-gfw.github.io/trojan";
     license = licenses.gpl3;
+    maintainers = with maintainers; [ yinfeng ];
   };
 }

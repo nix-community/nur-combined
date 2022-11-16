@@ -34,6 +34,10 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}-${{ hashFiles('pkgs/_sources/generated.nix') }}
         restore-keys: |
           ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}-
+    - name: Git config
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
     - name: Run updater
       run: |
         # update and set variables
