@@ -1,0 +1,94 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    strategy:
+      matrix:
+        package:
+          - akkoma
+          - pleroma-fe
+          - admin-fe
+          - emoji-lotte
+          - emoji-volpeon-blobfox
+          - emoji-volpeon-blobfox-flip
+          - emoji-volpeon-bunhd
+          - emoji-volpeon-bunhd-flip
+          - emoji-volpeon-drgn
+          - emoji-volpeon-fox
+          - emoji-volpeon-raccoon
+          - emoji-volpeon-vlpn
+          - lotte-art
+          - drone-runner-docker
+          - alco-sans
+          - constructium
+          - fairfax
+          - fairfax-hd
+          - kreative-square
+          - nasin-nanpa
+          - matrix-media-repo
+          - mautrix-discord
+          - mautrix-whatsapp
+          - mautrix-signal
+          - mautrix-telegram
+          - python-mautrix
+          - python-tulir-telethon
+          - papermc
+          - python-plover-stroke
+          - python-rtf-tokenize
+          - plover
+          - plover-plugins-manager
+          - python-simplefuzzyset
+          - plover-plugin-emoji
+          - plover-plugin-tapey-tape
+          - plover-plugin-yaml-dictionary
+          - plover-plugin-machine-hid
+          - plover-plugin-rkb1-hid
+          - plover-dict-didoesdigital
+          - miifox-net
+          - old-homepage
+          - clean-s3-cache
+          - python-instagram
+          - moa
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: cachix/install-nix-action@v18
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nixcache:8KKuGz95Pk4UJ5W/Ni+pN+v+LDTkMMFV4yrGmAYgkDg= hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=
+            experimental-features = nix-command flakes ca-derivations
+            post-build-hook = ${{ github.workspace }}/scripts/post-build-hook
+            substituters = https://f000.backblazeb2.com/file/cache-chir-rs/ https://cache.nixos.org/
+      - name: Set up secrets
+        run: |
+          echo "$NIX_CACHE_KEY" > ~/cache.key
+          sudo mkdir /root/.aws
+          echo "$AWS_CREDENTIALS" | sudo tee /root/.aws/credentials > /dev/null
+        env:
+          NIX_CACHE_KEY: ${{secrets.NIX_CACHE_KEY}}
+          AWS_CREDENTIALS: ${{secrets.AWS_CREDENTIALS}}
+      - name: install jq
+        run: sudo apt install jq
+      - name: Build ${{ matrix.package }}
+        run: |
+          DRV_PATH=$(nix-instantiate -E '(import ./. {}).${{ matrix.package }}')
+          OUT_PATH=$(nix show-derivation $DRV_PATH | jq -r ".\"$DRV_PATH\".outputs.out.path")
+          # check if we already built it
+          NARINFO=$(echo $OUT_PATH | sed 's|/| |g' | sed 's|-| |g' | awk '{print $3}')
+          if curl --output /dev/null --silent --head --fail "https://f000.backblazeb2.com/file/cache-chir-rs/$NARINFO.narinfo"; then
+            echo "${{ matrix.package }} already built. Skipping"
+          else
+            nix-store -r $DRV_PATH
+          fi
+        env:
+          NIXPKGS_ALLOW_UNFREE: 1

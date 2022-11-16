@@ -1,10 +1,6 @@
 diff --git a/.envrc b/.envrc
 new file mode 100644
-index 0000000..3550a30
---- /dev/null
-+++ b/.envrc
-@@ -0,0 +1 @@
-+use flake
+index 0000000..e69de29
 diff --git a/.gitignore b/.gitignore
 index b8c6716..4dbdfbb 100644
 --- a/.gitignore
@@ -24,7 +20,7 @@ index 0000000..30e36e9
 +  "python.formatting.provider": "yapf"
 +}
 diff --git a/app.py b/app.py
-index 8a53602..7734583 100644
+index b1bcb8d..4a445f4 100644
 --- a/app.py
 +++ b/app.py
 @@ -3,12 +3,12 @@ import os
@@ -60,15 +56,7 @@ index 8a53602..7734583 100644
  logHandler.setFormatter(formatter)
  
  # set the app logger level
-@@ -45,7 +50,6 @@ app.logger.addHandler(logHandler)
- 
- app.logger.info("Starting up...")
- 
--
- config = os.environ.get('MOA_CONFIG', 'DevelopmentConfig')
- # this is needed to get this in line with other modules, where we expect MOA_CONFIG to be an object in config.py.
- app.config.from_object('config.' + config)
-@@ -59,14 +63,15 @@ if app.config['SENTRY_DSN']:
+@@ -61,14 +66,15 @@ if app.config['SENTRY_DSN']:
      from sentry_sdk.integrations.flask import FlaskIntegration
  
      sentry_logging = LoggingIntegration(
@@ -90,7 +78,7 @@ index 8a53602..7734583 100644
  
  db = SQLAlchemy(metadata=metadata)
  migrate = Migrate(app, db)
-@@ -76,17 +81,17 @@ oauth = OAuth(app)
+@@ -78,17 +84,17 @@ oauth = OAuth(app)
  
  if app.config.get('TWITTER_CONSUMER_KEY', None):
      oauth.register(
@@ -119,7 +107,7 @@ index 8a53602..7734583 100644
      )
  
  # mastodon_scopes = ["write:statuses", "write:media", "read:accounts", "read:statuses"]
-@@ -116,28 +121,32 @@ def index():
+@@ -118,28 +124,32 @@ def index():
      form = SettingsForm(obj=settings)
  
      if 'bridge_id' in session:
@@ -159,7 +147,7 @@ index 8a53602..7734583 100644
      else:
          flash('ERROR: Please log in to an account')
          return redirect(url_for('index'))
-@@ -177,11 +186,11 @@ def catch_up_twitter(bridge):
+@@ -179,11 +189,11 @@ def catch_up_twitter(bridge):
      if bridge.twitter_last_id == 0 and bridge.twitter_oauth_token:
          # get twitter ID
          twitter_api = twitter.Api(
@@ -176,7 +164,7 @@ index 8a53602..7734583 100644
          )
          try:
              tl = twitter_api.GetUserTimeline()
-@@ -190,7 +199,8 @@ def catch_up_twitter(bridge):
+@@ -192,7 +202,8 @@ def catch_up_twitter(bridge):
          else:
              if len(tl) > 0:
                  bridge.twitter_last_id = tl[0].id
@@ -186,7 +174,7 @@ index 8a53602..7734583 100644
                  bridge.md.last_tweet = d
              else:
                  bridge.twitter_last_id = 0
-@@ -225,13 +235,15 @@ def catch_up_mastodon(bridge):
+@@ -227,13 +238,15 @@ def catch_up_mastodon(bridge):
  @app.route('/delete', methods=["POST"])
  def delete():
      if 'bridge_id' in session:
@@ -204,7 +192,7 @@ index 8a53602..7734583 100644
              db.session.delete(bridge)
              db.session.delete(settings)
              db.session.delete(md)
-@@ -246,11 +258,9 @@ def delete():
+@@ -248,11 +261,9 @@ def delete():
  
  @app.route('/twitter_login')
  def twitter_login():
@@ -219,7 +207,7 @@ index 8a53602..7734583 100644
  
      app.logger.debug(callback_url)
  
-@@ -273,9 +283,12 @@ def twitter_oauthorized():
+@@ -275,9 +286,12 @@ def twitter_oauthorized():
          return redirect(url_for('index'))
  
      if resp is None:
@@ -234,7 +222,7 @@ index 8a53602..7734583 100644
          flash('ERROR: Access Denied.')
          send_blacklisted_email(app, resp['screen_name'])
  
-@@ -306,18 +319,18 @@ def twitter_oauthorized():
+@@ -308,18 +322,18 @@ def twitter_oauthorized():
  
  
  def get_or_create_host(hostname):
@@ -260,7 +248,7 @@ index 8a53602..7734583 100644
  
              app.logger.info(f"New host created for {hostname}")
  
-@@ -344,13 +357,11 @@ def mastodon_api(hostname, access_code=None):
+@@ -346,13 +360,11 @@ def mastodon_api(hostname, access_code=None):
      mastodonhost = get_or_create_host(hostname)
  
      if mastodonhost:
@@ -279,7 +267,7 @@ index 8a53602..7734583 100644
  
          return api
      return None
-@@ -401,6 +412,10 @@ def mastodon_login():
+@@ -403,6 +415,10 @@ def mastodon_login():
          if host in app.config.get('MASTODON_BLACKLIST', []):
              flash('Access Denied')
              return redirect(url_for('index'))
@@ -290,7 +278,7 @@ index 8a53602..7734583 100644
  
          session['mastodon_host'] = host
  
-@@ -408,12 +423,11 @@ def mastodon_login():
+@@ -410,12 +426,11 @@ def mastodon_login():
  
          if api:
              return redirect(
@@ -308,7 +296,7 @@ index 8a53602..7734583 100644
          else:
              flash(f"There was a problem connecting to the mastodon server.")
      else:
-@@ -435,7 +449,9 @@ def mastodon_oauthorized():
+@@ -437,7 +452,9 @@ def mastodon_oauthorized():
          app.logger.info(f"Authorization code {authorization_code} for {host}")
  
          if not host:
@@ -319,7 +307,7 @@ index 8a53602..7734583 100644
              return redirect(url_for('index'))
  
          session.pop('mastodon_host', None)
-@@ -445,19 +461,23 @@ def mastodon_oauthorized():
+@@ -447,19 +464,23 @@ def mastodon_oauthorized():
          local_scopes = mastodon_scopes
  
          try:
@@ -350,7 +338,7 @@ index 8a53602..7734583 100644
              return redirect(url_for('index'))
  
          # app.logger.info(f"Access code {access_code}")
-@@ -468,13 +488,17 @@ def mastodon_oauthorized():
+@@ -470,13 +491,17 @@ def mastodon_oauthorized():
              creds = api.account_verify_credentials()
  
          except (MastodonUnauthorizedError, MastodonAPIError) as e:
@@ -370,7 +358,7 @@ index 8a53602..7734583 100644
  
          if bridge:
              session['bridge_id'] = bridge.id
-@@ -520,7 +544,9 @@ def instagram_activate():
+@@ -522,7 +547,9 @@ def instagram_activate():
      # app.logger.info(redirect_uri)
  
      scope = ["basic"]
@@ -381,7 +369,7 @@ index 8a53602..7734583 100644
  
      try:
          redirect_uri = api.get_authorize_login_url(scope=scope)
-@@ -540,7 +566,9 @@ def instagram_oauthorized():
+@@ -542,7 +569,9 @@ def instagram_oauthorized():
          client_id = app.config['INSTAGRAM_CLIENT_ID']
          client_secret = app.config['INSTAGRAM_SECRET']
          redirect_uri = url_for('instagram_oauthorized', _external=True)
@@ -392,7 +380,7 @@ index 8a53602..7734583 100644
  
          try:
              access_token = api.exchange_code_for_access_token(code)
-@@ -565,15 +593,18 @@ def instagram_oauthorized():
+@@ -567,15 +596,18 @@ def instagram_oauthorized():
          bridge.instagram_account_id = data['id']
          bridge.instagram_handle = data['username']
  
@@ -414,7 +402,7 @@ index 8a53602..7734583 100644
          else:
              bridge.instagram_last_id = 0
  
-@@ -595,8 +626,7 @@ def logout():
+@@ -597,8 +629,7 @@ def logout():
  def stats():
      hours = request.args.get('hours', 24)
  
@@ -424,7 +412,7 @@ index 8a53602..7734583 100644
  
  
  @app.route('/deactivate_account')
-@@ -634,9 +664,10 @@ def time_graph():
+@@ -636,9 +667,10 @@ def time_graph():
      hours = int(request.args.get('hours', 24))
  
      since = datetime.now() - timedelta(hours=hours)
@@ -438,7 +426,7 @@ index 8a53602..7734583 100644
  
      df = pd.read_sql(stats_query.statement, stats_query.session.bind)
  
-@@ -682,10 +713,11 @@ def count_graph():
+@@ -684,10 +716,11 @@ def count_graph():
      hours = int(request.args.get('hours', 24))
      since = datetime.now() - timedelta(hours=hours)
  
@@ -454,7 +442,7 @@ index 8a53602..7734583 100644
  
      df = pd.read_sql(stats_query.statement, stats_query.session.bind)
      df.set_index(['created'], inplace=True)
-@@ -700,9 +732,10 @@ def count_graph():
+@@ -702,9 +735,10 @@ def count_graph():
      tweets = r['tweets'].tolist()
      instas = r['instas'].tolist()
  
@@ -468,7 +456,7 @@ index 8a53602..7734583 100644
      chart.add('Toots', toots)
      chart.add('Tweets', tweets)
      chart.add('Instas', instas)
-@@ -715,10 +748,11 @@ def percent_graph():
+@@ -717,10 +751,11 @@ def percent_graph():
      hours = int(request.args.get('hours', 24))
      since = datetime.now() - timedelta(hours=hours)
  
@@ -484,7 +472,7 @@ index 8a53602..7734583 100644
  
      df = pd.read_sql(stats_query.statement, stats_query.session.bind)
      df.set_index(['created'], inplace=True)
-@@ -736,9 +770,10 @@ def percent_graph():
+@@ -738,9 +773,10 @@ def percent_graph():
      tweets_p = r['tweets_p'].tolist()
      instas_p = r['instas_p'].tolist()
  
@@ -498,7 +486,7 @@ index 8a53602..7734583 100644
      chart.add('Toots', toots_p)
      chart.add('Tweets', tweets_p)
      chart.add('Instas', instas_p)
-@@ -751,7 +786,8 @@ def user_graph():
+@@ -753,7 +789,8 @@ def user_graph():
      hours = int(request.args.get('hours', 24))
      since = datetime.now() - timedelta(hours=hours)
  
@@ -508,84 +496,12 @@ index 8a53602..7734583 100644
              Bridge.created)
  
      base_count_query = db.session.query(func.count(Bridge.id)).scalar()
-@@ -793,4 +829,4 @@ def page_not_found(e):
+@@ -795,4 +832,4 @@ def page_not_found(e):
  
  if __name__ == '__main__':
  
 -    app.run()
 +    app.run(host="::1")
-diff --git a/flake.lock b/flake.lock
-new file mode 100644
-index 0000000..ddbf123
---- /dev/null
-+++ b/flake.lock
-@@ -0,0 +1,66 @@
-+{
-+  "nodes": {
-+    "flake-utils": {
-+      "locked": {
-+        "lastModified": 1667395993,
-+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-+        "owner": "numtide",
-+        "repo": "flake-utils",
-+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-+        "type": "github"
-+      },
-+      "original": {
-+        "owner": "numtide",
-+        "repo": "flake-utils",
-+        "type": "github"
-+      }
-+    },
-+    "nix-packages": {
-+      "inputs": {
-+        "flake-utils": [
-+          "flake-utils"
-+        ],
-+        "nixpkgs": [
-+          "nixpkgs"
-+        ]
-+      },
-+      "locked": {
-+        "lastModified": 1667423076,
-+        "narHash": "sha256-0QUa2SBk/+S+q4hBpTSembUtHdiWjIex7tgb6jIoPkA=",
-+        "ref": "refs/heads/main",
-+        "rev": "31d36925f77febc11189dbc015f2593f17b9a4ff",
-+        "revCount": 331,
-+        "type": "git",
-+        "url": "https://git.chir.rs/darkkirb/nix-packages"
-+      },
-+      "original": {
-+        "type": "git",
-+        "url": "https://git.chir.rs/darkkirb/nix-packages"
-+      }
-+    },
-+    "nixpkgs": {
-+      "locked": {
-+        "lastModified": 1667456235,
-+        "narHash": "sha256-bhRXd2WJt6uFTNPGVGJ0/KjssSmmz4kls/1Ggm3gZ0s=",
-+        "owner": "NixOS",
-+        "repo": "nixpkgs",
-+        "rev": "60974988b3e1e5d61341a5ef0357e7ae99fcf7f1",
-+        "type": "github"
-+      },
-+      "original": {
-+        "owner": "NixOS",
-+        "repo": "nixpkgs",
-+        "type": "github"
-+      }
-+    },
-+    "root": {
-+      "inputs": {
-+        "flake-utils": "flake-utils",
-+        "nix-packages": "nix-packages",
-+        "nixpkgs": "nixpkgs"
-+      }
-+    }
-+  },
-+  "root": "root",
-+  "version": 7
-+}
 diff --git a/flake.nix b/flake.nix
 new file mode 100644
 index 0000000..ff25756

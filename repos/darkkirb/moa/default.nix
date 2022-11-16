@@ -28,7 +28,7 @@
   source = builtins.fromJSON (builtins.readFile ./source.json);
   src = applyPatches {
     src = fetchFromGitLab {
-      owner = "hexchen";
+      owner = "fedstoa";
       repo = "moa";
       inherit (source) rev sha256;
     };
@@ -83,8 +83,7 @@ in
     };
     passthru.updateScript = [
       ../scripts/update-git.sh
-      "https://gitlab.com/hexchen/moa"
+      "https://gitlab.com/fedstoa/moa"
       "moa/source.json"
-      "--rev refs/heads/fix/pleroma"
     ];
   }

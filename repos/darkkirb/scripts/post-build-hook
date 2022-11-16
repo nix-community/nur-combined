@@ -1,0 +1,5 @@
+#!/bin/sh
+set -euf
+export IFS=' '
+/nix/var/nix/profiles/default/bin/nix store sign --key-file /home/runner/cache.key $DRV_PATH
+/nix/var/nix/profiles/default/bin/nix copy --to 's3://cache-chir-rs?scheme=https&endpoint=s3.us-west-000.backblazeb2.com&secret-key=/home/runner/cache.key&multipart-upload=true&compression=zstd&compression-level=15' $DRV_PATH

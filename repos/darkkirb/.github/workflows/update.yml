@@ -1,0 +1,49 @@
+name: update
+on:
+  workflow_dispatch: # allows manual triggering
+  schedule:
+    - cron: "49 4 * * *"
+jobs:
+  flake-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: cachix/install-nix-action@v18
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nixcache:8KKuGz95Pk4UJ5W/Ni+pN+v+LDTkMMFV4yrGmAYgkDg= hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=
+            experimental-features = nix-command flakes ca-derivations
+            post-build-hook = ${{ github.workspace }}/scripts/post-build-hook
+            substituters = https://f000.backblazeb2.com/file/cache-chir-rs/ https://cache.nixos.org/
+      - name: Set up secrets
+        run: |
+          echo "$NIX_CACHE_KEY" > ~/cache.key
+          sudo mkdir /root/.aws
+          echo "$AWS_CREDENTIALS" | sudo tee /root/.aws/credentials > /dev/null
+        env:
+          NIX_CACHE_KEY: ${{secrets.NIX_CACHE_KEY}}
+          AWS_CREDENTIALS: ${{secrets.AWS_CREDENTIALS}}
+      - name: Update flake.lock
+        run: nix flake update
+      - name: Run update script
+        run: yes '' | nix-shell ./scripts/update.nix --argstr max-workers 1
+      - name: Format
+        run: nix fmt
+      - name: Delete secrets
+        run: |
+          rm ~/cache.key
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v4.2.0
+        with:
+          token: ${{secrets.GH_TOKEN}}
+          commit-message: Update nix-packages
+          author: Github Actions <github-actions@users.noreply.github.com>
+          committer: Github Actions <github-actions@users.noreply.github.com>
+          title: Automated updates for nix-packages
+          body: Automated updates
+          assignees: darkkirb
+          reviewers: darkkirb
