@@ -24,10 +24,10 @@ in
     };
 
     patches = [./0001-Re-add-entrypoint.patch ./mautrix-telegram-sticker.patch];
-    
+
     postPatch = ''
       substituteInPlace requirements.txt \
-        --replace "asyncpg>=0.20,<0.27" "asyncpg>=0.20" 
+        --replace "asyncpg>=0.20,<0.27" "asyncpg>=0.20"
     '';
 
     propagatedBuildInputs = with python.pkgs; [

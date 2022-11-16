@@ -68,7 +68,7 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nixcache:8KKuGz95Pk4UJ5W/Ni+pN+v+LDTkMMFV4yrGmAYgkDg= hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=
             experimental-features = nix-command flakes ca-derivations
             post-build-hook = ${{ github.workspace }}/scripts/post-build-hook
-            substituters = https://f000.backblazeb2.com/file/cache-chir-rs/ https://cache.nixos.org/
+            substituters = https://cache.chir.rs/
       - name: Set up secrets
         run: |
           echo "$NIX_CACHE_KEY" > ~/cache.key
@@ -85,7 +85,7 @@ jobs:
           OUT_PATH=$(nix show-derivation $DRV_PATH | jq -r ".\"$DRV_PATH\".outputs.out.path")
           # check if we already built it
           NARINFO=$(echo $OUT_PATH | sed 's|/| |g' | sed 's|-| |g' | awk '{print $3}')
-          if curl --output /dev/null --silent --head --fail "https://f000.backblazeb2.com/file/cache-chir-rs/$NARINFO.narinfo"; then
+          if curl --output /dev/null --silent --head --fail "https://cache.chir.rs/$NARINFO.narinfo"; then
             echo "${{ matrix.package }} already built. Skipping"
           else
             nix-store -r $DRV_PATH
