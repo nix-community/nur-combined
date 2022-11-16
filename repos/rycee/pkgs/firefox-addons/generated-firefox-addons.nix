@@ -704,10 +704,10 @@
       };
     "firefox-translations" = buildFirefoxXpiAddon {
       pname = "firefox-translations";
-      version = "1.1.4buildid20220803.111909";
+      version = "1.2.0buildid20221114.185738";
       addonId = "firefox-translations-addon@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3984258/firefox_translations-1.1.4buildid20220803.111909.xpi";
-      sha256 = "cd2cec8c83eaa60cd5bea490bd66de9393a0ea1c8a38cfbc82594b6161dcc00a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030390/firefox_translations-1.2.0buildid20221114.185738.xpi";
+      sha256 = "ef6f281ce64b549a4bec342b77d74100a5f920784e3f556e068d1d4f12af6480";
       meta = with lib;
       {
         homepage = "https://blog.mozilla.org/en/mozilla/local-translation-add-on-project-bergamot/";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221114.145411";
+      version = "108.0buildid20221115.200658";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030171/francais_language_pack-108.0buildid20221114.145411.xpi";
-      sha256 = "8220e9fb5f084c79e07a9dcdb2f0dfb0c87e329b30b9013f8e8af578ba4681ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030817/francais_language_pack-108.0buildid20221115.200658.xpi";
+      sha256 = "fbd60c4e30e108ed5afdc4d98c1ff84c24e6f7b834cb06c519773037ca8dd82a";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1395,10 +1395,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.21.2";
+      version = "10.22.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027250/ether_metamask-10.21.2.xpi";
-      sha256 = "bee5e5152032976fa059841300a736e14b289b0f39b89c8a8cb5a72352acdc0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030748/ether_metamask-10.22.1.xpi";
+      sha256 = "bbb75994b513fb20a47b5e0ecb41f19367c4d1b0765bbba28f5570558981d098";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1426,10 +1426,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.62";
+      version = "2.6.71";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024935/momentumdash-2.6.62.xpi";
-      sha256 = "24c3e304312b9128976ad8f4473f9a9d2f9ae30dfb77e42c9f65634512077a16";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031044/momentumdash-2.6.71.xpi";
+      sha256 = "dc84aeb895e59b0f02016d7f91a5a226dd753b03d4cee92802eceb2221f1868e";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1588,10 +1588,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.11";
+      version = "11.4.12";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002416/noscript-11.4.11.xpi";
-      sha256 = "d1430ddc3f3bc3a5c403dbf39ff8c8275a2e7ecd4a2f079be39c193d462a2a0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030389/noscript-11.4.12.xpi";
+      sha256 = "90f1164a87e5ff303b5d60882ee9458e9c1f775c67098b902662f8f4a1c27df6";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2432,10 +2432,10 @@
       };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "4.18.0";
+      version = "4.18.1";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009746/tampermonkey-4.18.0.xpi";
-      sha256 = "08b152619b4f715d217adcb77cbb1e8fcf4610e48622b80d1023bdf7c5a87848";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030629/tampermonkey-4.18.1.xpi";
+      sha256 = "edb43812730e5b8d866589de7ab8d80e7932cab49a2fa10d2bc2b8be374ebcde";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
