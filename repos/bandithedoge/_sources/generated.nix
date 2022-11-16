@@ -55,15 +55,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "b4ae62d21a38b475d34c8a1b3a051e41ccda92dd";
+    version = "dc4e535b253dcb38605443508d17cda2d8323d01";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "b4ae62d21a38b475d34c8a1b3a051e41ccda92dd";
+      rev = "dc4e535b253dcb38605443508d17cda2d8323d01";
       fetchSubmodules = false;
-      sha256 = "sha256-L/tjk/6FOIzLjrCx1YwvGhNd8OKfyG/uTQY5K/uRoeA=";
+      sha256 = "sha256-JrhRjNOlxducXE/Ra7yMUgEJmIHgveA7NGhRWoKYGRQ=";
     };
-    date = "2022-11-01";
+    date = "2022-11-15";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -208,15 +208,15 @@
   };
   zix = {
     pname = "zix";
-    version = "396058c96722b0aac262744af8d4e7a4c8436876";
+    version = "843bdfb552544f96acb3e4624c1d551c85bfa759";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "396058c96722b0aac262744af8d4e7a4c8436876";
+      rev = "843bdfb552544f96acb3e4624c1d551c85bfa759";
       fetchSubmodules = false;
-      sha256 = "sha256-woeKS3Ndw8R73Mk6KWjh+UftI+kgJ+AqkrK0kPPkKNk=";
+      sha256 = "sha256-K+jhmxMFMm1k89K3LZtT0p8ZTvIvJdAQ6NYBOGZBJP8=";
     };
-    date = "2022-11-13";
+    date = "2022-11-15";
   };
   zmusic = {
     pname = "zmusic";
