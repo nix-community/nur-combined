@@ -73,8 +73,6 @@
     lsof
     screen
     usbutils
-    v2ray-next
-    vlmcsd
   ] ++ (with config.boot.kernelPackages; [
     cpupower
   ]);

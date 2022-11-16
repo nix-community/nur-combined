@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.services.v2ray-next;
-  v2rayBin = "${pkgs.v2ray-next}/bin/v2ray";
+  v2rayBin = "${cfg.package}/bin/v2ray";
   configFormat = pkgs.formats.json { };
   formatFlag = if cfg.useV5Format then " -format jsonv5 " else "";
   configFile =
@@ -20,6 +20,7 @@ in
 {
   options.services.v2ray-next = {
     enable = mkEnableOption "V2Ray v5 service";
+    package = mkPackageOption pkgs "V2Ray V5" { default = [ "v2ray-next" ]; };
     useV5Format = mkEnableOption "jsonv5 config format";
     configFile = mkOption {
       type = types.nullOr types.path;
@@ -50,5 +51,7 @@ in
         ExecStart = "${v2rayBin} run -config ${configFile} ${formatFlag}";
       };
     };
+
+    environment.systemPackages = [ cfg.package ];
   };
 }

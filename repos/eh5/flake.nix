@@ -70,8 +70,6 @@
                   "sops-install-secrets-nonblock"
                   "ubootNanopiR2s"
                   "v2ray-next"
-                  "v2ray-rules-dat-geoip"
-                  "v2ray-rules-dat-geosite"
                   "vlmcsd"
                 ]
                 platformPackages

@@ -21,6 +21,12 @@
     '';
   };
 
+  services.v2ray-rules-dat = {
+    enable = true;
+    dates = "6:30";
+    randomizedDelaySec = "30min";
+  };
+
   # slient redis
   boot.kernel.sysctl."vm.overcommit_memory" = 1;
   services.redis.servers.mosdns = {
@@ -31,12 +37,16 @@
 
   services.mosdns = {
     enable = true;
+    package = pkgs.mosdns.override {
+      assetsDir = config.services.v2ray-rules-dat.dataDir;
+    };
     configFile = config.sops.secrets.mosdnsConfig.path;
   };
   sops.secrets.mosdnsConfig.restartUnits = [ "mosdns.service" ];
 
   systemd.services.mosdns = {
-    wantedBy = [ "redis-mosdns.service" ];
+    wants = [ "redis-mosdns.service" ];
     after = [ "redis-mosdns.service" ];
   };
+  services.v2ray-rules-dat.reloadServices = [ "mosdns.service" ];
 }

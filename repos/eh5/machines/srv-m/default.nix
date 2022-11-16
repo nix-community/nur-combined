@@ -18,12 +18,8 @@ lib.nixosSystem rec {
     ./mail-stalwart.nix
     ./networking.nix
     ./hardware.nix
-  ] ++
-  (with self.nixosModules; [
-    stalwart-jmap
-    v2ray-next
-  ]) ++
-  [
+  ] ++ [
+    self.nixosModules.default
     sops-nix.nixosModules.sops
     {
       _module.args = { inherit nixpkgs; };
@@ -33,7 +29,6 @@ lib.nixosSystem rec {
       };
       nixpkgs.overlays = [
         self.overlays.default
-        self.overlays.v2ray-rules-dat
       ];
       sops.package = sops-install-secrets-nonblock;
     }

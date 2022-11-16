@@ -22,12 +22,18 @@ in
 
   services.v2ray-next = {
     enable = true;
+    package = pkgs.v2ray-next.override {
+      assetsDir = config.services.v2ray-rules-dat.dataDir;
+    };
     useV5Format = false;
     configFile = config.sops.secrets.v2rayConfig.path;
   };
-  systemd.services.v2ray-next.serviceConfig = {
-    SupplementaryGroups = [ config.users.groups.direct-net.name ];
+  systemd.services.v2ray-next = {
+    serviceConfig = {
+      SupplementaryGroups = [ config.users.groups.direct-net.name ];
+    };
   };
+  services.v2ray-rules-dat.reloadServices = [ "v2ray-next.service" ];
   sops.secrets.v2rayConfig.restartUnits = [ "v2ray-next.service" ];
 
   systemd.services.setup-tproxy = {

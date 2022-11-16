@@ -10,7 +10,8 @@ let
 in
 {
   options.services.stalwart-jmap = {
-    enable = mkEnableOption "V2Ray v5 service";
+    enable = mkEnableOption "Stalwart JMAP server";
+    package = mkPackageOption pkgs "Stalwart JMAP" { default = [ "stalwart-jmap" ]; };
     configFile = mkOption {
       type = types.nullOr types.path;
       default = null;
@@ -40,7 +41,8 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ configFile ];
       serviceConfig = {
-        ExecStart = "${pkgs.stalwart-jmap}/bin/stalwart-jmap --config=${configFile}";
+        ExecStart =
+          "${cfg.package}/bin/stalwart-jmap --db-path=${cfg.dbPath} --config=${configFile}";
       };
     };
   };

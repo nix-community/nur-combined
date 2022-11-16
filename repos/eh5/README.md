@@ -42,13 +42,13 @@ $ nix build github:EHfive/flakes#packages.aarch64-linux.ubootNanopiR2s
       # system = ...
       modules = [
         # ...
+        eh5.nixosModules.default,
         #eh5.nixosModules.mosdns,
         #eh5.nixosModules.v2ray-next,
         { pkgs, ... }: {
           nixpkgs.overlays = [
             # ...
             eh5.overlays.default
-            #eh5.overlays.v2ray-rules-dat
           ];
 
           environment.systemPackages = [
@@ -77,18 +77,19 @@ $ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-c
 
 ### Base
 
-| Name                    | Description                                                            | Platforms     |
-| ----------------------- | ---------------------------------------------------------------------- | ------------- |
-| dovecot-fts-flatcurve   | Dovecot FTS Flatcurve plugin (Xapian)                                  | \*-linux      |
-| fake-hwclock            | Fake hardware clock                                                    | \*            |
-| mosdns                  | A DNS proxy                                                            | \*            |
-| nix-gfx-mesa            | [nixGL](https://github.com/guibou/nixGL) but for Mesa only             | \*            |
-| netease-cloud-music     | (no bundled libs, fixes FLAC playback and IME input)                   | x86_64-linux  |
-| qcef                    | Qt5 binding of CEF                                                     | x86_64-linux  |
-| ubootNanopiR2s          | U-Boot images for NanoPi R2S                                           | aarch64-linux |
-| v2ray-next              | V2Ray v5                                                               | \*            |
-| v2ray-rules-dat-geoip   | See [v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat) | \*            |
-| v2ray-rules-dat-geosite | ditto                                                                  | \*            |
+| Name                  | Description                                                | Platforms     |
+| --------------------- | ---------------------------------------------------------- | ------------- |
+| dovecot-fts-flatcurve | Dovecot FTS Flatcurve plugin (Xapian)                      | \*-linux      |
+| fake-hwclock          | Fake hardware clock                                        | \*            |
+| mosdns                | A DNS proxy                                                | \*            |
+| nix-gfx-mesa          | [nixGL](https://github.com/guibou/nixGL) but for Mesa only | \*            |
+| netease-cloud-music   | (no bundled libs, fixes FLAC playback and IME input)       | x86_64-linux  |
+| qcef                  | Qt5 binding of CEF                                         | x86_64-linux  |
+| stalwart-cli          | Stalwart JMAP server CLI                                   | \*            |
+| stalwart-imap         | Stalwart IMAP server (imap-to-jmap proxy)                  | \*            |
+| stalwart-jmap         | Stalwart JMAP server                                       | \*            |
+| ubootNanopiR2s        | U-Boot images for NanoPi R2S                               | aarch64-linux |
+| v2ray-next            | V2Ray v5                                                   | \*            |
 
 ### Extra
 
@@ -102,21 +103,16 @@ $ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-c
 
 Adds all base packages listed above.
 
-### `.#overlays.v2ray-rules-dat`
-
-Overrides `v2ray-geoip` and `v2ray-rules-dat-geosite` with `v2ray-rules-dat-geoip` and `v2ray-rules-dat-geosite` respectively.
-
 ## nixosModules
 
-| Module                  | Description                   | Option                           | Type           |
-| ----------------------- | ----------------------------- | -------------------------------- | -------------- |
-| fake-hwclock            | Fake hardware clock service   | `services.fake-hwclock.enable`   | boolean        |
-| mosdns                  | mosdns service                | `services.mosdns.enable`         | boolean        |
-|                         |                               | `services.mosdns.config`         | YAML value     |
-|                         |                               | `services.mosdns.configFile`     | string \| null |
-| system-tarball-extlinux | `config.system.build.tarball` |                                  |                |
-| v2ray-next              | V2Ray v5 service              | `services.v2ray-next.enable`     | boolean        |
-|                         |                               | `services.v2ray-next.config`     | JSON value     |
-|                         |                               | `services.v2ray-next.configFile` | string \| null |
+| Module                  | Description                   | Option                         |
+| ----------------------- | ----------------------------- | ------------------------------ |
+| fake-hwclock            | Fake hardware clock service   | `services.fake-hwclock.enable` |
+| mosdns                  | mosdns service                | `services.mosdns.*`            |
+| stalwart-jmap           | Stalwart JMAP server          | `services.stalwart-jmap.*`     |
+| system-tarball-extlinux | `config.system.build.tarball` |                                |
+| v2ray-next              | V2Ray v5 service              | `services.v2ray-next.*`        |
+| v2ray-rules-dat         | Auto update V2Ray rules dat   | `services.v2ray-rules-dat.*`   |
+| default                 | Imports all above modules     |                                |
 
 Some of the modules requires some packages declared above, hence requiring `.#overlays.default` to be applied.

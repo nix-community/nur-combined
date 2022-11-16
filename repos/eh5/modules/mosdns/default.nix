@@ -11,6 +11,7 @@ in
 {
   options.services.mosdns = {
     enable = mkEnableOption "mosdns service";
+    package = mkPackageOption pkgs "mosdns" { default = [ "mosdns" ]; };
     configFile = mkOption {
       type = types.nullOr types.path;
       default = null;
@@ -35,8 +36,10 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ configFile ];
       serviceConfig = {
-        ExecStart = "${pkgs.mosdns}/bin/mosdns start -c ${configFile}";
+        ExecStart = "${cfg.package}/bin/mosdns start -c ${configFile}";
       };
     };
+
+    environment.systemPackages = [ cfg.package ];
   };
 }

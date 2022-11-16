@@ -6,16 +6,19 @@
 , symlinkJoin
 , v2ray-geoip
 , v2ray-domain-list-community
+, assetsDir ? null
 , sources
 }:
 let
-  assetsDrv = symlinkJoin {
-    name = "mosdns-assets";
-    paths = [
-      "${v2ray-geoip}/share/v2ray"
-      "${v2ray-domain-list-community}/share/v2ray"
-    ];
-  };
+  assetsDrv =
+    if assetsDir != null then assetsDir else
+    symlinkJoin {
+      name = "mosdns-assets";
+      paths = [
+        "${v2ray-geoip}/share/v2ray"
+        "${v2ray-domain-list-community}/share/v2ray"
+      ];
+    };
   mosdns = buildGoModule {
     pname = "mosdns";
     inherit (sources.mosdns) version src;

@@ -6,14 +6,19 @@
 , makeWrapper
 , v2ray-geoip
 , v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ]
+, assetsDir ? null
 , sources
 }:
 let
-  assetsDrv = symlinkJoin {
-    name = "v2ray-assets";
-    paths = assets;
-  };
+  assetsDrv =
+    if assetsDir != null then assetsDir else
+    symlinkJoin {
+      name = "v2ray-assets";
+      paths = [
+        "${v2ray-geoip}/share/v2ray"
+        "${v2ray-domain-list-community}/share/v2ray"
+      ];
+    };
 
   core = buildGoModule rec {
     inherit (sources.v2ray) pname version src;
@@ -53,6 +58,6 @@ runCommand core.name
 } ''
   for file in ${core}/bin/*; do
     makeWrapper "$file" "$out/bin/$(basename "$file")" \
-      --set-default V2RAY_LOCATION_ASSET ${assetsDrv}/share/v2ray
+      --set-default V2RAY_LOCATION_ASSET ${assetsDrv}
   done
 ''

@@ -1,13 +1,15 @@
 { lib, pkgs, config, ... }:
+with lib;
 let
   cfg = config.services.vlmcsd;
 in
 {
   options.services.vlmcsd = {
-    enable = lib.mkEnableOption "vlmcsd service";
+    enable = mkEnableOption "vlmcsd service";
+    package = mkPackageOption pkgs "vlmcsd" { default = [ "vlmcsd" ]; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     systemd.sockets.vlmcsd = {
       description = "KMS Emulator Listening Socket";
       wantedBy = [ "sockets.target" ];
@@ -22,9 +24,11 @@ in
         StandardInput = "socket";
         StandardOutput = "journal";
         ExecStart = ''
-          ${pkgs.vlmcsd}/bin/vlmcsd -e -D
+          ${cfg.package}/bin/vlmcsd -e -D
         '';
       };
     };
+
+    environment.systemPackages = [ cfg.package ];
   };
 }

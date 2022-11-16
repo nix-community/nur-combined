@@ -11,15 +11,8 @@ lib.nixosSystem rec {
     ./router.nix
     ./networking.nix
     ./hardware.nix
-  ] ++
-  (with self.nixosModules; [
-    fake-hwclock
-    mosdns
-    v2ray-next
-    vlmcsd
-    system-tarball-extlinux
-  ]) ++
-  [
+  ] ++ [
+    self.nixosModules.default
     sops-nix.nixosModules.sops
     {
       _module.args = { inherit nixpkgs; };
@@ -29,8 +22,8 @@ lib.nixosSystem rec {
       };
       nixpkgs.overlays = [
         self.overlays.default
-        self.overlays.v2ray-rules-dat
       ];
+      system.enableExtlinuxTarball = true;
       sops.package = sops-install-secrets-nonblock;
     }
   ];

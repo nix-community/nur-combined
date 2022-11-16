@@ -6,11 +6,3 @@ fetch.github = "IrineSistiana/mosdns"
 [v2ray]
 src.github_tag = "v2fly/v2ray-core"
 fetch.github = "v2fly/v2ray-core"
-
-[geoip-dat]
-src.github = "Loyalsoldier/v2ray-rules-dat"
-fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geoip.dat"
-
-[geosite-dat]
-src.github = "Loyalsoldier/v2ray-rules-dat"
-fetch.url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$ver/geosite.dat"
