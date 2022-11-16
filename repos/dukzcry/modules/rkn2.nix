@@ -55,7 +55,7 @@ in {
     (mkIf cfg.enable {
       services.dnsmasq.enable = true;
       services.dnsmasq.extraConfig = ''
-        hostsdir=/var/lib/rkn/dnsmasq
+        conf-file=/var/lib/rkn/dnsmasq
       '';
       # в отличие от решения с голым ipset
       # 1) разные сайты с одним IP не задевают друг друга
@@ -102,15 +102,16 @@ in {
             set -e
             cd /var/lib/rkn
             ${pkgs.nur.repos.dukzcry.gitupdate}/bin/gitupdate
-            # domain column
+            # столбец доменов
             cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | awk -F ';' '!length($3)' | cut -d ';' -f2 | grep -Eo '^([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' > dump.txt
-            # domain from url
+            # домен из ссылки
             cat dump.csv | iconv -f WINDOWS-1251 -t UTF-8 | cut -d ';' -f3 | grep -Eo '^https?://[[:alnum:]|.]+/?$' | grep -Eo '([[:alnum:]]|_|-|\.|\*)+\.[[:alpha:]]([[:alnum:]]|-){1,}' >> dump.txt
-            # remove wildcard
+            # удалить маску
             sed -i 's/^*.//' dump.txt
-            mkdir -p /var/lib/rkn/dnsmasq
-            cat dump.txt | sort | uniq | idn --no-tld > /var/lib/rkn/dnsmasq/hosts
-            sed -i 's#\(.*\)#${cfg.address} \1#' /var/lib/rkn/dnsmasq/hosts
+            cat dump.txt | sort | uniq | idn --no-tld > /var/lib/rkn/dnsmasq
+            # hosts предпочтительнее, но hosts не перекрывает CNAME
+            sed -i 's#\(.*\)#address=/\1/${cfg.address}#' /var/lib/rkn/dnsmasq
+            systemctl restart dnsmasq
           '';
         } // serviceOptions;
       };
