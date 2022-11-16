@@ -66,7 +66,7 @@ in with pkgs; rec {
 
   nixos-collect-garbage = writeShellScriptBin "nixos-collect-garbage" ''
     ${nix}/bin/nix-collect-garbage "$@"
-    /run/current-system/bin/switch-to-configuration switch
+    /run/current-system/bin/switch-to-configuration boot
   '';
 
   qtgreet = libsForQt5.callPackage ./pkgs/qtgreet {
