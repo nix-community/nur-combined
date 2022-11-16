@@ -2,13 +2,13 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fail2ban";
-  version = "0.11.2";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "fail2ban";
     repo = "fail2ban";
     rev = version;
-    sha256 = "00d9q8m284q2wy6q462nipzszplfbvrs9fhgn0y3imwsc24kv1db";
+    sha256 = "sha256-Zd8zLkFlvXTbeInEkNFyHgcAiOsX4WwF6hf5juSQvbY=";
   };
 
   pythonPath = with python3.pkgs;
@@ -16,21 +16,6 @@ python3.pkgs.buildPythonApplication rec {
       systemd
       pyinotify
     ];
-
-  patches = [
-    # remove references to use_2to3, for setuptools>=58
-    # has been merged into master, remove next release
-    (fetchpatch {
-      url = "https://github.com/fail2ban/fail2ban/commit/5ac303df8a171f748330d4c645ccbf1c2c7f3497.patch";
-      sha256 = "sha256-aozQJHwPcJTe/D/PLQzBk1YH3OAP6Qm7wO7cai5CVYI=";
-    })
-    # fix use of MutableMapping with Python >= 3.10
-    # https://github.com/fail2ban/fail2ban/issues/3142
-    (fetchpatch {
-      url = "https://github.com/fail2ban/fail2ban/commit/294ec73f629d0e29cece3a1eb5dd60b6fccea41f.patch";
-      sha256 = "sha256-Eimm4xjBDYNn5QdTyMqGgT5EXsZdd/txxcWJojXlsFE=";
-    })  
-  ];
 
   preConfigure = ''
     # workaround for setuptools 58+

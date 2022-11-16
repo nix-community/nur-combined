@@ -6,7 +6,7 @@
 , gd, freetype, libXpm, libavif, libjpeg, libpng, libwebp
 , gettext, gmp, libiconv, uwimap, pam
 , icu60, icu67, icu69
-, openldap, cyrus_sasl, libxml2, libmcrypt, pcre, pcre2
+, openldap, cyrus_sasl, libxml2, libmcrypt, libxcrypt, pcre, pcre2
 , unixODBC, postgresql, sqlite, readline, html-tidy
 , libxslt, zlib, libzip, libsodium, oniguruma
 }:
@@ -102,6 +102,9 @@ let
         ++ optional (versionAtLeast version "7.0") bison;
 
       buildInputs =
+        # Extended crypt library
+        [ libxcrypt ] ++
+
         # PCRE extension
         [ pcre' ]
 
@@ -482,17 +485,17 @@ in {
   };
 
   php74 = generic {
-    version = "7.4.30";
-    sha256 = "sha256-qF30+STnI4iW2nCL+jCJPAiPq/dahyL8BuESzsTzBbk=";
+    version = "7.4.33";
+    sha256 = "sha256-+tXDSFZNqL3qRiovjAymujYwV4eIj0PhngdKFQNioXs=";
   };
 
   php80 = generic {
-    version = "8.0.22";
-    sha256 = "sha256-o5H26iLs5mM52OQZq7NyqdRSZ8ViIjFCr5U/eIM6E54=";
+    version = "8.0.25";
+    sha256 = "sha256-o1RorpKNlJWlJqmHfVAJBy+triMQf6N0zxigeC6YUKQ=";
   };
 
   php81 = generic {
-    version = "8.1.9";
-    sha256 = "sha256-utoyzU66RfSYfHENC4fODrjRmLvwz6O1TNp2ILapE7I=";
+    version = "8.1.12";
+    sha256 = "sha256-ZRJ5yGgsJvie7qVCJtZQRkFr75aIAGElFIKWW7vHfRQ=";
   };
 }

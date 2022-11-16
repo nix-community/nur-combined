@@ -1,8 +1,8 @@
 { lib, stdenv, fetchurl, pkg-config, perl
-, brotliSupport ? false, brotli ? null
-, c-aresSupport ? false, c-ares ? null
-, gnutlsSupport ? false, gnutls ? null
-, gsaslSupport ? false, gsasl ? null
+, brotliSupport ? false, brotli
+, c-aresSupport ? false, c-aresMinimal
+, gnutlsSupport ? false, gnutls
+, gsaslSupport ? false, gsasl
 , gssSupport ? with stdenv.hostPlatform; (
     !isWindows &&
     # disable gss becuase of: undefined reference to `k5_bcmp'
@@ -12,19 +12,19 @@
     # fixed in mig, but losing gss support on cross compilation to darwin is
     # not worth the effort.
     !(isDarwin && (stdenv.buildPlatform != stdenv.hostPlatform))
-  ), libkrb5 ? null
-, http2Support ? true, nghttp2 ? null
-, http3Support ? false, nghttp3, ngtcp2 ? null
-, idnSupport ? false, libidn2 ? null
+  ), libkrb5
+, http2Support ? true, nghttp2
+, http3Support ? false, nghttp3, ngtcp2
+, idnSupport ? false, libidn2
 , ipv6Support ? true
-, ldapSupport ? false, openldap ? null
-, opensslSupport ? zlibSupport, openssl ? null
-, pslSupport ? false, libpsl ? null
-, rtmpSupport ? false, rtmpdump ? null
-, scpSupport ? zlibSupport && !stdenv.isSunOS && !stdenv.isCygwin, libssh2 ? null
-, wolfsslSupport ? false, wolfssl ? null
-, zlibSupport ? true, zlib ? null
-, zstdSupport ? false, zstd ? null
+, ldapSupport ? false, openldap
+, opensslSupport ? zlibSupport, openssl
+, pslSupport ? false, libpsl
+, rtmpSupport ? false, rtmpdump
+, scpSupport ? zlibSupport && !stdenv.isSunOS && !stdenv.isCygwin, libssh2
+, wolfsslSupport ? false, wolfssl
+, zlibSupport ? true, zlib
+, zstdSupport ? false, zstd
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus
@@ -35,34 +35,17 @@
 assert !(gnutlsSupport && opensslSupport);
 assert !(gnutlsSupport && wolfsslSupport);
 assert !(opensslSupport && wolfsslSupport);
-assert brotliSupport -> brotli != null;
-assert c-aresSupport -> c-ares != null;
-assert gnutlsSupport -> gnutls != null;
-assert gsaslSupport -> gsasl != null;
-assert gssSupport -> libkrb5 != null;
-assert http2Support -> nghttp2 != null;
-assert http3Support -> nghttp3 != null;
-assert http3Support -> ngtcp2 != null;
-assert idnSupport -> libidn2 != null;
-assert ldapSupport -> openldap != null;
-assert opensslSupport -> openssl != null;
-assert pslSupport -> libpsl !=null;
-assert rtmpSupport -> rtmpdump !=null;
-assert scpSupport -> libssh2 != null;
-assert wolfsslSupport -> wolfssl != null;
-assert zlibSupport -> zlib != null;
-assert zstdSupport -> zstd != null;
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
-  version = "7.84.0";
+  version = "7.86.0";
 
   src = fetchurl {
     urls = [
-      "https://curl.haxx.se/download/${pname}-${version}.tar.bz2"
-      "https://github.com/curl/curl/releases/download/${lib.replaceStrings ["."] ["_"] pname}-${version}/${pname}-${version}.tar.bz2"
+      "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.bz2"
+      "https://github.com/curl/curl/releases/download/curl-${finalAttrs.version}/curl-${finalAttrs.version}.tar.bz2"
     ];
-    sha256 = "sha256-cC+ybnMZCjvXcHGqFG9Qe5gXzE384hjSq4fwDNO8BZ0=";
+    sha256 = "sha256-9cpp2wPuoX+ocFvfsan1jXakbJAQUYEJuzjzExN+Cig=";
   };
 
   patches = [
@@ -83,7 +66,7 @@ stdenv.mkDerivation rec {
   # applications that use Curl.
   propagatedBuildInputs = with lib;
     optional brotliSupport brotli ++
-    optional c-aresSupport c-ares ++
+    optional c-aresSupport c-aresMinimal ++
     optional gnutlsSupport gnutls ++
     optional gsaslSupport gsasl ++
     optional gssSupport libkrb5 ++
@@ -157,7 +140,9 @@ stdenv.mkDerivation rec {
     ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
   '';
 
-  passthru = {
+  passthru = let
+    useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
+  in {
     inherit opensslSupport openssl;
   };
 
@@ -170,4 +155,4 @@ stdenv.mkDerivation rec {
     # Fails to link against static brotli or gss
     broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport);
   };
-}
+})

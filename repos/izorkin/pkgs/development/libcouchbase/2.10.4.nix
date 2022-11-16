@@ -16,7 +16,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ libevent openssl ];
 
-  patches = [ ./patch/fix-timeouts-in-libcouchbase-testsuite.patch ];
+  patches = [
+    ./patch/fix-timeouts-in-libcouchbase-testsuite.patch
+    ./patch/fix-pkg-config-paths.patch
+  ];
 
   doCheck = false;
 
