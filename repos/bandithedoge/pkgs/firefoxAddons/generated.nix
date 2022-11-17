@@ -19,10 +19,10 @@
   };
   "auto-tab-discard" = buildFirefoxXpiAddon {
     pname = "auto-tab-discard";
-    version = "0.6.5";
+    version = "0.6.6";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4019536/auto_tab_discard-0.6.5.xpi";
-    sha256 = "1823795d78dea1cb34e49285834a7953aa4838b100e0fee3044fe30315ee705c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4031079/auto_tab_discard-0.6.6.xpi";
+    sha256 = "56778cb0a93a6cfd6d62b8ee686f9f2d97ce18191567c9a7bb4c459c8a71990c";
     meta = with lib; {
       homepage = "https://add0n.com/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
