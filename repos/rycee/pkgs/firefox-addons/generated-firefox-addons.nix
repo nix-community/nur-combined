@@ -99,10 +99,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.1.4";
+      version = "2.1.5";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024305/anonaddy-2.1.4.xpi";
-      sha256 = "69aebfe3a90f4a94b08f0fc0cf5b51476e9d8f4a44a8e2ce69124d1d8b5f5e02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031317/anonaddy-2.1.5.xpi";
+      sha256 = "aa0d1c4617ef8705381530bcc97b74dc58a146ac4673b5804511d02771ea53c6";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -127,10 +127,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.6.5";
+      version = "0.6.6";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019536/auto_tab_discard-0.6.5.xpi";
-      sha256 = "1823795d78dea1cb34e49285834a7953aa4838b100e0fee3044fe30315ee705c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031079/auto_tab_discard-0.6.6.xpi";
+      sha256 = "56778cb0a93a6cfd6d62b8ee686f9f2d97ce18191567c9a7bb4c459c8a71990c";
       meta = with lib;
       {
         homepage = "https://add0n.com/tab-discard.html";
@@ -875,10 +875,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.7.6";
+      version = "8.9.5";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974763/ghostery-8.7.6.xpi";
-      sha256 = "aae4aa7251bbb0464927324f8d09bce9f5a60a5f5be0ad593295e5f027067db1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028408/ghostery-8.9.5.xpi";
+      sha256 = "717656ca5b2f1a2e1652c2828643ec89d9227bf3c4ee4f0f902f4496f3333f00";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -1407,10 +1407,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.1.4";
+      version = "4.1.5";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027762/modheader_firefox-4.1.4.xpi";
-      sha256 = "5e055836325ff9aa5bf8d62bf139ca7ec4108a2834ecf9cfe8941072ff0713b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031391/modheader_firefox-4.1.5.xpi";
+      sha256 = "7be4191ce123def73109b844da9166b189a6611bc0b708454676070413ba01ef";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2293,10 +2293,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.13";
+      version = "1.0.14";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4025954/statshunters-1.0.13.xpi";
-      sha256 = "36bb6a78fa790f088d561057041f6fe19fd39ce2a1d024598047ce7483ec7ff4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031340/statshunters-1.0.14.xpi";
+      sha256 = "4d083090db039160483ec4695fbb5dc6d3fbe3b4574022a04c5225eb3fe0fe52";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -2829,10 +2829,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.47";
+      version = "6.10.48";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027805/wappalyzer-6.10.47.xpi";
-      sha256 = "82d6fea2e97a63a787d2a9f0144fd92589457f9505bd95a360133b2d5fffb873";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031518/wappalyzer-6.10.48.xpi";
+      sha256 = "1a8349c85ee356903d364e25de85cdaefbf8cdcd2f0c5453a0dce7eaf12eacf2";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
