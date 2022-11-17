@@ -53,6 +53,8 @@ runCommand "xray-${version}"
   inherit (core) meta;
 
   nativeBuildInputs = [ makeWrapper ];
+
+  passthru.assets = assetsDrv;
 } ''
   makeWrapper "${core}/bin/xray" "$out/bin/v2ray" \
     --set-default V2RAY_LOCATION_ASSET ${assetsDrv}
