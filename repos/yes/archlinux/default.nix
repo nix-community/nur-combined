@@ -10,10 +10,6 @@ with pkgs; rec {
 
   devtools = callPackage ./devtools { inherit rp; };
 
-  pacman-gnupg = callPackage ./pacman/gnupg.nix {
-    keyrings = [ archlinux-keyring ];
-  };
-
   paru-unwrapped = callPackage ./paru/unwrapped.nix {};
 
   paru = callPackage ./paru { inherit asp devtools paru-unwrapped; };
