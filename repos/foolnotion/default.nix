@@ -85,32 +85,7 @@
 
   xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
 
-  operon = pkgs.callPackage ./pkgs/operon {
-    aria-csv = aria-csv;
-    fast_float = fast_float;
-    pratt-parser = pratt-parser;
-    robin-hood-hashing = robin-hood-hashing;
-    scnlib = scnlib;
-    span-lite = span-lite;
-    taskflow = taskflow;
-    vectorclass = vectorclass;
-    vstat = vstat;
-    xxhash = pkgs.xxHash;
-  };
-
-  pyoperon = pkgs.callPackage ./pkgs/pyoperon {
-    operon = operon;
-    pybind11 = pkgs.python3Packages.pybind11;
-    aria-csv = aria-csv;
-    fast_float = fast_float;
-    pratt-parser = pratt-parser;
-    robin-hood-hashing = robin-hood-hashing;
-    span-lite = span-lite;
-    taskflow = taskflow;
-    vectorclass = vectorclass;
-    vstat = vstat;
-    xxhash = pkgs.xxHash;
-  };
+  pyoperon = pkgs.python310Packages.callPackage ./pkgs/pyoperon { };
 
   qpdfview = pkgs.libsForQt5.callPackage ./pkgs/qpdfview {
   };
