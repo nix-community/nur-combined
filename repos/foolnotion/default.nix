@@ -12,9 +12,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  aria-csv = pkgs.callPackage ./pkgs/aria-csv {
-    aria-csv-cmake = ./pkgs/aria-csv/aria-csv-cmake;
-  };
+  aria-csv = pkgs.callPackage ./pkgs/aria-csv { };
 
   asmjit = pkgs.callPackage ./pkgs/asmjit { };
 
@@ -22,9 +20,9 @@
 
   berserk = pkgs.callPackage ./pkgs/berserk { };
 
-  cmake-init = pkgs.python39Packages.callPackage ./pkgs/cmake-init { };
+  cmake-init = pkgs.python3Packages.callPackage ./pkgs/cmake-init { };
 
-  cmaketools = pkgs.python39Packages.callPackage ./pkgs/cmaketools { };
+  cmaketools = pkgs.python3Packages.callPackage ./pkgs/cmaketools { };
 
   cpp-lazy = pkgs.callPackage ./pkgs/cpp-lazy { };
 
@@ -32,7 +30,7 @@
 
   cutechess = pkgs.libsForQt5.callPackage ./pkgs/cutechess { };
 
-  eli5 = pkgs.python39Packages.callPackage ./pkgs/eli5 { };
+  eli5 = pkgs.python3Packages.callPackage ./pkgs/eli5 { };
 
   eovim = pkgs.callPackage ./pkgs/eovim { };
 
@@ -54,11 +52,11 @@
 
   mdspan = pkgs.callPackage ./pkgs/mdspan { };
 
-  pareto = pkgs.python39Packages.callPackage ./pkgs/pareto { };
+  pareto = pkgs.python3Packages.callPackage ./pkgs/pareto { };
 
   pegtl = pkgs.callPackage ./pkgs/pegtl { };
 
-  pmlb = pkgs.python39Packages.callPackage ./pkgs/pmlb { };
+  pmlb = pkgs.python3Packages.callPackage ./pkgs/pmlb { };
 
   pratt-parser = pkgs.callPackage ./pkgs/pratt-parser {
     fast_float = fast_float;
@@ -85,7 +83,7 @@
 
   xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
 
-  pyoperon = pkgs.python310Packages.callPackage ./pkgs/pyoperon { };
+  pyoperon = pkgs.python3Packages.callPackage ./pkgs/pyoperon { };
 
   qpdfview = pkgs.libsForQt5.callPackage ./pkgs/qpdfview {
   };
