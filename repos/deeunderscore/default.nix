@@ -17,4 +17,5 @@ rec {
     # Throwing here breaks CI
     # See https://github.com/nix-community/NUR/issues/320
     # geographiclib-cpp = throw "geographiclib-cpp has been dropped from repos.deeunderscore. See repos.sikmir.geographiclib for alternative";
+    nheko-krunner = pkgs.libsForQt5.callPackage ./pkgs/nheko-krunner { };
 }
