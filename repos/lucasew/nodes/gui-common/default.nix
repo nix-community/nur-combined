@@ -28,7 +28,6 @@ in {
     p7zip unzip # archiving
     pv
     # Extra
-    # intel-compute-runtime # OpenCL
     distrobox # plan b
     git-annex
     git-remote-gcrypt

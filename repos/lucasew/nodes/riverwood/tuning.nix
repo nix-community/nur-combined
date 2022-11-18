@@ -18,6 +18,8 @@
     bluetooth.enable = true;
     opengl = {
       extraPackages = with pkgs; [
+        # intel-compute-runtime
+        # beignet
         intel-ocl
         vaapiIntel
       ];

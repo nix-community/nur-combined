@@ -25,6 +25,7 @@ in {
     (custom.neovim.override { inherit colors; })
     (custom.emacs.override { inherit colors; })
     custom.firefox
+    custom.vscode.programming
     dotenv
     discord
     feh
@@ -58,6 +59,7 @@ in {
     zeal
     rnix-lsp
     (runCommand "bin" {} "mkdir $out; cp -r ${../../bin} $out/bin")
+    xournal
     # retroarchFull
     # texlive.combined.scheme-full
   ] ;
