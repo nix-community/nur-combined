@@ -1,11 +1,12 @@
 {
   python3,
   boto3,
+  aiohttp,
   stdenvNoCC,
   lib,
 }: let
   clean-s3-cache-env = python3.buildEnv.override {
-    extraLibs = [boto3];
+    extraLibs = [boto3 aiohttp];
   };
 in
   stdenvNoCC.mkDerivation {

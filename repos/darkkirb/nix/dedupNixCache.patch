@@ -1,0 +1,54 @@
+diff --git a/src/libstore/s3-binary-cache-store.cc b/src/libstore/s3-binary-cache-store.cc
+index 844553ad3..a7a9cd702 100644
+--- a/src/libstore/s3-binary-cache-store.cc
++++ b/src/libstore/s3-binary-cache-store.cc
+@@ -214,6 +214,14 @@ struct S3BinaryCacheStoreImpl : virtual S3BinaryCacheStoreConfig, public virtual
+     Stats stats;
+ 
+     S3Helper s3Helper;
++    ref<Store> mNixosCache;
++
++    BinaryCacheStore * nixosCache() {
++        auto * casted = dynamic_cast<BinaryCacheStore *>(&*this->mNixosCache);
++        if (!casted)
++            throw UsageError("cache.nixos.org is not a BinaryCacheStore");
++        return casted;
++    }
+ 
+     S3BinaryCacheStoreImpl(
+         const std::string & uriScheme,
+@@ -227,6 +235,7 @@ struct S3BinaryCacheStoreImpl : virtual S3BinaryCacheStoreConfig, public virtual
+         , S3BinaryCacheStore(params)
+         , bucketName(bucketName)
+         , s3Helper(profile, region, scheme, endpoint)
++        , mNixosCache(openStore("https://cache.nixos.org/"))
+     {
+         diskCache = getNarInfoDiskCache();
+     }
+@@ -268,6 +277,8 @@ struct S3BinaryCacheStoreImpl : virtual S3BinaryCacheStoreConfig, public virtual
+ 
+     bool fileExists(const std::string & path) override
+     {
++        if(this->nixosCache()->fileExists(path))
++            return true;
+         stats.head++;
+ 
+         auto res = s3Helper.client->HeadObject(
+@@ -389,6 +400,8 @@ struct S3BinaryCacheStoreImpl : virtual S3BinaryCacheStoreConfig, public virtual
+         std::shared_ptr<std::basic_iostream<char>> istream,
+         const std::string & mimeType) override
+     {
++        if(this->nixosCache()->fileExists(path))
++            return;
+         auto compress = [&](std::string compression)
+         {
+             auto compressed = nix::compress(compression, StreamToSourceAdapter(istream).drain());
+@@ -407,6 +420,8 @@ struct S3BinaryCacheStoreImpl : virtual S3BinaryCacheStoreConfig, public virtual
+ 
+     void getFile(const std::string & path, Sink & sink) override
+     {
++        if(this->nixosCache()->fileExists(path))
++            return this->nixosCache()->getFile(path, sink);
+         stats.get++;
+ 
+         // FIXME: stream output to sink.

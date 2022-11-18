@@ -10,6 +10,7 @@ import json
 
 import boto3
 from botocore.response import StreamingBody
+import aiohttp
 
 ENDPOINT_URL: str = "https://s3.us-west-000.backblazeb2.com"
 BUCKET_NAME: str = "cache-chir-rs"
@@ -143,33 +144,45 @@ def get_store_hashes() -> set[str]:
     return hashes
 
 
+async def is_in_nixos_cache(client: aiohttp.ClientSession, narinfo: str) -> bool:
+    async with client.get(f"https://cache.nixos.org/{narinfo}"):
+        if response.status == 200:
+            return True
+    return False
+
 async def main() -> None:
     nars_to_delete = set()
     nars_to_keep = set()
-    async for obj_key in list_cache_objects():
-        if obj_key.endswith(".narinfo"):
-            # check if we have the hash locally
-            narinfo = await get_object(obj_key)
-            narinfo = NarInfo(narinfo)
-            if not await narinfo.exists_locally():
-                print(f"Found unused NAR for {narinfo.store_path}")
-                await delete_object(obj_key)
-                nars_to_delete.add(narinfo.url)
-            else:
-                nars_to_keep.add(narinfo.url)
-        if obj_key.startswith("realisations/"):
-            realisation = await get_object(obj_key)
-            realisation = json.loads(realisation)
-            if not isinstance(realisation, dict):
-                continue
-            if "outPath" not in realisation:
-                continue
-            if not await exists_locally("/nix/store/" +
-                                        realisation["outPath"]):
-                print(f"Found unused realisation for {realisation['outPath']}")
-                await delete_object(obj_key)
-        if obj_key.startswith("nar/"):
-            nars_to_delete.add(obj_key)
+    async with aiohttp.ClientSession() as client:
+        async for obj_key in list_cache_objects():
+            if obj_key.endswith(".narinfo"):
+                # check if we have the hash locally
+                narinfo = await get_object(obj_key)
+                narinfo = NarInfo(narinfo)
+                # check if cache.nixos.org has the narinfo
+                if await is_in_nixos_cache(client, obj_key):
+                    print(f"Found duplicated NAR for {narinfo.store_path}")
+                    await delete_object(obj_key)
+                    nars_to_delete.add(narinfo.url)
+                elif not await narinfo.exists_locally():
+                    print(f"Found unused NAR for {narinfo.store_path}")
+                    await delete_object(obj_key)
+                    nars_to_delete.add(narinfo.url)
+                else:
+                    nars_to_keep.add(narinfo.url)
+            if obj_key.startswith("realisations/"):
+                realisation = await get_object(obj_key)
+                realisation = json.loads(realisation)
+                if not isinstance(realisation, dict):
+                    continue
+                if "outPath" not in realisation:
+                    continue
+                if not await exists_locally("/nix/store/" +
+                                            realisation["outPath"]):
+                    print(f"Found unused realisation for {realisation['outPath']}")
+                    await delete_object(obj_key)
+            if obj_key.startswith("nar/"):
+                nars_to_delete.add(obj_key)
     for nar in nars_to_delete:
         if nar in nars_to_keep:
             continue

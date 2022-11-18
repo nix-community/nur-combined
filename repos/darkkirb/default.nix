@@ -55,4 +55,5 @@
   clean-s3-cache = pkgs.python3Packages.callPackage ./scripts/clean-s3-cache.nix {};
   python-instagram = pkgs.python3Packages.callPackage ./python/instagram.nix {};
   moa = pkgs.python3Packages.callPackage ./moa {};
+  nix-s3-dedup = pkgs.callPackage ./nix {};
 }

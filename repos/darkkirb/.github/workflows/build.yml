@@ -1,8 +1,5 @@
 name: build
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -55,6 +52,7 @@ jobs:
           - clean-s3-cache
           - python-instagram
           - moa
+          - nix-s3-dedup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -69,6 +67,8 @@ jobs:
             experimental-features = nix-command flakes ca-derivations
             post-build-hook = ${{ github.workspace }}/scripts/post-build-hook
             substituters = https://cache.chir.rs/
+      - name: Download patched nix
+        run: nix build github:DarkKirb/nix-packages#nix-s3-dedup
       - name: Set up secrets
         run: |
           echo "$NIX_CACHE_KEY" > ~/cache.key
@@ -85,7 +85,7 @@ jobs:
           OUT_PATH=$(nix show-derivation $DRV_PATH | jq -r ".\"$DRV_PATH\".outputs.out.path")
           # check if we already built it
           NARINFO=$(echo $OUT_PATH | sed 's|/| |g' | sed 's|-| |g' | awk '{print $3}')
-          if curl --output /dev/null --silent --head --fail "https://cache.chir.rs/$NARINFO.narinfo"; then
+          if curl --output /dev/null --silent --fail "https://cache.chir.rs/$NARINFO.narinfo"; then
             echo "${{ matrix.package }} already built. Skipping"
           else
             nix-store -r $DRV_PATH
