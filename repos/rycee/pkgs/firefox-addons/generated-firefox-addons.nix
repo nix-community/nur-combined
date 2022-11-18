@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221115.200658";
+      version = "108.0buildid20221117.185908";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030817/francais_language_pack-108.0buildid20221115.200658.xpi";
-      sha256 = "fbd60c4e30e108ed5afdc4d98c1ff84c24e6f7b834cb06c519773037ca8dd82a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031931/francais_language_pack-108.0buildid20221117.185908.xpi";
+      sha256 = "bcb41b8263b94058d66c09ec67b0d6f7ca3da5dba8963a3679ceebccc2f24f5b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1643,10 +1643,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.14.0";
+      version = "6.15.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016013/okta_browser_plugin-6.14.0.xpi";
-      sha256 = "e95f5f6a54d4aba25ef1c87db3ed07ec821cc4e08a64e687ea6cc1451d102a6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030397/okta_browser_plugin-6.15.0.xpi";
+      sha256 = "bb52445703c8cf4c91a593da37d1b5250ef74125ef028b104792e52bbc747620";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -2293,10 +2293,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.14";
+      version = "1.0.15";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031340/statshunters-1.0.14.xpi";
-      sha256 = "4d083090db039160483ec4695fbb5dc6d3fbe3b4574022a04c5225eb3fe0fe52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031838/statshunters-1.0.15.xpi";
+      sha256 = "be9f951ac8d507e6d164b81f97682c25885278085ee00ae98b534fec6546e08c";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -2829,10 +2829,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.48";
+      version = "6.10.50";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031518/wappalyzer-6.10.48.xpi";
-      sha256 = "1a8349c85ee356903d364e25de85cdaefbf8cdcd2f0c5453a0dce7eaf12eacf2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032117/wappalyzer-6.10.50.xpi";
+      sha256 = "174eee60665cdff3665cc46bfc5fda9d5d7e490401cad54a96d83ceda4b0a036";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2857,10 +2857,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.80.1";
+      version = "2.81.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026904/web_scrobbler-2.80.1.xpi";
-      sha256 = "3e550f8501c47c2e1e05ea3021727a6b92765d47f631253b1db3e649fddd30e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4031862/web_scrobbler-2.81.0.xpi";
+      sha256 = "e84338179ef4029250d1a83e6d47657238623330f590d4bdb85a9a8e8446b118";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
