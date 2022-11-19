@@ -1,4 +1,4 @@
-From dd76910a496985186c306f6666e0cc57a2128635 Mon Sep 17 00:00:00 2001
+From ac171894c452133c714ff3a32a4041a5bfa8e885 Mon Sep 17 00:00:00 2001
 From: Daniel Hill <daniel@gluo.nz>
 Date: Wed, 19 Oct 2022 17:39:03 +1300
 Subject: [PATCH 1/4] bcachefs: data_update_init() no longer degrades when
@@ -10,10 +10,10 @@ extra replicas to account for those redundancies.
 Signed-off-by: Daniel Hill <daniel@gluo.nz>
 
 diff --git a/fs/bcachefs/data_update.c b/fs/bcachefs/data_update.c
-index b75ff07e5921..87d1bb6d0e8f 100644
+index be45cf54f5ee..8a305f229120 100644
 --- a/fs/bcachefs/data_update.c
 +++ b/fs/bcachefs/data_update.c
-@@ -302,6 +302,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+@@ -301,6 +301,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
  	const union bch_extent_entry *entry;
  	struct extent_ptr_decoded p;
  	unsigned i, reserve_sectors = k.k->size * data_opts.extra_replicas;
@@ -21,7 +21,7 @@ index b75ff07e5921..87d1bb6d0e8f 100644
  	int ret;
  
  	bch2_bkey_buf_init(&m->k);
-@@ -328,6 +329,13 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+@@ -326,6 +327,13 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
  
  	i = 0;
  	bkey_for_each_ptr_decode(k.k, ptrs, p, entry) {
@@ -35,7 +35,7 @@ index b75ff07e5921..87d1bb6d0e8f 100644
  		if (((1U << i) & m->data_opts.rewrite_ptrs) &&
  		    p.ptr.cached)
  			BUG();
-@@ -365,7 +373,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+@@ -363,7 +371,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
  	}
  
  	m->op.nr_replicas = m->op.nr_replicas_required =
@@ -45,10 +45,10 @@ index b75ff07e5921..87d1bb6d0e8f 100644
  	BUG_ON(!m->op.nr_replicas);
  	return 0;
 -- 
-2.37.3
+2.38.0
 
 
-From 254dc58798f20c0348fcac0f6316623e709176d3 Mon Sep 17 00:00:00 2001
+From 84565584931b7147a45113d45bc19a91c52f9c2a Mon Sep 17 00:00:00 2001
 From: Daniel Hill <daniel@gluo.nz>
 Date: Fri, 14 Oct 2022 20:47:55 +1300
 Subject: [PATCH 2/4] bcachefs: btree_cache improvements.
@@ -85,29 +85,601 @@ index 75e744792a92..133f132ae545 100644
  		six_unlock_type(&b->c.lock, lock_type);
  		return ERR_PTR(-EIO);
 -- 
-2.37.3
+2.38.0
 
 
-From 7db7c0e8e5dabaddf738aed31dd0bc0533a4df7b Mon Sep 17 00:00:00 2001
-From: "Daniel B. Hill" <daniel@gluo.nz>
-Date: Tue, 18 Oct 2022 09:19:13 +1300
-Subject: [PATCH 4/4] bcachefs: seeks test.
+From f003e60a3b5de09c35a782bed57a80a155344afe Mon Sep 17 00:00:00 2001
+From: Daniel Hill <daniel@gluo.nz>
+Date: Thu, 17 Nov 2022 13:27:19 +1300
+Subject: [PATCH 3/4] bcachefs: move btree_trans_stats()
+
+To avoid include recursion we need to move this function to bcachefs.h
 
 Signed-off-by: Daniel Hill <daniel@gluo.nz>
 
+diff --git a/fs/bcachefs/bcachefs.h b/fs/bcachefs/bcachefs.h
+index 8a43fcfa0a8c..46347411a695 100644
+--- a/fs/bcachefs/bcachefs.h
++++ b/fs/bcachefs/bcachefs.h
+@@ -989,6 +989,13 @@ static inline bool btree_id_cached(const struct bch_fs *c, enum btree_id btree)
+ 	return c->btree_key_cache_btrees & (1U << btree);
+ }
+ 
++static inline struct btree_transaction_stats *btree_trans_stats(struct btree_trans *trans)
++{
++	return trans->fn_idx < ARRAY_SIZE(trans->c->btree_transaction_stats)
++		? &trans->c->btree_transaction_stats[trans->fn_idx]
++		: NULL;
++}
++
+ static inline struct timespec64 bch2_time_to_timespec(const struct bch_fs *c, s64 time)
+ {
+ 	struct timespec64 t;
+diff --git a/fs/bcachefs/btree_locking.h b/fs/bcachefs/btree_locking.h
+index fb237c95ee13..60adc042c96c 100644
+--- a/fs/bcachefs/btree_locking.h
++++ b/fs/bcachefs/btree_locking.h
+@@ -21,13 +21,6 @@ static inline bool is_btree_node(struct btree_path *path, unsigned l)
+ 	return l < BTREE_MAX_DEPTH && !IS_ERR_OR_NULL(path->l[l].b);
+ }
+ 
+-static inline struct btree_transaction_stats *btree_trans_stats(struct btree_trans *trans)
+-{
+-	return trans->fn_idx < ARRAY_SIZE(trans->c->btree_transaction_stats)
+-		? &trans->c->btree_transaction_stats[trans->fn_idx]
+-		: NULL;
+-}
+-
+ /* matches six lock types */
+ enum btree_node_locked_type {
+ 	BTREE_NODE_UNLOCKED		= -1,
+-- 
+2.38.0
+
+
+From 310abc0ac09366a29b5a8c7d7110694784eb5888 Mon Sep 17 00:00:00 2001
+From: Daniel Hill <daniel@gluo.nz>
+Date: Mon, 14 Nov 2022 14:27:27 +1300
+Subject: [PATCH 4/4] bcachefs: add per transaction counters
+
+Signed-off-by: Daniel Hill <daniel@gluo.nz>
+
+diff --git a/fs/bcachefs/alloc_background.c b/fs/bcachefs/alloc_background.c
+index 742313c2cfc2..9a3e80f93a3c 100644
+--- a/fs/bcachefs/alloc_background.c
++++ b/fs/bcachefs/alloc_background.c
+@@ -1255,7 +1255,7 @@ static int invalidate_one_bucket(struct btree_trans *trans,
+ 	if (ret)
+ 		goto out;
+ 
+-	trace_and_count(c, bucket_invalidate, c, bucket.inode, bucket.offset, cached_sectors);
++	trace_and_count_trans(c, trans, bucket_invalidate, c, bucket.inode, bucket.offset, cached_sectors);
+ 	--*nr_to_invalidate;
+ out:
+ 	bch2_trans_iter_exit(trans, &alloc_iter);
+diff --git a/fs/bcachefs/alloc_foreground.c b/fs/bcachefs/alloc_foreground.c
+index 949c068ebd0f..6095bf663b3d 100644
+--- a/fs/bcachefs/alloc_foreground.c
++++ b/fs/bcachefs/alloc_foreground.c
+@@ -559,10 +559,10 @@ static struct open_bucket *bch2_bucket_alloc_trans(struct btree_trans *trans,
+ 		ob = ERR_PTR(-BCH_ERR_no_buckets_found);
+ 
+ 	if (!IS_ERR(ob))
+-		trace_and_count(c, bucket_alloc, ca, bch2_alloc_reserves[reserve],
++		trace_and_count_trans(c, trans, bucket_alloc, ca, bch2_alloc_reserves[reserve],
+ 				may_alloc_partial, ob->bucket);
+ 	else if (!bch2_err_matches(PTR_ERR(ob), BCH_ERR_transaction_restart))
+-		trace_and_count(c, bucket_alloc_fail,
++		trace_and_count_trans(c, trans, bucket_alloc_fail,
+ 				ca, bch2_alloc_reserves[reserve],
+ 				usage->d[BCH_DATA_free].buckets,
+ 				avail,
+diff --git a/fs/bcachefs/bcachefs.h b/fs/bcachefs/bcachefs.h
+index 46347411a695..2a7f9fea755f 100644
+--- a/fs/bcachefs/bcachefs.h
++++ b/fs/bcachefs/bcachefs.h
+@@ -218,6 +218,13 @@ do {									\
+ 	trace_##_name(__VA_ARGS__);					\
+ } while (0)
+ 
++#define trace_and_count_trans(_c, _trans, _name, ...)			\
++do {									\
++	this_cpu_inc((_c)->counters[BCH_COUNTER_##_name]);		\
++	atomic64_inc(&btree_trans_stats(_trans)->counters[BCH_COUNTER_##_name]);	\
++	trace_##_name(__VA_ARGS__);					\
++} while (0)
++
+ #define bch2_fs_init_fault(name)					\
+ 	dynamic_fault("bcachefs:bch_fs_init:" name)
+ #define bch2_meta_read_fault(name)					\
+@@ -543,6 +550,7 @@ struct btree_debug {
+ struct btree_transaction_stats {
+ 	struct mutex		lock;
+ 	struct time_stats       lock_hold_times;
++	atomic64_t		counters[BCH_TRANSACTIONS_NR];
+ 	unsigned		nr_max_paths;
+ 	unsigned		max_mem;
+ 	char			*max_paths_text;
 diff --git a/fs/bcachefs/btree_cache.c b/fs/bcachefs/btree_cache.c
-index 133f132ae545..8271e8fbc820 100644
+index 133f132ae545..8c6c505384b7 100644
 --- a/fs/bcachefs/btree_cache.c
 +++ b/fs/bcachefs/btree_cache.c
-@@ -519,7 +519,7 @@ int bch2_fs_btree_cache_init(struct bch_fs *c)
- 	bc->shrink.count_objects	= bch2_btree_cache_count;
- 	bc->shrink.scan_objects		= bch2_btree_cache_scan;
- 	bc->shrink.to_text		= bch2_btree_cache_shrinker_to_text;
--	bc->shrink.seeks		= 4;
-+	bc->shrink.seeks		= 2;
- 	ret = register_shrinker(&bc->shrink, "%s/btree_cache", c->name);
+@@ -739,7 +739,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
+ 	 * been freed:
+ 	 */
+ 	if (trans && !bch2_btree_node_relock(trans, path, level + 1)) {
+-		trace_and_count(c, trans_restart_relock_parent_for_fill, trans, _THIS_IP_, path);
++		trace_and_count_trans(c, trans, trans_restart_relock_parent_for_fill, trans, _THIS_IP_, path);
+ 		return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_fill_relock));
+ 	}
+ 
+@@ -747,7 +747,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
+ 
+ 	if (trans && b == ERR_PTR(-ENOMEM)) {
+ 		trans->memory_allocation_failure = true;
+-		trace_and_count(c, trans_restart_memory_allocation_failure, trans, _THIS_IP_, path);
++		trace_and_count_trans(c, trans, trans_restart_memory_allocation_failure, trans, _THIS_IP_, path);
+ 		return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_fill_mem_alloc_fail));
+ 	}
+ 
+@@ -796,7 +796,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
+ 
+ 	if (!six_relock_type(&b->c.lock, lock_type, seq)) {
+ 		if (trans)
+-			trace_and_count(c, trans_restart_relock_after_fill, trans, _THIS_IP_, path);
++			trace_and_count_trans(c, trans, trans_restart_relock_after_fill, trans, _THIS_IP_, path);
+ 		return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_relock_after_fill));
+ 	}
+ 
+@@ -937,7 +937,7 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+ 			if (bch2_btree_node_relock(trans, path, level + 1))
+ 				goto retry;
+ 
+-			trace_and_count(c, trans_restart_btree_node_reused, trans, trace_ip, path);
++			trace_and_count_trans(c, trans, trans_restart_btree_node_reused, trans, trace_ip, path);
+ 			return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_lock_node_reused));
+ 		}
+ 
+diff --git a/fs/bcachefs/btree_gc.c b/fs/bcachefs/btree_gc.c
+index 20e804ecb104..108133a84f82 100644
+--- a/fs/bcachefs/btree_gc.c
++++ b/fs/bcachefs/btree_gc.c
+@@ -1942,9 +1942,9 @@ int bch2_gc_gens(struct bch_fs *c)
+ 	if (!mutex_trylock(&c->gc_gens_lock))
+ 		return 0;
+ 
+-	trace_and_count(c, gc_gens_start, c);
+ 	down_read(&c->gc_lock);
+ 	bch2_trans_init(&trans, c, 0, 0);
++	trace_and_count_trans(c, &trans, gc_gens_start, c);
+ 
+ 	for_each_member_device(ca, c, i) {
+ 		struct bucket_gens *gens;
+@@ -2003,7 +2003,7 @@ int bch2_gc_gens(struct bch_fs *c)
+ 	c->gc_count++;
+ 
+ 	bch2_time_stats_update(&c->times[BCH_TIME_btree_gc], start_time);
+-	trace_and_count(c, gc_gens_end, c);
++	trace_and_count_trans(c, &trans, gc_gens_end, c);
+ err:
+ 	for_each_member_device(ca, c, i) {
+ 		kvfree(ca->oldest_gen);
+diff --git a/fs/bcachefs/btree_iter.c b/fs/bcachefs/btree_iter.c
+index b6a761dba4d0..cd5b3034529f 100644
+--- a/fs/bcachefs/btree_iter.c
++++ b/fs/bcachefs/btree_iter.c
+@@ -1004,7 +1004,7 @@ static int bch2_btree_path_traverse_all(struct btree_trans *trans)
+ 
+ 	trans->in_traverse_all = false;
+ 
+-	trace_and_count(c, trans_traverse_all, trans, trace_ip);
++	trace_and_count_trans(c, trans, trans_traverse_all, trans, trace_ip);
+ 	return ret;
+ }
+ 
+@@ -1160,7 +1160,7 @@ int __must_check bch2_btree_path_traverse(struct btree_trans *trans,
+ 		u64 mask = ~(~0ULL << restart_probability_bits);
+ 
+ 		if ((prandom_u32() & mask) == mask) {
+-			trace_and_count(trans->c, trans_restart_injected, trans, _RET_IP_);
++			trace_and_count_trans(trans->c, trans, trans_restart_injected, trans, _RET_IP_);
+ 			return btree_trans_restart(trans, BCH_ERR_transaction_restart_fault_inject);
+ 		}
+ 	}
+@@ -1677,7 +1677,7 @@ struct btree *bch2_btree_iter_next_node(struct btree_iter *iter)
+ 		path->l[path->level].b		= ERR_PTR(-BCH_ERR_no_btree_node_relock);
+ 		path->l[path->level + 1].b	= ERR_PTR(-BCH_ERR_no_btree_node_relock);
+ 		btree_path_set_dirty(path, BTREE_ITER_NEED_TRAVERSE);
+-		trace_and_count(trans->c, trans_restart_relock_next_node, trans, _THIS_IP_, path);
++		trace_and_count_trans(trans->c, trans, trans_restart_relock_next_node, trans, _THIS_IP_, path);
+ 		ret = btree_trans_restart(trans, BCH_ERR_transaction_restart_relock);
+ 		goto err;
+ 	}
+@@ -2766,7 +2766,7 @@ void *__bch2_trans_kmalloc(struct btree_trans *trans, size_t size)
+ 	trans->mem_bytes = new_bytes;
+ 
+ 	if (old_bytes) {
+-		trace_and_count(trans->c, trans_restart_mem_realloced, trans, _RET_IP_, new_bytes);
++		trace_and_count_trans(trans->c, trans, trans_restart_mem_realloced, trans, _RET_IP_, new_bytes);
+ 		return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_mem_realloced));
+ 	}
+ 
+diff --git a/fs/bcachefs/btree_iter.h b/fs/bcachefs/btree_iter.h
+index 05052345d2c3..e8a97870f8f4 100644
+--- a/fs/bcachefs/btree_iter.h
++++ b/fs/bcachefs/btree_iter.h
+@@ -403,7 +403,7 @@ static inline struct bkey_s_c bch2_btree_iter_peek_upto_type(struct btree_iter *
+ static inline int btree_trans_too_many_iters(struct btree_trans *trans)
+ {
+ 	if (hweight64(trans->paths_allocated) > BTREE_ITER_MAX - 8) {
+-		trace_and_count(trans->c, trans_restart_too_many_iters, trans, _THIS_IP_);
++		trace_and_count_trans(trans->c, trans, trans_restart_too_many_iters, trans, _THIS_IP_);
+ 		return btree_trans_restart(trans, BCH_ERR_transaction_restart_too_many_iters);
+ 	}
+ 
+diff --git a/fs/bcachefs/btree_key_cache.c b/fs/bcachefs/btree_key_cache.c
+index 634c67318a8d..ff9a212a8509 100644
+--- a/fs/bcachefs/btree_key_cache.c
++++ b/fs/bcachefs/btree_key_cache.c
+@@ -385,7 +385,7 @@ static int btree_key_cache_fill(struct btree_trans *trans,
+ 	k = bch2_btree_path_peek_slot(path, &u);
+ 
+ 	if (!bch2_btree_node_relock(trans, ck_path, 0)) {
+-		trace_and_count(trans->c, trans_restart_relock_key_cache_fill, trans, _THIS_IP_, ck_path);
++		trace_and_count_trans(trans->c, trans, trans_restart_relock_key_cache_fill, trans, _THIS_IP_, ck_path);
+ 		ret = btree_trans_restart(trans, BCH_ERR_transaction_restart_key_cache_raced);
+ 		goto err;
+ 	}
+@@ -494,7 +494,7 @@ bch2_btree_path_traverse_cached_slowpath(struct btree_trans *trans, struct btree
+ 		 */
+ 		if (!path->locks_want &&
+ 		    !__bch2_btree_path_upgrade(trans, path, 1)) {
+-			trace_and_count(trans->c, trans_restart_key_cache_upgrade, trans, _THIS_IP_);
++			trace_and_count_trans(trans->c, trans, trans_restart_key_cache_upgrade, trans, _THIS_IP_);
+ 			ret = btree_trans_restart(trans, BCH_ERR_transaction_restart_key_cache_upgrade);
+ 			goto err;
+ 		}
+diff --git a/fs/bcachefs/btree_locking.c b/fs/bcachefs/btree_locking.c
+index dce2dc0cc0c5..a8ed18b89517 100644
+--- a/fs/bcachefs/btree_locking.c
++++ b/fs/bcachefs/btree_locking.c
+@@ -128,7 +128,7 @@ static bool lock_graph_remove_non_waiters(struct lock_graph *g)
+ static int abort_lock(struct lock_graph *g, struct trans_waiting_for_lock *i)
+ {
+ 	if (i == g->g) {
+-		trace_and_count(i->trans->c, trans_restart_would_deadlock, i->trans, _RET_IP_);
++		trace_and_count_trans(i->trans->c, i->trans, trans_restart_would_deadlock, i->trans, _RET_IP_);
+ 		return btree_trans_restart(i->trans, BCH_ERR_transaction_restart_would_deadlock);
+ 	} else {
+ 		i->trans->lock_must_abort = true;
+@@ -219,7 +219,7 @@ static int lock_graph_descend(struct lock_graph *g, struct btree_trans *trans,
+ 
+ 		while (g->nr)
+ 			lock_graph_up(g);
+-		trace_and_count(trans->c, trans_restart_would_deadlock_recursion_limit, trans, _RET_IP_);
++		trace_and_count_trans(trans->c, trans, trans_restart_would_deadlock_recursion_limit, trans, _RET_IP_);
+ 		return btree_trans_restart(orig_trans, BCH_ERR_transaction_restart_deadlock_recursion_limit);
+ 	}
+ 
+@@ -241,7 +241,7 @@ int bch2_check_for_deadlock(struct btree_trans *trans, struct printbuf *cycle)
+ 	int ret;
+ 
+ 	if (trans->lock_must_abort) {
+-		trace_and_count(trans->c, trans_restart_would_deadlock, trans, _RET_IP_);
++		trace_and_count_trans(trans->c, trans, trans_restart_would_deadlock, trans, _RET_IP_);
+ 		return btree_trans_restart(trans, BCH_ERR_transaction_restart_would_deadlock);
+ 	}
+ 
+@@ -408,7 +408,7 @@ bool __bch2_btree_node_relock(struct btree_trans *trans,
+ 	}
+ fail:
+ 	if (trace)
+-		trace_and_count(trans->c, btree_path_relock_fail, trans, _RET_IP_, path, level);
++		trace_and_count_trans(trans->c, trans, btree_path_relock_fail, trans, _RET_IP_, path, level);
+ 	return false;
+ }
+ 
+@@ -466,7 +466,7 @@ bool bch2_btree_node_upgrade(struct btree_trans *trans,
+ 		goto success;
+ 	}
+ 
+-	trace_and_count(trans->c, btree_path_upgrade_fail, trans, _RET_IP_, path, level);
++	trace_and_count_trans(trans->c, trans, btree_path_upgrade_fail, trans, _RET_IP_, path, level);
+ 	return false;
+ success:
+ 	mark_btree_node_locked_noreset(path, level, SIX_LOCK_intent);
+@@ -489,7 +489,7 @@ int bch2_btree_path_relock_intent(struct btree_trans *trans,
+ 		if (!bch2_btree_node_relock(trans, path, l)) {
+ 			__bch2_btree_path_unlock(trans, path);
+ 			btree_path_set_dirty(path, BTREE_ITER_NEED_TRAVERSE);
+-			trace_and_count(trans->c, trans_restart_relock_path_intent, trans, _RET_IP_, path);
++			trace_and_count_trans(trans->c, trans, trans_restart_relock_path_intent, trans, _RET_IP_, path);
+ 			return btree_trans_restart(trans, BCH_ERR_transaction_restart_relock_path_intent);
+ 		}
+ 	}
+@@ -609,7 +609,7 @@ int bch2_trans_relock(struct btree_trans *trans)
+ 	trans_for_each_path(trans, path)
+ 		if (path->should_be_locked &&
+ 		    !bch2_btree_path_relock_norestart(trans, path, _RET_IP_)) {
+-			trace_and_count(trans->c, trans_restart_relock, trans, _RET_IP_, path);
++			trace_and_count_trans(trans->c, trans, trans_restart_relock, trans, _RET_IP_, path);
+ 			return btree_trans_restart(trans, BCH_ERR_transaction_restart_relock);
+ 		}
+ 	return 0;
+diff --git a/fs/bcachefs/btree_locking.h b/fs/bcachefs/btree_locking.h
+index 60adc042c96c..09d5bb8c39a2 100644
+--- a/fs/bcachefs/btree_locking.h
++++ b/fs/bcachefs/btree_locking.h
+@@ -335,7 +335,7 @@ static inline int bch2_btree_path_relock(struct btree_trans *trans,
+ 				struct btree_path *path, unsigned long trace_ip)
+ {
+ 	if (!bch2_btree_path_relock_norestart(trans, path, trace_ip)) {
+-		trace_and_count(trans->c, trans_restart_relock_path, trans, trace_ip, path);
++		trace_and_count_trans(trans->c, trans, trans_restart_relock_path, trans, trace_ip, path);
+ 		return btree_trans_restart(trans, BCH_ERR_transaction_restart_relock_path);
+ 	}
+ 
+@@ -362,7 +362,7 @@ static inline int bch2_btree_path_upgrade(struct btree_trans *trans,
+ 	    : path->uptodate == BTREE_ITER_UPTODATE)
+ 		return 0;
+ 
+-	trace_and_count(trans->c, trans_restart_upgrade, trans, _THIS_IP_, path,
++	trace_and_count_trans(trans->c, trans, trans_restart_upgrade, trans, _THIS_IP_, path,
+ 			old_locks_want, new_locks_want);
+ 	return btree_trans_restart(trans, BCH_ERR_transaction_restart_upgrade);
+ }
+diff --git a/fs/bcachefs/btree_update_interior.c b/fs/bcachefs/btree_update_interior.c
+index 54c0cdb8462e..36e6a5dfe1f4 100644
+--- a/fs/bcachefs/btree_update_interior.c
++++ b/fs/bcachefs/btree_update_interior.c
+@@ -361,7 +361,7 @@ static struct btree *bch2_btree_node_alloc(struct btree_update *as,
+ 	ret = bch2_btree_node_hash_insert(&c->btree_cache, b, level, as->btree_id);
+ 	BUG_ON(ret);
+ 
+-	trace_and_count(c, btree_node_alloc, c, b);
++	trace_and_count_trans(c, trans, btree_node_alloc, c, b);
+ 	return b;
+ }
+ 
+@@ -1133,7 +1133,7 @@ bch2_btree_update_start(struct btree_trans *trans, struct btree_path *path,
+ 					      BTREE_UPDATE_JOURNAL_RES,
+ 					      journal_flags);
+ 		if (ret) {
+-			trace_and_count(c, trans_restart_journal_preres_get, trans, _RET_IP_, journal_flags);
++			trace_and_count_trans(c, trans, trans_restart_journal_preres_get, trans, _RET_IP_, journal_flags);
+ 			ret = btree_trans_restart(trans, BCH_ERR_transaction_restart_journal_preres_get);
+ 			goto err;
+ 		}
+@@ -1166,7 +1166,7 @@ bch2_btree_update_start(struct btree_trans *trans, struct btree_path *path,
+ 	}
+ 
+ 	if (ret) {
+-		trace_and_count(c, btree_reserve_get_fail, trans->fn,
++		trace_and_count_trans(c, trans, btree_reserve_get_fail, trans->fn,
+ 				_RET_IP_, nr_nodes[0] + nr_nodes[1], ret);
+ 		goto err;
+ 	}
+@@ -1222,7 +1222,7 @@ static void bch2_btree_set_root(struct btree_update *as,
+ 	struct bch_fs *c = as->c;
+ 	struct btree *old;
+ 
+-	trace_and_count(c, btree_node_set_root, c, b);
++	trace_and_count_trans(c, trans, btree_node_set_root, c, b);
+ 
+ 	old = btree_node_root(c, b);
+ 
+@@ -1469,7 +1469,7 @@ static int btree_split(struct btree_update *as, struct btree_trans *trans,
+ 	if (b->nr.live_u64s > BTREE_SPLIT_THRESHOLD(c)) {
+ 		struct btree *n[2];
+ 
+-		trace_and_count(c, btree_node_split, c, b);
++		trace_and_count_trans(c, trans, btree_node_split, c, b);
+ 
+ 		n[0] = n1 = bch2_btree_node_alloc(as, trans, b->c.level);
+ 		n[1] = n2 = bch2_btree_node_alloc(as, trans, b->c.level);
+@@ -1527,7 +1527,7 @@ static int btree_split(struct btree_update *as, struct btree_trans *trans,
+ 			btree_split_insert_keys(as, trans, path, n3, &as->parent_keys);
+ 		}
+ 	} else {
+-		trace_and_count(c, btree_node_compact, c, b);
++		trace_and_count_trans(c, trans, btree_node_compact, c, b);
+ 
+ 		n1 = bch2_btree_node_alloc_replacement(as, trans, b);
+ 
+@@ -1846,7 +1846,7 @@ int __bch2_foreground_maybe_merge(struct btree_trans *trans,
+ 	if (ret)
+ 		goto err;
+ 
+-	trace_and_count(c, btree_node_merge, c, b);
++	trace_and_count_trans(c, trans, btree_node_merge, c, b);
+ 
+ 	bch2_btree_interior_update_will_free_node(as, b);
+ 	bch2_btree_interior_update_will_free_node(as, m);
+@@ -1952,7 +1952,7 @@ int bch2_btree_node_rewrite(struct btree_trans *trans,
+ 	mark_btree_node_locked(trans, new_path, n->c.level, SIX_LOCK_intent);
+ 	bch2_btree_path_level_init(trans, new_path, n);
+ 
+-	trace_and_count(c, btree_node_rewrite, c, b);
++	trace_and_count_trans(c, trans, btree_node_rewrite, c, b);
+ 
+ 	if (parent) {
+ 		bch2_keylist_add(&as->parent_keys, &n->key);
+diff --git a/fs/bcachefs/btree_update_leaf.c b/fs/bcachefs/btree_update_leaf.c
+index b930b788410d..ac1791186226 100644
+--- a/fs/bcachefs/btree_update_leaf.c
++++ b/fs/bcachefs/btree_update_leaf.c
+@@ -284,7 +284,7 @@ bch2_trans_journal_preres_get_cold(struct btree_trans *trans, unsigned u64s,
+ 
+ 	ret = bch2_trans_relock(trans);
+ 	if (ret) {
+-		trace_and_count(c, trans_restart_journal_preres_get, trans, trace_ip, 0);
++		trace_and_count_trans(c, trans, trans_restart_journal_preres_get, trans, trace_ip, 0);
+ 		return ret;
+ 	}
+ 
+@@ -561,7 +561,7 @@ bch2_trans_commit_write_locked(struct btree_trans *trans,
+ 	int ret;
+ 
+ 	if (race_fault()) {
+-		trace_and_count(c, trans_restart_fault_inject, trans, trace_ip);
++		trace_and_count_trans(c, trans, trans_restart_fault_inject, trans, trace_ip);
+ 		return btree_trans_restart_nounlock(trans, BCH_ERR_transaction_restart_fault_inject);
+ 	}
+ 
+@@ -732,7 +732,7 @@ static noinline int trans_lock_write_fail(struct btree_trans *trans, struct btre
+ 		bch2_btree_node_unlock_write(trans, i->path, insert_l(i)->b);
+ 	}
+ 
+-	trace_and_count(trans->c, trans_restart_would_deadlock_write, trans);
++	trace_and_count_trans(trans->c, trans, trans_restart_would_deadlock_write, trans);
+ 	return btree_trans_restart(trans, BCH_ERR_transaction_restart_would_deadlock_write);
+ }
+ 
+@@ -892,7 +892,7 @@ int bch2_trans_commit_error(struct btree_trans *trans,
+ 	case BTREE_INSERT_BTREE_NODE_FULL:
+ 		ret = bch2_btree_split_leaf(trans, i->path, trans->flags);
+ 		if (bch2_err_matches(ret, BCH_ERR_transaction_restart))
+-			trace_and_count(c, trans_restart_btree_node_split, trans, trace_ip, i->path);
++			trace_and_count_trans(c, trans, trans_restart_btree_node_split, trans, trace_ip, i->path);
+ 		break;
+ 	case BTREE_INSERT_NEED_MARK_REPLICAS:
+ 		bch2_trans_unlock(trans);
+@@ -903,7 +903,7 @@ int bch2_trans_commit_error(struct btree_trans *trans,
+ 
+ 		ret = bch2_trans_relock(trans);
+ 		if (ret)
+-			trace_and_count(c, trans_restart_mark_replicas, trans, trace_ip);
++			trace_and_count_trans(c, trans, trans_restart_mark_replicas, trans, trace_ip);
+ 		break;
+ 	case BTREE_INSERT_NEED_JOURNAL_RES:
+ 		bch2_trans_unlock(trans);
+@@ -920,12 +920,12 @@ int bch2_trans_commit_error(struct btree_trans *trans,
+ 
+ 		ret = bch2_trans_relock(trans);
+ 		if (ret)
+-			trace_and_count(c, trans_restart_journal_res_get, trans, trace_ip);
++			trace_and_count_trans(c, trans, trans_restart_journal_res_get, trans, trace_ip);
+ 		break;
+ 	case BTREE_INSERT_NEED_JOURNAL_RECLAIM:
+ 		bch2_trans_unlock(trans);
+ 
+-		trace_and_count(c, trans_blocked_journal_reclaim, trans, trace_ip);
++		trace_and_count_trans(c, trans, trans_blocked_journal_reclaim, trans, trace_ip);
+ 
+ 		wait_event_freezable(c->journal.reclaim_wait,
+ 				     (ret = journal_reclaim_wait_done(c)));
+@@ -934,7 +934,7 @@ int bch2_trans_commit_error(struct btree_trans *trans,
+ 
+ 		ret = bch2_trans_relock(trans);
+ 		if (ret)
+-			trace_and_count(c, trans_restart_journal_reclaim, trans, trace_ip);
++			trace_and_count_trans(c, trans, trans_restart_journal_reclaim, trans, trace_ip);
+ 		break;
+ 	default:
+ 		BUG_ON(ret >= 0);
+@@ -1076,7 +1076,7 @@ int __bch2_trans_commit(struct btree_trans *trans)
+ 	if (ret)
+ 		goto err;
+ 
+-	trace_and_count(c, transaction_commit, trans, _RET_IP_);
++	trace_and_count_trans(c, trans, transaction_commit, trans, _RET_IP_);
  out:
- 	pr_verbose_init(c->opts, "ret %i", ret);
+ 	bch2_journal_preres_put(&c->journal, &trans->journal_preres);
+ 
+@@ -1564,7 +1564,7 @@ int __must_check bch2_trans_update(struct btree_trans *trans, struct btree_iter
+ 			ck = (void *) iter->key_cache_path->l[0].b;
+ 
+ 			if (test_bit(BKEY_CACHED_DIRTY, &ck->flags)) {
+-				trace_and_count(trans->c, trans_restart_key_cache_raced, trans, _RET_IP_);
++				trace_and_count_trans(trans->c, trans, trans_restart_key_cache_raced, trans, _RET_IP_);
+ 				return btree_trans_restart(trans, BCH_ERR_transaction_restart_key_cache_raced);
+ 			}
+ 
+diff --git a/fs/bcachefs/counters.h b/fs/bcachefs/counters.h
+index 4778aa19bf34..7dbcf24993b0 100644
+--- a/fs/bcachefs/counters.h
++++ b/fs/bcachefs/counters.h
+@@ -5,6 +5,7 @@
+ #include "bcachefs.h"
+ #include "super-io.h"
+ 
++extern const char * const bch2_counter_names[];
+ 
+ int bch2_sb_counters_to_cpu(struct bch_fs *);
+ int bch2_sb_counters_from_cpu(struct bch_fs *);
+diff --git a/fs/bcachefs/debug.c b/fs/bcachefs/debug.c
+index 57602c8e6c34..3ec28bf53327 100644
+--- a/fs/bcachefs/debug.c
++++ b/fs/bcachefs/debug.c
+@@ -21,6 +21,7 @@
+ #include "inode.h"
+ #include "io.h"
+ #include "super.h"
++#include "counters.h"
+ 
+ #include <linux/console.h>
+ #include <linux/debugfs.h>
+@@ -621,7 +622,7 @@ static ssize_t lock_held_stats_read(struct file *file, char __user *buf,
+ {
+ 	struct dump_iter        *i = file->private_data;
+ 	struct bch_fs *c = i->c;
+-	int err;
++	int err, j;
+ 
+ 	i->ubuf = buf;
+ 	i->size = size;
+@@ -647,9 +648,28 @@ static ssize_t lock_held_stats_read(struct file *file, char __user *buf,
+ 
+ 		mutex_lock(&s->lock);
+ 
+-		prt_printf(&i->buf, "Max mem used: %u", s->max_mem);
++		printbuf_tabstop_push(&i->buf, 40);
++
++		prt_str(&i->buf, "Max mem used: ");
++		prt_tab(&i->buf);
++		prt_printf(&i->buf, "%u", s->max_mem);
+ 		prt_newline(&i->buf);
+ 
++
++		for (j = 0; j < BCH_COUNTER_NR; j++) {
++			u64 counter = atomic64_read(&s->counters[j]);
++
++			if (!counter)
++				continue;
++			prt_str(&i->buf, bch2_counter_names[j]);
++			prt_str(&i->buf, ": ");
++			prt_tab(&i->buf);
++			prt_units_u64(&i->buf, counter);
++			prt_newline(&i->buf);
++		}
++
++		printbuf_tabstops_reset(&i->buf);
++
+ 		if (IS_ENABLED(CONFIG_BCACHEFS_LOCK_TIME_STATS)) {
+ 			prt_printf(&i->buf, "Lock hold times:");
+ 			prt_newline(&i->buf);
+diff --git a/fs/bcachefs/io.c b/fs/bcachefs/io.c
+index 82caaf511427..1db0041bc130 100644
+--- a/fs/bcachefs/io.c
++++ b/fs/bcachefs/io.c
+@@ -2223,7 +2223,7 @@ int __bch2_read_extent(struct btree_trans *trans, struct bch_read_bio *orig,
+ 	rbio->bio.bi_end_io	= bch2_read_endio;
+ 
+ 	if (rbio->bounce)
+-		trace_and_count(c, read_bounce, &rbio->bio);
++		trace_and_count_trans(c, trans, read_bounce, &rbio->bio);
+ 
+ 	this_cpu_add(c->counters[BCH_COUNTER_io_read], bio_sectors(&rbio->bio));
+ 	bch2_increment_clock(c, bio_sectors(&rbio->bio), READ);
+@@ -2238,7 +2238,7 @@ int __bch2_read_extent(struct btree_trans *trans, struct bch_read_bio *orig,
+ 
+ 	if (!(flags & (BCH_READ_IN_RETRY|BCH_READ_LAST_FRAGMENT))) {
+ 		bio_inc_remaining(&orig->bio);
+-		trace_and_count(c, read_split, &orig->bio);
++		trace_and_count_trans(c, trans, read_split, &orig->bio);
+ 	}
+ 
+ 	if (!rbio->pick.idx) {
 -- 
-2.37.3
+2.38.0
 
