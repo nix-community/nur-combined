@@ -14,7 +14,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
+  todoist-electron = pkgs.callPackage ./pkgs/todoist-electron { };
+  #v2raya-bin = pkgs.callPackage ./pkgs/v2raya-bin { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
