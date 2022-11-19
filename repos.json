@@ -197,6 +197,9 @@
         "extends": {
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
+        "federicoschonborn": {
+            "url": "https://github.com/FedericoSchonborn/nur-packages"
+        },
         "fedx": {
             "url": "https://github.com/FedX-sudo/Nixpkgs_testing_NUR"
         },
