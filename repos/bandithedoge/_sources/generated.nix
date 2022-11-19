@@ -172,15 +172,15 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "8050417e576e6b5b6825132577a9d046efdd6b04";
+    version = "78d2609b28fe1ee8098ee4756d048ff9e0369158";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "8050417e576e6b5b6825132577a9d046efdd6b04";
+      rev = "78d2609b28fe1ee8098ee4756d048ff9e0369158";
       fetchSubmodules = false;
-      sha256 = "sha256-ekXdAPf37WKejPeINjYCx6z74UCbVi8rCRLQnq113HM=";
+      sha256 = "sha256-G5pert+GvpU33GNfdBa8T+z+u7r7WCW+Cr9z2lUBtbQ=";
     };
-    date = "2022-10-26";
+    date = "2022-11-18";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
