@@ -13,31 +13,31 @@ let
         sha512 = "dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==";
       };
     };
-    "@webpack-cli/configtest-1.2.0" = {
+    "@webpack-cli/configtest-2.0.0" = {
       name = "_at_webpack-cli_slash_configtest";
       packageName = "@webpack-cli/configtest";
-      version = "1.2.0";
+      version = "2.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-1.2.0.tgz";
-        sha512 = "4FB8Tj6xyVkyqjj1OaTqCjXYULB9FMkqQ8yGrZjRDrYh0nOE+7Lhs45WioWQQMV+ceFlE368Ukhe6xdvJM9Egg==";
+        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-2.0.0.tgz";
+        sha512 = "war4OU8NGjBqU3DP3bx6ciODXIh7dSXcpQq+P4K2Tqyd8L5OjZ7COx9QXx/QdCIwL2qoX09Wr4Cwf7uS4qdEng==";
       };
     };
-    "@webpack-cli/info-1.5.0" = {
+    "@webpack-cli/info-2.0.0" = {
       name = "_at_webpack-cli_slash_info";
       packageName = "@webpack-cli/info";
-      version = "1.5.0";
+      version = "2.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-1.5.0.tgz";
-        sha512 = "e8tSXZpw2hPl2uMJY6fsMswaok5FdlGNRTktvFk2sD8RjH0hE2+XistawJx1vmKteh4NmGmNUrp+Tb2w+udPcQ==";
+        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-2.0.0.tgz";
+        sha512 = "NNxDgbo4VOkNhOlTgY0Elhz3vKpOJq4/PKeKg7r8cmYM+GQA9vDofLYyup8jS6EpUvhNmR30cHTCEIyvXpskwA==";
       };
     };
-    "@webpack-cli/serve-1.7.0" = {
+    "@webpack-cli/serve-2.0.0" = {
       name = "_at_webpack-cli_slash_serve";
       packageName = "@webpack-cli/serve";
-      version = "1.7.0";
+      version = "2.0.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-1.7.0.tgz";
-        sha512 = "oxnCNGj88fL+xzV+dacXs44HcDwf1ovs3AuEzvP7mqXw7fQntqIhQ1BRmynh4qEKQSSSRSWVyXRjmTbZIX9V2Q==";
+        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-2.0.0.tgz";
+        sha512 = "Rumq5mHvGXamnOh3O8yLk1sjx8dB30qF1OeR6VC00DIR6SLJ4bwwUGKC4pE7qBFoQyyh0H9sAg3fikYgAqVR0w==";
       };
     };
     "clone-deep-4.0.1" = {
@@ -58,13 +58,13 @@ let
         sha512 = "3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==";
       };
     };
-    "commander-7.2.0" = {
+    "commander-9.4.1" = {
       name = "commander";
       packageName = "commander";
-      version = "7.2.0";
+      version = "9.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/commander/-/commander-7.2.0.tgz";
-        sha512 = "QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==";
+        url = "https://registry.npmjs.org/commander/-/commander-9.4.1.tgz";
+        sha512 = "5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==";
       };
     };
     "cross-spawn-7.0.3" = {
@@ -130,13 +130,13 @@ let
         sha512 = "ASB07uLtnDs1o6EHjKpX34BKYDSqnFerfTOJL2HvMqF70LnxpjkzDB8J44oT9pu4AMPkQwf8jl6szgvNd2tRIg==";
       };
     };
-    "interpret-2.2.0" = {
+    "interpret-3.1.1" = {
       name = "interpret";
       packageName = "interpret";
-      version = "2.2.0";
+      version = "3.1.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/interpret/-/interpret-2.2.0.tgz";
-        sha512 = "Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==";
+        url = "https://registry.npmjs.org/interpret/-/interpret-3.1.1.tgz";
+        sha512 = "6xwYfHbajpoF0xLW+iwLkhwgvLoZDfjYfoFNu8ftMoXINzwuymNLd9u/KmwtdT2GbR+/Cz66otEGEVVUHX9QLQ==";
       };
     };
     "is-core-module-2.11.0" = {
@@ -256,13 +256,13 @@ let
         sha512 = "HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==";
       };
     };
-    "rechoir-0.7.1" = {
+    "rechoir-0.8.0" = {
       name = "rechoir";
       packageName = "rechoir";
-      version = "0.7.1";
+      version = "0.8.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rechoir/-/rechoir-0.7.1.tgz";
-        sha512 = "/njmZ8s1wVeR6pjTZ+0nCnv8SpZNRMT2D1RLOJQESlYFDBvwpTA4KWJpZ+sBJ4+vhjILRcK7JIFdGCdxEAAitg==";
+        url = "https://registry.npmjs.org/rechoir/-/rechoir-0.8.0.tgz";
+        sha512 = "/vxpCXddiX8NGfGO/mTafwjq4aFa/71pvamip0++IQk3zG8cbCj0fifNPrjjF1XMXUne91jL9OoxmdykoEtifQ==";
       };
     };
     "resolve-1.22.1" = {
@@ -359,16 +359,16 @@ let
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "4.10.0";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-4.10.0.tgz"; sha1 = "37c1d69c8d85214c5a65e589378f53aec64dab31"; };
+    version = "5.0.0";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-5.0.0.tgz"; sha1 = "bd380a9653e0cd1a08916c4ff1adea17201ef68f"; };
     dependencies = [
       sources."@discoveryjs/json-ext-0.5.7"
-      sources."@webpack-cli/configtest-1.2.0"
-      sources."@webpack-cli/info-1.5.0"
-      sources."@webpack-cli/serve-1.7.0"
+      sources."@webpack-cli/configtest-2.0.0"
+      sources."@webpack-cli/info-2.0.0"
+      sources."@webpack-cli/serve-2.0.0"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.19"
-      sources."commander-7.2.0"
+      sources."commander-9.4.1"
       sources."cross-spawn-7.0.3"
       sources."envinfo-7.8.1"
       sources."fastest-levenshtein-1.0.16"
@@ -376,7 +376,7 @@ let
       sources."function-bind-1.1.1"
       sources."has-1.0.3"
       sources."import-local-3.1.0"
-      sources."interpret-2.2.0"
+      sources."interpret-3.1.1"
       sources."is-core-module-2.11.0"
       sources."is-plain-object-2.0.4"
       sources."isexe-2.0.0"
@@ -390,7 +390,7 @@ let
       sources."path-key-3.1.1"
       sources."path-parse-1.0.7"
       sources."pkg-dir-4.2.0"
-      sources."rechoir-0.7.1"
+      sources."rechoir-0.8.0"
       sources."resolve-1.22.1"
       sources."resolve-cwd-3.0.0"
       sources."resolve-from-5.0.0"

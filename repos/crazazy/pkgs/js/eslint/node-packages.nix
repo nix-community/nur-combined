@@ -409,13 +409,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.17.0" = {
+    "globals-13.18.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.17.0";
+      version = "13.18.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.17.0.tgz";
-        sha512 = "1C+6nQRb1GwGMKm2dH/E7enFAMxGTmGI7/dEdhy/DNelv85w9B72t3uc5frtMNXIbzrarJJ/lTCjcaZwbLJmyw==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.18.0.tgz";
+        sha512 = "/mR4KI8Ps2spmoc0Ulu9L7agOF0du1CZNQ3dke8yItYlyKNmGrkONemBbd6V8UTc1Wgcqn21t3WYB7dbRmh6/A==";
       };
     };
     "grapheme-splitter-1.0.4" = {
@@ -872,8 +872,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.27.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.27.0.tgz"; sha1 = "d547e2f7239994ad1faa4bb5d84e5d809db7cf64"; };
+    version = "8.28.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.28.0.tgz"; sha1 = "81a680732634677cc890134bcdd9fdfea8e63d6e"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.3"
       sources."@humanwhocodes/config-array-0.11.7"
@@ -923,7 +923,7 @@ let
       sources."fs.realpath-1.0.0"
       sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
-      sources."globals-13.17.0"
+      sources."globals-13.18.0"
       sources."grapheme-splitter-1.0.4"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.0"
