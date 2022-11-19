@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   todoist-electron = pkgs.callPackage ./pkgs/todoist-electron { };
-  #v2raya-bin = pkgs.callPackage ./pkgs/v2raya-bin { };
+  v2raya-unstable = pkgs.callPackage ./pkgs/v2raya-unstable { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
