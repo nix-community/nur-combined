@@ -1407,10 +1407,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.1.5";
+      version = "4.2.0";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031391/modheader_firefox-4.1.5.xpi";
-      sha256 = "7be4191ce123def73109b844da9166b189a6611bc0b708454676070413ba01ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032375/modheader_firefox-4.2.0.xpi";
+      sha256 = "c2d7a7a0f3bbf09f693591416b78345cc26d4480aa8458a45ac59845f61514e1";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2519,10 +2519,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.7.0";
+      version = "0.7.3";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4000018/to_deepl-0.7.0.xpi";
-      sha256 = "925617f88af98468c761f81484e10f070f1f0d821b4a22626c45121812abb334";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032201/to_deepl-0.7.3.xpi";
+      sha256 = "175afae54ed2b25af12c8213e2c005f868b4a9f2b1c38bf02754d2259948d213";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
