@@ -37,5 +37,7 @@
     enable = true;
   };
 
+  networking.useNetworkd = true;
   networking.useDHCP = true;
+  networking.interfaces.enp1s0.useDHCP = true;
 }

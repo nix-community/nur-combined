@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.services.v2ray-rules-dat;
   downloadDatCmd = name: url: ''
-    ${pkgs.curl}/bin/curl -L -o '${cfg.dataDir}/${name}' '${url}'
+    ${pkgs.curl}/bin/curl -sL -o '${cfg.dataDir}/${name}' '${url}'
   '';
 in
 {
@@ -46,8 +46,7 @@ in
         mkdir -p ${cfg.dataDir}
       '' + (
         concatStringsSep "\n" (mapAttrsToList downloadDatCmd cfg.updateUrls)
-      ) + ''
-      '';
+      );
       serviceConfig = {
         Type = "oneshot";
         ExecStartPost = mkIf (cfg.reloadServices != [ ]) [

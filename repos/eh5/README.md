@@ -42,9 +42,11 @@ $ nix build github:EHfive/flakes#packages.aarch64-linux.ubootNanopiR2s
       # system = ...
       modules = [
         # ...
-        eh5.nixosModules.default,
-        #eh5.nixosModules.mosdns,
-        #eh5.nixosModules.v2ray-next,
+        # imports all
+        eh5.nixosModules.default
+        # or on demand
+        #eh5.nixosModules.mosdns
+        #eh5.nixosModules.v2ray-next
         { pkgs, ... }: {
           nixpkgs.overlays = [
             # ...
@@ -105,14 +107,14 @@ Adds all base packages listed above.
 
 ## nixosModules
 
-| Module                  | Description                   | Option                         |
-| ----------------------- | ----------------------------- | ------------------------------ |
-| fake-hwclock            | Fake hardware clock service   | `services.fake-hwclock.enable` |
-| mosdns                  | mosdns service                | `services.mosdns.*`            |
-| stalwart-jmap           | Stalwart JMAP server          | `services.stalwart-jmap.*`     |
-| system-tarball-extlinux | `config.system.build.tarball` |                                |
-| v2ray-next              | V2Ray v5 service              | `services.v2ray-next.*`        |
-| v2ray-rules-dat         | Auto update V2Ray rules dat   | `services.v2ray-rules-dat.*`   |
-| default                 | Imports all above modules     |                                |
+| Module                  | Description                                                                | Option                         |
+| ----------------------- | -------------------------------------------------------------------------- | ------------------------------ |
+| fake-hwclock            | Fake hardware clock service                                                | `services.fake-hwclock.enable` |
+| mosdns                  | mosdns service                                                             | `services.mosdns.*`            |
+| stalwart-jmap           | Stalwart JMAP server                                                       | `services.stalwart-jmap.*`     |
+| system-tarball-extlinux | `config.system.build.tarball` for systems using EXTLINUX style boot loader | `system.enableExtlinuxTarball` |
+| v2ray-next              | V2Ray v5 service                                                           | `services.v2ray-next.*`        |
+| v2ray-rules-dat         | Auto update V2Ray rules dat                                                | `services.v2ray-rules-dat.*`   |
+| default                 | Imports all above modules                                                  |                                |
 
 Some of the modules requires some packages declared above, hence requiring `.#overlays.default` to be applied.

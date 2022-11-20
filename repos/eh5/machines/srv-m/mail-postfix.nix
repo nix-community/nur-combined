@@ -43,8 +43,6 @@ in
     networksStyle = "host";
     enableSubmission = true;
     enableSubmissions = true;
-    sslCert = cfg.certFile;
-    sslKey = cfg.keyFile;
     submissionOptions = submissionOptions;
     submissionsOptions = submissionOptions;
     mapFiles = {
@@ -56,7 +54,8 @@ in
     mydestination = "";
     recipient_delimiter = "+";
     disable_vrfy_command = true;
-    smtputf8_enable = false; # Dovecot does not support UTF-8
+    # Dovecot does not support SMTPUTF8, disable for interoperability
+    smtputf8_enable = false;
 
     lmtp_destination_recipient_limit = "1";
     transport_maps = [
@@ -94,6 +93,9 @@ in
       "check_policy_service unix:private/policy-spf"
     ];
 
+    smtp_tls_chain_files = [ cfg.keyFile cfg.certFile ];
+    smtpd_tls_chain_files = [ cfg.keyFile cfg.certFile ];
+    smtp_tls_security_level = "may";
     smtpd_tls_security_level = "may";
     smtp_tls_ciphers = "high";
     smtpd_tls_ciphers = "high";
