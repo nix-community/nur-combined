@@ -63,6 +63,10 @@ rec {
         sha256 = "sha256-4UW1wLLRRe2IXhqpmTLIZZOLtXb3Bpj6qMwYKT6EjZM=";
       };
     });
+    rtw8852be = pkgs.nur.repos.dukzcry.rtw8852be.override { kernel = super.linuxPackages.kernel; };
+  });
+  linuxPackages_latest = super.linuxPackages_latest.extend (lpself: lpsuper: {
+    rtw8852be = pkgs.nur.repos.dukzcry.rtw8852be.override { kernel = super.linuxPackages_latest.kernel; };
   });
 } // optionalAttrs (config.hardware.wifi.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
