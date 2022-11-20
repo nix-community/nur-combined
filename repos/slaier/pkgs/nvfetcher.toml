@@ -30,7 +30,7 @@ fetch.github = "cattyhouse/new-uboot-for-N1"
 ## VS Code Extensions
 
 [remote-containers]
-src.vsmarketplace = "ms-vscode-remote.remote-containers"
+src.manual = "0.247.0"
 fetch.vsmarketplace = "ms-vscode-remote.remote-containers"
 pinned = true
 
