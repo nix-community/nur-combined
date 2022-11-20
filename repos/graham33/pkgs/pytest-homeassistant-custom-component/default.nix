@@ -29,14 +29,14 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.12.19";
+  version = "0.12.20";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "1as098xkhyaaxjxmhyqlrr9a3xqmv1nzn3rwvysjvf92k0ghwm6s";
+    sha256 = "0r3bi91kjbpjnp33a2kspi372h0hr0ij3w9wwsh637w2gvbgcmcd";
   };
 
   postPatch = ''
@@ -50,7 +50,7 @@ buildPythonPackage rec {
       --replace "pytest-test-groups==1.0.3" "" \
       --replace "pytest-timeout==2.1.0" "pytest-timeout>=2.0.2" \
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
-      --replace "sqlalchemy==1.4.42" "sqlalchemy>=1.4.41" \
+      --replace "sqlalchemy==1.4.44" "sqlalchemy>=1.4.41" \
       --replace "stdlib-list==0.7.0" "" \
       --replace "tqdm==4.64.0" "tqdm>=4.64.0"
   '';
