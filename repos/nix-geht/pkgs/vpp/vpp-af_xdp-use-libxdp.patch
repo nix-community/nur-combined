@@ -1,0 +1,171 @@
+commit 0b074b7093a9f8bf0c8134e3b35344ba35332de2
+Author: Adrian Pistol <vifino@tty.sh>
+Date:   Thu Nov 17 16:02:45 2022 +0100
+
+    af_xdp: Use libxdp like we're using a distro from 2020.
+
+diff --git a/plugins/af_xdp/CMakeLists.txt b/plugins/af_xdp/CMakeLists.txt
+index cbe96aa59..e93383779 100644
+--- a/plugins/af_xdp/CMakeLists.txt
++++ b/plugins/af_xdp/CMakeLists.txt
+@@ -11,36 +11,45 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++vpp_find_path(XDP_INCLUDE_DIR NAMES xdp/libxdp.h)
++if (NOT XDP_INCLUDE_DIR)
++  message(WARNING "libxdp headers not found - af_xdp plugin disabled")
++  return()
++endif()
++
+ vpp_find_path(BPF_INCLUDE_DIR NAMES bpf/xsk.h)
+ if (NOT BPF_INCLUDE_DIR)
+   message(WARNING "libbpf headers not found - af_xdp plugin disabled")
+   return()
+ endif()
+ 
++
+ set_property(GLOBAL PROPERTY FIND_LIBRARY_USE_LIB64_PATHS TRUE)
++vpp_plugin_find_library(af_xdp XDP_LIB xdp)
+ vpp_plugin_find_library(af_xdp BPF_LIB libbpf.a)
+ vpp_plugin_find_library(af_xdp BPF_ELF_LIB elf)
+ vpp_plugin_find_library(af_xdp BPF_Z_LIB z)
+-if (NOT BPF_LIB OR NOT BPF_ELF_LIB OR NOT BPF_Z_LIB)
++if (NOT XDP_LIB OR NOT BPF_LIB OR NOT BPF_ELF_LIB OR NOT BPF_Z_LIB)
+   message(WARNING "af_xdp plugin - missing libraries - af_xdp plugin disabled")
+   return()
+ endif()
+ 
+ set(CMAKE_REQUIRED_FLAGS "-fPIC")
+-set(CMAKE_REQUIRED_INCLUDES "${BPF_INCLUDE_DIR}")
+-set(CMAKE_REQUIRED_LIBRARIES "${BPF_LIB}" "${BPF_ELF_LIB}" "${BPF_Z_LIB}")
++set(CMAKE_REQUIRED_INCLUDES "${XDP_INCLUDE_DIR}" "${BPF_INCLUDE_DIR}")
++set(CMAKE_REQUIRED_LIBRARIES "${XDP_LIB}" "${BPF_LIB}" "${BPF_ELF_LIB}" "${BPF_Z_LIB}")
+ CHECK_C_SOURCE_COMPILES("
+-#include <bpf/xsk.h>
++#include <xdp/libxdp.h>
+ int main(void)
+ {
+-    return xsk_socket__create (0, 0, 0, 0, 0, 0, 0);
+-}" BPF_COMPILES_CHECK)
+-if (NOT BPF_COMPILES_CHECK)
+-  message(WARNING "af_xdp plugins - no working libbpf found - af_xdp plugin disabled")
++  xdp_program__close (NULL);
++  return 0;
++}" XDP_COMPILES_CHECK)
++if (NOT XDP_COMPILES_CHECK)
++  message(WARNING "af_xdp plugins - no working libxdp found - af_xdp plugin disabled")
+   return()
+ endif()
+ 
+-include_directories(${BPF_INCLUDE_DIR})
++include_directories("${XDP_INCLUDE_DIR}" "${BPF_INCLUDE_DIR}")
+ 
+ add_vpp_plugin(af_xdp
+   SOURCES
+@@ -65,6 +74,7 @@ add_vpp_plugin(af_xdp
+   test_api.c
+ 
+   LINK_LIBRARIES
++  ${XDP_LIB}
+   ${BPF_LIB}
+   ${BPF_ELF_LIB}
+   ${BPF_Z_LIB}
+diff --git a/plugins/af_xdp/af_xdp.h b/plugins/af_xdp/af_xdp.h
+index 84fc65f76..32f9a9a4a 100644
+--- a/plugins/af_xdp/af_xdp.h
++++ b/plugins/af_xdp/af_xdp.h
+@@ -20,7 +20,7 @@
+ 
+ #include <vlib/log.h>
+ #include <vnet/interface.h>
+-#include <bpf/xsk.h>
++#include <xdp/xsk.h>
+ 
+ #define AF_XDP_NUM_RX_QUEUES_ALL        ((u16)-1)
+ 
+@@ -122,7 +122,7 @@ typedef struct
+   struct xsk_umem **umem;
+   struct xsk_socket **xsk;
+ 
+-  struct bpf_object *bpf_obj;
++  struct xdp_program *prog;
+   unsigned linux_ifindex;
+ 
+   /* error */
+diff --git a/plugins/af_xdp/device.c b/plugins/af_xdp/device.c
+index 5a16ede13..6987fef9a 100644
+--- a/plugins/af_xdp/device.c
++++ b/plugins/af_xdp/device.c
+@@ -21,7 +21,7 @@
+ #include <linux/ethtool.h>
+ #include <linux/if_link.h>
+ #include <linux/sockios.h>
+-#include <bpf/libbpf.h>
++#include <xdp/libxdp.h>
+ #include <vlib/vlib.h>
+ #include <vlib/unix/unix.h>
+ #include <vlib/pci/pci.h>
+@@ -171,14 +171,14 @@ af_xdp_delete_if (vlib_main_t * vm, af_xdp_device_t * ad)
+   for (i = 0; i < ad->rxq_num; i++)
+     clib_file_del_by_index (&file_main, vec_elt (ad->rxqs, i).file_index);
+ 
+-  if (ad->bpf_obj)
++  if (ad->prog)
+     {
+       int ns_fds[2];
+       af_xdp_enter_netns (ad->netns, ns_fds);
+-      bpf_set_link_xdp_fd (ad->linux_ifindex, -1, 0);
++      xdp_program__detach (ad->prog, ad->linux_ifindex, XDP_MODE_NATIVE, 0);
+       af_xdp_exit_netns (ad->netns, ns_fds);
+ 
+-      bpf_object__unload (ad->bpf_obj);
++      xdp_program__close (ad->prog);
+     }
+ 
+   vec_free (ad->xsk);
+@@ -196,8 +196,6 @@ af_xdp_delete_if (vlib_main_t * vm, af_xdp_device_t * ad)
+ static int
+ af_xdp_load_program (af_xdp_create_if_args_t * args, af_xdp_device_t * ad)
+ {
+-  int fd;
+-
+   ad->linux_ifindex = if_nametoindex (ad->linux_ifname);
+   if (!ad->linux_ifindex)
+     {
+@@ -208,19 +206,20 @@ af_xdp_load_program (af_xdp_create_if_args_t * args, af_xdp_device_t * ad)
+       goto err0;
+     }
+ 
+-  if (bpf_prog_load (args->prog, BPF_PROG_TYPE_XDP, &ad->bpf_obj, &fd))
++  ad->prog = xdp_program__open_file (args->prog, "xdp", NULL);
++  if (!ad->prog)
+     {
+       args->rv = VNET_API_ERROR_SYSCALL_ERROR_5;
+       args->error =
+-	clib_error_return_unix (0, "bpf_prog_load(%s) failed", args->prog);
++	clib_error_return_unix (0, "xdp_program__open_file(%s) failed", args->prog);
+       goto err0;
+     }
+ 
+-  if (bpf_set_link_xdp_fd (ad->linux_ifindex, fd, 0))
++  if (xdp_program__attach (ad->prog, ad->linux_ifindex, XDP_MODE_NATIVE, 0))
+     {
+       args->rv = VNET_API_ERROR_SYSCALL_ERROR_6;
+       args->error =
+-	clib_error_return_unix (0, "bpf_set_link_xdp_fd(%s) failed",
++	clib_error_return_unix (0, "xdp_program__attach(prog, %s) failed",
+ 				ad->linux_ifname);
+       goto err1;
+     }
+@@ -228,8 +227,8 @@ af_xdp_load_program (af_xdp_create_if_args_t * args, af_xdp_device_t * ad)
+   return 0;
+ 
+ err1:
+-  bpf_object__unload (ad->bpf_obj);
+-  ad->bpf_obj = 0;
++  xdp_program__close (ad->prog);
++  ad->prog = NULL;
+ err0:
+   ad->linux_ifindex = ~0;
+   return -1;

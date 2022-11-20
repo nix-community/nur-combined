@@ -6,7 +6,7 @@
   python3,
   enableDpdk ? true,
   enableRdma ? stdenv.isLinux,
-  enableAfXdp ? false,
+  enableAfXdp ? (stdenv.isLinux && lib.hasAttr "xdp-tools" pkgs),
 }:
 assert (lib.asserts.assertMsg (!enableRdma || stdenv.isLinux) "Can't enable rdma_plugin - rdma-core only works on Linux");
 assert (lib.asserts.assertMsg (!enableAfXdp || stdenv.isLinux) "Can't enable af_xdp_plugin - Only exists on Linux"); let
@@ -61,18 +61,25 @@ in rec {
         libmnl
       ]
       # dpdk plugin
-      ++ lib.optional enableDpdk [dpdk libpcap jansson]
+      ++ lib.optionals enableDpdk [dpdk libpcap jansson]
       # rdma plugin - Mellanox/NVIDIA ConnectX-4+ device driver. Needs overridden rdma-core with static libs.
-      ++ lib.optional enableRdma (rdma-core.overrideAttrs (x: {
-        cmakeFlags = x.cmakeFlags ++ ["-DENABLE_STATIC=1" "-DBUILD_SHARED_LIBS:BOOL=false"];
-      }))
+      ++ lib.optionals enableRdma [
+        (rdma-core.overrideAttrs (x: {
+          cmakeFlags = x.cmakeFlags ++ ["-DENABLE_STATIC=1" "-DBUILD_SHARED_LIBS:BOOL=false"];
+        }))
+      ]
       # af_xdp deps - broken: af_xdp plugins - no working libbpf found - af_xdp plugin disabled
-      ++ lib.optional enableAfXdp libbpf
+      ++ lib.optionals enableAfXdp [libbpf xdp-tools]
       # Shared deps for DPDK and AF_XDP
-      ++ lib.optional (enableDpdk || enableAfXdp) elfutils;
+      ++ lib.optionals (enableDpdk || enableAfXdp) [elfutils];
 
     # Needs a few patches.
-    patchPhase = ''
+    patches = [
+      # Make AF_XDP use libxdp/xdp-tools instead of the stone age libbpf Debian ships.
+      ./vpp-af_xdp-use-libxdp.patch
+    ];
+
+    postPatch = ''
       # This attempts to use git to fetch the version, but we already know it.
       printf "#!${runtimeShell}\necho '${version}'\n" > scripts/version
       chmod +x scripts/version
