@@ -1,0 +1,34 @@
+diff --git a/portal.go b/portal.go
+index 25e0dc2..9f6a5b3 100644
+--- a/portal.go
++++ b/portal.go
+@@ -351,7 +351,7 @@ func (portal *Portal) CreateMatrixRoom(user *User, channel *discordgo.Channel) e
+ 
+ 	creationContent := make(map[string]interface{})
+ 	if portal.Type == discordgo.ChannelTypeGuildCategory {
+-		creationContent["type"] = event.RoomTypeSpace
++		return nil
+ 	}
+ 	if !portal.bridge.Config.Bridge.FederateRooms {
+ 		creationContent["m.federate"] = false
+@@ -1777,18 +1777,12 @@ func (portal *Portal) UpdateParent(parentID string) bool {
+ 	}
+ 	portal.log.Debugfln("Updating parent ID %q -> %q", portal.ParentID, parentID)
+ 	portal.ParentID = parentID
+-	if portal.ParentID != "" {
+-		portal.Parent = portal.bridge.GetPortalByID(database.NewPortalKey(parentID, ""), discordgo.ChannelTypeGuildCategory)
+-	} else {
+-		portal.Parent = nil
+-	}
++	portal.Parent = nil
+ 	return true
+ }
+ 
+ func (portal *Portal) ExpectedSpaceID() id.RoomID {
+-	if portal.Parent != nil {
+-		return portal.Parent.MXID
+-	} else if portal.Guild != nil {
++	if portal.Guild != nil {
+ 		return portal.Guild.MXID
+ 	}
+ 	return ""
