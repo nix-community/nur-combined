@@ -104,6 +104,25 @@
         },
         "version": "0.263.0"
     },
+    "ubootPhicommN1": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "ubootPhicommN1",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "cattyhouse",
+            "repo": "new-uboot-for-N1",
+            "rev": "ab40507935ae950beda85546dcdf09b412933021",
+            "sha256": "sha256-ZMwMUxKtrm2HA+ZcI4bVRPpG5zLkXSaWvQkjJViDqqE=",
+            "type": "github"
+        },
+        "version": "ab40507935ae950beda85546dcdf09b412933021"
+    },
     "yacd": {
         "cargoLocks": null,
         "extract": null,

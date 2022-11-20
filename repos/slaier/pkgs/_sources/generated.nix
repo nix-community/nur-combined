@@ -64,6 +64,17 @@
     description = "Open any folder or repository inside a Docker container.";
     publisher = "ms-vscode-remote";
   };
+  ubootPhicommN1 = {
+    pname = "ubootPhicommN1";
+    version = "ab40507935ae950beda85546dcdf09b412933021";
+    src = fetchFromGitHub ({
+      owner = "cattyhouse";
+      repo = "new-uboot-for-N1";
+      rev = "ab40507935ae950beda85546dcdf09b412933021";
+      fetchSubmodules = false;
+      sha256 = "sha256-ZMwMUxKtrm2HA+ZcI4bVRPpG5zLkXSaWvQkjJViDqqE=";
+    });
+  };
   yacd = {
     pname = "yacd";
     version = "v0.3.8";

@@ -23,6 +23,10 @@ fetch.url = "https://releases.nixos.org/nixos/22.05/nixos-$ver/nixexprs.tar.xz"
 src.github_tag = "haishanh/yacd"
 fetch.url = "https://github.com/haishanh/yacd/releases/download/$ver/yacd.tar.xz"
 
+[ubootPhicommN1]
+src.git = "https://github.com/cattyhouse/new-uboot-for-N1.git"
+fetch.github = "cattyhouse/new-uboot-for-N1"
+
 ## VS Code Extensions
 
 [remote-containers]

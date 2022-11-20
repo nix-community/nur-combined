@@ -13,6 +13,7 @@ in
   clash-geoip = callPackage ./clash-geoip { };
   clash-speedtest = callPackage ./clash-speedtest { };
   programs-db = callPackage ./programs-db { };
+  ubootPhicommN1 = callPackage ./uboot-phicomm-n1 { };
   vscode-extensions = recurseIntoAttrs (mapAttrs (_n: recurseIntoAttrs) (callPackages ./vscode-extensions { }));
   yacd = callPackage ./yacd { };
 }
