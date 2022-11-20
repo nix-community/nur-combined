@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ccache";
-  version = "4.6.3";
+  version = "4.7.3";
 
   src = fetchFromGitHub {
     owner = "ccache";
     repo = "ccache";
     rev = "refs/tags/v${finalAttrs.version}";
-    sha256 = "sha256-uMGM3YW85wgJFin9IGrKafOkSLmN5/q/LP1sttN7/u0=";
+    sha256 = "sha256-i5VOKBNAzu65Ha3Lj3Hh6k+EMGPRAo5/qnwnJipDnMI=";
   };
 
   outputs = [ "out" "man" ];
