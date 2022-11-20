@@ -1326,10 +1326,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.39";
+      version = "2.6.40";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022992/localcdn_fork_of_decentraleyes-2.6.39.xpi";
-      sha256 = "6f1baa3c8a2b1563e1e1f9042319231f16b990411a749e02311724d58e6efd8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032517/localcdn_fork_of_decentraleyes-2.6.40.xpi";
+      sha256 = "8f0beaa6e83e3ca2697db568f1b989927fd2c5820b9b505152daf4517d56f515";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1354,10 +1354,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.7.0";
+      version = "4.7.1";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027599/mailvelope-4.7.0.xpi";
-      sha256 = "5cb57a8e9d7517aaaa5dc8afa38ae0076aff15462f362799575a220fd5758561";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032584/mailvelope-4.7.1.xpi";
+      sha256 = "5b8ecaecc0945956ef9ae063b0ade9812b8558ba8821c0935371ca2e74148e4e";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
