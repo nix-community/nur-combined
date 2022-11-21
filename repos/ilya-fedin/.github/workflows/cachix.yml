@@ -7,6 +7,7 @@ on:
     - cron:  '0 0 * * *'
 jobs:
   update-flake:
+    if: ${{ github.ref_name == github.event.repository.default_branch }}
     runs-on: ubuntu-latest
     outputs:
       cache-key: ${{ steps.cache-key.outputs.cache-key }}
@@ -30,6 +31,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/cache@v3
+      if: ${{ github.ref_name == github.event.repository.default_branch }}
       with:
         path: flake.lock
         key: flake-lock-${{ needs.update-flake.outputs.cache-key }}
