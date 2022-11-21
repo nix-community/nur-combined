@@ -71,6 +71,9 @@
         "*.o"
         "*.so"
 
+        # test vms
+        "*.qcow2"
+
         # ignore all dotfiles as .config and .cache can become quite big
         "/home/alarsyo/.*"
       ];
