@@ -26,17 +26,17 @@ perl -pi -e "s/sandbox = false/sandbox = true/" ~/.config/nix/nix.conf
 c="nixos-21.05"
 export NIX_PATH="nixpkgs=channel:$c"
 echo $NIX_PATH
-build "hello lammps-impi osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
+build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
 
 c="nixos-21.11"
 export NIX_PATH="nixpkgs=channel:$c"
 echo $NIX_PATH
-build "hello lammps-impi osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
+build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
 
 c="nixos-22.05"
 export NIX_PATH="nixpkgs=channel:$c"
 echo $NIX_PATH
-build "hello lammps-impi osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
+build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta fate scotch-mumps"
 
 ###### PACKAGES FOR OLD CHANNEL #######
 c="nixos-20.03"
@@ -46,12 +46,12 @@ build "hello gerris openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 
 # Build packages that need sandboxing disabled
 perl -pi -e "s/sandbox = true/sandbox = false/" ~/.config/nix/nix.conf
 c="nixos-21.05"
-export NIX_PATH="nixpkgs=$c"
-build "intel-oneapi"
+export NIX_PATH="nixpkgs=channel:$c"
+build "intel-oneapi lammps-impi"
 c="nixos-21.11"
-export NIX_PATH="nixpkgs=$c"
-build "intel-oneapi"
+export NIX_PATH="nixpkgs=channel:$c"
+build "intel-oneapi lammps-impi"
 c="nixos-22.05"
-export NIX_PATH="nixpkgs=$c"
-build "intel-oneapi"
+export NIX_PATH="nixpkgs=channel:$c"
+build "intel-oneapi lammps-impi"
 perl -pi -e "s/sandbox = false/sandbox = true/" ~/.config/nix/nix.conf
