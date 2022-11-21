@@ -112,7 +112,7 @@ rec {
     mpi = pkgs.mpich;
   };
 
-  hp2p = pkgs.callPackage ./pkgs/hp2p {};
+  hp2p = pkgs.callPackage ./pkgs/hp2p { mpi = openmpi4; };
   hp2p-intel = pkgs.callPackage ./pkgs/hp2p/intel.nix {
      intel-oneapi = intel-oneapi; 
      gcc = pkgs.gcc; 

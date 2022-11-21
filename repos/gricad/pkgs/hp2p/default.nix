@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "hp2p";
-  version = "3.3";
+  version = "3.4";
 
   src = fetchFromGitHub {
     owner = "cea-hpc";
