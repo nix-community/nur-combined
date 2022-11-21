@@ -25,11 +25,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4hVolOlanbd/Lca9aHWze7N2AvfPDDnq+hqi/9YKBmA=",
+            "sha256": "sha256-ra96Dj47p+ktLH+6kr+Lcgi9OstPH4L+EKJ155RiLWU=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.8/Clash.for.Windows-0.20.8-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9-x64-linux.tar.gz"
         },
-        "version": "0.20.8"
+        "version": "0.20.9"
     },
     "clash-for-windows-icon": {
         "cargoLocks": null,

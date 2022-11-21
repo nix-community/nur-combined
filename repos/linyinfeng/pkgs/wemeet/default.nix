@@ -46,7 +46,6 @@ qt5.mkDerivation rec {
   '';
 
   buildInputs = with qt5; [
-    qtwebkit
     qtwebengine
     qtx11extras
   ];
