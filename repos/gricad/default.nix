@@ -45,13 +45,13 @@ rec {
   };
   openmpi4 = pkgs.callPackage ./pkgs/openmpi/4.nix {
     enablePrefix = true;
-    enableFabric = true;
-    libfabric = libfabric;
-    psm2 = psm2;
+    fabricSupport = true;
+    libfabric = libfabric-cornelis;
   };
   openmpi = openmpi4;
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
   libfabric = pkgs.callPackage ./pkgs/libfabric { psm2 = psm2; };
+  libfabric-cornelis = pkgs.callPackage ./pkgs/libfabric-cornelis { enablePsm2 = true; };
   openmpi-intel =  pkgs.callPackage ./pkgs/openmpi/intel.nix {
     withOneAPI = true;
     intel-oneapi = intel-oneapi;
