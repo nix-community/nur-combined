@@ -2,6 +2,8 @@
 
 with lib;
 let
+  customPkgs = import ../.. { inherit pkgs; };
+
   cfg = config.fonts.fontconfig;
 
   preferConf = pkgs.writeText "fc-30-metric-compatible-fonts.conf" ''
@@ -102,8 +104,8 @@ in {
   };
 
   config = mkIf cfg.crOSMaps {
-    fonts.fonts = with pkgs; [
-      nur.repos.ilya-fedin.ttf-croscore
+    fonts.fonts = with pkgs; with customPkgs; [
+      ttf-croscore
       carlito
       caladea
     ];
