@@ -127,6 +127,7 @@ in {
         scale = 1.0;
       };
       hardware.monitor.monitorPort = "DisplayPort-0";
+      hardware.video.hidpi.enable = true;
     })
   ];
 }
