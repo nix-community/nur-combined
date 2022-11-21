@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromSourcehut, scdoc, installShellFiles }:
+{ lib, stdenv, buildGoModule, fetchFromSourcehut, scdoc, installShellFiles }:
 
 buildGoModule rec {
   pname = "astronaut";
@@ -32,5 +32,6 @@ buildGoModule rec {
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin;
   };
 }

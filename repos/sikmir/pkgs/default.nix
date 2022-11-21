@@ -25,6 +25,8 @@ lib.makeScope newScope (
 
     ### DARWIN
 
+    amethyst-bin = callPackage ./darwin/amethyst/bin.nix { };
+    cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
     macpass-bin = callPackage ./darwin/macpass/bin.nix { };
     marta-bin = callPackage ./darwin/marta { };
 
@@ -136,17 +138,12 @@ lib.makeScope newScope (
     ### GEMINI
 
     agunua = callPackage ./gemini/agunua { };
-    astronaut = callPackage ./gemini/astronaut {
-      # Go 1.18 build error on darwin, caused by an old version of golang.org/x/sys
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
     gemget = callPackage ./gemini/gemget { };
-    gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
     gemserv = callPackage ./gemini/gemserv {
@@ -294,7 +291,6 @@ lib.makeScope newScope (
     ### MISC
 
     aamath = callPackage ./misc/aamath { };
-    amethyst-bin = callPackage ./misc/amethyst/bin.nix { };
     apibackuper = callPackage ./misc/apibackuper { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     btpd = callPackage ./misc/btpd { };
@@ -308,9 +304,7 @@ lib.makeScope newScope (
     docx2csv = callPackage ./misc/docx2csv { };
     finalcut = callPackage ./misc/finalcut { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
-    glauth = callPackage ./misc/glauth {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    glauth = callPackage ./misc/glauth { };
     graphene = callPackage ./misc/graphene { };
     gsl-lite = callPackage ./misc/gsl-lite { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
@@ -323,12 +317,8 @@ lib.makeScope newScope (
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
-    mqtt-benchmark = callPackage ./misc/mqtt-benchmark {
-      buildGoModule = pkgs.buildGo117Module;
-    };
-    musig = callPackage ./misc/musig {
-      buildGoModule = pkgs.buildGo117Module;
-    };
+    mqtt-benchmark = callPackage ./misc/mqtt-benchmark { };
+    musig = callPackage ./misc/musig { };
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
@@ -356,9 +346,7 @@ lib.makeScope newScope (
 
     ### NAKARTE
 
-    elevation_server = callPackage ./nakarte/elevation_server {
-      buildGoPackage = pkgs.buildGo117Package;
-    };
+    elevation_server = callPackage ./nakarte/elevation_server { };
     map-tiler = callPackage ./nakarte/map-tiler {
       python3Packages = pkgs.python39Packages;
     };

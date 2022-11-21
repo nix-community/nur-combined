@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildGoModule, go-bindata }:
+{ lib, stdenv, fetchFromGitHub, buildGoModule, go-bindata }:
 
 buildGoModule rec {
   pname = "glauth";
@@ -31,5 +31,6 @@ buildGoModule rec {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin;
   };
 }
