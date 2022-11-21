@@ -5,14 +5,14 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "hass-smartbox";
-  version = "1.2.0-pre+8366a4";
+  version = "1.2.0-pre+b56a21";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
-    rev = "8366a4153457455563e7347e1ac9dd9f1030103d";
-    sha256 = "11l3wpbp7plr2vz6gxmspp5hdqvlz1y43i3dq9clmp8nhna89dxk";
+    rev = "b56a21d9de21afe58b81f6dd38f412dbead45dee";
+    sha256 = "18kaq6k81xl8vrilh2661bd68xdzyq09r45d657anmmxbwf19gy0";
   };
 
   propagatedBuildInputs = [
