@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.3.0";
+      version = "2.9.4.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029691/bypass_paywalls_clean-2.9.3.0.xpi";
-      sha256 = "54720c81b2b254d8af443079d32bf70e3d337877daa514f521bda816310664d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032949/bypass_paywalls_clean-2.9.4.0.xpi";
+      sha256 = "d24880e6fcf83d65d327d55b2b3c19b8000051232febe6bc96722a38777dc3c3";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221117.185908";
+      version = "108.0buildid20221120.185746";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031931/francais_language_pack-108.0buildid20221117.185908.xpi";
-      sha256 = "bcb41b8263b94058d66c09ec67b0d6f7ca3da5dba8963a3679ceebccc2f24f5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4033100/francais_language_pack-108.0buildid20221120.185746.xpi";
+      sha256 = "2e214cbc1b605e6e149009cb72ed19047e565b11abe119d6fd2212f9a1e7f8be";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2098,10 +2098,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.8.2";
+      version = "1.9.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023616/rust_search_extension-1.8.2.xpi";
-      sha256 = "451756b4e4ea0ffe8118f3b97577fb6e0c3488ad5d13dbde0094141a93fb449d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032910/rust_search_extension-1.9.0.xpi";
+      sha256 = "847533a31ec07aa76b5c36c42a76ef7c7f8dc7592814fe320e5e2f7a4f50dcf9";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -2519,10 +2519,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.7.3";
+      version = "0.7.4";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032201/to_deepl-0.7.3.xpi";
-      sha256 = "175afae54ed2b25af12c8213e2c005f868b4a9f2b1c38bf02754d2259948d213";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032876/to_deepl-0.7.4.xpi";
+      sha256 = "2c056dfc0dcc239657f141916ee8bf53b51c295c2d8e849fdc8c020a65071794";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
