@@ -50,6 +50,7 @@ buildPythonPackage rec {
       --replace "pytest-test-groups==1.0.3" "" \
       --replace "pytest-timeout==2.1.0" "pytest-timeout>=2.0.2" \
       --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
+      --replace "respx==0.19.2" "respx>=0.19.2" \
       --replace "sqlalchemy==1.4.44" "sqlalchemy>=1.4.41" \
       --replace "stdlib-list==0.7.0" "" \
       --replace "tqdm==4.64.0" "tqdm>=4.64.0"
