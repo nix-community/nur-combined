@@ -1,4 +1,4 @@
-name: "Cachix"
+name: Cachix
 on:
   pull_request:
   push:
@@ -37,10 +37,12 @@ jobs:
     - uses: cachix/cachix-action@v10
       with:
         name: ilya-fedin
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        skipPush: ${{ github.ref_name != github.event.repository.default_branch }}
     - run: NIXPKGS_ALLOW_UNFREE=1 nix-build non-broken.nix
 
   push-flake-update:
+    if: ${{ github.ref_name == github.event.repository.default_branch }}
     needs: [update-flake, tests]
     runs-on: ubuntu-latest
     steps:
