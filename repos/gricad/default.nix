@@ -109,7 +109,8 @@ rec {
   # osu micro benchmarks
   osu-micro-benchmarks =  pkgs.callPackage ./pkgs/osu-micro-benchmarks { 
     #mpi = openmpi3;
-    mpi = pkgs.mpich;
+    #mpi = pkgs.mpich;
+    mpi = openmpi4;
   };
 
   hp2p = pkgs.callPackage ./pkgs/hp2p { mpi = openmpi4; };
