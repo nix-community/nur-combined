@@ -14,5 +14,7 @@
     packages = forAllSystems (system: import ./. {
       pkgs = import nixpkgs { inherit system; };
     });
+
+    nixosModules = import ./modules;
   };
 }
