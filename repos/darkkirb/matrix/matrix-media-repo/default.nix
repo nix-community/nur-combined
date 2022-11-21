@@ -37,7 +37,9 @@ in
     };
     passthru.updateScript = writeScript "update-matrix-media-repo" ''
       ${../../scripts/update-git.sh} "https://github.com/turt2live/matrix-media-repo" matrix/matrix-media-repo/source.json
-      SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
-      ${../../scripts/update-go.sh} ./matrix/matrix-media-repo matrix/matrix-media-repo/vendor.sha256
+      if [ "$(git diff -- matrix/matrix-media-repo/source.json)" ]; then
+        SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
+        ${../../scripts/update-go.sh} ./matrix/matrix-media-repo matrix/matrix-media-repo/vendor.sha256
+      fi
     '';
   }

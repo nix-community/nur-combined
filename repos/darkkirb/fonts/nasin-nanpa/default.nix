@@ -25,7 +25,9 @@ in
     };
     passthru.updateScript = writeScript "update-nasin-nanpa" ''
       ${../../scripts/update-git.sh} https://github.com/ETBCOR/nasin-nanpa fonts/nasin-nanpa/source.json
-      SRC_PATH=$(nix-build -E '(import ./. {}).nasin-nanpa.src')
-      ls $SRC_PATH/ffversions/*/*.sfd | sort | tail -n1 | sed 's|[/-]| |g' | sed 's/.sfd//' | awk '{print "{\"major\": \"" $6 "\", \"minor\": \"" $9 "\"}" }' > fonts/nasin-nanpa/version.json
+      if [ "$(git diff -- fonts/nasin-nanpa/source.json)" ]; then
+        SRC_PATH=$(nix-build -E '(import ./. {}).nasin-nanpa.src')
+        ls $SRC_PATH/ffversions/*/*.sfd | sort | tail -n1 | sed 's|[/-]| |g' | sed 's/.sfd//' | awk '{print "{\"major\": \"" $6 "\", \"minor\": \"" $9 "\"}" }' > fonts/nasin-nanpa/version.json
+      fi
     '';
   }

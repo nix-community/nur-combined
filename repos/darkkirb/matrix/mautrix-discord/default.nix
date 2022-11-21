@@ -30,7 +30,9 @@ in
     };
     passthru.updateScript = writeScript "update-matrix-media-repo" ''
       ${../../scripts/update-git.sh} "https://github.com/mautrix/discord" matrix/mautrix-discord/source.json
-      SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
-      ${../../scripts/update-go.sh} ./matrix/mautrix-discord matrix/mautrix-discord/vendor.sha256
+      if [ "$(git diff -- matrix/mautrix-discord/source.json)" ]; then
+        SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
+        ${../../scripts/update-go.sh} ./matrix/mautrix-discord matrix/mautrix-discord/vendor.sha256
+      fi
     '';
   }

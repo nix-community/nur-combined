@@ -59,8 +59,10 @@ in
     passthru = {
       updateScript = writeScript "update-pleroma-fe" ''
         ${../../scripts/update-git.sh} https://akkoma.dev/AkkomaGang/pleroma-fe.git akkoma/pleroma-fe/source.json
-        SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
-        ${../../scripts/update-yarn.sh} $SRC_PATH akkoma/pleroma-fe
+        if [ "$(git diff -- akkoma/pleroma-fe/source.json)" ]; then
+          SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
+          ${../../scripts/update-yarn.sh} $SRC_PATH akkoma/pleroma-fe
+        fi
       '';
     };
 

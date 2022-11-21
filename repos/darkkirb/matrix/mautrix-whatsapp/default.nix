@@ -29,7 +29,9 @@ in
     };
     passthru.updateScript = writeScript "update-mautrix-whatsapp" ''
       ${../../scripts/update-git.sh} "https://github.com/mautrix/whatsapp" matrix/mautrix-whatsapp/source.json
-      SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
-      ${../../scripts/update-go.sh} ./matrix/mautrix-whatsapp matrix/mautrix-whatsapp/vendor.sha256
+      if [ "$(git diff -- matrix/mautrix-whatsapp/source.json)" ]; then
+        SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
+        ${../../scripts/update-go.sh} ./matrix/mautrix-whatsapp matrix/mautrix-whatsapp/vendor.sha256
+      fi
     '';
   }

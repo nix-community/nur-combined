@@ -214,8 +214,10 @@ in
       inherit mixNixDeps;
       updateScript = writeScript "update-akkoma" ''
         ${../scripts/update-git.sh} https://akkoma.dev/AkkomaGang/akkoma.git akkoma/source.json
-        SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
-        ${../scripts/update-mix.sh} $SRC_PATH akkoma/mix.nix
+        if [ "$(git diff -- akkoma/source.json)" ]; then
+          SRC_PATH=$(nix-build -E '(import ./. {}).${pname}.src')
+          ${../scripts/update-mix.sh} $SRC_PATH akkoma/mix.nix
+        fi
       '';
     };
 
