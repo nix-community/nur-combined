@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       Mastodon client for Plasma and Plasma Mobile.
     '';
-    homepage = "https://invent.kde.org/network/tokodon";
+    homepage = "https://apps.kde.org/tokodon/";
     license = with licenses; [gpl3Only cc-by-40];
   };
 }
