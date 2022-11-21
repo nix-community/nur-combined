@@ -7,15 +7,15 @@
 }: {
   bling = {
     pname = "bling";
-    version = "5995a7f4b1850c66f9f7848c62c9e120b2079d87";
+    version = "e6de047ced41051236a390b081105f598cb0ad8b";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "5995a7f4b1850c66f9f7848c62c9e120b2079d87";
+      rev = "e6de047ced41051236a390b081105f598cb0ad8b";
       fetchSubmodules = false;
-      sha256 = "sha256-EZ4J+/lp01O9//nh7QCSN76CzZBsyYKZhYnuZ/e3RYo=";
+      sha256 = "sha256-ehFUAhLUEOfqB/2Dung7fBPTCvuXepZB6oVLUv+rkTk=";
     };
-    date = "2022-11-05";
+    date = "2022-11-20";
   };
   cardinal = {
     pname = "cardinal";
@@ -231,15 +231,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "a570d80b81f040ae9d0fc7ec7168fe8a0f896a31";
+    version = "649e27fd84dfa738d212bebee6bc4273bd224b2a";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "a570d80b81f040ae9d0fc7ec7168fe8a0f896a31";
+      rev = "649e27fd84dfa738d212bebee6bc4273bd224b2a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-eZOoMSC/H2o/amAz8ScldmhVNhx36vewrUA5ot+9jfU=";
+      sha256 = "sha256-MhYhYk4Q6deMCz/9BqyLMgMTWq/MXtPXwpuVTfcxejI=";
     };
-    date = "2022-11-18";
+    date = "2022-11-21";
   };
 }
