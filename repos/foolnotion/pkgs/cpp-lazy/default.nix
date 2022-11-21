@@ -1,18 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fmt_8 }:
+{ lib, stdenv, fetchFromGitHub, cmake, fmt_9 }:
 
 stdenv.mkDerivation rec {
   pname = "cpp-lazy";
-  version = "5.1.1";
+  version = "6.0.0";
 
   src = fetchFromGitHub {
     owner = "MarcDirven";
     repo = "cpp-lazy";
-    rev = "${version}";
-    sha256 = "sha256-aWxBwWpVtIrCpZp7XhaAtTwz4IDe100pndHtCycYUf4=";
+    rev = "v${version}";
+    sha256 = "sha256-3v7Pk6luazVvLbBpjvSW811ONHhtv3cJKS03kMnxG74=";
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ fmt_8 ];
+  buildInputs = [ fmt_9 ];
 
   cmakeFlags = [
     "-DCPP-LAZY_USE_INSTALLED_FMT=ON"
