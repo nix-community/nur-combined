@@ -11,5 +11,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  liquidshell = pkgs.libsForQt5.callPackage ./pkgs/liquidshell {};
   tokodon = pkgs.libsForQt5.callPackage ./pkgs/tokodon {};
 }

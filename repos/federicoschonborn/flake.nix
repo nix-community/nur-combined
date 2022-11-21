@@ -20,6 +20,16 @@
         pkgs = import nixpkgs {inherit system;};
       });
 
+    devShells = forAllSystems (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      default = pkgs.mkShell {
+        packages = with pkgs; [
+          nil
+        ];
+      };
+    });
+
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 }
