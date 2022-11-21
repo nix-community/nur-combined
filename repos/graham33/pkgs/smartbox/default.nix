@@ -21,7 +21,7 @@
 
 buildPythonPackage rec {
   pname = "smartbox";
-  version = "1.2.0-pre+bf7656";
+  version = "1.2.0-pre+fa0d9e";
   format = "pyproject";
 
   disabled = !isPy3k;
@@ -29,8 +29,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
-    rev = "bf76566508af04fd490256c6c701d924b31ba6c0";
-    sha256 = "0x49qmfa6nb0bs3krzj1bm4h7s9czmw4svac1ya09885abbwm59c";
+    rev = "fa0d9e8ff5f997086d30b41508efb0469945f50e";
+    sha256 = "0fam89g392l4jlzhfnr6wwv7lf43hfmi0sbrprlwsk4n9nn7g7ad";
   };
 
   propagatedBuildInputs = [
