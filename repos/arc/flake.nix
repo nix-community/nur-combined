@@ -26,5 +26,9 @@
     lib = import ./lib {
       inherit (nixpkgs) lib;
     };
+    flakes.config = rec {
+      name = "arc";
+      packages.namespace = [ name ]; # TODO: this is just to work around a bug, really?
+    };
   };
 }
