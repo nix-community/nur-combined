@@ -10,11 +10,11 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box";
-    rev = "24f4dfea0491091a91d93eee8b63428346563059";
-    sha256 = "sha256-nKvYemrDswqJAqBqZFOPWI+QXROMMoeL6zNw+ZenxyQ=";
+    rev = "ffd54eef6c71a4e847d53fb38d3622d689ea026d";
+    sha256 = "sha256-vhbvg8WCKJcszwlBHD4dZA4bswevI5VBjurMzKK4VLU=";
   };
 
-  vendorSha256 = "sha256-sIHoTEoDkus6oE6dSsBaPSYSPabnRtDVdoOifiLwF18=";
+  vendorSha256 = "sha256-Wx0fiIZ3CgHFp/sWPCoot4h3IqQg59qsUlvR2Onw+2E=";
 
   # Do not build testing suit
   excludedPackages = [ "./test" ];
