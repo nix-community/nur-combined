@@ -1,4 +1,4 @@
-From ca7a7bc511541dc9d4fda5b890968de9aa408a8c Mon Sep 17 00:00:00 2001
+From ac171894c452133c714ff3a32a4041a5bfa8e885 Mon Sep 17 00:00:00 2001
 From: Daniel Hill <daniel@gluo.nz>
 Date: Wed, 19 Oct 2022 17:39:03 +1300
 Subject: [PATCH 1/4] bcachefs: data_update_init() no longer degrades when
@@ -10,10 +10,10 @@ extra replicas to account for those redundancies.
 Signed-off-by: Daniel Hill <daniel@gluo.nz>
 
 diff --git a/fs/bcachefs/data_update.c b/fs/bcachefs/data_update.c
-index 301552889ec8..ed3251be7764 100644
+index be45cf54f5ee..8a305f229120 100644
 --- a/fs/bcachefs/data_update.c
 +++ b/fs/bcachefs/data_update.c
-@@ -398,6 +398,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+@@ -301,6 +301,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
  	const union bch_extent_entry *entry;
  	struct extent_ptr_decoded p;
  	unsigned i, reserve_sectors = k.k->size * data_opts.extra_replicas;
@@ -21,52 +21,48 @@ index 301552889ec8..ed3251be7764 100644
  	int ret;
  
  	bch2_bkey_buf_init(&m->k);
-@@ -423,6 +424,13 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+@@ -326,6 +327,13 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
  
  	i = 0;
  	bkey_for_each_ptr_decode(k.k, ptrs, p, entry) {
 +		struct bch_dev *ca = bch_dev_bkey_exists(c, p.ptr.dev);
 +
-+		if (((1U << i) & m->data_opts.rewrite_ptrs) && ca->mi.durability > 0) {
-+			extra_replicas += ca->mi.durability;
-+			reserve_sectors += ca->mi.durability * k.k->size;
++		if (((1U << i) & m->data_opts.rewrite_ptrs) && ca->mi.durability > 1) {
++			extra_replicas += ca->mi.durability - 1;
++			reserve_sectors += (ca->mi.durability - 1) * k.k->size;
 +		}
 +
  		if (((1U << i) & m->data_opts.rewrite_ptrs) &&
  		    p.ptr.cached)
  			BUG();
-@@ -463,7 +471,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
+@@ -363,7 +371,7 @@ int bch2_data_update_init(struct bch_fs *c, struct data_update *m,
  	}
  
  	m->op.nr_replicas = m->op.nr_replicas_required =
 -		hweight32(m->data_opts.rewrite_ptrs) + m->data_opts.extra_replicas;
-+		extra_replicas + m->data_opts.extra_replicas;
++		hweight32(m->data_opts.rewrite_ptrs) + extra_replicas + m->data_opts.extra_replicas;
  
  	BUG_ON(!m->op.nr_replicas);
- 
+ 	return 0;
 -- 
 2.38.0
 
 
-From de4b080004980582db5a863f12b81a74c50a8c97 Mon Sep 17 00:00:00 2001
+From 84565584931b7147a45113d45bc19a91c52f9c2a Mon Sep 17 00:00:00 2001
 From: Daniel Hill <daniel@gluo.nz>
 Date: Fri, 14 Oct 2022 20:47:55 +1300
 Subject: [PATCH 2/4] bcachefs: btree_cache improvements.
 
-It previous took two passes with btree_cache_scan to evict a node that
-was only accessed once.
-
-Now when a node is new, we don't set the access bit, only if it's
-already in the cache. If the node is only used once, it will now be
-evicted in a single pass.
+We should try to keep nodes that are only access frequently.
+Instead of always setting the access bit only set it on second access.
 
 Signed-off-by: Daniel Hill <daniel@gluo.nz>
 
 diff --git a/fs/bcachefs/btree_cache.c b/fs/bcachefs/btree_cache.c
-index 2ca0a9d8226b..a131821b13d3 100644
+index 75e744792a92..133f132ae545 100644
 --- a/fs/bcachefs/btree_cache.c
 +++ b/fs/bcachefs/btree_cache.c
-@@ -939,6 +939,10 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+@@ -940,6 +940,10 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
  			trace_and_count(c, trans_restart_btree_node_reused, trans, trace_ip, path);
  			return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_lock_node_reused));
  		}
@@ -77,7 +73,7 @@ index 2ca0a9d8226b..a131821b13d3 100644
  	}
  
  	if (unlikely(btree_node_read_in_flight(b))) {
-@@ -976,10 +980,6 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+@@ -977,10 +981,6 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
  		prefetch(p + L1_CACHE_BYTES * 2);
  	}
  
@@ -92,7 +88,7 @@ index 2ca0a9d8226b..a131821b13d3 100644
 2.38.0
 
 
-From f51a69286b2530c4bd525d8e845fef008943bc63 Mon Sep 17 00:00:00 2001
+From f003e60a3b5de09c35a782bed57a80a155344afe Mon Sep 17 00:00:00 2001
 From: Daniel Hill <daniel@gluo.nz>
 Date: Thu, 17 Nov 2022 13:27:19 +1300
 Subject: [PATCH 3/4] bcachefs: move btree_trans_stats()
@@ -102,10 +98,10 @@ To avoid include recursion we need to move this function to bcachefs.h
 Signed-off-by: Daniel Hill <daniel@gluo.nz>
 
 diff --git a/fs/bcachefs/bcachefs.h b/fs/bcachefs/bcachefs.h
-index 33341008016b..a58c75dd33b5 100644
+index 8a43fcfa0a8c..46347411a695 100644
 --- a/fs/bcachefs/bcachefs.h
 +++ b/fs/bcachefs/bcachefs.h
-@@ -1005,6 +1005,13 @@ static inline bool btree_id_cached(const struct bch_fs *c, enum btree_id btree)
+@@ -989,6 +989,13 @@ static inline bool btree_id_cached(const struct bch_fs *c, enum btree_id btree)
  	return c->btree_key_cache_btrees & (1U << btree);
  }
  
@@ -141,20 +137,15 @@ index fb237c95ee13..60adc042c96c 100644
 2.38.0
 
 
-From d5ae8ebeca3e9d5a68b7f16d66d6a78994d5dbcb Mon Sep 17 00:00:00 2001
+From 310abc0ac09366a29b5a8c7d7110694784eb5888 Mon Sep 17 00:00:00 2001
 From: Daniel Hill <daniel@gluo.nz>
 Date: Mon, 14 Nov 2022 14:27:27 +1300
 Subject: [PATCH 4/4] bcachefs: add per transaction counters
 
-Adding counters on a per transaction basis.
-
-This should help us narrow down hot code paths for better understanding
-of internals and performance optimization.
-
 Signed-off-by: Daniel Hill <daniel@gluo.nz>
 
 diff --git a/fs/bcachefs/alloc_background.c b/fs/bcachefs/alloc_background.c
-index 727e505730cc..67e16d504f02 100644
+index 742313c2cfc2..9a3e80f93a3c 100644
 --- a/fs/bcachefs/alloc_background.c
 +++ b/fs/bcachefs/alloc_background.c
 @@ -1255,7 +1255,7 @@ static int invalidate_one_bucket(struct btree_trans *trans,
@@ -167,10 +158,10 @@ index 727e505730cc..67e16d504f02 100644
  out:
  	bch2_trans_iter_exit(trans, &alloc_iter);
 diff --git a/fs/bcachefs/alloc_foreground.c b/fs/bcachefs/alloc_foreground.c
-index c4f971c12a51..8aba6beb7e33 100644
+index 949c068ebd0f..6095bf663b3d 100644
 --- a/fs/bcachefs/alloc_foreground.c
 +++ b/fs/bcachefs/alloc_foreground.c
-@@ -564,10 +564,10 @@ static struct open_bucket *bch2_bucket_alloc_trans(struct btree_trans *trans,
+@@ -559,10 +559,10 @@ static struct open_bucket *bch2_bucket_alloc_trans(struct btree_trans *trans,
  		ob = ERR_PTR(-BCH_ERR_no_buckets_found);
  
  	if (!IS_ERR(ob))
@@ -184,10 +175,10 @@ index c4f971c12a51..8aba6beb7e33 100644
  				usage->d[BCH_DATA_free].buckets,
  				avail,
 diff --git a/fs/bcachefs/bcachefs.h b/fs/bcachefs/bcachefs.h
-index a58c75dd33b5..7cb1edf0a539 100644
+index 46347411a695..2a7f9fea755f 100644
 --- a/fs/bcachefs/bcachefs.h
 +++ b/fs/bcachefs/bcachefs.h
-@@ -219,6 +219,13 @@ do {									\
+@@ -218,6 +218,13 @@ do {									\
  	trace_##_name(__VA_ARGS__);					\
  } while (0)
  
@@ -201,7 +192,7 @@ index a58c75dd33b5..7cb1edf0a539 100644
  #define bch2_fs_init_fault(name)					\
  	dynamic_fault("bcachefs:bch_fs_init:" name)
  #define bch2_meta_read_fault(name)					\
-@@ -573,6 +580,7 @@ struct btree_debug {
+@@ -543,6 +550,7 @@ struct btree_debug {
  struct btree_transaction_stats {
  	struct mutex		lock;
  	struct time_stats       lock_hold_times;
@@ -210,10 +201,10 @@ index a58c75dd33b5..7cb1edf0a539 100644
  	unsigned		max_mem;
  	char			*max_paths_text;
 diff --git a/fs/bcachefs/btree_cache.c b/fs/bcachefs/btree_cache.c
-index a131821b13d3..235457733f03 100644
+index 133f132ae545..8c6c505384b7 100644
 --- a/fs/bcachefs/btree_cache.c
 +++ b/fs/bcachefs/btree_cache.c
-@@ -738,7 +738,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
+@@ -739,7 +739,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
  	 * been freed:
  	 */
  	if (trans && !bch2_btree_node_relock(trans, path, level + 1)) {
@@ -222,7 +213,7 @@ index a131821b13d3..235457733f03 100644
  		return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_fill_relock));
  	}
  
-@@ -746,7 +746,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
+@@ -747,7 +747,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
  
  	if (trans && b == ERR_PTR(-ENOMEM)) {
  		trans->memory_allocation_failure = true;
@@ -231,7 +222,7 @@ index a131821b13d3..235457733f03 100644
  		return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_fill_mem_alloc_fail));
  	}
  
-@@ -795,7 +795,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
+@@ -796,7 +796,7 @@ static noinline struct btree *bch2_btree_node_fill(struct bch_fs *c,
  
  	if (!six_relock_type(&b->c.lock, lock_type, seq)) {
  		if (trans)
@@ -240,7 +231,7 @@ index a131821b13d3..235457733f03 100644
  		return ERR_PTR(btree_trans_restart(trans, BCH_ERR_transaction_restart_relock_after_fill));
  	}
  
-@@ -936,7 +936,7 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
+@@ -937,7 +937,7 @@ struct btree *bch2_btree_node_get(struct btree_trans *trans, struct btree_path *
  			if (bch2_btree_node_relock(trans, path, level + 1))
  				goto retry;
  
@@ -314,7 +305,7 @@ index b6a761dba4d0..cd5b3034529f 100644
  	}
  
 diff --git a/fs/bcachefs/btree_iter.h b/fs/bcachefs/btree_iter.h
-index 8ed5aee2d6a0..7f2a291305f3 100644
+index 05052345d2c3..e8a97870f8f4 100644
 --- a/fs/bcachefs/btree_iter.h
 +++ b/fs/bcachefs/btree_iter.h
 @@ -403,7 +403,7 @@ static inline struct bkey_s_c bch2_btree_iter_peek_upto_type(struct btree_iter *
@@ -438,7 +429,7 @@ index 60adc042c96c..09d5bb8c39a2 100644
  	return btree_trans_restart(trans, BCH_ERR_transaction_restart_upgrade);
  }
 diff --git a/fs/bcachefs/btree_update_interior.c b/fs/bcachefs/btree_update_interior.c
-index e798c46134a3..1dc9a43433d6 100644
+index 54c0cdb8462e..36e6a5dfe1f4 100644
 --- a/fs/bcachefs/btree_update_interior.c
 +++ b/fs/bcachefs/btree_update_interior.c
 @@ -361,7 +361,7 @@ static struct btree *bch2_btree_node_alloc(struct btree_update *as,
@@ -477,7 +468,7 @@ index e798c46134a3..1dc9a43433d6 100644
  
  	old = btree_node_root(c, b);
  
-@@ -1477,7 +1477,7 @@ static int btree_split(struct btree_update *as, struct btree_trans *trans,
+@@ -1469,7 +1469,7 @@ static int btree_split(struct btree_update *as, struct btree_trans *trans,
  	if (b->nr.live_u64s > BTREE_SPLIT_THRESHOLD(c)) {
  		struct btree *n[2];
  
@@ -486,7 +477,7 @@ index e798c46134a3..1dc9a43433d6 100644
  
  		n[0] = n1 = bch2_btree_node_alloc(as, trans, b->c.level);
  		n[1] = n2 = bch2_btree_node_alloc(as, trans, b->c.level);
-@@ -1535,7 +1535,7 @@ static int btree_split(struct btree_update *as, struct btree_trans *trans,
+@@ -1527,7 +1527,7 @@ static int btree_split(struct btree_update *as, struct btree_trans *trans,
  			btree_split_insert_keys(as, trans, path, n3, &as->parent_keys);
  		}
  	} else {
@@ -495,7 +486,7 @@ index e798c46134a3..1dc9a43433d6 100644
  
  		n1 = bch2_btree_node_alloc_replacement(as, trans, b);
  
-@@ -1854,7 +1854,7 @@ int __bch2_foreground_maybe_merge(struct btree_trans *trans,
+@@ -1846,7 +1846,7 @@ int __bch2_foreground_maybe_merge(struct btree_trans *trans,
  	if (ret)
  		goto err;
  
@@ -504,7 +495,7 @@ index e798c46134a3..1dc9a43433d6 100644
  
  	bch2_btree_interior_update_will_free_node(as, b);
  	bch2_btree_interior_update_will_free_node(as, m);
-@@ -1960,7 +1960,7 @@ int bch2_btree_node_rewrite(struct btree_trans *trans,
+@@ -1952,7 +1952,7 @@ int bch2_btree_node_rewrite(struct btree_trans *trans,
  	mark_btree_node_locked(trans, new_path, n->c.level, SIX_LOCK_intent);
  	bch2_btree_path_level_init(trans, new_path, n);
  
@@ -514,7 +505,7 @@ index e798c46134a3..1dc9a43433d6 100644
  	if (parent) {
  		bch2_keylist_add(&as->parent_keys, &n->key);
 diff --git a/fs/bcachefs/btree_update_leaf.c b/fs/bcachefs/btree_update_leaf.c
-index 05c1b28fd088..da0fc9860b2c 100644
+index b930b788410d..ac1791186226 100644
 --- a/fs/bcachefs/btree_update_leaf.c
 +++ b/fs/bcachefs/btree_update_leaf.c
 @@ -284,7 +284,7 @@ bch2_trans_journal_preres_get_cold(struct btree_trans *trans, unsigned u64s,
@@ -668,10 +659,10 @@ index 57602c8e6c34..3ec28bf53327 100644
  			prt_printf(&i->buf, "Lock hold times:");
  			prt_newline(&i->buf);
 diff --git a/fs/bcachefs/io.c b/fs/bcachefs/io.c
-index 0ff835e8d1b4..928b43d014cb 100644
+index 82caaf511427..1db0041bc130 100644
 --- a/fs/bcachefs/io.c
 +++ b/fs/bcachefs/io.c
-@@ -2686,7 +2686,7 @@ int __bch2_read_extent(struct btree_trans *trans, struct bch_read_bio *orig,
+@@ -2223,7 +2223,7 @@ int __bch2_read_extent(struct btree_trans *trans, struct bch_read_bio *orig,
  	rbio->bio.bi_end_io	= bch2_read_endio;
  
  	if (rbio->bounce)
@@ -680,7 +671,7 @@ index 0ff835e8d1b4..928b43d014cb 100644
  
  	this_cpu_add(c->counters[BCH_COUNTER_io_read], bio_sectors(&rbio->bio));
  	bch2_increment_clock(c, bio_sectors(&rbio->bio), READ);
-@@ -2701,7 +2701,7 @@ int __bch2_read_extent(struct btree_trans *trans, struct bch_read_bio *orig,
+@@ -2238,7 +2238,7 @@ int __bch2_read_extent(struct btree_trans *trans, struct bch_read_bio *orig,
  
  	if (!(flags & (BCH_READ_IN_RETRY|BCH_READ_LAST_FRAGMENT))) {
  		bio_inc_remaining(&orig->bio);
