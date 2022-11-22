@@ -10,6 +10,15 @@ For local development, when you add a package:
 $ nix-build -A <package-name>
 ```
 
+## Install Nix
+
+If you need to install nix:
+
+```bash
+sh <(curl -L https://nixos.org/nix/install) --no-daemon
+. $HOME/.nix-profile/etc/profile.d/nix.sh
+```
+
 ## Additional Setup Still Needed
 
 1. Add back .github/workflows to test packages: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer (TBA)

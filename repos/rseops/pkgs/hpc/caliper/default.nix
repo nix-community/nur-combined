@@ -30,22 +30,8 @@ stdenv.mkDerivation rec {
     sha256 = "17807b364b5ac4b05997ead41bd173e773f9a26ff573ff2fe61e0e70eab496e4";
   };
 
-  meta = with lib; {
-    description = "Program instrumentation and performance measurement framework";
-    longDescription = ''
-      A program instrumentation and performance measurement
-      framework. It is designed as a performance analysis toolbox in a
-      library, allowing one to bake performance analysis capabilities
-      directly into applications and activate them at runtime.
-    '';
-    homepage = "https://github.com/LLNL/Caliper";
-    license = licenses.bsd3;
-    maintainers = [ maintainers.vsoch ];
-    platforms = platforms.linux;
-  };
-
   # This means provided natively in Linux I think?
-  nativeBuildInputs = [ ];
+  nativeBuildInputs = [ cmake ];
 
   # We can eventually add these variants if needed
   # depends_on("sosflow@spack", when="@1.0:1+sosflow")
@@ -54,7 +40,7 @@ stdenv.mkDerivation rec {
   # variant("sosflow", default=False, description="Enable SOSflow support")
   # variant("fortran", default=False, description="Enable Fortran support")
 
-  buildInputs = [ cmake python3 pkgs.papi adiak ] ++
+  buildInputs = [ python3 pkgs.papi adiak ] ++
     lib.optional libpfmSupport pkgs.libpfm ++
     lib.optional libunwindSupport pkgs.libunwind ++
     lib.optional elfutilsSupport pkgs.elfutils ++
@@ -97,4 +83,19 @@ stdenv.mkDerivation rec {
        "-DBUILD_TESTING=OFF"
        "-DBUILD_DOCS=OFF"
   ];
+
+  meta = with lib; {
+    description = "Program instrumentation and performance measurement framework";
+    longDescription = ''
+      A program instrumentation and performance measurement
+      framework. It is designed as a performance analysis toolbox in a
+      library, allowing one to bake performance analysis capabilities
+      directly into applications and activate them at runtime.
+    '';
+    homepage = "https://github.com/LLNL/Caliper";
+    license = licenses.bsd3;
+    maintainers = [ maintainers.vsoch ];
+    platforms = platforms.linux;
+  };
+
 }

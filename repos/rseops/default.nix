@@ -18,6 +18,9 @@ rec {
   adiak = pkgs.callPackage ./pkgs/hpc/adiak {
     inherit maintainers;
   };
+  conduit = pkgs.callPackage ./pkgs/hpc/conduit {
+    inherit maintainers;
+  };
   caliper = pkgs.callPackage ./pkgs/hpc/caliper {
     inherit adiak;
     inherit maintainers;

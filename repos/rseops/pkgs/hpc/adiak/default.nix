@@ -27,19 +27,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  meta = with lib; {
-    description = "Metadata collector for HPC application runs";
-    longDescription = ''
-      Collect metadata about HPC application runs and provide it
-      to tools.
-    '';
-    homepage = "https://github.com/LLNL/Adiak";
-    license = licenses.mit;
-    maintainers = [ maintainers.vsoch ];
-    platforms = platforms.linux;
-  };
-
-  buildInputs = [ pkgs.cmake ] ++
+  nativeBuildInputs = [ pkgs.cmake ];
+  buildInputs = [ ] ++
 
     # These shouldn't be both provided
     lib.optional withOpenmpi pkgs.openmpi ++
@@ -53,4 +42,17 @@ stdenv.mkDerivation rec {
        "-DBUILD_SHARED_LIBS=${onOffBool shared}"
        "-DENABLE_TESTS=OFF"
   ];
+
+  meta = with lib; {
+    description = "Metadata collector for HPC application runs";
+    longDescription = ''
+      Collect metadata about HPC application runs and provide it
+      to tools.
+    '';
+    homepage = "https://github.com/LLNL/Adiak";
+    license = licenses.mit;
+    maintainers = [ maintainers.vsoch ];
+    platforms = platforms.linux;
+  };
+
 }
