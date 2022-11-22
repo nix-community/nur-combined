@@ -29,8 +29,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "graham33";
     repo = pname;
-    rev = "c687ebfbefa6678576479b30abf483be8de17325";
-    sha256 = "0fam89g392l4jlzhfnr6wwv7lf43hfmi0sbrprlwsk4n9nn7g7ad";
+    rev = "v${version}";
+    sha256 = "1svb1brk8lkw6ga8h2dnnl07aq3y9qs0gckl74iq2j4rp3ml1aq4";
   };
 
   propagatedBuildInputs = [
