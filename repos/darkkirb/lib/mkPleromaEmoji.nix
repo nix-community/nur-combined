@@ -2,6 +2,7 @@
   stdenv,
   fetchurl,
   oxipng,
+  pngquant,
   lib,
   libarchive,
 }: {
@@ -24,17 +25,21 @@ in
       inherit name src;
       nativeBuildInputs = [
         oxipng
+        pngquant
         libarchive
       ];
       unpackPhase = ''
         bsdtar -xf $src
       '';
       buildPhase = ''
-        find . -type f -name '*.png' -execdir oxipng -o max -t $NIX_BUILD_CORES {} \;
+        find . -type f -name '*.png' -execdir ${./crushpng.sh} {} {}.new 40000 \;
+        for f in $(find . -type f -name '*.new'); do
+          mv $f ${"$"}{f%.new}
+        done
       '';
       installPhase = ''
         mkdir $out
-        cp -r * $out
+        cp -r *.png $out
       '';
       meta = with lib; {
         inherit (manifestData) description homepage;
