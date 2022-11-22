@@ -902,8 +902,8 @@
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
         "rycee": {
-            "rev": "dda88687635ed15aca63833c70440bd4eb31bc09",
-            "sha256": "08snc2hj512i9vld89qsdcajxycw5ddmkcv9qvaa9dmbw9bbz4jz",
+            "rev": "aae5a9c7b8fa4f51a388c24197e79dfce8569eb0",
+            "sha256": "0pw1wph1v3fj8jdm87b1mdnr8yd5kgrvimw6ww10y8jpn1vgzq7h",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "sagikazarmark": {
@@ -1127,8 +1127,8 @@
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yellowonion": {
-            "rev": "34ed321af67d4ba366aed88b002cf55f04199796",
-            "sha256": "1l9247yqaaxq6y61cn70i2l74zrpmzgi2hjzhqjcginbl8fncahc",
+            "rev": "5db683ab70c028f0d572b1a671e3ebf8942e4111",
+            "sha256": "07v4c40i563kzcsad8jl4mw0dz1p807sid6szmm9bjcnqkd0i4c3",
             "url": "https://github.com/yellowonion/nur-bcachefs"
         },
         "yes": {
