@@ -128,6 +128,9 @@ in {
       };
       hardware.monitor.monitorPort = "DisplayPort-0";
       hardware.video.hidpi.enable = true;
+      services.xserver.deviceSection = ''
+        Option "TearFree" "true"
+      '';
     })
   ];
 }
