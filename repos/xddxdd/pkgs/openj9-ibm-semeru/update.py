@@ -15,6 +15,8 @@ sources = re.match(r'let sourceDataJson = ([^;]+);', sources).group(1)
 # Reformat into python dict format
 sources = sources.replace('\'', '"')
 sources = re.sub(r'^\s+([^\s]+)\s*:', r'"\1":', sources, flags=re.MULTILINE)
+sources = sources.replace('true', 'True')
+sources = sources.replace('false', 'False')
 
 # Load dict
 sources = ast.literal_eval(sources)

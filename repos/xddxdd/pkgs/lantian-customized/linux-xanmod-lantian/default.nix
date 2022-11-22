@@ -9,7 +9,7 @@
 
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
 let
-  version = "6.0.7";
+  version = "6.0.9";
   release = "1";
 
   # https://github.com/NixOS/nixpkgs/pull/129806
@@ -36,7 +36,7 @@ buildLinux {
     owner = "xanmod";
     repo = "linux";
     rev = "${version}-xanmod${release}";
-    sha256 = "sha256-qeM2oswuop42rvyBGlrH6VvODScLCpAOjTc4KR5a2Ec=";
+    sha256 = "sha256-qhWgiCZWNTQYRvozh+1FoPWEVT5qiRl7/hjzsYLx6og=";
   };
   modDirVersion = "${version}-lantian-xanmod${release}";
 

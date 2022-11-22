@@ -7,7 +7,6 @@
 , ...
 } @ args:
 
-assert lib.hasPrefix "19." asterisk.version;
 {
   opus = stdenv.mkDerivation rec {
     pname = "asterisk-codec-opus";

@@ -1,6 +1,6 @@
 { stdenv
 , sources
-, electron_17
+, electron
 , lib
 , makeWrapper
 , ...
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
     cp -r opt/apps/io.github.msojocs.bilibili/files/bin/app $out/opt
 
-    makeWrapper ${electron_17}/bin/electron $out/bin/bilibili \
+    makeWrapper ${electron}/bin/electron $out/bin/bilibili \
       --argv0 "bilibili" \
       --add-flags "$out/opt/app.asar"
   '';

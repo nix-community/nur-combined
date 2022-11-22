@@ -54,11 +54,14 @@ rec {
   };
 
   # Package groups
-  asteriskDigiumCodecs = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs { });
+  asteriskDigiumCodecs_19 = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs/19.nix { });
+  asteriskDigiumCodecs_20 = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs/20.nix { });
+  asteriskDigiumCodecs = asteriskDigiumCodecs_19;
+
   lantianCustomized = pkgs.recurseIntoAttrs {
     # Packages with significant customization by Lan Tian
     asterisk = pkg ./lantian-customized/asterisk {
-      inherit asteriskDigiumCodecs asterisk-g72x;
+      inherit asteriskDigiumCodecs_20 asterisk-g72x;
     };
     coredns = pkg ./lantian-customized/coredns { };
     keycloak-lantian = ifFlakes (pkg ./lantian-customized/keycloak-lantian {

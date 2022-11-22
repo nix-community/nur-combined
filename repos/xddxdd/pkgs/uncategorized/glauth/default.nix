@@ -5,15 +5,13 @@
 
 buildGoModule rec {
   inherit (sources.glauth) pname version src;
-  vendorSha256 = "sha256-bG7g9V5LNnKwb8aPVQxWG72Ul6cJRAgDCCSl5uKhAVw=";
+  vendorSha256 = "sha256-8xjnNjkHI5QrfgJmAgRb2izMkgATdGzSesnWGOvmomY=";
+  modRoot = "v2";
 
-  preBuild = ''
-    rm -rf v2
-    sed -i '/replace/d' go.mod
-  '';
-
-  postInstall = ''
-    rm $out/bin/plugins
+  buildPhase = ''
+    runHook preBuild
+    go install
+    runHook postBuild
   '';
 
   doCheck = false;
