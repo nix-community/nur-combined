@@ -44,6 +44,11 @@ in {
       };
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
+      services.picom = {
+        enable = true;
+        vSync = true;
+        backend = "glx";
+      };
     })
     (mkIf (cfg.enable && config.networking.hostName == "li-si-tsin") {
       services.upower = {
@@ -80,11 +85,6 @@ in {
         scale = 1.0;
       };
       hardware.monitor.monitorPort = "DP-1";
-      services.picom = {
-        enable = true;
-        vSync = true;
-        backend = "glx";
-      };
     })
     (mkIf (cfg.enable && config.networking.hostName == "si-ni-tsin") {
       # wait for 6.1 kernel
