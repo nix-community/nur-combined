@@ -76,8 +76,6 @@ jobs:
           --drv-path --show-trace \
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
-    - name: delete old nixpkgs
-      run: nix-collect-garbage --delete-older-than 30d
     - name: Build nix packages
       # TODO switch to default nixpkgs channel once nix-build-uncached 1.0.0 is in stable
       run: nix run 'nixpkgs#nix-build-uncached' -- ci.nix -A cacheOutputs
