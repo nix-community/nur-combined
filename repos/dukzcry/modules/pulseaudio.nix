@@ -25,6 +25,13 @@ in {
         Prevent output to bluetooth headphones, converting them into bluetooth microphone
       '';
     };
+    pulseeffects = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Run pulseeffects as daemon
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -41,5 +48,14 @@ in {
     #    ${package}/etc/pulse/default.pa > $out
     #'';
     hardware.pulseaudio.package = pulseaudio;
+    systemd.user.services.pulseeffects = optionalAttrs cfg.pulseeffects {
+      description = "PulseEffects daemon";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+
+      serviceConfig = {
+        ExecStart = "${pkgs.pulseeffects-legacy}/bin/pulseeffects --gapplication-service";
+      };
+    };
   };
 }
