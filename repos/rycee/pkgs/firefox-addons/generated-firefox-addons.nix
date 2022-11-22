@@ -339,10 +339,10 @@
       };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.25.0";
+      version = "1.26.0";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3980848/clearurls-1.25.0.xpi";
-      sha256 = "96bf83092830a34427ae4f105dce0422c306d9d95669c0c93f4e55804993435c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032442/clearurls-1.26.0.xpi";
+      sha256 = "222ce5056b79db8d3b574a98ce359902786a6cbb3939ddace254ed15688cee55";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -875,10 +875,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.9.5";
+      version = "8.9.6";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4028408/ghostery-8.9.5.xpi";
-      sha256 = "717656ca5b2f1a2e1652c2828643ec89d9227bf3c4ee4f0f902f4496f3333f00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032366/ghostery-8.9.6.xpi";
+      sha256 = "fa0fa87254516ca1de1f9d8aa21de59f9d6f5ad59c99bacce1a65b705bc4b9c8";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -2071,10 +2071,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.11.6";
+      version = "22.11.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026634/refined_github-22.11.6.xpi";
-      sha256 = "3b86ddcbbf6878440a9b77e6f48323a654c2b71bd0cd87b8be7040bd9de332f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4033502/refined_github-22.11.21.xpi";
+      sha256 = "bb7f53e8e2eaddceb4c0e74ff0c3b9665d8fd04be2f9d54e37b0e0cca9157c25";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2085,10 +2085,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.6";
+      version = "3.0.0.7";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005382/return_youtube_dislikes-3.0.0.6.xpi";
-      sha256 = "568885aefe2ff80ad3fd8c0e2a56b93282e2bc7a3c00e4c4853c45de3d8d0d46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032427/return_youtube_dislikes-3.0.0.7.xpi";
+      sha256 = "343f9b966ad7c0341f46e94892f811623190529d964b6d6cdddbe8da96b653ec";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.26";
+      version = "1.21.27";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026276/single_file-1.21.26.xpi";
-      sha256 = "13aeb64bf04be235d8d36bfb5957a6d29b863d5cbf56471f34923099a128b7d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032740/single_file-1.21.27.xpi";
+      sha256 = "8d2b63625f6d3e3db34c873fc202d60ab08ad88bf93b47c49398c21e271b0f07";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
