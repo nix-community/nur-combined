@@ -1,5 +1,6 @@
 { lib
 , stdenvNoCC
+, fetchpatch
 , fetchzip
 , arch-install-scripts
 , asciidoc
@@ -69,6 +70,14 @@ in stdenvNoCC.mkDerivation rec {
     url = "${rp}https://gitlab.archlinux.org/archlinux/devtools/-/archive/${version}/devtools-${version}.zip";
     hash = "sha256-1Kq6QUhpLGoce+kZbDCrXy9Coc8PjzvZN0vhHq+EbEU=";
   };
+
+  patches = [
+    # arch-install-scripts 28 compatibility
+    (fetchpatch {
+      url = "${rp}https://gitlab.archlinux.org/archlinux/devtools/-/commit/a510331698bb13ca11ccd7db3f9beef75f87744c.patch";
+      hash = "sha256-2DEr2/TgzTxUo1BV7TjwPPUxAuG+G3xjQ9HNNG9bc80=";
+    })
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
