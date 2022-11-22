@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "22.11.6";
+    version = "22.11.21";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4026634/refined_github-22.11.6.xpi";
-    sha256 = "3b86ddcbbf6878440a9b77e6f48323a654c2b71bd0cd87b8be7040bd9de332f5";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4033502/refined_github-22.11.21.xpi";
+    sha256 = "bb7f53e8e2eaddceb4c0e74ff0c3b9665d8fd04be2f9d54e37b0e0cca9157c25";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.660";
+    version = "0.1.0.663";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4032474/ruffle_rs-0.1.0.660.xpi";
-    sha256 = "02d12e7ac0f41e787b03800a1c95e558b56e82dc8108b0aa91b5ff4535034c72";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4033657/ruffle_rs-0.1.0.663.xpi";
+    sha256 = "20577da37a626f634456b386802070ff6451516c4ef9e41cd264ca2e5158cea2";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
