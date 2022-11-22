@@ -4,25 +4,15 @@
 , protobuf3_19 ? protobuf
 , protobuf
 , e2be ? true, metrics ? false
-}: with python3Packages; let
-
-  mautrix = python3Packages.mautrix.overridePythonAttrs (old: rec {
-    version = "0.18.6";
-    src = old.src.override {
-      inherit version;
-      sha256 = "sha256-IpFtdDCGSM6A6l0/IYkfTgV+fLlco340Tos4msx9XEs=";
-    };
-  });
-
-in buildPythonApplication rec {
+}: with python3Packages; buildPythonApplication rec {
   pname = "mautrix-googlechat";
-  version = "2022-10-20";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "mautrix";
     repo = "googlechat";
-    rev = "98cd8c31422adad0bd8242c54c2701d58a34a629";
-    sha256 = "sha256-QMQBgZEhY4xw8bu83KtEm1ReHzSVT6Y9GL5qsHJXqcg=";
+    rev = "v${version}";
+    sha256 = "sha256-UVWYT0HTOUEkBG0n6KNhCSSO/2PAF1rIvCaw478z+q0=";
   };
 
   patches = [ ./entrypoint.patch ];
