@@ -6,7 +6,7 @@
 , fetchurl }:
 
 let
-  libdrm' = libdrm.overrideAttrs (oldAttrs: rec {
+  libdrm' = libdrm.overrideAttrs (oldAttrs: (lib.optionalAttrs (lib.strings.versionAtLeast "2.4.112" oldAttrs.version) rec {
     pname = "libdrm";
     version = "2.4.112";
 
@@ -14,9 +14,7 @@ let
       url = "https://dri.freedesktop.org/${pname}/${pname}-${version}.tar.xz";
       sha256 = "sha256-ALB3EL0Js1zY2A6vT0SX/if0vs9Gepgw8fXoMk+EIP8=";
     };
-
-    mesonFlags = lib.lists.remove "-Domap=true" oldAttrs.mesonFlags;
-  });
+  }));
   wayland' = wayland.overrideAttrs (oldAttrs: rec {
     pname = "wayland";
     version = "1.21.0";
