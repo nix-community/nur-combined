@@ -1127,8 +1127,8 @@
             "url": "https://github.com/XYenon/nur-packages"
         },
         "yellowonion": {
-            "rev": "5db683ab70c028f0d572b1a671e3ebf8942e4111",
-            "sha256": "07v4c40i563kzcsad8jl4mw0dz1p807sid6szmm9bjcnqkd0i4c3",
+            "rev": "34ed321af67d4ba366aed88b002cf55f04199796",
+            "sha256": "1l9247yqaaxq6y61cn70i2l74zrpmzgi2hjzhqjcginbl8fncahc",
             "url": "https://github.com/yellowonion/nur-bcachefs"
         },
         "yes": {
