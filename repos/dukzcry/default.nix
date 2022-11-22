@@ -39,4 +39,5 @@ rec {
   gtk3-nocsd = callPackage ./pkgs/gtk3-nocsd.nix {};
   aml-upgrade-package-extract = callPackage ./pkgs/aml-upgrade-package-extract.nix {};
   rtw8852be = callPackage ./pkgs/rtw8852be.nix {};
+  dsdt = callPackage ./pkgs/dsdt.nix;
 }
