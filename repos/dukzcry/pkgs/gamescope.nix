@@ -2,23 +2,47 @@
 , wayland, wayland-protocols, libxkbcommon, libcap
 , SDL2, mesa, libinput, pixman, xcbutilerrors, xcbutilwm, glslang
 , ninja, xwayland, libuuid, xcbutilrenderutil
-, pipewire, stb, vulkan-loader, seatd }:
+, pipewire, stb, vulkan-loader, seatd
+, fetchurl }:
 
-stdenv.mkDerivation rec {
+let
+  libdrm' = libdrm.overrideAttrs (oldAttrs: rec {
+    pname = "libdrm";
+    version = "2.4.112";
+
+    src = fetchurl {
+      url = "https://dri.freedesktop.org/${pname}/${pname}-${version}.tar.xz";
+      sha256 = "sha256-ALB3EL0Js1zY2A6vT0SX/if0vs9Gepgw8fXoMk+EIP8=";
+    };
+
+    mesonFlags = lib.lists.remove "-Domap=true" oldAttrs.mesonFlags;
+  });
+  wayland' = wayland.overrideAttrs (oldAttrs: rec {
+    pname = "wayland";
+    version = "1.21.0";
+
+    src = fetchurl {
+      url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
+      sha256 = "sha256-bcZNf8FoN6aTpRz9suVo21OL/cn0V9RlYoW7lZTvEaw=";
+    };
+
+    patches = [];
+  });
+in stdenv.mkDerivation rec {
   pname = "gamescope";
-  version = "3.11.32";
+  version = "3.11.49";
 
   src = fetchFromGitHub {
     owner = "Plagman";
     repo = "gamescope";
     rev = version;
-    sha256 = "sha256-5VoNchJNopuwsWzC8InikeuMsjDuo6DdKDqG5WyWl3c=";
+    sha256 = "sha256-nBoLc3McHAxb9FckBrjPhEvayIyGY9plVLXMk1nB4V8=";
     fetchSubmodules = true;
   };
 
   buildInputs = with xorg; [
     libX11 libXdamage libXcomposite libXrender libXext libXxf86vm
-    libXtst libdrm vulkan-loader wayland wayland-protocols
+    libXtst libdrm' vulkan-loader wayland' wayland-protocols
     libxkbcommon libcap SDL2 mesa libinput pixman xcbutilerrors
     xcbutilwm libXi libXres libuuid xcbutilrenderutil xwayland
     pipewire seatd

@@ -30,4 +30,5 @@ rec {
   nix-index = ./nix-index.nix;
   archisteamfarm = ./archisteamfarm.nix;
   adblock = ./adblock.nix;
+  gamescope = ./gamescope.nix;
 }
