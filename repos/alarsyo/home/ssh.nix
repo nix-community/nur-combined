@@ -50,7 +50,7 @@ in {
         };
       };
 
-      includes = [ "prologin_config" ];
+      includes = ["prologin_config"];
     };
   };
 }
