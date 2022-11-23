@@ -35,10 +35,10 @@
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.5.0.1";
+    version = "0.5.1.0";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.5.0.1/ormolu-Linux.zip";
-      sha256 = "sha256-azsO/b7pUDfNL+xeo5iKrhfKfOLzpi9L06Xmvcpj0ig=";
+      url = "https://github.com/tweag/ormolu/releases/download/0.5.1.0/ormolu-Linux.zip";
+      sha256 = "sha256-9bA2ha21DTcLrhJMIW3L2+kQ1iLY1qiTy1T0wj4gBP0=";
     };
   };
 }
