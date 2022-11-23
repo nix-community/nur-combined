@@ -288,10 +288,10 @@
   };
   "pronoundb" = buildFirefoxXpiAddon {
     pname = "pronoundb";
-    version = "0.11.1";
+    version = "0.11.2";
     addonId = "firefox-addon@pronoundb.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4029663/pronoundb-0.11.1.xpi";
-    sha256 = "7b56fef02a781bc9839a72aaf620c718193e2208f5fa206e8ab9e45e49fecbf9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4034004/pronoundb-0.11.2.xpi";
+    sha256 = "b73e1e2807cee688f10b334cd3fb332ca8f21c131f511ad6acfc3e38903d0323";
     meta = with lib; {
       homepage = "https://pronoundb.org";
       description = "PronounDB is a browser extension that helps people know each other's pronouns easily and instantly. Whether hanging out on a Twitch chat, or on any of the supported platforms, PronounDB will make your life easier.";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.663";
+    version = "0.1.0.664";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4033657/ruffle_rs-0.1.0.663.xpi";
-    sha256 = "20577da37a626f634456b386802070ff6451516c4ef9e41cd264ca2e5158cea2";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4034258/ruffle_rs-0.1.0.664.xpi";
+    sha256 = "5066696382ab502a2deac87f654d6d91b23dcb8c07df2362aae33cd896f9bfd3";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
