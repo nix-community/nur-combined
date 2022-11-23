@@ -13,5 +13,8 @@ in
 
       mx-ergo.enable = true;
     };
+
+    # MTP devices auto-mount via file explorers
+    services.gvfs.enable = true;
   };
 }

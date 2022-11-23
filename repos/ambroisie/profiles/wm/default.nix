@@ -22,6 +22,8 @@ in
       my.home.flameshot.enable = true;
       # Auto disk mounter
       my.home.udiskie.enable = true;
+      # udiskie fails if it can't find this dbus service
+      services.udisks2.enable = true;
     })
   ];
 }
