@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221120.185746";
+      version = "108.0buildid20221122.190120";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4033100/francais_language_pack-108.0buildid20221120.185746.xpi";
-      sha256 = "2e214cbc1b605e6e149009cb72ed19047e565b11abe119d6fd2212f9a1e7f8be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034047/francais_language_pack-108.0buildid20221122.190120.xpi";
+      sha256 = "1b7d1bd6f29138d6267db101bf90a3f68f04d8ff0d0a9305770b20b32ce650fb";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -882,7 +882,7 @@
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
-        description = "Ghostery is a powerful privacy extension. \n\nBlock ads, stop trackers and speed up websites.";
+        description = "Ghostery is a powerful privacy extension. Block ads, stop trackers and speed up websites.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -1426,10 +1426,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.71";
+      version = "2.6.76";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031044/momentumdash-2.6.71.xpi";
-      sha256 = "dc84aeb895e59b0f02016d7f91a5a226dd753b03d4cee92802eceb2221f1868e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4033963/momentumdash-2.6.76.xpi";
+      sha256 = "dc834ec4f9737c71d7d6b205b7a8cd96124fe9c96c5859287de5367ded83f853";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1588,10 +1588,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.12";
+      version = "11.4.13";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030389/noscript-11.4.12.xpi";
-      sha256 = "90f1164a87e5ff303b5d60882ee9458e9c1f775c67098b902662f8f4a1c27df6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4033638/noscript-11.4.13.xpi";
+      sha256 = "078026ae894fe516ce9e61a1084d1b6dc883cd72c51027de342132141ca7f00d";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.27";
+      version = "1.21.28";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032740/single_file-1.21.27.xpi";
-      sha256 = "8d2b63625f6d3e3db34c873fc202d60ab08ad88bf93b47c49398c21e271b0f07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4033663/single_file-1.21.28.xpi";
+      sha256 = "a0e5b27b447129da5a16dfb4428cac540521e38fab3fb2a02b4643d2ee6e2743";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
