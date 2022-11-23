@@ -65,5 +65,6 @@ stdenv.mkDerivation rec {
     description = "Plugin for showing keyboard, mouse, and gamepad inputs in OBS Studio.";
     homepage = "https://github.com/univrsal/input-overlay";
     license = lib.licenses.gpl2Only;
+    broken = lib.versionAtLeast lib.version "22.11pre";
   };
 }
