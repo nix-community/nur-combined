@@ -1,12 +1,13 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools, anyio, typing-extensions }:
+{ lib, fetchPypi, buildPythonApplication, setuptools, anyio, typing-extensions
+}:
 
 buildPythonApplication rec {
   pname = "asyncer";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-o/cGhfIM2R4kpneYHKzb3W1rgfJAS3v+lX6VUP7iZKE=";
+    sha256 = "sha256-1UbIXzYm67rwa7Q5XbSXYckCphpqyAKxp0EzyrT39DM=";
   };
 
   propagatedBuildInputs = [ setuptools anyio typing-extensions ];
@@ -14,7 +15,7 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "asyncer" ];
 
   meta = with lib; {
-    description = "";
+    description = "Asyncer, async and await, focused on developer experience";
     homepage = "https://github.com/tiangolo/asyncer";
     license = licenses.mit;
     platforms = platforms.unix;
