@@ -1,5 +1,5 @@
 diff --git a/portal.go b/portal.go
-index 25e0dc2..9f6a5b3 100644
+index 25e0dc2..7f60709 100644
 --- a/portal.go
 +++ b/portal.go
 @@ -351,7 +351,7 @@ func (portal *Portal) CreateMatrixRoom(user *User, channel *discordgo.Channel) e
@@ -32,3 +32,14 @@ index 25e0dc2..9f6a5b3 100644
  		return portal.Guild.MXID
  	}
  	return ""
+@@ -1798,9 +1792,7 @@ func (portal *Portal) updateSpace() bool {
+ 	if portal.MXID == "" {
+ 		return false
+ 	}
+-	if portal.Parent != nil {
+-		return portal.addToSpace(portal.Parent.MXID)
+-	} else if portal.Guild != nil {
++	if portal.Guild != nil {
+ 		return portal.addToSpace(portal.Guild.MXID)
+ 	}
+ 	return false

@@ -16,7 +16,10 @@ in
       repo = "discord";
       inherit (source) rev sha256;
     };
-    patches = [./sticker.patch];
+    patches = [
+      ./sticker.patch
+      ./no-category-spaces.patch
+    ];
     vendorSha256 = builtins.readFile ./vendor.sha256;
     buildInputs = [
       olm
