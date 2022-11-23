@@ -74,6 +74,9 @@
         # test vms
         "*.qcow2"
 
+        # secrets stay offline
+        "/home/alarsyo/**/secrets"
+
         # ignore all dotfiles as .config and .cache can become quite big
         "/home/alarsyo/.*"
       ];

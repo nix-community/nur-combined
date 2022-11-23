@@ -49,6 +49,8 @@ in {
           proxyJump = "ssh.lrde.epita.fr";
         };
       };
+
+      includes = [ "prologin_config" ];
     };
   };
 }
