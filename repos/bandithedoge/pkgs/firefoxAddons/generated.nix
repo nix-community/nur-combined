@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.117.8";
+    version = "2.0.117.9";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4028084/enhancer_for_youtube-2.0.117.8.xpi";
-    sha256 = "688d8b27c2b75feab56df73e63f1cfa99178aa00cda7b378c8541f98190aa675";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4034376/enhancer_for_youtube-2.0.117.9.xpi";
+    sha256 = "12734db89522b9c2f8d5ab3a4926da949e56f934539fec8b5a19531410b9993b";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.664";
+    version = "0.1.0.665";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4034258/ruffle_rs-0.1.0.664.xpi";
-    sha256 = "5066696382ab502a2deac87f654d6d91b23dcb8c07df2362aae33cd896f9bfd3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4034650/ruffle_rs-0.1.0.665.xpi";
+    sha256 = "9eb715dc005b368f24a40e1f492fb2f085c1d4762821ba4ad29b74a8d826620f";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
@@ -364,10 +364,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.1.6";
+    version = "5.1.7";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4026759/sponsorblock-5.1.6.xpi";
-    sha256 = "f67c8deedcbcfc87ec955c7431028bfdf5c25c0addb12356ea87786bf4fe6640";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4034246/sponsorblock-5.1.7.xpi";
+    sha256 = "dd58e8a02ac271564e8a378263dc14fcad930ab24ba6796b9e4c069a83d90886";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
