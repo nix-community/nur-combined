@@ -1,8 +1,24 @@
 diff --git a/portal.go b/portal.go
-index 25e0dc2..7f60709 100644
+index 25e0dc2..e305942 100644
 --- a/portal.go
 +++ b/portal.go
-@@ -351,7 +351,7 @@ func (portal *Portal) CreateMatrixRoom(user *User, channel *discordgo.Channel) e
+@@ -108,15 +108,6 @@ func (br *DiscordBridge) loadPortal(dbPortal *database.Portal, key *database.Por
+ 	if portal.GuildID != "" {
+ 		portal.Guild = portal.bridge.GetGuildByID(portal.GuildID, true)
+ 	}
+-	if portal.ParentID != "" {
+-		parentKey := database.NewPortalKey(portal.ParentID, "")
+-		var ok bool
+-		portal.Parent, ok = br.portalsByID[parentKey]
+-		if !ok {
+-			portal.Parent = br.loadPortal(br.DB.Portal.GetByID(parentKey), nil, -1)
+-		}
+-	}
+-
+ 	return portal
+ }
+ 
+@@ -351,7 +342,7 @@ func (portal *Portal) CreateMatrixRoom(user *User, channel *discordgo.Channel) e
  
  	creationContent := make(map[string]interface{})
  	if portal.Type == discordgo.ChannelTypeGuildCategory {
@@ -11,7 +27,7 @@ index 25e0dc2..7f60709 100644
  	}
  	if !portal.bridge.Config.Bridge.FederateRooms {
  		creationContent["m.federate"] = false
-@@ -1777,18 +1777,12 @@ func (portal *Portal) UpdateParent(parentID string) bool {
+@@ -1777,18 +1768,12 @@ func (portal *Portal) UpdateParent(parentID string) bool {
  	}
  	portal.log.Debugfln("Updating parent ID %q -> %q", portal.ParentID, parentID)
  	portal.ParentID = parentID
@@ -32,7 +48,7 @@ index 25e0dc2..7f60709 100644
  		return portal.Guild.MXID
  	}
  	return ""
-@@ -1798,9 +1792,7 @@ func (portal *Portal) updateSpace() bool {
+@@ -1798,9 +1783,7 @@ func (portal *Portal) updateSpace() bool {
  	if portal.MXID == "" {
  		return false
  	}
