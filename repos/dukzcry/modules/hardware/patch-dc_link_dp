@@ -1,0 +1,19 @@
+--- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c.orig	2022-11-23 15:39:11.192707672 +0300
++++ ./drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c	2022-11-23 15:40:30.136125908 +0300
+@@ -5280,7 +5280,7 @@ static bool retrieve_link_cap(struct dc_
+ 	union edp_configuration_cap edp_config_cap;
+ 	union dp_downstream_port_present ds_port = { 0 };
+ 	enum dc_status status = DC_ERROR_UNEXPECTED;
+-	uint32_t read_dpcd_retry_cnt = 3;
++	uint32_t read_dpcd_retry_cnt = 100;
+ 	int i;
+ 	struct dp_sink_hw_fw_revision dp_hw_fw_revision;
+ 	const uint32_t post_oui_delay = 30; // 30ms
+@@ -5330,6 +5330,7 @@ static bool retrieve_link_cap(struct dc_
+ 	msleep(post_oui_delay);
+ 
+ 	for (i = 0; i < read_dpcd_retry_cnt; i++) {
++		udelay(1000);
+ 		status = core_link_read_dpcd(
+ 				link,
+ 				DP_DPCD_REV,

@@ -89,10 +89,10 @@ in {
     (mkIf (cfg.enable && config.networking.hostName == "si-ni-tsin") {
       # wait for 6.1 kernel
       boot.extraModulePackages = with config.boot.kernelPackages; [ rtw8852be ];
-      # keyboard support
+      # keyboard
       boot.kernelPackages = pkgs.linuxPackages_latest;
       boot.kernelPatches = [
-        # mic support
+        # mic
         {
           name = "acp6x-mach";
           patch = ./patch-acp6x-mach;
@@ -101,6 +101,11 @@ in {
         {
           name = "btusb";
           patch = ./patch-btusb;
+        }
+        # dp timeout
+        {
+          name = "dc_link_dp";
+          patch = ./patch-dc_link_dp;
         }
       ];
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
