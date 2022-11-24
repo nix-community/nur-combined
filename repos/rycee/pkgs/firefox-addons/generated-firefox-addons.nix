@@ -615,10 +615,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.8";
+      version = "2.0.117.9";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4028084/enhancer_for_youtube-2.0.117.8.xpi";
-      sha256 = "688d8b27c2b75feab56df73e63f1cfa99178aa00cda7b378c8541f98190aa675";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034376/enhancer_for_youtube-2.0.117.9.xpi";
+      sha256 = "12734db89522b9c2f8d5ab3a4926da949e56f934539fec8b5a19531410b9993b";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -875,10 +875,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.9.6";
+      version = "8.9.7";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032366/ghostery-8.9.6.xpi";
-      sha256 = "fa0fa87254516ca1de1f9d8aa21de59f9d6f5ad59c99bacce1a65b705bc4b9c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4033888/ghostery-8.9.7.xpi";
+      sha256 = "f6771754227093ecb06f780a290fcf74ad5ae7ada788bdbc8a62dc4d65bf95a6";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -2266,10 +2266,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.6";
+      version = "5.1.7";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026759/sponsorblock-5.1.6.xpi";
-      sha256 = "f67c8deedcbcfc87ec955c7431028bfdf5c25c0addb12356ea87786bf4fe6640";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034246/sponsorblock-5.1.7.xpi";
+      sha256 = "dd58e8a02ac271564e8a378263dc14fcad930ab24ba6796b9e4c069a83d90886";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
