@@ -559,10 +559,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.10.31";
+      version = "2022.11.23.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024974/duckduckgo_for_firefox-2022.10.31.xpi";
-      sha256 = "cd12ed0da27e08897e88e711323313bff66c02a2d524c9b057ae9aeda89dc308";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034533/duckduckgo_for_firefox-2022.11.23.1.xpi";
+      sha256 = "b9895a62ecb102bfe7816de44b8fe114c7ed83c1965c4ecf92908e81f8032ad6";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -848,10 +848,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221122.190120";
+      version = "108.0buildid20221124.185931";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034047/francais_language_pack-108.0buildid20221122.190120.xpi";
-      sha256 = "1b7d1bd6f29138d6267db101bf90a3f68f04d8ff0d0a9305770b20b32ce650fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035043/francais_language_pack-108.0buildid20221124.185931.xpi";
+      sha256 = "6741803643760ffadc2459dda1b94cb176f480fcb9650d4a4e021818091e87c7";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1117,10 +1117,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.19.1";
+      version = "2.20.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3804013/ipfs_companion-2.19.1.xpi";
-      sha256 = "6abe23deb1fdf9e0634aa8bd0c8115b03631affc67e2a88b47590b389dca2017";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034948/ipfs_companion-2.20.0.xpi";
+      sha256 = "31237635e8b10275db898bd49e2ed3d2f18ed251e4f702facb46330bc90011b3";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -2125,10 +2125,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.4.0";
+      version = "5.4.2";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026447/search_by_image-5.4.0.xpi";
-      sha256 = "3631a3ef95be1f07e1ab78e4517b8d54f9cfe1c90b50374c0c9e525251d2df8c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034617/search_by_image-5.4.2.xpi";
+      sha256 = "327549ce86f8dc27794ece4a065cf673e007eefe716fb188b8c6d28102fca22f";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -2181,10 +2181,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.28";
+      version = "1.21.29";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4033663/single_file-1.21.28.xpi";
-      sha256 = "a0e5b27b447129da5a16dfb4428cac540521e38fab3fb2a02b4643d2ee6e2743";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034610/single_file-1.21.29.xpi";
+      sha256 = "88169f010378427e08c0b169fed4147811503560dab4f3f848bb24fc55f35c1c";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2254,10 +2254,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.11.14.1521";
+      version = "22.11.24.1820";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030032/sourcegraph_for_firefox-22.11.14.1521.xpi";
-      sha256 = "edddff58e32db6fad0220d9dcb19881d25d00d5ac24602d609535d4a68790a17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034959/sourcegraph_for_firefox-22.11.24.1820.xpi";
+      sha256 = "143177cdbae5cda807edccb309bccaa27c76e06c34ff2985b5c0a43517a481a4";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2266,10 +2266,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.7";
+      version = "5.1.8";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034246/sponsorblock-5.1.7.xpi";
-      sha256 = "dd58e8a02ac271564e8a378263dc14fcad930ab24ba6796b9e4c069a83d90886";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034700/sponsorblock-5.1.8.xpi";
+      sha256 = "df417ca03220b215d563b60a8277e8735b544c77e07856f35c8489b9526cd003";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
