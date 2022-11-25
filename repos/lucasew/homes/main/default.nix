@@ -18,6 +18,11 @@ in {
 
   ];
 
+  home = {
+    homeDirectory = /home/lucasew;
+    inherit (global) username;
+  };
+
   home.packages = with pkgs; [
     calibre # a dependency is broken
     chromium

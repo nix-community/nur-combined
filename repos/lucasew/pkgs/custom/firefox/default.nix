@@ -1,7 +1,6 @@
 { nbr
 , lib
 , wrapFirefox
-, stable
 , firefox-esr-102-unwrapped
 , fetchFirefoxAddon
 , firefox-bin

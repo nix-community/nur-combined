@@ -15,10 +15,10 @@ let
     fetchFromGitHub
     vimPlugins
     fetchurl
-    wrapNeovim
     callPackage
     fetchzip
   ;
+  wrapNeovim = pkgs.neovimUtils.legacyWrapper;
   inherit (pkgs.vimUtils)
     buildVimPlugin
     buildVimPluginFrom2Nix
@@ -97,7 +97,7 @@ let
 in wrapNeovim pkgs.neovim-unwrapped {
   withPython3 = true;
   configure = {
-    plug.plugins = with vimPlugins; [
+    packages.plugins.start = with vimPlugins; [
       # utils
       coq_nvim
       echodoc
@@ -133,12 +133,13 @@ in wrapNeovim pkgs.neovim-unwrapped {
 
       indentLine
       nvim-web-devicons
-    ] ++ (lib.optional (colors != null) (let
-        colors-lib-contrib = flake.inputs.nix-colors.lib-contrib { inherit pkgs; };
-    in {
-        rtp = colors-lib-contrib.vimThemeFromScheme { scheme = colors; };
-      }
-    ));
+    ]
+    ++ (lib.optional (colors != null) (buildVimPlugin {
+      name = "nix-colors";
+      src = let
+          colors-lib-contrib = flake.inputs.nix-colors.lib-contrib { inherit pkgs; };
+        in colors-lib-contrib.vimThemeFromScheme { scheme = colors; };
+      }));
 
     customRC = ''
     ${if colors != null then ''let g:nix_colors_theme="nix-${colors.slug}"'' else ""}

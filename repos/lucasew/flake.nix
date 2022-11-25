@@ -22,7 +22,7 @@
 
     flake-utils.url =  "flake-utils";
 
-    home-manager.url =  "home-manager/release-22.05";
+    home-manager.url =  "home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     impermanence.url =  "github:nix-community/impermanence";
@@ -56,9 +56,9 @@
     nixos-generators.url =  "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixpkgs-stable.url =  "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-unstable.url =  "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs.url =  "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url =  "github:NixOS/nixpkgs/nixos-22.11";
 
     nur.url =  "nur";
     nur.inputs.nixpkgs.follows = "nixpkgs";
@@ -113,7 +113,12 @@
         , overlays ? []
         , system ? builtins.currentSystem
         }: import nixpkgs {
-          config = config // { allowUnfree = true; };
+          config = config // {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "qtwebkit-5.212.0-alpha4"
+            ];
+          };
           overlays = overlays ++ (builtins.attrValues self.outputs.overlays);
           inherit system;
         };
@@ -157,9 +162,9 @@
         rust-overlay = inputs.rust-overlay.overlays.default;
         pollymc = inputs.pollymc.overlay;
         this = import ./overlay.nix self;
-        stable = final: prev: {
-          stable = mkPkgs {
-            nixpkgs = inputs.nixpkgs-stable;
+        unstable = final: prev: {
+          unstable = mkPkgs {
+            nixpkgs = inputs.nixpkgs-unstable;
             inherit system;
           };
         };
@@ -172,16 +177,15 @@
 
     colors = inputs.nix-colors.colorSchemes."classic-dark";
 
-    homeConfigurations = let 
-      hmConf = source: homeManagerConfiguration (source // {
-        extraSpecialArgs = extraArgs;
+    homeConfigurations = {
+      main = homeManagerConfiguration {
+        extraSpecialArgs = extraArgs // {
+          pkgsPath = pkgs.path;
+        };
+        modules = [
+          ./homes/main/default.nix
+        ];
         inherit pkgs;
-      });
-    in {
-      main = hmConf {
-        configuration = import ./homes/main/default.nix;
-        homeDirectory = "/home/${global.username}";
-        inherit (global) system username;
       };
     };
 
