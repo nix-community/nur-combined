@@ -7,4 +7,7 @@ callPackage ../../../lib/mkPleromaEmoji.nix {} rec {
     "https://volpeon.ink/art/emojis/${name}/manifest.json"
     "art/emoji/volpeon/${name}.json"
   ];
+  configurePhase = ''
+    rm a*.png
+  '';
 }
