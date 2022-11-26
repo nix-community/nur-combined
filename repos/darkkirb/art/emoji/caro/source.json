@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/CarolineHusky/CarolineStickers",
+  "rev": "bd717e1c83d24be58612157ffd67ee92fffa8178",
+  "date": "2022-04-01T14:18:07+02:00",
+  "path": "/nix/store/g7cq22k0q1fhv6jajzmy2k0sl1xmz7n5-CarolineStickers",
+  "sha256": "14wgn1jdp698anbkgilf6x90vgkwgls4c17jaa9qqs3fxrj44ij3",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}

@@ -20,6 +20,7 @@ jobs:
           - emoji-volpeon-fox
           - emoji-volpeon-raccoon
           - emoji-volpeon-vlpn
+          - emoji-caro
           - lotte-art
           - drone-runner-docker
           - alco-sans
