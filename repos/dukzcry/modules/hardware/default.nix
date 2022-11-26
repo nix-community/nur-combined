@@ -6,6 +6,7 @@ let
   any' = l: any (x: x == config.networking.hostName) l;
   laptop = any' [ "li-si-tsin" "si-ni-tsin" ];
   server = any' [ "robocat" ];
+  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
 in {
   inherit imports;
 
@@ -85,6 +86,7 @@ in {
         vSync = true;
         backend = "glx";
       };
+      networking.edgevpn.address = ip4.fromString "10.0.1.2/24";
     })
     (mkIf (cfg.enable && config.networking.hostName == "si-ni-tsin") {
       # wait for 6.1 kernel
@@ -136,6 +138,7 @@ in {
       services.xserver.deviceSection = ''
         Option "TearFree" "true"
       '';
+      networking.edgevpn.address = ip4.fromString "10.0.1.3/24";
     })
   ];
 }
