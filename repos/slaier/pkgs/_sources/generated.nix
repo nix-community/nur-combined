@@ -3,13 +3,13 @@
 {
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "106.0";
+    version = "107.0";
     src = fetchFromGitHub ({
       owner = "arkenfox";
       repo = "user.js";
-      rev = "106.0";
+      rev = "107.0";
       fetchSubmodules = false;
-      sha256 = "sha256-WB9w/UoFqp/WyRhe87dNqwbMAXa8lmsK/QCeTzRWmj8=";
+      sha256 = "sha256-TZKoArzALuCNWNBq3un091eR3uRLAi59z/AZ64Xg3BQ=";
     });
   };
   clash-geoip = {
@@ -44,10 +44,10 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.05.4098.c5091eec689";
+    version = "22.05.4334.0faaf0a9bb6";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.05/nixos-22.05.4098.c5091eec689/nixexprs.tar.xz";
-      sha256 = "sha256-9DL0rYolWmtd1jota14JisBYGGPnM1No87OXNsBPIT8=";
+      url = "https://releases.nixos.org/nixos/22.05/nixos-22.05.4334.0faaf0a9bb6/nixexprs.tar.xz";
+      sha256 = "sha256-Y+gfOlDFUO+WAbAgg1attgt23HjJt0J3MTXOo6qzYDo=";
     };
   };
   remote-containers = {
@@ -66,13 +66,13 @@
   };
   ubootPhicommN1 = {
     pname = "ubootPhicommN1";
-    version = "ab40507935ae950beda85546dcdf09b412933021";
+    version = "c28871d15a1a45cd6eb29aba1f7f4c8a0bbb6418";
     src = fetchFromGitHub ({
       owner = "cattyhouse";
       repo = "new-uboot-for-N1";
-      rev = "ab40507935ae950beda85546dcdf09b412933021";
+      rev = "c28871d15a1a45cd6eb29aba1f7f4c8a0bbb6418";
       fetchSubmodules = false;
-      sha256 = "sha256-ZMwMUxKtrm2HA+ZcI4bVRPpG5zLkXSaWvQkjJViDqqE=";
+      sha256 = "sha256-bJjzK8FsUoi8w0ye1jviptXMG/AiL2YPwLPUoqIv7Nk=";
     });
   };
   yacd = {
