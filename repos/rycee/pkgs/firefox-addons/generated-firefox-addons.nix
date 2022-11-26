@@ -392,6 +392,20 @@
         platforms = platforms.all;
         };
       };
+    "container-tabs-sidebar" = buildFirefoxXpiAddon {
+      pname = "container-tabs-sidebar";
+      version = "1.0.0";
+      addonId = "containertabssidebar@maciekmm.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3958291/container_tabs_sidebar-1.0.0.xpi";
+      sha256 = "8cd29eb55b0a8ecfb92815047414f2ee136b51bba916f07c761653d3467e8181";
+      meta = with lib;
+      {
+        homepage = "https://github.com/maciekmm/container-tabs-sidebar";
+        description = "Show tabs in a sidebar grouped by privacy containers.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
       version = "3.8.1";
@@ -1126,6 +1140,20 @@
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
         description = "Harness the power of IPFS in your browser";
         license = licenses.cc0;
+        platforms = platforms.all;
+        };
+      };
+    "ipvfoo" = buildFirefoxXpiAddon {
+      pname = "ipvfoo";
+      version = "1.42";
+      addonId = "ipvfoo@pmarks.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/730512/ipvfoo_pmarks-1.42.xpi";
+      sha256 = "3429c60ea4d73725842e4ed729c05f8eae414c3d9337cf70443da13b3ddcdbe0";
+      meta = with lib;
+      {
+        homepage = "https://github.com/pmarks-net/ipvfoo";
+        description = "Display the server IP address, with a realtime summary of IPv4, IPv6, and HTTPS information across all page elements.\n\n(This is primarily a Chrome extension, so it's a bit glitchy due to Firefox's inexact implementation of the APIs.)";
+        license = licenses.asl20;
         platforms = platforms.all;
         };
       };

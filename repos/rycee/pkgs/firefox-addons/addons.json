@@ -109,6 +109,9 @@
     }
   },
   {
+    "slug": "container-tabs-sidebar"
+  },
+  {
     "slug": "cookie-autodelete"
   },
   {
@@ -329,6 +332,14 @@
   },
   {
     "slug": "ipfs-companion"
+  },
+  {
+    "slug": "ipvfoo-pmarks",
+    "pname": "ipvfoo",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
   },
   {
     "slug": "js-search-extension"
