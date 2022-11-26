@@ -380,10 +380,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003406/consent_o_matic-1.0.10.xpi";
-      sha256 = "8d465f05d0beed30e7eeb3908d2ef51d25709f2e469b8f984ef63d9488141d4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035338/consent_o_matic-1.0.11.xpi";
+      sha256 = "b2192a852d3a2f469274258cd8be2099a8117879809ebb1ef25b76e4f40c1a01";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -1227,10 +1227,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "5.8.10";
+      version = "6.0.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026397/languagetool-5.8.10.xpi";
-      sha256 = "dce3f0e68543e64a97f669f154e9b9a4459228d8aa255c7cc2187f6c4bab7a61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034972/languagetool-6.0.1.xpi";
+      sha256 = "a72439258d7e937625b762ab4e35e27d80bddbb1bf9c57947e65ec94d8587e79";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -2140,10 +2140,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "27.6";
+      version = "28.0";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3993363/save_page_we-27.6.xpi";
-      sha256 = "a982f3e08d768f4ef6882d4564d83b5d43f803468693e0c298def6f17ea0238a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035350/save_page_we-28.0.xpi";
+      sha256 = "6766c55d633db5560205c7142e9e70df9443febb80c28c72f333537314d2cff5";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
