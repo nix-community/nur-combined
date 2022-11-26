@@ -111,6 +111,8 @@ in {
           User = "edgevpn";
           Group = "edgevpn";
           RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
+          Restart = "always";
+          RestartSec = 60;
         } // serviceOptions;
         unitConfig = {
           Upholds = "network-addresses-${cfg.interface}.service";
