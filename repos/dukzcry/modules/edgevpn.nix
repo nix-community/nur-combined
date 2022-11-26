@@ -14,6 +14,7 @@ let
   envOptions = {
     IFACE = cfg.interface;
     EDGEVPNLOGLEVEL = cfg.logLevel;
+  } // optionalAttrs (cfg.address != null) {
     ADDRESS = ip4.toCIDR cfg.address;
   };
 in {
@@ -41,8 +42,8 @@ in {
       default = "edgevpn0";
     };
     address = mkOption {
-      type = ip4.type;
-      default = ip4.fromString "10.1.0.1/24";
+      type = types.nullOr ip4.type;
+      default = null;
     };
     dhcp = mkOption {
       type = types.bool;
