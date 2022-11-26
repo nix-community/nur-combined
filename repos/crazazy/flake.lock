@@ -15,13 +15,13 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-9iOuq/MooRneMzzzXAaMtXowCBW0c10dVyxq0sBCIaY=",
+        "narHash": "sha256-aPmbfIgF5gcJqurXfBncoxaJmClnBhN8fBMFXmVisqs=",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/b40c7a596ffae4b2cd8da4f07d0859a839b552ee.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/3e01b4cae8759d2d47cac957d2c4ac9a7f7e62d0.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/b40c7a596ffae4b2cd8da4f07d0859a839b552ee.tar.gz"
+        "url": "https://github.com/nix-community/NUR/archive/3e01b4cae8759d2d47cac957d2c4ac9a7f7e62d0.tar.gz"
       }
     },
     "alejandra": {
