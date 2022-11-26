@@ -517,13 +517,13 @@ let
         sha512 = "RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
       };
     };
-    "js-sdsl-4.1.5" = {
+    "js-sdsl-4.2.0" = {
       name = "js-sdsl";
       packageName = "js-sdsl";
-      version = "4.1.5";
+      version = "4.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.1.5.tgz";
-        sha512 = "08bOAKweV2NUC1wqTtf3qZlnpOX/R2DU9ikpjOHs0H+ibQv3zpncVQg6um4uYtRtrwIX8M4Nh3ytK4HGlYAq7Q==";
+        url = "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.2.0.tgz";
+        sha512 = "dyBIzQBDkCqCu+0upx25Y2jGdbTGxE9fshMsCdK0ViOongpV+n5tXRcZY9v7CaVQ79AGS9KA1KHtojxiM7aXSQ==";
       };
     };
     "js-yaml-4.1.0" = {
@@ -935,7 +935,7 @@ let
       sources."is-glob-4.0.3"
       sources."is-path-inside-3.0.3"
       sources."isexe-2.0.0"
-      sources."js-sdsl-4.1.5"
+      sources."js-sdsl-4.2.0"
       sources."js-yaml-4.1.0"
       sources."json-schema-traverse-0.4.1"
       sources."json-stable-stringify-without-jsonify-1.0.1"
