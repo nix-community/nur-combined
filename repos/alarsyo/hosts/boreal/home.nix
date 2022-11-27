@@ -20,6 +20,8 @@
         
         chromium
         darktable
+        hugin
+        enblend-enfuse
         # dev
         
         rustup

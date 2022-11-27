@@ -31,5 +31,6 @@
     BROWSER = "firefox";
     # FIXME: only set if gpg-agent not in use, otherwise home manager already does that
     SSH_AUTH_SOCK = "$(${gpgPackage}/bin/gpgconf --list-dirs agent-ssh-socket)";
+    XDG_DATA_HOME = "$HOME/.local/share";
   };
 }
