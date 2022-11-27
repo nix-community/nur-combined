@@ -8,6 +8,7 @@
 , jq
 , pytest
 , pytest-asyncio
+, pytest-benchmark
 , pytest-mock
 , pytest-randomly
 , pytestCheckHook
@@ -21,7 +22,7 @@
 
 buildPythonPackage rec {
   pname = "smartbox";
-  version = "1.2.0-beta.1";
+  version = "1.2.0-beta.2";
   format = "pyproject";
 
   disabled = !isPy3k;
@@ -30,7 +31,7 @@ buildPythonPackage rec {
     owner = "graham33";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1svb1brk8lkw6ga8h2dnnl07aq3y9qs0gckl74iq2j4rp3ml1aq4";
+    sha256 = "0ngl5lljnc2rnqa3jdan4dkwfac31cbk5sbmxkklysfiqhbr34as";
   };
 
   propagatedBuildInputs = [
@@ -47,6 +48,7 @@ buildPythonPackage rec {
     freezegun
     pytest
     pytest-asyncio
+    pytest-benchmark
     pytest-mock
     pytest-randomly
     pytestCheckHook
