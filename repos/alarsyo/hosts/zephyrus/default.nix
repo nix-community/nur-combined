@@ -98,6 +98,7 @@
   my.gui.enable = true;
 
   services.udev.packages = [pkgs.chrysalis];
+  services.udisks2.enable = true;
 
   hardware.bluetooth = {
     enable = true;

@@ -5,7 +5,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-unstable";
+      ref = "22.11-beta";
     };
 
     nixpkgs-unstable-small = {
