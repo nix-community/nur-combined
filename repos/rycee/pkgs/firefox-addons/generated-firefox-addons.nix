@@ -2167,10 +2167,10 @@
       };
     "search-engines-helper" = buildFirefoxXpiAddon {
       pname = "search-engines-helper";
-      version = "3.2.2";
+      version = "3.2.3";
       addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3827755/search_engines_helper-3.2.2.xpi";
-      sha256 = "2ed0dd789cd2b6530e5ba7a6eb095f7fdb3e9518e1df2ae6d855699c60bff9ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035680/search_engines_helper-3.2.3.xpi";
+      sha256 = "a566ec01cc1354abc4cd277f5ba2a3cd074e8de7c477e0a898ceb627f3bcd68e";
       meta = with lib;
       {
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
@@ -2661,10 +2661,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.1.1";
+      version = "8.2.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022687/ublacklist-8.1.1.xpi";
-      sha256 = "c81dc9dc3a60901f25374a4f8015e8bdeda3556dd72ce5a831b009b5cf0a39a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035662/ublacklist-8.2.0.xpi";
+      sha256 = "092547105e7c4d5f34f28ed7727f04b49651ceeef159e43a496b2dd7c1e0148f";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
