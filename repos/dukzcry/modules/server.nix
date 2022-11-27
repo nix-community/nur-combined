@@ -44,7 +44,6 @@ in {
 
     networking.edgevpn = {
       enable = true;
-      dhcp = false;
       logLevel = "debug";
       router = "10.0.1.1";
       postStart = ''

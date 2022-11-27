@@ -5,16 +5,16 @@ let
   gosum = ./go.sum;
 in buildGo118Module rec {
   pname = "edgevpn";
-  version = "0.17.0";
+  version = "0.18.1";
 
   src = fetchFromGitHub {
     owner = "mudler";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-IZ3G3stirMqVpgROnlwKizDL9AOk/tRl6HUtx+xJbRk=";
+    sha256 = "sha256-FNKCphB8pxmJJUyrGHIap4tHQXZ9VcbwG6ORHiiQbK5=";
   };
 
-  vendorSha256 = "sha256-vSniAU6z9tbmuj4dw/QEv5VM1yYAtLZxi2hgctwkFOE=";
+  vendorSha256 = "sha256-39mZOkRYQpcBOMBRf2s/f2r9g5jGgTMhVPkoM30s2zc=";
 
   preBuild = ''
     substituteInPlace internal/version.go \
