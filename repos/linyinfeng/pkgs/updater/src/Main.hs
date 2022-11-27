@@ -75,7 +75,7 @@ clashPremium sys goSys =
 
 clashPremiumSystems :: [(Text, Text)]
 clashPremiumSystems =
-  [ ("aarch64-linux", "linux-armv8"),
+  [ ("aarch64-linux", "linux-arm64"),
     ("i686-linux", "linux-386"),
     ("x86_64-darwin", "darwin-amd64"),
     ("x86_64-linux", "linux-amd64")
