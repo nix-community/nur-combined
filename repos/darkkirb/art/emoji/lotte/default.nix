@@ -24,7 +24,7 @@
     ln -s ${crushpng {
       inherit name;
       src = resized name;
-      maxsize = 40000;
+      maxsize = 50000;
     }} $out/${name}.png
   '';
   emoji = [

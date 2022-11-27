@@ -32,7 +32,7 @@ in
         bsdtar -xf $src
       '';
       buildPhase = ''
-        find . -type f -name '*.png' -execdir ${./crushpng.sh} {} {}.new 40000 \;
+        find . -type f -name '*.png' -execdir ${./crushpng.sh} {} {}.new 50000 \;
         for f in $(find . -type f -name '*.new'); do
           mv $f ${"$"}{f%.new}
         done

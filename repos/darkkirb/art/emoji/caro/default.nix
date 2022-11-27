@@ -29,7 +29,7 @@ in
 
       mogrify -resize 256x256\> *.png
 
-      find . -type f -name '*.png' -execdir ${../../../lib/crushpng.sh} {} {}.new 40000 \;
+      find . -type f -name '*.png' -execdir ${../../../lib/crushpng.sh} {} {}.new 50000 \;
       for f in $(find . -type f -name '*.new'); do
         mv $f ${"$"}{f%.new}
       done
