@@ -24,7 +24,7 @@ in
     ];
     buildPhase = ''
       rm credits_*.png
-      
+
       mv "bluefox_thanks I hate it.png" "bluefox_thanks_I_hate_it.png"
 
       mogrify -resize 256x256\> *.png
@@ -42,5 +42,5 @@ in
       description = "CarolineHusky stickers";
       license = lib.licenses.cc-by-nc-sa-40;
     };
-    passthru.updateScript = [../scripts/update-git.sh "https://github.com/CarolineHusky/CarolineStickers" "art/emoji/caro/source.json"];
+    passthru.updateScript = [../../../scripts/update-git.sh "https://github.com/CarolineHusky/CarolineStickers" "art/emoji/caro/source.json"];
   }
