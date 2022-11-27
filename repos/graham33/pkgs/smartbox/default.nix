@@ -22,7 +22,7 @@
 
 buildPythonPackage rec {
   pname = "smartbox";
-  version = "1.2.0-beta.3";
+  version = "1.2.0-beta.4";
   format = "pyproject";
 
   disabled = !isPy3k;
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     owner = "graham33";
     repo = pname;
     rev = "v${version}";
-    sha256 = "0qrixl72pl144hpmwqb47hba6wv99d7ia5dfrmziwmhvj2056ak2";
+    sha256 = "1l19f7rzk9aaf2g7320pq4j9k1sl9lyhkrmi9vfzzybw9c1614na";
   };
 
   propagatedBuildInputs = [
