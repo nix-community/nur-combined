@@ -28,10 +28,10 @@ jobs:
         with:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
+            auto-optimise-store = true
             experimental-features = nix-command flakes
-            substituters = https://slaier.cachix.org https://cache.nixos.org
-            trusted-public-keys = slaier.cachix.org-1:NyXPOqlxuGWgyn0ApNHMopkbix3QjMUAcR+JOjjxLtU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            log-lines = 1000
       - name: Setup cachix
         uses: cachix/cachix-action@v12
         with:

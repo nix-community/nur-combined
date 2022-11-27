@@ -6,11 +6,6 @@ fetch.github = "muckSponge/MaterialFox"
 src.github_tag = "arkenfox/user.js"
 fetch.github = "arkenfox/user.js"
 
-[clash-speedtest]
-src.github_tag = "starudream/clash-speedtest"
-fetch.github = "starudream/clash-speedtest"
-pinned = true
-
 [clash-geoip]
 src.github_tag = "Dreamacro/maxmind-geoip"
 fetch.url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/$ver/Country.mmdb"

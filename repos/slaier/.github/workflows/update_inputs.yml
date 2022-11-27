@@ -1,8 +1,8 @@
 name: Update inputs
 on:
   schedule:
-    # rebuild at 23:39 on Friday
-    - cron: "39 23 * * 5"
+    # rebuild at 8:12 on Friday
+    - cron: "12 8 * * 5"
   workflow_dispatch:
 jobs:
   update_inputs:
@@ -19,8 +19,6 @@ jobs:
           nix_path: "nixpkgs=channel:nixos-unstable"
           extra_nix_config: |
             experimental-features = nix-command flakes
-            substituters = https://slaier.cachix.org https://cache.nixos.org
-            trusted-public-keys = slaier.cachix.org-1:NyXPOqlxuGWgyn0ApNHMopkbix3QjMUAcR+JOjjxLtU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Prepare
         run: |
@@ -33,9 +31,22 @@ jobs:
       - name: Update nvfetcher sources
         working-directory: ./pkgs
         run: |
-          nix shell nixpkgs#nvfetcher -c nvfetcher --commit-changes
+          nix shell nixpkgs#nvfetcher -c nvfetcher -l changelog.txt
+          git add _sources
       - name: Push
         run: |
+          nvfetcher=$(<./pkgs/changelog.txt)
+          if [[ -n "$nvfetcher" ]]; then
+            nvfetcher="Nvfetcher updates:"$'\n\n'"$nvfetcher"
+          fi
+          commit_msg=$(git log --format=%B main..HEAD)
+          if [[ -n "$commit_msg" ]]; then
+            git reset --soft HEAD^
+          else
+            commit_msg="nix(deps): update inputs"
+          fi
+          commit_msg="$commit_msg"$'\n\n'"$nvfetcher"
+          git commit -m "$commit_msg"
           git push origin wip-update-inputs --force-with-lease
       - name: Trigger Workflow
         uses: actions/github-script@v6
