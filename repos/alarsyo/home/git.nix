@@ -57,6 +57,11 @@ in {
           contents = {user = {email = "antoine4.martin@epita.fr";};};
         }
       ];
+
+      ignores = [
+        "/.direnv/"
+        "/.envrc"
+      ];
     };
   };
 }

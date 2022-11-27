@@ -124,8 +124,10 @@ in {
     };
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services = {
+    openssh.enable = true;
+    vnstat.enable = true;
+  };
 
   virtualisation.docker.enable = true;
 

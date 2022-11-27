@@ -87,8 +87,10 @@ in {
     };
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services = {
+    openssh.enable = true;
+    vnstat.enable = true;
+  };
 
   # Takes a long while to build
   documentation.nixos.enable = false;

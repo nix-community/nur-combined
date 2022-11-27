@@ -83,6 +83,8 @@
     };
   };
 
+  virtualisation.docker.enable = true;
+
   services = {
     tlp = {
       settings = {
