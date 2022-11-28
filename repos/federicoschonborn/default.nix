@@ -14,4 +14,5 @@
   gitklient = pkgs.libsForQt5.callPackage ./pkgs/gitklient {};
   liquidshell = pkgs.libsForQt5.callPackage ./pkgs/liquidshell {};
   tokodon = pkgs.libsForQt5.callPackage ./pkgs/tokodon {};
+  commit = pkgs.callPackage ./pkgs/commit {};
 }

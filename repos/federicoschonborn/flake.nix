@@ -1,6 +1,10 @@
 {
   description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  };
+
   outputs = {
     self,
     nixpkgs,
@@ -17,18 +21,8 @@
   in {
     packages = forAllSystems (system:
       import ./default.nix {
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = nixpkgs.legacyPackages.${system};
       });
-
-    devShells = forAllSystems (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      default = pkgs.mkShell {
-        packages = with pkgs; [
-          nil
-        ];
-      };
-    });
 
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
