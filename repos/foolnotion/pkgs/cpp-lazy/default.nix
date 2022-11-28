@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fmt_9 }:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "cpp-lazy";
@@ -12,10 +12,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ fmt_9 ];
 
   cmakeFlags = [
-    "-DCPP-LAZY_USE_INSTALLED_FMT=ON"
+    "-DCPP-LAZY_USE_STANDALONE=ON"
   ];
 
   meta = with lib; {
