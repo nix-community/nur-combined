@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, ncurses }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libst";
   version = "2021-06-06";
 
@@ -37,10 +37,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Suckless Terminal ANSI parser";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sthkd";
   version = "2020-11-15";
 
@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Simple Terminal Hotkey Daemon";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.isc;
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
-}
+})

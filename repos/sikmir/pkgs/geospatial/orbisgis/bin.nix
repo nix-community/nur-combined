@@ -1,6 +1,6 @@
 { lib, stdenv, fetchfromgh, unzip, rsync, makeWrapper, jre }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "orbisgis-bin";
   version = "5.1.0";
 
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "orbisgis";
     repo = "orbisgis";
     name = "orbisgis-bin.zip";
-    version = "${version}-SNAPSHOT";
+    version = "${finalAttrs.version}-SNAPSHOT";
     hash = "sha256-e7SSn+P8rF5eSbl4Z/zp1mHNN2rAi4ZoMvkoy360hGM=";
   };
 
@@ -38,4 +38,4 @@ stdenv.mkDerivation rec {
     platforms = jre.meta.platforms;
     skip.ci = true;
   };
-}
+})

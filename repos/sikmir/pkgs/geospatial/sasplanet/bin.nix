@@ -21,12 +21,12 @@ let
     name = "Extremum.zip";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sasplanet-bin";
   version = "201212";
 
   src = fetchurl {
-    url = "http://www.sasgis.org/programs/sasplanet/SASPlanet_${version}.zip";
+    url = "http://www.sasgis.org/programs/sasplanet/SASPlanet_${finalAttrs.version}.zip";
     hash = "sha256-IHJjamzGMy/iSfvQmWU58rYE3AZToz+YB1cR6cp53Sg=";
   };
 
@@ -59,4 +59,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     skip.ci = true;
   };
-}
+})

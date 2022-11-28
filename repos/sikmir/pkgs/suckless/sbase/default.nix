@@ -1,6 +1,6 @@
 { lib, stdenv, fetchgit }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "sbase";
   version = "2021-09-11";
 

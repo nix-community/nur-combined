@@ -8,12 +8,12 @@ let
     x86_64-darwin = "macos";
   }.${system} or throwSystem;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pvs-studio";
   version = "7.21.64848.262";
 
   src = fetchurl {
-    url = "https://cdn.pvs-studio.com/pvs-studio-${version}-${suffix}.tgz";
+    url = "https://cdn.pvs-studio.com/pvs-studio-${finalAttrs.version}-${suffix}.tgz";
     hash = {
       x86_64-linux = "sha256-oOi7xQxv3I8hEnF62TSeA+ZIjIpabTN+ulMNImURECM=";
       x86_64-darwin = "sha256-BgONtKPE3Osd8g6ElebEyYUs9qFcuIU0HvsrdYSZEzc=";
@@ -30,4 +30,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" "x86_64-darwin" ];
     skip.ci = true;
   };
-}
+})

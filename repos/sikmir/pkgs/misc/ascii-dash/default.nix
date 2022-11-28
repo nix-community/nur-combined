@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, cmake, unzip, ncurses5, SDL, SDL_mixer }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ascii-dash";
   version = "1.2.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/ascii-dash/ASCII-DASH-${version}.zip";
+    url = "mirror://sourceforge/ascii-dash/ASCII-DASH-${finalAttrs.version}.zip";
     hash = "sha256-MMkhsmWMtK606lWuuvtl2bq3ub9uWl24tqbCdnb8Da8=";
   };
 
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.unix;
   };
-}
+})

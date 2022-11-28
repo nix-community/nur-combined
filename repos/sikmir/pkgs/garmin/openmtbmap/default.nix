@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, gmaptool, mkgmap, p7zip, zsh, substituteAll }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "openmtbmap";
   version = "2020-06-10";
 
@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Linux script to extract and compile garmin *.img map files from openmtbmap.org or openvelomap.org downloads";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };
-}
+})

@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, pkg-config, ncurses, w3m, ueberzug }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cfiles";
   version = "1.8";
 
   src = fetchFromGitHub {
     owner = "mananapr";
     repo = "cfiles";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Y5OOA0GGnjl4614zicuS00Wz2x5lLzhEHVioNFADQto=";
   };
 
@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A ncurses file manager written in C with vim like keybindings";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

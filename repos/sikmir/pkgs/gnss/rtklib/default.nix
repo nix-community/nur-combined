@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, gfortran }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rtklib";
   version = "2.4.3-b34";
 
   src = fetchFromGitHub {
     owner = "tomojitakasu";
     repo = "rtklib";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-d9hpvmIdSZ3BervVZVvfRTc+q7wUWoWLF81TAsMGe68=";
   };
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

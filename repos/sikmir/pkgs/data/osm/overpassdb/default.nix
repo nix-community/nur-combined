@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl, osmctools, osm-3s, osm-extracts }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "overpassdb";
   inherit (osm-extracts) version;
 

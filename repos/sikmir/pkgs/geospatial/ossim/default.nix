@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, cmake, geos, jsoncpp, libgeotiff, libjpeg, libtiff }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ossim";
   version = "2.12.0";
 
   src = fetchFromGitHub {
     owner = "ossimlabs";
     repo = "ossim";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-zmyzHEhf/JPBBP7yJyxyKHkJH5psRSl3h8ZcOJ7dr7o=";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

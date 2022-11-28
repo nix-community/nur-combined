@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, expat, lz4, zlib }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osm-3s";
   version = "0.7.58.5";
 
   src = fetchurl {
-    url = "http://dev.overpass-api.de/releases/osm-3s_v${version}.tar.gz";
+    url = "http://dev.overpass-api.de/releases/osm-3s_v${finalAttrs.version}.tar.gz";
     hash = "sha256-Ij2Qf5JLjDUzGMAKBM2KGXo3KpuPNdoOhfaIMTh48cY=";
   };
 
@@ -23,4 +23,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

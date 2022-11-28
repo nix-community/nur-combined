@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "deegree";
   version = "3.4.31";
 
   src = fetchurl {
-    url = "https://repo.deegree.org/content/repositories/public/org/deegree/deegree-webservices/${version}/deegree-webservices-${version}.war";
+    url = "https://repo.deegree.org/content/repositories/public/org/deegree/deegree-webservices/${finalAttrs.version}/deegree-webservices-${finalAttrs.version}.war";
     hash = "sha256-CUmn+bAyaUARlJuwVJ2AMRqj/fejVjHtYnbYCUAOeYQ=";
   };
 
@@ -23,4 +23,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ sikmir ];
     skip.ci = true;
   };
-}
+})

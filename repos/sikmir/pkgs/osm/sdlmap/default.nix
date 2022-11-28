@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, pkg-config, curl, SDL2, SDL2_image }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sdlmap";
   version = "2014-02-09";
 
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A SDL + libcurl OpenStreetMap viewer";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

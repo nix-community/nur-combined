@@ -22,14 +22,14 @@
 , wrapGAppsHook
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
   version = "1.8";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
-    rev = "${version}-alt1";
+    rev = "${finalAttrs.version}-alt1";
     hash = "sha256-RWY+rFVwPTZOyAZt1Bytcer4KiriGGfgke5s+qAydx8=";
     fetchSubmodules = true;
   };
@@ -92,4 +92,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = true;
   };
-}
+})

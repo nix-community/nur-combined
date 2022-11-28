@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "dns-filter";
   version = "2021-04-14";
 
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tiny DNS server with filtering requests";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

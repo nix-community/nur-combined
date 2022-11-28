@@ -1,6 +1,6 @@
 { lib, stdenv, fetchgit, python3 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "tcvt";
   version = "2021-01-22";
 

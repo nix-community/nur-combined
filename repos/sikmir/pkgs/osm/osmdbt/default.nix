@@ -13,14 +13,14 @@
 , zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osmdbt";
   version = "0.6";
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "osmdbt";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-hXwWOOfvBrJqjMXsG/59J83PHwZqIKm+2B00QYoJD80=";
   };
 
@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "OSM Database Replication Tools";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

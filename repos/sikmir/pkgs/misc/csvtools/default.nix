@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, pcre, openssl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "csvtools";
   version = "2019-08-03";
 
@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "GNU-alike tools for parsing RFC 4180 CSVs at high speed";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

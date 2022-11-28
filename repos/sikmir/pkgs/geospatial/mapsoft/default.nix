@@ -30,7 +30,7 @@
 , getopt
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft";
   version = "20220624-alt1";
 
@@ -100,10 +100,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Mapping software for linux";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = true;
   };
-}
+})

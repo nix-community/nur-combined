@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, unzip }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "geowebcache";
   version = "1.21.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/geowebcache/geowebcache/${version}/geowebcache-${version}-war.zip";
+    url = "mirror://sourceforge/geowebcache/geowebcache/${finalAttrs.version}/geowebcache-${finalAttrs.version}-war.zip";
     hash = "sha256-hiXXlBC6fNLR/+N18qPN5kzwsnbWMIE9kkEn2Y8qIVo=";
   };
 
@@ -25,4 +25,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ sikmir ];
     skip.ci = true;
   };
-}
+})

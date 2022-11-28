@@ -1,12 +1,12 @@
 { lib, stdenv, fetchgit, libressl, libbsd }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "hurl";
   version = "0.7";
 
   src = fetchgit {
     url = "git://git.codemadness.org/hurl";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-OXzt5sc1sZesKY1YmeGc3zuo9GxMYfYDvovCSt/kIdE=";
   };
 
@@ -24,4 +24,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

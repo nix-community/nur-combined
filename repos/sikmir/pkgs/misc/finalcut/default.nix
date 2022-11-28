@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, ncurses, pkg-config }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "finalcut";
   version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "gansm";
     repo = "finalcut";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-FaloxuRx9p9oMyuKyJhYZve/WyQoMSGTYwY6A2uE0F0=";
   };
 
@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A text-based widget toolkit";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

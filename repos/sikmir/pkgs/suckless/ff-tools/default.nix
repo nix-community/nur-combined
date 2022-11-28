@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ff-tools";
   version = "2019-06-08";
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A collection of farbfeld tools";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

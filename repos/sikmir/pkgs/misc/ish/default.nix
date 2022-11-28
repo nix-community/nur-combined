@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ish";
   version = "0.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/icmpshell/ish-v${version}.tar.gz";
+    url = "mirror://sourceforge/icmpshell/ish-v${finalAttrs.version}.tar.gz";
     hash = "sha256-C4vE8pWBay9RdL+q0PwzjaNMgqrTD8TyLTYkGwE9V4I=";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qtpbfimageplugin-styles";
   version = "2022-06-08";
 
@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "QtPBFImagePlugin styles";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
   };
-}
+})

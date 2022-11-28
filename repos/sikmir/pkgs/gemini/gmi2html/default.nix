@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, zig, scdoc, installShellFiles }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gmi2html";
   version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "shtanton";
     repo = "gmi2html";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-5m3erToDFkYOV1xoM+BLWbUOgP0A7TXthzQ0Sk1Qj+U=";
   };
 
@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Translate text/gemini into HTML";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/86299
   };
-}
+})

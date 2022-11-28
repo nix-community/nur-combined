@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, undmg }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "marta-bin";
   version = "0.8.1";
 
   src = fetchurl {
-    url = "https://updates.marta.sh/release/Marta-${version}.dmg";
+    url = "https://updates.marta.sh/release/Marta-${finalAttrs.version}.dmg";
     hash = "sha256-DbNkvLCy6q0CN8b4+8oheM4EaaLAQvH3O5zWVYxEyh8=";
   };
 
@@ -26,4 +26,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };
-}
+})

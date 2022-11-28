@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, openssl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "btpd";
   version = "2020-04-07";
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The BitTorrent Protocol Daemon";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

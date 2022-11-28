@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, unzip, mono, gtk2, makeWrapper }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "maperitive-bin";
   version = "2.4.3";
 
   src = fetchurl {
-    url = "http://maperitive.net/download/Maperitive-${version}.zip";
+    url = "http://maperitive.net/download/Maperitive-${finalAttrs.version}.zip";
     hash = "sha256-yhslRj4CjUY0kviQTI7z8LvSiWvjf7K8+tDMeA9zNEk=";
   };
 
@@ -30,4 +30,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = true;
   };
-}
+})

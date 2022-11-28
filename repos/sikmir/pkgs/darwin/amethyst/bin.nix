@@ -1,13 +1,13 @@
 { lib, stdenv, fetchfromgh, unzip }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "Amethyst-bin";
   version = "0.16.0";
 
   src = fetchfromgh {
     owner = "ianyh";
     repo = "Amethyst";
-    version = "v${version}";
+    version = "v${finalAttrs.version}";
     name = "Amethyst.zip";
     hash = "sha256-pghX74T0JsAWkxAaAaQ5NIhYqj89fo0ZqRtxPThJZ/M=";
   };
@@ -31,4 +31,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, libconfig, file, openssl, flex }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "geminid";
   version = "2021-04-11";
 
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Gemini Server in C";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

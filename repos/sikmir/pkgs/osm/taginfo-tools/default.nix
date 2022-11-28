@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, bzip2, expat, gd, icu, libosmium, protozero, sqlite, zlib }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "taginfo-tools";
   version = "2022-05-04";
 

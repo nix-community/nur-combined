@@ -2,14 +2,14 @@
 , db, libmicrohttpd, jansson, tcl
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "graphene";
   version = "2.10";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "graphene";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-F2C7Ni+D8hWap2szoTFEPMRcWKXpizFWzqqyaDLbrac=";
     fetchSubmodules = true;
   };
@@ -26,10 +26,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A simple time series database based on BerkleyDB";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

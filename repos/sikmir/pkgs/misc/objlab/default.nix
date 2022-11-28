@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, ghc_filesystem, glfw, libglvnd, libGLU }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "objlab";
   version = "2019-11-23";
 
@@ -35,10 +35,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Simple wavefront .obj viewer";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

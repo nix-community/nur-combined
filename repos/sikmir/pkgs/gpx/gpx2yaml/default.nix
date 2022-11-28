@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromSourcehut }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "gpx2yaml";
   version = "2021-08-19";
 

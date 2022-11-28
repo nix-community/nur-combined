@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, xorg, libglvnd }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qoiview";
   version = "2021-12-22";
 
@@ -36,10 +36,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "QOI image viewer on top of the Sokol headers";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

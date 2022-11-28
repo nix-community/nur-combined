@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, boost, qt5 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gps-whatsnew";
   version = "2017-01-23";
 
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Compare gpx tracks to find new segments (places never traveled before)";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

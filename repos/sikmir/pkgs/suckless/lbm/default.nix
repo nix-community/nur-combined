@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitLab, pkg-config, dbus, xorg }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lbm";
   version = "2022-03-13";
 
@@ -23,10 +23,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A simple Bluetooth manager";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

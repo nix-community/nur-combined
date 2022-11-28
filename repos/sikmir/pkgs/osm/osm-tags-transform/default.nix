@@ -2,7 +2,7 @@
 , bzip2, expat, libosmium, lua, protozero, zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osm-tags-transform";
   version = "2022-02-19";
 
@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Transform tags in OSM files using Lua code";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

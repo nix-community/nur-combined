@@ -1,12 +1,12 @@
 { lib, stdenv, fetchgit }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "scroll";
   version = "0.1";
 
   src = fetchgit {
     url = "git://git.suckless.org/scroll";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-dr1s1K13BigfGSFvfBuOOy+yhuAcN1fb/4AEZPj9C48=";
   };
 
@@ -19,4 +19,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

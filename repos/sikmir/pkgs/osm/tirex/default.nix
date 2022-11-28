@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, makeWrapper, cairo, mapnik, perl, perlPackages }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tirex";
   version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "tirex";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-0QbPfCPBdNBbUiZ8Ppg2zao98+Ddl3l+yX6y1/J50rg=";
   };
 
@@ -54,5 +54,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})
 

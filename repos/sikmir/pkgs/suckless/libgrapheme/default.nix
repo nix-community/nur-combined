@@ -1,6 +1,6 @@
 { lib, stdenv, fetchgit }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "libgrapheme";
   version = "2.0.1";
 

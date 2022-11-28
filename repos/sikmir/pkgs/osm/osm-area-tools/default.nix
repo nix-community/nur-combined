@@ -12,7 +12,7 @@
 , zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "osm-area-tools";
   version = "2021-01-04";
 

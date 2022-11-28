@@ -2,7 +2,7 @@
 , lua5_3, memstreamHook, zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tom";
   version = "2021-10-21";
 
@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Gemini frontend for git repositories";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

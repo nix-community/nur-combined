@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, cmake, boost, gsl-lite }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "serverpp";
   version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "serverpp";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-z7aLE7RyRGwUCpnJr0NS6yXUBPtHTnd81JOI/tGHDo0=";
   };
 
@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A C++ library for basic network server handling";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

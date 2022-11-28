@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, libutf, ncurses }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lchat";
   version = "2022-09-07";
 
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "line chat is a simple and elegant front end for ii-like chat programs";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromSourcehut, qbe }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cproc";
   version = "2022-08-05";
 
@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "C11 compiler using QBE as a backend";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

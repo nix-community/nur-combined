@@ -1,6 +1,6 @@
 { lib, stdenv, fetchurl, routino, osm-extracts, prefix ? "Russia-NWFD" }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "routinodb";
   inherit (osm-extracts) version;
 

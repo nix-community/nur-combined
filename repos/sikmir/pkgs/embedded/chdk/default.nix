@@ -10,7 +10,7 @@ let
   optFI2 = fi2key != null && fi2iv != null;
   batchBuild = platform == null || platformsub == null;
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "chdk";
   inherit version;
 

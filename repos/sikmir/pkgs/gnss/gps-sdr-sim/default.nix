@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gps-sdr-sim";
   version = "2022-01-14";
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Software-Defined GPS Signal Simulator";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

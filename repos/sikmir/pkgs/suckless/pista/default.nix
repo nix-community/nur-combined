@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, libX11 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "pista";
   version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "xandkar";
     repo = "pista";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-lre6SIVyxCwEohLlvSfYs+JnHS1VXTbl3FlUNZ3TGy4=";
   };
 
@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Piped status: the ii of status bars!";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

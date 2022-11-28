@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nextvi";
   version = "2022-09-05";
 
@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Next version of neatvi (a small vi/ex editor)";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.sikmir ];
   };
-}
+})

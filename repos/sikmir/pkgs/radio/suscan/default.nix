@@ -2,7 +2,7 @@
 , fftwFloat, libsndfile, libxml2, sigutils, soapysdr, volk
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "suscan";
   version = "2022-07-05";
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Channel scanner based on sigutils library";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

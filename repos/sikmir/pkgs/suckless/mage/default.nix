@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, fontconfig, imlib2, libXft, conf ? null }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mage";
   version = "2022-08-28";
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   configFile = lib.optionalString (conf!=null) (builtins.toFile "config.h" conf);
-  preBuild = lib.optionalString (conf!=null) "cp ${configFile} config.h";
+  preBuild = lib.optionalString (conf!=null) "cp ${finalAttrs.configFile} config.h";
 
   buildInputs = [ fontconfig imlib2 libXft ];
 
@@ -22,10 +22,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "iMAGE viewer";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl2Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

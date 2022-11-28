@@ -1,15 +1,15 @@
 { lib, stdenv, fetchfromgh, unzip }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "MacPass-bin";
   version = "0.8.1";
 
   src = fetchfromgh {
     owner = "MacPass";
     repo = "MacPass";
-    name = "MacPass-${version}.zip";
+    name = "MacPass-${finalAttrs.version}.zip";
     hash = "sha256-LQ073JRbQsDB/nmx63Tllptfdo/8VqoobXPTSShzsXM=";
-    inherit version;
+    inherit (finalAttrs) version;
   };
 
   sourceRoot = ".";
@@ -31,4 +31,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };
-}
+})

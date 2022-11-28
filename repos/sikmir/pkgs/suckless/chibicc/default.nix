@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, memstreamHook }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "chibicc";
   version = "2020-12-07";
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A small C compiler";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.sikmir ];
   };
-}
+})

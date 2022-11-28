@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gt-bash-client";
   version = "1.2";
 
   src = fetchFromGitHub {
     owner = "OPHoperHPO";
     repo = "GT-bash-client";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-dVtwuZsF9ExH6qadUO2MJiWmQ/elTKaVZAp+o3b6XUg=";
   };
 
@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Get translated text from your terminal! Console Google Translate Script (bash+curl+sed)";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };
-}
+})

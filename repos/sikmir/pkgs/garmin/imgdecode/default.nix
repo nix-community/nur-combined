@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "imgdecode";
   version = "1.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/garmin-img/imgdecode-${version}.tar.gz";
+    url = "mirror://sourceforge/garmin-img/imgdecode-${finalAttrs.version}.tar.gz";
     hash = "sha256-VQC9o/QOti6jTCYi4ktH6UKZLPLwLOUAfosZftf+uWc=";
   };
 
@@ -26,4 +26,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

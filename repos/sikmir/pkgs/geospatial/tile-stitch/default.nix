@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, curl, libjpeg, libpng, libtiff, libgeotiff, pkg-config }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tile-stitch";
   version = "2019-07-11";
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Stitch together and crop map tiles for a specified bounding box";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

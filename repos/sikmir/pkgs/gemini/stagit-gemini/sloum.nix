@@ -1,6 +1,6 @@
 { lib, stdenv, libgit2, fetchFromGitea }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "stagit-gemini";
   version = "2020-01-18";
 
@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Fork of stagit-gopher that ports the output to gemini";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.sikmir ];
   };
-}
+})

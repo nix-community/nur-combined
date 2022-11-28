@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, pkg-config, xorg }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "sdorfehs";
   version = "1.1";
 
   src = fetchFromGitHub {
     owner = "jcs";
     repo = "sdorfehs";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-efid6lRa8CTD+xObbop68hti5WRJReyKW57AmN7DS90=";
   };
 
@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A tiling window manager";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

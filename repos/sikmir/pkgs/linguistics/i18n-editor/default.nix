@@ -1,15 +1,15 @@
 { lib, stdenv, fetchfromgh, unzip, jre, makeWrapper }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "i18n-editor-bin";
   version = "2.0.0-beta.1";
 
   src = fetchfromgh {
     owner = "jcbvm";
     repo = "i18n-editor";
-    name = "i18n-editor-${version}.zip";
+    name = "i18n-editor-${finalAttrs.version}.zip";
     hash = "sha256-koJdCmcM9mH4D4JSyyi0i/zRCUeI6pYdMmS7SaC56aY=";
-    inherit version;
+    inherit (finalAttrs) version;
   };
 
   sourceRoot = ".";
@@ -28,10 +28,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "GUI for editing your i18n translation files";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
-}
+})

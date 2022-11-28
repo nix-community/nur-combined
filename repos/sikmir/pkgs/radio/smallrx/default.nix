@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "smallrx";
   version = "2018-12-18";
 
@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "amateur radio receiver in <100 code lines";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

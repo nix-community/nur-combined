@@ -1,11 +1,11 @@
 { lib, stdenv, fetchwebarchive, fetchpatch, readline, ncurses, bison, flex, installShellFiles }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "aamath";
   version = "0.3";
 
   src = fetchwebarchive {
-    url = "http://fuse.superglue.se/aamath/aamath-${version}.tar.gz";
+    url = "http://fuse.superglue.se/aamath/aamath-${finalAttrs.version}.tar.gz";
     timestamp = "20190303013301";
     hash = "sha256-mEP0WIaV4s1Vzl2PWJIdTyVeDmXtlWnh3N3z9o93tjE=";
   };
@@ -40,4 +40,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

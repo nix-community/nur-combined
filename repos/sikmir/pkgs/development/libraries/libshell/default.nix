@@ -9,14 +9,14 @@
 , scdoc
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libshell";
   version = "0.4.9";
 
   src = fetchFromGitHub {
     owner = "legionus";
     repo = "libshell";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-BkKBmKzmL3O+BQi4VZm3agRLpQ8nIZ2ZhQBL40oeCy4=";
   };
 
@@ -42,9 +42,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A library of shell functions";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
   };
-}
+})

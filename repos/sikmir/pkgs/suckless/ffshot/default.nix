@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, xorg }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ffshot";
   version = "2022-05-29";
 
@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "farbfeld screenshot utility";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

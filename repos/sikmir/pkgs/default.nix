@@ -309,7 +309,6 @@ lib.makeScope newScope (
     gsl-lite = callPackage ./misc/gsl-lite { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     huami-token = callPackage ./misc/huami-token { };
-    imsg-compat = callPackage ./misc/imsg-compat { };
     ish = callPackage ./misc/ish { };
     jenkins-cli = callPackage ./misc/jenkins-cli { };
     lazyscraper = callPackage ./misc/lazyscraper { };
@@ -317,7 +316,6 @@ lib.makeScope newScope (
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
     morse-talk = callPackage ./misc/morse-talk { };
-    mqtt-benchmark = callPackage ./misc/mqtt-benchmark { };
     musig = callPackage ./misc/musig { };
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
@@ -343,6 +341,16 @@ lib.makeScope newScope (
     xtr = callPackage ./misc/xtr {
       inherit (darwin.apple_sdk.frameworks) Foundation;
     };
+
+    ### MQTT
+
+    go-mqtt-to-influxdb = callPackage ./mqtt/go-mqtt-to-influxdb { };
+    influxdb-cxx = callPackage ./mqtt/influxdb-cxx { };
+    janus-mqtt-proxy = callPackage ./mqtt/janus-mqtt-proxy { };
+    mongoose = callPackage ./mqtt/mongoose { };
+    mqtt-benchmark = callPackage ./mqtt/mqtt-benchmark { };
+    mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
+    mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
 
     ### NAKARTE
 
@@ -430,6 +438,7 @@ lib.makeScope newScope (
     ffshot = callPackage ./suckless/ffshot { };
     hurl = callPackage ./suckless/hurl { };
     imscript = callPackage ./suckless/imscript { };
+    imsg-compat = callPackage ./suckless/imsg-compat { };
     kilo = callPackage ./suckless/kilo { };
     lacc = callPackage ./suckless/lacc { };
     lbm = callPackage ./suckless/lbm { };

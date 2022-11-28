@@ -1,15 +1,15 @@
 { lib, stdenv, fetchfromgh, jre }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osmosis";
   version = "0.48.3";
 
   src = fetchfromgh {
     owner = "openstreetmap";
     repo = "osmosis";
-    name = "osmosis-${version}.tgz";
+    name = "osmosis-${finalAttrs.version}.tgz";
     hash = "sha256-skxgFXjqTLDKiDAr5naP0GAr3obCVKDguQUTWB26Z/8=";
-    inherit version;
+    inherit (finalAttrs) version;
   };
 
   sourceRoot = ".";
@@ -29,4 +29,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
-}
+})

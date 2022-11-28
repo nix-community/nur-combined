@@ -5,12 +5,12 @@ let
     ${wine}/bin/wine @out@/GPX_Editor.exe
   '';
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gpxeditor";
   version = "1.7.15";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gpxeditor/GPX%20Editor/Version%20${version}/GPX_Editor_${lib.replaceStrings [ "." ] [ "_" ] version}.zip";
+    url = "mirror://sourceforge/gpxeditor/GPX%20Editor/Version%20${finalAttrs.version}/GPX_Editor_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}.zip";
     hash = "sha256-laGJU8LHNNoUoVyHY2IaCXGpFmgOLSrWe/lCz5Tzjj4=";
   };
 
@@ -34,4 +34,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     skip.ci = true;
   };
-}
+})

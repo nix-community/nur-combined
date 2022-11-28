@@ -1,12 +1,12 @@
 { lib, stdenv, fetchgit, libX11, farbfeld, farbfeld-utils }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lel";
   version = "0.2";
 
   src = fetchgit {
     url = "git://git.codemadness.org/lel";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-p0lgzSgNyXUAMo/LXhbQZW8LRUGg+Iz+KEQiNYeaL7E=";
   };
 
@@ -29,4 +29,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

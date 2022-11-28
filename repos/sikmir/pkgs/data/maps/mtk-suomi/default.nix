@@ -1,11 +1,11 @@
 { lib, stdenvNoCC, fetchurl }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mtk-suomi";
   version = "2022-03-15";
 
   src = fetchurl {
-    url = "https://kartat-dl.hylly.org/${version}/mtk_suomi.img";
+    url = "https://kartat-dl.hylly.org/${finalAttrs.version}/mtk_suomi.img";
     hash = "sha256-s5pk+CvbrWQfC4SGQwGtDY8gg0K5ilZbYOC2lB+c7I8=";
   };
 
@@ -23,4 +23,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = platforms.all;
     skip.ci = true;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, pkg-config, argp-standalone, emacs, zlib }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gdcv";
   version = "2020-05-14";
 
@@ -37,10 +37,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "GoldenDict console version and emacs dynamic module";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.gpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

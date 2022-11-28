@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kilo";
   version = "2020-07-05";
 
@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A text editor in less than 1000 LOC with syntax highlight and search";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

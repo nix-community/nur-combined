@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, libutf, ncurses }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libutf";
   version = "2018-11-13";
 
@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Plan 9 compatible UTF-8 C library";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

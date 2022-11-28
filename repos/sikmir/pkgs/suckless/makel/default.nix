@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, libgrapheme }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "makel";
   version = "2022-01-24";
 
@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Makefile linter";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.isc;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

@@ -1,14 +1,14 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook
 , bison, flex, foma, pkg-config, icu, zlib }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "hfst";
   version = "3.16.0";
 
   src = fetchFromGitHub {
     owner = "hfst";
     repo = "hfst";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-2ST0s08Pcp+hTn7rUTgPE1QkH6PPWtiuFezXV3QW0kU=";
   };
 
@@ -29,4 +29,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromSourcehut }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "geojson2dm";
   version = "2021-08-25";
 

@@ -13,7 +13,7 @@
 , zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "osmium-surplus";
   version = "2022-08-28";
 

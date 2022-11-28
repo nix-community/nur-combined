@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, go }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gloggery";
   version = "1.0";
 
   src = fetchFromGitHub {
     owner = "kconner";
     repo = "gloggery";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-tWTJXRtm/8cSEbK40fi9PVOg9w/qC0CBFZWyT7vSo80=";
   };
 
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Gemtext blog static site generator";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

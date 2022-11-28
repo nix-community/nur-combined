@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchFromGitHub, dict, pandoc, stardict-tools }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "it-sanasto";
   version = "2020-02-27";
 
@@ -25,10 +25,10 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description = "IT-alan englanti-suomi -sanasto";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
     skip.ci = true;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "docker-reg-tool";
   version = "2021-02-15";
 
@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Docker registry cli tool, primarily for deleting images";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.all;
   };
-}
+})

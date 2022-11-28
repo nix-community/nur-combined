@@ -12,14 +12,14 @@
 , zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "osmcoastline";
   version = "2.3.1";
 
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osmcoastline";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-z72xDag3CDik/zGhQjlmE/Yfz/KEwK/A1clyP3AY7Uo=";
   };
 
@@ -43,4 +43,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

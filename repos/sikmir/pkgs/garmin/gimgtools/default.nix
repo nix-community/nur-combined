@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, libiconv }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gimgtools";
   version = "2013-09-19";
 
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Garmin Image Tools";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

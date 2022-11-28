@@ -2,14 +2,14 @@
 , cairo, expat, glib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "memphis";
   version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "jiuka";
     repo = "memphis";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-mBRu2EHEuoHz3scoVaYqAMBZXbG7XkKwdHe9O0gaDBk=";
   };
 
@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Map-rendering for OpenStreetMap";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.lgpl2Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

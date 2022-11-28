@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, libnbcompat }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "nmtree";
   version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "archiecobbs";
     repo = "nmtree";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-0NlrWnSi0Eyz9WlTX1OpU3dHpgZMOF0rtf9cY5mLDkc=";
   };
 
@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "NetBSD's mtree(8) utility";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = true;
   };
-}
+})

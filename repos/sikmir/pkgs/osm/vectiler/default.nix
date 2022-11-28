@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, curl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "vectiler";
   version = "2021-06-30";
 

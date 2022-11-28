@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "how-to-use-pvs-studio-free";
   version = "2.1";
 
   src = fetchFromGitHub {
     owner = "viva64";
     repo = "how-to-use-pvs-studio-free";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-aFqk0WsMylRQqvlb+M5IfDHVwMBuKNQpCiiGPrj+jEw=";
   };
 
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

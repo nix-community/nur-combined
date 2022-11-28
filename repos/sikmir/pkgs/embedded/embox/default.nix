@@ -20,14 +20,14 @@ let
     (name: spec: fetchurl spec)
     (builtins.fromJSON (builtins.readFile ./third-party.json));
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
   version = "0.5.7";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-w0xK5NXrLIq47pHEyM+luFmJKFzz+NUgFN/xs1tjf9I=";
   };
 
@@ -100,4 +100,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     skip.ci = true;
   };
-}
+})

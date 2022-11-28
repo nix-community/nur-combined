@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, makeWrapper, abduco, sthkd, libst }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "svtm";
   version = "2021-04-28";
 
@@ -28,10 +28,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Simple Virtual Terminal Manager";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
-}
+})

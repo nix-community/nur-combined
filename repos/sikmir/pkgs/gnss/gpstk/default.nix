@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, cmake }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gpstk";
   version = "8.0.0";
 
   src = fetchFromGitHub {
     owner = "SGL-UT";
     repo = "GPSTk";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-kauRkx7KjVFdjl3JPiCxeuuVGVJ69e87RZQhepRrsWY=";
   };
 
@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Toolkit for developing GPS applications";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

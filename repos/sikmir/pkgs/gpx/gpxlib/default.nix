@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake, expat }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "gpxlib";
   version = "2021-02-16";
 

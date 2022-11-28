@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libnbcompat";
   version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "archiecobbs";
     repo = "libnbcompat";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-DyBLEp5dNYSQgTzdQkGfLdCtX618EbnVy5FmL75BMdU=";
   };
 
@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Portable NetBSD-compatibility library";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

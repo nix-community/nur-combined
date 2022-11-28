@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, xlibsWrapper }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "xfractint";
   version = "20.04p16";
 
   src = fetchurl {
-    url = "https://fractint.org/ftp/current/linux/xfractint-${version}.tar.gz";
+    url = "https://fractint.org/ftp/current/linux/xfractint-${finalAttrs.version}.tar.gz";
     hash = "sha256-TlQBz+wOb/odqzjjwXfhRFdyCWy+VUIAxRLt7qI8R60=";
   };
 
@@ -27,4 +27,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     skip.ci = true;
   };
-}
+})

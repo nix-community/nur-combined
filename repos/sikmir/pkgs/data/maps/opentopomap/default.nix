@@ -9,7 +9,7 @@ let
     hash = "sha256-ntafRbfMMnHy2IlhqKE/DaMinsu9NaXA41HhXb6YVf4=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "opentopomap";
   inherit (osm-extracts) version;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-3fymFZHFnivdgIWaJiRK6bvIRIay4+AnN1ns67lvq5I=";
   };
 
-  sourceRoot = "${src.name}/garmin";
+  sourceRoot = "${finalAttrs.src.name}/garmin";
 
   nativeBuildInputs = [ mkgmap mkgmap-splitter unzip ];
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     skip.ci = true;
   };
-}
+})

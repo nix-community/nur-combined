@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, qmake, qtserialport, wrapQtAppsHook }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "visualgps";
   version = "2020-03-29";
 

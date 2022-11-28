@@ -1,11 +1,11 @@
 { lib, stdenv, fetchurl, undmg, cudatext }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
   version = "1.176.0.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${version}.dmg";
+    url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
     hash = "sha256-w5hAxkqopNMzeIQFvCBn8+50CtOB15PGjtAzPBuL3MI=";
   };
 
@@ -24,4 +24,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.sikmir ];
     skip.ci = true;
   };
-}
+})

@@ -1,6 +1,6 @@
 { stdenv, lib, fetchsvn, cmake, nasm, libX11 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "linrad";
   version = "2021-09-05";
 

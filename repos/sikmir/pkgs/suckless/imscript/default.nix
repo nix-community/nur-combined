@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromSourcehut, installShellFiles
 , libpng, libjpeg, libtiff, libwebp, fftwFloat, libX11, gsl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
   version = "2022-10-17";
 
@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A collection of small and standalone utilities for image processing";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.agpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

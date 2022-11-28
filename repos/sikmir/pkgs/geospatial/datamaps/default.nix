@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, libpng, pkg-config }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "datamaps";
   version = "2014-08-19";
 
@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Indexes points and lines and generates map tiles to display them";
-    inherit (src.meta) homepage;
+    inherit (finalAttrs.src.meta) homepage;
     license = licenses.bsd2;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };
-}
+})

@@ -1,6 +1,6 @@
 { lib, stdenv, libgit2, fetchgit }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "stagit-gemini";
   version = "2022-07-08";
 
