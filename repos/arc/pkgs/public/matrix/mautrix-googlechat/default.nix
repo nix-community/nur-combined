@@ -15,7 +15,10 @@
     sha256 = "sha256-UVWYT0HTOUEkBG0n6KNhCSSO/2PAF1rIvCaw478z+q0=";
   };
 
-  patches = [ ./entrypoint.patch ];
+  patches = [ (fetchpatch {
+    url = "https://github.com/mautrix/googlechat/commit/596c20111dbbbb2e07cc344d039081f0eb8bf874.patch";
+    sha256 = "sha256-DsITDNLsIgBIqN6sD5JHaFW0LToxVUTzWc7mE2L09IQ=";
+  }) ];
 
   postPatch = ''
     sed -i -e 's/asyncpg>=.*/asyncpg/' requirements.txt

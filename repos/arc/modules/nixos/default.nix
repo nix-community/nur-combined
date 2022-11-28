@@ -2,7 +2,6 @@
   nix = ./nix.nix;
   systemd = ./systemd.nix;
   polkit-systemd = ./polkit-systemd.nix;
-  systemd2mqtt = ./systemd2mqtt.nix;
   users-chroot = ./users-chroot.nix;
   cpuinfo = ./cpuinfo.nix;
   dht22-exporter = ./dht22-exporter.nix;
@@ -38,7 +37,6 @@
       nix
       systemd
       polkit-systemd
-      systemd2mqtt
       users-chroot
       cpuinfo
       dht22-exporter
