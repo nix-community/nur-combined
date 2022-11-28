@@ -648,10 +648,10 @@
   },
   {
     "name": "helmod",
-    "version": "0.12.12",
-    "file_name": "helmod_0.12.12.zip",
-    "download_url": "/download/helmod/6301b707f786ad2599add9ea",
-    "sha1": "75b59883d4d2074d1fd99bd98b9c7c055c529483",
+    "version": "0.12.13",
+    "file_name": "helmod_0.12.13.zip",
+    "download_url": "/download/helmod/6381917ac9433900bfc9e5c8",
+    "sha1": "7d89d9db1f0e0471c5d4a42fe306b0f98947be37",
     "dependencies": [
       "base >= 1.1.57"
     ]
@@ -669,10 +669,10 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.3.7",
-    "file_name": "Krastorio2_1.3.7.zip",
-    "download_url": "/download/Krastorio2/637325cdd533a73a7fe75466",
-    "sha1": "96ffe57c26a31d2df249a37fbf7895dd3c103ef9",
+    "version": "1.3.8",
+    "file_name": "Krastorio2_1.3.8.zip",
+    "download_url": "/download/Krastorio2/637963bb789739eea0c9a176",
+    "sha1": "e7d77fa4f45c1de72b6dd0aa2e8bf3d8eb2fb715",
     "dependencies": [
       "base >= 1.1.52",
       "Krastorio2Assets >= 1.2.1",
@@ -717,10 +717,10 @@
   },
   {
     "name": "krastorio2_extended_endgame",
-    "version": "1.0.1",
-    "file_name": "krastorio2_extended_endgame_1.0.1.zip",
-    "download_url": "/download/krastorio2_extended_endgame/61d6020db9b4000d195ccd2c",
-    "sha1": "4151778c5e45326260c8998a5690437e53a93c05",
+    "version": "1.0.3",
+    "file_name": "krastorio2_extended_endgame_1.0.3.zip",
+    "download_url": "/download/krastorio2_extended_endgame/6374d517ffa4f67dabfed0a1",
+    "sha1": "d1c8b9a25c94ea3dd90e1641d6e6650cf0b00d37",
     "dependencies": [
       "base >= 1.1.2",
       "Krastorio2 >= 1.2.11",
@@ -1087,10 +1087,10 @@
   },
   {
     "name": "stdlib",
-    "version": "1.4.7",
-    "file_name": "stdlib_1.4.7.zip",
-    "download_url": "/download/stdlib/629bcb8211767610a2d2256c",
-    "sha1": "5e2df018ee71dc095c5430362844f973a70659ac",
+    "version": "1.4.8",
+    "file_name": "stdlib_1.4.8.zip",
+    "download_url": "/download/stdlib/6382c948be8acb05f903db4d",
+    "sha1": "f0f81f4fc941b8c04a84fa137d74736d44a56baa",
     "dependencies": [
       "base >= 1.1.0"
     ]
