@@ -1,6 +1,7 @@
 {
   nix = ./nix.nix;
   systemd = ./systemd.nix;
+  systemd-user-translate = ./systemd-user-translate.nix;
   polkit-systemd = ./polkit-systemd.nix;
   users-chroot = ./users-chroot.nix;
   cpuinfo = ./cpuinfo.nix;
@@ -36,6 +37,7 @@
     imports = with self; [
       nix
       systemd
+      systemd-user-translate
       polkit-systemd
       users-chroot
       cpuinfo

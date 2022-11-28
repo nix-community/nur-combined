@@ -48,6 +48,9 @@ in with lib; {
       konawall = {
         Unit = rec {
           Description = "Random wallpapers";
+          Wants = [
+            "network-online.target"
+          ];
           After = mkMerge [
             [ "graphical-session-pre.target" ]
             (mkIf config.wayland.windowManager.sway.enable [ "sway-session.target" ])
