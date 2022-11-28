@@ -2,6 +2,8 @@
 
 **A [NUR](https://github.com/nix-community/NUR) "Nix User Repository"**
 
+You can see the repository under the [nur.nix-community.org](https://nur.nix-community.org/repos/rseops/).
+
 ## Usage
 
 For local development, when you add a package:
