@@ -1,5 +1,5 @@
 { lib, stdenv, pkgs, fetchurl, python3, cmake, maintainers
-, withOpenmpi? false
+, withOpenmpi? true
 , withMpich? false
 , withFortran? false
 , pythonSupport ? true
@@ -57,11 +57,11 @@ stdenv.mkDerivation rec {
   # depends_on("doxygen", when="+doc+doxygen")
 
   # Do we need hdf5-shared?
-  # depends_on("hdf5", when="+hdf5")    
+  # depends_on("hdf5", when="+hdf5")
   # depends_on("hdf5~shared", when="+hdf5~shared")
 
   nativeBuildInputs = [cmake pkgs.bash pkgs.extra-cmake-modules pkgs.tree];
-  buildInputs = 
+  buildInputs =
     lib.optional pythonSupport pkgs.python39 ++
     lib.optional pythonSupport pkgs.python39Packages.numpy ++
     lib.optional pythonSupport pkgs.python39Packages.mpi4py ++
@@ -78,7 +78,6 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    # Note that enabling MPI leads to a bug, need to figure out
     "-DENABLE_MPI=${onOffBool withMPI}"
     "-DENABLE_FIND_MPI=${onOffBool withMPI}"
     "-DBUILD_SHARED_LIBS=${onOffBool shared}"
@@ -86,7 +85,6 @@ stdenv.mkDerivation rec {
     "-DENABLE_PYTHON=${onOffBool pythonSupport}"
     "-DENABLE_UTILS=OFF"
     "-DENABLE_EXAMPLES=OFF"
-    "-DENABLE_FIND_MPI=OFF"
     "-DBUILD_TESTS=OFF"
     "-DBUILD_DOCS=OFF"
   ];
