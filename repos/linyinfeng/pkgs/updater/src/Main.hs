@@ -32,6 +32,7 @@ fishPlugins :: PackageSet ()
 fishPlugins = do
   gitPkg "plugin-git" "https://github.com/jhillyerd/plugin-git"
   gitPkg "plugin-bang-bang" "https://github.com/oh-my-fish/plugin-bang-bang"
+  gitPkg "pisces" "https://github.com/laughedelic/pisces"
   define $ package "replay-fish" `fromGitHub` ("jorgebucaran", "replay.fish")
 
 ghPkg :: Text -> Text -> PackageSet ()
