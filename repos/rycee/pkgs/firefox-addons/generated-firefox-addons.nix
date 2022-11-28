@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.4.0";
+      version = "2.9.5.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032949/bypass_paywalls_clean-2.9.4.0.xpi";
-      sha256 = "d24880e6fcf83d65d327d55b2b3c19b8000051232febe6bc96722a38777dc3c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035936/bypass_paywalls_clean-2.9.5.0.xpi";
+      sha256 = "683051a5c39e33244e9d78e6bde1ca9bdcec3c2f8bcd7086d2e840a88d4459fd";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -862,10 +862,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221124.185931";
+      version = "108.0buildid20221127.190117";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035043/francais_language_pack-108.0buildid20221124.185931.xpi";
-      sha256 = "6741803643760ffadc2459dda1b94cb176f480fcb9650d4a4e021818091e87c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036051/francais_language_pack-108.0buildid20221127.190117.xpi";
+      sha256 = "b9e8f2258a34a23f699929b89312d6af238aeed73e8e44d1ff2e9781db4f042c";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2126,10 +2126,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.9.0";
+      version = "1.9.1";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032910/rust_search_extension-1.9.0.xpi";
-      sha256 = "847533a31ec07aa76b5c36c42a76ef7c7f8dc7592814fe320e5e2f7a4f50dcf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035825/rust_search_extension-1.9.1.xpi";
+      sha256 = "0291fd0d0601d09592e96de58bd5ee57ea1fb4c840566ccbbf25037e97d4e7e3";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -2140,10 +2140,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.0";
+      version = "28.1";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035350/save_page_we-28.0.xpi";
-      sha256 = "6766c55d633db5560205c7142e9e70df9443febb80c28c72f333537314d2cff5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4035924/save_page_we-28.1.xpi";
+      sha256 = "f529591a39ce092ae7e4044c55a4bde99c55af4e28417c22352786ceea096e91";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
