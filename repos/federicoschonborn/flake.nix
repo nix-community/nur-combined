@@ -17,12 +17,24 @@
       "armv6l-linux"
       "armv7l-linux"
     ];
-    forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+    forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
     packages = forAllSystems (system:
       import ./default.nix {
         pkgs = nixpkgs.legacyPackages.${system};
       });
+
+    devShells = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        default = pkgs.mkShell {
+          packages = with pkgs; [
+            statix
+          ];
+        };
+      }
+    );
 
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
