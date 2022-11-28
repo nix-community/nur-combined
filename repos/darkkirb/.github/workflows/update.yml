@@ -18,7 +18,7 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nixcache:8KKuGz95Pk4UJ5W/Ni+pN+v+LDTkMMFV4yrGmAYgkDg= hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=
             experimental-features = nix-command flakes ca-derivations
             post-build-hook = ${{ github.workspace }}/scripts/post-build-hook
-            substituters = https://cache.chir.rs/
+            substituters = https://cache.chir.rs/ https://cache.nixos.org/
       - name: Download patched nix
         run: nix build github:DarkKirb/nix-packages#nix-s3-dedup
       - name: Set up secrets

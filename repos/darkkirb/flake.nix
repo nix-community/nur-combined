@@ -17,6 +17,7 @@
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+          config.allowUnsupportedSystem = true;
         };
         inherit (pkgs) lib;
         nur = import ./default.nix {inherit pkgs;};
@@ -35,7 +36,7 @@
         inherit (nur) overlays modules lib;
 
         hydraJobs =
-          if (system == "x86_64-linux") || (system == "aarch64-linux")
+          if (system == "x86_64-linux") || (system == "aarch64-linux") || (system == "riscv64-linux")
           then {
             inherit packages devShells formatter;
           }
