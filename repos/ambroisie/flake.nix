@@ -51,6 +51,7 @@
       inputs = {
         flake-utils.follows = "futils";
         nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
       };
     };
   };
