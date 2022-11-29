@@ -1,6 +1,5 @@
 { lib
 , stdenv
-, file
 , glib
 , fetchurl
 , makeWrapper
@@ -20,11 +19,11 @@
 
 stdenv.mkDerivation rec {
   name = "hmcl-bin";
-  version = "3.5.3.223";
+  version = "3.5.3.227";
 
   src = fetchurl {
     url = "https://github.com/huanghongxun/HMCL/releases/download/v${version}/HMCL-${version}.jar";
-    sha256 = "sha256-8g2FMvAiAKfxJUY0G7wl6d44wOpVsknFHGZ85IkOzFc=";
+    sha256 = "sha256-bq3YqNwDtASJUt6uCTdMAIBPLfmVrGu1xVCFno0JwK0=";
   };
 
   dontUnpack = true;
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ glib ];
-  nativeBuildInputs = [ jdk wrapGAppsHook makeWrapper file copyDesktopItems ];
+  nativeBuildInputs = [ jdk wrapGAppsHook makeWrapper copyDesktopItems ];
 
   installPhase = let
     libpath = with xorg; lib.makeLibraryPath ([
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
   in ''
     runHook preInstall
     mkdir -p $out/{bin,lib/hmcl-bin}
-    cp $src $out/lib/hmcl-bin/hmcl-bin.jar
+    ln -s $src $out/lib/hmcl-bin/hmcl-bin.jar
     install -Dm644 $icon $out/share/icons/hicolor/48x48/apps/hmcl.png
     makeWrapper  ${jdk}/bin/java $out/bin/hmcl-bin \
       --add-flags "-jar $out/lib/hmcl-bin/hmcl-bin.jar" \
