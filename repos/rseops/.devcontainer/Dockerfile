@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV EDITOR=vim
 
-RUN apt-get update && apt-get upgrade
-RUN apt-get install --yes \
+RUN apt-get update && \
+    apt-get install --yes \
         ca-certificates \
         bash-completion \
         build-essential \

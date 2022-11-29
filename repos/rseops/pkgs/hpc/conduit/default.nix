@@ -4,7 +4,6 @@
 , withFortran? false
 , pythonSupport ? true
 , zfpSupport ? true
-, hdf5Support ? true
 , shared ? !stdenv.hostPlatform.isStatic,
 ...
 }:
@@ -60,12 +59,11 @@ stdenv.mkDerivation rec {
   # depends_on("hdf5", when="+hdf5")
   # depends_on("hdf5~shared", when="+hdf5~shared")
 
-  nativeBuildInputs = [cmake pkgs.bash pkgs.extra-cmake-modules pkgs.tree];
+  nativeBuildInputs = [cmake pkgs.bash pkgs.extra-cmake-modules pkgs.tree pkgs.hdf5];
   buildInputs =
     lib.optional pythonSupport pkgs.python39 ++
     lib.optional pythonSupport pkgs.python39Packages.numpy ++
     lib.optional pythonSupport pkgs.python39Packages.mpi4py ++
-    lib.optional hdf5Support pkgs.hdf5 ++
     lib.optional zfpSupport pkgs.zfp ++
 
     # These shouldn't be both provided
@@ -83,8 +81,9 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=${onOffBool shared}"
     "-DENABLE_FORTRAN=${onOffBool withFortran}"
     "-DENABLE_PYTHON=${onOffBool pythonSupport}"
-    "-DENABLE_UTILS=OFF"
-    "-DENABLE_EXAMPLES=OFF"
+    "-DHDF5_DIR=${lib.getDev pkgs.hdf5}"
+    "-DENABLE_UTILS=ON"
+    "-DENABLE_EXAMPLES=ON"
     "-DBUILD_TESTS=OFF"
     "-DBUILD_DOCS=OFF"
   ];
