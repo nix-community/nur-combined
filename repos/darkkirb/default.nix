@@ -21,6 +21,7 @@
   emoji-volpeon-bunhd-flip = pkgs.callPackage ./art/emoji/volpeon/bunhd_flip.nix {};
   emoji-volpeon-drgn = pkgs.callPackage ./art/emoji/volpeon/drgn.nix {};
   emoji-volpeon-fox = pkgs.callPackage ./art/emoji/volpeon/fox.nix {};
+  emoji-volpeon-gphn = pkgs.callPackage ./art/emoji/volpeon/gphn.nix {};
   emoji-volpeon-raccoon = pkgs.callPackage ./art/emoji/volpeon/raccoon.nix {};
   emoji-volpeon-vlpn = pkgs.callPackage ./art/emoji/volpeon/vlpn.nix {};
   emoji-caro = pkgs.callPackage ./art/emoji/caro {};

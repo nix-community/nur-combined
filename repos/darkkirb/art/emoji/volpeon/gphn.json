@@ -1,0 +1,10 @@
+{
+  "gphn": {
+    "description": "Character by @volpeon@mk.vulpes.one",
+    "files": "gphn.json",
+    "homepage": "https://volpeon.ink/art/emojis/gphn/",
+    "src": "https://volpeon.ink/art/emojis/gphn/gphn.zip",
+    "src_sha256": "589050fa11ab9f631836e56a8bd5bfb309defee93fc3674d68b810c5e5b83aa2",
+    "license": "CC BY-NC-SA 4.0"
+  }
+}
