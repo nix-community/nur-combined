@@ -47,7 +47,7 @@
   services.vlmcsd.enable = true;
 
   system.autoUpgrade = {
-    enable = true;
+    enable = false;
     dates = "04:00";
     randomizedDelaySec = "60min";
     flake = "github:EHfive/flakes";

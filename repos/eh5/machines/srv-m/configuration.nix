@@ -4,6 +4,7 @@ let
   dovecotUser = config.services.dovecot2.user;
   postfixUser = config.services.postfix.user;
   rspamdUser = config.services.rspamd.user;
+  caddyUser = config.services.caddy.user;
 in
 {
   sops = {
@@ -21,6 +22,7 @@ in
       "eh5.me.dkim.key".owner = rspamdUser;
       "sokka.cn.dkim.key".owner = rspamdUser;
       "chika.xin.dkim.key".owner = rspamdUser;
+      webConfig.owner = caddyUser;
       v2rayConfig = {
         name = "v2ray.json";
         format = "binary";

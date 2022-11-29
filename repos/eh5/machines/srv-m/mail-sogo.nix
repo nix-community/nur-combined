@@ -16,8 +16,8 @@ in
         };
         patches = attrs.patches ++ [
           (pkgs.fetchurl {
-            url = "https://github.com/Alinto/sogo/compare/SOGo-5.7.1...714acfc838ab26fc9de52cbf382faa410708ab4c.patch";
-            sha256 = "sha256-KPvL4mQhzCNkdkqy7XbanI074e/MBlJFdZ/8+r3Qe/4=";
+            url = "https://github.com/Alinto/sogo/compare/SOGo-5.7.1...49879efbc666b80e99d2b6d70d99df3f6612871c.diff";
+            sha256 = "sha256-MzmdQF1PiA6lwcm3xfHchrjO3kDj+LVAxzKrRx5w5bo=";
           })
         ];
       });

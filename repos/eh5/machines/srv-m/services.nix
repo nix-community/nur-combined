@@ -61,6 +61,7 @@ in
             header_up X-Real-IP {remote_host}
           }
         }
+        import `${secrets.webConfig.path}`
       '';
     };
     "autoconfig.eh5.me" = {
@@ -92,7 +93,10 @@ in
       '';
     };
   };
-  systemd.services.caddy.serviceConfig.ReadOnlyPaths = "/nix/store";
+  systemd.services.caddy.serviceConfig.ReadOnlyPaths = [
+    "/nix/store"
+    secrets.webConfig.path
+  ];
 
   # PostgreSQL
   services.postgresql = {
