@@ -3,6 +3,8 @@
 let
   cfg = config.my.services.nginx;
 
+  domain = config.networking.domain;
+
   virtualHostOption = with lib; types.submodule {
     options = {
       subdomain = mkOption {
@@ -392,10 +394,6 @@ in
       acceptTerms = true;
       # Use DNS wildcard certificate
       certs =
-        let
-          domain = config.networking.domain;
-        in
-        with pkgs;
         {
           "${domain}" = {
             extraDomainNames = [ "*.${domain}" ];
@@ -403,6 +401,15 @@ in
             inherit (cfg.acme) credentialsFile;
           };
         };
+    };
+
+    systemd.services."acme-${domain}" = {
+      serviceConfig = {
+        Environment = [
+          # Since I do a "weird" setup with a wildcard CNAME
+          "LEGO_DISABLE_CNAME_SUPPORT=true"
+        ];
+      };
     };
 
     services.grafana.provision.dashboards.settings.providers = lib.mkIf cfg.monitoring.enable [
