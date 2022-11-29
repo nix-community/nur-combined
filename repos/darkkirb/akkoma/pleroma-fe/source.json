@@ -1,9 +1,9 @@
 {
   "url": "https://akkoma.dev/AkkomaGang/pleroma-fe.git",
-  "rev": "7860c885c4eb22bdf9af49619c96478a96aa94d7",
-  "date": "2022-11-26T20:57:04+00:00",
-  "path": "/nix/store/92z6m7hr3zyb4layc0slnx1x5mn0xl22-pleroma-fe",
-  "sha256": "1j89d0vsaay3hzf8q4z7y12pc2kq5bdh1j4p0m4sczs7fvqa95c0",
+  "rev": "0900a9d87b916fee0b7b2a43879e7f88992c50e2",
+  "date": "2022-11-28T13:35:08+00:00",
+  "path": "/nix/store/rnscydlgxs7liri54h38lbb5dalyscxi-pleroma-fe",
+  "sha256": "16v1l40qrbmiwyp6c3pln8zmi4hs2a60wlg31g8wf31m1krxzdm2",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
