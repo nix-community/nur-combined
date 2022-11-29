@@ -191,30 +191,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c05fe25efefd6ea4656f39aecc7ee867f7a0206d",
-            "sha256": "sha256-pDXcBkVFVaLWw/n1QAMJWU+kxzRhQdsYpbQeA5BqOco=",
+            "rev": "a55a690fe4bfccb8209642e58903ee28bcfb2e19",
+            "sha256": "sha256-4K+lv0TOYn0qo0biq6pVKfL3MyBf2FjysLnD8GzJwac=",
             "type": "git",
             "url": "https://aur.archlinux.org/icalingua++.git"
         },
-        "version": "c05fe25efefd6ea4656f39aecc7ee867f7a0206d"
-    },
-    "pisces": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "pisces",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "e45e0869855d089ba1e628b6248434b2dfa709c4",
-            "sha256": "sha256-Oou2IeNNAqR00ZT3bss/DbhrJjGeMsn9dBBYhgdafBw=",
-            "type": "git",
-            "url": "https://github.com/laughedelic/pisces"
-        },
-        "version": "e45e0869855d089ba1e628b6248434b2dfa709c4"
+        "version": "a55a690fe4bfccb8209642e58903ee28bcfb2e19"
     },
     "plugin-bang-bang": {
         "cargoLocks": null,

@@ -114,26 +114,14 @@
   };
   icalingua-plus-plus-aur = {
     pname = "icalingua-plus-plus-aur";
-    version = "c05fe25efefd6ea4656f39aecc7ee867f7a0206d";
+    version = "a55a690fe4bfccb8209642e58903ee28bcfb2e19";
     src = fetchgit {
       url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "c05fe25efefd6ea4656f39aecc7ee867f7a0206d";
+      rev = "a55a690fe4bfccb8209642e58903ee28bcfb2e19";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-pDXcBkVFVaLWw/n1QAMJWU+kxzRhQdsYpbQeA5BqOco=";
-    };
-  };
-  pisces = {
-    pname = "pisces";
-    version = "e45e0869855d089ba1e628b6248434b2dfa709c4";
-    src = fetchgit {
-      url = "https://github.com/laughedelic/pisces";
-      rev = "e45e0869855d089ba1e628b6248434b2dfa709c4";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-Oou2IeNNAqR00ZT3bss/DbhrJjGeMsn9dBBYhgdafBw=";
+      sha256 = "sha256-4K+lv0TOYn0qo0biq6pVKfL3MyBf2FjysLnD8GzJwac=";
     };
   };
   plugin-bang-bang = {
