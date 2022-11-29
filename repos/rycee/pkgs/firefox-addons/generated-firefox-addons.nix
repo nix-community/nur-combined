@@ -1246,10 +1246,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.102.1.8";
+      version = "4.104.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4019352/lastpass_password_manager-4.102.1.8.xpi";
-      sha256 = "ee484e832186d44200ffad465cfd25835d62e42406981d942b6148b26c36bf5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4034858/lastpass_password_manager-4.104.0.3.xpi";
+      sha256 = "a8ed9b32fd8b87647805c4e7b96120b166e629fe585f830be9b610ec0d3b12f4";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1265,10 +1265,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.1";
+      version = "1.5.2.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3988385/leechblock_ng-1.5.1.xpi";
-      sha256 = "6b733e6b9cd42c994e7e12a90b013d9a8376aa823b8914d78c656cb682141f06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036007/leechblock_ng-1.5.2.1.xpi";
+      sha256 = "6f55bb31ee8d0ac65121f23c1bf989809f3b7010358606729987b24c07ec327c";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -2633,10 +2633,10 @@
       };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.22.1";
+      version = "1.23.0";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3926466/tridactyl_vim-1.22.1.xpi";
-      sha256 = "ed0337dd67516142d1f02a77cab910c7cb95ca575ec1ee4b1f5cf8971918b0f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036604/tridactyl_vim-1.23.0.xpi";
+      sha256 = "08b7af97bef05300ab3ac3ad721322ff00505631233482568fc4489c16d51b71";
       meta = with lib;
       {
         homepage = "https://github.com/cmcaine/tridactyl";
@@ -2885,10 +2885,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.81.0";
+      version = "2.82.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031862/web_scrobbler-2.81.0.xpi";
-      sha256 = "e84338179ef4029250d1a83e6d47657238623330f590d4bdb85a9a8e8446b118";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036632/web_scrobbler-2.82.0.xpi";
+      sha256 = "9700a3eef4709b45e432e603fab21ff93b4fb4d0d9ba24909547aa31bc60c16d";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
