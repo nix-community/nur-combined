@@ -759,10 +759,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.56";
+      version = "6.1.57";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023780/flagfox-6.1.56.xpi";
-      sha256 = "8e5eb11aafde9b4fbf1862102e01ce02519f6b781a3539cfc28e2ce997f4ef04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036916/flagfox-6.1.57.xpi";
+      sha256 = "d1298c878ffd801770b36b71f9c984a6acfabf48a76f2c7d11b07efd4c189207";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -862,10 +862,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221127.190117";
+      version = "108.0buildid20221129.190821";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4036051/francais_language_pack-108.0buildid20221127.190117.xpi";
-      sha256 = "b9e8f2258a34a23f699929b89312d6af238aeed73e8e44d1ff2e9781db4f042c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037169/francais_language_pack-108.0buildid20221129.190821.xpi";
+      sha256 = "0cb34e6c433e38b2536ae6f7d8e5e733c8434fe417dae867786f9f600e8ae748";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1423,10 +1423,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.22.1";
+      version = "10.22.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030748/ether_metamask-10.22.1.xpi";
-      sha256 = "bbb75994b513fb20a47b5e0ecb41f19367c4d1b0765bbba28f5570558981d098";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037096/ether_metamask-10.22.2.xpi";
+      sha256 = "1be33024339cb1ac584945e36a11c99a45a78cb790d16bde9fc0d4fe519e3330";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1454,10 +1454,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.6.76";
+      version = "2.6.78";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4033963/momentumdash-2.6.76.xpi";
-      sha256 = "dc834ec4f9737c71d7d6b205b7a8cd96124fe9c96c5859287de5367ded83f853";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037359/momentumdash-2.6.78.xpi";
+      sha256 = "a03a79a42058942f17be6f25a736e4addf168921828aa9302e6d44a8ba5d431a";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
