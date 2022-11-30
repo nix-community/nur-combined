@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "pigo";
-  version = "1.4.5";
+  version = "1.4.6";
 
   src = fetchFromGitHub {
     owner = "esimov";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-46/zUdLCcYS0+sVM1HZTfnCHgIJ39p+mjpDPvvq0+UA=";
+    sha256 = "sha256-0K1d/VCsUaYj/uQ2yUIsc8KdGOQVqAUSaIRnyRYdt+s=";
   };
 
-  vendorSha256 = "1yaiiiamk6wvacsyv04m5gar3rskb0hqa54rrxag8x5lz2rmahij";
+  vendorSha256 = "sha256-MkJVs/i0dPRUz5kUhSFYU+eR1SuVgO01U5ubWVWMUfk=";
 
   deleteVendor = true;
 
