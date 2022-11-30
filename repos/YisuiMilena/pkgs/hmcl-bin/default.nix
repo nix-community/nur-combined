@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   in ''
     runHook preInstall
     mkdir -p $out/{bin,lib/hmcl-bin}
-    ln -s $src $out/lib/hmcl-bin/hmcl-bin.jar
+    cp $src $out/lib/hmcl-bin/hmcl-bin.jar
     install -Dm644 $icon $out/share/icons/hicolor/48x48/apps/hmcl.png
     makeWrapper  ${jdk}/bin/java $out/bin/hmcl-bin \
       --add-flags "-jar $out/lib/hmcl-bin/hmcl-bin.jar" \
