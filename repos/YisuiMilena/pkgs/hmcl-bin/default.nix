@@ -70,20 +70,4 @@ stdenv.mkDerivation rec {
     desktopName = "HMCL (bin)";
     categories = [ "Game" ];
   });
-
-
-  # meta = with lib; {
-  #   homepage = "https://hmcl.huangyuhui.net/";
-  #   description = "A Minecraft Launcher which is multi-functional, cross-platform and popular";
-  #   longDescription = ''
-  #     HMCL is a cross-platform Minecraft launcher which supports
-  #     Mod Management, Game Customizing, Auto Installing (Forge,
-  #     Fabric, Quilt, LiteLoader and OptiFine), Modpack Creating,
-  #     UI Customization, and more.
-  #   '';
-  #   license = licenses.gpl3Plus;
-  #   sourceProvenance = with sourceTypes; [ binaryBytecode ];
-  #   maintainers = with maintainers; [ yisuidenghua ];
-  # };
 }
-
