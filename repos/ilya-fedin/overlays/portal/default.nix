@@ -1,6 +1,6 @@
 self: super: {
   xdg-desktop-portal = super.xdg-desktop-portal.overrideAttrs(oldAttrs: {
-    patches = [
+    patches = oldAttrs.patches ++ [
       ./fix-removing-directories.patch
     ];
   });
