@@ -1,0 +1,18 @@
+diff --git a/lib/pleroma/web/plugs/http_security_plug.ex b/lib/pleroma/web/plugs/http_security_plug.ex
+index d1e6cc9d3..4e29355c5 100644
+--- a/lib/pleroma/web/plugs/http_security_plug.ex
++++ b/lib/pleroma/web/plugs/http_security_plug.ex
+@@ -113,12 +113,7 @@ defp csp_string do
+         connect_src
+       end
+ 
+-    script_src =
+-      if Config.get(:env) == :dev do
+-        "script-src 'self' 'unsafe-eval'"
+-      else
+-        "script-src 'self'"
+-      end
++    script_src = "script-src 'self' 'unsafe-eval'"
+ 
+     report = if report_uri, do: ["report-uri ", report_uri, ";report-to csp-endpoint"]
+     insecure = if scheme == "https", do: "upgrade-insecure-requests"

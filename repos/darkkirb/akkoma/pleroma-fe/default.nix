@@ -21,7 +21,7 @@
       repo = "pleroma-fe";
       inherit (source) rev sha256;
     };
-    patches = [./pleroma-fe.patch];
+    patches = [./pleroma-fe.patch ./jxl-polyfill.patch];
   };
   nodeOptions = callPackage ../../lib/opensslLegacyProvider.nix {};
 in
@@ -44,7 +44,11 @@ in
         -e '/^let commitHash =/,/;$/clet commitHash = "${builtins.substring 0 7 source.rev}";' \
         build/webpack.prod.conf.js
     '';
-    configurePhase = "cp -r $node_modules node_modules";
+    configurePhase = ''
+      cp -r $node_modules node_modules
+      for f in $(find node_modules/jxl.js -type f); do chmod -v +w $f; done
+      for f in $(find node_modules/jxl.js -type l);do cp -rv --remove-destination $(readlink $f) $f;done;
+    '';
     buildPhase = ''
       export NODE_OPTIONS="${nodeOptions}"
       yarn build --offline
