@@ -33,6 +33,9 @@ in {
 
     home.packages = [pkgs.betterlockscreen pkgs.playerctl];
 
+    # used to control music
+    services.playerctld.enable = true;
+
     xsession.windowManager.i3 = {
       enable = true;
 
