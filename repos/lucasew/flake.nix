@@ -2,6 +2,7 @@
   description = "nixcfg";
 
   inputs = {
+    # preview: nix flake metadata
     borderless-browser.url =  "github:lucasew/borderless-browser.nix";
     borderless-browser.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -19,17 +20,22 @@
 
     erosanix.url = "github:emmanuelrosa/erosanix";
     erosanix.inputs.nixpkgs.follows = "nixpkgs";
+    erosanix.inputs.flake-compat.follows = "flake-compat";
 
     flake-utils.url =  "flake-utils";
 
+    flake-compat.url =  "github:edolstra/flake-compat";
+    flake-compat.flake = false;
+
     home-manager.url =  "home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.utils.follows = "flake-utils";
 
     impermanence.url =  "github:nix-community/impermanence";
-    impermanence.inputs.nixpkgs.follows = "nixpkgs";
 
     mach-nix.url =  "mach-nix";
     mach-nix.inputs.nixpkgs.follows = "nixpkgs";
+    mach-nix.inputs.flake-utils.follows = "flake-utils";
 
     nix-colors.url = "github:misterio77/nix-colors";
 
@@ -44,14 +50,12 @@
 
     nix-on-droid.url =  "github:t184256/nix-on-droid/master";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
-    nix-on-droid.inputs.flake-utils.follows = "flake-utils";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
 
     nixgram.url =  "github:lucasew/nixgram/master";
     nixgram.flake = false;
 
     nixos-hardware.url =  "nixos-hardware";
-    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-generators.url =  "github:nix-community/nixos-generators";
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
@@ -61,12 +65,12 @@
     nixpkgs.url =  "github:NixOS/nixpkgs/nixos-22.11";
 
     nur.url =  "nur";
-    nur.inputs.nixpkgs.follows = "nixpkgs";
 
     pocket2kindle.url =  "github:lucasew/pocket2kindle";
     pocket2kindle.flake = false;
 
     pollymc.url = "github:fn2006/PollyMC";
+    pollymc.inputs.flake-compat.follows = "flake-compat";
 
     redial_proxy.url =  "github:lucasew/redial_proxy";
     redial_proxy.flake = false;

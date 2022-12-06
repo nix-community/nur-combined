@@ -91,6 +91,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'loginctl kill-session $XDG_SESSION_ID'
 bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+s sticky toggle
+
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+Shift+p exec toggle-monitor
 bindsym $mod+Shift+q kill
