@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.12.5";
+      version = "1.13.5";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4003493/10ten_ja_reader-1.12.5.xpi";
-      sha256 = "4f87a4eec5a7d92df71661ec46c72af3bb9620826d3502abd321b3a5ce4ebcc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038484/10ten_ja_reader-1.13.5.xpi";
+      sha256 = "677321bd01616bd000f4a24714e75f030a91dcf9a27b31ec9e306c3b58917237";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.5.0";
+      version = "2.9.6.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035936/bypass_paywalls_clean-2.9.5.0.xpi";
-      sha256 = "683051a5c39e33244e9d78e6bde1ca9bdcec3c2f8bcd7086d2e840a88d4459fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4039231/bypass_paywalls_clean-2.9.6.0.xpi";
+      sha256 = "a007e242a8b51d59804d4e0fc614e3a1894323615ea05469cb940a449525e5c0";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -326,10 +326,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "8.5.0";
+      version = "10.2.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4012993/censor_tracker-8.5.0.xpi";
-      sha256 = "170ce39facd54264d8ba64d02a27c7880e7a8be0684829c16e6a2f54befe86a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4039514/censor_tracker-10.2.0.xpi";
+      sha256 = "eab080d1d85eca8f877c087fb066413765ba584e58728be493a2ea8ba96c5c2f";
       meta = with lib;
       {
         description = "Censor Tracker is an extension that allows you to bypass Internet censorship, warns you about sites that transmit your data with government agencies, and detect new acts of censorship.";
@@ -422,10 +422,10 @@
       };
     "cookies-txt" = buildFirefoxXpiAddon {
       pname = "cookies-txt";
-      version = "0.3";
+      version = "0.4";
       addonId = "{12cf650b-1822-40aa-bff0-996df6948878}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3847514/cookies_txt-0.3.xpi";
-      sha256 = "4929e9162b925366f3630a149f5d879f9eb41b6587708fa3957390f327743135";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037589/cookies_txt-0.4.xpi";
+      sha256 = "6b07b6e478cae96c6eb5e669d90a233439458a00f866d88cb7c8275b054153e2";
       meta = with lib;
       {
         description = "Exports all cookies to a Netscape HTTP Cookie File, as used by curl, wget, and youtube-dl, among others.";
@@ -573,10 +573,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.11.23.1";
+      version = "2022.12.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034533/duckduckgo_for_firefox-2022.11.23.1.xpi";
-      sha256 = "b9895a62ecb102bfe7816de44b8fe114c7ed83c1965c4ecf92908e81f8032ad6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037919/duckduckgo_for_firefox-2022.12.1.xpi";
+      sha256 = "fc6fab190b6de5981a33fbf8afebb7bd27be4e9ae98f6098a269c42c3b3cdcb4";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -725,7 +725,7 @@
       meta = with lib;
       {
         homepage = "https://blog.mozilla.org/en/mozilla/local-translation-add-on-project-bergamot/";
-        description = "Translate websites in your browser without using the cloud.";
+        description = "Translate websites in your browser, privately.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -862,10 +862,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221129.190821";
+      version = "108.0buildid20221205.155917";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037169/francais_language_pack-108.0buildid20221129.190821.xpi";
-      sha256 = "0cb34e6c433e38b2536ae6f7d8e5e733c8434fe417dae867786f9f600e8ae748";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4039711/francais_language_pack-108.0buildid20221205.155917.xpi";
+      sha256 = "cc795d6fccb82dd72597311fb8dcbeee29cfd3e9dfc0f703cb0cbd5668f87091";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1246,10 +1246,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.104.0.3";
+      version = "4.105.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034858/lastpass_password_manager-4.104.0.3.xpi";
-      sha256 = "a8ed9b32fd8b87647805c4e7b96120b166e629fe585f830be9b610ec0d3b12f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038088/lastpass_password_manager-4.105.0.2.xpi";
+      sha256 = "90a56344764eaf73c4373d95aa6fe04347773b8cfb6831cdf76d3507c774a043";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1354,10 +1354,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.40";
+      version = "2.6.42";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032517/localcdn_fork_of_decentraleyes-2.6.40.xpi";
-      sha256 = "8f0beaa6e83e3ca2697db568f1b989927fd2c5820b9b505152daf4517d56f515";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4039193/localcdn_fork_of_decentraleyes-2.6.42.xpi";
+      sha256 = "c5b18aec2bd2980eed4750a8ad47af34c412a73f91f2a762acd182402af03f1d";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1473,10 +1473,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.0.7";
+      version = "8.0.9";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3932862/multi_account_containers-8.0.7.xpi";
-      sha256 = "0e60e00c13dcc372b43ddb2e5428c2e3c1e79d2b23d7166df82d45245edc4f10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038684/multi_account_containers-8.0.9.xpi";
+      sha256 = "1e68ef3bf65d6c309a7d5666da2295987beb7832a211117d41a3ebeb71d16f95";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -2015,10 +2015,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.25.0";
+      version = "4.27.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3975827/react_devtools-4.25.0.xpi";
-      sha256 = "8547cb5044edc99c6408722913649102ec48e56a18eec73848325e02992155a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037731/react_devtools-4.27.0.xpi";
+      sha256 = "e8ab6c631b6522577b67cf7a181cf389f8ac3d6257c81c08a788c8390f017ea7";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -2140,10 +2140,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.1";
+      version = "28.2";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035924/save_page_we-28.1.xpi";
-      sha256 = "f529591a39ce092ae7e4044c55a4bde99c55af4e28417c22352786ceea096e91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038599/save_page_we-28.2.xpi";
+      sha256 = "8d194c806039711d031c8a7dd3ba6636f42867ccc7fffbe1e1e080e29daf98ea";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2209,10 +2209,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.29";
+      version = "1.21.31";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034610/single_file-1.21.29.xpi";
-      sha256 = "88169f010378427e08c0b169fed4147811503560dab4f3f848bb24fc55f35c1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037364/single_file-1.21.31.xpi";
+      sha256 = "19f328176e5b830f3cebaa159b2d007f7af8964291a8a2015cddbcac4e6e1c66";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2321,10 +2321,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.15";
+      version = "1.0.17";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031838/statshunters-1.0.15.xpi";
-      sha256 = "be9f951ac8d507e6d164b81f97682c25885278085ee00ae98b534fec6546e08c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038642/statshunters-1.0.17.xpi";
+      sha256 = "41e3ff4dc438f2c6aec5b6ab57918a27b1b3bd01bed865dc4b6bfbc31d5ae979";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -2661,10 +2661,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.2.0";
+      version = "8.2.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035662/ublacklist-8.2.0.xpi";
-      sha256 = "092547105e7c4d5f34f28ed7727f04b49651ceeef159e43a496b2dd7c1e0148f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038942/ublacklist-8.2.1.xpi";
+      sha256 = "e7ae2b54fe0943b3180187cf3c6ec9c4d0c1eeafe12e5d93ed4d84c583b4e265";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2801,10 +2801,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.67.3";
+      version = "1.67.4";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023331/vimium_ff-1.67.3.xpi";
-      sha256 = "313d4111ebea07fda90c16a182c8d31bf2d8356bb845fd022aad5d8783022ea2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4038382/vimium_ff-1.67.4.xpi";
+      sha256 = "5e8f3b22f4bbd9b47e2743b805ae0341a0e16c7e96e43ff48f9679a590e15f9e";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
