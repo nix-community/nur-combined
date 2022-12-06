@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v1
+      uses: dopplerhq/cli-action@v2
 
     - name: Pass all secrets to next steps
       run: |
@@ -31,18 +31,15 @@ jobs:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v17
+      uses: cachix/install-nix-action@v18
       with:
         nix_path: "${{ matrix.nixPath }}"
-        # nix 2.6 breaks restrict-eval, when using the NIX_PATH
-        # see https://github.com/NixOS/nix/issues/5980
-        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
     - name: Install Cachix
-      uses: cachix/cachix-action@v10
+      uses: cachix/cachix-action@v12
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
@@ -69,19 +66,24 @@ jobs:
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: |
-        until [[ $(curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}") == "" ]]; do
-          echo "Failed, waiting 1 minute"
+        set -x
+        i=0
+        until [[ $(curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}") == "" ]] || [ "$i" -eq 10 ]; do
+          echo "Attempt $i/10 failed, waiting 1 minute"
           sleep 60
+          i=$((i+1))
         done
+
+        [ "$i" -eq 10 ] && exit 1
 
   telegram:
     name: Telegram
-    needs: tests
+    needs: update
     runs-on: ubuntu-latest
     if: always()
     steps:
     - name: Install Doppler CLI
-      uses: dopplerhq/cli-action@v1
+      uses: dopplerhq/cli-action@v2
 
     - name: Pass all secrets to next steps
       run: |
