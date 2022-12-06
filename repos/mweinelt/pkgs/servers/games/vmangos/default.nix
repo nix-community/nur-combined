@@ -1,5 +1,5 @@
 { lib
-, llvmPackages_13
+, llvmPackages_14
 , fetchFromGitHub
 , cmake
 , ace
@@ -9,15 +9,15 @@
 , tbb
 }:
 
-llvmPackages_13.stdenv.mkDerivation rec {
+llvmPackages_14.stdenv.mkDerivation rec {
   pname = "vmangos";
-  version = "unstable-2022-01-17";
+  version = "unstable-2022-12-03";
 
   src = fetchFromGitHub {
     owner = "vmangos";
     repo = "core";
-    rev = "a35daf48d9e27c51fcfe7210dd00130b7a4fc8a7";
-    hash = "sha256:0wd8nqznngca087pvy1kbsasxwn46ymwm5k711gd3p1wlbkc2vmv";
+    rev = "682e4639396f8470f3dfd70ab06525e041c4b1a6";
+    hash = "sha256-CQkpY0CaaSVfhucd1jF8W+D4oYhuXcNjAYBFCc4fJSk=";
   };
 
   postPatch = ''

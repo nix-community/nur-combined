@@ -26,6 +26,7 @@
 
 # patches
 , extraPatches ? []
+, broken ? false
 , ...
 }:
 
@@ -72,5 +73,6 @@ llvmPackages_13.stdenv.mkDerivation rec {
     description = "TrinityCore Open Source MMO Framework";
     homepage = "https://www.trinitycore.org";
     license = licenses.gpl2;
+    inherit broken;
   };
 }
