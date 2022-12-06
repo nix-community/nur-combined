@@ -6,6 +6,7 @@
   );
   pager = pkgs.writeShellScriptBin "page" (concatStringsSep "\n" (
     [
+      ''unset RUST_LOG'' # buggy and incompatible parser that doesn't coexist with other rust programs
       ''export PAGE_NVIM=1''
       ''exec ${cfg.package}/bin/page ${args} "$@"''
     ]

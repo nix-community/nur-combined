@@ -270,7 +270,7 @@ let
       inherit FindPythonInterpreter;
 
       meta = old.meta or { } // {
-        broken = old.meta.broken or false || isNixpkgsStable;
+        broken = old.meta.broken or false;
       };
 
       patches = [ ];

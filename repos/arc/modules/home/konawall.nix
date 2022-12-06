@@ -52,7 +52,7 @@ in with lib; {
             "network-online.target"
           ];
           After = mkMerge [
-            [ "graphical-session-pre.target" ]
+            [ "graphical-session-pre.target" "network-online.target" ]
             (mkIf config.wayland.windowManager.sway.enable [ "sway-session.target" ])
           ];
           PartOf = mkMerge [

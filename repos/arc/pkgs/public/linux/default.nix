@@ -170,13 +170,13 @@ let
       '';
     in stdenvNoCC.mkDerivation {
       pname = "nvidia-patch";
-      version = "2022-11-24";
+      version = "2022-12-03";
 
       src = fetchFromGitHub {
         owner = "keylase";
         repo = "nvidia-patch";
-        rev = "357c27e7b35e9c6fdab0a20ca6657fcdf75610b2";
-        sha256 = "sha256-sC9/eDN8aopevP7gNMkteBpnQdXXwb4WQc6SRJbLN8w=";
+        rev = "f5b3fdb34025acbd0008138348ebb6ae12e547ee";
+        sha256 = "sha256-+StjNG4bP9NgnKgWqCg/ZyDfPNLRjBabMsUm1xv6Sv4=";
       };
 
       nativeBuildInputs = [ nvpatch lndir ];

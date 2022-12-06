@@ -26,13 +26,6 @@
     (units: listToAttrs (map (v: nameValuePair v.unit or v (if ! str.check v then v else {})) (toList units)))
     (attrsOf module);
 
-    userRunLinks = pkgs.linkFarm "user-run-links" (map (user: {
-      name = user.name;
-      path = if user.uid != null
-        then "/run/user/${toString user.uid}"
-        else throw "systemd.translate users must have a static uid assigned";
-    }) systemUsers);
-
   defaultTargetSettings = {
     unitConfig = {
       X-OnlyManualStart = true;
@@ -99,7 +92,13 @@
     };
   });
 
-  translatedSystemUnit = types.submodule ({ config, name, ... }: {
+  translatedSystemUnit = let
+    systemctl-user = pkgs.writeShellScript "systemctl-user-translate" ''
+      if ${systemctl} --user --wait is-system-running > /dev/null; then
+          ${systemctl} --user --no-block "$1" "$2"
+      fi
+    '';
+  in types.submodule ({ config, name, ... }: {
     options = with types; {
       #enable = mkEnableOption "translated system unit" // { default = true; };
       unit = mkOption {
@@ -137,12 +136,11 @@
         serviceConfig = let
         in {
           Environment = [
-            "DBUS_SESSION_BUS_ADDRESS=unix:path=${userRunLinks}/%I/bus"
+            "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%I/bus"
           ];
           User = "%I";
-          ExecStartPre = singleton "${systemctl} --user is-system-running";
-          ExecStart = singleton "${systemctl} --user start ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
-          ExecStop = singleton "${systemctl} --user stop ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
+          ExecStart = singleton "${systemctl-user} start ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
+          ExecStop = singleton "${systemctl-user} stop ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
         };
       } ];
     };
@@ -192,8 +190,8 @@ in {
   };
   config = let
     mapUnitsOf = type: mapAttrs' (_: mapSystemUnit) (filterAttrs (_: u: u.unit.type == type) cfg.units);
-    mapSystemUnit = unit: nameValuePair unit.unit.name (mkMerge (map (user: rec {
-      wants = [ "${unit.systemService.name.name}${user.name}.service" ];
+    mapSystemUnit = unit: nameValuePair unit.unit.name (mkMerge (map (user: assert user.uid != null; rec {
+      wants = [ "${unit.systemService.name.name}${toString user.uid}.service" ];
       #unitConfig.PropagatesStopTo = wants;
     }) systemUsers));
   in {
