@@ -10,10 +10,6 @@ with pkgs; {
 
   electronic-wechat = callPackage ./electronic-wechat { inherit rp; };
   
-  gnomeExtensions = recurseIntoAttrs (import ./gnomeExtensions {
-    inherit pkgs rp;
-  });
-  
   lx-music-desktop = callPackage ./electronAppImage rec {
     pname = "lx-music-desktop";
     version = "1.22.3";
