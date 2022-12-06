@@ -10,11 +10,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    nix = {
-      binaryCaches = [
+    nix.settings = {
+      substituters = [
         "https://priegger.cachix.org"
       ];
-      binaryCachePublicKeys = [
+      trusted-public-keys = [
         "priegger.cachix.org-1:+XZ+nLI5dMog2407JiLxum9d8tjIhojIvbgE8OKEatA="
       ];
     };
