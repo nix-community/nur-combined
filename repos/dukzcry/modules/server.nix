@@ -29,8 +29,8 @@ in {
     };
     nix.buildMachines = [{
       hostName = "robocat";
-      system = "x86_64-linux";
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" "i686-linux" ];
+      systems = [ "x86_64-linux" "i686-linux" ];
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       maxJobs = 8;
     }];
     nix.extraOptions = ''

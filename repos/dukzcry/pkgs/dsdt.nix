@@ -23,6 +23,7 @@ stdenvNoCC.mkDerivation rec {
 
   unpackCmd = ''
     mkdir out
+    cp ${src} out/dsdt.dsl
     iasl -p out/dsdt -d ${src}
   '';
 

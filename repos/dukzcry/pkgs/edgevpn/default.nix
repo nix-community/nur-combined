@@ -1,26 +1,21 @@
-{ lib, stdenv, buildGo118Module, fetchFromGitHub, fetchpatch }:
+{ lib, stdenv, buildGo118Module, fetchFromGitHub }:
 
-let
-  gomod = ./go.mod;
-  gosum = ./go.sum;
-in buildGo118Module rec {
+buildGo118Module rec {
   pname = "edgevpn";
-  version = "0.18.1";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "mudler";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-FNKCphB8pxmJJUyrGHIap4tHQXZ9VcbwG6ORHiiQbK5=";
+    sha256 = "sha256-ylkdEtYNft7rmFx2NmCBynStJagdUYON/LHqvGznRhc=";
   };
 
-  vendorSha256 = "sha256-39mZOkRYQpcBOMBRf2s/f2r9g5jGgTMhVPkoM30s2zc=";
+  vendorSha256 = "sha256-CSwsjjliVNOf1YsVoeqZbEO7hEVMH4RPvhkzN5S1hME=";
 
   preBuild = ''
     substituteInPlace internal/version.go \
       --replace 'Version = ""' 'Version = "${src.rev}"'
-    cp ${gomod} go.mod
-    cp ${gosum} go.sum
   '';
 
   doCheck = false;

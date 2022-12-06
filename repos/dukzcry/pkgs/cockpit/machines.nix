@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "cockpit-machines";
-  version = "269";
+  version = "279";
 
   src = fetchzip {
     url = "https://github.com/cockpit-project/cockpit-machines/releases/download/${version}/cockpit-machines-${version}.tar.xz";
-    sha256 = "sha256-e1X0JQsnser6fjXpSU9T2+iZ3zJHecsVOZzZ//SGTeU=";
+    sha256 = "sha256-0g8qRBW+SWgsFWe/LblBjR6kNalV8wbIFuQx9+fGxdc=";
   };
 
   nativeBuildInputs = [
@@ -17,6 +17,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile \
       --replace /usr/share $out/share
     touch pkg/lib/cockpit.js
+    touch pkg/lib/cockpit-po-plugin.js
     touch dist/manifest.json
   '';
 

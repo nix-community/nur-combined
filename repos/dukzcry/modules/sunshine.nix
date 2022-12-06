@@ -3,7 +3,6 @@
 with lib;
 let
   cfg = config.programs.sunshine;
-  sunshine = pkgs.nur.repos.dukzcry.sunshine;
 in {
   options.programs.sunshine = {
     enable = mkEnableOption "Sunshine headless server";
@@ -19,7 +18,6 @@ in {
   config = mkMerge [
 
    (mkIf cfg.enable {
-      environment.systemPackages = [ sunshine ];
       hardware.uinput.enable = true;
       users.extraUsers.${cfg.user} = {
         extraGroups = [ "uinput" "video" ];
@@ -29,7 +27,7 @@ in {
         owner = "root";
         group = "root";
         capabilities = "cap_sys_admin+p";
-        source = "${sunshine}/bin/sunshine";
+        source = "${pkgs.sunshine}/bin/sunshine";
       };
    })
   ];
