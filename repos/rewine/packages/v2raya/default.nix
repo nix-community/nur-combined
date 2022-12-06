@@ -11,31 +11,23 @@
 }:
 let
   pname = "v2raya";
-  version = "unstable-2022-10-04";
+  version = "unstable-2022-11-30";
   src = fetchFromGitHub {
     owner = "v2rayA";
     repo = "v2rayA";
-    rev = "11aa2b0a982989983fd086510f8fea864ed92deb";
-    sha256 = "sha256-da5fpbNQBRvXNUe0CRbW5CjLfxYRgLUX+nlsp1JnnmA=";
+    rev = "e205ebdadf26905b80303d1d608b87cd4124cf8b";
+    sha256 = "sha256-JUOtzGAwNHfzMXGyZSqdCjQZSSux6AjNCJwS8WEDtDc";
   };
   web = mkYarnPackage {
     inherit pname version;
     src = "${src}/gui";
 
-    postPatch = ''
-      substituteInPlace gui/yarn.lock \
-        --replace "sha512-DJ8vmYyRdq8oX2l1/sGNmJjAD1KGaVvhtNUtHPJLbXpe5GoZut5UFQLM4FoFK9eyoZA1Y7chJEmEkNfs9Bdjrw==" "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670" \
-        --replace "sha512-P1BJAEAW3E2DJUlkgq4tOL3RyMunoWXqbSCygWo5ZIWTjUgN1YnaXWW4VWl/oc8vs/XoYibEGBKP0uZyF4AHig=="  "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670" \
-        --replace "sha512-zWt4SDDv1S9WRBNxLFxFRHxdD9tvH8f5/kg5/IaLFdnSNXsDY4eL3Q3XXN+VxUnWIhyVFDwcsmAprvwXoM/ClA==" "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670" \
-        --replace "sha512-O3MmRAk6ZuAKa9CHgg0Pr0+lUOqoMLpc9AS4R8ano2auvsg7IE8syF3Xh/NPr26TWklxYcqoEEFdzLLs1fV9PQ==" "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670" \
-        --replace "sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==" "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670" \
-        --replace "sha512-Ft7YH3lEVRQ6ls8k4Ff1oB4jN6oy/XmU6tQISKdhfh+1mR+viZFphS6WL0IrtDOzvefmJg5a0s7ZQoRXwqTEFg==" "60678ac22711bb7af8adc2efc449443885b81ee1463fd160e22dc99249e997bad3cdb7b60284026f4a3f0267ace874fa0876e09d4f15052a75859ef672fd6670"
-    '';
-
-    offlineCache = fetchYarnDeps {
-      yarnLock = src + "/gui/yarn.lock";
-      sha256 = "";
-    };
+    # offlineCache = fetchYarnDeps {
+    #  yarnLock = src + "/gui/yarn.lock";
+    #  sha256 = "";
+    # };
+    yarnNix = ./yarn.nix;
+    yarnLock = ./yarn.lock;
     packageJSON = ./package.json;
 
     # https://github.com/webpack/webpack/issues/14532
@@ -52,7 +44,7 @@ in
 buildGoModule {
   inherit pname version;
   src = "${src}/service";
-  vendorSha256 = "sha256-RqpXfZH0OvoG0vU17oAHn1dGLQunlUJEW89xuCSGEoE=";
+  vendorSha256 = "sha256-Ud4pwS0lz7zSTowg3gXNllfDyj8fu33H1L20szxPcOA=";
   subPackages = [ "." ];
   nativeBuildInputs = [ makeWrapper ];
   preBuild = ''
