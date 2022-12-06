@@ -31,8 +31,6 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ makeWrapper ];
   dontUnpack = true;
 
-  preferLocalBuild = true;
-
   installPhase = ''
     mkdir -p $out/bin
     install -m 755 $src $out/bin/.v2rayA-wrapped
@@ -49,5 +47,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/v2rayA/v2rayA";
     mainProgram = "v2rayA";
     license = licenses.unfree;
+
+    skipci = true;
   };
 }
