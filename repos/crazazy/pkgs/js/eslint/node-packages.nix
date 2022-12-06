@@ -337,13 +337,13 @@ let
         sha512 = "DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==";
       };
     };
-    "fastq-1.13.0" = {
+    "fastq-1.14.0" = {
       name = "fastq";
       packageName = "fastq";
-      version = "1.13.0";
+      version = "1.14.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fastq/-/fastq-1.13.0.tgz";
-        sha512 = "YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==";
+        url = "https://registry.npmjs.org/fastq/-/fastq-1.14.0.tgz";
+        sha512 = "eR2D+V9/ExcbF9ls441yIuN6TI2ED1Y2ZcA5BmMtJsOkWOFRJQ0Jt0g1UwqXJJVAb+V+umH5Dfr8oh4EVP7VVg==";
       };
     };
     "file-entry-cache-6.0.1" = {
@@ -436,13 +436,13 @@ let
         sha512 = "EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==";
       };
     };
-    "ignore-5.2.0" = {
+    "ignore-5.2.1" = {
       name = "ignore";
       packageName = "ignore";
-      version = "5.2.0";
+      version = "5.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz";
-        sha512 = "CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==";
+        url = "https://registry.npmjs.org/ignore/-/ignore-5.2.1.tgz";
+        sha512 = "d2qQLzTJ9WxQftPAuEQpSPmKqzxePjzVbpAVv62AQ64NTL+wR4JkrVqR/LqFsFEUsHDAiId52mJteHDFuDkElA==";
       };
     };
     "import-fresh-3.3.0" = {
@@ -872,8 +872,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.28.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.28.0.tgz"; sha1 = "81a680732634677cc890134bcdd9fdfea8e63d6e"; };
+    version = "8.29.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.29.0.tgz"; sha1 = "d74a88a20fb44d59c51851625bc4ee8d0ec43f87"; };
     dependencies = [
       sources."@eslint/eslintrc-1.3.3"
       sources."@humanwhocodes/config-array-0.11.7"
@@ -915,7 +915,7 @@ let
       sources."fast-deep-equal-3.1.3"
       sources."fast-json-stable-stringify-2.1.0"
       sources."fast-levenshtein-2.0.6"
-      sources."fastq-1.13.0"
+      sources."fastq-1.14.0"
       sources."file-entry-cache-6.0.1"
       sources."find-up-5.0.0"
       sources."flat-cache-3.0.4"
@@ -926,7 +926,7 @@ let
       sources."globals-13.18.0"
       sources."grapheme-splitter-1.0.4"
       sources."has-flag-4.0.0"
-      sources."ignore-5.2.0"
+      sources."ignore-5.2.1"
       sources."import-fresh-3.3.0"
       sources."imurmurhash-0.1.4"
       sources."inflight-1.0.6"
