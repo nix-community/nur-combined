@@ -1,16 +1,16 @@
 {
   lib,
   stdenv,
-  fetchzip,
+  fetchFromGitLab,
   bluez-qt,
   cmake,
   extra-cmake-modules,
   karchive,
-  kdbusaddons,
   kcmutils,
   kconfig,
   kconfigwidgets,
   kcrash,
+  kdbusaddons,
   ki18n,
   kiconthemes,
   kio,
@@ -31,9 +31,12 @@ stdenv.mkDerivation rec {
   pname = "liquidshell";
   version = "1.8.1";
 
-  src = fetchzip {
-    url = "https://download.kde.org/stable/${pname}/${version}/${pname}-${version}.tar.xz";
-    sha256 = "S7Bzexzm4UT6c7TV7bVnbaF6pMRCvNi+h+iPwGvU3sM=";
+  src = fetchFromGitLab {
+    domain = "invent.kde.org";
+    owner = "system";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "vyI+eFEUc8guptpwRinJ+aXxkkkYyAx/Pi8kxQlWoA8=";
   };
 
   nativeBuildInputs = [
@@ -46,11 +49,11 @@ stdenv.mkDerivation rec {
     bluez-qt
     extra-cmake-modules
     karchive
-    kdbusaddons
     kcmutils
     kconfig
     kconfigwidgets
     kcrash
+    kdbusaddons
     ki18n
     kiconthemes
     kio
@@ -72,5 +75,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://apps.kde.org/liquidshell/";
     license = licenses.gpl3Plus;
+    platforms = platforms.all;
   };
 }

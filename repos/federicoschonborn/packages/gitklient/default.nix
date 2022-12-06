@@ -10,23 +10,23 @@
   kdbusaddons,
   kdoctools,
   ki18n,
-  kxmlgui,
   kio,
-  ktextwidgets,
   ktexteditor,
+  ktextwidgets,
+  kxmlgui,
   syntax-highlighting,
   wrapQtAppsHook,
   ...
 }:
 stdenv.mkDerivation {
   pname = "gitklient";
-  version = "unstable-2022-11-21";
+  version = "unstable-2022-11-29";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "gitklient";
-    rev = "8a048d3d03d282478ef575581d4d3ccd61969611";
+    rev = "ec5f049b37ce9e646dc5ae58770c8a26e95c94e9";
     sha256 = "CcbEDMLuDcJlB1MKc2KK8LWuFeaPI6n4PkjSpluUzcM=";
   };
 
@@ -43,10 +43,10 @@ stdenv.mkDerivation {
     kdbusaddons
     kdoctools
     ki18n
-    kxmlgui
     kio
-    ktextwidgets
     ktexteditor
+    ktextwidgets
+    kxmlgui
     syntax-highlighting
   ];
 
@@ -57,5 +57,6 @@ stdenv.mkDerivation {
     '';
     homepage = "https://apps.kde.org/gitklient/";
     license = licenses.gpl3Plus;
+    platforms = platforms.all;
   };
 }

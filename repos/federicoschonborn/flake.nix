@@ -30,8 +30,16 @@
       in {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            nil
+            alejandra
             statix
           ];
+
+          shellHook = ''
+            nil --version
+            alejandra --version
+            statix --version
+          '';
         };
       }
     );

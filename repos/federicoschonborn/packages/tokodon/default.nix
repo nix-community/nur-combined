@@ -5,6 +5,7 @@
   cmake,
   extra-cmake-modules,
   kdbusaddons,
+  kirigami-addons,
   kitemmodels,
   knotifications,
   kwindowsystem,
@@ -18,14 +19,14 @@
 }:
 stdenv.mkDerivation rec {
   pname = "tokodon";
-  version = "22.09";
+  version = "22.11";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "network";
     repo = pname;
     rev = "v${version}";
-    sha256 = "wHE8HPnjXd+5UG5WEMd7+m1hu2G3XHq/eVQNznvS/zc=";
+    sha256 = "NqDX65MllQVnlUQDrtbybORD+AJSbARYaNqFl+4zY+w=";
   };
 
   nativeBuildInputs = [
@@ -36,6 +37,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     kdbusaddons
+    kirigami-addons
     kitemmodels
     knotifications
     kwindowsystem
@@ -53,5 +55,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://apps.kde.org/tokodon/";
     license = with licenses; [gpl3Only cc-by-40];
+    platforms = platforms.all;
   };
 }

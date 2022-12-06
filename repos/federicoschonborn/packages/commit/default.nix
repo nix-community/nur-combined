@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchzip,
+  fetchFromGitHub,
   desktop-file-utils,
   gdk-pixbuf,
   gettext,
@@ -21,8 +21,10 @@ stdenv.mkDerivation rec {
   pname = "commit";
   version = "3.2.0";
 
-  src = fetchzip {
-    url = "https://github.com/sonnyp/${pname}/archive/refs/tags/v${version}.tar.gz";
+  src = fetchFromGitHub {
+    owner = "sonnyp";
+    repo = "${pname}";
+    rev = "v${version}";
     sha256 = "nnjHuE7MzCuoPfCb4MA00BIzLPbhgR6mbeWYagmNjME=";
   };
 
@@ -56,11 +58,11 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(
       # Typelibs
       --prefix GI_TYPELIB_PATH : "${lib.makeSearchPath "lib/girepository-1.0" [
-      harfbuzz
       gdk-pixbuf
       graphene
       gtk4
       gtksourceview5
+      harfbuzz
       libadwaita
       pango.out
     ]}"
@@ -76,5 +78,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/sonnyp/Commit/releases";
     license = licenses.gpl3Plus;
     mainProgram = "re.sonny.Commit";
+    platforms = platforms.all;
   };
 }
