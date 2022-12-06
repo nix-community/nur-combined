@@ -7,8 +7,9 @@ import sys
 def check_requirements(manifest_file):
     with open(manifest_file) as f:
         manifest = json.load(f)
-    requirements = manifest['requirements']
-    pkg_resources.require(requirements)
+    if 'requirements' in manifest:
+        requirements = manifest['requirements']
+        pkg_resources.require(requirements)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

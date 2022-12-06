@@ -13,6 +13,7 @@ let
 
     ha-dyson = callPackage ./pkgs/ha-dyson { };
     ha-dyson-cloud = callPackage ./pkgs/ha-dyson-cloud { };
+    ha-hildebrandglow-dcc = callPackage ./pkgs/ha-hildebrandglow-dcc { };
 
     hass-smartbox = callPackage ./pkgs/hass-smartbox {};
 
@@ -72,6 +73,7 @@ in rec {
   inherit (myPackages)
     ha-dyson
     ha-dyson-cloud
+    ha-hildebrandglow-dcc
     hass-smartbox
     home-assistant
     homeAssistantPackageOverrides

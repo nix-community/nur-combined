@@ -3,6 +3,8 @@
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
   outputs = { self, nixpkgs }:
     let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
       systems = [
         "x86_64-linux"
         "i686-linux"
@@ -15,7 +17,13 @@
     in
     {
       packages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
+        inherit pkgs;
       });
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          git
+          semver-tool
+        ];
+      };
     };
 }

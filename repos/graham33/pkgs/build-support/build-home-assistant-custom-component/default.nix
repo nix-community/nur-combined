@@ -18,5 +18,6 @@ in buildPythonPackage (rec {
 
   checkInputs = [
     haManifestRequirementsCheckHook
+    setuptools
   ] ++ (args.checkInputs or []);
 } // builtins.removeAttrs args [ "checkInputs" ])
