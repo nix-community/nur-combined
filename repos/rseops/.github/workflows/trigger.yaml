@@ -1,0 +1,10 @@
+name: "Trigger NUR Update"
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger NUR update
+      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=rseops"

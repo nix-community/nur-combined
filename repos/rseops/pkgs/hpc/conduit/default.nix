@@ -1,4 +1,10 @@
-{ lib, stdenv, pkgs, fetchurl, python3, cmake, maintainers
+{ lib
+, stdenv
+, pkgs
+, fetchurl
+, python3
+, cmake
+, maintainers
 , withOpenmpi? true
 , withMpich? false
 , withFortran? false

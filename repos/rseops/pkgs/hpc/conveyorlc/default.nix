@@ -1,4 +1,10 @@
-{ lib, stdenv, pkgs, fetchurl, fetchFromGitHub, cmake, maintainers, conduit
+{ lib
+, stdenv
+, pkgs
+, fetchurl
+, fetchFromGitHub
+, cmake
+, maintainers, conduit
 , shared ? !stdenv.hostPlatform.isStatic,
 ...
 }:
@@ -11,13 +17,18 @@ in
 
 stdenv.mkDerivation rec {
   pname = "conveyorlc";
-  version = "1.1.0";
+  version = "1.1.2-1";
 
+  # Updated when we have final versioned release - still a WIP
+  # src = fetchurl {
+  #  url = "https://github.com/XiaohuaZhangLLNL/conveyorlc/archive/v${version}.tar.gz";
+  #  hash = "sha256-hRQcTdwrLCnpTIqY0qzNTLvQIhbuxzaxRFGFetqT9VE=";
+  #};
   src = fetchFromGitHub {
     owner = "XiaohuaZhangLLNL";
     repo = "conveyorlc";
-    rev = "efb98b021edd5ef230eaff257ce2534ea01ab1ba";
-    sha256 = "sha256-L/pWqKFM1/68X9HPHKMBYODlDI3Jh4IVqffDGjVNCrc=";
+    rev = "7b791db3a516ddb950c2090228043350b092a503";
+    hash = "sha256-JxfxD17b+hPDpf+ryhU9xijMn1MXwotnqe4W8QqUJY8=";
     fetchSubmodules = true;
   };
 

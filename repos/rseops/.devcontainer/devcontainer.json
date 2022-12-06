@@ -2,11 +2,10 @@
     "name": "Nix User Environment",
     "dockerFile": "Dockerfile",
     "context": "../",
-
     "customizations": {
       "vscode": {
         "settings": {
-          "terminal.integrated.defaultProfile.linux": "bash",
+          "terminal.integrated.defaultProfile.linux": "bash"
         },
         // Note to Flux Developers! We can add extensions here that you like
         "extensions": [

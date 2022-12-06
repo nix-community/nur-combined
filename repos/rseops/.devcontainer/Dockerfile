@@ -2,6 +2,9 @@ FROM ubuntu:22.04
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV EDITOR=vim
 
+# Needed for cachix
+ENV USER=root
+
 RUN apt-get update && \
     apt-get install --yes \
         ca-certificates \
@@ -29,6 +32,7 @@ RUN sh <(curl -L https://nixos.org/nix/install) --daemon
 RUN mkdir -p $HOME/.config/nix $HOME/.config/nixpkgs && \
     echo 'sandbox = false' >> $HOME/.config/nix/nix.conf && \
     echo '{ allowUnfree = true; }' >> $HOME/.config/nixpkgs/config.nix && \
+    echo "experimental-features = nix-command flakes" >> $HOME/.config/nix/nix.conf && \
     echo '. $HOME/.nix-profile/etc/profile.d/nix.sh' >> $HOME/.bashrc
 
 # install docker and configure daemon to use vfs as GitHub codespaces requires vfs

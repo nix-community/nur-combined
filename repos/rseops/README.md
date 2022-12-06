@@ -1,5 +1,8 @@
 # rse-ops Nix packages
 
+[![Build and populate cache](https://github.com/rse-ops/nix/actions/workflows/build.yaml/badge.svg)](https://github.com/rse-ops/nix/actions/workflows/build.yaml)
+[![Cachix Cache](https://img.shields.io/badge/cachix-rseops-blue.svg)](https://rseops.cachix.org)
+
 **A [NUR](https://github.com/nix-community/NUR) "Nix User Repository"**
 
 You can see the repository under the [nur.nix-community.org](https://nur.nix-community.org/repos/rseops/).
@@ -12,21 +15,33 @@ For local development, when you add a package:
 $ nix-build -A <package-name>
 ```
 
+Garbage collect:
+
+```bash
+$ nix-collect-garbage
+```
+
+Update flake.nix
+
+```bash
+$ nix flake update
+# or 
+$ nix flake lock --update-input nixpkgs
+```
+
+Add rseops from cachix
+
+```bash
+$ nix-env -iA cachix -f https://cachix.org/api/v1/install
+$ cachix use rseops
+```
+
 ## Install Nix
 
-If you need to install nix:
+If you outside the devcontainer and need to install nix:
 
 ```bash
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 . $HOME/.nix-profile/etc/profile.d/nix.sh
 ```
-
-## Additional Setup Still Needed
-
-1. Add back .github/workflows to test packages: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer (TBA)
-
-
-<!-- Remove this if you don't use github actions
-![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)-->
 
