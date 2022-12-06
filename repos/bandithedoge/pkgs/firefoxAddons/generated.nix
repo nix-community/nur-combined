@@ -96,10 +96,10 @@
   };
   "downthemall" = buildFirefoxXpiAddon {
     pname = "downthemall";
-    version = "4.5.2";
+    version = "4.6.1";
     addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3983650/downthemall-4.5.2.xpi";
-    sha256 = "4ca00c6219157c7250ac1796daf0a840d6a43fb98bdc7a0a5b6d96b50a4dac06";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4037430/downthemall-4.6.1.xpi";
+    sha256 = "b650b42a3a6db70b02e14aa8e1a8877feb17bdebc069eb12714f0341d4e4e59a";
     meta = with lib; {
       homepage = "https://www.downthemall.org/";
       description = "The Mass Downloader for your browser";
@@ -327,10 +327,10 @@
   };
   "ruffle" = buildFirefoxXpiAddon {
     pname = "ruffle";
-    version = "0.1.0.669";
+    version = "0.1.0.675";
     addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4036238/ruffle_rs-0.1.0.669.xpi";
-    sha256 = "1240fe37126fa60e603f9745d9ce223134539e37d393591ce430bb824b2022fc";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4039060/ruffle_rs-0.1.0.675.xpi";
+    sha256 = "8a012cee9b15ec3ee2641c52215ef0bc06969fc60bf03dc56c806324c94888d9";
     meta = with lib; {
       homepage = "https://ruffle.rs/";
       description = "Puts Flash back on the web where it belongs.\n\nRuffle is an Adobe Flash Player emulator. Ruffle seamlessly plays Flash content on sites you visit. Enjoy your favorite Flash games from yesteryear!";
