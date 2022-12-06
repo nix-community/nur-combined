@@ -18,7 +18,10 @@ jobs:
       matrix:
         nixPath:
           - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixos-22.05
+          - nixpkgs=channel:nixos-22.11
+        target:
+          - cacheOutputs
+          - uncachedOutputs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -34,12 +37,15 @@ jobs:
             log-lines = 1000
       - name: Setup cachix
         uses: cachix/cachix-action@v12
+        if: matrix.target == 'cacheOutputs'
         with:
           name: ${{ env.cachixName }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Check flake evaluation
+        if: matrix.target == 'uncachedOutputs'
         run: nix -Lv flake check --show-trace
       - name: Check legacy evaluation
+        if: matrix.target == 'uncachedOutputs'
         run: |
           nix-env -f . -qa \* --meta --xml \
             --allowed-uris https://static.rust-lang.org \
@@ -49,11 +55,13 @@ jobs:
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
       - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A ${{ matrix.target }}
   update_nur:
     runs-on: ubuntu-latest
     needs: tests
-    if: github.ref_protected
     steps:
       - name: Trigger NUR update
+        if: github.ref_protected
         run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ env.nurRepo }}"
+      - name: Aggregate all status
+        run: "true"

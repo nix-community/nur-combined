@@ -3,6 +3,8 @@
 stdenv.mkDerivation rec {
   inherit (sources.ubootPhicommN1) pname version src;
 
+  preferLocalBuild = true;
+
   installPhase = ''
     runHook preInstall
     mkdir -p $out

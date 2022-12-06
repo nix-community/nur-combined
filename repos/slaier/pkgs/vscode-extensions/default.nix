@@ -24,5 +24,6 @@ collect (forEach
           inherit (source) homepage description;
           license = lib.licenses."${source.license}";
         };
+        preferLocalBuild = true;
       })
   ))

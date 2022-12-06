@@ -2,6 +2,8 @@
 stdenvNoCC.mkDerivation {
   inherit (sources.material-fox) pname version src;
 
+  preferLocalBuild = true;
+
   installPhase = ''
     mkdir -p $out
     cp ./user.js $out/user.js
@@ -15,4 +17,3 @@ stdenvNoCC.mkDerivation {
     license = licenses.mit;
   };
 }
-

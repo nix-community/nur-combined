@@ -8,9 +8,10 @@ let
   callPackages = callPackagesWith autoArgs;
 in
 {
-  material-fox = callPackage ./material-fox { };
   arkenfox-userjs = callPackage ./arkenfox-userjs { };
   clash-geoip = callPackage ./clash-geoip { };
+  firefox-addons = recurseIntoAttrs (callPackages ./firefox-addons { });
+  material-fox = callPackage ./material-fox { };
   programs-db = callPackage ./programs-db { };
   ubootPhicommN1 = callPackage ./uboot-phicomm-n1 { };
   vscode-extensions = recurseIntoAttrs (mapAttrs (_n: recurseIntoAttrs) (callPackages ./vscode-extensions { }));

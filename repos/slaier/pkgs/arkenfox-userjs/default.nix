@@ -2,6 +2,8 @@
 stdenvNoCC.mkDerivation {
   inherit (sources.arkenfox-userjs) pname version src;
 
+  preferLocalBuild = true;
+
   installPhase = ''
     mkdir -p $out
     cp ./user.js $out/user.js
@@ -14,4 +16,3 @@ stdenvNoCC.mkDerivation {
     license = licenses.mit;
   };
 }
-

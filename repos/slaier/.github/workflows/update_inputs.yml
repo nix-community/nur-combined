@@ -20,6 +20,10 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/cachix-action@v12
+        with:
+          name: slaier
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Prepare
         run: |
           git checkout -B wip-update-inputs
@@ -33,6 +37,11 @@ jobs:
         run: |
           nix shell nixpkgs#nvfetcher -c nvfetcher -l changelog.txt
           git add _sources
+      - name: Update firefox addons
+        working-directory: ./pkgs/firefox-addons
+        run: |
+          nix run git+https://git.sr.ht/~rycee/mozilla-addons-to-nix -- addons.json addons.nix
+          git add addons.nix
       - name: Push
         run: |
           nvfetcher=$(<./pkgs/changelog.txt)

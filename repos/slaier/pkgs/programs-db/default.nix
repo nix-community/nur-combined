@@ -3,6 +3,8 @@
 stdenv.mkDerivation rec {
   inherit (sources.programs-db) pname version src;
 
+  preferLocalBuild = true;
+
   installPhase = ''
     runHook preInstall
     mkdir -p $out
@@ -12,7 +14,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "programs.sqlite for command-not-found";
-    homepage = "https://channels.nixos.org/nixos-22.05";
+    homepage = "https://channels.nixos.org";
     license = licenses.mit;
   };
 }

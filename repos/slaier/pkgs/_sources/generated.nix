@@ -33,19 +33,19 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.05.4334.0faaf0a9bb6";
+    version = "22.11.466.596a8e828c5";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.05/nixos-22.05.4334.0faaf0a9bb6/nixexprs.tar.xz";
-      sha256 = "sha256-Y+gfOlDFUO+WAbAgg1attgt23HjJt0J3MTXOo6qzYDo=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.466.596a8e828c5/nixexprs.tar.xz";
+      sha256 = "sha256-SabhpI8QV6dvLdGhvRFxLihZSTkX8mN1R3p+/CTK6bE=";
     };
   };
   remote-containers = {
     pname = "remote-containers";
-    version = "0.247.0";
+    version = "0.266.0";
     src = fetchurl {
-      url = "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.247.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "remote-containers-0.247.0.zip";
-      sha256 = "sha256-gWFNjkx2+zjkpKDC5a1qIZ5SbcDN8ahtXDPX1upWUg8=";
+      url = "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.266.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "remote-containers-0.266.0.zip";
+      sha256 = "sha256-XTt3qRuNXw6IAFj9QrblX3SnWeX771Dw/nY7eq3v8gA=";
     };
     license = "free";
     homepage = "https://github.com/Microsoft/vscode-remote-release";
