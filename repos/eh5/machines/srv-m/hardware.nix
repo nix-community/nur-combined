@@ -10,6 +10,7 @@
     "fs.inotify.max_user_instances" = 65535;
     "fs.inotify.max_user_watches" = 65535;
   };
+  boot.tmpOnTmpfs = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";

@@ -7,19 +7,19 @@ in
   nixpkgs.overlays = [
     (final: prev: {
       sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (_: attrs: rec {
-        version = assert attrs.version == "5.7.0"; "5.7.1";
+        version = assert attrs.version == "5.7.0"; "5.8.0";
         src = pkgs.fetchFromGitHub {
           owner = "inverse-inc";
           repo = attrs.pname;
           rev = "SOGo-${version}";
           hash = "sha256-GCgnguNZ02HyRZoy8Rivl+LSxe6HCqv/Wqyj4oYST4U=";
         };
-        patches = attrs.patches ++ [
-          (pkgs.fetchurl {
-            url = "https://github.com/Alinto/sogo/compare/SOGo-5.7.1...49879efbc666b80e99d2b6d70d99df3f6612871c.diff";
-            sha256 = "sha256-MzmdQF1PiA6lwcm3xfHchrjO3kDj+LVAxzKrRx5w5bo=";
-          })
-        ];
+        # patches = attrs.patches ++ [
+        #   (pkgs.fetchurl {
+        #     url = "https://github.com/Alinto/sogo/compare/SOGo-5.8.0...<git-hash>.diff";
+        #     sha256 = "";
+        #   })
+        # ];
       });
     })
   ];
