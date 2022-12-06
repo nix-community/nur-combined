@@ -125,9 +125,13 @@ rec {
   kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts { };
   konnect = pkg ./uncategorized/konnect { };
   ldap-auth-proxy = pkg ./uncategorized/ldap-auth-proxy { };
+  libnftnl-fullcone = pkg ./uncategorized/libnftnl-fullcone { };
   liboqs = pkg ./uncategorized/liboqs { };
   netboot-xyz = pkg ./uncategorized/netboot-xyz { };
   netns-exec = pkg ./uncategorized/netns-exec { };
+  nftables-fullcone = pkg ./uncategorized/nftables-fullcone {
+    inherit libnftnl-fullcone;
+  };
   noise-suppression-for-voice = pkg ./uncategorized/noise-suppression-for-voice { };
   nullfs = pkg ./uncategorized/nullfs { };
   nvlax = pkg ./uncategorized/nvlax { };

@@ -1,5 +1,5 @@
 diff --git a/drivers/platform/x86/hp-wmi.c b/drivers/platform/x86/hp-wmi.c
-index bc7020e9df9e..1ff9da9b8f9d 100644
+index 788381e4c6a6..5d36b8dba243 100644
 --- a/drivers/platform/x86/hp-wmi.c
 +++ b/drivers/platform/x86/hp-wmi.c
 @@ -9,6 +9,9 @@
@@ -25,10 +25,10 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  	HPWMI_BATTERY_CHARGE_PERIOD	= 0x10,
  	HPWMI_SANITIZATION_MODE		= 0x17,
 +	HPWMI_OMEN_KEY			= 0x1D,
+ 	HPWMI_SMART_EXPERIENCE_APP	= 0x21,
  };
  
- /*
-@@ -120,6 +125,16 @@ enum hp_wmi_commandtype {
+@@ -121,6 +126,16 @@ enum hp_wmi_commandtype {
  	HPWMI_POSTCODEERROR_QUERY	= 0x2a,
  	HPWMI_SYSTEM_DEVICE_MODE	= 0x40,
  	HPWMI_THERMAL_PROFILE_QUERY	= 0x4c,
@@ -45,7 +45,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  };
  
  enum hp_wmi_gm_commandtype {
-@@ -135,6 +150,7 @@ enum hp_wmi_command {
+@@ -136,6 +151,7 @@ enum hp_wmi_command {
  	HPWMI_WRITE	= 0x02,
  	HPWMI_ODM	= 0x03,
  	HPWMI_GM	= 0x20008,
@@ -53,7 +53,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  };
  
  enum hp_wmi_hardware_mask {
-@@ -205,6 +221,9 @@ struct bios_rfkill2_state {
+@@ -207,6 +223,9 @@ struct bios_rfkill2_state {
  	struct bios_rfkill2_device_state device[HPWMI_MAX_RFKILL2_DEVICES];
  };
  
@@ -63,7 +63,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  static const struct key_entry hp_wmi_keymap[] = {
  	{ KE_KEY, 0x02,   { KEY_BRIGHTNESSUP } },
  	{ KE_KEY, 0x03,   { KEY_BRIGHTNESSDOWN } },
-@@ -215,6 +234,10 @@ static const struct key_entry hp_wmi_keymap[] = {
+@@ -217,6 +236,10 @@ static const struct key_entry hp_wmi_keymap[] = {
  	{ KE_KEY, 0x2169, { KEY_ROTATE_DISPLAY } },
  	{ KE_KEY, 0x216a, { KEY_SETUP } },
  	{ KE_KEY, 0x231b, { KEY_HELP } },
@@ -74,7 +74,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  	{ KE_END, 0 }
  };
  
-@@ -250,6 +273,18 @@ static const char * const tablet_chassis_types[] = {
+@@ -252,6 +275,18 @@ static const char * const tablet_chassis_types[] = {
  
  #define DEVICE_MODE_TABLET	0x06
  
@@ -93,7 +93,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  /* map output size to the corresponding WMI method id */
  static inline int encode_outsize_for_pvsz(int outsize)
  {
-@@ -758,6 +793,14 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -760,6 +795,14 @@ static void hp_wmi_notify(u32 value, void *context)
  	int key_code;
  
  	status = wmi_get_event_data(value, &response);
@@ -108,7 +108,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  	if (status != AE_OK) {
  		pr_info("bad event status 0x%x\n", status);
  		return;
-@@ -791,6 +834,7 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -793,6 +836,7 @@ static void hp_wmi_notify(u32 value, void *context)
  	}
  	kfree(obj);
  
@@ -116,7 +116,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  	switch (event_id) {
  	case HPWMI_DOCK_EVENT:
  		if (test_bit(SW_DOCK, hp_wmi_input_dev->swbit))
-@@ -806,7 +850,15 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -808,7 +852,15 @@ static void hp_wmi_notify(u32 value, void *context)
  	case HPWMI_SMART_ADAPTER:
  		break;
  	case HPWMI_BEZEL_BUTTON:
@@ -132,7 +132,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  		if (key_code < 0)
  			break;
  
-@@ -1280,6 +1332,302 @@ static int thermal_profile_setup(void)
+@@ -1292,6 +1344,302 @@ static int thermal_profile_setup(void)
  
  static int hp_wmi_hwmon_init(void);
  
@@ -435,7 +435,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  static int __init hp_wmi_bios_setup(struct platform_device *device)
  {
  	int err;
-@@ -1297,6 +1645,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
+@@ -1317,6 +1665,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
  	if (err < 0)
  		return err;
  
@@ -446,7 +446,7 @@ index bc7020e9df9e..1ff9da9b8f9d 100644
  	thermal_profile_setup();
  
  	return 0;
-@@ -1327,6 +1679,8 @@ static int __exit hp_wmi_bios_remove(struct platform_device *device)
+@@ -1347,6 +1699,8 @@ static int __exit hp_wmi_bios_remove(struct platform_device *device)
  	if (platform_profile_support)
  		platform_profile_remove();
  
