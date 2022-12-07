@@ -1,4 +1,32 @@
 {
+    "an-anime-game-launcher": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "an-anime-game-launcher",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-m1jPLTYHzlEZscZtWJ/5jmmYuiArPwefCdybEqECnt0=",
+            "type": "url",
+            "url": "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.1/an-anime-game-launcher-2.4.1.AppImage"
+        },
+        "version": "2.4.1"
+    },
+    "an-anime-game-launcher-gtk": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "an-anime-game-launcher-gtk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ysHAU01drvnVv4rUxN73zV2G9+1YKzWcuIbY+R0wVVY=",
+            "type": "url",
+            "url": "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.1/anime-game-launcher"
+        },
+        "version": "1.2.1"
+    },
     "asterisk-alaw16": {
         "cargoLocks": null,
         "extract": null,
@@ -107,11 +135,11 @@
             "name": null,
             "owner": "qjfoidnh",
             "repo": "BaiduPCS-Go",
-            "rev": "v3.8.8",
-            "sha256": "sha256-O5wWVKbkMCMrchurkzVwK3nx8FEj8MMCeJz2I6Pv/X0=",
+            "rev": "v3.9.0",
+            "sha256": "sha256-vUrCyUG4Dmt6vy/GZR/5UtFfMhYW0HoAEHgZ7tIVIW4=",
             "type": "github"
         },
-        "version": "v3.8.8"
+        "version": "v3.9.0"
     },
     "bilibili": {
         "cargoLocks": null,
@@ -159,11 +187,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "6ec0f2e7a6a2ecda9da752265f964b1e85b606f8",
-            "sha256": "sha256-ygd0OkxkP6jPMZIU7GLTuDK66zQTIHiJmOeHPG/99/k=",
+            "rev": "335ad40634fe64edf7a0dda106f5d8c56271146a",
+            "sha256": "sha256-nSRdTEX8nOHEF6BoeVPrgXTZWz31GcCnlBalzU5gsFU=",
             "type": "github"
         },
-        "version": "6ec0f2e7a6a2ecda9da752265f964b1e85b606f8"
+        "version": "335ad40634fe64edf7a0dda106f5d8c56271146a"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
@@ -362,11 +390,11 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "7d66de3253bdd896dd2dba5b1f46ab761d6a916f",
-            "sha256": "sha256-6C8PptQc2Sj6Y8v2EYJPn3v8swLI/5TTSFIrjqKKCww=",
+            "rev": "f87da0abeb152e9caf0d84b039f9a37d4af3bfa6",
+            "sha256": "sha256-hNRVsWjRx9pECjQeEfUnciLi3ALIJNrIhVWH+EA8p2E=",
             "type": "github"
         },
-        "version": "7d66de3253bdd896dd2dba5b1f46ab761d6a916f"
+        "version": "f87da0abeb152e9caf0d84b039f9a37d4af3bfa6"
     },
     "konnect": {
         "cargoLocks": null,
@@ -433,11 +461,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pdpgV/x6xZLbEgNpLvnSPY6JwP7iCTgRk/rmi5hpyOY=",
+            "sha256": "sha256-vF6KfLyXXU4wwm+WrGxDFpOphwO4UtPqOQkqUSquAc4=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.63/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.65/netboot.xyz.efi"
         },
-        "version": "2.0.63"
+        "version": "2.0.65"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -447,11 +475,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rIM0UoOJEwUDo3FM0hlYBlfa08nwyFamVwiZgkYhs0Y=",
+            "sha256": "sha256-BmdIETj3xnHKtve16ZAQrIjhnm4EVQwXXd3JhfhWOKk=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.63/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.65/netboot.xyz.lkrn"
         },
-        "version": "2.0.63"
+        "version": "2.0.65"
     },
     "netns-exec": {
         "cargoLocks": null,
@@ -618,11 +646,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "openssl",
-            "rev": "63b48cdde3cdf8dab966e31ea277e03e2d233f57",
-            "sha256": "sha256-YtBvqzi4MY1N/RC9rm0t0mV/UC1L1mEsfiSKn2TUA+Y=",
+            "rev": "294e7fc3014d265dbc373b2829014b1aa409b57b",
+            "sha256": "sha256-FIUviIiMgEqXXfHZWFKxOTI3Qk1I6/YFvA+gX4BYI3Q=",
             "type": "github"
         },
-        "version": "63b48cdde3cdf8dab966e31ea277e03e2d233f57"
+        "version": "294e7fc3014d265dbc373b2829014b1aa409b57b"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
@@ -637,11 +665,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "fdb139f81d07b59d5fd2c43cdf14d8f998dacdc2",
-            "sha256": "sha256-fMXynPqC3KVLc1d9+HWjwvbDxEUSPGNxnprTz4n0kpM=",
+            "rev": "277b3719686c16e60c24ad8b4e82f18ec3778a1e",
+            "sha256": "sha256-ZSI+pEpS97PWi39RAW4UF0iMJMJrpMEGT0wBY34yXf4=",
             "type": "github"
         },
-        "version": "fdb139f81d07b59d5fd2c43cdf14d8f998dacdc2"
+        "version": "277b3719686c16e60c24ad8b4e82f18ec3778a1e"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -746,11 +774,11 @@
             "name": null,
             "owner": "c0re100",
             "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.4.5.10",
-            "sha256": "sha256-3kJEMLUThABAkDBbErrwEKz9bAg/Gd9/ZsWzmFmLLFg=",
+            "rev": "release-4.5.0.10",
+            "sha256": "sha256-sC1MklSypIpZ0LR4/NdpowABKIutfYkzUb39Kgty9Lc=",
             "type": "github"
         },
-        "version": "release-4.4.5.10"
+        "version": "release-4.5.0.10"
     },
     "rime-aurora-pinyin": {
         "cargoLocks": null,
@@ -864,11 +892,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9iv3WmrqA/3e8Y/JssFE2s3dh6s2RuO9f7sohkBp7y4=",
+            "sha256": "sha256-QFiWTqyGcTBjnN8/zuUMYbSSDhjgCrT5Gw0h5J6QPBU=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202211170054/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202212010055/geoip.dat"
         },
-        "version": "202211170054"
+        "version": "202212010055"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -878,11 +906,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yw918grGSt8nlnkfVywa3IWqnTDsT4l1pO8exi58xm4=",
+            "sha256": "sha256-ZqdI0GmXTsDGxMJX6AJNLr1V7LUei7drU6XYQXFulT0=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221122020254/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221206085254/dlc.dat"
         },
-        "version": "20221122020254"
+        "version": "20221206085254"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -894,9 +922,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202211170054/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202212010055/private.dat"
         },
-        "version": "202211170054"
+        "version": "202212010055"
     },
     "xray": {
         "cargoLocks": null,

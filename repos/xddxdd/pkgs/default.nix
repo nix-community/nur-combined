@@ -84,6 +84,8 @@ rec {
   th-fonts = pkgs.recurseIntoAttrs (pkg ./th-fonts { });
 
   # Other packages
+  an-anime-game-launcher-bin = pkg ./uncategorized/an-anime-game-launcher-bin { };
+  an-anime-game-launcher-gtk-bin = pkg ./uncategorized/an-anime-game-launcher-gtk-bin { };
   asterisk-g72x = pkg ./uncategorized/asterisk-g72x { };
   baidupcs-go = pkg ./uncategorized/baidupcs-go { };
   bilibili = pkg ./uncategorized/bilibili { };
@@ -150,6 +152,7 @@ rec {
   qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition { };
   qemu-user-static = pkg ./uncategorized/qemu-user-static { };
   qq = pkg ./uncategorized/qq { };
+  qq-beta = pkg ./uncategorized/qq/beta.nix { };
   qqmusic = pkg ./uncategorized/qqmusic { };
   rime-aurora-pinyin = pkg ./uncategorized/rime-aurora-pinyin { };
   rime-dict = pkg ./uncategorized/rime-dict { };

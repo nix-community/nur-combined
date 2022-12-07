@@ -6,7 +6,7 @@
 
 buildGoModule rec {
   inherit (sources.baidupcs-go) pname version src;
-  vendorSha256 = "sha256-t7HIncTsq6/kT4QJUA14Yik1Co+GqxkEBzdKL9q/KcM=";
+  vendorSha256 = "sha256-3HiDJMLYIbNKh6gi/GfempEOxeSJ/AbfNtXFEU25vnE=";
   doCheck = false;
 
   meta = with lib; {

@@ -1,3 +1,11 @@
+[an-anime-game-launcher]
+src.github = "an-anime-team/an-anime-game-launcher"
+fetch.url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/$ver/an-anime-game-launcher-$ver.AppImage"
+
+[an-anime-game-launcher-gtk]
+src.github = "an-anime-team/an-anime-game-launcher-gtk"
+fetch.url = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/$ver/anime-game-launcher"
+
 [asterisk-alaw16]
 src.git = "https://github.com/traud/asterisk-alaw16.git"
 fetch.github = "traud/asterisk-alaw16"
