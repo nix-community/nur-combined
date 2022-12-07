@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/mautrix/signal",
-  "rev": "818fe094c2968d19369d3687686106c5dd6da612",
-  "date": "2022-11-27T22:33:14+02:00",
-  "path": "/nix/store/vd52597d7chhd8xvsrwakmxhkj5k6q6h-signal",
-  "sha256": "0hz9sg9048m2qpxi1xxbrgcm5i2nynh5k0x3484l86skdbzsilg4",
+  "rev": "1989a5cec9e0d671d1961855a99b849ccf65361d",
+  "date": "2022-12-03T14:52:12+02:00",
+  "path": "/nix/store/kyc8q4zqp3ncv9h9wk30b66ng693fln7-signal",
+  "sha256": "16zhh5qikv43d4zk5mb5x5jvyfh88k8p72anakk3zk7xb59svdsi",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
