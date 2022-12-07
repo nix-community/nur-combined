@@ -45,6 +45,10 @@ buildPythonPackage rec {
     CoreVideo
     IOKit
   ];
+  dontUseSetuptoolsCheck = true;
+  pythonImportsCheck = [
+    "dearpygui"
+  ];
   meta = {
     maintainers = [ lib.maintainers.SomeoneSerge ];
     license = lib.licenses.mit;
