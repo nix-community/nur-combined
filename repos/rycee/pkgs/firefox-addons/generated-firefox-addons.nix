@@ -1704,10 +1704,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.3.8";
+      version = "2.5.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4005261/1password_x_password_manager-2.3.8.xpi";
-      sha256 = "504ede6aef639030e40667356abfe04bd3a8311a2d959801c3e767fed28f455e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4037440/1password_x_password_manager-2.5.0.xpi";
+      sha256 = "702a5cd8b63a326e1c4a839bdf075534d69074450db25fe9cddcd60186df02d6";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2015,10 +2015,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.27.0";
+      version = "4.27.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037731/react_devtools-4.27.0.xpi";
-      sha256 = "e8ab6c631b6522577b67cf7a181cf389f8ac3d6257c81c08a788c8390f017ea7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040280/react_devtools-4.27.1.xpi";
+      sha256 = "c0cf290a4dab2d18f840d7267da68033779bb3a001986aed2a78ed5e92432a1e";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -2614,10 +2614,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.10";
+      version = "3.9.11";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4028300/tree_style_tab-3.9.10.xpi";
-      sha256 = "4a26348d5aadfb0d14aa1be33c23cecf89dc1f39edc87dfe26b6e81782c1eba2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4039584/tree_style_tab-3.9.11.xpi";
+      sha256 = "3b0e7fc54f51dfe2f52a419e7f2c89dd721d6661ceddba2d736f2477c5456ca3";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
