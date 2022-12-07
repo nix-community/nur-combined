@@ -16,6 +16,7 @@
 
   todoist-electron = pkgs.callPackage ./pkgs/todoist-electron { };
   v2raya-unstable = pkgs.callPackage ./pkgs/v2raya-bin { };
+  tencent-qq-electron = pkgs.callPackage ./pkgs/tencent-qq-electron { };
 
   plasma5-wallpapers-dynamic = pkgs.libsForQt5.callPackage ./pkgs/plasma5-wallpapers-dynamic { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
