@@ -681,6 +681,9 @@
         "vroad": {
             "url": "https://github.com/vroad/nur-packages"
         },
+        "vsoch": {
+            "url": "https://github.com/vsoch/nix"
+        },
         "wamserma": {
             "url": "https://github.com/wamserma/nur-packages"
         },
