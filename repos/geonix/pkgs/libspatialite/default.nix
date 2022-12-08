@@ -3,7 +3,7 @@
 , fetchurl
 , pkg-config
 , validatePkgConfig
-# , freexl  TODO: re-enable freexl in 22.11 (freexl is not available in 22.05)
+, freexl
 , geos
 , librttopo
 , libxml2
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    # freexl  TODO: re-enable freexl in 22.11
+    freexl
     geos
     librttopo
     libxml2
@@ -41,8 +41,6 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [
     libiconv
   ];
-
-  configureFlags = [ "--disable-freexl" ];  # TODO: drop this in 22.11
 
   enableParallelBuilding = true;
 

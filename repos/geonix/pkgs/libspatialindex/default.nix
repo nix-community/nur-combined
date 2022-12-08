@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libspatialindex";
   version = "1.9.3";
 
   src = fetchFromGitHub {
     owner = "libspatialindex";
     repo = "libspatialindex";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-zsvS0IkCXyuNLCQpccKdAsFKoq0l+y66ifXlTHLNTkc=";
   };
 
@@ -23,14 +23,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DSIDX_BUILD_TESTS=ON"
+    "-DSIDX_BUILD_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
   ];
 
-  # FIXME: enable tests
-  # Tests error message:
-  # 1/1 Test #1: libsidxtest ......................***Failed    0.00 sec
-  # /build/source/build/bin/libsidxtest: error while loading shared libraries: libspatialindex_c.so.6: cannot open shared object file: No such file or directory
-  doCheck = false;
+  doCheck = true;
 
   meta = with lib; {
     description = "Extensible spatial index library in C++";
@@ -38,4 +34,4 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.unix;
   };
-}
+})

@@ -17,10 +17,14 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   geos = pkgs.callPackage ./pkgs/geos { };
-  proj = pkgs.callPackage ./pkgs/proj { };
   libspatialindex = pkgs.callPackage ./pkgs/libspatialindex { };
+  proj = pkgs.callPackage ./pkgs/proj { };
 
   libgeotiff = pkgs.callPackage ./pkgs/libgeotiff {
+    inherit proj;
+  };
+
+  pyproj = pkgs.python3Packages.callPackage ./pkgs/pyproj {
     inherit proj;
   };
 
@@ -30,8 +34,6 @@ rec {
 
   gdal = pkgs.callPackage ./pkgs/gdal {
     inherit geos libgeotiff libspatialite proj;
-    pythonPackages = python3Packages;
-    autoreconfHook = buildPackages.autoreconfHook269;
   };
 
   pdal = pkgs.callPackage ./pkgs/pdal {
