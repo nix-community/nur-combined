@@ -14,11 +14,12 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  pledge = pkgs.callPackage ./pkgs/tools/security/pledge { };
-  hugs98 = pkgs.callPackage ./pkgs/development/compilers/hugs98 { };
-  ripsecrets = pkgs.callPackage ./pkgs/tools/security/ripsecrets { };
-  orgmk = pkgs.callPackage ./pkgs/applications/misc/orgmk { };
-  yaml2nix = pkgs.callPackage ./pkgs/tools/misc/yaml2nix { };
+  pledge = pkgs.callPackage ./pkgs/pledge { };
+  hugs98 = pkgs.callPackage ./pkgs/hugs98 { };
+  ripsecrets = pkgs.callPackage ./pkgs/ripsecrets { };
+  orgmk = pkgs.callPackage ./pkgs/orgmk { };
+  yaml2nix = pkgs.callPackage ./pkgs/yaml2nix { };
+  rsync-bpc = pkgs.callPackage ./pkgs/rsync-bpc { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

@@ -14,7 +14,8 @@
 let
   commonMeta = rec {
     name = "pledge";
-    version = "2022-10-08"; # October 8th 2022
+    version = "2022-11-03"; # November 3rd 2022
+    changelog = "https://github.com/jart/cosmopolitan/commits/38df0a41866eda5a763730d56f2733a319b78afa";
   };
 
   cosmoMeta = {
@@ -28,8 +29,8 @@ let
   cosmoSrc = fetchFromGitHub {
     owner = "jart";
     repo = "cosmopolitan";
-    rev = "38df0a41866eda5a763730d56f2733a319b78afa";
-    sha256 = "sha256-2Q4lutSIQ6tBwTy01lPSMepNAww9Kb7BwNyEcsSdWZ0=";
+    rev = "89d1e5b8f23627481f0d40a46ad79ebe60a423a0";
+    sha256 = "sha256-9sK+unR6zbioWujef6aqYvPvXOjmHi5WHLCOLw0bJ64=";
   };
   buildStuff = toString (map (item: ''
       ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
@@ -63,17 +64,17 @@ in
     meta = {
       homepage = "https://justine.lol/pledge/";
       mainProgram = "pledge.com";
-      changelog = "https://github.com/jart/cosmopolitan/commits/38df0a41866eda5a763730d56f2733a319b78afa";
       description = "Easily launch commands in a sandbox inspired by the design of openbsd's pledge() and unveil() system calls.";
       platforms = [ "x86_64-linux" ];
+      changelog = commonMeta.changelog;
 
       # NOTE(ProducerMatt): Cosmo embeds relevant licenses near the top of the
       # executable. You can manually inspect by viewing the binary with `less`.
       # Grep for "Copyright".
       #
       # At the time of this writing in MODE=rel: ISC for Cosmo, BSD3 for getopt,
-      # zlib, Apache-2.0 for Google's NSYNC. Unveil includes gdtoa which is MIT.
-      license = with lib.licenses; [ asl20 bsd3 zlib mit ];
+      # zlib for puff, Apache-2.0 for Google's NSYNC.
+      license = with lib.licenses; [ isc asl20 bsd3 zlib ];
 
       maintainers = [ lib.maintainers.ProducerMatt ];
     };
