@@ -19,11 +19,12 @@ in appimageTools.wrapType2 {
     mv $out/bin/${name} $out/bin/${pname}
     install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
     substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
+      --replace 'Exec=AppRun' 'Exec=${pname}' \
+      --replace 'Icon=/opt/QQ/resources/app/512x512.png' 'Icon=qq'
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 
-  passthru.version = version;
+  #passthru.version = version;
 
   extraPkgs = pkgs: with pkgs; [
     libsecret
@@ -31,7 +32,7 @@ in appimageTools.wrapType2 {
   ];
 
   meta = with lib; {
-    homepage = "https://qq.com";
+    homepage = "https://im.qq.com";
     description = "Official Tencent QQ client for Linux (Beta)";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfree;
