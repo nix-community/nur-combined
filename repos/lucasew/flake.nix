@@ -270,6 +270,8 @@
       pname = "nixcfg-release";
       version = "${self.rev or (builtins.throw "Commita!")}";
 
+      preferLocalBuild = true;
+
       dontUnpack = true;
       buildInputs = []
         ++ (with pkgs.custom; [ neovim emacs firefox polybar tixati ])
