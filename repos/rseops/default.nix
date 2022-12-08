@@ -29,4 +29,7 @@ rec {
     inherit conduit;
     inherit maintainers;
   };
+  flux-core = pkgs.callPackage ./pkgs/hpc/flux-core {
+    inherit maintainers;
+  };
 }
