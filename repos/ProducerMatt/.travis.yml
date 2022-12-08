@@ -13,19 +13,19 @@ env:
     #
     # For this to work, you also need to set the  CACHIX_SIGNING_KEY
     # in your repository settings in Travis.
-    # - CACHIX_CACHE=
+    - CACHIX_CACHE="producermatt-nur"
     # Set this to notify the global nur package registry that changes are
     # available.
     #
     # The repo name as used in
     # https://github.com/nix-community/NUR/blob/master/repos.json
-    - NUR_REPO="<YOUR_NUR_REPO_NAME_HERE>"
+    - NUR_REPO="ProducerMatt"
 
 matrix:
   include:
     - env: NIX_PATH=nixpkgs=channel:nixpkgs-unstable
     - env: NIX_PATH=nixpkgs=channel:nixos-unstable
-    - env: NIX_PATH=nixpkgs=channel:nixos-20.03
+    - env: NIX_PATH=nixpkgs=channel:nixos-22.11
 
 script:
  - nix-build ci.nix -A buildOutputs
