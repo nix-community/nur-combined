@@ -24,10 +24,6 @@ rec {
     inherit proj;
   };
 
-  pyproj = pkgs.python3Packages.callPackage ./pkgs/pyproj {
-    inherit proj;
-  };
-
   libspatialite = pkgs.callPackage ./pkgs/libspatialite {
     inherit geos proj;
   };
@@ -38,5 +34,11 @@ rec {
 
   pdal = pkgs.callPackage ./pkgs/pdal {
     inherit gdal libgeotiff;
+  };
+
+  python3Packages = pkgs.recurseIntoAttrs rec {
+    pyproj = pkgs.python3.pkgs.callPackage ./pkgs/pyproj {
+      inherit proj;
+    };
   };
 }
