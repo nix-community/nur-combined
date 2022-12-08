@@ -1,6 +1,17 @@
---- dsdt.dsl.orig	2022-12-05 11:27:36.773501547 +0300
-+++ ./dsdt.dsl	2022-12-05 11:28:31.948257527 +0300
-@@ -5471,7 +5471,7 @@ DefinitionBlock ("", "DSDT", 1, "XMCC  "
+diff --git a/modules/hardware/dsdt.dsl b/modules/hardware/dsdt.dsl
+index b822aa3..d6f6adb 100644
+--- a/modules/hardware/dsdt.dsl
++++ ./dsdt.dsl
+@@ -18,7 +18,7 @@
+  *     Compiler ID      "ACPI"
+  *     Compiler Version 0x00040000 (262144)
+  */
+-DefinitionBlock ("", "DSDT", 1, "XMCC  ", "XMCC2107", 0x00000002)
++DefinitionBlock ("", "DSDT", 1, "XMCC  ", "XMCC2107", 0x00000003)
+ {
+     External (_SB_.ALIB, MethodObj)    // 2 Arguments
+     External (_SB_.APTS, MethodObj)    // 1 Arguments
+@@ -5471,7 +5471,7 @@ DefinitionBlock ("", "DSDT", 1, "XMCC  ", "XMCC2107", 0x00000002)
                      {
                          If ((DPTC == One))
                          {
@@ -9,7 +20,7 @@
                              CreateWordField (PPPB, Zero, SSZE)
                              CreateByteField (PPPB, 0x02, PMDH)
                              CreateDWordField (PPPB, 0x03, VCLT)
-@@ -5479,7 +5479,7 @@ DefinitionBlock ("", "DSDT", 1, "XMCC  "
+@@ -5479,7 +5479,7 @@ DefinitionBlock ("", "DSDT", 1, "XMCC  ", "XMCC2107", 0x00000002)
                              CreateDWordField (PPPB, 0x08, VMCL)
                              CreateByteField (PPPB, 0x0C, PMDB)
                              CreateDWordField (PPPB, 0x0D, P3TL)

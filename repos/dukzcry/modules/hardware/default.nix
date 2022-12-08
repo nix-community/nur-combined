@@ -38,6 +38,7 @@ in {
         percentageLow = 7;
         percentageCritical = 6;
         percentageAction = 5;
+        criticalPowerAction = "Hibernate";
       };
       boot.blacklistedKernelModules = [ "uvcvideo" ];
       services.tlp = {
@@ -47,10 +48,6 @@ in {
       users.users.${cfg.user}.extraGroups = [ "video" ];
     })
     (mkIf (cfg.enable && config.networking.hostName == "li-si-tsin") {
-      services.upower = {
-        # hybrid sleep hangs
-        criticalPowerAction = "Hibernate";
-      };
       boot.kernelParams = [ "mitigations=off" ];
       boot.extraModprobeConfig = ''
         options snd-hda-intel model=dell-headset-multi
