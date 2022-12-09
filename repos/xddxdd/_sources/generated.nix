@@ -3,18 +3,18 @@
 {
   an-anime-game-launcher = {
     pname = "an-anime-game-launcher";
-    version = "2.4.1";
+    version = "2.4.2";
     src = fetchurl {
-      url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.1/an-anime-game-launcher-2.4.1.AppImage";
-      sha256 = "sha256-m1jPLTYHzlEZscZtWJ/5jmmYuiArPwefCdybEqECnt0=";
+      url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.2/an-anime-game-launcher-2.4.2.AppImage";
+      sha256 = "sha256-1CtlY1kgroUKlLQYjhN3jDKWCyoigVMQqv/9ejz12Jw=";
     };
   };
   an-anime-game-launcher-gtk = {
     pname = "an-anime-game-launcher-gtk";
-    version = "1.2.1";
+    version = "1.2.3";
     src = fetchurl {
-      url = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.1/anime-game-launcher";
-      sha256 = "sha256-ysHAU01drvnVv4rUxN73zV2G9+1YKzWcuIbY+R0wVVY=";
+      url = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.3/anime-game-launcher";
+      sha256 = "sha256-FB3xLM7PwBDQcKgDvviAhP+9jjBKAMGJh5Y48jrFYSU=";
     };
   };
   asterisk-alaw16 = {
@@ -104,13 +104,13 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "335ad40634fe64edf7a0dda106f5d8c56271146a";
+    version = "9e17b116f193870470f618b307490100d69c6f83";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "335ad40634fe64edf7a0dda106f5d8c56271146a";
+      rev = "9e17b116f193870470f618b307490100d69c6f83";
       fetchSubmodules = false;
-      sha256 = "sha256-nSRdTEX8nOHEF6BoeVPrgXTZWz31GcCnlBalzU5gsFU=";
+      sha256 = "sha256-A8VnPvY1tByTebxFPG62Vihtjm4tosafgKWDJuOJj1U=";
     });
   };
   boringssl-oqs = {
@@ -201,13 +201,13 @@
   };
   genshinhelper2 = {
     pname = "genshinhelper2";
-    version = "5402ffbe76885432d387e3cf04bb9d1dcefb9075";
+    version = "f7bd37aed3bad33eb956793b528fdc5071fdd98b";
     src = fetchFromGitHub ({
       owner = "y1ndan";
       repo = "genshinhelper2";
-      rev = "5402ffbe76885432d387e3cf04bb9d1dcefb9075";
+      rev = "f7bd37aed3bad33eb956793b528fdc5071fdd98b";
       fetchSubmodules = false;
-      sha256 = "sha256-6fXJnJONMdsnbPo1hvoPFqfZxXgNqcyENYLMXP051V4=";
+      sha256 = "sha256-cv7pKRLYYspp7sEibFZBDev3i1XU1tlGOfLuUQVaY3k=";
     });
   };
   glauth = {
@@ -516,25 +516,25 @@
   };
   v2fly-geoip = {
     pname = "v2fly-geoip";
-    version = "202212010055";
+    version = "202212080044";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202212010055/geoip.dat";
-      sha256 = "sha256-QFiWTqyGcTBjnN8/zuUMYbSSDhjgCrT5Gw0h5J6QPBU=";
+      url = "https://github.com/v2fly/geoip/releases/download/202212080044/geoip.dat";
+      sha256 = "sha256-X2mxmP3iz32mEU75RfSfSp6xgm9EjNw04pTCFxhey54=";
     };
   };
   v2fly-geosite = {
     pname = "v2fly-geosite";
-    version = "20221206085254";
+    version = "20221207075621";
     src = fetchurl {
-      url = "https://github.com/v2fly/domain-list-community/releases/download/20221206085254/dlc.dat";
-      sha256 = "sha256-ZqdI0GmXTsDGxMJX6AJNLr1V7LUei7drU6XYQXFulT0=";
+      url = "https://github.com/v2fly/domain-list-community/releases/download/20221207075621/dlc.dat";
+      sha256 = "sha256-RGnvZkBxjbQM2U9frNhg95q68OZotmMdTc5J2D2qfh0=";
     };
   };
   v2fly-private = {
     pname = "v2fly-private";
-    version = "202212010055";
+    version = "202212080044";
     src = fetchurl {
-      url = "https://github.com/v2fly/geoip/releases/download/202212010055/private.dat";
+      url = "https://github.com/v2fly/geoip/releases/download/202212080044/private.dat";
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };

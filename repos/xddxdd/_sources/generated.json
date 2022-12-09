@@ -7,11 +7,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-m1jPLTYHzlEZscZtWJ/5jmmYuiArPwefCdybEqECnt0=",
+            "sha256": "sha256-1CtlY1kgroUKlLQYjhN3jDKWCyoigVMQqv/9ejz12Jw=",
             "type": "url",
-            "url": "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.1/an-anime-game-launcher-2.4.1.AppImage"
+            "url": "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.2/an-anime-game-launcher-2.4.2.AppImage"
         },
-        "version": "2.4.1"
+        "version": "2.4.2"
     },
     "an-anime-game-launcher-gtk": {
         "cargoLocks": null,
@@ -21,11 +21,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ysHAU01drvnVv4rUxN73zV2G9+1YKzWcuIbY+R0wVVY=",
+            "sha256": "sha256-FB3xLM7PwBDQcKgDvviAhP+9jjBKAMGJh5Y48jrFYSU=",
             "type": "url",
-            "url": "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.1/anime-game-launcher"
+            "url": "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.3/anime-game-launcher"
         },
-        "version": "1.2.1"
+        "version": "1.2.3"
     },
     "asterisk-alaw16": {
         "cargoLocks": null,
@@ -187,11 +187,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "335ad40634fe64edf7a0dda106f5d8c56271146a",
-            "sha256": "sha256-nSRdTEX8nOHEF6BoeVPrgXTZWz31GcCnlBalzU5gsFU=",
+            "rev": "9e17b116f193870470f618b307490100d69c6f83",
+            "sha256": "sha256-A8VnPvY1tByTebxFPG62Vihtjm4tosafgKWDJuOJj1U=",
             "type": "github"
         },
-        "version": "335ad40634fe64edf7a0dda106f5d8c56271146a"
+        "version": "9e17b116f193870470f618b307490100d69c6f83"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
@@ -352,11 +352,11 @@
             "name": null,
             "owner": "y1ndan",
             "repo": "genshinhelper2",
-            "rev": "5402ffbe76885432d387e3cf04bb9d1dcefb9075",
-            "sha256": "sha256-6fXJnJONMdsnbPo1hvoPFqfZxXgNqcyENYLMXP051V4=",
+            "rev": "f7bd37aed3bad33eb956793b528fdc5071fdd98b",
+            "sha256": "sha256-cv7pKRLYYspp7sEibFZBDev3i1XU1tlGOfLuUQVaY3k=",
             "type": "github"
         },
-        "version": "5402ffbe76885432d387e3cf04bb9d1dcefb9075"
+        "version": "f7bd37aed3bad33eb956793b528fdc5071fdd98b"
     },
     "glauth": {
         "cargoLocks": null,
@@ -892,11 +892,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QFiWTqyGcTBjnN8/zuUMYbSSDhjgCrT5Gw0h5J6QPBU=",
+            "sha256": "sha256-X2mxmP3iz32mEU75RfSfSp6xgm9EjNw04pTCFxhey54=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202212010055/geoip.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202212080044/geoip.dat"
         },
-        "version": "202212010055"
+        "version": "202212080044"
     },
     "v2fly-geosite": {
         "cargoLocks": null,
@@ -906,11 +906,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZqdI0GmXTsDGxMJX6AJNLr1V7LUei7drU6XYQXFulT0=",
+            "sha256": "sha256-RGnvZkBxjbQM2U9frNhg95q68OZotmMdTc5J2D2qfh0=",
             "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221206085254/dlc.dat"
+            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221207075621/dlc.dat"
         },
-        "version": "20221206085254"
+        "version": "20221207075621"
     },
     "v2fly-private": {
         "cargoLocks": null,
@@ -922,9 +922,9 @@
             "name": null,
             "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
             "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202212010055/private.dat"
+            "url": "https://github.com/v2fly/geoip/releases/download/202212080044/private.dat"
         },
-        "version": "202212010055"
+        "version": "202212080044"
     },
     "xray": {
         "cargoLocks": null,
