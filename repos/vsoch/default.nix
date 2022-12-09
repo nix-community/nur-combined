@@ -14,4 +14,11 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
   maintainers = import ./maintainers.nix;
+
+  pipelib = pkgs.callPackage ./pkgs/python/pipelib {
+    inherit maintainers;
+  };
+  spython = pkgs.callPackage ./pkgs/python/spython {
+    inherit maintainers;
+  };
 }
