@@ -332,6 +332,7 @@
       sha256 = "eab080d1d85eca8f877c087fb066413765ba584e58728be493a2ea8ba96c5c2f";
       meta = with lib;
       {
+        homepage = "https://censortracker.org/en.html";
         description = "Censor Tracker is an extension that allows you to bypass Internet censorship, warns you about sites that transmit your data with government agencies, and detect new acts of censorship.";
         license = licenses.mit;
         platforms = platforms.all;
@@ -629,10 +630,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.9";
+      version = "2.0.117.10";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034376/enhancer_for_youtube-2.0.117.9.xpi";
-      sha256 = "12734db89522b9c2f8d5ab3a4926da949e56f934539fec8b5a19531410b9993b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040535/enhancer_for_youtube-2.0.117.10.xpi";
+      sha256 = "a15758d3c42416575c188cf756dd1f5ce7e0194ebf1055979eff2f21a1bed736";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -862,10 +863,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221205.155917";
+      version = "108.0buildid20221208.122842";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4039711/francais_language_pack-108.0buildid20221205.155917.xpi";
-      sha256 = "cc795d6fccb82dd72597311fb8dcbeee29cfd3e9dfc0f703cb0cbd5668f87091";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041010/francais_language_pack-108.0buildid20221208.122842.xpi";
+      sha256 = "4576f60e5af2d61184048e067c7ea94c3e84c803435fc4f04fa2ffc54f549e32";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2547,10 +2548,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.7.4";
+      version = "0.8.0";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032876/to_deepl-0.7.4.xpi";
-      sha256 = "2c056dfc0dcc239657f141916ee8bf53b51c295c2d8e849fdc8c020a65071794";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040792/to_deepl-0.8.0.xpi";
+      sha256 = "9d35cf156e2efc7f760af776fb0c0f47fd66cbb0363785c21157b53e836bd6f3";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
