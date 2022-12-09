@@ -5,6 +5,7 @@
   cmake,
   extra-cmake-modules,
   kdbusaddons,
+  kio,
   kirigami-addons,
   kitemmodels,
   knotifications,
@@ -19,14 +20,14 @@
 }:
 stdenv.mkDerivation rec {
   pname = "tokodon";
-  version = "22.11";
+  version = "22.11.1";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "network";
     repo = pname;
     rev = "v${version}";
-    sha256 = "NqDX65MllQVnlUQDrtbybORD+AJSbARYaNqFl+4zY+w=";
+    sha256 = "OXm1nEp0osZE3q7otLvDszRuLyp1P5kmziaJpt98D+A=";
   };
 
   nativeBuildInputs = [
@@ -37,6 +38,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     kdbusaddons
+    kio
     kirigami-addons
     kitemmodels
     knotifications
