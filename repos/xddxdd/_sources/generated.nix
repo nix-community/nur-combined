@@ -538,17 +538,6 @@
       sha256 = "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=";
     };
   };
-  xray = {
-    pname = "xray";
-    version = "v1.6.1";
-    src = fetchFromGitHub ({
-      owner = "XTLS";
-      repo = "Xray-core";
-      rev = "v1.6.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-K5S8xgV1U7NmsGPvLb2kxLW4RvQYjvUyuBFSIYqvSzw=";
-    });
-  };
   zstd-nginx-module = {
     pname = "zstd-nginx-module";
     version = "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc";

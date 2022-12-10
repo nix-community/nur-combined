@@ -169,6 +169,4 @@ rec {
 
   # In case of wechat update, use (wine-wechat.override { version = "1.2.3"; sha256 = "xxx";})
   wine-wechat = pkgs.lib.makeOverridable pkg ./uncategorized/wine-wechat { };
-
-  xray = pkg ./uncategorized/xray { };
 }

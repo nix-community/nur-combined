@@ -926,25 +926,6 @@
         },
         "version": "202212080044"
     },
-    "xray": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "xray",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "XTLS",
-            "repo": "Xray-core",
-            "rev": "v1.6.1",
-            "sha256": "sha256-K5S8xgV1U7NmsGPvLb2kxLW4RvQYjvUyuBFSIYqvSzw=",
-            "type": "github"
-        },
-        "version": "v1.6.1"
-    },
     "zstd-nginx-module": {
         "cargoLocks": null,
         "extract": null,

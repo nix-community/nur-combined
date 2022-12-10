@@ -214,10 +214,6 @@ fetch.url = "https://github.com/v2fly/geoip/releases/download/$ver/private.dat"
 src.github = "v2fly/domain-list-community"
 fetch.url = "https://github.com/v2fly/domain-list-community/releases/download/$ver/dlc.dat"
 
-[xray]
-src.github = "XTLS/Xray-core"
-fetch.github = "XTLS/Xray-core"
-
 [zstd-nginx-module]
 src.git = "https://github.com/tokers/zstd-nginx-module.git"
 fetch.github = "tokers/zstd-nginx-module"
