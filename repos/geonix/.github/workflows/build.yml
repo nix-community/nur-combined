@@ -38,6 +38,8 @@ jobs:
           - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-22.11
     runs-on: ubuntu-latest
+    env:
+      NIXPKGS_ALLOW_INSECURE: 1  # allow QGIS build with insecure QtWebkit
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3

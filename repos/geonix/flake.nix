@@ -19,7 +19,11 @@
     in
     {
       packages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          # allow insecure QGIS dependency (QtWebkit)
+          config = { permittedInsecurePackages = [ "qtwebkit-5.212.0-alpha4" ]; };
+        };
       });
     };
 }

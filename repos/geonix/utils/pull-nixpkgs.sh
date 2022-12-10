@@ -18,6 +18,7 @@ nixpkgs_paths['libspatialite']='pkgs/development/libraries/libspatialite'
 nixpkgs_paths['pdal']='pkgs/development/libraries/pdal'
 nixpkgs_paths['proj']='pkgs/development/libraries/proj'
 nixpkgs_paths['pyproj']='pkgs/development/python-modules/pyproj'
+nixpkgs_paths['qgis']='pkgs/applications/gis/qgis'
 
 
 if [ ! -d "$nixpkgs_dir" ]; then

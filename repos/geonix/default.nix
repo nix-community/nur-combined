@@ -36,6 +36,12 @@ rec {
     inherit gdal libgeotiff;
   };
 
+  qgis = pkgs.callPackage ./pkgs/qgis {
+    qgis-unwrapped = libsForQt5.callPackage ./pkgs/qgis/unwrapped.nix {
+      inherit geos gdal libspatialindex libspatialite pdal proj;
+    };
+  };
+
   python3Packages = pkgs.recurseIntoAttrs rec {
     pyproj = pkgs.python3.pkgs.callPackage ./pkgs/pyproj {
       inherit proj;
