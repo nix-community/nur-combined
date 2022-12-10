@@ -14,4 +14,13 @@ nodePackages // {
       makeWrapper $out/lib/node_modules/aria2b/app.js $out/bin/aria2b --suffix PATH : ${pkgs.ipset}/bin
     '';
   };
+  md-to-pdf = nodePackages.md-to-pdf.override {
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    prePatch = ''
+      export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+    '';
+    postInstall = ''
+      wrapProgram $out/bin/md-to-pdf --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium}/bin/chromium
+    '';
+  };
 }
