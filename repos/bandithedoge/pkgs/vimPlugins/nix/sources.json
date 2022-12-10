@@ -275,6 +275,18 @@
         "url": "https://github.com/spywhere/detect-language.nvim/archive/5735c97f1bafbc4dcd577e47893e9ce0aee646be.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "dhall-vim": {
+        "branch": "master",
+        "description": "Syntax highlighting for Dhall",
+        "homepage": null,
+        "owner": "vmchale",
+        "repo": "dhall-vim",
+        "rev": "68500ef46ff3706f46c99db3be7a0c8abcf6a3ae",
+        "sha256": "0lwna4kcq7davfvh3535n8wl9jxkjm7cg6jgpisd17kvagihh8qw",
+        "type": "tarball",
+        "url": "https://github.com/vmchale/dhall-vim/archive/68500ef46ff3706f46c99db3be7a0c8abcf6a3ae.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "diaglist.nvim": {
         "branch": "master",
         "description": "Live render workspace diagnostics in quickfix with current buf errors on top, buffer diagnostics in loclist",
@@ -381,6 +393,18 @@
         "sha256": "0c1mzskswjz6b6if69bhcak3gx8609pwvaqwh2wx9kw4v64kjx2v",
         "type": "tarball",
         "url": "https://github.com/stonelasley/flare.nvim/archive/66792f185d974a26f60e44d2d94aff11dada643b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "flutter-tools.nvim": {
+        "branch": "main",
+        "description": "Tools to help create flutter apps in neovim using the native lsp",
+        "homepage": "",
+        "owner": "akinsho",
+        "repo": "flutter-tools.nvim",
+        "rev": "b666a057108c7655882cbc64217222228aad68da",
+        "sha256": "0m2zmpcnv3zbjq83v0qfbqa7wvmhdscrsyfs9kr0yq3rfb7bmpzz",
+        "type": "tarball",
+        "url": "https://github.com/akinsho/flutter-tools.nvim/archive/b666a057108c7655882cbc64217222228aad68da.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "fm-nvim": {
