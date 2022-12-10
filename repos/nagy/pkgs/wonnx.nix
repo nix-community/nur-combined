@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A GPU-accelerated ONNX inference run-time written 100% in Rust, ready for the web";
+      "GPU-accelerated ONNX inference run-time written 100% in Rust, ready for the web";
     inherit (src.meta) homepage;
     license = with licenses; [ mit ];
   };

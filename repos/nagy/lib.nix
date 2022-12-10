@@ -2,24 +2,19 @@
 
 with builtins;
 with lib; rec {
-  gltf-pipeline = let
-    mypkgs = import (pkgs.fetchFromGitHub {
-      owner = "nagy";
-      repo = "nixpkgs";
-      rev = "946704823d74346749656fb80c208716cf600c02";
-      hash = "sha256-AY1AFFOirNQS6VM6DXit50mPpzwH6zefNJOIB41JKCA=";
-    }) { };
-  in mypkgs.nodePackages.gltf-pipeline;
+  gltf-pipeline = pkgs.callPackage (pkgs.fetchFromGitHub {
+    githubBase = "gist.github.com";
+    owner = "nagy";
+    repo = "053eb914dcbf8270e6d6c1f304ce236e";
+    rev = "master";
+    hash = "sha256-SC5sw3KwCHpc0Or09zLSr6UfrghVGetX9V03/VPbqmo=";
+  }) { };
 
   mkGlb2Gltf = src:
     let
-      thename =
-        replaceStrings [ ".glb" ] [ ".gltf" ] (toString (baseNameOf src));
-    in pkgs.runCommand thename {
-      nativeBuildInputs = [ gltf-pipeline ];
-      inherit src;
-    } ''
-      gltf-pipeline --input $src --output $out
+      name = replaceStrings [ ".glb" ] [ ".gltf" ] (toString (baseNameOf src));
+    in pkgs.runCommand name { inherit src; } ''
+      ${getExe gltf-pipeline} --input $src --output $out
     '';
 
   mkAvrdudeFlasher = firmware:
