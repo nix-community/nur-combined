@@ -13,31 +13,31 @@ let
         sha512 = "dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==";
       };
     };
-    "@webpack-cli/configtest-2.0.0" = {
+    "@webpack-cli/configtest-2.0.1" = {
       name = "_at_webpack-cli_slash_configtest";
       packageName = "@webpack-cli/configtest";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-2.0.0.tgz";
-        sha512 = "war4OU8NGjBqU3DP3bx6ciODXIh7dSXcpQq+P4K2Tqyd8L5OjZ7COx9QXx/QdCIwL2qoX09Wr4Cwf7uS4qdEng==";
+        url = "https://registry.npmjs.org/@webpack-cli/configtest/-/configtest-2.0.1.tgz";
+        sha512 = "njsdJXJSiS2iNbQVS0eT8A/KPnmyH4pv1APj2K0d1wrZcBLw+yppxOy4CGqa0OxDJkzfL/XELDhD8rocnIwB5A==";
       };
     };
-    "@webpack-cli/info-2.0.0" = {
+    "@webpack-cli/info-2.0.1" = {
       name = "_at_webpack-cli_slash_info";
       packageName = "@webpack-cli/info";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-2.0.0.tgz";
-        sha512 = "NNxDgbo4VOkNhOlTgY0Elhz3vKpOJq4/PKeKg7r8cmYM+GQA9vDofLYyup8jS6EpUvhNmR30cHTCEIyvXpskwA==";
+        url = "https://registry.npmjs.org/@webpack-cli/info/-/info-2.0.1.tgz";
+        sha512 = "fE1UEWTwsAxRhrJNikE7v4EotYflkEhBL7EbajfkPlf6E37/2QshOy/D48Mw8G5XMFlQtS6YV42vtbG9zBpIQA==";
       };
     };
-    "@webpack-cli/serve-2.0.0" = {
+    "@webpack-cli/serve-2.0.1" = {
       name = "_at_webpack-cli_slash_serve";
       packageName = "@webpack-cli/serve";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-2.0.0.tgz";
-        sha512 = "Rumq5mHvGXamnOh3O8yLk1sjx8dB30qF1OeR6VC00DIR6SLJ4bwwUGKC4pE7qBFoQyyh0H9sAg3fikYgAqVR0w==";
+        url = "https://registry.npmjs.org/@webpack-cli/serve/-/serve-2.0.1.tgz";
+        sha512 = "0G7tNyS+yW8TdgHwZKlDWYXFA6OJQnoLCQvYKkQP0Q2X205PSQ6RNUj0M+1OB/9gRQaUZ/ccYfaxd0nhaWKfjw==";
       };
     };
     "clone-deep-4.0.1" = {
@@ -359,13 +359,13 @@ let
   args = {
     name = "webpack-cli";
     packageName = "webpack-cli";
-    version = "5.0.0";
-    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-5.0.0.tgz"; sha1 = "bd380a9653e0cd1a08916c4ff1adea17201ef68f"; };
+    version = "5.0.1";
+    src = fetchurl { url = "https://registry.npmjs.org/webpack-cli/-/webpack-cli-5.0.1.tgz"; sha1 = "95fc0495ac4065e9423a722dec9175560b6f2d9a"; };
     dependencies = [
       sources."@discoveryjs/json-ext-0.5.7"
-      sources."@webpack-cli/configtest-2.0.0"
-      sources."@webpack-cli/info-2.0.0"
-      sources."@webpack-cli/serve-2.0.0"
+      sources."@webpack-cli/configtest-2.0.1"
+      sources."@webpack-cli/info-2.0.1"
+      sources."@webpack-cli/serve-2.0.1"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.19"
       sources."commander-9.4.1"
