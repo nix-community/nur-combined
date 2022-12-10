@@ -21,4 +21,8 @@ rec {
   spython = pkgs.callPackage ./pkgs/python/spython {
     inherit maintainers;
   };
+  singularity-hpc = pkgs.callPackage ./pkgs/python/singularity-hpc {
+    inherit spython;
+    inherit maintainers;
+  };
 }
