@@ -24,7 +24,7 @@ rec {
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
   bitwig = ./bitwig.nix;
   hostapd = ./hostapd;
-  hardware = import ./hardware [ nvidia monitor ];
+  hardware = import ./hardware.nix [ nvidia monitor ];
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
   nix-index = ./nix-index.nix;

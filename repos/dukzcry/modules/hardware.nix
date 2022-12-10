@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.services.hardware;
   any' = l: any (x: x == config.networking.hostName) l;
-  laptop = any' [ "li-si-tsin" "si-ni-tsin" ];
+  laptop = any' [ "li-si-tsin" ];
   server = any' [ "robocat" ];
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
 in {
@@ -67,15 +67,9 @@ in {
         config = {
           enable = true;
           mode = "1920x1080";
-          # scale doesn't work correctly
-          transform = [
-            [ 1.0 0.0 0.0 ]
-            [ 0.0 1.0 0.0 ]
-            [ 0.0 0.0 1.0 ]
-          ];
-          dpi = 96;
         };
-        scale = 1.0;
+        dpi = 96;
+        size = 16;
       };
       hardware.monitor.monitorPort = "DP-1";
       services.picom = {
@@ -83,64 +77,6 @@ in {
         vSync = true;
         backend = "glx";
       };
-    })
-    (mkIf (cfg.enable && config.networking.hostName == "si-ni-tsin") {
-      # keyboard
-      boot.kernelPackages = pkgs.linuxPackages_6_0;
-      # wait for 6.1 kernel
-      boot.extraModulePackages = with config.boot.kernelPackages; [ rtw8852be ];
-      # wait for 6.2 kernel
-      boot.kernelPatches = [
-        # mic
-        {
-          name = "acp6x-mach";
-          patch = ./patch-acp6x-mach;
-        }
-        # bluetooth
-        {
-          name = "btusb";
-          patch = ./patch-btusb;
-        }
-      ];
-      # acpi bug
-      boot.initrd.prepend = with pkgs.nur.repos.dukzcry; [
-        ''
-          ${dsdt {
-            src = ./dsdt.dsl;
-            patches = [
-              ./patch-bios-bug
-            ];
-          }}/dsdt
-        ''
-      ];
-      powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
-      services.tlp = {
-        settings = {
-          CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
-          CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
-        };
-      };
-      hardware.monitor.config = {
-        name = "eDP";
-        setup = "00ffffffffffff0009e5920a0000000013200104a51e137803ee96a3544c99260f4e510000000101010101010101010101010101010160d200a0a0403260302035002ebd10000018c89d00a0a0403260302035002ebd10000018000000fd003078c6c636010a202020202020000000fe004e4531343051444d2d4e5832200164701379000003011430690005ff099f002f001f003f0631000200040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004d90";
-        config = {
-          enable = true;
-          mode = "2560x1600";
-          # scale doesn't work correctly
-          transform = [
-            [ 1.0 0.0 0.0 ]
-            [ 0.0 1.0 0.0 ]
-            [ 0.0 0.0 1.0 ]
-          ];
-          dpi = 144;
-        };
-        scale = 1.0;
-      };
-      hardware.monitor.monitorPort = "DisplayPort-0";
-      hardware.video.hidpi.enable = true;
-      services.xserver.deviceSection = ''
-        Option "TearFree" "true"
-      '';
     })
   ];
 }

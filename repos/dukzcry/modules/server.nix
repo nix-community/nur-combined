@@ -14,14 +14,19 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.autofs.enable = true;
-    services.autofs.autoMaster = let
-      mapConf = pkgs.writeText "auto" ''
-        data -rw,soft,rsize=8192,wsize=8192 robocat:/data
-      '';
-    in ''
-      /mnt ${mapConf} --timeout 60
-    '';
+    system.fsPackages = [ pkgs.nfs-utils ];
+    systemd.mounts = [{
+      type = "nfs";
+      what = "robocat:/data";
+      where = "/data";
+    }];
+    systemd.automounts = [{
+      wantedBy = [ "multi-user.target" ];
+      automountConfig = {
+        TimeoutIdleSec = "600";
+      };
+      where = "/data";
+    }];
     environment = {
       systemPackages = with pkgs; [
         jellyfin-media-player

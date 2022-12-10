@@ -28,6 +28,10 @@ in {
     monitorPort = mkOption {
       type = types.nullOr types.string;
     };
+    postswitch = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
   };
 
   config = mkMerge [
@@ -80,10 +84,38 @@ in {
             config = {
               "${cfg.config.name}" = cfg.config.config;
               "${monitor'.name}" = monitor'.config // {
-                position = "${position' cfg.config.config.mode cfg.config.scale}x0";
+                position = "${position' cfg.config.config.mode (cfg.config.scale or 1.0)}x0";
                 primary = true;
               };
             };
+          };
+        };
+        hooks = {
+          postswitch = {
+            xrdb = ''
+              case "$AUTORANDR_CURRENT_PROFILE" in
+                integer)
+                  DPI=96
+                  SIZE=16
+                  ;;
+                monitor|both)
+                  DPI=144
+                  SIZE=32
+                  ;;
+            '' + optionalString (cfg.config != null) ''
+                  laptop)
+                    DPI=${toString cfg.config.dpi}
+                    SIZE=${toString cfg.config.size}
+                    ;;
+            '' + ''
+                *)
+                  echo "Unknown profle: $AUTORANDR_CURRENT_PROFILE"
+                  exit 1
+              esac
+              printf "Xft.dpi:%s\nXcursor.size:%s\n" "$DPI" "$SIZE" | ${pkgs.xorg.xrdb}/bin/xrdb -merge
+            '';
+          } // optionalAttrs (cfg.postswitch != null) {
+            inherit (cfg) postswitch;
           };
         };
       };
