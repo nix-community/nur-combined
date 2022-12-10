@@ -1,10 +1,10 @@
-{ lib, python38Packages, fetchFromGitHub }:
+{ lib, python39Packages, fetchFromGitHub }:
 
-python38Packages.buildPythonPackage rec {
+python39Packages.buildPythonPackage rec {
   pname = "traffic";
   version = "0.5.3";
   format = "pyproject";
- 
+
   src = fetchFromGitHub {
     owner = "meain";
     repo = pname;
@@ -13,7 +13,7 @@ python38Packages.buildPythonPackage rec {
   };
 
   # nativeBuildInputs = [ python38Packages.psutil ];
-  propagatedBuildInputs = [ python38Packages.psutil ];
+  propagatedBuildInputs = with python39Packages;[ setuptools psutil ];
 
   meta = with lib; {
     description = "View network up/down speeds and usage";

@@ -31,3 +31,4 @@ jobs:
           title: Update packages
           body: Update version of packages
           branch: update-packages
+          token: ${{ secrets.REPO_SCOPED_PAT }} # need this to trigger CI

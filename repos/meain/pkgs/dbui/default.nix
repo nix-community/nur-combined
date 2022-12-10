@@ -1,6 +1,6 @@
-{ lib, buildGo117Module, fetchFromGitHub }:
+{ lib, buildGo118Module, fetchFromGitHub }:
 
-buildGo117Module rec {
+buildGo118Module rec {
   pname = "dbui";
   version = "0.7.0";
   owner = "KenanBek";

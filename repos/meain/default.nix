@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ## personal
-  traffic = pkgs.python38.pkgs.callPackage ./pkgs/traffic { };
+  traffic = pkgs.callPackage ./pkgs/traffic { };
   gh-issues-to-rss = pkgs.callPackage ./pkgs/gh-issues-to-rss { };
   tojson = pkgs.callPackage ./pkgs/tojson { };
   toffee = pkgs.callPackage ./pkgs/toffee { };
@@ -35,7 +35,7 @@
   # notmuch-git = pkgs.callPackage ./pkgs/notmuch-git {};
   gnomeExtensions.steal-my-focus = pkgs.callPackage ./pkgs/steal-my-focus { };
   prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
-  gcalendar = pkgs.python38.pkgs.callPackage ./pkgs/gcalendar { };
+  gcalendar = pkgs.python39.pkgs.callPackage ./pkgs/gcalendar { };
   activitywatch-bin = pkgs.python38.pkgs.callPackage ./pkgs/activitywatch-bin { };
   spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
   dbui = pkgs.callPackage ./pkgs/dbui { };
@@ -43,7 +43,7 @@
 
   ## programming
   # buf = pkgs.callPackage ./pkgs/buf {};
-  grpc-gateway = pkgs.callPackage ./pkgs/grpc-gateway { };
+  # grpc-gateway = pkgs.callPackage ./pkgs/grpc-gateway { };
   # golang-migrate::tags: postgres mysql redshift cassandra spanner cockroachdb clickhouse file go_bindata github aws_s3 google_cloud_storage godoc_vfs gitlab
   golang-migrate-pg = pkgs.callPackage ./pkgs/golang-migrate { tags = [ "postgres" "file" ]; }; # with proper build tags
   protodot = pkgs.callPackage ./pkgs/protodot { };
