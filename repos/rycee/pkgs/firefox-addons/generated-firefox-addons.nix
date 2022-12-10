@@ -1946,10 +1946,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.5.6";
+      version = "2.6.1";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024032/private_relay-2.5.6_CVOBhwn.xpi";
-      sha256 = "41caf04a319623363806ba76ef7f9674ce9904c6bfeee8ed7f6a6470be86916c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036509/private_relay-2.6.1.xpi";
+      sha256 = "60d4211c02dee169f7e1600f624bfe82e76ea018e54073f1d82048190f6ed438";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2058,10 +2058,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.0.2";
+      version = "6.1.2";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3993282/reddit_moderator_toolbox-6.0.2.xpi";
-      sha256 = "4877f8bfde2569293c656d9af32794700b50b0c8bb329ab0b7361a26258590a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041487/reddit_moderator_toolbox-6.1.2.xpi";
+      sha256 = "21477ebd83ab9d17102ce61e431c2567ac88e3e7a63e4c4ff4a7ceec2e329323";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
