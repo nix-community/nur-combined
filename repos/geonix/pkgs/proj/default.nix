@@ -5,6 +5,7 @@
 , cmake
 , pkg-config
 , buildPackages
+, callPackage
 , sqlite
 , libtiff
 , curl
@@ -62,6 +63,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     python = python3.pkgs.pyproj;
+    proj = callPackage ./tests.nix { };
   };
 
   meta = with lib; {

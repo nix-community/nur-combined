@@ -8,14 +8,23 @@
 Search for built packages: [Geonix NUR](https://nur.nix-community.org/repos/geonix/)
 
 
+## Usage
+
+### Launch package
+
+* Launch QGIS from GitHub
+```
+nix run github:imincik/geonix#qgis
+```
+
 ## Development
 
-* Build package
+* Build package (use `--check` to re-build already built package)
 ```
-nix-build --check -A <PACKAGE>
+nix-build -A <PACKAGE>
 ```
 
-* Run package passthru tests
+* Run package passthru tests (use `--check` to re-run already succeeded tests)
 ```
-nix-build --check -A <PACKAGE>.tests
+nix-build -A <PACKAGE>.tests
 ```
