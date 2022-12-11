@@ -489,6 +489,16 @@
     "slug": "noscript"
   },
   {
+    "slug": "notion-web-clipper",
+    "license": {
+      "tag": "custom",
+      "shortName": "notion-web-clipper",
+      "fullName": "Notion Terms and Privacy",
+      "url": "https://www.notion.so/Terms-and-Privacy-28ffdd083dc3473e9c2da6ec011b58ac",
+      "free": false
+    }
+  },
+  {
     "slug": "octolinker"
   },
   {
@@ -585,6 +595,9 @@
   },
   {
     "slug": "private-relay"
+  },
+  {
+    "slug": "profile-switcher"
   },
   {
     "slug": "promnesia"
@@ -712,6 +725,9 @@
     "slug": "tab-session-manager"
   },
   {
+    "slug": "tab-stash"
+  },
+  {
     "slug": "tabcenter-reborn"
   },
   {
@@ -822,6 +838,9 @@
   },
   {
     "slug": "vim-vixen"
+  },
+  {
+    "slug": "vimium-c"
   },
   {
     "slug": "vimium-ff",

@@ -1629,6 +1629,25 @@
         platforms = platforms.all;
         };
       };
+    "notion-web-clipper" = buildFirefoxXpiAddon {
+      pname = "notion-web-clipper";
+      version = "0.3.2";
+      addonId = "{4b547b2c-e114-4344-9b70-09b2fe0785f3}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3768048/notion_web_clipper-0.3.2.xpi";
+      sha256 = "3bc63fff7b75d04c1575092ff4fee3e3c487f0b5e4b6f51a9374b31844dfacc0";
+      meta = with lib;
+      {
+        homepage = "https://www.notion.so/web-clipper";
+        description = "Use our Web Clipper to save any website into Notion.";
+        license = {
+          shortName = "notion-web-clipper";
+          fullName = "Notion Terms and Privacy";
+          url = "https://www.notion.so/Terms-and-Privacy-28ffdd083dc3473e9c2da6ec011b58ac";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
       version = "6.10.5";
@@ -1955,6 +1974,20 @@
         homepage = "https://relay.firefox.com/";
         description = "Firefox Relay lets you generate email aliases that forward to your real inbox. Use it to hide your real email address and protect yourself from hackers and unwanted mail.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "profile-switcher" = buildFirefoxXpiAddon {
+      pname = "profile-switcher";
+      version = "1.3.1";
+      addonId = "profile-switcher-ff@nd.ax";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3945999/profile_switcher-1.3.1.xpi";
+      sha256 = "80ca410ad883a0a2a2dc50cb1f74474dd829223ce106a5911120461c30e4e64f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/null-dev/firefox-profile-switcher";
+        description = "Create, manage and switch between browser profiles seamlessly.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
@@ -2431,6 +2464,20 @@
         platforms = platforms.all;
         };
       };
+    "tab-stash" = buildFirefoxXpiAddon {
+      pname = "tab-stash";
+      version = "2.12.0.1";
+      addonId = "tab-stash@condordes.net";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4039316/tab_stash-2.12.0.1.xpi";
+      sha256 = "03c26b1a067137cd03d538289c9ec502c93735550b2debfba0b301f4f89eb7d8";
+      meta = with lib;
+      {
+        homepage = "https://josh-berry.github.io/tab-stash/";
+        description = "A no-fuss way to save and organize batches of tabs as bookmarks. Clear your tabs, clear your mind.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "tabcenter-reborn" = buildFirefoxXpiAddon {
       pname = "tabcenter-reborn";
       version = "2.3.1";
@@ -2810,6 +2857,20 @@
       {
         homepage = "https://github.com/philc/vimium";
         description = "The Hacker's Browser. Vimium provides keyboard shortcuts for navigation and control in the spirit of Vim.\n\nThis is a port of the popular Chrome extension to Firefox.\n\nMost stuff works, but the port to Firefox remains a work in progress.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "vimium-c" = buildFirefoxXpiAddon {
+      pname = "vimium-c";
+      version = "1.99.96";
+      addonId = "vimium-c@gdh1995.cn";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040559/vimium_c-1.99.96.xpi";
+      sha256 = "a35be15f7873f67c9f675257e1e2b707cae44335a545c5772f8fb902f043b3e5";
+      meta = with lib;
+      {
+        homepage = "https://github.com/gdh1995/vimium-c";
+        description = "A keyboard shortcut tool for keyboard-based page navigation and browser tab operations with an advanced omnibar and global shortcuts";
         license = licenses.mit;
         platforms = platforms.all;
         };

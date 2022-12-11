@@ -2,7 +2,7 @@
 # within the NixOS container. The configuration follows the
 # description at
 #
-#   https://wiki.archlinux.org/index.php?title=Systemd-nspawn&oldid=594617#Run_docker_in_systemd-nspawn
+#   https://wiki.archlinux.org/index.php?title=Systemd-nspawn&oldid=756917#Run_docker_in_systemd-nspawn
 
 { config, lib, ... }:
 
@@ -30,15 +30,8 @@ let
     config = mkMerge [
       { _module.check = moduleCheck; }
       (mkIf config.enableDockerSupport {
-        bindMounts = {
-          "/sys/fs/cgroup" = {
-            hostPath = "/sys/fs/cgroup";
-            isReadOnly = false;
-          };
-        };
-        additionalCapabilities = [ "all" "CAP_SYS_ADMIN" ];
         extraFlags =
-          map (sc: "--system-call-filter=${sc}") [ "add_key" "keyctl" ];
+          map (sc: "--system-call-filter=${sc}") [ "add_key" "keyctl" "bpf" ];
       })
     ];
   };
@@ -47,11 +40,5 @@ in {
   options = {
     containers =
       mkOption { type = types.attrsOf (types.submodule containerModule); };
-  };
-
-  config = mkIf (cfgContainers != [ ]) {
-    environment.etc = foldl' (a: b: a // b) { }
-      (map (n: { "containers/${n}.conf".text = "SYSTEMD_NSPAWN_USE_CGNS=0"; })
-        containerNames);
   };
 }

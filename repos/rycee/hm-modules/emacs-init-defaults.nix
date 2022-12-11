@@ -6,6 +6,11 @@
   programs.emacs.init.usePackage = {
     all-the-icons = { extraPackages = [ pkgs.emacs-all-the-icons-fonts ]; };
 
+    cmake-mode.mode = [
+      ''"\\.cmake\\'"'' # \
+      ''"CMakeLists.txt\\'"''
+    ];
+
     csharp-mode.mode = [ ''"\\.cs\\'"'' ];
 
     cue-mode = {
