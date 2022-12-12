@@ -54,7 +54,7 @@ rec {
   });
   remmina = super.remmina.override (optionalAttrs (config.networking.hostName == "li-si-tsin") {
     freerdp = super.freerdp.override {
-      ffmpeg = super.ffmpeg_5-full.override {
+      ffmpeg = super.ffmpeg.override {
         libva = let
           mesa = super.mesa.override {
             enablePatentEncumberedCodecs = false;
