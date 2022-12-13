@@ -60,10 +60,6 @@ in {
       inputs = arc.packages.groups.all;
       timeoutSeconds = 60 * 180; # max 360 on azure
     };
-    shells = {
-      inputs = with arc.shells.rust; [ stable nightly ];
-      timeoutSeconds = 60 * 90;
-    };
     tests = {
       inputs = import ./tests.nix { inherit arc pkgs; ci = channels.cipkgs.ci; };
     };

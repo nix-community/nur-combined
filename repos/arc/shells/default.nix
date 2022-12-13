@@ -5,6 +5,5 @@
 , lib ? arc.super.lib
 }: let
   shells = {
-    rust = import ./rust.nix;
   };
 in arc.callPackageAttrs shells { }

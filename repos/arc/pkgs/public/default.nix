@@ -19,7 +19,6 @@
   lua-amalg = import ./lua-amalg.nix;
   github-label-sync = import ./github-label-sync;
   yggdrasil-address = import ./yggdrasil-address.nix;
-  rustfmt-nightly = import ./rustfmt.nix;
   switch-lan-play = import ./switch-lan-play.nix;
   parsec-bin = import ./parsec-bin.nix;
   mdns-scan = import ./mdns-scan.nix;

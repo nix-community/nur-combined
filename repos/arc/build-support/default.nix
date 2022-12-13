@@ -19,7 +19,6 @@
     (call ./curl.nix) //
     (call ./kakoune.nix) //
     (call ./weechat.nix) //
-    (call ./rust) //
     (call ./misc.nix) //
     (import ./yggdrasil.nix { inherit self super lib; }) //
     (import ./zsh.nix { inherit self super lib; }) //
