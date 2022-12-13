@@ -27,7 +27,6 @@
         rustup
         gdb
         valgrind
-
         arandr
         ;
 

@@ -40,7 +40,7 @@
       gnumake
       gnupg
       kakoune
-      pinentry-gnome
+      pinentry-qt
       python3
       vim
       # terminal utilities

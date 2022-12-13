@@ -22,6 +22,16 @@ in {
 
     programs.fish = {
       enable = true;
+      shellAliases = {
+        "bt" = "bluetoothctl";
+      };
+      shellAbbrs = {
+        "bton" = "bluetoothctl power on";
+        "btoff" = "bluetoothctl power off";
+        "btcon" = "bluetoothctl connect";
+        "btdis" = "bluetoothctl disconnect";
+        "btinfo" = "bluetoothctl info";
+      };
     };
 
     xdg.configFile."fish/functions" = {source = ./. + "/functions";};

@@ -79,7 +79,10 @@
   };
 
   services = {
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      forwardX11 = true;
+    };
   };
   my.gui = {
     enable = true;

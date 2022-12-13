@@ -22,7 +22,7 @@ in {
         email = "antoine@alarsyo.net";
         base_url = "https://pass.alarsyo.net";
         lock_timeout = 60 * 60 * 12;
-        pinentry = pkgs.pinentry-gnome;
+        pinentry = pkgs.pinentry-qt;
       };
     };
 
