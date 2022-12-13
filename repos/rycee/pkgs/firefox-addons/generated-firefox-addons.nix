@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.6.0";
+      version = "2.9.7.2";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4039231/bypass_paywalls_clean-2.9.6.0.xpi";
-      sha256 = "a007e242a8b51d59804d4e0fc614e3a1894323615ea05469cb940a449525e5c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042110/bypass_paywalls_clean-2.9.7.2.xpi";
+      sha256 = "ed90e41bc3b5ac461d87f2dad0f2e2f6da7dd89c58790bda385b7f0669c3bf75";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -409,10 +409,10 @@
       };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
-      version = "3.8.1";
+      version = "3.8.2";
       addonId = "CookieAutoDelete@kennydo.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3971429/cookie_autodelete-3.8.1.xpi";
-      sha256 = "443d4b0749b69202809597dfbb5580c046dd739c6666c4c6a5c1dc6efe1a4294";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040738/cookie_autodelete-3.8.2.xpi";
+      sha256 = "b02438aa5df2a79eb743da1b629b80d8c48114c9d030abb5538b591754e30f74";
       meta = with lib;
       {
         homepage = "https://github.com/Cookie-AutoDelete/Cookie-AutoDelete";
@@ -574,10 +574,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.12.1";
+      version = "2022.12.7";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037919/duckduckgo_for_firefox-2022.12.1.xpi";
-      sha256 = "fc6fab190b6de5981a33fbf8afebb7bd27be4e9ae98f6098a269c42c3b3cdcb4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040713/duckduckgo_for_firefox-2022.12.7.xpi";
+      sha256 = "c7780ea041e2b634e270d9ef560ef68a3048c42ce8c6a360e68abb09bbef50e3";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -863,10 +863,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0buildid20221208.122842";
+      version = "109.0buildid20221212.143511";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4041010/francais_language_pack-108.0buildid20221208.122842.xpi";
-      sha256 = "4576f60e5af2d61184048e067c7ea94c3e84c803435fc4f04fa2ffc54f549e32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042364/francais_language_pack-109.0buildid20221212.143511.xpi";
+      sha256 = "a9f85a2f81e9ed3235dce3d492e21e1e75ef6b2277a18bdbc0680517dc42287b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1355,10 +1355,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.42";
+      version = "2.6.43";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4039193/localcdn_fork_of_decentraleyes-2.6.42.xpi";
-      sha256 = "c5b18aec2bd2980eed4750a8ad47af34c412a73f91f2a762acd182402af03f1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041581/localcdn_fork_of_decentraleyes-2.6.43.xpi";
+      sha256 = "3b49fae3f2cb6f02acb42f606b60ea3f9d7fba92eea3944691d35c5402e18824";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1724,10 +1724,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.5.0";
+      version = "2.5.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037440/1password_x_password_manager-2.5.0.xpi";
-      sha256 = "702a5cd8b63a326e1c4a839bdf075534d69074450db25fe9cddcd60186df02d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040641/1password_x_password_manager-2.5.1.xpi";
+      sha256 = "ad8fd2ab9e561b70813f98d19c946a6ffb808746779783f0048a96f1e52f0f04";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2947,10 +2947,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.82.0";
+      version = "2.82.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4036632/web_scrobbler-2.82.0.xpi";
-      sha256 = "9700a3eef4709b45e432e603fab21ff93b4fb4d0d9ba24909547aa31bc60c16d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041802/web_scrobbler-2.82.1.xpi";
+      sha256 = "d3af1c3a14225165a474e1e61c2a3dfb85a4372d6481a5e7d1445fbc6bf77c4a";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
