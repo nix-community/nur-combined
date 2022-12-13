@@ -42,6 +42,12 @@ rec {
     };
   };
 
+  qgis-ltr = pkgs.callPackage ./pkgs/qgis/ltr.nix {
+    qgis-ltr-unwrapped = libsForQt5.callPackage ./pkgs/qgis/unwrapped-ltr.nix {
+      inherit geos gdal libspatialindex libspatialite pdal proj;
+    };
+  };
+
   python3Packages = pkgs.recurseIntoAttrs rec {
     pyproj = pkgs.python3.pkgs.callPackage ./pkgs/pyproj {
       inherit proj;

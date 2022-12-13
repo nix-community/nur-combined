@@ -1,11 +1,12 @@
 ![Build and populate cache](https://github.com/imincik/geonix/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-geonix-blue.svg)](https://geonix.cachix.org)
 
-# Geospatial Packages for NIX
+# Geonix - geospatial environment for Nix
 
 ## Packages
 
-Search for built packages: [Geonix NUR](https://nur.nix-community.org/repos/geonix/)
+For a list of maintained packages see [pkgs directory](pkgs/) or search for packages
+published to [Geonix NUR.](https://nur.nix-community.org/repos/geonix/)
 
 
 ## Usage
@@ -35,22 +36,51 @@ sudo systemctl restart nix-daemon.service
 _For Nix installation on Mac or Windows (WSL2) see
 [Install Nix documentation](https://nix.dev/tutorials/install-nix#install-nix) ._
 
-### Launch package
+### Run applications without installation
 
-* Launch QGIS from Geonix GitHub repo
+* Launch QGIS
 ```
-nix run github:imincik/geonix#qgis
+nix run                                           # from local git checkout
+
+nix run github:imincik/geonix                     # from GitHub
+```
+
+### Install applications
+
+* Install QGIS
+```
+nix profile install .#qgis                       # from local git checkout
+
+nix profile install github:imincik/geonix#qgis   # from GitHub
+```
+
+### Geonix shell
+
+* Enter shell containing Geonix applications and CLI tools
+```
+nix develop                                      # from local git checkout
+
+nix develop github:imincik/geonix                # from GitHub
+```
+
+* Launch application in Geonix shell
+```
+[geonix] > gdalinfo --version
+GDAL 3.6.0.1, released 2022/11/16
 ```
 
 
 ## Development
 
-* Build package (use `--check` to re-build already built package)
+* Build package
 ```
 nix-build -A <PACKAGE>
 ```
 
-* Run package passthru tests (use `--check` to re-run already succeeded tests)
+* Run package passthru tests
 ```
 nix-build -A <PACKAGE>.tests
 ```
+
+_To re-build already built package or to re-run already succeeded tests use
+`--check` switch.

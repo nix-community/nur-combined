@@ -14,14 +14,14 @@
 , python3
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "proj";
   version = "9.1.1";
 
   src = fetchFromGitHub {
     owner = "OSGeo";
     repo = "PROJ";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-yw7eSm64qFFt9egJWKVyVo0e7xQRSmfUY7pk6Cwvwdk=";
   };
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     python = python3.pkgs.pyproj;
-    proj = callPackage ./tests.nix { };
+    proj = callPackage ./tests.nix { proj = finalAttrs.finalPackage; };
   };
 
   meta = with lib; {
@@ -73,4 +73,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ dotlambda ];
   };
-}
+})
