@@ -6,22 +6,6 @@ rec {
     unzipSupport = true;
     unrarSupport = true;
   };
-  # https://github.com/curl/curl/issues/7621
-  curlftpfs = super.curlftpfs.override {
-    curl = super.curl.overrideAttrs (oldAttrs: rec {
-      pname = "curl";
-      version = "7.77.0";
-      src = super.fetchurl {
-        urls = [
-          "https://curl.haxx.se/download/${pname}-${version}.tar.bz2"
-          "https://github.com/curl/curl/releases/download/${super.lib.replaceStrings ["."] ["_"] pname}-${version}/${pname}-${version}.tar.bz2"
-        ];
-        sha256 = "1spqbn2wyfh2dfsz2p60ap4194vnvf7rqfy4ky2r69dqij32h33c";
-      };
-      patches = [];
-      doCheck = false;
-    });
-  };
   lmms = super.lmms.overrideAttrs (oldAttrs: optionalAttrs (config.services.jack.enable or false) {
     cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DWANT_WEAKJACK=OFF" ];
   });
