@@ -13,7 +13,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v18
         with:
-          nix_path: 'nixpkgs=channel:nixos-21.11'
+          nix_path: 'nixpkgs=channel:nixos-22.05'
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
