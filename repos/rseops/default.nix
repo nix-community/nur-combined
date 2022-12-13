@@ -29,7 +29,14 @@ rec {
     inherit conduit;
     inherit maintainers;
   };
+#  dyninst = pkgs.callPackage ./pkgs/binary-analysis/dyninst {
+#    inherit maintainers;
+#  };
   flux-core = pkgs.callPackage ./pkgs/hpc/flux-core {
+    inherit maintainers;
+  };
+  flux-sched = pkgs.callPackage ./pkgs/hpc/flux-sched {
+    inherit flux-core;
     inherit maintainers;
   };
 }

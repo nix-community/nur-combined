@@ -58,6 +58,7 @@ jobs:
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
+        NIXPKGS_ALLOW_INSECURE: 1
       run: |
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
@@ -69,6 +70,7 @@ jobs:
     - name: Build nix packages
       env:
         NIXPKGS_ALLOW_UNFREE: 1
+        NIXPKGS_ALLOW_INSECURE: 1
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
