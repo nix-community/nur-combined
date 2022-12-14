@@ -7,8 +7,6 @@ with pkgs; {
   archlinux = recurseIntoAttrs (import ./archlinux {
     inherit pkgs rp;
   });
-
-  electronic-wechat = callPackage ./electronic-wechat { inherit rp; };
   
   lx-music-desktop = callPackage ./electronAppImage rec {
     pname = "lx-music-desktop";
@@ -38,6 +36,4 @@ with pkgs; {
       hash = "sha256-zdRZm0T6tBqNxvaUaiWAlAfuug/CQX0S+B5uDNdiQ/s=";
     };
   };
-
-  pypvz = callPackage ./pypvz { inherit rp; };
 }
