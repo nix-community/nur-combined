@@ -43,10 +43,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.15.1";
+      version = "3.16.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4026151/adnauseam-3.15.1.xpi";
-      sha256 = "47281957e3881f5db85acae64c4b9d1dda04d4b4d904bd9e28b1681f7dc7df53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040916/adnauseam-3.16.0.xpi";
+      sha256 = "00b1145ab88326e904b8486530c2435ecab953e4d93f1e559116d73563edb502";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -113,10 +113,10 @@
       };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
-      version = "2.3.3";
+      version = "2.4.0";
       addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3993774/augmented_steam-2.3.3.xpi";
-      sha256 = "2789764199797bc15ccd2ec5351a90a0a1cd564c6f285ab139fc10fbe25cabc1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042269/augmented_steam-2.4.0.xpi";
+      sha256 = "b3e46d7bde68faf4b3b4706ff35a9a413cc027de686bbcd810eeebbe60fbe10c";
       meta = with lib;
       {
         homepage = "https://augmentedsteam.com/";
@@ -863,10 +863,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20221212.143511";
+      version = "109.0buildid20221213.185929";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4042364/francais_language_pack-109.0buildid20221212.143511.xpi";
-      sha256 = "a9f85a2f81e9ed3235dce3d492e21e1e75ef6b2277a18bdbc0680517dc42287b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043104/francais_language_pack-109.0buildid20221213.185929.xpi";
+      sha256 = "6dcdc165cba04af3c2ba8e528467061db8874ba24f76ce6d0be86813222d8f1a";
       meta = with lib;
       {
         description = "Français Language Pack";
