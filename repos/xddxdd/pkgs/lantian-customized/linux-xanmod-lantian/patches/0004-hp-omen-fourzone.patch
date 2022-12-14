@@ -1,5 +1,5 @@
 diff --git a/drivers/platform/x86/hp-wmi.c b/drivers/platform/x86/hp-wmi.c
-index 788381e4c6a6..5d36b8dba243 100644
+index 0a99058be813..95f98bf47705 100644
 --- a/drivers/platform/x86/hp-wmi.c
 +++ b/drivers/platform/x86/hp-wmi.c
 @@ -9,6 +9,9 @@
@@ -61,12 +61,12 @@ index 788381e4c6a6..5d36b8dba243 100644
 +#define HPWMI_HOTKEY_RELEASE_FLAG (1<<16)
 +
  static const struct key_entry hp_wmi_keymap[] = {
- 	{ KE_KEY, 0x02,   { KEY_BRIGHTNESSUP } },
- 	{ KE_KEY, 0x03,   { KEY_BRIGHTNESSDOWN } },
-@@ -217,6 +236,10 @@ static const struct key_entry hp_wmi_keymap[] = {
- 	{ KE_KEY, 0x2169, { KEY_ROTATE_DISPLAY } },
- 	{ KE_KEY, 0x216a, { KEY_SETUP } },
- 	{ KE_KEY, 0x231b, { KEY_HELP } },
+ 	{ KE_KEY, 0x02,    { KEY_BRIGHTNESSUP } },
+ 	{ KE_KEY, 0x03,    { KEY_BRIGHTNESSDOWN } },
+@@ -219,6 +238,10 @@ static const struct key_entry hp_wmi_keymap[] = {
+ 	{ KE_KEY, 0x21a9,  { KEY_TOUCHPAD_OFF } },
+ 	{ KE_KEY, 0x121a9, { KEY_TOUCHPAD_ON } },
+ 	{ KE_KEY, 0x231b,  { KEY_HELP } },
 +	{ KE_KEY, 0x21A4, { KEY_F14 } }, // Winlock hotkey
 +	{ KE_KEY, 0x21A5, { KEY_F15 } }, // Omen key
 +	{ KE_KEY, 0x21A7, { KEY_F16 } }, // ???
@@ -74,7 +74,7 @@ index 788381e4c6a6..5d36b8dba243 100644
  	{ KE_END, 0 }
  };
  
-@@ -252,6 +275,18 @@ static const char * const tablet_chassis_types[] = {
+@@ -254,6 +277,18 @@ static const char * const tablet_chassis_types[] = {
  
  #define DEVICE_MODE_TABLET	0x06
  
@@ -93,7 +93,7 @@ index 788381e4c6a6..5d36b8dba243 100644
  /* map output size to the corresponding WMI method id */
  static inline int encode_outsize_for_pvsz(int outsize)
  {
-@@ -760,6 +795,14 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -762,6 +797,14 @@ static void hp_wmi_notify(u32 value, void *context)
  	int key_code;
  
  	status = wmi_get_event_data(value, &response);
@@ -108,7 +108,7 @@ index 788381e4c6a6..5d36b8dba243 100644
  	if (status != AE_OK) {
  		pr_info("bad event status 0x%x\n", status);
  		return;
-@@ -793,6 +836,7 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -795,6 +838,7 @@ static void hp_wmi_notify(u32 value, void *context)
  	}
  	kfree(obj);
  
@@ -116,7 +116,7 @@ index 788381e4c6a6..5d36b8dba243 100644
  	switch (event_id) {
  	case HPWMI_DOCK_EVENT:
  		if (test_bit(SW_DOCK, hp_wmi_input_dev->swbit))
-@@ -808,7 +852,15 @@ static void hp_wmi_notify(u32 value, void *context)
+@@ -810,7 +854,15 @@ static void hp_wmi_notify(u32 value, void *context)
  	case HPWMI_SMART_ADAPTER:
  		break;
  	case HPWMI_BEZEL_BUTTON:
@@ -132,7 +132,7 @@ index 788381e4c6a6..5d36b8dba243 100644
  		if (key_code < 0)
  			break;
  
-@@ -1292,6 +1344,302 @@ static int thermal_profile_setup(void)
+@@ -1294,6 +1346,302 @@ static int thermal_profile_setup(void)
  
  static int hp_wmi_hwmon_init(void);
  
@@ -435,7 +435,7 @@ index 788381e4c6a6..5d36b8dba243 100644
  static int __init hp_wmi_bios_setup(struct platform_device *device)
  {
  	int err;
-@@ -1317,6 +1665,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
+@@ -1319,6 +1667,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
  	if (err < 0)
  		return err;
  
@@ -446,7 +446,7 @@ index 788381e4c6a6..5d36b8dba243 100644
  	thermal_profile_setup();
  
  	return 0;
-@@ -1347,6 +1699,8 @@ static int __exit hp_wmi_bios_remove(struct platform_device *device)
+@@ -1349,6 +1701,8 @@ static int __exit hp_wmi_bios_remove(struct platform_device *device)
  	if (platform_profile_support)
  		platform_profile_remove();
  
