@@ -55,11 +55,11 @@ GEM
       tty-color (~> 0.5)
     psych (4.0.6)
       stringio
-    public_suffix (5.0.0)
+    public_suffix (5.0.1)
     rack (2.2.4)
     rexml (3.2.5)
     slow_enumerator_tools (1.1.0)
-    stringio (3.0.2)
+    stringio (3.0.4)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
@@ -76,4 +76,4 @@ DEPENDENCIES
   nanoc
 
 BUNDLED WITH
-   2.3.25
+   2.3.26

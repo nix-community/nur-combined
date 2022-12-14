@@ -215,10 +215,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "0sqw1zls6227bgq38sxb2hs8nkdz4hn1zivs27mjbniswfy4zvi6";
+      sha256 = "0hz0bx2qs2pwb0bwazzsah03ilpf3aai8b7lk7s35jsfzwbkjq35";
       type = "gem";
     };
-    version = "5.0.0";
+    version = "5.0.1";
   };
   rack = {
     groups = [ "default" ];
@@ -255,10 +255,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1jns0x5lbafyqyx7pgzfs6i4ykc7p6zg7gxa6hd82w40n6z9rdvi";
+      sha256 = "0sxzqx4nggwm6lgkn7nni3qsxbwl9cl8j2wznk8x3aaqnaabav6w";
       type = "gem";
     };
-    version = "3.0.2";
+    version = "3.0.4";
   };
   tty-color = {
     groups = [ "default" ];
