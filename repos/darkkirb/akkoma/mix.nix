@@ -104,12 +104,12 @@
 
     castore = buildMix rec {
       name = "castore";
-      version = "0.1.19";
+      version = "0.1.20";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "0291pdk3x7qzbv8laris1y90vi7g9akmykd23m2fz0nwlmhh2vp9";
+        sha256 = "12n9bb4v9b9sx9xk11k98s4f4a532dmmn0x4ak28dj990mjvf850";
       };
 
       beamDeps = [];
@@ -494,12 +494,12 @@
 
     excoveralls = buildMix rec {
       name = "excoveralls";
-      version = "0.12.3";
+      version = "0.15.1";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "1nnsr9dv7mybcxx3y5p2gqzyy3p479w21c55vvsq6hi6dihkx2jn";
+        sha256 = "1rq7vqvzw7sa2r7n59bhbxbhcnjr6z44dkvq45mdb0h01kcnnhgq";
       };
 
       beamDeps = [hackney jason];
@@ -546,12 +546,12 @@
 
     finch = buildMix rec {
       name = "finch";
-      version = "0.13.0";
+      version = "0.14.0";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "1k56zfbadpppn8flavb4aczq0npcqnlhg993l51c1k8dw76pv5a9";
+        sha256 = "1pd805jyd4qbpb2md3kw443325yqynpkpyr2iixb9zf432psqnal";
       };
 
       beamDeps = [castore mime mint nimble_options nimble_pool telemetry];
@@ -594,19 +594,6 @@
       };
 
       beamDeps = [];
-    };
-
-    gun = buildRebar3 rec {
-      name = "gun";
-      version = "2.0.0-rc.2";
-
-      src = fetchHex {
-        pkg = "${name}";
-        version = "${version}";
-        sha256 = "1z2lsbbpl2925z8x2ri0rhp30ccn9d08pgqd2hkxf4342jp1x7bb";
-      };
-
-      beamDeps = [cowlib];
     };
 
     hackney = buildRebar3 rec {
@@ -747,6 +734,19 @@
         pkg = "${name}";
         version = "${version}";
         sha256 = "0cvlbfkapkvbwaijmjq3cxg5m6yv4rh69wvss9kfj862i83mk31i";
+      };
+
+      beamDeps = [];
+    };
+
+    mail = buildMix rec {
+      name = "mail";
+      version = "0.2.3";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "1xbbdkyar8h0pdihfnsd84j1w3vfh9sk3xkz1llxz7y6m67kjawk";
       };
 
       beamDeps = [];
@@ -910,12 +910,12 @@
 
     nimble_options = buildMix rec {
       name = "nimble_options";
-      version = "0.4.0";
+      version = "0.5.1";
 
       src = fetchHex {
         pkg = "${name}";
         version = "${version}";
-        sha256 = "0bd0pi3sij9vxhiilv25x6n3jls75g3b38rljvm1x896ycd1qw76";
+        sha256 = "0gpg2kqz2j989y5lz728bzjf6zdxan5yp8qw63mhrvsgm9xwyxni";
       };
 
       beamDeps = [];
@@ -1308,7 +1308,7 @@
         sha256 = "1nxpcwq7ynvqjp65z544dvdfw7jx9k0m58w4kb0bdbdg1rsvln6h";
       };
 
-      beamDeps = [cowboy ex_aws finch gen_smtp hackney jason mime plug_cowboy telemetry];
+      beamDeps = [cowboy ex_aws finch gen_smtp hackney jason mail mime plug_cowboy telemetry];
     };
 
     syslog = buildRebar3 rec {
@@ -1373,7 +1373,7 @@
         sha256 = "0mv48vgby1fv9b2npc0ird3y4isr10np3a3yas3v5hfyz54kll6m";
       };
 
-      beamDeps = [castore finch gun hackney jason mime mint poison telemetry];
+      beamDeps = [castore finch hackney jason mime mint poison telemetry];
     };
 
     timex = buildMix rec {
