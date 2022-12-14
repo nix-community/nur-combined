@@ -58,9 +58,6 @@
         "artturin": {
             "url": "https://github.com/Artturin/artturin-nur"
         },
-        "astridyu": {
-            "url": "https://github.com/astridyu/nur-packages"
-        },
         "awl-fcarza": {
             "url": "https://github.com/francescocarzaniga/awl-fcarza"
         },
@@ -259,6 +256,9 @@
         "iagocq": {
             "file": "nur.nix",
             "url": "https://github.com/iagocq/nix"
+        },
+        "ifd3f": {
+            "url": "https://github.com/ifd3f/nur-packages"
         },
         "ijohanne": {
             "url": "https://github.com/ijohanne/nur-packages"
