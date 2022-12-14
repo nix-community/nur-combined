@@ -1,0 +1,5 @@
+- name: Ping
+  ping:
+- name: Printa se funciona
+  ansible.builtin.debug:
+    msg: "funciona?: {{ funciona }}"

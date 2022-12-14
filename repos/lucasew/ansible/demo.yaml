@@ -1,0 +1,5 @@
+---
+- hosts: all
+  become: false
+  tasks:
+    - import_tasks: tasks/teste.yml

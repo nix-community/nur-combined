@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: false
+  tasks:
+    - import_tasks: tasks/nixos-build.yaml
+      when: ansible_facts['os_family'] == "NixOS"
+    - import_tasks: tasks/ssh-hostport.yaml
+    - name: Show build result
+      ansible.builtin.debug:
+        msg: "System build path: {{ nixos_build_result }}"
+    - import_tasks: tasks/nix-copy-closure-to.yaml
+      when: ansible_facts['os_family'] == "NixOS"
+    - name: Apply generation on next boot
+      ansible.builtin.command: "{{ nixos_build_result }}/bin/switch-to-configuration boot"
+      become: true
+      when: ansible_facts['os_family'] == "NixOS"
+

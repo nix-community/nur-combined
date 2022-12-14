@@ -1,0 +1,8 @@
+- name: Get IP and port of SSH session
+  set_fact:
+    ssh_ip: "{{ hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2] }}"
+    ssh_port: "{{ hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[3]
+ }}"
+- name: Show IP and port of the SSH session
+  ansible.builtin.debug:
+    msg: "SSH: {{ ssh_ip }}:{{ ssh_port }}"
