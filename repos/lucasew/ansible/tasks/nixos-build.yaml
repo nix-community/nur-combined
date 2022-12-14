@@ -7,16 +7,19 @@
 # - name: Mostrar a pasta temporária
 #   ansible.builtin.debug:
 #     msg: "Pasta temporária: {{ nixos_build_result.path }}"
+
 - name: Build NixOS generation
   ansible.builtin.command:
     cmd: nix build {{ playbook_dir }}#nixosConfigurations.{{ ansible_facts['hostname'] }}.config.system.build.toplevel -o {{ nixos_build_result.path }}/result
   when: ansible_facts['os_family'] == "NixOS"
   delegate_to: 127.0.0.1
+
 - name: Get NixOS generation output path
   ansible.builtin.command:
     cmd: "realpath {{ nixos_build_result.path }}/result"
   delegate_to: 127.0.0.1
   register: nixos_build_result_realpath_cmd
+
 - name: Set NixOS build result
   set_fact:
     nixos_build_result: "{{ nixos_build_result_realpath_cmd.stdout }}"
