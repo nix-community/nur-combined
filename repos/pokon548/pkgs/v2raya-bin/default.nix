@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
+    description = "(Deprecated. Please use official version from nixpkgs instead) A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
     homepage = "https://github.com/v2rayA/v2rayA";
     mainProgram = "v2rayA";
     license = licenses.agpl3;
