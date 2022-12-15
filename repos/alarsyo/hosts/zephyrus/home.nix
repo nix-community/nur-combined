@@ -28,6 +28,7 @@
         gdb
         valgrind
         arandr
+        zotero
         ;
 
       inherit (pkgs.packages) spot;
