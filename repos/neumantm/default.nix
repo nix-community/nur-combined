@@ -20,4 +20,7 @@
     fetchPypi = pkgs.python39Packages.fetchPypi;
     setuptools_scm = pkgs.python39Packages.setuptools_scm;
   };
+  startFirefox = pkgs.callPackage ./pkgs/startFirefox {
+    inherit (pkgs.gnome) zenity;
+  };
 }
