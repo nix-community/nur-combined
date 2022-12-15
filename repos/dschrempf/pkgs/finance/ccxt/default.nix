@@ -5,7 +5,7 @@
 
 let
   pname = "ccxt";
-  version = "1.86.7";
+  version = "2.4.5";
   owner = pname;
 in
 python3.pkgs.buildPythonPackage rec {
@@ -16,7 +16,7 @@ python3.pkgs.buildPythonPackage rec {
     inherit owner;
     repo = pname;
     rev = "${version}";
-    hash = "sha256-UJxDK6e89TU1gzmALo2D6KZcHRfnTpuXA9GZHOFj5JU=";
+    hash = "sha256-gB2D9OTH0fW/SqcVoRYGmCgpiqVEdrx5XNiTqJ27UTU=";
   };
 
   prePatch = "cd python";
