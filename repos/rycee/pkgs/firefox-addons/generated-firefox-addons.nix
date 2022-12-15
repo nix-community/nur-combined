@@ -1118,10 +1118,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.4";
+      version = "3.4.5";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4022610/i_dont_care_about_cookies-3.4.4.xpi";
-      sha256 = "faab96295f7df7d83a736ddf4c133571ffbad85b1bdbe92f05b54ef538444479";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043507/i_dont_care_about_cookies-3.4.5.xpi";
+      sha256 = "f4f20728ecabe79a5631593206d4602ab50026b1b260a78e0dff857ba58008ae";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1455,10 +1455,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.2";
+      version = "2.7.5";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040639/momentumdash-2.7.2.xpi";
-      sha256 = "eb5fe7dad69c3cc48a9a0ca203b3fe70017e977e11230c1868398ccb45fbc783";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043234/momentumdash-2.7.5.xpi";
+      sha256 = "3d95a04f52ac4d3db70f6eb26ba42a699db3087cbf194a54cca281a60eb34507";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2174,10 +2174,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.2";
+      version = "28.3";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038599/save_page_we-28.2.xpi";
-      sha256 = "8d194c806039711d031c8a7dd3ba6636f42867ccc7fffbe1e1e080e29daf98ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041656/save_page_we-28.3.xpi";
+      sha256 = "e6a268e01295c8716a5abb9c6a22928199199bfb5a1e45f4fef746d4083544f6";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2919,10 +2919,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.50";
+      version = "6.10.51";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032117/wappalyzer-6.10.50.xpi";
-      sha256 = "174eee60665cdff3665cc46bfc5fda9d5d7e490401cad54a96d83ceda4b0a036";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043323/wappalyzer-6.10.51.xpi";
+      sha256 = "dbae27cf85c1e00ea711ad6a9bf383c36189dd5f5c4b0d10a4128411688d9148";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -2947,10 +2947,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.82.1";
+      version = "2.82.2";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4041802/web_scrobbler-2.82.1.xpi";
-      sha256 = "d3af1c3a14225165a474e1e61c2a3dfb85a4372d6481a5e7d1445fbc6bf77c4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042318/web_scrobbler-2.82.2.xpi";
+      sha256 = "93fb3a05bb7d7df585ae56f2f725bd032ad1e89cb9e80a3f55592c3bde26f89c";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
