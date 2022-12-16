@@ -68,7 +68,7 @@ in {
 
       inherit (pkgs.gnome) nautilus;
 
-      discord = pkgs.unstable.discord.override {nss = pkgs.nss_latest;};
+      discord = pkgs.discord.override {nss = pkgs.nss_latest;};
     };
 
     networking.networkmanager = {
