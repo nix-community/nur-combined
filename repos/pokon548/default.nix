@@ -20,6 +20,7 @@
   tencent-qq-electron-bwrap = pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
 
   plasma5-wallpapers-dynamic = pkgs.libsForQt5.callPackage ./pkgs/plasma5-wallpapers-dynamic { };
+  plasma5-applets-window-appmenu = pkgs.libsForQt5.callPackage ./pkgs/plasma5-applets-window-appmenu { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
