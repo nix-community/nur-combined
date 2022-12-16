@@ -7,6 +7,8 @@ with pkgs; {
   archlinux = recurseIntoAttrs (import ./archlinux {
     inherit pkgs rp;
   });
+
+  electronic-wechat = callPackage ./electronic-wechat { inherit rp; };
   
   lx-music-desktop = callPackage ./electronAppImage rec {
     pname = "lx-music-desktop";
