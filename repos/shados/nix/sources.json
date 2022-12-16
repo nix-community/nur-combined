@@ -6,6 +6,19 @@
         "url": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip",
         "url_template": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip"
     },
+    "chromium-launcher": {
+        "branch": "master",
+        "builtin": false,
+        "description": "Chromium launcher with support for custom user flags",
+        "homepage": "",
+        "owner": "foutrelis",
+        "repo": "chromium-launcher",
+        "rev": "v8",
+        "sha256": "0fc8p9i8jpz5pn9jadzd52fsc535l0fnaxcr78gpq7m792rbryjv",
+        "type": "tarball",
+        "url": "https://github.com/foutrelis/chromium-launcher/archive/v8.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "cparser": {
         "branch": "master",
         "builtin": false,

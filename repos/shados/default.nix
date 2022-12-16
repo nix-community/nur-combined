@@ -14,6 +14,10 @@ let repo = rec {
     inherit pins;
   };
 
+  chromium-launcher = pkgs.callPackage ./pkgs/chromium-launcher {
+    inherit pins;
+  };
+
   firefox-common = opts: with pkgs; callPackage
     (import (nixpkgsPath + /pkgs/applications/networking/browsers/firefox/common.nix) opts)
     { libpng = libpng_apng;
