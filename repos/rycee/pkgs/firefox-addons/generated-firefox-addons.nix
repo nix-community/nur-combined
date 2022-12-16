@@ -277,7 +277,7 @@
       sha256 = "bd8b13aebb7437b57acd898c5f0a1326e5af61ac41316abbca30c075636fa1f7";
       meta = with lib;
       {
-        homepage = "https://github.com/dessant/buster";
+        homepage = "https://github.com/dessant/buster#readme";
         description = "Save time by asking Buster to solve captchas for you.";
         license = licenses.gpl3;
         platforms = platforms.all;
@@ -326,10 +326,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "10.2.0";
+      version = "11.0.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4039514/censor_tracker-10.2.0.xpi";
-      sha256 = "eab080d1d85eca8f877c087fb066413765ba584e58728be493a2ea8ba96c5c2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043935/censor_tracker-11.0.0.xpi";
+      sha256 = "2f240b6e227a1a226a49c5aaa5931423a5954f76a400e2f46a6a6ad8f5a7d8bf";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -863,10 +863,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20221213.185929";
+      version = "108.0.1buildid20221215.175817";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043104/francais_language_pack-109.0buildid20221213.185929.xpi";
-      sha256 = "6dcdc165cba04af3c2ba8e528467061db8874ba24f76ce6d0be86813222d8f1a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4044382/francais_language_pack-108.0.1buildid20221215.175817.xpi";
+      sha256 = "15074bd98dd5fc6a3e79863ca166ad9b2113591f7ab90b9c4d309584a3d6b7a5";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2133,10 +2133,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "22.11.21";
+      version = "22.12.15";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4033502/refined_github-22.11.21.xpi";
-      sha256 = "bb7f53e8e2eaddceb4c0e74ff0c3b9665d8fd04be2f9d54e37b0e0cca9157c25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4044034/refined_github-22.12.15.xpi";
+      sha256 = "fb3b3fce7a292daeb2fb8979ca86abeb7b4f03bc4ab915a5257a9144f3c405d1";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2919,10 +2919,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.51";
+      version = "6.10.52";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043323/wappalyzer-6.10.51.xpi";
-      sha256 = "dbae27cf85c1e00ea711ad6a9bf383c36189dd5f5c4b0d10a4128411688d9148";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043676/wappalyzer-6.10.52.xpi";
+      sha256 = "71d5b90e98f6439e48149834e481b93c7628e4ee7d579cb642be268feb71ef43";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
