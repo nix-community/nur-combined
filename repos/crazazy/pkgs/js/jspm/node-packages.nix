@@ -301,13 +301,13 @@ let
         sha512 = "WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==";
       };
     };
-    "@types/node-18.11.12" = {
+    "@types/node-18.11.16" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.11.12";
+      version = "18.11.16";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.11.12.tgz";
-        sha512 = "FgD3NtTAKvyMmD44T07zz2fEf+OKwutgBCEVM8GcvMGVGaDktiLNTDvPwC/LUe3PinMW+X6CuLOF2Ui1mAlSXg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.11.16.tgz";
+        sha512 = "6T7P5bDkRhqRxrQtwj7vru+bWTpelgtcETAZEUSdq0YISKz8WKdoBukQLYQQ6DFHvU9JRsbFq0JH5C51X2ZdnA==";
       };
     };
     "abbrev-1.1.1" = {
@@ -1777,13 +1777,13 @@ let
         sha512 = "ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==";
       };
     };
-    "json5-2.2.1" = {
+    "json5-2.2.2" = {
       name = "json5";
       packageName = "json5";
-      version = "2.2.1";
+      version = "2.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz";
-        sha512 = "1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==";
+        url = "https://registry.npmjs.org/json5/-/json5-2.2.2.tgz";
+        sha512 = "46Tk9JiOL2z7ytNQWFLpj99RZkVgeHf87yGQKsIkaPz1qSH9UczKH1rO7K3wgRselo0tYMUNfecYpm/p1vC7tQ==";
       };
     };
     "jsprim-1.4.2" = {
@@ -2083,13 +2083,13 @@ let
         sha512 = "4KghwV8vH5k+g2ylT+sLTjy5wmUOb9vPhnM8NHvRf9dHmnW/CndrFXy2aRPaPST6dugXSdHXfeaHQm77PIz/1A==";
       };
     };
-    "node-releases-2.0.6" = {
+    "node-releases-2.0.8" = {
       name = "node-releases";
       packageName = "node-releases";
-      version = "2.0.6";
+      version = "2.0.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-releases/-/node-releases-2.0.6.tgz";
-        sha512 = "PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==";
+        url = "https://registry.npmjs.org/node-releases/-/node-releases-2.0.8.tgz";
+        sha512 = "dFSmB8fFHEH/s81Xi+Y/15DQY6VHW81nXRj86EMSL3lmuTmK1e+aT4wrFCkTbm+gSwkw4KpX+rT/pMM2c1mF+A==";
       };
     };
     "nopt-3.0.6" = {
@@ -3277,7 +3277,7 @@ let
       sources."@jspm/npm-1.0.2"
       sources."@jspm/resolve-1.0.0"
       sources."@types/estree-1.0.0"
-      sources."@types/node-18.11.12"
+      sources."@types/node-18.11.16"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"
       sources."agent-base-4.3.0"
@@ -3504,7 +3504,7 @@ let
       sources."json-schema-0.4.0"
       sources."json-schema-traverse-0.4.1"
       sources."json-stringify-safe-5.0.1"
-      sources."json5-2.2.1"
+      sources."json5-2.2.2"
       sources."jsprim-1.4.2"
       sources."kind-of-6.0.3"
       sources."liftoff-2.5.0"
@@ -3554,7 +3554,7 @@ let
           sources."nopt-4.0.3"
         ];
       })
-      sources."node-releases-2.0.6"
+      sources."node-releases-2.0.8"
       sources."nopt-3.0.6"
       sources."npm-bundled-1.1.2"
       sources."npm-normalize-package-bin-1.0.1"

@@ -4,22 +4,22 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.3.3" = {
+    "@eslint/eslintrc-1.4.0" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.3.3";
+      version = "1.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.3.3.tgz";
-        sha512 = "uj3pT6Mg+3t39fvLrj8iuCIJ38zKO9FpGtJ4BBJebJhEwjoT+KLVNCcHT5QC9NGRIEi7fZ0ZR8YRb884auB4Lg==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.4.0.tgz";
+        sha512 = "7yfvXy6MWLgWSFsLhz5yH3iQ52St8cdUY6FoGieKkRDVxuxmrNuUetIuu6cmjNWwniUHiWXjxCr5tTXDrbYS5A==";
       };
     };
-    "@humanwhocodes/config-array-0.11.7" = {
+    "@humanwhocodes/config-array-0.11.8" = {
       name = "_at_humanwhocodes_slash_config-array";
       packageName = "@humanwhocodes/config-array";
-      version = "0.11.7";
+      version = "0.11.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.7.tgz";
-        sha512 = "kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==";
+        url = "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.8.tgz";
+        sha512 = "UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==";
       };
     };
     "@humanwhocodes/module-importer-1.0.1" = {
@@ -409,13 +409,13 @@ let
         sha512 = "XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==";
       };
     };
-    "globals-13.18.0" = {
+    "globals-13.19.0" = {
       name = "globals";
       packageName = "globals";
-      version = "13.18.0";
+      version = "13.19.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/globals/-/globals-13.18.0.tgz";
-        sha512 = "/mR4KI8Ps2spmoc0Ulu9L7agOF0du1CZNQ3dke8yItYlyKNmGrkONemBbd6V8UTc1Wgcqn21t3WYB7dbRmh6/A==";
+        url = "https://registry.npmjs.org/globals/-/globals-13.19.0.tgz";
+        sha512 = "dkQ957uSRWHw7CFXLUtUHQI3g3aWApYhfNR2O6jn/907riyTYKVBmxYVROkBcY614FSSeSJh7Xm7SrUWCxvJMQ==";
       };
     };
     "grapheme-splitter-1.0.4" = {
@@ -872,11 +872,11 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.29.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.29.0.tgz"; sha1 = "d74a88a20fb44d59c51851625bc4ee8d0ec43f87"; };
+    version = "8.30.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.30.0.tgz"; sha1 = "83a506125d089eef7c5b5910eeea824273a33f50"; };
     dependencies = [
-      sources."@eslint/eslintrc-1.3.3"
-      sources."@humanwhocodes/config-array-0.11.7"
+      sources."@eslint/eslintrc-1.4.0"
+      sources."@humanwhocodes/config-array-0.11.8"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
       sources."@nodelib/fs.scandir-2.1.5"
@@ -923,7 +923,7 @@ let
       sources."fs.realpath-1.0.0"
       sources."glob-7.2.3"
       sources."glob-parent-6.0.2"
-      sources."globals-13.18.0"
+      sources."globals-13.19.0"
       sources."grapheme-splitter-1.0.4"
       sources."has-flag-4.0.0"
       sources."ignore-5.2.1"

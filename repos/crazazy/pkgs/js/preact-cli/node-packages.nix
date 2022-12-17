@@ -1300,13 +1300,13 @@ let
         sha512 = "EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==";
       };
     };
-    "@types/express-4.17.14" = {
+    "@types/express-4.17.15" = {
       name = "_at_types_slash_express";
       packageName = "@types/express";
-      version = "4.17.14";
+      version = "4.17.15";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/express/-/express-4.17.14.tgz";
-        sha512 = "TEbt+vaPFQ+xpxFLFssxUDXj5cWCxZJjIcB7Yg0k0GMHGtgtQgpvx/MUQUeAkNbA9AAGrwkAsoeItdTgS7FMyg==";
+        url = "https://registry.npmjs.org/@types/express/-/express-4.17.15.tgz";
+        sha512 = "Yv0k4bXGOH+8a+7bELd2PqHQsuiANB+A8a4gnQrkRWzrkKlb6KHaVvyXhqs04sVW/OWlbPyYxRgYlIXLfrufMQ==";
       };
     };
     "@types/express-serve-static-core-4.17.31" = {
@@ -1345,13 +1345,13 @@ let
         sha512 = "Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==";
       };
     };
-    "@types/node-18.11.12" = {
+    "@types/node-18.11.16" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.11.12";
+      version = "18.11.16";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.11.12.tgz";
-        sha512 = "FgD3NtTAKvyMmD44T07zz2fEf+OKwutgBCEVM8GcvMGVGaDktiLNTDvPwC/LUe3PinMW+X6CuLOF2Ui1mAlSXg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.11.16.tgz";
+        sha512 = "6T7P5bDkRhqRxrQtwj7vru+bWTpelgtcETAZEUSdq0YISKz8WKdoBukQLYQQ6DFHvU9JRsbFq0JH5C51X2ZdnA==";
       };
     };
     "@types/parse-json-4.0.0" = {
@@ -5395,13 +5395,13 @@ let
         sha512 = "7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==";
       };
     };
-    "internal-slot-1.0.3" = {
+    "internal-slot-1.0.4" = {
       name = "internal-slot";
       packageName = "internal-slot";
-      version = "1.0.3";
+      version = "1.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/internal-slot/-/internal-slot-1.0.3.tgz";
-        sha512 = "O0DB1JC/sPyZl7cIo78n5dR7eUSwwpYPiXRhTzNxZVAMUuB8vlnRFyLxdrVToks6XPLVnFfbzaVd5WLjhgg+vA==";
+        url = "https://registry.npmjs.org/internal-slot/-/internal-slot-1.0.4.tgz";
+        sha512 = "tA8URYccNzMo94s5MQZgH8NB/XTa6HsOo0MLfXTKKEnHVVdegzaQoFZ7Jp44bdvLvY2waT5dc+j5ICEswhi7UQ==";
       };
     };
     "ip-1.1.8" = {
@@ -6124,13 +6124,13 @@ let
         sha512 = "aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==";
       };
     };
-    "json5-2.2.1" = {
+    "json5-2.2.2" = {
       name = "json5";
       packageName = "json5";
-      version = "2.2.1";
+      version = "2.2.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz";
-        sha512 = "1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==";
+        url = "https://registry.npmjs.org/json5/-/json5-2.2.2.tgz";
+        sha512 = "46Tk9JiOL2z7ytNQWFLpj99RZkVgeHf87yGQKsIkaPz1qSH9UczKH1rO7K3wgRselo0tYMUNfecYpm/p1vC7tQ==";
       };
     };
     "jsonfile-6.1.0" = {
@@ -6988,13 +6988,13 @@ let
         sha512 = "h/zcD8H9kaDZ9ALUWwlBUDo6TKF8a7qBSCSEGfjTVIYeqsioSKaAX+BN7NgiMGp6iSIXZ3PxgCu8KS3b71YK5Q==";
       };
     };
-    "node-releases-2.0.6" = {
+    "node-releases-2.0.8" = {
       name = "node-releases";
       packageName = "node-releases";
-      version = "2.0.6";
+      version = "2.0.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-releases/-/node-releases-2.0.6.tgz";
-        sha512 = "PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==";
+        url = "https://registry.npmjs.org/node-releases/-/node-releases-2.0.8.tgz";
+        sha512 = "dFSmB8fFHEH/s81Xi+Y/15DQY6VHW81nXRj86EMSL3lmuTmK1e+aT4wrFCkTbm+gSwkw4KpX+rT/pMM2c1mF+A==";
       };
     };
     "normalize-path-2.1.1" = {
@@ -7645,13 +7645,13 @@ let
         sha512 = "yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA==";
       };
     };
-    "postcss-8.4.19" = {
+    "postcss-8.4.20" = {
       name = "postcss";
       packageName = "postcss";
-      version = "8.4.19";
+      version = "8.4.20";
       src = fetchurl {
-        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.19.tgz";
-        sha512 = "h+pbPsyhlYj6N2ozBmHhHrs9DzGmbaarbLvWipMRO7RLS+v4onj26MPFXA5OBYFxyqYhUJK456SwDcY9H2/zsA==";
+        url = "https://registry.npmjs.org/postcss/-/postcss-8.4.20.tgz";
+        sha512 = "6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g==";
       };
     };
     "postcss-calc-7.0.5" = {
@@ -11254,12 +11254,12 @@ let
       sources."@types/connect-3.4.35"
       sources."@types/connect-history-api-fallback-1.3.5"
       sources."@types/estree-0.0.39"
-      sources."@types/express-4.17.14"
+      sources."@types/express-4.17.15"
       sources."@types/express-serve-static-core-4.17.31"
       sources."@types/http-proxy-1.17.9"
       sources."@types/json-schema-7.0.11"
       sources."@types/mime-3.0.1"
-      sources."@types/node-18.11.12"
+      sources."@types/node-18.11.16"
       sources."@types/parse-json-4.0.0"
       sources."@types/q-1.5.5"
       sources."@types/qs-6.9.7"
@@ -11993,7 +11993,7 @@ let
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
       sources."ini-2.0.0"
-      sources."internal-slot-1.0.3"
+      sources."internal-slot-1.0.4"
       sources."ip-1.1.8"
       sources."ipaddr.js-2.0.1"
       sources."is-absolute-url-2.1.0"
@@ -12076,7 +12076,7 @@ let
       sources."json-schema-0.4.0"
       sources."json-schema-traverse-0.4.1"
       sources."json-stringify-safe-5.0.1"
-      sources."json5-2.2.1"
+      sources."json5-2.2.2"
       sources."jsonfile-6.1.0"
       sources."jsonpointer-5.0.1"
       sources."jsprim-1.4.2"
@@ -12210,7 +12210,7 @@ let
           sources."safe-buffer-5.1.2"
         ];
       })
-      sources."node-releases-2.0.6"
+      sources."node-releases-2.0.8"
       sources."normalize-path-3.0.0"
       sources."normalize-range-0.1.2"
       sources."normalize-url-3.3.0"
@@ -12350,7 +12350,7 @@ let
       sources."pn-1.1.0"
       sources."pnp-webpack-plugin-1.7.0"
       sources."posix-character-classes-0.1.1"
-      sources."postcss-8.4.19"
+      sources."postcss-8.4.20"
       (sources."postcss-calc-7.0.5" // {
         dependencies = [
           sources."picocolors-0.2.1"
