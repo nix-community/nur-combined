@@ -13,7 +13,7 @@ packages="intel-compilers-2018 intel-compilers-2019 intel-oneapi"
 # Use the following once to populate cache with older versions
 #packages="intel-compilers-2019 intel-compilers-2018 intel-compilers-2017"
 
-channels="channel:nixos-21.05 channel:nixos-21.11"
+channels="channel:nixos-21.05 channel:nixos-21.11 channel:nixos-22.05"
 
 build () {
   for p in $1
