@@ -14,10 +14,10 @@
   };
   clash-geoip = {
     pname = "clash-geoip";
-    version = "20221112";
+    version = "20221212";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221112/Country.mmdb";
-      sha256 = "sha256-si/RzJvXbAcG7Wyv780Hwr+1oiWB+uvc2RYbnYpE0MA=";
+      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221212/Country.mmdb";
+      sha256 = "sha256-pApPPRIvG8qak5chupTN2u1IUKANXtkcEMlSAPedjH4=";
     };
   };
   material-fox = {
@@ -33,19 +33,19 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.11.726.04a75b2eecc";
+    version = "22.11.964.0152de25d49";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.726.04a75b2eecc/nixexprs.tar.xz";
-      sha256 = "sha256-9Nc/50F11OlFV8iiy0LAjlZdwpC65H4O9oHbJlItSGE=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.964.0152de25d49/nixexprs.tar.xz";
+      sha256 = "sha256-EE2KQ4/ry10RGGZ4ZPyyjaxpSB92XhnBy79PE7xmwxY=";
     };
   };
   remote-containers = {
     pname = "remote-containers";
-    version = "0.267.0";
+    version = "0.268.0";
     src = fetchurl {
-      url = "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.267.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-      name = "remote-containers-0.267.0.zip";
-      sha256 = "sha256-glnDdEsvlmcux+ZO9uyhBZHCey6ge6+nQ1GCXSvqLoM=";
+      url = "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.268.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+      name = "remote-containers-0.268.0.zip";
+      sha256 = "sha256-nxkDySKop9Z4py7QNX7T7TuDAw2t+1DpqyuB3a485Go=";
     };
     license = "free";
     homepage = "https://github.com/Microsoft/vscode-remote-release";

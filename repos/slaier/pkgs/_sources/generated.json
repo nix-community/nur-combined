@@ -26,11 +26,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-si/RzJvXbAcG7Wyv780Hwr+1oiWB+uvc2RYbnYpE0MA=",
+            "sha256": "sha256-pApPPRIvG8qak5chupTN2u1IUKANXtkcEMlSAPedjH4=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221112/Country.mmdb"
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221212/Country.mmdb"
         },
-        "version": "20221112"
+        "version": "20221212"
     },
     "material-fox": {
         "cargoLocks": null,
@@ -59,11 +59,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9Nc/50F11OlFV8iiy0LAjlZdwpC65H4O9oHbJlItSGE=",
+            "sha256": "sha256-EE2KQ4/ry10RGGZ4ZPyyjaxpSB92XhnBy79PE7xmwxY=",
             "type": "url",
-            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.726.04a75b2eecc/nixexprs.tar.xz"
+            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.964.0152de25d49/nixexprs.tar.xz"
         },
-        "version": "22.11.726.04a75b2eecc"
+        "version": "22.11.964.0152de25d49"
     },
     "remote-containers": {
         "cargoLocks": null,
@@ -78,12 +78,12 @@
         },
         "pinned": false,
         "src": {
-            "name": "remote-containers-0.267.0.zip",
-            "sha256": "sha256-glnDdEsvlmcux+ZO9uyhBZHCey6ge6+nQ1GCXSvqLoM=",
+            "name": "remote-containers-0.268.0.zip",
+            "sha256": "sha256-nxkDySKop9Z4py7QNX7T7TuDAw2t+1DpqyuB3a485Go=",
             "type": "url",
-            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.267.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.268.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "0.267.0"
+        "version": "0.268.0"
     },
     "ubootPhicommN1": {
         "cargoLocks": null,
