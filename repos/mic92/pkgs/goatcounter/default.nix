@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "goatcounter";
-  version = "2.0.4";
+  version = "2.4.1";
 
   src = fetchFromGitHub {
     owner = "zgoat";
     repo = "goatcounter";
     rev = "v${version}";
-    sha256 = "sha256-Le0ZQ9iYrCEcYko1i6ETyi+SFOUMuWOoEJDd6nNxiuQ=";
+    sha256 = "sha256-L4310L+L2Qn8NkRMqze7KNwZ18LXz8PAoXCCpYa5J4I=";
   };
 
   subPackages = [ "cmd/goatcounter" ];
@@ -18,7 +18,7 @@ buildGoModule rec {
   #LD_LIBRARY_PATH = lib.makeLibraryPath [ sqlite postgresql ] ;
   doCheck = false;
 
-  vendorSha256 = "sha256-z9SoAASihdTo2Q23hwo78SU76jVD4jvA0UVhredidOQ=";
+  vendorSha256 = "sha256-nKfqZ5hGGVLBY/hnJJPCrS/9MlGoR2MWFUWDnpwWgyM=";
 
   meta = with lib; {
     description = "Easy web analytics. No tracking of personal data.";
