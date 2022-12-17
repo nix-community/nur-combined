@@ -36,20 +36,13 @@
 
       # Following line doesn't work for infinite recursion
       overlay = overlays.default;
-      overlays = {
-        # default = final: prev: packages."${prev.system}";
+      overlays = rec {
         default = final: prev: import ./pkgs {
-          pkgs = import nixpkgs {
-            inherit (prev) system;
-            config.allowUnfree = true;
-          };
+          pkgs = prev;
           inherit inputs;
         };
         custom = nvidia_x11: final: prev: import ./pkgs {
-          pkgs = import nixpkgs {
-            inherit (prev) system;
-            config.allowUnfree = true;
-          };
+          pkgs = prev;
           inherit inputs nvidia_x11;
         };
       };

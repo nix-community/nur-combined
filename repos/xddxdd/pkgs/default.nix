@@ -14,14 +14,29 @@
 }:
 
 let
-  sources = pkgs.callPackage ../_sources/generated.nix { };
-  pkg = path: args: pkgs.callPackage path ({
-    inherit sources;
-  } // args);
+  inherit (pkgs) lib;
+
   ifNotCI = p: if ci then null else p;
   ifFlakes = p: if inputs != null then p else null;
+
+  mkScope = f: builtins.removeAttrs
+    (lib.makeScope pkgs.newScope (self:
+      let
+        pkg = self.newScope {
+          inherit nvidia_x11;
+          sources = self.callPackage ../_sources/generated.nix { };
+        };
+      in
+      f self pkg))
+    [
+      "newScope"
+      "callPackage"
+      "overrideScope"
+      "overrideScope'"
+      "packages"
+    ];
 in
-rec {
+mkScope (self: pkg: rec {
   # Binary cache information
   _binaryCache = pkgs.recurseIntoAttrs rec {
     url = "https://xddxdd.cachix.org";
@@ -39,16 +54,11 @@ rec {
 
         nix.settings.substituters = [ nur.repos.xddxdd._binaryCache.url ];
         nix.settings.trusted-public-keys = [ nur.repos.xddxdd._binaryCache.publicKey ];
-
-        Or, if you use NixOS <= 21.11:
-
-        nix.binaryCaches = [ "${url}" ];
-        nix.binaryCachePublicKeys = [ "${publicKey}" ];
       '';
       meta = {
         description = text;
         homepage = "https://github.com/xddxdd/nur-packages";
-        license = pkgs.lib.licenses.unlicense;
+        license = lib.licenses.unlicense;
       };
     };
   };
@@ -60,9 +70,7 @@ rec {
 
   lantianCustomized = pkgs.recurseIntoAttrs {
     # Packages with significant customization by Lan Tian
-    asterisk = pkg ./lantian-customized/asterisk {
-      inherit asteriskDigiumCodecs_20 asterisk-g72x;
-    };
+    asterisk = pkg ./lantian-customized/asterisk { };
     coredns = pkg ./lantian-customized/coredns { };
     keycloak-lantian = ifFlakes (pkg ./lantian-customized/keycloak-lantian {
       inherit (inputs) keycloak-lantian;
@@ -74,10 +82,12 @@ rec {
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
     nginx = pkg ./lantian-customized/nginx { };
   };
+
   lantianPersonal = pkgs.recurseIntoAttrs {
     # Personal packages with no intention to be used by others
     libltnginx = pkg ./lantian-personal/libltnginx { };
   };
+
   openj9-ibm-semeru = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { }));
   openjdk-adoptium = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium { }));
   plangothic-fonts = pkg ./plangothic-fonts { };
@@ -92,32 +102,22 @@ rec {
   bird-babel-rtt = pkg ./uncategorized/bird-babel-rtt { };
   bird-lg-go = pkg ./uncategorized/bird-lg-go { };
   bird-lgproxy-go = pkg ./uncategorized/bird-lgproxy-go { };
-  boringssl-oqs = pkg ./uncategorized/boringssl-oqs {
-    inherit liboqs;
-  };
+  boringssl-oqs = pkg ./uncategorized/boringssl-oqs { };
   calibre-cops = pkg ./uncategorized/calibre-cops { };
   chmlib-utils = pkg ./uncategorized/chmlib-utils { };
   chromium-oqs-bin = pkg ./uncategorized/chromium-oqs-bin { };
   cloudpan189-go = pkg ./uncategorized/cloudpan189-go { };
-  deepspeech-gpu = pkg ./uncategorized/deepspeech-gpu {
-    inherit nvidia_x11;
-  };
-  deepspeech-wrappers = pkg ./uncategorized/deepspeech-gpu/wrappers.nix {
-    inherit nvidia_x11;
-  };
+  deepspeech-gpu = pkg ./uncategorized/deepspeech-gpu { };
+  deepspeech-wrappers = pkg ./uncategorized/deepspeech-gpu/wrappers.nix { };
   dingtalk = pkg ./uncategorized/dingtalk { };
   dn42-pingfinder = pkg ./uncategorized/dn42-pingfinder { };
-  douban-openapi-server = pkg ./uncategorized/douban-openapi-server {
-    inherit flasgger;
-  };
+  douban-openapi-server = pkg ./uncategorized/douban-openapi-server { };
   drone-vault = pkg ./uncategorized/drone-vault { };
   etherguard = pkg ./uncategorized/etherguard { };
   fcitx5-breeze = pkg ./uncategorized/fcitx5-breeze { };
   flasgger = pkg ./uncategorized/flasgger { };
   ftp-proxy = pkg ./uncategorized/ftp-proxy { };
-  genshin-checkin-helper = pkg ./uncategorized/genshin-checkin-helper {
-    inherit genshinhelper2 onepush;
-  };
+  genshin-checkin-helper = pkg ./uncategorized/genshin-checkin-helper { };
   genshinhelper2 = pkg ./uncategorized/genshinhelper2 { };
   glauth = pkg ./uncategorized/glauth { };
   gopherus = pkg ./uncategorized/gopherus { };
@@ -131,20 +131,13 @@ rec {
   liboqs = pkg ./uncategorized/liboqs { };
   netboot-xyz = pkg ./uncategorized/netboot-xyz { };
   netns-exec = pkg ./uncategorized/netns-exec { };
-  nftables-fullcone = pkg ./uncategorized/nftables-fullcone {
-    inherit libnftnl-fullcone;
-  };
+  nftables-fullcone = pkg ./uncategorized/nftables-fullcone { };
   noise-suppression-for-voice = pkg ./uncategorized/noise-suppression-for-voice { };
   nullfs = pkg ./uncategorized/nullfs { };
   nvlax = pkg ./uncategorized/nvlax { };
   onepush = pkg ./uncategorized/onepush { };
-  openssl-oqs = pkg ./uncategorized/openssl-oqs {
-    inherit liboqs;
-    cryptodev = pkgs.linuxPackages.cryptodev;
-  };
-  openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider {
-    inherit liboqs;
-  };
+  openssl-oqs = pkg ./uncategorized/openssl-oqs { cryptodev = pkgs.linuxPackages.cryptodev; };
+  openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider { };
   osdlyrics = pkg ./uncategorized/osdlyrics { };
   payload-dumper-go = pkg ./uncategorized/payload-dumper-go { };
   phpmyadmin = pkg ./uncategorized/phpmyadmin { };
@@ -159,14 +152,12 @@ rec {
   rime-moegirl = pkg ./uncategorized/rime-moegirl { };
   rime-zhwiki = pkg ./uncategorized/rime-zhwiki { };
   route-chain = pkg ./uncategorized/route-chain { };
-  svp = pkg ./uncategorized/svp {
-    inherit nvidia_x11;
-  };
+  svp = pkg ./uncategorized/svp { };
   tachidesk-server = pkg ./uncategorized/tachidesk-server { };
   vs-rife = pkg ./uncategorized/vs-rife { };
   wechat-uos = pkg ./uncategorized/wechat-uos { };
   wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix { };
 
   # In case of wechat update, use (wine-wechat.override { version = "1.2.3"; sha256 = "xxx";})
-  wine-wechat = pkgs.lib.makeOverridable pkg ./uncategorized/wine-wechat { };
-}
+  wine-wechat = lib.makeOverridable pkg ./uncategorized/wine-wechat { };
+})
