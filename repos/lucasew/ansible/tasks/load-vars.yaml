@@ -1,0 +1,3 @@
+- name: Include vars by os_family
+  ansible.builtin.include_vars:
+    file: group_vars/by-os-family/{{ ansible_os_family }}.yaml

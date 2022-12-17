@@ -2,4 +2,7 @@
 - hosts: all
   become: false
   tasks:
+    - import_tasks: tasks/load-vars.yaml
     - import_tasks: tasks/teste.yml
+    - debug:
+        msg: "{{ 'lucas' | greet }}"

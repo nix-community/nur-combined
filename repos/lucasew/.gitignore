@@ -4,3 +4,4 @@ result
 out.nar
 .direnv
 *.fd
+__pycache__
