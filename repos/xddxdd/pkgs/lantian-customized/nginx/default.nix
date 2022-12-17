@@ -1,11 +1,13 @@
 { lib
 , sources
+, pkgs
 , stdenv
 , fetchzip
 , fetchFromGitHub
 , fetchurl
 , substituteAll
 , git
+, which
 , brotli
 , gd
 , libxcrypt
@@ -37,7 +39,7 @@ let
   };
 in
 stdenv.mkDerivation rec {
-  pname = "openresty-lantian";
+  pname = "nginx-lantian";
   nginxVersion = "1.21.4";
   version = "${nginxVersion}.1";
   src = fetchzip {
@@ -49,6 +51,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     git
+    which
   ];
 
   buildInputs = [
@@ -68,6 +71,7 @@ stdenv.mkDerivation rec {
         "nginx-module-stream-sts"
         "nginx-module-sts"
         "nginx-module-vts"
+        "nginx-njs"
         "ngx_brotli"
         "stream-echo-nginx-module"
         "zstd-nginx-module"
@@ -92,7 +96,8 @@ stdenv.mkDerivation rec {
 
       pushd bundle/ngx_brotli
       rm -rf deps
-      ${patch ./patches/ngx-brotli-use-system-lib.patch}
+      substituteInPlace filter/config \
+        --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
       popd
 
       pushd bundle/stream-echo-nginx-module
@@ -120,12 +125,14 @@ stdenv.mkDerivation rec {
     "--with-stream_realip_module"
     "--with-stream_ssl_module"
     "--with-stream_ssl_preread_module"
+
+    "--add-module=bundle/nginx-module-stream-sts"
+    "--add-module=bundle/nginx-module-sts"
+    "--add-module=bundle/nginx-module-vts"
+    "--add-module=bundle/nginx-njs/nginx"
     "--add-module=bundle/ngx_brotli"
     "--add-module=bundle/stream-echo-nginx-module"
     "--add-module=bundle/zstd-nginx-module"
-    "--add-module=bundle/nginx-module-vts"
-    "--add-module=bundle/nginx-module-sts"
-    "--add-module=bundle/nginx-module-stream-sts"
     # "--without-http_encrypted_session_module" # Conflict with quic stuff
 
     # NixOS paths

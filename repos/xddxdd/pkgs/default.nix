@@ -72,7 +72,7 @@ rec {
     linux-xanmod-lantian-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = true; });
     linux-xanmod-lantian-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-lto.configfile;
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
-    openresty = pkg ./lantian-customized/openresty { };
+    nginx = pkg ./lantian-customized/nginx { };
   };
   lantianPersonal = pkgs.recurseIntoAttrs {
     # Personal packages with no intention to be used by others

@@ -168,11 +168,11 @@
             "name": null,
             "owner": "NickCao",
             "repo": "bird",
-            "rev": "6a7ff0bd1f02aa1c13dd32586075a444e69b426a",
-            "sha256": "sha256-pf7zyzJGaBfoqF/W+hNNUzmN39yINLD4DIe5Q/9iab4=",
+            "rev": "e508ca76a198f633e1720466e1084333ae8b2742",
+            "sha256": "sha256-JdxWSXsPUPNHZxFxdOa8Ogui6Xf2Ife5UgWSLO6Lwrc=",
             "type": "github"
         },
-        "version": "6a7ff0bd1f02aa1c13dd32586075a444e69b426a"
+        "version": "e508ca76a198f633e1720466e1084333ae8b2742"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -352,11 +352,11 @@
             "name": null,
             "owner": "y1ndan",
             "repo": "genshinhelper2",
-            "rev": "f7bd37aed3bad33eb956793b528fdc5071fdd98b",
-            "sha256": "sha256-cv7pKRLYYspp7sEibFZBDev3i1XU1tlGOfLuUQVaY3k=",
+            "rev": "e786dedd153fb551baded7ee77d7eefa909555f7",
+            "sha256": "sha256-A9xjkucf3qbDUuTi7rQbOhEYwtGXn6m0IosqhfD2awA=",
             "type": "github"
         },
-        "version": "f7bd37aed3bad33eb956793b528fdc5071fdd98b"
+        "version": "e786dedd153fb551baded7ee77d7eefa909555f7"
     },
     "glauth": {
         "cargoLocks": null,
@@ -557,6 +557,25 @@
         },
         "version": "46e431b57f292765dae015c5c43bd34b4763b43b"
     },
+    "nginx-njs": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "nginx-njs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nginx",
+            "repo": "njs",
+            "rev": "0.7.9",
+            "sha256": "sha256-5OFOmnBHJd3JpUiV9y0RSzOdYQ26UuUME3j1BbLQ1Xs=",
+            "type": "github"
+        },
+        "version": "0.7.9"
+    },
     "ngx_brotli": {
         "cargoLocks": null,
         "extract": null,
@@ -646,11 +665,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "openssl",
-            "rev": "294e7fc3014d265dbc373b2829014b1aa409b57b",
-            "sha256": "sha256-FIUviIiMgEqXXfHZWFKxOTI3Qk1I6/YFvA+gX4BYI3Q=",
+            "rev": "5118e6ecd001db20936a753ec5013551ab3a93fb",
+            "sha256": "sha256-0+1/rAj0axCBiX6nSevDcsu9+u/EHk/QR9I4JCB5eTg=",
             "type": "github"
         },
-        "version": "294e7fc3014d265dbc373b2829014b1aa409b57b"
+        "version": "5118e6ecd001db20936a753ec5013551ab3a93fb"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
@@ -665,11 +684,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "277b3719686c16e60c24ad8b4e82f18ec3778a1e",
-            "sha256": "sha256-ZSI+pEpS97PWi39RAW4UF0iMJMJrpMEGT0wBY34yXf4=",
+            "rev": "6a322a49c427c735d45f9d1b38bac538e4efa42b",
+            "sha256": "sha256-m/6AEEfUp3Fx1pPriiaK+x4YYzbKQYQGTLwKz4HCME8=",
             "type": "github"
         },
-        "version": "277b3719686c16e60c24ad8b4e82f18ec3778a1e"
+        "version": "6a322a49c427c735d45f9d1b38bac538e4efa42b"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -826,11 +845,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-AHj5jiNKBu8qi5zHEDIPi2E9jUFN5V2uBLRFyc8S5iM=",
+            "sha256": "sha256-psi2UfwAXNlCHJ6a1ptMQo5usExl6VmL3UwcH+7CrTo=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20221114/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20221214/moegirl.dict.yaml"
         },
-        "version": "20221114"
+        "version": "20221214"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
@@ -883,48 +902,6 @@
             "type": "github"
         },
         "version": "b7b76b853131b6fa7579d20c2816b4b6abb16bea"
-    },
-    "v2fly-geoip": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "v2fly-geoip",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-X2mxmP3iz32mEU75RfSfSp6xgm9EjNw04pTCFxhey54=",
-            "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202212080044/geoip.dat"
-        },
-        "version": "202212080044"
-    },
-    "v2fly-geosite": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "v2fly-geosite",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-RGnvZkBxjbQM2U9frNhg95q68OZotmMdTc5J2D2qfh0=",
-            "type": "url",
-            "url": "https://github.com/v2fly/domain-list-community/releases/download/20221207075621/dlc.dat"
-        },
-        "version": "20221207075621"
-    },
-    "v2fly-private": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "v2fly-private",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-3FHoresOsgn+XlS807r7lZkOuqVwaaGYiTWbGG3uwOg=",
-            "type": "url",
-            "url": "https://github.com/v2fly/geoip/releases/download/202212080044/private.dat"
-        },
-        "version": "202212080044"
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
