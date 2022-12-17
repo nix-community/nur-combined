@@ -70,7 +70,6 @@ in
     # Transmission wants to eat *all* my RAM if left to its own devices
     systemd.services.transmission = {
       serviceConfig = {
-        MemoryHigh = "25%";
         MemoryMax = "33%";
       };
     };

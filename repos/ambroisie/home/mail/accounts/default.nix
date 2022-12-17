@@ -17,6 +17,9 @@ let
 
     himalaya = {
       enable = cfg.himalaya.enable;
+      # FIXME: try to actually configure it at some point
+      backend = "imap";
+      sender = "smtp";
     };
 
     msmtp = {

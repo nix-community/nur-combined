@@ -15,7 +15,7 @@ in
     enable = my.mkDisableOption "email configuration";
 
     himalaya = {
-      enable = mkRelatedOption "himalaya configuration";
+      enable = mkEnableOption "himalaya configuration";
     };
 
     msmtp = {

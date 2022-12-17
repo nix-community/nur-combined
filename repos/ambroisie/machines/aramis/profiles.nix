@@ -9,6 +9,8 @@
     gtk.enable = true;
     # Laptop specific configuration
     laptop.enable = true;
+    # Printers are hell, but so is the unability to print
+    printing.enable = true;
     # i3 configuration
     wm.windowManager = "i3";
     # X configuration
