@@ -16,7 +16,7 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GH_TOKEN_FOR_UPDATES }}
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v14
+        uses: DeterminateSystems/update-flake-lock@v15
         with:
           pr-title: "Update flake.lock" # Title of PR to be created
           pr-labels: |                  # Labels to be set on the PR

@@ -29,28 +29,27 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.12.21";
+  version = "0.12.34";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "0izrjn57z0rfqvlwm20fr160f6dx8sra1652nqwv99z96w2p9y4q";
+    sha256 = "0nl4244fbmpvgqymy26df1pc5gq2jbw100khi7krwlsamk3sa9hv";
   };
 
   postPatch = ''
     substituteInPlace requirements_test.txt \
       --replace "coverage==6.4.4" "coverage>=6.4.2" \
-      --replace "freezegun==1.2.1" "jsonpickle>=1.1.0" \
       --replace "numpy==1.23.2" "numpy>=1.23.2" \
       --replace "pipdeptree==2.3.1" "pipdeptree>=2.3.1" \
-      --replace "pytest==7.1.2" "pytest>=7.1.1" \
+      --replace "pytest==7.2.0" "pytest>=7.1.3" \
+      --replace "pytest-asyncio==0.20.2" "pytest-asyncio>=0.19.0" \
       --replace "pytest-sugar==0.9.5" "pytest-sugar>=0.9.4" \
       --replace "pytest-test-groups==1.0.3" "" \
       --replace "pytest-timeout==2.1.0" "pytest-timeout>=2.0.2" \
-      --replace "requests_mock==1.9.2" "requests_mock>=1.9.2" \
-      --replace "respx==0.19.2" "respx>=0.19.2" \
+      --replace "respx==0.20.1" "respx>=0.20.0" \
       --replace "sqlalchemy==1.4.44" "sqlalchemy>=1.4.41" \
       --replace "stdlib-list==0.7.0" "" \
       --replace "tqdm==4.64.0" "tqdm>=4.64.0"
