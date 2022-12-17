@@ -229,10 +229,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.10.1";
+      version = "2022.12.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4018008/bitwarden_password_manager-2022.10.1.xpi";
-      sha256 = "453a932a48dda6722fa824f30414ffae3efc4797c6df9e76c6a07b2ff412bbe7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043600/bitwarden_password_manager-2022.12.0.xpi";
+      sha256 = "e1b7cebfe52689dc3a067b46e4cfba1d2dc9512fa4fc73e0298226623d84c2f5";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1247,10 +1247,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.105.0.2";
+      version = "4.106.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038088/lastpass_password_manager-4.105.0.2.xpi";
-      sha256 = "90a56344764eaf73c4373d95aa6fe04347773b8cfb6831cdf76d3507c774a043";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042923/lastpass_password_manager-4.106.0.2.xpi";
+      sha256 = "85f7d2f1bd6cbbded169ab2ad30b09625982bad9cec1ed55201e385aec77d0b8";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
