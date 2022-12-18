@@ -13,6 +13,7 @@ packageSet :: PackageSet ()
 packageSet = do
   traverse_ (uncurry clashPremium) clashPremiumSystems
   ghPkg "janten" "dpt-rp1-py"
+  ghPkg "matrix-org" "synapse-s3-storage-provider"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
   gitPkg "aws-sigv4-proxy" "https://github.com/awslabs/aws-sigv4-proxy.git"
@@ -24,6 +25,7 @@ packageSet = do
   clashForWindowsIcon
   icalinguaPlusPlus
   icalinguaPlusPlusAur
+  linuxQQ
   wemeet
   yacd
   zeronsd
@@ -108,6 +110,15 @@ icalinguaPlusPlus =
 icalinguaPlusPlusAur :: PackageSet ()
 icalinguaPlusPlusAur = gitPkg "icalingua-plus-plus-aur" "https://aur.archlinux.org/icalingua++.git"
 
+linuxQQ :: PackageSet ()
+linuxQQ =
+  define $
+    package "linux-qq"
+      `sourceManual` "2.0.1-429"
+      `fetchUrl` url
+  where
+    url (Version v) = "https://dldir1.qq.com/qqfile/qq/QQNT/4691a571/QQ-v" <> v <> "_x64.AppImage"
+
 wemeet :: PackageSet ()
 wemeet =
   define $
@@ -115,7 +126,7 @@ wemeet =
       `sourceAur` "wemeet-bin"
       `fetchUrl` url
   where
-    md5 = "9b74d4127a16a011db8cb6300fa5fbc9" -- TODO auto update md5
+    md5 = "e078bf97365540d9f0ff063f93372a9c" -- TODO auto update md5
     url (Version v) = "https://updatecdn.meeting.qq.com/cos/" <> md5 <> "/TencentMeeting_0300000000_" <> v <> "_x86_64_default.publish.deb"
 
 yacd :: PackageSet ()

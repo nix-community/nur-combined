@@ -25,11 +25,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ra96Dj47p+ktLH+6kr+Lcgi9OstPH4L+EKJ155RiLWU=",
+            "sha256": "sha256-5zB+fs7RLyO4jpovvptTiZL0X6mxJDH5Z/zsciYuovA=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.11/Clash.for.Windows-0.20.11-x64-linux.tar.gz"
         },
-        "version": "0.20.9"
+        "version": "0.20.11"
     },
     "clash-for-windows-icon": {
         "cargoLocks": null,
@@ -174,11 +174,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yE3IR/JEUxalCPMeXPtxxv2t7JRAlWCxUR3Oge+PR6Y=",
+            "sha256": "sha256-4jC/qrrSAlGcBHhncTHmCYkCNPsOKY/w4QTrXPa/wGE=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.7/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.1/app-x86_64.asar"
         },
-        "version": "v2.7.7"
+        "version": "v2.8.1"
     },
     "icalingua-plus-plus-aur": {
         "cargoLocks": null,
@@ -191,12 +191,26 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a55a690fe4bfccb8209642e58903ee28bcfb2e19",
-            "sha256": "sha256-4K+lv0TOYn0qo0biq6pVKfL3MyBf2FjysLnD8GzJwac=",
+            "rev": "1973d655264b096c9424925a761e37e7604cfef9",
+            "sha256": "sha256-n2i9FUpv0clYSmlAK46LohaGZyttpfU+FE6gOWTxTFQ=",
             "type": "git",
             "url": "https://aur.archlinux.org/icalingua++.git"
         },
-        "version": "a55a690fe4bfccb8209642e58903ee28bcfb2e19"
+        "version": "1973d655264b096c9424925a761e37e7604cfef9"
+    },
+    "linux-qq": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "linux-qq",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-7izsmUwfEAcQHj6PNcU/cprJRNHj342I62kW316vKo8=",
+            "type": "url",
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/4691a571/QQ-v2.0.1-429_x64.AppImage"
+        },
+        "version": "2.0.1-429"
     },
     "plugin-bang-bang": {
         "cargoLocks": null,
@@ -252,6 +266,25 @@
             "type": "github"
         },
         "version": "1.2.1"
+    },
+    "synapse-s3-storage-provider": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "synapse-s3-storage-provider",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "matrix-org",
+            "repo": "synapse-s3-storage-provider",
+            "rev": "v1.1.2",
+            "sha256": "sha256-Jbv85gyk08m8fRiHZG9cwnFxaEOoVye5E5YquWyPvxQ=",
+            "type": "github"
+        },
+        "version": "v1.1.2"
     },
     "telegram-send": {
         "cargoLocks": null,
@@ -317,11 +350,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iO9W5dwgVDI9bg8wNHzjDZx426x1Q7uYsM05SBVRM74=",
+            "sha256": "sha256-NN09Sm8IepV0tkosqC3pSor4/db4iF11XcGAuN/iOpM=",
             "type": "url",
-            "url": "https://updatecdn.meeting.qq.com/cos/9b74d4127a16a011db8cb6300fa5fbc9/TencentMeeting_0300000000_3.11.0.402_x86_64_default.publish.deb"
+            "url": "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb"
         },
-        "version": "3.11.0.402"
+        "version": "3.12.0.400"
     },
     "yacd": {
         "cargoLocks": null,

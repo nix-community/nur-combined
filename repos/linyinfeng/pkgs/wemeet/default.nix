@@ -63,6 +63,7 @@ qt5.mkDerivation rec {
       --include "wemeet/lib/libnxui*" \
       --include "wemeet/lib/libdesktop_common.so" \
       --include "wemeet/lib/libqt_*" \
+      --include "wemeet/lib/libservice_manager.so" \
       --exclude "wemeet/lib/*" \
       --exclude "wemeet/plugins" \
       --exclude "wemeet/icons" \

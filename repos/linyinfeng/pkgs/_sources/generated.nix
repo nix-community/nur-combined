@@ -15,10 +15,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.9";
+    version = "0.20.11";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.9/Clash.for.Windows-0.20.9-x64-linux.tar.gz";
-      sha256 = "sha256-ra96Dj47p+ktLH+6kr+Lcgi9OstPH4L+EKJ155RiLWU=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.11/Clash.for.Windows-0.20.11-x64-linux.tar.gz";
+      sha256 = "sha256-5zB+fs7RLyO4jpovvptTiZL0X6mxJDH5Z/zsciYuovA=";
     };
   };
   clash-for-windows-icon = {
@@ -106,22 +106,30 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.7.7";
+    version = "v2.8.1";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.7.7/app-x86_64.asar";
-      sha256 = "sha256-yE3IR/JEUxalCPMeXPtxxv2t7JRAlWCxUR3Oge+PR6Y=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.1/app-x86_64.asar";
+      sha256 = "sha256-4jC/qrrSAlGcBHhncTHmCYkCNPsOKY/w4QTrXPa/wGE=";
     };
   };
   icalingua-plus-plus-aur = {
     pname = "icalingua-plus-plus-aur";
-    version = "a55a690fe4bfccb8209642e58903ee28bcfb2e19";
+    version = "1973d655264b096c9424925a761e37e7604cfef9";
     src = fetchgit {
       url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "a55a690fe4bfccb8209642e58903ee28bcfb2e19";
+      rev = "1973d655264b096c9424925a761e37e7604cfef9";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-4K+lv0TOYn0qo0biq6pVKfL3MyBf2FjysLnD8GzJwac=";
+      sha256 = "sha256-n2i9FUpv0clYSmlAK46LohaGZyttpfU+FE6gOWTxTFQ=";
+    };
+  };
+  linux-qq = {
+    pname = "linux-qq";
+    version = "2.0.1-429";
+    src = fetchurl {
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4691a571/QQ-v2.0.1-429_x64.AppImage";
+      sha256 = "sha256-7izsmUwfEAcQHj6PNcU/cprJRNHj342I62kW316vKo8=";
     };
   };
   plugin-bang-bang = {
@@ -157,6 +165,17 @@
       rev = "1.2.1";
       fetchSubmodules = false;
       sha256 = "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=";
+    });
+  };
+  synapse-s3-storage-provider = {
+    pname = "synapse-s3-storage-provider";
+    version = "v1.1.2";
+    src = fetchFromGitHub ({
+      owner = "matrix-org";
+      repo = "synapse-s3-storage-provider";
+      rev = "v1.1.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-Jbv85gyk08m8fRiHZG9cwnFxaEOoVye5E5YquWyPvxQ=";
     });
   };
   telegram-send = {
@@ -195,10 +214,10 @@
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.11.0.402";
+    version = "3.12.0.400";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/9b74d4127a16a011db8cb6300fa5fbc9/TencentMeeting_0300000000_3.11.0.402_x86_64_default.publish.deb";
-      sha256 = "sha256-iO9W5dwgVDI9bg8wNHzjDZx426x1Q7uYsM05SBVRM74=";
+      url = "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb";
+      sha256 = "sha256-NN09Sm8IepV0tkosqC3pSor4/db4iF11XcGAuN/iOpM=";
     };
   };
   yacd = {
