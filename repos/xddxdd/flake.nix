@@ -81,6 +81,12 @@
         });
 
       nixosModules = {
+        setupOverlay = { config, ... }: {
+          nixpkgs.overlays = [
+            (self.overlays.custom
+              config.boot.kernelPackages.nvidia_x11)
+          ];
+        };
         qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix {
           inherit overlays packages lib;
         };
