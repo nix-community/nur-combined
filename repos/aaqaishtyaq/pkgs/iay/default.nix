@@ -1,5 +1,5 @@
 {
-  stdenv, fetchFromGitHub, rustPlatform, openssl, pkg-config, pkgs ? import <nixpkgs> { }
+  stdenv, fetchFromGitHub, rustPlatform, openssl, pkg-config, pkgs 
 }:
 
 rustPlatform.buildRustPackage rec {
