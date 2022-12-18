@@ -65,7 +65,7 @@ in
   gc-hold.paths = with pkgs; [
     go gopls
     terraform
-    ansible
+    ansible vagrant
     gnumake cmake
     clang gdb ccls
     python3Packages.pylsp-mypy
