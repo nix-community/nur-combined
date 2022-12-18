@@ -24,6 +24,11 @@ in
         useACMEHost = domain;
         root = "/var/www/blog";
         default = true; # Redirect to my blog
+
+        # http://www.gnuterrypratchett.com/
+        extraConfig = ''
+          add_header X-Clacks-Overhead "GNU Terry Pratchett";
+        '';
       };
     };
 
