@@ -10,7 +10,5 @@ in {
       ({ "flake/${head inputs}" = { source = self.inputs."${head inputs}".outPath; }; } // (recur (tail inputs)));
     in recur inputNames;
 
-  environment.variables = {
-    NIX_PATH = lib.mkOverride 0 (concatStringsSep ":" ((map (k: "${k}=/etc/flake/${k}") inputNames) ++ ["dotfiles=~/.dotfiles"]));
-  };
+  nix.nixPath = lib.mkOverride 0 ((map (k: "${k}=/etc/flake/${k}") inputNames) ++ ["dotfiles=~/.dotfiles"]);
 }

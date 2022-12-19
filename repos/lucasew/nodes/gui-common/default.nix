@@ -10,12 +10,14 @@ in {
     ./git.nix
     ./adb.nix
     ./vbox.nix
+    ./tuning.nix
   ];
   nixpkgs = {
     config = {
       android_sdk.accept_license = true;
     };
   };
+
 
   systemd.extraConfig = ''
   DefaultTimeoutStartSec=10s
