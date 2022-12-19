@@ -172,6 +172,7 @@ in {
 
             "/_matrix" = proxyToClientPort;
             "/_synapse/client" = proxyToClientPort;
+            "/health" = proxyToClientPort;
           };
 
           listen = [

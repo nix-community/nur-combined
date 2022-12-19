@@ -61,7 +61,8 @@ in {
             email: "contact+pleroma@alarsyo.net",
             notify_email: "pleroma@alarsyo.net",
             limit: 5000,
-            registrations_open: false
+            registrations_open: false,
+            healthcheck: true
 
           config :pleroma, :media_proxy,
             enabled: false,
