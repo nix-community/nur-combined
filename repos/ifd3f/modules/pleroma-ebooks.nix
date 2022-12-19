@@ -129,7 +129,6 @@ in {
         };
 
         "${unitName}" = {
-          wantedBy = [ "network-online.target" ];
           path = with pkgs; [ generate-pleroma-ebooks-config pleroma-ebooks ];
           unitConfig.ConditionPathExists = botCfg.accessTokenFile;
 
