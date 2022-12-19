@@ -17,6 +17,7 @@ wrapFirefox firefox-esr-102-unwrapped {
     sponsorblock
     tampermonkey
     ublock-origin
+    tweak-new-twitter
   ])
   ++ ([
     (callPackage ./base16-ext {})
