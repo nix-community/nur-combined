@@ -863,10 +863,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "108.0.1buildid20221215.175817";
+      version = "109.0buildid20221218.190303";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4044382/francais_language_pack-108.0.1buildid20221215.175817.xpi";
-      sha256 = "15074bd98dd5fc6a3e79863ca166ad9b2113591f7ab90b9c4d309584a3d6b7a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045432/francais_language_pack-109.0buildid20221218.190303.xpi";
+      sha256 = "1504d49406edaff19dc3ca419923fcd3fd04846e13b5b16e66c3b78455414ff2";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1132,10 +1132,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.20.0";
+      version = "2.20.1";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034948/ipfs_companion-2.20.0.xpi";
-      sha256 = "31237635e8b10275db898bd49e2ed3d2f18ed251e4f702facb46330bc90011b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045650/ipfs_companion-2.20.1.xpi";
+      sha256 = "aa2653c5dfc8680d81c44c771e381ad9eb257cfc81239f465b758e39d43f6bb3";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
