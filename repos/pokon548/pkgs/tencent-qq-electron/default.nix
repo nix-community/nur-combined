@@ -1,16 +1,36 @@
-{ appimageTools, lib, fetchurl, electron, makeWrapper, libsecret }:
+{ appimageTools, lib, fetchurl, fetchzip, electron, makeWrapper, libsecret, unzip }:
 
 let
   pname = "qq";
-  version = "2.0.1-429";
+  version = "2.0.2-510";
   name = "Tencent-QQ-${version}";
 
-  src = fetchurl {
-    url = "https://dldir1.qq.com/qqfile/qq/QQNT/4691a571/QQ-v${version}_x64.AppImage";
-    sha256 = "sha256-7izsmUwfEAcQHj6PNcU/cprJRNHj342I62kW316vKo8=";
-  };
+  srcs = {
+    electron = fetchurl {
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4691a571/QQ-v2.0.1-429_x64.AppImage";
+      sha256 = "sha256-7izsmUwfEAcQHj6PNcU/cprJRNHj342I62kW316vKo8=";
+    };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+    hotpatch = fetchzip {
+      url = "https://qqpatch.gtimg.cn/hotUpdate_new/release/linux-x64/2.0.2-510/2.0.2-510.zip.zip";
+      name = "hotpatch-qq-${version}";
+      sha256 = "sha256-6Kqw/3rMUSGHhuK0qQZzKan+I8bsKWzAAPWBwAS5ZBQ=";
+    };
+  };
+  
+  src = srcs.electron;
+
+  appimageContents = (appimageTools.extract { inherit name src; }).overrideAttrs (oA: {
+    # Dirty workaround for hot updates
+    nativeBuildInputs = [ unzip ];
+
+    buildCommand = ''
+      ${oA.buildCommand}
+
+      unzip -o -q ${srcs.hotpatch}/${version}.zip -d $out/resources/app
+      chmod 755 $out/resources/app
+    '';
+  });
 
 in appimageTools.wrapType2 {
   inherit version name src;
