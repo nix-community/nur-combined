@@ -101,7 +101,9 @@
           then "%2Frun%2Fpostgresql"
           else config.database.host;
       in mkOptionDefault "postgres://${config.database.user}${pw}@${host}/${config.database.name}";
-      setSystemdService = {
+      setSystemdService = let
+        localMatrix = matrix-synapse.enable && matrix-synapse.appservices.${name}.enable;
+      in rec {
         serviceConfig = mkMerge [ {
           ExecStart = config.cmdline;
           WorkingDirectory = config.dataDir;
@@ -110,9 +112,10 @@
           User = config.user;
           Group = config.group;
         }) ];
-        requisite = mkIf (matrix-synapse.enable && matrix-synapse.appservices.${name}.enable) [ "matrix-synapse.service" ];
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        requisite = mkIf localMatrix [ "matrix-synapse.service" ];
+        wantedBy = if !localMatrix then [ "multi-user.target" ] else requisite;
+        bindsTo = requisite;
+        after = [ "network.target" "matrix-synapse.service" ];
         preStart = ''
           ${config.registration.configuration.out.generate}
         '';
@@ -358,8 +361,134 @@ in {
       mautrix-signal = {
         package = mkDefault pkgs.mautrix-signal;
       };
-      mautrix-telegram = {
-        package = mkDefault pkgs.mautrix-telegram;
+      mautrix-telegram = { config, ... }: {
+        # https://github.com/mautrix/telegram/blob/master/mautrix_telegram/example-config.yaml
+        imports = [
+          matrix-appservices.mautrix-python
+        ];
+        options = {
+          telegram = {
+            apiId = mkOption {
+              type = types.str;
+              description = "Get your own API keys at https://my.telegram.org/apps";
+            };
+            apiHash = mkOption {
+              type = types.str;
+            };
+            botToken = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "Create your own bot at https://t.me/BotFather";
+            };
+            catchUp = mkOption {
+              type = types.bool;
+              default = true;
+            };
+            sequentialUpdates = mkOption {
+              type = types.bool;
+              default = true;
+            };
+            deviceModel = mkOption {
+              type = types.str;
+              default = "mautrix-telegram";
+            };
+          };
+        };
+        config = {
+          package = mkDefault pkgs.mautrix-telegram;
+          registration = {
+            id = mkDefaultOverride "telegram";
+            namespaces.users = mkDefault [ {
+              regex = "@telegram_.+";
+            } ];
+          };
+          configuration = {
+            settings = {
+              telegram = {
+                api_id = config.telegram.apiId;
+                api_hash = config.telegram.apiHash;
+                bot_token = if config.telegram.botToken == null then "disabled" else config.telegram.botToken;
+                catch_up = config.telegram.catchUp;
+                sequential_updates = config.telegram.sequentialUpdates;
+                exit_on_update_error = false;
+                device_info = {
+                  device_model = config.telegram.deviceModel;
+                  system_version = "auto";
+                  app_version = "auto";
+                  lang_code = "en";
+                  system_lang_code = "en";
+                };
+              };
+            };
+          };
+          appservice = {
+            port = mkDefaultOverride 29317;
+            bot = {
+              username = mkDefaultOverride "telegrambot";
+              displayname = mkDefaultOverride "Telegram bridge bot";
+              avatar = mkDefaultOverride "mxc://maunium.net/tJCRmUyJDsgRNgqhOgoiHWbX";
+            };
+            database.opts = mapAttrs (_: mkOptionDefault) {
+              min_size = 1;
+              max_size = 10;
+            };
+          };
+          database.type = mkDefault "postgresql";
+          bridge = mapAttrs (_: mkOptionDefault) {
+            username_template = "telegram_{userid}";
+            alias_template = "telegram_{groupname}";
+            displayname_template = "{displayname} (Telegram)";
+            command_prefix = "!tg";
+            displayname_preference = [ "full name" "username" "phone number" ];
+            displayname_max_length = 100;
+            allow_avatar_remove = false;
+            max_initial_member_sync = 100;
+            max_member_count = -1;
+            sync_channel_members = false;
+            skip_deleted_members = true;
+            startup_sync = false;
+            sync_update_limit = 0;
+            sync_create_limit = 15;
+            sync_deferred_create_all = false;
+            sync_direct_chats = false;
+            max_telegram_delete = 10;
+            sync_matrix_state = true;
+            allow_matrix_login = true;
+            public_portals = false;
+            sync_direct_chat_list = false;
+            double_puppet_allow_discovery = false;
+            telegram_link_preview = true;
+            sync_with_custom_puppets = config.registration.pushEphemeral != true;
+            delivery_receipts = false;
+            delivery_error_reports = false;
+            resend_bridge_info = false;
+            double_puppet_server_map = { };
+            login_shared_secret_map = { };
+          } // {
+            permissions = mkMerge [
+              { }
+              (mkIf matrix-synapse.enable {
+                ${matrix-synapse.settings.server_name} = mkOptionDefault "full";
+                #"example.com" = "user";
+                #"@admin:example.com" = "admin";
+              })
+            ];
+            relaybot = mapAttrs (_: mkOptionDefault) {
+              group_chat_invite = [ ];
+              ignore_unbridged_group_chat = true;
+              authless_portals = true;
+              whitelist_group_admins = true;
+              ignore_own_incoming_events = true;
+              whitelist = [ ];
+            } // {
+              private_chat = mapAttrs (_: mkOptionDefault) {
+                invite = [ ];
+                state_changes = true;
+                message = "This is a Matrix bridge relaybot and does not support direct chats";
+              };
+            };
+          };
+        };
       };
       mautrix-whatsapp = { config, ... }: {
         imports = [ matrix-appservices.mautrix ];
@@ -900,7 +1029,9 @@ in {
           };
         };
       };
-      mautrix-python = toFunctor ({ config, options, ... }: {
+      mautrix-python = toFunctor ({ config, options, ... }: let
+        pythonPackageName = replaceStrings [ "-" ] [ "_" ] config.name;
+      in {
         imports = [
           matrix-appservices.mautrix
         ];
@@ -1077,10 +1208,7 @@ in {
               format = "[%(asctime)s] [%(levelname)s@%(name)s] %(message)s";
             in {
               colored = {
-                "()" = {
-                  mautrix-googlechat = "mautrix_googlechat.util.ColorFormatter";
-                  mautrix-hangouts = "mautrix_hangouts.util.ColorFormatter";
-                }.${config.name};
+                "()" = "${pythonPackageName}.util.ColorFormatter";
                 inherit format;
               };
               normal = {
@@ -1112,7 +1240,6 @@ in {
             };
           };
           cmdargs = let
-            pythonPackageName = replaceStrings [ "-" ] [ "_" ] config.name;
             mautrixExample = [ "-b" "${config.package}/${config.package.pythonModule.sitePackages}/${config.package.pythonPackage or pythonPackageName}/example-config.yaml" ];
             hasMautrixExample = options.package.isDefined && config.package ? pythonModule;
           in mkMerge [
