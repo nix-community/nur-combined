@@ -689,6 +689,20 @@
         platforms = platforms.all;
         };
       };
+    "fediact" = buildFirefoxXpiAddon {
+      pname = "fediact";
+      version = "0.9.8.3";
+      addonId = "{cca112bb-1ca6-4593-a2f1-38d808a19dda}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046347/fediact-0.9.8.3.xpi";
+      sha256 = "aee267c839a946d0de4ec2ca907d44f20a6f23866d5393b25def025b976a5ea4";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Lartsch/FediAct";
+        description = "Simplifies interactions on other Mastodon instances than your own. Visit <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/789a581b17c520493af8e5da2391e5958c7c2b17da669e418888a11bbb423d5a/https%3A//github.com/lartsch/FediAct\" rel=\"nofollow\">https://github.com/lartsch/FediAct</a> for more.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
       version = "4.0.0";
