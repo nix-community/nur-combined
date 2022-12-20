@@ -1,9 +1,9 @@
 {
   "url": "https://akkoma.dev/AkkomaGang/admin-fe.git",
-  "rev": "e018d26a5b1099bb65ce42d0998a3fce12f843ca",
-  "date": "2022-11-13T23:15:37+00:00",
-  "path": "/nix/store/hipg2zimmhjpsy7ka96lbisf4r80q8m5-admin-fe",
-  "sha256": "1pzrz8ii080rn8340q4ahqh8fm7yzb1qdnvx36frsiw2ini2sxww",
+  "rev": "0802dc5777e722d5df8bc595e025a6124eb02837",
+  "date": "2022-12-14T12:05:59+00:00",
+  "path": "/nix/store/pqj5iqn2y89qfgd33b9jjbn58cq395nn-admin-fe",
+  "sha256": "0qvr245604yaslvnphx2ybclh51svqi570pzch917jffi8kkr5gr",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
