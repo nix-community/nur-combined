@@ -127,10 +127,10 @@
       };
     "auto-tab-discard" = buildFirefoxXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.6.6";
+      version = "0.6.7";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031079/auto_tab_discard-0.6.6.xpi";
-      sha256 = "56778cb0a93a6cfd6d62b8ee686f9f2d97ce18191567c9a7bb4c459c8a71990c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045009/auto_tab_discard-0.6.7.xpi";
+      sha256 = "89e59b8603c444258c89a507d7126be52ad7a35e4f7b8cfbca039b746f70b5d5";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -271,10 +271,10 @@
       };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "1.3.2";
+      version = "2.0.1";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3997075/buster_captcha_solver-1.3.2.xpi";
-      sha256 = "bd8b13aebb7437b57acd898c5f0a1326e5af61ac41316abbca30c075636fa1f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4044701/buster_captcha_solver-2.0.1.xpi";
+      sha256 = "9910d2d0add8ba10d7053fd90818e17e6d844050c125f07cb4e4f5759810efcf";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster#readme";
@@ -1186,10 +1186,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.3.1";
+      version = "1.8.4";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4023682/keepassxc_browser-1.8.3.1.xpi";
-      sha256 = "f97fb93e03f9a66fc089c16b7448a1669291cd5700365955b977bb2f01141dd1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045866/keepassxc_browser-1.8.4.xpi";
+      sha256 = "cc39aa058cb8915cfc88424e2e1cebe3ccfc3f95d7bddb2abd0c4905d2b17719";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -2709,10 +2709,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.2.1";
+      version = "8.2.3";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038942/ublacklist-8.2.1.xpi";
-      sha256 = "e7ae2b54fe0943b3180187cf3c6ec9c4d0c1eeafe12e5d93ed4d84c583b4e265";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4044700/ublacklist-8.2.3.xpi";
+      sha256 = "bc77bfec460ecdc29e01b4c4966b7445be04dab5f47f72605d384969499acfe3";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2849,10 +2849,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.67.4";
+      version = "1.64.6";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038382/vimium_ff-1.67.4.xpi";
-      sha256 = "5e8f3b22f4bbd9b47e2743b805ae0341a0e16c7e96e43ff48f9679a590e15f9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2985278/vimium_ff-1.64.6.xpi";
+      sha256 = "7044bd3983e541faf2e56c117048fdc281c4c52e4196472fc4f9e4af42c5e1da";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
@@ -2919,10 +2919,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.52";
+      version = "6.10.53";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043676/wappalyzer-6.10.52.xpi";
-      sha256 = "71d5b90e98f6439e48149834e481b93c7628e4ee7d579cb642be268feb71ef43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045621/wappalyzer-6.10.53.xpi";
+      sha256 = "2d17fce5164cc60b1615960926ca87b3e50a0c0cc847fa323603d5c0a8b66844";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
