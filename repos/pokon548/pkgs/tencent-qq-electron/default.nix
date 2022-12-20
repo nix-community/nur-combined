@@ -1,4 +1,4 @@
-{ appimageTools, lib, fetchurl, fetchzip, electron, makeWrapper, libsecret, unzip }:
+{ appimageTools, lib, fetchurl, fetchzip, electron, makeWrapper, libsecret, p7zip }:
 
 let
   pname = "qq";
@@ -22,18 +22,27 @@ let
 
   appimageContents = (appimageTools.extract { inherit name src; }).overrideAttrs (oA: {
     # Dirty workaround for hot updates
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [ p7zip ];
+
+    configJson = ./config.json;
 
     buildCommand = ''
       ${oA.buildCommand}
 
-      unzip -o -q ${srcs.hotpatch}/${version}.zip -d $out/resources/app
+      rm -rf $out/resources/app
+      7z x ${srcs.hotpatch}/${version}.zip -aoa -o$out/resources/app
       chmod 755 $out/resources/app
+
+      mkdir -p $out/workarounds
+      cp ${configJson} $out/workarounds/config.json
     '';
   });
 
-in appimageTools.wrapType2 {
-  inherit version name src;
+  configJson = ./config.json;
+
+in appimageTools.wrapAppImage {
+  inherit version name;
+  src = appimageContents;
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
@@ -42,6 +51,13 @@ in appimageTools.wrapType2 {
       --replace 'Exec=AppRun' 'Exec=${pname}' \
       --replace 'Icon=/opt/QQ/resources/app/512x512.png' 'Icon=qq'
     cp -r ${appimageContents}/usr/share/icons $out/share
+
+    cp $out/bin/${pname} $out/bin/test
+    mv $out/bin/test $out/bin/${pname}
+
+    sed -i '39 i cp ${appimageContents}/workarounds/config.json /home/$(whoami)/.config/QQ/versions/' $out/bin/${pname}
+    sed -i '40 i mkdir -pv /home/$(whoami)/.config/QQ/versions/${version}' $out/bin/${pname}
+    sed -i '41 i ln -s ${appimageContents}/resources/app/* /home/$(whoami)/.config/QQ/versions/${version}' $out/bin/${pname}
   '';
 
   #passthru.version = version;
