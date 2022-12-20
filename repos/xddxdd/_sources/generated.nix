@@ -505,13 +505,13 @@
   };
   route-chain = {
     pname = "route-chain";
-    version = "2ad303d7eb8aa35aced19b1baf757a0a78b3b843";
+    version = "e68c96e5e4df70c797d5a99acc8226713a22d7f5";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "route-chain";
-      rev = "2ad303d7eb8aa35aced19b1baf757a0a78b3b843";
+      rev = "e68c96e5e4df70c797d5a99acc8226713a22d7f5";
       fetchSubmodules = false;
-      sha256 = "sha256-uzudFMeBtgKRPUiaUaSiExTLWTcxfp0VVe/IW9eDxAg=";
+      sha256 = "sha256-StEBgUC3U8KYXt+esohHQ1uc/cvXEVEwrNdbeK+j4uE=";
     });
   };
   stream-echo-nginx-module = {

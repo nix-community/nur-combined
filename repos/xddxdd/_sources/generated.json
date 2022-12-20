@@ -878,11 +878,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "route-chain",
-            "rev": "2ad303d7eb8aa35aced19b1baf757a0a78b3b843",
-            "sha256": "sha256-uzudFMeBtgKRPUiaUaSiExTLWTcxfp0VVe/IW9eDxAg=",
+            "rev": "e68c96e5e4df70c797d5a99acc8226713a22d7f5",
+            "sha256": "sha256-StEBgUC3U8KYXt+esohHQ1uc/cvXEVEwrNdbeK+j4uE=",
             "type": "github"
         },
-        "version": "2ad303d7eb8aa35aced19b1baf757a0a78b3b843"
+        "version": "e68c96e5e4df70c797d5a99acc8226713a22d7f5"
     },
     "stream-echo-nginx-module": {
         "cargoLocks": null,
