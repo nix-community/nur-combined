@@ -41,13 +41,13 @@ let
         exit 2
       fi
 
-      modeRaw="-new-tab"
+      modeRaw="-new-window"
 
       if [ ! "$1" == "" ]
       then
-        if ${zenity}/bin/zenity --question --text="$profile - Open new Window?" --title "Window?" --default-cancel
+        if ! ${zenity}/bin/zenity --question --text="$profile - Open new Window?" --title "Window?" --default-cancel
         then
-            modeRaw="-new-window"
+            modeRaw="-new-tab"
         fi
       fi
 
