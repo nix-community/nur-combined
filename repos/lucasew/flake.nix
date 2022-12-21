@@ -61,7 +61,7 @@
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-unstable.url =  "github:NixOS/nixpkgs/nixos-unstable";
-
+    nixpkgs-staging.url =  "github:NixOS/nixpkgs/staging";
     nixpkgs.url =  "github:NixOS/nixpkgs/nixos-22.11";
 
     nur.url =  "nur";
@@ -195,8 +195,10 @@
 
     nixosConfigurations = let
       nixosConf = {
-        mainModule,
-        extraModules ? [],
+          mainModule
+        , nixpkgs ? inputs.nixpkgs
+        , extraModules ? []
+        , system ? "x86_64-linux"
       }:
       let
         revModule = {pkgs, ...}: let
@@ -210,7 +212,10 @@
           system.nixos.label = "lucasew:nixcfg-${rev}";
         };
         source = {
-          inherit pkgs system;
+          pkgs = mkPkgs {
+            inherit nixpkgs system;
+          };
+          inherit system;
           modules = [
             revModule
             (mainModule)
@@ -228,6 +233,7 @@
       };
       whiterun = nixosConf {
         mainModule = ./nodes/whiterun/default.nix;
+        nixpkgs = inputs.nixpkgs-staging;
       };
       demo = nixosConf {
         mainModule = ./nodes/demo/default.nix;
