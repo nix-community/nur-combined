@@ -89,19 +89,6 @@ in
 
           beamDeps = with final; [];
         };
-        gettext = beamPackages.buildMix {
-          name = "gettext";
-          version = "0.19.1";
-
-          src = fetchFromGitHub {
-            owner = "tusooa";
-            repo = "gettext";
-            rev = "72fb2496b6c5280ed911bdc3756890e7f38a4808";
-            hash = "sha256-V0qmE+LcAbVoWsJmWE4fwrduYFIZ5BzK/sGzgLY3eH0=";
-          };
-
-          beamDeps = with final; [];
-        };
         linkify = beamPackages.buildMix rec {
           name = "linkify";
           version = "0.5.2";
@@ -129,20 +116,6 @@ in
           };
 
           beamDeps = with final; [phoenix_view temple];
-        };
-        remote_ip = beamPackages.buildMix rec {
-          name = "remote_ip";
-          version = "0.1.5";
-
-          src = fetchFromGitLab {
-            domain = "git.pleroma.social";
-            group = "pleroma";
-            owner = "elixir-libraries";
-            repo = "remote_ip";
-            rev = "b647d0deecaa3acb140854fe4bda5b7e1dc6d1c8";
-            sha256 = "0c7vmakcxlcs3j040018i7bfd6z0yq6fjfig02g5fgakx398s0x6";
-          };
-          beamDeps = with final; [combine plug inet_cidr];
         };
         search_parser = beamPackages.buildMix rec {
           name = "search_parser";
