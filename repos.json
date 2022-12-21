@@ -467,6 +467,9 @@
         "nnb": {
             "url": "https://github.com/NNBnh/nur-packages"
         },
+        "nodeselector": {
+            "url": "https://github.com/nodeselector/nur-packages"
+        },
         "noneucat": {
             "url": "https://git.sr.ht/~noneucat/nur-packages"
         },
