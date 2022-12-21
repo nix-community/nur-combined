@@ -2,7 +2,8 @@
 , stdenv
 , buildPythonApplication
 , fetchFromGitHub
-, poetry
+, poetry-core
+, pythonRelaxDepsHook
 , cmake-format
 , pygls
 , cmake
@@ -27,8 +28,13 @@ buildPythonApplication rec {
     ./disable-test-timeouts.patch
   ];
 
+  pythonRelaxDeps = [
+    "pygls"
+  ];
+
   nativeBuildInputs = [
-    poetry
+    poetry-core
+    pythonRelaxDepsHook
   ];
 
   propagatedBuildInputs = [
@@ -52,9 +58,7 @@ buildPythonApplication rec {
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
 
-    # https://github.com/NixOS/nixpkgs/pull/172397
-    # https://github.com/pyca/pyopenssl/issues/873
     # pandas (required by poetry) is marked as broken on i686
-    broken = stdenv.isDarwin && stdenv.isAarch64 || stdenv.isi686;
+    broken = stdenv.isi686;
   };
 }

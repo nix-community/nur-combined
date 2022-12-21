@@ -26,8 +26,10 @@
           inherit system;
         };
 
-        paths = flake-linter.lib.partitionToAttrs
-          flake-linter.lib.commonPaths
+        flake-linter-lib = flake-linter.lib.${system};
+
+        paths = flake-linter-lib.partitionToAttrs
+          flake-linter-lib.commonPaths
           (builtins.filter
             (path:
               (builtins.all
@@ -38,9 +40,9 @@
                   "node-env.nix"
                   "node-packages.nix"
                 ]))
-            (flake-linter.lib.walkFlake ./.));
+            (flake-linter-lib.walkFlake ./.));
 
-        linter = flake-linter.lib.makeFlakeLinter {
+        linter = flake-linter-lib.makeFlakeLinter {
           root = ./.;
 
           settings = {
@@ -54,8 +56,6 @@
 
             nixpkgs-fmt.paths = paths.nix;
           };
-
-          inherit pkgs;
         };
 
         nurPkgs = import ./pkgs (pkgs // nurPkgs) pkgs;

@@ -59,7 +59,7 @@ in
     }).lib;
   };
 
-  git-review = python3Packages.callPackage ./applications/version-management/git-review { };
+  git-review = python3Packages.callPackage ./applications/version-management/git-and-tools/git-review { };
 
   goverlay = callPackage ./tools/graphics/goverlay {
     inherit (qt5) wrapQtAppsHook;
@@ -91,7 +91,7 @@ in
   poke = callPackage ./applications/editors/poke { };
 
   pokemmo-installer = callPackage ./games/pokemmo-installer {
-    jre = jdk11;
+    jre = temurin-jre-bin-17;
     inherit (gnome) zenity;
   };
 
@@ -117,9 +117,9 @@ in
     inherit (qt5) wrapQtAppsHook;
   };
 
-  vkBasalt = callPackage ./tools/graphics/vkBasalt rec {
-    vkBasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkBasalt {
-      inherit vkBasalt32;
+  vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
+    vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt {
+      inherit vkbasalt32;
     };
   };
 

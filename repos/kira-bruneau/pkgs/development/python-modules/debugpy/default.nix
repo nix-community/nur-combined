@@ -17,7 +17,7 @@
 
 buildPythonPackage rec {
   pname = "debugpy";
-  version = "1.6.3";
+  version = "1.6.4";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -26,7 +26,7 @@ buildPythonPackage rec {
     owner = "microsoft";
     repo = "debugpy";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-ERsqs+pCJfYQInOWPBhM/7hC5TTfQAksYJwFCcd+vlk=";
+    sha256 = "sha256-THhu6Oa4x2b0chLFrJR7FF1z8X3/dsHzXosBmSqaDeI=";
   };
 
   patches = [
@@ -104,12 +104,9 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "An implementation of the Debug Adapter Protocol for Python";
     homepage = "https://github.com/microsoft/debugpy";
+    changelog = "https://github.com/microsoft/debugpy/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin" "i686-darwin" "aarch64-darwin" ];
-
-    # https://github.com/NixOS/nixpkgs/pull/172397
-    # https://github.com/pyca/pyopenssl/issues/873
-    broken = stdenv.isDarwin && stdenv.isAarch64;
   };
 }

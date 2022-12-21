@@ -44,7 +44,7 @@ let
     "pkgs/tools/games/gamemode"
     "pkgs/tools/graphics/goverlay"
     "pkgs/tools/graphics/mangohud"
-    "pkgs/tools/graphics/vkBasalt"
+    "pkgs/tools/graphics/vkbasalt"
     "pkgs/tools/package-management/protontricks"
     "pkgs/tools/video/replay-sorcery"
   ]);

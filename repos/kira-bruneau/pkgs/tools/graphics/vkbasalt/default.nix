@@ -8,27 +8,28 @@
 , libX11
 , spirv-headers
 , vulkan-headers
-, vkBasalt32
+, vkbasalt32
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "vkBasalt";
-  version = "0.3.2.6";
+  pname = "vkbasalt";
+  version = "0.3.2.8";
 
   src = fetchFromGitHub {
     owner = "DadSchoorse";
     repo = "vkBasalt";
     rev = "refs/tags/v${finalAttrs.version}";
-    sha256 = "sha256-wk/bmbwdE1sBZPlD+EqXfQWDITIfCelTpoFBtNtZV8Q=";
+    hash = "sha256-/ynJ6zOVj6Si23Jsq6IHlw36KqBtMvjj41fos6irm9o=";
   };
 
   nativeBuildInputs = [ glslang meson ninja pkg-config ];
   buildInputs = [ libX11 spirv-headers vulkan-headers ];
   mesonFlags = [ "-Dappend_libdir_vkbasalt=true" ];
 
-  # Include 32bit layer in 64bit build
   postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-    ln -s ${vkBasalt32}/share/vulkan/implicit_layer.d/vkBasalt.json \
+    install -Dm 644 $src/config/vkBasalt.conf $out/share/vkBasalt/vkBasalt.conf
+    # Include 32bit layer in 64bit build
+    ln -s ${vkbasalt32}/share/vulkan/implicit_layer.d/vkBasalt.json \
       "$out/share/vulkan/implicit_layer.d/vkBasalt32.json"
   '';
 
