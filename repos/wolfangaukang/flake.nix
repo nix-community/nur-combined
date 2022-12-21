@@ -97,6 +97,7 @@
               users = usersWithRoot;
               hostname = "holuhraun";
               extra-modules = nixosHardware;
+              enable-impermanence-hm = true;
               hm-users = users;
             };
 

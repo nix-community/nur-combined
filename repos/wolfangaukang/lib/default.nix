@@ -26,6 +26,7 @@ rec {
     , hostname
     , overlays ? []
     , enable-sab ? true
+    , enable-impermanence-hm ? false
     }:
 
     let
@@ -40,7 +41,8 @@ rec {
         useUserPackages = true;
         sharedModules = personalModules
           ++ hmModules
-          ++ optionals (enable-sab) [ inputs.sab.hmModule ];
+          ++ optionals (enable-sab) [ inputs.sab.hmModule ]
+          ++ optionals (enable-impermanence-hm) [ inputs.impermanence.nixosModules.home-manager.impermanence ];
         #users."${username}" = import ../${hostname}/home-manager.nix;
       } // { users = (importHmUsers users hostname); };
       nixpkgs = {
@@ -58,6 +60,7 @@ rec {
     , enable-hm ? true
     , hm-users ? []
     , enable-impermanence ? true
+    , enable-impermanence-hm ? false
     }:
 
     let
@@ -70,7 +73,7 @@ rec {
     in
     {
       modules = hostConfig
-        ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( mkHomeNixos { inherit inputs hostname overlays; users = hm-users; } ) ]
+        ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( mkHomeNixos { inherit inputs hostname overlays enable-impermanence-hm; users = hm-users; } ) ]
         ++ optionals (enable-impermanence) impermanenceConfig
         ++ (importUsers users hostname)
         ++ extra-modules;
