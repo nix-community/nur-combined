@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.7.2";
+      version = "2.9.8.3";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4042110/bypass_paywalls_clean-2.9.7.2.xpi";
-      sha256 = "ed90e41bc3b5ac461d87f2dad0f2e2f6da7dd89c58790bda385b7f0669c3bf75";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046136/bypass_paywalls_clean-2.9.8.3.xpi";
+      sha256 = "b7a437df936aeb498320b3e6cde9be0d3e4a7e595e00f5492f76ec680f942f48";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -877,10 +877,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20221218.190303";
+      version = "109.0buildid20221220.185745";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4045432/francais_language_pack-109.0buildid20221218.190303.xpi";
-      sha256 = "1504d49406edaff19dc3ca419923fcd3fd04846e13b5b16e66c3b78455414ff2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046469/francais_language_pack-109.0buildid20221220.185745.xpi";
+      sha256 = "0a254295e2771b943731a11f1533b18cd99fb8ca065d2154288e3385834db8db";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1261,10 +1261,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.106.0.2";
+      version = "4.106.1.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4042923/lastpass_password_manager-4.106.0.2.xpi";
-      sha256 = "85f7d2f1bd6cbbded169ab2ad30b09625982bad9cec1ed55201e385aec77d0b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045944/lastpass_password_manager-4.106.1.3.xpi";
+      sha256 = "38e35b111bc037c5fcffda58a782be3c0a3611862a000939790de4d41a0bfe2d";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1705,10 +1705,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.15.0";
+      version = "6.16.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030397/okta_browser_plugin-6.15.0.xpi";
-      sha256 = "bb52445703c8cf4c91a593da37d1b5250ef74125ef028b104792e52bbc747620";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4041466/okta_browser_plugin-6.16.0.xpi";
+      sha256 = "64b8d960813bd0129c51801a953c3f335e7e979e33e47a8440eb84300ef8c25f";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -2091,10 +2091,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.10";
+      version = "5.22.14";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3902655/reddit_enhancement_suite-5.22.10.xpi";
-      sha256 = "749ecad7db8a9411ab72ea7f5f40b468a084128f2e6ba9446fc1745a2b734045";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046245/reddit_enhancement_suite-5.22.14.xpi";
+      sha256 = "1e2658b1525a5c334bcf466cd8a2fe2985d51069048b80b64c017cfb3bcdc4f4";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -2342,10 +2342,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.8";
+      version = "5.1.10";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034700/sponsorblock-5.1.8.xpi";
-      sha256 = "df417ca03220b215d563b60a8277e8735b544c77e07856f35c8489b9526cd003";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045981/sponsorblock-5.1.10.xpi";
+      sha256 = "282864ff037dadc96b7715e9c9dd3bd890263ca128eb18c681a39a2da77e4d7f";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
