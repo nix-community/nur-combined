@@ -624,6 +624,9 @@
         "sondr3": {
             "url": "https://github.com/sondr3/nix-expressions"
         },
+        "souxd": {
+            "url": "https://github.com/souxd/souxd-nur"
+        },
         "splintah": {
             "url": "https://github.com/splintah/nurpkgs"
         },
