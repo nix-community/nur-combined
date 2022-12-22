@@ -191,12 +191,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1973d655264b096c9424925a761e37e7604cfef9",
-            "sha256": "sha256-n2i9FUpv0clYSmlAK46LohaGZyttpfU+FE6gOWTxTFQ=",
+            "rev": "b047908b13fc256a3ee683744dd6ee56737d2638",
+            "sha256": "sha256-7D1zlU55AzS28OYEtej2GGZ7DVFKYKyW3bnPvgCWjC8=",
             "type": "git",
             "url": "https://aur.archlinux.org/icalingua++.git"
         },
-        "version": "1973d655264b096c9424925a761e37e7604cfef9"
+        "version": "b047908b13fc256a3ee683744dd6ee56737d2638"
     },
     "linux-qq": {
         "cargoLocks": null,
