@@ -21,6 +21,9 @@ in {
     enable = mkEnableOption ''
       Adoptions for monitor
     '';
+    hotplug = mkEnableOption ''
+      Hotplug monitor support
+    '';
     config = mkOption {
       type = types.nullOr types.attrs;
       default = null;
@@ -41,7 +44,7 @@ in {
       environment.systemPackages = with pkgs; [ ddcutil ];
       environment.variables.QT_AUTO_SCREEN_SCALE_FACTOR = "0";
     })
-    (mkIf (cfg.enable && config.services.xserver.enable) {
+    (mkIf (cfg.enable && cfg.hotplug) {
       systemd.user.services.autorandr = {
         description = "autorandr start on login";
         wantedBy = [ "graphical-session.target" ];

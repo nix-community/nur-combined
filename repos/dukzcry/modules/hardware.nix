@@ -84,6 +84,7 @@ in {
       # MT7921K is supported starting from 5.17
       boot.kernelPackages = pkgs.linuxPackages_6_0;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+      services.xserver.dpi = 144;
     })
   ];
 }
