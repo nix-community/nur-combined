@@ -229,10 +229,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.12.0";
+      version = "2022.12.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043600/bitwarden_password_manager-2022.12.0.xpi";
-      sha256 = "e1b7cebfe52689dc3a067b46e4cfba1d2dc9512fa4fc73e0298226623d84c2f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046308/bitwarden_password_manager-2022.12.1.xpi";
+      sha256 = "7d28b17bf51222bf605142b9189a181e05184c95937c72906ea1f8f08f23abb0";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -574,10 +574,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.12.7";
+      version = "2022.12.12";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040713/duckduckgo_for_firefox-2022.12.7.xpi";
-      sha256 = "c7780ea041e2b634e270d9ef560ef68a3048c42ce8c6a360e68abb09bbef50e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042292/duckduckgo_for_firefox-2022.12.12.xpi";
+      sha256 = "fd9eff6a1945f16d7f3e7cf842a6aea35f72d1c4ef5f8db37ada04c74ef06c91";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -691,10 +691,10 @@
       };
     "fediact" = buildFirefoxXpiAddon {
       pname = "fediact";
-      version = "0.9.8.3";
+      version = "0.9.8.4";
       addonId = "{cca112bb-1ca6-4593-a2f1-38d808a19dda}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046347/fediact-0.9.8.3.xpi";
-      sha256 = "aee267c839a946d0de4ec2ca907d44f20a6f23866d5393b25def025b976a5ea4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046866/fediact-0.9.8.4.xpi";
+      sha256 = "eb6dd71ae624d8155247aabb089791cc088b70f6794e44120bf73021e652a3b0";
       meta = with lib;
       {
         homepage = "https://github.com/Lartsch/FediAct";
