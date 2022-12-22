@@ -5,7 +5,7 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-stable.url = "github:nixos/nixpkgs/release-22.05";
+    nixos-stable.url = "github:nixos/nixpkgs/release-22.11";
 
     # Nix utilities
     home-manager = {
@@ -16,6 +16,7 @@
     nixgl.url = "github:guibou/nixGL";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nur.url = "github:nix-community/NUR";
+    sops.url = "github:Mic92/sops-nix";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     # Personal projects
@@ -26,7 +27,7 @@
     cloudflare-warp.url = "github:wolfangaukang/nixpkgs/cloudflare-warp-mod";
   };
 
-  outputs = { self, nur, home-manager, impermanence, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, sab, utils, ly, cloudflare-warp }@inputs:
+  outputs = { self, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, nur, utils, ... }@inputs:
     let
       inherit (utils.lib) mkFlake exportModules;
 
@@ -46,7 +47,7 @@
       # Currently only supporting this system
       system = "x86_64-linux";
 
-    in mkFlake {
+    in mkFlake rec {
       inherit self inputs;
 
       # FUP settings
@@ -60,7 +61,7 @@
       channels = {
         nixos.input = nixos;
         nixos-stable.input = nixos-stable;
-        nixpgks.input = nixpkgs;
+        nixpkgs.input = nixpkgs;
       };
 
       nix = {
@@ -86,6 +87,9 @@
               users = usersWithRoot;
               hostname = "eyjafjallajokull";
               extra-modules = nixosHardware;
+              enable-impermanence = true;
+              enable-sops = true;
+              enable-hm = true;
               hm-users = users;
             };
 
@@ -97,8 +101,11 @@
               users = usersWithRoot;
               hostname = "holuhraun";
               extra-modules = nixosHardware;
-              enable-impermanence-hm = true;
+              enable-impermanence = true;
+              enable-sops = true;
+              enable-hm = true;
               hm-users = users;
+              enable-impermanence-hm = true;
             };
 
           Katla =
@@ -121,6 +128,13 @@
             enable-hm = false;
             enable-impermanence = false;
           } // { channelName = "cloudflare-warp"; };
+        };
+
+      outputsBuilder = channels:
+        let pkgs = channels.nixpkgs;
+        inherit (pkgs) mkShell sops ssh-to-age;
+        in {
+          devShells."sops-env" = mkShell { buildInputs = [ sops ssh-to-age ]; };
         };
 
       # Common settings

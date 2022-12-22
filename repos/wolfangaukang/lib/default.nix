@@ -57,14 +57,20 @@ rec {
     , extra-modules ? []
     , overlays ? []
     , users ? [ "root" ]
-    , enable-hm ? true
+    , enable-hm ? false
     , hm-users ? []
-    , enable-impermanence ? true
+    , enable-impermanence ? false
     , enable-impermanence-hm ? false
+    , enable-sops ? false
+    , enable-server-secrets ? false
     }:
 
     let
       hostConfig = [ ../hosts/${hostname}/configuration.nix ];
+      sopsConfig = [
+        inputs.sops.nixosModules.sops
+        ../profiles/nixos/sops.nix
+      ] ++ optionals (enable-server-secrets) [ ../hosts/${hostname}/sops.nix ];
       impermanenceConfig = [
         inputs.impermanence.nixosModules.impermanence
         ../hosts/${hostname}/impermanence.nix
@@ -75,6 +81,7 @@ rec {
       modules = hostConfig
         ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( mkHomeNixos { inherit inputs hostname overlays enable-impermanence-hm; users = hm-users; } ) ]
         ++ optionals (enable-impermanence) impermanenceConfig
+        ++ optionals (enable-sops) sopsConfig
         ++ (importUsers users hostname)
         ++ extra-modules;
       extraArgs = { inherit hostname; };
