@@ -6,6 +6,7 @@ let
   any' = l: any (x: x == config.networking.hostName) l;
   laptop = any' [ "li-si-tsin" ];
   server = any' [ "robocat" ];
+  desktop = any' [ "powerhorse" ];
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
 in {
   inherit imports;
@@ -77,6 +78,12 @@ in {
         vSync = true;
         backend = "glx";
       };
+    })
+    (mkIf (cfg.enable && desktop) {
+      hardware.bluetooth.enable = true;
+      # MT7921K is supported starting from 5.17
+      boot.kernelPackages = pkgs.linuxPackages_6_0;
+      powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
     })
   ];
 }
