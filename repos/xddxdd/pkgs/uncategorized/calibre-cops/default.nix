@@ -1,23 +1,22 @@
-{ lib
+{ sources
+, lib
 , stdenvNoCC
-, fetchzip
 , dos2unix
+, unzip
 , ...
 } @ args:
 
 let
   configFile = ./config_local.php;
 in
-stdenvNoCC.mkDerivation rec {
-  pname = "calibre-cops";
-  version = "1.1.3";
-  src = fetchzip {
-    url = "https://github.com/seblucas/cops/releases/download/${version}/cops-${version}.zip";
-    stripRoot = false;
-    sha256 = "sha256-D32TRvo9U07Mukb2hXGWEq/ZI9kBEYkNWidw2CeGEHQ=";
-  };
+stdenvNoCC.mkDerivation {
+  inherit (sources.calibre-cops) pname version src;
 
-  nativeBuildInputs = [ dos2unix ];
+  unpackPhase = ''
+    unzip $src
+  '';
+
+  nativeBuildInputs = [ dos2unix unzip ];
 
   prePatch = ''
     dos2unix vendor/seblucas/dot-php/doT.php

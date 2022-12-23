@@ -72,9 +72,6 @@ mkScope (self: pkg: rec {
     # Packages with significant customization by Lan Tian
     asterisk = pkg ./lantian-customized/asterisk { };
     coredns = pkg ./lantian-customized/coredns { };
-    keycloak-lantian = ifFlakes (pkg ./lantian-customized/keycloak-lantian {
-      inherit (inputs) keycloak-lantian;
-    });
     linux-xanmod-lantian = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = false; });
     linux-xanmod-lantian-config = ifNotCI lantianCustomized.linux-xanmod-lantian.configfile;
     linux-xanmod-lantian-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = true; });

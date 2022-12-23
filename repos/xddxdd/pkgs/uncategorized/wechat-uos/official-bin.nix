@@ -1,7 +1,7 @@
-{ stdenv
-, fetchurl
+{ sources
+, stdenv
+, buildFHSUserEnvBubblewrap
 , writeShellScript
-, steam
 , lib
 , scrot
 , ...
@@ -13,8 +13,6 @@
 ################################################################################
 
 let
-  version = "2.1.5";
-
   license = stdenv.mkDerivation rec {
     pname = "wechat-uos-license";
     version = "0.0.1";
@@ -27,12 +25,7 @@ let
   };
 
   resource = stdenv.mkDerivation rec {
-    pname = "wechat-uos-resource";
-    inherit version;
-    src = fetchurl {
-      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_${version}_amd64.deb";
-      sha256 = "sha256-vVN7w+oPXNTMJ/g1Rpw/AVLIytMXI+gLieNuddyyIYE=";
-    };
+    inherit (sources.wechat-uos) pname version src;
 
     unpackPhase = ''
       ar x ${src}
@@ -52,28 +45,33 @@ let
     '';
   };
 
-  steam-run = (steam.override {
-    extraPkgs = p: [ license resource ];
-    runtimeOnly = true;
-  }).run;
-
   startScript = writeShellScript "wechat-uos" ''
     wechat_pid=`pidof wechat-uos`
     if test $wechat_pid; then
         kill -9 $wechat_pid
     fi
 
-    ${steam-run}/bin/steam-run \
-      ${resource}/opt/apps/com.tencent.weixin/files/weixin/weixin
+    ${resource}/opt/apps/com.tencent.weixin/files/weixin/weixin
   '';
+
+  fhs = buildFHSUserEnvBubblewrap {
+    name = "wechat-uos";
+    targetPkgs = pkgs: with pkgs; [
+      license
+      openssl_1_1
+      resource
+    ];
+    runScript = startScript;
+    unsharePid = false;
+  };
 in
 stdenv.mkDerivation {
-  pname = "wechat-uos-bin";
-  inherit version;
+  inherit (sources.wechat-uos) pname version;
+
   phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin $out/share/applications
-    ln -s ${startScript} $out/bin/wechat-uos
+    ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
     ln -s ${./wechat-uos.desktop} $out/share/applications/wechat-uos.desktop
     ln -s ${resource}/share/icons $out/share/icons
   '';

@@ -48,9 +48,25 @@ fetch.github = "xddxdd/bird-lg-go"
 src.github = "open-quantum-safe/boringssl"
 fetch.github = "open-quantum-safe/boringssl"
 
+[calibre-cops]
+src.github = "seblucas/cops"
+fetch.url = "https://github.com/seblucas/cops/releases/download/$ver/cops-$ver.zip"
+
+[chromium-oqs-bin]
+src.github = "open-quantum-safe/oqs-demos"
+fetch.url = "https://github.com/open-quantum-safe/oqs-demos/releases/download/$ver/chromium-ubuntu-$ver.tgz"
+
 [cloudpan189-go]
 src.github = "tickstep/cloudpan189-go"
 fetch.github = "tickstep/cloudpan189-go"
+
+[coredns-lantian]
+src.git = "https://github.com/xddxdd/coredns.git"
+fetch.github = "xddxdd/coredns"
+
+[dingtalk]
+src.aur = "dingtalk-bin"
+fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$ver_amd64.deb"
 
 [douban-openapi-server]
 src.git = "https://github.com/caryyu/douban-openapi-server.git"
@@ -63,6 +79,10 @@ fetch.github = "drone/drone-vault"
 [etherguard]
 src.git = "https://github.com/KusakabeShi/EtherGuard-VPN.git"
 fetch.github = "KusakabeShi/EtherGuard-VPN"
+
+[fcitx5-breeze]
+src.github = "scratch-er/fcitx5-breeze"
+fetch.github = "scratch-er/fcitx5-breeze"
 
 [flasgger]
 src.github = "flasgger/flasgger"
@@ -88,6 +108,10 @@ fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
 src.github_tag = "Kopano-dev/konnect"
 fetch.github = "Kopano-dev/konnect"
 
+[ldap-auth-proxy]
+src.git = "https://github.com/pinepain/ldap-auth-proxy.git"
+fetch.github = "pinepain/ldap-auth-proxy"
+
 [libltnginx]
 src.git = "https://github.com/xddxdd/libltnginx.git"
 fetch.github = "xddxdd/libltnginx"
@@ -95,6 +119,10 @@ fetch.github = "xddxdd/libltnginx"
 [liboqs]
 src.github = "open-quantum-safe/liboqs"
 fetch.github = "open-quantum-safe/liboqs"
+
+[nbfc-linux-lantian]
+src.git = "https://github.com/xddxdd/nbfc-linux.git"
+fetch.github = "xddxdd/nbfc-linux"
 
 [netboot-xyz-efi]
 src.github = "netbootxyz/netboot.xyz"
@@ -150,10 +178,6 @@ fetch.github = "open-quantum-safe/openssl"
 src.git = "https://github.com/open-quantum-safe/oqs-provider.git"
 fetch.github = "open-quantum-safe/oqs-provider"
 
-[chromium-oqs-bin]
-src.github = "open-quantum-safe/oqs-demos"
-fetch.url = "https://github.com/open-quantum-safe/oqs-demos/releases/download/$ver/chromium-ubuntu-$ver.tgz"
-
 [osdlyrics]
 src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"
@@ -181,6 +205,30 @@ fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
 fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
 
+[qemu-user-static-amd64]
+src.webpage = "https://sources.debian.org/api/src/qemu/"
+src.regex = "\"version\":\"[0-9]+:([^\"]+)\""
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_amd64.deb"
+
+[qemu-user-static-arm64]
+src.webpage = "https://sources.debian.org/api/src/qemu/"
+src.regex = "\"version\":\"[0-9]+:([^\"]+)\""
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_arm64.deb"
+
+[qemu-user-static-armhf]
+src.webpage = "https://sources.debian.org/api/src/qemu/"
+src.regex = "\"version\":\"[0-9]+:([^\"]+)\""
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_armhf.deb"
+
+[qemu-user-static-i386]
+src.webpage = "https://sources.debian.org/api/src/qemu/"
+src.regex = "\"version\":\"[0-9]+:([^\"]+)\""
+fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_i386.deb"
+
+[qqmusic]
+src.aur = "qqmusic-bin"
+fetch.url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_$ver_amd64.deb"
+
 [rime-aurora-pinyin]
 src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
 fetch.github = "hosxy/rime-aurora-pinyin"
@@ -205,6 +253,17 @@ fetch.github = "xddxdd/route-chain"
 [stream-echo-nginx-module]
 src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
 fetch.github = "openresty/stream-echo-nginx-module"
+
+[vs-rife]
+src.github = "HolyWu/vs-rife"
+fetch.github = "HolyWu/vs-rife"
+
+[wechat-uos]
+src.webpage = "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=wechat-uos"
+src.regex = "\"Version\":\"([^\"]+)\""
+src.from_pattern = "(.+):(.+)-(.+)"
+src.to_pattern = "\\2"
+fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_$ver_amd64.deb"
 
 [zstd-nginx-module]
 src.git = "https://github.com/tokers/zstd-nginx-module.git"

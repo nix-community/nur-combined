@@ -3,40 +3,92 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    keycloak-lantian = {
-      url = "git+https://git.lantian.pub/lantian/keycloak-lantian.git";
-      inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, flake-utils-plus, ... }@inputs:
     let
       lib = nixpkgs.lib;
-      eachSystem = flake-utils.lib.eachSystemMap flake-utils.lib.allSystems;
     in
-    rec {
-      inherit eachSystem lib;
-
-      packages = eachSystem (system: import ./pkgs {
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
+    flake-utils-plus.lib.mkFlake {
+      inherit self inputs;
+      channels.nixpkgs = {
+        config = {
+          allowUnfree = true;
+          # contentAddressedByDefault = true;
         };
-        ci = false;
-        inherit inputs;
-      });
+        input = inputs.nixpkgs;
+      };
 
-      ciPackages = eachSystem (system: import ./pkgs {
-        pkgs = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
+      outputsBuilder = channels:
+        let
+          pkgs = channels.nixpkgs;
+        in
+        {
+          packages = import ./pkgs {
+            inherit inputs pkgs;
+            ci = false;
+          };
+
+          ciExports =
+            let
+              inherit (pkgs) system;
+
+              isDerivation = p: lib.isAttrs p && p ? type && p.type == "derivation";
+              isTargetPlatform = p: lib.elem system (p.meta.platforms or [ system ]);
+              isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+              shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
+
+              flattenPkgs = s:
+                let
+                  f = p:
+                    if shouldRecurseForDerivations p then flattenPkgs p
+                    else if isDerivation p && isTargetPlatform p && isBuildable p then [ p ]
+                    else [ ];
+                in
+                lib.concatMap f (lib.attrValues s);
+
+              outputsOf = p: map (o: p.${o}) p.outputs;
+
+              nurPkgs = flattenPkgs (import ./pkgs {
+                inherit inputs pkgs;
+                ci = true;
+              });
+            in
+            lib.concatMap outputsOf nurPkgs;
+
+          apps = lib.mapAttrs
+            (n: v: flake-utils.lib.mkApp {
+              drv = pkgs.writeShellScriptBin "script" v;
+            })
+            {
+              ci = ''
+                if [ "$1" == "" ]; then
+                  echo "Usage: ci <system>";
+                  exit 1;
+                fi
+
+                # Workaround https://github.com/NixOS/nix/issues/6572
+                for i in {1..3}; do
+                  ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace && exit 0
+                done
+
+                exit 1
+              '';
+
+              update = ''
+                nix flake update
+                ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
+                ${pkgs.python3}/bin/python3 pkgs/openj9-ibm-semeru/update.py
+                ${pkgs.python3}/bin/python3 pkgs/openjdk-adoptium/update.py
+              '';
+            };
         };
-        ci = true;
-        inherit inputs;
-      });
 
-      # Following line doesn't work for infinite recursion
-      overlay = overlays.default;
-      overlays = rec {
+      overlay = self.overlays.default;
+      overlays = {
         default = final: prev: import ./pkgs {
           pkgs = prev;
           inherit inputs;
@@ -47,39 +99,6 @@
         };
       };
 
-      apps = eachSystem (system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        {
-          ci = {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "ci" ''
-              if [ "$1" == "" ]; then
-                echo "Usage: ci <system>";
-                exit 1;
-              fi
-
-              # Workaround https://github.com/NixOS/nix/issues/6572
-              for i in {1..3}; do
-                ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace && exit 0
-              done
-
-              exit 1
-            '');
-          };
-
-          update = {
-            type = "app";
-            program = builtins.toString (pkgs.writeShellScript "update" ''
-              nix flake update
-              ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
-              ${pkgs.python3}/bin/python3 pkgs/openj9-ibm-semeru/update.py
-              ${pkgs.python3}/bin/python3 pkgs/openjdk-adoptium/update.py
-            '');
-          };
-        });
-
       nixosModules = {
         setupOverlay = { config, ... }: {
           nixpkgs.overlays = [
@@ -88,7 +107,8 @@
           ];
         };
         qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix {
-          inherit overlays packages lib;
+          inherit (self) overlays packages;
+          inherit lib;
         };
       };
     };

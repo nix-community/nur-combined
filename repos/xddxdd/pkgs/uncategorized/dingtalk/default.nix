@@ -1,6 +1,5 @@
-{ stdenv
-, fetchurl
-, fetchFromGitHub
+{ sources
+, stdenv
 , autoPatchelfHook
 , makeWrapper
 , lib
@@ -44,8 +43,6 @@
 ################################################################################
 
 let
-  version = "1.4.0.20909";
-
   libraries = [
     alsa-lib
     at-spi2-atk
@@ -100,12 +97,7 @@ let
   ];
 in
 stdenv.mkDerivation rec {
-  pname = "dingtalk";
-  inherit version;
-  src = fetchurl {
-    url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_${version}_amd64.deb";
-    sha256 = "sha256-fTSgauXDiViRSew4F14WYNhB2pXWHATdzahqLAywM/8=";
-  };
+  inherit (sources.dingtalk) pname version src;
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
   buildInputs = libraries;

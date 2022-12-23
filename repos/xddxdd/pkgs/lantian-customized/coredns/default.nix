@@ -1,21 +1,13 @@
-{ lib
+{ sources
+, lib
 , buildGoModule
-, fetchFromGitHub
 , ...
 } @ args:
 
 buildGoModule rec {
-  pname = "coredns-lantian";
-  version = "1.9.1";
+  inherit (sources.coredns-lantian) pname version src;
 
-  src = fetchFromGitHub {
-    owner = "xddxdd";
-    repo = "coredns";
-    rev = "b7afdedb3e8ff5f0454687b6d1eb726d5f1847dc";
-    sha256 = "sha256-H8RQ8xHJNjthAN6Pg4k/0qy69fZRnIadsU0GXQorwlI=";
-  };
-
-  vendorSha256 = "sha256-w5i0L998GteIqYtgpuiy+sa3z4B/vVZujQnSlmXWUCM=";
+  vendorSha256 = "sha256-F53X6yowczNzls9Kle/zDDbzWnkQNsVSX4pVRMxCrKM=";
 
   doCheck = false;
 

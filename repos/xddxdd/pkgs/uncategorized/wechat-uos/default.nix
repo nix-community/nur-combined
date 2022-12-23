@@ -1,5 +1,5 @@
-{ stdenv
-, fetchurl
+{ sources
+, stdenv
 , buildFHSUserEnvBubblewrap
 , writeShellScript
 , electron_20
@@ -14,8 +14,6 @@
 ################################################################################
 
 let
-  version = "2.1.5";
-
   license = stdenv.mkDerivation rec {
     pname = "wechat-uos-license";
     version = "0.0.1";
@@ -28,12 +26,7 @@ let
   };
 
   resource = stdenv.mkDerivation rec {
-    pname = "wechat-uos-resource";
-    inherit version;
-    src = fetchurl {
-      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_${version}_amd64.deb";
-      sha256 = "sha256-vVN7w+oPXNTMJ/g1Rpw/AVLIytMXI+gLieNuddyyIYE=";
-    };
+    inherit (sources.wechat-uos) pname version src;
 
     unpackPhase = ''
       ar x ${src}
@@ -67,15 +60,17 @@ let
   fhs = buildFHSUserEnvBubblewrap {
     name = "wechat-uos";
     targetPkgs = pkgs: with pkgs; [
-      license openssl_1_1 resource
+      license
+      openssl_1_1
+      resource
     ];
     runScript = startScript;
     unsharePid = false;
   };
 in
 stdenv.mkDerivation {
-  pname = "wechat-uos";
-  inherit version;
+  inherit (sources.wechat-uos) pname version;
+
   phases = [ "installPhase" ];
   installPhase = ''
     mkdir -p $out/bin $out/share/applications

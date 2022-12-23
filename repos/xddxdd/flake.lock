@@ -15,33 +15,33 @@
         "type": "github"
       }
     },
-    "keycloak-lantian": {
+    "flake-utils-plus": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
+        "flake-utils": [
+          "flake-utils"
         ]
       },
       "locked": {
-        "lastModified": 1647333801,
-        "narHash": "sha256-fE9gOjkbho/2Pct/gZi5iMoXyf0a7rWPZxon8yDDzsQ=",
-        "ref": "refs/heads/master",
-        "rev": "ae034b600c62a9a460d3e16897ad485e837a5e8a",
-        "revCount": 19,
-        "type": "git",
-        "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
+        "lastModified": 1657226504,
+        "narHash": "sha256-GIYNjuq4mJlFgqKsZ+YrgzWm0IpA4axA3MCrdKYj7gs=",
+        "owner": "gytis-ivaskevicius",
+        "repo": "flake-utils-plus",
+        "rev": "2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://git.lantian.pub/lantian/keycloak-lantian.git"
+        "owner": "gytis-ivaskevicius",
+        "repo": "flake-utils-plus",
+        "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1671190014,
-        "narHash": "sha256-NW385LW4Nj53Hbv3LXr458s4NL2/wcARC8rzK7vSWkw=",
+        "lastModified": 1671728284,
+        "narHash": "sha256-u5Tlz4bl2vb9CB+L/A/Xp8F32062vo3K6yl7J9FBXdc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fbcb61bd7eb19914cbd88789c3586a63ff46b72b",
+        "rev": "7ba7b4599367c07f2f5d1e26151b68a71a1336b2",
         "type": "github"
       },
       "original": {
@@ -54,7 +54,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "keycloak-lantian": "keycloak-lantian",
+        "flake-utils-plus": "flake-utils-plus",
         "nixpkgs": "nixpkgs"
       }
     }

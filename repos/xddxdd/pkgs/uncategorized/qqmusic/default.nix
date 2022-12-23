@@ -1,5 +1,5 @@
-{ stdenv
-, fetchurl
+{ sources
+, stdenv
 , autoPatchelfHook
 , makeWrapper
 , writeText
@@ -77,12 +77,7 @@ let
   '';
 in
 stdenv.mkDerivation rec {
-  pname = "qqmusic";
-  version = "1.1.3";
-  src = fetchurl {
-    url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_${version}_amd64.deb";
-    sha256 = "sha256-Rxhq9cTLmeCPjMxyWQJ/+xaNK1tznymfLYU1dbIOL+c=";
-  };
+  inherit (sources.qqmusic) pname version src;
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
   buildInputs = libraries;
