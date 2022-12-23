@@ -2,7 +2,7 @@
 
 let
   pname = "qq";
-  version = "2.0.2-510";
+  version = "2.0.3-543";
   name = "Tencent-QQ-${version}";
 
   srcs = {
@@ -12,9 +12,9 @@ let
     };
 
     hotpatch = fetchzip {
-      url = "https://qqpatch.gtimg.cn/hotUpdate_new/release/linux-x64/2.0.2-510/2.0.2-510.zip.zip";
+      url = "https://qqpatch.gtimg.cn/hotUpdate_new/release/linux-x64/${version}/${version}.zip.zip";
       name = "hotpatch-qq-${version}";
-      sha256 = "sha256-6Kqw/3rMUSGHhuK0qQZzKan+I8bsKWzAAPWBwAS5ZBQ=";
+      sha256 = "sha256-Uhg3mR79q4YY+oq1TehfBHz8s1Aay1t6WzaZul3EUTw=";
     };
   };
   
