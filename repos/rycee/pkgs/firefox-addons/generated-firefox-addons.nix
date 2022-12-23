@@ -877,10 +877,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20221220.185745";
+      version = "109.0buildid20221222.190305";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046469/francais_language_pack-109.0buildid20221220.185745.xpi";
-      sha256 = "0a254295e2771b943731a11f1533b18cd99fb8ca065d2154288e3385834db8db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4047483/francais_language_pack-109.0buildid20221222.190305.xpi";
+      sha256 = "323f2a3bc09631f56c2a7f4f96768cb6cf4d3c04ed13cb7703152b2156463b24";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1469,10 +1469,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.5";
+      version = "2.7.9";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043234/momentumdash-2.7.5.xpi";
-      sha256 = "3d95a04f52ac4d3db70f6eb26ba42a699db3087cbf194a54cca281a60eb34507";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046644/momentumdash-2.7.9.xpi";
+      sha256 = "aba63d00e59c79a7b948239df13d0a723fe43929f8f25399764ed008deab0a77";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2877,10 +2877,10 @@
       };
     "vimium-c" = buildFirefoxXpiAddon {
       pname = "vimium-c";
-      version = "1.99.96";
+      version = "1.99.97";
       addonId = "vimium-c@gdh1995.cn";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040559/vimium_c-1.99.96.xpi";
-      sha256 = "a35be15f7873f67c9f675257e1e2b707cae44335a545c5772f8fb902f043b3e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4047348/vimium_c-1.99.97.xpi";
+      sha256 = "a3ec1d6946869984b72ea5e5c427ad961a1fd5115725c56c695411f6f64ce3df";
       meta = with lib;
       {
         homepage = "https://github.com/gdh1995/vimium-c";
