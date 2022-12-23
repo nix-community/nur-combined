@@ -233,7 +233,7 @@
       };
       whiterun = nixosConf {
         mainModule = ./nodes/whiterun/default.nix;
-        nixpkgs = inputs.nixpkgs-staging;
+        # nixpkgs = inputs.nixpkgs-staging;
       };
       demo = nixosConf {
         mainModule = ./nodes/demo/default.nix;
