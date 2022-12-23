@@ -85,6 +85,9 @@ in {
       boot.kernelPackages = pkgs.linuxPackages_6_0;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
       services.xserver.dpi = 144;
+      services.logind.extraConfig = ''
+        HandlePowerKey=suspend
+      '';
     })
   ];
 }
