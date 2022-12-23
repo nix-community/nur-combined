@@ -205,14 +205,11 @@
   };
   fcitx5-breeze = {
     pname = "fcitx5-breeze";
-    version = "v2.0.0";
-    src = fetchFromGitHub ({
-      owner = "scratch-er";
-      repo = "fcitx5-breeze";
-      rev = "v2.0.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-2P9TzuiV/JzhCTpj2IJOa33H2WJkn4gIO4S3Pe2tc0s=";
-    });
+    version = "2.0.0";
+    src = fetchurl {
+      url = "https://github.com/scratch-er/fcitx5-breeze/releases/download/v2.0.0/fcitx5-breeze-prebuilt-2.0.0.tar.gz";
+      sha256 = "sha256-Xw5oBsxsCzoqXZ3r6koVuVmRAi8Ys9e2CmKxBhLenHM=";
+    };
   };
   flasgger = {
     pname = "flasgger";

@@ -82,7 +82,9 @@ fetch.github = "KusakabeShi/EtherGuard-VPN"
 
 [fcitx5-breeze]
 src.github = "scratch-er/fcitx5-breeze"
-fetch.github = "scratch-er/fcitx5-breeze"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/scratch-er/fcitx5-breeze/releases/download/v$ver/fcitx5-breeze-prebuilt-$ver.tar.gz"
 
 [flasgger]
 src.github = "flasgger/flasgger"
