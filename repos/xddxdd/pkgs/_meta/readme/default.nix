@@ -25,8 +25,7 @@ let
         path = if prefix != "" then "${prefix}.${n}" else n;
       in
       if lib.hasPrefix "_" n then [ ]
-      else if shouldRecurseForDerivations v
-      then packageTraverse path v
+      else if shouldRecurseForDerivations v then packageTraverse path v
       else if lib.isDerivation v then {
         inherit path;
         pname = v.pname or n;
@@ -83,15 +82,19 @@ writeTextFile {
     This NUR has a binary cache. Use the following settings to access it:
 
     ```nix
-    nix.settings.substituters = [ "${_meta.url}" ];
-    nix.settings.trusted-public-keys = [ "${_meta.publicKey}" ];
+    {
+      nix.settings.substituters = [ "${_meta.url}" ];
+      nix.settings.trusted-public-keys = [ "${_meta.publicKey}" ];
+    }
     ```
 
     Or, use variables from this repository in case I change them:
 
     ```nix
-    nix.settings.substituters = [ nur.repos.xddxdd._meta.url ];
-    nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.publicKey ];
+    {
+      nix.settings.substituters = [ nur.repos.xddxdd._meta.url ];
+      nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.publicKey ];
+    }
     ```
 
     ## Packages

@@ -25,39 +25,37 @@
       outputsBuilder = channels:
         let
           pkgs = channels.nixpkgs;
+          inherit (pkgs) system;
+
+          isDerivation = p: lib.isAttrs p && p ? type && p.type == "derivation";
+          isTargetPlatform = p: lib.elem system (p.meta.platforms or [ system ]);
+          isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+          shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
+
+          flattenPkgs = prefix: s:
+            builtins.filter ({ name ? null, value ? null }: name != null && value != null) (lib.flatten
+              (lib.mapAttrsToList
+                (n: p:
+                  let
+                    path = if prefix != "" then "${prefix}-${n}" else n;
+                  in
+                  if lib.hasPrefix "_" n then [ ]
+                  else if shouldRecurseForDerivations p then flattenPkgs path p
+                  else if isDerivation p && isTargetPlatform p && isBuildable p then [{ name = path; value = p; }]
+                  else [ ])
+                s));
+
+          outputsOf = p: map (o: p.${o}) p.outputs;
         in
-        {
+        rec {
           packages = import ./pkgs {
             inherit inputs pkgs;
             ci = false;
           };
 
-          ciExports =
-            let
-              inherit (pkgs) system;
+          ciPackages = builtins.listToAttrs (flattenPkgs "" packages);
 
-              isDerivation = p: lib.isAttrs p && p ? type && p.type == "derivation";
-              isTargetPlatform = p: lib.elem system (p.meta.platforms or [ system ]);
-              isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
-              shouldRecurseForDerivations = p: lib.isAttrs p && p.recurseForDerivations or false;
-
-              flattenPkgs = s:
-                let
-                  f = p:
-                    if shouldRecurseForDerivations p then flattenPkgs p
-                    else if isDerivation p && isTargetPlatform p && isBuildable p then [ p ]
-                    else [ ];
-                in
-                lib.concatMap f (lib.attrValues s);
-
-              outputsOf = p: map (o: p.${o}) p.outputs;
-
-              nurPkgs = flattenPkgs (import ./pkgs {
-                inherit inputs pkgs;
-                ci = true;
-              });
-            in
-            lib.concatMap outputsOf nurPkgs;
+          ciExports = lib.mapAttrsToList (_: outputsOf) ciPackages;
 
           apps = lib.mapAttrs
             (n: v: flake-utils.lib.mkApp {
@@ -78,13 +76,16 @@
                 exit 1
               '';
 
+              readme = ''
+                nix build .#_meta.readme
+                cat result > README.md
+              '';
+
               update = ''
                 nix flake update
                 ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
                 ${pkgs.python3}/bin/python3 pkgs/openj9-ibm-semeru/update.py
                 ${pkgs.python3}/bin/python3 pkgs/openjdk-adoptium/update.py
-                nix build .#_meta.readme
-                cat result > README.md
               '';
             };
         };

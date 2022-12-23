@@ -9,15 +9,19 @@
 This NUR has a binary cache. Use the following settings to access it:
 
 ```nix
-nix.settings.substituters = [ "https://xddxdd.cachix.org" ];
-nix.settings.trusted-public-keys = [ "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=" ];
+{
+  nix.settings.substituters = [ "https://xddxdd.cachix.org" ];
+  nix.settings.trusted-public-keys = [ "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=" ];
+}
 ```
 
 Or, use variables from this repository in case I change them:
 
 ```nix
-nix.settings.substituters = [ nur.repos.xddxdd._meta.url ];
-nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.publicKey ];
+{
+  nix.settings.substituters = [ nur.repos.xddxdd._meta.url ];
+  nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.publicKey ];
+}
 ```
 
 ## Packages
