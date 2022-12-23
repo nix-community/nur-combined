@@ -46,6 +46,11 @@
                 s));
 
           outputsOf = p: map (o: p.${o}) p.outputs;
+
+          NurCiPackages = import ./pkgs {
+            inherit inputs pkgs;
+            ci = true;
+          };
         in
         rec {
           packages = import ./pkgs {
@@ -53,7 +58,7 @@
             ci = false;
           };
 
-          ciPackages = builtins.listToAttrs (flattenPkgs "" packages);
+          ciPackages = builtins.listToAttrs (flattenPkgs "" NurCiPackages);
 
           ciExports = lib.mapAttrsToList (_: outputsOf) ciPackages;
 
