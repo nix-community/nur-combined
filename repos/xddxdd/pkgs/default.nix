@@ -23,7 +23,7 @@ let
     (lib.makeScope pkgs.newScope (self:
       let
         pkg = self.newScope {
-          inherit nvidia_x11;
+          inherit mkScope nvidia_x11;
           sources = self.callPackage ../_sources/generated.nix { };
         };
       in
@@ -38,29 +38,12 @@ let
 in
 mkScope (self: pkg: rec {
   # Binary cache information
-  _binaryCache = pkgs.recurseIntoAttrs rec {
+  _meta = pkgs.recurseIntoAttrs {
     url = "https://xddxdd.cachix.org";
     publicKey = "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=";
 
-    readme = pkgs.writeTextFile rec {
-      name = "00000-readme";
-      text = ''
-        This NUR has a binary cache. Use the following settings to access it:
-
-        nix.settings.substituters = [ "${url}" ];
-        nix.settings.trusted-public-keys = [ "${publicKey}" ];
-
-        Or, use variables from this repository in case I change them:
-
-        nix.settings.substituters = [ nur.repos.xddxdd._binaryCache.url ];
-        nix.settings.trusted-public-keys = [ nur.repos.xddxdd._binaryCache.publicKey ];
-      '';
-      meta = {
-        description = text;
-        homepage = "https://github.com/xddxdd/nur-packages";
-        license = lib.licenses.unlicense;
-      };
-    };
+    howto = pkg ./_meta/howto { };
+    readme = pkg ./_meta/readme { };
   };
 
   # Package groups

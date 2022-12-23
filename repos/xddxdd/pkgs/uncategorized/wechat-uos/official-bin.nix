@@ -25,7 +25,8 @@ let
   };
 
   resource = stdenv.mkDerivation rec {
-    inherit (sources.wechat-uos) pname version src;
+    pname = "wechat-uos-bin";
+    inherit (sources.wechat-uos) version src;
 
     unpackPhase = ''
       ar x ${src}
@@ -66,7 +67,8 @@ let
   };
 in
 stdenv.mkDerivation {
-  inherit (sources.wechat-uos) pname version;
+  pname = "wechat-uos-bin";
+  inherit (sources.wechat-uos) version;
 
   phases = [ "installPhase" ];
   installPhase = ''
