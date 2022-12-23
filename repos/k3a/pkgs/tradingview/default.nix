@@ -9,12 +9,12 @@
 
 stdenv.mkDerivation rec {
   pname = "tradingview";
-  version = "2.0.0";
-  revision = "29";
+  version = "2.0.1";
+  revision = "30";
 
   src = fetchurl {
     url = "https://api.snapcraft.io/api/v1/snaps/download/nJdITJ6ZJxdvfu8Ch7n5kH5P99ClzBYV_${revision}.snap";
-    hash = "sha512-QRLHOxfde/+ytmU4Thj/6Kx4oCTbIMJXN8oeHG3RTtDKkhxRPRhtbMLkoFsyo3mSdqcocJlwKGE4K2l9nKOp1w==";
+    hash = "sha512-YBuXEORTXEXaz76oWVF4ovogakTmNBU8pjRA0WY5q1ATF/KqyycN1Gtn0f+Gk4NBE8XaB9IAL5etKLPoLJaMsw==";
   };
 
   nativeBuildInputs = [ squashfsTools makeWrapper ];
