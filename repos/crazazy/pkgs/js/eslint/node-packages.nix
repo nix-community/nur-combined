@@ -436,13 +436,13 @@ let
         sha512 = "EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==";
       };
     };
-    "ignore-5.2.1" = {
+    "ignore-5.2.4" = {
       name = "ignore";
       packageName = "ignore";
-      version = "5.2.1";
+      version = "5.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ignore/-/ignore-5.2.1.tgz";
-        sha512 = "d2qQLzTJ9WxQftPAuEQpSPmKqzxePjzVbpAVv62AQ64NTL+wR4JkrVqR/LqFsFEUsHDAiId52mJteHDFuDkElA==";
+        url = "https://registry.npmjs.org/ignore/-/ignore-5.2.4.tgz";
+        sha512 = "MAb38BcSbH0eHNBxn7ql2NH/kX33OkB3lZ1BNdh7ENeRChHTYsTvWrMubiIAMNS2llXEEgZ1MUOBtXChP3kaFQ==";
       };
     };
     "import-fresh-3.3.0" = {
@@ -926,7 +926,7 @@ let
       sources."globals-13.19.0"
       sources."grapheme-splitter-1.0.4"
       sources."has-flag-4.0.0"
-      sources."ignore-5.2.1"
+      sources."ignore-5.2.4"
       sources."import-fresh-3.3.0"
       sources."imurmurhash-0.1.4"
       sources."inflight-1.0.6"
