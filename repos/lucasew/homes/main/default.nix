@@ -44,7 +44,6 @@ in {
     nix-option
     nix-prefetch-scripts
     obsidian
-    pipedream-cli
     pkg
     rclone
     ripgrep
@@ -55,7 +54,6 @@ in {
     stremio
     nbr.telegram-desktop-bin # communication
     terraform
-    t-launcher
     vlc # media
     nbr.wine-apps._7zip
     wineApps.skyrim

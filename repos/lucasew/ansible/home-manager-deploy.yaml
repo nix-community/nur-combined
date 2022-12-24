@@ -7,7 +7,7 @@
 
     - import_tasks: tasks/nix-build.yaml
       vars:
-        nix_build_ref: ".#nixosConfigurations.{{ ansible_facts['hostname'] }}.config.system.build.toplevel"
+        nix_build_ref: ".#homeConfigurations.main.activationPackage"
       when: ansible_facts['os_family'] == "NixOS"
 
     - import_tasks: tasks/ssh-hostport.yaml
@@ -19,8 +19,7 @@
     - import_tasks: tasks/nix-copy-closure-to.yaml
       when: ansible_facts['os_family'] == "NixOS"
 
-    - name: Apply generation on next boot
-      ansible.builtin.command: "{{ nix_build_result }}/bin/switch-to-configuration boot"
-      become: true
+    - name: Apply home-manager generation right now
+      ansible.builtin.shell: "HOME_MANAGER_BACKUP_EXT=backup {{ nix_build_result }}/bin/home-manager-generation -b backup"
       when: ansible_facts['os_family'] == "NixOS"
 

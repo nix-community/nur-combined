@@ -1,0 +1,29 @@
+- name: Build Nix component
+  block:
+    - name: Create temp dir
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: build
+      delegate_to: 127.0.0.1
+      register: nix_build_result
+
+    - set_fact:
+        nix_build_result: "{{ nix_build_result.path }}"
+      delegate_to: 127.0.0.1
+
+    - name: Show log file for realtime tracking
+      debug:
+        msg: "Log file: {{ nix_build_result }}/log.txt"
+      delegate_to: 127.0.0.1
+
+    - name: Do the build
+      ansible.builtin.shell: "nix build {{ nix_build_ref }} -o {{ nix_build_result }}/result -L 2>&1 > {{ nix_build_result }}/log.txt"
+      delegate_to: 127.0.0.1
+
+    - name: Get Nix build component path
+      ansible.builtin.command:
+        cmd: "realpath {{ nix_build_result }}/result"
+      delegate_to: 127.0.0.1
+      register: nix_build_result
+    - set_fact:
+        nix_build_result: "{{ nix_build_result.stdout }}"

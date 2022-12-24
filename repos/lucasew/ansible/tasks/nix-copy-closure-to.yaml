@@ -1,9 +1,9 @@
 - name: Check if the closure path is already copied
   stat:
-    path: "{{ nixos_build_result }}"
-  register: nixos_build_result_stat
+    path: "{{ nix_build_result }}"
+  register: nix_build_result_stat
 
 - name: Copy closure
   delegate_to: 127.0.0.1
-  ansible.builtin.command: "nix-copy-closure --to {{ ssh_ip }} {{ nixos_build_result }}"
-  when: not nixos_build_result_stat.stat.exists
+  ansible.builtin.command: "nix-copy-closure --to {{ ssh_ip }} {{ nix_build_result }}"
+  when: not nix_build_result_stat.stat.exists
