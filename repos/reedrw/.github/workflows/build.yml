@@ -68,7 +68,7 @@ jobs:
       run: |
         set -x
         i=0
-        until [[ $(curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}") == "" ]] || [ "$i" -eq 10 ]; do
+        until [[ $(curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}") == "" ]] || [ "$i" -eq 10 ]; do
           echo "Attempt $i/10 failed, waiting 1 minute"
           sleep 60
           i=$((i+1))
