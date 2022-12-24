@@ -6,7 +6,8 @@
 
 let
   package = P1_variant: stdenvNoCC.mkDerivation rec {
-    inherit (sources.plangothic-fonts) pname version src;
+    pname = "plangothic-fonts-${P1_variant}";
+    inherit (sources.plangothic-fonts) version src;
     installPhase = ''
       mkdir -p $out/share/fonts/truetype/
       cp "PlangothicP1-Regular (${P1_variant}).ttf" $out/share/fonts/truetype/

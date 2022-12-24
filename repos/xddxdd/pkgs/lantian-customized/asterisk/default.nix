@@ -2,7 +2,7 @@
 , sources
 , callPackage
 , asterisk_20
-, asteriskDigiumCodecs_20
+, asteriskDigiumCodecs
 , asterisk-g72x
 , fetchFromGitHub
 , opencore-amr
@@ -14,7 +14,7 @@
 
 let
   asterisk-actual = asterisk_20;
-  codecs-actual = asteriskDigiumCodecs_20;
+  codecs-actual = asteriskDigiumCodecs."20";
   asterisk-g72x-actual = asterisk-g72x.override { asterisk = asterisk-actual; };
   _3gpp-evs = callPackage ./3gpp-evs.nix { };
 
@@ -58,6 +58,8 @@ in
 
   preBuild = (old.preBuild or "") + ''
     substituteInPlace menuselect.makeopts --replace 'chan_ooh323 ' ""
+
+    export MAKEFLAGS=-j$(nproc)
   '';
 
   postInstall = (old.postInstall or "") + ''
@@ -70,5 +72,8 @@ in
     ln -s ${asterisk-g72x-actual}/lib/asterisk/modules/codec_g729.so $out/lib/asterisk/modules/codec_g729.so
   '';
 
-  meta.platforms = [ "x86_64-linux" ];
+  meta = (old.meta // {
+    description = "Asterisk with Lan Tian modifications";
+    platforms = [ "x86_64-linux" ];
+  });
 })

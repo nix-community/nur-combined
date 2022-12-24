@@ -50,8 +50,8 @@ Or, use variables from this repository in case I change them:
 |  | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.0.0 | `dn42-pingfinder` | DN42 Pingfinder |
 |  | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | c7e2a0f59ba5cfb2d10a31013547686a4afab99d | `douban-openapi-server` | A Douban API server that provides an unofficial APIs for media information gathering |
 |  | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | v1.2.0 | `drone-vault` | Drone plugin for integrating with the Vault secrets manager |
-|  | etherguard | 1356780d7d37ad5c44d3d25d2137be6120b8bf87 | `etherguard` |  |
-|  | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | v2.0.0 | `fcitx5-breeze` | Fcitx5 theme to match KDE's Breeze style |
+|  | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 1356780d7d37ad5c44d3d25d2137be6120b8bf87 | `etherguard` | Layer2 version of wireguard with Floyd Warshall implement in go |
+|  | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | `fcitx5-breeze` | Fcitx5 theme to match KDE's Breeze style |
 |  | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | `flasgger` | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | `ftp-proxy` | ftp.proxy - FTP Proxy Server |
 |  | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | `genshin-checkin-helper` | More than check-in for Genshin Impact. |
@@ -99,36 +99,46 @@ Or, use variables from this repository in case I change them:
 
 
 <details>
-<summary>Package set: asteriskDigiumCodecs (4 packages)</summary>
+<summary>Package set: asteriskDigiumCodecs (36 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
-|  | [asterisk-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.opus` | Asterisk Opus Codec by Digium |
-|  | [asterisk-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.silk` | Asterisk Silk Codec by Digium |
-|  | [asterisk-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.siren14` | Asterisk Siren14 Codec by Digium |
-|  | [asterisk-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.siren7` | Asterisk Siren7 Codec by Digium |
-</details>
-
-<details>
-<summary>Package set: asteriskDigiumCodecs_19 (4 packages)</summary>
-
-| State | Name | Version | Path | Description |
-| ----- | ---- | ------- | ---- | ----------- |
-|  | [asterisk-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs_19.opus` | Asterisk Opus Codec by Digium |
-|  | [asterisk-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs_19.silk` | Asterisk Silk Codec by Digium |
-|  | [asterisk-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs_19.siren14` | Asterisk Siren14 Codec by Digium |
-|  | [asterisk-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs_19.siren7` | Asterisk Siren7 Codec by Digium |
-</details>
-
-<details>
-<summary>Package set: asteriskDigiumCodecs_20 (4 packages)</summary>
-
-| State | Name | Version | Path | Description |
-| ----- | ---- | ------- | ---- | ----------- |
-|  | [asterisk-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs_20.opus` | Asterisk Opus Codec by Digium |
-|  | [asterisk-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs_20.silk` | Asterisk Silk Codec by Digium |
-|  | [asterisk-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs_20.siren14` | Asterisk Siren14 Codec by Digium |
-|  | [asterisk-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs_20.siren7` | Asterisk Siren7 Codec by Digium |
+|  | [asterisk-11-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.11.silk` | Asterisk 11 silk Codec by Digium |
+|  | [asterisk-11-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.11.siren14` | Asterisk 11 siren14 Codec by Digium |
+|  | [asterisk-11-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.11.siren7` | Asterisk 11 siren7 Codec by Digium |
+|  | [asterisk-12-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.12.silk` | Asterisk 12 silk Codec by Digium |
+|  | [asterisk-13-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.13.opus` | Asterisk 13 opus Codec by Digium |
+|  | [asterisk-13-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.13.silk` | Asterisk 13 silk Codec by Digium |
+|  | [asterisk-13-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.13.siren14` | Asterisk 13 siren14 Codec by Digium |
+|  | [asterisk-13-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.13.siren7` | Asterisk 13 siren7 Codec by Digium |
+|  | [asterisk-14-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.14.opus` | Asterisk 14 opus Codec by Digium |
+|  | [asterisk-14-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.14.silk` | Asterisk 14 silk Codec by Digium |
+|  | [asterisk-14-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.14.siren14` | Asterisk 14 siren14 Codec by Digium |
+|  | [asterisk-14-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.14.siren7` | Asterisk 14 siren7 Codec by Digium |
+|  | [asterisk-15-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.15.opus` | Asterisk 15 opus Codec by Digium |
+|  | [asterisk-15-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.15.silk` | Asterisk 15 silk Codec by Digium |
+|  | [asterisk-15-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.15.siren14` | Asterisk 15 siren14 Codec by Digium |
+|  | [asterisk-15-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.15.siren7` | Asterisk 15 siren7 Codec by Digium |
+|  | [asterisk-16-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.16.opus` | Asterisk 16 opus Codec by Digium |
+|  | [asterisk-16-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.16.silk` | Asterisk 16 silk Codec by Digium |
+|  | [asterisk-16-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.16.siren14` | Asterisk 16 siren14 Codec by Digium |
+|  | [asterisk-16-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.16.siren7` | Asterisk 16 siren7 Codec by Digium |
+|  | [asterisk-17-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.17.opus` | Asterisk 17 opus Codec by Digium |
+|  | [asterisk-17-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.17.silk` | Asterisk 17 silk Codec by Digium |
+|  | [asterisk-17-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.17.siren14` | Asterisk 17 siren14 Codec by Digium |
+|  | [asterisk-17-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.17.siren7` | Asterisk 17 siren7 Codec by Digium |
+|  | [asterisk-18-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.18.opus` | Asterisk 18 opus Codec by Digium |
+|  | [asterisk-18-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.18.silk` | Asterisk 18 silk Codec by Digium |
+|  | [asterisk-18-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.18.siren14` | Asterisk 18 siren14 Codec by Digium |
+|  | [asterisk-18-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.18.siren7` | Asterisk 18 siren7 Codec by Digium |
+|  | [asterisk-19-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.19.opus` | Asterisk 19 opus Codec by Digium |
+|  | [asterisk-19-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.19.silk` | Asterisk 19 silk Codec by Digium |
+|  | [asterisk-19-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.19.siren14` | Asterisk 19 siren14 Codec by Digium |
+|  | [asterisk-19-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.19.siren7` | Asterisk 19 siren7 Codec by Digium |
+|  | [asterisk-20-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | `asteriskDigiumCodecs.20.opus` | Asterisk 20 opus Codec by Digium |
+|  | [asterisk-20-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | `asteriskDigiumCodecs.20.silk` | Asterisk 20 silk Codec by Digium |
+|  | [asterisk-20-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | `asteriskDigiumCodecs.20.siren14` | Asterisk 20 siren14 Codec by Digium |
+|  | [asterisk-20-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | `asteriskDigiumCodecs.20.siren7` | Asterisk 20 siren7 Codec by Digium |
 </details>
 
 <details>
@@ -136,7 +146,7 @@ Or, use variables from this repository in case I change them:
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
-|  | asterisk | 20.0.0 | `lantianCustomized.asterisk` |  |
+|  | [asterisk](https://www.asterisk.org/) | 20.0.0 | `lantianCustomized.asterisk` | Asterisk with Lan Tian modifications |
 |  | [coredns-lantian](https://github.com/xddxdd/coredns) | 41a20197433c06398c7cfe17f1935c026b01c4fd | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
 |  | [linux](https://www.kernel.org/) | 6.1.0 | `lantianCustomized.linux-xanmod-lantian` | The Linux kernel (with patches: bridge-stp-helper, request-key-helper, 0001-drm-i915-gvt-Add-virtual-option-ROM-emulation.patch, 0002-qcserial.patch, 0004-hp-omen-fourzone.patch, 0008-hp-omen-mute-led.patch) |
 |  | linux-config | 6.1.0 | `lantianCustomized.linux-xanmod-lantian-config` |  |
@@ -288,6 +298,15 @@ Or, use variables from this repository in case I change them:
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u342-b07_adopt | `openjdk-adoptium.jre-bin-8u342_b07` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u345-b01_adopt | `openjdk-adoptium.jre-bin-8u345_b01` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u352-b08_adopt | `openjdk-adoptium.jre-bin-8u352_b08` | OpenJDK binaries built by Eclipse Adoptium |
+</details>
+
+<details>
+<summary>Package set: plangothic-fonts (2 packages)</summary>
+
+| State | Name | Version | Path | Description |
+| ----- | ---- | ------- | ---- | ----------- |
+|  | [plangothic-fonts-allideo](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic) | V0.7.5708 | `plangothic-fonts.allideo` | Plangothic Project |
+|  | [plangothic-fonts-fallback](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic) | V0.7.5708 | `plangothic-fonts.fallback` | Plangothic Project |
 </details>
 
 <details>

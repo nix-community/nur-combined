@@ -47,11 +47,9 @@ mkScope (self: pkg: rec {
   };
 
   # Package groups
-  asteriskDigiumCodecs_19 = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs/19.nix { });
-  asteriskDigiumCodecs_20 = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs/20.nix { });
-  asteriskDigiumCodecs = asteriskDigiumCodecs_19;
+  asteriskDigiumCodecs = pkgs.recurseIntoAttrs (pkg ./asterisk-digium-codecs { });
 
-  lantianCustomized = pkgs.recurseIntoAttrs {
+  lantianCustomized = ifNotCI (pkgs.recurseIntoAttrs {
     # Packages with significant customization by Lan Tian
     asterisk = pkg ./lantian-customized/asterisk { };
     coredns = pkg ./lantian-customized/coredns { };
@@ -61,16 +59,16 @@ mkScope (self: pkg: rec {
     linux-xanmod-lantian-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-lto.configfile;
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
     nginx = pkg ./lantian-customized/nginx { };
-  };
+  });
 
-  lantianPersonal = pkgs.recurseIntoAttrs {
+  lantianPersonal = ifNotCI (pkgs.recurseIntoAttrs {
     # Personal packages with no intention to be used by others
     libltnginx = pkg ./lantian-personal/libltnginx { };
-  };
+  });
 
   openj9-ibm-semeru = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openj9-ibm-semeru { }));
   openjdk-adoptium = ifNotCI (pkgs.recurseIntoAttrs (pkg ./openjdk-adoptium { }));
-  plangothic-fonts = pkg ./plangothic-fonts { };
+  plangothic-fonts = pkgs.recurseIntoAttrs (pkg ./plangothic-fonts { });
   th-fonts = pkgs.recurseIntoAttrs (pkg ./th-fonts { });
 
   # Other packages
