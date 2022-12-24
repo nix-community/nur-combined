@@ -7,15 +7,19 @@ Here are my Nix/NixOS settings. For a better experience, please use Nix Flakes.
 
 Structure:
 - `docs/`: Contains docs regarding any significant processes that need to be explained in details.
-- `hosts/`: Build setup for my hosts. The ones currently active are (the rest are there as reference only):
+- `home/`: Contains configurations related to home directory. Basically you will find `home-manager` configs.
+- `hosts/`: Build setup for my hosts. Has a `common` directory to share anything related. The ones currently active are:
   - `eyjafjallajokull`
   - `holuhraun`
+  - `katla` (Using NixOS-WSL)
+  - `raudholar` (A VM)
+- `lib/`: Extra functions created to auxiliate with stuff. For example, here is defined how the systems are built.
 - `misc/`: Anything non related to Nix, like my dotfiles (imported as a submodule).
 - `modules/`: Any custom modules for NixOS/Home-Manager created by me.
 - `overlays/`: Self-explanatory. Contains basic overlays. 
 - `pkgs/`: Packages I generally use to maintain by myself because of urgency or to make them available through NUR (WIP).
-- `profiles/`: See them as settings that should be this way (import and that's it). In case I need to modify values, I'd rather write a module :P. There are for both NixOS/Home-Manager.
+- `system/`: NixOS related configurations.
 - `templates/`: Useful for new projects. Currently, there are only for Python and Bash projects.
-- `flake.nix`: My flake. Best way to build the systems stated here
+- `flake.nix`: My flake. Currently using [flake-utils-plus](https://github.com/gytis-ivaskevicius/flake-utils-plus) as Flake framework. 
   - **NOTE:** Consider using `path:.` as flake url, until submodules can be considered.
 - `default.nix`: This is for the old way of importing stuff from this repo. Only supports modules and pkgs.

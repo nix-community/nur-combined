@@ -15,7 +15,7 @@ in rec {
   imports = [
     ./common.nix
 
-    ../../../profiles/home-manager/common/ranger.nix
+    ../../profiles/common/ranger.nix
   ];
 
   home.packages = [ stremio ];

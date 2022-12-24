@@ -12,10 +12,10 @@ rec {
 
   # This will be useful to import the hm users dynamically according to a list provided
   # TODO: See how to handle hostname specific homes
-  importHmUsers = users: hostname: builtins.listToAttrs (map (user: { name = "${user}"; value = import ../users/${user}/home/${hostname}.nix; }) users);
+  importHmUsers = users: hostname: builtins.listToAttrs (map (user: { name = "${user}"; value = import ../home/users/${user}/${hostname}.nix; }) users);
 
   # Same as above, but for system users
-  importUsers = users: hostname: builtins.map (user: ../users/${user}/system/${hostname}.nix) users;
+  importUsers = users: hostname: builtins.map (user: ../system/users/${user}/${hostname}.nix) users;
 
   # Useful to apply certain configurations to a list of system archs
   forAllSystems = f: genAttrs pkgs_systems (system: f system);
@@ -43,7 +43,6 @@ rec {
           ++ hmModules
           ++ optionals (enable-sab) [ inputs.sab.hmModule ]
           ++ optionals (enable-impermanence-hm) [ inputs.impermanence.nixosModules.home-manager.impermanence ];
-        #users."${username}" = import ../${hostname}/home-manager.nix;
       } // { users = (importHmUsers users hostname); };
       nixpkgs = {
         config.allowUnfree = true;
@@ -69,7 +68,7 @@ rec {
       hostConfig = [ ../hosts/${hostname}/configuration.nix ];
       sopsConfig = [
         inputs.sops.nixosModules.sops
-        ../profiles/nixos/sops.nix
+        ../system/profiles/sops.nix
       ] ++ optionals (enable-server-secrets) [ ../hosts/${hostname}/sops.nix ];
       impermanenceConfig = [
         inputs.impermanence.nixosModules.impermanence
@@ -103,7 +102,7 @@ rec {
       inherit pkgs;
       extraSpecialArgs = { inherit username; };
       modules = [
-        ../users/${username}/home/${hostname}.nix
+        ../home/users/${username}/${hostname}.nix
         ../modules/home-manager/personal
         {
           home = {

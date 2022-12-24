@@ -11,12 +11,12 @@ let
 in
 {
   imports = [
-    ../../../profiles/home-manager/common/fonts.nix
-    ../../../profiles/home-manager/common/layouts.nix
-    ../../../profiles/home-manager/common/syncthing.nix
-    ../../../profiles/home-manager/common/tmux.nix
-    ../../../profiles/home-manager/nixos/alacritty.nix
-    ../../../profiles/home-manager/nixos/zsh.nix
+    ../../profiles/common/fonts.nix
+    ../../profiles/common/layouts.nix
+    ../../profiles/common/syncthing.nix
+    ../../profiles/common/tmux.nix
+    ../../profiles/nixos/alacritty.nix
+    ../../profiles/nixos/zsh.nix
   ];
 
   home = {

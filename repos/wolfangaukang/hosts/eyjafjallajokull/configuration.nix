@@ -4,17 +4,17 @@
   imports = [
     ./disk-setup.nix
     ./hardware-configuration.nix
-    ../../profiles/nixos/console.nix
-    ../../profiles/nixos/de/pantheon.nix
-    ../../profiles/nixos/environment.nix
-    ../../profiles/nixos/flatpak.nix
-    ../../profiles/nixos/graphics.nix
-    ../../profiles/nixos/layouts.nix
-    ../../profiles/nixos/networking.nix
-    ../../profiles/nixos/rfkill.nix
-    ../../profiles/nixos/security.nix
-    ../../profiles/nixos/time.nix
-    ../../profiles/nixos/users.nix
+    ../../system/profiles/console.nix
+    ../../system/profiles/de/pantheon.nix
+    ../../system/profiles/environment.nix
+    ../../system/profiles/flatpak.nix
+    ../../system/profiles/graphics.nix
+    ../../system/profiles/layouts.nix
+    ../../system/profiles/networking.nix
+    ../../system/profiles/rfkill.nix
+    ../../system/profiles/security.nix
+    ../../system/profiles/time.nix
+    ../../system/profiles/users.nix
   ];
 
   networking.hostName = hostname;

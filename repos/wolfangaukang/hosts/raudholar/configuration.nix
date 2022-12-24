@@ -2,7 +2,7 @@
 
   imports = [
     #<nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    ../../profiles/nixos/console.nix
+    ../../system/profiles/console.nix
   ];
 
   # FIXME: Still testing
