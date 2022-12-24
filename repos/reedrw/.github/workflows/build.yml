@@ -74,7 +74,9 @@ jobs:
           i=$((i+1))
         done
 
-        [ "$i" -eq 10 ] && exit 1
+        if [ "$i" -eq 10 ]; then
+          exit 10
+        fi
 
   telegram:
     name: Telegram
