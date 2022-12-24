@@ -43,11 +43,7 @@ in {
   wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = prev;});
   wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = prev;});
   c4me = cp ./pkgs/c4me;
-  encore = cp ./pkgs/encore.nix;
-  weston-run = cp ./pkgs/weston-desktop.nix;
-  xplr = cp ./pkgs/xplr.nix;
   personal-utils = cp ./pkgs/personal-utils.nix;
-  nixwrap = cp ./pkgs/nixwrap.nix;
   nix-option = callPackage "${nix-option}" {
     nixos-option = (callPackage "${nixpkgs}/nixos/modules/installer/tools/nixos-option" {}).overrideAttrs (attrs: attrs // {
       meta = attrs.meta // {
@@ -56,7 +52,6 @@ in {
     });
   };
   wineApps = {
-    wine7zip = cp ./pkgs/wineApps/7zip.nix;
     cs_extreme = cp ./pkgs/wineApps/cs_extreme.nix;
     dead_space = cp ./pkgs/wineApps/dead_space.nix;
     gta_sa = cp ./pkgs/wineApps/gta_sa.nix;
@@ -97,27 +92,13 @@ in {
     };
     inherit (flake.outputs) colors;
   };
-  Geographical-Adventures = cp ./pkgs/Geographical-Adventures.nix;
-  t-launcher = cp ./pkgs/tlauncher.nix;
   pkg = cp ./pkgs/pkg.nix;
-  pipedream-cli = cp ./pkgs/pipedream-cli.nix;
   wrapWine = cp ./pkgs/wrapWine.nix;
-  wonderland-engine = cp ./pkgs/wonderland-engine.nix;
-  preload = cp ./pkgs/preload.nix;
-  nodePackages = prev.nodePackages // (cp ./pkgs/node_clis/package_data/default.nix);
   null = prev.stdenv.mkDerivation { dontUnpack = true; installPhase = "mkdir $out"; };
-  speech-recognition = cp ./pkgs/speech-recognition.nix;
   nur = import flake.inputs.nur {
     inherit (prev) pkgs;
     nurpkgs = prev.pkgs;
   };
-  discord = prev.discord.overrideAttrs (old: rec {
-    version = "0.0.20";
-    src = prev.fetchurl {
-      url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-      sha256 = "sha256-3f7yuxigEF3e8qhCetCHKBtV4XUHsx/iYiaCCXjspYw";
-    };
-  });
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
     src = prev.fetchzip {
       url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip";
