@@ -9,6 +9,7 @@
 , withPHP74 ? false, php74
 , withPHP80 ? false, php80
 , withPHP81 ? false, php81
+, withPHP82 ? false, php82
 , withPerl534 ? false, perl534
 , withPerl536 ? true, perl536
 , withPerldevel ? false, perldevel
@@ -24,13 +25,13 @@ with lib;
 
 stdenv.mkDerivation rec {
   pname = "unit";
-  version = "1.28.0";
+  version = "1.29.0";
 
   src = fetchFromGitHub {
     owner = "nginx";
     repo = pname;
     rev = "${version}";
-    sha256 = "sha256-nsalloOghC8tOMRP/N/L2raOmWwA4cz6Yr6H3IHHbR4=";
+    sha256 = "sha256-Na7whutGpd1yLePlcZyiZK9a/Y4YQnv7dkC5FjENqzs=";
   };
 
   nativeBuildInputs = [ which ];
@@ -45,6 +46,7 @@ stdenv.mkDerivation rec {
     ++ optional withPHP74 php74
     ++ optional withPHP80 php80
     ++ optional withPHP81 php81
+    ++ optional withPHP82 php82
     ++ optional withPerl534 perl534
     ++ optional withPerl536 perl536
     ++ optional withPerldevel perldevel
@@ -72,6 +74,7 @@ stdenv.mkDerivation rec {
     ${optionalString withPHP74      "./configure php    --module=php74    --config=${php74.dev}/bin/php-config    --lib-path=${php74}/lib"}
     ${optionalString withPHP80      "./configure php    --module=php80    --config=${php80.dev}/bin/php-config    --lib-path=${php80}/lib"}
     ${optionalString withPHP81      "./configure php    --module=php81    --config=${php81.dev}/bin/php-config    --lib-path=${php81}/lib"}
+    ${optionalString withPHP82      "./configure php    --module=php82    --config=${php82.dev}/bin/php-config    --lib-path=${php82}/lib"}
     ${optionalString withPerl534    "./configure perl   --module=perl534  --perl=${perl534}/bin/perl"}
     ${optionalString withPerl536    "./configure perl   --module=perl536  --perl=${perl536}/bin/perl"}
     ${optionalString withPerldevel  "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}

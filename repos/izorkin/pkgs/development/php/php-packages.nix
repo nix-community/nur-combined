@@ -20,6 +20,7 @@ let
     isPhp74 = pkgs.lib.versionAtLeast php.version "7.4";
     isPhp80 = pkgs.lib.versionAtLeast php.version "8.0";
     isPhp81 = pkgs.lib.versionAtLeast php.version "8.1";
+    isPhp82 = pkgs.lib.versionAtLeast php.version "8.2";
 
   apcu = if isPhp56 then apcu40 else apcu51;
 
@@ -139,11 +140,11 @@ let
 
   composer2 = mkDerivation rec {
     pname = "composer";
-    version = "2.4.4";
+    version = "2.5.1";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-wlLCoiGZVviAif/CQrQsjLkwCjaP04kNY5QOT8llI0U=";
+      sha256 = "sha256-8blP7hGlvWoarl13yNomnfJ8cF/MgG6/TIwub6hkXCA=";
     };
 
     dontUnpack = true;
@@ -420,7 +421,7 @@ let
     meta.broken = isPhp56;
   };
 
-  mongodb = if isPhp56 then mongodb175 else (if isPhp72 then mongodb114 else mongodb111);
+  mongodb = if isPhp56 then mongodb175 else (if isPhp72 then mongodb115 else mongodb111);
 
   mongodb175 = buildPecl {
     pname = "mongodb";
@@ -460,11 +461,11 @@ let
     meta.broken = (isPhp56 || isPhp72);
   };
 
-  mongodb114 = buildPecl {
+  mongodb115 = buildPecl {
     pname = "mongodb";
-    version = "1.14.2";
+    version = "1.15.0";
 
-    sha256 = "sha256-b3yjW5l8yddUMXZeEfZ1vdtjSqqbY7QIcYH6mbnyqqo=";
+    sha256 = "sha256-7rYmjTS9C0o9zGDd5OSE9c9PokOco9nwJMAADpnuckA=";
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [
@@ -525,11 +526,11 @@ let
 
   php-cs-fixer = mkDerivation rec {
     pname = "php-cs-fixer";
-    version = "3.13.0";
+    version = "3.13.1";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "sha256-rC5X4yza5n8huqiPeEBfk9TW6Sj0G6YtyRUFVlx4WkQ=";
+      sha256 = "sha256-4bQrCjuaWN4Dbs1tkk4m1WxSb510ue7G59HA+gQ52yk=";
     };
 
     phases = [ "installPhase" ];
@@ -642,11 +643,11 @@ let
 
   phpstan = mkDerivation rec {
     pname = "phpstan";
-    version = "1.9.2";
+    version = "1.9.4";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "sha256-NGlfCqsqPicaeLwVfAW8bNNH9tWl8+sBl5f4SrpGnGw=";
+      sha256 = "sha256-A+F/ZoL6dLYx4MWN0eWXtQnmWJPYBqEcSgY4A1oR3mo=";
     };
 
     phases = [ "installPhase" ];
@@ -768,9 +769,9 @@ let
 
   protobuf321 = buildPecl {
     pname = "protobuf";
-    version = "3.21.9";
+    version = "3.21.12";
 
-    sha256 = "sha256-w2lrJ2Q35KlncUFaiUqYkQgQBrWgIINEkLwQZmbC9Bc=";
+    sha256 = "sha256-1uS8Rwgcq8QoTy5fJkqO6VhaqPao9lcZ8pK0geRpyq4=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -787,11 +788,11 @@ let
 
   psalm = mkDerivation rec {
     pname = "psalm";
-    version = "4.30.0";
+    version = "5.4.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "sha256-jlGNuj93VzgCD3HpeKdIhDphzsg3DFw6R1vJNFAp6+U=";
+      sha256 = "sha256-d5jf68s+LppUDwERQaqr+ry8L+Zmob8VwetYkQ+vIUg=";
     };
 
     phases = [ "installPhase" ];
@@ -813,11 +814,11 @@ let
 
   psysh = mkDerivation rec {
     pname = "psysh";
-    version = "0.11.9";
+    version = "0.11.10";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-oCwWYb0wVE0HZzbByYRndKXSIMYtetVxOdpfFyz0R90=";
+      sha256 = "sha256-2U9HMA3OAA9Nl9JVJjepB2vi0O483xGpr8nQUGhOrpI=";
     };
 
     phases = [ "installPhase" ];
@@ -956,7 +957,7 @@ let
 
     buildInputs = with pkgs; [ pcre.dev pcre2.dev ];
 
-    meta.broken = isPhp56;
+    meta.broken = (isPhp56 || isPhp82);
   };
 
   spidermonkey = buildPecl {
@@ -1000,7 +1001,7 @@ let
     meta.broken = !isPhp56;
   };
 
-  xdebug = if isPhp56 then xdebug25 else (if isPhp72 then xdebug31 else xdebug29);
+  xdebug = if isPhp56 then xdebug25 else (if isPhp80 then xdebug32 else (if isPhp72 then xdebug31 else xdebug29));
 
   xdebug25 = buildPecl {
     pname = "xdebug";
@@ -1035,7 +1036,19 @@ let
     doCheck = true;
     checkTarget = "test";
 
-    meta.broken = !isPhp72;
+    meta.broken = (!isPhp72 || isPhp80);
+  };
+
+  xdebug32 = buildPecl {
+    pname = "xdebug";
+    version = "3.2.0";
+
+    sha256 = "sha256-d2myDuza31++n1glEsELOU+1dbb3qMOjqC22iD4AMrc=";
+
+    doCheck = true;
+    checkTarget = "test";
+
+    meta.broken = !isPhp80;
   };
 
   yaml = if isPhp56 then yaml13 else yaml22;
