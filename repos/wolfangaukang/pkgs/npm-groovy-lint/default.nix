@@ -1,13 +1,13 @@
 { pkgs, stdenv, lib, fetchFromGitHub, makeWrapper, nodejs, jdk }: 
 
 let
-  version = "11.0.0";
+  version = "11.1.1";
 
   src = fetchFromGitHub {
     owner = "nvuillam";
     repo = "npm-groovy-lint";
     rev = "v${version}";
-    sha256 = "sha256-yueQqaD/C5gveez7gyUiMWseOU8PPwGTWZQiwZaI1fs=";
+    sha256 = "sha256-JBfMLvo51RhtbVobtfv5/+qgo7UHTLZascU08D4l9Vk=";
   };
 
   composition = import ./node-composition.nix {

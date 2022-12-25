@@ -9,12 +9,12 @@
 
 stdenv.mkDerivation rec {
   pname = "nuclear";
-  version = "unstable-2022-06-27";
-  releaseCode = "3f9007";
+  version = "unstable-2022-11-27";
+  releaseCode = "e8fcb6";
 
   src = fetchurl {
     url = "https://github.com/nukeop/nuclear/releases/download/${releaseCode}/${pname}-${releaseCode}.tar.gz";
-    sha256 = "sha256-637jq+ak1K5IJS0WRjpBTU3iorQi/YIiUXlLPoSqFxA=";
+    sha256 = "sha256-0IzQOlazwdcVIEfyxB2N8/WkndQWR+bs9SbYia+I/Io=";
   };
 
   nativeBuildInputs = [
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       desktopName = "Nuclear";
       genericName = "Streaming Music App";
-      categories = [ "Audio" ];
+      categories = [ "AudioVideo" ];
     })
   ];
 

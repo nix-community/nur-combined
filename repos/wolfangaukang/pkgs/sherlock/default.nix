@@ -14,13 +14,13 @@ let
 
 in stdenv.mkDerivation {
   pname = "sherlock";
-  version = "unstable-2022-07-26";
+  version = "unstable-2022-10-21";
 
   src = fetchFromGitHub {
     owner = "sherlock-project";
     repo = "sherlock";
-    rev = "531e79003ffb387321e4facd0de2082af0896038";
-    sha256 = "sha256-cIRBl0c5nfbGBKznZqz5Rs8wj7Yq2slp0mRLcxECcI4=";
+    rev = "8a75dcff4b5d471f0ba1c5c0fee958d47edb4eba";
+    sha256 = "sha256-U3sINusYE48t0jcvsUwhmUh4hdEXy6pn/SfgR7w52xw=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
