@@ -904,10 +904,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.9.7";
+      version = "8.9.8";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4033888/ghostery-8.9.7.xpi";
-      sha256 = "f6771754227093ecb06f780a290fcf74ad5ae7ada788bdbc8a62dc4d65bf95a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046809/ghostery-8.9.8.xpi";
+      sha256 = "a14c3ca91014d6d646bf189e45d0592935ec0371bb07053b024bc7b28330df7b";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -2342,10 +2342,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.10";
+      version = "5.1.11";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4045981/sponsorblock-5.1.10.xpi";
-      sha256 = "282864ff037dadc96b7715e9c9dd3bd890263ca128eb18c681a39a2da77e4d7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4047157/sponsorblock-5.1.11.xpi";
+      sha256 = "7762b7b9fbeead69d8573a8b6f247ffcc81e8f26e463d7b18ad01ff5174b351a";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
