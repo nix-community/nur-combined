@@ -79,6 +79,42 @@ writeTextFile {
 
     ## How to use
 
+    ```nix
+    # flake.nix
+    {
+      inputs = {
+        nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+        flake-utils.url = "github:numtide/flake-utils";
+        nur-xddxdd = {
+          url = "github:xddxdd/nur-packages";
+          inputs.flake-utils.follows = "flake-utils";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
+      };
+
+      outputs = { self, nixpkgs, ... }@inputs: {
+        nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            # Add packages from this repo
+            inputs.nur-xddxdd.nixosModules.setupOverlay
+
+            # Setup QEMU userspace emulation that works with Docker
+            inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
+
+            # Binary cache (optional)
+            ({ ... }: {
+              nix.settings.substituters = [ "${_meta.url}" ];
+              nix.settings.trusted-public-keys = [ "${_meta.publicKey}" ];
+            })
+          ];
+        };
+      };
+    }
+    ```
+
+    ## Binary Cache
+
     This NUR has a binary cache. Use the following settings to access it:
 
     ```nix
