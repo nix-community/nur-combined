@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "zigtools";
     repo = "zls";
-    rev = "5dca821eb65e5cab8d870d7b9cf9afef8b3c76cb";
-    sha256 = "sha256-CIO9YnKaqmk1jra9tksigwX5XaY1iwDk5ozlNoDfldw=";
+    rev = "f6c15ac10c6f43ed1416911a832b4e4f1f958e23";
+    sha256 = "sha256-5gXlXqDlUDuSLjciyOR01+EYlFSIRhtilLNTKIalIRQ=";
     fetchSubmodules = true;
   };
 

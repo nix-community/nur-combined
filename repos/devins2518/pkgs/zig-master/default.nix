@@ -8,6 +8,8 @@ let
       "https://ziglang.org/download/0.10.0/zig-${os}-${arch}-0.10.0.tar.xz";
     "0.11.0-dev.740+4d2372139" =
       "https://ziglang.org/builds/zig-${os}-${arch}-${v}.tar.xz";
+    "0.11.0-dev.939+5bde627f9" =
+      "https://ziglang.org/builds/zig-${os}-${arch}-${v}.tar.xz";
   };
   shas = {
     "0.10.0" = {
@@ -30,10 +32,20 @@ let
       aarch64-darwin =
         "0ad66fdf578ae2a8f54025c69d1f92a0f2fa661f99cb983a9dbe10cc5a6c85bc";
     };
+    "0.11.0-dev.939+5bde627f9" = {
+      x86_64-linux =
+        "21b38830cc9eb44942c01a3a1c445191e46a95e94a8c6d0f7221336ef8aec9f4";
+      aarch64-linux =
+        "6815fab7b9c2bc5f1c5cdbf1122e2a99d5ac6b1d176218a458f028d6fb06c329";
+      x86_64-darwin =
+        "4f547fdf313f62eb06f36597ef5a718ad57383c85cb15880449285c9fa86ee34";
+      aarch64-darwin =
+        "00ef253060c141e8c73863eed584dc7cc10c3202b5df0102b1e9b66665dcaada";
+    };
   };
 in stdenv.mkDerivation rec {
   pname = "zig-master";
-  version = "unstable-2022-12-13";
+  version = "unstable-2022-12-24";
 
   src = fetchurl {
     url = url.${v};
