@@ -30,7 +30,7 @@ rec {
     }:
 
     let
-      personalModules = [ ../modules/home-manager/personal ];
+      personalModules = [ ../home/modules/personal ];
       hmModules = (mapAttrsToList (_: value: value) inputs.self.hmModules);
 
     in {
@@ -103,7 +103,7 @@ rec {
       extraSpecialArgs = { inherit username; };
       modules = [
         ../home/users/${username}/${hostname}.nix
-        ../modules/home-manager/personal
+        ../home/modules/personal
         {
           home = {
             username = username;

@@ -32,7 +32,7 @@
       inherit (utils.lib) mkFlake exportModules;
 
       # Local exports
-      local-modules = exportModules [ ./modules/nixos/personal ];
+      local-modules = exportModules [ ./system/modules/personal ];
       local-lib = import ./lib { inherit inputs; };
       inherit (local-lib) importAttrset forAllSystems mkHome mkSystem;
 
@@ -138,14 +138,14 @@
         };
 
       # Common settings
-      nixosModules = importAttrset ./modules/nixos;
+      nixosModules = importAttrset ./system/modules;
       packages = forAllSystems (system: import ./pkgs {
         pkgs = import nixpkgs { inherit system; };
       });
       templates = import ./templates;
 
       # Home-Manager specifics
-      hmModules = importAttrset ./modules/home-manager;
+      hmModules = importAttrset ./home/modules;
       homeConfigurations = {
         wsl = mkHome {
           inherit overlays system;
