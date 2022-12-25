@@ -1,24 +1,18 @@
 { config, pkgs, ... }:
 
-let
-  stremio = 
-    let
-      inherit (pkgs) callPackage;
-    in (callPackage ../../../pkgs/stremio/default.nix { });
-
   # VDHCoApp testing
   #vdhcoapp_testing = with pkgs; [
   #  chromium google-chrome vivaldi
   #];
 
-in rec {
+rec {
   imports = [
     ./common.nix
 
     ../../profiles/common/ranger.nix
   ];
 
-  home.packages = [ stremio ];
+  home.packages = with pkgs; [ stremio ];
 
   defaultajAgordoj = {
     gui = {
