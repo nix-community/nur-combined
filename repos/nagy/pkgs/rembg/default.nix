@@ -41,16 +41,10 @@ in buildPythonPackage rec {
   # pythonRelaxDeps = true;
 
   prePatch = ''
-    substituteInPlace requirements-gpu.txt --replace "==" ">="
-    substituteInPlace requirements.txt \
-       --replace opencv-python-headless==4.6.0.66        opencv
-    substituteInPlace requirements.txt --replace "==" ">="
-    cat requirements.txt
-    substituteInPlace setup.py --replace "numpy~=1.23.5" "numpy"
-    substituteInPlace setup.py --replace "opencv-python-headless~=4.6.0.66" "opencv"
-    substituteInPlace setup.py --replace "~=" ">="
-    # remove warning for newer pythons
-    substituteInPlace rembg/__init__.py --replace "and sys.version_info.minor == 9" ""
+    substituteInPlace setup.py \
+      --replace "numpy~=1.23.5" "numpy" \
+      --replace "opencv-python-headless~=4.6.0.66" "opencv" \
+      --replace "~=" ">="
   '';
 
   propagatedBuildInputs = [
