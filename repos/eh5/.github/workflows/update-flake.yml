@@ -35,10 +35,6 @@ jobs:
       - name: Update flake.lock
         run: nix flake update
 
-      - name: Update packages source info with nvfetcher
-        working-directory: ./packages
-        run: nix run ..#nvfetcher
-
       - name: Run flake check
         run: nix flake check
 
