@@ -12,6 +12,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   setup:
     runs-on: ubuntu-latest
