@@ -19,9 +19,16 @@ let
         "${v2ray-domain-list-community}/share/v2ray"
       ];
     };
-  mosdns = buildGoModule {
+  mosdns = buildGoModule rec {
     pname = "mosdns";
-    inherit (sources.mosdns) version src;
+    version = "v4.5.3";
+    src = fetchFromGitHub ({
+      owner = "IrineSistiana";
+      repo = "mosdns";
+      rev = version;
+      fetchSubmodules = false;
+      sha256 = "sha256-pWzEoy2sbee2j4WocUanSrTf6S179PCJE4qZ/81BBe0=";
+    });
     vendorSha256 = "sha256-yFXxYAX0yvuDtkN2/WFY9SL3KhAnbemm4ZzkYz+8BeI=";
     doCheck = false;
 

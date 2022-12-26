@@ -20,12 +20,6 @@
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.flake-compat.follows = "flake-compat";
-    };
   };
   outputs =
     { self
@@ -34,7 +28,6 @@
     , home-manager
     , sops-nix
     , deploy-rs
-    , nvfetcher
     , ...
     } @ inputs:
     let
@@ -54,7 +47,6 @@
           appPkgs =
             (if system == systems.x86_64-linux then {
               home-manager = home-manager.defaultPackage.${system};
-              nvfetcher = nvfetcher.defaultPackage.${system};
             } else { }) // {
               deploy = deploy-rs.defaultPackage.${system};
             };

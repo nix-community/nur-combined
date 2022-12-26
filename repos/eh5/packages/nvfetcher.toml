@@ -1,8 +1,0 @@
-[mosdns]
-# src.github = "IrineSistiana/mosdns"
-src.manual = "v4.5.3"
-fetch.github = "IrineSistiana/mosdns"
-
-[v2ray]
-src.github_tag = "v2fly/v2ray-core"
-fetch.github = "v2fly/v2ray-core"

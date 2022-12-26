@@ -7,18 +7,18 @@
   services.resolved.enable = false;
   services.dnsmasq = {
     enable = true;
-    extraConfig = ''
-      no-resolv
-      server=127.0.0.1#5333
-      local=/lan/
-      interface=intern0
-      bind-interfaces
-      expand-hosts
-      domain=lan
-      dhcp-range=192.168.1.3,192.168.1.255,255.255.255.0,24h
-      cache-size=0
-      no-negcache
-    '';
+    settings = {
+      no-resolv = true;
+      server = [ "127.0.0.1#5333" ];
+      local = "/lan/";
+      interface = "intern0";
+      bind-interfaces = true;
+      expand-hosts = true;
+      domain = "lan";
+      dhcp-range = "192.168.1.3,192.168.1.255,255.255.255.0,24h";
+      cache-size = 0;
+      no-negcache = true;
+    };
   };
 
   services.v2ray-rules-dat = {

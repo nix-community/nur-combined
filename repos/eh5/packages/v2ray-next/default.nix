@@ -1,5 +1,6 @@
 { lib
 , fetchurl
+, fetchFromGitHub
 , symlinkJoin
 , buildGoModule
 , runCommand
@@ -7,7 +8,6 @@
 , v2ray-geoip
 , v2ray-domain-list-community
 , assetsDir ? null
-, sources
 }:
 let
   assetsDrv =
@@ -21,17 +21,18 @@ let
     };
 
   core = buildGoModule rec {
-    inherit (sources.v2ray) pname version src;
-    vendorSha256 = "sha256-RuDCAgTzqwe5fUwa9ce2wRx4FPT8siRLbP7mU8/jg/Y=";
+    pname = "v2ray";
+    version = "v5.2.0";
+    src = fetchFromGitHub ({
+      owner = "v2fly";
+      repo = "v2ray-core";
+      rev = version;
+      fetchSubmodules = false;
+      sha256 = "sha256-/n8GyKcTsus7BWspg6Br4ALH98A1dSpkNFNKkRlIqHs=";
+    });
+    vendorSha256 = "sha256-85k6XWe12m2siejfoPJru87/AYdVSl+ag09jUkBIc0M=";
 
     doCheck = false;
-
-    patches = [
-      (fetchurl {
-        url = "https://patch-diff.githubusercontent.com/raw/v2fly/v2ray-core/pull/1923.diff";
-        sha256 = "sha256-CASkxR9knylGNmi3dldmBLT5mXMuAKkHczhFXnJkcjY=";
-      })
-    ];
 
     buildPhase = ''
       buildFlagsArray=(-v -p $NIX_BUILD_CORES -ldflags="-s -w")
