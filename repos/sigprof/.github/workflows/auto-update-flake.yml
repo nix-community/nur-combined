@@ -6,6 +6,8 @@ on:
     # Nominally 06:11 GMT+3, but actual start times apparently suffer from delays
     - cron: '11 3 * * *'
 
+permissions: {}
+
 defaults:
   run:
     shell: bash
