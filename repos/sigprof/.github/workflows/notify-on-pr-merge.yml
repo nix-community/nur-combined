@@ -5,6 +5,8 @@ on:
     types:
       - closed
 
+permissions: {}
+
 jobs:
   notify_if_merged:
     runs-on: ubuntu-latest
