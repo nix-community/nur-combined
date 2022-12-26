@@ -44,6 +44,7 @@ let
           git-remote-rclone = py3.callPackage ./pkgs/git-remote-rclone { };
           oauth2token = py3.callPackage ./pkgs/oauth2token { };
           images-upload-cli = py3.callPackage ./pkgs/images-upload-cli { };
+          imagehash = py3.callPackage ./pkgs/imagehash { };
         }));
 
       lttoolbox = callPackage ./pkgs/lttoolbox { };

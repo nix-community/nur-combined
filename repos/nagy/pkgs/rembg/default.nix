@@ -1,92 +1,64 @@
-{ pkgs, lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, pymatting, filetype
-, scikitimage, installShellFiles, pillow, flask, tqdm, waitress, requests
-, fastapi, gdown, numpy, uvicorn, flatbuffers, asyncer, onnxruntime, coloredlogs
-, sympy, opencv4, pytorch, torchvision, requireFile, runCommand, makeWrapper
-, rembg, symlinkJoin }:
+{ pkgs, lib, fetchurl, fetchFromGitHub, buildPythonPackage, setuptools-scm
+, pymatting, filetype, scikitimage, installShellFiles, pillow, flask, tqdm
+, waitress, requests, fastapi, gdown, numpy, uvicorn, flatbuffers, asyncer
+, onnxruntime, coloredlogs, sympy, opencv4, requireFile, runCommand, makeWrapper
+, rembg, pooch, symlinkJoin, imagehash }:
 
 let
-  mkGdriveDownload = { name, gdriveId, sha256 }:
-    requireFile {
-      inherit name sha256;
-      url = "https://docs.google.com/uc?export=download&id=${gdriveId}";
+  models = lib.mapAttrsToList (name: value:
+    fetchurl {
+      name = name;
+      url =
+        "https://github.com/danielgatis/rembg/releases/download/v0.0.0/${name}.onnx";
+      sha256 = value;
+    }) {
+      u2net = "sha256-jRDS87t1rjttUnx3lE/F59zZSymAnUenOaenKKkStJE="; # 168MB
+      u2netp = "sha256-MJyEaSWN2nQnk9zg6+qObdOTF0+Jk0cz7MixTHb03dg="; # 4MB
+      u2net_human_seg =
+        "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw="; # human segment 168MB
+      u2net_cloth_seg =
+        "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4="; # cloth segment 168MB
     };
-  # 168MB
-  U2NET_PATH = mkGdriveDownload {
-    name = "u2net.onnx";
-    gdriveId = "1tCU5MM1LhRgGou5OpmpjBQbSrYIUoYab";
-    sha256 = "sha256-jRDS87t1rjttUnx3lE/F59zZSymAnUenOaenKKkStJE=";
-  };
-  # 4MB
-  U2NETP_PATH = mkGdriveDownload {
-    name = "u2netp.onnx";
-    gdriveId = "1tNuFmLv0TSNDjYIkjEdeH1IWKQdUA4HR";
-    sha256 = "sha256-MJyEaSWN2nQnk9zg6+qObdOTF0+Jk0cz7MixTHb03dg=";
-  };
-
-  # human segment 168MB
-  U2NET_HUMAN_SEG_PATH = mkGdriveDownload {
-    name = "u2net_human_seg.onnx";
-    gdriveId = "1ZfqwVxu-1XWC1xU1GHIP-FM_Knd_AX5j";
-    sha256 = "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw=";
-  };
-  #
-  # cloth segment 168MB
-  U2NET_CLOTH_SEG_PATH = mkGdriveDownload {
-    name = "u2net_cloth_seg.onnx";
-    gdriveId = "15rKbQSXQzrKCQurUjZFg8HqzZad8bcyz";
-    sha256 = "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4=";
-  };
   U2NET_HOME = symlinkJoin {
-    name = "u2net_home";
-    paths = map (u2:
-      runCommand "u2net-as-directory" { }
-      "mkdir $out && ln -s ${u2} $out/${u2.name}") [
-        U2NET_PATH
-        U2NETP_PATH
-        U2NET_HUMAN_SEG_PATH
-        U2NET_CLOTH_SEG_PATH
-      ];
+    name = "u2net-home";
+    paths = map (x:
+      runCommand "u2net_home" { }
+      "mkdir $out && ln -s ${x} $out/${x.name}.onnx ") models;
   };
 in buildPythonPackage rec {
   pname = "rembg";
-  version = "2.0.23";
+  version = "2.0.30";
 
   src = fetchFromGitHub {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-UGVrt8tLThyJMKlstq4s/IdDJHcy4vlOWUzrppoPEM4=";
+    sha256 = "sha256-fHN5bsQOjJgUTLrD2X3Osp2PKdEVuWyWUue5Uf/gr3g=";
   };
 
-  pythonImportsCheck = [ "rembg" ];
-
-  doCheck = false;
-
   nativeBuildInputs = [ setuptools-scm installShellFiles ];
+
+  # pythonRelaxDeps = true;
 
   prePatch = ''
     substituteInPlace requirements-gpu.txt --replace "==" ">="
     substituteInPlace requirements.txt \
-       --replace numpy==1.22.3        numpy==1.23.1 \
-       --replace opencv-python-headless==4.6.0.66        opencv \
-       --replace scikit-image==0.19.1 scikit-image==0.18.3
+       --replace opencv-python-headless==4.6.0.66        opencv
     substituteInPlace requirements.txt --replace "==" ">="
+    cat requirements.txt
+    substituteInPlace setup.py --replace "numpy~=1.23.5" "numpy"
+    substituteInPlace setup.py --replace "opencv-python-headless~=4.6.0.66" "opencv"
     substituteInPlace setup.py --replace "~=" ">="
     # remove warning for newer pythons
     substituteInPlace rembg/__init__.py --replace "and sys.version_info.minor == 9" ""
-  '';
-
-  # to fix failing imports check
-  preBuild = ''
-    export NUMBA_CACHE_DIR=$TMPDIR
   '';
 
   propagatedBuildInputs = [
     pymatting
     filetype
     scikitimage
-    pytorch
-    torchvision
+    # pytorch
+    # torchvision
 
     requests
     flask
@@ -104,17 +76,21 @@ in buildPythonPackage rec {
     sympy
     coloredlogs
     opencv4
+    pooch
+    imagehash
   ];
 
-  passthru = {
-    wrapped =
-      runCommand "rembg-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
-        mkdir -p $out/bin
-        makeWrapper ${rembg}/bin/rembg $out/bin/rembg \
-              --prefix LD_LIBRARY_PATH : ${pkgs.onnxruntime}/lib \
-              --set U2NET_HOME ${U2NET_HOME}
-      '';
-  };
+  makeWrapperArgs = [
+    "--prefix LD_LIBRARY_PATH : ${pkgs.onnxruntime}/lib "
+    "--set U2NET_HOME ${U2NET_HOME}"
+  ];
+
+  # to fix failing imports check
+  preInstallCheck = ''
+    export NUMBA_CACHE_DIR=$TMPDIR
+  '';
+
+  pythonImportsCheck = [ "rembg" ];
 
   meta = with lib; {
     description = "Tool to remove images background";
