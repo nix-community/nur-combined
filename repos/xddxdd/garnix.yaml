@@ -1,4 +1,4 @@
 builds:
   include:
-    - 'ciPackages.x86_64-linux.*'
+    - ciPackages.x86_64-linux.*
   exclude: []
