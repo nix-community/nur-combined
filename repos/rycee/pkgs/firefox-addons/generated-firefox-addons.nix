@@ -691,10 +691,10 @@
       };
     "fediact" = buildFirefoxXpiAddon {
       pname = "fediact";
-      version = "0.9.8.4";
+      version = "0.9.8.5";
       addonId = "{cca112bb-1ca6-4593-a2f1-38d808a19dda}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046866/fediact-0.9.8.4.xpi";
-      sha256 = "eb6dd71ae624d8155247aabb089791cc088b70f6794e44120bf73021e652a3b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4048560/fediact-0.9.8.5.xpi";
+      sha256 = "71a6d73ff5edeea48ac3fe1ff322e7998f9e92db0ad9b358361800106b3e5028";
       meta = with lib;
       {
         homepage = "https://github.com/Lartsch/FediAct";
