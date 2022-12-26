@@ -48,6 +48,11 @@ on:
           Signing key secret for Cachix; needed for pushing objects to the
           cache when signing is not managed by the Cachix service.
 
+permissions: {}
+
+env:
+  NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   early-checks:
     runs-on: ${{ inputs.runs-on }}
