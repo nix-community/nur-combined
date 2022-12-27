@@ -13,6 +13,4 @@ with pkgs; rec {
   paru-unwrapped = callPackage ./paru/unwrapped.nix {};
 
   paru = callPackage ./paru { inherit asp devtools paru-unwrapped; };
-
-  run-archiso = callPackage ./archiso/run.nix { inherit rp; };
 }

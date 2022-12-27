@@ -49,13 +49,13 @@ let
         sha512 = "c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ==";
       };
     };
-    "@types/node-18.11.17" = {
+    "@types/node-18.11.18" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.11.17";
+      version = "18.11.18";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.11.17.tgz";
-        sha512 = "HJSUJmni4BeDHhfzn6nF0sVmd1SMezP7/4F0Lq+aXzmp2xm9O7WXrUtHW/CHlYVtZUbByEvWidHqRtcJXGF2Ng==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.11.18.tgz";
+        sha512 = "DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==";
       };
     };
     "@types/yauzl-2.10.0" = {
@@ -1704,7 +1704,7 @@ in
         ];
       })
       sources."@samverschueren/stream-to-observable-0.3.1"
-      sources."@types/node-18.11.17"
+      sources."@types/node-18.11.18"
       sources."@types/yauzl-2.10.0"
       sources."agent-base-6.0.2"
       sources."ansi-escapes-3.2.0"
