@@ -73,8 +73,8 @@ Or, use variables from this repository in case I change them:
 |  | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.0 | `baidupcs-go` | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
 |  | [bilibili](https://app.bilibili.com/) | 1.8.2-1 | `bilibili` | Bilibili desktop client |
 |  | [bird-babel-rtt](http://bird.network.cz) | e508ca76a198f633e1720466e1084333ae8b2742 | `bird-babel-rtt` | BIRD Internet Routing Daemon |
-|  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 47c66b125cc28134cf1a39034b1067c8c4f8b2ce | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
-|  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 47c66b125cc28134cf1a39034b1067c8c4f8b2ce | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 049775319b3ff254db63d9e8952a5ec6266c9716 | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 049775319b3ff254db63d9e8952a5ec6266c9716 | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 | `Broken` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2022-08 | `boringssl-oqs` | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 1.1.3 | `calibre-cops` | Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...) |
 |  | [chmlib](http://www.jedrea.com/chmlib) | 0.40a | `chmlib-utils` | A library for dealing with Microsoft ITSS/CHM format files |
@@ -184,10 +184,10 @@ Or, use variables from this repository in case I change them:
 | ----- | ---- | ------- | ---- | ----------- |
 |  | [asterisk](https://www.asterisk.org/) | 20.0.0 | `lantianCustomized.asterisk` | Asterisk with Lan Tian modifications |
 |  | [coredns-lantian](https://github.com/xddxdd/coredns) | 41a20197433c06398c7cfe17f1935c026b01c4fd | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
-|  | [linux](https://www.kernel.org/) | 6.1.0 | `lantianCustomized.linux-xanmod-lantian` | The Linux kernel (with patches: bridge-stp-helper, request-key-helper, 0001-drm-i915-gvt-Add-virtual-option-ROM-emulation.patch, 0002-qcserial.patch, 0004-hp-omen-fourzone.patch, 0008-hp-omen-mute-led.patch) |
-|  | linux-config | 6.1.0 | `lantianCustomized.linux-xanmod-lantian-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.0 | `lantianCustomized.linux-xanmod-lantian-lto` | The Linux kernel (with patches: bridge-stp-helper, request-key-helper, 0001-drm-i915-gvt-Add-virtual-option-ROM-emulation.patch, 0002-qcserial.patch, 0004-hp-omen-fourzone.patch, 0008-hp-omen-mute-led.patch) |
-|  | linux-config | 6.1.0 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>
