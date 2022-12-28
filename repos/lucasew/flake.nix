@@ -37,7 +37,7 @@
     mach-nix.inputs.nixpkgs.follows = "nixpkgs";
     mach-nix.inputs.flake-utils.follows = "flake-utils";
 
-    nix-colors.url = "github:lucasew/nix-colors/fix/bash-ssh";
+    nix-colors.url = "github:Misterio77/nix-colors";
 
     nix-vscode.url =  "github:lucasew/nix-vscode";
     nix-vscode.flake = false;
@@ -234,7 +234,7 @@
       };
       whiterun = nixosConf {
         mainModule = ./nodes/whiterun/default.nix;
-        nixpkgs = inputs.nixpkgs-whiterun;
+        # nixpkgs = inputs.nixpkgs-whiterun;
       };
       demo = nixosConf {
         mainModule = ./nodes/demo/default.nix;
@@ -267,6 +267,7 @@
       name = "nixcfg-shell";
       buildInputs = with pkgs; [
         ctl
+        ansible
       ];
       shellHook = ''
         ${global.environmentShell}
