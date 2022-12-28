@@ -106,22 +106,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.8.1";
+    version = "v2.8.3";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.1/app-x86_64.asar";
-      sha256 = "sha256-4jC/qrrSAlGcBHhncTHmCYkCNPsOKY/w4QTrXPa/wGE=";
-    };
-  };
-  icalingua-plus-plus-aur = {
-    pname = "icalingua-plus-plus-aur";
-    version = "b047908b13fc256a3ee683744dd6ee56737d2638";
-    src = fetchgit {
-      url = "https://aur.archlinux.org/icalingua++.git";
-      rev = "b047908b13fc256a3ee683744dd6ee56737d2638";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-7D1zlU55AzS28OYEtej2GGZ7DVFKYKyW3bnPvgCWjC8=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.3/app-x86_64.asar";
+      sha256 = "sha256-CjWNZOwbnyqkOZhSPS0MNy8hIbH1Ond9fUNbtGyyl30=";
     };
   };
   linux-qq = {

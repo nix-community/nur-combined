@@ -24,7 +24,6 @@ packageSet = do
   clashForWindows
   clashForWindowsIcon
   icalinguaPlusPlus
-  icalinguaPlusPlusAur
   linuxQQ
   wemeet
   yacd
@@ -106,9 +105,6 @@ icalinguaPlusPlus =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
-
-icalinguaPlusPlusAur :: PackageSet ()
-icalinguaPlusPlusAur = gitPkg "icalingua-plus-plus-aur" "https://aur.archlinux.org/icalingua++.git"
 
 linuxQQ :: PackageSet ()
 linuxQQ =
