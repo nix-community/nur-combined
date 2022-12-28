@@ -61,7 +61,8 @@
 
 ;; LSP
 
-(lsp :bashls)
+(lsp :ansiblels) ;; Ansible
+(lsp :bashls) ;; Bash
 (lsp :ccls { ;; C/C++
   :init_options {
     :cache 
@@ -70,9 +71,12 @@
       {:detailedLabel false}
 }})
 
-(lsp :cmake)
+(lsp :cmake) ;; CMake
 (lsp :dockerls) ;; Dockerfile
 (lsp :dotls) ;; GraphViz
+(lsp :elixirls { ;; Elixir
+    :cmd [:elixir-ls]
+})
 (lsp :gopls) ;; Golang
 (lsp :graphql) ;; GraphQL
 (lsp :hls) ;; Haskell
