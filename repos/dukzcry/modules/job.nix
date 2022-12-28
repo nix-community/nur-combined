@@ -19,7 +19,6 @@ in {
         systemPackages = with pkgs; [
           networkmanagerapplet remmina
           skypeforlinux zoom-us mattermost-desktop whatsapp-for-linux
-          google-chrome
         ];
       };
     })
