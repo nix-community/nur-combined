@@ -13,6 +13,8 @@ in {
         "wheel"
         # "podman"
         "docker"
+        "video"
+        "render"
       ];
       initialPassword = "changeme";
       openssh.authorizedKeys.keyFiles = [
