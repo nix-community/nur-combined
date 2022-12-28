@@ -115,6 +115,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       dart-vim-plugin
       fennel-vim
       plantuml-syntax
+      polyglot
       # pluginIonideVim
       vim-nix
       vim-terraform

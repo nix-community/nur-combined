@@ -63,6 +63,7 @@
     nixpkgs-unstable.url =  "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-staging.url =  "github:NixOS/nixpkgs/staging";
     nixpkgs.url =  "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-whiterun.url =  "github:NixOS/nixpkgs/5b18bcaf8121d01897855ae0ef373f9df5d78300";
 
     nur.url =  "nur";
 
@@ -233,7 +234,7 @@
       };
       whiterun = nixosConf {
         mainModule = ./nodes/whiterun/default.nix;
-        nixpkgs = inputs.nixpkgs-staging;
+        nixpkgs = inputs.nixpkgs-whiterun;
       };
       demo = nixosConf {
         mainModule = ./nodes/demo/default.nix;

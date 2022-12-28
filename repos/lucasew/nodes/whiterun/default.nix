@@ -14,6 +14,7 @@ in {
     ./sshfs.nix
     ./plymouth.nix
     ./rocm-gambiarra.nix
+    ./issue-hip.nix
   ];
   boot = {
     supportedFilesystems = [ "ntfs" ];
