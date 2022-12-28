@@ -37,7 +37,7 @@
     mach-nix.inputs.nixpkgs.follows = "nixpkgs";
     mach-nix.inputs.flake-utils.follows = "flake-utils";
 
-    nix-colors.url = "github:misterio77/nix-colors";
+    nix-colors.url = "github:lucasew/nix-colors/fix/bash-ssh";
 
     nix-vscode.url =  "github:lucasew/nix-vscode";
     nix-vscode.flake = false;

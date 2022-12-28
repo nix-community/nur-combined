@@ -255,15 +255,16 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1670210028,
-        "narHash": "sha256-2VpxobYICB+l6n963nR37r0ongTtvHfHQvsPGgMWDmw=",
-        "owner": "misterio77",
+        "lastModified": 1672233209,
+        "narHash": "sha256-dpBIuxcDEvJbLD8fTipE0A0JbQD1lZB94zYFPoh01PI=",
+        "owner": "lucasew",
         "repo": "nix-colors",
-        "rev": "fcd345bd1c9e7c203c3320ee6ca39814c97ac1fe",
+        "rev": "e2fcc1b4b87661e8f6a0842f9fea36c6a489a0bb",
         "type": "github"
       },
       "original": {
-        "owner": "misterio77",
+        "owner": "lucasew",
+        "ref": "fix/bash-ssh",
         "repo": "nix-colors",
         "type": "github"
       }

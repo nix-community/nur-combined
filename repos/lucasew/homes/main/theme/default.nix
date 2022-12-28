@@ -31,9 +31,9 @@ in
       name = "Paper";
     };
   };
-  # programs.bash.bashrcExtra = ''
-  #   ${shellThemeFromScheme {
-  #     scheme = colors;
-  #   }}
-  # '';
+  programs.bash.bashrcExtra = ''
+    ${shellThemeFromScheme {
+      scheme = colors;
+    }}
+  '';
 }
