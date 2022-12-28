@@ -85,7 +85,7 @@ in
   services.screenkey.enable = true;
 
   # kernel
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.kernelPackages = pkgs.linuxPackages_6_0;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
