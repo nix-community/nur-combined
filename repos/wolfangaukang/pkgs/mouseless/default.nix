@@ -1,4 +1,4 @@
-{ buildGoModule, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "mouseless";
@@ -15,4 +15,10 @@ buildGoModule rec {
 
   ldFlags = [ "-s" "-w" ];
 
+  meta = with lib; {
+    description = "Replacement for the physical mouse in Linux. Successor to xmouseless";
+    homepage = "https://github.com/jbensmann/mouseless";
+    licenses = licenses.mit;
+    maintainers = with maintainers; [ wolfangaukang ];
+  };
 }

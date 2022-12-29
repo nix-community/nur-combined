@@ -6,7 +6,6 @@ rec {
   access-undenied-aws = python3Packages.callPackage ./access-undenied-aws { inherit aws-error-utils; };
   aws-error-utils = python3Packages.callPackage ./aws-error-utils { };
   iptvnator = callPackage ./iptvnator { };
-  librewolf-bin = callPackage ./librewolf-bin { };
   ly = callPackage ./ly { };
   mastopurge = callPackage ./mastopurge { };
   mouseless = callPackage ./mouseless { };

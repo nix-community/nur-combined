@@ -22,4 +22,10 @@ stdenv.mkDerivation {
     "PREFIX=${placeholder "out"}"
   ];
 
+  meta = with lib; {
+    description = "Replacement for the physical mouse in Linux";
+    homepage = "https://github.com/jbensmann/xmouseless";
+    licenses = licenses.gpl3Only;
+    maintainers = with maintainers; [ wolfangaukang ];
+  };
 }
