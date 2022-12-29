@@ -877,10 +877,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20221222.190305";
+      version = "109.0buildid20221227.225153";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4047483/francais_language_pack-109.0buildid20221222.190305.xpi";
-      sha256 = "323f2a3bc09631f56c2a7f4f96768cb6cf4d3c04ed13cb7703152b2156463b24";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4049518/francais_language_pack-109.0buildid20221227.225153.xpi";
+      sha256 = "18d38d915e1aa8342bee54ceea61ed29baafebdbcd7149635318c6cb13c03d7e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2091,10 +2091,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.14";
+      version = "5.22.15";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046245/reddit_enhancement_suite-5.22.14.xpi";
-      sha256 = "1e2658b1525a5c334bcf466cd8a2fe2985d51069048b80b64c017cfb3bcdc4f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4047244/reddit_enhancement_suite-5.22.15.xpi";
+      sha256 = "12cc1b5ca2224780e73cb43a17603ad03e42866e9d143aa23f662d14f59a8428";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -2257,10 +2257,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.31";
+      version = "1.21.32";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037364/single_file-1.21.31.xpi";
-      sha256 = "19f328176e5b830f3cebaa159b2d007f7af8964291a8a2015cddbcac4e6e1c66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4049148/single_file-1.21.32.xpi";
+      sha256 = "f4b2d4efd7d7722ba5e6bba6b9b0f5f8e0d468787b916ba69a73d4890893274a";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
