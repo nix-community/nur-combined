@@ -8,17 +8,5 @@ in {
     enable = mkEnableOption ''
       Wifi hacks
     '';
-    interface = mkOption {
-      type = types.str;
-    };
-  };
-
-  config = mkIf cfg.enable {
-    services.hostapd.noScan = true;
-    systemd.services.hostapd.preStart = '' 
-      set +e 
-      ${pkgs.wirelesstools}/bin/iwconfig ${cfg.interface} power off
-      true
-    '';
   };
 }

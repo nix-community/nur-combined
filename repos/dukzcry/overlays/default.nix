@@ -9,13 +9,6 @@ rec {
   lmms = super.lmms.overrideAttrs (oldAttrs: optionalAttrs (config.services.jack.enable or false) {
     cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DWANT_WEAKJACK=OFF" ];
   });
-  qutebrowser = super.qutebrowser.overrideAttrs (oldAttrs: {
-    postFixup = ''
-      ${oldAttrs.postFixup}
-      wrapProgram $out/bin/qutebrowser \
-        --prefix PATH : "${super.lib.makeBinPath [ super.mpv ]}"
-    '';
-  });
   evolution = super.symlinkJoin {
     name = "evolution-without-background-processes";
     paths = with super; [
