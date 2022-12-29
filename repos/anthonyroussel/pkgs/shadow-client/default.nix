@@ -181,8 +181,9 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Client for the Shadow Cloud Gaming Computer";
     homepage = "https://shadow.tech";
-    license = [ licenses.unfree ];
+    license = licenses.unfree;
     maintainers = with maintainers; [ anthonyroussel ];
     platforms = platforms.linux;
+    mainProgram = "shadow-prod";
   };
 }
