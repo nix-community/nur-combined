@@ -22,6 +22,24 @@ with pkgs;
 
   bundler = callPackage ./pkgs/bundler { };
 
+  shadow-prod = callPackage ./pkgs/shadow-client {
+    channel = "prod";
+    enableDiagnostics = true;
+    enableDesktopLauncher = true;
+  };
+
+  shadow-preprod = callPackage ./pkgs/shadow-client {
+    channel = "preprod";
+    enableDiagnostics = true;
+    enableDesktopLauncher = true;
+  };
+
+  shadow-testing = callPackage ./pkgs/shadow-client {
+    channel = "testing";
+    enableDiagnostics = true;
+    enableDesktopLauncher = true;
+  };
+
   terraform-local = callPackage ./pkgs/terraform-local { };
 
 }

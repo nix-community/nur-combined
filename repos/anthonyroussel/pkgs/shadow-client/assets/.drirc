@@ -1,0 +1,16 @@
+<driconf>
+  <device driver="i915">
+    <application name="Shadow" executable="Shadow">
+      <option name="allow_rgb10_configs" value="false" />
+    </application>
+  </device>
+  <device driver="iHD">
+    <application name="Shadow" executable="Shadow">
+      <option name="allow_rgb10_configs" value="false" />
+    </application>
+  </device>
+  <device driver="iris">
+    <application name="Shadow" executable="Shadow">
+      <option name="allow_rgb10_configs" value="false" />
+    </application>
+  </device>

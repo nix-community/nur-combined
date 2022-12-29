@@ -1,0 +1,44 @@
+{
+  "prod": {
+    "version": "8.0.10018",
+    "files": [
+      {
+        "url": "Shadow-8.0.10018.AppImage",
+        "sha512": "YT/KaiAt4ZCFGiOTR4wxEEDG4mtskhbH4Gks5iTomrc2ajzhWBScVio6KnDYdOyLo1X0JAZbQjBa84w8M1rkUA==",
+        "size": 179284919,
+        "blockMapSize": 187339
+      }
+    ],
+    "path": "Shadow-8.0.10018.AppImage",
+    "sha512": "YT/KaiAt4ZCFGiOTR4wxEEDG4mtskhbH4Gks5iTomrc2ajzhWBScVio6KnDYdOyLo1X0JAZbQjBa84w8M1rkUA==",
+    "releaseDate": "2022-11-07T17:32:07.591Z"
+  },
+  "preprod": {
+    "version": "8.0.10012",
+    "files": [
+      {
+        "url": "ShadowBeta-8.0.10012.AppImage",
+        "sha512": "/HMTpcHUBsWTP9dB3F1KGNlT0+mhfaYqmeHqhJ4JGd2Q7ITU5iVNGE0C0crZG+8m92u2lSNRhwSN0zUv/5BXxw==",
+        "size": 179190579,
+        "blockMapSize": 187207
+      }
+    ],
+    "path": "ShadowBeta-8.0.10012.AppImage",
+    "sha512": "/HMTpcHUBsWTP9dB3F1KGNlT0+mhfaYqmeHqhJ4JGd2Q7ITU5iVNGE0C0crZG+8m92u2lSNRhwSN0zUv/5BXxw==",
+    "releaseDate": "2022-10-26T14:26:56.807Z"
+  },
+  "testing": {
+    "version": "8.0.10029",
+    "files": [
+      {
+        "url": "ShadowAlpha-8.0.10029.AppImage",
+        "sha512": "loxi352FncQWiOX7unWLHgFHOXSdYdXMsUwEmxRwvw7jiprjNSjzXitU9zGMQHO22KcI2diKCVA8GbIjFRd4hw==",
+        "size": 180588785,
+        "blockMapSize": 188677
+      }
+    ],
+    "path": "ShadowAlpha-8.0.10029.AppImage",
+    "sha512": "loxi352FncQWiOX7unWLHgFHOXSdYdXMsUwEmxRwvw7jiprjNSjzXitU9zGMQHO22KcI2diKCVA8GbIjFRd4hw==",
+    "releaseDate": "2022-11-30T10:38:54.092Z"
+  }
+}
