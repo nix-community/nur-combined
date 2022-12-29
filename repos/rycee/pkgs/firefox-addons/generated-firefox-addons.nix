@@ -572,6 +572,20 @@
         platforms = platforms.all;
         };
       };
+    "dracula-dark-colorscheme" = buildFirefoxXpiAddon {
+      pname = "dracula-dark-colorscheme";
+      version = "1.9.3";
+      addonId = "{b743f56d-1cc1-4048-8ba6-f9c2ab7aa54d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3970141/dracula_dark_colorscheme-1.9.3.xpi";
+      sha256 = "d43588c996e2ae6ba62a0cca0f9d50d7d8b54cd734b92f2547d79ffaa58fd24c";
+      meta = with lib;
+      {
+        homepage = "https://draculatheme.com/firefox";
+        description = "Official Dracula theme for firefox.";
+        license = licenses.cc-by-nc-sa-30;
+        platforms = platforms.all;
+        };
+      };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
       version = "2022.12.12";
@@ -2998,6 +3012,38 @@
         homepage = "https://www.xbrowsersync.org/";
         description = "Browser syncing as it should be: secure, anonymous and free! Sync bookmarks across your browsers and devices, no sign up required.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "youchoose-ai" = buildFirefoxXpiAddon {
+      pname = "youchoose-ai";
+      version = "2.7.0";
+      addonId = "{bc9bb30a-c6a3-4404-b116-574f1208e70b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030054/youchoose_ai-2.7.0.xpi";
+      sha256 = "39d425686f271c25b6746daed89fc2cbd7c0c7e292504d663feae34a95212c68";
+      meta = with lib;
+      {
+        homepage = "https://youchoose.ai";
+        description = "Gain control back on your content recommendations on YouTube. See recommendations provided by content creators. Analyze YouTube's algorithm, and help us expose shadow-banning.\nA free-software, built by a non-profit defending your digital rights!";
+        license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
+    "youtube-recommended-videos" = buildFirefoxXpiAddon {
+      pname = "youtube-recommended-videos";
+      version = "1.6.1";
+      addonId = "myallychou@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3936215/youtube_recommended_videos-1.6.1.xpi";
+      sha256 = "04b3f707401e88efcb5cd25604a8c719b2fdcccf36cac3f1ed521a0746494d81";
+      meta = with lib;
+      {
+        description = "Hide YouTube related videos, comments, video suggestions wall, homepage recommendations, trending tab, and other distractions.";
+        license = {
+          shortName = "unhook-eula";
+          fullName = "End-User License Agreement for Unhook: Remove YouTube Recommended Videos Comments";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/youtube-recommended-videos/eula/},";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };

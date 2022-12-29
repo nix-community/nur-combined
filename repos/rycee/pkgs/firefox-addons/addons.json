@@ -152,6 +152,9 @@
     "slug": "don-t-fuck-with-paste"
   },
   {
+    "slug": "dracula-dark-colorscheme"
+  },
+  {
     "slug": "duckduckgo-for-firefox",
     "pname": "duckduckgo-privacy-essentials",
     "license": {
@@ -874,6 +877,19 @@
   {
     "slug": "xbs",
     "pname": "xbrowsersync"
+  },
+  {
+    "slug": "youchoose-ai"
+  },
+  {
+    "slug": "youtube-recommended-videos",
+    "license": {
+      "tag": "custom",
+      "shortName": "unhook-eula",
+      "fullName": "End-User License Agreement for Unhook: Remove YouTube Recommended Videos Comments",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/youtube-recommended-videos/eula/},",
+      "free": false
+    }
   },
   {
     "slug": "youtube-shorts-block"
