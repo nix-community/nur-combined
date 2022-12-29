@@ -31,7 +31,8 @@ let
 
   iconName = (if channel == "prod" then "shadow" else "shadow-${channel}");
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "shadow-${channel}";
   version = upstream-info.version;
 
@@ -179,7 +180,7 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Client for the Shadow Cloud Gaming Computer";
+    description = "Client for the Shadow Cloud Gaming Computer (${channel})";
     homepage = "https://shadow.tech";
     license = licenses.unfree;
     maintainers = with maintainers; [ anthonyroussel ];

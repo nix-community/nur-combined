@@ -14,6 +14,10 @@ in myNodePackages.aws-cdk-local.override {
       --prefix NODE_PATH : ${pkgs.nodePackages.aws-cdk}/lib/node_modules
   '';
 
+  passthru = {
+    updateScript = ./update.sh;
+  };
+
   meta = with lib; {
     description = "CDK Toolkit for use with LocalStack";
     license = licenses.asl20;
