@@ -1,7 +1,7 @@
 {
-    "baseVersion": "2.0.2-510",
-    "currentVersion": "2.0.2-510",
-    "buildVersion": "510",
+    "baseVersion": "3.0.0-565",
+    "currentVersion": "3.0.0-565",
+    "buildVersion": "565",
     "skippedVersions": [
     ],
     "inUsePkg": "",
