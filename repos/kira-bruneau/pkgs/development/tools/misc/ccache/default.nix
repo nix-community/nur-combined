@@ -111,9 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
       '';
     };
 
-    updateScript = nix-update-script {
-      attrPath = finalAttrs.pname;
-    };
+    updateScript = nix-update-script { };
   };
 
   meta = with lib; {

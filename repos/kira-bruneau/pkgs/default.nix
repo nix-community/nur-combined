@@ -59,7 +59,7 @@ in
     }).lib;
   };
 
-  git-review = python3Packages.callPackage ./applications/version-management/git-and-tools/git-review { };
+  git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
   goverlay = callPackage ./tools/graphics/goverlay {
     inherit (qt5) wrapQtAppsHook;

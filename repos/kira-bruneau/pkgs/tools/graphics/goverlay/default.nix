@@ -106,9 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--set QT_QPA_PLATFORM xcb"
   ];
 
-  passthru.updateScript = nix-update-script {
-    attrPath = finalAttrs.pname;
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "An opensource project that aims to create a Graphical UI to help manage Linux overlays";

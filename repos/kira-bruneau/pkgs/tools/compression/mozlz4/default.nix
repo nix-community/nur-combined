@@ -17,9 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-/R4UQky0gAwh465HjlePoxUTcYWbgS5n+sJ+kkWzDw0=";
 
-  passthru.updateScript = nix-update-script {
-    attrPath = pname;
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Decompress / compress mozlz4 files";
