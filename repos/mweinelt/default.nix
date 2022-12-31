@@ -26,7 +26,7 @@
     sun-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/sun-card {};
     slider-button-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/slider-button-card {};
     swipe-navigation = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/swipe-navigation {};
-    text-input-row = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/text-input-row {};
+    template-entity-row = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/template-entity-row {};
     vacuum-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/vacuum-card {};
     valetudo-map-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/valetudo-map-card {};
     weather-card-chart = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/weather-card-chart {};
