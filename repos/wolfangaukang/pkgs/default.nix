@@ -2,25 +2,32 @@
 
 with pkgs;
 
-rec {
-  access-undenied-aws = python3Packages.callPackage ./access-undenied-aws { inherit aws-error-utils; };
-  aws-error-utils = python3Packages.callPackage ./aws-error-utils { };
-  iptvnator = callPackage ./iptvnator { };
-  ly = callPackage ./ly { };
-  mastopurge = callPackage ./mastopurge { };
-  mouseless = callPackage ./mouseless { };
-  multifirefox = callPackage ./multifirefox { };
-  npm-groovy-lint = callPackage ./npm-groovy-lint { };
-  nuclear = callPackage ./nuclear {
+{
+  python3Packages = recurseIntoAttrs (
+    let
+      inherit (python3.pkgs) callPackage;
+    in rec {
+      access-undenied-aws = callPackage ./development/python-modules/access-undenied-aws { inherit aws-error-utils; };
+      aws-error-utils = callPackage ./development/python-modules/aws-error-utils { };
+    }
+  ); 
+
+  iptvnator = callPackage ./applications/video/iptvnator { };
+  ly = callPackage ./applications/display-managers/ly { };
+  mastopurge = callPackage ./tools/misc/mastopurge { };
+  mouseless = callPackage ./tools/inputmethods/mouseless { };
+  multifirefox = callPackage ./applications/networking/browsers/multifirefox { };
+  npm-groovy-lint = callPackage ./development/tools/npm-groovy-lint { };
+  nuclear = callPackage ./applications/audio/nuclear {
     electron = electron_13;
   };
-  sherlock = callPackage ./sherlock { };
-  signumone-ks = callPackage ./signumone-ks { };
-  upwork = callPackage ./upwork { };
-  vdhcoapp = callPackage ./vdhcoapp {
+  sherlock = callPackage ./tools/security/sherlock { };
+  signumone-ks = callPackage ./applications/misc/signumone-ks { };
+  upwork = callPackage ./applications/misc/upwork { };
+  vdhcoapp = callPackage ./tools/misc/vdhcoapp {
     ffmpeg = if stdenv.isLinux && stdenv.isx86_64
                then ffmpeg-full
                else ffmpeg-full.override { libmfx = null; };
   };
-  xmouseless = callPackage ./xmouseless { };
+  xmouseless = callPackage ./tools/inputmethods/xmouseless { };
 }

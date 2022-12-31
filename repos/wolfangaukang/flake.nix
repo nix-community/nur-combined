@@ -29,23 +29,28 @@
 
   outputs = { self, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, nur, utils, ... }@inputs:
     let
-      inherit (utils.lib) mkFlake exportModules;
+      inherit (utils.lib) mkFlake exportModules flattenTree;
 
       # Local exports
-      local-modules = exportModules [ ./system/modules/personal ];
-      local-lib = import ./lib { inherit inputs; };
-      inherit (local-lib) importAttrset forAllSystems mkHome mkSystem;
+      local = {
+        modules = exportModules [ ./system/modules/personal ];
+        overlays = import ./overlays { inherit inputs; };
+        lib = import ./lib { inherit inputs; };
+        pkgs = import ./pkgs { pkgs = import nixpkgs { inherit system; }; };
+      };
+      inherit (local.lib) importAttrset forAllSystems mkHome mkSystem;
 
       # Overlays
       overlays = [
         nixgl.overlay
         nur.overlay
-      ] ++ (import ./overlays { inherit inputs; });
+      ] ++ (local.overlays);
 
       # System settings
       users = [ "bjorn" ];
       # Currently only supporting this system
       system = "x86_64-linux";
+
 
     in mkFlake rec {
       inherit self inputs;
@@ -71,7 +76,7 @@
 
       hostDefaults = {
         channelName = "nixos";
-        modules = [ local-modules.personal ];
+        modules = [ local.modules.personal ];
       };
 
       hosts =
@@ -139,9 +144,7 @@
 
       # Common settings
       nixosModules = importAttrset ./system/modules;
-      packages = forAllSystems (system: import ./pkgs {
-        pkgs = import nixpkgs { inherit system; };
-      });
+      packages = forAllSystems (system: flattenTree local.pkgs);
       templates = import ./templates;
 
       # Home-Manager specifics
