@@ -15,10 +15,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.11";
+    version = "0.20.12";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.11/Clash.for.Windows-0.20.11-x64-linux.tar.gz";
-      sha256 = "sha256-5zB+fs7RLyO4jpovvptTiZL0X6mxJDH5Z/zsciYuovA=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.12/Clash.for.Windows-0.20.12-x64-linux.tar.gz";
+      sha256 = "sha256-ZY19WmW4WKcfCqlJ5302oocVON7Ae1o2CO5ijQgBaVU=";
     };
   };
   clash-for-windows-icon = {
@@ -114,10 +114,10 @@
   };
   linux-qq = {
     pname = "linux-qq";
-    version = "2.0.1-429";
+    version = "3.0.0-565";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4691a571/QQ-v2.0.1-429_x64.AppImage";
-      sha256 = "sha256-7izsmUwfEAcQHj6PNcU/cprJRNHj342I62kW316vKo8=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/64bd2578/linuxqq_3.0.0-565_x86_64.AppImage";
+      sha256 = "sha256-uoxGwuG+RP1XiNEvQZ5yLHh2rYU1TxBsl9NYaYZ78AI=";
     };
   };
   plugin-bang-bang = {

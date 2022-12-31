@@ -110,10 +110,12 @@ linuxQQ :: PackageSet ()
 linuxQQ =
   define $
     package "linux-qq"
-      `sourceManual` "2.0.1-429"
+      `sourceManual` "3.0.0-565"
       `fetchUrl` url
   where
-    url (Version v) = "https://dldir1.qq.com/qqfile/qq/QQNT/4691a571/QQ-v" <> v <> "_x64.AppImage"
+    hash = "64bd2578"
+    arch = "x86_64"
+    url (Version v) = "https://dldir1.qq.com/qqfile/qq/QQNT/" <> hash <> "/linuxqq_" <> v <> "_" <> arch <> ".AppImage"
 
 wemeet :: PackageSet ()
 wemeet =

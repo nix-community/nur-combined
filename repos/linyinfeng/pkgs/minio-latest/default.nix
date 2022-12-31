@@ -36,13 +36,14 @@ buildGoModule rec {
 
   tags = [ "kqueue" ];
 
-  ldflags = let t = "github.com/minio/minio/cmd"; in [
-    "-s"
-    "-w"
-    "-X ${t}.Version=${versionToTimestamp version}"
-    "-X ${t}.ReleaseTag=RELEASE.${version}"
-    "-X ${t}.CommitID=${src.rev}"
-  ];
+  ldflags = let t = "github.com/minio/minio/cmd"; in
+    [
+      "-s"
+      "-w"
+      "-X ${t}.Version=${versionToTimestamp version}"
+      "-X ${t}.ReleaseTag=RELEASE.${version}"
+      "-X ${t}.CommitID=${src.rev}"
+    ];
 
   passthru = {
     updateScriptEnabled = true;

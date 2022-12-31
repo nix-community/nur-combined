@@ -9,9 +9,6 @@ appimageTools.wrapType2 {
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ yinfeng ];
-    # The package is in **open** beta
-    # But I currently has no test permission to try this package
-    # So, mark it broken
     broken = true;
   };
 }
