@@ -70,10 +70,6 @@
         "slug": "refined-github-"
     },
     {
-        "pname": "ruffle",
-        "slug": "ruffle_rs"
-    },
-    {
         "pname": "sourcegraph",
         "slug": "sourcegraph-for-firefox"
     },
