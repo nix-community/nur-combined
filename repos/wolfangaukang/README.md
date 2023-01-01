@@ -15,12 +15,13 @@ Structure:
   - `katla` (Using NixOS-WSL)
   - `raudholar` (A VM)
 - `lib/`: Extra functions created to auxiliate with stuff. For example, here is defined how the systems are built.
-- `misc/`: Anything non related to Nix, like my dotfiles (imported as a submodule).
 - `overlays/`: Self-explanatory. Contains basic overlays. 
 - `pkgs/`: Packages I generally use to maintain by myself because of urgency or to make them available through NUR (WIP).
 - `system/`: NixOS related configurations.
   - Contains user definitions, modules and profiles.
 - `templates/`: Useful for new projects. Currently, there are only for Python and Bash projects.
 - `flake.nix`: My flake. Currently using [flake-utils-plus](https://github.com/gytis-ivaskevicius/flake-utils-plus) as Flake framework. 
-  - **NOTE:** Consider using `path:.` as flake url, until submodules can be considered.
 - `default.nix`: This is for the old way of importing stuff from this repo. Only supports modules and pkgs.
+
+General considerations:
+- My dotfiles (non-Nix related stuff) are located [here](https://codeberg.org/wolfangaukang/dotfiles). With flakes, I can reference non-flake repositories instead of using submodules (which is not very compatible with flakes unless referencing the repository as `path:.#`, which can become tedious).

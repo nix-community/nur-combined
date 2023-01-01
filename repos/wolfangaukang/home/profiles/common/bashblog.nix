@@ -1,5 +1,8 @@
-{ ... }:
+{ inputs, ... }:
 
-{
-  home.file.".config/bashblog".source = ../../../misc/dotfiles/config/bashblog;
+let
+  inherit (inputs) dotfiles;
+
+in {
+  home.file.".config/bashblog".source = "${dotfiles}/config/bashblog";
 }

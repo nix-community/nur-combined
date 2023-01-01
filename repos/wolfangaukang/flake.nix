@@ -21,6 +21,10 @@
 
     # Personal projects
     sab.url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot?ref=main";
+    dotfiles = {
+      url = "git+https://codeberg.org/wolfangaukang/dotfiles?ref=main";
+      flake = false;
+    };
 
     # Testing
     ly.url = "github:wolfangaukang/nixpkgs/ly-unstable";

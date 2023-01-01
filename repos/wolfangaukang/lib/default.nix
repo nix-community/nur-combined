@@ -39,6 +39,7 @@ rec {
         # TODO: Handle these with parameters
         useGlobalPkgs = true;
         useUserPackages = true;
+        extraSpecialArgs = { inherit inputs; };
         sharedModules = personalModules
           ++ hmModules
           ++ optionals (enable-sab) [ inputs.sab.hmModule ]

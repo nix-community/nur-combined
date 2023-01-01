@@ -16,6 +16,23 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1652049004,
+        "narHash": "sha256-C6HB/kaJ/1vwiNHR8Pyz50OqekZZ/8z7yJQ7WMJ6ibM=",
+        "ref": "main",
+        "rev": "27a9e0132976711c79d9e344182894e9b5765cf2",
+        "revCount": 294,
+        "type": "git",
+        "url": "https://codeberg.org/wolfangaukang/dotfiles"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://codeberg.org/wolfangaukang/dotfiles"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -376,6 +393,7 @@
     "root": {
       "inputs": {
         "cloudflare-warp": "cloudflare-warp",
+        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "ly": "ly",
