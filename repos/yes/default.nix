@@ -11,14 +11,15 @@ with pkgs; {
   electronic-wechat = callPackage ./electronic-wechat { inherit rp; };
   
   lx-music-desktop = callPackage ./electronAppImage rec {
+    electron = electron_19;
     pname = "lx-music-desktop";
-    version = "1.22.3";
+    version = "2.0.0";
     description = "A music application based on electron";
     homepage = "https://lxmusic.toside.cn";
     license = lib.licenses.asl20;
     src = fetchurl {
       url = "${rp}https://github.com/lyswhut/${pname}/releases/download/v${version}/${pname}-v${version}-x64.AppImage";
-      hash = "sha256-mlT1FOPeg9mMwOVmRdy+fm/PR3ME0RsftQ9BcIbuauI=";
+      hash = "sha256-KAyj9ljqSHQRrlbFsoxuNNpqtqw77MCuKDpkBY4WCCU=";
     };
   };
 
