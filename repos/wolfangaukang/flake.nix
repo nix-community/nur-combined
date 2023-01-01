@@ -36,7 +36,7 @@
         modules = exportModules [ ./system/modules/personal ];
         overlays = import ./overlays { inherit inputs; };
         lib = import ./lib { inherit inputs; };
-        pkgs = import ./pkgs { pkgs = import nixpkgs { inherit system; }; };
+        pkgs = import ./pkgs/top-level/all-packages.nix { pkgs = import nixpkgs { inherit system; }; };
       };
       inherit (local.lib) importAttrset forAllSystems mkHome mkSystem;
 

@@ -1,9 +1,12 @@
 { lib
-, python3Packages
+, buildPythonPackage
 , fetchFromGitHub
+, poetry-core
+, botocore
+, pytestCheckHook
 }:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "aws-error-utils";
   version = "2.7";
   format = "pyproject";
@@ -15,11 +18,11 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-ZOSQDay6KqDqUxSiiMqw2fBkbquRzRO+YGD+aVhrCdA=";
   };
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = with python3Packages; [ botocore ];
+  propagatedBuildInputs = [ botocore ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  checkInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "aws_error_utils" ];
 

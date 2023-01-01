@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  custom_pkgs = import ./pkgs { inherit pkgs; };
+  custom_pkgs = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
 
 in {
   # The `lib`, `modules`, and `overlay` names are special

@@ -1,16 +1,16 @@
 { lib
+, buildPythonApplication
 , fetchFromGitHub
-, python3Packages
 , aws-error-utils
-#, boto3
-#, cachetools
-#, click
-#, click-log
-#, colorlog
-#, setuptools
+, boto3
+, cachetools
+, click
+, click-log
+, colorlog
+, setuptools
 }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "access-undenied-aws";
   version = "0.1.5";
   format = "pyproject";
@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     ./requirements.patch
   ]; 
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     aws-error-utils
     boto3
     cachetools
