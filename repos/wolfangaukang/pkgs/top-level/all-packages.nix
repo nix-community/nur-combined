@@ -21,6 +21,7 @@ in rec {
   sherlock = callPackage ../tools/security/sherlock { };
   signumone-ks = callPackage ../applications/misc/signumone-ks { };
   upwork = callPackage ../applications/misc/upwork { };
+  upwork-wayland = callPythonPackage ../tools/misc/upwork-wayland { };
   vdhcoapp = callPackage ../tools/misc/vdhcoapp {
     ffmpeg = if stdenv.isLinux && stdenv.isx86_64
                then ffmpeg-full
