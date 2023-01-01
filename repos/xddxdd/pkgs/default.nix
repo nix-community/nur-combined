@@ -53,10 +53,18 @@ mkScope (self: pkg: rec {
     # Packages with significant customization by Lan Tian
     asterisk = pkg ./lantian-customized/asterisk { };
     coredns = pkg ./lantian-customized/coredns { };
+
     linux-xanmod-lantian = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = false; });
     linux-xanmod-lantian-config = ifNotCI lantianCustomized.linux-xanmod-lantian.configfile;
     linux-xanmod-lantian-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = true; });
     linux-xanmod-lantian-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-lto.configfile;
+
+    # Temporary package to test a problem with Btrfs Linux 6.1
+    linux-xanmod-lantian-unstable = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian-unstable { lto = false; });
+    linux-xanmod-lantian-unstable-config = ifNotCI lantianCustomized.linux-xanmod-lantian-unstable.configfile;
+    linux-xanmod-lantian-unstable-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian-unstable { lto = true; });
+    linux-xanmod-lantian-unstable-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-unstable-lto.configfile;
+
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
     nginx = pkg ./lantian-customized/nginx { };
   });
@@ -123,7 +131,6 @@ mkScope (self: pkg: rec {
   qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition { };
   qemu-user-static = pkg ./uncategorized/qemu-user-static { };
   qq = pkg ./uncategorized/qq { };
-  qq-beta = pkg ./uncategorized/qq/beta.nix { };
   qqmusic = pkg ./uncategorized/qqmusic { };
   rime-aurora-pinyin = pkg ./uncategorized/rime-aurora-pinyin { };
   rime-dict = pkg ./uncategorized/rime-dict { };

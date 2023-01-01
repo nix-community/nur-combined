@@ -5,7 +5,7 @@
 }:
 
 appimageTools.wrapType2 rec {
-  inherit (sources.an-anime-game-launcher) pname version src;
+  inherit (sources.an-anime-game-launcher-bin) pname version src;
 
   extraInstallCommands =
     let contents = appimageTools.extract { inherit pname version src; };

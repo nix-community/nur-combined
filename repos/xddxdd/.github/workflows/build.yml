@@ -53,4 +53,4 @@ jobs:
     needs: tests
     steps:
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=xddxdd"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=xddxdd"

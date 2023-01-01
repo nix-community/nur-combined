@@ -51,10 +51,10 @@ buildLinux {
   inherit lib;
   stdenv = if lto then stdenvLLVM else stdenv;
 
-  inherit (sources.linux-xanmod) version src;
+  inherit (sources.linux-xanmod-unstable) version src;
   modDirVersion =
     let
-      splitted = lib.splitString "-" sources.linux-xanmod.version;
+      splitted = lib.splitString "-" sources.linux-xanmod-unstable.version;
       ver0 = builtins.elemAt splitted 0;
       ver1 = builtins.elemAt splitted 1;
     in

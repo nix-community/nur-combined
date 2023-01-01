@@ -40,7 +40,7 @@ let
 
 in
 stdenv.mkDerivation rec {
-  inherit (sources.an-anime-game-launcher-gtk) pname version src;
+  inherit (sources.an-anime-game-launcher-gtk-bin) pname version src;
 
   dontUnpack = true;
 

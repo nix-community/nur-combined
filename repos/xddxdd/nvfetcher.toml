@@ -1,8 +1,8 @@
-[an-anime-game-launcher]
+[an-anime-game-launcher-bin]
 src.github = "an-anime-team/an-anime-game-launcher"
 fetch.url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/$ver/an-anime-game-launcher-$ver.AppImage"
 
-[an-anime-game-launcher-gtk]
+[an-anime-game-launcher-gtk-bin]
 src.github = "an-anime-team/an-anime-game-launcher-gtk"
 fetch.url = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/$ver/anime-game-launcher"
 
@@ -127,6 +127,10 @@ src.github_tag = "xanmod/linux"
 src.exclude_regex = "^6\\.1\\.(.*)"
 fetch.github = "xanmod/linux"
 
+[linux-xanmod-unstable]
+src.github_tag = "xanmod/linux"
+fetch.github = "xanmod/linux"
+
 [nbfc-linux-lantian]
 src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"
@@ -231,6 +235,16 @@ fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver
 src.webpage = "https://sources.debian.org/api/src/qemu/"
 src.regex = "\"version\":\"[0-9]+:([^\"]+)\""
 fetch.url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_$ver_i386.deb"
+
+[qq-amd64]
+src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
+src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+)_amd64.deb\""
+fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver_amd64.deb"
+
+[qq-arm64]
+src.webpage = "https://im.qq.com/rainbow/linuxQQDownload/"
+src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+)_arm64.deb\""
+fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver_arm64.deb"
 
 [qqmusic]
 src.aur = "qqmusic-bin"

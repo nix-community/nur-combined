@@ -63,12 +63,12 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (64 packages)</summary>
+<summary>Package set: (Uncategorized) (63 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
 |  | [an-anime-game-launcher-bin](https://github.com/an-anime-team/an-anime-game-launcher) |  | `an-anime-game-launcher-bin` | (EXPERIMENTAL: Needs manual game patching) An Anime Game launcher for Linux with automatic patching fixing detection of Linux/Wine and telemetry disabling |
-|  | [an-anime-game-launcher-gtk](https://github.com/an-anime-team/an-anime-game-launcher-gtk) | 1.2.3 | `an-anime-game-launcher-gtk-bin` | (EXPERIMENTAL: Needs manual game patching) An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library |
+|  | [an-anime-game-launcher-gtk-bin](https://github.com/an-anime-team/an-anime-game-launcher-gtk) | 1.2.4 | `an-anime-game-launcher-gtk-bin` | (EXPERIMENTAL: Needs manual game patching) An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library |
 |  | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 3855cec2ef2667f3e9224006dbaf179575752218 | `asterisk-g72x` | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.0 | `baidupcs-go` | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
 |  | [bilibili](https://app.bilibili.com/) | 1.8.2-1 | `bilibili` | Bilibili desktop client |
@@ -117,8 +117,7 @@ Or, use variables from this repository in case I change them:
 |  | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.3-mod | `phppgadmin` | The premier web-based administration tool for PostgreSQL |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
 |  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-1 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
-|  | [qq](https://im.qq.com/linuxqq) | 2.0.0-b2-1089 | `qq` | Tencent QQ for Linux |
-|  | [qq](https://im.qq.com/linuxqq/index.html) | 2.0.1 | `qq-beta` | (HIGHLY EXPERIMENTAL) QQ beta edition |
+|  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | (HIGHLY EXPERIMENTAL) QQ beta edition |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
 |  | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | `rime-dict` | RIME 词库增强 |
@@ -178,16 +177,20 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: lantianCustomized (8 packages)</summary>
+<summary>Package set: lantianCustomized (12 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
 |  | [asterisk](https://www.asterisk.org/) | 20.0.0 | `lantianCustomized.asterisk` | Asterisk with Lan Tian modifications |
 |  | [coredns-lantian](https://github.com/xddxdd/coredns) | 41a20197433c06398c7cfe17f1935c026b01c4fd | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
-|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>

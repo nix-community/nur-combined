@@ -1,8 +1,8 @@
 {
-    "an-anime-game-launcher": {
+    "an-anime-game-launcher-bin": {
         "cargoLocks": null,
         "extract": null,
-        "name": "an-anime-game-launcher",
+        "name": "an-anime-game-launcher-bin",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -13,19 +13,19 @@
         },
         "version": "2.4.2"
     },
-    "an-anime-game-launcher-gtk": {
+    "an-anime-game-launcher-gtk-bin": {
         "cargoLocks": null,
         "extract": null,
-        "name": "an-anime-game-launcher-gtk",
+        "name": "an-anime-game-launcher-gtk-bin",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FB3xLM7PwBDQcKgDvviAhP+9jjBKAMGJh5Y48jrFYSU=",
+            "sha256": "sha256-h71HLAfPpUW2LNkLcSUYWVlrntoP9E20SiyPMDvwtbA=",
             "type": "url",
-            "url": "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.3/anime-game-launcher"
+            "url": "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.4/anime-game-launcher"
         },
-        "version": "1.2.3"
+        "version": "1.2.4"
     },
     "asterisk-alaw16": {
         "cargoLocks": null,
@@ -552,6 +552,25 @@
         },
         "version": "6.0.12-xanmod1"
     },
+    "linux-xanmod-unstable": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "linux-xanmod-unstable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xanmod",
+            "repo": "linux",
+            "rev": "6.1.1-xanmod1",
+            "sha256": "sha256-cyFbipyN5fq3eq+ioVcV+3gL2Y8qNXdrIq9U29K1DZc=",
+            "type": "github"
+        },
+        "version": "6.1.1-xanmod1"
+    },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
         "extract": null,
@@ -972,6 +991,34 @@
             "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1_i386.deb"
         },
         "version": "7.2+dfsg-1"
+    },
+    "qq-amd64": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "qq-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-8KcUhZwgeFzGyrQITWnJUzEPGZOCj0LIHLmRuKqkgmQ=",
+            "type": "url",
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/c005c911/linuxqq_3.0.0-571_amd64.deb"
+        },
+        "version": "c005c911/linuxqq_3.0.0-571"
+    },
+    "qq-arm64": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "qq-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-LvE+Pryq4KLu+BFYVrGiTwBdgOrBguPHQd73MMFlfiY=",
+            "type": "url",
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/c005c911/linuxqq_3.0.0-571_arm64.deb"
+        },
+        "version": "c005c911/linuxqq_3.0.0-571"
     },
     "qqmusic": {
         "cargoLocks": null,
