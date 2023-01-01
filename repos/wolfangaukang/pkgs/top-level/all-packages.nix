@@ -18,6 +18,8 @@ in rec {
     electron = electron_13;
   };
   pacu = callPythonPackage ../tools/security/pacu { inherit dsnap; };
+  prowler = callPythonPackage ../tools/security/prowler { inherit (python3Packages) alive-progress; };
+  prowler_2 = callPackage ../tools/security/prowler/2.nix { };
   sherlock = callPackage ../tools/security/sherlock { };
   signumone-ks = callPackage ../applications/misc/signumone-ks { };
   upwork = callPackage ../applications/misc/upwork { };
