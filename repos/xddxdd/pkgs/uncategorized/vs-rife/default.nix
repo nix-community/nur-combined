@@ -22,6 +22,7 @@ buildPythonPackage {
   propagatedBuildInputs = [
     hatchling
     numpy
+    tensorrt
     torch
     tqdm
   ];
@@ -30,6 +31,6 @@ buildPythonPackage {
     description = "Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth";
     homepage = "https://github.com/HolyWu/vs-rife";
     license = licenses.mit;
-    broken = pytorch.meta.broken || numpy.meta.broken;
+    broken = true;
   };
 }

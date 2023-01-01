@@ -104,13 +104,13 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "049775319b3ff254db63d9e8952a5ec6266c9716";
+    version = "dba2af763431386e3f69f9a53f7c544700ef0837";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "049775319b3ff254db63d9e8952a5ec6266c9716";
+      rev = "dba2af763431386e3f69f9a53f7c544700ef0837";
       fetchSubmodules = false;
-      sha256 = "sha256-qNVNu512htDa4wi8mmVfaa7q26of3RKMA87AISzAUdU=";
+      sha256 = "sha256-jYGpgf55s1aKlkZeAFQ4ZwN0S3uRFU1buCZiqcVlpTc=";
     });
   };
   boringssl-oqs = {
@@ -324,13 +324,13 @@
   };
   linux-xanmod-unstable = {
     pname = "linux-xanmod-unstable";
-    version = "6.1.1-xanmod1";
+    version = "6.1.2-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.1-xanmod1";
+      rev = "6.1.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-cyFbipyN5fq3eq+ioVcV+3gL2Y8qNXdrIq9U29K1DZc=";
+      sha256 = "sha256-yvY5j/QLxTJyE2b6QzqwNa3wCP9XrnA7fejZnGmolb4=";
     });
   };
   nbfc-linux-lantian = {
@@ -346,18 +346,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.65";
+    version = "2.0.66";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.65/netboot.xyz.efi";
-      sha256 = "sha256-vF6KfLyXXU4wwm+WrGxDFpOphwO4UtPqOQkqUSquAc4=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.66/netboot.xyz.efi";
+      sha256 = "sha256-vONnzfDIBNjnbAfjDGNePvTTXPUbRNfyLrzfKWh8YFQ=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.65";
+    version = "2.0.66";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.65/netboot.xyz.lkrn";
-      sha256 = "sha256-BmdIETj3xnHKtve16ZAQrIjhnm4EVQwXXd3JhfhWOKk=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.66/netboot.xyz.lkrn";
+      sha256 = "sha256-XDjyGPeJSXq5wBPX2ouyJ/O/R1glv5I1PXtYfwwGBNI=";
     };
   };
   netns-exec = {
@@ -472,13 +472,13 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "34c62eb06401c1f6986892a28c6f6646e3985949";
+    version = "deb4ec9e1b031a4b759aff5bb24827223b5b3bc6";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "34c62eb06401c1f6986892a28c6f6646e3985949";
+      rev = "deb4ec9e1b031a4b759aff5bb24827223b5b3bc6";
       fetchSubmodules = false;
-      sha256 = "sha256-k7LCYb1xiCpCfSOGYMGOgTvqQPjJeuaA41/vg+E0cUI=";
+      sha256 = "sha256-namqRagUEWKG87m7SsDR2JwLYYe3ovlMG5hr9sYZd50=";
     });
   };
   osdlyrics = {
@@ -632,10 +632,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20220529";
+    version = "20220416";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220529.dict.yaml";
-      sha256 = "sha256-RyaQiFYPwmvVNzQUC6qQguENvPv+1XwwctlnSlejEgM=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220416.dict.yaml";
+      sha256 = "sha256-auZgAtjeSuatQnuZUQYY31iXN+NMFjKcA4z/Y7zvo80=";
     };
   };
   route-chain = {
@@ -662,13 +662,13 @@
   };
   vs-rife = {
     pname = "vs-rife";
-    version = "v3.0.0";
+    version = "v3.1.0";
     src = fetchFromGitHub ({
       owner = "HolyWu";
       repo = "vs-rife";
-      rev = "v3.0.0";
+      rev = "v3.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-GdHOe9iLPYpQsqagfgKFujFYK2BkHVke17PaUHV9+B0=";
+      sha256 = "sha256-U3LRcfEw/1Yh5H0xLlNyNy0w8Lf7ZZeIPQMETYrybJE=";
     });
   };
   wechat-uos = {
