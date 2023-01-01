@@ -24,7 +24,7 @@ rec {
   # paper = pkgs.callPackage ./pkgs/paper { };
   # ristate = pkgs.callPackage ./pkgs/ristate { };
   zig-master =
-    pkgs.callPackage ./pkgs/zig-master { v = "0.11.0-dev.939+5bde627f9"; };
+    pkgs.callPackage ./pkgs/zig-master { v = "0.11.0-dev.1023+1c711b0a6"; };
   zigup = pkgs.callPackage ./pkgs/zigup { };
   zls = pkgs.callPackage ./pkgs/zls { zig-master = zig-master; };
 }
