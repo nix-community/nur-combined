@@ -365,6 +365,9 @@
             "file": "nur.nix",
             "url": "https://github.com/lucasew/nixcfg"
         },
+        "lunik1": {
+            "url": "https://github.com/lunik1/nur-packages"
+        },
         "m15a": {
             "submodules": true,
             "url": "https://github.com/m15a/nur-packages"
