@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cppsort";
-  version = "1.13.2";
+  version = "1.14.0";
 
   src = fetchFromGitHub {
     owner = "Morwenn";
     repo = "cpp-sort";
     rev = "${version}";
-    sha256 = "sha256-kyZyiAmE1xFpsyp6mQMYaTxQyqn+TMBgf2fqg0xNDis=";
+    sha256 = "sha256-AwKH4jAKpNSuuyEtvWoWpFtA0zXKBdr/9v42lePtT+k=";
   };
 
   nativeBuildInputs = [ cmake ];
