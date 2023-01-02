@@ -63,7 +63,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (63 packages)</summary>
+<summary>Package set: (Uncategorized) (64 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
@@ -73,8 +73,8 @@ Or, use variables from this repository in case I change them:
 |  | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.0 | `baidupcs-go` | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
 |  | [bilibili](https://app.bilibili.com/) | 1.8.2-1 | `bilibili` | Bilibili desktop client |
 |  | [bird-babel-rtt](http://bird.network.cz) | e508ca76a198f633e1720466e1084333ae8b2742 | `bird-babel-rtt` | BIRD Internet Routing Daemon |
-|  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 049775319b3ff254db63d9e8952a5ec6266c9716 | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
-|  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 049775319b3ff254db63d9e8952a5ec6266c9716 | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | dba2af763431386e3f69f9a53f7c544700ef0837 | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | dba2af763431386e3f69f9a53f7c544700ef0837 | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 | `Broken` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2022-08 | `boringssl-oqs` | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 1.1.3 | `calibre-cops` | Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...) |
 |  | [chmlib](http://www.jedrea.com/chmlib) | 0.40a | `chmlib-utils` | A library for dealing with Microsoft ITSS/CHM format files |
@@ -102,31 +102,32 @@ Or, use variables from this repository in case I change them:
 |  | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | `ldap-auth-proxy` | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.4 | `libnftnl-fullcone` | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | [liboqs](https://openquantumsafe.org) | 0.7.2 | `liboqs` | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | [netboot-xyz](https://netboot.xyz/) | 2.0.65 | `netboot-xyz` | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
+|  | [netboot-xyz](https://netboot.xyz/) | 2.0.66 | `netboot-xyz` | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | [netns-exec](https://github.com/pekman/netns-exec) | aa346fd058d47b238ae1b86250f414bcab2e7927 | `netns-exec` | Run command in Linux network namespace as normal user |
-|  | [nftables](https://netfilter.org/projects/nftables/) | 1.0.5 | `nftables-fullcone` | The project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
+|  | [nftables](https://netfilter.org/projects/nftables/) | 1.0.6 | `nftables-fullcone` | The project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
 |  | [noise-suppression-for-voice](https://github.com/werman/noise-suppression-for-voice) | v1.03 | `noise-suppression-for-voice` | Noise suppression plugin based on Xiph's RNNoise |
 |  | [nullfs](https://github.com/xrgtn/nullfs) | 0884f87ec01faaee219f59742c14ed3c3945f5c0 | `nullfs` | FUSE nullfs drivers |
 |  | [nvlax](https://github.com/illnyang/nvlax) | b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f | `nvlax` | Future-proof NvENC & NvFBC patcher |
 |  | [onepush](https://gitlab.com/y1ndan/onepush) | c7dd8c82e4eb74501d7e6bcf0c42d1caa0c0ffc2 | `onepush` | A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk. |
 |  | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | `openssl-oqs` | A cryptographic library that implements the SSL and TLS protocols |
-|  | [openssl-oqs-provider](https://openquantumsafe.org) | 34c62eb06401c1f6986892a28c6f6646e3985949 | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
+|  | [openssl-oqs-provider](https://openquantumsafe.org) | deb4ec9e1b031a4b759aff5bb24827223b5b3bc6 | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
 |  | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.12 | `osdlyrics` | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
 |  | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | `payload-dumper-go` | An android OTA payload dumper written in Go |
 |  | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.0 | `phpmyadmin` | A web interface for MySQL and MariaDB |
 |  | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.3-mod | `phppgadmin` | The premier web-based administration tool for PostgreSQL |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
+|  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
 |  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-1 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
 |  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | (HIGHLY EXPERIMENTAL) QQ beta edition |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
 |  | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | `rime-dict` | RIME 词库增强 |
 |  | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20221214 | `rime-moegirl` | Releases for dict of zh.moegirl.org.cn |
-|  | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20220529 | `rime-zhwiki` | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
+|  | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20220416 | `rime-zhwiki` | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
 |  | [route-chain](https://github.com/xddxdd/route-chain) | e68c96e5e4df70c797d5a99acc8226713a22d7f5 | `route-chain` | A small app to generate a long path in traceroute. |
 |  | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.5.210 | `svp` | SmoothVideo Project 4 (SVP4) |
 |  | [tachidesk-server](https://github.com/Suwayomi/Tachidesk-Server) | 0.6.2-r1074 | `tachidesk-server` | A rewrite of Tachiyomi for the Desktop |
-|  | [vs-rife](https://github.com/HolyWu/vs-rife) | v3.0.0 | `vs-rife` | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
+| `Broken` | [vs-rife](https://github.com/HolyWu/vs-rife) | v3.1.0 | `vs-rife` | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
 |  | [wechat-uos](https://weixin.qq.com/) | 2.1.5 | `wechat-uos` | WeChat desktop (System Electron) |
 |  | [wechat-uos-bin](https://weixin.qq.com/) | 2.1.5 | `wechat-uos-bin` | WeChat desktop (Official binary) |
 |  | [wine-wechat](https://weixin.qq.com/) | 3.7.6 | `wine-wechat` | Wine WeChat |
@@ -187,10 +188,10 @@ Or, use variables from this repository in case I change them:
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
 |  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.1-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>

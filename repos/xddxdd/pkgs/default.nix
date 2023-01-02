@@ -129,6 +129,7 @@ mkScope (self: pkg: rec {
   phpmyadmin = pkg ./uncategorized/phpmyadmin { };
   phppgadmin = pkg ./uncategorized/phppgadmin { };
   qbittorrent-enhanced-edition = pkg ./uncategorized/qbittorrent-enhanced-edition { };
+  qbittorrent-enhanced-edition-nox = pkg ./uncategorized/qbittorrent-enhanced-edition/nox.nix { };
   qemu-user-static = pkg ./uncategorized/qemu-user-static { };
   qq = pkg ./uncategorized/qq { };
   qqmusic = pkg ./uncategorized/qqmusic { };
