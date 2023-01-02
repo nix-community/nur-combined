@@ -30,14 +30,15 @@
 , transformers
 , unordered-containers
 , vector-space
+, hedgehog, hw-hspec-hedgehog, lens, linear, show-combinators
 }:
-mkDerivation {
+mkDerivation rec {
   pname = "implicitcad";
-  version = "0.2.0";
+  version = "0.4.0.0";
   src = fetchgit {
     url = "https://github.com/colah/ImplicitCAD";
-    sha256 = "1iwhhvz0a71jc5w9g66l6q7qmz927qbzjl4smsxzz9rkhyah24n7";
-    rev = "c597ee39074120a969b99404ba7ff56b598c6d4f";
+    sha256 = "sha256-6y0I11SnKLLpgQHUt3w1gjvrN0Vgxej0J5VEFdLjijs=";
+    rev = "v${version}";
     fetchSubmodules = true;
   };
   isLibrary = true;
@@ -68,6 +69,11 @@ mkDerivation {
     transformers
     unordered-containers
     vector-space
+    hedgehog
+    hw-hspec-hedgehog
+    lens
+    linear
+    show-combinators
   ];
   executableHaskellDepends = [
     base
@@ -92,10 +98,14 @@ mkDerivation {
     text
     transformers
     vector-space
+    hedgehog
+    hw-hspec-hedgehog
+    lens
+    linear
+    show-combinators
   ];
   testHaskellDepends = [ base containers hspec mtl parsec ];
   benchmarkHaskellDepends = [ base criterion parsec random ];
-  postInstall = "rm $out/bin/Benchmark";
   homepage = "http://kalli1.faikvm.com/ImplicitCAD/Stable";
   description = "Warning: experimental package, might change at any time. Math-inspired programmatic 2&3D CAD, also known as extopenscad";
   license = lib.licenses.agpl3;
