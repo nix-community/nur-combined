@@ -33,6 +33,8 @@ in
     terraform
   ];
 
+  programs.steam.enable = true;
+
   services.xserver.xkbModel = "acer_laptop";
 
   services.simple-dashboardd = {

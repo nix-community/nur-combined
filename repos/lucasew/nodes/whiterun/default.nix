@@ -37,6 +37,8 @@ in {
     driversi686Linux.amdvlk
   ];
 
+  programs.steam.enable = true;
+
   networking.hostName = hostname;
 
   boot.kernelPackages = pkgs.linuxPackages_6_0;
