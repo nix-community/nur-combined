@@ -38,7 +38,7 @@ in appimageTools.wrapAppImage {
 
   meta = with lib; {
     homepage = "https://im.qq.com";
-    description = "Official Tencent QQ client for Linux (Beta)";
+    description = "(Deprecated. You should migrate to nixpkgs distribution) Official Tencent QQ client for Linux (Beta)";
     platforms = [ "x86_64-linux" ];
     license = licenses.unfree;
   };
