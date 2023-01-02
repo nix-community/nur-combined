@@ -2,20 +2,24 @@ pipeline:
   verify:
     when:
       event: [ pull_request ]
-    image: nixos/nix:2.8.0
+    image: nixos/nix:2.12.0
     environment:
+      # Upwork
     - NIXPKGS_ALLOW_UNFREE=1
+      # Nuclear with Electron 13
     - NIXPKGS_ALLOW_INSECURE=1
+      # Device Flasher with Darwin support
+    - NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
     commands:
     - nix --version
     - echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
-    - nix flake check path:. --impure
+    - nix flake check --impure
 
   update_nur:
     when:
       event: [ push ]
       branch: main
-    image: nixos/nix:2.8.0
+    image: nixos/nix:2.12.0
     environment:
     - NUR_REPO=wolfangaukang
     commands:

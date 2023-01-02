@@ -7,6 +7,7 @@ let
 in rec {
   inherit python3Packages;
   access-undenied-aws = callPythonPackage ../tools/security/access-undenied-aws { };
+  device-flasher = callPackage ../tools/misc/device-flasher { };
   dsnap = callPythonPackage ../development/python-modules/dsnap { };
   iptvnator = callPackage ../applications/video/iptvnator { };
   ly = callPackage ../applications/display-managers/ly { };
