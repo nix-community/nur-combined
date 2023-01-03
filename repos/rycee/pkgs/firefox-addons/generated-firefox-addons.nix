@@ -1308,10 +1308,10 @@
       };
     "lesspass" = buildFirefoxXpiAddon {
       pname = "lesspass";
-      version = "9.6.6";
+      version = "9.6.9";
       addonId = "contact@lesspass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3899836/lesspass-9.6.6.xpi";
-      sha256 = "5f419c4a2aa20f9e30a7111e90537c99aba3683b715ebfe5b09743ad373cd52f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4051050/lesspass-9.6.9.xpi";
+      sha256 = "8efda879b3a7d6d2ec7777da20520c1427bced622ae0ea74a4562672f2f47d73";
       meta = with lib;
       {
         homepage = "https://github.com/lesspass/lesspass";
@@ -3037,6 +3037,7 @@
       sha256 = "04b3f707401e88efcb5cd25604a8c719b2fdcccf36cac3f1ed521a0746494d81";
       meta = with lib;
       {
+        homepage = "https://unhook.app";
         description = "Hide YouTube related videos, comments, video suggestions wall, homepage recommendations, trending tab, and other distractions.";
         license = {
           shortName = "unhook-eula";
