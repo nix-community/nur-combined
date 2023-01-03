@@ -28,7 +28,10 @@ jobs:
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
       - name: Update sources
-        run: nix run github:berberman/nvfetcher
+        run: |
+          echo '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
+          nix run github:berberman/nvfetcher -- -k keyfile.toml
+          rm keyfile.toml
 
       - name: Update vim plugins
         env:

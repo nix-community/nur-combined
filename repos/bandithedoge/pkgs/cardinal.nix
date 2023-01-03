@@ -15,6 +15,7 @@ pkgs.stdenv.mkDerivation {
     SDL2
     alsa-lib
     dbus
+    fftw
     freetype
     glib
     jansson
@@ -61,5 +62,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://github.com/DISTRHO/Cardinal";
     license = licenses.gpl3;
     platforms = platforms.linux;
+    isBroken = true;
   };
 }
