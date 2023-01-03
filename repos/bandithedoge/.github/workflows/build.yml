@@ -29,7 +29,7 @@ jobs:
 
       - name: Update sources
         run: |
-          echo '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
+          echo -e '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
           nix run github:berberman/nvfetcher -- -k keyfile.toml
           rm keyfile.toml
 
