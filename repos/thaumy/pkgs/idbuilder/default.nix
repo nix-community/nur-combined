@@ -37,7 +37,7 @@ let
 
   src_idbuilder = fetchFromGitHub {
     owner = "Thaumy";
-    repo = "palaflake";
+    repo = "idbuilder";
     rev = "b04f62af765ea8c68f9874e947f25c9fdb64807c";
     sha256 = "0sy5qg1mbd3q39dfi3iswx2jd5vr6znvginj6474dylhwhbn1ksk";
   };
