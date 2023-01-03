@@ -66,6 +66,7 @@ in
 
   gc-hold.paths = with pkgs; [
     go gopls
+    zig zls
     terraform
     ansible vagrant
     gnumake cmake
