@@ -263,6 +263,40 @@ buildLuarocksPackage {
   };
 }) {};
 
+luachild = callPackage({ buildLuarocksPackage, luaOlder, luaAtLeast
+, fetchgit, lua
+}:
+buildLuarocksPackage {
+  pname = "luachild";
+  version = "0.1-2";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/luachild-0.1-2.rockspec";
+    sha256 = "08s1bqyzhmixrylnm9rll1336bgg8sln7yf3yrzzgabg5flw3bpr";
+  }).outPath;
+  src = fetchgit ( removeAttrs (builtins.fromJSON ''{
+  "url": "https://github.com/pocomane/luachild",
+  "rev": "abebff21860f6101bb9a274fb9fef5dfda6d3a2a",
+  "date": "2019-05-01T17:25:21+02:00",
+  "path": "/nix/store/g1r41qhakr72ih4dp508g7iy3gs7rqx8-luachild",
+  "sha256": "1jhs0xpz04mb9azjvifdabmbf5kq8ncjrxyhvpijmg7j227bi2cl",
+  "fetchLFS": false,
+  "fetchSubmodules": true,
+  "deepClone": false,
+  "leaveDotGit": false
+}
+ '') ["date" "path"]) ;
+
+  disabled = with lua; (luaOlder "5.1");
+  propagatedBuildInputs = [ lua ];
+
+  meta = {
+    homepage = "https://github.com/pocomane/luachild";
+    description = "Spawn sub-processes and communicate with them through pipes.";
+    maintainers = with lib.maintainers; [ arobyn ];
+    license.fullName = "MIT";
+  };
+}) {};
+
 lub = callPackage({ buildLuarocksPackage, luaOlder, luaAtLeast
 , fetchgit, lua, luafilesystem
 }:
