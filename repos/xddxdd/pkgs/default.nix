@@ -101,6 +101,7 @@ mkScope (self: pkg: rec {
   drone-vault = pkg ./uncategorized/drone-vault { };
   etherguard = pkg ./uncategorized/etherguard { };
   fcitx5-breeze = pkg ./uncategorized/fcitx5-breeze { };
+  flaresolverr = pkg ./uncategorized/flaresolverr { };
   flasgger = pkg ./uncategorized/flasgger { };
   ftp-proxy = pkg ./uncategorized/ftp-proxy { };
   genshin-checkin-helper = pkg ./uncategorized/genshin-checkin-helper { };

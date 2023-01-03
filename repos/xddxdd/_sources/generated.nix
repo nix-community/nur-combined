@@ -211,6 +211,17 @@
       sha256 = "sha256-Xw5oBsxsCzoqXZ3r6koVuVmRAi8Ys9e2CmKxBhLenHM=";
     };
   };
+  flaresolverr = {
+    pname = "flaresolverr";
+    version = "v2.2.10";
+    src = fetchFromGitHub ({
+      owner = "FlareSolverr";
+      repo = "FlareSolverr";
+      rev = "v2.2.10";
+      fetchSubmodules = false;
+      sha256 = "sha256-AclyKkpc6HjHSg7sFeq2q/T22AkZFm12Yi6RacV+E0Y=";
+    });
+  };
   flasgger = {
     pname = "flasgger";
     version = "0.9.5";

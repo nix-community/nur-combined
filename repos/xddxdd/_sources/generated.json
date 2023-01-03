@@ -363,6 +363,25 @@
         },
         "version": "2.0.0"
     },
+    "flaresolverr": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "flaresolverr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "FlareSolverr",
+            "repo": "FlareSolverr",
+            "rev": "v2.2.10",
+            "sha256": "sha256-AclyKkpc6HjHSg7sFeq2q/T22AkZFm12Yi6RacV+E0Y=",
+            "type": "github"
+        },
+        "version": "v2.2.10"
+    },
     "flasgger": {
         "cargoLocks": null,
         "extract": null,
