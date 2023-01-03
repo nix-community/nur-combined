@@ -1,6 +1,8 @@
 selfPkgs: superPkgs: let
   pkgs = superPkgs;
-  generatedLuaPackages = pkgs.callPackage ./generated-packages.nix { };
+  generatedLuaPackages = self: super: pkgs.callPackage ./generated-packages.nix {
+    inherit (self) callPackage;
+  } self super;
   overridenLuaPackages = self: super: let
     inherit (super) luaOlder luaAtLeast isLuaJIT;
     inherit (self) callPackage;
@@ -32,13 +34,13 @@ selfPkgs: superPkgs: let
     };
 
     /* Overrides for generated packages */
-    inotify = super.inotify.override ({
+    inotify = super.luaLib.overrideLuarocks super.inotify (oa: {
       externalDeps = with selfPkgs; [
         { name = "INOTIFY"; dep = glibc.dev; }
       ];
     });
 
-    lcmark = super.lcmark.override (oa: let
+    lcmark = super.luaLib.overrideLuarocks super.lcmark (oa: let
       version' = "0.29.0";
       revision = "2";
     in rec {
@@ -55,30 +57,32 @@ selfPkgs: superPkgs: let
       propagatedBuildInputs = [ lua cmark lyaml lpeg optparse ];
     });
 
-    ldoc = super.ldoc.override ({
+    ldoc = super.luaLib.overrideLuarocks super.ldoc (oa: {
       src = pins.ldoc.outPath;
     });
 
-    lua-ev = super.lua-ev.override ({
+    lua-ev = super.luaLib.overrideLuarocks super.lua-ev (oa: {
       buildInputs = with selfPkgs; [
         libev
       ];
     });
 
-    luagraph = super.luagraph.override ({
+    luagraph = super.luaLib.overrideLuarocks super.luagraph (oa: {
       buildInputs = with selfPkgs; [
         graphviz libtool
       ];
     });
 
-    lunix = super.lunix.override ({
-      buildInputs = with selfPkgs; [
-        glibc
+    lunix = super.luaLib.overrideLuarocks super.lunix (oa: {
+      # buildInputs = with selfPkgs; [
+      #   glibc
+      # ];
+      externalDeps = with selfPkgs; [
+        { name = "RT"; dep = glibc; }
       ];
-        # { name = "INOTIFY"; dep = glibc; }
     });
 
-    moonscript = super.moonscript.override ({
+    moonscript = super.luaLib.overrideLuarocks super.moonscript (oa: {
       src = pins.moonscript.outPath;
       knownRockspec = with super.moonscript; "${pname}-dev-1.rockspec";
       propagatedBuildInputs = with self; [
@@ -93,7 +97,7 @@ selfPkgs: superPkgs: let
       '';
     });
 
-    yaml = super.yaml.override ({
+    yaml = super.luaLib.overrideLuarocks super.yaml (oa: {
       # Patch to build consistently for 5.1-5.3 + luajit
       patches = [
         ./yaml.patch
