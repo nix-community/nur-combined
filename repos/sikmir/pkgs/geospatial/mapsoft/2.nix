@@ -3,9 +3,11 @@
 , fetchFromGitHub
 , substituteAll
 , db
+, fig2dev
 , giflib
 , gsettings-desktop-schemas
 , gtkmm3
+, imagemagick
 , jansson
 , curl
 , libjpeg
@@ -24,13 +26,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "1.8";
+  version = "2.0";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
     rev = "${finalAttrs.version}-alt1";
-    hash = "sha256-RWY+rFVwPTZOyAZt1Bytcer4KiriGGfgke5s+qAydx8=";
+    hash = "sha256-cZHxCqfAY0DT3Zr3AdY3BMtzsiC9yXA2CUD/uM27SRE=";
     fetchSubmodules = true;
   };
 
@@ -47,17 +49,16 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "/usr/share" "$out/share"
     patchShebangs .
 
-    # https://github.com/OSGeo/PROJ/pull/2547
-    cat > modules/pc/proj.pc << EOF
-    Name: PROJ
-    Description: Coordinate transformation software library
-    Requires:
-    Version: ${proj.version}
-    Libs: -lproj
-    EOF
+    substituteInPlace vmap_data/scripts/vmaps_preview --replace "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps_out --replace "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps_get_fig --replace "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps_in --replace "vmaps.sh" "$out/bin/vmaps.sh"
+    substituteInPlace vmap_data/scripts/vmaps.sh --replace "/usr" "$out"
   '';
 
   nativeBuildInputs = [
+    fig2dev
+    imagemagick
     perlPackages.perl
     pkg-config
     unzip
@@ -83,6 +84,14 @@ stdenv.mkDerivation (finalAttrs: {
   preBuild = "export SKIP_IMG_DIFFS=1";
 
   makeFlags = [ "prefix=$(out)" ];
+
+  dontWrapGApps = true;
+
+  postFixup = ''
+    for f in $out/bin/ms2*; do
+      wrapGApp $f
+    done
+  '';
 
   meta = with lib; {
     description = "A collection of tools and libraries for working with maps and geo-data";

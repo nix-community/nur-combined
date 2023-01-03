@@ -36,6 +36,5 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/86299
   };
 })

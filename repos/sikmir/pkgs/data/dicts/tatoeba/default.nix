@@ -6,6 +6,7 @@ let
     "eng deu"
     "eng epo"
     "eng fin"
+    "eng hye"
     "eng rus"
     "eng swe"
     "eng ukr"
@@ -13,10 +14,13 @@ let
     "epo rus"
     "fin eng"
     "fin rus"
+    "hye eng"
+    "hye rus"
     "rus deu"
     "rus eng"
     "rus epo"
     "rus fin"
+    "rus hye"
     "rus swe"
     "rus ukr"
     "swe eng"
@@ -28,7 +32,7 @@ let
 in
 stdenvNoCC.mkDerivation rec {
   pname = "tatoeba";
-  version = "2022-11-26";
+  version = "2022-12-31";
 
   srcs = lib.mapAttrsToList (name: spec: fetchurl spec) tatoeba;
 

@@ -187,9 +187,7 @@ lib.makeScope newScope (
       inherit (darwin.apple_sdk.frameworks) Security;
     };
     localtileserver = callPackage ./geospatial/localtileserver { };
-    mapsoft = callPackage ./geospatial/mapsoft {
-      proj = pkgs.proj_7;
-    };
+    mapsoft = callPackage ./geospatial/mapsoft { };
     mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
@@ -200,6 +198,7 @@ lib.makeScope newScope (
     pipfile = callPackage ./geospatial/pipfile { };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
+    pysheds = callPackage ./geospatial/pysheds { };
     pystac = callPackage ./geospatial/pystac { };
     qmapshack-bin = callPackage ./geospatial/qmapshack/bin.nix { };
     render_geojson = callPackage ./geospatial/render_geojson { };
@@ -361,7 +360,7 @@ lib.makeScope newScope (
     maprec = callPackage ./nakarte/maprec {
       python3Packages = pkgs.python39Packages;
     };
-    nakarte = callPackage ./nakarte/nakarte { };
+    #nakarte = callPackage ./nakarte/nakarte { };
     ozi_map = callPackage ./nakarte/ozi_map {
       python3Packages = pkgs.python39Packages;
     };
