@@ -237,6 +237,40 @@ buildLuarocksPackage {
   };
 }) {};
 
+lua-filesize = callPackage({ buildLuarocksPackage, luaOlder, luaAtLeast
+, fetchgit, lua
+}:
+buildLuarocksPackage {
+  pname = "lua-filesize";
+  version = "0.1.1-1";
+  knownRockspec = (fetchurl {
+    url    = "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/lua-filesize-0.1.1-1.rockspec";
+    sha256 = "17k0vin1ckbfv8cw58zr4y410879dvmv8i838m6y2w7vwryxjygl";
+  }).outPath;
+  src = fetchgit ( removeAttrs (builtins.fromJSON ''{
+  "url": "https://github.com/starius/lua-filesize.git",
+  "rev": "861c8468512163645e3f4690c7fa3474be842873",
+  "date": "2016-01-22T04:05:05+03:00",
+  "path": "/nix/store/v8nvwkwq25crqfbvy5mvb3z2zrjmwyy5-lua-filesize",
+  "sha256": "10jj95h3h6jxizfd3278nn2h8lhkwa5g3an8gfy9c4ykccxd0is7",
+  "fetchLFS": false,
+  "fetchSubmodules": true,
+  "deepClone": false,
+  "leaveDotGit": false
+}
+ '') ["date" "path"]) ;
+
+  disabled = with lua; (luaOlder "5.1");
+  propagatedBuildInputs = [ lua ];
+
+  meta = {
+    homepage = "https://github.com/starius/lua-filesize";
+    description = "Generate a human readable string describing the file size";
+    maintainers = with lib.maintainers; [ arobyn ];
+    license.fullName = "MIT";
+  };
+}) {};
+
 lua-testmore = callPackage({ buildLuarocksPackage, luaOlder, luaAtLeast
 , fetchurl, lua
 }:
