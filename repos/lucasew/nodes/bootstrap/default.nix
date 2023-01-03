@@ -29,6 +29,7 @@ in {
   ];
   environment.variables = {
     EDITOR = "nvim";
+    PATH = "$PATH";
   };
   programs.bash = {
     promptInit = builtins.readFile ./bash_init.sh;
