@@ -180,20 +180,6 @@
         },
         "version": "v2.8.5"
     },
-    "linux-qq": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "linux-qq",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-uoxGwuG+RP1XiNEvQZ5yLHh2rYU1TxBsl9NYaYZ78AI=",
-            "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/64bd2578/linuxqq_3.0.0-565_x86_64.AppImage"
-        },
-        "version": "3.0.0-565"
-    },
     "plugin-bang-bang": {
         "cargoLocks": null,
         "extract": null,

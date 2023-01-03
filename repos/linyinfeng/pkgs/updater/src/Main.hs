@@ -24,7 +24,6 @@ packageSet = do
   clashForWindows
   clashForWindowsIcon
   icalinguaPlusPlus
-  linuxQQ
   wemeet
   yacd
   zeronsd
@@ -105,17 +104,6 @@ icalinguaPlusPlus =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
-
-linuxQQ :: PackageSet ()
-linuxQQ =
-  define $
-    package "linux-qq"
-      `sourceManual` "3.0.0-565"
-      `fetchUrl` url
-  where
-    hash = "64bd2578"
-    arch = "x86_64"
-    url (Version v) = "https://dldir1.qq.com/qqfile/qq/QQNT/" <> hash <> "/linuxqq_" <> v <> "_" <> arch <> ".AppImage"
 
 wemeet :: PackageSet ()
 wemeet =
