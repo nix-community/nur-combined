@@ -11,6 +11,19 @@
 
   packages = with beamPackages;
   with self; {
+    argon2_elixir = buildMix rec {
+      name = "argon2_elixir";
+      version = "3.0.0";
+
+      src = fetchHex {
+        pkg = "${name}";
+        version = "${version}";
+        sha256 = "0mywrvzzm76glvajzxrdg6ka49xby30fpk9zl4dxamzm18kknxcb";
+      };
+
+      beamDeps = [comeonin elixir_make];
+    };
+
     base62 = buildMix rec {
       name = "base62";
       version = "1.2.2";

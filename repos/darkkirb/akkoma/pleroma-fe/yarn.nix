@@ -1160,6 +1160,14 @@
       };
     }
     {
+      name = "_floatingghost_pinch_zoom_element___pinch_zoom_element_1.3.1.tgz";
+      path = fetchurl {
+        name = "_floatingghost_pinch_zoom_element___pinch_zoom_element_1.3.1.tgz";
+        url = "https://registry.yarnpkg.com/@floatingghost/pinch-zoom-element/-/pinch-zoom-element-1.3.1.tgz";
+        sha512 = "KnE7aBQdd/Fj1TzU5uzgwD9YAQ58DTMUks/PoTEBFW4zi0lBM9cN/j45wzcnzsT2VXG1S6qM7NMmq7NGm2//Fg==";
+      };
+    }
+    {
       name = "https___registry.npmjs.org__fortawesome_fontawesome_common_types___fontawesome_common_types_6.2.0.tgz";
       path = fetchurl {
         name = "https___registry.npmjs.org__fortawesome_fontawesome_common_types___fontawesome_common_types_6.2.0.tgz";
@@ -1341,14 +1349,6 @@
         name = "https___registry.npmjs.org__jridgewell_trace_mapping___trace_mapping_0.3.14.tgz";
         url = "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.14.tgz";
         sha512 = "bJWEfQ9lPTvm3SneWwRFVLzrh6nhjwqw7TUFFBEMzwvg7t7PCDenf2lDwqo4NQXzdpgBXyFgDWnQA+2vkruksQ==";
-      };
-    }
-    {
-      name = "https___registry.npmjs.org__kazvmoe_infra_pinch_zoom_element___pinch_zoom_element_1.2.0.tgz";
-      path = fetchurl {
-        name = "https___registry.npmjs.org__kazvmoe_infra_pinch_zoom_element___pinch_zoom_element_1.2.0.tgz";
-        url = "https://registry.npmjs.org/@kazvmoe-infra/pinch-zoom-element/-/pinch-zoom-element-1.2.0.tgz";
-        sha512 = "HBrhH5O/Fsp2bB7EGTXzCsBAVcMjknSagKC5pBdGpKsF8meHISR0kjDIdw4YoE0S+0oNMwJ6ZUZyIBrdywxPPw==";
       };
     }
     {
@@ -2429,6 +2429,14 @@
         name = "https___registry.npmjs.org_binary_extensions___binary_extensions_2.2.0.tgz";
         url = "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz";
         sha512 = "jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==";
+      };
+    }
+    {
+      name = "blurhash___blurhash_2.0.4.tgz";
+      path = fetchurl {
+        name = "blurhash___blurhash_2.0.4.tgz";
+        url = "https://registry.yarnpkg.com/blurhash/-/blurhash-2.0.4.tgz";
+        sha512 = "r/As72u2FbucLoK5NTegM/GucxJc3d8GvHc4ngo13IO/nt2HU4gONxNLq1XPN6EM/V8Y9URIa7PcSz2RZu553A==";
       };
     }
     {
