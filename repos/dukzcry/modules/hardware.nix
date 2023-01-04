@@ -8,6 +8,18 @@ let
   server = any' [ "robocat" ];
   desktop = any' [ "powerhorse" ];
   ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
+  builder = {
+    nix.buildMachines = [{
+      hostName = "powerhorse";
+      systems = [ "x86_64-linux" "i686-linux" ];
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      maxJobs = 32;
+    }];
+    nix.extraOptions = ''
+      builders-use-substitutes = true
+    '';
+    nix.distributedBuilds = true;
+  };
 in {
   inherit imports;
 
@@ -31,7 +43,7 @@ in {
       systemd.watchdog.rebootTime = "10m";
       systemd.watchdog.kexecTime = "10m";
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
-    })
+    } // builder)
     (mkIf (cfg.enable && laptop) {
       hardware.bluetooth.enable = true;
       services.upower = {
@@ -63,7 +75,7 @@ in {
         vSync = true;
         backend = "glx";
       };
-    })
+    } // builder)
     (mkIf (cfg.enable && desktop) {
       hardware.bluetooth.enable = true;
       # MT7921K is supported starting from 5.17

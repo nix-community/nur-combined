@@ -42,7 +42,7 @@ rec {
       };
     };
   });
-} // optionalAttrs (config.hardware.wifi.enable or false) {
+} // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
     makeFlags = oldAttrs.makeFlags ++ [

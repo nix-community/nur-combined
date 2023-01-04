@@ -43,17 +43,6 @@ in {
       virtualisation.spiceUSBRedirection.enable = true;
     })
     (mkIf cfg.remote {
-      nix.buildMachines = [{
-        hostName = "robocat";
-        systems = [ "x86_64-linux" "i686-linux" ];
-        supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-        maxJobs = 8;
-      }];
-      nix.extraOptions = ''
-        builders-use-substitutes = true
-      '';
-      nix.distributedBuilds = true;
-
       virtualisation.libvirtd.enable = lib.mkForce false;
 
       networking.edgevpn = {
