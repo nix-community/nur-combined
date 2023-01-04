@@ -1,8 +1,8 @@
-{ pkgs, lib ? pkgs.lib }:
+{ pkgs, lib, callPackage, fetchFromGitHub }:
 
 with builtins;
 with lib; rec {
-  gltf-pipeline = pkgs.callPackage (pkgs.fetchFromGitHub {
+  gltf-pipeline = callPackage (fetchFromGitHub {
     githubBase = "gist.github.com";
     owner = "nagy";
     repo = "053eb914dcbf8270e6d6c1f304ce236e";

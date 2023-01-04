@@ -2,12 +2,15 @@
 , recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
 
 with lib;
-with import ./lib { inherit pkgs; };
+with import ./lib {
+  inherit pkgs lib;
+  callPackage = pkgs.callPackage;
+};
 makeScope pkgs.newScope (self:
   (callNixFiles self.callPackage ./pkgs) // {
 
-    lib =
-      extend (self: super: pkgs.callPackage ./lib.nix { inherit (super) lib; });
+    lib = (extend (self: super: pkgs.callPackage ./lib.nix { })).extend
+      (self: super: pkgs.callPackage ./lib { });
 
     qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
