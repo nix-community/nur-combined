@@ -25,8 +25,11 @@ in
       ./backup-saves.nix
       ./plymouth.nix
       ./remote-build.nix
+      ./cockpit.nix
     ]
   ;
+
+  services.cockpit.enable = true;
 
   environment.systemPackages = with pkgs; [
     kubectl
