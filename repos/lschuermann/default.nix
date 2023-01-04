@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  vivado-2020_1 = pkgs.callPackage ./pkgs/vivado/vivado-2020_1.nix { };
+  vivado-2022_2 = pkgs.callPackage ./pkgs/vivado/vivado-2022_2.nix { };
 }
