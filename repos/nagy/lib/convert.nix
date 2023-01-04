@@ -39,12 +39,12 @@ let
         inherit src;
       };
       passthru.etangles = passthru.tangles.evaldir;
-      passthru.json = lib.importJSON (convert {
+      passthru.ejson = lib.importJSON (convert {
         output = "json";
         inherit src;
       });
       meta.email = passthru.json.email;
-      meta.author = builtins.elemAt passthru.json.author 0;
+      meta.author = builtins.head passthru.json.author;
       __cmd = ''
         ORGCMD=latex;
         if [[ "$src" == *presentation.org ]] ; then
