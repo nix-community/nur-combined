@@ -18,7 +18,18 @@ let
           -f org-babel-tangle
       '';
     };
-    org.tex = { src, convert, ... }: {
+    org.json = { src, ... }: {
+      inherit src;
+      nativeBuildInputs = [
+        (pkgs.emacs-nox.pkgs.withPackages (epkgs: with epkgs; [ org-ref ]))
+        pkgs.jq
+      ];
+      __cmd = ''
+        emacs --batch $src --eval '(princ (json-encode (org-export-get-environment)))' | \
+          jq --sort-keys > $out
+      '';
+    };
+    org.tex = { src, convert, ... }: rec {
       inherit src;
       nativeBuildInputs =
         [ (pkgs.emacs-nox.pkgs.withPackages (epkgs: with epkgs; [ org-ref ])) ];
@@ -30,6 +41,12 @@ let
         output = "directory";
         src = src;
       });
+      passthru.json = lib.importJSON (convert {
+        output = "json";
+        src = src;
+      });
+      meta.email = passthru.json.email ;
+      meta.author = builtins.elemAt passthru.json.author 0;
       __cmd = ''
         ORGCMD=latex;
         if [[ "$src" == *presentation.org ]] ; then
@@ -79,24 +96,33 @@ in rec {
       passthru = (src.passthru or { }) // (entry.passthru or { }) // {
         base = src;
       };
-      meta = (entry.meta or { }) // (lib.optionalAttrs (args ? meta) args.meta);
+      meta = lib.foldr lib.recursiveUpdate { } [
+        (src.meta or { })
+        (entry.meta or { })
+        (args.meta or { })
+      ];
     }) entry.__cmd;
 
   # convenience functions
-  convert2dir = src: args:
-    convert ({
+  convert2dir = src:
+    convert {
       inherit src;
       output = "directory";
       name = "output";
-    } // args);
-  convert2tex = src: args:
-    convert ({
+    };
+  convert2tex = src:
+    convert {
       inherit src;
       output = "tex";
-    } // args);
-  convert2pdf = src: args:
-    convert ({
+    };
+  convert2pdf = src:
+    convert {
       inherit src;
       output = "pdf";
-    } // args);
+    };
+  convert2json = src:
+    convert {
+      inherit src;
+      output = "json";
+    };
 }
