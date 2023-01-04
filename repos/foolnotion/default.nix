@@ -28,6 +28,8 @@
 
   cpp-sort = pkgs.callPackage ./pkgs/cpp-sort { };
 
+  cppitertools = pkgs.callPackage ./pkgs/cppitertools { };
+
   cutechess = pkgs.libsForQt5.callPackage ./pkgs/cutechess { };
 
   eli5 = pkgs.python3Packages.callPackage ./pkgs/eli5 { };
