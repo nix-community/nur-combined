@@ -1,13 +1,14 @@
 { pkgs, lib, callPackage }:
 
 let
-  evaluatedTangles = tangles:
-    pkgs.runCommandLocal "evaled-tangles" { } (''
-      mkdir $out; cd $out;
-    '' + (lib.concatStringsSep "\n" (map (x:
-      "ln -s ${callPackage "${tangles}/${x}" { }} ${lib.removeSuffix ".nix" x}")
-      (lib.attrNames (builtins.readDir tangles)))));
   conversions = {
+    directory.evaldir = { src, convert, ... }: {
+      __cmd = (''
+        mkdir $out; cd $out;
+      '' + (lib.concatStringsSep "\n" (map (x:
+        "ln -s ${callPackage "${src}/${x}" { }} ${lib.removeSuffix ".nix" x}")
+        (lib.attrNames (builtins.readDir src)))));
+    };
     org.directory = { src, convert, ... }: {
       inherit src;
       nativeBuildInputs = [ pkgs.emacs-nox ];
@@ -35,17 +36,14 @@ let
         [ (pkgs.emacs-nox.pkgs.withPackages (epkgs: with epkgs; [ org-ref ])) ];
       passthru.tangles = convert {
         output = "directory";
-        src = src;
+        inherit src;
       };
-      passthru.etangles = evaluatedTangles (convert {
-        output = "directory";
-        src = src;
-      });
+      passthru.etangles = passthru.tangles.evaldir;
       passthru.json = lib.importJSON (convert {
         output = "json";
-        src = src;
+        inherit src;
       });
-      meta.email = passthru.json.email ;
+      meta.email = passthru.json.email;
       meta.author = builtins.elemAt passthru.json.author 0;
       __cmd = ''
         ORGCMD=latex;
@@ -84,7 +82,6 @@ let
     };
   };
 in rec {
-  inherit evaluatedTangles;
   convert = { src, output, ... }@args:
     let
       fileExtension =
@@ -92,16 +89,63 @@ in rec {
       fileBase = lib.removeSuffix ".${fileExtension}"
         (builtins.baseNameOf (src.name or (toString src)));
       entry = conversions.${fileExtension}.${output} { inherit convert src; };
-    in pkgs.runCommandLocal "${fileBase}.${output}" (entry // {
-      passthru = (src.passthru or { }) // (entry.passthru or { }) // {
-        base = src;
+      self = pkgs.runCommandLocal "${fileBase}.${output}" (entry // {
+        passthru = (src.passthru or { }) // (entry.passthru or { }) // {
+          base = src;
+          # these should be limited to what is available in converters
+          directory = convert {
+            src = self;
+            output = "directory";
+          };
+          evaldir = convert {
+            src = self;
+            output = "evaldir";
+          };
+          tex = convert {
+            src = self;
+            output = "tex";
+          };
+          pdf = convert {
+            src = self;
+            output = "pdf";
+          };
+          json = convert {
+            src = self;
+            output = "json";
+          };
+        };
+        meta = lib.foldr lib.recursiveUpdate { } [
+          (src.meta or { })
+          (entry.meta or { })
+          (args.meta or { })
+        ];
+      }) entry.__cmd;
+    in self;
+  wrap = src:
+    pkgs.stdenvNoCC.mkDerivation {
+      buildCommand = "install -Dm444 ${src} $out";
+      # these should be limited to what is available in converters
+      passthru.directory = convert {
+        inherit src;
+        output = "directory";
       };
-      meta = lib.foldr lib.recursiveUpdate { } [
-        (src.meta or { })
-        (entry.meta or { })
-        (args.meta or { })
-      ];
-    }) entry.__cmd;
+      passthru.evaldir = convert {
+        inherit src;
+        output = "evaldir";
+      };
+      passthru.tex = convert {
+        inherit src;
+        output = "tex";
+      };
+      passthru.pdf = convert {
+        inherit src;
+        output = "pdf";
+      };
+      passthru.json = convert {
+        inherit src;
+        output = "json";
+      };
+    };
 
   # convenience functions
   convert2dir = src:
