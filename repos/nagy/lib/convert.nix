@@ -43,8 +43,8 @@ let
         output = "json";
         inherit src;
       });
-      meta.email = passthru.json.email;
-      meta.author = builtins.head passthru.json.author;
+      meta.email = passthru.ejson.email;
+      meta.author = builtins.head passthru.ejson.author;
       __cmd = ''
         ORGCMD=latex;
         if [[ "$src" == *presentation.org ]] ; then
@@ -70,14 +70,12 @@ let
         pkgs.biber
       ];
       __cmd = ''
-        runHook preBuild
         ${if src ? tangles then "ln -s ${src.tangles}  tangles" else ""}
         ${if src ? etangles then "ln -s ${src.etangles} etangles" else ""}
         export TMPDIR=/tmp
         export HOME=/tmp
         latexmk -pdf -halt-on-error --shell-escape $src
         install -Dm444 *.pdf $out
-        runHook postBuild
       '';
     };
   };
@@ -89,30 +87,20 @@ in rec {
       fileBase = lib.removeSuffix ".${fileExtension}"
         (builtins.baseNameOf (src.name or (toString src)));
       entry = conversions.${fileExtension}.${output} { inherit convert src; };
+      convertSelf = o:
+        convert {
+          src = self;
+          output = o;
+        };
       self = pkgs.runCommandLocal "${fileBase}.${output}" (entry // {
         passthru = (src.passthru or { }) // (entry.passthru or { }) // {
           base = src;
           # these should be limited to what is available in converters
-          directory = convert {
-            src = self;
-            output = "directory";
-          };
-          evaldir = convert {
-            src = self;
-            output = "evaldir";
-          };
-          tex = convert {
-            src = self;
-            output = "tex";
-          };
-          pdf = convert {
-            src = self;
-            output = "pdf";
-          };
-          json = convert {
-            src = self;
-            output = "json";
-          };
+          directory = convertSelf "directory";
+          evaldir = convertSelf "evaldir";
+          tex = convertSelf "tex";
+          pdf = convertSelf "pdf";
+          json = convertSelf "json";
         };
         meta = lib.foldr lib.recursiveUpdate { } [
           (src.meta or { })
@@ -125,48 +113,13 @@ in rec {
     pkgs.stdenvNoCC.mkDerivation {
       buildCommand = "install -Dm444 ${src} $out";
       # these should be limited to what is available in converters
-      passthru.directory = convert {
-        inherit src;
-        output = "directory";
-      };
-      passthru.evaldir = convert {
-        inherit src;
-        output = "evaldir";
-      };
-      passthru.tex = convert {
-        inherit src;
-        output = "tex";
-      };
-      passthru.pdf = convert {
-        inherit src;
-        output = "pdf";
-      };
-      passthru.json = convert {
-        inherit src;
-        output = "json";
-      };
-    };
-
-  # convenience functions
-  convert2dir = src:
-    convert {
-      inherit src;
-      output = "directory";
-      name = "output";
-    };
-  convert2tex = src:
-    convert {
-      inherit src;
-      output = "tex";
-    };
-  convert2pdf = src:
-    convert {
-      inherit src;
-      output = "pdf";
-    };
-  convert2json = src:
-    convert {
-      inherit src;
-      output = "json";
+      passthru = lib.listToAttrs ((map
+        (output: lib.nameValuePair output (convert { inherit src output; }))) [
+          "directory"
+          "evaldir"
+          "tex"
+          "pdf"
+          "json"
+        ]);
     };
 }
