@@ -30,6 +30,7 @@ let
           jq --sort-keys > $out
       '';
     };
+    org.pdf = { src, convert, wrap, ... }: (wrap src).tex.pdf;
     org.tex = { src, convert, ... }: rec {
       inherit src;
       nativeBuildInputs =
@@ -86,31 +87,38 @@ in rec {
         lib.last (lib.splitString "." (src.name or (toString src)));
       fileBase = lib.removeSuffix ".${fileExtension}"
         (builtins.baseNameOf (src.name or (toString src)));
-      entry = conversions.${fileExtension}.${output} { inherit convert src; };
+      entry = (conversions.${fileExtension}.${output} or (throw
+        "No conversion from ${fileExtension} to ${output} found.")) {
+          inherit convert src wrap;
+        };
       convertSelf = o:
         convert {
           src = self;
           output = o;
         };
-      self = pkgs.runCommandLocal "${fileBase}.${output}" (entry // {
-        passthru = (src.passthru or { }) // (entry.passthru or { }) // {
-          base = src;
-          # these should be limited to what is available in converters
-          directory = convertSelf "directory";
-          evaldir = convertSelf "evaldir";
-          tex = convertSelf "tex";
-          pdf = convertSelf "pdf";
-          json = convertSelf "json";
-        };
-        meta = lib.foldr lib.recursiveUpdate { } [
-          (src.meta or { })
-          (entry.meta or { })
-          (args.meta or { })
-        ];
-      }) entry.__cmd;
+      self = if lib.isDerivation entry then
+        entry
+      else
+        pkgs.runCommandLocal "${fileBase}.${output}" (entry // {
+          passthru = (src.passthru or { }) // (entry.passthru or { }) // {
+            base = src;
+            # these should be limited to what is available in converters
+            directory = convertSelf "directory";
+            evaldir = convertSelf "evaldir";
+            tex = convertSelf "tex";
+            pdf = convertSelf "pdf";
+            json = convertSelf "json";
+          };
+          meta = lib.foldr lib.recursiveUpdate { } [
+            (src.meta or { })
+            (entry.meta or { })
+            (args.meta or { })
+          ];
+        }) entry.__cmd;
     in self;
   wrap = src:
     pkgs.stdenvNoCC.mkDerivation {
+      name = src.name or baseNameOf src;
       buildCommand = "install -Dm444 ${src} $out";
       # these should be limited to what is available in converters
       passthru = lib.listToAttrs ((map
