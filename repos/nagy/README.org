@@ -9,7 +9,7 @@ My personal [[https://github.com/nix-community/NUR][NUR]] repository. You can se
 
 * Mirrors of this repo
  * https://github.com/nagy/nur-packages
- * https://gitlab.com/_nagy_/nur-packages
+ * https://gitlab.com/nagy/nur-packages
  * https://git.sr.ht/~nagy/nur-packages.git
 
 * License

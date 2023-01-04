@@ -33,7 +33,7 @@ in buildPythonPackage rec {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-fHN5bsQOjJgUTLrD2X3Osp2PKdEVuWyWUue5Uf/gr3g=";
+    sha256 = "sha256-XysPy5rckUQ6HSRzIyjKKHyhrqAul3vzBHvr45j/CSg=";
   };
 
   nativeBuildInputs = [ setuptools-scm installShellFiles ];

@@ -1,5 +1,4 @@
-{ pkgs, lib, luaOlder, luaAtLeast, buildLuarocksPackage, fetchurl, curl
-, pkg-config }:
+{ lib, buildLuarocksPackage, fetchurl, curl }:
 
 buildLuarocksPackage rec {
   pname = "lua-curl";
@@ -9,17 +8,12 @@ buildLuarocksPackage rec {
     sha256 = "sha256-ayzEhiH6w8t8FmlwVHXmemkygpukbvuaxYZGBISPjqI=";
   };
 
-  disabled = (luaOlder "5.3") || (luaAtLeast "5.5");
-
   buildInputs = [ curl ];
 
-  nativeBuildInputs = [ pkg-config ];
+  sourceRoot =
+    "${pname}-${version}/Lua-cURLv3-${lib.removeSuffix "-1" version}/";
 
-  preBuild = ''
-    cd Lua-cURLv3-*/
-  '';
-
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "Lua binding to libcurl";
     homepage = "https://github.com/Lua-cURL/Lua-cURLv3";
     license = licenses.mit;
