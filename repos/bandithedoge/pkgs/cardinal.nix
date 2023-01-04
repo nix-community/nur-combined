@@ -53,7 +53,7 @@ pkgs.stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  makeFlags = ["SYSDEPS=true" "PREFIX=$(out)"];
+  makeFlags = ["PREFIX=$(out)"];
 
   hardeningDisable = ["format"];
 
@@ -62,6 +62,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://github.com/DISTRHO/Cardinal";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    isBroken = true;
+    broken = true;
   };
 }
