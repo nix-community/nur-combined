@@ -1,5 +1,5 @@
 {
-  files = ./files.nix;
-  wekan = ./wekan.nix;
+  # Add your NixOS modules here
+  #
+  # my-module = ./my-module;
 }
-
