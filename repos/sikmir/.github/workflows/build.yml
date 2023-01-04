@@ -51,4 +51,4 @@ jobs:
       env:
         NIXPKGS_ALLOW_INSECURE: 1
     - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
