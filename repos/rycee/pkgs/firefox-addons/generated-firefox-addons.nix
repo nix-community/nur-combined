@@ -1125,25 +1125,6 @@
         platforms = platforms.all;
         };
       };
-    "https-everywhere" = buildFirefoxXpiAddon {
-      pname = "https-everywhere";
-      version = "2021.7.13";
-      addonId = "https-everywhere@eff.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3809748/https_everywhere-2021.7.13.xpi";
-      sha256 = "e261461b5d4d3621285fce70773558184d691c614b330744dab672f032db731c";
-      meta = with lib;
-      {
-        homepage = "https://www.eff.org/https-everywhere";
-        description = "Encrypt the web! HTTPS Everywhere is a Firefox extension to protect your communications by enabling HTTPS encryption automatically on sites that are known to support it, even when you type URLs or follow links that omit the https: prefix.";
-        license = {
-          shortName = "https-everywhere-license";
-          fullName = "Multiple";
-          url = "https://addons.mozilla.org/en-US/firefox/addon/https-everywhere/license/";
-          free = true;
-          };
-        platforms = platforms.all;
-        };
-      };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
       version = "3.4.5";
