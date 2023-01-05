@@ -18,6 +18,7 @@
 in {
   taffybar = callHaskellPackage ./taffybar.nix {
     attrs = {
+      meta.broken = true;
       nativeBuildInputs = with pkgs; [
         gcc
         pkg-config
@@ -42,5 +43,6 @@ in {
       ];
     };
   };
+
   xmonad-entryhelper = callHaskellPackage ./xmonad-entryhelper.nix {};
 }

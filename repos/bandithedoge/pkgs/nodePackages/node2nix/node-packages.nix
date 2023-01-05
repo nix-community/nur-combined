@@ -54,13 +54,13 @@
         sha512 = "pLS4PBPDdxuUAmw7Me7+TcHbykTsBKN/S9XJbUOMFQrNv9MoshzyMFK/R57JBm94/6HSL4vHnDeEmxlC82NQ4A==";
       };
     };
-    "typescript-4.9.3" = {
+    "typescript-4.9.4" = {
       name = "typescript";
       packageName = "typescript";
-      version = "4.9.3";
+      version = "4.9.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typescript/-/typescript-4.9.3.tgz";
-        sha512 = "CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==";
+        url = "https://registry.npmjs.org/typescript/-/typescript-4.9.4.tgz";
+        sha512 = "Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==";
       };
     };
     "vscode-jsonrpc-6.0.0" = {
@@ -90,13 +90,13 @@
         sha512 = "sdeUoAawceQdgIfTI+sdcwkiK2KU+2cbEYA0agzM2uqaUy2UpnnGHtWTHVEtS0ES4zHU0eMFRGN+oQgDxlD66A==";
       };
     };
-    "vscode-languageserver-textdocument-1.0.7" = {
+    "vscode-languageserver-textdocument-1.0.8" = {
       name = "vscode-languageserver-textdocument";
       packageName = "vscode-languageserver-textdocument";
-      version = "1.0.7";
+      version = "1.0.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.7.tgz";
-        sha512 = "bFJH7UQxlXT8kKeyiyu41r22jCZXG8kuuVVA33OEJn1diWOZK5n8zBSPZFHVBOu8kXZ6h0LIRhf5UnCo61J4Hg==";
+        url = "https://registry.npmjs.org/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.8.tgz";
+        sha512 = "1bonkGqQs5/fxGT5UchTgjGVnfysL0O8v1AYMBjqTbWQTFn721zaPGDYFkOKtfDgFiSgXM3KwaG3FMGfW4Ed9Q==";
       };
     };
     "vscode-languageserver-types-3.16.0" = {
@@ -142,11 +142,11 @@ in {
       sources."@emmetio/scanner-1.0.0"
       sources."@types/node-17.0.45"
       sources."emmet-2.3.6"
-      sources."typescript-4.9.3"
+      sources."typescript-4.9.4"
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"
       sources."vscode-languageserver-protocol-3.16.0"
-      sources."vscode-languageserver-textdocument-1.0.7"
+      sources."vscode-languageserver-textdocument-1.0.8"
       sources."vscode-languageserver-types-3.16.0"
     ];
     buildInputs = globalBuildInputs;

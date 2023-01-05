@@ -23,6 +23,7 @@
 | [coq_nvim](https://github.com/ms-jpq/coq_nvim) | Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization. |
 | [crates-nvim](https://github.com/Saecki/crates.nvim) | A neovim plugin that helps managing crates.io dependencies |
 | [detect-language-nvim](https://github.com/spywhere/detect-language.nvim) | neovim plugin for better language auto-detection, powered by tree-sitter |
+| [dhall-vim](https://github.com/vmchale/dhall-vim) | Syntax highlighting for Dhall |
 | [diaglist-nvim](https://github.com/onsails/diaglist.nvim) | Live render workspace diagnostics in quickfix with current buf errors on top, buffer diagnostics in loclist |
 | [direnv-vim](https://github.com/direnv/direnv.vim) | vim plugin for direnv support |
 | [document-color-nvim](https://github.com/mrshmllow/document-color.nvim) | 🌈 LSP-based colorizer for neovim |
@@ -32,6 +33,7 @@
 | [editorconfig-nvim](https://github.com/gpanders/editorconfig.nvim) | EditorConfig plugin for Neovim |
 | [fidget-nvim](https://github.com/j-hui/fidget.nvim) | Standalone UI for nvim-lsp progress |
 | [flare-nvim](https://github.com/stonelasley/flare.nvim) | Configurable Cursor highlighting. |
+| [flutter-tools-nvim](https://github.com/akinsho/flutter-tools.nvim) | Tools to help create flutter apps in neovim using the native lsp |
 | [fm-nvim](https://github.com/is0n/fm-nvim) | 🗂 Neovim plugin that lets you use your favorite terminal file managers (and fuzzy finders) from within Neovim. |
 | [fold-cycle-nvim](https://github.com/jghauser/fold-cycle.nvim) | This neovim plugin allows you to cycle folds open or closed |
 | [foldsigns-nvim](https://github.com/lewis6991/foldsigns.nvim) | Signs for folded lines |

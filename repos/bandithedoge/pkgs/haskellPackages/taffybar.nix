@@ -15,7 +15,6 @@
   dyre,
   either,
   enclosed-exceptions,
-  fetchgit,
   filepath,
   gi-cairo,
   gi-cairo-connector,
@@ -70,13 +69,8 @@
 }:
 mkDerivation {
   pname = "taffybar";
-  version = "3.3.0";
-  src = fetchgit {
-    url = "https://github.com/taffybar/taffybar";
-    sha256 = "1dhigi4bp3wzr7hs5y2jdd60cd881ias7zbmaqlkdczamr22qzyw";
-    rev = "945a08452660de603193da8d297d559fdca497d1";
-    fetchSubmodules = true;
-  };
+  version = "4.0.0";
+  src = ./.;
   isLibrary = true;
   isExecutable = true;
   enableSeparateDataOutput = true;
@@ -157,4 +151,5 @@ mkDerivation {
   homepage = "http://github.com/taffybar/taffybar";
   description = "A desktop bar similar to xmobar, but with more GUI";
   license = lib.licenses.bsd3;
+  mainProgram = "taffybar";
 }

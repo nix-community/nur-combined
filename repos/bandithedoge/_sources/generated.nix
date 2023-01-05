@@ -19,27 +19,27 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "eddd85c45b8d4461ba77331bf437e41c6a7844e9";
+    version = "a238f10eec777f2b0704d3299e226bf5129c022c";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "eddd85c45b8d4461ba77331bf437e41c6a7844e9";
+      rev = "a238f10eec777f2b0704d3299e226bf5129c022c";
       fetchSubmodules = true;
-      sha256 = "sha256-hF6/W6q1PRps+9yYzKcvRuV+PmRppD48BB0rpZu2U0s=";
+      sha256 = "sha256-KDsjQGfgLFKOlMEgmNIzzPPb6upsRNkbba/i87OnDdU=";
     };
-    date = "2022-12-02";
+    date = "2023-01-04";
   };
   carla = {
     pname = "carla";
-    version = "aa400535b31c67f4b6c1b28e6e20e4d4f82111a3";
+    version = "378cb66ee599f07908627ff245eae5f8030c4988";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "aa400535b31c67f4b6c1b28e6e20e4d4f82111a3";
+      rev = "378cb66ee599f07908627ff245eae5f8030c4988";
       fetchSubmodules = false;
-      sha256 = "sha256-Vi7oWcbU1+/joDdqgww5djhOgmAwVte4gcUBk58W0jI=";
+      sha256 = "sha256-xB/e/C1MfTo9P4Ta4ggYfxD/F8lR82eM3+CtcS9ex9M=";
     };
-    date = "2022-11-25";
+    date = "2023-01-04";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -55,15 +55,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "dc4e535b253dcb38605443508d17cda2d8323d01";
+    version = "668e18fddf11ea3071c92fa348b316366ffaf66a";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "dc4e535b253dcb38605443508d17cda2d8323d01";
+      rev = "668e18fddf11ea3071c92fa348b316366ffaf66a";
       fetchSubmodules = false;
-      sha256 = "sha256-JrhRjNOlxducXE/Ra7yMUgEJmIHgveA7NGhRWoKYGRQ=";
+      sha256 = "sha256-incgpe10DMRv7a/vpE7EIyxgkOOmKmXmlXtM1tE87xw=";
     };
-    date = "2022-11-15";
+    date = "2022-12-14";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -137,13 +137,13 @@
   };
   raze = {
     pname = "raze";
-    version = "1.5.0";
+    version = "1.6.1";
     src = fetchFromGitHub {
       owner = "ZDoom";
       repo = "Raze";
-      rev = "1.5.0";
+      rev = "1.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-b7RFC90v5Kj2rTWdil2A8OLF6wicA08X87uS6nb4l5c=";
+      sha256 = "sha256-9jd7A2yFcR3Oh8HqzxxKTSmZ83nTJ54F0MEopaEZT/Q=";
     };
   };
   slock-flexipatch = {
@@ -172,27 +172,27 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "78d2609b28fe1ee8098ee4756d048ff9e0369158";
+    version = "253c10fc2af08d3d9eab9ca2362f4dce05c58554";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "78d2609b28fe1ee8098ee4756d048ff9e0369158";
+      rev = "253c10fc2af08d3d9eab9ca2362f4dce05c58554";
       fetchSubmodules = false;
-      sha256 = "sha256-G5pert+GvpU33GNfdBa8T+z+u7r7WCW+Cr9z2lUBtbQ=";
+      sha256 = "sha256-52epXu0VDlNA6yZ3JTsgbbD/1YCPX2s3Lpaz3Lk7lsA=";
     };
-    date = "2022-11-18";
+    date = "2022-12-25";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "6b3e598e5378812b42db8a208db4980c82b60a10";
+    version = "fd9de48d27770d1ef31d3d7ee6a55fc7266ac4b5";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "6b3e598e5378812b42db8a208db4980c82b60a10";
+      rev = "fd9de48d27770d1ef31d3d7ee6a55fc7266ac4b5";
       fetchSubmodules = false;
-      sha256 = "sha256-CfeGATXOfpzw/tjjZm2bmawyArCHIjd3/WnIyFR8vP4=";
+      sha256 = "sha256-ONHzhskPYczMiT6A2/KmlD57SRW4FABcMU5ixvRFUgk=";
     };
-    date = "2022-11-11";
+    date = "2023-01-05";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
@@ -208,15 +208,15 @@
   };
   zix = {
     pname = "zix";
-    version = "577356481bbcb12468bcf669ef7107dfb057b833";
+    version = "56ec14c4369c591f5efbb500b0829b760bee7800";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "577356481bbcb12468bcf669ef7107dfb057b833";
+      rev = "56ec14c4369c591f5efbb500b0829b760bee7800";
       fetchSubmodules = false;
-      sha256 = "sha256-1HJgbcQ5WMpUJ574LsubX+/gtUv4hUbyHW4AVVjdGGs=";
+      sha256 = "sha256-vb1c1j/O+/bhmea0nzsdiYGoYWNXzjn54jpBXuUWqyQ=";
     };
-    date = "2022-11-25";
+    date = "2022-12-19";
   };
   zmusic = {
     pname = "zmusic";
@@ -231,15 +231,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "98b7836308a2c0918329f3ce0c3b9a60fe74cc20";
+    version = "67298d11b409591bf5cabbb4090d2b35f9838c57";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "98b7836308a2c0918329f3ce0c3b9a60fe74cc20";
+      rev = "67298d11b409591bf5cabbb4090d2b35f9838c57";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-oE0WH4z6HyjbCwi9jDHFBsVEZ0SQ7W9mgp9WQP0wetg=";
+      sha256 = "sha256-Xangq6JmcRAYjl2YDclBCwsFvVHpcbxNfaZfS8x6JHo=";
     };
-    date = "2022-12-02";
+    date = "2023-01-04";
   };
 }
