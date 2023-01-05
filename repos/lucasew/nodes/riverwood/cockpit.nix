@@ -52,6 +52,7 @@ in {
     };
     systemd.services."cockpit-wsinstance-https@" = { # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.service
       description = "Cockpit Web Service https instance %I";
+      stopIfChanged = true;
       bindsTo = [ "cockpit.service"];
       path = [ cfg.package ];
       documentation = [ "man:cockpit-ws(8)" ];
