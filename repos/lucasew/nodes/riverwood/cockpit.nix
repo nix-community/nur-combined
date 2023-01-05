@@ -20,7 +20,7 @@ in {
   };
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
-    systemd.slices.systemd-cockpithttps = { # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
+    systemd.slices.system-cockpithttps = { # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
       description = "Resource limits for all cockpit-ws-https@.service instances";
       sliceConfig = {
         TasksMax = 200;
@@ -46,6 +46,7 @@ in {
     systemd.services."cockpit-wsinstance-https@" = { # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.service
       description = "Cockpit Web Service https instance %I";
       bindsTo = [ "cockpit.service" ];
+      path = [ cfg.package ];
       documentation = [ "man:cockpit-ws(8)" ];
       serviceConfig = {
         Slice = "system-cockpithttps.slice";
@@ -82,6 +83,7 @@ in {
     systemd.services."cockpit-wsinstance-https-factory@" = { # Translation from $out/lib/systemd/system/cockpit-wsinstance-https-factory@.service
       description = "Cockpit Web Service https instance factory";
       documentation = [ "man:cockpit-ws(8)" ];
+      path = [ cfg.package ];
       serviceConfig = {
         ExecStart = "${cfg.package}/libexec/cockpit-wsinstance-factory";
         User = "root";
@@ -90,6 +92,7 @@ in {
     systemd.services."cockpit-wsinstance-http" = { # Translation from $out/lib/systemd/system/cockpit-wsinstance-http.service
       description = "Cockpit Web Service http instance";
       bindsTo = [ "cockpit.service" ];
+      path = [ cfg.package ];
       documentation = [ "man:cockpit-ws(8)" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/libexec/cockpit-ws --no-tls --port=0";
@@ -116,7 +119,7 @@ in {
     systemd.services."cockpit" = { # Translation from $out/lib/systemd/system/cockpit.service
       description = "Cockpit Web Service";
       documentation = [ "man:cockpit-ws(8)" ];
-      path = with pkgs; [ coreutils ];
+      path = with pkgs; [ coreutils cfg.package ];
       requires = [ "cockpit.socket" "cockpit-wsinstance-http.socket" "cockpit-wsinstance-https-factory.socket" ];
       after = [ "cockpit-wsinstance-http.socket" "cockpit-wsinstance-https-factory.socket" ];
       # environment = {
@@ -128,6 +131,7 @@ in {
         ExecStartPre=[
           "+${pkgs.coreutils}/bin/mkdir -p $RUNTIME_DIRECTORY"
           "+${cfg.package}/libexec/cockpit-certificate-ensure --for-cockpit-tls"
+
         ];
         ExecStart="${cfg.package}/libexec/cockpit-tls";
         User="root";
