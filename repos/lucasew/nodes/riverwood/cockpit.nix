@@ -19,6 +19,7 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    environment.pathsToLink = [ "/share/cockpit" ];
     environment.systemPackages = [ cfg.package ];
     systemd.slices.system-cockpithttps = { # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
       description = "Resource limits for all cockpit-ws-https@.service instances";
@@ -45,7 +46,7 @@ in {
     };
     systemd.services."cockpit-wsinstance-https@" = { # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.service
       description = "Cockpit Web Service https instance %I";
-      bindsTo = [ "cockpit.service" ];
+      bindsTo = [ "cockpit.service"];
       path = [ cfg.package ];
       documentation = [ "man:cockpit-ws(8)" ];
       serviceConfig = {
@@ -75,7 +76,7 @@ in {
       };
       socketConfig = {
         ListenStream="/run/cockpit/wsinstance/https-factory.sock";
-        Accept="yes";
+        Accept=true;
         SocketUser="root";
         SocketMode="0600";
       };
@@ -109,10 +110,10 @@ in {
       socketConfig = {
         ListenStream=cfg.port;
         ExecStartPost= [
-          "${cfg.package}/share/cockpit/motd/update-motd \"\" localhost"
-          "${pkgs.coreutils}/bin/ln -snf active.motd /run/cockpit/motd"
+          "-${cfg.package}/share/cockpit/motd/update-motd \"\" localhost"
+          "-${pkgs.coreutils}/bin/ln -snf active.motd /run/cockpit/motd"
         ];
-        ExecStopPost="${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
+        ExecStopPost="-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
       };
       wantedBy = [ "sockets.target" ];
     };
@@ -122,9 +123,10 @@ in {
       path = with pkgs; [ coreutils cfg.package ];
       requires = [ "cockpit.socket" "cockpit-wsinstance-http.socket" "cockpit-wsinstance-https-factory.socket" ];
       after = [ "cockpit-wsinstance-http.socket" "cockpit-wsinstance-https-factory.socket" ];
-      # environment = {
+      environment = {
+        G_MESSAGES_DEBUG = "cockpit-ws,cockpit-bridge";
       #   RUNTIME_DIRECTORY = "/run/cockpit/tls";
-      # };
+      };
       serviceConfig = {
         RuntimeDirectory="cockpit/tls";
         # systemd ≥ 241 sets this automatically
@@ -148,7 +150,10 @@ in {
     };
     systemd.services."cockpit-motd" = { # Translation from $out/lib/systemd/system/cockpit-motd.service
       path = with pkgs; [ gnused nettools ];
-      script = "${cfg.package}/share/cockpit/motd/update-motd";
+      unitConfig = {
+        Type = "oneshot";
+        ExecStart = "${cfg.package}/share/cockpit/motd/update-motd";
+      };
       description = "Cockpit motd updater service";
       documentation = [ "man:cockpit-ws(8)" ];
       wants = [ "network-online.target" ];
