@@ -28,7 +28,6 @@
 
     # Testing
     ly.url = "github:wolfangaukang/nixpkgs/ly-unstable";
-    cloudflare-warp.url = "github:wolfangaukang/nixpkgs/cloudflare-warp-mod";
   };
 
   outputs = { self, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, nur, utils, ... }@inputs:
@@ -134,9 +133,10 @@
             inherit inputs overlays;
             users = usersWithRoot;
             hostname = "raudholar";
+            extra-modules = [ nixosModules.cloudflare-warp ];
             enable-hm = false;
             enable-impermanence = false;
-          } // { channelName = "cloudflare-warp"; };
+          } // { channelName = "nixpkgs"; };
         };
 
       outputsBuilder = channels:
