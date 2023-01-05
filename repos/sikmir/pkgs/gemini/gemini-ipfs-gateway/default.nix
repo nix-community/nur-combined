@@ -19,6 +19,6 @@ buildGoModule rec {
     license = licenses.agpl3Only;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin;
+    broken = true;
   };
 }
