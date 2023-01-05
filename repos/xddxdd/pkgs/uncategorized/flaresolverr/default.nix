@@ -1,31 +1,46 @@
 { lib
 , sources
-, buildNpmPackage
+, stdenv
+, python3
 , makeWrapper
-, firefox
+, chromedriver
+, chromium
 , ...
 }:
 
-buildNpmPackage {
+let
+  python = python3.withPackages (p: with p; [
+    bottle
+    waitress
+    selenium
+    func-timeout
+    requests
+    websockets
+    xvfbwrapper
+  ]);
+
+  path = lib.makeBinPath [
+    chromedriver
+    chromium
+  ];
+in
+stdenv.mkDerivation {
   inherit (sources.flaresolverr) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
 
-  npmDepsHash = "sha256-9DzlYOoSrdKEAqDmjYtKaIbw7SoOH5Sgs2pvfseJHIo=";
-
-  NODE_OPTIONS = "--openssl-legacy-provider";
-
-  # Skip download firefox
   postPatch = ''
-    export PUPPETEER_PRODUCT=firefox
-    export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-    export PUPPETEER_EXECUTABLE_PATH=${firefox}/bin/firefox
+    substituteInPlace src/utils.py \
+      --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${chromedriver}/bin/chromedriver"'
   '';
 
-  postFixup = ''
-    wrapProgram "$out/bin/flaresolverr" \
-      --set-default PUPPETEER_PRODUCT "firefox" \
-      --set-default PUPPETEER_EXECUTABLE_PATH "${firefox}/bin/firefox"
+  installPhase = ''
+    mkdir -p $out/bin $out/opt
+    cp -r * $out/opt/
+
+    makeWrapper ${python}/bin/python $out/bin/flaresolverr \
+      --add-flags "$out/opt/src/flaresolverr.py" \
+      --prefix PATH : "${path}"
   '';
 
   meta = with lib; {

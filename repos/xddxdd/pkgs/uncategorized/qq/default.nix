@@ -1,6 +1,7 @@
 { stdenv
 , sources
 , autoPatchelfHook
+, wrapGAppsHook
 , makeWrapper
 , lib
   # Dependencies
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
   version = builtins.elemAt (lib.splitString "_" source.version) 1;
   inherit (source) src;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook makeWrapper ];
   buildInputs = libraries;
 
   unpackPhase = ''
@@ -68,7 +69,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "(HIGHLY EXPERIMENTAL) QQ beta edition";
+    description = "QQ for Linux";
     homepage = "https://im.qq.com/linuxqq/index.html";
     platforms = [ "x86_64-linux" "aarch64-linux" ];
     license = licenses.unfreeRedistributable;

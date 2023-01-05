@@ -213,13 +213,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v2.2.10";
+    version = "v3.0.0";
     src = fetchFromGitHub ({
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v2.2.10";
+      rev = "v3.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-AclyKkpc6HjHSg7sFeq2q/T22AkZFm12Yi6RacV+E0Y=";
+      sha256 = "sha256-OMo2zDTX1b2jpVTPXpqCfXvA+xDiRmXEJyPsE9i5i1E=";
     });
   };
   flasgger = {
@@ -335,13 +335,13 @@
   };
   linux-xanmod-unstable = {
     pname = "linux-xanmod-unstable";
-    version = "6.1.2-xanmod1";
+    version = "6.1.3-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.2-xanmod1";
+      rev = "6.1.3-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-yvY5j/QLxTJyE2b6QzqwNa3wCP9XrnA7fejZnGmolb4=";
+      sha256 = "sha256-YtkmbbFEfvww7yJ4MpLQ3M6QjbBXSU9Pjwu0Dq/dIcs=";
     });
   };
   nbfc-linux-lantian = {
@@ -406,13 +406,13 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "46e431b57f292765dae015c5c43bd34b4763b43b";
+    version = "5b3812e7566f778b943a2953ab6737f20a695c57";
     src = fetchFromGitHub ({
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "46e431b57f292765dae015c5c43bd34b4763b43b";
+      rev = "5b3812e7566f778b943a2953ab6737f20a695c57";
       fetchSubmodules = false;
-      sha256 = "sha256-f3HEctyJBwBXVMO0uwyFz5u218Yavi/hXYXfX34CFQQ=";
+      sha256 = "sha256-hByjfJhhE2Qvb8X57oAstjyVd2W4m6YhmxFv++PNfrk=";
     });
   };
   nginx-njs = {

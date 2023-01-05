@@ -88,7 +88,7 @@ Or, use variables from this repository in case I change them:
 |  | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | v1.2.0 | `drone-vault` | Drone plugin for integrating with the Vault secrets manager |
 |  | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 1356780d7d37ad5c44d3d25d2137be6120b8bf87 | `etherguard` | Layer2 version of wireguard with Floyd Warshall implement in go |
 |  | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | `fcitx5-breeze` | Fcitx5 theme to match KDE's Breeze style |
-|  | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v2.2.10 | `flaresolverr` | Proxy server to bypass Cloudflare protection |
+|  | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.0.0 | `flaresolverr` | Proxy server to bypass Cloudflare protection |
 |  | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | `flasgger` | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | `ftp-proxy` | ftp.proxy - FTP Proxy Server |
 |  | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | `genshin-checkin-helper` | More than check-in for Genshin Impact. |
@@ -119,7 +119,7 @@ Or, use variables from this repository in case I change them:
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
 |  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-1 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
-|  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | (HIGHLY EXPERIMENTAL) QQ beta edition |
+|  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | QQ for Linux |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
 |  | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | `rime-dict` | RIME 词库增强 |
@@ -189,10 +189,10 @@ Or, use variables from this repository in case I change them:
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
 |  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>
