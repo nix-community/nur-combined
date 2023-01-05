@@ -16,10 +16,16 @@ in {
         type = types.port;
         default = 9090;
       };
+      openFirewall = mkOption {
+        description = "Open port for cockpit";
+        type = types.bool;
+        default = false;
+      };
     };
   };
   config = mkIf cfg.enable {
     environment.pathsToLink = [ "/share/cockpit" ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
     environment.systemPackages = [ cfg.package ];
     systemd.slices.system-cockpithttps = { # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
       description = "Resource limits for all cockpit-ws-https@.service instances";

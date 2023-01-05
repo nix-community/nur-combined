@@ -30,6 +30,7 @@ in
   ;
 
   services.cockpit.enable = true;
+  services.cockpit.openFirewall = true;
 
   environment.systemPackages = with pkgs; [
     kubectl
