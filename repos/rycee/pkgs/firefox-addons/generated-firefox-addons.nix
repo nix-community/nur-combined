@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.8.3";
+      version = "2.9.9.5";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046136/bypass_paywalls_clean-2.9.8.3.xpi";
-      sha256 = "b7a437df936aeb498320b3e6cde9be0d3e4a7e595e00f5492f76ec680f942f48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050467/bypass_paywalls_clean-2.9.9.5.xpi";
+      sha256 = "f68fc75f450cbde01a742c63425e15a788eb879e4aa2c3dc700e50c79dcc29d5";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -477,10 +477,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.60";
+      version = "4.9.61";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021899/darkreader-4.9.60.xpi";
-      sha256 = "202eccf8088bd2842158f5fe4f4b751217a05b2f0ada02057c16314c174df01b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4051026/darkreader-4.9.61.xpi";
+      sha256 = "376a195a30de305c5e8afc5e6a365af5812c1219cac7d05c08459edf260bf3fb";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -588,10 +588,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.12.12";
+      version = "2022.12.27";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4042292/duckduckgo_for_firefox-2022.12.12.xpi";
-      sha256 = "fd9eff6a1945f16d7f3e7cf842a6aea35f72d1c4ef5f8db37ada04c74ef06c91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4049845/duckduckgo_for_firefox-2022.12.27.xpi";
+      sha256 = "0d6dbc849aea07f8f770c425ad0a7533022babcca7e7e32b02e5b1e7b88fe77d";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -788,10 +788,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.57";
+      version = "6.1.58";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4036916/flagfox-6.1.57.xpi";
-      sha256 = "d1298c878ffd801770b36b71f9c984a6acfabf48a76f2c7d11b07efd4c189207";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050556/flagfox-6.1.58.xpi";
+      sha256 = "52863ca6fe38ab9aaf1a3614e5d184db39aa27fefb9dd308fd8dc6f1fdad949e";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -891,10 +891,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20221227.225153";
+      version = "109.0buildid20230105.190654";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4049518/francais_language_pack-109.0buildid20221227.225153.xpi";
-      sha256 = "18d38d915e1aa8342bee54ceea61ed29baafebdbcd7149635318c6cb13c03d7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4052528/francais_language_pack-109.0buildid20230105.190654.xpi";
+      sha256 = "28a7d6279f43a65cb5c7ccb78edf523ac38eef9ed0185e3865c3494954bedb0f";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1626,10 +1626,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.13";
+      version = "11.4.14";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4033638/noscript-11.4.13.xpi";
-      sha256 = "078026ae894fe516ce9e61a1084d1b6dc883cd72c51027de342132141ca7f00d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050735/noscript-11.4.14.xpi";
+      sha256 = "14af6a3cbc269c045f2d950e1e4f7c29981b35a7abc61d2413f5bb8bd7311857";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -1673,10 +1673,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.7.0";
+      version = "7.7.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4018464/octotree-7.7.0.xpi";
-      sha256 = "e73730768caee30f15f9ea741b972b4812a74fa15ca230b847651b50a45f8c2a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4048617/octotree-7.7.1.xpi";
+      sha256 = "9e6fc05822c4247c132e39be785731e4ea72e87cfad5923080eb52c2e50ae8cc";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1700,10 +1700,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.16.0";
+      version = "6.15.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4041466/okta_browser_plugin-6.16.0.xpi";
-      sha256 = "64b8d960813bd0129c51801a953c3f335e7e979e33e47a8440eb84300ef8c25f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4030397/okta_browser_plugin-6.15.0.xpi";
+      sha256 = "bb52445703c8cf4c91a593da37d1b5250ef74125ef028b104792e52bbc747620";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1719,10 +1719,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.6.0";
+      version = "1.6.1";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3864522/old_reddit_redirect-1.6.0.xpi";
-      sha256 = "591420f13d2fed7802d71ab95a645ba0813741ee963428c4a548472a2efe48c2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4051311/old_reddit_redirect-1.6.1.xpi";
+      sha256 = "17f18ce82f060d7847cce9b6052631a9f2ec207d4500944ebc60b9d06a348aad";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -2183,10 +2183,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.3";
+      version = "28.4";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4041656/save_page_we-28.3.xpi";
-      sha256 = "e6a268e01295c8716a5abb9c6a22928199199bfb5a1e45f4fef746d4083544f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4049326/save_page_we-28.4.xpi";
+      sha256 = "65151295e4660ec503558106600449151941a176cb74cf1b1690e1387f590cfe";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2858,10 +2858,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.64.6";
+      version = "1.67.6";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/2985278/vimium_ff-1.64.6.xpi";
-      sha256 = "7044bd3983e541faf2e56c117048fdc281c4c52e4196472fc4f9e4af42c5e1da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046008/vimium_ff-1.67.6.xpi";
+      sha256 = "e8d6c98842bd7221d62d1079e4153e3e0d20c5ca5412316dd71cb5c3bdb7d457";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
@@ -2886,10 +2886,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.3";
+      version = "2.13.5";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015933/violentmonkey-2.13.3.xpi";
-      sha256 = "1dbbf2ebbddd13d27acc0248a5bcc8b7e3e4a52988a85b0c26a317fd230cea81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050539/violentmonkey-2.13.5.xpi";
+      sha256 = "219080699af452a1de3d01f0adbbb6c9cebf789a956ab18422a708cf1d3b73f8";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -2942,10 +2942,10 @@
       };
     "wayback-machine" = buildFirefoxXpiAddon {
       pname = "wayback-machine";
-      version = "3.1";
+      version = "3.2";
       addonId = "wayback_machine@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3936135/wayback_machine_new-3.1.xpi";
-      sha256 = "69df7d023f7afb477f6ac9b5572a31adacf6b6f6c9148ce272911cfd69189cdb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4047136/wayback_machine_new-3.2.xpi";
+      sha256 = "75da413fee7c28e22ed61380f959888ec80c14e2a38f7b6f9d622f8a4ea853e4";
       meta = with lib;
       {
         homepage = "https://archive.org";
@@ -2956,10 +2956,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.82.2";
+      version = "2.85.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4042318/web_scrobbler-2.82.2.xpi";
-      sha256 = "93fb3a05bb7d7df585ae56f2f725bd032ad1e89cb9e80a3f55592c3bde26f89c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050634/web_scrobbler-2.85.0.xpi";
+      sha256 = "fd9fcbb3bf04046571b3875a97471fc13fe457da5d08502c29a8fe07bf1d0abe";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
@@ -3012,10 +3012,10 @@
       };
     "youtube-recommended-videos" = buildFirefoxXpiAddon {
       pname = "youtube-recommended-videos";
-      version = "1.6.1";
+      version = "1.6.2";
       addonId = "myallychou@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3936215/youtube_recommended_videos-1.6.1.xpi";
-      sha256 = "04b3f707401e88efcb5cd25604a8c719b2fdcccf36cac3f1ed521a0746494d81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050795/youtube_recommended_videos-1.6.2.xpi";
+      sha256 = "c4cba094d6acb196fd5aa8df10683a59eba1300091b98a90a2bfa25f574476c1";
       meta = with lib;
       {
         homepage = "https://unhook.app";
