@@ -17,7 +17,7 @@
       delegate_to: 127.0.0.1
 
     - name: Do the build
-      ansible.builtin.shell: "nix build {{ nix_build_ref }} -o {{ nix_build_result }}/result -L 2>&1 > {{ nix_build_result }}/log.txt"
+      ansible.builtin.shell: "nix build {{ nix_build_ref }} -o {{ nix_build_result }}/result -L 2>&1 > {{ nix_build_result }}/log.txt {% if nix_impure is defined %}--impure{% endif %}"
       delegate_to: 127.0.0.1
 
     - name: Get Nix build component path

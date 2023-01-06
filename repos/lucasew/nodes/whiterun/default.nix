@@ -1,11 +1,10 @@
-{self, global, pkgs, config, lib, ...}:
+{self, global, pkgs, config, lib, ...}@args:
 let
   inherit (self) inputs;
   inherit (global) username;
   hostname = "whiterun";
 in {
   imports = [
-    ../../modules/cockpit
     ../gui-common
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -18,6 +17,7 @@ in {
     ./transmission.nix
   ];
   services.cockpit.enable = true;
+  services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
   boot = {
     supportedFilesystems = [ "ntfs" ];
     loader = {

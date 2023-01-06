@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{self, global, pkgs, config, lib, ... }:
+{self, global, pkgs, config, lib, ... }@args:
 let
   inherit (self) inputs;
   inherit (global) username;
@@ -11,7 +11,6 @@ in
 {
   imports =
     [
-      ../../modules/cockpit
       ../gui-common
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -30,6 +29,7 @@ in
   ;
 
   services.cockpit.enable = true;
+  services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
 
   environment.systemPackages = with pkgs; [
     kubectl
