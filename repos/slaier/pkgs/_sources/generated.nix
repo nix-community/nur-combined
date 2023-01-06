@@ -33,10 +33,10 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.11.1169.619a61fcfde";
+    version = "22.11.1421.e9ade2c8240";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.1169.619a61fcfde/nixexprs.tar.xz";
-      sha256 = "sha256-S/BPHfoJzWyTBitfZ8yemwfNsM2fCwLsE41D0wVgVnQ=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.1421.e9ade2c8240/nixexprs.tar.xz";
+      sha256 = "sha256-ZWPUOpDxQhaQxLzNMYzSuIjAInqqEAyF+Yy/TYHJ+YY=";
     };
   };
   remote-containers = {
@@ -55,13 +55,13 @@
   };
   ubootPhicommN1 = {
     pname = "ubootPhicommN1";
-    version = "c28871d15a1a45cd6eb29aba1f7f4c8a0bbb6418";
+    version = "83038e36425f1748d355ea56a0be1168b46aa7c4";
     src = fetchFromGitHub ({
       owner = "cattyhouse";
       repo = "new-uboot-for-N1";
-      rev = "c28871d15a1a45cd6eb29aba1f7f4c8a0bbb6418";
+      rev = "83038e36425f1748d355ea56a0be1168b46aa7c4";
       fetchSubmodules = false;
-      sha256 = "sha256-bJjzK8FsUoi8w0ye1jviptXMG/AiL2YPwLPUoqIv7Nk=";
+      sha256 = "sha256-vsyF5fbzMtl8A3NRzNn5GHlvj+/oxmlQbQ4tUJEatmo=";
     });
   };
   yacd = {

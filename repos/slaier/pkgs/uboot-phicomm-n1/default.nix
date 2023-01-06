@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     mkdir -p $out
-    cp emmc_autoscript s905_autoscript u-boot.emmc u-boot.ext $out
+    cp emmc_autoscript s905_autoscript uboot $out
     runHook postInstall
   '';
 
