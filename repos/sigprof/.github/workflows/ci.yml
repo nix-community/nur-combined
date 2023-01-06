@@ -41,7 +41,7 @@ env:
   NUR_REPO: sigprof
 
   nur_systems: x86_64-linux x86_64-darwin
-  nur_channels: nixpkgs-unstable nixos-unstable nixos-22.05 nixos-21.11
+  nur_channels: nixpkgs-unstable nixos-unstable nixos-22.11 nixos-22.05 nixos-21.11
   nur_main_channel: nixos-22.05
 
   NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}

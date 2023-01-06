@@ -14,7 +14,7 @@ defaults:
 env:
   CACHIX_NAME: sigprof
 
-  nur_channels: nixpkgs-unstable nixos-unstable nixos-22.05 nixos-21.11
+  nur_channels: nixpkgs-unstable nixos-unstable nixos-22.11 nixos-22.05 nixos-21.11
 
   NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
