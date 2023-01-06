@@ -24,6 +24,7 @@ in {
       "iscan-v370-bundle"
       "iscan-gt-x820-bundle"
       "iscan-gt-x770-bundle"
+      "iscan-gt-x750-bundle"
       "iscan-data"
     ];
   };
