@@ -5,6 +5,7 @@ let
   hostname = "whiterun";
 in {
   imports = [
+    ../../modules/cockpit
     ../gui-common
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -16,6 +17,7 @@ in {
     ./rocm-gambiarra.nix
     ./transmission.nix
   ];
+  services.cockpit.enable = true;
   boot = {
     supportedFilesystems = [ "ntfs" ];
     loader = {

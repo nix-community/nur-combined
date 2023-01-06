@@ -7,7 +7,7 @@
 
     - import_tasks: tasks/nix-build.yaml
       vars:
-        nix_build_ref: ".#nixosConfigurations.{{ ansible_facts['hostname'] }}.config.system.build.toplevel"
+        nix_build_ref: "{{ playbook_dir }}/..#nixosConfigurations.{{ ansible_facts['hostname'] }}.config.system.build.toplevel"
       when: ansible_facts['os_family'] == "NixOS"
 
     - import_tasks: tasks/ssh-hostport.yaml

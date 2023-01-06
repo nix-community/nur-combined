@@ -11,6 +11,7 @@ in
 {
   imports =
     [
+      ../../modules/cockpit
       ../gui-common
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -25,12 +26,10 @@ in
       ./backup-saves.nix
       ./plymouth.nix
       ./remote-build.nix
-      ./cockpit.nix
     ]
   ;
 
   services.cockpit.enable = true;
-  services.cockpit.openFirewall = true;
 
   environment.systemPackages = with pkgs; [
     kubectl
