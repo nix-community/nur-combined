@@ -1,9 +1,9 @@
 {
   "url": "https://github.com/drone-runners/drone-runner-docker",
-  "rev": "e57a6d22e316b1b1f2e1a68ab8de00699891a66d",
-  "date": "2022-11-17T15:32:11+00:00",
-  "path": "/nix/store/1h251xcgflrivfbs4257589m2d8lcns8-drone-runner-docker",
-  "sha256": "0vzry8h181lks3kz84gbgz6nmvrrzqvnk0yg27xnwnihbb9l2g8g",
+  "rev": "e806245e691d7dc6ea59573afa104ba10b1e42a7",
+  "date": "2023-01-04T17:15:13+00:00",
+  "path": "/nix/store/zmhl3sl9ak12shxbgv4qx8qa1p1k69qr-drone-runner-docker",
+  "sha256": "0iz280lnvnq6xm7h63licd2j14d6xh2g1bxppykxzd33nhrnjhm1",
   "fetchLFS": false,
   "fetchSubmodules": false,
   "deepClone": false,
