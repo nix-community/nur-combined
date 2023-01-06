@@ -1057,13 +1057,13 @@ let
         sha512 = "dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==";
       };
     };
-    "node-gyp-build-4.5.0" = {
+    "node-gyp-build-4.6.0" = {
       name = "node-gyp-build";
       packageName = "node-gyp-build";
-      version = "4.5.0";
+      version = "4.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.5.0.tgz";
-        sha512 = "2iGbaQBV+ITgCz76ZEjmhUKAKVf7xfY1sRl4UiKQspfZMH2h06SyhNsnSVy50cwkFQDGLyif6m/6uFXHkOZ6rg==";
+        url = "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.6.0.tgz";
+        sha512 = "NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==";
       };
     };
     "normalize-path-3.0.0" = {
@@ -1828,7 +1828,7 @@ in
       sources."mkdirp-classic-0.5.3"
       sources."ms-2.1.2"
       sources."node-fetch-2.6.7"
-      sources."node-gyp-build-4.5.0"
+      sources."node-gyp-build-4.6.0"
       sources."normalize-path-3.0.0"
       sources."number-is-nan-1.0.1"
       sources."object-assign-4.1.1"
