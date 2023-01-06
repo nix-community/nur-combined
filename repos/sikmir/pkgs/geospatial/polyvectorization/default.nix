@@ -36,5 +36,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     mainProgram = "polyvector_thing";
     skip.ci = stdenv.isDarwin;
+    broken = true;
   };
 }
