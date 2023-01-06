@@ -473,10 +473,10 @@
         "homepage": null,
         "owner": "ibhagwan",
         "repo": "fzf-lua",
-        "rev": "7bb05a75eb04d3b7b74df0698a146c62877fc456",
-        "sha256": "17c7jajz6cbwwrw0gvddj643kls9bq70s3daha0ih95bkw5jcaha",
+        "rev": "a5cf6e1debc9805f25443fab9cb0684c2507341e",
+        "sha256": "1x8bb2pkp4dcr3jvhkbcblgxg7h2siv63iqv2hzdk5klrgmajqh9",
         "type": "tarball",
-        "url": "https://github.com/ibhagwan/fzf-lua/archive/7bb05a75eb04d3b7b74df0698a146c62877fc456.tar.gz",
+        "url": "https://github.com/ibhagwan/fzf-lua/archive/a5cf6e1debc9805f25443fab9cb0684c2507341e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "galaxyline.nvim": {
@@ -857,10 +857,10 @@
         "homepage": "",
         "owner": "EdenEast",
         "repo": "nightfox.nvim",
-        "rev": "98b61ee6421def0999896e0bc7dd5df1922e6b63",
-        "sha256": "08mihh0zv89d4v1q3rg2f6psgzj5x7s1c4j3qyl3fvi17745s0d8",
+        "rev": "333625ced9d42bbc9c1db812dd844cd35ce3fa62",
+        "sha256": "05ka3g5kxqqsgfjlxs3nv152f48616zyl7hm3p9axrni1ajghvzd",
         "type": "tarball",
-        "url": "https://github.com/EdenEast/nightfox.nvim/archive/98b61ee6421def0999896e0bc7dd5df1922e6b63.tar.gz",
+        "url": "https://github.com/EdenEast/nightfox.nvim/archive/333625ced9d42bbc9c1db812dd844cd35ce3fa62.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nim.nvim": {
@@ -977,10 +977,10 @@
         "homepage": "",
         "owner": "hrsh7th",
         "repo": "nvim-cmp",
-        "rev": "c49ad26e894e137e401b1d294948c46327877eaf",
-        "sha256": "18igmvp5ggyrll3mafggg6fj00a0m4g2cmixgj9z0iha5r37wyia",
+        "rev": "4748ea5a5a09681e2cb94d86713a34b97452746d",
+        "sha256": "12kglxmfxcr8254c90hdfjzzqgrpq774w038dncw2z52jy2j6jdi",
         "type": "tarball",
-        "url": "https://github.com/hrsh7th/nvim-cmp/archive/c49ad26e894e137e401b1d294948c46327877eaf.tar.gz",
+        "url": "https://github.com/hrsh7th/nvim-cmp/archive/4748ea5a5a09681e2cb94d86713a34b97452746d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-colorizer.lua": {
