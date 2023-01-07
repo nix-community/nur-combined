@@ -15,6 +15,7 @@
   dyre,
   either,
   enclosed-exceptions,
+  fetchgit,
   filepath,
   gi-cairo,
   gi-cairo-connector,
@@ -70,7 +71,12 @@
 mkDerivation {
   pname = "taffybar";
   version = "4.0.0";
-  src = ./.;
+  src = fetchgit {
+    url = "https://github.com/taffybar/taffybar";
+    sha256 = "1h4n7fwxrcwn5qvnnpwgh3azzc3d40xjaxr6xd0563hmxmgajrz7";
+    rev = "253c10fc2af08d3d9eab9ca2362f4dce05c58554";
+    fetchSubmodules = true;
+  };
   isLibrary = true;
   isExecutable = true;
   enableSeparateDataOutput = true;

@@ -7,18 +7,26 @@
 }: let
   callHaskellPackage = pkg: {
     compiler ? "ghc902",
+    tagged ? false,
     attrs ? {},
   }:
     (pkgs.haskell.packages.${compiler}.callPackage pkg {}).overrideAttrs (oldAttrs: (
-      {
-        inherit (sources.${pkgs.lib.removeSuffix ".nix" (builtins.baseNameOf pkg)}) pname version src;
-      }
-      // attrs
+      let
+        source = sources.${pkgs.lib.removeSuffix ".nix" (builtins.baseNameOf pkg)};
+      in
+        {
+          inherit (source) pname src;
+          version =
+            if tagged
+            then source.version
+            else source.date;
+        }
+        // attrs
     ));
 in {
   taffybar = callHaskellPackage ./taffybar.nix {
+    compiler = "ghc924";
     attrs = {
-      meta.broken = true;
       nativeBuildInputs = with pkgs; [
         gcc
         pkg-config
