@@ -10,34 +10,13 @@
 
 with pkgs;
 
+let
+  nurPkgs = pkgs.callPackage ./pkgs { }; # nixpkgs packages
+
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  aws-cdk-local = callPackage ./pkgs/aws-cdk-local { };
-
-  awscli-local = callPackage ./pkgs/awscli-local { };
-
-  shadow-prod = callPackage ./pkgs/shadow-client {
-    channel = "prod";
-    enableDiagnostics = true;
-    enableDesktopLauncher = true;
-  };
-
-  shadow-preprod = callPackage ./pkgs/shadow-client {
-    channel = "preprod";
-    enableDiagnostics = true;
-    enableDesktopLauncher = true;
-  };
-
-  shadow-testing = callPackage ./pkgs/shadow-client {
-    channel = "testing";
-    enableDiagnostics = true;
-    enableDesktopLauncher = true;
-  };
-
-  terraform-local = callPackage ./pkgs/terraform-local { };
-
-}
+} // nurPkgs
