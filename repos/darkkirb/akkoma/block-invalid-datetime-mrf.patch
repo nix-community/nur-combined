@@ -1,0 +1,152 @@
+diff --git a/lib/pleroma/web/activity_pub/mrf/block-invalid-datetime.ex b/lib/pleroma/web/activity_pub/mrf/block-invalid-datetime.ex
+new file mode 100644
+index 000000000..114a0c112
+--- /dev/null
++++ b/lib/pleroma/web/activity_pub/mrf/block_invalid_datetime.ex
+@@ -0,0 +1,51 @@
++defmodule Pleroma.Web.ActivityPub.MRF.BlockInvalidDatetime do
++  alias Pleroma.Web.CommonAPI
++  alias Pleroma.User
++
++  @moduledoc "Reports posts which have invalid datetime"
++
++  @behaviour Pleroma.Web.ActivityPub.MRF.Policy
++
++  def invalid_publish_date?(dt) do
++    # Only support publish dates back to 1583; ISO8601  only officially supports dates this far back
++    # And not past 9999 this may also cause issues lol
++    dt |> DateTime.compare(~U[1583-01-01 00:00:00Z]) == :lt ||
++      dt |> DateTime.compare(~U[9999-12-31 23:59:59Z]) == :gt
++  end
++
++  @impl true
++  def filter(%{"published" => publish_ts, "actor" => actor} = message) do
++    is_valid =
++      case DateTime.from_iso8601(publish_ts) do
++        {:ok, dt, _} -> not invalid_publish_date?(dt)
++        {:error, _} -> false
++      end
++
++    message =
++      if not is_valid do
++        admin_user = User.get_cached_by_ap_id("https://akko.chir.rs/users/charlotte")
++        actor = User.get_cached_by_ap_id(actor)
++
++        if admin_user != nil && actor != nil do
++          # File a report
++          CommonAPI.report(admin_user, %{
++            :account_id => actor.id,
++            :comment =>
++              "Received potentially dangerous forged publish date in message: \n" <>
++                inspect(message)
++          })
++        end
++
++        # “fix” the publish date
++        {:ok, message |> Map.put("published", "1583-01-01T00:00:00Z")}
++      else
++        {:ok, message}
++      end
++  end
++
++  @impl true
++  def filter(message), do: {:ok, message}
++
++  @impl true
++  def describe, do: {:ok, %{}}
++end
+diff --git a/test/pleroma/web/activity_pub/mrf/block_invalid_datetime_test.exs b/test/pleroma/web/activity_pub/mrf/block_invalid_datetime_test.exs
+new file mode 100644
+index 000000000..a079cb624
+--- /dev/null
++++ b/test/pleroma/web/activity_pub/mrf/block_invalid_datetime_test.exs
+@@ -0,0 +1,89 @@
++defmodule Pleroma.Web.ActivityPub.MRF.BlockInvalidDatetimeTest do
++  alias Pleroma.Web.ActivityPub.MRF.BlockInvalidDatetime
++  use Pleroma.DataCase
++
++  test "doesn’t mangle post regular dates" do
++    originalPublished = "1970-01-01T00:00:00Z"
++
++    activity = %{
++      "type" => "Create",
++      "published" => originalPublished,
++      "actor" => "https://example.com/users/alex",
++      "object" => %{
++        "type" => "Note",
++        "content" => "<p>Nice post</p>"
++      }
++    }
++
++    {:ok, %{"published" => published}} = BlockInvalidDatetime.filter(activity)
++    assert published == originalPublished
++  end
++
++  test "mangles forged past post dates" do
++    originalPublished = "621-01-01T00:00:00Z"
++
++    activity = %{
++      "type" => "Create",
++      "published" => originalPublished,
++      "actor" => "https://example.com/users/alex",
++      "object" => %{
++        "type" => "Note",
++        "content" => "<p>Nice post</p>"
++      }
++    }
++
++    {:ok, %{"published" => published}} = BlockInvalidDatetime.filter(activity)
++    assert published != originalPublished
++  end
++
++  test "mangles forged BCE post dates" do
++    originalPublished = "-621-01-01T00:00:00Z"
++
++    activity = %{
++      "type" => "Create",
++      "published" => originalPublished,
++      "actor" => "https://example.com/users/alex",
++      "object" => %{
++        "type" => "Note",
++        "content" => "<p>Nice post</p>"
++      }
++    }
++
++    {:ok, %{"published" => published}} = BlockInvalidDatetime.filter(activity)
++    assert published != originalPublished
++  end
++
++  test "mangles forged post-y10k post dates" do
++    originalPublished = "10000-01-01T00:00:00Z"
++
++    activity = %{
++      "type" => "Create",
++      "published" => originalPublished,
++      "actor" => "https://example.com/users/alex",
++      "object" => %{
++        "type" => "Note",
++        "content" => "<p>Nice post</p>"
++      }
++    }
++
++    {:ok, %{"published" => published}} = BlockInvalidDatetime.filter(activity)
++    assert published != originalPublished
++  end
++
++  test "mangles invalid post dates" do
++    originalPublished = "owo what’s this"
++
++    activity = %{
++      "type" => "Create",
++      "published" => originalPublished,
++      "actor" => "https://example.com/users/alex",
++      "object" => %{
++        "type" => "Note",
++        "content" => "<p>Nice post</p>"
++      }
++    }
++
++    {:ok, %{"published" => published}} = BlockInvalidDatetime.filter(activity)
++    assert published != originalPublished
++  end
++end

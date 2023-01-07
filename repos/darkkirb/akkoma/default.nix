@@ -20,7 +20,12 @@
       repo = "akkoma";
       inherit (source) rev sha256;
     };
-    patches = [./akkoma.patch ./jxl-polyfill.patch];
+    patches = [
+      ./akkoma.patch
+      ./jxl-polyfill.patch
+      ./block-invalid-datetime-mrf.patch
+      ./require-image-description.patch
+    ];
   };
 in
   beamPackages.mixRelease rec {
