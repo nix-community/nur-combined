@@ -1,0 +1,25 @@
+Enable the perl tests to search for STSupport in the local directory.
+diff --git a/tests/st_embparameters.pl b/tests/st_embparameters.pl
+index 33bdd2d..f24a924 100755
+--- a/tests/st_embparameters.pl
++++ b/tests/st_embparameters.pl
+@@ -1,4 +1,7 @@
+ #!/usr/bin/perl -w
++
++use File::Basename;
++use lib dirname (__FILE__);
+ use STSupport;
+ 
+ use constant EMPTY => {e => "none", Z => "", K => "", "-check" => ""} ;
+diff --git a/tests/st_fileformats.pl b/tests/st_fileformats.pl
+index d7269aa..c831ab8 100755
+--- a/tests/st_fileformats.pl
++++ b/tests/st_fileformats.pl
+@@ -1,4 +1,7 @@
+ #!/usr/bin/perl -w
++
++use File::Basename;
++use lib dirname (__FILE__);
+ use STSupport;
+ 
+ use constant EMPTY => {e => "none", Z => "", K => "", "-check" => ""} ;

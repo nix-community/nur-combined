@@ -1,0 +1,60 @@
+diff -Naur steghide-0.5.1.orig/src/Arguments.h steghide-0.5.1/src/Arguments.h
+--- steghide-0.5.1.orig/src/Arguments.h	2003-10-11 23:23:57.000000000 +0200
++++ steghide-0.5.1/src/Arguments.h	2017-03-02 08:16:05.902197389 +0100
+@@ -100,7 +100,7 @@
+ 	static const VERBOSITY	Default_Verbosity = NORMAL ;
+ 	static const unsigned long	Default_Radius = 0 ; // there is no default radius for all file formats
+ 	static const unsigned int	Max_Algorithm = 3 ;
+-	static const float		Default_Goal = 100.0 ;
++	static constexpr float		Default_Goal = 100.0 ;
+ 	static const DEBUGCOMMAND	Default_DebugCommand = NONE ;
+ 	static const bool		Default_Check = false ;
+ 	static const unsigned int	Default_DebugLevel = 0 ;
+diff -Naur steghide-0.5.1.orig/src/ProgressOutput.h steghide-0.5.1/src/ProgressOutput.h
+--- steghide-0.5.1.orig/src/ProgressOutput.h	2003-09-28 17:30:30.000000000 +0200
++++ steghide-0.5.1/src/ProgressOutput.h	2017-03-02 08:25:15.943377422 +0100
+@@ -64,7 +64,7 @@
+ 	 **/
+ 	void done (float rate, float avgweight = NoAvgWeight) const ;
+ 
+-	static const float NoAvgWeight = -1.0 ;
++	static constexpr float NoAvgWeight = -1.0 ;
+ 
+ 	protected:
+ 	std::string vcompose (const char *msgfmt, va_list ap) const ;
+diff -Naur steghide-0.5.1.orig/src/wrapper_hash_map.h steghide-0.5.1/src/wrapper_hash_map.h
+--- steghide-0.5.1.orig/src/wrapper_hash_map.h	2003-09-28 17:30:30.000000000 +0200
++++ steghide-0.5.1/src/wrapper_hash_map.h	2017-03-02 08:15:30.224510028 +0100
+@@ -29,7 +29,7 @@
+     namespace sgi { using ::hash ; using ::hash_map ; } ;
+ # else
+ #  include <ext/hash_map>
+-#  if __GNUC_MINOR__ == 0
++#  if ((__GNUC__ == 3) && (__GNUC_MINOR__ == 0))
+     namespace sgi = std ;			// GCC 3.0
+ #  else
+     namespace sgi = __gnu_cxx ;	// GCC 3.1 and later
+diff -Naur steghide-0.5.1.orig/src/wrapper_hash_set.h steghide-0.5.1/src/wrapper_hash_set.h
+--- steghide-0.5.1.orig/src/wrapper_hash_set.h	2003-09-28 17:30:30.000000000 +0200
++++ steghide-0.5.1/src/wrapper_hash_set.h	2017-03-02 08:22:38.186759832 +0100
+@@ -30,7 +30,7 @@
+     namespace sgi { using ::hash ; using ::hash_set ; } ;
+ # else
+ #  include <ext/hash_set>
+-#  if __GNUC_MINOR__ == 0
++#  if ((__GNUC__ == 3) && (__GNUC_MINOR__ == 0))
+     namespace sgi = std ;			// GCC 3.0
+ #  else
+     namespace sgi = ::__gnu_cxx ;	// GCC 3.1 and later
+--- steghide-0.5.1.orig/src/EncryptionAlgorithm.h	2003-09-28 17:30:30.000000000 +0200
++++ steghide-0.5.1/src/EncryptionAlgorithm.h	2017-03-02 09:04:45.402485082 +0100
+@@ -96,7 +96,7 @@
+ 
+ 	typedef struct struct_Translation {
+ 		IRep	irep ;
+-		char*	srep ;
++		const char*	srep ;
+ 	} Translation ;
+ 	static const Translation Translations[] ;
+ } ;
+

@@ -1,0 +1,39 @@
+diff -up steghide-0.5.1/src/Graph.cc.gcc43 steghide-0.5.1/src/Graph.cc
+--- steghide-0.5.1/src/Graph.cc.gcc43	2003-10-11 23:54:26.000000000 +0200
++++ steghide-0.5.1/src/Graph.cc	2008-01-17 17:05:36.000000000 +0100
+@@ -23,6 +23,8 @@
+ #include <map>
+ #include <vector>
+ 
++#include <climits>
++
+ #include "BitString.h"
+ #include "CvrStgFile.h"
+ #include "Edge.h"
+diff -up steghide-0.5.1/Makefile.am.gcc43 steghide-0.5.1/Makefile.am
+--- steghide-0.5.1/Makefile.am.gcc43	2003-10-13 10:43:08.000000000 +0200
++++ steghide-0.5.1/Makefile.am	2008-01-17 17:05:36.000000000 +0100
+@@ -1,4 +1,5 @@
+-AUTOMAKE_OPTIONS = dist-bzip2 dist-zip
++LIBTOOL = --tag=CXX
++AUTOMAKE_OPTIONS = dist-bzip2 dist-zip foreign
+ SUBDIRS = m4 intl po doc src tests
+ docdir = $(prefix)/share/doc/$(PACKAGE)
+ EXTRA_DIST = config.rpath mkinstalldirs  ABOUT-NLS BUGS CREDITS HISTORY LEAME depcomp
+diff -up steghide-0.5.1/configure.in.gcc43 steghide-0.5.1/configure.in
+--- steghide-0.5.1/configure.in.gcc43	2003-10-15 09:48:52.000000000 +0200
++++ steghide-0.5.1/configure.in	2008-01-17 17:08:52.000000000 +0100
+@@ -9,10 +9,12 @@ AC_PROG_CXX
+ AC_PROG_INSTALL
+ AC_PROG_AWK
+ AC_PROG_LN_S
++AM_PROG_LIBTOOL
+ 
+ dnl GNU gettext
+ AC_CHECK_FUNCS(strchr)
+ AM_GNU_GETTEXT
++AM_GNU_GETTEXT_VERSION
+ AM_CONDITIONAL(USE_INTLDIR, test "$nls_cv_use_gnu_gettext" = yes)
+ 
+ dnl check if debugging support is requested
+
