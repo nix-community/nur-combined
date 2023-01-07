@@ -72,7 +72,7 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    system.activationScripts.clash.text = ''
+    system.activationScripts.clash = stringAfter [ "users" ] ''
       mkdir -p /etc/clash
       chown -R clash:clash /etc/clash
     '';
