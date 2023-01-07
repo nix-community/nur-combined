@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mdspan";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "kokkos";
     repo = "mdspan";
-    rev = "760060059fb746018a9849234e02dc9bf003861b";
-    sha256 = "sha256-arGVZLFVT7NvYQlyGP+tAacY9w3C5dHlMzjDSjVQuVw=";
+    rev = "${pname}-${version}";
+    sha256 = "sha256-sYXgUaQZfG7kBZtD2ABkTveiknB8Y07U3BZE+8QD8pQ=";
   };
 
   nativeBuildInputs = [ cmake ];
