@@ -99,10 +99,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.1.5";
+      version = "2.1.6";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4031317/anonaddy-2.1.5.xpi";
-      sha256 = "aa0d1c4617ef8705381530bcc97b74dc58a146ac4673b5804511d02771ea53c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4052970/anonaddy-2.1.6.xpi";
+      sha256 = "ea1ac148788c3f3dd1756371e2ff1ca01d1b0fdd50a0bbb3454dfbc70fa0e42e";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -1364,10 +1364,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.43";
+      version = "2.6.44";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4041581/localcdn_fork_of_decentraleyes-2.6.43.xpi";
-      sha256 = "3b49fae3f2cb6f02acb42f606b60ea3f9d7fba92eea3944691d35c5402e18824";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4052425/localcdn_fork_of_decentraleyes-2.6.44.xpi";
+      sha256 = "43bd487bb972be53fa9efd58d4cbfddea6831017a327a770f556df987b3ac5b4";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2893,7 +2893,7 @@
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
-        description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\">https://github.com/violentmonkey/violentmonkey</a>";
+        description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\" rel=\"nofollow\">https://github.com/violentmonkey/violentmonkey</a>";
         license = licenses.mit;
         platforms = platforms.all;
         };
