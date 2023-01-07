@@ -20,8 +20,6 @@ with pkgs;
 
   awscli-local = callPackage ./pkgs/awscli-local { };
 
-  bundler = callPackage ./pkgs/bundler { };
-
   shadow-prod = callPackage ./pkgs/shadow-client {
     channel = "prod";
     enableDiagnostics = true;
