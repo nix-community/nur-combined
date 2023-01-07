@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "@eslint/eslintrc-1.4.0" = {
+    "@eslint/eslintrc-1.4.1" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "1.4.0";
+      version = "1.4.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.4.0.tgz";
-        sha512 = "7yfvXy6MWLgWSFsLhz5yH3iQ52St8cdUY6FoGieKkRDVxuxmrNuUetIuu6cmjNWwniUHiWXjxCr5tTXDrbYS5A==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-1.4.1.tgz";
+        sha512 = "XXrH9Uarn0stsyldqDYq8r++mROmWRI1xKMXa640Bb//SY1+ECYX6VzT6Lcx5frD0V30XieqJ0oX9I2Xj5aoMA==";
       };
     };
     "@humanwhocodes/config-array-0.11.8" = {
@@ -337,13 +337,13 @@ let
         sha512 = "DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==";
       };
     };
-    "fastq-1.14.0" = {
+    "fastq-1.15.0" = {
       name = "fastq";
       packageName = "fastq";
-      version = "1.14.0";
+      version = "1.15.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/fastq/-/fastq-1.14.0.tgz";
-        sha512 = "eR2D+V9/ExcbF9ls441yIuN6TI2ED1Y2ZcA5BmMtJsOkWOFRJQ0Jt0g1UwqXJJVAb+V+umH5Dfr8oh4EVP7VVg==";
+        url = "https://registry.npmjs.org/fastq/-/fastq-1.15.0.tgz";
+        sha512 = "wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==";
       };
     };
     "file-entry-cache-6.0.1" = {
@@ -872,10 +872,10 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.30.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.30.0.tgz"; sha1 = "83a506125d089eef7c5b5910eeea824273a33f50"; };
+    version = "8.31.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.31.0.tgz"; sha1 = "75028e77cbcff102a9feae1d718135931532d524"; };
     dependencies = [
-      sources."@eslint/eslintrc-1.4.0"
+      sources."@eslint/eslintrc-1.4.1"
       sources."@humanwhocodes/config-array-0.11.8"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
@@ -915,7 +915,7 @@ let
       sources."fast-deep-equal-3.1.3"
       sources."fast-json-stable-stringify-2.1.0"
       sources."fast-levenshtein-2.0.6"
-      sources."fastq-1.14.0"
+      sources."fastq-1.15.0"
       sources."file-entry-cache-6.0.1"
       sources."find-up-5.0.0"
       sources."flat-cache-3.0.4"
