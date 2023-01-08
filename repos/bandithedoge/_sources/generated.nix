@@ -55,15 +55,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "668e18fddf11ea3071c92fa348b316366ffaf66a";
+    version = "2a8e68c5df402b882a7558ec8722eae6d3c3eeca";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "668e18fddf11ea3071c92fa348b316366ffaf66a";
+      rev = "2a8e68c5df402b882a7558ec8722eae6d3c3eeca";
       fetchSubmodules = false;
-      sha256 = "sha256-incgpe10DMRv7a/vpE7EIyxgkOOmKmXmlXtM1tE87xw=";
+      sha256 = "sha256-jt58RQZei+EjV4rQNE/GCo1Iiop1M8+6sIMQrqcqfmE=";
     };
-    date = "2022-12-14";
+    date = "2023-01-08";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -137,13 +137,13 @@
   };
   raze = {
     pname = "raze";
-    version = "1.6.1";
+    version = "1.6.2";
     src = fetchFromGitHub {
       owner = "ZDoom";
       repo = "Raze";
-      rev = "1.6.1";
+      rev = "1.6.2";
       fetchSubmodules = false;
-      sha256 = "sha256-9jd7A2yFcR3Oh8HqzxxKTSmZ83nTJ54F0MEopaEZT/Q=";
+      sha256 = "sha256-5EXU7mXhg9gvNvz13OCvzJHMb4VArYQj/6rTmzDK6uY=";
     };
   };
   slock-flexipatch = {
