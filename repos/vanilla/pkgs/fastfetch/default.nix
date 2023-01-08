@@ -1,37 +1,63 @@
-{ stdenv, fetchgit, cmake, pkg-config, pciutils, vulkan-loader, vulkan-headers, xorg, wayland, libffi, glib, pcre, libuuid, libselinux, libsepol, dconf, xfce, rpm, zstd, lib, ... }:
-stdenv.mkDerivation rec {
+{ clangStdenv
+, fetchgit
+, cmake
+, pkg-config
+, pciutils
+, vulkan-loader
+, libffi
+, wayland
+, xorg
+, glib
+, pcre2
+, util-linux
+, libselinux
+, libsepol
+, pcre
+, dconf
+, dbus
+, xfce
+, sqlite
+, zstd
+, rpm
+, imagemagick
+, imagemagick6
+, chafa
+, libglvnd
+, mesa
+, ocl-icd
+, opencl-headers
+, cjson
+, lib
+}:
+
+clangStdenv.mkDerivation rec {
   pname = "fastfetch";
-  version = "79bec5c";
+  version = "1.8.2";
 
   src = fetchgit {
     url = "https://github.com/LinusDierheimer/${pname}";
-    rev = "${version}2204ab9d4e166c4c58ccf67410d771253";
-    hash = "sha256-1SyR7xtg52mphpvxEMRGeIIKa8VfRnQbIjaB/x+BPrw=";
+    rev = "${version}";
+    hash = "sha256-Sh31zKkjcNRD5KyNUzbTHRitC/7e2TYKKtpTohGhTQc=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ pciutils vulkan-loader vulkan-headers ]
-    ++ (with xorg; [ libX11 libXau libXdmcp libXrandr libXext ])
-    ++ [ wayland libffi glib pcre libuuid libselinux libsepol ]
-    ++ [ dconf xfce.xfconf rpm zstd ];
 
-  # https://github.com/LinusDierheimer/fastfetch/blob/${src.rev}/CMakeLists.txt#L18
-  patches = [ ./no-execute-git.patch ];
+  buildInputs = [ pciutils ] ++ [ vulkan-loader libffi ] ++ [ wayland ]
+    ++ (with xorg; [ libxcb libXau libXdmcp ]) ++ (with xorg; [ libXrandr libXext ])
+    ++ [ glib ] ++ [ pcre2 util-linux libselinux libsepol pcre ] ++ [ dconf dbus xfce.xfconf ]
+    ++ [ sqlite zstd ] ++ [ rpm imagemagick imagemagick6 chafa libglvnd mesa ]
+    ++ [ ocl-icd opencl-headers cjson ];
 
-  # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fastfetch-git
-  installPhase = ''
-    install -D fastfetch $out/bin/fastfetch
-    install -D flashfetch $out/bin/flashfetch
-    install -D ${src}/completions/bash $out/share/bash-completion/completions/fastfetch
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-macro-redefined"
+    "-Wno-implicit-int-float-conversion"
+  ];
 
-    install -Dd $out/share/fastfetch/presets/
-    for file in ${src}/presets/*; do
-      install -D $file $out/share/fastfetch/presets/
-    done
-  '';
+  # https://github.com/LinusDierheimer/fastfetch/blob/1.8.2/CMakeLists.txt
+  cmakeFlags = [ "-DTARGET_DIR_ROOT=$out" "--no-warn-unused-cli" ];
 
   meta = with lib; {
-    description = "Like neofetch, but much faster because written in c. Only Linux. ";
+    description = "Like neofetch, but much faster because written in C. ";
     homepage = "https://github.com/LinusDierheimer/${pname}";
     license = licenses.mit;
     maintainers = [ maintainers.vanilla ];
