@@ -18,6 +18,7 @@
     };
     "/.snapshots".options = diskOptions;
   };
+  services.btrfs.autoScrub.enable = true;
   boot = {
     initrd = {
       luks.devices."root" = {

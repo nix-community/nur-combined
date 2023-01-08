@@ -3,19 +3,28 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  fileSystems = let
-    # Remember to remove noatime if using btrfs with home
-    btrfsDiskOptions = [ "defaults" "ssd" "compress=zstd" "noatime" "discard=async" "space_cache=v2" ];
-  in {
+  fileSystems = {
     "/".options = [ "defaults" "size=3G" "mode=755" ];
     "/persist".neededForBoot = true;
   };
-  # Needed by ZFS
-  # Enable when doing a nixos-install
+  # ZFS
+  # Uncomment when doing a nixos-install, comment after performing the first boot
   #boot.zfs.forceImportAll = true;
-  # Disable the previous one and enable this after first boot
+  # Comment when doing a nixos-install, uncomment after first boot
   boot.zfs.forceImportRoot = false;
   networking.hostId = "e416e925";
+  services.zfs = {
+    autoScrub.enable = true;
+    # https://docs.oracle.com/cd/E19120-01/open.solaris/817-2271/ghzuk/index.html
+    autoSnapshot = {
+      enable = true;
+      weekly = 5;
+    };
+    zed.settings = {
+      ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+      ZED_NOTIFY_VERBOSE = 1;
+    };
+  };
   boot = {
     initrd = {
       luks.devices = {

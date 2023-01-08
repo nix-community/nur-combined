@@ -25,7 +25,7 @@ in
             Enable ADB 
           '';
         };
-        adbuserGroupMembers = mkOption {
+        adbusersGroupMembers = mkOption {
           default = [];
           type = types.listOf types.str;
           description = ''

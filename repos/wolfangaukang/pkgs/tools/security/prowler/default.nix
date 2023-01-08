@@ -32,7 +32,6 @@ let
 
   py = python3.override {
     packageOverrides = self: super: {
-      azure-storage-blob = changeVersion super.azure-storage-blob.overridePythonAttrs "12.14.1" "sha256-hg1NgphaS/x9MnHnEnWvMw9U8zCnVDVUNae6dJzN6Zc=";
       botocore = changeVersion super.botocore.overridePythonAttrs "1.29.18" "sha256-JuhvzpUEn2zBi1YRkBVJlDxMIlIvqKO2smVAT2c5d7I=";
       boto3 = changeVersion super.boto3.overridePythonAttrs "1.26.17" "sha256-u0CpeI3SI0hRzdERDuwOP2s69rmCgJJPpEwlGZztVzc=";
 

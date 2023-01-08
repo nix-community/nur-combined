@@ -51,6 +51,6 @@
     };
   };
 
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_0;
   system.stateVersion = "21.05"; # Did you read the comment?
 }
-

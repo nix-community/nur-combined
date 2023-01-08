@@ -141,9 +141,12 @@
 
       outputsBuilder = channels:
         let pkgs = channels.nixpkgs;
-        inherit (pkgs) mkShell sops ssh-to-age;
+        inherit (pkgs) mkShell flac flacon shntool sops ssh-to-age;
         in {
-          devShells."sops-env" = mkShell { buildInputs = [ sops ssh-to-age ]; };
+          devShells = {
+            flac = mkShell { buildInputs = [ flacon flac shntool ]; };
+            sops-env = mkShell { buildInputs = [ sops ssh-to-age ]; };
+          };
         };
 
       # Common settings

@@ -76,36 +76,44 @@ in
         enable = true;
         package = bcfg.firefox.package;
         extensions = settings.firefox.extensions;
-        profiles = {
-          default = {
-            name = "Sandbox";
-            settings = lib.mkMerge [
-              settings.firefox.settings.common
-              settings.firefox.settings.sandbox
-            ];
-          };
-          personal = {
-            id = 1;
-            name = "Personal";
-            settings = lib.mkMerge [
-              settings.firefox.settings.common
-            ];
-          };
-          gnaujep = {
-            id = 2;
-            name = "Gnaujep";
-            settings = lib.mkMerge [
-              settings.firefox.settings.common
-            ];
-          };
-          j = {
-            id = 3;
-            name = "J";
-            settings = lib.mkMerge [
-              settings.firefox.settings.common
-            ];
-          };
-        };
+        profiles =
+          let
+            defaultEngine = "DuckDuckGo";
+          in
+            {
+              default = {
+                name = "Sandbox";
+                search.default = defaultEngine;
+                settings = lib.mkMerge [
+                  settings.firefox.settings.common
+                  settings.firefox.settings.sandbox
+                ];
+              };
+              personal = {
+                id = 1;
+                name = "Personal";
+                search.default = defaultEngine;
+                settings = lib.mkMerge [
+                  settings.firefox.settings.common
+                ];
+              };
+              gnaujep = {
+                id = 2;
+                name = "Gnaujep";
+                search.default = defaultEngine;
+                settings = lib.mkMerge [
+                  settings.firefox.settings.common
+                ];
+              };
+              j = {
+                id = 3;
+                name = "J";
+                search.default = defaultEngine;
+                settings = lib.mkMerge [
+                  settings.firefox.settings.common
+                ];
+              };
+            };
       };
     })
     (mkIf bcfg.chromium.enable {
