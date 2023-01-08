@@ -53,8 +53,8 @@ clangStdenv.mkDerivation rec {
     "-Wno-implicit-int-float-conversion"
   ];
 
-  # https://github.com/LinusDierheimer/fastfetch/blob/1.8.2/CMakeLists.txt
-  cmakeFlags = [ "-DTARGET_DIR_ROOT=$out" "--no-warn-unused-cli" ];
+  patches = [ ./no-install-config.patch ];
+  cmakeFlags = [ "--no-warn-unused-cli" ];
 
   meta = with lib; {
     description = "Like neofetch, but much faster because written in C. ";
