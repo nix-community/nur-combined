@@ -38,7 +38,7 @@ Build NUR:
     - |
       if [ "$CI_COMMIT_REF_NAME" = "master" ] ; then
         nix-build ci.nix -A cacheOutputs | cachix push rycee
-        curl -sfSL -XPOST https://nur-update.herokuapp.com/update?repo=rycee || true
+        curl -sfSL -XPOST https://nur-update.nix-community.org/update?repo=rycee || true
       else
         echo Not master
       fi
