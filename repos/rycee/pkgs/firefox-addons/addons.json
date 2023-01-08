@@ -773,6 +773,10 @@
     }
   },
   {
+    "slug": "tournesol-extension",
+    "pname": "tournesol"
+  },
+  {
     "slug": "traduzir-paginas-web",
     "pname": "translate-web-pages"
   },

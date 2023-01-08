@@ -2643,6 +2643,20 @@
         platforms = platforms.all;
         };
       };
+    "tournesol" = buildFirefoxXpiAddon {
+      pname = "tournesol";
+      version = "2.4.0";
+      addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4045051/tournesol_extension-2.4.0.xpi";
+      sha256 = "fe0ea807e2a2001e6963b4cabec1c3984aa625d2ab61171653ad461c1b492b4f";
+      meta = with lib;
+      {
+        homepage = "https://tournesol.app/";
+        description = "The extension facilitates using and contributing to the Tournesol project (https://tournesol.app).";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
       version = "9.6.1";
