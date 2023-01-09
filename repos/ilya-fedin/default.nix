@@ -79,7 +79,7 @@ in with pkgs; rec {
     pname = "ttf-croscore";
 
     installPhase = ''
-      install -m444 -Dt $out/share/fonts/truetype/croscore hinted/{Arimo,Cousine,Tinos}/*.ttf
+      install -m444 -Dt $out/share/fonts/truetype/croscore hinted/*/{Arimo,Cousine,Tinos}/*.ttf
     '';
 
     meta = oldAttrs.meta // {
