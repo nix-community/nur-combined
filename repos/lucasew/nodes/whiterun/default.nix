@@ -15,6 +15,7 @@ in {
     ./plymouth.nix
     ./rocm-gambiarra.nix
     ./transmission.nix
+    ./dlna.nix
   ];
   services.cockpit.enable = true;
   services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
