@@ -22,11 +22,11 @@ in {
         type = types.package;
         default = pkgs.swayimg;
         defaultText = literalExpression "pkgs.swayimg";
-        description = "Package providing <command>kickoff</command>.";
+        description = "Package providing <command>swayimg</command>.";
       };
 
       settings = mkOption {
-        type = tomlFormat.type;
+        type = iniFormat.type;
         default = {};
         description = ''
           Configuration written to
