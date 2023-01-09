@@ -1,8 +1,8 @@
-{ python3Packages, fetchgit, callPackage, lib, stdenv, ... }:
+{ python39Packages, fetchgit, callPackage, lib, stdenv, ... }:
 let onnxruntime = callPackage ./onnxruntime-py39.nix { }; in
 let imagehash = callPackage ./imagehash.nix { }; in
 let opencv_python = callPackage ./opencv_python.nix { }; in
-python3Packages.buildPythonPackage rec {
+python39Packages.buildPythonPackage rec {
   pname = "arknights-mower";
   version = "1.3.9";
 
@@ -12,8 +12,9 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-7OZV2n2NSu785AAgzpsaoJuDmad2N7+f/fYqNnUx0L8=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ matplotlib ]
-    ++ [ onnxruntime ] ++ (with python3Packages;
+  buildInputs = [ python39Packages.setuptools ];
+  propagatedBuildInputs = with python39Packages; [ matplotlib ]
+    ++ [ onnxruntime ] ++ (with python39Packages;
     [ scikit-learn pyclipper shapely colorlog scikitimage imagehash ])
     ++ [ imagehash opencv_python ];
 

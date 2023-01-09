@@ -27,6 +27,7 @@
 , ocl-icd
 , opencl-headers
 , cjson
+, fetchpatch
 , lib
 }:
 
@@ -55,7 +56,11 @@ clangStdenv.mkDerivation rec {
 
   patches = [
     ./no-install-config.patch
-    ./remove-manual-line-count.patch
+
+    (fetchpatch {
+      url = "https://github.com/LinusDierheimer/fastfetch/pull/384.diff";
+      hash = "sha256-Y6GDPmeL9ucz3rATzfllO+7KYzSMTf0RuvL1j9Rqx8I=";
+    })
   ];
 
   cmakeFlags = [ "--no-warn-unused-cli" ];

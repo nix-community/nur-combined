@@ -1,5 +1,5 @@
-{ python3Packages, fetchgit, ... }:
-python3Packages.buildPythonPackage rec {
+{ python39Packages, fetchgit, ... }:
+python39Packages.buildPythonPackage rec {
   pname = "imagehash";
   version = "4.2.1";
 
@@ -9,6 +9,6 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-ZeaOqPftUHshWKqwl4vIbVXDGD4+cWWdLHEBMRNcPn0=";
   };
 
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs = with python39Packages;
     [ pillow numpy scipy pywavelets six pytest ];
 }

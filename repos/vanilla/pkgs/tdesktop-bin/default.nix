@@ -14,7 +14,7 @@ buildFHSUserEnv {
   name = "${tdesktop-bin.pname}";
   targetPkgs = pkgs: [ tdesktop-bin ] ++
     (with pkgs; [ glib fontconfig freetype ]) ++
-    (with pkgs.xlibs; [ libxcb libX11 ]) ++
+    (with pkgs.xorg; [ libxcb libX11 ]) ++
     # https://wayland-devel.freedesktop.narkive.com/wtyneVJL/weston-launch-xkbcommon-error
     (with pkgs; [ dbus xkeyboard_config desktop-file-utils ]);
   runScript = "Telegram";

@@ -1,5 +1,5 @@
-{ python3Packages, fetchPypi, stdenv, ... }:
-python3Packages.buildPythonPackage rec {
+{ python39Packages, fetchPypi, stdenv, ... }:
+python39Packages.buildPythonPackage rec {
   pname = "onnxruntime";
   version = "1.10.0";
   format = "wheel";
@@ -23,6 +23,6 @@ python3Packages.buildPythonPackage rec {
   };
 
   # https://nixos.wiki/wiki/Packaging/Python
-  propagatedBuildInputs = with python3Packages;
+  propagatedBuildInputs = with python39Packages;
     [ protobuf flatbuffers numpy ];
 }

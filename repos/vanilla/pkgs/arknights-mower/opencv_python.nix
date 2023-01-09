@@ -1,5 +1,5 @@
-{ python3Packages, fetchPypi, autoPatchelfHook, xlibs, glib, libglvnd, stdenv, ... }:
-python3Packages.buildPythonPackage rec {
+{ python39Packages, fetchPypi, autoPatchelfHook, xorg, glib, libglvnd, stdenv, ... }:
+python39Packages.buildPythonPackage rec {
   pname = "opencv_python";
   version = "4.5.5.62";
   format = "wheel";
@@ -21,10 +21,10 @@ python3Packages.buildPythonPackage rec {
       else "manylinux_2_17_x86_64.manylinux2014_x86_64";
   };
 
-  propagatedBuildInputs = with python3Packages; [ numpy ];
+  propagatedBuildInputs = with python39Packages; [ numpy ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ xlibs.libX11 glib xlibs.libSM libglvnd ];
+  buildInputs = [ xorg.libX11 glib xorg.libSM libglvnd ];
 
   # ELF load command address/offset not properly aligned
   dontStrip = true;
