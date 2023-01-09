@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     ++ map (b: backends.${b}) withBackends;
 
   meta = with lib; {
-    description = "a lightweight image viewer for Wayland display servers";
+    description = "a lightweight image viewer for Sway/Wayland display servers";
     homepage = "https://github.com/artemsen/swayimg";
     license = licenses.mit;
     maintainers = with maintainers; [ polykernel ];
