@@ -7,7 +7,9 @@
   freetype,
   libxkbcommon,
   wayland,
-}: let
+}:
+
+let
   rpathLibs = [
     fontconfig
     freetype
@@ -15,39 +17,40 @@
     wayland
   ];
 in
-  rustPlatform.buildRustPackage rec {
-    pname = "kickoff";
-    version = "main";
 
-    src = fetchFromGitHub {
-      owner = "j0ru";
-      repo = pname;
-      rev = "41fac1e663facd6dc3a041cd2192e017b7f57f32";
-      sha256 = "sha256-2xsOCGHsQmyy8CVmfVfbRxB89EDbj29fr/c7NYuUjHo=";
-    };
+rustPlatform.buildRustPackage rec {
+  pname = "kickoff";
+  version = "v0.6.0";
 
-    cargoHash = "sha256-NsMDGGA4LA9ofPVBCHVKS/MGthThcTZ1QywHENSXgfQ=";
+  src = fetchFromGitHub {
+    owner = "j0ru";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-CY0D6pAuAlCiO7f5MitjLfti+3JnFAguJYlaTSq6rGI=";
+  };
 
-    nativeBuildInputs = [pkg-config];
+  cargoHash = "sha256-CMneBDn0hB9edqEahRjz4jYtJeKa6Gv3PUWW0LS5Mes=";
 
-    buildInputs = [
-      fontconfig
-    ];
+  nativeBuildInputs = [ pkg-config ];
 
-    postInstall = ''
-      # Strip executable and set RPATH
-      # Stolen from https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/terminal-emulators/alacritty>
-      strip -s $out/bin/kickoff
-      patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/kickoff
-    '';
+  buildInputs = [
+    fontconfig
+  ];
 
-    dontPatchELF = true;
+  postInstall = ''
+    # Strip executable and set RPATH
+    # Stolen from https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/terminal-emulators/alacritty>
+    strip -s $out/bin/kickoff
+    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/kickoff
+  '';
 
-    meta = with lib; {
-      description = "Minimalistic program launcher heavily inspired by rofi.";
-      homepage = "https://github.com/j0ru/kickoff";
-      license = licenses.gpl3Plus;
-      maintainers = [maintainers.polykernel];
-      platforms = platforms.linux;
-    };
-  }
+  dontPatchELF = true;
+
+  meta = with lib; {
+    description = "Minimalistic program launcher heavily inspired by rofi.";
+    homepage = "https://github.com/j0ru/kickoff";
+    license = licenses.gpl3Plus;
+    maintainers = [ maintainers.polykernel ];
+    platforms = platforms.linux;
+  };
+}

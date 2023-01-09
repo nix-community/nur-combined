@@ -6,4 +6,5 @@
   levee = pkgs.callPackage ./levee {};
   kickoff = pkgs.callPackage ./kickoff {};
   wired-notify = pkgs.callPackage ./wired-notify {};
+  swayimg = pkgs.callPackage ./swayimg {};
 }
