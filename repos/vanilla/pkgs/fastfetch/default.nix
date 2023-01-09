@@ -53,7 +53,11 @@ clangStdenv.mkDerivation rec {
     "-Wno-implicit-int-float-conversion"
   ];
 
-  patches = [ ./no-install-config.patch ];
+  patches = [
+    ./no-install-config.patch
+    ./remove-manual-line-count.patch
+  ];
+
   cmakeFlags = [ "--no-warn-unused-cli" ];
 
   meta = with lib; {
