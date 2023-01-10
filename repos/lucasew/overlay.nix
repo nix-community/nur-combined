@@ -24,7 +24,7 @@ in {
 
   inherit dotenv;
   inherit wrapDotenv;
-  inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generators;
+  inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generate;
   inherit (flake.inputs.packages.comma);
 
   nbr = import "${inputs.nbr}" { pkgs = final; };
@@ -42,7 +42,7 @@ in {
     # stolen from nixpkgs
     mkPackageOptionMD = args: name: extra:
       let option = mkPackageOption args name extra;
-      in option // { description = lib.mdDoc option.description; };
+      in option // { description = if builtins.isString option.description then (lib.mdDoc option.description) else option.description; };
   });
   appimage-wrap = final.nbr.appimage-wrap;
   ctl = cp ./pkgs/ctl;
@@ -103,7 +103,6 @@ in {
   };
   pkg = cp ./pkgs/pkg.nix;
   wrapWine = cp ./pkgs/wrapWine.nix;
-  null = prev.stdenv.mkDerivation { dontUnpack = true; installPhase = "mkdir $out"; };
   nur = import flake.inputs.nur {
     inherit (prev) pkgs;
     nurpkgs = prev.pkgs;
