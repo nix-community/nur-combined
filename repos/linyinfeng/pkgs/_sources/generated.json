@@ -248,11 +248,11 @@
             "name": null,
             "owner": "matrix-org",
             "repo": "synapse-s3-storage-provider",
-            "rev": "v1.1.2",
-            "sha256": "sha256-Jbv85gyk08m8fRiHZG9cwnFxaEOoVye5E5YquWyPvxQ=",
+            "rev": "v1.2.0+ci-fix",
+            "sha256": "sha256-1IKigzsbwToKZJ7/Ek9dTptZ4bDEWpLL1fVzWGC+6RU=",
             "type": "github"
         },
-        "version": "v1.1.2"
+        "version": "v1.2.0+ci-fix"
     },
     "telegram-send": {
         "cargoLocks": null,
