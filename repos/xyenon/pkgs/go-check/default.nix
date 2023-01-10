@@ -1,17 +1,20 @@
 { lib, fetchFromGitHub, buildGoModule }:
 
-buildGoModule rec {
+let
   pname = "go-check";
-  version = "2022.03.21-1";
+in
+buildGoModule {
+  pname = pname;
+  version = "2023.01.05-1";
 
   src = fetchFromGitHub {
     owner = "Dreamacro";
-    repo = "go-check";
-    rev = "b1c52d1f4dab527bd094cb00528ffe8d63981ce9";
-    sha256 = "sha256-l9h5PCRXnlhCi2qSaE/8ZTv8o+lRk2rfO8/rAU8IbcM=";
+    repo = pname;
+    rev = "a62daa7f5376a1b21d56a344e8b82fb038bbbf1b";
+    hash = "sha256-bUj5cr2SYWN2Jv3LjZx5lJYXWX9S5vGOMY8iwr7YalY=";
   };
 
-  vendorSha256 = "sha256-C5z7sYT2OtEtU74f+R3bpHKLsxSg89L8XIbd4IPjPGA=";
+  vendorHash = "sha256-P91+lPalXhkZgFuMBjTUDp2zgksOkF2G9rqnHZWSDYo=";
   subPackages = [ "." ];
 
   meta = with lib; {
