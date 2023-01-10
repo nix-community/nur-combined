@@ -8,7 +8,7 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "VVVVVV";
+  pname = "vvvvvv";
   version = "2.3.6";
 
   src = fetchFromGitHub {

@@ -9,24 +9,24 @@
 }:
 
 let
-  VVVVVV = callPackage ./default.nix { inherit Foundation; };
+  vvvvvv = callPackage ./default.nix { inherit Foundation; };
   desktopItem = makeDesktopItem {
-    name = VVVVVV.pname;
+    name = vvvvvv.pname;
     desktopName = "VVVVVV";
-    genericName = VVVVVV.meta.description;
+    genericName = vvvvvv.meta.description;
     icon = "VVVVVV";
     exec = "VVVVVV";
     categories = [ "Game" ];
   };
 in
 stdenvNoCC.mkDerivation {
-  pname = "VVVVVV-with-assets";
-  inherit (VVVVVV) version;
+  pname = "vvvvvv-with-assets";
+  inherit (vvvvvv) version;
 
   # Obtain data.zip from Make and Play edition
   src = fetchurl {
     url = "https://thelettervsixtim.es/makeandplay/data.zip";
-    sha256 = "sha256-b6483sBgYtBYJ9QYHEOBU/PqOQBDekTbc7zSl5n+V+A=";
+    sha256 = "sha256-x2eAlZT2Ry2p9WE252ZX44ZA1YQWSkYRIlCsYpPswOo=";
     meta.licence = lib.licenses.unfree;
   };
 
@@ -52,17 +52,17 @@ stdenvNoCC.mkDerivation {
     cp $src "$out/share/VVVVVV/data.zip"
     cp ${desktopItem}/share/applications/* "$out/share/applications"
     cp VVVVVV.png "$out/share/pixmaps"
-    ln -s ${VVVVVV}/share/licenses "$out/share"
+    ln -s ${vvvvvv}/share/licenses "$out/share"
 
-    makeWrapper ${VVVVVV}/bin/VVVVVV "$out/bin/VVVVVV" \
+    makeWrapper ${vvvvvv}/bin/VVVVVV "$out/bin/VVVVVV" \
       --add-flags "-assets $out/share/VVVVVV/data.zip"
 
     runHook postInstall
   '';
 
-  passthru.unwrapped = VVVVVV;
+  passthru.unwrapped = vvvvvv;
 
-  meta = VVVVVV.meta // (with lib; {
+  meta = vvvvvv.meta // (with lib; {
     license = licenses.unfree;
     mainProgram = "VVVVVV";
   });

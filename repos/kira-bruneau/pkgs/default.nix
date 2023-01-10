@@ -91,12 +91,11 @@ in
   poke = callPackage ./applications/editors/poke { };
 
   pokemmo-installer = callPackage ./games/pokemmo-installer {
-    jre = temurin-jre-bin-17;
     inherit (gnome) zenity;
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
-    inherit steam-run yad;
+    inherit bash steam-run winetricks yad;
   };
 
   python2Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python2Packages // python2Packages) prev.python2Packages);
@@ -123,7 +122,7 @@ in
     };
   };
 
-  VVVVVV = callPackage ./games/VVVVVV/with-assets.nix {
+  vvvvvv = callPackage ./games/vvvvvv/with-assets.nix {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
