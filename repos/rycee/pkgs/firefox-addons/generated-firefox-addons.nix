@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "2.9.9.5";
+      version = "3.0.0.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4050467/bypass_paywalls_clean-2.9.9.5.xpi";
-      sha256 = "f68fc75f450cbde01a742c63425e15a788eb879e4aa2c3dc700e50c79dcc29d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4053556/bypass_paywalls_clean-3.0.0.0.xpi";
+      sha256 = "24e8f93fb7362534d17870916579b806c71a1abde2fbd638132ff2eb6d71f0f2";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -477,10 +477,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.61";
+      version = "4.9.62";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4051026/darkreader-4.9.61.xpi";
-      sha256 = "376a195a30de305c5e8afc5e6a365af5812c1219cac7d05c08459edf260bf3fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4053589/darkreader-4.9.62.xpi";
+      sha256 = "e537a2cee45ed7c26f79ecd3ed362620e3f00d24c158532a58e163a63a3d60cc";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -891,10 +891,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20230105.190654";
+      version = "109.0buildid20230109.161414";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4052528/francais_language_pack-109.0buildid20230105.190654.xpi";
-      sha256 = "28a7d6279f43a65cb5c7ccb78edf523ac38eef9ed0185e3865c3494954bedb0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4054175/francais_language_pack-109.0buildid20230109.161414.xpi";
+      sha256 = "c4aca8ff9b03a4ae61a24c7258b6130dc4951f6c8ef3c2d90c1a94b2131f7dc9";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2252,10 +2252,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.32";
+      version = "1.21.33";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4049148/single_file-1.21.32.xpi";
-      sha256 = "f4b2d4efd7d7722ba5e6bba6b9b0f5f8e0d468787b916ba69a73d4890893274a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4052735/single_file-1.21.33.xpi";
+      sha256 = "a960f08d5e8d9fb2f97526136f2aefc715963f7a9f41d90aad261ac0f7e93481";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2685,10 +2685,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.11";
+      version = "3.9.12";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4039584/tree_style_tab-3.9.11.xpi";
-      sha256 = "3b0e7fc54f51dfe2f52a419e7f2c89dd721d6661ceddba2d736f2477c5456ca3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4053198/tree_style_tab-3.9.12.xpi";
+      sha256 = "8a2e3b223756c0ba90960ecddc64d282b4dc8293a1c18c9a1b0c77929dcaa5b8";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2879,7 +2879,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
-        description = "The Hacker's Browser. Vimium provides keyboard shortcuts for navigation and control in the spirit of Vim.\n\nThis is a port of the popular Chrome extension to Firefox.\n\nMost stuff works, but the port to Firefox remains a work in progress.";
+        description = "The Hacker's Browser. Vimium provides keyboard shortcuts for navigation and control in the spirit of Vim.This is a port of the popular Chrome extension to Firefox.Most stuff works, but the port to Firefox remains a work in progress.";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -2900,10 +2900,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.5";
+      version = "2.13.7";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4050539/violentmonkey-2.13.5.xpi";
-      sha256 = "219080699af452a1de3d01f0adbbb6c9cebf789a956ab18422a708cf1d3b73f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4053300/violentmonkey-2.13.7.xpi";
+      sha256 = "38bc3949f40141bc671a4880d8976400489c9afa5c24fe290a732015d727d768";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
