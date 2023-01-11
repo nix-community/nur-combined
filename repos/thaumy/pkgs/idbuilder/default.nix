@@ -5,7 +5,7 @@ let
   overlay_pkgs = pkgs.extend (import ./rust-overlay);
 
   appBinName = "idbuilder";
-  appVersion = "6.0.1";
+  appVersion = "6.0.2";
   appComment = "More than an identifier building tool";
 
   desktopItem = makeDesktopItem rec {
@@ -38,8 +38,8 @@ let
   src_idbuilder = fetchFromGitHub {
     owner = "Thaumy";
     repo = "idbuilder";
-    rev = "b04f62af765ea8c68f9874e947f25c9fdb64807c";
-    sha256 = "0sy5qg1mbd3q39dfi3iswx2jd5vr6znvginj6474dylhwhbn1ksk";
+    rev = "de9d8ebe180afc321760dadb4c157acfb27d585e";
+    sha256 = "0v97yhxxhc0if9rng3rmr33idr1085f46661b1y4zr8nixaksq13";
   };
 
   node_modules = yarn2nix-moretea.mkYarnModules rec {
