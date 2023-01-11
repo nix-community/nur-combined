@@ -196,10 +196,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.40";
+      version = "7.4.41";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4009945/betterttv-7.4.40.xpi";
-      sha256 = "1353faa304cd7e6bf0039d9897afbf8014e1ff0ef5646db3207405e2a00684dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4054150/betterttv-7.4.41.xpi";
+      sha256 = "6cb2ff2be333b03664362e5c225db5c8345cfb2291a88c5d175bbfc695a5aba1";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -2732,10 +2732,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.2.3";
+      version = "8.2.4";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4044700/ublacklist-8.2.3.xpi";
-      sha256 = "bc77bfec460ecdc29e01b4c4966b7445be04dab5f47f72605d384969499acfe3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4053408/ublacklist-8.2.4.xpi";
+      sha256 = "fd119eff94eb0fac00c830cf9a73c1130810dc11baa13a0efbffbc72f9401764";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
