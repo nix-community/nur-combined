@@ -17,11 +17,13 @@ jobs:
 
           for f in "$GITHUB_WORKSPACE/pkgs"/* ; do
             cd "$f"
-            OUT=`./update.sh`
-            if [ "$?" != "0" ]; then
-              echo "$OUT" >&2
-            else
-              echo "$OUT" | grep up-to-date || update="1"
+            if [ -e ./update.sh ]; then
+              OUT=`./update.sh`
+              if [ "$?" != "0" ]; then
+                echo "$OUT" >&2
+              else
+                echo "$OUT" | grep up-to-date || update="1"
+              fi
             fi
           done
 
