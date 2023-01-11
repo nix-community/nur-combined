@@ -38,13 +38,13 @@ in {
       boot.kernel.sysctl."vm.swappiness" = 1;
       boot.loader.systemd-boot.enable = true;
     })
-    (mkIf (cfg.enable && server) {
+    (mkIf (cfg.enable && server) ({
       systemd.watchdog.runtimeTime = "30s";
       systemd.watchdog.rebootTime = "10m";
       systemd.watchdog.kexecTime = "10m";
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
-    } // builder)
-    (mkIf (cfg.enable && laptop) {
+    } // builder))
+    (mkIf (cfg.enable && laptop) ({
       hardware.bluetooth.enable = true;
       services.upower = {
         enable = true;
@@ -75,7 +75,7 @@ in {
         vSync = true;
         backend = "glx";
       };
-    } // builder)
+    } // builder))
     (mkIf (cfg.enable && desktop) {
       hardware.bluetooth.enable = true;
       # MT7921K is supported starting from 5.17

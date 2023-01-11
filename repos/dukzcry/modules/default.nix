@@ -16,7 +16,7 @@ rec {
   server = import ./server.nix [ edgevpn ];
   headless = ./headless.nix;
   sunshine = ./sunshine.nix;
-  regdomain = ./wifi.nix;
+  regdomain = ./regdomain.nix;
   rkn = ./rkn.nix;
   edgevpn = ./edgevpn.nix;
   cjdns = ./cjdns.nix;
