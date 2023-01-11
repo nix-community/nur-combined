@@ -37,10 +37,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          nix run "nixpkgs#niv" -- -s pkgs/vimPlugins/nix/sources.json update
           cd pkgs/vimPlugins/
-          chmod +x update_list.py
-          ./update_list.py
+          nix run "nixpkgs#niv" -- update
+          chmod +x update_list.py && ./update_list.py
 
       - name: Update Node packages
         run: |
