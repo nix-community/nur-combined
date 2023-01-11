@@ -14,12 +14,10 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [ p7zip ];
+  unpackCmd = "7z x $src";
 
-  unpackPhase = ''
-    7z x $src
-  '';
   installPhase = ''
-    cp -r HeSuVi/hrir $out
+    cp -r hrir $out
   '';
 
   meta = with lib; {
