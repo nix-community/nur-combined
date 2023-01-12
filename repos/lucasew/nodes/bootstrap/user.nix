@@ -15,6 +15,7 @@ in {
         "docker"
         "video"
         "render"
+        "transmission"
       ];
       initialPassword = "changeme";
       openssh.authorizedKeys.keyFiles = [
