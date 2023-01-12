@@ -113,10 +113,10 @@
       };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
-      version = "2.4.0";
+      version = "2.4.1";
       addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4042269/augmented_steam-2.4.0.xpi";
-      sha256 = "b3e46d7bde68faf4b3b4706ff35a9a413cc027de686bbcd810eeebbe60fbe10c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4054613/augmented_steam-2.4.1.xpi";
+      sha256 = "962412b40471bc0dfafe72cd29c7e80ef789c33dc322086bbc03d3a89a5d08db";
       meta = with lib;
       {
         homepage = "https://augmentedsteam.com/";
