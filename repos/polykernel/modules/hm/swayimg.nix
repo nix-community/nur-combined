@@ -10,7 +10,8 @@ with lib;
 let
   cfg = config.programs.swayimg;
 
-  iniFormat = pkgs.formats.ini {};
+  iniAtom = oneOf [ str float int null ];
+  toSwayimgIni = lib.generators.toINIWithGlobalSection { };
 in {
   options = {
     programs.swayimg = {
@@ -26,7 +27,24 @@ in {
       };
 
       settings = mkOption {
-        type = iniFormat.type;
+        type = types.submodules {
+          options = {
+            globalSection = mkOption {
+	      type = types.attrsOf iniAtom;
+	      default = {};
+	      description = ''
+                Global properties to be set in the swayimg configuration.
+              '';
+            };
+	    sections = mkOption {
+	      type = types.attrsOf (types.attrsOf iniAtom);
+	      default = {};
+	      description = ''
+                Sections to be set in the swayimg configuration.
+              '';
+	    };
+          };
+        };
         default = {};
         description = ''
           Configuration written to
@@ -46,12 +64,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [(hm.assertions.assertPlatform "programs.swayimg" pkgs platforms.linux)];
+    assertions = [ (hm.assertions.assertPlatform "programs.swayimg" pkgs platforms.linux) ];
 
     home.packages = [ cfg.package ];
 
     xdg.configFile."swayimg/config" = mkIf (cfg.settings != {}) {
-      source = iniFormat.generate "swayimg-config" cfg.settings;
+      text = toSwayimgIni cfg.settings;
     };
   };
 
