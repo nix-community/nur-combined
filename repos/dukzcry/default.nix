@@ -37,4 +37,5 @@ rec {
   gtk3-nocsd = callPackage ./pkgs/gtk3-nocsd.nix {};
   aml-upgrade-package-extract = callPackage ./pkgs/aml-upgrade-package-extract.nix {};
   dsdt = callPackage ./pkgs/dsdt.nix;
+  ath10k-firmware = callPackage ./pkgs/ath10k-firmware.nix {};
 }
