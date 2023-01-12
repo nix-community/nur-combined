@@ -30,7 +30,7 @@ in {
       };
 
       settings = mkOption {
-        type = types.submodules {
+        type = types.submodule {
           options = {
             globalSection = mkOption {
               type = types.attrsOf iniAtom;
