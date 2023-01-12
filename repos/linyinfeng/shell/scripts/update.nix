@@ -13,6 +13,7 @@
 , updaterChangelogFile ? "${tmpDir}/updater-changelog"
 , updateScriptCommitMessageFile ? "${tmpDir}/commit-message"
 , alternativeEnvFile ? "${tmpDir}/github-env"
+, nvcheckerKeyFile ? "keyfile.toml"
 }:
 
 let
@@ -60,8 +61,14 @@ writeShellScriptBin "update" ''
 
   ## run updater
   echo "run updater"
+  NVCHECKER_EXTRA_OPTIONS=()
+  if [ -f "${nvcheckerKeyFile}" ]; then
+    NVCHECKER_EXTRA_OPTIONS+=("--keyfile" "$(realpath "${nvcheckerKeyFile}")")
+  fi
   pushd pkgs;
-  ${nix}/bin/nix shell ..#updater --command updater "$@";
+  set -x
+  "${repoPackages.updater}/bin/updater" "''${NVCHECKER_EXTRA_OPTIONS[@]}";
+  set +x
   popd
   ${nixpkgs-fmt}/bin/nixpkgs-fmt .
 

@@ -1,6 +1,7 @@
 {
     "aws-sigv4-proxy": {
         "cargoLocks": null,
+        "date": "2022-10-18",
         "extract": null,
         "name": "aws-sigv4-proxy",
         "passthru": null,
@@ -19,6 +20,7 @@
     },
     "clash-for-windows": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-for-windows",
         "passthru": null,
@@ -33,6 +35,7 @@
     },
     "clash-for-windows-icon": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-for-windows-icon",
         "passthru": null,
@@ -47,6 +50,7 @@
     },
     "clash-premium-aarch64-linux": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-premium-aarch64-linux",
         "passthru": null,
@@ -61,6 +65,7 @@
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-premium-i686-linux",
         "passthru": null,
@@ -75,6 +80,7 @@
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-premium-x86_64-darwin",
         "passthru": null,
@@ -89,6 +95,7 @@
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-premium-x86_64-linux",
         "passthru": null,
@@ -108,6 +115,7 @@
                 {}
             ]
         },
+        "date": "2021-11-23",
         "extract": null,
         "name": "commit-notifier",
         "passthru": null,
@@ -131,6 +139,7 @@
                 {}
             ]
         },
+        "date": "2022-08-29",
         "extract": null,
         "name": "dot-tar",
         "passthru": null,
@@ -149,6 +158,7 @@
     },
     "dpt-rp1-py": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "dpt-rp1-py",
         "passthru": null,
@@ -168,6 +178,7 @@
     },
     "icalingua-plus-plus": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "icalingua-plus-plus",
         "passthru": null,
@@ -182,6 +193,7 @@
     },
     "plugin-bang-bang": {
         "cargoLocks": null,
+        "date": "2022-11-27",
         "extract": null,
         "name": "plugin-bang-bang",
         "passthru": null,
@@ -200,6 +212,7 @@
     },
     "plugin-git": {
         "cargoLocks": null,
+        "date": "2022-11-06",
         "extract": null,
         "name": "plugin-git",
         "passthru": null,
@@ -218,6 +231,7 @@
     },
     "replay-fish": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "replay-fish",
         "passthru": null,
@@ -237,6 +251,7 @@
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "synapse-s3-storage-provider",
         "passthru": null,
@@ -256,6 +271,7 @@
     },
     "telegram-send": {
         "cargoLocks": null,
+        "date": "2022-05-13",
         "extract": null,
         "name": "telegram-send",
         "passthru": null,
@@ -274,6 +290,7 @@
     },
     "trojan": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "trojan",
         "passthru": null,
@@ -293,6 +310,7 @@
     },
     "vlmcsd": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "vlmcsd",
         "passthru": null,
@@ -312,6 +330,7 @@
     },
     "wemeet": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "wemeet",
         "passthru": null,
@@ -326,6 +345,7 @@
     },
     "yacd": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "yacd",
         "passthru": null,
@@ -345,6 +365,7 @@
                 {}
             ]
         },
+        "date": null,
         "extract": null,
         "name": "zeronsd",
         "passthru": null,
