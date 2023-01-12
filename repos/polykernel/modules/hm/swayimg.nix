@@ -10,7 +10,10 @@ with lib;
 let
   cfg = config.programs.swayimg;
 
-  iniAtom = oneOf [ str float int null ];
+  iniAtom = nullOr (oneOf [ str float int bool ]) // {
+    description = "INI atom (null, bool, int, float or string)";
+  };
+
   toSwayimgIni = lib.generators.toINIWithGlobalSection { };
 in {
   options = {
@@ -30,19 +33,19 @@ in {
         type = types.submodules {
           options = {
             globalSection = mkOption {
-	      type = types.attrsOf iniAtom;
-	      default = {};
-	      description = ''
+              type = types.attrsOf iniAtom;
+              default = {};
+              description = ''
                 Global properties to be set in the swayimg configuration.
               '';
             };
-	    sections = mkOption {
-	      type = types.attrsOf (types.attrsOf iniAtom);
-	      default = {};
-	      description = ''
+            sections = mkOption {
+              type = types.attrsOf (types.attrsOf iniAtom);
+              default = {};
+              description = ''
                 Sections to be set in the swayimg configuration.
               '';
-	    };
+            };
           };
         };
         default = {};
@@ -50,13 +53,18 @@ in {
           Configuration written to
           <filename>$XDG_CONFIG_HOME/swayimg/config</filename>
           </para><para>
+          Global properties (key-value pairs defined before sections) are set via
+          <option>programs.swayimg.settings.globalSection</option>. Sections are defined under
+          <option>programs.swayimg.settings.sections</option>.
           See <link xlink:href="https://github.com/artemsen/swayimg/blob/master/extra/swayimgrc"/>
           for a sample configuration.
         '';
         example = literalExpression ''
           {
-            scale = "optimal";
-	    window = "#000000";
+            globalSection = {
+              scale = "optimal";
+              window = "#000000";
+            };
           }
         '';
       };
