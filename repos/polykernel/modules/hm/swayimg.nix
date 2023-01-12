@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.programs.swayimg;
 
-  iniAtom = nullOr (oneOf [ str float int bool ]) // {
+  iniAtom = with types; nullOr (oneOf [ str float int bool ]) // {
     description = "INI atom (null, bool, int, float or string)";
   };
 
