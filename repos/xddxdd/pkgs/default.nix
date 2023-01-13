@@ -93,8 +93,8 @@ mkScope (self: pkg: rec {
   chmlib-utils = pkg ./uncategorized/chmlib-utils { };
   chromium-oqs-bin = pkg ./uncategorized/chromium-oqs-bin { };
   cloudpan189-go = pkg ./uncategorized/cloudpan189-go { };
-  deepspeech-gpu = pkg ./uncategorized/deepspeech-gpu { };
-  deepspeech-wrappers = pkg ./uncategorized/deepspeech-gpu/wrappers.nix { };
+  deepspeech-gpu = ifNotCI (pkg ./uncategorized/deepspeech-gpu { });
+  deepspeech-wrappers = ifNotCI (pkg ./uncategorized/deepspeech-gpu/wrappers.nix { });
   dingtalk = pkg ./uncategorized/dingtalk { };
   dn42-pingfinder = pkg ./uncategorized/dn42-pingfinder { };
   douban-openapi-server = pkg ./uncategorized/douban-openapi-server { };
