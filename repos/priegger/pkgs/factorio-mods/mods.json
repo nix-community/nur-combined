@@ -1087,10 +1087,10 @@
   },
   {
     "name": "rso-mod",
-    "version": "6.2.21",
-    "file_name": "rso-mod_6.2.21.zip",
-    "download_url": "/download/rso-mod/63a2392d4bb904a6b9cd9703",
-    "sha1": "c1e4fca24508cbb194d494e13f56d1d7cd815ce9",
+    "version": "6.2.22",
+    "file_name": "rso-mod_6.2.22.zip",
+    "download_url": "/download/rso-mod/63bd1bc95384e08379440c72",
+    "sha1": "dfbc36424f8c4165efedbc88342e5c80bd8f8d32",
     "dependencies": [
       "base >= 1.0.0",
       "? bobenemies",
