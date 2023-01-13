@@ -58,8 +58,9 @@ clangStdenv.mkDerivation rec {
     ./no-install-config.patch
 
     (fetchpatch {
-      url = "https://github.com/LinusDierheimer/fastfetch/pull/384.diff";
-      hash = "sha256-Y6GDPmeL9ucz3rATzfllO+7KYzSMTf0RuvL1j9Rqx8I=";
+      url = "https://github.com/LinusDierheimer/fastfetch" +
+        "/commit/078cb6e5b713120eed879db77e77533f3f711c87.patch";
+      hash = "sha256-PqFYrfOnebRQV8yEgLnxDBwLkfTOp2l0O1KdDmMKfZ0=";
     })
   ];
 
