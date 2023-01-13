@@ -66,7 +66,6 @@
 | [mini-nvim](https://github.com/echasnovski/mini.nvim) | Neovim plugin with collection of minimal, independent, and fast Lua modules dedicated to improve Neovim (version 0.5 and higher) experience |
 | [mkdir-nvim](https://github.com/jghauser/mkdir.nvim) | This neovim plugin creates missing folders on save. |
 | [modes-nvim](https://github.com/mvllow/modes.nvim) | Prismatic line decorations for the adventurous vim user |
-| [move-nvim](https://github.com/fedepujol/move.nvim) | Gain the power to move lines and blocks and auto-indent them! |
 | [neo-tree-diagnostics-nvim](https://github.com/mrbjarksen/neo-tree-diagnostics.nvim) | A diagnostics source for neo-tree.nvim |
 | [neo-tree-nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | Neovim plugin to manage the file system and other tree like structures. |
 | [neodim](https://github.com/zbirenbaum/neodim) | Neovim plugin for dimming the highlights of unused functions, variables, parameters, and more |
@@ -114,6 +113,7 @@
 | [presence-nvim](https://github.com/andweeb/presence.nvim) | Discord Rich Presence for Neovim |
 | [pretty-fold-nvim](https://github.com/anuvyklack/pretty-fold.nvim) | Foldtext customization and folded region preview in Neovim |
 | [prosesitter-nvim](https://github.com/dvdsk/prosesitter.nvim) | A (work in progress) grammar, spelling and style plugin for Neovim |
+| [purescript-vim](https://github.com/purescript-contrib/purescript-vim) | Syntax highlighting and indentation for PureScript |
 | [range-highlight-nvim](https://github.com/winston0410/range-highlight.nvim) | An extremely lightweight plugin (~ 120loc) that hightlights ranges you have entered in commandline. |
 | [rasi-vim](https://github.com/Fymyte/rasi.vim) | Rofi config syntax highlighting for vim |
 | [refactoring-nvim](https://github.com/ThePrimeagen/refactoring.nvim) | The Refactoring library based off the Refactoring book by Martin Fowler |
