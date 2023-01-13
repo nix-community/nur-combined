@@ -1,6 +1,7 @@
 {
     "arkenfox-userjs": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "arkenfox-userjs",
         "passthru": null,
@@ -12,28 +13,30 @@
             "name": null,
             "owner": "arkenfox",
             "repo": "user.js",
-            "rev": "107.0",
-            "sha256": "sha256-TZKoArzALuCNWNBq3un091eR3uRLAi59z/AZ64Xg3BQ=",
+            "rev": "108.0",
+            "sha256": "sha256-YsQbH6bqp2I52meYf0X0DQpwLlDdu5pK9XHMT/9RqOg=",
             "type": "github"
         },
-        "version": "107.0"
+        "version": "108.0"
     },
     "clash-geoip": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "clash-geoip",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pApPPRIvG8qak5chupTN2u1IUKANXtkcEMlSAPedjH4=",
+            "sha256": "sha256-mMu+U3gtoZmi6LrTMTqsNZKZ+w4J6LZ16Aorneyy7P8=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20221212/Country.mmdb"
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230112/Country.mmdb"
         },
-        "version": "20221212"
+        "version": "20230112"
     },
     "material-fox": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "material-fox",
         "passthru": null,
@@ -53,20 +56,22 @@
     },
     "programs-db": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "programs-db",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZWPUOpDxQhaQxLzNMYzSuIjAInqqEAyF+Yy/TYHJ+YY=",
+            "sha256": "sha256-biP9RzdYPr7U65uerzg9/TulKZcJANkjx/gk9dfJkaA=",
             "type": "url",
-            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.1421.e9ade2c8240/nixexprs.tar.xz"
+            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.1574.6a3f9996408/nixexprs.tar.xz"
         },
-        "version": "22.11.1421.e9ade2c8240"
+        "version": "22.11.1574.6a3f9996408"
     },
     "remote-containers": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "remote-containers",
         "passthru": {
@@ -78,15 +83,16 @@
         },
         "pinned": false,
         "src": {
-            "name": "remote-containers-0.269.0.zip",
-            "sha256": "sha256-8HY46AKbAU5W01BN4iwCUSFqTXfRbC937Gy0kvPTmn4=",
+            "name": "remote-containers-0.270.0.zip",
+            "sha256": "sha256-UQ9g/vogA0b7ZMmOiiCdqPNDZQUdPd+3riy8QISNW3U=",
             "type": "url",
-            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.269.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.270.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "0.269.0"
+        "version": "0.270.0"
     },
     "ubootPhicommN1": {
         "cargoLocks": null,
+        "date": "2022-12-31",
         "extract": null,
         "name": "ubootPhicommN1",
         "passthru": null,
@@ -106,6 +112,7 @@
     },
     "yacd": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "yacd",
         "passthru": null,
