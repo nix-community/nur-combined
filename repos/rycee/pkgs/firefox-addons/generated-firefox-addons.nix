@@ -229,10 +229,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2022.12.1";
+      version = "2023.1.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046308/bitwarden_password_manager-2022.12.1.xpi";
-      sha256 = "7d28b17bf51222bf605142b9189a181e05184c95937c72906ea1f8f08f23abb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4054938/bitwarden_password_manager-2023.1.0.xpi";
+      sha256 = "b107930fdd005aac6946222ab8b80c789f17bd8e6ccd69c4f4a1cfe102b1c964";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -891,10 +891,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20230109.161414";
+      version = "109.0buildid20230112.150232";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4054175/francais_language_pack-109.0buildid20230109.161414.xpi";
-      sha256 = "c4aca8ff9b03a4ae61a24c7258b6130dc4951f6c8ef3c2d90c1a94b2131f7dc9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055624/francais_language_pack-109.0buildid20230112.150232.xpi";
+      sha256 = "8cbe49bb96127b835f773f73644d75615e2da84c4f36ef5ea5d7ff232d62e576";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1464,10 +1464,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.9";
+      version = "2.7.17";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046644/momentumdash-2.7.9.xpi";
-      sha256 = "aba63d00e59c79a7b948239df13d0a723fe43929f8f25399764ed008deab0a77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055176/momentumdash-2.7.17.xpi";
+      sha256 = "6d1249ed963cd8803f8fdc41791beddf6736d3b54d8c95d46f2dd1579193f93b";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2928,10 +2928,10 @@
       };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.14.0";
+      version = "1.15.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3923281/wallabagger-1.14.0.xpi";
-      sha256 = "0cf005740093b42fd1a129fc3430e21ddcce9699e611c18aab641547a02d0b90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055568/wallabagger-1.15.0.xpi";
+      sha256 = "d6980b65daa5ca746a7b6a9b7ef5f5c228ae99ca2d9e3c1c06041fd43489fc6f";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
