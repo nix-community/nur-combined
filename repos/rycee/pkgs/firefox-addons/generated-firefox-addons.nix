@@ -2732,10 +2732,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.2.4";
+      version = "8.2.5";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4053408/ublacklist-8.2.4.xpi";
-      sha256 = "fd119eff94eb0fac00c830cf9a73c1130810dc11baa13a0efbffbc72f9401764";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055496/ublacklist-8.2.5.xpi";
+      sha256 = "46a639887cdb2f6aa2ced87b6a0bb238a58fc883579abc0e95ffceb1fa804b8f";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2774,10 +2774,10 @@
       };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "5.9.0";
+      version = "6.0.1";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4004782/ukrainian_dictionary-5.9.0.xpi";
-      sha256 = "a0b650b45ab7229a1244c7250dcd3e7bf0052a4e999d3fb90af0443357c4abd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055956/ukrainian_dictionary-6.0.1.xpi";
+      sha256 = "26c9e94880afe8e0298320d5a2a1515e19fe7a8e207e8e8a1907c82da5f34984";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
