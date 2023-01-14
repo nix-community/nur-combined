@@ -70,7 +70,6 @@ in
       bitwarden
       consent-o-matic
       form-history-control
-      https-everywhere
       reddit-comment-collapser
       reddit-enhancement-suite
       refined-github

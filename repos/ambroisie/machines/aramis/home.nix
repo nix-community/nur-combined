@@ -17,7 +17,6 @@
       jellyfin-media-player # Wraps the webui and mpv together
       pavucontrol # Audio mixer GUI
       quasselClient # IRC client
-      teams # Work requires it...
       transgui # Transmission remote
     ];
     # Minimal video player
