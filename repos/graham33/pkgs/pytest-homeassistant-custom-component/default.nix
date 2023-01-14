@@ -14,10 +14,11 @@
 , pytest
 , pytest-aiohttp
 , pytest-cov
-, pytest-freezegun
+, pytest-freezer
 , pytest-socket
 , pytest-sugar
 , pytest-timeout
+, pytest-unordered
 , pytest-xdist
 , pytestCheckHook
 , requests-mock
@@ -29,19 +30,19 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.12.36";
+  version = "0.12.45";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "1kjzwli20pqn4rl92434xd8dc27hm5crpkkpyq8xrvzng5shs3wv";
+    sha256 = "0pyx54473r4fra9428bzr0php8c0wyhh1c4x00l9378nrg259wbv";
   };
 
   postPatch = ''
     substituteInPlace requirements_test.txt \
-      --replace "coverage==6.4.4" "coverage>=6.4.2" \
+      --replace "coverage==7.0.0" "coverage>=6.4.4" \
       --replace "numpy==1.23.2" "numpy>=1.23.2" \
       --replace "pipdeptree==2.3.1" "pipdeptree>=2.3.1" \
       --replace "pytest==7.2.0" "pytest>=7.1.3" \
@@ -73,9 +74,10 @@ buildPythonPackage rec {
     mock-open
     pytest-aiohttp
     pytest-cov
-    pytest-freezegun
+    pytest-freezer
     pytest-sugar
     pytest-timeout
+    pytest-unordered
     pytest-xdist
     pytestCheckHook
     responses
