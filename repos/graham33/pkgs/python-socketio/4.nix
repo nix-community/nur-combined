@@ -18,6 +18,10 @@ buildPythonPackage rec {
     sha256 = "14dijag17v84v0pp9qi89h5awb4h4i9rj0ppkixqv6is9z9lflw5";
   };
 
+  patches = [
+    ./0001-Explicitly-create-tasks-for-coroutines-before-waitin.patch
+  ];
+
   propagatedBuildInputs = [
     bidict
     python-engineio_3

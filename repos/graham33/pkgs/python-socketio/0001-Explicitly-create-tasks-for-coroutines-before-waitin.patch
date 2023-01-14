@@ -1,0 +1,28 @@
+From 04ac2457c3af65d91e75dd1993546eccdbde20f2 Mon Sep 17 00:00:00 2001
+From: Graham Bennett <graham@grahambennett.org>
+Date: Sat, 14 Jan 2023 16:53:32 +0000
+Subject: [PATCH] Explicitly create tasks for coroutines before waiting on them
+
+Passing coroutines directly is deprecated for python 3.11.
+---
+ socketio/asyncio_manager.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/socketio/asyncio_manager.py b/socketio/asyncio_manager.py
+index 55032ab..a72e8bb 100644
+--- a/socketio/asyncio_manager.py
++++ b/socketio/asyncio_manager.py
+@@ -26,8 +26,8 @@ class AsyncManager(BaseManager):
+                     id = self._generate_ack_id(sid, namespace, callback)
+                 else:
+                     id = None
+-                tasks.append(self.server._emit_internal(sid, event, data,
+-                                                        namespace, id))
++                tasks.append(asyncio.create_task(self.server._emit_internal(sid, event, data,
++                                                                            namespace, id)))
+         if tasks == []:  # pragma: no cover
+             return
+         await asyncio.wait(tasks)
+-- 
+2.38.1
+
