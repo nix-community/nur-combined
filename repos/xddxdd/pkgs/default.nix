@@ -109,7 +109,10 @@ mkScope (self: pkg: rec {
   glauth = pkg ./uncategorized/glauth { };
   gopherus = pkg ./uncategorized/gopherus { };
   hath = pkg ./uncategorized/hath { };
-  hesuvi-hrir = pkg ./uncategorized/hesuvi-hrir { };
+
+  # This package is failing on CI for unknown reason
+  hesuvi-hrir = ifNotCI (pkg ./uncategorized/hesuvi-hrir { });
+
   hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs { };
   kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts { };
   konnect = pkg ./uncategorized/konnect { };

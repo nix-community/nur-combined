@@ -3,10 +3,10 @@
 {
   an-anime-game-launcher-bin = {
     pname = "an-anime-game-launcher-bin";
-    version = "2.4.2";
+    version = "2.4.3";
     src = fetchurl {
-      url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.2/an-anime-game-launcher-2.4.2.AppImage";
-      sha256 = "sha256-1CtlY1kgroUKlLQYjhN3jDKWCyoigVMQqv/9ejz12Jw=";
+      url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.3/an-anime-game-launcher-2.4.3.AppImage";
+      sha256 = "sha256-iMS8MfrkqXX1m8RQvGbzqLm1RHlPm+lKy+E9FOPCDSQ=";
     };
   };
   an-anime-game-launcher-gtk-bin = {
@@ -104,13 +104,13 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "dba2af763431386e3f69f9a53f7c544700ef0837";
+    version = "49a05767c13fbe5ab4ad7527b56161ea1e6f5bac";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "dba2af763431386e3f69f9a53f7c544700ef0837";
+      rev = "49a05767c13fbe5ab4ad7527b56161ea1e6f5bac";
       fetchSubmodules = false;
-      sha256 = "sha256-jYGpgf55s1aKlkZeAFQ4ZwN0S3uRFU1buCZiqcVlpTc=";
+      sha256 = "sha256-bDSY84Fk38hRoHwWMHZhWUyvviXz1eXh9zZy0Vhgl94=";
     });
   };
   boringssl-oqs = {
@@ -213,13 +213,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.0.0";
+    version = "v3.0.2";
     src = fetchFromGitHub ({
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.0.0";
+      rev = "v3.0.2";
       fetchSubmodules = false;
-      sha256 = "sha256-OMo2zDTX1b2jpVTPXpqCfXvA+xDiRmXEJyPsE9i5i1E=";
+      sha256 = "sha256-zpeJf1CaQ4bsncZz44sH+tFKddYrZf7YdNYL50d9GA4=";
     });
   };
   flasgger = {
@@ -335,13 +335,13 @@
   };
   linux-xanmod-unstable = {
     pname = "linux-xanmod-unstable";
-    version = "6.1.3-xanmod1";
+    version = "6.1.5-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.3-xanmod1";
+      rev = "6.1.5-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-YtkmbbFEfvww7yJ4MpLQ3M6QjbBXSU9Pjwu0Dq/dIcs=";
+      sha256 = "sha256-OxhXRHFWHoS7f35+fJFUKSs7uLmQw3lelCoxHSFFGfY=";
     });
   };
   nbfc-linux-lantian = {
@@ -635,10 +635,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20221214";
+    version = "20230114";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20221214/moegirl.dict.yaml";
-      sha256 = "sha256-psi2UfwAXNlCHJ6a1ptMQo5usExl6VmL3UwcH+7CrTo=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20230114/moegirl.dict.yaml";
+      sha256 = "sha256-Ppz6Gm7cKL7iLsOhE97dvQBMFvaDlDjID+0T3HSIdUw=";
     };
   };
   rime-zhwiki = {
