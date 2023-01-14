@@ -55,15 +55,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "2a8e68c5df402b882a7558ec8722eae6d3c3eeca";
+    version = "6b7246cb9031546402ec8c8e9151e445a22a271b";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "2a8e68c5df402b882a7558ec8722eae6d3c3eeca";
+      rev = "6b7246cb9031546402ec8c8e9151e445a22a271b";
       fetchSubmodules = false;
-      sha256 = "sha256-jt58RQZei+EjV4rQNE/GCo1Iiop1M8+6sIMQrqcqfmE=";
+      sha256 = "sha256-Kw3s8KyjsGrUWIIb09CwW22BgnQ3Rbz9qQhE5XsEAUs=";
     };
-    date = "2023-01-08";
+    date = "2023-01-13";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -184,15 +184,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "fd9de48d27770d1ef31d3d7ee6a55fc7266ac4b5";
+    version = "00fb8ecb9ec4533fe0bf6b9858b4c8552477cefb";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "fd9de48d27770d1ef31d3d7ee6a55fc7266ac4b5";
+      rev = "00fb8ecb9ec4533fe0bf6b9858b4c8552477cefb";
       fetchSubmodules = false;
-      sha256 = "sha256-ONHzhskPYczMiT6A2/KmlD57SRW4FABcMU5ixvRFUgk=";
+      sha256 = "sha256-bkO0kFNEPVnPKDb8z+NkDTTXBrVjuQVlwnyksazFg38=";
     };
-    date = "2023-01-05";
+    date = "2023-01-13";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
@@ -231,15 +231,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "9051bd753ba3e84b26c4e2d889b2083591bc86d6";
+    version = "a4470b91c226d59ebec109c268c2fd872462e672";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "9051bd753ba3e84b26c4e2d889b2083591bc86d6";
+      rev = "a4470b91c226d59ebec109c268c2fd872462e672";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-2yBNog1FBhxHn+WmGwbPQQwcTkckdoS0st5mqzKY0r0=";
+      sha256 = "sha256-8tC4IjXKlncsGFXpE2ipaljalscZT++tvf00MZiXfWA=";
     };
-    date = "2023-01-11";
+    date = "2023-01-13";
   };
 }
