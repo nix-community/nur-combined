@@ -58,13 +58,13 @@ let
         sha512 = "3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==";
       };
     };
-    "commander-9.4.1" = {
+    "commander-9.5.0" = {
       name = "commander";
       packageName = "commander";
-      version = "9.4.1";
+      version = "9.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/commander/-/commander-9.4.1.tgz";
-        sha512 = "5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==";
+        url = "https://registry.npmjs.org/commander/-/commander-9.5.0.tgz";
+        sha512 = "KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==";
       };
     };
     "cross-spawn-7.0.3" = {
@@ -368,7 +368,7 @@ let
       sources."@webpack-cli/serve-2.0.1"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.19"
-      sources."commander-9.4.1"
+      sources."commander-9.5.0"
       sources."cross-spawn-7.0.3"
       sources."envinfo-7.8.1"
       sources."fastest-levenshtein-1.0.16"
