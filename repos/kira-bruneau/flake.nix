@@ -22,7 +22,13 @@
     } // flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "python-2.7.18.6"
+            ];
+          };
+
           inherit system;
         };
 
