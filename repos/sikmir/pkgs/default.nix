@@ -312,6 +312,7 @@ lib.makeScope newScope (
     ish = callPackage ./misc/ish { };
     jenkins-cli = callPackage ./misc/jenkins-cli { };
     lazyscraper = callPackage ./misc/lazyscraper { };
+    libmdbx = callPackage ./misc/libmdbx { };
     libnbcompat = callPackage ./misc/libnbcompat { };
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
