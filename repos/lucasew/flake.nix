@@ -205,16 +205,6 @@
         , system ? "x86_64-linux"
       }:
       let
-        revModule = {pkgs, ...}: let
-          rev = if (self ? rev) then 
-              trace "detected flake hash: ${self.rev}" self.rev
-            else
-              trace "flake hash not detected!" null
-          ;
-        in {
-          system.configurationRevision = rev;
-          system.nixos.label = "lucasew:nixcfg-${rev}";
-        };
         pkgs = mkPkgs {
           inherit nixpkgs system;
         };
@@ -222,8 +212,6 @@
           inherit system pkgs;
           inherit (pkgs) lib;
           modules = [
-            sops-nix.nixosModules.sops
-            revModule
             (mainModule)
           ] ++ extraModules;
           specialArgs = extraArgs;

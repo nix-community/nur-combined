@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-EXPR="$(sops -d ~/.dotfiles/secrets/ssh-alias | grep -e "^$1" | awk 'NR=1 { print $2 }')"
+
+EXPR="$(cat /run/secrets/ssh-alias | grep -e "^$1" | awk 'NR=1 { print $2 }')"
 IP="$( echo "$EXPR" | sed 's;\([^\:]*\)[^$]*;\1;g' )"
 PORT="$( echo "$EXPR" | sed 's;[^:]*:*\([^$]*\);\1;g' )"
 
