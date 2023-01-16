@@ -2,7 +2,7 @@
 {
   # TODO: abstract stuff to options
   systemd.user.services."backup-saves" = {
-    enable = true;
+    enable = false;
     description = "Backup some paths to a Git repo";
     path = with pkgs; [ git openssh libnotify git-annex git-remote-gcrypt rsync ];
     script = ''

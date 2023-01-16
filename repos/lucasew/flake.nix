@@ -86,6 +86,8 @@
     simple-dashboard.url = "github:lucasew/simple-dashboard";
     simple-dashboard.flake = false;
 
+    sops-nix.url = "github:Mic92/sops-nix";
+
     nbr.url = "github:nixosbrasil/nixpkgs-brasil";
   };
 
@@ -105,6 +107,7 @@
     , pocket2kindle
     , redial_proxy
     , pollymc
+    , sops-nix
     , ...
   }@inputs:
   let
@@ -219,6 +222,7 @@
           inherit system pkgs;
           inherit (pkgs) lib;
           modules = [
+            sops-nix.nixosModules.sops
             revModule
             (mainModule)
           ] ++ extraModules;

@@ -28,6 +28,12 @@ in
     ]
   ;
 
+  sops.secrets.teste = {
+    mode = "0777";
+    owner = config.users.nobody.name;
+    group = config.users.nobody.group;
+  };
+
   services.cockpit.enable = true;
   services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
 
