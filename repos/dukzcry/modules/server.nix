@@ -44,7 +44,7 @@ in {
     })
     (mkIf cfg.remote {
       virtualisation.libvirtd.enable = lib.mkForce false;
-
+      environment.systemPackages = with pkgs; [ x2goclient ];
       networking.edgevpn = {
         enable = true;
         logLevel = "debug";
