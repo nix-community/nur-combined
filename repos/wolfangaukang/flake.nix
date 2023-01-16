@@ -85,6 +85,8 @@
       hosts =
         let
           usersWithRoot = users ++ [ "root" ];
+          pkgs = import nixpkgs { inherit system; };
+          kernels = pkgs.linuxKernel.packages;
 
         in {
           eyjafjallajokull =
@@ -94,6 +96,7 @@
               inherit inputs overlays;
               users = usersWithRoot;
               hostname = "eyjafjallajokull";
+              kernel = kernels.linux_6_0;
               extra-modules = nixosHardware;
               enable-impermanence = true;
               enable-sops = true;
@@ -108,6 +111,7 @@
               inherit inputs overlays;
               users = usersWithRoot;
               hostname = "holuhraun";
+              kernel = kernels.linux_6_0;
               extra-modules = nixosHardware;
               enable-impermanence = true;
               enable-sops = true;

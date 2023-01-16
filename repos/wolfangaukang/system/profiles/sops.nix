@@ -2,7 +2,7 @@
 
 {
   sops = {
-    defaultSopsFile = ../../hosts/common/secrets.yml;
+    defaultSopsFile = ../hosts/common/secrets.yml;
     age = {
       keyFile = "/persist/var/lib/sops-nix/keys.txt";
       # Using /persist feels hacky, but /etc gets mounted/linked

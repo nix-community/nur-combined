@@ -5,16 +5,16 @@
     [
       ./disk-setup.nix
       ./hardware-configuration.nix
-      ../../system/profiles/console.nix
-      ../../system/profiles/de/pantheon.nix
-      ../../system/profiles/environment.nix
-      ../../system/profiles/flatpak.nix
-      ../../system/profiles/graphics.nix
-      ../../system/profiles/layouts.nix
-      ../../system/profiles/networking.nix
-      ../../system/profiles/security.nix
-      ../../system/profiles/time.nix
-      ../../system/profiles/users.nix
+      ../../profiles/console.nix
+      ../../profiles/de/pantheon.nix
+      ../../profiles/environment.nix
+      ../../profiles/flatpak.nix
+      ../../profiles/graphics.nix
+      ../../profiles/layouts.nix
+      ../../profiles/networking.nix
+      ../../profiles/security.nix
+      ../../profiles/time.nix
+      ../../profiles/users.nix
     ];
 
   networking.hostName = hostname;
@@ -51,6 +51,5 @@
     };
   };
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_0;
   system.stateVersion = "21.05"; # Did you read the comment?
 }

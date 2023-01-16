@@ -31,7 +31,6 @@ rec {
           "Biblioteko"
           "Bildujo"
           "Dokumentujo"
-          "Laborejo"
           "Ludoj"
           "Muzikujo"
           "Projektujo"

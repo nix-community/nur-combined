@@ -54,6 +54,7 @@ rec {
   mkSystem =
     { inputs
     , hostname
+    , kernel ? null
     , extra-modules ? []
     , overlays ? []
     , users ? [ "root" ]
@@ -66,14 +67,15 @@ rec {
     }:
 
     let
-      hostConfig = [ ../hosts/${hostname}/configuration.nix ];
+      hostConfig = [ ../system/hosts/${hostname}/configuration.nix ]
+        ++ (if kernel != null then [ ({ boot.kernelPackages = kernel; }) ] else []);
       sopsConfig = [
         inputs.sops.nixosModules.sops
         ../system/profiles/sops.nix
-      ] ++ optionals (enable-server-secrets) [ ../hosts/${hostname}/sops.nix ];
+      ] ++ optionals (enable-server-secrets) [ ../system/hosts/${hostname}/sops.nix ];
       impermanenceConfig = [
         inputs.impermanence.nixosModules.impermanence
-        ../hosts/${hostname}/impermanence.nix
+        ../system/hosts/${hostname}/impermanence.nix
       ];
 
     in
