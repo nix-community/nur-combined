@@ -570,8 +570,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "8f25d455acede3fa577047fababce864b8176e7a",
-            "sha256": "0zlpkzdls4vlbxg871ikbqlvsicypr9yyh2xq7a4yxcj5f5bllfl",
+            "rev": "f839238583907757cd4ff4cc568ef8ce126cca8e",
+            "sha256": "09sh3zhiaqqbvbx7b7v1r1yc1vv0wjsp8nqr26cpjy16k4im2j0c",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "lourkeur": {
@@ -1148,8 +1148,8 @@
             "url": "https://github.com/WillPower3309/nur-packages"
         },
         "wolfangaukang": {
-            "rev": "a5679424d23b3c89f361b620783ab786b93cb63f",
-            "sha256": "1bmvq8rj4pf2y2b566waipi41mj0aia30z4x31mbb9nam1wpbilj",
+            "rev": "0fe312bb19dd771a171ec669ed2e552d9d83d58e",
+            "sha256": "0yf36w9dvphff2pmq9py21ya5jirsfy319sn1p9lk6s516k7sndw",
             "url": "https://codeberg.org/wolfangaukang/nix-agordoj.git"
         },
         "xddxdd": {
