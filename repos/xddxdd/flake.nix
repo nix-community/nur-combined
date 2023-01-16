@@ -66,7 +66,7 @@
             (n: v: flake-utils.lib.mkApp {
               drv = pkgs.writeShellScriptBin "script" v;
             })
-            {
+            rec {
               ci = ''
                 if [ "$1" == "" ]; then
                   echo "Usage: ci <system>";
@@ -92,6 +92,7 @@
                 ${pkgs.python3}/bin/python3 pkgs/asterisk-digium-codecs/update.py
                 ${pkgs.python3}/bin/python3 pkgs/openj9-ibm-semeru/update.py
                 ${pkgs.python3}/bin/python3 pkgs/openjdk-adoptium/update.py
+                ${readme}
               '';
             };
         };

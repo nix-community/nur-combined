@@ -63,7 +63,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (65 packages)</summary>
+<summary>Package set: (Uncategorized) (66 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
@@ -73,8 +73,8 @@ Or, use variables from this repository in case I change them:
 |  | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.0 | `baidupcs-go` | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
 |  | [bilibili](https://app.bilibili.com/) | 1.8.2-1 | `bilibili` | Bilibili desktop client |
 |  | [bird-babel-rtt](http://bird.network.cz) | e508ca76a198f633e1720466e1084333ae8b2742 | `bird-babel-rtt` | BIRD Internet Routing Daemon |
-|  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | dba2af763431386e3f69f9a53f7c544700ef0837 | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
-|  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | dba2af763431386e3f69f9a53f7c544700ef0837 | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 49a05767c13fbe5ab4ad7527b56161ea1e6f5bac | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 49a05767c13fbe5ab4ad7527b56161ea1e6f5bac | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 | `Broken` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2022-08 | `boringssl-oqs` | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 |  | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 1.1.3 | `calibre-cops` | Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...) |
 |  | [chmlib](http://www.jedrea.com/chmlib) | 0.40a | `chmlib-utils` | A library for dealing with Microsoft ITSS/CHM format files |
@@ -88,7 +88,7 @@ Or, use variables from this repository in case I change them:
 |  | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | v1.2.0 | `drone-vault` | Drone plugin for integrating with the Vault secrets manager |
 |  | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 1356780d7d37ad5c44d3d25d2137be6120b8bf87 | `etherguard` | Layer2 version of wireguard with Floyd Warshall implement in go |
 |  | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | `fcitx5-breeze` | Fcitx5 theme to match KDE's Breeze style |
-|  | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.0.0 | `flaresolverr` | Proxy server to bypass Cloudflare protection |
+|  | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.0.2 | `flaresolverr` | Proxy server to bypass Cloudflare protection |
 |  | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | `flasgger` | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | `ftp-proxy` | ftp.proxy - FTP Proxy Server |
 |  | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | `genshin-checkin-helper` | More than check-in for Genshin Impact. |
@@ -123,9 +123,10 @@ Or, use variables from this repository in case I change them:
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
 |  | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | `rime-dict` | RIME 词库增强 |
-|  | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20221214 | `rime-moegirl` | Releases for dict of zh.moegirl.org.cn |
+|  | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20230114 | `rime-moegirl` | Releases for dict of zh.moegirl.org.cn |
 |  | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20220416 | `rime-zhwiki` | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
 |  | [route-chain](https://github.com/xddxdd/route-chain) | e68c96e5e4df70c797d5a99acc8226713a22d7f5 | `route-chain` | A small app to generate a long path in traceroute. |
+|  | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.0.1 | `space-cadet-pinball-full-tilt` | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
 |  | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.5.210 | `svp` | SmoothVideo Project 4 (SVP4) |
 |  | [tachidesk-server](https://github.com/Suwayomi/Tachidesk-Server) | 0.6.2-r1074 | `tachidesk-server` | A rewrite of Tachiyomi for the Desktop |
 | `Broken` | [vs-rife](https://github.com/HolyWu/vs-rife) | v3.1.0 | `vs-rife` | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
@@ -189,10 +190,10 @@ Or, use variables from this repository in case I change them:
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
 |  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.3-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>
