@@ -157,7 +157,7 @@ in rec {
       "editor.insertSpaces" = false;
       "git.enableCommitSigning" = true;
       "keyboard.dispatch" = "keyCode";
-      "python.pythonPath" = "${pkgs.python}/bin/python3";
+      "python.pythonPath" = "${pkgs.python3}/bin/python3";
       "redhat.telemetry.enabled" = false;
       "todo-tree.general.tags" = [ "BUG" "FIXME" "TODO" ];
       "vim.enableNeovim" = true;

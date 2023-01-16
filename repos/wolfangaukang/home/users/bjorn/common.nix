@@ -26,8 +26,50 @@ in
     packages = nur_pkgs ++ upstream_pkgs;
   };
 
-  # Personal Settings
-  defaultajAgordoj.cli.enable = true;
+  xdg = {
+    #enable = true;
+    userDirs = {
+      createDirectories = true;
+      desktop = "\$HOME/Surtabla";
+      documents = "\$HOME/Dokumentujo";
+      download = "\$HOME/Elsxutujo";
+      music = "\$HOME/Muzikujo";
+      pictures = "\$HOME/Bildujo";
+      publicShare = "\$HOME/Publika";
+      templates = "\$HOME/Sxablonujo";
+      videos = "\$HOME/Filmetujo";
+      extraConfig = {
+        XDG_DEVICE_DIR = "\$HOME/Aparatoj";
+        XDG_MISC_DIR = "\$HOME/Utilecoj";
+      };
+    };
+  };
 
-  programs.neofetch.enable = true;
+  # Personal Settings
+  defaultajAgordoj = {
+    cli.enable = true;
+    gui = {
+      enable = true;
+      browsers.chromium.enable = true;
+    };
+    dev.enable = true;
+  };
+
+  programs = {
+    neofetch.enable = true;
+    # TODO: Handle this on a external file
+    sab = {
+      enable = true;
+      bots = {
+        trovo = {
+          settingsPath = "${config.home.homeDirectory}/Projektujo/Python/stream-alert-bot/etc/settings-trovo.yml";
+          consumerType = "trovo";
+        };
+        twitch = {
+          settingsPath = "${config.home.homeDirectory}/Projektujo/Python/stream-alert-bot/etc/settings-twitch.yml";
+          consumerType = "twitch";
+        };
+      };
+    };
+  };
 }

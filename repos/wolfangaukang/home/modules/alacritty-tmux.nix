@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 let 
+  inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.programs.alacritty.tmux;
   cfg_tmux = config.programs.tmux;
   tmux_startup = ''
@@ -9,9 +9,8 @@ let
       exec tmux
     fi
   '';
-in {
-  meta.maintainers = [ wolfangaukang ];
 
+in {
   options.programs.alacritty.tmux = {
     startTmuxOnBash = mkOption {
       default = false;
@@ -46,4 +45,6 @@ in {
       '';
     };
   };
+
+  meta.maintainers = with maintainers; [ wolfangaukang ];
 }
