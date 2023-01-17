@@ -356,7 +356,7 @@ in {
     enable = mkEnableOption "wireplumber";
     package = mkOption {
       type = types.package;
-      default = pkgs.wireplumber or arc.packages.wireplumber-0_4_4;
+      default = pkgs.wireplumber;
       defaultText = "pkgs.wireplumber";
     };
     service = {
