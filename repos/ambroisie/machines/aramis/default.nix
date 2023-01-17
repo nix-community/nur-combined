@@ -17,7 +17,7 @@
   ];
 
   # Set your time zone.
-  time.timeZone = "Europe/Paris";
+  time.timeZone = "Europe/London";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
