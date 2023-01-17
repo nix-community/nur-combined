@@ -203,7 +203,7 @@
       meta = with lib;
       {
         homepage = "https://betterttv.com";
-        description = "Enhances Twitch with new features, emotes, and more.";
+        description = "Enhances Twitch and YouTube with new features, emotes, and more.";
         license = {
           shortName = "betterttv";
           fullName = "BetterTTV Terms of Service";
@@ -588,10 +588,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2022.12.27";
+      version = "2023.1.12";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4049845/duckduckgo_for_firefox-2022.12.27.xpi";
-      sha256 = "0d6dbc849aea07f8f770c425ad0a7533022babcca7e7e32b02e5b1e7b88fe77d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055931/duckduckgo_for_firefox-2023.1.12.xpi";
+      sha256 = "94605b42bd014cc724ed9beb25991bf7c0e7e3986f2d3863b92247e420cd5b88";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -891,10 +891,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0buildid20230112.150232";
+      version = "110.0buildid20230116.134525";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055624/francais_language_pack-109.0buildid20230112.150232.xpi";
-      sha256 = "8cbe49bb96127b835f773f73644d75615e2da84c4f36ef5ea5d7ff232d62e576";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4057055/francais_language_pack-110.0buildid20230116.134525.xpi";
+      sha256 = "659186644574600e9a10272bb9d0c4f1a5b205e4bcaca200581b2b369ceb83aa";
       meta = with lib;
       {
         description = "Français Language Pack";
