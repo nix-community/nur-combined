@@ -86,7 +86,8 @@
     simple-dashboard.url = "github:lucasew/simple-dashboard";
     simple-dashboard.flake = false;
 
-    sops-nix.url = "github:Mic92/sops-nix";
+    # sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.url = "github:lucasew/sops-nix/feat/type-dotenv";
 
     nbr.url = "github:nixosbrasil/nixpkgs-brasil";
   };

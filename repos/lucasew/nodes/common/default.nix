@@ -10,6 +10,7 @@ in
     ../../modules/cachix/system.nix
     ../../modules/hold-gc/system.nix
     ./ansible-python.nix
+    ./p2k.nix
     ./tuning.nix
     ./tmux
     ./bash
