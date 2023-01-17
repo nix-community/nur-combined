@@ -85,6 +85,9 @@ in {
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
       '';
+      services.xserver.deviceSection = ''
+        Option "VariableRefresh" "true"
+      '';
     })
   ];
 }
