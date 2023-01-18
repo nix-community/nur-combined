@@ -75,7 +75,7 @@ in stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ asciidoc gnum4 ];
 
-  preBuild = ''
+  postPatch = ''
     for script in \
       ./lib/common.sh \
       ./src/makechrootpkg.in \
@@ -94,6 +94,10 @@ in stdenvNoCC.mkDerivation rec {
         --replace "/usr/bin/scp" "${openssh}/bin/scp"
     done
     echo "export PATH=${path}:\$PATH" >> ./lib/common.sh
+
+    # bash 5.2 workaround
+    substituteInPlace Makefile \
+      --replace '@bash -n "$$@"' ""
   '';
 
   meta = with lib; {
