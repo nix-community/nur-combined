@@ -196,10 +196,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.4.41";
+      version = "7.5.0";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4054150/betterttv-7.4.41.xpi";
-      sha256 = "6cb2ff2be333b03664362e5c225db5c8345cfb2291a88c5d175bbfc695a5aba1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4057419/betterttv-7.5.0.xpi";
+      sha256 = "a0a5fb1b4b6385e48278545d56c1db9305c740a897d1c628bc787bec868f9c7d";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -891,10 +891,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230116.134525";
+      version = "110.0buildid20230117.185909";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4057055/francais_language_pack-110.0buildid20230116.134525.xpi";
-      sha256 = "659186644574600e9a10272bb9d0c4f1a5b205e4bcaca200581b2b369ceb83aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4057878/francais_language_pack-110.0buildid20230117.185909.xpi";
+      sha256 = "ee1f445219aad3e2447025a70e191d8dc96fe26566a4fd5651094376737610d2";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1256,10 +1256,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.106.1.3";
+      version = "4.107.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4045944/lastpass_password_manager-4.106.1.3.xpi";
-      sha256 = "38e35b111bc037c5fcffda58a782be3c0a3611862a000939790de4d41a0bfe2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055967/lastpass_password_manager-4.107.0.2.xpi";
+      sha256 = "4b70a629dc515d08fd2bc8e7f1a7bed4c1ecf5e65b2b5a728d9d64751e46571e";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -2183,10 +2183,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.4";
+      version = "28.5";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4049326/save_page_we-28.4.xpi";
-      sha256 = "65151295e4660ec503558106600449151941a176cb74cf1b1690e1387f590cfe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055751/save_page_we-28.5.xpi";
+      sha256 = "ff20b614fbc9b9e6b0d48a621289c48ba17b90d8c5c8082482d2c7d2371c609c";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2970,10 +2970,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.85.0";
+      version = "2.85.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4050634/web_scrobbler-2.85.0.xpi";
-      sha256 = "fd9fcbb3bf04046571b3875a97471fc13fe457da5d08502c29a8fe07bf1d0abe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4056098/web_scrobbler-2.85.1.xpi";
+      sha256 = "55f958264d44bba88ca27b3aa0309be1e6d8118c85d2183ea94330799ad813b1";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
