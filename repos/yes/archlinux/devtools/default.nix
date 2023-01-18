@@ -62,11 +62,7 @@ let
     util-linux
   ];
 
-  stdenv = stdenvNoCC.override {
-    shell = "${bash}/bin/bash";
-  };
-
-in stdenv.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "devtools";
   version = "20230105";
 
@@ -78,6 +74,8 @@ in stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   nativeBuildInputs = [ asciidoc gnum4 ];
+
+  buildInputs = [ bash ];
 
   postPatch = ''
     for script in \
