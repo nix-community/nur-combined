@@ -63,7 +63,7 @@ let
   ];
 
   stdenv = stdenvNoCC.override {
-    shell = bash;
+    shell = "${bash}/bin/bash";
   };
 
 in stdenv.mkDerivation rec {
