@@ -1,5 +1,18 @@
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
   {
+    "aria2-integration" = buildFirefoxXpiAddon {
+      pname = "aria2-integration";
+      version = "0.4.5";
+      addonId = "{e2488817-3d73-4013-850d-b66c5e42d505}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3025850/aria2_integration-0.4.5.xpi";
+      sha256 = "1672866f9860499d1a1d5848baab506431ac7db2e99253d517c3735f84410f26";
+      meta = with lib;
+      {
+        description = "Replace built-in download manager. When activated, detects the download links to direct links to this add-on and send to Aria2";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "copy-link-text-webextension" = buildFirefoxXpiAddon {
       pname = "copy-link-text-webextension";
       version = "1.6.4";

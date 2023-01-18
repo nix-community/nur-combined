@@ -31,6 +31,14 @@
       sha256 = "sha256-M20PD3RvkOqZGv4+SzSMGkKdmJ4ZVEDH7WHB4QKFlRw=";
     });
   };
+  motrix = {
+    pname = "motrix";
+    version = "1.6.11";
+    src = fetchurl {
+      url = "https://github.com/agalwood/Motrix/releases/download/v1.6.11/Motrix-1.6.11.AppImage";
+      sha256 = "sha256-tE2Q7NM+cQOg+vyqyfRwg05EOMQWhhggTA6S+VT+SkM=";
+    };
+  };
   programs-db = {
     pname = "programs-db";
     version = "22.11.1574.6a3f9996408";

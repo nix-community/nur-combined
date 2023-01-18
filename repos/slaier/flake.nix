@@ -27,7 +27,8 @@
         ];
       };
     in
-    (flake-utils.lib.eachDefaultSystem (system:
+    with flake-utils.lib;
+    (eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -38,7 +39,7 @@
       {
         formatter = pkgs.nixpkgs-fmt;
         inherit legacyPackages;
-        packages = flake-utils.lib.flattenTree legacyPackages;
+        packages = filterPackages system (flattenTree legacyPackages);
       })) // {
       nixosModules = mapAttrs (_n: import) (import ./modules);
       images.phicomm-n1 = phicomm-n1.config.system.build.sdImage;

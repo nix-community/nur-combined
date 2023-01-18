@@ -54,6 +54,20 @@
         },
         "version": "v93.1"
     },
+    "motrix": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "motrix",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-tE2Q7NM+cQOg+vyqyfRwg05EOMQWhhggTA6S+VT+SkM=",
+            "type": "url",
+            "url": "https://github.com/agalwood/Motrix/releases/download/v1.6.11/Motrix-1.6.11.AppImage"
+        },
+        "version": "1.6.11"
+    },
     "programs-db": {
         "cargoLocks": null,
         "date": null,

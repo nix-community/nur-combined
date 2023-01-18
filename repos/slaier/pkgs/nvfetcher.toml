@@ -22,6 +22,11 @@ fetch.url = "https://github.com/haishanh/yacd/releases/download/$ver/yacd.tar.xz
 src.git = "https://github.com/cattyhouse/new-uboot-for-N1.git"
 fetch.github = "cattyhouse/new-uboot-for-N1"
 
+[motrix]
+src.github_tag = "agalwood/Motrix"
+src.prefix = "v"
+fetch.url = "https://github.com/agalwood/Motrix/releases/download/v$ver/Motrix-$ver.AppImage"
+
 ## VS Code Extensions
 
 [remote-containers]
