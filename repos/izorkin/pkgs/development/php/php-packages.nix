@@ -526,11 +526,11 @@ let
 
   php-cs-fixer = mkDerivation rec {
     pname = "php-cs-fixer";
-    version = "3.13.1";
+    version = "3.13.2";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "sha256-4bQrCjuaWN4Dbs1tkk4m1WxSb510ue7G59HA+gQ52yk=";
+      sha256 = "sha256-XL1heRIvS83MmIIJqhkBnsswCJBYntiyb6RS79YwRrw=";
     };
 
     phases = [ "installPhase" ];
@@ -643,11 +643,11 @@ let
 
   phpstan = mkDerivation rec {
     pname = "phpstan";
-    version = "1.9.4";
+    version = "1.9.12";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "sha256-A+F/ZoL6dLYx4MWN0eWXtQnmWJPYBqEcSgY4A1oR3mo=";
+      sha256 = "sha256-tpMNhFEY4Jty23WEJgBc8NJ5AZR+2R6qRWifTsneVN4=";
     };
 
     phases = [ "installPhase" ];
@@ -946,18 +946,18 @@ let
 
   snuffleupagus = buildPecl rec {
     pname = "snuffleupagus";
-    version = "0.8.2";
+    version = "0.9.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/jvoisin/snuffleupagus/archive/v${version}.tar.gz";
-      sha256 = "sha256-o5dntvJojGBaCrgEyZN5rl2AzuH8c/Ruc2gH/tAbE14=";
+      sha256 = "sha256-Nsmd2VQERKtskxxoclVSLaxnBSdc3CkbTiWh1Ba3pC4=";
     };
 
     sourceRoot = "snuffleupagus-${version}/src";
 
     buildInputs = with pkgs; [ pcre.dev pcre2.dev ];
 
-    meta.broken = (isPhp56 || isPhp82);
+    meta.broken = isPhp56;
   };
 
   spidermonkey = buildPecl {
