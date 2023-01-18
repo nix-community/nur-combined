@@ -62,7 +62,11 @@ let
     util-linux
   ];
 
-in stdenvNoCC.mkDerivation rec {
+  stdenv = stdenvNoCC.override {
+    shell = bash;
+  };
+
+in stdenv.mkDerivation rec {
   pname = "devtools";
   version = "20230105";
 
@@ -94,13 +98,10 @@ in stdenvNoCC.mkDerivation rec {
         --replace "/usr/bin/scp" "${openssh}/bin/scp"
     done
     echo "export PATH=${path}:\$PATH" >> ./lib/common.sh
-
-    # bash 5.2 workaround
-    substituteInPlace Makefile \
-      --replace '@bash -n "$$@"' ""
   '';
 
   meta = with lib; {
+    broken = versionAtLeast bash.version "5.2";
     description = "[Experimental] Tools for Arch Linux package maintainers";
     homepage = "https://gitlab.archlinux.org/archlinux/devtools";
     license = licenses.gpl3Plus;
