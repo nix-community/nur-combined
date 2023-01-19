@@ -7,6 +7,7 @@ in {
     /home/lucasew/WORKSPACE/nixpkgs/nixos/modules/services/monitoring/cockpit.nix
     ./flake-etc.nix
     ./nix.nix
+    ./netns.nix
     ./zerotier.nix
     ./user.nix
     ./ssh.nix
