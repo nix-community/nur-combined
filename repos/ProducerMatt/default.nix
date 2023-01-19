@@ -20,6 +20,6 @@
   orgmk = pkgs.callPackage ./pkgs/orgmk { };
   yaml2nix = pkgs.callPackage ./pkgs/yaml2nix { };
   rsync-bpc = pkgs.callPackage ./pkgs/rsync-bpc { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  git-fix-whitespace = pkgs.callPackage ./pkgs/git-fix-whitespace { };
+  rsbkb = pkgs.callPackage ./pkgs/rsbkb { };
 }
