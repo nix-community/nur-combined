@@ -47,7 +47,7 @@ nix-build --arg pkgs 'import <nixpkgs> {}' -A hello | cachix push gricad
 * Force an update of the repository
 
 ```
-curl -XPOST https://nur-update.herokuapp.com/update?repo=gricad
+curl -XPOST https://nur-update.nix-community.org/update?repo=gricad
 ```
 
 * Configure cachix on a cluster
