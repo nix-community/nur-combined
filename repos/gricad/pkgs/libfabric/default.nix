@@ -1,31 +1,43 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, psm2 }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, pkg-config
+, autoreconfHook
+, enablePsm2 ? (stdenv.isx86_64 && stdenv.isLinux)
+, libpsm2
+, enableOpx ? (stdenv.isx86_64 && stdenv.isLinux)
+, libuuid
+, numactl
+}:
 
 stdenv.mkDerivation rec {
-  name = "libfabric-${version}";
-  version = "1.13.1";
+  pname = "libfabric";
+  version = "1.17.0";
 
   enableParallelBuilding = true;
 
   src = fetchFromGitHub {
     owner = "ofiwg";
-    repo = "libfabric";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "1llx7m4x3zjwnn1478xax9823nlbmp23djym3bwbrbfr2lq90i6i";
+    sha256 = "sha256-tXfAn8hkasA2UuA4/8dOE3EcORyJo/A33TtSNdzDXD8=";
   };
 
-  buildInputs = [ pkgconfig autoreconfHook psm2 ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  preConfigure = ''
-    ./autogen.sh
-  '';
+  buildInputs = lib.optionals enableOpx [ libuuid numactl ] ++ lib.optional enablePsm2 [ libpsm2 ];
 
-  configureFlags = [ "--enable-psm2=${psm2}" ] ;
+  configureFlags = [
+    (if enablePsm2 then "--enable-psm2=${libpsm2}" else "--disable-psm2")
+    (if enableOpx then "--enable-opx" else "--disable-opx")
+  ];
 
   meta = with lib; {
-    homepage = http://libfabric.org/;
+    homepage = "https://ofiwg.github.io/libfabric/";
     description = "Open Fabric Interfaces";
-    license = licenses.gpl2;
-    platforms = platforms.linux;
+    license = with licenses; [ gpl2 bsd2 ];
+    platforms = platforms.all;
     maintainers = [ maintainers.bzizou ];
   };
 }
+

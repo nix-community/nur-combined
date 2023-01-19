@@ -49,12 +49,13 @@ rec {
   openmpi4 = pkgs.callPackage ./pkgs/openmpi/4.nix {
     enablePrefix = true;
     fabricSupport = true;
-    libfabric = libfabric-cornelis;
+    libfabric = libfabric;
   };
   openmpi = openmpi4;
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
-  libfabric = pkgs.callPackage ./pkgs/libfabric { psm2 = psm2; };
-  libfabric-cornelis = pkgs.callPackage ./pkgs/libfabric-cornelis { enablePsm2 = true; };
+  libfabric = pkgs.callPackage ./pkgs/libfabric { };
+  # Now obsolete, by libfabric 1.17 which enables OPX
+      libfabric-cornelis = pkgs.callPackage ./pkgs/libfabric-cornelis { enablePsm2 = true; };
   openmpi-intel =  pkgs.callPackage ./pkgs/openmpi/intel.nix {
     withOneAPI = true;
     intel-oneapi = intel-oneapi;
