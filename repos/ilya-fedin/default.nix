@@ -28,14 +28,14 @@ in with pkgs; rec {
 
   # Qt 5.15 is not default on mac, tdesktop requires 5.15 (and kotatogram subsequently)
   kotatogram-desktop = libsForQt515.callPackage ./pkgs/kotatogram-desktop {
-    inherit (darwin.apple_sdk.frameworks) Cocoa CoreFoundation CoreServices CoreText CoreGraphics
+    inherit (darwin.apple_sdk_11_0.frameworks) Cocoa CoreFoundation CoreServices CoreText CoreGraphics
       CoreMedia OpenGL AudioUnit ApplicationServices Foundation AGL Security SystemConfiguration
       Carbon AudioToolbox VideoToolbox VideoDecodeAcceleration AVFoundation CoreAudio CoreVideo
       CoreMediaIO QuartzCore AppKit CoreWLAN WebKit IOKit GSS MediaPlayer IOSurface Metal MetalKit;
 
     # C++20 is required, darwin has Clang 7 by default, aarch64 has gcc 9 by default
     stdenv = if stdenv.isDarwin
-      then clang12Stdenv
+      then darwin.apple_sdk_11_0.stdenv
       else if stdenv.isAarch64 then gcc10Stdenv else stdenv;
 
     # tdesktop has random crashes when jemalloc is built with gcc.

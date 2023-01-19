@@ -56,11 +56,6 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [
-    # let it build with nixpkgs 10.12 sdk
-    ./tg_owt-10.12-sdk.patch
-  ];
-
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace src/modules/desktop_capture/linux/egl_dmabuf.cc \
       --replace '"libEGL.so.1"' '"${libGL}/lib/libEGL.so.1"' \
