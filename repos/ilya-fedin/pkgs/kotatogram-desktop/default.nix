@@ -69,14 +69,11 @@ with lib;
 
 let
   tg_owt = callPackage ./tg_owt.nix {
-    abseil-cpp = (abseil-cpp.override {
+    abseil-cpp = abseil-cpp.override {
       # abseil-cpp should use the same compiler
       inherit stdenv;
       cxxStandard = "20";
-    }).overrideAttrs (_: {
-      # https://github.com/NixOS/nixpkgs/issues/130963
-      NIX_LDFLAGS = optionalString stdenv.isDarwin "-lc++abi";
-    });
+    };
 
     # tg_owt should use the same compiler
     inherit stdenv;
@@ -187,9 +184,6 @@ stdenv.mkDerivation rec {
     Metal
     libicns
   ];
-
-  # https://github.com/NixOS/nixpkgs/issues/130963
-  NIX_LDFLAGS = optionalString stdenv.isDarwin "-lc++abi";
 
   enableParallelBuilding = true;
 
