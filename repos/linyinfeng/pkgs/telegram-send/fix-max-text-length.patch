@@ -1,0 +1,38 @@
+From 7337e269c8fa55c26431d66dc010804fc5bed483 Mon Sep 17 00:00:00 2001
+From: George <31376482+george-gca@users.noreply.github.com>
+Date: Mon, 16 Jan 2023 20:52:22 -0300
+Subject: [PATCH] Changed MAX_MESSAGE_LENGTH constant
+
+Changed MAX_MESSAGE_LENGTH to MessageLimit.MAX_TEXT_LENGTH to reflect changes made in python-telegram-bot
+---
+ telegram_send/telegram_send.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/telegram_send/telegram_send.py b/telegram_send/telegram_send.py
+index 8b74190..6b4b830 100644
+--- a/telegram_send/telegram_send.py
++++ b/telegram_send/telegram_send.py
+@@ -30,7 +30,7 @@
+ 
+ import colorama
+ import telegram
+-from telegram.constants import MAX_MESSAGE_LENGTH
++from telegram.constants import MessageLimit
+ 
+ from .version import __version__
+ from .utils import pre_format, split_message, get_config_path, markup
+@@ -233,11 +233,11 @@ def send_message(message, parse_mode):
+             )
+ 
+         for m in messages:
+-            if len(m) > MAX_MESSAGE_LENGTH:
++            if len(m) > MessageLimit.MAX_TEXT_LENGTH:
+                 warn(markup(
+-                    f"Message longer than MAX_MESSAGE_LENGTH={MAX_MESSAGE_LENGTH}, splitting into smaller messages.",
++                    f"Message longer than MAX_MESSAGE_LENGTH={MessageLimit.MAX_TEXT_LENGTH}, splitting into smaller messages.",
+                     "red"))
+-                ms = split_message(m, MAX_MESSAGE_LENGTH)
++                ms = split_message(m, MessageLimit.MAX_TEXT_LENGTH)
+                 for m in ms:
+                     message_ids += [send_message(m, parse_mode)["message_id"]]
+             elif len(m) == 0:

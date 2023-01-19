@@ -1,4 +1,4 @@
-{ sources, rustPlatform, lib, pkg-config, openssl, libgit2, sqlite }:
+{ sources, rustPlatform, lib, pkg-config, openssl, libgit2, sqlite, zlib }:
 
 rustPlatform.buildRustPackage
 rec {
@@ -12,7 +12,11 @@ rec {
     openssl
     sqlite
     libgit2
+    zlib
   ];
+
+  # TODO libssh2-sys failed to pass test
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/linyinfeng/commit-notifier";

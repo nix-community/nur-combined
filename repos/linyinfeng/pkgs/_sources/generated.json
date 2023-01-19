@@ -111,11 +111,11 @@
     "commit-notifier": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./commit-notifier-573c1eb7eabc97aa06e0e9ad85f5148110749876/Cargo.lock",
+                "./commit-notifier-a36b9954212da1dca1b45ccfefde4cb54fe2edf3/Cargo.lock",
                 {}
             ]
         },
-        "date": "2021-11-23",
+        "date": "2023-01-19",
         "extract": null,
         "name": "commit-notifier",
         "passthru": null,
@@ -125,12 +125,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "573c1eb7eabc97aa06e0e9ad85f5148110749876",
-            "sha256": "sha256-JiLwijB+Zqe5JgKLncr7r4w1lpDRWWVh9TAl+9nOiCo=",
+            "rev": "a36b9954212da1dca1b45ccfefde4cb54fe2edf3",
+            "sha256": "sha256-rIHBHUjDfMPQjY8f7JB4FFH63lsbbuNYdnQrGW4UoSE=",
             "type": "git",
             "url": "https://github.com/linyinfeng/commit-notifier.git"
         },
-        "version": "573c1eb7eabc97aa06e0e9ad85f5148110749876"
+        "version": "a36b9954212da1dca1b45ccfefde4cb54fe2edf3"
     },
     "dot-tar": {
         "cargoLocks": {
@@ -185,11 +185,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-s59TYhc3d4run81xMtLsUkE+xeqk9Ovf8tPeluaRrnQ=",
+            "sha256": "sha256-Os1fmXHKUYPDfzITbXlddEni8VXnV6ReQS9buYjW6bU=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.5/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.6/app-x86_64.asar"
         },
-        "version": "v2.8.5"
+        "version": "v2.8.6"
     },
     "plugin-bang-bang": {
         "cargoLocks": null,
