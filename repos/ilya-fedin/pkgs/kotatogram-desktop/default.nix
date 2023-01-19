@@ -108,6 +108,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioPulse.cpp \
       --replace '"libpulse.so.0"' '"${libpulseaudio}/lib/libpulse.so.0"'
   '' + optionalString stdenv.isDarwin ''
+    sed -i "13i#import <CoreAudio/CoreAudio.h>" Telegram/lib_webrtc/webrtc/mac/webrtc_media_devices_mac.mm
     substituteInPlace Telegram/CMakeLists.txt \
       --replace 'COMMAND iconutil' 'COMMAND png2icns' \
       --replace '--convert icns' "" \
