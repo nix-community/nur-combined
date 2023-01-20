@@ -33,6 +33,9 @@
             "file": "pkgs/default.nix",
             "url": "https://github.com/alarsyo/nixos-config"
         },
+        "aleksana": {
+            "url": "https://github.com/Aleksanaa/NUR-Aleksana"
+        },
         "alexnortung": {
             "url": "https://github.com/alexnortung/nur-alexnortung"
         },
