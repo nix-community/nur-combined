@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "fast_float";
-  version = "3.7.0";
+  version = "3.9.0";
 
   src = fetchFromGitHub {
     owner = "fastfloat";
     repo = "fast_float";
     rev = "v${version}";
-    sha256 = "sha256-DPepihQI/l3M7cF5VvSKugff6c13VzXur+GwKIl2EdE=";
+    sha256 = "sha256-0zYnrAQxzyCOYgVfY+PxANSnxsn9f8gLd/Wlivh7lf8=";
   };
 
   nativeBuildInputs = [ cmake ];
