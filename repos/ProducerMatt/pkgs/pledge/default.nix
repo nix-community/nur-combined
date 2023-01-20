@@ -14,8 +14,9 @@
 let
   commonMeta = rec {
     name = "pledge";
-    version = "2022-11-03"; # November 3rd 2022
-    changelog = "https://github.com/jart/cosmopolitan/commits/38df0a41866eda5a763730d56f2733a319b78afa";
+    version = "2023-01-08"; # November 3rd 2022
+    rev = "be3e109309d7adc0824b8c22cf4fca3aa6433baa";
+    changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
   cosmoMeta = {
@@ -29,8 +30,8 @@ let
   cosmoSrc = fetchFromGitHub {
     owner = "jart";
     repo = "cosmopolitan";
-    rev = "89d1e5b8f23627481f0d40a46ad79ebe60a423a0";
-    sha256 = "sha256-9sK+unR6zbioWujef6aqYvPvXOjmHi5WHLCOLw0bJ64=";
+    rev = commonMeta.rev;
+    hash = "sha256-JUeIYHNn5P1Qu6Hev/Hx3EaG5Da8qPcmAjXkFBxClHo=";
   };
   buildStuff = toString (map (item: ''
       ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
