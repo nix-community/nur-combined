@@ -1,7 +1,8 @@
-{   lib
-  , fetchFromGitHub
-  , rustPlatform
-  , enableAppletSymlinks ? true}:
+{ lib,
+  fetchFromGitHub,
+  rustPlatform,
+  enableAppletSymlinks ? true,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rsbkb";
@@ -11,7 +12,7 @@ rustPlatform.buildRustPackage rec {
     owner = "trou";
     repo = "rsbkb";
     rev = "release-${version}";
-    sha256 = "SqjeH0eOo+upSfPWh2IW75p1VHMqmzAbCchDrXhvMxs=";
+    hash = "sha256-SqjeH0eOo+upSfPWh2IW75p1VHMqmzAbCchDrXhvMxs=";
   };
   cargoSha256 = "N3Xlw2JzTjqWLiVNCZaomsWQl330kGVlwdz4Gf05TGU=";
 
@@ -27,7 +28,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Command line tools to encode/decode things";
     homepage = "https://github.com/trou/rsbkb";
-    license = licenses.gpl3;
+    changelog = "https://github.com/trou/rsbkb/releases/tag/release-${version}";
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ProducerMatt ];
   };
 }
