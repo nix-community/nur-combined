@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "3.0.0.0";
+      version = "3.0.1.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4053556/bypass_paywalls_clean-3.0.0.0.xpi";
-      sha256 = "24e8f93fb7362534d17870916579b806c71a1abde2fbd638132ff2eb6d71f0f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4056666/bypass_paywalls_clean-3.0.1.0.xpi";
+      sha256 = "d9df3f8cf7f943c52a41b3776c16e8a2614030109faa9d8714a0800cc237d888";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -891,10 +891,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230117.185909";
+      version = "110.0buildid20230119.185824";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4057878/francais_language_pack-110.0buildid20230117.185909.xpi";
-      sha256 = "ee1f445219aad3e2447025a70e191d8dc96fe26566a4fd5651094376737610d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4058930/francais_language_pack-110.0buildid20230119.185824.xpi";
+      sha256 = "f95c5c9df2f4fe735674faff96935ea433bb50d42900116e3e08e78c5335d435";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1700,10 +1700,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.15.0";
+      version = "6.17.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030397/okta_browser_plugin-6.15.0.xpi";
-      sha256 = "bb52445703c8cf4c91a593da37d1b5250ef74125ef028b104792e52bbc747620";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055747/okta_browser_plugin-6.17.0.xpi";
+      sha256 = "f68dddcebe93082104326b4383cd5bf34787201e17c6e84d48ca02fdc37e2521";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -2378,10 +2378,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.3";
+      version = "3.6.4";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4047777/steam_database-3.6.3.xpi";
-      sha256 = "b2b3c316e02eb24a4f911f7af1e060a31274c61518b4a3619d22aa50787e63d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4056899/steam_database-3.6.4.xpi";
+      sha256 = "074d3abfb652c18113a82fe603f46db44b0c4f12012fb2d8fe336688abe82d88";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
