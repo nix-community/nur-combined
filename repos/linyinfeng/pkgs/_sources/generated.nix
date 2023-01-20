@@ -16,10 +16,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.12";
+    version = "0.20.13";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.12/Clash.for.Windows-0.20.12-x64-linux.tar.gz";
-      sha256 = "sha256-ZY19WmW4WKcfCqlJ5302oocVON7Ae1o2CO5ijQgBaVU=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.13/Clash.for.Windows-0.20.13-x64-linux.tar.gz";
+      sha256 = "sha256-uwoU6e+zbJe/6b056/JlHf+TBurOtrool6qG3c2w7nY=";
     };
   };
   clash-for-windows-icon = {
