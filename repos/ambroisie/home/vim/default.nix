@@ -70,14 +70,15 @@ in
       plenary-nvim # 'null-ls', 'telescope' dependency
 
       # Completion
+      luasnip # Snippet manager compatible with LSP
+      friendly-snippets # LSP snippets collection
       nvim-cmp # Completion engine
       cmp-buffer # Words from open buffers
       cmp-nvim-lsp # LSP suggestions
       cmp-nvim-lua # NeoVim lua API
       cmp-path # Path name suggestions
       cmp-under-comparator # Sort items that start with '_' lower
-      friendly-snippets # LSP snippets collection
-      luasnip # Snippet manager compatible with LSP
+      cmp_luasnip # Snippet suggestions from LuaSnip
 
       # UX improvements
       dressing-nvim # Integrate native UI hooks with Telescope etc...
