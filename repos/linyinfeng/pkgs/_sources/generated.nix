@@ -16,10 +16,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.13";
+    version = "0.20.14";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.13/Clash.for.Windows-0.20.13-x64-linux.tar.gz";
-      sha256 = "sha256-uwoU6e+zbJe/6b056/JlHf+TBurOtrool6qG3c2w7nY=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.14/Clash.for.Windows-0.20.14-x64-linux.tar.gz";
+      sha256 = "sha256-jG3pXSmC13Fd0Gnktmu+hQ7kAPp1LRPqL9HWpVbDjzA=";
     };
   };
   clash-for-windows-icon = {
@@ -64,20 +64,20 @@
   };
   commit-notifier = {
     pname = "commit-notifier";
-    version = "a36b9954212da1dca1b45ccfefde4cb54fe2edf3";
+    version = "d82edee7368d824761bbf18193c7416dd40dcfc0";
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "a36b9954212da1dca1b45ccfefde4cb54fe2edf3";
+      rev = "d82edee7368d824761bbf18193c7416dd40dcfc0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-rIHBHUjDfMPQjY8f7JB4FFH63lsbbuNYdnQrGW4UoSE=";
+      sha256 = "sha256-If8th1b8AX6uO1iWlpiCZH63etjW9f2pfGBstiq+2+E=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./commit-notifier-a36b9954212da1dca1b45ccfefde4cb54fe2edf3/Cargo.lock;
+      lockFile = ./commit-notifier-d82edee7368d824761bbf18193c7416dd40dcfc0/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-01-19";
+    date = "2023-01-20";
   };
   dot-tar = {
     pname = "dot-tar";
@@ -175,6 +175,23 @@
       sha256 = "sha256-/+hNnUT7kA19wpiHGNPVMQGostjoaDzHd91WYruJq0w=";
     };
     date = "2022-05-13";
+  };
+  tg-send = {
+    pname = "tg-send";
+    version = "2e1372c895bc113d4e69325d583355c1a855060f";
+    src = fetchgit {
+      url = "https://github.com/linyinfeng/tg-send.git";
+      rev = "2e1372c895bc113d4e69325d583355c1a855060f";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-qokMKkb/p0vJmvCn1TABlVYOPqP6n3VJ9UB5+CfYw9U=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./tg-send-2e1372c895bc113d4e69325d583355c1a855060f/Cargo.lock;
+      outputHashes = { };
+    };
+    date = "2023-01-20";
   };
   trojan = {
     pname = "trojan";

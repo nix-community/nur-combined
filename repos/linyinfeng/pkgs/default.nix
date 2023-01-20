@@ -28,6 +28,7 @@ lib.makeScope newScope (
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
+    tg-send = callPackage ./tg-send { };
     trojan = callPackage ./trojan { };
     vlmcsd = callPackage ./vlmcsd { };
     wemeet = callPackage ./wemeet { };

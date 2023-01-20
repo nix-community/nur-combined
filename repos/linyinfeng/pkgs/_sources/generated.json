@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-uwoU6e+zbJe/6b056/JlHf+TBurOtrool6qG3c2w7nY=",
+            "sha256": "sha256-jG3pXSmC13Fd0Gnktmu+hQ7kAPp1LRPqL9HWpVbDjzA=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.13/Clash.for.Windows-0.20.13-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.14/Clash.for.Windows-0.20.14-x64-linux.tar.gz"
         },
-        "version": "0.20.13"
+        "version": "0.20.14"
     },
     "clash-for-windows-icon": {
         "cargoLocks": null,
@@ -111,11 +111,11 @@
     "commit-notifier": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./commit-notifier-a36b9954212da1dca1b45ccfefde4cb54fe2edf3/Cargo.lock",
+                "./commit-notifier-d82edee7368d824761bbf18193c7416dd40dcfc0/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-01-19",
+        "date": "2023-01-20",
         "extract": null,
         "name": "commit-notifier",
         "passthru": null,
@@ -125,12 +125,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a36b9954212da1dca1b45ccfefde4cb54fe2edf3",
-            "sha256": "sha256-rIHBHUjDfMPQjY8f7JB4FFH63lsbbuNYdnQrGW4UoSE=",
+            "rev": "d82edee7368d824761bbf18193c7416dd40dcfc0",
+            "sha256": "sha256-If8th1b8AX6uO1iWlpiCZH63etjW9f2pfGBstiq+2+E=",
             "type": "git",
             "url": "https://github.com/linyinfeng/commit-notifier.git"
         },
-        "version": "a36b9954212da1dca1b45ccfefde4cb54fe2edf3"
+        "version": "d82edee7368d824761bbf18193c7416dd40dcfc0"
     },
     "dot-tar": {
         "cargoLocks": {
@@ -287,6 +287,30 @@
             "url": "https://github.com/rahiel/telegram-send.git"
         },
         "version": "34d7703754d441a6f4c4a7b5b3210759d36078e2"
+    },
+    "tg-send": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./tg-send-2e1372c895bc113d4e69325d583355c1a855060f/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2023-01-20",
+        "extract": null,
+        "name": "tg-send",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "2e1372c895bc113d4e69325d583355c1a855060f",
+            "sha256": "sha256-qokMKkb/p0vJmvCn1TABlVYOPqP6n3VJ9UB5+CfYw9U=",
+            "type": "git",
+            "url": "https://github.com/linyinfeng/tg-send.git"
+        },
+        "version": "2e1372c895bc113d4e69325d583355c1a855060f"
     },
     "trojan": {
         "cargoLocks": null,

@@ -20,6 +20,7 @@ packageSet = do
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   fishPlugins
   commitNotifier
+  tgSend
   dotTar
   clashForWindows
   clashForWindowsIcon
@@ -104,6 +105,16 @@ icalinguaPlusPlus =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
+
+tgSend :: PackageSet ()
+tgSend =
+  define $
+    package "tg-send"
+      `sourceGit` url
+      `fetchGit` url
+      `hasCargoLocks` ["Cargo.lock"]
+  where
+    url = "https://github.com/linyinfeng/tg-send.git"
 
 wemeet :: PackageSet ()
 wemeet =
