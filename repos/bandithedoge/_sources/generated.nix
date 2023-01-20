@@ -7,15 +7,15 @@
 }: {
   bling = {
     pname = "bling";
-    version = "e6de047ced41051236a390b081105f598cb0ad8b";
+    version = "14196af7b5f2161242f522ddaa4c39c582a5c6d0";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "e6de047ced41051236a390b081105f598cb0ad8b";
+      rev = "14196af7b5f2161242f522ddaa4c39c582a5c6d0";
       fetchSubmodules = false;
-      sha256 = "sha256-ehFUAhLUEOfqB/2Dung7fBPTCvuXepZB6oVLUv+rkTk=";
+      sha256 = "sha256-qVl/6Fd4LjxNq5nomE3eaI00S3VrwiZbqHo8fglsOGw=";
     };
-    date = "2022-11-20";
+    date = "2023-01-19";
   };
   cardinal = {
     pname = "cardinal";
@@ -55,15 +55,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "6b7246cb9031546402ec8c8e9151e445a22a271b";
+    version = "954e60b735eb4084654d6473124d79cfa134a20b";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "6b7246cb9031546402ec8c8e9151e445a22a271b";
+      rev = "954e60b735eb4084654d6473124d79cfa134a20b";
       fetchSubmodules = false;
-      sha256 = "sha256-Kw3s8KyjsGrUWIIb09CwW22BgnQ3Rbz9qQhE5XsEAUs=";
+      sha256 = "sha256-pz3ojaDCX8QvP6vywFEeLOVbmxyHJ6GtgUz8RXheRa8=";
     };
-    date = "2023-01-13";
+    date = "2023-01-18";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -231,14 +231,14 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "b5b94592260018297a3fd57c26f061ae09acdc8a";
+    version = "199df15d7a713153f1c5bb9868e12e2326bfbec6";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "b5b94592260018297a3fd57c26f061ae09acdc8a";
+      rev = "199df15d7a713153f1c5bb9868e12e2326bfbec6";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-kfF3CrFzITYS0Ju01u6kchZUTxS/K7E+CHda+pt7PkE=";
+      sha256 = "sha256-OymW0ai73zfGaLToizNXUEwp2rx4oPALR8nK6Ht73gg=";
     };
     date = "2023-01-18";
   };
