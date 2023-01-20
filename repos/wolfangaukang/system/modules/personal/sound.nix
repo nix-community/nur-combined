@@ -64,19 +64,7 @@ in
         enableOSSEmulation = mkIf cfg.enableOSSEmulation true;
       };
     }
-    (mkIf cfg.pipewire.enable {
-      # Forcing disable of pulseaudio
-      hardware.pulseaudio.enable = false;
-      services.pipewire = {
-        enable = true;
-        alsa = {
-          enable = true;
-          support32Bit = mkIf cfg.pipewire.enableAlsa32BitSupport true;
-        };
-        jack.enable = true;
-        pulse.enable = true;
-      };
-    })
+    (mkIf cfg.pipewire.enable (import ../../profiles/pipewire.nix { inherit lib; }))
     (mkIf cfg.pulseaudio.enable {
       hardware.pulseaudio.enable = true;
       users.extraGroups.audio.members = cfg.pulseaudio.audioGroupMembers;

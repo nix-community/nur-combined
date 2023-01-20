@@ -1,14 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 let
+  inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.dev;
   settings = import ./settings.nix { inherit pkgs; };
 
 in
 {
-  meta.maintainers = [ wolfangaukang ];
-
   options.defaultajAgordoj.dev = {
     enable = mkOption {
       default = false;
@@ -20,14 +18,9 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    {
-      home.packages = settings.packages.dev;
-      programs.vscode = {
-        enable = true;
-        package = settings.vscode.package;
-        extensions = settings.vscode.extensions;
-        userSettings = settings.vscode.userSettings;
-      };
-    }
+    { home.packages = settings.packages.dev; }
+    (import ../../profiles/common/vscode.nix { inherit pkgs; })
   ]);
+
+  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

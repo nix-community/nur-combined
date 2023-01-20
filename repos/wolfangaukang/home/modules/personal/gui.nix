@@ -1,15 +1,13 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 let
+  inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.gui;
   bcfg = cfg.browsers;
   settings = import ./settings.nix { inherit pkgs; };
 
 in
 {
-  meta.maintainers = [ wolfangaukang ];
-
   options.defaultajAgordoj.gui = {
     enable = mkOption {
       default = false;
@@ -35,10 +33,11 @@ in
           '';
         };
         package = mkOption {
-          default = settings.firefox.package;
-          type = types.package;
+          default = null;
+          type = types.nullOr types.package;
           description = ''
-            Firefox package to use.
+            Firefox package to use. Currently using null as the module
+            has a customized package
           '';
         };
       };
@@ -70,59 +69,15 @@ in
         defaultApplications = settings.mimelist;
       };
     }
-    (mkIf bcfg.firefox.enable {
-      home.packages = settings.firefox.extraPkgs;
-      programs.firefox = {
-        enable = true;
-        package = bcfg.firefox.package;
-        extensions = settings.firefox.extensions;
-        profiles =
-          let
-            defaultEngine = "DuckDuckGo";
-          in
-            {
-              default = {
-                name = "Sandbox";
-                search.default = defaultEngine;
-                settings = lib.mkMerge [
-                  settings.firefox.settings.common
-                  settings.firefox.settings.sandbox
-                ];
-              };
-              personal = {
-                id = 1;
-                name = "Personal";
-                search.default = defaultEngine;
-                settings = lib.mkMerge [
-                  settings.firefox.settings.common
-                ];
-              };
-              gnaujep = {
-                id = 2;
-                name = "Gnaujep";
-                search.default = defaultEngine;
-                settings = lib.mkMerge [
-                  settings.firefox.settings.common
-                ];
-              };
-              j = {
-                id = 3;
-                name = "J";
-                search.default = defaultEngine;
-                settings = lib.mkMerge [
-                  settings.firefox.settings.common
-                ];
-              };
-            };
-      };
-    })
-    (mkIf bcfg.chromium.enable {
-      home.packages = settings.packages.browser;
-      programs.chromium = {
-        enable = true;
-        package = bcfg.chromium.package;
-        extensions = settings.chromium.extensions;
-      };
-    })
+    (mkIf bcfg.firefox.enable (import ../../profiles/common/firefox.nix {
+       inherit pkgs lib;
+       firefox-pkg = bcfg.firefox.package;
+     }))
+    (mkIf bcfg.chromium.enable (import ../../profiles/common/chromium.nix {
+       inherit pkgs;
+       chromium-pkg = bcfg.chromium.package;
+     }))
   ]);
+
+  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

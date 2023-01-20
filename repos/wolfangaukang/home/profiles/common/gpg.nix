@@ -1,12 +1,10 @@
-{ ... }:
+{ pinentryFlavor ? "curses" }:
 
 {
-  programs.gpg = {
-    enable = true;
-  };
+  programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
     enableScDaemon = false;
-    pinentryFlavor = "curses";
+    pinentryFlavor = pinentryFlavor;
   };
 }

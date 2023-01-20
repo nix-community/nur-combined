@@ -33,19 +33,11 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    {
-      environment.systemPackages = cfg.extraPkgs;
-      hardware.keyboard.zsa.enable = true;
-      services.xserver.inputClassSections = mkIf cfg.ignoreLayoutSettings ([
-        ''
-          Identifier "moonlander"
-          MatchIsKeyboard "on"
-          MatchProduct "Moonlander"
-          Option "XkbLayout" "us"
-          Option "XkbVariant" "basic"
-        ''
-      ]);
-    }
+    { environment.systemPackages = cfg.extraPkgs; }
+    (import ../../profiles/moonlander.nix {
+      inherit lib;
+      ignoreLayoutSettings = cfg.ignoreLayoutSettings;
+    })
   ]);
 }
 

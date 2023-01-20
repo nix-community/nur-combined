@@ -59,17 +59,10 @@ in
       hardware.steam-hardware.enable = mkIf cfg.useSteamHardware true;
       services.joycond.enable = mkIf cfg.useJoycond true;
     }
-    (mkIf cfg.installNativeSteam {
-      environment.systemPackages = [ cfg.steamPackage ];
-      programs.steam.enable = true;
-      nixpkgs.config.allowUnfreePredicate = (
-        pkg: builtins.elem (lib.getName pkg) [ "steam" "steam-original" "steam-runtime" ]
-      );
-      hardware.opengl = {
-        extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
-        setLdLibraryPath = true;
-      };
-    })
+    (mkIf cfg.installNativeSteam (import ../../profiles/steam.nix {
+      inherit pkgs lib;
+      steam-pkg = cfg.steamPackage;
+    }))
   ]);
 }
 

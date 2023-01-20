@@ -1,18 +1,18 @@
-{ ... }:
+{ defaultBranch ? "main"
+, signingKey ? "F90110C7"
+, userName ? "P. R. d. O."
+, userEmail ? "d.ol.rod@tutanota.com"
+}:
 
 {
   programs.git = {
     enable = true;
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
+    extraConfig.init.defaultBranch = defaultBranch;
     signing = {
-      key = "F90110C7";
+      key = signingKey;
       signByDefault = true;
     };
-    userName = "P. R. d. O.";
-    userEmail = "d.ol.rod@tutanota.com";
+    userName = userName;
+    userEmail = userEmail;
   };
 }
-
-

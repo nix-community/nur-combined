@@ -1,13 +1,12 @@
 { config, lib, pkgs, ... }:
 
-with lib;
 let
+  inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.gaming;
+  settings = import ./settings.nix { inherit pkgs; };
 
 in
 {
-  meta.maintainers = [ wolfangaukang ];
-
   options.defaultajAgordoj.gaming = {
     enable = mkOption {
       default = false;
@@ -77,4 +76,6 @@ in
       home.packages = cfg.extraPkgs; 
     }
   ]);
+
+  meta.maintainers = with maintainers; [ wolfangaukang ];
 }
