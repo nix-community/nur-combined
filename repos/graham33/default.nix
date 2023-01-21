@@ -16,6 +16,7 @@ let
     ha-hildebrandglow-dcc = callPackage ./pkgs/ha-hildebrandglow-dcc { };
 
     hass-smartbox = callPackage ./pkgs/hass-smartbox {};
+    hassio-ecoflow = callPackage ./pkgs/hassio-ecoflow { };
 
     home-assistant = (pkgs.home-assistant.override {
       # TODO: fix upstream
@@ -75,6 +76,7 @@ in rec {
     ha-dyson-cloud
     ha-hildebrandglow-dcc
     hass-smartbox
+    hassio-ecoflow
     home-assistant
     homeAssistantPackageOverrides
     tesla-custom-component
