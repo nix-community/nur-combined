@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/lib
-    install -m755 oqsprov/oqsprovider.so "$out/lib"
+    install -m755 lib/oqsprovider.so "$out/lib"
   '';
 
   meta = with lib; {
