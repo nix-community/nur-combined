@@ -16,6 +16,7 @@
 
   hassLovelaceModules = pkgs.recurseIntoAttrs {
     apexcharts-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/apexcharts-card {};
+    atomic-calendar-revive = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/atomic-calendar-revive {};
     button-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/button-card {};
     mini-graph-card = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-graph-card {};
     mini-media-player = pkgs.callPackage ./pkgs/home-assistant/lovelaceModules/mini-media-player {};
