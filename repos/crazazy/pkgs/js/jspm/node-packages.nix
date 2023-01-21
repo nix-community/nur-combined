@@ -616,13 +616,13 @@ let
         sha512 = "AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==";
       };
     };
-    "caniuse-lite-1.0.30001444" = {
+    "caniuse-lite-1.0.30001446" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001444";
+      version = "1.0.30001446";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001444.tgz";
-        sha512 = "ecER9xgJQVMqcrxThKptsW0pPxSae8R2RB87LNa+ivW9ppNWRHEplXcDzkCOP4LYWGj8hunXLqaiC41iBATNyg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001446.tgz";
+        sha512 = "fEoga4PrImGcwUUGEol/PoFCSBnSkA9drgdkxXkJLsUBOnJ8rs3zDv6ApqYXGQFOyMPsjh79naWhF4DAxbF8rw==";
       };
     };
     "caseless-0.12.0" = {
@@ -2461,13 +2461,13 @@ let
         sha512 = "LwZy+p3SFs1Pytd/jYct4wpv49HiYCqd9Rlc5ZVdk0V+8Yzv6jR5Blk3TRmPL1ft69TxP0IMZGJ+WPFU2BFhww==";
       };
     };
-    "punycode-2.2.0" = {
+    "punycode-2.3.0" = {
       name = "punycode";
       packageName = "punycode";
-      version = "2.2.0";
+      version = "2.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/punycode/-/punycode-2.2.0.tgz";
-        sha512 = "LN6QV1IJ9ZhxWTNdktaPClrNfp8xdSAYS0Zk2ddX7XsXZAxckMHPCBcHRo0cTcEIgYPRiGEkmji3Idkh2yFtYw==";
+        url = "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz";
+        sha512 = "rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==";
       };
     };
     "qs-6.5.3" = {
@@ -3333,7 +3333,7 @@ let
       sources."buffer-from-1.1.2"
       sources."buffer-peek-stream-1.1.0"
       sources."cache-base-1.0.1"
-      sources."caniuse-lite-1.0.30001444"
+      sources."caniuse-lite-1.0.30001446"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chownr-1.1.4"
@@ -3616,7 +3616,7 @@ let
       sources."pseudomap-1.0.2"
       sources."psl-1.9.0"
       sources."pump-3.0.0"
-      sources."punycode-2.2.0"
+      sources."punycode-2.3.0"
       sources."qs-6.5.3"
       sources."rc-1.2.8"
       sources."readable-stream-2.3.7"

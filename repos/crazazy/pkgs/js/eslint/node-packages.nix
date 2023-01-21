@@ -517,13 +517,13 @@ let
         sha512 = "RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==";
       };
     };
-    "js-sdsl-4.2.0" = {
+    "js-sdsl-4.3.0" = {
       name = "js-sdsl";
       packageName = "js-sdsl";
-      version = "4.2.0";
+      version = "4.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.2.0.tgz";
-        sha512 = "dyBIzQBDkCqCu+0upx25Y2jGdbTGxE9fshMsCdK0ViOongpV+n5tXRcZY9v7CaVQ79AGS9KA1KHtojxiM7aXSQ==";
+        url = "https://registry.npmjs.org/js-sdsl/-/js-sdsl-4.3.0.tgz";
+        sha512 = "mifzlm2+5nZ+lEcLJMoBK0/IH/bDg8XnJfd/Wq6IP+xoCjLZsTOnV2QpxlVbX9bMnkl5PdEjNtBJ9Cj1NjifhQ==";
       };
     };
     "js-yaml-4.1.0" = {
@@ -688,13 +688,13 @@ let
         sha512 = "vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==";
       };
     };
-    "punycode-2.2.0" = {
+    "punycode-2.3.0" = {
       name = "punycode";
       packageName = "punycode";
-      version = "2.2.0";
+      version = "2.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/punycode/-/punycode-2.2.0.tgz";
-        sha512 = "LN6QV1IJ9ZhxWTNdktaPClrNfp8xdSAYS0Zk2ddX7XsXZAxckMHPCBcHRo0cTcEIgYPRiGEkmji3Idkh2yFtYw==";
+        url = "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz";
+        sha512 = "rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==";
       };
     };
     "queue-microtask-1.2.3" = {
@@ -872,8 +872,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "8.31.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.31.0.tgz"; sha1 = "75028e77cbcff102a9feae1d718135931532d524"; };
+    version = "8.32.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-8.32.0.tgz"; sha1 = "d9690056bb6f1a302bd991e7090f5b68fbaea861"; };
     dependencies = [
       sources."@eslint/eslintrc-1.4.1"
       sources."@humanwhocodes/config-array-0.11.8"
@@ -935,7 +935,7 @@ let
       sources."is-glob-4.0.3"
       sources."is-path-inside-3.0.3"
       sources."isexe-2.0.0"
-      sources."js-sdsl-4.2.0"
+      sources."js-sdsl-4.3.0"
       sources."js-yaml-4.1.0"
       sources."json-schema-traverse-0.4.1"
       sources."json-stable-stringify-without-jsonify-1.0.1"
@@ -954,7 +954,7 @@ let
       sources."path-is-absolute-1.0.1"
       sources."path-key-3.1.1"
       sources."prelude-ls-1.2.1"
-      sources."punycode-2.2.0"
+      sources."punycode-2.3.0"
       sources."queue-microtask-1.2.3"
       sources."regexpp-3.2.0"
       sources."resolve-from-4.0.0"
