@@ -5,6 +5,7 @@
 , makeWrapper
 , chromedriver
 , chromium
+, xorg
 , ...
 }:
 
@@ -22,6 +23,7 @@ let
   path = lib.makeBinPath [
     chromedriver
     chromium
+    xorg.xorgserver
   ];
 in
 stdenv.mkDerivation {

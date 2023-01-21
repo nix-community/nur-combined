@@ -1,20 +1,22 @@
 {
     "an-anime-game-launcher-bin": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "an-anime-game-launcher-bin",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iMS8MfrkqXX1m8RQvGbzqLm1RHlPm+lKy+E9FOPCDSQ=",
+            "sha256": "sha256-Dmcp+DQ2O/X6HxfSuHHNV9WhbuJBb7RLNPSZi0BDyPs=",
             "type": "url",
-            "url": "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.3/an-anime-game-launcher-2.4.3.AppImage"
+            "url": "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.4/an-anime-game-launcher-2.4.4.AppImage"
         },
-        "version": "2.4.3"
+        "version": "2.4.4"
     },
     "an-anime-game-launcher-gtk-bin": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "an-anime-game-launcher-gtk-bin",
         "passthru": null,
@@ -29,6 +31,7 @@
     },
     "asterisk-alaw16": {
         "cargoLocks": null,
+        "date": "2018-08-28",
         "extract": null,
         "name": "asterisk-alaw16",
         "passthru": null,
@@ -48,6 +51,7 @@
     },
     "asterisk-amr": {
         "cargoLocks": null,
+        "date": "2022-01-07",
         "extract": null,
         "name": "asterisk-amr",
         "passthru": null,
@@ -67,6 +71,7 @@
     },
     "asterisk-evs": {
         "cargoLocks": null,
+        "date": "2022-03-24",
         "extract": null,
         "name": "asterisk-evs",
         "passthru": null,
@@ -86,6 +91,7 @@
     },
     "asterisk-g72x": {
         "cargoLocks": null,
+        "date": "2020-10-27",
         "extract": null,
         "name": "asterisk-g72x",
         "passthru": null,
@@ -105,6 +111,7 @@
     },
     "asterisk-gsm-efr": {
         "cargoLocks": null,
+        "date": "2018-08-28",
         "extract": null,
         "name": "asterisk-gsm-efr",
         "passthru": null,
@@ -124,6 +131,7 @@
     },
     "baidupcs-go": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "baidupcs-go",
         "passthru": null,
@@ -143,20 +151,22 @@
     },
     "bilibili": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "bilibili",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wO4cXTNjZO+F7E6hYaYMjrrroCfj+a7dSzVdRJ0ncGM=",
+            "sha256": "sha256-65Jh8DqJ9pkMzaxy+zxc0xqvsSONt4af4y+cqfs4tUA=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.8.2-1/io.github.msojocs.bilibili_1.8.2-1_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.0-2/io.github.msojocs.bilibili_1.9.0-2_amd64.deb"
         },
-        "version": "1.8.2-1"
+        "version": "1.9.0-2"
     },
     "bird-babel-rtt": {
         "cargoLocks": null,
+        "date": "2022-12-12",
         "extract": null,
         "name": "bird-babel-rtt",
         "passthru": null,
@@ -176,6 +186,7 @@
     },
     "bird-lg-go": {
         "cargoLocks": null,
+        "date": "2023-01-08",
         "extract": null,
         "name": "bird-lg-go",
         "passthru": null,
@@ -195,6 +206,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -214,6 +226,7 @@
     },
     "calibre-cops": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "calibre-cops",
         "passthru": null,
@@ -228,6 +241,7 @@
     },
     "chromium-oqs-bin": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "chromium-oqs-bin",
         "passthru": null,
@@ -242,6 +256,7 @@
     },
     "cloudpan189-go": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "cloudpan189-go",
         "passthru": null,
@@ -261,6 +276,7 @@
     },
     "coredns-lantian": {
         "cargoLocks": null,
+        "date": "2022-12-21",
         "extract": null,
         "name": "coredns-lantian",
         "passthru": null,
@@ -280,20 +296,22 @@
     },
     "dingtalk": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "dingtalk",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fTSgauXDiViRSew4F14WYNhB2pXWHATdzahqLAywM/8=",
+            "sha256": "sha256-EAn7rrBWjfCOKJLqkvAiLiKMluP9X4C8R/KuECmEjZU=",
             "type": "url",
-            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.4.0.20909_amd64.deb"
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.6.0.230113_amd64.deb"
         },
-        "version": "1.4.0.20909"
+        "version": "1.6.0.230113"
     },
     "douban-openapi-server": {
         "cargoLocks": null,
+        "date": "2022-12-17",
         "extract": null,
         "name": "douban-openapi-server",
         "passthru": null,
@@ -313,6 +331,7 @@
     },
     "drone-vault": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "drone-vault",
         "passthru": null,
@@ -332,6 +351,7 @@
     },
     "etherguard": {
         "cargoLocks": null,
+        "date": "2022-05-19",
         "extract": null,
         "name": "etherguard",
         "passthru": null,
@@ -351,6 +371,7 @@
     },
     "fcitx5-breeze": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "fcitx5-breeze",
         "passthru": null,
@@ -365,6 +386,7 @@
     },
     "flaresolverr": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "flaresolverr",
         "passthru": null,
@@ -384,6 +406,7 @@
     },
     "flasgger": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "flasgger",
         "passthru": null,
@@ -403,6 +426,7 @@
     },
     "genshin-checkin-helper": {
         "cargoLocks": null,
+        "date": "2021-11-09",
         "extract": null,
         "name": "genshin-checkin-helper",
         "passthru": null,
@@ -421,6 +445,7 @@
     },
     "genshinhelper2": {
         "cargoLocks": null,
+        "date": "2022-12-10",
         "extract": null,
         "name": "genshinhelper2",
         "passthru": null,
@@ -440,6 +465,7 @@
     },
     "glauth": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "glauth",
         "passthru": null,
@@ -459,6 +485,7 @@
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
+        "date": "2022-11-24",
         "extract": null,
         "name": "hoyo-glyphs",
         "passthru": null,
@@ -478,6 +505,7 @@
     },
     "konnect": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "konnect",
         "passthru": null,
@@ -497,6 +525,7 @@
     },
     "ldap-auth-proxy": {
         "cargoLocks": null,
+        "date": "2020-07-29",
         "extract": null,
         "name": "ldap-auth-proxy",
         "passthru": null,
@@ -516,6 +545,7 @@
     },
     "libltnginx": {
         "cargoLocks": null,
+        "date": "2021-10-02",
         "extract": null,
         "name": "libltnginx",
         "passthru": null,
@@ -535,6 +565,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -554,6 +585,7 @@
     },
     "linux-xanmod": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "linux-xanmod",
         "passthru": null,
@@ -573,6 +605,7 @@
     },
     "linux-xanmod-unstable": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "linux-xanmod-unstable",
         "passthru": null,
@@ -584,14 +617,15 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.5-xanmod1",
-            "sha256": "sha256-OxhXRHFWHoS7f35+fJFUKSs7uLmQw3lelCoxHSFFGfY=",
+            "rev": "6.1.7-xanmod1",
+            "sha256": "sha256-cgUxM40cDl4lzoF4St3ckKAtsle2PRehfSag3VaycrY=",
             "type": "github"
         },
-        "version": "6.1.5-xanmod1"
+        "version": "6.1.7-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
+        "date": "2022-06-13",
         "extract": null,
         "name": "nbfc-linux-lantian",
         "passthru": null,
@@ -611,6 +645,7 @@
     },
     "netboot-xyz-efi": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "netboot-xyz-efi",
         "passthru": null,
@@ -625,6 +660,7 @@
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "netboot-xyz-lkrn",
         "passthru": null,
@@ -639,6 +675,7 @@
     },
     "netns-exec": {
         "cargoLocks": null,
+        "date": "2016-07-30",
         "extract": null,
         "name": "netns-exec",
         "passthru": null,
@@ -658,6 +695,7 @@
     },
     "nginx-module-stream-sts": {
         "cargoLocks": null,
+        "date": "2022-09-16",
         "extract": null,
         "name": "nginx-module-stream-sts",
         "passthru": null,
@@ -677,6 +715,7 @@
     },
     "nginx-module-sts": {
         "cargoLocks": null,
+        "date": "2022-09-26",
         "extract": null,
         "name": "nginx-module-sts",
         "passthru": null,
@@ -696,6 +735,7 @@
     },
     "nginx-module-vts": {
         "cargoLocks": null,
+        "date": "2023-01-05",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -715,6 +755,7 @@
     },
     "nginx-njs": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "nginx-njs",
         "passthru": null,
@@ -734,6 +775,7 @@
     },
     "ngx_brotli": {
         "cargoLocks": null,
+        "date": "2022-04-29",
         "extract": null,
         "name": "ngx_brotli",
         "passthru": null,
@@ -753,6 +795,7 @@
     },
     "noise-suppression-for-voice": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "noise-suppression-for-voice",
         "passthru": null,
@@ -772,6 +815,7 @@
     },
     "nullfs": {
         "cargoLocks": null,
+        "date": "2016-01-28",
         "extract": null,
         "name": "nullfs",
         "passthru": null,
@@ -791,6 +835,7 @@
     },
     "onepush": {
         "cargoLocks": null,
+        "date": "2022-09-15",
         "extract": null,
         "name": "onepush",
         "passthru": null,
@@ -810,6 +855,7 @@
     },
     "openssl-oqs": {
         "cargoLocks": null,
+        "date": "2022-12-21",
         "extract": null,
         "name": "openssl-oqs",
         "passthru": null,
@@ -829,6 +875,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
+        "date": "2023-01-17",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -840,14 +887,15 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "deb4ec9e1b031a4b759aff5bb24827223b5b3bc6",
-            "sha256": "sha256-namqRagUEWKG87m7SsDR2JwLYYe3ovlMG5hr9sYZd50=",
+            "rev": "3bf94d48ecc95ce5be4c5c18ed7dd7c8bddaf07b",
+            "sha256": "sha256-fivkynCDbjpHn+z5eTHJHKulHur+ZV53w5YfQVCUQBQ=",
             "type": "github"
         },
-        "version": "deb4ec9e1b031a4b759aff5bb24827223b5b3bc6"
+        "version": "3bf94d48ecc95ce5be4c5c18ed7dd7c8bddaf07b"
     },
     "osdlyrics": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "osdlyrics",
         "passthru": null,
@@ -867,6 +915,7 @@
     },
     "payload-dumper-go": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "payload-dumper-go",
         "passthru": null,
@@ -886,6 +935,7 @@
     },
     "phpmyadmin": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "phpmyadmin",
         "passthru": null,
@@ -900,6 +950,7 @@
     },
     "phppgadmin": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "phppgadmin",
         "passthru": null,
@@ -919,6 +970,7 @@
     },
     "plangothic-fonts": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "plangothic-fonts",
         "passthru": null,
@@ -930,14 +982,15 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic",
-            "rev": "V0.7.5708",
-            "sha256": "sha256-ggXxDowvXIvq0YypqLV1F8U6L5dYvB+gkr9nFDyMK3Q=",
+            "rev": "V0.7.5720",
+            "sha256": "sha256-nqf8NCCDELNHZiGd6HESh3Z+UxX3tHaXhxfhgS3kDKU=",
             "type": "github"
         },
-        "version": "V0.7.5708"
+        "version": "V0.7.5720"
     },
     "qbittorrent-enhanced-edition": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qbittorrent-enhanced-edition",
         "passthru": null,
@@ -957,62 +1010,67 @@
     },
     "qemu-user-static-amd64": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qemu-user-static-amd64",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-msmIlM6tDJnLy4cwkyNMfP3G6t3Y/fCQi+qF6DLJaiQ=",
+            "sha256": "sha256-ji6hyVmjdGcEpPWITWpVzZBoRo7xkAjJoZbM6M0a7cU=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b2_amd64.deb"
         },
-        "version": "7.2+dfsg-1"
+        "version": "7.2+dfsg-1+b2"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qemu-user-static-arm64",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-On8+Qt6KZThHUr1On3kW5YHb4Kn3+PH8kQcMaE0j7JA=",
+            "sha256": "sha256-dxzVQ67oSBxVaWdr86VHzHER0ujPA+7pPllc0f+uR7k=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_arm64.deb"
         },
-        "version": "7.2+dfsg-1"
+        "version": "7.2+dfsg-1+b1"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qemu-user-static-armhf",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9D2fkhYcW+3vzp5XRmTgaUPatrdehlocKSfgXuRc8Tk=",
+            "sha256": "sha256-/RU3ecrUP8L5TWSASMZbA3W2jDHfj8mpKshx19RIQvY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_armhf.deb"
         },
-        "version": "7.2+dfsg-1"
+        "version": "7.2+dfsg-1+b1"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qemu-user-static-i386",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-oPflL4XBWpEXcg+MAOFQhiyIpu4ZAaf1pbXhjdkVdPw=",
+            "sha256": "sha256-hVN3LDst6ogfOQ+VbgIJArhFv506UYhxSs/f9MqSe1g=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_i386.deb"
         },
-        "version": "7.2+dfsg-1"
+        "version": "7.2+dfsg-1+b1"
     },
     "qq-amd64": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qq-amd64",
         "passthru": null,
@@ -1027,6 +1085,7 @@
     },
     "qq-arm64": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qq-arm64",
         "passthru": null,
@@ -1041,6 +1100,7 @@
     },
     "qqmusic": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "qqmusic",
         "passthru": null,
@@ -1055,6 +1115,7 @@
     },
     "rime-aurora-pinyin": {
         "cargoLocks": null,
+        "date": "2022-08-28",
         "extract": null,
         "name": "rime-aurora-pinyin",
         "passthru": null,
@@ -1074,6 +1135,7 @@
     },
     "rime-dict": {
         "cargoLocks": null,
+        "date": "2020-12-26",
         "extract": null,
         "name": "rime-dict",
         "passthru": null,
@@ -1093,6 +1155,7 @@
     },
     "rime-moegirl": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "rime-moegirl",
         "passthru": null,
@@ -1107,6 +1170,7 @@
     },
     "rime-zhwiki": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "rime-zhwiki",
         "passthru": null,
@@ -1121,6 +1185,7 @@
     },
     "route-chain": {
         "cargoLocks": null,
+        "date": "2022-12-20",
         "extract": null,
         "name": "route-chain",
         "passthru": null,
@@ -1140,6 +1205,7 @@
     },
     "stream-echo-nginx-module": {
         "cargoLocks": null,
+        "date": "2016-12-18",
         "extract": null,
         "name": "stream-echo-nginx-module",
         "passthru": null,
@@ -1159,6 +1225,7 @@
     },
     "vs-rife": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "vs-rife",
         "passthru": null,
@@ -1178,6 +1245,7 @@
     },
     "wechat-uos": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "wechat-uos",
         "passthru": null,
@@ -1192,6 +1260,7 @@
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
+        "date": "2022-01-08",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,

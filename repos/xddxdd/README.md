@@ -71,7 +71,7 @@ Or, use variables from this repository in case I change them:
 |  | [an-anime-game-launcher-gtk-bin](https://github.com/an-anime-team/an-anime-game-launcher-gtk) | 1.2.4 | `an-anime-game-launcher-gtk-bin` | (EXPERIMENTAL: Needs manual game patching) An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library |
 |  | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 3855cec2ef2667f3e9224006dbaf179575752218 | `asterisk-g72x` | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.0 | `baidupcs-go` | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
-|  | [bilibili](https://app.bilibili.com/) | 1.8.2-1 | `bilibili` | Bilibili desktop client |
+|  | [bilibili](https://app.bilibili.com/) | 1.9.0-2 | `bilibili` | Bilibili desktop client |
 |  | [bird-babel-rtt](http://bird.network.cz) | e508ca76a198f633e1720466e1084333ae8b2742 | `bird-babel-rtt` | BIRD Internet Routing Daemon |
 |  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 49a05767c13fbe5ab4ad7527b56161ea1e6f5bac | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 49a05767c13fbe5ab4ad7527b56161ea1e6f5bac | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
@@ -82,7 +82,7 @@ Or, use variables from this repository in case I change them:
 |  | [cloudpan189-go](https://github.com/tickstep/cloudpan189-go) | v0.1.2 | `cloudpan189-go` | 天翼云盘命令行客户端(CLI)，基于GO语言实现 |
 |  | [deepspeech-gpu](https://github.com/mozilla/DeepSpeech) | 0.9.3 | `deepspeech-gpu` | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
 |  | [deepspeech](https://github.com/mozilla/DeepSpeech) | 0.9.3 | `deepspeech-wrappers` | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
-|  | [dingtalk](https://www.dingtalk.com/) | 1.4.0.20909 | `dingtalk` | 钉钉 |
+|  | [dingtalk](https://www.dingtalk.com/) | 1.6.0.230113 | `dingtalk` | 钉钉 |
 |  | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.0.0 | `dn42-pingfinder` | DN42 Pingfinder |
 |  | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | c7e2a0f59ba5cfb2d10a31013547686a4afab99d | `douban-openapi-server` | A Douban API server that provides an unofficial APIs for media information gathering |
 |  | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | v1.2.0 | `drone-vault` | Drone plugin for integrating with the Vault secrets manager |
@@ -111,14 +111,14 @@ Or, use variables from this repository in case I change them:
 |  | [nvlax](https://github.com/illnyang/nvlax) | b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f | `nvlax` | Future-proof NvENC & NvFBC patcher |
 |  | [onepush](https://gitlab.com/y1ndan/onepush) | c7dd8c82e4eb74501d7e6bcf0c42d1caa0c0ffc2 | `onepush` | A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk. |
 |  | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | `openssl-oqs` | A cryptographic library that implements the SSL and TLS protocols |
-|  | [openssl-oqs-provider](https://openquantumsafe.org) | deb4ec9e1b031a4b759aff5bb24827223b5b3bc6 | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
+|  | [openssl-oqs-provider](https://openquantumsafe.org) | 3bf94d48ecc95ce5be4c5c18ed7dd7c8bddaf07b | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
 |  | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.12 | `osdlyrics` | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
 |  | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | `payload-dumper-go` | An android OTA payload dumper written in Go |
 |  | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.0 | `phpmyadmin` | A web interface for MySQL and MariaDB |
 |  | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.3-mod | `phppgadmin` | The premier web-based administration tool for PostgreSQL |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
-|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-1 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
+|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-1+b2 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
 |  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | QQ for Linux |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
@@ -190,10 +190,10 @@ Or, use variables from this repository in case I change them:
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
 |  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.7-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.7-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.7-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.7-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>
@@ -276,11 +276,11 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: openjdk-adoptium (60 packages)</summary>
+<summary>Package set: openjdk-adoptium (66 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
-|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.17_8_adopt | `openjdk-adoptium.jdk-bin-11` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.18_10_adopt | `openjdk-adoptium.jdk-bin-11` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.12_7_adopt | `openjdk-adoptium.jdk-bin-11_0_12_7` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.13_8_adopt | `openjdk-adoptium.jdk-bin-11_0_13_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.14.1_1_adopt | `openjdk-adoptium.jdk-bin-11_0_14_1_1` | OpenJDK binaries built by Eclipse Adoptium |
@@ -289,22 +289,24 @@ Or, use variables from this repository in case I change them:
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.16.1_1_adopt | `openjdk-adoptium.jdk-bin-11_0_16_1_1` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.16_8_adopt | `openjdk-adoptium.jdk-bin-11_0_16_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.17_8_adopt | `openjdk-adoptium.jdk-bin-11_0_17_8` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.18_10_adopt | `openjdk-adoptium.jdk-bin-11_0_18_10` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | `openjdk-adoptium.jdk-bin-16` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | `openjdk-adoptium.jdk-bin-16_0_2_7` | OpenJDK binaries built by Eclipse Adoptium |
-|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.5_8_adopt | `openjdk-adoptium.jdk-bin-17` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.6_10_adopt | `openjdk-adoptium.jdk-bin-17` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.1_12_adopt | `openjdk-adoptium.jdk-bin-17_0_1_12` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.2_8_adopt | `openjdk-adoptium.jdk-bin-17_0_2_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.3_7_adopt | `openjdk-adoptium.jdk-bin-17_0_3_7` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.4.1_1_adopt | `openjdk-adoptium.jdk-bin-17_0_4_1_1` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.4_8_adopt | `openjdk-adoptium.jdk-bin-17_0_4_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.5_8_adopt | `openjdk-adoptium.jdk-bin-17_0_5_8` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.6_10_adopt | `openjdk-adoptium.jdk-bin-17_0_6_10` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17_35_adopt | `openjdk-adoptium.jdk-bin-17_35` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18.0.2.1_1_adopt | `openjdk-adoptium.jdk-bin-18` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18.0.1_10_adopt | `openjdk-adoptium.jdk-bin-18_0_1_10` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18.0.2.1_1_adopt | `openjdk-adoptium.jdk-bin-18_0_2_1_1` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18.0.2_9_adopt | `openjdk-adoptium.jdk-bin-18_0_2_9` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 18_36_adopt | `openjdk-adoptium.jdk-bin-18_36` | OpenJDK binaries built by Eclipse Adoptium |
-|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u352-b08_adopt | `openjdk-adoptium.jdk-bin-8` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u362-b09_adopt | `openjdk-adoptium.jdk-bin-8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u302-b08 | `openjdk-adoptium.jdk-bin-8u302_b08` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u312-b07 | `openjdk-adoptium.jdk-bin-8u312_b07` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u322-b06_adopt | `openjdk-adoptium.jdk-bin-8u322_b06` | OpenJDK binaries built by Eclipse Adoptium |
@@ -312,7 +314,8 @@ Or, use variables from this repository in case I change them:
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u342-b07_adopt | `openjdk-adoptium.jdk-bin-8u342_b07` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u345-b01_adopt | `openjdk-adoptium.jdk-bin-8u345_b01` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u352-b08_adopt | `openjdk-adoptium.jdk-bin-8u352_b08` | OpenJDK binaries built by Eclipse Adoptium |
-|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.17_8_adopt | `openjdk-adoptium.jre-bin-11` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u362-b09_adopt | `openjdk-adoptium.jdk-bin-8u362_b09` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.18_10_adopt | `openjdk-adoptium.jre-bin-11` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.12_7_adopt | `openjdk-adoptium.jre-bin-11_0_12_7` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.13_8_adopt | `openjdk-adoptium.jre-bin-11_0_13_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.14.1_1_adopt | `openjdk-adoptium.jre-bin-11_0_14_1_1` | OpenJDK binaries built by Eclipse Adoptium |
@@ -321,18 +324,20 @@ Or, use variables from this repository in case I change them:
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.16.1_1_adopt | `openjdk-adoptium.jre-bin-11_0_16_1_1` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.16_8_adopt | `openjdk-adoptium.jre-bin-11_0_16_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.17_8_adopt | `openjdk-adoptium.jre-bin-11_0_17_8` | OpenJDK binaries built by Eclipse Adoptium |
-|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.5_8_adopt | `openjdk-adoptium.jre-bin-17` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.18_10_adopt | `openjdk-adoptium.jre-bin-11_0_18_10` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.6_10_adopt | `openjdk-adoptium.jre-bin-17` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.1_12_adopt | `openjdk-adoptium.jre-bin-17_0_1_12` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.2_8_adopt | `openjdk-adoptium.jre-bin-17_0_2_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.3_7_adopt | `openjdk-adoptium.jre-bin-17_0_3_7` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.4.1_1_adopt | `openjdk-adoptium.jre-bin-17_0_4_1_1` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.4_8_adopt | `openjdk-adoptium.jre-bin-17_0_4_8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.5_8_adopt | `openjdk-adoptium.jre-bin-17_0_5_8` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.6_10_adopt | `openjdk-adoptium.jre-bin-17_0_6_10` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 18.0.2.1_1_adopt | `openjdk-adoptium.jre-bin-18` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 18.0.1_10_adopt | `openjdk-adoptium.jre-bin-18_0_1_10` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 18.0.2.1_1_adopt | `openjdk-adoptium.jre-bin-18_0_2_1_1` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 18.0.2_9_adopt | `openjdk-adoptium.jre-bin-18_0_2_9` | OpenJDK binaries built by Eclipse Adoptium |
-|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u352-b08_adopt | `openjdk-adoptium.jre-bin-8` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u362-b09_adopt | `openjdk-adoptium.jre-bin-8` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u302-b08 | `openjdk-adoptium.jre-bin-8u302_b08` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u312-b07 | `openjdk-adoptium.jre-bin-8u312_b07` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u322-b06_adopt | `openjdk-adoptium.jre-bin-8u322_b06` | OpenJDK binaries built by Eclipse Adoptium |
@@ -340,6 +345,7 @@ Or, use variables from this repository in case I change them:
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u342-b07_adopt | `openjdk-adoptium.jre-bin-8u342_b07` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u345-b01_adopt | `openjdk-adoptium.jre-bin-8u345_b01` | OpenJDK binaries built by Eclipse Adoptium |
 |  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u352-b08_adopt | `openjdk-adoptium.jre-bin-8u352_b08` | OpenJDK binaries built by Eclipse Adoptium |
+|  | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 8u362-b09_adopt | `openjdk-adoptium.jre-bin-8u362_b09` | OpenJDK binaries built by Eclipse Adoptium |
 </details>
 
 <details>
@@ -347,8 +353,8 @@ Or, use variables from this repository in case I change them:
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
-|  | [plangothic-fonts-allideo](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic) | V0.7.5708 | `plangothic-fonts.allideo` | Plangothic Project |
-|  | [plangothic-fonts-fallback](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic) | V0.7.5708 | `plangothic-fonts.fallback` | Plangothic Project |
+|  | [plangothic-fonts-allideo](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic) | V0.7.5720 | `plangothic-fonts.allideo` | Plangothic Project |
+|  | [plangothic-fonts-fallback](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic) | V0.7.5720 | `plangothic-fonts.fallback` | Plangothic Project |
 </details>
 
 <details>
