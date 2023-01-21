@@ -64,20 +64,20 @@
   };
   commit-notifier = {
     pname = "commit-notifier";
-    version = "0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6";
+    version = "d82edee7368d824761bbf18193c7416dd40dcfc0";
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6";
+      rev = "d82edee7368d824761bbf18193c7416dd40dcfc0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-no/2WvjeCS14f7Pz+gEpC4D3lozvxtem1BgDRtZPoqk=";
+      sha256 = "sha256-If8th1b8AX6uO1iWlpiCZH63etjW9f2pfGBstiq+2+E=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./commit-notifier-0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6/Cargo.lock;
+      lockFile = ./commit-notifier-d82edee7368d824761bbf18193c7416dd40dcfc0/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-01-21";
+    date = "2023-01-20";
   };
   dot-tar = {
     pname = "dot-tar";
