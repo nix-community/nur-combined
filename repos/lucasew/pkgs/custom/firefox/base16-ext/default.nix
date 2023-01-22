@@ -5,7 +5,7 @@ stdenv.mkDerivation {
     substitute ${./base16.js} base16.js --replace "%COLORS%" "$colorsJSON"
     cp ${./manifest.json} manifest.json
     mkdir icons
-    cp ${fetchurl { url = "https://github.com/mdn/webextensions-examples/blob/master/borderify/icons/border-48.png"; sha256 = "1w68k4s7lpfns6pisydzkzax45mnc6k1a265pli90zzxwhzwcglv";}} icons/border-48.png
+    cp ${fetchurl { url = "https://raw.githubusercontent.com/mdn/webextensions-examples/main/borderify/icons/border-48.png"; sha256 = "sha256-c3clkz319uDlIRI5u7s1AEkzT1W53ILVBkbsjs0fDUg=";}} icons/border-48.png
   '';
 
   nativeBuildInputs = [ zip ];

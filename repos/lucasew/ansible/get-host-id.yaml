@@ -1,0 +1,7 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+    - shell: "head -c 8 /etc/machine-id"
+      register: hostid
+    - debug: var=hostid.stdout_lines[0]

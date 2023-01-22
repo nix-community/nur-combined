@@ -27,8 +27,7 @@ in
       ./remote-build.nix
     ]
   ;
-
-  services.dhtcrawler.enable = true;
+  networking.hostId = "dabd2d19";
 
   services.cockpit.enable = true;
   services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};

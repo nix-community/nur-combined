@@ -17,10 +17,13 @@ in {
     ./transmission.nix
     ./dlna.nix
   ];
+  networking.hostId = "97e3b5a7";
+
   services.cockpit.enable = true;
   services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
+
   boot = {
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ "ntfs" "zfs" ];
     loader = {
       efi.canTouchEfiVariables = true;
       grub = {
