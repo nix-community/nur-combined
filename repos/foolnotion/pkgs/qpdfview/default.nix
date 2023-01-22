@@ -1,5 +1,4 @@
 { lib
-, mkDerivation
 , fetchbzr
 , qmake
 , qtbase
@@ -13,15 +12,16 @@
 , file
 , ghostscript
 , wrapQtAppsHook
+, stdenv
 }:
-mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "qpdfview";
-  version = "0.4.99";
+  version = "0.5.0";
 
   src = fetchbzr {
     url = "https://code.launchpad.net/~adamreichold/qpdfview/trunk";
-    rev = "2143";
-    sha256 = "sha256-q27FP9D6CsUPjxwgqH2/F4oGRytUbtJgRH0ih9oaEb8=";
+    rev = "2147";
+    sha256 = "sha256-r8zoaCVc6hW8+HWt/4x0oDOx25liFB1eUgwIfIoikUY=";
   };
 
   nativeBuildInputs = [ qmake wrapQtAppsHook pkg-config ];
