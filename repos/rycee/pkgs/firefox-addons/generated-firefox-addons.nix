@@ -393,6 +393,20 @@
         platforms = platforms.all;
         };
       };
+    "container-proxy" = buildFirefoxXpiAddon {
+      pname = "container-proxy";
+      version = "0.1.22";
+      addonId = "contaner-proxy@bekh-ivanov.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3865750/container_proxy-0.1.22.xpi";
+      sha256 = "d1b82cecf0c2a136085a380540698cd6bcc43d7348364454da687d3d49cb2e21";
+      meta = with lib;
+      {
+        homepage = "https://github.com/bekh6ex/firefox-container-proxy";
+        description = "Allows Firefox user assign different proxies to be used in different containers";
+        license = licenses.bsd2;
+        platforms = platforms.all;
+        };
+      };
     "container-tabs-sidebar" = buildFirefoxXpiAddon {
       pname = "container-tabs-sidebar";
       version = "1.0.0";
@@ -1125,6 +1139,20 @@
         platforms = platforms.all;
         };
       };
+    "i-auto-fullscreen" = buildFirefoxXpiAddon {
+      pname = "i-auto-fullscreen";
+      version = "2.0.4";
+      addonId = "{809d8a54-1e2d-4fbb-81b4-36ff597b225f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3853680/i_auto_fullscreen-2.0.4.xpi";
+      sha256 = "7e5c9895eac6dac3b1e852e7bc5408b28b559dff9fd26de620157ab7e432169f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/insiderser/AutoFullscreen/";
+        description = "Open all Firefox windows in full screen mode";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
       version = "3.4.5";
@@ -1506,6 +1534,20 @@
         homepage = "https://github.com/Xmader/musescore-downloader#readme";
         description = "download sheet music from <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c0273e141ab141ea0a7256437045917b687d145c317a25868e70a5d8ccb864ea/http%3A//musescore.com\" rel=\"nofollow\">musescore.com</a> for free, no login or Musescore Pro required | 免登录、免 Musescore Pro，免费下载 <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c0273e141ab141ea0a7256437045917b687d145c317a25868e70a5d8ccb864ea/http%3A//musescore.com\" rel=\"nofollow\">musescore.com</a> 上的曲谱";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "native-mathml" = buildFirefoxXpiAddon {
+      pname = "native-mathml";
+      version = "1.9.6";
+      addonId = "jid1-fGtBdrROY6E1gA@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4048711/native_mathml-1.9.6.xpi";
+      sha256 = "fa2d2ceebd65b2e9a682dc8fcd606942f969552825c7edecaf4ef679cab06cac";
+      meta = with lib;
+      {
+        homepage = "https://github.com/fred-wang/webextension-native-mathml";
+        description = "Force MathJax/KaTeX/MediaWIki to use native MathML rendering.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -2459,6 +2501,33 @@
         platforms = platforms.all;
         };
       };
+    "tab-reloader" = buildFirefoxXpiAddon {
+      pname = "tab-reloader";
+      version = "0.5.9";
+      addonId = "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4043374/tab_reloader-0.5.9.xpi";
+      sha256 = "b26b5521fa3103e99e2c8fca970f20e33ce3207c60db2b428adff6c4153bc8d6";
+      meta = with lib;
+      {
+        homepage = "http://add0n.com/tab-reloader.html";
+        description = "An easy-to-use tab reloader with custom reloading time settings for individual tabs";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "tab-retitle" = buildFirefoxXpiAddon {
+      pname = "tab-retitle";
+      version = "1.5.2";
+      addonId = "{e855175b-f84a-429d-85d6-a61831c8291c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3468684/tab_retitle-1.5.2.xpi";
+      sha256 = "3f4171f19bd37b5f6198f5db8beb49ca2c5c5cc426fae5435ca04c3533f4e22a";
+      meta = with lib;
+      {
+        description = "Change tab titles easily!\n+ Persists through sessions\n+ Domain level re-titling\n+ Regex replacements\nand much more!";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
       version = "6.12.1";
@@ -2484,6 +2553,20 @@
         homepage = "https://josh-berry.github.io/tab-stash/";
         description = "A no-fuss way to save and organize batches of tabs as bookmarks. Clear your tabs, clear your mind.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "tab-unload-for-tree-style-tab" = buildFirefoxXpiAddon {
+      pname = "tab-unload-for-tree-style-tab";
+      version = "6.15";
+      addonId = "{7aa0a466-58f8-427b-8cd2-e94645c4edc2}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3940033/tab_unload_for_tree_style_tab-6.15.xpi";
+      sha256 = "fbe4ec3cff0a29fe9d730f689d323ba98ad159cb04800e59b7f91f694256473b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Lej77/tab-unloader-for-tree-style-tab";
+        description = "Tab unload options for Tree Style Tab.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };

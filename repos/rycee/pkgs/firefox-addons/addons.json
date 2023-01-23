@@ -109,6 +109,9 @@
     }
   },
   {
+    "slug": "container-proxy"
+  },
+  {
     "slug": "container-tabs-sidebar"
   },
   {
@@ -324,6 +327,9 @@
     }
   },
   {
+    "slug": "i-auto-fullscreen"
+  },
+  {
     "slug": "i-dont-care-about-cookies"
   },
   {
@@ -444,6 +450,9 @@
   },
   {
     "slug": "musescore-downloader"
+  },
+  {
+    "slug": "native-mathml"
   },
   {
     "slug": "netflix-1080p-firefox",
@@ -718,10 +727,19 @@
     }
   },
   {
+    "slug": "tab-reloader"
+  },
+  {
+    "slug": "tab-retitle"
+  },
+  {
     "slug": "tab-session-manager"
   },
   {
     "slug": "tab-stash"
+  },
+  {
+    "slug": "tab-unload-for-tree-style-tab"
   },
   {
     "slug": "tabcenter-reborn"
