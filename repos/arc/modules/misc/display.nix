@@ -183,9 +183,9 @@
           DPI = mkIf cfg.nvidia.enable "${toIntString config.dpi.out.x} x ${toIntString config.dpi.out.y}";
           DisplaySize = mkIf (config.dpi.out.x != 96 || config.dpi.out.y != 96) "${toString config.dpi.out.width} ${toString config.dpi.out.height}";
           Primary = mkIf config.primary true;
-          Position = "${toString config.x} ${toString config.y}";
+          Position = mkIf (config.x != 0 || config.y != 0) "${toString config.x} ${toString config.y}";
           PreferredMode = "${toString config.width}x${toString config.height}";
-          Rotate = config.rotation;
+          Rotate = mkIf (config.rotation != "normal") config.rotation;
         };
         monitorSection = mkMerge (mapAttrsToList (k: v: ''Option "${k}" ${xvalue v}'') config.xserver.options);
       };
@@ -193,6 +193,7 @@
   };
   mmPerInch = 25.4;
   toIntString = v: toString (floor v);
+  enabledMonitors = attrValues (filterAttrs (_: mon: mon.enable) config.monitors);
 in {
   options = {
     enable = mkOption {
@@ -238,15 +239,15 @@ in {
   };
   config = {
     nvidia = {
-      metaModes = mkDefault (concatMapStringsSep ", " (mon: mon.nvidia.metaMode) (attrValues config.monitors));
+      metaModes = mkDefault (concatMapStringsSep ", " (mon: mon.nvidia.metaMode) enabledMonitors);
     };
     xserver = {
       screenSection = mkIf config.nvidia.enable ''
         Option "MetaModes" "${config.nvidia.metaModes}"
       '';
-      deviceSection = mkMerge (mapAttrsToList (_: mon: ''
+      deviceSection = mkMerge (map (mon: ''
         Option "monitor-${mon.output}" "${mon.xserver.sectionName}"
-      '') config.monitors);
+      '') enabledMonitors);
       serverLayoutSection = mkIf config.dpms.enable ''
         Option "StandbyTime" "0"
         Option "SuspendTime" "0"
