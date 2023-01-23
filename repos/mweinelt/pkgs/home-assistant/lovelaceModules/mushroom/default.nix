@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "mushroom";
-  version = "2.5.1";
+  version = "2.5.2";
 
   src = fetchurl {
     url = "https://github.com/piitaya/lovelace-mushroom/releases/download/v${version}/mushroom.js";
-    hash = "sha256-gqWJzO56PXnlyOtH12wHCH4J0gVDWxcTvavd0xURY9U=";
+    hash = "sha256-bjwmLoYZli+vzIpf2p1g2zLBfhu8NHNaAPhp9ahahEs=";
   };
 
   dontUnpack = true;
