@@ -10,6 +10,7 @@
 , at-spi2-core
 , cairo
 , cups
+, curl
 , dbus
 , e2fsprogs
 , gdk-pixbuf
@@ -22,10 +23,13 @@
 , libdrm
 , libgcrypt
 , libGLU
+, libinput
 , libpulseaudio
+, libsForQt5
 , libthai
 , libxkbcommon
 , mesa
+, mtdev
 , nspr
 , nss
 , openldap
@@ -49,6 +53,7 @@ let
     at-spi2-core
     cairo
     cups
+    curl
     dbus
     e2fsprogs
     gdk-pixbuf
@@ -67,10 +72,13 @@ let
     libdrm
     libgcrypt
     libGLU
+    libinput
     libpulseaudio
+    libsForQt5.qtbase
     libthai
     libxkbcommon
     mesa.drivers
+    mtdev
     nspr
     nss
     openldap
@@ -94,12 +102,16 @@ let
     xorg.libXScrnSaver
     xorg.libXt
     xorg.libXtst
+    xorg.xcbutilimage
+    xorg.xcbutilkeysyms
+    xorg.xcbutilrenderutil
+    xorg.xcbutilwm
   ];
 in
 stdenv.mkDerivation rec {
   inherit (sources.dingtalk) pname version src;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper libsForQt5.wrapQtAppsHook ];
   buildInputs = libraries;
 
   unpackPhase = ''
