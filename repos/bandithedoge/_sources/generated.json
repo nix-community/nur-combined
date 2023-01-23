@@ -1,7 +1,7 @@
 {
     "bling": {
         "cargoLocks": null,
-        "date": "2023-01-19",
+        "date": "2023-01-22",
         "extract": null,
         "name": "bling",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "blingcorp",
             "repo": "bling",
-            "rev": "14196af7b5f2161242f522ddaa4c39c582a5c6d0",
-            "sha256": "sha256-qVl/6Fd4LjxNq5nomE3eaI00S3VrwiZbqHo8fglsOGw=",
+            "rev": "d670537bea77e70e17f57845e3a3545b53291945",
+            "sha256": "sha256-KFGWxrd1x35GJAKoFKMyc0qXPnydzub3Pj86o869H+I=",
             "type": "github"
         },
-        "version": "14196af7b5f2161242f522ddaa4c39c582a5c6d0"
+        "version": "d670537bea77e70e17f57845e3a3545b53291945"
     },
     "cardinal": {
         "cargoLocks": null,

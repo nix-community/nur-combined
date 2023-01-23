@@ -7,15 +7,15 @@
 }: {
   bling = {
     pname = "bling";
-    version = "14196af7b5f2161242f522ddaa4c39c582a5c6d0";
+    version = "d670537bea77e70e17f57845e3a3545b53291945";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "14196af7b5f2161242f522ddaa4c39c582a5c6d0";
+      rev = "d670537bea77e70e17f57845e3a3545b53291945";
       fetchSubmodules = false;
-      sha256 = "sha256-qVl/6Fd4LjxNq5nomE3eaI00S3VrwiZbqHo8fglsOGw=";
+      sha256 = "sha256-KFGWxrd1x35GJAKoFKMyc0qXPnydzub3Pj86o869H+I=";
     };
-    date = "2023-01-19";
+    date = "2023-01-22";
   };
   cardinal = {
     pname = "cardinal";
