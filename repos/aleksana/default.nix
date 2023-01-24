@@ -21,4 +21,6 @@
   go-musicfox = pkgs.callPackage ./pkgs/go-musicfox { };
   gtkcord4 = pkgs.callPackage ./pkgs/gtkcord4 { };
   payload-dumper-go = pkgs.callPackage ./pkgs/payload-dumper-go { };
+  speedtest-go = pkgs.callPackage ./pkgs/speedtest-go { };
+  swww = pkgs.callPackage ./pkgs/swww { };
 }
