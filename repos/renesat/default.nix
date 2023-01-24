@@ -4,13 +4,16 @@
 } }:
 
 let
+  aliases = {
+    autorestic = throw "Use `pkgs.autorestic` instead";
+    datalad = throw "Use `pkgs.datalad` instead";
+    warpd = throw "Use `pkgs.warpd` instead";
+  };
   packages = {
-    autorestic = pkgs.callPackage ./pkgs/autorestic {
-      buildGoModule = pkgs.buildGo118Module;
-    };
     activitywatch-bin = pkgs.callPackage ./pkgs/activitywatch-bin { };
-    datalad = pkgs.callPackage ./pkgs/datalad { };
-    warpd = pkgs.callPackage ./pkgs/warpd { };
+    hledger-utils = pkgs.callPackage ./pkgs/hledger-utils { };
+    drawilleplot = pkgs.callPackage ./pkgs/drawilleplot { };
+    drawille = pkgs.callPackage ./pkgs/drawille { };
   };
   supportedSystem = (name: pkg: builtins.elem system pkg.meta.platforms);
-in (pkgs.lib.filterAttrs supportedSystem packages)
+in (pkgs.lib.filterAttrs supportedSystem packages) // aliases
