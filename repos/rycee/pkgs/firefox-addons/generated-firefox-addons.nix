@@ -1420,10 +1420,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.7.1";
+      version = "4.2.3";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032584/mailvelope-4.7.1.xpi";
-      sha256 = "5b8ecaecc0945956ef9ae063b0ade9812b8558ba8821c0935371ca2e74148e4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3520187/mailvelope-4.2.3.xpi";
+      sha256 = "e3e9a09354f03b35426bf48f134553b13199170fa2583eef4a6098da616e8f4e";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1511,10 +1511,10 @@
       };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
-      version = "8.0.9";
+      version = "8.1.2";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038684/multi_account_containers-8.0.9.xpi";
-      sha256 = "1e68ef3bf65d6c309a7d5666da2295987beb7832a211117d41a3ebeb71d16f95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4058426/multi_account_containers-8.1.2.xpi";
+      sha256 = "0ab8f0222853fb68bc05fcf96401110910dfeb507aaea2cf88c5cd7084d167fc";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -2379,10 +2379,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.11";
+      version = "5.1.12";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4047157/sponsorblock-5.1.11.xpi";
-      sha256 = "7762b7b9fbeead69d8573a8b6f247ffcc81e8f26e463d7b18ad01ff5174b351a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4059768/sponsorblock-5.1.12.xpi";
+      sha256 = "815b581cf99adcb42d67ac0ffa498d19e6de47a233289acc9a593bedde88b27b";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -3053,10 +3053,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.85.1";
+      version = "2.85.2";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4056098/web_scrobbler-2.85.1.xpi";
-      sha256 = "55f958264d44bba88ca27b3aa0309be1e6d8118c85d2183ea94330799ad813b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4058453/web_scrobbler-2.85.2.xpi";
+      sha256 = "272533944414c772c38c80d7083cd71919c8a6dba4d2c82f29fd48bfdaccbd27";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
