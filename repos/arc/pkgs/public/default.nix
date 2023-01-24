@@ -20,7 +20,6 @@
   github-label-sync = import ./github-label-sync;
   yggdrasil-address = import ./yggdrasil-address.nix;
   switch-lan-play = import ./switch-lan-play.nix;
-  parsec-bin = import ./parsec-bin.nix;
   mdns-scan = import ./mdns-scan.nix;
 }
 // (import ./bolin)
