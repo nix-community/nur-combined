@@ -7,15 +7,15 @@
 }: {
   bling = {
     pname = "bling";
-    version = "d670537bea77e70e17f57845e3a3545b53291945";
+    version = "af90ae42a91d825b17e129659522ff1643ce4908";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "d670537bea77e70e17f57845e3a3545b53291945";
+      rev = "af90ae42a91d825b17e129659522ff1643ce4908";
       fetchSubmodules = false;
-      sha256 = "sha256-KFGWxrd1x35GJAKoFKMyc0qXPnydzub3Pj86o869H+I=";
+      sha256 = "sha256-mGm4Ydq1K4y2TLgqdYsjsSprk0KHRjSnQtYjqZ+mh2w=";
     };
-    date = "2023-01-22";
+    date = "2023-01-23";
   };
   cardinal = {
     pname = "cardinal";
@@ -113,15 +113,15 @@
   };
   luakit = {
     pname = "luakit";
-    version = "68e4ffc74ce2381f09e242d95bf03d0a4f1cc95e";
+    version = "b3be1f8549464b7d48f832a74b8388385a024a81";
     src = fetchFromGitHub {
       owner = "luakit";
       repo = "luakit";
-      rev = "68e4ffc74ce2381f09e242d95bf03d0a4f1cc95e";
+      rev = "b3be1f8549464b7d48f832a74b8388385a024a81";
       fetchSubmodules = false;
-      sha256 = "sha256-DtoixcLq+ddbacTAo+Qq6q4k1i6thirACw1zqUeOxXo=";
+      sha256 = "sha256-dOAb1Ob+5pdL36t0DxZlYaHH3LzTqUE6+THdQrWocNA=";
     };
-    date = "2022-11-09";
+    date = "2023-01-23";
   };
   lv2vst = {
     pname = "lv2vst";
