@@ -6,7 +6,7 @@ rec {
   # my packages
   cap = pkgs.callPackage ./pkgs/cap.nix {};
 
-  vimPlugins = pkgs.vimPlugins // {
+  vimPlugins = {
     gls-vim = pkgs.callPackage ./pkgs/gls-vim.nix {};
   };
 
