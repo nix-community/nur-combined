@@ -62,6 +62,10 @@
             "file": "nur.nix",
             "url": "https://github.com/arcnmx/nixexprs"
         },
+        "arteneko": {
+            "type": "sourcehut",
+            "url": "https://git.sr.ht/~artemis/artenekoverlay"
+        },
         "artturin": {
             "url": "https://github.com/Artturin/artturin-nur"
         },
