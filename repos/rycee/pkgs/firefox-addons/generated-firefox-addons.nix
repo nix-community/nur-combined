@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230122.190604";
+      version = "110.0buildid20230124.185837";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4060207/francais_language_pack-110.0buildid20230122.190604.xpi";
-      sha256 = "4cf8807a0d269af77714c38c84f9e7fc55993b9725fc75f7b01d00333e0002bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4061364/francais_language_pack-110.0buildid20230124.185837.xpi";
+      sha256 = "8ac3c3b086d46ba4de694e90593c21748f6c293bd9486b3b524c91561d3cf654";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2072,10 +2072,10 @@
       };
     "pywalfox" = buildFirefoxXpiAddon {
       pname = "pywalfox";
-      version = "2.0.9";
+      version = "2.0.11";
       addonId = "pywalfox@frewacom.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4016698/pywalfox-2.0.9.xpi";
-      sha256 = "93d0af40d17f0a2683fffdeb32b6ecbaf466f525bec0df5c6763f561db01c95d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4061156/pywalfox-2.0.11.xpi";
+      sha256 = "df6eab2d2224b23f442d5d6044f4718ec153c197c96191e2bfe0addb2b088137";
       meta = with lib;
       {
         homepage = "https://github.com/frewacom/Pywalfox";
