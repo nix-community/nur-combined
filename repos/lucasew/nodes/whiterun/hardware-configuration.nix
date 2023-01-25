@@ -8,14 +8,44 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "uas" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/0648488e-ea7d-44b5-9d5e-7f36ff46166c";
-      fsType = "ext4";
+    { device = "storage/root/system/root";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "storage/root/local/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var" =
+    { device = "storage/root/system/var";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var/journal" =
+    { device = "storage/root/system/var/journal";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var/log" =
+    { device = "storage/root/system/var/log";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "storage/root/user/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/lucasew" =
+    { device = "storage/root/user/home/lucasew";
+      fsType = "zfs";
     };
 
   fileSystems."/boot" =
@@ -27,5 +57,20 @@
     [ { device = "/dev/disk/by-uuid/5c16bed9-8a2a-41d1-ac78-51a8f0b8560c"; }
     ];
 
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.vboxnet0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.virbr0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ztppi77yi3.useDHCP = lib.mkDefault true;
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # high-resolution display
+  # hardware.video.hidpi.enable = lib.mkDefault true;
 }
+
