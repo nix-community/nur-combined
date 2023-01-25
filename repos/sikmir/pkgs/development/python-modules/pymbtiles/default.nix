@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-aBp3ocXkHsb9vimvhgOn2wgfTM0GMuA4mTcqeFsLQzc=";
   };
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Python utilities for Mapbox mbtiles files";

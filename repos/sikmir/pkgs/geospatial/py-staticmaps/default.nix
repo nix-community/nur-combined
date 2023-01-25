@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ appdirs geographiclib pillow pycairo python-slugify requests s2sphere svgwrite ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "A python module to create static map images with markers, geodesic lines, etc";

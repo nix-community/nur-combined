@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     pydantic
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Pydantic data models for the GeoJSON spec";

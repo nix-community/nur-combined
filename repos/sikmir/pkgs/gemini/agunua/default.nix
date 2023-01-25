@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     netaddr
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTestPaths = [
     "tests/test_egsam.py"

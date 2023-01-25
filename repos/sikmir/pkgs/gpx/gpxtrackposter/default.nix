@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  checkInputs = with python3Packages; [
+  nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     (pytest-mock.overrideAttrs (old: rec {
       pname = "pytest-mock";

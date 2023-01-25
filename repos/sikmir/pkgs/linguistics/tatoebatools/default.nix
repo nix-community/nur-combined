@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
   propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests sqlalchemy setuptools tqdm ]
     ++ lib.optionals withCli [ click xdg ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTests = lib.optionals (!checkLang) [
     "test_init_with_not_language_1"

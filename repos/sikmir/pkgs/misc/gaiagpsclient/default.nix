@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     requests prettytable pytz tzlocal pyyaml pathvalidate
   ];
 
-  checkInputs = with python3Packages; [ mock pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ mock pytestCheckHook ];
 
   doCheck = false;
 

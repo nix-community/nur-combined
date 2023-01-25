@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
     apispec
   ];
 
-  checkInputs = with python3Packages; [
+  nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     mock
     flask

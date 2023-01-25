@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     shapely
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTests = [
     "test_process_tile"

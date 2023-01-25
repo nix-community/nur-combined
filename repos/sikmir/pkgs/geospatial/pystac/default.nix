@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  checkInputs = with python3Packages; [ jsonschema pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ jsonschema pytestCheckHook ];
 
   pythonImportsCheck = [ "pystac" ];
 

@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ matplotlib sounddevice tkinter ];
 
-  checkInputs = with python3Packages; [ nose ];
+  nativeCheckInputs = with python3Packages; [ nose ];
   checkPhase = "nosetests";
 
   meta = with lib; {

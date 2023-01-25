@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "A light-weight, versatile XYZ tile server";

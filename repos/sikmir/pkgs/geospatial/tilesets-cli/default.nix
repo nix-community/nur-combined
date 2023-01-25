@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     supermercado
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTests = [
     "test_cli_create_private_invalid"

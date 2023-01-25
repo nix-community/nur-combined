@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ gpxpy numpy pandas ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook pytest-runner ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-runner ];
 
   meta = with lib; {
     description = "Python package for manipulating gpx files and easily convert gpx to other different formats";

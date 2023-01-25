@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ cython ];
 
-  checkInputs = with python3Packages; [ numpy pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ numpy pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TMPDIR

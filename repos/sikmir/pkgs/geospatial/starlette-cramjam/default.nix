@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     typing-extensions
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Cramjam integration for Starlette ASGI framework";

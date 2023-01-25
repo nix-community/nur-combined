@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     redis
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   # https://github.com/camptocamp/tilecloud/issues/391
   postInstall = ''

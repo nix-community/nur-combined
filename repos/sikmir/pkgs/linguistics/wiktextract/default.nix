@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ python-Levenshtein setuptools wikitextprocessor nltk ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook unzip ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook unzip ];
 
   # https://www.nltk.org/data.html#manual-installation
   preCheck = ''

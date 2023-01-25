@@ -23,7 +23,7 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   pythonImportsCheck = [ "pyrosm" ];
 

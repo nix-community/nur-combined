@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ aiohttp cytoolz numpy pillow ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook pytest-cov ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-cov ];
 
   postInstall = ''
     cp -r geotiler/source $out/lib/${python3Packages.python.libPrefix}/site-packages/geotiler

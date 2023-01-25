@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ attrs pydantic pyproj ];
 
-  checkInputs = with python3Packages; [ mercantile pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ mercantile pytestCheckHook ];
 
   passthru.tests.version = testers.testVersion {
     package = morecantile;

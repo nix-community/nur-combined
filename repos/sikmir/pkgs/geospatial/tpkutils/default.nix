@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     setuptools # pkg_resources
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "ArcGIS Tile Package Utilities";

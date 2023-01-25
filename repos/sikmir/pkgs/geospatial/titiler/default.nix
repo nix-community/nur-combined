@@ -28,7 +28,7 @@ let
       rio-tiler
       geojson-pydantic
     ];
-    checkInputs = with python3Packages; [ pytestCheckHook ];
+    nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
   };
 
   titiler-mosaic = python3Packages.buildPythonPackage {
@@ -40,7 +40,7 @@ let
       cogeo-mosaic
       titiler-core
     ];
-    checkInputs = with python3Packages; [ pytestCheckHook ];
+    nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
   };
 in
 python3Packages.buildPythonPackage {
@@ -55,7 +55,7 @@ python3Packages.buildPythonPackage {
     titiler-mosaic
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTests = [
     "test_mosaic_auth_error"

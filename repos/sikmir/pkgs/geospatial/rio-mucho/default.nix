@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     rasterio
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Parallel processing wrapper for rasterio";

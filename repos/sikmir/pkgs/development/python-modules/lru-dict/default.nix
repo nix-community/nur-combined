@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-+6E5vqjNjKXDfkx/rklsSIvP+JfsTtukCXp7NKxVUrY=";
   };
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "A fast and memory efficient LRU cache for Python";

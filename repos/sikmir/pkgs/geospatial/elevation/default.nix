@@ -43,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  checkInputs = with python3Packages; [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-mock ];
 
   postInstall = ''
     install -Dm644 elevation/datasource.mk -t $out/lib/${python3Packages.python.libPrefix}/site-packages/elevation

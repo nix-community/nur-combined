@@ -16,7 +16,7 @@ python3Packages.buildPythonPackage rec {
     }
   );
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   disabledTests = [
     # https://github.com/pallets/click/issues/823

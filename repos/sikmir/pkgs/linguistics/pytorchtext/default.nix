@@ -27,7 +27,7 @@ python3Packages.buildPythonPackage rec {
     tqdm
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   dontUseCmakeConfigure = true;
 

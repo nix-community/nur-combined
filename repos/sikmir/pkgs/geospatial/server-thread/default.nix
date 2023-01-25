@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ scooby werkzeug ];
 
-  checkInputs = with python3Packages; [ flask requests pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ flask requests pytestCheckHook ];
 
   meta = with lib; {
     description = "Launch a WSGIApplication in a background thread with werkzeug";

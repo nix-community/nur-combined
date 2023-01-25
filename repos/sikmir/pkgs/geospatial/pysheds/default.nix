@@ -20,7 +20,7 @@ python3Packages.buildPythonPackage rec {
     numba
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Simple and fast watershed delineation in python";

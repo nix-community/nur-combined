@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     urllib3
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
   preCheck = "export PATH=$PATH:$out/bin";
   disabledTests = [
     "test_tile"
