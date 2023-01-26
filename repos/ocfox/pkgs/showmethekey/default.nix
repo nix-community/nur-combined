@@ -5,7 +5,6 @@
 , ninja
 , libevdev
 , json-glib
-, cairo
 , libinput
 , gtk4
 , wrapGAppsHook
@@ -14,13 +13,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "showmethekey";
-  version = "04b04e468101d3bfa08a24f5dde9fb1c6cf27a22";
+  version = "1.8.0";
 
   src = fetchFromGitHub {
     owner = "AlynxZhou";
     repo = pname;
-    rev = version;
-    hash = "sha256-pfqlfAUl7a3xvH5HuTvb2csViYqGPv170XY0xlNRn1w=";
+    rev = "v${version}";
+    hash = "sha256-iWZjOhugGD7GikcIKaJimfLrTDaGQeYgmp17N03Meb8=";
   };
 
   nativeBuildInputs = [
@@ -33,10 +32,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gtk4
-    cairo
     libevdev
     libinput
     libxkbcommon
   ];
 
+  meta = with lib; {
+    homepage = "https://showmethekey.alynx.one/";
+    description = "Show keys you typed on screen";
+    license = licenses.asl20;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ ocfox ];
+  };
 }
