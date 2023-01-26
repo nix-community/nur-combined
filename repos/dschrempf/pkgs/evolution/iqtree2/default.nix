@@ -9,14 +9,14 @@
 
 stdenv.mkDerivation rec {
   pname = "iqtree2";
-  version = "2.2.0.5";
+  version = "2.2.2.2";
 
   src = fetchFromGitHub {
     owner = "iqtree";
     repo = pname;
     rev = "v${version}";
     fetchSubmodules = true;
-    hash = "sha256-LqaHoGixHjLrjtrJlCDqh9UkrGUSAiK7STL/Yyc7cZQ=";
+    hash = "sha256-Fowg5qgZCrEft/XpIec8aU/wwsQVdn71XeWaxz2n+Hc=";
   };
 
   nativeBuildInputs = [ cmake ];
