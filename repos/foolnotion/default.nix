@@ -42,6 +42,8 @@
 
   fast_float = pkgs.callPackage ./pkgs/fast_float { };
 
+  gch-small-vector = pkgs.callPackage ./pkgs/gch-small-vector { };
+
   keyd = pkgs.callPackage ./pkgs/keyd { };
 
   koivisto = pkgs.callPackage ./pkgs/koivisto { };
@@ -87,8 +89,7 @@
 
   pyoperon = pkgs.python3Packages.callPackage ./pkgs/pyoperon { };
 
-  qpdfview = pkgs.libsForQt5.callPackage ./pkgs/qpdfview {
-  };
+  qpdfview = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
 
