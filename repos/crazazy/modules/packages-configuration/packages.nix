@@ -35,6 +35,7 @@ defaultPackages: with defaultPackages.pkgs; {
       jq
       crazazy.hidden.emacs
       python-personal
+      sage
       nodejs_latest
       racket
       rEnv
