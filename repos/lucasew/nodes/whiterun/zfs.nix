@@ -10,6 +10,7 @@
   boot.zfs.extraPools = [ "storage" ];
   services.zfs.autoScrub = {
     enable = true;
-    pools = [ "storage" ];
+    pools = [ "storage" "zroot" ];
   };
+  virtualisation.docker.storageDriver = "zfs";
 }

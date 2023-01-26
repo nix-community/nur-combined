@@ -22,6 +22,7 @@ in
       ./networking.nix
       ./dns.nix
       ./kvm.nix
+      ./zfs.nix
       ./backup-saves.nix
       ./plymouth.nix
       ./remote-build.nix
