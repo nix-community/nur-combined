@@ -285,10 +285,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "3.0.1.0";
+      version = "3.0.2.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4056666/bypass_paywalls_clean-3.0.1.0.xpi";
-      sha256 = "d9df3f8cf7f943c52a41b3776c16e8a2614030109faa9d8714a0800cc237d888";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4060075/bypass_paywalls_clean-3.0.2.0.xpi";
+      sha256 = "7b74a75edffc82176c8b44016317c5bbff622c53c5b09c0d0dddad95e004d227";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -1392,10 +1392,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.44";
+      version = "2.6.45";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4052425/localcdn_fork_of_decentraleyes-2.6.44.xpi";
-      sha256 = "43bd487bb972be53fa9efd58d4cbfddea6831017a327a770f556df987b3ac5b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4059496/localcdn_fork_of_decentraleyes-2.6.45.xpi";
+      sha256 = "1e7dc230f96a0a245a2813979b3801af7e7a8c2325f068a087796a8c495ff36e";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1492,10 +1492,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.19";
+      version = "2.7.24";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4057783/momentumdash-2.7.19.xpi";
-      sha256 = "1a1ff1d1df2d6bbd6a71d4b2e57365b5bb9f0cf8300f802b1c8c9883710b8d83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4061289/momentumdash-2.7.24.xpi";
+      sha256 = "abfd16f30430c8bae0a67bb50f3ca51511c67d80eb965380af21fa30c8d5df20";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2170,10 +2170,10 @@
       };
     "reduxdevtools" = buildFirefoxXpiAddon {
       pname = "reduxdevtools";
-      version = "3.0.11";
+      version = "2.17.1";
       addonId = "extension@redux.devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3932897/reduxdevtools-3.0.11.xpi";
-      sha256 = "97b2d14543a2f42c02948c05eef8d6dda24eba6eca559fd967e2638adc2da352";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1509811/reduxdevtools-2.17.1.xpi";
+      sha256 = "649d780d19201b2607347c4f57b5b57b237624b2c0ed322af9575cf791cce326";
       meta = with lib;
       {
         homepage = "https://github.com/reduxjs/redux-devtools";
@@ -2983,10 +2983,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.7";
+      version = "2.13.9";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4053300/violentmonkey-2.13.7.xpi";
-      sha256 = "38bc3949f40141bc671a4880d8976400489c9afa5c24fe290a732015d727d768";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4059651/violentmonkey-2.13.9.xpi";
+      sha256 = "5db2c6fabdae17c2d73163f4852ef6586123b8fca1c9fccc4555ba829dcc7da9";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
