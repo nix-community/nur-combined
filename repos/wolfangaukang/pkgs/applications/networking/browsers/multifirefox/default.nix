@@ -1,18 +1,16 @@
 { stdenv, lib, fetchgit, makeWrapper, firefox, gnome }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "multifirefox";
-  version = "unstable-2022-02-10";
+  version = "unstable-2016-05-10";
 
   src = fetchgit {
-    url = "https://codeberg.org/wolfangaukang/multifirefox.git";
-    rev = "bfaeaabbf92bb45dc48111baa0ba70e74ba25975";
-    sha256 = "sha256-XQxhMJSiXBqYB0mvdT6iSwcgrjJ6MK1pxMyBm+ZOGIw=";
+    url = "https://gist.github.com/c44d6ca8ac76333ca4a2";
+    rev = "f71167ad2e35a2bb2166047e5ecfd7c0a5ea17ad";
+    sha256 = "sha256-Bix4S/MUW5MzAA0/xyO63EpFAzLGRtwJ3sJYwl4ahT4=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-
-  buildInputs = [ gnome.zenity ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -20,12 +18,13 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -Dm 755 multifirefox -t $out/bin/
-    install -Dm 644 multifirefox.desktop -t $out/share/applications/
-    cp -R ${firefox}/share/icons $out/share/
+    install -Dm755 multifirefox -t $out/opt/multifirefox
+    install -Dm644 multifirefox.desktop -t $out/share/applications
 
-    wrapProgram $out/bin/multifirefox \
-      --prefix PATH ":" ${gnome.zenity}/bin
+    cp -R ${firefox}/share/icons $out/share/
+    makeWrapper $out/opt/multifirefox/multifirefox \
+      $out/bin/multifirefox \
+      --prefix PATH : "${lib.makeBinPath [ firefox gnome.zenity ]}"
     substituteInPlace $out/share/applications/multifirefox.desktop \
       --replace "/usr/bin/env " "$out/bin/"
 

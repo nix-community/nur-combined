@@ -35,6 +35,7 @@ let
   };
 
   defaultSettings = {
+    "browser.download.dir" = "/home/bjorn/Elsxutujo";
     "browser.newtabpage.activity-stream.showSponsored" = false;
     "browser.tabs.warnOnClose" = false;
     "extensions.pocket.enabled" = false;

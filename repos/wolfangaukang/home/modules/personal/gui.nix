@@ -4,10 +4,41 @@ let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.gui;
   bcfg = cfg.browsers;
-  settings = import ./settings.nix { inherit pkgs; };
 
-in
-{
+  defaultPkgs = with pkgs; [
+    calibre
+    keepassxc
+    libreoffice
+    raven-reader
+    thunderbird
+    vlc
+  ];
+
+  mimelist = {
+    "application/xml" = "neovim.desktop";
+    "application/x-perl" = "neovim.desktop";
+    "image/jpeg" = "feh.desktop";
+    "image/png" = "feh.desktop";
+    "text/mathml" = "neovim.desktop";
+    "text/plain" = "neovim.desktop";
+    "text/xml" = "neovim.desktop";
+    "text/x-c++hdr" = "neovim.desktop";
+    "text/x-c++src" = "neovim.desktop";
+    "text/x-xsrc" = "neovim.desktop";
+    "text/x-chdr" = "neovim.desktop";
+    "text/x-csrc" = "neovim.desktop";
+    "text/x-dtd" = "neovim.desktop";
+    "text/x-java" = "neovim.desktop";
+    "text/x-python" = "neovim.desktop";
+    "text/x-sql" = "neovim.desktop";
+    "text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;" = "neovim.desktop";
+     "x-scheme-handler/http" = "firefox.desktop";
+     "x-scheme-handler/https" = "firefox.desktop";
+     "x-scheme-handler/about" = "firefox.desktop";
+     "x-scheme-handler/unknown" = "firefox.desktop";
+  };
+
+in {
   options.defaultajAgordoj.gui = {
     enable = mkOption {
       default = false;
@@ -58,15 +89,22 @@ in
         }; 
       };
     };
+    extraPkgs = mkOption {
+      default = [ ];
+      type = types.listOf types.package;
+      description = ''
+        List of extra packages to install
+      '';
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
     {
-      home.packages = settings.packages.gui;
+      home.packages = defaultPkgs ++ cfg.extraPkgs;
       programs.feh.enable = true;
       xdg.mimeApps = {
         enable = cfg.enableMimeapps;
-        defaultApplications = settings.mimelist;
+        defaultApplications = mimelist;
       };
     }
     (mkIf bcfg.firefox.enable (import ../../profiles/common/firefox.nix {

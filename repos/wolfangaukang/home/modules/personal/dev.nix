@@ -3,7 +3,7 @@
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.dev;
-  settings = import ./settings.nix { inherit pkgs; };
+  defaultPkgs = with pkgs; [ shellcheck ];
 
 in
 {
@@ -15,10 +15,17 @@ in
         Enables the Dev tools (VSCodium)
       '';
     };
+    extraPkgs = mkOption {
+      default = [ ];
+      type = types.listOf types.package;
+      description = ''
+        List of extra packages to install
+      '';
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
-    { home.packages = settings.packages.dev; }
+    { home.packages = defaultPkgs ++ cfg.extraPkgs; }
     (import ../../profiles/common/vscode.nix { inherit pkgs; })
   ]);
 

@@ -2,11 +2,6 @@
 
 let
   user = "bjorn";
-  nur_pkgs = with pkgs.nur.repos.wolfangaukang; [ vdhcoapp ];
-  upstream_pkgs = with pkgs; [
-    # GUI
-    discord
-  ];
 
 in
 {
@@ -14,16 +9,14 @@ in
     ../../profiles/common/fonts.nix
     ../../profiles/common/layouts.nix
     ../../profiles/common/syncthing.nix
-    ../../profiles/common/tmux.nix
+    ../../profiles/common/shells/zsh.nix
     ../../profiles/nixos/alacritty.nix
-    ../../profiles/nixos/zsh.nix
   ];
 
   home = {
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = "20.09";
-    packages = nur_pkgs ++ upstream_pkgs;
   };
 
   xdg = {
@@ -51,13 +44,13 @@ in
     gui = {
       enable = true;
       browsers.chromium.enable = true;
+      extraPkgs = with pkgs; [ discord ];
     };
     dev.enable = true;
   };
 
   programs = {
     neofetch.enable = true;
-    # TODO: Handle this on a external file
     sab = {
       enable = true;
       bots = {

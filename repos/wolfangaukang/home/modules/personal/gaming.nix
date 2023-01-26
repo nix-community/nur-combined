@@ -3,7 +3,6 @@
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.gaming;
-  settings = import ./settings.nix { inherit pkgs; };
 
 in
 {
@@ -56,7 +55,7 @@ in
   
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.enableProtontricks {
-      home.packages = settings.packages.gaming;
+      home.packages = with pkgs; [ protontricks winetricks ];
     })
     (mkIf cfg.retroarch.enable (mkMerge [
       (mkIf (cfg.retroarch.coresToLoad == [ ]) {

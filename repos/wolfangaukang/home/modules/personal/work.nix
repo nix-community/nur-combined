@@ -3,7 +3,6 @@
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.work;
-  settings = import ./settings.nix { inherit pkgs; };
 
 in
 {
@@ -16,13 +15,20 @@ in
           Enables the SimpleRisk profile.
         '';
       };
+      extraPkgs = mkOption {
+        default = [ ];
+        type = types.listOf types.package;
+        description = ''
+          List of extra packages to install
+        '';
+      };
     };
   };
 
   config = mkMerge [
     (mkIf cfg.simplerisk.enable (import ../../profiles/sets/simplerisk.nix {
       inherit pkgs;
-      extra-pkgs = settings.packages.work;
+      extra-pkgs = cfg.simplerisk.extraPkgs;
       neovim-extensions = with pkgs.vimPlugins; [
         Jenkinsfile-vim-syntax
         vim-packer

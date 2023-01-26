@@ -12,5 +12,5 @@
     ../../profiles/common/ranger.nix
   ];
 
-  home.packages = with pkgs; [ stremio ];
+  defaultajAgordoj.gui.extraPkgs = with pkgs; [ stremio ];
 }

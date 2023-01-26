@@ -96,7 +96,7 @@
               inherit inputs overlays;
               users = usersWithRoot;
               hostname = "eyjafjallajokull";
-              kernel = kernels.linux_6_0;
+              kernel = kernels.linux_6_1;
               extra-modules = nixosHardware;
               enable-impermanence = true;
               enable-sops = true;
@@ -111,7 +111,7 @@
               inherit inputs overlays;
               users = usersWithRoot;
               hostname = "holuhraun";
-              kernel = kernels.linux_6_0;
+              kernel = kernels.linux_6_1;
               extra-modules = nixosHardware;
               enable-impermanence = true;
               enable-sops = true;
