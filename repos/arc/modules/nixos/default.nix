@@ -8,6 +8,7 @@
   dht22-exporter = ./dht22-exporter.nix;
   modprobe = ./modprobe.nix;
   kernel = ./kernel.nix;
+  dsdt = ./dsdt.nix;
   crypttab = ./crypttab.nix;
   glauth = ./glauth.nix;
   common-root = ./common-root.nix;
@@ -44,7 +45,7 @@
       dht22-exporter
       glauth
       modprobe
-      kernel
+      kernel dsdt
       crypttab
       mutable-state
       common-root
