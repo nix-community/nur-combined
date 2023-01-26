@@ -2,8 +2,8 @@
 
 # syncing to backup zpool
 #   syncoid storage/vmiso archive/downloads/vmiso
-#   syncoid storage/vms archive/vms -r
 #   syncoid storage/backup-hdexterno archive/backup-hdexterno
+#   syncoid zroot/vms archive/vms -r
 
 {
   boot.supportedFilesystems = [ "zfs" ];

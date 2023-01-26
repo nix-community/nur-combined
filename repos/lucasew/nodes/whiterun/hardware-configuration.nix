@@ -14,37 +14,37 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "storage/root/system/root";
+    { device = "zroot/root/system/root";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "storage/root/local/nix";
+    { device = "zroot/root/local/nix";
       fsType = "zfs";
     };
 
   fileSystems."/var" =
-    { device = "storage/root/system/var";
+    { device = "zroot/root/system/var";
       fsType = "zfs";
     };
 
   fileSystems."/var/journal" =
-    { device = "storage/root/system/var/journal";
+    { device = "zroot/root/system/var/journal";
       fsType = "zfs";
     };
 
   fileSystems."/var/log" =
-    { device = "storage/root/system/var/log";
+    { device = "zroot/root/system/var/log";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "storage/root/user/home";
+    { device = "zroot/root/user/home";
       fsType = "zfs";
     };
 
   fileSystems."/home/lucasew" =
-    { device = "storage/root/user/home/lucasew";
+    { device = "zroot/root/user/home/lucasew";
       fsType = "zfs";
     };
 
