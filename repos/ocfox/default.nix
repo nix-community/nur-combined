@@ -9,10 +9,10 @@
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  # overlays = import ./overlays; # nixpkgs overlays
 
   showmethekey = pkgs.callPackage ./pkgs/showmethekey { };
-  gtk-qq = pkgs.callPackage ./pkgs/gtk-qq { };
+  # gtk-qq = pkgs.callPackage ./pkgs/gtk-qq { };
   swww = pkgs.callPackage ./pkgs/swww { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
