@@ -147,10 +147,10 @@
   };
   "gitako" = buildFirefoxXpiAddon {
     pname = "gitako";
-    version = "3.10.0";
+    version = "3.10.1";
     addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4050244/gitako_github_file_tree-3.10.0.xpi";
-    sha256 = "ee45291732c871a77bc629d56fcfd5cc00b0ae65a79a23912d884615ecdfb97a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4061855/gitako_github_file_tree-3.10.1.xpi";
+    sha256 = "39c57deff392351e090dd78c0bf060f76ff49f6a4e29f6ecc5d4e95f1ebe6ad1";
     meta = with lib; {
       homepage = "https://github.com/EnixCoda/Gitako";
       description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
@@ -440,10 +440,10 @@
   };
   "violentmonkey" = buildFirefoxXpiAddon {
     pname = "violentmonkey";
-    version = "2.13.7";
+    version = "2.13.9";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4053300/violentmonkey-2.13.7.xpi";
-    sha256 = "38bc3949f40141bc671a4880d8976400489c9afa5c24fe290a732015d727d768";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4059651/violentmonkey-2.13.9.xpi";
+    sha256 = "5db2c6fabdae17c2d73163f4852ef6586123b8fca1c9fccc4555ba829dcc7da9";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Violentmonkey provides userscripts support for browsers.\nIt's open source! <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/c8bcebd9a0e76f20c888274e94578ab5957439e46d59a046ff9e1a9ef55c282c/https%3A//github.com/violentmonkey/violentmonkey\" rel=\"nofollow\">https://github.com/violentmonkey/violentmonkey</a>";
