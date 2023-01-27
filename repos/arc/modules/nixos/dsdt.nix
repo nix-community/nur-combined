@@ -34,42 +34,48 @@
   '';
 in {
   options.boot.initrd.dsdt = with types; {
-    enable = mkEnableOption "DSDT patches";
+    enable = mkEnableOption "DSDT patches" // {
+      default = cfg.patch.enable;
+    };
     table = mkOption {
       type = path;
     };
-    patched = mkOption {
-      type = path;
+    version = mkOption {
+      type = strMatching "[0-9a-f]+";
     };
     image = mkOption {
       type = path;
+      default = acpiImage cfg.table;
+      defaultText = "mkAcpiImage config.boot.initrd.dsdt.table";
     };
-    s3 = {
-      enable = mkEnableOption "DSDT S3 sleep patch";
-      version = {
-        pre = mkOption {
-          type = str;
-        };
-        post = mkOption {
-          type = str;
-        };
+    patch = {
+      enable = mkEnableOption "DSDT patches" // {
+        default = cfg.patch.s3.enable;
       };
+      table = mkOption {
+        type = path;
+      };
+      version = mkOption {
+        type = strMatching "[0-9a-f]+";
+      };
+      s3.enable = mkEnableOption "DSDT S3 sleep patch";
     };
   };
   config.boot = {
     initrd = {
       prepend = mkIf cfg.enable [ "${cfg.image}" ];
       dsdt = {
-        patched = mkIf cfg.s3.enable (patchedAcpiTable {
-          dsdt = cfg.table;
-          versionPre = cfg.s3.version.pre;
-          versionPost = cfg.s3.version.post;
-        });
-        image = let
-          table = if opts.patched.isDefined then cfg.patched else cfg.table;
-        in acpiImage table;
+        table = let
+          patched = patchedAcpiTable {
+            dsdt = cfg.patch.table;
+            versionPre = cfg.patch.version;
+            versionPost = cfg.version;
+          };
+        in mkIf cfg.patch.enable (mkOptionDefault patched);
       };
     };
-    kernelParams = mkIf (cfg.enable && cfg.s3.enable) [ "mem_sleep_default=deep" ];
+    kernelParams = mkIf (cfg.enable && cfg.patch.enable && cfg.patch.s3.enable) [
+      "mem_sleep_default=deep"
+    ];
   };
 }
