@@ -128,11 +128,6 @@ fetch.github = "open-quantum-safe/liboqs"
 
 [linux-xanmod]
 src.github_tag = "xanmod/linux"
-src.exclude_regex = "^6\\.1\\.(.*)"
-fetch.github = "xanmod/linux"
-
-[linux-xanmod-unstable]
-src.github_tag = "xanmod/linux"
 fetch.github = "xanmod/linux"
 
 [nbfc-linux-lantian]
@@ -289,6 +284,11 @@ src.regex = "\"Version\":\"([^\"]+)\""
 src.from_pattern = "(.+):(.+)-(.+)"
 src.to_pattern = "\\2"
 fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_$ver_amd64.deb"
+
+[wine-wechat]
+src.manual = "3.7.6"
+fetch.url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe"
+fetch.force = true
 
 [zstd-nginx-module]
 src.git = "https://github.com/tokers/zstd-nginx-module.git"

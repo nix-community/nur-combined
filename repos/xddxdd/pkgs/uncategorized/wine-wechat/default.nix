@@ -1,10 +1,16 @@
-{ stdenv
+{ sources
+, stdenv
 
   # WeChat replaces this download link with newer versions from time to time.
   # This package will inevitably break by then, but there's nothing I can do.
   # If that happens, change these two parameters.
-, version ? "3.7.6"
-, sha256 ? "sha256-FjK59BxgwLCmkDjgE2fsItCWwqBw0DOgtfrO/NuYwaY="
+, version ? sources.wine-wechat.version
+  # For src, use something like this
+  # src = fetchurl {
+  #   url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
+  #   sha256 = "xxx";
+  # };
+, setupSrc ? sources.wine-wechat.src
 
 , fetchurl
 , lib
@@ -52,18 +58,13 @@ let
   wechatFiles = stdenv.mkDerivation rec {
     pname = "wechat";
     inherit version;
-
-    # WeChat replaces this download link with newer versions from time to time.
-    # This package will inevitably break by then, but there's nothing I can do.
-    src = fetchurl {
-      url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
-      inherit sha256;
-    };
+    src = setupSrc;
 
     nativeBuildInputs = [ p7zip ];
 
     unpackPhase = ''
-      7z x ${src}
+      ls -alh $src
+      7z x $src
       rm -rf \$*
     '';
 

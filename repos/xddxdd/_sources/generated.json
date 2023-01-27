@@ -186,7 +186,7 @@
     },
     "bird-lg-go": {
         "cargoLocks": null,
-        "date": "2023-01-08",
+        "date": "2023-01-26",
         "extract": null,
         "name": "bird-lg-go",
         "passthru": null,
@@ -198,11 +198,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "49a05767c13fbe5ab4ad7527b56161ea1e6f5bac",
-            "sha256": "sha256-bDSY84Fk38hRoHwWMHZhWUyvviXz1eXh9zZy0Vhgl94=",
+            "rev": "7b0c8c05566ca0a7e2f724cd9627aa75ef309add",
+            "sha256": "sha256-Uu1OMSlxkMiRImOk39SwIrxwdYIZaA9eGKzuNurmun4=",
             "type": "github"
         },
-        "version": "49a05767c13fbe5ab4ad7527b56161ea1e6f5bac"
+        "version": "7b0c8c05566ca0a7e2f724cd9627aa75ef309add"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
@@ -597,31 +597,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.0.12-xanmod1",
-            "sha256": "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=",
+            "rev": "6.1.8-xanmod1",
+            "sha256": "sha256-gHmqPf6AB57T1sZq7gpbFBQOWD1eAh6CcibBtDKZB+Y=",
             "type": "github"
         },
-        "version": "6.0.12-xanmod1"
-    },
-    "linux-xanmod-unstable": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "linux-xanmod-unstable",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "xanmod",
-            "repo": "linux",
-            "rev": "6.1.7-xanmod1",
-            "sha256": "sha256-cgUxM40cDl4lzoF4St3ckKAtsle2PRehfSag3VaycrY=",
-            "type": "github"
-        },
-        "version": "6.1.7-xanmod1"
+        "version": "6.1.8-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -855,7 +835,7 @@
     },
     "openssl-oqs": {
         "cargoLocks": null,
-        "date": "2022-12-21",
+        "date": "2023-01-24",
         "extract": null,
         "name": "openssl-oqs",
         "passthru": null,
@@ -867,15 +847,15 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "openssl",
-            "rev": "38e12f18693b6145df7c955bb70c77d2a6e0f164",
-            "sha256": "sha256-0+1/rAj0axCBiX6nSevDcsu9+u/EHk/QR9I4JCB5eTg=",
+            "rev": "613d1bea7afa23dc11f340e75990cb47d77711e9",
+            "sha256": "sha256-9SbjFfph71hqoGvKdeC5F++vHPPkrzugG+T26rmPAzs=",
             "type": "github"
         },
-        "version": "38e12f18693b6145df7c955bb70c77d2a6e0f164"
+        "version": "613d1bea7afa23dc11f340e75990cb47d77711e9"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2023-01-17",
+        "date": "2023-01-24",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -887,11 +867,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "3bf94d48ecc95ce5be4c5c18ed7dd7c8bddaf07b",
-            "sha256": "sha256-fivkynCDbjpHn+z5eTHJHKulHur+ZV53w5YfQVCUQBQ=",
+            "rev": "5834cf16b60e156f809b293bc19c486d3c0fca9c",
+            "sha256": "sha256-3mmhAStKPfib48wO7lI51+8lwsnRzWnLXi6/MCluJMc=",
             "type": "github"
         },
-        "version": "3bf94d48ecc95ce5be4c5c18ed7dd7c8bddaf07b"
+        "version": "5834cf16b60e156f809b293bc19c486d3c0fca9c"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1257,6 +1237,21 @@
             "url": "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_2.1.5_amd64.deb"
         },
         "version": "2.1.5"
+    },
+    "wine-wechat": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "wine-wechat",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-s9hwTOTlYUqgN/DAuTAClkjQ8OR1SPUPi7KXA2oDhic=",
+            "type": "url",
+            "url": "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe"
+        },
+        "version": "3.7.6"
     },
     "zstd-nginx-module": {
         "cargoLocks": null,

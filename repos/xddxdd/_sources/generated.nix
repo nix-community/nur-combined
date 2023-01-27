@@ -110,15 +110,15 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "49a05767c13fbe5ab4ad7527b56161ea1e6f5bac";
+    version = "7b0c8c05566ca0a7e2f724cd9627aa75ef309add";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "49a05767c13fbe5ab4ad7527b56161ea1e6f5bac";
+      rev = "7b0c8c05566ca0a7e2f724cd9627aa75ef309add";
       fetchSubmodules = false;
-      sha256 = "sha256-bDSY84Fk38hRoHwWMHZhWUyvviXz1eXh9zZy0Vhgl94=";
+      sha256 = "sha256-Uu1OMSlxkMiRImOk39SwIrxwdYIZaA9eGKzuNurmun4=";
     });
-    date = "2023-01-08";
+    date = "2023-01-26";
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
@@ -339,24 +339,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.0.12-xanmod1";
+    version = "6.1.8-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.0.12-xanmod1";
+      rev = "6.1.8-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=";
-    });
-  };
-  linux-xanmod-unstable = {
-    pname = "linux-xanmod-unstable";
-    version = "6.1.7-xanmod1";
-    src = fetchFromGitHub ({
-      owner = "xanmod";
-      repo = "linux";
-      rev = "6.1.7-xanmod1";
-      fetchSubmodules = false;
-      sha256 = "sha256-cgUxM40cDl4lzoF4St3ckKAtsle2PRehfSag3VaycrY=";
+      sha256 = "sha256-gHmqPf6AB57T1sZq7gpbFBQOWD1eAh6CcibBtDKZB+Y=";
     });
   };
   nbfc-linux-lantian = {
@@ -495,27 +484,27 @@
   };
   openssl-oqs = {
     pname = "openssl-oqs";
-    version = "38e12f18693b6145df7c955bb70c77d2a6e0f164";
+    version = "613d1bea7afa23dc11f340e75990cb47d77711e9";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "openssl";
-      rev = "38e12f18693b6145df7c955bb70c77d2a6e0f164";
+      rev = "613d1bea7afa23dc11f340e75990cb47d77711e9";
       fetchSubmodules = false;
-      sha256 = "sha256-0+1/rAj0axCBiX6nSevDcsu9+u/EHk/QR9I4JCB5eTg=";
+      sha256 = "sha256-9SbjFfph71hqoGvKdeC5F++vHPPkrzugG+T26rmPAzs=";
     });
-    date = "2022-12-21";
+    date = "2023-01-24";
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "3bf94d48ecc95ce5be4c5c18ed7dd7c8bddaf07b";
+    version = "5834cf16b60e156f809b293bc19c486d3c0fca9c";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "3bf94d48ecc95ce5be4c5c18ed7dd7c8bddaf07b";
+      rev = "5834cf16b60e156f809b293bc19c486d3c0fca9c";
       fetchSubmodules = false;
-      sha256 = "sha256-fivkynCDbjpHn+z5eTHJHKulHur+ZV53w5YfQVCUQBQ=";
+      sha256 = "sha256-3mmhAStKPfib48wO7lI51+8lwsnRzWnLXi6/MCluJMc=";
     });
-    date = "2023-01-17";
+    date = "2023-01-24";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -717,6 +706,14 @@
     src = fetchurl {
       url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_2.1.5_amd64.deb";
       sha256 = "sha256-vVN7w+oPXNTMJ/g1Rpw/AVLIytMXI+gLieNuddyyIYE=";
+    };
+  };
+  wine-wechat = {
+    pname = "wine-wechat";
+    version = "3.7.6";
+    src = fetchurl {
+      url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
+      sha256 = "sha256-s9hwTOTlYUqgN/DAuTAClkjQ8OR1SPUPi7KXA2oDhic=";
     };
   };
   zstd-nginx-module = {
