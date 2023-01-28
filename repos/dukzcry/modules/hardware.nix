@@ -75,6 +75,9 @@ in {
         vSync = true;
         backend = "glx";
       };
+      services.logind.extraConfig = ''
+        HandlePowerKey=hibernate
+      '';
     } // builder))
     (mkIf (cfg.enable && desktop) {
       hardware.bluetooth.enable = true;
