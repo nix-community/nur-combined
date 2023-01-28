@@ -2,6 +2,7 @@
   cfg = config.base16;
   makeColorCS = n: value: "\\e]P${lib.toHexUpper or arc.lib.toHexUpper n}${value}";
   arc = import ../../canon.nix { inherit pkgs; };
+  base16 = lib.base16 or arc.lib.base16;
 in with lib; {
   options.console.getty = {
     greetingPrefix = mkOption {
