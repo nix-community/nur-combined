@@ -11,11 +11,12 @@
         "x86_64-darwin"
         "x86_64-linux"
       ];
-      forAllSystems = f: lib.genAttrs supportedSystems (system: f system);
+      forSpecificSystems = systems: f: lib.genAttrs systems (system: f system);
+      forAllSystems = forSpecificSystems supportedSystems;
     in
     {
       lib = {
-        inherit forAllSystems;
+        inherit forAllSystems forSpecificSystems;
       };
       nixosModules = let x = ((import ./default.nix { pkgs = null; })); in
         {
