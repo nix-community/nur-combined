@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230126.191419";
+      version = "109.0.1buildid20230127.170202";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4062489/francais_language_pack-110.0buildid20230126.191419.xpi";
-      sha256 = "f099e75f21ba0b3c7f2d45ed52481fd6f977dfee9d9ea142b20e93c6d19e9170";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063034/francais_language_pack-109.0.1buildid20230127.170202.xpi";
+      sha256 = "94a646c56bca1d3017701e549929ee95d67e36de0b18afa1b3e005d007f321cd";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1169,10 +1169,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.20.1";
+      version = "2.21.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4045650/ipfs_companion-2.20.1.xpi";
-      sha256 = "aa2653c5dfc8680d81c44c771e381ad9eb257cfc81239f465b758e39d43f6bb3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063075/ipfs_companion-2.21.0.xpi";
+      sha256 = "28be6a8598b795f736c310eea62a6cc5752266e64299e4e8fd6a1252b32ad5a3";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -1284,10 +1284,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.107.0.2";
+      version = "4.107.1.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055967/lastpass_password_manager-4.107.0.2.xpi";
-      sha256 = "4b70a629dc515d08fd2bc8e7f1a7bed4c1ecf5e65b2b5a728d9d64751e46571e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4061265/lastpass_password_manager-4.107.1.3.xpi";
+      sha256 = "de63e785c6642f938619c0e99ea2c22dbd61822987508e4163ce1239f9d7f6f2";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -2294,10 +2294,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.33";
+      version = "1.21.36";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4052735/single_file-1.21.33.xpi";
-      sha256 = "a960f08d5e8d9fb2f97526136f2aefc715963f7a9f41d90aad261ac0f7e93481";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4062282/single_file-1.21.36.xpi";
+      sha256 = "e6bad5033eaf4c5e84d76359461d67fbe6c6cb8690faab834acc3e18219044a1";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
