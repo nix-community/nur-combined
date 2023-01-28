@@ -12,9 +12,12 @@ in
     services.openssh = {
       # Enable the OpenSSH daemon.
       enable = true;
-      # Be more secure
-      permitRootLogin = "no";
-      passwordAuthentication = false;
+
+      settings = {
+        # Be more secure
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
     };
 
     # Opens the relevant UDP ports.
