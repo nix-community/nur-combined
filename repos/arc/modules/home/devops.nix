@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.programs.git.devops;
-  arc = import ../../canon.nix { inherit pkgs; };
+  arc = import ../../canon.nix { inherit pkgs lib; };
 in {
   options.programs.git.devops = let
     typeRepoConfig = types.submodule {

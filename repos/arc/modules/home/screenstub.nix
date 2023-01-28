@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }: with lib; let
-  arc = pkgs.arc or (import ../../canon.nix { inherit pkgs; });
+  arc = pkgs.arc or (import ../../canon.nix { inherit pkgs lib; });
   json = lib.json or arc.lib.json;
   cfg = config.programs.screenstub;
   screenstub = pkgs.writeShellScriptBin "screenstub" ''

@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.programs.git.bitbucket;
-  arc = import ../../canon.nix { inherit pkgs; };
+  arc = import ../../canon.nix { inherit pkgs lib; };
 in {
   options.programs.git.bitbucket = let
     typeRepoConfig = types.submodule {

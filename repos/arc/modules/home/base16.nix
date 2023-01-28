@@ -1,7 +1,7 @@
 isNixos: { pkgs, config, options, lib, ... }: with lib; let
   cfg = config.base16;
   opts = options.base16;
-  arc = import ../../canon.nix { inherit pkgs; };
+  arc = import ../../canon.nix { inherit pkgs lib; };
   defaultScheme = cfg.schemes.${cfg.defaultSchemeName};
   base16 = lib.base16 or arc.lib.base16;
   base16-templates = pkgs.base16-templates or arc.pkgs.base16-templates;

@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }: with lib; let
   cfg = config.services.wireplumber;
-  arc = import ../../canon.nix { inherit pkgs; };
+  arc = import ../../canon.nix { inherit pkgs lib; };
   lua = lib.lua or arc.lib.lua;
   json = lib.json or arc.lib.json;
   migrateAlsa = listToAttrs (imap1 (i: rule: nameValuePair "mediaSession${toString i}" {

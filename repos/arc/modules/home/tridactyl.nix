@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }: with lib; let
   cfg = config.programs.firefox.tridactyl;
-  arc = import ../../canon.nix { inherit pkgs; };
+  arc = import ../../canon.nix { inherit pkgs lib; };
   cmdType = types.str; # TODO: add fancier types for "js" etc that escape things and compose better
   settingType = types.either types.bool types.str;
   configStrs = {

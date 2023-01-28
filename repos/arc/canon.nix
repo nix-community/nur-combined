@@ -1,6 +1,7 @@
 { self ? pkgs
 , super ? self
 , pkgs ? self
+, lib ? self.lib
 , isOverlay ? false
 , config ? { overrides = true; fetchurl = true; }
 }@args: let
@@ -9,6 +10,7 @@
   isSuperOverlaid = args ? super && super.arc.path or null == ./.;
   isOverlaid = attr: selfOverlays.path or null == ./. && selfOverlays.${attr} or false;
   isSelfOverlaid = isOverlaid "arc";
+  isLibOverlaid = lib: lib.arclib.path or null == ./. || lib ? arclib;
   needsInstantiation = isOverlay || !isSelfOverlaid;
   arcImpl = if isSuperOverlaid then super.arc else if !needsInstantiation then self.arc else arc';
   arc' = {
@@ -24,7 +26,7 @@
       packages = optionalAttrs (! isOverlaid "packages") (arc.packages.groups.toplevel
       // builtins.mapAttrs (k: v: super.${k} or { } // v) (filterAttrs (_: isAttrs) (arc.packages.groups.groups // arc.packages.customization))
       // arc.build);
-      lib = optionalAttrs (! (self.lib.arclib.path or null == ./. && self ? lib.arclib)) {
+      lib = optionalAttrs (! isLibOverlaid self.lib) {
         lib = super.lib // arc.lib;
       };
       shells = optionalAttrs (! isOverlaid "shells") {
@@ -67,6 +69,13 @@
   };
   arc = {
     inherit (arc') path super callPackageAttrs;
-    inherit (arcImpl) pkgs lib packages build shells;
+    inherit (arcImpl) pkgs packages build shells;
+    lib = let
+      overlaid = if lib ? extend
+        then lib.extend (import ./lib/overlay.nix)
+        else import ./lib { inherit lib; };
+    in if args ? lib && isLibOverlaid lib then lib
+      else if args ? lib then overlaid
+      else arcImpl.lib;
   } // import ./static.nix;
 in arc

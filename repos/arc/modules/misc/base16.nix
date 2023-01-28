@@ -1,6 +1,6 @@
 { lib, config, options, pkgs, ... }: with lib; let
   cfg = config;
-  arc = import ../../canon.nix { inherit pkgs; };
+  arc = import ../../canon.nix { inherit pkgs lib; };
   base16-schemes = pkgs.base16-schemes or arc.pkgs.base16-schemes;
   base16 = lib.base16 or arc.lib.base16;
   mapBase16 = f: mapAttrs (_: f) (getAttrs base16.names config // config.aliases);

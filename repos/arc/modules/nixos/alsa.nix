@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: with lib; let
   cfg = config.hardware.alsa;
-  arc = import ../../canon.nix { inherit pkgs; };
+  arc = import ../../canon.nix { inherit pkgs lib; };
   alsa = lib.alsa or arc.lib.alsa;
   inherit (alsa) alsaConf alsaDirectiveType;
   mappingType = { config, name, ... }: {
