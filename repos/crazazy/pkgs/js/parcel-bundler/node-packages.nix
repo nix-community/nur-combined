@@ -22,13 +22,13 @@ let
         sha512 = "TDCmlK5eOvH+eH7cdAFlNXeVJqWIQ7gW9tY1GJIpUtFb6CmjVyq2VM3u71bOyR8CRihcCgMUYoDNyLXao3+70Q==";
       };
     };
-    "@babel/compat-data-7.20.10" = {
+    "@babel/compat-data-7.20.14" = {
       name = "_at_babel_slash_compat-data";
       packageName = "@babel/compat-data";
-      version = "7.20.10";
+      version = "7.20.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.20.10.tgz";
-        sha512 = "sEnuDPpOJR/fcafHMjpcpGN5M2jbUGUHwmuWKM/YdPzeEDJg8bgmbcWQFUfE32MQjti1koACvoPVsDe8Uq+idg==";
+        url = "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.20.14.tgz";
+        sha512 = "0YpKHD6ImkWMEINCyDAD0HLLUH/lPCefG8ld9it8DJB2wnApraKuhgYTvTY1z7UFIfBTGy5LwncZ+5HWWGbhFw==";
       };
     };
     "@babel/core-7.20.12" = {
@@ -40,13 +40,13 @@ let
         sha512 = "XsMfHovsUYHFMdrIHkZphTN/2Hzzi78R08NuHfDBehym2VsPDL6Zn/JAD/JQdnRvbSsbQc4mVaU1m6JgtTEElg==";
       };
     };
-    "@babel/generator-7.20.7" = {
+    "@babel/generator-7.20.14" = {
       name = "_at_babel_slash_generator";
       packageName = "@babel/generator";
-      version = "7.20.7";
+      version = "7.20.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.20.7.tgz";
-        sha512 = "7wqMOJq8doJMZmP4ApXTzLxSr7+oO2jroJURrVEp6XShrQUObV8Tq/D0NCcoYg2uHqUrjzO0zwBjoYzelxK+sw==";
+        url = "https://registry.npmjs.org/@babel/generator/-/generator-7.20.14.tgz";
+        sha512 = "AEmuXHdcD3A52HHXxaTmYlb8q/xMEhoRP67B3T4Oq7lbmSoqroMZzjnGj3+i1io3pdnF8iBYVu4Ilj+c4hBxYg==";
       };
     };
     "@babel/helper-annotate-as-pure-7.18.6" = {
@@ -265,13 +265,13 @@ let
         sha512 = "bYMxIWK5mh+TgXGVqAtnu5Yn1un+v8DDZtqyzKRLUzrh70Eal2O3aZ7aPYiMADO4uKlkzOiRiZ6GX5q3qxvW9Q==";
       };
     };
-    "@babel/helpers-7.20.7" = {
+    "@babel/helpers-7.20.13" = {
       name = "_at_babel_slash_helpers";
       packageName = "@babel/helpers";
-      version = "7.20.7";
+      version = "7.20.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/helpers/-/helpers-7.20.7.tgz";
-        sha512 = "PBPjs5BppzsGaxHQCDKnZ6Gd9s6xl8bBCluz3vEInLGRJmnZan4F6BYCeqtyXqkk4W5IlPmjK4JlOuZkpJ3xZA==";
+        url = "https://registry.npmjs.org/@babel/helpers/-/helpers-7.20.13.tgz";
+        sha512 = "nzJ0DWCL3gB5RCXbUO3KIMMsBY2Eqbx8mBpKGE/02PgyRQFcPQLbkQ1vyy596mZLaP+dAfD+R4ckASzNVmW3jg==";
       };
     };
     "@babel/highlight-7.18.6" = {
@@ -283,13 +283,13 @@ let
         sha512 = "u7stbOuYjaPezCuLj29hNW1v64M2Md2qupEKP1fHc7WdOA3DgLh37suiSrZYY7haUB7iBeQZ9P1uiRF359do3g==";
       };
     };
-    "@babel/parser-7.20.7" = {
+    "@babel/parser-7.20.13" = {
       name = "_at_babel_slash_parser";
       packageName = "@babel/parser";
-      version = "7.20.7";
+      version = "7.20.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.20.7.tgz";
-        sha512 = "T3Z9oHybU+0vZlY9CiDSJQTD5ZapcW18ZctFMi0MOAl/4BjFF4ul7NVSARLdbGO5vDqy9eQiGTV0LtKfvCYvcg==";
+        url = "https://registry.npmjs.org/@babel/parser/-/parser-7.20.13.tgz";
+        sha512 = "gFDLKMfpiXCsjt4za2JA9oTMn70CeseCehb11kRZgvd7+F67Hih3OHOK24cRrWECJ/ljfPGac6ygXAs/C8kIvw==";
       };
     };
     "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression-7.18.6" = {
@@ -625,13 +625,13 @@ let
         sha512 = "ExUcOqpPWnliRcPqves5HJcJOvHvIIWfuS4sroBUenPuMdmW+SMHDakmtS7qOo13sVppmUijqeTv7qqGsvURpQ==";
       };
     };
-    "@babel/plugin-transform-block-scoping-7.20.11" = {
+    "@babel/plugin-transform-block-scoping-7.20.14" = {
       name = "_at_babel_slash_plugin-transform-block-scoping";
       packageName = "@babel/plugin-transform-block-scoping";
-      version = "7.20.11";
+      version = "7.20.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/plugin-transform-block-scoping/-/plugin-transform-block-scoping-7.20.11.tgz";
-        sha512 = "tA4N427a7fjf1P0/2I4ScsHGc5jcHPbb30xMbaTke2gxDuWpUfXDuX1FEymJwKk4tuGUvGcejAR6HdZVqmmPyw==";
+        url = "https://registry.npmjs.org/@babel/plugin-transform-block-scoping/-/plugin-transform-block-scoping-7.20.14.tgz";
+        sha512 = "sMPepQtsOs5fM1bwNvuJJHvaCfOEQfmc01FGw0ELlTpTJj5Ql/zuNRRldYhAPys4ghXdBIQJbRVYi44/7QflQQ==";
       };
     };
     "@babel/plugin-transform-classes-7.20.7" = {
@@ -814,13 +814,13 @@ let
         sha512 = "cYcs6qlgafTud3PAzrrRNbQtfpQ8+y/+M5tKmksS9+M1ckbH6kzY8MrexEM9mcA6JDsukE19iIRvAyYl463sMg==";
       };
     };
-    "@babel/plugin-transform-react-jsx-7.20.7" = {
+    "@babel/plugin-transform-react-jsx-7.20.13" = {
       name = "_at_babel_slash_plugin-transform-react-jsx";
       packageName = "@babel/plugin-transform-react-jsx";
-      version = "7.20.7";
+      version = "7.20.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.20.7.tgz";
-        sha512 = "Tfq7qqD+tRj3EoDhY00nn2uP2hsRxgYGi5mLQ5TimKav0a9Lrpd4deE+fcLXU8zFYRjlKPHZhpCvfEA6qnBxqQ==";
+        url = "https://registry.npmjs.org/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.20.13.tgz";
+        sha512 = "MmTZx/bkUrfJhhYAYt3Urjm+h8DQGrPrnKQ94jLo7NLuOU+T89a7IByhKmrb8SKhrIYIQ0FN0CHMbnFRen4qNw==";
       };
     };
     "@babel/plugin-transform-regenerator-7.20.5" = {
@@ -922,13 +922,13 @@ let
         sha512 = "A57th6YRG7oR3cq/yt/Y84MvGgE0eJG2F1JLhKuyG+jFxEgrd/HAMJatiFtmOiZurz+0DkrvbheCLaV5f2JfjA==";
       };
     };
-    "@babel/runtime-7.20.7" = {
+    "@babel/runtime-7.20.13" = {
       name = "_at_babel_slash_runtime";
       packageName = "@babel/runtime";
-      version = "7.20.7";
+      version = "7.20.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/runtime/-/runtime-7.20.7.tgz";
-        sha512 = "UF0tvkUtxwAgZ5W/KrkHf0Rn0fdnLDU9ScxBrEVNUprE/MzirjK4MJUX1/BVDv00Sv8cljtukVK1aky++X1SjQ==";
+        url = "https://registry.npmjs.org/@babel/runtime/-/runtime-7.20.13.tgz";
+        sha512 = "gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==";
       };
     };
     "@babel/template-7.20.7" = {
@@ -940,13 +940,13 @@ let
         sha512 = "8SegXApWe6VoNw0r9JHpSteLKTpTiLZ4rMlGIm9JQ18KiCtyQiAMEazujAHrUS5flrcqYZa75ukev3P6QmUwUw==";
       };
     };
-    "@babel/traverse-7.20.12" = {
+    "@babel/traverse-7.20.13" = {
       name = "_at_babel_slash_traverse";
       packageName = "@babel/traverse";
-      version = "7.20.12";
+      version = "7.20.13";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@babel/traverse/-/traverse-7.20.12.tgz";
-        sha512 = "MsIbFN0u+raeja38qboyF8TIT7K0BFzz/Yd/77ta4MsUsmP2RAnidIlwq7d5HFQrH/OZJecGV6B71C4zAgpoSQ==";
+        url = "https://registry.npmjs.org/@babel/traverse/-/traverse-7.20.13.tgz";
+        sha512 = "kMJXfF0T6DIS9E8cgdLCSAL+cuCK+YEZHWiLK0SXpTo8YRj5lpJu3CDNKiIBCne4m9hhTIqUg6SYTAI39tAiVQ==";
       };
     };
     "@babel/types-7.20.7" = {
@@ -1129,13 +1129,13 @@ let
         sha512 = "nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==";
       };
     };
-    "acorn-8.8.1" = {
+    "acorn-8.8.2" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.8.1";
+      version = "8.8.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.8.1.tgz";
-        sha512 = "7zFpHzhnqYKrkYdUjF1HI1bzd0VygEGX8lFk4k5zVMqHEoES+P+7TKI+EvLO9WVMJ8eekdO0aDEK044xTXwPPA==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.8.2.tgz";
+        sha512 = "xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==";
       };
     };
     "acorn-globals-4.3.4" = {
@@ -1750,13 +1750,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001446" = {
+    "caniuse-lite-1.0.30001449" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001446";
+      version = "1.0.30001449";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001446.tgz";
-        sha512 = "fEoga4PrImGcwUUGEol/PoFCSBnSkA9drgdkxXkJLsUBOnJ8rs3zDv6ApqYXGQFOyMPsjh79naWhF4DAxbF8rw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001449.tgz";
+        sha512 = "CPB+UL9XMT/Av+pJxCKGhdx+yg1hzplvFJQlJ2n68PyQGMz9L/E2zCyLdOL8uasbouTUgnPl+y0tccI/se+BEw==";
       };
     };
     "caseless-0.12.0" = {
@@ -6718,14 +6718,14 @@ let
     dependencies = [
       sources."@ampproject/remapping-2.2.0"
       sources."@babel/code-frame-7.18.6"
-      sources."@babel/compat-data-7.20.10"
+      sources."@babel/compat-data-7.20.14"
       (sources."@babel/core-7.20.12" // {
         dependencies = [
           sources."json5-2.2.3"
           sources."semver-6.3.0"
         ];
       })
-      (sources."@babel/generator-7.20.7" // {
+      (sources."@babel/generator-7.20.14" // {
         dependencies = [
           sources."@jridgewell/gen-mapping-0.3.2"
         ];
@@ -6762,9 +6762,9 @@ let
       sources."@babel/helper-validator-identifier-7.19.1"
       sources."@babel/helper-validator-option-7.18.6"
       sources."@babel/helper-wrap-function-7.20.5"
-      sources."@babel/helpers-7.20.7"
+      sources."@babel/helpers-7.20.13"
       sources."@babel/highlight-7.18.6"
-      sources."@babel/parser-7.20.7"
+      sources."@babel/parser-7.20.13"
       sources."@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression-7.18.6"
       sources."@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining-7.20.7"
       sources."@babel/plugin-proposal-async-generator-functions-7.20.7"
@@ -6802,7 +6802,7 @@ let
       sources."@babel/plugin-transform-arrow-functions-7.20.7"
       sources."@babel/plugin-transform-async-to-generator-7.20.7"
       sources."@babel/plugin-transform-block-scoped-functions-7.18.6"
-      sources."@babel/plugin-transform-block-scoping-7.20.11"
+      sources."@babel/plugin-transform-block-scoping-7.20.14"
       sources."@babel/plugin-transform-classes-7.20.7"
       sources."@babel/plugin-transform-computed-properties-7.20.7"
       sources."@babel/plugin-transform-destructuring-7.20.7"
@@ -6823,7 +6823,7 @@ let
       sources."@babel/plugin-transform-object-super-7.18.6"
       sources."@babel/plugin-transform-parameters-7.20.7"
       sources."@babel/plugin-transform-property-literals-7.18.6"
-      sources."@babel/plugin-transform-react-jsx-7.20.7"
+      sources."@babel/plugin-transform-react-jsx-7.20.13"
       sources."@babel/plugin-transform-regenerator-7.20.5"
       sources."@babel/plugin-transform-reserved-words-7.18.6"
       sources."@babel/plugin-transform-shorthand-properties-7.18.6"
@@ -6839,9 +6839,9 @@ let
         ];
       })
       sources."@babel/preset-modules-0.1.5"
-      sources."@babel/runtime-7.20.7"
+      sources."@babel/runtime-7.20.13"
       sources."@babel/template-7.20.7"
-      sources."@babel/traverse-7.20.12"
+      sources."@babel/traverse-7.20.13"
       sources."@babel/types-7.20.7"
       sources."@iarna/toml-2.2.5"
       sources."@jridgewell/gen-mapping-0.1.1"
@@ -6975,7 +6975,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001446"
+      sources."caniuse-lite-1.0.30001449"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -7223,7 +7223,7 @@ let
       sources."html-tags-1.2.0"
       (sources."htmlnano-0.2.9" // {
         dependencies = [
-          sources."acorn-8.8.1"
+          sources."acorn-8.8.2"
           sources."posthtml-0.15.2"
           sources."posthtml-parser-0.7.2"
           sources."terser-5.16.1"
