@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libshell";
-  version = "0.4.9";
+  version = "0.4.11";
 
   src = fetchFromGitHub {
     owner = "legionus";
     repo = "libshell";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-BkKBmKzmL3O+BQi4VZm3agRLpQ8nIZ2ZhQBL40oeCy4=";
+    hash = "sha256-ZUsCuian4FaSg4wa2fHbNiGnjvy5BpPveXX/5GihsQY=";
   };
 
   nativeBuildInputs = [ help2man ];

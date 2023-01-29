@@ -358,6 +358,9 @@ lib.makeScope newScope (
     mqtt-benchmark = callPackage ./mqtt/mqtt-benchmark { };
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
+    rumqtt = callPackage ./mqtt/rumqtt {
+      inherit (darwin.apple_sdk.frameworks) Security;
+    };
 
     ### NAKARTE
 

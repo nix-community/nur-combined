@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
-  version = "1.176.0.0";
+  version = "1.182.0.1";
 
   src = fetchurl {
     url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
-    hash = "sha256-w5hAxkqopNMzeIQFvCBn8+50CtOB15PGjtAzPBuL3MI=";
+    hash = "sha256-z3Z6TmmbTx+9EYnRdbmqVP8dDl+uDOwEsIFbZ/T5Hq0=";
   };
 
   nativeBuildInputs = [ undmg ];

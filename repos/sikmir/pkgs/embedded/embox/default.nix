@@ -6,7 +6,7 @@
 , pkgsCross
 , cpio
 , gcc-arm-embedded
-, python
+, python3
 , qemu
 , unzip
 , which
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cpio
-    python
+    python3
     unzip
     which
     makeWrapper
