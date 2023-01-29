@@ -1,0 +1,13 @@
+diff --git a/src/discord/patches/Actions.ts b/src/discord/patches/Actions.ts
+index ad4ecb5..e0caa2e 100644
+--- a/src/discord/patches/Actions.ts
++++ b/src/discord/patches/Actions.ts
+@@ -31,7 +31,7 @@ abstract class ActionClass {
+ 	}
+ }
+ // @ts-ignore
+-const stubActionsManager = (new Client()).actions;
++const stubActionsManager = (new Client()).actions as any;
+ const ActionsManager = stubActionsManager.constructor;
+ const Action: typeof ActionClass = stubActionsManager.MessageCreate.__proto__.__proto__.constructor;
+ 
