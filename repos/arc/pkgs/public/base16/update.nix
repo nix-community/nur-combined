@@ -49,6 +49,9 @@
       if [[ -n "${toString isScheme}" ]]; then
         SCHEME_NAMES=()
         for schemefile in $(cd "$SOURCE_CHECKOUT/source" && echo *.yaml *.yml); do
+          if [[ $schemefile = toast.yml ]];
+            continue
+          fi
           SCHEME_NAMES+=("''${schemefile%.*}")
         done
       else
