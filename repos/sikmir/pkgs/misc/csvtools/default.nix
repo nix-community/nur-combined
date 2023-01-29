@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   doCheck = true;
-  checkInputs = [ openssl ];
+  nativeCheckInputs = [ openssl ];
 
   preCheck = "patchShebangs .";
 
