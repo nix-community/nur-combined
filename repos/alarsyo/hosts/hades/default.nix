@@ -113,6 +113,11 @@ in {
       paths = ["/home/alarsyo"];
     };
 
+    scribe = {
+      enable = true;
+      port = 8087;
+    };
+
     tailscale = {
       enable = true;
       exitNode = true;

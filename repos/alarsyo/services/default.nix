@@ -20,6 +20,7 @@
     ./postgresql-backup.nix
     ./postgresql.nix
     ./restic-backup.nix
+    ./scribe.nix
     ./tailscale.nix
     ./transmission.nix
   ];
