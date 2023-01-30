@@ -13,6 +13,7 @@ in
     ./p2k.nix
     # ./dhtcrawler.nix
     ./tuning.nix
+    ./jellyfin.nix
     ./tmux
     ./bash
     ./kvm.nix

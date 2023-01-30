@@ -20,8 +20,17 @@ in {
   ];
   networking.hostId = "97e3b5a7";
 
+  virtualisation.oci-containers.backend = "docker";
+
   services.cockpit.enable = true;
   services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
+
+  services.jellyfin-container = {
+    enable = true;
+    mediaDirs = [
+      "/var/lib/transmission/Downloads"
+    ];
+  };
 
   boot = {
     supportedFilesystems = [ "ntfs" ];
