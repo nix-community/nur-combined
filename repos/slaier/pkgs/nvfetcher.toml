@@ -30,8 +30,9 @@ fetch.url = "https://github.com/agalwood/Motrix/releases/download/v$ver/Motrix-$
 ## VS Code Extensions
 
 [remote-containers]
-src.vsmarketplace = "ms-vscode-remote.remote-containers"
+src.manual = "0.269.0"
 fetch.vsmarketplace = "ms-vscode-remote.remote-containers"
+pinned = true
 
 [remote-containers.passthru]
 license = "free"

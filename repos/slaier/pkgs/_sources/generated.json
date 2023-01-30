@@ -96,14 +96,14 @@
             "license": "free",
             "publisher": "ms-vscode-remote"
         },
-        "pinned": false,
+        "pinned": true,
         "src": {
-            "name": "remote-containers-0.274.0.zip",
-            "sha256": "sha256-sIe6kB7lJYyaM0IecROxtUnorw3usPUN4pMtpLOc+ng=",
+            "name": "remote-containers-0.269.0.zip",
+            "sha256": "sha256-8HY46AKbAU5W01BN4iwCUSFqTXfRbC937Gy0kvPTmn4=",
             "type": "url",
-            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.274.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
+            "url": "https://ms-vscode-remote.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode-remote/extension/remote-containers/0.269.0/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
         },
-        "version": "0.274.0"
+        "version": "0.269.0"
     },
     "ubootPhicommN1": {
         "cargoLocks": null,
