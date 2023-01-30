@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "109.0.1buildid20230127.170202";
+      version = "110.0buildid20230129.190147";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063034/francais_language_pack-109.0.1buildid20230127.170202.xpi";
-      sha256 = "94a646c56bca1d3017701e549929ee95d67e36de0b18afa1b3e005d007f321cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063710/francais_language_pack-110.0buildid20230129.190147.xpi";
+      sha256 = "4fd8c14769447e50a6bca8faa8eead8eb2bf4c3a91db9e2e84cc4924c796c2ee";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1331,10 +1331,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.3.4";
+      version = "2.5.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4020597/libredirect-2.3.4.xpi";
-      sha256 = "2e9e956a2ea123a4785999c9f18c352d3e2f6f6e152223b16dfaa73f291960b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063658/libredirect-2.5.0.xpi";
+      sha256 = "d9fe457716cd63b048255b00c79acc8e0fdbd89c5872e59ac0fd4ecc6f2307ed";
       meta = with lib;
       {
         homepage = "https://libredirect.codeberg.page";
@@ -2044,10 +2044,10 @@
       };
     "promnesia" = buildFirefoxXpiAddon {
       pname = "promnesia";
-      version = "1.1.2";
+      version = "1.2.1";
       addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3953419/promnesia-1.1.2.xpi";
-      sha256 = "342a1025aa3a282c9dc088fe2b5225d316208d996f2164c81831f7efaed7058d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063909/promnesia-1.2.1.xpi";
+      sha256 = "dfe0e34bd56dc26a249900227a43b4d96353443ad72ba95a09cdce3f5373382b";
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/promnesia";
