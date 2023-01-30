@@ -10,6 +10,7 @@
   kernel = ./kernel.nix;
   dsdt = ./dsdt.nix;
   crypttab = ./crypttab.nix;
+  target = ./target.nix;
   glauth = ./glauth.nix;
   common-root = ./common-root.nix;
   mutable-state = ./mutable-state.nix;
@@ -43,6 +44,7 @@
       users-chroot
       cpuinfo
       dht22-exporter
+      target
       glauth
       modprobe
       kernel dsdt
