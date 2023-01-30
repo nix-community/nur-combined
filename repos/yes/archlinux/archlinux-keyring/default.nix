@@ -1,23 +1,35 @@
 { lib
 , stdenvNoCC
 , fetchzip
-, zstd
+, python3
+, sequoia
 , rp ? ""
 }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "archlinux-keyring";
-  version = "20221220-1";
+  version = "20230130";
+
   src = fetchzip {
-    nativeBuildInputs = [ zstd ];
-    stripRoot = false;
-    url = "${rp}https://geo.mirror.pkgbuild.com/core/os/x86_64/${pname}-${version}-any.pkg.tar.zst";
-    hash = "sha256-YZVxpqIWj1YwMJHPitLUTPmVDlfz3zjPGqf5CnsE82g=";
+    url = "${rp}https://gitlab.archlinux.org/archlinux/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
+    hash = "sha256-GM4tPxOY4+MhzCCP/OuyiX0HAVoWUFLOo/ZxgLFz4aQ=";
   };
-  installPhase = ''
-    mkdir -p $out
-    cp -r $src/usr/share $out
+
+  nativeBuildInputs = [ python3 sequoia ];
+
+  makeFlags = [ "PREFIX=$(out)" ];
+
+  postPatch = ''
+    patchShebangs ./keyringctl
   '';
+
+  installPhase = ''
+    runHook preInstall
+    install -vDm 644 build/{archlinux.gpg,archlinux-revoked,archlinux-trusted} \
+      -t $out/share/pacman/keyrings/
+    runHook postInstall
+  '';
+
   meta = with lib; {
     description = "Arch Linux PGP keyring";
     homepage = "https://gitlab.archlinux.org/archlinux/archlinux-keyring/";
