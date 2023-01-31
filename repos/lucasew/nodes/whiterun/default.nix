@@ -27,9 +27,11 @@ in {
 
   services.jellyfin-container = {
     enable = true;
-    mediaDirs = [
-      "/var/lib/transmission/Downloads"
-    ];
+    mediaDirs = {
+      transmission = "/var/lib/transmission/Downloads";
+      storage_movies = "/storage/downloads/filmes";
+      storage_series = "/storage/downloads/series";
+    };
   };
 
   boot = {
