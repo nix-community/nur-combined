@@ -1,7 +1,7 @@
 { lib
 , buildPythonApplication
 , fetchFromGitHub
-, poetry
+, poetry-core
 , i3ipc
 }:
 
@@ -17,7 +17,7 @@ buildPythonApplication rec {
   };
 
   format = "pyproject";
-  propagatedBuildInputs = [ poetry i3ipc ];
+  propagatedBuildInputs = [ poetry-core i3ipc ];
 
   doCheck = false;
 

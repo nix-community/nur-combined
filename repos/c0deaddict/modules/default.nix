@@ -1,5 +1,6 @@
 {
   apt-cacher-ng = ./apt-cacher-ng;
+  acme-dns = ./acme-dns;
   duplicity = ./duplicity;
   etlegacy = ./etlegacy;
   import-garmin-connect = ./import-garmin-connect;
