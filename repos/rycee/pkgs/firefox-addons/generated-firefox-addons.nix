@@ -97,6 +97,20 @@
         platforms = platforms.all;
         };
       };
+    "angular-devtools" = buildFirefoxXpiAddon {
+      pname = "angular-devtools";
+      version = "1.0.6";
+      addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3959267/angular_devtools-1.0.6.xpi";
+      sha256 = "111c1ab57621c185b611f503137b892ac18af1571909caea006f94f631179cea";
+      meta = with lib;
+      {
+        homepage = "https://angular.io/devtools";
+        description = "Angular DevTools extends Firefox DevTools adding Angular specific debugging and profiling capabilities.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
       version = "2.1.6";
