@@ -38,11 +38,9 @@ rec {
 
   helm-whatup = pkgs.callPackage ./pkgs/helm-whatup { };
 
-  i3-balance-workspace =
-    pkgs.python3Packages.callPackage ./pkgs/i3-balance-workspace { };
+  i3-balance-workspace = pkgs.python3Packages.callPackage ./pkgs/i3-balance-workspace { };
 
-  import-garmin-connect =
-    pkgs.python3Packages.callPackage ./pkgs/import-garmin-connect { };
+  import-garmin-connect = pkgs.python3Packages.callPackage ./pkgs/import-garmin-connect { };
 
   keyhub-cli = pkgs.callPackage ./pkgs/keyhub-cli { };
 
@@ -64,24 +62,15 @@ rec {
 
   pg_flame = pkgs.callPackage ./pkgs/pg_flame { };
 
-  prometheus-nats-exporter =
-    pkgs.callPackage ./pkgs/prometheus-nats-exporter { };
+  prometheus-nats-exporter = pkgs.callPackage ./pkgs/prometheus-nats-exporter { };
 
-  prometheus-openweathermap-exporter =
-    pkgs.callPackage ./pkgs/prometheus-openweathermap-exporter { };
+  prometheus-openweathermap-exporter = pkgs.callPackage ./pkgs/prometheus-openweathermap-exporter { };
 
-  prometheus-unbound-exporter =
-    pkgs.callPackage ./pkgs/prometheus-unbound-exporter { };
+  prometheus-unbound-exporter = pkgs.callPackage ./pkgs/prometheus-unbound-exporter { };
 
   rds_exporter = pkgs.callPackage ./pkgs/rds_exporter { };
 
   rofi-pulse = pkgs.callPackage ./pkgs/rofi-pulse { my-lib = lib; };
-
-  rofi-wayland =
-    pkgs.rofi.override { rofi-unwrapped = rofi-wayland-unwrapped; };
-
-  rofi-wayland-unwrapped =
-    pkgs.callPackage ./pkgs/rofi-wayland/unwrapped.nix { };
 
   rpi-imager = pkgs.libsForQt5.callPackage ./pkgs/rpi-imager { };
 
@@ -103,6 +92,7 @@ rec {
 
   zsh-kubectl-prompt = pkgs.callPackage ./pkgs/zsh-kubectl-prompt { };
 
-  pomo = pkgs.callPackage ./pkgs/pomo {};
+  # matrix-hookshot = pkgs.callPackage ./pkgs/matrix-hookshot { };
 
+  acme-dns = pkgs.callPackage ./pkgs/acme-dns {};
 }
