@@ -6,7 +6,7 @@ let
 
   cfg = config.services.acme-dns;
 
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.toml { };
 
   configFile = format.generate "acme-dns.cfg" cfg.settings;
 
