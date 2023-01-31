@@ -196,10 +196,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.0";
+      version = "7.5.1";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4057419/betterttv-7.5.0.xpi";
-      sha256 = "a0a5fb1b4b6385e48278545d56c1db9305c740a897d1c628bc787bec868f9c7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4061642/betterttv-7.5.1.xpi";
+      sha256 = "9a91b3b340a887a6c63616515f1f1679865ab81f9e4bb2e2c0ce8d2d51763690";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1337,8 +1337,8 @@
       sha256 = "d9fe457716cd63b048255b00c79acc8e0fdbd89c5872e59ac0fd4ecc6f2307ed";
       meta = with lib;
       {
-        homepage = "https://libredirect.codeberg.page";
-        description = "Redirects YouTube, Twitter, Instagram... requests to alternative privacy friendly frontends and backends.";
+        homepage = "https://libredirect.github.io";
+        description = "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends and backends.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
