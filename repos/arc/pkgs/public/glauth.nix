@@ -19,7 +19,7 @@ buildGoModule rec {
 
   preBuild = "go-bindata -pkg=assets -o=pkg/assets/bindata.go assets";
 
-  postBuild = let
+  preInstall = let
     plugins = ["sqlite" "postgres" "mysql"];
     pluginLine = plugin: ''go build -ldflags "''${ldflags[*]}" -buildmode=plugin -o $out/bin/${plugin}.so pkg/plugins/${plugin}.go pkg/plugins/basesqlhandler.go'';
     pluginLines = map pluginLine plugins;
