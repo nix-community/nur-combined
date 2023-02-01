@@ -4,7 +4,7 @@
 with lib;
 with import ./lib {
   inherit pkgs lib;
-  callPackage = pkgs.callPackage;
+  inherit (pkgs) callPackage;
 };
 makeScope pkgs.newScope (self:
   (callNixFiles self.callPackage ./pkgs) // {

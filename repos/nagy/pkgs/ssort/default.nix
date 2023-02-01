@@ -9,7 +9,7 @@ buildPythonApplication rec {
     sha256 = "sha256-If7Ek0h/Mt/1DTDvpbaq0YKG6YF2ALZL/mhq4GK6564=";
   };
 
-  buildInputs = [ pathspec ];
+  propagatedBuildInputs = [ pathspec ];
 
   meta = with lib; {
     description = "Tool for sorting top level statements in python files";

@@ -7,7 +7,7 @@
 let
   models = lib.mapAttrsToList (name: value:
     fetchurl {
-      name = name;
+      inherit name;
       url =
         "https://github.com/danielgatis/rembg/releases/download/v0.0.0/${name}.onnx";
       sha256 = value;

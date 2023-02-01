@@ -3,11 +3,11 @@
 let
   conversions = {
     directory.evaldir = { src, convert, ... }: {
-      __cmd = (''
+      __cmd = ''
         mkdir $out; cd $out;
       '' + (lib.concatStringsSep "\n" (map (x:
         "ln -s ${callPackage "${src}/${x}" { }} ${lib.removeSuffix ".nix" x}")
-        (lib.attrNames (builtins.readDir src)))));
+        (lib.attrNames (builtins.readDir src))));
     };
     org.directory = { src, convert, ... }: {
       inherit src;

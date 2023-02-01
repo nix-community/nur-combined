@@ -80,7 +80,7 @@ recurseIntoAttrs rec {
     buster-lite-newimage = runCommand "newimage.qcow2" {
       QEMU_USER = "pi";
       QEMU_PASSWORD = "raspberry";
-      QEMU_IMAGE = (placeholder "out");
+      QEMU_IMAGE = placeholder "out";
     } (pkgs.lib.getExe buster-lite-script);
   };
 }

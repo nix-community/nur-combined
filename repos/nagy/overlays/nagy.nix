@@ -1,3 +1,3 @@
 self: super: {
-  nagy = super.nur.repos.nagy;
+  inherit (super.nur.repos) nagy;
 }
