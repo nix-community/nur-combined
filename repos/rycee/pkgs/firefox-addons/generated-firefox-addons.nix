@@ -299,10 +299,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "3.0.2.0";
+      version = "3.0.3.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4060075/bypass_paywalls_clean-3.0.2.0.xpi";
-      sha256 = "7b74a75edffc82176c8b44016317c5bbff622c53c5b09c0d0dddad95e004d227";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063623/bypass_paywalls_clean-3.0.3.0.xpi";
+      sha256 = "a14c1da9d0305770decda4ed38cc7b03fb38973230b3eb767f4f26c24fb7db99";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -816,10 +816,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.58";
+      version = "6.1.59";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4050556/flagfox-6.1.58.xpi";
-      sha256 = "52863ca6fe38ab9aaf1a3614e5d184db39aa27fefb9dd308fd8dc6f1fdad949e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4064420/flagfox-6.1.59.xpi";
+      sha256 = "472dcbc63acdb66103cd9b05f7d91ceed68604acad64e34b07e6eecbd2173950";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230129.190147";
+      version = "110.0buildid20230131.190033";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063710/francais_language_pack-110.0buildid20230129.190147.xpi";
-      sha256 = "4fd8c14769447e50a6bca8faa8eead8eb2bf4c3a91db9e2e84cc4924c796c2ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4064688/francais_language_pack-110.0buildid20230131.190033.xpi";
+      sha256 = "393d990c49eada2a11ae5a0cebddb8671bf974c965323eddd040d6efba1b5cad";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1682,10 +1682,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.14";
+      version = "11.4.15";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4050735/noscript-11.4.14.xpi";
-      sha256 = "14af6a3cbc269c045f2d950e1e4f7c29981b35a7abc61d2413f5bb8bd7311857";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4062354/noscript-11.4.15.xpi";
+      sha256 = "c41b4275396296d2a7eb1d4bfbf5b6830225321addaaf5b38002c394577ef6ec";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2308,10 +2308,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.36";
+      version = "1.21.37";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4062282/single_file-1.21.36.xpi";
-      sha256 = "e6bad5033eaf4c5e84d76359461d67fbe6c6cb8690faab834acc3e18219044a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063273/single_file-1.21.37.xpi";
+      sha256 = "2c9d9bd8af4a959c35f67886c8e036539cc6c65605e7af61b8b4392c133d8b45";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
