@@ -57,6 +57,7 @@ in {
         mpv
         obs-studio
         pavucontrol
+        signal-desktop
         slack
         spotify
         tdesktop
