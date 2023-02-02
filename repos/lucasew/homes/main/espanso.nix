@@ -45,13 +45,11 @@ in {
       in {
       matches = [
         # macros
-        (justReplace ":email" "lucas59356@gmail.com")
-        (justReplace ":me" "Lucas Eduardo Wendt")
-        (justReplace ":shrug" "¯\\_(ツ)_/¯")
-        (justReplace ":lenny" "( ͡° ͜ʖ ͡°)")
-        (replaceDate ":hoje" "%d/%m/%Y")
-        (replaceDate ":ot" "#datetime/%Y/%m/%e/%H/%M")
-        (replaceDate ":od" "#datetime/%Y/%m/%e")
+        (justReplace ":email:" "lucas59356@gmail.com")
+        (justReplace ":shrug:" "¯\\_(ツ)_/¯")
+        (justReplace ":lenny:" "( ͡° ͜ʖ ͡°)")
+        (justReplace ":fino:" "🗿🍷")
+        (replaceDate ":hoje:" "%d/%m/%Y")
         (replaceSequence "°" "\\") # Alt+E, Alt+Q outputs /
         (justReplace ":#!/usr/bin/env bash" ''
           #!/usr/bin/env bash
@@ -93,10 +91,11 @@ in {
         '')
 
         # atalhos
-        (replaceRun ":blaunch" "webapp > /dev/null") # borderless browser
-        (replaceRun ":globalip" "curl ifconfig.me ")
-        (replaceRun ":lero" "lero") # https://github.com/lucasew/lerolero.sh
-        (replaceRun ":lockscreen" "loginctl lock-session")
+        (replaceRun ":blaunch:" "/run/current-system/sw/bin/webapp > /dev/null") # borderless browser
+        (replaceRun ":globalip:" "/run/current-system/sw/bin/curl ifconfig.me ")
+        (replaceRun ":lero:" "/run/current-system/sw/bin/lero") # https://github.com/lucasew/lerolero.sh
+        (replaceRun ":lockscreen:" "/run/current-system/sw/bin/loginctl lock-session 2>&1")
+        (replaceRun ":nixinfo:" "/run/current-system/sw/bin/nix-shell -p nix-info --run 'nix-info -m'")
 
         # typos
         (replaceWord "lenght" "length")
@@ -106,6 +105,7 @@ in {
         (replaceWord "dont" "don't")
         (replaceWord "didnt" "didn't")
         (replaceWord "cant" "can't")
+        (replaceWord "shouldnt" "shouldn't")
         (replaceWord "arent" "aren't")
         (replaceWord "youre" "you're")
       ];
