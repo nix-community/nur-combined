@@ -1,6 +1,9 @@
 { pkgs, config, lib, hostname, ... }:
 
-{
+let
+  inherit (lib) mkForce;
+
+in {
   imports = [
     ./disk-setup.nix
     ./hardware-configuration.nix
@@ -49,5 +52,17 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "20.09";
+
+  specialisation.simplerisk = {
+    inheritParentConfig = true;
+    configuration = {
+      system.nixos.tags = [ "simplerisk" ];
+      profile = {
+        virtualization.podman.enable = mkForce false;
+        work.simplerisk.enable = true;
+      };
+      home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
+    };
+  };
 }
 

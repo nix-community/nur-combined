@@ -1,6 +1,9 @@
-{ config, pkgs, hostname, ... }:
+{ config, lib, pkgs, hostname, ... }:
 
-{
+let
+  inherit (lib) mkForce;
+
+in {
   imports =
     [
       ./disk-setup.nix
@@ -52,4 +55,19 @@
   };
 
   system.stateVersion = "21.05"; # Did you read the comment?
+
+  specialisation.simplerisk = {
+    inheritParentConfig = true;
+    configuration = {
+      system.nixos.tags = [ "simplerisk" ];
+      profile = {
+        virtualization = {
+          qemu.enable = mkForce false;
+          podman.enable = mkForce false;
+        };
+        work.simplerisk.enable = true;
+      };
+      home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
+    };
+  };
 }

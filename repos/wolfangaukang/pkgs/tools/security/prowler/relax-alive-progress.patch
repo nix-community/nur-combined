@@ -3,7 +3,8 @@ index a5477a09..cb44f8b9 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
 @@ -31,8 +31,8 @@ dependencies = [
-   "pydantic ~=1.9.1",
+-  "pydantic ~=1.9.1",
++  "pydantic >=1.9.1",
    "shodan ~=1.28.0",
    "detect-secrets ~=1.4.0",
 -  "alive-progress ~=2.4.1",

@@ -53,12 +53,15 @@ in {
     extensions = defaultExtensions ++ extra-extensions;
     profiles = 
       let
-        defaultEngine = "DuckDuckGo";
+        searchOptions = {
+          force = true;
+          default = "DuckDuckGo";
+        };
 
       in {
         default = {
           name = "Sandbox";
-          search.default = defaultEngine;
+          search = searchOptions;
           settings = lib.mkMerge [
             (defaultSettings)
             {
@@ -82,7 +85,7 @@ in {
         personal = {
           id = 1;
           name = "Personal";
-          search.default = defaultEngine;
+          search = searchOptions;
           settings = lib.mkMerge [
             (defaultSettings)
           ];
@@ -90,7 +93,7 @@ in {
         gnaujep = {
           id = 2;
           name = "Gnaujep";
-          search.default = defaultEngine;
+          search = searchOptions;
           settings = lib.mkMerge [
             (defaultSettings)
           ];
@@ -98,7 +101,7 @@ in {
         j = {
           id = 3;
           name = "J";
-          search.default = defaultEngine;
+          search = searchOptions;
           settings = lib.mkMerge [
             (defaultSettings)
           ];
