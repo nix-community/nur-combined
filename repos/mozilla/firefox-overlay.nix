@@ -15,7 +15,7 @@ let
   # update the version, as done in
   # https://github.com/mozilla-releng/ship-it/pull/182
   firefox_versions = with builtins;
-    fromJSON (readFile (fetchurl https://product-details.mozilla.org/1.0/firefox_versions.json));
+    fromJSON (readFile (fetchurl "https://product-details.mozilla.org/1.0/firefox_versions.json"));
 
   arch = if self.stdenv.system == "i686-linux"
     then "linux-i686"
@@ -54,6 +54,9 @@ let
       in rec {
         chksum = "${dir}/SHA512SUMS";
         chksumSig = "${chksum}.asc";
+        chksumSha256 = hashFile "sha256" (fetchurl "${dir}/SHA512SUMS");
+        chksumSigSha256 = hashFile "sha256" (fetchurl "${chksum}.asc");
+        inherit file;
         url = "${dir}/${file}";
         sha512 = sha512Of chksum file;
         sig = null;
@@ -86,11 +89,12 @@ let
 
   # From the version info, check the authenticity of the check sum file, such
   # that we guarantee that we have
-  verifyFileAuthenticity = { file, asc }:
-    if asc == null then "" else super.runCommandNoCC "check-firefox-signature" {
+  verifyFileAuthenticity = { file, sha512, chksum, chksumSig }:
+    assert extractSha512Sum (builtins.readFile chksum) file == sha512;
+    super.runCommand "check-firefox-signature" {
       buildInputs = [ self.gnupg ];
-      FILE = file;
-      ASC = asc;
+      FILE = chksum;
+      ASC = chksumSig;
     } ''
       HOME=`mktemp -d`
       set -eu
@@ -111,8 +115,9 @@ let
         # executed once the verifyAuthenticity script finished successfully.
         postFetch = ''
           : # Authenticity Check (${verifyFileAuthenticity {
-            file = builtins.fetchurl info.chksum;
-            asc = builtins.fetchurl info.chksumSig;
+            inherit (info) file sha512;
+            chksum = builtins.fetchurl { url = info.chksum; sha256 = info.chksumSha256; };
+            chksumSig = builtins.fetchurl { url = info.chksumSig; sha256 = info.chksumSigSha256; };
           }})
         '';
       }
@@ -182,43 +187,45 @@ let
           + optionalString (96 >= getMajorVersion version) (":" + makeLibraryPath [self.xorg.libXtst]);
       }));
       in wrapFirefoxCompat { inherit version pkg; };
-in
 
-{
-  lib = super.lib // {
-    firefoxOverlay = {
-      inherit pgpKey firefoxVersion versionInfo firefox_versions;
-    };
-  };
-
-  # Set of packages which are automagically updated. Do not rely on these for
-  # reproducible builds.
-  latest = (super.latest or {}) // {
-    firefox-nightly-bin = firefoxVersion {
+  firefoxVariants = {
+    firefox-nightly-bin = {
       name = "Firefox Nightly";
       wmClass = "firefox-nightly";
       version = firefox_versions.FIREFOX_NIGHTLY;
       release = false;
     };
-    firefox-beta-bin = firefoxVersion {
+    firefox-beta-bin = {
       name = "Firefox Beta";
       wmClass = "firefox-beta";
       version = firefox_versions.LATEST_FIREFOX_DEVEL_VERSION;
       release = true;
     };
-    firefox-bin = firefoxVersion {
+    firefox-bin = {
       name = "Firefox";
       wmClass = "firefox";
       version = firefox_versions.LATEST_FIREFOX_VERSION;
       release = true;
     };
-    firefox-esr-bin = firefoxVersion {
+    firefox-esr-bin = {
       name = "Firefox ESR";
       wmClass = "firefox";
       version = firefox_versions.FIREFOX_ESR;
       release = true;
     };
   };
+in
+
+{
+  lib = super.lib // {
+    firefoxOverlay = {
+      inherit pgpKey firefoxVersion versionInfo firefox_versions firefoxVariants;
+    };
+  };
+
+  # Set of packages which are automagically updated. Do not rely on these for
+  # reproducible builds.
+  latest = (super.latest or {}) // (builtins.mapAttrs (n: v: firefoxVersion v) firefoxVariants);
 
   # Set of packages which used to build developer environment
   devEnv = (super.shell or {}) // {
