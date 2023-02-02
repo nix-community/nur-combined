@@ -11,10 +11,10 @@
   };
   an-anime-game-launcher-gtk-bin = {
     pname = "an-anime-game-launcher-gtk-bin";
-    version = "1.2.4";
+    version = "1.2.5";
     src = fetchurl {
-      url = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.4/anime-game-launcher";
-      sha256 = "sha256-h71HLAfPpUW2LNkLcSUYWVlrntoP9E20SiyPMDvwtbA=";
+      url = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/1.2.5/anime-game-launcher";
+      sha256 = "sha256-99eYxHfoXdodLVbFf2OpulLs18taJiQIRMFb++QsKxg=";
     };
   };
   asterisk-alaw16 = {
@@ -339,13 +339,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.1.8-xanmod1";
+    version = "6.1.9-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.8-xanmod1";
+      rev = "6.1.9-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-gHmqPf6AB57T1sZq7gpbFBQOWD1eAh6CcibBtDKZB+Y=";
+      sha256 = "sha256-N6TNWEawAe2FNoesMWDiY79OjitFb9AEXFelf1pJ0vs=";
     });
   };
   nbfc-linux-lantian = {
@@ -508,13 +508,13 @@
   };
   osdlyrics = {
     pname = "osdlyrics";
-    version = "0.5.12";
+    version = "0.5.13";
     src = fetchFromGitHub ({
       owner = "osdlyrics";
       repo = "osdlyrics";
-      rev = "0.5.12";
+      rev = "0.5.13";
       fetchSubmodules = false;
-      sha256 = "sha256-QGgwxmurdwo0xyq7p+1xditRebv64ewGTvNJI7MUnq4=";
+      sha256 = "sha256-E4pVXopqQYJW+a5nUf9dMabxJ9nYPu3C2ti8LlY470c=";
     });
   };
   payload-dumper-go = {
