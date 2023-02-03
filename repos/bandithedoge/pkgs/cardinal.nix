@@ -7,9 +7,12 @@ pkgs.stdenv.mkDerivation {
   version = sources.cardinal.date;
 
   nativeBuildInputs = with pkgs; [
-    pkg-config
+    cmake
     copyDesktopItems
+    pkg-config
   ];
+
+  dontUseCmakeConfigure = true;
 
   buildInputs = with pkgs; [
     SDL2
@@ -53,7 +56,7 @@ pkgs.stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  makeFlags = ["PREFIX=$(out)"];
+  makeFlags = ["PREFIX=$(out)" "SYSDEPS=true" "STATIC_BUILD=true"];
 
   hardeningDisable = ["format"];
 
@@ -62,6 +65,5 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://github.com/DISTRHO/Cardinal";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    broken = true;
   };
 }
