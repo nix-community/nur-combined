@@ -89,7 +89,7 @@ selfPkgs: superPkgs: let
         lua lpeg luafilesystem argparse
       ];
       doCheck = true;
-      checkInputs = with self; [
+      nativeCheckInputs = with self; [
         busted loadkit
       ];
       checkPhase = ''
