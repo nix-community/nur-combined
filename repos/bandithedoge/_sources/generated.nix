@@ -19,27 +19,27 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "26bd1886ee1548d0c275f55e7c6be4a0ee04afe7";
+    version = "0c9ca1ef08e0fa37fdb72916c5e73bd2ab992547";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "26bd1886ee1548d0c275f55e7c6be4a0ee04afe7";
+      rev = "0c9ca1ef08e0fa37fdb72916c5e73bd2ab992547";
       fetchSubmodules = true;
-      sha256 = "sha256-Qy9xYt3r872OBiyd/Llm8JbeWni47wuy3pcMoFD1qis=";
+      sha256 = "sha256-rkQSGOzqHYmIkxJM/IZ06xCK6bpqex0vhCRJGsw8xrE=";
     };
-    date = "2023-01-27";
+    date = "2023-01-30";
   };
   carla = {
     pname = "carla";
-    version = "3856c893a4062f7f097cf238b9bbe9ae6d060f76";
+    version = "4151e160f1e9e03412c112fec54b5f1cde4c45de";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "3856c893a4062f7f097cf238b9bbe9ae6d060f76";
+      rev = "4151e160f1e9e03412c112fec54b5f1cde4c45de";
       fetchSubmodules = false;
-      sha256 = "sha256-+VaeSn+GTofTacQ3dpE7qgAiohYOGAlGCED4RMxBiDU=";
+      sha256 = "sha256-93gpzeMoMW3i0Fwam8eJ2Se4x7KFBrfLRrvMVjuEgOI=";
     };
-    date = "2023-01-28";
+    date = "2023-01-29";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -55,15 +55,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "954e60b735eb4084654d6473124d79cfa134a20b";
+    version = "e424e87c40b178bf81a85e3f122824db547a56bb";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "954e60b735eb4084654d6473124d79cfa134a20b";
+      rev = "e424e87c40b178bf81a85e3f122824db547a56bb";
       fetchSubmodules = false;
-      sha256 = "sha256-pz3ojaDCX8QvP6vywFEeLOVbmxyHJ6GtgUz8RXheRa8=";
+      sha256 = "sha256-wUM8jz1fGUaH67WPVpooDV5WRY88Gl8ympmH9G00rLY=";
     };
-    date = "2023-01-18";
+    date = "2023-02-02";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -113,15 +113,15 @@
   };
   luakit = {
     pname = "luakit";
-    version = "b3be1f8549464b7d48f832a74b8388385a024a81";
+    version = "858dc946b01487e6ba2475cb7a9bede34c17d134";
     src = fetchFromGitHub {
       owner = "luakit";
       repo = "luakit";
-      rev = "b3be1f8549464b7d48f832a74b8388385a024a81";
+      rev = "858dc946b01487e6ba2475cb7a9bede34c17d134";
       fetchSubmodules = false;
-      sha256 = "sha256-dOAb1Ob+5pdL36t0DxZlYaHH3LzTqUE6+THdQrWocNA=";
+      sha256 = "sha256-TKQvnavoofGtBo2aBJtZVZjrmm5Ln7vOgW9bAXjcpRM=";
     };
-    date = "2023-01-23";
+    date = "2023-01-29";
   };
   lv2vst = {
     pname = "lv2vst";
@@ -184,15 +184,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "061ec85f151642e631e7489c1725fb695c91158d";
+    version = "4b215ba92eb2b0ac0043328468adb10a5b118bfd";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "061ec85f151642e631e7489c1725fb695c91158d";
+      rev = "4b215ba92eb2b0ac0043328468adb10a5b118bfd";
       fetchSubmodules = false;
-      sha256 = "sha256-AzjeG5FJvM6Z67Yu1dVGPcBs4Tov5uuq6xYjkupHvPs=";
+      sha256 = "sha256-cwIPAEfmCja/C+SXtjV972LkbVXCZoFmoNVrupPI5og=";
     };
-    date = "2023-01-27";
+    date = "2023-01-31";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
@@ -231,15 +231,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "8a9182a3aecf89ae2f0802f7b7c81c73f5e41528";
+    version = "e4cd6f96bcf04682839c1a255726e2802731ca63";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "8a9182a3aecf89ae2f0802f7b7c81c73f5e41528";
+      rev = "e4cd6f96bcf04682839c1a255726e2802731ca63";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Og3HRdbxgvC/CQh24Ka047vACOWEGc9D8qC5tu42g6w=";
+      sha256 = "sha256-K93Y4Adh9TqoetSn7nrbbruIri1MKYoSGzoRBGHwbPA=";
     };
-    date = "2023-01-26";
+    date = "2023-02-03";
   };
 }
