@@ -713,10 +713,10 @@
         "homepage": "",
         "owner": "glepnir",
         "repo": "lspsaga.nvim",
-        "rev": "d7a97ede2de94ace999d12be449911a6945263a2",
-        "sha256": "1vcyvd4rm0rnri4qr7b6shn82p7chimdmrl4f984y3v8an2ipf2p",
+        "rev": "a2e3f7cf76f4cb102d3fc165bd8c9a565053e84f",
+        "sha256": "1d0ha7pjjzbhvkcn0z1dgnz2r3jkviad0hipvcw1xy5jnnym4sm5",
         "type": "tarball",
-        "url": "https://github.com/glepnir/lspsaga.nvim/archive/d7a97ede2de94ace999d12be449911a6945263a2.tar.gz",
+        "url": "https://github.com/glepnir/lspsaga.nvim/archive/a2e3f7cf76f4cb102d3fc165bd8c9a565053e84f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lua-dev.nvim": {
