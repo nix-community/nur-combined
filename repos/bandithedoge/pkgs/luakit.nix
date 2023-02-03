@@ -57,5 +57,6 @@ pkgs.stdenv.mkDerivation {
     homepage = "https://luakit.github.io/";
     license = licenses.gpl3;
     platforms = platforms.linux;
+    broken = true;
   };
 }
