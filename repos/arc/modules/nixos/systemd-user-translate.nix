@@ -41,6 +41,7 @@
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
+      TimeoutSec = "5m";
     };
   };
 

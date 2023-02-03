@@ -220,6 +220,10 @@ in {
         type = types.int;
         default = 10;
       };
+      screensaverMinutes = mkOption {
+        type = types.int;
+        default = config.dpms.standbyMinutes;
+      };
     };
 
     xserver = {
@@ -252,6 +256,7 @@ in {
         Option "StandbyTime" "0"
         Option "SuspendTime" "0"
         Option "OffTime" "${toString config.dpms.standbyMinutes}"
+        Option "BlankTime" "${toString config.dpms.screensaverMinutes}"
       '';
     };
   };
