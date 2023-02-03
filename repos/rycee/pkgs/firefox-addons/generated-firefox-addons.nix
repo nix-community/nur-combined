@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230131.190033";
+      version = "110.0buildid20230202.190127";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064688/francais_language_pack-110.0buildid20230131.190033.xpi";
-      sha256 = "393d990c49eada2a11ae5a0cebddb8671bf974c965323eddd040d6efba1b5cad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4065788/francais_language_pack-110.0buildid20230202.190127.xpi";
+      sha256 = "66b94414070ec86a298b3a0572f41383010f190443348b6d4223b395245e2d45";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1298,10 +1298,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.107.1.3";
+      version = "4.108.1.7";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4061265/lastpass_password_manager-4.107.1.3.xpi";
-      sha256 = "de63e785c6642f938619c0e99ea2c22dbd61822987508e4163ce1239f9d7f6f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4065193/lastpass_password_manager-4.108.1.7.xpi";
+      sha256 = "39f5fa50f65e4a14fb54c35940884e1abaa29d81fa61ef1141ab9eb0743eabb9";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1960,10 +1960,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2022.9.27";
+      version = "2023.1.31";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4008174/privacy_badger17-2022.9.27.xpi";
-      sha256 = "8a0e456dfac801ea437164192f0a0659ee7227a519db97aceeb221f48f74d44a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4064595/privacy_badger17-2023.1.31.xpi";
+      sha256 = "0082d8ffe7b25f370a313d9b899b0c1ba1669b21b3a11791fe5ecf031aeb6a6c";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -2239,10 +2239,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.5";
+      version = "28.6";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055751/save_page_we-28.5.xpi";
-      sha256 = "ff20b614fbc9b9e6b0d48a621289c48ba17b90d8c5c8082482d2c7d2371c609c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4063645/save_page_we-28.6.xpi";
+      sha256 = "13b34bbf66826d1e6fcf2e8c704ac94d58d3cca41009dd4a0144c8dc870cdf4f";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2393,10 +2393,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.12";
+      version = "5.1.13";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4059768/sponsorblock-5.1.12.xpi";
-      sha256 = "815b581cf99adcb42d67ac0ffa498d19e6de47a233289acc9a593bedde88b27b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4064410/sponsorblock-5.1.13.xpi";
+      sha256 = "851b2f2da02c566ddd00bb13ac9a874cd81114041c53b5d268686be46ebe985b";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -3081,10 +3081,10 @@
       };
     "windscribe" = buildFirefoxXpiAddon {
       pname = "windscribe";
-      version = "3.4.7";
+      version = "3.4.8";
       addonId = "@windscribeff";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4021336/windscribe-3.4.7.xpi";
-      sha256 = "307da4047eb7f27016b88e0f3c69a70ca73423c7360e1fc0ba4cb5a777ca281a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4046960/windscribe-3.4.8.xpi";
+      sha256 = "6f06485cb24257afe532df29c268bc08c68bf466f105049eeb0902e2e0a7741e";
       meta = with lib;
       {
         homepage = "https://windscribe.com";
