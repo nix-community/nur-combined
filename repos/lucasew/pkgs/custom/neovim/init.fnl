@@ -29,7 +29,10 @@
   "Map key in normal mode to function"
   (vim.keymap.set :n key func ...))
 
-; (lsp_signature.setup { :bind true })
+(lsp_signature.setup { :bind true })
+
+(vim.diagnostic.config {:virtual_text false})
+(. (require "trouble") :setup)
 
 (fn lsp [name options]
   (local opts (or options {}))

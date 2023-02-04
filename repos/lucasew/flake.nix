@@ -86,8 +86,7 @@
     simple-dashboard.url = "github:lucasew/simple-dashboard";
     simple-dashboard.flake = false;
 
-    # sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.url = "github:lucasew/sops-nix/feat/type-dotenv";
+    sops-nix.url = "github:Mic92/sops-nix";
 
     nbr.url = "github:nixosbrasil/nixpkgs-brasil";
   };
@@ -126,6 +125,7 @@
             allowUnfree = true;
             permittedInsecurePackages = [
               "qtwebkit-5.212.0-alpha4"
+              "electron-18.1.0"
             ];
           };
           overlays = overlays ++ (builtins.attrValues self.outputs.overlays);

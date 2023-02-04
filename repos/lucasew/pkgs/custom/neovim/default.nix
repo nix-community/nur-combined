@@ -110,6 +110,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
       vim-fetch # support for stacktrace paths
       telescope-nvim
       pluginNocapsquit
+      trouble-nvim
 
       # language specific
       dart-vim-plugin
