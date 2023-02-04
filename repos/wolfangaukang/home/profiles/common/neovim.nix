@@ -1,9 +1,28 @@
-{ pkgs
+{ inputs
+, pkgs
 , neovim-pkg ? pkgs.neovim-unwrapped
 , extra-plugins ? [ ]
 }:
 
 let
+  inherit (inputs) dotfiles;
+  lspPackages = with pkgs; [
+    # Bash
+    nodePackages.bash-language-server
+
+    # Docker
+    nodePackages.dockerfile-language-server-nodejs
+
+    # Nix
+    rnix-lsp
+
+    # Python
+    # TODO: See how to set up python-lsp-server
+    nodePackages.pyright
+
+    # YAML
+    nodePackages.yaml-language-server
+  ];
   defaultPlugins = (with pkgs.vimPlugins; [
     # Treesitter
     (nvim-treesitter.withPlugins (plug: with plug; [
@@ -27,6 +46,13 @@ let
       tree-sitter-yaml
     ]))
 
+    # LSP
+    {
+      plugin = nvim-lspconfig;
+      type = "lua";
+      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-lspconfig.lua";    
+    }
+
     # Nix
     vim-nix
     vim-nixhash
@@ -39,25 +65,12 @@ let
     {
       plugin = nvim-spectre;
       type = "lua";
-      config = ''
-        require("spectre").setup()
-        vim.cmd([[
-          command! Spectre lua require('spectre').open()
-          command! SpectreVisual lua require('spectre').open_visual()
-          command! SpectreCurrentFile lua require('spectre').open_file_search()
-        ]])
-      '';
+      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-spectre.lua";    
     }
     {
       plugin = nvim-tree-lua;
       type = "lua";
-      config = ''
-        -- Taken from https://github.com/nvim-tree/nvim-tree.lua#setup
-        vim.g.loaded_netrw = 1
-        vim.g.loaded_netrwPlugin = 1
-        vim.opt.termguicolors = true
-        require("nvim-tree").setup()
-      '';
+      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-tree-lua.lua";    
     }
   ]);
 
@@ -72,15 +85,7 @@ in {
     extraPackages = with pkgs; [
       # nvim-spectre
       gnused ripgrep
-    ];
-    extraConfig = ''
-      set number
-      " https://jdhao.github.io/2019/01/11/line_number_setting_nvim/
-      augroup numbertoggle
-        autocmd!
-        autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-        autocmd BufLeave,FocusLost,InsertEnter *   set relativenumber!
-      augroup END
-    '';
+    ] ++ lspPackages;
+    extraConfig = builtins.readFile "${dotfiles}/config/neovim/init.vim";
   };
 }

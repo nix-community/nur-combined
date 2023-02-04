@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
@@ -38,7 +38,7 @@ in
     (mkIf cfg.enableTmux (import ../../profiles/common/tmux.nix { inherit pkgs; }))
     (import ../../profiles/common/git.nix { })
     (import ../../profiles/common/gpg.nix { })
-    (import ../../profiles/common/neovim.nix { inherit pkgs; })
+    (import ../../profiles/common/neovim.nix { inherit pkgs inputs; })
     (import ../../profiles/common/ssh.nix { inherit lib; })
   ]);
 

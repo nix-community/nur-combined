@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-  inherit (pkgs) python310 stdenv callPackage recurseIntoAttrs electron_13 ffmpeg-full;
+  inherit (pkgs) python310 stdenv callPackage recurseIntoAttrs electron_13 electron_22 ffmpeg-full;
   python3Packages = recurseIntoAttrs (python310.pkgs.callPackage ./python-packages.nix { });
   callPythonPackage = python3Packages.callPackage;
 in rec {
@@ -19,6 +19,7 @@ in rec {
     electron = electron_13;
   };
   pacu = callPythonPackage ../tools/security/pacu { inherit dsnap; };
+  pocket-casts = callPackage ../applications/audio/pocket-casts { electron = electron_22; };
   prowler = callPythonPackage ../tools/security/prowler { inherit (python3Packages) alive-progress; };
   prowler_2 = callPackage ../tools/security/prowler/2.nix { };
   sherlock = callPackage ../tools/security/sherlock { };
