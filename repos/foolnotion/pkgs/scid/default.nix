@@ -2,13 +2,13 @@
 
 tcl.mkTclDerivation rec {
   pname = "scid";
-  version = "4.8.0";
+  version = "5.0.0";
 
   src = fetchFromGitHub {
     owner = "benini";
     repo = "scid";
-    rev = "5a1e3dbfd36529a52cb90004ac4fa4a1b6bbb60e";
-    sha256 = "sha256-iXNqDLgMBg0Gtupvji+YoXTIBYvdpACVJf19y+dlWNA=";
+    rev = "5aade37aabff6966fc7f1508f82fe8f5fb3fbd64";
+    sha256 = "sha256-o1IQp2WZXFf5rzisSyz85Qrwbe7O+HnLkBXUQalIpRs=";
   };
 
   nativeBuildInputs = [ cmake ];
