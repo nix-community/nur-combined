@@ -25,7 +25,7 @@ matrix:
   include:
     - env: NIX_PATH=nixpkgs=channel:nixpkgs-unstable
     - env: NIX_PATH=nixpkgs=channel:nixos-unstable
-    - env: NIX_PATH=nixpkgs=channel:nixos-20.03
+    - env: NIX_PATH=nixpkgs=channel:nixos-22.11
 
 script:
  - nix-build ci.nix -A buildOutputs

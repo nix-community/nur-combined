@@ -17,4 +17,5 @@
   chatterino7 = pkgs.libsForQt5.callPackage ./pkgs/chatterino7 { };
   emulationstation-de = pkgs.callPackage ./pkgs/emulationstation-de { };
   koi = pkgs.libsForQt5.callPackage ./pkgs/koi { };
+  notesnook = pkgs.callPackage ./pkgs/notesnook { };
 }

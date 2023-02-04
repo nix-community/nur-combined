@@ -35,3 +35,9 @@ Uncomment this if you use travis:
 -->
 [![Cachix Cache](https://img.shields.io/badge/cachix-baduhai-blue.svg)](https://baduhai.cachix.org)
 
+Available packages:
+
+- chatterino7
+- emulationstation-de
+- koi
+- notesnook
