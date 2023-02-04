@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
 
 buildGoModule rec {
   pname = "jenkins-cli";
@@ -10,6 +10,14 @@ buildGoModule rec {
     rev = "v${version}";
     hash = "sha256-ovrli7C4OyWAQSAOm1aoO/s/lHP1uI8XhnywkCxylIk=";
   };
+
+  patches = [
+    # Fix artifact download url construction
+    (fetchpatch {
+      url = "https://github.com/jenkins-zh/jenkins-cli/commit/cb4c34cc5e7853444939af3643cf64d69095dc41.patch";
+      hash = "sha256-6hWtHXwg6CmRJBX12IVsQhJPK/Xlv8zrLDltZHN2i6U=";
+    })
+  ];
 
   vendorHash = "sha256-bmPnxFvdKU5zuMsCDboSOxP5f7NnMRwS/gN0sW7eTRA=";
 
