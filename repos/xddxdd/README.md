@@ -97,7 +97,7 @@ Or, use variables from this repository in case I change them:
 |  | [gopherus](http://gopherus.sourceforge.net/) | 1.2.1 | `gopherus` | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace. |
 |  | [hath](https://e-hentai.org/) | 1.6.1 | `hath` | Hentai@Home |
 |  | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | `hesuvi-hrir` | Headphone Surround Virtualizations for Equalizer APO |
-|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | f87da0abeb152e9caf0d84b039f9a37d4af3bfa6 | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
+|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | c58ae5ae1640467d5d681a1391ebe7cea2c7ce7c | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
 |  | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | `kaixinsong-fonts` | KaiXinSong |
 |  | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | `konnect` | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | `ldap-auth-proxy` | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
@@ -118,7 +118,7 @@ Or, use variables from this repository in case I change them:
 |  | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.3-mod | `phppgadmin` | The premier web-based administration tool for PostgreSQL |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
-|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-1+b2 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
+|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-2 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
 |  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | QQ for Linux |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
@@ -180,16 +180,20 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: lantianCustomized (8 packages)</summary>
+<summary>Package set: lantianCustomized (12 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
 |  | [asterisk](https://www.asterisk.org/) | 20.1.0 | `lantianCustomized.asterisk` | Asterisk with Lan Tian modifications |
 |  | [coredns-lantian](https://github.com/xddxdd/coredns) | 41a20197433c06398c7cfe17f1935c026b01c4fd | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
-|  | [linux](https://www.kernel.org/) | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>

@@ -485,7 +485,7 @@
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
-        "date": "2022-11-24",
+        "date": "2023-02-04",
         "extract": null,
         "name": "hoyo-glyphs",
         "passthru": null,
@@ -497,11 +497,11 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "f87da0abeb152e9caf0d84b039f9a37d4af3bfa6",
-            "sha256": "sha256-hNRVsWjRx9pECjQeEfUnciLi3ALIJNrIhVWH+EA8p2E=",
+            "rev": "c58ae5ae1640467d5d681a1391ebe7cea2c7ce7c",
+            "sha256": "sha256-MprZOas7TlGjGT+AxsT7fV2DAyTbd8aT+YoKPEmy6MY=",
             "type": "github"
         },
-        "version": "f87da0abeb152e9caf0d84b039f9a37d4af3bfa6"
+        "version": "c58ae5ae1640467d5d681a1391ebe7cea2c7ce7c"
     },
     "konnect": {
         "cargoLocks": null,
@@ -588,6 +588,26 @@
         "date": null,
         "extract": null,
         "name": "linux-xanmod",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xanmod",
+            "repo": "linux",
+            "rev": "6.0.12-xanmod1",
+            "sha256": "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=",
+            "type": "github"
+        },
+        "version": "6.0.12-xanmod1"
+    },
+    "linux-xanmod-unstable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "linux-xanmod-unstable",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -997,11 +1017,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ji6hyVmjdGcEpPWITWpVzZBoRo7xkAjJoZbM6M0a7cU=",
+            "sha256": "sha256-o3ss3hn+NBgUM03N2wA7QnTwbXLOMmDL7jxxAIz/WNw=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b2_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_amd64.deb"
         },
-        "version": "7.2+dfsg-1+b2"
+        "version": "7.2+dfsg-2"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -1012,11 +1032,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dxzVQ67oSBxVaWdr86VHzHER0ujPA+7pPllc0f+uR7k=",
+            "sha256": "sha256-pEexbtFf4kibyQh2F2sZdi2GgYgBwafvtmHt0hcP9K4=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_arm64.deb"
         },
-        "version": "7.2+dfsg-1+b1"
+        "version": "7.2+dfsg-2"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -1027,11 +1047,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/RU3ecrUP8L5TWSASMZbA3W2jDHfj8mpKshx19RIQvY=",
+            "sha256": "sha256-58gBdwanY484Ff0REp/PvHzX2bHEeiJlXQZnw71etXw=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_armhf.deb"
         },
-        "version": "7.2+dfsg-1+b1"
+        "version": "7.2+dfsg-2"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -1042,11 +1062,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hVN3LDst6ogfOQ+VbgIJArhFv506UYhxSs/f9MqSe1g=",
+            "sha256": "sha256-GLUutwYQ4KWVUd/r39qIuea4JGncMZASutK4ML8Xpx4=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_i386.deb"
         },
-        "version": "7.2+dfsg-1+b1"
+        "version": "7.2+dfsg-2"
     },
     "qq-amd64": {
         "cargoLocks": null,

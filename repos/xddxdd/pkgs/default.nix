@@ -59,6 +59,12 @@ mkScope (self: pkg: rec {
     linux-xanmod-lantian-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = true; });
     linux-xanmod-lantian-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-lto.configfile;
 
+    # Temporary package to test a problem with Btrfs Linux 6.1
+    linux-xanmod-lantian-unstable = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian-unstable { lto = false; });
+    linux-xanmod-lantian-unstable-config = ifNotCI lantianCustomized.linux-xanmod-lantian-unstable.configfile;
+    linux-xanmod-lantian-unstable-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian-unstable { lto = true; });
+    linux-xanmod-lantian-unstable-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-unstable-lto.configfile;
+
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
     nginx = pkg ./lantian-customized/nginx { };
   });

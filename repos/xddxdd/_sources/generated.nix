@@ -281,15 +281,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "f87da0abeb152e9caf0d84b039f9a37d4af3bfa6";
+    version = "c58ae5ae1640467d5d681a1391ebe7cea2c7ce7c";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "f87da0abeb152e9caf0d84b039f9a37d4af3bfa6";
+      rev = "c58ae5ae1640467d5d681a1391ebe7cea2c7ce7c";
       fetchSubmodules = false;
-      sha256 = "sha256-hNRVsWjRx9pECjQeEfUnciLi3ALIJNrIhVWH+EA8p2E=";
+      sha256 = "sha256-MprZOas7TlGjGT+AxsT7fV2DAyTbd8aT+YoKPEmy6MY=";
     });
-    date = "2022-11-24";
+    date = "2023-02-04";
   };
   konnect = {
     pname = "konnect";
@@ -339,6 +339,17 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
+    version = "6.0.12-xanmod1";
+    src = fetchFromGitHub ({
+      owner = "xanmod";
+      repo = "linux";
+      rev = "6.0.12-xanmod1";
+      fetchSubmodules = false;
+      sha256 = "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=";
+    });
+  };
+  linux-xanmod-unstable = {
+    pname = "linux-xanmod-unstable";
     version = "6.1.9-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
@@ -571,34 +582,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "7.2+dfsg-1+b2";
+    version = "7.2+dfsg-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b2_amd64.deb";
-      sha256 = "sha256-ji6hyVmjdGcEpPWITWpVzZBoRo7xkAjJoZbM6M0a7cU=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_amd64.deb";
+      sha256 = "sha256-o3ss3hn+NBgUM03N2wA7QnTwbXLOMmDL7jxxAIz/WNw=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "7.2+dfsg-1+b1";
+    version = "7.2+dfsg-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_arm64.deb";
-      sha256 = "sha256-dxzVQ67oSBxVaWdr86VHzHER0ujPA+7pPllc0f+uR7k=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_arm64.deb";
+      sha256 = "sha256-pEexbtFf4kibyQh2F2sZdi2GgYgBwafvtmHt0hcP9K4=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "7.2+dfsg-1+b1";
+    version = "7.2+dfsg-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_armhf.deb";
-      sha256 = "sha256-/RU3ecrUP8L5TWSASMZbA3W2jDHfj8mpKshx19RIQvY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_armhf.deb";
+      sha256 = "sha256-58gBdwanY484Ff0REp/PvHzX2bHEeiJlXQZnw71etXw=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "7.2+dfsg-1+b1";
+    version = "7.2+dfsg-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-1+b1_i386.deb";
-      sha256 = "sha256-hVN3LDst6ogfOQ+VbgIJArhFv506UYhxSs/f9MqSe1g=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_i386.deb";
+      sha256 = "sha256-GLUutwYQ4KWVUd/r39qIuea4JGncMZASutK4ML8Xpx4=";
     };
   };
   qq-amd64 = {

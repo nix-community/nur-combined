@@ -1,11 +1,11 @@
 diff --git a/drivers/gpu/drm/i915/gvt/cfg_space.c b/drivers/gpu/drm/i915/gvt/cfg_space.c
-index dad3a6054335..827dd06c0781 100644
+index eef3bba8a41b..daa3e3003361 100644
 --- a/drivers/gpu/drm/i915/gvt/cfg_space.c
 +++ b/drivers/gpu/drm/i915/gvt/cfg_space.c
-@@ -34,13 +34,6 @@
- #include "i915_drv.h"
+@@ -35,13 +35,6 @@
  #include "gvt.h"
- 
+ #include "intel_pci_config.h"
+
 -enum {
 -	INTEL_GVT_PCI_BAR_GTTMMIO = 0,
 -	INTEL_GVT_PCI_BAR_APERTURE,
@@ -16,8 +16,8 @@ index dad3a6054335..827dd06c0781 100644
  /* bitmap for writable bits (RW or RW1C bits, but cannot co-exist in one
   * byte) byte by byte in standard pci configuration space. (not the full
   * 256 bytes.)
-@@ -171,9 +164,10 @@ static int emulate_pci_rom_bar_write(struct intel_vgpu *vgpu,
- 
+@@ -172,9 +165,10 @@ static int emulate_pci_rom_bar_write(struct intel_vgpu *vgpu,
+
  	if ((new & PCI_ROM_ADDRESS_MASK) == PCI_ROM_ADDRESS_MASK)
  		/* We don't have rom, return size of 0. */
 -		*pval = 0;
@@ -27,30 +27,30 @@ index dad3a6054335..827dd06c0781 100644
 +
  	return 0;
  }
- 
-@@ -350,12 +344,14 @@ void intel_vgpu_init_cfg_space(struct intel_vgpu *vgpu,
+
+@@ -351,12 +345,14 @@ void intel_vgpu_init_cfg_space(struct intel_vgpu *vgpu,
  	memset(vgpu_cfg_space(vgpu) + PCI_BASE_ADDRESS_1, 0, 4);
  	memset(vgpu_cfg_space(vgpu) + PCI_BASE_ADDRESS_3, 0, 4);
  	memset(vgpu_cfg_space(vgpu) + PCI_BASE_ADDRESS_4, 0, 8);
 +	memset(vgpu_cfg_space(vgpu) + PCI_ROM_ADDRESS, 0, 4);
  	memset(vgpu_cfg_space(vgpu) + INTEL_GVT_PCI_OPREGION, 0, 4);
- 
+
  	vgpu->cfg_space.bar[INTEL_GVT_PCI_BAR_GTTMMIO].size =
- 		pci_resource_len(pdev, 0);
+ 		pci_resource_len(pdev, GTTMMADR_BAR);
  	vgpu->cfg_space.bar[INTEL_GVT_PCI_BAR_APERTURE].size =
- 		pci_resource_len(pdev, 2);
+ 		pci_resource_len(pdev, GTT_APERTURE_BAR);
 +	vgpu->cfg_space.bar[INTEL_GVT_PCI_BAR_ROM].size = 32*1024;
- 
+
  	memset(vgpu_cfg_space(vgpu) + PCI_ROM_ADDRESS, 0, 4);
- 
+
 diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
-index aee1a45da74b..6d310eb0601d 100644
+index dbf8d7470b2c..9208e202e03c 100644
 --- a/drivers/gpu/drm/i915/gvt/gvt.h
 +++ b/drivers/gpu/drm/i915/gvt/gvt.h
-@@ -553,6 +553,14 @@ int intel_vgpu_emulate_cfg_write(struct intel_vgpu *vgpu, unsigned int offset,
- 
+@@ -554,6 +554,14 @@ int intel_vgpu_emulate_cfg_write(struct intel_vgpu *vgpu, unsigned int offset,
+
  void intel_vgpu_emulate_hotplug(struct intel_vgpu *vgpu, bool connected);
- 
+
 +enum {
 +	INTEL_GVT_PCI_BAR_GTTMMIO = 0,
 +	INTEL_GVT_PCI_BAR_APERTURE,
@@ -63,22 +63,22 @@ index aee1a45da74b..6d310eb0601d 100644
  {
  	/* We are 64bit bar. */
 diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index e2f6c56ab342..55736b383685 100644
+index 714221f9a131..d2bc0c5d4661 100644
 --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
 +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -55,6 +55,8 @@
+@@ -53,6 +53,8 @@
  #include "intel_gvt.h"
  #include "gvt.h"
- 
+
 +#include "vgpu_rom.c"
 +
  MODULE_IMPORT_NS(DMA_BUF);
  MODULE_IMPORT_NS(I915_GVT);
- 
-@@ -959,6 +961,23 @@ static int intel_vgpu_aperture_rw(struct intel_vgpu *vgpu, u64 off,
+
+@@ -799,6 +801,23 @@ static int intel_vgpu_aperture_rw(struct intel_vgpu *vgpu, u64 off,
  	return 0;
  }
- 
+
 +static int intel_vgpu_rom_read(struct intel_vgpu *vgpu, uint64_t off,
 +		void *buf, unsigned long count)
 +{
@@ -99,7 +99,7 @@ index e2f6c56ab342..55736b383685 100644
  static ssize_t intel_vgpu_rw(struct intel_vgpu *vgpu, char *buf,
  			size_t count, loff_t *ppos, bool is_write)
  {
-@@ -988,12 +1007,16 @@ static ssize_t intel_vgpu_rw(struct intel_vgpu *vgpu, char *buf,
+@@ -828,12 +847,16 @@ static ssize_t intel_vgpu_rw(struct intel_vgpu *vgpu, char *buf,
  	case VFIO_PCI_BAR2_REGION_INDEX:
  		ret = intel_vgpu_aperture_rw(vgpu, pos, buf, count, is_write);
  		break;
@@ -117,9 +117,9 @@ index e2f6c56ab342..55736b383685 100644
  		break;
  	default:
  		if (index >= VFIO_PCI_NUM_REGIONS + vgpu->num_regions)
-@@ -1402,6 +1425,11 @@ static long intel_vgpu_ioctl(struct vfio_device *vfio_dev, unsigned int cmd,
+@@ -1242,6 +1265,11 @@ static long intel_vgpu_ioctl(struct vfio_device *vfio_dev, unsigned int cmd,
  			break;
- 
+
  		case VFIO_PCI_ROM_REGION_INDEX:
 +			info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
 +			info.size = vgpu->cfg_space.bar[INTEL_GVT_PCI_BAR_ROM].size;

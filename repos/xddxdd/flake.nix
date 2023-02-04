@@ -81,6 +81,11 @@
                 exit 1
               '';
 
+              nvfetcher = ''
+                [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="-k $HOME/Secrets/nvfetcher.toml" || KEY_FLAG=""
+                ${pkgs.nvfetcher}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources
+              '';
+
               readme = ''
                 nix build .#_meta.readme
                 cat result > README.md
@@ -88,7 +93,7 @@
 
               update = ''
                 nix flake update
-                ${pkgs.nvfetcher}/bin/nvfetcher -c nvfetcher.toml -o _sources
+                ${nvfetcher}
                 ${pkgs.python3}/bin/python3 pkgs/asterisk-digium-codecs/update.py
                 ${pkgs.python3}/bin/python3 pkgs/openj9-ibm-semeru/update.py
                 ${pkgs.python3}/bin/python3 pkgs/openjdk-adoptium/update.py
