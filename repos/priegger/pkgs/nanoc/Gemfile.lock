@@ -6,7 +6,7 @@ GEM
     adsf (1.4.6)
       rack (>= 1.0.0, < 3.0.0)
     colored (1.2)
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.0)
     cri (2.15.11)
     ddmetrics (1.0.1)
     ddplugin (1.0.3)
@@ -56,10 +56,10 @@ GEM
     psych (4.0.6)
       stringio
     public_suffix (5.0.1)
-    rack (2.2.5)
+    rack (2.2.6.2)
     rexml (3.2.5)
     slow_enumerator_tools (1.1.0)
-    stringio (3.0.4)
+    stringio (3.0.5)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
@@ -76,4 +76,4 @@ DEPENDENCIES
   nanoc
 
 BUNDLED WITH
-   2.4.3
+   2.4.6
