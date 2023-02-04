@@ -354,10 +354,10 @@
       };
     "clearurls" = buildFirefoxXpiAddon {
       pname = "clearurls";
-      version = "1.26.0";
+      version = "1.26.1";
       addonId = "{74145f27-f039-47ce-a470-a662b129930a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032442/clearurls-1.26.0.xpi";
-      sha256 = "222ce5056b79db8d3b574a98ce359902786a6cbb3939ddace254ed15688cee55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4064884/clearurls-1.26.1.xpi";
+      sha256 = "e20168d63cb1b8ba3ad0de4cdb42c540d99fe00aa9679b59f49bccc36f106291";
       meta = with lib;
       {
         homepage = "https://clearurls.xyz/";
@@ -1506,10 +1506,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.24";
+      version = "2.7.33";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4061289/momentumdash-2.7.24.xpi";
-      sha256 = "abfd16f30430c8bae0a67bb50f3ca51511c67d80eb965380af21fa30c8d5df20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4064669/momentumdash-2.7.33.xpi";
+      sha256 = "5debdd9010971941c3c08f2c04b5faf4012de9979cd3b7bf5d3049f7723dad21";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1789,10 +1789,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.5.1";
+      version = "2.6.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040641/1password_x_password_manager-2.5.1.xpi";
-      sha256 = "ad8fd2ab9e561b70813f98d19c946a6ffb808746779783f0048a96f1e52f0f04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4061902/1password_x_password_manager-2.6.0.xpi";
+      sha256 = "8b41f3b5edf767fd8826e7bfd813de9225ab2ea851099eea224346e0a266161c";
       meta = with lib;
       {
         homepage = "https://1password.com";
