@@ -17,6 +17,7 @@ rec {
   # For some reason NUR needs to be passed git-credential-manager explicitly to support self-referencing in passthru.tests
   git-credential-manager = pkgs.callPackage ./pkgs/git-credential-manager { git-credential-manager = git-credential-manager; };
   kuro = pkgs.callPackage ./pkgs/kuro { };
+  code-hotfix = pkgs.callPackage ./pkgs/codefix { };
 
   jetbrains = (pkgs.lib.recurseIntoAttrs
     (pkgs.callPackages pkgs/jetbrains {
