@@ -1,15 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile, pystac, rio-color }:
+{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile, pystac, color-operations }:
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-tiler";
-  version = "3.1.2";
+  version = "4.1.6";
+  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-tiler";
     rev = version;
-    hash = "sha256-ecY3U4VB0TkYHeUy+HGOFin+LTNsbWi87+6AIOKGW7o=";
+    hash = "sha256-UeAsQ82Lg5aksUdGvcrw/gcTmCJhWnCQkbrcbmqYNgc=";
   };
+
+  nativeBuildInputs = with python3Packages; [ hatchling ];
 
   propagatedBuildInputs = with python3Packages; [
     boto3
@@ -18,8 +21,8 @@ python3Packages.buildPythonPackage rec {
     pystac
     rasterio
     httpx
-    rio-color
     cachetools
+    color-operations
   ];
 
   doCheck = false;

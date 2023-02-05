@@ -17,7 +17,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-iL3mFxX32OaD8UdPdvMyc/ksmeCH4iykM37DgHd+KwE=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ python-Levenshtein setuptools wikitextprocessor nltk ];
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace python-Levenshtein Levenshtein
+  '';
+
+  propagatedBuildInputs = with python3Packages; [ levenshtein setuptools wikitextprocessor nltk ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook unzip ];
 

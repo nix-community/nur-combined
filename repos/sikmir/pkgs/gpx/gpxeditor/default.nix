@@ -7,11 +7,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpxeditor";
-  version = "1.7.15";
+  version = "1.8.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gpxeditor/GPX%20Editor/Version%20${finalAttrs.version}/GPX_Editor_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}.zip";
-    hash = "sha256-laGJU8LHNNoUoVyHY2IaCXGpFmgOLSrWe/lCz5Tzjj4=";
+    url = "mirror://sourceforge/gpxeditor/GPX%20Editor/GPX%20Editor%20${finalAttrs.version}.zip";
+    hash = "sha256-KgVwx79kOQzXJQaQK1VRWHJHIU4yBpCH/7pFh7G4D54=";
   };
 
   dontUnpack = true;

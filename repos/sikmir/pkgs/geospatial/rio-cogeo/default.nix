@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-cogeo";
-  version = "3.2.0";
+  version = "3.5.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-cogeo";
     rev = version;
-    hash = "sha256-Xv3HgQP0PQZeu59LYCt3BuAUPPzKvdHndiemoSIcUec=";
+    hash = "sha256-lvGog5Pzbc7v49lZMxomwDszJN/CVzu+AAkb5in3IoY=";
   };
 
   nativeBuildInputs = with python3Packages; [

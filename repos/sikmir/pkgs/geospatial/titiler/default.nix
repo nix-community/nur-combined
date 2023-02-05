@@ -1,14 +1,14 @@
 { lib, fetchFromGitHub, python3Packages
-, rio-tiler, geojson-pydantic, rio-cogeo, starlette-cramjam, cogeo-mosaic }:
+, rio-stac, rio-tiler, geojson-pydantic, rio-cogeo, starlette-cramjam, cogeo-mosaic }:
 let
   pname = "titiler";
-  version = "0.6.0";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     rev = version;
-    hash = "sha256-BfN/d2FEFTIuiOHxKltn1SHUdOzDrAkbJcEQANY6UtA=";
+    hash = "sha256-AdG2fZTvmgnTccLtHj4C3SzdqJ10icr3q3SNmRCtq0E=";
   };
 
   meta = with lib; {
@@ -27,8 +27,23 @@ let
       fastapi
       rio-tiler
       geojson-pydantic
+      simplejson
     ];
     nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  };
+
+  titiler-extensions = python3Packages.buildPythonPackage {
+    inherit version src meta;
+    pname = "${pname}.extensions";
+    sourceRoot = "${src.name}/src/titiler/extensions";
+
+    propagatedBuildInputs = with python3Packages; [
+      rio-cogeo
+      rio-stac
+      titiler-core
+    ];
+    nativeCheckInputs = with python3Packages; [ pytestCheckHook jsonschema ];
+    disabledTests = [ "test_stacExtension" ];
   };
 
   titiler-mosaic = python3Packages.buildPythonPackage {
@@ -52,6 +67,7 @@ python3Packages.buildPythonPackage {
     rio-cogeo
     starlette-cramjam
     titiler-core
+    titiler-extensions
     titiler-mosaic
   ];
 

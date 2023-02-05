@@ -175,6 +175,7 @@ lib.makeScope newScope (
     arcgis2geojson = callPackage ./geospatial/arcgis2geojson { };
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
+    color-operations = callPackage ./geospatial/color-operations { };
     datamaps = callPackage ./geospatial/datamaps { };
     deegree = callPackage ./geospatial/deegree { };
     elevation = callPackage ./geospatial/elevation {
@@ -208,6 +209,7 @@ lib.makeScope newScope (
     rio-color = callPackage ./geospatial/rio-color { };
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
     rio-mucho = callPackage ./geospatial/rio-mucho { };
+    rio-stac = callPackage ./geospatial/rio-stac { };
     rio-tiler = callPackage ./geospatial/rio-tiler { };
     sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
     scooby = callPackage ./geospatial/scooby { };

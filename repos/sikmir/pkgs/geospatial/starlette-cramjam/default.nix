@@ -2,14 +2,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "starlette-cramjam";
-  version = "0.1.0";
+  version = "0.3.2";
+  format = "flit";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "starlette-cramjam";
     rev = version;
-    hash = "sha256-aCZnXsCkzq278aAj4QNz2gSIVWGn1IsL2QG9TAaNWg0=";
+    hash = "sha256-InxnMpyYg0m92oJfn7YbHECTQE9WMB9MwpoN3slxK7M=";
   };
+
+  nativeBuildInputs = with python3Packages; [ flit-core ];
 
   propagatedBuildInputs = with python3Packages; [
     starlette
