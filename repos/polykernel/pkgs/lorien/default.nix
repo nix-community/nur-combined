@@ -11,6 +11,7 @@
   libXrandr,
   libXrender,
 }:
+
 stdenv.mkDerivation rec {
   pname = "Lorien";
   version = "0.5.0";
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x81Obana2BEGrYSoJHDdCkL6UaULfQGQ94tlrH5+kdY=";
   };
 
-  nativeBuildInputs = [godot-headless godot-export-templates];
+  nativeBuildInputs = [ godot-headless godot-export-templates ];
 
   buildInputs = [
     libX11
@@ -60,7 +61,7 @@ stdenv.mkDerivation rec {
     description = " Infinite canvas drawing/whiteboarding app for Windows, Linux and macOS. Made with Godot.";
     homepage = "https://github.com/mbrlabs/Lorien";
     license = licenses.mit;
-    maintainers = [maintainers.polykernel];
+    maintainers = [ maintainers.polykernel ];
     platforms = platforms.linux;
     # See https://github.com/NixOS/nixpkgs/issues/86299
     broken = stdenv.hostPlatform.isDarwin;

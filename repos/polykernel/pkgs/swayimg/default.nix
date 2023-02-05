@@ -49,14 +49,14 @@ assert builtins.all (b: lib.assertOneOf "each backend" b (builtins.attrNames bac
 
 stdenv.mkDerivation rec {
   pname = "swayimg";
-  version = "1.9";
+  version = "1.10";
   outputs = [ "out" "man" ];
 
   src = fetchFromGitHub {
     owner = "artemsen";
     repo = pname;
-    rev = "refs/tags/v${version}";
-    sha256 = "sha256-864riSvWhWV4X84UeZ+xfQBOAQmwMrX6s90TXMGeruY=";
+    rev = "v${version}";
+    sha256 = "sha256-Iq7T00hvr9Mv50V/GKJBddjoeHdFa2DneVaXyxhMCE0=";
   };
 
   mesonFlags = [

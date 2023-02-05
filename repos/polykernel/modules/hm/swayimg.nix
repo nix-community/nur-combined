@@ -15,7 +15,9 @@ let
   };
 
   toSwayimgIni = lib.generators.toINIWithGlobalSection { };
-in {
+in
+
+{
   options = {
     programs.swayimg = {
       enable = mkEnableOption ''

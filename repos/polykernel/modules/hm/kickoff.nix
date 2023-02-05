@@ -4,11 +4,16 @@
   pkgs,
   ...
 }:
-with lib; let
+
+with lib;
+
+let
   cfg = config.programs.kickoff;
 
   tomlFormat = pkgs.formats.toml {};
-in {
+in
+
+{
   options = {
     programs.kickoff = {
       enable = mkEnableOption ''
@@ -46,14 +51,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [(hm.assertions.assertPlatform "programs.kickoff" pkgs platforms.linux)];
+    assertions = [ (hm.assertions.assertPlatform "programs.kickoff" pkgs platforms.linux) ];
 
-    home.packages = [cfg.package];
+    home.packages = [ cfg.package ];
 
     xdg.configFile."kickoff/config.toml" = mkIf (cfg.settings != {}) {
       source = tomlFormat.generate "kickoff-config.toml" cfg.settings;
     };
   };
 
-  meta.maintainers = [maintainers.polykernel];
+  meta.maintainers = [ maintainers.polykernel ];
 }

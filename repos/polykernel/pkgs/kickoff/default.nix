@@ -33,9 +33,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    fontconfig
-  ];
+  buildInputs = [ fontconfig ];
 
   postInstall = ''
     # Strip executable and set RPATH
