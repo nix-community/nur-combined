@@ -1,7 +1,6 @@
 { lib, vimUtils, fetchFromSourcehut }:
 let
   ref = "f28d125184deaf2ee722ed42f434b1901d3e076f";
-  hash = "sha256-LHFejgmkmOAX3RTY9DT+Q+QJTBfoyPydsIzZxsub+XI=";
 in vimUtils.buildVimPluginFrom2Nix {
   pname = "gls-vim";
   version = "dev-${ref}";
