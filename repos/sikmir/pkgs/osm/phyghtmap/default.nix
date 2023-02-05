@@ -9,6 +9,10 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-jA6uc/HVdrDQF3NX0Cbu4wMl4SSd7cA/VOvtRRzDsBM=";
   };
 
+  postPatch = ''
+    substituteInPlace phyghtmap/hgt.py --replace "_contour" "contour"
+  '';
+
   nativeBuildInputs = [ installShellFiles ];
 
   propagatedBuildInputs = with python3Packages; [ beautifulsoup4 lxml matplotlib numpy ];

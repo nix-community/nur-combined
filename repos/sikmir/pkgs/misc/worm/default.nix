@@ -2,14 +2,14 @@
 
 nimPackages.buildNimPackage rec {
   pname = "worm";
-  version = "0.3.1";
+  version = "0.3.2";
   nimBinOnly = true;
 
   src = fetchFromGitHub {
     owner = "codic12";
     repo = "worm";
     rev = "v${version}";
-    hash = "sha256-I+dRcsVaZWsZZch+17Y5Ypl8j7qGNHPFijPXV5NbqKA=";
+    hash = "sha256-fm969whcYILMphR8Vr8oarx2iEJiIhzifU2wNYaU/Kg=";
   };
 
   nativeBuildInputs = [ pkg-config ];

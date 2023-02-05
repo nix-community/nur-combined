@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
-  version = "2022-12-15";
+  version = "2023-01-26";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = "imscript";
-    rev = "3758dd3cbe4e3e4052112182e6ca645c1e41e008";
-    hash = "sha256-fv/urp9AOu2BlksLA/TPbTuoaoF2yigVbcW7oyW+UBY=";
+    rev = "0f5c49489d68f751f80ebf37920402ce9cf2ed47";
+    hash = "sha256-iv+wGqcJFZ/hYPHDbAgcLCQ4DBCeVJWwME5N+6ev/EU=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     install -Dm755 bin/* -t $out/bin
-    installManPage doc/man/*
+    installManPage doc/man/man1/*
   '';
 
   meta = with lib; {
