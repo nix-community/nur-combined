@@ -293,6 +293,7 @@ lib.makeScope newScope (
 
     aamath = callPackage ./misc/aamath { };
     apibackuper = callPackage ./misc/apibackuper { };
+    arduinojson = callPackage ./misc/arduinojson { };
     ascii-dash = callPackage ./misc/ascii-dash { };
     blink = callPackage ./misc/blink { };
     btpd = callPackage ./misc/btpd { };
