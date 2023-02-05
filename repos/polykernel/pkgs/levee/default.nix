@@ -13,17 +13,17 @@
 }:
 stdenv.mkDerivation rec {
   pname = "levee";
-  version = "main";
+  version = "0.1.2";
 
   src = fetchFromSourcehut {
     owner = "~andreafeletto";
     repo = pname;
-    rev = "a28f39e9f7014e1cea6976522693c0ec740d094f";
-    sha256 = "sha256-iTUvlYF6Z6BbTNc3aekWj/NXkHVJPlGvbw9X3/hNVww=";
+    rev = "v${version}";
+    sha256 = "sha256-Y0qEIIrEy5JAYdTts+vpoZG4yEFe9HPMKP/r+6CuE3M=";
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [pkg-config zig];
+  nativeBuildInputs = [ pkg-config zig ];
 
   buildInputs = [
     wayland.dev

@@ -2,7 +2,7 @@
   description = "An experimental NUR repository";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils?ref=master";
+    flake-utils.url = "github:numtide/flake-utils?ref=main";
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
   };
 
