@@ -993,10 +993,10 @@
       };
     "gloc" = buildFirefoxXpiAddon {
       pname = "gloc";
-      version = "8.2.65";
+      version = "8.2.67";
       addonId = "{bc2166c4-e7a2-46d5-ad9e-342cef57f1f7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3973334/gloc-8.2.65.xpi";
-      sha256 = "6c791b35fce67f3ddad3648e8ecdc75220255a392e2755f6339439107f0e3081";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066555/gloc-8.2.67.xpi";
+      sha256 = "8be408c7afc05ea67935e854b0128cb1505106ff9fc487adf1040389b38fce11";
       meta = with lib;
       {
         homepage = "https://github.com/kas-elvirov/gloc";
