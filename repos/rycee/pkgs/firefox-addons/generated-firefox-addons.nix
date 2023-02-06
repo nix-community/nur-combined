@@ -1345,10 +1345,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.5.0";
+      version = "2.5.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063658/libredirect-2.5.0.xpi";
-      sha256 = "d9fe457716cd63b048255b00c79acc8e0fdbd89c5872e59ac0fd4ecc6f2307ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066883/libredirect-2.5.1.xpi";
+      sha256 = "6a1a67bd8be55ce79aeb7f35b11b2d433230ceffed1a6298bad67bb01737d00f";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -2198,10 +2198,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.2.1";
+      version = "23.2.5";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064985/refined_github-23.2.1.xpi";
-      sha256 = "24612cc57265542f78470a50389abaac049e0508497bb01219f8b3c08aea0704";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066788/refined_github-23.2.5.xpi";
+      sha256 = "67f1fde8765e1a0038fb677325f00ce79cab5ab3c01637792625cc059e0bacb8";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
