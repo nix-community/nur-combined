@@ -208,15 +208,15 @@
   };
   zix = {
     pname = "zix";
-    version = "0634c9a6ac22d520ea63beab44ade590816f7f9e";
+    version = "18e62483cb7173c6604f7dd2097299e47c2a4c0c";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "0634c9a6ac22d520ea63beab44ade590816f7f9e";
+      rev = "18e62483cb7173c6604f7dd2097299e47c2a4c0c";
       fetchSubmodules = false;
-      sha256 = "sha256-MvlrV42mmtCb9eQ6f+PYNhcMwyrPuJNp849Kk3Avttw=";
+      sha256 = "sha256-IQIMbguqdTuYThzSD3Fx1qOFk3C4QmWPqdIZDlwRcyI=";
     };
-    date = "2023-02-03";
+    date = "2023-02-05";
   };
   zmusic = {
     pname = "zmusic";
