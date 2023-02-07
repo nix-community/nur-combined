@@ -13,6 +13,7 @@
     ../../modules/nix-serve
     ../../modules/nvidia
     ../../modules/openssh
+    ../../modules/sudo
     ../../modules/tailscale
     ../../modules/time
     ../../modules/timesyncd

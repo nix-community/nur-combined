@@ -1,10 +1,5 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
-  configs = {
-    aarch64-linux = import ./aarch64-linux.nix;
-    x86_64-linux = import ./x86_64-linux.nix;
-  };
-
   zfsBootSupported =
     builtins.any (x: x == "zfs") config.boot.supportedFilesystems;
 
@@ -22,9 +17,18 @@ let
         [ ];
 
     systemd.services.docker.unitConfig.RequiresMountsFor = "/var/lib/docker";
-
   };
 
-in {
-  virtualisation.docker = configs.${pkgs.system} // { inherit enableNvidia; };
-} // systemdUnitConfigs
+  cfg = {
+    virtualisation = {
+      oci-containers.backend = "docker";
+      docker = {
+        inherit enableNvidia;
+        enable = true;
+        rootless.enable = true;
+        autoPrune.enable = true;
+      };
+    };
+  } // systemdUnitConfigs;
+
+in cfg

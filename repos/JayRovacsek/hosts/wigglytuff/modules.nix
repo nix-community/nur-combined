@@ -12,6 +12,7 @@ in {
     ../../modules/nix
     ../../modules/openssh
     ../../modules/raspberry-pi/${mode}.nix
+    ../../modules/sudo
     ../../modules/tailscale
     ../../modules/time
     ../../modules/zsh

@@ -6,10 +6,11 @@ let
 
   etcFunction = import ../../functions/etc.nix;
   # Files to write to etc
-  etcConfigs = builtins.foldl' (x: y: x // etcFunction { config = y; }) { } [
-    local
-    cache
-  ];
+  etcConfigs =
+    builtins.foldl' (acc: config: acc // etcFunction { inherit config; }) { } [
+      local
+      cache
+    ];
 
   extraConfig = "\n";
 in {
