@@ -1,0 +1,514 @@
+["async"]
+cve = ["CVE-2021-43138"]
+comment = "False positives"
+
+["avahi"]
+cve = ["CVE-2021-26720", "CVE-2021-3468"]
+comment = "Attack vector is not applicable in nixOS setting &/OR DoS flaw"
+
+["bind"]
+cve = [
+    "CVE-2019-6470",
+    "CVE-2022-2795",
+    "CVE-2022-2881",
+    "CVE-2022-2906",
+    "CVE-2022-3080",
+]
+comment = "True positive, however package is soon to be scoped to microVMs only"
+
+["bolt"]
+cve = [
+    "CVE-2017-16754",
+    "CVE-2019-15483",
+    "CVE-2019-15484",
+    "CVE-2019-15485",
+    "CVE-2019-9185",
+    "CVE-2020-28925",
+    "CVE-2020-4040",
+    "CVE-2020-4041",
+    "CVE-2021-27367",
+    "CVE-2022-31321",
+]
+comment = "False positives"
+
+["botan"]
+cve = ["CVE-2022-43705"]
+until = "2022-12-31"
+comment = "Risk accept temporarily"
+
+["cereal"]
+cve = ["CVE-2020-11104", "CVE-2020-11105"]
+comment = "False positives"
+
+["charset"]
+cve = ["CVE-2017-16098"]
+comment = "False positives"
+
+["cookie"]
+cve = ["CVE-2017-18589"]
+comment = "False positives"
+
+["curl"]
+cve = ["CVE-2022-35252", "CVE-2022-42915", "CVE-2022-42916"]
+comment = "True positives, low risk of exploit"
+
+["djvulibre"]
+cve = [
+    "CVE-2021-32490",
+    "CVE-2021-32491",
+    "CVE-2021-32492",
+    "CVE-2021-32493",
+    "CVE-2021-3500",
+]
+until = "2022-12-31"
+comment = "True positives, minimal risk and no upstream nixpkgs fixes yet"
+
+["dnsmasq"]
+cve = [
+    "CVE-2021-45951",
+    "CVE-2021-45952",
+    "CVE-2021-45953",
+    "CVE-2021-45954",
+    "CVE-2021-45955",
+    "CVE-2021-45956",
+    "CVE-2021-45957",
+]
+until = "2022-12-31"
+comment = "True positives, CVE is currently marked as disputed and no upstream nixpkgs fixes yet"
+
+["dpkg"]
+cve = ["CVE-2022-1664"]
+until = "2022-12-31"
+comment = "True positives minimal risk due to build paradigm of nix"
+
+["exiv2"]
+cve = ["CVE-2022-3718", "CVE-2022-3719", "CVE-2022-3717"]
+until = "2022-12-31"
+comment = "True positives, low risk of exploitation: CVE-2022-3717 currently has no release candidate upstream"
+
+["faad2"]
+cve = [
+    "CVE-2021-32273",
+    "CVE-2021-32274",
+    "CVE-2021-32276",
+    "CVE-2021-32277",
+    "CVE-2021-32278",
+]
+until = "2022-12-31"
+comment = "True positives, no upstream fixes in nixpkgs yet"
+
+["ffmpeg"]
+cve = ["CVE-2021-38291", "CVE-2022-3964", "CVE-2022-3965"]
+until = "2022-12-31"
+comment = "Low risk flaws & exploitation path"
+
+["gcc"]
+cve = ["CVE-2018-12886", "CVE-2021-37322"]
+until = "2022-12-31"
+comment = "True positive, minimal risk due to build paradigm of nix"
+
+["git"]
+cve = [
+    "CVE-2018-1000110",
+    "CVE-2018-1000182",
+    "CVE-2019-1003010",
+    "CVE-2020-2136",
+    "CVE-2021-21684",
+    "CVE-2022-30947",
+    "CVE-2022-30948",
+    "CVE-2022-30949",
+    "CVE-2022-36882",
+    "CVE-2022-36883",
+    "CVE-2022-36884",
+    "CVE-2022-38663",
+    "CVE-2022-31012",
+    "CVE-2022-39253",
+    "CVE-2022-39260",
+]
+comment = "False positives &/or no PoC / low risk"
+
+["glibc"]
+cve = ["CVE-2021-3998"]
+comment = "True positive, low severity and risk"
+
+["go"]
+cve = [
+    "CVE-2021-29923",
+    "CVE-2021-38297",
+    "CVE-2021-39293",
+    "CVE-2021-41771",
+    "CVE-2021-41772",
+    "CVE-2021-44716",
+    "CVE-2021-44717",
+    "CVE-2022-1705",
+    "CVE-2022-1962",
+    "CVE-2022-23772",
+    "CVE-2022-23773",
+    "CVE-2022-23806",
+    "CVE-2022-24675",
+    "CVE-2022-24921",
+    "CVE-2022-27664",
+    "CVE-2022-28131",
+    "CVE-2022-28327",
+    "CVE-2022-2879",
+    "CVE-2022-2880",
+    "CVE-2022-29526",
+    "CVE-2022-29804",
+    "CVE-2022-30580",
+    "CVE-2022-30629",
+    "CVE-2022-30630",
+    "CVE-2022-30631",
+    "CVE-2022-30632",
+    "CVE-2022-30633",
+    "CVE-2022-30634",
+    "CVE-2022-30635",
+    "CVE-2022-32148",
+    "CVE-2022-32189",
+    "CVE-2022-41715",
+    "CVE-2022-41716",
+    "CVE-2022-41717",
+    "CVE-2022-41720",
+]
+comment = "False positives &/or Windows specific issues"
+
+["gradle"]
+cve = [
+    "CVE-2019-11065",
+    "CVE-2019-15052",
+    "CVE-2019-16370",
+    "CVE-2020-11979",
+    "CVE-2021-29428",
+    "CVE-2021-29429",
+    "CVE-2021-32751",
+]
+comment = "True positive, low risk"
+
+["http-client"]
+cve = ["CVE-2020-11021"]
+comment = "False positives"
+
+["lapack"]
+cve = ["CVE-2021-4048"]
+comment = "Build time dependency"
+
+["lens"]
+cve = ["CVE-2021-23154", "CVE-2021-44458"]
+comment = "False positives"
+
+["libarchive"]
+cve = ["CVE-2022-36227"]
+until = "2022-12-31"
+comment = "Temporarily risk accept"
+
+["libde265"]
+cve = [
+    "CVE-2021-35452",
+    "CVE-2021-36408",
+    "CVE-2021-36409",
+    "CVE-2021-36410",
+    "CVE-2021-36411",
+    "CVE-2022-43235",
+    "CVE-2022-43236",
+    "CVE-2022-43237",
+    "CVE-2022-43238",
+    "CVE-2022-43239",
+    "CVE-2022-43240",
+    "CVE-2022-43241",
+    "CVE-2022-43242",
+    "CVE-2022-43243",
+    "CVE-2022-43244",
+    "CVE-2022-43245",
+    "CVE-2022-43248",
+    "CVE-2022-43249",
+    "CVE-2022-43250",
+    "CVE-2022-43252",
+    "CVE-2022-43253",
+]
+until = "2022-12-31"
+comment = "True positive, no upstream fixes in nixpkgs yet, minimal risk due to firewalling"
+
+["libmad"]
+cve = ["CVE-2018-7263"]
+until = "2022-12-31"
+comment = "True positive, no upstream fixes in nixpkgs yet, minimal risk due to firewalling"
+
+["libpng"]
+cve = ["CVE-2017-12652"]
+comment = "True positive, low risk"
+
+["libtiff"]
+cve = [
+    "CVE-2022-0561",
+    "CVE-2022-0562",
+    "CVE-2022-0891",
+    "CVE-2022-0908",
+    "CVE-2022-1354",
+    "CVE-2022-1355",
+    "CVE-2022-2867",
+    "CVE-2022-2868",
+    "CVE-2022-2869",
+    "CVE-2022-2953",
+    "CVE-2022-3570",
+    "CVE-2022-3597",
+    "CVE-2022-3598",
+    "CVE-2022-3599",
+    "CVE-2022-3626",
+    "CVE-2022-3627",
+    "CVE-2022-2056",
+    "CVE-2022-2057",
+    "CVE-2022-2058",
+    "CVE-2022-3970",
+]
+until = "2022-12-31"
+comment = "True positive, risk accept while no upstream patches exist but source patches do"
+
+["libtasn1"]
+cve = ["CVE-2021-46848"]
+comment = "True positive, low risk"
+
+["libvncserver"]
+cve = ["CVE-2020-29260"]
+comment = "True positive, low risk"
+
+["libxml2"]
+cve = ["CVE-2022-40303", "CVE-2022-40304"]
+comment = "True positive, low risk"
+
+["libX11"]
+cve = ["CVE-2022-3555"]
+comment = "True positive, low risk"
+
+["linux-pam"]
+cve = ["CVE-2022-28321"]
+comment = "False positive; applicable to SUSE Tumbleweed"
+
+["lua"]
+cve = [
+    "CVE-2020-15888",
+    "CVE-2020-15945",
+    "CVE-2020-15888",
+    "CVE-2020-15945",
+    "CVE-2021-43519",
+]
+comment = "True positive, build time dependency, risk accept"
+
+["mujs"]
+cve = [
+    "CVE-2017-5627",
+    "CVE-2017-5628",
+    "CVE-2022-30974",
+    "CVE-2022-30975",
+    "CVE-2022-44789",
+]
+until = "2022-12-31"
+comment = "True positive, build time dependency, risk accept temporarily"
+
+["network"]
+cve = [
+    "CVE-2021-35047",
+    "CVE-2021-35048",
+    "CVE-2021-35049",
+    "CVE-2021-35050",
+    "CVE-2022-0486",
+    "CVE-2022-0997",
+    "CVE-2022-24388",
+    "CVE-2022-24389",
+    "CVE-2022-24390",
+    "CVE-2022-24391",
+    "CVE-2022-24392",
+    "CVE-2022-24393",
+    "CVE-2022-24394",
+]
+comment = "False positives"
+
+["npm"]
+cve = ["CVE-2022-29244"]
+comment = "Low risk due to how npm is utilised"
+
+["nss"]
+cve = ["CVE-2021-43527"]
+comment = "False positive - ESR version utilised"
+
+["oh-my-zsh"]
+cve = ["CVE-2021-3727"]
+comment = "False positive - Plugin not utilised"
+
+["openexr"]
+cve = [
+    "CVE-2021-23169",
+    "CVE-2021-23215",
+    "CVE-2021-26260",
+    "CVE-2021-26945",
+    "CVE-2021-3598",
+    "CVE-2021-3605",
+    "CVE-2021-3933",
+]
+until = "2022-12-31"
+comment = "True positive but no fix in nixpkgs yet"
+
+["openjpeg"]
+cve = ["CVE-2021-29338", "CVE-2021-3575", "CVE-2022-1122"]
+until = "2022-12-31"
+comment = "True positive but no reachability / risk based on configuration"
+
+["openssl"]
+cve = [
+    "CVE-2018-16395",
+    "CVE-2022-3358",
+    "CVE-2022-3602",
+    "CVE-2022-3786",
+    "CVE-2022-3996",
+]
+comment = "False positives and/or low risk"
+
+["openvpn"]
+cve = ["CVE-2020-27569"]
+until = "2022-12-31"
+comment = "Risk accept, to review in future, I believe this is unused"
+
+["p7zip"]
+cve = ["CVE-2017-17969", "CVE-2018-5996"]
+comment = "True positive and low risk"
+
+["pixman"]
+cve = ["CVE-2022-44638"]
+comment = "True positive and low risk"
+
+["python"]
+cve = [
+    "CVE-2015-20107",
+    "CVE-2017-17522",
+    "CVE-2017-18207",
+    "CVE-2019-9674",
+    "CVE-2021-23336",
+    "CVE-2021-3733",
+    "CVE-2022-0391",
+    "CVE-2022-26488",
+    "CVE-2022-45061",
+]
+comment = "False positives"
+
+["qemu"]
+cve = ["CVE-2022-2962", "CVE-2022-3165", "CVE-2022-3872", "CVE-2022-4144"]
+comment = "Flaws are pertinent to un-utilised features"
+
+["rubygems"]
+cve = ["CVE-2022-36073"]
+until = "2022-12-31"
+comment = "True positive but no information on applicable packages yet"
+
+["safe"]
+cve = [
+    "CVE-2019-11644",
+    "CVE-2021-33594",
+    "CVE-2021-33595",
+    "CVE-2021-33596",
+    "CVE-2021-40834",
+    "CVE-2021-40835",
+    "CVE-2021-44751",
+    "CVE-2022-28868",
+    "CVE-2022-28869",
+    "CVE-2022-28870",
+    "CVE-2022-28872",
+    "CVE-2022-28873",
+    "CVE-2022-38164",
+    "CVE-2022-38163",
+]
+comment = "False positives and/or low risk"
+
+["samba"]
+cve = ["CVE-2021-3670", "CVE-2022-1615", "CVE-2022-32743"]
+comment = "True positive, no fix upstream and minimal risk"
+
+["SDL_ttf"]
+cve = ["CVE-2022-27470"]
+until = "2022-12-31"
+comment = "True positive, no fix upstream and minimal risk"
+
+["shellcheck"]
+cve = ["CVE-2021-28794", "CVE-2018-7557"]
+comment = "Deployed extension is suitable version for shellcheck"
+
+["ShellCheck"]
+cve = ["CVE-2021-28794", "CVE-2018-7557"]
+comment = "Deployed extension is suitable version for shellcheck"
+
+["sqlite"]
+cve = ["CVE-2022-46908"]
+until = "2022-12-31"
+comment = "Temporary risk accept"
+
+["subversion"]
+cve = [
+    "CVE-2017-1000085",
+    "CVE-2018-1000111",
+    "CVE-2020-2111",
+    "CVE-2020-2304",
+    "CVE-2021-21698",
+    "CVE-2022-29046",
+    "CVE-2022-29048",
+]
+comment = "False positives"
+
+["sysstat"]
+cve = ["CVE-2022-39377"]
+until = "2022-12-31"
+comment = "Temporarily risk acccept"
+
+["tcl"]
+cve = ["CVE-2021-35331"]
+until = "2022-12-31"
+comment = "Disputed CVE"
+
+["unbound"]
+cve = ["CVE-2022-3204"]
+until = "2022-12-31"
+comment = "False positive, software appears to be build-time dependency?"
+
+["unzip"]
+cve = ["CVE-2021-4217", "CVE-2022-0529", "CVE-2022-0530"]
+comment = "True positive, build time dependency and/or ephemeral tool that also does not have enough information in CVE details"
+
+["vim"]
+cve = [
+    "CVE-2022-3352",
+    "CVE-2022-2946",
+    "CVE-2022-2980",
+    "CVE-2022-2982",
+    "CVE-2022-3016",
+    "CVE-2022-3037",
+    "CVE-2022-3099",
+    "CVE-2022-3134",
+    "CVE-2022-3153",
+    "CVE-2022-3234",
+    "CVE-2022-3235",
+    "CVE-2022-3256",
+    "CVE-2022-3278",
+    "CVE-2022-3296",
+    "CVE-2022-3297",
+    "CVE-2022-3324",
+    "CVE-2022-3705",
+    "CVE-2022-4141",
+    "CVE-2022-3491",
+    "CVE-2022-3591",
+    "CVE-2022-3520",
+    "CVE-2022-4292",
+    "CVE-2022-4293",
+]
+comment = "True positive, low risk"
+
+["wolfssl"]
+cve = ["CVE-2022-39173"]
+comment = "True positive, build time dependency and/or ephemeral tool that also does not have enough information in CVE details"
+
+["xar"]
+cve = ["CVE-2017-11124", "CVE-2017-11125"]
+comment = "True positive, build time dependency and/or ephemeral tool that also does not have enough information in CVE details"
+
+["zip"]
+cve = ["CVE-2018-13410"]
+comment = "Disputed CVE with narrow exploitation case"
+
+["zlib"]
+cve = ["CVE-2018-25032", "CVE-2022-37434"]
+comment = "False positive"

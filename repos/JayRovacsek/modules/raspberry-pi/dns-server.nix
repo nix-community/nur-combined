@@ -1,0 +1,1 @@
+{ imports = [ ../docker/stacks/dns ]; }

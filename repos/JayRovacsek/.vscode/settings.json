@@ -1,3 +1,5 @@
 {
-  "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix"
+  "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix",
+  "nix.serverPath": "nil",
+  "nix.formatterPath": "nixfmt"
 }

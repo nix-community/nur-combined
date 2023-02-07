@@ -1,10 +1,32 @@
 {
-  description = "My NUR repository";
-  inputs = rec {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  description = "NixOS/Darwin configurations";
 
+  inputs = {
+    # Stable / Unstable split in packages
     stable.url = "github:nixos/nixpkgs/release-22.11";
-    unstable = nixpkgs;
+    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    nixos-wsl = {
+      url =
+        "github:nix-community/NixOS-WSL/3721fe7c056e18c4ded6c405dbee719692a4528a";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
+    # We need to wrap darwin as it exposes darwin.lib.darwinSystem
+    # therefore we can't depend on stable/unstable to handle the correct matching
+    # of stable/unstable to make a suitable decision per system
+    darwin-stable = {
+      inputs.nixpkgs.follows = "stable";
+      url = "github:lnl7/nix-darwin/master";
+    };
+    darwin-unstable = {
+      inputs.nixpkgs.follows = "unstable";
+      url = "github:lnl7/nix-darwin/master";
+    };
 
     # Adds flake compatability to start removing the vestiges of 
     # shell.nix and move us towards the more modern nix develop
@@ -15,66 +37,81 @@
       flake = false;
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
-
-    vulnix-pre-commit = {
-      url = "github:jayrovacsek/vulnix-pre-commit";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-        flake-utils.follows = "flake-utils";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
     # Adds configurable pre-commit options to our flake :)
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "stable";
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
     };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "stable";
+    };
+
+    # Simply required for sane management of Firefox on darwin
+    firefox-darwin = {
+      url = "github:bandithedoge/nixpkgs-firefox-darwin";
+      inputs.nixpkgs.follows = "unstable";
+    };
+
+    # Home management module
+    home-manager = {
+      url = "github:rycee/home-manager/release-22.11";
+      inputs.nixpkgs.follows = "stable";
+    };
+
+    # Microvm module, PoC state for implementation
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
+    # Generate system images easily
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "unstable";
+    };
+
+    # Apply opinions on hardware that are driven by community
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # Like the Arch User Repository, but better :)
+    nur.url = "github:nix-community/NUR";
   };
+
   outputs = { self, flake-utils, ... }:
-    let systems = import ./systems.nix;
-    in flake-utils.lib.eachSystem [
-      "aarch64-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-      "armv6l-linux"
-      "armv7l-linux"
-    ] (system:
-      let
-        # Note that the below use of pkgs will by implication mean that
-        # our dev dependencies for local packages as well as part of our
-        # devShell are pinned to stable - this is intended to ensure
-        # backwards compatability & reduced pain when managing deps
-        # in these spaces
-        pkgs = self.inputs.nixpkgs.legacyPackages.${system};
+    let
+      # Systems we want to wrap all outputs below in. This is split into 
+      # two segments; those items inside the flake-utils block and those not.
+      # The flake-utils block will automatically generate the <system>
+      # sub-properties for all exposed elements as per: https://nixos.wiki/wiki/Flakes#Output_schema
+      exposedSystems = [
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+        "x86_64-linux"
+        "armv6l-linux"
+        "armv7l-linux"
+      ];
+    in flake-utils.lib.eachSystem exposedSystems (system: {
+      checks = import ./checks { inherit self system; };
+      devShells = import ./shells { inherit self system; };
+      formatter = self.inputs.stable.legacyPackages.${system}.nixfmt;
+      packages = import ./packages { inherit self system; };
+    }) // {
+      inherit exposedSystems;
 
-        checks = {
-          pre-commit-check = self.inputs.pre-commit-hooks.lib.${system}.run
-            (import ./pre-commit-checks.nix { inherit self pkgs system; });
-        };
-
-        devShell = pkgs.mkShell {
-          name = "nur-dev-shell";
-          packages = with pkgs; [ nixfmt vulnix statix ];
-          # Self reference to make the default shell hook that which generates
-          # a suitable pre-commit hook installation
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-        };
-
-        # Self reference the dev shell for our system to resolve the lacking
-        # devShells.${system}.default recommended structure
-        devShells.default = self.outputs.devShell.${system};
-
-        lib = import ./lib { inherit pkgs; };
-
-        packages = flake-utils.lib.flattenTree
-          (import ./default.nix { inherit self pkgs system; });
-      in { inherit lib devShell devShells packages checks; });
+      lib = import ./lib { inherit self; };
+      common = import ./common { inherit self; };
+      overlays = import ./overlays { inherit self; };
+      nixosConfigurations = import ./linux { inherit self; };
+      darwinConfigurations = import ./darwin { inherit self; };
+    };
 }

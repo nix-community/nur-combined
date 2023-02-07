@@ -1,0 +1,1 @@
+{ programs.pidgin = { enable = true; }; }
