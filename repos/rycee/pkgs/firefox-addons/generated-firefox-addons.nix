@@ -210,10 +210,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.1";
+      version = "7.5.2";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4061642/betterttv-7.5.1.xpi";
-      sha256 = "9a91b3b340a887a6c63616515f1f1679865ab81f9e4bb2e2c0ce8d2d51763690";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4065328/betterttv-7.5.2.xpi";
+      sha256 = "4d3ad79707683ba835c1c3a24f3d8b2821c532a3880c75c6ebf777d5152663ee";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230202.190127";
+      version = "110.0buildid20230206.190557";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4065788/francais_language_pack-110.0buildid20230202.190127.xpi";
-      sha256 = "66b94414070ec86a298b3a0572f41383010f190443348b6d4223b395245e2d45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067425/francais_language_pack-110.0buildid20230206.190557.xpi";
+      sha256 = "02c108d8732c94a734ff911fae34ebe18ea739a9893bdd23ab28fc09fe8f2827";
       meta = with lib;
       {
         description = "Français Language Pack";
