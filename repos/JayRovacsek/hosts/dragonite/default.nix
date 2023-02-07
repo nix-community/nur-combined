@@ -28,6 +28,8 @@ in {
 
   services.tailscale.tailnet = "admin";
 
+  security.sudo.wheelNeedsPassword = false;
+
   ## Todo: write out the below - need to rework networking module.
   networking = {
     wireless.enable = false;
