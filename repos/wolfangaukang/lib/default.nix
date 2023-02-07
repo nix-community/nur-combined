@@ -12,10 +12,10 @@ rec {
 
   # This will be useful to import the hm users dynamically according to a list provided
   # TODO: See how to handle hostname specific homes
-  importHmUsers = users: hostname: builtins.listToAttrs (map (user: { name = "${user}"; value = import ../home/users/${user}/${hostname}.nix; }) users);
+  importHmUsers = users: hostname: builtins.listToAttrs (map (user: { name = "${user}"; value = import "${inputs.self}/home/users/${user}/${hostname}.nix"; }) users);
 
   # Same as above, but for system users
-  importUsers = users: hostname: builtins.map (user: ../system/users/${user}/${hostname}.nix) users;
+  importUsers = users: hostname: builtins.map (user: "${inputs.self}/system/users/${user}/${hostname}.nix") users;
 
   # Useful to apply certain configurations to a list of system archs
   forAllSystems = f: genAttrs pkgs_systems (system: f system);
@@ -30,7 +30,7 @@ rec {
     }:
 
     let
-      personalModules = [ ../home/modules/personal ];
+      personalModules = [ "${inputs.self}/home/modules/personal" ];
       hmModules = (mapAttrsToList (_: value: value) inputs.self.hmModules);
 
     in {
@@ -67,15 +67,15 @@ rec {
     }:
 
     let
-      hostConfig = [ ../system/hosts/${hostname}/configuration.nix ]
+      hostConfig = [ "${inputs.self}/system/hosts/${hostname}/configuration.nix" ]
         ++ (if kernel != null then [ ({ boot.kernelPackages = kernel; }) ] else []);
       sopsConfig = [
         inputs.sops.nixosModules.sops
-        ../system/profiles/sops.nix
-      ] ++ optionals (enable-server-secrets) [ ../system/hosts/${hostname}/sops.nix ];
+        "${inputs.self}/system/profiles/sops.nix"
+      ] ++ optionals (enable-server-secrets) [ "${inputs.self}/system/hosts/${hostname}/sops.nix" ];
       impermanenceConfig = [
         inputs.impermanence.nixosModules.impermanence
-        ../system/hosts/${hostname}/impermanence.nix
+        "${inputs.self}/system/hosts/${hostname}/impermanence.nix"
       ];
 
     in
@@ -105,8 +105,8 @@ rec {
       inherit pkgs;
       extraSpecialArgs = { inherit username; };
       modules = [
-        ../home/users/${username}/${hostname}.nix
-        ../home/modules/personal
+        "${inputs.self}/home/users/${username}/${hostname}.nix"
+        "${inputs.self}/home/modules/personal"
         {
           home = {
             username = username;

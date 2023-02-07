@@ -1,25 +1,13 @@
 { pkgs
+, self
 , lib
 , firefox-pkg ? null
-, extra-extensions ? [ ]
 , ... }:
 
 let
   inherit (pkgs.nur.repos.wolfangaukang) multifirefox vdhcoapp;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
-
-  defaultExtensions = with firefox-addons; [
-    auto-tab-discard
-    darkreader
-    decentraleyes
-    disable-javascript
-    privacy-badger
-    privacy-redirect
-    ublock-origin
-    # 1: Following guide from EFF and dephasing the extension usage
-    # https://www.eff.org/https-everywhere/set-https-default-your-browser
-    #https-everywhere
-  ];
+  common = import "${self}/home/profiles/common.nix" { inherit firefox-addons; };
 
   defaultPkg = pkgs.wrapFirefox pkgs.firefox-unwrapped {
     #cfg = {
@@ -34,36 +22,21 @@ let
     };
   };
 
-  defaultSettings = {
-    "browser.download.dir" = "/home/bjorn/Elsxutujo";
-    "browser.newtabpage.activity-stream.showSponsored" = false;
-    "browser.tabs.warnOnClose" = false;
-    "extensions.pocket.enabled" = false;
-    "privacy.donottrackheader.enabled" = true;
-    "privacy.trackingprotection.enabled" = true;
-    "privacy.trackingprotection.socialtracking.enabled" = true;
-  };
-
-
 in {
   home.packages = [ multifirefox vdhcoapp ];
   programs.firefox = {
     enable = true;
     package = if firefox-pkg == null then defaultPkg else firefox-pkg;
-    extensions = defaultExtensions ++ extra-extensions;
     profiles = 
       let
-        searchOptions = {
-          force = true;
-          default = "DuckDuckGo";
-        };
-
+        search = common.firefox.search;
       in {
         default = {
+          inherit search;
           name = "Sandbox";
-          search = searchOptions;
+          extensions = common.firefox.extensions ++ (with firefox-addons; [ darkreader privacy-redirect ]);
           settings = lib.mkMerge [
-            (defaultSettings)
+            (common.firefox.settings)
             {
               "browser.privatebrowsing.autostart" = true;
               "browser.startup.homepage" = "about:blank";
@@ -83,27 +56,36 @@ in {
           ];
         };
         personal = {
+          inherit search;
           id = 1;
           name = "Personal";
-          search = searchOptions;
+          extensions = common.firefox.extensions ++ (with firefox-addons; [
+            anonaddy
+            darkreader
+            multi-account-containers
+            privacy-redirect
+            # TODO: Missing keybase and VDH
+          ]);
           settings = lib.mkMerge [
-            (defaultSettings)
+            (common.firefox.settings)
           ];
         };
         gnaujep = {
+          inherit search;
           id = 2;
           name = "Gnaujep";
-          search = searchOptions;
+          extensions = common.firefox.extensions ++ (with firefox-addons; [ multi-account-containers ]);
           settings = lib.mkMerge [
-            (defaultSettings)
+            (common.firefox.settings)
           ];
         };
         j = {
+          inherit search;
           id = 3;
           name = "J";
-          search = searchOptions;
+          extensions = common.firefox.extensions ++ (with firefox-addons; [ multi-account-containers ]);
           settings = lib.mkMerge [
-            (defaultSettings)
+            (common.firefox.settings)
           ];
         };
     };

@@ -1,11 +1,17 @@
 { pkgs 
+, self
 , extra-pkgs ? []
 , neovim-extensions ? []
 , vscode-extensions ? []
 , vscode-settings ? {}
 }:
 
-{
+let
+  inherit (pkgs.nur.repos.rycee) firefox-addons;
+  inherit (pkgs.lib) mkMerge;
+  common = import "${self}/home/profiles/common.nix" { inherit firefox-addons; };
+
+in {
   home.packages = with pkgs; [
     # GUI
     keybase-gui
@@ -21,9 +27,23 @@
   programs = {
     firefox.profiles.work = {
       id = 4;
+      search = common.firefox.search;
+      extensions = common.firefox.extensions;
+      settings = mkMerge [
+        (common.firefox.settings)
+      ];
       name = "SimpleRisk";
     };
-    neovim.plugins = neovim-extensions;
+    neovim = {
+      extraPackages = with pkgs; [
+        # Terraform LSP
+        terraform-ls
+      ];
+      plugins = with pkgs.vimPlugins; [
+        Jenkinsfile-vim-syntax
+        vim-packer
+      ] ++ neovim-extensions;
+    };
     ssh = { 
       enable = true;
       matchBlocks =
@@ -91,7 +111,10 @@
         };
     };
     vscode = {
-      extensions = vscode-extensions; 
+      extensions = with pkgs.vscode-extensions; [
+        redhat.vscode-yaml
+        kddejong.vscode-cfn-lint
+      ] ++ vscode-extensions;
       userSettings = vscode-settings;
     };
   };

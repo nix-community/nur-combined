@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
+  inherit (inputs) self;
   cfg = config.defaultajAgordoj.work;
 
 in
@@ -26,17 +27,9 @@ in
   };
 
   config = mkMerge [
-    (mkIf cfg.simplerisk.enable (import ../../profiles/sets/simplerisk.nix {
-      inherit pkgs;
+    (mkIf cfg.simplerisk.enable (import "${self}/home/profiles/sets/simplerisk.nix" {
+      inherit pkgs self;
       extra-pkgs = cfg.simplerisk.extraPkgs;
-      neovim-extensions = with pkgs.vimPlugins; [
-        Jenkinsfile-vim-syntax
-        vim-packer
-      ];
-      vscode-extensions = with pkgs.vscode-extensions; [
-        redhat.vscode-yaml
-        kddejong.vscode-cfn-lint
-      ];
       vscode-settings = {
         # Cloudformation tags
         "yaml.customTags" = [

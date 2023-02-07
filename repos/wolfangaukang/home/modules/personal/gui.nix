@@ -1,7 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ inputs
+, config
+, lib
+, pkgs
+, ... }:
 
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
+  inherit (inputs) self;
   cfg = config.defaultajAgordoj.gui;
   bcfg = cfg.browsers;
 
@@ -107,11 +112,11 @@ in {
         defaultApplications = mimelist;
       };
     }
-    (mkIf bcfg.firefox.enable (import ../../profiles/common/firefox.nix {
-       inherit pkgs lib;
+    (mkIf bcfg.firefox.enable (import "${self}/home/profiles/common/firefox.nix" {
+       inherit pkgs lib self;
        firefox-pkg = bcfg.firefox.package;
      }))
-    (mkIf bcfg.chromium.enable (import ../../profiles/common/chromium.nix {
+    (mkIf bcfg.chromium.enable (import "${self}/home/profiles/common/chromium.nix" {
        inherit pkgs;
        chromium-pkg = bcfg.chromium.package;
      }))
