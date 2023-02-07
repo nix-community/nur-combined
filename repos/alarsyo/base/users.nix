@@ -19,6 +19,7 @@ in {
       "video" # for `light` permissions
       "docker"
       "wheel" # Enable ‘sudo’ for the user.
+      "libvirtd"
     ];
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
