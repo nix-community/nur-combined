@@ -6,6 +6,7 @@ in
   config = mkIf config.services.magnetico.enable {
     services.magnetico.web.port = 65530;
     services.magnetico.crawler.port = 65529;
+    services.magnetico.crawler.extraOptions = [ "-v" ]; # verbose
 
     networking.firewall.allowedTCPPorts = [ config.services.magnetico.crawler.port ];
 
