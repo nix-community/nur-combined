@@ -8,7 +8,7 @@
   sops.secrets.tproxyRule.sopsFile = ./secrets/tproxy.nft.sops;
   sops.secrets.v2rayConfig = {
     name = "v2ray.json";
-    sopsFile = ./secrets/v2ray.v4.json.sops;
+    sopsFile = ./secrets/v2ray.v5.json.sops;
   };
 
   nix = {
@@ -41,7 +41,7 @@
 
   services.openssh = {
     enable = true;
-    permitRootLogin = "yes";
+    settings.permitRootLogin = "yes";
   };
 
   services.vlmcsd.enable = true;

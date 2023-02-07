@@ -25,7 +25,7 @@ in
     package = pkgs.v2ray-next.override {
       assetsDir = config.services.v2ray-rules-dat.dataDir;
     };
-    useV5Format = false;
+    useV5Format = true;
     configFile = config.sops.secrets.v2rayConfig.path;
   };
   systemd.services.v2ray-next = {

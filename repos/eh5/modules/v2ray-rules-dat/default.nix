@@ -64,15 +64,5 @@ in
         Persistent = true;
       };
     };
-
-    systemd.targets.v2ray-rules-dat-exists = {
-      wantedBy = [ "default.target" ];
-      wants = [ "v2ray-rules-dat.service" ];
-      after = [ "v2ray-rules-dat.service" ];
-      unitConfig = {
-        ConditionPathExists =
-          mapAttrsToList (name: _: "|!${cfg.dataDir}/${name}") cfg.updateUrls;
-      };
-    };
   };
 }

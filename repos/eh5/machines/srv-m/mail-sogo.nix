@@ -4,25 +4,25 @@ let
   secrets = config.sops.secrets;
 in
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (_: attrs: rec {
-        version = assert attrs.version == "5.7.0"; "5.8.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "inverse-inc";
-          repo = attrs.pname;
-          rev = "SOGo-${version}";
-          hash = "sha256-GCgnguNZ02HyRZoy8Rivl+LSxe6HCqv/Wqyj4oYST4U=";
-        };
-        # patches = attrs.patches ++ [
-        #   (pkgs.fetchurl {
-        #     url = "https://github.com/Alinto/sogo/compare/SOGo-5.8.0...<git-hash>.diff";
-        #     sha256 = "";
-        #   })
-        # ];
-      });
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     sogo = (prev.sogo.override { enableActiveSync = true; }).overrideAttrs (_: attrs: rec {
+  #       version = assert attrs.version == "5.7.0"; "5.8.0";
+  #       src = pkgs.fetchFromGitHub {
+  #         owner = "inverse-inc";
+  #         repo = attrs.pname;
+  #         rev = "SOGo-${version}";
+  #         hash = "sha256-GCgnguNZ02HyRZoy8Rivl+LSxe6HCqv/Wqyj4oYST4U=";
+  #       };
+  #       # patches = attrs.patches ++ [
+  #       #   (pkgs.fetchurl {
+  #       #     url = "https://github.com/Alinto/sogo/compare/SOGo-5.8.0...<git-hash>.diff";
+  #       #     sha256 = "";
+  #       #   })
+  #       # ];
+  #     });
+  #   })
+  # ];
 
   services.sogo = {
     enable = true;
