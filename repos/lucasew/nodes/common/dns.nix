@@ -1,11 +1,11 @@
 {...}: {
   services.dnsmasq = {
     enable = true;
-    servers = [ "8.8.8.8" "8.8.4.4" ];
-    extraConfig = ''
-domain-needed
-bogus-priv
-hostsdir=/etc/extraHosts
-    '';
+    settings = {
+      server = [ "8.8.8.8" "8.8.4.4" ];
+      domain-needed = true;
+      bogus-priv = true;
+      hostsdir = "/etc/extraHosts";
+    };
   };
 }

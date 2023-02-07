@@ -12,7 +12,6 @@ in
     ../../modules/hold-gc/system.nix
     ./ansible-python.nix
     ./p2k.nix
-    # ./dhtcrawler.nix
     ./tuning.nix
     ./jellyfin.nix
     ./tmux

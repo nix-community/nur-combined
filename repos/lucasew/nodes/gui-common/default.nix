@@ -74,5 +74,5 @@ in {
   # Enable CUPS to print documents.
   services.printing.enable = lib.mkDefault true;
 
-  qt5.platformTheme = lib.mkDefault "qt5ct";
+  qt.platformTheme = lib.mkDefault "qt5ct";
 }

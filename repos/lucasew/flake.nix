@@ -124,8 +124,8 @@
           config = config // {
             allowUnfree = true;
             permittedInsecurePackages = [
-              "qtwebkit-5.212.0-alpha4"
-              "electron-18.1.0"
+                "python-2.7.18.6"
+                "electron-18.1.0"
             ];
           };
           overlays = overlays ++ (builtins.attrValues self.outputs.overlays);
@@ -224,9 +224,11 @@
       };
       riverwood = nixosConf {
         mainModule = ./nodes/riverwood/default.nix;
+        nixpkgs = inputs.nixpkgs-unstable;
       };
       whiterun = nixosConf {
         mainModule = ./nodes/whiterun/default.nix;
+        nixpkgs = inputs.nixpkgs-unstable;
         # nixpkgs = inputs.nixpkgs-whiterun;
       };
       demo = nixosConf {

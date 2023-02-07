@@ -11,6 +11,7 @@ in {
     inputs.nixos-hardware.nixosModules.common-gpu-amd
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia
     # ./kubernetz.nix
+    ./magnetico.nix
     ./sshfs.nix
     ./plymouth.nix
     ./rocm-gambiarra.nix
@@ -23,6 +24,8 @@ in {
   virtualisation.oci-containers.backend = "docker";
 
   services.cockpit.enable = true;
+
+  services.magnetico.enable = true;
 
   services.jellyfin-container = {
     enable = true;
