@@ -17,34 +17,26 @@ let
 in
 
 final: prev: {
-  decktape = prev.reveal-md.override (
+  decktape = prev.decktape.override (
     lib.optionalAttrs (!stdenv.isDarwin) {
       nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
       prePatch = ''
         export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
       '';
       postInstall = ''
-        wrapProgram $out/bin/reveal-md \
+        wrapProgram $out/bin/decktape \
         --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
       '';
     }
   );
 
   reveal-md = prev.reveal-md.override (
-    if stdenv.isDarwin
-    then {
-      postInstall = ''
-        patch -d $out/lib/node_modules/reveal-md -p1 < ${./patches/0001-fix-copy-the-correct-favicon-when-building-static-si.patch}
-      '';
-    }
-    else {
+    lib.optionalAttrs (!stdenv.isDarwin) {
       nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
       prePatch = ''
         export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
       '';
       postInstall = ''
-        patch -d $out/lib/node_modules/reveal-md -p1 < ${./patches/0001-fix-copy-the-correct-favicon-when-building-static-si.patch}
-
         wrapProgram $out/bin/reveal-md \
         --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
       '';
