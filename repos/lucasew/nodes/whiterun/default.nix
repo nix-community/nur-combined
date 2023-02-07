@@ -23,7 +23,6 @@ in {
   virtualisation.oci-containers.backend = "docker";
 
   services.cockpit.enable = true;
-  services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
 
   services.jellyfin-container = {
     enable = true;

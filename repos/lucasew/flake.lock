@@ -511,22 +511,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-staging": {
-      "locked": {
-        "lastModified": 1675355872,
-        "narHash": "sha256-VA8A2UYWNPbSJRT5yo87wCmnb77n9+Yshoc/wWoiuOU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "ae2a076cadb50e3295aaf3b8dc7fb88190bd684e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "staging",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1675183161,
@@ -539,6 +523,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable-small": {
+      "locked": {
+        "lastModified": 1675721850,
+        "narHash": "sha256-jhMqxoJVoWOuwpNxEH0ooZijDaCYAcg0rAgfZhAKUco=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a46d9dd25b30c21a9f177cce4b89c2a30d8150d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -731,8 +731,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-lib": "nixpkgs-lib_2",
-        "nixpkgs-staging": "nixpkgs-staging",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-unstable-small": "nixpkgs-unstable-small",
         "nur": "nur",
         "pocket2kindle": "pocket2kindle",
         "pollymc": "pollymc",

@@ -61,7 +61,7 @@
     nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-unstable.url =  "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-staging.url =  "github:NixOS/nixpkgs/staging";
+    nixpkgs-unstable-small.url =  "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs.url =  "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
 

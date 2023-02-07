@@ -31,7 +31,6 @@ in
   networking.hostId = "dabd2d19";
 
   services.cockpit.enable = true;
-  services.cockpit.package = pkgs.callPackage /home/lucasew/WORKSPACE/nixpkgs/pkgs/servers/monitoring/cockpit {};
 
   environment.systemPackages = with pkgs; [
     kubectl
