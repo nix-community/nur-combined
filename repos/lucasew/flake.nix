@@ -73,6 +73,9 @@
     pollymc.url = "github:fn2006/PollyMC";
     pollymc.inputs.flake-compat.follows = "flake-compat";
 
+    pytorrentsearch.url = "github:lucasew/pytorrentsearch";
+    pytorrentsearch.flake = false;
+
     redial_proxy.url =  "github:lucasew/redial_proxy";
     redial_proxy.flake = false;
 

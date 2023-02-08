@@ -691,6 +691,22 @@
         "type": "github"
       }
     },
+    "pytorrentsearch": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1675884195,
+        "narHash": "sha256-9pGNwkYyRI7qw2+CmVQfHNRtL3BhuWe7yyx6/f9rQJ4=",
+        "owner": "lucasew",
+        "repo": "pytorrentsearch",
+        "rev": "fdc30148bf74c726e8159bb1cb1ca698d005ad44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "pytorrentsearch",
+        "type": "github"
+      }
+    },
     "redial_proxy": {
       "flake": false,
       "locked": {
@@ -736,6 +752,7 @@
         "nur": "nur",
         "pocket2kindle": "pocket2kindle",
         "pollymc": "pollymc",
+        "pytorrentsearch": "pytorrentsearch",
         "redial_proxy": "redial_proxy",
         "rust-overlay": "rust-overlay",
         "send2kindle": "send2kindle",

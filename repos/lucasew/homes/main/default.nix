@@ -63,6 +63,7 @@ in {
     rnix-lsp
     (runCommand "bin" {} "mkdir $out; cp -r ${../../bin} $out/bin")
     xournal
+    pytorrentsearch
     # retroarchFull
     # texlive.combined.scheme-full
   ] ;

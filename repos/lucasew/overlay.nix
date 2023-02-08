@@ -47,6 +47,7 @@ in {
   appimage-wrap = final.nbr.appimage-wrap;
   ctl = cp ./pkgs/ctl;
   p2k = cp inputs.pocket2kindle;
+  pytorrentsearch = cp inputs.pytorrentsearch;
   redial_proxy = cp inputs.redial_proxy;
   send2kindle = cp inputs.send2kindle;
   wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = prev;});
