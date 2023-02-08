@@ -50,7 +50,7 @@
           ];
         }
         (mkIf (config.type == "bind") {
-          mountConfig.Options = [ "bind" ];
+          options = "bind";
         })
       ];
     };
@@ -104,11 +104,11 @@ in {
           "/bin" = { };
           "/proc" = {
             type = "proc";
-            mount.mountConfig.Options = [ "hidepid=2" ];
+            mount.options = "hidepid=2";
           };
           "/tmp" = {
             type = "tmpfs";
-            mount.mountConfig.Options = [ "size=${cfg.tmpfs.size}" ];
+            mount.options = "size=${cfg.tmpfs.size}";
           };
         };
       };
@@ -118,7 +118,7 @@ in {
       systemd.mounts = mapAttrsToList (_: mount: unmerged.merge mount.mount) mounts
       ++ map (username: {
         type = "none";
-        mountConfig.Options = [ "bind" ];
+        options = "bind";
         unitConfig.RequiresMountsFor = mapAttrsToList (_: mount: cfg.root + mount.target) mounts;
         what = config.users.users.${username}.home;
         where = "${cfg.root}/home/${username}";
