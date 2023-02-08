@@ -68,7 +68,7 @@ in
       nvim-lspconfig # Easy LSP configuration
       lsp_lines-nvim # Show diagnostics *over* regions
       null-ls-nvim # LSP integration for linters and formatters
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars)) # Better highlighting
+      nvim-treesitter.withAllGrammars # Better highlighting
       nvim-treesitter-textobjects # More textobjects
       nvim-ts-context-commentstring # Comment string in nested language blocks
       plenary-nvim # 'null-ls', 'telescope' dependency
