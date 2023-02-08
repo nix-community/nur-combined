@@ -63,21 +63,21 @@ in
           "signon.rememberSignons" = false; # Disable built-in password manager
           "ui.systemUsesDarkTheme" = true; # Dark mode
         };
+
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; ([
+          bitwarden
+          consent-o-matic
+          form-history-control
+          reddit-comment-collapser
+          reddit-enhancement-suite
+          refined-github
+          sponsorblock
+          ublock-origin
+        ]
+        ++ lib.optional (cfg.tridactyl.enable) tridactyl
+        ++ lib.optional (cfg.ff2mpv.enable) ff2mpv
+        );
       };
     };
-
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; ([
-      bitwarden
-      consent-o-matic
-      form-history-control
-      reddit-comment-collapser
-      reddit-enhancement-suite
-      refined-github
-      sponsorblock
-      ublock-origin
-    ]
-    ++ lib.optional (cfg.tridactyl.enable) tridactyl
-    ++ lib.optional (cfg.ff2mpv.enable) ff2mpv
-    );
   };
 }
