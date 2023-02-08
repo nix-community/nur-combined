@@ -315,7 +315,7 @@ lib.makeScope newScope (
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     huami-token = callPackage ./misc/huami-token { };
     ish = callPackage ./misc/ish { };
-    jenkins-cli = callPackage ./misc/jenkins-cli { };
+    jcli = callPackage ./misc/jcli { };
     lazyscraper = callPackage ./misc/lazyscraper { };
     libmdbx = callPackage ./misc/libmdbx { };
     libnbcompat = callPackage ./misc/libnbcompat { };

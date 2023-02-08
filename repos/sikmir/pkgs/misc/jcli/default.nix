@@ -1,7 +1,7 @@
 { lib, buildGoModule, fetchFromGitHub, fetchpatch }:
 
 buildGoModule rec {
-  pname = "jenkins-cli";
+  pname = "jcli";
   version = "0.0.41";
 
   src = fetchFromGitHub {
@@ -15,9 +15,13 @@ buildGoModule rec {
 
   doCheck = false;
 
+  postInstall = ''
+    mv $out/bin/{jenkins-cli,jcli}
+  '';
+
   meta = with lib; {
     description = "Jenkins CLI allows you to manage your Jenkins in an easy way";
-    inherit (src.meta) homepage;
+    homepage = "https://jcli.jenkins-zh.cn/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
