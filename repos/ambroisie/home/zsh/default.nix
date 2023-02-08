@@ -53,11 +53,16 @@ in
         ''
       ;
 
-      initExtra = lib.concatMapStrings builtins.readFile [
-        ./completion-styles.zsh
-        ./extra-mappings.zsh
-        ./options.zsh
-      ];
+      initExtra = ''
+        source ${./completion-styles.zsh}
+        source ${./extra-mappings.zsh}
+        source ${./options.zsh}
+
+        # Source local configuration
+        if [ -f "$ZDOTDIR/zshrc.local" ]; then
+          source "$ZDOTDIR/zshrc.local"
+        fi
+      '';
 
       localVariables = {
         # I like having the full path

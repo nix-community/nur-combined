@@ -120,6 +120,11 @@ in
         defaultBranch = "main";
       };
 
+      # Local configuration, not-versioned
+      include = {
+        path = "config.local";
+      };
+
       merge = {
         conflictStyle = "zdiff3";
       };
@@ -163,6 +168,15 @@ in
           user = {
             name = "Bruno BELANYI";
             email = mkMailAddress "bruno.belanyi" "epita.fr";
+          };
+        };
+      }
+      {
+        condition = "gitdir:~/git/work/";
+        contents = {
+          user = {
+            name = "Bruno BELANYI";
+            email = mkMailAddress "ambroisie" "google.com";
           };
         };
       }
