@@ -196,10 +196,10 @@
       };
     "better-tweetdeck" = buildFirefoxXpiAddon {
       pname = "better-tweetdeck";
-      version = "4.9.0";
+      version = "4.10.1";
       addonId = "BetterTweetDeck@erambert.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029612/better_tweetdeck_17-4.9.0.xpi";
-      sha256 = "e87f99f621f079cd143a7187943733ec38cf781a8d998f7df183d5aca49d80fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067593/better_tweetdeck_17-4.10.1.xpi";
+      sha256 = "d565bed529334e0a2efa95a2a768a372a3901c06a3661a0afb5f161a2e2c9f5f";
       meta = with lib;
       {
         homepage = "https://better.tw/";
@@ -1345,10 +1345,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.5.1";
+      version = "2.5.2";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066883/libredirect-2.5.1.xpi";
-      sha256 = "6a1a67bd8be55ce79aeb7f35b11b2d433230ceffed1a6298bad67bb01737d00f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067837/libredirect-2.5.2.xpi";
+      sha256 = "7f49fb0b253347dc7d8b286a0d24d0552a0c96f69811c157cc877488313f0d83";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -2701,10 +2701,10 @@
       };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.8.0";
+      version = "0.9.0";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040792/to_deepl-0.8.0.xpi";
-      sha256 = "9d35cf156e2efc7f760af776fb0c0f47fd66cbb0363785c21157b53e836bd6f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4065186/to_deepl-0.9.0.xpi";
+      sha256 = "98dde9b41f4971b0795a7c884b34b578701752deafe9febcd870fc4b056afdf4";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
@@ -3011,10 +3011,10 @@
       };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.4.5";
+      version = "6.5.0";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4017333/vue_js_devtools-6.4.5.xpi";
-      sha256 = "b5e13b4fac716e4993bd140cb49f47d0d163cbae406985e2edd1c9cc93e4a5e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4059290/vue_js_devtools-6.5.0.xpi";
+      sha256 = "eb45cf5cf3044de7d9da45c7827547146c6ffc7a48f771bf1c413419f4de6ee8";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
