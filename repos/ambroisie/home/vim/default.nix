@@ -24,6 +24,10 @@ in
 
   config.programs.neovim = lib.mkIf cfg.enable {
     enable = true;
+
+    # This is the best editor
+    defaultEditor = true;
+
     # All the aliases
     viAlias = true;
     vimAlias = true;

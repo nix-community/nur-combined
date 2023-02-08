@@ -71,6 +71,10 @@ in
       };
 
       shellAliases = {
+        # Well-known ls aliases
+        l = "ls -alh";
+        ll = "ls -l";
+
         # Sometime `gpg-agent` errors out...
         reset-agent = "gpg-connect-agent updatestartuptty /bye";
       };
