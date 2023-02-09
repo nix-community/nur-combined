@@ -299,10 +299,10 @@
       };
     "bypass-paywalls-clean" = buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
-      version = "3.0.3.0";
+      version = "3.0.4.0";
       addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063623/bypass_paywalls_clean-3.0.3.0.xpi";
-      sha256 = "a14c1da9d0305770decda4ed38cc7b03fb38973230b3eb767f4f26c24fb7db99";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066874/bypass_paywalls_clean-3.0.4.0.xpi";
+      sha256 = "771ad6e3afcd64803ed26a3e01ff0931590607807a9877f6110325e8eb085254";
       meta = with lib;
       {
         homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
@@ -2239,10 +2239,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.6";
+      version = "28.7";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063645/save_page_we-28.6.xpi";
-      sha256 = "13b34bbf66826d1e6fcf2e8c704ac94d58d3cca41009dd4a0144c8dc870cdf4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066108/save_page_we-28.7.xpi";
+      sha256 = "5fe6e9d9848dd31724f48841936835f47ef9b2ad764de40235856648e0747d93";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
