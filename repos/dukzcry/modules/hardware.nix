@@ -30,6 +30,9 @@ in {
     user = mkOption {
       type = types.str;
     };
+    remminaLegacy = mkEnableOption ''
+      Make Remmina work on legacy hardware
+    '';
   };
 
   config = mkMerge [
@@ -78,6 +81,7 @@ in {
       services.logind.extraConfig = ''
         HandlePowerKey=hibernate
       '';
+      services.hardware.remminaLegacy = true;
     } // builder))
     (mkIf (cfg.enable && desktop) {
       hardware.bluetooth.enable = true;

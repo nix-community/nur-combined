@@ -29,7 +29,7 @@ rec {
   autorandr = super.autorandr.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or []) ++ [ ./autorandr.patch ];
   });
-  remmina = super.remmina.override (optionalAttrs (config.networking.hostName == "li-si-tsin") {
+  remmina = super.remmina.override (optionalAttrs (config.services.hardware.remminaLegacy or false) {
     freerdp = super.freerdp.override {
       ffmpeg = super.ffmpeg.override {
         libva = let
