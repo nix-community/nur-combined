@@ -1,13 +1,13 @@
 { lib, stdenv, fetchurl, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "Koivisto";
-  version = "8.13";
+  version = "9.0";
 
   src = fetchFromGitHub {
     owner = "Luecx";
     repo = "Koivisto";
-    rev = "2b66e2870ed29e4de6ef64e28f2a1ea2920fcf5b";
-    sha256 = "sha256-vJCGUQFk77y2I7/lIUnRfcdi0GhDgrCOYYJxrL6mO+8=";
+    rev = "v${version}";
+    sha256 = "sha256-X/wAhMrUhabugA7jFZRWDzoio/9v8/yk60OkJuo7260=";
     fetchSubmodules = true;
   };
 
