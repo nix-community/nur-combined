@@ -1,7 +1,7 @@
 {
     "bling": {
         "cargoLocks": null,
-        "date": "2023-01-28",
+        "date": "2023-02-09",
         "extract": null,
         "name": "bling",
         "passthru": null,
@@ -13,15 +13,15 @@
             "name": null,
             "owner": "blingcorp",
             "repo": "bling",
-            "rev": "57786e08f403d855a6ffa4ed34995cba155da23a",
-            "sha256": "sha256-QJxoQ7axFigulFOrvSjICgK7nrwSILNwZV1f/g0pwfk=",
+            "rev": "affc165bda9dd8a88de8c7d9b22d5ccb466f2742",
+            "sha256": "sha256-khHAM26TGwhfXO8RppGia/ViIhxi7wDdLw7P2lg161U=",
             "type": "github"
         },
-        "version": "57786e08f403d855a6ffa4ed34995cba155da23a"
+        "version": "affc165bda9dd8a88de8c7d9b22d5ccb466f2742"
     },
     "cardinal": {
         "cargoLocks": null,
-        "date": "2023-01-30",
+        "date": "2023-02-09",
         "extract": null,
         "name": "cardinal",
         "passthru": null,
@@ -33,11 +33,11 @@
             "name": null,
             "owner": "DISTRHO",
             "repo": "Cardinal",
-            "rev": "0c9ca1ef08e0fa37fdb72916c5e73bd2ab992547",
-            "sha256": "sha256-rkQSGOzqHYmIkxJM/IZ06xCK6bpqex0vhCRJGsw8xrE=",
+            "rev": "68c94903e392417fa88887fe4d84fd60850b137f",
+            "sha256": "sha256-nRYoCdx7tw3G8Taa7dngsAxv9z1Dxamp7zvIXBWyO2E=",
             "type": "github"
         },
-        "version": "0c9ca1ef08e0fa37fdb72916c5e73bd2ab992547"
+        "version": "68c94903e392417fa88887fe4d84fd60850b137f"
     },
     "carla": {
         "cargoLocks": null,
@@ -381,7 +381,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2023-02-04",
+        "date": "2023-02-09",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -391,11 +391,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ff83acfd97f4a8a3bf4b5f9a8b988121061cd0ba",
-            "sha256": "sha256-gEn0tvHYmNPFYdc4nR+XfXOnckrAH0LmMX0j3zb/als=",
+            "rev": "dc30931820a951dc48dd75365bcc5b60249cb02d",
+            "sha256": "sha256-oWomklmf+GYkWeeSlhtXHpWqCDlSAuFsMkxarHF8tUA=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "ff83acfd97f4a8a3bf4b5f9a8b988121061cd0ba"
+        "version": "dc30931820a951dc48dd75365bcc5b60249cb02d"
     }
 }

@@ -7,27 +7,27 @@
 }: {
   bling = {
     pname = "bling";
-    version = "57786e08f403d855a6ffa4ed34995cba155da23a";
+    version = "affc165bda9dd8a88de8c7d9b22d5ccb466f2742";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "57786e08f403d855a6ffa4ed34995cba155da23a";
+      rev = "affc165bda9dd8a88de8c7d9b22d5ccb466f2742";
       fetchSubmodules = false;
-      sha256 = "sha256-QJxoQ7axFigulFOrvSjICgK7nrwSILNwZV1f/g0pwfk=";
+      sha256 = "sha256-khHAM26TGwhfXO8RppGia/ViIhxi7wDdLw7P2lg161U=";
     };
-    date = "2023-01-28";
+    date = "2023-02-09";
   };
   cardinal = {
     pname = "cardinal";
-    version = "0c9ca1ef08e0fa37fdb72916c5e73bd2ab992547";
+    version = "68c94903e392417fa88887fe4d84fd60850b137f";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "0c9ca1ef08e0fa37fdb72916c5e73bd2ab992547";
+      rev = "68c94903e392417fa88887fe4d84fd60850b137f";
       fetchSubmodules = true;
-      sha256 = "sha256-rkQSGOzqHYmIkxJM/IZ06xCK6bpqex0vhCRJGsw8xrE=";
+      sha256 = "sha256-nRYoCdx7tw3G8Taa7dngsAxv9z1Dxamp7zvIXBWyO2E=";
     };
-    date = "2023-01-30";
+    date = "2023-02-09";
   };
   carla = {
     pname = "carla";
@@ -231,15 +231,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "ff83acfd97f4a8a3bf4b5f9a8b988121061cd0ba";
+    version = "dc30931820a951dc48dd75365bcc5b60249cb02d";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "ff83acfd97f4a8a3bf4b5f9a8b988121061cd0ba";
+      rev = "dc30931820a951dc48dd75365bcc5b60249cb02d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-gEn0tvHYmNPFYdc4nR+XfXOnckrAH0LmMX0j3zb/als=";
+      sha256 = "sha256-oWomklmf+GYkWeeSlhtXHpWqCDlSAuFsMkxarHF8tUA=";
     };
-    date = "2023-02-04";
+    date = "2023-02-09";
   };
 }
