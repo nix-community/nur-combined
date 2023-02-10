@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "sonnyp";
-    repo = "${pname}";
+    repo = pname;
     rev = "v${version}";
-    sha256 = "nnjHuE7MzCuoPfCb4MA00BIzLPbhgR6mbeWYagmNjME=";
+    sha256 = "sha256-nnjHuE7MzCuoPfCb4MA00BIzLPbhgR6mbeWYagmNjME=";
   };
 
   patches = [

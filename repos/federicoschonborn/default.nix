@@ -5,17 +5,14 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{pkgs ? import <nixpkgs> {}}: rec {
+{pkgs ? import <nixpkgs> {}}: {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib {inherit pkgs;}; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  kirigami-addons = pkgs.libsForQt5.callPackage ./packages/kirigami-addons {};
-
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
   commit = pkgs.callPackage ./packages/commit {};
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
-  tokodon = pkgs.libsForQt5.callPackage ./packages/tokodon {inherit kirigami-addons;};
 }

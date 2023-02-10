@@ -20,14 +20,14 @@
 }:
 stdenv.mkDerivation {
   pname = "gitklient";
-  version = "unstable-2022-11-29";
+  version = "unstable-2023-02-09";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "gitklient";
-    rev = "ec5f049b37ce9e646dc5ae58770c8a26e95c94e9";
-    sha256 = "CcbEDMLuDcJlB1MKc2KK8LWuFeaPI6n4PkjSpluUzcM=";
+    rev = "919447fb1982a46cd4c565aaa7aeca3f9e4b9aab";
+    sha256 = "sha256-p7CD/+0wGf5dzCQ8Y2fJSSrv2f/BKO+/OilUZIt0BR0=";
   };
 
   nativeBuildInputs = [

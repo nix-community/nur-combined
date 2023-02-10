@@ -3,47 +3,33 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
     self,
     nixpkgs,
-  }: let
-    systems = [
-      "x86_64-linux"
-      "i686-linux"
-      "x86_64-darwin"
-      "aarch64-linux"
-      "armv6l-linux"
-      "armv7l-linux"
-    ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-  in {
-    packages = forAllSystems (system:
-      import ./default.nix {
-        pkgs = nixpkgs.legacyPackages.${system};
-      });
+    flake-utils,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      packages = import ./default.nix {inherit pkgs;};
 
-    devShells = forAllSystems (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        default = pkgs.mkShell {
-          packages = with pkgs; [
-            nil
-            alejandra
-            statix
-          ];
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [
+          # Nix
+          nil
+          statix
+        ];
 
-          shellHook = ''
-            nil --version
-            alejandra --version
-            statix --version
-          '';
-        };
-      }
-    );
+        shellHook = ''
+          nil --version
+          statix --version
+        '';
+      };
 
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-  };
+      formatter = pkgs.alejandra;
+    });
 }
