@@ -3,13 +3,13 @@
 {
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "108.0";
+    version = "109.0";
     src = fetchFromGitHub ({
       owner = "arkenfox";
       repo = "user.js";
-      rev = "108.0";
+      rev = "109.0";
       fetchSubmodules = false;
-      sha256 = "sha256-YsQbH6bqp2I52meYf0X0DQpwLlDdu5pK9XHMT/9RqOg=";
+      sha256 = "sha256-ebSx6DaXoGKcCoK6UcDnWvdAW6J2X6pJRPD1Pw7UNOw=";
     });
   };
   clash-geoip = {
@@ -41,10 +41,10 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.11.2203.285b3ff0660";
+    version = "22.11.2345.af96094e9b8";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.2203.285b3ff0660/nixexprs.tar.xz";
-      sha256 = "sha256-E+obcF0s7KLUXCAW/9b3hqFS+g0YzNDPE0wbrLGFf1M=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.2345.af96094e9b8/nixexprs.tar.xz";
+      sha256 = "sha256-+7LgdhUVQdXyw8MDS7j7szR57hp6YAXDIqGrTFjUdQA=";
     };
   };
   remote-containers = {
