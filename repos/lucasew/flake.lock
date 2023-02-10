@@ -694,11 +694,11 @@
     "pytorrentsearch": {
       "flake": false,
       "locked": {
-        "lastModified": 1675884195,
-        "narHash": "sha256-9pGNwkYyRI7qw2+CmVQfHNRtL3BhuWe7yyx6/f9rQJ4=",
+        "lastModified": 1676054622,
+        "narHash": "sha256-18aZBT4/a3duIC5UzhwGxHvtWNF8iMJd1NsDF13ilOg=",
         "owner": "lucasew",
         "repo": "pytorrentsearch",
-        "rev": "fdc30148bf74c726e8159bb1cb1ca698d005ad44",
+        "rev": "2593c10f2aaf3c47f5a6f398637c6117fd13bedb",
         "type": "github"
       },
       "original": {
