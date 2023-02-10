@@ -1,5 +1,6 @@
 { lib
 , ignoreLayoutSettings ? false
+, dotfiles
 }:
 
 let
@@ -7,13 +8,5 @@ let
 
 in {
   hardware.keyboard.zsa.enable = true;
-  services.xserver.inputClassSections = mkIf ignoreLayoutSettings ([
-    ''
-      Identifier "moonlander"
-      MatchIsKeyboard "on"
-      MatchProduct "Moonlander"
-      Option "XkbLayout" "us"
-      Option "XkbVariant" "basic"
-    ''
-  ]);
+  services.xserver.extraConfig = mkIf ignoreLayoutSettings ''${builtins.readFile "${dotfiles}/config/xorg/99-moonlander.conf"}'';
 }

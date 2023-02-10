@@ -13,6 +13,9 @@ let
     # Docker
     nodePackages.dockerfile-language-server-nodejs
 
+    # Lua
+    sumneko-lua-language-server
+
     # Nix
     rnix-lsp
 

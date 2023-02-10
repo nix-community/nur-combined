@@ -56,18 +56,18 @@ in {
 
   system.stateVersion = "21.05"; # Did you read the comment?
 
-  #specialisation.simplerisk = {
-  #  inheritParentConfig = true;
-  #  configuration = {
-  #    system.nixos.tags = [ "simplerisk" ];
-  #    profile = {
-  #      virtualization = {
-  #        qemu.enable = mkForce false;
-  #        podman.enable = mkForce false;
-  #      };
-  #      work.simplerisk.enable = true;
-  #    };
-  #    home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
-  #  };
-  #};
+  specialisation.simplerisk = {
+    inheritParentConfig = true;
+    configuration = {
+      system.nixos.tags = [ "simplerisk" ];
+      profile = {
+        virtualization = {
+          qemu.enable = mkForce false;
+          podman.enable = mkForce false;
+        };
+        work.simplerisk.enable = true;
+      };
+      home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
+    };
+  };
 }

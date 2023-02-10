@@ -93,6 +93,7 @@ rec {
     { hostname
     , username
     , system
+    , inputs
     , overlays ? []
     , channel ? inputs.nixpkgs
     , pkgs ? channel.legacyPackages.${system}
@@ -103,7 +104,7 @@ rec {
 
     in homeManagerConfiguration {
       inherit pkgs;
-      extraSpecialArgs = { inherit username; };
+      extraSpecialArgs = { inherit username inputs; };
       modules = [
         "${inputs.self}/home/users/${username}/${hostname}.nix"
         "${inputs.self}/home/modules/personal"

@@ -162,7 +162,7 @@
       hmModules = importAttrset ./home/modules;
       homeConfigurations = {
         wsl = mkHome {
-          inherit overlays system;
+          inherit inputs overlays system;
           hostname = "katla";
           username = "nixos";
           channel = inputs.nixpkgs;

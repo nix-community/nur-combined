@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 let
+  inherit (inputs) dotfiles;
   cfg = config.profile.moonlander;
 
 in
@@ -35,7 +36,7 @@ in
   config = mkIf cfg.enable (mkMerge [
     { environment.systemPackages = cfg.extraPkgs; }
     (import ../../profiles/moonlander.nix {
-      inherit lib;
+      inherit lib dotfiles;
       ignoreLayoutSettings = cfg.ignoreLayoutSettings;
     })
   ]);
