@@ -1317,10 +1317,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.2.1";
+      version = "1.5.3";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4036007/leechblock_ng-1.5.2.1.xpi";
-      sha256 = "6f55bb31ee8d0ac65121f23c1bf989809f3b7010358606729987b24c07ec327c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066911/leechblock_ng-1.5.3.xpi";
+      sha256 = "224e8a10bc6bcc08d5cba0ff100ee3f24d1b38d9f30554299871428a29c78e17";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1406,10 +1406,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.45";
+      version = "2.6.46";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4059496/localcdn_fork_of_decentraleyes-2.6.45.xpi";
-      sha256 = "1e7dc230f96a0a245a2813979b3801af7e7a8c2325f068a087796a8c495ff36e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066709/localcdn_fork_of_decentraleyes-2.6.46.xpi";
+      sha256 = "a8e2723c3650fa33ffff1bdda54d2cc1807d6003f4df2eba18795318bcb201f8";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1487,10 +1487,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.2.0";
+      version = "4.2.1";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032375/modheader_firefox-4.2.0.xpi";
-      sha256 = "c2d7a7a0f3bbf09f693591416b78345cc26d4480aa8458a45ac59845f61514e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4068164/modheader_firefox-4.2.1.xpi";
+      sha256 = "9a19c2326731e6ab79073fcb98a5f52848f2721e85979dae54c6f574a875c715";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -1682,10 +1682,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.15";
+      version = "11.4.16";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4062354/noscript-11.4.15.xpi";
-      sha256 = "c41b4275396296d2a7eb1d4bfbf5b6830225321addaaf5b38002c394577ef6ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067473/noscript-11.4.16.xpi";
+      sha256 = "44bdddd89bee11e52e09ea967aebd3aa996dc2d66c1a819e8dfdaf9a16cc753b";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -3155,10 +3155,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.10";
+      version = "19.11";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4012865/zoom_page_we-19.10.xpi";
-      sha256 = "3cfcc25621f92d329364e2237a7feb30aa74f7103e07aeb7bf34dab258efef75";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4066112/zoom_page_we-19.11.xpi";
+      sha256 = "2f738f5fce077cf45640ad400e2c094dacec3b9744f19351ce93344cc27176c4";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
