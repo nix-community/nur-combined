@@ -168,6 +168,7 @@ let
 
         sed -e "$patch" $objdir/$object.$nvidiaVersion > $object.$nvidiaVersion
       '';
+      nvidiaVersionSupported = "525.85.12";
     in stdenvNoCC.mkDerivation {
       pname = "nvidia-patch";
       version = "2023-02-07";
@@ -226,8 +227,10 @@ let
 
       meta = with lib.licenses; {
         license = unfree;
+        broken = lib.versionOlder nvidiaVersionSupported nvidia_x11.version;
       };
-      passthru = {
+      passthru = rec {
+        inherit nvidiaVersionSupported;
         ci.cache.wrap = true;
         inherit (nvidia_x11) useProfiles persistenced settings bin lib32;
       };
