@@ -94,6 +94,12 @@ with lib.kernel;
   SLAB_FREELIST_RANDOM = yes;
   WQ_POWER_EFFICIENT_DEFAULT = yes;
 
+  # Wi-Fi bypass regulatory DB check
+  CFG80211_CERTIFICATION_ONUS = yes;
+  CFG80211_REG_CELLULAR_HINTS = no;
+  CFG80211_REG_RELAX_NO_IR = yes;
+  CFG80211_REQUIRE_SIGNED_REGDB = no;
+
   # ZRAM & Zswap
   ZRAM = module;
   ZRAM_DEF_COMP_ZSTD = yes;

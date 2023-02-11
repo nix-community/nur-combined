@@ -158,11 +158,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-65Jh8DqJ9pkMzaxy+zxc0xqvsSONt4af4y+cqfs4tUA=",
+            "sha256": "sha256-++Rj/WEC2KximQtmzGJroV6vafswYCQFfwpjOq+A/BM=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.0-2/io.github.msojocs.bilibili_1.9.0-2_amd64.deb"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.1-3/io.github.msojocs.bilibili_1.9.1-3_amd64.deb"
         },
-        "version": "1.9.0-2"
+        "version": "1.9.1-3"
     },
     "bird-babel-rtt": {
         "cargoLocks": null,
@@ -617,11 +617,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.9-xanmod1",
-            "sha256": "sha256-N6TNWEawAe2FNoesMWDiY79OjitFb9AEXFelf1pJ0vs=",
+            "rev": "6.1.11-xanmod1",
+            "sha256": "sha256-N8WjUXbA7E2nsrqExHIpYRhqgLr+rhpzy9flUbJiEVg=",
             "type": "github"
         },
-        "version": "6.1.9-xanmod1"
+        "version": "6.1.11-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -767,11 +767,11 @@
             "name": null,
             "owner": "nginx",
             "repo": "njs",
-            "rev": "0.7.9",
-            "sha256": "sha256-5OFOmnBHJd3JpUiV9y0RSzOdYQ26UuUME3j1BbLQ1Xs=",
+            "rev": "0.7.10",
+            "sha256": "sha256-/yKzY+BUFxLk8bWo+mqKfRVRsC2moe+WvhaRYIGdr6Y=",
             "type": "github"
         },
-        "version": "0.7.9"
+        "version": "0.7.10"
     },
     "ngx_brotli": {
         "cargoLocks": null,
@@ -855,7 +855,7 @@
     },
     "openssl-oqs": {
         "cargoLocks": null,
-        "date": "2023-01-24",
+        "date": "2023-02-08",
         "extract": null,
         "name": "openssl-oqs",
         "passthru": null,
@@ -867,15 +867,15 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "openssl",
-            "rev": "613d1bea7afa23dc11f340e75990cb47d77711e9",
-            "sha256": "sha256-9SbjFfph71hqoGvKdeC5F++vHPPkrzugG+T26rmPAzs=",
+            "rev": "511f387437e7de2c21b23cebecb4ede6b7a99f40",
+            "sha256": "sha256-5qdSSdQBtWRylW7/wUJpowkhpM0vMQXng3E6qr1w99A=",
             "type": "github"
         },
-        "version": "613d1bea7afa23dc11f340e75990cb47d77711e9"
+        "version": "511f387437e7de2c21b23cebecb4ede6b7a99f40"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2023-01-24",
+        "date": "2023-02-08",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -887,11 +887,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "5834cf16b60e156f809b293bc19c486d3c0fca9c",
-            "sha256": "sha256-3mmhAStKPfib48wO7lI51+8lwsnRzWnLXi6/MCluJMc=",
+            "rev": "0c2cda1a41de038fc3cecd56cab9a34cd0173f3b",
+            "sha256": "sha256-q5ZjBMLFB/OavD5EqtaViyo6poKGEsiuI7xDK5vMVgo=",
             "type": "github"
         },
-        "version": "5834cf16b60e156f809b293bc19c486d3c0fca9c"
+        "version": "0c2cda1a41de038fc3cecd56cab9a34cd0173f3b"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -942,11 +942,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZtoxyilfBhgqw/Lm6WBX3IJMRZuu30sp3m7Q074DkjA=",
+            "sha256": "sha256-Nz+Vmd+9ltb+dTFtXa0YnmjDBfKX7fQjd9ud1rQbJVc=",
             "type": "url",
-            "url": "https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.tar.xz"
+            "url": "https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.tar.xz"
         },
-        "version": "5.2.0"
+        "version": "5.2.1"
     },
     "phppgadmin": {
         "cargoLocks": null,
@@ -1017,11 +1017,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-o3ss3hn+NBgUM03N2wA7QnTwbXLOMmDL7jxxAIz/WNw=",
+            "sha256": "sha256-8IJ5pZJKsPY+eFHdNW+UwIFhH2v21yf3WZPZLSNGyhM=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_amd64.deb"
         },
-        "version": "7.2+dfsg-2"
+        "version": "7.2+dfsg-3"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -1032,11 +1032,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pEexbtFf4kibyQh2F2sZdi2GgYgBwafvtmHt0hcP9K4=",
+            "sha256": "sha256-26C8CCttlVjIcBicO8+StwRtfok+0Q3pqL7esKTinR0=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_arm64.deb"
         },
-        "version": "7.2+dfsg-2"
+        "version": "7.2+dfsg-3"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -1062,11 +1062,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GLUutwYQ4KWVUd/r39qIuea4JGncMZASutK4ML8Xpx4=",
+            "sha256": "sha256-JEFTql2SsCDl8+znvAOvKenrmCLRH/qDi3h5MntWWAY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_i386.deb"
         },
-        "version": "7.2+dfsg-2"
+        "version": "7.2+dfsg-3"
     },
     "qq-amd64": {
         "cargoLocks": null,
@@ -1267,7 +1267,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-s9hwTOTlYUqgN/DAuTAClkjQ8OR1SPUPi7KXA2oDhic=",
+            "sha256": "sha256-8dETlJjQ52xTVuH2VCq5osxGjxH7Soj/wegmuu8Cyvw=",
             "type": "url",
             "url": "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe"
         },
@@ -1275,7 +1275,7 @@
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
-        "date": "2022-01-08",
+        "date": "2023-02-08",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,
@@ -1287,10 +1287,10 @@
             "name": null,
             "owner": "tokers",
             "repo": "zstd-nginx-module",
-            "rev": "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc",
-            "sha256": "sha256-dVRK5lG6WSCWE6uMofJxz7Ih87FJJ+x1oyVZkY7iZ6c=",
+            "rev": "25d88c262be47462cf90015ee7ebf6317b6848f9",
+            "sha256": "sha256-YRluKekhx1tb6e5IL1FPK05jPtzfQPaHI47cdada928=",
             "type": "github"
         },
-        "version": "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc"
+        "version": "25d88c262be47462cf90015ee7ebf6317b6848f9"
     }
 }

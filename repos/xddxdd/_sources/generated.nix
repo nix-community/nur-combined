@@ -90,10 +90,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.9.0-2";
+    version = "1.9.1-3";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.0-2/io.github.msojocs.bilibili_1.9.0-2_amd64.deb";
-      sha256 = "sha256-65Jh8DqJ9pkMzaxy+zxc0xqvsSONt4af4y+cqfs4tUA=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.1-3/io.github.msojocs.bilibili_1.9.1-3_amd64.deb";
+      sha256 = "sha256-++Rj/WEC2KximQtmzGJroV6vafswYCQFfwpjOq+A/BM=";
     };
   };
   bird-babel-rtt = {
@@ -350,13 +350,13 @@
   };
   linux-xanmod-unstable = {
     pname = "linux-xanmod-unstable";
-    version = "6.1.9-xanmod1";
+    version = "6.1.11-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.9-xanmod1";
+      rev = "6.1.11-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-N6TNWEawAe2FNoesMWDiY79OjitFb9AEXFelf1pJ0vs=";
+      sha256 = "sha256-N8WjUXbA7E2nsrqExHIpYRhqgLr+rhpzy9flUbJiEVg=";
     });
   };
   nbfc-linux-lantian = {
@@ -437,13 +437,13 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.7.9";
+    version = "0.7.10";
     src = fetchFromGitHub ({
       owner = "nginx";
       repo = "njs";
-      rev = "0.7.9";
+      rev = "0.7.10";
       fetchSubmodules = false;
-      sha256 = "sha256-5OFOmnBHJd3JpUiV9y0RSzOdYQ26UuUME3j1BbLQ1Xs=";
+      sha256 = "sha256-/yKzY+BUFxLk8bWo+mqKfRVRsC2moe+WvhaRYIGdr6Y=";
     });
   };
   ngx_brotli = {
@@ -495,27 +495,27 @@
   };
   openssl-oqs = {
     pname = "openssl-oqs";
-    version = "613d1bea7afa23dc11f340e75990cb47d77711e9";
+    version = "511f387437e7de2c21b23cebecb4ede6b7a99f40";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "openssl";
-      rev = "613d1bea7afa23dc11f340e75990cb47d77711e9";
+      rev = "511f387437e7de2c21b23cebecb4ede6b7a99f40";
       fetchSubmodules = false;
-      sha256 = "sha256-9SbjFfph71hqoGvKdeC5F++vHPPkrzugG+T26rmPAzs=";
+      sha256 = "sha256-5qdSSdQBtWRylW7/wUJpowkhpM0vMQXng3E6qr1w99A=";
     });
-    date = "2023-01-24";
+    date = "2023-02-08";
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "5834cf16b60e156f809b293bc19c486d3c0fca9c";
+    version = "0c2cda1a41de038fc3cecd56cab9a34cd0173f3b";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "5834cf16b60e156f809b293bc19c486d3c0fca9c";
+      rev = "0c2cda1a41de038fc3cecd56cab9a34cd0173f3b";
       fetchSubmodules = false;
-      sha256 = "sha256-3mmhAStKPfib48wO7lI51+8lwsnRzWnLXi6/MCluJMc=";
+      sha256 = "sha256-q5ZjBMLFB/OavD5EqtaViyo6poKGEsiuI7xDK5vMVgo=";
     });
-    date = "2023-01-24";
+    date = "2023-02-08";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -541,10 +541,10 @@
   };
   phpmyadmin = {
     pname = "phpmyadmin";
-    version = "5.2.0";
+    version = "5.2.1";
     src = fetchurl {
-      url = "https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.tar.xz";
-      sha256 = "sha256-ZtoxyilfBhgqw/Lm6WBX3IJMRZuu30sp3m7Q074DkjA=";
+      url = "https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.tar.xz";
+      sha256 = "sha256-Nz+Vmd+9ltb+dTFtXa0YnmjDBfKX7fQjd9ud1rQbJVc=";
     };
   };
   phppgadmin = {
@@ -582,18 +582,18 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "7.2+dfsg-2";
+    version = "7.2+dfsg-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_amd64.deb";
-      sha256 = "sha256-o3ss3hn+NBgUM03N2wA7QnTwbXLOMmDL7jxxAIz/WNw=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_amd64.deb";
+      sha256 = "sha256-8IJ5pZJKsPY+eFHdNW+UwIFhH2v21yf3WZPZLSNGyhM=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "7.2+dfsg-2";
+    version = "7.2+dfsg-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_arm64.deb";
-      sha256 = "sha256-pEexbtFf4kibyQh2F2sZdi2GgYgBwafvtmHt0hcP9K4=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_arm64.deb";
+      sha256 = "sha256-26C8CCttlVjIcBicO8+StwRtfok+0Q3pqL7esKTinR0=";
     };
   };
   qemu-user-static-armhf = {
@@ -606,10 +606,10 @@
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "7.2+dfsg-2";
+    version = "7.2+dfsg-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-2_i386.deb";
-      sha256 = "sha256-GLUutwYQ4KWVUd/r39qIuea4JGncMZASutK4ML8Xpx4=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_i386.deb";
+      sha256 = "sha256-JEFTql2SsCDl8+znvAOvKenrmCLRH/qDi3h5MntWWAY=";
     };
   };
   qq-amd64 = {
@@ -724,19 +724,19 @@
     version = "3.7.6";
     src = fetchurl {
       url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
-      sha256 = "sha256-s9hwTOTlYUqgN/DAuTAClkjQ8OR1SPUPi7KXA2oDhic=";
+      sha256 = "sha256-8dETlJjQ52xTVuH2VCq5osxGjxH7Soj/wegmuu8Cyvw=";
     };
   };
   zstd-nginx-module = {
     pname = "zstd-nginx-module";
-    version = "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc";
+    version = "25d88c262be47462cf90015ee7ebf6317b6848f9";
     src = fetchFromGitHub ({
       owner = "tokers";
       repo = "zstd-nginx-module";
-      rev = "1e0fa0bfb995e72f8f7e4c0153025c3306f1a5cc";
+      rev = "25d88c262be47462cf90015ee7ebf6317b6848f9";
       fetchSubmodules = false;
-      sha256 = "sha256-dVRK5lG6WSCWE6uMofJxz7Ih87FJJ+x1oyVZkY7iZ6c=";
+      sha256 = "sha256-YRluKekhx1tb6e5IL1FPK05jPtzfQPaHI47cdada928=";
     });
-    date = "2022-01-08";
+    date = "2023-02-08";
   };
 }
