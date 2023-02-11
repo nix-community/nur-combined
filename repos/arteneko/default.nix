@@ -10,4 +10,5 @@
   janet-vim = pkgs.callPackage ./pkgs/janet-vim.nix {};
 
   # my nixos and home-manager options (TBD, e.g. for services)
+  overlays.arteneko = import ./overlay.nix;
 }
