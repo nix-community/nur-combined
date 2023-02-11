@@ -10,6 +10,7 @@ in
 {
   arkenfox-userjs = callPackage ./arkenfox-userjs { };
   clash-geoip = callPackage ./clash-geoip { };
+  clashctl = callPackage ./clashctl { };
   firefox-addons = recurseIntoAttrs (callPackages ./firefox-addons { });
   material-fox = callPackage ./material-fox { };
   motrix = callPackage ./motrix { };

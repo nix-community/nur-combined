@@ -62,6 +62,6 @@ jobs:
     steps:
       - name: Trigger NUR update
         if: github.ref_protected
-        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ env.nurRepo }}"
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ env.nurRepo }}"
       - name: Aggregate all status
         run: "true"

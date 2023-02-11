@@ -34,6 +34,20 @@
         },
         "version": "20230112"
     },
+    "clashctl": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "clashctl",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Yo26qF0XiWcifJrwbeRcl/a+AsrruZtNaami7cXmNcY=",
+            "type": "url",
+            "url": "https://github.com/George-Miao/clashctl/releases/download/0.3.3/clashctl-Linux"
+        },
+        "version": "0.3.3"
+    },
     "material-fox": {
         "cargoLocks": null,
         "date": null,

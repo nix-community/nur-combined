@@ -20,6 +20,14 @@
       sha256 = "sha256-mMu+U3gtoZmi6LrTMTqsNZKZ+w4J6LZ16Aorneyy7P8=";
     };
   };
+  clashctl = {
+    pname = "clashctl";
+    version = "0.3.3";
+    src = fetchurl {
+      url = "https://github.com/George-Miao/clashctl/releases/download/0.3.3/clashctl-Linux";
+      sha256 = "sha256-Yo26qF0XiWcifJrwbeRcl/a+AsrruZtNaami7cXmNcY=";
+    };
+  };
   material-fox = {
     pname = "material-fox";
     version = "v93.1";

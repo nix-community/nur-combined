@@ -27,6 +27,10 @@ src.github_tag = "agalwood/Motrix"
 src.prefix = "v"
 fetch.url = "https://github.com/agalwood/Motrix/releases/download/v$ver/Motrix-$ver.AppImage"
 
+[clashctl]
+src.github_tag = "George-Miao/clashctl"
+fetch.url = "https://github.com/George-Miao/clashctl/releases/download/$ver/clashctl-Linux"
+
 ## VS Code Extensions
 
 [remote-containers]
