@@ -20,6 +20,24 @@ M.is_executable_condition = function(cmd)
     return function() return M.is_executable(cmd) end
 end
 
+-- whether or not we are currently in an SSH connection
+-- @return boolean ssh connection
+M.is_ssh = function()
+    local variables = {
+        "SSH_CONNECTION",
+        "SSH_CLIENT",
+        "SSH_TTY",
+    }
+
+    for _, var in ipairs(variables) do
+        if string.len(os.getenv(var) or "") ~= 0 then
+            return true
+        end
+    end
+
+    return false
+end
+
 -- list all active LSP clients for current buffer
 -- @param bufnr int? buffer number
 -- @return table all active LSP client names
