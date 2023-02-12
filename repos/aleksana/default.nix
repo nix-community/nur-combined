@@ -23,4 +23,8 @@
   payload-dumper-go = pkgs.callPackage ./pkgs/payload-dumper-go { };
   speedtest-go = pkgs.callPackage ./pkgs/speedtest-go { };
   swww = pkgs.callPackage ./pkgs/swww { };
+  fastfetch = pkgs.callPackage ./pkgs/fastfetch { };
+  gvim-lily = pkgs.callPackage ./pkgs/gvim-lily { };
+  neovim-gtk = pkgs.callPackage ./pkgs/neovim-gtk { };
+  yofi = pkgs.callPackage ./pkgs/yofi { };
 }

@@ -10,16 +10,16 @@
 
 buildGoModule.override { stdenv = clangStdenv; } rec {
   pname = "go-musicfox";
-  version = "3.6.1";
+  version = "3.7.0";
 
   src = fetchFromGitHub {
     owner = "anhoder";
     repo = "go-musicfox";
-    rev = "870b9e1ff05831ecbf3741506b95e4abaef7dcca";
-    hash = "sha256-EDgw0QfW1E/u0J9tEWeRt6i/rRBeX2jPqtG01YMvWzI=";
+    rev = "v${version}";  
+    hash = "sha256-IXB5eOXVtoe21WbQa9x5SKcgUpgyjVx48998vdccMPM=";
   };
    
-  vendorHash = "sha256-DbdAEvcspTYMYMvc5IBEUtQAJMW8JZpNi0UA/DvzGFo=";
+  vendorHash = "sha256-LBN6ZiiabWJNuXIIpE+HT8ODpcixLAcg13WYwDyDbtA=";
   
   deleteVendor = true;
   
