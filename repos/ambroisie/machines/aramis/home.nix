@@ -23,8 +23,8 @@
     mpv.enable = true;
     # Network-Manager applet
     nm-applet.enable = true;
-    # Termite terminal
-    terminal.program = "termite";
+    # Terminal
+    terminal.program = "alacritty";
     # Zathura document viewer
     zathura.enable = true;
   };

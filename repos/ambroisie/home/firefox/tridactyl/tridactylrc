@@ -5,8 +5,7 @@
 colorscheme dark
 
 " Make tridactyl open Vim in my prefered terminal
-" FIXME: make it follow my prefered terminal
-set editorcmd termite --class tridactyl_editor -e 'vim %f'
+set editorcmd @editorcmd@
 " }}}
 
 " Binds {{{

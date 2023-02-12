@@ -10,13 +10,14 @@ let
 in
 {
   imports = [
+    ./alacritty
     ./termite
   ];
 
   options.my.home = with lib; {
     terminal = {
       program = mkOption {
-        type = with types; nullOr (enum [ "termite" ]);
+        type = with types; nullOr (enum [ "alacritty" "termite" ]);
         default = null;
         example = "termite";
         description = "Which terminal to use for home session";

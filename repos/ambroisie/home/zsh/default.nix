@@ -84,11 +84,8 @@ in
         reset-agent = "gpg-connect-agent updatestartuptty /bye";
       };
 
-      # Enable VTE integration when using one of the affected shells
-      enableVteIntegration =
-        builtins.any (name: config.my.home.terminal.program == name) [
-          "termite"
-        ];
+      # Enable VTE integration
+      enableVteIntegration = true;
     };
 
     # Fuzzy-wuzzy
