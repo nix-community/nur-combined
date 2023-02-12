@@ -12,7 +12,7 @@ let
   name = "svg";
   ref = "714c8e8";
   version = "dev-${ref}";
-  hash = "sha256-HmNd/zQj/EsOOvZ9gcf23D8QdcpFjDQEamR+PXCPCRk=";
+  hash = "sha256-ja46JHN1okjRnHXhHqvUHg8LsDmRtiBGLFs5uQtc8Y4=";
 in stdenv.mkDerivation {
   pname = name;
   version = version;

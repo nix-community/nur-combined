@@ -1,16 +1,16 @@
 { lib, buildGoModule, fetchFromSourcehut }:
 buildGoModule rec {
   pname = "cap";
-  version = "0.1.7";
+  version = "0.2.0";
 
   src = fetchFromSourcehut {
     owner = "~artemis";
     repo = "cap";
     rev = "v${version}";
-    sha256 = "sha256-s7uJVNXvgd5eJ9L6bhtAsgZ5rEvrXeoK/1u9aMSRQxc=";
+    sha256 = "09fjrwcsnwdvylzrq07z86dhndvak8y8ba3y7z2q2jlfyima0gja";
   };
 
-  vendorHash = "sha256-xfWYUBP8puiiNeNOcDIy2SLMZkHVm358B6q+l3LMhsY=";
+  vendorHash = "sha256-ZCRydD/X+yxXZIofeq/yxREKnvuqkQznRkkELpTOcF0=";
 
   meta = with lib; {
     description = "a simple to use website builder that's meant to be easy to use by default";
