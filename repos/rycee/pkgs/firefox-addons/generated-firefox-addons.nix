@@ -297,20 +297,6 @@
         platforms = platforms.all;
         };
       };
-    "bypass-paywalls-clean" = buildFirefoxXpiAddon {
-      pname = "bypass-paywalls-clean";
-      version = "3.0.4.0";
-      addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066874/bypass_paywalls_clean-3.0.4.0.xpi";
-      sha256 = "771ad6e3afcd64803ed26a3e01ff0931590607807a9877f6110325e8eb085254";
-      meta = with lib;
-      {
-        homepage = "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
-        description = "Bypass Paywalls of (custom) news sites";
-        license = licenses.mit;
-        platforms = platforms.all;
-        };
-      };
     "c-c-search-extension" = buildFirefoxXpiAddon {
       pname = "c-c-search-extension";
       version = "0.3.0";

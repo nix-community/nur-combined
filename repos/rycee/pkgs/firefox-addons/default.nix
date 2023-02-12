@@ -29,8 +29,24 @@ let
 in packages // {
   inherit buildFirefoxXpiAddon;
 
-  # Aliases.
   "1password-x-password-manager" = packages.onepassword-password-manager;
+
+  bypass-paywalls-clean = let version = "3.0.4.0";
+  in buildFirefoxXpiAddon {
+    pname = "bypass-paywalls-clean";
+    inherit version;
+    addonId = "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}";
+    url =
+      "https://gitlab.com/magnolia1234/bpc-uploads/-/raw/master/bypass_paywalls_clean-${version}.xpi";
+    sha256 = "sha256-ADv0+P3GRPEROyFXZC64XncE4y3itQNqwkmDsw9UEto=";
+    meta = with lib; {
+      homepage =
+        "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean";
+      description = "Bypass Paywalls of (custom) news sites";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
 
   gaoptout = buildFirefoxXpiAddon {
     pname = "gaoptout";
