@@ -67,6 +67,8 @@
     robin-hood-hashing = robin-hood-hashing;
   };
 
+  q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
+
   robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
 
   scid = pkgs.callPackage ./pkgs/scid { };
