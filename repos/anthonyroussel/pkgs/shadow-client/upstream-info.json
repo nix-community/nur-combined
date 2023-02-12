@@ -1,17 +1,17 @@
 {
   "prod": {
-    "version": "8.0.10046",
+    "version": "8.0.10059",
     "files": [
       {
-        "url": "Shadow-8.0.10046.AppImage",
-        "sha512": "BXIA/M/aeqU26h9DYdmSlbCzYF01O2bGgUi43+nlH/piJO3FiKuQ2LaaJCTb2Q6fiXjfFIAbVlrlQeROMDDXtw==",
-        "size": 180773380,
-        "blockMapSize": 188952
+        "url": "Shadow-8.0.10059.AppImage",
+        "sha512": "jYjldkKzaMgYrxW+oaK51UVy6UYl0BQSbHPcd9wwSvXX+sRP9/8fYQhpjJEJL32BhY5puoxQeA9fg1qfFVOAow==",
+        "size": 180773507,
+        "blockMapSize": 189079
       }
     ],
-    "path": "Shadow-8.0.10046.AppImage",
-    "sha512": "BXIA/M/aeqU26h9DYdmSlbCzYF01O2bGgUi43+nlH/piJO3FiKuQ2LaaJCTb2Q6fiXjfFIAbVlrlQeROMDDXtw==",
-    "releaseDate": "2023-01-09T10:34:43.922Z"
+    "path": "Shadow-8.0.10059.AppImage",
+    "sha512": "jYjldkKzaMgYrxW+oaK51UVy6UYl0BQSbHPcd9wwSvXX+sRP9/8fYQhpjJEJL32BhY5puoxQeA9fg1qfFVOAow==",
+    "releaseDate": "2023-01-31T14:16:56.143Z"
   },
   "preprod": {
     "version": "8.0.10041",
