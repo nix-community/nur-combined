@@ -1235,6 +1235,20 @@
         platforms = platforms.all;
         };
       };
+    "keybase" = buildFirefoxXpiAddon {
+      pname = "keybase";
+      version = "1.10.16";
+      addonId = "keybase@keybase.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1102153/keybase_for_firefox-1.10.16.xpi";
+      sha256 = "6f4a171d534b6e7159094e7eb5fd8e696c1caee5116d78453db3827ba501c5fc";
+      meta = with lib;
+      {
+        homepage = "https://keybase.io/docs/extension";
+        description = "A secure chat button for every profile.";
+        license = licenses.bsd2;
+        platforms = platforms.all;
+        };
+      };
     "kristofferhagen-nord-theme" = buildFirefoxXpiAddon {
       pname = "kristofferhagen-nord-theme";
       version = "2.0";
@@ -2292,6 +2306,20 @@
         platforms = platforms.all;
         };
       };
+    "simplelogin" = buildFirefoxXpiAddon {
+      pname = "simplelogin";
+      version = "2.9.2";
+      addonId = "addon@simplelogin";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4028552/simplelogin-2.9.2.xpi";
+      sha256 = "1cda6f6cab1ef3783fdf34d128fea3913f8cc7d9bd9d2c28eb98fc0c297c32e3";
+      meta = with lib;
+      {
+        homepage = "https://simplelogin.io";
+        description = "Create a different email for each website to hide your real email. Guard your inbox against spams, phishing. Protect your privacy.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
       version = "1.21.37";
@@ -2908,6 +2936,25 @@
         homepage = "http://add0n.com/useragent-switcher.html";
         description = "Spoof websites trying to gather information about your web navigation—like your browser type and operating system—to deliver distinct content you may not want.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "video-downloadhelper" = buildFirefoxXpiAddon {
+      pname = "video-downloadhelper";
+      version = "7.6.6";
+      addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4040817/video_downloadhelper-7.6.6.xpi";
+      sha256 = "460b64348a6616c87bdead85f6226a6f22decfc5b33458d9577777b762438c8a";
+      meta = with lib;
+      {
+        homepage = "http://www.downloadhelper.net/";
+        description = "The easy way to download and convert Web videos from hundreds of YouTube-like sites.";
+        license = {
+          shortName = "vdh";
+          fullName = "Custom License for Video DownloadHelper";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/license/";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };

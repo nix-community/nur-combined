@@ -354,6 +354,10 @@
     "slug": "keepassxc-browser"
   },
   {
+    "slug": "keybase-for-firefox",
+    "pname": "keybase"
+  },
+  {
     "slug": "kristofferhagen-nord-theme"
   },
   {
@@ -662,6 +666,9 @@
     "slug": "simple-tab-groups"
   },
   {
+    "slug": "simplelogin"
+  },
+  {
     "slug": "single-file",
     "license": {
       "tag": "predefined",
@@ -847,6 +854,16 @@
   },
   {
     "slug": "user-agent-string-switcher"
+  },
+  {
+    "slug": "video-downloadhelper",
+    "license": {
+      "tag": "custom",
+      "shortName": "vdh",
+      "fullName": "Custom License for Video DownloadHelper",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/video-downloadhelper/license/",
+      "free": false
+    }
   },
   {
     "slug": "videospeed"
