@@ -57,6 +57,9 @@ in
       }
       # Block selection in vim mode
       bind-key -Tcopy-mode-vi 'C-v' send -X begin-selection \; send -X rectangle-toggle
+
+      # Allow any application to send OSC52 escapes to set the clipboard
+      set -s set-clipboard on
     '';
   };
 }
