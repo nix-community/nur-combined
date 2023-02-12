@@ -64,11 +64,39 @@
     else bitShr (sh - 1) (v / 2);
 
   floor = let
-    matchNum = builtins.match "([0-9]+)(\\.[0-9]+)?";
-    floor' = v: if isInt v
+    matchNum = builtins.match "(-?[0-9]+)(\\.[0-9]+)?";
+    floor' = v: let
+      num = builtins.fromJSON (elemAt (matchNum (toString v)) 0);
+    in if isInt v
       then v
-      else builtins.fromJSON (elemAt (matchNum (toString v)) 0);
+      else if v < 0 then num - 1
+      else num;
   in builtins.floor or floor';
+  ceil = let
+    ceil' = v: let
+      floored = floor v;
+    in floored + (if floored == v then 0 else 1);
+  in builtins.ceil or ceil';
+
+  round = v: let
+    floored = floor v;
+    delta' = v - floor v;
+    delta = if delta' < 0 then -delta' else delta';
+  in if delta < 0.5 then floored else ceil v;
+
+  numString = float: let
+    s = toString float;
+    matched = builtins.match ''(-?[[:digit:]]+)\.(([[:digit:]]*[^0])0+|(0+))'' s;
+    num = elemAt matched 0;
+    trimmed = elemAt matched 2;
+    zero = elemAt matched 3;
+  in if matched == null then s
+    else if trimmed != null then num + "." + trimmed
+    else assert zero != null; num;
+
+  toFloat = num: 0.0 + (
+    if isString num then builtins.fromJSON num else num
+  );
 
   # https://stackoverflow.com/a/42936293
   # example: (parseTime builtins.currentTime).y
