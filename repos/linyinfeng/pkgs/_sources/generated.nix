@@ -22,14 +22,6 @@
       sha256 = "sha256-pc55Pa2LwPGApdAcLqmnDZ9SKrT6hZ45ssBpFurT4Ps=";
     };
   };
-  clash-for-windows-icon = {
-    pname = "clash-for-windows-icon";
-    version = "0";
-    src = fetchurl {
-      url = "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico";
-      sha256 = "sha256-4uLJzumIqF6T1yvrdKciqrSNYpJ1+6ecmonRzOsopP0=";
-    };
-  };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
     version = "2023.01.29";

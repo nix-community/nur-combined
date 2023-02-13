@@ -33,21 +33,6 @@
         },
         "version": "0.20.16"
     },
-    "clash-for-windows-icon": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "clash-for-windows-icon",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-4uLJzumIqF6T1yvrdKciqrSNYpJ1+6ecmonRzOsopP0=",
-            "type": "url",
-            "url": "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico"
-        },
-        "version": "0"
-    },
     "clash-premium-aarch64-linux": {
         "cargoLocks": null,
         "date": null,

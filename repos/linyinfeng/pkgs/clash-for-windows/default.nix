@@ -13,6 +13,7 @@
 , udev
 , libappindicator
 , imagemagick
+, nodePackages
 , makeDesktopItem
 }:
 
@@ -25,13 +26,14 @@ let
     exec = "cfw";
     categories = [ "Network" ];
   };
-  icon = "${sources.clash-for-windows-icon.src}[4]";
 in
 stdenv.mkDerivation rec {
   inherit (sources.clash-for-windows) pname version src;
 
   nativeBuildInputs = [
     autoPatchelfHook
+    imagemagick
+    nodePackages.asar
   ];
 
   buildInputs = [
@@ -65,13 +67,12 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/share/applications"
     install "${desktopItem}/share/applications/"* "$out/share/applications/"
 
-    icon_dir="$out/share/icons/hicolor"
-    for s in 16 24 32 48 64 128 256; do
-      size="''${s}x''${s}"
-      echo "create icon \"$size\""
-      mkdir -p "$icon_dir/$size/apps"
-      ${imagemagick}/bin/convert -resize "$size" "${icon}" "$icon_dir/$size/apps/clash-for-windows.png"
-    done
+    mkdir app-extract
+    asar extract resources/app.asar app-extract
+    raw_icon=app-extract/dist/electron/static/imgs/icon_512.png
+    icon_dir="$out/share/icons/hicolor/512x512/apps"
+    mkdir -p "$icon_dir"
+    cp app-extract/dist/electron/static/imgs/icon_512.png "$icon_dir/clash-for-windows.png"
   '';
 
   meta = with lib; {

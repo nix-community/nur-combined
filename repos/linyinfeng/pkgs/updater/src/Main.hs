@@ -23,7 +23,6 @@ packageSet = do
   tgSend
   dotTar
   clashForWindows
-  clashForWindowsIcon
   icalinguaPlusPlus
   wemeet
   yacd
@@ -89,13 +88,6 @@ clashForWindows =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/" <> v <> "/Clash.for.Windows-" <> v <> "-x64-linux.tar.gz"
-
-clashForWindowsIcon :: PackageSet ()
-clashForWindowsIcon =
-  define $
-    package "clash-for-windows-icon"
-      `sourceManual` "0"
-      `fetchUrl` (const "https://web.archive.org/web/20211210004725if_/https://docs.cfw.lbyczf.com/favicon.ico")
 
 icalinguaPlusPlus :: PackageSet ()
 icalinguaPlusPlus =
