@@ -63,5 +63,6 @@ buildGoModule rec {
     homepage = "https://github.com/therecipe/qt";
     description = "Qt bindings for Go";
     license = licenses.lgpl3;
+    broken = true;
   };
 }
