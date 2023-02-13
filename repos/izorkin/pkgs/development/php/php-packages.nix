@@ -140,11 +140,11 @@ let
 
   composer2 = mkDerivation rec {
     pname = "composer";
-    version = "2.5.1";
+    version = "2.5.3";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-8blP7hGlvWoarl13yNomnfJ8cF/MgG6/TIwub6hkXCA=";
+      sha256 = "sha256-LhBhghlRxqXs4DOgJdBiltSh0Fb+4vS+vTWBXPSxsPk=";
     };
 
     dontUnpack = true;
@@ -271,9 +271,9 @@ let
 
   igbinary30 = buildPecl {
     pname = "igbinary";
-    version = "3.2.12";
+    version = "3.2.13";
 
-    sha256 = "sha256-tpz/3wVMxuawKJP/d89EDOyMeofS3ADBrxg8ISJpWBw=";
+    sha256 = "sha256-QbqnbZF9h48VQbXVCJ3dzAJFvOSnHemlGtoBBixngH8=";
 
     configureFlags = [
       "--enable-igbinary"
@@ -463,9 +463,9 @@ let
 
   mongodb115 = buildPecl {
     pname = "mongodb";
-    version = "1.15.0";
+    version = "1.15.1";
 
-    sha256 = "sha256-7rYmjTS9C0o9zGDd5OSE9c9PokOco9nwJMAADpnuckA=";
+    sha256 = "sha256-sgOOd41x9FytuMk6MOtUjlwsHk+DKAende1Ra3gWt0k=";
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
     buildInputs = with pkgs; [
@@ -526,11 +526,11 @@ let
 
   php-cs-fixer = mkDerivation rec {
     pname = "php-cs-fixer";
-    version = "3.13.2";
+    version = "3.14.4";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "sha256-XL1heRIvS83MmIIJqhkBnsswCJBYntiyb6RS79YwRrw=";
+      sha256 = "sha256-wKAjYW5srGKGu0eCR+5j4HDl8xoKDIW/I+hyCpZo8UI=";
     };
 
     phases = [ "installPhase" ];
@@ -643,11 +643,11 @@ let
 
   phpstan = mkDerivation rec {
     pname = "phpstan";
-    version = "1.9.12";
+    version = "1.9.17";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "sha256-tpMNhFEY4Jty23WEJgBc8NJ5AZR+2R6qRWifTsneVN4=";
+      sha256 = "sha256-7NHPz6ROVjGyqhnTDkhGr1/eqkydXLPpv28Kh/0QWIg=";
     };
 
     phases = [ "installPhase" ];
@@ -788,11 +788,11 @@ let
 
   psalm = mkDerivation rec {
     pname = "psalm";
-    version = "5.4.0";
+    version = "5.6.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "sha256-d5jf68s+LppUDwERQaqr+ry8L+Zmob8VwetYkQ+vIUg=";
+      sha256 = "sha256-B9DMzkSxkimnqL8AdI4QcA7uJgQ81VcmIUMCLpfDxAU=";
     };
 
     phases = [ "installPhase" ];
@@ -814,11 +814,11 @@ let
 
   psysh = mkDerivation rec {
     pname = "psysh";
-    version = "0.11.10";
+    version = "0.11.12";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-2U9HMA3OAA9Nl9JVJjepB2vi0O483xGpr8nQUGhOrpI=";
+      sha256 = "sha256-cmBB8t1F/hTJbf9gRgKzY0KOnlB9Q927fZDqhB0jbAs=";
     };
 
     phases = [ "installPhase" ];
