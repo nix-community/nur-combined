@@ -2058,10 +2058,10 @@
       };
     "promnesia" = buildFirefoxXpiAddon {
       pname = "promnesia";
-      version = "1.2.1";
+      version = "1.2.2";
       addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063909/promnesia-1.2.1.xpi";
-      sha256 = "dfe0e34bd56dc26a249900227a43b4d96353443ad72ba95a09cdce3f5373382b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069106/promnesia-1.2.2.xpi";
+      sha256 = "e155e3072120ee0554ddb28e4b8e119104ae8b09317ccae7a44b2685fdd8f9cf";
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/promnesia";
@@ -2198,10 +2198,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.2.5";
+      version = "23.2.11";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066788/refined_github-23.2.5.xpi";
-      sha256 = "67f1fde8765e1a0038fb677325f00ce79cab5ab3c01637792625cc059e0bacb8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069254/refined_github-23.2.11.xpi";
+      sha256 = "c5bf1344a6d342bb1ff2930fddfde6c72a4f8dc91482129a2b59085a8eb84693";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
