@@ -130,14 +130,14 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "2dec94a92b33346c5b986ac372546a71f38f2dcb";
+    version = "492a31e681abbc9c82ec43d4abf8277e7e147902";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "2dec94a92b33346c5b986ac372546a71f38f2dcb";
+      rev = "492a31e681abbc9c82ec43d4abf8277e7e147902";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-2nZeammIqfZ4llEAbehJZwKH8b7l5iT7eCI+f1Luze0=";
+      sha256 = "sha256-F+V8MAiviQ7nqGPjzF5qDpg15L7EABRp36Mmhwt6eTU=";
     };
     date = "2023-02-11";
   };
