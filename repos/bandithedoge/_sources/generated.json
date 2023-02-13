@@ -33,15 +33,15 @@
             "name": null,
             "owner": "DISTRHO",
             "repo": "Cardinal",
-            "rev": "a30e278f839c2af700aa38da858dd2e1fb21c3b9",
-            "sha256": "sha256-RtjvmfeGCqBQOqT25UJ1btaGsQP28Th4DL4Xxt7kIu0=",
+            "rev": "e0ff27ebb434e8add09adacadf16385ce8170e6c",
+            "sha256": "sha256-sMogEdKgSLWErSFHpWEQFBH9ggtpETL6I/0qbjGlYx4=",
             "type": "github"
         },
-        "version": "a30e278f839c2af700aa38da858dd2e1fb21c3b9"
+        "version": "e0ff27ebb434e8add09adacadf16385ce8170e6c"
     },
     "carla": {
         "cargoLocks": null,
-        "date": "2023-02-11",
+        "date": "2023-02-12",
         "extract": null,
         "name": "carla",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "falkTX",
             "repo": "Carla",
-            "rev": "515af8ac30ac64deed8ae2fb89038266f0845da9",
-            "sha256": "sha256-WGHtEuWtqlRBZnE7xyqxC9Nixxjj5YwzzI8mqBNR//g=",
+            "rev": "4c29367b6e6f82e75746b9ee3a01f9d205c0beae",
+            "sha256": "sha256-OegwW8sfUV4IjBFrq38tpKbOMzZT0cvhL/u3Gr1m938=",
             "type": "github"
         },
-        "version": "515af8ac30ac64deed8ae2fb89038266f0845da9"
+        "version": "4c29367b6e6f82e75746b9ee3a01f9d205c0beae"
     },
     "dmenu-flexipatch": {
         "cargoLocks": null,
@@ -381,7 +381,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2023-02-09",
+        "date": "2023-02-12",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -391,11 +391,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "dc30931820a951dc48dd75365bcc5b60249cb02d",
-            "sha256": "sha256-oWomklmf+GYkWeeSlhtXHpWqCDlSAuFsMkxarHF8tUA=",
+            "rev": "8b02e7de61507450714412d00db99eb0e9ac54a7",
+            "sha256": "sha256-oo2i/t3/iHnw5F840eKQCDmmnt5Z0oX2dHf0hYPSiek=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "dc30931820a951dc48dd75365bcc5b60249cb02d"
+        "version": "8b02e7de61507450714412d00db99eb0e9ac54a7"
     }
 }
