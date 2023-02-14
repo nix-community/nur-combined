@@ -341,7 +341,7 @@
     },
     "zix": {
         "cargoLocks": null,
-        "date": "2023-02-05",
+        "date": "2023-02-13",
         "extract": null,
         "name": "zix",
         "passthru": null,
@@ -353,11 +353,11 @@
             "name": null,
             "owner": "drobilla",
             "repo": "zix",
-            "rev": "18e62483cb7173c6604f7dd2097299e47c2a4c0c",
-            "sha256": "sha256-IQIMbguqdTuYThzSD3Fx1qOFk3C4QmWPqdIZDlwRcyI=",
+            "rev": "262d4a1522c38be0588746e874159da5c7bb457d",
+            "sha256": "sha256-3vuefgnirM4ksK3j9sjBHgOmx0JpL+6tCPb69/7jI00=",
             "type": "github"
         },
-        "version": "18e62483cb7173c6604f7dd2097299e47c2a4c0c"
+        "version": "262d4a1522c38be0588746e874159da5c7bb457d"
     },
     "zmusic": {
         "cargoLocks": null,
