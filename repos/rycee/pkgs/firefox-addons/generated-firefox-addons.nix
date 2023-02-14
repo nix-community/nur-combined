@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230206.190557";
+      version = "110.0buildid20230213.213738";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067425/francais_language_pack-110.0buildid20230206.190557.xpi";
-      sha256 = "02c108d8732c94a734ff911fae34ebe18ea739a9893bdd23ab28fc09fe8f2827";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4070062/francais_language_pack-110.0buildid20230213.213738.xpi";
+      sha256 = "0cdff9a74aa5c759d9e32f4ecb26b027d598bd005ecbc8ff97535892c0264963";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2537,7 +2537,7 @@
       sha256 = "b26b5521fa3103e99e2c8fca970f20e33ce3207c60db2b428adff6c4153bc8d6";
       meta = with lib;
       {
-        homepage = "http://add0n.com/tab-reloader.html";
+        homepage = "https://webextension.org/listing/tab-reloader.html";
         description = "An easy-to-use tab reloader with custom reloading time settings for individual tabs";
         license = licenses.mpl20;
         platforms = platforms.all;
@@ -3100,10 +3100,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.85.2";
+      version = "2.86.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4058453/web_scrobbler-2.85.2.xpi";
-      sha256 = "272533944414c772c38c80d7083cd71919c8a6dba4d2c82f29fd48bfdaccbd27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067848/web_scrobbler-2.86.0.xpi";
+      sha256 = "7670719ec85ce14ac4cb04b185bec1aa3fc44fa26ebf28fc09202fb5e754b475";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
