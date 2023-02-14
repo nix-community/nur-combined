@@ -1,4 +1,4 @@
-{global, pkgs, ...}:
+{global, config, pkgs, ...}:
 let
   inherit (global) username;
   inherit (pkgs) writeText;
@@ -6,6 +6,14 @@ let
 Acha que é assim fácil?
   '';
 in {
+  sops.secrets.admin-password = {
+    sopsFile = ../../secrets/admin-password;
+    group = config.users.groups.admin-password.name;
+    format = "binary";
+    mode = "0440";
+  };
+  users.groups.admin-password = {};
+
   users.users = {
     ${username} = {
       isNormalUser = true;
@@ -17,7 +25,7 @@ in {
         "render"
         "transmission"
       ];
-      initialPassword = "changeme";
+      passwordFile = "/var/run/secrets/admin-password";
       openssh.authorizedKeys.keyFiles = [
         ../../authorized_keys
       ];
