@@ -21,6 +21,8 @@ in {
       after = ["postgresql.service"];
     };
 
+    services.postgresqlBackup.databases = [ "nextcloud" ];
+
     services.postgresql = {
       ensureDatabases = [ "nextcloud" ];
       ensureUsers = [
