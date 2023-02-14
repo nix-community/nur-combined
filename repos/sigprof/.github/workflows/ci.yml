@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@v3.3.0
 
       - name: Install Nix
-        uses: cachix/install-nix-action@daddc62a2e67d1decb56e028c9fa68344b9b7c2a
+        uses: cachix/install-nix-action@5c11eae19dba042788936d4f1c9685fdd814ac49
 
       - name: Setup Cachix
         uses: sigprof/cachix-action@3fea4e0b704f4ec6a652bb4c28391efb5a0b7a8c
@@ -124,7 +124,7 @@ jobs:
         uses: actions/checkout@v3.3.0
 
       - name: Install Nix
-        uses: cachix/install-nix-action@daddc62a2e67d1decb56e028c9fa68344b9b7c2a
+        uses: cachix/install-nix-action@5c11eae19dba042788936d4f1c9685fdd814ac49
 
       - name: Setup Cachix
         uses: sigprof/cachix-action@3fea4e0b704f4ec6a652bb4c28391efb5a0b7a8c
