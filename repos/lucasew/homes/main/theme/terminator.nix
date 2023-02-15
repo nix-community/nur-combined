@@ -4,8 +4,10 @@ let
   inherit (pkgs.custom) colors;
   inherit (colors.colors) base00 base01 base02 base03 base04 base05 base06 base07 base08 base09 base0A base0B base0C base0D base0E base0F;
 in {
+  # terminator_config(5)
   programs.terminator.config = {
     profiles.default = {
+      audible_bell = true;
       background_color = "#${base00}";
       foreground_color = "#${base05}";
       cursor_color = "#${base06}";
