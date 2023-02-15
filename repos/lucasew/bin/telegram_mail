@@ -4,7 +4,7 @@ from os import environ
 import socket
 
 from urllib.parse import quote
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 from pathlib import Path
 
 from argparse import ArgumentParser
@@ -34,6 +34,27 @@ server.bind(str(args.bind))
 args.bind.chmod(0o777)
 server.listen()
 
+
+def encode_multipart_formdata(**fields):
+    from os import urandom
+    import binascii
+    boundary = binascii.hexlify(urandom(16)).decode('ascii')
+
+    body = (
+        "".join("--%s\r\n"
+                "Content-Disposition: form-data; name=\"%s\"\r\n"
+                "\r\n"
+                "%s\r\n" % (boundary, field, str(value))
+                for field, value in fields.items()) + "--%s--\r\n" % boundary  # noqa: E501
+    )
+
+    content_type = "multipart/form-data; boundary=%s" % boundary
+
+    return body, content_type
+
+
+HEADING = f"<b>#{args.hostname}</b>: {subject}"
+
 while True:
     conn, addr = server.accept()
 
@@ -45,27 +66,39 @@ while True:
             data += part
             if len(part) == 0:
                 break
-            if len(data) > 4 * 1024:
+            if len(data) > 20 * 1024 * 1024:
                 raise Exception("payload too big")
+        if len(data) > 950:
+            url = f'https://api.telegram.org/bot{args.telegram_token}/sendDocument'  # noqa: E501
+            body, content_type = encode_multipart_formdata(
+                chat_id=args.telegram_chat,
+                document=data.decode('utf-8'),
+                caption=f"{HEADING}\n<pre>WARNING: Message too big to be sent as a message. The content is in the file.</pre>",  # noqa: E501
+                parse_mode="HTML",
+                disable_content_type_detection=True
+            )
+            res = urlopen(Request(url, data=body.encode('utf-8'), headers={
+                'Content-Type': content_type
+            }))
+        else:
+            lines = data.decode('utf-8').split('\n')
 
-        lines = data.decode('utf-8').split('\n')
-
-        message = []
-        for line in lines:
-            if line.startswith('Subject:') and is_header:
-                subject = line.replace('Subject:', '').strip()
-            else:
-                is_header = False
-                message.append(line)
-        joined_message = "\n".join(message)
-        final_message = f"""
-<b>#{args.hostname}</b>: {subject}
+            message = []
+            for line in lines:
+                if line.startswith('Subject:') and is_header:
+                    subject = line.replace('Subject:', '').strip()
+                else:
+                    is_header = False
+                    message.append(line)
+            joined_message = "\n".join(message)
+            final_message = f"""
+{HEADING}
 <pre>
 {joined_message}
 </pre>
-        """.strip()
-        url = f'https://api.telegram.org/bot{args.telegram_token}/sendMessage?chat_id={args.telegram_chat}&parse_mode=HTML&disable_web_page_preview=1&text={quote(final_message)}'  # noqa: E501
-        res = urlopen(url)
+            """.strip()
+            url = f'https://api.telegram.org/bot{args.telegram_token}/sendMessage?chat_id={args.telegram_chat}&parse_mode=HTML&disable_web_page_preview=1&text={quote(final_message)}'  # noqa: E501
+            res = urlopen(url)
         print(f"Sent '{subject}' (res: {res})")
         conn.send(b'OK')
     except Exception as e:
