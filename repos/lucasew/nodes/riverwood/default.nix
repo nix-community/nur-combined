@@ -32,6 +32,8 @@ in
 
   services.cockpit.enable = true;
 
+  services.telegram-sendmail.enable = true;
+
   environment.systemPackages = with pkgs; [
     kubectl
     terraform

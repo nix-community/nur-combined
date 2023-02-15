@@ -91,6 +91,9 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
 
+    telegram-sendmail.url = "github:lucasew/telegram-sendmail";
+    telegram-sendmail.flake = false;
+
     nbr.url = "github:nixosbrasil/nixpkgs-brasil";
   };
 

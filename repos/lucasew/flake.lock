@@ -757,7 +757,8 @@
         "rust-overlay": "rust-overlay",
         "send2kindle": "send2kindle",
         "simple-dashboard": "simple-dashboard",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "telegram-sendmail": "telegram-sendmail"
       }
     },
     "rust-overlay": {
@@ -831,6 +832,22 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "telegram-sendmail": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676478703,
+        "narHash": "sha256-P/5IF4Vddf26xjwfJ2Zyb0NPaDbIZhZytowyb0xe38U=",
+        "owner": "lucasew",
+        "repo": "telegram-sendmail",
+        "rev": "6c39a5c893d7ca9911bf36fa70fc34a7c9451808",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lucasew",
+        "repo": "telegram-sendmail",
         "type": "github"
       }
     }
