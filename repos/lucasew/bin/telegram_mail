@@ -35,22 +35,35 @@ args.bind.chmod(0o777)
 server.listen()
 
 
-def encode_multipart_formdata(**fields):
+def encode_multipart_formdata(fields=dict(), files=dict()):
     from os import urandom
     import binascii
     boundary = binascii.hexlify(urandom(16)).decode('ascii')
 
-    body = (
-        "".join("--%s\r\n"
-                "Content-Disposition: form-data; name=\"%s\"\r\n"
-                "\r\n"
-                "%s\r\n" % (boundary, field, str(value))
-                for field, value in fields.items()) + "--%s--\r\n" % boundary  # noqa: E501
-    )
+    CRLF = "\r\n"
+    L = []
+    for (key, value) in fields.items():
+        L.append('--' + boundary)
+        L.append(f'Content-Disposition: form-data; name="{key}"')
+        L.append('')
+        L.append(str(value))
 
-    content_type = "multipart/form-data; boundary=%s" % boundary
+    for (key, data) in files.items():
+        L.append('--' + boundary)
+        L.append(f'Content-Disposition: form-data; name="{key}"; filename="data.txt"')  # noqa: E501
+        L.append('Content-Type: text/plain')
+        L.append('')
+        if type(data) == str:
+            L.append(data)
+        elif type(data) == bytes:
+            L.append(data.decode('utf-8'))
+        else:
+            raise Exception('File value must be either a string or bytes')
+    L.append('--' + boundary + '--')
+    L.append('')
 
-    return body, content_type
+    content_type = 'multipart/form-data; boundary=%s' % boundary
+    return CRLF.join(L), content_type
 
 
 HEADING = f"<b>#{args.hostname}</b>: {subject}"
@@ -71,15 +84,24 @@ while True:
         if len(data) > 950:
             url = f'https://api.telegram.org/bot{args.telegram_token}/sendDocument'  # noqa: E501
             body, content_type = encode_multipart_formdata(
-                chat_id=args.telegram_chat,
-                document=data.decode('utf-8'),
-                caption=f"{HEADING}\n<pre>WARNING: Message too big to be sent as a message. The content is in the file.</pre>",  # noqa: E501
-                parse_mode="HTML",
-                disable_content_type_detection=True
+                fields=dict(
+                    chat_id=args.telegram_chat,
+                    caption=f"{HEADING}\n<pre>WARNING: Message too big to be sent as a message. The content is in the file.</pre>",  # noqa: E501
+                    parse_mode="HTML",
+                    disable_content_type_detection=True
+                ),
+                files=dict(
+                    document=data.decode('utf-8'),
+                )
             )
-            res = urlopen(Request(url, data=body.encode('utf-8'), headers={
-                'Content-Type': content_type
-            }))
+            res = urlopen(Request(
+                url,
+                method='POST',
+                data=body.encode('utf-8'),
+                headers={
+                    'Content-Type': content_type
+                }
+            ))
         else:
             lines = data.decode('utf-8').split('\n')
 
