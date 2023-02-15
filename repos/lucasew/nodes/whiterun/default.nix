@@ -25,6 +25,8 @@ in {
 
   virtualisation.oci-containers.backend = "docker";
 
+  services.telegram-sendmail.enable = true;
+
   services.nextcloud = {
     package = pkgs.nextcloud24;
     enable = true;

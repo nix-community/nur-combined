@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+
+from os import environ
+import socket
+
+from urllib.parse import quote
+from urllib.request import urlopen
+from pathlib import Path
+
+from argparse import ArgumentParser
+
+parser = ArgumentParser(prog='telegram_mail', description="sendmail drop-in replacement that sends to Telegram")  # noqa: E501
+
+parser.add_argument('-b,--bind', dest='bind', type=Path, help="Where to bind socket", required=True)  # noqa: E501
+parser.add_argument('-n,--hostname', dest='hostname', type=str, help="This hostname", default=open('/etc/hostname', 'r').read().strip())  # noqa: E501
+parser.add_argument('-s,--subject', dest='default_subject', type=str, help="Default subject", default="Message")  # noqa: E501
+parser.add_argument('-t,--telegram-token', dest='telegram_token', type=str, help="Token telegram", default=environ.get('MAIL_TELEGRAM_TOKEN'))  # noqa: E501
+parser.add_argument('-c,--telegram-chat', dest='telegram_chat', type=str, help="Chat telegram", default=environ.get('MAIL_TELEGRAM_CHAT'))  # noqa: E501
+
+args = parser.parse_args()
+assert args.telegram_token is not None and args.telegram_chat is not None, 'Unauthorized Telegram access'  # noqa: E501
+env_hostname = environ.get('HOSTNAME')
+
+urlopen(f'https://api.telegram.org/bot{args.telegram_token}/getMe')
+
+subject = args.default_subject
+
+server = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+
+if args.bind.is_socket():
+    args.bind.unlink()
+
+server.bind(str(args.bind))
+args.bind.chmod(0o777)
+server.listen()
+
+while True:
+    conn, addr = server.accept()
+
+    is_header = True
+    try:
+        data = b''
+        while True:
+            part = conn.recv(4096)
+            data += part
+            if len(part) == 0:
+                break
+            if len(data) > 4 * 1024:
+                raise Exception("payload too big")
+
+        lines = data.decode('utf-8').split('\n')
+
+        message = []
+        for line in lines:
+            if line.startswith('Subject:') and is_header:
+                subject = line.replace('Subject:', '').strip()
+            else:
+                is_header = False
+                message.append(line)
+        joined_message = "\n".join(message)
+        final_message = f"""
+<b>#{args.hostname}</b>: {subject}
+<pre>
+{joined_message}
+</pre>
+        """.strip()
+        url = f'https://api.telegram.org/bot{args.telegram_token}/sendMessage?chat_id={args.telegram_chat}&parse_mode=HTML&disable_web_page_preview=1&text={quote(final_message)}'  # noqa: E501
+        res = urlopen(url)
+        print(f"Sent '{subject}' (res: {res})")
+        conn.send(b'OK')
+    except Exception as e:
+        print(f"Error sending '{subject}': {str(e)}")
+        conn.send(str(e).encode('utf-8'))
+    conn.close()

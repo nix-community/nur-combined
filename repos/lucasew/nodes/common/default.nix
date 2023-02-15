@@ -19,6 +19,7 @@ in
     ./kvm.nix
     ./unstore.nix
     ./dns.nix
+    ./telegram_sendmail.nix
     "${inputs.simple-dashboard}/nixos-module.nix"
   ];
 
