@@ -26,9 +26,13 @@
     (units: listToAttrs (map (v: nameValuePair v.unit or v (if ! str.check v then v else {})) (toList units)))
     (attrsOf module);
 
+  stopWhenUnneeded = true; # TODO
+
   defaultTargetSettings = {
     unitConfig = {
       X-OnlyManualStart = true;
+      DefaultDependencies = false;
+      StopWhenUnneeded = true;
     };
   };
   defaultServiceSettings = {
@@ -37,6 +41,8 @@
     unitConfig = {
       RefuseManualStart = true;
       RefuseManualStop = true;
+      DefaultDependencies = false;
+      StopWhenUnneeded = true;
     };
     serviceConfig = {
       Type = "oneshot";
@@ -82,9 +88,9 @@
     config = {
       systemTarget.settings = defaultTargetSettings;
       userService.settings = mkMerge [ defaultServiceSettings rec {
-        ${config.systemStrength} = bindsTo;
-        bindsTo = [ (toString config.unit) ];
-        ${config.ordering} = bindsTo;
+        ${config.systemStrength} = singleton (toString config.unit);
+        bindsTo = mkIf (!stopWhenUnneeded) [ (toString config.unit) ];
+        ${config.ordering} = singleton (toString config.unit);
         serviceConfig = {
           ExecStart = singleton "${systemctl} start ${utils.escapeSystemdExecArg (toString config.systemTarget.name)}";
           ExecStop = singleton "${systemctl} stop ${utils.escapeSystemdExecArg (toString config.systemTarget.name)}";
@@ -132,8 +138,8 @@
     config = {
       userTarget.settings = defaultTargetSettings;
       systemService.settings = mkMerge [ defaultServiceSettings rec {
-        bindsTo = [ (toString config.unit) ];
-        ${config.ordering} = bindsTo;
+        bindsTo = mkIf (!stopWhenUnneeded) [ (toString config.unit) ];
+        ${config.ordering} = singleton (toString config.unit);
         serviceConfig = let
         in {
           Environment = [
