@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from os import environ
+from sys import stderr
 import socket
 
 from urllib.parse import quote
@@ -42,13 +43,13 @@ def encode_multipart_formdata(fields=dict(), files=dict()):
 
     CRLF = "\r\n"
     L = []
-    for (key, value) in fields.items():
+    for key, value in fields.items():
         L.append('--' + boundary)
         L.append(f'Content-Disposition: form-data; name="{key}"')
         L.append('')
         L.append(str(value))
 
-    for (key, data) in files.items():
+    for key, data in files.items():
         L.append('--' + boundary)
         L.append(f'Content-Disposition: form-data; name="{key}"; filename="data.txt"')  # noqa: E501
         L.append('Content-Type: text/plain')
@@ -81,19 +82,35 @@ while True:
                 break
             if len(data) > 20 * 1024 * 1024:
                 raise Exception("payload too big")
-        if len(data) > 950:
+
+        lines = data.decode('utf-8').split('\n')
+
+        message = []
+        for line in lines:
+            if line.startswith('Subject:') and is_header:
+                subject = line.replace('Subject:', '').strip()
+            else:
+                is_header = False
+                message.append(line)
+        joined_message = "\n".join(message)
+
+        if len(joined_message) > 950:
             url = f'https://api.telegram.org/bot{args.telegram_token}/sendDocument'  # noqa: E501
+
+            summary = "\n".join(joined_message[:512].split('\n')[:-1])
+            caption = f"{HEADING}\n<pre>{summary}</pre>\n\n<pre>⚠️ WARNING: Message too big to be sent as a message. The content is in the file.</pre>"  # noqa: E501
+            assert len(caption) <= 1024
             body, content_type = encode_multipart_formdata(
                 fields=dict(
                     chat_id=args.telegram_chat,
-                    caption=f"{HEADING}\n<pre>WARNING: Message too big to be sent as a message. The content is in the file.</pre>",  # noqa: E501
+                    caption=caption,
                     parse_mode="HTML",
-                    disable_content_type_detection=True
                 ),
                 files=dict(
-                    document=data.decode('utf-8'),
+                    document=joined_message
                 )
             )
+            assert type(body) == str, f'type of body is {str(type(body))}, not str'  # noqa: E501
             res = urlopen(Request(
                 url,
                 method='POST',
@@ -103,16 +120,6 @@ while True:
                 }
             ))
         else:
-            lines = data.decode('utf-8').split('\n')
-
-            message = []
-            for line in lines:
-                if line.startswith('Subject:') and is_header:
-                    subject = line.replace('Subject:', '').strip()
-                else:
-                    is_header = False
-                    message.append(line)
-            joined_message = "\n".join(message)
             final_message = f"""
 {HEADING}
 <pre>
@@ -121,9 +128,15 @@ while True:
             """.strip()
             url = f'https://api.telegram.org/bot{args.telegram_token}/sendMessage?chat_id={args.telegram_chat}&parse_mode=HTML&disable_web_page_preview=1&text={quote(final_message)}'  # noqa: E501
             res = urlopen(url)
-        print(f"Sent '{subject}' (res: {res})")
+        print(f"Sent '{subject}' (res: {res})", file=stderr)
         conn.send(b'OK')
     except Exception as e:
-        print(f"Error sending '{subject}': {str(e)}")
+        import traceback
+        print(f"Error sending '{subject}': {str(e)}", file=stderr)
+        traceback.print_exc(file=stderr)
+        try:
+            print(e.read().decode(), file=stderr)
+        except Exception:
+            pass
         conn.send(str(e).encode('utf-8'))
     conn.close()
