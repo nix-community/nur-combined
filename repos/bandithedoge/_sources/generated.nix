@@ -19,15 +19,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "e0ff27ebb434e8add09adacadf16385ce8170e6c";
+    version = "605cb05604453bbdc74bacd9dd39c54b3eed9a26";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "e0ff27ebb434e8add09adacadf16385ce8170e6c";
+      rev = "605cb05604453bbdc74bacd9dd39c54b3eed9a26";
       fetchSubmodules = true;
-      sha256 = "sha256-sMogEdKgSLWErSFHpWEQFBH9ggtpETL6I/0qbjGlYx4=";
+      sha256 = "sha256-aAVAGWrKOZ29ZwCfvLHkpwJ+rd62EYgOtzptQAaskyg=";
     };
-    date = "2023-02-12";
+    date = "2023-02-14";
   };
   carla = {
     pname = "carla";
