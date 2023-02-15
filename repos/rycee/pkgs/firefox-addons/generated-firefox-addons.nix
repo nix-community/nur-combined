@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0buildid20230213.213738";
+      version = "111.0buildid20230214.145154";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4070062/francais_language_pack-110.0buildid20230213.213738.xpi";
-      sha256 = "0cdff9a74aa5c759d9e32f4ecb26b027d598bd005ecbc8ff97535892c0264963";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4070683/francais_language_pack-111.0buildid20230214.145154.xpi";
+      sha256 = "9d2dc3f0757fab30f76f7b863d5a6814492211d2191456ce449e7c8b4c7562cd";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1506,10 +1506,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.33";
+      version = "2.7.39";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064669/momentumdash-2.7.33.xpi";
-      sha256 = "5debdd9010971941c3c08f2c04b5faf4012de9979cd3b7bf5d3049f7723dad21";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067989/momentumdash-2.7.39.xpi";
+      sha256 = "2d1b9d0738e83d115a993c995c5dcdf97e9d56397bed15aa9bb1b5517d6b45a7";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1756,10 +1756,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.17.0";
+      version = "6.18.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055747/okta_browser_plugin-6.17.0.xpi";
-      sha256 = "f68dddcebe93082104326b4383cd5bf34787201e17c6e84d48ca02fdc37e2521";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067891/okta_browser_plugin-6.18.0.xpi";
+      sha256 = "13fbd6c2734396fe7b2eab38cd09c5b47ab40cabd59113a06459865e16b2e029";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -1974,10 +1974,10 @@
       };
     "privacy-pass" = buildFirefoxXpiAddon {
       pname = "privacy-pass";
-      version = "3.0.4";
+      version = "3.0.5";
       addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029152/privacy_pass-3.0.4.xpi";
-      sha256 = "acb6d3001e2af078792bdde7154113dacb9434eb0d55d81e96923b11a0594a9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4068311/privacy_pass-3.0.5.xpi";
+      sha256 = "a8f1d496986af78fd91b9e44c782b80afc45d0cb39013d5cfb54da1611e21273";
       meta = with lib;
       {
         homepage = "https://privacypass.github.io";
@@ -2322,10 +2322,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.37";
+      version = "1.21.39";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063273/single_file-1.21.37.xpi";
-      sha256 = "2c9d9bd8af4a959c35f67886c8e036539cc6c65605e7af61b8b4392c133d8b45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4067736/single_file-1.21.39.xpi";
+      sha256 = "638c44e18ca6550ada646e77a11d0646eb548352ad33165cab59a09e7a2031ef";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -3072,10 +3072,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.54";
+      version = "6.10.55";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4056719/wappalyzer-6.10.54.xpi";
-      sha256 = "8e63e9bbb192ce57ff6885917fb38b78f828f13d2a541a74f52ccd4becafa42a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4068297/wappalyzer-6.10.55.xpi";
+      sha256 = "61af3becc784281aa7bc13702ef7bc2d1f45521728838e2b4dce90b9fe1a648f";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
