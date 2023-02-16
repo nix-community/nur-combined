@@ -71,7 +71,7 @@ Or, use variables from this repository in case I change them:
 |  | [an-anime-game-launcher-gtk-bin](https://github.com/an-anime-team/an-anime-game-launcher-gtk) | 1.2.5 | `an-anime-game-launcher-gtk-bin` | (EXPERIMENTAL: Needs manual game patching) An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library |
 |  | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 3855cec2ef2667f3e9224006dbaf179575752218 | `asterisk-g72x` | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.0 | `baidupcs-go` | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
-|  | [bilibili](https://app.bilibili.com/) | 1.9.0-2 | `bilibili` | Bilibili desktop client |
+|  | [bilibili](https://app.bilibili.com/) | 1.9.1-3 | `bilibili` | Bilibili desktop client |
 |  | [bird-babel-rtt](http://bird.network.cz) | e508ca76a198f633e1720466e1084333ae8b2742 | `bird-babel-rtt` | BIRD Internet Routing Daemon |
 |  | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 7b0c8c05566ca0a7e2f724cd9627aa75ef309add | `bird-lg-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 7b0c8c05566ca0a7e2f724cd9627aa75ef309add | `bird-lgproxy-go` | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
@@ -97,7 +97,7 @@ Or, use variables from this repository in case I change them:
 |  | [gopherus](http://gopherus.sourceforge.net/) | 1.2.1 | `gopherus` | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace. |
 |  | [hath](https://e-hentai.org/) | 1.6.1 | `hath` | Hentai@Home |
 |  | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | `hesuvi-hrir` | Headphone Surround Virtualizations for Equalizer APO |
-|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | c58ae5ae1640467d5d681a1391ebe7cea2c7ce7c | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
+|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | ad3d2e792ac506ec48815e4b5df56f0394e32a88 | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
 |  | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | `kaixinsong-fonts` | KaiXinSong |
 |  | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | `konnect` | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | `ldap-auth-proxy` | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
@@ -111,19 +111,19 @@ Or, use variables from this repository in case I change them:
 |  | [nvlax](https://github.com/illnyang/nvlax) | b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f | `nvlax` | Future-proof NvENC & NvFBC patcher |
 |  | [onepush](https://gitlab.com/y1ndan/onepush) | c7dd8c82e4eb74501d7e6bcf0c42d1caa0c0ffc2 | `onepush` | A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk. |
 |  | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | `openssl-oqs` | A cryptographic library that implements the SSL and TLS protocols |
-|  | [openssl-oqs-provider](https://openquantumsafe.org) | 5834cf16b60e156f809b293bc19c486d3c0fca9c | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
+|  | [openssl-oqs-provider](https://openquantumsafe.org) | 4b5b704fbf787f78a268443faa1644dc2a60cdc9 | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
 |  | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.13 | `osdlyrics` | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
 |  | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | `payload-dumper-go` | An android OTA payload dumper written in Go |
-|  | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.0 | `phpmyadmin` | A web interface for MySQL and MariaDB |
+|  | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | `phpmyadmin` | A web interface for MySQL and MariaDB |
 |  | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.3-mod | `phppgadmin` | The premier web-based administration tool for PostgreSQL |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
-|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-2 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
+|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-3 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
 |  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | QQ for Linux |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
 |  | [rime-dict](https://github.com/Iorest/rime-dict) | 325ecbda51cd93e07e2fe02e37e5f14d94a4a541 | `rime-dict` | RIME 词库增强 |
-|  | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20230114 | `rime-moegirl` | Releases for dict of zh.moegirl.org.cn |
+|  | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20230214 | `rime-moegirl` | Releases for dict of zh.moegirl.org.cn |
 |  | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20220416 | `rime-zhwiki` | Fcitx 5 Pinyin Dictionary from zh.wikipedia.org |
 |  | [route-chain](https://github.com/xddxdd/route-chain) | e68c96e5e4df70c797d5a99acc8226713a22d7f5 | `route-chain` | A small app to generate a long path in traceroute. |
 |  | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.0.1 | `space-cadet-pinball-full-tilt` | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
@@ -190,10 +190,10 @@ Or, use variables from this repository in case I change them:
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
 |  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.9-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | linux-config | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | linux-config | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>
