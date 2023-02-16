@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "mpv-quality-menu";
-  version = "3.0.2";
+  version = "4.0.0";
 
   src = fetchFromGitHub {
     owner = "christoph-heinrich";
     repo = "mpv-quality-menu";
     rev = "v${version}";
-    sha256 = "sha256-0dm/GP+RUlIBYVK/G/M/LLRrzDmjzsgfjoDkj1f5++w=";
+    sha256 = "sha256-oLM7PN9tE0k1XhDgI7DvpeDhEtrghtxV3uN4jahdI3E=";
   };
 
   dontBuild = true;
