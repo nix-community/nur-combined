@@ -47,9 +47,19 @@
       };
     };
 
+    # Secrets Management <3
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "stable";
+    };
+
+    # Terraform via the nix language
+    terranix = {
+      url = "github:terranix/terranix";
+      inputs = {
+        nixpkgs.follows = "stable";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     # Simply required for sane management of Firefox on darwin
@@ -101,16 +111,44 @@
         "armv7l-linux"
       ];
     in flake-utils.lib.eachSystem exposedSystems (system: {
+      # Space in which exposed derivations can be ran via
+      # nix run .#foo - handy in the future for stuff like deploying
+      # via terraform or automation tasks that are relatively 
+      # procedural 
+      apps = import ./apps { inherit self system; };
+
+      # Pre-commit hooks to enforce formatting, lining, find 
+      # antipatterns and ensure they don't reach upstream
       checks = import ./checks { inherit self system; };
+
+      # Shell environments (applied to both nix develop and nix-shell via
+      # shell.nix in top level directory)
       devShells = import ./shells { inherit self system; };
-      formatter = self.inputs.stable.legacyPackages.${system}.nixfmt;
-      packages = import ./packages { inherit self system; };
+
+      # Formatter option for `nix fmt` - redundant via checks but nice to have
+      formatter = self.inputs.unstable.legacyPackages.${system}.nixfmt;
+
+      # Locally defined packages for flake consumption or consumption
+      # on the nur via: pkgs.nur.repos.JayRovacsek if utilising the nur overlay
+      # (all systems in this flake apply this opinion via the common.modules)
+      # construct
+      packages = import ./packages {
+        inherit self system;
+        pkgs = self.inputs.unstable.legacyPackages.${system};
+      };
     }) // {
       inherit exposedSystems;
 
+      # Useful functions to use throughout the flake
       lib = import ./lib { inherit self; };
+
+      # Common/consistent values to be consumed by the flake
       common = import ./common { inherit self; };
+
+      # Overlays for when stuff really doesn't fit in the round hole
       overlays = import ./overlays { inherit self; };
+
+      # System configurations
       nixosConfigurations = import ./linux { inherit self; };
       darwinConfigurations = import ./darwin { inherit self; };
     };

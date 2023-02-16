@@ -1,13 +1,10 @@
-{ self ? null, system ? null, pkgs ? null }:
+{ self ? null, system ? null, pkgs ? import <nixpkgs> { } }:
 let
-  pkgs = if builtins.isNull self then
-    import <nixpkgs> { }
-  else
-    self.inputs.stable.legacyPackages.${system};
-
   inherit (pkgs) callPackage;
   inherit (pkgs.stdenv) isLinux isDarwin isx86_64;
   inherit (pkgs.lib) recursiveUpdate;
+
+  isFlake = !(builtins.isNull self) && !(builtins.isNull system);
 
   # Amethyst only evaluates on darwin, because the context of this is both
   # via NUR and a flake, the below is done to hack this requirement
@@ -24,7 +21,39 @@ let
   } else
     { };
 
-  extraPackages = darwinPackages // x64LinuxPackages;
+  flakePackages = if isFlake then
+    let inherit (self.inputs) terranix;
+    in {
+      linode = terranix.lib.terranixConfiguration {
+        inherit system;
+        modules = [
+          { config._module.args = { inherit self system; }; }
+          ../terranix/linode
+        ];
+      };
+
+      linode-openvpn = terranix.lib.terranixConfiguration {
+        inherit system;
+        modules = [
+          { config._module.args = { inherit self; }; }
+          ../terranix/linode-openvpn
+        ];
+      };
+
+      csgo = terranix.lib.terranixConfiguration {
+        inherit system;
+        modules =
+          [ { config._module.args = { inherit self; }; } ../terranix/csgo ];
+      };
+
+      ditto-transform = callPackage ./ditto-transform { inherit self; };
+    }
+  else
+    {
+
+    };
+
+  extraPackages = darwinPackages // x64LinuxPackages // flakePackages;
 
   packages = {
     better-english = callPackage ./better-english { };

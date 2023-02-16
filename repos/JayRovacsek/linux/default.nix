@@ -19,6 +19,30 @@ in {
   rpi1 = import ../common/images/rpi1.nix { inherit self; };
   rpi2 = import ../common/images/rpi2.nix { inherit self; };
 
+  # Cloud Base Images
+  linode = import ../common/images/linode.nix { inherit self; };
+
+  # Base Configuration Hosts
+  # Above cloud base images all inherit from this configuration effectively 
+  # so exposure here is more to give a consistent base and be enabled to add tweaks
+  # at a level in which it is inherited from all base-images
+  # This host otherwise is simply a very base headless install
+  ditto = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/ditto ];
+  in unstable-system { inherit system pkgs modules; };
+
+  # Cloud Instances
+
+  diglett = let
+    inherit (x86_64-linux-unstable) system identifier pkgs;
+    # Inject the required linode settings viathe cloud base image module
+    inherit (self.common.cloud-base-image-modules) linode;
+    base = self.common.modules.${identifier};
+    modules = base ++ [ ../hosts/diglett linode ];
+  in unstable-system { inherit system pkgs modules; };
+
   # Hosts
   alakazam = let
     inherit (x86_64-linux-unstable) system identifier pkgs;
@@ -59,7 +83,7 @@ in {
     modules = base ++ [ ../hosts/zubat nixos-wsl.nixosModules.wsl ];
   in stable-system { inherit system pkgs modules; };
 
-  ## MICROVMS
+  ## MicroVMs
 
   igglybuff = let
     inherit (x86_64-linux-unstable) system identifier pkgs;

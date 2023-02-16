@@ -1,3 +1,14 @@
+# Base nix jazz
 .direnv
 .pre-commit-config.yaml
+result
+
+# Temporary
 modules/docker/configs/csgo
+
+# Terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
+terraform.tfvars
