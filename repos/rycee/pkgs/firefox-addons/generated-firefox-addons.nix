@@ -1169,10 +1169,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.21.0";
+      version = "2.22.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4063075/ipfs_companion-2.21.0.xpi";
-      sha256 = "28be6a8598b795f736c310eea62a6cc5752266e64299e4e8fd6a1252b32ad5a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071383/ipfs_companion-2.22.0.xpi";
+      sha256 = "7b17d29a66423e980f581b842b0fd661472076244d7ada4af2ca771187328177";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -2239,10 +2239,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.7";
+      version = "28.8";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066108/save_page_we-28.7.xpi";
-      sha256 = "5fe6e9d9848dd31724f48841936835f47ef9b2ad764de40235856648e0747d93";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069635/save_page_we-28.8.xpi";
+      sha256 = "e21cb930e3a1ea04a64ced38dbb71c8f5426fc0eaaeeae1b6e48f402e453d791";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2857,10 +2857,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.46.0";
+      version = "1.47.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4047353/ublock_origin-1.46.0.xpi";
-      sha256 = "6bf8af5266353fab5eabdc7476de026e01edfb7901b0430c5e539f6791f1edc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069969/ublock_origin-1.47.0.xpi";
+      sha256 = "e76958a8c8eb4b71954dac9b0eb1f5a7a545f746159227e0b821b1a1b23f7cd4";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
