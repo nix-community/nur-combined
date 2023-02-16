@@ -440,6 +440,9 @@
     }
   },
   {
+    "slug": "modrinthify"
+  },
+  {
     "slug": "momentumdash",
     "license": {
       "tag": "custom",

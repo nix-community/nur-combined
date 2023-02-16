@@ -1504,6 +1504,20 @@
         platforms = platforms.all;
         };
       };
+    "modrinthify" = buildFirefoxXpiAddon {
+      pname = "modrinthify";
+      version = "1.5.3";
+      addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4050444/modrinthify-1.5.3.xpi";
+      sha256 = "b623289b564bfb9ee2965c296011661bd3fef8c0b9ee5f7c5423110bf8d5d619";
+      meta = with lib;
+      {
+        homepage = "https://github.com/devBoi76/modrinthify";
+        description = "Automatically searches Modrinth for Curseforge mods and displays Modrinth notifications in the toolbar!";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
       version = "2.7.39";
