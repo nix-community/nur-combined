@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 let
+  inherit (inputs) self;
   alacritty-bin = pkgs.writeScriptBin "alacritty" ''
     #!${pkgs.stdenv.shell}
     exec ${pkgs.nixGL.auto.nixGLDefault}/bin/nixGL ${pkgs.alacritty}/bin/alacritty
@@ -20,7 +21,7 @@ let
 in {
   imports = [
     ./nixgl.nix
-    ../common/alacritty.nix
+    "${self}/home/profiles/common/alacritty.nix"
   ];
 
   programs.alacritty.package = alacritty-bin;

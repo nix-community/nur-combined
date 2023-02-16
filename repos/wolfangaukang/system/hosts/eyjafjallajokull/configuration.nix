@@ -1,23 +1,24 @@
-{ pkgs, config, lib, hostname, ... }:
+{ config, lib, hostname, inputs, ... }:
 
 let
   inherit (lib) mkForce;
+  inherit (inputs) self;
 
 in {
   imports = [
     ./disk-setup.nix
     ./hardware-configuration.nix
-    ../../profiles/console.nix
-    ../../profiles/de/pantheon.nix
-    ../../profiles/environment.nix
-    ../../profiles/flatpak.nix
-    ../../profiles/graphics.nix
-    ../../profiles/layouts.nix
-    ../../profiles/networking.nix
-    ../../profiles/rfkill.nix
-    ../../profiles/security.nix
-    ../../profiles/time.nix
-    ../../profiles/users.nix
+    "${self}/system/profiles/console.nix"
+    "${self}/system/profiles/de/pantheon.nix"
+    "${self}/system/profiles/environment.nix"
+    "${self}/system/profiles/flatpak.nix"
+    "${self}/system/profiles/graphics.nix"
+    "${self}/system/profiles/layouts.nix"
+    "${self}/system/profiles/networking.nix"
+    "${self}/system/profiles/rfkill.nix"
+    "${self}/system/profiles/security.nix"
+    "${self}/system/profiles/time.nix"
+    "${self}/system/profiles/users.nix"
   ];
 
   networking.hostName = hostname;
@@ -56,7 +57,6 @@ in {
   specialisation.simplerisk = {
     inheritParentConfig = true;
     configuration = {
-      system.nixos.tags = [ "simplerisk" ];
       profile = {
         virtualization.podman.enable = mkForce false;
         work.simplerisk.enable = true;

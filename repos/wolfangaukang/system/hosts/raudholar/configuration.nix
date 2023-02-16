@@ -1,8 +1,18 @@
-{ config, pkgs, lib, ... }: {
+{ config
+, pkgs
+, lib
+, inputs
+, ...
 
+}:
+
+let
+  inherit (inputs) self;
+
+in {
   imports = [
     #<nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    ../../profiles/console.nix
+    "${self}/system/profiles/console.nix"
   ];
 
   # FIXME: Still testing

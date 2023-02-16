@@ -1,16 +1,17 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   user = "bjorn";
+  inherit (inputs) self;
 
 in
 {
   imports = [
-    ../../profiles/common/fonts.nix
-    ../../profiles/common/layouts.nix
-    ../../profiles/common/syncthing.nix
-    ../../profiles/common/shells/zsh.nix
-    ../../profiles/nixos/alacritty.nix
+    "${self}/home/profiles/configurations/fonts.nix"
+    "${self}/home/profiles/configurations/layouts.nix"
+    "${self}/home/profiles/programs/syncthing.nix"
+    "${self}/home/profiles/programs/shells/zsh.nix"
+    "${self}/home/profiles/programs/nixos/alacritty.nix"
   ];
 
   home = {

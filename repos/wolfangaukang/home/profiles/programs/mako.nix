@@ -1,9 +1,12 @@
-{ ... }:
+{ inputs, ... }:
 
-{
+let
+  inherit (inputs) self;
+
+in {
   # Ensure Iosevka is there
   imports = [
-    ./fonts.nix
+    "${self}/home/profiles/configurations/fonts.nix"
   ];
 
   programs.mako = {

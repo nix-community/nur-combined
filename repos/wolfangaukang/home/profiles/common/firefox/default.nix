@@ -1,6 +1,13 @@
-{ firefox-addons }:
+{ lib
+, firefox-addons
+, enable-personal ? false
+}:
 
-{
+let
+  inherit (lib) mkIf;
+  engines = import ./engines.nix;
+
+in {
   firefox = {
     settings = {
       "browser.download.dir" = "/home/bjorn/Elsxutujo";
@@ -14,6 +21,7 @@
     search = {
       force = true;
       default = "DuckDuckGo";
+      engines = engines.general // (mkIf enable-personal engines.personal);
     };
     extensions = with firefox-addons; [
       auto-tab-discard

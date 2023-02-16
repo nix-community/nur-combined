@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
@@ -26,7 +26,7 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     { home.packages = defaultPkgs ++ cfg.extraPkgs; }
-    (import ../../profiles/common/vscode.nix { inherit pkgs; })
+    (import "${inputs.self}/home/profiles/programs/vscode.nix" { inherit pkgs; })
   ]);
 
   meta.maintainers = with maintainers; [ wolfangaukang ];

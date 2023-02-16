@@ -2,6 +2,7 @@
 
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
+  inherit (inputs) self;
   cfg = config.defaultajAgordoj.cli;
   defaultPkgs = with pkgs; [ tree p7zip ];
 
@@ -35,11 +36,11 @@ in
     {
       home.packages = defaultPkgs ++ cfg.extraPkgs;
     }
-    (mkIf cfg.enableTmux (import ../../profiles/common/tmux.nix { inherit pkgs; }))
-    (import ../../profiles/common/git.nix { })
-    (import ../../profiles/common/gpg.nix { })
-    (import ../../profiles/common/neovim.nix { inherit pkgs inputs; })
-    (import ../../profiles/common/ssh.nix { inherit lib; })
+    (mkIf cfg.enableTmux (import "${self}/home/profiles/programs/tmux.nix" { inherit pkgs; }))
+    (import "${self}/home/profiles/programs/git.nix" { })
+    (import "${self}/home/profiles/programs/gpg.nix" { })
+    (import "${self}/home/profiles/programs/neovim.nix" { inherit pkgs inputs; })
+    (import "${self}/home/profiles/programs/ssh.nix" { inherit lib; })
   ]);
 
   meta.maintainers = with maintainers; [ wolfangaukang ];

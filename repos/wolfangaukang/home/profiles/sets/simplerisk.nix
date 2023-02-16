@@ -9,7 +9,10 @@
 let
   inherit (pkgs.nur.repos.rycee) firefox-addons;
   inherit (pkgs.lib) mkMerge;
-  common = import "${self}/home/profiles/common.nix" { inherit firefox-addons; };
+  common = import "${self}/home/profiles/common/firefox" {
+    inherit firefox-addons;
+    lib = pkgs.lib;
+  };
 
 in {
   home.packages = with pkgs; [

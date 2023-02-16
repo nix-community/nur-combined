@@ -112,11 +112,11 @@ in {
         defaultApplications = mimelist;
       };
     }
-    (mkIf bcfg.firefox.enable (import "${self}/home/profiles/common/firefox.nix" {
+    (mkIf bcfg.firefox.enable (import "${self}/home/profiles/programs/firefox.nix" {
        inherit pkgs lib self;
        firefox-pkg = bcfg.firefox.package;
      }))
-    (mkIf bcfg.chromium.enable (import "${self}/home/profiles/common/chromium.nix" {
+    (mkIf bcfg.chromium.enable (import "${self}/home/profiles/programs/chromium.nix" {
        inherit pkgs;
        chromium-pkg = bcfg.chromium.package;
      }))

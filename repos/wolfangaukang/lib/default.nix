@@ -86,7 +86,7 @@ rec {
         ++ optionals (enable-sops) sopsConfig
         ++ (importUsers users hostname)
         ++ extra-modules;
-      extraArgs = { inherit hostname; };
+      specialArgs = { inherit hostname inputs; };
     };
 
   mkHome =

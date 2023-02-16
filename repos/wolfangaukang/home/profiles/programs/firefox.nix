@@ -7,7 +7,13 @@
 let
   inherit (pkgs.nur.repos.wolfangaukang) multifirefox vdhcoapp;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
-  common = import "${self}/home/profiles/common.nix" { inherit firefox-addons; };
+  # FIXME: Find a way to limit this
+  common = import "${self}/home/profiles/common/firefox" {
+    inherit firefox-addons;
+    lib = pkgs.lib;
+    enable-personal = true;
+  };
+  searches = import "${self}/home/profiles/common/firefox/searches.nix";
 
   defaultPkg = pkgs.wrapFirefox pkgs.firefox-unwrapped {
     #cfg = {
@@ -28,11 +34,9 @@ in {
     enable = true;
     package = if firefox-pkg == null then defaultPkg else firefox-pkg;
     profiles = 
-      let
-        search = common.firefox.search;
-      in {
+      {
         default = {
-          inherit search;
+          search = common.firefox.search;
           name = "Sandbox";
           extensions = common.firefox.extensions ++ (with firefox-addons; [ darkreader privacy-redirect ]);
           settings = lib.mkMerge [
@@ -56,7 +60,7 @@ in {
           ];
         };
         personal = {
-          inherit search;
+          search = common.firefox.search;
           id = 1;
           name = "Personal";
           extensions = common.firefox.extensions ++ (with firefox-addons; [
@@ -71,7 +75,7 @@ in {
           ];
         };
         gnaujep = {
-          inherit search;
+          search = common.firefox.search;
           id = 2;
           name = "Gnaujep";
           extensions = common.firefox.extensions ++ (with firefox-addons; [ multi-account-containers ]);
@@ -80,7 +84,7 @@ in {
           ];
         };
         j = {
-          inherit search;
+          search = common.firefox.search;
           id = 3;
           name = "J";
           extensions = common.firefox.extensions ++ (with firefox-addons; [ multi-account-containers ]);
