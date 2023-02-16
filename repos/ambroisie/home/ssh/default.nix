@@ -10,6 +10,11 @@ in
   config.programs.ssh = lib.mkIf cfg.enable {
     enable = true;
 
+    includes = [
+      # Local configuration, not-versioned
+      "config.local"
+    ];
+
     matchBlocks = {
       "github.com" = {
         hostname = "github.com";
