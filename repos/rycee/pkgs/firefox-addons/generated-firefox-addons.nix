@@ -99,10 +99,10 @@
       };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.6";
+      version = "1.0.7";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3959267/angular_devtools-1.0.6.xpi";
-      sha256 = "111c1ab57621c185b611f503137b892ac18af1571909caea006f94f631179cea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4072031/angular_devtools-1.0.7.xpi";
+      sha256 = "85359059376fd3ecbddce5cfd0ff6f811c72ad097944e6274fe2906990f4f6cc";
       meta = with lib;
       {
         homepage = "https://angular.io/devtools";
@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230214.145154";
+      version = "111.0buildid20230216.185941";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4070683/francais_language_pack-111.0buildid20230214.145154.xpi";
-      sha256 = "9d2dc3f0757fab30f76f7b863d5a6814492211d2191456ce449e7c8b4c7562cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071882/francais_language_pack-111.0buildid20230216.185941.xpi";
+      sha256 = "7acc41abb21a90002aa2c9b2fc61978034160c59b22acc78020cf3974429bb7e";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -2770,10 +2770,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.4.0";
+      version = "2.5.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4045051/tournesol_extension-2.4.0.xpi";
-      sha256 = "fe0ea807e2a2001e6963b4cabec1c3984aa625d2ab61171653ad461c1b492b4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071664/tournesol_extension-2.5.0.xpi";
+      sha256 = "286a04b7a5ea47cd53ed7568a67e6b8df9b7dd472167ce1c8bdbe0538fcefb09";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
