@@ -27,13 +27,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install nix
-        uses: cachix/install-nix-action@v18
+        uses: cachix/install-nix-action@v19
         with:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
             auto-optimise-store = true
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             log-lines = 1000
       - name: Setup cachix
         uses: cachix/cachix-action@v12
