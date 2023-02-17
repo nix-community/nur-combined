@@ -16,7 +16,8 @@ in with pkgs; rec {
   };
 
   cascadia-code-powerline = runCommand "cascadia-code-powerline" {} ''
-    install -m644 --target $out/share/fonts/truetype -D ${cascadia-code}/share/fonts/truetype/CascadiaCode-*.ttf
+    install -m644 --target $out/share/fonts/opentype -D ${cascadia-code}/share/fonts/opentype/CascadiaCodePL-*.ttf
+    install -m644 --target $out/share/fonts/truetype -D ${cascadia-code}/share/fonts/truetype/CascadiaCodePL-*.ttf
   '';
 
   cmake-extras = callPackage ./pkgs/cmake-extras {};
