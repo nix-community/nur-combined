@@ -3,16 +3,16 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "d011f06e5a7d14ace67b5c6cbbed9a36d3e62dd7";
+    version = "bb55c99c212fe02a22b386745391785f1837ef91";
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "d011f06e5a7d14ace67b5c6cbbed9a36d3e62dd7";
+      rev = "bb55c99c212fe02a22b386745391785f1837ef91";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-GfaugCAYORBwZ9DdqQKPqrKEvdU8KCQYVxdq5WyHzvg=";
+      sha256 = "sha256-3qbtFXa5+d10qy3ghyWUFctL8JYby2KUH0sNZ/hKUUc=";
     };
-    date = "2022-10-18";
+    date = "2023-02-16";
   };
   clash-for-windows = {
     pname = "clash-for-windows";
@@ -24,34 +24,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2023.01.29";
+    version = "2023.02.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.01.29.gz";
-      sha256 = "sha256-7q/bumfaW4BNDBApUcllJa05zCjhIXZMrU0IzpGYdoI=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.02.16.gz";
+      sha256 = "sha256-bACSD5Wchw6BOb3OhyAM/POcDGVasbnpxubmKaaWqWo=";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2023.01.29";
+    version = "2023.02.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.01.29.gz";
-      sha256 = "sha256-GwSWvKhk3bK06wQghOjJXpZPMU+r1GMZN3NCzNn++d4=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.02.16.gz";
+      sha256 = "sha256-x2cwLY3AtEd0iriLWlXt3hahtYmU386oKNmct001V6s=";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2023.01.29";
+    version = "2023.02.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.01.29.gz";
-      sha256 = "sha256-RPx4dHs6VWDaGWIbpBtxlZaqwSJsiFHRmaND+ke3Z+c=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.02.16.gz";
+      sha256 = "sha256-szE3P2fdWa6zbaMVMfjVrcYgQ6l1yPT33opy6lsyf+s=";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.01.29";
+    version = "2023.02.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.01.29.gz";
-      sha256 = "sha256-LCN9HNBZZ1oAIeLxm/NnMdnD5Hrw1STgisXOUdSYPaY=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.02.16.gz";
+      sha256 = "sha256-dqGV4zRMlV9sTUqRawigLWu6toMRdeBn+McaUPZjAZ4=";
     };
   };
   commit-notifier = {
