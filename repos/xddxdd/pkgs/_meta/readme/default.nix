@@ -79,7 +79,7 @@ writeTextFile {
 
     ## Warning
 
-    This NUR contains packages customized for my own use. These packages reside in `lantianCustomized` and `lantianPersonal` categories. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
+    This NUR contains packages customized for my own use. These packages reside in `lantianCustomized`, `lantianLinuxXanmod` and `lantianPersonal` categories. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
 
     Packages in all other categories are for public use. I will try my best to minimize changes/customizations on them, and accept issues and pull requests for them.
 

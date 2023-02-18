@@ -5,6 +5,7 @@
 , fetchFromGitHub
 , buildLinux
 , lto ? false
+, x86_64-march ? "v1"
 , ...
 } @ args:
 
@@ -46,6 +47,24 @@ let
       buildPlatform = mkLLVMPlatform old.buildPlatform;
       extraNativeBuildInputs = [ hostLLVM.lld pkgs.patchelf ];
     });
+
+  marchFlags = with lib.kernel; {
+    "v1" = {
+      GENERIC_CPU = yes;
+    };
+    "v2" = {
+      GENERIC_CPU = no;
+      GENERIC_CPU2 = yes;
+    };
+    "v3" = {
+      GENERIC_CPU = no;
+      GENERIC_CPU3 = yes;
+    };
+    "v4" = {
+      GENERIC_CPU = no;
+      GENERIC_CPU4 = yes;
+    };
+  };
 in
 buildLinux {
   inherit lib;
@@ -72,7 +91,7 @@ buildLinux {
       ]) // (with lib.kernel; {
         LTO_NONE = no;
         LTO_CLANG_FULL = yes;
-      }));
+      }) // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { }));
 
   kernelPatches = [
     pkgs.kernelPatches.bridge_stp_helper

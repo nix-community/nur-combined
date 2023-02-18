@@ -54,20 +54,36 @@ mkScope (self: pkg: rec {
     asterisk = pkg ./lantian-customized/asterisk { };
     coredns = pkg ./lantian-customized/coredns { };
 
-    linux-xanmod-lantian = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = false; });
-    linux-xanmod-lantian-config = ifNotCI lantianCustomized.linux-xanmod-lantian.configfile;
-    linux-xanmod-lantian-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian { lto = true; });
-    linux-xanmod-lantian-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-lto.configfile;
+    linux-xanmod-lantian = self.lantianLinuxXanmod.generic;
+    linux-xanmod-lantian-lto = self.lantianLinuxXanmod.generic-lto;
 
     # Temporary package to test a problem with Btrfs Linux 6.1
-    linux-xanmod-lantian-unstable = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian-unstable { lto = false; });
-    linux-xanmod-lantian-unstable-config = ifNotCI lantianCustomized.linux-xanmod-lantian-unstable.configfile;
-    linux-xanmod-lantian-unstable-lto = ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian-unstable { lto = true; });
-    linux-xanmod-lantian-unstable-lto-config = ifNotCI lantianCustomized.linux-xanmod-lantian-unstable-lto.configfile;
+    # Replaced since Btrfs is fixed in latest Linux 6.1
+    linux-xanmod-lantian-unstable = self.lantianLinuxXanmod.generic;
+    linux-xanmod-lantian-unstable-lto = self.lantianLinuxXanmod.generic-lto;
 
     nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
     nginx = pkg ./lantian-customized/nginx { };
   });
+
+  lantianLinuxXanmod = ifNotCI (pkgs.recurseIntoAttrs (
+    let
+      pkg-linux-xanmod-lantian = flags: ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian flags);
+    in
+    rec {
+      x86_64-v1 = pkg-linux-xanmod-lantian { lto = false; x86_64-march = "v1"; };
+      x86_64-v1-lto = pkg-linux-xanmod-lantian { lto = true; x86_64-march = "v1"; };
+      x86_64-v2 = pkg-linux-xanmod-lantian { lto = false; x86_64-march = "v2"; };
+      x86_64-v2-lto = pkg-linux-xanmod-lantian { lto = true; x86_64-march = "v2"; };
+      x86_64-v3 = pkg-linux-xanmod-lantian { lto = false; x86_64-march = "v3"; };
+      x86_64-v3-lto = pkg-linux-xanmod-lantian { lto = true; x86_64-march = "v3"; };
+      x86_64-v4 = pkg-linux-xanmod-lantian { lto = false; x86_64-march = "v4"; };
+      x86_64-v4-lto = pkg-linux-xanmod-lantian { lto = true; x86_64-march = "v4"; };
+
+      generic = x86_64-v1;
+      generic-lto = x86_64-v1-lto;
+    }
+  ));
 
   lantianPersonal = ifNotCI (pkgs.recurseIntoAttrs {
     # Personal packages with no intention to be used by others

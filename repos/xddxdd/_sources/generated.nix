@@ -281,15 +281,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "ad3d2e792ac506ec48815e4b5df56f0394e32a88";
+    version = "8a94615b91e27c7e41f10aacc981128b0f045e90";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "ad3d2e792ac506ec48815e4b5df56f0394e32a88";
+      rev = "8a94615b91e27c7e41f10aacc981128b0f045e90";
       fetchSubmodules = false;
-      sha256 = "sha256-6Qk9S98mQKQeD+++pypx5iudnoeSe6voWT78LWF5IW8=";
+      sha256 = "sha256-czoCng0fvN/ThulrL9hd78liX0T03u5yzcnhgX2VhWw=";
     });
-    date = "2023-02-13";
+    date = "2023-02-18";
   };
   konnect = {
     pname = "konnect";
@@ -339,17 +339,6 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.0.12-xanmod1";
-    src = fetchFromGitHub ({
-      owner = "xanmod";
-      repo = "linux";
-      rev = "6.0.12-xanmod1";
-      fetchSubmodules = false;
-      sha256 = "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=";
-    });
-  };
-  linux-xanmod-unstable = {
-    pname = "linux-xanmod-unstable";
     version = "6.1.12-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";

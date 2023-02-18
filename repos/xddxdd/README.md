@@ -6,7 +6,7 @@
 
 ## Warning
 
-This NUR contains packages customized for my own use. These packages reside in `lantianCustomized` and `lantianPersonal` categories. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
+This NUR contains packages customized for my own use. These packages reside in `lantianCustomized`, `lantianLinuxXanmod` and `lantianPersonal` categories. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
 
 Packages in all other categories are for public use. I will try my best to minimize changes/customizations on them, and accept issues and pull requests for them.
 
@@ -103,7 +103,7 @@ Or, use variables from this repository in case I change them:
 |  | [gopherus](http://gopherus.sourceforge.net/) | 1.2.1 | `gopherus` | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace. |
 |  | [hath](https://e-hentai.org/) | 1.6.1 | `hath` | Hentai@Home |
 |  | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | `hesuvi-hrir` | Headphone Surround Virtualizations for Equalizer APO |
-|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | ad3d2e792ac506ec48815e4b5df56f0394e32a88 | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
+|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 8a94615b91e27c7e41f10aacc981128b0f045e90 | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
 |  | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | `kaixinsong-fonts` | KaiXinSong |
 |  | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | `konnect` | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | `ldap-auth-proxy` | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
@@ -186,22 +186,35 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: lantianCustomized (12 packages)</summary>
+<summary>Package set: lantianCustomized (8 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
 |  | [asterisk](https://www.asterisk.org/) | 20.1.0 | `lantianCustomized.asterisk` | Asterisk with Lan Tian modifications |
 |  | [coredns-lantian](https://github.com/xddxdd/coredns) | c02cd42067dffcb773ebd9cecd32691d0bafebd9 | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
-|  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
-|  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto-config` |  |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | linux-config | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-config` |  |
 |  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | linux-config | 6.1.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto-config` |  |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
+</details>
+
+<details>
+<summary>Package set: lantianLinuxXanmod (10 packages)</summary>
+
+| State | Name | Version | Path | Description |
+| ----- | ---- | ------- | ---- | ----------- |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.generic` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.generic-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v1` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v1-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v2` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v2-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v3` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v3-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v4` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.1.12-xanmod1 | `lantianLinuxXanmod.x86_64-v4-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 </details>
 
 <details>
@@ -213,11 +226,11 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: openj9-ibm-semeru (62 packages)</summary>
+<summary>Package set: openj9-ibm-semeru (68 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
-|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.17.0 | `openj9-ibm-semeru.jdk-bin-11` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.18.0 | `openj9-ibm-semeru.jdk-bin-11` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.12.0 | `openj9-ibm-semeru.jdk-bin-11_0_12_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.13.0 | `openj9-ibm-semeru.jdk-bin-11_0_13_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.14.0 | `openj9-ibm-semeru.jdk-bin-11_0_14_0` | OpenJ9 binaries built by IBM Semeru |
@@ -226,21 +239,23 @@ Or, use variables from this repository in case I change them:
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.16.0 | `openj9-ibm-semeru.jdk-bin-11_0_16_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.16.1 | `openj9-ibm-semeru.jdk-bin-11_0_16_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.17.0 | `openj9-ibm-semeru.jdk-bin-11_0_17_0` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.18.0 | `openj9-ibm-semeru.jdk-bin-11_0_18_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 16.0.2.0 | `openj9-ibm-semeru.jdk-bin-16` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 16.0.2.0 | `openj9-ibm-semeru.jdk-bin-16_0_2_0` | OpenJ9 binaries built by IBM Semeru |
-|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.5.0 | `openj9-ibm-semeru.jdk-bin-17` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.6.0 | `openj9-ibm-semeru.jdk-bin-17` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.1.0 | `openj9-ibm-semeru.jdk-bin-17_0_1_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.2.0 | `openj9-ibm-semeru.jdk-bin-17_0_2_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.3.0 | `openj9-ibm-semeru.jdk-bin-17_0_3_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.4.0 | `openj9-ibm-semeru.jdk-bin-17_0_4_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.4.1 | `openj9-ibm-semeru.jdk-bin-17_0_4_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.5.0 | `openj9-ibm-semeru.jdk-bin-17_0_5_0` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.6.0 | `openj9-ibm-semeru.jdk-bin-17_0_6_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.2.1 | `openj9-ibm-semeru.jdk-bin-18` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.1.0 | `openj9-ibm-semeru.jdk-bin-18_0_1_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.1.1 | `openj9-ibm-semeru.jdk-bin-18_0_1_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.2.0 | `openj9-ibm-semeru.jdk-bin-18_0_2_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.2.1 | `openj9-ibm-semeru.jdk-bin-18_0_2_1` | OpenJ9 binaries built by IBM Semeru |
-|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.352.0 | `openj9-ibm-semeru.jdk-bin-8` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.362.0 | `openj9-ibm-semeru.jdk-bin-8` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.302.0 | `openj9-ibm-semeru.jdk-bin-8_0_302_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.312.0 | `openj9-ibm-semeru.jdk-bin-8_0_312_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.322.0 | `openj9-ibm-semeru.jdk-bin-8_0_322_0` | OpenJ9 binaries built by IBM Semeru |
@@ -248,7 +263,8 @@ Or, use variables from this repository in case I change them:
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.345.0 | `openj9-ibm-semeru.jdk-bin-8_0_345_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.345.1 | `openj9-ibm-semeru.jdk-bin-8_0_345_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.352.0 | `openj9-ibm-semeru.jdk-bin-8_0_352_0` | OpenJ9 binaries built by IBM Semeru |
-|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.17.0 | `openj9-ibm-semeru.jre-bin-11` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jdk-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.362.0 | `openj9-ibm-semeru.jdk-bin-8_0_362_0` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.18.0 | `openj9-ibm-semeru.jre-bin-11` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.12.0 | `openj9-ibm-semeru.jre-bin-11_0_12_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.13.0 | `openj9-ibm-semeru.jre-bin-11_0_13_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.14.0 | `openj9-ibm-semeru.jre-bin-11_0_14_0` | OpenJ9 binaries built by IBM Semeru |
@@ -257,21 +273,23 @@ Or, use variables from this repository in case I change them:
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.16.0 | `openj9-ibm-semeru.jre-bin-11_0_16_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.16.1 | `openj9-ibm-semeru.jre-bin-11_0_16_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.17.0 | `openj9-ibm-semeru.jre-bin-11_0_17_0` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 11.0.18.0 | `openj9-ibm-semeru.jre-bin-11_0_18_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 16.0.2.0 | `openj9-ibm-semeru.jre-bin-16` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 16.0.2.0 | `openj9-ibm-semeru.jre-bin-16_0_2_0` | OpenJ9 binaries built by IBM Semeru |
-|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.5.0 | `openj9-ibm-semeru.jre-bin-17` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.6.0 | `openj9-ibm-semeru.jre-bin-17` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.1.0 | `openj9-ibm-semeru.jre-bin-17_0_1_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.2.0 | `openj9-ibm-semeru.jre-bin-17_0_2_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.3.0 | `openj9-ibm-semeru.jre-bin-17_0_3_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.4.0 | `openj9-ibm-semeru.jre-bin-17_0_4_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.4.1 | `openj9-ibm-semeru.jre-bin-17_0_4_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.5.0 | `openj9-ibm-semeru.jre-bin-17_0_5_0` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 17.0.6.0 | `openj9-ibm-semeru.jre-bin-17_0_6_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.2.1 | `openj9-ibm-semeru.jre-bin-18` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.1.0 | `openj9-ibm-semeru.jre-bin-18_0_1_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.1.1 | `openj9-ibm-semeru.jre-bin-18_0_1_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.2.0 | `openj9-ibm-semeru.jre-bin-18_0_2_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 18.0.2.1 | `openj9-ibm-semeru.jre-bin-18_0_2_1` | OpenJ9 binaries built by IBM Semeru |
-|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.352.0 | `openj9-ibm-semeru.jre-bin-8` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.362.0 | `openj9-ibm-semeru.jre-bin-8` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.302.0 | `openj9-ibm-semeru.jre-bin-8_0_302_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.312.0 | `openj9-ibm-semeru.jre-bin-8_0_312_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.322.0 | `openj9-ibm-semeru.jre-bin-8_0_322_0` | OpenJ9 binaries built by IBM Semeru |
@@ -279,6 +297,7 @@ Or, use variables from this repository in case I change them:
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.345.0 | `openj9-ibm-semeru.jre-bin-8_0_345_0` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.345.1 | `openj9-ibm-semeru.jre-bin-8_0_345_1` | OpenJ9 binaries built by IBM Semeru |
 |  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.352.0 | `openj9-ibm-semeru.jre-bin-8_0_352_0` | OpenJ9 binaries built by IBM Semeru |
+|  | [openj9-ibm-semeru-jre-bin](https://developer.ibm.com/languages/java/semeru-runtimes/) | 8.0.362.0 | `openj9-ibm-semeru.jre-bin-8_0_362_0` | OpenJ9 binaries built by IBM Semeru |
 </details>
 
 <details>
