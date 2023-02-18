@@ -1743,10 +1743,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.7.1";
+      version = "7.8.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4048617/octotree-7.7.1.xpi";
-      sha256 = "9e6fc05822c4247c132e39be785731e4ea72e87cfad5923080eb52c2e50ae8cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069786/octotree-7.8.0.xpi";
+      sha256 = "ef266f40cc79652f48464296e9627206d081efa46a31c5642517b1d3750c6d5f";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -2409,10 +2409,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "22.11.24.1820";
+      version = "23.2.17.1612";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034959/sourcegraph_for_firefox-22.11.24.1820.xpi";
-      sha256 = "143177cdbae5cda807edccb309bccaa27c76e06c34ff2985b5c0a43517a481a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4072346/sourcegraph_for_firefox-23.2.17.1612.xpi";
+      sha256 = "d37b0c7c2575ea2e707d320adb8627c00026321fa40f065926f0040dc1d5e9bd";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2545,10 +2545,10 @@
       };
     "tab-reloader" = buildFirefoxXpiAddon {
       pname = "tab-reloader";
-      version = "0.5.9";
+      version = "0.6.1";
       addonId = "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043374/tab_reloader-0.5.9.xpi";
-      sha256 = "b26b5521fa3103e99e2c8fca970f20e33ce3207c60db2b428adff6c4153bc8d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069787/tab_reloader-0.6.1.xpi";
+      sha256 = "775a96538999ec88868d68ad8909b2bbbfe8fd49f0d7ced2339139e0c88b11b7";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-reloader.html";
@@ -3044,10 +3044,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.9";
+      version = "2.13.10";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4059651/violentmonkey-2.13.9.xpi";
-      sha256 = "5db2c6fabdae17c2d73163f4852ef6586123b8fca1c9fccc4555ba829dcc7da9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071387/violentmonkey-2.13.10.xpi";
+      sha256 = "4334b57f94b27224fd3eeab9980673b5c6ef3991eba3f7d19bd3e40e9313521c";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
