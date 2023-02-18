@@ -4,6 +4,12 @@
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-xddxdd-blue.svg)](https://xddxdd.cachix.org)
 
+## Warning
+
+This NUR contains packages customized for my own use. These packages reside in `lantianCustomized` and `lantianPersonal` categories. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
+
+Packages in all other categories are for public use. I will try my best to minimize changes/customizations on them, and accept issues and pull requests for them.
+
 ## How to use
 
 ```nix
@@ -116,8 +122,8 @@ Or, use variables from this repository in case I change them:
 |  | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | `payload-dumper-go` | An android OTA payload dumper written in Go |
 |  | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | `phpmyadmin` | A web interface for MySQL and MariaDB |
 |  | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.3-mod | `phppgadmin` | The premier web-based administration tool for PostgreSQL |
-|  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
-|  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.0.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
+|  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.1.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
+|  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.1.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
 |  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-3 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
 |  | [qq](https://im.qq.com/linuxqq/index.html) | 3.0.0-571 | `qq` | QQ for Linux |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
@@ -185,7 +191,7 @@ Or, use variables from this repository in case I change them:
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
 |  | [asterisk](https://www.asterisk.org/) | 20.1.0 | `lantianCustomized.asterisk` | Asterisk with Lan Tian modifications |
-|  | [coredns-lantian](https://github.com/xddxdd/coredns) | 41a20197433c06398c7cfe17f1935c026b01c4fd | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
+|  | [coredns-lantian](https://github.com/xddxdd/coredns) | c02cd42067dffcb773ebd9cecd32691d0bafebd9 | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
 |  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
 |  | linux-config | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-config` |  |
 |  | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |

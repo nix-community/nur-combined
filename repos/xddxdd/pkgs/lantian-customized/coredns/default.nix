@@ -7,7 +7,7 @@
 buildGoModule rec {
   inherit (sources.coredns-lantian) pname version src;
 
-  vendorSha256 = "sha256-F53X6yowczNzls9Kle/zDDbzWnkQNsVSX4pVRMxCrKM=";
+  vendorSha256 = "sha256-PzwFE6xTHjzD3SiTbajQ9IBrlpjKgYD8ipbyfQIfrCk=";
 
   doCheck = false;
 

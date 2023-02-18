@@ -77,6 +77,12 @@ writeTextFile {
 
     [![Cachix Cache](https://img.shields.io/badge/cachix-xddxdd-blue.svg)](https://xddxdd.cachix.org)
 
+    ## Warning
+
+    This NUR contains packages customized for my own use. These packages reside in `lantianCustomized` and `lantianPersonal` categories. I do not ensure that they stay backwards compatible or functionally stable, nor do I accept any requests to tailor them for public use.
+
+    Packages in all other categories are for public use. I will try my best to minimize changes/customizations on them, and accept issues and pull requests for them.
+
     ## How to use
 
     ```nix

@@ -3,10 +3,10 @@
 {
   an-anime-game-launcher-bin = {
     pname = "an-anime-game-launcher-bin";
-    version = "2.4.4";
+    version = "2.4.5";
     src = fetchurl {
-      url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.4/an-anime-game-launcher-2.4.4.AppImage";
-      sha256 = "sha256-Dmcp+DQ2O/X6HxfSuHHNV9WhbuJBb7RLNPSZi0BDyPs=";
+      url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/2.4.5/an-anime-game-launcher-2.4.5.AppImage";
+      sha256 = "sha256-W2lGFhjnb4HqFuLdSE5qsqHxLItMJs4DMrl61WCbgSY=";
     };
   };
   an-anime-game-launcher-gtk-bin = {
@@ -160,15 +160,15 @@
   };
   coredns-lantian = {
     pname = "coredns-lantian";
-    version = "41a20197433c06398c7cfe17f1935c026b01c4fd";
+    version = "c02cd42067dffcb773ebd9cecd32691d0bafebd9";
     src = fetchFromGitHub ({
       owner = "xddxdd";
       repo = "coredns";
-      rev = "41a20197433c06398c7cfe17f1935c026b01c4fd";
+      rev = "c02cd42067dffcb773ebd9cecd32691d0bafebd9";
       fetchSubmodules = false;
-      sha256 = "sha256-Zb1/NEvG8mpdC4NhEsGfcXnpEx8Nvl2FM2A1VVuikTo=";
+      sha256 = "sha256-j5nwobSO74zXp6ucyv/F3mXcyBcxFUAiFfcGgpXv22A=";
     });
-    date = "2022-12-21";
+    date = "2023-02-17";
   };
   dingtalk = {
     pname = "dingtalk";
@@ -571,13 +571,13 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.5.0.10";
+    version = "release-4.5.1.10";
     src = fetchFromGitHub ({
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.5.0.10";
+      rev = "release-4.5.1.10";
       fetchSubmodules = false;
-      sha256 = "sha256-sC1MklSypIpZ0LR4/NdpowABKIutfYkzUb39Kgty9Lc=";
+      sha256 = "sha256-pDrqWiheQWOkFS4N83UZ3sRDHNoytf4BvFr7y/qpVqo=";
     });
   };
   qemu-user-static-amd64 = {
