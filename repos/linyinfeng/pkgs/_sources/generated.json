@@ -1,7 +1,7 @@
 {
     "aws-sigv4-proxy": {
         "cargoLocks": null,
-        "date": "2023-02-16",
+        "date": "2023-02-17",
         "extract": null,
         "name": "aws-sigv4-proxy",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bb55c99c212fe02a22b386745391785f1837ef91",
-            "sha256": "sha256-3qbtFXa5+d10qy3ghyWUFctL8JYby2KUH0sNZ/hKUUc=",
+            "rev": "740d76fdedb32184d89403dec2d2467007da02ef",
+            "sha256": "sha256-aJD4c9adzfCasqSzJpN/ppLft3gsmpmpNnOweG2z5aE=",
             "type": "git",
             "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
         },
-        "version": "bb55c99c212fe02a22b386745391785f1837ef91"
+        "version": "740d76fdedb32184d89403dec2d2467007da02ef"
     },
     "clash-for-windows": {
         "cargoLocks": null,
@@ -170,11 +170,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VAXjk187KmuEFa20h7No/l5zhHYurqpoKZdmNepDKEo=",
+            "sha256": "sha256-OmF7MHsZ6I2I+5w5wibFZrFqCn4T5W1aMJWW01Z79FA=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.7/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.8/app-x86_64.asar"
         },
-        "version": "v2.8.7"
+        "version": "v2.8.8"
     },
     "plugin-bang-bang": {
         "cargoLocks": null,

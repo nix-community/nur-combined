@@ -3,16 +3,16 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "bb55c99c212fe02a22b386745391785f1837ef91";
+    version = "740d76fdedb32184d89403dec2d2467007da02ef";
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "bb55c99c212fe02a22b386745391785f1837ef91";
+      rev = "740d76fdedb32184d89403dec2d2467007da02ef";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-3qbtFXa5+d10qy3ghyWUFctL8JYby2KUH0sNZ/hKUUc=";
+      sha256 = "sha256-aJD4c9adzfCasqSzJpN/ppLft3gsmpmpNnOweG2z5aE=";
     };
-    date = "2023-02-16";
+    date = "2023-02-17";
   };
   clash-for-windows = {
     pname = "clash-for-windows";
@@ -101,10 +101,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.8.7";
+    version = "v2.8.8";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.7/app-x86_64.asar";
-      sha256 = "sha256-VAXjk187KmuEFa20h7No/l5zhHYurqpoKZdmNepDKEo=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.8/app-x86_64.asar";
+      sha256 = "sha256-OmF7MHsZ6I2I+5w5wibFZrFqCn4T5W1aMJWW01Z79FA=";
     };
   };
   plugin-bang-bang = {
