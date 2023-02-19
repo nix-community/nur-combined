@@ -2,7 +2,6 @@
   description = "My personal NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    rust-overlay.url = "github:oxalica/rust-overlay";
     flake-utils.url = "github:numtide/flake-utils";
     fenix = {
       url = "github:nix-community/fenix";
@@ -10,20 +9,17 @@
     };
   };
 
-  outputs = { self, nixpkgs, rust-overlay, flake-utils, fenix }:
+  outputs = { self, nixpkgs, flake-utils, fenix }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-            rust-overlay.overlays.default
             fenix.overlays.default
           ];
         };
       in
       {
-        packages = import ./flake-default.nix {
-          inherit pkgs;
-        };
+        packages = import ./default.nix { flake-enabled = true; inherit pkgs; };
       });
 }

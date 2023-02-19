@@ -1,19 +1,11 @@
 { lib
 , fetchFromGitHub
 , pkgs
-, fenix
 }:
 
 let
-  #fenix = import
-  #    (fetchTarball {
-  #      url = "https://github.com/nix-community/fenix/archive/main.tar.gz";
-  #      sha256 = "sha256:11fv5w0093l2v9v6l5m87al8yf8c2m05fchbw2kadrvh40kb49ii";
-  #    })
-  #    { system = "x86_64-linux"; };
-  ## WARNING: ONLY FLAKE USER COULD USE THIS DERIVATION DIRECTLY
 
-  rustPlatform = pkgs.makeRustPlatform { inherit (fenix.minimal) cargo rustc; };
+  rustPlatform = pkgs.makeRustPlatform { inherit (pkgs.fenix.minimal) cargo rustc; };
 in
 rustPlatform.buildRustPackage rec{
   pname = "shadow-tls";

@@ -2,6 +2,10 @@
 
 Follow steps on [nur-packages-template](https://github.com/nix-community/nur-packages-template/blob/master/README.md)  
 
+## Usage
+
+Follow [NUR README](https://github.com/nix-community/NUR)  
+
 # nur-packages
 
 
