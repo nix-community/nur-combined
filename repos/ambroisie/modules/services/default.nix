@@ -7,6 +7,7 @@
     ./blog
     ./calibre-web
     ./drone
+    ./fail2ban
     ./flood
     ./gitea
     ./grocy
@@ -22,8 +23,8 @@
     ./paperless
     ./pirate
     ./podgrab
-    ./postgresql-backup
     ./postgresql
+    ./postgresql-backup
     ./quassel
     ./rss-bridge
     ./sabnzbd

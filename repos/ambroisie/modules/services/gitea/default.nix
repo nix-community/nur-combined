@@ -126,5 +126,22 @@ in
         config.services.gitea.repositoryRoot
       ];
     };
+
+    services.fail2ban.jails = {
+      gitea = ''
+        enabled = true
+        filter = gitea
+        action = iptables-allports
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/gitea.conf".text = ''
+        [Definition]
+        failregex = ^.*(Failed authentication attempt|invalid credentials|Attempted access of unknown user).* from <HOST>$
+        ignoreregex =
+        journalmatch = _SYSTEMD_UNIT=gitea.service
+      '';
+    };
   };
 }

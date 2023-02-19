@@ -53,5 +53,22 @@ in
         cfg.libraryPath
       ];
     };
+
+    services.fail2ban.jails = {
+      calibre-web = ''
+        enabled = true
+        filter = calibre-web
+        port = http,https
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/calibre-web.conf".text = ''
+        [Definition]
+        failregex = ^.*Login failed for user ".*" IP-address: <HOST>$
+        ignoreregex =
+        journalmatch = _SYSTEMD_UNIT=calibre-web.service
+      '';
+    };
   };
 }
