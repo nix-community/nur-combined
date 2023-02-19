@@ -1,23 +1,30 @@
-{ lib, fetchFromGitHub, python3Packages, s2sphere }:
+{ lib, fetchFromGitHub, fetchpatch, python3Packages, s2sphere }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gpxtrackposter";
-  version = "2021-12-01";
+  version = "2022-12-28";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "gpxtrackposter";
-    rev = "d7ff0ba61f6396938efd075d841a7c4a226a6f5d";
-    hash = "sha256-J1CZ2wrL8Myd++skUOyyXLDPyRpOsBWEGxzqhk7OKqU=";
+    rev = "e872069af0a713a479608a4a5a7987570e3bc206";
+    hash = "sha256-7eJVVJIseQabSVBVogqGmKepRseWCzQvOhNfbfGvbCM=";
   };
 
-  patches = [ ./fix-localedir.patch ];
+  patches = [
+    (fetchpatch {
+      url = "https://patch-diff.githubusercontent.com/raw/flopp/GpxTrackPoster/pull/108.patch";
+      hash = "sha256-9h6ymt9z0OUFNwQq4hGCTmT389ulbBzSYJ7r2k4mO4U=";
+    })
+    ./fix-localedir.patch
+  ];
 
   postPatch = ''
     substituteInPlace gpxtrackposter/poster.py \
       --replace "self.translate(\"ATHLETE\")" "\"\""
     substituteInPlace gpxtrackposter/cli.py \
       --subst-var out
+    sed -i 's/~=.*//' requirements.txt
   '';
 
   propagatedBuildInputs = with python3Packages; [
