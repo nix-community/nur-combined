@@ -1506,10 +1506,10 @@
       };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
-      version = "1.5.3";
+      version = "1.6.0";
       addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4050444/modrinthify-1.5.3.xpi";
-      sha256 = "b623289b564bfb9ee2965c296011661bd3fef8c0b9ee5f7c5423110bf8d5d619";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4072703/modrinthify-1.6.0.xpi";
+      sha256 = "ad5bf1b9f7e285ce84beaa8a05e78bbe3e356ca5df9af6823dcc9bd442b82a15";
       meta = with lib;
       {
         homepage = "https://github.com/devBoi76/modrinthify";
