@@ -1,10 +1,11 @@
 { lib
 , fetchFromGitHub
 , pkgs
-, fenix
+# , fenix
+, rustPlatform
 }:
 
-let
+# let
 #  fenix = import
 #    (fetchTarball {
 #      url = "https://github.com/nix-community/fenix/archive/main.tar.gz";
@@ -12,8 +13,8 @@ let
 #    })
 #    { system = "x86_64-linux"; };
   ## WARNING: ONLY FLAKE USER COULD USE THIS DERIVATION DIRECTLY
-  rustPlatform = pkgs.makeRustPlatform { inherit (fenix.minimal) cargo rustc; };
-in
+  # rustPlatform = pkgs.makeRustPlatform { inherit (fenix.minimal) cargo rustc; };
+# in
 rustPlatform.buildRustPackage rec{
   pname = "tuic";
   version = "0.8.5";

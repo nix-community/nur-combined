@@ -9,8 +9,12 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { } }:
+let
+  flakeData = builtins.getFlake (toString ./.);
+  system = "x86_64-linux";
+  pkgs = flakeData.inputs.nixpkgs;
 
+in
 with builtins;
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";

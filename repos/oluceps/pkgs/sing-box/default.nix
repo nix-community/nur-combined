@@ -1,20 +1,23 @@
-{ lib
+{ stdenv
+, lib
 , fetchFromGitHub
 , buildGoModule
-,
+, buildPackages
 }:
 buildGoModule rec {
   pname = "sing-box";
-  version = "1.1-beta12";
+  version = "1.1.5";
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box";
-    rev = "ffd54eef6c71a4e847d53fb38d3622d689ea026d";
-    sha256 = "sha256-vhbvg8WCKJcszwlBHD4dZA4bswevI5VBjurMzKK4VLU=";
+    rev = "v${version}";
+    sha256 = "sha256-FEwyJL6pFdp9vXIq1TUFGGDfKefFsVaajjX2U0R5Vog=";
   };
 
-  vendorSha256 = "sha256-Wx0fiIZ3CgHFp/sWPCoot4h3IqQg59qsUlvR2Onw+2E=";
+  vendorHash = "sha256-3rq5DZO1pBQEJ7ook9AAe/swMc3VAO+5BwR7IfTvF44=";
+
+  proxyVendor = true;
 
   # Do not build testing suit
   excludedPackages = [ "./test" ];
@@ -24,7 +27,9 @@ buildGoModule rec {
     "-w"
     "-X github.com/sagernet/sing-box/constant.Commit=${version}"
   ];
-  
+
+  CGO_ENABLED = 1;
+
   tags = [
     "with_quic"
     "with_grpc"
@@ -33,15 +38,19 @@ buildGoModule rec {
     "with_ech"
     "with_gvisor"
     "with_clash_api"
+    "with_lwip"
   ];
 
-  CGO_ENABLED = 1;
+  subPackages = [
+    "cmd/sing-box"
+  ];
+
   doCheck = false;
 
   meta = with lib; {
     description = "sing-box";
     homepage = "https://github.com/SagerNet/sing-box";
     license = licenses.gpl3Only;
-#    maintainers = with maintainers; [ oluceps ];
+    #    maintainers = with maintainers; [ oluceps ];
   };
 }
