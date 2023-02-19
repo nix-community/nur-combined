@@ -245,10 +245,10 @@
         "homepage": "",
         "owner": "ms-jpq",
         "repo": "coq_nvim",
-        "rev": "49189b020236002bae41f823da9ac0f73dca873f",
-        "sha256": "17rmg7b9ibx1d8bb8s9r9zxqxxh206hkb5avykrdbngrg1sy64y6",
+        "rev": "272a39c8f483c0bf6137dd382363639aab83a23e",
+        "sha256": "0yy9lyh9wx7wa4s6ishqg3g0lb0z3c6hhywghpvyd16kldf6lrd9",
         "type": "tarball",
-        "url": "https://github.com/ms-jpq/coq_nvim/archive/49189b020236002bae41f823da9ac0f73dca873f.tar.gz",
+        "url": "https://github.com/ms-jpq/coq_nvim/archive/272a39c8f483c0bf6137dd382363639aab83a23e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "crates.nvim": {
@@ -713,10 +713,10 @@
         "homepage": "",
         "owner": "glepnir",
         "repo": "lspsaga.nvim",
-        "rev": "66bb06771789d677ef2b7c9a0bd57941298f6a9f",
-        "sha256": "1rp53hwm19bi53y0vndv2m4222ml7qz2iib23wqdj709azz6sr0j",
+        "rev": "133bf4b06f109da0cae9ab61a6dd8e29e62c90d3",
+        "sha256": "0vi1lazj83bari09r1vdyi8fg4l9n2d3x5rwd9xnjdbipraff35w",
         "type": "tarball",
-        "url": "https://github.com/glepnir/lspsaga.nvim/archive/66bb06771789d677ef2b7c9a0bd57941298f6a9f.tar.gz",
+        "url": "https://github.com/glepnir/lspsaga.nvim/archive/133bf4b06f109da0cae9ab61a6dd8e29e62c90d3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lua-dev.nvim": {
@@ -1169,10 +1169,10 @@
         "homepage": "",
         "owner": "kyazdani42",
         "repo": "nvim-tree.lua",
-        "rev": "08a0aa1a3b7411ee0a7887c8818528b1558cef96",
-        "sha256": "0kgc928nrdjzl0sjm1yqfd489yw36fa4w0vbmp1siwwfrck97l5n",
+        "rev": "bcb969c8692bd79a3b34658436e679f3bf784b92",
+        "sha256": "0gm8jsn69v23hqqw3s8kw7k0knd8n1ywvrk2xxpc54326df68cp9",
         "type": "tarball",
-        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/08a0aa1a3b7411ee0a7887c8818528b1558cef96.tar.gz",
+        "url": "https://github.com/kyazdani42/nvim-tree.lua/archive/bcb969c8692bd79a3b34658436e679f3bf784b92.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter": {
