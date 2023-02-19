@@ -139,7 +139,6 @@ in
       "fail2ban/filter.d/gitea.conf".text = ''
         [Definition]
         failregex = ^.*(Failed authentication attempt|invalid credentials|Attempted access of unknown user).* from <HOST>$
-        ignoreregex =
         journalmatch = _SYSTEMD_UNIT=gitea.service
       '';
     };

@@ -66,7 +66,6 @@ in
       "fail2ban/filter.d/calibre-web.conf".text = ''
         [Definition]
         failregex = ^.*Login failed for user ".*" IP-address: <HOST>$
-        ignoreregex =
         journalmatch = _SYSTEMD_UNIT=calibre-web.service
       '';
     };
