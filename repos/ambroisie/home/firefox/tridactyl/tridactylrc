@@ -6,6 +6,11 @@ colorscheme dark
 
 " Make tridactyl open Vim in my prefered terminal
 set editorcmd @editorcmd@
+
+" Remove editor file after use
+alias editor_rm composite editor | jsb -p tri.native.run(`rm -f '${JS_ARG[0]}'`)
+bind --mode=insert <C-i> editor_rm
+bind --mode=input <C-i> editor_rm
 " }}}
 
 " Binds {{{
@@ -21,8 +26,8 @@ bindurl www.google.com f hint -Jc #search div:not(.action-menu) > a
 bindurl www.google.com F hint -Jbc #search div:not(.action-menu) > a
 
 " Only hint search results on DuckDuckGo
-bindurl ^https://duckduckgo.com f hint -Jc [class~=result__a]
-bindurl ^https://duckduckgo.com F hint -Jbc [class~=result__a]
+bindurl ^https://duckduckgo.com f hint -Jc [data-testid="result-title-a"]
+bindurl ^https://duckduckgo.com F hint -Jbc [data-testid="result-title-a"]
 
 " Only hint item pages on Hacker News
 bindurl news.ycombinator.com ;f hint -Jc .age > a
