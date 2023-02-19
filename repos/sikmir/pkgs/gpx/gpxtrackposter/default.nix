@@ -1,23 +1,17 @@
-{ lib, fetchFromGitHub, fetchpatch, python3Packages, s2sphere }:
+{ lib, fetchFromGitHub, python3Packages, s2sphere }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gpxtrackposter";
-  version = "2022-12-28";
+  version = "2023-02-19";
 
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "gpxtrackposter";
-    rev = "e872069af0a713a479608a4a5a7987570e3bc206";
-    hash = "sha256-7eJVVJIseQabSVBVogqGmKepRseWCzQvOhNfbfGvbCM=";
+    rev = "0b86e7223eaeea3e168f5b68ee7b8fe4ca8532b5";
+    hash = "sha256-pSMfHNpGt68Elgi4NGrBlnZxpsuS7WhqM6kBDcihLu8=";
   };
 
-  patches = [
-    (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/flopp/GpxTrackPoster/pull/108.patch";
-      hash = "sha256-9h6ymt9z0OUFNwQq4hGCTmT389ulbBzSYJ7r2k4mO4U=";
-    })
-    ./fix-localedir.patch
-  ];
+  patches = [ ./fix-localedir.patch ];
 
   postPatch = ''
     substituteInPlace gpxtrackposter/poster.py \
