@@ -21,7 +21,8 @@ let
   name = if (_name != null) then _name else "${pname}-${version}";
 in
 
-stdenvNoCC.mkDerivation {
+if (electron != null)
+then stdenvNoCC.mkDerivation {
   inherit meta name src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -32,8 +33,8 @@ stdenvNoCC.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/bin $out/share/{applications,${pname}}
-    cp -a ${appimageContents}/${resourcesParentDir}/resources/app.asar $out/share/${pname}
+    mkdir -p $out/bin $out/share/applications
+    cp -a ${appimageContents}/${resourcesParentDir}/resources $out/share/${pname}
     cp -a ${appimageContents}/${pname}.desktop $out/share/applications/
     cp -a ${appimageContents}/usr/share/icons $out/share/
     substituteInPlace $out/share/applications/${pname}.desktop \
@@ -44,5 +45,24 @@ stdenvNoCC.mkDerivation {
   postFixup = ''
     makeWrapper ${electron}/bin/electron $out/bin/${pname} \
       --add-flags $out/share/${pname}/app.asar
+  '';
+}
+else appimageTools.wrapType2 {
+  inherit meta name src;
+
+  extraInstallCommands = ''
+    mv $out/bin/${name} $out/bin/${pname}
+
+    install -m 444 \
+      -D ${appimageContents}/${pname}.desktop \
+      -t $out/share/applications
+
+    substituteInPlace \
+        $out/share/applications/${pname}.desktop \
+        --replace 'Exec=AppRun' 'Exec=${pname}'
+
+    sed -i 's/Icon=.*/Icon=${pname}/' $out/share/applications/${pname}.desktop
+
+    cp -r ${appimageContents}/usr/share/icons $out/share
   '';
 }
