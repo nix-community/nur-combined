@@ -5,12 +5,15 @@
 , isPy3k
 , coverage
 , fnvhash
+, freezegun
 , homeassistant
 , jsonpickle
 , lru-dict
 , mock-open
 , numpy
+, paho-mqtt
 , pipdeptree
+, pylint-per-file-ignores
 , pytest
 , pytest-aiohttp
 , pytest-cov
@@ -30,38 +33,43 @@
 
 buildPythonPackage rec {
   pname = "pytest-homeassistant-custom-component";
-  version = "0.12.45";
+  version = "0.12.57";
   disabled = !isPy3k || isPy37;
 
   src = fetchFromGitHub {
     owner = "MatthewFlamm";
     repo = pname;
     rev = version;
-    sha256 = "0pyx54473r4fra9428bzr0php8c0wyhh1c4x00l9378nrg259wbv";
+    sha256 = "0m0y5xp38z2izkr3yw2jjxxvxqrlj2c7rj2kknajmikg8wvwj5jd";
   };
 
   postPatch = ''
     substituteInPlace requirements_test.txt \
-      --replace "coverage==7.0.0" "coverage>=6.4.4" \
+      --replace "coverage==7.0.5" "coverage>=7.0.1" \
       --replace "numpy==1.23.2" "numpy>=1.23.2" \
       --replace "pipdeptree==2.3.1" "pipdeptree>=2.3.1" \
-      --replace "pytest==7.2.0" "pytest>=7.1.3" \
+      --replace "pytest==7.2.1" "pytest>=7.2.0" \
+      --replace "pylint-per-file-ignores==1.1.0" "pylint-per-file-ignores>=1.1.0" \
       --replace "pytest-asyncio==0.20.2" "pytest-asyncio>=0.19.0" \
+      --replace "pytest-cov==3.0.0" "pytest-cov>=3.0.0" \
       --replace "pytest-sugar==0.9.5" "pytest-sugar>=0.9.4" \
       --replace "pytest-test-groups==1.0.3" "" \
       --replace "pytest-timeout==2.1.0" "pytest-timeout>=2.0.2" \
+      --replace "pytest-xdist==2.5.0" "pytest-xdist>=2.5.0" \
       --replace "respx==0.20.1" "respx>=0.20.0" \
-      --replace "sqlalchemy==1.4.44" "sqlalchemy>=1.4.41" \
-      --replace "stdlib-list==0.7.0" "" \
+      --replace "sqlalchemy==1.4.45" "sqlalchemy>=1.4.45" \
       --replace "tqdm==4.64.0" "tqdm>=4.64.0"
   '';
 
   propagatedBuildInputs = [
     fnvhash
+    freezegun
     homeassistant
     lru-dict
     numpy
+    paho-mqtt
     pipdeptree
+    pylint-per-file-ignores
     pytest
     pytest-socket
     requests-mock

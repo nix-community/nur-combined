@@ -37,6 +37,7 @@ let
       homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
       libdyson = pySelf.callPackage ./pkgs/libdyson { };
       monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
+      pylint-per-file-ignores = pySelf.callPackage ./pkgs/pylint-per-file-ignores { };
       pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
       pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
       python-engineio_3 = pySelf.callPackage ./pkgs/python-engineio/3.nix { };
@@ -91,6 +92,7 @@ in rec {
   inherit (home-assistant.python.pkgs)
     homeassistant
     homeassistant-stubs
+    pylint-per-file-ignores
     pytest-homeassistant-custom-component
     smartbox
   ;
