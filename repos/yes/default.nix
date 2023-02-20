@@ -27,15 +27,18 @@ with pkgs;
   });
 
   qq-appimage = callPackage ./electronAppImage rec {
-    extraPkgs = p: with p; [ gjs libappindicator ];
+    extraPkgs = p: with p; [
+      gjs               # screenshot support for GNOME Wayland
+      libappindicator   # use appindicator instead of systray wherever possible
+    ];
     pname = "qq";
-    version = "3.0.0-571";
+    version = "3.1.0-9332";
     description = "Tencent QQ (upstream AppImage wrapped in FHS)";
     homepage = "https://im.qq.com";
     license = lib.licenses.unfree;
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/c005c911/linuxqq_${version}_x86_64.AppImage";
-      hash = "sha256-gKmk2m8pt2ygaHdFCWGo7+ZiQQ67VAvKH4o5OlwwPuE=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/c6032ac7/linuxqq_${version}_x86_64.AppImage";
+      hash = "sha256-WCOlOQoZGBYSsJOV3GoBkbqozRpl7CdqyUjfxpEhcLw=";
     };
   };
 }
