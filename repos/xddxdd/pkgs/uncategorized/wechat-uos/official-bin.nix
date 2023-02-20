@@ -1,9 +1,30 @@
 { sources
 , stdenv
 , buildFHSUserEnvBubblewrap
+, autoPatchelfHook
 , writeShellScript
 , lib
+  # WeChat dependencies
+, alsa-lib
+, at-spi2-atk
+, at-spi2-core
+, cairo
+, cups
+, dbus
+, expat
+, gdk-pixbuf
+, glib
+, gtk3
+, libpulseaudio
+, mesa_drivers
+, nspr
+, nss
+, openssl_1_1
+, pango
+, pciutils
 , scrot
+, udev
+, xorg
 , ...
 } @ args:
 
@@ -13,7 +34,40 @@
 ################################################################################
 
 let
-  license = stdenv.mkDerivation rec {
+  libraries = [
+    alsa-lib
+    at-spi2-atk
+    at-spi2-core
+    cairo
+    cups
+    dbus
+    expat
+    gdk-pixbuf
+    glib
+    gtk3
+    libpulseaudio
+    mesa_drivers
+    nspr
+    nss
+    openssl_1_1
+    pango
+    pciutils
+    udev
+    xorg.libX11
+    xorg.libxcb
+    xorg.libXcomposite
+    xorg.libXcursor
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXrender
+    xorg.libXScrnSaver
+    xorg.libXtst
+  ];
+
+  license = stdenv.mkDerivation {
     pname = "wechat-uos-license";
     version = "0.0.1";
     src = ./license.tar.gz;
@@ -28,8 +82,12 @@ let
     pname = "wechat-uos-bin";
     inherit (sources.wechat-uos) version src;
 
+    nativeBuildInputs = [ autoPatchelfHook ];
+
+    buildInputs = libraries;
+
     unpackPhase = ''
-      ar x ${src}
+      ar x $src
     '';
 
     installPhase = ''
@@ -57,11 +115,10 @@ let
 
   fhs = buildFHSUserEnvBubblewrap {
     name = "wechat-uos";
-    targetPkgs = pkgs: with pkgs; [
+    targetPkgs = pkgs: [
       license
-      openssl_1_1
       resource
-    ];
+    ] ++ libraries;
     runScript = startScript;
     unsharePid = false;
   };
