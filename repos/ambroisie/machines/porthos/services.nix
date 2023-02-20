@@ -34,6 +34,10 @@ in
       secretFile = secrets."drone/gitea".path;
       sharedSecretFile = secrets."drone/secret".path;
     };
+    # Auto-ban spammy bots and incorrect logins
+    fail2ban = {
+      enable = true;
+    };
     # Flood UI for transmission
     flood = {
       enable = true;

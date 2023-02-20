@@ -9,8 +9,7 @@ in
     enable = mkEnableOption "fail2ban daemon";
   };
 
-  # config = lib.mkIf cfg.enable {
-  config = lib.mkIf true {
+  config = lib.mkIf cfg.enable {
     services.fail2ban = {
       enable = true;
 
