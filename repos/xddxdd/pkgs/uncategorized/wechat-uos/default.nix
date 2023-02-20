@@ -2,7 +2,7 @@
 , stdenv
 , buildFHSUserEnvBubblewrap
 , writeShellScript
-, electron_20
+, electron_19
 , lib
 , scrot
 , ...
@@ -53,7 +53,7 @@ let
         kill -9 $wechat_pid
     fi
 
-    ${electron_20}/bin/electron \
+    ${electron_19}/bin/electron \
       ${resource}/lib/wechat-uos
   '';
 
