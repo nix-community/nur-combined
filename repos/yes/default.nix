@@ -27,7 +27,7 @@ with pkgs;
   });
 
   qq-appimage = callPackage ./electronAppImage rec {
-    electron = null;
+    extraPkgs = p: with p; [ gjs libappindicator ];
     pname = "qq";
     version = "3.0.0-571";
     description = "Tencent QQ (upstream AppImage wrapped in FHS)";

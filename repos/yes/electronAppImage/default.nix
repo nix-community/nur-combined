@@ -8,6 +8,7 @@
 , pname, version, src, homepage, description, license
 , _name ? null
 , resourcesParentDir ? ""
+, extraPkgs ? null
 }:
 
 let
@@ -21,7 +22,7 @@ let
   name = if (_name != null) then _name else "${pname}-${version}";
 in
 
-if (electron != null)
+if (extraPkgs == null)
 then stdenvNoCC.mkDerivation {
   inherit meta name src;
 
@@ -47,8 +48,10 @@ then stdenvNoCC.mkDerivation {
       --add-flags $out/share/${pname}/app.asar
   '';
 }
-else appimageTools.wrapType2 {
-  inherit meta name src;
+else appimageTools.wrapAppImage {
+  inherit meta name extraPkgs;
+
+  src = appimageContents;
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
