@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.home.tmux;
-  hasGUI = config.my.home.x.enable || (config.my.home.wm != null);
+  hasGUI = lib.any lib.id [
+    config.my.home.x.enable
+    (config.my.home.wm.windowManager != null)
+  ];
 in
 {
   options.my.home.tmux = with lib.my; {
@@ -24,7 +27,7 @@ in
       pain-control
       # Better session management
       sessionist
-      (lib.optionalAttrs hasGUI {
+      {
         # X clipboard integration
         plugin = yank;
         extraConfig = ''
@@ -33,7 +36,7 @@ in
           # Stay in copy mode after yanking
           set -g @yank_action 'copy-pipe'
         '';
-      })
+      }
       {
         # Show when prefix has been pressed
         plugin = prefix-highlight;

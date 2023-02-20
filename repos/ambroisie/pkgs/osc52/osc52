@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+
+# Max length of the OSC 52 sequence.
+: "${OSC52_MAX_SEQUENCE:=100000}"
+# Whether to disable tmux/screen DCS escape sequences
+: "${OSC52_NO_DCS:=0}"
+
+die() {
+    echo "ERROR: $*"
+    exit 1
+}
+
+usage() {
+    if [ $# -gt 0 ]; then
+        exec 1>&2
+    fi
+
+    cat << EOF
+Usage: $0 [options] [string]
+Send an arbitrary string to the terminal clipboard using the OSC 52 escape
+sequence as specified in xterm:
+  https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands
+  Section "Operating System Commands", Ps => 52.
+The data can either be read from stdin:
+  $ echo "hello world" | $0
+Or specified on the command line:
+  $ $0 "hello world"
+Options:
+  -h, --help    This screen.
+  -d, --no-dcs  Disable tmux/screen specific DCS sequences, only use OSC 52
+  -f, --force   Ignore max byte limit (${OSC52_MAX_SEQUENCE})
+  --            Stop options processing
+EOF
+
+    if [ $# -gt 0 ]; then
+        echo
+        die "$@"
+    else
+        exit 0
+    fi
+}
+
+tmux_seq() {
+    # shellcheck disable=1003
+    printf '\033Ptmux;\033%s\033\\' "$1"
+}
+
+screen_seq() {
+    # Screen limits the length of string sequences, so we have to break it up.
+    # Going by the screen history:
+    #   (v4.2.1) Apr 2014 - today: 768 bytes
+    #   Aug 2008 - Apr 2014 (v4.2.0): 512 bytes
+    #   ??? - Aug 2008 (v4.0.3): 256 bytes
+    local limit=768
+    # We go 4 bytes under the limit because we're going to insert two bytes
+    # before (\eP) and 2 bytes after (\e\) each string.
+    printf '%s' "$1" |
+        sed -E "s:.{$((limit - 4))}:&\n:g" |
+        sed -E -e 's:^:\x1bP:' -e 's:$:\x1b\\:' |
+        tr -d '\n'
+}
+
+osc52_seq() {
+    printf '%s' "$1"
+}
+
+print_seq() {
+    local seq="$1"
+
+    if [ "${OSC52_NO_DCS}" != 0 ]; then
+        # Override TERM to avoid tmux/screen DCS escape logic
+        TERM=dummy
+    fi
+
+    case ${TERM-} in
+        screen*)
+            # Since tmux defaults to setting TERM=screen, special case it.
+            if [ -n "${TMUX-}" ]; then
+                tmux_seq "${seq}"
+            else
+                screen_seq "${seq}"
+            fi
+            ;;
+        tmux*)
+            tmux_seq "${seq}"
+            ;;
+        *)
+            osc52_seq "${seq}"
+            ;;
+    esac
+}
+
+b64enc() {
+    base64 | tr -d '\n'
+}
+
+copy() {
+    local str
+    if [ $# -eq 0 ]; then
+        str="$(b64enc)"
+    else
+        str="$(printf '%s' "$1" | b64enc)"
+    fi
+
+    if [ "${OSC52_MAX_SEQUENCE}" -gt 0 ]; then
+        local len=${#str}
+        if [ "${len}" -gt "${OSC52_MAX_SEQUENCE}" ]; then
+            die "selection too long to send to terminal:" \
+                "${OSC52_MAX_SEQUENCE} limit, ${len} attempted"
+        fi
+    fi
+
+    print_seq "$(printf '\033]52;c;%s\a' "${str}")"
+}
+
+main() {
+    set -e
+
+    local args=()
+    while [ $# -gt 0 ]; do
+        case $1 in
+            -h | --help)
+                usage
+                ;;
+            -f | --force)
+                OSC52_MAX_SEQUENCE=0
+                ;;
+            -d | --no-dcs)
+                OSC52_NO_DCS=1
+                ;;
+            --)
+                shift
+                args+=("$@")
+                break
+                ;;
+            -*)
+                usage "Unknown option: $1"
+                ;;
+            *)
+                args+=("$1")
+                ;;
+        esac
+        shift
+    done
+
+    if [ "${#args[@]}" -gt 1 ]; then
+        usage "Only supply one argument"
+    fi
+
+    copy "${args[@]}"
+}
+
+main "$@"
