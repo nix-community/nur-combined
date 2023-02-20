@@ -20,6 +20,12 @@
   # molecule-docker = pkgs.callPackage ./pkgs/python-modules/molecule-docker { };
   # molecule-hetznercloud = pkgs.callPackage ./pkgs/python-modules/molecule-hetznercloud { };
   # molecule-vagrant = pkgs.callPackage ./pkgs/python-modules/module-vagrant { };
+  # roundrobin = pkgs.callPackage ./pkgs/python-modules/roundrobin { };
+  # locustio = pkgs.callPackage ./pkgs/python-modules/locustio { };
+
+  python3Packages = pkgs.recurseIntoAttrs (
+    pkgs.python3Packages.callPackage ./pkgs/python-modules {}
+  );
 
   ### APPLICATION
   atlas = pkgs.callPackage ./pkgs/atlas { };
