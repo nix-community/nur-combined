@@ -916,6 +916,20 @@
         platforms = platforms.all;
         };
       };
+    "furiganaize" = buildFirefoxXpiAddon {
+      pname = "furiganaize";
+      version = "0.7.2";
+      addonId = "{a2503cd4-4083-4c2f-bef2-37767a569867}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4032306/furiganaize-0.7.2.xpi";
+      sha256 = "7545bc418f2afbc576b0e762f2b2fa0545d5d94f3f80737e5356d087a5951c0b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kuanyui/Furiganaize";
+        description = "Auto insert furigana (振り仮名) on Japanese kanji.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
       version = "3.2.7";
