@@ -58,6 +58,7 @@ let
       pkgs.python3.override { inherit packageOverrides; self = python3; };
     python3Packages = python3.pkgs;
 
+    solis-sensor = callPackage ./pkgs/solis-sensor { };
     tesla-custom-component = callPackage ./pkgs/tesla-custom-component { };
   });
 
@@ -79,6 +80,7 @@ in rec {
     hassio-ecoflow
     home-assistant
     homeAssistantPackageOverrides
+    solis-sensor
     tesla-custom-component
   ;
 
