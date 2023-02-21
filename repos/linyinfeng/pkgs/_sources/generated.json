@@ -170,11 +170,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OmF7MHsZ6I2I+5w5wibFZrFqCn4T5W1aMJWW01Z79FA=",
+            "sha256": "sha256-Ih72eBJF+FDCxakU72nI/GxCVNEywhDQmlyWGTASv/Q=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.8/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.10/app-x86_64.asar"
         },
-        "version": "v2.8.8"
+        "version": "v2.8.10"
     },
     "plugin-bang-bang": {
         "cargoLocks": null,
