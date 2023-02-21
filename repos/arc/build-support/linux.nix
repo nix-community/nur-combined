@@ -243,18 +243,4 @@ in {
   linuxKernel = super.linuxKernel // {
     packagesFor = kernel: (super.linuxKernel.packagesFor kernel).extend (lib.composeManyExtensions self.linuxPackagesOverlays);
   };
-
-  linuxPackages_bleeding = with lib; let
-    nonNullPackages = filter (p: p != null) [
-      self.linuxPackages_latest
-      self.linuxPackages_5_15 or null
-      self.linuxPackages_5_13 or null
-      self.linuxPackages_5_12 or null
-      self.linuxPackages_testing or null
-    ];
-    stripVersion = ver: head (splitString "-rc" ver);
-    compareVersions = l: r: versionOlder (stripVersion r.kernel.version) (stripVersion l.kernel.version);
-    sortedPackages = sort compareVersions nonNullPackages;
-    linuxPackages = head sortedPackages;
-  in linuxPackages;
 }
