@@ -19,6 +19,7 @@
     ./jq
     ./mail
     ./mpv
+    ./nix
     ./nix-index
     ./nm-applet
     ./packages

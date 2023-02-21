@@ -165,6 +165,39 @@
           ambroisie = prev.recurseIntoAttrs (import ./pkgs { pkgs = prev; });
         };
       };
+      homeConfigurations =
+        let
+          system = "x86_64-linux";
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = (lib.attrValues self.overlays) ++ [
+              nur.overlay
+            ];
+          };
+        in
+        {
+          ambroisie = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+
+            modules = [
+              ./home
+              {
+                # The basics
+                home.username = "ambroisie";
+                home.homeDirectory = "/home/ambroisie";
+                # Let Home Manager install and manage itself.
+                programs.home-manager.enable = true;
+                # This is a generic linux install
+                targets.genericLinux.enable = true;
+              }
+            ];
+
+            extraSpecialArgs = {
+              # Inject inputs to use them in global registry
+              inherit inputs;
+            };
+          };
+        };
 
       nixosConfigurations = lib.mapAttrs buildHost {
         aramis = "x86_64-linux";
