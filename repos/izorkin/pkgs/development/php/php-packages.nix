@@ -643,11 +643,11 @@ let
 
   phpstan = mkDerivation rec {
     pname = "phpstan";
-    version = "1.9.17";
+    version = "1.9.18";
 
     src = pkgs.fetchurl {
       url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-      sha256 = "sha256-7NHPz6ROVjGyqhnTDkhGr1/eqkydXLPpv28Kh/0QWIg=";
+      sha256 = "sha256-z1WpeX/3gF5+yAtt+Z0ribGosozVy4JFSp0HQ1iOVPo=";
     };
 
     phases = [ "installPhase" ];
@@ -746,7 +746,7 @@ let
     };
   };
 
-  protobuf = if isPhp56 then protobuf312 else protobuf321;
+  protobuf = if isPhp56 then protobuf312 else protobuf322;
 
   protobuf312 = buildPecl {
     pname = "protobuf";
@@ -767,11 +767,11 @@ let
     };
   };
 
-  protobuf321 = buildPecl {
+  protobuf322 = buildPecl {
     pname = "protobuf";
-    version = "3.21.12";
+    version = "3.22.0";
 
-    sha256 = "sha256-1uS8Rwgcq8QoTy5fJkqO6VhaqPao9lcZ8pK0geRpyq4=";
+    sha256 = "sha256-HMHR8Io82E9XR+umqqRS4pddloZR+tFed0eUmLw5xdk=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -788,11 +788,11 @@ let
 
   psalm = mkDerivation rec {
     pname = "psalm";
-    version = "5.6.0";
+    version = "5.7.4";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "sha256-B9DMzkSxkimnqL8AdI4QcA7uJgQ81VcmIUMCLpfDxAU=";
+      sha256 = "sha256-CevE27DVy5erWnVcTWF5Arg+vWljuNNBEVh6jJRfDp0=";
     };
 
     phases = [ "installPhase" ];
