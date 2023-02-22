@@ -3,6 +3,7 @@
 , qmake
 , qtbase
 , qtsvg
+, qtwayland
 , cmake
 , pkg-config
 , poppler
@@ -20,14 +21,15 @@ stdenv.mkDerivation rec {
 
   src = fetchbzr {
     url = "https://code.launchpad.net/~adamreichold/qpdfview/trunk";
-    rev = "2147";
-    sha256 = "sha256-r8zoaCVc6hW8+HWt/4x0oDOx25liFB1eUgwIfIoikUY=";
+    rev = "2152";
+    sha256 = "sha256-huYAyT12U7a3RgRu3W4McYnhFYEvKCmKb59E9vOSXsE=";
   };
 
   nativeBuildInputs = [ qmake wrapQtAppsHook pkg-config ];
   buildInputs = [
     qtbase
     qtsvg
+    qtwayland
     poppler
     djvulibre
     libspectre
