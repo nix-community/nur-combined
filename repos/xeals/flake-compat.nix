@@ -5,7 +5,7 @@ let
   lockFile = builtins.fromJSON (builtins.readFile lockFilePath);
   nixpkgs = lockFile.nodes.nixpkgs.locked;
   tarball = fetchTarball {
-    url = "https://github.com/${nixpkgs.owner}/${nixpkgs.repo}/archive/${nixpkgs.rev}";
+    url = "https://github.com/${nixpkgs.owner}/${nixpkgs.repo}/archive/${nixpkgs.rev}.zip";
     sha256 = nixpkgs.narHash;
   };
 in
