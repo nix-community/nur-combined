@@ -35,7 +35,6 @@ let
       cabextract
       iputils
     ];
-    runtimeOnly = true;
   }).run;
 
 in
