@@ -30,13 +30,13 @@ in
 
   bcml-gtk = python3Packages.callPackage ./games/bcml {
     gui = "gtk";
-    nodejs = nodejs-16_x-openssl_1_1;
+    # nodejs = nodejs-16_x-openssl_1_1;
     wrapQtAppsHook = null;
   };
 
   bcml-qt = python3Packages.callPackage ./games/bcml {
     gui = "qt";
-    nodejs = nodejs-16_x-openssl_1_1;
+    # nodejs = nodejs-16_x-openssl_1_1;
     inherit (qt5) wrapQtAppsHook;
   };
 
@@ -120,10 +120,6 @@ in
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt {
       inherit vkbasalt32;
     };
-  };
-
-  vvvvvv = callPackage ./games/vvvvvv/with-assets.nix {
-    inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
   yabridge = callPackage ./tools/audio/yabridge {

@@ -96,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (guiModule == "fltk") "-DFLTK_SKIP_OPENGL=ON";
 
   doCheck = true;
-  checkInputs = [ cxxtest ruby ];
+  nativeCheckInputs = [ cxxtest ruby ];
 
   # TODO: Update cmake hook to make it simpler to selectively disable cmake tests: #113829
   checkPhase =

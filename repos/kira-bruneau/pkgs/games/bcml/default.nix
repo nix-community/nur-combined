@@ -139,6 +139,8 @@ buildPythonApplication rec {
     pyqtwebengine
   ];
 
+  NODE_OPTIONS = "--openssl-legacy-provider";
+
   preBuild = ''
     (cd bcml/assets && npm run-script build)
     mkdocs build -d bcml/assets/help

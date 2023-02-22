@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   doCheck = true;
-  checkInputs = [
+  nativeCheckInputs = [
     # test/run requires the compgen function which is available in
     # bashInteractive, but not bash.
     bashInteractive

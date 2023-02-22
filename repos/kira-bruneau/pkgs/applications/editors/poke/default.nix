@@ -74,20 +74,20 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   doCheck = !isCross;
-  checkInputs = lib.optionals (!isCross) [ dejagnu ];
+  nativeCheckInputs = lib.optionals (!isCross) [ dejagnu ];
 
   postInstall = ''
     moveToOutput share/emacs "$out"
     moveToOutput share/vim "$out"
   '';
 
+  # Prevent tclPackageHook from auto-wrapping all binaries, we only
+  # need to wrap poke-gui
+  dontWrapTclBinaries = true;
+
   postFixup = lib.optionalString guiSupport ''
     wrapProgram "$out/bin/poke-gui" \
       --prefix TCLLIBPATH ' ' "$TCLLIBPATH"
-
-    # Prevent tclPackageHook from auto-wrapping all binaries, we only
-    # need to wrap poke-gui
-    unset TCLLIBPATH
   '';
 
   passthru = {

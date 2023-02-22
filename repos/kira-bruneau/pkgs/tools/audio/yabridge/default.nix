@@ -3,7 +3,8 @@
 , fetchFromGitHub
 , substituteAll
 , pkgsi686Linux
-, libnotify
+, fetchpatch
+, dbus
 , meson
 , ninja
 , pkg-config
@@ -27,6 +28,14 @@ let
     repo = "bitsery";
     rev = "refs/tags/v5.2.2";
     sha256 = "sha256-VwzVtxt+E/SVcxqIJw8BKPO2q7bu/hkhY+nB7FHrZpY=";
+  };
+
+  # Derived from subprojects/clap.wrap
+  clap = fetchFromGitHub {
+    owner = "free-audio";
+    repo = "clap";
+    rev = "1.1.4";
+    sha256 = "sha256-3zDvzC3Hs4OmT2qvaDa69rmBkHoQ8qY9TZlsPxsJA40=";
   };
 
   # Derived from subprojects/function2.wrap
@@ -57,21 +66,21 @@ let
   vst3 = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = "vst3sdk";
-    rev = "refs/tags/v3.7.5_build_44-patched";
+    rev = "refs/tags/v3.7.7_build_19-patched";
     fetchSubmodules = true;
-    sha256 = "sha256-6cuEUa+BXa6MnAYIBq873n0NRLadcPfMX+kpf4ysE6M=";
+    sha256 = "sha256-LsPHPoAL21XOKmF1Wl/tvLJGzjaCLjaDAcUtDvXdXSU=";
   };
 in
 multiStdenv.mkDerivation (finalAttrs: {
   pname = "yabridge";
-  version = "4.0.2";
+  version = "5.0.3";
 
   # NOTE: Also update yabridgectl's cargoHash when this is updated
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = "yabridge";
     rev = "refs/tags/${finalAttrs.version}";
-    sha256 = "sha256-rce6gxnB+RpG84Xakw0h4vZ8lyEQ41swWQGuwpomV2I=";
+    sha256 = "sha256-T3BU77BbVr6vlVoijUQy86eF0lCgM4S4d5VSnLE4pas=";
   };
 
   # Unpack subproject sources
@@ -79,6 +88,7 @@ multiStdenv.mkDerivation (finalAttrs: {
     cd "$sourceRoot/subprojects"
     cp -R --no-preserve=mode,ownership ${asio} asio
     cp -R --no-preserve=mode,ownership ${bitsery} bitsery
+    cp -R --no-preserve=mode,ownership ${clap} clap
     cp -R --no-preserve=mode,ownership ${function2} function2
     cp -R --no-preserve=mode,ownership ${ghc_filesystem} ghc_filesystem
     cp -R --no-preserve=mode,ownership ${tomlplusplus} tomlplusplus
@@ -90,11 +100,19 @@ multiStdenv.mkDerivation (finalAttrs: {
     (substituteAll {
       src = ./hardcode-dependencies.patch;
       libxcb32 = pkgsi686Linux.xorg.libxcb;
-      inherit libnotify wine;
+      inherit wine;
     })
 
     # Patch the chainloader to search for libyabridge through NIX_PROFILES
     ./libyabridge-from-nix-profiles.patch
+
+    # Remove with next yabridge update
+   (fetchpatch {
+      name = "fix-for-wine-8.0.patch";
+      url = "https://github.com/robbert-vdh/yabridge/commit/29acd40a9add635e2cb40ecc54c88d65604a7a2a.patch";
+      sha256 = "sha256-hVxa/FqH7d938Z/VjHdhmYLCLPZoa9C4xKSKRKiVPSU=";
+      includes = [ "meson.build" ];
+    })
   ];
 
   postPatch = ''
@@ -103,6 +121,7 @@ multiStdenv.mkDerivation (finalAttrs: {
       cd subprojects
       cp packagefiles/asio/* asio
       cp packagefiles/bitsery/* bitsery
+      cp packagefiles/clap/* clap
       cp packagefiles/function2/* function2
       cp packagefiles/ghc_filesystem/* ghc_filesystem
     )
@@ -117,6 +136,7 @@ multiStdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     libxcb
+    dbus
   ];
 
   mesonFlags = [
@@ -131,7 +151,7 @@ multiStdenv.mkDerivation (finalAttrs: {
     runHook preInstall
     mkdir -p "$out/bin" "$out/lib"
     cp yabridge-host{,-32}.exe{,.so} "$out/bin"
-    cp libyabridge{,-chainloader}-{vst2,vst3}.so "$out/lib"
+    cp libyabridge{,-chainloader}-{vst2,vst3,clap}.so "$out/lib"
     runHook postInstall
   '';
 
