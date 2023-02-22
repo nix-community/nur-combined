@@ -91,6 +91,8 @@
 
   pyoperon = pkgs.python3Packages.callPackage ./pkgs/pyoperon { };
 
+  qt6ct = pkgs.qt6Packages.callPackage ./pkgs/qt6ct { };
+
   qpdfview = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
