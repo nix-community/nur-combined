@@ -17,4 +17,5 @@
   go-check = pkgs.callPackage ./pkgs/go-check { buildGoModule = pkgs.buildGo118Module; };
   lux = pkgs.callPackage ./pkgs/lux { buildGoModule = pkgs.buildGo118Module; };
   catp = pkgs.callPackage ./pkgs/catp { };
+  github-copilot-cli = pkgs.callPackage ./pkgs/github-copilot-cli { };
 }
