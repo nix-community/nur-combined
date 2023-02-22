@@ -775,10 +775,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.66";
+      version = "2.67";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027989/firemonkey-2.66.xpi";
-      sha256 = "a85d461f22ac567787974ffbe6ef9714819ce4ebf3cbe1f900a4166ee1fe05c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4073785/firemonkey-2.67.xpi";
+      sha256 = "2332636d0e64fac8d0d9e06d5623734d5c374ade1d75f129df8e5c78b0a60091";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230219.190218";
+      version = "111.0buildid20230221.190142";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4073147/francais_language_pack-111.0buildid20230219.190218.xpi";
-      sha256 = "df3254f031e3115082d2bf45cdf892ea08ce915f367ee79a5b986ebf1408ac8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4074142/francais_language_pack-111.0buildid20230221.190142.xpi";
+      sha256 = "577b23960ba4b79c4254d1da628985170e47bb2b95ab8393f6753257b216959b";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1534,10 +1534,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.39";
+      version = "2.7.43";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067989/momentumdash-2.7.39.xpi";
-      sha256 = "2d1b9d0738e83d115a993c995c5dcdf97e9d56397bed15aa9bb1b5517d6b45a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071022/momentumdash-2.7.43.xpi";
+      sha256 = "52621c1e95d49027ce1a03709839b7f0a26bb4c9c41868470a0abbcf8d5046b2";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -3128,10 +3128,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.86.0";
+      version = "2.86.2";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067848/web_scrobbler-2.86.0.xpi";
-      sha256 = "7670719ec85ce14ac4cb04b185bec1aa3fc44fa26ebf28fc09202fb5e754b475";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071805/web_scrobbler-2.86.2.xpi";
+      sha256 = "faf0525f86bb852fa8efafbd54dfc2ef13bf4a45bf756b0b3982231e2c52a327";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
