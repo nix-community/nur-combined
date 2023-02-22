@@ -33,6 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The Scalable Parallel Random Number Generators Library";
+    # TODO: Fix build
+    broken = true;
     homepage = "http://www.sprng.org";
     license = licenses.cc-by-sa-40;
   };

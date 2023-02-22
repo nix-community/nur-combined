@@ -25,5 +25,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pymcfost" ];
 
   doCheck = false;
+  
+  # Can't build because mcfost is broken.
+  broken = true;
 
 }

@@ -78,6 +78,8 @@ stdenv.mkDerivation rec {
     description = "3D continuum and line radiative transfer code based on the Monte Carlo method";
     homepage = "https://github.com/cpinte/mcfost";
     license = licenses.gpl3;
+    # Can't build because sprng2 is broken.
+    broken = true;
   };
 
 }
