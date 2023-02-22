@@ -28,23 +28,14 @@ jobs:
         # in your repository settings in Github found at https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - xeals
-        nixPath:
-          # - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
-          # Disable due to buildGoModule and buildRustPackage
-          # - nixpkgs=channel:nixos-20.03
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Install nix
       uses: cachix/install-nix-action@v19
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
     - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      run: nix eval --impure --expr '(import ./flake-compat.nix { src = ./.; }).lib.version'
     - name: Setup cachix
       uses: cachix/cachix-action@v12
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
@@ -52,7 +43,7 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix develop .#ci -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
