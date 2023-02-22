@@ -5,6 +5,7 @@
   imports = [
     ./boot.nix
     ./hardware.nix
+    ./home.nix
     ./networking.nix
     ./services.nix
     ./users.nix
