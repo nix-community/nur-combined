@@ -66,7 +66,7 @@ rec {
 
   # The one in Nixpkgs still extracts the pre-built Debian package instead
   # of building from source.
-  protonmailBridgePackages = pkgs.libsForQt512.callPackage ../applications/networking/protonmail-bridge {
+  protonmailBridgePackages = pkgs.libsForQt5.callPackage ../applications/networking/protonmail-bridge {
     inherit goModules;
   };
   protonmail-bridge = protonmailBridgePackages.protonmail-bridge;

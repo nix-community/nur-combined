@@ -20,7 +20,7 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Update ${{ matrix.input }}
+      - name: "Update input ${{ matrix.input }}"
         uses: DeterminateSystems/update-flake-lock@v16
         with:
           inputs: ${{ matrix.input }}
