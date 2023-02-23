@@ -2,7 +2,7 @@
 
 rec {
   goModules = pkgs.recurseIntoAttrs rec {
-    qt = pkgs.libsForQt512.callPackage ../development/go-modules/qt { };
+    qt = pkgs.libsForQt5.callPackage ../development/go-modules/qt { };
   };
 
   # A functional Jetbrains IDE-with-plugins package set.

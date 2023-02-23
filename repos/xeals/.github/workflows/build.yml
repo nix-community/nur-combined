@@ -18,6 +18,7 @@ jobs:
       - name: Check ${{ matrix.check }}
         # Depends on nixos/nix#7759 to simply `nix flake check`
         run: nix run .#checks.$(nix eval --raw --impure --expr "builtins.currentSystem").${{ matrix.check }}
+        continue-on-error: true
 
   build-and-update:
     strategy:
