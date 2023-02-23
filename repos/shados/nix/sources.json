@@ -162,6 +162,19 @@
         "url": "https://github.com/mobile-shell/mosh/archive/e023e81c08897c95271b4f4f0726ec165bb6e1bd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "switch-dbibackend": {
+        "branch": "main",
+        "builtin": false,
+        "description": "Author is duckbill ",
+        "homepage": null,
+        "owner": "rashevskyv",
+        "repo": "dbi",
+        "rev": "7ed5d9471e1e65fee53a60c74035af66920a664f",
+        "sha256": "0d51929y5sw83x887iwh9j5s1qxq33nmjivbk0i333msgf7xdfq8",
+        "type": "tarball",
+        "url": "https://github.com/rashevskyv/dbi/archive/7ed5d9471e1e65fee53a60c74035af66920a664f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "tagsistant": {
         "branch": "master",
         "builtin": false,

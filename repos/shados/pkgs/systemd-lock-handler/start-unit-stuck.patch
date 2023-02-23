@@ -1,0 +1,13 @@
+diff --git a/main.go b/main.go
+index 278ab58..5155ab4 100644
+--- a/main.go
++++ b/main.go
+@@ -22,7 +22,7 @@ func StartSystemdUserUnit(unitName string) error {
+ 
+ 	ch := make(chan string, 1)
+ 
+-	_, err = conn.StartUnitContext(context.Background(), unitName, "replace", nil)
++	_, err = conn.StartUnitContext(context.Background(), unitName, "replace", ch)
+ 	if err != nil {
+ 		return fmt.Errorf("failed to start unit: %v", err)
+ 	}

@@ -1,4 +1,4 @@
-{ lib, stdenv, pins, buildGoModule
+{ lib, pins, buildGoModule
 }:
 buildGoModule rec {
   pname = "firefox-history-merger";
