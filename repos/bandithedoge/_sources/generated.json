@@ -1,7 +1,7 @@
 {
     "bling": {
         "cargoLocks": null,
-        "date": "2023-02-09",
+        "date": "2023-02-22",
         "extract": null,
         "name": "bling",
         "passthru": null,
@@ -13,15 +13,15 @@
             "name": null,
             "owner": "blingcorp",
             "repo": "bling",
-            "rev": "affc165bda9dd8a88de8c7d9b22d5ccb466f2742",
-            "sha256": "sha256-khHAM26TGwhfXO8RppGia/ViIhxi7wDdLw7P2lg161U=",
+            "rev": "4fc68f7c24f6eb7d9ce96d15da098a4b04b162e1",
+            "sha256": "sha256-VgGHb4rGeSb7+P4Cy1JR5KaHdvy3QFJ5aliia0BQEZ8=",
             "type": "github"
         },
-        "version": "affc165bda9dd8a88de8c7d9b22d5ccb466f2742"
+        "version": "4fc68f7c24f6eb7d9ce96d15da098a4b04b162e1"
     },
     "cardinal": {
         "cargoLocks": null,
-        "date": "2023-02-20",
+        "date": "2023-02-21",
         "extract": null,
         "name": "cardinal",
         "passthru": null,
@@ -33,11 +33,11 @@
             "name": null,
             "owner": "DISTRHO",
             "repo": "Cardinal",
-            "rev": "b9279fc2b3946760f5cf03ba2af4b08c44d8865c",
-            "sha256": "sha256-7e168HYBWdG1uyO2mGnZWezKvrA7EHyJHB4T4MP7vd8=",
+            "rev": "1632dc88d3ef4df20d3ad0e61b0f71618b03b954",
+            "sha256": "sha256-kifKRVyQMLqsIF3FNHlzFDtY0j5B8wNTpNPeMFKn26s=",
             "type": "github"
         },
-        "version": "b9279fc2b3946760f5cf03ba2af4b08c44d8865c"
+        "version": "1632dc88d3ef4df20d3ad0e61b0f71618b03b954"
     },
     "carla": {
         "cargoLocks": null,
