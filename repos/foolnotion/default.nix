@@ -93,7 +93,8 @@
 
   qt6ct = pkgs.qt6Packages.callPackage ./pkgs/qt6ct { };
 
-  qpdfview = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
+  qpdfview-qt5 = pkgs.libsForQt5.callPackage ./pkgs/qpdfview { };
+  qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
 
