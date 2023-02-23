@@ -602,10 +602,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.1.12";
+      version = "2023.2.16";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055931/duckduckgo_for_firefox-2023.1.12.xpi";
-      sha256 = "94605b42bd014cc724ed9beb25991bf7c0e7e3986f2d3863b92247e420cd5b88";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071699/duckduckgo_for_firefox-2023.2.16.xpi";
+      sha256 = "acf6312ef437075e17413e259f17493ae9b5958f2ddeb8b13f8d27fe9a56ff39";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1169,10 +1169,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.5";
+      version = "3.4.6";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043507/i_dont_care_about_cookies-3.4.5.xpi";
-      sha256 = "f4f20728ecabe79a5631593206d4602ab50026b1b260a78e0dff857ba58008ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071150/i_dont_care_about_cookies-3.4.6.xpi";
+      sha256 = "17a9c529762978e28f7f68140359f9ccba2d5e811878ea2963908f0c2294fe05";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1183,10 +1183,10 @@
       };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
-      version = "2.22.0";
+      version = "2.22.1";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071383/ipfs_companion-2.22.0.xpi";
-      sha256 = "7b17d29a66423e980f581b842b0fd661472076244d7ada4af2ca771187328177";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4074701/ipfs_companion-2.22.1.xpi";
+      sha256 = "7f0f191bc7525cd487e2c58476574a2ff4231795c9d1ea3388ff068ec6d871f1";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs-shipyard/ipfs-companion";
@@ -3058,10 +3058,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.10";
+      version = "2.13.11";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071387/violentmonkey-2.13.10.xpi";
-      sha256 = "4334b57f94b27224fd3eeab9980673b5c6ef3991eba3f7d19bd3e40e9313521c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4072794/violentmonkey-2.13.11.xpi";
+      sha256 = "095d6acdee9ce46ad334d108eefb50d4dffb661effe8290137238933c4b40568";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
