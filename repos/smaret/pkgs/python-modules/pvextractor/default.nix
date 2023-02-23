@@ -6,35 +6,35 @@
 , scipy
 , qtpy
 , spectral-cube
-, pytest
+, pytestCheckHook
 , pytest-astropy
-, astropy-helpers
-, six
+, setuptools_scm
 }:
 
 buildPythonPackage rec {
   pname = "pvextractor";
-  version = "0.2";
+  version = "0.3";
+  format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0213cy1c3vqlyv8ln8psav5sk9s4pqpkasa98538ydc1a7xg3mzx";
+    sha256 = "sha256-pU6YZ2DO9rGG4C0cPZjX4cGOTnXF0LcTQ7X/Wf2cCcM=";
   };
 
   propagatedBuildInputs = [ astropy matplotlib scipy qtpy spectral-cube ];
 
-  nativeBuildInputs = [ astropy-helpers ];
-  
-  checkInputs = [ pytest pytest-astropy ];
+  nativeBuildInputs = [ setuptools_scm ];
 
-  # TODO: enable tests
-  doCheck = false;
+  checkInputs = [ pytestCheckHook pytest-astropy ];
+
+  disabledTests = [
+    # segfaults with Matplotlib 3.1 and later
+    "gui"
+  ];
 
   meta = {
     description = "Position-Velocity Diagram Extractor";
     homepage = http://radio-astro-tools.github.io;
-    # TODO: Fix build
-    broken = true;
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ smaret ];
