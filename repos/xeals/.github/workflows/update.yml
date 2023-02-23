@@ -1,0 +1,27 @@
+name: "Update flake inputs"
+on:
+  workflow_dispatch:
+  schedule:
+    # bump weekly at 6:50
+    - cron:  '50 6 * * 1'
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        input:
+          - nixpkgs
+          - flake-utils
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v19
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Update ${{ matrix.input }}
+        uses: DeterminateSystems/update-flake-lock@v16
+        with:
+          inputs: ${{ matrix.input }}
+          pr-labels: dependencies

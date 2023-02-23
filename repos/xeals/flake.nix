@@ -20,7 +20,16 @@
               (_: drv: builtins.elem system (drv.meta.platforms or [ ]))
               (import ./pkgs/top-level/all-packages.nix { inherit pkgs; });
 
-          devShells.ci = pkgs.mkShell {
+          checks = {
+            nixpkgs-fmt = pkgs.writeShellScriptBin "nixpkgs-fmt-check" ''
+              ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check .
+            '';
+            deadnix = pkgs.writeShellScriptBin "deadnix-check" ''
+              ${pkgs.deadnix}/bin/deadnix --fail .
+            '';
+          };
+
+          devShells.ci = pkgs.mkShellNoCC {
             buildInputs = [ pkgs.nix-build-uncached ];
           };
 

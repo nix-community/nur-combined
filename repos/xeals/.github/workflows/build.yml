@@ -1,14 +1,25 @@
-name: "Build and populate cache"
+name: "CI"
 on:
   pull_request:
   push:
-  schedule:
-    # rebuild everyday at 6:50
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '50 6 * * *'
 jobs:
-  tests:
+
+  checks:
+    strategy:
+      matrix:
+        check:
+          - nixpkgs-fmt
+          - deadnix
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v19
+      - name: Check ${{ matrix.check }}
+        # Depends on nixos/nix#7759 to simply `nix flake check`
+        run: nix run .#checks.$(nix eval --raw --impure --expr "builtins.currentSystem").${{ matrix.check }}
+
+  build-and-update:
     strategy:
       matrix:
         # Set this to notify the global nur package registry that changes are
@@ -46,4 +57,4 @@ jobs:
       run: nix develop .#ci -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nurRepo }}"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
