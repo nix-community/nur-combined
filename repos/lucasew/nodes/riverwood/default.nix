@@ -23,16 +23,19 @@ in
       ./dns.nix
       ./kvm.nix
       ./zfs.nix
-      ./backup-saves.nix
       ./plymouth.nix
       ./remote-build.nix
     ]
   ;
   networking.hostId = "dabd2d19";
-
   services.cockpit.enable = true;
 
   services.telegram-sendmail.enable = true;
+
+  services.cloud-savegame = {
+    enable = true;
+    calendar = "01:00:01";
+  };
 
   environment.systemPackages = with pkgs; [
     kubectl

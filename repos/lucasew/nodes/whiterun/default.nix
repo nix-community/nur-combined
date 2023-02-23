@@ -27,6 +27,11 @@ in {
 
   services.telegram-sendmail.enable = true;
 
+  services.cloud-savegame = {
+    enable = true;
+    calendar = "00:00:01";
+  };
+
   services.nextcloud = {
     package = pkgs.nextcloud24;
     enable = true;

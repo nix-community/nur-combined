@@ -11,6 +11,7 @@ in
     ../../modules/cachix/system.nix
     ../../modules/hold-gc/system.nix
     ./ansible-python.nix
+    ./cloud-savegame.nix
     ./p2k.nix
     ./tuning.nix
     ./jellyfin.nix
@@ -22,6 +23,27 @@ in
     ./telegram_sendmail.nix
     "${inputs.simple-dashboard}/nixos-module.nix"
   ];
+
+  services.cloud-savegame = {
+    enableVerbose = true;
+    enableGit = true;
+    settings = {
+      search = {
+        paths = [ "~" ];
+        extra_homes = [ "/run/media/lucasew/Dados/DADOS/Lucas" ];
+      };
+
+      flatout-2 = {
+        installdir= [ "~/.local/share/Steam/steamapps/common/FlatOut2" "/run/media/lucasew/Dados/DADOS/Jogos/FlatOut 2"];
+      };
+
+      farming-simulator-2013 = {
+        ignore_mods = true;
+      };
+    };
+  };
+
+
 
   services.unstore = {
     # enable = true;

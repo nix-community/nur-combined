@@ -12,6 +12,9 @@
     climod.url = "github:nixosbrasil/climod";
     climod.flake = false;
 
+    cloud-savegame.url = "github:lucasew/cloud-savegame";
+    cloud-savegame.flake = false;
+
     comma.url =  "github:Shopify/comma";
     comma.flake = false;
 
