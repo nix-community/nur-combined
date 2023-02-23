@@ -18,6 +18,7 @@ wrapFirefox firefox-esr-102-unwrapped {
     tampermonkey
     ublock-origin
     tweak-new-twitter
+    floccus
   ])
   ++ ([
     (callPackage ./base16-ext {})
