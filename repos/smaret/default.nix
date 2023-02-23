@@ -11,6 +11,7 @@
       sundials = pkgs.callPackage ./pkgs/astrochem/dependencies/sundials5 { };
     }
   );
+  astropy = pkgs.python3Packages.callPackage ./pkgs/python-modules/astropy { }; 
   lmfit = pkgs.python3Packages.callPackage ./pkgs/python-modules/lmfit { };
   pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
   pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { };
