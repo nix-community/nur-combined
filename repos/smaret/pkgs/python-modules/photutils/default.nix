@@ -31,13 +31,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ astropy numpy ];
 
-  nativeCheckInputs = [
+  checkInputs = [
     pytest-astropy
     pytestCheckHook
   ];
 
-  # TODO: Fix tests
-  doCheck = false;
+  # Tests must be run in the build directory
+  pytestFlagsArray = [ "build/lib.*/photutils" ];
 
   pythonImportsCheck = [ "photutils" ];
 
