@@ -13,6 +13,7 @@
   );
   astropy = pkgs.python3Packages.callPackage ./pkgs/python-modules/astropy { }; 
   lmfit = pkgs.python3Packages.callPackage ./pkgs/python-modules/lmfit { };
+  photutils =  pkgs.python3Packages.callPackage ./pkgs/python-modules/photutils { };
   pvextractor = pkgs.python3Packages.callPackage ./pkgs/python-modules/pvextractor { };
   pyradex = pkgs.python3Packages.callPackage ./pkgs/python-modules/pyradex { };
   mcfost = pkgs.callPackage ./pkgs/mcfost {
