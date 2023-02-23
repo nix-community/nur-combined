@@ -1,5 +1,355 @@
 [
   {
+    "name": "ArmouredBiters",
+    "version": "1.1.6",
+    "file_name": "ArmouredBiters_1.1.6.zip",
+    "download_url": "/download/ArmouredBiters/62d5bd2ed0ad17fb9c31f7ee",
+    "sha1": "492961c098601ecc04add0e62702fa097a03073f",
+    "dependencies": [
+      "base >= 1.1.1",
+      "(?) alien-biomes"
+    ]
+  },
+  {
+    "name": "CircuitProcessing",
+    "version": "0.4.5",
+    "file_name": "CircuitProcessing_0.4.5.zip",
+    "download_url": "/download/CircuitProcessing/63b14e809ffe09c607367015",
+    "sha1": "b030ca86d9fa8bb61d69a9c32ff5d504af01e6f1",
+    "dependencies": [
+      "base",
+      "bobelectronics >= 1.1.6",
+      "? bobmodules >= 1.1.6",
+      "? bobrevamp >= 1.1.6",
+      "? angelssmelting",
+      "? angelsbioprocessing"
+    ]
+  },
+  {
+    "name": "Clockwork",
+    "version": "1.1.1",
+    "file_name": "Clockwork_1.1.1.zip",
+    "download_url": "/download/Clockwork/62cfbeec2f7323c5991b564b",
+    "sha1": "c43fb2d43d585c1ea106d802ccae20e2fb9996d0",
+    "dependencies": [
+      "base >= 1.1"
+    ]
+  },
+  {
+    "name": "Companion_Drones",
+    "version": "1.0.25",
+    "file_name": "Companion_Drones_1.0.25.zip",
+    "download_url": "/download/Companion_Drones/63f533c16a787af6856d20d7",
+    "sha1": "9a6af75f585e1eb67b5b2490c885832768819b2d",
+    "dependencies": [
+      "base >= 1.1.5",
+      "(?)alien-biomes",
+      "(?)space-exploration"
+    ]
+  },
+  {
+    "name": "Construction_Drones",
+    "version": "0.6.11",
+    "file_name": "Construction_Drones_0.6.11.zip",
+    "download_url": "/download/Construction_Drones/5f40e186f0020b835a39e5c5",
+    "sha1": "9b730161b6bd16308ac13ae4abe19d67cb453a3b",
+    "dependencies": [
+      "base >= 1.0.0",
+      "(?) Hovercraft",
+      "(?) walls-block-spitters"
+    ]
+  },
+  {
+    "name": "Crafting_Speed_Research",
+    "version": "0.2.3",
+    "file_name": "Crafting_Speed_Research_0.2.3.zip",
+    "download_url": "/download/Crafting_Speed_Research/60202291fd6b223ade6dcb96",
+    "sha1": "2c5af6a71b83003393f00a96bcf0d0fc982f78b4",
+    "dependencies": []
+  },
+  {
+    "name": "Explosive Excavation",
+    "version": "1.1.8",
+    "file_name": "Explosive Excavation_1.1.8.zip",
+    "download_url": "/download/Explosive%20Excavation/5fbf91ea064e5b290e638efa",
+    "sha1": "ea33c27a686719a66081f3e4a11c9067eeaa307c",
+    "dependencies": []
+  },
+  {
+    "name": "FNEI",
+    "version": "0.4.1",
+    "file_name": "FNEI_0.4.1.zip",
+    "download_url": "/download/FNEI/6061e76f01ead7ddd4de6984",
+    "sha1": "ef4b0b910d228194de5736d65f8a7bdf33c23c8c",
+    "dependencies": [
+      "base >= 1.1.0"
+    ]
+  },
+  {
+    "name": "FluidMustFlow",
+    "version": "1.3.1",
+    "file_name": "FluidMustFlow_1.3.1.zip",
+    "download_url": "/download/FluidMustFlow/622d193f948eb0df8b76b60d",
+    "sha1": "255808cc796af18ffd0b4f14c7c655b095f9f9ca",
+    "dependencies": [
+      "base >= 1.1",
+      "(?) Squeak Through >= 1.3.0"
+    ]
+  },
+  {
+    "name": "KS_Power",
+    "version": "0.5.1",
+    "file_name": "KS_Power_0.5.1.zip",
+    "download_url": "/download/KS_Power/619a48c30fb67b412038a967",
+    "sha1": "e9dcaacefa07779de663faa60268280b9f99b651",
+    "dependencies": []
+  },
+  {
+    "name": "Krastorio2",
+    "version": "1.3.15",
+    "file_name": "Krastorio2_1.3.15.zip",
+    "download_url": "/download/Krastorio2/63d73823a19868f8b2e2c016",
+    "sha1": "985f4c16730e2d4375d774af0049679baebbce05",
+    "dependencies": [
+      "base >= 1.1.74",
+      "Krastorio2Assets >= 1.2.1",
+      "flib >= 0.12.0",
+      "(?) aai-industry >= 0.3.17",
+      "(?) aai-vehicles-chaingunner >= 0.5.2",
+      "(?) Aircraft >= 1.6.6",
+      "(?) angelsindustries >= 0.4.3",
+      "(?) angelspetrochem >= 0.9.11",
+      "(?) bobenemies >= 0.17.6",
+      "(?) bullet-trails >= 0.4.1",
+      "(?) ElectricTrain",
+      "(?) deadlock-beltboxes-loaders >= 2.1.13",
+      "(?) DeadlockLargerLamp >= 1.3.1",
+      "(?) Dectorio >= 0.10.5",
+      "(?) DiscoScience >= 1.0.0",
+      "(?) Flow Control >= 3.0.5",
+      "(?) rso-mod >= 6.0.6",
+      "(?) Squeak Through >= 1.3.0",
+      "(?) Tral_robot_tree_farm >= 1.2.5",
+      "(?) vtk-armor-plating >= 0.8.0",
+      "(?) WaterAsAResource >= 0.7.8",
+      "! Annotorio >= 0.3.0",
+      "! brave-new-world >= 3.2.1",
+      "! Clowns-Nuclear >= 1.3.7",
+      "! HdProcessedMetal >= 0.0.1",
+      "! KS_Power >= 0.3.0",
+      "! Krastorio >= 0.2.1",
+      "! Krastorio-graphics >= 0.0.1",
+      "! KS_Combat >= 0.1.11",
+      "! ModularLife >= 0.2.11",
+      "! Power Armor MK3 >= 0.0.1",
+      "! PowerAndArmor >= 1.18.41",
+      "! SimpleSilicon >= 1.0.0",
+      "! bobequipment >= 0.17.0",
+      "! bobvehicleequipment >= 0.17.0",
+      "! custom_power_armor_fix >= 0.10.0",
+      "! laborat >= 0.1.0"
+    ]
+  },
+  {
+    "name": "LandfillPainting",
+    "version": "0.5.2",
+    "file_name": "LandfillPainting_0.5.2.zip",
+    "download_url": "/download/LandfillPainting/607fe65fcfc8a90cb0f19775",
+    "sha1": "c4e504eabca0f4f90e2caee46f63f8709e2c4d34",
+    "dependencies": [
+      "base >= 0.17",
+      "? angelsrefining"
+    ]
+  },
+  {
+    "name": "Logistic-Gun-Turret",
+    "version": "1.1.0",
+    "file_name": "Logistic-Gun-Turret_1.1.0.zip",
+    "download_url": "/download/Logistic-Gun-Turret/608f8d2afd362771ba580b10",
+    "sha1": "cd8111ae3f3f1b08aca04752d28cbe2cb75cd5cc",
+    "dependencies": [
+      "base >= 1.1.0"
+    ]
+  },
+  {
+    "name": "MegaBotStart",
+    "version": "0.21.1",
+    "file_name": "MegaBotStart_0.21.1.zip",
+    "download_url": "/download/MegaBotStart/600c74d32030d686c64f7a59",
+    "sha1": "ad9edf5361c0ff2f94cbb1921d63eeb066a349e1",
+    "dependencies": [
+      "base >= 1.1",
+      "? Krastorio2",
+      "? bobwarfare",
+      "? bobequipment",
+      "? boblogistics"
+    ]
+  },
+  {
+    "name": "Nanobots",
+    "version": "3.2.19",
+    "file_name": "Nanobots_3.2.19.zip",
+    "download_url": "/download/Nanobots/625b15050a25b55bb5dab5a3",
+    "sha1": "947a45f91b3ce977374f9f2eed15e29a1378ad0f",
+    "dependencies": [
+      "base >= 1.1.0",
+      "stdlib >= 1.4.6",
+      "(?) PickerAtheneum >= 1.1.2"
+    ]
+  },
+  {
+    "name": "RPGsystem",
+    "version": "1.3.2",
+    "file_name": "RPGsystem_1.3.2.zip",
+    "download_url": "/download/RPGsystem/62fbef26b9aa25ce5ff405df",
+    "sha1": "64aa2c8f6666121071b750523919175e8c89f869",
+    "dependencies": [
+      "base >= 1.1.0"
+    ]
+  },
+  {
+    "name": "Rampant",
+    "version": "3.1.2",
+    "file_name": "Rampant_3.1.2.zip",
+    "download_url": "/download/Rampant/62ae3b41ff5f6874428896b6",
+    "sha1": "01feddc7cbc7a7a993310e57b6c25bae5dbb8f84",
+    "dependencies": [
+      "base >= 1.1.36",
+      "? bobenemies",
+      "? Natural_Evolution_Enemies >= 0.17.0",
+      "? Clockwork",
+      "? Kux-OrbitalIonCannon",
+      "? Orbital Ion Cannon",
+      "? ArmouredBiters",
+      "? Krastorio2",
+      "? SchallAlienLoot >= 0.17.6"
+    ]
+  },
+  {
+    "name": "ScienceCostTweakerM",
+    "version": "1.1.10",
+    "file_name": "ScienceCostTweakerM_1.1.10.zip",
+    "download_url": "/download/ScienceCostTweakerM/60eb431078d9a37c9a4f2e2a",
+    "sha1": "c56fd5b4f626db099084acfd34b0e2f6eb82c6e0",
+    "dependencies": [
+      "base >= 1.1.0",
+      "? omnimatter_science >= 3.0.3",
+      "? pycoalprocessing >= 1.2.0",
+      "? bobtech",
+      "? aai-industry",
+      "? omnimatter_energy"
+    ]
+  },
+  {
+    "name": "SeaBlock",
+    "version": "0.5.12",
+    "file_name": "SeaBlock_0.5.12.zip",
+    "download_url": "/download/SeaBlock/63b14e9fb87239fd300955af",
+    "sha1": "f9130fb8532ba56d2a0ef83eb89460e63f952c01",
+    "dependencies": [
+      "base",
+      "angelsbioprocessing >= 0.7.23",
+      "angelspetrochem >= 0.9.23",
+      "angelsrefining >= 0.12.3",
+      "angelssmelting >= 0.6.20",
+      "bobelectronics >= 1.1.6",
+      "boblibrary >= 1.1.6",
+      "boblogistics >= 1.1.6",
+      "bobores >= 1.1.6",
+      "bobplates >= 1.1.6",
+      "? angelsaddons-storage",
+      "? bobassembly",
+      "? bobenemies",
+      "? bobequipment",
+      "? bobinserters",
+      "? bobmining",
+      "? bobmodules",
+      "? bobpower",
+      "? bobrevamp",
+      "? bobtech",
+      "? bobwarfare",
+      "? CircuitProcessing",
+      "? Explosive Excavation",
+      "? KS_Power",
+      "? LandfillPainting >= 0.5.2",
+      "? ScienceCostTweakerM >= 1.1.10",
+      "? SpaceMod >= 1.1.1",
+      "(?) KS_Power_quickfix",
+      "(?) Companion_Drones",
+      "! alien-biomes",
+      "! angelsexploration"
+    ]
+  },
+  {
+    "name": "SeaBlockMetaPack",
+    "version": "1.1.3",
+    "file_name": "SeaBlockMetaPack_1.1.3.zip",
+    "download_url": "/download/SeaBlockMetaPack/6117713fc507516cdf742c27",
+    "sha1": "cf93e422f1876cd6abc0b74d095700f14a8747e5",
+    "dependencies": [
+      "base",
+      "angelsaddons-storage",
+      "angelsbioprocessing",
+      "angelspetrochem",
+      "angelsrefining",
+      "angelssmelting",
+      "bobassembly",
+      "bobelectronics",
+      "bobenemies",
+      "bobequipment",
+      "bobinserters",
+      "boblibrary",
+      "boblogistics",
+      "bobmining",
+      "bobmodules",
+      "bobores",
+      "bobplates",
+      "bobpower",
+      "bobrevamp",
+      "bobtech",
+      "bobwarfare",
+      "CircuitProcessing",
+      "Explosive Excavation",
+      "flib",
+      "FNEI",
+      "helmod",
+      "KS_Power",
+      "LandfillPainting",
+      "reskins-angels",
+      "reskins-bobs",
+      "reskins-compatibility",
+      "reskins-library",
+      "ScienceCostTweakerM",
+      "SeaBlock",
+      "SpaceMod"
+    ]
+  },
+  {
+    "name": "SpaceMod",
+    "version": "1.1.1",
+    "file_name": "SpaceMod_1.1.1.zip",
+    "download_url": "/download/SpaceMod/6131dd6007ae5a501cef60f7",
+    "sha1": "6fde4609f717b9298bae440fd06ddc5e7626955f",
+    "dependencies": [
+      "base",
+      "? boblibrary",
+      "? bobplates",
+      "? bobmodules",
+      "? bobelectronics",
+      "? boblogistics",
+      "? bobtech",
+      "? bobequipment"
+    ]
+  },
+  {
+    "name": "VehicleSnap",
+    "version": "1.18.4",
+    "file_name": "VehicleSnap_1.18.4.zip",
+    "download_url": "/download/VehicleSnap/5fbe440bf6658f34bfb3c677",
+    "sha1": "d0755e73251d8d72c6ab3f82cd79266485af5da4",
+    "dependencies": []
+  },
+  {
     "name": "aai-programmable-vehicles",
     "version": "0.7.22",
     "file_name": "aai-programmable-vehicles_0.7.22.zip",
@@ -173,10 +523,10 @@
   },
   {
     "name": "angelsbioprocessing",
-    "version": "0.7.23",
-    "file_name": "angelsbioprocessing_0.7.23.zip",
-    "download_url": "/download/angelsbioprocessing/63b151c9b9df5499fd7e03a1",
-    "sha1": "4f7da7c094d3738973c6c0003e699d466f622353",
+    "version": "0.7.24",
+    "file_name": "angelsbioprocessing_0.7.24.zip",
+    "download_url": "/download/angelsbioprocessing/63f7bddad8c7880c35f46a05",
+    "sha1": "39ffd747b5fa2aeb48cefee0f609377736bf1a91",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.21",
@@ -202,10 +552,10 @@
   },
   {
     "name": "angelsindustries",
-    "version": "0.4.17",
-    "file_name": "angelsindustries_0.4.17.zip",
-    "download_url": "/download/angelsindustries/63b14c2b9ffe09c607367013",
-    "sha1": "470a0cb67971b862a530174b8283f93abd75694e",
+    "version": "0.4.18",
+    "file_name": "angelsindustries_0.4.18.zip",
+    "download_url": "/download/angelsindustries/63f7bddfa5af50e17b20f8c0",
+    "sha1": "f83fd2187d3aca5ddad54d566273882a88da2f1f",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.20",
@@ -242,12 +592,12 @@
   },
   {
     "name": "angelspetrochem",
-    "version": "0.9.23",
-    "file_name": "angelspetrochem_0.9.23.zip",
-    "download_url": "/download/angelspetrochem/63b151a1b87239fd300955b0",
-    "sha1": "dbcf51a81b93f007ade8d440a7628db4020ed04f",
+    "version": "0.9.24",
+    "file_name": "angelspetrochem_0.9.24.zip",
+    "download_url": "/download/angelspetrochem/63f7bdd0aabdeb98aa9351a3",
+    "sha1": "b7808d6159f90278a99e9a86b94b23341325f8fd",
     "dependencies": [
-      "angelsrefining >= 0.12.1",
+      "angelsrefining >= 0.12.3",
       "? bobplates >= 1.1.6",
       "? bobassembly >= 1.1.5",
       "? bobrevamp >= 1.1.5"
@@ -255,10 +605,10 @@
   },
   {
     "name": "angelsrefining",
-    "version": "0.12.3",
-    "file_name": "angelsrefining_0.12.3.zip",
-    "download_url": "/download/angelsrefining/63b14c42bd2060a8cbd776be",
-    "sha1": "5fbc07508e0362161ae47343534d19f6ce2cb580",
+    "version": "0.12.4",
+    "file_name": "angelsrefining_0.12.4.zip",
+    "download_url": "/download/angelsrefining/63f7bdfb112277a048fc82ce",
+    "sha1": "adbef68254725dbbabf69244df885ffb4f6af60d",
     "dependencies": [
       "base >= 1.1.51",
       "? bobplates >= 1.1.6",
@@ -274,25 +624,14 @@
   },
   {
     "name": "angelssmelting",
-    "version": "0.6.20",
-    "file_name": "angelssmelting_0.6.20.zip",
-    "download_url": "/download/angelssmelting/63b14c2260a93b6d58f78811",
-    "sha1": "84316b3b4e087ad8fc1aff7e643435f5c889f01b",
+    "version": "0.6.21",
+    "file_name": "angelssmelting_0.6.21.zip",
+    "download_url": "/download/angelssmelting/63f7bde5112277a048fc82cd",
+    "sha1": "fafde1737ac58ca3a4d864d26acc28e9da2bf227",
     "dependencies": [
       "angelsrefining >= 0.12.1",
       "angelspetrochem >= 0.9.20",
       "? bobplates >= 1.1.6"
-    ]
-  },
-  {
-    "name": "ArmouredBiters",
-    "version": "1.1.6",
-    "file_name": "ArmouredBiters_1.1.6.zip",
-    "download_url": "/download/ArmouredBiters/62d5bd2ed0ad17fb9c31f7ee",
-    "sha1": "492961c098601ecc04add0e62702fa097a03073f",
-    "dependencies": [
-      "base >= 1.1.1",
-      "(?) alien-biomes"
     ]
   },
   {
@@ -534,21 +873,6 @@
     ]
   },
   {
-    "name": "CircuitProcessing",
-    "version": "0.4.5",
-    "file_name": "CircuitProcessing_0.4.5.zip",
-    "download_url": "/download/CircuitProcessing/63b14e809ffe09c607367015",
-    "sha1": "b030ca86d9fa8bb61d69a9c32ff5d504af01e6f1",
-    "dependencies": [
-      "base",
-      "bobelectronics >= 1.1.6",
-      "? bobmodules >= 1.1.6",
-      "? bobrevamp >= 1.1.6",
-      "? angelssmelting",
-      "? angelsbioprocessing"
-    ]
-  },
-  {
     "name": "clock",
     "version": "1.1.0",
     "file_name": "clock_1.1.0.zip",
@@ -559,56 +883,6 @@
     ]
   },
   {
-    "name": "Clockwork",
-    "version": "1.1.1",
-    "file_name": "Clockwork_1.1.1.zip",
-    "download_url": "/download/Clockwork/62cfbeec2f7323c5991b564b",
-    "sha1": "c43fb2d43d585c1ea106d802ccae20e2fb9996d0",
-    "dependencies": [
-      "base >= 1.1"
-    ]
-  },
-  {
-    "name": "Companion_Drones",
-    "version": "1.0.24",
-    "file_name": "Companion_Drones_1.0.24.zip",
-    "download_url": "/download/Companion_Drones/62e7be60fe86fb8fcb047c2c",
-    "sha1": "6f96ebdff67ac162291c9a61323a2e2b6815e9ea",
-    "dependencies": [
-      "base >= 1.1.5",
-      "(?)alien-biomes",
-      "(?)space-exploration"
-    ]
-  },
-  {
-    "name": "Construction_Drones",
-    "version": "0.6.11",
-    "file_name": "Construction_Drones_0.6.11.zip",
-    "download_url": "/download/Construction_Drones/5f40e186f0020b835a39e5c5",
-    "sha1": "9b730161b6bd16308ac13ae4abe19d67cb453a3b",
-    "dependencies": [
-      "base >= 1.0.0",
-      "(?) Hovercraft",
-      "(?) walls-block-spitters"
-    ]
-  },
-  {
-    "name": "Crafting_Speed_Research",
-    "version": "0.2.3",
-    "file_name": "Crafting_Speed_Research_0.2.3.zip",
-    "download_url": "/download/Crafting_Speed_Research/60202291fd6b223ade6dcb96",
-    "sha1": "2c5af6a71b83003393f00a96bcf0d0fc982f78b4",
-    "dependencies": []
-  },
-  {
-    "name": "Explosive Excavation",
-    "version": "1.1.8",
-    "file_name": "Explosive Excavation_1.1.8.zip",
-    "download_url": "/download/Explosive%20Excavation/5fbf91ea064e5b290e638efa",
-    "sha1": "ea33c27a686719a66081f3e4a11c9067eeaa307c",
-    "dependencies": []
-  },
-  {
     "name": "flib",
     "version": "0.12.4",
     "file_name": "flib_0.12.4.zip",
@@ -616,27 +890,6 @@
     "sha1": "e05fb84b8032b08f4dc6f6edecafeeab0e68b7aa",
     "dependencies": [
       "base >= 1.1.74"
-    ]
-  },
-  {
-    "name": "FluidMustFlow",
-    "version": "1.3.1",
-    "file_name": "FluidMustFlow_1.3.1.zip",
-    "download_url": "/download/FluidMustFlow/622d193f948eb0df8b76b60d",
-    "sha1": "255808cc796af18ffd0b4f14c7c655b095f9f9ca",
-    "dependencies": [
-      "base >= 1.1",
-      "(?) Squeak Through >= 1.3.0"
-    ]
-  },
-  {
-    "name": "FNEI",
-    "version": "0.4.1",
-    "file_name": "FNEI_0.4.1.zip",
-    "download_url": "/download/FNEI/6061e76f01ead7ddd4de6984",
-    "sha1": "ef4b0b910d228194de5736d65f8a7bdf33c23c8c",
-    "dependencies": [
-      "base >= 1.1.0"
     ]
   },
   {
@@ -671,52 +924,6 @@
     ]
   },
   {
-    "name": "Krastorio2",
-    "version": "1.3.15",
-    "file_name": "Krastorio2_1.3.15.zip",
-    "download_url": "/download/Krastorio2/63d73823a19868f8b2e2c016",
-    "sha1": "985f4c16730e2d4375d774af0049679baebbce05",
-    "dependencies": [
-      "base >= 1.1.74",
-      "Krastorio2Assets >= 1.2.1",
-      "flib >= 0.12.0",
-      "(?) aai-industry >= 0.3.17",
-      "(?) aai-vehicles-chaingunner >= 0.5.2",
-      "(?) Aircraft >= 1.6.6",
-      "(?) angelsindustries >= 0.4.3",
-      "(?) angelspetrochem >= 0.9.11",
-      "(?) bobenemies >= 0.17.6",
-      "(?) bullet-trails >= 0.4.1",
-      "(?) ElectricTrain",
-      "(?) deadlock-beltboxes-loaders >= 2.1.13",
-      "(?) DeadlockLargerLamp >= 1.3.1",
-      "(?) Dectorio >= 0.10.5",
-      "(?) DiscoScience >= 1.0.0",
-      "(?) Flow Control >= 3.0.5",
-      "(?) rso-mod >= 6.0.6",
-      "(?) Squeak Through >= 1.3.0",
-      "(?) Tral_robot_tree_farm >= 1.2.5",
-      "(?) vtk-armor-plating >= 0.8.0",
-      "(?) WaterAsAResource >= 0.7.8",
-      "! Annotorio >= 0.3.0",
-      "! brave-new-world >= 3.2.1",
-      "! Clowns-Nuclear >= 1.3.7",
-      "! HdProcessedMetal >= 0.0.1",
-      "! KS_Power >= 0.3.0",
-      "! Krastorio >= 0.2.1",
-      "! Krastorio-graphics >= 0.0.1",
-      "! KS_Combat >= 0.1.11",
-      "! ModularLife >= 0.2.11",
-      "! Power Armor MK3 >= 0.0.1",
-      "! PowerAndArmor >= 1.18.41",
-      "! SimpleSilicon >= 1.0.0",
-      "! bobequipment >= 0.17.0",
-      "! bobvehicleequipment >= 0.17.0",
-      "! custom_power_armor_fix >= 0.10.0",
-      "! laborat >= 0.1.0"
-    ]
-  },
-  {
     "name": "krastorio2_extended_endgame",
     "version": "1.0.3",
     "file_name": "krastorio2_extended_endgame_1.0.3.zip",
@@ -726,79 +933,6 @@
       "base >= 1.1.2",
       "Krastorio2 >= 1.2.11",
       "Krastorio2Assets >= 1.1.0"
-    ]
-  },
-  {
-    "name": "KS_Power",
-    "version": "0.5.1",
-    "file_name": "KS_Power_0.5.1.zip",
-    "download_url": "/download/KS_Power/619a48c30fb67b412038a967",
-    "sha1": "e9dcaacefa07779de663faa60268280b9f99b651",
-    "dependencies": []
-  },
-  {
-    "name": "LandfillPainting",
-    "version": "0.5.2",
-    "file_name": "LandfillPainting_0.5.2.zip",
-    "download_url": "/download/LandfillPainting/607fe65fcfc8a90cb0f19775",
-    "sha1": "c4e504eabca0f4f90e2caee46f63f8709e2c4d34",
-    "dependencies": [
-      "base >= 0.17",
-      "? angelsrefining"
-    ]
-  },
-  {
-    "name": "Logistic-Gun-Turret",
-    "version": "1.1.0",
-    "file_name": "Logistic-Gun-Turret_1.1.0.zip",
-    "download_url": "/download/Logistic-Gun-Turret/608f8d2afd362771ba580b10",
-    "sha1": "cd8111ae3f3f1b08aca04752d28cbe2cb75cd5cc",
-    "dependencies": [
-      "base >= 1.1.0"
-    ]
-  },
-  {
-    "name": "MegaBotStart",
-    "version": "0.21.1",
-    "file_name": "MegaBotStart_0.21.1.zip",
-    "download_url": "/download/MegaBotStart/600c74d32030d686c64f7a59",
-    "sha1": "ad9edf5361c0ff2f94cbb1921d63eeb066a349e1",
-    "dependencies": [
-      "base >= 1.1",
-      "? Krastorio2",
-      "? bobwarfare",
-      "? bobequipment",
-      "? boblogistics"
-    ]
-  },
-  {
-    "name": "Nanobots",
-    "version": "3.2.19",
-    "file_name": "Nanobots_3.2.19.zip",
-    "download_url": "/download/Nanobots/625b15050a25b55bb5dab5a3",
-    "sha1": "947a45f91b3ce977374f9f2eed15e29a1378ad0f",
-    "dependencies": [
-      "base >= 1.1.0",
-      "stdlib >= 1.4.6",
-      "(?) PickerAtheneum >= 1.1.2"
-    ]
-  },
-  {
-    "name": "Rampant",
-    "version": "3.1.2",
-    "file_name": "Rampant_3.1.2.zip",
-    "download_url": "/download/Rampant/62ae3b41ff5f6874428896b6",
-    "sha1": "01feddc7cbc7a7a993310e57b6c25bae5dbb8f84",
-    "dependencies": [
-      "base >= 1.1.36",
-      "? bobenemies",
-      "? Natural_Evolution_Enemies >= 0.17.0",
-      "? Clockwork",
-      "? Kux-OrbitalIonCannon",
-      "? Orbital Ion Cannon",
-      "? ArmouredBiters",
-      "? Krastorio2",
-      "? SchallAlienLoot >= 0.17.6"
     ]
   },
   {
@@ -950,16 +1084,6 @@
     ]
   },
   {
-    "name": "RPGsystem",
-    "version": "1.3.2",
-    "file_name": "RPGsystem_1.3.2.zip",
-    "download_url": "/download/RPGsystem/62fbef26b9aa25ce5ff405df",
-    "sha1": "64aa2c8f6666121071b750523919175e8c89f869",
-    "dependencies": [
-      "base >= 1.1.0"
-    ]
-  },
-  {
     "name": "rso-mod",
     "version": "6.2.23",
     "file_name": "rso-mod_6.2.23.zip",
@@ -974,122 +1098,6 @@
     ]
   },
   {
-    "name": "ScienceCostTweakerM",
-    "version": "1.1.10",
-    "file_name": "ScienceCostTweakerM_1.1.10.zip",
-    "download_url": "/download/ScienceCostTweakerM/60eb431078d9a37c9a4f2e2a",
-    "sha1": "c56fd5b4f626db099084acfd34b0e2f6eb82c6e0",
-    "dependencies": [
-      "base >= 1.1.0",
-      "? omnimatter_science >= 3.0.3",
-      "? pycoalprocessing >= 1.2.0",
-      "? bobtech",
-      "? aai-industry",
-      "? omnimatter_energy"
-    ]
-  },
-  {
-    "name": "SeaBlock",
-    "version": "0.5.12",
-    "file_name": "SeaBlock_0.5.12.zip",
-    "download_url": "/download/SeaBlock/63b14e9fb87239fd300955af",
-    "sha1": "f9130fb8532ba56d2a0ef83eb89460e63f952c01",
-    "dependencies": [
-      "base",
-      "angelsbioprocessing >= 0.7.23",
-      "angelspetrochem >= 0.9.23",
-      "angelsrefining >= 0.12.3",
-      "angelssmelting >= 0.6.20",
-      "bobelectronics >= 1.1.6",
-      "boblibrary >= 1.1.6",
-      "boblogistics >= 1.1.6",
-      "bobores >= 1.1.6",
-      "bobplates >= 1.1.6",
-      "? angelsaddons-storage",
-      "? bobassembly",
-      "? bobenemies",
-      "? bobequipment",
-      "? bobinserters",
-      "? bobmining",
-      "? bobmodules",
-      "? bobpower",
-      "? bobrevamp",
-      "? bobtech",
-      "? bobwarfare",
-      "? CircuitProcessing",
-      "? Explosive Excavation",
-      "? KS_Power",
-      "? LandfillPainting >= 0.5.2",
-      "? ScienceCostTweakerM >= 1.1.10",
-      "? SpaceMod >= 1.1.1",
-      "(?) KS_Power_quickfix",
-      "(?) Companion_Drones",
-      "! alien-biomes",
-      "! angelsexploration"
-    ]
-  },
-  {
-    "name": "SeaBlockMetaPack",
-    "version": "1.1.3",
-    "file_name": "SeaBlockMetaPack_1.1.3.zip",
-    "download_url": "/download/SeaBlockMetaPack/6117713fc507516cdf742c27",
-    "sha1": "cf93e422f1876cd6abc0b74d095700f14a8747e5",
-    "dependencies": [
-      "base",
-      "angelsaddons-storage",
-      "angelsbioprocessing",
-      "angelspetrochem",
-      "angelsrefining",
-      "angelssmelting",
-      "bobassembly",
-      "bobelectronics",
-      "bobenemies",
-      "bobequipment",
-      "bobinserters",
-      "boblibrary",
-      "boblogistics",
-      "bobmining",
-      "bobmodules",
-      "bobores",
-      "bobplates",
-      "bobpower",
-      "bobrevamp",
-      "bobtech",
-      "bobwarfare",
-      "CircuitProcessing",
-      "Explosive Excavation",
-      "flib",
-      "FNEI",
-      "helmod",
-      "KS_Power",
-      "LandfillPainting",
-      "reskins-angels",
-      "reskins-bobs",
-      "reskins-compatibility",
-      "reskins-library",
-      "ScienceCostTweakerM",
-      "SeaBlock",
-      "SpaceMod"
-    ]
-  },
-  {
-    "name": "SpaceMod",
-    "version": "1.1.1",
-    "file_name": "SpaceMod_1.1.1.zip",
-    "download_url": "/download/SpaceMod/6131dd6007ae5a501cef60f7",
-    "sha1": "6fde4609f717b9298bae440fd06ddc5e7626955f",
-    "dependencies": [
-      "base",
-      "? boblibrary",
-      "? bobplates",
-      "? bobmodules",
-      "? bobelectronics",
-      "? boblogistics",
-      "? bobtech",
-      "? bobequipment"
-    ]
-  },
-  {
     "name": "stdlib",
     "version": "1.4.8",
     "file_name": "stdlib_1.4.8.zip",
@@ -1098,13 +1106,5 @@
     "dependencies": [
       "base >= 1.1.0"
     ]
-  },
-  {
-    "name": "VehicleSnap",
-    "version": "1.18.4",
-    "file_name": "VehicleSnap_1.18.4.zip",
-    "download_url": "/download/VehicleSnap/5fbe440bf6658f34bfb3c677",
-    "sha1": "d0755e73251d8d72c6ab3f82cd79266485af5da4",
-    "dependencies": []
   }
 ]
