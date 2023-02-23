@@ -9,10 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        input:
-          - nixpkgs
-          - flake-utils
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,8 +16,9 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: "Update input ${{ matrix.input }}"
+      - name: "flake: update inputs"
         uses: DeterminateSystems/update-flake-lock@v16
         with:
-          inputs: ${{ matrix.input }}
+          pr-title: "flake: update inputs"
           pr-labels: dependencies
+          commit-msg: "flake: update inputs"
