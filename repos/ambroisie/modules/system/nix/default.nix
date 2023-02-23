@@ -7,6 +7,8 @@ in
   options.my.system.nix = with lib; {
     enable = my.mkDisableOption "nix configuration";
 
+    linkInputs = my.mkDisableOption "link inputs to `/etc/nix/inputs/`";
+
     addToRegistry = my.mkDisableOption "add inputs and self to registry";
 
     addToNixPath = my.mkDisableOption "add inputs and self to nix path";
@@ -15,6 +17,18 @@ in
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      assertions = [
+        {
+          assertion = cfg.addToNixPath -> cfg.linkInputs;
+          message = ''
+            enabling `my.system.nix.addToNixPath` needs to have
+            `my.system.nix.linkInputs = true`
+          '';
+        }
+      ];
+    }
+
     {
       nix = {
         package = pkgs.nix;
@@ -38,13 +52,31 @@ in
       };
     })
 
+    (lib.mkIf cfg.linkInputs {
+      environment.etc =
+        let
+          makeLink = n: v: {
+            name = "nix/inputs/${n}";
+            value = { source = v.outPath; };
+          };
+          makeLinks = lib.mapAttrs' makeLink;
+        in
+        makeLinks {
+          inherit (inputs)
+            self
+            nixpkgs
+            nur
+            ;
+        };
+    })
+
     (lib.mkIf cfg.addToNixPath {
       nix.nixPath = [
-        "self=${inputs.self}"
-        "pkgs=${inputs.nixpkgs}"
-        "nur=${inputs.nur}"
+        "self=/etc/nix/inputs/self"
+        "pkgs=/etc/nix/inputs/nixpkgs"
+        "nur=/etc/nix/inputs/nur"
       ]
-      ++ lib.optional cfg.overrideNixpkgs "nixpkgs=${inputs.nixpkgs}"
+      ++ lib.optional cfg.overrideNixpkgs "nixpkgs=/etc/nix/inputs/nixpkgs"
       ++ options.nix.nixPath.default;
     })
   ]);
