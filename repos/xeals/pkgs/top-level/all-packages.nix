@@ -1,15 +1,6 @@
 { pkgs }:
 
 rec {
-  # Alacritty with the unmerged ligature patches applied.
-  alacritty-ligatures = pkgs.callPackage ../applications/terminal-emulators/alacritty-ligatures { };
-
-  atlauncher = pkgs.callPackage ../games/atlauncher { };
-
-  amdgpu-fan = pkgs.callPackage ../tools/misc/amdgpu-fan { };
-
-  cardboard = pkgs.callPackage ../applications/window-managers/cardboard { };
-
   goModules = pkgs.recurseIntoAttrs rec {
     qt = pkgs.libsForQt512.callPackage ../development/go-modules/qt { };
   };
@@ -34,13 +25,9 @@ rec {
     ideaUltimateWithPlugins = ideaUltimatePlugins.jetbrainsWithPlugins;
   };
 
-  libhl = pkgs.callPackage ../development/libraries/libhl { };
-
   mopidy-subidy = pkgs.callPackage ../applications/audio/mopidy/subidy.nix {
     python3Packages = pkgs.python3Packages // python3Packages;
   };
-
-  pam_gnupg = pkgs.callPackage ../os-specific/linux/pam_gnupg { };
 
   picom-animations = pkgs.picom.overrideAttrs (_oldAttrs: {
     pname = "picom-animations";
@@ -58,8 +45,6 @@ rec {
     patches = (oldAttrs.patches or [ ]) ++ [ ../applications/misc/polybar/9button.patch ];
   });
 
-  psst = pkgs.callPackage ../applications/audio/psst { };
-
   python3Packages = pkgs.recurseIntoAttrs {
     py-sonic = pkgs.python3.pkgs.callPackage ../development/python-modules/py-sonic { };
   };
@@ -73,12 +58,4 @@ rec {
   protonmail-bridge-headless = protonmailBridgePackages.protonmail-bridge-headless;
 
   radeon-profile-daemon = pkgs.libsForQt5.callPackage ../tools/misc/radeon-profile-daemon { };
-
-  samrewritten = pkgs.callPackage ../tools/misc/samrewritten { };
-
-  spotify-ripper = pkgs.callPackage ../tools/misc/spotify-ripper { };
-
-  ytarchive = pkgs.callPackage ../tools/misc/ytarchive { };
-
-  zsh-z = pkgs.callPackage ../shells/zsh/zsh-z { };
 }
