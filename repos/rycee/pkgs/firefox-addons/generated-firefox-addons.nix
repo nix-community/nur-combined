@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.13.5";
+      version = "1.13.6";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038484/10ten_ja_reader-1.13.5.xpi";
-      sha256 = "677321bd01616bd000f4a24714e75f030a91dcf9a27b31ec9e306c3b58917237";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4074768/10ten_ja_reader-1.13.6.xpi";
+      sha256 = "335802205e0ad14155a9a34b689b499e5d717d4881202f7498b797beb14caec5";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -243,10 +243,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.1.0";
+      version = "2023.2.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4054938/bitwarden_password_manager-2023.1.0.xpi";
-      sha256 = "b107930fdd005aac6946222ab8b80c789f17bd8e6ccd69c4f4a1cfe102b1c964";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4071765/bitwarden_password_manager-2023.2.1.xpi";
+      sha256 = "282e6e5f1f39c1adcf3ee124e7448d6a95c152a8b38ac3807fe8f562cc8fd026";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -761,10 +761,10 @@
       };
     "firefox-translations" = buildFirefoxXpiAddon {
       pname = "firefox-translations";
-      version = "1.2.0buildid20221114.185738";
+      version = "1.3.2buildid20230220.141944";
       addonId = "firefox-translations-addon@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030390/firefox_translations-1.2.0buildid20221114.185738.xpi";
-      sha256 = "ef6f281ce64b549a4bec342b77d74100a5f920784e3f556e068d1d4f12af6480";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4074062/firefox_translations-1.3.2buildid20230220.141944.xpi";
+      sha256 = "2fc03ecd608b7e1fa78866cd786354e6344e260dd8af8cf6468f80d1e14531e2";
       meta = with lib;
       {
         homepage = "https://blog.mozilla.org/en/mozilla/local-translation-add-on-project-bergamot/";
@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230221.190142";
+      version = "111.0buildid20230223.185944";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4074142/francais_language_pack-111.0buildid20230221.190142.xpi";
-      sha256 = "577b23960ba4b79c4254d1da628985170e47bb2b95ab8393f6753257b216959b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4075247/francais_language_pack-111.0buildid20230223.185944.xpi";
+      sha256 = "47a23fba34c5bc360827e499f6f4bcfa91d9de0a199fcffbb8747c1486989565";
       meta = with lib;
       {
         description = "Français Language Pack";
