@@ -51,6 +51,8 @@ let
       simplisafe-python = null;
     };
 
+    octopus-energy = callPackage ./pkgs/octopus-energy { };
+
     python3 = let
       packageOverrides = pySelf: pySuper: rec {
         json_exporter = pySelf.callPackage ./pkgs/json_exporter { };
@@ -81,6 +83,7 @@ in rec {
     hassio-ecoflow
     home-assistant
     homeAssistantPackageOverrides
+    octopus-energy
     solis-sensor
     tesla-custom-component
   ;
