@@ -26,19 +26,11 @@ in
         Update cron expression.
       '';
     };
-    tokenFiles = {
-      telegramBot  = lib.mkOption {
-        type = lib.types.str;
-        description = ''
-          Telegram bot token file.
-        '';
-      };
-      github  = lib.mkOption {
-        type = lib.types.str;
-        description = ''
-          GitHub token file.
-        '';
-      };
+    tokenFile = lib.mkOption {
+      type = lib.types.str;
+      description = ''
+        Token file for commit-notifier.
+      '';
     };
     rustLog = lib.mkOption {
       type = lib.types.str;
@@ -54,8 +46,7 @@ in
       description = "Git commit notifier";
 
       script = ''
-        export TELOXIDE_TOKEN=$(cat "$CREDENTIALS_DIRECTORY/telegram-bot")
-        export GITHUB_TOKEN=$(cat "$CREDENTIALS_DIRECTORY/github")
+        export TELOXIDE_TOKEN=$(cat "$CREDENTIALS_DIRECTORY/token")
 
         "${cfg.package}/bin/commit-notifier" \
           --working-dir /var/lib/commit-notifier \
@@ -70,8 +61,7 @@ in
         DynamicUser = true;
         StateDirectory = "commit-notifier";
         LoadCredential = [
-          "telegram-bot:${cfg.tokenFiles.telegramBot}"
-          "github:${cfg.tokenFiles.github}"
+          "token:${cfg.tokenFile}"
         ];
       };
 
