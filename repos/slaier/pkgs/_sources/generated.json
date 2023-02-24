@@ -93,11 +93,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bK5ww6z57BZTw/0AvG65tGumXyvWNJS8BJNLpE35m6k=",
+            "sha256": "sha256-kbtA1CiRSWEnClLejVlbN/VgGl5ThiaSZIacah9UqU0=",
             "type": "url",
-            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.2568.c43f676c938/nixexprs.tar.xz"
+            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.2712.c95bf18beba/nixexprs.tar.xz"
         },
-        "version": "22.11.2568.c43f676c938"
+        "version": "22.11.2712.c95bf18beba"
     },
     "remote-containers": {
         "cargoLocks": null,
