@@ -27,13 +27,13 @@ in
       '';
     };
     tokenFiles = {
-      telegramBot  = lib.mkOption {
+      telegramBot = lib.mkOption {
         type = lib.types.str;
         description = ''
           Telegram bot token file.
         '';
       };
-      github  = lib.mkOption {
+      github = lib.mkOption {
         type = lib.types.str;
         description = ''
           GitHub token file.
