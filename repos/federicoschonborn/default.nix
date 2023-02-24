@@ -13,7 +13,6 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
-  commit = pkgs.callPackage ./packages/commit {};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
   fastfetchFull = fastfetch.override {
     enableLibpci = true;
@@ -42,6 +41,7 @@ rec {
   };
 }
 // pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
+  commit = pkgs.callPackage ./packages/commit {};
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
   xfwm4-wayland = pkgs.callPackage ./packages/xfwm4-wayland {};

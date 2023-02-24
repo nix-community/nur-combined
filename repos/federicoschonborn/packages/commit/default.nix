@@ -76,6 +76,7 @@ stdenv.mkDerivation rec {
       Commit is an editor that helps you write better Git and Mercurial commit messages.
     '';
     homepage = "https://github.com/sonnyp/Commit";
+    platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };
 }
