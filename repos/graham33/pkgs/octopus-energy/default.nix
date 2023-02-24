@@ -16,7 +16,6 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   };
 
   propagatedBuildInputs = [
-    homeassistant
   ];
 
   installPhase = ''
@@ -25,6 +24,7 @@ with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   '';
 
   checkInputs = [
+    home-assistant
     mock
     pytest
   ];
