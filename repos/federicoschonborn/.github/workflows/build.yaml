@@ -1,4 +1,4 @@
-name: Build and Populate Cache (Linux)
+name: Build and Populate Cache
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    name: Build (${{ matrix.nixpkgs-channel }})
+    name: "Build (Channel: ${{ matrix.nixpkgs-channel }})"
     strategy:
       matrix:
         nur-repo:
@@ -57,7 +57,7 @@ jobs:
             -I $PWD
 
       - name: Build nix packages
-        run: nix shell -f "<nixpkgs>" nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        run: nix shell -f "<nixpkgs>" nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs -build-flags "-L"
 
       - name: Trigger NUR update
         run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${{ matrix.nur-repo }}"

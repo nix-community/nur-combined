@@ -62,7 +62,6 @@ stdenv.mkDerivation rec {
     description = "";
     homepage = "https://github.com/adlocode/xfwm4/archive/refs/heads/wayland.zip";
     changelog = "https://github.com/adlocode/xfwm4/blob/${src.rev}/NEWS";
-    platforms = platforms.linux;
     license = licenses.gpl2Only;
   };
 }
