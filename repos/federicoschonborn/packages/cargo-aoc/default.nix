@@ -36,7 +36,5 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/gobanos/cargo-aoc";
     license = with licenses; [asl20 mit];
-    mainProgram = "cargo-aoc";
-    platforms = platforms.all;
   };
 }

@@ -75,6 +75,5 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://apps.kde.org/liquidshell/";
     license = licenses.gpl3Plus;
-    platforms = platforms.all;
   };
 }

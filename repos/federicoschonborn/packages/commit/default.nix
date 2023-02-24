@@ -70,14 +70,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    mainProgram = "re.sonny.Commit";
     description = "Commit message editor";
     longDescription = ''
       Commit is an editor that helps you write better Git and Mercurial commit messages.
     '';
     homepage = "https://github.com/sonnyp/Commit";
-    downloadPage = "https://github.com/sonnyp/Commit/releases";
     license = licenses.gpl3Plus;
-    mainProgram = "re.sonny.Commit";
-    platforms = platforms.all;
   };
 }

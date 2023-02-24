@@ -57,6 +57,5 @@ stdenv.mkDerivation {
     '';
     homepage = "https://apps.kde.org/gitklient/";
     license = licenses.gpl3Plus;
-    platforms = platforms.all;
   };
 }
