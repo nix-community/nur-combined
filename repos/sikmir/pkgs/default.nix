@@ -29,6 +29,7 @@ lib.makeScope newScope (
     cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
     macpass-bin = callPackage ./darwin/macpass/bin.nix { };
     marta-bin = callPackage ./darwin/marta { };
+    qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
     sloth-bin = callPackage ./darwin/sloth { };
 
     ### DATA
