@@ -56,6 +56,7 @@ stdenv.mkDerivation {
       Graphical Git client for KDE
     '';
     homepage = "https://apps.kde.org/gitklient/";
+    platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };
 }

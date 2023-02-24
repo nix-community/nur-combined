@@ -74,6 +74,7 @@ stdenv.mkDerivation rec {
       liquidshell is a basic Desktop Shell implemented using QtWidgets.
     '';
     homepage = "https://apps.kde.org/liquidshell/";
+    platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };
 }

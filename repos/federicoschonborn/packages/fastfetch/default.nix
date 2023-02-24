@@ -68,47 +68,53 @@ stdenv.mkDerivation rec {
     hash = "sha256-hQVqfCCnBjcsG+xIPTIM7jblXOGqZjJ/zsxOB79vAqQ=";
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optionals enableLibpci [pciutils]
-    ++ lib.optionals enableVulkan [vulkan-loader]
-    ++ lib.optionals enableWayland [libffi wayland]
-    ++ lib.optionals enableXcb [xorg.libXau xorg.libXdmcp xorg.libxcb]
-    ++ lib.optionals enableXrandr [xorg.libXext xorg.libXrandr]
-    ++ lib.optionals enableX11 [xorg.libX11]
-    # glib depends on pcre2
-    # libselinux depends on pcre16
-    ++ lib.optionals enableGio [glib libselinux libsepol pcre16 pcre2 utillinux]
-    ++ lib.optionals enableDconf [dconf]
-    ++ lib.optionals enableDbus [dbus]
-    ++ lib.optionals enableXfconf [xfce.xfconf]
-    ++ lib.optionals enableSqlite3 [sqlite]
-    ++ lib.optionals enableRpm [rpm]
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+
+  buildInputs =
+    lib.optionals stdenv.isLinux (
+      lib.optionals enableLibpci [pciutils]
+      ++ lib.optionals enableVulkan [vulkan-loader]
+      ++ lib.optionals enableWayland [libffi wayland]
+      ++ lib.optionals enableXcb [xorg.libXau xorg.libXdmcp xorg.libxcb]
+      ++ lib.optionals enableXrandr [xorg.libXext xorg.libXrandr]
+      ++ lib.optionals enableX11 [xorg.libX11]
+      # glib depends on pcre2
+      # libselinux depends on pcre16
+      ++ lib.optionals enableGio [glib libselinux libsepol pcre16 pcre2 utillinux]
+      ++ lib.optionals enableDconf [dconf]
+      ++ lib.optionals enableDbus [dbus]
+      ++ lib.optionals enableXfconf [xfce.xfconf]
+      ++ lib.optionals enableSqlite3 [sqlite]
+      ++ lib.optionals enableRpm [rpm]
+      ++ lib.optionals enableZlib [zlib]
+      ++ lib.optionals enableEgl [libGL]
+      ++ lib.optionals enableGlx [libglvnd]
+      ++ lib.optionals enableMesa [mesa_drivers.dev]
+      ++ lib.optionals enableOpencl [ocl-icd opencl-headers]
+      ++ lib.optionals enableLibcjson [cjson]
+      ++ lib.optionals enableLibnm [networkmanager]
+      ++ lib.optionals enableFreetype [freetype]
+      ++ lib.optionals enablePulse [pulseaudio]
+    )
+    ++ lib.optionals stdenv.isDarwin (
+      (with darwin.apple_sdk.frameworks; [
+        CoreFoundation
+        IOKit
+        OpenGL
+        OpenCL
+        Cocoa
+        CoreWLAN
+        CoreAudio
+        CoreVideo
+        IOBluetooth
+      ])
+      ++ lib.optionals enableVulkan [darwin.moltenvk]
+    )
     ++ lib.optionals enableImagemagick7 [imagemagick]
-    ++ lib.optionals enableZlib [zlib]
-    ++ lib.optionals enableChafa [chafa]
-    ++ lib.optionals enableEgl [libGL]
-    ++ lib.optionals enableGlx [libglvnd]
-    ++ lib.optionals enableMesa [mesa_drivers.dev]
-    ++ lib.optionals enableOpencl [ocl-icd opencl-headers]
-    ++ lib.optionals enableLibcjson [cjson]
-    ++ lib.optionals enableLibnm [networkmanager]
-    ++ lib.optionals enableFreetype [freetype]
-    ++ lib.optionals enablePulse [pulseaudio]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      CoreFoundation
-      IOKit
-      OpenGL
-      OpenCL
-      Cocoa
-      CoreWLAN
-      CoreAudio
-      CoreVideo
-      IOBluetooth
-    ]);
+    ++ lib.optionals enableChafa [chafa];
 
   meta = with lib; {
     description = "Like neofetch, but much faster because written in C";
