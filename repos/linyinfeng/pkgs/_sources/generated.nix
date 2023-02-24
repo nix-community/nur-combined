@@ -16,10 +16,10 @@
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.16";
+    version = "0.20.17";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.16/Clash.for.Windows-0.20.16-x64-linux.tar.gz";
-      sha256 = "sha256-pc55Pa2LwPGApdAcLqmnDZ9SKrT6hZ45ssBpFurT4Ps=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.17/Clash.for.Windows-0.20.17-x64-linux.tar.gz";
+      sha256 = "sha256-Ya7umEaEGL6ZyJNDGYFXvjMTB3yYKXNFFce/EJKx4ek=";
     };
   };
   clash-premium-aarch64-linux = {
@@ -56,20 +56,20 @@
   };
   commit-notifier = {
     pname = "commit-notifier";
-    version = "0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6";
+    version = "07c9c329a384675838822d278c6b3959509968af";
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6";
+      rev = "07c9c329a384675838822d278c6b3959509968af";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-no/2WvjeCS14f7Pz+gEpC4D3lozvxtem1BgDRtZPoqk=";
+      sha256 = "sha256-c1Ptykdj42YTXPChhrVs/UKH57aC/vYe28hNd1SN+94=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./commit-notifier-0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6/Cargo.lock;
+      lockFile = ./commit-notifier-07c9c329a384675838822d278c6b3959509968af/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-01-21";
+    date = "2023-02-24";
   };
   dot-tar = {
     pname = "dot-tar";
@@ -101,10 +101,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.8.10";
+    version = "v2.8.13";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.10/app-x86_64.asar";
-      sha256 = "sha256-Ih72eBJF+FDCxakU72nI/GxCVNEywhDQmlyWGTASv/Q=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.13/app-x86_64.asar";
+      sha256 = "sha256-cT3ahSojuys1CE/XJWFJ8E3tzzzewWtqJuJxrhE2gNw=";
     };
   };
   plugin-bang-bang = {

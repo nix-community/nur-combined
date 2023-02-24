@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pc55Pa2LwPGApdAcLqmnDZ9SKrT6hZ45ssBpFurT4Ps=",
+            "sha256": "sha256-Ya7umEaEGL6ZyJNDGYFXvjMTB3yYKXNFFce/EJKx4ek=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.16/Clash.for.Windows-0.20.16-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.17/Clash.for.Windows-0.20.17-x64-linux.tar.gz"
         },
-        "version": "0.20.16"
+        "version": "0.20.17"
     },
     "clash-premium-aarch64-linux": {
         "cargoLocks": null,
@@ -96,11 +96,11 @@
     "commit-notifier": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./commit-notifier-0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6/Cargo.lock",
+                "./commit-notifier-07c9c329a384675838822d278c6b3959509968af/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-01-21",
+        "date": "2023-02-24",
         "extract": null,
         "name": "commit-notifier",
         "passthru": null,
@@ -110,12 +110,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6",
-            "sha256": "sha256-no/2WvjeCS14f7Pz+gEpC4D3lozvxtem1BgDRtZPoqk=",
+            "rev": "07c9c329a384675838822d278c6b3959509968af",
+            "sha256": "sha256-c1Ptykdj42YTXPChhrVs/UKH57aC/vYe28hNd1SN+94=",
             "type": "git",
             "url": "https://github.com/linyinfeng/commit-notifier.git"
         },
-        "version": "0d6edaf4ac1148ce11a5a661b04eb7f3ca863ad6"
+        "version": "07c9c329a384675838822d278c6b3959509968af"
     },
     "dot-tar": {
         "cargoLocks": {
@@ -170,11 +170,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ih72eBJF+FDCxakU72nI/GxCVNEywhDQmlyWGTASv/Q=",
+            "sha256": "sha256-cT3ahSojuys1CE/XJWFJ8E3tzzzewWtqJuJxrhE2gNw=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.10/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.13/app-x86_64.asar"
         },
-        "version": "v2.8.10"
+        "version": "v2.8.13"
     },
     "plugin-bang-bang": {
         "cargoLocks": null,
