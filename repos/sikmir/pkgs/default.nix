@@ -345,6 +345,7 @@ lib.makeScope newScope (
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };
     telnetpp = callPackage ./misc/telnetpp { };
+    tinyflux = callPackage ./misc/tinyflux { };
     tlstunnel = callPackage ./misc/tlstunnel { };
     worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
