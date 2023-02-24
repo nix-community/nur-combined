@@ -26,6 +26,8 @@ in with pkgs; rec {
 
   gtk-layer-background = callPackage ./pkgs/gtk-layer-background {};
 
+  hplipWithPlugin = pkgs.hplipWithPlugin;
+
   # Qt 5.15 is not default on mac, tdesktop requires 5.15 (and kotatogram subsequently)
   kotatogram-desktop = libsForQt515.callPackage ./pkgs/kotatogram-desktop {
     inherit (darwin.apple_sdk_11_0.frameworks) Cocoa CoreFoundation CoreServices CoreText CoreGraphics
