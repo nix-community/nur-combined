@@ -974,10 +974,10 @@
       };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "1.17";
+      version = "1.18";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4020297/gitpod-1.17.xpi";
-      sha256 = "e7131b5d870c41ed77ee6a219bfa8d449e4682f867864324a7b42aaca3a4a860";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4075459/gitpod-1.18.xpi";
+      sha256 = "c574a0c595bea36735a7206d4bbbe1d699255dcafec228b3143e3d47838be0f8";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -1501,10 +1501,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.2.1";
+      version = "4.2.4";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4068164/modheader_firefox-4.2.1.xpi";
-      sha256 = "9a19c2326731e6ab79073fcb98a5f52848f2721e85979dae54c6f574a875c715";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4074740/modheader_firefox-4.2.4.xpi";
+      sha256 = "d272872b1cd29d38ec6d2f1947f8c7d54852ac99f0e92597918fb6f177437abf";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2240,10 +2240,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.7";
+      version = "3.0.0.8";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4032427/return_youtube_dislikes-3.0.0.7.xpi";
-      sha256 = "343f9b966ad7c0341f46e94892f811623190529d964b6d6cdddbe8da96b653ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4072734/return_youtube_dislikes-3.0.0.8.xpi";
+      sha256 = "e44a7a84bb552d4d3885b2e6d31cb653ed9dd65634e32d5af9a8930f6cae1fb8";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
