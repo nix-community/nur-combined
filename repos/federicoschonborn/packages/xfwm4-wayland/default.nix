@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     owner = "adlocode";
     repo = "xfwm4";
     rev = "4b9cb8eefd3e10b0f16e973d804f0531b1e34219";
-    hash = "sha256-4nLagxEKvB8tocyW4CYkGO/SJ03AvDSGeYTtFsRJbPg=";
+    sha256 = "sha256-4nLagxEKvB8tocyW4CYkGO/SJ03AvDSGeYTtFsRJbPg=";
   };
 
   nativeBuildInputs = [

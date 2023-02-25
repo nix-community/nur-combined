@@ -41,5 +41,6 @@
   };
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
+  valent = pkgs.callPackage ./packages/valent {};
   #xfwm4-wayland = pkgs.callPackage ./packages/xfwm4-wayland {};
 }
