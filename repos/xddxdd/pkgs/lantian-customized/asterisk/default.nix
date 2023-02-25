@@ -6,6 +6,7 @@
 , asterisk-g72x
 , fetchFromGitHub
 , opencore-amr
+, spandsp3
 , codec2
 , libvorbis
 , vo-amrwbenc
@@ -53,6 +54,7 @@ in
     opencore-amr
     codec2
     libvorbis
+    spandsp3
     vo-amrwbenc
   ];
 
