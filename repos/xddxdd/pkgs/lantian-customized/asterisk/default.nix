@@ -57,8 +57,7 @@ in
   ];
 
   preBuild = (old.preBuild or "") + ''
-    substituteInPlace menuselect.makeopts --replace 'chan_ooh323 ' ""
-
+    sed -i "s/MENUSELECT_ADDONS=.*/MENUSELECT_ADDONS=chan_mobile res_config_mysql/" menuselect.makeopts
     export MAKEFLAGS=-j$(nproc)
   '';
 
