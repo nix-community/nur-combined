@@ -6,7 +6,7 @@
   ninja,
   pkg-config,
   desktop-file-utils,
-  evolution-data-server,
+  evolution-data-server-gtk4,
   glib,
   gnutls,
   gst_all_1,
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    evolution-data-server
+    evolution-data-server-gtk4
     glib
     gnutls
     gst_all_1.gstreamer
