@@ -10,7 +10,9 @@
   gls-vim = pkgs.callPackage ./pkgs/gls-vim.nix {};
   janet-vim = pkgs.callPackage ./pkgs/janet-vim.nix {};
 
+  # overrides
+  vivaldi = pkgs.callPackage ./overrides/vivaldi.nix {};
+
   # my nixos and home-manager options (TBD, e.g. for services)
-  overlays.arteneko = import ./overlay.nix;
   modules = import ./modules;
 }
