@@ -16,12 +16,12 @@ rec {
 
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
   bitwarden-rofi = pkgs.callPackage ./pkgs/bitwarden-rofi { };
+  genshin-account-switcher = pkgs.callPackage ./pkgs/genshin-account-switcher { };
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   rctpm = pkgs.callPackage ./pkgs/rctpm { };
   shairport-sync-metadata-reader = pkgs.callPackage ./pkgs/shairport-sync-metadata-reader { };
   toonmux = pkgs.callPackage ./pkgs/toonmux { };
   uxplay = pkgs.callPackage ./pkgs/uxplay { };
-  viddy = pkgs.callPackage ./pkgs/viddy { };
   jkps = pkgs.callPackage ./pkgs/jkps { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
