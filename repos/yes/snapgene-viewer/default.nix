@@ -77,7 +77,10 @@ stdenv.mkDerivation rec {
     mv $out/lib/${pname}/lib{*.so,{q*,hts}.so.*,Qt6*} $out/lib/
     rm $out/lib/${pname}/{lib*.so.*,${pname}.sh}
     makeWrapper $out/lib/${pname}/${pname} $out/bin/${pname} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl_1_1 ]} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
+        openssl_1_1
+        xorg.libXcursor
+      ]} \
       --set LANG C
 
     cp -r usr/share $out
