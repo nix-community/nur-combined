@@ -41,4 +41,6 @@ with pkgs;
       hash = "sha256-WCOlOQoZGBYSsJOV3GoBkbqozRpl7CdqyUjfxpEhcLw=";
     };
   };
+
+  snapgene-viewer = callPackage ./snapgene-viewer { };
 }
