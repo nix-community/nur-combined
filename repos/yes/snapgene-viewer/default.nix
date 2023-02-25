@@ -82,6 +82,14 @@ stdenv.mkDerivation rec {
 
     cp -r usr/share $out
     substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace /opt/gslbiotech/ $out/lib/${pname}
+      --replace /opt/gslbiotech/${pname}/${pname}.sh ${pname} \
+      --replace /opt/gslbiotech/ $out/lib/
   '';
+
+  meta = with lib; {
+    description = "An easy-to-use program for viewing, annotating, and printing DNA and protein sequences";
+    homepage = "https://www.snapgene.com/${pname}}";
+    license = licenses.unfree;
+    platforms = platforms.linux;
+  };
 }
