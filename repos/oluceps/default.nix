@@ -20,7 +20,7 @@ let
       san-francisco = callPackage ./pkgs/san-francisco { };
       v2ray-plugin = callPackage ./pkgs/v2ray-plugin { };
       plangothic = callPackage ./pkgs/plangothic { };
-      maple-font = callPackage ./pkgs/maple-font { };
+      # maple-font = callPackage ./pkgs/maple-font { };
       # surrealdb = callPackage ./pkgs/surrealdb { };  
       maoken-tangyuan = callPackage ./pkgs/maoken-tangyuan { };
       # tuic = callPackage ./pkgs/tuic { };
@@ -37,6 +37,8 @@ let
     }
     else { };
 in
-general // flake-specific // { modules = import ./modules; }
+general // flake-specific
+ # //
+ # { modules = import ./modules; }
   
 
