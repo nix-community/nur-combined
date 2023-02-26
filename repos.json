@@ -209,6 +209,9 @@
         "ethancedwards8": {
             "url": "https://github.com/ethancedwards8/ethancedwards8-nur"
         },
+        "etu": {
+            "url": "https://github.com/etu/nur-packages"
+        },
         "extends": {
             "url": "https://github.com/ImExtends/nur-packages-template"
         },
