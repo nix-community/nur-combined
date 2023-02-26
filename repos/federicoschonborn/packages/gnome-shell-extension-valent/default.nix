@@ -23,6 +23,11 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
+  passthru = {
+    extensionUuid = "valent@andyholmes.ca";
+    extensionPortalSlug = "Valent";
+  };
+
   meta = with lib; {
     description = "GNOME Shell integration for Valent";
     homepage = "https://github.com/andyholmes/gnome-shell-extension-valent";
