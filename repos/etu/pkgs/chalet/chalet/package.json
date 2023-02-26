@@ -1,0 +1,12 @@
+{
+  "name": "init-chalet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalet": "^0.10.2"
+  }
+}

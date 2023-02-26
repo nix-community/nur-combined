@@ -1,0 +1,11 @@
+[[https://github.com/etu/nur-packages/actions/workflows/build.yml][https://github.com/etu/nur-packages/actions/workflows/build.yml/badge.svg]]
+[[https://github.com/etu/nur-packages/actions/workflows/updaters.yml][https://github.com/etu/nur-packages/actions/workflows/updaters.yml/badge.svg]]
+[[https://etu.cachix.org][https://img.shields.io/badge/cachix-etu-blue.svg]]
+
+* nur-packages
+My personal [[https://github.com/nix-community/NUR][NUR]] repository.
+
+It provides a pre-compiled binary cache for NixOS unstable. To use it add the
+following line to your =nix.conf=
+
+: trusted-public-keys = etu.cachix.org-1:CeyfbMJZHZ95TScp8+I8+EeyzbncqPSj1xfCK9vOAFE=
