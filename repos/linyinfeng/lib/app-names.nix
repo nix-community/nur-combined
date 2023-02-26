@@ -24,6 +24,8 @@ let
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
+    (trivial "matrix-qq")
+    (trivial "matrix-wechat")
     { "minio-latest" = { "minio" = "minio"; }; }
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
