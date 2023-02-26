@@ -1,4 +1,7 @@
 { config, ... }: {
+  systemd.services.transmission.serviceConfig.BindPaths = [
+    "/storage/downloads"
+  ];
   services.transmission = {
     enable = true;
     openFirewall = true;
