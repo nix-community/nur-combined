@@ -584,6 +584,9 @@
         "rseops": {
             "url": "https://github.com/rse-ops/nix"
         },
+        "ruixi-rebirth": {
+            "url": "https://github.com/Ruixi-rebirth/nur-packages"
+        },
         "rummik": {
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
