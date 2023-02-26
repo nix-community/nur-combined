@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+
+from pathlib import Path
+import asyncio
+from time import time
+import os
+
+SYS_FOLDER = Path("/sys/class/net")
+SHM_FILE = Path('/dev/shm/netusage')
+last_item = dict()
+
+UNITS = ['B/s', 'KB/s', 'MB/s', 'GB/s']
+
+def normalize_unit(val):
+    val = int(val)
+    unit_idx = 0
+    while val > 5000:
+        unit_idx += 1
+        val = val // 1024
+    return f"{val} {UNITS[unit_idx]}"
+
+async def handle_iteration(iface):
+    stats_dir = SYS_FOLDER / iface / "statistics"
+    rx = int((stats_dir / "rx_bytes").read_text().strip())
+    tx = int((stats_dir / "tx_bytes").read_text().strip())
+    timestamp = time()
+    if last_item.get(iface) is None:
+        last_item[iface]=dict(timestamp=int(timestamp),rx=rx,tx=tx)
+        return ""
+    prev = last_item[iface]
+    time_delta = timestamp - prev['timestamp']
+    rx_speed = (rx - prev['rx']) // time_delta
+    tx_speed = (tx - prev['tx']) // time_delta
+    last_item[iface]=dict(timestamp=timestamp,rx=rx,tx=tx)
+    if (rx_speed + tx_speed) > 1024:
+        return f"{iface} {normalize_unit(rx_speed)} {normalize_unit(tx_speed)} "
+    return ""
+
+
+async def main():
+    while True:
+        strs = await asyncio.gather(*map(handle_iteration, os.listdir(str(SYS_FOLDER))))
+        SHM_FILE.write_text("".join(strs))
+        # print(" ".join(strs))
+        await asyncio.sleep(1)
+
+asyncio.run(main())
+

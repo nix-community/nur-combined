@@ -30,6 +30,10 @@ let
   systemd.services."motd-uptime" = {
     enable = true;
     restartIfChanged = true;
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
     wantedBy = [ "multi-user.target" ];
     script = ''
     uptime > /run/uptime
