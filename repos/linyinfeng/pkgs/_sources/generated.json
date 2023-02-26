@@ -176,6 +176,31 @@
         },
         "version": "v2.8.15"
     },
+    "mstickereditor": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./mstickereditor-v0.3.1/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "mstickereditor",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "LuckyTurtleDev",
+            "repo": "mstickereditor",
+            "rev": "v0.3.1",
+            "sha256": "sha256-pcdyfltDnU6I6cIGc1Gw6Y9b7oyAN/GLgtBbPq1pRfE=",
+            "type": "github"
+        },
+        "version": "v0.3.1"
+    },
     "plugin-bang-bang": {
         "cargoLocks": null,
         "date": "2022-11-27",

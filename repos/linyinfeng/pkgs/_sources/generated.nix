@@ -107,6 +107,21 @@
       sha256 = "sha256-V/ZWC5DyfpPztSxMW7d5ZL+JugYf/8A7xzRks1Zn2j0=";
     };
   };
+  mstickereditor = {
+    pname = "mstickereditor";
+    version = "v0.3.1";
+    src = fetchFromGitHub ({
+      owner = "LuckyTurtleDev";
+      repo = "mstickereditor";
+      rev = "v0.3.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-pcdyfltDnU6I6cIGc1Gw6Y9b7oyAN/GLgtBbPq1pRfE=";
+    });
+    cargoLock."Cargo.lock" = {
+      lockFile = ./mstickereditor-v0.3.1/Cargo.lock;
+      outputHashes = { };
+    };
+  };
   plugin-bang-bang = {
     pname = "plugin-bang-bang";
     version = "816c66df34e1cb94a476fa6418d46206ef84e8d3";

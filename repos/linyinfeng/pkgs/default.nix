@@ -27,6 +27,7 @@ lib.makeScope newScope (
     matrix-qq = callPackage ./matrix-qq { };
     matrix-wechat = callPackage ./matrix-wechat { };
     minio-latest = callPackage ./minio-latest { };
+    mstickereditor = callPackage ./mstickereditor { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };

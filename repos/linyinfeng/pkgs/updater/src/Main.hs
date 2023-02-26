@@ -24,6 +24,7 @@ packageSet = do
   dotTar
   clashForWindows
   icalinguaPlusPlus
+  mstickereditor
   wemeet
   yacd
   zeronsd
@@ -97,6 +98,13 @@ icalinguaPlusPlus =
       `fetchUrl` url
   where
     url (Version v) = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/" <> v <> "/app-x86_64.asar"
+
+mstickereditor :: PackageSet ()
+mstickereditor =
+  define $
+    package "mstickereditor"
+      `fromGitHub` ("LuckyTurtleDev", "mstickereditor")
+      `hasCargoLocks` ["Cargo.lock"]
 
 tgSend :: PackageSet ()
 tgSend =

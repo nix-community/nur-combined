@@ -27,6 +27,7 @@ let
     (trivial "matrix-qq")
     (trivial "matrix-wechat")
     { "minio-latest" = { "minio" = "minio"; }; }
+    (trivial "mstickereditor")
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
     (trivial "telegram-send")
