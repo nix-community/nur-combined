@@ -24,6 +24,8 @@ lib.makeScope newScope (
       inherit (fishPlugins) buildFishPlugin;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
+    matrix-qq = callPackage ./matrix-qq { };
+    matrix-wechat = callPackage ./matrix-wechat { };
     minio-latest = callPackage ./minio-latest { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
