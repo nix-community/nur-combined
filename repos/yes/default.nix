@@ -11,6 +11,7 @@ with pkgs;
   });
   
   lx-music-desktop = callPackage ./electronAppImage rec {
+    electron = electron_22;
     pname = "lx-music-desktop";
     version = "2.1.2";
     description = "A music application based on electron";
