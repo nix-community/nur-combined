@@ -41,8 +41,6 @@
   };
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
-  valent = pkgs.callPackage ./packages/valent {};
-  gnome-shell-extension-valent = pkgs.callPackage ./packages/gnome-shell-extension-valent {};
 
   # xfwm4-wayland = pkgs.callPackage ./packages/xfwm4-wayland {};
 }
