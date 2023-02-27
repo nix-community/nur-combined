@@ -123,7 +123,7 @@ src.git = "https://github.com/xddxdd/libltnginx.git"
 fetch.github = "xddxdd/libltnginx"
 
 [liboqs]
-src.github = "open-quantum-safe/liboqs"
+src.git = "https://github.com/open-quantum-safe/liboqs.git"
 fetch.github = "open-quantum-safe/liboqs"
 
 [linux-xanmod]

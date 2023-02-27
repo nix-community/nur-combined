@@ -328,14 +328,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "0.7.2";
+    version = "341cf224270535e1a5769263f2dd2641fcf2c301";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "0.7.2";
+      rev = "341cf224270535e1a5769263f2dd2641fcf2c301";
       fetchSubmodules = false;
-      sha256 = "sha256-cwrTHj/WFDZ9Ez2FhjpRhEx9aC5xBnh7HR/9T+zUpZc=";
+      sha256 = "sha256-ipfQaxeLFNoyRcFWQZLzFLAR8As1jC1nFww9sPl9QO0=";
     });
+    date = "2023-02-25";
   };
   linux-xanmod = {
     pname = "linux-xanmod";

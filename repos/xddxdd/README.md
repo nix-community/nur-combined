@@ -108,7 +108,7 @@ Or, use variables from this repository in case I change them:
 |  | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | `konnect` | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | `ldap-auth-proxy` | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.4 | `libnftnl-fullcone` | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
-|  | [liboqs](https://openquantumsafe.org) | 0.7.2 | `liboqs` | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | [liboqs](https://openquantumsafe.org) | 341cf224270535e1a5769263f2dd2641fcf2c301 | `liboqs` | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | [netboot-xyz](https://netboot.xyz/) | 2.0.67 | `netboot-xyz` | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | [netns-exec](https://github.com/pekman/netns-exec) | aa346fd058d47b238ae1b86250f414bcab2e7927 | `netns-exec` | Run command in Linux network namespace as normal user |
 |  | [nftables](https://netfilter.org/projects/nftables/) | 1.0.6 | `nftables-fullcone` | The project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
