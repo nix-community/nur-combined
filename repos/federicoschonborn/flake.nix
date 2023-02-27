@@ -16,20 +16,6 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       packages = import ./default.nix {inherit pkgs;};
-
-      devShells.default = pkgs.mkShell {
-        packages = with pkgs; [
-          # Nix
-          nil
-          statix
-        ];
-
-        shellHook = ''
-          nil --version
-          statix --version
-        '';
-      };
-
       formatter = pkgs.alejandra;
     });
 }
