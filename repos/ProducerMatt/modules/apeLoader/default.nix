@@ -20,8 +20,8 @@ in
       '';
     };
   };
-  config = {
-  boot.binfmt.registrations."APE" = mkIf cfg.enable
+  config = mkIf cfg.enable {
+  boot.binfmt.registrations."APE" =
     (if cfg.mode == "loader" then
       {
         recognitionType = "magic";
