@@ -568,6 +568,9 @@
             "file": "nur.nix",
             "url": "https://github.com/markuskowa/NixOS-QChem"
         },
+        "qwbarch": {
+            "url": "https://github.com/qwbarch/nur-packages"
+        },
         "reedrw": {
             "url": "https://github.com/reedrw/nur-packages"
         },
