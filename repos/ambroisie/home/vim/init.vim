@@ -81,14 +81,10 @@ set mouse=
 " Set dark mode by default
 set background=dark
 
-" Include plug-in integration
-let g:gruvbox_plugin_hi_groups=1
-" Include filetype integration
-let g:gruvbox_filetype_hi_groups=1
 " 24 bit colors
 set termguicolors
 " Use my preferred colorscheme
-colorscheme gruvbox8
+colorscheme gruvbox
 " }}}
 
 " Search parameters {{{

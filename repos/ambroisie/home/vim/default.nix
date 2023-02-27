@@ -35,7 +35,7 @@ in
 
     plugins = with pkgs.vimPlugins; [
       # Theming
-      vim-gruvbox8 # Nice dark theme
+      gruvbox-nvim # Nice dark theme
       lualine-nvim # A lua-based status line
       lualine-lsp-progress # Show progress for LSP servers
 
