@@ -13,7 +13,7 @@ let
 
   # Below generates group values of "group:$X" for all pre-auth namespaces we've stored
   groups = builtins.foldl' (x: y: x // y) { }
-    (builtins.map (x: { "group:${x}" = [ "${x}" ]; }) meta.namespaces);
+    (builtins.map (x: { "group:${x}" = [ "${x}" ]; }) meta.users);
 
   # Below generates an allow ACL for inter-namespace communication where the namespace matches the origin
   defaultNamespaceCommunication = if usingNewAclFormat then
@@ -21,13 +21,13 @@ let
       action = "accept";
       src = [ "group:${x}" ];
       dst = [ "${x}:*" ];
-    }) meta.namespaces)
+    }) meta.users)
   else
     (builtins.map (x: {
       action = "accept";
       users = [ "group:${x}" ];
       ports = [ "${x}:*" ];
-    }) meta.namespaces);
+    }) meta.users);
 
   allowAdminToAll = if usingNewAclFormat then [{
     action = "accept";

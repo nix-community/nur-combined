@@ -12,7 +12,7 @@ let
     lib.lists.map (v: lib.strings.removePrefix "preauth-" v.name) preauthKeys;
 
   # CREATE TABLE IF NOT EXISTS "users" (`id` integer,`created_at` datetime,`updated_at` datetime,`deleted_at` datetime,`name` text UNIQUE,PRIMARY KEY (`id`));
-  usersInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap0 (i: v:
+  usersInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap1 (i: v:
     "INSERT INTO users ('id','created_at','updated_at','name') VALUES (${
       builtins.toString i
     }, ${unixEpoch},${unixEpoch},'${
@@ -20,7 +20,7 @@ let
     }');") preauthKeys);
 
   # CREATE TABLE `pre_auth_keys` (`id` integer,`key` text,"user_id" integer,`reusable` numeric,`ephemeral` numeric DEFAULT false,`used` numeric DEFAULT false,`created_at` datetime,`expiration` datetime,PRIMARY KEY (`id`));
-  preauthInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap0
+  preauthInsertStatements = builtins.concatStringsSep "\n" (lib.lists.imap1
     (i: v:
       "INSERT INTO pre_auth_keys ('id','key','user_id','reusable','ephemeral','used','created_at','expiration') VALUES (${
         builtins.toString i
@@ -69,5 +69,5 @@ let
     END_SQL"
   '';
 
-  cfg = { inherit preauthKeys secrets script; };
+  cfg = { inherit users preauthKeys secrets script; };
 in cfg
