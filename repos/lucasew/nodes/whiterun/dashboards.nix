@@ -36,17 +36,18 @@
         enable = true;
         sslVerify = false; # rede interna não usa ssl
       };
-      postgres.enable = true;
+      postgres = {
+        enable = true;
+        runAsLocalSuperUser = true;
+      };
     };
-    scrapeConfigs = [
-      {
-        job_name = "whiterun";
-        static_configs = [
-          {
-          targets = map (item: "127.0.0.1:${toString config.services.prometheus.exporters.${item}.port}") ["node" "zfs" "dnsmasq" "nginx" "postgres"];
-          }
-        ];
-      }
-    ];
+    scrapeConfigs = (map (item: {
+      job_name = item;
+      static_configs = [
+        {
+          targets = ["127.0.0.1:${toString config.services.prometheus.exporters.${item}.port}"];
+        }
+      ];
+    })  ["node" "zfs" "dnsmasq" "nginx" "postgres"]);
   };
 }
