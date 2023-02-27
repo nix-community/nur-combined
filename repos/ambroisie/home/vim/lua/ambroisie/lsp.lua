@@ -1,5 +1,8 @@
 local M = {}
 
+-- Simplified LSP formatting configuration
+local lsp_format = require("lsp-format")
+
 -- shared LSP configuration callback
 -- @param client native client configuration
 -- @param bufnr int? buffer number of the attched client
@@ -30,17 +33,7 @@ M.on_attach = function(client, bufnr)
     })
 
     -- Format on save
-    if client.supports_method("textDocument/formatting") then
-        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr })
-            end,
-        })
-    end
+    lsp_format.on_attach(client, bufnr)
 
     -- Mappings
     local wk = require("which-key")
