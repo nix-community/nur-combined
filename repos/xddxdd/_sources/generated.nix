@@ -98,15 +98,15 @@
   };
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "e508ca76a198f633e1720466e1084333ae8b2742";
+    version = "b0b12f37388e59b4456119d3a90d4ff69622d698";
     src = fetchFromGitHub ({
       owner = "NickCao";
       repo = "bird";
-      rev = "e508ca76a198f633e1720466e1084333ae8b2742";
+      rev = "b0b12f37388e59b4456119d3a90d4ff69622d698";
       fetchSubmodules = false;
-      sha256 = "sha256-JdxWSXsPUPNHZxFxdOa8Ogui6Xf2Ife5UgWSLO6Lwrc=";
+      sha256 = "sha256-9Ufu6gGDVMZHoxZdqc2khNBsrvBcS+18IIYIcsVsdsY=";
     });
-    date = "2022-12-12";
+    date = "2023-02-14";
   };
   bird-lg-go = {
     pname = "bird-lg-go";
@@ -203,15 +203,15 @@
   };
   etherguard = {
     pname = "etherguard";
-    version = "1356780d7d37ad5c44d3d25d2137be6120b8bf87";
+    version = "7775441e24d68b191fd285d851e58713bead8bc5";
     src = fetchFromGitHub ({
       owner = "KusakabeShi";
       repo = "EtherGuard-VPN";
-      rev = "1356780d7d37ad5c44d3d25d2137be6120b8bf87";
+      rev = "7775441e24d68b191fd285d851e58713bead8bc5";
       fetchSubmodules = false;
-      sha256 = "sha256-sIJBWvVC7nF2ZJrI6IQxgqA2svqU4XQ0vbz9zh0HEBE=";
+      sha256 = "sha256-KOJAD0IUE7HIrCbCg4RuERiyaasz7o053sEL+ZurdVQ=";
     });
-    date = "2022-05-19";
+    date = "2023-02-23";
   };
   fcitx5-breeze = {
     pname = "fcitx5-breeze";
@@ -281,15 +281,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "8a94615b91e27c7e41f10aacc981128b0f045e90";
+    version = "9322489af4fb56c67a29e747fb29af3cd19ca3fb";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "8a94615b91e27c7e41f10aacc981128b0f045e90";
+      rev = "9322489af4fb56c67a29e747fb29af3cd19ca3fb";
       fetchSubmodules = false;
-      sha256 = "sha256-czoCng0fvN/ThulrL9hd78liX0T03u5yzcnhgX2VhWw=";
+      sha256 = "sha256-LM3u7ASPvrGYaTJu1f1nN1WPlIaV1kMmZtmgAHeUMW4=";
     });
-    date = "2023-02-18";
+    date = "2023-02-24";
   };
   konnect = {
     pname = "konnect";
@@ -339,13 +339,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.1.12-xanmod1";
+    version = "6.2.1-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.12-xanmod1";
+      rev = "6.2.1-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-nodVC9PFoIe/NVYfuVqqqYbhiIe9+K44kxfnlva2/b0=";
+      sha256 = "sha256-8LIlP1aseSK3oEsFxhGsenk8awXMisqdRzDxf1xH2q4=";
     });
   };
   nbfc-linux-lantian = {
@@ -362,18 +362,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.66";
+    version = "2.0.67";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.66/netboot.xyz.efi";
-      sha256 = "sha256-vONnzfDIBNjnbAfjDGNePvTTXPUbRNfyLrzfKWh8YFQ=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.67/netboot.xyz.efi";
+      sha256 = "sha256-t4puL/raKkrFKvWScVHs7O+GoglrD92V+9Y1KEFrzBs=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.66";
+    version = "2.0.67";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.66/netboot.xyz.lkrn";
-      sha256 = "sha256-XDjyGPeJSXq5wBPX2ouyJ/O/R1glv5I1PXtYfwwGBNI=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.67/netboot.xyz.lkrn";
+      sha256 = "sha256-9rIIFnVflvmZm4YhxCviAdq9jQpcwOG54FpxxreQaoc=";
     };
   };
   netns-exec = {
@@ -496,15 +496,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "4b5b704fbf787f78a268443faa1644dc2a60cdc9";
+    version = "ecb095d3e626b0c048610ad516843737c5f07828";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "4b5b704fbf787f78a268443faa1644dc2a60cdc9";
+      rev = "ecb095d3e626b0c048610ad516843737c5f07828";
       fetchSubmodules = false;
-      sha256 = "sha256-OTO7hMCHlZPhoOBAG/98j+Hlvt9ocqtD83zznM6lTk4=";
+      sha256 = "sha256-vDpfebQE+y57BAzUA/InPl21pzWZIt7dbveVwwAt6fc=";
     });
-    date = "2023-02-15";
+    date = "2023-02-20";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -549,13 +549,13 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V0.7.5720";
+    version = "V.0.8.5727";
     src = fetchFromGitHub ({
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic";
-      rev = "V0.7.5720";
+      rev = "V.0.8.5727";
       fetchSubmodules = false;
-      sha256 = "sha256-nqf8NCCDELNHZiGd6HESh3Z+UxX3tHaXhxfhgS3kDKU=";
+      sha256 = "sha256-H+7Bb3Lpmdm457hk1Zmori0YPiWOB24lVYJ59fR3kYI=";
     });
   };
   qbittorrent-enhanced-edition = {
@@ -571,50 +571,50 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "7.2+dfsg-3";
+    version = "7.2+dfsg-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_amd64.deb";
-      sha256 = "sha256-8IJ5pZJKsPY+eFHdNW+UwIFhH2v21yf3WZPZLSNGyhM=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-4_amd64.deb";
+      sha256 = "sha256-QEoivCptyKSZDvBisxBKGeBQq7+dHB6FRgy1YQ988PQ=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "7.2+dfsg-3";
+    version = "7.2+dfsg-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_arm64.deb";
-      sha256 = "sha256-26C8CCttlVjIcBicO8+StwRtfok+0Q3pqL7esKTinR0=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-4_arm64.deb";
+      sha256 = "sha256-pTFCM1x4wgmaHwkKzPTOTG0sMtnmOufnd0i6xNDn9sI=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "7.2+dfsg-3";
+    version = "7.2+dfsg-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_armhf.deb";
-      sha256 = "sha256-haumeqLIem35ryBaV7jKLux30tdfHgcw0IlbfuUy1qA=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-4_armhf.deb";
+      sha256 = "sha256-BcHZ0w4Ykle9s+l2qm8EakbPvs5hY+8W9JOaJXv2jyY=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "7.2+dfsg-3";
+    version = "7.2+dfsg-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-3_i386.deb";
-      sha256 = "sha256-JEFTql2SsCDl8+znvAOvKenrmCLRH/qDi3h5MntWWAY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-4_i386.deb";
+      sha256 = "sha256-7XVIDXNxezTK0YE4UnFRMxzH2xffOIJwxXDRiFBZFDo=";
     };
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "c005c911/linuxqq_3.0.0-571";
+    version = "4b2e3220/linuxqq_3.1.0-9572";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/c005c911/linuxqq_3.0.0-571_amd64.deb";
-      sha256 = "sha256-8KcUhZwgeFzGyrQITWnJUzEPGZOCj0LIHLmRuKqkgmQ=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4b2e3220/linuxqq_3.1.0-9572_amd64.deb";
+      sha256 = "sha256-xqbyyU4JSlYbAkJ/tqLoVPKfQvxYnMySRx7yV1EtDhM=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "c005c911/linuxqq_3.0.0-571";
+    version = "4b2e3220/linuxqq_3.1.0-9572";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/c005c911/linuxqq_3.0.0-571_arm64.deb";
-      sha256 = "sha256-LvE+Pryq4KLu+BFYVrGiTwBdgOrBguPHQd73MMFlfiY=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4b2e3220/linuxqq_3.1.0-9572_arm64.deb";
+      sha256 = "sha256-ItZqhV9OmycdfRhlzP2llrzcIZvaiUC/LJiDJ/kNIkE=";
     };
   };
   qqmusic = {
