@@ -92,12 +92,8 @@ in {
           exit 0
         fi
 
-        health="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r '.Health | .[0]')"
-        if [ $status = "not in map poll" ]; then # reauth the connection
-          ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString} --force-reauth
-        else
-          ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString} --reset
-        fi
+        # otherwise authenticate with tailscale
+        ${tailscale}/bin/tailscale up ${tailscaleJoinArgsString}
       '';
     };
 

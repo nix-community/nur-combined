@@ -6,5 +6,7 @@ in builtins.mapAttrs (name: value:
   let inherit (value.lib.strings) hasSuffix;
   in standardise-nix {
     pkgs = value;
-    stable = hasSuffix "stable" name;
+    # Check for existence of unstable, if false we know we're using
+    # stable rahter than unstable
+    stable = !(hasSuffix "unstable" name);
   }) package-sets
