@@ -12,6 +12,7 @@ in {
     # inputs.nixos-hardware.nixosModules.common-gpu-nvidia
     # ./kubernetz.nix
     ./magnetico.nix
+    ./dashboards.nix
     ./sshfs.nix
     ./plymouth.nix
     ./rocm-gambiarra.nix
