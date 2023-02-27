@@ -1,14 +1,14 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.programs.apeloader;
+  cfg = config.programs.apeLoader;
   apeElfLoader = ./ape.elf;
 in
 # NOTE: Currently, if you activate the loader in your config and then disable
 # it, it will continue to be the loader until the next reboot, despite the
 # relevant binfmt files in /proc disappearing.
 {
-  options.programs.apeloader = {
+  options.programs.apeLoader = {
     enable = mkEnableOption "APE helper/loader";
     mode = mkOption {
       type = types.str;
