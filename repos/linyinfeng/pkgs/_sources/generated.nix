@@ -137,16 +137,16 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "74450ffecf41a0dc4862143739840d0df52a5393";
+    version = "b68b8a3437a2feeb99bcb591152e12922982c1ae";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "74450ffecf41a0dc4862143739840d0df52a5393";
+      rev = "b68b8a3437a2feeb99bcb591152e12922982c1ae";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-9kY+E2JWAYqPF5T1eQZsP8kpLUT1UeP6YQt5uaQ5Vnk=";
+      sha256 = "sha256-K9UIcZREXj186VqJlxiOJNtKj/rhUv9fRWPy32B9lv8=";
     };
-    date = "2023-02-19";
+    date = "2023-02-26";
   };
   replay-fish = {
     pname = "replay-fish";
