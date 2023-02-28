@@ -22,6 +22,7 @@
       # shell usage
       
       fd
+      file
       ripgrep
       sd
       tmux
