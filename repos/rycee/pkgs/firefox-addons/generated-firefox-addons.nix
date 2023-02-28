@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230226.190100";
+      version = "110.0.1buildid20230227.191043";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4076316/francais_language_pack-111.0buildid20230226.190100.xpi";
-      sha256 = "d79c745200ebe032c7b6c74eb2e2f51f4677cb80f056c1a4b9f526ff00b31c5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4076927/francais_language_pack-110.0.1buildid20230227.191043.xpi";
+      sha256 = "1c5509b98e20dca29cc7e3842084855f42edc428455301c1ac41a15cf59a82f0";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1312,10 +1312,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.109.0.4";
+      version = "4.109.2.5";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4068984/lastpass_password_manager-4.109.0.4.xpi";
-      sha256 = "8c5596a91cdce2fbe85be89f44d4b47b5650202bef8e4e00a870c727475051d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4073692/lastpass_password_manager-4.109.2.5.xpi";
+      sha256 = "4df74cca75db5050b262666b05904f84a7623e1f63aaabd8841e969180c07429";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1420,10 +1420,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.46";
+      version = "2.6.47";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066709/localcdn_fork_of_decentraleyes-2.6.46.xpi";
-      sha256 = "a8e2723c3650fa33ffff1bdda54d2cc1807d6003f4df2eba18795318bcb201f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4072889/localcdn_fork_of_decentraleyes-2.6.47.xpi";
+      sha256 = "e906c416f8c80f92eed16ce78b251a970def5532ce499fd29560f950a95fef92";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2885,10 +2885,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.47.0";
+      version = "1.47.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4069969/ublock_origin-1.47.0.xpi";
-      sha256 = "e76958a8c8eb4b71954dac9b0eb1f5a7a545f746159227e0b821b1a1b23f7cd4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4073921/ublock_origin-1.47.2.xpi";
+      sha256 = "2ae62bf1e5632f793c734e36ef9dabfc16c8865516adaf8e90e5a4d1852170f6";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
