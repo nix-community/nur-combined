@@ -1,9 +1,9 @@
-{ writeTextFile
-, lib
-, _meta
-, ...
+{
+  writeTextFile,
+  lib,
+  _meta,
+  ...
 }:
-
 writeTextFile rec {
   name = "00000-howto";
   text = ''

@@ -1,10 +1,10 @@
-{ lib
-, stdenv
-, ctags
-, fetchurl
-, ...
+{
+  lib,
+  stdenv,
+  ctags,
+  fetchurl,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   pname = "ftp-proxy";
   version = "1.2.3";

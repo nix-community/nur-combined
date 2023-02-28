@@ -1,35 +1,35 @@
-{ stdenv
-, sources
-, lib
-, cmake
-, pkg-config
-, alsa-lib
+{
+  stdenv,
+  sources,
+  lib,
+  cmake,
+  pkg-config,
+  alsa-lib,
   # Dependencies
-, at-spi2-core
-, curl
-, dbus
-, freetype
-, gtk3-x11
-, libdatrie
-, libepoxy
-, libpsl
-, libselinux
-, libsepol
-, libsysprof-capture
-, libthai
-, libxkbcommon
-, pcre
-, sqlite
-, util-linux
-, vtk
-, webkitgtk
-, xorg
-, ...
+  at-spi2-core,
+  curl,
+  dbus,
+  freetype,
+  gtk3-x11,
+  libdatrie,
+  libepoxy,
+  libpsl,
+  libselinux,
+  libsepol,
+  libsysprof-capture,
+  libthai,
+  libxkbcommon,
+  pcre,
+  sqlite,
+  util-linux,
+  vtk,
+  webkitgtk,
+  xorg,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   inherit (sources.noise-suppression-for-voice) pname version src;
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [cmake pkg-config];
   buildInputs = [
     alsa-lib
     at-spi2-core

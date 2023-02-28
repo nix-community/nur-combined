@@ -1,13 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchurl
-, cmake
-, lief
-, ...
-}:
-
-let
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  lief,
+  ...
+}: let
   zycoreOld = stdenv.mkDerivation rec {
     pname = "zycore";
     version = "636bb29945c94ffe4cedb5b6cc797e42c98de3af";
@@ -18,7 +17,7 @@ let
       sha256 = "sha256-Rtg5nXj4Cplr1xr3lz8lexzmkvQL9v75a6Blc0f+To0=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zycore-config.cmake.in
@@ -35,10 +34,10 @@ let
       sha256 = "sha256-PU++CMQ8zlaTt4q2cHfHLcHRoM2UgzvW8XNrgN6hbrg=";
     };
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ zycoreOld ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [zycoreOld];
 
-    cmakeFlags = [ "-DZYDIS_SYSTEM_ZYCORE=ON" ];
+    cmakeFlags = ["-DZYDIS_SYSTEM_ZYCORE=ON"];
     preConfigure = ''
       sed -i 's#''${PACKAGE_PREFIX_DIR}/##' cmake/zydis-config.cmake.in
     '';
@@ -54,7 +53,7 @@ let
     };
 
     # https://github.com/lief-project/LIEF/issues/770
-    patches = [ ./nvlax-lief-setuptools.patch ];
+    patches = [./nvlax-lief-setuptools.patch];
   });
 
   ppkAssertOld = fetchFromGitHub {
@@ -64,25 +63,25 @@ let
     sha256 = "sha256-gGhqhdPMweFjhGPMGza5MwEOo5cJKrb5YrskjCvWX3w=";
   };
 in
-stdenv.mkDerivation {
-  pname = "nvlax";
-  version = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
-  src = fetchFromGitHub {
-    owner = "illnyang";
-    repo = "nvlax";
-    rev = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
-    sha256 = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
-  };
+  stdenv.mkDerivation {
+    pname = "nvlax";
+    version = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
+    src = fetchFromGitHub {
+      owner = "illnyang";
+      repo = "nvlax";
+      rev = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
+      sha256 = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
+    };
 
-  patches = [ ./nvlax-cpm.patch ];
+    patches = [./nvlax-cpm.patch];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zycoreOld zydisOld liefOld ];
-  cmakeFlags = [ "-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}" ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [zycoreOld zydisOld liefOld];
+    cmakeFlags = ["-DPPK_ASSERT_SOURCE_DIR=${ppkAssertOld}"];
 
-  meta = with lib; {
-    description = "Future-proof NvENC & NvFBC patcher";
-    homepage = "https://github.com/illnyang/nvlax";
-    license = with licenses; [ gpl3Only ];
-  };
-}
+    meta = with lib; {
+      description = "Future-proof NvENC & NvFBC patcher";
+      homepage = "https://github.com/illnyang/nvlax";
+      license = with licenses; [gpl3Only];
+    };
+  }

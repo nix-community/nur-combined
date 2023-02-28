@@ -1,9 +1,9 @@
-{ stdenvNoCC
-, sources
-, lib
-, ...
+{
+  stdenvNoCC,
+  sources,
+  lib,
+  ...
 } @ args:
-
 stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-dict) pname version src;
   installPhase = ''

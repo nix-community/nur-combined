@@ -1,16 +1,16 @@
-{ stdenvNoCC
-, lib
-, sources
-, makeWrapper
-, steam-run
-, ...
+{
+  stdenvNoCC,
+  lib,
+  sources,
+  makeWrapper,
+  steam-run,
+  ...
 } @ args:
-
 stdenvNoCC.mkDerivation rec {
   pname = "chromium-oqs-bin";
   inherit (sources.chromium-oqs-bin) version src;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   dontUnpack = true;
 
   installPhase = ''
@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Chromium with Open Quantum Safe patches";
     homepage = "https://github.com/open-quantum-safe/oqs-demos";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

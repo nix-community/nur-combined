@@ -1,9 +1,9 @@
-{ sources
-, lib
-, buildGoModule
-, ...
+{
+  sources,
+  lib,
+  buildGoModule,
+  ...
 } @ args:
-
 buildGoModule rec {
   inherit (sources.coredns-lantian) pname version src;
 

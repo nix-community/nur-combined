@@ -1,7 +1,5 @@
-{ lib, ... }:
-
-with lib.kernel;
-{
+{lib, ...}:
+with lib.kernel; {
   LOCALVERSION = freeform "-lantian";
   EXPERT = yes;
   WERROR = no;

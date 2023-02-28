@@ -1,13 +1,12 @@
-{ callPackage
-, stdenv
-, fetchurl
-, makeWrapper
-, nvidia_x11
-, ...
-}:
-
-let
-  deepspeech = callPackage ./default.nix { inherit nvidia_x11; };
+{
+  callPackage,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  nvidia_x11,
+  ...
+}: let
+  deepspeech = callPackage ./default.nix {inherit nvidia_x11;};
   version = deepspeech.version;
 
   model-en = fetchurl {
@@ -30,28 +29,28 @@ let
     sha256 = "sha256-JofZaPRhiVBNm57cD5FPa0s5xNlMc/dbamwYDTPzAkA=";
   };
 in
-stdenv.mkDerivation rec {
-  pname = "deepspeech";
-  inherit version;
+  stdenv.mkDerivation rec {
+    pname = "deepspeech";
+    inherit version;
 
-  buildInputs = [ makeWrapper ];
+    buildInputs = [makeWrapper];
 
-  phases = [ "installPhase" ];
-  installPhase = ''
-    mkdir -p $out/bin
+    phases = ["installPhase"];
+    installPhase = ''
+      mkdir -p $out/bin
 
-    makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-en \
-      --add-flags "--model" \
-      --add-flags "${model-en}" \
-      --add-flags "--scorer" \
-      --add-flags "${scorer-en}"
+      makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-en \
+        --add-flags "--model" \
+        --add-flags "${model-en}" \
+        --add-flags "--scorer" \
+        --add-flags "${scorer-en}"
 
-    makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-zh \
-      --add-flags "--model" \
-      --add-flags "${model-zh}" \
-      --add-flags "--scorer" \
-      --add-flags "${scorer-zh}"
-  '';
+      makeWrapper ${deepspeech}/bin/deepspeech $out/bin/deepspeech-zh \
+        --add-flags "--model" \
+        --add-flags "${model-zh}" \
+        --add-flags "--scorer" \
+        --add-flags "${scorer-zh}"
+    '';
 
-  inherit (deepspeech) meta;
-}
+    inherit (deepspeech) meta;
+  }

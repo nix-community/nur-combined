@@ -1,11 +1,11 @@
-{ stdenvNoCC
-, fetchzip
-, lib
-, jre_headless
-, makeWrapper
-, ...
+{
+  stdenvNoCC,
+  fetchzip,
+  lib,
+  jre_headless,
+  makeWrapper,
+  ...
 } @ args:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hath";
   version = "1.6.1";
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-a690bpznUEqe4Z6vn6QClUBToSqpcj3vPyklURZlgW0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin $out/opt

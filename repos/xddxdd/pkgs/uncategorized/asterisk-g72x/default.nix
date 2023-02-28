@@ -1,17 +1,17 @@
-{ stdenv
-, sources
-, lib
-, autoreconfHook
-, bcg729
-, asterisk
-, ...
+{
+  stdenv,
+  sources,
+  lib,
+  autoreconfHook,
+  bcg729,
+  asterisk,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   inherit (sources.asterisk-g72x) pname version src;
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ asterisk bcg729 ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [asterisk bcg729];
   configureFlags = [
     "--with-bcg729"
   ];

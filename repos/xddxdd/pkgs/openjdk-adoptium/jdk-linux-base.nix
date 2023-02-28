@@ -1,39 +1,36 @@
-{ sources
-, ...
-}:
-
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, makeWrapper
-, setJavaClassPath
+{sources, ...}: {
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper,
+  setJavaClassPath,
   # minimum dependencies
-, alsa-lib
-, fontconfig
-, freetype
-, libffi
-, xorg
-, zlib
+  alsa-lib,
+  fontconfig,
+  freetype,
+  libffi,
+  xorg,
+  zlib,
   # runtime dependencies
-, cups
+  cups,
   # runtime dependencies for GTK+ Look and Feel
-, gtkSupport ? true
-, cairo
-, glib
-, gtk3
-}:
-
-let
+  gtkSupport ? true,
+  cairo,
+  glib,
+  gtk3,
+}: let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   thisSource = sources."${cpuName}" or null;
-  runtimeDependencies = [
-    cups
-  ] ++ lib.optionals gtkSupport [
-    cairo
-    glib
-    gtk3
-  ];
+  runtimeDependencies =
+    [
+      cups
+    ]
+    ++ lib.optionals gtkSupport [
+      cairo
+      glib
+      gtk3
+    ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
 
   result = stdenv.mkDerivation rec {
@@ -43,20 +40,22 @@ let
       inherit (thisSource) url sha256;
     };
 
-    buildInputs = [
-      alsa-lib # libasound.so wanted by lib/libjsound.so
-      fontconfig
-      freetype
-      stdenv.cc.cc.lib # libstdc++.so.6
-      xorg.libX11
-      xorg.libXext
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXtst
-      zlib
-    ] ++ lib.optional stdenv.isAarch32 libffi;
+    buildInputs =
+      [
+        alsa-lib # libasound.so wanted by lib/libjsound.so
+        fontconfig
+        freetype
+        stdenv.cc.cc.lib # libstdc++.so.6
+        xorg.libX11
+        xorg.libXext
+        xorg.libXi
+        xorg.libXrender
+        xorg.libXtst
+        zlib
+      ]
+      ++ lib.optional stdenv.isAarch32 libffi;
 
-    nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+    nativeBuildInputs = [autoPatchelfHook makeWrapper];
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -119,4 +118,6 @@ let
     };
   };
 in
-if thisSource == null then null else result
+  if thisSource == null
+  then null
+  else result

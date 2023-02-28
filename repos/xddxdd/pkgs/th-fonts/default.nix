@@ -1,14 +1,12 @@
-{ callPackage
-, stdenvNoCC
-, lib
-, fetchurl
-, ...
-} @ args:
-
-let
-  font = callPackage ./font.nix;
-in
 {
+  callPackage,
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  ...
+} @ args: let
+  font = callPackage ./font.nix;
+in {
   tshyn = font rec {
     pname = "TH-Tshyn";
     version = "3.0.0";

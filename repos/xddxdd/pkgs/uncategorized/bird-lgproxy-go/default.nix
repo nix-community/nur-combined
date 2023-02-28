@@ -1,9 +1,9 @@
-{ buildGoModule
-, lib
-, sources
-, ...
+{
+  buildGoModule,
+  lib,
+  sources,
+  ...
 } @ args:
-
 buildGoModule rec {
   pname = "bird-lgproxy-go";
   inherit (sources.bird-lg-go) version src;

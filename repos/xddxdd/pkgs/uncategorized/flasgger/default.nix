@@ -1,9 +1,9 @@
-{ lib
-, sources
-, python3Packages
-, ...
+{
+  lib,
+  sources,
+  python3Packages,
+  ...
 } @ args:
-
 python3Packages.buildPythonPackage rec {
   inherit (sources.flasgger) pname version src;
 
@@ -20,6 +20,6 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     description = "Easy OpenAPI specs and Swagger UI for your Flask API";
     homepage = "http://flasgger.pythonanywhere.com/";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

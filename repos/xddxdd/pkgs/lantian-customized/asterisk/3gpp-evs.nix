@@ -1,10 +1,10 @@
-{ stdenv
-, lib
-, fetchurl
-, unzip
-, ...
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   pname = "3gpp-evs";
   version = "16.1.0";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KlRADPdBIrFqj9gGwlTa9iI1VQ1uRFJ8dfe6ilJMXAY=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   unpackPhase = ''
     unzip ${src}
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "c-code";
 
   NIX_CFLAGS_COMPILE = "-DNDEBUG -fPIC";
-  makeFlags = [ "DEBUG=0" "RELEASE=1" ];
+  makeFlags = ["DEBUG=0" "RELEASE=1"];
 
   installPhase = ''
     mkdir -p $out/lib $out/include/3gpp-evs

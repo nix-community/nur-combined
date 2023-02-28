@@ -1,9 +1,9 @@
-{ stdenvNoCC
-, lib
-, sources
-, ...
+{
+  stdenvNoCC,
+  lib,
+  sources,
+  ...
 } @ args:
-
 stdenvNoCC.mkDerivation rec {
   inherit (sources.hoyo-glyphs) pname version src;
   installPhase = ''

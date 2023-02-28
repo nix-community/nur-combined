@@ -1,9 +1,9 @@
-{ stdenv
-, sources
-, lib
-, ...
+{
+  stdenv,
+  sources,
+  lib,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   inherit (sources.netns-exec) pname version src;
   buildPhase = ''

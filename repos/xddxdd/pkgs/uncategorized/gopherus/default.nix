@@ -1,11 +1,11 @@
-{ stdenv
-, fetchurl
-, lib
-, ncurses
-, SDL2
-, ...
+{
+  stdenv,
+  fetchurl,
+  lib,
+  ncurses,
+  SDL2,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   pname = "gopherus";
   version = "1.2.1";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UQ9xWRri9AxVv/9H88IVx12FrPRRhOdSo4HfamxkeHs=";
   };
 
-  buildInputs = [ ncurses SDL2 ];
+  buildInputs = [ncurses SDL2];
 
   buildPhase = ''
     make -f Makefile.lin gopherus gopherus-sdl
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace.";
     homepage = "http://gopherus.sourceforge.net/";
-    license = with licenses; [ bsd2 ];
+    license = with licenses; [bsd2];
   };
 }

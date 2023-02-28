@@ -1,38 +1,37 @@
-{ sources
-, stdenv
-, buildFHSUserEnvBubblewrap
-, autoPatchelfHook
-, writeShellScript
-, lib
+{
+  sources,
+  stdenv,
+  buildFHSUserEnvBubblewrap,
+  autoPatchelfHook,
+  writeShellScript,
+  lib,
   # WeChat dependencies
-, alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, cairo
-, cups
-, dbus
-, expat
-, gdk-pixbuf
-, glib
-, gtk3
-, libpulseaudio
-, mesa_drivers
-, nspr
-, nss
-, openssl_1_1
-, pango
-, pciutils
-, scrot
-, udev
-, xorg
-, ...
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libpulseaudio,
+  mesa_drivers,
+  nspr,
+  nss,
+  openssl_1_1,
+  pango,
+  pciutils,
+  scrot,
+  udev,
+  xorg,
+  ...
 } @ args:
-
 ################################################################################
 # Mostly based on wechat-uos package from AUR:
 # https://aur.archlinux.org/packages/wechat-uos
 ################################################################################
-
 let
   libraries = [
     alsa-lib
@@ -82,7 +81,7 @@ let
     pname = "wechat-uos-bin";
     inherit (sources.wechat-uos) version src;
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
     buildInputs = libraries;
 
@@ -115,30 +114,32 @@ let
 
   fhs = buildFHSUserEnvBubblewrap {
     name = "wechat-uos";
-    targetPkgs = pkgs: [
-      license
-      resource
-    ] ++ libraries;
+    targetPkgs = pkgs:
+      [
+        license
+        resource
+      ]
+      ++ libraries;
     runScript = startScript;
     unsharePid = false;
   };
 in
-stdenv.mkDerivation {
-  pname = "wechat-uos-bin";
-  inherit (sources.wechat-uos) version;
+  stdenv.mkDerivation {
+    pname = "wechat-uos-bin";
+    inherit (sources.wechat-uos) version;
 
-  phases = [ "installPhase" ];
-  installPhase = ''
-    mkdir -p $out/bin $out/share/applications
-    ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
-    ln -s ${./wechat-uos.desktop} $out/share/applications/wechat-uos.desktop
-    ln -s ${resource}/share/icons $out/share/icons
-  '';
+    phases = ["installPhase"];
+    installPhase = ''
+      mkdir -p $out/bin $out/share/applications
+      ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
+      ln -s ${./wechat-uos.desktop} $out/share/applications/wechat-uos.desktop
+      ln -s ${resource}/share/icons $out/share/icons
+    '';
 
-  meta = with lib; {
-    description = "WeChat desktop (Official binary)";
-    homepage = "https://weixin.qq.com/";
-    platforms = [ "x86_64-linux" ];
-    license = licenses.unfreeRedistributable;
-  };
-}
+    meta = with lib; {
+      description = "WeChat desktop (Official binary)";
+      homepage = "https://weixin.qq.com/";
+      platforms = ["x86_64-linux"];
+      license = licenses.unfreeRedistributable;
+    };
+  }

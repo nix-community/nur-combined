@@ -1,15 +1,15 @@
-{ stdenvNoCC
-, lib
-, fetchurl
-, p7zip
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  p7zip,
   # Args
-, pname
-, version
-, filename ? "${pname}-${version}"
-, sha256
-, ...
+  pname,
+  version,
+  filename ? "${pname}-${version}",
+  sha256,
+  ...
 } @ args:
-
 stdenvNoCC.mkDerivation rec {
   inherit pname version;
   src = fetchurl {
@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [p7zip];
 
   unpackPhase = ''
     7z -aoa x ${src}

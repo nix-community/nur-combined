@@ -1,13 +1,13 @@
-{ lib
-, stdenv
-, sources
-, cmake
-, liboqs
-, openssl_3_0
-, python3
-, ...
+{
+  lib,
+  stdenv,
+  sources,
+  cmake,
+  liboqs,
+  openssl_3_0,
+  python3,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   inherit (sources.openssl-oqs-provider) pname version src;
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     openssl_3_0
   ];
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
 
   installPhase = ''
     mkdir -p $out/lib
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OpenSSL 3 provider containing post-quantum algorithms";
     homepage = "https://openquantumsafe.org";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

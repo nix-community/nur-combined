@@ -1,10 +1,10 @@
-{ stdenvNoCC
-, lib
-, fetchurl
-, p7zip
-, ...
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  p7zip,
+  ...
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hesuvi-hrir";
   version = "2.0.0.1";
@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1fh1lqkv992xjglwkp3b544ai552pyjbmgfm9yp8fylg9mqp85x3";
   };
 
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [p7zip];
   unpackCmd = "7z x $src";
 
   installPhase = ''

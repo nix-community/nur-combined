@@ -1,9 +1,9 @@
-{ buildGoModule
-, lib
-, sources
-, ...
+{
+  buildGoModule,
+  lib,
+  sources,
+  ...
 } @ args:
-
 buildGoModule rec {
   inherit (sources.baidupcs-go) pname version src;
   vendorSha256 = "sha256-3HiDJMLYIbNKh6gi/GfempEOxeSJ/AbfNtXFEU25vnE=";

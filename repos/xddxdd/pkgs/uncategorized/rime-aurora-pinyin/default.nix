@@ -1,10 +1,10 @@
-{ sources
-, stdenvNoCC
-, lib
-, fetchurl
-, ...
+{
+  sources,
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  ...
 }:
-
 stdenvNoCC.mkDerivation {
   inherit (sources.rime-aurora-pinyin) pname version src;
   installPhase = ''

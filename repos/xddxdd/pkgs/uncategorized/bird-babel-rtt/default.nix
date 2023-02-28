@@ -1,19 +1,19 @@
-{ lib
-, sources
-, stdenv
-, autoreconfHook
-, bison
-, flex
-, readline
-, libssh
-, ...
+{
+  lib,
+  sources,
+  stdenv,
+  autoreconfHook,
+  bison,
+  flex,
+  readline,
+  libssh,
+  ...
 } @ args:
-
 stdenv.mkDerivation {
   inherit (sources.bird-babel-rtt) pname version src;
 
-  nativeBuildInputs = [ autoreconfHook bison flex ];
-  buildInputs = [ readline libssh ];
+  nativeBuildInputs = [autoreconfHook bison flex];
+  buildInputs = [readline libssh];
 
   patches = [
     ./dont-create-sysconfdir-2.patch

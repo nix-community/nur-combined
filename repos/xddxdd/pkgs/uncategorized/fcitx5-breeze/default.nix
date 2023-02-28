@@ -1,9 +1,9 @@
-{ sources
-, stdenvNoCC
-, lib
-, ...
+{
+  sources,
+  stdenvNoCC,
+  lib,
+  ...
 }:
-
 stdenvNoCC.mkDerivation {
   inherit (sources.fcitx5-breeze) pname version src;
 

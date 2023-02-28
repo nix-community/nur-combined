@@ -1,14 +1,14 @@
-{ stdenv
-, sources
-, lib
-, fuse
-, ...
+{
+  stdenv,
+  sources,
+  lib,
+  fuse,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   inherit (sources.nullfs) pname version src;
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -1,9 +1,9 @@
-{ stdenv
-, sources
-, lib
-, ...
+{
+  stdenv,
+  sources,
+  lib,
+  ...
 } @ args:
-
 stdenv.mkDerivation rec {
   pname = "dn42-pingfinder";
   version = "1.0.0";

@@ -1,36 +1,35 @@
-{ sources
-, stdenv
-, autoPatchelfHook
-, makeWrapper
-, writeText
-, lib
+{
+  sources,
+  stdenv,
+  autoPatchelfHook,
+  makeWrapper,
+  writeText,
+  lib,
   # QQ Music dependencies
-, alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, cairo
-, cups
-, dbus
-, expat
-, gdk-pixbuf
-, glib
-, gtk3
-, libpulseaudio
-, mesa_drivers
-, nspr
-, nss
-, pango
-, pciutils
-, udev
-, xorg
-, ...
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libpulseaudio,
+  mesa_drivers,
+  nspr,
+  nss,
+  pango,
+  pciutils,
+  udev,
+  xorg,
+  ...
 } @ args:
-
 ################################################################################
 # Mostly based on qqmusic-bin package from AUR:
 # https://aur.archlinux.org/packages/qqmusic-bin
 ################################################################################
-
 let
   libraries = [
     alsa-lib
@@ -76,42 +75,42 @@ let
     Categories=AudioVideo;
   '';
 in
-stdenv.mkDerivation rec {
-  inherit (sources.qqmusic) pname version src;
+  stdenv.mkDerivation rec {
+    inherit (sources.qqmusic) pname version src;
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
-  buildInputs = libraries;
+    nativeBuildInputs = [autoPatchelfHook makeWrapper];
+    buildInputs = libraries;
 
-  unpackPhase = ''
-    ar x ${src}
-    tar xf data.tar.xz
-  '';
+    unpackPhase = ''
+      ar x ${src}
+      tar xf data.tar.xz
+    '';
 
-  installPhase = ''
-    mkdir -p $out
-    cp -r opt/qqmusic $out/opt
-    cp -r usr/* $out/
-    ln -sf ${desktopFile} $out/share/applications/qqmusic.desktop
+    installPhase = ''
+      mkdir -p $out
+      cp -r opt/qqmusic $out/opt
+      cp -r usr/* $out/
+      ln -sf ${desktopFile} $out/share/applications/qqmusic.desktop
 
-    mkdir -p $out/bin
-    makeWrapper $out/opt/qqmusic $out/bin/qqmusic \
-      --argv0 "qqmusic" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
+      mkdir -p $out/bin
+      makeWrapper $out/opt/qqmusic $out/bin/qqmusic \
+        --argv0 "qqmusic" \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
-    # Hex patch
-    # 1. Fix orphaned processes
-    # 2. Fix search
-    local _subst="
-        s|\xA4\x8B\x7A\xB9\x8D\xCF\x54\xAE|\xA4\x8B\x7A\xB9\x85\xEF\x54\xAE|
-        s|\xB3\x1D\xF5\xCB\x24\xBC|\xA3\x63\xBB\xC9\x3F\xBC|
-    "
-    sed "$_subst" -i "$out/opt/resources/app.asar"
-  '';
+      # Hex patch
+      # 1. Fix orphaned processes
+      # 2. Fix search
+      local _subst="
+          s|\xA4\x8B\x7A\xB9\x8D\xCF\x54\xAE|\xA4\x8B\x7A\xB9\x85\xEF\x54\xAE|
+          s|\xB3\x1D\xF5\xCB\x24\xBC|\xA3\x63\xBB\xC9\x3F\xBC|
+      "
+      sed "$_subst" -i "$out/opt/resources/app.asar"
+    '';
 
-  meta = with lib; {
-    description = "Tencent QQ Music (Untested)";
-    homepage = "https://y.qq.com/";
-    platforms = [ "x86_64-linux" ];
-    license = licenses.unfreeRedistributable;
-  };
-}
+    meta = with lib; {
+      description = "Tencent QQ Music (Untested)";
+      homepage = "https://y.qq.com/";
+      platforms = ["x86_64-linux"];
+      license = licenses.unfreeRedistributable;
+    };
+  }

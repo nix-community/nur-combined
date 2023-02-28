@@ -1,10 +1,10 @@
-{ sources
-, lib
-, fetchFromGitHub
-, buildGoPackage
-, ...
+{
+  sources,
+  lib,
+  fetchFromGitHub,
+  buildGoPackage,
+  ...
 }:
-
 buildGoPackage {
   inherit (sources.ldap-auth-proxy) pname version src;
 

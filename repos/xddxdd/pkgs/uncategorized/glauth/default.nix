@@ -1,8 +1,8 @@
-{ lib
-, sources
-, buildGoModule
+{
+  lib,
+  sources,
+  buildGoModule,
 }:
-
 buildGoModule rec {
   inherit (sources.glauth) pname version src;
   vendorSha256 = "sha256-8xjnNjkHI5QrfgJmAgRb2izMkgATdGzSesnWGOvmomY=";

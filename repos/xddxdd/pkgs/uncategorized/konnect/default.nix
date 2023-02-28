@@ -1,8 +1,8 @@
-{ lib
-, sources
-, buildGoModule
+{
+  lib,
+  sources,
+  buildGoModule,
 }:
-
 buildGoModule rec {
   inherit (sources.konnect) pname version src;
   vendorSha256 = "sha256-ZrwFUZDTbJx5qvloVOa5qK1ykKNkUn1hjfz0xf+8sWk=";
