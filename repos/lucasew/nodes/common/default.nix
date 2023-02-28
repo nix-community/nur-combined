@@ -16,9 +16,11 @@ in
     ./p2k.nix
     ./tuning.nix
     ./jellyfin.nix
+    ./user.nix
     ./tmux
     ./bash
     ./kvm.nix
+    ./sops.nix
     ./unstore.nix
     ./dns.nix
     ./telegram_sendmail.nix
