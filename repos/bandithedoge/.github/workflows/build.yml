@@ -11,10 +11,13 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.2.0
+        with:
+          tool-cache: true
+
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          submodules: recursive
 
       - name: Install nix
         uses: cachix/install-nix-action@v19
@@ -23,14 +26,16 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            keep-derivations = false
 
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
       - name: Update sources
         run: |
+          nix flake update
           echo -e '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
-          nix run github:berberman/nvfetcher -- -k keyfile.toml
+          nix run "nixpkgs#nvfetcher" -- -k keyfile.toml
           rm keyfile.toml
 
       - name: Update vim plugins
