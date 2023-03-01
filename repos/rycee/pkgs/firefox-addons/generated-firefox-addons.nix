@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "110.0.1buildid20230227.191043";
+      version = "111.0buildid20230228.190024";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4076927/francais_language_pack-110.0.1buildid20230227.191043.xpi";
-      sha256 = "1c5509b98e20dca29cc7e3842084855f42edc428455301c1ac41a15cf59a82f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077450/francais_language_pack-111.0buildid20230228.190024.xpi";
+      sha256 = "9db066393a523ee623a28e083dadef0221742be00a541d555da130658e206595";
       meta = with lib;
       {
         description = "Français Language Pack";
