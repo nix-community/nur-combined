@@ -2,14 +2,14 @@
   lib,
   stdenv,
   pkgs,
+  hackgen-font,
 }: let
-  hackgen = pkgs.callPackage ../hackgen {};
   ligaturizer = pkgs.callPackage ../../../ligaturizer {};
 in
   stdenv.mkDerivation rec {
     pname = "liga-hackgen-font";
     version = "0.0.1";
-    src = "${hackgen}/share/fonts/hackgen";
+    src = "${hackgen-font}/share/fonts/hackgen";
 
     installPhase = ''
       runHook preInstall
