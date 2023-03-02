@@ -9,8 +9,9 @@
     compiler ? "ghc902",
     tagged ? false,
     attrs ? {},
+    cabal2nixAttrs ? {},
   }:
-    (pkgs.haskell.packages.${compiler}.callPackage pkg {}).overrideAttrs (oldAttrs: (
+    (pkgs.haskell.packages.${compiler}.callPackage pkg cabal2nixAttrs).overrideAttrs (oldAttrs: (
       let
         source = sources.${pkgs.lib.removeSuffix ".nix" (builtins.baseNameOf pkg)};
       in
@@ -24,9 +25,13 @@
         // attrs
     ));
 in {
-  taffybar = callHaskellPackage ./taffybar.nix {
+  taffybar = callHaskellPackage ./taffybar.nix rec {
     compiler = "ghc924";
+    cabal2nixAttrs = {
+      gi-gtk-hs = pkgs.haskell.lib.dontHaddock pkgs.haskell.packages.${compiler}.gi-gtk-hs;
+    };
     attrs = {
+      dontHaddock = true;
       nativeBuildInputs = with pkgs; [
         gcc
         pkg-config
