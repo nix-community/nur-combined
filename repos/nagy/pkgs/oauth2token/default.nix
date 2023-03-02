@@ -1,6 +1,6 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{ lib, buildPythonPackage, fetchFromGitHub, pyxdg, google-auth-oauthlib }:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "oauth2token";
   version = "0.0.3";
 
@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  propagatedBuildInputs = with python3Packages; [ pyxdg google-auth-oauthlib ];
+  propagatedBuildInputs = [ pyxdg google-auth-oauthlib ];
 
   meta = with lib; {
     description = "Simple cli tools to create and use oauth2token";

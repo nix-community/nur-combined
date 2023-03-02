@@ -2,14 +2,14 @@
 
 let
   conversions = {
-    directory.evaldir = { src, convert, ... }: {
+    directory.evaldir = { src, ... }: {
       __cmd = ''
         mkdir $out; cd $out;
       '' + (lib.concatStringsSep "\n" (map (x:
         "ln -s ${callPackage "${src}/${x}" { }} ${lib.removeSuffix ".nix" x}")
         (lib.attrNames (builtins.readDir src))));
     };
-    org.directory = { src, convert, ... }: {
+    org.directory = { src, ... }: {
       inherit src;
       nativeBuildInputs = [ pkgs.emacs-nox ];
       __cmd = ''
@@ -30,7 +30,7 @@ let
           jq --sort-keys > $out
       '';
     };
-    org.pdf = { src, convert, wrap, ... }: (wrap src).tex.pdf;
+    org.pdf = { src, wrap, ... }: (wrap src).tex.pdf;
     org.tex = { src, convert, ... }: rec {
       inherit src;
       nativeBuildInputs =

@@ -2,11 +2,12 @@
 , pillow }:
 
 buildPythonPackage rec {
-  pname = "PyMatting";
+  pname = "pymatting";
   version = "1.1.8";
 
   src = fetchPypi {
-    inherit pname version;
+    pname = "PyMatting";
+    inherit version;
     sha256 = "sha256-pzUI7wh0mWgx39KE47xjFRoJSE14n9EO3AP0mzFTKsw=";
   };
 

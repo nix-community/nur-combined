@@ -2,32 +2,19 @@
 
 with builtins;
 with lib; rec {
-  gltf-pipeline = callPackage (fetchFromGitHub {
-    githubBase = "gist.github.com";
-    owner = "nagy";
-    repo = "053eb914dcbf8270e6d6c1f304ce236e";
-    rev = "master";
-    hash = "sha256-SC5sw3KwCHpc0Or09zLSr6UfrghVGetX9V03/VPbqmo=";
-  }) { };
-
-  mkGlb2Gltf = src:
-    let
-      name = replaceStrings [ ".glb" ] [ ".gltf" ] (toString (baseNameOf src));
-    in pkgs.runCommand name { inherit src; } ''
-      ${getExe gltf-pipeline} --input $src --output $out
-    '';
-
   mkAvrdudeFlasher = firmware:
     pkgs.writeShellScriptBin "${firmware.name}-flasher" ''
-      exec ${pkgs.avrdude}/bin/avrdude -p atmega32u4 -c avr109 -P /dev/ttyACM0 -U flash:w:${firmware.hex}:i
+      exec ${pkgs.avrdude}/bin/avrdude \
+        -p atmega32u4 \
+        -c avr109 \
+        -P /dev/ttyACM0 \
+        -U flash:w:${firmware.hex}:i "$@"
     '';
 
-  mkQmkFirmware = { name, keyboard, keymap ? "default", ... }@args:
-    let
-      self = pkgs.stdenv.mkDerivation (args // {
+  mkQmkFirmware = { name, keymap ? "default", ... }@args:
+    pkgs.stdenv.mkDerivation ((finalAttrs:
+      {
         inherit keymap;
-        # may later be replaced with pkgs.qmk-udev-rules
-        # no, because fetchSubmodules
         src = pkgs.fetchFromGitHub {
           owner = "qmk";
           repo = "qmk_firmware";
@@ -43,13 +30,9 @@ with lib; rec {
 
         outputs = [ "out" "hex" ];
 
-        passthru.flasher = mkAvrdudeFlasher self;
+        passthru.flasher = mkAvrdudeFlasher finalAttrs.finalPackage;
 
-        buildPhase = ''
-          runHook preBuild
-          make --jobs=1 $keyboard:default
-          runHook postBuild
-        '';
+        makeFlags = [ "$(keyboard):default" ];
 
         installPhase = ''
           runHook preInstall
@@ -58,6 +41,6 @@ with lib; rec {
           ln -s $hex $out/share/qmk/${name}.hex
           runHook postInstall
         '';
-      });
-    in self;
+      } // args));
+
 }
