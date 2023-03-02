@@ -31,7 +31,7 @@ jobs:
         DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v18
+      uses: cachix/install-nix-action@v20
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
