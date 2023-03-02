@@ -381,10 +381,10 @@
       };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.11";
+      version = "1.0.12";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035338/consent_o_matic-1.0.11.xpi";
-      sha256 = "b2192a852d3a2f469274258cd8be2099a8117879809ebb1ef25b76e4f40c1a01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4074847/consent_o_matic-1.0.12.xpi";
+      sha256 = "013ea48757b8a4d84a2a0d944bc49b5612d62bae1d337f9569f425f2b8310e0f";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -1489,10 +1489,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.22.2";
+      version = "10.18.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4037096/ether_metamask-10.22.2.xpi";
-      sha256 = "1be33024339cb1ac584945e36a11c99a45a78cb790d16bde9fc0d4fe519e3330";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3980615/ether_metamask-10.18.1.xpi";
+      sha256 = "b7f2512613d55981ee28ca95501b23c8c9e3b20e3ac4eb5431a131108f1129b0";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -2423,10 +2423,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "23.2.17.1612";
+      version = "23.3.1.1623";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4072346/sourcegraph_for_firefox-23.2.17.1612.xpi";
-      sha256 = "d37b0c7c2575ea2e707d320adb8627c00026321fa40f065926f0040dc1d5e9bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077957/sourcegraph_for_firefox-23.3.1.1623.xpi";
+      sha256 = "492f6dfe3a9dabeeafaa84a3f85edc497e4a6d38eb252b6e0bb3cd5c186b62ca";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
