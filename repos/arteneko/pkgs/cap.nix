@@ -12,6 +12,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZCRydD/X+yxXZIofeq/yxREKnvuqkQznRkkELpTOcF0=";
 
+  ldflags = [
+    "-X main.BuildVersion=${version}"
+  ];
+
   meta = with lib; {
     description = "a simple to use website builder that's meant to be easy to use by default";
     homepage = "https://git.sr.ht/~artemis/cap";

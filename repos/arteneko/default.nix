@@ -12,6 +12,7 @@
 
   # overrides
   vivaldi = pkgs.callPackage ./overrides/vivaldi.nix {};
+  chromium = pkgs.callPackage ./overrides/chromium.nix {};
 
   # my nixos and home-manager options (TBD, e.g. for services)
   modules = import ./modules;
