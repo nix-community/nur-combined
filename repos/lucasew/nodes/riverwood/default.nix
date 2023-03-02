@@ -27,6 +27,7 @@ in
       ./remote-build.nix
     ]
   ;
+  networking.networkmanager.wifi.scanRandMacAddress = true;
   networking.hostId = "dabd2d19";
   services.cockpit.enable = true;
 
