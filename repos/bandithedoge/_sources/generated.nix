@@ -19,15 +19,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "6e17e452b17f3f685562e00f987b3c96507d885d";
+    version = "6887af3138221cfbec672c2f2c6ce7dd6868d9ca";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "6e17e452b17f3f685562e00f987b3c96507d885d";
+      rev = "6887af3138221cfbec672c2f2c6ce7dd6868d9ca";
       fetchSubmodules = true;
-      sha256 = "sha256-xWkjw5vTyILuTEBTenOA1d88IlRZVcpyon/klO8CTAg=";
+      sha256 = "sha256-mj1vjlTVZ8grKyOwykE4O9zwmPBLTDEy+AhL0u3ZlLY=";
     };
-    date = "2023-02-26";
+    date = "2023-02-28";
   };
   carla = {
     pname = "carla";
@@ -184,15 +184,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "4b215ba92eb2b0ac0043328468adb10a5b118bfd";
+    version = "5376ee1e7ad761b8f6f6c4c46aa820aaee3346aa";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "4b215ba92eb2b0ac0043328468adb10a5b118bfd";
+      rev = "5376ee1e7ad761b8f6f6c4c46aa820aaee3346aa";
       fetchSubmodules = false;
-      sha256 = "sha256-cwIPAEfmCja/C+SXtjV972LkbVXCZoFmoNVrupPI5og=";
+      sha256 = "sha256-mGqufo7zapiypK1BzXol5UKCNXjCFoiyYs8fJqAd/no=";
     };
-    date = "2023-01-31";
+    date = "2023-02-03";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
@@ -231,15 +231,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "753a9d217ac11a60929b00cb8b5ed089687e701b";
+    version = "2ca8b50d98e4a332991fe7572f7fd95d4c181315";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "753a9d217ac11a60929b00cb8b5ed089687e701b";
+      rev = "2ca8b50d98e4a332991fe7572f7fd95d4c181315";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-5GBr8N+GzbptrvP/NisBXT0dsl9vn537B4InB00/N+A=";
+      sha256 = "sha256-QL0rV/72bvDxkWXST8fqyHRk5un/q+jmy/gs22qnzNc=";
     };
-    date = "2023-02-26";
+    date = "2023-03-01";
   };
 }

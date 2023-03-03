@@ -96,10 +96,10 @@
   };
   "downthemall" = buildFirefoxXpiAddon {
     pname = "downthemall";
-    version = "4.7.1";
+    version = "4.8.1";
     addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4062424/downthemall-4.7.1.xpi";
-    sha256 = "a092f7ea0ffaf321f3a09f7f50d73d6be5e98a1c71fb6b0562d47173c2c8df3d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4073703/downthemall-4.8.1.xpi";
+    sha256 = "03285ad03425ed3ac4b8d79ebdf8534bdb275fc694ea41bd924aecb8ac73b898";
     meta = with lib; {
       homepage = "https://www.downthemall.org/";
       description = "The Mass Downloader for your browser";
@@ -288,10 +288,10 @@
   };
   "pronoundb" = buildFirefoxXpiAddon {
     pname = "pronoundb";
-    version = "0.11.5";
+    version = "0.12.0";
     addonId = "firefox-addon@pronoundb.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4051035/pronoundb-0.11.5.xpi";
-    sha256 = "b2a261a31e9fcff9b13ef4bee9224cc0b4dcdcc85f14c2f3705c38bb18a4cd24";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4077875/pronoundb-0.12.0.xpi";
+    sha256 = "91ca5ee575e212fa51cb9465ecc11a20911af68034527eb111e444256d61b0cf";
     meta = with lib; {
       homepage = "https://pronoundb.org";
       description = "PronounDB is a browser extension that helps people know each other's pronouns easily and instantly. Whether hanging out on a Twitch chat, or on any of the supported platforms, PronounDB will make your life easier.";
@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.2.20";
+    version = "23.3.2";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4073417/refined_github-23.2.20.xpi";
-    sha256 = "ff6ea9d8229213006ae6f21ab7524da66445318ea0f4f57d213d4db95db25fd2";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4078156/refined_github-23.3.2.xpi";
+    sha256 = "709da54d45d9d0aaffa3dca47ee178564c17f7991f55cc4f311e3af01ec44a58";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -340,10 +340,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "23.2.17.1612";
+    version = "23.3.1.1623";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4072346/sourcegraph_for_firefox-23.2.17.1612.xpi";
-    sha256 = "d37b0c7c2575ea2e707d320adb8627c00026321fa40f065926f0040dc1d5e9bd";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4077957/sourcegraph_for_firefox-23.3.1.1623.xpi";
+    sha256 = "492f6dfe3a9dabeeafaa84a3f85edc497e4a6d38eb252b6e0bb3cd5c186b62ca";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       platforms = platforms.all;
@@ -427,10 +427,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.47.0";
+    version = "1.47.2";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4069969/ublock_origin-1.47.0.xpi";
-    sha256 = "e76958a8c8eb4b71954dac9b0eb1f5a7a545f746159227e0b821b1a1b23f7cd4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4073921/ublock_origin-1.47.2.xpi";
+    sha256 = "2ae62bf1e5632f793c734e36ef9dabfc16c8865516adaf8e90e5a4d1852170f6";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
