@@ -58,13 +58,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "fastfetch";
-  version = "1.10.2";
+  version = "1.10.3";
 
   src = fetchFromGitHub {
     owner = "LinusDierheimer";
     repo = "fastfetch";
     rev = version;
-    hash = "sha256-hQVqfCCnBjcsG+xIPTIM7jblXOGqZjJ/zsxOB79vAqQ=";
+    sha256 = "sha256-+4HJ8dGM9suDsDFl1bWg+B9dAIV1PnUCDTYppmMHtkk=";
   };
 
   nativeBuildInputs = [
@@ -99,6 +99,10 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableLibnm [networkmanager]
     ++ lib.optionals enableFreetype [freetype]
     ++ lib.optionals enablePulse [pulseaudio];
+
+  cmakeFlags = [
+    "-DTARGET_DIR_ROOT=${placeholder "out"}"
+  ];
 
   meta = with lib; {
     description = "Like neofetch, but much faster because written in C";

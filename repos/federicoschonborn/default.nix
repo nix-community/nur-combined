@@ -11,6 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  bsdutils = pkgs.callPackage ./packages/bsdutils {inherit libxo;};
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
   commit = pkgs.callPackage ./packages/commit {};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
@@ -40,7 +41,11 @@
     enablePulse = true;
   };
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
+  libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
+
+  # Needs GTK 4.9
+  # loupe = pkgs.callPackage ./packages/loupe {};
 
   # xfwm4-wayland = pkgs.callPackage ./packages/xfwm4-wayland {};
 }

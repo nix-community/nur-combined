@@ -1,0 +1,12 @@
+diff --git a/libxo/xo_syslog.c b/libxo/xo_syslog.c
+index 62da181..e23d1c8 100644
+--- a/libxo/xo_syslog.c
++++ b/libxo/xo_syslog.c
+@@ -58,7 +58,6 @@
+ #include <stdarg.h>
+ #include <sys/time.h>
+ #include <sys/types.h>
+-#include <sys/sysctl.h>
+ 
+ #include "xo_config.h"
+ #include "xo.h"
