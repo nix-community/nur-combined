@@ -7,6 +7,8 @@ stdenv.mkDerivation {
     install -Dm644 *.txt -t "$out/share/rime-data/"
   '';
 
+  passthru.rimeDependencies = [ ];
+
   meta = with lib; {
     homepage = "https://github.com/rime/rime-essay";
     description = "RIME Essay input schema";

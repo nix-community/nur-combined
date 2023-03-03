@@ -1,4 +1,4 @@
-{ sources, stdenv, lib }:
+{ sources, stdenv, lib, rime-luna-pinyin }:
 
 stdenv.mkDerivation {
   inherit (sources.rime-cangjie) pname version src;
@@ -6,6 +6,10 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm644 *.yaml -t "$out/share/rime-data/"
   '';
+
+  passthru.rimeDependencies = [
+    rime-luna-pinyin
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/rime/rime-cangjie";

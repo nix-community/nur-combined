@@ -5,6 +5,7 @@ let
   inherit (self) callPackage;
 in
 {
+  withRimeDeps = callPackage ./with-rime-deps { };
   rime-bopomofo = callPackage ./rime-bopomofo { };
   rime-cangjie = callPackage ./rime-cangjie { };
   rime-essay = callPackage ./rime-essay { };

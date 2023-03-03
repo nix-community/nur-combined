@@ -1,4 +1,4 @@
-{ sources, stdenv, lib }:
+{ sources, stdenv, lib, rime-cangjie, rime-terra-pinyin }:
 
 stdenv.mkDerivation {
   inherit (sources.rime-bopomofo) pname version src;
@@ -6,6 +6,11 @@ stdenv.mkDerivation {
   installPhase = ''
     install -Dm644 *.yaml -t "$out/share/rime-data/"
   '';
+
+  passthru.rimeDependencies = [
+    rime-cangjie
+    rime-terra-pinyin
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/rime/rime-bopomofo";
