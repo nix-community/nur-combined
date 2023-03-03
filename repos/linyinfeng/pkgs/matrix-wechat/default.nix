@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "matrix-wechat";
-  version = "0.1.0";
+  version = "0.2.0";
   src = fetchFromGitHub {
     owner = "duo";
     repo = "matrix-wechat";
     rev = version;
-    sha256 = "sha256-01hA5Jwcr36QhWlolz1EAiXr+Em/dGJxL2pBCHV4ow8=";
+    sha256 = "sha256-lRrKnZ2YcVX6bFgqcd4glKtFawuxlKdd7fY2GRM46eA=";
   };
 
-  vendorSha256 = "sha256-nGQlMS/SB7ytVFcMxPm4U2AA0j9B6MJZF+/PVPtUf8M=";
+  vendorSha256 = "sha256-GkXKuBucirEuql2t/FGw9agbF+lfYmT2x0+AkyMH2ds=";
 
   buildInputs = [
     olm

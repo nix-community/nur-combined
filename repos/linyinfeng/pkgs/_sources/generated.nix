@@ -56,37 +56,37 @@
   };
   commit-notifier = {
     pname = "commit-notifier";
-    version = "07c9c329a384675838822d278c6b3959509968af";
+    version = "fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5";
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "07c9c329a384675838822d278c6b3959509968af";
+      rev = "fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-c1Ptykdj42YTXPChhrVs/UKH57aC/vYe28hNd1SN+94=";
+      sha256 = "sha256-YFzsodASfQzucrgPV3n48Wbu/yWXP7323dSkoVuKYJE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./commit-notifier-07c9c329a384675838822d278c6b3959509968af/Cargo.lock;
+      lockFile = ./commit-notifier-fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-02-24";
+    date = "2023-03-01";
   };
   dot-tar = {
     pname = "dot-tar";
-    version = "56769243e896b6894b99c5e5b849b71698a27d1f";
+    version = "d8da4cbb76bd697c1daaef0bae52c74eb0c9831d";
     src = fetchgit {
       url = "https://github.com/linyinfeng/dot-tar.git";
-      rev = "56769243e896b6894b99c5e5b849b71698a27d1f";
+      rev = "d8da4cbb76bd697c1daaef0bae52c74eb0c9831d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-iRCs5Js0i3uhG2vrNnYKtdndRorTKjmlaNJA/5kyyaM=";
+      sha256 = "sha256-jBsV9H7ednBF+NkfZMRh16F+/7l/Ku5pjAa/CY4X7So=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./dot-tar-56769243e896b6894b99c5e5b849b71698a27d1f/Cargo.lock;
+      lockFile = ./dot-tar-d8da4cbb76bd697c1daaef0bae52c74eb0c9831d/Cargo.lock;
       outputHashes = { };
     };
-    date = "2022-08-29";
+    date = "2023-03-01";
   };
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
@@ -101,10 +101,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.8.15";
+    version = "v2.9.1";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.15/app-x86_64.asar";
-      sha256 = "sha256-V/ZWC5DyfpPztSxMW7d5ZL+JugYf/8A7xzRks1Zn2j0=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.1/app-x86_64.asar";
+      sha256 = "sha256-0LmWNcYN7RRn7fnFx56w8Umz+RvsgidbS/XBHeZwj8k=";
     };
   };
   mstickereditor = {

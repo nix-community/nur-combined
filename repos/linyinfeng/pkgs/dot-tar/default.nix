@@ -1,4 +1,4 @@
-{ sources, rustPlatform, lib, pkg-config, openssl }:
+{ sources, rustPlatform, lib, pkg-config, openssl, zstd }:
 
 rustPlatform.buildRustPackage
 rec {
@@ -11,6 +11,10 @@ rec {
   buildInputs = [
     openssl
   ];
+
+  # TODO due to some unknown reason, checkType = "release" causing failure
+  # thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Os { code: 13, kind: PermissionDenied, message: "Permission denied" }'
+  checkType = "debug";
 
   meta = with lib; {
     homepage = "https://github.com/linyinfeng/dot-tar";

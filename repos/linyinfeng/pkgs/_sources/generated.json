@@ -96,11 +96,11 @@
     "commit-notifier": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./commit-notifier-07c9c329a384675838822d278c6b3959509968af/Cargo.lock",
+                "./commit-notifier-fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-02-24",
+        "date": "2023-03-01",
         "extract": null,
         "name": "commit-notifier",
         "passthru": null,
@@ -110,21 +110,21 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "07c9c329a384675838822d278c6b3959509968af",
-            "sha256": "sha256-c1Ptykdj42YTXPChhrVs/UKH57aC/vYe28hNd1SN+94=",
+            "rev": "fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5",
+            "sha256": "sha256-YFzsodASfQzucrgPV3n48Wbu/yWXP7323dSkoVuKYJE=",
             "type": "git",
             "url": "https://github.com/linyinfeng/commit-notifier.git"
         },
-        "version": "07c9c329a384675838822d278c6b3959509968af"
+        "version": "fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5"
     },
     "dot-tar": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./dot-tar-56769243e896b6894b99c5e5b849b71698a27d1f/Cargo.lock",
+                "./dot-tar-d8da4cbb76bd697c1daaef0bae52c74eb0c9831d/Cargo.lock",
                 {}
             ]
         },
-        "date": "2022-08-29",
+        "date": "2023-03-01",
         "extract": null,
         "name": "dot-tar",
         "passthru": null,
@@ -134,12 +134,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "56769243e896b6894b99c5e5b849b71698a27d1f",
-            "sha256": "sha256-iRCs5Js0i3uhG2vrNnYKtdndRorTKjmlaNJA/5kyyaM=",
+            "rev": "d8da4cbb76bd697c1daaef0bae52c74eb0c9831d",
+            "sha256": "sha256-jBsV9H7ednBF+NkfZMRh16F+/7l/Ku5pjAa/CY4X7So=",
             "type": "git",
             "url": "https://github.com/linyinfeng/dot-tar.git"
         },
-        "version": "56769243e896b6894b99c5e5b849b71698a27d1f"
+        "version": "d8da4cbb76bd697c1daaef0bae52c74eb0c9831d"
     },
     "dpt-rp1-py": {
         "cargoLocks": null,
@@ -170,11 +170,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-V/ZWC5DyfpPztSxMW7d5ZL+JugYf/8A7xzRks1Zn2j0=",
+            "sha256": "sha256-0LmWNcYN7RRn7fnFx56w8Umz+RvsgidbS/XBHeZwj8k=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.8.15/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.1/app-x86_64.asar"
         },
-        "version": "v2.8.15"
+        "version": "v2.9.1"
     },
     "mstickereditor": {
         "cargoLocks": {
