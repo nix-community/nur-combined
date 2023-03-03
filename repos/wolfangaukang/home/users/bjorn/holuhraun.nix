@@ -42,7 +42,11 @@
 
   # Personal Settings
   defaultajAgordoj = {
-    gui.extraPkgs = with pkgs; [ musescore qbittorrent ];
+    gui.extraPkgs = with pkgs; [
+      gimp
+      musescore
+      qbittorrent
+    ];
     gaming = {
       enable = true;
       enableProtontricks = false;

@@ -1,6 +1,5 @@
 { lib
 , firefox-addons
-, enable-personal ? false
 }:
 
 let
@@ -20,8 +19,8 @@ in {
     };
     search = {
       force = true;
-      default = "DuckDuckGo";
-      engines = engines.general // (mkIf enable-personal engines.personal);
+      default = engines.default;
+      engines = engines.enginesSet;
     };
     extensions = with firefox-addons; [
       auto-tab-discard

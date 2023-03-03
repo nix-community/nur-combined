@@ -45,7 +45,7 @@ in
     gui = {
       enable = true;
       browsers.chromium.enable = true;
-      extraPkgs = with pkgs; [ discord ];
+      extraPkgs = with pkgs; [ discord spotify ];
     };
     dev.enable = true;
   };

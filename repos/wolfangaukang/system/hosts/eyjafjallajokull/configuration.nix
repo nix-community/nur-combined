@@ -3,25 +3,30 @@
 let
   inherit (lib) mkForce;
   inherit (inputs) self;
+  system-lib = import "${self}/system/lib" { inherit inputs; };
+  inherit (system-lib) obtainIPV4Address obtainIPV4GatewayAddress;
 
 in {
   imports = [
     ./disk-setup.nix
     ./hardware-configuration.nix
-    "${self}/system/profiles/console.nix"
-    "${self}/system/profiles/de/pantheon.nix"
-    "${self}/system/profiles/environment.nix"
-    "${self}/system/profiles/flatpak.nix"
-    "${self}/system/profiles/graphics.nix"
-    "${self}/system/profiles/layouts.nix"
-    "${self}/system/profiles/networking.nix"
-    "${self}/system/profiles/rfkill.nix"
-    "${self}/system/profiles/security.nix"
-    "${self}/system/profiles/time.nix"
-    "${self}/system/profiles/users.nix"
+    (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname; })
   ];
 
-  networking.hostName = hostname;
+  networking = {
+    interfaces.enp0s25 = {
+      useDHCP = false;
+      ipv4.addresses = [ {
+        address = obtainIPV4Address hostname "brume";
+        prefixLength = 24;
+      } ];
+    };
+    defaultGateway = {
+      address = (obtainIPV4GatewayAddress "brume" "1");
+      interface = "enp0s25";
+    };
+    hostName = hostname;
+  };
 
   profile = {
     nix = {

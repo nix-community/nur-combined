@@ -15,6 +15,7 @@ let
     keepassxc
     libreoffice
     raven-reader
+    sigil
     thunderbird
     vlc
   ];

@@ -11,7 +11,6 @@ let
   common = import "${self}/home/profiles/common/firefox" {
     inherit firefox-addons;
     lib = pkgs.lib;
-    enable-personal = true;
   };
   searches = import "${self}/home/profiles/common/firefox/searches.nix";
 

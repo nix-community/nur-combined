@@ -14,7 +14,7 @@ let
     nodePackages.dockerfile-language-server-nodejs
 
     # Lua
-    sumneko-lua-language-server
+    lua-language-server
 
     # Nix
     rnix-lsp
@@ -75,6 +75,7 @@ let
       type = "lua";
       config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-tree-lua.lua";    
     }
+    vim-better-whitespace
   ]);
 
 in {
@@ -88,6 +89,8 @@ in {
     extraPackages = with pkgs; [
       # nvim-spectre
       gnused ripgrep
+      # clipboard
+      xclip
     ] ++ lspPackages;
     extraConfig = builtins.readFile "${dotfiles}/config/neovim/init.vim";
   };
