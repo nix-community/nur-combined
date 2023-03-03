@@ -30,7 +30,6 @@ let
     (trivial "mstickereditor")
     (trivial "nvfetcher-changes")
     (trivial "nvfetcher-changes-commit")
-    (empty "rime-ice")
     (trivial "telegram-send")
     (empty "synapse-s3-storage-provider")
     (trivial "tg-send")
