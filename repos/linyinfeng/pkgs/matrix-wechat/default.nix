@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "matrix-wechat";
-  version = "0.2.0";
+  version = "0.2.1";
   src = fetchFromGitHub {
     owner = "duo";
     repo = "matrix-wechat";
     rev = version;
-    sha256 = "sha256-lRrKnZ2YcVX6bFgqcd4glKtFawuxlKdd7fY2GRM46eA=";
+    sha256 = "sha256-vaN0cmVfkhp3z6aLZKJZ7P5ph0W6LczmUdtEe7HX/yU=";
   };
 
-  vendorSha256 = "sha256-GkXKuBucirEuql2t/FGw9agbF+lfYmT2x0+AkyMH2ds=";
+  vendorSha256 = "sha256-tovnLPZRaCD7tadmuO35jniG7wZqIgC57wsQxt3JYsA=";
 
   buildInputs = [
     olm
@@ -19,6 +19,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
+    "-X main.Tag=${version}"
   ];
 
   passthru = {
