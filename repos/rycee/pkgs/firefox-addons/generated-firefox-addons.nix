@@ -768,7 +768,7 @@
       meta = with lib;
       {
         homepage = "https://blog.mozilla.org/en/mozilla/local-translation-add-on-project-bergamot/";
-        description = "Translate websites in your browser, privately.";
+        description = "Translate websites in your browser, privately, without using the cloud.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -905,10 +905,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230228.190024";
+      version = "111.0buildid20230302.185836";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077450/francais_language_pack-111.0buildid20230228.190024.xpi";
-      sha256 = "9db066393a523ee623a28e083dadef0221742be00a541d555da130658e206595";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078468/francais_language_pack-111.0buildid20230302.185836.xpi";
+      sha256 = "9feddd8381f6de6798b3ec2abaadb67fb2e3935ce2159094571f3fa75c899d19";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1237,10 +1237,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.4";
+      version = "1.8.5.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4045866/keepassxc_browser-1.8.4.xpi";
-      sha256 = "cc39aa058cb8915cfc88424e2e1cebe3ccfc3f95d7bddb2abd0c4905d2b17719";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078287/keepassxc_browser-1.8.5.1.xpi";
+      sha256 = "f50c5b6b9d662665ac1a279d4558c4a7b8d8d316c795969b65854569c9ba36ee";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -2226,10 +2226,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.2.20";
+      version = "23.3.2";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4073417/refined_github-23.2.20.xpi";
-      sha256 = "ff6ea9d8229213006ae6f21ab7524da66445318ea0f4f57d213d4db95db25fd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078156/refined_github-23.3.2.xpi";
+      sha256 = "709da54d45d9d0aaffa3dca47ee178564c17f7991f55cc4f311e3af01ec44a58";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2784,10 +2784,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.5.0";
+      version = "2.5.2";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071664/tournesol_extension-2.5.0.xpi";
-      sha256 = "286a04b7a5ea47cd53ed7568a67e6b8df9b7dd472167ce1c8bdbe0538fcefb09";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078235/tournesol_extension-2.5.2.xpi";
+      sha256 = "b0ea66749f4ffd79c770246061ca28b900316e8f07d34ce2af76ea1fbb85c809";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
