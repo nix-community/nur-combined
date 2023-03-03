@@ -38,4 +38,5 @@ rec {
   aml-upgrade-package-extract = callPackage ./pkgs/aml-upgrade-package-extract.nix {};
   dsdt = callPackage ./pkgs/dsdt.nix;
   ath10k-firmware = callPackage ./pkgs/ath10k-firmware.nix {};
+  _86box = pkgs.libsForQt5.callPackage ./pkgs/86box.nix {};
 }
