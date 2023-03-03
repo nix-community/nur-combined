@@ -1,7 +1,7 @@
 {
     "aws-sigv4-proxy": {
         "cargoLocks": null,
-        "date": "2023-02-17",
+        "date": "2023-03-02",
         "extract": null,
         "name": "aws-sigv4-proxy",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "740d76fdedb32184d89403dec2d2467007da02ef",
-            "sha256": "sha256-aJD4c9adzfCasqSzJpN/ppLft3gsmpmpNnOweG2z5aE=",
+            "rev": "645ae6a38d7f244d041f7b35374cc3a1ecdf59d1",
+            "sha256": "sha256-OdKmweKULSZLgYMx26iw1mEvBDSCVRpA0+g8jFTiECY=",
             "type": "git",
             "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
         },
-        "version": "740d76fdedb32184d89403dec2d2467007da02ef"
+        "version": "645ae6a38d7f244d041f7b35374cc3a1ecdf59d1"
     },
     "clash-for-windows": {
         "cargoLocks": null,
@@ -42,11 +42,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bACSD5Wchw6BOb3OhyAM/POcDGVasbnpxubmKaaWqWo=",
+            "sha256": "sha256-8kNNG1fUn4i7mwzMzSkW3/lrw/9vO5xpxVeV1ZK7WaY=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.02.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.03.gz"
         },
-        "version": "2023.02.16"
+        "version": "2023.03.03"
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
@@ -57,11 +57,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-x2cwLY3AtEd0iriLWlXt3hahtYmU386oKNmct001V6s=",
+            "sha256": "sha256-i3vGzpw309czrNEc9Zg5kbloCGAI9apHgHSN8uMdatY=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.02.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.03.03.gz"
         },
-        "version": "2023.02.16"
+        "version": "2023.03.03"
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
@@ -72,11 +72,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-szE3P2fdWa6zbaMVMfjVrcYgQ6l1yPT33opy6lsyf+s=",
+            "sha256": "sha256-xexCmzrhk7th/EnySDO3I1KBHHRxsL9W3MRwRa7U4zQ=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.02.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.03.03.gz"
         },
-        "version": "2023.02.16"
+        "version": "2023.03.03"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -87,11 +87,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-dqGV4zRMlV9sTUqRawigLWu6toMRdeBn+McaUPZjAZ4=",
+            "sha256": "sha256-utvuXEv3hqUSnzHjBVNMCTxGSk8ck5w0dpyR6k9j/w0=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.02.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.03.gz"
         },
-        "version": "2023.02.16"
+        "version": "2023.03.03"
     },
     "commit-notifier": {
         "cargoLocks": {
@@ -258,6 +258,158 @@
             "type": "github"
         },
         "version": "1.2.1"
+    },
+    "rime-bopomofo": {
+        "cargoLocks": null,
+        "date": "2021-01-31",
+        "extract": null,
+        "name": "rime-bopomofo",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "c7618f4f5728e1634417e9d02ea50d82b71956ab",
+            "sha256": "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-bopomofo.git"
+        },
+        "version": "c7618f4f5728e1634417e9d02ea50d82b71956ab"
+    },
+    "rime-cangjie": {
+        "cargoLocks": null,
+        "date": "2021-02-23",
+        "extract": null,
+        "name": "rime-cangjie",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "8dfad9e537f18821b71ba28773315d9c670ae245",
+            "sha256": "sha256-fmWGgYqWndCpDUV6nzx0zjkcf5AcVeDIYwp0023iMwk=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-cangjie.git"
+        },
+        "version": "8dfad9e537f18821b71ba28773315d9c670ae245"
+    },
+    "rime-essay": {
+        "cargoLocks": null,
+        "date": "2023-02-04",
+        "extract": null,
+        "name": "rime-essay",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e0519d0579722a0871efb68189272cba61a7350b",
+            "sha256": "sha256-/GLyb3pVm5YzhuBWWJs75JtKZVnFXFN3s7HT+TZC4bw=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-essay.git"
+        },
+        "version": "e0519d0579722a0871efb68189272cba61a7350b"
+    },
+    "rime-ice": {
+        "cargoLocks": null,
+        "date": "2023-03-03",
+        "extract": null,
+        "name": "rime-ice",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "787a7840e9a0d679143f49ae191514ef0631d713",
+            "sha256": "sha256-gdhDRZaunQI3NbGjVBK0K9GavjmzuiFVmXycmHAZhRk=",
+            "type": "git",
+            "url": "https://github.com/iDvel/rime-ice.git"
+        },
+        "version": "787a7840e9a0d679143f49ae191514ef0631d713"
+    },
+    "rime-luna-pinyin": {
+        "cargoLocks": null,
+        "date": "2023-02-04",
+        "extract": null,
+        "name": "rime-luna-pinyin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "79aeae200a7370720be98232844c0715f277e1c0",
+            "sha256": "sha256-+pqjpYfXTdou8EofFsjUyArOs+CjJchwXbMVhGFxbhs=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-luna-pinyin.git"
+        },
+        "version": "79aeae200a7370720be98232844c0715f277e1c0"
+    },
+    "rime-prelude": {
+        "cargoLocks": null,
+        "date": "2022-04-10",
+        "extract": null,
+        "name": "rime-prelude",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "dd84abecc33f0b05469f1d744e32d2b60b3529e3",
+            "sha256": "sha256-r3jx/iCUOxBFLYhmHEuSFxzmHg8l6vnuONmsjbtBlpM=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-prelude.git"
+        },
+        "version": "dd84abecc33f0b05469f1d744e32d2b60b3529e3"
+    },
+    "rime-stroke": {
+        "cargoLocks": null,
+        "date": "2023-02-04",
+        "extract": null,
+        "name": "rime-stroke",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "c8bc4050d4d667be8f3f4892ab96e4d0881865a4",
+            "sha256": "sha256-XJMbmJK6CDYYgxPUMnULm5uJEgU6UF2WzrRlGKQf4yg=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-stroke.git"
+        },
+        "version": "c8bc4050d4d667be8f3f4892ab96e4d0881865a4"
+    },
+    "rime-terra-pinyin": {
+        "cargoLocks": null,
+        "date": "2023-02-06",
+        "extract": null,
+        "name": "rime-terra-pinyin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "9427853de91d645d9aca9ceace8fe9e9d8bc5b50",
+            "sha256": "sha256-93Kzph4q8LCNYTMk3rjO7mXwzfyF4cHnuDAQrxWOPDg=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-terra-pinyin.git"
+        },
+        "version": "9427853de91d645d9aca9ceace8fe9e9d8bc5b50"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,

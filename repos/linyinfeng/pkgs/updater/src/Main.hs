@@ -17,6 +17,14 @@ packageSet = do
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
   gitPkg "aws-sigv4-proxy" "https://github.com/awslabs/aws-sigv4-proxy.git"
+  gitPkg "rime-bopomofo" "https://github.com/rime/rime-bopomofo.git"
+  gitPkg "rime-cangjie" "https://github.com/rime/rime-cangjie.git"
+  gitPkg "rime-essay" "https://github.com/rime/rime-essay.git"
+  gitPkg "rime-ice" "https://github.com/iDvel/rime-ice.git"
+  gitPkg "rime-luna-pinyin" "https://github.com/rime/rime-luna-pinyin.git"
+  gitPkg "rime-prelude" "https://github.com/rime/rime-prelude.git"
+  gitPkg "rime-stroke" "https://github.com/rime/rime-stroke.git"
+  gitPkg "rime-terra-pinyin" "https://github.com/rime/rime-terra-pinyin.git"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   fishPlugins
   commitNotifier
