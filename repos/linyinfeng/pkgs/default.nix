@@ -30,6 +30,7 @@ lib.makeScope newScope (
     mstickereditor = callPackage ./mstickereditor { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
+    rime-ice = callPackage ./rime-ice { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };
