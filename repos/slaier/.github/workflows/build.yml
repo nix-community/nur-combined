@@ -30,6 +30,7 @@ jobs:
         uses: cachix/install-nix-action@v19
         with:
           nix_path: "${{ matrix.nixPath }}"
+          install_url: https://releases.nixos.org/nix/nix-2.13.3/install
           extra_nix_config: |
             auto-optimise-store = true
             log-lines = 1000
