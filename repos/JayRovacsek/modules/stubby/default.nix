@@ -1,4 +1,6 @@
+{ lib, ... }:
 let
+  inherit (lib) version;
   utilisedPort = 8053;
   libredns = {
     address_data = "116.202.176.26";
@@ -30,6 +32,18 @@ let
     tls_auth_name = "jabber-germany.de";
     tls_port = 853;
   };
+
+  loggingOptions = if version < "22.11" then
+    { }
+  else if version < "23.05" then {
+    debugLogging = true;
+  } else {
+    logLevel = "info";
+  };
+
+  # usingNewAclFormat =
+  # lib.strings.versionAtLeast config.services.headscale.package.version
+  # "0.16.0";
 in {
   services.stubby = {
     enable = true;
@@ -45,7 +59,7 @@ in {
       dns_transport_list = [ "GETDNS_TRANSPORT_TLS" ];
       resolution_type = "GETDNS_RESOLUTION_STUB";
     };
-  };
+  } // loggingOptions;
 
   networking.firewall.allowedTCPPorts = [ utilisedPort ];
   networking.firewall.allowedUDPPorts = [ utilisedPort ];

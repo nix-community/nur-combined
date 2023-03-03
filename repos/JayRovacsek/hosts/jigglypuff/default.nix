@@ -11,7 +11,6 @@ let
   };
 
   merged = merge-user-config { users = [ jay ]; };
-
 in {
   inherit flake;
   inherit (merged) users home-manager;

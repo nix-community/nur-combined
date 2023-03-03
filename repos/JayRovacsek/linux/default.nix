@@ -63,10 +63,10 @@ in {
   in stable-system { inherit system pkgs modules; };
 
   jigglypuff = let
-    inherit (aarch64-linux-stable) system identifier pkgs;
+    inherit (aarch64-linux-unstable) system identifier pkgs;
     base = self.common.modules.${identifier};
     modules = base ++ [ ../hosts/jigglypuff ];
-  in stable-system { inherit system pkgs modules; };
+  in unstable-system { inherit system pkgs modules; };
 
   wigglytuff = let
     inherit (aarch64-linux-unstable) system identifier pkgs;

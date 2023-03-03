@@ -11,7 +11,7 @@ let
   packages = if unsupportedSystem then
     [ ]
   else
-    (with pkgs; [ nixfmt statix vulnix nil ]) ++ nodePackages;
+    (with pkgs; [ nixfmt statix nil ]) ++ nodePackages;
 
   shellHook = if unsupportedSystem then
     ""

@@ -36,6 +36,9 @@ in {
       "zoom"
     ] ++ extraCasks;
 
-    masApps = { "Microsoft Outlook" = 985367838; };
+    masApps = {
+      "Microsoft Outlook" = 985367838;
+      "Tailscale" = 1475387142;
+    };
   };
 }
