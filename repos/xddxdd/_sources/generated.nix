@@ -281,15 +281,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "9322489af4fb56c67a29e747fb29af3cd19ca3fb";
+    version = "b6fba2c10d565ea673f7f3352d9390b461f9425a";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "9322489af4fb56c67a29e747fb29af3cd19ca3fb";
+      rev = "b6fba2c10d565ea673f7f3352d9390b461f9425a";
       fetchSubmodules = false;
-      sha256 = "sha256-LM3u7ASPvrGYaTJu1f1nN1WPlIaV1kMmZtmgAHeUMW4=";
+      sha256 = "sha256-lL8Nb/bCKcY3l6FuffADYoH2M5LWBowWr3MjY4Bsy6M=";
     });
-    date = "2023-02-24";
+    date = "2023-03-02";
   };
   konnect = {
     pname = "konnect";
@@ -328,25 +328,25 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "341cf224270535e1a5769263f2dd2641fcf2c301";
+    version = "92b84c47c9f21b0b6686d4116af5894d25d405cd";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "341cf224270535e1a5769263f2dd2641fcf2c301";
+      rev = "92b84c47c9f21b0b6686d4116af5894d25d405cd";
       fetchSubmodules = false;
-      sha256 = "sha256-ipfQaxeLFNoyRcFWQZLzFLAR8As1jC1nFww9sPl9QO0=";
+      sha256 = "sha256-zrcxhHIwYJf20q1aBrlZikSg2Qn1/iMh9DdPrTMLhac=";
     });
-    date = "2023-02-25";
+    date = "2023-03-01";
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.2.1-xanmod1";
+    version = "6.2.2-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.2.1-xanmod1";
+      rev = "6.2.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-8LIlP1aseSK3oEsFxhGsenk8awXMisqdRzDxf1xH2q4=";
+      sha256 = "sha256-YQSaIiGzszuOSO3rYnuBeucvhVlnue24b3ECRTH55bg=";
     });
   };
   nbfc-linux-lantian = {
@@ -497,15 +497,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "ecb095d3e626b0c048610ad516843737c5f07828";
+    version = "09bbe099341dc6a526515a137113541e0a2c263b";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "ecb095d3e626b0c048610ad516843737c5f07828";
+      rev = "09bbe099341dc6a526515a137113541e0a2c263b";
       fetchSubmodules = false;
-      sha256 = "sha256-vDpfebQE+y57BAzUA/InPl21pzWZIt7dbveVwwAt6fc=";
+      sha256 = "sha256-qAFOgpjBxhRnRg44oW1Esm3n3JKbK/jfkxK7qc0rKHI=";
     });
-    date = "2023-02-20";
+    date = "2023-03-01";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -561,13 +561,13 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.5.1.10";
+    version = "release-4.5.2.10";
     src = fetchFromGitHub ({
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.5.1.10";
+      rev = "release-4.5.2.10";
       fetchSubmodules = false;
-      sha256 = "sha256-pDrqWiheQWOkFS4N83UZ3sRDHNoytf4BvFr7y/qpVqo=";
+      sha256 = "sha256-MuVwqUaPQij6Kox9BLjxkOqPLz/B+hALX7AurKy65KM=";
     });
   };
   qemu-user-static-amd64 = {

@@ -485,7 +485,7 @@
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
-        "date": "2023-02-24",
+        "date": "2023-03-02",
         "extract": null,
         "name": "hoyo-glyphs",
         "passthru": null,
@@ -497,11 +497,11 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "9322489af4fb56c67a29e747fb29af3cd19ca3fb",
-            "sha256": "sha256-LM3u7ASPvrGYaTJu1f1nN1WPlIaV1kMmZtmgAHeUMW4=",
+            "rev": "b6fba2c10d565ea673f7f3352d9390b461f9425a",
+            "sha256": "sha256-lL8Nb/bCKcY3l6FuffADYoH2M5LWBowWr3MjY4Bsy6M=",
             "type": "github"
         },
-        "version": "9322489af4fb56c67a29e747fb29af3cd19ca3fb"
+        "version": "b6fba2c10d565ea673f7f3352d9390b461f9425a"
     },
     "konnect": {
         "cargoLocks": null,
@@ -565,7 +565,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-02-25",
+        "date": "2023-03-01",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -577,11 +577,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "341cf224270535e1a5769263f2dd2641fcf2c301",
-            "sha256": "sha256-ipfQaxeLFNoyRcFWQZLzFLAR8As1jC1nFww9sPl9QO0=",
+            "rev": "92b84c47c9f21b0b6686d4116af5894d25d405cd",
+            "sha256": "sha256-zrcxhHIwYJf20q1aBrlZikSg2Qn1/iMh9DdPrTMLhac=",
             "type": "github"
         },
-        "version": "341cf224270535e1a5769263f2dd2641fcf2c301"
+        "version": "92b84c47c9f21b0b6686d4116af5894d25d405cd"
     },
     "linux-xanmod": {
         "cargoLocks": null,
@@ -597,11 +597,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.2.1-xanmod1",
-            "sha256": "sha256-8LIlP1aseSK3oEsFxhGsenk8awXMisqdRzDxf1xH2q4=",
+            "rev": "6.2.2-xanmod1",
+            "sha256": "sha256-YQSaIiGzszuOSO3rYnuBeucvhVlnue24b3ECRTH55bg=",
             "type": "github"
         },
-        "version": "6.2.1-xanmod1"
+        "version": "6.2.2-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -855,7 +855,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2023-02-20",
+        "date": "2023-03-01",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -867,11 +867,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "ecb095d3e626b0c048610ad516843737c5f07828",
-            "sha256": "sha256-vDpfebQE+y57BAzUA/InPl21pzWZIt7dbveVwwAt6fc=",
+            "rev": "09bbe099341dc6a526515a137113541e0a2c263b",
+            "sha256": "sha256-qAFOgpjBxhRnRg44oW1Esm3n3JKbK/jfkxK7qc0rKHI=",
             "type": "github"
         },
-        "version": "ecb095d3e626b0c048610ad516843737c5f07828"
+        "version": "09bbe099341dc6a526515a137113541e0a2c263b"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -982,11 +982,11 @@
             "name": null,
             "owner": "c0re100",
             "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.5.1.10",
-            "sha256": "sha256-pDrqWiheQWOkFS4N83UZ3sRDHNoytf4BvFr7y/qpVqo=",
+            "rev": "release-4.5.2.10",
+            "sha256": "sha256-MuVwqUaPQij6Kox9BLjxkOqPLz/B+hALX7AurKy65KM=",
             "type": "github"
         },
-        "version": "release-4.5.1.10"
+        "version": "release-4.5.2.10"
     },
     "qemu-user-static-amd64": {
         "cargoLocks": null,
