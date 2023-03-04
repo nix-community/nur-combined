@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     owner = "sonnyp";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-nnjHuE7MzCuoPfCb4MA00BIzLPbhgR6mbeWYagmNjME=";
+    hash = "sha256-nnjHuE7MzCuoPfCb4MA00BIzLPbhgR6mbeWYagmNjME=";
   };
 
   patches = [

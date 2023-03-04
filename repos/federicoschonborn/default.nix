@@ -43,9 +43,10 @@
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
+  morewaita = pkgs.callPackage ./packages/morewaita {};
 
   # Needs GTK 4.9
   # loupe = pkgs.callPackage ./packages/loupe {};
-
+  # Broken
   # xfwm4-wayland = pkgs.callPackage ./packages/xfwm4-wayland {};
 }

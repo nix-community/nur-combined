@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     owner = "Juniper";
     repo = "libxo";
     rev = version;
-    sha256 = "sha256-iTB/zADckrLe6pfNa76CDYf6iozI+WUScd/IQlvFhnE=";
+    hash = "sha256-iTB/zADckrLe6pfNa76CDYf6iozI+WUScd/IQlvFhnE=";
   };
 
   patches = [

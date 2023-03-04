@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     owner = "dcantrell";
     repo = "bsdutils";
     rev = "v${version}";
-    sha256 = "sha256-rRB+H3nqVXRaEhxdgFOc3awq99jh8Tw+c5Qy5d9CK+0=";
+    hash = "sha256-rRB+H3nqVXRaEhxdgFOc3awq99jh8Tw+c5Qy5d9CK+0=";
   };
 
   nativeBuildInputs = [

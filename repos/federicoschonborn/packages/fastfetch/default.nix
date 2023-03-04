@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     owner = "LinusDierheimer";
     repo = "fastfetch";
     rev = version;
-    sha256 = "sha256-+4HJ8dGM9suDsDFl1bWg+B9dAIV1PnUCDTYppmMHtkk=";
+    hash = "sha256-+4HJ8dGM9suDsDFl1bWg+B9dAIV1PnUCDTYppmMHtkk=";
   };
 
   nativeBuildInputs = [

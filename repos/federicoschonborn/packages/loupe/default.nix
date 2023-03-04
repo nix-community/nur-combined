@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     owner = "Incubator";
     repo = pname;
     rev = "038d9cb5c07b7f8ee5082e72a95bf5feb06aa807";
-    sha256 = "sha256-YeoV8BlQwWt7KNke/KB/ub2CV1fITdiGl6PeBfo/xT4=";
+    hash = "sha256-YeoV8BlQwWt7KNke/KB/ub2CV1fITdiGl6PeBfo/xT4=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
