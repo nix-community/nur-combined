@@ -2,6 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  gnome,
+  hicolor-icon-theme,
 }:
 stdenv.mkDerivation rec {
   pname = "morewaita";
@@ -14,9 +16,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-yLIEG019iczCpReQI3C2+dhdo9qyqVAMXpIfVrVnzhI=";
   };
 
+  propagatedBuildInputs = [
+    gnome.adwaita-icon-theme
+    hicolor-icon-theme
+  ];
+
   installPhase = ''
     mkdir -p $out/share/icons/MoreWaita
-    cp -r $src $out/share/icons/MoreWaita
+    cp -r * $out/share/icons/MoreWaita
   '';
 
   meta = with lib; {
