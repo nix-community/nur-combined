@@ -173,10 +173,10 @@
   };
   "github-isometric-contributions" = buildFirefoxXpiAddon {
     pname = "github-isometric-contributions";
-    version = "1.1.21";
+    version = "1.1.22";
     addonId = "isometric-contributions@jasonlong.me";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4055168/github_isometric_contributions-1.1.21.xpi";
-    sha256 = "7d150023b0021a04311afbfd3d6686c36a43644789660e297ba9502158c28f9a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4078978/github_isometric_contributions-1.1.22.xpi";
+    sha256 = "dffbe4bb93bd26a56019693900c9a3b0914bed8d1eb94493a43742f31144a377";
     meta = with lib; {
       description = "Renders an isometric pixel view of GitHub contribution graphs.";
       license = licenses.mit;
