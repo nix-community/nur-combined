@@ -34,6 +34,9 @@ with lib.kernel; {
   FTRACE = yes;
   FTRACE_SYSCALLS = yes;
 
+  # HP WMI
+  X86_PLATFORM_DRIVERS_HP = yes;
+
   # i915 PXP (for i915-sriov-dkms)
   DRM_I915_PXP = yes;
   PMIC_OPREGION = yes;
