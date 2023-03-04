@@ -43,10 +43,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.16.0";
+      version = "3.16.2.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040916/adnauseam-3.16.0.xpi";
-      sha256 = "00b1145ab88326e904b8486530c2435ecab953e4d93f1e559116d73563edb502";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4075872/adnauseam-3.16.2.0.xpi";
+      sha256 = "9342eb0fa05890b094639b305856461ecf6622387dc5ab9b7cfc12ba97cbfb4e";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -946,10 +946,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.9.8";
+      version = "8.9.9";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046809/ghostery-8.9.8.xpi";
-      sha256 = "a14c3ca91014d6d646bf189e45d0592935ec0371bb07053b024bc7b28330df7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4075016/ghostery-8.9.9.xpi";
+      sha256 = "f80b5efde17c84b7844a04d5bf6791cd06da1cf9b5ba7704d6d31860d21257b2";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -960,10 +960,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "22.7.22";
+      version = "23.3.3";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3986563/ghosttext-22.7.22.xpi";
-      sha256 = "cd2062a9e2076519288398ebad601a3e41cf15e947636861d6ddfbe72033a620";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078788/ghosttext-23.3.3.xpi";
+      sha256 = "36e25dfe86a98997a87ac47bd543520b63a4dbc2250fce5cd2e105c1fe7464cf";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -1501,10 +1501,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.2.4";
+      version = "4.2.10";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4074740/modheader_firefox-4.2.4.xpi";
-      sha256 = "d272872b1cd29d38ec6d2f1947f8c7d54852ac99f0e92597918fb6f177437abf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078080/modheader_firefox-4.2.10.xpi";
+      sha256 = "2e2fe22ced1104f099ff72b146ed6a082cf2f2ce3ff0a0ce9a4df41c58c25f12";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -1710,10 +1710,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.16";
+      version = "11.4.18";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067473/noscript-11.4.16.xpi";
-      sha256 = "44bdddd89bee11e52e09ea967aebd3aa996dc2d66c1a819e8dfdaf9a16cc753b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077959/noscript-11.4.18.xpi";
+      sha256 = "229c8d463d1f5403adb5c940d0b6ecd6432e60dcf0b8075eabd27c253267f8ce";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2784,10 +2784,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.5.2";
+      version = "2.5.3";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078235/tournesol_extension-2.5.2.xpi";
-      sha256 = "b0ea66749f4ffd79c770246061ca28b900316e8f07d34ce2af76ea1fbb85c809";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078886/tournesol_extension-2.5.3.xpi";
+      sha256 = "045463a79514f43524fd118a26a09f82520eda80ab318ac8feffce315e964a57";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
