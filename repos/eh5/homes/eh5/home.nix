@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  clang14-tools =
+  clang15-tools =
     let
-      inherit (pkgs.llvmPackages_14) clang-unwrapped clang;
+      inherit (pkgs.llvmPackages_15) clang-unwrapped clang;
     in
     pkgs.clang-tools.overrideAttrs (_: {
       version = lib.getVersion clang-unwrapped;
@@ -42,7 +42,6 @@ in
 
   home.packages = with pkgs; [
     cachix
-    clang14-tools
     netease-cloud-music
     nix-gfx-mesa
     nix-prefetch

@@ -3,6 +3,7 @@
     enable = true;
     rulesetFile = ./files/nftables.nft;
   };
+  networking.enableNftablesFullcone = true;
 
   services.resolved.enable = false;
   services.dnsmasq = {

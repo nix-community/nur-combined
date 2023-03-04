@@ -2,6 +2,7 @@ let
   modules = {
     fake-hwclock = import ./fake-hwclock;
     mosdns = import ./mosdns;
+    nftables-fullcone = import ./nftables-fullcone;
     stalwart-jmap = import ./stalwart-jmap;
     system-tarball-extlinux = import ./system-tarball-extlinux;
     v2ray-next = import ./v2ray-next;

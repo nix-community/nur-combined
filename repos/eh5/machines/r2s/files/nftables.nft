@@ -48,12 +48,13 @@ table ip nat {
   chain prerouting {
     type nat hook prerouting priority -100; policy accept;
     iifname intern0 ip daddr $chn_ns udp dport 53 counter dnat to 127.0.0.1
+    iifname extern0 fullcone
   }
 
   # for all packets to WAN, after routing, replace source address with primary IP of WAN interface
   chain postrouting {
     type nat hook postrouting priority 100; policy accept;
-    ip saddr 192.168.0.0/16 oifname extern0 masquerade
+    oifname extern0 fullcone
   }
 }
 
