@@ -63,5 +63,6 @@ in
       quad-tree-loftr;
 
     lustre = final.callPackage ./pkgs/lustre { };
+    zotfile = final.callPackage ./pkgs/zotfile.nix { };
   };
 }
