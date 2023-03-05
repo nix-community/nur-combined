@@ -483,6 +483,21 @@
         },
         "version": "v2.2.0-RC1"
     },
+    "google-earth-pro": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "google-earth-pro",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-00XuaIcg9uHtRPalLyoIUY49iLdGulIMwshVOsBwprM=",
+            "type": "url",
+            "url": "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9285-r0_amd64.deb"
+        },
+        "version": "7.3.6.9285"
+    },
     "hoyo-glyphs": {
         "cargoLocks": null,
         "date": "2023-03-02",

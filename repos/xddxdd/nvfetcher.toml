@@ -106,6 +106,10 @@ fetch.github = "y1ndan/genshinhelper2"
 src.github = "glauth/glauth"
 fetch.github = "glauth/glauth"
 
+[google-earth-pro]
+src.aur = "google-earth-pro"
+fetch.url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_$ver-r0_amd64.deb"
+
 [hoyo-glyphs]
 src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
 fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"

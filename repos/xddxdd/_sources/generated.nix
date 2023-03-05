@@ -279,6 +279,14 @@
       sha256 = "sha256-fPEBSEmlFYoe4PGfs7x26GvVlLZhiPvwiUgXwhlrXLk=";
     });
   };
+  google-earth-pro = {
+    pname = "google-earth-pro";
+    version = "7.3.6.9285";
+    src = fetchurl {
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9285-r0_amd64.deb";
+      sha256 = "sha256-00XuaIcg9uHtRPalLyoIUY49iLdGulIMwshVOsBwprM=";
+    };
+  };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
     version = "b6fba2c10d565ea673f7f3352d9390b461f9425a";
