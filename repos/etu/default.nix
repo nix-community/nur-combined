@@ -6,8 +6,4 @@
   github-markdown-toc = pkgs.callPackage ./pkgs/github-markdown-toc {};
   llr = pkgs.callPackage ./pkgs/llr {};
   mkvcleaner = pkgs.callPackage ./pkgs/mkvcleaner {};
-
-  # Firefox extensions
-  firefox-extension-elasticvue = pkgs.callPackage ./pkgs/firefox-extensions/elasticvue.nix {};
-  firefox-extension-streetpass-for-mastodon = pkgs.callPackage ./pkgs/firefox-extensions/streetpass-for-mastodon.nix {};
 }
