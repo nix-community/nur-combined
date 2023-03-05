@@ -11,11 +11,8 @@
 # The `lib`, `modules`, and `overlay` names are special
 let
   lib = pkgs.lib;
+  ifFlake = m: n: if flake-enabled then m else n;
   callPackage = pkgs.callPackage;
-  genPkgIfFlake = names:
-    if flake-enabled
-    then lib.genAttrs names (name: callPackage ./pkgs/${name} { })
-    else { };
   genPkgs = names: lib.genAttrs names (name: callPackage ./pkgs/${name} { });
   general = genPkgs
     [
@@ -32,8 +29,10 @@ let
     ];
 
   # some packages only avaliable while flake enabled
-  flake-specific = genPkgIfFlake
-    [ "shadow-tls" ];
+  flake-specific = ifFlake
+    (genPkgs
+      [ "shadow-tls" ])
+    { };
 in
 general // flake-specific  
 
