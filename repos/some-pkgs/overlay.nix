@@ -39,9 +39,13 @@ in
 
   some-pkgs = {
     inherit (final.python3Packages)
+      arxiv-py
       albumentations
       cppimport
+      grobid-client-python
+      datasette-render-images
       instant-ngp
+      nvdiffrast
       opensfm
       ezy-expecttest
       imviz pyimgui dearpygui

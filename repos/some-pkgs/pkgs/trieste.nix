@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , tensorflow
-, tensorflow-probability_8_0
+, tensorflow-probability
 , gpflux
 , gpflow
 , greenlet
@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "trieste";
-  version = "0.12.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "secondmind-labs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-VaFZTchGEKoDgWPx0gaJpL2i4ybgP/w8mTdomFbpb/k=";
+    hash = "sha256-wNyhr/DJGIJ6zQtsRMS06elAoHXTCqQZoYPabzGWcW8=";
   };
   postPatch = ''
     sed -i 's/gpflow==2.2.\\*/gpflow>=2.2/' setup.py
@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   buildInputs = [
     tensorflow
-    tensorflow-probability_8_0
+    tensorflow-probability
   ];
   propagatedBuildInputs = [
     gpflux

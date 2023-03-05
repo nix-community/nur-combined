@@ -44,10 +44,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Install nix
-      uses: cachix/install-nix-action@v18
+      uses: cachix/install-nix-action@v19
       with:
         nix_path: "${{ matrix.nixPath }}"
-        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
+        install_url: https://releases.nixos.org/nix/nix-2.9.1/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}

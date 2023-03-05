@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , tensorflow
 , tensorflow-probability
+, protobuf3
 , deprecated
 , numpy
 , scipy
@@ -16,17 +17,25 @@
 }:
 buildPythonPackage rec {
   pname = "GPflux";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "secondmind-labs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-y9GJIk0ZpyvJfcnLGCm4Ofdqkfmy1ko6TYqM8l9A1Fg=";
+    hash = "sha256-V/23Dos907zoLYSXRoUkXXIabpLOHyT+huvpOK0+5zc=";
   };
   postPatch = ''
     # sed -i 's/tensorflow>/${builtins.replaceStrings ["-"] ["_"] tensorflow.pname}>/' setup.py
+    sed -i 's/"protobuf[^"]*"/"protobuf>=0.19.0"/' setup.py
+  ''
+  # Remove version constraint on tensorflow
+  + ''
     sed -i '/tensorflow>/d' setup.py
+  ''
+  # Remove version constraint on tfp
+  + ''
+    sed -i '/tensorflow-probability>/d' setup.py
   '';
 
   buildInputs = [
@@ -35,6 +44,7 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = [
+    protobuf3
     gpflow
     deprecated
     numpy
@@ -70,6 +80,7 @@ buildPythonPackage rec {
     platforms = lib.platforms.unix;
 
     # Something about "TrackableLayer" and gpflux simply being permanently broken for almost all versions of tf and tfp
-    broken = lib.versionAtLeast tensorflow.version "2.10";
+    # broken = lib.versionAtLeast tensorflow.version "2.10" || lib.versionAtLeast tensorflow-probability.version "0.19.0";
   };
 }
+
