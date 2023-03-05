@@ -11,25 +11,21 @@
 # The `lib`, `modules`, and `overlay` names are special
 let
   callPackage = if flake-enabled then pkgs.callPackage else (import <nixpkgs> { }).callPackage;
-  general =
-    {
-      Graphite-cursors = callPackage ./pkgs/Graphite-cursors { };
-      rustplayer = callPackage ./pkgs/RustPlayer { };
-      sing-box = callPackage ./pkgs/sing-box { };
-      oppo-sans = callPackage ./pkgs/oppo-sans { };
-      san-francisco = callPackage ./pkgs/san-francisco { };
-      v2ray-plugin = callPackage ./pkgs/v2ray-plugin { };
-      plangothic = callPackage ./pkgs/plangothic { };
-      # maple-font = callPackage ./pkgs/maple-font { };
-      # surrealdb = callPackage ./pkgs/surrealdb { };  
-      maoken-tangyuan = callPackage ./pkgs/maoken-tangyuan { };
-      # tuic = callPackage ./pkgs/tuic { };
-      techmino = callPackage ./pkgs/techmino { };
-      naiveproxy = callPackage ./pkgs/naiveproxy { };
-      #  chatgpt = callPackage ./pkgs/chatgpt { };
-      # ... 
+  genPkgs = names: pkgs.lib.genAttrs names (name: callPackage ./pkgs/${name} { });
+  general = genPkgs
+    [
+      "sing-box"
+      "Graphite-cursors"
+      "rustplayer"
+      "naiveproxy"
+      "techmino"
+      "oppo-sans"
+      "maoken-tangyuan"
+      "plangothic"
+      "v2ray-plugin"
+      "san-francisco"
+    ];
 
-    };
   # some packages only avaliable while flake enabled
   flake-specific =
     if flake-enabled then {
@@ -38,7 +34,7 @@ let
     else { };
 in
 general // flake-specific
- # //
- # { modules = import ./modules; }
+# //
+# { modules = import ./modules; }
   
 
