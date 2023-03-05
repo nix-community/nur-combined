@@ -19,7 +19,6 @@
   _3gpp-evs = callPackage ./3gpp-evs.nix {};
 
   myPatches = [
-    # "${sources.asterisk-alaw16.src}/alaw16_transcoding.patch"
     "${sources.asterisk-amr.src}/codec_amr.patch"
     "${sources.asterisk-amr.src}/build_tools.patch"
     ./codec_evs.patch
@@ -36,12 +35,6 @@
   ];
 in
   (asterisk-actual.override {withOpus = false;}).overrideAttrs (old: {
-    patches =
-      (old.patches or [])
-      ++ [
-        # ./alaw16_pass_through.patch
-      ];
-
     prePatch =
       (lib.concatStrings (builtins.map
         (p: "cp -r ${p}/* ./\n")
@@ -53,6 +46,12 @@ in
         (p: "echo ${p}; patch -p0 < ${p}\n")
         myPatches))
       + (old.postPatch or "");
+
+    preConfigure =
+      ''
+        cp ${./pjsip-disable-sips-check.patch} ./third-party/pjproject/patches/pjsip-disable-sips-check.patch
+      ''
+      + (old.preConfigure or "");
 
     buildInputs =
       (old.buildInputs or [])
