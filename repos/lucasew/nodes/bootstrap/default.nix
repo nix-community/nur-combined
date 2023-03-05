@@ -20,7 +20,6 @@ in {
       url = "https://raw.githubusercontent.com/NixOS/nixpkgs/60c696e31b14797a346241e4f553399d92ba2b69/nixos/modules/config/dotd.nix";
       sha256 = "0n66xqb2vlv97fcfd3s74qv3dh9yslnvhxhzx3p3rq0vmsq4i2ml";
     })
-    "${self.inputs.nixpkgs-unstable-small}/nixos/modules/services/monitoring/cockpit.nix"
   ];
 
   networking.firewall.allowedTCPPorts = [
