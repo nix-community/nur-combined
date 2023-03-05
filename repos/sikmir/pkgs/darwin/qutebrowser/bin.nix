@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchfromgh, undmg }:
+{ lib, stdenv, fetchfromgh, undmg, python3Packages, qutebrowser }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qutebrowser-bin";
@@ -14,21 +14,30 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [ undmg python3Packages.wrapPython ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/Applications
     cp -r *.app $out/Applications
+
+    runHook postInstall
   '';
 
-  preferLocalBuild = true;
+  postInstall = ''
+    tar -C $out/Applications/qutebrowser.app/Contents/Resources \
+      --strip-components=2 -xvzf ${qutebrowser.src} \
+      qutebrowser-${qutebrowser.version}/misc/userscripts/qute-pass
 
-  meta = with lib; {
-    description = "A keyboard-driven, vim-like browser";
-    homepage = "https://qutebrowser.org";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = [ "x86_64-darwin" ];
-    skip.ci = true;
-  };
+    buildPythonPath ${python3Packages.tldextract};
+    patchPythonScript $out/Applications/qutebrowser.app/Contents/Resources/userscripts/qute-pass
+  '';
+
+  meta = with lib;
+    qutebrowser.meta // {
+      maintainers = [ maintainers.sikmir ];
+      platforms = [ "x86_64-darwin" ];
+      skip.ci = true;
+    };
 })
