@@ -1,19 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, cmake, curl, boost, catch2, trompeloeil }:
+{ lib, stdenv, fetchFromGitHub, cmake, cpr, boost, catch2, trompeloeil }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "influxdb-cxx";
-  version = "0.6.7";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "offa";
     repo = "influxdb-cxx";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-9CfjW+NEVGCfV+A0PDy9N6attE2eNdgKBXTzZ3g51FM=";
+    hash = "sha256-ALv6RnWcvonNfoFJfbjVyUdPZ3FWBavGXhvppr5UdWM=";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ curl boost catch2 trompeloeil ];
+  buildInputs = [ cpr boost ]
+    ++ lib.optionals finalAttrs.doCheck [ catch2 trompeloeil ];
+
+  cmakeFlags = [
+    "-DINFLUXCXX_TESTING=${if finalAttrs.doCheck then "ON" else "OFF"}"
+  ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = "InfluxDB C++ client library";

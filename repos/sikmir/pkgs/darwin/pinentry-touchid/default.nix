@@ -25,5 +25,6 @@ buildGoModule rec {
     license = licenses.asl20;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.darwin;
+    skip.ci = !stdenv.isDarwin;
   };
 }
