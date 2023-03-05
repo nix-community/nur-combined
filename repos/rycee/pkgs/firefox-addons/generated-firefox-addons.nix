@@ -642,6 +642,20 @@
         platforms = platforms.all;
         };
       };
+    "elasticvue" = buildFirefoxXpiAddon {
+      pname = "elasticvue";
+      version = "0.44.0";
+      addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4036001/elasticvue-0.44.0.xpi";
+      sha256 = "2805fb9b89669f30a644aa555fd6090300792668df38cd33540e65ccc5249c6d";
+      meta = with lib;
+      {
+        homepage = "https://elasticvue.com/";
+        description = "Elasticvue is a free and simple elasticsearch gui for your browser";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "enhanced-github" = buildFirefoxXpiAddon {
       pname = "enhanced-github";
       version = "5.0.11";
@@ -1079,6 +1093,20 @@
         platforms = platforms.all;
         };
       };
+    "gruvbox-dark-theme" = buildFirefoxXpiAddon {
+      pname = "gruvbox-dark-theme";
+      version = "1.1";
+      addonId = "{eb8c4a94-e603-49ef-8e81-73d3c4cc04ff}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3595905/gruvbox_dark_theme-1.1.xpi";
+      sha256 = "de417b35a4747f5c51b2b73dd8db9d484953fcd8909f0c7d936ca7fc6f8ca4e2";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.com/calvinchd/gruvbox-dark-firefox-theme";
+        description = "Gruvbox dark theme for Firefox. Using <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/51b32595b55bba030aad1f22730eb7a787bb37c8a04d43f4a473d4b094b65ccb/https%3A//github.com/morhetz/gruvbox\" rel=\"nofollow\">https://github.com/morhetz/gruvbox</a> color palette";
+        license = licenses.cc-by-30;
+        platforms = platforms.all;
+        };
+      };
     "gsconnect" = buildFirefoxXpiAddon {
       pname = "gsconnect";
       version = "8";
@@ -1150,6 +1178,20 @@
           url = "https://addons.mozilla.org/en-US/firefox/addon/honey/license/";
           free = false;
           };
+        platforms = platforms.all;
+        };
+      };
+    "hoppscotch" = buildFirefoxXpiAddon {
+      pname = "hoppscotch";
+      version = "0.25";
+      addonId = "postwoman-firefox@postwoman.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3991522/hoppscotch-0.25.xpi";
+      sha256 = "bf8b07191f73a0785f726b6def710f14ad9d4c97750fa1188984b53367711b66";
+      meta = with lib;
+      {
+        homepage = "https://github.com/hoppscotch/hoppscotch-extension";
+        description = "Provides better experience for using the Hoppscotch web app.\n\nHaven't used Hoppscotch ? It's an amazing quick API Request Builder.\nTry it at <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/b9072bc5e1ee582514460d66641043506a2be371c097d77e1eb00a6b5b9dfa97/https%3A//hoppscotch.io/\" rel=\"nofollow\">https://hoppscotch.io/</a> !!!";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2485,6 +2527,20 @@
         homepage = "https://steamdb.info/";
         description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
         license = licenses.bsd3;
+        platforms = platforms.all;
+        };
+      };
+    "streetpass-for-mastodon" = buildFirefoxXpiAddon {
+      pname = "streetpass-for-mastodon";
+      version = "2023.5";
+      addonId = "streetpass@streetpass.social";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4064972/streetpass_for_mastodon-2023.5.xpi";
+      sha256 = "196f842de4fa10865a5624c0f8d68d17997f105f82eed79909f2fa632731a212";
+      meta = with lib;
+      {
+        homepage = "https://streetpass.social/";
+        description = "Find your people on Mastodon";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
