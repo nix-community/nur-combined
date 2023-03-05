@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, s2sphere }:
+{ lib, fetchFromGitHub, fetchpatch, python3Packages, s2sphere }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gpxtrackposter";
@@ -11,7 +11,14 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-pSMfHNpGt68Elgi4NGrBlnZxpsuS7WhqM6kBDcihLu8=";
   };
 
-  patches = [ ./fix-localedir.patch ];
+  patches = [
+    # Fix TimezoneAdjuster
+    (fetchpatch {
+      url = "https://github.com/flopp/GpxTrackPoster/commit/4ccfbe89ae49cbac18b773d2cada2c75aead67b1.patch";
+      hash = "sha256-1nnZZO4KipT/mDwBLZgrbpE1HbwGOGbYM9D5cnmp8zY=";
+    })
+    ./fix-localedir.patch
+  ];
 
   postPatch = ''
     substituteInPlace gpxtrackposter/poster.py \
