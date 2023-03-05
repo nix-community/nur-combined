@@ -12,7 +12,7 @@
 let
   lib = pkgs.lib;
   ifFlake = m: n: if flake-enabled then m else n;
-  callPackage = pkgs.callPackage;
+  callPackage = ifFlake pkgs.callPackage (import <nixpkgs> { }).callPackage;
   genPkgs = names: lib.genAttrs names (name: callPackage ./pkgs/${name} { });
   general = genPkgs
     [
