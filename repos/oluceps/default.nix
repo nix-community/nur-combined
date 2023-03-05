@@ -7,11 +7,16 @@
 #     nix-build -A mypackage
 
 
-{ pkgs ? null, flake-enabled ? false }:
+{ pkgs ? import <nixpkgs> { }, flake-enabled ? false }:
 # The `lib`, `modules`, and `overlay` names are special
 let
-  callPackage = if flake-enabled then pkgs.callPackage else (import <nixpkgs> { }).callPackage;
-  genPkgs = names: pkgs.lib.genAttrs names (name: callPackage ./pkgs/${name} { });
+  lib = pkgs.lib;
+  callPackage = pkgs.callPackage;
+  genPkgIfFlake = names:
+    if flake-enabled
+    then lib.genAttrs names (name: callPackage ./pkgs/${name} { })
+    else { };
+  genPkgs = names: lib.genAttrs names (name: callPackage ./pkgs/${name} { });
   general = genPkgs
     [
       "sing-box"
@@ -27,14 +32,8 @@ let
     ];
 
   # some packages only avaliable while flake enabled
-  flake-specific =
-    if flake-enabled then {
-      shadow-tls = callPackage ./pkgs/shadow-tls { };
-    }
-    else { };
+  flake-specific = genPkgIfFlake
+    [ "shadow-tls" ];
 in
-general // flake-specific
-# //
-# { modules = import ./modules; }
-  
+general // flake-specific  
 
