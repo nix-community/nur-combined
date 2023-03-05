@@ -301,6 +301,9 @@ lib.makeScope newScope (
     ascii-dash = callPackage ./misc/ascii-dash { };
     blink = callPackage ./misc/blink { };
     btpd = callPackage ./misc/btpd { };
+    bwh = callPackage ./misc/bwh {
+      inherit (darwin.apple_sdk.frameworks) AppKit;
+    };
     capture2text = libsForQt5.callPackage ./misc/capture2text { };
     cfiles = callPackage ./misc/cfiles { };
     csvquote = callPackage ./misc/csvquote { };
