@@ -1,8 +1,7 @@
-{ self, system, ... }:
+{ self, ... }:
 let
   linodeRegion = "ap-southeast";
   awsRegion = "ap-southeast-2";
-  pkgs = self.inputs.unstable.legacyPackages.${system};
   name = "csgo";
   label = name;
   group = name;

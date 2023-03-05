@@ -18,5 +18,23 @@
       language = "system";
       pass_filenames = false;
     };
+
+    trufflehog-verified = {
+      enable = true;
+      name = "Trufflehog Search";
+      entry =
+        "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --only-verified --fail";
+      language = "system";
+      pass_filenames = false;
+    };
+
+    trufflehog-regex = {
+      enable = true;
+      name = "Trufflehog Regex Search";
+      entry =
+        "${pkgs.trufflehog}/bin/trufflehog git file://. --since-commit HEAD --config .trufflehog/config.yaml --fail --no-verification";
+      language = "system";
+      pass_filenames = false;
+    };
   };
 }

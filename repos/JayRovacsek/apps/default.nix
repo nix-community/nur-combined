@@ -1,257 +1,134 @@
 { self, system }:
 let
   pkgs = self.inputs.unstable.legacyPackages.${system};
+  inherit (pkgs.lib.attrsets) concatMapAttrs;
   inherit (pkgs) terraform;
+  inherit (self.common) terraform-stacks;
+  removeConfig = ''
+    if [[ -e config.tf.json ]]; then
+      rm -f config.tf.json
+    fi
+  '';
 
-  terranix-stacks = builtins.attrNames (builtins.readDir ../terranix);
+  removeState = ''
+    if [[ -e terraform.tfstate ]]; then
+      echo "State exists in current directory, removing it!"
+      rm -f terraform.tfstate
+    fi
+  '';
 
-  terraform-actions = builtins.foldl' (acc: stack:
-    let cfg = self.packages.${system}.${stack};
+  removeVars = ''
+    if [[ -e terraform.tfvars ]]; then
+      echo "State exists in current directory, removing it!"
+      rm -f terraform.tfvars
+    fi
+  '';
+
+  useState = stack: ''
+    if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
+      echo "State exists in stack directory, utilising it!"
+      ln ./terranix/${stack}/terraform.tfstate $(pwd)
+    fi
+  '';
+
+  useVars = stack: ''
+    if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
+      echo "Vars file exists in stack directory, utilising it!"
+      ln ./terranix/${stack}/terraform.tfvars $(pwd)
+    fi
+  '';
+
+  runTerraformCommand = command: ''
+    ${terraform}/bin/terraform ${command}
+  '';
+
+  terraformInit = cfg: ''
+    cp ${cfg} config.tf.json \
+      && ${terraform}/bin/terraform init
+  '';
+
+  updateState = stack: ''
+    if [[ -e terraform.tfstate ]]; then
+      if [[ ! -e ./terranix/${stack}/terraform.tfstate ]]; then
+        echo "Copying state over to the stack directory!"
+        ln terraform.tfstate ./terranix/${stack}/terraform.tfstate
+      fi
+    fi
+  '';
+
+  updateVars = stack: ''
+    if [[ -e terraform.tfvars ]]; then
+      if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
+        echo "Copying tfvars over to the stack directory!"
+        ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
+      fi
+    fi
+  '';
+
+  runTfsec = ''
+    if [[ -e terraform.tfvars ]]; then
+      ${pkgs.tfsec}/bin/tfsec . --tfvars-file terraform.tfvars
+    else 
+      ${pkgs.tfsec}/bin/tfsec .
+    fi
+
+    if [ $? -ne 0 ]; then
+      echo "Tfsec returned a non-success code! Review CLI output"
+      ${removeState}
+      ${removeVars}
+      ${removeConfig}
+      exit 1
+    fi
+  '';
+
+  # terranix-stacks = builtins.attrNames (builtins.readDir ../terranix);
+
+  terraformProgram = cfg: stack: name: command:
+    builtins.toString (pkgs.writers.writeBash name ''
+      ${removeConfig}
+      ${removeState}
+      ${removeVars}
+
+      ${useState stack}
+      ${useVars stack}
+
+      ${terraformInit cfg}
+
+      ${runTfsec}
+
+      ${runTerraformCommand command}
+
+      ${updateState stack}
+      ${removeState}
+
+      ${updateVars stack}
+      ${removeVars}
+
+      ${removeConfig}
+    '');
+
+  terraform-actions = concatMapAttrs (name: value:
+    let cfg = self.packages.${system}.${name};
     in {
-      "${stack}-apply" = {
+      "${name}-apply" = {
         type = "app";
-        program = builtins.toString (pkgs.writers.writeBash "apply" ''
-          # Remove old config.tf.json
-          if [[ -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-
-          # If terraform state exists in the stack folder, create a hardlink
-          # for us to utilise
-          if [[ -e terraform.tfstate ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfvars
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
-            echo "State exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfstate $(pwd)
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
-            echo "Vars file exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfvars $(pwd)
-          fi
-
-          # Run the apply
-          cp ${cfg} config.tf.json \
-            && ${terraform}/bin/terraform init \
-            && ${terraform}/bin/terraform apply -auto-approve
-
-          # Remove the state now we're done
-          if [[ -e terraform.tfstate ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfstate ]]; then
-              echo "Copying state over to the stack directory!"
-              ln terraform.tfstate ./terranix/${stack}/terraform.tfstate
-            fi
-            echo "Removing state in current directory!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
-              echo "Copying tfvars over to the stack directory!"
-              ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
-            fi
-            echo "Removing tfvars in current directory!"
-            rm -f terraform.tfvars
-          fi
-
-          # Remove old config.tf.json and if successful
-          if [[ $? && -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-        '');
+        program = terraformProgram cfg name "apply" "apply -auto-approve";
       };
 
-      "${stack}-plan" = {
+      "${name}-plan" = {
         type = "app";
-        program = builtins.toString (pkgs.writers.writeBash "plan" ''
-          # Remove old config.tf.json
-          if [[ -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-
-          # If terraform state exists in the stack folder, create a hardlink
-          # for us to utilise
-          if [[ -e terraform.tfstate ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfvars
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
-            echo "State exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfstate $(pwd)
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
-            echo "Vars file exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfvars $(pwd)
-          fi
-
-          # Run the plan
-          cp ${cfg} config.tf.json \
-            && ${terraform}/bin/terraform init \
-            && ${terraform}/bin/terraform plan
-
-          # Remove the state now we're done
-          if [[ -e terraform.tfstate ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfstate ]]; then
-              echo "Copying state over to the stack directory!"
-              ln terraform.tfstate ./terranix/${stack}/terraform.tfstate
-            fi
-            echo "Removing state in current directory!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
-              echo "Copying tfvars over to the stack directory!"
-              ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
-            fi
-            echo "Removing tfvars in current directory!"
-            rm -f terraform.tfvars
-          fi
-
-          # Remove old config.tf.json and if successful
-          if [[ $? && -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-        '');
+        program = terraformProgram cfg name "plan" "plan";
       };
 
-      # TODO: deduplicate some of this
-      "${stack}-sync" = {
+      "${name}-sync" = {
         type = "app";
-        program = builtins.toString (pkgs.writers.writeBash "sync" ''
-          # Remove old config.tf.json
-          if [[ -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-
-          # If terraform state exists in the stack folder, create a hardlink
-          # for us to utilise
-          if [[ -e terraform.tfstate ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfvars
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
-            echo "State exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfstate $(pwd)
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
-            echo "Vars file exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfvars $(pwd)
-          fi
-
-          # Run the plan
-          cp ${cfg} config.tf.json \
-            && ${terraform}/bin/terraform init \
-            && ${terraform}/bin/terraform plan -refresh-only
-
-          # Remove the state now we're done
-          if [[ -e terraform.tfstate ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfstate ]]; then
-              echo "Copying state over to the stack directory!"
-              ln terraform.tfstate ./terranix/${stack}/terraform.tfstate
-            fi
-            echo "Removing state in current directory!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
-              echo "Copying tfvars over to the stack directory!"
-              ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
-            fi
-            echo "Removing tfvars in current directory!"
-            rm -f terraform.tfvars
-          fi
-
-          # Remove old config.tf.json and if successful
-          if [[ $? && -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-        '');
+        program = terraformProgram cfg name "sync" "plan -refresh-only";
       };
 
-      "${stack}-destroy" = {
+      "${name}-destroy" = {
         type = "app";
-        program = builtins.toString (pkgs.writers.writeBash "destroy" ''
-          # Remove old config.tf.json
-          if [[ -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-
-          # If terraform state exists in the stack folder, create a hardlink
-          # for us to utilise
-          if [[ -e terraform.tfstate ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            echo "State exists in current directory, removing it!"
-            rm -f terraform.tfvars
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfstate ]]; then
-            echo "State exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfstate $(pwd)
-          fi
-
-          if [[ -e ./terranix/${stack}/terraform.tfvars ]]; then
-            echo "Vars file exists in stack directory, utilising it!"
-            ln ./terranix/${stack}/terraform.tfvars $(pwd)
-          fi
-
-          # Run the destroy
-          cp ${cfg} config.tf.json \
-            && ${terraform}/bin/terraform init \
-            && ${terraform}/bin/terraform destroy
-
-          # Remove the state now we're done
-          if [[ -e terraform.tfstate ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfstate ]]; then
-              echo "Copying state over to the stack directory!"
-              ln terraform.tfstate ./terranix/${stack}/terraform.tfstate
-            fi
-            echo "Removing state in current directory!"
-            rm -f terraform.tfstate
-          fi
-
-          if [[ -e terraform.tfvars ]]; then
-            if [[ ! -e ./terranix/${stack}/terraform.tfvars ]]; then
-              echo "Copying tfvars over to the stack directory!"
-              ln terraform.tfvars ./terranix/${stack}/terraform.tfvars
-            fi
-            echo "Removing tfvars in current directory!"
-            rm -f terraform.tfvars
-          fi
-
-          # Remove old config.tf.json and if successful
-          if [[ $? && -e config.tf.json ]]; then
-            rm -f config.tf.json
-          fi
-        '');
+        program = terraformProgram cfg name "destroy" "destroy";
       };
-    } // acc) { } terranix-stacks;
+    }) terraform-stacks;
 
 in terraform-actions

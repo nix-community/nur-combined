@@ -1,4 +1,5 @@
 # Ditto
+
 How damn meta right?
 
 Ditto is not a host to be generally utilised in day-to-day and instead provides an extendable template that then is utilised to transform into other hosts.
@@ -6,6 +7,7 @@ Ditto is not a host to be generally utilised in day-to-day and instead provides 
 This currently is done via the `common/images/*.nix` space generally but as I'm moving a lot of files around it's likely this comment might be outdated in short-order.
 
 The application of ditto as a template is roughly:
+
 ```nix
 { self }:
 let

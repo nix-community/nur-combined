@@ -1,4 +1,4 @@
-{ self, system, ... }:
+{ self, system ? "x86_64-linux", ... }:
 let
   region = "ap-southeast";
   pkgs = self.inputs.unstable.legacyPackages.${system};

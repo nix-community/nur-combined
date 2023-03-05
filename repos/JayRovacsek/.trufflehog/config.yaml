@@ -1,0 +1,9 @@
+detectors:
+  - name: tfvars
+    keywords:
+      - TOKEN
+      - AUTHTOKEN
+      - PASSWORD
+      - KEY
+    regex:
+      adjective: (?i).*_(TOKEN|PASSWORD|KEY|AUTHTOKEN)

@@ -1,4 +1,6 @@
 { self }: {
+  inherit self;
+
   age = import ./age.nix { inherit self; };
   base-users = import ./base-users.nix { inherit self; };
   cloud-base-image-modules =
@@ -14,5 +16,7 @@
   self-reference = import ./self-reference.nix { inherit self; };
   standardise-nix = import ./standardise-nix.nix { inherit self; };
   system = import ./system.nix { inherit self; };
+  terraform = import ./terraform.nix { inherit self; };
+  terraform-stacks = import ./terraform-stacks.nix { inherit self; };
   users = import ./users.nix { inherit self; };
 }
