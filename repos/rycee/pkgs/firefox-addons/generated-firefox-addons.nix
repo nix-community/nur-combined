@@ -2792,7 +2792,7 @@
       {
         homepage = "https://tournesol.app/";
         description = "The extension facilitates using and contributing to the Tournesol project (https://tournesol.app).";
-        license = licenses.mit;
+        license = licenses.lgpl3;
         platforms = platforms.all;
         };
       };
