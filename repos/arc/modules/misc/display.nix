@@ -2,6 +2,7 @@
   cfg = config;
   arc'lib = import ../../lib { inherit lib; };
   inherit (arc'lib) floor;
+  filterNulls = filterAttrs (_: v: v != null);
   xvalue = value:
     if isString value then ''"${value}"''
     else if isBool value then ''"${if value then "true" else "false"}"''
@@ -93,11 +94,18 @@
       };
       nvidia = {
         options = mkOption {
-          type = types.attrsOf types.str;
+          type = types.attrsOf (types.nullOr types.str);
+          default = { };
+        };
+        flatPanelOptions = mkOption {
+          type = types.attrsOf (types.nullOr types.str);
           default = { };
         };
         metaMode = mkOption {
           type = types.str;
+        };
+        flatPanelProperties = mkOption {
+          type = types.nullOr types.str;
         };
       };
       xserver = {
@@ -158,7 +166,10 @@
         width = floor (config.width / config.dpi.out.x * mmPerInch);
         height = floor (config.height / config.dpi.out.y * mmPerInch);
       };
-      nvidia = {
+      nvidia = let
+        options = mapAttrsToList (k: v: "${k}=${v}");
+        optionsStr = values: concatStringsSep ", " (options values);
+      in {
         options = {
           Rotation = mkIf (config.rotation != "normal") {
             inverted = "180";
@@ -167,15 +178,18 @@
           }.${config.rotation};
         };
         metaMode = let
+          nvopts = filterNulls config.nvidia.options;
           modename =
             "${toString config.width}x${toString config.height}"
             + optionalString (config.refreshRate != null) "_${toString config.refreshRate}";
-          options = mapAttrsToList (k: v: "${k}=${v}") config.nvidia.options;
-          optionsStr = concatStringsSep ", " options;
         in mkDefault (
           "${config.output}: ${modename}+${toString config.x}+${toString config.y}"
-          + optionalString (config.nvidia.options != { }) " { ${optionsStr} }"
+          + optionalString (nvopts != { }) " { ${optionsStr nvopts} }"
         );
+        flatPanelProperties = let
+          values = filterNulls config.nvidia.flatPanelOptions;
+          value = "${config.output}: ${optionsStr values}";
+        in mkDefault (if values == { } then null else value);
       };
       xserver = {
         options = {
@@ -208,6 +222,9 @@ in {
     nvidia = {
       enable = mkEnableOption "nvidia";
       metaModes = mkOption {
+        type = types.str;
+      };
+      flatPanelProperties = mkOption {
         type = types.str;
       };
     };
@@ -244,11 +261,17 @@ in {
   config = {
     nvidia = {
       metaModes = mkDefault (concatMapStringsSep ", " (mon: mon.nvidia.metaMode) enabledMonitors);
+      flatPanelProperties = mkDefault (concatMapStringsSep ", " (mon: mon.nvidia.flatPanelProperties) (
+        filter (mon: mon.nvidia.flatPanelProperties != null) enabledMonitors
+      ));
     };
     xserver = {
-      screenSection = mkIf config.nvidia.enable ''
-        Option "MetaModes" "${config.nvidia.metaModes}"
-      '';
+      screenSection = mkIf config.nvidia.enable (mkMerge [
+        ''Option "MetaModes" "${config.nvidia.metaModes}"''
+        (mkIf (config.nvidia.flatPanelProperties != "") ''
+          Option "FlatPanelProperties" "${config.nvidia.flatPanelProperties}"
+        '')
+      ]);
       deviceSection = mkMerge (map (mon: ''
         Option "monitor-${mon.output}" "${mon.xserver.sectionName}"
       '') enabledMonitors);
