@@ -2532,10 +2532,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.5";
+      version = "2023.6";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064972/streetpass_for_mastodon-2023.5.xpi";
-      sha256 = "196f842de4fa10865a5624c0f8d68d17997f105f82eed79909f2fa632731a212";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079501/streetpass_for_mastodon-2023.6.xpi";
+      sha256 = "994188d9b6c5ae2a1a1c0982a0ac9f33b5b5c60c61b55f190d0e7d05c79f738d";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
@@ -2840,10 +2840,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.5.3";
+      version = "2.5.4";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078886/tournesol_extension-2.5.3.xpi";
-      sha256 = "045463a79514f43524fd118a26a09f82520eda80ab318ac8feffce315e964a57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079419/tournesol_extension-2.5.4.xpi";
+      sha256 = "48e0d227b91eb0dde178153f5c50f314db224c36f177ea727b92a3293b5ecd08";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
