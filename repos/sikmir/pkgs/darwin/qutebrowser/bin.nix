@@ -34,6 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     patchPythonScript $out/Applications/qutebrowser.app/Contents/Resources/userscripts/qute-pass
   '';
 
+  passthru.userscripts = "${finalAttrs.finalPackage}/Applications/qutebrowser.app/Contents/Resources/userscripts";
+
   meta = with lib;
     qutebrowser.meta // {
       maintainers = [ maintainers.sikmir ];
