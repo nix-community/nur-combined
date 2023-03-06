@@ -4,5 +4,5 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-  - commit-message:
+    commit-message:
       prefix: "ci"
