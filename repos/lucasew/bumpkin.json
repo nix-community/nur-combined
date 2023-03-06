@@ -1,0 +1,40 @@
+{
+    "misc": {
+        "erosanix": {"_type": "basicgithub", "owner": "emmanuelrosa", "repo": "erosanix"}
+    },
+    "climod": {"_type": "basicgithub", "owner": "nixosbrasil", "repo": "climod"},
+    "cloud-savegame": {"_type": "basicgithub", "owner": "lucasew", "repo": "cloud-savegame"},
+    "dotenv": {"_type": "basicgithub", "owner": "lucasew", "repo": "dotenv"},
+    "flake-utils": {"_type": "basicgithub", "owner": "numtide", "repo": "flake-utils"},
+    "flake-compat": {"_type": "basicgithub", "owner": "edolstra", "repo": "flake-compat"},
+    "impermanence": {"_type": "basicgithub", "owner": "nix-community", "repo": "impermanence"},
+    "borderless-browser": {"_type": "basicgithub", "owner": "lucasew", "repo": "borderless-browser.nix"},
+    "nix-colors": {"_type": "basicgithub", "owner": "Misterio77", "repo": "nix-colors"},
+    "nix-vscode": {"_type": "basicgithub", "owner": "lucasew", "repo": "nix-vscode"},
+    "nix-emacs": {"_type": "basicgithub", "owner": "nixosbrasil", "repo": "nix-emacs"},
+    "nix-option": {"_type": "basicgithub", "owner": "lucasew", "repo": "nix-option"},
+    "nix-on-droid": {"_type": "basicgithub", "owner": "t184256", "repo": "nix-on-droid", "ref": "master"},
+    "nixgram": {"_type": "basicgithub", "owner": "lucasew", "repo": "nixgram"},
+    "nixos-hardware": {"_type": "basicgithub", "owner": "NixOS", "repo": "nixos-hardware"},
+    "nixos-generators": {"_type": "basicgithub", "owner": "nix-community", "repo": "nixos-generators"},
+    "nur": {"_type": "basicgithub", "owner": "nix-community", "repo": "NUR"},
+    "nixpkgs": {
+        "unstable-small": {"_type": "basicgithub", "owner": "NixOS", "repo": "nixpkgs", "ref": "nixos-unstable-small"},
+        "unstable": {"_type": "basicgithub", "owner": "NixOS", "repo": "nixpkgs", "ref": "nixos-unstable"},
+        "stable": {"_type": "basicgithub", "owner": "NixOS", "repo": "nixpkgs", "ref": "nixos-22.11"},
+        "lib": {"_type": "basicgithub", "owner": "nix-community", "repo": "nixpkgs.lib"}
+    },
+    "pocket2kindle": {"_type": "basicgithub", "owner": "lucasew", "repo": "pocket2kindle"},
+    "pollymc": {"_type": "basicgithub", "owner": "fn2006", "repo": "pollymc"},
+    "pytorrentsearch": {"_type": "basicgithub", "owner": "lucasew", "repo": "pytorrentsearch"},
+    "redial_proxy": {"_type": "basicgithub", "owner": "lucasew", "repo": "redial_proxy"},
+    "rust-overlay": {"_type": "basicgithub", "owner": "oxalica", "repo": "rust-overlay"},
+    "send2kindle": {"_type": "basicgithub", "owner": "lucasew", "repo": "send2kindle"},
+    "simple-dashboard": {"_type": "basicgithub", "owner": "lucasew", "repo": "simple-dashboard"},
+    "sops-nix": {"_type": "basicgithub", "owner": "Mic92", "repo": "sops-nix"},
+    "telegram-sendmail": {"_type": "basicgithub", "owner": "lucasew", "repo": "telegram-sendmail"},
+    "nbr": {"_type": "basicgithub", "owner": "nixosbrasil", "repo": "nixpkgs-brasil"},
+    "home-manager": {"_type": "basicgithub", "owner": "nix-community", "repo": "home-manager", "ref": "22.11"},
+    "nix-warez": {"_type": "basicgithub", "owner": "edolstra", "repo": "nix-warez"},
+    "mach-nix": {"_type": "basicgithub", "owner": "DavHau", "repo": "mach-nix"}
+}

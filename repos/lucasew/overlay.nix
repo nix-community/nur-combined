@@ -27,6 +27,8 @@ in {
   inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generate;
   inherit (flake.inputs.packages.comma);
 
+  bumpkin = cp inputs.bumpkin;
+
   nbr = import "${inputs.nbr}" { pkgs = final; };
 
   lib = prev.lib.extend (final: prev: with final; with inputs.nixpkgs-lib.lib; {
