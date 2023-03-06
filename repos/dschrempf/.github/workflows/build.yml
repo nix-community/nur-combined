@@ -40,7 +40,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install nix
-        uses: cachix/install-nix-action@v19
+        uses: cachix/install-nix-action@v20
         with:
           nix_path: "${{ matrix.nixPath }}"
           # nix 2.6 breaks restrict-eval, when using the NIX_PATH
