@@ -1,23 +1,22 @@
 { buildNpmPackage, fetchzip, lib, ... }:
 
 let
-  name = "github-copilot-cli";
-  version = "0.1.16";
+  pname = "github-copilot-cli";
+  version = "0.1.20";
 in
 buildNpmPackage {
-  pname = name;
-  version = version;
+  inherit pname version;
 
   src = fetchzip {
-    url = "https://registry.npmjs.org/@githubnext/${name}/-/${name}-${version}.tgz";
-    hash = "sha256-KNOKtNgm6hh7jcHIkZVQhQ3TvAcQYMnlwiA7oMPWlH4=";
+    url = "https://registry.npmjs.org/@githubnext/${pname}/-/${pname}-${version}.tgz";
+    hash = "sha256-GO/zpcYNSPPq0KlUXmTyu23mM1ujZBsu21IEKiYYh4k=";
   };
 
   postPatch = ''
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  npmDepsHash = "sha256-PzeNwtQ5wZYTmInLNuLOcme4Cfzzzyd3psuGCrPzjQY=";
+  npmDepsHash = "sha256-hquIWYM0vUvXJE4Tf9sH7McGfg5vNkZLFrvEhsMGlGE=";
   dontNpmBuild = true;
 
   meta = with lib;
