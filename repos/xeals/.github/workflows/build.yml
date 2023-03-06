@@ -10,11 +10,12 @@ jobs:
         check:
           - nixpkgs-fmt
           - deadnix
+          - nur
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v19
+      - uses: cachix/install-nix-action@v20
       - name: Check ${{ matrix.check }}
         # Depends on nixos/nix#7759 to simply `nix flake check`
         run: nix run .#checks.$(nix eval --raw --impure --expr "builtins.currentSystem").${{ matrix.check }}
@@ -45,7 +46,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Install nix
-      uses: cachix/install-nix-action@v19
+      uses: cachix/install-nix-action@v20
     - name: Show nixpkgs version
       run: nix eval --impure --expr '(import ./flake-compat.nix { src = ./.; }).lib.version'
     - name: Setup cachix

@@ -29,15 +29,17 @@ stdenv.mkDerivation rec {
       --add-flags "--working-dir \''${XDG_DATA_HOME:-\$HOME/.local/share}/ATLauncher"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Minecraft launcher";
     longDescription = ''
       ATLauncher is a Launcher for Minecraft which integrates multiple different
       ModPacks to allow you to download and install ModPacks easily and quickly.
     '';
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.gpl3Only;
-    platforms = platforms.all;
+    sourceProvenance = [
+      (lib.sourceTypes.binaryBytecode or { shortName = "binaryBytecode"; isSource = false; })
+    ];
+    license = lib.licenses.gpl3Only;
+    platforms = lib.platforms.all;
     homepage = "https://atlauncher.com/";
   };
 }

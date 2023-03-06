@@ -7,9 +7,11 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
-
-import ./pkgs/top-level/all-packages.nix { inherit pkgs; }
-  // {
+let
+  legacy = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
+  units = import ./callUnitRoot.nix { inherit pkgs; root = ./pkgs/unit; };
+in
+legacy // units // {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules

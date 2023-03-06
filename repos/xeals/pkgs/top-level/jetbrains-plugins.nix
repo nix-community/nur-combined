@@ -32,4 +32,4 @@ lib.makeScope newScope (self: lib.makeOverridable
     jetbrainsWithPlugins = jetbrainsWithPlugins self variant;
   })
   )
-  { })
+{ })

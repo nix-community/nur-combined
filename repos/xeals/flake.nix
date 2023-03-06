@@ -20,23 +20,11 @@
           # Unstable names are variables.
           packages =
             let
-              unitDir = "unit";
-              packageFun = "package.nix";
-
-              callUnitRoot = root:
-                let
-                  shards = lib.attrNames (builtins.readDir root);
-                  namesForShard = shard: lib.mapAttrs'
-                    (name: _: { inherit name; value = "${root}/${shard}/${name}"; })
-                    (builtins.readDir "${root}/${shard}");
-                  namesToPath = lib.foldl' lib.recursiveUpdate { } (map namesForShard shards);
-                  units = lib.mapAttrs (_: path: pkgs.callPackage "${path}/${packageFun}" { }) namesToPath;
-                in
-                units;
               legacyPackages = import ./pkgs/top-level/all-packages.nix { inherit pkgs; };
+              unitPackages = import ./callUnitRoot.nix { inherit pkgs; };
               onlyAvailable = lib.filterAttrs (_: drv: builtins.elem system (drv.meta.platforms or [ ]));
             in
-            onlyAvailable (legacyPackages // callUnitRoot "${./pkgs}/${unitDir}");
+            onlyAvailable (legacyPackages // unitPackages);
 
           checks = {
             nixpkgs-fmt = pkgs.writeShellScriptBin "nixpkgs-fmt-check" ''
@@ -44,6 +32,18 @@
             '';
             deadnix = pkgs.writeShellScriptBin "deadnix-check" ''
               ${pkgs.deadnix}/bin/deadnix --fail .
+            '';
+            # Ensures that the NUR bot can evaluate and find all our packages.
+            # Normally we'd also run with `--option restrict-eval true`, but
+            # this is incompatible with flakes because reasons.
+            nur = pkgs.writeShellScriptBin "nur-check" ''
+              nix-env -f . -qa \* --meta \
+                --allowed-uris https://static.rust-lang.org \
+                --option allow-import-from-derivation true \
+                --drv-path --show-trace \
+                -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+                -I ./ \
+                --json | ${pkgs.jq}/bin/jq -r 'values | .[].name'
             '';
           };
 
