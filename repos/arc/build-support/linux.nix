@@ -221,7 +221,6 @@
   presets = self.callPackage presets' { };
   kernelOverlay = kself: ksuper: {
     forcefully-remove-bootfb = (self.forcefully-remove-bootfb.override { linux = kself.kernel; }).out;
-    rtl8189es = self.rtl8189es.override { linux = kself.kernel; };
     ryzen-smu = self.ryzen-smu.override { linux = kself.kernel; };
     nvidia-patch = self.nvidia-patch.override { nvidia_x11 = kself.nvidia_x11; };
     nvidia-patch-beta = self.nvidia-patch.override { nvidia_x11 = kself.nvidia_x11_beta; };
