@@ -38,6 +38,7 @@
   geomstats = python-final.callPackage ./pkgs/geomstats.nix { };
   geoopt = python-final.callPackage ./pkgs/geoopt.nix { };
 
+  check-shapes = python-final.callPackage ./pkgs/check-shapes.nix { };
   gpflow = python-final.callPackage ./pkgs/gpflow.nix { };
   gpflux = python-final.callPackage ./pkgs/gpflux.nix { };
   trieste = python-final.callPackage ./pkgs/trieste.nix { };

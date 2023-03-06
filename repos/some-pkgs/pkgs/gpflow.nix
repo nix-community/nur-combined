@@ -2,7 +2,7 @@
 , python
 , buildPythonPackage
 , fetchFromGitHub
-# , check-shapes
+, check-shapes
 , tensorflow
 , tensorflow-probability
 , numpy
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     tensorflow-probability
   ];
   propagatedBuildInputs = [
-    # check-shapes
+    check-shapes
     keras
     numpy
     scipy
@@ -69,6 +69,6 @@ buildPythonPackage rec {
     description = "Gaussian processes in TensorFlow";
     homepage = "https://www.gpflow.org/";
     platforms = lib.platforms.unix;
-    broken = true; # check-shape, overpins, etc
+    # broken = true; # check-shape, overpins, etc
   };
 }

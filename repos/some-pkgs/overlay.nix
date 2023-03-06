@@ -54,6 +54,7 @@ in
       geomstats
       geoopt
       gpytorch
+      check-shapes
       gpflow
       gpflux
       timm

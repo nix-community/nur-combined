@@ -27,7 +27,11 @@ buildPythonPackage rec {
   };
   postPatch = ''
     # sed -i 's/tensorflow>/${builtins.replaceStrings ["-"] ["_"] tensorflow.pname}>/' setup.py
-    sed -i 's/"protobuf[^"]*"/"protobuf>=0.19.0"/' setup.py
+  ''
+  # One of our dependencies propagates protobuf4 and it works anyway
+  +
+  ''
+    sed -i 's/"protobuf[^"]*"/"protobuf>=3.19.0"/' setup.py
   ''
   # Remove version constraint on tensorflow
   + ''
@@ -44,7 +48,7 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = [
-    protobuf3
+    # protobuf3
     gpflow
     deprecated
     numpy
