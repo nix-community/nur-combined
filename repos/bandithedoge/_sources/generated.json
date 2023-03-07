@@ -1,7 +1,7 @@
 {
     "bling": {
         "cargoLocks": null,
-        "date": "2023-02-22",
+        "date": "2023-03-07",
         "extract": null,
         "name": "bling",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "blingcorp",
             "repo": "bling",
-            "rev": "4fc68f7c24f6eb7d9ce96d15da098a4b04b162e1",
-            "sha256": "sha256-VgGHb4rGeSb7+P4Cy1JR5KaHdvy3QFJ5aliia0BQEZ8=",
+            "rev": "677917056d118d02feaa5c21ecf5a50375ef123d",
+            "sha256": "sha256-V3ZAWhDH2b1n3G3ZMpH1k9yZFQm1wsAfAX4+eKciOKk=",
             "type": "github"
         },
-        "version": "4fc68f7c24f6eb7d9ce96d15da098a4b04b162e1"
+        "version": "677917056d118d02feaa5c21ecf5a50375ef123d"
     },
     "cardinal": {
         "cargoLocks": null,
@@ -301,7 +301,7 @@
     },
     "tailwindcss-intellisense": {
         "cargoLocks": null,
-        "date": "2023-02-03",
+        "date": "2023-03-06",
         "extract": null,
         "name": "tailwindcss-intellisense",
         "passthru": null,
@@ -313,11 +313,11 @@
             "name": null,
             "owner": "tailwindlabs",
             "repo": "tailwindcss-intellisense",
-            "rev": "5376ee1e7ad761b8f6f6c4c46aa820aaee3346aa",
-            "sha256": "sha256-mGqufo7zapiypK1BzXol5UKCNXjCFoiyYs8fJqAd/no=",
+            "rev": "3aafffefdab2deafdfe6c3b4acbbe9cd1ebf6d04",
+            "sha256": "sha256-j1pDjX883epBrO9+lu5ZI39PZ9tbe2cFL2njylOQXls=",
             "type": "github"
         },
-        "version": "5376ee1e7ad761b8f6f6c4c46aa820aaee3346aa"
+        "version": "3aafffefdab2deafdfe6c3b4acbbe9cd1ebf6d04"
     },
     "xmonad-entryhelper": {
         "cargoLocks": null,

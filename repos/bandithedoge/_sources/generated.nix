@@ -7,15 +7,15 @@
 }: {
   bling = {
     pname = "bling";
-    version = "4fc68f7c24f6eb7d9ce96d15da098a4b04b162e1";
+    version = "677917056d118d02feaa5c21ecf5a50375ef123d";
     src = fetchFromGitHub {
       owner = "blingcorp";
       repo = "bling";
-      rev = "4fc68f7c24f6eb7d9ce96d15da098a4b04b162e1";
+      rev = "677917056d118d02feaa5c21ecf5a50375ef123d";
       fetchSubmodules = false;
-      sha256 = "sha256-VgGHb4rGeSb7+P4Cy1JR5KaHdvy3QFJ5aliia0BQEZ8=";
+      sha256 = "sha256-V3ZAWhDH2b1n3G3ZMpH1k9yZFQm1wsAfAX4+eKciOKk=";
     };
-    date = "2023-02-22";
+    date = "2023-03-07";
   };
   cardinal = {
     pname = "cardinal";
@@ -184,15 +184,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "5376ee1e7ad761b8f6f6c4c46aa820aaee3346aa";
+    version = "3aafffefdab2deafdfe6c3b4acbbe9cd1ebf6d04";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "5376ee1e7ad761b8f6f6c4c46aa820aaee3346aa";
+      rev = "3aafffefdab2deafdfe6c3b4acbbe9cd1ebf6d04";
       fetchSubmodules = false;
-      sha256 = "sha256-mGqufo7zapiypK1BzXol5UKCNXjCFoiyYs8fJqAd/no=";
+      sha256 = "sha256-j1pDjX883epBrO9+lu5ZI39PZ9tbe2cFL2njylOQXls=";
     };
-    date = "2023-02-03";
+    date = "2023-03-06";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
