@@ -48,7 +48,7 @@
             "electron-18.1.0"
         ];
       };
-      overlays = if disableOverlays then [] else overlays ++ (builtins.attrValues self.outputs.overlays);
+      overlays = if disableOverlays then [] else (overlays ++ (builtins.attrValues self.outputs.overlays));
       inherit system;
     };
 
@@ -81,19 +81,15 @@
       inherit self;
       inherit global;
       cfg = throw "your past self made a trap for non compliant code after a migration you did, now follow the stacktrace and go fix it";
-      inherit (pkgs.bumpkin) unpackedInputs;
+      inherit unpackedInputs;
     };
 
     overlays = {
-      home-manager = import "${unpackedInputs.home-manager}/overlay.nix";
-      borderless-browser = (importFlake "${unpackedInputs.borderless-browser}/flake.nix" { inherit nixpkgs; }).overlays.default;
-      # rust-overlay = import "${unpackedInputs.rust-overlay}/rust-overlay.nix";
+      # borderless-browser = (import "${unpackedInputs.flake-compat}")(importFlake "${unpackedInputs.borderless-browser}/flake.nix" { inherit nixpkgs; }).overlays.default;
+      rust-overlay = import "${unpackedInputs.rust-overlay}/rust-overlay.nix";
       this = import ./overlay.nix self;
     };
-    nix-colors = importFlake "${unpackedInputs.nix-colors}/flake.nix" {
-      nixpkgs-lib = importFlake "${unpackedInputs.nixpkgs-lib}";
-      inherit (pkgs.bumpkin.unpackedInputs) base16-schemes;
-    };
+    nix-colors = import "${unpackedInputs.nix-colors}" { inherit (unpackedInputs) base16-schemes nixpkgs-lib; };
   in {
     test = {
     };

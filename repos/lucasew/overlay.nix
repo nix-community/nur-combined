@@ -26,6 +26,7 @@ in {
   comby = cp ./pkgs/comby.nix;
   pkg = cp ./pkgs/pkg.nix;
   wrapWine = cp ./pkgs/wrapWine.nix;
+  home-manager = cp "${bumpkin.unpackedInputs.home-manager}/home-manager";
 
   dotenv = cp bumpkin.unpackedInputs.dotenv;
   # bumpkin = cp inputs.bumpkin;
