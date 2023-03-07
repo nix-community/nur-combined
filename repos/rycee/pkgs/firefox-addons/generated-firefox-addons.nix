@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230302.185836";
+      version = "111.0buildid20230306.162820";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078468/francais_language_pack-111.0buildid20230302.185836.xpi";
-      sha256 = "9feddd8381f6de6798b3ec2abaadb67fb2e3935ce2159094571f3fa75c899d19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079976/francais_language_pack-111.0buildid20230306.162820.xpi";
+      sha256 = "4de4526730adb50cd4fab7fec7fdc6bd179ecc1bc6f6fc1e7259331b7360de9d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1335,10 +1335,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "6.0.1";
+      version = "6.2.2";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034972/languagetool-6.0.1.xpi";
-      sha256 = "a72439258d7e937625b762ab4e35e27d80bddbb1bf9c57947e65ec94d8587e79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077145/languagetool-6.2.2.xpi";
+      sha256 = "133a8af64cc5b9da25365aff199b46e7ef1cc2e38bd9fa847e2b6554c692c3a5";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1373,10 +1373,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.3";
+      version = "1.5.4";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066911/leechblock_ng-1.5.3.xpi";
-      sha256 = "224e8a10bc6bcc08d5cba0ff100ee3f24d1b38d9f30554299871428a29c78e17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077076/leechblock_ng-1.5.4.xpi";
+      sha256 = "e004e4c50757415d368d6659c17b6dd53a9352b0e80200e41cd7b17b90cd0717";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -1401,10 +1401,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.5.2";
+      version = "2.5.4";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067837/libredirect-2.5.2.xpi";
-      sha256 = "7f49fb0b253347dc7d8b286a0d24d0552a0c96f69811c157cc877488313f0d83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079849/libredirect-2.5.4.xpi";
+      sha256 = "57d6adbaabf74f386be88d63906992be46cf77c485c1c00afa27161ef3bbb8d4";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -1531,10 +1531,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.18.1";
+      version = "10.25.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3980615/ether_metamask-10.18.1.xpi";
-      sha256 = "b7f2512613d55981ee28ca95501b23c8c9e3b20e3ac4eb5431a131108f1129b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4073640/ether_metamask-10.25.0.xpi";
+      sha256 = "953b3841db6855ef827dfb01e5a6dfe2ae016d626633b4869767b57e03f052a0";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -3114,10 +3114,10 @@
       };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.13.11";
+      version = "2.14.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4072794/violentmonkey-2.13.11.xpi";
-      sha256 = "095d6acdee9ce46ad334d108eefb50d4dffb661effe8290137238933c4b40568";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4076005/violentmonkey-2.14.0.xpi";
+      sha256 = "6c25cfb7d464c22ea4c560e5271a0cacd49b8fe0c404420fb5b4fd2c78880b2d";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
