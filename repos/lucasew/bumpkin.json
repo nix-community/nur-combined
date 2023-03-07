@@ -34,7 +34,7 @@
     "sops-nix": {"_type": "basicgithub", "owner": "Mic92", "repo": "sops-nix"},
     "telegram-sendmail": {"_type": "basicgithub", "owner": "lucasew", "repo": "telegram-sendmail"},
     "nbr": {"_type": "basicgithub", "owner": "nixosbrasil", "repo": "nixpkgs-brasil"},
-    "home-manager": {"_type": "basicgithub", "owner": "nix-community", "repo": "home-manager", "ref": "22.11"},
+    "home-manager": {"_type": "basicgithub", "owner": "nix-community", "repo": "home-manager", "ref": "release-22.11"},
     "nix-warez": {"_type": "basicgithub", "owner": "edolstra", "repo": "nix-warez"},
     "mach-nix": {"_type": "basicgithub", "owner": "DavHau", "repo": "mach-nix"}
 }

@@ -1,7 +1,7 @@
 flake: final: prev:
 let
   inherit (flake) inputs;
-  inherit (flake.outputs) global;
+  inherit (flake.outputs) global bumpkin;
   inherit (global) rootPath;
   inherit (prev) lib callPackage writeShellScript;
   inherit (lib) recursiveUpdate;
@@ -10,52 +10,37 @@ let
 in
 let
   cp = f: (callPackage f) {};
-  dotenv = cp inputs.dotenv;
-  wrapDotenv = (file: script:
-    let
-      dotenvFile = ((toString rootPath) + "/secrets/" + (toString file));
-      command = writeShellScript "dotenv-wrapper" script;
-    in ''
-      ${dotenv}/bin/dotenv "@${toString dotenvFile}" -- ${command} "$@"
-    '');
-
 in {
   inherit flake;
-
-  inherit dotenv;
-  inherit wrapDotenv;
-  inherit (inputs.nixos-generators.packages."${prev.system}") nixos-generate;
-  inherit (flake.inputs.packages.comma);
-
-  bumpkin = cp inputs.bumpkin;
-
-  nbr = import "${inputs.nbr}" { pkgs = final; };
 
   lib = prev.lib.extend (final: prev: with final; with inputs.nixpkgs-lib.lib; {
     nixos = "${inputs.nixpkgs}/nixos/lib" { lib = final; };
 
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;
-    mkWindowsApp = inputs.erosanix.lib."${prev.system}".mkWindowsApp;
-    climod = cp inputs.climod;
-
-    inherit mkPackageOption;
-
-    # stolen from nixpkgs
-    mkPackageOptionMD = args: name: extra:
-      let option = mkPackageOption args name extra;
-      in option // { description = if builtins.isString option.description then (lib.mdDoc option.description) else option.description; };
+    climod = cp bumpkin.unpackedInputs.climod;
   });
-  appimage-wrap = final.nbr.appimage-wrap;
+
   ctl = cp ./pkgs/ctl;
-  p2k = cp inputs.pocket2kindle;
-  pytorrentsearch = cp inputs.pytorrentsearch;
-  redial_proxy = cp inputs.redial_proxy;
-  send2kindle = cp inputs.send2kindle;
-  wrapVSCode = args: import inputs.nix-vscode (args // {pkgs = prev;});
-  wrapEmacs = args: import inputs.nix-emacs (args // {pkgs = prev;});
   c4me = cp ./pkgs/c4me;
   personal-utils = cp ./pkgs/personal-utils.nix;
+  fhsctl = cp ./pkgs/fhsctl.nix;
+  comby = cp ./pkgs/comby.nix;
+  pkg = cp ./pkgs/pkg.nix;
+  wrapWine = cp ./pkgs/wrapWine.nix;
+
+  dotenv = cp bumpkin.unpackedInputs.dotenv;
+  bumpkin = cp inputs.bumpkin;
+  nbr = import "${inputs.nbr}" { pkgs = final; };
+  appimage-wrap = final.nbr.appimage-wrap;
+
+  p2k = cp bumpkin.unpackedInputs.pocket2kindle;
+  pytorrentsearch = cp bumpkin.unpackedInputs.pytorrentsearch;
+  redial_proxy = cp bumpkin.unpackedInputs.redial_proxy;
+  send2kindle = cp bumpkin.unpackedInputs.send2kindle;
+  wrapVSCode = args: import bumpkin.unpackedInputs.nix-vscode (args // {pkgs = prev;});
+  wrapEmacs = args: import bumpkin.unpackedInputs.nix-emacs (args // {pkgs = prev;});
+
   nix-option = callPackage "${nix-option}" {
     nixos-option = (callPackage "${nixpkgs}/nixos/modules/installer/tools/nixos-option" {}).overrideAttrs (attrs: attrs // {
       meta = attrs.meta // {
@@ -63,6 +48,11 @@ in {
       };
     });
   };
+  nur = import bumpkin.unpackedInputs.nur {
+    inherit (prev) pkgs;
+    nurpkgs = prev.pkgs;
+  };
+
   wineApps = {
     cs_extreme = cp ./pkgs/wineApps/cs_extreme.nix;
     dead_space = cp ./pkgs/wineApps/dead_space.nix;
@@ -79,8 +69,6 @@ in {
     rimworld = cp ./pkgs/wineApps/rimworld.nix;
     skyrim = cp ./pkgs/wineApps/skyrim.nix;
   };
-  fhsctl = cp ./pkgs/fhsctl.nix;
-  comby = cp ./pkgs/comby.nix;
   custom = rec {
     colorpipe = cp ./pkgs/colorpipe.nix;
     ncdu = cp ./pkgs/custom/ncdu.nix;
@@ -104,12 +92,7 @@ in {
     };
     inherit (flake.outputs) colors;
   };
-  pkg = cp ./pkgs/pkg.nix;
-  wrapWine = cp ./pkgs/wrapWine.nix;
-  nur = import flake.inputs.nur {
-    inherit (prev) pkgs;
-    nurpkgs = prev.pkgs;
-  };
+  
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
     src = prev.fetchzip {
       url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip";
