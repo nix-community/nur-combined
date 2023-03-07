@@ -139,8 +139,7 @@ in wrapNeovim pkgs.neovim-unwrapped {
     ++ (lib.optional (colors != null) (buildVimPlugin {
       name = "nix-colors";
       src = let
-          colors-lib-contrib = flake.inputs.nix-colors.lib-contrib { inherit pkgs; };
-        in colors-lib-contrib.vimThemeFromScheme { scheme = colors; };
+        in pkgs.custom.colors-lib-contrib.vimThemeFromScheme { scheme = colors; };
       }));
 
     customRC = ''

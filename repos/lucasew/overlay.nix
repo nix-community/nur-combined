@@ -6,7 +6,6 @@ let
   inherit (prev) lib callPackage writeShellScript;
   inherit (lib) recursiveUpdate;
   inherit (builtins) toString length head tail;
-  inherit (flake.inputs) nix-option nixpkgs;
 in
 let
   cp = f: (callPackage f) {};
@@ -41,8 +40,8 @@ in {
   wrapVSCode = args: import bumpkin.unpackedInputs.nix-vscode (args // {pkgs = prev;});
   wrapEmacs = args: import bumpkin.unpackedInputs.nix-emacs (args // {pkgs = prev;});
 
-  nix-option = callPackage "${nix-option}" {
-    nixos-option = (callPackage "${nixpkgs}/nixos/modules/installer/tools/nixos-option" {}).overrideAttrs (attrs: attrs // {
+  nix-option = callPackage "${bumpkin.unpackedInputs.nix-option}" {
+    nixos-option = (callPackage "${bumpkin.unpackedInputs.nixpkgs.unstable}/nixos/modules/installer/tools/nixos-option" {}).overrideAttrs (attrs: attrs // {
       meta = attrs.meta // {
         platforms = lib.platforms.all;
       };
@@ -82,7 +81,7 @@ in {
     retroarch = cp ./pkgs/custom/retroarch.nix;
     loader = cp ./pkgs/custom/loader/default.nix;
     polybar = cp ./pkgs/custom/polybar.nix;
-    colors-lib-contrib = inputs.nix-colors.lib-contrib { pkgs = prev; };
+    colors-lib-contrib = bumpkin.flakedInputs.nix-colors.lib-contrib { pkgs = prev; };
     # wallpaper = ./wall.jpg;
     wallpaper = colors-lib-contrib.nixWallpaperFromScheme {
       scheme = colors;

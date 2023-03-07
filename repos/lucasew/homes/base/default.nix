@@ -1,4 +1,4 @@
-{ global, pkgs, config, self, lib, ...}:
+{ global, pkgs, config, self, lib, unpackedInputs, ...}:
 let
   inherit (self) inputs outputs;
   inherit (lib) mkDefault;
@@ -6,10 +6,11 @@ let
 in
 {
   imports = [
-    "${inputs.nixgram}/hmModule.nix"
-    "${inputs.redial_proxy}/hmModule.nix"
-    "${inputs.borderless-browser}/home-manager.nix"
+    "${unpackedInputs.nixgram}/hmModule.nix"
+    "${unpackedInputs.redial_proxy}/hmModule.nix"
+    "${unpackedInputs.borderless-browser}/home-manager.nix"
   ];
+
   home.packages = with pkgs; [
     youtube-dl # video downloader
     file # what file is it?
@@ -21,9 +22,8 @@ in
     home-manager
   ];
 
-  home.stateVersion = mkDefault "20.03";
-
-  home.enableNixpkgsReleaseCheck = true;
+  home.stateVersion = mkDefault "22.11";
+  home.enableNixpkgsReleaseCheck = false;
 
   #home.file.".dotfilerc".text = ''
   #  #!/usr/bin/env bash

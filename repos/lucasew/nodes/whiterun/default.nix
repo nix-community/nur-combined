@@ -1,4 +1,4 @@
-{self, global, pkgs, config, lib, ...}@args:
+{self, global, pkgs, config, lib, unpackedInputs, ...}@args:
 let
   inherit (self) inputs;
   inherit (global) username;
@@ -7,9 +7,10 @@ in {
   imports = [
     ../gui-common
     ./hardware-configuration.nix
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
-    # inputs.nixos-hardware.nixosModules.common-gpu-nvidia
+    "${unpackedInputs.nixos-hardware}/common/cpu/amd/pstate.nix"
+    "${unpackedInputs.nixos-hardware}/common/gpu/amd"
+    "${unpackedInputs.nixos-hardware}/common/pc/ssd"
+    # "${unpackedInputs.nixos-hardware}/common/gpu/nvidia"
     # ./kubernetz.nix
     ./magnetico.nix
     ./dashboards.nix

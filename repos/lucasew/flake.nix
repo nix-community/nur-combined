@@ -3,9 +3,6 @@
 
   inputs = {
     bumpkin.url = "github:lucasew/bumpkin";
-
-    # preview: nix flake metadata
-
   };
 
   outputs = {
@@ -26,6 +23,7 @@
       inputFile = ./bumpkin.json;
       outputFile = ./bumpkin.json.lock;
     };
+
     unpackedInputs = unpackRecursive inputs;
 
     nixpkgs = unpackedInputs.nixpkgs.unstable;
@@ -88,28 +86,38 @@
       # pollymc = (importFlake "${unpackedInputs.pollymc}/flake.nix" { inherit nixpkgs; }).overlay;
       this = import ./overlay.nix self;
     };
+    nix-colors = importFlake "${unpackedInputs.nix-colors}/flake.nix" {
+      nixpkgs-lib = importFlake "${unpackedInputs.nixpkgs-lib}";
+      inherit (unpackedInputs) base16-schemes;
+    };
   in {
     bumpkin = {
       inherit inputs unpackedInputs;
+      flakedInputs = {
+        inherit nix-colors;
+      };
     };
     inherit global;
     inherit overlays;
     inherit pkgs;
     inherit self;
 
-    colors = inputs.nix-colors.colorSchemes."classic-dark";
+    colors = nix-colors.colorSchemes."classic-dark";
 
     homeConfigurations = let
         hmConf = {
           modules ? []
-        , pkgs ? pkgs
+        , pkgs
         , extraSpecialArgs ? {}
       }: import "${unpackedInputs.home-manager}/modules" {
         inherit pkgs;
-        extraSpecialArgs = extraArgs // extraSpecialArgs;
+        extraSpecialArgs = extraArgs // extraSpecialArgs // { inherit pkgs; };
+        configuration = {...}: {
+          imports = modules;
+        };
       };
     in mapAttrValues hmConf {
-      main = { modules = [ ./homes/main ]; };
+      main = { modules = [ ./homes/main ]; inherit pkgs; };
     };
 
     nixosConfigurations = let
@@ -117,7 +125,7 @@
           modules ? []
         , extraSpecialArgs ? {}
         , pkgs
-        , system ? builtins.currentSystem
+        , system ? pkgs.system
       }: import "${pkgs.path}/nixos/lib/eval-config.nix" {
         specialArgs = extraSpecialArgs // extraArgs;
         inherit system pkgs modules;
