@@ -36,5 +36,6 @@
     "nbr": {"_type": "basicgithub", "owner": "nixosbrasil", "repo": "nixpkgs-brasil"},
     "home-manager": {"_type": "basicgithub", "owner": "nix-community", "repo": "home-manager", "ref": "release-22.11"},
     "nix-warez": {"_type": "basicgithub", "owner": "edolstra", "repo": "nix-warez"},
-    "mach-nix": {"_type": "basicgithub", "owner": "DavHau", "repo": "mach-nix"}
+    "mach-nix": {"_type": "basicgithub", "owner": "DavHau", "repo": "mach-nix"},
+    "base16-schemes": {"_type": "basicgithub", "owner": "tinted-theming", "repo": "base16-schemes"}
 }

@@ -78,15 +78,16 @@
       inherit self;
       inherit global;
       cfg = throw "your past self made a trap for non compliant code after a migration you did, now follow the stacktrace and go fix it";
+      inherit unpackedInputs;
     };
 
-      overlays = {
-        home-manager = import (unpackedInputs.home-manager + "/overlay.nix");
-        borderless-browser = (importFlake "${unpackedInputs.borderless-browser}/flake.nix" { inherit nixpkgs; }).overlays.default;
-        rust-overlay = (importFlake "${unpackedInputs.rust-overlay}/flake.nix" { inherit nixpkgs; flake-utils = { lib = import unpackedInputs.flake-utils; }; }).overlays.default;
-        # pollymc = (importFlake "${unpackedInputs.pollymc}/flake.nix" { inherit nixpkgs; }).overlay;
-        this = import ./overlay.nix self;
-      };
+    overlays = {
+      home-manager = import (unpackedInputs.home-manager + "/overlay.nix");
+      borderless-browser = (importFlake "${unpackedInputs.borderless-browser}/flake.nix" { inherit nixpkgs; }).overlays.default;
+      rust-overlay = (importFlake "${unpackedInputs.rust-overlay}/flake.nix" { inherit nixpkgs; flake-utils = { lib = import unpackedInputs.flake-utils; }; }).overlays.default;
+      # pollymc = (importFlake "${unpackedInputs.pollymc}/flake.nix" { inherit nixpkgs; }).overlay;
+      this = import ./overlay.nix self;
+    };
   in {
     bumpkin = {
       inherit inputs unpackedInputs;
@@ -115,22 +116,17 @@
       nixosConf = {
           modules ? []
         , extraSpecialArgs ? {}
-        , nixpkgs ? unpackedInputs.nixpkgs.unstable
-        # , system ? "x86_64-linux"
-      }:
-      let
-        # pkgs = mkPkgs {
-        #   inherit nixpkgs system;
-        # };
-      in (import "${nixpkgs}/nixos/lib").evalModues {
-        specialArgs = extraArgs // extraSpecialArgs;
-        modules = map import modules;
+        , pkgs
+        , system ? builtins.currentSystem
+      }: import "${pkgs.path}/nixos/lib/eval-config.nix" {
+        specialArgs = extraSpecialArgs // extraArgs;
+        inherit system pkgs modules;
       };
     in mapAttrValues nixosConf {
-      ivarstead = { modules = [ ./nodes/ivarstead ]; nixpkgs = unpackedInputs.nixpkgs.unstable; };
-      riverwood = { modules = [ ./nodes/riverwood ]; nixpkgs = unpackedInputs.nixpkgs.unstable; };
-      whiterun  = { modules = [ ./nodes/whiterun  ]; nixpkgs = unpackedInputs.nixpkgs.unstable; };
-      demo      = { modules = [ ./nodes/demo      ]; nixpkgs = unpackedInputs.nixpkgs.unstable; };
+      ivarstead = { modules = [ ./nodes/ivarstead ]; inherit pkgs; };
+      riverwood = { modules = [ ./nodes/riverwood ]; inherit pkgs; };
+      whiterun  = { modules = [ ./nodes/whiterun  ]; inherit pkgs; };
+      demo      = { modules = [ ./nodes/demo      ]; inherit pkgs; };
     };
 
     nixOnDroidConfigurations = let

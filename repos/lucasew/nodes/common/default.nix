@@ -1,4 +1,4 @@
-{self, pkgs, lib, ...}:
+{self, pkgs, lib, unpackedInputs, ...}:
 let
   inherit (self) inputs;
 in
@@ -24,7 +24,7 @@ in
     ./unstore.nix
     ./dns.nix
     ./telegram_sendmail.nix
-    "${inputs.simple-dashboard}/nixos-module.nix"
+    "${unpackedInputs.simple-dashboard}/nixos-module.nix"
   ];
 
   services.cloud-savegame = {

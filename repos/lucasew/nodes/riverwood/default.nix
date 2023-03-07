@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{self, global, pkgs, config, lib, ... }@args:
+{self, global, pkgs, config, lib, unpackedInputs, ... }@args:
 let
   inherit (self) inputs;
   inherit (global) username;
@@ -14,9 +14,9 @@ in
       ../gui-common
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.nixos-hardware.nixosModules.common-cpu-intel-kaby-lake
-      inputs.nixos-hardware.nixosModules.common-gpu-intel
-      inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+      "${unpackedInputs.nixos-hardware}/common/cpu/intel/kaby-lake"
+      "${unpackedInputs.nixos-hardware}/common/gpu/intel"
+      "${unpackedInputs.nixos-hardware}/common/pc/laptop/ssd"
 
       ./tuning.nix
       ./networking.nix

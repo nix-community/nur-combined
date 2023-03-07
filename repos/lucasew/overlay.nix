@@ -31,7 +31,7 @@ in {
 
   dotenv = cp bumpkin.unpackedInputs.dotenv;
   bumpkin = cp inputs.bumpkin;
-  nbr = import "${inputs.nbr}" { pkgs = final; };
+  nbr = import "${bumpkin.unpackedInputs.nbr}" { pkgs = final; };
   appimage-wrap = final.nbr.appimage-wrap;
 
   p2k = cp bumpkin.unpackedInputs.pocket2kindle;

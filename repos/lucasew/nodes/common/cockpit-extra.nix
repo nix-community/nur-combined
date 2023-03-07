@@ -1,7 +1,6 @@
 { self, config, lib, pkgs, ... }:
 
 lib.mkIf config.services.cockpit.enable {
-  services.cockpit.package = lib.mkDefault (pkgs.callPackage "${self.inputs.nixpkgs-unstable-small}/pkgs/servers/monitoring/cockpit" {});
 
   services.nginx.virtualHosts."cockpit.${config.networking.hostName}.${config.networking.domain}" = {
     locations."/" = {
