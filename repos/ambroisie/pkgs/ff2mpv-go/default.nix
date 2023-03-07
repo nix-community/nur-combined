@@ -9,7 +9,7 @@ buildGoModule rec {
     sha256 = "sha256-e/AuOA3isFTyBf97Zwtr16yo49UdYzvktV5PKB/eH/s=";
   };
 
-  vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
+  vendorHash = null;
 
   postPatch = ''
     sed -i -e 's,"mpv","${mpv}/bin/mpv",' ff2mpv.go
