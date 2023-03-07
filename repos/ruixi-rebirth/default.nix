@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   youtube-tui = pkgs.callPackage ./pkgs/youtube-tui { };
+  ytermusic = pkgs.callPackage ./pkgs/ytermusic { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
