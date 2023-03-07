@@ -116,7 +116,7 @@
           modules ? []
         , pkgs
         , extraSpecialArgs ? {}
-      }: import "${pkgs.bumpkin.unpackedInputs.home-manager}/modules" {
+      }: import "${unpackedInputs.home-manager}/modules" {
         inherit pkgs;
         extraSpecialArgs = extraArgs // extraSpecialArgs // { inherit pkgs; };
         configuration = {...}: {
@@ -146,7 +146,7 @@
 
     nixOnDroidConfigurations = let
       nixOnDroidConf = mainModule:
-      import "${pkgs.bumpkin.unpackedInputs.nix-on-droid}/modules" {
+      import "${unpackedInputs.nix-on-droid}/modules" {
         config = {
           _module.args = extraArgs;
           home-manager.config._module.args = extraArgs;
@@ -155,9 +155,9 @@
           ];
         };
         pkgs = mkPkgs {
-          overlays = (import "${pkgs.bumpkin.unpackedInputs.nix-on-droid}/overlays");
+          overlays = (import "${unpackedInputs.nix-on-droid}/overlays");
         };
-        home-manager = import pkgs.bumpkin.unpackedInputs.home-manager {};
+        home-manager = import unpackedInputs.home-manager {};
         isFlake = true;
       };
     in mapAttrValues nixOnDroidConf {
