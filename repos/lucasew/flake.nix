@@ -165,7 +165,7 @@
         bumpkin.packages.${system}.default
         (writeShellScriptBin "bumpkin-bump" ''
           if [ -v NIXCFG_ROOT_PATH ]; then
-              bumpkin eval -i "$NIXCFG_ROOT_PATH/bumpkin.json" -o "$NIXCFG_ROOT_PATH/bumpkin.json.lock"
+              bumpkin eval -p -i "$NIXCFG_ROOT_PATH/bumpkin.json" -o "$NIXCFG_ROOT_PATH/bumpkin.json.lock"
           else
             exit 1
           fi

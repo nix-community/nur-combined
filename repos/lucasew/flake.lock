@@ -6,11 +6,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1678123474,
-        "narHash": "sha256-y3jLDriiyYQPnUcXAwpfOYz4ljhO/4K5j9V/O3cbeKE=",
+        "lastModified": 1678199838,
+        "narHash": "sha256-KDyaHr0fyzHbGvV9AyQTNX6b1jHGJ2nx3OmIfGHQHPI=",
         "owner": "lucasew",
         "repo": "bumpkin",
-        "rev": "e908457d0684ca3106db59cd290f6f08128932c0",
+        "rev": "e21a3d42f055441cdb3ee313243d58d9d643786b",
         "type": "github"
       },
       "original": {
