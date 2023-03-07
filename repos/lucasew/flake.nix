@@ -3,37 +3,44 @@
 
   inputs = {
     bumpkin.url = "github:lucasew/bumpkin";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
   };
 
   outputs = {
       self
     , bumpkin
+    , nixpkgs
   }:
   let
+    defaultNixpkgs = nixpkgs;
+
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs;
-
-    pkgsBootstrap = import bumpkin.inputs.nixpkgs { inherit system; };
-    unpackRecursive = pkgsBootstrap.callPackage ./lib/unpackRecursive.nix {};
-    mapAttrValues = pkgsBootstrap.callPackage ./lib/mapAttrValues.nix {};
-    importFlake = import ./lib/importFlake.nix;
-
-    system = builtins.currentSystem or "x86_64-linux";
 
     inputs = bumpkin.packages.x86_64-linux.default.loadBumpkin {
       inputFile = ./bumpkin.json;
       outputFile = ./bumpkin.json.lock;
     };
 
-    unpackedInputs = unpackRecursive inputs;
+    unpackedInputs = ((mkPkgs {
+      inherit system;
+      disableOverlays = true;
+    }).callPackage ./lib/unpackRecursive.nix {}) inputs;
 
-    nixpkgs = unpackedInputs.nixpkgs.unstable;
+    pkgs = mkPkgs { inherit system; };
+
+    importFlake = import ./lib/importFlake.nix;
+    mapAttrValues = pkgs.callPackage ./lib/mapAttrValues.nix {};
+
+    system = builtins.currentSystem or "x86_64-linux";
 
     mkPkgs = {
-      nixpkgs ? unpackedInputs.nixpkgs.unstable
+      nixpkgs ? defaultNixpkgs
     , config ? {}
     , overlays ? []
+    , disableOverlays ? false
     , system ? builtins.currentSystem
-    }: import nixpkgs {
+    }: import "${nixpkgs}/pkgs/top-level" {
+      localSystem = system;
       config = config // {
         allowUnfree = true;
         permittedInsecurePackages = [
@@ -41,11 +48,9 @@
             "electron-18.1.0"
         ];
       };
-      overlays = overlays ++ (builtins.attrValues self.outputs.overlays);
+      overlays = if disableOverlays then [] else overlays ++ (builtins.attrValues self.outputs.overlays);
       inherit system;
     };
-
-    pkgs = mkPkgs { inherit system; };
 
     global = rec {
       username = "lucasew";
@@ -76,23 +81,25 @@
       inherit self;
       inherit global;
       cfg = throw "your past self made a trap for non compliant code after a migration you did, now follow the stacktrace and go fix it";
-      inherit unpackedInputs;
+      inherit (pkgs.bumpkin) unpackedInputs;
     };
 
     overlays = {
-      home-manager = import (unpackedInputs.home-manager + "/overlay.nix");
+      home-manager = import "${unpackedInputs.home-manager}/overlay.nix";
       borderless-browser = (importFlake "${unpackedInputs.borderless-browser}/flake.nix" { inherit nixpkgs; }).overlays.default;
-      rust-overlay = (importFlake "${unpackedInputs.rust-overlay}/flake.nix" { inherit nixpkgs; flake-utils = { lib = import unpackedInputs.flake-utils; }; }).overlays.default;
-      # pollymc = (importFlake "${unpackedInputs.pollymc}/flake.nix" { inherit nixpkgs; }).overlay;
+      # rust-overlay = import "${unpackedInputs.rust-overlay}/rust-overlay.nix";
       this = import ./overlay.nix self;
     };
     nix-colors = importFlake "${unpackedInputs.nix-colors}/flake.nix" {
       nixpkgs-lib = importFlake "${unpackedInputs.nixpkgs-lib}";
-      inherit (unpackedInputs) base16-schemes;
+      inherit (pkgs.bumpkin.unpackedInputs) base16-schemes;
     };
   in {
+    test = {
+    };
     bumpkin = {
-      inherit inputs unpackedInputs;
+      inherit inputs;
+      inherit unpackedInputs;
       flakedInputs = {
         inherit nix-colors;
       };
@@ -109,7 +116,7 @@
           modules ? []
         , pkgs
         , extraSpecialArgs ? {}
-      }: import "${unpackedInputs.home-manager}/modules" {
+      }: import "${pkgs.bumpkin.unpackedInputs.home-manager}/modules" {
         inherit pkgs;
         extraSpecialArgs = extraArgs // extraSpecialArgs // { inherit pkgs; };
         configuration = {...}: {
@@ -139,7 +146,7 @@
 
     nixOnDroidConfigurations = let
       nixOnDroidConf = mainModule:
-      import "${unpackedInputs.nix-on-droid}/modules" {
+      import "${pkgs.bumpkin.unpackedInputs.nix-on-droid}/modules" {
         config = {
           _module.args = extraArgs;
           home-manager.config._module.args = extraArgs;
@@ -148,9 +155,9 @@
           ];
         };
         pkgs = mkPkgs {
-          overlays = (import "${unpackedInputs.nix-on-droid}/overlays");
+          overlays = (import "${pkgs.bumpkin.unpackedInputs.nix-on-droid}/overlays");
         };
-        home-manager = import unpackedInputs.home-manager {};
+        home-manager = import pkgs.bumpkin.unpackedInputs.home-manager {};
         isFlake = true;
       };
     in mapAttrValues nixOnDroidConf {
@@ -165,7 +172,7 @@
         bumpkin.packages.${system}.default
         (writeShellScriptBin "bumpkin-bump" ''
           if [ -v NIXCFG_ROOT_PATH ]; then
-              bumpkin eval -p -i "$NIXCFG_ROOT_PATH/bumpkin.json" -o "$NIXCFG_ROOT_PATH/bumpkin.json.lock"
+              bumpkin eval -p -i "$NIXCFG_ROOT_PATH/bumpkin.json" -o "$NIXCFG_ROOT_PATH/bumpkin.json.lock" "$@"
           else
             exit 1
           fi
@@ -184,7 +191,7 @@
 
       dontUnpack = true;
       buildInputs = []
-        ++ (with pkgs.custom; [ neovim emacs firefox polybar tixati ])
+        ++ (with pkgs.custom; [ neovim emacs firefox tixati ])
         ++ (with pkgs.custom.vscode; [ common programming ])
         ++ (with self.nixosConfigurations; [
           riverwood.config.system.build.toplevel

@@ -1,1 +1,3 @@
-builtins.attrValues (import ../default.nix).overlays
+(builtins.attrValues (import ../default.nix).overlays)
+# else
+  # []

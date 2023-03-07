@@ -11,10 +11,9 @@ let
   cp = f: (callPackage f) {};
 in {
   inherit flake;
+  inherit bumpkin;
 
   lib = prev.lib.extend (final: prev: with final; with inputs.nixpkgs-lib.lib; {
-    nixos = "${inputs.nixpkgs}/nixos/lib" { lib = final; };
-
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;
     climod = cp bumpkin.unpackedInputs.climod;
@@ -29,7 +28,7 @@ in {
   wrapWine = cp ./pkgs/wrapWine.nix;
 
   dotenv = cp bumpkin.unpackedInputs.dotenv;
-  bumpkin = cp inputs.bumpkin;
+  # bumpkin = cp inputs.bumpkin;
   nbr = import "${bumpkin.unpackedInputs.nbr}" { pkgs = final; };
   appimage-wrap = final.nbr.appimage-wrap;
 
