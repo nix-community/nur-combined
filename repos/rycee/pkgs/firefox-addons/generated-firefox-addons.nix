@@ -210,10 +210,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.2";
+      version = "7.5.3";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4065328/betterttv-7.5.2.xpi";
-      sha256 = "4d3ad79707683ba835c1c3a24f3d8b2821c532a3880c75c6ebf777d5152663ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078007/betterttv-7.5.3.xpi";
+      sha256 = "1fd75b392c963bd952912e13a6e847563da70209f2e1297b9fd5cf418367b34a";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -816,10 +816,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.59";
+      version = "6.1.60";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064420/flagfox-6.1.59.xpi";
-      sha256 = "472dcbc63acdb66103cd9b05f7d91ceed68604acad64e34b07e6eecbd2173950";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077652/flagfox-6.1.60.xpi";
+      sha256 = "388b52b4c0ecc3831cc203ab0a27f20b914f0b24bc47e131d52484c5ce7899fe";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -1354,10 +1354,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.109.2.5";
+      version = "4.110.1.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4073692/lastpass_password_manager-4.109.2.5.xpi";
-      sha256 = "4df74cca75db5050b262666b05904f84a7623e1f63aaabd8841e969180c07429";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077983/lastpass_password_manager-4.110.1.3.xpi";
+      sha256 = "0fc82d836301a1d725652abee8fa9314e19073a57d5cc674a9b2910c2090bd76";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1576,10 +1576,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.43";
+      version = "2.7.50";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071022/momentumdash-2.7.43.xpi";
-      sha256 = "52621c1e95d49027ce1a03709839b7f0a26bb4c9c41868470a0abbcf8d5046b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4080208/momentumdash-2.7.50.xpi";
+      sha256 = "45fb2d87aa5f6e98890c16c4762e1ba7685e869c20e199fec99a39b3088ce5ff";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2364,10 +2364,10 @@
       };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "4.7.2.1";
+      version = "4.8";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3873608/simple_tab_groups-4.7.2.1.xpi";
-      sha256 = "75077589098ca62c00b86cf9554c6120bf8dc04c5f916fe26f84915f5147b2a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077659/simple_tab_groups-4.8.xpi";
+      sha256 = "0a51426c85fd05b5aaf10e5c308a65ef2a5b07a8cb2131bb6d5a72eb1bb8af85";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
@@ -2927,10 +2927,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.2.5";
+      version = "8.2.6";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055496/ublacklist-8.2.5.xpi";
-      sha256 = "46a639887cdb2f6aa2ced87b6a0bb238a58fc883579abc0e95ffceb1fa804b8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4076690/ublacklist-8.2.6.xpi";
+      sha256 = "cd61aa3271ebe62ef00338034d4b748331ca2904269deb9ef3457541460b21f8";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
