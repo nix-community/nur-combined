@@ -31,4 +31,6 @@ in {
   cardinal = callPackage' ./cardinal.nix;
 
   keepmenu = callPackage' ./keepmenu.nix;
+
+  dpf-plugins = callPackage' ./dpf-plugins.nix;
 }

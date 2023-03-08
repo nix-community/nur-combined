@@ -2,7 +2,7 @@
   pkgs,
   sources,
 }:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation {
   inherit (sources.dwm-flexipatch) src pname;
   version = sources.dwm-flexipatch.date;
 
@@ -11,6 +11,8 @@ pkgs.stdenv.mkDerivation rec {
   prePatch = ''
     sed -i "s@/usr/local@$out@" config.mk
   '';
+
+  enableParallelBuilding = true;
 
   meta = with pkgs.lib; {
     description = "A dwm build with preprocessor directives to decide which patches to include during build time";

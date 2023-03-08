@@ -6,6 +6,8 @@ pkgs.stdenv.mkDerivation {
   inherit (sources.lv2vst) src pname;
   version = sources.lv2vst.date;
 
+  enableParallelBuilding = true;
+
   makeFlags = ["PREFIX=$(out)"];
 
   meta = with pkgs.lib; {

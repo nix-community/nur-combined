@@ -83,3 +83,7 @@ git.fetchSubmodules = true
 [keepmenu]
 src.github = "firecat53/keepmenu"
 fetch.github = "firecat53/keepmenu"
+
+[dpf-plugins]
+src.github = "DISTRHO/DPF-Plugins"
+fetch.github = "DISTRHO/DPF-Plugins"

@@ -17,6 +17,8 @@ pkgs.stdenv.mkDerivation {
 
   postPatch = "sed -i '/chmod u+s/d' Makefile";
 
+  enableParallelBuilding = true;
+
   makeFlags = ["CC:=$(CC)"];
 
   meta = with pkgs.lib; {

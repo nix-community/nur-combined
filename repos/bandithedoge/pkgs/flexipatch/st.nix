@@ -20,6 +20,8 @@ pkgs.stdenv.mkDerivation rec {
 
   strictDeps = true;
 
+  enableParallelBuilding = true;
+
   makeFlags = [
     "PKG_CONFIG=${pkgs.stdenv.cc.targetPrefix}pkg-config"
   ];

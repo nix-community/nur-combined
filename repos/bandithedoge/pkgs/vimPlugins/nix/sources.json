@@ -725,10 +725,10 @@
         "homepage": "",
         "owner": "folke",
         "repo": "lua-dev.nvim",
-        "rev": "749f933eab33fd4e4b78b3d4c97e401632988b33",
-        "sha256": "1x4xmf11v7qiz6mlgx70qbjvrh9i3274zzrhnxvpvvlwnz9dm0gb",
+        "rev": "bd6a7222e8fbd1f4bca3f7a53d7328eddc0dd121",
+        "sha256": "1x02a9bgfjxdql7clmq3j1v41ns01ca13s1hd167pyk268cm47c7",
         "type": "tarball",
-        "url": "https://github.com/folke/lua-dev.nvim/archive/749f933eab33fd4e4b78b3d4c97e401632988b33.tar.gz",
+        "url": "https://github.com/folke/lua-dev.nvim/archive/bd6a7222e8fbd1f4bca3f7a53d7328eddc0dd121.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lualine.nvim": {

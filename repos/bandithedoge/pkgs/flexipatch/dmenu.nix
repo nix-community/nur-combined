@@ -19,6 +19,8 @@ in
       sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk
     '';
 
+    enableParallelBuilding = true;
+
     makeFlags = ["CC:=$(CC)"];
 
     postPatch = ''

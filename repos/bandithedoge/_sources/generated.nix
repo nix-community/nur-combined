@@ -53,6 +53,17 @@
     };
     date = "2022-10-26";
   };
+  dpf-plugins = {
+    pname = "dpf-plugins";
+    version = "v1.6";
+    src = fetchFromGitHub {
+      owner = "DISTRHO";
+      repo = "DPF-Plugins";
+      rev = "v1.6";
+      fetchSubmodules = false;
+      sha256 = "sha256-sdsOfEsLHiAZxq8lGVWOTi+0p2FBeeLzbX3OOTgj7QQ=";
+    };
+  };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
     version = "fcbe686ff250849b00da2479baf71dedc3cb0f07";
