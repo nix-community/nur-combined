@@ -2,8 +2,13 @@
 let
   cfg = config.my.home.zsh;
 
+  # Have a nice relative path for XDG_CONFIG_HOME, without leading `/`
   relativeXdgConfig =
-    lib.removePrefix config.home.homeDirectory config.xdg.configHome;
+    let
+      noHome = lib.removePrefix config.home.homeDirectory;
+      noSlash = lib.removePrefix "/";
+    in
+    noSlash (noHome config.xdg.configHome);
 in
 {
   options.my.home.zsh = with lib; {
