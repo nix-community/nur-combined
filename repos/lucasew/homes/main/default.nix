@@ -37,6 +37,7 @@ in {
     feh
     fortune
     graphviz
+    github-cli
     gimp
     libnotify
     libreoffice
@@ -52,21 +53,15 @@ in {
     remmina
     sqlite
     sshpass
-    stremio
     nbr.telegram-desktop-bin # communication
     terraform
     vlc # media
     nbr.wine-apps._7zip
-    wineApps.skyrim
     xxd
     pavucontrol # controle de volume
-    zeal
     rnix-lsp
     (runCommand "bin" {} "mkdir $out; cp -r ${../../bin} $out/bin")
-    xournal
     pytorrentsearch
-    # retroarchFull
-    # texlive.combined.scheme-full
   ] ;
 
   # programs.hello-world.enable = true;
