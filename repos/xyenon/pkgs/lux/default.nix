@@ -1,17 +1,20 @@
 { lib, fetchFromGitHub, buildGoModule }:
 
-buildGoModule rec {
+let
   pname = "lux";
-  version = "0.16.0";
+  version = "0.17.0";
+in
+buildGoModule {
+  inherit pname version;
 
   src = fetchFromGitHub {
     owner = "iawia002";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-kB625R6Qlo9sw0iz8MbaCFOjxpMyH+9ugC6JDn7L7eM=";
+    hash = "sha256-n6oWItz0tnhpyPBGsf4+fYGnJyeYyhI2owkLrJWu7uw=";
   };
 
-  vendorSha256 = "sha256-2cH5xVz3k9PPjzoMjWch3o8VBfP4nWAvakNwZNQLOeI=";
+  vendorSha256 = "sha256-4pn6JKE+VieadhDLkVhbJc6XSm95cNwoNBWYGEZl8iI=";
   subPackages = [ "." ];
 
   meta = with lib; {
