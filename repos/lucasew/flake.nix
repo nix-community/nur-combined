@@ -85,7 +85,7 @@
     };
 
     overlays = {
-      # borderless-browser = (import "${unpackedInputs.flake-compat}")(importFlake "${unpackedInputs.borderless-browser}/flake.nix" { inherit nixpkgs; }).overlays.default;
+      borderless-browser = import "${unpackedInputs.borderless-browser}/overlay.nix";
       rust-overlay = import "${unpackedInputs.rust-overlay}/rust-overlay.nix";
       this = import ./overlay.nix self;
     };
