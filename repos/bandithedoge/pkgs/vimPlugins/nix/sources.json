@@ -1181,10 +1181,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "ba4bce9bb79f5a5fb2e7b5a6b9b4b0fb256f3db9",
-        "sha256": "017dhshggb9klg05sd8qhjyyl3s9pp05sq9aaayj7vplm3d1iycb",
+        "rev": "71be7c04d5f55e931b4503a58464dae6519de29f",
+        "sha256": "01sf19spgcvq4w5sliwdxf85fbcq0wnnmgvqn57q0yynnnwdh2sl",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/ba4bce9bb79f5a5fb2e7b5a6b9b4b0fb256f3db9.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/71be7c04d5f55e931b4503a58464dae6519de29f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
