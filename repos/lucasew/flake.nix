@@ -3,30 +3,33 @@
 
   inputs = {
     bumpkin.url = "github:lucasew/bumpkin";
-    nixpkgs.url = "nixpkgs/nixos-unstable";
   };
 
   outputs = {
       self
     , bumpkin
-    , nixpkgs
   }:
   let
-    defaultNixpkgs = nixpkgs;
+    defaultNixpkgs = unpackedInputs.nixpkgs.unstable;
 
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs;
 
-    inputs = bumpkin.packages.x86_64-linux.default.loadBumpkin {
-      inputFile = ./bumpkin.json;
-      outputFile = ./bumpkin.json.lock;
-    };
+    inherit (let
+      bootstrapPkgs = mkPkgs {
+        inherit system;
+        nixpkgs = bumpkin.inputs.nixpkgs.outPath;
+        disableOverlays = true;
+      };
+      bumpkinPkg = bootstrapPkgs.callPackage bumpkin.outPath {};
+      inputs = bumpkinPkg.loadBumpkin {
+        inputFile = ./bumpkin.json;
+        outputFile = ./bumpkin.json.lock;
+      };
+      unpackedInputs = (bootstrapPkgs.callPackage ./lib/unpackRecursive.nix {}) inputs;
+    in {inherit inputs unpackedInputs;}) inputs unpackedInputs;
 
-    unpackedInputs = ((mkPkgs {
-      inherit system;
-      disableOverlays = true;
-    }).callPackage ./lib/unpackRecursive.nix {}) inputs;
 
-    pkgs = mkPkgs { inherit system; };
+    pkgs = mkPkgs { inherit system; nixpkgs = defaultNixpkgs; };
 
     importFlake = import ./lib/importFlake.nix;
     mapAttrValues = pkgs.callPackage ./lib/mapAttrValues.nix {};
@@ -34,7 +37,7 @@
     system = builtins.currentSystem or "x86_64-linux";
 
     mkPkgs = {
-      nixpkgs ? defaultNixpkgs
+      nixpkgs #? defaultNixpkgs
     , config ? {}
     , overlays ? []
     , disableOverlays ? false
@@ -73,7 +76,7 @@
           "$NIXCFG_ROOT_PATH/bin"
         ]}"
         export LUA_INIT="pcall(require, 'adapter.fennel')"
-        export NIX_PATH=nixpkgs=${nixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/compat/overlay.nix:home-manager=${home-manager}:nur=${unpackedInputs.nur}
+        export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/compat/overlay.nix:home-manager=${home-manager}:nur=${unpackedInputs.nur}
       '';
     };
 
@@ -92,6 +95,7 @@
     nix-colors = import "${unpackedInputs.nix-colors}" { inherit (unpackedInputs) base16-schemes nixpkgs-lib; };
   in {
     test = {
+      inherit self;
     };
     bumpkin = {
       inherit inputs;

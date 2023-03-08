@@ -12,7 +12,7 @@ in
   ];
 
   home.packages = with pkgs; [
-    youtube-dl # video downloader
+    yt-dlp # video downloader
     file # what file is it?
     neofetch # system info, arch linux friendly
     comma # like nix-shell but more convenient
