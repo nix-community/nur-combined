@@ -8,6 +8,8 @@ setopt autopushd pushdminus pushdsilent
 setopt rcquotes
 # Single word commands can resume an existing job
 setopt autoresume
+# Show history expansion before running a command
+setopt hist_verify
 # Append commands to history as they are exectuted
 setopt inc_append_history_time
 # Remove useless whitespace from commands

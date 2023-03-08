@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.my.home.zsh;
+
+  relativeXdgConfig =
+    lib.removePrefix config.home.homeDirectory config.xdg.configHome;
 in
 {
   options.my.home.zsh = with lib; {
@@ -16,16 +19,17 @@ in
 
     programs.zsh = {
       enable = true;
-      dotDir = ".config/zsh"; # Don't clutter $HOME
+      dotDir = "${relativeXdgConfig}/zsh"; # Don't clutter $HOME
       enableCompletion = true;
 
       history = {
         size = 500000;
         save = 500000;
-        extended = false;
+        extended = true;
+        expireDuplicatesFirst = true;
         ignoreSpace = true;
         ignoreDups = true;
-        share = false;
+        share = true;
         path = "${config.xdg.dataHome}/zsh/zsh_history";
       };
 

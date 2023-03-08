@@ -48,27 +48,15 @@ let
           };
 
           modules = [
-            ./home
+            "${self}/home"
             {
-              # Some Google specific configuration
+              # The basics
               home.username = "ambroisie";
-              home.homeDirectory = "/usr/local/google/home/ambroisie";
-
+              home.homeDirectory = "/home/ambroisie";
               # Let Home Manager install and manage itself.
               programs.home-manager.enable = true;
               # This is a generic linux install
               targets.genericLinux.enable = true;
-            }
-            # Some tooling (e.g: SSH) need to use this library
-            {
-              home.sessionVariables = {
-                LD_PRELOAD = "/lib/x86_64-linux-gnu/libnss_cache.so.2\${LD_PRELOAD:+:}$LD_PRELOAD";
-              };
-            }
-            {
-              my.home = {
-                gpg.enable = false;
-              };
             }
           ];
 
