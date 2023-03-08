@@ -28,11 +28,11 @@ rustPlatform.buildRustPackage rec {
     dbus
     alsa-lib
   ];
-  #
-  # meta = with lib; {
-  #   description = "A terminal based Youtube Music Player. It's aims to be as fast and simple as possible. Writtten in Rust";
-  #   homepage = "https://github.com/ccgauche/ytermusic";
-  #   license = licenses.asl20;
-  #   maintainers = with maintainers; [ Ruixi-rebirth ];
-  # };
+
+  meta = with lib; {
+    description = "A terminal based Youtube Music Player. It's aims to be as fast and simple as possible. Writtten in Rust";
+    homepage = "https://github.com/ccgauche/ytermusic";
+    license = licenses.asl20;
+    platforms = platforms.linux;
+  };
 }
