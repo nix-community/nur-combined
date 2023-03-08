@@ -64,11 +64,11 @@ let
 
 in stdenvNoCC.mkDerivation rec {
   pname = "devtools";
-  version = "20230105";
+  version = "20230307";
 
   src = fetchzip {
     url = "${rp}https://gitlab.archlinux.org/archlinux/devtools/-/archive/${version}/devtools-${version}.zip";
-    hash = "sha256-f3W6CMPXV/UcjJb+AioQo4reKo/3Hyfu42pd/YdFsxA=";
+    hash = "sha256-yGBsmjb3iNYsUX7i2+kPY25Zp/Nfbl/7/sLCmokBelE=";
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
@@ -99,7 +99,6 @@ in stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken = versionAtLeast bash.version "5.2";
     description = "[Experimental] Tools for Arch Linux package maintainers";
     homepage = "https://gitlab.archlinux.org/archlinux/devtools";
     license = licenses.gpl3Plus;
