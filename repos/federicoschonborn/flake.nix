@@ -17,5 +17,8 @@
     in {
       packages = import ./default.nix {inherit pkgs;};
       formatter = pkgs.alejandra;
-    });
+    })
+    // {
+      overlays.default = import ./overlay.nix;
+    };
 }
