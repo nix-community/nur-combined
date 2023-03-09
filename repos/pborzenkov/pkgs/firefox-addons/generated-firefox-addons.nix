@@ -2,10 +2,10 @@
   {
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.13.0";
+      version = "1.15.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3782259/wallabagger-1.13.0-an+fx.xpi";
-      sha256 = "67e41ee14c2e86334a8ebeb784727359fa159f3295b912693fd920f2f9f312f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4055568/wallabagger-1.15.0.xpi";
+      sha256 = "d6980b65daa5ca746a7b6a9b7ef5f5c228ae99ca2d9e3c1c06041fd43489fc6f";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";

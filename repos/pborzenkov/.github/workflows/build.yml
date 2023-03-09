@@ -2,6 +2,8 @@ name: "Build and populate cache"
 on:
   pull_request:
   push:
+    branches:
+      - master
   schedule:
     # everyday at 5:40
     - cron:  '40 5 * * *'
@@ -21,17 +23,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Install nix
-      uses: cachix/install-nix-action@v16
+      uses: cachix/install-nix-action@v20
       with:
         nix_path: "${{ matrix.nixPath }}"
-        install_url: https://releases.nixos.org/nix/nix-2.5.1/install
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v10
+      uses: cachix/cachix-action@v12
       with:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
