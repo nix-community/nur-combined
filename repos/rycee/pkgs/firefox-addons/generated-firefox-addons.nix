@@ -2309,10 +2309,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.8";
+      version = "28.9";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4069635/save_page_we-28.8.xpi";
-      sha256 = "e21cb930e3a1ea04a64ced38dbb71c8f5426fc0eaaeeae1b6e48f402e453d791";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078971/save_page_we-28.9.xpi";
+      sha256 = "2815e4eb84b859c455d4db5ac5ffd1a3297f7f56558391e5e22bf5291dd12d91";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -2465,10 +2465,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "23.3.1.1623";
+      version = "23.3.8.2218";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077957/sourcegraph_for_firefox-23.3.1.1623.xpi";
-      sha256 = "492f6dfe3a9dabeeafaa84a3f85edc497e4a6d38eb252b6e0bb3cd5c186b62ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4080989/sourcegraph_for_firefox-23.3.8.2218.xpi";
+      sha256 = "146f33b9c8baad58d030104e06d1703b771f9715dd6ca384074efacb1267b35b";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -2941,10 +2941,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.47.2";
+      version = "1.47.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4073921/ublock_origin-1.47.2.xpi";
-      sha256 = "2ae62bf1e5632f793c734e36ef9dabfc16c8865516adaf8e90e5a4d1852170f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079064/ublock_origin-1.47.4.xpi";
+      sha256 = "a35a6c8758ba74616afc09648c96d74ec2e7d27fe30f311d1db6e9a4966e7858";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -3272,10 +3272,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.11";
+      version = "19.12";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4066112/zoom_page_we-19.11.xpi";
-      sha256 = "2f738f5fce077cf45640ad400e2c094dacec3b9744f19351ce93344cc27176c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079247/zoom_page_we-19.12.xpi";
+      sha256 = "4938a3117c5d150d23a79458d26c42cf89183ce9219b2b7721b2554337609690";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
