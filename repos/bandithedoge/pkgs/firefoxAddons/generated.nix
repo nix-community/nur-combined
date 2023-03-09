@@ -340,10 +340,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "23.3.1.1623";
+    version = "23.3.8.2218";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4077957/sourcegraph_for_firefox-23.3.1.1623.xpi";
-    sha256 = "492f6dfe3a9dabeeafaa84a3f85edc497e4a6d38eb252b6e0bb3cd5c186b62ca";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4080989/sourcegraph_for_firefox-23.3.8.2218.xpi";
+    sha256 = "146f33b9c8baad58d030104e06d1703b771f9715dd6ca384074efacb1267b35b";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       platforms = platforms.all;
@@ -427,10 +427,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.47.2";
+    version = "1.47.4";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4073921/ublock_origin-1.47.2.xpi";
-    sha256 = "2ae62bf1e5632f793c734e36ef9dabfc16c8865516adaf8e90e5a4d1852170f6";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4079064/ublock_origin-1.47.4.xpi";
+    sha256 = "a35a6c8758ba74616afc09648c96d74ec2e7d27fe30f311d1db6e9a4966e7858";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
