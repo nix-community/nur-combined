@@ -24,6 +24,7 @@ let
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
+    (trivial "matrix-chatgpt-bot")
     (trivial "matrix-qq")
     (trivial "matrix-wechat")
     { "minio-latest" = { "minio" = "minio"; }; }

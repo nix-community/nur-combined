@@ -24,6 +24,7 @@ lib.makeScope newScope (
       inherit (fishPlugins) buildFishPlugin;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
+    matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot { };
     matrix-qq = callPackage ./matrix-qq { };
     matrix-wechat = callPackage ./matrix-wechat { };
     minio-latest = callPackage ./minio-latest { };

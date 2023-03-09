@@ -42,18 +42,6 @@ writeShellScriptBin "update" ''
     git commit "$@"
   }
 
-  ## update scripts
-  echo "run update scripts"
-  function handle_update_script {
-    "$@" --write-commit-message "${updateScriptCommitMessageFile}"
-    if [ -f "${updateScriptCommitMessageFile}" ]; then
-      commit --file="${updateScriptCommitMessageFile}"
-      cat "${updateScriptCommitMessageFile}" >> "${changelogFile}"
-      rm "${updateScriptCommitMessageFile}"
-    fi
-  }
-  ${ lib.concatStringsSep "\n" (builtins.map (s: "handle_update_script ${s}") escapedUpdateScripts) }
-
   # remove old Cargo.lock files
   pushd pkgs/_sources
   rm -f */Cargo.lock
@@ -70,6 +58,20 @@ writeShellScriptBin "update" ''
   "${repoPackages.updater}/bin/updater" "''${NVCHECKER_EXTRA_OPTIONS[@]}";
   set +x
   popd
+
+  ## update scripts
+  echo "run update scripts"
+  function handle_update_script {
+    "$@" --write-commit-message "${updateScriptCommitMessageFile}"
+    if [ -f "${updateScriptCommitMessageFile}" ]; then
+      commit --file="${updateScriptCommitMessageFile}"
+      cat "${updateScriptCommitMessageFile}" >> "${changelogFile}"
+      rm "${updateScriptCommitMessageFile}"
+    fi
+  }
+  ${ lib.concatStringsSep "\n" (builtins.map (s: "handle_update_script ${s}") escapedUpdateScripts) }
+
+  # format repository
   ${nixpkgs-fmt}/bin/nixpkgs-fmt .
 
   # get changelog

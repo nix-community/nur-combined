@@ -1,4 +1,4 @@
-{ mkShell, lib, linyinfeng, lint, update, nixpkgs-fmt, cabal-install, ormolu, nix-prefetch }:
+{ mkShell, lib, linyinfeng, lint, update, nixpkgs-fmt, cabal-install, ormolu, nix-prefetch, yarn2nix }:
 
 let
   notBroken = p: !(p.meta.broken or false);
@@ -18,6 +18,7 @@ let
       ormolu
       update
       nix-prefetch
+      yarn2nix
     ];
   };
 in

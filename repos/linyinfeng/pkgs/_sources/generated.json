@@ -176,6 +176,26 @@
         },
         "version": "v2.9.2"
     },
+    "matrix-chatgpt-bot": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "matrix-chatgpt-bot",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "matrixgpt",
+            "repo": "matrix-chatgpt-bot",
+            "rev": "v3.0.0",
+            "sha256": "sha256-2cBBevFu2gDsgZlHgsCLiR1faHPazo3TQvt8vf2fFC0=",
+            "type": "github"
+        },
+        "version": "v3.0.0"
+    },
     "mstickereditor": {
         "cargoLocks": {
             "Cargo.lock": [

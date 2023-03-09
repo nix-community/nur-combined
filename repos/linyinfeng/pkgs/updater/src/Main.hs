@@ -13,6 +13,7 @@ packageSet :: PackageSet ()
 packageSet = do
   traverse_ (uncurry clashPremium) clashPremiumSystems
   ghPkg "janten" "dpt-rp1-py"
+  ghPkg "matrixgpt" "matrix-chatgpt-bot"
   ghPkg "matrix-org" "synapse-s3-storage-provider"
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
