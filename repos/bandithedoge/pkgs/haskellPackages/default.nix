@@ -58,4 +58,16 @@ in {
   };
 
   xmonad-entryhelper = callHaskellPackage ./xmonad-entryhelper.nix {};
+
+  kmonad = callHaskellPackage ./kmonad.nix {
+    compiler = "ghc926";
+    attrs = {
+      nativeBuildInputs = with pkgs; [
+        removeReferencesTo
+        (writeShellScriptBin "git" ''
+          echo ${sources.kmonad.version}
+        '')
+      ];
+    };
+  };
 }

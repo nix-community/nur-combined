@@ -159,6 +159,26 @@
         },
         "version": "17814972abe6a8811a586fa87c99a2b16a86075f"
     },
+    "kmonad": {
+        "cargoLocks": null,
+        "date": "2023-01-08",
+        "extract": null,
+        "name": "kmonad",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kmonad",
+            "repo": "kmonad",
+            "rev": "3413f1be996142c8ef4f36e246776a6df7175979",
+            "sha256": "sha256-uEtWPpl9nH7QqochHo1z+giPga1zXR1Ko3dOXHIapFY=",
+            "type": "github"
+        },
+        "version": "3413f1be996142c8ef4f36e246776a6df7175979"
+    },
     "lua-dbus": {
         "cargoLocks": null,
         "date": "2015-04-22",
