@@ -1,0 +1,3 @@
+{
+  nixpkgsConfig = ./nixpkgs-config.nix;
+}

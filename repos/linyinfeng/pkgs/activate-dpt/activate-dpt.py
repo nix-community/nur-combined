@@ -5,13 +5,25 @@ import argparse
 import os
 import time
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Activate RNDIS or CDC/ECM mode of dpt-rp1.')
-    parser.add_argument('-m', '--mode', type=str, default='RNDIS',
-                        help='mode to enable, can be RNDIS or CDC/ECM.')
-    parser.add_argument('-d', '--device', type=str, default='/dev/ttyACM0',
-                        help='device to acitvate, default = /dev/ttyACM0.')
-    parser.add_argument('-t', '--timeout', type=int, default=10)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Activate RNDIS or CDC/ECM mode of dpt-rp1."
+    )
+    parser.add_argument(
+        "-m",
+        "--mode",
+        type=str,
+        default="RNDIS",
+        help="mode to enable, can be RNDIS or CDC/ECM.",
+    )
+    parser.add_argument(
+        "-d",
+        "--device",
+        type=str,
+        default="/dev/ttyACM0",
+        help="device to acitvate, default = /dev/ttyACM0.",
+    )
+    parser.add_argument("-t", "--timeout", type=int, default=10)
     args = parser.parse_args()
 
     modes = {
@@ -28,4 +40,7 @@ if __name__ == '__main__':
     print("sleep for 5 seconds...")
     time.sleep(5)
     print("do avahi-resolve.")
-    os.execv("/usr/bin/env", ["/usr/bin/env", "avahi-resolve", "-n", "digitalpaper.local", "--verbose"])
+    os.execv(
+        "/usr/bin/env",
+        ["/usr/bin/env", "avahi-resolve", "-n", "digitalpaper.local", "--verbose"],
+    )

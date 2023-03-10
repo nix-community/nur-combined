@@ -1,4 +1,4 @@
-{ lib, newScope, fishPlugins }:
+{ lib, newScope, selfLib, fishPlugins }:
 
 lib.makeScope newScope (
   self:
@@ -7,7 +7,10 @@ lib.makeScope newScope (
   in
   {
     sources = callPackage ./_sources/generated.nix { };
-    updater = callPackage ./updater { };
+    devPackages = lib.recurseIntoAttrs (callPackage ./dev-packages {
+      selfPackages = self;
+      inherit selfLib;
+    });
 
     activate-dpt = callPackage ./activate-dpt { };
     aws-s3-reverse-proxy = callPackage ./aws-s3-reverse-proxy { };
@@ -21,7 +24,7 @@ lib.makeScope newScope (
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
     fishPlugins = lib.recurseIntoAttrs (callPackage ./fish-plugins {
-      inherit (fishPlugins) buildFishPlugin;
+      fishPluginsToplevel = fishPlugins;
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot { };

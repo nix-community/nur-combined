@@ -5,7 +5,6 @@ dist
 dist-*
 
 .direnv
-.envrc
 *.shake*
 
 keyfile.toml

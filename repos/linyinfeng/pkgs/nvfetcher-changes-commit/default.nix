@@ -21,7 +21,6 @@ writeShellScriptBin "nvfetcher-changes-commit" ''
     git commit "$@" 1>&2
   }
 
-
   changelog_lines=$(wc --lines "$TMP_DIR/changes" | cut -d ' ' -f 1)
   if [ "$changelog_lines" -eq 0 ]; then
     echo "updater changelog is empty, skip" 1>&2
