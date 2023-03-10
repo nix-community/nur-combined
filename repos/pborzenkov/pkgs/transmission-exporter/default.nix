@@ -1,8 +1,11 @@
-{ lib, fetchFromGitHub, buildGoModule }:
-
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 buildGoModule rec {
   pname = "transmission-exporter";
-  version = "0.1.2";
+  version = "0.2.0";
   rev = "v${version}";
 
   src = fetchFromGitHub {
@@ -10,10 +13,10 @@ buildGoModule rec {
 
     owner = "pborzenkov";
     repo = "transmission-exporter";
-    sha256 = "sha256-2m/F9rvZxae+y4jUzbpa/6bdXsC4mY6r4UkgfKnGFFk=";
+    sha256 = "sha256-kx7pb1XpKRpX58hMYTXu/NXBoYrnZF1wcHMt1stkcog=";
   };
 
-  vendorSha256 = "1v308fs554g37vimc214kazqv5fnxdrvd4kjx4mfv6gpgcdfildj";
+  vendorSha256 = "sha256-stHoGnv3me0q6XKStnPr1pWNv5okCFbjPuORUrRDYOw=";
 
   ldflags = [
     "-X github.com/prometheus/common/version.Version=${version}"
@@ -23,7 +26,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Prometheus exporter for Transmission torrent client.";
     homepage = "https://github.com/pborzenkov/transmission-exporter";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ pborzenkov ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [pborzenkov];
   };
 }
