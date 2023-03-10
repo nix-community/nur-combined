@@ -1,5 +1,5 @@
 {
-  mbtileserver = ./services/mbtileserver.nix;
+  nixos = import ./nixos;
 
   home-manager = {
     programs = {
