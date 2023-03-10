@@ -18,7 +18,6 @@
   case-cli = pkgs.callPackage ./pkgs/case-cli { };
   deck = pkgs.callPackage ./pkgs/deck { };
   hexo-cli = pkgs.callPackage ./pkgs/hexo-cli { };
-  kced = pkgs.callPackage ./pkgs/kced { };
   kong-portal-cli = pkgs.callPackage ./pkgs/kong-portal-cli { };
   nuclei = pkgs.callPackage ./pkgs/nuclei { };
   ov = pkgs.callPackage ./pkgs/ov { };
