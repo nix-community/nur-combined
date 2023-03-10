@@ -35,6 +35,7 @@ in {
             type = ip4.type;
             default = ip4.fromString "10.123.0.1/16";
           };
+          snowflake = mkEnableOption "транспорт Snowflake";
         };
       };
     default = {};
@@ -81,24 +82,24 @@ in {
     (mkIf (cfg.enable && cfg.tor.enable) {
       services.tor.enable = true;
       services.tor.client.enable = true;
-      services.tor.settings = {
+      services.tor.settings = ({
         ExcludeExitNodes = "{RU}";
         # onion
         DNSPort = [{ addr = cfg.address; port = 9053; }];
         VirtualAddrNetworkIPv4 = ip4.networkCIDR cfg.tor.network;
         AutomapHostsOnResolve = true;
         TransPort = [{ addr = cfg.address; port = 9040; }];
-        # bridges
-        #UseBridges = true;
-        #Bridge = "snowflake 192.0.2.3:1";
-        #ClientTransportPlugin = ''
-        #  snowflake exec ${pkgs.snowflake}/bin/client \
-        #    -url https://snowflake-broker.azureedge.net/ \
-        #    -front ajax.aspnetcdn.com \
-        #    -ice stun:stun.l.google.com:19302 \
-        #    -max 3
-        #'';
-      };
+      } // optionalAttrs cfg.tor.snowflake {
+        UseBridges = true;
+        Bridge = "snowflake 192.0.2.3:1";
+        ClientTransportPlugin = ''
+          snowflake exec ${pkgs.snowflake}/bin/client \
+            -url https://snowflake-broker.azureedge.net/ \
+            -front ajax.aspnetcdn.com \
+            -ice stun:stun.l.google.com:19302 \
+            -max 3
+        '';
+      });
       networking.firewall.extraCommands = ''
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -s ${cfg.address} -j DNAT --to-destination ${cfg.address}:9040
         # onion
