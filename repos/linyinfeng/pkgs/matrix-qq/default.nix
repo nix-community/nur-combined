@@ -11,15 +11,15 @@ assert !(lib.versionAtLeast go.version "1.20");
 
 buildGo120Module rec {
   pname = "matrix-qq";
-  version = "0.1.4";
+  version = "0.1.5";
   src = fetchFromGitHub {
     owner = "duo";
     repo = "matrix-qq";
     rev = version;
-    sha256 = "sha256-jZaaafjGBNFj3jx4svWH7zu2jGj3UXgePCJ8xSY1k3s=";
+    sha256 = "sha256-gdAWzOVuFvpEMvZWJfgj+oQKGH3MP8n3U/RNJA1nwOk=";
   };
 
-  vendorSha256 = "sha256-TPjmh1TCBGuaOye8dMZ812IFhU8Vkvw8bMt+8lTDPTY=";
+  vendorSha256 = "sha256-KZxotp42lKw7hty5OMEspQBurfQjZ9Bj93FP7sS/aSQ=";
 
   buildInputs = [
     olm
