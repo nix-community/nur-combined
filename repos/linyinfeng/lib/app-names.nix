@@ -1,11 +1,14 @@
 { lib }:
 
 let
-  trivial = p: {
-    "${p}" = {
-      "${p}" = p;
+  extractPname = n: lib.lists.last (lib.strings.split "/" n);
+  trivial = p:
+    let pname = extractPname p; in
+    {
+      "${p}" = {
+        "${p}" = pname;
+      };
     };
-  };
   empty = p: { "${p}" = { }; };
   merge = lib.fold lib.recursiveUpdate { };
   appNamesDict = merge [
@@ -18,6 +21,8 @@ let
     { "clash-meta" = { "clash-meta" = "clash"; }; }
     (trivial "clash-premium")
     (trivial "commit-notifier")
+    (trivial "devPackages/nvfetcher-self")
+    (trivial "devPackages/update")
     (trivial "dot-tar")
     { "dpt-rp1-py" = { "dpt-rp1-py" = "dptrp1"; }; }
     (empty "fishPlugins/bang-bang")
@@ -43,7 +48,6 @@ let
     (empty "synapse-s3-storage-provider")
     (trivial "tg-send")
     (trivial "trojan")
-    (trivial "updater")
     (trivial "vlmcsd")
     {
       "wemeet" = {

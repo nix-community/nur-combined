@@ -23,7 +23,7 @@ writeShellScriptBin "nvfetcher-changes-commit" ''
 
   changelog_lines=$(wc --lines "$TMP_DIR/changes" | cut -d ' ' -f 1)
   if [ "$changelog_lines" -eq 0 ]; then
-    echo "updater changelog is empty, skip" 1>&2
+    echo "changelog is empty, skip" 1>&2
   elif [ "$changelog_lines" -eq 1 ]; then
     commit --file="$TMP_DIR/changes"
   else

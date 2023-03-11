@@ -22,5 +22,3 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Nix flake check
       run: nix flake check --verbose --print-build-logs
-    - name: Format check
-      run: nix run nixpkgs#nixpkgs-fmt -- . --check

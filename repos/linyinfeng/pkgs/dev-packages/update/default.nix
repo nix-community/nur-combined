@@ -5,7 +5,7 @@
 , nixpkgs-fmt
 , nix-prefetch
 , nix-update
-, updater
+, nvfetcher-self
 , nvfetcher-changes-commit
 , path
 , selfPackages
@@ -67,7 +67,7 @@ let
     fi
     pushd pkgs;
     set -x
-    "${updater}/bin/updater" "''${NVCHECKER_EXTRA_OPTIONS[@]}";
+    "${nvfetcher-self}/bin/nvfetcher-self" "''${NVCHECKER_EXTRA_OPTIONS[@]}";
     set +x
     popd
     ${nixpkgs-fmt}/bin/nixpkgs-fmt .
@@ -93,7 +93,7 @@ let
 in
 drv.overrideAttrs (old: {
   meta = with lib; {
-    platforms = updater.meta.platforms;
+    platforms = nvfetcher-self.meta.platforms;
     maintainers = with maintainers; [ yinfeng ];
   };
 })

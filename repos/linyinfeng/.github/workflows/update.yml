@@ -31,9 +31,9 @@ jobs:
       with:
         path: |
           pkgs/_sources/.shake.database
-        key: ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}-${{ hashFiles('pkgs/_sources/generated.nix') }}
+        key: ${{ runner.os }}-${{ hashFiles('pkgs/dev-packages/nvfetcher-self/src/*') }}-${{ hashFiles('pkgs/_sources/generated.nix') }}
         restore-keys: |
-          ${{ runner.os }}-${{ hashFiles('pkgs/updater/src/*') }}-
+          ${{ runner.os }}-${{ hashFiles('pkgs/dev-packages/nvfetcher-self/src/*') }}-
     - name: Git config
       run: |
         git config user.name "github-actions[bot]"
@@ -48,11 +48,11 @@ jobs:
         httptoken_clash-premium-x86_64-darwin = "Bearer ${{ secrets.GITHUB_TOKEN }}"
         httptoken_clash-premium-x86_64-linux = "Bearer ${{ secrets.GITHUB_TOKEN }}"
         EOF
-    - name: Run updater
+    - name: Run update
       run: |
         # update and set variables
         # - CHANGELOG
-        nix develop --command update
+        nix run .#devPackages/update
     - name: Create pull request
       if: ${{ env.CHANGELOG != '' }}
       uses: peter-evans/create-pull-request@main

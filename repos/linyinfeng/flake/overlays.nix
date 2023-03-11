@@ -2,7 +2,7 @@
 
 {
   flake = {
-    overlays = {
+    overlays = import ../overlays // {
       linyinfeng = self.overlays.default;
       singleRepoNur = final: prev: {
         nur = lib.recursiveUpdate (prev.nur or { })

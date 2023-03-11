@@ -5,7 +5,7 @@ let
   inherit (self) callPackage;
 in
 {
-  updater = callPackage ./nvfetcher { };
+  nvfetcher-self = callPackage ./nvfetcher-self { };
   update = callPackage ./update {
     inherit selfLib selfPackages;
   };
