@@ -1,4 +1,4 @@
-{ lib, newScope, selfLib, fishPlugins }:
+{ lib, newScope, selfLib, fishPlugins, emacsPackages }:
 
 lib.makeScope newScope (
   self:
@@ -23,6 +23,9 @@ lib.makeScope newScope (
     commit-notifier = callPackage ./commit-notifier { };
     dot-tar = callPackage ./dot-tar { };
     dpt-rp1-py = callPackage ./dpt-rp1-py { };
+    emacsPackages = lib.recurseIntoAttrs (callPackage ./emacs-packages {
+      emacsPackagesToplevel = emacsPackages;
+    });
     fishPlugins = lib.recurseIntoAttrs (callPackage ./fish-plugins {
       fishPluginsToplevel = fishPlugins;
     });

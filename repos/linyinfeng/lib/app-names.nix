@@ -25,6 +25,7 @@ let
     (trivial "devPackages/update")
     (trivial "dot-tar")
     { "dpt-rp1-py" = { "dpt-rp1-py" = "dptrp1"; }; }
+    (trivial "emacsPackages/pyim-greatdict")
     (empty "fishPlugins/bang-bang")
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")

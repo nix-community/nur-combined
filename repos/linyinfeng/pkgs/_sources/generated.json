@@ -259,6 +259,25 @@
         },
         "version": "1c1d7730edd700ad8c8ddb0dac69ac419265f767"
     },
+    "pyim-greatdict": {
+        "cargoLocks": null,
+        "date": "2019-07-19",
+        "extract": null,
+        "name": "pyim-greatdict",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "87594b2a4d6391cf69475257b286d3b844791571",
+            "sha256": "sha256-IvSAFs3TZ84q2FflPyrDbvwkPVVlyvRQTzpCx+JvKGA=",
+            "type": "git",
+            "url": "https://github.com/tumashu/pyim-greatdict.git"
+        },
+        "version": "87594b2a4d6391cf69475257b286d3b844791571"
+    },
     "replay-fish": {
         "cargoLocks": null,
         "date": null,

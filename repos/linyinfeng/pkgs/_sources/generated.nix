@@ -159,6 +159,19 @@
     };
     date = "2023-02-28";
   };
+  pyim-greatdict = {
+    pname = "pyim-greatdict";
+    version = "87594b2a4d6391cf69475257b286d3b844791571";
+    src = fetchgit {
+      url = "https://github.com/tumashu/pyim-greatdict.git";
+      rev = "87594b2a4d6391cf69475257b286d3b844791571";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-IvSAFs3TZ84q2FflPyrDbvwkPVVlyvRQTzpCx+JvKGA=";
+    };
+    date = "2019-07-19";
+  };
   replay-fish = {
     pname = "replay-fish";
     version = "1.2.1";
