@@ -7,7 +7,7 @@ let
 in
 {
   imports = [
-    inputs.home-manager.nixosModule # enable home-manager options
+    inputs.home-manager.nixosModules.home-manager # enable home-manager options
     (lib.mkAliasOptionModule aliasPath actualPath) # simplify setting home options
   ];
 
