@@ -14,6 +14,7 @@
   bsdutils = pkgs.callPackage ./packages/bsdutils {inherit libxo;};
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
   commit = pkgs.callPackage ./packages/commit {};
+  devtoolbox = pkgs.callPackage ./packages/devtoolbox {inherit python-daltonlens python-lorem python-textstat python-uuid6;};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
   fastfetchFull = fastfetch.override {
     enableLibpci = true;
@@ -44,6 +45,10 @@
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
   morewaita = pkgs.callPackage ./packages/morewaita {};
+  python-daltonlens = pkgs.callPackage ./packages/python-daltonlens {};
+  python-lorem = pkgs.callPackage ./packages/python-lorem {};
+  python-textstat = pkgs.callPackage ./packages/python-textstat {};
+  python-uuid6 = pkgs.callPackage ./packages/python-uuid6 {};
   tooth = pkgs.callPackage ./packages/tooth {};
 
   # Needs GTK 4.9
