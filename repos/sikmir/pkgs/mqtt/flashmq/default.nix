@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, installShellFiles, openssl }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, installShellFiles, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "flashmq";
@@ -10,6 +10,13 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-VikTaPczF1+Bk/K6D5lZgyLybNETtm0YTEwFgPmpiiw=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/halfgaar/FlashMQ/commit/f33117351496143eb7bf8362697d40f4c74da5b8.patch";
+      hash = "sha256-gEEzQm2g1/G3eh8z1Ao90Nzg8RmTLvRpw2jVWBMyM68=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace mainapp.cpp --replace "/etc/flashmq" "$out/etc/flashmq"
