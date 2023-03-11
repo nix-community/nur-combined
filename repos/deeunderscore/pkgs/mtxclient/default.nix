@@ -15,15 +15,15 @@
 , coeurl
 , re2
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "mtxclient";
-  version = "unstable-2022-03-09";
+  version = "unstable-2023-03-08";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
-    rev = "5cede811843bfb071a8f518f5b0e7c0783eb123c";
-    hash = "sha256-exq7lTJnRdOXQZGBUuWR18FknZJDAFr/TJjUtpkDZM4=";
+    rev = "b1a978ab30d40865b982e96e6b1d4f2fd7ac6e3e";
+    hash = "sha256-9ggZ1uTtK42GtCBj+OmOroszERBxdvZtp15AMvl4Qx0=";
   };
 
   cmakeFlags = [
