@@ -340,10 +340,10 @@
   };
   "sourcegraph" = buildFirefoxXpiAddon {
     pname = "sourcegraph";
-    version = "23.3.8.2218";
+    version = "23.3.10.1712";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4080989/sourcegraph_for_firefox-23.3.8.2218.xpi";
-    sha256 = "146f33b9c8baad58d030104e06d1703b771f9715dd6ca384074efacb1267b35b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4081943/sourcegraph_for_firefox-23.3.10.1712.xpi";
+    sha256 = "21aa9f4c889c8f435e6f379bd7e7ca6c68f50c33c506c1fc97025a019a99d4ea";
     meta = with lib; {
       description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
       platforms = platforms.all;
