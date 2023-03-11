@@ -14,4 +14,4 @@ jobs:
     steps:
       - name: curl nur endpoint
         run: |
-          curl -XPOST https://nur-update.herokuapp.com/update?repo=alarsyo
+          curl -XPOST https://nur-update.nix-community.org/update?repo=alarsyo
