@@ -11,7 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-VikTaPczF1+Bk/K6D5lZgyLybNETtm0YTEwFgPmpiiw=";
   };
 
-  postPatch = lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
+  postPatch = ''
+    substituteInPlace mainapp.cpp --replace "/etc/flashmq" "$out/etc/flashmq"
+  '' + lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
     substituteInPlace CMakeLists.txt --replace "-msse4.2" ""
   '';
 
@@ -21,6 +23,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 flashmq -t $out/bin
+    install -Dm644 $src/flashmq.conf -t $out/etc/flashmq
     installManPage $src/man/*.{1,5}
   '';
 
