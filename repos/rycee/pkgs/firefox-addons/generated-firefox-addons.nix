@@ -602,10 +602,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.2.16";
+      version = "2023.3.3";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071699/duckduckgo_for_firefox-2023.2.16.xpi";
-      sha256 = "acf6312ef437075e17413e259f17493ae9b5958f2ddeb8b13f8d27fe9a56ff39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4078917/duckduckgo_for_firefox-2023.3.3.xpi";
+      sha256 = "a86371933520c3ecfb6af40ed8fdb60447faeafa5787400b23b128148619be25";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -719,10 +719,10 @@
       };
     "fastforward" = buildFirefoxXpiAddon {
       pname = "fastforward";
-      version = "0.1992";
+      version = "0.1943";
       addonId = "addon@fastforward.team";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3950379/fastforwardteam-0.1992.xpi";
-      sha256 = "050cce41f8740b6b91519d247bf4b7d4753491629a69f9a71188dc5d36e19efe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3904490/fastforwardteam-0.1943.xpi";
+      sha256 = "6c69d64e94a77e637f8d2350c1e05041a21be212304813e6cc29775fe1347eb7";
       meta = with lib;
       {
         homepage = "https://fastforward.team";
@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230306.162820";
+      version = "111.0buildid20230309.232128";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079976/francais_language_pack-111.0buildid20230306.162820.xpi";
-      sha256 = "4de4526730adb50cd4fab7fec7fdc6bd179ecc1bc6f6fc1e7259331b7360de9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4081502/francais_language_pack-111.0buildid20230309.232128.xpi";
+      sha256 = "f3470704611b2a39bf65f64b1d0e867084261fcb312a3c405a86164b195b167d";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -974,10 +974,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "23.3.3";
+      version = "23.3.11";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078788/ghosttext-23.3.3.xpi";
-      sha256 = "36e25dfe86a98997a87ac47bd543520b63a4dbc2250fce5cd2e105c1fe7464cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4082198/ghosttext-23.3.11.xpi";
+      sha256 = "bb0d82add38f1ed69497e7242bbac33b94ca863d260e13dfc6d68a3e76ea0d2b";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -1408,7 +1408,7 @@
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
-        description = "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends and backends.";
+        description = "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -1562,10 +1562,10 @@
       };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
-      version = "1.6.0";
+      version = "1.6.1";
       addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4072703/modrinthify-1.6.0.xpi";
-      sha256 = "ad5bf1b9f7e285ce84beaa8a05e78bbe3e356ca5df9af6823dcc9bd442b82a15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4081301/modrinthify-1.6.1.xpi";
+      sha256 = "b5c40e5e9ade210e1a6089bd0b97cd694214df0a97b811270d7e41cbbd577773";
       meta = with lib;
       {
         homepage = "https://github.com/devBoi76/modrinthify";
@@ -1632,20 +1632,6 @@
         homepage = "https://github.com/fred-wang/webextension-native-mathml";
         description = "Force MathJax/KaTeX/MediaWIki to use native MathML rendering.";
         license = licenses.mpl20;
-        platforms = platforms.all;
-        };
-      };
-    "netflix-1080p" = buildFirefoxXpiAddon {
-      pname = "netflix-1080p";
-      version = "1.17.0";
-      addonId = "{f18f0257-10ad-4ff7-b51e-6895edeccfc8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3939434/netflix_1080p_firefox-1.17.0.xpi";
-      sha256 = "bd3fdc7516f096ddf0fb4abf59cc5ab3a6c89630975b67a5f49b203dcc07c4d2";
-      meta = with lib;
-      {
-        homepage = "https://github.com/TheGoddessInari/netflix-1080p-firefox";
-        description = "Forces 1080p playback for Netflix in Firefox. Originated with truedread/netflix-1080p-firefox, basic functionality has been rewritten.";
-        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2017,10 +2003,10 @@
       };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.44.1";
+      version = "0.41.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3958783/polkadot_js_extension-0.44.1.xpi";
-      sha256 = "3ddaa83ab2b91f9bd7f35f52b7ae8163c2748ce6bd8e71714991e4eb1ef353b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3865101/polkadot_js_extension-0.41.1.xpi";
+      sha256 = "8ddbe656dbbc11806b70fdf5b9faa4441524ddf5fb5a5b960cdbf377becf2256";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -2465,10 +2451,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "23.3.8.2218";
+      version = "23.3.10.1712";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4080989/sourcegraph_for_firefox-23.3.8.2218.xpi";
-      sha256 = "146f33b9c8baad58d030104e06d1703b771f9715dd6ca384074efacb1267b35b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4081943/sourcegraph_for_firefox-23.3.10.1712.xpi";
+      sha256 = "21aa9f4c889c8f435e6f379bd7e7ca6c68f50c33c506c1fc97025a019a99d4ea";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
@@ -3184,10 +3170,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.86.2";
+      version = "2.87.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071805/web_scrobbler-2.86.2.xpi";
-      sha256 = "faf0525f86bb852fa8efafbd54dfc2ef13bf4a45bf756b0b3982231e2c52a327";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4081366/web_scrobbler-2.87.0.xpi";
+      sha256 = "1543374acd33d136d9e80032a896fcd6ea5cd36f2c3a719fb02c2d679315d3fb";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
