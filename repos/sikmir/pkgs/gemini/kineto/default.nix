@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "kineto";
-  version = "2021-08-25";
+  version = "2021-11-04";
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
     repo = "kineto";
-    rev = "a8c54c1a32764d38727fb7c9f02ed9bc298e3174";
-    hash = "sha256-yRFH0pf/ocsug99spAupRYQpAFnt48f8FfgZdMS0i40=";
+    rev = "857f8c97ebc5724f4c34931ba497425e7653894e";
+    hash = "sha256-U9SjIvD0Y9Ydk7pyOS3J5xVsYf1Mwk1j8d6cSEBiJ+Q=";
   };
 
   vendorHash = "sha256-+CLJJ4najojIE/0gMlhZxb1P7owdY9+cTnRk+UmHogk=";

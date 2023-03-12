@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "gmi2html";
-  version = "2022-01-19";
+  version = "2022-02-16";
 
   src = fetchFromGitea {
     domain = "notabug.org";
     owner = "tinyrabbit";
     repo = "gmi2html";
-    rev = "1a63bc609915a3b1531e6ba4a5893f00743ac0e0";
-    hash = "sha256-ZQivQp4k9/BeZR9tJKfNhWhLmxkv0mRH8//H2vaaLfk=";
+    rev = "141c3978961ec6cf8530efc810bcd283320c3628";
+    hash = "sha256-MFoNOm/BOao5pOntW9Pqn3IjCCjyw6pJL9OXf9RpGIs=";
   };
 
   meta = with lib; {

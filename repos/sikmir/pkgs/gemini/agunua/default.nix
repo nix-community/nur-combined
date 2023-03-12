@@ -2,15 +2,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "agunua";
-  version = "2021-11-28";
+  version = "1.7.1";
 
   src = fetchFromGitLab {
     domain = "framagit.org";
     owner = "bortzmeyer";
     repo = "agunua";
-    #rev = "release-${version}";
-    rev = "d9700a4781afc283f279e1ec93dbb984bfe95079";
-    hash = "sha256-FVTD8QYfSaVOI8qbxQbZ2w+dktg1tpp6eb4IltEpltU=";
+    rev = "release-${version}";
+    hash = "sha256-sVZ4HrFH3bL6FHn8B43rsya3vggIuCXdx6rPh+LG7MA=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -21,10 +20,13 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
+  preCheck = ''
+    export HOME=$TMPDIR
+  '';
+
   disabledTestPaths = [
     "tests/test_egsam.py"
     "tests/test_full.py"
-    "tests/test_random_projects.py"
   ];
 
   meta = with lib; {

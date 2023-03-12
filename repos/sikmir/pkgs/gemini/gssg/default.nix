@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "gssg";
-  version = "2020-12-08";
+  version = "2022-03-31";
 
   src = fetchFromSourcehut {
     owner = "~gsthnz";
     repo = "gssg";
-    rev = "747b6b41fbe93f0b408a58c8e6a1f11c7945c819";
-    hash = "sha256-yMWj3wHSq4KZ2ezECBpCXhgqlpIm2zSe0sZP8OxNLIw=";
+    rev = "a842c013b9fa044b720b32ee015fedcde3f24ab1";
+    hash = "sha256-OwS6nUQ8AUbzm8ibckbvyfjdxT+KYyuDzcJAR95wUoU=";
   };
 
   vendorHash = "sha256-NxfZbwKo8SY0XfWivQ42cNqIbJQ1EBsxPFr70ZU9G6E=";

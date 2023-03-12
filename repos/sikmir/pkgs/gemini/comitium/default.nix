@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "comitium";
-  version = "1.8.0";
+  version = "1.8.1";
 
   src = fetchgit {
     url = "git://git.nytpu.com/comitium";
     rev = "v${version}";
-    hash = "sha256-an3favwpTTf61ecfAmasZY4fBV8gIH3hWDbIiImtIVs=";
+    hash = "sha256-rtsC9SAddRdmu82BRrZOEOq53ZYSOUGGZJDdTYs4WKY=";
   };
 
-  vendorHash = "sha256-dEywsGjLuaZ+Yv5IfuPHcKYZ8hyZ1Qf46LOF2RGcpxo=";
+  vendorHash = "sha256-6xtXTmSqaN2me0kyRk948ASNNtv7P5XBvtv9UWjNHoo=";
 
   nativeBuildInputs = [ scdoc ];
 

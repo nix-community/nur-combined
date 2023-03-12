@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "gemserv";
-  version = "0.6.3";
+  version = "0.6.6";
 
   src = fetchFromSourcehut {
     owner = "~int80h";
     repo = "gemserv";
     rev = "v${version}";
-    hash = "sha256-JA+mxljfYPWP5RcsknP+5gBSczKNSa5/BuDiY7mS3TY=";
+    hash = "sha256-jFh7OksYGXGWwLb4HtAuDQ7OsWxedqeLARPI20RyAgQ=";
   };
 
-  cargoHash = "sha256-anPHujCUkoIybg8wltDkf3jpHEsPS6GTNJiUPLXAI9k=";
+  cargoHash = "sha256-mGcZiSOwgRki3OfbbcNL/1avj6T5XD7ebjg9THIzUIQ=";
 
   nativeBuildInputs = [ pkg-config ];
 

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gplaces";
-  version = "0.16.35";
+  version = "0.16.37";
 
   src = fetchFromGitHub {
     owner = "dimkr";
     repo = "gplaces";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-ZxBIwKP6PZxZapvdZYfOLZsxUhr2WJlI8oYyO/KHYgc=";
+    hash = "sha256-c7/ppgilM7DI4Ise2lUEpKPuCvSG0LUVZlwgm8bstT0=";
     fetchSubmodules = true;
   };
 
