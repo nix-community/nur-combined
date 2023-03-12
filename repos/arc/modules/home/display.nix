@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }: with lib; let
   hconfig = config;
   displayType = { name, config, ... }: {
-    imports = singleton ../misc/display.nix;
+    imports = [ ../misc/display.nix ];
 
     options = {
       dynamic = {

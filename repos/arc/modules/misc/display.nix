@@ -216,7 +216,12 @@ in {
     };
 
     monitors = mkOption {
-      type = types.attrsOf (types.submodule monitorType);
+      type = types.attrsOf (types.submoduleWith {
+        modules = [ monitorType ];
+        specialArgs = {
+          inherit (config) monitors;
+        };
+      });
     };
 
     nvidia = {
