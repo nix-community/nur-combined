@@ -19,15 +19,27 @@
     };
     config = {
       enable = mkDefault true;
-      dynamic = {
+      dynamic = let
+        nvidia-args = {
+          assign = "CurrentMetaMode=${config.nvidia.metaModes}";
+        };
+        displayset-nvidia = pkgs.writeShellScript "displayset-${name}-nvidia" ''
+          nvidia-settings ${cli.toGNUCommandLineShell { } nvidia-args}
+          ${config.dynamic.postLayout}
+        '';
+        xrandr-args = {
+
+        };
+        displayset-xrandr = pkgs.writeShellScript "displayset-${name}-xrandr" ''
+          xrandr ${escapeShellArgs config.xserver.xrandr.args}
+          ${config.dynamic.postLayout}
+        '';
+      in {
         postLayout = mkIf hconfig.services.polybar.enable ''
           ${hconfig.systemd.package or pkgs.systemd}/bin/systemctl --user restart polybar.service
         ''; # monitor count might change, also polybar tray can break on bar movement
-        nvidia = mkOptionDefault (pkgs.writeShellScript "displayset-${name}-nvidia" ''
-          nvidia-settings --assign CurrentMetaMode=${escapeShellArg config.nvidia.metaModes}
-          ${config.dynamic.postLayout}
-        '');
-        xrandr = throw "xrandr layout unimplemented";
+        nvidia = mkOptionDefault displayset-nvidia;
+        xrandr = mkOptionDefault displayset-xrandr;
       };
     };
   };

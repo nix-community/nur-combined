@@ -130,6 +130,15 @@
             EndSection
           '';
         };
+        xrandr = {
+          flags = mkOption {
+            type = with types; attrsOf (oneOf [ str bool ]);
+          };
+          args = mkOption {
+            type = types.listOf types.str;
+            default = cli.toGNUCommandLine { } config.xserver.xrandr.flags;
+          };
+        };
       };
       viewport = {
         width = mkOption {
@@ -202,6 +211,14 @@
           Rotate = mkIf (config.rotation != "normal") config.rotation;
         };
         monitorSection = mkMerge (mapAttrsToList (k: v: ''Option "${k}" ${xvalue v}'') config.xserver.options);
+        xrandr.flags = {
+          mode = "${toString config.width}x${toString config.height}";
+          pos = "${toString config.x}x${toString config.y}";
+          ${if config.refreshRate != null then "refresh" else null} = toString config.refreshRate;
+          ${if config.primary then "primary" else null} = true;
+          ${if !config.enable then "off" else null} = true;
+          ${if config.rotation != "normal" then "rotate" else null} = config.rotation;
+        };
       };
     };
   };
@@ -261,6 +278,11 @@ in {
         type = types.lines;
         default = "";
       };
+      xrandr = {
+        args = mkOption {
+          type = types.listOf types.str;
+        };
+      };
     };
   };
   config = {
@@ -286,6 +308,10 @@ in {
         Option "OffTime" "${toString config.dpms.standbyMinutes}"
         Option "BlankTime" "${toString config.dpms.screensaverMinutes}"
       '';
+      xrandr.args = mkAfter (flip concatMap (attrValues config.monitors) (mon:
+        [ "--output" mon.output ]
+        ++ (if mon.enable then mon.xserver.xrandr.args else [ "--off" ])
+      ));
     };
   };
 }
