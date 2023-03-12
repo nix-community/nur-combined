@@ -354,6 +354,7 @@ lib.makeScope newScope (
     telnetpp = callPackage ./misc/telnetpp { };
     tinyflux = callPackage ./misc/tinyflux { };
     tlstunnel = callPackage ./misc/tlstunnel { };
+    wik = callPackage ./misc/wik { };
     worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
