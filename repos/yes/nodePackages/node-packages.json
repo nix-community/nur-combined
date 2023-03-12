@@ -1,5 +1,8 @@
 [
     "aria2b",
     "magireco-cn-local-server",
-    {"shadowsocks-ws": "git+https://github.com/totravel/shadowsocks-ws.git"}
+
+    {"shadowsocks-ws": "git+https://github.com/totravel/shadowsocks-ws.git"},
+    "express",
+    "http-proxy-middleware"
 ]
