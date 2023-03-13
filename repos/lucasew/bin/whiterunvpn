@@ -1,0 +1,4 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p sshuttle
+
+sshuttle --dns -vr 192.168.69.1 -x 192.168.69.0/24 0/0 --python /usr/libexec/platform-python

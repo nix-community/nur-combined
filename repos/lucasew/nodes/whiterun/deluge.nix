@@ -28,6 +28,17 @@ in lib.mkIf config.services.deluge.enable {
     before = [ "flood.service" "deluged.service" ];
   };
 
+  systemd.tmpfiles.rules = [
+    "L+       /var/lib/deluge/.config/deluge/auth  -  -  -  - /var/run/secrets.d/deluge-credentials"
+    "L+       /var/lib/deluge/.bashrc 444 deluge deluge - ${builtins.toFile "bashrc" ''
+      . /var/run/secrets.d/deluge-credentials.env
+      function deluge-cli {
+        deluge-console -U "$_user" -P "$_passwd" "$@"
+      }
+    ''}"
+  ];
+
+
   systemd.services.flood = {
     requires = [ "deluged.service" ];
     wantedBy = [ "multi-user.target" ];
