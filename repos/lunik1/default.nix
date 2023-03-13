@@ -12,5 +12,6 @@
   quality-menu = pkgs.callPackage ./pkgs/mpv-scripts/quality-menu { };
   ssim-downscaler = pkgs.callPackage ./pkgs/mpv-shaders/ssim-downscaler { };
   ssim-super-res = pkgs.callPackage ./pkgs/mpv-shaders/ssim-super-res { };
+  thumbfast = pkgs.callPackage ./pkgs/mpv-scripts/thumbfast { };
   xcompose = pkgs.callPackage ./pkgs/xcompose { };
 }
