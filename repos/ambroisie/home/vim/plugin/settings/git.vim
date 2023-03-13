@@ -3,9 +3,6 @@ local gitsigns = require('gitsigns')
 local wk = require("which-key")
 
 gitsigns.setup({
-    -- I dislike the full-green sign column when this happens
-    attach_to_untracked = false,
-
     current_line_blame_opts = {
         -- Show the blame quickly
         delay = 100,
