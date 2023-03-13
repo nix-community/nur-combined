@@ -6,7 +6,7 @@ GEM
     adsf (1.4.6)
       rack (>= 1.0.0, < 3.0.0)
     colored (1.2)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     cri (2.15.11)
     ddmetrics (1.0.1)
     ddplugin (1.0.3)
@@ -56,7 +56,7 @@ GEM
     psych (4.0.6)
       stringio
     public_suffix (5.0.1)
-    rack (2.2.6.2)
+    rack (2.2.6.4)
     rexml (3.2.5)
     slow_enumerator_tools (1.1.0)
     stringio (3.0.5)
