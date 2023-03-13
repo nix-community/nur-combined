@@ -27,6 +27,9 @@ lib.makeScope newScope (
 
     amethyst-bin = callPackage ./darwin/amethyst/bin.nix { };
     cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
+    finch = callPackage ./darwin/finch {
+      buildGoModule = pkgs.buildGo120Module;
+    };
     macpass-bin = callPackage ./darwin/macpass/bin.nix { };
     marta-bin = callPackage ./darwin/marta { };
     pinentry-touchid = callPackage ./darwin/pinentry-touchid {
