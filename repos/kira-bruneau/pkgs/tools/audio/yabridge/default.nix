@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , substituteAll
 , pkgsi686Linux
-, fetchpatch
 , dbus
 , meson
 , ninja
@@ -34,8 +33,8 @@ let
   clap = fetchFromGitHub {
     owner = "free-audio";
     repo = "clap";
-    rev = "1.1.4";
-    sha256 = "sha256-3zDvzC3Hs4OmT2qvaDa69rmBkHoQ8qY9TZlsPxsJA40=";
+    rev = "refs/tags/1.1.7";
+    sha256 = "sha256-WcMTxE+QCzlp4lhFdghZI8UI/5mdVeRvrl24Xynd0qk=";
   };
 
   # Derived from subprojects/function2.wrap
@@ -58,8 +57,8 @@ let
   tomlplusplus = fetchFromGitHub {
     owner = "marzer";
     repo = "tomlplusplus";
-    rev = "refs/tags/v3.0.1";
-    sha256 = "sha256-l8ckbCqjz3GUfwStcl3H2C+un5dZfT2uLtayvdu93D4=";
+    rev = "refs/tags/v3.3.0";
+    sha256 = "sha256-INX8TOEumz4B5coSxhiV7opc3rYJuQXT2k1BJ3Aje1M=";
   };
 
   # Derived from vst3.wrap
@@ -73,14 +72,14 @@ let
 in
 multiStdenv.mkDerivation (finalAttrs: {
   pname = "yabridge";
-  version = "5.0.3";
+  version = "5.0.4";
 
   # NOTE: Also update yabridgectl's cargoHash when this is updated
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = "yabridge";
     rev = "refs/tags/${finalAttrs.version}";
-    sha256 = "sha256-T3BU77BbVr6vlVoijUQy86eF0lCgM4S4d5VSnLE4pas=";
+    sha256 = "sha256-15WTCXMvghoU5TkE8yuQJrxj9cwVjczDKGKWjoUS6SI=";
   };
 
   # Unpack subproject sources
@@ -105,14 +104,6 @@ multiStdenv.mkDerivation (finalAttrs: {
 
     # Patch the chainloader to search for libyabridge through NIX_PROFILES
     ./libyabridge-from-nix-profiles.patch
-
-    # Remove with next yabridge update
-   (fetchpatch {
-      name = "fix-for-wine-8.0.patch";
-      url = "https://github.com/robbert-vdh/yabridge/commit/29acd40a9add635e2cb40ecc54c88d65604a7a2a.patch";
-      sha256 = "sha256-hVxa/FqH7d938Z/VjHdhmYLCLPZoa9C4xKSKRKiVPSU=";
-      includes = [ "meson.build" ];
-    })
   ];
 
   postPatch = ''

@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage {
 
   src = yabridge.src;
   sourceRoot = "source/tools/yabridgectl";
-  cargoSha256 = "sha256-X7YcIjKLzuts7d9VD6hLFCiEBrY4opi8nInjPs9jAh0=";
+  cargoSha256 = "sha256-qr6obmabcO3n+DxMxkj3mbpzR/Wn6eOg2J99/FarMVs=";
 
   patches = [
     # Patch yabridgectl to search for the chainloader through NIX_PROFILES

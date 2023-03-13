@@ -13,6 +13,7 @@
 , pytest-xdist
 , pytestCheckHook
 , requests
+, llvmPackages
 }:
 
 buildPythonPackage rec {
@@ -30,12 +31,6 @@ buildPythonPackage rec {
   };
 
   patches = [
-    # Hard code GDB path (used to attach to process)
-    (substituteAll {
-      src = ./hardcode-gdb.patch;
-      inherit gdb;
-    })
-
     # Use nixpkgs version instead of versioneer
     (substituteAll {
       src = ./hardcode-version.patch;
@@ -51,6 +46,18 @@ buildPythonPackage rec {
     # To avoid this issue, debugpy should be installed using python.withPackages:
     # python.withPackages (ps: with ps; [ debugpy ])
     ./fix-test-pythonpath.patch
+  ] ++ lib.optionals stdenv.isLinux [
+    # Hard code GDB path (used to attach to process)
+    (substituteAll {
+      src = ./hardcode-gdb.patch;
+      inherit gdb;
+    })
+  ] ++ lib.optionals stdenv.isDarwin [
+    # Hard code LLDB path (used to attach to process)
+    (substituteAll {
+      src = ./hardcode-lldb.patch;
+      inherit (llvmPackages) lldb;
+    })
   ];
 
   # Remove pre-compiled "attach" libraries and recompile for host platform
@@ -108,8 +115,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin" "i686-darwin" "aarch64-darwin" ];
-
-    # gdb is not available for aarch64-darwin
-    badPlatforms = [ "aarch64-darwin" ];
   };
 }
