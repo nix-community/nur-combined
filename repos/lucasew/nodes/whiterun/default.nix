@@ -18,6 +18,7 @@ in {
     ./plymouth.nix
     ./rocm-gambiarra.nix
     ./transmission.nix
+    ./deluge.nix
     ./dlna.nix
     ./zfs.nix
     ./postgresql.nix
@@ -38,6 +39,8 @@ in {
     package = pkgs.nextcloud24;
     enable = true;
   };
+
+  services.deluge.enable = true;
 
   services.cockpit.enable = true;
 
