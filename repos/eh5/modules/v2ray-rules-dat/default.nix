@@ -5,6 +5,7 @@ let
   downloadDatCmd = name: url: ''
     ${pkgs.curl}/bin/curl -sL -o '${cfg.dataDir}/${name}' '${url}'
   '';
+  datUrl = name: "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/${name}";
 in
 {
   options.services.v2ray-rules-dat = {
@@ -18,8 +19,13 @@ in
       default = {
         # "geoip.dat" = "https://github.com/v2fly/geoip/releases/latest/download/geoip.dat";
         # "geosite.dat" = "https://github.com/v2fly/domain-list-community/releases/latest/download/dlc.dat";
-        "geoip.dat" = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat";
-        "geosite.dat" = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat";
+        "geoip.dat" = datUrl "geoip.dat";
+        "geosite.dat" = datUrl "geosite.dat";
+        "direct-list.txt" = datUrl "direct-list.txt";
+        "proxy-list.txt" = datUrl "proxy-list.txt";
+        "reject-list.txt" = datUrl "reject-list.txt";
+        "oisd_small_abp.txt" = "https://small.oisd.nl/";
+        "cn.txt" = "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/text/cn.txt";
       };
     };
     dates = mkOption {

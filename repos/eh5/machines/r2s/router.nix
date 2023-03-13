@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }: {
   networking.nftables = {
     enable = true;
+    checkRuleset = false;
     rulesetFile = ./files/nftables.nft;
   };
   networking.enableNftablesFullcone = true;
@@ -30,24 +31,17 @@
 
   # slient redis
   boot.kernel.sysctl."vm.overcommit_memory" = 1;
-  services.redis.servers.mosdns = {
-    enable = true;
-    port = 0;
-    unixSocket = "/run/redis-mosdns/redis.sock";
-  };
 
   services.mosdns = {
     enable = true;
-    package = pkgs.mosdns.override {
-      assetsDir = config.services.v2ray-rules-dat.dataDir;
-    };
     configFile = config.sops.secrets.mosdnsConfig.path;
   };
-  sops.secrets.mosdnsConfig.restartUnits = [ "mosdns.service" ];
-
   systemd.services.mosdns = {
-    wants = [ "redis-mosdns.service" ];
-    after = [ "redis-mosdns.service" ];
+    preStart = ''
+      mkdir -p /var/lib/mosdns
+    '';
   };
+
+  sops.secrets.mosdnsConfig.restartUnits = [ "mosdns.service" ];
   services.v2ray-rules-dat.reloadServices = [ "mosdns.service" ];
 }
