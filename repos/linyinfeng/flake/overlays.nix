@@ -13,8 +13,8 @@
     };
   };
 
-  perSystem = { self', ... }:
+  perSystem = { config, ... }:
     {
-      overlayAttrs.linyinfeng = lib.recurseIntoAttrs self'.legacyPackages;
+      overlayAttrs.linyinfeng = lib.recurseIntoAttrs config.legacyPackages;
     };
 }
