@@ -17,7 +17,7 @@ jobs:
         # The repo name as used in
         # https://github.com/nix-community/NUR/blob/master/repos.json
         nurRepo:
-          - 'PascalThesing'
+          - 'pascalthesing'
         # Set this to cache your build results in cachix for faster builds
         # in CI and for everyone who uses your cache.
         #
@@ -29,7 +29,7 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - PascalThesing
+          - pascalthesing
         nixPath:
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
