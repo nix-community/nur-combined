@@ -16,8 +16,8 @@
             "url": "https://gricad-gitlab.univ-grenoble-alpes.fr/Projets-INFO4/18-19/19/code"
         },
         "JayRovacsek": {
-            "rev": "ac84876e6df3bd10bd957908785f1f8a308213dd",
-            "sha256": "0cz33qxa257khypd2gvvplknh208bwnzg1w2jbp9qvxjn25aq1y0",
+            "rev": "b443bd61ab6982db9826350467ab0eb8aa47e134",
+            "sha256": "1zhgd68bny96ywn3f3zfhm2112agl9b10aslxidkamwajqkcfdsy",
             "url": "https://github.com/JayRovacsek/nix-config"
         },
         "ProducerMatt": {
@@ -585,8 +585,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "e4d438f0cdb9ff80de2dc0dd0392f53da0c6edfa",
-            "sha256": "167fdqvkljkcgksicv8mgvk0ckq4gz5pylv9ya97ifhvajq73imj",
+            "rev": "c392477c913a8b9465ea734fbc296554eb1f084b",
+            "sha256": "1m8cqh4g9h0swldiz5qa59wpmjvfvrpj6hfsmhbcp69ivqqral9r",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
