@@ -89,7 +89,7 @@ jobs:
           && (
             (matrix.item == 'pkgs/mozilla-langpack')
           )
-        uses: peter-evans/enable-pull-request-automerge@v2.3.0
+        uses: peter-evans/enable-pull-request-automerge@v2.5.0
         with:
           token: ${{ steps.token.outputs.token }}
           pull-request-number: ${{ steps.pr.outputs.pull-request-number }}
