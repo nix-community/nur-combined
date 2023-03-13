@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   mysql57 = pkgs.callPackage ./pkgs/mysql {
-      boost = pkgs.boost159;
+      boost = pkgs.callPackage ./pkgs/boost/1.59.nix {};
       protobuf = pkgs.callPackage ./pkgs/protobuf {};
       openssl = pkgs.openssl_1_1;
   };
