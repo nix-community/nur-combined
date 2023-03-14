@@ -1,12 +1,6 @@
 { lib
-, runCommand
 , buildGoModule
 , fetchFromGitHub
-, makeBinaryWrapper
-, symlinkJoin
-, v2ray-geoip
-, v2ray-domain-list-community
-, sources
 }:
 buildGoModule rec {
   pname = "mosdns";

@@ -1,6 +1,7 @@
 let
   modules = {
     fake-hwclock = import ./fake-hwclock;
+    hev-socks5-tproxy = import ./hev-socks5-tproxy;
     mosdns = import ./mosdns;
     nftables-fullcone = import ./nftables-fullcone;
     stalwart-jmap = import ./stalwart-jmap;

@@ -10,6 +10,7 @@ let
   self_base = {
     dovecot-fts-flatcurve = callPackage ./dovecot-fts-flatcurve { };
     fake-hwclock = callPackage ./fake-hwclock { };
+    hev-socks5-tproxy = callPackage ./hev-socks5-tproxy { };
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo119Module; };
     netease-cloud-music = callPackage ./netease-cloud-music { };
@@ -21,7 +22,7 @@ let
     stalwart-imap = callPackage ./stalwart-imap { };
     stalwart-jmap = callPackage ./stalwart-jmap { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
-    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo119Module; };
+    v2ray-next = callPackage ./v2ray-next { buildGoModule = pkgs.buildGo120Module; };
     vlmcsd = callPackage ./vlmcsd { };
   };
   self_extra = lib.optionalAttrs

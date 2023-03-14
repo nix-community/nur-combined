@@ -22,15 +22,15 @@ let
 
   core = buildGoModule rec {
     pname = "v2ray";
-    version = "v5.3.0";
+    version = "v5.4.0";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "v2ray-core";
       rev = version;
       fetchSubmodules = false;
-      sha256 = "sha256-LLvAoPA3rLGfhrWD37OVyWd4tC9mwgpE1WjK2pY27xU=";
+      sha256 = "sha256-dgWpfpJiPYQmVg7CHRE8f9hX5vgC2TuLpTfMAksDurs=";
     });
-    vendorSha256 = "sha256-xBNVyPN9PRkraPRzZXOguGemYPm+Jw8hl04vWV8TZaA=";
+    vendorSha256 = "sha256-BEMdh1zQdjVEu0GJt6KJyWN5P9cUHfs04iNZWxzZ0Yo=";
 
     doCheck = false;
 
