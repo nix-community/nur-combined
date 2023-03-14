@@ -35,6 +35,7 @@ in
       pick = "log -p -G";
       push-new = "!git push -u origin "
         + ''"$(git branch | grep '^* ' | cut -f2- -d' ')"'';
+      root = "git rev-parse --show-toplevel";
     };
 
     lfs.enable = true;
