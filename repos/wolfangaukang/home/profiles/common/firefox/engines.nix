@@ -2,6 +2,7 @@
   default = "MetaGer";
   enginesSet = {
     # TODO: Separate this into categories
+    # Search engines
     "Searx (searx.work)" = {
       urls = [{
         template = "https://searx.work/search";
@@ -23,6 +24,10 @@
       }];
       definedAliases = [ "@metager" ];
     };
+    "Bing".metaData.hidden = true;
+    "Google".metaData.alias = "@g";
+    "DuckDuckGo".metaData.alias = "@ddg";
+    # Nix/NixOS
     "nixpkgs - Packages" = {
       urls = [{
         template = "https://search.nixos.org/packages";
@@ -45,6 +50,22 @@
       }];
       definedAliases = [ "@nixopts" ];
     };
+    "nixpkgs - Revisions" = {
+      urls = [{
+        template = "https://lazamar.co.uk/nix-versions";
+        params = [
+          # TODO: Consider channels
+          { name = "channel"; value = "nixpkgs-unstable"; }
+          { name = "package"; value = "{searchTerms}"; }
+        ];
+      }];
+      definedAliases = [ "@nixrev" ];
+    };
+    "nixpkgs - PR Tracker" = {
+      urls = [{ template = "https:///nixpk.gs/pr-tracker.html?pr={searchTerms}"; }];
+      definedAliases = [ "@nixpr" ];
+    };
+    # Code related
     "Sourcegraph" = {
       urls = [{
         template = "https://sourcegraph.com/search";
@@ -56,28 +77,25 @@
       }];
       definedAliases = [ "@source" "@sourcegraph" ];
     };
-    "Piped (piped.mha.fi)" = {
-      urls = [{ template = "https://piped.mha.fi/results?search_query={searchTerms}"; }];
-      definedAliases = [ "@piped" ];
+    "GitHub" = {
+      urls = [{ template = "https://github.com/search?q={searchTerms}"; }];
+      definedAliases = [ "@gh" "@github" ];
     };
-    "Metal Archives - Bands" = {
-      urls = [{
-        template = "https://www.metal-archives.com/search";
-        params = [
-          { name = "type"; value = "band_name"; }
-          { name = "searchString"; value = "{searchTerms}"; }
-        ];
-      }];
-      definedAliases = [ "@metal" "@metalarchives" ];
-    };
+    # Music/Videos
     "Bandcamp" = {
       urls = [{ template = "https://bandcamp.com/search?q={searchTerms}"; }];
       definedAliases = [ "@band" "@bandcamp" ];
     };
+    "Piped (piped.mha.fi)" = {
+      urls = [{ template = "https://piped.mha.fi/results?search_query={searchTerms}"; }];
+      definedAliases = [ "@piped" ];
+    };
+    # Maps
     "Google Maps" = {
       urls = [{ template = "https://www.google.com/maps?&q={searchTerms}"; }];
       definedAliases = [ "@maps" "@gmaps" "@googlemaps" ];
     };
+    # Dictionaries
     "Merriam-Webster" = {
       urls = [{ template = "https://www.merriam-webster.com/dictionary/{searchTerms}"; }];
       definedAliases = [ "@mw" "@merriamwebster" "@en" "@english" ];
@@ -90,8 +108,16 @@
       urls = [{ template = "https://dle.rae.es/{searchTerms}"; }];
       definedAliases = [ "@rae" "@es" "@espanol" ];
     };
-    "Bing".metaData.hidden = true;
-    "Google".metaData.alias = "@g";
-    "DuckDuckGo".metaData.alias = "@ddg";
+    # Other
+    "metal archives - bands" = {
+      urls = [{
+        template = "https://www.metal-archives.com/search";
+        params = [
+          { name = "type"; value = "band_name"; }
+          { name = "searchstring"; value = "{searchterms}"; }
+        ];
+      }];
+      definedaliases = [ "@metal" "@metalarchives" ];
+    };
   };
 }

@@ -2,7 +2,7 @@
 
 let
   inherit (inputs.nixpkgs.lib) genAttrs mapAttrsToList optionals systems;
-  #pkgs_systems = systems.flakeExposed; 
+  #pkgs_systems = systems.flakeExposed;
   pkgs_systems = [ "x86_64-linux" ];
 
 in

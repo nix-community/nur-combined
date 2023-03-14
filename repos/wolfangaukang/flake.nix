@@ -26,6 +26,10 @@
       url = "git+https://codeberg.org/wolfangaukang/dotfiles?ref=main";
       flake = false;
     };
+
+    # Temporary
+    # Remove this one after PR 3675 from home-manager is merged
+    hm-firejail.url = "github:VAWVAW/home-manager/firejail";
   };
 
   outputs = { self, nixos, nixos-stable, nixpkgs, nixos-hardware, nixos-wsl, nixgl, nur, utils, ... }@inputs:

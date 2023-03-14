@@ -10,16 +10,6 @@ let
   cfg = config.defaultajAgordoj.gui;
   bcfg = cfg.browsers;
 
-  defaultPkgs = with pkgs; [
-    calibre
-    keepassxc
-    libreoffice
-    raven-reader
-    sigil
-    thunderbird
-    vlc
-  ];
-
   mimelist = {
     "application/xml" = "neovim.desktop";
     "application/x-perl" = "neovim.desktop";
@@ -92,7 +82,7 @@ in {
           description = ''
             Chromium browser to use.
           '';
-        }; 
+        };
       };
     };
     extraPkgs = mkOption {
@@ -106,7 +96,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      home.packages = defaultPkgs ++ cfg.extraPkgs;
+      home.packages = cfg.extraPkgs;
       programs.feh.enable = true;
       xdg.mimeApps = {
         enable = cfg.enableMimeapps;

@@ -21,4 +21,6 @@ in {
     "${self}/system/profiles/users.nix"
     (import "${self}/system/profiles/services/openssh.nix" { inherit inputs hostname; })
   ];
+
+  programs.firejail.enable = true;
 }

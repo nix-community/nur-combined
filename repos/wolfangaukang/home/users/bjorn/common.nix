@@ -12,6 +12,7 @@ in
     "${self}/home/profiles/programs/syncthing.nix"
     "${self}/home/profiles/programs/shells/zsh.nix"
     "${self}/home/profiles/programs/nixos/alacritty.nix"
+    "${inputs.hm-firejail}/modules/programs/firejail.nix"
   ];
 
   home = {
@@ -41,13 +42,38 @@ in
 
   # Personal Settings
   defaultajAgordoj = {
-    cli.enable = true;
+    cli = {
+      enable = true;
+      extraPkgs = with pkgs; [ tree p7zip ];
+    };
     gui = {
       enable = true;
       browsers.chromium.enable = true;
-      extraPkgs = with pkgs; [ discord spotify ];
+      extraPkgs = with pkgs; [
+        calibre
+        keepassxc
+        libreoffice
+        raven-reader
+        sigil
+        thunderbird
+        vlc
+      ];
     };
-    dev.enable = true;
+    dev = {
+      enable = true;
+      extraPkgs = with pkgs; [ shellcheck ];
+    };
+  };
+
+  programs.firejail.wrappedBinaries = {
+    spotify =
+      let
+        path = "${lib.getBin pkgs.spotify}";
+      in
+      {
+        executable = "${path}/bin/spotify";
+        desktop = "${path}/share/applications/spotify.desktop";
+      };
   };
 
   programs = {

@@ -4,7 +4,6 @@ let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   inherit (inputs) self;
   cfg = config.defaultajAgordoj.cli;
-  defaultPkgs = with pkgs; [ tree p7zip ];
 
 in
 {
@@ -34,7 +33,7 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      home.packages = defaultPkgs ++ cfg.extraPkgs;
+      home.packages = cfg.extraPkgs;
     }
     (mkIf cfg.enableTmux (import "${self}/home/profiles/programs/tmux.nix" { inherit pkgs; }))
     (import "${self}/home/profiles/programs/git.nix" { })

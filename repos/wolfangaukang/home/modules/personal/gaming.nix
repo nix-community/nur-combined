@@ -11,7 +11,7 @@ in
       default = false;
       type = types.bool;
       description = ''
-        Enables gaming profile on Home-Manager 
+        Enables gaming profile on Home-Manager
       '';
     };
     enableProtontricks = mkOption {
@@ -26,7 +26,7 @@ in
         default = false;
         type = types.bool;
         description = ''
-          Enables Retroarch 
+          Enables Retroarch
         '';
       };
       package = mkOption {
@@ -40,7 +40,7 @@ in
         default = [];
         type = types.listOf types.package;
         description = ''
-          Cores to load on Retroarch (recommended when using bare or normal) 
+          Cores to load on Retroarch (recommended when using bare or normal)
         '';
       };
     };
@@ -48,11 +48,11 @@ in
       default = [];
       type = types.listOf types.package;
       description = ''
-        List of extra packages to install 
+        List of extra packages to install
       '';
     };
   };
-  
+
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.enableProtontricks {
       home.packages = with pkgs; [ protontricks winetricks ];
@@ -72,7 +72,7 @@ in
       })
     ]))
     {
-      home.packages = cfg.extraPkgs; 
+      home.packages = cfg.extraPkgs;
     }
   ]);
 

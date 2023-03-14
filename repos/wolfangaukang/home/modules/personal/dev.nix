@@ -3,7 +3,6 @@
 let
   inherit (lib) maintainers types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.dev;
-  defaultPkgs = with pkgs; [ shellcheck ];
 
 in
 {
@@ -25,7 +24,7 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
-    { home.packages = defaultPkgs ++ cfg.extraPkgs; }
+    { home.packages = cfg.extraPkgs; }
     (import "${inputs.self}/home/profiles/programs/vscode.nix" { inherit pkgs; })
   ]);
 

@@ -43,6 +43,7 @@
   # Personal Settings
   defaultajAgordoj = {
     gui.extraPkgs = with pkgs; [
+      discord
       gimp
       musescore
       qbittorrent
