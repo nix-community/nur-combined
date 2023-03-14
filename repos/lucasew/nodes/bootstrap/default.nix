@@ -4,7 +4,6 @@ let
   inherit (global) username;
 in {
   imports = [
-    ./flake-etc.nix
     ./systemd-portd.nix
     ./nix.nix
     ./netns.nix

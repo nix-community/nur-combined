@@ -10,7 +10,11 @@
     , bumpkin
   }:
   let
-    defaultNixpkgs = unpackedInputs.nixpkgs.unstable;
+    defaultNixpkgs = unpackedInputs.nixpkgs.unstable.overrideAttrs (old: {
+      patches = [
+        (inputs.nixpkgs.prs.bump-cockpit)
+      ];
+    });
 
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs;
 

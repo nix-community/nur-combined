@@ -22,7 +22,10 @@
         "unstable-small": {"_type": "basicgithub", "owner": "NixOS", "repo": "nixpkgs", "ref": "nixos-unstable-small"},
         "unstable": {"_type": "basicgithub", "owner": "NixOS", "repo": "nixpkgs", "ref": "nixos-unstable"},
         "stable": {"_type": "basicgithub", "owner": "NixOS", "repo": "nixpkgs", "ref": "nixos-22.11"},
-        "lib": {"_type": "basicgithub", "owner": "nix-community", "repo": "nixpkgs.lib"}
+        "lib": {"_type": "basicgithub", "owner": "nix-community", "repo": "nixpkgs.lib"},
+        "prs": {
+            "bump-cockpit": {"_type": "basichttp", "url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/221188.patch", "rehash_if_same_url": true}
+        }
     },
     "pocket2kindle": {"_type": "basicgithub", "owner": "lucasew", "repo": "pocket2kindle"},
     "pollymc": {"_type": "basicgithub", "owner": "fn2006", "repo": "pollymc"},
