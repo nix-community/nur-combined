@@ -1,11 +1,3 @@
-[an-anime-game-launcher-bin]
-src.github = "an-anime-team/an-anime-game-launcher"
-fetch.url = "https://github.com/an-anime-team/an-anime-game-launcher/releases/download/$ver/an-anime-game-launcher-$ver.AppImage"
-
-[an-anime-game-launcher-gtk-bin]
-src.github = "an-anime-team/an-anime-game-launcher-gtk"
-fetch.url = "https://github.com/an-anime-team/an-anime-game-launcher-gtk/releases/download/$ver/anime-game-launcher"
-
 [asterisk-alaw16]
 src.git = "https://github.com/traud/asterisk-alaw16.git"
 fetch.github = "traud/asterisk-alaw16"
@@ -277,6 +269,10 @@ fetch.github = "xddxdd/route-chain"
 [stream-echo-nginx-module]
 src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
 fetch.github = "openresty/stream-echo-nginx-module"
+
+[transmission-web-control]
+src.git = "https://github.com/ronggang/transmission-web-control.git"
+fetch.github = "ronggang/transmission-web-control"
 
 [vs-rife]
 src.github = "HolyWu/vs-rife"

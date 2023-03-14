@@ -69,12 +69,10 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (66 packages)</summary>
+<summary>Package set: (Uncategorized) (65 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
-|  | [an-anime-game-launcher-bin](https://github.com/an-anime-team/an-anime-game-launcher) |  | `an-anime-game-launcher-bin` | (EXPERIMENTAL: Needs manual game patching) An Anime Game launcher for Linux with automatic patching fixing detection of Linux/Wine and telemetry disabling |
-|  | [an-anime-game-launcher-gtk-bin](https://github.com/an-anime-team/an-anime-game-launcher-gtk) | 1.2.5 | `an-anime-game-launcher-gtk-bin` | (EXPERIMENTAL: Needs manual game patching) An Anime Game Launcher variant written on Rust, GTK4 and libadwaita, using Anime Game Core library |
 |  | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 3855cec2ef2667f3e9224006dbaf179575752218 | `asterisk-g72x` | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | v3.9.0 | `baidupcs-go` | iikira/BaiduPCS-Go 原版基础上集成了分享链接/秒传链接转存功能 |
 |  | [bilibili](https://app.bilibili.com/) | 1.9.1-3 | `bilibili` | Bilibili desktop client |
@@ -94,21 +92,22 @@ Or, use variables from this repository in case I change them:
 |  | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | v1.2.0 | `drone-vault` | Drone plugin for integrating with the Vault secrets manager |
 |  | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 7775441e24d68b191fd285d851e58713bead8bc5 | `etherguard` | Layer2 version of wireguard with Floyd Warshall implement in go |
 |  | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | `fcitx5-breeze` | Fcitx5 theme to match KDE's Breeze style |
-|  | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.0.2 | `flaresolverr` | Proxy server to bypass Cloudflare protection |
+|  | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | v3.0.4 | `flaresolverr` | Proxy server to bypass Cloudflare protection |
 |  | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | `flasgger` | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | `ftp-proxy` | ftp.proxy - FTP Proxy Server |
 |  | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | b9e36543bfe5b042e015463e5d0398cd234cba90 | `genshin-checkin-helper` | More than check-in for Genshin Impact. |
 |  | [genshinhelper2](https://gitlab.com/y1ndan/genshinhelper2) | e786dedd153fb551baded7ee77d7eefa909555f7 | `genshinhelper2` | A Python library for miHoYo bbs and HoYoLAB Community. |
 |  | [glauth](https://github.com/glauth/glauth) | v2.2.0-RC1 | `glauth` | A lightweight LDAP server for development, home use, or CI |
+|  | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.9285 | `google-earth-pro` | A world sphere viewer |
 |  | [gopherus](http://gopherus.sourceforge.net/) | 1.2.1 | `gopherus` | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace. |
 |  | [hath](https://e-hentai.org/) | 1.6.1 | `hath` | Hentai@Home |
 |  | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | `hesuvi-hrir` | Headphone Surround Virtualizations for Equalizer APO |
-|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | b6fba2c10d565ea673f7f3352d9390b461f9425a | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
+|  | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 0d416974e563b1bfe2bc40af1d4c155df28521d8 | `hoyo-glyphs` | Constructed scripts by Hoyoverse 米哈游的架空文字  |
 |  | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | `kaixinsong-fonts` | KaiXinSong |
 |  | [konnect](https://github.com/Kopano-dev/konnect) | v0.34.0 | `konnect` | Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms. |
 |  | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 66a8236af574f554478fe376051b95f61235efc9 | `ldap-auth-proxy` | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.4 | `libnftnl-fullcone` | A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
-|  | [liboqs](https://openquantumsafe.org) | 92b84c47c9f21b0b6686d4116af5894d25d405cd | `liboqs` | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | [liboqs](https://openquantumsafe.org) | d61d81c526da8bb62e363f5a75191689572151cb | `liboqs` | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | [netboot-xyz](https://netboot.xyz/) | 2.0.67 | `netboot-xyz` | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | [netns-exec](https://github.com/pekman/netns-exec) | aa346fd058d47b238ae1b86250f414bcab2e7927 | `netns-exec` | Run command in Linux network namespace as normal user |
 |  | [nftables](https://netfilter.org/projects/nftables/) | 1.0.6 | `nftables-fullcone` | The project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
@@ -117,14 +116,14 @@ Or, use variables from this repository in case I change them:
 |  | [nvlax](https://github.com/illnyang/nvlax) | b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f | `nvlax` | Future-proof NvENC & NvFBC patcher |
 |  | [onepush](https://gitlab.com/y1ndan/onepush) | c7dd8c82e4eb74501d7e6bcf0c42d1caa0c0ffc2 | `onepush` | A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk. |
 |  | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | `openssl-oqs` | A cryptographic library that implements the SSL and TLS protocols |
-|  | [openssl-oqs-provider](https://openquantumsafe.org) | 09bbe099341dc6a526515a137113541e0a2c263b | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
+|  | [openssl-oqs-provider](https://openquantumsafe.org) | b7ff95a6f1b44630ff3d5248dde6508bc4ebf218 | `openssl-oqs-provider` | OpenSSL 3 provider containing post-quantum algorithms |
 |  | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.13 | `osdlyrics` | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
 |  | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.2.2 | `payload-dumper-go` | An android OTA payload dumper written in Go |
 |  | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | `phpmyadmin` | A web interface for MySQL and MariaDB |
 |  | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | v7.14.3-mod | `phppgadmin` | The premier web-based administration tool for PostgreSQL |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.2.10 | `qbittorrent-enhanced-edition` | Featureful free software BitTorrent client |
 |  | [qbittorrent-enhanced-edition](https://www.qbittorrent.org/) | release-4.5.2.10 | `qbittorrent-enhanced-edition-nox` | Featureful free software BitTorrent client |
-|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-4 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
+|  | [qemu-user-static](http://www.qemu.org/) | 7.2+dfsg-5 | `qemu-user-static` | A generic and open source machine emulator and virtualizer |
 |  | [qq](https://im.qq.com/linuxqq/index.html) | 3.1.0-9572 | `qq` | QQ for Linux |
 |  | [qqmusic](https://y.qq.com/) | 1.1.5 | `qqmusic` | Tencent QQ Music (Untested) |
 |  | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 122b46976401995cbafcfc748806985ff3a437a4 | `rime-aurora-pinyin` | 【极光拼音】输入方案 |
@@ -192,10 +191,10 @@ Or, use variables from this repository in case I change them:
 | ----- | ---- | ------- | ---- | ----------- |
 |  | [asterisk](https://www.asterisk.org/) | 20.1.0 | `lantianCustomized.asterisk` | Asterisk with Lan Tian modifications |
 |  | [coredns-lantian](https://github.com/xddxdd/coredns) | c02cd42067dffcb773ebd9cecd32691d0bafebd9 | `lantianCustomized.coredns` | CoreDNS with Lan Tian's modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
 </details>
@@ -205,16 +204,16 @@ Or, use variables from this repository in case I change them:
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.generic` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.generic-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v1` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v1-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v2` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v2-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v3` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v3-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v4` | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | [linux](https://www.kernel.org/) | 6.2.2-xanmod1 | `lantianLinuxXanmod.x86_64-v4-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.generic` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.generic-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v1` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v1-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v2` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v2-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v3` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v3-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v4` | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianLinuxXanmod.x86_64-v4-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 </details>
 
 <details>
