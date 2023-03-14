@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0buildid20230309.232128";
+      version = "112.0.20230313.211718";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4081502/francais_language_pack-111.0buildid20230309.232128.xpi";
-      sha256 = "f3470704611b2a39bf65f64b1d0e867084261fcb312a3c405a86164b195b167d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4083045/francais_language_pack-112.0.20230313.211718.xpi";
+      sha256 = "116fc59cadef8e51d866e63a54b22987e2abc9b57dcca075203481beff1b70db";
       meta = with lib;
       {
         description = "Français Language Pack";
@@ -1373,10 +1373,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.4";
+      version = "1.5.4.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077076/leechblock_ng-1.5.4.xpi";
-      sha256 = "e004e4c50757415d368d6659c17b6dd53a9352b0e80200e41cd7b17b90cd0717";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4081038/leechblock_ng-1.5.4.1.xpi";
+      sha256 = "62b748ee4bb6ff81f6f6212cfe55373039b45580986593725ea54036c8f1d6a8";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -2240,10 +2240,10 @@
       };
     "reduxdevtools" = buildFirefoxXpiAddon {
       pname = "reduxdevtools";
-      version = "2.17.1";
+      version = "3.0.19";
       addonId = "extension@redux.devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1509811/reduxdevtools-2.17.1.xpi";
-      sha256 = "649d780d19201b2607347c4f57b5b57b237624b2c0ed322af9575cf791cce326";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079806/reduxdevtools-3.0.19.xpi";
+      sha256 = "f4da621d3d226cd3dcd817230e4214ddbc2423221dc3ef4428341fd393d1f66f";
       meta = with lib;
       {
         homepage = "https://github.com/reduxjs/redux-devtools";
@@ -2350,10 +2350,10 @@
       };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "4.8";
+      version = "4.8.1";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077659/simple_tab_groups-4.8.xpi";
-      sha256 = "0a51426c85fd05b5aaf10e5c308a65ef2a5b07a8cb2131bb6d5a72eb1bb8af85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4081018/simple_tab_groups-4.8.1.xpi";
+      sha256 = "75b3d76608e20157e09d56d1912eb793abbfea13d170648208f05f238dd2c1a6";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
@@ -2532,10 +2532,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.26";
+      version = "1.5.30";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3995806/styl_us-1.5.26.xpi";
-      sha256 = "b30b14e9c4fa0c8d490d57e6b7d8afe6cc71e2f459b974b5c6fa2bfa32210294";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4075896/styl_us-1.5.30.xpi";
+      sha256 = "9a8b40ecfb4e19252ab5435c3cb5976d9c86a7c295e4eda8a64820838b56b9ea";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
