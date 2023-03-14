@@ -5,10 +5,11 @@ with lib;
 let
 
   cfg = config.programs.hostapd;
+  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
 
   escapedInterface = cfg: utils.escapeSystemdPath cfg.interface;
 
-  configFile = cfg: pkgs.writeText "hostapd.conf" ''
+  configFile = cfg: pkgs.writeText "hostapd.conf" (''
     interface=${cfg.interface}
     driver=${cfg.driver}
     ssid=${cfg.ssid}
@@ -33,7 +34,18 @@ let
     ${optionalString cfg.noScan "noscan=1"}
 
     ${cfg.extraConfig}
-  '' ;
+
+    ${cfg.extraCommonConfig}
+
+  '' + optionalString (cfg.bss != null) ''
+    bss=${cfg.bss.interface}
+    ssid=${cfg.bss.ssid}
+    ${optionalString cfg.wpa ''
+      wpa=2
+      wpa_passphrase=${cfg.bss.wpaPassphrase}
+    ''}
+    ${cfg.extraCommonConfig}
+  '');
 
   hostapd_sh = pkgs.writeScriptBin "hostapd.sh" (readFile ./hostapd.sh);
 
@@ -205,6 +217,16 @@ in
         description = "Extra configuration options to put in hostapd.conf.";
       };
 
+      extraCommonConfig = mkOption {
+        default = "";
+        type = types.lines;
+      };
+
+      bss = mkOption {
+        default = null;
+        type = with types; nullOr attrs;
+      };
+
         };
       });
     };
@@ -221,9 +243,9 @@ in
 
     hardware.wirelessRegulatoryDatabase = mkDefault (filterAttrs (n: v: v.countryCode != null) cfg.hostapds != {});
 
-    systemd.services = mapAttrs' (name: value: nameValuePair ("hostapd-" + name) (
-      { description = "hostapd ${name} wireless AP";
-
+    systemd.services = concatMapAttrs (name: value: ({
+      "hostapd-${name}" = {
+        description = "hostapd ${name} wireless AP";
         path = [ pkgs.hostapd ];
         after = [ "sys-subsystem-net-devices-${escapedInterface value}.device" ];
         bindsTo = [ "sys-subsystem-net-devices-${escapedInterface value}.device" ];
@@ -234,7 +256,24 @@ in
           { ExecStart = "${pkgs.hostapd}/bin/hostapd ${configFile value}";
             Restart = "always";
           };
-      }
-    )) cfg.hostapds;
+       };
+    } // optionalAttrs (value.bss != null) {
+      "hostapd-bss-${name}" = {
+        after = [ "sys-subsystem-net-devices-${value.bss.interface}.device" ];
+        bindsTo = [ "sys-subsystem-net-devices-${value.bss.interface}.device" ];
+        wantedBy = [ "sys-subsystem-net-devices-${value.bss.interface}.device" ];
+        path = with pkgs; [ iproute2 ];
+        serviceConfig = {
+          RemainAfterExit = true;
+          ExecStart = pkgs.writeShellScript "bss-start" ''
+            ip addr add ${ip4.toCIDR value.bss.address} dev ${value.bss.interface}
+          '';
+          ExecStop = pkgs.writeShellScript "bss-stop" ''
+          '';
+        };
+      };
+    })
+    ) cfg.hostapds;
+
   };
 }
