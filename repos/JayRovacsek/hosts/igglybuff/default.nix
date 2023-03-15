@@ -1,12 +1,25 @@
 { config, pkgs, lib, flake, ... }:
 let
-  tailscaleKey = import ../shared/tailscale-identity-key.nix;
-  readOnlySharedStore = import ../shared/read-only-store.nix;
-  journaldShare =
-    import ../common/journald.nix { inherit (config.networking) hostName; };
+  inherit (flake) common;
+  inherit (common.microvm) read-only-store;
+
+  inherit (flake.lib) merge-user-config microvm;
+  inherit (microvm) generate-journald-share;
+
+  inherit (config.networking) hostName;
+
+  journald-share = generate-journald-share hostName;
+
+  root = common.users.root {
+    inherit config pkgs;
+    modules = [ ];
+  };
+
+  merged = merge-user-config { users = [ root ]; };
+
 in {
-  # TODO: replace the below with a user
-  # inherit users;
+  inherit flake;
+  inherit (merged) users;
 
   networking = {
     hostName = "igglybuff";
@@ -16,8 +29,8 @@ in {
   microvm = {
     vcpu = 1;
     mem = 2048;
-    hypervisor = "qemu";
-    shares = [ readOnlySharedStore journaldShare ];
+    hypervisor = "cloud-hypervisor";
+    shares = [ read-only-store journald-share ];
     interfaces = [{
       type = "tap";
       id = "vm-${config.networking.hostName}-01";
@@ -32,8 +45,9 @@ in {
 
   imports = [
     ../common/machine-id.nix
-    ../../modules/dnsmasq
+    ../../modules/blocky
     ../../modules/microvm/guest
+    ../../modules/openssh
     ../../modules/time
     ../../modules/timesyncd
   ];

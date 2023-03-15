@@ -9,9 +9,9 @@
 { pkgs ? import <nixpkgs> { } }:
 
 {
-  amethyst = callPackage ./packages/amethyst { };
-  better-english = callPackage ./packages/better-english { };
-  trdsql-bin = callPackage ./packages/trdsql-bin { };
-  velociraptor-bin = callPackage ./packages/velociraptor-bin { };
-  vulnix-pre-commit = callPackage ./packages/vulnix-pre-commit { };
+  amethyst = pkgs.callPackage ./packages/amethyst { };
+  better-english = pkgs.callPackage ./packages/better-english { };
+  trdsql-bin = pkgs.callPackage ./packages/trdsql-bin { };
+  velociraptor-bin = pkgs.callPackage ./packages/velociraptor-bin { };
+  vulnix-pre-commit = pkgs.callPackage ./packages/vulnix-pre-commit { };
 }

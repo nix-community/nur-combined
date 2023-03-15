@@ -1,10 +1,25 @@
 { config, pkgs, lib, flake, ... }:
 let
-  readOnlySharedStore = import ../shared/read-only-store.nix;
-  tailscaleKey = import ../shared/tailscale-identity-key.nix;
-  journaldShare =
-    import ../common/journald.nix { inherit (config.networking) hostName; };
+  inherit (flake) common;
+  inherit (common.microvm) read-only-store;
+
+  inherit (flake.lib) merge-user-config microvm;
+  inherit (microvm) generate-journald-share;
+
+  inherit (config.networking) hostName;
+
+  journald-share = generate-journald-share hostName;
+
+  root = common.users.root {
+    inherit config pkgs;
+    modules = [ ];
+  };
+
+  merged = merge-user-config { users = [ root ]; };
+
 in {
+  inherit flake;
+  inherit (merged) users;
 
   networking = {
     hostName = "aipom";
@@ -14,10 +29,8 @@ in {
   microvm = {
     vcpu = 1;
     mem = 1024;
-    hypervisor = "qemu";
-    shares = [ readOnlySharedStore journaldShare ];
-    # TODO: Rethink how this is done, we need to pass the guest key as only a guest key
-    # shares = [ readOnlySharedStore tailscaleKey journaldShare ];
+    hypervisor = "cloud-hypervisor";
+    shares = [ read-only-store journald-share ];
     interfaces = [{
       type = "tap";
       id = "vm-${config.networking.hostName}-01";
@@ -30,6 +43,7 @@ in {
     ../common/machine-id.nix
     ../../modules/microvm/guest
     ../../modules/ombi
+    ../../modules/openssh
     ../../modules/time
     ../../modules/timesyncd
   ];

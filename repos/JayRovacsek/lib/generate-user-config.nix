@@ -43,14 +43,12 @@ let
         config.networking.domain;
 
       darwinHosts = if hasAttr "darwinConfigurations" flake then
-        (map (x: x.config.networking.hostName)
-          (attrValues flake.darwinConfigurations))
+        attrNames flake.darwinConfigurations
       else
         [ ];
 
       linuxHosts = if builtins.hasAttr "nixosConfigurations" flake then
-        (map (x: x.config.networking.hostName)
-          (attrValues flake.nixosConfigurations))
+        attrNames flake.nixosConfigurations
       else
         [ ];
 

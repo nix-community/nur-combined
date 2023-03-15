@@ -55,4 +55,5 @@ let
       build = self.common.self.rev;
     };
   };
-in { globals = { inherit aws; }; }
+  oci = { region = "ap-sydney-1"; };
+in { globals = { inherit aws oci; }; }

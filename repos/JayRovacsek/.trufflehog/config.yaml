@@ -1,9 +1,9 @@
 detectors:
-  - name: tfvars
+  - name: Basic sensitive regex search
     keywords:
       - TOKEN
       - AUTHTOKEN
       - PASSWORD
       - KEY
     regex:
-      adjective: (?i).*_(TOKEN|PASSWORD|KEY|AUTHTOKEN)
+      adjective: "(?i).*_(TOKEN|PASSWORD|KEY|AUTHTOKEN)"

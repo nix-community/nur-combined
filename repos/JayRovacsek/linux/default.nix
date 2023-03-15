@@ -21,6 +21,10 @@ in {
 
   # Cloud Base Images
   linode = import ../common/images/linode.nix { inherit self; };
+  oracle = import ../common/images/oracle.nix { inherit self; };
+  # Oracle required format differs from what is exposed as a format in
+  # nixos generators, we use this hack to get around this.
+  qcow = self.outputs.nixosConfigurations.oracle;
 
   # Base Configuration Hosts
   # Above cloud base images all inherit from this configuration effectively 

@@ -2,34 +2,34 @@
 let
   inherit (lib) version;
   utilisedPort = 8053;
+
   libredns = {
     address_data = "116.202.176.26";
     tls_auth_name = "dot.libredns.gr";
     tls_port = 853;
   };
-  ahaDnsAu = {
-    address_data = "103.73.64.132";
-    tls_auth_name = "dot.au.ahadns.net";
-    tls_port = 853;
-  };
-  ahaDnsNo = {
-    address_data = "185.175.56.133";
-    tls_auth_name = "dot.no.ahadns.net";
-    tls_port = 853;
-  };
+
   ahaDnsNl = {
     address_data = "5.2.75.75";
     tls_auth_name = "dot.nl.ahadns.net";
     tls_port = 853;
   };
-  ahaDnsNy = {
-    address_data = "185.213.26.187";
-    tls_auth_name = "dot.ny.ahadns.net";
+
+  ahaDnsLa = {
+    address_data = "45.67.219.208";
+    tls_auth_name = "dot.la.ahadns.net";
     tls_port = 853;
   };
-  jabberDe = {
-    address_data = "94.16.114.254";
-    tls_auth_name = "jabber-germany.de";
+
+  quadNine = {
+    address_data = "9.9.9.9";
+    tls_auth_name = "dns.quad9.net";
+    tls_port = 853;
+  };
+
+  appliedPrivacy = {
+    address_data = "146.255.56.98";
+    tls_auth_name = "dot1.applied-privacy.net";
     tls_port = 853;
   };
 
@@ -40,16 +40,12 @@ let
   } else {
     logLevel = "info";
   };
-
-  # usingNewAclFormat =
-  # lib.strings.versionAtLeast config.services.headscale.package.version
-  # "0.16.0";
 in {
   services.stubby = {
     enable = true;
     settings = {
       upstream_recursive_servers =
-        [ libredns ahaDnsAu ahaDnsNo ahaDnsNl ahaDnsNy jabberDe ];
+        [ libredns ahaDnsLa ahaDnsNl quadNine appliedPrivacy ];
       edns_client_subnet_private = 1;
       round_robin_upstreams = 1;
       idle_timeout = 10000;

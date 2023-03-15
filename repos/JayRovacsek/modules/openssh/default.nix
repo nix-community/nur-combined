@@ -1,5 +1,13 @@
 { config, pkgs, lib, ... }:
 let
+  inherit (lib) version;
+
+  settings = if version > "23.05" then {
+    settings.PasswordAuthentication = true;
+  } else {
+    passwordAuthentication = false;
+  };
+
   agenixPresent = builtins.hasAttr "age" config;
 
   users = builtins.filter (x: x.isNormalUser)
@@ -18,11 +26,7 @@ let
 in {
   age.secrets = sshKeys;
 
-  services.openssh = {
-    enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = false;
-  };
+  services.openssh = { enable = true; } // settings;
 
   networking.firewall.allowedTCPPorts = [ 22 ];
 }

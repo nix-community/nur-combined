@@ -3,9 +3,6 @@
 .pre-commit-config.yaml
 result
 
-# Temporary
-modules/docker/configs/csgo
-
 # Terraform
 .terraform.lock.hcl
 terraform.tfstate

@@ -42,6 +42,13 @@ in {
     });
   };
 
+  # Required if we want to pin microvm kernel version, the output version
+  # will follow prev.linuxPackages
+  alt-microvm-kernel = final: prev: {
+    microvm-kernel = prev.linuxPackages.callPackage
+      (self.inputs.microvm + /pkgs/microvm-kernel.nix) { };
+  };
+
   hello-unfree = final: prev: {
     hello-unfree = prev.hello-unfree.overrideAttrs (old: rec {
       pname = "hello-unfree";
