@@ -8,6 +8,8 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' group-name ''
 # Keep directories and files separated
 zstyle ':completion:*' list-dirs-first true
+# Expand '//' to '/'
+zstyle ':completion:*' squeeze-slashes true
 # Add colors to processes for kill completion
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
