@@ -11,7 +11,7 @@ buildPythonPackage rec {
     webcolors
     atomicwrites
     attrs
-    Logbook
+    pythonPackages.logbook or pythonPackages.Logbook
     pygments
     requests
     python_magic
