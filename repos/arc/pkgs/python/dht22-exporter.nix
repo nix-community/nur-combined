@@ -4,7 +4,7 @@ with pythonPackages;
 
 buildPythonApplication rec {
   pname = "dht22_exporter";
-  version = "2021-09-06";
+  version = "2021.09.06";
 
   src = fetchFromGitHub {
     owner = "clintjedwards";

@@ -1,7 +1,7 @@
 {
   weechat-matrix = { python3Packages, fetchFromGitHub }: with python3Packages; buildPythonApplication rec {
     pname = "weechat-matrix";
-    version = "2022-09-08";
+    version = "2022.09.08";
 
     src = fetchFromGitHub {
       owner = "poljar";
