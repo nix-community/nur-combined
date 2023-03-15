@@ -21,7 +21,7 @@ install:
 - sudo systemctl restart nix-daemon.service
 
 script:
-- export NIX_PATH=nixpkgs=channel:nixos-21.11
+- export NIX_PATH=nixpkgs=channel:nixpkgs-unstable
 - export NIXPKGS_ALLOW_UNFREE=1
 - set -o pipefail
 - nix-build ci.nix -A buildOutputs

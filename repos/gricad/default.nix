@@ -50,6 +50,7 @@ rec {
     enablePrefix = true;
     fabricSupport = true;
     libfabric = libfabric;
+    ucx = ucx;
   };
   openmpi = openmpi4;
   psm2 = pkgs.callPackage ./pkgs/psm2 { };
@@ -61,6 +62,8 @@ rec {
     intel-oneapi = intel-oneapi;
     gcc = pkgs.gcc;
   };
+
+  ucx = pkgs.callPackage ./pkgs/ucx { enableRocm = true; };
 
   # HPL
   hpl = pkgs.callPackage ./pkgs/hpl { mpi = openmpi4; };
