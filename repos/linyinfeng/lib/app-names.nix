@@ -31,6 +31,15 @@ let
     (empty "fishPlugins/replay")
     (trivial "icalingua-plus-plus")
     (trivial "matrix-chatgpt-bot")
+    {
+      "matrix-media-repo" = {
+        "matrix-media-repo" = "media_repo";
+        "matrix-media-repo-gdpr-export" = "gdpr_export";
+        "matrix-media-repo-gdpr-import" = "gdpr_import";
+        "matrix-media-repo-import-synapse" = "import_synapse";
+        "matrix-media-repo-s3-consistency-check" = "s3_consistency_check";
+      };
+    }
     (trivial "matrix-qq")
     (trivial "matrix-wechat")
     { "minio-latest" = { "minio" = "minio"; }; }

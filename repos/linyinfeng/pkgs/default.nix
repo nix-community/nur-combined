@@ -31,6 +31,7 @@ lib.makeScope newScope (
     });
     icalingua-plus-plus = callPackage ./icalingua-plus-plus { };
     matrix-chatgpt-bot = callPackage ./matrix-chatgpt-bot { };
+    matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
     matrix-wechat = callPackage ./matrix-wechat { };
     minio-latest = callPackage ./minio-latest { };

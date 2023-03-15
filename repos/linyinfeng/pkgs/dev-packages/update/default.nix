@@ -2,8 +2,6 @@
 , selfLib
 , writeShellScriptBin
 , nixVersions
-, nixpkgs-fmt
-, nix-prefetch
 , nix-update
 , nvfetcher-self
 , nvfetcher-changes-commit
@@ -25,7 +23,6 @@ let
   drv = writeShellScriptBin "update" ''
     set -e
 
-    export PATH=${nix-prefetch}/bin:$PATH
     export NIX_PATH="nixpkgs=${path}"
 
     rm -rf "${tmpDir}"
@@ -47,6 +44,7 @@ let
     function handle_update_script {
       "$@" --write-commit-message "${updateScriptCommitMessageFile}"
       if [ -f "${updateScriptCommitMessageFile}" ]; then
+        nix fmt
         commit --file="${updateScriptCommitMessageFile}"
         cat "${updateScriptCommitMessageFile}" >> "${changelogFile}"
         rm "${updateScriptCommitMessageFile}"
@@ -70,7 +68,7 @@ let
     "${nvfetcher-self}/bin/nvfetcher-self" "''${NVCHECKER_EXTRA_OPTIONS[@]}";
     set +x
     popd
-    ${nixpkgs-fmt}/bin/nixpkgs-fmt .
+    nix fmt
 
     # get changelog
     ${nvfetcher-changes-commit}/bin/nvfetcher-changes-commit "pkgs/_sources/generated.nix" > "${nvfetcherChangelogFile}"
