@@ -1,4 +1,10 @@
 {
+    "nix-requirefile": {
+        "lib": {"_type": "basicgithub", "owner": "lucasew", "repo": "nix-requirefile"},
+        "data": {
+            "main": {"_type": "basicgithub", "owner": "lucasew", "repo": "nix-requirefile", "ref": "heads/data"}
+        }
+    },
     "misc": {
         "erosanix": {"_type": "basicgithub", "owner": "emmanuelrosa", "repo": "erosanix"}
     },

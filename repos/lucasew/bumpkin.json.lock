@@ -240,11 +240,11 @@
     },
     "telegram-sendmail": {
         "default_branch": "heads/main",
-        "github_commit": "2e819ad28e692b23ac3162efc4c81ec89f496056",
-        "sha256": "0630cdda15cfe117e5b2171175d823781f8e7c54e1efdf548efa8f51cf9e71fd",
-        "final_url": "https://codeload.github.com/lucasew/telegram-sendmail/tar.gz/2e819ad28e692b23ac3162efc4c81ec89f496056",
+        "github_commit": "ae23f903cc88a5b7f58d00623752ef0ee1e2fb86",
+        "sha256": "f96194f0751d3348536e241f1f3f482ce6a23842f3f12164608806473fbe5c55",
+        "final_url": "https://codeload.github.com/lucasew/telegram-sendmail/tar.gz/ae23f903cc88a5b7f58d00623752ef0ee1e2fb86",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678821473
+        "_bpk_last_update": 1678899099
     },
     "nbr": {
         "default_branch": "heads/master",
@@ -284,5 +284,24 @@
         "final_url": "https://codeload.github.com/tinted-theming/base16-schemes/tar.gz/cf6bc892a24af19e11383adedc6ce7901f133ea7",
         "file_type": "tar.gz",
         "_bpk_last_update": 1678206285
+    },
+    "nix-requirefile": {
+        "data": {
+            "main": {
+                "github_commit": "00c0d730a56886a6c81cf7a6e4667ae8a22e018a",
+                "sha256": "53cad0009368dedb50dbe9fedf740bbb2b35a689a734eb0e50454d37a67629da",
+                "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/00c0d730a56886a6c81cf7a6e4667ae8a22e018a",
+                "file_type": "tar.gz",
+                "_bpk_last_update": 1678911401
+            }
+        },
+        "lib": {
+            "default_branch": "heads/main",
+            "github_commit": "bdc6fabdb85885f22914aa7248a74606ac4bb6d1",
+            "sha256": "4f8d8ef0b0b6054539588f331bd632926a3f0620b6385ff577bee268e5438aed",
+            "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/bdc6fabdb85885f22914aa7248a74606ac4bb6d1",
+            "file_type": "tar.gz",
+            "_bpk_last_update": 1678911402
+        }
     }
 }
