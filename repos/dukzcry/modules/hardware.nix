@@ -49,6 +49,7 @@ in {
     } // builder))
     (mkIf (cfg.enable && laptop) ({
       hardware.bluetooth.enable = true;
+      services.printing.enable = true;
       services.upower = {
         enable = true;
         percentageLow = 7;
@@ -85,6 +86,7 @@ in {
     } // builder))
     (mkIf (cfg.enable && desktop) {
       hardware.bluetooth.enable = true;
+      services.printing.enable = true;
       # MT7921K is supported starting from 5.17
       boot.kernelPackages = pkgs.linuxPackages_6_0;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
