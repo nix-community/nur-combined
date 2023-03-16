@@ -1,4 +1,4 @@
-{ buildGo120Module
+{ buildGoModule
 , go
 , fetchFromGitHub
 , lib
@@ -6,10 +6,7 @@
 , olm
 }:
 
-# TODO use buildGoModule instread after 1.20
-assert !(lib.versionAtLeast go.version "1.20");
-
-buildGo120Module rec {
+buildGoModule rec {
   pname = "matrix-qq";
   version = "0.1.6";
   src = fetchFromGitHub {
@@ -41,5 +38,6 @@ buildGo120Module rec {
     homepage = "https://github.com/duo/matrix-qq";
     license = licenses.agpl3;
     maintainers = with maintainers; [ yinfeng ];
+    broken = !(lib.versionAtLeast go.version "1.20");
   };
 }
