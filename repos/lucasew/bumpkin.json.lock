@@ -288,20 +288,20 @@
     "nix-requirefile": {
         "data": {
             "main": {
-                "github_commit": "00c0d730a56886a6c81cf7a6e4667ae8a22e018a",
-                "sha256": "53cad0009368dedb50dbe9fedf740bbb2b35a689a734eb0e50454d37a67629da",
-                "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/00c0d730a56886a6c81cf7a6e4667ae8a22e018a",
+                "github_commit": "14c793048dc08011f1e34053840ef0717b915199",
+                "sha256": "1eccb25462eb5c2aa751a5c2ec77b3bb2fd521cca27069cd0332fe0b3e84d3c5",
+                "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/14c793048dc08011f1e34053840ef0717b915199",
                 "file_type": "tar.gz",
-                "_bpk_last_update": 1678911401
+                "_bpk_last_update": 1678976521
             }
         },
         "lib": {
             "default_branch": "heads/main",
-            "github_commit": "d0305e8c1cb32b63cc14689b73828321750ddc48",
-            "sha256": "c1b00c75f677a009f448ca903c599984c41619f9141cb1b45658699c18779ea1",
-            "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/d0305e8c1cb32b63cc14689b73828321750ddc48",
+            "github_commit": "a5013d189b38a53e1001ef149b587cec42e1d961",
+            "sha256": "a8ce562c380924f4f0dfd7af7e4cdbf659a6cad64a5eef1cec75f5ce20defcc1",
+            "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/a5013d189b38a53e1001ef149b587cec42e1d961",
             "file_type": "tar.gz",
-            "_bpk_last_update": 1678969091
+            "_bpk_last_update": 1678975189
         }
     }
 }
