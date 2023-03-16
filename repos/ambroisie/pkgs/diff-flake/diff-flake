@@ -20,19 +20,21 @@ sanitize_output() {
     fi
 }
 
-add_shell() {
-    local SYSTEM
-    if [ $# -gt 0 ] && [ -n "$1" ]; then
-        SYSTEM="$1"
-    else
-        SYSTEM="$(nix eval --raw --impure --expr 'builtins.currentSystem')"
-    fi
-    # Use 'inputDerivation' attribute to make sure that it is build-able
-    FLAKE_OUTPUTS+=("devShells.$SYSTEM.default.inputDerivation")
+current_system() {
+    nix eval --raw --impure --expr 'builtins.currentSystem'
+}
+
+add_home() {
+    FLAKE_OUTPUTS+=("homeConfigurations.\"$1\".activationPackage")
 }
 
 add_host() {
-    FLAKE_OUTPUTS+=("nixosConfigurations.$1.config.system.build.toplevel")
+    FLAKE_OUTPUTS+=("nixosConfigurations.\"$1\".config.system.build.toplevel")
+}
+
+add_shell() {
+    # Use 'inputDerivation' attribute to make sure that it is build-able
+    FLAKE_OUTPUTS+=("devShells.\"$(current_system)\".\"$1\".inputDerivation")
 }
 
 usage() {
@@ -52,17 +54,21 @@ usage() {
     print_err "  -p, --previous-rev"
     print_err "    which git revision should be considered the 'previous' state,"
     print_err "    defaults to HEAD~"
+    print_err "  --home [name]"
+    print_err "    specify the name of a home-manager output configuration whose"
+    print_err "    closure should be diffed, can be used multiple times"
+    print_err "    if no configuration name is given, defaults to current username"
     print_err "  --host [name]"
     print_err "    specify the name of a NixOS output configuration whose"
     print_err "    closure should be diffed, can be used multiple times"
     print_err "    if no host name is given, defaults to current hostname"
-    print_err "  --shell [system]"
-    print_err "    specify a specific system's devShell output whose closure"
+    print_err "  --shell [name]"
+    print_err "    specify a specific devShell configuration name whose closure"
     print_err "    should be diffed, can be used multiple times"
-    print_err "    if no system is given, defaults to current system"
+    print_err "    if no name is given, defaults to 'default'"
     print_err ""
     print_err "when no flake outputs are specified, automatically queries for"
-    print_err "all NixOS configurations, and devShell for current system"
+    print_err "all NixOS configurations, and devShells for current system"
 }
 
 is_option() {
@@ -95,6 +101,14 @@ parse_args() {
                 PREVIOUS_REV="$(git rev-parse "$1")"
                 shift
                 ;;
+            --home)
+                if [ $# -gt 0 ] && ! is_option "$1"; then
+                    add_home "$1"
+                    shift
+                else
+                    add_home "$USER"
+                fi
+                ;;
             --host)
                 if [ $# -gt 0 ] && ! is_option "$1"; then
                     add_host "$1"
@@ -108,7 +122,7 @@ parse_args() {
                     add_shell "$1"
                     shift
                 else
-                    add_shell
+                    add_shell "default"
                 fi
                 ;;
             --)
@@ -124,8 +138,20 @@ parse_args() {
     done
 }
 
+list_home_configurations() {
+    nix eval '.#homeConfigurations' \
+        --apply 'attrs: with builtins; concatStringsSep "\n" (attrNames attrs)' \
+        --raw
+}
+
 list_nixos_configurations() {
     nix eval '.#nixosConfigurations' \
+        --apply 'attrs: with builtins; concatStringsSep "\n" (attrNames attrs)' \
+        --raw
+}
+
+list_dev_shells() {
+    nix eval ".#devShells.\"$(current_system)\"" \
         --apply 'attrs: with builtins; concatStringsSep "\n" (attrNames attrs)' \
         --raw
 }
@@ -149,10 +175,15 @@ diff_output() {
 parse_args "$@"
 
 if [ "${#FLAKE_OUTPUTS[@]}" -eq 0 ]; then
+    for home in $(list_home_configurations); do
+        add_home "$home"
+    done
     for host in $(list_nixos_configurations); do
         add_host "$host"
     done
-    add_shell
+    for shell in $(list_dev_shells); do
+        add_shell "$shell"
+    done
 fi
 
 for out in "${FLAKE_OUTPUTS[@]}"; do
