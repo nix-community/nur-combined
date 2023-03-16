@@ -92,9 +92,10 @@
     };
 
     overlays = {
+      nix-requirefile = import "${unpackedInputs.nix-requirefile.lib}/overlay.nix";
       borderless-browser = import "${unpackedInputs.borderless-browser}/overlay.nix";
       rust-overlay = import "${unpackedInputs.rust-overlay}/rust-overlay.nix";
-      this = import ./overlay.nix self;
+      zzzthis = import ./overlay.nix self;
     };
     nix-colors = import "${unpackedInputs.nix-colors}" { inherit (unpackedInputs) base16-schemes nixpkgs-lib; };
   in {

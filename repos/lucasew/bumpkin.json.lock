@@ -297,11 +297,11 @@
         },
         "lib": {
             "default_branch": "heads/main",
-            "github_commit": "bdc6fabdb85885f22914aa7248a74606ac4bb6d1",
-            "sha256": "4f8d8ef0b0b6054539588f331bd632926a3f0620b6385ff577bee268e5438aed",
-            "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/bdc6fabdb85885f22914aa7248a74606ac4bb6d1",
+            "github_commit": "d0305e8c1cb32b63cc14689b73828321750ddc48",
+            "sha256": "c1b00c75f677a009f448ca903c599984c41619f9141cb1b45658699c18779ea1",
+            "final_url": "https://codeload.github.com/lucasew/nix-requirefile/tar.gz/d0305e8c1cb32b63cc14689b73828321750ddc48",
             "file_type": "tar.gz",
-            "_bpk_last_update": 1678911402
+            "_bpk_last_update": 1678969091
         }
     }
 }

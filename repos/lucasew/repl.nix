@@ -1,3 +1,1 @@
-let
-  flake = builtins.getFlake (toString ./.);
-in flake
+import ./default.nix
