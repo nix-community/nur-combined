@@ -3,8 +3,8 @@ let
   cfg = config.my.home.ssh;
 in
 {
-  options.my.home.ssh = with lib.my; {
-    enable = mkDisableOption "ssh configuration";
+  options.my.home.ssh = with lib; {
+    enable = my.mkDisableOption "ssh configuration";
   };
 
   config.programs.ssh = lib.mkIf cfg.enable {

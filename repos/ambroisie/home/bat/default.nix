@@ -3,8 +3,8 @@ let
   cfg = config.my.home.bat;
 in
 {
-  options.my.home.bat = with lib.my; {
-    enable = mkDisableOption "bat configuration";
+  options.my.home.bat = with lib; {
+    enable = my.mkDisableOption "bat configuration";
   };
 
   config.programs.bat = lib.mkIf cfg.enable {

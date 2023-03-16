@@ -3,20 +3,20 @@ let
   cfg = config.my.system.documentation;
 in
 {
-  options.my.system.documentation = with lib.my; {
-    enable = mkDisableOption "Documentation integration";
+  options.my.system.documentation = with lib; {
+    enable = my.mkDisableOption "Documentation integration";
 
-    dev.enable = mkDisableOption "Documentation aimed at developers";
+    dev.enable = my.mkDisableOption "Documentation aimed at developers";
 
-    info.enable = mkDisableOption "Documentation aimed at developers";
+    info.enable = my.mkDisableOption "Documentation aimed at developers";
 
     man = {
-      enable = mkDisableOption "Documentation aimed at developers";
+      enable = my.mkDisableOption "Documentation aimed at developers";
 
-      linux = mkDisableOption "Linux man pages (section 2 & 3)";
+      linux = my.mkDisableOption "Linux man pages (section 2 & 3)";
     };
 
-    nixos.enable = mkDisableOption "NixOS documentation";
+    nixos.enable = my.mkDisableOption "NixOS documentation";
   };
 
   config = lib.mkIf cfg.enable {

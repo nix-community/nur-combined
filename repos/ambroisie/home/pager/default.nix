@@ -3,8 +3,8 @@ let
   cfg = config.my.home.pager;
 in
 {
-  options.my.home.pager = with lib.my; {
-    enable = mkDisableOption "pager configuration";
+  options.my.home.pager = with lib; {
+    enable = my.mkDisableOption "pager configuration";
   };
 
 

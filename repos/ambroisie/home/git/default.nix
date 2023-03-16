@@ -5,8 +5,8 @@ let
   inherit (lib.my) mkMailAddress;
 in
 {
-  options.my.home.git = with lib.my; {
-    enable = mkDisableOption "git configuration";
+  options.my.home.git = with lib; {
+    enable = my.mkDisableOption "git configuration";
   };
 
   config.home.packages = with pkgs; lib.mkIf cfg.enable [

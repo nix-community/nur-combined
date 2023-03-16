@@ -3,8 +3,8 @@ let
   cfg = config.my.home.jq;
 in
 {
-  options.my.home.jq = with lib.my; {
-    enable = mkDisableOption "jq configuration";
+  options.my.home.jq = with lib; {
+    enable = my.mkDisableOption "jq configuration";
   };
 
   config.programs.jq = lib.mkIf cfg.enable {

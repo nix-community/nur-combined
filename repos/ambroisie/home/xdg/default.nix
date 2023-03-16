@@ -3,8 +3,8 @@ let
   cfg = config.my.home.xdg;
 in
 {
-  options.my.home.xdg = with lib.my; {
-    enable = mkDisableOption "XDG configuration";
+  options.my.home.xdg = with lib; {
+    enable = my.mkDisableOption "XDG configuration";
   };
 
   config.xdg = lib.mkIf cfg.enable {

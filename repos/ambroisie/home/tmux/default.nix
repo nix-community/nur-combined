@@ -7,8 +7,10 @@ let
   ];
 in
 {
-  options.my.home.tmux = with lib.my; {
-    enable = mkDisableOption "tmux terminal multiplexer";
+  options.my.home.tmux = with lib; {
+    enable = my.mkDisableOption "tmux terminal multiplexer";
+
+    enabledPassthrough = mkEnableOption "tmux DCS passthrough sequence";
   };
 
   config.programs.tmux = lib.mkIf cfg.enable {
@@ -63,6 +65,13 @@ in
 
       # Allow any application to send OSC52 escapes to set the clipboard
       set -s set-clipboard on
+
+      ${
+        lib.optionalString cfg.enabledPassthrough ''
+          # Allow any application to use the tmux DCS for passthrough
+          set -g allow-passthrough on
+        ''
+      }
     '';
   };
 }

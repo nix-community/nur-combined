@@ -18,8 +18,8 @@ let
     ];
 in
 {
-  options.my.home.vim = with lib.my; {
-    enable = mkDisableOption "vim configuration";
+  options.my.home.vim = with lib; {
+    enable = my.mkDisableOption "vim configuration";
   };
 
   config.programs.neovim = lib.mkIf cfg.enable {
