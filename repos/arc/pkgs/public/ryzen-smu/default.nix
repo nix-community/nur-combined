@@ -96,6 +96,7 @@
   ryzen-monitor = { stdenv, fetchFromGitHub, ryzen-smu, libsmu }: stdenv.mkDerivation {
     pname = "ryzen-monitor";
     version = "2021-05-16";
+    inherit (ryzen-smu) meta;
 
     src = fetchFromGitHub {
       owner = "hattedsquirrel";

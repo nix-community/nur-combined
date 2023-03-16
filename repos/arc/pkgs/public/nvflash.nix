@@ -1,9 +1,9 @@
-{ stdenv, unzip, requireFile, hostPlatform, autoPatchelfHook }: let
+{ stdenv, lib, unzip, requireFile, hostPlatform, autoPatchelfHook }: let
   subdir =
     if hostPlatform.isAarch64 then "aarch64"
     else if hostPlatform.isx86_64 then "x64"
     else if hostPlatform.isx86 then "x86"
-    else if hostPlatform.isPowerPC then "ppc64"
+    else if hostPlatform.isPowerPC or false then "ppc64"
     else throw "Unknown nvflash platform ${hostPlatform.config}";
 in stdenv.mkDerivation rec {
   pname = "nvflash";
@@ -26,4 +26,7 @@ in stdenv.mkDerivation rec {
   '';
 
   passthru.ci.skip = true;
+  meta = with lib; {
+    platforms = [ "aarch64-linux" "x86_64-linux" "i686-linux" "powerpc64-linux" ];
+  };
 }

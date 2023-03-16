@@ -23,6 +23,6 @@
   '';
 
   meta = {
-    platforms = lib.platforms.linux;
+    platforms = lib.optionals enableI3 i3.meta.platforms ++ lib.optionals enableSway sway.meta.platforms;
   };
 })

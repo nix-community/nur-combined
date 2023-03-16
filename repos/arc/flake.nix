@@ -4,14 +4,18 @@
     };
   };
   outputs = { nixpkgs, self, ... }: let
-    forSystems = f: nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed or nixpkgs.lib.systems.supported.hydra (system: f (
+    nixlib = nixpkgs.lib;
+    forSystems = f: nixlib.genAttrs nixlib.systems.flakeExposed or nixlib.systems.supported.hydra (system: f (
       import ./canon.nix { pkgs = nixpkgs.legacyPackages.${system}; }
     ));
   in {
     legacyPackages = forSystems (arc: arc.packages.groups // arc.build // {
       inherit arc;
     });
-    packages = forSystems (arc: arc.packages.groups.toplevel);
+    packages = forSystems (arc: nixlib.filterAttrs (name: package:
+      name != "recurseForDerivations"
+      && package.meta.available or true != false
+    ) arc.packages.groups.toplevel);
     devShells = forSystems (arc: arc.shells);
     nixosModules = import ./modules/nixos // {
       default = self.nixosModules;
@@ -30,5 +34,9 @@
       name = "arc";
       packages.namespace = [ name ]; # TODO: this is just to work around a bug, really?
     };
+  };
+  nixConfig = {
+    extra-substituters = [ "https://arc.cachix.org" ];
+    extra-trusted-public-keys = [ "arc.cachix.org-1:DZmhclLkB6UO0rc0rBzNpwFbbaeLfyn+fYccuAy7YVY=" ];
   };
 }
