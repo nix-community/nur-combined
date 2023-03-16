@@ -93,7 +93,7 @@ let
     };
 
     ryzen-smu = { stdenv, lib, fetchFromGitLab, linux }: stdenv.mkDerivation rec {
-      version = "2021-04-21";
+      version = "2021.04.21";
       pname = let
         pname = "ryzen-smu";
         kernel-name = builtins.tryEval "${pname}-${linux.version}";
