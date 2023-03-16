@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
       A very simple bash script that can be used to send a message to
       a Matrix room
     '';
-    homepage = "https://gitea.belanyi.fr/ambroisie/${pname}";
+    homepage = "https://git.belanyi.fr/ambroisie/${pname}";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ambroisie ];

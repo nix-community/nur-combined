@@ -26,6 +26,15 @@ let
         '';
       };
 
+      redirect = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        example = "https://example.com";
+        description = ''
+          Which domain to redirect to (301 response), for this virtual host.
+        '';
+      };
+
       root = mkOption {
         type = with types; nullOr path;
         default = null;
@@ -176,7 +185,7 @@ in
     assertions = [ ]
       ++ (lib.flip builtins.map cfg.virtualHosts ({ subdomain, ... } @ args:
       let
-        conflicts = [ "port" "root" ];
+        conflicts = [ "port" "root" "redirect" ];
         optionsNotNull = builtins.map (v: args.${v} != null) conflicts;
         optionsSet = lib.filter lib.id optionsNotNull;
       in
@@ -248,6 +257,10 @@ in
               # Serve filesystem content
               (lib.optionalAttrs (args.root != null) {
                 inherit (args) root;
+              })
+              # Redirect to a different domain
+              (lib.optionalAttrs (args.redirect != null) {
+                locations."/".return = "301 ${args.redirect}$request_uri";
               })
               # VHost specific configuration
               args.extraConfig

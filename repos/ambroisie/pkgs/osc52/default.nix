@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
     description = ''
       A script to copy strings using the OSC52 escape sequence
     '';
-    homepage = "https://gitea.belanyi.fr/ambroisie/nix-config";
+    homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ ambroisie ];

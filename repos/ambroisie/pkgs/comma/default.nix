@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     mainProgram = ",";
     description = "A simple script inspired by Shopify's comma, for modern Nix";
-    homepage = "https://gitea.belanyi.fr/ambroisie/nix-config";
+    homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ ambroisie ];

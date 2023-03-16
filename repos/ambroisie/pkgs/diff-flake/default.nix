@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description = "Nix flake helper to visualize changes in closures";
-    homepage = "https://gitea.belanyi.fr/ambroisie/nix-config";
+    homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ ambroisie ];

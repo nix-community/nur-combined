@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     description = ''
       A script to change the volume and notify about it
     '';
-    homepage = "https://gitea.belanyi.fr/ambroisie/nix-config";
+    homepage = "https://git.belanyi.fr/ambroisie/nix-config";
     license = with licenses; [ mit ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ ambroisie ];

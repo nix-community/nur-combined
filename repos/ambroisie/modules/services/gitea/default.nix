@@ -50,7 +50,7 @@ in
     services.gitea =
       let
         inherit (config.networking) domain;
-        giteaDomain = "gitea.${domain}";
+        giteaDomain = "git.${domain}";
       in
       {
         enable = true;
@@ -112,11 +112,16 @@ in
     };
     users.groups.git = { };
 
-    # Proxy to Gitea
     my.services.nginx.virtualHosts = [
+      # Proxy to Gitea
+      {
+        subdomain = "git";
+        inherit (cfg) port;
+      }
+      # Redirect `gitea.` to actual forge subdomain
       {
         subdomain = "gitea";
-        inherit (cfg) port;
+        redirect = config.services.gitea.rootUrl;
       }
     ];
 

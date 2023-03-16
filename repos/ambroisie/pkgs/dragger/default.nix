@@ -21,7 +21,7 @@ qt5.mkDerivation rec {
 
   meta = with lib; {
     description = "A CLI drag-and-drop tool";
-    homepage = "https://gitea.belanyi.fr/ambroisie/dragger";
+    homepage = "https://git.belanyi.fr/ambroisie/dragger";
     license = licenses.mit;
     maintainers = with maintainers; [ ambroisie ];
     platforms = platforms.linux;
