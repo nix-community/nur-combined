@@ -3,21 +3,21 @@
 {
   arkenfox-userjs = {
     pname = "arkenfox-userjs";
-    version = "109.0";
+    version = "110.0";
     src = fetchFromGitHub ({
       owner = "arkenfox";
       repo = "user.js";
-      rev = "109.0";
+      rev = "110.0";
       fetchSubmodules = false;
-      sha256 = "sha256-ebSx6DaXoGKcCoK6UcDnWvdAW6J2X6pJRPD1Pw7UNOw=";
+      sha256 = "sha256-pPJH69y29aV1fc3lrlPl5pMLB5ntem+DcAR3rx3gvDE=";
     });
   };
   clash-geoip = {
     pname = "clash-geoip";
-    version = "20230212";
+    version = "20230312";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230212/Country.mmdb";
-      sha256 = "sha256-Tnma6tpET4Vrm5G8KmLpsVnpD2JIKts56kZQsBIbRZ8=";
+      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230312/Country.mmdb";
+      sha256 = "sha256-Y/glz6HUfjox9Mn+gPzA8+tUHqV/KkIInUn4SyajUiE=";
     };
   };
   clashctl = {
@@ -49,10 +49,10 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.11.2999.a7cc81913bb";
+    version = "22.11.3184.9b8e5abb183";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.2999.a7cc81913bb/nixexprs.tar.xz";
-      sha256 = "sha256-jS8Di/7apcm5jEaFR3Uz9MQQ5eljhUwrg6VSAtUcnMk=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.3184.9b8e5abb183/nixexprs.tar.xz";
+      sha256 = "sha256-eOgjJLRbqa1Omc75Ryjl9MJX4Y3uaHUmy7EjcCSw6CM=";
     };
   };
   remote-containers = {
