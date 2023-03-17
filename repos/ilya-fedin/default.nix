@@ -71,6 +71,8 @@ in with pkgs; rec {
     /run/current-system/bin/switch-to-configuration boot
   '';
 
+  qt5ct = import ./pkgs/qt5ct pkgs;
+
   qtgreet = libsForQt5.callPackage ./pkgs/qtgreet {
     inherit wlrootsqt;
   };

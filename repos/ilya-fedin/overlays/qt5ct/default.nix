@@ -1,25 +1,7 @@
 self: super:
 
-let
-  overrideFunc = qtAttrs: oldAttrs: rec {
-    buildInputs = oldAttrs.buildInputs ++ (with qtAttrs; [
-      qtquickcontrols2 kconfig kconfigwidgets kiconthemes
-    ]);
-
-    nativeBuildInputs = with super; with qtAttrs; [
-      cmake wrapQtAppsHook qttools
-    ];
-  
-    patches = [
-      ./qt5ct-shenanigans.patch
-    ];
-  
-    cmakeFlags = with qtAttrs; [
-      "-DPLUGINDIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
-    ];
-  };
-in {
-  libsForQt5 = super.libsForQt5 // { 
-    qt5ct = super.libsForQt5.qt5ct.overrideAttrs(overrideFunc super.libsForQt5);
-  };
+{
+  libsForQt5 = super.libsForQt5.overrideScope' (_: _: {
+    qt5ct = (import ../.. { pkgs = super; }).qt5ct;
+  });
 }
