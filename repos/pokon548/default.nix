@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   todoist-electron = pkgs.callPackage ./pkgs/todoist-electron { };
-  v2raya-bin = pkgs.callPackage ./pkgs/v2raya-bin { };
+  v2raya = pkgs.callPackage ./pkgs/v2raya { };
   tencent-qq-electron = pkgs.callPackage ./pkgs/tencent-qq-electron { };
   tencent-qq-electron-bwrap = pkgs.callPackage ./pkgs/tencent-qq-electron-bwrap { };
 
