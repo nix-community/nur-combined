@@ -91,3 +91,8 @@ fetch.github = "DISTRHO/DPF-Plugins"
 [kmonad]
 src.git = "https://github.com/kmonad/kmonad"
 fetch.github = "kmonad/kmonad"
+
+[fennel-language-server]
+src.git = "https://github.com/rydesun/fennel-language-server"
+fetch.github = "rydesun/fennel-language-server"
+cargo_locks = ["Cargo.lock"]

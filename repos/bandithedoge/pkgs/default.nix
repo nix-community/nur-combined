@@ -33,4 +33,6 @@ in {
   keepmenu = callPackage' ./keepmenu.nix;
 
   dpf-plugins = callPackage' ./dpf-plugins.nix;
+
+  fennel-language-server = callPackage' ./fennel-language-server.nix;
 }

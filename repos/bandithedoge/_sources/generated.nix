@@ -76,6 +76,23 @@
     };
     date = "2023-02-18";
   };
+  fennel-language-server = {
+    pname = "fennel-language-server";
+    version = "d0c65db2ef43fd56390db14c422983040b41dd9c";
+    src = fetchFromGitHub {
+      owner = "rydesun";
+      repo = "fennel-language-server";
+      rev = "d0c65db2ef43fd56390db14c422983040b41dd9c";
+      fetchSubmodules = false;
+      sha256 = "sha256-KU2MPmgHOS/WesBzCmEoHHXHoDWCyqjy49tmMmZw5BQ=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./fennel-language-server-d0c65db2ef43fd56390db14c422983040b41dd9c/Cargo.lock;
+      outputHashes = {
+      };
+    };
+    date = "2023-03-01";
+  };
   keepmenu = {
     pname = "keepmenu";
     version = "1.3.1";

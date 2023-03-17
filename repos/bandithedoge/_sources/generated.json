@@ -119,6 +119,31 @@
         },
         "version": "fcbe686ff250849b00da2479baf71dedc3cb0f07"
     },
+    "fennel-language-server": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./fennel-language-server-d0c65db2ef43fd56390db14c422983040b41dd9c/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2023-03-01",
+        "extract": null,
+        "name": "fennel-language-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "rydesun",
+            "repo": "fennel-language-server",
+            "rev": "d0c65db2ef43fd56390db14c422983040b41dd9c",
+            "sha256": "sha256-KU2MPmgHOS/WesBzCmEoHHXHoDWCyqjy49tmMmZw5BQ=",
+            "type": "github"
+        },
+        "version": "d0c65db2ef43fd56390db14c422983040b41dd9c"
+    },
     "keepmenu": {
         "cargoLocks": null,
         "date": null,

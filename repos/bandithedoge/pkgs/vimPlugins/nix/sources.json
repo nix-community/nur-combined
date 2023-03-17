@@ -725,10 +725,10 @@
         "homepage": "",
         "owner": "folke",
         "repo": "lua-dev.nvim",
-        "rev": "c9770677fcf5632f68d50d9f5bb2ea77936649ea",
-        "sha256": "1prihf6zfy8yc4gyrb6qplfygylg9fx21bgam6jrjwc1asmdinj4",
+        "rev": "adc448c982b64d92d52d2182b52f9c980c3020d5",
+        "sha256": "0frxbdd3mz3sa9bmm4hi9sdx4ghsyjnfxnrjkd7gpk259s56r5q2",
         "type": "tarball",
-        "url": "https://github.com/folke/lua-dev.nvim/archive/c9770677fcf5632f68d50d9f5bb2ea77936649ea.tar.gz",
+        "url": "https://github.com/folke/lua-dev.nvim/archive/adc448c982b64d92d52d2182b52f9c980c3020d5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lualine.nvim": {
@@ -1265,10 +1265,10 @@
         "homepage": "",
         "owner": "nvim-orgmode",
         "repo": "orgmode",
-        "rev": "1c72f9325080d60bc9d2d990cb5f483a7ed447a2",
-        "sha256": "1v1zfl4rj86hls7jkxnfx42cc438bls6yz8rh3fbbmmdm230x8rj",
+        "rev": "1323b7c20b2fb4d70fd1cd5f85fa5d0fa7ae30e9",
+        "sha256": "15vvmn8ypwbkdh9cl5vwpqck2f5dqslya9sm8ywpd6kxkn64740b",
         "type": "tarball",
-        "url": "https://github.com/nvim-orgmode/orgmode/archive/1c72f9325080d60bc9d2d990cb5f483a7ed447a2.tar.gz",
+        "url": "https://github.com/nvim-orgmode/orgmode/archive/1323b7c20b2fb4d70fd1cd5f85fa5d0fa7ae30e9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "package-info.nvim": {
