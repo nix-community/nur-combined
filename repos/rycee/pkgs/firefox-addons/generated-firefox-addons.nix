@@ -919,13 +919,13 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230314.181505";
+      version = "112.0.20230316.192655";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4083603/francais_language_pack-112.0.20230314.181505.xpi";
-      sha256 = "a31d07bd751234e52912aaa3d2ee7458f0a2444c110a629f61d08e3311eaeb4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4084800/francais_language_pack-112.0.20230316.192655.xpi";
+      sha256 = "326cfd2020784b7f00eae3618262c29a0144c73a52b2995bd3d3b5ebb24926f6";
       meta = with lib;
       {
-        description = "Français Language Pack";
+        description = "Firefox Language Pack for Français (fr) – French";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -974,10 +974,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "23.3.11";
+      version = "23.3.16";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4082198/ghosttext-23.3.11.xpi";
-      sha256 = "bb0d82add38f1ed69497e7242bbac33b94ca863d260e13dfc6d68a3e76ea0d2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4084313/ghosttext-23.3.16.xpi";
+      sha256 = "f04bfc86552c365a9eb988eb0da465ddeeddadfbdd8e1afeecc89ed6014e6cd9";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -2826,10 +2826,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.5.4";
+      version = "2.5.5";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079419/tournesol_extension-2.5.4.xpi";
-      sha256 = "48e0d227b91eb0dde178153f5c50f314db224c36f177ea727b92a3293b5ecd08";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4084372/tournesol_extension-2.5.5.xpi";
+      sha256 = "d48b18ebc5cef608144bc8d7e3ac147265cf0d70fba66eee5ab78a3b8812c807";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
