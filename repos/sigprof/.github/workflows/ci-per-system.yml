@@ -63,7 +63,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.flake-jobs).earlyChecks }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
@@ -83,7 +83,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.flake-jobs).packages }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
@@ -103,7 +103,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.nur-jobs).other }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
@@ -124,7 +124,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.nur-jobs).stage1 }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
@@ -148,7 +148,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.nur-jobs).stage2 }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
@@ -172,7 +172,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.nur-jobs).stage3 }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
@@ -196,7 +196,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.flake-jobs).hosts }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
@@ -219,7 +219,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.flake-jobs).checks }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: Build
         uses: ./.github/actions/nix-build
         with:
