@@ -10,7 +10,7 @@
 }:
 let
   pname = "v2raya";
-  version = "unstable-2023-03-16";
+  version = "unstable-2023-03-17";
 
   src = fetchFromGitHub {
     owner = "v2rayA";
