@@ -3,18 +3,18 @@
 , buildGoModule
 , ...
 }:
-buildGoModule rec {
+buildGoModule {
   pname = "v2ray-plugin";
   version = "4.45.2";
 
   src = fetchFromGitHub {
     owner = "teddysun";
     repo = "v2ray-plugin";
-    rev = "60b3d965be58ee01b5d8d8ff00a1b60b8d1a9361";
-    sha256 = "sha256-/vF08H3ZmD7HJhCSeHFepYcazr6jjdJgtP9K7vIunlU=";
+    rev = "87488f188689234956407631e728faae143f3e65";
+    sha256 = "sha256-QTuyMMjctnimsKxtkVjIjafQLXYc08D6UX+lwNsT6MI=";
   };
 
-  vendorSha256 = "sha256-QV1lTdvqP/KY0yPwLnEi704bNFy+Fcw9M+mUbe/HYmU=";
+  vendorSha256 = "sha256-MBjEM2S2G+8vfFmNqCsW5SRPvX6eo9rEuluvCPln4EQ=";
 
   CGO_ENABLED = 0;
   doCheck = false;
