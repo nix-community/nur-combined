@@ -185,7 +185,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: lantianCustomized (8 packages)</summary>
+<summary>Package set: lantianCustomized (9 packages)</summary>
 
 | State | Name | Version | Path | Description |
 | ----- | ---- | ------- | ---- | ----------- |
@@ -197,6 +197,7 @@ Or, use variables from this repository in case I change them:
 |  | [linux](https://www.kernel.org/) | 6.2.5-xanmod1 | `lantianCustomized.linux-xanmod-lantian-unstable-lto` | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 32a49117ca3ff17d7681713a8dc8812323142dcb | `lantianCustomized.nbfc-linux` | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | [nginx-lantian](https://openresty.org) | 1.21.4.1 | `lantianCustomized.nginx` | OpenResty with Lan Tian modifications |
+|  | [transmission](http://www.transmissionbt.com/) | 3.00 | `lantianCustomized.transmission-with-webui` | A fast, easy and free BitTorrent client |
 </details>
 
 <details>

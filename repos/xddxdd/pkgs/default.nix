@@ -73,7 +73,7 @@ in
 
     lantianLinuxXanmod = ifNotCI (pkgs.recurseIntoAttrs (
       let
-        pkg-linux-xanmod-lantian = flags: ifNotCI (pkg ./lantian-customized/linux-xanmod-lantian flags);
+        pkg-linux-xanmod-lantian = flags: ifNotCI (pkg ./lantian-linux-xanmod flags);
       in rec {
         x86_64-v1 = pkg-linux-xanmod-lantian {
           lto = false;
