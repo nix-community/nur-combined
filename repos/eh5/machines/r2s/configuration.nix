@@ -65,6 +65,7 @@
 
   environment.systemPackages = with pkgs; [
     bind
+    conntrack-tools
     f2fs-tools
     file
     htop

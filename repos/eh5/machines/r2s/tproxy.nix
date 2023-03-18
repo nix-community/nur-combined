@@ -45,11 +45,11 @@ in
         udp = "udp";
       };
       tcp = {
-        address = "::";
+        address = "127.0.0.1";
         port = 1081;
       };
       udp = {
-        address = "::";
+        address = "127.0.0.1";
         port = 1081;
       };
       limit-nofile = 65535;

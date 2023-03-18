@@ -6,6 +6,10 @@ define chn_ns = {
   114.114.114.114
 }
 
+define open_udp_ports = {
+  1024-65535
+}
+
 table ip filter {
   # allow all packets sent by the firewall machine itself
   chain output {
@@ -25,6 +29,7 @@ table ip filter {
       related: accept,
       invalid: drop
     }
+    udp dport $open_udp_ports ct state new accept
 
     reject
   }
@@ -41,13 +46,14 @@ table ip filter {
 
     iifname intern0 oifname extern0 accept
     iifname extern0 oifname intern0 ct state { related, established } accept
+    iifname extern0 oifname intern0 udp dport $open_udp_ports ct state new accept
   }
 }
 
 table ip nat {
   chain prerouting {
     type nat hook prerouting priority -100; policy accept;
-    iifname intern0 ip daddr $chn_ns udp dport 53 counter dnat to 127.0.0.1
+    iifname intern0 ip daddr $chn_ns udp dport 53 redirect
     iifname extern0 fullcone
   }
 
