@@ -148,16 +148,16 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "1c1d7730edd700ad8c8ddb0dac69ac419265f767";
+    version = "1697adf8861a15178f4794de566d14d295c79b39";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "1c1d7730edd700ad8c8ddb0dac69ac419265f767";
+      rev = "1697adf8861a15178f4794de566d14d295c79b39";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-CCIrcR2y3Qdw0TpUO03WfxpgDnJDipg9Vl/FEjZa6vY=";
+      sha256 = "sha256-tsw+npcOga8NBM1F8hnsT69k33FS5nK1zaPB1ohasPk=";
     };
-    date = "2023-02-28";
+    date = "2023-03-17";
   };
   pyim-greatdict = {
     pname = "pyim-greatdict";
@@ -352,10 +352,10 @@
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.12.0.400";
+    version = "3.14.0.401";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb";
-      sha256 = "sha256-NN09Sm8IepV0tkosqC3pSor4/db4iF11XcGAuN/iOpM=";
+      url = "https://updatecdn.meeting.qq.com/cos/1b001ef75914a1d6948decb8c2550b47/TencentMeeting_0300000000_3.14.0.401_x86_64_default.publish.deb";
+      sha256 = "sha256-ioBlxrdTboLSRXO9BhmdPFl5M0chaEoPgVLsami1Gy8=";
     };
   };
   yacd = {
