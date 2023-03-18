@@ -1,13 +1,21 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> {inherit system;},
+  pkgs ? import <nixpkgs> {inherit system;}
 }: let
-  mypkgs = pkgs.callPackage ./pkgs {};
+  overlays = import ./overlays;
+
+  metaOverlay = self: super:
+    with super.lib;
+    foldl' (flip extends) (_: super) (builtins.attrValues overlays) self;
+
+  newpkgs = pkgs.extend metaOverlay;
+
+  mypkgs = newpkgs.callPackage ./pkgs {};
 in
   rec {
-    lib = import ./lib {inherit pkgs;}; # functions
+    inherit overlays;
+    lib = import ./lib {pkgs = newpkgs;}; # functions
     modules = import ./modules; # NixOS modules
-    overlays = import ./overlays; # nixpkgs overlays
     pkgs = mypkgs; # custom packages.
   }
   // mypkgs

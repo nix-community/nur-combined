@@ -17,8 +17,15 @@
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
 
-    nixpkgsFor = forAllSystems (system: import nixpkgs {inherit system;});
+    overlays = import ./overlays;
+
+    nixpkgsFor = forAllSystems (system:
+      import nixpkgs {
+        inherit system;
+        overlays = builtins.attrValues overlays;
+      });
   in {
+    inherit overlays;
     formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
     packages = forAllSystems (system: (import ./pkgs {
       inherit system;

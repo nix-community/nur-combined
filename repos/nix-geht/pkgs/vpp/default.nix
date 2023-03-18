@@ -10,12 +10,12 @@
 }:
 assert (lib.asserts.assertMsg (!enableRdma || stdenv.isLinux) "Can't enable rdma_plugin - rdma-core only works on Linux");
 assert (lib.asserts.assertMsg (!enableAfXdp || stdenv.isLinux) "Can't enable af_xdp_plugin - Only exists on Linux"); let
-  version = "22.10";
+  version = "22.10.1";
   src = pkgs.fetchFromGitHub {
     owner = "FDio";
     repo = "vpp";
     rev = "v${version}";
-    hash = "sha256-wyUjtyPZXYO9PAv48qDfm17WoTPwZr7sa+6s8zgmA1k=";
+    hash = "sha256-HZKG0el7zMc/dsiWpcGjGaZlpylJKA2auLHmNow1yoc=";
   };
   getMeta = description:
     with lib; {
@@ -39,6 +39,9 @@ in rec {
     meta = getMeta "Vector Packet Processor Engine";
     inherit src;
     sourceRoot = "source/src";
+
+    # There are a lot of warnings. Yikes.
+    NIX_CFLAGS_COMPILE = ["-Wno-error"];
 
     nativeBuildInputs = with pkgs; [pkg-config cmake ninja nasm coreutils];
     buildInputs = with pkgs;
