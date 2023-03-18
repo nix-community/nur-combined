@@ -1,1 +1,0 @@
-{ documentation.man.enable = true; }
