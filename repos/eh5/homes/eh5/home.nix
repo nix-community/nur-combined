@@ -43,9 +43,10 @@ in
   home.packages = with pkgs; [
     cachix
     netease-cloud-music
+    nil
     nix-gfx-mesa
+    nixpkgs-fmt
     nix-prefetch
-    rnix-lsp
     ssh-to-age
   ];
 }
