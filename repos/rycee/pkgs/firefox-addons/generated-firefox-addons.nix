@@ -1576,10 +1576,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.50";
+      version = "2.7.53";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4080208/momentumdash-2.7.50.xpi";
-      sha256 = "45fb2d87aa5f6e98890c16c4762e1ba7685e869c20e199fec99a39b3088ce5ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4083502/momentumdash-2.7.53.xpi";
+      sha256 = "f4e6a65bf2458d1fdcb29d78ce0de115a1bb6144a7fa38bba58cc7bc4e9593bf";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1785,10 +1785,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.8.0";
+      version = "7.8.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4069786/octotree-7.8.0.xpi";
-      sha256 = "ef266f40cc79652f48464296e9627206d081efa46a31c5642517b1d3750c6d5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4082360/octotree-7.8.3.xpi";
+      sha256 = "ee6c09046648e30da6a2cc942e5b41771975e9ea28f9b252d43d1b20ad4ac711";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1845,10 +1845,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.6.0";
+      version = "2.8.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4061902/1password_x_password_manager-2.6.0.xpi";
-      sha256 = "8b41f3b5edf767fd8826e7bfd813de9225ab2ea851099eea224346e0a266161c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4082096/1password_x_password_manager-2.8.1.xpi";
+      sha256 = "f412a1a71ac9a6a3d9bc97e3a961b2548206d08029273c36d9654cfed1cdad6d";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2463,10 +2463,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.13";
+      version = "5.3.0";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064410/sponsorblock-5.1.13.xpi";
-      sha256 = "851b2f2da02c566ddd00bb13ac9a874cd81114041c53b5d268686be46ebe985b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4082830/sponsorblock-5.3.0.xpi";
+      sha256 = "7d6ae30044c0406c7e1be2e18e800c1957f20d27cc5a4f1fbcefcf671f427097";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2573,10 +2573,10 @@
       };
     "switchyomega" = buildFirefoxXpiAddon {
       pname = "switchyomega";
-      version = "2.5.20";
+      version = "2.5.19";
       addonId = "switchyomega@feliscatus.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/1056777/switchyomega-2.5.20.xpi";
-      sha256 = "360da61f908a00a1900241ede20f8a3f82675b2365cfdf386efa35fb284cca38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1051594/switchyomega-2.5.19.xpi";
+      sha256 = "93f4d8abc4264be562a497ed6a88018780161a7fef680abd811579b1b6c0fa1b";
       meta = with lib;
       {
         homepage = "https://github.com/FelisCatus/SwitchyOmega";
@@ -3142,10 +3142,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.55";
+      version = "6.10.56";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4068297/wappalyzer-6.10.55.xpi";
-      sha256 = "61af3becc784281aa7bc13702ef7bc2d1f45521728838e2b4dce90b9fe1a648f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4083798/wappalyzer-6.10.56.xpi";
+      sha256 = "ce5604e6304c07ddb7ccce5bc8800f85c97ed8c885b9bb1eb99ac7a6f5951ef9";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
