@@ -1,6 +1,6 @@
 {
   lib,
-  python3,
+  python3Packages,
   fetchFromGitHub,
   desktop-file-utils,
   gobject-introspection,
@@ -17,7 +17,7 @@
   python-textstat,
   python-uuid6,
 }:
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "devtoolbox";
   version = "1.0.2";
 
@@ -46,20 +46,20 @@ python3.pkgs.buildPythonApplication rec {
     webkitgtk_5_0
   ];
 
-  pythonPath = with python3.pkgs; [
-    croniter
-    humanize
-    lxml
-    markdown2
-    pygobject3
-    python-crontab
+  pythonPath = [
+    python3Packages.croniter
+    python3Packages.humanize
+    python3Packages.lxml
+    python3Packages.markdown2
+    python3Packages.pygobject3
+    python3Packages.python-crontab
     python-daltonlens
-    python-jwt
+    python3Packages.python-jwt
     python-lorem
     python-textstat
     python-uuid6
-    ruamel-yaml
-    sqlparse
+    python3Packages.ruamel-yaml
+    python3Packages.sqlparse
   ];
 
   dontWrapGApps = true;

@@ -1,27 +1,26 @@
 {
   lib,
-  python3,
-  fetchPypi,
+  python3Packages,
 }:
-python3.pkgs.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "daltonlens";
   version = "0.1.5";
 
   format = "pyproject";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     hash = "sha256-T7fXlRdFtcVw5WURPqZhCmulUi1ZnCfCXgcLtTHeNas=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-    wheel
+  nativeBuildInputs = [
+    python3Packages.setuptools
+    python3Packages.wheel
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    numpy
-    pillow
+  propagatedBuildInputs = [
+    python3Packages.numpy
+    python3Packages.pillow
   ];
 
   pythonImportsCheck = [

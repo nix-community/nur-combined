@@ -19,13 +19,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "commit";
-  version = "3.2.0";
+  version = "3.3.0";
 
   src = fetchFromGitHub {
     owner = "sonnyp";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-nnjHuE7MzCuoPfCb4MA00BIzLPbhgR6mbeWYagmNjME=";
+    hash = "sha256-TiaBIhvhq4B1CrR7EABjM2ARHv8Y/OuNeKmQpp/avik=";
   };
 
   patches = [

@@ -1,15 +1,14 @@
 {
   lib,
-  python3,
-  fetchPypi,
+  python3Packages,
 }:
-python3.pkgs.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "lorem";
   version = "0.1.1";
 
   format = "setuptools";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     hash = "sha256-eF9BCaJB/CiR5ZcF6F0GX25tPtatkXUKjLVNTz5Z2TQ=";
   };

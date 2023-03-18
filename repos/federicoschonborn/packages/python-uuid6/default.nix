@@ -1,15 +1,14 @@
 {
   lib,
-  python3,
-  fetchPypi,
+  python3Packages,
 }:
-python3.pkgs.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "uuid6";
   version = "2022.10.25";
 
   format = "setuptools";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     hash = "sha256-ClaTXenBzo3YVZIluEVUnZSRfZ4krUscwjKO6lvgAQw=";
   };

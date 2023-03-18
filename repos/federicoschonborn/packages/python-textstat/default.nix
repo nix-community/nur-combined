@@ -1,22 +1,21 @@
 {
   lib,
-  python3,
-  fetchPypi,
+  python3Packages,
 }:
-python3.pkgs.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "textstat";
   version = "0.7.3";
 
   format = "setuptools";
 
-  src = fetchPypi {
+  src = python3Packages.fetchPypi {
     inherit pname version;
     hash = "sha256-YLY8+JSfRbuztCBeRBG7wc1m30wIrvElRYEcfm4k8BE=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pyphen
-    setuptools
+  propagatedBuildInputs = [
+    python3Packages.pyphen
+    python3Packages.setuptools
   ];
 
   pythonImportsCheck = [
