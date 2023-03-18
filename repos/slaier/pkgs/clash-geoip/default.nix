@@ -3,8 +3,6 @@
 stdenv.mkDerivation rec {
   inherit (sources.clash-geoip) pname version src;
 
-  preferLocalBuild = true;
-
   dontUnpack = true;
 
   installPhase = ''
