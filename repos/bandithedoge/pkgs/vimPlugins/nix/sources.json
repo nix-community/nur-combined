@@ -65,10 +65,10 @@
         "homepage": "",
         "owner": "romgrk",
         "repo": "barbar.nvim",
-        "rev": "de5682f7b7de872d1bfd02aa1368cd0c34d13b49",
-        "sha256": "0g8230x3a49sj1j0c9knjd7dqs9lrm2ap24pfaxsbavc1w4zdh2m",
+        "rev": "d0b39de8ce48e9efced88edc9244ca21e571bb98",
+        "sha256": "06vk79iylmhcprbapc7rawwg054qd3lm6n15b765ki7dlz5806ym",
         "type": "tarball",
-        "url": "https://github.com/romgrk/barbar.nvim/archive/de5682f7b7de872d1bfd02aa1368cd0c34d13b49.tar.gz",
+        "url": "https://github.com/romgrk/barbar.nvim/archive/d0b39de8ce48e9efced88edc9244ca21e571bb98.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "better-comments.nvim": {
@@ -473,10 +473,10 @@
         "homepage": null,
         "owner": "ibhagwan",
         "repo": "fzf-lua",
-        "rev": "d666abc60fff12af9e91812666d42ff7f2555934",
-        "sha256": "0ay8g2jda154d9fv2l4yi3v0sydq92i29nng9magm6g2p3rrym78",
+        "rev": "52820c5b352c3d1c4da26823de2deabcc323b914",
+        "sha256": "14qc1nf6wn118dz00az3ix8vs1mwjsvklw7b8kz8w9apw0y4cn9q",
         "type": "tarball",
-        "url": "https://github.com/ibhagwan/fzf-lua/archive/d666abc60fff12af9e91812666d42ff7f2555934.tar.gz",
+        "url": "https://github.com/ibhagwan/fzf-lua/archive/52820c5b352c3d1c4da26823de2deabcc323b914.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "galaxyline.nvim": {
@@ -725,10 +725,10 @@
         "homepage": "",
         "owner": "folke",
         "repo": "lua-dev.nvim",
-        "rev": "adc448c982b64d92d52d2182b52f9c980c3020d5",
-        "sha256": "0frxbdd3mz3sa9bmm4hi9sdx4ghsyjnfxnrjkd7gpk259s56r5q2",
+        "rev": "ce2bedbfc07b28c1f247102de19c4767602c4fc7",
+        "sha256": "133vcrpbqi63ar0yr29naf0wlnr8jb2dhkljw5950c8vkrfaxgi2",
         "type": "tarball",
-        "url": "https://github.com/folke/lua-dev.nvim/archive/adc448c982b64d92d52d2182b52f9c980c3020d5.tar.gz",
+        "url": "https://github.com/folke/lua-dev.nvim/archive/ce2bedbfc07b28c1f247102de19c4767602c4fc7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lualine.nvim": {
@@ -917,10 +917,10 @@
         "homepage": "",
         "owner": "jose-elias-alvarez",
         "repo": "null-ls.nvim",
-        "rev": "4bcf2701ae8fb9fd44e65acb4238cdca1f3bd04b",
-        "sha256": "0bww4lffic6a6bkrbx4146nl5wh22njsvb3yqpf97fyklyg2ls4f",
+        "rev": "456a983ce9843123e51b955f50925077ca7207d5",
+        "sha256": "1w3mfkx6va981sykv33b2amzfnx0whh8qpj9jkgib9hnv5iw10j8",
         "type": "tarball",
-        "url": "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/4bcf2701ae8fb9fd44e65acb4238cdca1f3bd04b.tar.gz",
+        "url": "https://github.com/jose-elias-alvarez/null-ls.nvim/archive/456a983ce9843123e51b955f50925077ca7207d5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "numbers.nvim": {
