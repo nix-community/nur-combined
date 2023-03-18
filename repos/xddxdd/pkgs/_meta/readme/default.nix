@@ -54,11 +54,11 @@
         # Golang packages set a lot of architectures
         # ++ builtins.map (v: "Arch: ${v}") v.platforms
         ;
-    in "| ${lib.concatMapStringsSep " " (v: "`${v}`") tags} | ${
+    in "| ${lib.concatMapStringsSep " " (v: "`${v}`") tags} | `${v.path}` | ${
       if v.url != null
       then "[${v.pname}](${v.url})"
       else v.pname
-    } | ${v.version} | `${v.path}` | ${v.description} |")
+    } | ${v.version} | ${v.description} |")
     (lib.flatten (packageTraverse prefix ps));
 
   packageSetOutput = name: path: v: let
@@ -67,8 +67,8 @@
     <details>
     <summary>Package set: ${name} (${builtins.toString (builtins.length list)} packages)</summary>
 
-    | State | Name | Version | Path | Description |
-    | ----- | ---- | ------- | ---- | ----------- |
+    | State | Path | Name | Version | Description |
+    | ----- | ---- | ---- | ------- | ----------- |
     ${builtins.concatStringsSep "\n" list}
     </details>
   '';
