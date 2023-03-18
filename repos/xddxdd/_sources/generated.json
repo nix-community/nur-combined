@@ -1208,6 +1208,26 @@
         },
         "version": "0bbe64d28667a72130aded6e6d6826efa68566ad"
     },
+    "undetected-chromedriver": {
+        "cargoLocks": null,
+        "date": "2023-02-10",
+        "extract": null,
+        "name": "undetected-chromedriver",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ultrafunkamsterdam",
+            "repo": "undetected-chromedriver",
+            "rev": "bf7dcf8b5713020de7454844fb80036b8c456503",
+            "sha256": "sha256-/yrnbSfZEF4mIg1OrgZkJ8+Q5ma/bnoJILW4AUv0lpY=",
+            "type": "github"
+        },
+        "version": "bf7dcf8b5713020de7454844fb80036b8c456503"
+    },
     "vs-rife": {
         "cargoLocks": null,
         "date": null,

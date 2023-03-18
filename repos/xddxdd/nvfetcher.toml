@@ -274,6 +274,10 @@ fetch.github = "openresty/stream-echo-nginx-module"
 src.git = "https://github.com/ronggang/transmission-web-control.git"
 fetch.github = "ronggang/transmission-web-control"
 
+[undetected-chromedriver]
+src.git = "https://github.com/ultrafunkamsterdam/undetected-chromedriver.git"
+fetch.github = "ultrafunkamsterdam/undetected-chromedriver"
+
 [vs-rife]
 src.github = "HolyWu/vs-rife"
 fetch.github = "HolyWu/vs-rife"

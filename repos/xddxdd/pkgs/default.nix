@@ -188,6 +188,8 @@ in
     space-cadet-pinball-full-tilt = pkg ./uncategorized/space-cadet-pinball-full-tilt {};
     svp = pkg ./uncategorized/svp {};
     tachidesk-server = pkg ./uncategorized/tachidesk-server {};
+    undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver {};
+    undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin {};
     vs-rife = pkg ./uncategorized/vs-rife {};
     wechat-uos = pkg ./uncategorized/wechat-uos {};
     wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix {};

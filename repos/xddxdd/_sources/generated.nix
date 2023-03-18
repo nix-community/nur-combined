@@ -694,6 +694,18 @@
     });
     date = "2022-02-23";
   };
+  undetected-chromedriver = {
+    pname = "undetected-chromedriver";
+    version = "bf7dcf8b5713020de7454844fb80036b8c456503";
+    src = fetchFromGitHub ({
+      owner = "ultrafunkamsterdam";
+      repo = "undetected-chromedriver";
+      rev = "bf7dcf8b5713020de7454844fb80036b8c456503";
+      fetchSubmodules = false;
+      sha256 = "sha256-/yrnbSfZEF4mIg1OrgZkJ8+Q5ma/bnoJILW4AUv0lpY=";
+    });
+    date = "2023-02-10";
+  };
   vs-rife = {
     pname = "vs-rife";
     version = "v3.1.0";

@@ -4,9 +4,9 @@
   stdenv,
   python3,
   makeWrapper,
-  chromedriver,
   chromium,
   xorg,
+  undetected-chromedriver-bin,
   ...
 }: let
   python = python3.withPackages (p:
@@ -21,8 +21,8 @@
     ]);
 
   path = lib.makeBinPath [
-    chromedriver
     chromium
+    undetected-chromedriver-bin
     xorg.xorgserver
   ];
 in
@@ -33,7 +33,7 @@ in
 
     postPatch = ''
       substituteInPlace src/utils.py \
-        --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${chromedriver}/bin/chromedriver"'
+        --replace 'PATCHED_DRIVER_PATH = None' 'PATCHED_DRIVER_PATH = "${undetected-chromedriver-bin}/bin/undetected_chromedriver"'
     '';
 
     installPhase = ''
@@ -42,7 +42,7 @@ in
 
       makeWrapper ${python}/bin/python $out/bin/flaresolverr \
         --add-flags "$out/opt/src/flaresolverr.py" \
-        --prefix PATH : "${path}"
+        --set PATH "${path}"
     '';
 
     meta = with lib; {
