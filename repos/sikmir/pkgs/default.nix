@@ -35,6 +35,7 @@ lib.makeScope newScope (
     pinentry-touchid = callPackage ./darwin/pinentry-touchid {
       inherit (darwin.apple_sdk.frameworks) LocalAuthentication;
     };
+    podman-desktop-bin = callPackage ./darwin/podman-desktop/bin.nix { };
     qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
     sloth-bin = callPackage ./darwin/sloth { };
 
