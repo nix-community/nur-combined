@@ -2,12 +2,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
-  version = "1.184.0.0";
+  version = "1.187.1.0";
 
-  src = fetchurl {
-    url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
-    hash = "sha256-OUoqsc1kRLMe0dHkcwIKEwhxTX8fHzGBaND3PA5dqGM=";
-  };
+  src = {
+    "aarch64-darwin" = fetchurl {
+      url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg";
+      hash = "sha256-xJUOsp7AUKIXQ2L8ccAnZHcvIszT/NqV7TOOzzdlJkk=";
+    };
+    "x86_64-darwin" = fetchurl {
+      url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
+      hash = "sha256-FEhWBxbAoMvxgwW29dUzMnCBfJWUJaGxJZxI45JwJvs=";
+    };
+  }.${stdenv.hostPlatform.system};
 
   nativeBuildInputs = [ undmg ];
 
@@ -20,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     inherit (cudatext.meta) description homepage changelog license;
-    platforms = [ "x86_64-darwin" ];
+    platforms = [ "aarch64-darwin" "x86_64-darwin" ];
     maintainers = [ maintainers.sikmir ];
     skip.ci = true;
   };
