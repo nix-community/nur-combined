@@ -20,28 +20,40 @@ in
           blocks = builtins.filter (attr: attr != { }) [
             {
               block = "music";
-              buttons = [ "prev" "play" "next" ];
-              max_width = 50;
-              dynamic_width = true;
-              hide_when_empty = true;
+              # This format seems to remove the block when not playing, somehow
+              format = "{ $icon $combo.str(max_w:50,rot_interval:0.5)  $prev  $play  $next |}";
+              click = [
+                {
+                  button = "play";
+                  action = "music_play";
+                }
+                {
+                  button = "prev";
+                  action = "music_prev";
+                }
+                {
+                  button = "next";
+                  action = "music_next";
+                }
+              ];
             }
             (lib.optionalAttrs config.my.home.bluetooth.enable {
               block = "bluetooth";
               mac = "4C:87:5D:06:40:D9";
-              hide_disconnected = true;
-              format = "Boson {percentage}";
+              format = " $icon Boson{ $percentage|} ";
+              disconnected_format = "";
             })
             (lib.optionalAttrs config.my.home.bluetooth.enable {
               block = "bluetooth";
               mac = "94:DB:56:00:EE:93";
-              hide_disconnected = true;
-              format = "Protons {percentage}";
+              format = " $icon Protons{ $percentage|} ";
+              disconnected_format = "";
             })
             (lib.optionalAttrs config.my.home.bluetooth.enable {
               block = "bluetooth";
               mac = "F7:78:BA:76:52:F7";
-              hide_disconnected = true;
-              format = "MX Ergo {percentage}";
+              format = " $icon MX Ergo{ $percentage|} ";
+              disconnected_format = "";
             })
             {
               block = "cpu";
@@ -51,7 +63,7 @@ in
             }
             {
               block = "net";
-              format = "{ssid} {ip} {signal_strength}";
+              format = " $icon $ssid $ip $signal_strength ";
             }
             {
               block = "backlight";
@@ -59,17 +71,17 @@ in
             }
             {
               block = "battery";
-              format = "{percentage} ({time})";
-              full_format = "{percentage}";
+              format = " $percentage ($time) ";
+              full_format = " $icon $percentage ";
             }
             {
               block = "temperature";
-              collapsed = false;
+              format_alt = " $icon ";
             }
             {
               block = "sound";
               device_kind = "source"; # Microphone status
-              format = ""; # Only show icon
+              format = " $icon ";
             }
             {
               block = "sound";
@@ -77,7 +89,8 @@ in
             }
             {
               block = "time";
-              format = "%F %T";
+              format = " $icon $timestamp.datetime(f:'%F %T') ";
+              interval = 5;
             }
           ];
         };
