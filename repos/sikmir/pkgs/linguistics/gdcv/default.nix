@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "gdcv" "emacs-module" ];
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-largp";
+  env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-largp";
 
   installPhase = ''
     install -Dm755 gdcv -t $out/bin

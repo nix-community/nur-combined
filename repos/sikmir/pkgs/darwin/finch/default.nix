@@ -4,12 +4,12 @@ let
   arch = lib.head (lib.splitString "-" stdenv.hostPlatform.system);
   lima = {
     "x86_64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${arch}/lima-and-qemu.macos-${arch}.1673290501.tar.gz";
-      hash = "sha256-9/15eqTAhARRp67fgsitLrg3yYI1j4dNBhLo31H6OAg=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1678817277.tar.gz";
+      hash = "sha256-HcGuSPWVIn/YP/RmTEpO2p75DHCqaS7Xu1KLqkN1O/M=";
     };
     "aarch64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${arch}/lima-and-qemu.macos-${arch}.1673290784.tar.gz";
-      hash = "sha256-PgkOEkq7EUH1qmVeIIKRUkT7lDoWmGIDxj/v5Pa1kt0=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1678826933.tar.gz";
+      hash = "sha256-q+Dki3KxsnqG7xoHLlhmb8amXQ2ANRH/o3f0jbw+U3s=";
     };
   }.${stdenv.hostPlatform.system};
   os = {
