@@ -263,6 +263,18 @@
         "url": "https://github.com/Saecki/crates.nvim/archive/aa94d3844d6a12b1a8bf73c8a242ff2f540fb749.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "dashboard-nvim": {
+        "branch": "master",
+        "description": "vim dashboard",
+        "homepage": "",
+        "owner": "glepnir",
+        "repo": "dashboard-nvim",
+        "rev": "6e0a35343fc37a2a2ca5ab1734d60fcc06c4cf01",
+        "sha256": "14av4336k72djlc0wnaaj3j53brczmhf4iwib6ywzka1rjhkyp2r",
+        "type": "tarball",
+        "url": "https://github.com/glepnir/dashboard-nvim/archive/6e0a35343fc37a2a2ca5ab1734d60fcc06c4cf01.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "detect-language.nvim": {
         "branch": "main",
         "description": "neovim plugin for better language auto-detection, powered by tree-sitter",
@@ -1225,14 +1237,14 @@
     },
     "nvim-ts-rainbow": {
         "branch": "master",
-        "description": "Rainbow parentheses for neovim using tree-sitter. https://sr.ht/~p00f/nvim-ts-rainbow preferred",
-        "homepage": "",
-        "owner": "p00f",
-        "repo": "nvim-ts-rainbow",
-        "rev": "ef95c15a935f97c65a80e48e12fe72d49aacf9b9",
-        "sha256": "0ldv8g9i25286n0xqa1cj7a2lglcz9564dawz6ixd4ipsysjj571",
+        "description": "Rainbow delimiters for Neovim through Tree-sitter",
+        "homepage": null,
+        "owner": "HiPhish",
+        "repo": "nvim-ts-rainbow2",
+        "rev": "cee4601ff8aac73dee4afa1074814343bb5a0b80",
+        "sha256": "0g0jy6jcpmpia6k8c0i91yjajx9crin4lgwmmmr0dl20yd77gqki",
         "type": "tarball",
-        "url": "https://github.com/p00f/nvim-ts-rainbow/archive/ef95c15a935f97c65a80e48e12fe72d49aacf9b9.tar.gz",
+        "url": "https://github.com/HiPhish/nvim-ts-rainbow2/archive/cee4601ff8aac73dee4afa1074814343bb5a0b80.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-web-devicons": {
@@ -1413,6 +1425,18 @@
         "sha256": "02hpg77mk7bwssw24jqpfhs4bnia4h6c6i4fs7hdqpzaqvgzvjy6",
         "type": "tarball",
         "url": "https://github.com/vladdoster/remember.nvim/archive/6b4176330a25c42597ac3dba0cdce9aa8b22d60e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "reticle.nvim": {
+        "branch": "main",
+        "description": "NVIM plugin to highlight only the screen line of the cursor in the currently active window",
+        "homepage": "",
+        "owner": "Tummetott",
+        "repo": "reticle.nvim",
+        "rev": "7290f2649684415a9d3da98957ea44f5421f4f2a",
+        "sha256": "0nzxbnpjrbzlkqx02ih8nx7c6nx5fzakvczgzi1n74ciac1vynia",
+        "type": "tarball",
+        "url": "https://github.com/Tummetott/reticle.nvim/archive/7290f2649684415a9d3da98957ea44f5421f4f2a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "satellite.nvim": {
