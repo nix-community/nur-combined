@@ -21,7 +21,7 @@
     },
     "cardinal": {
         "cargoLocks": null,
-        "date": "2023-03-05",
+        "date": "2023-03-19",
         "extract": null,
         "name": "cardinal",
         "passthru": null,
@@ -33,15 +33,15 @@
             "name": null,
             "owner": "DISTRHO",
             "repo": "Cardinal",
-            "rev": "120d5e3c0840daec39ccb688a1036125ff133d31",
-            "sha256": "sha256-WxUVNkXIDhWQVV8P0jyF7oWG/eTh4B3PrXSk+3FnHO8=",
+            "rev": "e2ed1e02d252759aa1949bc4fe4ed3e99ef409b8",
+            "sha256": "sha256-4oZVQrrobQiOX71Yr+0ZZRfElerPumo/rkRek7gVx88=",
             "type": "github"
         },
-        "version": "120d5e3c0840daec39ccb688a1036125ff133d31"
+        "version": "e2ed1e02d252759aa1949bc4fe4ed3e99ef409b8"
     },
     "carla": {
         "cargoLocks": null,
-        "date": "2023-03-05",
+        "date": "2023-03-19",
         "extract": null,
         "name": "carla",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "falkTX",
             "repo": "Carla",
-            "rev": "21508c6f7037bd31e31374202ea245b77b497a2d",
-            "sha256": "sha256-3L2KV9oDmYumz8fria83pDUwKq7ct1+LwvMvCcfxOzA=",
+            "rev": "6cdd0e71a33bd22aacbe5890f17dcdf14606bd68",
+            "sha256": "sha256-GpvgehXdqrroRwJ+3YJ4ZMIeIMUWdE/RV2+CPw55+yM=",
             "type": "github"
         },
-        "version": "21508c6f7037bd31e31374202ea245b77b497a2d"
+        "version": "6cdd0e71a33bd22aacbe5890f17dcdf14606bd68"
     },
     "dmenu-flexipatch": {
         "cargoLocks": null,

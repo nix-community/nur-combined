@@ -22,6 +22,7 @@
 | [colortils-nvim](https://github.com/nvim-colortils/colortils.nvim) | Some color utils for neovim |
 | [coq_nvim](https://github.com/ms-jpq/coq_nvim) | Fast as FUCK nvim completion. SQLite, concurrent scheduler, hundreds of hours of optimization. |
 | [crates-nvim](https://github.com/Saecki/crates.nvim) | A neovim plugin that helps managing crates.io dependencies |
+| [dashboard-nvim](https://github.com/glepnir/dashboard-nvim) | vim dashboard |
 | [detect-language-nvim](https://github.com/spywhere/detect-language.nvim) | neovim plugin for better language auto-detection, powered by tree-sitter |
 | [dhall-vim](https://github.com/vmchale/dhall-vim) | Syntax highlighting for Dhall |
 | [diaglist-nvim](https://github.com/onsails/diaglist.nvim) | Live render workspace diagnostics in quickfix with current buf errors on top, buffer diagnostics in loclist |
@@ -102,7 +103,7 @@
 | [nvim-treesitter-textsubjects](https://github.com/RRethy/nvim-treesitter-textsubjects) | Location and syntax aware text objects which *do what you mean* |
 | [nvim-ts-autotag](https://github.com/windwp/nvim-ts-autotag) | Use treesitter to auto close and auto rename html tag |
 | [nvim-ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) | Neovim treesitter plugin for setting the commentstring based on the cursor location in a file. |
-| [nvim-ts-rainbow](https://github.com/p00f/nvim-ts-rainbow) | Rainbow parentheses for neovim using tree-sitter. https://sr.ht/~p00f/nvim-ts-rainbow preferred |
+| [nvim-ts-rainbow](https://github.com/HiPhish/nvim-ts-rainbow2) | Rainbow delimiters for Neovim through Tree-sitter |
 | [nvim-web-devicons](https://github.com/kyazdani42/nvim-web-devicons) | lua `fork` of vim-web-devicons for neovim |
 | [nvim-yati](https://github.com/yioneko/nvim-yati) | Yet another tree-sitter powered indent plugin for Neovim. |
 | [orgmode](https://github.com/nvim-orgmode/orgmode) | Orgmode clone written in Lua for Neovim 0.7+. |
@@ -118,6 +119,7 @@
 | [rasi-vim](https://github.com/Fymyte/rasi.vim) | Rofi config syntax highlighting for vim |
 | [refactoring-nvim](https://github.com/ThePrimeagen/refactoring.nvim) | The Refactoring library based off the Refactoring book by Martin Fowler |
 | [remember-nvim](https://github.com/vladdoster/remember.nvim) | A port of the Vim plugin vim-lastplace. It uses the same logic as vim-lastplace, but leverages the Neovim Lua API. |
+| [reticle-nvim](https://github.com/Tummetott/reticle.nvim) | NVIM plugin to highlight only the screen line of the cursor in the currently active window |
 | [satellite-nvim](https://github.com/lewis6991/satellite.nvim) | Decorate scrollbar for Neovim |
 | [sidebar-nvim](https://github.com/sidebar-nvim/sidebar.nvim) | A generic and modular lua sidebar for Neovim |
 | [size-matters-nvim](https://github.com/tenxsoydev/size-matters.nvim) | Dynamic font scaling for modern neovim GUI clients. |

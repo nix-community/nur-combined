@@ -485,10 +485,10 @@
         "homepage": null,
         "owner": "ibhagwan",
         "repo": "fzf-lua",
-        "rev": "6ee73fdf2a79bbd74ec56d980262e29993b46f2b",
-        "sha256": "03a5xq9ixn9hnwbjlshcmzh9x06c7likwd5kpahqy8zz2cz4avbl",
+        "rev": "5d8dd500cc8c1cafbeffbdcc62dc87d8ec371e88",
+        "sha256": "1p5ryjyaybk8r8icppfcy8zz98fv24ckmnmjirgr4p7jvhb4mwij",
         "type": "tarball",
-        "url": "https://github.com/ibhagwan/fzf-lua/archive/6ee73fdf2a79bbd74ec56d980262e29993b46f2b.tar.gz",
+        "url": "https://github.com/ibhagwan/fzf-lua/archive/5d8dd500cc8c1cafbeffbdcc62dc87d8ec371e88.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "galaxyline.nvim": {
@@ -1193,10 +1193,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "dcb9a89ab4f0091bf87aed4e6801423d3667f76a",
-        "sha256": "0xcp3z2l6kisva2ai1br9ncfw74hkp2n3jyc4n1kpxzpq6ia7yli",
+        "rev": "4536156f32b8ab0aab264e3cd7819fc8e3daede4",
+        "sha256": "1y6lczvsv4bygh79gqbihxsaygmnhin4bwdi59hb7bjgi6xy8j8f",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/dcb9a89ab4f0091bf87aed4e6801423d3667f76a.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/4536156f32b8ab0aab264e3cd7819fc8e3daede4.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
@@ -1769,10 +1769,10 @@
         "homepage": "",
         "owner": "folke",
         "repo": "which-key.nvim",
-        "rev": "fb027738340502b556c3f43051f113bcaa7e8e63",
-        "sha256": "15f9n7j73rq119qkv4kk3mgw605z93921n7af0x6qywrwaq3smp1",
+        "rev": "7b423209137cb936ec221ad12b94cf5b85054e53",
+        "sha256": "1za4phbyb7ljh2djb1xvf69p5fz7pv433fpfkjsdj16nv22k7q1s",
         "type": "tarball",
-        "url": "https://github.com/folke/which-key.nvim/archive/fb027738340502b556c3f43051f113bcaa7e8e63.tar.gz",
+        "url": "https://github.com/folke/which-key.nvim/archive/7b423209137cb936ec221ad12b94cf5b85054e53.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "yaml-companion.nvim": {
