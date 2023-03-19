@@ -42,11 +42,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-eU12tSvRtW9N7AUUTXWcnIAzouDzjlwQdCm4t4NlYXo=",
+            "sha256": "sha256-z3c6UkOykgAsYCMgYbDKeOvkwZBij2LErq3e2kNRIxA=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.04.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.18.gz"
         },
-        "version": "2023.03.04"
+        "version": "2023.03.18"
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
@@ -57,11 +57,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7O6C3VGfYwakvtr3nN+BO3G1RaMaIeIuHCF5zHLK1r0=",
+            "sha256": "sha256-xeDqNtCoVo59jnX2m50s0ksEmyN4Kz7ghe2GAaNlWSE=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.03.04.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.03.18.gz"
         },
-        "version": "2023.03.04"
+        "version": "2023.03.18"
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
@@ -72,11 +72,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zbK4cLDva6E1uzZZdqNjZD8jPNQ52d9wBz/9im3QyjA=",
+            "sha256": "sha256-8XFSEEWh2D+9QjB9+mCBJnIKIoC9XcPkX0wi7cYtAnE=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.03.04.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.03.18.gz"
         },
-        "version": "2023.03.04"
+        "version": "2023.03.18"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -87,11 +87,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BO+TtKTDvJYnLqRx/SZZFMz0o4QSEP4xKUqMlZotq8g=",
+            "sha256": "sha256-ihKvpzrBTIwmmYzO1260XvwTRoXyCfi6ueOM4FFHu+Q=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.04.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.18.gz"
         },
-        "version": "2023.03.04"
+        "version": "2023.03.18"
     },
     "commit-notifier": {
         "cargoLocks": {
@@ -357,7 +357,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-03-13",
+        "date": "2023-03-19",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -367,12 +367,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a32c7f0bdc7cef7c03278635965a2d5aecae0231",
-            "sha256": "sha256-D8gGHru5Ga19qRVWigp1Rxl+mPqMM03rx99uERq37fY=",
+            "rev": "5f041f695ef849b3b9efe45cda56c46fb8219a3f",
+            "sha256": "sha256-e2u5uoYF4PMlkld9tmlHwWbq0qXm2vuXjgus538h7As=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "a32c7f0bdc7cef7c03278635965a2d5aecae0231"
+        "version": "5f041f695ef849b3b9efe45cda56c46fb8219a3f"
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
