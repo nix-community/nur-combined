@@ -266,6 +266,10 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/xddxdd/route-chain.git"
 fetch.github = "xddxdd/route-chain"
 
+[sgx-software-enable]
+src.git = "https://github.com/intel/sgx-software-enable.git"
+fetch.github = "intel/sgx-software-enable"
+
 [stream-echo-nginx-module]
 src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
 fetch.github = "openresty/stream-echo-nginx-module"

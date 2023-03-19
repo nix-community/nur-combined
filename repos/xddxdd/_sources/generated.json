@@ -1168,6 +1168,26 @@
         },
         "version": "e68c96e5e4df70c797d5a99acc8226713a22d7f5"
     },
+    "sgx-software-enable": {
+        "cargoLocks": null,
+        "date": "2023-01-06",
+        "extract": null,
+        "name": "sgx-software-enable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "intel",
+            "repo": "sgx-software-enable",
+            "rev": "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d",
+            "sha256": "sha256-xBmFCrnNQq0xKwv7irJFN8YRfBCLmSxtak5dtHFv/xk=",
+            "type": "github"
+        },
+        "version": "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d"
+    },
     "stream-echo-nginx-module": {
         "cargoLocks": null,
         "date": "2016-12-18",

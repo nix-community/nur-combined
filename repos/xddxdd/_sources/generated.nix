@@ -670,6 +670,18 @@
     });
     date = "2022-12-20";
   };
+  sgx-software-enable = {
+    pname = "sgx-software-enable";
+    version = "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d";
+    src = fetchFromGitHub ({
+      owner = "intel";
+      repo = "sgx-software-enable";
+      rev = "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d";
+      fetchSubmodules = false;
+      sha256 = "sha256-xBmFCrnNQq0xKwv7irJFN8YRfBCLmSxtak5dtHFv/xk=";
+    });
+    date = "2023-01-06";
+  };
   stream-echo-nginx-module = {
     pname = "stream-echo-nginx-module";
     version = "b7b76b853131b6fa7579d20c2816b4b6abb16bea";

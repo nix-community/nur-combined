@@ -185,6 +185,7 @@ in
     rime-moegirl = pkg ./uncategorized/rime-moegirl {};
     rime-zhwiki = pkg ./uncategorized/rime-zhwiki {};
     route-chain = pkg ./uncategorized/route-chain {};
+    sgx-software-enable = pkg ./uncategorized/sgx-software-enable {};
     space-cadet-pinball-full-tilt = pkg ./uncategorized/space-cadet-pinball-full-tilt {};
     svp = pkg ./uncategorized/svp {};
     tachidesk-server = pkg ./uncategorized/tachidesk-server {};
