@@ -1,10 +1,12 @@
 {
   lib,
   rustPlatform,
-  fetchFromGitHub,
+  fetchFromSourcehut,
   pkg-config,
+  pulseaudio,
+  dbus,
+  alsa-lib,
   fontconfig,
-  freetype,
   libxkbcommon,
   wayland,
 }:
@@ -12,24 +14,26 @@
 let
   rpathLibs = [
     fontconfig
-    freetype
     libxkbcommon
+    dbus
+    pulseaudio
+    alsa-lib
     wayland
   ];
 in
 
 rustPlatform.buildRustPackage rec {
-  pname = "kickoff";
-  version = "v0.7.0";
+  pname = "wldash";
+  version = "master";
 
-  src = fetchFromGitHub {
-    owner = "j0ru";
+  src = fetchFromSourcehut {
+    owner = "~kennylevinsen";
     repo = pname;
-    rev = version;
-    sha256 = "sha256-AolJXFolMEwoK3AtC93naphZetytzRl1yI10SP9Rnzo=";
+    rev = "70e53c1246e0d35b78c5db5146d0da6af716c293";
+    sha256 = "sha256-TZDYO8YoUA1FOlmTiT6oYPx8+29NtQCeVCCJ8UOPJwE=";
   };
 
-  cargoHash = "sha256-OEFCR/2zSVZhZqAp6n48UyIwplRXxKb9HENsVaLIKkM=";
+  cargoHash = "sha256-qvTaCasr1uKWynKN1rYIp9cViae24KGM78hgaSwNXRA=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -38,15 +42,15 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     # Strip executable and set RPATH
     # Stolen from https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/terminal-emulators/alacritty>
-    strip -s $out/bin/kickoff
-    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/kickoff
+    strip -s $out/bin/wldash
+    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/wldash
   '';
 
   dontPatchELF = true;
 
   meta = with lib; {
-    description = "Minimalistic program launcher heavily inspired by rofi.";
-    homepage = "https://github.com/j0ru/kickoff";
+    description = "A dashboard/launcher/control-panel thing for Wayland.";
+    homepage = "https://git.sr.ht/~kennylevinsen/wldash";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.polykernel ];
     platforms = platforms.linux;

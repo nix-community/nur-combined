@@ -6,4 +6,5 @@ rec {
   kickoff = pkgs.callPackage ./kickoff {};
   wired-notify = pkgs.callPackage ./wired-notify {};
   swayimg = pkgs.callPackage ./swayimg {};
+  wldash = pkgs.callPackage ./wldash {};
 }

@@ -25,15 +25,15 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "MaxVerevkin";
     repo = pname;
-    rev = "2c6a8a3895158aca192712db8eb6d0dfe13a2998";
-    sha256 = "sha256-9Niokyjnt4QS6Ykht+EgDtWB1CFaFtNzX+lkdrcxk90=";
+    rev = "e195a50d75c394a69a7228f8c1e5ad320c3ad06d";
+    sha256 = "sha256-Ckf+TSdOtTOKC8qz7ClxxhqVOc7MEwGy82Oj5GWnyhg=";
   };
 
-  cargoHash = "sha256-hIJLtREO4VQ1wzt1zgnOC6jE+Wuyins3NGXAjl5Cvjg=";
+  cargoHash = "sha256-N3FXw3z2jpp6MKPGoL4pFIqa2t2H6VtuICMWAJlwaog=";
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ pango ];
+  buildInputs = rpathLibs;
 
   postInstall = ''
     # Strip executable and set RPATH
