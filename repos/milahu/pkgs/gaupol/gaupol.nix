@@ -21,6 +21,7 @@ https://discourse.nixos.org/t/how-to-provide-gstreamer-to-a-python-gtk-applicati
 , gspell
 , isocodes
 , intltool
+, python3
 }:
 
 python3Packages.buildPythonPackage rec {
@@ -63,7 +64,7 @@ python3Packages.buildPythonPackage rec {
     #intltool
   ];
   postInstall = ''
-    cat >>$out/lib/python3.9/site-packages/aeidon/paths.py <<EOF
+    cat >>$out/${python3.sitePackages}/aeidon/paths.py <<EOF
     DATA_DIR = '$out/share/gaupol'
     LOCALE_DIR = '$out/share/locale'
     EOF

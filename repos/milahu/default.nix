@@ -8,32 +8,37 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
-  #spotify-adblock-linux = pkgs.callPackage ./pkgs/spotify-adblock-linux { };
+  # library functions
+  lib = pkgs.lib // (import ./lib { inherit pkgs; });
+
+  # NixOS modules
+  modules = import ./modules;
+
+  # nixpkgs overlays
+  overlays = import ./overlays;
+
+  #spotify-adblock-linux = callPackage ./pkgs/spotify-adblock-linux { };
 
   ricochet-refresh = pkgs.libsForQt5.callPackage ./pkgs/ricochet-refresh/default.nix { };
 
   aether-server = pkgs.libsForQt5.callPackage ./pkgs/aether-server/default.nix { };
 
-  archive-org-downloader = pkgs.callPackage ./pkgs/archive-org-downloader/default.nix { };
+  archive-org-downloader = callPackage ./pkgs/archive-org-downloader/default.nix { };
 
-  rpl = pkgs.callPackage ./pkgs/rpl/default.nix { };
+  rpl = callPackage ./pkgs/rpl/default.nix { };
 
-  svn2github = pkgs.callPackage ./pkgs/svn2github/default.nix { };
+  svn2github = callPackage ./pkgs/svn2github/default.nix { };
 
-  recaf-bin = pkgs.callPackage ./pkgs/recaf-bin/default.nix { };
+  recaf-bin = callPackage ./pkgs/recaf-bin/default.nix { };
 
-  github-downloader = pkgs.callPackage ./pkgs/github-downloader/default.nix { };
+  github-downloader = callPackage ./pkgs/github-downloader/default.nix { };
 
-  oci-image-generator = pkgs.callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
+  oci-image-generator = callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
 
   /*
-  linux-firecracker = pkgs.callPackage ./pkgs/linux-firecracker { };
+  linux-firecracker = callPackage ./pkgs/linux-firecracker { };
   FIXME eval error
     linuxManualConfig
 
@@ -46,27 +51,89 @@
                  |                            ^
   */
 
-  hazel-editor = pkgs.callPackage ./pkgs/hazel-editor { };
+  # FIXME gnome.gtk is missing
+  #hazel-editor = callPackage ./pkgs/hazel-editor { };
 
-  brother-hll3210cw = pkgs.callPackage ./pkgs/brother-hll3210cw { };
+  brother-hll3210cw = callPackage ./pkgs/brother-hll3210cw { };
 
-  rasterview = pkgs.callPackage ./pkgs/rasterview { };
+  rasterview = callPackage ./pkgs/rasterview { };
 
-  srtgen = pkgs.callPackage ./pkgs/srtgen { };
+  srtgen = callPackage ./pkgs/srtgen { };
 
-  gaupol = pkgs.callPackage ./pkgs/gaupol/gaupol.nix { };
+  gaupol = callPackage ./pkgs/gaupol/gaupol.nix { };
 
-  autosub-by-abhirooptalasila = pkgs.callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
+  autosub-by-abhirooptalasila = callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
 
-  proftpd = pkgs.callPackage ./pkgs/proftpd/proftpd.nix { };
+  proftpd = callPackage ./pkgs/proftpd/proftpd.nix { };
 
-  pyload = pkgs.callPackage ./pkgs/pyload/pyload.nix { };
+  pyload = callPackage ./pkgs/pyload/pyload.nix { };
 
-  rose = pkgs.callPackage ./pkgs/rose/rose.nix { };
+  rose = callPackage ./pkgs/rose/rose.nix { };
 
-  tg-archive = pkgs.callPackage ./pkgs/tg-archive/tg-archive.nix { };
+  tg-archive = callPackage ./pkgs/tg-archive/tg-archive.nix { };
 
-  # example-package = pkgs.callPackage ./pkgs/example-package { };
+  jaq = callPackage ./pkgs/jaq/jaq.nix { };
+
+  # FIXME error: attribute 'gtk' missing
+  #aegisub = pkgs.libsForQt5.callPackage ./pkgs/aegisub/aegisub.nix { };
+
+  # example-package = callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
+
+  redis-commander = callPackage ./pkgs/redis-commander/redis-commander.nix { };
+
+  yacy = callPackage ./pkgs/yacy/yacy.nix { };
+
+  flutter-engine = callPackage ./pkgs/flutter-engine/flutter-engine.nix { };
+
+  libalf = callPackage ./pkgs/libalf/libalf.nix { };
+
+  python3 = pkgs.python3 // {
+    pkgs = (pkgs.python3.pkgs or {}) // {
+      aalpy = callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+    };
+  };
+
+  deno = pkgs.deno // {
+    pkgs = (pkgs.deno.pkgs or {}) // (
+      callPackage ./pkgs/deno/pkgs { }
+    );
+  };
+
+  caramel = callPackage ./pkgs/caramel/caramel.nix {
+    # latest supported version is ocaml 4.11
+    # https://github.com/AbstractMachinesLab/caramel/issues/105
+    ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_11;
+  };
+
+  brother-hll6400dw = callPackage ./pkgs/misc/cups/drivers/brother/hll6400dw/hll6400dw.nix { };
+
+  brother-hll5100dn = callPackage ./pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix { };
+
+  npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix { };
+
+  # TODO
+  #xi = callPackages ./pkgs/xi { };
+
+  subdl = callPackage ./pkgs/applications/video/subdl/subdl.nix { };
+
+  # TODO callPackages? seems to be no difference (singular vs plural)
+  #inherit (callPackages ./pkgs/development/tools/parsing/antlr/4.nix { })
+  inherit (callPackage ./pkgs/development/tools/parsing/antlr/4.nix { })
+    antlr4_8
+    antlr4_9
+    antlr4_10
+    antlr4_11
+    antlr4_12
+  ;
+
+  antlr4 = antlr4_12;
+
+  antlr = antlr4;
+
 }
+
+# based on https://github.com/dtzWill/nur-packages
+#// (callPackages ./pkgs/xi { })
+)
