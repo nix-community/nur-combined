@@ -7,7 +7,7 @@
   ninja,
   pkg-config,
   vala,
-  wrapGAppsHook,
+  wrapGAppsHook4,
   gnome2,
   gtk4,
   json-glib,
@@ -17,13 +17,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "tooth";
-  version = "unstable-2023-03-07";
+  version = "unstable-2023-03-20";
 
   src = fetchFromGitHub {
     owner = "GeopJr";
     repo = pname;
-    rev = "6576a4e01806123d2d2ebf76ae6c7907efbe32e3";
-    hash = "sha256-UfslVlBOkKmnJrFCLbdUGmJDrjgH+3LXbMdgGlojxlo=";
+    rev = "f8e88dbcdcb90b57530366627bf60eaa25cc5439";
+    hash = "sha256-8rdN5p2KAzCtmEhHdNZe2gvn9/kzQYWdE+Xhm0t4ndk=";
   };
 
   nativeBuildInputs = [
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-    wrapGAppsHook
+    wrapGAppsHook4
   ];
 
   buildInputs = [
@@ -46,6 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Browse the Fediverse";
+    mainProgram = "dev.geopjr.Tooth";
     homepage = "https://github.com/GeopJr/Tooth";
     license = licenses.gpl3Plus;
   };

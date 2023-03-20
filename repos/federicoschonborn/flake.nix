@@ -13,7 +13,12 @@
     ...
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          self.overlays.default
+        ];
+      };
     in {
       packages = import ./default.nix {inherit pkgs;};
       formatter = pkgs.alejandra;
