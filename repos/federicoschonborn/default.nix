@@ -14,7 +14,6 @@
   bsdutils = pkgs.callPackage ./packages/bsdutils {inherit libxo;};
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
   commit = pkgs.callPackage ./packages/commit {};
-  devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
   fastfetchFull = fastfetch.override {
     enableLibpci = true;
@@ -47,6 +46,8 @@
   morewaita = pkgs.callPackage ./packages/morewaita {};
   tooth = pkgs.callPackage ./packages/tooth {};
 
+  # I hate Python
+  # devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
   # Needs GTK 4.9
   # loupe = pkgs.callPackage ./packages/loupe {};
   # Broken
