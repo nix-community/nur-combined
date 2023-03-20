@@ -27,6 +27,8 @@ in
       ./remote-build.nix
     ]
   ;
+  services.flatpak.enable = true;
+
   networking.networkmanager.wifi.scanRandMacAddress = true;
   networking.hostId = "dabd2d19";
   services.cockpit.enable = true;

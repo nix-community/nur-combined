@@ -168,9 +168,9 @@
         },
         "prs": {
             "bump-cockpit": {
-                "sha256": "49192e534771d5b07e5bf508868ad997b7df63d934e4b36d65e49fafb21cdf38",
+                "sha256": "aab73b26a80f4871886a3667c09070dc2265c0a03275ad9302fea53099b8a193",
                 "final_url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/221188.patch",
-                "_bpk_last_update": 1678819507
+                "_bpk_last_update": 1679015267
             }
         }
     },

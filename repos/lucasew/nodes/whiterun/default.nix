@@ -24,6 +24,8 @@ in {
     ./postgresql.nix
     ./nextcloud.nix
   ];
+  services.flatpak.enable = true;
+
   networking.hostId = "97e3b5a7";
 
   virtualisation.oci-containers.backend = "docker";

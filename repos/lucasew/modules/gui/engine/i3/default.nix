@@ -6,6 +6,7 @@ let
 in {
   imports = [
     ./i3.nix
+    ./flatpak.nix
     ./dunst.nix
     ./lockscreen.nix
     ./kdeconnect.nix
