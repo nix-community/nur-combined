@@ -148,7 +148,7 @@ in
     ftp-proxy = pkg ./uncategorized/ftp-proxy {};
     genshin-checkin-helper = pkg ./uncategorized/genshin-checkin-helper {};
     genshinhelper2 = pkg ./uncategorized/genshinhelper2 {};
-    glauth = pkg ./uncategorized/glauth {};
+    glauth = ifNotCI (pkg ./uncategorized/glauth {});
     google-earth-pro = pkg ./uncategorized/google-earth-pro {};
     gopherus = pkg ./uncategorized/gopherus {};
     hath = pkg ./uncategorized/hath {};
