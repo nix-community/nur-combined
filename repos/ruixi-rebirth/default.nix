@@ -16,6 +16,7 @@
 
   youtube-tui = pkgs.callPackage ./pkgs/youtube-tui { };
   ytermusic = pkgs.callPackage ./pkgs/ytermusic { };
+  bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
