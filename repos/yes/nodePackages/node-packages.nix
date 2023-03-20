@@ -184,13 +184,13 @@ let
         sha512 = "Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==";
       };
     };
-    "@types/node-18.15.0" = {
+    "@types/node-18.15.3" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.15.0";
+      version = "18.15.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.15.0.tgz";
-        sha512 = "z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.15.3.tgz";
+        sha512 = "p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==";
       };
     };
     "@types/qs-6.9.7" = {
@@ -841,13 +841,13 @@ let
         sha512 = "z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==";
       };
     };
-    "deepmerge-4.3.0" = {
+    "deepmerge-4.3.1" = {
       name = "deepmerge";
       packageName = "deepmerge";
-      version = "4.3.0";
+      version = "4.3.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/deepmerge/-/deepmerge-4.3.0.tgz";
-        sha512 = "z2wJZXrmeHdvYJp/Ux55wIjqo81G5Bp4c+oELTW+7ar6SogWHajt5a9gO3s3IDaGSAXjDk0vlQKN3rms8ab3og==";
+        url = "https://registry.npmjs.org/deepmerge/-/deepmerge-4.3.1.tgz";
+        sha512 = "3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==";
       };
     };
     "defined-1.0.1" = {
@@ -2110,13 +2110,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-3.19.1" = {
+    "rollup-3.20.0" = {
       name = "rollup";
       packageName = "rollup";
-      version = "3.19.1";
+      version = "3.20.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-3.19.1.tgz";
-        sha512 = "lAbrdN7neYCg/8WaoWn/ckzCtz+jr70GFfYdlf50OF7387HTg+wiuiqJRFYawwSPpqfqDNYqK7smY/ks2iAudg==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-3.20.0.tgz";
+        sha512 = "YsIfrk80NqUDrxrjWPXUa7PWvAfegZEXHuPsEZg58fGCdjL1I9C1i/NaG+L+27kxxwkrG/QEDEQc8s/ynXWWGQ==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -2497,13 +2497,13 @@ let
         sha512 = "pJOW4nxjlmfwKApE4zvxLScM/njmwj/DiUBv7EabwE4O8kRUy+HIwxQtZLBPll/jx1LJyBcqNfB3/cpv9EZwOw==";
       };
     };
-    "undici-5.20.0" = {
+    "undici-5.21.0" = {
       name = "undici";
       packageName = "undici";
-      version = "5.20.0";
+      version = "5.21.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/undici/-/undici-5.20.0.tgz";
-        sha512 = "J3j60dYzuo6Eevbawwp1sdg16k5Tf768bxYK4TUJRH7cBM4kFCbf3mOnM/0E3vQYXvpxITbbWmBafaDbxLDz3g==";
+        url = "https://registry.npmjs.org/undici/-/undici-5.21.0.tgz";
+        sha512 = "HOjK8l6a57b2ZGXOcUsI5NLfoTrfmbOl90ixJDl0AEFG4wgHNDQxtZy15/ZQp7HhjkpaGlp/eneMgtsu1dIlUA==";
       };
     };
     "unpipe-1.0.0" = {
@@ -2834,7 +2834,7 @@ in
       sources."crypto-browserify-3.12.0"
       sources."dash-ast-1.0.0"
       sources."decamelize-1.2.0"
-      sources."deepmerge-4.3.0"
+      sources."deepmerge-4.3.1"
       sources."defined-1.0.1"
       sources."deps-sort-2.0.1"
       sources."des.js-1.0.1"
@@ -2961,7 +2961,7 @@ in
       sources."require-main-filename-2.0.0"
       sources."resolve-1.22.1"
       sources."ripemd160-2.0.2"
-      sources."rollup-3.19.1"
+      sources."rollup-3.20.0"
       sources."safe-buffer-5.2.1"
       sources."safer-buffer-2.1.2"
       sources."set-blocking-2.0.0"
@@ -2997,7 +2997,7 @@ in
       sources."typedarray-0.0.6"
       sources."umd-3.0.3"
       sources."undeclared-identifiers-1.1.3"
-      sources."undici-5.20.0"
+      sources."undici-5.21.0"
       (sources."url-0.11.0" // {
         dependencies = [
           sources."punycode-1.3.2"
@@ -3124,7 +3124,7 @@ in
       sources."@types/express-serve-static-core-4.17.33"
       sources."@types/http-proxy-1.17.10"
       sources."@types/mime-3.0.1"
-      sources."@types/node-18.15.0"
+      sources."@types/node-18.15.3"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
       sources."@types/serve-static-1.15.1"
