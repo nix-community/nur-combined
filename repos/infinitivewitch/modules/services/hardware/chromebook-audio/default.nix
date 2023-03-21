@@ -2,6 +2,10 @@
 with lib;
 let
   cfg = config.services.hardware.chromebook-audio;
+  eupnea-scripts = pkgs.fetchzip {
+    url = "https://github.com/eupnea-linux/audio-scripts/archive/7999d1c4d43b798ed8db98d751536459d056d88f.zip";
+    sha256 = "sha256-qzcnM6fBxOt1anZQ4Ot04VNb1Y9m0WzgBCp8SgT28Rw=";
+  };
 in
 {
   options.services.hardware.chromebook-audio = with types; {
@@ -53,8 +57,8 @@ in
         original = pkgs.alsa-ucm-conf;
         replacement = pkgs.alsa-ucm-conf.overrideAttrs (_super: {
           postFixup = ''
-            cp -r ${pkgs.chromebook-audio}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
-            cp -r ${pkgs.chromebook-audio}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
+            cp -r ${eupnea-scripts}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
+            cp -r ${eupnea-scripts}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
           '';
         });
       }
