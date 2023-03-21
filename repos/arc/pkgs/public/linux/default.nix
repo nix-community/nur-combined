@@ -57,7 +57,7 @@ let
   packages = {
     inherit mergeLinuxConfig generateLinuxConfig;
 
-    forcefully-remove-bootfb = { stdenv, lib, fetchFromGitHub, linux, kmod, gnugrep, coreutils, makeWrapper }: stdenv.mkDerivation rec {
+    forcefully-remove-bootfb = { stdenv, lib, fetchFromGitHub, linux, kmod, gnugrep, coreutils, pahole, makeWrapper }: stdenv.mkDerivation rec {
       version = "2018-02-08";
       pname = let
         name = "forcefully-remove-bootfb";
@@ -72,7 +72,7 @@ let
       };
       sourceRoot = "source";
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [ makeWrapper pahole ];
       shellPath = lib.makeBinPath [ kmod gnugrep coreutils ];
 
       kernelVersion = linux.modDirVersion;
