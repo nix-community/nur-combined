@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import ./flake-compat.nix { src = ./.; } }:
 
 with builtins;
 let
