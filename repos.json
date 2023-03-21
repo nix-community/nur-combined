@@ -285,6 +285,9 @@
         "imsofi": {
             "url": "https://github.com/imsofi/nur-pkgs"
         },
+        "infinitivewitch": {
+            "url": "https://github.com/infinitivewitch/nur-packages"
+        },
         "instantos": {
             "url": "https://github.com/instantOS/nix"
         },
