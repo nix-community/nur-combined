@@ -14,6 +14,8 @@
   bsdutils = pkgs.callPackage ./packages/bsdutils {inherit libxo;};
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
   commit = pkgs.callPackage ./packages/commit {};
+  # I hate Python.
+  # devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
   fastfetchFull = fastfetch.override {
     enableLibpci = true;
@@ -44,6 +46,7 @@
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
   loupe = pkgs.callPackage ./packages/loupe {
+    gtk4 = gtk4_10;
     libadwaita = libadwaita1_3;
     wrapGAppsHook4 = pkgs.wrapGAppsHook4.override {gtk3 = gtk4_10;};
   };
@@ -67,7 +70,4 @@
       };
     }))
     .override {gtk4 = gtk4_10;};
-
-  # I hate Python
-  # devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
 }
