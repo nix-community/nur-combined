@@ -4,7 +4,7 @@ let
   cfg = config.services.hardware.chromebook-audio;
 in
 {
-  options.services.hardware.chromebook-audio = {
+  options.services.hardware.chromebook-audio = with types; {
     enable = mkEnableOption "chromebook-audio";
     board = mkOption {
       type = str;
