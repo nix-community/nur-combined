@@ -57,9 +57,6 @@ in {
   ];
   my.networking.externalInterface = "eno1";
 
-  # List services that you want to enable:
-  services.vaultwarden.package = pkgs.unstable.vaultwarden;
-  services.vaultwarden.webVaultPackage = pkgs.unstable.vaultwarden-vault;
   my.services = {
     vaultwarden = {
       enable = true;
