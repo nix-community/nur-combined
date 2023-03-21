@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230319.180129";
+      version = "111.0.1buildid20230320.155232";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4085831/francais_language_pack-112.0.20230319.180129.xpi";
-      sha256 = "08031eae93047f44d00f26eaf03aef97a33e07ddb2009d6dc8c37f2667583f05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086407/francais_language_pack-111.0.1buildid20230320.155232.xpi";
+      sha256 = "06034c273b4fae4dc661705e1947818120eee123f57f457418792c27dc31b7cc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1062,10 +1062,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.904.0";
+      version = "8.905.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4002770/grammarly_1-8.904.0.xpi";
-      sha256 = "453e0d15fdc910eeddc901345810bdfd9f3a733d79a45102aafb9b832cb805e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4084257/grammarly_1-8.905.0.xpi";
+      sha256 = "59f7c824c2de095b5bb97c98e2339232fe9167471132d08963e5a043195b5cd6";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1354,10 +1354,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.110.1.3";
+      version = "4.111.0.3";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077983/lastpass_password_manager-4.110.1.3.xpi";
-      sha256 = "0fc82d836301a1d725652abee8fa9314e19073a57d5cc674a9b2910c2090bd76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4083286/lastpass_password_manager-4.111.0.3.xpi";
+      sha256 = "bdc820ba8fa29c48023f64e1ee906af57586f658f9e61e3e86537016cb942dc9";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -2254,10 +2254,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.3.2";
+      version = "23.3.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078156/refined_github-23.3.2.xpi";
-      sha256 = "709da54d45d9d0aaffa3dca47ee178564c17f7991f55cc4f311e3af01ec44a58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086134/refined_github-23.3.20.xpi";
+      sha256 = "4d470940bc27a26ffb3611c94cb7855fd147e9e51ac085702c691f23b69c8a06";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2295,10 +2295,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.9";
+      version = "28.10";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078971/save_page_we-28.9.xpi";
-      sha256 = "2815e4eb84b859c455d4db5ac5ffd1a3297f7f56558391e5e22bf5291dd12d91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4083400/save_page_we-28.10.xpi";
+      sha256 = "aa5896c08783fef9efec2648de1bc1ed57798e4f3ce2633a6d9cc6b510c54f23";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -3170,10 +3170,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.87.0";
+      version = "2.88.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4081366/web_scrobbler-2.87.0.xpi";
-      sha256 = "1543374acd33d136d9e80032a896fcd6ea5cd36f2c3a719fb02c2d679315d3fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4085172/web_scrobbler-2.88.1.xpi";
+      sha256 = "cd909994b288a20822323757087dda9f2877807bffed0bde15f44e059957d13d";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
