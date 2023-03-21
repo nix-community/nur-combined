@@ -1,31 +1,35 @@
 {
+  lib,
   stdenv,
   fetchFromGitLab,
-  rustPlatform,
-  meson,
   desktop-file-utils,
   itstool,
+  meson,
   ninja,
   pkg-config,
+  rustPlatform,
+  wrapGAppsHook4,
   gtk4,
   libadwaita,
-  wrapGAppsHook,
+  libgweather,
+  libheif,
+  libxml2,
 }:
 stdenv.mkDerivation rec {
   pname = "loupe";
-  version = "unstable-2023-03-01";
+  version = "unstable-2023-03-18";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "Incubator";
     repo = pname;
-    rev = "038d9cb5c07b7f8ee5082e72a95bf5feb06aa807";
-    hash = "sha256-YeoV8BlQwWt7KNke/KB/ub2CV1fITdiGl6PeBfo/xT4=";
+    rev = "0e24f347e6c734acc7f0d542ab79b28e6b6a24cb";
+    hash = "sha256-uAY192BsYqDb1f/e2rE9KWKDskag0Bmpv3SP/5d9TVE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
-    hash = "sha256-7Ag0D3gl45PNe2czoRvsXaRjI/JsY0EEZfVfL/zlra0=";
+    hash = "sha256-tUi+y6raAhfG1bvUuSR/MRIax3OhExOBxn8gElLBRfI=";
   };
 
   nativeBuildInputs =
@@ -35,7 +39,7 @@ stdenv.mkDerivation rec {
       meson
       ninja
       pkg-config
-      wrapGAppsHook
+      wrapGAppsHook4
     ]
     ++ (with rustPlatform; [
       cargoSetupHook
@@ -46,5 +50,14 @@ stdenv.mkDerivation rec {
   buildInputs = [
     gtk4
     libadwaita
+    libgweather
+    libheif
+    libxml2
   ];
+
+  meta = with lib; {
+    description = "A simple image viewer application written with GTK4 and Rust";
+    homepage = "https://gitlab.gnome.org/Incubator/loupe/";
+    license = licenses.gpl3Only;
+  };
 }
