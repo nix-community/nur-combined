@@ -92,7 +92,7 @@ let
       meta.platforms = lib.platforms.linux;
     };
 
-    ryzen-smu = { stdenv, lib, fetchFromGitLab, linux }: stdenv.mkDerivation rec {
+    ryzen-smu = { stdenv, lib, fetchFromGitLab, linux, pahole }: stdenv.mkDerivation rec {
       version = "2021.04.21";
       pname = let
         pname = "ryzen-smu";
@@ -108,6 +108,7 @@ let
       };
       sourceRoot = "source";
 
+      nativeBuildInputs = [ pahole ];
       kernelVersion = linux.modDirVersion;
       modules = [ "ryzen-smu" ];
       makeFlags = kernelMakeFlags linux;

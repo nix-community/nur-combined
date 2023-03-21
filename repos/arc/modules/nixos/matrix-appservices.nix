@@ -706,7 +706,7 @@ in {
                 browser_name = config.whatsapp.browserName;
               };
               inherit (config) bridge;
-              logging = config.logging.out.json;
+              logging = config.logging.settings;
             };
             sensitiveSettings = {
               appservice = {
@@ -975,57 +975,57 @@ in {
               tls_key = mkIf (config.tlsKey != null) config.host.tlsKey;
               tls_cert = mkIf (config.tlsCert != null) config.host.tlsCert;
             };
-            logging = config.logging.out.json;
+            logging = config.logging.settings;
           };
         };
       }) // {
-        logging = { config, ... }: {
+        logging = toFunctor ({ config, ... }: {
           options = {
-            directory = mkOption {
-              type = types.str;
-              default = "./logs";
+            writers = mkOption {
+              type = types.attrsOf (types.submodule matrix-appservices.mautrix-go.logging.writer);
             };
-            fileNameFormat = mkOption {
-              type = types.str;
-              default = "{{.Date}}-{{.Index}}.log";
-            };
-            fileDateFormat = mkOption {
-              type = types.str;
-              default = "2006-01-02";
-            };
-            fileMode = mkOption {
-              type = types.int;
-              default = bitShl 6 6; # octal 0600
-            };
-            timestampFormat = mkOption {
-              type = types.str;
-              default = "Jan _2, 2006 15:04:05";
-            };
-            printLevel = mkOption {
-              type = types.enum [ "trace" "debug" "info" "warn" "error" "fatal" ];
-              default = "info";
-            };
-            printJson = mkOption {
-              type = types.bool;
-              default = false;
-            };
-            fileJson = mkOption {
-              type = types.bool;
-              default = false;
-            };
-            out.json = mkOption {
-              type = types.unspecified;
+            settings = mkOption {
+              type = types.submodule matrix-appservices.mautrix-go.zerolog;
             };
           };
-          config.out.json = {
-            inherit (config) directory;
-            file_name_format = config.fileNameFormat;
-            file_date_format = config.fileDateFormat;
-            file_mode = config.fileMode;
-            timestamp_format = config.timestampFormat;
-            print_level = config.printLevel;
-            print_json = config.printJson;
-            file_json = config.fileJson;
+          config = {
+            writers = {
+              stdout.settings = mapAttrs (_: mkOptionDefault) {
+                format = "pretty-colored";
+              };
+              file.settings = mapAttrs (_: mkOptionDefault) {
+                format = "json";
+                filename = "./logs/mautrix-whatsapp.log";
+                max_size = 100;
+                max_backups = 10;
+                compress = true;
+              };
+            };
+            settings = {
+              min_level = mkOptionDefault "debug";
+              writers = mkIf (config.writers != { }) (mapAttrsToList (_: writer: writer.settings) config.writers);
+            };
+          };
+        }) // {
+          writer = { config, name, ... }: {
+            options = {
+              settings = mkOption {
+                type = types.submodule matrix-appservices.mautrix-go.zerolog.writer;
+              };
+            };
+            config = {
+              settings = {
+                type = mkOptionDefault name;
+              };
+            };
+          };
+        };
+        zerolog = toFunctor ({ config, ... }: {
+          # https://github.com/tulir/zeroconfig
+          freeformType = json.types.attrs;
+        }) // {
+          writer = { config, ... }: {
+            freeformType = json.types.attrs;
           };
         };
       };
