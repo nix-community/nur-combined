@@ -14,8 +14,7 @@
   bsdutils = pkgs.callPackage ./packages/bsdutils {inherit libxo;};
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
   commit = pkgs.callPackage ./packages/commit {};
-  # I hate Python.
-  # devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
+  devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
   fastfetchFull = fastfetch.override {
     enableLibpci = true;
@@ -45,29 +44,35 @@
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
-  loupe = pkgs.callPackage ./packages/loupe {
-    gtk4 = gtk4_10;
-    libadwaita = libadwaita1_3;
-    wrapGAppsHook4 = pkgs.wrapGAppsHook4.override {gtk3 = gtk4_10;};
-  };
   morewaita = pkgs.callPackage ./packages/morewaita {};
   tooth = pkgs.callPackage ./packages/tooth {};
 
-  gtk4_10 = pkgs.gtk4.overrideAttrs (_: rec {
-    version = "4.10.1";
-    src = pkgs.fetchzip {
-      url = "mirror://gnome/sources/gtk/${pkgs.lib.versions.majorMinor version}/gtk-${version}.tar.xz";
-      hash = "sha256-fdNFilT/OB6izW6/QJlhl8wRC7mkANKVrvFR5vNJ++Q=";
-    };
-  });
+  loupe = pkgs.callPackage ./packages/loupe rec {
+    gtk4 =
+      if pkgs.lib.versionAtLeast pkgs.gtk4.version "4.10.1"
+      then pkgs.gtk4
+      else
+        pkgs.gtk4.overrideAttrs (_: rec {
+          version = "4.10.1";
+          src = pkgs.fetchzip {
+            url = "mirror://gnome/sources/gtk/${pkgs.lib.versions.majorMinor version}/gtk-${version}.tar.xz";
+            hash = "sha256-fdNFilT/OB6izW6/QJlhl8wRC7mkANKVrvFR5vNJ++Q=";
+          };
+        });
 
-  libadwaita1_3 =
-    (pkgs.libadwaita.overrideAttrs (_: rec {
-      version = "1.3.1";
-      src = pkgs.fetchzip {
-        url = "mirror://gnome/sources/libadwaita/${pkgs.lib.versions.majorMinor version}/libadwaita-${version}.tar.xz";
-        hash = "sha256-Pvk82qtqV29d1H6Xk6rnqPZfXDxYbO+jKj7QOEIGUIU=";
-      };
-    }))
-    .override {gtk4 = gtk4_10;};
+    libadwaita =
+      if pkgs.lib.versionAtLeast pkgs.libadwaita.version "1.3.1"
+      then pkgs.libadwaita
+      else
+        (pkgs.libadwaita.overrideAttrs (_: rec {
+          version = "1.3.1";
+          src = pkgs.fetchzip {
+            url = "mirror://gnome/sources/libadwaita/${pkgs.lib.versions.majorMinor version}/libadwaita-${version}.tar.xz";
+            hash = "sha256-Pvk82qtqV29d1H6Xk6rnqPZfXDxYbO+jKj7QOEIGUIU=";
+          };
+        }))
+        .override {inherit gtk4;};
+
+    wrapGAppsHook4 = pkgs.wrapGAppsHook4.override {gtk3 = gtk4;};
+  };
 }

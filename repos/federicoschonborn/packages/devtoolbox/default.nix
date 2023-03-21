@@ -1,6 +1,5 @@
 {
   lib,
-  python3Packages,
   fetchFromGitHub,
   desktop-file-utils,
   gobject-introspection,
@@ -11,9 +10,10 @@
   gtk4,
   gtksourceview5,
   libadwaita,
+  python3,
   webkitgtk_5_0,
 }:
-python3Packages.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication rec {
   pname = "devtoolbox";
   version = "1.0.2";
 
@@ -44,103 +44,98 @@ python3Packages.buildPythonApplication rec {
 
   pythonPath =
     [
-      python3Packages.croniter
-      python3Packages.humanize
-      python3Packages.lxml
-      python3Packages.markdown2
-      python3Packages.pygobject3
-      python3Packages.python-crontab
-      python3Packages.ruamel-yaml
-      python3Packages.sqlparse
+      python3.pkgs.croniter
+      python3.pkgs.humanize
+      python3.pkgs.lxml
+      python3.pkgs.markdown2
+      python3.pkgs.pygobject3
+      python3.pkgs.python-crontab
+      python3.pkgs.python-jwt
+      python3.pkgs.ruamel-yaml
+      python3.pkgs.sqlparse
     ]
     ++ [
-      (python3Packages.buildPythonPackage rec {
-        pname = "daltonlens";
-        version = "0.1.5";
-        format = "pyproject";
-        src = python3Packages.fetchPypi {
-          inherit pname version;
-          hash = "sha256-T7fXlRdFtcVw5WURPqZhCmulUi1ZnCfCXgcLtTHeNas=";
-        };
-        nativeBuildInputs = [
-          python3Packages.setuptools
-          python3Packages.wheel
-        ];
-        propagatedBuildInputs = [
-          python3Packages.numpy
-          python3Packages.pillow
-        ];
-        pythonImportsCheck = [
-          "daltonlens"
-        ];
-      })
       (
-        if python3Packages ? python-jwt
-        then python3Packages.python-jwt
+        if python3.pkgs ? daltonlens
+        then python3.pkgs.daltonlens
         else
-          python3Packages.buildPythonPackage rec {
-            pname = "jwt";
-            version = "1.3.1";
-            src = fetchFromGitHub {
-              owner = "GehirnInc";
-              repo = "python-jwt";
-              rev = "v${version}";
-              hash = "sha256-N1J8yBVX/O+92cRp+q2gA2cFsd+C7JjUR9jo0VGoINg=";
+          python3.pkgs.buildPythonPackage rec {
+            pname = "daltonlens";
+            version = "0.1.5";
+            format = "pyproject";
+            src = python3.pkgs.fetchPypi {
+              inherit pname version;
+              hash = "sha256-T7fXlRdFtcVw5WURPqZhCmulUi1ZnCfCXgcLtTHeNas=";
             };
-            propagatedBuildInputs = [
-              python3Packages.cryptography
+            nativeBuildInputs = [
+              python3.pkgs.setuptools
+              python3.pkgs.wheel
             ];
-            nativeCheckInputs = [
-              python3Packages.pytestCheckHook
-              python3Packages.freezegun
-              python3Packages.pytest
+            propagatedBuildInputs = [
+              python3.pkgs.numpy
+              python3.pkgs.pillow
             ];
             pythonImportsCheck = [
-              "jwt"
+              "daltonlens"
             ];
           }
       )
-      (python3Packages.buildPythonPackage rec {
-        pname = "lorem";
-        version = "0.1.1";
-        format = "setuptools";
-        src = python3Packages.fetchPypi {
-          inherit pname version;
-          hash = "sha256-eF9BCaJB/CiR5ZcF6F0GX25tPtatkXUKjLVNTz5Z2TQ=";
-        };
-        pythonImportsCheck = [
-          "lorem"
-        ];
-      })
-      (python3Packages.buildPythonPackage rec {
-        pname = "textstat";
-        version = "0.7.3";
-        format = "setuptools";
-        src = python3Packages.fetchPypi {
-          inherit pname version;
-          hash = "sha256-YLY8+JSfRbuztCBeRBG7wc1m30wIrvElRYEcfm4k8BE=";
-        };
-        propagatedBuildInputs = [
-          python3Packages.pyphen
-          python3Packages.setuptools
-        ];
-        pythonImportsCheck = [
-          "textstat"
-        ];
-        doCheck = false;
-      })
-      (python3Packages.buildPythonPackage rec {
-        pname = "uuid6";
-        version = "2022.10.25";
-        format = "setuptools";
-        src = python3Packages.fetchPypi {
-          inherit pname version;
-          hash = "sha256-ClaTXenBzo3YVZIluEVUnZSRfZ4krUscwjKO6lvgAQw=";
-        };
-        pythonImportsCheck = [
-          "uuid6"
-        ];
-      })
+      (
+        if python3.pkgs ? lorem
+        then python3.pkgs.lorem
+        else
+          python3.pkgs.buildPythonPackage rec {
+            pname = "lorem";
+            version = "0.1.1";
+            format = "setuptools";
+            src = python3.pkgs.fetchPypi {
+              inherit pname version;
+              hash = "sha256-eF9BCaJB/CiR5ZcF6F0GX25tPtatkXUKjLVNTz5Z2TQ=";
+            };
+            pythonImportsCheck = [
+              "lorem"
+            ];
+          }
+      )
+      (
+        if python3.pkgs ? textstat
+        then python3.pkgs.textstat
+        else
+          python3.pkgs.buildPythonPackage rec {
+            pname = "textstat";
+            version = "0.7.3";
+            format = "setuptools";
+            src = python3.pkgs.fetchPypi {
+              inherit pname version;
+              hash = "sha256-YLY8+JSfRbuztCBeRBG7wc1m30wIrvElRYEcfm4k8BE=";
+            };
+            propagatedBuildInputs = [
+              python3.pkgs.pyphen
+              python3.pkgs.setuptools
+            ];
+            pythonImportsCheck = [
+              "textstat"
+            ];
+            doCheck = false;
+          }
+      )
+      (
+        if python3.pkgs ? uuid6
+        then python3.pkgs.uuid6
+        else
+          python3.pkgs.buildPythonPackage rec {
+            pname = "uuid6";
+            version = "2022.10.25";
+            format = "setuptools";
+            src = python3.pkgs.fetchPypi {
+              inherit pname version;
+              hash = "sha256-ClaTXenBzo3YVZIluEVUnZSRfZ4krUscwjKO6lvgAQw=";
+            };
+            pythonImportsCheck = [
+              "uuid6"
+            ];
+          }
+      )
     ];
 
   dontWrapGApps = true;
