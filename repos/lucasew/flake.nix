@@ -212,6 +212,7 @@
         ++ (with self.homeConfigurations; [
           main.activationPackage
         ])
+        ++ (with self.devShells.${system}; [ default.outPath ])
       ;
       installPhase = ''
         echo $version > $out
