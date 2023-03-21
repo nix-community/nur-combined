@@ -212,7 +212,16 @@
         ++ (with self.homeConfigurations; [
           main.activationPackage
         ])
-        ++ (with self.devShells.${system}; [ default.outPath ])
+        ++ (with self.devShells.${system}; [
+          (pkgs.writeShellScriptBin "s" "echo ${default.outPath}")
+        ])
+        ++ (let
+          flattenItems = items: if pkgs.lib.isDerivation items
+            then items
+            else if pkgs.lib.isAttrs items then pkgs.lib.flatten ((map (flattenItems) (builtins.attrValues items)))
+            else []
+        ;
+        in map (item: (pkgs.writeShellScriptBin "source" "echo ${item}")) (flattenItems inputs))
       ;
       installPhase = ''
         echo $version > $out
