@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '15 18 * * 5'
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v20
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: "update flake inputs"
+        uses: DeterminateSystems/update-flake-lock@v17
+        with:
+          pr-title: "feat: update flake inputs"
+          pr-labels: dependencies
+          commit-msg: "feat: update flake inputs"
