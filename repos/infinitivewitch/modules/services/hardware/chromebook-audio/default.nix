@@ -53,8 +53,8 @@ in
         original = pkgs.alsa-ucm-conf;
         replacement = pkgs.alsa-ucm-conf.overrideAttrs (_super: {
           postFixup = ''
-            cp -r ${chromebook-audio}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
-            cp -r ${chromebook-audio}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
+            cp -r ${pkgs.chromebook-audio}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
+            cp -r ${pkgs.chromebook-audio}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
           '';
         });
       }
