@@ -12,7 +12,6 @@
   let
     defaultNixpkgs = unpackedInputs.nixpkgs.unstable.overrideAttrs (old: {
       patches = [
-        (inputs.nixpkgs.prs.bump-cockpit)
       ];
     });
 
@@ -178,6 +177,13 @@
         (writeShellScriptBin "bumpkin-bump" ''
           if [ -v NIXCFG_ROOT_PATH ]; then
               bumpkin eval -p -i "$NIXCFG_ROOT_PATH/bumpkin.json" -o "$NIXCFG_ROOT_PATH/bumpkin.json.lock" "$@"
+          else
+            exit 1
+          fi
+        '')
+        (writeShellScriptBin "bumpkin-list" ''
+          if [ -v NIXCFG_ROOT_PATH ]; then
+            bumpkin list -i "$NIXCFG_ROOT_PATH/bumpkin.json" -o "$NIXCFG_ROOT_PATH/bumpkin.json.lock" "$@"
           else
             exit 1
           fi

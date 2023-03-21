@@ -55,7 +55,7 @@
         "sha256": "82bbe191aa73aa0fd660370c00df22fad542473f0e59491b6347bfee24b211de",
         "final_url": "https://codeload.github.com/nix-community/impermanence/tar.gz/6138eb8e737bffabd4c8fc78ae015d4fd6a7e2fd",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206182
+        "_bpk_last_update": 1679362269
     },
     "borderless-browser": {
         "default_branch": "master",
@@ -71,7 +71,7 @@
         "sha256": "def4e54595162596e49a627e8328544d3a9a63341a6444cf74fc04265e22368c",
         "final_url": "https://codeload.github.com/Misterio77/nix-colors/tar.gz/7e459f1d88ac54fc2f4b308adb5064863006e4b1",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206186
+        "_bpk_last_update": 1679362270
     },
     "nix-vscode": {
         "default_branch": "master",
@@ -110,31 +110,31 @@
         "sha256": "9cdd56c4de57fddc33b06fcd850eb934b0279940d31c940f4d0a1c9c5f831c76",
         "final_url": "https://codeload.github.com/lucasew/nixgram/tar.gz/9cab8548ab26b44d513d6af28333ad92ec686028",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206198
+        "_bpk_last_update": 1679362272
     },
     "nixos-hardware": {
         "default_branch": "master",
-        "github_commit": "f6610997b0fc5ea5f9e142c348fca27497efe1c7",
-        "sha256": "315228dc2aff122833982ba5e9ddce77a2a21afcb2b315f3efe4c15334245b4d",
-        "final_url": "https://codeload.github.com/NixOS/nixos-hardware/tar.gz/f6610997b0fc5ea5f9e142c348fca27497efe1c7",
+        "github_commit": "a4bc66709604ab78abc575b60baa6d23ae027a59",
+        "sha256": "43646935448b46707ff7f49b64383487c25addecf29fb1f9e281c5aad65832ec",
+        "final_url": "https://codeload.github.com/NixOS/nixos-hardware/tar.gz/a4bc66709604ab78abc575b60baa6d23ae027a59",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206199
+        "_bpk_last_update": 1679362273
     },
     "nixos-generators": {
         "default_branch": "master",
-        "github_commit": "2687393d340804f0c90b9e65681485f3d9e09a38",
-        "sha256": "b29d1b6c0790ac161763d9b02cd81acca6d8cb3b02b2ed35e7dbd7ae4efde4bb",
-        "final_url": "https://codeload.github.com/nix-community/nixos-generators/tar.gz/2687393d340804f0c90b9e65681485f3d9e09a38",
+        "github_commit": "0c043999b16caba6fb571af2d228775729829943",
+        "sha256": "c3be0a601d66b559463e5e2ace429690ab9fbb696fe4cdb1e9a521ea632d565b",
+        "final_url": "https://codeload.github.com/nix-community/nixos-generators/tar.gz/0c043999b16caba6fb571af2d228775729829943",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206201
+        "_bpk_last_update": 1679362275
     },
     "nur": {
         "default_branch": "master",
-        "github_commit": "a77465f74999c4c3f71c6d629e08664b45426efe",
-        "sha256": "9b25f68af2a3d4f5128aba8940cfad77ad835ea96a8e2bbaf7e826dd226b86d1",
-        "final_url": "https://codeload.github.com/nix-community/NUR/tar.gz/a77465f74999c4c3f71c6d629e08664b45426efe",
+        "github_commit": "922394c0034879cc6525e1a17c76316be815454a",
+        "sha256": "3941f1bf07c2d7ad500ec00680f1bc934839859f72c4384a821c3167a693ae4c",
+        "final_url": "https://codeload.github.com/nix-community/NUR/tar.gz/922394c0034879cc6525e1a17c76316be815454a",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206203
+        "_bpk_last_update": 1679362277
     },
     "nixpkgs": {
         "unstable-small": {
@@ -145,26 +145,26 @@
             "_bpk_last_update": 1678206221
         },
         "unstable": {
-            "github_commit": "a028e2873d7fcf44e66b784b4ba061824315537f",
-            "sha256": "cbb6b784aa6bae4502decbb2a4019c77b821f64ba1ca5920bd5b740115ca644b",
-            "final_url": "https://codeload.github.com/NixOS/nixpkgs/tar.gz/a028e2873d7fcf44e66b784b4ba061824315537f",
+            "github_commit": "60c1d71f2ba4c80178ec84523c2ca0801522e0a6",
+            "sha256": "27aa55fa37e8304dfb8df06b59740d5cbcfc400a9f739955269779b31e03e563",
+            "final_url": "https://codeload.github.com/NixOS/nixpkgs/tar.gz/60c1d71f2ba4c80178ec84523c2ca0801522e0a6",
             "file_type": "tar.gz",
-            "_bpk_last_update": 1678206239
+            "_bpk_last_update": 1679362292
         },
         "stable": {
-            "github_commit": "a45745ac9e4e1eb86397ab22e2a8823120ab9a4c",
-            "sha256": "d45082991e2aaf113cac89f1351b512e91950e51129343bcb287a1e62dff10d0",
-            "final_url": "https://codeload.github.com/NixOS/nixpkgs/tar.gz/a45745ac9e4e1eb86397ab22e2a8823120ab9a4c",
+            "github_commit": "e2c97799da5f5cd87adfa5017fba971771e123ef",
+            "sha256": "a2ba3862ba906ef1b9a335e52528db1b0c414caecf9902e860df045166bb0d33",
+            "final_url": "https://codeload.github.com/NixOS/nixpkgs/tar.gz/e2c97799da5f5cd87adfa5017fba971771e123ef",
             "file_type": "tar.gz",
-            "_bpk_last_update": 1678206258
+            "_bpk_last_update": 1679362307
         },
         "lib": {
             "default_branch": "heads/master",
-            "github_commit": "c9d4f2476046c6a7a2ce3c2118c48455bf0272ea",
-            "sha256": "6d67eb0f3d302aff58e61c3a66b4d26996d9ff5ce758b7df2f4a77d83fcc6ed0",
-            "final_url": "https://codeload.github.com/nix-community/nixpkgs.lib/tar.gz/c9d4f2476046c6a7a2ce3c2118c48455bf0272ea",
+            "github_commit": "44214417fe4595438b31bdb9469be92536a61455",
+            "sha256": "12559101bd91681d735783e46523afbcf5acb78286d8457d0cdaaae403f65b0a",
+            "final_url": "https://codeload.github.com/nix-community/nixpkgs.lib/tar.gz/44214417fe4595438b31bdb9469be92536a61455",
             "file_type": "tar.gz",
-            "_bpk_last_update": 1678206259
+            "_bpk_last_update": 1679362309
         },
         "prs": {
             "bump-cockpit": {
@@ -180,7 +180,7 @@
         "sha256": "34a589f011f82a86cd6def1488a3ad03c41b93cb97a6e9c6a52e115f5fbb1288",
         "final_url": "https://codeload.github.com/lucasew/pocket2kindle/tar.gz/2b100790585dcd699000fee636efdc3a1e36a1ef",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206261
+        "_bpk_last_update": 1679362310
     },
     "pollymc": {
         "default_branch": "heads/develop",
@@ -188,7 +188,7 @@
         "sha256": "0bf80a37295ba0540316157a0a34d9158ffd05d2708cfd8fb7e3c1308deb0de3",
         "final_url": "https://codeload.github.com/fn2006/PollyMC/tar.gz/ca635f7d3d25f521ba0c38fcd1fc3ee3106653ef",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206262
+        "_bpk_last_update": 1679362311
     },
     "pytorrentsearch": {
         "default_branch": "heads/main",
@@ -208,11 +208,11 @@
     },
     "rust-overlay": {
         "default_branch": "heads/master",
-        "github_commit": "423b16bef17c9e8e9ea515e502c0c5d0f8e51f4a",
-        "sha256": "23d8fc30999dbffbfaf54096d5e74a57d87d3710899dcdef0e64fb9ed604d8b9",
-        "final_url": "https://codeload.github.com/oxalica/rust-overlay/tar.gz/423b16bef17c9e8e9ea515e502c0c5d0f8e51f4a",
+        "github_commit": "c680a0a4144bb0931f6cebd601a3978bbafc4f64",
+        "sha256": "01ba815f575751c95fa871021589490ebc03d9e5c8a7f6b07e7d14f02a0f113d",
+        "final_url": "https://codeload.github.com/oxalica/rust-overlay/tar.gz/c680a0a4144bb0931f6cebd601a3978bbafc4f64",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206271
+        "_bpk_last_update": 1679362317
     },
     "send2kindle": {
         "default_branch": "heads/master",
@@ -232,11 +232,11 @@
     },
     "sops-nix": {
         "default_branch": "heads/master",
-        "github_commit": "7cff56b43952edc5a2c212076d5fc922f764240f",
-        "sha256": "829358d9ba72c1c3146760ece04e2343d3fb6f6bc22d9d196d677ada1aaadd95",
-        "final_url": "https://codeload.github.com/Mic92/sops-nix/tar.gz/7cff56b43952edc5a2c212076d5fc922f764240f",
+        "github_commit": "08a0b5f25a73130869b3cc375eaf0e6ff317435e",
+        "sha256": "d4f65c5c5136150544748b36b45a2aa6bbce13393ee6fbd8e6cbe450d55bea0f",
+        "final_url": "https://codeload.github.com/Mic92/sops-nix/tar.gz/08a0b5f25a73130869b3cc375eaf0e6ff317435e",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206276
+        "_bpk_last_update": 1679362318
     },
     "telegram-sendmail": {
         "default_branch": "heads/main",
@@ -252,14 +252,14 @@
         "sha256": "25ca348f06508cd7a61b9b46453f743e715bf37d6dc49db12d512e1e6caf79e7",
         "final_url": "https://codeload.github.com/nixosbrasil/nixpkgs-brasil/tar.gz/76316d5a7440483e44e7bdecf9f81fdba2d6ae2d",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1679361068
+        "_bpk_last_update": 1679362323
     },
     "home-manager": {
-        "github_commit": "04d6cad67557512452decbfe888c68fa11338a96",
-        "sha256": "2e16de48b012aa8a5d2dc297c9bd767b45fdfac14bba68c1ff8157cde7c51b6d",
-        "final_url": "https://codeload.github.com/nix-community/home-manager/tar.gz/04d6cad67557512452decbfe888c68fa11338a96",
+        "github_commit": "1b8bf5c3270386a1b6850bd77d79dbdbaf0d7a7c",
+        "sha256": "82474fecf59c53f616554f398ff75aed18c008ed1a1ea8d6a11b470b368f2cf6",
+        "final_url": "https://codeload.github.com/nix-community/home-manager/tar.gz/1b8bf5c3270386a1b6850bd77d79dbdbaf0d7a7c",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206281
+        "_bpk_last_update": 1679362320
     },
     "nix-warez": {
         "default_branch": "heads/master",
@@ -267,15 +267,15 @@
         "sha256": "7422ca60f9baef0fd5aa493822db0b3c05c51da551022927756a5a95de8bef58",
         "final_url": "https://codeload.github.com/edolstra/nix-warez/tar.gz/048fb146cc637729bc7de7807f0fe4849876de23",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206282
+        "_bpk_last_update": 1679362321
     },
     "mach-nix": {
         "default_branch": "heads/master",
-        "github_commit": "70daee1b200c9a24a0f742f605edadacdcb5c998",
-        "sha256": "e46c5414972bfa13af1d8d5d4bc7b524304a5f30398bb739fa14525feb4be165",
-        "final_url": "https://codeload.github.com/DavHau/mach-nix/tar.gz/70daee1b200c9a24a0f742f605edadacdcb5c998",
+        "github_commit": "f60b9833469adb18e57b4c9e8fc4804fce82e3da",
+        "sha256": "59f06a719bc7c9e1a0b322a527d55e7ed41e4d5f38c30e650e6ee91195afab87",
+        "final_url": "https://codeload.github.com/DavHau/mach-nix/tar.gz/f60b9833469adb18e57b4c9e8fc4804fce82e3da",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1678206284
+        "_bpk_last_update": 1679362322
     },
     "base16-schemes": {
         "default_branch": "heads/main",
