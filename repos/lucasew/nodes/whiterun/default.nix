@@ -14,6 +14,7 @@ in {
     # ./kubernetz.nix
     ./magnetico.nix
     ./dashboards.nix
+    ./cf-torrent.nix
     ./sshfs.nix
     ./plymouth.nix
     ./rocm-gambiarra.nix
