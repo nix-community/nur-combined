@@ -303,5 +303,13 @@
             "file_type": "tar.gz",
             "_bpk_last_update": 1678975189
         }
+    },
+    "cf-torrent": {
+        "default_branch": "heads/master",
+        "github_commit": "555768ec74c6269a39d1323caaa6c74fa22f9971",
+        "sha256": "a05bf50b57eddb1970ecd1e92e4785c8c8516b624233be1052de8f788374d8e1",
+        "final_url": "https://codeload.github.com/lucasew/cf-torrent/tar.gz/555768ec74c6269a39d1323caaa6c74fa22f9971",
+        "file_type": "tar.gz",
+        "_bpk_last_update": 1679516967
     }
 }

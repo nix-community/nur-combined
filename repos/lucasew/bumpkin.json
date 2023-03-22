@@ -16,6 +16,7 @@
     "impermanence": {"_type": "basicgithub", "owner": "nix-community", "repo": "impermanence"},
     "borderless-browser": {"_type": "basicgithub", "owner": "lucasew", "repo": "borderless-browser.nix"},
     "nix-colors": {"_type": "basicgithub", "owner": "Misterio77", "repo": "nix-colors"},
+    "cf-torrent": {"_type": "basicgithub", "owner": "lucasew", "repo": "cf-torrent"},
     "nix-vscode": {"_type": "basicgithub", "owner": "lucasew", "repo": "nix-vscode"},
     "nix-emacs": {"_type": "basicgithub", "owner": "nixosbrasil", "repo": "nix-emacs"},
     "nix-option": {"_type": "basicgithub", "owner": "lucasew", "repo": "nix-option"},
