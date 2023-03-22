@@ -602,10 +602,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.3.3";
+      version = "2023.3.15.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078917/duckduckgo_for_firefox-2023.3.3.xpi";
-      sha256 = "a86371933520c3ecfb6af40ed8fdb60447faeafa5787400b23b128148619be25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4084040/duckduckgo_for_firefox-2023.3.15.1.xpi";
+      sha256 = "8379cf2b5a2062cbeb4d4b9b7f37424c8737f56e64bc44de848eb315c9bd3eae";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "111.0.1buildid20230320.155232";
+      version = "112.0.20230321.175953";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086407/francais_language_pack-111.0.1buildid20230320.155232.xpi";
-      sha256 = "06034c273b4fae4dc661705e1947818120eee123f57f457418792c27dc31b7cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4087034/francais_language_pack-112.0.20230321.175953.xpi";
+      sha256 = "f2968bf28b8d24142a640ac81a7b4ac6253e560fae089a61e4794fe7807ea131";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1738,10 +1738,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.18";
+      version = "11.4.20";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077959/noscript-11.4.18.xpi";
-      sha256 = "229c8d463d1f5403adb5c940d0b6ecd6432e60dcf0b8075eabd27c253267f8ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086528/noscript-11.4.20.xpi";
+      sha256 = "014aec3ce142222338372d227eaadfa2ae13c9e3861f6d43869615b932ce4b53";
       meta = with lib;
       {
         homepage = "https://noscript.net";
