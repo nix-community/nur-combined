@@ -271,15 +271,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "87d1d7e7375d863ef67622cad2ffa0c502d2c32f";
+    version = "c8e28cee5a746d5d24bb05f9c7e06ba608202861";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "87d1d7e7375d863ef67622cad2ffa0c502d2c32f";
+      rev = "c8e28cee5a746d5d24bb05f9c7e06ba608202861";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-lVoSTiM7QeUWk+1VFLAbuz1kEAQE4UN5BXyxAal3dJM=";
+      sha256 = "sha256-20nrVNrnkQjqWf/LCuxjKvE2dp6WZIaY4CFIpKsKBBg=";
     };
-    date = "2023-03-20";
+    date = "2023-03-21";
   };
 }
