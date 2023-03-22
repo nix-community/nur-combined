@@ -11,6 +11,16 @@
       };
     };
 
+    flake-parts = {
+      type = "github";
+      owner = "hercules-ci";
+      repo = "flake-parts";
+      ref = "main";
+      inputs = {
+        nixpkgs-lib.follows = "nixpkgs";
+      };
+    };
+
     futils = {
       type = "github";
       owner = "numtide";
@@ -60,6 +70,7 @@
     inputs @
     { self
     , agenix
+    , flake-parts
     , futils
     , home-manager
     , nixpkgs

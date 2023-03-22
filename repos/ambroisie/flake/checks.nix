@@ -1,16 +1,24 @@
-{ self, pre-commit-hooks, ... }:
-system:
+{ self, inputs, ... }:
 {
-  pre-commit = pre-commit-hooks.lib.${system}.run {
-    src = self;
+  imports = [
+    inputs.pre-commit-hooks.flakeModule
+  ];
 
-    hooks = {
-      nixpkgs-fmt = {
-        enable = true;
-      };
+  perSystem = { system, ... }: {
+    pre-commit = {
+      # Add itself to `nix flake check`
+      check.enable = true;
 
-      shellcheck = {
-        enable = true;
+      settings = {
+        hooks = {
+          nixpkgs-fmt = {
+            enable = true;
+          };
+
+          shellcheck = {
+            enable = true;
+          };
+        };
       };
     };
   };

@@ -1,5 +1,4 @@
 { self, ... }:
-
 let
   default-overlays = import "${self}/overlays";
 
@@ -13,4 +12,6 @@ let
     };
   };
 in
-default-overlays // additional-overlays
+{
+  flake.overlays = default-overlays // additional-overlays;
+}

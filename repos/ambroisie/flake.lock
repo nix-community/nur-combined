@@ -60,6 +60,27 @@
         "type": "github"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677714448,
+        "narHash": "sha256-Hq8qLs8xFu28aDjytfxjdC96bZ6pds21Yy09mSC156I=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "dc531e3a9ce757041e1afaff8ee932725ca60002",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "ref": "main",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "futils": {
       "locked": {
         "lastModified": 1678901627,
@@ -185,6 +206,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "flake-parts": "flake-parts",
         "futils": "futils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

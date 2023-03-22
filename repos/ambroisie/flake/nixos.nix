@@ -1,4 +1,4 @@
-{ self, nixpkgs, nur, ... } @ inputs:
+{ self, inputs, ... }:
 let
   inherit (self) lib;
 
@@ -9,7 +9,7 @@ let
     })
     {
       nixpkgs.overlays = (lib.attrValues self.overlays) ++ [
-        nur.overlay
+        inputs.nur.overlay
       ];
     }
     # Include generic settings
@@ -21,7 +21,7 @@ let
   buildHost = name: system: lib.nixosSystem {
     inherit system;
     modules = defaultModules ++ [
-      "${self}/machines/${name}"
+      "${self}/hosts/nixos/${name}"
     ];
     specialArgs = {
       # Use my extended lib in NixOS configuration
@@ -31,7 +31,9 @@ let
     };
   };
 in
-lib.mapAttrs buildHost {
-  aramis = "x86_64-linux";
-  porthos = "x86_64-linux";
+{
+  flake.nixosConfigurations = lib.mapAttrs buildHost {
+    aramis = "x86_64-linux";
+    porthos = "x86_64-linux";
+  };
 }

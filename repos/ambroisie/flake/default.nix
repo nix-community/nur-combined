@@ -1,4 +1,5 @@
 { self
+, flake-parts
 , futils
 , home-manager
 , nixpkgs
@@ -8,7 +9,7 @@
 let
   inherit (self) lib;
 
-  inherit (futils.lib) eachSystem system;
+  inherit (futils.lib) system;
 
   mySystems = [
     system.aarch64-darwin
@@ -16,65 +17,18 @@ let
     system.x86_64-darwin
     system.x86_64-linux
   ];
-
-  eachMySystem = eachSystem mySystems;
-
-  systemDependant = system: {
-    apps = {
-      diff-flake = futils.lib.mkApp { drv = self.packages.${system}.diff-flake; };
-      default = self.apps.${system}.diff-flake;
-    };
-
-    checks = import ./checks.nix inputs system;
-
-    devShells = import ./dev-shells.nix inputs system;
-
-    packages = import ./packages.nix inputs system;
-
-    # Work-around for https://github.com/nix-community/home-manager/issues/3075
-    legacyPackages = {
-      homeConfigurations = {
-        ambroisie = home-manager.lib.homeManagerConfiguration {
-          # Work-around for home-manager
-          # * not letting me set `lib` as an extraSpecialArgs
-          # * not respecting `nixpkgs.overlays` [1]
-          # [1]: https://github.com/nix-community/home-manager/issues/2954
-          pkgs = import nixpkgs {
-            inherit system;
-
-            overlays = (lib.attrValues self.overlays) ++ [
-              nur.overlay
-            ];
-          };
-
-          modules = [
-            "${self}/home"
-            {
-              # The basics
-              home.username = "ambroisie";
-              home.homeDirectory = "/home/ambroisie";
-              # Let Home Manager install and manage itself.
-              programs.home-manager.enable = true;
-              # This is a generic linux install
-              targets.genericLinux.enable = true;
-            }
-          ];
-
-          extraSpecialArgs = {
-            # Inject inputs to use them in global registry
-            inherit inputs;
-          };
-        };
-      };
-    };
-  };
-
-  systemIndependant = {
-    lib = import ./lib.nix inputs;
-
-    overlays = import ./overlays.nix inputs;
-
-    nixosConfigurations = import ./nixos.nix inputs;
-  };
 in
-(eachMySystem systemDependant) // systemIndependant
+flake-parts.lib.mkFlake { inherit inputs; } {
+  systems = mySystems;
+
+  imports = [
+    ./apps.nix
+    ./checks.nix
+    ./dev-shells.nix
+    ./home-manager.nix
+    ./lib.nix
+    ./nixos.nix
+    ./overlays.nix
+    ./packages.nix
+  ];
+}
