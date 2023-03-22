@@ -659,6 +659,18 @@
         "url": "https://github.com/Chromosore/lazily-nvim/archive/15f672488d8a2076fcf034c237ebb4ae427c2ee5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "lazy.nvim": {
+        "branch": "main",
+        "description": "💤 A modern plugin manager for Neovim",
+        "homepage": "",
+        "owner": "folke",
+        "repo": "lazy.nvim",
+        "rev": "4cdc8aa8dbcfee5d7cef1dcbf5159af50214f005",
+        "sha256": "1q740y9wr8bz8gz44mp6s6l3c8ln2zz3mbilg92aayc70zll3li5",
+        "type": "tarball",
+        "url": "https://github.com/folke/lazy.nvim/archive/4cdc8aa8dbcfee5d7cef1dcbf5159af50214f005.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "legendary.nvim": {
         "branch": "master",
         "description": "🗺️ A legend for your keymaps, commands, and autocmds, with which-key.nvim integration",
@@ -1193,10 +1205,10 @@
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "8ae2c8ff495fdf0f0f07edcd7afe271f15a70562",
-        "sha256": "03q78n1vlb4160x1s0hyb3xwmbiwnrynacjk3160cbgx2d2wkd8b",
+        "rev": "9b4e8c1b97da5c09b024059939c9ab201af95f67",
+        "sha256": "19p497lanln4y1hj80n7kxnmfg2yk6x098blf3qsknznmkaippdr",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/8ae2c8ff495fdf0f0f07edcd7afe271f15a70562.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/9b4e8c1b97da5c09b024059939c9ab201af95f67.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-textsubjects": {
