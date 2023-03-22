@@ -41,6 +41,14 @@ in {
       };
       services.tor.enable = lib.mkForce false;
       virtualisation.spiceUSBRedirection.enable = true;
+      systemd.sockets.cups.wantedBy = mkForce [];
+      systemd.services.cups.wantedBy = mkForce [];
+      services.printing = {
+        enable = true;
+        clientConf = ''
+          ServerName robocat
+        '';
+      };
     })
     (mkIf cfg.remote {
       virtualisation.libvirtd.enable = lib.mkForce false;
