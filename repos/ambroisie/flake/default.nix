@@ -1,9 +1,6 @@
 { self
 , flake-parts
 , futils
-, home-manager
-, nixpkgs
-, nur
 , ...
 } @ inputs:
 let

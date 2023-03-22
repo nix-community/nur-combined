@@ -1,6 +1,6 @@
-{ inputs, ... }:
+{ ... }:
 {
-  perSystem = { self', config, pkgs, ... }: {
+  perSystem = { config, pkgs, ... }: {
     devShells = {
       default = pkgs.mkShell {
         name = "NixOS-config";

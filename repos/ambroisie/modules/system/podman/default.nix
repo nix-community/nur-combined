@@ -1,5 +1,5 @@
 # Podman related settings
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, lib, options, ... }:
 let
   cfg = config.my.system.podman;
 in
