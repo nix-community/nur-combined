@@ -30,5 +30,4 @@ rec {
   archisteamfarm = ./archisteamfarm.nix;
   adblock = ./adblock.nix;
   gamescope = ./gamescope.nix;
-  gaming = import ./gaming.nix [ gamescope ];
 }
