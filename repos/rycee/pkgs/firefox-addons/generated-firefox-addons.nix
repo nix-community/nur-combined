@@ -960,10 +960,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.9.10";
+      version = "8.9.12";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4082683/ghostery-8.9.10.xpi";
-      sha256 = "43c817d10980dbdf1cede30d26605ce9431238fe9ce04cc680c571ab08e9dec4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4084996/ghostery-8.9.12.xpi";
+      sha256 = "2a05158bfab8f7b760b14421245def1fd2c981bc1b5382f23161b0d2b4fa396a";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -1462,10 +1462,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.47";
+      version = "2.6.48";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4072889/localcdn_fork_of_decentraleyes-2.6.47.xpi";
-      sha256 = "e906c416f8c80f92eed16ce78b251a970def5532ce499fd29560f950a95fef92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4085331/localcdn_fork_of_decentraleyes-2.6.48.xpi";
+      sha256 = "1eda973933f02ee6138bc06e1c709458c0fd97e19ce6308010da7e2be0767aed";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
