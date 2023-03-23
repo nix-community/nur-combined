@@ -109,6 +109,15 @@ in
           EnvironmentFile = cfg.secretKeyFile;
         };
       };
+
+      paperless-task-queue = {
+        requires = [ "postgresql.service" ];
+        after = [ "postgresql.service" ];
+
+        serviceConfig = {
+          EnvironmentFile = cfg.secretKeyFile;
+        };
+      };
     };
 
     # Set-up database
