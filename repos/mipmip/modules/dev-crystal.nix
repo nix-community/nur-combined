@@ -6,12 +6,5 @@
     shards
     crystal2nix
     mipmip_pkg.crelease
-  ]
-  ++ (if pkgs.stdenv.isDarwin then
-  [
-  ]
-  else
-  [
-  ]
-  );
+  ];
 }

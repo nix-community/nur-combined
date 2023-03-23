@@ -1,2 +1,0 @@
-Awesome WM Pimmie Theme
-=======================

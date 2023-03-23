@@ -1,0 +1,13 @@
+{
+  "description_dirs": "Defined parent directories containing git repositories to monitor",
+  "dirs" : [
+    "~/tc*",
+    "~/.vim/plugged",
+    "~/c*"
+  ],
+  "description_repos": "Defined repositories to monitor.",
+  "repos": [
+    "~/nixos",
+    "~/secondbrain"
+  ]
+}

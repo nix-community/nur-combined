@@ -4,22 +4,23 @@ let
   callPackage = pkgs.newScope self;
   self = rec {
 
-    callPackage_i686 = pkgs.lib.callPackageWith (pkgs.pkgsi686Linux // self);
-
     #32bit
-    hl4150cdn = callPackage_i686 ./hl4150cdn { };
+    callPackage_i686  = pkgs.lib.callPackageWith (pkgs.pkgsi686Linux // self);
 
-    #smug           = pkgs.callPackage ./smug      { };
-    #hercules-src-d = pkgs.callPackage ./hercules-src-d      { };
-    crelease       = pkgs.callPackage ./crelease  { };
-    fred           = pkgs.callPackage ./fred      { };
-    embgit         = pkgs.callPackage ./embgit    { };
-    cryptobox      = pkgs.callPackage ./cryptobox { };
-    #yj-go     = pkgs.callPackage ./yj-go     { };
-    #dstp      = pkgs.callPackage ./dstp      { };
+    hl4150cdn         = callPackage_i686 ./drivers/hl4150cdn                     { };
 
-    #open3d    = pkgs.python38Packages.callPackage ./open3d    { };
-    mip           = pkgs.callPackage ./mip      { };
+    crelease          = pkgs.callPackage ./utils/crelease                        { };
+    cryptobox         = pkgs.callPackage ./utils/cryptobox                       { };
+
+    gnome-screenshot  = pkgs.callPackage ./patched-software/gnome-screenshot     { };
+
+    fred              = pkgs.callPackage ./pims-projects/fred                    { };
+    embgit            = pkgs.callPackage ./pims-projects/embgit                  { };
+    mip-crystal       = pkgs.callPackage ./pims-projects/mip-crystal             { };
+    mip-rust          = pkgs.callPackage ./pims-projects/mip-rust                { };
+
+    gnomeExtensions.gs-git   = pkgs.callPackage ./gnome-shell-extensions/gs-git         { };
+    gnomeExtensions.vitals   = pkgs.callPackage ./gnome-shell-extensions/vitals         { };
 
   };
 in self

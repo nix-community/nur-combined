@@ -1,0 +1,5 @@
+session: technative
+root: ~/cTechNative
+
+windows:
+- name: zsh

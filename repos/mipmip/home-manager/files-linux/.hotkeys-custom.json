@@ -1,0 +1,268 @@
+[
+    {
+        "name": "Gnome Extra",
+        "shortcuts": [
+            {
+                "key": "<ALT>grave",
+                "description": "Cycle windows within same Application"
+            }
+        ]
+    },
+    {
+        "name": "Firefox",
+        "shortcuts": [
+            {
+                "key": "<CTRL>k",
+                "description": "Focus address bar"
+            }
+        ]
+    },
+    {
+        "name": "Launchers",
+        "shortcuts": [
+            {
+                "key": "<SUPER>Return",
+                "description": "Terminal"
+            },
+            {
+                "key": "<SHIFT><SUPER>B",
+                "description": "Firefox"
+            },
+            {
+                "key": "<SHIFT><SUPER>F",
+                "description": "Files"
+            },
+            {
+                "key": "<SHIFT><SUPER>1",
+                "description": "Trajno"
+            },
+            {
+                "key": "<CTRL><SUPER>2",
+                "description": "KeePass"
+            },
+            {
+                "key": "<CTRL><SUPER>4",
+                "description": "Screenshot Area"
+            },
+            {
+                "key": "<CTRL><SUPER>5",
+                "description": "Screenshot Interactive"
+            }
+        ]
+    },
+    {
+        "name": "Inkscape Shortcuts",
+        "shortcuts": [
+            {
+                "key": "S",
+                "description": "Select object"
+            },
+            {
+                "key": "N",
+                "description": "Select nodes"
+            },
+            {
+                "key": "<SHIFT><CTRL>D",
+                "description": "Document Properties"
+            },
+            {
+                "key": "<SHIFT><CTRL>E",
+                "description": "Export to PNG"
+            },
+            {
+                "key": "<SHIFT><CTRL>N",
+                "description": "New layer"
+            },
+            {
+                "key": "<CTRL>M",
+                "description": "Move selection to layer"
+            }
+        ]
+    },
+    {
+        "name": "git",
+        "shortcuts": [
+            {
+                "command": "ga",
+                "description": "git add"
+            },
+            {
+                "command": "gcl",
+                "description": "git clone --recurse-submodules"
+            },
+            {
+                "command": "gco",
+                "description": "git checkout"
+            },
+            {
+                "command": "gsb",
+                "description": "git status"
+            },
+            {
+                "command": "gd",
+                "description": "git diff"
+            },
+            {
+                "command": "gc",
+                "description": "git commit"
+            },
+            {
+                "command": "gp",
+                "description": "git push"
+            },
+            {
+                "command": "gl",
+                "description": "git pull"
+            },
+            {
+                "command": "gf",
+                "description": "git fetch"
+            },
+            {
+                "command": "gb",
+                "description": "git branch"
+            },
+            {
+                "command": "gm",
+                "description": "git merge"
+            }
+        ]
+    },
+    {
+        "name": "sc-im",
+        "shortcuts": [
+            {
+                "key": "y+y",
+                "description": "Yank Cell"
+            },
+            {
+                "key": "p",
+                "description": "Simple paste"
+            },
+            {
+                "key": "P+c",
+                "description": "Paste, refs are adjusted"
+            },
+            {
+                "key": "braceleft braceright",
+                "description": "Left align / Right align"
+            },
+            {
+                "key": "a+a",
+                "description": "Resize column to fit content"
+            },
+            {
+                "key": "d+r",
+                "description": "Delete row"
+            },
+            {
+                "command": ":fsum",
+                "description": "sum all above"
+            }
+        ]
+    },
+    {
+        "name": "st",
+        "shortcuts": [
+            {
+                "key": "<SHIFT><CTRL>j",
+                "description": "Scale fonts"
+            },
+            {
+                "key": "<SHIFT><CTRL>k",
+                "description": "Scale fonts"
+            },
+            {
+                "key": "<SHIFT><CTRL>F1",
+                "description": "Set Color Black"
+            },
+            {
+                "key": "<SHIFT><CTRL>F2",
+                "description": "Set Color Sol.Light"
+            },
+            {
+                "key": "<SHIFT><CTRL>F3",
+                "description": "Set Color Sol.Dark"
+            },
+            {
+                "key": "<SHIFT><CTRL>F4",
+                "description": "Set Color White"
+            },
+            {
+                "key": "<SHIFT><CTRL>S",
+                "description": "Cycle fonts (Lib-Mono/DeJaVu-Sans)"
+            },
+            {
+                "key": "<SHIFT><CTRL>S",
+                "description": "Cycle fonts (Lib-Mono/DeJaVu-Sans)"
+            },
+            {
+                "key": "<SHIFT><CTRL>V",
+                "description": "Paste"
+            }
+        ]
+    },
+    {
+        "name": "Readline",
+        "shortcuts": [
+            {
+                "key": "<ALT>b <ALT>f",
+                "description": "Move backward/forward by word"
+            },
+            {
+                "key": "<ALT>w <ALT>d",
+                "description": "Kill word backward/forward"
+            },
+            {
+                "key": "<CTRL>k <CTRL>u",
+                "description": "Kill to end of line/beginning of line"
+            },
+            {
+                "key": "<CTRL>y",
+                "description": "Yank from kill ring"
+            },
+            {
+                "key": "<ALT>y",
+                "description": "Cycle through kill ring history (after &lt;CTRL&gt;-y)"
+            },
+            {
+                "key": "<ALT>t",
+                "description": "Transpose word"
+            },
+            {
+                "key": "<ALT>t",
+                "description": "Upper forward word"
+            },
+            {
+                "key": "<CTRL>slash",
+                "description": "Cycle through the undo list"
+            }
+        ]
+    },
+    {
+        "name": "Tmux",
+        "shortcuts": [
+            {
+                "key": "<CTRL>a+u",
+                "description": "Urlview"
+            }
+        ]
+    },
+    {
+        "name": "Gimp Shortcuts",
+        "shortcuts": [
+            {
+                "key": "R",
+                "description": "Select rectangle"
+            },
+            {
+                "key": "U",
+                "description": "Magic selection"
+            },
+            {
+                "key": "<SHIFT>c",
+                "description": "Crop tool"
+            }
+        ]
+    }
+]

@@ -1,0 +1,6 @@
+cask "firefox"
+cask "alacritty"
+cask "telegram"
+cask "slack"
+cask "keepassxc"
+cask "nextcloud"

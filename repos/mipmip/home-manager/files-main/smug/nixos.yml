@@ -1,0 +1,11 @@
+session: nixos
+root: "~/nixos"
+
+windows:
+  - name: nixos
+    commands:
+    - echo "NIXOS"
+
+  - name: switch
+    commands:
+    - echo "NIXOS"

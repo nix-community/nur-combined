@@ -1,37 +1,57 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 
 {
 
-  services.onedrive.enable = true;
+  services.onedrive.enable = false;
 
   environment.systemPackages = with pkgs; [
-    pre-commit
+
+    # DIAGRAM
+    drawio
+    graphviz
+
+    # 2FA
+    authenticator
+
+    # PASSWORDS
+    gnupg
+    pinentry
+    pinentry-gtk2
+    pass
+
+    # AWS
     aws-mfa
-    #unstable.cloud-nuke
     awsweeper
+    #unstable.cloud-nuke
     #unstable.aws-nuke
     awscli2
     aws-vault
-    drawio
-    terraformer
-    authenticator
-    git-crypt
-    gnupg
-    pinentry
-    pass
-    pinentry-gtk2
-    graphviz
-    #unstable.terracognita
-    #RANDSTAD
-#    citrix_workspace
-    sq
+
+
+    # TERRAFORM
     terraform-docs
     terrascan
+    terraformer
     tflint
+    #tfswitch
+    #unstable.terracognita
+
+
+    #RANDSTAD
+    #citrix_workspace
 
     #TRACKLIB
-    wireguard-tools
+    #wireguard-tools
+    #unstable.nodePackages.aws-cdk
 
+    #ADEVINTA
+    #unstable.globalprotect-openconnect
+    #openconnect
+    proxychains
+
+    #VNC ADEVINTA
+    remmina
+    realvnc-vnc-viewer
 
   ];
 }

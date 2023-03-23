@@ -1,0 +1,10 @@
+session: adevinta
+root: ~/tcAdevinta
+
+windows:
+- name: tmux-B-in-macos
+- name: dsocks
+- name: proxychains
+- name: shell-ams
+- name: shell-dus
+- name: localdev
