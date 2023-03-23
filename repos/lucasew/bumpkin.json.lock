@@ -306,10 +306,10 @@
     },
     "cf-torrent": {
         "default_branch": "heads/master",
-        "github_commit": "555768ec74c6269a39d1323caaa6c74fa22f9971",
-        "sha256": "a05bf50b57eddb1970ecd1e92e4785c8c8516b624233be1052de8f788374d8e1",
-        "final_url": "https://codeload.github.com/lucasew/cf-torrent/tar.gz/555768ec74c6269a39d1323caaa6c74fa22f9971",
+        "github_commit": "dabba5c8d9ca24c58f013c16aa35574dda52e2b3",
+        "sha256": "a155d2c346a6f2ac493330966b014cd95589bd12eb51ecc15c0e4a9a7e19b6c4",
+        "final_url": "https://codeload.github.com/lucasew/cf-torrent/tar.gz/dabba5c8d9ca24c58f013c16aa35574dda52e2b3",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1679516967
+        "_bpk_last_update": 1679534150
     }
 }
