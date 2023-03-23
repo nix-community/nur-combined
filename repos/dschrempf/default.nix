@@ -3,6 +3,8 @@
 }:
 
 rec {
+  # Coding.
+  codeium = pkgs.callPackage ./pkgs/coding/codeium { };
 
   # Evolution.
   beast = pkgs.callPackage ./pkgs/evolution/beast { };
