@@ -4,9 +4,10 @@ in
 { config, pkgs, lib, system ? "", ... }:
 {
   imports = [
-    ../steam-configuration
+    # ../steam-configuration
     ../nix-experimental
   ];
+  programs.steam.enable = true;
   nix = {
     nixPath = [
       "nixpkgs=${lib.cleanSource ../../.}"

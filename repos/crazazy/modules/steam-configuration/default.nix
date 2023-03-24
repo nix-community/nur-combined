@@ -10,7 +10,7 @@ let
       libgdiplus
       zlib
     ];
-    withJava = true;
+    # withJava = true;
   };
 in
 {
