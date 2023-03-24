@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, pkg-config, perl
+{ lib, stdenv, fetchurl, pkg-config, perl, nixosTests
 , brotliSupport ? false, brotli
 , c-aresSupport ? false, c-aresMinimal
 , gnutlsSupport ? false, gnutls
@@ -25,6 +25,17 @@
 , wolfsslSupport ? false, wolfssl
 , zlibSupport ? true, zlib
 , zstdSupport ? false, zstd
+
+# for passthru.tests
+, coeurl
+, curlpp
+, haskellPackages
+, ocamlPackages
+, phpExtensions
+, python3
+, tests
+, testers
+, fetchpatch
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus
@@ -38,14 +49,14 @@ assert !(opensslSupport && wolfsslSupport);
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
-  version = "7.88.1";
+  version = "8.0.1";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.bz2"
       "https://github.com/curl/curl/releases/download/curl-${finalAttrs.version}/curl-${finalAttrs.version}.tar.bz2"
     ];
-    hash = "sha256-giS0XM4Sq94DnBLcBxG36oWxBLmtU01uTFtOGIphyQc=";
+    hash = "sha256-m2selrdI0EuWh4a2vfQHqlx1q1Oj03wcjIHNtzZVXM8=";
   };
 
   patches = [
@@ -120,12 +131,27 @@ stdenv.mkDerivation (finalAttrs: {
       # Without this curl might detect /etc/ssl/cert.pem at build time on macOS, causing curl to ignore NIX_SSL_CERT_FILE.
       "--without-ca-bundle"
       "--without-ca-path"
+    ] ++ lib.optionals (!gnutlsSupport && !opensslSupport && !wolfsslSupport) [
+      "--without-ssl"
     ];
 
   CXX = "${stdenv.cc.targetPrefix}c++";
   CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";
 
-  doCheck = false; # expensive, fails
+  # takes 14 minutes on a 24 core and because many other packages depend on curl
+  # they cannot be run concurrently and are a bottleneck
+  # tests are available in passthru.tests.withCheck
+  doCheck = false;
+  preCheck = ''
+    patchShebangs tests/
+  '' + lib.optionalString stdenv.isDarwin ''
+    # bad interaction with sandbox if enabled?
+    rm tests/data/test1453
+    rm tests/data/test1086
+  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    # different resolving behaviour?
+    rm tests/data/test1592
+  '';
 
   postInstall = ''
     moveToOutput bin/curl-config "$dev"
@@ -144,9 +170,25 @@ stdenv.mkDerivation (finalAttrs: {
     useThisCurl = attr: attr.override { curl = finalAttrs.finalPackage; };
   in {
     inherit opensslSupport openssl;
+    tests = {
+      withCheck = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+      fetchpatch = tests.fetchpatch.simple.override { fetchpatch = (fetchpatch.override { fetchurl = useThisCurl fetchurl; }) // { version = 1; }; };
+      curlpp = useThisCurl curlpp;
+      coeurl = useThisCurl coeurl;
+      haskell-curl = useThisCurl haskellPackages.curl;
+      ocaml-curly = useThisCurl ocamlPackages.curly;
+      pycurl = useThisCurl python3.pkgs.pycurl;
+      php-curl = useThisCurl phpExtensions.curl;
+      # error: attribute 'override' missing
+      # Additional checking with support http3 protocol.
+      # nginx-http3 = useThisCurl nixosTests.nginx-http3;
+      nginx-http3 = nixosTests.nginx-http3;
+      pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+    };
   };
 
   meta = with lib; {
+    changelog = "https://curl.se/changes.html#${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
     description = "A command line tool for transferring files with URL syntax";
     homepage    = "https://curl.se/";
     license = licenses.curl;
@@ -154,5 +196,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.all;
     # Fails to link against static brotli or gss
     broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport);
+    pkgConfigModules = [ "libcurl" ];
   };
 })

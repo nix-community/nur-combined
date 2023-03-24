@@ -140,11 +140,11 @@ let
 
   composer2 = mkDerivation rec {
     pname = "composer";
-    version = "2.5.3";
+    version = "2.5.5";
 
     src = pkgs.fetchurl {
       url = "https://getcomposer.org/download/${version}/composer.phar";
-      sha256 = "sha256-LhBhghlRxqXs4DOgJdBiltSh0Fb+4vS+vTWBXPSxsPk=";
+      sha256 = "sha256-VmptHPS+HMOsiC0qKhOBf/rlTmD1qnyRN0NIEKWAn/w=";
     };
 
     dontUnpack = true;
@@ -271,9 +271,9 @@ let
 
   igbinary30 = buildPecl {
     pname = "igbinary";
-    version = "3.2.13";
+    version = "3.2.14";
 
-    sha256 = "sha256-QbqnbZF9h48VQbXVCJ3dzAJFvOSnHemlGtoBBixngH8=";
+    sha256 = "sha256-YzcUek+4iAclZmdIN72pko7gbufwEUtDOLhsgWIykl0=";
 
     configureFlags = [
       "--enable-igbinary"
@@ -321,9 +321,9 @@ let
 
   mcrypt = buildPecl {
     pname = "mcrypt";
-    version = "1.0.5";
+    version = "1.0.6";
 
-    sha256 = "sha256-yfUeIRZAoV0qmD9dgOJmYGVjUWUdb2gtZXvfHPoH2KM=";
+    sha256 = "sha256-vm79Uqdu0Bqr3aDOQmrtCpPbTsBpCMFqVGAXXDWw0Io=";
 
     configureFlags = with pkgs; [
       "--with-mcrypt=${libmcrypt}"
@@ -500,7 +500,7 @@ let
     meta.broken = isPhp80;
   };
 
-  pdo_sqlsrv = if !isPhp73 then pdo_sqlsrv58 else pdo_sqlsrv510;
+  pdo_sqlsrv = if !isPhp73 then pdo_sqlsrv58 else pdo_sqlsrv511;
 
   pdo_sqlsrv58 = buildPecl {
     pname = "pdo_sqlsrv";
@@ -513,11 +513,11 @@ let
     meta.broken = (isPhp56 || isPhp73);
   };
 
-  pdo_sqlsrv510 = buildPecl {
+  pdo_sqlsrv511 = buildPecl {
     pname = "pdo_sqlsrv";
-    version = "5.10.1";
+    version = "5.11.0";
 
-    sha256 = "sha256-x4VBlqI2vINQijRvjG7x35mbwh7rvYOL2wUTIV4GKK0=";
+    sha256 = "sha256-wwfZvK2gK9wh9ZufCZAxuQswcndXvKUP1C/TYVmBLoo=";
 
     buildInputs = with pkgs; [ unixODBC ];
 
@@ -526,11 +526,11 @@ let
 
   php-cs-fixer = mkDerivation rec {
     pname = "php-cs-fixer";
-    version = "3.14.4";
+    version = "3.15.1";
 
     src = pkgs.fetchurl {
       url = "https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v${version}/php-cs-fixer.phar";
-      sha256 = "sha256-wKAjYW5srGKGu0eCR+5j4HDl8xoKDIW/I+hyCpZo8UI=";
+      sha256 = "sha256-IHv4BgVfLb31Wbai6Xw5mcmB9gPdGTtRQovCJyypSl8=";
     };
 
     phases = [ "installPhase" ];
@@ -589,11 +589,11 @@ let
 
   phpcbf = mkDerivation rec {
     pname = "phpcbf";
-    version = "3.7.1";
+    version = "3.7.2";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcbf.phar";
-      sha256 = "sha256-yTwOg8vaIcIfhJzPD0tCl50gAEpaYXLtDqJw7Keub6g=";
+      sha256 = "sha256-TspzKpl98IpMl+QyZuuBIvkW05uwAqAAYA/dU5P07+E=";
     };
 
     phases = [ "installPhase" ];
@@ -616,11 +616,11 @@ let
 
   phpcs = mkDerivation rec {
     pname = "phpcs";
-    version = "3.7.1";
+    version = "3.7.2";
 
     src = pkgs.fetchurl {
       url = "https://github.com/squizlabs/PHP_CodeSniffer/releases/download/${version}/phpcs.phar";
-      sha256 = "sha256-ehQyOhSvn1gwLRVEJJLuEHaozXLAGKgWy0SWW/OpsBU=";
+      sha256 = "sha256-IEIUwepbqBT7CyYIwZzKLBC/X/zJ8OPUw0qtwBeVF7c=";
     };
 
     phases = [ "installPhase" ];
@@ -769,9 +769,9 @@ let
 
   protobuf322 = buildPecl {
     pname = "protobuf";
-    version = "3.22.0";
+    version = "3.22.1";
 
-    sha256 = "sha256-HMHR8Io82E9XR+umqqRS4pddloZR+tFed0eUmLw5xdk=";
+    sha256 = "sha256-IISMGhTMMrb0D7Jl6hOu9DAyOE2DUr5js0ymKHy9UsQ=";
 
     buildInputs = with pkgs; [ (if isPhp73 then pcre2.dev else pcre.dev) ];
 
@@ -788,11 +788,11 @@ let
 
   psalm = mkDerivation rec {
     pname = "psalm";
-    version = "5.7.4";
+    version = "5.8.0";
 
     src = pkgs.fetchurl {
       url = "https://github.com/vimeo/psalm/releases/download/${version}/psalm.phar";
-      sha256 = "sha256-CevE27DVy5erWnVcTWF5Arg+vWljuNNBEVh6jJRfDp0=";
+      sha256 = "sha256-AuhDBL7M0n0/9n6fYejZ1VC1OpRGpsshd4VS/IxsIds=";
     };
 
     phases = [ "installPhase" ];
@@ -814,11 +814,11 @@ let
 
   psysh = mkDerivation rec {
     pname = "psysh";
-    version = "0.11.12";
+    version = "0.11.13";
 
     src = pkgs.fetchurl {
       url = "https://github.com/bobthecow/psysh/releases/download/v${version}/psysh-v${version}.tar.gz";
-      sha256 = "sha256-cmBB8t1F/hTJbf9gRgKzY0KOnlB9Q927fZDqhB0jbAs=";
+      sha256 = "sha256-ZyM0QNiFrq+kaF141txXb6YbvRdhOgFvebDKF3fpMK4=";
     };
 
     phases = [ "installPhase" ];
@@ -920,7 +920,7 @@ let
     meta.broken = isPhp56;
   };
 
-  sqlsrv = if !isPhp73 then sqlsrv58 else sqlsrv510;
+  sqlsrv = if !isPhp73 then sqlsrv58 else sqlsrv511;
 
   sqlsrv58 = buildPecl {
     pname = "sqlsrv";
@@ -933,11 +933,11 @@ let
     meta.broken = (isPhp56 || isPhp73);
   };
 
-  sqlsrv510 = buildPecl {
+  sqlsrv511 = buildPecl {
     pname = "sqlsrv";
-    version = "5.10.1";
+    version = "5.11.0";
 
-    sha256 = "sha256-XNrttNiihjQ+azuZmS2fy0So+2ndAqpde8IOsupeWdI=";
+    sha256 = "sha256-bkN69NtzCrmVxZf5YOmLrAYPwiCo1R7iSHfrfzkJCgk=";
 
     buildInputs = with pkgs; [ unixODBC ];
 
@@ -1041,9 +1041,9 @@ let
 
   xdebug32 = buildPecl {
     pname = "xdebug";
-    version = "3.2.0";
+    version = "3.2.1";
 
-    sha256 = "sha256-d2myDuza31++n1glEsELOU+1dbb3qMOjqC22iD4AMrc=";
+    sha256 = "sha256-70yzwigZJ5iHTkUwzMzu52hAzICCGQl0AIih4ajwBEU=";
 
     doCheck = true;
     checkTarget = "test";
@@ -1070,9 +1070,9 @@ let
 
   yaml22 = buildPecl {
     pname = "yaml";
-    version = "2.2.2";
+    version = "2.2.3";
 
-    sha256 = "sha256-EZBS8EYdV9hvRMJS+cmy3XQ0hscBwaCroK6+zdDYuCo=";
+    sha256 = "sha256-WTfrlyLd9tZGJnmc+gJFmP8kUuoVeZLk5nMxolP5AjY=";
 
     configureFlags = with pkgs; [
       "--with-yaml=${libyaml}"

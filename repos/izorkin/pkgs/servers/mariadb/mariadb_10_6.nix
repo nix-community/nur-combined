@@ -9,7 +9,7 @@
 # Server components
 , bzip2, lz4, lzo, snappy, xz, zlib, zstd
 , cracklib, judy, libevent, libxml2
-, linux-pam, numactl, pmdk
+, linux-pam, numactl
 , withStorageMroonga ? true, kytea, libsodium, msgpack, zeromq
 , withStorageRocks ? true
 }:
@@ -159,7 +159,6 @@ server = stdenv.mkDerivation (common // {
     cracklib judy libevent libxml2
   ] ++ optional (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32) numactl
     ++ optional stdenv.hostPlatform.isLinux linux-pam
-    ++ optional (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64) pmdk.dev
     ++ optional (!stdenv.hostPlatform.isDarwin) mytopEnv
     ++ optionals withStorageMroonga [ kytea libsodium msgpack zeromq ];
 

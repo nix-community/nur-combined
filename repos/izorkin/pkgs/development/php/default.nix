@@ -495,12 +495,12 @@ in {
   };
 
   php81 = generic {
-    version = "8.1.16";
-    sha256 = "sha256-85Ic56TqTPVm1YCmxmyWdl62eLEF6ezGU7Sp/ntzGZE=";
+    version = "8.1.17";
+    sha256 = "sha256-lb5IOfC+t15KpMFxL4WTL9Q7dvKjG7JBUnBOau70N5w=";
   };
 
   php82 = generic {
-    version = "8.2.3";
-    sha256 = "sha256-OE8CBiQ6JYSR20Vplj2OZm2f3Sfr/XCh/aNWKqR443s=";
+    version = "8.2.4";
+    sha256 = "sha256-iFxI7LvPqjciG2rpLymFh02rpoV6t/MkTPrVtPnpvzQ=";
   };
 }
