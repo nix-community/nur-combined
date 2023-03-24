@@ -33,8 +33,12 @@ git -C $repo_path init --quiet
 git -C $repo_path remote add repo "$source_repo_url"
 git -C $repo_path fetch --quiet --update-shallow repo $repo_commit
 git -C $repo_path checkout --quiet $repo_commit
-# no. currently, NUR does not support git submodules
-# eval will fail with:
+# by default, NUR update does not fetch git submodules
+# NUR/ci/nur/prefetch.py:
+#   if self.repo.submodules:
+#     cmd += ["--fetch-submodules"]
+# TODO get repo.submodules from repos.json
+# when submodules are missing, eval fails with:
 # error: getting status of '/nix/store/...': No such file or directory
 #git -C $repo_path submodule update --init --depth=1 --recursive --recommend-shallow
 

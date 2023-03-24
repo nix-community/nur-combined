@@ -132,6 +132,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   antlr = antlr4;
 
+  turbobench = callPackage ./pkgs/tools/compression/turbobench/turbobench.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
