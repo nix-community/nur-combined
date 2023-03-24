@@ -8,6 +8,16 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+/*
+# pin nixpkgs
+{
+  pkgs ? import (fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/f5dad40450d272a1ea2413f4a67ac08760649e89.tar.gz";
+    sha256 = "06nq3rn63csy4bx0dkbg1wzzm2jgf6cnfixq1cx4qikpyzixca6i";
+  }) { }
+}:
+*/
+
 pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   # library functions
