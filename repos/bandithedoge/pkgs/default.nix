@@ -35,4 +35,6 @@ in {
   dpf-plugins = callPackage' ./dpf-plugins.nix;
 
   fennel-language-server = callPackage' ./fennel-language-server.nix;
+
+  ildaeil = callPackage' ./ildaeil.nix;
 }

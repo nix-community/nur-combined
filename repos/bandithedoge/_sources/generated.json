@@ -144,6 +144,26 @@
         },
         "version": "d0c65db2ef43fd56390db14c422983040b41dd9c"
     },
+    "ildaeil": {
+        "cargoLocks": null,
+        "date": "2023-03-05",
+        "extract": null,
+        "name": "ildaeil",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "DISTRHO",
+            "repo": "Ildaeil",
+            "rev": "b6f33ff1d741597c74923bb7253d72db5cab89f3",
+            "sha256": "sha256-CJUQhveFml21cXDxfTNhPk5p7P7CYUwf5gI9PpZ0M7s=",
+            "type": "github"
+        },
+        "version": "b6f33ff1d741597c74923bb7253d72db5cab89f3"
+    },
     "keepmenu": {
         "cargoLocks": null,
         "date": null,

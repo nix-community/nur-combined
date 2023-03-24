@@ -96,3 +96,8 @@ fetch.github = "kmonad/kmonad"
 src.git = "https://github.com/rydesun/fennel-language-server"
 fetch.github = "rydesun/fennel-language-server"
 cargo_locks = ["Cargo.lock"]
+
+[ildaeil]
+src.git = "https://github.com/DISTRHO/Ildaeil"
+fetch.github = "DISTRHO/Ildaeil"
+git.fetchSubmodules = true
