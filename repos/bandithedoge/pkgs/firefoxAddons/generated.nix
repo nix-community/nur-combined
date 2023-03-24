@@ -173,10 +173,10 @@
   };
   "github-isometric-contributions" = buildFirefoxXpiAddon {
     pname = "github-isometric-contributions";
-    version = "1.1.23";
+    version = "1.1.24";
     addonId = "isometric-contributions@jasonlong.me";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4084426/github_isometric_contributions-1.1.23.xpi";
-    sha256 = "1321ee6c8d5a18675210d188944309030ebd2b1d19e2ce48ce39e71c72988cda";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4087901/github_isometric_contributions-1.1.24.xpi";
+    sha256 = "1feb9f2d24a3d8ad50b3c142949071363ccf500c5dcd2762763c5b290231678c";
     meta = with lib; {
       description = "Renders an isometric pixel view of GitHub contribution graphs.";
       license = licenses.mit;
@@ -351,10 +351,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.1.13";
+    version = "5.3.1";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4064410/sponsorblock-5.1.13.xpi";
-    sha256 = "851b2f2da02c566ddd00bb13ac9a874cd81114041c53b5d268686be46ebe985b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4085308/sponsorblock-5.3.1.xpi";
+    sha256 = "02385a0765aa88fbff553953a202fcca31012b1fb0ed9b82320c0572929a3849";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
