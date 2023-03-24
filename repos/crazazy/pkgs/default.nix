@@ -22,8 +22,9 @@ in
   # vendor broken. Also in nixpkgs already
   # efm-langserver = callPackage ./efm-langserver { };
   guile-hall = callPackage ./guile-hall { };
-  # for some reason unzip malfunctions on this right now. will check later
-  truffleSqueak = callPackage ./truffleSqueak { };
+  # TODO: get trufflesqueak up to snuff
+  truffleSqueak = pkgs.graalvm17-ce;
+  # truffleSqueak = callPackage ./truffleSqueak { };
 
   # impure packages. These packages cannot get evaluated by NUR because they
   # contain some techniques that make the import -> eval -> build flow not possible without trying
@@ -31,7 +32,7 @@ in
   hidden = {
     emacs = callPackage ./emacs { };
     grin = callPackage ./grin { };
-    hvm = callPackage ./HVM {};
+    # hvm = callPackage ./HVM {};
     inherit monorepo;
   };
   # below package is borked again, leaving it out for now

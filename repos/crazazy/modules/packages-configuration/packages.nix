@@ -57,7 +57,7 @@ defaultPackages: with defaultPackages.pkgs; {
     name = "games-env";
     paths = [
       minetest
-      polymc
+      prismlauncher
       steam
       stuntrally
     ];

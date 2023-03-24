@@ -103,13 +103,13 @@ let
         sha512 = "nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==";
       };
     };
-    "graceful-fs-4.2.10" = {
+    "graceful-fs-4.2.11" = {
       name = "graceful-fs";
       packageName = "graceful-fs";
-      version = "4.2.10";
+      version = "4.2.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.10.tgz";
-        sha512 = "9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==";
+        url = "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.11.tgz";
+        sha512 = "RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==";
       };
     };
     "inflight-1.0.6" = {
@@ -202,13 +202,13 @@ let
         sha512 = "yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==";
       };
     };
-    "readable-stream-2.3.7" = {
+    "readable-stream-2.3.8" = {
       name = "readable-stream";
       packageName = "readable-stream";
-      version = "2.3.7";
+      version = "2.3.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.7.tgz";
-        sha512 = "Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==";
+        url = "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.8.tgz";
+        sha512 = "8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==";
       };
     };
     "resolve-from-2.0.0" = {
@@ -283,7 +283,7 @@ let
       sources."errno-0.1.8"
       sources."fs.realpath-1.0.0"
       sources."glob-7.2.3"
-      sources."graceful-fs-4.2.10"
+      sources."graceful-fs-4.2.11"
       sources."inflight-1.0.6"
       sources."inherits-2.0.4"
       sources."isarray-1.0.0"
@@ -294,7 +294,7 @@ let
       sources."path-is-absolute-1.0.1"
       sources."process-nextick-args-2.0.1"
       sources."prr-1.0.1"
-      sources."readable-stream-2.3.7"
+      sources."readable-stream-2.3.8"
       sources."resolve-from-2.0.0"
       sources."safe-buffer-5.1.2"
       sources."string_decoder-1.1.1"

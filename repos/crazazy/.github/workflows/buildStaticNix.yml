@@ -24,7 +24,7 @@ jobs:
       - name: Install Nix
         # You may pin to the exact commit or the version.
         # uses: cachix/install-nix-action@07da2520eebede906fbeefa9dd0a2b635323909d
-        uses: cachix/install-nix-action@v18
+        uses: cachix/install-nix-action@v19
         with:
 
           # Set NIX_PATH environment variable.
