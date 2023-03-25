@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PINN3ufk2feB+od01LKoguHLM0hGFoDgNSxtqvGedXQ=",
+            "sha256": "sha256-Z7nL+/sIEi1PVQUPJ9xBgYM04PovGPMym9D8q1o0BZ0=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.19/Clash.for.Windows-0.20.19-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.18/Clash.for.Windows-0.20.18-x64-linux.tar.gz"
         },
-        "version": "0.20.19"
+        "version": "0.20.18"
     },
     "clash-premium-aarch64-linux": {
         "cargoLocks": null,
