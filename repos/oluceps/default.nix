@@ -26,6 +26,7 @@ let
       "plangothic"
       "v2ray-plugin"
       "san-francisco"
+      "hk-grotesk"
     ];
 
   # some packages only avaliable while flake enabled
