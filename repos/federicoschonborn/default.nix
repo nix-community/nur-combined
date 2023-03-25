@@ -45,7 +45,7 @@
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
   morewaita = pkgs.callPackage ./packages/morewaita {};
-  tooth = pkgs.callPackage ./packages/tooth {};
+  tuba = pkgs.callPackage ./packages/tuba {};
 
   loupe = pkgs.callPackage ./packages/loupe rec {
     gtk4 =

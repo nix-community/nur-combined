@@ -8,7 +8,7 @@
   pkg-config,
   vala,
   wrapGAppsHook4,
-  gnome2,
+  gnome,
   gtk4,
   json-glib,
   libadwaita,
@@ -16,14 +16,14 @@
   libsecret,
 }:
 stdenv.mkDerivation rec {
-  pname = "tooth";
-  version = "unstable-2023-03-20";
+  pname = "tuba";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "GeopJr";
-    repo = pname;
-    rev = "f8e88dbcdcb90b57530366627bf60eaa25cc5439";
-    hash = "sha256-8rdN5p2KAzCtmEhHdNZe2gvn9/kzQYWdE+Xhm0t4ndk=";
+    repo = "Tuba";
+    rev = "v${version}";
+    hash = "sha256-dkURVzbDBrE4bBUvf2fPqvgLKE07tn7jl3OudZpEWUo=";
   };
 
   nativeBuildInputs = [
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    gnome2.libsoup
+    gnome.libsoup
     gtk4
     json-glib
     libadwaita
@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Browse the Fediverse";
-    mainProgram = "dev.geopjr.Tooth";
-    homepage = "https://github.com/GeopJr/Tooth";
+    mainProgram = "dev.geopjr.Tuba";
+    homepage = "https://github.com/GeopJr/Tuba";
     license = licenses.gpl3Plus;
   };
 }
