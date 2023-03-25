@@ -1,3 +1,3 @@
 {
-  chromebook-audio = ./services/hardware/chromebook-audio;
+  eupnea-linux = ./services/hardware/eupnea-linux;
 }

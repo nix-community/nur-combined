@@ -1,15 +1,14 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.services.hardware.chromebook-audio;
-  eupnea-scripts = pkgs.fetchzip {
-    url = "https://github.com/eupnea-linux/audio-scripts/archive/7999d1c4d43b798ed8db98d751536459d056d88f.zip";
-    sha256 = "sha256-qzcnM6fBxOt1anZQ4Ot04VNb1Y9m0WzgBCp8SgT28Rw=";
+  cfg = config.services.hardware.eupnea-linux;
+  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+    inherit pkgs;
   };
 in
 {
-  options.services.hardware.chromebook-audio = with types; {
-    enable = mkEnableOption "chromebook-audio";
+  options.services.hardware.eupnea-linux = with types; {
+    enable = mkEnableOption "eupnea-linux";
     board = mkOption {
       type = str;
       default = "tgl";
@@ -56,9 +55,9 @@ in
       {
         original = pkgs.alsa-ucm-conf;
         replacement = pkgs.alsa-ucm-conf.overrideAttrs (_super: {
-          postFixup = ''
-            cp -r ${eupnea-scripts}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
-            cp -r ${eupnea-scripts}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
+          postFixup = with nur.repos.infinitivewitch; ''
+            cp -r ${audio-scripts}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
+            cp -r ${audio-scripts}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
           '';
         });
       }

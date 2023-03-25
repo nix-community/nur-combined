@@ -11,8 +11,8 @@
 
 ### Modules
 
-- `chromebook-audio` Setup system to work with Eupnea scripts
+- `eupnea-linux` Setup system to work with Eupnea scripts
 
 ### Packages
 
-- [chromebook-audio](https://github.com/eupnea-linux/audio-scripts) Audio scripts for Eupnea written in python
+- [audio-scripts](https://github.com/eupnea-linux/audio-scripts) Audio scripts for Eupnea written in python
