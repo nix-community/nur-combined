@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
   src = fetchurl ({
     name = "hk-grotest.zip";
     url = "https://fonts.google.com/download?family=Hanken%20Grotesk";
-    sha256 = "sha256-zLOB0BD9gpM7WL7xL2qo0tLTWoPACX1wsbLdeS313ik=";
+    sha256 = "sha256-iq4+mIKSzWA59KweaOiTK0cK+vcmdsi7PzL1pTqOw8Q=";
   });
 
   setSourceRoot = "sourceRoot=`pwd`";
