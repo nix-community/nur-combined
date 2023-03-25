@@ -56,37 +56,37 @@
   };
   commit-notifier = {
     pname = "commit-notifier";
-    version = "fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5";
+    version = "73cf28cd7d848570b76d7be5554f9dec14caa5be";
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
-      rev = "fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5";
+      rev = "73cf28cd7d848570b76d7be5554f9dec14caa5be";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-YFzsodASfQzucrgPV3n48Wbu/yWXP7323dSkoVuKYJE=";
+      sha256 = "sha256-4fyyxPT+NiBIwLzbc9S0BWEsTPjOKCVB4764QIK1kb0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./commit-notifier-fdd7b1beb928ae2a778dd024a8cbd7b5fd6883f5/Cargo.lock;
+      lockFile = ./commit-notifier-73cf28cd7d848570b76d7be5554f9dec14caa5be/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-03-01";
+    date = "2023-03-25";
   };
   dot-tar = {
     pname = "dot-tar";
-    version = "d8da4cbb76bd697c1daaef0bae52c74eb0c9831d";
+    version = "a4aeef015718a2b8e4a451e0e7ac367483995c3c";
     src = fetchgit {
       url = "https://github.com/linyinfeng/dot-tar.git";
-      rev = "d8da4cbb76bd697c1daaef0bae52c74eb0c9831d";
+      rev = "a4aeef015718a2b8e4a451e0e7ac367483995c3c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-jBsV9H7ednBF+NkfZMRh16F+/7l/Ku5pjAa/CY4X7So=";
+      sha256 = "sha256-3E8byYbNyIyyFd/k30szYQgtA+qZS2mSrKJ7oSqL1Rk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./dot-tar-d8da4cbb76bd697c1daaef0bae52c74eb0c9831d/Cargo.lock;
+      lockFile = ./dot-tar-a4aeef015718a2b8e4a451e0e7ac367483995c3c/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-03-01";
+    date = "2023-03-25";
   };
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
@@ -313,20 +313,20 @@
   };
   tg-send = {
     pname = "tg-send";
-    version = "2e1372c895bc113d4e69325d583355c1a855060f";
+    version = "d3aea3f2dc37c39521ce59c5fb156427764ad68f";
     src = fetchgit {
       url = "https://github.com/linyinfeng/tg-send.git";
-      rev = "2e1372c895bc113d4e69325d583355c1a855060f";
+      rev = "d3aea3f2dc37c39521ce59c5fb156427764ad68f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-qokMKkb/p0vJmvCn1TABlVYOPqP6n3VJ9UB5+CfYw9U=";
+      sha256 = "sha256-I1saekIoRV/as3sVMUlfCpqLA6xHX5YdtRgIjuof1AU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./tg-send-2e1372c895bc113d4e69325d583355c1a855060f/Cargo.lock;
+      lockFile = ./tg-send-d3aea3f2dc37c39521ce59c5fb156427764ad68f/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-01-20";
+    date = "2023-03-25";
   };
   trojan = {
     pname = "trojan";
