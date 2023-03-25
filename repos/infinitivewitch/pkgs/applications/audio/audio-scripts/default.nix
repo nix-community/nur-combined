@@ -1,10 +1,10 @@
 { stdenv, fetchzip, lib, ... }:
 stdenv.mkDerivation rec {
   name = "audio-scripts";
-  version = "7999d1c4d43b798ed8db98d751536459d056d88f";
+  version = "a4046df34d7f58693590ede2945fe9a38bcbc3e6";
   src = fetchzip {
     url = "https://github.com/eupnea-linux/${name}/archive/${version}.zip";
-    sha256 = "sha256-qzcnM6fBxOt1anZQ4Ot04VNb1Y9m0WzgBCp8SgT28Rw=";
+    sha256 = "sha256-IrSX2I/omrchqrFuP060/BEAdM63/O3/zRtXrQ/QLLA=";
   };
 
   installPhase = ''

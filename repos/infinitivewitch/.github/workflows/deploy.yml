@@ -6,7 +6,22 @@ on:
   schedule:
     - cron:  '15 6 * * *'
 jobs:
+  checks:
+    strategy:
+      matrix:
+        check:
+          - fmt
+          - nur
+          - dead
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v20
+      - name: Check ${{ matrix.check }}
+        run: nix run .#checks.$(nix eval --raw --impure --expr "builtins.currentSystem").${{ matrix.check }}
   build:
+    needs: checks
     strategy:
       matrix:
         nurRepo:

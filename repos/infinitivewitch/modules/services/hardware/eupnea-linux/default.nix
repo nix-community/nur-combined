@@ -32,8 +32,8 @@ in
     '';
 
     hardware = {
+      firmware = with pkgs; [ sof-firmware ];
       enableRedistributableFirmware = mkDefault true;
-      firmware = with pkgs; [ alsa-firmware sof-firmware ];
     };
 
     environment.systemPackages = with pkgs; [
@@ -44,11 +44,6 @@ in
 
     boot.extraModprobeConfig = ''
       options snd-intel-dspcfg dsp_driver=3
-      softdep snd_sof_pci_intel_icl pre: snd_hda_codec_hdmi
-      softdep snd_sof_pci_intel_cnl pre: snd_hda_codec_hdmi
-      softdep snd_sof_pci_intel_apl pre: snd_hda_codec_hdmi
-      softdep snd_sof_pci_intel_tgl pre: snd_hda_codec_hdmi
-      softdep snd_sof_pci_intel_tng pre: snd_hda_codec_hdmi
     '';
 
     system.replaceRuntimeDependencies = [
@@ -58,6 +53,7 @@ in
           postFixup = with nur.repos.infinitivewitch; ''
             cp -r ${audio-scripts}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
             cp -r ${audio-scripts}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
+            cp -r ${audio-scripts}/configs/audio/sof/ucms/hdmi-common $out/share/alsa/ucm2/conf.d/
           '';
         });
       }
