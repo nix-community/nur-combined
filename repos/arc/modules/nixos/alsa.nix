@@ -686,11 +686,6 @@ in {
       ALSA_CONFIG_UCM2 = mkIf cfg.ucm.enable "${cfg.ucm.configDirectory}";
     };*/
     systemd.user.services = mkIf cfg.ucm.enable {
-      pipewire-media-session = mkIf config.services.pipewire.media-session.enable {
-        environment = {
-          ALSA_CONFIG_UCM2 = "${cfg.ucm.configDirectory}";
-        };
-      };
       wireplumber = mkIf config.services.wireplumber.enable or false {
         environment = {
           ALSA_CONFIG_UCM2 = "${cfg.ucm.configDirectory}";
