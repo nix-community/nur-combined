@@ -314,3 +314,40 @@ set string length to zero for unused strings
 0x640feeff      mov     eax, dword [public: static struct QListData::Data const QListData::shared_null] ; 0x6410f258
 0x640fef04      mov     esi, dword [public: void * * __thiscall QListData::append(void)] ; 0x6410fd10
 ```
+
+## error: login is broken
+
+fix: make the install writable
+
+todo: copy insall to $HOME/,cache/kindle
+
+## error: your kindle app requires an update to view this content
+
+WONTFIX old version breaks with new ebooks
+
+item not available ... this device type
+your kindle app requires an update to view this content
+
+https://github.com/apprenticeharper/DeDRM_tools/issues/1830
+
+> If the book cannot be downloaded with Kindle for PC/Mac 1.26 or earlier and it is not available for "download & transfer via USB" to an E-ink Kindle, then it cannot be decrypted at this time.
+
+https://github.com/apprenticeharper/DeDRM_tools/issues/889
+
+> Sounds like it's a book that's only available in the KFX format.
+
+> You can try a newer Kindle for PC/Mac version 1.19 through 1.24.
+> If that doesn't work, you won't be able to remove the DRM.
+
+> there's a new DRM for KFX in 1.25+
+
+> Look under Product Details. If it says "Enhanced Typesetting: Enabled" it's KFX.
+
+> If you're on PC, try 1.24.3.
+
+> See Method 4 here:
+> https://www.mobileread.com/forums/showthread.php?s=d9e1c4f6d94bd169c6da4357f2593de8&t=283371
+
+https://www.mobileread.com/forums/showthread.php?s=d9e1c4f6d94bd169c6da4357f2593de8&t=283371
+
+> Amazon has made a change to their service so the books published since Jan 3 2023 can no longer be downloaded using Kindle for PC or Mac versions prior to 1.39.
