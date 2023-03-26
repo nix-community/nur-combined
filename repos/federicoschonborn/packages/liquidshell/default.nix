@@ -21,7 +21,6 @@
   kwidgetsaddons,
   kwindowsystem,
   networkmanager-qt,
-  packagekit-qt,
   qtx11extras,
   solid,
   wrapQtAppsHook,
