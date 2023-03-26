@@ -144,6 +144,40 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   turbobench = callPackage ./pkgs/tools/compression/turbobench/turbobench.nix { };
 
+  kindle = kindle_1_17_44183;
+
+  kindle_1_15_43061 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.15.43061"; };
+  kindle_1_15_0_43061 = kindle_1_15_43061;
+  kindle_1_15_0 = kindle_1_15_43061;
+
+  kindle_1_17_44170 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.17.44170"; };
+  kindle_1_17_0_44170 = kindle_1_17_44170;
+  kindle_1_17_0 = kindle_1_17_44170;
+
+  kindle_1_17_44183 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.17.44183"; };
+  kindle_1_17_1_44183 = kindle_1_17_44183;
+  kindle_1_17_1 = kindle_1_17_44183;
+
+  kindle_1_21_48017 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.21.48017"; };
+  kindle_1_21_0_48017 = kindle_1_21_48017;
+  kindle_1_21_0 = kindle_1_21_48017;
+
+  kindle_1_28_57030 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.28.57030"; };
+  kindle_1_28_0_57030 = kindle_1_28_57030;
+  kindle_1_28_0 = kindle_1_28_57030;
+
+  kindle_1_32_61109 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.32.61109"; };
+  kindle_1_32_0_61109 = kindle_1_32_61109;
+  kindle_1_32_0 = kindle_1_32_61109;
+
+  kindle_1_34_63103 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.34.63103"; };
+  kindle_1_34_1_63103 = kindle_1_34_63103;
+  kindle_1_34_1 = kindle_1_34_63103;
+
+  kindle_1_39_65323 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.39.65323"; };
+  kindle_1_39_1_65323 = kindle_1_39_65323;
+  kindle_1_39_1 = kindle_1_39_65323;
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
