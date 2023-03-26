@@ -11,11 +11,11 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box";
-    rev = "f9516709dada695aea270f19fd3ab99e82a07eea";
-    sha256 = "sha256-it0LdHRXA+bZ/oVViLxVXQTIxUIP4pa4sncyY3M3fX8=";
+    rev = "0e37449d1c41b4ff4ab29e49ee973bd13c96ac31";
+    sha256 = "sha256-xNy2EEq1HuXkHPeHmbScWWggUdfkqX1FDO0DjbWVTls=";
   };
 
-  vendorHash = "sha256-a9xjAaHYe0Z2bkGNxZqEICbsVp3P/6Q7cihpNohGsds=";
+  vendorHash = "sha256-BTwAGyZrapO+CXbWm5sIbTtvKjlWWyWq29neILk/6xI=";
 
   proxyVendor = true;
 
