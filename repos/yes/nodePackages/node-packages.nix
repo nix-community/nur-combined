@@ -184,13 +184,13 @@ let
         sha512 = "Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==";
       };
     };
-    "@types/node-18.15.3" = {
+    "@types/node-18.15.10" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.15.3";
+      version = "18.15.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.15.3.tgz";
-        sha512 = "p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.15.10.tgz";
+        sha512 = "9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==";
       };
     };
     "@types/qs-6.9.7" = {
@@ -2110,13 +2110,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-3.20.0" = {
+    "rollup-3.20.2" = {
       name = "rollup";
       packageName = "rollup";
-      version = "3.20.0";
+      version = "3.20.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-3.20.0.tgz";
-        sha512 = "YsIfrk80NqUDrxrjWPXUa7PWvAfegZEXHuPsEZg58fGCdjL1I9C1i/NaG+L+27kxxwkrG/QEDEQc8s/ynXWWGQ==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-3.20.2.tgz";
+        sha512 = "3zwkBQl7Ai7MFYQE0y1MeQ15+9jsi7XxfrqwTb/9EK8D9C9+//EBR4M+CuA1KODRaNbFez/lWxA5vhEGZp4MUg==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -2389,13 +2389,13 @@ let
         sha512 = "YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==";
       };
     };
-    "terser-5.16.6" = {
+    "terser-5.16.8" = {
       name = "terser";
       packageName = "terser";
-      version = "5.16.6";
+      version = "5.16.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.16.6.tgz";
-        sha512 = "IBZ+ZQIA9sMaXmRZCUMDjNH0D5AQQfdn4WUjHL0+1lF4TP1IHRJbrhb6fNaXWikrYQTSkb7SLxkeXAiy1p7mbg==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.16.8.tgz";
+        sha512 = "QI5g1E/ef7d+PsDifb+a6nnVgC4F22Bg6T0xrBrz6iloVB4PUkkunp6V8nzoOOZJIzjWVdAGqCdlKlhLq/TbIA==";
       };
     };
     "through-2.3.8" = {
@@ -2961,7 +2961,7 @@ in
       sources."require-main-filename-2.0.0"
       sources."resolve-1.22.1"
       sources."ripemd160-2.0.2"
-      sources."rollup-3.20.0"
+      sources."rollup-3.20.2"
       sources."safe-buffer-5.2.1"
       sources."safer-buffer-2.1.2"
       sources."set-blocking-2.0.0"
@@ -2988,7 +2988,7 @@ in
       sources."subarg-1.0.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."syntax-error-1.4.0"
-      sources."terser-5.16.6"
+      sources."terser-5.16.8"
       sources."through-2.3.8"
       sources."through2-2.0.5"
       sources."timers-browserify-1.4.2"
@@ -3124,7 +3124,7 @@ in
       sources."@types/express-serve-static-core-4.17.33"
       sources."@types/http-proxy-1.17.10"
       sources."@types/mime-3.0.1"
-      sources."@types/node-18.15.3"
+      sources."@types/node-18.15.10"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
       sources."@types/serve-static-1.15.1"

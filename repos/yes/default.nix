@@ -13,13 +13,13 @@ with pkgs;
   lx-music-desktop = callPackage ./electronAppImage rec {
     electron = electron_22;
     pname = "lx-music-desktop";
-    version = "2.1.2";
+    version = "2.2.0";
     description = "A music application based on electron";
     homepage = "https://lxmusic.toside.cn";
     license = lib.licenses.asl20;
     src = fetchurl {
       url = "${rp}https://github.com/lyswhut/${pname}/releases/download/v${version}/${pname}-v${version}-x64.AppImage";
-      hash = "sha256-xa0HR1u5GbfGU3hyu9Pjz8gKdIBhaSrh13ZfZ5FIMGM=";
+      hash = "sha256-cJQSfwNQ3iOHwRKiBXBAHWqs+A3Mi33Y/kBqPCKOzSI=";
     };
   };
 
