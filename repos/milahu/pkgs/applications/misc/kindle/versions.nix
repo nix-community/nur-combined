@@ -31,11 +31,20 @@ rec {
   # http://kindleforpc.amazon.com/40996/KindleForPC-installer-1.12.40996.exe
   # amazon: HTTP/1.1 403 Forbidden
 
+  # runtime error: hangs on opening book with KFX protection
   # http://kindleforpc.amazon.com/43019/KindleForPC-installer-1.14.43019.exe
   # d92901bb2d62535922017bbd0f2b2378
   # amazon: HTTP/1.1 403 Forbidden
+  "1.14.43029" = {
+    src = builtins.fetchurl {
+      # https://softradar.com/de/kindle-for-pc/1.14.1-build-43029/
+      name = "KindleForPC-installer-1.14.43029.exe";
+      url = "https://softradar.com/static/products/kindle-for-pc/distr/1.14.1-build-43029/kindle-for-pc_softradar-com.exe";
+      sha256 = "sha256:6dcc396c17afab9b38887e072c3c4592c661f257270d7a7a9992d9fcc60b90a1";
+    };
+  };
 
-  # runtime error: unable to connect
+  # runtime error: unable to connect - fixed by adding SSL certificate /etc/ssl/certs/facacbc6.0
   # Kindle.1.15.43061.nupkg
   # https://s3.amazonaws.com/kindleforpc/43061/KindleForPC-installer-1.15.43061.exe
   # a40840ae89a771892732e96685c22096
@@ -49,16 +58,22 @@ rec {
     };
   };
 
-  /*
-  https://github.com/arnavbhatt288/rapps-db/blob/375e5e8eb8ad062a19fe15b18e6d7a506441bcf0/kindlepc.txt#L8
-  URLSite = www.amazon.com/kindleforpc
-  URLDownload = http://kindleforpc.amazon.com/44025/KindleForPC-installer-1.16.44025.exe
-  SHA1 = c57d0a7d8cd5f1c3020536edf336c3187f3e051f
-  SizeBytes = 65292192
+  # runtime error: hangs on opening book with KFX protection
+  # https://github.com/arnavbhatt288/rapps-db/blob/375e5e8eb8ad062a19fe15b18e6d7a506441bcf0/kindlepc.txt#L8
+  # SHA1 = c57d0a7d8cd5f1c3020536edf336c3187f3e051f
+  # SizeBytes = 65292192
+  # http://kindleforpc.amazon.com/44025/KindleForPC-installer-1.16.44025.exe
   # amazon: HTTP/1.1 403 Forbidden
-  */
+  "1.16.44025" = {
+    src = builtins.fetchurl {
+      # https://softradar.com/de/kindle-for-pc/1.16.0-build-44025/
+      name = "KindleForPC-installer-1.16.44025.exe";
+      url = "https://softradar.com/static/products/kindle-for-pc/distr/1.16.0-build-44025/kindle-for-pc_softradar-com.exe";
+      sha256 = "sha256:2655fa8be7b8f4659276c46ef9f3fede847135bf6e5c1de136c9de7af6cac1e2";
+    };
+  };
 
-  # runtime error: unable to connect
+  # runtime error: unable to connect - fixed by adding SSL certificate /etc/ssl/certs/facacbc6.0
   #"1.17.0" = "1.17.44170";
   #"1.17.0.44170" = "1.17.44170";
   # https://github.com/apprenticeharper/DeDRM_tools/blob/master/FAQs.md
@@ -80,7 +95,7 @@ rec {
   * SHA-256: 28DC21246A9C7CDEDD2D6F0F4082E6BF7EF9DB9CE9D485548E8A9E1D19EAE2AC
   */
 
-  # runtime error: unable to connect
+  # runtime error: unable to connect - fixed by adding SSL certificate /etc/ssl/certs/facacbc6.0
   # FIXME install ssl cert https://bugs.winehq.org/show_bug.cgi?id=50471
   # via https://forum.winehq.org/viewtopic.php?t=29102
   # trace: WINEDEBUG=+file,+ntdll,+tid ./result/bin/kindle >wine.log 2>&1
@@ -97,9 +112,16 @@ rec {
   };
 
   # Kindle.1.20.nupkg
+  # https://s3.amazonaws.com/kindleforpc/47037/KindleForPC-installer-1.20.47037.exe
   # amazon: HTTP/1.1 403 Forbidden
-  #-Url 'https://s3.amazonaws.com/kindleforpc/47037/KindleForPC-installer-1.20.47037.exe' `
-  #-Checksum 'CB20581D3455D458C7AC4BAFA5C67DCFC5186C7B35951168EFCF5A8263706B47' `
+  "1.20.47037" = {
+    src = builtins.fetchurl {
+      # https://softradar.com/de/kindle-for-pc/1.20.1-build-47037/
+      name = "KindleForPC-installer-1.20.47037.exe";
+      url = "https://softradar.com/static/products/kindle-for-pc/distr/1.20.1-build-47037/kindle-for-pc_softradar-com.exe";
+      sha256 = "sha256:cb20581d3455d458c7ac4bafa5c67dcfc5186c7b35951168efcf5a8263706b47";
+    };
+  };
 
   # runtime error: deadloop
   # output is crazy verbose. workaround: kindle >/dev/null
@@ -108,25 +130,76 @@ rec {
   "1.21.48017" = {
     src = builtins.fetchurl {
       # https://archive.org/details/kindle-for-pc-installer-1.21.48017
+      name = "KindleForPC-installer-1.21.48017.exe";
       url = "https://archive.org/download/kindle-for-pc-installer-1.21.48017/KindleForPC-installer-1.21.48017.exe";
       sha256 = "sha256:a6ea9068fabcdfde6da3099fa242c19bede3e393f2c6d3cb24c859a5f4281ae7";
     };
   };
 
-
-
+  # error when opening KFX-protected book: your kindle app requires an update to view this content
   # Kindle.1.23.50133.nupkg
-  #-Url 'https://s3.amazonaws.com/kindleforpc/50133/KindleForPC-installer-1.23.50133.exe' `
-  #-Checksum 'B66F5F4F8A68965A6D04AA41C97816A043517A24E19CFF943B804F1A1363CF08' `
+  # https://s3.amazonaws.com/kindleforpc/50133/KindleForPC-installer-1.23.50133.exe
+  # amazon: HTTP/1.1 403 Forbidden
+  "1.23.50133" = {
+    src = builtins.fetchurl {
+      # https://softradar.com/de/kindle-for-pc/1.23.1-build-50133/
+      name = "KindleForPC-installer-1.23.50133.exe";
+      url = "https://softradar.com/static/products/kindle-for-pc/distr/1.23.1-build-50133/kindle-for-pc_softradar-com.exe";
+      sha256 = "sha256:b66f5f4f8a68965a6d04aa41c97816a043517a24e19cff943b804f1a1363cf08";
+    };
+  };
 
-  # Kindle.1.24.51068.nupkg
-  #-Url 'https://s3.amazonaws.com/kindleforpc/51068/KindleForPC-installer-1.24.51068.exe' `
-  #-Checksum 'C7A1A93763D102BCA0FED9C16799789AE18C3322B1B3BDFBE8C00422C32F83D7' `
+  # runtime error: crashes on login
+  # 0518:err:winediag:ntlm_check_version ntlm_auth was not found. Make sure that ntlm_auth >= 3.0.25 is in your path. Usually, you can find it in the winbind package of your distribution.
+  # 0518:err:ntlm:ntlm_LsaApInitializePackage no NTLM support, expect problems
+  # 037c:err:mshtml:get_typeinfo GetTypeInfoOfGuid(DIID_DispDOMMessageEvent) failed: 8002802b
+  # 037c:err:mshtml:preprocess_dispex_data Could not get disp type info: 8002802b
+  # https://www.mobileread.com/forums/showthread.php?t=283371
+  # > The last Kindle for PC version
+  # > in which KFX can be disabled using the method described below is 1.24.3 (51068).
+  # > It will not work if a later version is installed.
+  #    url = "https://s3.amazonaws.com/kindleforpc/51068/KindleForPC-installer-1.24.51068.exe";
+  # amazon: HTTP/1.1 403 Forbidden
+  "1.24.51068" = {
+    src = builtins.fetchurl {
+      # https://softradar.com/de/kindle-for-pc/1.24.3.51068/
+      name = "KindleForPC-installer-1.24.51068.exe";
+      url = "https://softradar.com/static/products/kindle-for-pc/distr/1.24.3.51068/kindle-for-pc_softradar-com.exe";
+      sha256 = "sha256:c7a1a93763d102bca0fed9c16799789ae18c3322b1b3bdfbe8c00422c32f83d7";
+    };
+  };
 
+  # runtime error: hangs on login (deadloop)
+  # [ERROR][AxWebView] Cookie failed to set. Name: frc Error code : 0
   # Kindle.1.25.52064.nupkg
   #-Url 'https://s3.amazonaws.com/kindleforpc/52064/KindleForPC-installer-1.25.52064.exe' `
   #-Checksum '314678A0A3B867BF412936ADAA67C6AB6D41C961F359A46F99C3AFA591702EF7' `
+  # amazon: HTTP/1.1 403 Forbidden
   # https://github.com/JPinkney/winget-pkgs/blob/628f87aefcee8df1c54ab7866e0686f8182549fc/manifests/Amazon/Kindle/1.25.52064.yaml#L16
+  "1.25.52064" = {
+    src = builtins.fetchurl {
+      # https://softradar.com/de/kindle-for-pc/1.25.0-build-52064/
+      name = "KindleForPC-installer-1.25.52064.exe";
+      url = "https://softradar.com/static/products/kindle-for-pc/distr/1.25.0-build-52064/kindle-for-pc_softradar-com.exe";
+      sha256 = "sha256:314678a0a3b867bf412936adaa67c6ab6d41c961f359a46f99c3afa591702ef7";
+    };
+  };
+
+  # runtime error: crashes on login
+  # 0544:err:mshtml:get_typeinfo GetTypeInfoOfGuid(DIID_DispDOMMessageEvent) failed: 8002802b
+  # 0544:err:mshtml:preprocess_dispex_data Could not get disp type info: 8002802b
+  # Kindle.1.26.55076
+  # https://s3.amazonaws.com/kindleforpc/52064/KindleForPC-installer-1.26.55076.exe
+  # amazon: HTTP/1.1 403 Forbidden
+  # https://github.com/JPinkney/winget-pkgs/blob/628f87aefcee8df1c54ab7866e0686f8182549fc/manifests/Amazon/Kindle/1.25.52064.yaml#L16
+  "1.26.55076" = {
+    src = builtins.fetchurl {
+      # https://softradar.com/de/kindle-for-pc/1.26.55076/
+      name = "KindleForPC-installer-1.26.55076.exe";
+      url = "https://softradar.com/static/products/kindle-for-pc/distr/1.26.55076/kindle-for-pc_softradar-com.exe";
+      sha256 = "sha256:c9d104c4aad027a89ab92a521b7d64bdee422136cf562f8879f0af96abd74511";
+    };
+  };
 
   # runtime error: crashes on start
   #"1.28.0" = "1.28.57030";
