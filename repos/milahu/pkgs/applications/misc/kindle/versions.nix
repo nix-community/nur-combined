@@ -294,16 +294,31 @@ rec {
     };
   };
 
+  # runtime error: terminate called after throwing an instance of 'dxvk::DxvkError'
   # Kindle.1.39.65383.nupkg
-  #url           = 'https://kindleforpc.s3.amazonaws.com/65383/KindleForPC-installer-1.39.65383.exe'
-  #checksum      = '8190f52ea85a01f35b3f7d0280321497b53bd74c8b8fa68111c48b093f3c0c7f'
+  "1.39.65383" = {
+    src = builtins.fetchurl {
+      url = "https://kindleforpc.s3.amazonaws.com/65383/KindleForPC-installer-1.39.65383.exe";
+      sha256 = "sha256:8190f52ea85a01f35b3f7d0280321497b53bd74c8b8fa68111c48b093f3c0c7f";
+    };
+  };
 
+  # runtime error: terminate called after throwing an instance of 'dxvk::DxvkError'
   # Kindle.1.40.65415.nupkg
-  #url           = 'https://kindleforpc.s3.amazonaws.com/65415/KindleForPC-installer-1.40.65415.exe'
-  #checksum      = '67e31b8e45b9a537ad3ff64c65cbcb5de4e5b5569c28922daf5ba29983d87bc2'
+  "1.40.65415" = {
+    src = builtins.fetchurl {
+      url = "https://kindleforpc.s3.amazonaws.com/65415/KindleForPC-installer-1.40.65415.exe";
+      sha256 = "sha256:67e31b8e45b9a537ad3ff64c65cbcb5de4e5b5569c28922daf5ba29983d87bc2";
+    };
+  };
 
+  # runtime error: terminate called after throwing an instance of 'dxvk::DxvkError'
   # Kindle.1.40.65535.nupkg
-  #url           = 'https://kindleforpc.s3.amazonaws.com/65535/KindleForPC-installer-1.40.65535.exe'
-  #checksum      = '03d4ca7a54ea01b1c0405e26e31008ef70ee19c1b13957badb661898528f724b'
+  "1.40.65535" = {
+    src = builtins.fetchurl {
+      url = "https://kindleforpc.s3.amazonaws.com/65535/KindleForPC-installer-1.40.65535.exe";
+      sha256 = "sha256:03d4ca7a54ea01b1c0405e26e31008ef70ee19c1b13957badb661898528f724b";
+    };
+  };
 
 }

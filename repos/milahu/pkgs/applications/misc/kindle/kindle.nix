@@ -59,6 +59,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Amazon ebook reader";
+    homepage = "https://www.amazon.com/b?node=16571048011";
     license = licenses.unfree;
     platforms = platforms.linux;
   };
