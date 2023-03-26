@@ -11,6 +11,16 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-kyMUsMa5IVI2KAX2ZUhaUX/WLF6RfB8Al4Gi9a4yDYU=";
+  
+  postInstall =
+    ''
+    mkdir -p $out/lib/${pname}
+    cp -r templates $out/lib/${pname}
+    '';
+
+  # TODO: The output doesn't include the templates files and it doesn't properly
+  # "automatically reference the templates file path" either.
+  # More to do with how i coded it than nix tbh but still.
 
   meta = with lib; {
     description = "Small temp redis-based pastebin server";
