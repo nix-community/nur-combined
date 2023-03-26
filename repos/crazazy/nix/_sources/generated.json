@@ -1,0 +1,74 @@
+{
+    "guile-config": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "guile-config",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "1xrl8bdcvvvbsrms0s3pp3d698541fv5b5kyy1z2kwli7akvdiph",
+            "type": "tarball",
+            "url": "https://gitlab.com/a-sassmannshausen/guile-config/-/archive/0.5.0/guile-config-0.5.0.tar.gz"
+        },
+        "version": "0.5.0"
+    },
+    "guile-hall": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "guile-hall",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "0yrrik1v1xbik5h5q7w2cxrx6gvkmcdm32dl36i7xqdq8pr8sh2d",
+            "type": "tarball",
+            "url": "https://gitlab.com/a-sassmannshausen/guile-hall/-/archive/0.4.1/guile-hall-0.4.1.tar.gz"
+        },
+        "version": "0.4.1"
+    },
+    "seamonkey": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "seamonkey",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "0rjxb26ajlxisidv7d634sjm82ipc1w6353qlvmdq622wk0vlfp4",
+            "type": "tarball",
+            "url": "https://archive.mozilla.org/pub/seamonkey/releases/2.53.15/linux-x86_64/en-US/seamonkey-2.53.15.en-US.linux-x86_64.tar.bz2"
+        },
+        "version": "2.53.15"
+    },
+    "trufflesqueak": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "trufflesqueak",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-D12bJ8ULDEWhayrDQNvEjX0pmvmDZZ6VI4WKLPvyUVc=",
+            "type": "url",
+            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/22.3.0/trufflesqueak-installable-java17-darwin-amd64-22.3.0.jar"
+        },
+        "version": "22.3.0"
+    },
+    "trufflesqueak-image": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "trufflesqueak-image",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-aCn67rA1j8RqDDeaX064XqyIwPMhiq6q6Q4sxU++dEM=",
+            "type": "url",
+            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/22.3.0/TruffleSqueakImage-22.3.0.zip"
+        },
+        "version": "22.3.0"
+    }
+}

@@ -8,7 +8,8 @@ let
     args = builtins.intersectAttrs (builtins.functionArgs f) defaultArgs;
   in
   callPackage f (args // extraArgs);
-  callPackage = augmentCallPackage pkgs.callPackage { inherit sources; };
+  nvsrcs = pkgs.callPackage ../nix/_sources/generated.nix { };
+  callPackage = augmentCallPackage pkgs.callPackage { inherit nvsrcs sources; };
 in
 {
   # package sets
@@ -18,6 +19,7 @@ in
   # standalone packages
   seamonkey = callPackage ./seamonkey { };
   nix-gen-node-tools = callPackage ./gen-node-env { inherit (pkgs.nodePackages) node2nix;};
+  nvfetcher = callPackage ./nvfetcher { };
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   # vendor broken. Also in nixpkgs already
   # efm-langserver = callPackage ./efm-langserver { };

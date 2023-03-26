@@ -1,4 +1,4 @@
-{ automake, autoreconfHook, fetchzip, guile, git, lib, makeWrapper, pkgconfig, sources, stdenv, texinfo }:
+{ automake, autoreconfHook, nvsrcs, guile, git, lib, makeWrapper, pkgconfig, stdenv, texinfo }:
 let
   mkGuile = { name, src, version, extraInputs ? [], extras ? {}}:
   stdenv.mkDerivation ({
@@ -14,19 +14,11 @@ let
   } // extras);
   guile-config = mkGuile rec {
     name = "config";
-    version = "0.5.0";
-    src = fetchzip {
-      url = "https://gitlab.com/a-sassmannshausen/guile-config/-/archive/${version}/guile-config-${version}.tar.gz";
-      sha256 = "1xrl8bdcvvvbsrms0s3pp3d698541fv5b5kyy1z2kwli7akvdiph";
-    };
+    inherit (nvsrcs.guile-config) src version;
   };
   guile-hall = mkGuile rec {
     name = "hall";
-    version = "0.4.0";
-    src = fetchzip {
-      url = "https://gitlab.com/a-sassmannshausen/guile-hall/-/archive/${version}/guile-hall-${version}.tar.gz";
-      sha256 = "0h6a0m8db2a2wmn2i9wia731isl1w97f679i1agskvrjfql4za2b";
-    };
+    inherit (nvsrcs.guile-hall) src version;
 
     extraInputs = [guile-config makeWrapper];
     extras.postInstall = ''

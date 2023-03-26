@@ -1,0 +1,20 @@
+[seamonkey]
+src.webpage = "https://www.seamonkey-project.org/releases/"
+src.regex = "SeaMonkey ([0-9\\.]+) [^B]"
+fetch.tarball = "https://archive.mozilla.org/pub/seamonkey/releases/$ver/linux-x86_64/en-US/seamonkey-$ver.en-US.linux-x86_64.tar.bz2"
+
+[trufflesqueak]
+src.github = "hpi-swa/trufflesqueak"
+fetch.url = "https://github.com/hpi-swa/trufflesqueak/releases/download/$ver/trufflesqueak-installable-java17-darwin-amd64-$ver.jar"
+
+[trufflesqueak-image]
+src.github = "hpi-swa/trufflesqueak"
+fetch.url = "https://github.com/hpi-swa/trufflesqueak/releases/download/$ver/TruffleSqueakImage-$ver.zip"
+
+[guile-config]
+src.manual = "0.5.0"
+fetch.tarball = "https://gitlab.com/a-sassmannshausen/guile-config/-/archive/$ver/guile-config-$ver.tar.gz"
+
+[guile-hall]
+src.manual = "0.4.1"
+fetch.tarball = "https://gitlab.com/a-sassmannshausen/guile-hall/-/archive/$ver/guile-hall-$ver.tar.gz"
