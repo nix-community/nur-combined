@@ -22,6 +22,7 @@
     (call ./misc.nix) //
     (import ./yggdrasil.nix { inherit self super lib; }) //
     (import ./zsh.nix { inherit self super lib; }) //
+    (import ./vim { inherit self super lib; }) //
     (import ./linux.nix { inherit self super lib; }) //
     (import ./base16.nix { inherit self super lib; }) //
     {

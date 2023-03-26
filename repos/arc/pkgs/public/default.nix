@@ -21,6 +21,7 @@
   yggdrasil-address = import ./yggdrasil-address.nix;
   switch-lan-play = import ./switch-lan-play.nix;
   mdns-scan = import ./mdns-scan.nix;
+  firenvim-native = import ./firenvim-native.nix;
 }
 // (import ./bolin)
 // (import ./droid.nix)

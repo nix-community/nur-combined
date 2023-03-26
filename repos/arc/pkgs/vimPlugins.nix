@@ -1,5 +1,5 @@
 {
-  notmuch-vim = { fetchFromGitHub, fetchurl, vimUtils, notmuch, ruby, buildRubyGem, buildEnv, lib }:
+  notmuch-vim = { fetchFromGitHub, fetchpatch, vimUtils, notmuch, ruby, buildRubyGem, buildEnv, lib }:
   let
     mail-gpg = buildRubyGem {
         inherit ruby;
@@ -36,11 +36,11 @@
     };
     patches = [
       (let
-        rev = "978cf7a4f0febe900abdb7b2afc4e0490c278ed4";
-      in fetchurl {
+        rev = "4105fe1e20dec10507977d704029cf2ac3168f4c";
+      in fetchpatch {
         name = "notmuch-vim.patch";
         url = "https://github.com/mashedcode/notmuch-vim/compare/master...arcnmx:${rev}.patch";
-        sha256 = "08jny1aswvzi7zpj4isf8sq2zf619kd4a6m3r4fyg1nkjcn3ikci";
+        sha256 = "sha256-BUUNyWr1ficm3568qRY7U93ny11b/NfoqqXOyFQmZx0=";
       })
     ];
     gemEnv = buildEnv {
