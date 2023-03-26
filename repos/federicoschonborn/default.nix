@@ -41,6 +41,7 @@
     enableFreetype = true;
     enablePulse = true;
   };
+  firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme {};
   gitklient = pkgs.libsForQt5.callPackage ./packages/gitklient {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
