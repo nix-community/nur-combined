@@ -27,6 +27,7 @@ let
       "v2ray-plugin"
       "san-francisco"
       "hk-grotesk"
+      "dae"
     ];
 
   # some packages only avaliable while flake enabled
