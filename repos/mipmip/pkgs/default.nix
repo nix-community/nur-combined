@@ -15,6 +15,7 @@ let
     gnome-screenshot  = pkgs.callPackage ./patched-software/gnome-screenshot     { };
 
     fred              = pkgs.callPackage ./pims-projects/fred                    { };
+    skull             = pkgs.callPackage ./pims-projects/skull                   { };
     embgit            = pkgs.callPackage ./pims-projects/embgit                  { };
     mip-crystal       = pkgs.callPackage ./pims-projects/mip-crystal             { };
     mip-rust          = pkgs.callPackage ./pims-projects/mip-rust                { };

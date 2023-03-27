@@ -1,0 +1,150 @@
+---
+home:
+  base_dir: ~/
+  repos:
+    - source: mipmip/secondbrain.git
+    - source: mipmip/nixos.git
+
+test:
+  base_dir: /tmp/
+  repos:
+    - source: mipmip/awesomewm-screenshots
+
+cAwesomeWm:
+  base_dir: ~/cAwesomeWm
+  repos:
+    - source: mipmip/awesomewm-screenshots
+
+cDreamMachine:
+  base_dir: ~/cDreamMachine
+  repos:
+    - source: mipmip/teledream
+    - source: techNative-B-V/slackdreams
+
+cForks:
+  base_dir: ~/cForks
+  repos:
+    - source: mipmip/hugoDocs
+    - source: mipmip/hugo
+    - source: mipmip/nixpkgs
+    - source: mipmip/NUR
+    - source: mipmip/nur-search
+    - source: mipmip/octokit.cr
+    - source: mipmip/sc-im
+    - source: mipmip/smug
+    - source: mipmip/nixos-homepage
+
+cGitHub:
+  base_dir: ~/cGithub
+  repos:
+    - source: mipmip/mipmip
+
+cGnome:
+  base_dir: ~/cGnome
+  repos:
+    - source: mipmip/gnome-hotkeys.cr
+    - source: mipmip/gnome-shell-extensions-highlight-focus
+    - target: mipmip/gnome-shell-extensions-hotkeys-popup
+    - target: mipmip/gnome-shell-extensions-useless-gaps
+    - target: mipmip/gs-git
+
+    - target: mipmip/hotkeys
+
+cLinden:
+  base_dir: ~/cLinden
+  repos:
+    - source: linden-project/docker-frontmatter-md-to-pdf
+    - source: linden-project/linden-project.github.io
+    - source: linden-project/fred
+    - source: linden-project/linny.vim
+      alert: this is cloned in ".vim/plugged/linny.vim"
+
+cNixos:
+  base_dir: ~/cNixos
+  repos:
+    - source: mipmip/home-manager-option-search
+
+cOperations:
+  base_dir: ~/cNixos
+  #  repos:
+  #    - source: snel-city-infra
+  #    - source: status_snel_city
+
+cPassingTrain:
+  base_dir: ~/cPassingTrain
+  repos:
+    - source: passing-train/trajno
+
+cPimMarketingEco:
+  base_dir: ~/cPimMarketingEco
+  repos:
+    - source: mipmip/pimspiratie_bot
+    - source: mipmip/pimterest-data
+    - source: mipmip/pimterest.github.io
+
+cQuiqr:
+  base_dir: ~/cPimMarketingEco
+  repos:
+    - source: quiqr/embgit
+    - source: quiqr/model-partials
+    - source: quiqr/quiqr-book
+    - source: quiqr/quiqr-community-templates
+    - source: quiqr/quiqr-desktop
+    - source: quiqr/quiqr.org
+
+    - source: mipmip/github-action-markdown-link-extract-to-json
+    - source: quiqr/mipmip/intergram
+
+cQuiqrKillerberg:
+  base_dir: ~/cPimMarketingEco
+  repos:
+    #- source: mipmip/killerberg-awsaccount-104144963194-main
+    #- source: mipmip/poppygo-awsaccount-162604489705
+    - source: :snel-city/wasnel-awsaccount-104144963194-main
+
+      #cSvg-stencils:
+  #awesome-isometric
+  #documentation
+  #gnome-mockup-resources
+  #Inkscape-Mockup-Toolkit
+  #inkscape-svg_stencil_export
+  #it-svg-stencils
+  #material-design-icons-svg-stencils
+  #material-design-ui-kit
+  #mui-5-community
+  #mui-material-design-non-official
+  #objects-to-new-layer
+  #omnichart-svg-stencil
+  #README.md
+  #simple-flowchart-stencil
+  #social-media-icons-svg-stencil
+  #svg-stencils.github.io
+  #tims-material-kit
+  #touch-gestures-svg-stencil
+  #TRASH
+  #world-stencils
+
+      #cTekenschoolOnline:
+  #school
+  #stappendam-in-html
+
+      #cTextUtils:
+  #carl
+  #cli-hacking
+  #mip.cr
+  #mip.rs
+  #vim-open-mip
+  #vim-show-in-filemanager
+
+      #cUtils:
+  #g.it-depends
+  #github-admin
+  #liszt.snel.city-frontend
+  #minimake.sh
+  #RUNME.sh
+
+      #cWaardenburg:
+  #cBuwa-maarten
+  #terraform-awsaccount-255418484322-main
+  #toolbox-research
+  #waardenburg-toolbox

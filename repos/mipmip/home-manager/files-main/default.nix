@@ -43,20 +43,14 @@
   };
 
   home.file = {
-    "./.lindex.yml" = {
-      source = ./.lindex.yml;
-    };
-  };
-
-  home.file = {
-    "./.lindex_dev.yml" = {
-      source = ./.lindex_dev.yml;
-    };
-  };
-
-  home.file = {
     "./.config/alacritty.yml" = {
       source = ./alacritty.yml;
+    };
+  };
+
+  home.file = {
+    ".config/skulls.yaml" = {
+      source = ./skulls.yaml;
     };
   };
 
