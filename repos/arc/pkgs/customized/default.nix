@@ -65,24 +65,6 @@ let
       };
     };
 
-    gir-rs-0_14 = { gir-rs, fetchFromGitHub, rustPlatform }: rustPlatform.buildRustPackage rec {
-      inherit (gir-rs) pname meta;
-      version = "0.14-2021-10-08";
-      src = fetchFromGitHub {
-        owner = "gtk-rs";
-        repo = pname;
-        rev = "8891a2f2c34ba87828eddcc292f7bcbaab72b5de";
-        sha256 = "038af19w95a0bdn7dsgqxvb0lfxf1bxlqdcypasknj7cpimkjwg8";
-      };
-      cargoSha256 = "0vx5zv8p0dnayvrz75d332c7xf1mn5xhcknc4qvbhjyvr9gjla8v";
-
-      postPatch = ''
-        rm build.rs
-        sed -i '/build = "build\.rs"/d' Cargo.toml
-        echo "pub const VERSION: &str = \"$version\";" > src/gir_version.rs
-      '';
-    };
-
     rnnoise-plugin-extern = { rnnoise-plugin
     , rnnoise, ladspaH
     , util-linux, libselinux, libsepol
@@ -446,6 +428,24 @@ let
 
       doCheck = !hostPlatform.isDarwin;
     });
+
+    mpd-mpris-idle = { mpd-mpris, buildGoModule, fetchFromGitHub, lib }: buildGoModule {
+      pname = "${mpd-mpris.pname}-idle";
+      inherit (mpd-mpris) version doCheck subPackages postInstall;
+
+      src = fetchFromGitHub {
+        # https://github.com/natsukagami/mpd-mpris/pull/34
+        owner = "natsukagami";
+        repo = "mpd-mpris";
+        rev = "caf71edb55c5f426b1a80570b364e67089e358e3";
+        sha256 = "sha256-RlrsavDkN3PfNqD4jcgAtjpO0PCWY0+TtPzcyLJg8kY=";
+      };
+      vendorSha256 = "sha256-HCDJrp9WFB1z+FnYpOI5e/AojtdnpN2ZNtgGVaH/v/Q=";
+
+      meta = mpd-mpris.meta or { } // {
+        mainProgram = "mpd-mpris";
+      };
+    };
 
     mpd-youtube-dl = { lib, mpd, fetchpatch, makeWrapper, youtube-dl }: mpd.overrideAttrs (old: let
       patchVersion =

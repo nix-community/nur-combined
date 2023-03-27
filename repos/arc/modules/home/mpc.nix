@@ -3,6 +3,7 @@
   inherit (config.programs) mpc ncmpcpp;
   cfg = mpc;
   default = cfg.servers.${cfg.defaultServer};
+  enable = cfg.enable && cfg.defaultServer != null && default.enable;
   serverEnv = server: toString ([
     "MPD_HOST=${escapeShellArg server.out.MPD_HOST}"
   ] ++ optional (server.out.MPD_PORT != null) "MPD_PORT=${escapeShellArg server.out.MPD_PORT}"
@@ -36,15 +37,32 @@
           type = nullOr port;
           default = null;
         };
+        mpd-mpris = mkOption {
+          type = unspecified;
+        };
+        mpdris2 = mkOption {
+          type = unspecified;
+        };
       };
     };
     config = {
       out = let
-        inherit (config.connection.binding) port;
+        inherit (config.connection) binding;
         hasPassword = config.password != null;
       in {
         MPD_HOST = optionalString hasPassword (config.password + "@") + config.connection.host;
-        MPD_PORT = mkIf config.connection.binding.explicitPort port;
+        MPD_PORT = mkIf binding.explicitPort binding.port;
+        mpd-mpris = {
+          port = mkIf binding.explicitPort binding.port;
+          host = config.connection.host;
+          network = if binding.ipProtocol == "unix" then binding.ipProtocol else binding.transport;
+          password = mkIf hasPassword config.password;
+        };
+        mpdris2 = {
+          port = mkIf binding.explicitPort binding.port;
+          host = config.connection.host;
+          password = mkIf hasPassword config.password;
+        };
       };
     };
   };
@@ -75,16 +93,25 @@ in {
           binding = mpd.bindings.socket or mpd.bindings.network;
         };
       };
-      ncmpcpp.settings = mkIf (cfg.defaultServer != null) {
+      ncmpcpp.settings = mkIf enable {
         mpd_host = mkOptionDefault default.out.MPD_HOST;
         mpd_port = mkIf (default.out.MPD_PORT != null) (mkOptionDefault default.out.MPD_PORT);
+      };
+    };
+    services = {
+      mpdris2.mpd = mkIf enable {
+        inherit (default.out.mpdris2) host port password;
+      };
+      mpd-mpris.mpd = mkIf enable {
+        useLocal = false;
+        inherit (default.out.mpd-mpris) port host network password;
       };
     };
     home = {
       packages = mkIf cfg.enable [
         cfg.package
       ];
-      sessionVariables = mkIf (cfg.defaultServer != null && default.enable) {
+      sessionVariables = mkIf enable {
         inherit (default.out) MPD_HOST;
         ${if (default.out.MPD_PORT != null) then "MPD_PORT" else null} = default.out.MPD_PORT;
       };

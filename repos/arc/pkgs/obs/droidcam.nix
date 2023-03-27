@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, obs-studio, libX11, libjpeg_turbo, libusbmuxd, ffmpeg, pkg-config }: stdenv.mkDerivation rec {
+{ stdenv, fetchFromGitHub, obs-studio, libX11, libjpeg_turbo, libusbmuxd, ffmpeg_4, pkg-config }: stdenv.mkDerivation rec {
   pname = "droidcam-obs";
   version = "1.2.1";
 
@@ -18,7 +18,7 @@
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ obs-studio libjpeg_turbo libusbmuxd ffmpeg libX11 ];
+  buildInputs = [ obs-studio libjpeg_turbo libusbmuxd ffmpeg_4 libX11 ];
 
   libname = pname + stdenv.hostPlatform.extensions.sharedLibrary;
   sysname = if stdenv.hostPlatform.isWindows then "win" else "unix";

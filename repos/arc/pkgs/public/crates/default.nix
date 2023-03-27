@@ -234,6 +234,7 @@
     doCheck = false;
     meta = with lib; {
       platforms = platforms.linux;
+      broken = lib.isNixpkgsUnstable;
     };
   };
 

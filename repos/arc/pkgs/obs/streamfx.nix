@@ -1,4 +1,4 @@
-{ fetchFromGitHub, stdenv, obs-studio, cmake, lib, qtbase ? qt5.qtbase, qt5, ffmpeg }: stdenv.mkDerivation rec {
+{ fetchFromGitHub, stdenv, obs-studio, cmake, lib, qtbase ? qt5.qtbase, qt5, ffmpeg_4 }: stdenv.mkDerivation rec {
   pname = "obs-streamfx";
   version = "0.11.0a6";
 
@@ -21,7 +21,7 @@
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio qtbase ffmpeg ];
+  buildInputs = [ obs-studio qtbase ffmpeg_4 ];
   dontWrapQtApps = true;
 
   meta.broken = lib.versionOlder obs-studio.version "27" || lib.versionAtLeast obs-studio.version "28";
