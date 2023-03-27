@@ -14,8 +14,6 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.screenstub or arc.packages.screenstub;
-      defaultText = "pkgs.screenstub";
     };
 
     settings = mkOption {
