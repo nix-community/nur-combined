@@ -66,15 +66,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "fcbe686ff250849b00da2479baf71dedc3cb0f07";
+    version = "816487f4bb5773e4ba3d2644b20528c1f637b321";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "fcbe686ff250849b00da2479baf71dedc3cb0f07";
+      rev = "816487f4bb5773e4ba3d2644b20528c1f637b321";
       fetchSubmodules = false;
-      sha256 = "sha256-VH3+FO2SKTdjnf0InJUBLsEJj+WiZa0Stjl+MlpFKjQ=";
+      sha256 = "sha256-InbdiozGGUh1AboYafI6HDNRIvquE8+WwOohgMg25Oo=";
     };
-    date = "2023-02-18";
+    date = "2023-03-26";
   };
   fennel-language-server = {
     pname = "fennel-language-server";
@@ -236,15 +236,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "89dd1044190e1b713c8108d50d0a2fe99a0f8760";
+    version = "33f94bae1a74621ca94ce62fa5053d64e6736203";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "89dd1044190e1b713c8108d50d0a2fe99a0f8760";
+      rev = "33f94bae1a74621ca94ce62fa5053d64e6736203";
       fetchSubmodules = false;
-      sha256 = "sha256-QlFW3IP9TpfzM9oSmIgwm9U3YTEfruhythu9tFHthTQ=";
+      sha256 = "sha256-qVxV06/82xeyC9wp8GDshggXMSGUwl0xR5WNOvp+y1Q=";
     };
-    date = "2023-03-20";
+    date = "2023-03-26";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
