@@ -3,7 +3,7 @@
   json = lib.json or arc.lib.json;
   cfg = config.programs.screenstub;
   screenstub = pkgs.writeShellScriptBin "screenstub" ''
-    exec ${cfg.package}/bin/screenstub -c ${cfg.configFile} "$@"
+    exec ${getExe cfg.package} -c ${cfg.configFile} "$@"
   '';
   settingsModule = { config, ... }: {
     freeformType = json.types.attrs;

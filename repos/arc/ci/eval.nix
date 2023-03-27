@@ -28,7 +28,7 @@
       (compare pkgs.nixpkgsFetchurl pkgs'.fetchurl)
     ]);
     overlayPackages = { pkgs ? pkgsOverlayPackages }: testAll [
-      (pkgs ? screenstub)
+      (pkgs ? paswitch)
       (pkgs.pass-arc.outPath != "")
       (arc.packages.pass-arc.outPath != "")
     ];
@@ -49,7 +49,7 @@
       ((pkgs.mkShell { }) ? shellEnv)
     ]);
     manualOverlay = { pkgs ? pkgsManualOverlay }: testAll [
-      (pkgs ? arc.packages.screenstub)
+      (pkgs ? arc.packages.paswitch)
     ];
   };
 in mapAttrs (_: v: v { }) tests //
