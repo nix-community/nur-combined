@@ -11,6 +11,7 @@ in {
     ./adb.nix
     ./vbox.nix
     ./tuning.nix
+    ./ipfs.nix
   ];
   nixpkgs = {
     config = {

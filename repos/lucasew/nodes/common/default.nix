@@ -27,6 +27,8 @@ in
     "${unpackedInputs.simple-dashboard}/nixos-module.nix"
   ];
 
+  programs.fuse.userAllowOther = true;
+
   services.cloud-savegame = {
     enableVerbose = true;
     enableGit = true;
