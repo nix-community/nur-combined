@@ -9,6 +9,7 @@ rec {
   # Evolution.
   beast = pkgs.callPackage ./pkgs/evolution/beast { };
   beast2 = pkgs.callPackage ./pkgs/evolution/beast2 { };
+  fasttree = pkgs.callPackage ./pkgs/evolution/fasttree { };
   figtree = pkgs.callPackage ./pkgs/evolution/figtree { };
   iqtree2 = pkgs.callPackage ./pkgs/evolution/iqtree2 { };
   paml = pkgs.callPackage ./pkgs/evolution/paml { };
