@@ -16,10 +16,12 @@ buildGoModule rec {
     fetchSubmodules = true;
   };
 
+  GOFLAGS = "-buildvcs=false";
+
   preBuild = ''
     unset STRIP
     CLANG=${lib.getExe llvmPackages_15.clang} \
-    CFLAGS="-O2 -Wall -D__REMOVE_BPF_PRINTK -fno-stack-protector" \
+    CFLAGS="-O2 -Wall -Werror -Qunused-arguments -D__REMOVE_BPF_PRINTK -fno-stack-protector" \
     BPF_CLANG=$CLANG \
     BPF_STRIP_FLAG="-strip=${llvm_15}/bin/llvm-strip" \
     BPF_CFLAGS=$CFLAGS \
