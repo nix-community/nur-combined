@@ -22,6 +22,7 @@
   nuclei = pkgs.callPackage ./pkgs/nuclei { };
   ov = pkgs.callPackage ./pkgs/ov { };
   spruce = pkgs.callPackage ./pkgs/spruce { };
+  gum = pkgs.callPackage ./pkgs/gum { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
