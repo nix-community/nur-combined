@@ -922,13 +922,13 @@ let
         sha512 = "QV6PMaHTCNmKSeP6QoXhVTw9snc9VD8MulTT0Bd99Pacp4SS1cjcrYPgBPmibqKVtMJJfqC6XvOXgPMEEPH/fg==";
       };
     };
-    "dns-packet-5.4.0" = {
+    "dns-packet-5.5.0" = {
       name = "dns-packet";
       packageName = "dns-packet";
-      version = "5.4.0";
+      version = "5.5.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/dns-packet/-/dns-packet-5.4.0.tgz";
-        sha512 = "EgqGeaBB8hLiHLZtp/IbaDQTL8pZ0+IvwzSHA6d7VyMDM+B9hgddEMa9xjK5oYnw0ci0JQ6g2XCD7/f6cafU6g==";
+        url = "https://registry.npmjs.org/dns-packet/-/dns-packet-5.5.0.tgz";
+        sha512 = "USawdAUzRkV6xrqTjiAEp6M9YagZEzWcSUaZTcIFAiyQWW1SoI6KyId8y2+/71wbgHKQAKd+iupLv4YvEwYWvA==";
       };
     };
     "dohjs-0.3.3" = {
@@ -2845,7 +2845,7 @@ in
         ];
       })
       sources."dijkstrajs-1.0.2"
-      sources."dns-packet-5.4.0"
+      sources."dns-packet-5.5.0"
       (sources."dohjs-0.3.3" // {
         dependencies = [
           sources."ws-7.5.9"

@@ -33,13 +33,13 @@ with pkgs;
       libappindicator   # use appindicator instead of systray wherever possible
     ];
     pname = "qq";
-    version = "3.1.0-9572";
+    version = "3.1.1-11223";
     description = "Tencent QQ (upstream AppImage wrapped in FHS)";
     homepage = "https://im.qq.com";
     license = lib.licenses.unfree;
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4b2e3220/linuxqq_${version}_x86_64.AppImage";
-      hash = "sha256-fMWWoS8sqcHnIJzWCqzUbuBipiNLerysOJzeryGmp8k=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_${version}_x86_64.AppImage";
+      hash = "sha256-J/Fa4Blz7yIW2E+odV6UmrxTX84R9SFOL5AskCe66w8=";
     };
   };
 
