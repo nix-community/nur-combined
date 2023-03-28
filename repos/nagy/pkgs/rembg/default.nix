@@ -18,6 +18,7 @@ let
         "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw="; # human segment 168MB
       u2net_cloth_seg =
         "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4="; # cloth segment 168MB
+      silueta = "sha256-ddpsjS+Alux0PQcZUb5ztKi8ez5R2aZiXWNkT5D/7ts="; # 42MB
     };
   U2NET_HOME = symlinkJoin {
     name = "u2net-home";
