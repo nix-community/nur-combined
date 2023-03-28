@@ -1,5 +1,4 @@
 { lib
-, llvm_15
 , llvmPackages_15
 , fetchFromGitHub
 , buildGoModule
@@ -16,22 +15,25 @@ buildGoModule rec {
     fetchSubmodules = true;
   };
 
-  GOFLAGS = "-buildvcs=false";
-
-  preBuild = ''
-    unset STRIP
-    CLANG=${lib.getExe llvmPackages_15.clang} \
-    CFLAGS="-O2 -Wall -Werror -Qunused-arguments -D__REMOVE_BPF_PRINTK -fno-stack-protector" \
-    BPF_CLANG=$CLANG \
-    BPF_STRIP_FLAG="-strip=${llvm_15}/bin/llvm-strip" \
-    BPF_CFLAGS=$CFLAGS \
-    BPF_TARGET="bpfel,bpfeb" \
-    go generate ./control/control.go
-  '';
-
   vendorHash = "sha256-jrtJz+DKZarf/dlXaaVKtdTYzXFfwSyFkTvjxAzeMpg=";
 
   proxyVendor = true;
+
+  GOFLAGS = "-buildvcs=false";
+
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/daeuniverse/dae/cmd.Version=${version}"
+    "-X github.com/daeuniverse/dae/common/consts.MaxMatchSetLen_=64"
+  ];
+
+  preBuild = ''
+    unset STRIP
+    make CFLAGS="-D__REMOVE_BPF_PRINTK -fno-stack-protector" \
+    CLANG=${lib.getExe llvmPackages_15.clang} \
+    ebpf
+  '';
 
   doCheck = false;
 
