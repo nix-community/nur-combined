@@ -74,6 +74,9 @@
     "pname": "bitwarden"
   },
   {
+    "slug": "blocktube"
+  },
+  {
     "slug": "browserpass-ce",
     "pname": "browserpass"
   },
@@ -200,14 +203,6 @@
     "slug": "facebook-container"
   },
   {
-    "slug": "fastforwardteam",
-    "pname": "fastforward",
-    "license": {
-      "tag": "predefined",
-      "shortName": "unlicense"
-    }
-  },
-  {
     "slug": "fediact"
   },
   {
@@ -302,6 +297,9 @@
       "url": "https://www.grammarly.com/terms",
       "free": false
     }
+  },
+  {
+    "slug": "granted"
   },
   {
     "slug": "greasemonkey"

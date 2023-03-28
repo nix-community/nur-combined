@@ -255,6 +255,20 @@
         platforms = platforms.all;
         };
       };
+    "blocktube" = buildFirefoxXpiAddon {
+      pname = "blocktube";
+      version = "0.3.36";
+      addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4077014/blocktube-0.3.36.xpi";
+      sha256 = "839017a75d1c7e63116b6f801b833a21b7ff544f9fe9542294811b20b6ff3c0d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/amitbl/blocktube";
+        description = "YouTube™ Video blocker.\nBlock and hide annoying videos from YouTube™.\nFast and easy.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
       version = "3.7.2";
@@ -717,20 +731,6 @@
         platforms = platforms.all;
         };
       };
-    "fastforward" = buildFirefoxXpiAddon {
-      pname = "fastforward";
-      version = "0.1943";
-      addonId = "addon@fastforward.team";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3904490/fastforwardteam-0.1943.xpi";
-      sha256 = "6c69d64e94a77e637f8d2350c1e05041a21be212304813e6cc29775fe1347eb7";
-      meta = with lib;
-      {
-        homepage = "https://fastforward.team";
-        description = "Don't waste time with compliance. Use FastForward to skip annoying URL \"shorteners\".";
-        license = licenses.unlicense;
-        platforms = platforms.all;
-        };
-      };
     "fediact" = buildFirefoxXpiAddon {
       pname = "fediact";
       version = "0.9.8.7";
@@ -835,10 +835,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.18.1";
+      version = "4.19.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4056355/floccus-4.18.1.xpi";
-      sha256 = "c3546cb9764107690f7e7b12cc9317a15bee782304ecfabd5f88268d632b5d34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4088521/floccus-4.19.0.xpi";
+      sha256 = "c052418147c6ca88100bdce37f5101dff4706fb1f3b3ec23ec60451d8a55e65b";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230321.175953";
+      version = "112.0.20230326.180212";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4087034/francais_language_pack-112.0.20230321.175953.xpi";
-      sha256 = "f2968bf28b8d24142a640ac81a7b4ac6253e560fae089a61e4794fe7807ea131";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4089193/francais_language_pack-112.0.20230326.180212.xpi";
+      sha256 = "b0ae84dcdc51c327195a8cf68fab649bf58c44b575e79b9f116a2c62ec9944c2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -974,10 +974,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "23.3.16";
+      version = "23.3.27";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4084313/ghosttext-23.3.16.xpi";
-      sha256 = "f04bfc86552c365a9eb988eb0da465ddeeddadfbdd8e1afeecc89ed6014e6cd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4089624/ghosttext-23.3.27.xpi";
+      sha256 = "1173595022cee7bc84eda8110218c46af85b924c0166188d2d51e06aefc9eaf6";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -1079,6 +1079,19 @@
         platforms = platforms.all;
         };
       };
+    "granted" = buildFirefoxXpiAddon {
+      pname = "granted";
+      version = "1.1.2";
+      addonId = "{b5e0e8de-ebfe-4306-9528-bcc18241a490}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086622/granted-1.1.2.xpi";
+      sha256 = "f24bcab717460ec99cc0e70efa079fa8a6cf5f5af6c3e6b9532578714fb8f7bc";
+      meta = with lib;
+      {
+        description = "View multiple cloud accounts and regions in a single browser.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
       version = "4.11";
@@ -1142,7 +1155,7 @@
       sha256 = "389fba1a1a08b97f8b4bf0ed9c21ac2e966093ec43cecb80fc574997a0a99766";
       meta = with lib;
       {
-        homepage = "http://team.firefoxcn.net";
+        homepage = "https://he.firefoxcn.net/en/";
         description = "Manage browser's requests, include modify the request headers and response headers, redirect requests, cancel requests";
         license = licenses.gpl2;
         platforms = platforms.all;
@@ -1335,10 +1348,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "6.2.2";
+      version = "6.2.5";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077145/languagetool-6.2.2.xpi";
-      sha256 = "133a8af64cc5b9da25365aff199b46e7ef1cc2e38bd9fa847e2b6554c692c3a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086343/languagetool-6.2.5.xpi";
+      sha256 = "d17977befe90e9c15b86407668a985587e8fb25aee353c7d47d34b917dec7cd9";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -1531,10 +1544,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.25.0";
+      version = "10.26.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4073640/ether_metamask-10.25.0.xpi";
-      sha256 = "953b3841db6855ef827dfb01e5a6dfe2ae016d626633b4869767b57e03f052a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086717/ether_metamask-10.26.2.xpi";
+      sha256 = "39d1ad60687ad512bbc4da3685c913647780e64b1339f135edf681b955bfc2d9";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1543,10 +1556,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.2.10";
+      version = "4.3.0";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078080/modheader_firefox-4.2.10.xpi";
-      sha256 = "2e2fe22ced1104f099ff72b146ed6a082cf2f2ce3ff0a0ce9a4df41c58c25f12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4087498/modheader_firefox-4.3.0.xpi";
+      sha256 = "7b8079149fe3e50ff137488e692d9588239f0d7004b80776060d7d9df3999040";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -1576,10 +1589,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.53";
+      version = "2.7.54";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4083502/momentumdash-2.7.53.xpi";
-      sha256 = "f4e6a65bf2458d1fdcb29d78ce0de115a1bb6144a7fa38bba58cc7bc4e9593bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4087282/momentumdash-2.7.54.xpi";
+      sha256 = "1484e9366d06c810541725a3c572bdd28fb2f5d244b094d43bccb7cf0e5573e6";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1812,10 +1825,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.18.0";
+      version = "6.19.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067891/okta_browser_plugin-6.18.0.xpi";
-      sha256 = "13fbd6c2734396fe7b2eab38cd09c5b47ab40cabd59113a06459865e16b2e029";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086303/okta_browser_plugin-6.19.0.xpi";
+      sha256 = "9d62d4f59083d0c14f536228cc969d9d4a8e6175fabf9a27f1346a3fc68129b1";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -2114,10 +2127,10 @@
       };
     "promnesia" = buildFirefoxXpiAddon {
       pname = "promnesia";
-      version = "1.2.2";
+      version = "1.1.1";
       addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4069106/promnesia-1.2.2.xpi";
-      sha256 = "e155e3072120ee0554ddb28e4b8e119104ae8b09317ccae7a44b2685fdd8f9cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3947740/promnesia-1.1.1.xpi";
+      sha256 = "512d2aa1a5715c0fd0d93456f83e877a749d219a75ff2ad83b385b31560cc94a";
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/promnesia";
@@ -2281,10 +2294,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.9.1";
+      version = "1.10.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4035825/rust_search_extension-1.9.1.xpi";
-      sha256 = "0291fd0d0601d09592e96de58bd5ee57ea1fb4c840566ccbbf25037e97d4e7e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4089019/rust_search_extension-1.10.0.xpi";
+      sha256 = "6f7f9cd46e981b565f9ef453eb8204676d3df17bef5b862ac3ddbef9f4f2ffb1";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -2463,10 +2476,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.1.13";
+      version = "5.3.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064410/sponsorblock-5.1.13.xpi";
-      sha256 = "851b2f2da02c566ddd00bb13ac9a874cd81114041c53b5d268686be46ebe985b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4085308/sponsorblock-5.3.1.xpi";
+      sha256 = "02385a0765aa88fbff553953a202fcca31012b1fb0ed9b82320c0572929a3849";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2518,10 +2531,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.6";
+      version = "2023.8";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079501/streetpass_for_mastodon-2023.6.xpi";
-      sha256 = "994188d9b6c5ae2a1a1c0982a0ac9f33b5b5c60c61b55f190d0e7d05c79f738d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4089459/streetpass_for_mastodon-2023.8.xpi";
+      sha256 = "a7bbf3fbd36bbdaddde54c0de1ac4558a3434ea7b791cf609a872d164210f042";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
@@ -2955,10 +2968,10 @@
       };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.0.1";
+      version = "6.1.0";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055956/ukrainian_dictionary-6.0.1.xpi";
-      sha256 = "26c9e94880afe8e0298320d5a2a1515e19fe7a8e207e8e8a1907c82da5f34984";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4088837/ukrainian_dictionary-6.1.0.xpi";
+      sha256 = "90a57caef9f656812c03d6fd365c251cbcab722405d51313f931f12976e18a1b";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
