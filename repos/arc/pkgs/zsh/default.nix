@@ -7,4 +7,5 @@
   vi-motions = import ./vi-motions.nix;
   vi-quote = import ./vi-quote.nix;
   vim-mode = import ./vim-mode.nix;
+  git-completion = import ./git-completion.nix;
 }
