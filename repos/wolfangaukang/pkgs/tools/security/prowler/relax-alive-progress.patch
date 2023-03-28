@@ -1,15 +1,22 @@
 diff --git a/pyproject.toml b/pyproject.toml
-index a5477a09..cb44f8b9 100644
+index 86b5dbfd..42430a1f 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -31,8 +31,8 @@ dependencies = [
--  "pydantic ~=1.9.1",
-+  "pydantic >=1.9.1",
-   "shodan ~=1.28.0",
-   "detect-secrets ~=1.4.0",
--  "alive-progress ~=2.4.1",
-+  "alive-progress >=2.4.1",
-   "tabulate ~=0.9.0",
-   "azure-identity ~=1.12.0",
-   "azure-storage-blob ~=12.14.1",
-   "msgraph-core ~=0.2.2",
+@@ -33,14 +33,14 @@ azure-mgmt-security = "3.0.0"
+ azure-mgmt-storage = "21.0.0"
+ azure-mgmt-subscription = "3.1.1"
+ azure-storage-blob = "12.15.0"
+-boto3 = "1.26.86"
+-botocore = "1.29.90"
++boto3 = "^1.26.79"
++botocore = "^1.29.79"
+ colorama = "0.4.6"
+ detect-secrets = "1.4.0"
+ mkdocs = {version = "1.4.2", optional = true}
+ mkdocs-material = {version = "9.1.2", optional = true}
+ msgraph-core = "0.2.2"
+-pydantic = "1.10.6"
++pydantic = "^1.10.5"
+ python = "^3.9"
+ schema = "0.7.5"
+ shodan = "1.28.0"

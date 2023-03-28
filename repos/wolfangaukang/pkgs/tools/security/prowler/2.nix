@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     cp -r . $out/opt/prowler/
 
     makeWrapper $out/opt/prowler/prowler $out/bin/prowler \
-      --prefix PATH ":" ${lib.makeBinPath [ awscli2 detect-secrets jq ]} 
+      --prefix PATH ":" ${lib.makeBinPath [ awscli2 detect-secrets jq ]}
 
     runHook postInstall
   '';

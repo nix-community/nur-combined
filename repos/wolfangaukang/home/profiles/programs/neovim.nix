@@ -25,6 +25,10 @@ let
 
     # YAML
     nodePackages.yaml-language-server
+
+    # Rust
+    rust-analyzer
+
   ];
   defaultPlugins = (with pkgs.vimPlugins; [
     # Treesitter
@@ -43,6 +47,7 @@ let
       tree-sitter-nix
       tree-sitter-php
       tree-sitter-python
+      tree-sitter-rust
       tree-sitter-sql
       tree-sitter-toml
       tree-sitter-vim
@@ -53,7 +58,18 @@ let
     {
       plugin = nvim-lspconfig;
       type = "lua";
-      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-lspconfig.lua";    
+      config =  ''
+        ${builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-lspconfig.lua"}
+        lspconfig.rust_analyzer.setup({
+          settings = {
+            ['rust-analyzer'] = {
+              diagnostics = {
+                enable = false;
+              }
+            }
+          }
+        })
+      '';
     }
 
     # Nix
@@ -68,12 +84,12 @@ let
     {
       plugin = nvim-spectre;
       type = "lua";
-      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-spectre.lua";    
+      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-spectre.lua";
     }
     {
       plugin = nvim-tree-lua;
       type = "lua";
-      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-tree-lua.lua";    
+      config = builtins.readFile "${dotfiles}/config/neovim/plugins/nvim-tree-lua.lua";
     }
     vim-better-whitespace
   ]);
@@ -83,7 +99,7 @@ in {
     enable = true;
     defaultEditor = true;
     package = neovim-pkg;
-    plugins = defaultPlugins ++ extra-plugins; 
+    plugins = defaultPlugins ++ extra-plugins;
     viAlias = true;
     vimAlias = true;
     extraPackages = with pkgs; [

@@ -1,4 +1,4 @@
-{ pkgs 
+{ pkgs
 , self
 , extra-pkgs ? []
 , neovim-extensions ? []
@@ -31,7 +31,7 @@ in {
     firefox.profiles.work = {
       id = 4;
       search = common.firefox.search;
-      extensions = common.firefox.extensions;
+      extensions = common.firefox.extensions ++ (with pkgs.nur.repos.rycee.firefox-addons; [ keybase ]);
       settings = mkMerge [
         (common.firefox.settings)
       ];
@@ -47,7 +47,7 @@ in {
         vim-packer
       ] ++ neovim-extensions;
     };
-    ssh = { 
+    ssh = {
       enable = true;
       matchBlocks =
         let

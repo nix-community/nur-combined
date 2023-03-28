@@ -1,10 +1,10 @@
 { appimageTools, lib, fetchurl }:
 let
   pname = "iptvnator";
-  version = "0.11.1";
+  version = "0.12.0";
   src = fetchurl {
     url = "https://github.com/4gray/iptvnator/releases/download/v${version}/${pname}-${version}.AppImage";
-    sha256 = "sha256-yUAGih1A9aAy+kFtHnB6YIk16XpDsTFfQD4u+ISKErU=";
+    sha256 = "sha256-mTm711i1IjK5FfGgGJ40QvZCeubN3k/h8Q73wj7pdSE=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };

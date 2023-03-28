@@ -9,15 +9,15 @@
 
 buildPythonPackage rec {
   pname = "alive-progress";
-  version = "unstable-2022-12-22";
+  version = "unstable-2023-01-01";
   project = "setuptools";
 
   # Tests are on GitHub
   src = fetchFromGitHub {
     owner = "rsalmei";
     repo = "alive-progress";
-    rev = "5eb8390ed09256a28cb79c7ea8a0ba9660015a5c";
-    sha256 = "sha256-unOTBsClPdyUGzu32CSQFkfWucz3tEdLURTglCRSbyw=";
+    rev = "e38a5f8dda3ec36e26d17bcb5dc93ab03bb9f29e";
+    sha256 = "sha256-6UTg46XS9hEeB7/vuoA/8aFPl/5l5sNrlu3r2GClxXA=";
   };
 
   propagatedBuildInputs = [

@@ -1,4 +1,4 @@
-{ pkgs, stdenv, lib, fetchFromGitHub, makeWrapper, nodejs, jdk }: 
+{ pkgs, stdenv, lib, fetchFromGitHub, makeWrapper, nodejs, jdk }:
 
 let
   version = "11.1.1";
@@ -28,10 +28,10 @@ in stdenv.mkDerivation rec {
     makeWrapper
     nodejs
   ];
-  
+
   buildPhase = ''
     runHook preBuild
-    
+
     ln -s ${compositionOverride}/lib/node_modules .
     export PATH="${compositionOverride}/bin:$PATH"
     npm run build
@@ -58,4 +58,4 @@ in stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ wolfangaukang ];
   };
-} 
+}

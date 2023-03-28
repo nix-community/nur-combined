@@ -10,8 +10,8 @@ in {
     enable = true;
     openFirewall = true;
     settings = {
-      permitRootLogin = "no";
-      passwordAuthentication = false;
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
     };
     listenAddresses = [
       {

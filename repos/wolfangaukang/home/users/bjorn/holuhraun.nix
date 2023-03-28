@@ -1,7 +1,14 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
-{
-  imports = [ ./common.nix ];
+let
+  inherit (inputs) self;
+
+in {
+  imports = [
+    ./common.nix
+
+    "${self}/home/profiles/programs/mopidy.nix"
+  ];
 
   home.persistence = {
     #"/persist/home/bjorn" = {
@@ -43,7 +50,6 @@
   # Personal Settings
   defaultajAgordoj = {
     gui.extraPkgs = with pkgs; [
-      discord
       gimp
       musescore
       qbittorrent
@@ -62,5 +68,18 @@
     };
   };
 
-  programs.neofetch.startOnZsh = true;
+  programs = {
+    firejail.wrappedBinaries = {
+      discord =
+        let
+          path = "${lib.getBin pkgs.discord}";
+        in
+        {
+          executable = "${path}/bin/discord";
+          desktop = "${path}/share/applications/discord.desktop";
+        };
+    };
+    neofetch.startOnZsh = true;
+  };
+
 }

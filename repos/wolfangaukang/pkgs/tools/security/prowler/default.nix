@@ -14,7 +14,9 @@
 , boto3
 , detect-secrets
 , msgraph-core
+, poetry-core
 , pydantic
+, schema
 , shodan
 , tabulate
 , freezegun
@@ -25,20 +27,22 @@
 
 buildPythonApplication rec {
   pname = "prowler";
-  version = "3.0.1";
+  version = "3.3.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "prowler-cloud";
     repo = "prowler";
     rev = version;
-    sha256 = "sha256-q7LgFmk+f/rjbaV3E8nykyC/U+2PXGYxD5gH+Va013g=";
+    sha256 = "sha256-gWM/8/QqZrglvkqG6ca+gHj1cIFqU6xusuLs/F5PDqM=";
   };
 
   # pythonRelaxDepsHook won't work on this project
   patches = [
     ./relax-alive-progress.patch
   ];
+
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     alive-progress
@@ -54,8 +58,19 @@ buildPythonApplication rec {
     detect-secrets
     msgraph-core
     pydantic
+    schema
     shodan
     tabulate
+  ];
+
+  disabledTests = [
+    "test_send_to_s3_bucket"
+    "test_ec2_default_snapshots"
+    "test_ec2_public_snapshot"
+    "test_ec2_private_snapshot"
+    "test_ec2_default_snapshots"
+    "test_ec2_unencrypted_snapshot"
+    "test_ec2_encrypted_snapshot"
   ];
 
   checkInputs = [

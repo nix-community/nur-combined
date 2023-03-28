@@ -19,6 +19,7 @@ in {
     "${self}/system/profiles/security.nix"
     "${self}/system/profiles/time.nix"
     "${self}/system/profiles/users.nix"
+    "${self}/system/profiles/services/zerotier.nix"
     (import "${self}/system/profiles/services/openssh.nix" { inherit inputs hostname; })
   ];
 

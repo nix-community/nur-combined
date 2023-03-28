@@ -12,13 +12,13 @@
 stdenv.mkDerivation rec {
   pname = "ly";
   # v0.5.3 has issues with one of the submodules
-  version = "unstable-2022-07-24";
+  version = "unstable-2023-01-12";
 
   src = fetchFromGitHub {
     owner = "fairyglade";
     repo = "ly";
-    rev = "0a798831fe4b7463c28674b8691249604089330d";
-    sha256 = "sha256-5vw2cquIxQ5aqbcIwMGBItFrUdbJfYP5R2wlAhF0a7A=";
+    rev = "c64f806a68af225cc95623971b5e464abb55b879";
+    sha256 = "sha256-orCqjKlK6U1q7NDoMwxZZE44cyG8yuxdCCk1cQAalP0=";
     fetchSubmodules = true;
   };
 

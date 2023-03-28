@@ -32,7 +32,7 @@ in {
   programs.firefox = {
     enable = true;
     package = if firefox-pkg == null then defaultPkg else firefox-pkg;
-    profiles = 
+    profiles =
       {
         default = {
           search = common.firefox.search;
@@ -67,6 +67,7 @@ in {
             darkreader
             multi-account-containers
             privacy-redirect
+            video-downloadhelper
             # TODO: Missing keybase and VDH
           ]);
           settings = lib.mkMerge [

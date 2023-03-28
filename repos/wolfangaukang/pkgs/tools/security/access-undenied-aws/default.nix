@@ -22,9 +22,9 @@ buildPythonApplication rec {
     sha256 = "sha256-xShsgc9oXsm5dzqeg0DTdGPFJvd8v8DrO87jUmcTxEc=";
   };
 
-  patches = [ 
+  patches = [
     ./requirements.patch
-  ]; 
+  ];
 
   propagatedBuildInputs = [
     aws-error-utils
