@@ -54,7 +54,7 @@ rec {
       mkdir /tmp/cargo $out
       ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml /tmp/cargo/
       cp -v -- $file $pname.rs
-      rust-script --cargo-output --gen-pkg-only --pkg-path . $pname.rs
+      rust-script --cargo-output --package --pkg-path . $pname.rs
       sed -i Cargo.toml -e 's,^name = .*,name = "${pname}",g'
       sed -i Cargo.toml -e 's,^path = .*,path = "${pname}.rs",g'
       cargo generate-lockfile
