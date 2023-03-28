@@ -140,16 +140,16 @@ let
 
         sed -e "$patch" $objdir/$object.$nvidiaVersion > $object.$nvidiaVersion
       '';
-      nvidiaVersionSupported = "530.30.02";
+      nvidiaVersionSupported = "530.41.03";
     in stdenvNoCC.mkDerivation {
       pname = "nvidia-patch";
-      version = "2023-03-01";
+      version = "2023-03-24";
 
       src = fetchFromGitHub {
         owner = "keylase";
         repo = "nvidia-patch";
-        rev = "a71c22379d95d6342801357bc40652c53fedcfbf";
-        sha256 = "sha256-16F6woPHLTTOOBIJooiOAnsHOsB7lLwrIeoxuqUPf6c=";
+        rev = "81772668d61ce52cd3d5fc2b6dd6f86f43d39197";
+        sha256 = "sha256-zlVIm48YDilqXhm1DE6+6q5bRewzfHveSkYnuqUptyE=";
       };
 
       nativeBuildInputs = [ nvpatch lndir ];
