@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
 
       - name: Install Nix
         uses: cachix/install-nix-action@29bd9290ef037a3ecbdafe83cbd2185e9dd0fa0a
@@ -89,7 +89,7 @@ jobs:
           && (
             (matrix.item == 'pkgs/mozilla-langpack')
           )
-        uses: peter-evans/enable-pull-request-automerge@v2.5.0
+        uses: peter-evans/enable-pull-request-automerge@v3.0.0
         with:
           token: ${{ steps.token.outputs.token }}
           pull-request-number: ${{ steps.pr.outputs.pull-request-number }}
