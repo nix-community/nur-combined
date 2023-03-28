@@ -3,15 +3,15 @@
   stdenv,
   fetchFromGitHub,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "firefox-gnome-theme";
-  version = "110";
+  version = "111";
 
   src = fetchFromGitHub {
     owner = "rafaelmardojai";
     repo = "firefox-gnome-theme";
-    rev = "v${version}";
-    hash = "sha256-2KKntUo0uYCXZrnaB5Q7bf97+tUL3UiuyDtTlyjbXFo=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-QWRd9kpBbX6x/kH5NAxa2Eo68L9yw0RiarxPXVt1Xtw=";
   };
 
   installPhase = ''
@@ -28,4 +28,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rafaelmardojai/firefox-gnome-theme";
     license = licenses.unlicense;
   };
-}
+})

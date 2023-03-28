@@ -18,7 +18,7 @@
   wrapQtAppsHook,
   ...
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (_: {
   pname = "gitklient";
   version = "unstable-2023-02-09";
 
@@ -58,4 +58,4 @@ stdenv.mkDerivation {
     homepage = "https://apps.kde.org/gitklient/";
     license = licenses.gpl3Plus;
   };
-}
+})

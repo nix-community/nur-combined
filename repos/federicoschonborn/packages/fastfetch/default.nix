@@ -56,14 +56,14 @@
   enablePulse ? false,
   pulseaudio,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
   version = "1.11.0";
 
   src = fetchFromGitHub {
     owner = "LinusDierheimer";
     repo = "fastfetch";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-sSQaXXKH/ZELdhbUKuvAj0gZ0fSO/Xjxsv/TU0Xq47k=";
   };
 
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Like neofetch, but much faster because written in C";
     homepage = "https://github.com/LinusDierheimer/fastfetch";
-    changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.mit;
   };
-}
+})

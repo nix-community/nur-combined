@@ -26,15 +26,15 @@
   wrapQtAppsHook,
   ...
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "liquidshell";
   version = "1.8.1";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "system";
-    repo = pname;
-    rev = "v${version}";
+    repo = "liquidshell";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-vyI+eFEUc8guptpwRinJ+aXxkkkYyAx/Pi8kxQlWoA8=";
   };
 
@@ -75,4 +75,4 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.kde.org/liquidshell/";
     license = licenses.gpl3Plus;
   };
-}
+})

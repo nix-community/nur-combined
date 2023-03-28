@@ -4,14 +4,14 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libxo";
   version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "Juniper";
     repo = "libxo";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-iTB/zADckrLe6pfNa76CDYf6iozI+WUScd/IQlvFhnE=";
   };
 
@@ -28,4 +28,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Juniper/libxo";
     license = licenses.bsd2;
   };
-}
+})

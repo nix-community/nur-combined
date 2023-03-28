@@ -5,14 +5,14 @@
   gnome,
   hicolor-icon-theme,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "morewaita";
   version = "43.3";
 
   src = fetchFromGitHub {
     owner = "somepaulo";
     repo = "MoreWaita";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-yLIEG019iczCpReQI3C2+dhdo9qyqVAMXpIfVrVnzhI=";
   };
 
@@ -31,4 +31,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/somepaulo/MoreWaita";
     license = licenses.gpl3Only;
   };
-}
+})

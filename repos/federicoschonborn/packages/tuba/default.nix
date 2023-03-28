@@ -15,14 +15,14 @@
   libgee,
   libsecret,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "tuba";
   version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "GeopJr";
     repo = "Tuba";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-dkURVzbDBrE4bBUvf2fPqvgLKE07tn7jl3OudZpEWUo=";
   };
 
@@ -50,4 +50,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/GeopJr/Tuba";
     license = licenses.gpl3Plus;
   };
-}
+})

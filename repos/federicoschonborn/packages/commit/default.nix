@@ -17,14 +17,14 @@
   wrapGAppsHook,
   ...
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "commit";
   version = "3.3.0";
 
   src = fetchFromGitHub {
     owner = "sonnyp";
-    repo = pname;
-    rev = "v${version}";
+    repo = "commit";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-TiaBIhvhq4B1CrR7EABjM2ARHv8Y/OuNeKmQpp/avik=";
   };
 
@@ -78,4 +78,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sonnyp/Commit";
     license = licenses.gpl3Plus;
   };
-}
+})

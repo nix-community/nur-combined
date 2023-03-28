@@ -13,14 +13,14 @@
   ncurses6,
   openssl,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bsdutils";
   version = "13.1";
 
   src = fetchFromGitHub {
     owner = "dcantrell";
     repo = "bsdutils";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-rRB+H3nqVXRaEhxdgFOc3awq99jh8Tw+c5Qy5d9CK+0=";
   };
 
@@ -53,4 +53,4 @@ stdenv.mkDerivation rec {
       bsdOriginal
     ];
   };
-}
+})
