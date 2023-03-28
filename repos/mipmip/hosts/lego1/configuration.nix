@@ -49,6 +49,9 @@
       ../../modules/nur-my-pkgs.nix
     ];
 
+
+  services.xserver.xkbOptions = "caps:none,terminate:ctrl_alt_bks,altwin:swap_alt_win";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

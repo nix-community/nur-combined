@@ -12,6 +12,7 @@
   services.xserver.desktopManager.gnome.enable = true;
   # IF TRUE WAYLAND WILL BE USED
   services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.wayland = true;
 
   services.flatpak.enable = true;
 
