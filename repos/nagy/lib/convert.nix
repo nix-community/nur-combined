@@ -118,7 +118,7 @@ in rec {
     in self;
   wrap = src:
     pkgs.stdenvNoCC.mkDerivation {
-      name = src.name or baseNameOf src;
+      name = if src ? name then src.name else builtins.baseNameOf src;
       buildCommand = "install -Dm444 ${src} $out";
       # these should be limited to what is available in converters
       passthru = lib.listToAttrs ((map
