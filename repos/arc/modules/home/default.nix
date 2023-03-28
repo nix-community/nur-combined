@@ -7,7 +7,6 @@
   ssh = ./ssh.nix;
   gmail = ./gmail.nix;
   konawall = ./konawall.nix;
-  screenstub = ./screenstub.nix;
   task = ./task.nix;
   page = ./page.nix;
   starship = ./starship.nix;
@@ -48,7 +47,6 @@
       sshd ssh
       gmail
       konawall
-      screenstub
       task
       page
       starship
