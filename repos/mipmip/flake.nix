@@ -6,7 +6,6 @@
     nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -18,6 +17,14 @@
     };
 
     pkgsForSystem = system: import nixpkgs {
+      overlays = [
+        localOverlay
+      ];
+
+      inherit system;
+      config.allowUnfree = true;
+    };
+    unstableForSystem = system: import unstable {
       overlays = [
         localOverlay
       ];
@@ -38,6 +45,10 @@
     overlays = import ./overlays;
     overlay = localOverlay;
 
+    /*
+    DOT FILES
+    */
+
     homeConfigurations = {
       "pim@lego1" = home-manager.lib.homeManagerConfiguration {
         modules = [ (import ./home-manager/home-machine-lego1.nix) ];
@@ -52,11 +63,14 @@
 
       "pim@ojs" = home-manager.lib.homeManagerConfiguration {
         modules = [ (import ./home-manager/home-machine-ojs.nix) ];
+
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
           withLinny = true;
           isDesktop = true;
           tmuxPrefix = "a";
+          #inherit unstable;
+          unstable = unstableForSystem "x86_64-linux";
           inherit localOverlay;
         };
       };
@@ -64,6 +78,10 @@
 
     inherit home-manager;
     inherit (home-manager) packages;
+
+    /*
+    MACHINES
+    */
 
     nixosConfigurations.rodin = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -82,7 +100,6 @@
           }
       ];
     };
-
 
     nixosConfigurations.lego1 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";

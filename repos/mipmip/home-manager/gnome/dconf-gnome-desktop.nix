@@ -22,7 +22,7 @@ in
       mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
       per-window = false;
       sources = [ (mkTuple [ "xkb" "us" ]) ];
-      xkb-options = [ "grp:alt_shift_toggle" "lv3:ralt_switch" "compose:ralt" "caps:none" "altwin:swap_alt_win"];
+      xkb-options = [ "grp:alt_shift_toggle" "lv3:ralt_switch" "compose:ralt" "caps:none"];
     };
 
     "org/gnome/desktop/interface" = {

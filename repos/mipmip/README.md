@@ -2,6 +2,45 @@
 
 This is my mono-repository for my machines configuration and my dotfiles.
 
+## Features
+
+- multi machine
+- flakes
+- Custom patched Suckless Terminal (st)
+
+### Mentional NUR's
+- A 32 bits Brother printer driver
+- Some Gnome Extensions packed directly from Github (useful is maintainers keep behind supporting the latest Gnome Versions)
+- mip.rs, a fast and suckless markdown viewer written in Rust.
+- WIP: Skull, a tool for managing git working copies on demand.
+- some NUR crystal apps
+
+## Usage
+
+clone:
+
+```
+cd ~
+git clone --recurse-submodules git@github.com:mipmip/nixos.git
+cd /etc
+mv /etc/nixos /etc/nixos.bak
+sudo ln -s /home/pim/nixos nixos
+```
+
+nixos-rebuild:
+
+```
+cd /etc/nixos
+sudo nixos-rebuild switch --flake .#ojs
+```
+
+Home Manager:
+
+```
+cd /etc/nixos
+home-manager switch  --flake .#pim@ojs --impure
+```
+
 ### TODO
 
 - [x] fix NUR url, maybe nur.nix
@@ -15,8 +54,8 @@ This is my mono-repository for my machines configuration and my dotfiles.
 
 Lego1
 - [x] swap alt/win keys
-- [ ] swap ctrl/fn keys
 - [x] commit nixos
+- [ ] swap ctrl/fn keys
 - [ ] wayland and scaling
 
 Rodin
