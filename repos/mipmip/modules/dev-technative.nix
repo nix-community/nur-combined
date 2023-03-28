@@ -51,7 +51,7 @@
 
     #VNC ADEVINTA
     remmina
-    realvnc-vnc-viewer
+    #realvnc-vnc-viewer
 
   ];
 }

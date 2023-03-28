@@ -2,8 +2,8 @@
 home:
   base_dir: ~/
   repos:
-    - source: mipmip/secondbrain.git
-    - source: mipmip/nixos.git
+    - source: mipmip/secondbrain
+    - source: mipmip/nixos
 
 test:
   base_dir: /tmp/

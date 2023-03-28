@@ -4,10 +4,22 @@ This is my mono-repository for my machines configuration and my dotfiles.
 
 ### TODO
 
-- [ ] fix NUR url, maybe nur.nix
+- [x] fix NUR url, maybe nur.nix
 - [ ] public features and documentation## Usage
 - [ ] setup firefox profiles: https://discourse.nixos.org/t/help-setting-up-firefox-with-home-manager/23333
 - [ ] install firefox language packs from nur
+- [ ] delete i-am-desktop
+- [ ] new method i-am-secondbrain
+- [ ] tmux A or B
+- [ ] home manager flake
+
+Lego1
+- [ ] swap meta keys (ctrl/alt/meta/fn)
+- [ ] commit nixos
+- [ ] wayland and scaling
+
+Rodin
+- [ ] commit nixos
 
 ### MacOS Provisioning
 
