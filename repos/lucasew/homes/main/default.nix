@@ -39,6 +39,7 @@ in {
     graphviz
     github-cli
     gimp
+    gnome.evince
     libnotify
     libreoffice
     mendeley

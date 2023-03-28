@@ -30,6 +30,8 @@ in {
 
   virtualisation.oci-containers.backend = "docker";
 
+  services.kubo.enable = true;
+
   services.telegram-sendmail.enable = true;
 
   services.cloud-savegame = {

@@ -19,8 +19,6 @@ in lib.mkIf config.services.kubo.enable {
       "/ip4/0.0.0.0/udp/${toString ipfsSwarmPort}/quic"
       "/ip6/::/udp/${toString ipfsSwarmPort}/quic"
     ];
-    Gateway = [
-      "/ip4/127.0.0.1/tcp/${toString ipfsAPIPort}"
-    ];
+    Gateway = "/ip4/127.0.0.1/tcp/${toString ipfsAPIPort}";
   };
 }
