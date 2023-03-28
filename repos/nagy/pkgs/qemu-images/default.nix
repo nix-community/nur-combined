@@ -68,6 +68,8 @@ recurseIntoAttrs rec {
   raspberryPi = recurseIntoAttrs rec {
 
     buster-lite = fetchurl {
+      pname = "raspios-buster-armhf-lite";
+      version = "2022-09-06";
       url =
         "https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf/images/raspios_oldstable_lite_armhf-2022-09-07/2022-09-06-raspios-buster-armhf-lite.img.xz";
       # from https://www.raspberrypi.com/software/operating-systems/
