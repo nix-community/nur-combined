@@ -219,6 +219,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   kindle_1_40_1_65535 = kindle_1_40_65535;
   kindle_1_40_1 = kindle_1_40_65535;
 
+  lzturbo = callPackage ./pkgs/tools/compression/lzturbo/lzturbo.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
