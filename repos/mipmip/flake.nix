@@ -65,25 +65,6 @@
     inherit home-manager;
     inherit (home-manager) packages;
 
-
-    nixosConfigurations.lego1 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-
-      modules =
-        let
-          defaults = { pkgs, ... }: {
-            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
-          };
-        in [
-          defaults
-          ./hosts/lego1/configuration.nix
-          .home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-          }
-      ];
-    };
-
     nixosConfigurations.rodin = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
@@ -102,6 +83,24 @@
       ];
     };
 
+
+    nixosConfigurations.lego1 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+
+      modules =
+        let
+          defaults = { pkgs, ... }: {
+            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+          };
+        in [
+          defaults
+          ./hosts/lego1/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+          }
+      ];
+    };
     nixosConfigurations.ojs = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 

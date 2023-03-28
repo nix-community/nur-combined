@@ -49,6 +49,12 @@
       ../../modules/nur-my-pkgs.nix
     ];
 
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+            experimental-features = nix-command flakes
+    '';
+  };
 
   services.xserver.xkbOptions = "caps:none,terminate:ctrl_alt_bks,altwin:swap_alt_win";
 
