@@ -5,17 +5,18 @@ This is my mono-repository for my machines configuration and my dotfiles.
 ### TODO
 
 - [x] fix NUR url, maybe nur.nix
-- [ ] public features and documentation## Usage
+- [x] home manager flake
+- [ ] public features and documentation Usage
 - [ ] setup firefox profiles: https://discourse.nixos.org/t/help-setting-up-firefox-with-home-manager/23333
 - [ ] install firefox language packs from nur
 - [ ] delete i-am-desktop
 - [ ] new method i-am-secondbrain
 - [ ] tmux A or B
-- [ ] home manager flake
 
 Lego1
-- [ ] swap meta keys (ctrl/alt/meta/fn)
-- [ ] commit nixos
+- [x] swap alt/win keys
+- [ ] swap ctrl/fn keys
+- [x] commit nixos
 - [ ] wayland and scaling
 
 Rodin
@@ -42,7 +43,7 @@ see this run:
 ./RUNME.sh missing_modules
 ```
 
-### Home-Manager
+### Home-Manager Depreciated (remove once tested)
 
 Make sure home-manager is installed. On Mac I home-manager as single user
 install. On nixos home-manager is installed automatically.
@@ -66,6 +67,12 @@ Test configuration with:
 
 ```
 home-manager switch
+```
+
+### Home-Manager
+
+```
+home-manager switch  --flake .#pim --impure
 ```
 
 ## Features

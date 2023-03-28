@@ -1,87 +1,137 @@
 {
   inputs = {
 
+    utils.url = "github:numtide/flake-utils";
+
     nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
+    #home-manager.url = "github:nix-community/home-manager/release-22.05";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    comma.url = "github:nix-community/comma";
-
   };
 
-  outputs = inputs: {
+  outputs = { self, home-manager, nixpkgs, nixpkgs-22-05, unstable, utils }:
+  let
+
+    localOverlay = prev: final: {
+    };
+
+    pkgsForSystem = system: import nixpkgs {
+      overlays = [
+        localOverlay
+      ];
+
+      inherit system;
+      config.allowUnfree = true;
+    };
+
+#    mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration (rec {
+#      modules = [ (import ./home-manager/home-desktop-nixos.nix) ];
+#      pkgs = pkgsForSystem (args.system or "x86_64-linux");
+#    } // { inherit (args) extraSpecialArgs; });
+
+  in utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ] (system: rec {
+    legacyPackages = pkgsForSystem system;
+  }) // {
 
     overlays = import ./overlays;
+    overlay = localOverlay;
 
-    nixosConfigurations.lego1 = inputs.nixpkgs.lib.nixosSystem {
+    homeConfigurations = {
+      "pim@lego1" = home-manager.lib.homeManagerConfiguration {
+        modules = [ (import ./home-manager/home-machine-lego1.nix) ];
+        pkgs = pkgsForSystem "x86_64-linux";
+        extraSpecialArgs = {
+          withLinny = true;
+          isDesktop = true;
+          tmuxPrefix = "a";
+          inherit localOverlay;
+        };
+      };
+
+      "pim@ojs" = home-manager.lib.homeManagerConfiguration {
+        modules = [ (import ./home-manager/home-machine-ojs.nix) ];
+        pkgs = pkgsForSystem "x86_64-linux";
+        extraSpecialArgs = {
+          withLinny = true;
+          isDesktop = true;
+          tmuxPrefix = "a";
+          inherit localOverlay;
+        };
+      };
+    };
+
+    inherit home-manager;
+    inherit (home-manager) packages;
+
+
+    nixosConfigurations.lego1 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import inputs.unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
           };
         in [
           defaults
           ./hosts/lego1/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
+          .home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
           }
       ];
     };
 
-    nixosConfigurations.rodin = inputs.nixpkgs.lib.nixosSystem {
+    nixosConfigurations.rodin = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import inputs.unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
           };
         in [
           defaults
           ./hosts/rodin/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
+          .home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
           }
       ];
     };
 
-    nixosConfigurations.ojs = inputs.nixpkgs.lib.nixosSystem {
+    nixosConfigurations.ojs = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import inputs.unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
           };
         in [
           defaults
           ./hosts/ojs/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
           }
       ];
     };
 
-    nixosConfigurations.billquick = inputs.nixpkgs.lib.nixosSystem {
+    nixosConfigurations.billquick = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import inputs.unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
           };
         in [
           defaults
           ./hosts/billquick/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
+          .home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
           }

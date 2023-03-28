@@ -4,9 +4,10 @@ let
   mkTuple = lib.hm.gvariant.mkTuple;
 in
   {
-
     imports = [
-      /home/pim/nixos/home-manager/home-desktop-nixos.nix
+      ./home-base-nixos-desktop.nix
+      ./files-secondbrain
+      ./files-i-am-desktop
     ];
 
     dconf.settings = {
