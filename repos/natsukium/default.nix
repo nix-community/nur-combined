@@ -21,6 +21,7 @@
     inherit (pkgs.llvmPackages) openmp;
   };
   psipred = pkgs.callPackage ./pkgs/psipred { };
+  qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { };
   hackgen = pkgs.callPackage ./pkgs/data/fonts/hackgen { };
   hackgen-nf = pkgs.callPackage ./pkgs/data/fonts/hackgen-nf { };
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { };
