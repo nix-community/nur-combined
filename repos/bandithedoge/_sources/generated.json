@@ -206,7 +206,7 @@
     },
     "kmonad": {
         "cargoLocks": null,
-        "date": "2023-03-25",
+        "date": "2023-03-28",
         "extract": null,
         "name": "kmonad",
         "passthru": null,
@@ -218,11 +218,11 @@
             "name": null,
             "owner": "kmonad",
             "repo": "kmonad",
-            "rev": "97772cb718b2102047b2e0078564afe1c58cef0b",
-            "sha256": "sha256-puBjZbIB9+D+jKraSay/uofDJTaBI9bGLF6Bxg9YIJw=",
+            "rev": "a22e0bad9e76b01c7b9e56f193e07c615e82effa",
+            "sha256": "sha256-st3xFK6kgoeTwVQw/zKGc4HLaWSU4yrRyY82d7bfgYk=",
             "type": "github"
         },
-        "version": "97772cb718b2102047b2e0078564afe1c58cef0b"
+        "version": "a22e0bad9e76b01c7b9e56f193e07c615e82effa"
     },
     "lua-dbus": {
         "cargoLocks": null,
@@ -386,7 +386,7 @@
     },
     "tailwindcss-intellisense": {
         "cargoLocks": null,
-        "date": "2023-03-27",
+        "date": "2023-03-28",
         "extract": null,
         "name": "tailwindcss-intellisense",
         "passthru": null,
@@ -398,11 +398,11 @@
             "name": null,
             "owner": "tailwindlabs",
             "repo": "tailwindcss-intellisense",
-            "rev": "6c2dbf73559cb4d052ff9652891ffef31fa9aa28",
-            "sha256": "sha256-zjj4IkLAKasifwrSUBX3uR5sEFf1okSFJdrxWWf7LBE=",
+            "rev": "18dd2e7b096ac9ea3a2b356743358fba80184c29",
+            "sha256": "sha256-aDCVIR7aTKpxai/0Eq5P1UthY4TfRL/xQQOn+yJqG3I=",
             "type": "github"
         },
-        "version": "6c2dbf73559cb4d052ff9652891ffef31fa9aa28"
+        "version": "18dd2e7b096ac9ea3a2b356743358fba80184c29"
     },
     "xmonad-entryhelper": {
         "cargoLocks": null,
@@ -466,7 +466,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2023-03-27",
+        "date": "2023-03-29",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -476,11 +476,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "79cb1cebfb73835955c7e1585ca0182a49018fd4",
-            "sha256": "sha256-pq3divmoHeUEoEn4sbzhjI1G/+FR9HioiEfyS/daTzQ=",
+            "rev": "9b5ade7896d62facb84c11f19c28219d1868f3d6",
+            "sha256": "sha256-wYIuj+8jOm6pFl1MGvtMJi3RF3qdOUPm8OrmaMk7rBs=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "79cb1cebfb73835955c7e1585ca0182a49018fd4"
+        "version": "9b5ade7896d62facb84c11f19c28219d1868f3d6"
     }
 }
