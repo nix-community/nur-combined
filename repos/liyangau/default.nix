@@ -19,7 +19,6 @@
   deck = pkgs.callPackage ./pkgs/deck { };
   hexo-cli = pkgs.callPackage ./pkgs/hexo-cli { };
   kong-portal-cli = pkgs.callPackage ./pkgs/kong-portal-cli { };
-  nuclei = pkgs.callPackage ./pkgs/nuclei { };
   ov = pkgs.callPackage ./pkgs/ov { };
   spruce = pkgs.callPackage ./pkgs/spruce { };
   gum = pkgs.callPackage ./pkgs/gum { };
