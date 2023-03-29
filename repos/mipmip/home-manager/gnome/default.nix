@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./dconf-gnome-desktop.nix
-    ./dconf-gnome-shell.nix
-    ./gnome-shell-extensions.nix
+    ./gnome-desktop.nix
+    ./gnome-shell.nix
+    ./ext-init.nix
   ];
 }

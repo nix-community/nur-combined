@@ -57,6 +57,7 @@
           withLinny = true;
           isDesktop = true;
           tmuxPrefix = "a";
+          unstable = unstableForSystem "x86_64-linux";
           inherit localOverlay;
         };
       };
@@ -69,7 +70,6 @@
           withLinny = true;
           isDesktop = true;
           tmuxPrefix = "a";
-          #inherit unstable;
           unstable = unstableForSystem "x86_64-linux";
           inherit localOverlay;
         };
