@@ -4,6 +4,6 @@
   imports = [
     ./home-base-all.nix
     ./files-macos
-    ./programs/macos-bundle.nix
+    ./conf-desktop-macos/macos-bundle.nix
   ];
 }

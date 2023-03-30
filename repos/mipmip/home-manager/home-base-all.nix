@@ -8,10 +8,10 @@
 
   imports = [
     ./files-main
-    ./programs/fzf.nix
-    ./programs/git.nix
-    ./programs/tmux.nix
-    ./programs/vim.nix
-    ./programs/zsh.nix
+    ./conf-cli/fzf.nix
+    ./conf-cli/git.nix
+    ./conf-cli/tmux.nix
+    ./conf-cli/vim.nix
+    ./conf-cli/zsh.nix
   ];
 }
