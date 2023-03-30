@@ -52,7 +52,7 @@ in {
         feh
         firefox
         ffmpeg
-        gimp
+        gimp-with-plugins
         imagemagick
         mpv
         obs-studio
