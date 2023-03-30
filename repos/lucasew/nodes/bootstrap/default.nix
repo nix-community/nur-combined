@@ -6,6 +6,7 @@ in {
   imports = [
     ./systemd-portd.nix
     ./nix.nix
+    ./nix-binary-caches.nix
     ./netns.nix
     ./zerotier.nix
     ./user.nix
