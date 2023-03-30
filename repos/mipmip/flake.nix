@@ -33,11 +33,6 @@
       config.allowUnfree = true;
     };
 
-#    mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration (rec {
-#      modules = [ (import ./home-manager/home-desktop-nixos.nix) ];
-#      pkgs = pkgsForSystem (args.system or "x86_64-linux");
-#    } // { inherit (args) extraSpecialArgs; });
-
   in utils.lib.eachSystem [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ] (system: rec {
     legacyPackages = pkgsForSystem system;
   }) // {
@@ -89,7 +84,7 @@
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = unstableForSystem "x86_64-linux";
           };
         in [
           defaults
@@ -102,12 +97,12 @@
     };
 
     nixosConfigurations.lego1 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      #system = "x86_64-linux";
 
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = unstableForSystem "x86_64-linux";
           };
         in [
           defaults
@@ -118,13 +113,14 @@
           }
       ];
     };
+
     nixosConfigurations.ojs = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = unstableForSystem "x86_64-linux";
           };
         in [
           defaults
@@ -142,7 +138,7 @@
       modules =
         let
           defaults = { pkgs, ... }: {
-            _module.args.unstable = import .unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+            _module.args.unstable = unstableForSystem "x86_64-linux";
           };
         in [
           defaults

@@ -8,7 +8,6 @@
     #github-desktop
     gh # GitHub Cli
 
-
     alacritty
     xclip
     xorg.xkill

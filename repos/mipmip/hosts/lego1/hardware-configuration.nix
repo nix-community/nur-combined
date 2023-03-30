@@ -30,6 +30,22 @@
     [ { device = "/dev/disk/by-uuid/d05bc568-89f5-46e7-b1da-6b72476146ac"; }
     ];
 
+  # Enable thermal data
+  services.thermald.enable = true;
+
+  # Enable fingerprint support
+  # fingerprint reader: login and unlock with fingerprint (if you add one with
+  # `fprintd-enroll`)
+  services.fprintd.enable = true;
+
+  hardware.opengl.extraPackages = with pkgs; [
+    mesa_drivers
+    vaapiIntel
+    vaapiVdpau
+    libvdpau-va-gl
+    intel-media-driver
+  ];
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

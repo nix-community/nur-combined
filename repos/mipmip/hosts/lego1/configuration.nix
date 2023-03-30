@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, system, pkgs, ... }:
+{ config, inputs, system, pkgs, unstable, ... }:
 
 {
   imports =
@@ -55,14 +55,13 @@
             experimental-features = nix-command flakes
     '';
   };
-
-  services.xserver.xkbOptions = "caps:none,terminate:ctrl_alt_bks,altwin:swap_alt_win";
+  #services.xserver.xkbOptions = "caps:none,terminate:ctrl_alt_bks,altwin:swap_alt_win";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
+  boot.kernelPackages = unstable.linuxPackages_latest;
   networking.hostName = "lego1";
 
   # Setup keyfile

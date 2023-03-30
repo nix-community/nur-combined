@@ -10,9 +10,10 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
   # IF TRUE WAYLAND WILL BE USED
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.displayManager.defaultSession = "gnome";
 
   services.flatpak.enable = true;
 
