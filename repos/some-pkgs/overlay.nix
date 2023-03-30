@@ -62,7 +62,8 @@ in
         trieste
         qudida
         quad-tree-attention
-        quad-tree-loftr;
+        quad-tree-loftr
+        pynvjpeg;
 
       callPackage = final.lib.callPackageWith (final // final.some-pkgs);
 

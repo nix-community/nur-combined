@@ -49,4 +49,6 @@
   quad-tree-loftr = python-final.quad-tree-attention.feature-matching;
 
   qudida = python-final.callPackage ./pkgs/qudida { };
+
+  pynvjpeg = python-final.callPackage ./pkgs/pynvjpeg.nix { };
 }
