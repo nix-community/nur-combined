@@ -243,10 +243,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.2.1";
+      version = "2023.3.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071765/bitwarden_password_manager-2023.2.1.xpi";
-      sha256 = "282e6e5f1f39c1adcf3ee124e7448d6a95c152a8b38ac3807fe8f562cc8fd026";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4087503/bitwarden_password_manager-2023.3.0.xpi";
+      sha256 = "ab2e318c0ed2fb2cd685ec998cd53818844435af2cf83a319dfc0fb9fcc01600";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -602,10 +602,10 @@
       };
     "dracula-dark-colorscheme" = buildFirefoxXpiAddon {
       pname = "dracula-dark-colorscheme";
-      version = "1.9.3";
+      version = "1.9.4";
       addonId = "{b743f56d-1cc1-4048-8ba6-f9c2ab7aa54d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970141/dracula_dark_colorscheme-1.9.3.xpi";
-      sha256 = "d43588c996e2ae6ba62a0cca0f9d50d7d8b54cd734b92f2547d79ffaa58fd24c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4091018/dracula_dark_colorscheme-1.9.4.xpi";
+      sha256 = "c4c3b5dbf758f140dc3f60a7819b80af04b3b72a84e742c6731b33532c39c083";
       meta = with lib;
       {
         homepage = "https://draculatheme.com/firefox";
@@ -835,10 +835,10 @@
       };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "4.19.0";
+      version = "4.19.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4088521/floccus-4.19.0.xpi";
-      sha256 = "c052418147c6ca88100bdce37f5101dff4706fb1f3b3ec23ec60451d8a55e65b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090997/floccus-4.19.1.xpi";
+      sha256 = "a806d218c2e8eb11d115f3cd85d877ee8b0ec4f043a3c3edf1e41f78738ca314";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230326.180212";
+      version = "112.0.20230328.180038";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4089193/francais_language_pack-112.0.20230326.180212.xpi";
-      sha256 = "b0ae84dcdc51c327195a8cf68fab649bf58c44b575e79b9f116a2c62ec9944c2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090239/francais_language_pack-112.0.20230328.180038.xpi";
+      sha256 = "f3f3984f1423e306e8aac3a8aa8bd333d8adff6f9365c5034de438f020388373";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2839,10 +2839,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.5.5";
+      version = "2.6.2";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4084372/tournesol_extension-2.5.5.xpi";
-      sha256 = "d48b18ebc5cef608144bc8d7e3ac147265cf0d70fba66eee5ab78a3b8812c807";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4089971/tournesol_extension-2.6.2.xpi";
+      sha256 = "1ae67b1ec4d128029d62ed7466d8b9f068866a9bf27d6dc4f77e316613b17680";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -2926,10 +2926,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.2.6";
+      version = "8.2.7";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4076690/ublacklist-8.2.6.xpi";
-      sha256 = "cd61aa3271ebe62ef00338034d4b748331ca2904269deb9ef3457541460b21f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090046/ublacklist-8.2.7.xpi";
+      sha256 = "65c7c3c2e2ba5eec76ba01cfe843ba8535b02f2be5ea0ed05cdbe4d7f38d7aab";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -2940,10 +2940,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.47.4";
+      version = "1.48.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079064/ublock_origin-1.47.4.xpi";
-      sha256 = "a35a6c8758ba74616afc09648c96d74ec2e7d27fe30f311d1db6e9a4966e7858";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4086892/ublock_origin-1.48.0.xpi";
+      sha256 = "787950ad4fdbf57ffab136c706918077ed15b0b4fb22b5429ddd0043de3c9720";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -3183,10 +3183,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.88.1";
+      version = "2.89.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4085172/web_scrobbler-2.88.1.xpi";
-      sha256 = "cd909994b288a20822323757087dda9f2877807bffed0bde15f44e059957d13d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4089909/web_scrobbler-2.89.0.xpi";
+      sha256 = "298a96681644686b40c118a2a5c579e3860f47c9690ded1fe059b75e28e4b65e";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
