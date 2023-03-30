@@ -37,33 +37,38 @@ in
   pythonPackages = final.python.pkgs;
   python3Packages = final.python3.pkgs;
 
-  some-pkgs = {
-    inherit (final.python3Packages)
-      arxiv-py
-      albumentations
-      cppimport
-      grobid-client-python
-      datasette-render-images
-      instant-ngp
-      nvdiffrast
-      opensfm
-      ezy-expecttest
-      imviz pyimgui dearpygui
-      kornia
-      accelerate
-      geomstats
-      geoopt
-      gpytorch
-      check-shapes
-      gpflow
-      gpflux
-      timm
-      trieste
-      qudida
-      quad-tree-attention
-      quad-tree-loftr;
+  some-pkgs =
+    {
+      inherit (final.python3Packages)
+        arxiv-py
+        albumentations
+        cppimport
+        grobid-client-python
+        datasette-render-images
+        instant-ngp
+        nvdiffrast
+        opensfm
+        ezy-expecttest
+        imviz pyimgui dearpygui
+        kornia
+        accelerate
+        geomstats
+        geoopt
+        gpytorch
+        check-shapes
+        gpflow
+        gpflux
+        timm
+        trieste
+        qudida
+        quad-tree-attention
+        quad-tree-loftr;
 
-    lustre = final.callPackage ./pkgs/lustre { };
-    zotfile = final.callPackage ./pkgs/zotfile.nix { };
-  };
+      callPackage = final.lib.callPackageWith (final // final.some-pkgs);
+
+      alpaca-cpp = final.callPackage ./pkgs/alpaca-cpp.nix { };
+      llama-cpp = final.some-pkgs.callPackage ./pkgs/llama.cpp { };
+      lustre = final.callPackage ./pkgs/lustre { };
+      zotfile = final.callPackage ./pkgs/zotfile.nix { };
+    };
 }
