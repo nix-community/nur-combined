@@ -19,23 +19,18 @@ let
 
   gnomeExtensions = map (ext: { extpkg = ext; } ) gnomeExtensionsWithOutConf ++ [
 
-    (import ./extension-tray-icons-reloaded.nix { pkgs = pkgs; })
-    (import ./extension-color-picker.nix { pkgs = pkgs; })
-    (import ./extension-favorites-menu.nix { unstable = unstable; })
-    (import ./extension-dash-to-panel.nix { pkgs = pkgs; })
-    (import ./extension-gs-git.nix { mipmip_pkg = mipmip_pkg; })
-    (import ./extension-useless-gaps.nix { unstable = unstable; })
-
-    (import ./extension-hotkeys-popup.nix { unstable = unstable; })
+    (import ./shell-ext-tray-icons-reloaded.nix { pkgs = pkgs; })
+    (import ./shell-ext-color-picker.nix { pkgs = pkgs; })
+    (import ./shell-ext-favorites-menu.nix { unstable = unstable; })
+    (import ./shell-ext-dash-to-panel.nix { pkgs = pkgs; })
+    (import ./shell-ext-gs-git.nix { mipmip_pkg = mipmip_pkg; })
+    (import ./shell-ext-useless-gaps.nix { unstable = unstable; })
+    (import ./shell-ext-hotkeys-popup.nix { unstable = unstable; })
+    (import ./shell-ext-highlight-focus.nix { mipmip_pkg = mipmip_pkg; })
+    (import ./shell-ext-search-light.nix { lib = lib; mipmip_pkg = mipmip_pkg; })
 
     # TODO Soup.URI is not a constructor bug
-    (import ./extension-github-notifications.nix { mipmip_pkg = mipmip_pkg; })
-
-    # TODO readonly bug
-    (import ./extension-highlight-focus.nix { mipmip_pkg = mipmip_pkg; })
-
-    # TODO readonly bug
-    (import ./extension-search-light.nix { unstable = unstable; })
+    (import ./shell-ext-github-notifications.nix { mipmip_pkg = mipmip_pkg; })
 
   ];
 

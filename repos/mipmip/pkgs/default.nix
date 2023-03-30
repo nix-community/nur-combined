@@ -6,9 +6,9 @@ let
 
     #32bit
     callPackage_i686                      = pkgs.lib.callPackageWith (pkgs.pkgsi686Linux // self);
-
     hl4150cdn                             = callPackage_i686 ./drivers/hl4150cdn                            { };
 
+    #64bit
     crelease                              = pkgs.callPackage ./utils/crelease                               { };
     cryptobox                             = pkgs.callPackage ./utils/cryptobox                              { };
 
@@ -25,6 +25,7 @@ let
     gnomeExtensions.custom-menu-panel     = pkgs.callPackage ./gnome-shell-extensions/custom-menu-panel     { };
     gnomeExtensions.github-notifications  = pkgs.callPackage ./gnome-shell-extensions/github-notifications  { };
     gnomeExtensions.highlight-focus       = pkgs.callPackage ./gnome-shell-extensions/highlight-focus       { };
+    gnomeExtensions.search-light          = pkgs.callPackage ./gnome-shell-extensions/search-light          { };
 
   };
 in self
