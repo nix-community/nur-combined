@@ -32,7 +32,7 @@ let
     (import ./extension-github-notifications.nix { mipmip_pkg = mipmip_pkg; })
 
     # TODO readonly bug
-    (import ./extension-highlight-focus.nix { unstable = unstable; })
+    (import ./extension-highlight-focus.nix { mipmip_pkg = mipmip_pkg; })
 
     # TODO readonly bug
     (import ./extension-search-light.nix { unstable = unstable; })

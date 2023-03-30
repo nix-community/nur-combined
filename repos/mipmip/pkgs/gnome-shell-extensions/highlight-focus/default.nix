@@ -10,27 +10,27 @@
 }:
 
 let
-  extensionUuid = "git@eexpss.gmail.com";
-  extensionName = "gs-git";
+  extensionUuid = "highlight-focus@pimsnel.com";
+  extensionName = "highlight-focus";
   sourceDir= "src";
 in
   stdenv.mkDerivation rec {
-    pname = "gnome-shell-extension-gs-git";
-    version = "1";
+    pname = "gnome-shell-extension-highlight-focus";
+    version = "8";
 
     meta = with lib; {
-      description = "Gnome Extension to monitor git directory for changes. (enhanced fork by mipmip)";
-      longDescription = description;
-      homepage = "https://github.com/mipmip/gs-git";
+      description = "Highlights the focussed window with a temporary border ";
+      longDescription = "Highlight is a GNOME Shell Extension which draws a temporary colored border around a focussed window. Useful in an keyboard only workflow.";
+      homepage = "https://github.com/mipmip/gnome-shell-extensions-highlight-focus";
       license = licenses.gpl2Plus;
       maintainers = with maintainers; [ mipmip ];
     };
 
     src = fetchFromGitHub {
       owner = "mipmip";
-      repo = "gs-git";
-      rev = "223bb2e6878fb6cb32fa5ac4b45e4635c5eba7b3";
-      sha256 = "sha256-Bz6+4Obv4GuvrHSeoyzCBLre+NvyvfniY1j5P70bfag=";
+      repo = "gnome-shell-extensions-highlight-focus";
+      rev = "e4a3024";
+      sha256 = "sha256-DlC3hFP6faAojUdJAYLY0nmriXtAkWl70H7dZVzh6kg=";
     };
 
     nativeBuildInputs = [
@@ -43,7 +43,7 @@ in
 
     buildPhase = ''
       bash ./install.sh zip
-      unzip git@eexpss.gmail.com.shell-extension.zip -d build
+      unzip highlight-focus@pimsnel.com.shell-extension.zip -d build
     '';
 
     installPhase = ''
