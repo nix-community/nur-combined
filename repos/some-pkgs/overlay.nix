@@ -69,6 +69,12 @@ in
 
       alpaca-cpp = final.callPackage ./pkgs/alpaca-cpp.nix { };
       llama-cpp = final.some-pkgs.callPackage ./pkgs/llama.cpp { };
+
+      faiss = final.callPackage ./pkgs/faiss {
+        pythonPackages = final.python3Packages;
+        swig = final.swig4;
+      };
+
       lustre = final.callPackage ./pkgs/lustre { };
       zotfile = final.callPackage ./pkgs/zotfile.nix { };
     };
