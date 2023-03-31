@@ -26,6 +26,14 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
 
+  preConfigure = ''
+    cp -r ${sources.qsc-key-rfc.src} qsc-key-rfc
+    chmod -R 755 qsc-key-rfc
+
+    sed -i "s|GIT_REPOSITORY .*|SOURCE_DIR $(pwd)/qsc-key-rfc|g" oqsprov/CMakeLists.txt
+    sed -i "/GIT_TAG .*/d" oqsprov/CMakeLists.txt
+  '';
+
   installPhase = ''
     mkdir -p $out/lib
     install -m755 lib/oqsprovider.so "$out/lib"

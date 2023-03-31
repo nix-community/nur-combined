@@ -1098,6 +1098,26 @@
         },
         "version": "1.1.5"
     },
+    "qsc-key-rfc": {
+        "cargoLocks": null,
+        "date": "2023-03-20",
+        "extract": null,
+        "name": "qsc-key-rfc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Quantum-Safe-Collaboration",
+            "repo": "qsc-key-rfc",
+            "rev": "a431f77572b547d18b21dc19faab0109e4c873d8",
+            "sha256": "sha256-k9O81S8wAarjtiEMRXqQo7RNoGFKqsrUodpM5Sd3KBk=",
+            "type": "github"
+        },
+        "version": "a431f77572b547d18b21dc19faab0109e4c873d8"
+    },
     "rime-aurora-pinyin": {
         "cargoLocks": null,
         "date": "2022-08-28",

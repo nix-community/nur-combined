@@ -629,6 +629,18 @@
       sha256 = "sha256-wTtO80S8o4/EeVCvBzaN4xtI3+mShTjNHpq41exfP+g=";
     };
   };
+  qsc-key-rfc = {
+    pname = "qsc-key-rfc";
+    version = "a431f77572b547d18b21dc19faab0109e4c873d8";
+    src = fetchFromGitHub ({
+      owner = "Quantum-Safe-Collaboration";
+      repo = "qsc-key-rfc";
+      rev = "a431f77572b547d18b21dc19faab0109e4c873d8";
+      fetchSubmodules = false;
+      sha256 = "sha256-k9O81S8wAarjtiEMRXqQo7RNoGFKqsrUodpM5Sd3KBk=";
+    });
+    date = "2023-03-20";
+  };
   rime-aurora-pinyin = {
     pname = "rime-aurora-pinyin";
     version = "122b46976401995cbafcfc748806985ff3a437a4";

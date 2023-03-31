@@ -250,6 +250,10 @@ fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver_arm64.deb"
 src.aur = "qqmusic-bin"
 fetch.url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_$ver_amd64.deb"
 
+[qsc-key-rfc]
+src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-rfc.git"
+fetch.github = "Quantum-Safe-Collaboration/qsc-key-rfc"
+
 [rime-aurora-pinyin]
 src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
 fetch.github = "hosxy/rime-aurora-pinyin"
