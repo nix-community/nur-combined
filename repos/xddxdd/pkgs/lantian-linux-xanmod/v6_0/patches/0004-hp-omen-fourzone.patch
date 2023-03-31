@@ -1,0 +1,457 @@
+diff --git a/drivers/platform/x86/hp-wmi.c b/drivers/platform/x86/hp-wmi.c
+index 788381e4c6a6..5d36b8dba243 100644
+--- a/drivers/platform/x86/hp-wmi.c
++++ b/drivers/platform/x86/hp-wmi.c
+@@ -9,6 +9,9 @@
+  * Copyright (C) 2005 Miloslav Trmac <mitr@volny.cz>
+  * Copyright (C) 2005 Bernhard Rosenkraenzer <bero@arklinux.org>
+  * Copyright (C) 2005 Dmitry Torokhov <dtor@mail.ru>
++ *
++ * Portions based on alienware-wmi.c:
++ * Copyright (C) 2014 Dell Inc <mario_limonciello@dell.com>
+  */
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+@@ -19,6 +22,7 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/input.h>
++#include <linux/input-event-codes.h>
+ #include <linux/input/sparse-keymap.h>
+ #include <linux/platform_device.h>
+ #include <linux/platform_profile.h>
+@@ -90,6 +94,7 @@ enum hp_wmi_event_ids {
+ 	HPWMI_PEAKSHIFT_PERIOD		= 0x0F,
+ 	HPWMI_BATTERY_CHARGE_PERIOD	= 0x10,
+ 	HPWMI_SANITIZATION_MODE		= 0x17,
++	HPWMI_OMEN_KEY			= 0x1D,
+ 	HPWMI_SMART_EXPERIENCE_APP	= 0x21,
+ };
+ 
+@@ -121,6 +126,16 @@ enum hp_wmi_commandtype {
+ 	HPWMI_POSTCODEERROR_QUERY	= 0x2a,
+ 	HPWMI_SYSTEM_DEVICE_MODE	= 0x40,
+ 	HPWMI_THERMAL_PROFILE_QUERY	= 0x4c,
++
++	HPWMI_MACRO_PROFILE_SET		= 15,
++	HPWMI_MACRO_MODE_SET		= 23,
++
++	HPWMI_FOURZONE_COLOR_GET	= 2,
++	HPWMI_FOURZONE_COLOR_SET	= 3,
++	HPWMI_FOURZONE_BRIGHT_GET	= 4,
++	HPWMI_FOURZONE_BRIGHT_SET	= 5,
++	HPWMI_FOURZONE_ANIM_GET		= 6,
++	HPWMI_FOURZONE_ANIM_SET		= 7,
+ };
+ 
+ enum hp_wmi_gm_commandtype {
+@@ -136,6 +151,7 @@ enum hp_wmi_command {
+ 	HPWMI_WRITE	= 0x02,
+ 	HPWMI_ODM	= 0x03,
+ 	HPWMI_GM	= 0x20008,
++	HPWMI_FOURZONE	= 0x20009,
+ };
+ 
+ enum hp_wmi_hardware_mask {
+@@ -207,6 +223,9 @@ struct bios_rfkill2_state {
+ 	struct bios_rfkill2_device_state device[HPWMI_MAX_RFKILL2_DEVICES];
+ };
+ 
++// Set if the keycode is a key release
++#define HPWMI_HOTKEY_RELEASE_FLAG (1<<16)
++
+ static const struct key_entry hp_wmi_keymap[] = {
+ 	{ KE_KEY, 0x02,   { KEY_BRIGHTNESSUP } },
+ 	{ KE_KEY, 0x03,   { KEY_BRIGHTNESSDOWN } },
+@@ -217,6 +236,10 @@ static const struct key_entry hp_wmi_keymap[] = {
+ 	{ KE_KEY, 0x2169, { KEY_ROTATE_DISPLAY } },
+ 	{ KE_KEY, 0x216a, { KEY_SETUP } },
+ 	{ KE_KEY, 0x231b, { KEY_HELP } },
++	{ KE_KEY, 0x21A4, { KEY_F14 } }, // Winlock hotkey
++	{ KE_KEY, 0x21A5, { KEY_F15 } }, // Omen key
++	{ KE_KEY, 0x21A7, { KEY_F16 } }, // ???
++	{ KE_KEY, 0x21A9, { KEY_F17 } }, // Disable touchpad hotkey
+ 	{ KE_END, 0 }
+ };
+ 
+@@ -252,6 +275,18 @@ static const char * const tablet_chassis_types[] = {
+ 
+ #define DEVICE_MODE_TABLET	0x06
+ 
++/* Determine featureset for specific models */
++
++struct quirk_entry {
++	bool fourzone;
++};
++
++static struct quirk_entry temp_omen = {
++	.fourzone = true,
++};
++
++static struct quirk_entry *quirks = &temp_omen;
++
+ /* map output size to the corresponding WMI method id */
+ static inline int encode_outsize_for_pvsz(int outsize)
+ {
+@@ -760,6 +795,14 @@ static void hp_wmi_notify(u32 value, void *context)
+ 	int key_code;
+ 
+ 	status = wmi_get_event_data(value, &response);
++	if (status == AE_NOT_FOUND)
++	{
++		// We've been woken up without any event data
++		// Some models do this when the Omen hotkey is pressed
++		event_id = HPWMI_OMEN_KEY;
++		goto next;
++	}
++
+ 	if (status != AE_OK) {
+ 		pr_info("bad event status 0x%x\n", status);
+ 		return;
+@@ -793,6 +836,7 @@ static void hp_wmi_notify(u32 value, void *context)
+ 	}
+ 	kfree(obj);
+ 
++next:
+ 	switch (event_id) {
+ 	case HPWMI_DOCK_EVENT:
+ 		if (test_bit(SW_DOCK, hp_wmi_input_dev->swbit))
+@@ -808,7 +852,15 @@ static void hp_wmi_notify(u32 value, void *context)
+ 	case HPWMI_SMART_ADAPTER:
+ 		break;
+ 	case HPWMI_BEZEL_BUTTON:
++	case HPWMI_OMEN_KEY:
++		// Some hotkey values reside in event_data.
+ 		key_code = hp_wmi_read_int(HPWMI_HOTKEY_QUERY);
++		if (!key_code)
++			key_code = event_data;
++
++		// Some hotkeys generate both press and release events
++		// Just drop the release events.
++		key_code = key_code & ~HPWMI_HOTKEY_RELEASE_FLAG;
+ 		if (key_code < 0)
+ 			break;
+ 
+@@ -1292,6 +1344,302 @@ static int thermal_profile_setup(void)
+ 
+ static int hp_wmi_hwmon_init(void);
+ 
++/* Support for the HP Omen FourZone keyboard lighting */
++
++#define FOURZONE_COUNT 4
++
++struct color_platform {
++	u8 blue;
++	u8 green;
++	u8 red;
++} __packed;
++
++struct platform_zone {
++	u8 offset;
++	struct device_attribute *attr;
++	struct color_platform colors;
++};
++
++static struct device_attribute *zone_dev_attrs;
++static struct attribute **zone_attrs;
++static struct platform_zone *zone_data;
++
++static struct attribute_group zone_attribute_group = {
++	.name = "rgb_zones",
++};
++
++/*
++ * Helpers used for zone control
++ */
++static int parse_rgb(const char *buf, struct platform_zone *zone)
++{
++	long unsigned int rgb;
++	int ret;
++	union color_union {
++		struct color_platform cp;
++		int package;
++	} repackager;
++
++	ret = kstrtoul(buf, 16, &rgb);
++	if (ret)
++		return ret;
++
++	/* RGB triplet notation is 24-bit hexadecimal */
++	if (rgb > 0xFFFFFF)
++		return -EINVAL;
++
++	repackager.package = rgb;
++	pr_debug("hp-wmi: r:%d g:%d b:%d\n",
++		 repackager.cp.red, repackager.cp.green, repackager.cp.blue);
++	zone->colors = repackager.cp;
++	return 0;
++}
++
++static struct platform_zone *match_zone(struct device_attribute *attr)
++{
++	u8 zone;
++
++	for (zone = 0; zone < FOURZONE_COUNT; zone++) {
++		if ((struct device_attribute *)zone_data[zone].attr == attr) {
++			pr_debug("hp-wmi: matched zone location: %d\n",
++				 zone_data[zone].offset);
++			return &zone_data[zone];
++		}
++	}
++	return NULL;
++}
++
++/*
++ * Individual RGB zone control
++ */
++static int fourzone_update_led(struct platform_zone *zone, enum hp_wmi_command read_or_write)
++{
++	u8 state[128];
++
++	int ret = hp_wmi_perform_query(HPWMI_FOURZONE_COLOR_GET, HPWMI_FOURZONE, &state,
++		sizeof(state), sizeof(state));
++
++	if (ret) {
++		pr_warn("fourzone_color_get returned error 0x%x\n", ret);
++		return ret <= 0 ? ret : -EINVAL;
++	}
++
++	if (read_or_write == HPWMI_WRITE) {
++		// Zones start at offset 25. Wonder what's in the rest of the buffer?
++		state[zone->offset + 0] = zone->colors.red;
++		state[zone->offset + 1] = zone->colors.green;
++		state[zone->offset + 2] = zone->colors.blue;
++
++		ret = hp_wmi_perform_query(HPWMI_FOURZONE_COLOR_SET, HPWMI_FOURZONE, &state,
++					   sizeof(state), sizeof(state));
++
++		if (ret)
++			pr_warn("fourzone_color_set returned error 0x%x\n", ret);
++		return ret;
++
++	} else {
++			zone->colors.red = state[zone->offset + 0];
++			zone->colors.green = state[zone->offset + 1];
++			zone->colors.blue = state[zone->offset + 2];
++	}
++	return 0;
++}
++
++static ssize_t zone_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
++{
++	struct platform_zone *target_zone;
++	int ret;
++
++	target_zone = match_zone(attr);
++	if (target_zone == NULL)
++		return sprintf(buf, "red: -1, green: -1, blue: -1\n");
++
++	ret = fourzone_update_led(target_zone, HPWMI_READ);
++
++	if (ret)
++		return sprintf(buf, "red: -1, green: -1, blue: -1\n");
++
++	return sprintf(buf, "red: %d, green: %d, blue: %d\n",
++		       target_zone->colors.red,
++		       target_zone->colors.green, target_zone->colors.blue);
++
++}
++
++static ssize_t zone_set(struct device *dev, struct device_attribute *attr,
++			const char *buf, size_t count)
++{
++	struct platform_zone *target_zone;
++	int ret;
++	target_zone = match_zone(attr);
++	if (target_zone == NULL) {
++		pr_err("hp-wmi: invalid target zone\n");
++		return 1;
++	}
++	ret = parse_rgb(buf, target_zone);
++	if (ret)
++		return ret;
++	ret = fourzone_update_led(target_zone, HPWMI_WRITE);
++	return ret ? ret : count;
++}
++
++/*
++static void global_led_set(struct led_classdev *led_cdev,
++				 enum led_brightness brightness)
++{
++	int ret;
++	global_brightness = brightness;
++	ret = alienware_update_led(&zone_data[0]);
++	if (ret)
++		pr_err("LED brightness update failed\n");
++}
++
++static enum led_brightness global_led_get(struct led_classdev *led_cdev)
++{
++	return global_brightness;
++}
++
++static struct led_classdev global_led = {
++	.brightness_set = global_led_set,
++	.brightness_get = global_led_get,
++	.name = "hp-omen::global_brightness",
++};
++*/
++
++// static DEVICE_ATTR(lighting_control_state, 0644, show_control_state,
++// 		   store_control_state);
++
++static int fourzone_setup(struct platform_device *dev)
++{
++	u8 zone;
++	char buffer[10];
++	char *name;
++
++	if (!quirks->fourzone)
++		return 0;
++
++	// global_led.max_brightness = 0x0F;
++	// global_brightness = global_led.max_brightness;
++
++	/*
++	 *      - zone_dev_attrs num_zones + 1 is for individual zones and then
++	 *        null terminated
++	 *      - zone_attrs num_zones + 2 is for all attrs in zone_dev_attrs +
++	 *        the lighting control + null terminated
++	 *      - zone_data num_zones is for the distinct zones
++	 */
++
++	zone_dev_attrs =
++			kcalloc(FOURZONE_COUNT + 1, sizeof(struct device_attribute),
++				GFP_KERNEL);
++	if (!zone_dev_attrs)
++		return -ENOMEM;
++
++	zone_attrs =
++			kcalloc(FOURZONE_COUNT + 1 /* 2 */, sizeof(struct attribute *),
++				GFP_KERNEL);
++	if (!zone_attrs)
++		return -ENOMEM;
++
++	zone_data =
++			kcalloc(FOURZONE_COUNT, sizeof(struct platform_zone),
++				GFP_KERNEL);
++	if (!zone_data)
++		return -ENOMEM;
++
++	for (zone = 0; zone < FOURZONE_COUNT; zone++) {
++		sprintf(buffer, "zone%02hhX", zone);
++		name = kstrdup(buffer, GFP_KERNEL);
++		if (name == NULL)
++			return 1;
++		sysfs_attr_init(&zone_dev_attrs[zone].attr);
++		zone_dev_attrs[zone].attr.name = name;
++		zone_dev_attrs[zone].attr.mode = 0644;
++		zone_dev_attrs[zone].show = zone_show;
++		zone_dev_attrs[zone].store = zone_set;
++		zone_data[zone].offset = 25 + (zone * 3);
++		zone_attrs[zone] = &zone_dev_attrs[zone].attr;
++		zone_data[zone].attr = &zone_dev_attrs[zone];
++	}
++	// zone_attrs[FOURZONE_COUNT] = &dev_attr_lighting_control_state.attr;
++	zone_attribute_group.attrs = zone_attrs;
++
++//  led_classdev_register(&dev->dev, &global_led);
++
++	return sysfs_create_group(&dev->dev.kobj, &zone_attribute_group);
++}
++
++/*
++ * (EXPERIMENTAL) Macro key support
++ */
++
++#define MACRO_KEY_RELEASE 0x80
++
++static u8 macro_profile_bytes[4096] = {
++	/* P1 */	0x03, KEY_KP1, KEY_KP1 | MACRO_KEY_RELEASE,
++	/* P2 */	0x03, KEY_KP2, KEY_KP2 | MACRO_KEY_RELEASE,
++	/* P3 */	0x03, KEY_KP3, KEY_KP3 | MACRO_KEY_RELEASE,
++	/* P4 */	0x03, KEY_KP4, KEY_KP4 | MACRO_KEY_RELEASE,
++	/* P5 */	0x03, KEY_KP5, KEY_KP5 | MACRO_KEY_RELEASE,
++	/* P6 */	0x03, KEY_KP6, KEY_KP6 | MACRO_KEY_RELEASE,
++
++	/* Ctrl+P1 */	0x05, KEY_LEFTCTRL, KEY_KP1, KEY_KP1 | MACRO_KEY_RELEASE, KEY_LEFTCTRL | MACRO_KEY_RELEASE,
++	/* Ctrl+P2 */	0x05, KEY_LEFTCTRL, KEY_KP2, KEY_KP2 | MACRO_KEY_RELEASE, KEY_LEFTCTRL | MACRO_KEY_RELEASE,
++	/* Ctrl+P3 */	0x05, KEY_LEFTCTRL, KEY_KP3, KEY_KP3 | MACRO_KEY_RELEASE, KEY_LEFTCTRL | MACRO_KEY_RELEASE,
++	/* Ctrl+P4 */	0x05, KEY_LEFTCTRL, KEY_KP4, KEY_KP4 | MACRO_KEY_RELEASE, KEY_LEFTCTRL | MACRO_KEY_RELEASE,
++	/* Ctrl+P5 */	0x05, KEY_LEFTCTRL, KEY_KP5, KEY_KP5 | MACRO_KEY_RELEASE, KEY_LEFTCTRL | MACRO_KEY_RELEASE,
++	/* Ctrl+P6 */	0x05, KEY_LEFTCTRL, KEY_KP6, KEY_KP6 | MACRO_KEY_RELEASE, KEY_LEFTCTRL | MACRO_KEY_RELEASE,
++
++	/* Alt+P1 */	0x05, KEY_LEFTALT, KEY_KP1, KEY_KP1 | MACRO_KEY_RELEASE, KEY_LEFTALT | MACRO_KEY_RELEASE,
++	/* Alt+P2 */	0x05, KEY_LEFTALT, KEY_KP2, KEY_KP2 | MACRO_KEY_RELEASE, KEY_LEFTALT | MACRO_KEY_RELEASE,
++	/* Alt+P3 */	0x05, KEY_LEFTALT, KEY_KP3, KEY_KP3 | MACRO_KEY_RELEASE, KEY_LEFTALT | MACRO_KEY_RELEASE,
++	/* Alt+P4 */	0x05, KEY_LEFTALT, KEY_KP4, KEY_KP4 | MACRO_KEY_RELEASE, KEY_LEFTALT | MACRO_KEY_RELEASE,
++	/* Alt+P5 */	0x05, KEY_LEFTALT, KEY_KP5, KEY_KP5 | MACRO_KEY_RELEASE, KEY_LEFTALT | MACRO_KEY_RELEASE,
++	/* Alt+P6 */	0x05, KEY_LEFTALT, KEY_KP6, KEY_KP6 | MACRO_KEY_RELEASE, KEY_LEFTALT | MACRO_KEY_RELEASE,
++
++	/* Shift+P1 */	0x05, KEY_LEFTSHIFT, KEY_KP1, KEY_KP1 | MACRO_KEY_RELEASE, KEY_LEFTSHIFT | MACRO_KEY_RELEASE,
++	/* Shift+P2 */	0x05, KEY_LEFTSHIFT, KEY_KP2, KEY_KP2 | MACRO_KEY_RELEASE, KEY_LEFTSHIFT | MACRO_KEY_RELEASE,
++	/* Shift+P3 */	0x05, KEY_LEFTSHIFT, KEY_KP3, KEY_KP3 | MACRO_KEY_RELEASE, KEY_LEFTSHIFT | MACRO_KEY_RELEASE,
++	/* Shift+P4 */	0x05, KEY_LEFTSHIFT, KEY_KP4, KEY_KP4 | MACRO_KEY_RELEASE, KEY_LEFTSHIFT | MACRO_KEY_RELEASE,
++	/* Shift+P5 */	0x05, KEY_LEFTSHIFT, KEY_KP5, KEY_KP5 | MACRO_KEY_RELEASE, KEY_LEFTSHIFT | MACRO_KEY_RELEASE,
++	/* Shift+P6 */	0x05, KEY_LEFTSHIFT, KEY_KP6, KEY_KP6 | MACRO_KEY_RELEASE, KEY_LEFTSHIFT | MACRO_KEY_RELEASE,
++
++	/* Fn+P1 */	0x03, KEY_KP7, KEY_KP7 | MACRO_KEY_RELEASE,
++	/* Fn+P2 */	0x03, KEY_KP8, KEY_KP8 | MACRO_KEY_RELEASE,
++	/* Fn+P3 */	0x03, KEY_KP9, KEY_KP9 | MACRO_KEY_RELEASE,
++	/* Fn+P4 */	0x03, KEY_KP0, KEY_KP0 | MACRO_KEY_RELEASE,
++	/* Fn+P5 */	0x03, KEY_KPMINUS, KEY_KPMINUS | MACRO_KEY_RELEASE,
++	/* Fn+P6 */	0x03, KEY_KPPLUS, KEY_KPPLUS | MACRO_KEY_RELEASE,
++};
++
++static int macro_key_setup(struct platform_device *dev)
++{
++	int ret;
++	u32 macro_enable = 1;
++
++	ret = hp_wmi_perform_query(HPWMI_MACRO_PROFILE_SET, HPWMI_GM,
++				   macro_profile_bytes, sizeof(macro_profile_bytes), 0);
++	pr_debug("macro key setup ret 0x%x\n", ret);
++
++	ret = hp_wmi_perform_query(HPWMI_MACRO_MODE_SET, HPWMI_GM,
++				   &macro_enable, sizeof(macro_enable), 0);
++	pr_debug("macro key enable ret 0x%x\n", ret);
++
++	return 0;
++}
++
++static int macro_key_remove(struct platform_device *dev)
++{
++	int ret;
++	u32 macro_disable = 0;
++
++	ret = hp_wmi_perform_query(HPWMI_MACRO_MODE_SET, HPWMI_GM,
++				   &macro_disable, sizeof(macro_disable), 0);
++	pr_debug("macro key disable ret 0x%x\n", ret);
++
++	return 0;
++}
++
+ static int __init hp_wmi_bios_setup(struct platform_device *device)
+ {
+ 	int err;
+@@ -1317,6 +1665,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
+ 	if (err < 0)
+ 		return err;
+ 
++	fourzone_setup(device);
++
++	macro_key_setup(device);
++
+ 	thermal_profile_setup();
+ 
+ 	return 0;
+@@ -1347,6 +1699,8 @@ static int __exit hp_wmi_bios_remove(struct platform_device *device)
+ 	if (platform_profile_support)
+ 		platform_profile_remove();
+ 
++	macro_key_remove(device);
++
+ 	return 0;
+ }
+ 

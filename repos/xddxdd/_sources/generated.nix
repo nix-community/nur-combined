@@ -63,21 +63,21 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "v3.9.0";
+    version = "v3.9.1";
     src = fetchFromGitHub ({
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "v3.9.0";
+      rev = "v3.9.1";
       fetchSubmodules = false;
-      sha256 = "sha256-vUrCyUG4Dmt6vy/GZR/5UtFfMhYW0HoAEHgZ7tIVIW4=";
+      sha256 = "sha256-8vK7yjiuY6X0mnAUnq+SwFESC30XZo4ykkm3y2Gt0o0=";
     });
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.9.1-3";
+    version = "1.9.2-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.1-3/io.github.msojocs.bilibili_1.9.1-3_amd64.deb";
-      sha256 = "sha256-++Rj/WEC2KximQtmzGJroV6vafswYCQFfwpjOq+A/BM=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.2-1/io.github.msojocs.bilibili_1.9.2-1_amd64.deb";
+      sha256 = "sha256-y3dUBImvcIG89m82RaIOa0cxJXIAIGa+n3FJkASacaY=";
     };
   };
   bird-babel-rtt = {
@@ -156,10 +156,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "1.6.0.230113";
+    version = "1.6.0.230309";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.6.0.230113_amd64.deb";
-      sha256 = "sha256-EAn7rrBWjfCOKJLqkvAiLiKMluP9X4C8R/KuECmEjZU=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.6.0.230309_amd64.deb";
+      sha256 = "sha256-q+gIxtPwVXytYSvEvWrJJcptIbSy+gmeEM7OEzcpDXI=";
     };
   };
   douban-openapi-server = {
@@ -207,13 +207,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.0.4";
+    version = "v3.1.1";
     src = fetchFromGitHub ({
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.0.4";
+      rev = "v3.1.1";
       fetchSubmodules = false;
-      sha256 = "sha256-aQwFGXScB0y1r648dkX7n6K4EOyd85mxTPLSzxB2tpk=";
+      sha256 = "sha256-6NWHhib2isDIgqz7MytGO/94HsMskZgyGXmhziS5ea8=";
     });
   };
   flasgger = {
@@ -273,15 +273,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "0d416974e563b1bfe2bc40af1d4c155df28521d8";
+    version = "ff4420614a1a3b61a6d9d28a30465bdacdc2ba5e";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "0d416974e563b1bfe2bc40af1d4c155df28521d8";
+      rev = "ff4420614a1a3b61a6d9d28a30465bdacdc2ba5e";
       fetchSubmodules = false;
-      sha256 = "sha256-dx1vcR7I/c8HTn4RHeohNUBPTPBN++YtYEgPB6cLcJo=";
+      sha256 = "sha256-0+W7eOt6skInIqlZl0ChxrZ+2LW1fiTHQKDn+LRvgxg=";
     });
-    date = "2023-03-09";
+    date = "2023-03-24";
   };
   konnect = {
     pname = "konnect";
@@ -332,13 +332,24 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.2.7-xanmod1";
+    version = "6.2.9-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.2.7-xanmod1";
+      rev = "6.2.9-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-nxyEz+xXcr8tK8q+LWqNE3kYdWq4CXSy2vJfnlqKKRk=";
+      sha256 = "sha256-Nwd3C5YSfEO4/2fOzkQmNAqettvt6bM2Gz0k8a9O/DI=";
+    });
+  };
+  linux-xanmod-6_0 = {
+    pname = "linux-xanmod-6_0";
+    version = "6.0.12-xanmod1";
+    src = fetchFromGitHub ({
+      owner = "xanmod";
+      repo = "linux";
+      rev = "6.0.12-xanmod1";
+      fetchSubmodules = false;
+      sha256 = "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=";
     });
   };
   nbfc-linux-lantian = {
@@ -407,15 +418,15 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "dd6930cacde4523e67d0248614ecd0b264120de3";
+    version = "a98a4b86a274bddad47021e8b5223264fd1cdca3";
     src = fetchFromGitHub ({
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "dd6930cacde4523e67d0248614ecd0b264120de3";
+      rev = "a98a4b86a274bddad47021e8b5223264fd1cdca3";
       fetchSubmodules = false;
-      sha256 = "sha256-2Mfqu72+CB5zEOzTFvx/CtrcDPv2byvLI+wMebcknCQ=";
+      sha256 = "sha256-zd4f14mVTS3CIt9mtg8Mu6oVyVO5/1qo9nfZf+x642Y=";
     });
-    date = "2023-03-13";
+    date = "2023-03-27";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -489,15 +500,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "a7e34648db275cdaaf2950d884ce9a5850e2ce52";
+    version = "1cc0166cffa9a6854533927c830ce11e70841d1c";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "a7e34648db275cdaaf2950d884ce9a5850e2ce52";
+      rev = "1cc0166cffa9a6854533927c830ce11e70841d1c";
       fetchSubmodules = false;
-      sha256 = "sha256-HYb5/cF/MA4DEuG1kImb39XeqipJyC76n/Yq3jN0C2w=";
+      sha256 = "sha256-icCOk+qE+zOhU2UmbExj/GieX9/kR0WSGzcazZ9f9K8=";
     });
-    date = "2023-03-16";
+    date = "2023-03-30";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -596,18 +607,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "4b2e3220/linuxqq_3.1.0-9572";
+    version = "2355235c/linuxqq_3.1.1-11223";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4b2e3220/linuxqq_3.1.0-9572_amd64.deb";
-      sha256 = "sha256-xqbyyU4JSlYbAkJ/tqLoVPKfQvxYnMySRx7yV1EtDhM=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_3.1.1-11223_amd64.deb";
+      sha256 = "sha256-TBgQ7zV+juB3KSgIIXuvxnYmvnnM/1/wU0EkiopIqvY=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "4b2e3220/linuxqq_3.1.0-9572";
+    version = "2355235c/linuxqq_3.1.1-11223";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/4b2e3220/linuxqq_3.1.0-9572_arm64.deb";
-      sha256 = "sha256-ItZqhV9OmycdfRhlzP2llrzcIZvaiUC/LJiDJ/kNIkE=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/2355235c/linuxqq_3.1.1-11223_arm64.deb";
+      sha256 = "sha256-1ba/IA/+X/s7jUtIhh3OsBHU7MPggGrASsBPx8euBBs=";
     };
   };
   qqmusic = {
@@ -652,10 +663,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20220416";
+    version = "20230329";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220416.dict.yaml";
-      sha256 = "sha256-auZgAtjeSuatQnuZUQYY31iXN+NMFjKcA4z/Y7zvo80=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230329.dict.yaml";
+      sha256 = "sha256-0B02FGISHqvrBUGkERdplhrx8zo6SV9hG2qRbSUqqd0=";
     };
   };
   route-chain = {
@@ -742,7 +753,7 @@
     version = "3.7.6";
     src = fetchurl {
       url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
-      sha256 = "sha256-8dETlJjQ52xTVuH2VCq5osxGjxH7Soj/wegmuu8Cyvw=";
+      sha256 = "sha256-9zAHsy3zzp5x+RSL70vgf/EDkPQyxpORdeF79F3AhsY=";
     };
   };
   zstd-nginx-module = {

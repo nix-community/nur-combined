@@ -1,127 +1,104 @@
 {
-  pkgs,
-  sources,
-  stdenv,
+  callPackage,
   lib,
-  fetchFromGitHub,
-  buildLinux,
-  lto ? false,
-  x86_64-march ? "v1",
+  sources,
   ...
-} @ args:
-# https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
-let
-  # https://github.com/NixOS/nixpkgs/pull/129806
-  # https://github.com/lovesegfault/nix-config/blob/master/nix/overlays/linux-lto.nix
-  stdenvLLVM = let
-    noBintools = {
-      bootBintools = null;
-      bootBintoolsNoLibc = null;
-    };
-    hostLLVM = pkgs.pkgsBuildHost.llvmPackages_latest.override noBintools;
-    buildLLVM = pkgs.pkgsBuildBuild.llvmPackages_latest.override noBintools;
+} @ args: let
+  helpers = callPackage ./helpers.nix {};
+  inherit (helpers) mkKernel;
 
-    mkLLVMPlatform = platform:
-      platform
-      // {
-        linux-kernel =
-          platform.linux-kernel
-          // {
-            makeFlags =
-              (platform.linux-kernel.makeFlags or [])
-              ++ [
-                "LLVM=1"
-                "LLVM_IAS=1"
-                "CC=${buildLLVM.clangUseLLVM}/bin/clang"
-                "LD=${buildLLVM.lld}/bin/ld.lld"
-                "HOSTLD=${hostLLVM.lld}/bin/ld.lld"
-                "AR=${buildLLVM.llvm}/bin/llvm-ar"
-                "HOSTAR=${hostLLVM.llvm}/bin/llvm-ar"
-                "NM=${buildLLVM.llvm}/bin/llvm-nm"
-                "STRIP=${buildLLVM.llvm}/bin/llvm-strip"
-                "OBJCOPY=${buildLLVM.llvm}/bin/llvm-objcopy"
-                "OBJDUMP=${buildLLVM.llvm}/bin/llvm-objdump"
-                "READELF=${buildLLVM.llvm}/bin/llvm-readelf"
-                "HOSTCC=${hostLLVM.clangUseLLVM}/bin/clang"
-                "HOSTCXX=${hostLLVM.clangUseLLVM}/bin/clang++"
-              ];
-          };
-      };
+  batch = {
+    prefix,
+    definitionDir,
+    version,
+    src,
+    ...
+  }: let
+    prefix' =
+      if prefix != ""
+      then prefix + "-"
+      else "";
+  in [
+    (lib.nameValuePair "${prefix'}generic" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+    }))
+    (lib.nameValuePair "${prefix'}generic-lto" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v1" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = false;
+      x86_64-march = "v1";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v1-lto" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = true;
+      x86_64-march = "v1";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v2" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = false;
+      x86_64-march = "v2";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v2-lto" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = true;
+      x86_64-march = "v2";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v3" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = false;
+      x86_64-march = "v3";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v3-lto" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = true;
+      x86_64-march = "v3";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v4" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = false;
+      x86_64-march = "v4";
+    }))
+    (lib.nameValuePair "${prefix'}x86_64-v4-lto" (mkKernel {
+      inherit version src;
+      configFile = definitionDir + "/config.nix";
+      patchDir = definitionDir + "/patches";
+      lto = true;
+      x86_64-march = "v4";
+    }))
+  ];
 
-    stdenv' = pkgs.overrideCC hostLLVM.stdenv hostLLVM.clangUseLLVM;
-  in
-    stdenv'.override (old: {
-      hostPlatform = mkLLVMPlatform old.hostPlatform;
-      buildPlatform = mkLLVMPlatform old.buildPlatform;
-      extraNativeBuildInputs = [hostLLVM.lld pkgs.patchelf];
-    });
-
-  marchFlags = with lib.kernel; {
-    "v1" = {
-      GENERIC_CPU = yes;
-    };
-    "v2" = {
-      GENERIC_CPU = no;
-      GENERIC_CPU2 = yes;
-    };
-    "v3" = {
-      GENERIC_CPU = no;
-      GENERIC_CPU3 = yes;
-    };
-    "v4" = {
-      GENERIC_CPU = no;
-      GENERIC_CPU4 = yes;
-    };
-  };
-in
-  buildLinux {
-    inherit lib;
-    stdenv =
-      if lto
-      then stdenvLLVM
-      else stdenv;
-
+  batches = (batch {
+    prefix = "";
+    definitionDir = ./latest;
     inherit (sources.linux-xanmod) version src;
-    modDirVersion = let
-      splitted = lib.splitString "-" sources.linux-xanmod.version;
-      ver0 = builtins.elemAt splitted 0;
-      ver1 = builtins.elemAt splitted 1;
-    in "${ver0}-lantian-${ver1}";
-
-    structuredExtraConfig = let
-      cfg = import ./config.nix args;
-    in
-      if !lto
-      then cfg
-      else
-        ((builtins.removeAttrs cfg [
-            "GCC_PLUGINS"
-            "FORTIFY_SOURCE"
-          ])
-          // (with lib.kernel; {
-            LTO_NONE = no;
-            LTO_CLANG_FULL = yes;
-          })
-          // (
-            if stdenv.isx86_64
-            then marchFlags."${x86_64-march}"
-            else {}
-          ));
-
-    kernelPatches =
-      [
-        pkgs.kernelPatches.bridge_stp_helper
-        pkgs.kernelPatches.request_key_helper
-      ]
-      ++ (builtins.map
-        (name: {
-          inherit name;
-          patch = ./patches + "/${name}";
-        })
-        (builtins.attrNames (builtins.readDir ./patches)));
-
-    extraMeta = {
-      description = "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
-      broken = !stdenv.isx86_64;
-    };
-  }
+  }) ++ (batch {
+    prefix = "latest";
+    definitionDir = ./latest;
+    inherit (sources.linux-xanmod) version src;
+  }) ++ (batch {
+    prefix = "v6_0";
+    definitionDir = ./v6_0;
+    inherit (sources.linux-xanmod-6_0) version src;
+  });
+in
+  builtins.listToAttrs batches

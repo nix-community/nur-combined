@@ -71,47 +71,7 @@ in
       transmission-with-webui = pkg ./lantian-customized/transmission-with-webui {};
     });
 
-    lantianLinuxXanmod = ifNotCI (pkgs.recurseIntoAttrs (
-      let
-        pkg-linux-xanmod-lantian = flags: ifNotCI (pkg ./lantian-linux-xanmod flags);
-      in rec {
-        x86_64-v1 = pkg-linux-xanmod-lantian {
-          lto = false;
-          x86_64-march = "v1";
-        };
-        x86_64-v1-lto = pkg-linux-xanmod-lantian {
-          lto = true;
-          x86_64-march = "v1";
-        };
-        x86_64-v2 = pkg-linux-xanmod-lantian {
-          lto = false;
-          x86_64-march = "v2";
-        };
-        x86_64-v2-lto = pkg-linux-xanmod-lantian {
-          lto = true;
-          x86_64-march = "v2";
-        };
-        x86_64-v3 = pkg-linux-xanmod-lantian {
-          lto = false;
-          x86_64-march = "v3";
-        };
-        x86_64-v3-lto = pkg-linux-xanmod-lantian {
-          lto = true;
-          x86_64-march = "v3";
-        };
-        x86_64-v4 = pkg-linux-xanmod-lantian {
-          lto = false;
-          x86_64-march = "v4";
-        };
-        x86_64-v4-lto = pkg-linux-xanmod-lantian {
-          lto = true;
-          x86_64-march = "v4";
-        };
-
-        generic = x86_64-v1;
-        generic-lto = x86_64-v1-lto;
-      }
-    ));
+    lantianLinuxXanmod = ifNotCI (pkgs.recurseIntoAttrs (pkg ./lantian-linux-xanmod {}));
 
     lantianPersonal = ifNotCI (pkgs.recurseIntoAttrs {
       # Personal packages with no intention to be used by others

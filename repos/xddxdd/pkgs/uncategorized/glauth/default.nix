@@ -8,10 +8,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-8xjnNjkHI5QrfgJmAgRb2izMkgATdGzSesnWGOvmomY=";
   modRoot = "v2";
 
-  buildPhase = ''
-    runHook preBuild
-    go install
-    runHook postBuild
+  preBuild = ''
+    export subPackages="."
   '';
 
   doCheck = false;

@@ -126,6 +126,11 @@ fetch.github = "open-quantum-safe/liboqs"
 src.github_tag = "xanmod/linux"
 fetch.github = "xanmod/linux"
 
+[linux-xanmod-6_0]
+src.github_tag = "xanmod/linux"
+src.include_regex = "^6\\.0\\.(.*)"
+fetch.github = "xanmod/linux"
+
 [nbfc-linux-lantian]
 src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"
@@ -258,7 +263,7 @@ src.github = "outloudvi/mw2fcitx"
 fetch.url = "https://github.com/outloudvi/mw2fcitx/releases/download/$ver/moegirl.dict.yaml"
 
 [rime-zhwiki]
-src.webpage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases"
+src.webpage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/expanded_assets/0.2.4"
 src.regex = "zhwiki-([0-9]{8})\\.dict\\.yaml"
 fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-$ver.dict.yaml"
 
