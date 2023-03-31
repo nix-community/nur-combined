@@ -21,6 +21,9 @@
   mmseqs2 = pkgs.callPackage ./pkgs/mmseqs2 {
     inherit (pkgs.llvmPackages) openmp;
   };
+  nowplaying-cli = pkgs.callPackage ./pkgs/nowplaying-cli { 
+    inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
+  };
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { };
   hackgen = pkgs.callPackage ./pkgs/data/fonts/hackgen { };
