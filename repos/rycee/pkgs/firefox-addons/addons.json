@@ -439,6 +439,12 @@
     }
   },
   {
+    "slug": "maya-dark"
+  },
+  {
+    "slug": "maya-light"
+  },
+  {
     "slug": "modheader-firefox",
     "pname": "modheader",
     "license": {

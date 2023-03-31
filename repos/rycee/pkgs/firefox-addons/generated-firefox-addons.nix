@@ -919,10 +919,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230328.180038";
+      version = "112.0.20230330.182947";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090239/francais_language_pack-112.0.20230328.180038.xpi";
-      sha256 = "f3f3984f1423e306e8aac3a8aa8bd333d8adff6f9365c5034de438f020388373";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4091325/francais_language_pack-112.0.20230330.182947.xpi";
+      sha256 = "5203d006c82e25bf562b4edbeaacb151cde7017e728b31f7527665dbdb408c4b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1367,10 +1367,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.111.0.3";
+      version = "4.112.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4083286/lastpass_password_manager-4.111.0.3.xpi";
-      sha256 = "bdc820ba8fa29c48023f64e1ee906af57586f658f9e61e3e86537016cb942dc9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4088441/lastpass_password_manager-4.112.0.2.xpi";
+      sha256 = "20d665587a4aec3eeaf87126fe677c9fe21f0bf326ddd4019c2eee61cc989030";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1539,6 +1539,32 @@
         homepage = "https://elijahlopez.ca/";
         description = "A modern dark / Matte Black theme with a red accent color.\nClick my name for more accents (request if not available).";
         license = licenses.cc-by-nc-sa-30;
+        platforms = platforms.all;
+        };
+      };
+    "maya-dark" = buildFirefoxXpiAddon {
+      pname = "maya-dark";
+      version = "1.0";
+      addonId = "{0f4f1bc1-0466-48f9-83a8-756f5f611c97}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3947037/maya_dark-1.0.xpi";
+      sha256 = "d55ffe09d2e73735b0b8cc654894fddd30ef0a3b5589809364095c5e77239464";
+      meta = with lib;
+      {
+        description = "Deep purple pink solid theme. Hopefully comfortable to use and fairly easy on the eyes.";
+        license = licenses.cc-by-30;
+        platforms = platforms.all;
+        };
+      };
+    "maya-light" = buildFirefoxXpiAddon {
+      pname = "maya-light";
+      version = "1.0";
+      addonId = "{80daef64-2ecc-4722-aab4-bc860d1578c7}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3947054/maya_light-1.0.xpi";
+      sha256 = "611241d87321f7d1e86324f425eb0a8f6ef86a747c48bd3b38edd10eb7486276";
+      meta = with lib;
+      {
+        description = "Soft pastel pink light theme with a few darker Evil maya accents. Fairly bright but should be comfortable for most users.";
+        license = licenses.cc-by-30;
         platforms = platforms.all;
         };
       };
@@ -2267,10 +2293,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.3.20";
+      version = "23.3.31";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086134/refined_github-23.3.20.xpi";
-      sha256 = "4d470940bc27a26ffb3611c94cb7855fd147e9e51ac085702c691f23b69c8a06";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4091550/refined_github-23.3.31.xpi";
+      sha256 = "0127a798c97ff0b24dac61325912069d0b9a215143abada91db0497dd5a1ac70";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2879,10 +2905,10 @@
       };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "3.9.14";
+      version = "3.9.15";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4082602/tree_style_tab-3.9.14.xpi";
-      sha256 = "57827706633941567f27e452bf51ded614c9ac7ee839ab45b3e42cebd9f61d82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4088468/tree_style_tab-3.9.15.xpi";
+      sha256 = "7c993bae2d43488615f1a3b7459a2c35730a486b3855049709c636a84751d252";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -2940,10 +2966,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.48.0";
+      version = "1.48.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086892/ublock_origin-1.48.0.xpi";
-      sha256 = "787950ad4fdbf57ffab136c706918077ed15b0b4fb22b5429ddd0043de3c9720";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090059/ublock_origin-1.48.2.xpi";
+      sha256 = "3b0bff2192e5f86be6411daa9199bfdbeb87d6ce6aff66f33a8501c97f1df1af";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
