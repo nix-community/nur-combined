@@ -2,16 +2,18 @@
 
 let
   arch = lib.head (lib.splitString "-" stdenv.hostPlatform.system);
+  # Check LIMA_URL in Makefile
   lima = {
     "x86_64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1678817277.tar.gz";
-      hash = "sha256-HcGuSPWVIn/YP/RmTEpO2p75DHCqaS7Xu1KLqkN1O/M=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1679936560.tar.gz";
+      hash = "sha256-WpDR71QwMVi5ztJ0t+2lv3nPdpsrrAZunBNgSUtHags=";
     };
     "aarch64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1678826933.tar.gz";
-      hash = "sha256-q+Dki3KxsnqG7xoHLlhmb8amXQ2ANRH/o3f0jbw+U3s=";
+      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1679936560.tar.gz";
+      hash = "sha256-WpDR71QwMVi5ztJ0t+2lv3nPdpsrrAZunBNgSUtHags=";
     };
   }.${stdenv.hostPlatform.system};
+  # Check FINCH_OS_BASENAME in Makefile
   os = {
     "x86_64-darwin" = fetchurl {
       url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/${arch}/images/Fedora-Cloud-Base-37-1.7.${arch}.qcow2";
@@ -25,17 +27,17 @@ let
 in
 buildGoModule rec {
   pname = "finch";
-  version = "0.4.1";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "runfinch";
     repo = "finch";
     rev = "v${version}";
-    hash = "sha256-Q55Js0cJiuNGniqDVbKh5+pAqVu1j8zPWVf4up+CuUk=";
+    hash = "sha256-xzYFb75qcHZ7Zb8SenrnVCGolitPneg6B/ejtPAe1uI=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-LLdVmMOpOZguws+v6aExf8atpX669y2jGll1j13xjGw=";
+  vendorHash = "sha256-/jfYIXLeM8ddUrHJyihK2agM6AmSO9lEWWz4YTGbIvg=";
 
   subPackages = [ "cmd/finch" ];
 
