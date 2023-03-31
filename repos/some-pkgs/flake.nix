@@ -68,7 +68,7 @@
         inherit overlay;
 
         packages = supportedPkgs;
-        legacyPackages = newAttrs;
+        legacyPackages = newAttrs // (forAllSystems (system: { pkgs = pkgs.${system}; }));
       };
     in
     outputs;

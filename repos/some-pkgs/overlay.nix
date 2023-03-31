@@ -37,6 +37,9 @@ in
   pythonPackages = final.python.pkgs;
   python3Packages = final.python3.pkgs;
 
+  # Some things we want to expose even outside some-pkgs namespace:
+  inherit (final.some-pkgs) faiss;
+
   some-pkgs =
     {
       inherit (final.python3Packages)
