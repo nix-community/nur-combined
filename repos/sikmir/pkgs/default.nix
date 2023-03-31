@@ -31,6 +31,7 @@ lib.makeScope newScope (
       buildGoModule = pkgs.buildGo120Module;
     };
     macpass-bin = callPackage ./darwin/macpass/bin.nix { };
+    macsvg-bin = callPackage ./darwin/macsvg { };
     marta-bin = callPackage ./darwin/marta { };
     pinentry-touchid = callPackage ./darwin/pinentry-touchid {
       inherit (darwin.apple_sdk.frameworks) LocalAuthentication;
