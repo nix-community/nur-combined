@@ -2,9 +2,14 @@
 with lib;
 let
   cfg = config.services.hardware.eupnea-linux;
-  nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-    inherit pkgs;
-  };
+  nur = import
+    (builtins.fetchTarball {
+      url = "https://github.com/nix-community/NUR/archive/master.tar.gz";
+      sha256 = "sha256:11yv5m939my4i54iizs6dlg7x62lj3qkj3xx3gqlxr132lgd5p1s";
+    })
+    {
+      inherit pkgs;
+    };
 in
 {
   options.services.hardware.eupnea-linux = with types; {
