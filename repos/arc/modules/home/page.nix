@@ -79,7 +79,7 @@ in {
       sessionVariables = mkMerge [ {
         PAGER = "page";
       } (mkIf cfg.manPager {
-        MANPAGER = "page";
+        MANPAGER = "page -t man";
       }) ];
     };
   };
