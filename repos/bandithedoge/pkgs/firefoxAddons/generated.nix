@@ -236,10 +236,10 @@
   };
   "npm-hub" = buildFirefoxXpiAddon {
     pname = "npm-hub";
-    version = "2022.11.14";
+    version = "2023.3.30";
     addonId = "npm-hub@sikelianos.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4029875/npm_hub-2022.11.14.xpi";
-    sha256 = "f4b353425af8914ae1991bc6ca18968771b5aa5c10d1c3f14efd100f49152318";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4091195/npm_hub-2023.3.30.xpi";
+    sha256 = "e3bdd475e4275a4ba3e8f43f1307fa06c830ba3fce176ca1cc53f6f816e41d80";
     meta = with lib; {
       homepage = "https://github.com/npmhub/npmhub";
       description = "Explore npm dependencies on GitHub repos";
@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.3.20";
+    version = "23.3.31";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4086134/refined_github-23.3.20.xpi";
-    sha256 = "4d470940bc27a26ffb3611c94cb7855fd147e9e51ac085702c691f23b69c8a06";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4091550/refined_github-23.3.31.xpi";
+    sha256 = "0127a798c97ff0b24dac61325912069d0b9a215143abada91db0497dd5a1ac70";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
