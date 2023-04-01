@@ -153,6 +153,20 @@
         platforms = platforms.all;
         };
       };
+    "automatic-dark" = buildFirefoxXpiAddon {
+      pname = "automatic-dark";
+      version = "1.4.1";
+      addonId = "{9ed7d361-ccd9-4cad-9846-977da2651fb5}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4074771/automatic_dark-1.4.1.xpi";
+      sha256 = "77efc42567960695ab4fade263e201cca0b85c1af8dd1dd69906b0950fa46a8c";
+      meta = with lib;
+      {
+        homepage = "https://github.com/skhzhang/time-based-themes/";
+        description = "Automatically change Firefox's theme based on the time.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "behave" = buildFirefoxXpiAddon {
       pname = "behave";
       version = "0.9.7.1";
@@ -435,6 +449,20 @@
         platforms = platforms.all;
         };
       };
+    "control-panel-for-twitter" = buildFirefoxXpiAddon {
+      pname = "control-panel-for-twitter";
+      version = "3.3.2";
+      addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4085532/control_panel_for_twitter-3.3.2.xpi";
+      sha256 = "c5016901662bc17732b0409f44d1fe4d898cb3455ff8bd88b7f491f2a328b1ef";
+      meta = with lib;
+      {
+        homepage = "https://github.com/insin/control-panel-for-twitter";
+        description = "Removes algorithmic content from Twitter, hides news &amp; trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "cookie-autodelete" = buildFirefoxXpiAddon {
       pname = "cookie-autodelete";
       version = "3.8.2";
@@ -700,6 +728,20 @@
           url = "https://addons.mozilla.org/en-US/firefox/addon/enhancer-for-youtube/license/";
           free = false;
           };
+        platforms = platforms.all;
+        };
+      };
+    "export-cookies-txt" = buildFirefoxXpiAddon {
+      pname = "export-cookies-txt";
+      version = "0.3.2";
+      addonId = "{36bdf805-c6f2-4f41-94d2-9b646342c1dc}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3403419/export_cookies_txt-0.3.2.xpi";
+      sha256 = "8bb7d83fc0185c8e789ff1c81d8905cf0bba69294cebec861cca7b45abf1d2b7";
+      meta = with lib;
+      {
+        homepage = "https://github.com/rotemdan/ExportCookies";
+        description = "Export cookies to a Netscape format cookies.txt file.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -1233,6 +1275,20 @@
         homepage = "https://www.i-dont-care-about-cookies.eu/";
         description = "Get rid of cookie warnings from almost all websites!";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "image-search-options" = buildFirefoxXpiAddon {
+      pname = "image-search-options";
+      version = "3.0.12";
+      addonId = "{4a313247-8330-4a81-948e-b79936516f78}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3059971/image_search_options-3.0.12.xpi";
+      sha256 = "1fbdd8597fc32b1be11302a958ea3ba2b010edcfeb432c299637b2c58c6fd068";
+      meta = with lib;
+      {
+        homepage = "http://saucenao.com/";
+        description = "A customizable reverse image search tool that conveniently presents a variety of top image search engines.";
+        license = licenses.mpl11;
         platforms = platforms.all;
         };
       };
@@ -3162,6 +3218,25 @@
         homepage = "https://devtools.vuejs.org";
         description = "DevTools extension for debugging Vue.js applications.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "w2g" = buildFirefoxXpiAddon {
+      pname = "w2g";
+      version = "8.6";
+      addonId = "{6ea0a676-b3ef-48aa-b23d-24c8876945fb}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4012364/w2g-8.6.xpi";
+      sha256 = "166b67e6e742ee1982b9cf5a740821869f7808314b09dde82ae76d0d9b395112";
+      meta = with lib;
+      {
+        homepage = "https://w2g.tv";
+        description = "The official Watch2Gether Firefox extension allows you to share content from a supported site (Youtube, Vimeo, ...) directly into a Watch2Gether room. The new W2gSync feature allows you to sync-watch videos from any website on Watch2Gether.";
+        license = {
+          shortName = "w2g.tv";
+          fullName = "Watch2Gether Terms of Use";
+          url = "https://community.w2g.tv/t/terms-of-use-english/597/1";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };

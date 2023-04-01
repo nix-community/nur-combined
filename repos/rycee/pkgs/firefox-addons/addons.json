@@ -44,6 +44,9 @@
     "slug": "auto-tab-discard"
   },
   {
+    "slug": "automatic-dark"
+  },
+  {
     "slug": "behave"
   },
   {
@@ -116,6 +119,9 @@
   },
   {
     "slug": "container-tabs-sidebar"
+  },
+  {
+    "slug": "control-panel-for-twitter"
   },
   {
     "slug": "cookie-autodelete"
@@ -195,6 +201,9 @@
   {
     "slug": "ether-metamask",
     "pname": "metamask"
+  },
+  {
+    "slug": "export-cookies-txt"
   },
   {
     "slug": "export-tabs-urls-and-titles"
@@ -341,6 +350,13 @@
   },
   {
     "slug": "i-dont-care-about-cookies"
+  },
+  {
+    "slug": "image-search-options",
+    "license": {
+      "tag": "predefined",
+      "shortName": "mpl11"
+    }
   },
   {
     "slug": "ipfs-companion"
@@ -904,6 +920,16 @@
   },
   {
     "slug": "vue-js-devtools"
+  },
+  {
+    "slug": "w2g",
+    "license": {
+      "tag": "custom",
+      "shortName": "w2g.tv",
+      "fullName": "Watch2Gether Terms of Use",
+      "url": "https://community.w2g.tv/t/terms-of-use-english/597/1",
+      "free": false
+    }
   },
   {
     "slug": "wallabagger"
