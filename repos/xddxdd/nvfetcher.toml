@@ -126,6 +126,11 @@ fetch.github = "open-quantum-safe/liboqs"
 src.github_tag = "xanmod/linux"
 fetch.github = "xanmod/linux"
 
+[linux-xanmod-6_1]
+src.github_tag = "xanmod/linux"
+src.include_regex = "^6\\.1\\.(.*)"
+fetch.github = "xanmod/linux"
+
 [linux-xanmod-6_0]
 src.github_tag = "xanmod/linux"
 src.include_regex = "^6\\.0\\.(.*)"

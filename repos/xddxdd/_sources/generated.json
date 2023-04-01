@@ -608,6 +608,26 @@
         },
         "version": "6.0.12-xanmod1"
     },
+    "linux-xanmod-6_1": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "linux-xanmod-6_1",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xanmod",
+            "repo": "linux",
+            "rev": "6.1.22-xanmod1",
+            "sha256": "sha256-eom3vlcbTTnVk+zcKja82mKmSmO8v0uqxccdA1VRj6s=",
+            "type": "github"
+        },
+        "version": "6.1.22-xanmod1"
+    },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
         "date": "2022-06-13",
