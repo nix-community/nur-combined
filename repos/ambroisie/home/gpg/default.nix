@@ -27,5 +27,10 @@ in
         allow-loopback-pinentry
       '';
     };
+
+    home.shellAliases = {
+      # Sometime `gpg-agent` errors out...
+      reset-agent = "gpg-connect-agent updatestartuptty /bye";
+    };
   };
 }

@@ -14,6 +14,8 @@ in
       PAGER = "less";
       # Clear the screen on start and exit
       LESS = "-R -+X -c";
+      # Better XDG compliance
+      LESSHISTFILE = "${config.xdg.dataHome}/less/history";
     };
   };
 }

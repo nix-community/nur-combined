@@ -233,10 +233,12 @@ in
       enable = true;
       statusPage = true; # For monitoring scraping.
 
+      recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
-      recommendedTlsSettings = true;
       recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+      recommendedZstdSettings = true;
 
       virtualHosts =
         let

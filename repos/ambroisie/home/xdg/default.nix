@@ -38,6 +38,7 @@ in
 
   # I want a tidier home
   config.home.sessionVariables = with config.xdg; lib.mkIf cfg.enable {
+    ANDROID_HOME = "${dataHome}/android";
     CARGO_HOME = "${dataHome}/cargo";
     DOCKER_CONFIG = "${configHome}/docker";
     GDBHISTFILE = "${dataHome}/gdb/gdb_history";
@@ -45,5 +46,8 @@ in
     INPUTRC = "${configHome}/readline/inputrc";
     LESSHISTFILE = "${dataHome}/less/history";
     LESSKEY = "${configHome}/less/lesskey";
+    PSQL_HISTORY = "${dataHome}/psql_history";
+    REDISCLI_HISTFILE = "${dataHome}/redis/rediscli_history";
+    XCOMPOSECACHE = "${dataHome}/X11/xcompose";
   };
 }

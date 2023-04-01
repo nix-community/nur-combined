@@ -23,12 +23,20 @@ in
         forceSSL = true;
         useACMEHost = domain;
         root = "/var/www/blog";
-        default = true; # Redirect to my blog
 
         # http://www.gnuterrypratchett.com/
         extraConfig = ''
           add_header X-Clacks-Overhead "GNU Terry Pratchett";
         '';
+      };
+
+      # Dummy vhost to redirect all unknown (sub-)domains to my blog
+      "_" = {
+        forceSSL = true;
+        useACMEHost = domain;
+        default = true;
+
+        locations."/".return = "301 https://belanyi.fr$request_uri";
       };
     };
 

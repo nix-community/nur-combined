@@ -25,41 +25,22 @@ in
         package = pkgs.pulseaudioFull;
       };
 
-      services.pipewire = {
-        media-session.config.bluez-monitor.rules = [
-          {
-            # Matches all cards
-            matches = [{ "device.name" = "~bluez_card.*"; }];
-            actions = {
-              "update-props" = {
-                "bluez5.reconnect-profiles" = [
-                  "hfp_hf"
-                  "hsp_hs"
-                  "a2dp_sink"
-                ];
-                # mSBC provides better audio + microphone
-                "bluez5.msbc-support" = true;
-                # SBC XQ provides better audio
-                "bluez5.sbc-xq-support" = true;
-              };
-            };
+      environment.etc = {
+        "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+          bluez_monitor.properties = {
+            -- SBC XQ provides better audio
+            ["bluez5.enable-sbc-xq"] = true,
+
+            -- mSBC provides better audio + microphone
+            ["bluez5.enable-msbc"] = true,
+
+            -- Synchronize volume with bluetooth device
+            ["bluez5.enable-hw-volume"] = true,
+
+            -- FIXME: Some devices may now support both hsp_ag and hfp_ag
+            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
           }
-          {
-            matches = [
-              # Matches all sources
-              {
-                "node.name" = "~bluez_input.*";
-              }
-              # Matches all outputs
-              {
-                "node.name" = "~bluez_output.*";
-              }
-            ];
-            actions = {
-              "node.pause-on-idle" = false;
-            };
-          }
-        ];
+        '';
       };
     })
 

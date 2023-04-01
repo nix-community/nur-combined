@@ -147,8 +147,8 @@ in
       };
 
       url = {
-        "git@gitea.belanyi.fr:" = {
-          insteadOf = "https://gitea.belanyi.fr/";
+        "git@git.belanyi.fr:" = {
+          insteadOf = "https://git.belanyi.fr/";
         };
 
         "git@github.com:" = {

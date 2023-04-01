@@ -32,5 +32,6 @@
     ./tlp
     ./transmission
     ./wireguard
+    ./woodpecker
   ];
 }

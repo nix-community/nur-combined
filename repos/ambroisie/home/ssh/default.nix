@@ -34,8 +34,8 @@ in
         user = "git";
       };
 
-      "gitea.belanyi.fr" = {
-        hostname = "gitea.belanyi.fr";
+      "git.belanyi.fr" = {
+        hostname = "git.belanyi.fr";
         identityFile = "~/.ssh/shared_rsa";
         user = "git";
       };
@@ -44,12 +44,6 @@ in
         hostname = "91.121.177.163";
         identityFile = "~/.ssh/shared_rsa";
         user = "ambroisie";
-      };
-
-      work = {
-        hostname = "workspaces.dgexsol.fr";
-        identityFile = "~/.ssh/shared_rsa";
-        user = "bruno_belanyi";
       };
     };
 

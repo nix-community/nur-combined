@@ -26,10 +26,24 @@ in
 
     addToRegistry = my.mkDisableOption "add inputs and self to registry";
 
+    addToNixPath = my.mkDisableOption "add inputs and self to nix path";
+
     overrideNixpkgs = my.mkDisableOption "point nixpkgs to pinned system version";
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      assertions = [
+        {
+          assertion = cfg.addToNixPath -> cfg.linkInputs;
+          message = ''
+            enabling `my.home.nix.addToNixPath` needs to have
+            `my.home.nix.linkInputs = true`
+          '';
+        }
+      ];
+    }
+
     {
       nix = {
         package = lib.mkDefault pkgs.nix; # NixOS module sets it unconditionally
@@ -59,6 +73,10 @@ in
           makeLinks = lib.mapAttrs' makeLink;
         in
         makeLinks channels;
+    })
+
+    (lib.mkIf cfg.addToNixPath {
+      home.sessionVariables.NIX_PATH = "${config.xdg.configHome}/nix/inputs\${NIX_PATH:+:$NIX_PATH}";
     })
   ]);
 }

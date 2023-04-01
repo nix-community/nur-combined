@@ -30,6 +30,8 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   osc52 = pkgs.callPackage ./osc52 { };
 
+  pnpm-lock-export = pkgs.callPackage ./pnpm-lock-export { };
+
   rofi-bluetooth = pkgs.callPackage ./rofi-bluetooth { };
 
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
@@ -39,4 +41,14 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
   vimix-cursors = pkgs.callPackage ./vimix-cursors { };
 
   volantes-cursors = pkgs.callPackage ./volantes-cursors { };
+
+  woodpecker-agent = pkgs.callPackage ./woodpecker/agent.nix { };
+
+  woodpecker-cli = pkgs.callPackage ./woodpecker/cli.nix { };
+
+  woodpecker-frontend = pkgs.callPackage ./woodpecker/frontend.nix { };
+
+  woodpecker-plugin-git = pkgs.callPackage ./woodpecker-plugin-git { };
+
+  woodpecker-server = pkgs.callPackage ./woodpecker/server.nix { };
 })

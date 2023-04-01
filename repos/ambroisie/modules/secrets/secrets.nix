@@ -30,7 +30,10 @@ in
     owner = "matrix-synapse";
     publicKeys = all;
   };
-  "matrix/secret.age".publicKeys = all;
+  "matrix/secret.age" = {
+    owner = "matrix-synapse";
+    publicKeys = all;
+  };
 
   "miniflux/credentials.age".publicKeys = all;
 
@@ -63,4 +66,8 @@ in
   "wireguard/milady/private-key.age".publicKeys = all;
   "wireguard/porthos/private-key.age".publicKeys = all;
   "wireguard/richelieu/private-key.age".publicKeys = all;
+
+  "woodpecker/gitea.age".publicKeys = all;
+  "woodpecker/secret.age".publicKeys = all;
+  "woodpecker/ssh/private-key.age".publicKeys = all;
 }

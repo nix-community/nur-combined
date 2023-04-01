@@ -56,7 +56,6 @@ in
         public_baseurl = "https://matrix.${domain}";
 
         enable_registration = false;
-        # registration_shared_secret = cfg.secret; # FIXME: use a secret file for this
 
         listeners = [
           # Federation
