@@ -71,7 +71,8 @@ in
             }
             {
               block = "battery";
-              format = " $percentage ($time) ";
+              format = " $icon $percentage{ ($time)|} ";
+              not_charging_format = " $icon $percentage ";
               full_format = " $icon $percentage ";
             }
             {
