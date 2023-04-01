@@ -13,6 +13,7 @@ buildGoModule rec {
   vendorHash = "sha256-63Ly/9yIJu2K/DwOfGs9pYU3fokbs2senZkl3MJ1UIY=";
 
   patches = [
+    # https://github.com/woodpecker-ci/plugin-git/pull/67
     (fetchpatch {
       name = "do-not-overwrite-command-env.patch";
       url = "https://github.com/woodpecker-ci/plugin-git/commit/970cc63a9b212872deac565c6292feb3f4cf4b51.patch";
