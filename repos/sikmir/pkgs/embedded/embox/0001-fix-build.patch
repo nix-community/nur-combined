@@ -1,8 +1,8 @@
 diff --git i/mk/flags.mk w/mk/flags.mk
-index baf62448e..7d5c2a74b 100644
+index 522274885..35745d98c 100644
 --- i/mk/flags.mk
 +++ w/mk/flags.mk
-@@ -12,23 +12,23 @@ BUILD_DEPS_CPPFLAGS ?=
+@@ -13,14 +13,14 @@ BUILD_DEPS_CPPFLAGS_AFTER ?=
  BUILD_DEPS_LDFLAGS ?=
  
  CROSS_COMPILE ?=
@@ -24,15 +24,13 @@ index baf62448e..7d5c2a74b 100644
 +SIZE    = $(CROSS_COMPILE)size
  
  ifeq ($(COMPILER),clang)
- CC      ?= clang
- # for clang LIBGCC_FINDER will be set externally to arm-none-eabi-gcc or something like that
- else
--CC      ?= $(CROSS_COMPILE)gcc
-+CC      = $(CROSS_COMPILE)gcc
+ CC      := clang
+@@ -29,7 +29,7 @@ else
+ CC      := $(CROSS_COMPILE)gcc
  LIBGCC_FINDER=$(CC) $(CFLAGS)
  endif
 -CPP     ?= $(CC) -E
 +CPP     = $(CC) -E
  
- comma_sep_list = $(subst $(\s),$(,),$(strip $1))
+ CPPFLAGS += -D__EMBOX_VERSION__=\"$(EMBOX_VERSION)\"
  
