@@ -45,6 +45,9 @@ in
       ];
 
       serviceConfig = {
+        # Same option as upstream, without @setuid
+        SystemCallFilter = lib.mkForce "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @swap";
+
         BindPaths = [
           "/nix/var/nix/daemon-socket/socket"
           "/run/nscd/socket"
