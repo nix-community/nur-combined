@@ -1,13 +1,13 @@
 { lib, curl, jq, fetchFromGitHub, makeWrapper, pandoc, stdenvNoCC }:
 stdenvNoCC.mkDerivation rec {
   pname = "matrix-notifier";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "ambroisie";
     repo = "matrix-notifier";
     rev = "v${version}";
-    sha256 = "sha256-JiKPDrr9wyD2q5Vsac+OkFdvrDkx6mj/oC7XDVnka74=";
+    hash = "sha256-NE9RO0ep2ibrT9EUPGTnUE3ofdNTCHwelxnX9tCflg0=";
   };
 
   nativeBuildInputs = [

@@ -7,10 +7,10 @@ buildGoModule rec {
     owner = "appleboy";
     repo = "drone-scp";
     rev = "v${version}";
-    sha256 = "sha256-ELjPqoRR4O6gmc/PgthQuSXuSTQNzBZoAUT80zVVbV0=";
+    hash = "sha256-ELjPqoRR4O6gmc/PgthQuSXuSTQNzBZoAUT80zVVbV0=";
   };
 
-  vendorSha256 = "sha256-/c103hTJ/Qdz2KTkdl/ACvAaSSTKcl1DQY3+Us6OxaI=";
+  vendorHash = "sha256-/c103hTJ/Qdz2KTkdl/ACvAaSSTKcl1DQY3+Us6OxaI=";
 
   doCheck = false; # Needs a specific user...
 

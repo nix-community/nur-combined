@@ -6,7 +6,7 @@ buildGoModule rec {
   src = fetchgit {
     url = "https://git.clsr.net/util/ff2mpv-go/";
     rev = "v${version}";
-    sha256 = "sha256-e/AuOA3isFTyBf97Zwtr16yo49UdYzvktV5PKB/eH/s=";
+    hash = "sha256-e/AuOA3isFTyBf97Zwtr16yo49UdYzvktV5PKB/eH/s=";
   };
 
   vendorHash = null;

@@ -7,7 +7,7 @@ qt5.mkDerivation rec {
     owner = "ambroisie";
     repo = "dragger";
     rev = "v${version}";
-    sha256 = "sha256-WAC720DxfkQxy1BeeGzE6IerFb4ejoMRAPEJv5HGDHM=";
+    hash = "sha256-WAC720DxfkQxy1BeeGzE6IerFb4ejoMRAPEJv5HGDHM=";
   };
 
   configurePhase = ''

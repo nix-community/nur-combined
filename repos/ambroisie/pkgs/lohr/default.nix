@@ -1,16 +1,16 @@
 { lib, fetchFromGitHub, rustPlatform }:
 rustPlatform.buildRustPackage rec {
   pname = "lohr";
-  version = "0.4.0";
+  version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "alarsyo";
     repo = "lohr";
     rev = "v${version}";
-    sha256 = "sha256-MplTVJG+SoeLMXQP+ix/zM3OSHuQmZnunn900YnyCBw=";
+    hash = "sha256-2pN/Me5fCdE++TzBUswPXzjuUIIB7Uck+Scp361JgE4=";
   };
 
-  cargoSha256 = "sha256-iuMJj8tqetlmdfsrfudnU1afwUzjls/UdYLq1u0gr+g=";
+  cargoHash = "sha256-YHg4b6rKcnVJSDoWh9/o+p40NBog65Gd2/UwIDXiUe0=";
 
   meta = with lib; {
     description = "Git mirroring daemon";

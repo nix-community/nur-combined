@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "StevenBlack";
     repo = "hosts";
     rev = version;
-    sha256 = "sha256-HoNX57lCoIr36B/7HMuazWSWeAPPfWY1oZf6dXnxYIE=";
+    hash = "sha256-HoNX57lCoIr36B/7HMuazWSWeAPPfWY1oZf6dXnxYIE=";
   };
 
   dontUnpack = true;

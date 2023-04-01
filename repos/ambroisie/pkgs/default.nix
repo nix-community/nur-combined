@@ -18,21 +18,15 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   ff2mpv-go = pkgs.callPackage ./ff2mpv-go { };
 
-  havm = pkgs.callPackage ./havm { };
-
   i3-get-window-criteria = pkgs.callPackage ./i3-get-window-criteria { };
 
   lohr = pkgs.callPackage ./lohr { };
 
   matrix-notifier = pkgs.callPackage ./matrix-notifier { };
 
-  nolimips = pkgs.callPackage ./nolimips { };
-
   osc52 = pkgs.callPackage ./osc52 { };
 
   pnpm-lock-export = pkgs.callPackage ./pnpm-lock-export { };
-
-  rofi-bluetooth = pkgs.callPackage ./rofi-bluetooth { };
 
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
 

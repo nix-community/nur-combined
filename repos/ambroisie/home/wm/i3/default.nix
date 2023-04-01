@@ -192,7 +192,7 @@ in
             "${modifier}+b" =
               let
                 inherit (config.my.home.bluetooth) enable;
-                prog = "${pkgs.ambroisie.rofi-bluetooth}/bin/rofi-bluetooth";
+                prog = lib.getExe pkgs.rofi-bluetooth;
               in
               lib.mkIf enable "exec ${prog}";
           })

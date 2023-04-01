@@ -7,7 +7,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "varlesh";
     repo = pname;
     rev = "d1d290ff42cc4fa643716551bd0b02582b90fd2f";
-    sha256 = "sha256-irMN/enoo90nYLfvSOScZoYdvhZKvqqp+grZB2BQD9o=";
+    hash = "sha256-irMN/enoo90nYLfvSOScZoYdvhZKvqqp+grZB2BQD9o=";
   };
 
   nativeBuildInputs = [
