@@ -2,14 +2,6 @@
 with lib;
 let
   cfg = config.services.hardware.eupnea-linux;
-  nur = import
-    (builtins.fetchTarball {
-      url = "https://github.com/nix-community/NUR/archive/master.tar.gz";
-      sha256 = "sha256:11yv5m939my4i54iizs6dlg7x62lj3qkj3xx3gqlxr132lgd5p1s";
-    })
-    {
-      inherit pkgs;
-    };
 in
 {
   options.services.hardware.eupnea-linux = with types; {
@@ -50,18 +42,5 @@ in
     boot.extraModprobeConfig = ''
       options snd-intel-dspcfg dsp_driver=3
     '';
-
-    system.replaceRuntimeDependencies = [
-      {
-        original = pkgs.alsa-ucm-conf;
-        replacement = pkgs.alsa-ucm-conf.overrideAttrs (_super: {
-          postFixup = with nur.repos.infinitivewitch; ''
-            cp -r ${audio-scripts}/configs/audio/sof/ucms/${cfg.board}/${cfg.card} $out/share/alsa/ucm2/conf.d/
-            cp -r ${audio-scripts}/configs/audio/sof/ucms/dmic-common $out/share/alsa/ucm2/conf.d/
-            cp -r ${audio-scripts}/configs/audio/sof/ucms/hdmi-common $out/share/alsa/ucm2/conf.d/
-          '';
-        });
-      }
-    ];
   };
 }

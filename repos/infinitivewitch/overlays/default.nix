@@ -1,5 +1,3 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  alsa-ucm-conf = ./hardware/chromebook/alsa-ucm-conf;
 }
