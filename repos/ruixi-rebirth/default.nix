@@ -17,6 +17,15 @@
   youtube-tui = pkgs.callPackage ./pkgs/youtube-tui { };
   ytermusic = pkgs.callPackage ./pkgs/ytermusic { };
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui { };
+  aichat = pkgs.callPackage ./pkgs/aichat { };
+  swww = pkgs.callPackage ./pkgs/swww { };
+  chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
+  go-musicfox = pkgs.callPackage ./pkgs/go-musicfox { };
+  catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors { };
+  catppuccin-latte-gtk = pkgs.callPackage ./pkgs/catppuccin-latte-gtk { };
+  catppuccin-frappe-gtk = pkgs.callPackage ./pkgs/catppuccin-frappe-gtk { };
+  fcitx5-pinyin-zhwiki = pkgs.callPackage ./pkgs/fcitx5-pinyin-zhwiki { };
+  fcitx5-pinyin-moegirl = pkgs.callPackage ./pkgs/fcitx5-pinyin-moegirl { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
