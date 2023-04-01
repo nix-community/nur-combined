@@ -45,6 +45,5 @@ buildGoModule.override { stdenv = clangStdenv; } rec {
     homepage = "https://github.com/anhoder/go-musicfox";
     license = licenses.mit;
     mainProgram = "musicfox";
-    maintainers = with maintainers; [ zendo Ruixi-rebirth ];
   };
 }

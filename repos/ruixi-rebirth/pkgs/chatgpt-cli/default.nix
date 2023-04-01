@@ -23,6 +23,5 @@ buildGoModule rec {
     homepage = "https://github.com/j178/chatgpt";
     license = licenses.mit;
     mainProgram = "chatgpt";
-    maintainers = with maintainers; [ Ruixi-rebirth ];
   };
 }

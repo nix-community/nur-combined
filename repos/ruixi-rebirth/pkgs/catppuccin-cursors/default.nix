@@ -16,6 +16,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Ruixi-rebirth/Catppuccin-cursor";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.Ruixi-rebirth ];
   };
 }
