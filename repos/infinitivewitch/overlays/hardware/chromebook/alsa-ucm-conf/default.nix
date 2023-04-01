@@ -3,7 +3,7 @@ let
   version = "a4046df34d7f58693590ede2945fe9a38bcbc3e6";
 in
 {
-  alsa-ucm-conf = prev.alsa-ucm-conf.overrideAttrs (rec {
+  alsa-ucm-conf = prev.alsa-ucm-conf.overrideAttrs (_oldAttrs: rec {
     postFixup =
       let
         audio-scripts = prev.fetchzip {
