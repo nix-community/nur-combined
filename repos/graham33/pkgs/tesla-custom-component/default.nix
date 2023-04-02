@@ -5,22 +5,15 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "tesla-custom-component";
-  version = "3.0.2";
+  version = "3.11.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alandtse";
     repo = "tesla";
     rev = "v${version}";
-    sha256 = "sha256-KaO7GmBQl4dwwNFb+YGv5/lALZ31P+Pvt/jNxLyfmE0=";
+    sha256 = "sha256-IIsKEWqVT5WzvT8YFnmet1NFYuz15FSGGbmaErMJMgE=";
   };
-
- postPatch = ''
-   substituteInPlace pyproject.toml --replace \
-     'teslajsonpy = "^3.0.0"' 'teslajsonpy = ">=3.0.0"'
-   substituteInPlace custom_components/tesla_custom/manifest.json --replace \
-     "teslajsonpy==3.0.0" "teslajsonpy>=3.0.0"
- '';
 
   patches = [ ./poetry.patch ];
 
