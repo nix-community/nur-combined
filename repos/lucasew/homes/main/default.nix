@@ -11,6 +11,7 @@ in {
   imports = [
     ../base/default.nix
     ./dlna.nix
+    ./helix.nix
     ./espanso.nix
     ./dconf.nix
     ./nixgram.nix
@@ -57,6 +58,7 @@ in {
     nbr.telegram-desktop-bin # communication
     terraform
     vlc # media
+    stremio
     nbr.wine-apps._7zip
     xxd
     pavucontrol # controle de volume
