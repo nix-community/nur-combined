@@ -2,21 +2,21 @@
 
 let
   pname = "github-copilot-cli";
-  version = "0.1.21";
+  version = "0.1.30";
 in
 buildNpmPackage {
   inherit pname version;
 
   src = fetchzip {
     url = "https://registry.npmjs.org/@githubnext/${pname}/-/${pname}-${version}.tgz";
-    hash = "sha256-9FuNyUTIHBh3tPUd3ea7AXRZC+7inSv24o6VN4bvvvg=";
+    hash = "sha256-a3w1cxyhvkzb4pifdoms49DuVpGyop/2GlSsVZRfeHY=";
   };
 
   postPatch = ''
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  npmDepsHash = "sha256-vlgiZxWCXzWTqDOcRxfhmd3BzVpiQ2+ivW6tt/DgWf4=";
+  npmDepsHash = "sha256-LrEMM+ZykSP2lCOA13TPrAY9S2Z/wJ4Kavosf88iuzc=";
   dontNpmBuild = true;
 
   meta = with lib;
