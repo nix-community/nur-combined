@@ -189,13 +189,13 @@
   };
   raze = {
     pname = "raze";
-    version = "1.6.2";
+    version = "1.7.0";
     src = fetchFromGitHub {
       owner = "ZDoom";
       repo = "Raze";
-      rev = "1.6.2";
+      rev = "1.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-5EXU7mXhg9gvNvz13OCvzJHMb4VArYQj/6rTmzDK6uY=";
+      sha256 = "sha256-JgZ/Nfwel03xYUE0iGu3BVLH61iAAxw7NpE8DVjW/v4=";
     };
   };
   slock-flexipatch = {
