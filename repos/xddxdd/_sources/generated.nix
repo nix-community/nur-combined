@@ -271,6 +271,27 @@
       sha256 = "sha256-00XuaIcg9uHtRPalLyoIUY49iLdGulIMwshVOsBwprM=";
     };
   };
+  grasscutter = {
+    pname = "grasscutter";
+    version = "1.4.7";
+    src = fetchurl {
+      url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.4.7/grasscutter-1.4.7.jar";
+      sha256 = "sha256-LDwjp9S3fxftg8tsMB3VC19aMbBeIZyc1lKYaNQPFZE=";
+    };
+  };
+  grasscutter-resources = {
+    pname = "grasscutter-resources";
+    version = "b0803562cc0864fae2a621fc76c26f859284075d";
+    src = fetchgit {
+      url = "https://gitlab.com/YuukiPS/GC-Resources.git";
+      rev = "b0803562cc0864fae2a621fc76c26f859284075d";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-1o/AFWEtIY9T0HLCTzl0+PH2eIg3YxsHVPNg7n51ln0=";
+    };
+    date = "2023-03-22";
+  };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
     version = "ff4420614a1a3b61a6d9d28a30465bdacdc2ba5e";

@@ -468,6 +468,40 @@
         },
         "version": "7.3.6.9285"
     },
+    "grasscutter": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "grasscutter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-LDwjp9S3fxftg8tsMB3VC19aMbBeIZyc1lKYaNQPFZE=",
+            "type": "url",
+            "url": "https://github.com/Grasscutters/Grasscutter/releases/download/v1.4.7/grasscutter-1.4.7.jar"
+        },
+        "version": "1.4.7"
+    },
+    "grasscutter-resources": {
+        "cargoLocks": null,
+        "date": "2023-03-22",
+        "extract": null,
+        "name": "grasscutter-resources",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "b0803562cc0864fae2a621fc76c26f859284075d",
+            "sha256": "sha256-1o/AFWEtIY9T0HLCTzl0+PH2eIg3YxsHVPNg7n51ln0=",
+            "type": "git",
+            "url": "https://gitlab.com/YuukiPS/GC-Resources.git"
+        },
+        "version": "b0803562cc0864fae2a621fc76c26f859284075d"
+    },
     "hoyo-glyphs": {
         "cargoLocks": null,
         "date": "2023-03-24",

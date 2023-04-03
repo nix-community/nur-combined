@@ -102,6 +102,16 @@ fetch.github = "glauth/glauth"
 src.aur = "google-earth-pro"
 fetch.url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_$ver-r0_amd64.deb"
 
+[grasscutter]
+src.github = "Grasscutters/Grasscutter"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/Grasscutters/Grasscutter/releases/download/v$ver/grasscutter-$ver.jar"
+
+[grasscutter-resources]
+src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
+fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
+
 [hoyo-glyphs]
 src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
 fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"

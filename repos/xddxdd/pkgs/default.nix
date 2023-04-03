@@ -111,6 +111,7 @@ in
     glauth = ifNotCI (pkg ./uncategorized/glauth {});
     google-earth-pro = pkg ./uncategorized/google-earth-pro {};
     gopherus = pkg ./uncategorized/gopherus {};
+    grasscutter = pkg ./uncategorized/grasscutter {};
     hath = pkg ./uncategorized/hath {};
 
     # This package is failing on CI for unknown reason
