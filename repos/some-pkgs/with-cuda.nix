@@ -1,5 +1,6 @@
 let
-  nixpkgs = builtins.getFlake github:SomeoneSerge/nixpkgs/torch20;
+  self = builtins.getFlake ./.;
+  nixpkgs = self.inputs.nixpkgs;
   pkgs = import nixpkgs {
     config.allowUnfree = true;
     config.cudaSupport = true;
