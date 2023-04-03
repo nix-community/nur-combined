@@ -15,7 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   youtube-tui = pkgs.callPackage ./pkgs/youtube-tui { };
-  ytermusic = pkgs.callPackage ./pkgs/ytermusic { };
+  # ytermusic = pkgs.callPackage ./pkgs/ytermusic { };
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui { };
   aichat = pkgs.callPackage ./pkgs/aichat { };
   swww = pkgs.callPackage ./pkgs/swww { };
