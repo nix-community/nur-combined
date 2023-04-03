@@ -22,12 +22,7 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installPhase = let
-    languageScript = writeScript "language.sh" ''
-      echo "en"
-      echo "en"
-    '';
-  in ''
+  installPhase = ''
     mkdir -p $out/bin $out/opt
     cp ${src} $out/grasscutter.jar
 
@@ -35,7 +30,8 @@ stdenvNoCC.mkDerivation rec {
     ln -s ${keystore} $out/opt/keystore.p12
 
     pushd $out/opt/
-    (${languageScript} | ${jre_headless}/bin/java -jar $out/grasscutter.jar -handbook) || true
+    # Without MongoDB, Grasscutter is expected to fail
+    ${jre_headless}/bin/java -jar $out/grasscutter.jar || true
     mv config.json config.example.json
     rm -rf logs
     popd
