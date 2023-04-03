@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qt4, gdal, boost, fftwFloat, qwt }:
+{ lib, stdenv, fetchFromGitHub, cmake, qt4, gdal, boost, fftwFloat, libsForQt5 }:
 
 stdenv.mkDerivation rec {
   version = "4.0.0fmp";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   nativeBuildInputs = [ cmake boost.dev ];
-  buildInputs = [ gdal qt4 boost fftwFloat qwt ];
+  buildInputs = [ gdal qt4 boost fftwFloat libsForQt5.qwt ];
 
   meta = {
     description = "Spatial conservation prioritization framework for large-scale conservation planning";

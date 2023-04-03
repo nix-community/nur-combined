@@ -1,6 +1,7 @@
 { lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, 
   at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515, zlib, xorg, atk, nspr, dbus,
-  pango, cairo, gdk_pixbuf, x11, cups, expat, libxkbcommon, alsaLib, file, at-spi2-atk }:
+  pango, cairo, gdk_pixbuf, x11, cups, expat, libxkbcommon, alsaLib, file, at-spi2-atk,
+  freetype, fontconfig }:
 
 stdenv.mkDerivation rec {
   version = "2022.2.0.262";
@@ -27,7 +28,8 @@ stdenv.mkDerivation rec {
  
   propagatedBuildInputs = [ glibc glib libnotify xdg-utils ncurses nss 
                            at-spi2-core libxcb libdrm gtk3 mesa qt515.full 
-                           zlib xorg.xlibsWrapper ];
+                           zlib freetype fontconfig xorg.xorgproto xorg.libX11 xorg.libXt
+                           xorg.libXft xorg.libXext xorg.libSM xorg.libICE ];
 
   libPath = lib.makeLibraryPath [ stdenv.cc.cc libX11 glib libnotify xdg-utils 
                                   ncurses nss at-spi2-core libxcb libdrm gtk3 

@@ -23,35 +23,42 @@ perl -pi -e "s/sandbox = false/sandbox = true/" ~/.config/nix/nix.conf
 
 ###### PACKAGES FOR LATEST CHANNELS #######
 
-c="nixos-21.05"
-export NIX_PATH="nixpkgs=channel:$c"
-echo $NIX_PATH
-build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
+#c="nixos-21.05"
+#export NIX_PATH="nixpkgs=channel:$c"
+#echo $NIX_PATH
+#build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
 
-c="nixos-21.11"
-export NIX_PATH="nixpkgs=channel:$c"
-echo $NIX_PATH
-build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
+#c="nixos-21.11"
+#export NIX_PATH="nixpkgs=channel:$c"
+#echo $NIX_PATH
+#build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate zonation-core scotch-mumps hpl"
 
-c="nixos-22.05"
+#c="nixos-22.05"
+#export NIX_PATH="nixpkgs=channel:$c"
+#echo $NIX_PATH
+#build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta fate scotch-mumps"
+
+
+c="nixos-22.11"
 export NIX_PATH="nixpkgs=channel:$c"
 echo $NIX_PATH
 build "hello osu-micro-benchmarks iqtree beagle gerris obitools3 siesta fate scotch-mumps"
 
 ###### PACKAGES FOR OLD CHANNEL #######
-c="nixos-20.03"
-export NIX_PATH="nixpkgs=channel:$c"
-build "hello gerris openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate  zonation-core scotch-mumps hpl"
+#c="nixos-20.03"
+#export NIX_PATH="nixpkgs=channel:$c"
+#build "hello gerris openmpi openmpi1 openmpi2 openmpi2-opa openmpi2-ib openmpi3 openmpi4 fate  zonation-core scotch-mumps hpl"
 
 # Build packages that need sandboxing disabled
 perl -pi -e "s/sandbox = true/sandbox = false/" ~/.config/nix/nix.conf
 c="nixos-21.05"
 export NIX_PATH="nixpkgs=channel:$c"
 build "intel-oneapi lammps-impi"
-c="nixos-21.11"
+#c="nixos-21.11"
+#export NIX_PATH="nixpkgs=channel:$c"
+#build "intel-oneapi lammps-impi"
+c="nixos-22.11"
 export NIX_PATH="nixpkgs=channel:$c"
-build "intel-oneapi lammps-impi"
-c="nixos-22.05"
-export NIX_PATH="nixpkgs=channel:$c"
+export NIXPKGS_ALLOW_INSECURE=1
 build "intel-oneapi lammps-impi"
 perl -pi -e "s/sandbox = false/sandbox = true/" ~/.config/nix/nix.conf

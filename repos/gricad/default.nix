@@ -134,5 +134,7 @@ rec {
     gcc = pkgs.gcc11;
   };
 
+  fineRADstructure = pkgs.callPackage ./pkgs/fineRADstructure { };
+
 }
 
