@@ -16,7 +16,6 @@
 , nspr
 , nss
 , openssl_1_1
-, qt6
 , xorg
 , xz
 , zlib

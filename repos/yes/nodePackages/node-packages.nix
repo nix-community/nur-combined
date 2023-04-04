@@ -184,13 +184,13 @@ let
         sha512 = "Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==";
       };
     };
-    "@types/node-18.15.10" = {
+    "@types/node-18.15.11" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.15.10";
+      version = "18.15.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.15.10.tgz";
-        sha512 = "9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.15.11.tgz";
+        sha512 = "E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==";
       };
     };
     "@types/qs-6.9.7" = {
@@ -3124,7 +3124,7 @@ in
       sources."@types/express-serve-static-core-4.17.33"
       sources."@types/http-proxy-1.17.10"
       sources."@types/mime-3.0.1"
-      sources."@types/node-18.15.10"
+      sources."@types/node-18.15.11"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
       sources."@types/serve-static-1.15.1"
