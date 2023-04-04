@@ -64,6 +64,7 @@ in {
         teams
         thunderbird
         virt-manager
+        xcolor
         zathura
         ;
 
