@@ -1,0 +1,23 @@
+# vim: ft=yaml
+---
+BasedOnStyle: LLVM
+IndentWidth: 4
+---
+Language: Cpp
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+# Short functions should not be on a single line, unless empty
+AllowShortFunctionsOnASingleLine: Empty
+
+# Make them level
+AccessModifierOffset: -4
+
+# It makes more sense this way
+BreakBeforeBinaryOperators: All
+BreakBeforeTernaryOperators: true
+
+# Aesthetic
+AlignOperands: AlignAfterOperator
+---
