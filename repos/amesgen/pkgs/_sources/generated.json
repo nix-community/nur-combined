@@ -63,10 +63,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JeflEYBxpZY3klKsY4sHSjQdAxOnYjjEJWOzBOTJ+Fs=",
+            "sha256": "sha256-QzPQoEolOg/aBusD1mnnLOO58dw1XZ1bnrzP4UENQ9Q=",
             "type": "url",
-            "url": "https://github.com/tweag/ormolu/releases/download/0.6.0.0/ormolu-Linux.zip"
+            "url": "https://github.com/tweag/ormolu/releases/download/0.6.0.1/ormolu-Linux.zip"
         },
-        "version": "0.6.0.0"
+        "version": "0.6.0.1"
     }
 }
