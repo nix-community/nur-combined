@@ -1,0 +1,7 @@
+# CMake build directories
+/build
+/build-*
+
+# Nix generated files
+/.pre-commit-config.yaml
+/result
