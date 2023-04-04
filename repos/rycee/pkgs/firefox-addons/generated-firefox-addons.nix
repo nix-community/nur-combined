@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230330.182947";
+      version = "112.0.20230403.163424";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4091325/francais_language_pack-112.0.20230330.182947.xpi";
-      sha256 = "5203d006c82e25bf562b4edbeaacb151cde7017e728b31f7527665dbdb408c4b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4093015/francais_language_pack-112.0.20230403.163424.xpi";
+      sha256 = "12ee64b299f3d653a8d19394dd95d4f33836e0ac69fb03f2f8848d913bba327b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1348,10 +1348,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.5.1";
+      version = "1.8.6";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078287/keepassxc_browser-1.8.5.1.xpi";
-      sha256 = "f50c5b6b9d662665ac1a279d4558c4a7b8d8d316c795969b65854569c9ba36ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4092657/keepassxc_browser-1.8.6.xpi";
+      sha256 = "85ea4d636cb5489a5ec2c89196de13693c4d0753d6cd0e3f5f2223a0dc53af43";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -1671,10 +1671,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.54";
+      version = "2.7.61";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4087282/momentumdash-2.7.54.xpi";
-      sha256 = "1484e9366d06c810541725a3c572bdd28fb2f5d244b094d43bccb7cf0e5573e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090829/momentumdash-2.7.61.xpi";
+      sha256 = "6e3b1e8aa0ec789802360e7fa7e4040154a0f40c4baa763a1d2dd7df20acc559";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2986,7 +2986,7 @@
       sha256 = "08b7af97bef05300ab3ac3ad721322ff00505631233482568fc4489c16d51b71";
       meta = with lib;
       {
-        homepage = "https://github.com/cmcaine/tridactyl";
+        homepage = "https://tridactyl.xyz";
         description = "Vim, but in your browser. Replace Firefox's control mechanism with one modelled on Vim.\n\nThis addon is very usable, but is in an early stage of development. We intend to implement the majority of Vimperator's features.";
         license = licenses.asl20;
         platforms = platforms.all;
