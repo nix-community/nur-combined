@@ -76,10 +76,8 @@ buildPythonPackage rec {
 
   checkInputs = [
     torch
-    tensorflow
   ];
   pythonImportsCheck = [
-    "nvdiffrast"
     "nvdiffrast.torch"
   ];
 
@@ -89,6 +87,15 @@ buildPythonPackage rec {
   ]
   # cpp_extension wants ninja and nvcc:
   ++ buildInputs;
+
+  passthru.tests.withTensorflow = nvdiffrast.overridePythonAttrs (a: {
+    checkInputs = a.checkInputs ++ [
+      tensorflow
+    ];
+    pythonImportsCheck = a.pythonImportsCheck ++ [
+      "nvdiffrast"
+    ];
+  });
 
   meta = {
     maintainers = [ lib.maintainers.SomeoneSerge ];
