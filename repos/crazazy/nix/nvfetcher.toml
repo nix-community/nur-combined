@@ -18,3 +18,7 @@ fetch.tarball = "https://gitlab.com/a-sassmannshausen/guile-config/-/archive/$ve
 [guile-hall]
 src.manual = "0.4.1"
 fetch.tarball = "https://gitlab.com/a-sassmannshausen/guile-hall/-/archive/$ver/guile-hall-$ver.tar.gz"
+
+[cakeml]
+src.github_tag = "cakeml/cakeml"
+fetch.tarball = "https://github.com/CakeML/cakeml/releases/download/$ver/cake-x64-64.tar.gz"

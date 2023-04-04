@@ -1,4 +1,18 @@
 {
+    "cakeml": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cakeml",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "09rja9n2ml6hzbvijb5yjskl5yfig6cpcnnibhz45mghrh58j6g3",
+            "type": "tarball",
+            "url": "https://github.com/CakeML/cakeml/releases/download/v2117/cake-x64-64.tar.gz"
+        },
+        "version": "v2117"
+    },
     "guile-config": {
         "cargoLocks": null,
         "date": null,
