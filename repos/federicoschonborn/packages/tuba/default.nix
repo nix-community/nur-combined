@@ -8,22 +8,25 @@
   pkg-config,
   vala,
   wrapGAppsHook4,
-  gnome,
   gtk4,
+  gtksourceview5,
   json-glib,
   libadwaita,
   libgee,
   libsecret,
+  libsoup_3,
+  libwebp,
+  libxml2,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "tuba";
-  version = "0.1.0";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "GeopJr";
     repo = "Tuba";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-dkURVzbDBrE4bBUvf2fPqvgLKE07tn7jl3OudZpEWUo=";
+    hash = "sha256-LPhGGIHvN/hc71PL50TBw1Q0ysubdtJaEiUEI29HRrE=";
   };
 
   nativeBuildInputs = [
@@ -36,12 +39,15 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    gnome.libsoup
     gtk4
+    gtksourceview5
     json-glib
     libadwaita
     libgee
     libsecret
+    libsoup_3
+    libwebp
+    libxml2
   ];
 
   meta = with lib; {
