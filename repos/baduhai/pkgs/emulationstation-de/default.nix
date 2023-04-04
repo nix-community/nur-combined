@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec{
   pname = "emulationstation-de";
-  version = "1.2.6";
+  version = "2.0.0";
 
   src = fetchFromGitLab {
     owner  = "es-de";
     repo   = "emulationstation-de";
     rev    = "v${version}";
-    sha256 = "BiQnHtcKheEhwp0KKy9BCDIuZuAjmS8tWNyNw4nl5Fk=";
+    hash   = "sha256-HTWspnZCNTwbEF394FlsGlRML9zbVqd7jVf+ElpOkE0=";
   };
 
   patches = [ ./es_find_rules.patch ];

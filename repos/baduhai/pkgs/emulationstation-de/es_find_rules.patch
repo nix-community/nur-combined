@@ -1,5 +1,5 @@
 diff --git a/resources/systems/unix/es_find_rules.xml b/resources/systems/unix/es_find_rules.xml
-index 3616bb79..bd08a931 100644
+index 503c402e..39eb0547 100644
 --- a/resources/systems/unix/es_find_rules.xml
 +++ b/resources/systems/unix/es_find_rules.xml
 @@ -40,6 +40,8 @@
@@ -10,8 +10,8 @@ index 3616bb79..bd08a931 100644
 +            <entry>/run/current-system/sw/lib/retroarch/cores</entry>
          </rule>
      </core>
-     <emulator name="ATARI800">
-@@ -554,4 +556,4 @@
+     <emulator name="ARES">
+@@ -791,4 +793,4 @@
              <entry>~/bin/yuzu*.AppImage</entry>
          </rule>
      </emulator>
