@@ -64,11 +64,11 @@ cNixos:
   repos:
     - source: mipmip/home-manager-option-search
 
-cOperations:
-  base_dir: ~/cNixos
-  #  repos:
-  #    - source: snel-city-infra
-  #    - source: status_snel_city
+      #cOperations:
+      #  base_dir: ~/cOperations
+      #  #  repos:
+      #  #    - source: snel-city-infra
+      #  #    - source: status_snel_city
 
 cPassingTrain:
   base_dir: ~/cPassingTrain
@@ -83,7 +83,7 @@ cPimMarketingEco:
     - source: mipmip/pimterest.github.io
 
 cQuiqr:
-  base_dir: ~/cPimMarketingEco
+  base_dir: ~/cQuiqr
   repos:
     - source: quiqr/embgit
     - source: quiqr/model-partials
@@ -96,7 +96,7 @@ cQuiqr:
     - source: quiqr/mipmip/intergram
 
 cQuiqrKillerberg:
-  base_dir: ~/cPimMarketingEco
+  base_dir: ~/cQuiqrKillerberg
   repos:
     #- source: mipmip/killerberg-awsaccount-104144963194-main
     #- source: mipmip/poppygo-awsaccount-162604489705
