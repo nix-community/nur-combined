@@ -451,10 +451,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.3.2";
+      version = "3.3.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4085532/control_panel_for_twitter-3.3.2.xpi";
-      sha256 = "c5016901662bc17732b0409f44d1fe4d898cb3455ff8bd88b7f491f2a328b1ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4093202/control_panel_for_twitter-3.3.3.xpi";
+      sha256 = "9fb7c0e15db55564c1951397bd2e787c59396f38ea2b7ffb9d3ce16d1f28030c";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -644,10 +644,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.3.15.1";
+      version = "2023.3.28.1";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4084040/duckduckgo_for_firefox-2023.3.15.1.xpi";
-      sha256 = "8379cf2b5a2062cbeb4d4b9b7f37424c8737f56e64bc44de848eb315c9bd3eae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090115/duckduckgo_for_firefox-2023.3.28.1.xpi";
+      sha256 = "ea43172afcf4e4c7c9b78a8e35e70c874fcad64f94f51bd58db18e74309c53b8";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1626,10 +1626,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.26.2";
+      version = "10.27.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086717/ether_metamask-10.26.2.xpi";
-      sha256 = "39d1ad60687ad512bbc4da3685c913647780e64b1339f135edf681b955bfc2d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090626/ether_metamask-10.27.0.xpi";
+      sha256 = "9d1fb78615e6fc036aa2edade6441c091b5541ce85182c991a7677d45deaac61";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1833,10 +1833,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.20";
+      version = "11.4.21";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086528/noscript-11.4.20.xpi";
-      sha256 = "014aec3ce142222338372d227eaadfa2ae13c9e3861f6d43869615b932ce4b53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4090970/noscript-11.4.21.xpi";
+      sha256 = "0fd3b66a2780d03a5b3cd460216105f3df2b27c6d3a552c1769c5de48c9e2338";
       meta = with lib;
       {
         homepage = "https://noscript.net";
