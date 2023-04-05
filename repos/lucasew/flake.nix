@@ -172,6 +172,7 @@
       name = "nixcfg-shell";
       buildInputs = with pkgs; [
         ctl
+        pyinfra
         ansible
         bumpkin.packages.${system}.default
         (writeShellScriptBin "bumpkin-bump" ''
