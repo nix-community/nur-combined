@@ -7,19 +7,17 @@
 , alsa-lib
 , ffmpeg
 , llvmPackages_latest
-, libclang
-, libllvm
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "RustPlayer";
-  version = "772774ac03be3b45c2bc60e0d32eea1ff68c2dd9";
+  version = "2022-12-29";
 
   src = fetchFromGitHub {
-    rev = "${version}";
+    rev = "a369bc19ab4a8c568c73be25c5e6117e1ee5d848";
     owner = "Kingtous";
     repo = pname;
-    sha256 = "sha256-iaXaT5O6zDVBdCKeNQ+p/Gk6gXbTOus9com70HRfJXU=";
+    sha256 = "sha256-x82EdA7ezCzux1C85IcI2ZQ3M95sH6/k97Rv6lqc5eo=";
   };
   LIBCLANG_PATH = "${llvmPackages_latest.libclang.lib}/lib";
   cargoSha256 = "sha256-MruPP/sk3JaGfrk95DhouyM698xJWSOLXPrJGKM7m58=";

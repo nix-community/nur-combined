@@ -18,7 +18,7 @@ let
     [
       "sing-box"
       "Graphite-cursors"
-      "rustplayer"
+      # "rustplayer"
       "naiveproxy"
       "techmino"
       "oppo-sans"
