@@ -12,15 +12,15 @@ in
 
     dconf.settings = {
       "org/gnome/desktop/input-sources" = {
-        mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
+        #mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
         per-window = false;
         sources = [ (mkTuple [ "xkb" "us" ]) ];
         xkb-options = [
+          #"altwin:swap_alt_win"
           "grp:alt_shift_toggle"
           "lv3:ralt_switch"
           "compose:ralt"
-          "caps:none"
-          "altwin:swap_alt_win"];
+          "caps:none"];
       };
     };
   }
