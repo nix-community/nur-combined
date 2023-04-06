@@ -1,7 +1,7 @@
-{ callPackage, fetchFromGitHub, wxGTK30, gcc8Stdenv }:
+{ callPackage, fetchFromGitHub, wxGTK, gcc8Stdenv }:
 let
   # Fix mismatch between the program and library build versions
-  wxGTK30_gcc8 = (wxGTK30.override { stdenv = gcc8Stdenv; compat26 = false; }).overrideAttrs (old: {
+  wxGTK30_gcc8 = (wxGTK.override { stdenv = gcc8Stdenv; compat26 = false; }).overrideAttrs (old: {
     version = "3.0.5";
     src = fetchFromGitHub {
       owner = "wxWidgets";

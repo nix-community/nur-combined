@@ -213,7 +213,9 @@ lib.makeScope newScope (
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     pysheds = callPackage ./geospatial/pysheds { };
     pystac = callPackage ./geospatial/pystac { };
-    render_geojson = callPackage ./geospatial/render_geojson { };
+    render_geojson = callPackage ./geospatial/render_geojson {
+      wxGTK = pkgs.wxGTK32;
+    };
     rio-cogeo = callPackage ./geospatial/rio-cogeo { };
     rio-color = callPackage ./geospatial/rio-color { };
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };

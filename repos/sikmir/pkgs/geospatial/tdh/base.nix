@@ -67,5 +67,6 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ sikmir ];
     platforms = [ "x86_64-linux" ];
     skip.ci = true;
+    broken = true; # wxGTK30 has been removed from nixpkgs as it has reached end of life
   };
 }
