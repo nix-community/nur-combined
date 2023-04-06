@@ -10,14 +10,14 @@
 
 buildPythonPackage rec {
   pname = "lesscpy";
-  version = "0.13.0";
+  version = "0.15.0";
   propagatedBuildInputs = [ six ply ];
   checkInputs = [ nose flake8 glibcLocales ];
   src = fetchFromGitHub {
     owner = "lesscpy";
     repo = "lesscpy";
     rev = version;
-    sha256 = "1jf5bp4ncvw2gahhkvjy5b0366y9x3ki9r9c5n6hkvifjk3jhmb2";
+    sha256 = "sha256-Uy3BVz1kuFlcBQnpR0i66l+XrlCYKxr/1pKl0pa7L+Y=";
   };
   LC_ALL = "en_US.utf8";
   meta = with lib; {
