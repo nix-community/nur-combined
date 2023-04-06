@@ -7,7 +7,7 @@ path.append(str(Path(__file__).parent.resolve()))
 
 from pyinfra.facts.server import Hostname
 
-from lib import is_ssh, is_local, is_nixos, noop
+from lib import is_ssh, is_local, is_nixos
 
 hostname = host.get_fact(Hostname)
 
@@ -18,12 +18,10 @@ assert is_local() or is_ssh(), "nix-copy-closure requires ssh"
 
 symlink_path = f"/tmp/nixos-{hostname}"
 
-noop(name=f"Building NixOS configuration for hostname {hostname}")
-local.shell(f"nix build -L -v  -o {symlink_path} .#nixosConfigurations.{hostname}.config.system.build.toplevel")
+local.shell(f"nix build -L -v  -o {symlink_path} .#nixosConfigurations.{hostname}.config.system.build.toplevel", print_output=True)
 
 if is_ssh():
-    noop(name=f"Copying NixOS configuration closure for hostname {hostname}")
-    local.shell(f"nix-copy-closure --to {host.name} {symlink_path}/")
+    local.shell(f"nix-copy-closure --to {host.name} {symlink_path}/", print_output=True)
 
 config_path = Path(symlink_path).resolve()
 
