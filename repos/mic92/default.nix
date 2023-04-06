@@ -23,8 +23,6 @@ rec {
 
   goatcounter = pkgs.callPackage ./pkgs/goatcounter { };
 
-  grimshot = pkgs.callPackage ./pkgs/grimshot { };
-
   hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
 
   irc-announce = pkgs.callPackage ./pkgs/irc-announce { };
