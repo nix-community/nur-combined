@@ -16,6 +16,8 @@ rec {
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
+  edge-gpt = pkgs.callPackage ./pkgs/edge-gpt { };
+
   fira-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "FiraCode" ];
   };
@@ -40,10 +42,6 @@ rec {
 
   mastodon-hnbot = pkgs.python39Packages.callPackage ./pkgs/mastodon-hnbot {};
 
-  mypyls = pkgs.python39.pkgs.callPackage ./pkgs/mypyls { };
-
-  mosh-ssh-agent = pkgs.callPackage ./pkgs/mosh-ssh-agent { };
-
   nixpkgs-review-unstable = pkgs.callPackage ./pkgs/nixpkgs-review { };
   # compatibility
   nix-review-unstable = nixpkgs-review-unstable;
@@ -65,8 +63,6 @@ rec {
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
   );
-
-  pyps4-2ndscreen = pkgs.python39.pkgs.toPythonApplication python3Packages.pyps4-2ndscreen;
 
   rspamd-learn-spam-ham = pkgs.python39.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
 
