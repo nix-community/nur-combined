@@ -1,25 +1,32 @@
 { lib
-, fetchurl
-, stdenv
+, buildGoModule
+, fetchFromGitHub
+,
 }:
 
-stdenv.mkDerivation rec {
+buildGoModule rec {
   pname = "bilibili_live_tui";
-  version = "20230111";
+  version = "1cc1cee";
 
-  src = fetchurl {
-    url = "https://github.com/yaocccc/bilibili_live_tui/releases/download/v${version}/bili_tui_tui";
-    sha256 = "sha256-9SMm0wWd4JXdz8tTzuMkZVzcwkYO9T2keIk6+jL7OFo=";
+  src = fetchFromGitHub {
+    owner = "yaocccc";
+    repo = pname;
+    rev = "${version}";
+    sha256 = "sha256-RN2CBSY6TRrOOI7lovuSsV6WirZs2IK+/ZmC6W1/Rcc=";
   };
 
-  dontUnpack = true;
-  installPhase = ''
-    install -m755 -D $src $out/bin/bili_tui_tui
-  '';
+  vendorSha256 = "sha256-eoLVLAzbw9BxbSgHWxmaxVmlV6RhIscwSAJrv2OpU+k=";
+  subPackages = [ "." ];
+
+  ldflags = [
+    "-w"
+    "-s"
+  ];
+
   meta = with lib; {
     description = "终端下使用的bilibili弹幕获取和弹幕发送服务";
     homepage = "https://github.com/yaocccc/bilibili_live_tui";
-    mainProgram = "bili_tui_tui";
+    mainProgram = "bili";
     platforms = platforms.linux;
   };
 }
