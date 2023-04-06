@@ -858,10 +858,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.60";
+      version = "6.1.61";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077652/flagfox-6.1.60.xpi";
-      sha256 = "388b52b4c0ecc3831cc203ab0a27f20b914f0b24bc47e131d52484c5ce7899fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4091245/flagfox-6.1.61.xpi";
+      sha256 = "e2e243e82b971b02e20ede3ce1c514f9955a4392b11c0c70cb4d4cf2750e48e6";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -1638,10 +1638,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.3.0";
+      version = "4.3.1";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4087498/modheader_firefox-4.3.0.xpi";
-      sha256 = "7b8079149fe3e50ff137488e692d9588239f0d7004b80776060d7d9df3999040";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4091798/modheader_firefox-4.3.1.xpi";
+      sha256 = "0f1ce2e974b49f65607ed1377eb9d9febd11cf3d57c61aa2bd21845d5d246901";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -1940,10 +1940,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.8.1";
+      version = "2.9.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4082096/1password_x_password_manager-2.8.1.xpi";
-      sha256 = "f412a1a71ac9a6a3d9bc97e3a961b2548206d08029273c36d9654cfed1cdad6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4091893/1password_x_password_manager-2.9.0.xpi";
+      sha256 = "f26bf329836d2947d98e62b33ddd0d52ded8dd13f2bb56e89e887babd587f212";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2390,10 +2390,10 @@
       };
     "save-page-we" = buildFirefoxXpiAddon {
       pname = "save-page-we";
-      version = "28.10";
+      version = "28.11";
       addonId = "savepage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4083400/save_page_we-28.10.xpi";
-      sha256 = "aa5896c08783fef9efec2648de1bc1ed57798e4f3ce2633a6d9cc6b510c54f23";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4091842/save_page_we-28.11.xpi";
+      sha256 = "26f9504711fa44014f8cb57053d0900153b446e62308ccf1f3d989c287771cfd";
       meta = with lib;
       {
         description = "Save a complete web page (as currently displayed) as a single HTML file that can be opened in any browser. Save a single page, multiple selected pages or a list of page URLs. Automate saving from command line.";
@@ -3022,10 +3022,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.48.2";
+      version = "1.48.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090059/ublock_origin-1.48.2.xpi";
-      sha256 = "3b0bff2192e5f86be6411daa9199bfdbeb87d6ce6aff66f33a8501c97f1df1af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4092158/ublock_origin-1.48.4.xpi";
+      sha256 = "d7666b963c2969b0014937aae55472eea5098ff21ed3bea8a2e1f595f62856c1";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
