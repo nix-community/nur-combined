@@ -1,30 +1,31 @@
 from pyinfra import host, local, state
 from pyinfra.operations import server
 
-from pyinfra.facts.server import Hostname, LinuxName
+from sys import path
 from pathlib import Path
+path.append(str(Path(__file__).parent.resolve()))
 
-distro = host.get_fact(LinuxName)
+from pyinfra.facts.server import Hostname
+from pathlib import Path
+from lib import is_ssh, is_local, is_nixos, noop
 
-if distro != "NixOS":
+if not is_nixos():
     exit(0)
 
-is_local = False
-if host.executor.__name__ == "pyinfra.connectors.local":
-    is_local = True
-assert is_local or host.executor.__name__ == "pyinfra.connectors.ssh", "nix-copy-closure requires ssh"
+assert is_local() or is_ssh(), "nix-copy-closure requires ssh"
 
 symlink_path = "/tmp/hm-main"
 
+noop(name=f"Building Home Manager configuration")
 local.shell(f"nix build -L -v  -o {symlink_path} .#homeConfigurations.main.activationPackage")
 
-if not is_local:
+if is_ssh():
+    noop(name=f"Copying closure of Home Manager configuration")
     local.shell(f"nix-copy-closure --to {host.name} {symlink_path}/")
 
 config_path = Path(symlink_path).resolve()
 
 server.shell(
-    _sudo=True,
     name="Switching home configuration",
     commands = [
         f"{str(config_path)}/bin/home-manager-generation"
