@@ -8,8 +8,6 @@ rec {
 
   gatt = callPackage ./gatt.nix { };
 
-  ldap0 = callPackage ./ldap0.nix { };
-
   lesscpy = callPackage ./lesscpy.nix { };
 
   pry = callPackage ./pry.nix { };
@@ -17,8 +15,4 @@ rec {
   priority = callPackage ./priority.nix { };
 
   remote-pdb = callPackage ./remote-pdb.nix { };
-
-  web2ldap = callPackage ./web2ldap {
-    inherit ldap0;
-  };
 }
