@@ -102,6 +102,11 @@ tcTechnative:
   repos:
     - source: TechNative-B-V/technative-awsaccount-617813585939-management
     - source: TechNative-B-V/technative-awsaccount-521402697040-useraccount
+    - source: TechNative-B-V/technative-awsaccount-393573040164-webdns
+    - source: TechNative-B-V/technative-awsaccount-668886465434-account-manager
+    - source: TechNative-B-V/technative-awsaccount-076504012268-student-007-pim
+
+    - source: TechNative-B-V/terraform-aws-module-static-website-cognito-auth
 
 adevinta:
   base_dir: ~/tcAdevinta
