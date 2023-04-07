@@ -7,11 +7,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4iRwDZ6Mnsfsa8P1QrpDPNmSWl01ZnbGKpvR8si+j4o=",
+            "sha256": "sha256-aPqa3dXcRT1TOnSnY5UEmdRZOxKXyaBcPqW9GswEyd0=",
             "type": "url",
-            "url": "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20211114/cabal-docspec-0.0.0.20211114.xz"
+            "url": "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20230406/cabal-docspec-0.0.0.20230406-x86_64-linux.xz"
         },
-        "version": "0.0.0.20211114"
+        "version": "0.0.0.20230406"
     },
     "cabal-docspec-man": {
         "cargoLocks": null,
@@ -21,11 +21,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CYpAMfDsImBFHkuz/OmBlK7u0jfpidA0HJwbkJg7dZI=",
+            "sha256": "sha256-kD28dqKCmvXz98rRPRks/yfyJQMhABDpcoQ4O7Pw70I=",
             "type": "url",
-            "url": "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20211114/cabal-docspec/cabal-docspec.1"
+            "url": "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20230406/cabal-docspec/cabal-docspec.1"
         },
-        "version": "0.0.0.20211114"
+        "version": "0.0.0.20230406"
     },
     "hellsmack": {
         "cargoLocks": null,

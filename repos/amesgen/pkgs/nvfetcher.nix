@@ -1,4 +1,4 @@
-lib:
+{ lib, stdenv, ... }:
 
 let
   flatten = lib.mapAttrs (_: p: lib.listToAttrs (lib.flatten (lib.mapAttrsToList
@@ -15,7 +15,7 @@ let
   cabal-docspec = github {
     slug = "phadej/cabal-extras";
     useTag = true;
-    restUrl = "cabal-docspec-$ver/cabal-docspec-$ver.xz";
+    restUrl = "cabal-docspec-$ver/cabal-docspec-$ver-${stdenv.hostPlatform.system}.xz";
     src.prefix = "cabal-docspec-";
   };
 in

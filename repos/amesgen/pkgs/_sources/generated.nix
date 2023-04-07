@@ -3,18 +3,18 @@
 {
   cabal-docspec = {
     pname = "cabal-docspec";
-    version = "0.0.0.20211114";
+    version = "0.0.0.20230406";
     src = fetchurl {
-      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20211114/cabal-docspec-0.0.0.20211114.xz";
-      sha256 = "sha256-4iRwDZ6Mnsfsa8P1QrpDPNmSWl01ZnbGKpvR8si+j4o=";
+      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20230406/cabal-docspec-0.0.0.20230406-x86_64-linux.xz";
+      sha256 = "sha256-aPqa3dXcRT1TOnSnY5UEmdRZOxKXyaBcPqW9GswEyd0=";
     };
   };
   cabal-docspec-man = {
     pname = "cabal-docspec-man";
-    version = "0.0.0.20211114";
+    version = "0.0.0.20230406";
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20211114/cabal-docspec/cabal-docspec.1";
-      sha256 = "sha256-CYpAMfDsImBFHkuz/OmBlK7u0jfpidA0HJwbkJg7dZI=";
+      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20230406/cabal-docspec/cabal-docspec.1";
+      sha256 = "sha256-kD28dqKCmvXz98rRPRks/yfyJQMhABDpcoQ4O7Pw70I=";
     };
   };
   hellsmack = {

@@ -16,7 +16,8 @@
           pkgs.linkFarmFromDrvs "amesgen-nur-packages" (lib.attrValues packages);
         devShells.default =
           let
-            nvfetcherCfg = (pkgs.formats.toml { }).generate "nvfetcher.toml" (import ./pkgs/nvfetcher.nix lib);
+            nvfetcherCfg = (pkgs.formats.toml { }).generate "nvfetcher.toml"
+              (import ./pkgs/nvfetcher.nix pkgs);
             nvfetcher = pkgs.writeShellScriptBin "nvfetcher" ''
               ${pkgs.nvfetcher}/bin/nvfetcher \
                 -o pkgs/_sources \
