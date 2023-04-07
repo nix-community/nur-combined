@@ -45,13 +45,13 @@
         sha512 = "w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==";
       };
     };
-    "emmet-2.4.1" = {
+    "emmet-2.4.2" = {
       name = "emmet";
       packageName = "emmet";
-      version = "2.4.1";
+      version = "2.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.1.tgz";
-        sha512 = "8rZn/3b0WRT21UeGjQ+bzUqg3up6xBKqRjeWRZA1mrzHokNf4brqPx88XQ53+s9lK2p/pWI2VlTIu1S59OwDtA==";
+        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.2.tgz";
+        sha512 = "YgmsMkhUgzhJMgH5noGudfxqrQn1bapvF0y7C1e7A0jWFImsRrrvVslzyZz0919NED/cjFOpVWx7c973V+2S/w==";
       };
     };
     "typescript-4.9.5" = {
@@ -141,7 +141,7 @@ in {
       sources."@emmetio/css-abbreviation-2.1.6"
       sources."@emmetio/scanner-1.0.2"
       sources."@types/node-17.0.45"
-      sources."emmet-2.4.1"
+      sources."emmet-2.4.2"
       sources."typescript-4.9.5"
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"
