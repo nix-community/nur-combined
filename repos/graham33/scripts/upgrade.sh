@@ -69,8 +69,12 @@ upgrade_github_release() {
         ref=$3
         latest_release_tag=$(latest_github_release $org $repo)
         latest_version=$(version_from_tag $latest_release_tag)
-        new_minor_version=$(semver bump minor $latest_version)
-        pre_release_version=$(semver bump prerel pre $new_minor_version)
+        if echo $latest_version | egrep '-beta'; then
+            reference_version=$latest_version
+        else
+            reference_version=$(semver bump minor $latest_version)
+        fi
+        pre_release_version=$(semver bump prerel pre $reference_version)
         rev=$(git_prefetch https://github.com/$org/$repo $ref rev)
         version=$(semver bump build ${rev:0:6} $pre_release_version)
     else
