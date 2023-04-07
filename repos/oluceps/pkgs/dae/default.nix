@@ -10,12 +10,12 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = pname;
-    rev = "cc50bea0fce75bae8b393fad54884300bf9e9c56";
-    sha256 = "sha256-9cHJ9Usn0c5GBj1H6v0Dg1SdpvadvVh0Pd67maog/fM=";
+    rev = "127a000058a0b572f059df650b7d9beba95c615e";
+    sha256 = "sha256-P8WhoiUxyfzYyFOjz6+dlXz4d+u2T8UNMm9kTLc7euo=";
     fetchSubmodules = true;
   };
 
-  vendorHash = "sha256-jrtJz+DKZarf/dlXaaVKtdTYzXFfwSyFkTvjxAzeMpg=";
+  vendorHash = "sha256-xL2X07CUj/37OIyb30l892yHuRiq3YXopfUS99x68do=";
 
   proxyVendor = true;
 
