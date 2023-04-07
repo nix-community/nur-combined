@@ -5,23 +5,18 @@ home:
     - source: mipmip/secondbrain
     - source: mipmip/nixos
 
-test:
-  base_dir: /tmp/
-  repos:
-    - source: mipmip/awesomewm-screenshots
-
-cAwesomeWm:
+awesomewm:
   base_dir: ~/cAwesomeWm
   repos:
     - source: mipmip/awesomewm-screenshots
 
-cDreamMachine:
+dreammachine:
   base_dir: ~/cDreamMachine
   repos:
     - source: mipmip/teledream
     - source: techNative-B-V/slackdreams
 
-cForks:
+forks:
   base_dir: ~/cForks
   repos:
     - source: mipmip/hugoDocs
@@ -34,12 +29,12 @@ cForks:
     - source: mipmip/smug
     - source: mipmip/nixos-homepage
 
-cGitHub:
+github:
   base_dir: ~/cGithub
   repos:
     - source: mipmip/mipmip
 
-cGnome:
+gnome:
   base_dir: ~/cGnome
   repos:
     - source: mipmip/gnome-hotkeys.cr
@@ -50,7 +45,7 @@ cGnome:
 
     - target: mipmip/hotkeys
 
-cLinden:
+linden:
   base_dir: ~/cLinden
   repos:
     - source: linden-project/docker-frontmatter-md-to-pdf
@@ -59,7 +54,7 @@ cLinden:
     - source: linden-project/linny.vim
       alert: this is cloned in ".vim/plugged/linny.vim"
 
-cNixos:
+nixos:
   base_dir: ~/cNixos
   repos:
     - source: mipmip/home-manager-option-search
@@ -70,7 +65,7 @@ cNixos:
       #  #    - source: snel-city-infra
       #  #    - source: status_snel_city
 
-cPassingTrain:
+passingtrain:
   base_dir: ~/cPassingTrain
   repos:
     - source: passing-train/trajno
@@ -82,7 +77,7 @@ cPimMarketingEco:
     - source: mipmip/pimterest-data
     - source: mipmip/pimterest.github.io
 
-cQuiqr:
+quiqr:
   base_dir: ~/cQuiqr
   repos:
     - source: quiqr/embgit
@@ -107,6 +102,11 @@ tcTechnative:
   repos:
     - source: TechNative-B-V/technative-awsaccount-617813585939-management
     - source: TechNative-B-V/technative-awsaccount-521402697040-useraccount
+
+adevinta:
+  base_dir: ~/tcAdevinta
+  repos:
+    - source: git@github.mpi-internal.com:platform-it/automobile-docs.git
 
       #cSvg-stencils:
   #awesome-isometric

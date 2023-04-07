@@ -25,6 +25,7 @@
     #unstable.cloud-nuke
     #unstable.aws-nuke
     awscli2
+    ssm-session-manager-plugin
     aws-vault
 
 
