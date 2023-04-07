@@ -2,13 +2,13 @@
 
 crystal.buildCrystalPackage rec {
   pname = "skull";
-  version = "v0.1.3";
+  version = "v0.2.0";
 
   src = fetchFromGitHub {
     owner = "mipmip";
     repo = "skull";
-    rev = "v0.1.3";
-    sha256 = "sha256-OAtMwvDzUtvH9YDoxJxRbtV5H1c+NfBkWvQC6d4nwVs=";
+    rev = "v0.2.0";
+    sha256 = "sha256-duvb4a+bREIYLU12H4NjyVTuXC8ZBIEPCBHcNOjk8n4=";
   };
 
   shardsFile = ./shards.nix;
