@@ -388,6 +388,9 @@
         "lunik1": {
             "url": "https://github.com/lunik1/nur-packages"
         },
+        "lykos153": {
+            "url": "https://github.com/Lykos153/nur-packages"
+        },
         "m15a": {
             "submodules": true,
             "url": "https://github.com/m15a/nur-packages"
