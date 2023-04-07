@@ -458,7 +458,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
-        description = "Removes algorithmic content from Twitter, hides news &amp; trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements";
+        description = "Gives you more control over Twitter and adds missing features and UI improvements";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230403.163424";
+      version = "112.0.20230406.114409";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4093015/francais_language_pack-112.0.20230403.163424.xpi";
-      sha256 = "12ee64b299f3d653a8d19394dd95d4f33836e0ac69fb03f2f8848d913bba327b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4094185/francais_language_pack-112.0.20230406.114409.xpi";
+      sha256 = "b7ba492db2dfa896a1c25ce1b5600ecbfe1f5bfcdcec0bfae2ada214522cad01";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
