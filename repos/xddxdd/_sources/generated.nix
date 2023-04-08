@@ -72,6 +72,14 @@
       sha256 = "sha256-8vK7yjiuY6X0mnAUnq+SwFESC30XZo4ykkm3y2Gt0o0=";
     });
   };
+  bepasty = {
+    pname = "bepasty";
+    version = "1.1.0";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/b/bepasty/bepasty-1.1.0.tar.gz";
+      sha256 = "sha256-f5tRq48tCqjzOGq7Z2T2U1zwQN121N9ap+xPxHWZyvU=";
+    };
+  };
   bilibili = {
     pname = "bilibili";
     version = "1.9.2-1";
@@ -798,6 +806,22 @@
     src = fetchurl {
       url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe";
       sha256 = "sha256-9zAHsy3zzp5x+RSL70vgf/EDkPQyxpORdeF79F3AhsY=";
+    };
+  };
+  xstatic-asciinema-player = {
+    pname = "xstatic-asciinema-player";
+    version = "2.6.1.1";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/X/XStatic-asciinema-player/XStatic-asciinema-player-2.6.1.1.tar.gz";
+      sha256 = "sha256-yA6WC067St82Dm6StaCKdWrRBhmNemswetIO8iodfcw=";
+    };
+  };
+  xstatic-font-awesome = {
+    pname = "xstatic-font-awesome";
+    version = "6.2.1.1";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/X/XStatic-Font-Awesome/XStatic-Font-Awesome-6.2.1.1.tar.gz";
+      sha256 = "sha256-8HWHEJYShjjy4VOQINgid1TD2IXdaOfubemgEjUHaCg=";
     };
   };
   zstd-nginx-module = {

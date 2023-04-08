@@ -86,6 +86,7 @@ in
     # Other packages
     asterisk-g72x = pkg ./uncategorized/asterisk-g72x {};
     baidupcs-go = pkg ./uncategorized/baidupcs-go {};
+    bepasty = pkg ./uncategorized/bepasty {};
     bilibili = pkg ./uncategorized/bilibili {};
     bird-babel-rtt = pkg ./uncategorized/bird-babel-rtt {};
     bird-lg-go = pkg ./uncategorized/bird-lg-go {};
@@ -165,4 +166,7 @@ in
     #   };
     # })
     wine-wechat = lib.makeOverridable pkg ./uncategorized/wine-wechat {};
+
+    xstatic-asciinema-player = pkg ./uncategorized/xstatic-asciinema-player {};
+    xstatic-font-awesome = pkg ./uncategorized/xstatic-font-awesome {};
   })

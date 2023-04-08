@@ -22,6 +22,10 @@ fetch.github = "traud/asterisk-gsm-efr"
 src.github = "qjfoidnh/BaiduPCS-Go"
 fetch.github = "qjfoidnh/BaiduPCS-Go"
 
+[bepasty]
+src.pypi = "bepasty"
+fetch.pypi = "bepasty"
+
 [bilibili]
 src.github_tag = "msojocs/bilibili-linux"
 src.from_pattern = "v(.*)"
@@ -321,6 +325,14 @@ fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/
 src.manual = "3.7.6"
 fetch.url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe"
 fetch.force = true
+
+[xstatic-asciinema-player]
+src.pypi = "XStatic-asciinema-player"
+fetch.pypi = "XStatic-asciinema-player"
+
+[xstatic-font-awesome]
+src.pypi = "XStatic-Font-Awesome"
+fetch.pypi = "XStatic-Font-Awesome"
 
 [zstd-nginx-module]
 src.git = "https://github.com/tokers/zstd-nginx-module.git"
