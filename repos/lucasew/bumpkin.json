@@ -11,6 +11,7 @@
     "climod": {"_type": "basicgithub", "owner": "nixosbrasil", "repo": "climod"},
     "cloud-savegame": {"_type": "basicgithub", "owner": "lucasew", "repo": "cloud-savegame"},
     "dotenv": {"_type": "basicgithub", "owner": "lucasew", "repo": "dotenv"},
+    "devenv": {"_type": "basicgithub", "owner": "cachix", "repo": "devenv"},
     "flake-utils": {"_type": "basicgithub", "owner": "numtide", "repo": "flake-utils"},
     "flake-compat": {"_type": "basicgithub", "owner": "edolstra", "repo": "flake-compat"},
     "impermanence": {"_type": "basicgithub", "owner": "nix-community", "repo": "impermanence"},

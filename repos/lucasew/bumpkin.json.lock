@@ -311,5 +311,13 @@
         "final_url": "https://codeload.github.com/lucasew/cf-torrent/tar.gz/6a053541528119b4eb89050f1f6f16fd32cfbc3f",
         "file_type": "tar.gz",
         "_bpk_last_update": 1680228848
+    },
+    "devenv": {
+        "default_branch": "heads/main",
+        "github_commit": "e639583e5974e1d0f58ac110356f7f182d6f6004",
+        "sha256": "2035700258023206a10f378ed2a47f54afa01e381ac7d0d4dfa695287e203bdb",
+        "final_url": "https://codeload.github.com/cachix/devenv/tar.gz/e639583e5974e1d0f58ac110356f7f182d6f6004",
+        "file_type": "tar.gz",
+        "_bpk_last_update": 1680914280
     }
 }

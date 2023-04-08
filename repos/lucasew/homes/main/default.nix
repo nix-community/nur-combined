@@ -1,5 +1,5 @@
 { global, pkgs, config, lib, self, ... }:
-let 
+let
   inherit (global) username email rootPath;
   inherit (builtins) fetchurl;
   inherit (self) inputs outputs;
@@ -33,6 +33,7 @@ in {
     (custom.emacs.override { inherit colors; })
     custom.firefox
     custom.vscode.programming
+    devenv
     dotenv
     discord
     feh
