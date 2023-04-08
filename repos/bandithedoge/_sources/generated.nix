@@ -43,15 +43,15 @@
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
-    version = "f739d8c3a5f7428b172f388f7a6d4525d7fc0b4d";
+    version = "25ea08edd1fb3c11799fc7da138ad016876ad12c";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dmenu-flexipatch";
-      rev = "f739d8c3a5f7428b172f388f7a6d4525d7fc0b4d";
+      rev = "25ea08edd1fb3c11799fc7da138ad016876ad12c";
       fetchSubmodules = false;
-      sha256 = "sha256-dpMLLA9x6z55oGKuDBTcjZSo8iMWt7zAVK0PnNQ2LyY=";
+      sha256 = "sha256-EcytzISJQsowcvn0r5gShFBeUs+VRueKHH9zgOlhd9M=";
     };
-    date = "2023-04-03";
+    date = "2023-04-07";
   };
   dpf-plugins = {
     pname = "dpf-plugins";
@@ -212,15 +212,15 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "a8e2af0d923e7b6f7b19e8fa516bcd0670dfae84";
+    version = "1343b29ee5e8a9d67607a4616f74386a2951e276";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "a8e2af0d923e7b6f7b19e8fa516bcd0670dfae84";
+      rev = "1343b29ee5e8a9d67607a4616f74386a2951e276";
       fetchSubmodules = false;
-      sha256 = "sha256-cYaHI19ctmfPSNr4UgT7p1GSEVMKZUlHJ4Gn33A0KR8=";
+      sha256 = "sha256-cZcoBkgcG+MXVSmjupdmhEQv7j54rANbmMso6XnatEw=";
     };
-    date = "2023-01-09";
+    date = "2023-04-07";
   };
   taffybar = {
     pname = "taffybar";
