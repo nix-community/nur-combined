@@ -106,8 +106,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ilya-fedin";
     repo = "kotatogram-desktop";
-    rev = "c65747f89fea808524b1c93973d45860876e1a12";
-    sha256 = "sha256-u8cweHnSClulykAoeJkOooKlLnBgqKEHY8Nu3apq6HE=";
+    rev = "7e5535e1ecbb18d76b44c27e79981b75b417fef2";
+    sha256 = "sha256-Tt7sYHsPbc798LEdbiXUBGVmZ1cy4K9UrJDA+EY8qw8=";
     fetchSubmodules = true;
   };
 
