@@ -103,7 +103,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "unstable-2023-04-08";
+  version = "unstable-2023-04-09";
 
   src = fetchFromGitHub {
     owner = "ilya-fedin";
@@ -136,6 +136,9 @@ stdenv.mkDerivation rec {
       --replace '--output AppIcon.icns' 'AppIcon.icns' \
       --replace "\''${appicon_path}" "\''${appicon_path}/icon_16x16.png \''${appicon_path}/icon_32x32.png \''${appicon_path}/icon_128x128.png \''${appicon_path}/icon_256x256.png \''${appicon_path}/icon_512x512.png"
   '';
+
+  # Wrapping the inside of the app bundles, avoiding double-wrapping
+  dontWrapQtApps = stdenv.isDarwin;
 
   nativeBuildInputs = [
     pkg-config
@@ -214,18 +217,22 @@ stdenv.mkDerivation rec {
     "-DTDESKTOP_API_TEST=ON"
   ];
 
-  env.NIX_CFLAGS_COMPILE= optionalString stdenv.isLinux "-DQ_WAYLAND_CLIENT_EXPORT=";
+  env.NIX_CFLAGS_COMPILE = optionalString stdenv.isLinux "-DQ_WAYLAND_CLIENT_EXPORT=";
 
   installPhase = optionalString stdenv.isDarwin ''
-    mkdir -p $out/{Applications,bin}
-    cp -r Kotatogram.app $out/Applications
-    ln -s $out/{Applications/Kotatogram.app/Contents/MacOS,bin}/${mainProgram}
+    mkdir -p $out/Applications
+    cp -r ${mainProgram}.app $out/Applications
+    ln -s $out/{Applications/${mainProgram}.app/Contents/MacOS,bin}
   '';
 
   preFixup = ''
     remove-references-to -t ${stdenv.cc.cc} $out/bin/${mainProgram}
     remove-references-to -t ${microsoft_gsl} $out/bin/${mainProgram}
     remove-references-to -t ${tg_owt.dev} $out/bin/${mainProgram}
+  '';
+
+  postFixup = optionalString stdenv.isDarwin ''
+    wrapQtApp $out/Applications/${mainProgram}.app/Contents/MacOS/${mainProgram}
   '';
 
   passthru = {
