@@ -466,7 +466,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2023-04-06",
+        "date": "2023-04-08",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -476,11 +476,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d8b826a19c79f9c65d3e720b731538d838c7f383",
-            "sha256": "sha256-wiNMIZBs0HXQMKV6qi+pCM0xJu7BzBl43xvsKrh3do0=",
+            "rev": "9f1b6fbc7dc21c5c0c338d4e937cdbdd66352905",
+            "sha256": "sha256-LYNy9wWFxgktAuDbwZyQyf/OCxKUQobZ2vY5C6Bkppk=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "d8b826a19c79f9c65d3e720b731538d838c7f383"
+        "version": "9f1b6fbc7dc21c5c0c338d4e937cdbdd66352905"
     }
 }
