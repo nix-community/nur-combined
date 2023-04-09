@@ -2,13 +2,13 @@
 , rio-stac, rio-tiler, geojson-pydantic, rio-cogeo, starlette-cramjam, cogeo-mosaic }:
 let
   pname = "titiler";
-  version = "0.11.0";
+  version = "0.11.5";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     rev = version;
-    hash = "sha256-AdG2fZTvmgnTccLtHj4C3SzdqJ10icr3q3SNmRCtq0E=";
+    hash = "sha256-YRwwRvbzewLS8oBTySvPTiJyMbx2sy0e4HQTSU9Ju5k=";
   };
 
   meta = with lib; {
@@ -22,7 +22,9 @@ let
     inherit version src meta;
     pname = "${pname}.core";
     sourceRoot = "${src.name}/src/titiler/core";
+    format = "pyproject";
 
+    nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     propagatedBuildInputs = with python3Packages; [
       fastapi
       rio-tiler
@@ -36,7 +38,9 @@ let
     inherit version src meta;
     pname = "${pname}.extensions";
     sourceRoot = "${src.name}/src/titiler/extensions";
+    format = "pyproject";
 
+    nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     propagatedBuildInputs = with python3Packages; [
       rio-cogeo
       rio-stac
@@ -50,7 +54,9 @@ let
     inherit version src meta;
     pname = "${pname}.mosaic";
     sourceRoot = "${src.name}/src/titiler/mosaic";
+    format = "pyproject";
 
+    nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     propagatedBuildInputs = with python3Packages; [
       cogeo-mosaic
       titiler-core
@@ -61,7 +67,9 @@ in
 python3Packages.buildPythonPackage {
   inherit pname version src meta;
   sourceRoot = "${src.name}/src/titiler/application";
+  format = "pyproject";
 
+  nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
   propagatedBuildInputs = with python3Packages; [
     python-dotenv
     rio-cogeo
