@@ -98,6 +98,8 @@ let
     url = "https://github.com/TelegramMessenger/tgcalls/commit/82c4921045c440b727c38e464f3a0539708423ff.patch";
     sha256 = "sha256-FIPelc6QQsQi9JYHaxjt87lE0foCYd7BNPrirUDp6VM=";
   };
+
+  mainProgram = if stdenv.isLinux then "kotatogram-desktop" else "Kotatogram";
 in
 stdenv.mkDerivation rec {
   pname = "kotatogram-desktop";
@@ -215,16 +217,15 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE= optionalString stdenv.isLinux "-DQ_WAYLAND_CLIENT_EXPORT=";
 
   installPhase = optionalString stdenv.isDarwin ''
-    mkdir -p $out/Applications
+    mkdir -p $out/{Applications,bin}
     cp -r Kotatogram.app $out/Applications
-    ln -s $out/Applications/Kotatogram.app/Contents/MacOS $out/bin
+    ln -s $out/{Applications/Kotatogram.app/Contents/MacOS,bin}/${mainProgram}
   '';
 
   preFixup = ''
-    binName=${if stdenv.isLinux then "kotatogram-desktop" else "Kotatogram"}
-    remove-references-to -t ${stdenv.cc.cc} $out/bin/$binName
-    remove-references-to -t ${microsoft_gsl} $out/bin/$binName
-    remove-references-to -t ${tg_owt.dev} $out/bin/$binName
+    remove-references-to -t ${stdenv.cc.cc} $out/bin/${mainProgram}
+    remove-references-to -t ${microsoft_gsl} $out/bin/${mainProgram}
+    remove-references-to -t ${tg_owt.dev} $out/bin/${mainProgram}
   '';
 
   passthru = {
@@ -232,6 +233,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
+    inherit mainProgram;
     description = "Kotatogram – experimental Telegram Desktop fork";
     longDescription = ''
       Unofficial desktop client for the Telegram messenger, based on Telegram Desktop.
