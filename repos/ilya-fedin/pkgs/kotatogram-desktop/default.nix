@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , callPackage
 , pkg-config
 , cmake
@@ -13,7 +14,8 @@
 , qtbase
 , qtimageformats
 , qtsvg
-, kwayland
+, qtwayland
+, qt5compat
 , lz4
 , xxHash
 , ffmpeg_4
@@ -81,26 +83,43 @@ let
     inherit Cocoa AppKit IOKit IOSurface Foundation AVFoundation CoreMedia VideoToolbox
       CoreGraphics CoreVideo OpenGL Metal MetalKit CoreFoundation ApplicationServices;
   };
+
+  codegenPatch = fetchpatch {
+    url = "https://github.com/desktop-app/codegen/commit/762500d143448189ee5c06239b52268ca1b6b74a.patch";
+    sha256 = "sha256-Al2/Pfy9wYAtaCycsrlt5FjaFMkgTJhFKOQ/8puAJl8=";
+  };
+
+  libUiPatch = fetchpatch {
+    url = "https://github.com/desktop-app/lib_ui/commit/e91cfd55c243cfd2fa0d04f58616ee4f0a0ccb11.patch";
+    sha256 = "sha256-2ieOpC4RXFId1qibCeClJOP4NWdvPrq0v/fRil6/7jc=";
+  };
+
+  tgcallsPatch = fetchpatch {
+    url = "https://github.com/TelegramMessenger/tgcalls/commit/82c4921045c440b727c38e464f3a0539708423ff.patch";
+    sha256 = "sha256-FIPelc6QQsQi9JYHaxjt87lE0foCYd7BNPrirUDp6VM=";
+  };
 in
 stdenv.mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "1.4.9";
+  version = "unstable-2023-04-08";
 
   src = fetchFromGitHub {
-    owner = "kotatogram";
+    owner = "ilya-fedin";
     repo = "kotatogram-desktop";
-    rev = "k${version}";
-    sha256 = "sha256-6bF/6fr8mJyyVg53qUykysL7chuewtJB8E22kVyxjHw=";
+    rev = "c65747f89fea808524b1c93973d45860876e1a12";
+    sha256 = "sha256-u8cweHnSClulykAoeJkOooKlLnBgqKEHY8Nu3apq6HE=";
     fetchSubmodules = true;
   };
 
   patches = [
-    ./kf594.patch
     ./shortcuts-binary-path.patch
-    ./0001-Add-an-option-to-hide-messages-from-blocked-users-in.patch
   ];
 
-  postPatch = optionalString stdenv.isLinux ''
+  postPatch = ''
+    patch -p1 -d Telegram/codegen < ${codegenPatch}
+    patch -p1 -d Telegram/lib_ui < ${libUiPatch}
+    patch -p1 -d Telegram/ThirdParty/tgcalls < ${tgcallsPatch}
+  '' + optionalString stdenv.isLinux ''
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioInputALSA.cpp \
       --replace '"libasound.so.2"' '"${alsa-lib}/lib/libasound.so.2"'
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioOutputALSA.cpp \
@@ -133,6 +152,7 @@ stdenv.mkDerivation rec {
     qtbase
     qtimageformats
     qtsvg
+    qt5compat
     lz4
     xxHash
     ffmpeg_4
@@ -145,7 +165,7 @@ stdenv.mkDerivation rec {
     tg_owt
     microsoft_gsl
   ] ++ optionals stdenv.isLinux [
-    kwayland
+    qtwayland
     alsa-lib
     libpulseaudio
     hunspell
@@ -190,8 +210,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DTDESKTOP_API_TEST=ON"
-    "-DDESKTOP_APP_QT6=OFF"
   ];
+
+  env.NIX_CFLAGS_COMPILE= optionalString stdenv.isLinux "-DQ_WAYLAND_CLIENT_EXPORT=";
 
   installPhase = optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

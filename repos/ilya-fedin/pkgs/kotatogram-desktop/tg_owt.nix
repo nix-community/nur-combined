@@ -46,13 +46,13 @@
 
 stdenv.mkDerivation {
   pname = "tg_owt";
-  version = "unstable-2022-04-13";
+  version = "unstable-2022-05-04";
 
   src = fetchFromGitHub {
     owner = "desktop-app";
     repo = "tg_owt";
-    rev = "63a934db1ed212ebf8aaaa20f0010dd7b0d7b396";
-    sha256 = "sha256-WddSsQ9KW1zYyYckzdUOvfFZArYAbyvXmABQNMtK6cM=";
+    rev = "442d5bb593c0ae314960308d78f2016ad1f80c3e";
+    sha256 = "sha256-/TuDp0lFkP5yO9cz3ak4BR3wNUPTWxezJ+CtbZcjMS0=";
     fetchSubmodules = true;
   };
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation {
   ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
-    substituteInPlace src/modules/desktop_capture/linux/egl_dmabuf.cc \
+    substituteInPlace src/modules/desktop_capture/linux/wayland/egl_dmabuf.cc \
       --replace '"libEGL.so.1"' '"${libGL}/lib/libEGL.so.1"' \
       --replace '"libGL.so.1"' '"${libGL}/lib/libGL.so.1"' \
       --replace '"libgbm.so.1"' '"${mesa}/lib/libgbm.so.1"' \
