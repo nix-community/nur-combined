@@ -418,24 +418,6 @@ let
       doCheck = !hostPlatform.isDarwin;
     });
 
-    mpd-mpris-idle = { mpd-mpris, buildGoModule, fetchFromGitHub, lib }: buildGoModule {
-      pname = "${mpd-mpris.pname}-idle";
-      inherit (mpd-mpris) version doCheck subPackages postInstall;
-
-      src = fetchFromGitHub {
-        # https://github.com/natsukagami/mpd-mpris/pull/34
-        owner = "natsukagami";
-        repo = "mpd-mpris";
-        rev = "caf71edb55c5f426b1a80570b364e67089e358e3";
-        sha256 = "sha256-RlrsavDkN3PfNqD4jcgAtjpO0PCWY0+TtPzcyLJg8kY=";
-      };
-      vendorSha256 = "sha256-HCDJrp9WFB1z+FnYpOI5e/AojtdnpN2ZNtgGVaH/v/Q=";
-
-      meta = mpd-mpris.meta or { } // {
-        mainProgram = "mpd-mpris";
-      };
-    };
-
     mpd-youtube-dl = { lib, mpd, fetchpatch, makeWrapper, youtube-dl }: mpd.overrideAttrs (old: let
       patchVersion =
         if lib.versionOlder old.version "0.22" then "0.21.25"
