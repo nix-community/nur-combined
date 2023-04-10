@@ -31,10 +31,10 @@ in {
     script = "blueberry-tray; while true; do sleep 3600; done";
   };
 
-  services.picom = {
-    enable = true;
-    vSync = true;
-  };
+  # services.picom = {
+  #   enable = true;
+  #   vSync = true;
+  # };
   environment.systemPackages = with pkgs; [
     xfce.xfce4-screenshooter
     xfce.ristretto
