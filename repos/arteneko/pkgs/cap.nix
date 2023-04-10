@@ -1,16 +1,16 @@
 { lib, buildGoModule, fetchFromSourcehut }:
 buildGoModule rec {
   pname = "cap";
-  version = "0.3.5";
+  version = "0.4.0";
 
   src = fetchFromSourcehut {
     owner = "~artemis";
     repo = "cap";
-    rev = "v${version}";
-    hash = "sha256-8OCHcIljyo50Tx3hBP21ELXtcmzrAH8MR7XLTo0GwNo=";
+    rev = "v0.4.0";
+    hash = "sha256-yrfUQDA5A5j3WNhvnvGuPZCCS5lcTdpo+QxAxQntz7s=";
   };
 
-  vendorHash = "sha256-ZCRydD/X+yxXZIofeq/yxREKnvuqkQznRkkELpTOcF0=";
+  vendorHash = "sha256-ciEfRHL08Fo8gPs/jQUDcrLd6DvqFjFrEtoekVRpXPU=";
 
   ldflags = [
     "-X main.BuildVersion=${version}"
