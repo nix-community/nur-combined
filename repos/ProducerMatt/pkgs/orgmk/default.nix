@@ -12,12 +12,12 @@ in stdenv.mkDerivation {
 
   buildInputs = [
     (emacsWithPackages (epkgs: (with epkgs.melpaPackages; [
-      #org-plus-contrib
+      ox-blackfriday
       htmlize
       ox-gfm
     ])))
   ];
-  patches = [ ./make.patch ];
+  patches = [ ./make.patch ./params.patch ];
   preBuild = ''
     emacs --batch -f package-initialize
     mkdir -p $out/bin
