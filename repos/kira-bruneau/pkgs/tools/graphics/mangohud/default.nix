@@ -17,7 +17,7 @@
 , appstream
 , glslang
 , makeWrapper
-, Mako
+, mako
 , meson
 , ninja
 , pkg-config
@@ -143,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
     appstream
     glslang
     makeWrapper
-    Mako
+    mako
     meson
     ninja
     pkg-config

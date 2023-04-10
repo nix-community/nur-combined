@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "zeldamods";
     repo = "${pname}-v2";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-j2iixPkZJNXG+2Kag84yMXZeYSX8C4w065BeR8zgqSY=";
+    hash = "sha256-j2iixPkZJNXG+2Kag84yMXZeYSX8C4w065BeR8zgqSY=";
   };
 
   patches = [

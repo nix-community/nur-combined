@@ -17,7 +17,7 @@ buildPythonPackage rec {
     owner = "NiceneNerd";
     repo = "botw-utils";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-cHsDmhJVLd6p2Ijd3cUOJjcLSjsQkz67AsOB2rL4kHs=";
+    hash = "sha256-cHsDmhJVLd6p2Ijd3cUOJjcLSjsQkz67AsOB2rL4kHs=";
   };
 
   propagatedBuildInputs = [

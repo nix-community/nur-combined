@@ -18,7 +18,7 @@ buildPythonPackage rec {
     repo = "oead";
     rev = "refs/tags/v${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-MQyE1fAZ1IMC1yIVcMgtha3vxgYVz4fLItL7MLCT5tw=";
+    hash = "sha256-MQyE1fAZ1IMC1yIVcMgtha3vxgYVz4fLItL7MLCT5tw=";
   };
 
   patches = [

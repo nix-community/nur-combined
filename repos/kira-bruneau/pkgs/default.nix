@@ -77,9 +77,9 @@ in
     mangohud32 = pkgsi686Linux.callPackage ./tools/graphics/mangohud {
       libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
       inherit mangohud32;
-      inherit (prev.python3Packages) Mako;
+      inherit (prev.python3Packages) mako;
     };
-    inherit (prev.python3Packages) Mako;
+    inherit (prev.python3Packages) mako;
   };
 
   mozlz4 = callPackage ./tools/compression/mozlz4 { };
@@ -97,8 +97,6 @@ in
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     inherit bash steam-run winetricks yad;
   };
-
-  python2Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python2Packages // python2Packages) prev.python2Packages);
 
   python3Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages);
 

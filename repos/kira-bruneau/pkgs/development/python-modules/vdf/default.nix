@@ -13,7 +13,7 @@ buildPythonPackage rec {
     owner = "ValvePython";
     repo = "vdf";
     rev = "refs/tags/v${version}";
-    sha256 = "sha256-6ozglzZZNKDtADkHwxX2Zsnkh6BE8WbcRcC9HkTTgPU=";
+    hash = "sha256-6ozglzZZNKDtADkHwxX2Zsnkh6BE8WbcRcC9HkTTgPU=";
   };
 
   nativeCheckInputs = [ mock pytestCheckHook ];

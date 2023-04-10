@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ccache";
-  version = "4.7.4";
+  version = "4.8";
 
   src = fetchFromGitHub {
     owner = "ccache";
     repo = "ccache";
     rev = "refs/tags/v${finalAttrs.version}";
-    sha256 = "sha256-mt5udwSdzGaspfpAdUavQ55dBeJdhbZjcQpd9xNOQms=";
+    sha256 = "sha256-X7Pv+yEQaKPdWTiKq67kSAyimyKvLSCYr4EjLlw+J0U=";
   };
 
   outputs = [ "out" "man" ];
@@ -118,6 +118,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Compiler cache for fast recompilation of C/C++ code";
     homepage = "https://ccache.dev";
     downloadPage = "https://ccache.dev/download.html";
+    changelog = "https://ccache.dev/releasenotes.html#_ccache_${
+      builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+    }";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau r-burns ];
     platforms = platforms.unix;
