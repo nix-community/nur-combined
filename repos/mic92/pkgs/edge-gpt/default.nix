@@ -9,12 +9,19 @@ python3.pkgs.buildPythonApplication rec {
   version = "0.1.22.1";
   format = "setuptools";
 
+  # https://github.com/acheong08/EdgeGPT/pull/286
   src = fetchFromGitHub {
-    owner = "acheong08";
+    owner = "Mic92";
     repo = "EdgeGPT";
-    rev = version;
-    hash = "sha256-LKYYqtzLqV6YubpnHv628taO4FkG5eUomCg71JyxWg8=";
+    rev = "3672e45946d58accf65ee0b393ca3c682909cf08";
+    hash = "sha256-IFd5HgDErNbpY0d+GxnQgT2dMjLDCQoyFil35kxzDQQ=";
   };
+  #src = fetchFromGitHub {
+  #  owner = "acheong08";
+  #  repo = "EdgeGPT";
+  #  rev = version;
+  #  hash = "sha256-LKYYqtzLqV6YubpnHv628taO4FkG5eUomCg71JyxWg8=";
+  #};
 
   propagatedBuildInputs = with python3.pkgs; [
     requests
@@ -26,24 +33,6 @@ python3.pkgs.buildPythonApplication rec {
     prompt-toolkit
     (callPackage ./bing-image-creator { })
   ];
-
-  postInstall = ''
-    mkdir -p $out/bin
-
-    cat > $out/bin/edge-gpt <<EOF
-    #!${runtimeShell}
-    export PYTHONPATH=$out/${python3.sitePackages}:$PYTHONPATH
-    exec ${python3.interpreter} -m EdgeGPT "\$@"
-    EOF
-
-    cat > $out/bin/edge-image-gen <<EOF
-    #!${runtimeShell}
-    export PYTHONPATH=$out/${python3.sitePackages}:$PYTHONPATH
-    exec ${python3.interpreter} -m ImageGen "\$@"
-    EOF
-
-    chmod +x $out/bin/{edge-gpt,edge-image-gen}
-  '';
 
   pythonImportsCheck = [
     "EdgeGPT"
