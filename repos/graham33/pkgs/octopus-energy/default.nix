@@ -5,14 +5,14 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "octopus-energy";
-  version = "6.6.0";
+  version = "6.6.1";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "BottlecapDave";
     repo = "HomeAssistant-OctopusEnergy";
     rev = "v${version}";
-    sha256 = "sha256-Ga7KrtgE+Rj8/FA9V2O25Z35pUlvEd8pjr8SuavgO/g=";
+    sha256 = "sha256-lBU6uytL8prO/fQG5BCjcQSBJw4qmesDq0vhx6lOvaU=";
   };
 
   propagatedBuildInputs = [
