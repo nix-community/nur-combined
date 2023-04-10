@@ -66,15 +66,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "816487f4bb5773e4ba3d2644b20528c1f637b321";
+    version = "5fefbfee64fc0fa1ebe49f92979157ffa2c7c1ae";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "816487f4bb5773e4ba3d2644b20528c1f637b321";
+      rev = "5fefbfee64fc0fa1ebe49f92979157ffa2c7c1ae";
       fetchSubmodules = false;
-      sha256 = "sha256-InbdiozGGUh1AboYafI6HDNRIvquE8+WwOohgMg25Oo=";
+      sha256 = "sha256-DLalFR7yC/O6icV3jLu37n6agIkl5/W+ESPvfRkrLgE=";
     };
-    date = "2023-03-26";
+    date = "2023-04-09";
   };
   fennel-language-server = {
     pname = "fennel-language-server";
@@ -283,15 +283,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "9f1b6fbc7dc21c5c0c338d4e937cdbdd66352905";
+    version = "b2880210738faa0fec2add5ec9c1367222d3ce81";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "9f1b6fbc7dc21c5c0c338d4e937cdbdd66352905";
+      rev = "b2880210738faa0fec2add5ec9c1367222d3ce81";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-LYNy9wWFxgktAuDbwZyQyf/OCxKUQobZ2vY5C6Bkppk=";
+      sha256 = "sha256-CZ4WDe234NKfvD8o6/GU/1dCCYQ6S7QC6toykjSqNRY=";
     };
-    date = "2023-04-08";
+    date = "2023-04-09";
   };
 }

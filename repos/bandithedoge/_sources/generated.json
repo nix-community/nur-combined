@@ -101,7 +101,7 @@
     },
     "dwm-flexipatch": {
         "cargoLocks": null,
-        "date": "2023-03-26",
+        "date": "2023-04-09",
         "extract": null,
         "name": "dwm-flexipatch",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "bakkeby",
             "repo": "dwm-flexipatch",
-            "rev": "816487f4bb5773e4ba3d2644b20528c1f637b321",
-            "sha256": "sha256-InbdiozGGUh1AboYafI6HDNRIvquE8+WwOohgMg25Oo=",
+            "rev": "5fefbfee64fc0fa1ebe49f92979157ffa2c7c1ae",
+            "sha256": "sha256-DLalFR7yC/O6icV3jLu37n6agIkl5/W+ESPvfRkrLgE=",
             "type": "github"
         },
-        "version": "816487f4bb5773e4ba3d2644b20528c1f637b321"
+        "version": "5fefbfee64fc0fa1ebe49f92979157ffa2c7c1ae"
     },
     "fennel-language-server": {
         "cargoLocks": {
@@ -466,7 +466,7 @@
     },
     "zrythm": {
         "cargoLocks": null,
-        "date": "2023-04-08",
+        "date": "2023-04-09",
         "extract": null,
         "name": "zrythm",
         "passthru": null,
@@ -476,11 +476,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9f1b6fbc7dc21c5c0c338d4e937cdbdd66352905",
-            "sha256": "sha256-LYNy9wWFxgktAuDbwZyQyf/OCxKUQobZ2vY5C6Bkppk=",
+            "rev": "b2880210738faa0fec2add5ec9c1367222d3ce81",
+            "sha256": "sha256-CZ4WDe234NKfvD8o6/GU/1dCCYQ6S7QC6toykjSqNRY=",
             "type": "git",
             "url": "https://git.sr.ht/~alextee/zrythm"
         },
-        "version": "9f1b6fbc7dc21c5c0c338d4e937cdbdd66352905"
+        "version": "b2880210738faa0fec2add5ec9c1367222d3ce81"
     }
 }
