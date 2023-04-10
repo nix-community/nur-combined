@@ -25,17 +25,14 @@
     [${section}]
   '' + concatStringsSep "\n" (mapAttrsToList (name: config: "${name} = ${iniValue false config}") config)
   ) cfg.config;
-  arc = import ../../canon.nix { inherit pkgs; };
 in {
   options.programs.syncplay = {
     enable = mkEnableOption "syncplay";
     package = mkOption {
       type = types.package;
-      default = let
-        syncplay-cli = pkgs.syncplay-cli or arc.packages.syncplay-cli;
-      in if cfg.gui then pkgs.syncplay else syncplay-cli;
+      default = if cfg.gui then pkgs.syncplay else pkgs.syncplay-nogui;
       defaultText = "pkgs.syncplay";
-      example = "pkgs.syncplay-cli";
+      example = "pkgs.syncplay-nogui";
     };
     args = mkOption {
       type = types.listOf types.str;

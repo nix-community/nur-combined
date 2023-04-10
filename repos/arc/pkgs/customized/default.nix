@@ -408,10 +408,6 @@ let
       };
     });
 
-    syncplay-cli = { syncplay }: syncplay.override {
-      enableGUI = false;
-    };
-
     jimtcl-minimal = { lib, hostPlatform, tcl, jimtcl, readline }: (jimtcl.override { SDL = null; SDL_gfx = null; sqlite = null; }).overrideAttrs (old: {
       pname = "jimtcl-minimal";
       NIX_CFLAGS_COMPILE = "";
