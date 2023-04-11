@@ -54,16 +54,10 @@ linden:
     - source: linden-project/linny.vim
       alert: this is cloned in ".vim/plugged/linny.vim"
 
-nixos:
+nixdev:
   base_dir: ~/cNixos
   repos:
     - source: mipmip/home-manager-option-search
-
-      #cOperations:
-      #  base_dir: ~/cOperations
-      #  #  repos:
-      #  #    - source: snel-city-infra
-      #  #    - source: status_snel_city
 
 passingtrain:
   base_dir: ~/cPassingTrain
@@ -93,11 +87,11 @@ quiqr:
 cQuiqrKillerberg:
   base_dir: ~/cQuiqrKillerberg
   repos:
+    - source: :snel-city/wasnel-awsaccount-104144963194-main
     #- source: mipmip/killerberg-awsaccount-104144963194-main
     #- source: mipmip/poppygo-awsaccount-162604489705
-    - source: :snel-city/wasnel-awsaccount-104144963194-main
 
-tcTechnative:
+technative:
   base_dir: ~/tcTechnative
   repos:
     - source: TechNative-B-V/technative-awsaccount-617813585939-management
@@ -113,51 +107,61 @@ adevinta:
   repos:
     - source: git@github.mpi-internal.com:platform-it/automobile-docs.git
 
-      #cSvg-stencils:
-  #awesome-isometric
-  #documentation
-  #gnome-mockup-resources
-  #Inkscape-Mockup-Toolkit
-  #inkscape-svg_stencil_export
-  #it-svg-stencils
-  #material-design-icons-svg-stencils
-  #material-design-ui-kit
-  #mui-5-community
-  #mui-material-design-non-official
-  #objects-to-new-layer
-  #omnichart-svg-stencil
-  #README.md
-  #simple-flowchart-stencil
-  #social-media-icons-svg-stencil
-  #svg-stencils.github.io
-  #tims-material-kit
-  #touch-gestures-svg-stencil
-  #TRASH
-  #world-stencils
+tracklib:
+  base_dir: ~/tcTracklib
+  repos:
+    - source: tracklib-technative/notes
 
-      #cTekenschoolOnline:
-  #school
-  #stappendam-in-html
+#cSvg-stencils:
+#awesome-isometric
+#documentation
+#gnome-mockup-resources
+#Inkscape-Mockup-Toolkit
+#inkscape-svg_stencil_export
+#it-svg-stencils
+#material-design-icons-svg-stencils
+#material-design-ui-kit
+#mui-5-community
+#mui-material-design-non-official
+#objects-to-new-layer
+#omnichart-svg-stencil
+#README.md
+#simple-flowchart-stencil
+#social-media-icons-svg-stencil
+#svg-stencils.github.io
+#tims-material-kit
+#touch-gestures-svg-stencil
+#TRASH
+#world-stencils
 
-      #cTextUtils:
-  #carl
-  #cli-hacking
-  #mip.cr
-  #mip.rs
-  #vim-open-mip
-  #vim-show-in-filemanager
+#cTekenschoolOnline:
+#school
+#stappendam-in-html
 
-      #cUtils:
-  #g.it-depends
-  #github-admin
-  #liszt.snel.city-frontend
-  #minimake.sh
-  #RUNME.sh
+#cTextUtils:
+#carl
+#cli-hacking
+#mip.cr
+#mip.rs
+#vim-open-mip
+#vim-show-in-filemanager
 
-      #cWaardenburg:
-  #cBuwa-maarten
-  #terraform-awsaccount-255418484322-main
-  #toolbox-research
-  #waardenburg-toolbox
+#cUtils:
+#g.it-depends
+#github-admin
+#liszt.snel.city-frontend
+#minimake.sh
+#RUNME.sh
 
+#cWaardenburg:
+#cBuwa-maarten
+#terraform-awsaccount-255418484322-main
+#toolbox-research
+#waardenburg-toolbox
+
+#cOperations:
+#  base_dir: ~/cOperations
+#  #  repos:
+#  #    - source: snel-city-infra
+#  #    - source: status_snel_city
 
