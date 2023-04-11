@@ -5,7 +5,7 @@ gtest_dep = dependency(
 )
 
 dummy_test = executable(
-  'testprog',
+  'dummy_test',
   'dummy_test.cc',
   dependencies : gtest_dep,
 )
