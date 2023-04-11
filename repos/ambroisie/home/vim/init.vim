@@ -81,6 +81,9 @@ set mouse=
 " Set dark mode by default
 set background=dark
 
+" Better diff views through matching of common lines
+set diffopt+=linematch:50
+
 " 24 bit colors
 set termguicolors
 " Use my preferred colorscheme
