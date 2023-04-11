@@ -253,11 +253,11 @@
             "name": null,
             "owner": "tickstep",
             "repo": "cloudpan189-go",
-            "rev": "v0.1.2",
-            "sha256": "sha256-NzMEXeTVDamHOewjflUKhYuFjugGjjrFpKye63o7Q7g=",
+            "rev": "v0.1.3",
+            "sha256": "sha256-CJCTfzcLw5e41RZXhgbJhZVOP4FDDYM74Oo9my/liZk=",
             "type": "github"
         },
-        "version": "v0.1.2"
+        "version": "v0.1.3"
     },
     "coredns-lantian": {
         "cargoLocks": null,
@@ -383,11 +383,11 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.1.1",
-            "sha256": "sha256-6NWHhib2isDIgqz7MytGO/94HsMskZgyGXmhziS5ea8=",
+            "rev": "v3.1.2",
+            "sha256": "sha256-36ILIyMTzm9pK9aakfZHfsHWy9xHtFez8QGZuIJ04vM=",
             "type": "github"
         },
-        "version": "v3.1.1"
+        "version": "v3.1.2"
     },
     "flasgger": {
         "cargoLocks": null,
@@ -500,7 +500,7 @@
     },
     "grasscutter-resources": {
         "cargoLocks": null,
-        "date": "2023-03-22",
+        "date": "2023-04-03",
         "extract": null,
         "name": "grasscutter-resources",
         "passthru": null,
@@ -510,12 +510,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b0803562cc0864fae2a621fc76c26f859284075d",
-            "sha256": "sha256-1o/AFWEtIY9T0HLCTzl0+PH2eIg3YxsHVPNg7n51ln0=",
+            "rev": "59ba7cd1a77ab14caf496baa7f45cad1ffeac3fe",
+            "sha256": "sha256-boQBQ/VCtzBOYCHFCpeebsr/FrznRC4eVbT6LldMAYQ=",
             "type": "git",
             "url": "https://gitlab.com/YuukiPS/GC-Resources.git"
         },
-        "version": "b0803562cc0864fae2a621fc76c26f859284075d"
+        "version": "59ba7cd1a77ab14caf496baa7f45cad1ffeac3fe"
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
@@ -536,6 +536,41 @@
             "type": "github"
         },
         "version": "ff4420614a1a3b61a6d9d28a30465bdacdc2ba5e"
+    },
+    "kata-containers": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "kata-containers",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kata-containers",
+            "repo": "kata-containers",
+            "rev": "3.1.0",
+            "sha256": "sha256-HHQDKbI5RpT4GITgLIsZWVNwZbaAikZjn63pqb316Zs=",
+            "type": "github"
+        },
+        "version": "3.1.0"
+    },
+    "kata-image": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "kata-image",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-RSzIUOAhU5wUNZ0BaroY3boSj1mqmrY3c4KW2bXNeKA=",
+            "type": "url",
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.1.0/kata-static-3.1.0-x86_64.tar.xz"
+        },
+        "version": "3.1.0"
     },
     "konnect": {
         "cargoLocks": null,
@@ -599,7 +634,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2023-03-09",
+        "date": "2023-04-06",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -611,11 +646,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "d61d81c526da8bb62e363f5a75191689572151cb",
-            "sha256": "sha256-h9/jQD8rh03oIUwzx1vWRvc4DkqSq1T8RdxEMxeaJfY=",
+            "rev": "b1d42d61f63aa61ce007ada7939e326e0d6e896c",
+            "sha256": "sha256-gN2NzZSLtGbdfDd5CNTlRqgrsSxKFeDsf9wSl44ZXWo=",
             "type": "github"
         },
-        "version": "d61d81c526da8bb62e363f5a75191689572151cb"
+        "version": "b1d42d61f63aa61ce007ada7939e326e0d6e896c"
     },
     "linux-xanmod": {
         "cargoLocks": null,
@@ -631,11 +666,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.2.9-xanmod1",
-            "sha256": "sha256-Nwd3C5YSfEO4/2fOzkQmNAqettvt6bM2Gz0k8a9O/DI=",
+            "rev": "6.2.10-xanmod1",
+            "sha256": "sha256-zy6mKpoOu9YmGI6a8ZWjV761m+AGlTaWEzpL1QloCk8=",
             "type": "github"
         },
-        "version": "6.2.9-xanmod1"
+        "version": "6.2.10-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -671,11 +706,11 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.1.22-xanmod1",
-            "sha256": "sha256-eom3vlcbTTnVk+zcKja82mKmSmO8v0uqxccdA1VRj6s=",
+            "rev": "6.1.23-xanmod1",
+            "sha256": "sha256-yKbePeImBpDLXfexvGJdghSBr3j/oFKXeMuBAOtDqJ8=",
             "type": "github"
         },
-        "version": "6.1.22-xanmod1"
+        "version": "6.1.23-xanmod1"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -706,11 +741,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-t4puL/raKkrFKvWScVHs7O+GoglrD92V+9Y1KEFrzBs=",
+            "sha256": "sha256-L671KLUQjRdMun8XBOb6cS6rOgax+yqsZ9Z7nowaJNs=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.67/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.68/netboot.xyz.efi"
         },
-        "version": "2.0.67"
+        "version": "2.0.68"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -721,11 +756,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9rIIFnVflvmZm4YhxCviAdq9jQpcwOG54FpxxreQaoc=",
+            "sha256": "sha256-81zDJyTeJa5CzeJ+sUPJpNd8Jzbo0DsjaZJLXe10CL4=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.67/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.68/netboot.xyz.lkrn"
         },
-        "version": "2.0.67"
+        "version": "2.0.68"
     },
     "netns-exec": {
         "cargoLocks": null,
@@ -929,7 +964,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2023-03-30",
+        "date": "2023-04-06",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -941,11 +976,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "1cc0166cffa9a6854533927c830ce11e70841d1c",
-            "sha256": "sha256-icCOk+qE+zOhU2UmbExj/GieX9/kR0WSGzcazZ9f9K8=",
+            "rev": "1ab71711e1cb6f72149ff4ac3b5254867959b99e",
+            "sha256": "sha256-09LPMfnU8O2lBcXxiS0QdZvSKEvJfTvfjOXubHnwUVY=",
             "type": "github"
         },
-        "version": "1cc0166cffa9a6854533927c830ce11e70841d1c"
+        "version": "1ab71711e1cb6f72149ff4ac3b5254867959b99e"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1016,11 +1051,11 @@
             "name": null,
             "owner": "ReimuHakurei",
             "repo": "phppgadmin",
-            "rev": "v7.14.3-mod",
-            "sha256": "sha256-ccGuQ4qM0DDvhx6SnATI4KIYISqGu8+JhpD0unAW1DA=",
+            "rev": "v7.14.4-mod",
+            "sha256": "sha256-EfuoeEqzaUvACscAz/oDG2N6GJU6LUWIwH7O3hDYY5s=",
             "type": "github"
         },
-        "version": "v7.14.3-mod"
+        "version": "v7.14.4-mod"
     },
     "plangothic-fonts": {
         "cargoLocks": null,
@@ -1036,11 +1071,11 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic",
-            "rev": "V.0.8.5727",
-            "sha256": "sha256-H+7Bb3Lpmdm457hk1Zmori0YPiWOB24lVYJ59fR3kYI=",
+            "rev": "V0.8.5730",
+            "sha256": "sha256-1kB5Zego/qieQqFzO+4uOMe10D/d4SaOBsyJ4eUtuZM=",
             "type": "github"
         },
-        "version": "V.0.8.5727"
+        "version": "V0.8.5730"
     },
     "qbittorrent-enhanced-edition": {
         "cargoLocks": null,
@@ -1403,9 +1438,9 @@
             "name": null,
             "sha256": "sha256-9zAHsy3zzp5x+RSL70vgf/EDkPQyxpORdeF79F3AhsY=",
             "type": "url",
-            "url": "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe"
+            "url": "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe?v=3.9.2"
         },
-        "version": "3.7.6"
+        "version": "3.9.2"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,
@@ -1439,7 +1474,7 @@
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
-        "date": "2023-02-08",
+        "date": "2023-04-06",
         "extract": null,
         "name": "zstd-nginx-module",
         "passthru": null,
@@ -1451,10 +1486,10 @@
             "name": null,
             "owner": "tokers",
             "repo": "zstd-nginx-module",
-            "rev": "25d88c262be47462cf90015ee7ebf6317b6848f9",
-            "sha256": "sha256-YRluKekhx1tb6e5IL1FPK05jPtzfQPaHI47cdada928=",
+            "rev": "4582ef9abff99879761aca31d6d23173b9a3c2eb",
+            "sha256": "sha256-8SBU9hJnKtNrwbpioy+Z/mfiVuqAx+U1t64m5tfEy6o=",
             "type": "github"
         },
-        "version": "25d88c262be47462cf90015ee7ebf6317b6848f9"
+        "version": "4582ef9abff99879761aca31d6d23173b9a3c2eb"
     }
 }

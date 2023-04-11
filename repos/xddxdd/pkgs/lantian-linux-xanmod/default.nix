@@ -87,26 +87,31 @@
     }))
   ];
 
-  batches = (batch {
-    prefix = "";
-    definitionDir = ./latest;
-    inherit (sources.linux-xanmod) version src;
-  }) ++ (batch {
-    prefix = "latest";
-    definitionDir = ./latest;
-    inherit (sources.linux-xanmod) version src;
-  }) ++ (batch {
-    prefix = "lts";
-    definitionDir = ./v6_1;
-    inherit (sources.linux-xanmod-6_1) version src;
-  }) ++ (batch {
-    prefix = "v6_1";
-    definitionDir = ./v6_1;
-    inherit (sources.linux-xanmod-6_1) version src;
-  }) ++ (batch {
-    prefix = "v6_0";
-    definitionDir = ./v6_0;
-    inherit (sources.linux-xanmod-6_0) version src;
-  });
+  batches =
+    (batch {
+      prefix = "";
+      definitionDir = ./latest;
+      inherit (sources.linux-xanmod) version src;
+    })
+    ++ (batch {
+      prefix = "latest";
+      definitionDir = ./latest;
+      inherit (sources.linux-xanmod) version src;
+    })
+    ++ (batch {
+      prefix = "lts";
+      definitionDir = ./v6_1;
+      inherit (sources.linux-xanmod-6_1) version src;
+    })
+    ++ (batch {
+      prefix = "v6_1";
+      definitionDir = ./v6_1;
+      inherit (sources.linux-xanmod-6_1) version src;
+    })
+    ++ (batch {
+      prefix = "v6_0";
+      definitionDir = ./v6_0;
+      inherit (sources.linux-xanmod-6_0) version src;
+    });
 in
   builtins.listToAttrs batches

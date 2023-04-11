@@ -120,6 +120,8 @@ in
 
     hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs {};
     kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts {};
+    kata-image = pkg ./uncategorized/kata-image {};
+    kata-runtime = pkg ./uncategorized/kata-runtime {};
     konnect = pkg ./uncategorized/konnect {};
     ldap-auth-proxy = pkg ./uncategorized/ldap-auth-proxy {};
     libnftnl-fullcone = pkg ./uncategorized/libnftnl-fullcone {};
