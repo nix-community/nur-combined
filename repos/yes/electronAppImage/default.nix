@@ -4,18 +4,15 @@
 , electron
 , appimageTools
 , makeWrapper
+}:
 
-, pname, version, src, homepage, description, license
+{ pname, version, src, meta
 , _name ? null
 , resourcesParentDir ? ""
 , extraPkgs ? null
 }:
 
 let
-  meta = with lib; {
-    inherit homepage description license;
-    platforms = platforms.linux;
-  };
   appimageContents = appimageTools.extract {
     inherit name src;
   };
@@ -47,6 +44,10 @@ then stdenvNoCC.mkDerivation {
     makeWrapper ${electron}/bin/electron $out/bin/${pname} \
       --add-flags $out/share/${pname}/app.asar
   '';
+
+  passthru = {
+    inherit electron;
+  };
 }
 else appimageTools.wrapAppImage {
   inherit meta name extraPkgs;
