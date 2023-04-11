@@ -171,6 +171,11 @@
                 "sha256": "aab73b26a80f4871886a3667c09070dc2265c0a03275ad9302fea53099b8a193",
                 "final_url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/221188.patch",
                 "_bpk_last_update": 1679015267
+            },
+            "coq-deps": {
+                "sha256": "200b088a7cae25582a45182e4c6c13ae0c54b7e1403a786adb291c09268d596e",
+                "final_url": "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/223056.patch",
+                "_bpk_last_update": 1681219369
             }
         }
     },

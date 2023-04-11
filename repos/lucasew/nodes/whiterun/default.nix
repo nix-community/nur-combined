@@ -24,6 +24,12 @@ in {
     ./postgresql.nix
     ./nextcloud.nix
   ];
+
+  services.xserver.displayManager.autoLogin = {
+    enable = true;
+    user = "lucasew";
+  };
+
   services.flatpak.enable = true;
 
   networking.hostId = "97e3b5a7";
