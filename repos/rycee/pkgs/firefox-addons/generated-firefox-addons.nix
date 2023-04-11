@@ -451,10 +451,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.3.3";
+      version = "3.4.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4093202/control_panel_for_twitter-3.3.3.xpi";
-      sha256 = "9fb7c0e15db55564c1951397bd2e787c59396f38ea2b7ffb9d3ce16d1f28030c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4093960/control_panel_for_twitter-3.4.0.xpi";
+      sha256 = "87c3a17a86519a92bdea940a10a8e4b451e1211ebb72b86091c06d6e3f057dd2";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230406.114409";
+      version = "113.0.20230410.195555";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4094185/francais_language_pack-112.0.20230406.114409.xpi";
-      sha256 = "b7ba492db2dfa896a1c25ce1b5600ecbfe1f5bfcdcec0bfae2ada214522cad01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095327/francais_language_pack-113.0.20230410.195555.xpi";
+      sha256 = "686bb59ee944823879f7cb8d7f239e38f3bb48998a1247fef40fd2a349767afd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1002,10 +1002,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.9.12";
+      version = "8.9.14";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4084996/ghostery-8.9.12.xpi";
-      sha256 = "2a05158bfab8f7b760b14421245def1fd2c981bc1b5382f23161b0d2b4fa396a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4088491/ghostery-8.9.14.xpi";
+      sha256 = "13c7eca0efb73cf4d3071470aa7b2ef173ddf28ac13ca15f7e0d85f44e2f553c";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -2293,10 +2293,10 @@
       };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.22.15";
+      version = "5.22.17";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4047244/reddit_enhancement_suite-5.22.15.xpi";
-      sha256 = "12cc1b5ca2224780e73cb43a17603ad03e42866e9d143aa23f662d14f59a8428";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4092764/reddit_enhancement_suite-5.22.17.xpi";
+      sha256 = "f49827c7684076dbf6890741dbbc31e82c180f87cb3fd745216ba2432398b1d9";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -2349,10 +2349,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.3.31";
+      version = "23.4.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4091550/refined_github-23.3.31.xpi";
-      sha256 = "0127a798c97ff0b24dac61325912069d0b9a215143abada91db0497dd5a1ac70";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095054/refined_github-23.4.10.xpi";
+      sha256 = "97be7356c27ad0603eb001c4957f550b03441721aa2e29d08248154b7e977f26";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2473,10 +2473,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.39";
+      version = "1.21.40";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067736/single_file-1.21.39.xpi";
-      sha256 = "638c44e18ca6550ada646e77a11d0646eb548352ad33165cab59a09e7a2031ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4093783/single_file-1.21.40.xpi";
+      sha256 = "5c8dea4521e82dce41d04d82e5a5f95bd07ab09b344e1c10edbab6bbb5ad9d21";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
