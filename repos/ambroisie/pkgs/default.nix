@@ -26,8 +26,6 @@ pkgs.lib.makeScope pkgs.newScope (pkgs: {
 
   osc52 = pkgs.callPackage ./osc52 { };
 
-  pnpm-lock-export = pkgs.callPackage ./pnpm-lock-export { };
-
   unbound-zones-adblock = pkgs.callPackage ./unbound-zones-adblock { };
 
   unified-hosts-lists = pkgs.callPackage ./unified-hosts-lists { };

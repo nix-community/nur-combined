@@ -1,6 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nix wget prefetch-yarn-deps nix-prefetch-github jq nix-prefetch
-# FIXME: add pnpm-lock-export to shell
+#!nix-shell -i bash -p nix wget prefetch-yarn-deps nix-prefetch-github jq nix-prefetch pnpm-lock-export
 
 # shellcheck shell=bash
 
