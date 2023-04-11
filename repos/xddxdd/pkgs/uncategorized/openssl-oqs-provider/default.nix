@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
   cmakeFlags = ["-DCMAKE_BUILD_TYPE=Release"];
 
   preConfigure = ''
-    cp -r ${sources.qsc-key-rfc.src} qsc-key-rfc
-    chmod -R 755 qsc-key-rfc
+    cp -r ${sources.qsc-key-encoder.src} qsc-key-encoder
+    chmod -R 755 qsc-key-encoder
 
-    sed -i "s|GIT_REPOSITORY .*|SOURCE_DIR $(pwd)/qsc-key-rfc|g" oqsprov/CMakeLists.txt
+    sed -i "s|GIT_REPOSITORY .*|SOURCE_DIR $(pwd)/qsc-key-encoder|g" oqsprov/CMakeLists.txt
     sed -i "/GIT_TAG .*/d" oqsprov/CMakeLists.txt
   '';
 

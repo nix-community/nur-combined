@@ -8,7 +8,7 @@
 } @ args: let
   cmd = buildGoModule rec {
     inherit (sources.cloudpan189-go) pname version src;
-    vendorSha256 = "sha256-OHc8iy4HciC5ce0u9LoF7ifjQcGb85h6ZWGcJ3Jh+aE=";
+    vendorSha256 = "sha256-6t4wJqUGJneR6Hv7Dotr4P9MTA1oQcCe/ujDojS0g8s=";
 
     # Dirty way to fix dependency issue
     overrideModAttrs = _: {

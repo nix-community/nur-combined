@@ -120,6 +120,14 @@ fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
 fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
 
+[kata-containers]
+src.github = "kata-containers/kata-containers"
+fetch.github = "kata-containers/kata-containers"
+
+[kata-image]
+src.github = "kata-containers/kata-containers"
+fetch.url = "https://github.com/kata-containers/kata-containers/releases/download/$ver/kata-static-$ver-x86_64.tar.xz"
+
 [konnect]
 src.github_tag = "Kopano-dev/konnect"
 fetch.github = "Kopano-dev/konnect"
@@ -269,9 +277,9 @@ fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver_arm64.deb"
 src.aur = "qqmusic-bin"
 fetch.url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_$ver_amd64.deb"
 
-[qsc-key-rfc]
-src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-rfc.git"
-fetch.github = "Quantum-Safe-Collaboration/qsc-key-rfc"
+[qsc-key-encoder]
+src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
+fetch.github = "Quantum-Safe-Collaboration/qsc-key-encoder"
 
 [rime-aurora-pinyin]
 src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
@@ -322,9 +330,9 @@ src.to_pattern = "\\2"
 fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.weixin/com.tencent.weixin_$ver_amd64.deb"
 
 [wine-wechat]
-src.manual = "3.7.6"
-fetch.url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe"
-fetch.force = true
+src.webpage = "https://pc.weixin.qq.com"
+src.regex = "<span class=\"download-version\">([^\"]+)</span>"
+fetch.url = "https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe?v=$ver"
 
 [xstatic-asciinema-player]
 src.pypi = "XStatic-asciinema-player"
