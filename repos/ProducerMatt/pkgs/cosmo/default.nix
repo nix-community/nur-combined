@@ -35,6 +35,11 @@ let
             "tool/build/unveil.com"
           ];
         };
+        pkzip = {
+          coms = [
+            "third_party/zip/zip.com"
+          ];
+        };
       };
     make = "make";
     #make = "./build/bootstrap/make.com";
@@ -76,27 +81,25 @@ let
       ''
     + buildTargets + "; echo ${buildTargets}";
   installStuff =
-      (lib.concatStringsSep "\n"
-        (lib.flatten [
-          (map (name: "mkdir -p $${name}/bin")
-            (builtins.attrNames wantedOutputs))
-          (lib.mapAttrsToList (name: value:
-            (map (target:
-              ## strip APE header. Only used if building cross-platform
-              ## but only using on ELF (may solve execution issues)
-              #"o/${cosmoMeta.mode}/${target} --assimilate" + "\n" +
-              "echo ${target}; cp o/${cosmoMeta.mode}/${target} $${name}/bin/")
-              value.coms))
-            wantedOutputs)
-        ]));
-  symlinkStuff = lib.concatStrings [
-    "mkdir -p $out/bin \n"
-    (lib.concatMapStringsSep "\n"
-      (name: "echo ${name}; find $${name}/bin/ -type f -name '*.com' -print0 | xargs -0 -I\{\} ln -s \{\} $out/bin/")
-                    (builtins.attrNames wantedOutputs))
-  ];
+    (lib.concatStringsSep "\n"
+      (lib.flatten [
+        (map (name: "mkdir -p ${"$" + name}/bin")
+          (builtins.attrNames wantedOutputs))
+        (lib.mapAttrsToList (name: value:
+          (map (target:
+            ## strip APE header. Only used if building cross-platform
+            ## but only using on ELF (may solve execution issues)
+            #"o/${cosmoMeta.mode}/${target} --assimilate" + "\n" +
+            "echo ${target}; cp o/${cosmoMeta.mode}/${target} ${"$" + name}/bin/")
+            value.coms))
+          wantedOutputs)
+        "mkdir -p $out/bin \n"
+      ]));
+  symlinkStuff = lib.concatMapStringsSep "\n"
+    (name: "echo ${name}; ls -1N --zero ${"$" + name}/bin/ | xargs -0 -I'{}' realpath -smz '{}' | xargs -0 -I'{}' ln -s '{}' $out/bin/")
+    (builtins.attrNames wantedOutputs);
 in
-stdenv.mkDerivation (finalAttrs: { # used to symlinkJoin in $out
+stdenv.mkDerivation {
     pname = commonMeta.name;
     version = commonMeta.version;
     phases = [ "unpackPhase" "buildPhase" "installPhase" ];
@@ -131,7 +134,7 @@ stdenv.mkDerivation (finalAttrs: { # used to symlinkJoin in $out
       maintainers = [ lib.maintainers.ProducerMatt ];
       broken = true; #FIXME
     };
-})
+}
 
 # NOTE(ProducerMatt): Landlock Make is currently unhappy with the Nix build
 # environment. For this reason we use the stdenv make, which is slower and
