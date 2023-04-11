@@ -92,7 +92,7 @@ cQuiqrKillerberg:
     #- source: mipmip/poppygo-awsaccount-162604489705
 
 technative:
-  base_dir: ~/tcTechnative
+  base_dir: ~/tcTechNative
   repos:
     - source: TechNative-B-V/technative-awsaccount-617813585939-management
     - source: TechNative-B-V/technative-awsaccount-521402697040-useraccount

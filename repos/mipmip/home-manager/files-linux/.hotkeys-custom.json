@@ -47,6 +47,10 @@
             {
                 "key": "<CTRL><SUPER>5",
                 "description": "Screenshot Interactive"
+            },
+            {
+                "key": "<CTRL><SUPER>6",
+                "description": "Slack"
             }
         ]
     },
