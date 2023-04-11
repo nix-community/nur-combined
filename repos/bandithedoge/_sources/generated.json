@@ -41,7 +41,7 @@
     },
     "carla": {
         "cargoLocks": null,
-        "date": "2023-04-06",
+        "date": "2023-04-10",
         "extract": null,
         "name": "carla",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "falkTX",
             "repo": "Carla",
-            "rev": "56468b473205185bf120619c23b3d594513f4b7b",
-            "sha256": "sha256-APW2dqmYHWBW4SDEa6HTXBtWcWwJhvml5KwbQ6PTfpg=",
+            "rev": "f207f921691852c821a4ea89a4db99184738041d",
+            "sha256": "sha256-or1qjU12x3NNwRYicJzRkhY8ggrZOKnSH2PKlG0QFRk=",
             "type": "github"
         },
-        "version": "56468b473205185bf120619c23b3d594513f4b7b"
+        "version": "f207f921691852c821a4ea89a4db99184738041d"
     },
     "dmenu-flexipatch": {
         "cargoLocks": null,
