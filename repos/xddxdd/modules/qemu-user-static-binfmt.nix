@@ -1,10 +1,14 @@
 {
-  config,
-  pkgs,
+  overlays,
+  packages,
   lib,
   ...
+}: {
+  config,
+  pkgs,
+  ...
 }: let
-  qemuPackage = pkgs.qemu-user-static;
+  qemuPackage = packages."${pkgs.system}".qemu-user-static;
   qemuSuffix = "-static";
 
   # https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh

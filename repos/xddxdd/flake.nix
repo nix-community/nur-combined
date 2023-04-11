@@ -105,7 +105,6 @@
             nvfetcher = ''
               [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="-k $HOME/Secrets/nvfetcher.toml" || KEY_FLAG=""
               ${pkgs.nvfetcher}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
-              ${readme}
             '';
 
             readme = ''
@@ -145,8 +144,10 @@
               config.boot.kernelPackages.nvidia_x11)
           ];
         };
-        qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
-        kata-containers = import ./modules/kata-containers.nix;
+        qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix {
+          inherit (self) overlays packages;
+          inherit lib;
+        };
       };
     };
 }
