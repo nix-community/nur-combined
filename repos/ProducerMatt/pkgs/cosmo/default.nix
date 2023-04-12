@@ -27,20 +27,59 @@ let
 
   cosmoMeta = {
     mode = buildMode;
+
     outputs =
-      {
+      # add new apps here. Each top-level attribute name
+      # becomes a new package output.
+      with lib.licenses; {
+      # At the time of this writing in MODE=rel: ISC for Cosmo, BSD3 for getopt,
+      # zlib for puff, Apache-2.0 for Google's NSYNC.
         pledge = {
           coms = [
             "tool/build/pledge.com"
             "tool/build/unveil.com"
           ];
+          licenses = [ asl20 bsd3 zlib ];
         };
         pkzip = {
           coms = [
             "third_party/zip/zip.com"
           ];
+          licenses = [ asl20 bsd3 mit zlib isc ];
         };
+        printimage = {
+          coms = [
+            "tool/viz/printimage.com"
+          ];
+          licenses = [ asl20 bsd3 mit zlib isc ];
+        };
+        printvideo = {
+          coms = [
+            "tool/viz/printvideo.com"
+          ];
+          licenses = [ asl20 bsd3 mit zlib isc ];
+        };
+        lambda = {
+          coms = [
+            "tool/lambda/asc2bin.com"
+            "tool/lambda/blcdump.com"
+            "tool/lambda/bru2bin.com"
+            "tool/lambda/lam2bin.com"
+            "tool/lambda/lambda.com"
+            "tool/lambda/tromp.com"
+          ];
+          licenses = [ asl20 bsd3 isc mit ];
+        };
+        blinkenlights = {
+          coms = [
+            "tool/build/blinkenlights.com"
+          ];
+          licenses = [ asl20 bsd3 mit zlib isc ];
+          # Using "MIT" license in place of fdlibm license
+          # https://lists.fedoraproject.org/pipermail/legal/2013-December/002346.html
       };
+    };
+
     make = "make";
     #make = "./build/bootstrap/make.com";
     platformFlag =
@@ -57,7 +96,7 @@ let
     hash = "sha256-QvS3g6vPhJPWwBSNbvGMGKL7kaXQqZlnZrW2W3kv27M=";
   };
   wantedOutputs =
-    # make list of all outputs to build. If given a bad name in
+    # make attrs of all outputs to build. If given a bad name in
     # limitOutputs this should fail at getAttr.
     # If it doesn't send flamemail to ProducerMatt
     (if limitOutputs
@@ -77,11 +116,13 @@ let
     (lib.concatMapStringsSep " "
         (target: "o/${cosmoMeta.mode}/${target}")
         wantedComs);
+  relevantLicenses =
+    builtins.concatMap (o: o.licenses) (builtins.attrValues wantedOutputs);
   buildStuff = ''
       ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
           ${cosmoMeta.platformFlag} V=0 \
       ''
-    + buildTargets;
+    + buildTargets + "\n";
   installStuff =
     (lib.concatStringsSep "\n"
       (lib.flatten [
@@ -132,12 +173,9 @@ stdenv.mkDerivation {
       # executable. You can manually inspect by viewing the binary with `less`.
       # Grep for "Copyright".
       #
-      # At the time of this writing in MODE=rel: ISC for Cosmo, BSD3 for getopt,
-      # zlib for puff, Apache-2.0 for Google's NSYNC.
-      license = with lib.licenses; [ isc asl20 bsd3 zlib ];
-
+      # All Cosmo original code under ISC license.
+      license = with lib.licenses; lib.unique ([ isc ] ++ relevantLicenses);
       maintainers = [ lib.maintainers.ProducerMatt ];
-      broken = true; #FIXME
     };
 }
 

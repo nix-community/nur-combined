@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  pledge = pkgs.callPackage ./pkgs/pledge { };
   cosmo = pkgs.callPackage ./pkgs/cosmo { };
   hugs98 = pkgs.callPackage ./pkgs/hugs98 { };
   ripsecrets = pkgs.callPackage ./pkgs/ripsecrets { };
