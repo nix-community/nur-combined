@@ -20,8 +20,8 @@
 let
   commonMeta = rec {
     name = "cosmopolitan";
-    version = "2023-03-19";
-    rev = "893703a07b1590c02c84a5b02bb4968e4f03522a";
+    version = "2023-04-04";
+    rev = "12e07798df6b96167bcd4ed6b433dc26be701f0d";
     changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
@@ -32,8 +32,9 @@ let
       # add new apps here. Each top-level attribute name
       # becomes a new package output.
       with lib.licenses; {
-      # At the time of this writing in MODE=rel: ISC for Cosmo, BSD3 for getopt,
-      # zlib for puff, Apache-2.0 for Google's NSYNC.
+      # NOTE(ProducerMatt): Cosmo embeds relevant licenses near the top of the
+      # executable. You can manually inspect by viewing the binary with `less`.
+      # Grep for "Copyright".
         pledge = {
           coms = [
             "tool/build/pledge.com"
@@ -44,6 +45,7 @@ let
         pkzip = {
           coms = [
             "third_party/zip/zip.com"
+            "third_party/unzip/unzip.com"
           ];
           licenses = [ asl20 bsd3 mit zlib isc ];
         };
@@ -77,7 +79,21 @@ let
           licenses = [ asl20 bsd3 mit zlib isc ];
           # Using "MIT" license in place of fdlibm license
           # https://lists.fedoraproject.org/pipermail/legal/2013-December/002346.html
-      };
+        };
+        ttyinfo = {
+          coms = [
+            "examples/ttyinfo.com"
+          ];
+          licenses = [ asl20 bsd3 mit zlib isc ];
+          # Using "MIT" license in place of fdlibm license
+        };
+        life = {
+          coms = [
+            "examples/life.com"
+          ];
+          licenses = [ asl20 bsd3 mit zlib isc ];
+          # Using "MIT" license in place of fdlibm license
+        };
     };
 
     make = "make";
@@ -93,7 +109,7 @@ let
     owner = "jart";
     repo = "cosmopolitan";
     rev = commonMeta.rev;
-    hash = "sha256-QvS3g6vPhJPWwBSNbvGMGKL7kaXQqZlnZrW2W3kv27M=";
+    hash = "sha256-ZX3MJTz7HX70ZAVBGRBs/0Kw8fPzjye25VcC09ER3eA=";
   };
   wantedOutputs =
     # make attrs of all outputs to build. If given a bad name in
@@ -169,10 +185,6 @@ stdenv.mkDerivation {
       platforms = [ "x86_64-linux" ];
       changelog = commonMeta.changelog;
 
-      # NOTE(ProducerMatt): Cosmo embeds relevant licenses near the top of the
-      # executable. You can manually inspect by viewing the binary with `less`.
-      # Grep for "Copyright".
-      #
       # All Cosmo original code under ISC license.
       license = with lib.licenses; lib.unique ([ isc ] ++ relevantLicenses);
       maintainers = [ lib.maintainers.ProducerMatt ];
