@@ -7,7 +7,12 @@
 
   albumentations = python-final.callPackage ./pkgs/albumentations { };
 
+  cppcolormap = python-final.toPythonModule (pkgs.some-pkgs.cppcolormap.override {
+    enablePython = true;
+  });
+
   cppimport = python-final.callPackage ./pkgs/cppimport.nix { };
+
 
   faiss = python-final.toPythonModule (pkgs.faiss.override {
     pythonSupport = true;
