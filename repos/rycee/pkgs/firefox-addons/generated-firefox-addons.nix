@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230410.195555";
+      version = "113.0.20230411.180038";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095327/francais_language_pack-113.0.20230410.195555.xpi";
-      sha256 = "686bb59ee944823879f7cb8d7f239e38f3bb48998a1247fef40fd2a349767afd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4096008/francais_language_pack-113.0.20230411.180038.xpi";
+      sha256 = "615e4782467cb468ef0a65b11e59a26ad82ba5d8c0bb74b3eb2e662042d3190f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1638,10 +1638,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.3.1";
+      version = "4.3.2";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4091798/modheader_firefox-4.3.1.xpi";
-      sha256 = "0f1ce2e974b49f65607ed1377eb9d9febd11cf3d57c61aa2bd21845d5d246901";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095128/modheader_firefox-4.3.2.xpi";
+      sha256 = "0fda7510f5e024bdf4ecd64d2355c03b4405ed57d4af14b1a1727dcd65e7ffa7";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2445,10 +2445,10 @@
       };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "4.8.1";
+      version = "5.0.1";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4081018/simple_tab_groups-4.8.1.xpi";
-      sha256 = "75b3d76608e20157e09d56d1912eb793abbfea13d170648208f05f238dd2c1a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4093909/simple_tab_groups-5.0.1.xpi";
+      sha256 = "3201c4a0bb3fe7285227faf804cfa8584fbe41958f5dbcf47e4576adb6ca20b7";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
@@ -2514,10 +2514,10 @@
       };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.7.0";
+      version = "0.7.2";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029067/torproject_snowflake-0.7.0.xpi";
-      sha256 = "ff6211ebcbf1ac9352e31845a974f28a9bb7faea749bab96a1e0eee2efe39ea5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095470/torproject_snowflake-0.7.2.xpi";
+      sha256 = "101b5c6f8f968645bd95d23ecd5c1f245b45d37c692153bf6e73c866997101dd";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
