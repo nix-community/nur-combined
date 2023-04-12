@@ -67,6 +67,8 @@ let
          limitOutputs)
      else cosmoMeta.outputs);
     # TODO: find a less awkward way to structure outputs.
+  wantedOutputNames =
+    builtins.attrNames wantedOutputs;
   wantedComs =
     # wanted outputs but just a list of com files.
     builtins.concatLists
@@ -79,32 +81,34 @@ let
       ${cosmoMeta.make} MODE=${cosmoMeta.mode} -j$NIX_BUILD_CORES \
           ${cosmoMeta.platformFlag} V=0 \
       ''
-    + buildTargets + "; echo ${buildTargets}";
+    + buildTargets;
   installStuff =
     (lib.concatStringsSep "\n"
       (lib.flatten [
         (map (name: "mkdir -p ${"$" + name}/bin")
-          (builtins.attrNames wantedOutputs))
+          wantedOutputNames)
         (lib.mapAttrsToList (name: value:
           (map (target:
             ## strip APE header. Only used if building cross-platform
             ## but only using on ELF (may solve execution issues)
             #"o/${cosmoMeta.mode}/${target} --assimilate" + "\n" +
-            "echo ${target}; cp o/${cosmoMeta.mode}/${target} ${"$" + name}/bin/")
+            "cp o/${cosmoMeta.mode}/${target} ${"$" + name}/bin/")
             value.coms))
           wantedOutputs)
         "mkdir -p $out/bin \n"
       ]));
   symlinkStuff = lib.concatMapStringsSep "\n"
-    (name: "echo ${name}; ls -1N --zero ${"$" + name}/bin/ | xargs -0 -I'{}' realpath -smz '{}' | xargs -0 -I'{}' ln -s '{}' $out/bin/")
-    (builtins.attrNames wantedOutputs);
+    (name: "ls -1N --zero ${"$" + name}/bin | xargs -0 -I'{}' realpath -sez ${"$" + name}/bin/'{}' | xargs -0 -I'{}' ln -s '{}' $out/bin/")
+    wantedOutputNames;
+    #spot the mistake!
+    #(name: "ls -1N --zero ${"$" + name}/bin | xargs -0 -I'{}' realpath -smz '{}' | xargs -0 -I'{}' ln -s '{}' $out/bin/")
 in
 stdenv.mkDerivation {
     pname = commonMeta.name;
     version = commonMeta.version;
     phases = [ "unpackPhase" "buildPhase" "installPhase" ];
 
-    outputs = [ "out" ] ++ (builtins.attrNames cosmoMeta.outputs);
+    outputs = [ "out" ] ++ wantedOutputNames;
 
     src = cosmoSrc;
     buildPhase = ''
@@ -115,7 +119,8 @@ stdenv.mkDerivation {
       '' + buildStuff + ''
       echo "" # workaround for nix's "malformed json" errors
     '';
-    installPhase = installStuff + "\n" + symlinkStuff;
+    installPhase = installStuff
+                 + "\n" + symlinkStuff;
 
     meta = {
       homepage = "https://github.com/jart/cosmopolitan";
