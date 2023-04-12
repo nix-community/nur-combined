@@ -1,10 +1,11 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   services.grafana = {
     enable = true;
     settings.server.domain = "grafana.${config.networking.hostName}.${config.networking.domain}";
     port = 65528;
     addr = "127.0.0.1";
   };
+
   services.nginx.virtualHosts."grafana.${config.networking.hostName}.${config.networking.domain}" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
@@ -12,13 +13,15 @@
       recommendedProxySettings = true;
     };
   };
-  
+
   services.nginx.virtualHosts."prometheus.${config.networking.hostName}.${config.networking.domain}" = {
     locations."/" = {
       proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
       # proxyWebsockets = true;
     };
   };
+
+  services.nginx.statusPage = true;
 
   services.prometheus = {
     enable = true;

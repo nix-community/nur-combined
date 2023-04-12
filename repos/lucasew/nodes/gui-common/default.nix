@@ -35,6 +35,7 @@ in {
     git-annex
     git-remote-gcrypt
     appimage-wrap
+    xorg.xkill
   ];
 
   programs.dconf.enable = true;
