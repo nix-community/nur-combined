@@ -6,14 +6,7 @@
 let
   inherit (self) lib;
 
-  inherit (futils.lib) system;
-
-  mySystems = [
-    system.aarch64-darwin
-    system.aarch64-linux
-    system.x86_64-darwin
-    system.x86_64-linux
-  ];
+  mySystems = futils.lib.defaultSystems;
 in
 flake-parts.lib.mkFlake { inherit inputs; } {
   systems = mySystems;
