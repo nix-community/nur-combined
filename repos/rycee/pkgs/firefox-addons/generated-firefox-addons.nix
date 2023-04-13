@@ -257,10 +257,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.3.0";
+      version = "2023.3.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4087503/bitwarden_password_manager-2023.3.0.xpi";
-      sha256 = "ab2e318c0ed2fb2cd685ec998cd53818844435af2cf83a319dfc0fb9fcc01600";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4093799/bitwarden_password_manager-2023.3.1.xpi";
+      sha256 = "d4ea270874c013daf0aa8b46686766481464db0b3eaa271dc1a2e579751f36f7";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -451,10 +451,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.4.0";
+      version = "3.4.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4093960/control_panel_for_twitter-3.4.0.xpi";
-      sha256 = "87c3a17a86519a92bdea940a10a8e4b451e1211ebb72b86091c06d6e3f057dd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095007/control_panel_for_twitter-3.4.1.xpi";
+      sha256 = "81963876b07fead57e001669932c81768f81e6faa842dea71f4312ca446e680d";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1348,10 +1348,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.6";
+      version = "1.8.6.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4092657/keepassxc_browser-1.8.6.xpi";
-      sha256 = "85ea4d636cb5489a5ec2c89196de13693c4d0753d6cd0e3f5f2223a0dc53af43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4094964/keepassxc_browser-1.8.6.1.xpi";
+      sha256 = "ce2275eb1f0a4b0ce2342204d00d62033f81f6dcb9e021cff38f51273e614f20";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -2181,10 +2181,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.6.1";
+      version = "2.7.0";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4036509/private_relay-2.6.1.xpi";
-      sha256 = "60d4211c02dee169f7e1600f624bfe82e76ea018e54073f1d82048190f6ed438";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095147/private_relay-2.7.0.xpi";
+      sha256 = "1913cd25517dd9af78f5d8f30494f13f8c8dd5db362191432cb5668df0f7982d";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
