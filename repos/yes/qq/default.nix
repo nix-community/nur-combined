@@ -1,14 +1,14 @@
 { lib
 , fetchurl
 , mkElectronAppImage
+, extraPkgs ? p: with p; [
+    gjs               # screenshot support for GNOME Wayland
+    libappindicator   # use appindicator instead of systray wherever possible
+  ]
 }:
 
 mkElectronAppImage rec {
-  extraPkgs = p: with p; [
-    gjs               # screenshot support for GNOME Wayland
-    libappindicator   # use appindicator instead of systray wherever possible
-  ];
-
+  inherit extraPkgs;
   pname = "qq";
   version = "3.1.1-11223";
   
