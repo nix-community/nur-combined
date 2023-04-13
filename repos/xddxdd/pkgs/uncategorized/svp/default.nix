@@ -67,8 +67,8 @@ let
     pname = "svp-dist";
     version = "4.5.210";
     src = fetchurl {
-      url = "https://www.svp-team.com/files/svp4-linux.${version}-1.tar.bz2";
-      sha256 = "10q8r401wg81vanwxd7v07qrh3w70gdhgv5vmvymai0flndm63cl";
+      url = "https://www.svp-team.com/files/svp4-linux.${version}-2.tar.bz2";
+      sha256 = "sha256-dY9uQ9jzTHiN2XSnOrXtHD11IIJW6t9BUzGGQFfZ+yg=";
     };
 
     nativeBuildInputs = [p7zip patchelf];
