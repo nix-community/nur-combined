@@ -1,12 +1,12 @@
 { lib, buildGoModule, fetchFromSourcehut }:
 buildGoModule rec {
   pname = "paste";
-  version = "a70e672a";
+  version = "dev-a70e672a.rev1";
 
   src = fetchFromSourcehut {
     owner = "~artemis";
     repo = pname;
-    rev = version;
+    rev = "a70e672a";
     sha256 = "sha256-Lp5S1XPiH5cc+2JISv5FQYm6Wq81runZFugwocGILpQ=";
   };
 
@@ -16,6 +16,7 @@ buildGoModule rec {
     ''
     mkdir -p $out/lib/${pname}
     cp -r templates $out/lib/${pname}
+    cp -r static $out/lib/${pname}
     '';
 
   # TODO: The output doesn't include the templates files and it doesn't properly
