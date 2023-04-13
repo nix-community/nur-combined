@@ -2,6 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "iamb";
+  # renovate: datasource=github-releases depName=ulyssa/iamb
   version = "0.0.7";
   src = fetchFromGitHub {
     owner = "ulyssa";

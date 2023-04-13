@@ -7,5 +7,16 @@
   },
   "nix": {
     "enabled": true
-  }
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["^pkgs/.+/default.nix$"],
+      "matchStrings": [
+	      "version\s*=\*\"(?<currentValue>.*?)\";",
+	      "datasource=(?<datasource>.*?)",
+	      "depName=(?<depName>.*?)"
+      ],
+      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^v?(?<version>.+)${{/if}}"
+    }
+  ]
 }

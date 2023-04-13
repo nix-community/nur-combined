@@ -2,6 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "mum";
+  # renovate: datasource=github-releases depName=mum-rs/mum
   version = "0.5.1";
   src = fetchFromGitHub {
     owner = "mum-rs";

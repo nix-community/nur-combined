@@ -3,6 +3,7 @@
 
 stdenv.mkDerivation rec {
   name = "shrinkpdf";
+  # renovate: datasource=github-releases depName=aklomp/shrinkpdf extractVersion=^shrinkpdf-(?<version>.+)$
   version = "1.1";
   src = fetchFromGitHub
   {

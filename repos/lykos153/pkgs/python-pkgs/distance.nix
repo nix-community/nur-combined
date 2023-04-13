@@ -5,6 +5,7 @@
 
 buildPythonPackage rec {
   pname = "Distance";
+  # renovate: datasource=pypi depName=Distance
   version = "0.1.3";
 
   src = fetchPypi {

@@ -9,6 +9,7 @@
 
 buildPythonPackage rec {
   pname = "g2p_en";
+  # renovate: datasource=pypi depName=g2p-en
   version = "2.1.0";
 
   src = fetchPypi {
