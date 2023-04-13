@@ -22,10 +22,6 @@ in
         WOODPECKER_GITEA_URL = config.services.gitea.rootUrl;
 
         WOODPECKER_LOG_LEVEL = "debug";
-
-        # FIXME: remove those?
-        WOODPECKER_JSONNET_ENABLED = "true";
-        WOODPECKER_STARLARK_ENABLED = "true";
       };
     };
 

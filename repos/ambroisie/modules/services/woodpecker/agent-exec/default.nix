@@ -5,7 +5,6 @@ let
   hasRunner = (name: builtins.elem name cfg.runners);
 in
 {
-  # TODO
   config = lib.mkIf (cfg.enable && hasRunner "exec") {
     services.woodpecker-agents = {
       agents.exec = {
