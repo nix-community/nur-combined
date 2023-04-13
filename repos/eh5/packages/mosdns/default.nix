@@ -4,15 +4,15 @@
 }:
 buildGoModule rec {
   pname = "mosdns";
-  version = "v5.1.2";
+  version = "v5.1.3";
   src = fetchFromGitHub ({
     owner = "IrineSistiana";
     repo = "mosdns";
     rev = version;
     fetchSubmodules = false;
-    sha256 = "sha256-mbCGfbtrm6/InQC4kuo5cBfAi0qELIzEsdllTsXtglA=";
+    sha256 = "sha256-efgrJikV1s5VENJXYkpvqnxDpj76Zwxo03zeEXNz6ig=";
   });
-  vendorSha256 = "sha256-fWc9vJV7vnpfctK0JZt4ONUTN4ub29Y+VyrwUyk8pUw=";
+  vendorSha256 = "sha256-dx7HKmmdrtEDq/at5NFLOU1QU9KH4CSpi8xyrgqPyls=";
   doCheck = false;
 
   buildPhase = ''
