@@ -16,6 +16,7 @@ python3.pkgs.buildPythonApplication {
     # https://github.com/alexanderwink/subdl/issues/37
     ./libmagic.patch
     ./libmagic-2.patch
+    ./libmagic-3.patch
   ];
   propagatedBuildInputs = [
     python3.pkgs.magic
