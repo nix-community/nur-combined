@@ -14,10 +14,10 @@
   };
   clash-geoip = {
     pname = "clash-geoip";
-    version = "20230312";
+    version = "20230412";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230312/Country.mmdb";
-      sha256 = "sha256-Y/glz6HUfjox9Mn+gPzA8+tUHqV/KkIInUn4SyajUiE=";
+      url = "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230412/Country.mmdb";
+      sha256 = "sha256-QBHvir5e0JDIYkOouFsPC7SwAQ4fxdUxZcGBWLEUejU=";
     };
   };
   clashctl = {
@@ -49,10 +49,10 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.11.3546.5233fd2ba76";
+    version = "22.11.3667.87edbd74246";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.3546.5233fd2ba76/nixexprs.tar.xz";
-      sha256 = "sha256-EL6h1UvLxM/hhb9fMdhNqK34Dq49gYoGUd8GKq6MfK0=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.3667.87edbd74246/nixexprs.tar.xz";
+      sha256 = "sha256-CJnU3gvbihxHxhQDIs+ZiNav4iwLOPOAdvvD8Ua9glw=";
     };
   };
   remote-containers = {

@@ -28,11 +28,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Y/glz6HUfjox9Mn+gPzA8+tUHqV/KkIInUn4SyajUiE=",
+            "sha256": "sha256-QBHvir5e0JDIYkOouFsPC7SwAQ4fxdUxZcGBWLEUejU=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230312/Country.mmdb"
+            "url": "https://github.com/Dreamacro/maxmind-geoip/releases/download/20230412/Country.mmdb"
         },
-        "version": "20230312"
+        "version": "20230412"
     },
     "clashctl": {
         "cargoLocks": null,
@@ -93,11 +93,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EL6h1UvLxM/hhb9fMdhNqK34Dq49gYoGUd8GKq6MfK0=",
+            "sha256": "sha256-CJnU3gvbihxHxhQDIs+ZiNav4iwLOPOAdvvD8Ua9glw=",
             "type": "url",
-            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.3546.5233fd2ba76/nixexprs.tar.xz"
+            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.3667.87edbd74246/nixexprs.tar.xz"
         },
-        "version": "22.11.3546.5233fd2ba76"
+        "version": "22.11.3667.87edbd74246"
     },
     "remote-containers": {
         "cargoLocks": null,
