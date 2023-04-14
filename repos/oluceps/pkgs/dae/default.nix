@@ -10,8 +10,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = pname;
-    rev = "6ff68e533e408abbb73e2a4bb1749303b2eaff06";
-    sha256 = "sha256-lRrUlZcV6C3vpPFxQ327O1ioWLINRaXM5TsrH4/UYIo=";
+    rev = "fb2b55ee510fdb790432a5842997e3f369ca9cf7";
+    sha256 = "sha256-J/LKVmWda88kaLY1w0elEoksrWswDvuhb6RTZvl6uH0=";
     fetchSubmodules = true;
   };
 
