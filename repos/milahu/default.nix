@@ -101,7 +101,15 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   python3 = pkgs.python3 // {
     pkgs = (pkgs.python3.pkgs or {}) // {
-      aalpy = callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+
+      aalpy = python3.pkgs.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+
+      auditok = python3.pkgs.callPackage ./pkgs/python3/pkgs/auditok/auditok.nix { };
+
+      pysubs2 = python3.pkgs.callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
+
+      ete3 = python3.pkgs.callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
+
     };
   };
 
@@ -221,8 +229,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   lzturbo = callPackage ./pkgs/tools/compression/lzturbo/lzturbo.nix { };
 
-  netgeartelnetenable-by-yoshac = callPackage ./pkgs/tools/networking/netgeartelnetenable/netgeartelnetenable-by-yoshac.nix { };
-  netgeartelnetenable-by-pgebheim = callPackage ./pkgs/tools/networking/netgeartelnetenable/netgeartelnetenable-by-pgebheim.nix { };
+  netgear-telnetenable = callPackage ./pkgs/tools/networking/netgear-telnetenable/netgear-telnetenable.nix { };
+
+  cmix = callPackage ./pkgs/tools/compression/cmix/cmix.nix { };
+
+  # already in nixpkgs
+  #kaitai-struct-compiler = callPackage ./pkgs/development/tools/parsing/kaitai-struct-compiler/kaitai-struct-compiler.nix { };
+
+  ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 
 }
 

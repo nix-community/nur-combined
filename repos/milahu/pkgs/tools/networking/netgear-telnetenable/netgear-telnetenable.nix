@@ -4,15 +4,16 @@
 }:
 
 python3.pkgs.buildPythonApplication rec {
-  pname = "netgeartelnetenable-by-pgebheim";
+  pname = "netgear-telnetenable";
   version = "unstable-2023-03-29";
   format = "setuptools";
 
+  # https://github.com/insanid/netgear-telenetenable/pull/1
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "netgear-telenetenable";
-    rev = "62e72084355aeef98faf9c6201bd49262b542139";
-    hash = "sha256-C1ZS+tCpvZPOKwBf5iBr9FJOEut80xayc3pBVJaC96Q=";
+    rev = "132052641394bedadfd1bcd14c23197f0be409dc";
+    hash = "sha256-PbDzpTeQtxPNdolEraPB7NPLzaRSqnJ3hNMvIktwojQ=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -22,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Telenet Enable for Netgear routers";
-    homepage = "https://github.com/milahu/netgear-telenetenable";
+    homepage = "https://github.com/insanid/netgear-telenetenable";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

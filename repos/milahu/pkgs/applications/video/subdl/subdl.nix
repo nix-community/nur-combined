@@ -1,4 +1,4 @@
-# subdl with "--utf8" option (chardet)
+# subdl with "--utf8" option (libmagic)
 
 { lib, fetchFromGitHub, python3 }:
 
@@ -11,8 +11,14 @@ python3.pkgs.buildPythonApplication {
     rev = "da2398546c33da1665dbc2d985b30d959c6f5a0c";
     sha256 = "sha256-YI1lTBKb5tHDXVbOoEE+Y0JKYusV1mbbj/xyq8y2Qak=";
   };
+  patches = [
+    # fix: utf8 option fails to convert some subtitles
+    # https://github.com/alexanderwink/subdl/issues/37
+    ./libmagic.patch
+    ./libmagic-2.patch
+  ];
   propagatedBuildInputs = [
-    python3.pkgs.chardet
+    python3.pkgs.magic
   ];
   meta = {
     homepage = "https://github.com/alexanderwink/subdl";
