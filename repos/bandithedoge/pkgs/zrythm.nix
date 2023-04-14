@@ -47,6 +47,8 @@ in
     inherit (sources.zrythm) pname version src;
 
     nativeBuildInputs = with pkgs; [
+      cmake
+      faust2lv2
       help2man
       jq
       libaudec
@@ -57,6 +59,8 @@ in
       pkg-config
       python3
       python3.pkgs.sphinx
+      sass
+      sox
       texi2html
       wrapGAppsHook
     ];
@@ -112,6 +116,8 @@ in
       zix
       zstd
     ];
+
+    dontUseCmakeConfigure = true;
 
     mesonFlags = [
       "-Db_lto=false"
