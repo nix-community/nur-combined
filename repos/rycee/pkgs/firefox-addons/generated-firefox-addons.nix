@@ -533,10 +533,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.62";
+      version = "4.9.63";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4053589/darkreader-4.9.62.xpi";
-      sha256 = "e537a2cee45ed7c26f79ecd3ed362620e3f00d24c158532a58e163a63a3d60cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095037/darkreader-4.9.63.xpi";
+      sha256 = "16ba6337fcff7ad85e08ad51b384ba26ff751b2b2ded12309f75e8337ace925a";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230411.180038";
+      version = "113.0.20230413.180032";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4096008/francais_language_pack-113.0.20230411.180038.xpi";
-      sha256 = "615e4782467cb468ef0a65b11e59a26ad82ba5d8c0bb74b3eb2e662042d3190f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4097162/francais_language_pack-113.0.20230413.180032.xpi";
+      sha256 = "98be4393136b4e1d2dd3aaaf212518d680a73b1b4b31317dd881a4a4433f2db8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2251,10 +2251,10 @@
       };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
-      version = "2.1.1";
+      version = "2.1.5.5";
       addonId = "jid1-7eplFgLu6atoog@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/976325/rabattcorner-2.1.1.xpi";
-      sha256 = "c6d51f11f0dfea6e4253eb161f8f769ee25e1e47d2ea2ce88f0b464805e7c5ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4096853/rabattcorner-2.1.5.5.xpi";
+      sha256 = "2cdb01ad33c59fef9ca15d3d358f732867a8937332bea728b4287fc388edb54f";
       meta = with lib;
       {
         homepage = "https://www.rabattcorner.ch";
@@ -3008,10 +3008,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.2.7";
+      version = "8.3.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090046/ublacklist-8.2.7.xpi";
-      sha256 = "65c7c3c2e2ba5eec76ba01cfe843ba8535b02f2be5ea0ed05cdbe4d7f38d7aab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095141/ublacklist-8.3.0.xpi";
+      sha256 = "98413c704d08334ba196a7f085e6a666b60865f6897c7fc41c308097d1f12a5f";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -3256,10 +3256,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.56";
+      version = "6.10.62";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4083798/wappalyzer-6.10.56.xpi";
-      sha256 = "ce5604e6304c07ddb7ccce5bc8800f85c97ed8c885b9bb1eb99ac7a6f5951ef9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095500/wappalyzer-6.10.62.xpi";
+      sha256 = "1434950437497dbcd91d7bd781e15a3eb3336bf956217dae4fd5a438b04a67fc";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
