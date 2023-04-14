@@ -1,0 +1,46 @@
+stages:
+  - check
+  - build
+
+.common:
+  # fix to 2.14.0 due to https://github.com/Mic92/nix-build-uncached/issues/52
+  image: nixos/nix:2.14.0
+  variables:
+    NIX_PATH: "nixpkgs=channel:nixpkgs-unstable"
+  before_script:
+    - |
+      cat >> /etc/nix/nix.conf << EOF
+      experimental-features = nix-command flakes
+      EOF
+    - nix-env --install --attr nixpkgs.cachix --attr nixpkgs.nix-build-uncached
+    - test -n "$CACHIX_CACHE_NAME" && cachix use "$CACHIX_CACHE_NAME"
+    - nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+check:
+  stage: check
+  extends: .common
+  script:
+    - nix flake check
+    - |
+      nix-env -f . -qa \* --meta \
+        --allowed-uris https://static.rust-lang.org \
+        --option restrict-eval true \
+        --option allow-import-from-derivation true \
+        --drv-path --show-trace \
+        -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+        -I ./
+
+build:
+  stage: build
+  extends: .common
+  variables:
+    CACHIX_CACHE_NAME: "999eagle-nur-packages"
+  script:
+    - |
+      if [ -z "$CACHIX_AUTH_TOKEN" ]; then
+        echo "no cachix auth token set!"
+        command=""
+      else
+        command="cachix watch-exec $CACHIX_CACHE_NAME --"
+      fi
+    - ${command} nix-build-uncached ci.nix -A cacheOutputs
