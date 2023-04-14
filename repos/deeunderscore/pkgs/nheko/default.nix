@@ -3,46 +3,46 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
+, wrapQtAppsHook
+, asciidoctor
+, boost17x
 , cmark
+, coeurl
+, curl
+, libevent
+, libsecret
 , lmdb
 , lmdbxx
-, libsecret
 , mkDerivation
-, qtbase
-, qtkeychain
-, qtmacextras
-, qtmultimedia
-, qttools
-, qtquickcontrols2
-, qtgraphicaleffects
 , mtxclient
-, boost17x
-, spdlog
-, fmt
+, nlohmann_json
 , olm
 , pkg-config
-, asciidoctor
-, nlohmann_json
+, qtbase
+, qtgraphicaleffects
+, qtimageformats
+, qtkeychain
+, qtmultimedia
+, qtquickcontrols2
+, qttools
+, re2
+, spdlog
+, qtmacextras
 , voipSupport ? true
 , gst_all_1
 , libnice
-, libevent
-, curl
-, coeurl
-, re2
 }:
 
 mkDerivation {
   pname = "nheko";
-  version = "unstable-2023-03-10";
+  version = "unstable-2023-04-11";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "nheko";
-    rev = "5edbad612eb2f1c3197ac9ae0062404b54c20436";
-    hash = "sha256-0P8UQ7Ve9qxsvpGslpc5L2Kv0Rj3457wVoipo7uuSCI=";
+    rev = "a7524bee709b5cb610e1652bef12b0501259595e";
+    hash = "sha256-ih/3DMxy+DC3BFgkkrcK98jSBElp41cS3lIFn0b020k=";
   };
 
   nativeBuildInputs = [
@@ -50,28 +50,29 @@ mkDerivation {
     cmake
     pkg-config
     asciidoctor
+    wrapQtAppsHook
   ];
 
   buildInputs = [
-    nlohmann_json
-    mtxclient
-    olm
     boost17x
+    cmark
+    coeurl
+    curl
+    libevent
     libsecret
     lmdb
-    spdlog
-    fmt
-    cmark
+    mtxclient
+    nlohmann_json
+    olm
     qtbase
-    qtmultimedia
-    qttools
-    qtquickcontrols2
     qtgraphicaleffects
+    qtimageformats
     qtkeychain
-    libevent
-    curl
-    coeurl
+    qtmultimedia
+    qtquickcontrols2
+    qttools
     re2
+    spdlog
   ] ++ lib.optional stdenv.isDarwin qtmacextras
     ++ lib.optionals voipSupport (with gst_all_1; [
       gstreamer
@@ -97,9 +98,6 @@ mkDerivation {
     description = "Desktop client for the Matrix protocol";
     homepage = "https://github.com/Nheko-Reborn/nheko";
     platforms = platforms.all;
-    # Should be fixable if a higher clang version is used, see:
-    # https://github.com/NixOS/nixpkgs/pull/85922#issuecomment-619287177
-    broken = stdenv.targetPlatform.isDarwin;
     license = licenses.gpl3Plus;
   };
 }
