@@ -1,6 +1,7 @@
 stages:
   - check
   - build
+  - deploy
 
 .common:
   # fix to 2.14.0 due to https://github.com/Mic92/nix-build-uncached/issues/52
@@ -44,3 +45,9 @@ build:
         command="cachix watch-exec $CACHIX_CACHE_NAME --"
       fi
     - ${command} nix-build-uncached ci.nix -A cacheOutputs
+
+deploy:
+  stage: deploy
+  image: curlimages/curl
+  script:
+    - curl -XPOST https://nur-update.nix-community.org/update?repo=999eagle

@@ -1,4 +1,5 @@
 {
+  lib,
   bundlerApp,
   ruby,
   cmake,
@@ -15,4 +16,11 @@ bundlerApp rec {
   nativeBuildInputs = [cmake pkg-config];
 
   passthru.updateScript = bundlerUpdateScript "github-linguist";
+
+  meta = with lib; {
+    description = "This library is used on GitHub.com to detect blob languages, ignore binary or vendored files, suppress generated files in diffs, and generate language breakdown graphs.";
+    homepage = "https://github.com/github/linguist/";
+    license = licenses.mit;
+    platforms = platforms.all;
+  };
 }

@@ -26,6 +26,6 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "SeaORM CLI";
     homepage = "https://www.sea-ql.org/SeaORM/";
-    license = licenses.mit;
+    license = with licenses; [mit asl20];
   };
 }
