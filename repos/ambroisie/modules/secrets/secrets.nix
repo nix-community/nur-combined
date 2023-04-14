@@ -1,10 +1,14 @@
 let
   # FIXME: read them from directories
   ambroisie = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIVd6Oh08iUNb1vTULbxGpevnh++wxsWW9wqhaDryIq ambroisie@agenix";
-  users = [ ambroisie ];
+  users = [
+    ambroisie
+  ];
 
   porthos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICGzznQ3LSmBYHx6fXthgMDiTcU5i/Nvj020SbmhzAFb root@porthos";
-  machines = [ porthos ];
+  machines = [
+    porthos
+  ];
 
   all = users ++ machines;
 in
