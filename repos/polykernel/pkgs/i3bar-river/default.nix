@@ -20,16 +20,16 @@ in
 
 rustPlatform.buildRustPackage rec {
   pname = "i3bar-river";
-  version = "master";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "MaxVerevkin";
     repo = pname;
-    rev = "e195a50d75c394a69a7228f8c1e5ad320c3ad06d";
-    sha256 = "sha256-Ckf+TSdOtTOKC8qz7ClxxhqVOc7MEwGy82Oj5GWnyhg=";
+    rev = "v${version}";
+    sha256 = "sha256-eWEcgRmoCoKkHl05vhONTOi7kboeXFS9d4capEehBGY=";
   };
 
-  cargoHash = "sha256-N3FXw3z2jpp6MKPGoL4pFIqa2t2H6VtuICMWAJlwaog=";
+  cargoHash = "sha256-JVY1pE7+uRfEGATuM95YDJM4JgJxx656Cdo5XzPWlVw=";
 
   nativeBuildInputs = [ pkg-config ];
 
