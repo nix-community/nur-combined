@@ -3,6 +3,10 @@
         "0x4A6F": {
             "url": "https://github.com/0x4A6F/nur-packages"
         },
+        "999eagle": {
+            "type": "gitlab",
+            "url": "https://gitlab.com/999eagle/nur-packages"
+        },
         "9glenda": {
             "url": "https://github.com/9glenda/nur-packages"
         },
