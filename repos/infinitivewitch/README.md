@@ -9,11 +9,17 @@
 
 ## Contents
 
+### Modules
+
+|       Name        |                   Description                   |
+| :---------------: | :---------------------------------------------: |
+| `lillipup-tweaks` | Hardware tweaks for the **lillipup** chromebook |
+
 ### Packages
 
-|       Name       |                Description                 |
-| :--------------: | :----------------------------------------: |
-| [eupnea-scripts] | Audio scripts for Eupnea written in python |
+|       Name       |                      Description                      |
+| :--------------: | :---------------------------------------------------: |
+| [eupnea-scripts] | Audio scripts and settings for **chromebook** devices |
 
 ## Acknowledgments
 

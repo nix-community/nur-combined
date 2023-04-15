@@ -19,6 +19,9 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - run: nix eval -f default.nix 'lib'
+      - run: nix eval -f default.nix 'modules'
+      - run: nix eval -f default.nix 'overlays'
       - run: nix flake check --verbose --print-build-logs
       - run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - run: nix-env -f . -qa \* --meta --allowed-uris https://static.rust-lang.org --option restrict-eval true --option allow-import-from-derivation true --drv-path --show-trace -I nixpkgs=$(nix-instantiate --find-file nixpkgs) -I $PWD --json | jq -r 'values | .[].name'

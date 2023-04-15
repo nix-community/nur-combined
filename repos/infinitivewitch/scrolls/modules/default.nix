@@ -1,11 +1,8 @@
 # SPDX-FileCopyrightText: 2023 Lin Yinfeng <lin.yinfeng@outlook.com>
 #
 # SPDX-License-Identifier: MIT
-{...}: {
-  imports = [
-    ./flake
-    ./nixos
-  ];
+{lib, ...}: {
+  imports = lib.attrValues (import ./flake);
 
   flake = {
     flakeModules = import ./flake;
