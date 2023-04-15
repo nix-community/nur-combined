@@ -1,0 +1,4 @@
+_extends: ".github"
+repository:
+  description: The Unholy NUR repository
+  topics: nur, nur-packages, nix, nixos, flake, nix-flake

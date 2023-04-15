@@ -1,0 +1,22 @@
+{
+  "eupnea-scripts": {
+    "cargoLocks": null,
+    "date": "2023-04-13",
+    "extract": null,
+    "name": "eupnea-scripts",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "eupnea-linux",
+      "repo": "audio-scripts",
+      "rev": "7aca7ca80d7b71fadd34d4251c185bf1bd63ab8f",
+      "sha256": "sha256-PE0JX0dH/qfrlxwvo8wUhqgAFwmGE1iInZxPTKEyMqk=",
+      "type": "github"
+    },
+    "version": "7aca7ca80d7b71fadd34d4251c185bf1bd63ab8f"
+  }
+}

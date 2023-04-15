@@ -4,3 +4,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    assignees:
+      - "infinitivewitch"
+    labels:
+      - ":muscle: Effort: 1"
+      - ":wrench: Type: Maintenance"
+      - ":low_brightness: Priority: Low"
+      - ":construction: Status: In Progress"
