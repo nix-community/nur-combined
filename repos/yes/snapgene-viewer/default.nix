@@ -27,11 +27,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "snapgene-viewer";
-  version = "${majorVersion}.${minorVersion}.1";
+  version = "${majorVersion}.${minorVersion}.2";
 
   src = fetchurl {
     url = "https://cdn.snapgene.com/downloads/SnapGeneViewer/${majorVersion}.x/${majorVersion}.${minorVersion}/${version}/snapgene_viewer_${version}_linux.rpm";
-    hash = "sha256-A9qS7xZ/Eqv9x7GSONjgpjimgFABcLh4/+vtFYuDpts=";
+    hash = "sha256-DfHCUP7/OwMlDhu0tm255JeNYzX9m4B8YZB4on4ZQfQ=";
   };
 
   nativeBuildInputs = [
@@ -92,6 +92,6 @@ stdenv.mkDerivation rec {
     description = "An easy-to-use program for viewing, annotating, and printing DNA and protein sequences";
     homepage = "https://www.snapgene.com/${pname}}";
     license = licenses.unfree;
-    platforms = platforms.linux;
+    platforms = [ "x86_64-linux" ];
   };
 }

@@ -85,13 +85,13 @@ let
         sha512 = "Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==";
       };
     };
-    "@rollup/plugin-commonjs-24.0.1" = {
+    "@rollup/plugin-commonjs-24.1.0" = {
       name = "_at_rollup_slash_plugin-commonjs";
       packageName = "@rollup/plugin-commonjs";
-      version = "24.0.1";
+      version = "24.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@rollup/plugin-commonjs/-/plugin-commonjs-24.0.1.tgz";
-        sha512 = "15LsiWRZk4eOGqvrJyu3z3DaBu5BhXIMeWnijSRvd8irrrg9SHpQ1pH+BUK4H6Z9wL9yOxZJMTLU+Au86XHxow==";
+        url = "https://registry.npmjs.org/@rollup/plugin-commonjs/-/plugin-commonjs-24.1.0.tgz";
+        sha512 = "eSL45hjhCWI0jCCXcNtLVqM5N1JlBGvlFfY0m6oOYnLCJ6N0qEXoZql4sY2MOUArzhH4SA/qBpTxvvZp2Sc+DQ==";
       };
     };
     "@rollup/plugin-json-6.0.0" = {
@@ -2101,13 +2101,13 @@ let
         sha512 = "KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==";
       };
     };
-    "resolve-1.22.2" = {
+    "resolve-1.22.3" = {
       name = "resolve";
       packageName = "resolve";
-      version = "1.22.2";
+      version = "1.22.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/resolve/-/resolve-1.22.2.tgz";
-        sha512 = "Sb+mjNHOULsBv818T40qSPeRiuWLyaGMa5ewydRLFimneixmVy2zdivRl+AF6jaYPC8ERxGDmFSiqui6SfPd+g==";
+        url = "https://registry.npmjs.org/resolve/-/resolve-1.22.3.tgz";
+        sha512 = "P8ur/gp/AmbEzjr729bZnLjXK5Z+4P0zhIJgBgzqRih7hL7BOukHGtSTA3ACMY467GRFz3duQsi0bDZdR7DKdw==";
       };
     };
     "ripemd160-2.0.2" = {
@@ -2756,7 +2756,7 @@ in
         ];
       })
       sources."@leichtgewicht/ip-codec-2.0.4"
-      sources."@rollup/plugin-commonjs-24.0.1"
+      sources."@rollup/plugin-commonjs-24.1.0"
       sources."@rollup/plugin-json-6.0.0"
       sources."@rollup/plugin-node-resolve-15.0.2"
       sources."@rollup/plugin-terser-0.1.0"
@@ -2972,7 +2972,7 @@ in
       })
       sources."require-directory-2.1.1"
       sources."require-main-filename-2.0.0"
-      sources."resolve-1.22.2"
+      sources."resolve-1.22.3"
       sources."ripemd160-2.0.2"
       sources."rollup-3.20.2"
       sources."safe-buffer-5.2.1"
