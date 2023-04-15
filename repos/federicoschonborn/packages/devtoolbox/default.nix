@@ -11,7 +11,7 @@
   gtksourceview5,
   libadwaita,
   python3,
-  webkitgtk_5_0,
+  webkitgtk_6_0,
 }:
 python3.pkgs.buildPythonApplication rec {
   pname = "devtoolbox";
@@ -39,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     gtk4
     gtksourceview5
     libadwaita
-    webkitgtk_5_0
+    webkitgtk_6_0
   ];
 
   pythonPath =

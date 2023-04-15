@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitLab,
+  fetchurl,
   desktop-file-utils,
   itstool,
   meson,
@@ -14,52 +14,47 @@
   libgweather,
   libheif,
   libxml2,
-}: let
-  src = fetchFromGitLab {
-    domain = "gitlab.gnome.org";
-    owner = "Incubator";
-    repo = "loupe";
-    rev = "0e24f347e6c734acc7f0d542ab79b28e6b6a24cb";
-    hash = "sha256-uAY192BsYqDb1f/e2rE9KWKDskag0Bmpv3SP/5d9TVE=";
+}:
+stdenv.mkDerivation rec {
+  pname = "loupe";
+  version = "44.1";
+
+  src = fetchurl {
+    url = "mirror://gnome/sources/loupe/${lib.versions.major version}/loupe-${version}.tar.xz";
+    hash = "sha256-mPu2K4rcOXjzySoaDouutYVdhmdhJz463zfBP7iJ06M=";
   };
-in
-  stdenv.mkDerivation (_: {
-    pname = "loupe";
-    version = "unstable-2023-03-18";
 
+  cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
+    hash = "";
+  };
 
-    cargoDeps = rustPlatform.fetchCargoTarball {
-      inherit src;
-      hash = "sha256-tUi+y6raAhfG1bvUuSR/MRIax3OhExOBxn8gElLBRfI=";
-    };
+  nativeBuildInputs =
+    [
+      desktop-file-utils
+      itstool
+      meson
+      ninja
+      pkg-config
+      wrapGAppsHook4
+    ]
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
 
-    nativeBuildInputs =
-      [
-        desktop-file-utils
-        itstool
-        meson
-        ninja
-        pkg-config
-        wrapGAppsHook4
-      ]
-      ++ (with rustPlatform; [
-        cargoSetupHook
-        rust.cargo
-        rust.rustc
-      ]);
+  buildInputs = [
+    gtk4
+    libadwaita
+    libgweather
+    libheif
+    libxml2
+  ];
 
-    buildInputs = [
-      gtk4
-      libadwaita
-      libgweather
-      libheif
-      libxml2
-    ];
-
-    meta = with lib; {
-      description = "A simple image viewer application written with GTK4 and Rust";
-      homepage = "https://gitlab.gnome.org/Incubator/loupe/";
-      license = licenses.gpl3Only;
-    };
-  })
+  meta = with lib; {
+    description = "A simple image viewer application written with GTK4 and Rust";
+    homepage = "https://gitlab.gnome.org/Incubator/loupe/";
+    license = licenses.gpl3Only;
+  };
+}
