@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230413.180032";
+      version = "112.0.20230414.125621";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4097162/francais_language_pack-113.0.20230413.180032.xpi";
-      sha256 = "98be4393136b4e1d2dd3aaaf212518d680a73b1b4b31317dd881a4a4433f2db8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4097575/francais_language_pack-112.0.20230414.125621.xpi";
+      sha256 = "7671e872ac62f882eaf2e172f643d8af9f9276b375dec6b2e3723e84739bab7b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1626,10 +1626,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.27.0";
+      version = "10.28.3";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090626/ether_metamask-10.27.0.xpi";
-      sha256 = "9d1fb78615e6fc036aa2edade6441c091b5541ce85182c991a7677d45deaac61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4096869/ether_metamask-10.28.3.xpi";
+      sha256 = "bf034e8296bc4a6aafc5152a240c0c3a40641e1687a95c0ec7f964118a3e3e97";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -2546,10 +2546,10 @@
       };
     "sourcegraph" = buildFirefoxXpiAddon {
       pname = "sourcegraph";
-      version = "23.3.10.1712";
+      version = "23.4.14.1343";
       addonId = "sourcegraph-for-firefox@sourcegraph.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4081943/sourcegraph_for_firefox-23.3.10.1712.xpi";
-      sha256 = "21aa9f4c889c8f435e6f379bd7e7ca6c68f50c33c506c1fc97025a019a99d4ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4097469/sourcegraph_for_firefox-23.4.14.1343.xpi";
+      sha256 = "fa02236d75a82a7c47dabd0272b77dd9a74e8069563415a7b8b2b9d37c36d20b";
       meta = with lib;
       {
         description = "Adds code intelligence to GitHub, GitLab, Bitbucket Server, and Phabricator: hovers, definitions, references. Supports 20+ languages.";
