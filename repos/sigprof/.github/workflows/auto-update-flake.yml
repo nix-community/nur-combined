@@ -23,7 +23,7 @@ jobs:
       matrix: ${{ steps.generate_matrix.outputs.matrix }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.0
+        uses: actions/checkout@v3.5.2
 
       - name: Install Nix
         uses: cachix/install-nix-action@29bd9290ef037a3ecbdafe83cbd2185e9dd0fa0a
@@ -49,7 +49,7 @@ jobs:
       automerge: ${{ (matrix.input == 'nixpkgs') || (matrix.input == 'nixos-unstable') }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.0
+        uses: actions/checkout@v3.5.2
 
       - name: Install Nix
         uses: cachix/install-nix-action@29bd9290ef037a3ecbdafe83cbd2185e9dd0fa0a
@@ -65,7 +65,7 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Update ${{ matrix.input }}
-        uses: cpcloud/flake-update-action@b301c3d29fa56f72b786626a50478b61528cfd13
+        uses: cpcloud/flake-update-action@eecde7936cf2f8b489398550ed8a4ef16c12bc1a
         with:
           dependency: ${{ matrix.input }}
           pull-request-token: ${{ steps.token.outputs.token }}
