@@ -463,8 +463,8 @@
             "url": "https://github.com/imsofi/nur-pkgs"
         },
         "infinitivewitch": {
-            "rev": "1daa81cda7225aadcd0d7a2e0dd04dca0b8506ec",
-            "sha256": "1aw0qsa6jg77rb3npx74nk5zv8ka5nj8aa5wiq7kcfhf81dvjby5",
+            "rev": "8a3bbf72437097bc38d9970aed032f82e95d1f42",
+            "sha256": "0wnx58yj74lwgwq7648qb9w043jg464xyz621ql03i4frkdgzhyb",
             "url": "https://github.com/infinitivewitch/nurspellbook"
         },
         "instantos": {
