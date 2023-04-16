@@ -1,4 +1,4 @@
-{ pkgs, lib }: {
+{ pkgs, lib, ... }: {
 
   emacsParsePackageSet = pkgs.callPackage ({ path, emacs
     , epkgs ? pkgs.emacsPackagesFor emacs, emacs-overlay ? <emacs-overlay>, ...

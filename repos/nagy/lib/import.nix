@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{ pkgs, lib, ... }:
 with lib; rec {
   mapNixFiles = fn: dir: (map fn (attrNames (builtins.readDir dir)));
   importNixFiles = dir: (mapNixFiles (x: import (dir + "/${x}")) dir);

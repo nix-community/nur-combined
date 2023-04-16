@@ -9,8 +9,7 @@ with import ./lib {
 makeScope pkgs.newScope (self:
   (callNixFiles self.callPackage ./pkgs) // {
 
-    lib = (extend (self: super: pkgs.callPackage ./lib.nix { })).extend
-      (self: super: pkgs.callPackage ./lib { });
+    lib = extend (self: super: pkgs.callPackage ./lib { });
 
     qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
@@ -53,6 +52,8 @@ makeScope pkgs.newScope (self:
     };
 
     ksv = self.callPackage ./pkgs/ksv { };
+
+    rfcs = self.callPackage ./pkgs/rfcs.nix { inherit fetchRFCBulk; };
 
     overlay = composeManyExtensions (importNixFiles ./overlays);
   })

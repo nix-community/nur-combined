@@ -1,9 +1,8 @@
 { pkgs, lib, callPackage }:
 
-lib.foldr lib.recursiveUpdate { } [
-  (import ./import.nix { inherit pkgs lib; })
-  (import ./convert.nix { inherit pkgs lib callPackage; })
-  (import ./cargoIndex.nix { inherit pkgs lib; })
-  (import ./emacs.nix { inherit pkgs lib; })
-  { writeNpmPackage = import ./npm-package.nix { inherit pkgs; }; }
-]
+let
+  filterFiles =
+    lib.filterAttrs (name: value: value == "regular" && name != "default.nix");
+  files = lib.attrNames (filterFiles (builtins.readDir ./.));
+  fileMap = file: import (./. + "/${file}") { inherit pkgs lib callPackage; };
+in lib.foldr lib.recursiveUpdate { } (map fileMap files)
