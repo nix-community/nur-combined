@@ -13,6 +13,7 @@ defaults:
     shell: bash
 
 env:
+  CI_NIX_INSTALL_URL: https://releases.nixos.org/nix/nix-2.14.1/install
   NIX_CONFIG: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
 jobs:
@@ -26,6 +27,8 @@ jobs:
 
       - name: Install Nix
         uses: cachix/install-nix-action@29bd9290ef037a3ecbdafe83cbd2185e9dd0fa0a
+        with:
+          install_url: ${{ env.CI_NIX_INSTALL_URL }}
 
       - name: Generate matrix from flake inputs
         id: generate_matrix
@@ -51,6 +54,7 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@29bd9290ef037a3ecbdafe83cbd2185e9dd0fa0a
         with:
+          install_url: ${{ env.CI_NIX_INSTALL_URL }}
           nix_path: nixpkgs=channel:nixos-unstable
 
       - name: Generate a GitHub token

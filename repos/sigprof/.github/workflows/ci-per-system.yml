@@ -25,6 +25,11 @@ on:
         description: >
           The description of NUR-related build jobs in the JSON format, or an
           empty string if no NUR builds need to be performed.
+      nix-install-url:
+        type: string
+        default: ''
+        description: >
+          Installation URL that will contain a script to install Nix.
       cachix-name:
         type: string
         default: ''
@@ -69,6 +74,7 @@ jobs:
         with:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
@@ -89,6 +95,7 @@ jobs:
         with:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
@@ -110,6 +117,7 @@ jobs:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
           channel: ${{ matrix.channel }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
@@ -131,6 +139,7 @@ jobs:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
           channel: ${{ matrix.channel }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
@@ -155,6 +164,7 @@ jobs:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
           channel: ${{ matrix.channel }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
@@ -179,6 +189,7 @@ jobs:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
           channel: ${{ matrix.channel }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
@@ -202,6 +213,7 @@ jobs:
         with:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
@@ -225,6 +237,7 @@ jobs:
         with:
           item: ${{ toJSON(matrix.item) }}
           system: ${{ inputs.system }}
+          nix-install-url: ${{ inputs.nix-install-url }}
           cachix-name: ${{ inputs.cachix-name }}
           cachix-extra-pull-names: ${{ inputs.cachix-extra-pull-names }}
           cachix-auth-token: ${{ secrets.cachix-auth-token }}
