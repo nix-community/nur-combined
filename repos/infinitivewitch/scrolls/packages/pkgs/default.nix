@@ -13,5 +13,7 @@ lib.makeScope newScope (
     sources = callPackage ./_sources/generated.nix {};
 
     eupnea-scripts = callPackage ./eupnea-scripts {};
+    nvfetcher-changes = callPackage ./nvfetcher-changes {};
+    nvfetcher-commit = callPackage ./nvfetcher-commit {};
   }
 )

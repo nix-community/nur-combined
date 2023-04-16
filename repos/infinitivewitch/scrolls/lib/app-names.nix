@@ -14,6 +14,8 @@
   merge = lib.fold lib.recursiveUpdate {};
   appNamesDict = merge [
     (empty "eupnea-scripts")
+    (trivial "nvfetcher-changes")
+    (trivial "nvfetcher-commit")
   ];
 in
   p: appNamesDict.${p}
