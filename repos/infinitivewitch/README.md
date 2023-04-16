@@ -3,7 +3,8 @@
 > The Unholy [NUR](https://github.com/nix-community/NUR) repository
 
 [![Deploy](https://github.com/infinitivewitch/nurspellbook/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/infinitivewitch/nurspellbook/actions/workflows/deploy.yml)
-[![Update](https://github.com/infinitivewitch/nurspellbook/actions/workflows/update.yml/badge.svg?branch=main)](https://github.com/infinitivewitch/nurspellbook/actions/workflows/update.yml)
+[![Update Flake](https://github.com/infinitivewitch/nurspellbook/actions/workflows/update-flake.yml/badge.svg?branch=main)](https://github.com/infinitivewitch/nurspellbook/actions/workflows/update-flake.yml)
+[![Update Packages](https://github.com/infinitivewitch/nurspellbook/actions/workflows/update-pkgs.yml/badge.svg?branch=main)](https://github.com/infinitivewitch/nurspellbook/actions/workflows/update-pkgs.yml)
 [![Cachix](https://img.shields.io/badge/cachix-infinitivewitch-white.svg)](https://infinitivewitch.cachix.org)
 [![WakaTime](https://wakatime.com/badge/github/infinitivewitch/nurspellbook.svg)](https://wakatime.com/badge/github/infinitivewitch/nurspellbook)
 

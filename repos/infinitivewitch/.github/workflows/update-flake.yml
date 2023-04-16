@@ -1,0 +1,31 @@
+name: update-flake
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  flake:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: DeterminateSystems/nix-installer-action@v1
+    - uses: DeterminateSystems/update-flake-lock@v19
+      with:
+        sign-commits: true
+        git-author-name: 'Mecha Sorceress'
+        git-author-email: 'infinitivewitch+bot@disroot.org'
+        git-committer-name: 'Mecha Sorceress'
+        git-committer-email: 'infinitivewitch+bot@disroot.org'
+        pr-assignees: infinitivewitch
+        pr-title: 'ci: update flake.lock'
+        commit-msg: 'ci: update flake.lock'
+        token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+        gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+        gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+        pr-labels: |
+          :muscle: Effort: 1
+          :wrench: Type: Maintenance
+          :low_brightness: Priority: Low
+          :construction: Status: In Progress
