@@ -1,15 +1,17 @@
 { pkgs ? import <nixpkgs> { }, lib ? pkgs.lib
 , recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
 
-with lib;
-with import ./lib {
-  inherit pkgs lib;
-  inherit (pkgs) callPackage;
-};
-makeScope pkgs.newScope (self:
+let
+
+  inherit (import ./lib {
+    inherit pkgs lib;
+    inherit (pkgs) callPackage;
+  })
+    callNixFiles importNixFiles;
+in lib.makeScope pkgs.newScope (self:
   (callNixFiles self.callPackage ./pkgs) // {
 
-    lib = extend (self: super: pkgs.callPackage ./lib { });
+    lib = lib.extend (self: super: pkgs.callPackage ./lib { });
 
     qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
@@ -21,8 +23,8 @@ makeScope pkgs.newScope (self:
       recurseIntoAttrs (pkgs.lua5_4.pkgs.callPackage ./pkgs/luaPackages { });
     luaPackages = self.lua54Packages;
 
-    python3Packages = recurseIntoAttrs (makeScope pkgs.python3Packages.newScope
-      (py3: {
+    python3Packages = recurseIntoAttrs
+      (lib.makeScope pkgs.python3Packages.newScope (py3: {
         asyncer = py3.callPackage ./pkgs/asyncer { };
         dbussy = py3.callPackage ./pkgs/dbussy { };
         colorpedia = py3.callPackage ./pkgs/colorpedia { };
@@ -53,7 +55,8 @@ makeScope pkgs.newScope (self:
 
     ksv = self.callPackage ./pkgs/ksv { };
 
-    rfcs = self.callPackage ./pkgs/rfcs.nix { inherit fetchRFCBulk; };
+    rfcs =
+      self.callPackage ./pkgs/rfcs.nix { inherit (self.lib) fetchRFCBulk; };
 
-    overlay = composeManyExtensions (importNixFiles ./overlays);
+    overlay = lib.composeManyExtensions (importNixFiles ./overlays);
   })
