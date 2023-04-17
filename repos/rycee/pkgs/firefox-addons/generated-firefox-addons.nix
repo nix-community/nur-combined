@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230414.125621";
+      version = "113.0.20230416.180020";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4097575/francais_language_pack-112.0.20230414.125621.xpi";
-      sha256 = "7671e872ac62f882eaf2e172f643d8af9f9276b375dec6b2e3723e84739bab7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098335/francais_language_pack-113.0.20230416.180020.xpi";
+      sha256 = "c28470cc6dc2036a1af6846d72738d7901c8f6130c3563a9e9da9d5668f3e95c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3181,10 +3181,10 @@
       };
     "vimium-c" = buildFirefoxXpiAddon {
       pname = "vimium-c";
-      version = "1.99.97";
+      version = "1.99.99";
       addonId = "vimium-c@gdh1995.cn";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4047348/vimium_c-1.99.97.xpi";
-      sha256 = "a3ec1d6946869984b72ea5e5c427ad961a1fd5115725c56c695411f6f64ce3df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098265/vimium_c-1.99.99.xpi";
+      sha256 = "d133091be65e0854a60e8c997852657dc23a68c3288e21f4b10e75c82c021d37";
       meta = with lib;
       {
         homepage = "https://github.com/gdh1995/vimium-c";
