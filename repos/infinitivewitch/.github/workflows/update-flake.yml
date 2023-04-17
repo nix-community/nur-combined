@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: DeterminateSystems/nix-installer-action@v1
+    - uses: DeterminateSystems/nix-installer-action@v2
     - uses: DeterminateSystems/update-flake-lock@v19
       with:
         sign-commits: true
