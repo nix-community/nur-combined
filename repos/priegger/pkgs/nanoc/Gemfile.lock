@@ -1,10 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.8.1)
+    addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
-    adsf (1.4.6)
-      rack (>= 1.0.0, < 3.0.0)
+    adsf (1.4.7)
+      rack (>= 1.0.0, < 4.0.0)
+      rackup (~> 2.1)
     colored (1.2)
     concurrent-ruby (1.2.2)
     cri (2.15.11)
@@ -56,15 +57,19 @@ GEM
     psych (4.0.6)
       stringio
     public_suffix (5.0.1)
-    rack (2.2.6.4)
+    rack (3.0.7)
+    rackup (2.1.0)
+      rack (>= 3)
+      webrick (~> 1.8)
     rexml (3.2.5)
     slow_enumerator_tools (1.1.0)
-    stringio (3.0.5)
+    stringio (3.0.6)
     tty-color (0.6.0)
     tty-command (0.10.1)
       pastel (~> 0.8)
     tty-platform (0.3.0)
     tty-which (0.5.0)
+    webrick (1.8.1)
     zeitwerk (2.6.7)
 
 PLATFORMS
@@ -76,4 +81,4 @@ DEPENDENCIES
   nanoc
 
 BUNDLED WITH
-   2.4.6
+   2.4.10

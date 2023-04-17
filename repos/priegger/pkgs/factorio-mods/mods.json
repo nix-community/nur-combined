@@ -106,10 +106,10 @@
   },
   {
     "name": "Krastorio2",
-    "version": "1.3.16",
-    "file_name": "Krastorio2_1.3.16.zip",
-    "download_url": "/download/Krastorio2/64057d537d9565d6cc833ca1",
-    "sha1": "6e2c0aea3c86e2d08ed1fd3c57931e87ef08dfaf",
+    "version": "1.3.18",
+    "file_name": "Krastorio2_1.3.18.zip",
+    "download_url": "/download/Krastorio2/641e6554731b03bdb671d8f5",
+    "sha1": "bacc6cd3a1c67344f94dba569b938275d7114146",
     "dependencies": [
       "base >= 1.1.74",
       "Krastorio2Assets >= 1.2.1",
@@ -209,10 +209,10 @@
   },
   {
     "name": "Rampant",
-    "version": "3.1.2",
-    "file_name": "Rampant_3.1.2.zip",
-    "download_url": "/download/Rampant/62ae3b41ff5f6874428896b6",
-    "sha1": "01feddc7cbc7a7a993310e57b6c25bae5dbb8f84",
+    "version": "3.3.2",
+    "file_name": "Rampant_3.3.2.zip",
+    "download_url": "/download/Rampant/64323ca296d8e31da42e07b2",
+    "sha1": "cb3dc3333619971bb43ba76b8995e056285ea0fc",
     "dependencies": [
       "base >= 1.1.36",
       "? bobenemies",
@@ -222,7 +222,8 @@
       "? Orbital Ion Cannon",
       "? ArmouredBiters",
       "? Krastorio2",
-      "? SchallAlienLoot >= 0.17.6"
+      "? SchallAlienLoot >= 0.17.6",
+      "! zhcnremake"
     ]
   },
   {
@@ -886,10 +887,10 @@
   },
   {
     "name": "flib",
-    "version": "0.12.5",
-    "file_name": "flib_0.12.5.zip",
-    "download_url": "/download/flib/640aa1dcbdb9bd7b5bc7602a",
-    "sha1": "91cc9921132132d963202c9e6277676c5e2deced",
+    "version": "0.12.6",
+    "file_name": "flib_0.12.6.zip",
+    "download_url": "/download/flib/6418d290092396b195f53d5d",
+    "sha1": "8bfb03f24b35db6abbc3f0e1be77e6dbe157d58e",
     "dependencies": [
       "base >= 1.1.74"
     ]
@@ -906,10 +907,10 @@
   },
   {
     "name": "helmod",
-    "version": "0.12.14",
-    "file_name": "helmod_0.12.14.zip",
-    "download_url": "/download/helmod/63aea7511916b1c92dde2733",
-    "sha1": "a290c08a363b7e5a4bf37b06bedc9396a69efb6e",
+    "version": "0.12.15",
+    "file_name": "helmod_0.12.15.zip",
+    "download_url": "/download/helmod/64168057d6c91037e0ec21af",
+    "sha1": "a17be8dfb97250ed18a806483ebc9044216e6566",
     "dependencies": [
       "base >= 1.1.57"
     ]
@@ -989,10 +990,10 @@
   },
   {
     "name": "reskins-compatibility",
-    "version": "2.1.6",
-    "file_name": "reskins-compatibility_2.1.6.zip",
-    "download_url": "/download/reskins-compatibility/63b18ee560a93b6d58f78832",
-    "sha1": "7ce07bbb10254b232a8b53d0cdb4f55a0e3af03e",
+    "version": "2.1.8",
+    "file_name": "reskins-compatibility_2.1.8.zip",
+    "download_url": "/download/reskins-compatibility/643800784f2f17209fb85f9e",
+    "sha1": "f98e01750d847e115b05d16f5da6bce8124fd5cf",
     "dependencies": [
       "base",
       "reskins-library >= 2.1.0",
@@ -1026,10 +1027,10 @@
   },
   {
     "name": "reskins-library",
-    "version": "2.1.4",
-    "file_name": "reskins-library_2.1.4.zip",
-    "download_url": "/download/reskins-library/633ef0af0f1f6f128481b513",
-    "sha1": "8c4801191efa29ded66efefd244ba64e5878d6fd",
+    "version": "2.1.5",
+    "file_name": "reskins-library_2.1.5.zip",
+    "download_url": "/download/reskins-library/643801964f2f17209fb85f9f",
+    "sha1": "cbc340b3736b716023464e6526a21cdaea5c16c0",
     "dependencies": [
       "base",
       "flib",

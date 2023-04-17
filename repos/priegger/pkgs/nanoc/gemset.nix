@@ -5,21 +5,21 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1ypdmpdn20hxp5vwxz3zc04r5xcwqc25qszdlg41h8ghdqbllwmw";
+      sha256 = "15s8van7r2ad3dq6i03l3z4hqnvxcq75a3h72kxvf9an53sqma20";
       type = "gem";
     };
-    version = "2.8.1";
+    version = "2.8.4";
   };
   adsf = {
-    dependencies = [ "rack" ];
+    dependencies = [ "rack" "rackup" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1s6my1ba838wjc2ii4x8fyabsyqs3jl60vdrgagzdjd2w423gghg";
+      sha256 = "1bi3szzcwb5g1iia9jzz0pjg6clvmpf3k73nx2zqi9jbxi9i74c5";
       type = "gem";
     };
-    version = "1.4.6";
+    version = "1.4.7";
   };
   colored = {
     groups = [ "default" ];
@@ -225,10 +225,21 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1qgwkcb8kxns8d5187cxjaxf18b7dmg9gh6cr9c1125m0bj2pnfk";
+      sha256 = "1kp78w4q0rzrkjdy1d3ii13rx1gnciqcry176062bzbcj8cs10s3";
       type = "gem";
     };
-    version = "2.2.6.4";
+    version = "3.0.7";
+  };
+  rackup = {
+    dependencies = [ "rack" "webrick" ];
+    groups = [ "default" ];
+    platforms = [ ];
+    source = {
+      remotes = [ "https://rubygems.org" ];
+      sha256 = "0kbcka30g681cqasw47pq93fxjscq7yvs5zf8lp3740rb158ijvf";
+      type = "gem";
+    };
+    version = "2.1.0";
   };
   rexml = {
     groups = [ "default" ];
@@ -255,10 +266,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1al02vvy3df0q3jy8sblkgpf688bji84l4p4xq9gzkk469i23bis";
+      sha256 = "10w46rlh844kax248l1m3pyrj94n1qpc9691j8r5v0rzdxibpy7v";
       type = "gem";
     };
-    version = "3.0.5";
+    version = "3.0.6";
   };
   tty-color = {
     groups = [ "default" ];
@@ -300,6 +311,16 @@
       type = "gem";
     };
     version = "0.5.0";
+  };
+  webrick = {
+    groups = [ "default" ];
+    platforms = [ ];
+    source = {
+      remotes = [ "https://rubygems.org" ];
+      sha256 = "13qm7s0gr2pmfcl7dxrmq38asaza4w0i2n9my4yzs499j731wh8r";
+      type = "gem";
+    };
+    version = "1.8.1";
   };
   zeitwerk = {
     groups = [ "default" ];
