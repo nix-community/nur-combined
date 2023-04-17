@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "zigtools";
     repo = "zls";
-    rev = "3449269fd3567328480eb5cdcb24793d4df781b5";
-    sha256 = "sha256-UJFCFRnoCCP//6CUlWZzne3AFZeOxxsWdDzv64We1Q0=";
+    rev = "811de07706fa8c496152710654d50fa72f7cefe2";
+    sha256 = "sha256-91hNXaP6bxMumN6sJjCW44/fwPlaqli3x38fzIYHN5U=";
     fetchSubmodules = true;
   };
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     zig version
-    zig build -Drelease-safe --prefix $out
+    zig build -Doptimize=ReleaseSafe --prefix $out
   '';
 
   meta = with lib; {

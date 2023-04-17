@@ -6,7 +6,7 @@ let
   url = {
     "0.10.0" =
       "https://ziglang.org/download/0.10.0/zig-${os}-${arch}-0.10.0.tar.xz";
-    "0.11.0-dev.1023+1c711b0a6" =
+    "0.11.0-dev.2624+bc804eb84" =
       "https://ziglang.org/builds/zig-${os}-${arch}-${v}.tar.xz";
   };
   shas = {
@@ -20,15 +20,15 @@ let
       aarch64-darwin =
         "02f7a7839b6a1e127eeae22ea72c87603fb7298c58bc35822a951479d53c7557";
     };
-    "0.11.0-dev.1023+1c711b0a6" = {
+    "0.11.0-dev.2624+bc804eb84" = {
       x86_64-linux =
-        "ad7877a741719797ca094f8111da056fc8e4324d6f7d91248c8c1f6a9f4b8684";
+        "7c0e53f8d52e37c2c93f366e4d55cf44e9f0538df30bcc5b9a42d8dbd0cc3753";
       aarch64-linux =
-        "69ab0323c8bb37d64aa40503ffb78c055785af0ed70e1bfda133b75e6ef72c6f";
+        "e21384d7e6eac7958d7e7ed3db8a3e7330fad99d08f5232984a8637fa0cdc566";
       x86_64-darwin =
-        "286ae9577b3575e019ed6db34d899cd56d272c5cdb142b0eabfc83ae446ffc46";
+        "57a630d49a9d9429dd96f2f184c5225300950c38a4c7daddc9486285a53eac73";
       aarch64-darwin =
-        "a1663549fc7c716955407741dedb0d2caaaf8d647f8d5b3c6cf42ef7acf686b6";
+        "7d61211e84886177a1ad821b0498ee3379c15c9da48ebf83dbba78bcdfa1fff1";
     };
   };
 in stdenv.mkDerivation rec {
