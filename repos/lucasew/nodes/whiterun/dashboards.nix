@@ -34,7 +34,6 @@
         port = 9002;
       };
       zfs.enable = true;
-      dnsmasq.enable = true;
       nginx = {
         enable = true;
         sslVerify = false; # rede interna não usa ssl
@@ -51,6 +50,6 @@
           targets = ["127.0.0.1:${toString config.services.prometheus.exporters.${item}.port}"];
         }
       ];
-    })  ["node" "zfs" "dnsmasq" "nginx" "postgres"]);
+    })  ["node" "zfs" "nginx" "postgres"]);
   };
 }

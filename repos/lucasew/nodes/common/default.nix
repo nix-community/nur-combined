@@ -22,7 +22,6 @@ in
     ./kvm.nix
     ./sops.nix
     ./unstore.nix
-    ./dns.nix
     ./telegram_sendmail.nix
     "${unpackedInputs.simple-dashboard}/nixos-module.nix"
   ];

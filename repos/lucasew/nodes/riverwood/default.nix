@@ -20,7 +20,6 @@ in
 
       ./tuning.nix
       ./networking.nix
-      ./dns.nix
       ./kvm.nix
       # ./zfs.nix
       ./plymouth.nix
