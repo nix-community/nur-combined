@@ -30,4 +30,5 @@ rec {
   archisteamfarm = ./archisteamfarm.nix;
   adblock = ./adblock.nix;
   gamescope = ./gamescope.nix;
+  vscodium = ./vscodium.nix;
 }
