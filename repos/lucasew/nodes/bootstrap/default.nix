@@ -9,6 +9,7 @@ in {
     ./nix-binary-caches.nix
     ./netns.nix
     ./zerotier.nix
+    ./tailscale.nix
     ./user.nix
     ./ssh.nix
     ./colors.nix
