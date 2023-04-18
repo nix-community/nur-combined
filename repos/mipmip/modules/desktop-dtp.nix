@@ -22,7 +22,6 @@
     libreoffice
 
     nextcloud-client
-    spotify
 
   ];
 }

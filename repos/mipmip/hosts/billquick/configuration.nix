@@ -23,6 +23,7 @@
     ../../modules/desktop-st.nix
     ../../modules/desktop-dev.nix
     ../../modules/desktop-video.nix
+    ../../modules/desktop-audio.nix
     ../../modules/desktop-virtualbox.nix
     ../../modules/desktop-security.nix
 

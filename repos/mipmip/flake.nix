@@ -69,6 +69,19 @@
           inherit localOverlay;
         };
       };
+
+      "pim@rodin" = home-manager.lib.homeManagerConfiguration {
+        modules = [ (import ./home-manager/home-machine-rodin.nix) ];
+
+        pkgs = pkgsForSystem "x86_64-linux";
+        extraSpecialArgs = {
+          withLinny = false;
+          isDesktop = false;
+          tmuxPrefix = "b";
+          unstable = unstableForSystem "x86_64-linux";
+          inherit localOverlay;
+        };
+      };
     };
 
     inherit home-manager;
@@ -79,7 +92,6 @@
     */
 
     nixosConfigurations.rodin = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
 
       modules =
         let
@@ -89,7 +101,7 @@
         in [
           defaults
           ./hosts/rodin/configuration.nix
-          .home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
           }
@@ -97,7 +109,6 @@
     };
 
     nixosConfigurations.lego1 = nixpkgs.lib.nixosSystem {
-      #system = "x86_64-linux";
 
       modules =
         let
@@ -115,7 +126,6 @@
     };
 
     nixosConfigurations.ojs = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
 
       modules =
         let
@@ -133,7 +143,6 @@
     };
 
     nixosConfigurations.billquick = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
 
       modules =
         let

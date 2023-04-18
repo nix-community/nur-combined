@@ -19,8 +19,8 @@
       ../../modules/base-tmux.nix
       ../../modules/base-vim.nix
 
-      ../../modules/desktop-chrome.nix
-      ../../modules/desktop-communication.nix
+#      ../../modules/desktop-chrome.nix
+#      ../../modules/desktop-communication.nix
       ../../modules/desktop-dtp.nix
       ../../modules/desktop-firefox.nix
       ../../modules/desktop-dev.nix
@@ -56,6 +56,19 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+         experimental-features = nix-command flakes
+    '';
+  };
+
+
+  # enable the nvidia driver
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   networking.hostName = "rodin"; # Define your hostname.
 
