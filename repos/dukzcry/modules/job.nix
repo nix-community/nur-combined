@@ -21,6 +21,7 @@ in {
           skypeforlinux zoom-us mattermost-desktop
         ];
       };
+      programs.evolution.plugins = [ pkgs.evolution-ews ];
     })
     (mkIf cfg.server {
       environment.systemPackages = [(
@@ -43,12 +44,11 @@ in {
       networking.firewall.extraCommands = ''
         iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';
-    services.dnsmasq.extraConfig = ''
-      server=/iris.k8s.renins.com/10.50.0.43
-      server=/iris.k8s.renins.com/10.50.0.44
-      rebind-domain-ok=iris.k8s.renins.com
-    '';
-
+      services.dnsmasq.extraConfig = ''
+        server=/iris.k8s.renins.com/10.50.0.43
+        server=/iris.k8s.renins.com/10.50.0.44
+        rebind-domain-ok=iris.k8s.renins.com
+      '';
       #services.davmail.enable = true;
       services.davmail.url = "https://sync2.renins.com/ews/exchange.asmx";
       services.davmail.config = {
