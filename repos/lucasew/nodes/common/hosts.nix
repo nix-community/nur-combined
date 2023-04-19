@@ -1,20 +1,18 @@
-{ config, lib, ... }:
+{ global, config, lib, ... }:
 let
-  node = {
-    riverwood = "100.108.254.101";
-    whiterun = "100.85.38.19";
-  }."${config.networking.hostName}";
+  node = global.nodeIps.${config.networking.hostName}.ts or null;
 
   mySubdomains = 
   let
     nginx = builtins.attrNames config.services.nginx.virtualHosts;
-  in lib.flatten [ nginx ];
+    baseDomain = "${config.networking.hostName}.${config.networking.domain}";
+  in lib.flatten [ nginx baseDomain ];
 in {
   services.dnsmasq = {
-    enable = true;
+    enable = node != null;
     resolveLocalQueries = false;
     extraConfig = ''
-      port=5353
+      port=53
       domain-needed
       bogus-priv
       no-resolv
