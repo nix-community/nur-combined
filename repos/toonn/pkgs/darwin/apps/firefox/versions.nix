@@ -197,6 +197,12 @@ let versions = builtins.mapAttrs (n: v: v // { "version" = n; }) {
       "111.0.1" = {
         sha256 = "0fx6pl1jf5n3p7x2q5wccdjf2afr3pm3lfm4q7jqnvpbpmcdxq11";
       };
+      "112.0" = {
+        sha256 = "1023m4mlzhafkjzwkaz8ygwm41gvra4q7l6xmhf9vdj37kdv6v0f";
+      };
+      "112.0.1" = {
+        sha256 = "07rvhbvjpib54qk6m5imh9dysb4zvxjr9lzg620n75w4c14jlm9j";
+      };
     };
     latestVersion = lib.lists.foldr (v: lV:
                                       if builtins.compareVersions v lV == 1
