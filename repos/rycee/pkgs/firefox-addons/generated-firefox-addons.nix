@@ -572,6 +572,20 @@
         platforms = platforms.all;
         };
       };
+    "dictionaries" = buildFirefoxXpiAddon {
+      pname = "dictionaries";
+      version = "3.2.1";
+      addonId = "revir.qing@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4069604/dictionaries-3.2.1.xpi";
+      sha256 = "60f85dbd43215f1b52cef4f757f528d59dce95d154c076ddd654e22d868a9062";
+      meta = with lib;
+      {
+        homepage = "https://github.com/revir/dictionaries";
+        description = "Dictionariez(Dictionaries): This extension help you reading articles, looking up words of any language in various dictionaries, and exporting words to Anki, facilitating your language learning process.";
+        license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
     "disable-javascript" = buildFirefoxXpiAddon {
       pname = "disable-javascript";
       version = "2.3.1";
