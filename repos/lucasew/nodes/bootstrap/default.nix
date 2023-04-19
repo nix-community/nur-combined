@@ -4,6 +4,7 @@ let
   inherit (global) username;
 in {
   imports = [
+    ./bash-extra.nix
     ./systemd-portd.nix
     ./nix.nix
     ./nix-binary-caches.nix
