@@ -961,10 +961,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230416.180020";
+      version = "113.0.20230418.175842";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4098335/francais_language_pack-113.0.20230416.180020.xpi";
-      sha256 = "c28470cc6dc2036a1af6846d72738d7901c8f6130c3563a9e9da9d5668f3e95c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099313/francais_language_pack-113.0.20230418.175842.xpi";
+      sha256 = "35b12eb0aede4667572a7730864a59aa1f004fffddc043fc97ccc1082f677d28";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1531,10 +1531,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.48";
+      version = "2.6.49";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4085331/localcdn_fork_of_decentraleyes-2.6.48.xpi";
-      sha256 = "1eda973933f02ee6138bc06e1c709458c0fd97e19ce6308010da7e2be0767aed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4094744/localcdn_fork_of_decentraleyes-2.6.49.xpi";
+      sha256 = "09a230844d6e63383e4a28514afd1738dfcc25a0652d10700cce32d96e55b3d0";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -1671,10 +1671,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.61";
+      version = "2.7.65";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090829/momentumdash-2.7.61.xpi";
-      sha256 = "6e3b1e8aa0ec789802360e7fa7e4040154a0f40c4baa763a1d2dd7df20acc559";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4097762/momentumdash-2.7.65.xpi";
+      sha256 = "e83f96427b62b090b984ed85495c9c7c8b057287d464b6a8cafc3e5279232305";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2921,10 +2921,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.6.2";
+      version = "2.6.5";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4089971/tournesol_extension-2.6.2.xpi";
-      sha256 = "1ae67b1ec4d128029d62ed7466d8b9f068866a9bf27d6dc4f77e316613b17680";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099172/tournesol_extension-2.6.5.xpi";
+      sha256 = "e33411e709f9a44074a10ccd757e044ab077464cb650e51da3826f3c808573f7";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
