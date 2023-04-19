@@ -4,7 +4,7 @@
 , fetchurl
 , makeWrapper
 , wrapGAppsHook
-, jdk
+, jdk17
 , xorg
 , wayland
 , libpulseaudio
@@ -19,11 +19,11 @@
 
 stdenv.mkDerivation rec {
   name = "hmcl-bin";
-  version = "3.5.3.227";
+  version = "3.5.4.232";
 
   src = fetchurl {
     url = "https://github.com/huanghongxun/HMCL/releases/download/v${version}/HMCL-${version}.jar";
-    sha256 = "sha256-bq3YqNwDtASJUt6uCTdMAIBPLfmVrGu1xVCFno0JwK0=";
+    sha256 = "sha256-6UCyrnTkLTM+09ulJP55AN5ChiTrcC9wLUUe1MNJw60=";
   };
 
   dontUnpack = true;
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ glib ];
-  nativeBuildInputs = [ jdk wrapGAppsHook makeWrapper copyDesktopItems ];
+  nativeBuildInputs = [ jdk17 wrapGAppsHook makeWrapper copyDesktopItems ];
 
   installPhase = let
     libpath = with xorg; lib.makeLibraryPath ([
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/{bin,lib/hmcl-bin}
     ln -s $src $out/lib/hmcl-bin/hmcl-bin.jar
     install -Dm644 $icon $out/share/icons/hicolor/48x48/apps/hmcl.png
-    makeWrapper  ${jdk}/bin/java $out/bin/hmcl-bin \
+    makeWrapper  ${jdk17}/bin/java $out/bin/hmcl-bin \
       --add-flags "-jar $out/lib/hmcl-bin/hmcl-bin.jar" \
       --set LD_LIBRARY_PATH ${libpath}
     runHook postInstall
