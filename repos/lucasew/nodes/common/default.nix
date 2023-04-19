@@ -13,6 +13,7 @@ in
     ../../modules/hold-gc/system.nix
     ./ansible-python.nix
     ./cloud-savegame.nix
+    ./hosts.nix
     ./p2k.nix
     ./tuning.nix
     ./jellyfin.nix
