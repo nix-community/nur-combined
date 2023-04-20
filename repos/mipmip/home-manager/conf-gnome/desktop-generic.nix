@@ -1,8 +1,5 @@
 { lib, ... }:
 
-let
-  mkTuple = lib.hm.gvariant.mkTuple;
-in
 {
   dconf.settings = {
 
@@ -17,13 +14,6 @@ in
 
     "org/gnome/desktop/calendar" = {
       show-weekdate = true;
-    };
-
-    "org/gnome/desktop/input-sources" = {
-      mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
-      per-window = false;
-      sources = [ (mkTuple [ "xkb" "us" ]) ];
-      xkb-options = [ "grp:alt_shift_toggle" "lv3:ralt_switch" "compose:ralt" "caps:none"];
     };
 
     "org/gnome/desktop/interface" = {
@@ -43,27 +33,6 @@ in
       toolbar-style = "text";
     };
 
-    "org/gnome/desktop/wm/keybindings" = {
-      close                        = [ "<Super>q" ];
-      cycle-windows-backward       = [ "<Shift><Super>Escape" ];
-      maximize                     = [ "<Super>Up" ];
-      toggle-maximized             = [ "<Super>t" ];
-      minimize                     = [ "<Alt>F4" ];
-      move-to-workspace-1          = [];
-      move-to-workspace-2          = [];
-      move-to-workspace-3          = [];
-      move-to-workspace-4          = [];
-      show-desktop                 = [ "F12" ];
-      switch-input-source          = [];
-      switch-input-source-backward = [];
-      switch-to-workspace-1        = [];
-      switch-to-workspace-2        = [];
-      switch-to-workspace-3        = [];
-      switch-to-workspace-4        = [];
-      switch-to-workspace-last     = [];
-      toggle-fullscreen            = [ "<Super>f" ];
-      cycle-windows                = [ "<Super>Escape" ];
-    };
 
     "org/gnome/desktop/wm/preferences" = {
       action-double-click-titlebar = "minimize";
@@ -86,16 +55,5 @@ in
       overlay-key = "Super_R";
       workspaces-only-on-primary = true;
     };
-
-    "org/gnome/mutter/keybindings" = {
-      toggle-tiled-left = [ "<Primary><Shift>Left" ];
-      toggle-tiled-right = [ "<Primary><Shift>Right" ];
-    };
-
-    # FIX OVERLAP WITH SUPER ESCAPE CYCLE WINDOWS
-    "org/gnome/mutter/wayland/keybindings" = {
-      restore-shortcuts=[""];
-    };
-
   };
 }

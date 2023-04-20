@@ -2,9 +2,11 @@
 
 {
   imports = [
-    ./desktop.nix
+    ./desktop-generic.nix
+    ./desktop-input-sources.nix
     ./desktop-shortcuts.nix
-    ./shell.nix
+    ./desktop-gpaste.nix
+    ./shell-generic.nix
     ./shell-ext.nix
   ];
 }
