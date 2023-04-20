@@ -66,4 +66,6 @@
   qudida = python-final.callPackage ./pkgs/qudida { };
 
   pynvjpeg = python-final.callPackage ./pkgs/pynvjpeg.nix { };
+
+  safetensors = python-final.callPackage ./pkgs/safetensors { };
 }

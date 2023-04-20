@@ -71,5 +71,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ggerganov/llama.cpp";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
+    platforms = lib.platforms.unix;
   };
 }

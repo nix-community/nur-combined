@@ -48,7 +48,7 @@
             (name: attr: attr ? type && attr.type == "derivation")
             (supportsPlatform system)
             (isRedist packages)
-            notBroken # tryEval is the last
+            # notBroken # tryEval is the last
           ];
           f = name: package: builtins.all (f: f name package) filters;
         in
