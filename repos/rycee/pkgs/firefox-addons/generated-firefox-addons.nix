@@ -658,10 +658,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.3.28.1";
+      version = "2023.4.11";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090115/duckduckgo_for_firefox-2023.3.28.1.xpi";
-      sha256 = "ea43172afcf4e4c7c9b78a8e35e70c874fcad64f94f51bd58db18e74309c53b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095879/duckduckgo_for_firefox-2023.4.11.xpi";
+      sha256 = "d00a112b3c5f16953edde93099fd9c80e36ebed1c42d721e27ef83abfa2382c8";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2487,10 +2487,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.40";
+      version = "1.21.41";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4093783/single_file-1.21.40.xpi";
-      sha256 = "5c8dea4521e82dce41d04d82e5a5f95bd07ab09b344e1c10edbab6bbb5ad9d21";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4097728/single_file-1.21.41.xpi";
+      sha256 = "a9104fad24a8e0356d2beb3e3ba505ca9021b2191c54c6684a01c10013d2a0b2";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -3256,10 +3256,10 @@
       };
     "wallabagger" = buildFirefoxXpiAddon {
       pname = "wallabagger";
-      version = "1.15.0";
+      version = "1.16.0";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4055568/wallabagger-1.15.0.xpi";
-      sha256 = "d6980b65daa5ca746a7b6a9b7ef5f5c228ae99ca2d9e3c1c06041fd43489fc6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099784/wallabagger-1.16.0.xpi";
+      sha256 = "79859faf6ef0050df74e588184c34f1384e44d91310c1871404698cb6b8e4049";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
