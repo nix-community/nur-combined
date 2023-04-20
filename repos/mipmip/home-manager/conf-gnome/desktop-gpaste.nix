@@ -5,6 +5,7 @@
 
     "org/gnome/GPaste" = {
       history-name = "history";
+      show-history = "<Ctrl>space";
       images-support = true;
       primary-to-history = true;
       synchronize-clipboards = true;
