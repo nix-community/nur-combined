@@ -5,7 +5,7 @@ let self = rec {
   layer-dependencies = dockerTools.buildImage {
     name = "oarteam/batsim-deps";
     inherit tag;
-    contents = batsim.runtimeDeps ++ [bash];
+    copyToRoot = batsim.runtimeDeps ++ [ bash ];
   };
   layer-batsim = dockerTools.buildImage {
     fromImage = layer-dependencies;
