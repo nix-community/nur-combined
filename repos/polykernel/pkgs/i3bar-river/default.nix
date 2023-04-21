@@ -6,17 +6,7 @@
   pango,
   cairo,
   glib,
-  wayland,
 }:
-
-let
-  rpathLibs = [
-    pango
-    glib
-    cairo
-    wayland
-  ];
-in
 
 rustPlatform.buildRustPackage rec {
   pname = "i3bar-river";
@@ -33,16 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = rpathLibs;
+  buildInputs = [ glib cairo pango ];
 
-  postInstall = ''
-    # Strip executable and set RPATH
-    # Stolen from https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/terminal-emulators/alacritty/default.nix#L107
-    strip -s $out/bin/i3bar-river
-    patchelf --set-rpath "${lib.makeLibraryPath rpathLibs}" $out/bin/i3bar-river
-  '';
-
-  dontPatchELF = true;
+  strictDeps = true;
 
   meta = with lib; {
     description = "A port of i3bar for river.";

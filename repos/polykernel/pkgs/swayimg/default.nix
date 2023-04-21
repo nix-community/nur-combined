@@ -74,6 +74,8 @@ stdenv.mkDerivation rec {
     wayland-scanner
   ];
 
+  strictDeps = true;
+
   buildInputs = [
     bash-completion
     wayland.dev

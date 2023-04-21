@@ -14,11 +14,10 @@
 let
   rpathLibs = [
     fontconfig
-    libxkbcommon
     dbus
-    pulseaudio
     alsa-lib
-    wayland
+    pulseaudio
+    libxkbcommon
   ];
 in
 
@@ -38,6 +37,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = rpathLibs;
+
+  strictDeps = true;
 
   postInstall = ''
     # Strip executable and set RPATH

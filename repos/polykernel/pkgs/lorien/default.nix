@@ -33,6 +33,8 @@ stdenv.mkDerivation rec {
     libXrender
   ];
 
+  strictDeps = true;
+
   configurePhase = ''
     runHook preConfigure
     export HOME=$TMPDIR

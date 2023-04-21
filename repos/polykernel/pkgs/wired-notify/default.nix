@@ -35,6 +35,8 @@ rustPlatform.buildRustPackage rec {
     xorg.libXScrnSaver
   ];
 
+  strictDeps = true;
+
   postInstall = ''
     # /usr/bin/wired doesn't exist, here, because the binary will be somewhere in /nix/store,
     # so this fixes the bin path in the systemd service and writes the updated file to the output dir.

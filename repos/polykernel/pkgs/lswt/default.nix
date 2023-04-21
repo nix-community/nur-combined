@@ -7,14 +7,14 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "wlopm";
+  pname = "lswt";
   version = "master";
 
   src = fetchFromSourcehut {
     owner = "~leon_plickat";
     repo = pname;
-    rev = "38af45c79771da1ef52309d101e881aaef94a823";
-    sha256 = "sha256-BVgq0Ht4Otid+McnwwmzdY7flqcBPe5br5879nyPgAE=";
+    rev = "ed1ae054d9af3c345f9f2c2003d179932c0c6b60";
+    sha256 = "sha256-Tiua9M2CJsYfmtmRXgR9ofmhwP8pRiYGbJdlBThWKMM=";
   };
 
   strictDeps = true;
@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple Wayland output power management client implementing zwlr-output-power-management-v1.";
-    homepage = "https://git.sr.ht/~leon_plickat/wlopm";
+    description = "Simple utility to list Wayland toplevels.";
+    homepage = "https://git.sr.ht/~leon_plickat/lswt";
     license = licenses.gpl3;
     maintainers = with maintainers; [ polykernel ];
     platforms = platforms.linux;
