@@ -9,4 +9,5 @@ rec {
   wldash = pkgs.callPackage ./wldash {};
   wlopm = pkgs.callPackage ./wlopm {};
   lswt = pkgs.callPackage ./lswt {};
+  kile = pkgs.callPackage ./kile {};
 }
