@@ -21,5 +21,6 @@ stdenv.mkDerivation rec {
  working with Intel Running Average Power Limit (RAPL).";
     license = licenses.bsd3;
     platforms = platforms.linux;
+    broken = true;
   };
 }

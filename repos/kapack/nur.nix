@@ -1,7 +1,7 @@
 # If called without explicitly setting the 'pkgs' arg, a pinned nixpkgs version is used by default.
 { pkgs ? import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/21.11.tar.gz";
-    sha256 = "162dywda2dvfj1248afxc45kcrg83appjd0nmdb541hl7rnncf02";
+    url = "https://github.com/NixOS/nixpkgs/archive/22.05.tar.gz";
+    sha256 = "0d643wp3l77hv2pmg2fi7vyxn4rwy0iyr8djcw1h5x72315ck9ik";
   }) {}
 , debug ? false
 }:
@@ -30,7 +30,6 @@ rec {
 
   haskellPackages = import ./pkgs/haskellPackages { inherit pkgs; };
 
-  batsched-130 = pkgs.callPackage ./pkgs/batsched/batsched130.nix { inherit loguru redox debug; intervalset = intervalsetlight; };
   batsched-140 = pkgs.callPackage ./pkgs/batsched/batsched140.nix { inherit loguru redox debug; intervalset = intervalsetlight; };
   batsched = batsched-140;
 
@@ -38,11 +37,11 @@ rec {
 
   batprotocol-cpp = pkgs.callPackage ./pkgs/batprotocol/cpp.nix { inherit flatbuffers debug; };
 
-  batsim-310 = pkgs.callPackage ./pkgs/batsim/batsim310.nix { inherit redox debug; simgrid = simgrid-324; intervalset = intervalsetlight; };
-  batsim-400 = pkgs.callPackage ./pkgs/batsim/batsim400.nix { inherit redox debug; simgrid = simgrid-325light; intervalset = intervalsetlight; };
-  batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-331light; intervalset = intervalsetlight; };
+  batsim-410 = pkgs.callPackage ./pkgs/batsim/batsim410.nix { inherit redox debug; simgrid = simgrid-332light; intervalset = intervalsetlight; };
   batsim = batsim-410;
   batsim-docker = pkgs.callPackage ./pkgs/batsim/batsim-docker.nix { inherit batsim; };
+
+  elastisim = pkgs.callPackage ./pkgs/elastisim { };
 
   batsky = pkgs.callPackage ./pkgs/batsky { };
 
@@ -50,17 +49,36 @@ rec {
 
   cgvg = pkgs.callPackage ./pkgs/cgvg { };
 
+  cpp-driver = pkgs.callPackage ./pkgs/cpp-driver {};
+
+  scylladb-cpp-driver = pkgs.callPackage ./pkgs/scylladb-cpp-driver {};
+
+  bacnet-stack = pkgs.callPackage ./pkgs/bacnet-stack { };
+
   colmet = pkgs.callPackage ./pkgs/colmet { inherit libpowercap; };
 
   colmet-rs = pkgs.callPackage ./pkgs/colmet-rs { };
 
   colmet-collector = pkgs.callPackage ./pkgs/colmet-collector { };
 
+  dcdb = pkgs.callPackage ./pkgs/dcdb { inherit scylladb-cpp-driver bacnet-stack mosquitto-dcdb; };
+
+  distem = pkgs.callPackage ./pkgs/distem { };
+
   ear =  pkgs.callPackage ./pkgs/ear { };
+
+  enoslib = pkgs.callPackage ./pkgs/enoslib { inherit execo ring iotlabsshcli distem python-grid5000; };
 
   evalys = pkgs.callPackage ./pkgs/evalys { inherit procset; };
 
+  execo = pkgs.callPackage ./pkgs/execo { };
+
   flatbuffers = pkgs.callPackage ./pkgs/flatbuffers/2.0.nix { };
+
+  iotlabcli = pkgs.callPackage ./pkgs/iotlabcli { };
+  iotlabsshcli = pkgs.callPackage ./pkgs/iotlabsshcli { inherit iotlabcli parallel-ssh; };
+
+  likwid = pkgs.callPackage ./pkgs/likwid { };
 
   melissa = pkgs.callPackage ./pkgs/melissa { };
   melissa-heat-pde = pkgs.callPackage ./pkgs/melissa-heat-pde { inherit melissa; };
@@ -68,8 +86,6 @@ rec {
   npb =  pkgs.callPackage ./pkgs/npb { };
 
   go-swagger  = pkgs.callPackage ./pkgs/go-swagger { };
-
-  gcovr = pkgs.callPackage ./pkgs/gcovr/csv.nix { };
 
   gocov = pkgs.callPackage ./pkgs/gocov { };
 
@@ -83,6 +99,11 @@ rec {
   loguru = pkgs.callPackage ./pkgs/loguru { inherit debug; };
 
   procset = pkgs.callPackage ./pkgs/procset { };
+
+  mosquitto-dcdb = pkgs.callPackage ./pkgs/mosquitto-dcdb {};
+
+  nxc-cluster = pkgs.callPackage ./pkgs/nxc/cluster.nix { inherit execo; };
+  nxc = nxc-cluster;
 
   oxidisched = pkgs.callPackage ./pkgs/oxidisched { };
 
@@ -110,26 +131,22 @@ rec {
 
   oar3 = oar;
 
-  rsg-030 = pkgs.callPackage ./pkgs/remote-simgrid/rsg030.nix { inherit debug ; simgrid = simgrid-326; };
-  rsg = rsg-030;
+  ring = pkgs.callPackage ./pkgs/ring { inherit wirerope; };
 
-  simgrid-324 = pkgs.callPackage ./pkgs/simgrid/simgrid324.nix { inherit debug; };
-  simgrid-325 = pkgs.callPackage ./pkgs/simgrid/simgrid325.nix { inherit debug; };
-  simgrid-326 = pkgs.callPackage ./pkgs/simgrid/simgrid326.nix { inherit debug; };
   simgrid-327 = pkgs.callPackage ./pkgs/simgrid/simgrid327.nix { inherit debug; };
   simgrid-328 = pkgs.callPackage ./pkgs/simgrid/simgrid328.nix { inherit debug; };
   simgrid-329 = pkgs.callPackage ./pkgs/simgrid/simgrid329.nix { inherit debug; };
   simgrid-330 = pkgs.callPackage ./pkgs/simgrid/simgrid330.nix { inherit debug; };
   simgrid-331 = pkgs.callPackage ./pkgs/simgrid/simgrid331.nix { inherit debug; };
-  simgrid-325light = simgrid-325.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
-  simgrid-326light = simgrid-326.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
+  simgrid-332 = pkgs.callPackage ./pkgs/simgrid/simgrid332.nix { inherit debug; };
   simgrid-327light = simgrid-327.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid-328light = simgrid-328.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid-329light = simgrid-329.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; };
   simgrid-330light = simgrid-330.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; buildPythonBindings = false; };
   simgrid-331light = simgrid-331.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; buildPythonBindings = false; };
-  simgrid = simgrid-331;
-  simgrid-light = simgrid-331light;
+  simgrid-332light = simgrid-332.override { minimalBindings = true; withoutBin = true; withoutBoostPropagation = true; buildPythonBindings = false; };
+  simgrid = simgrid-332;
+  simgrid-light = simgrid-332light;
 
   # Setting needed for nixos-19.03 and nixos-19.09
   slurm-bsc-simulator =
@@ -158,7 +175,18 @@ rec {
       pkgs.ghc.meta.platforms;
   });
 
+  ssh-python = pkgs.callPackage ./pkgs/ssh-python { };
+  ssh2-python = pkgs.callPackage ./pkgs/ssh2-python { };
+
+  parallel-ssh = pkgs.callPackage ./pkgs/parallel-ssh { inherit ssh-python ssh2-python; };
+
+  python-grid5000 = pkgs.callPackage ./pkgs/python-grid5000 { };
+
+  starpu = pkgs.callPackage ./pkgs/starpu { };
+
   wait-for-it = pkgs.callPackage ./pkgs/wait-for-it { };
+
+  wirerope = pkgs.callPackage ./pkgs/wirerope { };
 
   yamldiff = pkgs.callPackage ./pkgs/yamldiff { };
 }

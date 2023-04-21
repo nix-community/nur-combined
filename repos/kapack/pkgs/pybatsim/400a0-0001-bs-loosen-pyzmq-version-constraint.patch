@@ -1,0 +1,25 @@
+From 5d028ae751fafe3acbc09c85156c0ea8faac8182 Mon Sep 17 00:00:00 2001
+From: Millian Poquet <millian.poquet@irit.fr>
+Date: Fri, 3 Feb 2023 16:59:09 +0100
+Subject: [PATCH] bs: loosen pyzmq version constraint
+
+---
+ pybatsim-core/pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pybatsim-core/pyproject.toml b/pybatsim-core/pyproject.toml
+index f50eb64..84c0075 100644
+--- pyproject.toml
++++ pyproject.toml
+@@ -42,7 +42,7 @@ packages = [
+ python = "^3.7.1"
+ procset = "^1.0"
+ sortedcontainers = "^2.3.0"
+-pyzmq = "^22.0.3"
++pyzmq = ">=22.0.3"
+ docopt = "^0.6.2"
+ importlib-metadata = {version = ">=3.6", python = "<3.10"}
+ 
+-- 
+2.38.1
+

@@ -14,9 +14,9 @@ let self = rec {
 
     name = "oarteam/batsim";
     inherit tag;
-    contents = batsim;
 
     config = {
+      copyToRoot = [ batsim ];
       Entrypoint = [ "${batsim}/bin/batsim" ];
       ExposedPorts = {
         "28000/tcp" = {};

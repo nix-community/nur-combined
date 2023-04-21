@@ -1,6 +1,6 @@
-{ lib, pkgs, fetchFromGitHub, python37Packages, libpowercap }:
+{ lib, pkgs, fetchFromGitHub, python3Packages, libpowercap }:
 
-python37Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   name = "colmet-${version}";
   version = "0.5.4";
 
@@ -13,7 +13,7 @@ python37Packages.buildPythonApplication rec {
 
   buildInputs = [ libpowercap ];
 
-  propagatedBuildInputs = with python37Packages; [
+  propagatedBuildInputs = with python3Packages; [
     pyinotify
     pyzmq
     tables
@@ -38,5 +38,6 @@ python37Packages.buildPythonApplication rec {
     licence     = licenses.gpl2;
     longDescription = ''
     '';
+    broken = true; # due to libpowercap
   };
 }

@@ -1,6 +1,6 @@
-{ lib, pkgs, fetchFromGitHub, python37Packages }:
+{ lib, pkgs, fetchFromGitHub, python3Packages }:
 
-python37Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   name = "colmet-collector-${version}";
   version = "0.0.1";
 
@@ -11,7 +11,7 @@ python37Packages.buildPythonApplication rec {
     sha256 = "1ikqmym68pkmgxwknhmq42bsn5yn0yvpj5wm0wg0q85i9jdlgwwz";
   };
 
-  propagatedBuildInputs = with python37Packages; [
+  propagatedBuildInputs = with python3Packages; [
     pyzmq
     requests
   ];

@@ -1,0 +1,48 @@
+diff --git a/src/bacnet/basic/binding/address.c b/src/bacnet/basic/binding/address.c
+index ccc6d310..e850bbab 100644
+--- a/src/bacnet/basic/binding/address.c
++++ b/src/bacnet/basic/binding/address.c
+@@ -415,6 +415,26 @@ void address_init(void)
+     return;
+ }
+ 
++/*
++ * Patched in for use with dcdbpusher.
++ * Has the same functionality as address_init() but lets the caller
++ * specify the address cache file.
++ */
++void address_init_by_file(const char *pFilename)
++{
++    struct Address_Cache_Entry *pMatch;
++
++    Top_Protected_Entry = 0;
++
++    pMatch = Address_Cache;
++    while (pMatch <= &Address_Cache[MAX_ADDRESS_CACHE - 1]) {
++	    pMatch->Flags = 0;
++	    pMatch++;
++    }
++    address_file_init(pFilename);
++    return;
++}
++
+ /**
+  * Clear down the cache of any non bound, expired  or reserved entries.
+  * Leave static and unexpired bound entries alone. For use where the cache
+diff --git a/src/bacnet/basic/binding/address.h b/src/bacnet/basic/binding/address.h
+index 1d785fd2..a1c83b37 100644
+--- a/src/bacnet/basic/binding/address.h
++++ b/src/bacnet/basic/binding/address.h
+@@ -38,6 +38,12 @@ extern "C" {
+     BACNET_STACK_EXPORT
+     void address_init(
+         void);
++    /*
++     * Patched in for use with dcdbpusher
++     * Has the same functionality as address_init() but lets the caller
++     * specify the address cache file.
++     */
++    void address_init_by_file(const char *pFilename);
+ 
+     BACNET_STACK_EXPORT
+     void address_init_partial(

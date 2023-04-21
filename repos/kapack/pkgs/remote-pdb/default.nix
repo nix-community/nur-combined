@@ -1,6 +1,6 @@
-{ lib, pkgs, fetchurl, python37Packages}:
+{ lib, pkgs, fetchurl, python3Packages}:
 
-python37Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "remote-pdb";
   version = "2.0.0";
   name = "${pname}-${version}";

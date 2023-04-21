@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchurl, openmpi, automake, gfortran, bc }:
+{ stdenv, lib, fetchurl, openmpi, automake, gfortran, bc, benchs ? "ep cg mg ft bt sp lu", classes ? "A B C D E F", buildOmp ? true }:
 
 stdenv.mkDerivation rec {
   name = "NPB-${version}";
@@ -10,11 +10,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ openmpi automake gfortran bc ];
+  
   #   NPB3.4-OMP #B C D E / is ep cg mg ft bt sp lu
   buildPhase = ''
   mkdir -p $out/bin
 
-  for nbp_dir in NPB3.4-MPI NPB3.4-OMP
+  for nbp_dir in NPB3.4-MPI${lib.optionalString buildOmp " NPB3.4-OMP"}
   do
     cd $nbp_dir
 
@@ -22,14 +23,14 @@ stdenv.mkDerivation rec {
 
     sed -i 's/^MPIF77.*/MPIF77 = mpif77/' config/make.def
     sed -i 's/^MPICC.*/MPICC = mpicc/' config/make.def
-    sed -i 's/^FFLAGS.*/FFLAGS  = -O -mcmodel=medium/' config/make.def
+    sed -i 's/^FFLAGS.*/FFLAGS  = -fallow-argument-mismatch -O -mcmodel=medium/' config/make.def
 
     # need to build setparams before to use parallel build 
     make -C sys
 
-    for class in A B C D E F
+    for class in ${classes}
     do
-      for bench in is ep cg mg ft bt sp lu
+      for bench in ${benchs}
       do
         # Not all bench are compiling so skip the errors
         make -j $(nproc) $bench CLASS=$class || echo \
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-  for nbp_type in mpi omp
+  for nbp_type in mpi${lib.optionalString buildOmp " omp"}
   do
     cd NPB3.4-''${nbp_type^^}/bin
     for f in *.x

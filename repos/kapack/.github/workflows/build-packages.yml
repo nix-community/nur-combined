@@ -74,4 +74,4 @@ jobs:
     if: success() && github.ref == 'refs/heads/master'
     steps:
       - name: Trigger NUR update
-        run: curl -XPOST "https://nur-update.herokuapp.com/update?repo=${REPO_NAME}"
+        run: curl --fail-with-body -XPOST "https://nur-update.nix-community.org/update?repo=${REPO_NAME}"

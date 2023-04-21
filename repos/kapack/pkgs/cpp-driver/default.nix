@@ -21,5 +21,6 @@ stdenv.mkDerivation rec {
     description = "DataStax C/C++ Driver for Apache Cassandra® and DataStax Products";
     license = licenses.asl20;
     platforms = platforms.linux;
+    broken = true;
   };
 }

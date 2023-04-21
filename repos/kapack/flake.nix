@@ -2,7 +2,7 @@
   description = " My personal NUR repository";
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=22.11";
   };
   outputs = { self, nixpkgs, flake-utils }:
     let
