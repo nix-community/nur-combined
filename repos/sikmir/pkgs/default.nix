@@ -191,6 +191,7 @@ lib.makeScope newScope (
     elevation = callPackage ./geospatial/elevation {
       click = click-6-7;
     };
+    garmindev = callPackage ./geospatial/qlandkartegt/garmindev.nix { };
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     geowebcache = callPackage ./geospatial/geowebcache { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
@@ -213,6 +214,14 @@ lib.makeScope newScope (
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     pysheds = callPackage ./geospatial/pysheds { };
     pystac = callPackage ./geospatial/pystac { };
+    qlandkartegt = libsForQt5.callPackage ./geospatial/qlandkartegt {
+      gdal = pkgs.gdal.override {
+        libgeotiff = pkgs.libgeotiff.override { proj = pkgs.proj_7; };
+        libspatialite = pkgs.libspatialite.override { proj = pkgs.proj_7; };
+        proj = pkgs.proj_7;
+      };
+      proj = pkgs.proj_7;
+    };
     render_geojson = callPackage ./geospatial/render_geojson {
       wxGTK = pkgs.wxGTK32;
     };
