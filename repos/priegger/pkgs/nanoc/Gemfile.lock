@@ -51,7 +51,7 @@ GEM
       nanoc-checking (~> 1.0)
       nanoc-cli (~> 4.11, >= 4.11.15)
       nanoc-core (~> 4.11, >= 4.11.15)
-    parallel (1.22.1)
+    parallel (1.23.0)
     pastel (0.8.0)
       tty-color (~> 0.5)
     psych (4.0.6)
