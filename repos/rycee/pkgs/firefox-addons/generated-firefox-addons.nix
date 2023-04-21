@@ -340,10 +340,10 @@
       };
     "canvasblocker" = buildFirefoxXpiAddon {
       pname = "canvasblocker";
-      version = "1.8";
+      version = "1.9";
       addonId = "CanvasBlocker@kkapsner.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3910598/canvasblocker-1.8.xpi";
-      sha256 = "817a6181be877668eca1d0fef9ecf789c898e6d7d93dca7e29479d40f986c844";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4097901/canvasblocker-1.9.xpi";
+      sha256 = "5248c2c2dedd14b8aa2cd73f9484285d9453e93339f64fcf04a3d63c859cf3d7";
       meta = with lib;
       {
         homepage = "https://github.com/kkapsner/CanvasBlocker/";
@@ -975,10 +975,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230418.175842";
+      version = "113.0.20230420.180037";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099313/francais_language_pack-113.0.20230418.175842.xpi";
-      sha256 = "35b12eb0aede4667572a7730864a59aa1f004fffddc043fc97ccc1082f677d28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4100328/francais_language_pack-113.0.20230420.180037.xpi";
+      sha256 = "83f92dd42b5d950d011997c12b11d5f8271d42ed41169b837a0ef8e4436f6462";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2459,10 +2459,10 @@
       };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "5.0.1";
+      version = "5.1";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4093909/simple_tab_groups-5.0.1.xpi";
-      sha256 = "3201c4a0bb3fe7285227faf804cfa8584fbe41958f5dbcf47e4576adb6ca20b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098262/simple_tab_groups-5.1.xpi";
+      sha256 = "2e955a41bafc01315ad435160e5be25a3b91d06555fba8097acc8b396b4df69c";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
@@ -3386,10 +3386,10 @@
       };
     "zoom-page-we" = buildFirefoxXpiAddon {
       pname = "zoom-page-we";
-      version = "19.12";
+      version = "19.13";
       addonId = "zoompage-we@DW-dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079247/zoom_page_we-19.12.xpi";
-      sha256 = "4938a3117c5d150d23a79458d26c42cf89183ce9219b2b7721b2554337609690";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098225/zoom_page_we-19.13.xpi";
+      sha256 = "00ef2331283fdfe337fa26d65fee16b1c0409b240401aabf8cae6f56ef08d601";
       meta = with lib;
       {
         description = "Zoom web pages (either per-site or per-tab) using full-page zoom, text-only zoom and minimum font size. Fit-to-width zooming can be applied to pages automatically. Fit-to-window scaling  can be applied to small images.";
