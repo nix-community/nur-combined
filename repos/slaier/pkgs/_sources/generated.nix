@@ -49,10 +49,10 @@
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.11.3667.87edbd74246";
+    version = "22.11.3810.3d302c67ab8";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.3667.87edbd74246/nixexprs.tar.xz";
-      sha256 = "sha256-CJnU3gvbihxHxhQDIs+ZiNav4iwLOPOAdvvD8Ua9glw=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.3810.3d302c67ab8/nixexprs.tar.xz";
+      sha256 = "sha256-B9Oa8qMSTKWqvNfuLZrh3ekND2XiVOkYd+rNdfnaAys=";
     };
   };
   remote-containers = {
