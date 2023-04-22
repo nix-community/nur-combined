@@ -5,7 +5,7 @@ let
   parts = lib.splitString "-" modDirVersion;
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
-  extraVer = "-devel3";
+  extraVer = "";
   hash = "sha256-+wiOBGlKGXtcnX1G0G4XpMMYYcYTw2ReHwO0tyhUrB0=";
 
   numbers = lib.splitString "." version;
