@@ -2,15 +2,15 @@
 
 buildGoModule rec {
   pname = "unflac";
-  version = "f7506edc9b820a727a18b358c7e42a16399a0958";
+  version = "3d60f1e9ac6da67d574ca0ce140d5a96364b9776";
 
   src = fetchgit {
     url = "https://git.sr.ht/~ft/unflac";
     rev = "${version}";
-    hash = "sha256-bkEExEQlDQEYRTlkagZffzXbDb9ehUrOHXFhf3Qu28s=";
+    hash = "sha256-hLEyJOREWZNA3bGdD5nkKf4QpdujRdZVr5vVklClnO4=";
   };
 
-  vendorSha256 = "sha256-rmPOYxKWwZGhl/NM7CaaYUpI6hK8zJ6L2+9ol9ke+Qc=";
+  vendorSha256 = "sha256-f62rQhtkTiY5gIgNYWMwhpZ5f7rSYjxckdGhap1l8mQ=";
   proxyVendor = true;
 
   doCheck = false;
