@@ -1,0 +1,110 @@
+{
+  "name": "ep_etherpad-lite",
+  "description": "A free and open source realtime collaborative editor",
+  "homepage": "https://etherpad.org",
+  "keywords": [
+    "etherpad",
+    "realtime",
+    "collaborative",
+    "editor"
+  ],
+  "author": "Etherpad Foundation",
+  "contributors": [
+    {
+      "name": "John McLear"
+    },
+    {
+      "name": "Antonio Muci"
+    },
+    {
+      "name": "Hans Pinckaers"
+    },
+    {
+      "name": "Robin Buse"
+    },
+    {
+      "name": "Marcel Klehr"
+    },
+    {
+      "name": "Peter Martischka"
+    }
+  ],
+  "dependencies": {
+    "async": "^3.2.2",
+    "clean-css": "^5.3.0",
+    "cookie-parser": "^1.4.6",
+    "cross-spawn": "^7.0.3",
+    "ejs": "^3.1.7",
+    "etherpad-require-kernel": "^1.0.15",
+    "etherpad-yajsml": "0.0.12",
+    "express": "4.17.3",
+    "express-rate-limit": "^6.4.0",
+    "express-session": "npm:@etherpad/express-session@^1.18.1",
+    "fast-deep-equal": "^3.1.3",
+    "find-root": "1.1.0",
+    "formidable": "^2.0.1",
+    "http-errors": "^2.0.0",
+    "js-cookie": "^3.0.1",
+    "jsdom": "^19.0.0",
+    "jsonminify": "0.4.2",
+    "languages4translatewiki": "0.1.3",
+    "lodash.clonedeep": "4.5.0",
+    "log4js": "0.6.38",
+    "measured-core": "^2.0.0",
+    "mime-types": "^2.1.35",
+    "npm": "^6.14.15",
+    "openapi-backend": "^5.3.0",
+    "proxy-addr": "^2.0.7",
+    "rate-limiter-flexible": "^2.3.6",
+    "rehype": "^12.0.1",
+    "rehype-minify-whitespace": "^5.0.1",
+    "request": "2.88.2",
+    "resolve": "1.22.0",
+    "security": "1.0.0",
+    "semver": "^7.3.7",
+    "socket.io": "^2.4.1",
+    "superagent": "^7.1.2",
+    "terser": "^5.12.1",
+    "threads": "^1.7.0",
+    "tinycon": "0.6.8",
+    "ueberdb2": "^2.2.4",
+    "underscore": "1.13.3",
+    "unorm": "1.6.0",
+    "wtfnode": "^0.9.1"
+  },
+  "bin": {
+    "etherpad": "node/server.js",
+    "etherpad-healthcheck": "bin/etherpad-healthcheck",
+    "etherpad-lite": "node/server.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-etherpad": "^3.0.13",
+    "etherpad-cli-client": "^2.0.1",
+    "mocha": "^9.2.2",
+    "mocha-froth": "^0.2.10",
+    "nodeify": "^1.0.1",
+    "openapi-schema-validation": "^0.4.2",
+    "selenium-webdriver": "^4.1.1",
+    "set-cookie-parser": "^2.4.8",
+    "sinon": "^13.0.2",
+    "split-grid": "^1.0.11",
+    "supertest": "^6.2.4",
+    "typescript": "^4.6.4"
+  },
+  "engines": {
+    "node": ">=14.15.0",
+    "npm": ">=6.14.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ether/etherpad-lite.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha --timeout 120000 --recursive tests/backend/specs ../node_modules/ep_*/static/tests/backend/specs",
+    "test-container": "mocha --timeout 5000 tests/container/specs/api"
+  },
+  "version": "1.9.0",
+  "license": "Apache-2.0"
+}
