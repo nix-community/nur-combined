@@ -6,7 +6,7 @@ let
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
   extraVer = "";
-  hash = "sha256-+wiOBGlKGXtcnX1G0G4XpMMYYcYTw2ReHwO0tyhUrB0=";
+  hash = "sha256-BRR0pLVDbsa8ZlDDKAjTD7EjbAhHUZVCzzgtLQmDezE=";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
