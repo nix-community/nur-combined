@@ -63,6 +63,9 @@
     "10.57.194.13" = [
       "jenkins.prod.ki.ecg.so"
     ];
+    "161.97.169.230" = [
+      "invokeai.amy.node.snel.city"
+    ];
   };
 
   networking.hostName = "ojs";

@@ -3,9 +3,9 @@ with (import <nixpkgs> {});
 let
   my-python-packages = python-packages: with python-packages; [
     setuptools
+    pip
     requests
     boto3
-    pip
     pyyaml
     # other python packages you want
   ];
