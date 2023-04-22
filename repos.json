@@ -295,6 +295,9 @@
         "instantos": {
             "url": "https://github.com/instantOS/nix"
         },
+        "ionutnechita": {
+            "url": "https://github.com/ionutnechita/ionutnechita-nur-packages"
+        },
         "ivar": {
             "url": "https://github.com/IvarWithoutBones/NUR"
         },
