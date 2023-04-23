@@ -2390,10 +2390,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.10.0";
+      version = "1.11.1";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4089019/rust_search_extension-1.10.0.xpi";
-      sha256 = "6f7f9cd46e981b565f9ef453eb8204676d3df17bef5b862ac3ddbef9f4f2ffb1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101007/rust_search_extension-1.11.1.xpi";
+      sha256 = "0e98ea24d5d12dc2678a3f9c6961d1883c3ac69741e9e1090b8bd715124f1c99";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -2599,10 +2599,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.17";
+      version = "1.0.18";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4038642/statshunters-1.0.17.xpi";
-      sha256 = "41e3ff4dc438f2c6aec5b6ab57918a27b1b3bd01bed865dc4b6bfbc31d5ae979";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101030/statshunters-1.0.18.xpi";
+      sha256 = "7cb8bc27cb0c06e0a13ef36a27b0696ac1a9b0fc666229a832706afe8fa513ea";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
