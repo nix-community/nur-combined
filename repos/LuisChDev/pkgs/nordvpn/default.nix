@@ -11,7 +11,7 @@ let
     github = "LuisChDev";
     githubId = 24978009;
   };
-  buildEnv = if !buildFHSEnv then buildFHSUserEnv else buildFHSEnv;
+  buildEnv = if builtins.typeOf buildFHSEnv == "lambda" then buildFHSEnv else buildFHSUserEnv;
 
   nordVPNBase = stdenv.mkDerivation {
     inherit pname version;
