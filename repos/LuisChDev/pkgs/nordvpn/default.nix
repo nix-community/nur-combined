@@ -21,7 +21,7 @@ let
     };
 
     buildInputs = [ libxml2 libidn2 ];
-    nativeBuildInputs = [ dpkg autoPatchelfHook ];
+    nativeBuildInputs = [ dpkg autoPatchelfHook stdenv.cc.cc.lib ];
 
     dontConfigure = true;
     dontBuild = true;
