@@ -1,5 +1,6 @@
-{ autoPatchelfHook, buildFHSEnv, dpkg, fetchurl, lib, stdenv, sysctl
-, iptables, iproute2, procps, cacert, libxml2, libidn2, zlib, wireguard-tools }:
+{ autoPatchelfHook, buildFHSEnv ? false, buildFHSUserEnv ? false, dpkg, fetchurl
+, lib, stdenv, sysctl, iptables, iproute2, procps, cacert, libxml2, libidn2
+, zlib, wireguard-tools }:
 
 let
   pname = "nordvpn";
@@ -10,6 +11,7 @@ let
     github = "LuisChDev";
     githubId = 24978009;
   };
+  buildEnv = if !buildFHSEnv then buildFHSUserEnv else buildFHSEnv;
 
   nordVPNBase = stdenv.mkDerivation {
     inherit pname version;
@@ -41,7 +43,7 @@ let
     '';
   };
 
-  nordVPNfhs = buildFHSEnv {
+  nordVPNfhs = buildEnv {
     name = "nordvpnd";
     runScript = "nordvpnd";
 
