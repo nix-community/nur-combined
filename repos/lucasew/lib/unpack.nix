@@ -1,5 +1,5 @@
 { stdenvNoCC }:
-{ src, patches ? [] }:
+{ src, patches ? [ ] }:
 stdenvNoCC.mkDerivation {
   name = "source";
   inherit src patches;

@@ -11,24 +11,28 @@
 , ...
 } @ args:
 let
-  shellArgs = builtins.removeAttrs args ["name" "cr"];
+  shellArgs = builtins.removeAttrs args [ "name" "cr" ];
   shell = mkShell (shellArgs // {
-    buildInputs = shellArgs.buildInputs or [] ++ [ nix ];
+    buildInputs = shellArgs.buildInputs or [ ] ++ [ nix ];
   });
   containerScript = writeShellScript name
-  (let
-    shellScript = builtins.readFile shell;
-    shellScript' = lib.splitString "\n" shellScript;
-    shellScript'' = builtins.filter (line: builtins.match "^declare[^$]*" line != null) shellScript';
-    shellScript''' = builtins.concatStringsSep "\n" shellScript'';
-  in ''
-    ${shellScript'''}
-    HOME=/app
-    mkdir /app -p
-    cd /app
-    "$@"
-  '');
-in writeShellScriptBin name ''
+    (
+      let
+        shellScript = builtins.readFile shell;
+        shellScript' = lib.splitString "\n" shellScript;
+        shellScript'' = builtins.filter (line: builtins.match "^declare[^$]*" line != null) shellScript';
+        shellScript''' = builtins.concatStringsSep "\n" shellScript'';
+      in
+      ''
+        ${shellScript'''}
+        HOME=/app
+        mkdir /app -p
+        cd /app
+        "$@"
+      ''
+    );
+in
+writeShellScriptBin name ''
   ARGS=()
   if [ $# -gt 0 ]; then
     ARGS+=(-ti)

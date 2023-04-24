@@ -16,6 +16,7 @@ in
     ./hosts.nix
     ./p2k.nix
     ./tuning.nix
+    ./tt-rss.nix
     ./jellyfin.nix
     ./user.nix
     ./tmux
