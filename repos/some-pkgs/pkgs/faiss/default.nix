@@ -25,15 +25,18 @@
   builtins.head optLevels
 , faiss # To run demos in the tests
 , runCommand
-}:
+}@inputs:
 
 assert cudaSupport -> nvidia-thrust.cudaSupport;
 
 let
   pname = "faiss";
-  version = "1.7.3";
-  inherit (cudaPackages) cudaFlags;
+  version = "1.7.4";
+
+  inherit (cudaPackages) cudaFlags backendStdenv;
   inherit (cudaFlags) cudaCapabilities dropDot;
+
+  stdenv = if cudaSupport then backendStdenv else inputs.stdenv;
 
   cudaJoined = symlinkJoin {
     name = "cuda-packages-unsplit";
@@ -61,7 +64,7 @@ stdenv.mkDerivation {
     owner = "facebookresearch";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-QETVgRk4PXzaODeQF1+78To8IiI1Ft1lV8pcBTk1Jhg=";
+    hash = "sha256-WSce9X6sLZmGM5F0ZkK54VqpIy8u1VB0e9/l78co29M=";
   };
 
   buildInputs = [
