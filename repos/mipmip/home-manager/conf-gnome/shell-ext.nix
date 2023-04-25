@@ -7,20 +7,19 @@ let
   mipmip_pkg = import (../../pkgs){};
 
   gnomeExtensionsWithOutConf = [
-
     mipmip_pkg.gnomeExtensions.custom-menu-panel
     pkgs.gnomeExtensions.emoji-selector
     pkgs.gnomeExtensions.espresso
     pkgs.gnomeExtensions.lightdark-theme-switcher
     pkgs.gnomeExtensions.spotify-tray
     pkgs.gnomeExtensions.wayland-or-x11
-    pkgs.gnomeExtensions.focus-changer
   ];
 
   gnomeExtensions = map (ext: { extpkg = ext; } ) gnomeExtensionsWithOutConf ++ [
 
     (import ./shell-ext-tray-icons-reloaded.nix { pkgs = pkgs; })
     (import ./shell-ext-color-picker.nix { pkgs = pkgs; })
+    (import ./shell-ext-focus-changer.nix { pkgs = pkgs; })
     (import ./shell-ext-favorites-menu.nix { unstable = unstable; })
     (import ./shell-ext-dash-to-panel.nix { pkgs = pkgs; })
     (import ./shell-ext-gs-git.nix { mipmip_pkg = mipmip_pkg; })

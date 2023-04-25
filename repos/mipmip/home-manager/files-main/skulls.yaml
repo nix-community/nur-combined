@@ -116,6 +116,8 @@ tracklib:
   base_dir: ~/tcTracklib
   repos:
     - source: tracklib-technative/notes
+    - source: tracklib-technative/tracklib-awsaccount-323546098264-staging
+    - source: tracklib-technative/tracklib-awsaccount-382002351446-useraccount
 
 #cSvg-stencils:
 #awesome-isometric
