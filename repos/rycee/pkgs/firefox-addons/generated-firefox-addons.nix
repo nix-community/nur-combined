@@ -975,10 +975,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230423.180101";
+      version = "112.0.20230424.110519";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101526/francais_language_pack-113.0.20230423.180101.xpi";
-      sha256 = "2686250964b1d5b6dc7714da2d8b5fba9b1cb163410c351e4bd9bc990c1408a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101966/francais_language_pack-112.0.20230424.110519.xpi";
+      sha256 = "d81945ac14b795fdc5039ad64d4c73d064bfa66601b4ccd8f1163cb39a0eecfa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1652,10 +1652,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.3.2";
+      version = "4.3.4";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095128/modheader_firefox-4.3.2.xpi";
-      sha256 = "0fda7510f5e024bdf4ecd64d2355c03b4405ed57d4af14b1a1727dcd65e7ffa7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099115/modheader_firefox-4.3.4.xpi";
+      sha256 = "57cbb01b9f1b9d87fdfc31b8b1c5d889c511bd89b02465f0f5f57118b41c0821";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2935,10 +2935,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.6.5";
+      version = "2.6.6";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099172/tournesol_extension-2.6.5.xpi";
-      sha256 = "e33411e709f9a44074a10ccd757e044ab077464cb650e51da3826f3c808573f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101901/tournesol_extension-2.6.6.xpi";
+      sha256 = "9b452327943132d2b1d8ad420c7a62237d5ee1b737192ef057cdcc4f10f045dc";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
