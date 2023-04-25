@@ -1,0 +1,25 @@
+From cfafd88df94f3e270e3baa62970eaf5bbf5608cd Mon Sep 17 00:00:00 2001
+From: Millian Poquet <millian.poquet@irit.fr>
+Date: Tue, 25 Apr 2023 15:12:26 +0200
+Subject: [PATCH] loosen protobuf version requirement
+
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index 3c5b1d3b..db93f362 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -54,7 +54,7 @@ python = "^3.7"
+ # Mandatory dependencies
+ numpy = "^1.21.0"
+ grpcio = "^1.48.2,!=1.52.0"
+-protobuf = "^3.19.0"
++protobuf = ">=3.19.0"
+ importlib-metadata = { version = "^4.0.0", markers = "python_version < '3.8'" }
+ iterators = "^0.0.2"
+ # Optional dependencies (VCE)
+-- 
+2.38.1
+
