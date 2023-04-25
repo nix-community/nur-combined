@@ -75,6 +75,8 @@
 
   scnlib = pkgs.callPackage ./pkgs/scnlib { };
 
+  seq = pkgs.callPackage ./pkgs/seq { };
+
   span-lite = pkgs.callPackage ./pkgs/span-lite { };
 
   taskflow = pkgs.callPackage ./pkgs/taskflow { };
@@ -97,6 +99,4 @@
   qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
-
-  #quickcpplib = pkgs.callPackage ./pkgs/quickcpplib { };
 }
