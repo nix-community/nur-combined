@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "wonnx";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "webonnx";
     repo = "wonnx";
     rev = "v${version}";
-    hash = "sha256-m+97yOCEgNZqS9MLB55ZuGj0jUDSYivYTjPgz6ENH+M=";
+    hash = "sha256-BarEptmAK7JR45Zc3OswTvkqrXjcshuB9L8DldBtmXQ=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   # no GPU found during test
   doCheck = false;
 
-  cargoHash = "sha256-4y9c6upHfUjotypJJhKFD9sKpOdSGkGet2uR+nE8x7o=";
+  cargoHash = "sha256-784F2SQbXfnv+311uZvbI6VRfpoiSsRtwDNWRqe/vIA=";
 
   meta = with lib; {
     description =
