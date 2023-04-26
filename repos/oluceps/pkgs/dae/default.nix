@@ -5,13 +5,13 @@
 }:
 buildGoModule rec {
   pname = "dae";
-  version = "0.1.6";
+  version = "0.1.7";
 
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = pname;
-    rev = "fb2b55ee510fdb790432a5842997e3f369ca9cf7";
-    sha256 = "sha256-J/LKVmWda88kaLY1w0elEoksrWswDvuhb6RTZvl6uH0=";
+    rev = "7948ba044c24f82921dd27269e9dd15bfb2976e4";
+    sha256 = "sha256-GxGjkUvGANcgiyjX41WYxjGx3B3v4eZCcPI6BEEHF3o=";
     fetchSubmodules = true;
   };
 
