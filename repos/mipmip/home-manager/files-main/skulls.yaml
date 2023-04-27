@@ -106,11 +106,13 @@ adevinta:
   base_dir: ~/tcAdevinta
   repos:
     - source: git@github.mpi-internal.com:platform-it/automobile-docs.git
+    - source: git@github.mpi-internal.com:platform-it/prometheus-cloudwatch-exporter
+    - source: git@github.mpi-internal.com:platform-it/terraform-module-elasticache.git
+    - source: git@github.mpi-internal.com:platform-it/ponto
     - source: git@github.mpi-internal.com:automobile-it/automobile-opensearch-infrastructure
     - source: git@github.mpi-internal.com:automobile-it/automobile-documentdb-infrastructure
-    - source: git@github.mpi-internal.com:platform-it/prometheus-cloudwatch-exporter
-    - source: git@github.mpi-internal.com:platform-it/ponto
     - source: git@github.mpi-internal.com:automobile-it/automobile-elasticache-infrastructure
+    - source: git@github.mpi-internal.com:automobile-it/automobile_grafonnet
 
 tracklib:
   base_dir: ~/tcTracklib
