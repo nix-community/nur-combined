@@ -24,6 +24,7 @@
         };
       in {
         packages = (filterPackages system (import ./nur.nix { inherit pkgs; }));
+        lib = import ./lib { inherit pkgs; };
       }) // {
         nixosModules =
           builtins.mapAttrs (name: path: import path) (import ./modules);
