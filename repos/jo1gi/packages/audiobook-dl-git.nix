@@ -33,7 +33,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "CLI tool for downloading audiobooks from online sources";
     homepage = "https://github.com/jo1gi/audiobook-dl";
-    license = licenses.agpl3;
+    license = licenses.gpl3;
     maintainers = [ maintainers.jo1gi ];
     platforms = platforms.all;
   };
