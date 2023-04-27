@@ -1,4 +1,4 @@
-{ pkgs, stdenv, lib, fetchFromGitHub }:
+{ pkgs, lib }:
 with pkgs.python3Packages;
 
 let
