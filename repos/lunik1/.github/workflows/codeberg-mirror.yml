@@ -1,0 +1,13 @@
+jobs:
+  codeberg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          ssh_private_key: ${{ secrets.CODEBERG_SSH }}
+          target_repo_url: "git@codeberg.org:lunik1/nur-packages.git"
+name: Codeberg Mirror Sync
+on: "push"
