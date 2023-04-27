@@ -30,9 +30,4 @@ variable "gcp_ivarstead_modo_turbo" {
   description = "VPS com mais CPU e GPU"
 }
 
-data "google_storage_bucket_object" "nixos-image-bucket" {
-  name   = "nixos-image-lucasew:nixcfg-4b7b21ad0e11fd33133d31b43b7845609ddcfc63-x86_64-linux.raw.tar.gz"
-  bucket = "nixos-bootstrap"
-}
-
 

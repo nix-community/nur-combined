@@ -12,6 +12,15 @@ resource "google_service_account" "service_account" {
 }
 # terraform import google_service_account.artimanhas-do-lucaum 178195340338-compute@developer.gserviceaccount.com
 
+output "vps-internal-ip" {
+  value = length(google_compute_instance.ivarstead) > 0 ? google_compute_instance.ivarstead[0].network_interface.0.network_ip : ""
+}
+
+output "vps-external-ip" {
+  value = length(google_compute_instance.ivarstead) > 0 ? google_compute_instance.ivarstead[0].network_interface.0.network_ip : ""
+}
+
+
 resource "google_compute_instance" "ivarstead" {
   name = "ivarstead"
 
@@ -23,7 +32,7 @@ resource "google_compute_instance" "ivarstead" {
 
   boot_disk {
     auto_delete = false
-    source = google_compute_disk.nixos_rootfs.self_link
+    source = data.google_compute_disk.nixos_rootfs.self_link
   }
 
   confidential_instance_config {
@@ -73,14 +82,14 @@ resource "google_compute_instance" "ivarstead" {
 }
 # terraform import google_compute_instance.ivarstead ivarstead
 
-resource "google_compute_disk" "nixos_rootfs" {
-  image                     = google_compute_image.nixos_bootstrap.self_link
+data "google_compute_disk" "nixos_rootfs" {
+  # image                     = google_compute_image.nixos_bootstrap.self_link
   name                      = "nixos-rootfs"
-  physical_block_size_bytes = 4096
-  project                   = var.gcp_project
-  size                      = 20
-  type                      = "pd-standard"
-  zone                      = "us-central1-a"
+  # physical_block_size_bytes = 4096
+  # project                   = var.gcp_project
+  # size                      = 20
+  # type                      = "pd-standard"
+  # zone                      = "us-central1-a"
 }
 # terraform import google_compute_disk.nixos_rootfs projects/artimanhas-do-lucaum/zones/us-central1-a/disks/nixos-rootfs
 
@@ -90,13 +99,20 @@ data "google_compute_disk" "persist" {
 }
 # terraform import google_compute_disk.persist projects/artimanhas-do-lucaum/zones/us-central1-a/disks/persist
 
-resource "google_compute_image" "nixos_bootstrap" {
-  name = "nixos"
-  project      = var.gcp_project
-  raw_disk {
-    source = data.google_storage_bucket_object.nixos-image-bucket.self_link
-  }
-}
+# resource "google_compute_image" "nixos_bootstrap" {
+#   name = "nixos"
+#   project      = var.gcp_project
+#   raw_disk {
+#     source = data.google_storage_bucket_object.nixos-image-bucket.self_link
+#   }
+# }
+
+# data "google_storage_bucket_object" "nixos-image-bucket" {
+#   name   = "nixos-image-lucasew:nixcfg-4b7b21ad0e11fd33133d31b43b7845609ddcfc63-x86_64-linux.raw.tar.gz"
+#   bucket = "nixos-image-bootstrap"
+# }
+
+
 
 resource "google_compute_firewall" "www" {
   name          = "www"
