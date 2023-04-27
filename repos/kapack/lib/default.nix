@@ -1,8 +1,5 @@
 { pkgs }:
 
 with pkgs.lib; {
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+  cppMesonDevBase = import ./cpp-meson-dev.nix;
 }
-
