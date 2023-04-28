@@ -12,6 +12,7 @@ stages:
       cat >> /etc/nix/nix.conf << EOF
       experimental-features = nix-command flakes
       EOF
+    - nix-channel --update
     - nix-env --install --attr nixpkgs.cachix --attr nixpkgs.nix-build-uncached
     - test -n "$CACHIX_CACHE_NAME" && cachix use "$CACHIX_CACHE_NAME"
     - nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
