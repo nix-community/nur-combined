@@ -2,18 +2,20 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "schemaorg";
-  version = "14.0";
+  version = "15.0";
 
   src = fetchFromGitHub {
     owner = "schemaorg";
     repo = "schemaorg";
-    rev = "V${version}-release";
-    sha256 = "sha256-qPctk66RZycaZEc17X+DIl484I8/V1KlNO2UuUkNTBE=";
+    rev = "v${version}-release";
+    sha256 = "sha256-n/+lfGPpgdcq8DS4E2H8PBCdjTq7lsOoOsreDla5PWQ=";
   };
 
   installPhase = ''
+    runHook preInstall
     mkdir -p "$out/share/schema.org/"
     cp -r "data/releases/${version}/." "$out/share/schema.org/"
+    runHook postInstall
   '';
 
   meta = with lib; {
