@@ -1,8 +1,10 @@
 { boost
+, cmake
 , curl
 , fdk-aac-encoder
 , fetchFromGitHub
 , fftwSinglePrec
+, git
 , gmp
 , gnuradio3_9
 , hackrf
@@ -12,7 +14,6 @@
 , mpir
 , openssl
 , pkg-config
-, pkgs
 , sox
 , stdenv
 , uhd
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yGc585254s7UwqXyQzYrW7dELvEPAn7UqoBsmfbKZM4=";
   };
 
-  nativeBuildInputs = with pkgs; [ cmake git pkg-config ];
+  nativeBuildInputs = [ cmake git pkg-config ];
   cmakeFlags = [
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];

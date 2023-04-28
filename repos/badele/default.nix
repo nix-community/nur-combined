@@ -27,4 +27,5 @@ in
   # SDR
   rtl-gopow = pkgs.callPackage ./pkgs/sdr/rtl-gopow { };
   trunk-recorder = pkgs.callPackage ./pkgs/sdr/trunk-recorder { };
+  rtlsdr-airband = pkgs.callPackage ./pkgs/sdr/rtlsdr-airband { };
 }
