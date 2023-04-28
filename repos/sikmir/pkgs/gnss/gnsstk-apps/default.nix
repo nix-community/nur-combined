@@ -1,22 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake, gnsstk }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "gpstk";
-  version = "8.0.0";
+  pname = "gnsstk-apps";
+  version = "14.0.0";
 
   src = fetchFromGitHub {
     owner = "SGL-UT";
-    repo = "GPSTk";
+    repo = "gnsstk-apps";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-kauRkx7KjVFdjl3JPiCxeuuVGVJ69e87RZQhepRrsWY=";
+    hash = "sha256-cq2ZAT3nj7TnB82Rhf72zxBP+k6iSQRFUh99y8YtOTA=";
   };
 
   nativeBuildInputs = [ cmake ];
 
+  buildInputs = [ gnsstk ];
+
   cmakeFlags = [ "-DBUILD_EXT=ON" ];
 
   meta = with lib; {
-    description = "Toolkit for developing GPS applications";
+    description = "GNSSTk applications suite";
     inherit (finalAttrs.src.meta) homepage;
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.sikmir ];

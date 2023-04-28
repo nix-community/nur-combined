@@ -247,8 +247,9 @@ lib.makeScope newScope (
 
     ### GNSS
 
+    gnsstk = callPackage ./gnss/gnsstk { };
+    gnsstk-apps = callPackage ./gnss/gnsstk-apps { };
     gps-sdr-sim = callPackage ./gnss/gps-sdr-sim { };
-    gpstk = callPackage ./gnss/gpstk { };
     rtklib = callPackage ./gnss/rtklib { };
     visualgps = libsForQt5.callPackage ./gnss/visualgps { };
 
@@ -369,6 +370,7 @@ lib.makeScope newScope (
     taskcoach = callPackage ./misc/taskcoach { };
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };
+    telegram-send = callPackage ./misc/telegram-send { };
     telnetpp = callPackage ./misc/telnetpp { };
     tinyflux = callPackage ./misc/tinyflux { };
     tlstunnel = callPackage ./misc/tlstunnel { };
