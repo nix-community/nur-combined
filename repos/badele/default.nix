@@ -24,5 +24,7 @@ in
   #   qspectrumanalyzer = pkgs.callPackage ./pkgs/qspectrumanalyzer { };
   # };
 
-  rtl-gopow = pkgs.callPackage ./pkgs/rtl-gopow { };
+  # SDR
+  rtl-gopow = pkgs.callPackage ./pkgs/sdr/rtl-gopow { };
+  trunk-recorder = pkgs.callPackage ./pkgs/sdr/trunk-recorder { };
 }
