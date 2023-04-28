@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+while true; do
+    sleep 1
+    [ "$(cat /sys/class/power_supply/BAT1/status)" == "Discharging" ] && echo -e '\a'
+done
