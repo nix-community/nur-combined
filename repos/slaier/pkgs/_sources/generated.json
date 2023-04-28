@@ -78,11 +78,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-tE2Q7NM+cQOg+vyqyfRwg05EOMQWhhggTA6S+VT+SkM=",
+            "sha256": "sha256-h4TZzExl1zThwzlKBtL0u3V1jFjjNM2Cscy4hGir9Ts=",
             "type": "url",
-            "url": "https://github.com/agalwood/Motrix/releases/download/v1.6.11/Motrix-1.6.11.AppImage"
+            "url": "https://github.com/agalwood/Motrix/releases/download/v1.8.14/Motrix-1.8.14.AppImage"
         },
-        "version": "1.6.11"
+        "version": "1.8.14"
     },
     "programs-db": {
         "cargoLocks": null,
@@ -93,11 +93,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-B9Oa8qMSTKWqvNfuLZrh3ekND2XiVOkYd+rNdfnaAys=",
+            "sha256": "sha256-Y6CsjjFa0BqDswsY5cBMtjom+XQk2cvu5c2PLQjTq/o=",
             "type": "url",
-            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.3810.3d302c67ab8/nixexprs.tar.xz"
+            "url": "https://releases.nixos.org/nixos/22.11/nixos-22.11.3940.15b75800dce/nixexprs.tar.xz"
         },
-        "version": "22.11.3810.3d302c67ab8"
+        "version": "22.11.3940.15b75800dce"
     },
     "remote-containers": {
         "cargoLocks": null,

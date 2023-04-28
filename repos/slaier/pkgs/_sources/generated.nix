@@ -41,18 +41,18 @@
   };
   motrix = {
     pname = "motrix";
-    version = "1.6.11";
+    version = "1.8.14";
     src = fetchurl {
-      url = "https://github.com/agalwood/Motrix/releases/download/v1.6.11/Motrix-1.6.11.AppImage";
-      sha256 = "sha256-tE2Q7NM+cQOg+vyqyfRwg05EOMQWhhggTA6S+VT+SkM=";
+      url = "https://github.com/agalwood/Motrix/releases/download/v1.8.14/Motrix-1.8.14.AppImage";
+      sha256 = "sha256-h4TZzExl1zThwzlKBtL0u3V1jFjjNM2Cscy4hGir9Ts=";
     };
   };
   programs-db = {
     pname = "programs-db";
-    version = "22.11.3810.3d302c67ab8";
+    version = "22.11.3940.15b75800dce";
     src = fetchurl {
-      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.3810.3d302c67ab8/nixexprs.tar.xz";
-      sha256 = "sha256-B9Oa8qMSTKWqvNfuLZrh3ekND2XiVOkYd+rNdfnaAys=";
+      url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.3940.15b75800dce/nixexprs.tar.xz";
+      sha256 = "sha256-Y6CsjjFa0BqDswsY5cBMtjom+XQk2cvu5c2PLQjTq/o=";
     };
   };
   remote-containers = {
