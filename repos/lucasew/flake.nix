@@ -74,7 +74,7 @@
       environmentShell = with pkgs; ''
         export NIXPKGS_ALLOW_UNFREE=1
         if [[ ! -v NIXCFG_ROOT_PATH ]]; then
-          export NIXCFG_ROOT_PATH="$(pwd)"
+          export NIXCFG_ROOT_PATH=~/.dotfiles
         fi
         export LUA_PATH="${concatStringsSep ";" [
           ''$(realpath ${fennel}/share/lua/*)/?.lua''
@@ -198,6 +198,7 @@
         '')
       ];
       shellHook = ''
+        export NIXCFG_ROOT_PATH=$(pwd)
         ${global.environmentShell}
         echo Shell setup complete!
       '';
