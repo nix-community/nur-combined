@@ -19,7 +19,7 @@ let
       "sing-box"
       "Graphite-cursors"
       # "rustplayer"
-      "naiveproxy"
+      # "naiveproxy"
       "techmino"
       "oppo-sans"
       "maoken-tangyuan"
