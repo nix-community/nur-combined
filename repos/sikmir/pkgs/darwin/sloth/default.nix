@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchfromgh, unzip }:
+{ lib, stdenvNoCC, fetchfromgh, unzip }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sloth-bin";
   version = "3.2";
 

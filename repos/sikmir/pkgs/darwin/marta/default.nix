@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchurl, undmg }:
+{ lib, stdenvNoCC, fetchurl, undmg }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "marta-bin";
   version = "0.8.1";
 
