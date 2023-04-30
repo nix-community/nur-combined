@@ -1,7 +1,7 @@
 {
   "eupnea-scripts": {
     "cargoLocks": null,
-    "date": "2023-04-28",
+    "date": "2023-04-29",
     "extract": null,
     "name": "eupnea-scripts",
     "passthru": null,
@@ -13,10 +13,10 @@
       "name": null,
       "owner": "eupnea-linux",
       "repo": "audio-scripts",
-      "rev": "92ad2603deabd547bb145ed018d49b0e70327f5e",
-      "sha256": "sha256-HcpnYAnqMMj15L6TN3XKN9jDErYuxP5ibxiEaT6qznw=",
+      "rev": "c1cee467546993180c08a2c2422c2e54fecb1503",
+      "sha256": "sha256-UJR52p2yYkvShX8YOItxE0sY3mTeALT7EC7FLSLvgDE=",
       "type": "github"
     },
-    "version": "92ad2603deabd547bb145ed018d49b0e70327f5e"
+    "version": "c1cee467546993180c08a2c2422c2e54fecb1503"
   }
 }
