@@ -5,14 +5,14 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "tesla-custom-component";
-  version = "3.11.0";
+  version = "3.12.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alandtse";
     repo = "tesla";
     rev = "v${version}";
-    sha256 = "sha256-IIsKEWqVT5WzvT8YFnmet1NFYuz15FSGGbmaErMJMgE=";
+    sha256 = "sha256-WEc4ZVJswLltcjVkUfnCwcKW9EqOcOAWI9YqcDbBbSY=";
   };
 
   patches = [ ./poetry.patch ];
