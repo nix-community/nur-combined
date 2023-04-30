@@ -1,6 +1,6 @@
-{ autoPatchelfHook, buildFHSEnv ? false, buildFHSUserEnv ? false, dpkg, fetchurl
-, lib, stdenv, sysctl, iptables, iproute2, procps, cacert, libxml2, libidn2
-, zlib, wireguard-tools }:
+{ autoPatchelfHook, buildFHSEnvChroot ? false, buildFHSUserEnv ? false, dpkg
+, fetchurl, lib, stdenv, sysctl, iptables, iproute2, procps, cacert, libxml2
+, libidn2, zlib, wireguard-tools }:
 
 let
   pname = "nordvpn";
@@ -11,7 +11,10 @@ let
     github = "LuisChDev";
     githubId = 24978009;
   };
-  buildEnv = if builtins.typeOf buildFHSEnv == "lambda" then buildFHSEnv else buildFHSUserEnv;
+  buildEnv = if builtins.typeOf buildFHSEnvChroot == "lambda" then
+    buildFHSEnvChroot
+  else
+    buildFHSUserEnv;
 
   nordVPNBase = stdenv.mkDerivation {
     inherit pname version;
