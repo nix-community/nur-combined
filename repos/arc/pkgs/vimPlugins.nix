@@ -1,6 +1,7 @@
 {
-  notmuch-vim = { fetchFromGitHub, fetchpatch, vimUtils, notmuch, ruby, buildRubyGem, buildEnv, lib }:
+  notmuch-vim = { fetchFromGitHub, fetchpatch, vimUtils, notmuch, ruby, ruby_2_7 ? ruby, buildRubyGem, buildEnv, lib }:
   let
+    ruby = ruby_2_7;
     mail-gpg = buildRubyGem {
         inherit ruby;
         pname = "mail-gpg";

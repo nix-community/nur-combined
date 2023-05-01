@@ -143,9 +143,10 @@ let
       enableSway = false;
     };
 
-    notmuch-arc = { lib, notmuch, coreutils, hostPlatform }: let
+    notmuch-arc = { lib, notmuch, ruby_2_7 ? ruby, ruby, coreutils, hostPlatform }: let
       drv = notmuch.override {
         withEmacs = false;
+        ruby = ruby_2_7;
       };
     in drv.overrideAttrs (old: {
       pname = "notmuch-arc";
@@ -157,7 +158,7 @@ let
       };
     });
 
-    vim_configurable-pynvim = { lib, vim_configurable, python3 }: (vim_configurable.override {
+    vim_configurable-pynvim = { lib, vim_configurable, python3, ruby_2_7 ? ruby, ruby }: (vim_configurable.override {
       # vim with python3
       python3 = python3.withPackages(ps: with ps; [ pynvim ]);
       wrapPythonDrv = true;
@@ -166,6 +167,7 @@ let
       multibyteSupport = true;
       ftNixSupport = false; # provided by "vim-nix" plugin
       # TODO: fully disable X11?
+      inherit ruby;
     });
 
     rxvt-unicode-arc = { rxvt-unicode ? null, rxvt-unicode-unwrapped, rxvt-unicode-plugins ? { } }: let
