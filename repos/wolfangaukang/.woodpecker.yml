@@ -2,7 +2,7 @@ pipeline:
   verify:
     when:
       event: [ pull_request ]
-    image: nixos/nix:2.12.0
+    image: nixos/nix:2.15.0
     environment:
       # Upwork
     - NIXPKGS_ALLOW_UNFREE=1
@@ -19,8 +19,8 @@ pipeline:
     when:
       event: [ push ]
       branch: main
-    image: nixos/nix:2.12.0
+    image: nixos/nix:2.15.0
     environment:
     - NUR_REPO=wolfangaukang
     commands:
-    - curl -XPOST "https://nur-update.herokuapp.com/update?repo=$NUR_REPO"
+    - curl -XPOST "https://nur-update.nix-community.org/update?repo=$NUR_REPO"

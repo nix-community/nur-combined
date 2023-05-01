@@ -64,7 +64,9 @@
         enableCryptodisk = true;
       };
     };
-    tmpOnTmpfs = true;
-    cleanTmpDir = true;
+    tmp = {
+      useTmpfs = true;
+      cleanOnBoot = true;
+    };
   };
 }

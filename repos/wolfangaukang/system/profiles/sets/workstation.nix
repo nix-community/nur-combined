@@ -1,10 +1,12 @@
 { inputs
 , hostname
+, lib
 , ...
 }:
 
 let
   inherit (inputs) self;
+  inherit (lib) mkForce;
 
 in {
   imports = [
@@ -24,4 +26,15 @@ in {
   ];
 
   programs.firejail.enable = true;
+  specialisation.simplerisk = {
+    inheritParentConfig = true;
+    configuration = {
+      profile = {
+        virtualization.podman.enable = mkForce false;
+        virtualization.qemu.enable = mkForce false;
+        work.simplerisk.enable = true;
+      };
+      home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
+    };
+  };
 }

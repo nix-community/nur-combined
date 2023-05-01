@@ -11,7 +11,7 @@ in {
     [
       ./disk-setup.nix
       ./hardware-configuration.nix
-      (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname; })
+      (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname lib; })
     ];
 
   networking = {
@@ -36,7 +36,7 @@ in {
     };
     moonlander = {
       enable = true;
-      ignoreLayoutSettings = true; 
+      ignoreLayoutSettings = true;
     };
     nix = {
       enableAutoOptimise = true;
@@ -63,17 +63,4 @@ in {
 
   system.stateVersion = "21.05"; # Did you read the comment?
 
-  specialisation.simplerisk = {
-    inheritParentConfig = true;
-    configuration = {
-      profile = {
-        virtualization = {
-          qemu.enable = mkForce false;
-          podman.enable = mkForce false;
-        };
-        work.simplerisk.enable = true;
-      };
-      home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
-    };
-  };
 }

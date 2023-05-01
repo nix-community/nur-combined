@@ -10,7 +10,7 @@ in {
   imports = [
     ./disk-setup.nix
     ./hardware-configuration.nix
-    (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname; })
+    (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname lib; })
   ];
 
   networking = {
@@ -49,6 +49,8 @@ in {
     virtualization.podman.enable = true;
   };
 
+  services.openssh.settings.PermitRootLogin = mkForce "yes";
+
   # Thinkpad brightness
   hardware.acpilight.enable = true;
   services.illum.enable = true;
@@ -58,16 +60,5 @@ in {
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "20.09";
-
-  specialisation.simplerisk = {
-    inheritParentConfig = true;
-    configuration = {
-      profile = {
-        virtualization.podman.enable = mkForce false;
-        work.simplerisk.enable = true;
-      };
-      home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
-    };
-  };
 }
 

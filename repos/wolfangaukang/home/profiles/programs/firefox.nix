@@ -5,7 +5,7 @@
 , ... }:
 
 let
-  inherit (pkgs.nur.repos.wolfangaukang) multifirefox vdhcoapp;
+  inherit (pkgs.nur.repos.wolfangaukang) vdhcoapp;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
   # FIXME: Find a way to limit this
   common = import "${self}/home/profiles/common/firefox" {
@@ -28,7 +28,7 @@ let
   };
 
 in {
-  home.packages = [ multifirefox vdhcoapp ];
+  home.packages = [ vdhcoapp ];
   programs.firefox = {
     enable = true;
     package = if firefox-pkg == null then defaultPkg else firefox-pkg;

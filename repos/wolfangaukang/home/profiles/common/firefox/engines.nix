@@ -173,13 +173,13 @@
       in {
         iconURL = "${url}/favicon.ico";
         urls = [{
-          template = "${url}/search";
+          template = "${url}/search?";
           params = [
             { name = "type"; value = "band_name"; }
-            { name = "searchstring"; value = "{searchTerms}"; }
+            { name = "searchString"; value = "{searchTerms}"; }
           ];
         }];
-        definedaliases = [ "@metal" "@metalarchives" ];
+        definedAliases = [ "@metal" "@metalarchives" ];
       };
     "Amazon.com".metaData.hidden = true;
   };
