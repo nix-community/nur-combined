@@ -27,6 +27,8 @@ let
       doInstallCheck = false;
     });
 
+    home-assistant-miele = callPackage ./pkgs/home-assistant-miele { };
+
     homeAssistantPackageOverrides = pySelf: pySuper: rec {
       buildHomeAssistantCustomComponent = callPackage pkgs/build-support/build-home-assistant-custom-component {};
 
@@ -83,6 +85,7 @@ in rec {
     hass-smartbox
     hassio-ecoflow
     home-assistant
+    home-assistant-miele
     homeAssistantPackageOverrides
     octopus-energy
     solis-sensor
