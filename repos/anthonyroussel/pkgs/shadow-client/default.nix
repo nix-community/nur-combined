@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
 
     # Wrap renderer
     ''
-      wrapProgram $out/opt/shadow-${channel}/resources/app.asar.unpacked/release/native/Shadow \
+      wrapProgram $out/opt/shadow-${channel}/resources/app.asar.unpacked/release/native/ShadowPCDisplay \
         --run "cd $out/opt/shadow-${channel}/resources/app.asar.unpacked/release/native/" \
         --prefix LD_LIBRARY_PATH : "$out/opt/shadow-${channel}" \
         --prefix LD_LIBRARY_PATH : "$out/lib" \
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
     # Wrap Renderer into binary
     + ''
       makeWrapper \
-        $out/opt/shadow-${channel}/resources/app.asar.unpacked/release/native/Shadow \
+        $out/opt/shadow-${channel}/resources/app.asar.unpacked/release/native/ShadowPCDisplay \
         $out/bin/shadow-${channel}-renderer \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeDependencies}
     ''
