@@ -132,6 +132,7 @@ in
     noise-suppression-for-voice = pkg ./uncategorized/noise-suppression-for-voice {};
     nullfs = pkg ./uncategorized/nullfs {};
     nvlax = pkg ./uncategorized/nvlax {};
+    oci-arm-host-capacity = pkg ./uncategorized/oci-arm-host-capacity {};
     onepush = pkg ./uncategorized/onepush {};
     openssl-oqs = pkg ./uncategorized/openssl-oqs {cryptodev = pkgs.linuxPackages.cryptodev;};
     openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider {};

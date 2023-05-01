@@ -164,10 +164,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "1.6.0.230309";
+    version = "1.7.0.30419";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.6.0.230309_amd64.deb";
-      sha256 = "sha256-q+gIxtPwVXytYSvEvWrJJcptIbSy+gmeEM7OEzcpDXI=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_1.7.0.30419_amd64.deb";
+      sha256 = "sha256-Ycq3YzhIbk8nRltgcVgDFQUFqKq57kmcAlOsh/t9UGI=";
     };
   };
   douban-openapi-server = {
@@ -184,13 +184,13 @@
   };
   drone-vault = {
     pname = "drone-vault";
-    version = "v1.2.0";
+    version = "v1.3.0";
     src = fetchFromGitHub ({
       owner = "drone";
       repo = "drone-vault";
-      rev = "v1.2.0";
+      rev = "v1.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-P6rOMqYu6uxGVG1CPNE9fjhntH8IBMyo3mfSOo16EAA=";
+      sha256 = "sha256-g4D+pnOo41UqPDFF3lvh/yNFVzP8rqglG+4xPx+aEzM=";
     });
   };
   etherguard = {
@@ -289,16 +289,16 @@
   };
   grasscutter-resources = {
     pname = "grasscutter-resources";
-    version = "59ba7cd1a77ab14caf496baa7f45cad1ffeac3fe";
+    version = "5ef7ee4985f2fe0dc4e100119386cc819ce4879e";
     src = fetchgit {
       url = "https://gitlab.com/YuukiPS/GC-Resources.git";
-      rev = "59ba7cd1a77ab14caf496baa7f45cad1ffeac3fe";
+      rev = "5ef7ee4985f2fe0dc4e100119386cc819ce4879e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-boQBQ/VCtzBOYCHFCpeebsr/FrznRC4eVbT6LldMAYQ=";
+      sha256 = "sha256-R5wEEWSgwpGiBaolLtWaYrux6pNBH9/34m+9uzWztWE=";
     };
-    date = "2023-04-03";
+    date = "2023-04-25";
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
@@ -368,25 +368,25 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "b1d42d61f63aa61ce007ada7939e326e0d6e896c";
+    version = "9cf9e10df109d59cb100836933f7a527dd3d650c";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b1d42d61f63aa61ce007ada7939e326e0d6e896c";
+      rev = "9cf9e10df109d59cb100836933f7a527dd3d650c";
       fetchSubmodules = false;
-      sha256 = "sha256-gN2NzZSLtGbdfDd5CNTlRqgrsSxKFeDsf9wSl44ZXWo=";
+      sha256 = "sha256-yIZ2IS8oHl1Jovr3do7IKOmMrxym7fSWyMz8ZaBXxog=";
     });
-    date = "2023-04-06";
+    date = "2023-04-26";
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.2.10-xanmod1";
+    version = "6.3.0-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.2.10-xanmod1";
+      rev = "6.3.0-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-zy6mKpoOu9YmGI6a8ZWjV761m+AGlTaWEzpL1QloCk8=";
+      sha256 = "sha256-KJ92wBkN8j+DVMVGgiGMsQrQPcDrAOtNUkQUAX7mPxA=";
     });
   };
   linux-xanmod-6_0 = {
@@ -402,13 +402,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.23-xanmod1";
+    version = "6.1.26-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.23-xanmod1";
+      rev = "6.1.26-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-yKbePeImBpDLXfexvGJdghSBr3j/oFKXeMuBAOtDqJ8=";
+      sha256 = "sha256-NS/hXFhbdE41pQVTE1Zn589J7phsBkMAl0tr7Iincq0=";
     });
   };
   nbfc-linux-lantian = {
@@ -477,25 +477,25 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "a98a4b86a274bddad47021e8b5223264fd1cdca3";
+    version = "bf64dbfabfc49a574eb361f34b2401f880b5a324";
     src = fetchFromGitHub ({
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "a98a4b86a274bddad47021e8b5223264fd1cdca3";
+      rev = "bf64dbfabfc49a574eb361f34b2401f880b5a324";
       fetchSubmodules = false;
-      sha256 = "sha256-zd4f14mVTS3CIt9mtg8Mu6oVyVO5/1qo9nfZf+x642Y=";
+      sha256 = "sha256-3vmdfLraMucz+vLt8NT32FjJf6LDf0cvDqF5uzj9hBA=";
     });
-    date = "2023-03-27";
+    date = "2023-04-17";
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.7.11";
+    version = "0.7.12";
     src = fetchFromGitHub ({
       owner = "nginx";
       repo = "njs";
-      rev = "0.7.11";
+      rev = "0.7.12";
       fetchSubmodules = false;
-      sha256 = "sha256-f8miVmzZz5kyw5/chdkI0cMYYxYXu/QVYMQ4VfBGWg8=";
+      sha256 = "sha256-jMf66VxgeeV81XhCU91ICz3RH/M47xNzClYsjyjA+k8=";
     });
   };
   ngx_brotli = {
@@ -533,6 +533,18 @@
     });
     date = "2016-01-28";
   };
+  oci-arm-host-capacity = {
+    pname = "oci-arm-host-capacity";
+    version = "1a655bf6150d64f4f3732f267477ed3e4c6f87d0";
+    src = fetchFromGitHub ({
+      owner = "hitrov";
+      repo = "oci-arm-host-capacity";
+      rev = "1a655bf6150d64f4f3732f267477ed3e4c6f87d0";
+      fetchSubmodules = false;
+      sha256 = "sha256-YFOdqbaiKoAdu4nOyzfHtlL9PVy8qEP9rJs6uTUTTdc=";
+    });
+    date = "2023-04-18";
+  };
   onepush = {
     pname = "onepush";
     version = "c7dd8c82e4eb74501d7e6bcf0c42d1caa0c0ffc2";
@@ -547,27 +559,27 @@
   };
   openssl-oqs = {
     pname = "openssl-oqs";
-    version = "511f387437e7de2c21b23cebecb4ede6b7a99f40";
+    version = "1e13c8cb261089fe49120e23b91fc666d562f45b";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "openssl";
-      rev = "511f387437e7de2c21b23cebecb4ede6b7a99f40";
+      rev = "1e13c8cb261089fe49120e23b91fc666d562f45b";
       fetchSubmodules = false;
-      sha256 = "sha256-5qdSSdQBtWRylW7/wUJpowkhpM0vMQXng3E6qr1w99A=";
+      sha256 = "sha256-zedp5IM0iu2jwuYzi5k0Q1tHNld+05+kGY3Vo84WIDk=";
     });
-    date = "2023-02-08";
+    date = "2023-04-16";
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "1ab71711e1cb6f72149ff4ac3b5254867959b99e";
+    version = "27d33d2eb9fde2fcd663f014e2f68c71b7048e2e";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "1ab71711e1cb6f72149ff4ac3b5254867959b99e";
+      rev = "27d33d2eb9fde2fcd663f014e2f68c71b7048e2e";
       fetchSubmodules = false;
-      sha256 = "sha256-09LPMfnU8O2lBcXxiS0QdZvSKEvJfTvfjOXubHnwUVY=";
+      sha256 = "sha256-lZBIhdbFpLBPv6sfhE+QsMdFyroUlYeAfgzlkWgUrEg=";
     });
-    date = "2023-04-06";
+    date = "2023-04-26";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -634,34 +646,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "7.2+dfsg-5";
+    version = "7.2+dfsg-5+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5_amd64.deb";
-      sha256 = "sha256-0/eagjt48Crk5sTQfUDDIu13rxTtvoaT0r+5D8cUDLc=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_amd64.deb";
+      sha256 = "sha256-dOV1/0cerTLQsmXJvBUYAV2A0Elm9Zwu0f5wHFehuh4=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "7.2+dfsg-5";
+    version = "7.2+dfsg-5+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5_arm64.deb";
-      sha256 = "sha256-1kSV5xIibfXJAwZOQQmslxG4gxyhCO30E0YgUH0oigI=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_arm64.deb";
+      sha256 = "sha256-Xu+VXAAEALMoRcrOW7eeCje8KzuKwIv+PdZhjE6ydqg=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "7.2+dfsg-5";
+    version = "7.2+dfsg-5+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5_armhf.deb";
-      sha256 = "sha256-l+fDsPq9gbLuRakQS/zLNZlHK3FWYDilMIlJmWw9PZ8=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_armhf.deb";
+      sha256 = "sha256-r1FjZgu152Enn1kgF4zr7XPcZ0tuWlgC7Dmt2exjqCE=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "7.2+dfsg-5";
+    version = "7.2+dfsg-5+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5_i386.deb";
-      sha256 = "sha256-oHv7O6XiXNgCPSC9Xc6nIxMERMbAopMIg6UJNc77kOs=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_i386.deb";
+      sha256 = "sha256-dv9XLDZjyj2sj1tfXkTUxo5PKJyM5o2RKfAwF/rrohY=";
     };
   };
   qq-amd64 = {
@@ -726,10 +738,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20230214";
+    version = "20230414";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20230214/moegirl.dict.yaml";
-      sha256 = "sha256-v+rQvfyfL1JhR16LckkMTVtW73ss5XgqySQwbZohzwI=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20230414/moegirl.dict.yaml";
+      sha256 = "sha256-0hDjF1/Gt+OU6/YEY+t1efIRWpqPrKIiaMRBQ0zEWJg=";
     };
   };
   rime-zhwiki = {

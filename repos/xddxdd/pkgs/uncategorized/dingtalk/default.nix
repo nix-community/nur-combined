@@ -19,7 +19,6 @@
   gnutls,
   graphite2,
   gtk2,
-  harfbuzz,
   krb5,
   libdrm,
   libgcrypt,
@@ -28,6 +27,7 @@
   libpulseaudio,
   libsForQt5,
   libthai,
+  libxcrypt-legacy,
   libxkbcommon,
   mesa,
   mtdev,
@@ -75,6 +75,7 @@ let
     libpulseaudio
     libsForQt5.qtbase
     libthai
+    libxcrypt-legacy
     libxkbcommon
     mesa.drivers
     mtdev

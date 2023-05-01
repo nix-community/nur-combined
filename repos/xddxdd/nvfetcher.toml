@@ -203,6 +203,10 @@ fetch.github = "werman/noise-suppression-for-voice"
 src.git = "https://github.com/xrgtn/nullfs.git"
 fetch.github = "xrgtn/nullfs"
 
+[oci-arm-host-capacity]
+src.git = "https://github.com/hitrov/oci-arm-host-capacity.git"
+fetch.github = "hitrov/oci-arm-host-capacity"
+
 [onepush]
 src.git = "https://github.com/y1ndan/onepush.git"
 fetch.github = "y1ndan/onepush"
