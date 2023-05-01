@@ -1,7 +1,7 @@
-{ sources, stdenv, lib, librime, rimeDataBuildHook, rime-luna-pinyin, rime-prelude, rime-essay }:
+{ sources, stdenv, lib, librime, rimeDataBuildHook, rime-luna-pinyin, rime-essay, rime-prelude }:
 
 stdenv.mkDerivation {
-  inherit (sources.rime-stroke) pname version src;
+  inherit (sources.rime-quick) pname version src;
 
   nativeBuildInputs = [
     librime
@@ -21,8 +21,8 @@ stdenv.mkDerivation {
   passthru.rimeDependencies = [ rime-luna-pinyin ];
 
   meta = with lib; {
-    homepage = "https://github.com/rime/rime-stroke";
-    description = "RIME Stroke input schema";
+    homepage = "https://github.com/rime/rime-quick";
+    description = "Rime Quick input method";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ yinfeng ];
   };

@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/rime/rime-prelude";
     description = "Essential files for building up your Rime configuration";
-    license = licenses.gpl3;
+    license = licenses.lgpl3;
     maintainers = with maintainers; [ yinfeng ];
   };
 }

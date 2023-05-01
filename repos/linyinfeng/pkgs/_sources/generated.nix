@@ -3,55 +3,55 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "645ae6a38d7f244d041f7b35374cc3a1ecdf59d1";
+    version = "26b15d857b7e09f6a921c8ca0410e4a2d97c76bd";
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "645ae6a38d7f244d041f7b35374cc3a1ecdf59d1";
+      rev = "26b15d857b7e09f6a921c8ca0410e4a2d97c76bd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-OdKmweKULSZLgYMx26iw1mEvBDSCVRpA0+g8jFTiECY=";
+      sha256 = "sha256-xMn9H1XqiVORQpjd2cO1K5KhlMwumIGME6UwqvxmM2U=";
     };
-    date = "2023-03-02";
+    date = "2023-03-30";
   };
   clash-for-windows = {
     pname = "clash-for-windows";
-    version = "0.20.19";
+    version = "0.20.22";
     src = fetchurl {
-      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.19/Clash.for.Windows-0.20.19-x64-linux.tar.gz";
-      sha256 = "sha256-PINN3ufk2feB+od01LKoguHLM0hGFoDgNSxtqvGedXQ=";
+      url = "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.22/Clash.for.Windows-0.20.22-x64-linux.tar.gz";
+      sha256 = "sha256-9HuM4INcDBD8sU7JrjbbEdYOVz9ZQWZlT4Lww/LXQ8Q=";
     };
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2023.03.18";
+    version = "2023.04.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.18.gz";
-      sha256 = "sha256-z3c6UkOykgAsYCMgYbDKeOvkwZBij2LErq3e2kNRIxA=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.04.16.gz";
+      sha256 = "sha256-LdoKIKmYS7xKXsMetW7Oa9PnCX1TkWiBynPNYyh60ZU=";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2023.03.18";
+    version = "2023.04.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.03.18.gz";
-      sha256 = "sha256-xeDqNtCoVo59jnX2m50s0ksEmyN4Kz7ghe2GAaNlWSE=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.04.16.gz";
+      sha256 = "sha256-YiDSvIcLxYpjC821qoyvn6fFwtITVnUxoAtQpDMMRSA=";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2023.03.18";
+    version = "2023.04.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.03.18.gz";
-      sha256 = "sha256-8XFSEEWh2D+9QjB9+mCBJnIKIoC9XcPkX0wi7cYtAnE=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.04.16.gz";
+      sha256 = "sha256-YdD8J+fMXU/tbSCljXta5DuxPpgPVS3yZ+fN+zxSFZU=";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.03.18";
+    version = "2023.04.16";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.18.gz";
-      sha256 = "sha256-ihKvpzrBTIwmmYzO1260XvwTRoXyCfi6ueOM4FFHu+Q=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz";
+      sha256 = "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=";
     };
   };
   commit-notifier = {
@@ -71,22 +71,33 @@
     };
     date = "2023-03-25";
   };
+  cowrie = {
+    pname = "cowrie";
+    version = "v2.5.0";
+    src = fetchFromGitHub ({
+      owner = "cowrie";
+      repo = "cowrie";
+      rev = "v2.5.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-5nCEH32U81SE2ky0XN6arIGNxKadqYggIz/uVnmXpN8=";
+    });
+  };
   dot-tar = {
     pname = "dot-tar";
-    version = "a4aeef015718a2b8e4a451e0e7ac367483995c3c";
+    version = "07a378cb52a5d31cf0813e9cab17b5b20b37500e";
     src = fetchgit {
       url = "https://github.com/linyinfeng/dot-tar.git";
-      rev = "a4aeef015718a2b8e4a451e0e7ac367483995c3c";
+      rev = "07a378cb52a5d31cf0813e9cab17b5b20b37500e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-3E8byYbNyIyyFd/k30szYQgtA+qZS2mSrKJ7oSqL1Rk=";
+      sha256 = "sha256-+8BSwSMfG+euhnE6Y/BYKlDEaevi2TSmfv5e/bsJwRc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./dot-tar-a4aeef015718a2b8e4a451e0e7ac367483995c3c/Cargo.lock;
+      lockFile = ./dot-tar-07a378cb52a5d31cf0813e9cab17b5b20b37500e/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-03-25";
+    date = "2023-04-27";
   };
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
@@ -101,10 +112,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.9.2";
+    version = "v2.9.6";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.2/app-x86_64.asar";
-      sha256 = "sha256-FxoXXA47B8p+7KVSsznNOe0jcwe+ucWH+vKkWm+z+RY=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.6/app-x86_64.asar";
+      sha256 = "sha256-B9BrmmRcbDZyvp6pz28TyQKa0zGLJWwiCjKhsdQGOR0=";
     };
   };
   matrix-chatgpt-bot = {
@@ -209,6 +220,45 @@
     };
     date = "2021-02-23";
   };
+  rime-cantonese = {
+    pname = "rime-cantonese";
+    version = "36b6f3a881bb93f3c84cb636b519a0c1272d1071";
+    src = fetchgit {
+      url = "https://github.com/rime/rime-cantonese.git";
+      rev = "36b6f3a881bb93f3c84cb636b519a0c1272d1071";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-qv6eS9u4OQYMmp5Rf+IXMvkXE1me62Red7UxwxkmkSo=";
+    };
+    date = "2023-04-27";
+  };
+  rime-double-pinyin = {
+    pname = "rime-double-pinyin";
+    version = "69bf85d4dfe8bac139c36abbd68d530b8b6622ea";
+    src = fetchgit {
+      url = "https://github.com/rime/rime-double-pinyin.git";
+      rev = "69bf85d4dfe8bac139c36abbd68d530b8b6622ea";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-UyVzp0TMq7yq5pXQpy7xkPnc1+RF8oVdIXzvrYqLfCQ=";
+    };
+    date = "2019-01-20";
+  };
+  rime-emoji = {
+    pname = "rime-emoji";
+    version = "48061047c9c48dd58f0003036905207a8e6bda4a";
+    src = fetchgit {
+      url = "https://github.com/rime/rime-emoji.git";
+      rev = "48061047c9c48dd58f0003036905207a8e6bda4a";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-STGgoEI2eztvARPNc0Jf+7btp5UFs06uKafwB0dBgUY=";
+    };
+    date = "2023-03-31";
+  };
   rime-essay = {
     pname = "rime-essay";
     version = "e0519d0579722a0871efb68189272cba61a7350b";
@@ -224,16 +274,29 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "211da516af0004dbef73f28997e3f5c0d0aaad65";
+    version = "8b90e564dc40d55e5fc04afbc25ba684d3b8def3";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "211da516af0004dbef73f28997e3f5c0d0aaad65";
+      rev = "8b90e564dc40d55e5fc04afbc25ba684d3b8def3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-bfWklKxSFSF1Rg/qejG7tfHXT+tNq27USACd7CBkizY=";
+      sha256 = "sha256-aqJG9A8FX7hv0YWaYilU1EKD1Bhr4ZfQCwqMpvcIrTE=";
     };
-    date = "2023-03-22";
+    date = "2023-04-28";
+  };
+  rime-loengfan = {
+    pname = "rime-loengfan";
+    version = "987ac95b02f957e8764a2f45222a4006c188ed50";
+    src = fetchgit {
+      url = "https://github.com/CanCLID/rime-loengfan.git";
+      rev = "987ac95b02f957e8764a2f45222a4006c188ed50";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-vOqVSwKZ+p5Wc03pRUWxCdWBdxuTe8n4xu2BTbj9/b4=";
+    };
+    date = "2022-03-03";
   };
   rime-luna-pinyin = {
     pname = "rime-luna-pinyin";
@@ -248,6 +311,19 @@
     };
     date = "2023-02-04";
   };
+  rime-pinyin-simp = {
+    pname = "rime-pinyin-simp";
+    version = "52b9c75f085479799553f2499c4f4c611d618cdf";
+    src = fetchgit {
+      url = "https://github.com/rime/rime-pinyin-simp.git";
+      rev = "52b9c75f085479799553f2499c4f4c611d618cdf";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-crUFBV/u2vwC1kj2FF6lsJdIF28wIagKHpksGR/2Kf4=";
+    };
+    date = "2023-01-04";
+  };
   rime-prelude = {
     pname = "rime-prelude";
     version = "dd84abecc33f0b05469f1d744e32d2b60b3529e3";
@@ -260,6 +336,19 @@
       sha256 = "sha256-r3jx/iCUOxBFLYhmHEuSFxzmHg8l6vnuONmsjbtBlpM=";
     };
     date = "2022-04-10";
+  };
+  rime-quick = {
+    pname = "rime-quick";
+    version = "3fe5911ba608cb2df1b6301b76ad1573bd482a76";
+    src = fetchgit {
+      url = "https://github.com/rime/rime-quick.git";
+      rev = "3fe5911ba608cb2df1b6301b76ad1573bd482a76";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-yctopPkng3QQLhDRuHP5gpEmTx0UCO5pKXzjUv1BcCE=";
+    };
+    date = "2019-01-20";
   };
   rime-stroke = {
     pname = "rime-stroke";
@@ -287,15 +376,58 @@
     };
     date = "2023-02-06";
   };
+  rime-wubi = {
+    pname = "rime-wubi";
+    version = "f1876f08f1d4a9696395be0070c0e8e4353c44cb";
+    src = fetchgit {
+      url = "https://github.com/rime/rime-wubi.git";
+      rev = "f1876f08f1d4a9696395be0070c0e8e4353c44cb";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-c/dv0vY5GdFDNSJ9U93kYmP9mUmKQtCSipkprXFOPrU=";
+    };
+    date = "2020-09-08";
+  };
+  rime-wugniu = {
+    pname = "rime-wugniu";
+    version = "abd1ee98efbf170258fcf43875c21a4259e00b61";
+    src = fetchgit {
+      url = "https://github.com/rime/rime-wugniu.git";
+      rev = "abd1ee98efbf170258fcf43875c21a4259e00b61";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=";
+    };
+    date = "2019-01-20";
+  };
+  swayosd = {
+    pname = "swayosd";
+    version = "8ef76c1306f68521ef103a59b7c1348c87a0ed61";
+    src = fetchgit {
+      url = "https://github.com/ErikReider/SwayOSD.git";
+      rev = "8ef76c1306f68521ef103a59b7c1348c87a0ed61";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-rP7vUde3wm/gDW8aeZNJNGL2KHIgeFxO4mfXCr220+Q=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./swayosd-8ef76c1306f68521ef103a59b7c1348c87a0ed61/Cargo.lock;
+      outputHashes = { };
+    };
+    date = "2023-04-27";
+  };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
-    version = "v1.2.0+ci-fix";
+    version = "v1.2.1";
     src = fetchFromGitHub ({
       owner = "matrix-org";
       repo = "synapse-s3-storage-provider";
-      rev = "v1.2.0+ci-fix";
+      rev = "v1.2.1";
       fetchSubmodules = false;
-      sha256 = "sha256-1IKigzsbwToKZJ7/Ek9dTptZ4bDEWpLL1fVzWGC+6RU=";
+      sha256 = "sha256-92Xkq54jrUE2I9uVOxI72V9imLNU6K4JqDdOZb+4f+Y=";
     });
   };
   telegram-send = {
@@ -350,12 +482,25 @@
       sha256 = "sha256-OKysOm44T9wrAaopp9HfLlox5InlpV33AHGXRSjhDqc=";
     });
   };
+  waybar-git = {
+    pname = "waybar-git";
+    version = "b06953757e1a72236c73ba2780ca8ada800c9047";
+    src = fetchgit {
+      url = "https://github.com/Alexays/Waybar.git";
+      rev = "b06953757e1a72236c73ba2780ca8ada800c9047";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-wjwN0Z0+Wj0BPmPjIiu37UpdqLsmYtJQ9FX66j4ONOk=";
+    };
+    date = "2023-04-29";
+  };
   wemeet = {
     pname = "wemeet";
-    version = "3.14.0.401";
+    version = "3.14.0.402";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/1b001ef75914a1d6948decb8c2550b47/TencentMeeting_0300000000_3.14.0.401_x86_64_default.publish.deb";
-      sha256 = "sha256-ioBlxrdTboLSRXO9BhmdPFl5M0chaEoPgVLsami1Gy8=";
+      url = "https://updatecdn.meeting.qq.com/cos/5a910969828531efb24add85626e2372/TencentMeeting_0300000000_3.14.0.402_x86_64_default.publish.deb";
+      sha256 = "sha256-lpCXijWI3FQJXB6ofF+eKAweIyanvKxdwQrrLP37HDA=";
     };
   };
   yacd = {

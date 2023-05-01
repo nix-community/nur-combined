@@ -6,6 +6,9 @@
 , makeDesktopItem
 , nodePackages
 , imagemagick
+
+  # package customization
+, commandLineArgs ? ""
 }:
 
 let
@@ -31,7 +34,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out/bin"
     makeWrapper "${electron}/bin/electron" "$out/bin/icalingua-plus-plus" \
-      --add-flags "$out/share/icalingua-plus-plus/app.asar"
+      --add-flags "$out/share/icalingua-plus-plus/app.asar" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --add-flags ${lib.escapeShellArg commandLineArgs}
 
     install -D "$src" "$out/share/icalingua-plus-plus/app.asar"
     install -D "${desktopItem}/share/applications/"* \

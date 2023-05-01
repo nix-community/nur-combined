@@ -1,4 +1,4 @@
-{ lib, newScope, selfLib, fishPlugins, emacsPackages }:
+{ lib, newScope, selfLib, fishPlugins, emacsPackages, librime }:
 
 lib.makeScope newScope (
   self:
@@ -18,7 +18,6 @@ lib.makeScope newScope (
     canokey-udev-rules = callPackage ./canokey-udev-rules { };
     cf-terraforming = callPackage ./cf-terraforming { };
     clash-for-windows = callPackage ./clash-for-windows { };
-    clash-meta = callPackage ./clash-meta { };
     clash-premium = callPackage ./clash-premium { };
     commit-notifier = callPackage ./commit-notifier { };
     dot-tar = callPackage ./dot-tar { };
@@ -38,7 +37,9 @@ lib.makeScope newScope (
     mstickereditor = callPackage ./mstickereditor { };
     nvfetcher-changes = callPackage ./nvfetcher-changes { };
     nvfetcher-changes-commit = callPackage ./nvfetcher-changes-commit { };
-    rimePackages = lib.recurseIntoAttrs (callPackage ./rime-packages { });
+    rimePackagesFor = librime: callPackage ./rime-packages { inherit librime; };
+    rimePackages = lib.recurseIntoAttrs (self.rimePackagesFor librime);
+    swayosd = callPackage ./swayosd { };
     synapse-s3-storage-provider = callPackage ./synapse-s3-storage-provider { };
     telegram-send = callPackage ./telegram-send { };
     tg-send = callPackage ./tg-send { };

@@ -11,8 +11,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/rime/rime-essay";
-    description = "RIME Essay input schema";
-    license = licenses.gpl3;
+    description = "Essay - the shared vocabulary and language model";
+    license = licenses.lgpl3;
     maintainers = with maintainers; [ yinfeng ];
   };
 }

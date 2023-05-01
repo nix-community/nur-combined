@@ -10,7 +10,6 @@
           ormolu.enable = true;
           hlint.enable = true;
           shfmt.enable = true;
-          shellcheck.enable = true;
           black.enable = true;
         };
       };

@@ -3,14 +3,14 @@
 , lib
 , librime
 , rimeDataBuildHook
+, rime-luna-pinyin
 , rime-stroke
-, rime-terra-pinyin
-, rime-prelude
 , rime-essay
+, rime-prelude
 }:
 
 stdenv.mkDerivation {
-  inherit (sources.rime-bopomofo) pname version src;
+  inherit (sources.rime-double-pinyin) pname version src;
 
   nativeBuildInputs = [
     librime
@@ -23,7 +23,7 @@ stdenv.mkDerivation {
   ];
 
   propagatedBuildInputs = [
-    rime-terra-pinyin
+    rime-luna-pinyin
   ];
 
   installPhase = ''
@@ -32,14 +32,14 @@ stdenv.mkDerivation {
   '';
 
   passthru.rimeDependencies = [
-    # dependency for reverse lookup
+    # dependency for reverse lookup: rime-stroke
     rime-stroke
   ];
 
   meta = with lib; {
-    homepage = "https://github.com/rime/rime-bopomofo";
-    description = "RIME Bopomofo input schema";
-    license = licenses.lgpl3;
+    homepage = "https://github.com/rime/rime-double-pinyin";
+    description = "RIME Double Pinyin input schema";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ yinfeng ];
   };
 }

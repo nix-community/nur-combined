@@ -1,4 +1,4 @@
-{ config, inputs, flake-parts-lib, lib, ... }:
+{ config, inputs, lib, ... }:
 
 let cfg = config.nixpkgs; in
 {

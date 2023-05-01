@@ -1,7 +1,7 @@
 {
     "aws-sigv4-proxy": {
         "cargoLocks": null,
-        "date": "2023-03-02",
+        "date": "2023-03-30",
         "extract": null,
         "name": "aws-sigv4-proxy",
         "passthru": null,
@@ -11,12 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "645ae6a38d7f244d041f7b35374cc3a1ecdf59d1",
-            "sha256": "sha256-OdKmweKULSZLgYMx26iw1mEvBDSCVRpA0+g8jFTiECY=",
+            "rev": "26b15d857b7e09f6a921c8ca0410e4a2d97c76bd",
+            "sha256": "sha256-xMn9H1XqiVORQpjd2cO1K5KhlMwumIGME6UwqvxmM2U=",
             "type": "git",
             "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
         },
-        "version": "645ae6a38d7f244d041f7b35374cc3a1ecdf59d1"
+        "version": "26b15d857b7e09f6a921c8ca0410e4a2d97c76bd"
     },
     "clash-for-windows": {
         "cargoLocks": null,
@@ -27,11 +27,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PINN3ufk2feB+od01LKoguHLM0hGFoDgNSxtqvGedXQ=",
+            "sha256": "sha256-9HuM4INcDBD8sU7JrjbbEdYOVz9ZQWZlT4Lww/LXQ8Q=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.19/Clash.for.Windows-0.20.19-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.22/Clash.for.Windows-0.20.22-x64-linux.tar.gz"
         },
-        "version": "0.20.19"
+        "version": "0.20.22"
     },
     "clash-premium-aarch64-linux": {
         "cargoLocks": null,
@@ -42,11 +42,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-z3c6UkOykgAsYCMgYbDKeOvkwZBij2LErq3e2kNRIxA=",
+            "sha256": "sha256-LdoKIKmYS7xKXsMetW7Oa9PnCX1TkWiBynPNYyh60ZU=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.18.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.04.16.gz"
         },
-        "version": "2023.03.18"
+        "version": "2023.04.16"
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
@@ -57,11 +57,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xeDqNtCoVo59jnX2m50s0ksEmyN4Kz7ghe2GAaNlWSE=",
+            "sha256": "sha256-YiDSvIcLxYpjC821qoyvn6fFwtITVnUxoAtQpDMMRSA=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.03.18.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.04.16.gz"
         },
-        "version": "2023.03.18"
+        "version": "2023.04.16"
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
@@ -72,11 +72,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8XFSEEWh2D+9QjB9+mCBJnIKIoC9XcPkX0wi7cYtAnE=",
+            "sha256": "sha256-YdD8J+fMXU/tbSCljXta5DuxPpgPVS3yZ+fN+zxSFZU=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.03.18.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.04.16.gz"
         },
-        "version": "2023.03.18"
+        "version": "2023.04.16"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -87,11 +87,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ihKvpzrBTIwmmYzO1260XvwTRoXyCfi6ueOM4FFHu+Q=",
+            "sha256": "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.03.18.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz"
         },
-        "version": "2023.03.18"
+        "version": "2023.04.16"
     },
     "commit-notifier": {
         "cargoLocks": {
@@ -117,14 +117,34 @@
         },
         "version": "73cf28cd7d848570b76d7be5554f9dec14caa5be"
     },
+    "cowrie": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cowrie",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "cowrie",
+            "repo": "cowrie",
+            "rev": "v2.5.0",
+            "sha256": "sha256-5nCEH32U81SE2ky0XN6arIGNxKadqYggIz/uVnmXpN8=",
+            "type": "github"
+        },
+        "version": "v2.5.0"
+    },
     "dot-tar": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./dot-tar-a4aeef015718a2b8e4a451e0e7ac367483995c3c/Cargo.lock",
+                "./dot-tar-07a378cb52a5d31cf0813e9cab17b5b20b37500e/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-03-25",
+        "date": "2023-04-27",
         "extract": null,
         "name": "dot-tar",
         "passthru": null,
@@ -134,12 +154,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a4aeef015718a2b8e4a451e0e7ac367483995c3c",
-            "sha256": "sha256-3E8byYbNyIyyFd/k30szYQgtA+qZS2mSrKJ7oSqL1Rk=",
+            "rev": "07a378cb52a5d31cf0813e9cab17b5b20b37500e",
+            "sha256": "sha256-+8BSwSMfG+euhnE6Y/BYKlDEaevi2TSmfv5e/bsJwRc=",
             "type": "git",
             "url": "https://github.com/linyinfeng/dot-tar.git"
         },
-        "version": "a4aeef015718a2b8e4a451e0e7ac367483995c3c"
+        "version": "07a378cb52a5d31cf0813e9cab17b5b20b37500e"
     },
     "dpt-rp1-py": {
         "cargoLocks": null,
@@ -170,11 +190,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-FxoXXA47B8p+7KVSsznNOe0jcwe+ucWH+vKkWm+z+RY=",
+            "sha256": "sha256-B9BrmmRcbDZyvp6pz28TyQKa0zGLJWwiCjKhsdQGOR0=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.2/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.6/app-x86_64.asar"
         },
-        "version": "v2.9.2"
+        "version": "v2.9.6"
     },
     "matrix-chatgpt-bot": {
         "cargoLocks": null,
@@ -336,6 +356,63 @@
         },
         "version": "8dfad9e537f18821b71ba28773315d9c670ae245"
     },
+    "rime-cantonese": {
+        "cargoLocks": null,
+        "date": "2023-04-27",
+        "extract": null,
+        "name": "rime-cantonese",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "36b6f3a881bb93f3c84cb636b519a0c1272d1071",
+            "sha256": "sha256-qv6eS9u4OQYMmp5Rf+IXMvkXE1me62Red7UxwxkmkSo=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-cantonese.git"
+        },
+        "version": "36b6f3a881bb93f3c84cb636b519a0c1272d1071"
+    },
+    "rime-double-pinyin": {
+        "cargoLocks": null,
+        "date": "2019-01-20",
+        "extract": null,
+        "name": "rime-double-pinyin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "69bf85d4dfe8bac139c36abbd68d530b8b6622ea",
+            "sha256": "sha256-UyVzp0TMq7yq5pXQpy7xkPnc1+RF8oVdIXzvrYqLfCQ=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-double-pinyin.git"
+        },
+        "version": "69bf85d4dfe8bac139c36abbd68d530b8b6622ea"
+    },
+    "rime-emoji": {
+        "cargoLocks": null,
+        "date": "2023-03-31",
+        "extract": null,
+        "name": "rime-emoji",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "48061047c9c48dd58f0003036905207a8e6bda4a",
+            "sha256": "sha256-STGgoEI2eztvARPNc0Jf+7btp5UFs06uKafwB0dBgUY=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-emoji.git"
+        },
+        "version": "48061047c9c48dd58f0003036905207a8e6bda4a"
+    },
     "rime-essay": {
         "cargoLocks": null,
         "date": "2023-02-04",
@@ -357,7 +434,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-03-22",
+        "date": "2023-04-28",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -367,12 +444,31 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "211da516af0004dbef73f28997e3f5c0d0aaad65",
-            "sha256": "sha256-bfWklKxSFSF1Rg/qejG7tfHXT+tNq27USACd7CBkizY=",
+            "rev": "8b90e564dc40d55e5fc04afbc25ba684d3b8def3",
+            "sha256": "sha256-aqJG9A8FX7hv0YWaYilU1EKD1Bhr4ZfQCwqMpvcIrTE=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "211da516af0004dbef73f28997e3f5c0d0aaad65"
+        "version": "8b90e564dc40d55e5fc04afbc25ba684d3b8def3"
+    },
+    "rime-loengfan": {
+        "cargoLocks": null,
+        "date": "2022-03-03",
+        "extract": null,
+        "name": "rime-loengfan",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "987ac95b02f957e8764a2f45222a4006c188ed50",
+            "sha256": "sha256-vOqVSwKZ+p5Wc03pRUWxCdWBdxuTe8n4xu2BTbj9/b4=",
+            "type": "git",
+            "url": "https://github.com/CanCLID/rime-loengfan.git"
+        },
+        "version": "987ac95b02f957e8764a2f45222a4006c188ed50"
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
@@ -393,6 +489,25 @@
         },
         "version": "79aeae200a7370720be98232844c0715f277e1c0"
     },
+    "rime-pinyin-simp": {
+        "cargoLocks": null,
+        "date": "2023-01-04",
+        "extract": null,
+        "name": "rime-pinyin-simp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "52b9c75f085479799553f2499c4f4c611d618cdf",
+            "sha256": "sha256-crUFBV/u2vwC1kj2FF6lsJdIF28wIagKHpksGR/2Kf4=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-pinyin-simp.git"
+        },
+        "version": "52b9c75f085479799553f2499c4f4c611d618cdf"
+    },
     "rime-prelude": {
         "cargoLocks": null,
         "date": "2022-04-10",
@@ -411,6 +526,25 @@
             "url": "https://github.com/rime/rime-prelude.git"
         },
         "version": "dd84abecc33f0b05469f1d744e32d2b60b3529e3"
+    },
+    "rime-quick": {
+        "cargoLocks": null,
+        "date": "2019-01-20",
+        "extract": null,
+        "name": "rime-quick",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "3fe5911ba608cb2df1b6301b76ad1573bd482a76",
+            "sha256": "sha256-yctopPkng3QQLhDRuHP5gpEmTx0UCO5pKXzjUv1BcCE=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-quick.git"
+        },
+        "version": "3fe5911ba608cb2df1b6301b76ad1573bd482a76"
     },
     "rime-stroke": {
         "cargoLocks": null,
@@ -450,6 +584,68 @@
         },
         "version": "9427853de91d645d9aca9ceace8fe9e9d8bc5b50"
     },
+    "rime-wubi": {
+        "cargoLocks": null,
+        "date": "2020-09-08",
+        "extract": null,
+        "name": "rime-wubi",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "f1876f08f1d4a9696395be0070c0e8e4353c44cb",
+            "sha256": "sha256-c/dv0vY5GdFDNSJ9U93kYmP9mUmKQtCSipkprXFOPrU=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-wubi.git"
+        },
+        "version": "f1876f08f1d4a9696395be0070c0e8e4353c44cb"
+    },
+    "rime-wugniu": {
+        "cargoLocks": null,
+        "date": "2019-01-20",
+        "extract": null,
+        "name": "rime-wugniu",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "abd1ee98efbf170258fcf43875c21a4259e00b61",
+            "sha256": "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=",
+            "type": "git",
+            "url": "https://github.com/rime/rime-wugniu.git"
+        },
+        "version": "abd1ee98efbf170258fcf43875c21a4259e00b61"
+    },
+    "swayosd": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./swayosd-8ef76c1306f68521ef103a59b7c1348c87a0ed61/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2023-04-27",
+        "extract": null,
+        "name": "swayosd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "8ef76c1306f68521ef103a59b7c1348c87a0ed61",
+            "sha256": "sha256-rP7vUde3wm/gDW8aeZNJNGL2KHIgeFxO4mfXCr220+Q=",
+            "type": "git",
+            "url": "https://github.com/ErikReider/SwayOSD.git"
+        },
+        "version": "8ef76c1306f68521ef103a59b7c1348c87a0ed61"
+    },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
         "date": null,
@@ -464,11 +660,11 @@
             "name": null,
             "owner": "matrix-org",
             "repo": "synapse-s3-storage-provider",
-            "rev": "v1.2.0+ci-fix",
-            "sha256": "sha256-1IKigzsbwToKZJ7/Ek9dTptZ4bDEWpLL1fVzWGC+6RU=",
+            "rev": "v1.2.1",
+            "sha256": "sha256-92Xkq54jrUE2I9uVOxI72V9imLNU6K4JqDdOZb+4f+Y=",
             "type": "github"
         },
-        "version": "v1.2.0+ci-fix"
+        "version": "v1.2.1"
     },
     "telegram-send": {
         "cargoLocks": null,
@@ -553,6 +749,25 @@
         },
         "version": "svn1113"
     },
+    "waybar-git": {
+        "cargoLocks": null,
+        "date": "2023-04-29",
+        "extract": null,
+        "name": "waybar-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "b06953757e1a72236c73ba2780ca8ada800c9047",
+            "sha256": "sha256-wjwN0Z0+Wj0BPmPjIiu37UpdqLsmYtJQ9FX66j4ONOk=",
+            "type": "git",
+            "url": "https://github.com/Alexays/Waybar.git"
+        },
+        "version": "b06953757e1a72236c73ba2780ca8ada800c9047"
+    },
     "wemeet": {
         "cargoLocks": null,
         "date": null,
@@ -562,11 +777,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ioBlxrdTboLSRXO9BhmdPFl5M0chaEoPgVLsami1Gy8=",
+            "sha256": "sha256-lpCXijWI3FQJXB6ofF+eKAweIyanvKxdwQrrLP37HDA=",
             "type": "url",
-            "url": "https://updatecdn.meeting.qq.com/cos/1b001ef75914a1d6948decb8c2550b47/TencentMeeting_0300000000_3.14.0.401_x86_64_default.publish.deb"
+            "url": "https://updatecdn.meeting.qq.com/cos/5a910969828531efb24add85626e2372/TencentMeeting_0300000000_3.14.0.402_x86_64_default.publish.deb"
         },
-        "version": "3.14.0.401"
+        "version": "3.14.0.402"
     },
     "yacd": {
         "cargoLocks": null,

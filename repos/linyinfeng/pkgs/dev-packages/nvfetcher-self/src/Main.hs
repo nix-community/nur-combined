@@ -12,6 +12,7 @@ main = runNvFetcher packageSet
 packageSet :: PackageSet ()
 packageSet = do
   traverse_ (uncurry clashPremium) clashPremiumSystems
+  ghPkg "cowrie" "cowrie"
   ghPkg "janten" "dpt-rp1-py"
   ghPkg "matrixgpt" "matrix-chatgpt-bot"
   ghPkg "matrix-org" "synapse-s3-storage-provider"
@@ -21,13 +22,22 @@ packageSet = do
   gitPkg "pyim-greatdict" "https://github.com/tumashu/pyim-greatdict.git"
   gitPkg "rime-bopomofo" "https://github.com/rime/rime-bopomofo.git"
   gitPkg "rime-cangjie" "https://github.com/rime/rime-cangjie.git"
+  gitPkg "rime-cantonese" "https://github.com/rime/rime-cantonese.git"
+  gitPkg "rime-double-pinyin" "https://github.com/rime/rime-double-pinyin.git"
+  gitPkg "rime-emoji" "https://github.com/rime/rime-emoji.git"
   gitPkg "rime-essay" "https://github.com/rime/rime-essay.git"
   gitPkg "rime-ice" "https://github.com/iDvel/rime-ice.git"
+  gitPkg "rime-loengfan" "https://github.com/CanCLID/rime-loengfan.git"
   gitPkg "rime-luna-pinyin" "https://github.com/rime/rime-luna-pinyin.git"
+  gitPkg "rime-pinyin-simp" "https://github.com/rime/rime-pinyin-simp.git"
   gitPkg "rime-prelude" "https://github.com/rime/rime-prelude.git"
+  gitPkg "rime-quick" "https://github.com/rime/rime-quick.git"
   gitPkg "rime-stroke" "https://github.com/rime/rime-stroke.git"
   gitPkg "rime-terra-pinyin" "https://github.com/rime/rime-terra-pinyin.git"
+  gitPkg "rime-wubi" "https://github.com/rime/rime-wubi.git"
+  gitPkg "rime-wugniu" "https://github.com/rime/rime-wugniu.git"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
+  gitPkg "waybar-git" "https://github.com/Alexays/Waybar.git"
   fishPlugins
   commitNotifier
   tgSend
@@ -35,6 +45,7 @@ packageSet = do
   clashForWindows
   icalinguaPlusPlus
   mstickereditor
+  swayOsd
   wemeet
   yacd
   zeronsd
@@ -116,6 +127,16 @@ mstickereditor =
       `fromGitHub` ("LuckyTurtleDev", "mstickereditor")
       `hasCargoLocks` ["Cargo.lock"]
 
+swayOsd :: PackageSet ()
+swayOsd =
+  define $
+    package "swayosd"
+      `sourceGit` url
+      `fetchGit` url
+      `hasCargoLocks` ["Cargo.lock"]
+  where
+    url = "https://github.com/ErikReider/SwayOSD.git"
+
 tgSend :: PackageSet ()
 tgSend =
   define $
@@ -133,7 +154,7 @@ wemeet =
       `sourceAur` "wemeet-bin"
       `fetchUrl` url
   where
-    md5 = "1b001ef75914a1d6948decb8c2550b47" -- TODO auto update md5
+    md5 = "5a910969828531efb24add85626e2372" -- TODO auto update md5
     url (Version v) = "https://updatecdn.meeting.qq.com/cos/" <> md5 <> "/TencentMeeting_0300000000_" <> v <> "_x86_64_default.publish.deb"
 
 yacd :: PackageSet ()

@@ -3,14 +3,13 @@
 , lib
 , librime
 , rimeDataBuildHook
-, rime-stroke
-, rime-terra-pinyin
 , rime-prelude
+, rime-stroke
 , rime-essay
 }:
 
 stdenv.mkDerivation {
-  inherit (sources.rime-bopomofo) pname version src;
+  inherit (sources.rime-pinyin-simp) pname version src;
 
   nativeBuildInputs = [
     librime
@@ -22,24 +21,17 @@ stdenv.mkDerivation {
     rime-essay
   ];
 
-  propagatedBuildInputs = [
-    rime-terra-pinyin
-  ];
-
   installPhase = ''
     install -Dm644 *.yaml -t "$out/share/rime-data/"
     install -Dm644 build/* -t "$out/share/rime-data/build/"
   '';
 
-  passthru.rimeDependencies = [
-    # dependency for reverse lookup
-    rime-stroke
-  ];
+  passthru.rimeDependencies = [ rime-stroke ];
 
   meta = with lib; {
-    homepage = "https://github.com/rime/rime-bopomofo";
-    description = "RIME Bopomofo input schema";
-    license = licenses.lgpl3;
+    homepage = "https://github.com/rime/rime-pinyin-simp";
+    description = "Simple pinyin input for RIME";
+    license = licenses.asl20;
     maintainers = with maintainers; [ yinfeng ];
   };
 }
