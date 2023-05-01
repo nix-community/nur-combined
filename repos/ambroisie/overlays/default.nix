@@ -1,3 +1,3 @@
 {
-  # NOTE: no overlays at the moment
+  nix-serve-ng-initLibStore = import ./nix-serve-ng-initLibStore;
 }

@@ -20,6 +20,7 @@
     ./navidrome
     ./nextcloud
     ./nginx
+    ./nix-serve
     ./paperless
     ./pirate
     ./podgrab
