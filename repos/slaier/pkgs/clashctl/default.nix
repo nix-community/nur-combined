@@ -8,6 +8,10 @@ stdenv.mkDerivation {
     (makeSetupHook { } ./completions.sh)
   ];
 
+  buildInputs = [
+    stdenv.cc.cc.libgcc or null
+  ];
+
   dontUnpack = true;
   dontConfigure = true;
   dontBuild = true;
