@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.13.6";
+      version = "1.14.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4074768/10ten_ja_reader-1.13.6.xpi";
-      sha256 = "335802205e0ad14155a9a34b689b499e5d717d4881202f7498b797beb14caec5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4100908/10ten_ja_reader-1.14.0.xpi";
+      sha256 = "5409517868dd0ac18d35515cfc8c6fb37234ead2a2b9982d4d19443ac8f81204";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -224,10 +224,10 @@
       };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.3";
+      version = "7.5.4";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4078007/betterttv-7.5.3.xpi";
-      sha256 = "1fd75b392c963bd952912e13a6e847563da70209f2e1297b9fd5cf418367b34a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4100224/betterttv-7.5.4.xpi";
+      sha256 = "182a357a5776a2bdf90f070beee5cf5160adbbffa7122677bde9284cd8d97677";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -278,7 +278,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
-        description = "YouTube™ Video blocker.\nBlock and hide annoying videos from YouTube™.\nFast and easy.";
+        description = "YouTube™ Content Blocker\nBlock channels and videos from YouTube™\nFast and easy";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -451,10 +451,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.4.1";
+      version = "3.4.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095007/control_panel_for_twitter-3.4.1.xpi";
-      sha256 = "81963876b07fead57e001669932c81768f81e6faa842dea71f4312ca446e680d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101039/control_panel_for_twitter-3.4.3.xpi";
+      sha256 = "5df3715a84fc77a3e70742b1235063011de8920bd12d34f419b392765a72db0c";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -574,10 +574,10 @@
       };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "3.2.1";
+      version = "3.3.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4069604/dictionaries-3.2.1.xpi";
-      sha256 = "60f85dbd43215f1b52cef4f757f528d59dce95d154c076ddd654e22d868a9062";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4102881/dictionaries-3.3.0.xpi";
+      sha256 = "b91e3d0dd5c044e687edce603b897e9eac1b12ab4d5181d0964057aba431677f";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -975,10 +975,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "112.0.20230424.110519";
+      version = "113.0.20230427.175833";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101966/francais_language_pack-112.0.20230424.110519.xpi";
-      sha256 = "d81945ac14b795fdc5039ad64d4c73d064bfa66601b4ccd8f1163cb39a0eecfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4103554/francais_language_pack-113.0.20230427.175833.xpi";
+      sha256 = "d63057be69b8d6a66c50eee93cee217e975d00aa577013c6d7dc51d6b7c1c7f5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1437,10 +1437,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.112.0.2";
+      version = "4.113.0.6";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4088441/lastpass_password_manager-4.112.0.2.xpi";
-      sha256 = "20d665587a4aec3eeaf87126fe677c9fe21f0bf326ddd4019c2eee61cc989030";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4095665/lastpass_password_manager-4.113.0.6.xpi";
+      sha256 = "7ac782b0813aee9425513f76d088c904d19bb20a624c81cac187fbcddbd5a5f0";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -1573,10 +1573,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "4.2.3";
+      version = "5.0.1";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3520187/mailvelope-4.2.3.xpi";
-      sha256 = "e3e9a09354f03b35426bf48f134553b13199170fa2583eef4a6098da616e8f4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099640/mailvelope-5.0.1.xpi";
+      sha256 = "d09d77ce483e6e92abe7ddfd6c4c3ff526ce61e8e37befa010654b07fbd56eab";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1685,10 +1685,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.65";
+      version = "2.7.68";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4097762/momentumdash-2.7.65.xpi";
-      sha256 = "e83f96427b62b090b984ed85495c9c7c8b057287d464b6a8cafc3e5279232305";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4102702/momentumdash-2.7.68.xpi";
+      sha256 = "6f10ee4072c3761be1f41f26bc1241f00d8bf7c04c08ac8ef03cf0c876d9567a";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -1894,10 +1894,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.8.3";
+      version = "7.9.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4082360/octotree-7.8.3.xpi";
-      sha256 = "ee6c09046648e30da6a2cc942e5b41771975e9ea28f9b252d43d1b20ad4ac711";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101912/octotree-7.9.0.xpi";
+      sha256 = "084e83121808aaf3021e083dd574b5aaa3db8364accd289bbaf2b4acde659094";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -1954,10 +1954,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.9.0";
+      version = "2.10.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4091893/1password_x_password_manager-2.9.0.xpi";
-      sha256 = "f26bf329836d2947d98e62b33ddd0d52ded8dd13f2bb56e89e887babd587f212";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099241/1password_x_password_manager-2.10.0.xpi";
+      sha256 = "739487dbc460983c752251daeb6d0d9a30f1d32af2bc65e1109968726709319f";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2363,10 +2363,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.4.15";
+      version = "23.4.26";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4097949/refined_github-23.4.15.xpi";
-      sha256 = "022592b8a7c31858c90334d4decfb22ce61dd80ee9b4daafe54d2750210b2ab4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4103020/refined_github-23.4.26.xpi";
+      sha256 = "617802388da1098c82e26dd185e48f3c7e4ea739262bc3172217b7467b976234";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2459,10 +2459,10 @@
       };
     "simple-tab-groups" = buildFirefoxXpiAddon {
       pname = "simple-tab-groups";
-      version = "5.1";
+      version = "5.2";
       addonId = "simple-tab-groups@drive4ik";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4098262/simple_tab_groups-5.1.xpi";
-      sha256 = "2e955a41bafc01315ad435160e5be25a3b91d06555fba8097acc8b396b4df69c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4103800/simple_tab_groups-5.2.xpi";
+      sha256 = "b56f30cea753a9c4d1c0e078c0e5e635f1885ea7e40305cee59b9e145fad0a6c";
       meta = with lib;
       {
         homepage = "https://github.com/drive4ik/simple-tab-groups";
@@ -2572,10 +2572,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.3.1";
+      version = "5.4.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4085308/sponsorblock-5.3.1.xpi";
-      sha256 = "02385a0765aa88fbff553953a202fcca31012b1fb0ed9b82320c0572929a3849";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098861/sponsorblock-5.4.1.xpi";
+      sha256 = "a7ceb7b83271f62d8619bc46e797592dc662b133cbff29e928a77c9fff9219f3";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -3036,10 +3036,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.48.4";
+      version = "1.49.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4092158/ublock_origin-1.48.4.xpi";
-      sha256 = "d7666b963c2969b0014937aae55472eea5098ff21ed3bea8a2e1f595f62856c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099143/ublock_origin-1.49.0.xpi";
+      sha256 = "7c32a32fc6ad2ee76d6c097a7562799b3765c8200ca27f77436f9771d3fd6c64";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -3106,10 +3106,10 @@
       };
     "user-agent-string-switcher" = buildFirefoxXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.4.9";
+      version = "0.5.0";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4047133/user_agent_string_switcher-0.4.9.xpi";
-      sha256 = "617ab726419f6c1addedc727ad41dca18f52fbde34af59ed7d42425f139129d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098688/user_agent_string_switcher-0.5.0.xpi";
+      sha256 = "9dc8da3c8c46d4f04d12fd789c63501fa6a2f502f859b286939a090db63eae33";
       meta = with lib;
       {
         homepage = "http://add0n.com/useragent-switcher.html";
