@@ -57,10 +57,10 @@
   };
   "canvasblocker" = buildFirefoxXpiAddon {
     pname = "canvasblocker";
-    version = "1.8";
+    version = "1.9";
     addonId = "CanvasBlocker@kkapsner.de";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3910598/canvasblocker-1.8.xpi";
-    sha256 = "817a6181be877668eca1d0fef9ecf789c898e6d7d93dca7e29479d40f986c844";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4097901/canvasblocker-1.9.xpi";
+    sha256 = "5248c2c2dedd14b8aa2cd73f9484285d9453e93339f64fcf04a3d63c859cf3d7";
     meta = with lib; {
       homepage = "https://github.com/kkapsner/CanvasBlocker/";
       description = "Alters some JS APIs to prevent fingerprinting.";
@@ -147,10 +147,10 @@
   };
   "gitako" = buildFirefoxXpiAddon {
     pname = "gitako";
-    version = "3.10.3";
+    version = "3.11.0";
     addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4063952/gitako_github_file_tree-3.10.3.xpi";
-    sha256 = "3dd9fa36b86eaa054e98d3d22f47023da708252f4c2e4b9707ff35e8f7e19cd0";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4103085/gitako_github_file_tree-3.11.0.xpi";
+    sha256 = "4a20ac342ad83e3fcdb9f4b6da0aa4eca8a5cbbbb18a39cc68aac0b6facadd5f";
     meta = with lib; {
       homepage = "https://github.com/EnixCoda/Gitako";
       description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
@@ -173,10 +173,10 @@
   };
   "github-isometric-contributions" = buildFirefoxXpiAddon {
     pname = "github-isometric-contributions";
-    version = "1.1.24";
+    version = "1.1.26";
     addonId = "isometric-contributions@jasonlong.me";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4087901/github_isometric_contributions-1.1.24.xpi";
-    sha256 = "1feb9f2d24a3d8ad50b3c142949071363ccf500c5dcd2762763c5b290231678c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4098896/github_isometric_contributions-1.1.26.xpi";
+    sha256 = "1c4eb3e4ecbd1381189319e49cc0c16d68dffefd1064a15678a8f50762147a50";
     meta = with lib; {
       description = "Renders an isometric pixel view of GitHub contribution graphs.";
       license = licenses.mit;
@@ -223,10 +223,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.7.8";
+    version = "1.8.1";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4094696/material_icons_for_github-1.7.8.xpi";
-    sha256 = "f4c4ea72bcf64c1af9bd11d2fc12bb019d436be5f028f241188d865e15f6135d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4104735/material_icons_for_github-1.8.1.xpi";
+    sha256 = "9a88da819de0ad047620a874b68b98fbb765cd305e330420b7d536922b0f691c";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
@@ -288,10 +288,10 @@
   };
   "pronoundb" = buildFirefoxXpiAddon {
     pname = "pronoundb";
-    version = "0.12.1";
+    version = "0.12.2";
     addonId = "firefox-addon@pronoundb.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4092456/pronoundb-0.12.1.xpi";
-    sha256 = "48f028ea653f7963e22b247b18445a0eaecf277d10633fccc6dbbb01ba0966a3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4101019/pronoundb-0.12.2.xpi";
+    sha256 = "1f679eeed98def94c1b29ace7ce8004810a21295e45600106a04cb0c89f63e70";
     meta = with lib; {
       homepage = "https://pronoundb.org";
       description = "PronounDB is a browser extension that helps people know each other's pronouns easily and instantly. Whether hanging out on a Twitch chat, or on any of the supported platforms, PronounDB will make your life easier.";
@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.4.10";
+    version = "23.4.26";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4095054/refined_github-23.4.10.xpi";
-    sha256 = "97be7356c27ad0603eb001c4957f550b03441721aa2e29d08248154b7e977f26";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4103020/refined_github-23.4.26.xpi";
+    sha256 = "617802388da1098c82e26dd185e48f3c7e4ea739262bc3172217b7467b976234";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -351,10 +351,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.3.1";
+    version = "5.4.1";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4085308/sponsorblock-5.3.1.xpi";
-    sha256 = "02385a0765aa88fbff553953a202fcca31012b1fb0ed9b82320c0572929a3849";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4098861/sponsorblock-5.4.1.xpi";
+    sha256 = "a7ceb7b83271f62d8619bc46e797592dc662b133cbff29e928a77c9fff9219f3";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -427,10 +427,10 @@
   };
   "ublock-origin" = buildFirefoxXpiAddon {
     pname = "ublock-origin";
-    version = "1.48.4";
+    version = "1.49.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4092158/ublock_origin-1.48.4.xpi";
-    sha256 = "d7666b963c2969b0014937aae55472eea5098ff21ed3bea8a2e1f595f62856c1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4099143/ublock_origin-1.49.0.xpi";
+    sha256 = "7c32a32fc6ad2ee76d6c097a7562799b3765c8200ca27f77436f9771d3fd6c64";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";

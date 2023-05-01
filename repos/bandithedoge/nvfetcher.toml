@@ -101,3 +101,17 @@ cargo_locks = ["Cargo.lock"]
 src.git = "https://github.com/DISTRHO/Ildaeil"
 fetch.github = "DISTRHO/Ildaeil"
 git.fetchSubmodules = true
+
+[macemu]
+src.git = "https://github.com/kanjitalk755/macemu"
+fetch.github = "kanjitalk755/macemu"
+
+[basiliskii-bin]
+src.github_tag = "Korkman/macemu-appimage-builder"
+fetch.url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/$ver/BasiliskII-x86_64.AppImage"
+fetch.force = true
+
+[sheepshaver-bin]
+src.github_tag = "Korkman/macemu-appimage-builder"
+fetch.url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/$ver/SheepShaver-x86_64.AppImage"
+fetch.force = true

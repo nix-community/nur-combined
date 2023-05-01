@@ -74,8 +74,8 @@ jobs:
           nix-env -f . -qa \* --meta --xml \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-            -I $PWD
+            -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" \
+            -I "$PWD"
 
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs --show-trace

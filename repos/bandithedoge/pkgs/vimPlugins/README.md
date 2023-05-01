@@ -32,6 +32,7 @@
 | [dwm-nvim](https://github.com/delphinus/dwm.nvim) | None |
 | [e-kaput-nvim](https://github.com/kaputi/e-kaput.nvim) | Diagnostics floating window for Neovim Lsp written in lua |
 | [editorconfig-nvim](https://github.com/gpanders/editorconfig.nvim) | EditorConfig plugin for Neovim |
+| [faust-nvim](https://github.com/madskjeldgaard/faust-nvim) | NeoVim plugin for writing Faust DSP code |
 | [fidget-nvim](https://github.com/j-hui/fidget.nvim) | Standalone UI for nvim-lsp progress |
 | [flare-nvim](https://github.com/stonelasley/flare.nvim) | Configurable Cursor highlighting. |
 | [flutter-tools-nvim](https://github.com/akinsho/flutter-tools.nvim) | Tools to help create flutter apps in neovim using the native lsp |
@@ -146,6 +147,7 @@
 | [trouble-nvim](https://github.com/folke/trouble.nvim) | 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing. |
 | [ucw-nvim](https://github.com/Aetf/ucw.nvim) | nvimd - specify plugin dependencies using the familiar systemd unit wants/requires before/after concepts |
 | [vim-coffee-script](https://github.com/kchmck/vim-coffee-script) | CoffeeScript support for vim |
+| [vim-faust](https://github.com/gmoe/vim-faust) | This is a Vim syntax-highlighting plugin for Faust based on the original file in the Faust repository. |
 | [vim-parinfer](https://github.com/bhurlow/vim-parinfer) | vim plugin to balance your parenthesis  |
 | [virtual-types-nvim](https://github.com/jubnzv/virtual-types.nvim) | Neovim plugin that shows type annotations as virtual text |
 | [which-key-nvim](https://github.com/folke/which-key.nvim) | 💥   Create key bindings that stick. WhichKey is a lua plugin for Neovim 0.5 that displays a popup with possible keybindings of the command you started typing. |
