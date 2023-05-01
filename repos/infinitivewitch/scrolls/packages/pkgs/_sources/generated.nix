@@ -7,13 +7,13 @@
 }: {
   eupnea-scripts = {
     pname = "eupnea-scripts";
-    version = "c1cee467546993180c08a2c2422c2e54fecb1503";
+    version = "bcb33806ba08552522e102494494b9b592b95d1d";
     src = fetchFromGitHub {
       owner = "eupnea-linux";
       repo = "audio-scripts";
-      rev = "c1cee467546993180c08a2c2422c2e54fecb1503";
+      rev = "bcb33806ba08552522e102494494b9b592b95d1d";
       fetchSubmodules = false;
-      sha256 = "sha256-UJR52p2yYkvShX8YOItxE0sY3mTeALT7EC7FLSLvgDE=";
+      sha256 = "sha256-uBjiu94gE23we5c7F+H5VdJ5FKPneiD/lc+TWPylG4c=";
     };
     date = "2023-04-29";
   };
