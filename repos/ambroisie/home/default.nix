@@ -1,15 +1,18 @@
 { ... }:
 {
   imports = [
+    ./atuin
     ./bat
     ./bluetooth
     ./comma
+    ./dircolors
     ./direnv
     ./discord
     ./documentation
     ./feh
     ./firefox
     ./flameshot
+    ./fzf
     ./gammastep
     ./gdb
     ./git

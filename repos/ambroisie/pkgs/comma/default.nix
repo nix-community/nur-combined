@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./comma;
 
-  buildInputs = [
+  nativeBuildInputs = [
     makeWrapper
   ];
 

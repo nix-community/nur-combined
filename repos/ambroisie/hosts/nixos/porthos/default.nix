@@ -7,6 +7,7 @@
     ./hardware.nix
     ./home.nix
     ./networking.nix
+    ./secrets
     ./services.nix
     ./users.nix
   ];

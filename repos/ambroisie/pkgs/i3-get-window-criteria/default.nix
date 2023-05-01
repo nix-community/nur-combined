@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./i3-get-window-criteria;
 
-  buildInputs = [
+  nativeBuildInputs = [
     makeWrapper
   ];
 

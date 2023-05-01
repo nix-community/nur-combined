@@ -56,9 +56,6 @@ in
         enable = true;
 
         appName = "Ambroisie's forge";
-        httpPort = cfg.port;
-        domain = giteaDomain;
-        rootUrl = "https://${giteaDomain}";
 
         user = "git";
         lfs.enable = true;
@@ -78,6 +75,12 @@ in
         mailerPasswordFile = lib.mkIf cfg.mail.enable cfg.mail.passwordFile;
 
         settings = {
+          server = {
+            HTTP_PORT = cfg.port;
+            DOMAIN = giteaDomain;
+            ROOT_URL = "https://${giteaDomain}";
+          };
+
           mailer = lib.mkIf cfg.mail.enable {
             ENABLED = true;
             HOST = cfg.mail.host;
@@ -121,7 +124,7 @@ in
       # Redirect `gitea.` to actual forge subdomain
       {
         subdomain = "gitea";
-        redirect = config.services.gitea.rootUrl;
+        redirect = config.services.gitea.settings.server.ROOT_URL;
       }
     ];
 

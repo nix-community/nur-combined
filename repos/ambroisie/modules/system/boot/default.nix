@@ -13,9 +13,11 @@ in
 
   config = {
     boot = {
-      cleanTmpDir = cfg.tmp.clean;
+      tmp = {
+        cleanOnBoot = cfg.tmp.clean;
 
-      tmpOnTmpfs = cfg.tmp.tmpfs;
+        useTmpfs = cfg.tmp.tmpfs;
+      };
     };
   };
 }

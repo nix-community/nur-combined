@@ -58,8 +58,8 @@ get_ssh() {
 
     get_doc "SysAdmin/SSH" "shared-key-public" "$HOME/.ssh/shared_rsa.pub" 644
     get_doc "SysAdmin/SSH" "shared-key-private" "$HOME/.ssh/shared_rsa" 600
-    get_doc "SysAdmin/SSH" "agenix-public" "$HOME/.ssh/id_ed25519.pub" 644
-    get_doc "SysAdmin/SSH" "agenix-private" "$HOME/.ssh/id_ed25519" 600
+    get_doc "SysAdmin/SSH" "agenix-public" "$HOME/.ssh/agenix.pub" 644
+    get_doc "SysAdmin/SSH" "agenix-private" "$HOME/.ssh/agenix" 600
 }
 
 get_pgp() {
@@ -87,15 +87,6 @@ get_creds() {
     get_pgp
 }
 
-setup_gpg() {
-    info 'Setting up loopback pinentry for GnuPG'
-    echo "allow-loopback-pinentry" > ~/.gnupg/gpg-agent.conf
-
-    info 'Signing dummy message to ensure GnuPG key is usable by `git-crypt`'
-    echo whatever | gpg --clearsign --armor --pinentry loopback --output /dev/null
-}
-
 [ -z "$NOCREDS" ] && get_creds
-[ -z "$NOGPG" ] && setup_gpg
 
 nix --experimental-features 'nix-command flakes' develop

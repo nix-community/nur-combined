@@ -66,6 +66,11 @@ set list
 " Show a tab as an arrow, trailing spaces as ¤, non-breaking spaces as dots
 set listchars=tab:>─,trail:·,nbsp:¤
 
+" Use patience diff
+set diffopt+=algorithm:patience
+" Align similar lines in each hunk
+set diffopt+=linematch:50
+
 " Don't redraw when executing macros
 set lazyredraw
 
@@ -97,12 +102,10 @@ set ignorecase
 set smartcase
 " }}}
 
-" Import settings when inside a git repository {{{
+" Project-local settings {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let git_settings=system("git config --get vim.settings")
-if strlen(git_settings)
-    exe "set" git_settings
-endif
+" Securely read `.nvim.lua` or `.nvimrc`.
+set exrc
 " }}}
 
 " vim: foldmethod=marker

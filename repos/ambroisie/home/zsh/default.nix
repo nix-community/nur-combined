@@ -104,15 +104,5 @@ in
       # Enable VTE integration
       enableVteIntegration = true;
     };
-
-    # Fuzzy-wuzzy
-    programs.fzf = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-
-    programs.dircolors = {
-      enable = true;
-    };
   };
 }

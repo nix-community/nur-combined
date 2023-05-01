@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./diff-flake;
 
-  buildInputs = [
+  nativeBuildInputs = [
     makeWrapper
   ];
 

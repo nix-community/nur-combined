@@ -28,3 +28,7 @@ compile_commands.json
 # Direnv files
 .envrc
 .direnv/
+
+# Project-local neovim configuration files
+.nvim.lua
+.nvimrc

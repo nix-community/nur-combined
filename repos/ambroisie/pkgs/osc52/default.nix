@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./osc52;
 
-  buildInputs = [
+  nativeBuildInputs = [
     makeWrapper
   ];
 

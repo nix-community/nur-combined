@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./drone-rsync;
 
-  buildInputs = [
+  nativeBuildInputs = [
     makeWrapper
   ];
 

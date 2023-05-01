@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./bw-pass;
 
-  buildInputs = [
+  nativeBuildInputs = [
     makeWrapper
   ];
 

@@ -5,7 +5,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = ./change-audio;
 
-  buildInputs = [
+  nativeBuildInputs = [
     makeWrapper
   ];
 

@@ -12,7 +12,7 @@ let
     let
       mkPeer = name: attrs: {
         inherit (attrs) clientNum publicKey;
-        privateKeyFile = secrets."wireguard/${name}/private-key".path;
+        privateKeyFile = secrets."wireguard/private-key".path;
       } // lib.optionalAttrs (attrs ? externalIp) {
         inherit (attrs) externalIp;
       };
