@@ -1,5 +1,5 @@
 { lib
-, stdenvNoCC
+, stdenv
 , fetchurl
 , electron
 , appimageTools
@@ -9,7 +9,7 @@
 { pname, version, src, meta
 , _name ? null
 , resourcesParentDir ? ""
-, extraPkgs ? null
+, runtimeLibs ? []
 }:
 
 let
@@ -19,8 +19,7 @@ let
   name = if (_name != null) then _name else "${pname}-${version}";
 in
 
-if (extraPkgs == null)
-then stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   inherit meta name src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -42,31 +41,11 @@ then stdenvNoCC.mkDerivation {
 
   postFixup = ''
     makeWrapper ${electron}/bin/electron $out/bin/${pname} \
-      --add-flags $out/share/${pname}/app.asar
+      --add-flags $out/share/${pname}/app.asar \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeLibs}
   '';
 
   passthru = {
     inherit electron;
   };
-}
-else appimageTools.wrapAppImage {
-  inherit meta name extraPkgs;
-
-  src = appimageContents;
-
-  extraInstallCommands = ''
-    mv $out/bin/${name} $out/bin/${pname}
-
-    install -m 444 \
-      -D ${appimageContents}/${pname}.desktop \
-      -t $out/share/applications
-
-    substituteInPlace \
-        $out/share/applications/${pname}.desktop \
-        --replace 'Exec=AppRun' 'Exec=${pname}'
-
-    sed -i 's/Icon=.*/Icon=${pname}/' $out/share/applications/${pname}.desktop
-
-    cp -r ${appimageContents}/usr/share/icons $out/share
-  '';
 }

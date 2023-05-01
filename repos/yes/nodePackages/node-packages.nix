@@ -148,13 +148,13 @@ let
         sha512 = "cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==";
       };
     };
-    "@types/estree-1.0.0" = {
+    "@types/estree-1.0.1" = {
       name = "_at_types_slash_estree";
       packageName = "@types/estree";
-      version = "1.0.0";
+      version = "1.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.0.tgz";
-        sha512 = "WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==";
+        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.1.tgz";
+        sha512 = "LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==";
       };
     };
     "@types/express-4.17.17" = {
@@ -193,13 +193,13 @@ let
         sha512 = "Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==";
       };
     };
-    "@types/node-18.15.11" = {
+    "@types/node-18.16.0" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "18.15.11";
+      version = "18.16.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-18.15.11.tgz";
-        sha512 = "E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==";
+        url = "https://registry.npmjs.org/@types/node/-/node-18.16.0.tgz";
+        sha512 = "BsAaKhB+7X+H4GnSjGhJG9Qi8Tw+inU9nJDwmD5CgOmBLEI6ArdhikpLX7DjbjDRDTbqZzU2LSQNZg8WGPiSZQ==";
       };
     };
     "@types/qs-6.9.7" = {
@@ -922,22 +922,22 @@ let
         sha512 = "kqag/Nl+f3GwyK25fhUMYj81BUOrZ9IuJsjIcDE5icNM9FJHAVm3VcUDxdLPoQtTuUylWm6ZIknYJwwaPxsUzg==";
       };
     };
-    "dijkstrajs-1.0.2" = {
+    "dijkstrajs-1.0.3" = {
       name = "dijkstrajs";
       packageName = "dijkstrajs";
-      version = "1.0.2";
+      version = "1.0.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/dijkstrajs/-/dijkstrajs-1.0.2.tgz";
-        sha512 = "QV6PMaHTCNmKSeP6QoXhVTw9snc9VD8MulTT0Bd99Pacp4SS1cjcrYPgBPmibqKVtMJJfqC6XvOXgPMEEPH/fg==";
+        url = "https://registry.npmjs.org/dijkstrajs/-/dijkstrajs-1.0.3.tgz";
+        sha512 = "qiSlmBq9+BCdCA/L46dw8Uy93mloxsPSbwnm5yrKn2vMPiy8KyAskTF6zuV/j5BMsmOGZDPs7KjU+mjb670kfA==";
       };
     };
-    "dns-packet-5.5.0" = {
+    "dns-packet-5.6.0" = {
       name = "dns-packet";
       packageName = "dns-packet";
-      version = "5.5.0";
+      version = "5.6.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/dns-packet/-/dns-packet-5.5.0.tgz";
-        sha512 = "USawdAUzRkV6xrqTjiAEp6M9YagZEzWcSUaZTcIFAiyQWW1SoI6KyId8y2+/71wbgHKQAKd+iupLv4YvEwYWvA==";
+        url = "https://registry.npmjs.org/dns-packet/-/dns-packet-5.6.0.tgz";
+        sha512 = "rza3UH1LwdHh9qyPXp8lkwpjSNk/AMD3dPytUoRoqnypDUhY0xvbdmVhWOfxO68frEfV9BU8V12Ez7ZsHGZpCQ==";
       };
     };
     "dohjs-0.3.3" = {
@@ -1975,13 +1975,13 @@ let
         sha512 = "jmYNElW7yvO7TV33CjSmvSiE2yco3bV2czu/OzDKdMNVZQWfxCblURLhf+47syQRBntjfLdd/H0egrzIG+oaFQ==";
       };
     };
-    "qrcode-1.5.1" = {
+    "qrcode-1.5.3" = {
       name = "qrcode";
       packageName = "qrcode";
-      version = "1.5.1";
+      version = "1.5.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/qrcode/-/qrcode-1.5.1.tgz";
-        sha512 = "nS8NJ1Z3md8uTjKtP+SGGhfqmTCs5flU/xR623oI0JX+Wepz9R8UrRVCTBTJm3qGw3rH6jJ6MUHjkDx15cxSSg==";
+        url = "https://registry.npmjs.org/qrcode/-/qrcode-1.5.3.tgz";
+        sha512 = "puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==";
       };
     };
     "qs-6.11.0" = {
@@ -2119,13 +2119,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-3.20.2" = {
+    "rollup-3.20.7" = {
       name = "rollup";
       packageName = "rollup";
-      version = "3.20.2";
+      version = "3.20.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-3.20.2.tgz";
-        sha512 = "3zwkBQl7Ai7MFYQE0y1MeQ15+9jsi7XxfrqwTb/9EK8D9C9+//EBR4M+CuA1KODRaNbFez/lWxA5vhEGZp4MUg==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-3.20.7.tgz";
+        sha512 = "P7E2zezKSLhWnTz46XxjSmInrbOCiul1yf+kJccMxT56vxjHwCbDfoLbiqFgu+WQoo9ij2PkraYaBstgB2prBA==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -2398,13 +2398,13 @@ let
         sha512 = "YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==";
       };
     };
-    "terser-5.16.9" = {
+    "terser-5.17.1" = {
       name = "terser";
       packageName = "terser";
-      version = "5.16.9";
+      version = "5.17.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.16.9.tgz";
-        sha512 = "HPa/FdTB9XGI2H1/keLFZHxl6WNvAI4YalHGtDQTlMnJcoqSab1UwL4l1hGEhs6/GmLHBZIg/YgB++jcbzoOEg==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.17.1.tgz";
+        sha512 = "hVl35zClmpisy6oaoKALOpS0rDYLxRFLHhRuDlEGTKey9qHjS1w9GMORjuwIMt70Wan4lwsLYyWDVnWgF+KUEw==";
       };
     };
     "through-2.3.8" = {
@@ -2506,13 +2506,13 @@ let
         sha512 = "pJOW4nxjlmfwKApE4zvxLScM/njmwj/DiUBv7EabwE4O8kRUy+HIwxQtZLBPll/jx1LJyBcqNfB3/cpv9EZwOw==";
       };
     };
-    "undici-5.21.2" = {
+    "undici-5.22.0" = {
       name = "undici";
       packageName = "undici";
-      version = "5.21.2";
+      version = "5.22.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/undici/-/undici-5.21.2.tgz";
-        sha512 = "f6pTQ9RF4DQtwoWSaC42P/NKlUjvezVvd9r155ohqkwFNRyBKM3f3pcty3ouusefNRyM25XhIQEbeQ46sZDJfQ==";
+        url = "https://registry.npmjs.org/undici/-/undici-5.22.0.tgz";
+        sha512 = "fR9RXCc+6Dxav4P9VV/sp5w3eFiSdOjJYsbtWfd4s5L5C4ogyuVpdKIVHeW0vV1MloM65/f7W45nR9ZxwVdyiA==";
       };
     };
     "unpipe-1.0.0" = {
@@ -2596,13 +2596,13 @@ let
         sha512 = "2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==";
       };
     };
-    "which-module-2.0.0" = {
+    "which-module-2.0.1" = {
       name = "which-module";
       packageName = "which-module";
-      version = "2.0.0";
+      version = "2.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/which-module/-/which-module-2.0.0.tgz";
-        sha512 = "B+enWhmw6cjfVC7kS8Pj9pCrKSc5txArRyaYGe088shv/FGWH+0Rjx/xPgtsWfsUtS27FkP697E4DDhgrgoc0Q==";
+        url = "https://registry.npmjs.org/which-module/-/which-module-2.0.1.tgz";
+        sha512 = "iBdZ57RDvnOR9AGBhML2vFZf7h8vmBjhoaZqODJBFWHVtKkDmKuHai3cx5PgVMrX5YDNp27AofYbAwctSS+vhQ==";
       };
     };
     "wrap-ansi-6.2.0" = {
@@ -2761,7 +2761,7 @@ in
       sources."@rollup/plugin-node-resolve-15.0.2"
       sources."@rollup/plugin-terser-0.1.0"
       sources."@rollup/pluginutils-5.0.2"
-      sources."@types/estree-1.0.0"
+      sources."@types/estree-1.0.1"
       sources."@types/resolve-1.20.2"
       sources."JSONStream-1.3.5"
       sources."acorn-8.8.2"
@@ -2857,8 +2857,8 @@ in
           sources."bn.js-4.12.0"
         ];
       })
-      sources."dijkstrajs-1.0.2"
-      sources."dns-packet-5.5.0"
+      sources."dijkstrajs-1.0.3"
+      sources."dns-packet-5.6.0"
       (sources."dohjs-0.3.3" // {
         dependencies = [
           sources."ws-7.5.9"
@@ -2958,7 +2958,7 @@ in
         ];
       })
       sources."punycode-1.4.1"
-      sources."qrcode-1.5.1"
+      sources."qrcode-1.5.3"
       sources."querystring-0.2.0"
       sources."querystring-es3-0.2.1"
       sources."randombytes-2.1.0"
@@ -2974,7 +2974,7 @@ in
       sources."require-main-filename-2.0.0"
       sources."resolve-1.22.3"
       sources."ripemd160-2.0.2"
-      sources."rollup-3.20.2"
+      sources."rollup-3.20.7"
       sources."safe-buffer-5.2.1"
       sources."safer-buffer-2.1.2"
       sources."set-blocking-2.0.0"
@@ -3001,7 +3001,7 @@ in
       sources."subarg-1.0.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."syntax-error-1.4.0"
-      sources."terser-5.16.9"
+      sources."terser-5.17.1"
       sources."through-2.3.8"
       sources."through2-2.0.5"
       sources."timers-browserify-1.4.2"
@@ -3010,7 +3010,7 @@ in
       sources."typedarray-0.0.6"
       sources."umd-3.0.3"
       sources."undeclared-identifiers-1.1.3"
-      sources."undici-5.21.2"
+      sources."undici-5.22.0"
       (sources."url-0.11.0" // {
         dependencies = [
           sources."punycode-1.3.2"
@@ -3024,7 +3024,7 @@ in
       })
       sources."util-deprecate-1.0.2"
       sources."vm-browserify-1.1.2"
-      sources."which-module-2.0.0"
+      sources."which-module-2.0.1"
       sources."wrap-ansi-6.2.0"
       sources."wrappy-1.0.2"
       sources."ws-8.13.0"
@@ -3137,7 +3137,7 @@ in
       sources."@types/express-serve-static-core-4.17.33"
       sources."@types/http-proxy-1.17.10"
       sources."@types/mime-3.0.1"
-      sources."@types/node-18.15.11"
+      sources."@types/node-18.16.0"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
       sources."@types/serve-static-1.15.1"

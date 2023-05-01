@@ -11,11 +11,7 @@ let
   };
 in
 
-{
-  archlinux = recurseIntoAttrs (import ./archlinux {
-    inherit pkgs rp;
-  });
-  
+{  
   lx-music-desktop = callPackage ./lx-music-desktop {
     inherit mkElectronAppImage rp;
   };
@@ -23,8 +19,6 @@ in
   nodePackages = recurseIntoAttrs (import ./nodePackages/override.nix {
     inherit pkgs;
   });
-
-  qq-appimage = callPackage ./qq { inherit mkElectronAppImage; };
 
   snapgene-viewer = callPackage ./snapgene-viewer { };
 
