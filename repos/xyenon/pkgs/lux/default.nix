@@ -2,7 +2,7 @@
 
 let
   pname = "lux";
-  version = "0.17.0";
+  version = "0.18.0";
 in
 buildGoModule {
   inherit pname version;
@@ -11,10 +11,10 @@ buildGoModule {
     owner = "iawia002";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-n6oWItz0tnhpyPBGsf4+fYGnJyeYyhI2owkLrJWu7uw=";
+    hash = "sha256-A3DDKpoaZlDUpafAGs5zCknhTeCuwMPnyBHtxke0Bi8=";
   };
 
-  vendorSha256 = "sha256-4pn6JKE+VieadhDLkVhbJc6XSm95cNwoNBWYGEZl8iI=";
+  vendorSha256 = "sha256-7wgGJYiIsVTRSuSb4a9LgYCkkayGhNMKqcIKoDxMuAM=";
   subPackages = [ "." ];
 
   meta = with lib; {
