@@ -11,9 +11,7 @@ nix-build -E 'with import <nixpkgs> { }; callPackage ./proftpd.nix { }'
 
 stdenv.mkDerivation rec {
   pname = "proftpd";
-  #version = "unstable-2022-04-04";
-  version = "1.3.8rc3"; # fix dynamic linking https://github.com/proftpd/proftpd/pull/1391
-  #version = "1.3.7c"; # 2021-08-30
+  version = "1.3.8";
 
   #outputs = [ "out" "dev" ]; # error: cycle detected
 
@@ -27,7 +25,9 @@ stdenv.mkDerivation rec {
     */
   ];
 
-  propagatedBuildInputs = with pkgs; [
+  buildInputs = with pkgs; [
+    # for mod_auth
+    libxcrypt
     # for OpenSSL support
     openssl
     # for zlib support
@@ -77,10 +77,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "proftpd";
     repo = "proftpd";
-    rev = "a34cb3043b8f78a8190aa8d9033eef250c7d1152";
-    sha256 = "sha256-s5su6kMugXAxYICLlMo3rLYze8HH+B4I+laqiQbrt7c=";
-    #rev = "v${version}";
-    #hash = "sha256-vL8g31s5CX7iL4jZLPP5dSn41kqyqdC3/4SVZsFQI0s="; # 1.3.7c
+    rev = "v${version}";
+    hash = "sha256-DnVUIcrE+mW4vTZzoPk+dk+2O3jEjGbGIBiVZgcvkNA=";
   };
 
   # based on .github/workflows/ci.yml
