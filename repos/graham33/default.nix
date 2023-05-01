@@ -17,6 +17,7 @@ let
 
     hass-smartbox = callPackage ./pkgs/hass-smartbox {};
     hassio-ecoflow = callPackage ./pkgs/hassio-ecoflow { };
+    heatmiser-for-home-assistant = callPackage ./pkgs/heatmiser-for-home-assistant { };
 
     home-assistant = (pkgs.home-assistant.override {
       # TODO: fix upstream
@@ -30,6 +31,7 @@ let
     home-assistant-miele = callPackage ./pkgs/home-assistant-miele { };
 
     homeAssistantPackageOverrides = pySelf: pySuper: rec {
+      async-property = pySelf.callPackage ./pkgs/async-property { };
       buildHomeAssistantCustomComponent = callPackage pkgs/build-support/build-home-assistant-custom-component {};
 
       # authcaptureproxy = pySelf.callPackage ./pkgs/authcaptureproxy { };
@@ -39,6 +41,7 @@ let
       homeassistant-stubs = pySelf.callPackage ./pkgs/homeassistant-stubs { };
       libdyson = pySelf.callPackage ./pkgs/libdyson { };
       monkeytype = pySelf.callPackage ./pkgs/monkeytype { };
+      neohubapi = pySelf.callPackage ./pkgs/neohubapi { };
       pylint-per-file-ignores = pySelf.callPackage ./pkgs/pylint-per-file-ignores { };
       pynut2 = pySelf.callPackage ./pkgs/pynut2 { };
       pytest-homeassistant-custom-component = pySelf.callPackage ./pkgs/pytest-homeassistant-custom-component { };
@@ -84,6 +87,7 @@ in rec {
     ha-hildebrandglow-dcc
     hass-smartbox
     hassio-ecoflow
+    heatmiser-for-home-assistant
     home-assistant
     home-assistant-miele
     homeAssistantPackageOverrides
@@ -97,8 +101,10 @@ in rec {
   };
 
   inherit (home-assistant.python.pkgs)
+    async-property
     homeassistant
     homeassistant-stubs
+    neohubapi
     pylint-per-file-ignores
     pytest-homeassistant-custom-component
     smartbox
