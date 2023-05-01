@@ -25,7 +25,7 @@
 , nss
 , pango
 
-, buildFHSUserEnv
+, buildFHSEnv
 }:
 
 let
@@ -98,7 +98,7 @@ let
     };
   });
 in
-buildFHSUserEnv {
+buildFHSEnv {
   name = unwrapped.pname;
   inherit (unwrapped) meta;
 

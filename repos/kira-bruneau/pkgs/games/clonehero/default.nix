@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = "0.23.2.2";
 
   src = fetchurl {
-    url = "http://dl.clonehero.net/clonehero-v${lib.removePrefix "0" finalAttrs.version}/clonehero-linux.tar.gz";
+    url = "https://pubdl.clonehero.net/clonehero-v${lib.removePrefix "0" finalAttrs.version}/clonehero-linux.tar.gz";
     sha256 = "sha256-sR7svBuAc3EJQp/My8Ykt1GPQtO+MiSfIBn6UpplMk0=";
   };
 

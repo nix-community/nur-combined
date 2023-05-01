@@ -19,8 +19,6 @@
         packagesFor = kernel: (prev.linuxKernel.packagesFor kernel).extend linuxModulesOverlay;
       };
 
-      pythonInterpreters = builtins.mapAttrs
-        (_: interpreter: interpreter.override { packageOverrides = pythonModulesOverlay; })
-        prev.pythonInterpreters;
+      pythonPackagesExtensions = [ pythonModulesOverlay ];
     };
 }

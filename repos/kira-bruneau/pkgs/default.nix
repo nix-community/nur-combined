@@ -26,20 +26,6 @@ in
 {
   inherit callPackage;
 
-  bcml = bcml-qt;
-
-  bcml-gtk = python3Packages.callPackage ./games/bcml {
-    gui = "gtk";
-    # nodejs = nodejs-16_x-openssl_1_1;
-    wrapQtAppsHook = null;
-  };
-
-  bcml-qt = python3Packages.callPackage ./games/bcml {
-    gui = "qt";
-    # nodejs = nodejs-16_x-openssl_1_1;
-    inherit (qt5) wrapQtAppsHook;
-  };
-
   caprine = callPackage ./applications/networking/instant-messengers/caprine { };
 
   ccache = callPackage ./development/tools/misc/ccache { };
@@ -85,7 +71,7 @@ in
   mozlz4 = callPackage ./tools/compression/mozlz4 { };
 
   newsflash = callPackage ./applications/networking/feedreaders/newsflash {
-    webkitgtk = webkitgtk_5_0;
+    webkitgtk = webkitgtk_6_0;
   };
 
   poke = callPackage ./applications/editors/poke { };
@@ -109,6 +95,8 @@ in
   themes = recurseIntoAttrs (callPackage ./data/themes { });
 
   undistract-me = callPackage ./shells/bash/undistract-me { };
+
+  ukmm = callPackage ./tools/games/ukmm { };
 
   virtualparadise = callPackage ./games/virtualparadise {
     inherit (qt5) wrapQtAppsHook;

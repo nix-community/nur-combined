@@ -42,6 +42,7 @@ let
     "pkgs/tools/audio/yabridge"
     "pkgs/tools/audio/yabridgectl"
     "pkgs/tools/games/gamemode"
+    "pkgs/tools/games/ukmm"
     "pkgs/tools/graphics/goverlay"
     "pkgs/tools/graphics/mangohud"
     "pkgs/tools/graphics/vkbasalt"

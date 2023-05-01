@@ -1,7 +1,7 @@
 { clonehero-unwrapped
 , clonehero-xdg-wrapper
 , makeDesktopItem
-, buildFHSUserEnv
+, buildFHSEnv
 , liberation_ttf
 }:
 
@@ -16,7 +16,7 @@ let
     categories = [ "Game" ];
   };
 in
-buildFHSUserEnv {
+buildFHSEnv {
   inherit name;
   inherit (clonehero-unwrapped) meta;
 
