@@ -35,6 +35,10 @@ let
         name = "json-uescape.patch";
         url = "https://github.com/nixos/nix/commit/52a8f9295b828872586c5b9e5587064a25dae9b2.patch";
         sha256 = "1dby05qwzxgiih6h2ka424qd7ia4krwxl4b8h96frv2v304lnrxl";
+      }) ++ lib.optional (lib.versionAtLeast nix.version "2.13.0" && lib.versionOlder nix.version "2.14.0") (fetchurl {
+        name = "fix-cmd-completion.patch";
+        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/7804.patch";
+        sha256 = "sha256-y/eBqiHB6j3oUBOACWpT+6XEiejVUCqkiT/bpNeIPlQ";
       });
       EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
       EDITLINE_CFLAGS = "-DREADLINE";
@@ -465,7 +469,7 @@ let
       patches = old.patches or [ ] ++ [ ./mpd_clientlib-buffer.patch ];
     });
 
-    qemu-vfio = { qemu, fetchpatch, lib }: (qemu.override {
+    qemu-vfio = { qemu, fetchpatch, lib, fetchurl, perl }: (qemu.override {
       gtkSupport = false;
       smartcardSupport = false;
       smbdSupport = true;
@@ -474,9 +478,35 @@ let
         "aarch64-linux-user" "aarch64-softmmu"
         "arm-linux-user" "arm-softmmu"
       ] ++ lib.optional qemu.stdenv.isx86_64 "i386-softmmu";
-    }).overrideAttrs (old: {
+    }).overrideAttrs (old: let
       pname = "qemu-vfio";
-      patches = old.patches or [] ++ lib.optional (lib.versionAtLeast qemu.version "4.2" && lib.versionOlder qemu.version "5.0") (fetchpatch {
+      v8 = rec {
+        version = "7.2.1";
+        name = "${pname}-${version}";
+        src = fetchurl {
+          url = "https://download.qemu.org/qemu-${version}.tar.xz";
+          sha256 = "sha256-jIVpms+dekOl/immTN1WNwsMLRrQdLr3CYqCTReq1zs=";
+        };
+        nativeBuildInputs = old.nativeBuildInputs ++ [ perl ];
+        buildInputs = old.buildInputs ++ [ perl ];
+
+        patches = [
+          # glibc >=2.37 compat, see https://lore.kernel.org/qemu-devel/20230110174901.2580297-1-berrange@redhat.com/
+          (fetchpatch {
+            url = "https://gitlab.com/qemu-project/qemu/-/commit/9f0246539ae84a5e21efd1cc4516fc343f08115a.patch";
+            sha256 = "sha256-1iWOWkLH0WP1Hk23fmrRVdX7YZWUXOvWRMTt8QM93BI=";
+          })
+          (fetchpatch {
+            url = "https://gitlab.com/qemu-project/qemu/-/commit/6003159ce18faad4e1bc7bf9c85669019cd4950e.patch";
+            sha256 = "sha256-DKGCbR+VDIFLp6FhER78gyJ3Rn1dD47pMtkcIIMd0B8=";
+          })
+        ];
+      };
+      isV8 = lib.versionAtLeast qemu.version "8.0";
+    in lib.optionalAttrs isV8 v8 // {
+      inherit pname;
+      patches = (if isV8 then v8.patches else old.patches or [])
+      ++ lib.optional (lib.versionAtLeast qemu.version "4.2" && lib.versionOlder qemu.version "5.0") (fetchpatch {
         name = "qemu-cpu-pinning.patch";
         url = "https://github.com/64kramsystem/qemu-pinning/commit/4e4fe6402e9e4943cc247a4ccfea21fa5f608b30.patch";
         sha256 = "12na0z8n48aiwiv96xn37b0i7i8kj5ph0rk8xbpm9jrzmi5rd4l1";

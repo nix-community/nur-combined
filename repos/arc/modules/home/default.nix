@@ -34,7 +34,6 @@
   imv = ./imv.nix;
   weechat = ./weechat.nix;
   systemd = ./systemd.nix;
-  swaylock = ./swaylock.nix;
   xdg = ./xdg.nix;
   watchdog = ./watchdog.nix;
   user = ./user.nix;
@@ -72,7 +71,6 @@
       imv
       weechat
       systemd
-      swaylock
       xdg
       watchdog
       user

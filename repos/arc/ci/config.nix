@@ -13,6 +13,7 @@ in {
   # https://github.com/arcnmx/ci
   name = "arc-nixexprs";
   ci = {
+    version = "v0.6";
     configPath = "./ci/config.nix";
     gh-actions = {
       path = ".github/workflows/build.yml";

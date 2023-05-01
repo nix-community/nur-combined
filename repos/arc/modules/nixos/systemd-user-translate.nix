@@ -4,18 +4,24 @@
   unmerged = lib.unmerged or arc'lib.unmerged;
   systemctl = "${config.systemd.package}/bin/systemctl";
   matchSystemdName = builtins.match ''([^.]+)\.([^.]+)'';
-  parseSystemdNameWithDefault = default: name: let
+  parseSystemdName = {
+    type ? null
+  }@args: name: let
     matched = matchSystemdName name;
-  in (if matched != null then {
-    name = elemAt matched 0;
-    type = elemAt matched 1;
-  } else {
-    inherit name;
-    type = default;
-  }) // {
+    parsed = {
+      name = elemAt matched 0;
+      type = elemAt matched 1;
+    };
+    fallback = {
+      inherit name;
+      type = if args.type != null
+        then args.type
+        else throw ''failed to parse "${name}" as a systemd unit'';
+    };
+    unit = if matched != null then parsed else fallback;
+  in unit // {
     __toString = self: "${self.name}.${self.type}";
   };
-  parseSystemdName = name: parseSystemdNameWithDefault (throw ''failed to parse "${name}" as a systemd unit'') name;
   users = mapAttrsToList (_: user: {
     inherit user;
     inherit (user.systemd) translate;
@@ -26,13 +32,10 @@
     (units: listToAttrs (map (v: nameValuePair v.unit or v (if ! str.check v then v else {})) (toList units)))
     (attrsOf module);
 
-  stopWhenUnneeded = true; # TODO
-
   defaultTargetSettings = {
     unitConfig = {
       X-OnlyManualStart = true;
       DefaultDependencies = false;
-      StopWhenUnneeded = true;
     };
   };
   defaultServiceSettings = {
@@ -42,7 +45,6 @@
       RefuseManualStart = true;
       RefuseManualStop = true;
       DefaultDependencies = false;
-      StopWhenUnneeded = true;
     };
     serviceConfig = {
       Type = "oneshot";
@@ -55,12 +57,12 @@
     options = with types; {
       #enable = mkEnableOption "translated user unit" // { default = true; };
       unit = mkOption {
-        type = coercedTo str parseSystemdName attrs;
+        type = coercedTo str (parseSystemdName { }) attrs;
         default = name;
       };
       systemTarget = {
         name = mkOption {
-          type = coercedTo str (parseSystemdNameWithDefault "target") attrs;
+          type = coercedTo str (parseSystemdName { type = "target"; }) attrs;
           default = "${user.name}-${config.unit.name}";
         };
         settings = mkOption {
@@ -69,11 +71,15 @@
       };
       userService = {
         name = mkOption {
-          type = coercedTo str (parseSystemdNameWithDefault "service") attrs;
+          type = coercedTo str (parseSystemdName { type = "service"; }) attrs;
           default = "translate-${config.unit.name}";
         };
         settings = mkOption {
           type = unmerged.types.attrs;
+        };
+        stopWhenUnneeded = mkOption {
+          type = bool;
+          default = config.unit.type == "target";
         };
       };
       ordering = mkOption {
@@ -89,8 +95,10 @@
       systemTarget.settings = defaultTargetSettings;
       userService.settings = mkMerge [ defaultServiceSettings rec {
         ${config.systemStrength} = singleton (toString config.unit);
-        bindsTo = mkIf (!stopWhenUnneeded) [ (toString config.unit) ];
+        bindsTo = mkIf (!config.userService.stopWhenUnneeded) [ (toString config.unit) ];
+        partOf = bindsTo;
         ${config.ordering} = singleton (toString config.unit);
+        unitConfig.StopWhenUnneeded = mkIf config.userService.stopWhenUnneeded true;
         serviceConfig = {
           ExecStart = singleton "${systemctl} start ${utils.escapeSystemdExecArg (toString config.systemTarget.name)}";
           ExecStop = singleton "${systemctl} stop ${utils.escapeSystemdExecArg (toString config.systemTarget.name)}";
@@ -101,29 +109,39 @@
 
   translatedSystemUnit = let
     systemctl-user = pkgs.writeShellScript "systemctl-user-translate" ''
-      if ${systemctl} --user --wait is-system-running > /dev/null; then
+      SYSU_STATUS=$(${systemctl} --user --wait is-system-running)
+      case $SYSU_STATUS in
+        active|running|degraded)
           ${systemctl} --user --no-block "$1" "$2"
-      fi
+          ;;
+        *)
+          echo "systemd status \"$SYSU_STATUS\", skipping" >&2
+          ;;
+      esac
     '';
   in types.submodule ({ config, name, ... }: {
     options = with types; {
       #enable = mkEnableOption "translated system unit" // { default = true; };
       unit = mkOption {
-        type = coercedTo str parseSystemdName attrs;
+        type = coercedTo str (parseSystemdName { }) attrs;
         default = name;
       };
       systemService = {
         name = mkOption {
-          type = coercedTo str (parseSystemdNameWithDefault "service") attrs;
+          type = coercedTo str (parseSystemdName { type = "service"; }) attrs;
           default = "translate-${config.unit.name}@";
         };
         settings = mkOption {
           type = unmerged.types.attrs;
         };
+        stopWhenUnneeded = mkOption {
+          type = bool;
+          default = config.unit.type == "target";
+        };
       };
       userTarget = {
         name = mkOption {
-          type = coercedTo str (parseSystemdNameWithDefault "target") attrs;
+          type = coercedTo str (parseSystemdName { type = "target"; }) attrs;
           default = "system-${config.unit.name}";
         };
         settings = mkOption {
@@ -138,17 +156,19 @@
     config = {
       userTarget.settings = defaultTargetSettings;
       systemService.settings = mkMerge [ defaultServiceSettings rec {
-        bindsTo = mkIf (!stopWhenUnneeded) [ (toString config.unit) ];
+        bindsTo = mkIf (!config.systemService.stopWhenUnneeded) [ (toString config.unit) ];
+        partOf = bindsTo;
         ${config.ordering} = singleton (toString config.unit);
-        serviceConfig = let
-        in {
-          Environment = [
-            "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%I/bus"
-          ];
-          User = "%I";
+        unitConfig.StopWhenUnneeded = mkIf config.systemService.stopWhenUnneeded true;
+        environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/%i/bus";
+        serviceConfig = {
+          User = "%i";
           ExecStart = singleton "${systemctl-user} start ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
           ExecStop = singleton "${systemctl-user} stop ${utils.escapeSystemdExecArg (toString config.userTarget.name)}";
         };
+      } rec {
+        after = [ "user@%i.service" ];
+        unitConfig.StopPropagatedFrom = after;
       } ];
     };
   });
@@ -199,6 +219,7 @@ in {
     mapUnitsOf = type: mapAttrs' (_: mapSystemUnit) (filterAttrs (_: u: u.unit.type == type) cfg.units);
     mapSystemUnit = unit: nameValuePair unit.unit.name (mkMerge (map (user: assert user.uid != null; rec {
       wants = [ "${unit.systemService.name.name}${toString user.uid}.service" ];
+      unitConfig.Upholds = wants;
       #unitConfig.PropagatesStopTo = wants;
     }) systemUsers));
   in {
@@ -227,7 +248,7 @@ in {
       mapDefault = stop: unit: {
         inherit unit;
         userTarget = {
-          inherit (parseSystemdName unit) name;
+          inherit (parseSystemdName { } unit) name;
         };
         ${if stop then "ordering" else null} = "before";
       };
@@ -258,16 +279,24 @@ in {
         systemd-translate = mkIf cfg.enable {
           wantedBy = [ "basic.target" "default.target" ];
           before = [ "default.target" ];
+          restartTriggers = mapAttrsToList (_: unit: toString unit.unit) cfg.units;
           script = ''
             USER=$(${pkgs.coreutils}/bin/id -un)
-            if ! echo ${toString (map (u: u.name) systemUsers)} | ${pkgs.gnugrep}/bin/grep -wq "$USER"; then
+            if ! echo ${toString (map (u: u.name) systemUsers)} | ${pkgs.gnugrep}/bin/grep -Fwq "$USER"; then
               # this user doesn't care
               exit 0
             fi
           '' + concatStringsSep "\n" (mapAttrsToList (_: unit: ''
-            if ${systemctl} is-active ${escapeShellArg unit.unit} > /dev/null; then
-              ${systemctl} --user start ${escapeShellArg unit.userTarget.name}
-            fi
+            case "$(${systemctl} is-active ${escapeShellArg unit.systemService.name.name}$UID)" in
+              active)
+                ${systemctl} --user start ${escapeShellArg unit.userTarget.name}
+                ;;
+              inactive)
+                ${systemctl} --user stop ${escapeShellArg unit.userTarget.name}
+                ;;
+              *)
+                ;;
+            esac
           '') cfg.units);
           serviceConfig = {
             Type = "oneshot";
