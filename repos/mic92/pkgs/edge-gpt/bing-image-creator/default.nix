@@ -3,16 +3,16 @@
 , fetchFromGitHub
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonPackage rec {
   pname = "bing-image-creator";
-  version = "0.1.1.1";
+  version = "0.1.3";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "BingImageCreator";
     rev = version;
-    hash = "sha256-HnxxJ22k9jVIrp6hDEPL90OnX13OkUMmoYDMdUT+iPA=";
+    hash = "sha256-tsPUKlgZM478TR863PCUmlzInaHSAXOi4zBfkz3TT0s=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -27,6 +27,5 @@ python3.pkgs.buildPythonApplication rec {
     description = "High quality image generation by Microsoft. Reverse engineered API";
     homepage = "https://github.com/acheong08/BingImageCreator";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ ];
   };
 }
