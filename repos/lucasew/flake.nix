@@ -149,7 +149,7 @@
         inherit system pkgs modules;
       };
     in mapAttrValues nixosConf {
-      ivarstead = { modules = [ ./nodes/ivarstead ]; inherit pkgs; };
+      ravenrock = { modules = [ ./nodes/ravenrock ]; inherit pkgs; };
       riverwood = { modules = [ ./nodes/riverwood ]; inherit pkgs; };
       whiterun  = { modules = [ ./nodes/whiterun  ]; inherit pkgs; };
       demo      = { modules = [ ./nodes/demo      ]; inherit pkgs; };

@@ -52,7 +52,7 @@ in {
   ];
 
   nixpkgs.config.allowUnfree = true;
-  networking.hostName = "cloudhead";
+  networking.hostName = "ravenrock";
   environment.systemPackages = with pkgs; [
     dotenv
     htop
