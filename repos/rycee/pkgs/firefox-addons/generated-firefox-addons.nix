@@ -872,10 +872,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.61";
+      version = "6.1.62";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4091245/flagfox-6.1.61.xpi";
-      sha256 = "e2e243e82b971b02e20ede3ce1c514f9955a4392b11c0c70cb4d4cf2750e48e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4104463/flagfox-6.1.62.xpi";
+      sha256 = "db564593264aa417ec659c53de5bdda28eec0e52b250b329afb0cff982fed382";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -975,13 +975,13 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230427.175833";
+      version = "113.0.20230501.151611";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4103554/francais_language_pack-113.0.20230427.175833.xpi";
-      sha256 = "d63057be69b8d6a66c50eee93cee217e975d00aa577013c6d7dc51d6b7c1c7f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4105015/francais_language_pack-113.0.20230501.151611.xpi";
+      sha256 = "109c4a75fea1c6e35f0abb082a1aadbd7e1138cea1b4a4ddc64a956ccca12cca";
       meta = with lib;
       {
-        description = "Firefox Language Pack for Français (fr) – French";
+        description = "Language pack for Firefox for fr";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -2935,10 +2935,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.6.6";
+      version = "2.6.7";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101901/tournesol_extension-2.6.6.xpi";
-      sha256 = "9b452327943132d2b1d8ad420c7a62237d5ee1b737192ef057cdcc4f10f045dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4104907/tournesol_extension-2.6.7.xpi";
+      sha256 = "83b465046afde7baf482c0a96e071cc4ef662eadc41860ee6e4489d5d7d9ed5d";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
