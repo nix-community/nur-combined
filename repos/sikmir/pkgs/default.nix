@@ -364,7 +364,6 @@ lib.makeScope newScope (
     repolocli = callPackage ./misc/repolocli { };
     rst2txt = callPackage ./misc/rst2txt { };
     sdorfehs = callPackage ./misc/sdorfehs { };
-    serial-studio = libsForQt5.callPackage ./misc/serial-studio { };
     serial-studio-bin = callPackage ./misc/serial-studio/bin.nix { };
     serverpp = callPackage ./misc/serverpp { };
     taskcoach = callPackage ./misc/taskcoach { };
