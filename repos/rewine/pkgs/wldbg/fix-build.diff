@@ -1,0 +1,25 @@
+diff --git a/configure.ac b/configure.ac
+index aaa178f..97405f8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -35,11 +35,7 @@ LT_INIT
+ PKG_PROG_PKG_CONFIG()
+ 
+ # future use
+-TESTS_CFLAGS=
+-TESTS_LIBS=
+-COMPILER_CFLAGS=
+ 
+-AX_LIB_READLINE
+ 
+ # check wayland's presence
+ PKG_CHECK_MODULES([WAYLAND_SERVER], [wayland-server],\
+@@ -70,8 +66,6 @@ fi
+ AM_CONDITIONAL(ENABLE_DEBUG, test "x$enable_debug" != "xno")
+ 
+ #export options to makefiles
+-AC_SUBST([TESTS_LIBS])
+-AC_SUBST([TESTS_CFLAGS])
+ 
+ AC_CONFIG_FILES([Makefile
+ 		 src/Makefile
