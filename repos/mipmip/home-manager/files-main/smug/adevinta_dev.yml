@@ -1,0 +1,6 @@
+session: adevinta-dev
+root: ~/tcAdevinta
+
+windows:
+- name: tmux-B-in-macos
+- name: local-dev

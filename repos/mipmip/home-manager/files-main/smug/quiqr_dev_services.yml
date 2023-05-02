@@ -1,6 +1,6 @@
-session: pogoboard
+session: quiqr-dev-services
 
-root: ~/cPoppyGo/pogoboard
+root: ~/cQuiqr
 
 before_start:
 
@@ -8,40 +8,39 @@ stop:
 
 windows:
   - name: board
+    root: ~/cQuiqr/quiqr-board
     layout: main-vertical
     commands:
       - echo "hi"
     panes:
       - type: horizontal
         commands:
+          - nix-shell
           - ./pogocli
       - type: horizontal
         commands:
+          - nix-shell
           - ./sentry --build="make build_cli" --run="ls"
       - type: horizontal
         commands:
+          - nix-shell
           - ./sentry
 
   - name: pay
-    root: ~/cPoppyGo/pogopay
+    root: ~/cQuiqr/quiqr-pay
     layout: main-vertical
     commands:
      - echo "hi"
     panes:
       - type: horizontal
         commands:
+          - nix-shell
           - ./rerun.sh
       - type: horizontal
         commands:
+          - nix-shell
           - stripe listen --forward-to localhost:4242/webhook
-
-  - name: reddis
-    root: ~/cPoppyGo/redis-server
-    layout: main-vertical
-    commands:
-     - echo "hi"
-    panes:
       - type: horizontal
         commands:
-          - ./rerun.sh
+          - docker-compose -f docker-compose-dev.yml up redis
 

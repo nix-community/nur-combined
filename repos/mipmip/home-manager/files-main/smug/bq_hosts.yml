@@ -1,0 +1,6 @@
+session: billquick-hosts
+
+windows:
+  - name: amy
+    commands:
+      - ssh pim@amy.node.snel.city

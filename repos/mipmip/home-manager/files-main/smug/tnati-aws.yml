@@ -1,0 +1,5 @@
+session: tnati-aws
+root: ~/tcTechNative
+
+windows:
+- name: zsh

@@ -1,0 +1,15 @@
+session: waaldijk14-hosts
+
+windows:
+
+  - name: rodin
+    commands:
+      - ssh pim@192.168.13.5
+
+  - name: ojs
+    commands:
+      - ssh pim@192.168.13.5
+
+  - name: pihole
+    commands:
+      - ssh pim@192.168.13.16

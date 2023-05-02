@@ -1,13 +1,13 @@
-session: pogorun
+session: quiqr-dev-run
 
-root: ~/cPoppyGo/poppygo-electron-app
+root: ~/cQuiqr/quiqr-desktop
 
 before_start:
 
 stop:
 
 windows:
-  - name: pogorun
+  - name: runquiqr
     layout: main-horizontal
     commands:
       - nix-shell
