@@ -11,6 +11,8 @@ M.on_attach = function(client, bufnr)
     vim.diagnostic.config({
         -- Disable virtual test next to affected regions
         virtual_text = false,
+        -- Also disable virtual diagnostics under the affected regions
+        virtual_lines = false,
         -- Show diagnostics signs
         signs = true,
         -- Underline offending regions
@@ -19,17 +21,6 @@ M.on_attach = function(client, bufnr)
         update_in_insert = false,
         -- Show highest severity first
         severity_sort = true,
-    })
-
-    -- Show diagnostics on "hover"
-    local augroup = vim.api.nvim_create_augroup("DiagnosticsHover", {})
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-            vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})
-        end,
     })
 
     -- Format on save
@@ -43,8 +34,32 @@ M.on_attach = function(client, bufnr)
         utils.dump(vim.lsp.buf.list_workspace_folders())
     end
 
-    local function show_line_diagnostics()
-        vim.diagnostic.open_float(nil, { scope="line" })
+    local function cycle_diagnostics_display()
+        -- Cycle from:
+        -- * nothing displayed
+        -- * single diagnostic at the end of the line (`virtual_text`)
+        -- * full diagnostics using virtual text (`virtual_lines`)
+        local text =  vim.diagnostic.config().virtual_text
+        local lines = vim.diagnostic.config().virtual_lines
+
+        -- Text -> Lines transition
+        if text then
+            text = false
+            lines = true
+        -- Lines -> Nothing transition
+        elseif lines then
+            text = false
+            lines = false
+        -- Nothing -> Text transition
+        else
+            text = true
+            lines = false
+        end
+
+        vim.diagnostic.config({
+            virtual_text = text,
+            virtual_lines = lines,
+        })
     end
 
     local function show_buffer_diagnostics()
@@ -62,7 +77,7 @@ M.on_attach = function(client, bufnr)
         ["<leader>c"] = {
             name = "Code",
             a = { vim.lsp.buf.code_action, "Code actions" },
-            d = { show_line_diagnostics, "Show line diagnostics" },
+            d = { cycle_diagnostics_display, "Cycle diagnostics display" },
             D = { show_buffer_diagnostics, "Show buffer diagnostics" },
             r = { vim.lsp.buf.rename, "Rename symbol" },
             s = { vim.lsp.buf.signature_help, "Show signature" },
