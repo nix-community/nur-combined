@@ -20,8 +20,8 @@
 let
   commonMeta = rec {
     name = "cosmopolitan";
-    version = "2023-04-04";
-    rev = "12e07798df6b96167bcd4ed6b433dc26be701f0d";
+    version = "2023-05-02";
+    rev = "a493b64233442f115ae29d8dea36abbc6891a369";
     changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
@@ -93,6 +93,12 @@ let
           ];
           licenses = [ asl20 bsd3 mit zlib isc ];
           # Using "MIT" license in place of fdlibm license
+        };
+        zipobj = {
+          coms = [
+            "tool/build/zipobj.com"
+          ];
+          licenses = [ bsd3 mit zlib isc ];
         };
     };
 
