@@ -147,10 +147,10 @@
   };
   "gitako" = buildFirefoxXpiAddon {
     pname = "gitako";
-    version = "3.11.0";
+    version = "3.11.2";
     addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4103085/gitako_github_file_tree-3.11.0.xpi";
-    sha256 = "4a20ac342ad83e3fcdb9f4b6da0aa4eca8a5cbbbb18a39cc68aac0b6facadd5f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4104896/gitako_github_file_tree-3.11.2.xpi";
+    sha256 = "c3b834b305c8cde51211e53bbe0401e9390aaada111936b83951c903c507bdce";
     meta = with lib; {
       homepage = "https://github.com/EnixCoda/Gitako";
       description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";

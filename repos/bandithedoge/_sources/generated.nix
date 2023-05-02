@@ -39,15 +39,15 @@
   };
   carla = {
     pname = "carla";
-    version = "4267d5e2a37242a0904e8617dd203875ae6417fc";
+    version = "96b67721b68585e3980a32b3e558160d59305050";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "4267d5e2a37242a0904e8617dd203875ae6417fc";
+      rev = "96b67721b68585e3980a32b3e558160d59305050";
       fetchSubmodules = false;
-      sha256 = "sha256-DIFHKGvv3j/fPRnUG67AUKnd7/nPsQOxm2JtJrjEDAQ=";
+      sha256 = "sha256-v+z+tz0lyAvK1u8SJVazav9KbxpWxLfJ3uv0o54q+s0=";
     };
-    date = "2023-04-30";
+    date = "2023-05-02";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -288,15 +288,15 @@
   };
   zix = {
     pname = "zix";
-    version = "9e966d0f5a11bb43d17a56aab1ed9a43b8c2a112";
+    version = "b4ef50c50590c273984d27f9c3a311e7ee8c0ce4";
     src = fetchFromGitHub {
       owner = "drobilla";
       repo = "zix";
-      rev = "9e966d0f5a11bb43d17a56aab1ed9a43b8c2a112";
+      rev = "b4ef50c50590c273984d27f9c3a311e7ee8c0ce4";
       fetchSubmodules = false;
-      sha256 = "sha256-ixJqSbNglGd+lSL71kZbj7ktnd8Ax4HvxU++wEPcQcs=";
+      sha256 = "sha256-tJPOI2X/Ak6aJTmsQmWrf1eAOmuxaJZ1U85PlLYR7XM=";
     };
-    date = "2023-04-24";
+    date = "2023-05-01";
   };
   zmusic = {
     pname = "zmusic";
