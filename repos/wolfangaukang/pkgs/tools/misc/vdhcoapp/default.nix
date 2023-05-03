@@ -39,7 +39,7 @@ let
     allowedSet = { allowed_extensions = [ "weh-native-test@downloadhelper.net" "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" ]; };
   };
   chromeManifest = generateManifest {
-    allowedSet = { allowed_origins = [ "chrome-extension://lmjnegcaeklhafolokijcfjliaokphfk/" ]; };
+    allowedSet = { allowed_origins = [ "chrome-extension://lmjnegcaeklhafolokijcfjliaokphfk/" "chrome-extension://jmkaglaafmhbcpleggkmaliipiilhldn/" ]; };
   };
 
 in stdenv.mkDerivation rec {
