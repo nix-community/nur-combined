@@ -197,15 +197,15 @@
   };
   macemu = {
     pname = "macemu";
-    version = "ef3f61c30d7febbb604554335a4ea7721734e3e3";
+    version = "c4a22a51d69a462169a0cc1999d7d09a4b451a95";
     src = fetchFromGitHub {
       owner = "kanjitalk755";
       repo = "macemu";
-      rev = "ef3f61c30d7febbb604554335a4ea7721734e3e3";
+      rev = "c4a22a51d69a462169a0cc1999d7d09a4b451a95";
       fetchSubmodules = false;
-      sha256 = "sha256-RVdQtT02AeGa70kWIQ5zIDEFX1T/cafAcdyy4l1cUIQ=";
+      sha256 = "sha256-mAUDIly9V+kurOYCed4BmUrlhpx4PRkqDYqIVfghLoE=";
     };
-    date = "2023-04-04";
+    date = "2023-05-02";
   };
   raze = {
     pname = "raze";
@@ -264,15 +264,15 @@
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "ae99cbfafc0ddeaecd16edd519ab48cf306190c0";
+    version = "460d921ca34fe7b52966a02dadb0a505f82fb3f7";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "ae99cbfafc0ddeaecd16edd519ab48cf306190c0";
+      rev = "460d921ca34fe7b52966a02dadb0a505f82fb3f7";
       fetchSubmodules = false;
-      sha256 = "sha256-HWIBOFENkvdmfYmbeqluTaSO3J1Qs3VyxmB4GHAOn2c=";
+      sha256 = "sha256-BeLStnkkqY4dOTX8+m7bBmUNeU6vuHjr2nhXX2gtnL8=";
     };
-    date = "2023-04-28";
+    date = "2023-05-02";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
