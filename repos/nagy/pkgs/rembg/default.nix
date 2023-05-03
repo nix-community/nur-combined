@@ -10,15 +10,12 @@ let
       url =
         "https://github.com/danielgatis/rembg/releases/download/v0.0.0/${name}.onnx";
     }) {
-      u2net = "sha256-jRDS87t1rjttUnx3lE/F59zZSymAnUenOaenKKkStJE="; # 168MB
-      u2netp = "sha256-MJyEaSWN2nQnk9zg6+qObdOTF0+Jk0cz7MixTHb03dg="; # 4MB
-      u2net_human_seg =
-        "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw="; # human segment 168MB
-      u2net_cloth_seg =
-        "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4="; # cloth segment 168MB
-      silueta = "sha256-ddpsjS+Alux0PQcZUb5ztKi8ez5R2aZiXWNkT5D/7ts="; # 42MB
-      isnet-general-use =
-        "sha256-YJIOmcRUZPK6V77irQjJGaUrv4UnOelpR/u0NYwNlko="; # 170MB
+      u2net = "sha256-jRDS87t1rjttUnx3lE/F59zZSymAnUenOaenKKkStJE=";
+      u2netp = "sha256-MJyEaSWN2nQnk9zg6+qObdOTF0+Jk0cz7MixTHb03dg=";
+      u2net_human_seg = "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw=";
+      u2net_cloth_seg = "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4=";
+      silueta = "sha256-ddpsjS+Alux0PQcZUb5ztKi8ez5R2aZiXWNkT5D/7ts=";
+      isnet-general-use = "sha256-YJIOmcRUZPK6V77irQjJGaUrv4UnOelpR/u0NYwNlko=";
     };
   U2NET_HOME = symlinkJoin {
     name = "u2net-home";
@@ -83,6 +80,7 @@ in buildPythonPackage rec {
 
   meta = with lib; {
     description = "Tool to remove images background";
+    inherit (src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.unix;
   };

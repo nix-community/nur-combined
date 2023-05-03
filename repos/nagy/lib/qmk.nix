@@ -7,7 +7,7 @@ rec {
         -p atmega32u4 \
         -c avr109 \
         -P /dev/ttyACM0 \
-        -U flash:w:${firmware.hex}:i "$@"
+        -U flash:w:${firmware}:i "$@"
     '';
 
   mkQmkFirmware = { name, keymap ? "default", ... }@args:
@@ -29,7 +29,7 @@ rec {
 
         outputs = [ "out" "hex" ];
 
-        passthru.flasher = mkAvrdudeFlasher finalAttrs.finalPackage;
+        passthru.flasher = mkAvrdudeFlasher finalAttrs.finalPackage.hex;
 
         makeFlags = [ "$(keyboard):default" ];
 

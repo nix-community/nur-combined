@@ -5,9 +5,6 @@ self: super: {
     # :b linkFarm "myexample" [ { name = "baseq3/pak0.pk3"; path = self.quake3_pak0; } ]
     # name = "pak0.pk3";
     pak0 = super.requireFile {
-      # found at:
-      # https: slash slash github dot com/nrempel/q3-server/raw/master/baseq3/pak0.pk3
-      # http: slash slash game.pioneernet dot ru/dl/q3/files/pk3/pak0.pk3
       # nix-store --add-fixed sha256 pak0.pk3
       message = "You need to add pak0.pk3 to the nix store";
       name = "pak0.pk3";

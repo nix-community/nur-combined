@@ -2,7 +2,6 @@
 , recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
 
 let
-
   inherit (import ./lib {
     inherit pkgs lib;
     inherit (pkgs) callPackage;
@@ -14,14 +13,6 @@ in lib.makeScope pkgs.newScope (self:
     lib = lib.extend (self: super: pkgs.callPackage ./lib { });
 
     qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
-
-    lua52Packages =
-      recurseIntoAttrs (pkgs.lua5_2.pkgs.callPackage ./pkgs/luaPackages { });
-    lua53Packages =
-      recurseIntoAttrs (pkgs.lua5_3.pkgs.callPackage ./pkgs/luaPackages { });
-    lua54Packages =
-      recurseIntoAttrs (pkgs.lua5_4.pkgs.callPackage ./pkgs/luaPackages { });
-    luaPackages = self.lua54Packages;
 
     python3Packages = recurseIntoAttrs
       (lib.makeScope pkgs.python3Packages.newScope (py3: {
