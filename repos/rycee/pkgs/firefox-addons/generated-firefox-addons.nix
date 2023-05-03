@@ -271,10 +271,10 @@
       };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.3.36";
+      version = "0.3.37";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4077014/blocktube-0.3.36.xpi";
-      sha256 = "839017a75d1c7e63116b6f801b833a21b7ff544f9fe9542294811b20b6ff3c0d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101016/blocktube-0.3.37.xpi";
+      sha256 = "be673f7184595afa2c84206d978490025597199adb46e95e66e7b8a670d1d49c";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -574,10 +574,10 @@
       };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "3.3.0";
+      version = "3.3.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4102881/dictionaries-3.3.0.xpi";
-      sha256 = "b91e3d0dd5c044e687edce603b897e9eac1b12ab4d5181d0964057aba431677f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4105272/dictionaries-3.3.1.xpi";
+      sha256 = "cc5caabb957b7688ed1312d6e652e8296ef2a780cfc582272d17c1ee356f5ef5";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -1280,10 +1280,10 @@
       };
     "i-dont-care-about-cookies" = buildFirefoxXpiAddon {
       pname = "i-dont-care-about-cookies";
-      version = "3.4.6";
+      version = "3.4.7";
       addonId = "jid1-KKzOGWgsW3Ao4Q@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4071150/i_dont_care_about_cookies-3.4.6.xpi";
-      sha256 = "17a9c529762978e28f7f68140359f9ccba2d5e811878ea2963908f0c2294fe05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101836/i_dont_care_about_cookies-3.4.7.xpi";
+      sha256 = "8c3006e1177c5da41b2bca2503c9924970f07c96a49023a9602a5d00a604f70b";
       meta = with lib;
       {
         homepage = "https://www.i-dont-care-about-cookies.eu/";
@@ -1456,10 +1456,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.4.1";
+      version = "1.5.5";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4081038/leechblock_ng-1.5.4.1.xpi";
-      sha256 = "62b748ee4bb6ff81f6f6212cfe55373039b45580986593725ea54036c8f1d6a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4101447/leechblock_ng-1.5.5.xpi";
+      sha256 = "733d822b4f2a25a5817a269ecc82461f51929bb5172037fb514ac6a6cd1adf34";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
