@@ -31,7 +31,7 @@
   outputs = { self, futils, nixpkgs, pre-commit-hooks }:
     {
       overlays = {
-        default = final: prev: {
+        default = final: _prev: {
           project = with final; stdenv.mkDerivation {
             pname = "project";
             version = "0.0.0";

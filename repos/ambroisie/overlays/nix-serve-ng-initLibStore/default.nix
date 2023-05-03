@@ -1,6 +1,6 @@
 final: prev:
 {
-  nix-serve-ng = prev.nix-serve-ng.overrideAttrs (oa: {
+  nix-serve-ng = prev.nix-serve-ng.overrideAttrs (_: {
     src = final.fetchFromGitHub {
       owner = "aristanetworks";
       repo = "nix-serve-ng";

@@ -4,10 +4,10 @@ let
 
   additional-overlays = {
     # Expose my expanded library
-    lib = final: prev: { inherit (self) lib; };
+    lib = _final: _prev: { inherit (self) lib; };
 
     # Expose my custom packages
-    pkgs = final: prev: {
+    pkgs = _final: prev: {
       ambroisie = prev.recurseIntoAttrs (import "${self}/pkgs" { pkgs = prev; });
     };
   };

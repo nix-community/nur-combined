@@ -1,4 +1,4 @@
-{ lib, buildGoModule, callPackage, fetchFromGitHub, woodpecker-frontend }:
+{ buildGoModule, callPackage, woodpecker-frontend }:
 let
   common = callPackage ./common.nix { };
 in

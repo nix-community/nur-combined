@@ -1,4 +1,4 @@
-{ lib, buildGoModule, callPackage, fetchFromGitHub, fetchpatch }:
+{ buildGoModule, callPackage, fetchpatch }:
 let
   common = callPackage ./common.nix { };
 in

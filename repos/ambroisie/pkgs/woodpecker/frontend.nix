@@ -2,7 +2,7 @@
 let
   common = callPackage ./common.nix { };
 
-  esbuild_0_17_12 = buildPackages.esbuild.overrideAttrs (oa: rec {
+  esbuild_0_17_12 = buildPackages.esbuild.overrideAttrs (_: rec {
     version = "0.17.12";
 
     src = fetchFromGitHub {

@@ -7,7 +7,7 @@ in
     enable = my.mkDisableOption "atuin configuration";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.atuin = {
       enable = true;
 

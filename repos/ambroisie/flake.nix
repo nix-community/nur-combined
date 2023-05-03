@@ -65,16 +65,6 @@
     };
   };
 
-  outputs =
-    inputs @
-    { self
-    , agenix
-    , flake-parts
-    , futils
-    , home-manager
-    , nixpkgs
-    , nur
-    , pre-commit-hooks
-    }:
-    import ./flake inputs;
+  # Can't eta-reduce a flake outputs...
+  outputs = inputs: import ./flake inputs;
 }

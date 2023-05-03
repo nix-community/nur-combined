@@ -8,40 +8,31 @@ let
   secrets = config.age.secrets;
   hostName = config.networking.hostName;
 
-  peers =
-    let
-      mkPeer = name: attrs: {
-        inherit (attrs) clientNum publicKey;
-        privateKeyFile = secrets."wireguard/private-key".path;
-      } // lib.optionalAttrs (attrs ? externalIp) {
-        inherit (attrs) externalIp;
-      };
-    in
-    lib.mapAttrs mkPeer {
-      # "Server"
-      porthos = {
-        clientNum = 1;
-        publicKey = "PLdgsizztddri0LYtjuNHr5r2E8D+yI+gM8cm5WDfHQ=";
-        externalIp = "91.121.177.163";
-      };
-
-      # "Clients"
-      aramis = {
-        clientNum = 2;
-        publicKey = "QJSWIBS1mXTpxYybLlKu/Y5wy0GFbUfn4yPzpF1DZDc=";
-      };
-
-      richelieu = {
-        clientNum = 3;
-        publicKey = "w4IADAj2Tt7Qe95a0RxDv9ovg/Dr/f3q1LrVOPF48Rk=";
-      };
-
-      # Sarah's iPhone
-      milady = {
-        clientNum = 4;
-        publicKey = "3MKEu4F6o8kww54xeAao5Uet86fv8z/QsZ2L2mOzqDQ=";
-      };
+  peers = {
+    # "Server"
+    porthos = {
+      clientNum = 1;
+      publicKey = "PLdgsizztddri0LYtjuNHr5r2E8D+yI+gM8cm5WDfHQ=";
+      externalIp = "91.121.177.163";
     };
+
+    # "Clients"
+    aramis = {
+      clientNum = 2;
+      publicKey = "QJSWIBS1mXTpxYybLlKu/Y5wy0GFbUfn4yPzpF1DZDc=";
+    };
+
+    richelieu = {
+      clientNum = 3;
+      publicKey = "w4IADAj2Tt7Qe95a0RxDv9ovg/Dr/f3q1LrVOPF48Rk=";
+    };
+
+    # Sarah's iPhone
+    milady = {
+      clientNum = 4;
+      publicKey = "3MKEu4F6o8kww54xeAao5Uet86fv8z/QsZ2L2mOzqDQ=";
+    };
+  };
   thisPeer = peers."${hostName}";
   thisPeerIsServer = thisPeer ? externalIp;
   # Only connect to clients from server, and only connect to server from clients
@@ -60,7 +51,7 @@ let
       "${v4.subnet}.${toString thisPeer.clientNum}/${toString v4.mask}"
       "${v6.subnet}::${toString thisPeer.clientNum}/${toHexString v6.mask}"
     ];
-    inherit (thisPeer) privateKeyFile;
+    privateKeyFile = secrets."wireguard/private-key".path;
 
     peers =
       let

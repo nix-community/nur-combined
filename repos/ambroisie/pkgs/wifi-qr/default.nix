@@ -1,5 +1,4 @@
 { lib
-, copyDesktopItems
 , fetchFromGitHub
 , gnome
 , installShellFiles

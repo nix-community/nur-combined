@@ -7,7 +7,7 @@ in
     enable = my.mkDisableOption "fzf configuration";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.fzf = {
       enable = true;
     };

@@ -7,7 +7,7 @@ in
     enable = my.mkDisableOption "dircolors configuration";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.dircolors = {
       enable = true;
     };

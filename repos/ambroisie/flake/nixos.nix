@@ -3,10 +3,10 @@ let
   inherit (self) lib;
 
   defaultModules = [
-    ({ ... }: {
+    {
       # Let 'nixos-version --json' know about the Git revision
       system.configurationRevision = self.rev or "dirty";
-    })
+    }
     {
       nixpkgs.overlays = (lib.attrValues self.overlays) ++ [
         inputs.nur.overlay

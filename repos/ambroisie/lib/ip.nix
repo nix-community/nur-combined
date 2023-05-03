@@ -100,7 +100,7 @@ rec {
   # Pretty print a parsed subnet into a human readable form
   prettySubnet4 = { baseIp, cidr, ... }: "${prettyIp4 baseIp}/${toString cidr}";
 
-  # Get the nth address from an IPv4 range, without checking if it is in range
+  # Get the nth address from an IPv4 range
   nthInRange4 = { from, to }: n:
     let
       carry = lhs: { carry, acc }:
@@ -112,8 +112,15 @@ rec {
           acc = [ (mod totVal 256) ] ++ acc;
         };
       carried = foldr carry { carry = n; acc = [ ]; } from;
+      checkInRange =
+        if (to - from) < n
+        then
+          warn ''
+            nthInRange4: '${n}'-th address outside of range (${prettyIp4 from}, ${prettyIp4 to})
+          ''
+        else id;
     in
-    carried.acc;
+    checkInRange carried.acc;
 
   # Convert an IPv4 range into a list of all its constituent addresses
   rangeIp4 =

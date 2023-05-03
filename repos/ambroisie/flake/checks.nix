@@ -11,6 +11,10 @@
 
       settings = {
         hooks = {
+          deadnix = {
+            enable = true;
+          };
+
           nixpkgs-fmt = {
             enable = true;
           };
