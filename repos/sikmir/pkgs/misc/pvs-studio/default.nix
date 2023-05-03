@@ -10,13 +10,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pvs-studio";
-  version = "7.21.64848.262";
+  version = "7.24.70333.311";
 
   src = fetchurl {
     url = "https://cdn.pvs-studio.com/pvs-studio-${finalAttrs.version}-${suffix}.tgz";
     hash = {
-      x86_64-linux = "sha256-oOi7xQxv3I8hEnF62TSeA+ZIjIpabTN+ulMNImURECM=";
-      x86_64-darwin = "sha256-BgONtKPE3Osd8g6ElebEyYUs9qFcuIU0HvsrdYSZEzc=";
+      x86_64-linux = "sha256-Kw0ZbtAwXJR3+/jh0xB6EtRDUOGRYnaJZXnf5v2nn6k=";
+      x86_64-darwin = "sha256-bDcptyzbJ4YurS2bS4H6vW89J6MFBt+42IP3v88TVck=";
     }.${system} or throwSystem;
   };
 
