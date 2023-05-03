@@ -48,6 +48,8 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set the minimal amount of lignes under and above the cursor for context
 set scrolloff=5
+" More stable splits
+set splitkeep=screen
 " Always show status line
 set laststatus=2
 " Enable Doxygen highlighting

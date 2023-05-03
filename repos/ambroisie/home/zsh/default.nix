@@ -88,19 +88,6 @@ in
         AGKOZAK_LEFT_PROMPT_ONLY = 1;
       };
 
-      shellAliases = {
-        # I like pretty colors
-        diff = "diff --color=auto";
-        grep = "grep --color=auto";
-        egrep = "egrep --color=auto";
-        fgrep = "fgrep --color=auto";
-        ls = "ls --color=auto";
-
-        # Well-known ls aliases
-        l = "ls -alh";
-        ll = "ls -l";
-      };
-
       # Enable VTE integration
       enableVteIntegration = true;
     };

@@ -1,6 +1,7 @@
 { ... }:
 {
   imports = [
+    ./aliases
     ./atuin
     ./bat
     ./bluetooth
