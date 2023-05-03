@@ -1,4 +1,15 @@
-{ pkgs, lib, fetchFromGitHub, rustPlatform }:
+{ lib
+, fetchFromGitHub
+, rustPlatform
+, pkg-config
+, cmake
+, openssl
+, glib
+, gdk-pixbuf
+, alsa-lib
+, libnotify
+, libopus
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mum";
@@ -12,12 +23,12 @@ rustPlatform.buildRustPackage rec {
   };
   cargoSha256 = "sha256-2BYU5hZE9OULuKz12CzWqpRiWbU3De9PuBrjoLRvTlM=";
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     pkg-config
     cmake
   ];
 
-  buildInputs = with pkgs; [
+  buildInputs = [
     openssl
     glib
     gdk-pixbuf

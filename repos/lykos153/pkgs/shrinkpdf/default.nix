@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, lib, pkgs }:
-
+{ stdenv
+, lib
+, fetchFromGitHub
+, ghostscript
+}:
 
 stdenv.mkDerivation rec {
   name = "shrinkpdf";
@@ -20,7 +23,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -Dm755 $src $out/bin/shrinkpdf
     substituteInPlace $out/bin/shrinkpdf \
-      --replace gs ${pkgs.ghostscript}/bin/gs
+      --replace gs ${ghostscript}/bin/gs
   '';
 
   meta = with lib; {

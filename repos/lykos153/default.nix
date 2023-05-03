@@ -14,12 +14,14 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  shrinkpdf = pkgs.callPackage ./pkgs/shrinkpdf { };
+  dotool = pkgs.callPackage ./pkgs/dotool { };
   iamb = pkgs.callPackage ./pkgs/iamb { };
   mum = pkgs.callPackage ./pkgs/mum { };
-  dotool = pkgs.callPackage ./pkgs/dotool { };
+  polybar-pulseaudio-control = pkgs.callPackage ./pkgs/polybar-pulseaudio-control { };
 
   python3Packages = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./pkgs/python-pkgs {}
   );
+
+  shrinkpdf = pkgs.callPackage ./pkgs/shrinkpdf { };
 }
