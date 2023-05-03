@@ -32,12 +32,10 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - moredread-nur-packages
+          - moredread
         nixPath:
           - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-22.11
-          - nixpkgs=channel:nixos-22.05
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
