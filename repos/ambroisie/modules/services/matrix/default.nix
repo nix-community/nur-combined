@@ -7,7 +7,6 @@
 # [1]: https://github.com/alarsyo/nixos-config/blob/main/services/matrix.nix
 { config, lib, pkgs, ... }:
 
-with lib;
 let
   cfg = config.my.services.matrix;
 
