@@ -1,24 +1,22 @@
 { pkgs, lib, ... }: {
 
   emacsParsePackageSet = pkgs.callPackage ({ path, emacs
-    , epkgs ? pkgs.emacsPackagesFor emacs, emacs-overlay ? <emacs-overlay>, ...
-    }:
+    , epkgs ? pkgs.emacsPackagesFor emacs
+    , parser ? pkgs.callPackage <emacs-overlay/parse.nix> { }, ... }:
     let
-      parser = pkgs.callPackage (/. + emacs-overlay + /parse.nix) { };
       parsedPkgs =
         parser.parsePackagesFromPackageRequires (builtins.readFile path);
       usePkgs = map (name: epkgs.${name}) parsedPkgs;
     in usePkgs);
 
-  emacsMakeSingleFilePackage = { pname, src ? ./., emacs
+  emacsMakeSingleFilePackage = { src, pname, version ? "unstable", emacs
     , epkgs ? pkgs.emacsPackagesFor emacs, warnIsError ? true
-    , packageRequires ? [ ] }:
+    , packageRequires ? [ ], }:
     let
       warnEvalStr = lib.optionalString warnIsError
         "--eval '(setq byte-compile-error-on-warn t)'";
     in epkgs.trivialBuild {
-      inherit pname src packageRequires;
-      version = "unstable";
+      inherit pname version src packageRequires;
       dontUnpack = true;
 
       buildPhase = ''
