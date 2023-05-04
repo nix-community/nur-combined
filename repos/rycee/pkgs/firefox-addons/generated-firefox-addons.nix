@@ -658,10 +658,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.4.11";
+      version = "2023.4.27";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095879/duckduckgo_for_firefox-2023.4.11.xpi";
-      sha256 = "d00a112b3c5f16953edde93099fd9c80e36ebed1c42d721e27ef83abfa2382c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4103896/duckduckgo_for_firefox-2023.4.27.xpi";
+      sha256 = "0f317657bea4d7365973a326a67981dad72ca9bdecdad6cc6aeab07edd7d4bb5";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1437,10 +1437,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.113.0.6";
+      version = "4.114.0.4";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095665/lastpass_password_manager-4.113.0.6.xpi";
-      sha256 = "7ac782b0813aee9425513f76d088c904d19bb20a624c81cac187fbcddbd5a5f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4104005/lastpass_password_manager-4.114.0.4.xpi";
+      sha256 = "ee5c2cdd5d8f9d288fb247ba76e3a1dfc3878eefb90b7e151f0dfbe090b88c12";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -3036,10 +3036,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.49.0";
+      version = "1.49.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099143/ublock_origin-1.49.0.xpi";
-      sha256 = "7c32a32fc6ad2ee76d6c097a7562799b3765c8200ca27f77436f9771d3fd6c64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4103048/ublock_origin-1.49.2.xpi";
+      sha256 = "39266486f720cd31d291d2fdad78625b079782a05517e1936eec7e780bc2a84d";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
