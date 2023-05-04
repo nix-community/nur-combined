@@ -27,27 +27,27 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "5307b9f540cb257b63ea56de080e302420929f51";
+    version = "4679575a9533078aae430ecd6304f1a1001aa5f4";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "5307b9f540cb257b63ea56de080e302420929f51";
+      rev = "4679575a9533078aae430ecd6304f1a1001aa5f4";
       fetchSubmodules = true;
-      sha256 = "sha256-tdi6mAIzZu7Ylu+TTDFMtjCWRP8Pht837LdvJSo7+ww=";
+      sha256 = "sha256-WewdwyatKXLcgVDRCC4xTgiO9ltCTbfGFviY5bng5y8=";
     };
-    date = "2023-04-25";
+    date = "2023-05-03";
   };
   carla = {
     pname = "carla";
-    version = "96b67721b68585e3980a32b3e558160d59305050";
+    version = "f1a30531b9cd50cbbc7c73e6e5cba2e4b9f5555b";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "96b67721b68585e3980a32b3e558160d59305050";
+      rev = "f1a30531b9cd50cbbc7c73e6e5cba2e4b9f5555b";
       fetchSubmodules = false;
-      sha256 = "sha256-v+z+tz0lyAvK1u8SJVazav9KbxpWxLfJ3uv0o54q+s0=";
+      sha256 = "sha256-+wwpBWpHhLDJBFascnH5LUIx0ja6Kmbd6GQLT965Fh8=";
     };
-    date = "2023-05-02";
+    date = "2023-05-03";
   };
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
@@ -103,15 +103,15 @@
   };
   ildaeil = {
     pname = "ildaeil";
-    version = "f604cca23e3e15e40ed5b25333db25350c3bc67e";
+    version = "710ac26940523a53785d69c1bd969702e11013b7";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Ildaeil";
-      rev = "f604cca23e3e15e40ed5b25333db25350c3bc67e";
+      rev = "710ac26940523a53785d69c1bd969702e11013b7";
       fetchSubmodules = true;
-      sha256 = "sha256-3havCjlh46bKzM7iFtBF4oSlqvru07JgbMpVKtnZEZM=";
+      sha256 = "sha256-VZJ0wXBydJdLu8+MoK6I59f3ZfhvKj7mRrXeeL8+NwM=";
     };
-    date = "2023-04-23";
+    date = "2023-05-03";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -197,15 +197,15 @@
   };
   macemu = {
     pname = "macemu";
-    version = "c4a22a51d69a462169a0cc1999d7d09a4b451a95";
+    version = "d66da33874e40b140904a60f8e22fe5063eb2c94";
     src = fetchFromGitHub {
       owner = "kanjitalk755";
       repo = "macemu";
-      rev = "c4a22a51d69a462169a0cc1999d7d09a4b451a95";
+      rev = "d66da33874e40b140904a60f8e22fe5063eb2c94";
       fetchSubmodules = false;
-      sha256 = "sha256-mAUDIly9V+kurOYCed4BmUrlhpx4PRkqDYqIVfghLoE=";
+      sha256 = "sha256-jD2Ub4xJTUQLRApdTPiVceXWWOUSbLkXPicOQ2GxC6U=";
     };
-    date = "2023-05-02";
+    date = "2023-05-03";
   };
   raze = {
     pname = "raze";
@@ -311,15 +311,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "6232465311f7478f34637af4f9f6085f992b6095";
+    version = "c93f7be960e0ed828f933fd82f339c0e520330d3";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "6232465311f7478f34637af4f9f6085f992b6095";
+      rev = "c93f7be960e0ed828f933fd82f339c0e520330d3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-pIaWjFsfbiUb/iV+sonLpnXj8zCbTXcYE9Ewz8NcpRI=";
+      sha256 = "sha256-m/DjViwdQesqaNJkTXq0jYpK9CVaA7yqRT6sDRDhzIs=";
     };
-    date = "2023-05-01";
+    date = "2023-05-03";
   };
 }
