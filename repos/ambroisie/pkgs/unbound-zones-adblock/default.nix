@@ -1,5 +1,5 @@
 { lib, gawk, stdenvNoCC, unified-hosts-lists }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   name = "unbound-zones-adblock";
   version = unified-hosts-lists.version;
 

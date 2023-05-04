@@ -149,7 +149,7 @@ in
       };
 
       # same as above, but listening on the federation port
-      "matrix.${domain}_federation" = rec {
+      "matrix.${domain}_federation" = {
         onlySSL = true;
         serverName = "matrix.${domain}";
         useACMEHost = domain;
@@ -164,7 +164,6 @@ in
           { addr = "0.0.0.0"; port = federationPort.public; ssl = true; }
           { addr = "[::]"; port = federationPort.public; ssl = true; }
         ];
-
       };
 
       "${domain}" = {

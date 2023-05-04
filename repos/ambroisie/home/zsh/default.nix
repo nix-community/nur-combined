@@ -38,7 +38,7 @@ in
         path = "${config.xdg.dataHome}/zsh/zsh_history";
       };
 
-      plugins = with pkgs; [
+      plugins = [
         {
           name = "fast-syntax-highlighting";
           file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";

@@ -1,5 +1,5 @@
 # Nix related settings
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 let
   cfg = config.my.home.nix;
 

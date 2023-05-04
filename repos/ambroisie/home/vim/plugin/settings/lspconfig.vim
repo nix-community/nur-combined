@@ -15,6 +15,13 @@ if utils.is_executable("clangd") then
 end
 
 -- Nix
+if utils.is_executable("nil") then
+    lspconfig.nil_ls.setup({
+        capabilities = capabilities,
+        on_attach = lsp.on_attach,
+    })
+end
+
 if utils.is_executable("rnix-lsp") then
     lspconfig.rnix.setup({
         capabilities = capabilities,
