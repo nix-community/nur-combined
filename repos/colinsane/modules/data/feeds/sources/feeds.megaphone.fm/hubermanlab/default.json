@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 1377252,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "Andrew Huberman, Ph.D.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 129,
+  "last_updated": "2023-03-06T09:00:00+00:00",
+  "score": 14,
+  "self_url": "https://feeds.megaphone.fm/hubermanlab",
+  "site_name": "",
+  "site_url": "",
+  "title": "Huberman Lab",
+  "url": "https://feeds.megaphone.fm/hubermanlab",
+  "velocity": 0.159,
+  "version": "rss20"
+}

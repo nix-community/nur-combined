@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+set -e
+
+endpoint=https://bt.uninsane.org/transmission/rpc
+PASS=$(sudo cat /run/secrets/transmission_passwd)
+
+options=$(getopt -l prefix:,film,show:,book:,audiobook:,vn:,author: -- "" "${@}")
+eval "set -- ${options}"
+
+type=
+title=
+author=
+prefix=
+while true; do
+  case "$1" in
+    (--prefix)
+      shift
+      prefix="$1"
+      shift
+    ;;
+    (--film)
+      type=Videos/Film/
+      shift
+    ;;
+    (--show)
+      type=Videos/Shows/
+      shift
+      title="$1"/
+      shift
+    ;;
+    (--book)
+      type=Books/Books/
+      shift
+      title="$1"/
+      shift
+    ;;
+    (--audiobook)
+      type=Books/Audiobooks/
+      shift
+      title="$1"/
+      shift
+    ;;
+    (--vn)
+      type=Books/Visual/
+      shift
+      title="$1"/
+      shift
+    ;;
+    (--author)
+      shift
+      author="$1"/
+      shift
+    ;;
+    (--)
+      shift
+      if [ $# -eq 1 ]; then
+        break
+      fi
+    ;;
+    (*)
+      echo "invalid arguments"
+      exit 1
+    ;;
+  esac
+done
+
+prefix=$prefix$type$author$title
+# positional ("non-option") parameters
+torrent="$1"
+
+echo "saving to $prefix"
+
+transmission-remote "$endpoint" \
+  --auth "colin:$PASS" \
+  --download-dir "/var/lib/uninsane/media/$prefix" \
+  --add "$torrent"

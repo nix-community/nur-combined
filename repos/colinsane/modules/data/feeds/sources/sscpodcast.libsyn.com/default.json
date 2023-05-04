@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 3905927,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "The official audio version of Astral Codex Ten, with an archive of posts from Slate Star Codex. It's just me reading Scott Alexander's blog posts.",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 739,
+  "last_seen": "2023-01-11T11:05:40.604126+00:00",
+  "last_updated": "2023-01-11T05:13:00+00:00",
+  "score": 18,
+  "self_url": "https://sscpodcast.libsyn.com/rss",
+  "site_name": "Astral Codex Ten Podcast",
+  "site_url": "https://sscpodcast.libsyn.com",
+  "title": "Astral Codex Ten Podcast",
+  "url": "https://sscpodcast.libsyn.com/rss",
+  "velocity": 0.384,
+  "version": "rss20"
+}

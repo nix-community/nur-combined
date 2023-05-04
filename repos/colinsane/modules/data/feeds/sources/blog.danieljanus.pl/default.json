@@ -1,0 +1,21 @@
+{
+  "bozo": 1,
+  "content_length": 343256,
+  "content_type": "text/xml; charset=utf-8",
+  "description": null,
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 60,
+  "last_updated": "2022-11-07T00:00:00+00:00",
+  "score": -4,
+  "self_url": "",
+  "site_name": "Daniel Janus \u2013 blog",
+  "site_url": "https://blog.danieljanus.pl",
+  "title": "code \u00b7 words \u00b7 emotions: Daniel Janus\u2019s blog",
+  "url": "https://blog.danieljanus.pl/atom.xml",
+  "velocity": 0.011,
+  "version": "atom10"
+}

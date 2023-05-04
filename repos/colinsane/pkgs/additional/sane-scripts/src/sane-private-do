@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# unlock the ~/private store, run some command, and then re-lock the store
+
+set -x
+
+external_cmd=$@
+
+sane-private-unlock
+$external_cmd
+exec sane-private-lock

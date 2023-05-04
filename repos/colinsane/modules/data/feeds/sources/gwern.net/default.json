@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 140827,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Latest gwern.net updates, interesting links, and reviews",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 14,
+  "last_updated": "2021-06-11T14:16:22+00:00",
+  "score": -6,
+  "self_url": "https://gwern.substack.com/feed",
+  "site_name": "",
+  "site_url": "",
+  "title": "Gwern.net Newsletter",
+  "url": "https://gwern.substack.com/feed",
+  "velocity": 0.032,
+  "version": "rss20"
+}

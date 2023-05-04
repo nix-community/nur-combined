@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# redirects to $1, when writing to $1 requires sudo permissions.
+# i.e. convert a failing command:
+#
+# ```
+# $ sudo do_thing > /into/file
+# ```
+#
+# to
+#
+# ```
+# $ sudo do_thing | sane-sudo-redirect /into/file
+# ```
+
+exec sudo tee $@ > /dev/null

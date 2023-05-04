@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 3568150,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Post Reports",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 1070,
+  "last_seen": "2023-01-11T14:37:23.650030+00:00",
+  "last_updated": "2023-01-10T21:40:40+00:00",
+  "score": 14,
+  "self_url": "https://podcast.posttv.com/itunes/post-reports.xml",
+  "site_name": null,
+  "site_url": null,
+  "title": "Post Reports",
+  "url": "https://podcast.posttv.com/itunes/post-reports.xml",
+  "velocity": 0.711,
+  "version": "rss20"
+}

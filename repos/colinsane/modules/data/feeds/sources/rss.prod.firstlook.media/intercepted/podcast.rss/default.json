@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 1034995,
+  "content_type": "application/xml+rss; charset=utf-8",
+  "description": "The people behind The Intercept’s fearless reporting and incisive commentary discuss the crucial issues of our time.",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 243,
+  "last_seen": "2023-01-11T14:04:41.283509+00:00",
+  "last_updated": "2022-12-21T10:30:43+00:00",
+  "score": 16,
+  "self_url": "https://feeds.acast.com/public/shows/f5b64019-68c3-57d4-b70b-043e63e5cbf6",
+  "site_name": null,
+  "site_url": null,
+  "title": "Intercepted",
+  "url": "https://rss.prod.firstlook.media/intercepted/podcast.rss",
+  "velocity": 0.112,
+  "version": "rss20"
+}

@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 429348,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "The world's most famous whistleblower writes from exile on the intersection of technology, humanity, and power.",
+  "favicon": "https://bucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com/public/images/2a7d3aa2-3c2f-4196-ab7c-31541be1272e/favicon.ico",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 16,
+  "last_seen": "2023-01-11T12:32:02.320483+00:00",
+  "last_updated": "2022-09-20T13:03:59+00:00",
+  "score": 14,
+  "self_url": "https://edwardsnowden.substack.com/feed",
+  "site_name": "Continuing Ed  — with Edward Snowden",
+  "site_url": "https://edwardsnowden.substack.com",
+  "title": "Continuing Ed  — with Edward Snowden",
+  "url": "https://edwardsnowden.substack.com/feed",
+  "velocity": 0.032,
+  "version": "rss20"
+}

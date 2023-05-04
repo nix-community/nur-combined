@@ -1,0 +1,19 @@
+#! @bash@/bin/sh
+
+# browserpass "validates" the gpg binary by invoking it with --version
+if [ "$1" = "--version" ]
+then
+  echo "sane-browserpass-gpg @version@";
+  exit 0
+fi
+
+# ensure the secret store is unlocked
+@sane_scripts@/bin/sane-secrets-unlock
+
+# using exec here forwards our stdin
+# browserpass parses the response in
+# <browserpass-extension/src/background.js#parseFields>
+# it cares about `key:value`, and ignores whatever doesn't fit that (or has an unknown key)
+# browserpass understands the `totp` field to hold either secret tokens, or full URLs.
+# i use totp-b32 for the base-32-encoded secrets. renaming that field works OOTB.
+exec @sops@/bin/sops --input-type yaml -d --output-type yaml --config /dev/null /dev/stdin | @gnused@/bin/sed s/\^totp-b32:/totp:/

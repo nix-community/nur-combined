@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# script to reclaim some hard drive space
+# some of this is documented here:
+# - <https://nixos.wiki/wiki/Storage_optimization>
+set -e
+
+options=$(getopt -l "gc,rmlint,all" -- "" "$@")
+eval "set -- ${options}"
+do_rmlint=false
+do_gc=false
+while true; do
+  case "$1" in
+    (--all)
+      shift
+      do_gc=true
+      do_rmlint=true
+    ;;
+    (--gc)
+      shift
+      do_gc=true
+    ;;
+    (--rmlint)
+      shift
+      do_rmlint=true
+    ;;
+    (--)
+      shift
+      if [ $# -eq 0 ]; then
+        break
+      fi
+    ;;
+    (*)
+      echo "invalid arguments"
+      exit 1
+    ;;
+  esac
+done
+
+set -x
+
+# scan the store and hard-link identical files
+# nix-store --optimise
+
+if [ $do_gc = true ]
+then
+  # TODO: do we need `sudo` here?
+  # TODO: `nix-store --gc`?
+  sudo nix-collect-garbage
+fi
+
+if [ $do_rmlint = true ]
+then
+  # identify duplicate files in the nix store
+  rmlint --types="duplicates" --config=sh:handler=clone --output=sh:/tmp/rmlint.sh --output=json:/dev/null --progress /nix/store
+  # link the dupes together (uses ioctl_fideduperange)
+  #   see: https://btrfs.wiki.kernel.org/index.php/Deduplication
+  #   see: https://rmlint.readthedocs.io/en/latest/tutorial.html
+fi
+
+if [ $do_rmlint = true ]
+then
+  sudo mount -o remount,rw /nix/store
+  # XXX: does rmlint really need to be invoked as root?
+  sudo /tmp/rmlint.sh -d || true  # on failure, we still want to remount ro
+  # XXX this doesn't work: 'mount point is busy.'
+  sudo mount -o remount,ro /nix/store
+fi
+
+# TODO: instead of using rmlint, could use dduper: https://github.com/Lakshmipathi/dduper
+#   better perf for btrfs (checksum tests)
+#   likely also better compression, on account of being block-based instead of whole-file based.
+#   however, not clearly actively maintained; uses custom btrfs-progs patch; riskier
+#     might not currently build on nix: https://github.com/NixOS/nixpkgs/issues/175730

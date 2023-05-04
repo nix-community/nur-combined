@@ -1,0 +1,10 @@
+{
+    "name": "com.justwatch.gopass",
+    "description": "Gopass wrapper to search and return passwords",
+    "path": "@out@/bin/gopass-wrapper",
+    "type": "stdio",
+    "allowed_extensions": [
+        "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}"
+    ]
+}
+

@@ -1,0 +1,43 @@
+diff --git a/nixos/modules/services/backup/duplicity.nix b/nixos/modules/services/backup/duplicity.nix
+index 6949fa8b995..33d772ffa37 100644
+--- a/nixos/modules/services/backup/duplicity.nix
++++ b/nixos/modules/services/backup/duplicity.nix
+@@ -54,6 +54,17 @@ in
+       '';
+     };
+ 
++    escapeUrl = mkOption {
++      type = types.bool;
++      example = false;
++      default = true;
++      description = ''
++        Whether to escape the targetUrl when passing it to Duplicity as a CLI
++        argument. One might disable this in order to make use of shell
++        expressions such as environment variables.
++      '';
++    };
++
+     secretFile = mkOption {
+       type = types.nullOr types.path;
+       default = null;
+@@ -148,7 +159,7 @@ in
+ 
+         script =
+           let
+-            target = escapeShellArg cfg.targetUrl;
++            target = if cfg.escapeUrl then (escapeShellArg cfg.targetUrl) else cfg.targetUrl;
+             extra = escapeShellArgs ([ "--archive-dir" stateDirectory ] ++ cfg.extraFlags);
+             dup = "${pkgs.duplicity}/bin/duplicity";
+           in
+@@ -158,9 +169,8 @@ in
+             ${lib.optionalString (cfg.cleanup.maxAge != null) "${dup} remove-older-than ${lib.escapeShellArg cfg.cleanup.maxAge} ${target} --force ${extra}"}
+             ${lib.optionalString (cfg.cleanup.maxFull != null) "${dup} remove-all-but-n-full ${toString cfg.cleanup.maxFull} ${target} --force ${extra}"}
+             ${lib.optionalString (cfg.cleanup.maxIncr != null) "${dup} remove-all-inc-of-but-n-full ${toString cfg.cleanup.maxIncr} ${target} --force ${extra}"}
+-            exec ${dup} ${if cfg.fullIfOlderThan == "always" then "full" else "incr"} ${lib.escapeShellArgs (
+-              [ cfg.root cfg.targetUrl ]
+-              ++ concatMap (p: [ "--include" p ]) cfg.include
++            exec ${dup} ${if cfg.fullIfOlderThan == "always" then "full" else "incr"} ${lib.escapeShellArg cfg.root} ${target} ${lib.escapeShellArgs (
++              concatMap (p: [ "--include" p ]) cfg.include
+               ++ concatMap (p: [ "--exclude" p ]) cfg.exclude
+               ++ (lib.optionals (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always") [ "--full-if-older-than" cfg.fullIfOlderThan ])
+               )} ${extra}

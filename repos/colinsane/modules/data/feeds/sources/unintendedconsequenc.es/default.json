@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 14271,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "systems | complexity | second-order effects",
+  "favicon": "https://cdn-dlcpd.nitrocdn.com/AXTCkwJcRLSJOItDRESOskxEnohxciAV/assets/images/optimized/wp-content/uploads/2018/04/Unintended-Consequences-1-100x100.png",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAAkUExURSA4ZP///+Xo7fX2+C1DbT9UelRmiM7T3ZmkuGt7mIORqbS8y5bZow4AAAKMSURBVFjD7ZbLTxNBGMDnUJvCbXcOi/RUGsXoqd2EiKc9yEsuDWkF46UpESOeeCUIF7SQQLkUG/F1gUQbwVOVIPx3zvOb2dlZAok35zvNtzO/me813yzybizIIQ5xiEMc8u+QcKhYugmCh1uHtaev9pdTERwS0fTyXhVRyYx9WlHIEJGiXJJfINIDwv+OQMabEvFf1Gq1WUAiMtmBM3eQJjMSGaDaPGxbJxps8CayIreppcqUI6JOinFQR1bkDlFuFQA5I2qfGK8hO7JK10DcvbtEzRZshyhkiyg5FVVm5xLQNgS3iTKtkAFwDR+JpZlnp7snHyJAWIhmFBLQIB1DvCnxlWatvF6XSFCJIz5deEBHo+KQ59xR/OC9RCIDqchcnnEiuySnSgLJ088NA2GZbXPkZaL488hyyrwcQPSuRKShAfd+qpRAWIlNGxGjhg5yuyY8+ym5eF6YYSJgjRQkq04fkcgIR45TEM1HFtqOKFc7wr1sxO4LS6VA3iYRHsuctGwQtk5HWFmiTFPc3G0kyzLdMFb8CD3hV2QjAteE+wcWZJVPzZGegzd4xlkAR9UlMRF5kaZOW11R7v2QIGsq5ZQuE54qmL5kwfALE5eOp5Vlz9LGt0yCJxaL4p+1IGZXkLYkrlgZkLxpmdhXXuTXwpt7X1Tn3zbs6mntmeofi/TN2Kv0K+RRrPNCe9Wa0u5Ft8pjLxD8LXZIU2+cumiI91D3Zg4SYTZYHfHO1fes1h7WrkB8eHrG3mlJCNrpiOefP2Z+jP+KJe5+lI54ePPkcOHzzxXjtb2MjFDGX+QwLCUf6EuITGbx9/XefbzZrUb0DV/8U7j230U4fNH6sb9ccv9jDnGIQxzyfyJ/AYXxdx48GBSRAAAAAElFTkSuQmCC",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 10,
+  "last_updated": "2022-09-27T19:12:34+00:00",
+  "score": 12,
+  "self_url": "https://unintendedconsequenc.es/feed/",
+  "site_name": "Unintended Consequences",
+  "site_url": "https://unintendedconsequenc.es",
+  "title": "Unintended Consequences",
+  "url": "https://unintendedconsequenc.es/feed/",
+  "velocity": 0.019,
+  "version": "rss20"
+}

@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 256360,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Hosted by Zach Leary, the intent of the podcast is to bring you the listener an easily accessible resource for a variety of topics all related to psychedelic research. There is a lot to learn about new research into the therapeutic potential of psychedelics and marijuana. Over the years, the Multidisciplinary Association for Psychedelic Studies (MAPS) has amassed an incredible treasure trove of audio archives sourced from the amazing talks, presentations and panels that have taken place at past Psychedelic Science conferences and other unique events. By selecting some of that content and then bringing it to you in a podcast we hope to create a centralized location for the greater MAPS community. If you're a researcher, scientist, medical professional or just a curiosity seeker we hope that you'll find this content a valuable resource tool.\n\nPlease visit the MAPS website at https://maps.org",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 62,
+  "last_updated": "2023-03-06T20:20:00+00:00",
+  "score": 0,
+  "self_url": "https://feeds.libsyn.com/95610/rss",
+  "site_name": "",
+  "site_url": "",
+  "title": "MAPS Podcast",
+  "url": "https://feeds.libsyn.com/95610/rss",
+  "velocity": 0.028,
+  "version": "rss20"
+}

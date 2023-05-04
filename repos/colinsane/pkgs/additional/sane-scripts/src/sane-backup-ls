@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# N.B. must be run as root
+
+set -ex
+
+# source the URL; hack to satisfy resholve
+external_cmd="source /run/secrets/duplicity_passphrase"
+$external_cmd
+duplicity list-current-files --archive-dir /var/lib/duplicity $DUPLICITY_URL

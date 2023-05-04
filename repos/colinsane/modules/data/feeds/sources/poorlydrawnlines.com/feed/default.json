@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 13524,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "A Comic",
+  "favicon": "http://www.poorlydrawnlines.com/wp-content/themes/PoorlyDrawnLines/images/favicon.ico",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK6wAACusBgosNWgAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAE+SURBVDiNnZO9rgFRFIW/Yy4KCldDN4VCQ63STTyAR0BU3kEy8SQeYiIRKq+gkFytZAo/0VBZtxC5Y85McFdymr2Sb6+z9zlG0g/wTUyHwwGAcrkct6I6IumsiHa7nTqdjkqlknK5nBqNhsbjsU6nkxJ0RtI+WgmCQICMMWq323JdV4BarZbCMIwD9hZgNpsJ0Gg0kiRdr1f1+30B6vV6FiATv5TjOABUKhUA8vk8w+EQgPV6bQ3BAki6G5k/KwxDADzPswBfaYDNZsNyuWS73TKZTCgWiwwGA3sP8RnM53MBT6dQKGg6nSZtYW8leER3XZd6vY7neXS7XWq1mt09KcFisRAg3/eTOr7ewkO32y3Nek6cZjyG+W/Au0p9B58kyEYLxpi7kXkrXNYo9p0vlwur1Ypms0m1Wn0FOP4CBWA38rLJ0EUAAAAASUVORK5CYII=",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 10,
+  "last_updated": "2023-03-22T17:51:01+00:00",
+  "score": 12,
+  "self_url": "https://poorlydrawnlines.com/feed/",
+  "site_name": "Poorly Drawn Lines",
+  "site_url": "https://poorlydrawnlines.com",
+  "title": "Poorly Drawn Lines",
+  "url": "https://poorlydrawnlines.com/feed/",
+  "velocity": 0.272,
+  "version": "rss20"
+}

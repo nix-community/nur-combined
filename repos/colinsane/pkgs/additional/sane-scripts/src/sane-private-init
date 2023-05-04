@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -ex
+
+# configure persistent, encrypted storage that is auto-mounted on login.
+# this is a one-time setup and user should log out/back in after running it.
+
+p=/nix/persist/home/colin/private
+mkdir -p $p
+gocryptfs -init $p

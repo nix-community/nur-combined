@@ -1,0 +1,65 @@
+diff --git a/pkgs/development/tools/misc/ccache/default.nix b/pkgs/development/tools/misc/ccache/default.nix
+index cad25a942d6..9130097ab07 100644
+--- a/pkgs/development/tools/misc/ccache/default.nix
++++ b/pkgs/development/tools/misc/ccache/default.nix
+@@ -2,7 +2,7 @@
+ , stdenv
+ , fetchFromGitHub
+ , substituteAll
+-, binutils
++, buildPackages
+ , asciidoctor
+ , cmake
+ , perl
+@@ -33,7 +33,7 @@ let ccache = stdenv.mkDerivation rec {
+     # Darwin.
+     (substituteAll {
+       src = ./force-objdump-on-darwin.patch;
+-      objdump = "${binutils.bintools}/bin/objdump";
++      objdump = "${buildPackages.binutils.bintools}/bin/objdump";
+     })
+   ];
+ 
+@@ -71,11 +71,12 @@ let ccache = stdenv.mkDerivation rec {
+   passthru = {
+     # A derivation that provides gcc and g++ commands, but that
+     # will end up calling ccache for the given cacheDir
+-    links = {unwrappedCC, extraConfig}: stdenv.mkDerivation {
++    links = {unwrappedCC, extraConfig, targetPrefix ? ""}: stdenv.mkDerivation {
+       name = "ccache-links";
+       passthru = {
+         isClang = unwrappedCC.isClang or false;
+         isGNU = unwrappedCC.isGNU or false;
++        cc = unwrappedCC;
+       };
+       inherit (unwrappedCC) lib;
+       nativeBuildInputs = [ makeWrapper ];
+@@ -83,7 +84,7 @@ let ccache = stdenv.mkDerivation rec {
+         mkdir -p $out/bin
+ 
+         wrap() {
+-          local cname="$1"
++          local cname="${targetPrefix}$1"
+           if [ -x "${unwrappedCC}/bin/$cname" ]; then
+             makeWrapper ${ccache}/bin/ccache $out/bin/$cname \
+               --run ${lib.escapeShellArg extraConfig} \
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index cb6fd2f0c4d..da4aadff3cb 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -17383,10 +17383,12 @@ with pkgs;
+   # should be owned by user root, group nixbld with permissions 0770.
+   ccacheWrapper = makeOverridable ({ extraConfig, cc }:
+     cc.override {
+-      cc = ccache.links {
++      cc = ccache.links ({
+         inherit extraConfig;
+         unwrappedCC = cc.cc;
+-      };
++      } // lib.optionalAttrs (cc ? targetPrefix) {
++        inherit (cc) targetPrefix;
++      });
+     }) {
+       extraConfig = "";
+       inherit (stdenv) cc;
+

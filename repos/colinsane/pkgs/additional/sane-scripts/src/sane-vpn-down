@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# first arg should be the region, e.g. `us` or `ukr`
+
+vpns=$(systemctl list-unit-files | grep wg-quick-ovpnd- | cut -f 1 -d ' ' | sed s'/^wg-quick-ovpnd-\([a-zA-Z-]*\)\.service$/\1/g')
+
+if ! [ $(echo "$vpns" | grep "^$1$") ]
+then
+  echo "invalid vpn name '$1'"
+  echo "choices:"
+  echo "$vpns"
+  exit 1
+fi
+
+iface=wg-quick-ovpnd-$1.service
+
+echo vpn: $(sane-ip-check)
+sudo systemctl stop $iface
+echo plain:   $(sane-ip-check)

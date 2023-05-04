@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# ensures perms on a newly-built distribution are good.
+# usage: sudo ensure-perms /path/to/nix
+
+nix_path=$1
+chown root:root -R $nix_path
+chown root:nixbld $nix_path/store

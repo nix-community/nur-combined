@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 357855,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Tales From the Bridge is a bi-weekly Science Fiction podcast. Join Tristan, Marty, Kevin, and Sam as they sit down with your favorite science fiction authors and filmmakers. We also discuss the best in sci-fi from books and graphic novels - to television and film. We cover cutting-edge concepts on our news segment; Science Fiction-Science Fact and throw in a bit of trivia for fun. Apple Podcasts; https://podcasts.apple.com/us/podcast/tales-from-the-bridge-all-things-sci-fi/id1570902818       Find out more on our website: https://talesfromthebridge.buzzsprout.com/",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [
+    "https://pubsubhubbub.appspot.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 64,
+  "last_updated": "2023-01-18T23:00:00+00:00",
+  "score": 12,
+  "self_url": "https://feeds.buzzsprout.com/1795352.rss",
+  "site_name": "",
+  "site_url": "",
+  "title": "Tales From The Bridge: All Things Sci-Fi",
+  "url": "https://feeds.buzzsprout.com/1795352.rss",
+  "velocity": 0.101,
+  "version": "rss20"
+}

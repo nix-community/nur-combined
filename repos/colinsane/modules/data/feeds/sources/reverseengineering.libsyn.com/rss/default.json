@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 560867,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Listen and learn about different reverse engineering hardware projects and methods as Alvaro (@alvaroprieto) and Jen(@rebelbotjen) talk with guests about their work.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 63,
+  "last_updated": "2022-12-30T15:42:48+00:00",
+  "score": 18,
+  "self_url": "https://reverseengineering.libsyn.com/rss",
+  "site_name": "",
+  "site_url": "",
+  "title": "Unnamed Reverse Engineering Podcast",
+  "url": "https://reverseengineering.libsyn.com/rss",
+  "velocity": 0.032,
+  "version": "rss20"
+}

@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 56666,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Cory Doctorow's Literary Works",
+  "favicon": "https://craphound.com/favicon.ico",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 20,
+  "last_seen": "2023-01-11T12:55:10.545856+00:00",
+  "last_updated": "2022-12-12T14:46:35+00:00",
+  "score": 12,
+  "self_url": "https://craphound.com/feed/",
+  "site_name": "Cory Doctorow's craphound.com | Cory Doctorow's Literary Works",
+  "site_url": "https://craphound.com",
+  "title": "Cory Doctorow's craphound.com",
+  "url": "https://craphound.com/feed/",
+  "velocity": 0.069,
+  "version": "rss20"
+}

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# dump info about the provided SSL certificate
+cert="$1"
+maybe_sudo=
+
+if ! (test -e "$cert")
+then
+        cert="/var/lib/acme/${cert}/full.pem"
+        maybe_sudo=sudo
+fi
+
+# $maybe_sudo openssl x509 -in "$file" -text
+$maybe_sudo openssl crl2pkcs7 -nocrl -certfile "$cert" | openssl pkcs7 -print_certs -text -noout
+

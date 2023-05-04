@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -ex
+
+new_plain=/home/colin/private-new
+new_cipher="/nix/persist${new_plain}"
+dest_plain=/home/colin/private
+dest_cipher="/nix/persist${dest_plain}"
+
+# initialize the new store
+sudo mkdir -p "${new_cipher}" && sudo chown colin:users "${new_cipher}"
+mkdir -p "${new_plain}"
+gocryptfs -init "${new_cipher}"
+
+# mount the new and old store
+gocryptfs "${new_cipher}" "${new_plain}"
+sane-private-unlock
+
+# transfer to the new store
+rsync -arv /home/colin/private/ "${new_plain}"/
+
+# unmount both stores
+sudo umount "${new_plain}"
+sudo umount /home/colin/private
+
+# swap the stores
+sudo mv "${dest_cipher}" "${dest_cipher}-old"
+sudo mv "${new_cipher}" "${dest_cipher}"
+
+sane-private-unlock
+
+echo "if things look well, rm ${dest_cipher}-old"

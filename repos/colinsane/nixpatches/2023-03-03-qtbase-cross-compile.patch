@@ -1,0 +1,21 @@
+diff --git a/pkgs/development/libraries/qt-6/modules/qtbase.nix b/pkgs/development/libraries/qt-6/modules/qtbase.nix
+index e71b0a7613d..72779ac57a5 100644
+--- a/pkgs/development/libraries/qt-6/modules/qtbase.nix
++++ b/pkgs/development/libraries/qt-6/modules/qtbase.nix
+@@ -5,6 +5,7 @@
+ , version
+ , coreutils
+ , bison
++, buildPackages
+ , flex
+ , gdb
+ , gperf
+@@ -224,6 +225,8 @@ stdenv.mkDerivation rec {
+   ] ++ lib.optionals stdenv.isDarwin [
+     # error: 'path' is unavailable: introduced in macOS 10.15
+     "-DQT_FEATURE_cxx17_filesystem=OFF"
++  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
++    "-DQT_HOST_PATH=${buildPackages.qt6.full}"
+   ];
+ 
+   NIX_LDFLAGS = toString (lib.optionals stdenv.isDarwin [

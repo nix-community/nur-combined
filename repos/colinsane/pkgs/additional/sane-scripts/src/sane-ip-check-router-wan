@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# query the WAN IP address OF MY ROUTER
+# requires creds
+passwd=$(sudo cat /run/secrets/router_passwd)
+cookie=$(mktemp)
+curlflags="curl --silent --insecure --cookie-jar $cookie --connect-timeout 5"
+
+# authenticate
+curl $curlflags \
+  --data "username=admin&password=$passwd" \
+  https://192.168.0.1
+# query the WAN IP
+ip=$(curl $curlflags \
+  -H "X-Requested-With: XMLHttpRequest" \
+  "https://192.168.0.1/cgi/cgi_action?Action=GetConnectionStatus" \
+  | jq -r .wan_status.ipaddr)
+echo "$ip" | grep -P " *^\d+\.\d+\.\d+\.\d+ *$"
+exit $?

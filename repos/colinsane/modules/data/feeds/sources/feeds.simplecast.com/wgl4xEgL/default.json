@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 2940192,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "EconTalk: Conversations for the Curious is an award-winning weekly podcast hosted by Russ Roberts of Shalem College in Jerusalem and Stanford's Hoover Institution. The eclectic guest list includes authors, doctors, psychologists, historians, philosophers, economists, and more. Learn how the health care system really works, the serenity that comes from humility, the challenge of interpreting data, how potato chips are made, what it's like to run an upscale Manhattan restaurant, what caused the 2008 financial crisis, the nature of consciousness, and more. EconTalk has been taking the Monday out of Mondays since 2006.  All 800+ episodes are available in the archive. Go to EconTalk.org for transcripts, related resources, and comments.",
+  "favicon": null,
+  "hubs": [
+    "https://simplecast.superfeedr.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 875,
+  "last_seen": "2023-01-11T14:31:49.308489+00:00",
+  "last_updated": "2023-01-09T11:30:00+00:00",
+  "score": 24,
+  "self_url": "https://feeds.simplecast.com/wgl4xEgL",
+  "site_name": null,
+  "site_url": null,
+  "title": "EconTalk",
+  "url": "https://feeds.simplecast.com/wgl4xEgL",
+  "velocity": 0.142,
+  "version": "rss20"
+}

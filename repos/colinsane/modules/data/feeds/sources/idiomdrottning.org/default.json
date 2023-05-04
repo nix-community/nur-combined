@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 88585,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "<p>The most unruly and least considered, most shameful among various Idiomdrottning components and libraries can be found here.</p>\n          <p>To contact me, <a href=\"mailto:sandra.snan@idiomdrottning.org\">send mail to sandra.snan@idiomdrottning.org</a></p>",
+  "favicon": "https://idiomdrottning.org/favicon.png",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9kKHQ8EITJ/4sMAAAUJSURBVFjD7ZZ5bFRVGMV/983W6d5KoS21gFKWqpWEQkqCoCxqRHCBKEhcE8SYGsRgSEREoyaEJZgQETFBggpxRSBUlrBoF8rSlrZpQUqhsRVIO53SbabzZt69/jF06NBOW8ofxIT710vefe+ce853vvsJpZTiDi6NO7zuErhL4P9NoDPB0qsz0DTfFgEhBABV328OPIciGYrgbVvgaWqkeuc3PYIopRBCcHbL+pAEtb5llr2+d9dfobWmmst/7u8GIoSgsfQUjpLCgVvQ4aincvPakDIaHS7M9nDK1q5ESRl0er3lGrmL5xKRnDpwAvaERJqrKih492W8Lde6EfG5XSAEerMTj9OBUiogfeWXqwGIHD5y4ASUUmQs/YSGk3nsn5VJ2z8XEULcKC7DACGQus7V3IMIIRBC0FxVwYUdXwMQO/rBbkWptzSjlOpfEUakDCN2VDrS6+HIghlczT8S8NtksYJSIAQ1v+/wx9IwOP1hNuaIKITJRHji0ACwEIILO7ZQvmEVQohgAm21l0JGLeuL7wCBkgZ5b83l38P7/BJabf59ECg2R1EBrZeq/GpoJmxxgxBCoDc3kZ89n7J1Kxm3fHV3C1qr/2bXhGTy336RuoN78Lna/RIDtth4hj37EkopLJHRFC57nabKUky2sIACmtmCs7yIguwFoGkoKYkenoYlKhpnRQn7pqXTcCqf1FnzMIWF+Yl3DiSdhdNYdorcRc+jpIHJFkZ4cipDpz/N2MXLMLw6u7NS0SxWv/y2MB7dnsOB2ROxREQhvV6GTHqM+pN/ITQNX4ebR776GUdJIVXbN6GUQnq9zMmrxhRm9yvUdSLqJNF84SzHl75CR/1VhKYhvTrCbOGBd1ZgCY+gdM2KQI+IHZNBU+UZNJM56B8AZnsEKU8+R/WPWzFZrSilyPx0Iykzn7lhcaiRzPB0cHTh47TVXkJoN5wSZjNCCAxdD9ndekyTlETdN4rpOw8H11hfM+H5bRspW7cSc2R0UPx6Be/8Y5ct9iHJzPglF81s7p2A3tyEz9WOr8OF8hmYrDYaio9Tvv4jpM/bK7AKxgxYYrKFMXXbPqKGj+zern1ul7p8LIe6A3toPHMCZRgoKf13gOpyFCWD/L0VEjN/yyc8KSVEJ9Q0rDHxRKaOwBafgKfJgc/djjJ8fgJKwfULqRNchdBcoQLgSkqscfcw/adjIcEDFnQ9mbetlZrdP3D5cA7u+it421owXO2dXQmEQABKCIS6DirEdXARAI9Lf5gpW/f2WS89xjCQBN2D4Xbha2/l2rlynOXF1B3ajaexIajYpJBoaH4NpCRj2WeMmPdqv1LSZwo8Tgd1h/bgKCqgoagAX1urX4WAHQoUSN1DQuZknBXFzMmtDopuvwl0KqCUwtPYQPmGVdTm/IpmsyGE1uOopZkt2BOTmfD5JmJHP8TRhU9gT0oma923Pap68zLffPEooPC912g4nYfUdUxh9qAPpM+H1D2EJ6Uw6o0lJE6eQUTyvYH3LRfP0VJzHr25CUtUTJ9KBBVh7f5dFH28JHABKWmgDANLZBThyalEjUgjPiOTwROnEJM2tpsiTRUlWGPiKV3zAW01VYx5832GzX6hfxbkZ8/HUVyI0EyEJ6UQlz6OQeOzGDxpGvaEIYQq1J4GGMPdzt6paUzbeZTo+0f30TWVUobXqzqcDuV1u1RPS0qpbmX5PB3qj6fGqxPLF/W59z/I3vExRaQkUAAAAABJRU5ErkJggg==",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 20,
+  "last_updated": "2023-01-25T13:06:38+00:00",
+  "score": 10,
+  "self_url": "https://idiomdrottning.org/blog",
+  "site_name": "Idiomdrottning",
+  "site_url": "https://idiomdrottning.org",
+  "title": "Idiomdrottning",
+  "url": "https://idiomdrottning.org/blog",
+  "velocity": 0.441,
+  "version": "atom10"
+}

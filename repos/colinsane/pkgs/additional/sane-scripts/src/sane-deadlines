@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# processes a tab-separated "deadlines" file and alerts for any upcoming events.
+#
+# deadlines.tsv file format:
+# - <date>\t<reminder-interval>\t<event>
+# - no header
+# - one line per entry
+# - <event> may contain any non-newline and non-tab characters
+# - <notice-interval> is the number of days before the event to start alerting, followed by 'd', e.g. `14d`
+# - <date> should be lexicographically orderable and machine-parsable, e.g. `2023-03-14`
+#
+# example `deadlines.tsv`
+# 2023-03-14	1d	celebrate pi day!
+# 2023-04-18	14d	taxes due
+# 2023-04-01	7d	the other pie day :o
+
+# configurables:
+deadlines=~/knowledge/planner/deadlines.tsv
+
+if ! test -f "$deadlines"; then
+        echo "WARNING: $deadlines sane-deadlines file not found"
+        exit 1
+fi
+
+now=$(date +%s)
+sort "$deadlines" | while read line; do
+        # parse line
+        deadline_field=$(echo "$line" | cut -f 1)
+        threshold_field=$(echo "$line" | cut -f 2)
+        description_field=$(echo "$line" | cut -f 3)
+
+        # normalize dates into seconds since unix epoch
+        deadline=$(date -d "$deadline_field" +%s)
+        threshold=$(echo "$threshold_field" | sed 's/d/day /g')
+        birthtime=$(date -d "$deadline_field - $threshold" +%s)
+
+        # show the event iff it's near
+        if test "$now" -ge "$birthtime"; then
+                days_until=$(( ($deadline - $now) / (24*60*60) ))
+                echo "in $days_until day(s): $description_field"
+        fi
+done

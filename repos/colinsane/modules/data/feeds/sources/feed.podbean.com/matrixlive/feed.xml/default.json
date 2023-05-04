@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 281377,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Matrix Live, now as an audio podcast",
+  "favicon": "https://feed.podbean.com/favicon.ico",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 100,
+  "last_seen": "2023-01-11T15:54:24.440541+00:00",
+  "last_updated": "2023-01-06T16:45:00+00:00",
+  "score": 18,
+  "self_url": "https://feed.podbean.com/matrixlive/feed.xml",
+  "site_name": null,
+  "site_url": "https://feed.podbean.com",
+  "title": "Matrix Live",
+  "url": "https://feed.podbean.com/matrixlive/feed.xml",
+  "velocity": 0.12,
+  "version": "rss20"
+}

@@ -1,0 +1,20 @@
+#!/bin/sh
+# usage: install-iwd.sh <source_dir> <dest_dir>
+# source_dir contains plain-text .psk files of any filename.
+# for each file, this extracts the SSID and creates a symlink in dest_dir which
+# points to the original file, using the SSID name as filename.
+#
+# this is because iwd extracts the SSID from the filename, but users might
+# prefer the SSID be kept separate from the filename.
+
+src_dir="$1"
+dest_dir="$2"
+for f in $(ls "$src_dir")
+do
+        ssid=$(sed -rn 's/# SSID=(.*)/\1/p' "$src_dir/$f")
+        # not sure that iwd can deal with un-writeable symlinks
+        # ln -sf "$src_dir/$f" "$dest_dir/$ssid.psk"
+        cp "$src_dir/$f" "$dest_dir/$ssid.psk"
+        # not strictly necessary, but iwd does default to rw
+        chmod 600 "$dest_dir/$ssid.psk"
+done

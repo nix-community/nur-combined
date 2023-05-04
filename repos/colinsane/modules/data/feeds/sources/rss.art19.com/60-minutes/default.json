@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 1041745,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "<p>Get the best reporting and storytelling on television from 60 Minutes - on your schedule. Now you can listen to the show in its entirety every week. 60 Minutes is the most successful broadcast in television history with more than 80 Emmys under its belt. 60 Minutes offers unbiased reporting on politics, in-depth investigations and important adventures from around the world- like no one else.  </p>",
+  "favicon": "https://rss.art19.com/favicon.ico",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 374,
+  "last_seen": "2023-01-11T15:45:07.189940+00:00",
+  "last_updated": "2023-01-09T03:00:00+00:00",
+  "score": 18,
+  "self_url": "https://rss.art19.com/60-minutes",
+  "site_name": null,
+  "site_url": "https://rss.art19.com",
+  "title": "60 Minutes",
+  "url": "https://rss.art19.com/60-minutes",
+  "velocity": 0.082,
+  "version": "rss20"
+}

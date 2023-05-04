@@ -1,0 +1,32 @@
+diff --git a/disk/part_efi.c b/disk/part_efi.c
+index 829ccb6bd1..5f3f0ae042 100644
+--- a/disk/part_efi.c
++++ b/disk/part_efi.c
+@@ -133,12 +133,12 @@ static int validate_gpt_header(gpt_header *gpt_h, lbaint_t lba,
+ 	 * Check that the first_usable_lba and that the last_usable_lba are
+ 	 * within the disk.
+ 	 */
+-	if (le64_to_cpu(gpt_h->first_usable_lba) > lastlba) {
++	if (le64_to_cpu(gpt_h->first_usable_lba) > lastlba && lastlba != 0) {
+ 		printf("GPT: first_usable_lba incorrect: %llX > " LBAF "\n",
+ 		       le64_to_cpu(gpt_h->first_usable_lba), lastlba);
+ 		return -1;
+ 	}
+-	if (le64_to_cpu(gpt_h->last_usable_lba) > lastlba) {
++	if (le64_to_cpu(gpt_h->last_usable_lba) > lastlba && lastlba != 0) {
+ 		printf("GPT: last_usable_lba incorrect: %llX > " LBAF "\n",
+ 		       le64_to_cpu(gpt_h->last_usable_lba), lastlba);
+ 		return -1;
+diff --git a/include/configs/rpi.h b/include/configs/rpi.h
+index 7a5f0851b5..01545f7480 100644
+--- a/include/configs/rpi.h
++++ b/include/configs/rpi.h
+@@ -15,6 +15,8 @@
+ 
+ /* Architecture, CPU, etc.*/
+ 
++#define CONFIG_SYS_64BIT_LBA
++
+ /* Use SoC timer for AArch32, but architected timer for AArch64 */
+ #ifndef CONFIG_ARM64
+ #define CONFIG_SYS_TIMER_RATE          1000000

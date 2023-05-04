@@ -1,0 +1,21 @@
+{
+  "bozo": 1,
+  "content_length": 617003,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Governance Futurism",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 18,
+  "last_updated": "2023-01-20T19:45:09+00:00",
+  "score": 28,
+  "self_url": "https://www.palladiummag.com/feed/",
+  "site_name": "Palladium Magazine",
+  "site_url": "https://www.palladiummag.com",
+  "title": "Palladium",
+  "url": "https://www.palladiummag.com/feed/index.xml",
+  "velocity": 0.167,
+  "version": "rss20"
+}

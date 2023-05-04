@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 1990,
+  "content_type": "application/atom+xml; charset=utf-8",
+  "description": "\u65e5\u7528\u54c1\u3092\u5225\u306e\u3082\u306e\u306b\u898b\u7acb\u3066\u305f\u3001\u30df\u30cb\u30c1\u30e5\u30a2\u30a2\u30fc\u30c8\u3092\u6bce\u65e5\u66f4\u65b0\u4e2d",
+  "favicon": "https://www.miniature-calendar.com/images/favicon.ico",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABPlBMVEXdzb3ezbng0b7f0r/h0L7h0r/h0MDi0sLn18fg0MDh0cHk08Pm1cXn18jl2MfezbvdzLjf0L3f0Lvj08Tfzr7i08Dm1sbf0cTcz7w+Ny3k1MTe0sLl1cbczLU/OS1AOi7g0bzby7TayrPbyrjezb3fzrzcy7fZyLTbyrY+Oi7dzLxAOizczbrdy7XdzbbbzLnez7zdzLrezr7WxLDZx7NBOjBAOS/ezLbczbjaxbDYxrDZx7HcyrTayLLcy7s/OzBBOy/Ww7LZybI/OzLYybY+Oi/czLzXxbHYyLFAOTHZxLPZx6/aybXazLLayLDcyLDcyrbczLPbybPXxLVCOzHbybXXxLPayLTZxrfaya/bxbDZybDVw63axK3axK/cx7LayrHYx7PezLTUwq7UwqzXwq/Vw6/Xw6vWx7DbxbcPDeShAAABAUlEQVQYlT2IizfCUByAf27LVGRXC8Pt2pY9PDLVHTbZKsxjIqYxyavC//8P4DjHd853znc+gAmU4tKTPD+VyeamZ/IwK2A0hzMFMZsr8vP5BQBhEUsYSxyW0oWl5RUgpPQPRUX+Z9Df/HMVpUFWqEzU8ppWTnEUIQy6YSpUM7XS+sYmFRECZcvUiVIh25YAdKdahVqd6bZmy0ylu2zPAth3bNeVDxqHtuczlVjQdJjjtdoG9Y6OTwwRIDg9O78ILztXfvs6NEgXbm4jFkU+i9ida3SJCkHQi+8fGklceQxjRTGgX+slfSd5Gjy/uB3t9Q3eh8PBaDwefTTrn+FXGHwDcrgsthZvWMkAAAAASUVORK5CYII=",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 1,
+  "last_updated": "2023-01-25T22:00:38+00:00",
+  "score": 20,
+  "self_url": "https://miniature-calendar.com/feed/atom/",
+  "site_name": "MINIATURE CALENDAR",
+  "site_url": "https://miniature-calendar.com",
+  "title": "MINIATURE CALENDAR",
+  "url": "https://miniature-calendar.com/feed/atom/",
+  "velocity": 0,
+  "version": "atom10"
+}

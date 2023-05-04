@@ -1,0 +1,20 @@
+#!/bin/sh
+# initializes the default libsecret keyring (used by gnome-keyring) if not already initialized.
+# this initializes it to be plaintext/unencrypted.
+
+ringdir=/home/colin/private/.local/share/keyrings
+if test -f "$ringdir/default"
+then
+  echo 'keyring already initialized: not doing anything'
+else
+  keyring="$ringdir/Default_keyring.keyring"
+
+  echo 'initializing default user keyring:' "$keyring.new"
+  echo '[keyring]' > "$keyring.new"
+  echo 'display-name=Default keyring' >> "$keyring.new"
+  echo 'lock-on-idle=false' >> "$keyring.new"
+  echo 'lock-after=false' >> "$keyring.new"
+  chown colin:users "$keyring.new"
+  # closest to an atomic update we can achieve
+  mv "$keyring.new" "$keyring" && echo -n "Default_keyring" > "$ringdir/default"
+fi

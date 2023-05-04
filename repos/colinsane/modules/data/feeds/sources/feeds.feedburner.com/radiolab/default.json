@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 1315558,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Radiolab",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 150,
+  "last_seen": "2023-01-11T15:01:17.273650+00:00",
+  "last_updated": "2023-01-06T15:00:00+00:00",
+  "score": 4,
+  "self_url": "https://www.wnycstudios.org/feeds/series/podcasts",
+  "site_name": null,
+  "site_url": null,
+  "title": "Radiolab",
+  "url": "https://feeds.feedburner.com/radiolab",
+  "velocity": 0.139,
+  "version": "rss20"
+}

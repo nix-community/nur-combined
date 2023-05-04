@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 62633,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Articles, speeches, stories and novels by an award-winning science fiction writer, read aloud in small regular chunks",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 20,
+  "last_seen": "2023-01-11T12:57:50.103797+00:00",
+  "last_updated": "2022-12-12T14:46:35+00:00",
+  "score": 4,
+  "self_url": "https://craphound.com/category/podcast/feed/",
+  "site_name": null,
+  "site_url": null,
+  "title": "Podcast – Cory Doctorow's craphound.com",
+  "url": "https://feeds.feedburner.com/doctorow_podcast",
+  "velocity": 0.068,
+  "version": "rss20"
+}

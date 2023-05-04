@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 83074,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "projects & research",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 14,
+  "last_seen": "2023-01-11T12:28:34.383284+00:00",
+  "last_updated": "2021-07-29T05:10:05+00:00",
+  "score": 14,
+  "self_url": "https://mg.lol/blog/rss/",
+  "site_name": null,
+  "site_url": "https://mg.lol",
+  "title": "MG",
+  "url": "https://mg.lol/blog/rss/",
+  "velocity": 0.004,
+  "version": "rss20"
+}

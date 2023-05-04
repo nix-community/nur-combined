@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 1600578,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "Design is everywhere in our lives, perhaps most importantly in the places where we've just stopped noticing. 99% Invisible is a weekly exploration of the process and power of design and architecture. From award winning producer Roman Mars. Learn more at 99percentinvisible.org.",
+  "favicon": null,
+  "hubs": [
+    "https://simplecast.superfeedr.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 577,
+  "last_seen": "2023-01-11T15:25:01.536556+00:00",
+  "last_updated": "2023-01-10T23:46:05+00:00",
+  "score": 4,
+  "self_url": "https://feeds.simplecast.com/BqbsxVfO",
+  "site_name": null,
+  "site_url": null,
+  "title": "99% Invisible",
+  "url": "https://feeds.simplecast.com/BqbsxVfO",
+  "velocity": 0.128,
+  "version": "rss20"
+}

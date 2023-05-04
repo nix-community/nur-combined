@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -x
+
+# initialize a repository with each of my machines configured as remotes.
+# it's assumed each machine stores the repo at the same fs path
+
+path=$PWD
+
+git init
+git remote add desko "colin@desko:$path"
+git remote add lappy "colin@lappy:$path"
+git remote add moby  "colin@moby:$path"
+git remote add servo "colin@servo:$path"

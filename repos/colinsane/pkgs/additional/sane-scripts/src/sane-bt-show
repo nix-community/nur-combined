@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+endpoint=https://bt.uninsane.org/transmission/rpc
+PASS=$(sudo cat /run/secrets/transmission_passwd)
+
+
+if [ "$#" -eq 0 ]; then
+  # no specific torrents we want to show, so show all of them.
+  # to query specific torrents, note the index and re-invoke this script with that.
+  transmission-remote "$endpoint" --auth "colin:$PASS" --list
+else
+  for id in $@; do
+    transmission-remote "$endpoint" --auth "colin:$PASS" -t "$id" -i
+  done
+fi

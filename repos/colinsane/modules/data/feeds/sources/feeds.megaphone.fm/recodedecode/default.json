@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 2976783,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "A business show about big ideas — and other problems.",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 660,
+  "last_seen": "2023-01-11T15:51:13.652417+00:00",
+  "last_updated": "2023-01-10T10:00:00+00:00",
+  "score": 14,
+  "self_url": "https://feeds.megaphone.fm/recodedecode",
+  "site_name": null,
+  "site_url": null,
+  "title": "Decoder with Nilay Patel",
+  "url": "https://feeds.megaphone.fm/recodedecode",
+  "velocity": 0.24,
+  "version": "rss20"
+}

@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 288864,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Mad Science Blogging",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [
+    "https://slimemoldtimemold.com/?pushpress=hub"
+  ],
+  "is_podcast": false,
+  "is_push": true,
+  "item_count": 10,
+  "last_updated": "2023-01-19T16:42:16+00:00",
+  "score": 22,
+  "self_url": "https://slimemoldtimemold.com/feed/",
+  "site_name": "SLIME MOLD TIME MOLD",
+  "site_url": "https://slimemoldtimemold.com",
+  "title": "SLIME MOLD TIME MOLD",
+  "url": "https://slimemoldtimemold.com/feed/",
+  "velocity": 0.1,
+  "version": "rss20"
+}

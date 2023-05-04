@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 13316,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "A podcast around the idea of creating a Civilizational Bootstrapper, a set of tools and technology that can be used to replicate the foundations of civilization along with itself.",
+  "favicon": null,
+  "hubs": [
+    "https://pubsubhubbub.appspot.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 6,
+  "last_seen": "2023-01-11T16:11:01.720399+00:00",
+  "last_updated": "2022-04-13T19:37:17+00:00",
+  "score": 22,
+  "self_url": "https://anchor.fm/s/34c7232c/podcast/rss",
+  "site_name": "Anchor",
+  "site_url": "https://anchor.fm",
+  "title": "Civboot",
+  "url": "https://anchor.fm/s/34c7232c/podcast/rss",
+  "velocity": 0.009,
+  "version": "rss20"
+}

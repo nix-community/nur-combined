@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 337440,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "A community blog devoted to refining the art of rationality",
+  "favicon": "https://res.cloudinary.com/lesswrong-2-0/image/upload/v1497915096/favicon_lncumn.ico",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 10,
+  "last_seen": "2023-01-11T10:39:58.575828+00:00",
+  "last_updated": "2023-01-11T09:58:49+00:00",
+  "score": 32,
+  "self_url": "https://www.lesswrong.com/feed.xml?view=rss&karmaThreshold=2",
+  "site_name": "LessWrong",
+  "site_url": "https://www.lesswrong.com",
+  "title": "LessWrong",
+  "url": "https://www.lesswrong.com/feed.xml",
+  "velocity": 12.052,
+  "version": "rss20"
+}

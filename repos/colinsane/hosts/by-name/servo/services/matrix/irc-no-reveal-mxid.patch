@@ -1,0 +1,50 @@
+diff --git a/config.schema.yml b/config.schema.yml
+index 2e71c8d6..42ba8ba1 100644
+--- a/config.schema.yml
++++ b/config.schema.yml
+@@ -433,7 +433,7 @@ properties:
+                                     type: "boolean"
+                                 realnameFormat:
+                                     type: "string"
+-                                    enum: ["mxid","reverse-mxid"]
++                                    enum: ["mxid","reverse-mxid","localpart"]
+                                 ipv6:
+                                     type: "object"
+                                     properties:
+diff --git a/src/irc/IdentGenerator.ts b/src/irc/IdentGenerator.ts
+index 7a2b5cf1..50f7815a 100644
+--- a/src/irc/IdentGenerator.ts
++++ b/src/irc/IdentGenerator.ts
+@@ -74,6 +74,9 @@ export class IdentGenerator {
+         else if (server.getRealNameFormat() === "reverse-mxid") {
+             realname = IdentGenerator.sanitiseRealname(IdentGenerator.switchAroundMxid(matrixUser));
+         }
++        else if (server.getRealNameFormat() == "localpart") {
++            realname = IdentGenerator.sanitiseRealname(matrixUser.localpart);
++        }
+         else {
+             throw Error('Invalid value for realNameFormat');
+         }
+diff --git a/src/irc/IrcServer.ts b/src/irc/IrcServer.ts
+index 2af73ab4..895b9783 100644
+--- a/src/irc/IrcServer.ts
++++ b/src/irc/IrcServer.ts
+@@ -101,7 +101,7 @@ export interface IrcServerConfig {
+         };
+         lineLimit: number;
+         userModes?: string;
+-        realnameFormat?: "mxid"|"reverse-mxid";
++        realnameFormat?: "mxid"|"reverse-mxid"|"localpart";
+         pingTimeoutMs: number;
+         pingRateMs: number;
+         kickOn: {
+@@ -289,7 +289,7 @@ export class IrcServer {
+         return this.config.ircClients.userModes || "";
+     }
+ 
+-    public getRealNameFormat(): "mxid"|"reverse-mxid" {
++    public getRealNameFormat(): "mxid"|"reverse-mxid"|"localpart" {
+         return this.config.ircClients.realnameFormat || "mxid";
+     }
+ 
+

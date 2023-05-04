@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 419093,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "IEEE Spectrum",
+  "favicon": "https://assets.rebelmouse.io/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpbWFnZSI6Imh0dHBzOi8vYXNzZXRzLnJibC5tcy8yNjU5NjY0OS9vcmlnaW4ucG5nIiwiZXhwaXJlc19hdCI6MTcyMjY3NDUwNn0.E9lMSNv23A_GyW60aP_Rh5AzMMAKAHMpGrotgTDO5_Q/img.png?width=32&height=32",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAADWUlEQVRYhe2WW4hOURTH93HP7UHkjfIg5cntgRqMy4xvzpkbMzVm5sV1JjRDbkVERCFMrhNSUh4Z5ToueRsNuaTcIsUkIYWMMZef1rf2cc6Y7+hgyoPZtTv7nL3PWv+9/v+19jZ4hn/ZTRcAuijw/kA8bmic3Q1yekCu7TLO6Q6e03Ftp4jQtU9xkjAw3cAUA2m2y3iagVkWnABx4wJwI8bhb9kOZBlIN1A4ANZPh4NL4MR6OLkBqithswvFgxVIwgJx4wLIdizyVIAcNZjTTZ29byCyfXwPZ6ugcCBkRoMwP4z7DjJsWCNBGKirCRy1tnR0Hv727A4UDbKUdKTDBC/W+ZLRsG22hi8MQjifauDwMjXc3AQtzTpueAK1x+HSUXh+V7/JXONnHV8+1n5TkRQkDDyq0592FKnDpKJD8/ev6fy3Jn3Wn4f83jDTaJc1p3d3jMr84ZYKJwJAtqNhWjcNvn7Rn3YWKwhJLxFeXi94+dAC+KrPIytgnG/YRrGgP9Sfg3vX4PZFuFMLFWMU4E9RMO24lUlJo1WToKkxAJFu56Q/qQ9CnAz/U9iQASVDYE5frQOzQikpEckK+YjWgNFJ2a04XDVReU6CKNFvwmPNXhuBRmhtDULc+AnevYKnt3T3NVWajuI8QoCpC5EPQkS4fDx8/qAO9i1SOuYNa59+Eonmb9AWAhNuQkPp0DhZYH4NoGqBikgMlY+Cu1egrS21U0lDAeXTJBpIxC1EuakosGKU+UzLrbwvHAG7SuH4GjizB26cgsd1ISCtQU1YPQlm/I0IPUfVXTkWVkzQXjZS53xAmbZvL9R/JUJ+FPaX6bpwWnux07CnptfikZp+sjPhXIwLHZJe+X10nYhO1r55oTaECmlSwJIAevxJIXKCaujXgRZr+OZZKOinIGbYTNnkBhniR2BLruoqMgJejFIs4T60NFSKLYi3L+H6SbhQDbfOB7v2i9W7Bj05k0J0/vIwShi4eqK94n9uwn04Q7bmxTwL3BjHcZYFUV0Br5+nTkOfogc3YG1aoH63My4kntWD0CGH0NrJcKDcXkg2wrGVsGOuilNEHXYeqxJ6v3Ely7IOwleyyRZcRii1Y1/JvN8EkepSmryYdg+O3U6/lHqd200XAP53Cr4DHOtbq3CQHqsAAAAASUVORK5CYII=",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 30,
+  "last_updated": "2023-01-25T16:00:04+00:00",
+  "score": 20,
+  "self_url": "https://spectrum.ieee.org/feeds/feed.rss",
+  "site_name": "IEEE Spectrum",
+  "site_url": "https://spectrum.ieee.org",
+  "title": "IEEE Spectrum",
+  "url": "https://spectrum.ieee.org/feeds/feed.rss",
+  "velocity": 0.082,
+  "version": "rss20"
+}

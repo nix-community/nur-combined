@@ -1,0 +1,96 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+
+import re
+import subprocess
+import time
+
+def rm_color(stdout: str) -> str:
+    " remove terminal control codes -- used by iwctl to colorize the output "
+    return re.sub("\\[[0-9;]*m", "", stdout)
+
+def rm_heading(stdout: str) -> str:
+    return "\n".join(stdout.split("\n")[4:])
+
+def extract_columns(stdout: str) -> list:
+    " split each line into two fields "
+    lines = stdout.split("\n")
+    items = []
+    for l in lines:
+        # XXX: this will fail for non-psk networks
+        # but i don't split on space because that would fail for networks that have names with spaces
+        if " psk " not in l: continue
+        split_at = l.find(" psk ")
+        first, second = l[:split_at], l[split_at+5:]
+        first, second = first.strip(), second.strip()
+        if first.startswith('> '):
+            # the `>` is formatting, indicating that it's the active network
+            first = first[2:].strip()
+        items.append((first, second))
+    return items
+
+def iwctl(args: list, sudo: bool = False) -> str:
+    cmd = [ "iwctl" ] + args
+    if sudo:
+        cmd = [ "sudo" ] + cmd
+    res = subprocess.run(cmd, capture_output=True)
+    if res.returncode != 0:
+        print(f"iwctl failed:\n{res.stderr}")
+        res.check_returncode()  # raise
+    return res.stdout.decode()
+
+def scan():
+    iwctl(["station", "wlan0", "scan"], sudo=True)
+    time.sleep(5)  # give time for adapter to see networks
+
+def get_known() -> list:
+    stdout = iwctl(["known-networks", "list"])
+    stdout = rm_color(stdout)
+    stdout = rm_heading(stdout)
+    return [name for (name, date) in extract_columns(stdout)]
+
+def get_visible() -> list:
+    stdout = iwctl(["station", "wlan0", "get-networks", "rssi-dbms"])
+    stdout = rm_color(stdout)
+    stdout = rm_heading(stdout)
+    return [(name, int(strength)) for (name, strength) in extract_columns(stdout)]
+
+def choose_best(visible: list, known: list) -> str:
+    candidates = [(name, strength) for (name, strength) in visible if name in known]
+    # the least-negative RSSI is the best
+    return max(candidates, key=lambda c: c[1])[0]
+
+def connect(network: str) -> str:
+    return iwctl(["station", "wlan0", "connect", network], sudo=True)
+
+def restart() -> str:
+    return subprocess.check_output([
+        "sudo",
+        "systemctl",
+        "restart",
+        "iwd",
+    ])
+
+print("scanning for networks... ", end="", flush=True)
+scan()
+print("done")
+print()
+
+known = get_known()
+print("known networks:", "".join(f"\n\t{name}" for name in known))
+print()
+
+visible = get_visible()
+print("visible networks:", "".join(f"\n\t{name}: {rss}" for (name, rss) in visible))
+print()
+
+best = choose_best(visible, known)
+
+try:
+    print(f"connecting to {best}")
+    result = connect(best)
+except subprocess.CalledProcessError as e:
+    print("restarting iwd daemon")
+    restart()
+else:
+    print("success", result)

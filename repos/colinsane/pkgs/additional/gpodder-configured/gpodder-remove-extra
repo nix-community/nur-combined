@@ -1,0 +1,79 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ gnome-feeds.listparser ])" -p gpodder
+
+from dataclasses import dataclass, field
+import listparser
+import subprocess
+import sys
+
+@dataclass(repr=True)
+class Feed:
+    url: str
+    title: str  # Optional
+    def __init__(self, url: str, title: str):
+        self.url = url
+        self.title = title if title else None
+
+    def __eq__(self, other: 'Feed') -> bool:
+        return self.url == other.url and \
+            (self.title == other.title or None in [self.title, other.title])
+
+@dataclass(init=True)
+class Partitioned:
+    has_not_wanted: list[Feed] = field(default_factory=list)
+    wanted_not_has: list[Feed] = field(default_factory=list)
+    intersection:   list[Feed] = field(default_factory=list)
+
+
+def wanted_feeds(opml_file: str):
+    parsed = listparser.parse(open(opml_file).read())
+    return [Feed(url=p['url'], title=p['title']) for p in parsed.feeds]
+
+def has_feeds():
+    listing = subprocess.check_output(["gpo", "list"]).decode()
+    feeds = []
+
+    title = None
+    for line in listing.split("\n"):
+        if line.startswith("# "):  # title
+            title = line[2:].strip()
+        elif line.startswith("http"):  # feed URL:
+            feeds.append(Feed(url=line, title=title))
+            title = None
+
+    return feeds
+
+def partition_feeds(wanted: list[Feed], has: list[Feed]) -> Partitioned:
+    p = Partitioned()
+    for f in wanted + has:
+        w, h = f in wanted, f in has
+        if h and not w:
+            p.has_not_wanted.append(f)
+        elif w and not h:
+            p.wanted_not_has.append(f)
+        else:
+            assert w and h
+            p.intersection.append(f)
+
+    return p
+
+def remove_feed(feed: Feed):
+    subprocess.check_output(['gpo', 'unsubscribe', feed.url])
+
+def rationalize_feeds(opml_file: str):
+    wanted = wanted_feeds(opml_file)
+    has = has_feeds()
+    partitioned = partition_feeds(wanted, has)
+
+    print("extra feeds:", "" if partitioned.has_not_wanted else "(none)")
+    for f in partitioned.has_not_wanted:
+        print("  ", f)
+    print()
+
+    for f in partitioned.has_not_wanted:
+        remove_feed(f)
+
+if __name__ == "__main__":
+    wanted_opml, = sys.argv[1:]
+    rationalize_feeds(wanted_opml)
+

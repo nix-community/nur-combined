@@ -1,0 +1,40 @@
+diff --git a/pkgs/applications/networking/instant-messengers/fluffychat/default.nix b/pkgs/applications/networking/instant-messengers/fluffychat/default.nix
+index 565c44f72e9..f20a3d4e9be 100644
+--- a/pkgs/applications/networking/instant-messengers/fluffychat/default.nix
++++ b/pkgs/applications/networking/instant-messengers/fluffychat/default.nix
+@@ -4,13 +4,19 @@
+ , olm
+ , imagemagick
+ , makeDesktopItem
++, stdenv
+ }:
+ 
++let vendorHashes = {
++  x86_64-linux = "sha256-p5EJP2zSvWyRV1uyTHw0EpFsEwAGtX5B9WVjpLmnVew=";
++  aarch64-linux = "sha256-Ps0HmDI6BFxHrLRq3KWNk4hw0qneq5hqB/Mp99f+hO4=";
++};
++in
+ flutter.mkFlutterApp rec {
+   pname = "fluffychat";
+   version = "1.6.1";
+ 
+-  vendorHash = "sha256-SelMRETFYZgTStV90gRoKhazu1NPbcSMO9mYebSQskQ=";
++  vendorHash = vendorHashes."${stdenv.hostPlatform.system}" or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+ 
+   src = fetchFromGitLab {
+     owner = "famedly";
+diff --git a/pkgs/development/compilers/flutter/default.nix b/pkgs/development/compilers/flutter/default.nix
+index 9eba6773448..e9d352169b2 100644
+--- a/pkgs/development/compilers/flutter/default.nix
++++ b/pkgs/development/compilers/flutter/default.nix
+@@ -19,6 +19,10 @@ let
+         url = "${dartSourceBase}/stable/release/${dartVersion}/sdk/dartsdk-linux-x64-release.zip";
+         sha256 = "sha256-PMY6DCFQC8XrlnFzOEPcwgBAs5/cAvNd78969Z+I1Fk=";
+       };
++      "${dartVersion}-aarch64-linux" = fetchurl {
++        url = "${dartSourceBase}/stable/release/${dartVersion}/sdk/dartsdk-linux-arm64-release.zip";
++        sha256 = "sha256-BIK6kUx+m+/GfR/wBXv8rjVNbP6w1HFvH/RGIwiaJog=";
++      };
+     };
+   };
+ in {

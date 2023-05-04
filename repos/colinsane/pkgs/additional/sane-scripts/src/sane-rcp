@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# rsync, with sane defaults
+# + verbosity
+# + default to cwd as destination if none is provided
+dest=
+if (( $# <= 1 )); then
+        # rsync to the current directory by default
+        dest='.'
+fi
+rsync -arv --progress --append-verify "$@" $dest

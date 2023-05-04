@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+target="$1"
+host="$(hostname)"
+if [ "$host" = "$target" ]
+then
+  sudo shutdown now
+else
+  echo "WRONG MACHINE. you're on $host."
+  exit 1
+fi
+

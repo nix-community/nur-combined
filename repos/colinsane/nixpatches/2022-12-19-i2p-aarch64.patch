@@ -1,0 +1,26 @@
+diff --git a/pkgs/tools/networking/i2p/default.nix b/pkgs/tools/networking/i2p/default.nix
+index e835007fdc5..1406486c7d4 100644
+--- a/pkgs/tools/networking/i2p/default.nix
++++ b/pkgs/tools/networking/i2p/default.nix
+@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
+       binaryBytecode  # source bundles dependencies as jars
+     ];
+     license = licenses.gpl2;
+-    platforms = [ "x86_64-linux" "i686-linux" ];
++    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
+     maintainers = with maintainers; [ joelmo ];
+   };
+ }
+diff --git a/pkgs/tools/system/java-service-wrapper/default.nix b/pkgs/tools/system/java-service-wrapper/default.nix
+index 93d86a75d18..ab563085f93 100644
+--- a/pkgs/tools/system/java-service-wrapper/default.nix
++++ b/pkgs/tools/system/java-service-wrapper/default.nix
+@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
+     homepage = "https://wrapper.tanukisoftware.com/";
+     changelog = "https://wrapper.tanukisoftware.com/doc/english/release-notes.html#${version}";
+     license = licenses.gpl2Only;
+-    platforms = [ "x86_64-linux" "i686-linux" ];
++    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
+     maintainers = [ maintainers.suhr ];
+   };
+ }

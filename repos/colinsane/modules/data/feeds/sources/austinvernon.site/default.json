@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 19245,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Austin Vernon's Blog",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 42,
+  "last_updated": "2023-01-05T00:00:00+00:00",
+  "score": 24,
+  "self_url": "",
+  "site_name": "Austin Vernon - Austin Vernon's Blog",
+  "site_url": "https://austinvernon.site",
+  "title": "Austin Vernon",
+  "url": "https://austinvernon.site/rss.xml",
+  "velocity": 0.063,
+  "version": "rss20"
+}

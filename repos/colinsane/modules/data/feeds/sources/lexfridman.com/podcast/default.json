@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 841679,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Conversations about AI, science, technology, history, philosophy and the nature of intelligence, consciousness, love, and power.",
+  "favicon": "https://lexfridman.com/wordpress/wp-content/uploads/2017/06/cropped-lex-favicon-4-1-32x32.png",
+  "hubs": [
+    "https://pubsubhubbub.appspot.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 300,
+  "last_seen": "2023-01-11T12:40:59.343327+00:00",
+  "last_updated": "2022-12-29T17:35:50+00:00",
+  "score": 20,
+  "self_url": "https://lexfridman.com/feed/podcast/",
+  "site_name": "Lex Fridman",
+  "site_url": "https://lexfridman.com",
+  "title": "Lex Fridman Podcast",
+  "url": "https://lexfridman.com/feed/podcast/",
+  "velocity": 0.265,
+  "version": "rss20"
+}

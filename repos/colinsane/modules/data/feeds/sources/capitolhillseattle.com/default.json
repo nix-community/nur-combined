@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 83424,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Community News For All of Seattle's Capitol Hill",
+  "favicon": "https://www.capitolhillseattle.com/favicon.ico",
+  "favicon_data_uri": "data:image/png;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///////////////////////////39/f/h4eH/vb29/729vf/i4uL//f39/////////////////////////////////////////////f39/6+vr/81NTX/AgIC/wAAAP8AAAD/AgIC/zU1Nf+wsLD//f39////////////////////////////+vr6/2pqav8BAQH/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AQEB/2xsbP/6+vr//////////////////v7+/7u7u/9VVVX/VVVV/1VVVf9VVVX/VVVV/1VVVf9VVVX/VVVV/1VVVf9VVVX/vb29//7+/v/+/v7//////87Ozv8eHh7/HBwc/xwcHP8cHBz/t7e3/z8/P/+VlZX/WVlZ/xwcHP8cHBz/HBwc/x4eHv/Q0ND//v7+//7+/v9hYWH/AAAA/yUlJf/Dw8P/4ODg//n5+f/29vb//Pz8/+Li4v9MTEz/AAAA/wAAAP8AAAD/ZGRk///////7+/v/MTEx/xUVFf8WFhb/jY2N//7+/v/+/v7//v7+//7+/v/+/v7/+vr6/2FhYf8VFRX/FRUV/zMzM//8/Pz/7+/v/xgYGP8TExP/ExMT/xMTE/+2trb//v7+//7+/v/+/v7//v7+//7+/v/z8/P/JiYm/xMTE/8ZGRn/8PDw/+zs7P8EBAT/AAAA/wAAAP8AAAD/NjY2//39/f/+/v7//v7+//7+/v/+/v7//v7+/zk5Of8AAAD/BgYG/+3t7f/5+fn/FhYW/wAAAP8AAAD/AAAA/wICAv/T09P//v7+//7+/v/+/v7//v7+//7+/v9BQUH/AAAA/xcXF//5+fn//v7+/1FRUf8AAAD/AAAA/wAAAP8AAAD/RUVF//Pz8//+/v7//v7+//7+/v/+/v7/Li4u/wAAAP9UVFT///////////+7u7v/AQEB/wAAAP8AAAD/AAAA/wAAAP8fHx//vLy8//7+/v/+/v7/8/Pz/xEREf8BAQH/vb29/////////////f39/1hYWP8AAAD/AAAA/wAAAP8AAAD/GBgY/15eXv+Li4v/39/f/2tra/8AAAD/W1tb//7+/v/////////////////x8fH/Q0ND/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wMDA/8AAAD/RUVF//Ly8v////////////////////////////b29v+EhIT/EhIS/wAAAP8AAAD/AAAA/wAAAP8TExP/hYWF//f39/////////////////////////////////////////////Ly8v+2trb/kJCQ/5CQkP+3t7f/8/Pz////////////////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 5,
+  "last_updated": "2023-04-02T02:03:11+00:00",
+  "score": 13,
+  "self_url": "https://www.capitolhillseattle.com/feed/",
+  "site_name": "CHS Capitol Hill Seattle News",
+  "site_url": "https://www.capitolhillseattle.com",
+  "title": "CHS Capitol Hill Seattle News",
+  "url": "https://www.capitolhillseattle.com/feed/",
+  "velocity": 1.6,
+  "version": "rss20"
+}

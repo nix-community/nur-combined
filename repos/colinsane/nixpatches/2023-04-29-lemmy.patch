@@ -1,0 +1,15 @@
+diff --git a/pkgs/servers/web-apps/lemmy/pin.json b/pkgs/servers/web-apps/lemmy/pin.json
+index b2a1f1923ce..621b5945b6b 100644
+--- a/pkgs/servers/web-apps/lemmy/pin.json
++++ b/pkgs/servers/web-apps/lemmy/pin.json
+@@ -1,7 +1,7 @@
+ {
+-  "version": "0.17.2",
+-  "serverSha256": "sha256-fkpMVm52XLyrk9RfzJpthT8fctIilawAIgfK+4TXHvU=",
+-  "serverCargoSha256": "sha256-AC6EP612uaeGfqHbrHrz89h0tsNlMceEg6GxEsm1QMA=",
++  "version": "88a0d2feec3f9b4a06f2d8d090894111afcbd9e2",
++  "serverSha256": "sha256-jVa7SckpH21TG+i1yjJOkhEgjnZ0Zgk2IUP7sCdtv1Y=",
++  "serverCargoSha256": "sha256-trp/TCGtAtZlKdZk2CaJ3E9Lj95cq797PLWUF/DD6/M=",
+   "uiSha256": "sha256-0Zhm6Jgc6rlN4c7ryRnR45+fZEdzQhuOXSwU8Wz0D5g=",
+   "uiYarnDepsSha256": "sha256-aZAclSaFZJvuK+FpCBWboGaVEOEJTxq2jnWk0A6iAFw="
+ }

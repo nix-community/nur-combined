@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 453506,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Balaji Srinivasan's personal blog. Formerly CTO of Coinbase and General Partner at a16z, @balajis is an investor and founder.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 15,
+  "last_updated": "2022-04-28T18:22:11+00:00",
+  "score": 16,
+  "self_url": "https://balajis.com/rss/",
+  "site_name": "Balaji Srinivasan",
+  "site_url": "https://balajis.com",
+  "title": "Balaji Srinivasan",
+  "url": "https://balajis.com/rss/",
+  "velocity": 0.01,
+  "version": "rss20"
+}

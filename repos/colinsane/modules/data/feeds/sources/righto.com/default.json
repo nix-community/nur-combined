@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 862917,
+  "content_type": "application/atom+xml; charset=utf-8",
+  "description": "Computer history, restoring vintage computers, IC reverse engineering, and whatever",
+  "favicon": "https://www.blogger.com/about/favicon/favicon.ico",
+  "hubs": [
+    "http://pubsubhubbub.appspot.com/"
+  ],
+  "is_podcast": false,
+  "is_push": true,
+  "item_count": 25,
+  "last_seen": "2023-01-11T12:29:19.820378+00:00",
+  "last_updated": "2023-01-10T18:21:20.265000+00:00",
+  "score": -2,
+  "self_url": "https://www.blogger.com/feeds/6264947694886887540/posts/default",
+  "site_name": "Blogger.com - Create a unique and beautiful blog easily.",
+  "site_url": "https://www.blogger.com",
+  "title": "Ken Shirriff's blog",
+  "url": "https://www.blogger.com/feeds/6264947694886887540/posts/default",
+  "velocity": 0.12,
+  "version": "atom10"
+}

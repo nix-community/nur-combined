@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 76362,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "Empowering everyone to build reliable and efficient software.",
+  "favicon": "https://blog.rust-lang.org/images/favicon-16x16.png",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4gseBBkAzEcAUAAAAWlJREFUOMul079L1WEUBvCPdhPUzbhC3JYQwn6MLTU4CA5C/QMJimQS2NDiZpM0NDoZ0iK4+SdIV5ykpgKtIYyiqCBSuKBBibflufBiVxt64eV73uc855z3fb7ndPh7daMPU/gR7ByeYRc/nbJGMI8GjvAKb2M34hspA84U9jgeYAIv8Bi9+IxFnMcYLqCJ12WiYTzHL0wee05Xcb6H3+EOt8CeXK0Z526b/R1ruIL74c4nVi3v+4BvOAxhHzv4lHMTb3A1WAO1zqjdhRU8SjWpOIBBvAx2hFEsRZ8pmEn28ZC+FhXLvY9L4UwHm+ksBNo79kvf4QlWC61uxR5qkSqoJttkROqN7wDvk+Q6LuIh+nEnMdVSxOYJ+zKetsEbqFVy9QXMpYE28TE3gC+YxXaKDeFGYvYqIa7jZppjI/2w1GZGzia4npiDSpz1tCjcjg5VbAW7hrtpqjqW8/3nMLXee+IwdfzvOP8BuzB3onylpecAAAAASUVORK5CYII=",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 10,
+  "last_updated": "2023-03-09T00:00:00+00:00",
+  "score": 20,
+  "self_url": "https://blog.rust-lang.org/feed.xml",
+  "site_name": "The Rust Programming Language Blog",
+  "site_url": "https://blog.rust-lang.org",
+  "title": "Rust Blog",
+  "url": "https://blog.rust-lang.org/feed.xml",
+  "velocity": 0.096,
+  "version": "atom10"
+}

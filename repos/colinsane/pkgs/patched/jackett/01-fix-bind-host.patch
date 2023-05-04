@@ -1,0 +1,13 @@
+diff --git a/src/Jackett.Common/Models/Config/ServerConfig.cs b/src/Jackett.Common/Models/Config/ServerConfig.cs
+index 4bd02c42e..49c2d91ff 100644
+--- a/src/Jackett.Common/Models/Config/ServerConfig.cs
++++ b/src/Jackett.Common/Models/Config/ServerConfig.cs
+@@ -102,6 +102,7 @@ namespace Jackett.Common.Models.Config
+ 
+         public string[] GetListenAddresses(bool? external = null)
+         {
++            return new string[] { "http://0.0.0.0:" + Port + "/" };
+             if (external == null)
+             {
+                 external = AllowExternal;
+

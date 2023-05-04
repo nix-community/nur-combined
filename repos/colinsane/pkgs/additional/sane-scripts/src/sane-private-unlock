@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -ex
+
+# mounts ~/private
+
+mount=/home/colin/private
+cipher="/nix/persist$mount"
+mkdir -p "$mount"
+if [ ! -f "$mount/init" ]
+then
+  gocryptfs "$cipher" "$mount"
+fi

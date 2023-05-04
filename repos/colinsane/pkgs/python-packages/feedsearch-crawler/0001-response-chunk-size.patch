@@ -1,0 +1,13 @@
+diff --git a/feedsearch_crawler/crawler/request.py b/feedsearch_crawler/crawler/request.py
+index 70f3d5a..00668ad 100644
+--- a/feedsearch_crawler/crawler/request.py
++++ b/feedsearch_crawler/crawler/request.py
+@@ -277,7 +277,7 @@ class Request(Queueable):
+         """
+         body: bytes = b""
+         try:
+-            async for chunk in resp.content.iter_chunked(1024):
++            async for chunk in resp.content.iter_chunked(64 * 1024):
+                 if not chunk:
+                     break
+                 body += chunk

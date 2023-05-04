@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -ex
+
+# if lan not mounted, then try to mount it
+if ! (test -d /mnt/servo-media-lan/Music)
+then
+  sudo mount /mnt/servo-media-lan
+fi
+# not much reason not to mount the wan while we're here.
+if ! (test -d /mnt/servo-media-wan/Music)
+then
+  sudo mount /mnt/servo-media-wan
+fi
+
+mnt=/mnt/servo-media-wan
+# if the LAN is accessible, prefer that
+test -d /mnt/servo-media-wan/Music && mnt=/mnt/servo-media-lan
+
+# symlink the fastest mount point into place
+# uncomment if i see the bug again: sudo unlink /mnt/servo-media  # XXX ln gets confused if the destination is a symlink to a stale mount
+sudo ln -sf --no-dereference $mnt /mnt/servo-media

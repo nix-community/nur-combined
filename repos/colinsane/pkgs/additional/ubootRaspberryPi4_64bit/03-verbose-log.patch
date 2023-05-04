@@ -1,0 +1,65 @@
+diff --git a/disk/part.c b/disk/part.c
+index 79955c7fb0..c1d469cebb 100644
+--- a/disk/part.c
++++ b/disk/part.c
+@@ -15,7 +15,7 @@
+ #include <part.h>
+ #include <ubifs_uboot.h>
+ 
+-#undef	PART_DEBUG
++#define        PART_DEBUG
+ 
+ #ifdef PART_DEBUG
+ #define        PRINTF(fmt,args...)     printf (fmt ,##args)
+
+diff --git a/disk/part_efi.c b/disk/part_efi.c
+index 829ccb6bd1..5f3f0ae042 100644
+--- a/disk/part_efi.c
++++ b/disk/part_efi.c
+@@ -1044,6 +1044,8 @@ static int is_gpt_valid(struct blk_desc *dev_desc, u64 lba,
+		return 2;
+	}
+ 
++       printf("is_gpt_valid: sig, lba0, lbaend %llx %llx %llx\n", pgpt_head->signature, pgpt_head->first_usable_lba, pgpt_head->last_usable_lba);
++
+	if (validate_gpt_header(pgpt_head, (lbaint_t)lba, dev_desc->lba))
+		return 0;
+ 
+@@ -1088,6 +1090,7 @@ static int find_valid_gpt(struct blk_desc *dev_desc, gpt_header *gpt_head,
+			  gpt_entry **pgpt_pte)
+ {
+	int r;
++       printf("find_valid_gpt %s\n", dev_desc->vendor);
+ 
+	r = is_gpt_valid(dev_desc, GPT_PRIMARY_PARTITION_TABLE_LBA, gpt_head,
+			 pgpt_pte);
+
+diff --git a/drivers/block/blk-uclass.c b/drivers/block/blk-uclass.c
+index 21c5209bb6..6ce03d8d09 100644
+--- a/drivers/block/blk-uclass.c
++++ b/drivers/block/blk-uclass.c
+@@ -443,6 +443,8 @@ unsigned long blk_dread(struct blk_desc *block_dev, lbaint_t start,
+	const struct blk_ops *ops = blk_get_ops(dev);
+	ulong blks_read;
+ 
++	printf("blk_dread %s %llu %llu\n", block_dev->vendor, start, blkcnt);
++
+	if (!ops->read)
+		return -ENOSYS;
+ 
+diff --git a/include/log.h b/include/log.h
+index 8f35c10abb..afd2d704f4 100644
+--- a/include/log.h
++++ b/include/log.h
+@@ -241,11 +241,7 @@ int _log_buffer(enum log_category_t cat, enum log_level_t level,
+                      __func__, pr_fmt(_fmt), ##_args); \
+ })
+ 
+-#ifdef DEBUG
+ #define _DEBUG	1
+-#else
+-#define _DEBUG	0
+-#endif
+ 
+ #ifdef CONFIG_SPL_BUILD
+ #define _SPL_BUILD     1

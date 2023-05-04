@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+# this really does need zsh because bash `test -e` behaves differently
+set -ex
+
+# make sure the mountpoint exists
+if ! (test -e /mnt/iphone)
+then
+  sudo umount /mnt/iphone || true  # maybe the mount hung
+
+  if ! (test -e /mnt/iphone)
+  then
+    sudo mkdir /mnt/iphone
+    sudo chown colin:users /mnt/iphone
+  fi
+fi
+
+# make sure the device is mounted
+if ! (test -d /mnt/iphone/DCIM)
+then
+  umount /mnt/iphone || true
+  ifuse /mnt/iphone
+fi
+
+rsync -arv /mnt/iphone/DCIM/ /home/colin/Pictures/iphone/

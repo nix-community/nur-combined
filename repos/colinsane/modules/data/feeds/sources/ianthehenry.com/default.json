@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 359714,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Ian Henry's blog.",
+  "favicon": "https://ianthehenry.com/favicon.ico",
+  "favicon_data_uri": "data:image/png;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAHH1uIDShg/xEsZv8GFk3/CSJb/wgZT/8IGU//CBlP/wkiW/8HGE7/CBlP/wkiW/8HIFX/BxhO/wcgVf8OK2t7JDhz/wcfW/8NNn7/CSpq/wkjYf8MJGP/DCJg/w02ef9SqdX/TKHJ/1my2f9Moc3/UqzV/1Cr1v9Pocf/Ditr/xk2cf8KJGL/CjR8/wwva/8RK2r/Cido/w8qa/8LLW//TqjT/1Gnz/9bsNf/Sp/K/1Wt2f9Wrtj/UKjQ/w8xc/8gPHj/Di5w/xk4ef8TL27/Dy5u/xU3fv8QLGv/Ditr/1qy3f9dttv/Yrje/0ecx/9Knsz/U6fQ/1m13f8YN3n/JjZx/wszdv8YOXz/Eilm/xc3e/8dSZT/GDJz/xk/hv9hu+P/WbHZ/1mv1v9Kn8z/WLHd/1212v9ds9n/Eipr/xcqYv8SOX3/GzRz/xQrZ/8aM3D/HEuU/xc0df8fPYD/Yrre/1603P9dt9z/VKvY/1iz4v9etNr/Y73m/xk5fP8cMm3/JEWK/xc0dP8eO3v/Hjd4/ydRnP8WM3P/Gjd3/2bA5/9dtd//Ybng/2K95v9ct+P/Ybnf/2K95/8oS5L/GChg/xxBh/8lSIz/GC5s/yM5ev8hRoz/HTp7/yE6e/9Zsdz/YLzn/2jF7v9ryfL/YLzn/1qu1f9htdz/GDyD/y0/ev9qx/X/acDn/1235v9euun/Yb3r/1665v9owu7/GUOL/yhGh/8nUJL/MkmI/yBFiP8jOHb/MVag/yM+gv8VMGv/acXx/27G7/9szv3/bMb1/2zD6/9vy/X/edf5/yBHjv8yS47/JEuO/zVLiv8nS5D/LkOB/yRXpP8lQoT/H0WI/3fS+P910Pf/b8/8/2bB7/991Pn/eNb+/3nT+P8pS5L/O1GS/ytUnP86UJH/NF2k/zNLjP8sXKv/JkCB/x4+ff+B2/3/etT9/4He//922f//fNf//3TT//991/7/NU6N/zZSkP86Zav/PlWR/zFepv88ZKb/MF2n/yQ/gf8bNXH/fd3//3/b//+K6P//ft///3vV//993f//gdz//0hWlf9FZKX/RmOj/0JXlv9IeMP/QXKz/0Jsuf8eO3z/Hjt2/3vd//+C3v//ju3//3zg//+H4v//guL//4nj//9HXp3/UGur/ztgqf9JYqP/S3G4/05ur/9EbLT/Hjt7/zNJhf+G4///heT//4rq//+E5///iOT//4jr//+G4///UXO0/09iov9EX6H/SWWn/1V5wP9Kaa7/RGSp/ydLj/8NKGCfDShg/x8+d/8RLGb/CBlP/wYWTf8GFEj/CBNH/wooZP8JIlv/CCJd/woWSf8HGE7/ByBV/wwgU/8fO3mfAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 10,
+  "last_updated": "2022-07-11T00:00:00+00:00",
+  "score": 20,
+  "self_url": "https://ianthehenry.com/feed.xml",
+  "site_name": "Ian Henry",
+  "site_url": "https://ianthehenry.com",
+  "title": "Ian Henry",
+  "url": "https://ianthehenry.com/feed.xml",
+  "velocity": 0.027,
+  "version": "rss20"
+}

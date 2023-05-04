@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 272569,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Audio version of the posts shared in the LessWrong Curated newsletter.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [
+    "https://pubsubhubbub.appspot.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 56,
+  "last_updated": "2023-03-08T08:00:00+00:00",
+  "score": 32,
+  "self_url": "https://feeds.buzzsprout.com/2037297.rss",
+  "site_name": "",
+  "site_url": "",
+  "title": "LessWrong Curated Podcast",
+  "url": "https://feeds.buzzsprout.com/2037297.rss",
+  "velocity": 0.192,
+  "version": "rss20"
+}

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+ip=$(curl --silent https://ipinfo.io/ip)
+echo "$ip" | grep -P " *^\d+\.\d+\.\d+\.\d+ *$"
+exit $?

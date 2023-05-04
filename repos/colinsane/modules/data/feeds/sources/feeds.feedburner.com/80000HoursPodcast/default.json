@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 1505641,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "<p>Unusually in-depth conversations about the world's most pressing problems and what you can do to solve them.<br /></p>",
+  "favicon": null,
+  "hubs": [
+    "https://pubsubhubbub.appspot.com/"
+  ],
+  "is_podcast": true,
+  "is_push": true,
+  "item_count": 181,
+  "last_seen": "2023-01-11T13:29:43.501516+00:00",
+  "last_updated": "2023-01-09T22:57:00+00:00",
+  "score": 14,
+  "self_url": "https://feeds.backtracks.fm/feeds/80000hours/80000-hours-podcast-with-rob-wiblin/feed.xml",
+  "site_name": null,
+  "site_url": null,
+  "title": "80,000 Hours Podcast with Rob Wiblin",
+  "url": "https://feeds.feedburner.com/80000HoursPodcast",
+  "velocity": 0.087,
+  "version": "rss20"
+}

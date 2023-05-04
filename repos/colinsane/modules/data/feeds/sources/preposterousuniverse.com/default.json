@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 997224,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Preposterous Universe",
+  "favicon": "https://www.preposterousuniverse.com/wp-content/uploads/cropped-prepu-32x32.png",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADqklEQVRYhe2WT2hcVRjFf+e+STqTaP5RG/FPYzCKQgoBi6LWahdFUEGI1aXQhdSN7kXX4t6NCIpFsHSjIkWz6lItQslCKmGqaWsT2mhNk0kaM/PeOy7mzczLdGqSVTa5cHhc7ve+c+6957v3CjA72MJOku8K2BUAUPj/YTW/AkwXLc0pkAApwrlS2l5RqfMfAnoJeh70LPZjwChoGOjKYm6Bq4hrmKtI0+BzmPPgyrYEOQ8x4KAPHXTdqGqoGZI2pBka/bgep5qlJStMOegdS48a5HaONuTINeGgC1nCPNFW0C4ytlRxCF856EmjaDMB/ZZmcuSdZrxdIXEduuUofGHpvk4rgkGWXs0t93bI4k1EZzGqWZp10DMbRISWDfZRd3jD+VuzTm+0yNgDZYqla0hVUNxmLeo5HbBHMN8gPdHMUmgGsIxYwvRvSYSUcBeLnGaSw6u/8O+Lw1wZ38fsyAiXK/u5ePFhyuUxyuVR5ubuIU6K4AL2ICF8CT6IWW2UYUC8gfUC+HhLV0chKQB9usFpTXI0/bFVy4K4KxA/1QUvR+illD2Pm7W1Pv64dC+Xfh/lt5kxyuVHOHv2U2ZnzzfWqtviuOGExSnD2h28UN/PPi34+3DIMXIKtyFBjpGrIfLKWNEr75ZcmSo5Xik5ToKTJPiD9/vzJhw0vGVxwvC24ROLhQ7lWHNJN/119IpjcNKBvCWiNR6DY8krQwVXjvV4+WSvjxzuq5d+XcAQ4hiNg9EEYC9wBDgI9IBMiVVO6k0m0zMoM9hmbnFbP5U4U+ji9TghdtLYvojAJGYQmid7AIrAXsQBihrl8/Aer6U/EDntbMzNyIFrocBzMpeSBGi6LSHlHOgocpQlM+YWMIdZ5ACfUU2n+BkYlhhE3G1nN4M3XKvOfRNgHVgFbgIfSVxOk2Zs7jb8E/knzNNAQ4SABLHMg/zKjFPmMT1ACdML9AN9EqVsvSIaJ4BJDDXqWAOmo4hTSbzh7swJMOYCYgk4lJ0H9ZUoqMaQ5vnLpgKUgJ4MN4A9NkXq92QhQ6M044x8IQQ+Tk21bWNuew+YeeBbxDgwjulmP/MoXSfNkq0DlYywO5t5d4aI1oshzmb/twLfAVc6eOcO74FGKxF4iIlojYn0StN8ZqPhlJHmyQ2sKzCDmCZl2Z1pNhHQCIGizP0KDBv6MXuAHlQ3YZalBiwB/wDXEVdJqG4h+yYhtwcr12t3f74CtpNzx9qOv4p3Bey4gMLAwMCOCvgPU/1XrXUZXDwAAAAASUVORK5CYII=",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 10,
+  "last_updated": "2023-01-23T12:26:31+00:00",
+  "score": 12,
+  "self_url": "https://www.preposterousuniverse.com/feed/",
+  "site_name": "Sean Carroll \u2013 Preposterous Universe",
+  "site_url": "https://www.preposterousuniverse.com",
+  "title": "Sean Carroll",
+  "url": "https://www.preposterousuniverse.com/feed/",
+  "velocity": 0.129,
+  "version": "rss20"
+}

@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 115494,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Embedded Linux, Electronics, and more.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 3,
+  "last_updated": "2021-06-02T00:00:00+00:00",
+  "score": 20,
+  "self_url": "https://sagacioussuricata.com/feed.xml",
+  "site_name": "Sagacious Suricata",
+  "site_url": "https://sagacioussuricata.com",
+  "title": "Sagacious Suricata",
+  "url": "https://sagacioussuricata.com/feed.xml",
+  "velocity": 0.018,
+  "version": "atom10"
+}

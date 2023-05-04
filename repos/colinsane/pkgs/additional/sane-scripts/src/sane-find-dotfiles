@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# find where a package stores its dotfiles/dotdir
+# e.g. `sane-find-dotfiles foo` might print `/home/colin/.foo`, `/home/colin/.local/share/foo`, etc.
+
+find ~/ -maxdepth 1 -iname "*$1*" -print
+find ~/.local/share/*/ -maxdepth 1 -iname "*$1*" -print
+find ~/.config/*/ -maxdepth 1 -iname "*$1*" -print
+find ~/.cache/*/ -maxdepth 1 -iname "*$1*" -print
+

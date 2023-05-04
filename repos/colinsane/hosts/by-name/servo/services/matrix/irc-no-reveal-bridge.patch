@@ -1,0 +1,13 @@
+diff --git a/src/irc/ConnectionInstance.ts b/src/irc/ConnectionInstance.ts
+index 688036ca..3373fa27 100644
+--- a/src/irc/ConnectionInstance.ts
++++ b/src/irc/ConnectionInstance.ts
+@@ -149,7 +149,7 @@ export class ConnectionInstance {
+         if (this.dead) {
+             return Promise.resolve();
+         }
+-        ircReason = ircReason || reason;
++        ircReason = "bye"; // don't reveal through the IRC quit message that we're a bridge
+         log.info(
+             "disconnect()ing %s@%s - %s", this.nick, this.domain, reason
+         );

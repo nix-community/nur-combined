@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 33691,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Upon a globe of math, a blog of math and puns",
+  "favicon": "https://putanumonit.files.wordpress.com/2017/04/putanumonit-logo-square1.png?w=32",
+  "favicon_data_uri": "data:image/png;base64,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",
+  "hubs": [
+    "https://putanumonit.com/?pushpress=hub"
+  ],
+  "is_podcast": false,
+  "is_push": true,
+  "item_count": 20,
+  "last_updated": "2023-01-04T19:22:18+00:00",
+  "score": 22,
+  "self_url": "https://putanumonit.com/feed/",
+  "site_name": "Put A Number On It!",
+  "site_url": "https://putanumonit.com",
+  "title": "Put A Number On It!",
+  "url": "https://putanumonit.com/feed/",
+  "velocity": 0.03,
+  "version": "rss20"
+}

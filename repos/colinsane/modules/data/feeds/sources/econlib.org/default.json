@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 66775,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "The Library of Economics and Liberty",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 10,
+  "last_seen": "2023-01-11T10:46:38.526754+00:00",
+  "last_updated": "2023-01-10T05:21:31+00:00",
+  "score": 14,
+  "self_url": "https://www.econlib.org/feed/",
+  "site_name": "Econlib",
+  "site_url": "https://www.econlib.org",
+  "title": "Econlib",
+  "url": "https://www.econlib.org/feed/",
+  "velocity": 2.549,
+  "version": "rss20"
+}

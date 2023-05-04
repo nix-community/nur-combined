@@ -1,0 +1,195 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+
+import os
+import os.path
+import subprocess
+import sys
+
+EXTLINUX_CONF = "/boot/extlinux/extlinux.conf"
+
+class ConfItem:
+    pass
+
+class ConfLine:
+    """ uninteresting line in the config """
+    def __init__(self, line: str):
+        self.line = line
+
+    def __str__(self) -> str:
+        return self.line
+
+class ConfEntry:
+    """ boot entry, with label/linux/etc """
+    menu = linux = initrd = append = fdtdir = None
+    def __init__(self, label: str):
+        self.label = label
+
+    def format_attr(self, attr_name: str) -> str:
+        attr_val = getattr(self, attr_name)
+        assert attr_val is not None, f"not set: {attr_name}"
+        return f"{attr_name.upper()} {attr_val}"
+
+    def __str__(self) -> str:
+        return f"""
+{self.format_attr("label")}
+  {self.format_attr("menu")}
+  {self.format_attr("linux")}
+  {self.format_attr("initrd")}
+  {self.format_attr("append")}
+  {self.format_attr("fdtdir")}
+""".strip()
+
+    def parse(self, line: str) -> None:
+        split_at = line.index(" ")
+        directive, contents = line[:split_at], line[1+split_at:]
+        self.setattr(directive.lower(), contents)
+
+    def setattr(self, directive: str, contents: str) -> None:
+        assert getattr(self, directive) is None, f"attr already set: {directive} = {contents!r}"
+        setattr(self, directive, contents)
+
+
+class UseTracker:
+    def __init__(self):
+        self.linux = []
+        self.initrd = []
+        self.fdtdir = []
+        self.sizes = {}  # item: str -> [num_using, bytes]
+
+    @staticmethod
+    def from_items(entries: list) -> 'UseTracker':
+        me = UseTracker()
+        me.populate_from_fs()
+        for i in entries:
+            me.track(i)
+        return me
+
+    def populate_from_fs(self) -> None:
+        for entry in os.listdir("/boot/nixos"):
+            item = os.path.join("../nixos", entry)
+            self.sizes[item] = [0, self._get_size(item)]
+
+    def append_unique(self, list_: list, item: str) -> None:
+        if item not in list_:
+            list_.append(item)
+        self.sizes[item][0] += 1
+
+    def track(self, entry: ConfItem) -> None:
+        if isinstance(entry, ConfEntry):
+            self.append_unique(self.linux, entry.linux)
+            self.append_unique(self.initrd, entry.initrd)
+            self.append_unique(self.fdtdir, entry.fdtdir)
+
+    def get_use_count(self, item: str) -> int:
+        return self.sizes[item][0]
+
+    def get_size(self, item: str) -> int:
+        return self.sizes[item][1]
+
+    def used_size(self) -> int:
+        return sum(i[1] for i in self.sizes.values() if i[0] != 0)
+
+    def get_unused(self) -> list:
+        return [i for (i, v) in self.sizes.items() if v[0] == 0]
+
+    def unused_size(self) -> int:
+        return sum(self.get_size(i) for i in self.get_unused())
+
+    def _get_size(self, item: str) -> int:
+        path = os.path.join("/boot/extlinux", item)
+        du_output = subprocess.check_output(["du", "-b", "-c", path], text=True).strip()
+        last = du_output.split("\n")[-1]
+        size, label = last.split("\t")
+        assert label == "total", f"unexpected du output: {last}"
+        return int(size)
+
+def print_use_by_cat(tracker: UseTracker, label: str) -> None:
+    items = getattr(tracker, label)
+    formatted_items = []
+    for item in items:
+        count, size = tracker.get_use_count(item), tracker.get_size(item)
+        formatted_items.append(f"\n    {item}\n      {count}x {size}")
+    print(f"  {label}:{''.join(formatted_items)}")
+
+def print_tracker_use(tracker: UseTracker) -> None:
+    print("in use:")
+    print_use_by_cat(tracker, "linux")
+    print_use_by_cat(tracker, "initrd")
+    print_use_by_cat(tracker, "fdtdir")
+    print("unused:")
+    for i in tracker.get_unused():
+        print(f"  {i}\n    {tracker.get_size(i)}")
+    print(f"used space: {tracker.used_size()}")
+
+def delete_unused_from_disk(tracker: UseTracker) -> None:
+    for f in tracker.get_unused():
+        path = os.path.join("/boot/extlinux", f)
+        cmd = ["rm", "-r", "-f", path]
+        print(" ".join(cmd))
+        subprocess.check_output(cmd)
+
+def parse_extlinux(contents: str) -> list:
+    items = []
+    active_entry = None
+    for line in contents.split("\n"):
+        if line.startswith("#") or line == "" or line.startswith("DEFAULT ") or line.startswith("MENU ") or line.startswith("TIMEOUT "):
+            items.append(ConfLine(line))
+        elif line.startswith("LABEL "):
+            items.append(ConfEntry(line[len("LABEL "):]))
+        elif line.startswith("  "):
+            items[-1].parse(line[2:])
+        else:
+            assert False, f"unknown directive {line!r}"
+
+    return items
+
+def write_extlinux(contents: str) -> None:
+    with open(EXTLINUX_CONF, "r+") as new:
+        # backup file
+        with open("./extlinux.conf.back", "w") as back:
+            back.write(new.read())
+
+        new.seek(0)
+        new.write(new_extlinux)
+        new.truncate()
+
+def dump_items(items: list) -> str:
+    return "\n".join(str(i) for i in items)
+
+def prompt_continue() -> None:
+    if input("continue? [y/N] ").lower() != "y":
+        print("aborting")
+        sys.exit(0)
+
+orig_extlinux = open(EXTLINUX_CONF, "r").read()
+items = parse_extlinux(orig_extlinux)
+tracker = UseTracker.from_items(items)
+print_tracker_use(tracker)
+print()
+
+if tracker.get_unused():
+    print(f"recommended to delete unused items from disk to save {tracker.unused_size()}b")
+    prompt_continue()
+else:
+    orig_tracker = tracker
+    rmcount = 0
+    while tracker.used_size() == orig_tracker.used_size():
+        item = items.pop()
+        rmcount += isinstance(item, ConfEntry)
+        tracker = UseTracker.from_items(items)
+
+    orig_size = orig_tracker.used_size()
+    new_size = tracker.used_size()
+    print(f"recommended to delete {rmcount} oldest entries to save {orig_size - new_size}b")
+    print_tracker_use(tracker)
+    prompt_continue()
+    print()
+
+    new_extlinux = dump_items(items)
+    print(f"new contents:\n{new_extlinux}")
+    prompt_continue()
+
+    write_extlinux(new_extlinux)
+
+delete_unused_from_disk(tracker)

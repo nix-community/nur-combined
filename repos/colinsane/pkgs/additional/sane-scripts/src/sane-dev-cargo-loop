@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# watches PWD for any changes underneath it and re-runs `cargo build --a>
+# optionally, provide your own build command as the first argument
+
+external_cmd="cargo build --all"
+if [ "x$1" != "x" ]
+then
+        external_cmd=$1
+fi
+
+# run this once before starting the inotify
+$external_cmd
+
+# other interesting commands to monitor:
+# - -e move
+# - -e create
+# - -e delete
+# - -e close_write
+# but most (except close_write) seem to cause multiple events per vim :w
+# TODO: consider using watchman: https://facebook.github.io/watchman/
+# - watchman waits for the root to settle before invoking my command
+#   so, fewer runs
+inotifywait --monitor --recursive \
+  --timefmt '%d/%m/%y %H:%M' --format '%T %w %f' \
+  -e modify ./ |
+while read -r date time dir file
+do
+        tput reset
+        $external_cmd
+done

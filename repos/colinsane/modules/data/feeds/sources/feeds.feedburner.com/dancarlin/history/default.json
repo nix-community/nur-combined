@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 23712,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "This isn't academic history (and Carlin isn't a historian) but the podcast's unique blend of high drama, masterful narration and Twilight Zone-style twists has entertained millions of listeners.",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 13,
+  "last_seen": "2023-01-11T15:05:34.359948+00:00",
+  "last_updated": "2022-03-06T19:08:44+00:00",
+  "score": 2,
+  "self_url": "https://feeds.feedburner.com/dancarlin/history?format=xml",
+  "site_name": null,
+  "site_url": null,
+  "title": "Dan Carlin's Hardcore History",
+  "url": "https://feeds.feedburner.com/dancarlin/history",
+  "velocity": 0.005,
+  "version": "rss20"
+}

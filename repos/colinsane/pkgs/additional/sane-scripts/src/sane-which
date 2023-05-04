@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# traces a PATH lookup by printing the source, resolution, and any symlinks traversed
+# finally, prints the content of the file
+echo $1
+
+v=$(which $1)
+# this probably doesn't handle paths with spaces
+while [ "$(readlink $v || echo $v)" != "$v" ]
+do
+  # TODO: this doesn't handle relative symlinks
+  echo '->' "$v"
+  v=$(readlink "$v")
+done
+
+echo '->' "$v"
+echo ''
+case $(file --brief --mime "$v") in
+  (*text*)
+    cat "$v"
+    ;;
+  (*)
+    echo $(file "$v")
+    ;;
+esac

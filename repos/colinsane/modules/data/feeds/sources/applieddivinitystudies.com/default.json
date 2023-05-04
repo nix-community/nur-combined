@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 208377,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "applieddivinitystudies@gmail.com",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 20,
+  "last_updated": "2022-12-20T01:23:44.546000+00:00",
+  "score": 26,
+  "self_url": "https://applieddivinitystudies.com/atom.xml",
+  "site_name": "Applied Divinity Studies",
+  "site_url": "https://applieddivinitystudies.com",
+  "title": "Applied Divinity Studies",
+  "url": "https://applieddivinitystudies.com/atom.xml",
+  "velocity": 0.079,
+  "version": "atom10"
+}

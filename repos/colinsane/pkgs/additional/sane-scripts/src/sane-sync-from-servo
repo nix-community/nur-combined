@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -ex
+sane-mount-servo
+
+rsync -arv --delete --progress $mnt/Music/ ~/Music/
+

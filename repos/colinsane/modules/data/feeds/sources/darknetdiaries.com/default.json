@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 227480,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "True stories from the dark side of the Internet",
+  "favicon": "https://darknetdiaries.com/imgs/favicon.png",
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 131,
+  "last_seen": "2023-01-11T14:49:53.136566+00:00",
+  "last_updated": "2022-12-27T08:00:00+00:00",
+  "score": 20,
+  "self_url": "https://darknetdiaries.com/feedfree.xml",
+  "site_name": "Darknet Diaries – True stories from the dark side of the Internet.",
+  "site_url": "https://darknetdiaries.com",
+  "title": "Darknet Diaries (ad free)",
+  "url": "https://darknetdiaries.com/feedfree.xml",
+  "velocity": 0.067,
+  "version": "rss20"
+}

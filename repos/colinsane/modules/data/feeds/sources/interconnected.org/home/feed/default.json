@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 80033,
+  "content_type": "application/xml; charset=utf-8",
+  "description": "A blog by Matt Webb. My notebook and space for thinking out loud since February 2000.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 8,
+  "last_updated": "2023-01-24T20:48:00+00:00",
+  "score": 22,
+  "self_url": "",
+  "site_name": "Matt Webb",
+  "site_url": "https://interconnected.org",
+  "title": "Interconnected",
+  "url": "https://interconnected.org/home/feed",
+  "velocity": 0.279,
+  "version": "rss20"
+}

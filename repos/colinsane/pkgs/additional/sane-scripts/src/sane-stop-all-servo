@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+sudo systemctl stop matrix-appservice-irc mx-puppet-discord
+sudo systemctl stop pleroma gitea matrix-synapse jellyfin transmission jackett
+sudo systemctl stop ejabberd goaccess i2p kiwix-serve navidrome
+# TODO: stop the freshrss timer
+sudo systemctl stop phpfpm-freshrss
+sudo systemctl stop dovecot2 opendkin postfix
+sudo systemctl stop nginx
+sudo systemctl stop postgresql
+sudo systemctl stop duplicity.timer
+sudo systemctl stop duplicity
+sudo systemctl stop trust-dns
+sudo systemctl stop wireguard-wg-ovpns

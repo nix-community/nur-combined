@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 1250267,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "Recent content on This Week in GNOME",
+  "favicon": "https://thisweek.gnome.org/images/favicon-32x32.png",
+  "favicon_data_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAABYAAAAWABINkT2gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAI5SURBVFiFvdZPiE1RHAfwz/xBxhSTISxYaJSiJAklioWNjYWVhYWUtYRMslEWSv7WkPybsbHSGMmGDUmhyEKihMgsjMQsnjEW597emdt7z7vvvplvnTr3d3/n9/3ec8/vd35MHVqnkAu0YR+eoYQxPMWyZhEswH0M43DmXTuGMF5hXGyWgMEo6A8Tt/h0FfJxnGmEbA160ZU8twvbGgeenrxbgj81BKzNS746IhtIbB2ZoJ8j/6M1yIfyksORKMB3tCT2T5H9cuR/qwr5NyzMBq8nNYaj+Zxonu5GSfjnKdoqxBjBdnypg08XruFA8jwfv5W/IkUH+rAzs77XxC9/g1X1EKc4Fy3enNj2Cnl8qY71nejHk0TMzDzkcCUScCGy92BG3mD/Q3sF2w3sTuZLI/vbaN6NbVgnpN28xFYSDudjYRfiNblwTNiBqxn7VtxRO8/TUcL+RgXACsxN5otxtw7S7PiLlUVEwAbh9OclT8euIuTLheLTKPm4cE4aQgseFSR/qFw5c2NjQfJ3WNQoOZwoQH5PSMtCGGiAeBSHNKn96stJ/kAT2y3YUyfxLxw0CU1nj1BIapG/EErxpCHu+7Ljo3KlTNGNs/iQ+PzE8SIC1qu+C6cq+Fcq1yNFBMDJKgKeY1rG93UFv9tFBUwXrtdKIgaV832T0LRkfbYUFQCzVS/Lo3il8hXd3wzyFJ24WUVEtXtgVjMFpNiB9zWIx4RWLncvmAetQkt2XTh4X/ES5zWhAZlS/AMHdE5EpHwlOQAAAABJRU5ErkJggg==",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 86,
+  "last_updated": "2023-03-10T00:00:00+00:00",
+  "score": 46,
+  "self_url": "https://thisweek.gnome.org/index.xml",
+  "site_name": "This Week in GNOME",
+  "site_url": "https://thisweek.gnome.org",
+  "title": "This Week in GNOME",
+  "url": "https://thisweek.gnome.org/index.xml",
+  "velocity": 0.141,
+  "version": "rss20"
+}

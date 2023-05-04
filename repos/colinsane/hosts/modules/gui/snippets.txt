@@ -1,0 +1,13 @@
+https://search.nixos.org/options?channel=unstable&query=
+https://search.nixos.org/packages?channel=unstable&query=
+https://nixos.wiki/index.php?go=Go&search=
+https://nixos.org/manual/nix/stable/language/builtins.html
+https://github.com/nixos/nixpkgs/pulls?q=
+https://nur.nix-community.org/
+https://nix-community.github.io/home-manager/options.html
+https://w.uninsane.org/viewer#search?books.name=wikipedia_en_all_maxi_2022-05&pattern=
+https://jackett.uninsane.org/UI/Dashboard#search=
+https://fed.uninsane.org
+https://bt.uninsane.org
+https://sci-hub.se
+https://news.ycombinator.com

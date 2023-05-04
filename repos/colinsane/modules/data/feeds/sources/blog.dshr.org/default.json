@@ -1,0 +1,23 @@
+{
+  "bozo": 0,
+  "content_length": 623592,
+  "content_type": "application/atom+xml; charset=utf-8",
+  "description": "I'm David Rosenthal, and this is a place to discuss the work I'm doing in Digital Preservation.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [
+    "http://pubsubhubbub.appspot.com/"
+  ],
+  "is_podcast": false,
+  "is_push": true,
+  "item_count": 25,
+  "last_updated": "2023-01-10T17:59:42.157000+00:00",
+  "score": 20,
+  "self_url": "https://www.blogger.com/feeds/4503292949532760618/posts/default",
+  "site_name": "DSHR's Blog",
+  "site_url": "https://blog.dshr.org",
+  "title": "DSHR's Blog",
+  "url": "https://blog.dshr.org/feeds/posts/default",
+  "velocity": 0.35,
+  "version": "atom10"
+}

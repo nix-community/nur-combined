@@ -1,0 +1,348 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+
+# i just went overboard playing around with parsers, is all.
+# use this like `./sane-date-math 'today - 5d'`
+# of course, it handles parentheses and operator precedence/associativity, so you can do sillier things like
+# `./sane-date-math '  today - (1+3 *4 - ((0)) ) *7d '`
+
+
+import abc
+from datetime import datetime, timedelta
+import sys
+
+class Token:
+    def __init__(self, c: str):
+        self.c = c
+
+    def __repr__(self) -> str:
+        return f"{self.c!r}"
+
+    def __str__(self) -> str:
+        return self.c
+
+    def __eq__(self, other: 'Token') -> bool:
+        return self.c == other.c
+
+PLUS = Token('+')
+MINUS = Token('-')
+ASTERISK = Token('*')
+SPACE = Token(' ')
+OPEN_PAREN = Token('(')
+CLOSE_PAREN = Token(')')
+UNDERSCORE = Token('_')
+DIGITS = [Token(c) for c in '0123456789']
+ALPHA_LOWER = [Token(c) for c in 'abcdefghijklmnopqrstuvwxyz']
+ALPHA_UPPER = [Token(t.c.upper()) for t in ALPHA_LOWER]
+ALPHA = ALPHA_LOWER + ALPHA_UPPER
+ALPHA_UNDER = ALPHA + [UNDERSCORE]
+ALPHA_NUM_UNDER = ALPHA_UNDER + DIGITS
+
+class ParserContext:
+    def feed(self, token: Token) -> 'ParserContext':
+        return None  # can't ingest the token
+
+    def upgrade(self) -> 'ParserContext':
+        return None  # no upgrade path
+
+class Parser:
+    """
+    LR parser.
+    keeps exactly one root item, and for each input token
+    feeds it to the root, possibly "upgrading" the root N times
+    before it's able to be fed.
+    """
+    def __init__(self, root: ParserContext):
+        self.root = root
+
+    def feed(self, token: Token) -> bool:
+        new_root = self.root.feed(token)
+        if new_root is not None:
+            self.root = new_root
+            return True
+        else:
+            # root can't directly accept this item.
+            # "upgrade" it and try again.
+            new_root = self.root.upgrade()
+            if new_root is None: return False
+            self.root = new_root
+            return self.feed(token)
+
+    def complete(self) -> ParserContext:
+        # upgrade the root as far as possible before returning
+        root = None
+        new_root = self.root
+        while new_root is not None:
+            root = new_root
+            new_root = root.upgrade()
+
+        return root
+
+class ReprParserContext(ParserContext):
+    """ helper that gives a good default repr to most contexts """
+    def __init__(self, items: list = None):
+        self.items = items if items is not None else []
+
+    def __repr__(self) -> str:
+        return f'{self.__class__.__name__}({self.items!r})'
+
+
+class BaseContext(ReprParserContext):
+    """ empty context; initial state of the parser """
+    def feed(self, token: Token) -> ParserContext:
+        if token == SPACE:
+            return self
+        if token == OPEN_PAREN:
+            return ParenContext(BaseContext())
+        if token in DIGITS:
+            return IntegerContext([token])
+        if token in ALPHA_UNDER:
+            return IdentifierContext([token])
+
+class IdentifierContext(ReprParserContext):
+    """ context is an identifier like `today` """
+    def __init__(self, tokens: list):
+        super().__init__(tokens)
+        self.tokens = tokens
+
+    def feed(self, token: Token) -> ParserContext:
+        if token in ALPHA_NUM_UNDER:
+            return IdentifierContext(self.tokens + [token])
+
+    def upgrade(self) -> ParserContext:
+        return StrongValueContext(self)
+
+class IntegerContext(ReprParserContext):
+    """ context is an integer like `45` """
+    def __init__(self, tokens: list):
+        super().__init__(tokens)
+        self.tokens = tokens
+
+    def feed(self, token: Token) -> ParserContext:
+        if token in DIGITS:
+            return IntegerContext(self.tokens + [token])
+        if token == Token('d'):
+            return DurationContext(self)
+
+    def upgrade(self) -> ParserContext:
+        # can't continue the integer; it becomes a value
+        return StrongValueContext(self)
+
+class DurationContext(ReprParserContext):
+    """ context is a duration like `14d` """
+    def __init__(self, value: IntegerContext):
+        super().__init__([value])
+        self.value = value
+
+    def upgrade(self) -> ParserContext:
+        return StrongValueContext(self)
+
+class BaseValueContext(ReprParserContext):
+    """ abstract base for types that can be used in compound expressions """
+    def __init__(self, value: ParserContext):
+        super().__init__([value])
+        self.value = value
+
+    def feed(self, token: Token) -> ParserContext:
+        if token == SPACE:
+            return self
+
+class StrongValueContext(BaseValueContext):
+    """
+    in the context of operators, a strong value is something which prefers
+    to not be grabbed by a lhs value.
+
+    so for example, strong values have the opportunity to initiate a multiply operation before the lhs closes an addition operation that this strong value is a part of
+    """
+    def feed(self, token: Token) -> ParserContext:
+        if token == ASTERISK:
+            return BinaryOpContext(self, token, BaseContext())
+        return super().feed(token)
+
+    def upgrade(self) -> ParserContext:
+        return WeakValueContext(self.value)
+
+class WeakValueContext(BaseValueContext):
+    def feed(self, token: Token) -> ParserContext:
+        if token == PLUS:
+            return BinaryOpContext(self, token, BaseContext())
+        if token == MINUS:
+            return BinaryOpContext(self, token, BaseContext())
+
+        return super().feed(token)
+
+class BinaryOpContext(ReprParserContext):
+    """ context for a binary operation. the LHS and operator are parsed, but the rhs may not yet contain a value """
+    def __init__(self, lhs: BaseValueContext, oper: Token, rhs: ParserContext):
+        super().__init__([lhs, oper, rhs])
+        self.lhs = lhs
+        self.oper = oper
+        self.rhs = rhs
+
+    @property
+    def precedence_class(self) -> type:
+        if self.oper in [PLUS, MINUS]:
+            return WeakValueContext
+        if self.oper == ASTERISK:
+            return StrongValueContext
+
+    def feed(self, token: Token) -> ParserContext:
+        new_rhs = self.rhs.feed(token)
+        if new_rhs is not None:
+            return BinaryOpContext(self.lhs, self.oper, new_rhs)
+
+    def upgrade(self) -> ParserContext:
+        new_rhs = self.rhs.upgrade()
+        if new_rhs is None: return None
+
+        # upgrade self once the rhs has reach the required precedence compatible with this operator
+        new_self = BinaryOpContext(self.lhs, self.oper, new_rhs)
+        if isinstance(new_rhs, self.precedence_class):
+            return StrongValueContext(self)  # close the operation
+
+        return new_self
+
+class ParenContext(ReprParserContext):
+    """ context for a value contained within parentheses """
+    def __init__(self, inner: ParserContext):
+        super().__init__([inner])
+        self.inner = inner
+
+    def feed(self, token: Token) -> ParserContext:
+        new_inner = self.inner.feed(token)
+        if new_inner is not None:
+            return ParenContext(new_inner)
+
+        if token == CLOSE_PAREN and isinstance(self.inner, WeakValueContext):
+            return StrongValueContext(self)
+
+    def upgrade(self) -> ParserContext:
+        new_inner = self.inner.upgrade()
+        if new_inner is not None:
+            return ParenContext(new_inner)
+
+
+## AstItems are produced from a ParserContext input
+## ParserContext parse outputs are translated into `AstItem`s before evaluation
+## so that we can operate on a higher-level tree that directly encodes native values like integers
+
+class AstItem(metaclass=abc.ABCMeta):
+    @abc.abstractmethod
+    def eval(self, context: dict):
+        pass
+
+    @staticmethod
+    def decode_item(p: ParserContext) -> 'AstItem':
+        if isinstance(p, IntegerContext):
+            return Literal(AstItem.decode_integer(p))
+        if isinstance(p, DurationContext):
+            return Literal(timedelta(AstItem.decode_integer(p.value)))
+        if isinstance(p, IdentifierContext):
+            return Variable(AstItem.decode_identifier(p))
+        if isinstance(p, BaseValueContext):
+            return AstItem.decode_item(p.value)
+        if isinstance(p, BinaryOpContext):
+            return AstItem.decode_bin_op(
+                p.oper.c,
+                AstItem.decode_item(p.lhs),
+                AstItem.decode_item(p.rhs)
+            )
+        if isinstance(p, ParenContext):
+            return AstItem.decode_item(p.inner)
+
+    @staticmethod
+    def decode_integer(p: IntegerContext) -> int:
+        return int(''.join(t.c for t in p.tokens))
+
+    @staticmethod
+    def decode_identifier(p: IdentifierContext) -> str:
+        return ''.join(t.c for t in p.tokens)
+
+    @staticmethod
+    def decode_bin_op(ty: str, lhs: 'AstItem', rhs: 'AstItem') -> 'BinaryOp':
+        if ty == '+':
+            return AddOp(lhs, rhs)
+        if ty == '-':
+            return SubOp(lhs, rhs)
+        if ty == '*':
+            return MulOp(lhs, rhs)
+
+class Literal(AstItem):
+    def __init__(self, v):
+        self.v = v
+
+    def __str__(self) -> str:
+        return str(self.v)
+
+    def eval(self, context: dict):
+        return self.v
+
+class Variable(AstItem):
+    def __init__(self, name: str):
+        self.name = name
+
+    def __str__(self) -> str:
+        return self.name
+
+    def eval(self, context: dict):
+        return context[self.name]
+
+class BinaryOp(AstItem):
+    def __init__(self, lhs, rhs):
+        self.lhs = lhs
+        self.rhs = rhs
+
+class AddOp(BinaryOp):
+    def __str__(self):
+        return f"({self.lhs} + {self.rhs})"
+
+    def eval(self, context: dict):
+        return self.lhs.eval(context) + self.rhs.eval(context)
+
+class SubOp(BinaryOp):
+    def __str__(self):
+        return f"({self.lhs} - {self.rhs})"
+
+    def eval(self, context: dict):
+        return self.lhs.eval(context) - self.rhs.eval(context)
+
+class MulOp(BinaryOp):
+    def __str__(self):
+        return f"({self.lhs} * {self.rhs})"
+
+    def eval(self, context: dict):
+        return self.lhs.eval(context) * self.rhs.eval(context)
+
+
+## toplevel routine. tokenize -> parse -> decode to AST -> evaluate
+
+def tokenize(stream: str) -> list:
+    return [Token(char) for char in stream]
+
+def parse(tokens: list) -> ParserContext:
+    parser = Parser(BaseContext())
+    for i, t in enumerate(tokens):
+        result = parser.feed(t)
+        # print(f"i={i}; t={t}; state: {ctx!r}")
+        assert result, f"unexpected token '{t}' at {i}; state: {parser.complete()!r}"
+
+    return parser.complete()
+
+
+def evaluate(expr: str) -> object:
+    tok = tokenize(expr)
+    parse_tree = parse(tok)
+    print(parse_tree)
+    ast = AstItem.decode_item(parse_tree)
+    print(ast)
+
+    env = dict(
+        today=datetime.now()
+    )
+    return ast.eval(env)
+
+
+if __name__ == '__main__':
+    expr = " ".join(sys.argv[1:])
+    print(evaluate(expr))
+

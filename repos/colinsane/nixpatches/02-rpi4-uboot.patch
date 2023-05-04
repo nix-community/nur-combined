@@ -1,0 +1,16 @@
+diff --git a/nixos/modules/system/boot/loader/raspberrypi/uboot-builder.nix b/nixos/modules/system/boot/loader/raspberrypi/uboot-builder.nix
+index a4352ab9a24..8a191e0f694 100644
+--- a/nixos/modules/system/boot/loader/raspberrypi/uboot-builder.nix
++++ b/nixos/modules/system/boot/loader/raspberrypi/uboot-builder.nix
+@@ -16,7 +16,10 @@ let
+       else
+         pkgs.ubootRaspberryPi3_32bit
+     else
+-      throw "U-Boot is not yet supported on the raspberry pi 4.";
++      if isAarch64 then
++        pkgs.ubootRaspberryPi4_64bit
++      else
++        pkgs.ubootRaspberryPi4_32bit;
+ 
+   extlinuxConfBuilder =
+     import ../generic-extlinux-compatible/extlinux-conf-builder.nix {

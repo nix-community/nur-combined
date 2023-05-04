@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 825822,
+  "content_type": "application/rss+xml; charset=utf-8",
+  "description": "Join neuroscientist, philosopher, and best-selling author Sam Harris as he explores questions about the human mind, society, and current events.",
+  "favicon": null,
+  "hubs": [],
+  "is_podcast": true,
+  "is_push": false,
+  "item_count": 326,
+  "last_seen": "2023-01-11T15:13:28.154435+00:00",
+  "last_updated": "2023-01-05T18:36:25+00:00",
+  "score": 18,
+  "self_url": "https://wakingup.libsyn.com/rss",
+  "site_name": "Making Sense with Sam Harris",
+  "site_url": "https://wakingup.libsyn.com",
+  "title": "Making Sense with Sam Harris",
+  "url": "https://wakingup.libsyn.com/rss",
+  "velocity": 0.096,
+  "version": "rss20"
+}

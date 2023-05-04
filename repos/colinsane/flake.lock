@@ -1,0 +1,153 @@
+{
+  "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "mobile-nixos": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680563603,
+        "narHash": "sha256-gxSci3NTlzgkAOhaC93Q4lReX/Pjd7++imD85JOAlps=",
+        "owner": "nixos",
+        "repo": "mobile-nixos",
+        "rev": "4aa0afd84005b79be4d5361b56a60df9e9bd4ea3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "mobile-nixos",
+        "type": "github"
+      }
+    },
+    "nix-serve": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1678202930,
+        "narHash": "sha256-SF82/tTnagdazlETJLzXD9kjZ6lyk38agdLbmMx1UZE=",
+        "owner": "edolstra",
+        "repo": "nix-serve",
+        "rev": "3b6d30016d910a43e0e16f94170440a3e0b8fa8d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "nix-serve",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1606086654,
+        "narHash": "sha256-VFl+3eGIMqNp7cyOMJ6TjM/+UcsLKtodKoYexrlTJMI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "19db3e5ea2777daa874563b5986288151f502e27",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-20.09",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1682173319,
+        "narHash": "sha256-tPhOpJJ+wrWIusvGgIB2+x6ILfDkEgQMX0BTtM5vd/4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ee7ec1c71adc47d2e3c2d5eb0d6b8fbbd42a8d1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unpatched": {
+      "locked": {
+        "lastModified": 1682404149,
+        "narHash": "sha256-vilYNldFXiu56HGD0lPcWsiED7EmjGMViCLZoQsv7Jk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d0ea36ece469a71a909ebff90777c2f7a49478bb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "staging-next",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "mobile-nixos": "mobile-nixos",
+        "nix-serve": "nix-serve",
+        "nixpkgs-unpatched": "nixpkgs-unpatched",
+        "sops-nix": "sops-nix",
+        "uninsane-dot-org": "uninsane-dot-org"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unpatched"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1682338428,
+        "narHash": "sha256-T7AL/Us6ecxowjMAlO77GETTQO2SO+1XX2+Y/OSfHk8=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "7c8e9727a2ecf9994d4a63d577ad5327e933b6a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "uninsane-dot-org": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs-unpatched"
+        ]
+      },
+      "locked": {
+        "lastModified": 1682850047,
+        "narHash": "sha256-PY042BW4nF+rIM4qTSI+74FoIpvcJJ3kSYwmcEWtO/k=",
+        "ref": "refs/heads/master",
+        "rev": "257c45a8b7c5f7edc309362097193900c072040a",
+        "revCount": 192,
+        "type": "git",
+        "url": "https://git.uninsane.org/colin/uninsane"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.uninsane.org/colin/uninsane"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

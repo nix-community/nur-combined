@@ -1,0 +1,136 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.natsort ps.requests ])"
+# vim: set filetype=python :
+"""
+usage: sane-bt-search <query_string>
+
+searches Jackett for torrent files matching the title.
+returns select results and magnet links
+"""
+
+from dataclasses import dataclass
+from datetime import datetime
+import json
+import natsort
+import requests
+import sys
+import time
+
+SERVICE = "https://jackett.uninsane.org"
+ENDPOINTS = dict(
+    results="api/v2.0/indexers/all/results"
+)
+
+epoch = datetime(1970, 1, 1)
+
+def try_parse_time(t: str):
+    try:
+        return datetime.fromisoformat(t)
+    except ValueError: pass
+
+    if len(t) > len('YYYY-MM-DD'):
+        # sometimes these timestamps are encoded with e.g. too many digits in the milliseconds field.
+        # so just keep chomping until we get something that parses as a timestamp
+        return try_parse_time(t[:-1])
+
+def parse_time(t: str) -> datetime:
+    return try_parse_time(t).astimezone() or epoch
+
+
+@dataclass(eq=True, order=True, unsafe_hash=True)
+class Torrent:
+    seeders: int
+    pub_date: datetime
+    size: int
+    tracker: str
+    title: str
+    magnet: str
+
+    def __str__(self) -> str:
+        return f"{self.seeders}[S]\t{self.pub_date}\t{self.mib}M\t{self.tracker}\t{self.title}\t{self.magnet}"
+
+    @property
+    def mib(self) -> int:
+        return int(round(self.size / 1024 / 1024))
+
+    @staticmethod
+    def from_dict(d: dict) -> 'Torrent':
+        seeders = d.get("Seeders")
+        pub_date = d.get("PublishDate")
+        size = d.get("Size")
+        tracker = d.get("Tracker")
+        title = d.get("Title")
+        magnet = d.get("MagnetUri")
+        if seeders is not None and pub_date is not None and title is not None and magnet is not None:
+            pub_date = parse_time(pub_date)
+            return Torrent(seeders, pub_date, size, tracker, title, magnet)
+
+    def to_dict(self) -> dict:
+        return dict(
+            seeders=self.seeders,
+            pub_date=self.pub_date.strftime("%Y-%m-%d"),
+            size=self.size,
+            tracker=self.tracker,
+            title=self.title,
+            magnet=self.magnet,
+        )
+
+class Client:
+    def __init__(self):
+        self.apikey = open("/run/secrets/jackett_apikey").read()
+
+    def api_call(self, method: str, params: dict) -> dict:
+        endpoint = ENDPOINTS[method]
+        url = f"{SERVICE}/{endpoint}"
+        params = params.copy()
+        params.update(apikey=self.apikey, _=str(int(time.time())))
+        resp = requests.get(url, params=params)
+        return resp.json()
+
+    def query(self, q: str) -> list:
+        torrents = set()
+        api_res = self.api_call("results", dict(Query=q))
+        for r in api_res["Results"]:
+            t = Torrent.from_dict(r)
+            if t is not None:
+                torrents.add(t)
+
+        return sorted(torrents, reverse=True)
+
+def parse_args(args: list) -> dict:
+    options = dict(
+        full=False,
+        query="",
+        json=False,
+    )
+    while args:
+        arg = args[0]
+        del args[0]
+        if arg.startswith('--'):
+            opt = arg[2:]
+            if "=" in opt:
+                name, val = opt.split('=')
+            else:
+                name, val = opt, True
+            options[name] = val
+        else:
+            options["query"] = options["query"] + " " + arg if options["query"] else arg
+
+    return options
+
+def main(args: list):
+    options = parse_args(args)
+    query = options["query"]
+    num_listings = 100 if options["full"] else 5
+    client = Client()
+    res = client.query(query)
+    if options["json"]:
+        dumpable = [t.to_dict() for t in res[:num_listings]]
+        print(json.dumps(dumpable))
+    else:
+        print(f"found {len(res)} result(s)")
+        for r in res[:num_listings]:
+            print(r)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

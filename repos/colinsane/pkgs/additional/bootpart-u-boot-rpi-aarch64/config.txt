@@ -1,0 +1,10 @@
+[pi4]
+kernel=u-boot.bin
+enable_gic=1
+armstub=armstub8-gic.bin
+disable_overscan=1
+
+[all]
+arm_64bit=1
+enable_uart=1
+avoid_warnings=1
