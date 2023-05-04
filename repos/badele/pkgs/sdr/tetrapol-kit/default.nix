@@ -7,7 +7,6 @@
 , json_c
 , lib
 , pkg-config
-, python310
 , stdenv
 }:
 
@@ -35,10 +34,6 @@ stdenv.mkDerivation rec {
     glib
     json_c
     pkg-config
-
-    (python310.withPackages (ps: with ps; [
-      six
-    ]))
   ];
 
   meta = with lib; {
