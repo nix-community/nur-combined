@@ -29,4 +29,5 @@ in
   trunk-recorder = pkgs.callPackage ./pkgs/sdr/trunk-recorder { };
   rtlsdr-airband = pkgs.callPackage ./pkgs/sdr/rtlsdr-airband { };
   tetrapol-kit = pkgs.callPackage ./pkgs/sdr/tetrapol-kit { };
+  sdrpp = pkgs.callPackage ./pkgs/sdr/sdrpp { };
 }
