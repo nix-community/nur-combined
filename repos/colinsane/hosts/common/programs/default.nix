@@ -299,6 +299,7 @@ in
         guiApps = {
           package = null;
           suggestedPrograms = (attrNames guiPkgs)
+            ++ [ "web-browser" ]
             ++ [ "tuiApps" ]
             ++ optional (pkgs.system == "x86_64-linux") "x86GuiApps";
         };

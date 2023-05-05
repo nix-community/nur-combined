@@ -10,9 +10,6 @@
   services.gitea.database.type = "postgres";
   services.gitea.database.user = "git";
   services.gitea.appName = "Perfectly Sane Git";
-  services.gitea.domain = "git.uninsane.org";
-  services.gitea.rootUrl = "https://git.uninsane.org/";
-  services.gitea.settings.session.COOKIE_SECURE = true;
   # services.gitea.disableRegistration = true;
 
   # gitea doesn't create the git user
@@ -27,9 +24,13 @@
   };
 
   services.gitea.settings = {
+    # options: "Trace", "Debug", "Info", "Warn", "Error", "Critical"
+    log.LEVEL = "Warn";
     server = {
       # options: "home", "explore", "organizations", "login" or URL fragment (or full URL)
       LANDING_PAGE = "explore";
+      DOMAIN = "git.uninsane.org";
+      ROOT_URL = "https://git.uninsane.org/";
     };
     service = {
       # timeout for email approval. 5760 = 4 days
@@ -44,6 +45,7 @@
       ENABLE_CAPTCHA = true;
       NOREPLY_ADDRESS = "noreply.anonymous.git@uninsane.org";
     };
+    session.COOKIE_SECURE = true;
     repository = {
       DEFAULT_BRANCH = "master";
     };
@@ -69,8 +71,6 @@
       FORMAT = "RFC3339";
     };
   };
-  # options: "Trace", "Debug", "Info", "Warn", "Error", "Critical"
-  services.gitea.settings.log.LEVEL = "Warn";
 
   systemd.services.gitea.serviceConfig = {
     # nix default is AF_UNIX AF_INET AF_INET6.

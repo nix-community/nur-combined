@@ -148,7 +148,6 @@ in
 
   config = mkMerge [
     ({
-      sane.programs.guiApps.suggestedPrograms = [ "web-browser" ];
       sane.programs.web-browser = {
         inherit package;
 
