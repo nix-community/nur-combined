@@ -257,10 +257,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.3.1";
+      version = "2023.4.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4093799/bitwarden_password_manager-2023.3.1.xpi";
-      sha256 = "d4ea270874c013daf0aa8b46686766481464db0b3eaa271dc1a2e579751f36f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4103016/bitwarden_password_manager-2023.4.0.xpi";
+      sha256 = "484eb6a64d36ed5ee3c7e5d62d09367cc3a6477ff80dabd13e1dc1e92ca87b28";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -975,13 +975,13 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230501.151611";
+      version = "113.0.20230504.192738";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4105015/francais_language_pack-113.0.20230501.151611.xpi";
-      sha256 = "109c4a75fea1c6e35f0abb082a1aadbd7e1138cea1b4a4ddc64a956ccca12cca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4106510/francais_language_pack-113.0.20230504.192738.xpi";
+      sha256 = "2c4d96dd5b6fa40c19f3d514b24ea2c1c0f98f6571fb2cbd7dc3a22f5a4b0009";
       meta = with lib;
       {
-        description = "Language pack for Firefox for fr";
+        description = "Firefox Language Pack for Français (fr) – French";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -1652,10 +1652,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.3.4";
+      version = "4.3.6";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099115/modheader_firefox-4.3.4.xpi";
-      sha256 = "57cbb01b9f1b9d87fdfc31b8b1c5d889c511bd89b02465f0f5f57118b41c0821";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4105390/modheader_firefox-4.3.6.xpi";
+      sha256 = "041df6efa34686f46bfb36bc7906767a5538387f50dab86b3f5f641c5a95a68d";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -1685,10 +1685,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.68";
+      version = "2.7.70";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4102702/momentumdash-2.7.68.xpi";
-      sha256 = "6f10ee4072c3761be1f41f26bc1241f00d8bf7c04c08ac8ef03cf0c876d9567a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4105554/momentumdash-2.7.70.xpi";
+      sha256 = "aa5c2545c21faf9a04cd6925493cb52d19c55771c3ce678b586b2a60420c8619";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -2949,10 +2949,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.6.1";
+      version = "9.7.2";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4011167/traduzir_paginas_web-9.6.1.xpi";
-      sha256 = "3cc0c107f68b3c483c7f2cf1a9d6b734fcbee2762911e0531c3ee9afd64359c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4102212/traduzir_paginas_web-9.7.2.xpi";
+      sha256 = "00e4ea94285f02d82773cf1243fc3d8a55d49993441d4916739e1ae59e203d17";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
