@@ -7,13 +7,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "morewaita";
-  version = "43.3";
+  version = "44";
 
   src = fetchFromGitHub {
     owner = "somepaulo";
     repo = "MoreWaita";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-yLIEG019iczCpReQI3C2+dhdo9qyqVAMXpIfVrVnzhI=";
+    hash = "sha256-GZ7tXrn8Ii1EWp71Ln+D6HxyVRz+d+jt37N02h3q3QY=";
   };
 
   propagatedBuildInputs = [
