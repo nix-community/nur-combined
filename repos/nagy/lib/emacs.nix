@@ -15,7 +15,7 @@
     let
       warnEvalStr = lib.optionalString warnIsError
         "--eval '(setq byte-compile-error-on-warn t)'";
-    in epkgs.trivialBuild {
+    in (epkgs.trivialBuild {
       inherit pname version src packageRequires;
       dontUnpack = true;
 
@@ -25,5 +25,7 @@
         emacs -L . --batch ${warnEvalStr} -f batch-byte-compile *.el
         runHook postBuild
       '';
-    };
+    }).overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
+    });
 }
