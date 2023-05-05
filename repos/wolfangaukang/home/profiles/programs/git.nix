@@ -7,7 +7,10 @@
 {
   programs.git = {
     enable = true;
-    extraConfig.init.defaultBranch = defaultBranch;
+    extraConfig = {
+      core.sshCommand = "ssh -i ~/.ssh/Keys/id";
+      init.defaultBranch = defaultBranch;
+    };
     signing = {
       key = signingKey;
       signByDefault = true;

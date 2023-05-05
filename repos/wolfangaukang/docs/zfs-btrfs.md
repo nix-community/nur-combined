@@ -30,19 +30,20 @@ This guide goes on hand with NixOS impermanence. You will find some general inst
 
 ## BTRFS Setup
 
-- Perform any previous preparation of the disk, hopefully using the encrypted setup
-- Create BTRFS with `mkfs.btrfs /path/to/disk`
-  - If using LVM, the disk path would be on `/dev/mapper/volume-name`
-  - You can use a label to make it more descriptive, but it is optional
+- Perform any previous preparation of the disk, hopefully using the encrypted setup.
+  - This means creating a partition table, creating partitions, setting up LVM, creating physical/logical volumes, etc.
+- Create BTRFS with `mkfs.btrfs /path/to/disk --label label_to_set`.
+  - If using LVM, the disk path would be on `/dev/mapper/volume-name`.
+  - The label part is optional, but very useful.
 - Mount the drive with `mount -t btrfs /path/to/disk /mnt`
   - You can replace the disk path with label (`LABEL=labelname`)
 - Create the subvolumes with `btrfs sub create /subvol/path`
   - For example, if you mounted `/mnt`, then you will use `btrfs sub create /mnt/name`
   - Currently we are using `.snapshots`, `home`, `nix` and `persist` (latter for impermanence)
 - Unmount the btrfs volume 
+- Mount tmpfs on `/mnt` with `mount -t tmpfs tmpfs /mnt`
 - Create the directories we want to mount on the system 
 - Create a variable with the mount options (`o_btrfs="defaults,ssd,compress=zstd,noatime,discard=async,space_cache=v2"`)
-- Mount tmpfs with `mount -t tmpfs tmpfs /mnt`
 - Mount the btrfs subvolumes with `mount -t btrfs -o $o_btrfs,subvol=subvol_name /mnt/nix`
 - Run the NixOS installation as usual
 

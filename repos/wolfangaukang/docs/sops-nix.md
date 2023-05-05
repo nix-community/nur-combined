@@ -36,5 +36,10 @@ parent_sec:
 - To import your secret on your config use the options [here](https://github.com/Mic92/sops-nix/blob/master/modules/sops/default.nix)
 - Finally, run `nixos-rebuild`. Your secrets will be located at `/run/secrets/SECRET/NAME`
 
+## Add new keys
+
+- Add new key to `.sops.yaml` file. Remember it should be the public age key.
+- For all of the secrets, you need to run `sops updatekeys /path/to/file`
+
 ### References
 - [Official repository](https://github.com/Mic92/sops-nix)

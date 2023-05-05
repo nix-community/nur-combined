@@ -2,8 +2,9 @@ keys:
   - &users:
     - &bjorn 87AA3657F508C4F29FE0C2587B0FF33FF90110C7
   - &hosts:
-    - &eyjafjallajokull age1evuvvyh966c5crnmx0cyevqw6dqnn76lyqvmmla633j0mvsufsysc5w9em
     - &holuhraun age17gm2cha0zhf55fmchuzq0d2hvggp42xxq3hheqgmhy4cmge7s42qvvqn5f
+    - &eyjafjallajokull age1qc7yq0j066kh8r4lftr4wkrfpqmqjkuxl97c6jqgdkjkggfvg9tqhku4h8
+    - &torfajokull age1evuvvyh966c5crnmx0cyevqw6dqnn76lyqvmmla633j0mvsufsysc5w9em
 
 creation_rules:
   - path_regex: hosts/common/secrets.ya?ml$
@@ -11,5 +12,6 @@ creation_rules:
     - pgp:
       - *bjorn
       age:
-      - *eyjafjallajokull
       - *holuhraun
+      - *eyjafjallajokull
+      - *torfajokull

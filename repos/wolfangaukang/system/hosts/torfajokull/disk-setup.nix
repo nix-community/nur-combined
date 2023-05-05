@@ -23,7 +23,7 @@
     initrd = {
       luks.devices."root" = {
         allowDiscards = true;
-        device = "/dev/disk/by-uuid/03924f8e-2aa7-4ae4-b153-95d8f1d57aeb";
+        device = "/dev/disk/by-uuid/37b3f7d6-00eb-4cd3-90b0-5549bf6e48ce";
         keyFile = "/keyfile0.bin";
         preLVM = true;
       };
@@ -32,10 +32,7 @@
       };
     };
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
+      efi.canTouchEfiVariables = true;
       systemd-boot = {
         enable = true;
         configurationLimit = 10;

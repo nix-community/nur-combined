@@ -13,7 +13,20 @@ in {
     (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname lib; })
   ];
 
-  networking.hostName = hostname;
+  networking = {
+    interfaces.enp0s25 = {
+      useDHCP = false;
+      ipv4.addresses = [ {
+        address = obtainIPV4Address hostname "brume";
+        prefixLength = 24;
+      } ];
+    };
+    defaultGateway = {
+      address = (obtainIPV4GatewayAddress "brume" "1");
+      interface = "enp0s25";
+    };
+    hostName = hostname;
+  };
 
   profile = {
     nix = {
@@ -36,13 +49,16 @@ in {
     virtualization.podman.enable = true;
   };
 
-  environment.etc.machine-id.text = "80ae91d7d531482f86a7e2092eb24af2";
+  services.openssh.settings.PermitRootLogin = mkForce "yes";
 
-  #services.openssh.settings.PermitRootLogin = mkForce "yes";
+  # Thinkpad brightness
+  hardware.acpilight.enable = true;
+  services.illum.enable = true;
+  users.extraGroups.video.members = [ "bjorn" ];
 
   # Extra settings (22.11)
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "20.09";
 }
 

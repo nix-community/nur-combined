@@ -94,7 +94,7 @@
         in {
           eyjafjallajokull =
             let
-              nixosHardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
+              nixosHardware = [ nixos-hardware.nixosModules.system76 ];
             in mkSystem {
               inherit inputs overlays;
               users = usersWithRoot;
@@ -121,6 +121,21 @@
               enable-hm = true;
               hm-users = users;
               enable-impermanence-hm = true;
+            };
+
+          torfajokull =
+            let
+              nixosHardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
+            in mkSystem {
+              inherit inputs overlays;
+              users = usersWithRoot;
+              hostname = "eyjafjallajokull";
+              kernel = kernels.linux_6_1;
+              extra-modules = nixosHardware;
+              enable-impermanence = true;
+              enable-sops = true;
+              enable-hm = true;
+              hm-users = users;
             };
 
           Katla =
