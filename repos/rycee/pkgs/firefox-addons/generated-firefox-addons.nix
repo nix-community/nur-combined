@@ -451,10 +451,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.4.3";
+      version = "3.4.4";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101039/control_panel_for_twitter-3.4.3.xpi";
-      sha256 = "5df3715a84fc77a3e70742b1235063011de8920bd12d34f419b392765a72db0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4104996/control_panel_for_twitter-3.4.4.xpi";
+      sha256 = "e72458be465aa63d766821f8193481a4bc0dc83d98d8d5aa0de5bd668ac7d070";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1118,10 +1118,10 @@
       };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.905.0";
+      version = "8.906.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4084257/grammarly_1-8.905.0.xpi";
-      sha256 = "59f7c824c2de095b5bb97c98e2339232fe9167471132d08963e5a043195b5cd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4105601/grammarly_1-8.906.0.xpi";
+      sha256 = "a2e604838343e7b9739cb4a58f30fc71472a8ef21f65d293edd8b2304477bc01";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -1921,10 +1921,10 @@
       };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.19.0";
+      version = "6.20.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086303/okta_browser_plugin-6.19.0.xpi";
-      sha256 = "9d62d4f59083d0c14f536228cc969d9d4a8e6175fabf9a27f1346a3fc68129b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4104084/okta_browser_plugin-6.20.0.xpi";
+      sha256 = "9593682885145ab2958457004ab9bd5b40b321d07a9c18e2cefd5ef558de2348";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -2195,10 +2195,10 @@
       };
     "private-relay" = buildFirefoxXpiAddon {
       pname = "private-relay";
-      version = "2.7.0";
+      version = "2.7.1";
       addonId = "private-relay@firefox.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095147/private_relay-2.7.0.xpi";
-      sha256 = "1913cd25517dd9af78f5d8f30494f13f8c8dd5db362191432cb5668df0f7982d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4105551/private_relay-2.7.1.xpi";
+      sha256 = "e4270f45c39065eb929a798bc974037cae2462d1aa13d913cc2423da57792af7";
       meta = with lib;
       {
         homepage = "https://relay.firefox.com/";
@@ -2572,10 +2572,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.1";
+      version = "5.4.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4098861/sponsorblock-5.4.1.xpi";
-      sha256 = "a7ceb7b83271f62d8619bc46e797592dc662b133cbff29e928a77c9fff9219f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4104713/sponsorblock-5.4.5.xpi";
+      sha256 = "b285e657fba56ca9651bce5691c4e9721ce8d3906d77503d88038eb776b51884";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
