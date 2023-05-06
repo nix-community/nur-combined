@@ -171,7 +171,7 @@
     },
     "bird-lg-go": {
         "cargoLocks": null,
-        "date": "2023-05-05",
+        "date": "2023-05-06",
         "extract": null,
         "name": "bird-lg-go",
         "passthru": null,
@@ -183,11 +183,11 @@
             "name": null,
             "owner": "xddxdd",
             "repo": "bird-lg-go",
-            "rev": "7efa3237a90ab14d233c39ee78af2b368bc5d115",
-            "sha256": "sha256-iK/HX9z979ERsyUMABV4yqDDf0jeCr71CwFZhAZLj0s=",
+            "rev": "db58bd33545afc2d1a3f0b9630e65d6c0f8c20c9",
+            "sha256": "sha256-WFJd+5IpQc8vlWjYz29qUieSRCxNLe738qb7whPeBH8=",
             "type": "github"
         },
-        "version": "7efa3237a90ab14d233c39ee78af2b368bc5d115"
+        "version": "db58bd33545afc2d1a3f0b9630e65d6c0f8c20c9"
     },
     "boringssl-oqs": {
         "cargoLocks": null,
