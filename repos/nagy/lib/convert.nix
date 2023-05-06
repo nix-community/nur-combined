@@ -66,7 +66,10 @@ let
         (pkgs.texlive.combine {
           inherit (pkgs.texlive)
             scheme-small llncs wrapfig ulem capt-of biblatex latexmk beamer
-            pgfgantt svg trimspaces transparent catchfile;
+            pgfgantt svg trimspaces transparent catchfile koma-script xpatch
+            etoolbox mathtools kpfonts totalcount lstaddons enumitem chngcntr
+            subfigure floatrow csquotes algorithm2e ifoddpage relsize tcolorbox
+            environ tikzfill pdfcol cleveref mathpazo lualatex-math;
         })
         pkgs.biber
       ];
