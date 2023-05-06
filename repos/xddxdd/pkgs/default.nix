@@ -156,6 +156,7 @@ in
     tachidesk-server = pkg ./uncategorized/tachidesk-server {};
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver {};
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin {};
+    vivado-2022_2 = pkg ./uncategorized/vivado-2022_2 {};
     vs-rife = pkg ./uncategorized/vs-rife {};
     wechat-uos = pkg ./uncategorized/wechat-uos {};
     wechat-uos-bin = pkg ./uncategorized/wechat-uos/official-bin.nix {};
