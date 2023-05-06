@@ -80,7 +80,7 @@ in
     '';
 
     meta = with lib; {
-      description = "WeChat desktop (System Electron)";
+      description = "WeChat desktop (System Electron) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos)";
       homepage = "https://weixin.qq.com/";
       platforms = ["x86_64-linux"];
       license = licenses.unfreeRedistributable;

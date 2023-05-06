@@ -108,7 +108,7 @@ in
     '';
 
     meta = with lib; {
-      description = "Tencent QQ Music (Untested)";
+      description = "Tencent QQ Music (Packaging script adapted from https://aur.archlinux.org/packages/qqmusic-bin)";
       homepage = "https://y.qq.com/";
       platforms = ["x86_64-linux"];
       license = licenses.unfreeRedistributable;

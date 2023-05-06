@@ -133,7 +133,7 @@ in
     '';
 
     meta = with lib; {
-      description = "SmoothVideo Project 4 (SVP4)";
+      description = "SmoothVideo Project 4 (SVP4) (Packaging script adapted from https://aur.archlinux.org/packages/svp)";
       homepage = "https://www.svp-team.com/wiki/SVP:Linux";
       platforms = ["x86_64-linux"];
       license = licenses.unfree;

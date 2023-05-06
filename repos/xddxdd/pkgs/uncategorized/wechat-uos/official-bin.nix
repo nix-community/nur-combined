@@ -137,7 +137,7 @@ in
     '';
 
     meta = with lib; {
-      description = "WeChat desktop (Official binary)";
+      description = "WeChat desktop (Official binary) (Packaging script adapted from https://aur.archlinux.org/packages/wechat-uos)";
       homepage = "https://weixin.qq.com/";
       platforms = ["x86_64-linux"];
       license = licenses.unfreeRedistributable;

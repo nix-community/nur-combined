@@ -127,7 +127,7 @@ in
     '';
 
     meta = with lib; {
-      description = "Wine WeChat";
+      description = "Wine WeChat (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)";
       homepage = "https://weixin.qq.com/";
       platforms = ["x86_64-linux"];
       license = licenses.unfreeRedistributable;
