@@ -43,7 +43,7 @@ jobs:
       run: find -L "$(pwd)/" -type f -name "update.sh" | while read -r updatescript; do ( dir="$(dirname -- "$updatescript")"; cd "$dir" || exit; $updatescript ); done
 
     - name: Create pull request
-      uses: peter-evans/create-pull-request@v4
+      uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ steps.generate-token.outputs.token }}
         author: reedbot[bot] <74506764+reedbot[bot]@users.noreply.github.com>

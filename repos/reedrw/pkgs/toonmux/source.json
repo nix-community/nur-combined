@@ -1,9 +1,7 @@
 {
     "owner": "JonathanHelianthicusDoe",
     "repo": "toonmux",
-    "rev": "f8404bb91e2e3a12d3180ba83c0b2d38a4365cb2",
-    "sha256": "qa1oqWRV49tzlA8t0WuZwPAgKDCx8u3watsG3V9xdnw=",
-    "fetchSubmodules": true,
-    "leaveDotGit": false,
-    "deepClone": false
+    "rev": "c52eaf4b5d8fdda9a8ca19e4534bac0561b12518",
+    "sha256": "IE0ejJQRmklS+9z4GQ7BQaJBebIGnakJ3vO1UF2vNGE=",
+    "fetchSubmodules": true
 }

@@ -3,7 +3,5 @@
     "repo": "shairport-sync-metadata-reader",
     "rev": "97ed2aaf8cdba262729a4e17bcd5f33e04e4cb9e",
     "sha256": "i+csnGYJeaZnVn1oPwVM/RDmvfMs6N1ptH2UPbvQ39s=",
-    "fetchSubmodules": true,
-    "leaveDotGit": false,
-    "deepClone": false
+    "fetchSubmodules": true
 }

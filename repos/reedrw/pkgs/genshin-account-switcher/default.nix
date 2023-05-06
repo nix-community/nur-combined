@@ -3,13 +3,13 @@ with python3Packages;
 
 buildPythonPackage rec {
   pname = "genshin-account-switcher";
-  version = "1.2.1";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "atomicptr";
     repo = "genshin-account-switcher";
-    rev = "c9c19b917d41b874163ef4409bb728ee70f279f2";
-    hash = "sha256-X4wwreY/7oXQ3OocYxQlhXqCJWDXtR57OD+wBYFg4gA=";
+    rev = "e4fb83abc7697469a04ab1b8fb73425d681b15b0";
+    hash = "sha256-JMLj3/znMSHy/j8r+jmiLvMD55DdcDTcS74LSkSyG+c=";
   };
 
   propagatedBuildInputs = [
