@@ -2,13 +2,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "cykhash";
-  version = "2.0.0";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "realead";
     repo = "cykhash";
-    rev = "v${version}";
-    hash = "sha256-Bw85RJudoGNa2GrEwxGaln93T7c2YyRakWZcMJAJwUU=";
+    rev = "99db6d2075b1f33177ed034e0c873d58190658ae";
+    hash = "sha256-R6a19oExRVHSnfeEM5XsD77BPEWpC0BeNdep12YffN8=";
   };
 
   nativeBuildInputs = with python3Packages; [ cython ];
