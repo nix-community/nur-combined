@@ -111,6 +111,20 @@
         platforms = platforms.all;
         };
       };
+    "annotations-restored" = buildFirefoxXpiAddon {
+      pname = "annotations-restored";
+      version = "1.2";
+      addonId = "{0731d555-4732-4047-99f9-38a388ffa044}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4002251/annotations_restored-1.2.xpi";
+      sha256 = "114666c34865b32f31162e47959da3b46735f31c9166ce71fd60a97f04822c64";
+      meta = with lib;
+      {
+        homepage = "https://github.com/isaackd/AnnotationsRestored";
+        description = "Brings annotation support back to YouTube™!";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
       version = "2.1.6";
