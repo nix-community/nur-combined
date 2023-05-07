@@ -109,7 +109,6 @@ lib.makeScope newScope (
     portolan = callPackage ./development/python-modules/portolan { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
-    xyzservices = callPackage ./development/python-modules/xyzservices { };
 
     ### EMBEDDED
 

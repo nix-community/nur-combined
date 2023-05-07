@@ -1,4 +1,4 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, xyzservices }:
+{ lib, stdenv, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonPackage rec {
   pname = "contextily";
