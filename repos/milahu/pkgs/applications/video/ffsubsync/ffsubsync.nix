@@ -5,22 +5,47 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ffsubsync";
-  version = "0.4.22";
+  stableVersion = "0.4.22";
+  version = "${stableVersion}-unstable-2023-05-04";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "smacke";
     repo = "ffsubsync";
-    rev = version;
-    hash = "sha256-Tlnw098ndO32GsRq3SQ0GpNdZl9WEPBsDOHZYl1BI8E=";
+    #rev = version;
+    #hash = "sha256-Tlnw098ndO32GsRq3SQ0GpNdZl9WEPBsDOHZYl1BI8E=";
+    rev = "7fd1885b00ff68eceef2f557c334bebdd30f7ae5";
+    hash = "sha256-NWkxLyqvgct0v8xWxoaI3WTZLBqXC835zFBzWFqqlls=";
   };
 
   buildInputs = with python3.pkgs; [
     setuptools
   ];
 
+  # this did not work. instead, patch "__version__ = ..."
+  /*
+    # ffsubsync/constants.py
+    #SUBSYNC_RESOURCES_ENV_MAGIC=ffsubsync_resources_xj48gjdkl340
+    #mkdir -p $SUBSYNC_RESOURCES_ENV_MAGIC
+    #echo $stableVersion >$SUBSYNC_RESOURCES_ENV_MAGIC/__version__
+    #mkdir -p ffsubsync/$SUBSYNC_RESOURCES_ENV_MAGIC
+    #echo $stableVersion >ffsubsync/$SUBSYNC_RESOURCES_ENV_MAGIC/__version__
+    # debug
+    #substituteInPlace ffsubsync/version.py \
+    #  --replace 'def get_version():' $'def get_version():\n    print("__version__", repr(__version__))'
+  */
+
   postPatch = ''
     sed -i 's/==/>=/g' requirements.txt
+
+    # fix: FileNotFoundError: [Errno 2] No such file or directory: 'ffsubsync/__version__'
+    echo $stableVersion >ffsubsync/__version__
+
+    # fix: KeyError: 'ffsubsync_resources_xj48gjdkl340'
+    substituteInPlace ffsubsync/version.py \
+      --replace \
+       '__version__ = get_versions()["version"]' \
+       "__version__ = '$stableVersion'"
   '';
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -28,6 +53,7 @@ python3.pkgs.buildPythonApplication rec {
     cchardet
     chardet
     charset-normalizer
+    faust-cchardet
     ffmpeg-python
     future
     numpy

@@ -110,6 +110,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       ete3 = python3.pkgs.callPackage pkgs/python3/pkgs/ete3/ete3.nix { };
 
+      faust-cchardet = python3.pkgs.callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
+
     };
   };
 
