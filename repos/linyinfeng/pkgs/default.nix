@@ -15,6 +15,7 @@ lib.makeScope newScope (
     activate-dpt = callPackage ./activate-dpt { };
     aws-s3-reverse-proxy = callPackage ./aws-s3-reverse-proxy { };
     aws-sigv4-proxy = callPackage ./aws-sigv4-proxy { };
+    bird-babel-rtt = callPackage ./bird-babel-rtt { };
     canokey-udev-rules = callPackage ./canokey-udev-rules { };
     cf-terraforming = callPackage ./cf-terraforming { };
     clash-for-windows = callPackage ./clash-for-windows { };

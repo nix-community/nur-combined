@@ -39,6 +39,7 @@ packageSet = do
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   gitPkg "waybar-git" "https://github.com/Alexays/Waybar.git"
   fishPlugins
+  birdBabelRtt
   commitNotifier
   tgSend
   dotTar
@@ -64,6 +65,15 @@ ghPkgTag owner repo f = define $ package repo `fromGitHubTag` (owner, repo, f)
 
 gitPkg :: Text -> Text -> PackageSet ()
 gitPkg name git = define $ package name `sourceGit` git `fetchGit` git
+
+birdBabelRtt :: PackageSet ()
+birdBabelRtt =
+  define $
+    package "bird-babel-rtt"
+      `fromGitHubTag` ( "linyinfeng",
+                        "bird",
+                        includeRegex ?~ ".*-babel-rtt"
+                      )
 
 commitNotifier :: PackageSet ()
 commitNotifier =

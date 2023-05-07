@@ -14,6 +14,17 @@
     };
     date = "2023-03-30";
   };
+  bird-babel-rtt = {
+    pname = "bird-babel-rtt";
+    version = "v2.13-babel-rtt";
+    src = fetchFromGitHub ({
+      owner = "linyinfeng";
+      repo = "bird";
+      rev = "v2.13-babel-rtt";
+      fetchSubmodules = false;
+      sha256 = "sha256-e+HPBVHiZGMCpwz8iPQlIGRuDFydG83rpw1jFf1uavc=";
+    });
+  };
   clash-for-windows = {
     pname = "clash-for-windows";
     version = "0.20.22";
@@ -274,16 +285,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "299ae93309998b806380218743754348d2024661";
+    version = "b70a2a7cb7431ef25b3d2220049bef6918fecdb2";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "299ae93309998b806380218743754348d2024661";
+      rev = "b70a2a7cb7431ef25b3d2220049bef6918fecdb2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-K582wdjfpUBrCxawd8ig884iHJtSQCE3I1NcbfDxLJ4=";
+      sha256 = "sha256-kRU2uEyOQCJ16AodWBSTW5MZTcFp/EtJ5F6EMoPL4mM=";
     };
-    date = "2023-05-05";
+    date = "2023-05-07";
   };
   rime-loengfan = {
     pname = "rime-loengfan";

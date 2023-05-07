@@ -18,6 +18,26 @@
         },
         "version": "26b15d857b7e09f6a921c8ca0410e4a2d97c76bd"
     },
+    "bird-babel-rtt": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "bird-babel-rtt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "linyinfeng",
+            "repo": "bird",
+            "rev": "v2.13-babel-rtt",
+            "sha256": "sha256-e+HPBVHiZGMCpwz8iPQlIGRuDFydG83rpw1jFf1uavc=",
+            "type": "github"
+        },
+        "version": "v2.13-babel-rtt"
+    },
     "clash-for-windows": {
         "cargoLocks": null,
         "date": null,
@@ -434,7 +454,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-05-05",
+        "date": "2023-05-07",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -444,12 +464,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "299ae93309998b806380218743754348d2024661",
-            "sha256": "sha256-K582wdjfpUBrCxawd8ig884iHJtSQCE3I1NcbfDxLJ4=",
+            "rev": "b70a2a7cb7431ef25b3d2220049bef6918fecdb2",
+            "sha256": "sha256-kRU2uEyOQCJ16AodWBSTW5MZTcFp/EtJ5F6EMoPL4mM=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "299ae93309998b806380218743754348d2024661"
+        "version": "b70a2a7cb7431ef25b3d2220049bef6918fecdb2"
     },
     "rime-loengfan": {
         "cargoLocks": null,
