@@ -1,0 +1,66 @@
+* {
+    font-size: 14px;
+}
+
+#workspaces button,
+#custom-spotify,
+#tray,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature,
+#clock {
+    padding: 0 8px;
+    border-radius: 20px;
+    margin: 5px 2px;
+}
+
+window#waybar,
+tooltip {
+    background-color: black;
+}
+
+#workspaces button {
+    background-color: aquamarine;
+}
+
+#workspaces button.focused {
+    background-color: darkturquoise;
+}
+
+#custom-spotify {
+    background-color: springgreen;
+}
+
+#tray {
+    background-color: transparent;
+}
+
+#pulseaudio {
+    background-color: cadetblue;
+}
+
+#network {
+    background-color: cornflowerblue;
+}
+
+#cpu {
+    background-color: darkkhaki;
+}
+
+#memory {
+    background-color: whitesmoke;
+}
+
+#temperature {
+    background-color: darkgrey;
+}
+
+#temperature.critical {
+    background-color: tomato;
+}
+
+#clock {
+    background-color: cornsilk;
+}

@@ -17,7 +17,6 @@ let
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
-  isUncached = p: !isCacheable p;
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   nameValuePair = n: v: { name = n; value = v; };
@@ -48,9 +47,7 @@ in
 rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
-  uncachedPkgs = filter isUncached buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
-  uncachedOutputs = concatMap outputsOf uncachedPkgs;
 }
