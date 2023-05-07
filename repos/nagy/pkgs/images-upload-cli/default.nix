@@ -1,23 +1,23 @@
 { lib, fetchPypi, buildPythonPackage, requests, click, pillow, python-dotenv
-, pyperclip }:
+, pyperclip, testers, images-upload-cli }:
 
 buildPythonPackage rec {
   pname = "images-upload-cli";
-  version = "1.0.7";
+  version = "1.1.0";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-aIaYbxGL5EQ9a9RgE6/GSZTBW1A+D3BpQOxQrHYLOVg=";
+    pname = "images_upload_cli";
+    inherit version;
+    sha256 = "sha256-PcShOhUI/FQgAfNFyaLi/9+HYW32ic2/s+fHHX3QErY=";
   };
 
   pythonImportsCheck = [ "images_upload_cli" ];
 
   propagatedBuildInputs = [ requests click pillow python-dotenv pyperclip ];
 
-  prePatch = ''
-    substituteInPlace setup.py \
-        --replace 'python-dotenv>=0.20.0,<0.21.0' 'python-dotenv>=0'
-  '';
+  passthru.tests.version = testers.testVersion {
+    package = images-upload-cli;
+  };
 
   meta = with lib; {
     description = "Upload images via APIs";

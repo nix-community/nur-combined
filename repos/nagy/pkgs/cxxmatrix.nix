@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "man" ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "The Matrix Reloaded in Terminals";

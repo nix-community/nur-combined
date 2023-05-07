@@ -11,18 +11,15 @@ stdenv.mkDerivation rec {
     sha256 = "1sxjkpvbkpydcmnkqh7k1wg26vf9ncih90qfrr7hibsnwqavar4j";
   };
 
-  buildInputs = [ ];
-
-  phases = [ "installPhase" ];
-
   installPhase = ''
-    install -Dm644 $src/cxxtimer.hpp $out/include/cxxtimer.hpp
+    runHook preInstall
+    install -Dm444 -t $out/include/ $src/cxxtimer.hpp
+    runHook postInstall
   '';
 
   meta = with lib; {
     description = "A timer for modern C++";
-    homepage = "https://github.com/andremaravilha/cxxtimer";
-
+    inherit (src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.all;
   };

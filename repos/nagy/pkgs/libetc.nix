@@ -1,15 +1,15 @@
-{ lib, stdenv, fetchzip }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "libetc";
   version = "0.4";
 
-  src = fetchzip {
+  src = fetchurl {
     url = "https://ordiluc.net/fs/libetc/libetc-${version}.tar.gz";
-    sha256 = "10n2sxmiglpxh0gdmbib3fa8qyfm5ci75k964xqszs7ay8wa36d4";
+    sha256 = "sha256-Pg9eFx2EWsXui+wGAOx/adMJ7ocE2WwiJTRujcLsxp0=";
   };
 
-  makeFlags = [ "LIBDIR=${placeholder "out"}/lib" ];
+  makeFlags = [ "LIBDIR=$(out)/lib" ];
 
   postPatch = ''
     substituteInPlace Makefile --replace 6644 644

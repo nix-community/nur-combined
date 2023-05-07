@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wnv/qDn7Ke+dygRj+GFsRGtGDNsccYbXFe3gPSDAxAk=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "strings(1) with UTF-8 support";
