@@ -39,7 +39,7 @@ M.on_attach = function(client, bufnr)
         -- * nothing displayed
         -- * single diagnostic at the end of the line (`virtual_text`)
         -- * full diagnostics using virtual text (`virtual_lines`)
-        local text =  vim.diagnostic.config().virtual_text
+        local text = vim.diagnostic.config().virtual_text
         local lines = vim.diagnostic.config().virtual_lines
 
         -- Text -> Lines transition
@@ -63,7 +63,7 @@ M.on_attach = function(client, bufnr)
     end
 
     local function show_buffer_diagnostics()
-        vim.diagnostic.open_float(nil, { scope="buffer" })
+        vim.diagnostic.open_float(nil, { scope = "buffer" })
     end
 
     local keys = {
@@ -93,6 +93,5 @@ M.on_attach = function(client, bufnr)
 
     wk.register(keys, { buffer = bufnr })
 end
-
 
 return M

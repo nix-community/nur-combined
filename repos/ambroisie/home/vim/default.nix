@@ -54,8 +54,6 @@ in
       vim-beancount
       vim-jsonnet
       vim-nix
-      vim-pandoc
-      vim-pandoc-syntax
       vim-toml
 
       # General enhancements

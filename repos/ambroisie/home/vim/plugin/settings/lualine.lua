@@ -1,4 +1,3 @@
-lua << EOF
 local lualine = require("lualine")
 local utils = require("ambroisie.utils")
 
@@ -60,4 +59,3 @@ lualine.setup({
         "quickfix",
     },
 })
-EOF

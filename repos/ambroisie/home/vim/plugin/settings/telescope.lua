@@ -1,4 +1,3 @@
-lua << EOF
 local telescope = require("telescope")
 
 telescope.setup({
@@ -8,8 +7,8 @@ telescope.setup({
                 ["<C-h>"] = "which_key",
                 -- I want the normal readline mappings rather than scrolling
                 ["<C-u>"] = false,
-            }
-        }
+            },
+        },
     },
     extensions = {
         fzf = {
@@ -23,4 +22,3 @@ telescope.setup({
 
 telescope.load_extension("fzf")
 telescope.load_extension("lsp_handlers")
-EOF

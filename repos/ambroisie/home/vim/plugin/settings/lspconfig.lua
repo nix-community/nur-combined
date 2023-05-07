@@ -1,4 +1,3 @@
-lua << EOF
 local lspconfig = require("lspconfig")
 local lsp = require("ambroisie.lsp")
 local utils = require("ambroisie.utils")
@@ -44,4 +43,3 @@ if utils.is_executable("rust-analyzer") then
         on_attach = lsp.on_attach,
     })
 end
-EOF

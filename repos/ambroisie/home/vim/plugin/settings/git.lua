@@ -1,5 +1,4 @@
-lua << EOF
-local gitsigns = require('gitsigns')
+local gitsigns = require("gitsigns")
 local wk = require("which-key")
 
 gitsigns.setup({
@@ -14,13 +13,13 @@ local keys = {
     ["[c"] = { "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", "Previous hunk/diff", expr = true },
     ["]c"] = { "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", "Next hunk/diff", expr = true },
 
-
     -- Commands
     ["<leader>g"] = {
         name = "Git",
         -- Actions
         b = { gitsigns.toggle_current_line_blame, "Toggle blame virtual text" },
         d = { gitsigns.diffthis, "Diff buffer" },
+        -- stylua: ignore
         D = { function() gitsigns.diffthis("~") end, "Diff buffer against last commit" },
         g = { "<cmd>Git<CR>", "Git status" },
         h = { gitsigns.toggle_deleted, "Show deleted hunks" },
@@ -57,4 +56,3 @@ local visual = {
 wk.register(keys, { buffer = bufnr })
 wk.register(objects, { buffer = bufnr, mode = "o" })
 wk.register(visual, { buffer = bufnr, mode = "x" })
-EOF

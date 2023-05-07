@@ -17,7 +17,9 @@ end
 ---@param cmd string? command to check
 ---@return fun(cmd: string): boolean executable
 M.is_executable_condition = function(cmd)
-    return function() return M.is_executable(cmd) end
+    return function()
+        return M.is_executable(cmd)
+    end
 end
 
 -- whether or not we are currently in an SSH connection

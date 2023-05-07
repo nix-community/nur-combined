@@ -1,4 +1,3 @@
-lua << EOF
 local wk = require("which-key")
 
 local keys = {
@@ -9,4 +8,3 @@ local keys = {
 }
 
 wk.register(keys, { prefix = "gc" })
-EOF

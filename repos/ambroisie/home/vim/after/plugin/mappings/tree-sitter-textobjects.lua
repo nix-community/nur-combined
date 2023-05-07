@@ -1,4 +1,3 @@
-lua << EOF
 local wk = require("which-key")
 
 local motions = {
@@ -29,4 +28,3 @@ local objects = {
 
 wk.register(motions, { mode = "n" })
 wk.register(objects, { mode = "o" })
-EOF

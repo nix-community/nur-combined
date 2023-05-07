@@ -1,4 +1,3 @@
-lua << EOF
 local wk = require("which-key")
 local telescope_builtin = require("telescope.builtin")
 
@@ -14,5 +13,3 @@ local keys = {
 }
 
 wk.register(keys, { prefix = "<leader>" })
-EOF
-

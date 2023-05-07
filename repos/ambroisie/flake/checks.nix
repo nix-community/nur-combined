@@ -22,6 +22,10 @@
           shellcheck = {
             enable = true;
           };
+
+          stylua = {
+            enable = true;
+          };
         };
       };
     };

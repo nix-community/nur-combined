@@ -1,4 +1,3 @@
-lua << EOF
 local wk = require("which-key")
 
 local keys = {
@@ -31,7 +30,7 @@ local keys = {
         x = "XML encode",
         y = "C string encode",
         -- Custom
-        d = { vim.diagnostic.goto_prev, "Previous diagnostic" }
+        d = { vim.diagnostic.goto_prev, "Previous diagnostic" },
     },
     ["]"] = {
         name = "Next",
@@ -61,7 +60,7 @@ local keys = {
         x = "XML decode",
         y = "C string decode",
         -- Custom
-        d = { vim.diagnostic.goto_next, "Next diagnostic" }
+        d = { vim.diagnostic.goto_next, "Next diagnostic" },
     },
 
     -- Option mappings
@@ -125,4 +124,3 @@ local keys = {
 }
 
 wk.register(keys)
-EOF

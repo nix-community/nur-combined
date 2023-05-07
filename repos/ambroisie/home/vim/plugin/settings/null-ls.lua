@@ -1,4 +1,3 @@
-lua << EOF
 local null_ls = require("null-ls")
 local lsp = require("ambroisie.lsp")
 local utils = require("ambroisie.utils")
@@ -66,7 +65,6 @@ null_ls.register({
     }),
 })
 
-
 -- Shell (non-POSIX)
 null_ls.register({
     null_ls.builtins.code_actions.shellcheck.with({
@@ -99,7 +97,7 @@ null_ls.register({
 -- Shell (POSIX)
 null_ls.register({
     null_ls.builtins.code_actions.shellcheck.with({
-    -- Restrict to POSIX sh
+        -- Restrict to POSIX sh
         filetypes = { "sh" },
         -- Only used if available
         condition = utils.is_executable_condition("shellcheck"),
@@ -122,4 +120,3 @@ null_ls.register({
         condition = utils.is_executable_condition("shfmt"),
     }),
 })
-EOF
