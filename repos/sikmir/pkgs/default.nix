@@ -161,7 +161,9 @@ lib.makeScope newScope (
       inherit (darwin.apple_sdk.frameworks) Security;
     };
     gloggery = callPackage ./gemini/gloggery { };
-    gmi2html = callPackage ./gemini/gmi2html { };
+    gmi2html = callPackage ./gemini/gmi2html {
+      zig = pkgs.zig_0_9;
+    };
     gmnhg = callPackage ./gemini/gmnhg { };
     gmnigit = callPackage ./gemini/gmnigit { };
     gplaces = callPackage ./gemini/gplaces { };
