@@ -38,6 +38,9 @@
     "slug": "anonaddy"
   },
   {
+    "slug": "aria2-integration"
+  },
+  {
     "slug": "augmented-steam"
   },
   {
@@ -128,6 +131,10 @@
   },
   {
     "slug": "cookies-txt"
+  },
+  {
+    "pname": "copy-link-text",
+    "slug": "copy-link-text-webextension"
   },
   {
     "slug": "copy-selection-as-markdown"
@@ -362,6 +369,16 @@
     }
   },
   {
+    "slug": "inkah",
+    "license": {
+      "tag": "custom",
+      "shortName": "inkah",
+      "fullName": "Inkah Terms of Service",
+      "url": "https://www.inkah.com/terms-of",
+      "free": false
+    }
+  },
+  {
     "slug": "ipfs-companion"
   },
   {
@@ -435,6 +452,9 @@
     "slug": "link-cleaner"
   },
   {
+    "slug": "link-gopher"
+  },
+  {
     "slug": "linkhints"
   },
   {
@@ -504,6 +524,9 @@
   },
   {
     "slug": "new-zealand-english-dict"
+  },
+  {
+    "slug": "new_tongwentang"
   },
   {
     "slug": "news-feed-eradicator"
@@ -593,6 +616,9 @@
     "slug": "peertubeify"
   },
   {
+    "slug": "persistentpin"
+  },
+  {
     "slug": "pinboard"
   },
   {
@@ -679,6 +705,9 @@
   },
   {
     "slug": "return-youtube-dislikes"
+  },
+  {
+    "slug": "rsshub-radar"
   },
   {
     "slug": "rust-search-extension"
@@ -835,6 +864,9 @@
     }
   },
   {
+    "slug": "torrent-control"
+  },
+  {
     "slug": "tournesol-extension",
     "pname": "tournesol"
   },
@@ -885,6 +917,9 @@
   },
   {
     "slug": "umatrix"
+  },
+  {
+    "slug": "undoclosetabbutton"
   },
   {
     "slug": "unpaywall"

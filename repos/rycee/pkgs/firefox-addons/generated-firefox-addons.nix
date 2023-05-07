@@ -125,6 +125,19 @@
         platforms = platforms.all;
         };
       };
+    "aria2-integration" = buildFirefoxXpiAddon {
+      pname = "aria2-integration";
+      version = "0.4.5";
+      addonId = "{e2488817-3d73-4013-850d-b66c5e42d505}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3025850/aria2_integration-0.4.5.xpi";
+      sha256 = "1672866f9860499d1a1d5848baab506431ac7db2e99253d517c3735f84410f26";
+      meta = with lib;
+      {
+        description = "Replace built-in download manager. When activated, detects the download links to direct links to this add-on and send to Aria2";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
       version = "2.4.1";
@@ -487,6 +500,20 @@
       {
         description = "Exports all cookies to a Netscape HTTP Cookie File, as used by curl, wget, and youtube-dl, among others.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "copy-link-text" = buildFirefoxXpiAddon {
+      pname = "copy-link-text";
+      version = "1.6.4";
+      addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883720/copy_link_text_webextension-1.6.4.xpi";
+      sha256 = "21fa5ee67f4e751e9b6f8b37ed75edd3d9d00ae57ea6227eaece965a490b4ce8";
+      meta = with lib;
+      {
+        homepage = "https://github.com/def00111/copy-link-text";
+        description = "Copy the text of the link.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -1306,6 +1333,25 @@
         platforms = platforms.all;
         };
       };
+    "inkah" = buildFirefoxXpiAddon {
+      pname = "inkah";
+      version = "1.0.43";
+      addonId = "{de5bbbad-7c53-468e-9d8d-9d737cf5ba81}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4042120/inkah-1.0.43.xpi";
+      sha256 = "1288b01b67be6bd6930fb45b969ece86547bc696619754911f4183b5daa05d5a";
+      meta = with lib;
+      {
+        homepage = "https://www.inkah.com";
+        description = "Look up Chinese &amp; Korean words. Split sentences into their individual words. Learn while browsing the web by hovering words and learn from Youtube and Netflix with double subtitles.";
+        license = {
+          shortName = "inkah";
+          fullName = "Inkah Terms of Service";
+          url = "https://www.inkah.com/terms-of";
+          free = false;
+          };
+        platforms = platforms.all;
+        };
+      };
     "ipfs-companion" = buildFirefoxXpiAddon {
       pname = "ipfs-companion";
       version = "2.22.1";
@@ -1525,6 +1571,20 @@
       {
         homepage = "https://github.com/idlewan/link_cleaner";
         description = "Clean URLs that are about to be visited:\n- removes utm_* parameters\n- on item pages of aliexpress and amazon, removes tracking parameters\n- skip redirect pages of facebook, steam and reddit";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "link-gopher" = buildFirefoxXpiAddon {
+      pname = "link-gopher";
+      version = "2.4.4";
+      addonId = "linkgopher@oooninja.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3834730/link_gopher-2.4.4.xpi";
+      sha256 = "3eff3aa755bdfd31b3d26e570d88ce05f0341465e568a03222571b691395c54e";
+      meta = with lib;
+      {
+        homepage = "http://sites.google.com/site/linkgopher/";
+        description = "Extracts all links from web page, sorts them, removes duplicates, and displays them in a new tab for inspection or copy and paste into other systems.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
@@ -1781,6 +1841,20 @@
       {
         description = "New Zealand English Dictionary 1.0.1 for Firefox.";
         license = licenses.lgpl21;
+        platforms = platforms.all;
+        };
+      };
+    "new_tongwentang" = buildFirefoxXpiAddon {
+      pname = "new_tongwentang";
+      version = "2.2.0";
+      addonId = "tongwen@softcup";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4029313/new_tongwentang-2.2.0.xpi";
+      sha256 = "b51cc33f21edfa063628d86e2f8d05279690cc23f7ca3c25263084d1bc2b3b94";
+      meta = with lib;
+      {
+        homepage = "https://github.com/softcup/New-Tongwentang-for-Firefox";
+        description = "Traditional and Simplified Chinese Converter";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2048,6 +2122,20 @@
         homepage = "https://gitlab.com/Ealhad/peertubeify";
         description = "PeerTubeify allows to redirect between YouTube and PeerTube and across PeerTube instances, automatically or by displaying a link.\n\nDon't forget to set your preferences :)\n\nPeerTubeify is not affiliated with PeerTube.";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "persistentpin" = buildFirefoxXpiAddon {
+      pname = "persistentpin";
+      version = "1.1.1";
+      addonId = "{b8f5b973-7a28-4787-8e94-fdb7504e3991}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3920941/persistentpin-1.1.1.xpi";
+      sha256 = "5a1ff0563e0a469aae7af9c0e723cac50819c6c3457792b576e90ff911b9192d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Faerbit/persistentpin-webextension";
+        description = "Pins the same websites across browser restarts.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2385,6 +2473,20 @@
       {
         description = "Returns ability to see dislike statistics on youtube";
         license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "rsshub-radar" = buildFirefoxXpiAddon {
+      pname = "rsshub-radar";
+      version = "1.10.1";
+      addonId = "i@diygod.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4056771/rsshub_radar-1.10.1.xpi";
+      sha256 = "6dc3c41ea1dd6079e9e26906803542180dbad4ff43a587afc91bc51b272dd736";
+      meta = with lib;
+      {
+        homepage = "https://docs.rsshub.app";
+        description = "RSSHub Radar is a spin-off of RSSHub that helps you quickly discover and subscribe to RSS and RSSHub for your current site.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2933,6 +3035,20 @@
         platforms = platforms.all;
         };
       };
+    "torrent-control" = buildFirefoxXpiAddon {
+      pname = "torrent-control";
+      version = "0.2.34";
+      addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4068173/torrent_control-0.2.34.xpi";
+      sha256 = "5c8f08440d6a16080cad2b78a4933ab3917b561f9f0c775dfd06a559b562788e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Mika-/torrent-control";
+        description = "Send torrent and magnet links to your Bittorrent client's web interface. Supports BiglyBT, Cloud Torrent, Deluge, Flood, ruTorrent, Tixati, Transmission, tTorrent, µTorrent, Vuze and qBittorrent.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
       version = "2.6.7";
@@ -3086,6 +3202,20 @@
       {
         homepage = "https://github.com/gorhill/uMatrix";
         description = "Point &amp; click to forbid/allow any class of requests made by your browser. Use it to block scripts, iframes, ads, facebook, etc.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "undoclosetabbutton" = buildFirefoxXpiAddon {
+      pname = "undoclosetabbutton";
+      version = "7.5.0";
+      addonId = "{4853d046-c5a3-436b-bc36-220fd935ee1d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3917941/undoclosetabbutton-7.5.0.xpi";
+      sha256 = "5dc0a83f37797ee04850a45d3d73e8cf2371b7ed6720ba28926671fb246342be";
+      meta = with lib;
+      {
+        homepage = "https://github.com/M-Reimer/undoclosetab";
+        description = "Allows you to restore the tab you just closed with a single click—plus it can offer a list of recently closed tabs within a convenient context menu.";
         license = licenses.gpl3;
         platforms = platforms.all;
         };
