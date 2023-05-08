@@ -52,10 +52,6 @@ in
         passwordFile = secrets."gitea/mail-password".path;
       };
     };
-    # Grocy ERP
-    grocy = {
-      enable = true;
-    };
     # Meta-indexers
     indexers = {
       prowlarr.enable = true;
