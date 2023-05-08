@@ -2,7 +2,7 @@
   stdenv,
   fetchzip,
   libgta,
-pkg-config,
+  pkg-config,
 }:
 stdenv.mkDerivation rec {
   pname = "gtatool";
@@ -13,14 +13,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-la592sskqg89wAvQ0OMNJguvr68AKNX8jdSpTxwbzbw=";
   };
 
-nativeBuildInputs = [
-pkg-config
-];
+  nativeBuildInputs = [
+    pkg-config
+  ];
 
   buildInputs = [
     libgta
   ];
 
-# TODO
-meta.broken = true;
+  # TODO
+  meta.broken = true;
 }

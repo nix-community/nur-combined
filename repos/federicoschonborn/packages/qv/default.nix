@@ -2,7 +2,6 @@
   stdenv,
   fetchzip,
   cmake,
-  libgta,
   libtgd,
   qtbase,
   qtwayland,
@@ -23,7 +22,6 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    libgta
     libtgd
     qtbase
     qtwayland
