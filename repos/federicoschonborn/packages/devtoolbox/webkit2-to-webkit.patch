@@ -1,0 +1,68 @@
+diff --git a/src/main.py b/src/main.py
+index 61bc4fb..3856fc3 100644
+--- a/src/main.py
++++ b/src/main.py
+@@ -8,7 +8,7 @@ import gi
+ gi.require_version("Gtk", "4.0")
+ gi.require_version("Adw", "1")
+ gi.require_version("GtkSource", "5")
+-gi.require_version('WebKit2', '5.0')
++gi.require_version('WebKit', '6.0')
+ 
+ from gi.repository import Gtk, Gio, Adw, GObject, GtkSource, Gdk
+ 
+diff --git a/src/ui/views/markdown_preview.ui b/src/ui/views/markdown_preview.ui
+index 63eb319..c9b4126 100644
+--- a/src/ui/views/markdown_preview.ui
++++ b/src/ui/views/markdown_preview.ui
+@@ -9,7 +9,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
+ <interface>
+   <requires lib="gtk" version="4.0" />
+   <requires lib="libadwaita" version="1.0" />
+-  <requires lib="webkit2" version="5.0" />
++  <requires lib="webkit" version="6.0" />
+   <template class="MarkdownPreviewView" parent="AdwBin">
+     <child>
+       <object class="AdwToastOverlay" id="_toast">
+diff --git a/src/widgets/webview_area.py b/src/widgets/webview_area.py
+index 4c876e2..f3a2efb 100644
+--- a/src/widgets/webview_area.py
++++ b/src/widgets/webview_area.py
+@@ -2,7 +2,7 @@
+ #
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ 
+-from gi.repository import Gtk, Adw, GObject, Gio, Gdk, WebKit2
++from gi.repository import Gtk, Adw, GObject, Gio, Gdk, WebKit
+ 
+ 
+ @Gtk.Template(resource_path="/me/iepure/devtoolbox/ui/widgets/webview_area.ui")
+@@ -16,7 +16,7 @@ class WebviewArea(Adw.Bin):
+     _spinner_separator = Gtk.Template.Child()
+     _view_btn = Gtk.Template.Child()
+ 
+-    _webview = WebKit2.WebView()
++    _webview = WebKit.WebView()
+ 
+     # Properties
+     name = GObject.Property(type=str, default="")
+@@ -51,8 +51,8 @@ class WebviewArea(Adw.Bin):
+         self._webview.connect("context_menu", self._disable_contex_menu)
+         self._view_btn.connect("clicked", self._on_view_clicked)
+ 
+-    def _on_policy_decision(self, webview:WebKit2.WebView, decision:WebKit2.NavigationPolicyDecision, decision_type:WebKit2.PolicyDecisionType):
+-        if decision_type == WebKit2.PolicyDecisionType.NAVIGATION_ACTION:
++    def _on_policy_decision(self, webview:WebKit.WebView, decision:WebKit.NavigationPolicyDecision, decision_type:WebKit.PolicyDecisionType):
++        if decision_type == WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+             uri = decision.get_navigation_action().get_request().get_uri()
+             if decision.get_navigation_action().is_user_gesture() and not uri.split("#")[0] == webview.get_uri():
+                 decision.ignore()
+@@ -60,7 +60,7 @@ class WebviewArea(Adw.Bin):
+                 window = app.get_active_window()
+                 Gtk.show_uri(window, uri, Gdk.CURRENT_TIME)
+ 
+-    def _disable_contex_menu(self, web_view:WebKit2.WebView, context_menu:WebKit2.ContextMenu, event:Gdk.Event, hit_test_result:WebKit2.HitTestResult):
++    def _disable_contex_menu(self, web_view:WebKit.WebView, context_menu:WebKit.ContextMenu, event:Gdk.Event, hit_test_result:WebKit.HitTestResult):
+         return True
+ 
+     def _on_view_clicked(self, user_data:GObject.GPointer):

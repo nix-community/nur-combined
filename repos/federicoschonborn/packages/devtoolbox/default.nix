@@ -26,6 +26,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-NirgCBZW/bgJz5sVioe3gmpDgOtqwxsFD9FMA8kb2Uw=";
   };
 
+patches = [
+./webkit2-to-webkit.patch
+./newer-gtk4.patch
+];
+
   nativeBuildInputs = [
     desktop-file-utils
     gobject-introspection
@@ -129,15 +134,6 @@ python3.pkgs.buildPythonApplication rec {
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '';
-
-  postInstall = ''
-    substituteInPlace $out/share/devtoolbox/devtoolbox/main.py \
-      --replace "gi.require_version('WebKit2', '5.0')" "gi.require_version('WebKit', '6.0')" \
-      --replace "WebKit2" "WebKit"
-
-    substituteInPlace $out/share/devtoolbox/devtoolbox/widgets/webview_area.py \
-      --replace "WebKit2" "WebKit"
   '';
 
   meta = with lib; {

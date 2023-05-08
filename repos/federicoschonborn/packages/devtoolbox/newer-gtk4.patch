@@ -1,0 +1,25 @@
+diff --git a/src/views/contrast_checker.py b/src/views/contrast_checker.py
+index ed33525..ebbb2e2 100644
+--- a/src/views/contrast_checker.py
++++ b/src/views/contrast_checker.py
+@@ -44,12 +44,18 @@ class ContrastCheckerView(Adw.Bin):
+         bg_css_str = "* { background-color: " + bg_color.to_string() + "; }"
+ 
+         lbl_css_provider = Gtk.CssProvider()
+-        lbl_css_provider.load_from_data(lbl_css_str.encode("utf-8"))
++        if (Gtk.get_major_version(), Gtk.get_minor_version()) >= (4, 9):
++            lbl_css_provider.load_from_data(lbl_css_str, -1)
++        else:
++            lbl_css_provider.load_from_data(lbl_css_str.encode("utf-8"))
+         self._example_title_lbl.get_style_context().add_provider(lbl_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+         self._example_lbl.get_style_context().add_provider(lbl_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+ 
+         bg_css_provider = Gtk.CssProvider()
+-        bg_css_provider.load_from_data(bg_css_str.encode("utf-8"))
++        if (Gtk.get_major_version(), Gtk.get_minor_version()) >= (4, 9):
++            bg_css_provider.load_from_data(bg_css_str, -1)
++        else:
++            bg_css_provider.load_from_data(bg_css_str.encode("utf-8"))
+         self._example_box.get_style_context().add_provider(bg_css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+ 
+     def _check_wcag(self):
