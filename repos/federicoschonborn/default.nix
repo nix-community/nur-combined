@@ -43,7 +43,9 @@
   };
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme {};
   gradebook = pkgs.callPackage ./packages/gradebook {};
+  gtatool = pkgs.callPackage ./packages/gtatool {inherit libgta;};
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit {};
+  libgta = pkgs.callPackage ./packages/libgta {};
   libtgd = pkgs.callPackage ./packages/libtgd {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
@@ -59,7 +61,7 @@
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
   surgescript = pkgs.callPackage ./packages/surgescript {};
-  qv = pkgs.qt6.callPackage ./packages/qv {inherit libtgd;};
+  qv = pkgs.qt6.callPackage ./packages/qv {inherit libgta libtgd;};
   telegraph = pkgs.callPackage ./packages/telegraph {};
   tuba = pkgs.callPackage ./packages/tuba {};
 
