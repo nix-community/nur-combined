@@ -44,8 +44,41 @@
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
+  loupe = pkgs.callPackage ./packages/loupe {gtk4 = gtk4_11;};
   morewaita = pkgs.callPackage ./packages/morewaita {};
   opensurge = pkgs.callPackage ./packages/opensurge {inherit surgescript;};
+  snapshot = pkgs.callPackage ./packages/snapshot {
+    gtk4 = gtk4_11;
+    libadwaita = libadwaita1_4;
+  };
   surgescript = pkgs.callPackage ./packages/surgescript {};
   tuba = pkgs.callPackage ./packages/tuba {};
+
+  gtk4_11 = pkgs.gtk4.overrideAttrs (oldAttrs: {
+    version = "unstable-2023-05-07";
+
+    src = pkgs.fetchFromGitLab {
+      domain = "gitlab.gnome.org";
+      owner = "GNOME";
+      repo = "gtk";
+      rev = "61ff647f71879f20da4b8b4d71d6b11c8ae6d391";
+      hash = "sha256-zZoy/oFzW+lmJJhXOV3K3DIxDjhLVhWUG2zIi33+Z6o=";
+    };
+  });
+
+  libadwaita1_4 =
+    (pkgs.libadwaita.overrideAttrs (oldAttrs: {
+      version = "unstable-2023-05-07";
+
+      src = pkgs.fetchFromGitLab {
+        domain = "gitlab.gnome.org";
+        owner = "GNOME";
+        repo = "libadwaita";
+        rev = "a98da7cf5dac823b155191f0be76cc1b2d8002c3";
+        hash = "sha256-ufxtxUcsMYfGK0UETwVK+xnqQ1E2UsaLpSbYoqmHCeg=";
+      };
+
+      buildInputs = oldAttrs.buildInputs ++ [pkgs.appstream];
+    }))
+    .override {gtk4 = gtk4_11;};
 }
