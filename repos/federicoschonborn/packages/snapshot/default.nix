@@ -16,6 +16,7 @@
   pango,
   darwin,
   wayland,
+  wrapGAppsHook4,
 }:
 stdenv.mkDerivation rec {
   pname = "snapshot";
@@ -43,6 +44,7 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
     rustPlatform.rust.cargo
     rustPlatform.rust.rustc
+    wrapGAppsHook4
   ];
 
   buildInputs =

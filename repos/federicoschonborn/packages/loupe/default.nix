@@ -18,6 +18,7 @@
   libxml2,
   pango,
   darwin,
+  wrapGAppsHook4,
 }:
 stdenv.mkDerivation rec {
   pname = "loupe";
@@ -46,6 +47,7 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
     rustPlatform.rust.cargo
     rustPlatform.rust.rustc
+    wrapGAppsHook4
   ];
 
   buildInputs =

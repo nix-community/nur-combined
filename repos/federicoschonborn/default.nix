@@ -13,8 +13,8 @@
 
   bsdutils = pkgs.callPackage ./packages/bsdutils {inherit libxo;};
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
+  damask = pkgs.callPackage ./packages/damask {};
   devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
-  elastic = pkgs.callPackage ./packages/elastic {};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
   fastfetchFull = fastfetch.override {
     enableLibpci = true;
@@ -42,19 +42,26 @@
     enablePulse = true;
   };
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme {};
+  gradebook = pkgs.callPackage ./packages/gradebook {};
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
-  loupe = pkgs.callPackage ./packages/loupe {gtk4 = gtk4_11;};
+  loupe = pkgs.callPackage ./packages/loupe {
+    gtk4 = gtk4_11;
+    wrapGAppsHook4 = wrapGAppsHook4_11;
+  };
   morewaita = pkgs.callPackage ./packages/morewaita {};
   opensurge = pkgs.callPackage ./packages/opensurge {inherit surgescript;};
   snapshot = pkgs.callPackage ./packages/snapshot {
     gtk4 = gtk4_11;
     libadwaita = libadwaita1_4;
+    wrapGAppsHook4 = wrapGAppsHook4_11;
   };
   surgescript = pkgs.callPackage ./packages/surgescript {};
   telegraph = pkgs.callPackage ./packages/telegraph {};
   tuba = pkgs.callPackage ./packages/tuba {};
+
+  wrapGAppsHook4_11 = pkgs.wrapGAppsHook4.override {gtk3 = gtk4_11;};
 
   gtk4_11 = pkgs.gtk4.overrideAttrs (_: {
     version = "unstable-2023-05-07";

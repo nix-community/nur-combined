@@ -2,31 +2,35 @@
   lib,
   stdenv,
   fetchFromGitLab,
+  blueprint-compiler,
   desktop-file-utils,
   gettext,
   gtk4,
-  gtksourceview5,
+  json-glib,
   libadwaita,
+  libgee,
+  libportal-gtk4,
+  libsoup_3,
   meson,
   ninja,
   pkg-config,
-  template-glib,
   vala,
   wrapGAppsHook4,
 }:
 stdenv.mkDerivation rec {
-  pname = "elastic";
-  version = "0.1.3";
+  pname = "damask";
+  version = "0.1.5";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
-    owner = "World";
-    repo = "elastic";
-    rev = version;
-    hash = "sha256-CZ+EeGbCzkeNx4GD+2+n3jYwz/cQStjMV2+wm/JNsYU=";
+    owner = "subpop";
+    repo = "damask";
+    rev = "v${version}";
+    hash = "sha256-gnN6A1AzAVbM5SwbwBOolX1b9j9DBV0jdwoREdM+EGc=";
   };
 
   nativeBuildInputs = [
+    blueprint-compiler
     desktop-file-utils
     gettext
     meson
@@ -38,15 +42,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gtk4
-    gtksourceview5
+    json-glib
     libadwaita
-    template-glib
+    libgee
+    libportal-gtk4
+    libsoup_3
   ];
 
   meta = with lib; {
-    description = "Design spring animations";
-    homepage = "https://gitlab.gnome.org/World/elastic";
-    mainProgram = "app.drey.Elastic";
+    description = "";
+    homepage = "https://gitlab.gnome.org/subpop/damask";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [];
   };
