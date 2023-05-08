@@ -3,8 +3,6 @@
   stdenv,
   fetchzip,
   cmake,
-  gtaSupport ? true,
-  libgta,
   # TODO
   # hdrSupport ? true,
   # openexr,
@@ -36,7 +34,6 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     []
-    ++ lib.optionals gtaSupport [libgta]
     # ++ lib.optionals hdrSupport [openexr]
     ++ lib.optionals pngSupport [libpng]
     ++ lib.optionals jpegSupport [libjpeg]

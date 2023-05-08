@@ -43,10 +43,8 @@
   };
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme {};
   gradebook = pkgs.callPackage ./packages/gradebook {};
-  gtatool = pkgs.callPackage ./packages/gtatool {inherit libgta;};
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit {};
-  libgta = pkgs.callPackage ./packages/libgta {};
-  libtgd = pkgs.callPackage ./packages/libtgd {inherit libgta;};
+  libtgd = pkgs.callPackage ./packages/libtgd {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
   loupe = pkgs.callPackage ./packages/loupe {
