@@ -42,35 +42,35 @@ python3.pkgs.buildPythonApplication rec {
     webkitgtk_6_0
   ];
 
-  pythonPath =
+  propagatedBuildInputs = with python3.pkgs;
     [
-      python3.pkgs.croniter
-      python3.pkgs.humanize
-      python3.pkgs.lxml
-      python3.pkgs.markdown2
-      python3.pkgs.pygobject3
-      python3.pkgs.python-crontab
-      python3.pkgs.python-jwt
-      python3.pkgs.ruamel-yaml
-      python3.pkgs.sqlparse
+      croniter
+      humanize
+      lxml
+      markdown2
+      pygobject3
+      python-crontab
+      python-jwt
+      ruamel-yaml
+      sqlparse
     ]
     ++ [
       (
-        python3.pkgs.daltonlens or python3.pkgs.buildPythonPackage rec {
+        buildPythonPackage rec {
           pname = "daltonlens";
           version = "0.1.5";
           format = "pyproject";
-          src = python3.pkgs.fetchPypi {
+          src = fetchPypi {
             inherit pname version;
             hash = "sha256-T7fXlRdFtcVw5WURPqZhCmulUi1ZnCfCXgcLtTHeNas=";
           };
           nativeBuildInputs = [
-            python3.pkgs.setuptools
-            python3.pkgs.wheel
+            setuptools
+            wheel
           ];
           propagatedBuildInputs = [
-            python3.pkgs.numpy
-            python3.pkgs.pillow
+            numpy
+            pillow
           ];
           pythonImportsCheck = [
             "daltonlens"
@@ -78,13 +78,13 @@ python3.pkgs.buildPythonApplication rec {
         }
       )
       (
-        python3.pkgs.lorem or python3.pkgs.buildPythonPackage rec {
-          pname = "lorem";
-          version = "0.1.1";
+        buildPythonPackage rec {
+          pname = "python-lorem";
+          version = "1.3.0";
           format = "setuptools";
-          src = python3.pkgs.fetchPypi {
+          src = fetchPypi {
             inherit pname version;
-            hash = "sha256-eF9BCaJB/CiR5ZcF6F0GX25tPtatkXUKjLVNTz5Z2TQ=";
+            hash = "sha256-ghzvDJRV+XSoTqu88/B3TXGITUM1K9PP5d9EYHoQrNI=";
           };
           pythonImportsCheck = [
             "lorem"
@@ -92,17 +92,17 @@ python3.pkgs.buildPythonApplication rec {
         }
       )
       (
-        python3.pkgs.textstat or python3.pkgs.buildPythonPackage rec {
+        buildPythonPackage rec {
           pname = "textstat";
           version = "0.7.3";
           format = "setuptools";
-          src = python3.pkgs.fetchPypi {
+          src = fetchPypi {
             inherit pname version;
             hash = "sha256-YLY8+JSfRbuztCBeRBG7wc1m30wIrvElRYEcfm4k8BE=";
           };
           propagatedBuildInputs = [
-            python3.pkgs.pyphen
-            python3.pkgs.setuptools
+            pyphen
+            setuptools
           ];
           pythonImportsCheck = [
             "textstat"
@@ -111,11 +111,11 @@ python3.pkgs.buildPythonApplication rec {
         }
       )
       (
-        python3.pkgs.uuid6 or python3.pkgs.buildPythonPackage rec {
+        buildPythonPackage rec {
           pname = "uuid6";
           version = "2022.10.25";
           format = "setuptools";
-          src = python3.pkgs.fetchPypi {
+          src = fetchPypi {
             inherit pname version;
             hash = "sha256-ClaTXenBzo3YVZIluEVUnZSRfZ4krUscwjKO6lvgAQw=";
           };
@@ -127,9 +127,17 @@ python3.pkgs.buildPythonApplication rec {
     ];
 
   dontWrapGApps = true;
-
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+  '';
+
+  postInstall = ''
+    substituteInPlace $out/share/devtoolbox/devtoolbox/main.py \
+      --replace "gi.require_version('WebKit2', '5.0')" "gi.require_version('WebKit', '6.0')" \
+      --replace "WebKit2" "WebKit"
+
+    substituteInPlace $out/share/devtoolbox/devtoolbox/widgets/webview_area.py \
+      --replace "WebKit2" "WebKit"
   '';
 
   meta = with lib; {
