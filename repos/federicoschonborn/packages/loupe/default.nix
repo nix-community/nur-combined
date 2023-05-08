@@ -73,5 +73,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/Incubator/loupe/-/blob/${src.rev}/NEWS";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [];
+    # TODO
+    broken = true;
   };
 }

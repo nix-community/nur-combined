@@ -44,6 +44,7 @@
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme {};
   gradebook = pkgs.callPackage ./packages/gradebook {};
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit {};
+  libtgd = pkgs.callPackage ./packages/libtgd {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};
   loupe = pkgs.callPackage ./packages/loupe {
@@ -58,6 +59,7 @@
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
   surgescript = pkgs.callPackage ./packages/surgescript {};
+  qv = pkgs.qt6.callPackage ./packages/qv {inherit libtgd;};
   telegraph = pkgs.callPackage ./packages/telegraph {};
   tuba = pkgs.callPackage ./packages/tuba {};
 
