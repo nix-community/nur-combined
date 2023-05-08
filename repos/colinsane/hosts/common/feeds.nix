@@ -189,6 +189,7 @@ let
     (fromDb "stpeter.im/atom.xml" // pol)
     ## Peter Saint-Andre -- side project of stpeter.im
     (fromDb "philosopher.coach" // rat)
+    (fromDb "morningbrew.com/feed" // pol)
 
     # RATIONALITY/PHILOSOPHY/ETC
     (mkSubstack "samkriss" // humor // infrequent)

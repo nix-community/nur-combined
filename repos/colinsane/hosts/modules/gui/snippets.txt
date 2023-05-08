@@ -10,4 +10,6 @@ https://jackett.uninsane.org/UI/Dashboard#search=
 https://fed.uninsane.org
 https://bt.uninsane.org
 https://sci-hub.se
+https://archive.is
 https://news.ycombinator.com
+https://192.168.15.1:60481  # Router/Firewall

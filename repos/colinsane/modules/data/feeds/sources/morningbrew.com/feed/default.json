@@ -1,0 +1,21 @@
+{
+  "bozo": 0,
+  "content_length": 151072,
+  "content_type": "text/xml; charset=utf-8",
+  "description": "The daily email newsletter covering the latest news from Wall St. to Silicon Valley. Informative, witty, and everything you need to start your day.",
+  "favicon": "",
+  "favicon_data_uri": "",
+  "hubs": [],
+  "is_podcast": false,
+  "is_push": false,
+  "item_count": 40,
+  "last_updated": "2023-05-08T19:26:29+00:00",
+  "score": 23,
+  "self_url": "https://www.morningbrew.com/feed.xml",
+  "site_name": "Morning Brew",
+  "site_url": "https://www.morningbrew.com",
+  "title": "Morning Brew",
+  "url": "https://www.morningbrew.com/feed.xml",
+  "velocity": 3.931,
+  "version": "rss20"
+}
