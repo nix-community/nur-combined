@@ -6,7 +6,7 @@
 # many of the settings below won't have effect without those patches.
 # see: https://gitlab.com/librewolf-community/settings/-/blob/master/distribution/policies.json
 
-{ config, lib, pkgs, sane-lib, ...}:
+{ config, lib, pkgs, ...}:
 with lib;
 let
   cfg = config.sane.programs.web-browser.config;
@@ -167,7 +167,7 @@ in
         # the specific attribute path is found via scraping ublock code here:
         # - <https://github.com/gorhill/uBlock/blob/master/src/js/storage.js>
         # - <https://github.com/gorhill/uBlock/blob/master/assets/assets.json>
-        fs."${cfg.browser.dotDir}/managed-storage/uBlock0@raymondhill.net.json" = sane-lib.fs.wantedText ''
+        fs."${cfg.browser.dotDir}/managed-storage/uBlock0@raymondhill.net.json".symlink.text = ''
           {
            "name": "uBlock0@raymondhill.net",
            "description": "ignored",
@@ -177,16 +177,16 @@ in
            }
           }
         '';
-        fs."${cfg.browser.dotDir}/${cfg.browser.libName}.overrides.cfg" = sane-lib.fs.wantedText ''
+        fs."${cfg.browser.dotDir}/${cfg.browser.libName}.overrides.cfg".symlink.text = ''
           // if we can't query the revocation status of a SSL cert because the issuer is offline,
           // treat it as unrevoked.
           // see: <https://librewolf.net/docs/faq/#im-getting-sec_error_ocsp_server_error-what-can-i-do>
           defaultPref("security.OCSP.require", false);
         '';
-        fs."${cfg.browser.dotDir}/default" = sane-lib.fs.wantedDir;
+        fs."${cfg.browser.dotDir}/default".dir = {};
         # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).
         # XXX: the directory *must* exist, even if empty; Firefox will not create the directory itself.
-        fs."${cfg.browser.dotDir}/profiles.ini" = sane-lib.fs.wantedText ''
+        fs."${cfg.browser.dotDir}/profiles.ini".symlink.text = ''
           [Profile0]
           Name=default
           IsRelative=1

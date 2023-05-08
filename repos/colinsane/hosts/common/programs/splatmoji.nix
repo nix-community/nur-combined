@@ -1,12 +1,12 @@
 # borrows from:
 # - default config: <https://github.com/cspeterson/splatmoji/blob/master/splatmoji.config>
 # - wayland: <https://github.com/cspeterson/splatmoji/issues/32#issuecomment-830862566>
-{ pkgs, sane-lib, ... }:
+{ pkgs, ... }:
 
 {
   sane.programs.splatmoji = {
     persist.plaintext = [ ".local/state/splatmoji" ];
-    fs.".config/splatmoji/splatmoji.config" = sane-lib.fs.wantedText ''
+    fs.".config/splatmoji/splatmoji.config".symlink.text = ''
       # XXX doesn't seem to understand ~ as shorthand for `$HOME`
       history_file=/home/colin/.local/state/splatmoji/history
       history_length=5

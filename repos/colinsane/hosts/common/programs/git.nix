@@ -1,10 +1,10 @@
-{ lib, pkgs, sane-lib, ... }:
+{ lib, pkgs, ... }:
 
 let
   mkCfg = lib.generators.toINI { };
 in
 {
-  sane.programs.git.fs.".config/git/config" = sane-lib.fs.wantedText (mkCfg {
+  sane.programs.git.fs.".config/git/config".symlink.text = mkCfg {
     user.name = "Colin";
     user.email = "colin@uninsane.org";
     alias.co = "checkout";
@@ -14,5 +14,5 @@ in
     difftool.prompt = false;
     "difftool \"difftastic\"".cmd = ''${pkgs.difftastic}/bin/difft "$LOCAL" "$REMOTE"'';
     # now run `git difftool` to use difftastic git
-  });
+  };
 }

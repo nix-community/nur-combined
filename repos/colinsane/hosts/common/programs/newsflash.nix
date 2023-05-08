@@ -8,8 +8,8 @@ let
 in {
   sane.programs.newsflash = {
     persist.plaintext = [ ".local/share/news-flash" ];
-    fs.".config/newsflashFeeds.opml" = sane-lib.fs.wantedText (
+    fs.".config/newsflashFeeds.opml".symlink.text =
       feeds.feedsToOpml wanted-feeds
-    );
+    ;
   };
 }

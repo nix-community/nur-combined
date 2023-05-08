@@ -6,7 +6,7 @@ let
   all-feeds = config.sane.feeds;
   wanted-feeds = feeds.filterByFormat ["podcast"] all-feeds;
 in {
-  sane.programs.gpodder.fs.".config/gpodderFeeds.opml" = sane-lib.fs.wantedText (
+  sane.programs.gpodder.fs.".config/gpodderFeeds.opml".symlink.text =
     feeds.feedsToOpml wanted-feeds
-  );
+  ;
 }

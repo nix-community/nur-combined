@@ -145,9 +145,10 @@ let
     sane.users = mapAttrs (user: en: optionalAttrs en {
       inherit (p) persist;
       fs = mkMerge [
-        p.fs
+        # make every fs entry wanted by system boot:
+        (mapAttrs (_path: sane-lib.fs.wanted) p.fs)
+        # link every secret into the fs:
         (mapAttrs
-          # link every secret into the fs
           # TODO: user the user's *actual* home directory, don't guess.
           (homePath: _src: sane-lib.fs.wantedSymlinkTo "/run/secrets/home/${user}/${homePath}")
           p.secrets

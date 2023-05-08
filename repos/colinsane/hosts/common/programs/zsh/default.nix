@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkIf mkMerge mkOption types;
@@ -51,12 +51,12 @@ in
         ];
 
         # zsh/prezto complains if zshrc doesn't exist; but it does allow an "empty" file.
-        fs.".config/zsh/.zshrc" = sane-lib.fs.wantedText "# ";
+        fs.".config/zsh/.zshrc".symlink.text = "# ";
 
         # prezto = oh-my-zsh fork; controls prompt, auto-completion, etc.
         # see: https://github.com/sorin-ionescu/prezto
         # i believe this file is auto-sourced by the prezto init.zsh script.
-        fs.".config/zsh/.zpreztorc" = sane-lib.fs.wantedText ''
+        fs.".config/zsh/.zpreztorc".symlink.text = ''
           zstyle ':prezto:*:*' color 'yes'
 
           # modules (they ship with prezto):

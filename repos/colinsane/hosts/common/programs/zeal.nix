@@ -1,8 +1,7 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (builtins) map;
   inherit (lib) mkIf mkOption optionalString types;
-  inherit (sane-lib) mapToAttrs;
   cfg = config.sane.programs.docsets.config;
   configOpts = types.submodule {
     options = {
@@ -18,7 +17,7 @@ in {
       ".cache/Zeal"
       ".local/share/Zeal"
     ];
-    fs.".local/share/Zeal/Zeal/docsets/system" = sane-lib.fs.wantedSymlinkTo "/run/current-system/sw/share/docset";
+    fs.".local/share/Zeal/Zeal/docsets/system".symlink.target = "/run/current-system/sw/share/docset";
     suggestedPrograms = [ "docsets" ];
   };
 

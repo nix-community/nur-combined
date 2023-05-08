@@ -12,7 +12,7 @@ in
   sane.programs.vlc = {
     # vlc remembers play position in ~/.config/vlc/vlc-qt-interface.conf
     persist.plaintext = [ ".config/vlc" ];
-    fs.".config/vlc/vlcrc" = sane-lib.fs.wantedText ''
+    fs.".config/vlc/vlcrc".symlink.text = ''
       [podcast]
       podcast-urls=${podcast-urls}
       [core]
