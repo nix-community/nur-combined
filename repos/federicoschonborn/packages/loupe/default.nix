@@ -15,6 +15,7 @@
   libadwaita,
   libgweather,
   libheif,
+  libxml2,
   pango,
   darwin,
 }:
@@ -57,6 +58,7 @@ stdenv.mkDerivation rec {
       libadwaita
       libgweather
       libheif
+      libxml2
       pango
     ]
     ++ lib.optionals stdenv.isDarwin [

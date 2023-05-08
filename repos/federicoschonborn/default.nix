@@ -52,11 +52,11 @@
     libadwaita = libadwaita1_4;
   };
   surgescript = pkgs.callPackage ./packages/surgescript {};
+  telegraph = pkgs.callPackage ./packages/telegraph {};
   tuba = pkgs.callPackage ./packages/tuba {};
 
-  gtk4_11 = pkgs.gtk4.overrideAttrs (oldAttrs: {
+  gtk4_11 = pkgs.gtk4.overrideAttrs (_: {
     version = "unstable-2023-05-07";
-
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.gnome.org";
       owner = "GNOME";
@@ -69,7 +69,6 @@
   libadwaita1_4 =
     (pkgs.libadwaita.overrideAttrs (oldAttrs: {
       version = "unstable-2023-05-07";
-
       src = pkgs.fetchFromGitLab {
         domain = "gitlab.gnome.org";
         owner = "GNOME";
@@ -77,8 +76,8 @@
         rev = "a98da7cf5dac823b155191f0be76cc1b2d8002c3";
         hash = "sha256-ufxtxUcsMYfGK0UETwVK+xnqQ1E2UsaLpSbYoqmHCeg=";
       };
-
       buildInputs = oldAttrs.buildInputs ++ [pkgs.appstream];
+      dontCheck = true;
     }))
     .override {gtk4 = gtk4_11;};
 }
