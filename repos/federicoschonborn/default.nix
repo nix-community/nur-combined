@@ -14,6 +14,7 @@
   bsdutils = pkgs.callPackage ./packages/bsdutils {inherit libxo;};
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc {};
   devtoolbox = pkgs.callPackage ./packages/devtoolbox {};
+  elastic = pkgs.callPackage ./packages/elastic {};
   fastfetch = pkgs.callPackage ./packages/fastfetch {};
   fastfetchFull = fastfetch.override {
     enableLibpci = true;
