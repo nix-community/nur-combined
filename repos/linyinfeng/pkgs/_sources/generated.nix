@@ -123,10 +123,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.9.6";
+    version = "v2.9.8";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.6/app-x86_64.asar";
-      sha256 = "sha256-B9BrmmRcbDZyvp6pz28TyQKa0zGLJWwiCjKhsdQGOR0=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.8/app-x86_64.asar";
+      sha256 = "sha256-yNxt2nb5NO96IK/VFlUzDnXzk00f+Y9lJOf0UFDP0TM=";
     };
   };
   matrix-chatgpt-bot = {
@@ -285,16 +285,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "b70a2a7cb7431ef25b3d2220049bef6918fecdb2";
+    version = "adb05b4a215eac0f7d26dc10943bcb19494ead69";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "b70a2a7cb7431ef25b3d2220049bef6918fecdb2";
+      rev = "adb05b4a215eac0f7d26dc10943bcb19494ead69";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-kRU2uEyOQCJ16AodWBSTW5MZTcFp/EtJ5F6EMoPL4mM=";
+      sha256 = "sha256-b7Tq/FTx9DeY5zgV7nYmj5rKHpwaV64WtGQAswwEetE=";
     };
-    date = "2023-05-07";
+    date = "2023-05-08";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -415,20 +415,20 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "8ef76c1306f68521ef103a59b7c1348c87a0ed61";
+    version = "d888eedb8013cda3cb1c645368e2aba7779ff6ca";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "8ef76c1306f68521ef103a59b7c1348c87a0ed61";
+      rev = "d888eedb8013cda3cb1c645368e2aba7779ff6ca";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-rP7vUde3wm/gDW8aeZNJNGL2KHIgeFxO4mfXCr220+Q=";
+      sha256 = "sha256-xzIujecb7Qol1k0IgQD1ID/nEol6mt1vX9JoONpcNmQ=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-8ef76c1306f68521ef103a59b7c1348c87a0ed61/Cargo.lock;
+      lockFile = ./swayosd-d888eedb8013cda3cb1c645368e2aba7779ff6ca/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-04-27";
+    date = "2023-05-07";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
