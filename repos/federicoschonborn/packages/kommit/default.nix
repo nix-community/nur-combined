@@ -19,13 +19,13 @@
   ...
 }:
 stdenv.mkDerivation (_: {
-  pname = "gitklient";
-  version = "unstable-2023-02-09";
+  pname = "kommit";
+  version = "1.0.2";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "sdk";
-    repo = "gitklient";
+    repo = "kommit";
     rev = "919447fb1982a46cd4c565aaa7aeca3f9e4b9aab";
     hash = "sha256-p7CD/+0wGf5dzCQ8Y2fJSSrv2f/BKO+/OilUZIt0BR0=";
   };
@@ -55,7 +55,7 @@ stdenv.mkDerivation (_: {
     longDescription = ''
       Graphical Git client for KDE
     '';
-    homepage = "https://apps.kde.org/gitklient/";
+    homepage = "https://apps.kde.org/kommit/";
     license = licenses.gpl3Plus;
   };
 })
