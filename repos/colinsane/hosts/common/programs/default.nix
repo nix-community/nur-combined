@@ -239,9 +239,10 @@ let
     ;
   };
 
-  # packages not part of any package set
+  # packages not part of any package set; not enabled by default
   otherPkgs = {
     inherit (pkgs)
+      lemmy-server
       mx-sanebot
       stepmania
     ;

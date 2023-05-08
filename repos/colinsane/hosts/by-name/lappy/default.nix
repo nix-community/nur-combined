@@ -19,7 +19,11 @@
     "desktopGuiApps"
     "stepmania"
   ];
-  sane.programs.mx-sanebot.enableFor.system = true;  # for the docs
+  sane.programs.docsets.config.rustPkgs = [
+    "lemmy-server"
+    "mx-sanebot"
+  ];
+  sane.programs.docsets.enableFor.system = true;
 
   sops.secrets.colin-passwd = {
     sopsFile = ../../../secrets/lappy.yaml;
