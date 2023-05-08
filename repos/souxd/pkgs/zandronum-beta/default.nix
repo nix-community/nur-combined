@@ -23,7 +23,7 @@
 
 let
   suffix = lib.optionalString serverOnly "-server";
-  fmod = fmodex; # fmodex is in nixpkgs now
+  fmod = fmodex; # fmodex is on nixpkgs now
   sqlite = callPackage ./sqlite.nix { };
   clientLibPath = lib.makeLibraryPath [ fluidsynth ];
 
@@ -80,6 +80,8 @@ stdenv.mkDerivation rec {
        ${lib.optionalString (!serverOnly) "liboutput_sdl.so"} \
        $out/lib/zandronum
     makeWrapper $out/lib/zandronum/zandronum${suffix} $out/bin/zandronum${suffix}
+    wrapProgram $out/bin/zandronum${suffix} \
+      --prefix LC_ALL : "C"
   '';
 
   postFixup = lib.optionalString (!serverOnly) ''
