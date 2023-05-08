@@ -20,7 +20,7 @@
     neededForUsers = true;
   };
 
-  sane.web-browser = {
+  sane.programs.web-browser.config = {
     # compromise impermanence for the sake of usability
     persistCache = "private";
     persistData = "private";

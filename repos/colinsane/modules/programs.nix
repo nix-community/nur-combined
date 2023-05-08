@@ -104,6 +104,19 @@ let
           the secret will have same owner as the user under which the program is enabled.
         '';
       };
+      configOption = mkOption {
+        type = types.raw;
+        default = mkOption {
+          type = types.submodule {};
+          default = {};
+        };
+        description = ''
+          declare any other options the program may be configured with.
+          you probably want this to be a submodule.
+          the option *definitions* can be set with `sane.programs."foo".config = ...`.
+        '';
+      };
+      config = config.configOption;
     };
 
     config = {

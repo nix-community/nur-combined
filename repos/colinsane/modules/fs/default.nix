@@ -341,6 +341,8 @@ in {
   options = {
     sane.fs = mkOption {
       # type = types.attrsOf fsEntry;
+      # TODO: can we use `types.lazyAttrsOf fsEntry`??
+      # - this exists specifically to let attrs reference eachother
       type = fsTree;
       default = {};
     };

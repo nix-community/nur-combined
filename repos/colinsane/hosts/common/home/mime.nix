@@ -1,7 +1,7 @@
 { config, sane-lib, ...}:
 
 let
-  www = config.sane.web-browser.browser.desktop;
+  www = config.sane.programs.web-browser.config.browser.desktop;
   pdf = "org.gnome.Evince.desktop";
   md = "obsidian.desktop";
   thumb = "org.gnome.gThumb.desktop";
