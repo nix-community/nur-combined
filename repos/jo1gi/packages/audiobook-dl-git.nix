@@ -4,13 +4,13 @@ with pkgs.python3Packages;
 
 buildPythonApplication rec {
   pname = "audiobook-dl";
-  version = "929495a";
+  version = "bb9a5b2";
 
   src = fetchFromGitHub {
     owner = "jo1gi";
     repo = pname;
     rev = version;
-    sha256 = "sha256-C9tTCMIJdZaoHVXysz+0Mj7k1dWNtnfVqMNs4+nYWlk=";
+    sha256 = "sha256-Vdh2mkJkevuKRZy0dnQpcJDBVcKbY7gvz0J98ewxIgY=";
   };
 
   propagatedBuildInputs = [
