@@ -41,7 +41,6 @@
     enablePulse = true;
   };
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme {};
-  gitklient = pkgs.lib.warn "gitklient has been renamed to kommit" kommit;
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit {};
   libxo = pkgs.callPackage ./packages/libxo {};
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell {};

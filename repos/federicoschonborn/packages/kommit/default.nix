@@ -18,7 +18,7 @@
   wrapQtAppsHook,
   ...
 }:
-stdenv.mkDerivation (_: {
+stdenv.mkDerivation rec {
   pname = "kommit";
   version = "1.0.2";
 
@@ -26,8 +26,8 @@ stdenv.mkDerivation (_: {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "kommit";
-    rev = "919447fb1982a46cd4c565aaa7aeca3f9e4b9aab";
-    hash = "sha256-p7CD/+0wGf5dzCQ8Y2fJSSrv2f/BKO+/OilUZIt0BR0=";
+    rev = "v${version}";
+    hash = "sha256-hEn6G6CWtvhdtG5mnhuyiq2O9bmjdctQkJN2OQuFnGA=";
   };
 
   nativeBuildInputs = [
@@ -58,4 +58,4 @@ stdenv.mkDerivation (_: {
     homepage = "https://apps.kde.org/kommit/";
     license = licenses.gpl3Plus;
   };
-})
+}
