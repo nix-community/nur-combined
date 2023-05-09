@@ -133,6 +133,10 @@ in
           additionalAddresses = [ "irc2.myanonamouse.net" ];
           sasl = false;
         };
+        "irc.esper.net" = ircServer {
+          name = "esper";
+          sasl = false;
+        };
       };
     };
   };
