@@ -29,23 +29,22 @@ in
     };
     extensions = with nixosConfig.nur.repos.rycee.firefox-addons; [
       adnauseam
+      aria2-integration
       clearurls
+      copy-link-text
       enhancer-for-youtube
       history-cleaner
       i-dont-care-about-cookies
       keepassxc-browser
       localcdn
+      new_tongwentang
       offline-qr-code-generator
+      rsshub-radar
       ublacklist
+      undoclosetabbutton
       violentmonkey
     ] ++ (with nixosConfig.nur.repos.bandithedoge.firefoxAddons; [
       imagus
-    ]) ++ (with pkgs.firefox-addons; [
-      aria2-integration
-      copy-link-text-webextension
-      new_tongwentang
-      rsshub-radar
-      undoclosetabbutton
     ]);
     profiles.default = {
       bookmarks = [

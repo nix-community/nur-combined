@@ -2,6 +2,9 @@
 let
   buildExt = vscode-utils.buildVscodeMarketplaceExtension;
 in
-lib.mergeAttrList (map
-  (ext: { ${ext.publisher}.${ext.name} = buildExt { mktplcRef = ext; }; })
-  (builtins.fromJSON (builtins.readFile ./exts.json)))
+lib.foldl'
+  (acc: ext: acc // {
+    ${ext.publisher}.${ext.name} = buildExt { mktplcRef = ext; };
+  })
+{ }
+  (lib.importJSON ./exts.json)

@@ -1,15 +1,14 @@
 { super, modules, lib, ... }:
 with super.lib;
-with lib;
 let
-  packages = collectBlock "package" modules;
-  PackageSets = collectBlock "packages" modules;
+  inherit (lib) recursiveUpdate last;
 in
 recursiveUpdate
   (eachDefaultSystems
-    (pkgs: mapAttrs
-      (name: package: pkgs.callPackage package { })
-      packages))
+    (pkgs: collectYield (v: v ? package)
+      (path: v: { ${last path} = (pkgs.callPackage v.package { }); })
+      modules))
   (eachDefaultSystems
-    (pkgs: mergeAttrList (
-      (mapAttrsToList (n: f: flattenPackageSet [ n ] (pkgs.callPackage f { }))) PackageSets)))
+    (pkgs: collectYield (v: v ? packages)
+      (path: v: flattenPackageSet (last path) (pkgs.callPackage v.packages { }))
+      modules))

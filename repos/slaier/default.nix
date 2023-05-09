@@ -1,45 +1,26 @@
 { pkgs ? import <nixpkgs> { } }:
 with pkgs.lib;
 let
-  newPkgs = foldl'
-    (acc: overlay: acc.extend overlay)
-    pkgs
-    [
-      (import ./modules/firefox/firefox-addons/overlay.nix)
-      (final: prev: {
-        lib = prev.lib // {
-          mergeAttrList = foldl' mergeAttrs { };
-        };
-      })
-    ];
+  lib = import ./lib { inherit (pkgs) lib; };
 
-  makeRecurseIntoAttrs = set:
-    let
-      g =
-        name: value:
-        if !isAttrs value || isDerivation value then
-          value
-        else
-          makeRecurseIntoAttrs value;
-    in
-    recurseIntoAttrs (mapAttrs g set);
+  callPackageSet = path: lib.makePackageSet (pkgs.callPackage path { });
 
-  collectPackages = path: dirname:
+  collectPackages = path:
     let
-      set = builtins.readDir path;
+      dir = ./. + (concatStringsSep "/" path);
+      dirname = last path;
+      set = builtins.readDir dir;
     in
-    foldl'
-      (acc: name:
-        let
-          newPath = path + ("/" + name);
-        in
-        acc //
-        (if name == "package.nix" then
-          { ${dirname} = newPkgs.callPackage newPath { }; }
-        else if name == "packages.nix" then
-          { ${dirname} = makeRecurseIntoAttrs (filterAttrs (n: isDerivation) (newPkgs.callPackage newPath { })); }
-        else optionalAttrs (set.${name} == "directory") (collectPackages newPath name)))
+    (if builtins.hasAttr "package.nix" set then
+      { ${dirname} = pkgs.callPackage (dir + "/package.nix") { }; }
+    else if builtins.hasAttr "packages.nix" set then
+      { ${dirname} = callPackageSet (dir + "/packages.nix"); }
+    else
+      { }) //
+    (foldl'
+      (acc: name: acc //
+      (optionalAttrs (set.${name} == "directory") (collectPackages (path ++ [ name ]))))
       { }
-      (attrNames set);
+      (attrNames set));
 in
-collectPackages ./modules root
+collectPackages [ "/modules" ]
