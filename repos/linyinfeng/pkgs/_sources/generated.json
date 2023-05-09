@@ -210,11 +210,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yNxt2nb5NO96IK/VFlUzDnXzk00f+Y9lJOf0UFDP0TM=",
+            "sha256": "sha256-ZTYyjFX5gdrL7c/5JDwXo+1x3vq1upVC5vr9UeJro7A=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.8/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.10/app-x86_64.asar"
         },
-        "version": "v2.9.8"
+        "version": "v2.9.10"
     },
     "matrix-chatgpt-bot": {
         "cargoLocks": null,
@@ -454,7 +454,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-05-08",
+        "date": "2023-05-09",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -464,12 +464,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "adb05b4a215eac0f7d26dc10943bcb19494ead69",
-            "sha256": "sha256-b7Tq/FTx9DeY5zgV7nYmj5rKHpwaV64WtGQAswwEetE=",
+            "rev": "f3c2d24aa678b63b304105f55ca3769e47deb0b8",
+            "sha256": "sha256-ArW+/ykwFpBVLx/iIdOJMBJbyV2WBKyliQCHLsu4UXY=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "adb05b4a215eac0f7d26dc10943bcb19494ead69"
+        "version": "f3c2d24aa678b63b304105f55ca3769e47deb0b8"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -645,11 +645,11 @@
     "swayosd": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./swayosd-d888eedb8013cda3cb1c645368e2aba7779ff6ca/Cargo.lock",
+                "./swayosd-5c2176ae6a01a18fdc2b0f5d5f593737b5765914/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-05-07",
+        "date": "2023-05-08",
         "extract": null,
         "name": "swayosd",
         "passthru": null,
@@ -659,12 +659,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d888eedb8013cda3cb1c645368e2aba7779ff6ca",
-            "sha256": "sha256-xzIujecb7Qol1k0IgQD1ID/nEol6mt1vX9JoONpcNmQ=",
+            "rev": "5c2176ae6a01a18fdc2b0f5d5f593737b5765914",
+            "sha256": "sha256-rh42J6LWgNPOWYLaIwocU1JtQnA5P1jocN3ywVOfYoc=",
             "type": "git",
             "url": "https://github.com/ErikReider/SwayOSD.git"
         },
-        "version": "d888eedb8013cda3cb1c645368e2aba7779ff6ca"
+        "version": "5c2176ae6a01a18fdc2b0f5d5f593737b5765914"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
