@@ -2,18 +2,35 @@
 , stdenv
 , fetchzip
 , cmake
-, pngSupport ? false
-, libpng
-, jpegSupport ? false
-, libjpeg
-, exiv2Support ? false
+
+, withCfitsio ? false
+, cfitsio
+, withDmctk ? false
+, dcmtk
+, withExiv2 ? withLibjpeg || withLibpng
 , exiv2
-, hdf5Support ? false
+, withFfmpeg ? false
+, ffmpeg
+, withGdal ? false
+, gdal
+, withHdf5 ? false
 , hdf5-cpp
-, matioSupport ? false
-, matio
-, tiffSupport ? false
+, withImagemagick ? false
+, imagemagick
+, withLibjpeg ? false
+, libjpeg
+, withLibpng ? false
+, libpng
+, withLibtiff ? false
 , libtiff
+, withMatio ? false
+, matio
+, withOpenexr ? false
+, openexr_3
+, withPfstools ? false
+, pfstools
+, withPoppler ? false
+, poppler
 }:
 
 stdenv.mkDerivation rec {
@@ -30,12 +47,20 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [ ]
-    ++ lib.optionals pngSupport [ libpng ]
-    ++ lib.optionals jpegSupport [ libjpeg ]
-    ++ lib.optionals exiv2Support [ exiv2 ]
-    ++ lib.optionals hdf5Support [ hdf5-cpp ]
-    ++ lib.optionals matioSupport [ matio ]
-    ++ lib.optionals tiffSupport [ libtiff ];
+    ++ lib.optional withCfitsio cfitsio
+    ++ lib.optional withDmctk dcmtk
+    ++ lib.optional withExiv2 exiv2
+    ++ lib.optional withFfmpeg ffmpeg
+    ++ lib.optional withGdal gdal
+    ++ lib.optional withHdf5 hdf5-cpp
+    ++ lib.optional withImagemagick imagemagick
+    ++ lib.optional withLibjpeg libjpeg
+    ++ lib.optional withLibpng libpng
+    ++ lib.optional withLibtiff libtiff
+    ++ lib.optional withMatio matio
+    ++ lib.optional withOpenexr openexr_3
+    ++ lib.optional withPfstools pfstools
+    ++ lib.optional withPoppler poppler;
 
   meta = with lib; {
     description = "A library to make working with multidimensional arrays in C++ easy";
