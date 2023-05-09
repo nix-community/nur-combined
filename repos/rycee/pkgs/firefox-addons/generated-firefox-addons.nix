@@ -1575,6 +1575,20 @@
         platforms = platforms.all;
         };
       };
+    "lingq-importer2" = buildFirefoxXpiAddon {
+      pname = "lingq-importer2";
+      version = "2.2.11";
+      addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4088074/lingq_importer2-2.2.11.xpi";
+      sha256 = "74f9788686643b807f1a54c849db585afb2aac85b22f01683fe68e07d4b9c1ce";
+      meta = with lib;
+      {
+        homepage = "https://www.lingq.com/";
+        description = "Automatically import foreign language pages, videos, movies from the web &amp; study them with LingQ's web &amp; mobile language learning apps.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "link-cleaner" = buildFirefoxXpiAddon {
       pname = "link-cleaner";
       version = "1.5";
