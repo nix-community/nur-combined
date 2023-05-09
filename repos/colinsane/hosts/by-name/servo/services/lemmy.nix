@@ -12,6 +12,15 @@ in {
     settings.options.federation.enabled = true;
     settings.options.port = backendPort;
     # settings.database.host = "localhost";
+    # defaults
+    # settings.database = {
+    #   user = "lemmy";
+    #   host = "/run/postgresql";
+    #   # host = "localhost";  # fails with "fe_sendauth: no password supplied"
+    #   port = 5432;
+    #   database = "lemmy";
+    #   pool_size = 5;
+    # };
     ui.port = uiPort;
     database.createLocally = true;
   };
@@ -21,7 +30,17 @@ in {
     DynamicUser = mkForce false;
     User = "lemmy";
     Group = "lemmy";
-    Environment = [ "RUST_BACKTRACE=full" ];
+    # Environment = [ "RUST_BACKTRACE=full" "RUST_LOG=info" ];
+  };
+  systemd.services.lemmy.environment = {
+    RUST_BACKTRACE = "full";
+    # upstream defaults LEMMY_DATABASE_URL = "postgres:///lemmy?host=/run/postgresql";
+    # - Postgres complains that we didn't specify a user
+    # lemmy formats the url as:
+    # - postgres://{user}:{password}@{host}:{port}/{database}
+    # LEMMY_DATABASE_URL = "postgres://lemmy@/run/postgresql";  # connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: FATAL:  database "run/postgresql" does not exist
+    # LEMMY_DATABASE_URL = "postgres://lemmy?host=/run/postgresql";  # no PostgreSQL user name specified in startup packet
+    LEMMY_DATABASE_URL = mkForce "postgres://lemmy@?host=/run/postgresql";
   };
   users.groups.lemmy = {};
   users.users.lemmy = {

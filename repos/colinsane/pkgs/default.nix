@@ -60,6 +60,8 @@ let
     # jackett doesn't allow customization of the bind address: this will probably always be here.
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
 
+    lemmy-server = callPackage ./patched/lemmy-server { inherit (unpatched) lemmy-server; };
+
 
     ### PYTHON PACKAGES
     pythonPackagesExtensions = (unpatched.pythonPackagesExtensions or []) ++ [

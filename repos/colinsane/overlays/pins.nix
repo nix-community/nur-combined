@@ -28,30 +28,4 @@
   #     })
   #   ];
   # });
-  lemmy-server = prev.lemmy-server.overrideAttrs (upstream: {
-    patches = upstream.patches or [] ++ [
-      # "thread 'main' panicked at 'Couldn't run DB Migrations: Failed to run 2022-07-07-182650_comment_ltrees with: permission denied: "RI_ConstraintTrigger_a_647340" is a system trigger', crates/db_schema/src/utils.rs:165:25"
-      (next.writeText "fix-db-migrations" ''
-        diff --git a/migrations/2022-07-07-182650_comment_ltrees/up.sql b/migrations/2022-07-07-182650_comment_ltrees/up.sql
-        index fde9e1b3..55b96dac 100644
-        --- a/migrations/2022-07-07-182650_comment_ltrees/up.sql
-        +++ b/migrations/2022-07-07-182650_comment_ltrees/up.sql
-        @@ -60,7 +60,7 @@ ORDER BY
-                breadcrumb;
-
-         -- Remove indexes and foreign key constraints, and disable triggers for faster updates
-        -alter table comment disable trigger all;
-        +-- alter table comment disable trigger all;
-
-         alter table comment drop constraint if exists comment_creator_id_fkey;
-         alter table comment drop constraint if exists comment_parent_id_fkey;
-        @@ -115,4 +115,4 @@ create index idx_path_gist on comment using gist (path);
-         -- Drop the parent_id column
-         alter table comment drop column parent_id cascade;
-
-        -alter table comment enable trigger all;
-        +-- alter table comment enable trigger all;
-      '')
-    ];
-  });
 })

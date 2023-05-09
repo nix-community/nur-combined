@@ -126,6 +126,7 @@ let
     (fromDb "semiaccurate.com" // tech)
     (mkText "https://linuxphoneapps.org/blog/atom.xml" // tech // infrequent)
     (fromDb "spectrum.ieee.org" // tech)
+    (fromDb "theregister.com" // tech)
     (fromDb "thisweek.gnome.org" // tech)
     # more nixos stuff here, but unclear how to subscribe: <https://nixos.org/blog/categories.html>
     (mkText "https://nixos.org/blog/announcements-rss.xml" // tech // infrequent)
