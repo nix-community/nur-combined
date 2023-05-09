@@ -17,7 +17,12 @@
   damask = pkgs.callPackage ./packages/damask { };
   devtoolbox = pkgs.callPackage ./packages/devtoolbox { };
   fastfetch = pkgs.callPackage ./packages/fastfetch { };
-  fastfetchFull = fastfetch.override {
+  fastfetchFull = (fastfetch.overrideAttrs (oldAttrs: {
+    pname = "${oldAttrs.pname}-full";
+    meta = oldAttrs.meta // {
+      description = "${oldAttrs.meta.description} (with all features enabled)";
+    };
+  })).override {
     enableChafa = true;
     enableDbus = true;
     enableDconf = true;
@@ -47,7 +52,12 @@
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit { };
   libgta = pkgs.callPackage ./packages/libgta { };
   libtgd = pkgs.callPackage ./packages/libtgd { inherit libgta; };
-  libtgdFull = libtgd.override {
+  libtgdFull = (libtgd.overrideAttrs (oldAttrs: {
+    pname = "${oldAttrs.pname}-full";
+    meta = oldAttrs.meta // {
+      description = "${oldAttrs.meta.description} (with all features enabled)";
+    };
+  })).override {
     withCfitsio = true;
     withDmctk = true;
     withExiv2 = true;
