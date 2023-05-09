@@ -27,6 +27,8 @@
 , libtiff
 , withMatio ? false
 , matio
+, withMuparser ? false
+, muparser
 , withOpenexr ? false
 , openexr_3
 , withPfstools ? false
@@ -61,6 +63,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withLibpng libpng
     ++ lib.optional withLibtiff libtiff
     ++ lib.optional withMatio matio
+    ++ lib.optional withMuparser muparser
     ++ lib.optional withOpenexr openexr_3
     ++ lib.optional withPfstools pfstools
     ++ lib.optional withPoppler poppler;

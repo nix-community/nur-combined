@@ -71,6 +71,7 @@
     withLibpng = true;
     withLibtiff = true;
     withMatio = true;
+    withMuparser = true;
     withOpenexr = true;
     # Requires ImageMagick 6
     withPfstools = false;
@@ -83,6 +84,7 @@
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
   morewaita = pkgs.callPackage ./packages/morewaita { };
+  mucalc = pkgs.callPackage ./packages/mucalc {  };
   opensurge = pkgs.callPackage ./packages/opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./packages/qv { inherit libtgd; };
   snapshot = pkgs.callPackage ./packages/snapshot {
