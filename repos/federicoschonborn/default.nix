@@ -44,13 +44,15 @@
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme { };
   gradebook = pkgs.callPackage ./packages/gradebook { };
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit { };
-  libtgd = pkgs.callPackage ./packages/libtgd { };
+  libgta = pkgs.callPackage ./packages/libgta { };
+  libtgd = pkgs.callPackage ./packages/libtgd { inherit libgta; };
   libtgdFull = libtgd.override {
     withCfitsio = true;
     withDmctk = true;
     withExiv2 = true;
     withFfmpeg = true;
     withGdal = true;
+    withGta = true;
     withHdf5 = true;
     # ImageMagick 6 is marked as insecure
     withImagemagick = false;
@@ -60,7 +62,7 @@
     withMatio = true;
     withOpenexr = true;
     # Requires ImageMagick 6
-    withPfstools = true;
+    withPfstools = false;
     withPoppler = true;
   };
   libxo = pkgs.callPackage ./packages/libxo { };

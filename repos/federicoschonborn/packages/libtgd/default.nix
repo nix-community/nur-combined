@@ -13,6 +13,8 @@
 , ffmpeg
 , withGdal ? false
 , gdal
+, withGta ? false
+, libgta
 , withHdf5 ? false
 , hdf5-cpp
 , withImagemagick ? false
@@ -52,6 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withExiv2 exiv2
     ++ lib.optional withFfmpeg ffmpeg
     ++ lib.optional withGdal gdal
+    ++ lib.optional withGta libgta
     ++ lib.optional withHdf5 hdf5-cpp
     ++ lib.optional withImagemagick imagemagick
     ++ lib.optional withLibjpeg libjpeg
