@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }: rec {
 
   emacsParsePackageSet = pkgs.callPackage ({ path, emacs
     , epkgs ? pkgs.emacsPackagesFor emacs
@@ -9,8 +9,12 @@
       usePkgs = map (name: epkgs.${name}) parsedPkgs;
     in usePkgs);
 
+  emacsShouldIgnoreWarnings = { src }:
+    (builtins.match ".*NIX-IGNORE-WARNINGS.*" (builtins.readFile src)) != null;
+
   emacsMakeSingleFilePackage = { src, pname, version ? "unstable", emacs
-    , epkgs ? pkgs.emacsPackagesFor emacs, warnIsError ? true
+    , epkgs ? pkgs.emacsPackagesFor emacs
+    , warnIsError ? !(emacsShouldIgnoreWarnings { inherit src; })
     , packageRequires ? [ ], }:
     let
       warnEvalStr = lib.optionalString warnIsError
