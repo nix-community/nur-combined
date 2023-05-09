@@ -187,6 +187,7 @@ stdenv.mkDerivation rec {
     changelog = "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
     license = licenses.mpl20;
     platforms = [ "i686-linux" "x86_64-linux" ];
+    broken = true;
   };
 
   passthru = {
