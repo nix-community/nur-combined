@@ -1,25 +1,25 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  meson,
-  ninja,
-  pkg-config,
-  rustPlatform,
-  cairo,
-  desktop-file-utils,
-  gdk-pixbuf,
-  glib,
-  gtk4,
-  lcms,
-  libadwaita,
-  libgweather,
-  libheif,
-  libxml2,
-  pango,
-  darwin,
-  wrapGAppsHook4,
+{ lib
+, stdenv
+, fetchFromGitLab
+, meson
+, ninja
+, pkg-config
+, rustPlatform
+, cairo
+, desktop-file-utils
+, gdk-pixbuf
+, glib
+, gtk4
+, lcms
+, libadwaita
+, libgweather
+, libheif
+, libxml2
+, pango
+, darwin
+, wrapGAppsHook4
 }:
+
 stdenv.mkDerivation rec {
   pname = "loupe";
   version = "44.2";
@@ -50,29 +50,26 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs =
-    [
-      cairo
-      gdk-pixbuf
-      glib
-      gtk4
-      lcms
-      libadwaita
-      libgweather
-      libheif
-      libxml2
-      pango
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.CoreFoundation
-    ];
+  buildInputs = [
+    cairo
+    gdk-pixbuf
+    glib
+    gtk4
+    lcms
+    libadwaita
+    libgweather
+    libheif
+    libxml2
+    pango
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreFoundation
+  ];
 
   meta = with lib; {
     description = "View images";
     homepage = "https://gitlab.gnome.org/Incubator/loupe";
     changelog = "https://gitlab.gnome.org/Incubator/loupe/-/blob/${src.rev}/NEWS";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [];
     # TODO
     broken = true;
   };

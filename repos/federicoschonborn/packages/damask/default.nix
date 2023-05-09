@@ -1,22 +1,22 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  blueprint-compiler,
-  desktop-file-utils,
-  gettext,
-  gtk4,
-  json-glib,
-  libadwaita,
-  libgee,
-  libportal-gtk4,
-  libsoup_3,
-  meson,
-  ninja,
-  pkg-config,
-  vala,
-  wrapGAppsHook4,
+{ lib
+, stdenv
+, fetchFromGitLab
+, blueprint-compiler
+, desktop-file-utils
+, gettext
+, gtk4
+, json-glib
+, libadwaita
+, libgee
+, libportal-gtk4
+, libsoup_3
+, meson
+, ninja
+, pkg-config
+, vala
+, wrapGAppsHook4
 }:
+
 stdenv.mkDerivation rec {
   pname = "damask";
   version = "0.1.5";
@@ -53,6 +53,5 @@ stdenv.mkDerivation rec {
     description = "";
     homepage = "https://gitlab.gnome.org/subpop/damask";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [];
   };
 }

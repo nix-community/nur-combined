@@ -1,10 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gnome,
-  hicolor-icon-theme,
+{ lib
+, stdenv
+, fetchFromGitHub
+, gnome
+, hicolor-icon-theme
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "morewaita";
   version = "44";

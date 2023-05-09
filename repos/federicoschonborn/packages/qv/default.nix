@@ -1,12 +1,13 @@
-{
-  stdenv,
-  fetchzip,
-  cmake,
-  libtgd,
-  qtbase,
-  qtwayland,
-  wrapQtAppsHook,
+{ lib
+, stdenv
+, fetchzip
+, cmake
+, libtgd
+, qtbase
+, qtwayland
+, wrapQtAppsHook
 }:
+
 stdenv.mkDerivation rec {
   pname = "qv";
   version = "5.1";
@@ -26,4 +27,11 @@ stdenv.mkDerivation rec {
     qtbase
     qtwayland
   ];
+
+  meta = with lib; {
+    description = "A a viewer for 2D data such as images, sensor data, simulations, renderings and videos";
+    homepage = "https://marlam.de/qv/";
+    downloadPage = "https://marlam.de/qv/download/";
+    license = licenses.mit;
+  };
 }

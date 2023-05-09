@@ -1,23 +1,22 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  extra-cmake-modules,
-  kconfigwidgets,
-  kcoreaddons,
-  kcrash,
-  kdbusaddons,
-  kdoctools,
-  ki18n,
-  kio,
-  ktexteditor,
-  ktextwidgets,
-  kxmlgui,
-  syntax-highlighting,
-  wrapQtAppsHook,
-  ...
+{ lib
+, stdenv
+, fetchFromGitLab
+, cmake
+, extra-cmake-modules
+, kconfigwidgets
+, kcoreaddons
+, kcrash
+, kdbusaddons
+, kdoctools
+, ki18n
+, kio
+, ktexteditor
+, ktextwidgets
+, kxmlgui
+, syntax-highlighting
+, wrapQtAppsHook
 }:
+
 stdenv.mkDerivation rec {
   pname = "kommit";
   version = "1.0.2";
@@ -52,9 +51,6 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Graphical Git client for KDE";
-    longDescription = ''
-      Graphical Git client for KDE
-    '';
     homepage = "https://apps.kde.org/kommit/";
     license = licenses.gpl3Plus;
   };

@@ -1,31 +1,30 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  bluez-qt,
-  cmake,
-  extra-cmake-modules,
-  karchive,
-  kcmutils,
-  kconfig,
-  kconfigwidgets,
-  kcrash,
-  kdbusaddons,
-  ki18n,
-  kiconthemes,
-  kio,
-  kitemviews,
-  knewstuff,
-  knotifications,
-  kservice,
-  kwidgetsaddons,
-  kwindowsystem,
-  networkmanager-qt,
-  qtx11extras,
-  solid,
-  wrapQtAppsHook,
-  ...
+{ lib
+, stdenv
+, fetchFromGitLab
+, bluez-qt
+, cmake
+, extra-cmake-modules
+, karchive
+, kcmutils
+, kconfig
+, kconfigwidgets
+, kcrash
+, kdbusaddons
+, ki18n
+, kiconthemes
+, kio
+, kitemviews
+, knewstuff
+, knotifications
+, kservice
+, kwidgetsaddons
+, kwindowsystem
+, networkmanager-qt
+, qtx11extras
+, solid
+, wrapQtAppsHook
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "liquidshell";
   version = "1.8.1";

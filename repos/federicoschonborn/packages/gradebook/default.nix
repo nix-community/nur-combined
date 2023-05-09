@@ -1,16 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gtk4,
-  json-glib,
-  libadwaita,
-  meson,
-  ninja,
-  pkg-config,
-  vala,
-  wrapGAppsHook4,
+{ lib
+, stdenv
+, fetchFromGitHub
+, gtk4
+, json-glib
+, libadwaita
+, meson
+, ninja
+, pkg-config
+, vala
+, wrapGAppsHook4
 }:
+
 stdenv.mkDerivation rec {
   pname = "gradebook";
   version = "1.1.2";
@@ -41,6 +41,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/leolost2605/Gradebook";
     mainProgram = "io.github.leolost2605.gradebook";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [];
   };
 }

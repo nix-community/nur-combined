@@ -1,9 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
+{ lib
+, stdenv
+, fetchFromGitHub
+, autoreconfHook
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxo";
   version = "1.6.0";

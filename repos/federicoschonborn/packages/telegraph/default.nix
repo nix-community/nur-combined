@@ -1,15 +1,15 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  desktop-file-utils,
-  gtk4,
-  libadwaita,
-  meson,
-  ninja,
-  pkg-config,
-  wrapGAppsHook4,
+{ lib
+, python3
+, fetchFromGitHub
+, desktop-file-utils
+, gtk4
+, libadwaita
+, meson
+, ninja
+, pkg-config
+, wrapGAppsHook4
 }:
+
 python3.pkgs.buildPythonPackage rec {
   pname = "telegraph";
   version = "0.1.5";
@@ -50,6 +50,5 @@ python3.pkgs.buildPythonPackage rec {
     description = "Write and decode morse";
     homepage = "https://github.com/fkinoshita/Telegraph";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [];
   };
 }

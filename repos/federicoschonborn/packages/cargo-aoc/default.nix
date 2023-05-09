@@ -1,11 +1,10 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  ...
+{ lib
+, rustPlatform
+, fetchFromGitHub
+, pkg-config
+, openssl
 }:
+
 rustPlatform.buildRustPackage rec {
   pname = "cargo-aoc";
   version = "0.3.4";
@@ -35,6 +34,6 @@ rustPlatform.buildRustPackage rec {
       Implement your solution. Let us handle the rest.
     '';
     homepage = "https://github.com/gobanos/cargo-aoc";
-    license = with licenses; [asl20 mit];
+    license = with licenses; [ asl20 mit ];
   };
 }

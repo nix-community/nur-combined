@@ -1,18 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  byacc,
-  cmake,
-  flex,
-  meson,
-  ninja,
-  pkg-config,
-  libedit,
-  libxo,
-  ncurses6,
-  openssl,
+{ lib
+, stdenv
+, fetchFromGitHub
+, byacc
+, cmake
+, flex
+, meson
+, ninja
+, pkg-config
+, libedit
+, libxo
+, ncurses6
+, openssl
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "bsdutils";
   version = "13.1";

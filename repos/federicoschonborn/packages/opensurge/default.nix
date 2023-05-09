@@ -1,11 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  allegro5,
-  surgescript,
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, allegro5
+, surgescript
 }:
+
 stdenv.mkDerivation rec {
   pname = "opensurge";
   version = "0.6.0.3";
@@ -37,6 +37,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/alemart/opensurge";
     changelog = "https://github.com/alemart/opensurge/blob/${src.rev}/CHANGES.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [];
   };
 }

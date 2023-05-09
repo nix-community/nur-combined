@@ -1,9 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
 }:
+
 stdenv.mkDerivation rec {
   pname = "surgescript";
   version = "0.5.6.1";
@@ -24,6 +24,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/alemart/surgescript";
     changelog = "https://github.com/alemart/surgescript/blob/${src.rev}/CHANGES.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [];
   };
 }
