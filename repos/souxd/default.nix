@@ -9,13 +9,15 @@ rec {
 
   spiralknights = pkgs.callPackage ./pkgs/spiralknights {};
 
-  palemoon-avx = pkgs.callPackage ./pkgs/palemoon-avx {};
+  avx-palemoon = pkgs.callPackage ./pkgs/avx-palemoon {};
+
+  avx-palemoon-bin = pkgs.callPackage ./pkgs/avx-palemoon/bin.nix {};
 
   doomseeker-latest = pkgs.qt5.callPackage ./pkgs/doomseeker-latest {};
 
-  zandronum-beta = pkgs.callPackage ./pkgs/zandronum-beta {};
+  zandronum-dev = pkgs.callPackage ./pkgs/zandronum-dev {};
 
-  zandronum-beta-server = zandronum-beta.override {
+  zandronum-dev-server = zandronum-dev.override {
     serverOnly = true;
   };
 
