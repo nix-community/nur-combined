@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
       --replace "Exec=sh -c 'wifi-qr q'" "Exec=$out/bin/wifi-qr q" \
       --replace "Exec=sh -c 'wifi-qr p'" "Exec=$out/bin/wifi-qr p" \
       --replace "Exec=sh -c 'wifi-qr c'" "Exec=$out/bin/wifi-qr c" \
-      --replace "Icon=wifi-qr.svg" "Icon=$out/share/applications/wifi-qr.svg"
+      --replace "Icon=wifi-qr.svg" "Icon=wifi-qr"
   '';
 
   installPhase = ''
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     install -Dm755 wifi-qr $out/bin/wifi-qr
 
     install -Dm644 wifi-qr.desktop $out/share/applications/wifi-qr.desktop
-    install -Dm644 wifi-qr.svg $out/share/applications/wifi-qr.svg
+    install -Dm644 wifi-qr.svg $out/share/icons/hicolor/scalable/apps/wifi-qr.svg
 
     installManPage wifi-qr.1
 
