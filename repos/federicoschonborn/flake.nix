@@ -10,7 +10,10 @@
     (system:
       let
         pkgs = import nixpkgs {
-          inherit system; overlays = [ self.overlays.default ];
+          inherit system;
+          overlays = [
+            self.overlays.default
+          ];
         };
       in
       {

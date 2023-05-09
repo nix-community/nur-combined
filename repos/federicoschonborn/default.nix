@@ -11,6 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  brisk-menu = pkgs.callPackage ./packages/brisk-menu { };
   bsdutils = pkgs.callPackage ./packages/bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc { };
   damask = pkgs.callPackage ./packages/damask { };
@@ -73,13 +74,13 @@
   };
   morewaita = pkgs.callPackage ./packages/morewaita { };
   opensurge = pkgs.callPackage ./packages/opensurge { inherit surgescript; };
+  qv = pkgs.qt6.callPackage ./packages/qv { inherit libtgd; };
   snapshot = pkgs.callPackage ./packages/snapshot {
     gtk4 = gtk4_11;
     libadwaita = libadwaita1_4;
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
   surgescript = pkgs.callPackage ./packages/surgescript { };
-  qv = pkgs.qt6.callPackage ./packages/qv { inherit libtgd; };
   telegraph = pkgs.callPackage ./packages/telegraph { };
   tuba = pkgs.callPackage ./packages/tuba { };
 
