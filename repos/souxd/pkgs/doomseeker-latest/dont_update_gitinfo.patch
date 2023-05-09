@@ -1,0 +1,110 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b4b26e0..d08045c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -148,12 +148,9 @@ set(CMAKE_CXX_STANDARD 11)
+ set(CXX_STANDARD_REQUIRED ON)
+ 
+ if(WIN32)
+-	set(WITH_AUTOUPDATES 1)
+-	add_subdirectory(tools/updateinstaller)
++	set(WITH_AUTOUPDATES 0)
+ endif()
+ 
+-add_subdirectory(tools/updaterevision)
+-
+ add_subdirectory(src/core)
+ add_subdirectory(src/plugins)
+ 
+diff --git a/fix_paths.patch b/fix_paths.patch
+new file mode 100644
+index 0000000..76cb154
+--- /dev/null
++++ b/fix_paths.patch
+@@ -0,0 +1,43 @@
++diff --git a/src/core/datapaths.cpp b/src/core/datapaths.cpp
++index a13b3e4..94e614b 100644
++--- a/src/core/datapaths.cpp
+++++ b/src/core/datapaths.cpp
++@@ -308,7 +308,7 @@ QStringList DataPaths::pluginSearchLocationPaths() const
++ 	// On systems where we install to a fixed location, if we see that we are
++ 	// running an installed binary, then we should only load plugins from the
++ 	// expected location.  Otherwise use it only as a last resort.
++-	const QString installDir = INSTALL_PREFIX "/" INSTALL_LIBDIR "/doomseeker/";
+++	const QString installDir = INSTALL_PREFIX "/lib/doomseeker/";
++ 	if (QCoreApplication::applicationDirPath() == INSTALL_PREFIX "/bin")
++ 		paths = QStringList(installDir);
++ 	else
++diff --git a/src/core/pathfinder/pathfinder.cpp b/src/core/pathfinder/pathfinder.cpp
++index f277283..454a814 100644
++--- a/src/core/pathfinder/pathfinder.cpp
+++++ b/src/core/pathfinder/pathfinder.cpp
++@@ -137,9 +137,7 @@ PathFinder PathFinder::genericPathFinder(const QStringList &suffixes)
++ 		<< DataPaths::programFilesDirectory(DataPaths::x64)
++ 		<< DataPaths::programFilesDirectory(DataPaths::x86);
++ 	#else
++-	paths << "/usr/bin" << "/usr/local/bin" << "/usr/share/bin"
++-		<< "/usr/games/" << "/usr/local/games/"
++-		<< "/usr/share/games/" << QCoreApplication::applicationDirPath() << ".";
+++  paths << gDefaultDataPaths->workingDirectory() << ".";
++ 	#endif
++ 	QStringList pathsCopy(paths);
++ 	for (const QString &path : pathsCopy)
++diff --git a/src/core/pathfinder/wadpathfinder.cpp b/src/core/pathfinder/wadpathfinder.cpp
++index 07df0b6..6300542 100644
++--- a/src/core/pathfinder/wadpathfinder.cpp
+++++ b/src/core/pathfinder/wadpathfinder.cpp
++@@ -84,10 +84,6 @@ public:
++ 	QStringList defaultPaths()
++ 	{
++ 		QStringList paths;
++-		#ifdef Q_OS_UNIX
++-		paths << "/usr/local/share/games/doom/"
++-			<< "/usr/share/games/doom/";
++-		#endif
++ 		return paths;
++ 	}
++ };
+diff --git a/src/core/datapaths.cpp b/src/core/datapaths.cpp
+index a13b3e4..94e614b 100644
+--- a/src/core/datapaths.cpp
++++ b/src/core/datapaths.cpp
+@@ -308,7 +308,7 @@ QStringList DataPaths::pluginSearchLocationPaths() const
+ 	// On systems where we install to a fixed location, if we see that we are
+ 	// running an installed binary, then we should only load plugins from the
+ 	// expected location.  Otherwise use it only as a last resort.
+-	const QString installDir = INSTALL_PREFIX "/" INSTALL_LIBDIR "/doomseeker/";
++	const QString installDir = INSTALL_PREFIX "/lib/doomseeker/";
+ 	if (QCoreApplication::applicationDirPath() == INSTALL_PREFIX "/bin")
+ 		paths = QStringList(installDir);
+ 	else
+diff --git a/src/core/pathfinder/pathfinder.cpp b/src/core/pathfinder/pathfinder.cpp
+index f277283..454a814 100644
+--- a/src/core/pathfinder/pathfinder.cpp
++++ b/src/core/pathfinder/pathfinder.cpp
+@@ -137,9 +137,7 @@ PathFinder PathFinder::genericPathFinder(const QStringList &suffixes)
+ 		<< DataPaths::programFilesDirectory(DataPaths::x64)
+ 		<< DataPaths::programFilesDirectory(DataPaths::x86);
+ 	#else
+-	paths << "/usr/bin" << "/usr/local/bin" << "/usr/share/bin"
+-		<< "/usr/games/" << "/usr/local/games/"
+-		<< "/usr/share/games/" << QCoreApplication::applicationDirPath() << ".";
++  paths << gDefaultDataPaths->workingDirectory() << ".";
+ 	#endif
+ 	QStringList pathsCopy(paths);
+ 	for (const QString &path : pathsCopy)
+diff --git a/src/core/pathfinder/wadpathfinder.cpp b/src/core/pathfinder/wadpathfinder.cpp
+index 07df0b6..6300542 100644
+--- a/src/core/pathfinder/wadpathfinder.cpp
++++ b/src/core/pathfinder/wadpathfinder.cpp
+@@ -84,10 +84,6 @@ public:
+ 	QStringList defaultPaths()
+ 	{
+ 		QStringList paths;
+-		#ifdef Q_OS_UNIX
+-		paths << "/usr/local/share/games/doom/"
+-			<< "/usr/share/games/doom/";
+-		#endif
+ 		return paths;
+ 	}
+ };
