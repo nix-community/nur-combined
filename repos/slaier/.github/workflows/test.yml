@@ -42,6 +42,3 @@ jobs:
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - run: nix develop --command just build
-      - name: Trigger NUR update
-        if: github.ref_protected
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=slaier"

@@ -7,8 +7,5 @@
     host = {
       enable = true;
     };
-    guest = {
-      enable = true;
-    };
   };
 }
