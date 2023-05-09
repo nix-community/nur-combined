@@ -1016,10 +1016,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "113.0.20230504.192738";
+      version = "114.0.20230508.175934";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4106510/francais_language_pack-113.0.20230504.192738.xpi";
-      sha256 = "2c4d96dd5b6fa40c19f3d514b24ea2c1c0f98f6571fb2cbd7dc3a22f5a4b0009";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4107874/francais_language_pack-114.0.20230508.175934.xpi";
+      sha256 = "e4e97b5d81e9290e98a4febb2b2b77ab50a901b1981a8c3d0375ee6bfea12949";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1619,10 +1619,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.49";
+      version = "2.6.50";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4094744/localcdn_fork_of_decentraleyes-2.6.49.xpi";
-      sha256 = "09a230844d6e63383e4a28514afd1738dfcc25a0652d10700cce32d96e55b3d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4106013/localcdn_fork_of_decentraleyes-2.6.50.xpi";
+      sha256 = "7594aa4f95452b416fdeaca7619ae006cb4d415f8ebb6edebc204c32313d73eb";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2367,14 +2367,14 @@
       };
     "rabattcorner" = buildFirefoxXpiAddon {
       pname = "rabattcorner";
-      version = "2.1.5.5";
+      version = "2.1.5.7";
       addonId = "jid1-7eplFgLu6atoog@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4096853/rabattcorner-2.1.5.5.xpi";
-      sha256 = "2cdb01ad33c59fef9ca15d3d358f732867a8937332bea728b4287fc388edb54f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4107564/rabattcorner-2.1.5.7.xpi";
+      sha256 = "2a0802a2e945e41966c6244f88603869e1e3893f3ea7adc45236717484e3e555";
       meta = with lib;
       {
         homepage = "https://www.rabattcorner.ch";
-        description = "Jetzt bei jedem Online Einkauf bis zu 25% Cashback erhalten. <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/be8bb3eaeaba31de0d5f89ccc266fa9cf18fda0fabad24266491f7c9342df151/http%3A//Rabattcorner.ch\" rel=\"nofollow\">Rabattcorner.ch</a> zahlt dir nach jedem Einkauf in einem der über 350 angeschlossenen Online Shops einen Teil deines Einkaufsbetrags zurück.";
+        description = "Jetzt bei jedem Online-Einkauf bis zu 25% Cashback erhalten. <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/be8bb3eaeaba31de0d5f89ccc266fa9cf18fda0fabad24266491f7c9342df151/http%3A//Rabattcorner.ch\" rel=\"nofollow\">Rabattcorner.ch</a> zahlt dir nach jedem Einkauf in einem der über 700 angeschlossenen Online Shops einen Teil deines Einkaufsbetrags zurück.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
