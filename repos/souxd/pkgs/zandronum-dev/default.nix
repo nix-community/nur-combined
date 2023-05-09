@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
        $out/lib/zandronum
     makeWrapper $out/lib/zandronum/zandronum${suffix} $out/bin/zandronum${suffix}
     wrapProgram $out/bin/zandronum${suffix} \
-      --prefix LC_ALL : "C"
+      --prefix LC_ALL=C
   '';
 
   postFixup = lib.optionalString (!serverOnly) ''
