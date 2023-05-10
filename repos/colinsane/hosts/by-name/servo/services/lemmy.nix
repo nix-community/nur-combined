@@ -38,9 +38,12 @@ in {
     # - Postgres complains that we didn't specify a user
     # lemmy formats the url as:
     # - postgres://{user}:{password}@{host}:{port}/{database}
+    # SO suggests (https://stackoverflow.com/questions/3582552/what-is-the-format-for-the-postgresql-connection-string-url):
+    # - postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
     # LEMMY_DATABASE_URL = "postgres://lemmy@/run/postgresql";  # connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: FATAL:  database "run/postgresql" does not exist
     # LEMMY_DATABASE_URL = "postgres://lemmy?host=/run/postgresql";  # no PostgreSQL user name specified in startup packet
-    LEMMY_DATABASE_URL = mkForce "postgres://lemmy@?host=/run/postgresql";
+    # LEMMY_DATABASE_URL = mkForce "postgres://lemmy@?host=/run/postgresql";  # WORKS!
+    LEMMY_DATABASE_URL = mkForce "postgres://lemmy@/lemmy?host=/run/postgresql";
   };
   users.groups.lemmy = {};
   users.users.lemmy = {
@@ -56,7 +59,10 @@ in {
       backend = "http://127.0.0.1:${toString backendPort}";
     in {
       # see <LemmyNet/lemmy:docker/federation/nginx.conf>
-      "~ ^/(api|pictrs|feeds|nodeinfo|.well-known)" = {
+      # see <LemmyNet/lemmy:docker/nginx.conf>
+      "/" = {
+        # "frontend general requests"
+        proxyPass = "$proxpass";
         extraConfig = ''
           set $proxpass ${ui};
           if ($http_accept = "application/activity+json") {
@@ -65,13 +71,29 @@ in {
           if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
             set $proxpass ${backend};
           }
+          # XXX: POST redirection occurs in docker/nginx.conf but not docker/federation/nginx.conf
+          # if ($request_method = POST) {
+          #   set $proxpass ${backend};
+          # }
 
           # Cuts off the trailing slash on URLs to make them valid
           rewrite ^(.+)/+$ $1 permanent;
         '';
-        proxyPass = "$proxpass";
       };
-      "/".proxyPass = ui;
+      "~ ^/(api|pictrs|feeds|nodeinfo|.well-known)" = {
+        # "backend"
+        proxyPass = backend;
+        # <lemmy-docs:src/en/administration/troubleshooting.md> calls out these lines for the websocket
+        extraConfig = ''
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        '';
+      };
     };
   };
 
