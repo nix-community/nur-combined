@@ -1016,10 +1016,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230508.175934";
+      version = "114.0.20230509.180058";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4107874/francais_language_pack-114.0.20230508.175934.xpi";
-      sha256 = "e4e97b5d81e9290e98a4febb2b2b77ab50a901b1981a8c3d0375ee6bfea12949";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4108499/francais_language_pack-114.0.20230509.180058.xpi";
+      sha256 = "f3732ea277e70a56c4c57f3d4d3542c78b21786a9efb9c95d9113072e046bb6d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1888,10 +1888,10 @@
       };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
-      version = "2.2.4";
+      version = "2.2.5";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030420/news_feed_eradicator-2.2.4.xpi";
-      sha256 = "fe31c99ee6befbe9fbcbebf4e74391e3dd68802ce8c9c5ebe17466045e3ef88e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4108116/news_feed_eradicator-2.2.5.xpi";
+      sha256 = "37398b398296c9c20889ad2e4f8181ea41470a8d315ace1ab86d89058721daf9";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
