@@ -79,6 +79,7 @@
     withPfstools = false;
     withPoppler = true;
   };
+  highscore = pkgs.callPackage ./packages/highscore { retro-gtk = retro-gtk2; };
   libxo = pkgs.callPackage ./packages/libxo { };
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell { };
   loupe = pkgs.callPackage ./packages/loupe {
@@ -124,4 +125,22 @@
     buildInputs = oldAttrs.buildInputs ++ [ pkgs.appstream ];
     dontCheck = true;
   })).override { gtk4 = gtk4_11; };
+
+  retro-gtk2 = pkgs.retro-gtk.overrideAttrs (_: {
+    version = "unstable-2022-11-09";
+    src = pkgs.fetchFromGitLab {
+      domain = "gitlab.gnome.org";
+      owner = "GNOME";
+      repo = "retro-gtk";
+      rev = "9033b2a09f4de3ad4e2e70d80841291c3e4fed9c";
+      hash = "sha256-NnB2PRS4Ty06m1TPmUMZvRkq/AY/4BOFEncJt0+CBmU=";
+    };
+    patches = [ ];
+    buildInputs = with pkgs; [
+      libepoxy
+      libpulseaudio
+      libsamplerate
+      gtk4
+    ];
+  });
 }
