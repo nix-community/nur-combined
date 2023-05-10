@@ -18,7 +18,7 @@ in
     services.yggdrasil = {
       enable = true;
       persistentKeys = true;
-      config = {
+      settings = {
         IFName = "ygg0";
         Peers = [
           "tls://longseason.1200bps.xyz:13122"

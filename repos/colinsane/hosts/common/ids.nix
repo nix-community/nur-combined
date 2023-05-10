@@ -51,6 +51,7 @@
   sane.ids.nscd.gid = 2004;
   sane.ids.systemd-oom.uid = 2005;
   sane.ids.systemd-oom.gid = 2005;
+  sane.ids.wireshark.gid = 2006;
 
   # found on graphical hosts
   sane.ids.nm-iodine.uid = 2101;  # desko/moby/lappy

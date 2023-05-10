@@ -95,6 +95,10 @@
     format = "binary";
   };
 
+  sops.secrets."iwd/calyx-roomie.psk" = {
+    sopsFile = ../../secrets/universal/net/calyx-roomie.psk.bin;
+    format = "binary";
+  };
   sops.secrets."iwd/community-university.psk" = {
     sopsFile = ../../secrets/universal/net/community-university.psk.bin;
     format = "binary";

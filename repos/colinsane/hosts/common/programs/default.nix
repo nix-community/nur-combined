@@ -61,6 +61,7 @@ let
       tree
       usbutils
       wget
+      wireshark
     ;
   };
   sysadminExtraPkgs = {
@@ -272,6 +273,7 @@ in
     ./sublime-music.nix
     ./vlc.nix
     ./web-browser.nix
+    ./wireshark.nix
     ./zeal.nix
     ./zsh
   ];
