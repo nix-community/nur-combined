@@ -20,6 +20,8 @@ directly here; even the sources for those packages is often kept here too.
     - the bulk of config which isn't factored with external use in mind.
     - that is, if you were to add this repo to a flake.nix for your own use,
       you won't likely be depending on anything in this directory.
+- `integrations/`
+    - code intended for consumption by external tools (e.g. the Nix User Repos)
 - `modules/`
     - config which is gated behind `enable` flags, in similar style to nixpkgs'
       `nixos/` directory.
@@ -32,7 +34,7 @@ directly here; even the sources for those packages is often kept here too.
 - `pkgs/`
     - derivations for things not yet packaged in nixpkgs.
     - derivations for things from nixpkgs which i need to `override` for some reason.
-    - inline code for wholly custom packages (e.g. `pkgs/sane-scripts/` for CLI tools
+    - inline code for wholly custom packages (e.g. `pkgs/additional/sane-scripts/` for CLI tools
       that are highly specific to my setup).
 - `scripts/`
     - scripts which are referenced by other things in this repo.
@@ -93,6 +95,12 @@ them being factored out of my config, message me and we could work to make that 
 this should be a pretty "standard" flake. just reference it, and import either
 - `nixosModules.sane` (for the modules)
 - `overlays.pkgs` (for the packages)
+
+## Mirrors
+
+this repo exists in a few known locations:
+- primary: <https://git.uninsane.org/colin/nix-files>
+- mirror: <https://github.com/nix-community/nur-combined/tree/master/repos/colinsane>
 
 ## Contact
 
