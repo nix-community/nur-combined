@@ -4,7 +4,7 @@
 
 let
   pname = "nordvpn";
-  version = "3.15.5";
+  version = "3.16.2";
   LuisChDev = {
     name = "Luis Chavarriaga";
     email = "luischa123@gmail.com";
@@ -33,13 +33,14 @@ let
 
     unpackPhase = ''
       runHook preUnpack
-      dpkg --fsys-tarfile $src | tar --extract
+      dpkg --extract $src .
       runHook postUnpack
     '';
 
     installPhase = ''
       runHook preInstall
-      mv usr/ $out/
+      mkdir -p $out
+      mv usr/* $out/
       mv var/ $out/
       mv etc/ $out/
       runHook postInstall
@@ -75,10 +76,10 @@ in stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/bin $out/share $out/lib/systemd/system
+    mkdir -p $out/bin $out/share
     ln -s ${nordVPNBase}/bin/nordvpn $out/bin
     ln -s ${nordVPNfhs}/bin/nordvpnd $out/bin
-    ln -s ${nordVPNBase}/share/{bash-completion,doc,man} $out/share/
+    ln -s ${nordVPNBase}/share* $out/share
     ln -s ${nordVPNBase}/var $out/
     runHook postInstall
   '';
