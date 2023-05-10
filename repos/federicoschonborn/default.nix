@@ -11,6 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  blurble = pkgs.callPackage ./packages/blurble { };
   brisk-menu = pkgs.callPackage ./packages/brisk-menu { };
   bsdutils = pkgs.callPackage ./packages/bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc { };
