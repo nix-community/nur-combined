@@ -1,0 +1,17 @@
+version: '3'
+services:
+  dev:
+    build:
+      context: ../
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+    environment:
+      # list of docker extensions to load before other extensions
+      PRELOAD_EXTENSIONS: "arrterian.nix-env-selector"
+    volumes:
+      - ..:/workspace:cached
+    security_opt:
+      - label:disable
+    network_mode: "bridge"
