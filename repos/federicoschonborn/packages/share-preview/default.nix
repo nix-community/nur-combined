@@ -1,39 +1,39 @@
 { lib
 , stdenv
-, fetchFromGitLab
+, fetchFromGitHub
+, desktop-file-utils
 , meson
 , ninja
 , pkg-config
 , rustPlatform
 , cairo
-, desktop-file-utils
+, curl
 , gdk-pixbuf
 , glib
-, gst_all_1
 , gtk4
 , libadwaita
+, openssl
 , pango
+, zlib
 , darwin
-, wayland
 , wrapGAppsHook4
 }:
 
 stdenv.mkDerivation rec {
-  pname = "snapshot";
-  version = "44.1";
+  pname = "share-preview";
+  version = "0.3.0";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.gnome.org";
-    owner = "Incubator";
-    repo = "snapshot";
+  src = fetchFromGitHub {
+    owner = "rafaelmardojai";
+    repo = "share-preview";
     rev = version;
-    hash = "sha256-hrhylLfh7ntuW90DbOSvlHAz9QON9Oq2mfGaGHmr2XY=";
+    hash = "sha256-CsnWQxE2r+uWwuEzHpY/lpWS5i8OXvhRKvy2HzqnQ5U=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-ZPmRt50e7EZXrwjuKyWnEGtRwFxxnkl7Y5tCHVxbH80=";
+    hash = "sha256-H0IDKf5dz+zPnh/zHYP7kCYWHLeP33zHip6K+KCq4is=";
   };
 
   nativeBuildInputs = [
@@ -49,23 +49,22 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     cairo
+    curl
     gdk-pixbuf
     glib
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gstreamer
     gtk4
     libadwaita
+    openssl
     pango
+    zlib
   ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreFoundation
-  ] ++ lib.optionals stdenv.isLinux [
-    wayland
+    darwin.apple_sdk.frameworks.Security
   ];
 
   meta = with lib; {
-    description = "Take pictures and videos";
-    homepage = "https://gitlab.gnome.org/Incubator/snapshot";
+    description = "Test social media cards locally";
+    homepage = "https://github.com/rafaelmardojai/share-preview";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ ];
   };
 }

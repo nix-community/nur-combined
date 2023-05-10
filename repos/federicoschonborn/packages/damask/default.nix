@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "";
+    description = "Automatically set wallpaper images from Internet sources";
     homepage = "https://gitlab.gnome.org/subpop/damask";
     license = licenses.gpl3Only;
   };

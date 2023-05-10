@@ -84,9 +84,10 @@
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
   morewaita = pkgs.callPackage ./packages/morewaita { };
-  mucalc = pkgs.callPackage ./packages/mucalc {  };
+  mucalc = pkgs.callPackage ./packages/mucalc { };
   opensurge = pkgs.callPackage ./packages/opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./packages/qv { inherit libtgd; };
+  share-preview = pkgs.callPackage ./packages/share-preview { };
   snapshot = pkgs.callPackage ./packages/snapshot {
     gtk4 = gtk4_11;
     libadwaita = libadwaita1_4;
