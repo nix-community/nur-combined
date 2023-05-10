@@ -88,6 +88,10 @@
       "nix.serverPath" = "${lib.getExe pkgs.nil}";
       "nix.serverSettings" = {
         nil.formatting.command = [ (lib.getExe pkgs.nixpkgs-fmt) ];
+        nix = {
+          autoEvalInputs = true;
+          nixpkgsInputName = "nixpkgs";
+        };
       };
       "redhat.telemetry.enabled" = false;
     };
