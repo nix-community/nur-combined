@@ -235,7 +235,6 @@ let
       signal-desktop
       spotify
       tor-browser-bundle-bin
-      zeal-qt5  # programming docs viewer. TODO: switch to zeal-qt6
       zecwallet-lite
     ;
   };

@@ -12,7 +12,8 @@ let
     };
   };
 in {
-  sane.programs.zeal-qt5 = {
+  sane.programs.zeal = {
+    package = pkgs.zeal-qt5;
     persist.plaintext = [
       ".cache/Zeal"
       ".local/share/Zeal"
@@ -48,7 +49,7 @@ in {
     };
   };
 
-  environment.pathsToLink = mkIf config.sane.programs.zeal-qt5.enabled [
+  environment.pathsToLink = mkIf config.sane.programs.zeal.enabled [
     "/share/docset"
   ];
 }

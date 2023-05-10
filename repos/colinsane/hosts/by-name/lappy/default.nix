@@ -7,6 +7,7 @@
   sane.yggdrasil.enable = true;
 
   sane.roles.client = true;
+  sane.roles.dev-machine = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."lappy".wg-home.ip;
 
@@ -19,11 +20,6 @@
     "desktopGuiApps"
     "stepmania"
   ];
-  sane.programs.docsets.config.rustPkgs = [
-    "lemmy-server"
-    "mx-sanebot"
-  ];
-  sane.programs.docsets.enableFor.system = true;
 
   sops.secrets.colin-passwd = {
     sopsFile = ../../../secrets/lappy.yaml;
