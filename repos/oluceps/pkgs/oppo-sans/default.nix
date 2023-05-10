@@ -3,14 +3,14 @@
 , fetchurl
 , unzip
 , ...
-} @ args:
+}:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "oppo-sans";
   version = "0.1";
   src = fetchurl ({
     url = "https://static01.coloros.com/www/public/img/topic7/font-opposans.zip";
-    sha256 = "sha256-YrH9EhoT6EIS+tzIAaGzl5J8nYIkNR9bS5O7y0KzrRQ=";
+    sha256 = "sha256-dMGIAyANXCRbwkYJxNlSxOeilFpCrQ3QkRDbkAqVZxA=";
   });
 
   setSourceRoot = "sourceRoot=`pwd`";

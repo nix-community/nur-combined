@@ -14,6 +14,6 @@ appimageTools.wrapType2 rec {
     description = "Techmino";
     homepage = "https://github.com/26F-Studio/Techmino";
     license = licenses.lgpl3;
-    platforms = [ "x86_64-linux" ];
+    # platforms = [ "x86_64-linux" ];
   };
 }
