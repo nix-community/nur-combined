@@ -75,7 +75,7 @@ scale=1,
 angle=0,
 opacity=1.0,
 position=current page.center,
-contents={\includegraphics[width=\paperwidth,height=\paperheight]{briefpapier2.png}}
+contents={\includegraphics[width=\paperwidth,height=\paperheight]{/home/pim/.pandoc/briefpapier-bq1.png}}
 }
 $endif$
 

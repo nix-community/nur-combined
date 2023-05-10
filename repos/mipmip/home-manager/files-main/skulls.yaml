@@ -39,11 +39,11 @@ gnome:
   repos:
     - source: mipmip/gnome-hotkeys.cr
     - source: mipmip/gnome-shell-extensions-highlight-focus
-    - target: mipmip/gnome-shell-extensions-hotkeys-popup
-    - target: mipmip/gnome-shell-extensions-useless-gaps
-    - target: mipmip/gs-git
-
-    - target: mipmip/hotkeys
+    - source: mipmip/gnome-shell-extensions-hotkeys-popup
+    - source: mipmip/gnome-shell-extensions-useless-gaps
+    - source: mipmip/gs-git
+    - source: mipmip/gnome-shell-extensions-dirty-git-indicator
+    - source: mipmip/hotkeys
 
 linden:
   base_dir: ~/cLinden
