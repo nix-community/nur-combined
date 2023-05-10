@@ -15,6 +15,7 @@
   brisk-menu = pkgs.callPackage ./packages/brisk-menu { };
   bsdutils = pkgs.callPackage ./packages/bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc { };
+  chess-clock = pkgs.callPackage ./packages/chess-clock { };
   damask = pkgs.callPackage ./packages/damask { };
   devtoolbox = pkgs.callPackage ./packages/devtoolbox { };
   fastfetch = pkgs.callPackage ./packages/fastfetch { };
