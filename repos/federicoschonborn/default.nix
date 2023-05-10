@@ -51,6 +51,7 @@
   };
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme { };
   gradebook = pkgs.callPackage ./packages/gradebook { };
+  health = pkgs.callPackage ./packages/health { };
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit { };
   libgta = pkgs.callPackage ./packages/libgta { };
   libtgd = pkgs.callPackage ./packages/libtgd { inherit libgta; };
@@ -86,6 +87,7 @@
     gtk4 = gtk4_11;
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
+  metronome = pkgs.callPackage ./packages/metronome { };
   morewaita = pkgs.callPackage ./packages/morewaita { };
   mucalc = pkgs.callPackage ./packages/mucalc { };
   opensurge = pkgs.callPackage ./packages/opensurge { inherit surgescript; };
