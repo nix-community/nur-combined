@@ -16,6 +16,7 @@
         tamasfe.even-better-toml
         timonwong.shellcheck
         tyriar.sort-lines
+        yzhang.markdown-all-in-one
       ]
     );
     keybindings = [
