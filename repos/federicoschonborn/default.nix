@@ -80,7 +80,7 @@
     withPfstools = false;
     withPoppler = true;
   };
-  highscore = pkgs.callPackage ./packages/highscore { retro-gtk = retro-gtk2; };
+  highscore = pkgs.callPackage ./packages/highscore { retro-gtk = retro-gtk_2; };
   libxo = pkgs.callPackage ./packages/libxo { };
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell { };
   loupe = pkgs.callPackage ./packages/loupe {
@@ -95,7 +95,7 @@
   share-preview = pkgs.callPackage ./packages/share-preview { };
   snapshot = pkgs.callPackage ./packages/snapshot {
     gtk4 = gtk4_11;
-    libadwaita = libadwaita1_4;
+    libadwaita = libadwaita_1_4;
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
   surgescript = pkgs.callPackage ./packages/surgescript { };
@@ -115,7 +115,7 @@
     };
   });
 
-  libadwaita1_4 = (pkgs.libadwaita.overrideAttrs (oldAttrs: {
+  libadwaita_1_4 = (pkgs.libadwaita.overrideAttrs (oldAttrs: {
     version = "unstable-2023-05-07";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.gnome.org";
@@ -128,7 +128,7 @@
     dontCheck = true;
   })).override { gtk4 = gtk4_11; };
 
-  retro-gtk2 = pkgs.retro-gtk.overrideAttrs (_: {
+  retro-gtk_2 = pkgs.retro-gtk.overrideAttrs (_: {
     version = "unstable-2022-11-09";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.gnome.org";
