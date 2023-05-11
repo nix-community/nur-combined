@@ -11,7 +11,7 @@ let
     github = "LuisChDev";
     githubId = 24978009;
   };
-  buildEnv = if builtins.typeOf buildFHSEnvChroot == "lambda" then
+  buildEnv = if builtins.typeOf buildFHSEnvChroot == "set" then
     buildFHSEnvChroot
   else
     buildFHSUserEnv;
