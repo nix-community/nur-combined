@@ -15,7 +15,7 @@
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     // select nix environment
-    "arrterian.nix-env-selector",
+    // "arrterian.nix-env-selector",
 
     // extra extensions
     //"fsevenm.run-it-on",
