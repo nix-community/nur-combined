@@ -5,7 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    systems.url = "github:nix-systems/default";
+
     flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.systems.follows = "systems";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +17,7 @@
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.flake-utils.follows = "flake-utils";
+    devshell.inputs.systems.follows = "systems";
   };
 
   outputs = inputs @ {
