@@ -1,4 +1,24 @@
 {
+    "amule-dlp": {
+        "cargoLocks": null,
+        "date": "2023-03-02",
+        "extract": null,
+        "name": "amule-dlp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "persmule",
+            "repo": "amule-dlp",
+            "rev": "7b3a07ab554d95267cca0c4a819b26d8474d6b3b",
+            "sha256": "sha256-aZ+BjBNKHbHP44L7iOK9t1n/4l4U+R/pZYfTSBjFOA4=",
+            "type": "github"
+        },
+        "version": "7b3a07ab554d95267cca0c4a819b26d8474d6b3b"
+    },
     "asterisk-alaw16": {
         "cargoLocks": null,
         "date": "2018-08-28",

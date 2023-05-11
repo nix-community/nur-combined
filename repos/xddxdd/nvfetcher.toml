@@ -1,3 +1,7 @@
+[amule-dlp]
+src.git = "https://github.com/persmule/amule-dlp.git"
+fetch.github = "persmule/amule-dlp"
+
 [asterisk-alaw16]
 src.git = "https://github.com/traud/asterisk-alaw16.git"
 fetch.github = "traud/asterisk-alaw16"

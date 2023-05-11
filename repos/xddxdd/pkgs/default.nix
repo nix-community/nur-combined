@@ -84,6 +84,7 @@ in
     th-fonts = pkgs.recurseIntoAttrs (pkg ./th-fonts {});
 
     # Other packages
+    amule-dlp = pkg ./uncategorized/amule-dlp {};
     asterisk-g72x = pkg ./uncategorized/asterisk-g72x {};
     baidupcs-go = pkg ./uncategorized/baidupcs-go {};
     bepasty = pkg ./uncategorized/bepasty {};
