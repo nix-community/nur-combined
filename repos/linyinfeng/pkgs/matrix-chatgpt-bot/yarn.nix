@@ -522,11 +522,11 @@
       };
     }
     {
-      name = "_dqbd_tiktoken___tiktoken_0.4.0.tgz";
+      name = "_dqbd_tiktoken___tiktoken_1.0.4.tgz";
       path = fetchurl {
-        name = "_dqbd_tiktoken___tiktoken_0.4.0.tgz";
-        url = "https://registry.yarnpkg.com/@dqbd/tiktoken/-/tiktoken-0.4.0.tgz";
-        sha512 = "iaHgmwKAOqowBFZKxelyszoeGLoNw62eOULcmyme1aA1Ymr3JgYl0V7jwpuUm7fksalycZajx3loFn9TRUaviw==";
+        name = "_dqbd_tiktoken___tiktoken_1.0.4.tgz";
+        url = "https://registry.yarnpkg.com/@dqbd/tiktoken/-/tiktoken-1.0.4.tgz";
+        sha512 = "C0HrJj2RNlsB3wslfNHGNH8xN7QQMki+y4JkUor/GE+oIfPvH7yVep9l1/2powam8AAH6+gdv5MggA5gsszweg==";
       };
     }
     {
@@ -754,11 +754,11 @@
       };
     }
     {
-      name = "_waylaidwanderer_chatgpt_api___chatgpt_api_1.26.1.tgz";
+      name = "_waylaidwanderer_chatgpt_api___chatgpt_api_1.34.0.tgz";
       path = fetchurl {
-        name = "_waylaidwanderer_chatgpt_api___chatgpt_api_1.26.1.tgz";
-        url = "https://registry.yarnpkg.com/@waylaidwanderer/chatgpt-api/-/chatgpt-api-1.26.1.tgz";
-        sha512 = "cv9NqC0owO2EGCkVg4VQO0lcA5pDgv2VJrBE/0P6En27/v0gIC+7MedowX3htIUi4GLDkgyyDDDimst2i8ReMw==";
+        name = "_waylaidwanderer_chatgpt_api___chatgpt_api_1.34.0.tgz";
+        url = "https://registry.yarnpkg.com/@waylaidwanderer/chatgpt-api/-/chatgpt-api-1.34.0.tgz";
+        sha512 = "DPquhkZucw31xpv7LQC18koG/C6OtSPi0+tBsdeqE4sbt4CcKKauAWk2COWaVRR1VyX8m8Y5K+2/Bkgk2xr2HQ==";
       };
     }
     {

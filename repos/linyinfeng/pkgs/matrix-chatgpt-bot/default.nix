@@ -1,7 +1,15 @@
-{ callPackage, sources, lib, mkYarnPackage, nodejs, makeWrapper, matrix-sdk-crypto-nodejs }:
+{ callPackage, fetchFromGitHub, lib, mkYarnPackage, nodejs, makeWrapper, matrix-sdk-crypto-nodejs }:
 
 mkYarnPackage {
-  inherit (sources.matrix-chatgpt-bot) pname version src;
+  pname = "matrix-chatgpt-bot";
+  version = "v3.1.1";
+  src = fetchFromGitHub ({
+    owner = "matrixgpt";
+    repo = "matrix-chatgpt-bot";
+    rev = "v3.1.1";
+    fetchSubmodules = false;
+    sha256 = "sha256-FxM8hO26qR1B3ph+6elAyNABqVW+dLFNiiUBdzOH2/w=";
+  });
 
   packageJSON = ./package.json;
   yarnNix = ./yarn.nix;

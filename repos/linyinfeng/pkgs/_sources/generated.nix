@@ -123,22 +123,11 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.9.10";
+    version = "v2.9.12";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.10/app-x86_64.asar";
-      sha256 = "sha256-ZTYyjFX5gdrL7c/5JDwXo+1x3vq1upVC5vr9UeJro7A=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.12/app-x86_64.asar";
+      sha256 = "sha256-UkHp4ELnaaavFrxpOiqqttrYg99xhvN1yHewgL6vHf8=";
     };
-  };
-  matrix-chatgpt-bot = {
-    pname = "matrix-chatgpt-bot";
-    version = "v3.0.0";
-    src = fetchFromGitHub ({
-      owner = "matrixgpt";
-      repo = "matrix-chatgpt-bot";
-      rev = "v3.0.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-2cBBevFu2gDsgZlHgsCLiR1faHPazo3TQvt8vf2fFC0=";
-    });
   };
   mstickereditor = {
     pname = "mstickereditor";
@@ -285,16 +274,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "f3c2d24aa678b63b304105f55ca3769e47deb0b8";
+    version = "250c577cb9c2156a92c2b232bf554dd2a55fd5bd";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "f3c2d24aa678b63b304105f55ca3769e47deb0b8";
+      rev = "250c577cb9c2156a92c2b232bf554dd2a55fd5bd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-ArW+/ykwFpBVLx/iIdOJMBJbyV2WBKyliQCHLsu4UXY=";
+      sha256 = "sha256-rf7cpFVlVqr2p1ns+eAgcPck9nI7b+3TtVQ+yQNWyCI=";
     };
-    date = "2023-05-09";
+    date = "2023-05-10";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
