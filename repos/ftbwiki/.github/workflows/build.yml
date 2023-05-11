@@ -5,6 +5,12 @@ on:
     branches:
       - main
       - master
+    paths:
+      - .github/
+      - lib/
+      - modules/
+      - overlays/
+      - pkgs/
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
