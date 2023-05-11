@@ -13,8 +13,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock = {
     lockFile = ./Cargo.lock;
-    allowBuiltinFetchGit = true;
-	# TODO: find better workaround for this
+    # allowBuiltinFetchGit = true;
+    outputHashes = {
+      "mediawiki-0.0.1" = "sha256-waGHh75+tOoDIXUiTOIzcH64hhLwLdhkavJCW/CL/ig=";
+    };
+    # TODO: find better workaround for this
   };
 
   buildInputs = [ openssl ];
@@ -30,7 +33,6 @@ rustPlatform.buildRustPackage rec {
     homepage =
       "https://ftb.fandom.com/wiki/Feed_The_Beast_Wiki:Tilesheet_update_guide";
     license = licenses.bsd3;
-	mainProgram = "ftb";
-	broken = true; # This package is broken in 'restricted mode' due to cargoLock.allowBultinFetchGit being set to true
+    mainProgram = "ftb";
   };
 }
