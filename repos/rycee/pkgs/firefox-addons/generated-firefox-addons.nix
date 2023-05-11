@@ -2479,10 +2479,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.5.6";
+      version = "23.5.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4107151/refined_github-23.5.6.xpi";
-      sha256 = "952f1fe4623f555b16cf9b16a58fc61bed438edb08014d66ca8c5a928f5227f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4109084/refined_github-23.5.10.xpi";
+      sha256 = "69913cc67af9fc0953e62d909af73473a066d813a5b572c84586df654c6b90b9";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2743,10 +2743,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.4";
+      version = "3.6.6";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4056899/steam_database-3.6.4.xpi";
-      sha256 = "074d3abfb652c18113a82fe603f46db44b0c4f12012fb2d8fe336688abe82d88";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4106867/steam_database-3.6.6.xpi";
+      sha256 = "1042f5a1b61ee4083e8999405da601bc6fa43cf9069f078b5da45261f40bce2b";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -3079,10 +3079,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "2.6.7";
+      version = "3.0.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4104907/tournesol_extension-2.6.7.xpi";
-      sha256 = "83b465046afde7baf482c0a96e071cc4ef662eadc41860ee6e4489d5d7d9ed5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4108808/tournesol_extension-3.0.0.xpi";
+      sha256 = "a342bbd658983c69e302499092a7c11b659c712137258ac8dc4290ac9cbe85ec";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
