@@ -45,7 +45,7 @@ jobs:
         run: |
           nix flake update
           echo -e '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
-          nix run "nixpkgs#nvfetcher" -- -k keyfile.toml
+          nix run "github:berberman/nvfetcher" -- -k keyfile.toml -l CHANGELOG -t
           rm keyfile.toml
 
       - name: Update vim plugins
