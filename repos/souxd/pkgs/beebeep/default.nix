@@ -11,11 +11,11 @@
 
 stdenv.mkDerivation rec {
   pname = "beebeep";
-  version = "5.8.4";
+  version = "5.8.6";
 
   src = fetchurl {
     url = "https://sourceforge.net/projects/beebeep/files/Linux/${pname}-${version}-qt5-amd64.tar.gz";
-    sha256 = "0r79kiqk4klah810srkxgdfg2lisvxfz9w432y2h48k0via8g6n3";
+    sha256 = "08zhphr2iwl4iqcvad66fh6dw6dhrc6163d0kyg8s51bkip9z3h6";
   };
 
   nativeBuildInputs = [
