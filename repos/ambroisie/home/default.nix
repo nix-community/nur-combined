@@ -29,6 +29,7 @@
     ./packages
     ./pager
     ./power-alert
+    ./secrets
     ./ssh
     ./terminal
     ./tmux

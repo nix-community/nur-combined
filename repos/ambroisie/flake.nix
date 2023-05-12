@@ -7,6 +7,7 @@
       repo = "agenix";
       ref = "main";
       inputs = {
+        home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
       };
     };
