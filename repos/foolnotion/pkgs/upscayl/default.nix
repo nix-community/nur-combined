@@ -2,10 +2,10 @@
 
 let
   pname = "upscayl";
-  version = "2.0.1";
+  version = "2.5.1";
   src = fetchurl {
     url = "https://github.com/upscayl/upscayl/releases/download/v${version}/upscayl-${version}-linux.AppImage";
-    sha256 = "sha256-qsFYWUK5GwuiAaU7Y3tAM8Eea1G+R/MwoDSFUZvo/cM=";
+    sha256 = "sha256-mAMq7I7oH9BBJeLUT4mGxlh7vPNPwa6JeQUHnGoCgdc=";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 in
