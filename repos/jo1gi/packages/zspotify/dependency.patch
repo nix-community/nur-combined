@@ -1,0 +1,28 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 2229c45..3708dca 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -20,7 +20,6 @@ classifiers = [
+     "Topic :: Multimedia :: Sound/Audio",
+ ]
+ dependencies = [
+-    "librespot @ git+https://github.com/kokarare1212/librespot-python",
+     "appdirs",
+     "mutagen",
+     "music_tag",
+diff --git a/requirements.txt b/requirements.txt
+index 6b37bf1..251430d 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,3 @@
+-git+https://github.com/kokarare1212/librespot-python#egg=librespot
+ appdirs
+ mutagen
+ music_tag
+@@ -6,4 +5,4 @@ pydub
+ Pillow
+ tqdm
+ setuptools
+-requests
+\ No newline at end of file
++requests
