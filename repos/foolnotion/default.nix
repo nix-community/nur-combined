@@ -99,4 +99,6 @@
   qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
+
+  upscayl = pkgs.callPackage ./pkgs/upscayl { };
 }
