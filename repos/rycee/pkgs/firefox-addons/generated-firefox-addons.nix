@@ -127,10 +127,10 @@
       };
     "anonaddy" = buildFirefoxXpiAddon {
       pname = "anonaddy";
-      version = "2.1.6";
+      version = "2.1.7";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4052970/anonaddy-2.1.6.xpi";
-      sha256 = "ea1ac148788c3f3dd1756371e2ff1ca01d1b0fdd50a0bbb3454dfbc70fa0e42e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4109231/anonaddy-2.1.7.xpi";
+      sha256 = "3bc353115560e2739b206d630c3ef6e30bdbde917519381b9195ca503aa2b983";
       meta = with lib;
       {
         homepage = "https://anonaddy.com";
@@ -478,10 +478,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.4.4";
+      version = "3.5.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4104996/control_panel_for_twitter-3.4.4.xpi";
-      sha256 = "e72458be465aa63d766821f8193481a4bc0dc83d98d8d5aa0de5bd668ac7d070";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4107044/control_panel_for_twitter-3.5.0.xpi";
+      sha256 = "23a497f5a228cea3af0222a3cf5d683f56b8cc2f3c116e405fad510d7f151514";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1016,10 +1016,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230509.180058";
+      version = "113.0.20230511.191846";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4108499/francais_language_pack-114.0.20230509.180058.xpi";
-      sha256 = "f3732ea277e70a56c4c57f3d4d3542c78b21786a9efb9c95d9113072e046bb6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4109735/francais_language_pack-113.0.20230511.191846.xpi";
+      sha256 = "fd91c31e3fda81b92e545a201d5c69711c02166682e8c1c79b784f6b44cbc3e1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1728,10 +1728,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.28.3";
+      version = "10.29.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4096869/ether_metamask-10.28.3.xpi";
-      sha256 = "bf034e8296bc4a6aafc5152a240c0c3a40641e1687a95c0ec7f964118a3e3e97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4106127/ether_metamask-10.29.0.xpi";
+      sha256 = "792c314160dc9c8ed85094b4fa923634d8a3813db9831a26fb249163c9347bf6";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1759,10 +1759,10 @@
       };
     "modrinthify" = buildFirefoxXpiAddon {
       pname = "modrinthify";
-      version = "1.6.1";
+      version = "1.6.2";
       addonId = "{5183707f-8a46-4092-8c1f-e4515bcebbad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4081301/modrinthify-1.6.1.xpi";
-      sha256 = "b5c40e5e9ade210e1a6089bd0b97cd694214df0a97b811270d7e41cbbd577773";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4109455/modrinthify-1.6.2.xpi";
+      sha256 = "a194eec073b21cc58c11f59103e4b079888561e3783947b6e37e3947bef53f52";
       meta = with lib;
       {
         homepage = "https://github.com/devBoi76/modrinthify";
@@ -2493,10 +2493,10 @@
       };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.8";
+      version = "3.0.0.9";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4072734/return_youtube_dislikes-3.0.0.8.xpi";
-      sha256 = "e44a7a84bb552d4d3885b2e6d31cb653ed9dd65634e32d5af9a8930f6cae1fb8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4107777/return_youtube_dislikes-3.0.0.9.xpi";
+      sha256 = "025aa38442c58a466382c7dd7796bf5890083a22b091e764566899605c60e1a3";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -2881,10 +2881,10 @@
       };
     "tab-stash" = buildFirefoxXpiAddon {
       pname = "tab-stash";
-      version = "2.12.0.1";
+      version = "2.12.1";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4039316/tab_stash-2.12.0.1.xpi";
-      sha256 = "03c26b1a067137cd03d538289c9ec502c93735550b2debfba0b301f4f89eb7d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4106539/tab_stash-2.12.1.xpi";
+      sha256 = "b583ee10ab1a4168732cb29e5bb806c12289b837d014362e2dc631c68b718f02";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
@@ -3079,10 +3079,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.0.0";
+      version = "3.0.2";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4108808/tournesol_extension-3.0.0.xpi";
-      sha256 = "a342bbd658983c69e302499092a7c11b659c712137258ac8dc4290ac9cbe85ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4109363/tournesol_extension-3.0.2.xpi";
+      sha256 = "c6166f0a44f84dabe270c325f8de595d1859b3ec9acb46c51fdc4493713f3067";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
