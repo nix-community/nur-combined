@@ -45,6 +45,16 @@ let
         '';
       };
 
+      socket = mkOption {
+        type = with types; nullOr path;
+        default = null;
+        example = "FIXME";
+        description = ''
+          The UNIX socket for this virtual host. This option is incompatible
+          with `port`.
+        '';
+      };
+
       sso = {
         enable = mkEnableOption "SSO authentication";
       };
@@ -185,7 +195,7 @@ in
     assertions = [ ]
       ++ (lib.flip builtins.map cfg.virtualHosts ({ subdomain, ... } @ args:
       let
-        conflicts = [ "port" "root" "redirect" ];
+        conflicts = [ "port" "root" "socket" "redirect" ];
         optionsNotNull = builtins.map (v: args.${v} != null) conflicts;
         optionsSet = lib.filter lib.id optionsNotNull;
       in
@@ -259,6 +269,11 @@ in
               # Serve filesystem content
               (lib.optionalAttrs (args.root != null) {
                 inherit (args) root;
+              })
+              # Serve to UNIX socket
+              (lib.optionalAttrs (args.socket != null) {
+                locations."/".proxyPass =
+                  "http://unix:${args.socket}";
               })
               # Redirect to a different domain
               (lib.optionalAttrs (args.redirect != null) {

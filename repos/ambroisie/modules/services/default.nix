@@ -32,6 +32,7 @@
     ./ssh-server
     ./tlp
     ./transmission
+    ./vikunja
     ./wireguard
     ./woodpecker
   ];

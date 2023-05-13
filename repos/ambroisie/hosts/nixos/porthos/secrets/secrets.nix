@@ -61,6 +61,8 @@ in
 
   "transmission/credentials.age".publicKeys = all;
 
+  "vikunja/mail.age".publicKeys = all;
+
   "wireguard/private-key.age".publicKeys = all;
 
   "woodpecker/gitea.age".publicKeys = all;
