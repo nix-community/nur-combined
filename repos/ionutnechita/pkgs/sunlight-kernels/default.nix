@@ -1,12 +1,12 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.1.24-sunlight1";
+  modDirVersion = "6.1.25-sunlight1";
   parts = lib.splitString "-" modDirVersion;
   version = lib.elemAt parts 0;
   suffix = lib.elemAt parts 1;
   extraVer = "";
-  hash = "sha256-BRR0pLVDbsa8ZlDDKAjTD7EjbAhHUZVCzzgtLQmDezE=";
+  hash = "sha256-NQRftyNF39YQHYMp5JA7dvoVGw3TUWGC6+zraNubeMc=";
 
   numbers = lib.splitString "." version;
   branch = "${lib.elemAt numbers 0}.${lib.elemAt numbers 1}";
@@ -52,10 +52,10 @@ buildLinux (args // rec {
       PREEMPT_VOLUNTARY = lib.mkForce no;
       PREEMPT_NONE = lib.mkForce no;
 
-      # 833 Hz is alternative to 1000 Hz.
+      # 858 Hz is alternative to 1000 Hz.
       # Selected value for a balance between latency, performance and low power consumption.
-      HZ = freeform "833";
-      HZ_833 = yes;
+      HZ = freeform "858";
+      HZ_858 = yes;
       HZ_1000 = no;
 
       SCHEDSTATS = lib.mkOverride 60 yes;
