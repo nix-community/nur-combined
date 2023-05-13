@@ -28,6 +28,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GCTP1P3bX6+sYGkJ5dKfoCq9qz7MYXyG0ne6usQcqUU=";
   };
 
+  patches = [
+    ./0001-fix-KDKGetOSRelease-not-found-without-kylin-common.patch
+  ];
+
   postPatch = ''
     for file in $(grep -rl "/usr")
     do
@@ -52,14 +56,13 @@ stdenv.mkDerivation rec {
     libnotify
     libcanberra
     kwindowsystem
-    ukui-interface
   ];
 
   enableParallelBuilding = false;
 
-  #qmakeFlags = [
+  qmakeFlags = [
   #  "peony-qt.pro"
-  #];
+  ];
 
   meta = with lib; {
     description = "The File Manager Application of UKUI";

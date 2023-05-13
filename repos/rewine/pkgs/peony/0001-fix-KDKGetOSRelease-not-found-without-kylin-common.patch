@@ -1,0 +1,62 @@
+From f91d458d5e56d383008bc1ba6fcdaf1b7f924507 Mon Sep 17 00:00:00 2001
+From: rewine <lhongxu@outlook.com>
+Date: Sun, 14 May 2023 05:01:37 +0800
+Subject: [PATCH] fix: KDKGetOSRelease not found without kylin common
+
+---
+ libpeony-qt/file-launcher/file-launch-action.cpp | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/libpeony-qt/file-launcher/file-launch-action.cpp b/libpeony-qt/file-launcher/file-launch-action.cpp
+index a74fdab..e8a14d0 100644
+--- a/libpeony-qt/file-launcher/file-launch-action.cpp
++++ b/libpeony-qt/file-launcher/file-launch-action.cpp
+@@ -701,6 +701,7 @@ void FileLaunchAction::preCheck()
+ 
+ bool FileLaunchAction::launchAppWithDBus()
+ {
++#ifdef KYLIN_COMMON
+     //mavis不通过session而通过AppMgr
+     bool mavis = (QString::compare("mavis", QString::fromStdString(KDKGetOSRelease("SUB_PROJECT_CODENAME")), Qt::CaseInsensitive) == 0);
+ 
+@@ -726,6 +727,7 @@ bool FileLaunchAction::launchAppWithDBus()
+             return launchDefaultAppWithUrl();
+         }
+     }
++#endif // KYLIN_COMMON
+ 
+     return false;
+ }
+@@ -868,6 +870,7 @@ bool FileLaunchAction::launchAppWithSession()
+ 
+ bool FileLaunchAction::checkAppDisabled()
+ {
++#ifdef KYLIN_COMMON
+     bool intel = (QString::compare(V10_SP1_EDU, QString::fromStdString(KDKGetPrjCodeName()), Qt::CaseInsensitive) == 0);
+     if (intel) {
+         preCheck();
+@@ -878,12 +881,14 @@ bool FileLaunchAction::checkAppDisabled()
+             return true;
+         }
+     }
++#endif // KYLIN_COMMON
+ 
+     return false;
+ }
+ 
+ bool launchAppWithArguments(QString desktopFile, QStringList args)
+ {
++#ifdef KYLIN_COMMON
+     bool mavis = (QString::compare("mavis", QString::fromStdString(KDKGetOSRelease("SUB_PROJECT_CODENAME")), Qt::CaseInsensitive) == 0);
+     int features = QString::fromStdString(KDKGetOSRelease("PRODUCT_FEATURES")).toInt();
+     if (features == 2 || features == 3 || mavis) {
+@@ -901,5 +906,6 @@ bool launchAppWithArguments(QString desktopFile, QStringList args)
+         }
+         return true;
+     }
++#endif // KYLIN_COMMON
+     return false;
+ }
+-- 
+2.39.2
+
