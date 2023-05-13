@@ -169,6 +169,10 @@ in
     repeat_delay 300
     repeat_rate 30
   }
+  input "type:pointer" {
+    accel_profile "flat"
+    pointer_accel 0.1
+  }
   output * bg ${pkgs.nixos-artwork.wallpapers.dracula}/share/backgrounds/nixos/nix-wallpaper-dracula.png fill
 
   #

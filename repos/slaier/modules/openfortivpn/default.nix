@@ -1,6 +1,7 @@
-{ ... }: {
+{ pkgs, ... }: {
   virtualisation.oci-containers.containers.openfortivpn = {
-    image = "ghcr.dockerproxy.com/slaier/openfortivpn:latest";
+    image = "ghcr.io/slaier/openfortivpn:latest";
+    imageFile = pkgs.dockerTools.pullImage (import ./source.nix);
     volumes = [
       "/etc/openfortivpn/config:/etc/openfortivpn/config"
     ];
