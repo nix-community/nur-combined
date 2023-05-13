@@ -84,7 +84,6 @@ in
       ];
       extraConfig = ''
         ${fileContents pkgs.arkenfox-userjs}
-        ${fileContents "${pkgs.material-fox}/user.js"}
         ${fileContents ./overlay.js}
         user_pref("browser.uiCustomization.state", '${fileContents ./ui.json}');
       '';
@@ -141,7 +140,7 @@ in
     };
   };
   home.file."${profilesPath}/default/chrome" = {
-    source = "${pkgs.material-fox}/chrome";
+    source = pkgs.wavefox;
     recursive = true;
     force = true;
   };

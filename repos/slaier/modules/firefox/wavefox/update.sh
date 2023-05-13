@@ -1,14 +1,14 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p jq git
+#!nix-shell -i bash -p jq curl
 
 set -euo pipefail
 
-owner=muckSponge
-repo=MaterialFox
-name=material-fox
+owner=QNetITQ
+repo=WaveFox
+name=wavefox
 
 oldVersion=$(nix eval --raw ".#$name.version" 2>/dev/null)
-newVersion=$(git ls-remote --tags --refs "https://github.com/$owner/$repo" | tail -n1 | cut --delimiter=/ --field=3- | sed -re 's|^v||')
+newVersion=$(curl -s "https://api.github.com/repos/$owner/$repo/releases/latest" | jq -r '.tag_name[1:]')
 
 if [[ "$oldVersion" == "$newVersion" ]]; then
     echo "$name is up-to-date: $oldVersion" >&2
