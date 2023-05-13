@@ -94,10 +94,10 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.9.2-1";
+    version = "1.10.1-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.9.2-1/io.github.msojocs.bilibili_1.9.2-1_amd64.deb";
-      sha256 = "sha256-y3dUBImvcIG89m82RaIOa0cxJXIAIGa+n3FJkASacaY=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.10.1-1/io.github.msojocs.bilibili_1.10.1-1_amd64.deb";
+      sha256 = "sha256-Kx45erpxS66/CWmo4Csw0jhp23u03fn7r+vkq5CtJg0=";
     };
   };
   bird-babel-rtt = {
@@ -285,44 +285,44 @@
   };
   google-earth-pro = {
     pname = "google-earth-pro";
-    version = "7.3.6.9285";
+    version = "7.3.6.9345";
     src = fetchurl {
-      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9285-r0_amd64.deb";
-      sha256 = "sha256-00XuaIcg9uHtRPalLyoIUY49iLdGulIMwshVOsBwprM=";
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9345-r0_amd64.deb";
+      sha256 = "sha256-iOixqOCfCMjarI4h2APRkgOnJeH/hDemXcj7p1OhLD4=";
     };
   };
   grasscutter = {
     pname = "grasscutter";
-    version = "1.4.7";
+    version = "1.5.0";
     src = fetchurl {
-      url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.4.7/grasscutter-1.4.7.jar";
-      sha256 = "sha256-LDwjp9S3fxftg8tsMB3VC19aMbBeIZyc1lKYaNQPFZE=";
+      url = "https://github.com/Grasscutters/Grasscutter/releases/download/v1.5.0/grasscutter-1.5.0.jar";
+      sha256 = "sha256-qD0UG4/0UjyyJy1dl52W6dCiiQEkB0vrqs1c+lYQOTM=";
     };
   };
   grasscutter-resources = {
     pname = "grasscutter-resources";
-    version = "5ef7ee4985f2fe0dc4e100119386cc819ce4879e";
+    version = "5f8c418a9ff6a0cf5af31c2d7aa1200ecafb7b5d";
     src = fetchgit {
       url = "https://gitlab.com/YuukiPS/GC-Resources.git";
-      rev = "5ef7ee4985f2fe0dc4e100119386cc819ce4879e";
+      rev = "5f8c418a9ff6a0cf5af31c2d7aa1200ecafb7b5d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-R5wEEWSgwpGiBaolLtWaYrux6pNBH9/34m+9uzWztWE=";
+      sha256 = "sha256-QbzgI4HNGQSKuKD/Z5Bo/QkBrCsVtyrOsGuXTdyRgwk=";
     };
-    date = "2023-04-25";
+    date = "2023-05-08";
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "ff4420614a1a3b61a6d9d28a30465bdacdc2ba5e";
+    version = "4c566e7a6a10e12f4b28eb570e6162050135323f";
     src = fetchFromGitHub ({
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "ff4420614a1a3b61a6d9d28a30465bdacdc2ba5e";
+      rev = "4c566e7a6a10e12f4b28eb570e6162050135323f";
       fetchSubmodules = false;
-      sha256 = "sha256-0+W7eOt6skInIqlZl0ChxrZ+2LW1fiTHQKDn+LRvgxg=";
+      sha256 = "sha256-wOr1+G0ze7GUHIzHXdAvtmEKIsfNhtDZZvz/+6AbMWw=";
     });
-    date = "2023-03-24";
+    date = "2023-05-12";
   };
   kata-containers = {
     pname = "kata-containers";
@@ -380,25 +380,25 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "9cf9e10df109d59cb100836933f7a527dd3d650c";
+    version = "9f912c957bfe7f4b894aa9661168a310e8dd1a58";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "9cf9e10df109d59cb100836933f7a527dd3d650c";
+      rev = "9f912c957bfe7f4b894aa9661168a310e8dd1a58";
       fetchSubmodules = false;
-      sha256 = "sha256-yIZ2IS8oHl1Jovr3do7IKOmMrxym7fSWyMz8ZaBXxog=";
+      sha256 = "sha256-BiDMMpBUqYE2ouMfr8D6HXc56vayjmK2GjyNK3pDQ0Q=";
     });
-    date = "2023-04-26";
+    date = "2023-05-12";
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.3.0-xanmod1";
+    version = "6.3.2-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.3.0-xanmod1";
+      rev = "6.3.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-KJ92wBkN8j+DVMVGgiGMsQrQPcDrAOtNUkQUAX7mPxA=";
+      sha256 = "sha256-/+tg7fhAQZzo9iSrGi5vFXcbMqL21d+L7dTFGRp6Bo4=";
     });
   };
   linux-xanmod-6_0 = {
@@ -414,13 +414,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.26-xanmod1";
+    version = "6.1.28-xanmod1";
     src = fetchFromGitHub ({
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.26-xanmod1";
+      rev = "6.1.28-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-NS/hXFhbdE41pQVTE1Zn589J7phsBkMAl0tr7Iincq0=";
+      sha256 = "sha256-VCZ/Hev7bI/5HjPkHUnKkdEmJB5otzoSCJL0iE3KCHQ=";
     });
   };
   nbfc-linux-lantian = {
@@ -437,18 +437,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.68";
+    version = "2.0.69";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.68/netboot.xyz.efi";
-      sha256 = "sha256-L671KLUQjRdMun8XBOb6cS6rOgax+yqsZ9Z7nowaJNs=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.69/netboot.xyz.efi";
+      sha256 = "sha256-jzphIpFtNQAwKeYyIbIrmqd3b6OF3nvwZCOlmg/MasA=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.68";
+    version = "2.0.69";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.68/netboot.xyz.lkrn";
-      sha256 = "sha256-81zDJyTeJa5CzeJ+sUPJpNd8Jzbo0DsjaZJLXe10CL4=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.69/netboot.xyz.lkrn";
+      sha256 = "sha256-LROl9j7l23wVaUSkn3ih3nXqkd6cyGinDk0Xjf1uugw=";
     };
   };
   netns-exec = {
@@ -559,15 +559,15 @@
   };
   onepush = {
     pname = "onepush";
-    version = "c7dd8c82e4eb74501d7e6bcf0c42d1caa0c0ffc2";
+    version = "3a1d5880e3b8f1c5191ee28acd828def15fe135d";
     src = fetchFromGitHub ({
       owner = "y1ndan";
       repo = "onepush";
-      rev = "c7dd8c82e4eb74501d7e6bcf0c42d1caa0c0ffc2";
+      rev = "3a1d5880e3b8f1c5191ee28acd828def15fe135d";
       fetchSubmodules = false;
-      sha256 = "sha256-Rges8Ryd3nFzADoW7Cl8HMzuYWRCPbu08TWnz999qbo=";
+      sha256 = "sha256-C6+P55uxG7URiA2ldrVQlOfY4qfjWhX4DYrv6ZmmeXU=";
     });
-    date = "2022-09-15";
+    date = "2023-05-03";
   };
   openssl-oqs = {
     pname = "openssl-oqs";
@@ -583,15 +583,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "27d33d2eb9fde2fcd663f014e2f68c71b7048e2e";
+    version = "c8cca2f8102805063db05071ec17acd453c4abc6";
     src = fetchFromGitHub ({
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "27d33d2eb9fde2fcd663f014e2f68c71b7048e2e";
+      rev = "c8cca2f8102805063db05071ec17acd453c4abc6";
       fetchSubmodules = false;
-      sha256 = "sha256-lZBIhdbFpLBPv6sfhE+QsMdFyroUlYeAfgzlkWgUrEg=";
+      sha256 = "sha256-WSt6LPI9iacVsk7z2/tMoi7khLbCyYhL/yeahLvMNjA=";
     });
-    date = "2023-04-26";
+    date = "2023-05-09";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -636,13 +636,13 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V0.8.5730";
+    version = "V0.8.5735";
     src = fetchFromGitHub ({
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic";
-      rev = "V0.8.5730";
+      rev = "V0.8.5735";
       fetchSubmodules = false;
-      sha256 = "sha256-1kB5Zego/qieQqFzO+4uOMe10D/d4SaOBsyJ4eUtuZM=";
+      sha256 = "sha256-og98Zz2uuNEWVtGXUkGldx7JNwkqklGhKIfgo14kKvE=";
     });
   };
   qbittorrent-enhanced-edition = {
@@ -658,34 +658,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "7.2+dfsg-5+b1";
+    version = "7.2+dfsg-6";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_amd64.deb";
-      sha256 = "sha256-dOV1/0cerTLQsmXJvBUYAV2A0Elm9Zwu0f5wHFehuh4=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-6_amd64.deb";
+      sha256 = "sha256-buJY4MbqtUUBQkyM++hYQno3pDiZU1SocqU0KgDwSrI=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "7.2+dfsg-5+b1";
+    version = "7.2+dfsg-6";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_arm64.deb";
-      sha256 = "sha256-Xu+VXAAEALMoRcrOW7eeCje8KzuKwIv+PdZhjE6ydqg=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-6_arm64.deb";
+      sha256 = "sha256-/LSEuMCo7zvazZThogJjtm+BmRznuuB52GaQYSqxaFE=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "7.2+dfsg-5+b1";
+    version = "7.2+dfsg-6";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_armhf.deb";
-      sha256 = "sha256-r1FjZgu152Enn1kgF4zr7XPcZ0tuWlgC7Dmt2exjqCE=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-6_armhf.deb";
+      sha256 = "sha256-2yn7vFm8dK1rVXZxdYyfDv3CD0blGWgAeEgUhmylzJA=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "7.2+dfsg-5+b1";
+    version = "7.2+dfsg-6";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-5+b1_i386.deb";
-      sha256 = "sha256-dv9XLDZjyj2sj1tfXkTUxo5PKJyM5o2RKfAwF/rrohY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_7.2+dfsg-6_i386.deb";
+      sha256 = "sha256-cb84sH+j105e1lMVgWx9g20dyWHtnHQrBjd650NtJc8=";
     };
   };
   qq-amd64 = {
@@ -758,10 +758,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20230329";
+    version = "20230507";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230329.dict.yaml";
-      sha256 = "sha256-0B02FGISHqvrBUGkERdplhrx8zo6SV9hG2qRbSUqqd0=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230507.dict.yaml";
+      sha256 = "sha256-vhpey4jQE2tNMYC+0ReP7v3WdkUGCsqNAiNoh/6EkG4=";
     };
   };
   route-chain = {
@@ -814,15 +814,15 @@
   };
   undetected-chromedriver = {
     pname = "undetected-chromedriver";
-    version = "bf7dcf8b5713020de7454844fb80036b8c456503";
+    version = "d29b3e300fe75aa878e0313bce37a1816d6bd4c0";
     src = fetchFromGitHub ({
       owner = "ultrafunkamsterdam";
       repo = "undetected-chromedriver";
-      rev = "bf7dcf8b5713020de7454844fb80036b8c456503";
+      rev = "d29b3e300fe75aa878e0313bce37a1816d6bd4c0";
       fetchSubmodules = false;
-      sha256 = "sha256-/yrnbSfZEF4mIg1OrgZkJ8+Q5ma/bnoJILW4AUv0lpY=";
+      sha256 = "sha256-pdjJpoXph2tGTYX2y4tw/rR17a/KcbfYqzK8SD6LQ3I=";
     });
-    date = "2023-02-10";
+    date = "2023-05-09";
   };
   vs-rife = {
     pname = "vs-rife";
