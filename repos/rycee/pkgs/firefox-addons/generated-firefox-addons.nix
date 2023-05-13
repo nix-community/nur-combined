@@ -1773,10 +1773,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.7.70";
+      version = "2.7.72";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4105554/momentumdash-2.7.70.xpi";
-      sha256 = "aa5c2545c21faf9a04cd6925493cb52d19c55771c3ce678b586b2a60420c8619";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4108393/momentumdash-2.7.72.xpi";
+      sha256 = "090720e100491c552bff2ff9f05dc35cc988f03e1108aeb98a134d12574e230b";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
