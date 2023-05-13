@@ -18,23 +18,19 @@
 
 stdenv.mkDerivation rec {
   pname = "metronome";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "Metronome";
     rev = version;
-    hash = "sha256-rmqj8cXfbSnsgULvexG22myjJEcjfoymoNn3czKEvPY=";
+    hash = "sha256-YQFS8JHd4SC0vNw6Lm3AN1nh5li8+Ep6lXJAUeUi4fo=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "cairo-rs-0.16.0" = "sha256-P0sJ06UGpZt6xawI2xI7dc8Oue2DjeRN6dfNLtDrAzA=";
-      "gdk4-0.5.0" = "sha256-ba60f7JxjEPL/JEeXhQ7KRd8OAs8HdSoEMk9hp1kqD8=";
-      "libadwaita-0.2.0" = "sha256-4Y1hBN4+paRl3Pn7md6YRbVfJqY/oooC1TW7XLGzO6M=";
-    };
+  cargoDeps = rustPlatform.fetchCargoTarball {
+   inherit src;
+   hash = "sha256-hako+hpm0lyQdq3xvW5zCWV6ONwjk8tTl+Z5fEpNNkU=";
   };
 
   nativeBuildInputs = [
