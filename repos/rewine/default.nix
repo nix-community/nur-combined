@@ -20,4 +20,6 @@ rec {
     llvmPackages = pkgs.llvmPackages_latest;
     stdenv = pkgs.llvmPackages_latest.stdenv;
   };
+  ukui-interface = pkgs.libsForQt5.callPackage ./pkgs/ukui-interface { };
+  peony = pkgs.libsForQt5.callPackage ./pkgs/peony { inherit ukui-interface; };
 }
