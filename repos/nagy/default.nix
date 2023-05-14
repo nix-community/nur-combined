@@ -46,6 +46,8 @@ in lib.makeScope pkgs.newScope (self:
 
     ksv = self.callPackage ./pkgs/ksv { };
 
+    qr2text = self.callPackage ./pkgs/qr2text { };
+
     rfcs =
       self.callPackage ./pkgs/rfcs.nix { inherit (self.lib) fetchRFCBulk; };
 
