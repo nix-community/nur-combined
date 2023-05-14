@@ -4,5 +4,9 @@
 
     {"shadowsocks-ws": "git+https://github.com/totravel/shadowsocks-ws.git"},
     "express",
-    "http-proxy-middleware"
+    "http-proxy-middleware",
+    "@rollup/plugin-node-resolve",
+    "@rollup/plugin-commonjs",
+    "@rollup/plugin-json",
+    "@rollup/plugin-terser"
 ]

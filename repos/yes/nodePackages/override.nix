@@ -6,6 +6,9 @@ let
   prev = import ./default.nix {
     inherit pkgs system;
   };
+  addMissingDeps = deps: builtins.concatStringsSep "\n" (map (
+    dep: "ln -s ${prev.${dep}}/lib/node_modules/${dep} $DEST/node_modules/${dep}"
+  ) deps);
 in {
   inherit (prev) magireco-cn-local-server;
   aria2b = prev.aria2b.override {
@@ -21,8 +24,19 @@ in {
       cd $DEST
       substituteInPlace local.mjs \
         --replace "./banner.txt" "$DEST/banner.txt"
-      ln -s ${prev.express}/lib/node_modules/express $DEST/node_modules/express
-      ln -s ${prev.http-proxy-middleware}/lib/node_modules/http-proxy-middleware $DEST/node_modules/http-proxy-middleware
+
+      mkdir -p $DEST/node_modules/@rollup
+      ${addMissingDeps [
+        # optionalDependencies currently ignored by node2nix
+        "express" "http-proxy-middleware"
+
+        # devDependencies that are actually required
+        "@rollup/plugin-node-resolve"
+        "@rollup/plugin-commonjs"
+        "@rollup/plugin-json"
+        "@rollup/plugin-terser"
+      ]}
+
       rollup -c
       mkdir -p $out/bin
       makeWrapper ${pkgs.nodejs}/bin/node $out/bin/ss-ws-local \
