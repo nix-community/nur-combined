@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "contextily";
-  version = "1.2.0";
+  version = "1.3.0";
   disabled = python3Packages.pythonOlder "3.6";
 
   src = fetchFromGitHub {
     owner = "geopandas";
     repo = "contextily";
     rev = "v${version}";
-    hash = "sha256-ByLPd75MZCsa8l24lkIZVNX4RrT8LN3D0O4tLOb6hTI=";
+    hash = "sha256-s8F70I9xrNvYqS8t2kWX7cgjfGqGYLfiAZAYvaKVS6s=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -30,5 +30,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/geopandas/contextily";
     license = licenses.bsd3;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # xyzservices
   };
 }

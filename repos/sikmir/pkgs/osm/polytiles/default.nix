@@ -23,5 +23,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.wtfpl;
     maintainers = [ maintainers.sikmir ];
+    broken = true; # python-mapnik
   };
 }
