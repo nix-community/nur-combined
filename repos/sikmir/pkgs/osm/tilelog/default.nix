@@ -11,6 +11,8 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-4B1RkuvLTFmoQtSTLIZZq1ytrmQ37wT0HQarYmIumKg=";
   };
 
+  nativeBuildInputs = with python3Packages; [ flake8 ];
+
   propagatedBuildInputs = with python3Packages; [ click publicsuffixlist pyathena pyarrow ];
 
   meta = with lib; {

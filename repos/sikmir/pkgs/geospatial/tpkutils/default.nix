@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, pymbtiles, poetry }:
+{ lib, fetchFromGitHub, python3Packages, pymbtiles }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tpkutils";
@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-iKM+tEEOtSkwDdkBN+n35q3D2IBi7a/bnY/fSlGDowU=";
   };
 
-  nativeBuildInputs = [ poetry ];
+  nativeBuildInputs = with python3Packages; [ poetry-core ];
 
   propagatedBuildInputs = with python3Packages; [
     mercantile
