@@ -16,6 +16,7 @@ let
     homepage = "https://developmentseed.org/titiler/";
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = true;
   };
 
   titiler-core = python3Packages.buildPythonPackage {

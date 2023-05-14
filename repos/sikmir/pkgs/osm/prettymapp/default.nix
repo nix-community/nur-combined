@@ -1,21 +1,21 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{ lib, stdenv, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonPackage rec {
   pname = "prettymapp";
-  version = "2022-08-10";
+  version = "2022-12-18";
 
   src = fetchFromGitHub {
     owner = "chrieke";
     repo = "prettymapp";
-    rev = "053b215dafb6493b9efac5093e2e80bf65c5c5b2";
-    hash = "sha256-/SlXbDv0tkSMSW878zqQ1zSEzt1BAcfK1Ny8kYiUfZs=";
+    rev = "26f945ef670cbede8f0561582d280664da09ae96";
+    hash = "sha256-u5LMTQCB6aqUYC/l8z+bQjk4cGiWR7uvRNoTwLxMDlM=";
   };
 
   postPatch = "sed -i 's/==.*//' requirements.txt";
 
   propagatedBuildInputs = with python3Packages; [ osmnx ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook mock ];
 
   disabledTests = [
     "test_get_aoi_from_user_input_address"
@@ -27,5 +27,6 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
+    broken = stdenv.isDarwin; # xyzservices
   };
 }
