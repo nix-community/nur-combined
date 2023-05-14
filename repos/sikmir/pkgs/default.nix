@@ -452,6 +452,7 @@ lib.makeScope newScope (
       inherit (darwin.apple_sdk.frameworks) Foundation;
     };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
+    tilelog = callPackage ./osm/tilelog { };
     tirex = callPackage ./osm/tirex { };
     vectiler = callPackage ./osm/vectiler { };
 

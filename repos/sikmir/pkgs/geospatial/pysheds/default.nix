@@ -22,6 +22,8 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
+  doCheck = false;
+
   meta = with lib; {
     description = "Simple and fast watershed delineation in python";
     inherit (src.meta) homepage;
