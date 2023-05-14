@@ -2,19 +2,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "scooby";
-  version = "0.5.12";
+  version = "0.7.2";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "banesullivan";
     repo = "scooby";
     rev = "v${version}";
-    hash = "sha256-vCZahb9PxII9xX+MztMT3H6NwChD2eCoR08OytGvd74=";
+    hash = "sha256-eY8Ysc20Q1OHKb/LU+4gqnSgNfHCytjOnnvB24EfQto=";
   };
 
   propagatedBuildInputs = with python3Packages; [ setuptools ];
-
-  doCheck = false;
 
   meta = with lib; {
     description = "Great Dane turned Python environment detective";
