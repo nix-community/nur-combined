@@ -73,4 +73,5 @@ jobs:
           linyinfeng
         labels: |
           auto merge
+          auto update
         delete-branch: true
