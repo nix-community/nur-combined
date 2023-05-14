@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "An easy-to-use program for viewing, annotating, and printing DNA and protein sequences";
-    homepage = "https://www.snapgene.com/${pname}}";
+    homepage = "https://www.snapgene.com/${pname}";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
   };
