@@ -1,4 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, cairo, mapnik, perl, perlPackages }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchpatch
+, makeWrapper
+, boost
+, cairo
+, harfbuzz
+, icu
+, libtiff
+, libwebp
+, mapnik
+, perl
+, perlPackages
+, proj
+, sqlite
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tirex";
@@ -10,6 +26,13 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "v${finalAttrs.version}";
     hash = "sha256-0QbPfCPBdNBbUiZ8Ppg2zao98+Ddl3l+yX6y1/J50rg=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/openstreetmap/tirex/pull/54/commits/da0c5db926bc0939c53dd902a969b689ccf9edde.patch";
+      hash = "sha256-bnL1ZGy8ZNSZuCRbZn59qRVLg3TL0GjFYnhRKroeVO0=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace Makefile --replace "/usr" "" --replace ": Makefile.perl" ":"
@@ -23,7 +46,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [ cairo mapnik perl ];
+  buildInputs = [
+    boost
+    cairo
+    harfbuzz
+    icu
+    libtiff
+    libwebp
+    mapnik
+    perl
+    proj
+    sqlite
+  ];
 
   installFlags = [ "DESTDIR=$(out)" "INSTALLOPTS:=" ];
 
