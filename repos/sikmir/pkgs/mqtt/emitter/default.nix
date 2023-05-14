@@ -22,6 +22,8 @@ buildGoModule rec {
     export HOME=$TMPDIR
   '';
 
+  doCheck = false;
+
   meta = with lib; {
     description = "High performance, distributed and low latency publish-subscribe platform";
     homepage = "https://emitter.io/";

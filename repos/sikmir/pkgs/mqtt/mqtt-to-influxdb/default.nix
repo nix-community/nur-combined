@@ -4,6 +4,7 @@
 , cmake
 , spdlog
 , libyamlcpp
+, cpr
 , cxxopts
 , nlohmann_json
 , influxdb-cxx
@@ -41,6 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     spdlog
     libyamlcpp
+    cpr
     cxxopts
     nlohmann_json
     influxdb-cxx

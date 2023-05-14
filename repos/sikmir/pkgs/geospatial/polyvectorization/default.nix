@@ -1,4 +1,4 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, boost165, eigen, opencv2 }:
+{ lib, stdenv, fetchFromGitHub, cmake, boost16x, eigen, opencv2, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "polyvectorization";
@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
       --replace "#define WITH_GUI 1" "//#define WITH_GUI 1"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
-  buildInputs = [ boost165 eigen opencv2 ];
+  buildInputs = [ boost16x eigen opencv2 ];
 
   NIX_CFLAGS_COMPILE = "-fpermissive";
 
@@ -36,6 +36,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     mainProgram = "polyvector_thing";
     skip.ci = stdenv.isDarwin;
-    broken = true;
   };
 }
