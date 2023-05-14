@@ -17,5 +17,7 @@ rec {
   wlhax = pkgs.callPackage ./pkgs/wlhax { };
   wlroots14 = pkgs.callPackage ./pkgs/wlroots14 { };
   ukui-interface = pkgs.libsForQt5.callPackage ./pkgs/ukui-interface { };
-  peony = pkgs.libsForQt5.callPackage ./pkgs/peony { inherit ukui-interface; };
+  libkysdk-base = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-base { };
+  #libkysdk-applications = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-applications { inherit libkysdk-base; };
+  #peony = pkgs.libsForQt5.callPackage ./pkgs/peony { inherit ukui-interface; };
 }

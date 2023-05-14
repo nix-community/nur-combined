@@ -56,6 +56,7 @@ stdenv.mkDerivation rec {
     libnotify
     libcanberra
     kwindowsystem
+    ukui-interface
   ];
 
   enableParallelBuilding = false;

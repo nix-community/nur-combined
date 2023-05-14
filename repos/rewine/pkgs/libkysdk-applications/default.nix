@@ -1,33 +1,32 @@
 { lib
 , stdenv
 , fetchFromGitea
-, autoreconfHook
-, pkg-config
 , qmake
+, qttools
+, pkg-config
 , wrapQtAppsHook
-, qtbase
-, glib
-, libxcrypt
-, iniparser
+, qtx11extras
 , gsettings-qt
+, wayland
+, kwindowsystem
+, kwayland
+, kiconthemes
+, libkysdk-base
 }:
 
 stdenv.mkDerivation rec {
-  pname = "ukui-interface";
-  version = "1.0.3";
+  pname = "libkysdk-applications";
+  version = "2.0.2.1";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "wine";
     repo = pname;
-    rev = "7007385378f8755131bb9a2dbe933f329175e120";
-    sha256 = "sha256-+Ln2TDo0PIWbp5Bs58G92VCBApSiLXUWE1mHi5iwPuw=";
+    rev = "2c03228b0b5fa38ea577a2f817e2dbf95298c3e6";
+    sha256 = "sha256-pv1VZocglp3PrsPWKdPwGH3grUy9OKby8rhr/Fxx/S8=";
   };
 
   postPatch = ''
-    substituteInPlace src/common/kylin-com{4c.c,4cxx.cpp} \
-      --replace "iniparser/iniparser.h" "iniparser.h"
-
     for file in $(grep -rl "/usr")
     do
       substituteInPlace $file \
@@ -37,21 +36,28 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     qmake
-    #autoreconfHook
+    qttools
     pkg-config
     wrapQtAppsHook
   ];
 
   buildInputs = [
-    qtbase
-    glib
-    libxcrypt
-    iniparser
+    qtx11extras
     gsettings-qt
+    wayland
+    kwindowsystem
+    kwayland
+    kiconthemes
+    libkysdk-base
+  ];
+
+  env.NIX_CFLAGS_COMPILE = toString [
+    "-I${kwindowsystem.dev}/include/KF5"
+    "-I${libkysdk-base}/include/kysdk/kysdk-base"
   ];
 
   qmakeFlags = [
-    "src/log4qt/ukui-log4qt.pro"
+  #  "peony-qt.pro"
   ];
 
   meta = with lib; {
