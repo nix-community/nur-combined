@@ -1,4 +1,4 @@
-{ pkgs, lib, callPackage }:
+{ pkgs, ... }:
 
 rec {
   mkAvrdudeFlasher = firmware:
@@ -10,15 +10,15 @@ rec {
         -U flash:w:${firmware}:i "$@"
     '';
 
-  mkQmkFirmware = { name, keymap ? "default", ... }@args:
-    pkgs.stdenv.mkDerivation ((finalAttrs:
+  mkQmkFirmware = { name, keyboard, keymap ? "default", ... }@args:
+    pkgs.stdenv.mkDerivation (finalAttrs:
       {
-        inherit keymap;
+        inherit keyboard keymap;
         src = pkgs.fetchFromGitHub {
           owner = "qmk";
           repo = "qmk_firmware";
-          rev = "0.16.9";
-          sha256 = "sha256-gnQ/hehxPiYujakJWZynAJ7plJiDciAG3NAy0Xl18/A=";
+          rev = "0.20.7";
+          sha256 = "sha256-S6EuLiMbJp7sgAVGV0M9DuinuVLwQ9hStjlA5w9VxOo=";
           fetchSubmodules = true;
         };
 
@@ -40,6 +40,9 @@ rec {
           ln -s $hex $out/share/qmk/${name}.hex
           runHook postInstall
         '';
-      } // args));
+
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      } // args);
 
 }

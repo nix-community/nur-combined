@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools, installShellFiles, tabulate }:
+{ lib, fetchPypi, buildPythonApplication, tabulate }:
 
 buildPythonApplication rec {
   pname = "jtbl";

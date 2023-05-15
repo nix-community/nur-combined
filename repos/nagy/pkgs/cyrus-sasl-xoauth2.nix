@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = rec {
-    cyrus_sasl_oauth = cyrus_sasl.overrideAttrs (old: rec {
+    cyrus_sasl_oauth = cyrus_sasl.overrideAttrs (old: {
       postInstall = (old.postInstall or "") + ''
         for lib in ${cyrus-sasl-xoauth2}/lib/sasl2/*; do
           ln -sf $lib $out/lib/sasl2/

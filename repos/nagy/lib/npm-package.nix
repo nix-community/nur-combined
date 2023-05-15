@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
   npmWritePackage = { pname, version ? "latest" }:
     pkgs.runCommandLocal "${pname}-${version}" {
       inherit pname version;

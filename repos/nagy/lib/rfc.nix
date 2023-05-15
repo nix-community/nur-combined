@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
   fetchRFCBulk = { range, ... }@args:
     pkgs.fetchzip ({
       url = "https://www.rfc-editor.org/in-notes/tar/RFCs${range}.tar.gz";

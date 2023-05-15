@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, scipy
-, pywavelets
-, pillow
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, scipy, pywavelets, pillow }:
 
 buildPythonPackage rec {
   pname = "imagehash";

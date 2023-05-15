@@ -1,5 +1,4 @@
-{ pkgs, expect, fetchurl, fetchFromGitHub, recurseIntoAttrs, qemu, runCommand
-, writeText }:
+{ pkgs, expect, fetchurl, fetchFromGitHub, recurseIntoAttrs, qemu, runCommand }:
 
 # more info here
 # https://raspberrypi.stackexchange.com/questions/89196/emulate-raspberry-pi-zero-w-with-qemu-failed-due-to-missing-dtb

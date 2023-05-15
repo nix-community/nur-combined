@@ -1,7 +1,7 @@
 { pkgs, lib, fetchurl, fetchFromGitHub, buildPythonPackage, setuptools-scm
 , pymatting, filetype, scikitimage, installShellFiles, pillow, tqdm, fastapi
-, numpy, uvicorn, asyncer, onnxruntime, opencv4, requireFile, runCommandLocal
-, makeWrapper, rembg, pooch, watchdog, symlinkJoin, imagehash, testers }:
+, numpy, uvicorn, asyncer, onnxruntime, opencv4, runCommandLocal, rembg, pooch
+, watchdog, symlinkJoin, imagehash, testers }:
 
 let
   models = lib.mapAttrsToList (name: hash:

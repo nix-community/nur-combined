@@ -29,6 +29,9 @@
         emacs -L . --batch ${warnEvalStr} -f batch-byte-compile *.el
         runHook postBuild
       '';
+
+      preferLocalBuild = true;
+      allowSubstitutes = false;
     }).overrideAttrs (old: {
       nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
     });
