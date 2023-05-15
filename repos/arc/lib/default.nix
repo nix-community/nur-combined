@@ -225,9 +225,6 @@
       mapAttrs (_: p: callFunctionWith autoArgs p args) fn
     else builtins.trace fn (throw "expected package function");*/
 
-  isRust2018 = rustPlatform: rustVersionAtLeast rustPlatform "1.31";
-  rustVersionAtLeast = rustPlatform: versionAtLeast rustPlatform.rust.rustc.version;
-
   # derivations that can reference their own (potentially overridden) attributes
   drvRec = fn: let
     drv = fn drv;
