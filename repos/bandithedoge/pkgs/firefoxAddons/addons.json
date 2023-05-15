@@ -1,114 +1,114 @@
 [
-    {
-        "slug": "augmented-steam"
-    },
-    {
-        "slug": "base64-decoder"
-    },
-    {
-        "slug": "betterviewer"
-    },
-    {
-        "slug": "canvasblocker"
-    },
-    {
-        "slug": "csgofloat"
-    },
-    {
-        "pname": "dont-fuck-with-paste",
-        "slug": "don-t-fuck-with-paste"
-    },
-    {
-        "slug": "enhanced-github"
-    },
-    {
-        "slug": "enhancer-for-youtube"
-    },
-    {
-        "pname": "gitako",
-        "slug": "gitako-github-file-tree"
-    },
-    {
-        "slug": "github-code-folding"
-    },
-    {
-        "slug": "github-isometric-contributions"
-    },
-    {
-        "slug": "github-repo-size"
-    },
-    {
-        "slug": "imagus"
-    },
-    {
-        "slug": "lovely-forks"
-    },
-    {
-        "slug": "material-icons-for-github"
-    },
-    {
-        "slug": "npm-hub"
-    },
-    {
-        "slug": "octolinker"
-    },
-    {
-        "pname": "privacy-badger",
-        "slug": "privacy-badger17"
-    },
-    {
-        "slug": "privacy-pass"
-    },
-    {
-        "slug": "pronoundb"
-    },
-    {
-        "slug": "reddit-enhancement-suite"
-    },
-    {
-        "pname": "refined-github",
-        "slug": "refined-github-"
-    },
-    {
-        "pname": "sourcegraph",
-        "slug": "sourcegraph-for-firefox"
-    },
-    {
-        "slug": "sponsorblock"
-    },
-    {
-        "slug": "steam-database"
-    },
-    {
-        "pname": "stylus",
-        "slug": "styl-us"
-    },
-    {
-        "pname": "tridactyl",
-        "slug": "tridactyl-vim"
-    },
-    {
-        "slug": "violentmonkey"
-    },
-    {
-        "slug": "downthemall"
-    },
-    {
-        "slug": "sidebery"
-    },
-    {
-        "slug": "tree-style-tab"
-    },
-    {
-        "slug": "ublock-origin"
-    },
-    {
-        "slug": "gesturefy"
-    },
-    {
-        "slug": "tabcenter-reborn"
-    },
-    {
-        "slug": "auto-tab-discard"
-    }
+  {
+    "slug": "augmented-steam"
+  },
+  {
+    "slug": "base64-decoder"
+  },
+  {
+    "slug": "betterviewer"
+  },
+  {
+    "slug": "canvasblocker"
+  },
+  {
+    "slug": "csgofloat"
+  },
+  {
+    "pname": "dont-fuck-with-paste",
+    "slug": "don-t-fuck-with-paste"
+  },
+  {
+    "slug": "enhanced-github"
+  },
+  {
+    "slug": "enhancer-for-youtube"
+  },
+  {
+    "pname": "gitako",
+    "slug": "gitako-github-file-tree"
+  },
+  {
+    "slug": "github-code-folding"
+  },
+  {
+    "slug": "github-isometric-contributions"
+  },
+  {
+    "slug": "github-repo-size"
+  },
+  {
+    "slug": "imagus"
+  },
+  {
+    "slug": "lovely-forks"
+  },
+  {
+    "slug": "material-icons-for-github"
+  },
+  {
+    "slug": "npm-hub"
+  },
+  {
+    "slug": "octolinker"
+  },
+  {
+    "pname": "privacy-badger",
+    "slug": "privacy-badger17"
+  },
+  {
+    "slug": "privacy-pass"
+  },
+  {
+    "slug": "pronoundb"
+  },
+  {
+    "slug": "reddit-enhancement-suite"
+  },
+  {
+    "pname": "refined-github",
+    "slug": "refined-github-"
+  },
+  {
+    "pname": "sourcegraph",
+    "slug": "sourcegraph-for-firefox"
+  },
+  {
+    "slug": "sponsorblock"
+  },
+  {
+    "slug": "steam-database"
+  },
+  {
+    "pname": "stylus",
+    "slug": "styl-us"
+  },
+  {
+    "pname": "tridactyl",
+    "slug": "tridactyl-vim"
+  },
+  {
+    "slug": "violentmonkey"
+  },
+  {
+    "slug": "downthemall"
+  },
+  {
+    "slug": "sidebery"
+  },
+  {
+    "slug": "tree-style-tab"
+  },
+  {
+    "slug": "ublock-origin"
+  },
+  {
+    "slug": "gesturefy"
+  },
+  {
+    "slug": "tabcenter-reborn"
+  },
+  {
+    "slug": "auto-tab-discard"
+  }
 ]

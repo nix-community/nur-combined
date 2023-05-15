@@ -65,8 +65,8 @@ jobs:
           cd pkgs/firefoxAddons
           nix run "sourcehut:~rycee/mozilla-addons-to-nix" -- addons.json generated.nix
 
-      - name: Format Nix expressions
-        run: nix run github:kamadorueda/alejandra .
+      - name: Format code
+        run: nix fmt
 
       - name: Check evaluation
         run: |

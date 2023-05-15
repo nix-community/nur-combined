@@ -1,19 +1,27 @@
 {
-  description = "My personal NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
-    (flake-utils.lib.eachDefaultSystem (system: {
-      packages =
-        import ./default.nix {pkgs = import nixpkgs {inherit system;};};
-    }))
-    // {
-      overlays.default = import ./overlay.nix;
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = with inputs; [
+        flake-parts.flakeModules.easyOverlay
+        treefmt-nix.flakeModule
+      ];
+      systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+      perSystem = {pkgs, ...}: {
+        packages = import ./default.nix {inherit pkgs;};
+
+        treefmt.config = {
+          projectRootFile = "flake.nix";
+          programs = {
+            alejandra.enable = true;
+            black.enable = true;
+            prettier.enable = true;
+          };
+        };
+      };
     };
 }
