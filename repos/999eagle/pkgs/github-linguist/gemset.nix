@@ -25,10 +25,10 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "04mj3qbsf97jcdhi9kg48hf4i9hnla83wij763nzcmgmlm3z8a45";
+      sha256 = "1xilhw56xcl3ymf4dnka6w9cxhmj39nxahj8ksazd245vnrpdkdy";
       type = "gem";
     };
-    version = "7.24.1";
+    version = "7.25.0";
   };
   mini_mime = {
     groups = ["default"];
@@ -45,9 +45,9 @@
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "0wnfgxx59nq2wpvi8ll7bqw9x99x5hps6i38xdjrwbb5a3896d58";
+      sha256 = "016bawsahkhxx7p8azxirpl7y2y7i8a027pj8910gwf6ipg329in";
       type = "gem";
     };
-    version = "1.5.1";
+    version = "1.6.3";
   };
 }

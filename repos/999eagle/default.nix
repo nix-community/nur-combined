@@ -10,9 +10,9 @@
   pkcs11-provider = pkgs.callPackage ./pkgs/pkcs11-provider.nix {};
   sea-orm-cli = pkgs.callPackage ./pkgs/sea-orm-cli {};
   swayaudioidleinhibit = pkgs.callPackage ./pkgs/swayaudioidleinhibit.nix {};
-  waybar-mpris = pkgs.callPackage ./pkgs/waybar-mpris.nix {};
 
   # override because of https://github.com/Alexays/Waybar/issues/1945
+  # was fixed in https://github.com/Alexays/Waybar/commit/02b3c125a111f879d6de3aa1090e1a9900632b20
   waybar = pkgs.waybar.overrideAttrs (old: rec {
     version = "unstable-2023-04-17";
     src = pkgs.fetchFromGitHub {
