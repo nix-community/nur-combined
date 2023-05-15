@@ -26,6 +26,7 @@ in {
   };
 
   home.packages = with pkgs; [
+    anki
     calibre # a dependency is broken
     chromium
     custom.tixati
