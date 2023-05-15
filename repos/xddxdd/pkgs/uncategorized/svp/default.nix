@@ -103,7 +103,12 @@ let
     name = "SVPManager";
     targetPkgs = pkgs: libraries;
     runScript = "${svp-dist}/opt/SVPManager";
+    unshareUser = false;
+    unshareIpc = false;
     unsharePid = false;
+    unshareNet = false;
+    unshareUts = false;
+    unshareCgroup = false;
   };
 
   desktopFile = writeText "svp-manager4.desktop" ''

@@ -102,6 +102,7 @@ let
     unsharePid = false;
     unshareNet = false;
     unshareUts = false;
+    unshareCgroup = false;
   };
 
   vivadoPackage = stdenv.mkDerivation rec {
