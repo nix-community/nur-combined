@@ -101,6 +101,7 @@ technative:
     - source: TechNative-B-V/technative-awsaccount-076504012268-student-007-pim
 
     - source: TechNative-B-V/terraform-aws-module-static-website-cognito-auth
+    - source: TechNative-B-V/technative-project-proposals
 
 adevinta:
   base_dir: ~/tcAdevinta
