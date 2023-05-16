@@ -1,3 +1,8 @@
+/*
+TODO opening TransferLog '/var/log/xferlog'
+TODO mod_delay/0.8: error opening DelayTable '/nix/store/32ck1bd1hflljmvn71wqp1r1f6mk5rch-proftpd-1.3.8/var/proftpd.delay': No such file
+*/
+
 { config, lib, pkgs, ... }:
 
 with lib;
