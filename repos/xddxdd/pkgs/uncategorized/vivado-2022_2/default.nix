@@ -172,9 +172,15 @@ let
 
       # Add Vivado and xsdk to bin folder
       mkdir $out/bin
-      makeWrapper ${fhs}/bin/vivado-fhs $out/bin/vivado \
+      makeWrapper ${fhs}/bin/vivado-fhs $out/bin/model_composer \
         --add-flags "-c" \
-        --add-flags "$out/opt/Vivado/2022.2/bin/vivado"
+        --add-flags "$out/opt/Model_Composer/2022.2/bin/model_composer"
+      makeWrapper ${fhs}/bin/vivado-fhs $out/bin/docnav \
+        --add-flags "-c" \
+        --add-flags "$out/opt/DocNav/docnav"
+      makeWrapper ${fhs}/bin/vivado-fhs $out/bin/vitis_hls \
+        --add-flags "-c" \
+        --add-flags "$out/opt/Vitis_HLS/2022.2/bin/vitis_hls"
       makeWrapper ${fhs}/bin/vivado-fhs $out/bin/vitis_hls \
         --add-flags "-c" \
         --add-flags "$out/opt/Vitis_HLS/2022.2/bin/vitis_hls"
