@@ -47,10 +47,7 @@ in {
     calendar = "00:00:01";
   };
 
-  services.nextcloud = {
-    package = pkgs.nextcloud24;
-    enable = true;
-  };
+  services.nextcloud.enable = true;
 
   services.cockpit.enable = true;
 
