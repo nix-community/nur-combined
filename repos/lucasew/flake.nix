@@ -29,14 +29,14 @@
         inputFile = ./bumpkin.json;
         outputFile = ./bumpkin.json.lock;
       };
-      unpackedInputs = (bootstrapPkgs.callPackage ./lib/unpackRecursive.nix {}) inputs;
+      unpackedInputs = (bootstrapPkgs.callPackage ./nix/lib/unpackRecursive.nix {}) inputs;
     in {inherit inputs unpackedInputs;}) inputs unpackedInputs;
 
 
     pkgs = mkPkgs { inherit system; nixpkgs = defaultNixpkgs; };
 
-    importFlake = import ./lib/importFlake.nix;
-    mapAttrValues = pkgs.callPackage ./lib/mapAttrValues.nix {};
+    importFlake = import ./nix/lib/importFlake.nix;
+    mapAttrValues = pkgs.callPackage ./nix/lib/mapAttrValues.nix {};
 
     system = builtins.currentSystem or "x86_64-linux";
 
@@ -86,7 +86,7 @@
           "$NIXCFG_ROOT_PATH/bin"
         ]}"
         export LUA_INIT="pcall(require, 'adapter.fennel')"
-        export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/compat/overlay.nix:home-manager=${home-manager}:nur=${unpackedInputs.nur}
+        export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${unpackedInputs.nur}
       '';
     };
 
@@ -101,7 +101,7 @@
       nix-requirefile = import "${unpackedInputs.nix-requirefile.lib}/overlay.nix";
       borderless-browser = import "${unpackedInputs.borderless-browser}/overlay.nix";
       rust-overlay = import "${unpackedInputs.rust-overlay}/rust-overlay.nix";
-      zzzthis = import ./overlay.nix self;
+      zzzthis = import ./nix/overlay.nix self;
     };
     nix-colors = import "${unpackedInputs.nix-colors}" { inherit (unpackedInputs) base16-schemes nixpkgs-lib; };
   in {
@@ -135,7 +135,7 @@
         };
       };
     in mapAttrValues hmConf {
-      main = { modules = [ ./homes/main ]; inherit pkgs; };
+      main = { modules = [ ./nix/homes/main ]; inherit pkgs; };
     };
 
     nixosConfigurations = let
@@ -149,10 +149,10 @@
         inherit system pkgs modules;
       };
     in mapAttrValues nixosConf {
-      ravenrock = { modules = [ ./nodes/ravenrock ]; inherit pkgs; };
-      riverwood = { modules = [ ./nodes/riverwood ]; inherit pkgs; };
-      whiterun  = { modules = [ ./nodes/whiterun  ]; inherit pkgs; };
-      demo      = { modules = [ ./nodes/demo      ]; inherit pkgs; };
+      ravenrock = { modules = [ ./nix/nodes/ravenrock ]; inherit pkgs; };
+      riverwood = { modules = [ ./nix/nodes/riverwood ]; inherit pkgs; };
+      whiterun  = { modules = [ ./nix/nodes/whiterun  ]; inherit pkgs; };
+      demo      = { modules = [ ./nix/nodes/demo      ]; inherit pkgs; };
     };
 
     nixOnDroidConfigurations = let
@@ -172,7 +172,7 @@
         isFlake = true;
       };
     in mapAttrValues nixOnDroidConf {
-      xiaomi = ./nodes/xiaomi/default.nix;
+      xiaomi = ./nix/nodes/xiaomi/default.nix;
     };
 
     devShells.${system}.default = pkgs.mkShell {

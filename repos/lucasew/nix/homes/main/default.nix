@@ -20,8 +20,6 @@ in {
 
   ];
 
-  # broken build, might fix later
-  services.espanso.enable = lib.mkForce false;
 
   home = {
     homeDirectory = /home/lucasew;
@@ -68,7 +66,6 @@ in {
     xxd
     pavucontrol # controle de volume
     rnix-lsp
-    (runCommand "bin" {} "mkdir $out; cp -r ${../../bin} $out/bin")
     pytorrentsearch
   ] ;
 

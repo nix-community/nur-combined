@@ -13,7 +13,7 @@ in {
   inherit flake;
   inherit bumpkin;
 
-  lib = prev.lib.extend (final: prev: with final; with inputs.nixpkgs-lib.lib; {
+  lib = prev.lib.extend (final: prev: {
     jpg2png = cp ./lib/jpg2png.nix;
     buildDockerEnv = cp ./lib/buildDockerEnv.nix;
     climod = cp bumpkin.unpackedInputs.climod;

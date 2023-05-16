@@ -3,7 +3,8 @@ let
   inherit (pkgs) writeShellScript;
 in {
   services.espanso = {
-    enable = true;
+    # broken build, might fix later
+    enable = false;
     settings =
       let
         justReplace = from: to: {

@@ -20,7 +20,7 @@ in {
       ];
       passwordFile = mkDefault (builtins.toFile "default-password" "changeme");
       openssh.authorizedKeys.keyFiles = [
-        ../../authorized_keys
+        ../../../authorized_keys
       ];
     };
   };

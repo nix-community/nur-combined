@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# Run me and you will see lines coming like PlayPause, Next and Previous
-# FIXME: only works if there is another player running
-
-dbus-monitor "interface='org.mpris.MediaPlayer2.Player'" | sed -E 's/^method.* member=([A-Za-z]*).*$/\1/gm;t;d'
-
