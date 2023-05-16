@@ -16,6 +16,7 @@ in lib.makeScope pkgs.newScope (self:
 
     python3Packages = recurseIntoAttrs
       (lib.makeScope pkgs.python3Packages.newScope (py3: {
+        dool = py3.callPackage ./pkgs/dool { };
         asyncer = py3.callPackage ./pkgs/asyncer { };
         dbussy = py3.callPackage ./pkgs/dbussy { };
         colorpedia = py3.callPackage ./pkgs/colorpedia { };
