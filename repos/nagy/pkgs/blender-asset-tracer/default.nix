@@ -2,11 +2,12 @@
 
 buildPythonApplication rec {
   pname = "blender-asset-tracer";
-  version = "1.12";
+  version = "1.15";
 
   src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-lvecN4a652I/aGu8i4xiyP1ocrxgj3Z+EWL3cMKyUEo=";
+    pname = "blender_asset_tracer";
+    inherit version;
+    sha256 = "sha256-uHDGFaS1OiHOBx2RKeuC3fgtiiYtt3t8WvBG8IK9G7w=";
   };
 
   buildInputs = [ requests ];

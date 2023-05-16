@@ -1,4 +1,4 @@
-{ stdenv, symlinkJoin, fetchRFCBulk }:
+{ lib, stdenv, symlinkJoin, fetchRFCBulk ? lib.fetchRFCBulk }:
 
 stdenv.mkDerivation {
   name = "rfcs";
