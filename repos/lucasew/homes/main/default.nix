@@ -20,6 +20,9 @@ in {
 
   ];
 
+  # broken build, might fix later
+  services.espanso.enable = lib.mkForce false;
+
   home = {
     homeDirectory = /home/lucasew;
     inherit (global) username;
