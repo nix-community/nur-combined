@@ -1,8 +1,9 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let
   inherit (lib) mkIf;
 in {
   config = mkIf config.services.nextcloud.enable {
+    services.nextcloud.package = pkgs.nextcloud25;
     users.users.nextcloud.extraGroups = [ "admin-password" ];
     services.nextcloud = {
       hostName = "nextcloud.${config.networking.hostName}.${config.networking.domain}";
