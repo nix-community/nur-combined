@@ -699,10 +699,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.4.27";
+      version = "2023.5.9";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4103896/duckduckgo_for_firefox-2023.4.27.xpi";
-      sha256 = "0f317657bea4d7365973a326a67981dad72ca9bdecdad6cc6aeab07edd7d4bb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4108190/duckduckgo_for_firefox-2023.5.9.xpi";
+      sha256 = "875ce5c89e7a2c705369bc406b30abcf075e2699edab2c22b35c819a194e9057";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2702,10 +2702,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.5";
+      version = "5.4.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4104713/sponsorblock-5.4.5.xpi";
-      sha256 = "b285e657fba56ca9651bce5691c4e9721ce8d3906d77503d88038eb776b51884";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4108025/sponsorblock-5.4.6.xpi";
+      sha256 = "7c81020ef016cd2c81a1c24f2f702a2faf34283fe79972e5103f9b16f013850d";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2771,10 +2771,10 @@
       };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.30";
+      version = "1.5.31";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4075896/styl_us-1.5.30.xpi";
-      sha256 = "9a8b40ecfb4e19252ab5435c3cb5976d9c86a7c295e4eda8a64820838b56b9ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4108690/styl_us-1.5.31.xpi";
+      sha256 = "da08660bd4070f4601b321e01986a589ab4ce35946f3ab8a3b0c52df779c9256";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -3236,10 +3236,10 @@
       };
     "undoclosetabbutton" = buildFirefoxXpiAddon {
       pname = "undoclosetabbutton";
-      version = "7.5.0";
+      version = "7.6.0";
       addonId = "{4853d046-c5a3-436b-bc36-220fd935ee1d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3917941/undoclosetabbutton-7.5.0.xpi";
-      sha256 = "5dc0a83f37797ee04850a45d3d73e8cf2371b7ed6720ba28926671fb246342be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4107441/undoclosetabbutton-7.6.0.xpi";
+      sha256 = "8aa5915a78150ed873917e607bb80d8c429ebfa308d18aa78395a59f0ef8634e";
       meta = with lib;
       {
         homepage = "https://github.com/M-Reimer/undoclosetab";
