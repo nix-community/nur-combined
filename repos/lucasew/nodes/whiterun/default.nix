@@ -25,6 +25,8 @@ in {
     ./nextcloud.nix
   ];
 
+  services.boinc.enable = true;
+
   services.xserver.displayManager.autoLogin = {
     enable = true;
     user = "lucasew";
