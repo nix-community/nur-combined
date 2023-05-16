@@ -1,9 +1,11 @@
 { config, pkgs, lib, ... }: {
   services.grafana = {
     enable = true;
-    settings.server.domain = "grafana.${config.networking.hostName}.${config.networking.domain}";
-    port = 65528;
-    addr = "127.0.0.1";
+    settings.server = {
+      domain = "grafana.${config.networking.hostName}.${config.networking.domain}";
+      http_port = 65528;
+      http_addr = "127.0.0.1";
+    };
   };
 
   services.nginx.virtualHosts."grafana.${config.networking.hostName}.${config.networking.domain}" = {

@@ -4,7 +4,7 @@
     kernel.sysctl = {
       "vm.swappiness" = 10;
     };
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
   };
   services = {
     irqbalance.enable = true;
