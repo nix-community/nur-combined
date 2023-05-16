@@ -31,6 +31,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   #spotify-adblock-linux = callPackage ./pkgs/spotify-adblock-linux { };
 
+  spotify-adblock = callPackage ./pkgs/spotify-adblock/spotify-adblock.nix { };
+
   ricochet-refresh = pkgs.libsForQt5.callPackage ./pkgs/ricochet-refresh/default.nix { };
 
   aether-server = pkgs.libsForQt5.callPackage ./pkgs/aether-server/default.nix { };
