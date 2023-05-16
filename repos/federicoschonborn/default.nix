@@ -113,6 +113,7 @@
       rev = "61ff647f71879f20da4b8b4d71d6b11c8ae6d391";
       hash = "sha256-zZoy/oFzW+lmJJhXOV3K3DIxDjhLVhWUG2zIi33+Z6o=";
     };
+    doCheck = false;
   });
 
   libadwaita_1_4 = (pkgs.libadwaita.overrideAttrs (oldAttrs: {
@@ -125,7 +126,7 @@
       hash = "sha256-ufxtxUcsMYfGK0UETwVK+xnqQ1E2UsaLpSbYoqmHCeg=";
     };
     buildInputs = oldAttrs.buildInputs ++ [ pkgs.appstream ];
-    dontCheck = true;
+    doCheck = false;
   })).override { gtk4 = gtk4_11; };
 
   retro-gtk_2 = pkgs.retro-gtk.overrideAttrs (_: {
