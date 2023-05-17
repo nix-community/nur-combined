@@ -1,6 +1,6 @@
 { global, config, lib, ... }:
 let
-  node = global.nodeIps.${config.networking.hostName}.ts or null;
+  node = global.nodeIps.${config.networking.hostName}.ts or "127.0.0.1";
 
   mySubdomains = 
   let

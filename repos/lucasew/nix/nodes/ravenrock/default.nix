@@ -1,14 +1,14 @@
-{pkgs, lib, global, self, config, ...}:
+{pkgs, lib, global, self, config, unpackedInputs, ...}:
 let
-  inherit (self) inputs;
   inherit (pkgs) dotenv;
   inherit (global) username rootPath;
   inherit (lib) mkOverride;
+  inherit (self.bumpkin) unpackedInputs;
 in {
   imports = [
     ../common/default.nix
-    "${inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
-    "${inputs.impermanence}/nixos.nix"
+    "${unpackedInputs.nixpkgs.stable}/nixos/modules/virtualisation/google-compute-image.nix"
+    "${unpackedInputs.impermanence}/nixos.nix"
     ../../modules/cachix/system.nix
     ./modules
     ./nvidia.nix
@@ -16,7 +16,7 @@ in {
 
   nix.settings.min-free = 64 * 1024 * 1024; # trigger do gc mais baixo
 
-  services.openssh.forwardX11 = true;
+  services.openssh.settings.X11Forwarding = true;
   fileSystems = {
     # "/persist" = {
     #   neededForBoot = true;

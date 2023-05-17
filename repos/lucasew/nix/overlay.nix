@@ -46,6 +46,8 @@ in {
   wrapVSCode = args: import bumpkin.unpackedInputs.nix-vscode (args // {pkgs = prev;});
   wrapEmacs = args: import bumpkin.unpackedInputs.nix-emacs (args // {pkgs = prev;});
 
+  instantngp = cp ./pkgs/instantngp.nix;
+
   nix-option = callPackage "${bumpkin.unpackedInputs.nix-option}" {
     nixos-option = (callPackage "${bumpkin.unpackedInputs.nixpkgs.unstable}/nixos/modules/installer/tools/nixos-option" {}).overrideAttrs (attrs: attrs // {
       meta = attrs.meta // {
