@@ -1016,10 +1016,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230514.175823";
+      version = "114.0.20230516.224108";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4110831/francais_language_pack-114.0.20230514.175823.xpi";
-      sha256 = "8c1ca6c9ce1a1d1b5157b7751c8adc21e4084b938d107610853b415f2409ded2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4111910/francais_language_pack-114.0.20230516.224108.xpi";
+      sha256 = "59a64be64ec1b90d10b1248cbd0029ce755c2f69d571d3416032b90f291c56d3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1071,10 +1071,10 @@
       };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "23.3.27";
+      version = "23.5.16";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4089624/ghosttext-23.3.27.xpi";
-      sha256 = "1173595022cee7bc84eda8110218c46af85b924c0166188d2d51e06aefc9eaf6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4111649/ghosttext-23.5.16.xpi";
+      sha256 = "c2631c926de2edd47972346a786b1cc764f798e47dfacb5f1731925302479ab2";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -2241,10 +2241,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2023.1.31";
+      version = "2023.5.10";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4064595/privacy_badger17-2023.1.31.xpi";
-      sha256 = "0082d8ffe7b25f370a313d9b899b0c1ba1669b21b3a11791fe5ecf031aeb6a6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4109050/privacy_badger17-2023.5.10.xpi";
+      sha256 = "8ff7650d1ce133894293d1a3e268bb24d300e77a1c25488ed17846e71d8b33e8";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
