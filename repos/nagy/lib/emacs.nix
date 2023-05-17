@@ -1,11 +1,11 @@
 { pkgs, lib, ... }: rec {
 
-  emacsParsePackageSet = pkgs.callPackage ({ path, emacs
+  emacsParsePackageSet = pkgs.callPackage ({ src, emacs
     , epkgs ? pkgs.emacsPackagesFor emacs
     , parser ? pkgs.callPackage <emacs-overlay/parse.nix> { }, ... }:
     let
       parsedPkgs =
-        parser.parsePackagesFromPackageRequires (builtins.readFile path);
+        parser.parsePackagesFromPackageRequires (builtins.readFile src);
       usePkgs = map (name: epkgs.${name}) parsedPkgs;
     in usePkgs);
 
@@ -21,11 +21,9 @@
         "--eval '(setq byte-compile-error-on-warn t)'";
     in (epkgs.trivialBuild {
       inherit pname version src packageRequires;
-      dontUnpack = true;
 
       buildPhase = ''
         runHook preBuild
-        cp $src .
         emacs -L . --batch ${warnEvalStr} -f batch-byte-compile *.el
         runHook postBuild
       '';
