@@ -25,6 +25,7 @@
     ./mpv
     ./nix
     ./nix-index
+    ./nixpkgs
     ./nm-applet
     ./packages
     ./pager

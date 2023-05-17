@@ -2,9 +2,8 @@
 let
   keys = import ../../keys;
 
-  # deadnix: skip
-  all = keys.users;
+  all = builtins.attrValues keys.users;
 in
 {
-  # Add secrets here
+  "github/token.age".publicKeys = all;
 }
