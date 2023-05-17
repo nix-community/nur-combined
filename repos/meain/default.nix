@@ -39,7 +39,9 @@
   activitywatch-bin = pkgs.python38.pkgs.callPackage ./pkgs/activitywatch-bin { };
   spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
   dbui = pkgs.callPackage ./pkgs/dbui { };
+  dotool = pkgs.callPackage ./pkgs/dotool { };
   pulseaudio-virtualmic = pkgs.callPackage ./pkgs/pulseaudio-virtualmic { };
+  chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
 
   ## programming
   # buf = pkgs.callPackage ./pkgs/buf {};
