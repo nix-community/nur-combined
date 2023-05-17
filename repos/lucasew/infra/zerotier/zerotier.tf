@@ -1,3 +1,18 @@
+terraform {
+  cloud {
+    organization = "lucasew"
+    workspaces {
+      name = "zerotier"
+    }
+  }
+  required_providers {
+    zerotier = {
+      source = "zerotier/zerotier"
+      version = "1.2.0"
+    }
+  }
+}
+
 # Still not the way I want because I can't setup the DNS stuff from terraform
 
 provider "zerotier" {
