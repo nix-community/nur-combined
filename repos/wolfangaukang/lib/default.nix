@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 let
-  inherit (inputs.nixpkgs.lib) genAttrs mapAttrsToList optionals systems;
+  inherit (inputs.nixpkgs.lib) genAttrs mapAttrsToList mkForce optionals systems;
   #pkgs_systems = systems.flakeExposed;
   pkgs_systems = [ "x86_64-linux" ];
 
@@ -67,8 +67,11 @@ rec {
     }:
 
     let
-      hostConfig = [ "${inputs.self}/system/hosts/${hostname}/configuration.nix" ]
-        ++ (if kernel != null then [ ({ boot.kernelPackages = kernel; }) ] else []);
+      hostConfig = [
+        "${inputs.self}/system/hosts/${hostname}/configuration.nix"
+        # Forcing hostname as we want to use the custom name
+        ({ networking.hostName = mkForce hostname; })
+      ] ++ (if kernel != null then [ ({ boot.kernelPackages = kernel; }) ] else []);
       sopsConfig = [
         inputs.sops.nixosModules.sops
         "${inputs.self}/system/profiles/sops.nix"

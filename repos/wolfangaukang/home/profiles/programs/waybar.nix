@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
+  inherit (inputs) dotfiles;
   battery-module = {
     format = "{capacity}% {icon}";
     format-icons = ["" "" "" "" ""];
@@ -47,7 +48,7 @@ in {
   home.packages = with pkgs; [ pamixer ];
   programs.waybar = {
     enable = true;
-    style = builtins.readFile ../../../../config/waybar/style.css.rbnis;
+    style = builtins.readFile "${dotfiles}/config/waybar/style.css.rbnis";
     settings = [{
       height = 7;
       modules-left = [ "sway/workspaces" "sway/mode" ];

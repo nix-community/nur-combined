@@ -13,21 +13,21 @@ in
       default = false;
       type = types.bool;
       description = ''
-        Enables autoOptimiseStore 
+        Enables autoOptimiseStore
       '';
     };
     enableFlakes = mkOption {
       default = false;
       type = types.bool;
       description = ''
-        Enables flakes 
+        Enables flakes
       '';
     };
     enableUseSandbox = mkOption {
       default = false;
       type = types.bool;
       description = ''
-        Enables sandbox 
+        Enables sandbox
       '';
     };
   };

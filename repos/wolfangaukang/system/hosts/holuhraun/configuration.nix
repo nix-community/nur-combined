@@ -11,7 +11,7 @@ in {
     [
       ./disk-setup.nix
       ./hardware-configuration.nix
-      (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname lib; })
+      "${self}/system/profiles/sets/workstation.nix"
     ];
 
   networking = {
@@ -26,7 +26,6 @@ in {
       address = (obtainIPV4GatewayAddress "brume" "1");
       interface = "enp5s0";
     };
-    hostName = hostname;
   };
 
   profile = {
@@ -59,8 +58,16 @@ in {
         libvirtdGroupMembers = [ "bjorn" ];
       };
     };
+    specialisations.work.simplerisk.enable = true;
   };
 
-  system.stateVersion = "21.05"; # Did you read the comment?
+  sops.secrets."machine_id" = {
+    sopsFile = ./secrets.yml;
+    mode = "0644";
+  };
+
+  #environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
+
+  system.stateVersion = "22.11"; # Did you read the comment?
 
 }

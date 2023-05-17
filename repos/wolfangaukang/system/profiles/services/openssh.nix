@@ -1,9 +1,9 @@
-{ inputs, hostname, ... }:
+{ inputs
+, ...
+}:
 
 let
   inherit (inputs) self;
-  system-lib = import "${self}/system/lib" { inherit inputs; };
-  inherit (system-lib) obtainIPV4Address;
 
 in {
   services.openssh = {
@@ -14,10 +14,6 @@ in {
       PasswordAuthentication = false;
     };
     listenAddresses = [
-      {
-        addr = (obtainIPV4Address hostname "brume");
-        port = 22;
-      }
       {
         addr = "0.0.0.0";
         port = 17131;

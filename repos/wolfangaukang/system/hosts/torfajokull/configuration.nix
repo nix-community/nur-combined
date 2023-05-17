@@ -1,32 +1,15 @@
 { config, lib, hostname, inputs, ... }:
 
 let
-  inherit (lib) mkForce;
+  inherit (lib) mkDefault;
   inherit (inputs) self;
-  system-lib = import "${self}/system/lib" { inherit inputs; };
-  inherit (system-lib) obtainIPV4Address obtainIPV4GatewayAddress;
 
 in {
   imports = [
     ./disk-setup.nix
     ./hardware-configuration.nix
-    (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname lib; })
+    "${self}/system/profiles/sets/workstation.nix"
   ];
-
-  networking = {
-    interfaces.enp0s25 = {
-      useDHCP = false;
-      ipv4.addresses = [ {
-        address = obtainIPV4Address hostname "brume";
-        prefixLength = 24;
-      } ];
-    };
-    defaultGateway = {
-      address = (obtainIPV4GatewayAddress "brume" "1");
-      interface = "enp0s25";
-    };
-    hostName = hostname;
-  };
 
   profile = {
     nix = {
@@ -49,7 +32,12 @@ in {
     virtualization.podman.enable = true;
   };
 
-  services.openssh.settings.PermitRootLogin = mkForce "yes";
+  sops.secrets."machine_id" = {
+    sopsFile = ./secrets.yml;
+    mode = "0644";
+  };
+
+  #environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
 
   # Thinkpad brightness
   hardware.acpilight.enable = true;
@@ -57,8 +45,8 @@ in {
   users.extraGroups.video.members = [ "bjorn" ];
 
   # Extra settings (22.11)
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = mkDefault "x86_64-linux";
 
-  system.stateVersion = "20.09";
+  system.stateVersion = "22.11";
 }
 

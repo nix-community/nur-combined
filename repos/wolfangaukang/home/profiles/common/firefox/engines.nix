@@ -167,6 +167,14 @@
         definedAliases = [ "@pypi" ];
       };
     # Other
+    "Shellcheck (Shell)" =
+      let
+        url = "https://www.shellcheck.net/wiki";
+      in {
+        iconURL = "https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.shellcheck.net&size=32";
+        urls = [{ template = "${url}/{searchTerms}"; }];
+        definedAliases = [ "@shellcheck" ];
+      };
     "Metal Archives - Bands" =
       let
         url = "https://www.metal-archives.com";

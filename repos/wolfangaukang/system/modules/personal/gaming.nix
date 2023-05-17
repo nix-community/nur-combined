@@ -27,21 +27,21 @@ in
       default = pkgs.steam;
       type = types.package;
       description = ''
-        Steam package to install 
+        Steam package to install
       '';
     };
     useJoycond = mkOption {
       default = false;
       type = types.bool;
       description = ''
-        Enables joycond (blocks Pro controller on Steam) 
+        Enables joycond (blocks Pro controller on Steam)
       '';
     };
     useSteamHardware = mkOption {
       default = false;
       type = types.bool;
       description = ''
-        Enables steam-hardware (does not recognize joycons) 
+        Enables steam-hardware (does not recognize joycons)
       '';
     };
     extraPkgs = mkOption {

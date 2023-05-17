@@ -1,19 +1,15 @@
 { config, lib, hostname, inputs, ... }:
 
 let
-  inherit (lib) mkForce;
+  inherit (lib) mkDefault;
   inherit (inputs) self;
-  system-lib = import "${self}/system/lib" { inherit inputs; };
-  inherit (system-lib) obtainIPV4Address obtainIPV4GatewayAddress;
 
 in {
   imports = [
     ./disk-setup.nix
     ./hardware-configuration.nix
-    (import "${self}/system/profiles/sets/workstation.nix" { inherit inputs hostname lib; })
+    "${self}/system/profiles/sets/workstation.nix"
   ];
-
-  networking.hostName = hostname;
 
   profile = {
     nix = {
@@ -34,14 +30,18 @@ in {
       };
     };
     virtualization.podman.enable = true;
+    specialisations.work.simplerisk.enable = true;
   };
 
-  environment.etc.machine-id.text = "80ae91d7d531482f86a7e2092eb24af2";
+  sops.secrets."machine_id" = {
+    sopsFile = ./secrets.yml;
+    mode = "0644";
+  };
 
-  #services.openssh.settings.PermitRootLogin = mkForce "yes";
+  environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
 
   # Extra settings (22.11)
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = mkDefault "x86_64-linux";
 
   system.stateVersion = "22.11";
 }

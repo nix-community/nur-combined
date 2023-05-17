@@ -14,7 +14,7 @@ in
         default = false;
         type = types.bool;
         description = ''
-          Enables Android support 
+          Enables Android support
         '';
       };
       adb = {
@@ -22,14 +22,14 @@ in
           default = false;
           type = types.bool;
           description = ''
-            Enable ADB 
+            Enable ADB
           '';
         };
         adbusersGroupMembers = mkOption {
           default = [];
           type = types.listOf types.str;
           description = ''
-            List of users to add to adbusers group 
+            List of users to add to adbusers group
           '';
         };
       };
@@ -37,7 +37,7 @@ in
         default = with pkgs; [ jmtpfs ];
         type = types.listOf types.package;
         description = ''
-          List of extra packages to install for Android support 
+          List of extra packages to install for Android support
         '';
       };
     };
@@ -46,14 +46,14 @@ in
         default = false;
         type = types.bool;
         description = ''
-          Enables iOS support 
+          Enables iOS support
         '';
       };
       extraPkgs = mkOption {
         default = with pkgs; [ ifuse libimobiledevice ];
         type = types.listOf types.package;
         description = ''
-          List of extra packages to install for iOS support 
+          List of extra packages to install for iOS support
         '';
       };
     };

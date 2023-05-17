@@ -1,40 +1,23 @@
 { inputs
-, hostname
 , lib
 , ...
 }:
 
 let
   inherit (inputs) self;
-  inherit (lib) mkForce;
+  inherit (lib) mkForce optionals;
+  system-lib = import "${self}/system/lib" { inherit inputs; };
+  inherit (system-lib) obtainIPV4Address obtainIPV4GatewayAddress;
 
 in {
   imports = [
-    "${self}/system/profiles/console.nix"
-    "${self}/system/profiles/de/pantheon.nix"
-    "${self}/system/profiles/environment.nix"
-    "${self}/system/profiles/flatpak.nix"
-    "${self}/system/profiles/graphics.nix"
-    "${self}/system/profiles/layouts.nix"
+    ./common.nix
+    ./gui.nix
     "${self}/system/profiles/networking.nix"
     "${self}/system/profiles/rfkill.nix"
-    "${self}/system/profiles/security.nix"
     "${self}/system/profiles/time.nix"
-    "${self}/system/profiles/users.nix"
+    "${self}/system/profiles/flatpak.nix"
+    "${self}/system/profiles/services/openssh.nix"
     "${self}/system/profiles/services/zerotier.nix"
-    (import "${self}/system/profiles/services/openssh.nix" { inherit inputs hostname; })
   ];
-
-  programs.firejail.enable = true;
-  specialisation.simplerisk = {
-    inheritParentConfig = true;
-    configuration = {
-      profile = {
-        virtualization.podman.enable = mkForce false;
-        virtualization.qemu.enable = mkForce false;
-        work.simplerisk.enable = true;
-      };
-      home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
-    };
-  };
 }

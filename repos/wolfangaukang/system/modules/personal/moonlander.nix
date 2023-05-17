@@ -21,7 +21,7 @@ in
       default = false;
       type = types.bool;
       description = ''
-        Ignores any system layout settings (uses US Basic) 
+        Ignores any system layout settings (uses US Basic)
       '';
     };
     extraPkgs = mkOption {

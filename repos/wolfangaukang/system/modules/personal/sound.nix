@@ -13,14 +13,14 @@ in
       default = false;
       type = types.bool;
       description = ''
-        Enables sound 
+        Enables sound
       '';
     };
     enableOSSEmulation  = mkOption {
       default = false;
       type = types.bool;
       description = ''
-        Enables ALSA OSS emulation 
+        Enables ALSA OSS emulation
       '';
     };
     pipewire = {
@@ -28,7 +28,7 @@ in
         default = false;
         type = types.bool;
         description = ''
-          Enables pipewire 
+          Enables pipewire
         '';
       };
       enableAlsa32BitSupport = mkOption {
@@ -44,7 +44,7 @@ in
         default = false;
         type = types.bool;
         description = ''
-          Enables pulseaudio 
+          Enables pulseaudio
         '';
       };
       audioGroupMembers = mkOption {

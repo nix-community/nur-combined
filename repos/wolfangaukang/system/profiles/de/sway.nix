@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   security.pam.services.swaylock = {
@@ -17,7 +17,6 @@
     displayManager = {
       defaultSession = "sway";
       sddm.enable = true;
-      wayland = true;
     };
   };
 }

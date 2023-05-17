@@ -14,24 +14,24 @@ in {
 
   programs.rofi = {
     enable = true;
-    font = "Iosevka Term 13";
-    colors = {
-      window = {
-        background = black;
-        border = black;
-        separator = yellow_strong;
-      };
-      rows = {
-        normal = {
-          background = black;
-          foreground = yellow;
-          backgroundAlt = black;
-          highlight = {
-            background = orange;
-            foreground = yellow_strong;
-          };
-        };
-      };
-    };
+    font = "Iosevka Term Nerd Font 13";
+    #colors = {
+    #  window = {
+    #    background = black;
+    #    border = black;
+    #    separator = yellow_strong;
+    #  };
+    #  rows = {
+    #    normal = {
+    #      background = black;
+    #      foreground = yellow;
+    #      backgroundAlt = black;
+    #      highlight = {
+    #        background = orange;
+    #        foreground = yellow_strong;
+    #      };
+    #    };
+    #  };
+    #};
   };
 }

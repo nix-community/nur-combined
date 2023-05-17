@@ -9,7 +9,7 @@ in {
     "${self}/home/profiles/configurations/fonts.nix"
   ];
 
-  programs.mako = {
+  services.mako = {
     enable = true;
     font = "Iosevka Term 10";
     backgroundColor = "#0d0d0d";

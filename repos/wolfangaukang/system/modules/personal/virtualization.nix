@@ -28,7 +28,7 @@ in
         default = [];
         type = types.listOf types.str;
         description = ''
-          List of users to add to Docker group 
+          List of users to add to Docker group
         '';
       };
     };
@@ -37,37 +37,37 @@ in
         default = false;
         type = types.bool;
         description = ''
-          Installs Podman 
+          Installs Podman
         '';
       };
       extraPkgs = mkOption {
         default = [];
         type = types.listOf types.package;
         description = ''
-          List of extra packages to install with Podman 
+          List of extra packages to install with Podman
         '';
-      }; 
+      };
     };
     qemu = {
       enable = mkOption {
         default = false;
         type = types.bool;
         description = ''
-          Installs Qemu 
+          Installs Qemu
         '';
       };
       extraPkgs = mkOption {
         default = [];
         type = types.listOf types.package;
         description = ''
-          List of extra packages to install with Qemu 
+          List of extra packages to install with Qemu
         '';
-      }; 
+      };
       libvirtdGroupMembers = mkOption {
         default = [];
         type = types.listOf types.str;
         description = ''
-          List of users to add to libvirtd group 
+          List of users to add to libvirtd group
         '';
       };
     };
@@ -76,7 +76,7 @@ in
         default = false;
         type = types.bool;
         description = ''
-          Installs VirtualBox 
+          Installs VirtualBox
         '';
       };
       enableExtensionPack = mkOption {
@@ -92,12 +92,12 @@ in
         description = ''
           List of extra packages to install with VirtualBox
         '';
-      }; 
+      };
       vboxusersGroupMembers = mkOption {
         default = [];
         type = types.listOf types.str;
         description = ''
-          List of users to add to vboxusers group 
+          List of users to add to vboxusers group
         '';
       };
     };
@@ -113,7 +113,7 @@ in
         default = [];
         type = types.listOf types.package;
         description = ''
-          List of extra packages to install with VMWare Workstation 
+          List of extra packages to install with VMWare Workstation
         '';
       };
     };
@@ -122,7 +122,7 @@ in
   config = mkMerge [
     (mkIf cfg.docker.enable {
       environment.systemPackages = cfg.docker.extraPkgs;
-      users.extraGroups.docker.members = cfg.docker.dockerGroupMembers; 
+      users.extraGroups.docker.members = cfg.docker.dockerGroupMembers;
       virtualisation.docker.enable = true;
     })
     (mkIf cfg.podman.enable {
@@ -131,12 +131,12 @@ in
     })
     (mkIf cfg.qemu.enable {
       environment.systemPackages = cfg.qemu.extraPkgs;
-      users.extraGroups.libvirtd.members = cfg.qemu.libvirtdGroupMembers; 
+      users.extraGroups.libvirtd.members = cfg.qemu.libvirtdGroupMembers;
       virtualisation.libvirtd.enable = true;
     })
     (mkIf cfg.virtualbox.enable {
       environment.systemPackages = cfg.virtualbox.extraPkgs;
-      users.extraGroups.vboxusers.members = cfg.virtualbox.vboxusersGroupMembers; 
+      users.extraGroups.vboxusers.members = cfg.virtualbox.vboxusersGroupMembers;
       virtualisation.virtualbox.host = {
         enable = true;
         enableExtensionPack = mkIf cfg.virtualbox.enableExtensionPack true;

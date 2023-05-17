@@ -7,11 +7,29 @@ keys:
     - &torfajokull age1evuvvyh966c5crnmx0cyevqw6dqnn76lyqvmmla633j0mvsufsysc5w9em
 
 creation_rules:
-  - path_regex: hosts/common/secrets.ya?ml$
+  - path_regex: system/hosts/common/secrets.ya?ml$
     key_groups:
     - pgp:
       - *bjorn
       age:
       - *holuhraun
       - *eyjafjallajokull
+      - *torfajokull
+  - path_regex: system/hosts/eyjafjallajokull/secrets.ya?ml$
+    key_groups:
+    - pgp:
+      - *bjorn
+      age:
+      - *eyjafjallajokull
+  - path_regex: system/hosts/holuhraun/secrets.ya?ml$
+    key_groups:
+    - pgp:
+      - *bjorn
+      age:
+      - *holuhraun
+  - path_regex: system/hosts/torfajokull/secrets.ya?ml$
+    key_groups:
+    - pgp:
+      - *bjorn
+      age:
       - *torfajokull

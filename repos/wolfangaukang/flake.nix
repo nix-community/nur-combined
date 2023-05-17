@@ -90,69 +90,62 @@
         let
           usersWithRoot = users ++ [ "root" ];
           kernels = pkgs.linuxKernel.packages;
+          system76Hardware = [ nixos-hardware.nixosModules.system76 ];
 
         in {
-          eyjafjallajokull =
-            let
-              nixosHardware = [ nixos-hardware.nixosModules.system76 ];
-            in mkSystem {
-              inherit inputs overlays;
-              users = usersWithRoot;
-              hostname = "eyjafjallajokull";
-              kernel = kernels.linux_6_1;
-              extra-modules = nixosHardware;
-              enable-impermanence = true;
-              enable-sops = true;
-              enable-hm = true;
-              hm-users = users;
-            };
+          eyjafjallajokull = mkSystem {
+            inherit inputs overlays;
+            users = usersWithRoot;
+            hostname = "eyjafjallajokull";
+            # Can't upgrade because of vboxnet
+            kernel = kernels.linux_6_1;
+            extra-modules = system76Hardware;
+            enable-impermanence = true;
+            enable-sops = true;
+            enable-hm = true;
+            hm-users = users;
+          };
 
-          holuhraun =
-            let
-              nixosHardware = [ nixos-hardware.nixosModules.system76 ];
-            in mkSystem {
-              inherit inputs overlays;
-              users = usersWithRoot;
-              hostname = "holuhraun";
-              kernel = kernels.linux_6_1;
-              extra-modules = nixosHardware;
-              enable-impermanence = true;
-              enable-sops = true;
-              enable-hm = true;
-              hm-users = users;
-              enable-impermanence-hm = true;
-            };
+          holuhraun = mkSystem {
+            inherit inputs overlays;
+            users = usersWithRoot;
+            hostname = "holuhraun";
+            # Can't upgraade because of ZFS
+            kernel = kernels.linux_6_2;
+            extra-modules = system76Hardware;
+            enable-impermanence = true;
+            enable-sops = true;
+            enable-hm = true;
+            hm-users = users;
+            enable-impermanence-hm = true;
+          };
 
-          torfajokull =
-            let
-              nixosHardware = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
-            in mkSystem {
-              inherit inputs overlays;
-              users = usersWithRoot;
-              hostname = "eyjafjallajokull";
-              kernel = kernels.linux_6_1;
-              extra-modules = nixosHardware;
-              enable-impermanence = true;
-              enable-sops = true;
-              enable-hm = true;
-              hm-users = users;
-            };
+          torfajokull = mkSystem {
+            inherit inputs overlays;
+            users = usersWithRoot;
+            hostname = "torfajokull";
+            kernel = kernels.linux_6_3;
+            extra-modules = [ nixos-hardware.nixosModules.lenovo-thinkpad-t430 ];
+            enable-impermanence = true;
+            enable-sops = true;
+            enable-hm = true;
+            hm-users = users;
+          };
 
           Katla =
             let
               users = [ "nixos" ];
               username = builtins.elemAt users 0;
-              nixosWSL = [ nixos-wsl.nixosModules.wsl ];
             in mkSystem {
               inherit inputs overlays users;
               hostname = "katla";
-              extra-modules = nixosWSL;
+              extra-modules = [ nixos-wsl.nixosModules.wsl ];
               hm-users = users;
             } // { specialArgs = { inherit username; }; };
 
           vm = mkSystem {
             inherit inputs overlays;
-            users = usersWithRoot;
+            users = [ "root" ];
             hostname = "raudholar";
             extra-modules = [ nixosModules.cloudflare-warp ];
           } // { channelName = "nixpkgs"; };
