@@ -114,6 +114,7 @@ adevinta:
     - source: git@github.mpi-internal.com:automobile-it/automobile-documentdb-infrastructure
     - source: git@github.mpi-internal.com:automobile-it/automobile-elasticache-infrastructure
     - source: git@github.mpi-internal.com:automobile-it/automobile_grafonnet
+    - source: git@github.mpi-internal.com:automobile-it/automobile-core-vitals-metrics.git
 
 tracklib:
   base_dir: ~/tcTracklib
