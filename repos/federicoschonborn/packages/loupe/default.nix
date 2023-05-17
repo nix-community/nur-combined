@@ -22,14 +22,14 @@
 
 stdenv.mkDerivation rec {
   pname = "loupe";
-  version = "44.2";
+  version = "44.3";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
-    owner = "Incubator";
+    owner = "GNOME/Incubator";
     repo = "loupe";
     rev = version;
-    hash = "sha256-0No8D2G/PSr8EWXJiBmBt672J340CJUzjdvF5fQZwes=";
+    hash = "sha256-Q6cFKQuBNu9/8h46HQN9xtevwRCjkxXXHHuJfT/QcjA=";
   };
 
   cargoDeps = rustPlatform.importCargoLock {

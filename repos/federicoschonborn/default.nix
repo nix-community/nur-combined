@@ -104,26 +104,29 @@
 
   wrapGAppsHook4_11 = pkgs.wrapGAppsHook4.override { gtk3 = gtk4_11; };
 
-  gtk4_11 = pkgs.gtk4.overrideAttrs (_: {
-    version = "unstable-2023-05-07";
+  gtk4_11 = pkgs.gtk4.overrideAttrs (oldAttrs: {
+    version = "unstable-2023-05-16";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.gnome.org";
       owner = "GNOME";
       repo = "gtk";
-      rev = "61ff647f71879f20da4b8b4d71d6b11c8ae6d391";
-      hash = "sha256-zZoy/oFzW+lmJJhXOV3K3DIxDjhLVhWUG2zIi33+Z6o=";
+      rev = "4d66598f315d32a4798b5f67cb0cbc32d05b983c";
+      hash = "sha256-I3J2gnk+WXZ8IGPmHtP9hoiSC9XjFhbDjkS2WU9DqwY=";
     };
+    postPatch = (oldAttrs.postPatch or "") + ''
+      patchShebangs build-aux/meson/gen-visibility-macros.py
+    '';
     doCheck = false;
   });
 
   libadwaita_1_4 = (pkgs.libadwaita.overrideAttrs (oldAttrs: {
-    version = "unstable-2023-05-07";
+    version = "unstable-2023-05-16";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.gnome.org";
       owner = "GNOME";
       repo = "libadwaita";
-      rev = "a98da7cf5dac823b155191f0be76cc1b2d8002c3";
-      hash = "sha256-ufxtxUcsMYfGK0UETwVK+xnqQ1E2UsaLpSbYoqmHCeg=";
+      rev = "0c154e202060b9de9154ddd70b3d4abfc2ffe09b";
+      hash = "sha256-C2XavYfcojIWogyu9niknjbbQwK5pPNcZCR/eBr+YS4=";
     };
     buildInputs = oldAttrs.buildInputs ++ [ pkgs.appstream ];
     doCheck = false;

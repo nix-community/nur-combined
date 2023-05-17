@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
-    owner = "Incubator";
+    owner = "GNOME/Incubator";
     repo = "snapshot";
     rev = version;
     hash = "sha256-hrhylLfh7ntuW90DbOSvlHAz9QON9Oq2mfGaGHmr2XY=";
