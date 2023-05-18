@@ -10,11 +10,15 @@ environment:
   NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/7e0743a5aea1dc755d4b761daf75b20aa486fdad.tar.gz"
   NIX_CONFIG: "experimental-features = nix-command flakes"
 tasks:
+  - setup: |
+      nix-env -f '<nixpkgs>' -iA cachix
+      cachix use rycee
   - build: |
       cd ./nur-expressions
       [[ $(git rev-parse master) == $(git rev-parse HEAD) ]] || exit 0
 
       nix-build -E '(import ./doc { pkgs = import <nixpkgs> {}; }).manual.html'
+      cachix push rycee ./result
   - deploy: |
       cd ./nur-expressions
       [[ $(git rev-parse master) == $(git rev-parse HEAD) ]] || exit 0
