@@ -6,6 +6,19 @@
         "url": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip",
         "url_template": "https://download.adaptec.com/raid/storage_manager/arcconf_v2_05_22932.zip"
     },
+    "audio-async-loopback": {
+        "branch": "main",
+        "builtin": false,
+        "description": "Real-time S/PDIF PCM/AC3 capture and playback",
+        "homepage": null,
+        "owner": "jakemoroni",
+        "repo": "audio_async_loopback",
+        "rev": "c2adb28fc55806f5fa1908e9f17a42502823f81c",
+        "sha256": "03w4spxmar3rmqgf02vqk5in8zv6s7vg4fw3fldajvfpn3amrgg7",
+        "type": "tarball",
+        "url": "https://github.com/jakemoroni/audio_async_loopback/archive/c2adb28fc55806f5fa1908e9f17a42502823f81c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "chromium-launcher": {
         "branch": "master",
         "builtin": false,
@@ -30,6 +43,19 @@
         "sha256": "1fsnmg3nqk4nyby6lmpdml9h6h40cpkah418534drynl014clvl3",
         "type": "tarball",
         "url": "https://github.com/facebookresearch/CParser/archive/0d5b7c1d00d2852b5a4bb661e1c4a5b3a7d74797.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "dualsensectl": {
+        "branch": "main",
+        "builtin": false,
+        "description": "Linux tool for controlling PS5 DualSense controller",
+        "homepage": "",
+        "owner": "nowrep",
+        "repo": "dualsensectl",
+        "rev": "17f27b81b87a1736a0e6dc7b2e225059b68a5733",
+        "sha256": "003ffa1s2wl6mybnq3skdvx7avy0l7zbkyy664ynbmbisni6knia",
+        "type": "tarball",
+        "url": "https://github.com/nowrep/dualsensectl/archive/17f27b81b87a1736a0e6dc7b2e225059b68a5733.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "earthshine": {

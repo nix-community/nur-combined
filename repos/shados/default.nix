@@ -10,11 +10,19 @@ let repo = rec {
 
   ## Packages
 
+  audio-async-loopback = pkgs.callPackage ./pkgs/audio-async-loopback {
+    inherit pins;
+  };
+
   arcconf = pkgs.callPackage ./pkgs/arcconf {
     inherit pins;
   };
 
   chromium-launcher = pkgs.callPackage ./pkgs/chromium-launcher {
+    inherit pins;
+  };
+
+  dualsensectl = pkgs.callPackage ./pkgs/dualsensectl {
     inherit pins;
   };
 
