@@ -11,9 +11,9 @@ stages:
 pages:
   stage: deploy
   script:
-    - nix-build -E '(import ./doc { pkgs = import <nixpkgs> {}; }).manual.html'
     - mkdir public
-    - cp -r result/share/doc/nur-rycee/* public/
+    - cp ci/redirect-manual.html public/index.html
+    - echo "/nur-expressions/* /nur-expressions/index.html 200" > public/_redirects
   artifacts:
     paths:
       - public
