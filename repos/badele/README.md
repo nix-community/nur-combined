@@ -19,9 +19,24 @@
    the rest
 6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
 
-## Build
+## Build & Test
+
+**Build**
 ```console
 nix-build --arg pkgs 'import <nixpkgs> {}' -A <attr_name>
+```
+**Developement environment**
+
+```console
+# Thank to Minijackson from https://matrix.to/#/#fr:nixos.org channel
+nix develop --override-input nixpkgs 'nixpkgs/master' '.#packages.x86_64-linux.sdrpp'
+rm -rf ./source ; genericBuild
+# type genericBuild
+```
+
+**Test**
+```console
+nix-shell --arg pkgs 'import <nixpkgs> {}' -A <attr_name>
 ```
 
 ## README template
