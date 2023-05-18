@@ -7,7 +7,7 @@
     src = fetchgit {
       url = "https://github.com/awslabs/aws-sigv4-proxy.git";
       rev = "26b15d857b7e09f6a921c8ca0410e4a2d97c76bd";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-xMn9H1XqiVORQpjd2cO1K5KhlMwumIGME6UwqvxmM2U=";
@@ -17,13 +17,13 @@
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
     version = "v2.13-babel-rtt";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "linyinfeng";
       repo = "bird";
       rev = "v2.13-babel-rtt";
       fetchSubmodules = false;
       sha256 = "sha256-e+HPBVHiZGMCpwz8iPQlIGRuDFydG83rpw1jFf1uavc=";
-    });
+    };
   };
   clash-for-windows = {
     pname = "clash-for-windows";
@@ -71,7 +71,7 @@
     src = fetchgit {
       url = "https://github.com/linyinfeng/commit-notifier.git";
       rev = "73cf28cd7d848570b76d7be5554f9dec14caa5be";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-4fyyxPT+NiBIwLzbc9S0BWEsTPjOKCVB4764QIK1kb0=";
@@ -85,13 +85,13 @@
   cowrie = {
     pname = "cowrie";
     version = "v2.5.0";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
       rev = "v2.5.0";
       fetchSubmodules = false;
       sha256 = "sha256-5nCEH32U81SE2ky0XN6arIGNxKadqYggIz/uVnmXpN8=";
-    });
+    };
   };
   dot-tar = {
     pname = "dot-tar";
@@ -99,7 +99,7 @@
     src = fetchgit {
       url = "https://github.com/linyinfeng/dot-tar.git";
       rev = "07a378cb52a5d31cf0813e9cab17b5b20b37500e";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-+8BSwSMfG+euhnE6Y/BYKlDEaevi2TSmfv5e/bsJwRc=";
@@ -113,13 +113,13 @@
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
     version = "v0.1.16";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "janten";
       repo = "dpt-rp1-py";
       rev = "v0.1.16";
       fetchSubmodules = false;
       sha256 = "sha256-cq9yHBQyqzlEb1Dvpx90MIixT8PxB8TBKv3+nFYCbn8=";
-    });
+    };
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
@@ -132,13 +132,13 @@
   mstickereditor = {
     pname = "mstickereditor";
     version = "v0.3.1";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "LuckyTurtleDev";
       repo = "mstickereditor";
       rev = "v0.3.1";
       fetchSubmodules = false;
       sha256 = "sha256-pcdyfltDnU6I6cIGc1Gw6Y9b7oyAN/GLgtBbPq1pRfE=";
-    });
+    };
     cargoLock."Cargo.lock" = {
       lockFile = ./mstickereditor-v0.3.1/Cargo.lock;
       outputHashes = { };
@@ -150,7 +150,7 @@
     src = fetchgit {
       url = "https://github.com/oh-my-fish/plugin-bang-bang";
       rev = "816c66df34e1cb94a476fa6418d46206ef84e8d3";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-35xXBWCciXl4jJrFUUN5NhnHdzk6+gAxetPxXCv4pDc=";
@@ -163,7 +163,7 @@
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
       rev = "1697adf8861a15178f4794de566d14d295c79b39";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-tsw+npcOga8NBM1F8hnsT69k33FS5nK1zaPB1ohasPk=";
@@ -176,7 +176,7 @@
     src = fetchgit {
       url = "https://github.com/tumashu/pyim-greatdict.git";
       rev = "87594b2a4d6391cf69475257b286d3b844791571";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-IvSAFs3TZ84q2FflPyrDbvwkPVVlyvRQTzpCx+JvKGA=";
@@ -186,13 +186,13 @@
   replay-fish = {
     pname = "replay-fish";
     version = "1.2.1";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "jorgebucaran";
       repo = "replay.fish";
       rev = "1.2.1";
       fetchSubmodules = false;
       sha256 = "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=";
-    });
+    };
   };
   rime-bopomofo = {
     pname = "rime-bopomofo";
@@ -200,7 +200,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-bopomofo.git";
       rev = "c7618f4f5728e1634417e9d02ea50d82b71956ab";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=";
@@ -213,7 +213,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-cangjie.git";
       rev = "8dfad9e537f18821b71ba28773315d9c670ae245";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-fmWGgYqWndCpDUV6nzx0zjkcf5AcVeDIYwp0023iMwk=";
@@ -226,7 +226,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-cantonese.git";
       rev = "d632662b294b40d938043cde291ba92dfd4954af";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-ec5pL3vZgqbPFBXctm5b80L3ug+4Rde/3Hpq2dDkcrs=";
@@ -239,7 +239,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-double-pinyin.git";
       rev = "69bf85d4dfe8bac139c36abbd68d530b8b6622ea";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-UyVzp0TMq7yq5pXQpy7xkPnc1+RF8oVdIXzvrYqLfCQ=";
@@ -252,7 +252,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-emoji.git";
       rev = "48061047c9c48dd58f0003036905207a8e6bda4a";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-STGgoEI2eztvARPNc0Jf+7btp5UFs06uKafwB0dBgUY=";
@@ -265,7 +265,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
       rev = "e0519d0579722a0871efb68189272cba61a7350b";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-/GLyb3pVm5YzhuBWWJs75JtKZVnFXFN3s7HT+TZC4bw=";
@@ -274,16 +274,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "e8265545d479ff49dd1fec127ec1a7302b78162a";
+    version = "68a71e0fe4663b1bba187e747534dea003e54cf4";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "e8265545d479ff49dd1fec127ec1a7302b78162a";
-      fetchSubmodules = false;
+      rev = "68a71e0fe4663b1bba187e747534dea003e54cf4";
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-L2UEyvCv86XazNNH+m7YkeRLyXnFOwdTP8qsGNSkmts=";
+      sha256 = "sha256-5IN7gre+KeK9VX+4a8Wc8/kdSb17XWLma3D71kYOkwk=";
     };
-    date = "2023-05-15";
+    date = "2023-05-18";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -291,7 +291,7 @@
     src = fetchgit {
       url = "https://github.com/CanCLID/rime-loengfan.git";
       rev = "987ac95b02f957e8764a2f45222a4006c188ed50";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-vOqVSwKZ+p5Wc03pRUWxCdWBdxuTe8n4xu2BTbj9/b4=";
@@ -304,7 +304,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-luna-pinyin.git";
       rev = "79aeae200a7370720be98232844c0715f277e1c0";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-+pqjpYfXTdou8EofFsjUyArOs+CjJchwXbMVhGFxbhs=";
@@ -317,7 +317,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-pinyin-simp.git";
       rev = "52b9c75f085479799553f2499c4f4c611d618cdf";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-crUFBV/u2vwC1kj2FF6lsJdIF28wIagKHpksGR/2Kf4=";
@@ -330,7 +330,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-prelude.git";
       rev = "dd84abecc33f0b05469f1d744e32d2b60b3529e3";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-r3jx/iCUOxBFLYhmHEuSFxzmHg8l6vnuONmsjbtBlpM=";
@@ -343,7 +343,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-quick.git";
       rev = "3fe5911ba608cb2df1b6301b76ad1573bd482a76";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-yctopPkng3QQLhDRuHP5gpEmTx0UCO5pKXzjUv1BcCE=";
@@ -356,7 +356,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-stroke.git";
       rev = "c8bc4050d4d667be8f3f4892ab96e4d0881865a4";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-XJMbmJK6CDYYgxPUMnULm5uJEgU6UF2WzrRlGKQf4yg=";
@@ -369,7 +369,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-terra-pinyin.git";
       rev = "9427853de91d645d9aca9ceace8fe9e9d8bc5b50";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-93Kzph4q8LCNYTMk3rjO7mXwzfyF4cHnuDAQrxWOPDg=";
@@ -382,7 +382,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-wubi.git";
       rev = "f1876f08f1d4a9696395be0070c0e8e4353c44cb";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-c/dv0vY5GdFDNSJ9U93kYmP9mUmKQtCSipkprXFOPrU=";
@@ -395,7 +395,7 @@
     src = fetchgit {
       url = "https://github.com/rime/rime-wugniu.git";
       rev = "abd1ee98efbf170258fcf43875c21a4259e00b61";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=";
@@ -408,7 +408,7 @@
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
       rev = "5c2176ae6a01a18fdc2b0f5d5f593737b5765914";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-rh42J6LWgNPOWYLaIwocU1JtQnA5P1jocN3ywVOfYoc=";
@@ -422,13 +422,13 @@
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
     version = "v1.2.1";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "matrix-org";
       repo = "synapse-s3-storage-provider";
       rev = "v1.2.1";
       fetchSubmodules = false;
       sha256 = "sha256-92Xkq54jrUE2I9uVOxI72V9imLNU6K4JqDdOZb+4f+Y=";
-    });
+    };
   };
   telegram-send = {
     pname = "telegram-send";
@@ -436,7 +436,7 @@
     src = fetchgit {
       url = "https://github.com/rahiel/telegram-send.git";
       rev = "34d7703754d441a6f4c4a7b5b3210759d36078e2";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-/+hNnUT7kA19wpiHGNPVMQGostjoaDzHd91WYruJq0w=";
@@ -449,7 +449,7 @@
     src = fetchgit {
       url = "https://github.com/linyinfeng/tg-send.git";
       rev = "d3aea3f2dc37c39521ce59c5fb156427764ad68f";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-I1saekIoRV/as3sVMUlfCpqLA6xHX5YdtRgIjuof1AU=";
@@ -463,24 +463,24 @@
   trojan = {
     pname = "trojan";
     version = "v1.16.0";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "trojan-gfw";
       repo = "trojan";
       rev = "v1.16.0";
       fetchSubmodules = false;
       sha256 = "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=";
-    });
+    };
   };
   vlmcsd = {
     pname = "vlmcsd";
     version = "svn1113";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "Wind4";
       repo = "vlmcsd";
       rev = "svn1113";
       fetchSubmodules = false;
       sha256 = "sha256-OKysOm44T9wrAaopp9HfLlox5InlpV33AHGXRSjhDqc=";
-    });
+    };
   };
   waybar-git = {
     pname = "waybar-git";
@@ -488,7 +488,7 @@
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
       rev = "7b704071ff70d4888517c5018afe6b8783687888";
-      fetchSubmodules = false;
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "sha256-ALOyugnryvyq/pQl5NBi/S9/OKGfCbiK3RRqTKWrSbw=";
@@ -514,13 +514,13 @@
   zeronsd = {
     pname = "zeronsd";
     version = "v0.5.2";
-    src = fetchFromGitHub ({
+    src = fetchFromGitHub {
       owner = "zerotier";
       repo = "zeronsd";
       rev = "v0.5.2";
       fetchSubmodules = false;
       sha256 = "sha256-TL0bgzQgge6j1SpZCdxv/s4pBMSg4/3U5QisjkVE6BE=";
-    });
+    };
     cargoLock."Cargo.lock" = {
       lockFile = ./zeronsd-v0.5.2/Cargo.lock;
       outputHashes = { };

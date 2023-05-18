@@ -8,7 +8,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "26b15d857b7e09f6a921c8ca0410e4a2d97c76bd",
@@ -127,7 +127,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "73cf28cd7d848570b76d7be5554f9dec14caa5be",
@@ -171,7 +171,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "07a378cb52a5d31cf0813e9cab17b5b20b37500e",
@@ -250,7 +250,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "816c66df34e1cb94a476fa6418d46206ef84e8d3",
@@ -269,7 +269,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "1697adf8861a15178f4794de566d14d295c79b39",
@@ -288,7 +288,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "87594b2a4d6391cf69475257b286d3b844791571",
@@ -327,7 +327,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "c7618f4f5728e1634417e9d02ea50d82b71956ab",
@@ -346,7 +346,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "8dfad9e537f18821b71ba28773315d9c670ae245",
@@ -365,7 +365,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "d632662b294b40d938043cde291ba92dfd4954af",
@@ -384,7 +384,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "69bf85d4dfe8bac139c36abbd68d530b8b6622ea",
@@ -403,7 +403,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "48061047c9c48dd58f0003036905207a8e6bda4a",
@@ -422,7 +422,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "e0519d0579722a0871efb68189272cba61a7350b",
@@ -434,22 +434,22 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-05-15",
+        "date": "2023-05-18",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e8265545d479ff49dd1fec127ec1a7302b78162a",
-            "sha256": "sha256-L2UEyvCv86XazNNH+m7YkeRLyXnFOwdTP8qsGNSkmts=",
+            "rev": "68a71e0fe4663b1bba187e747534dea003e54cf4",
+            "sha256": "sha256-5IN7gre+KeK9VX+4a8Wc8/kdSb17XWLma3D71kYOkwk=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "e8265545d479ff49dd1fec127ec1a7302b78162a"
+        "version": "68a71e0fe4663b1bba187e747534dea003e54cf4"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -460,7 +460,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "987ac95b02f957e8764a2f45222a4006c188ed50",
@@ -479,7 +479,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "79aeae200a7370720be98232844c0715f277e1c0",
@@ -498,7 +498,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "52b9c75f085479799553f2499c4f4c611d618cdf",
@@ -517,7 +517,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "dd84abecc33f0b05469f1d744e32d2b60b3529e3",
@@ -536,7 +536,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "3fe5911ba608cb2df1b6301b76ad1573bd482a76",
@@ -555,7 +555,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "c8bc4050d4d667be8f3f4892ab96e4d0881865a4",
@@ -574,7 +574,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "9427853de91d645d9aca9ceace8fe9e9d8bc5b50",
@@ -593,7 +593,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "f1876f08f1d4a9696395be0070c0e8e4353c44cb",
@@ -612,7 +612,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "abd1ee98efbf170258fcf43875c21a4259e00b61",
@@ -636,7 +636,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "5c2176ae6a01a18fdc2b0f5d5f593737b5765914",
@@ -675,7 +675,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "34d7703754d441a6f4c4a7b5b3210759d36078e2",
@@ -699,7 +699,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "d3aea3f2dc37c39521ce59c5fb156427764ad68f",
@@ -758,7 +758,7 @@
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": false,
+            "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
             "rev": "7b704071ff70d4888517c5018afe6b8783687888",

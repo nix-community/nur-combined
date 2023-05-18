@@ -17,6 +17,7 @@
 
     # tools
     nvfetcher.url = "github:berberman/nvfetcher";
+    nvfetcher.inputs.nixpkgs.follows = "nixpkgs";
     nvfetcher.inputs.flake-utils.follows = "flake-utils";
     nvfetcher.inputs.flake-compat.follows = "flake-compat";
 
