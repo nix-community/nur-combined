@@ -6,7 +6,7 @@
 , gnumake
 , fetchFromGitHub
 , addOpenGLRunpath
-, python3
+, python3Packages
 }:
 
 stdenv.mkDerivation {
@@ -22,19 +22,27 @@ stdenv.mkDerivation {
     deepClone = true;
   };
 
+  TCNN_CUDA_ARCHITECTURES = 37; # K80
+
+  patchPhase = ''
+    substituteInPlace src/common.cu \
+      --replace 'fs::path get_executable_dir() {' "fs::path get_executable_dir() { return \"$src\";"
+  '';
+
   cmakeFlags = [ "-DNGP_BUILD_WITH_GUI=OFF" ];
 
   nativeBuildInputs = [ cmake cudatoolkit addOpenGLRunpath ];
 
   enableParallelBuilding = true;
 
-  buildInputs = [ zlib python3 ];
+  buildInputs = [ zlib python3Packages.python ];
 
   installPhase = ''
-    mkdir -p $out/{bin,lib,include}
+    mkdir -p $out/{bin,lib,include,${python3Packages.python.sitePackages}}
     install -m 755 instant-ngp $out/bin
     install -m 755 *.a *.so $out/lib
     install -m 755 *.h $out/include
+    mv $out/lib/*cpython* $out/${python3Packages.python.sitePackages}
   '';
 
   postFixup = lib.optionalString stdenv.isLinux ''
