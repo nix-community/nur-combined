@@ -3,18 +3,18 @@
 {
   cabal-docspec = {
     pname = "cabal-docspec";
-    version = "0.0.0.20230406";
+    version = "0.0.0.20230517";
     src = fetchurl {
-      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20230406/cabal-docspec-0.0.0.20230406-x86_64-linux.xz";
-      sha256 = "sha256-aPqa3dXcRT1TOnSnY5UEmdRZOxKXyaBcPqW9GswEyd0=";
+      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20230517/cabal-docspec-0.0.0.20230517-x86_64-linux.xz";
+      sha256 = "sha256-OzG75GOtTWcau8ED20lihWLsSKZgTKsngge1tqzSHtc=";
     };
   };
   cabal-docspec-man = {
     pname = "cabal-docspec-man";
-    version = "0.0.0.20230406";
+    version = "0.0.0.20230517";
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20230406/cabal-docspec/cabal-docspec.1";
-      sha256 = "sha256-kD28dqKCmvXz98rRPRks/yfyJQMhABDpcoQ4O7Pw70I=";
+      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20230517/cabal-docspec/cabal-docspec.1";
+      sha256 = "sha256-tyVrIqUx6XrCAqXGLeOfsbdny5ue8tY30vyGrArdl7w=";
     };
   };
   hellsmack = {
@@ -35,10 +35,10 @@
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.6.0.1";
+    version = "0.7.0.0";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.6.0.1/ormolu-Linux.zip";
-      sha256 = "sha256-QzPQoEolOg/aBusD1mnnLOO58dw1XZ1bnrzP4UENQ9Q=";
+      url = "https://github.com/tweag/ormolu/releases/download/0.7.0.0/ormolu-Linux.zip";
+      sha256 = "sha256-RWn9Tiei6ZIW5cdWLh9urfhqmoZ/lkq4GaNNBAyWd64=";
     };
   };
 }
