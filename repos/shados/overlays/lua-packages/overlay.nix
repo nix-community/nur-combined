@@ -82,7 +82,7 @@ selfPkgs: superPkgs: let
       ];
     });
 
-    moonscript = super.luaLib.overrideLuarocks super.moonscript (oa: {
+    moonscript = (super.luaLib.overrideLuarocks super.moonscript (oa: {
       src = pins.moonscript.outPath;
       knownRockspec = with super.moonscript; "${pname}-dev-1.rockspec";
       propagatedBuildInputs = with self; [
@@ -92,6 +92,7 @@ selfPkgs: superPkgs: let
       nativeCheckInputs = with self; [
         busted loadkit
       ];
+    })).overrideAttrs(oa: {
       checkPhase = ''
         make test $makeFlags
       '';
