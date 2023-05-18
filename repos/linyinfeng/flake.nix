@@ -12,6 +12,13 @@
 
     # libs
     flake-utils.url = "github:numtide/flake-utils";
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
+
+    # tools
+    nvfetcher.url = "github:berberman/nvfetcher";
+    nvfetcher.inputs.flake-utils.follows = "flake-utils";
+    nvfetcher.inputs.flake-compat.follows = "flake-compat";
 
     # main nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
