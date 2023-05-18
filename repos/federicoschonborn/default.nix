@@ -100,6 +100,7 @@
   };
   surgescript = pkgs.callPackage ./packages/surgescript { };
   telegraph = pkgs.callPackage ./packages/telegraph { };
+  textsnatcher = pkgs.callPackage ./packages/textsnatcher { };
   tuba = pkgs.callPackage ./packages/tuba { };
 
   wrapGAppsHook4_11 = pkgs.wrapGAppsHook4.override { gtk3 = gtk4_11; };
