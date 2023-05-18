@@ -81,10 +81,7 @@ provider "google" {
 }
 
 resource "google_service_account" "service_account" {
-  lifecycle {
-    prevent_destroy = true
-  }
-  display_name = "Compute Engine default service account"
+  display_name = "Modo Turbo service account"
   project      = var.gcp_project
   account_id   = var.gcp_service_account_id
 }
