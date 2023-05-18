@@ -30,4 +30,5 @@ in
   rtlsdr-airband = pkgs.callPackage ./pkgs/sdr/rtlsdr-airband { };
   tetrapol-kit = pkgs.callPackage ./pkgs/sdr/tetrapol-kit { };
   sdrpp = pkgs.callPackage ./pkgs/sdr/sdrpp { };
+  dsd-fme = pkgs.callPackage ./pkgs/sdr/dsd-fme { };
 }
