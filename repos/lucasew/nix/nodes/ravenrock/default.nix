@@ -37,9 +37,7 @@ in {
       "/etc/machine-id"
     ];
     directories = [
-      {directory = "${toString rootPath}"; user = username; mode = "0755";}
       "/backups"
-      "/srv/php-utils"
     ];
     users.${username}.directories = [
       "WORKSPACE"
