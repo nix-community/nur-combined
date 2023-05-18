@@ -788,6 +788,14 @@
     });
     date = "2023-01-06";
   };
+  smartrent_py = {
+    pname = "smartrent_py";
+    version = "0.4.0";
+    src = fetchurl {
+      url = "https://pypi.io/packages/source/s/smartrent.py/smartrent.py-0.4.0.tar.gz";
+      sha256 = "sha256-02RMZhytJrRYHGv1ugRY2MMHpk10TcoDgvRkEGIuabo=";
+    };
+  };
   stream-echo-nginx-module = {
     pname = "stream-echo-nginx-module";
     version = "b7b76b853131b6fa7579d20c2816b4b6abb16bea";

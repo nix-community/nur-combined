@@ -314,6 +314,11 @@ fetch.github = "xddxdd/route-chain"
 src.git = "https://github.com/intel/sgx-software-enable.git"
 fetch.github = "intel/sgx-software-enable"
 
+[smartrent_py]
+# src.pypi = "smartrent.py"
+src.manual = "0.4.0"
+fetch.pypi = "smartrent.py"
+
 [stream-echo-nginx-module]
 src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
 fetch.github = "openresty/stream-echo-nginx-module"

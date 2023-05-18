@@ -1372,6 +1372,21 @@
         },
         "version": "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d"
     },
+    "smartrent_py": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "smartrent_py",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-02RMZhytJrRYHGv1ugRY2MMHpk10TcoDgvRkEGIuabo=",
+            "type": "url",
+            "url": "https://pypi.io/packages/source/s/smartrent.py/smartrent.py-0.4.0.tar.gz"
+        },
+        "version": "0.4.0"
+    },
     "stream-echo-nginx-module": {
         "cargoLocks": null,
         "date": "2016-12-18",
