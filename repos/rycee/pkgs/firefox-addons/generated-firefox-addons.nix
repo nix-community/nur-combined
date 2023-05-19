@@ -1016,10 +1016,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230517.82328";
+      version = "114.0.20230518.180043";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4112273/francais_language_pack-114.0.20230517.82328.xpi";
-      sha256 = "dc62a5f5e8d2aecbd2d680b0e137cbb798dca2c8fbce2e5cd2fd6389ddce20a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4112978/francais_language_pack-114.0.20230518.180043.xpi";
+      sha256 = "e8a54abb0f022b51aa256af2710870e19b8aa07cf0acdc7e7cdd643581651d6b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1949,10 +1949,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.21";
+      version = "11.4.22";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4090970/noscript-11.4.21.xpi";
-      sha256 = "0fd3b66a2780d03a5b3cd460216105f3df2b27c6d3a552c1769c5de48c9e2338";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4111078/noscript-11.4.22.xpi";
+      sha256 = "46a84c85df4c6be11905388ad2b66aeb5a010ed615484112c8c1710ad13bc36e";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2339,10 +2339,10 @@
       };
     "promnesia" = buildFirefoxXpiAddon {
       pname = "promnesia";
-      version = "1.1.1";
+      version = "1.2.4";
       addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3947740/promnesia-1.1.1.xpi";
-      sha256 = "512d2aa1a5715c0fd0d93456f83e877a749d219a75ff2ad83b385b31560cc94a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4110600/promnesia-1.2.4.xpi";
+      sha256 = "1f35b9e14ac88c250965fd5dbbb03a2a4dce869807484c3be23afc53eb388cee";
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/promnesia";
@@ -3093,10 +3093,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.7.2";
+      version = "9.7.2.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4102212/traduzir_paginas_web-9.7.2.xpi";
-      sha256 = "00e4ea94285f02d82773cf1243fc3d8a55d49993441d4916739e1ae59e203d17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4110232/traduzir_paginas_web-9.7.2.1.xpi";
+      sha256 = "34ad8f0e88908a8e99053f16756802ca6a7e575b76010ed0abf56120d3eecaa9";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
