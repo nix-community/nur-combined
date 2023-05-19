@@ -12,6 +12,7 @@
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
+  hm-modules = import ./hm-modules; # home-manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
   oauth2l = pkgs.callPackage ./pkgs/oauth2l { };
