@@ -1,4 +1,4 @@
 {
   # Add your home-manager modules here
-  btop = ./btop;
+  btop = ./btop.nix;
 }
