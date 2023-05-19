@@ -32,4 +32,5 @@ in
   sdrpp = pkgs.callPackage ./pkgs/sdr/sdrpp { };
   dsd-fme = pkgs.callPackage ./pkgs/sdr/dsd-fme { };
   tetra-kit = pkgs.callPackage ./pkgs/sdr/tetra-kit { };
+  tetra-kit-player = pkgs.callPackage ./pkgs/sdr/tetra-kit-player { };
 }

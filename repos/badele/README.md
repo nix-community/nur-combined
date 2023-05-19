@@ -21,22 +21,27 @@
 
 ## Build & Test
 
+**Update flake**
+```console
+nix flake update --commit-lock-file
+```
+
 **Build**
 ```console
-nix-build --arg pkgs 'import <nixpkgs> {}' -A <attr_name>
+nix-build -A <attr_name>
 ```
 **Developement environment**
 
 ```console
 # Thank to Minijackson from https://matrix.to/#/#fr:nixos.org channel
-nix develop --override-input nixpkgs 'nixpkgs/master' .#<attr_name>
+nix develop .#<attr_name>
 rm -rf ./source ; genericBuild or rm -rf ./source ; phases="unpackPhase" genericBuild 
 # type genericBuild
 ```
 
 **Test**
 ```console
-nix-shell --arg pkgs 'import <nixpkgs> {}' -A <attr_name>
+nix-shell -A <attr_name>
 ```
 
 ## README template
