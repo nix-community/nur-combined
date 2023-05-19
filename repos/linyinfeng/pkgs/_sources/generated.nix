@@ -35,34 +35,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2023.04.16";
+    version = "2023.05.19";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.04.16.gz";
-      sha256 = "sha256-LdoKIKmYS7xKXsMetW7Oa9PnCX1TkWiBynPNYyh60ZU=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.19.gz";
+      sha256 = "sha256-do4g+C/UKMWhhEfLSB+lkEVDim59Y/vNYrgzpxvZyPc=";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2023.04.16";
+    version = "2023.05.19";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.04.16.gz";
-      sha256 = "sha256-YiDSvIcLxYpjC821qoyvn6fFwtITVnUxoAtQpDMMRSA=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.19.gz";
+      sha256 = "sha256-Nr8fxewK572z46widIBtwZOWFLugmp6pojCWROzjV2Q=";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2023.04.16";
+    version = "2023.05.19";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.04.16.gz";
-      sha256 = "sha256-YdD8J+fMXU/tbSCljXta5DuxPpgPVS3yZ+fN+zxSFZU=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.19.gz";
+      sha256 = "sha256-zKZuiqAVm0nKfn/30oorsbqXvOHmezHpvZFIAxdjU2s=";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.04.16";
+    version = "2023.05.19";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz";
-      sha256 = "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.19.gz";
+      sha256 = "sha256-ekCTdX0h5Anyyxb/SkhhEQLqyl5nMb9UKtUUKWZl8AE=";
     };
   };
   commit-notifier = {

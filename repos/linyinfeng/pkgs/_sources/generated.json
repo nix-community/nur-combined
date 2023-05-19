@@ -62,11 +62,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LdoKIKmYS7xKXsMetW7Oa9PnCX1TkWiBynPNYyh60ZU=",
+            "sha256": "sha256-do4g+C/UKMWhhEfLSB+lkEVDim59Y/vNYrgzpxvZyPc=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.04.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.19.gz"
         },
-        "version": "2023.04.16"
+        "version": "2023.05.19"
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
@@ -77,11 +77,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YiDSvIcLxYpjC821qoyvn6fFwtITVnUxoAtQpDMMRSA=",
+            "sha256": "sha256-Nr8fxewK572z46widIBtwZOWFLugmp6pojCWROzjV2Q=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.04.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.19.gz"
         },
-        "version": "2023.04.16"
+        "version": "2023.05.19"
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
@@ -92,11 +92,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YdD8J+fMXU/tbSCljXta5DuxPpgPVS3yZ+fN+zxSFZU=",
+            "sha256": "sha256-zKZuiqAVm0nKfn/30oorsbqXvOHmezHpvZFIAxdjU2s=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.04.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.19.gz"
         },
-        "version": "2023.04.16"
+        "version": "2023.05.19"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -107,11 +107,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8zvNRWmaHvH+fcpjqM8OxuUFLM9tqjIUeZobmUxqg+4=",
+            "sha256": "sha256-ekCTdX0h5Anyyxb/SkhhEQLqyl5nMb9UKtUUKWZl8AE=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.04.16.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.19.gz"
         },
-        "version": "2023.04.16"
+        "version": "2023.05.19"
     },
     "commit-notifier": {
         "cargoLocks": {
