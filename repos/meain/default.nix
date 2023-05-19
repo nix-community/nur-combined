@@ -36,7 +36,6 @@
   gnomeExtensions.steal-my-focus = pkgs.callPackage ./pkgs/steal-my-focus { };
   prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
   gcalendar = pkgs.python39.pkgs.callPackage ./pkgs/gcalendar { };
-  activitywatch-bin = pkgs.python38.pkgs.callPackage ./pkgs/activitywatch-bin { };
   spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
   dbui = pkgs.callPackage ./pkgs/dbui { };
   dotool = pkgs.callPackage ./pkgs/dotool { };
