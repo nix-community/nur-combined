@@ -29,8 +29,8 @@ nix-build --arg pkgs 'import <nixpkgs> {}' -A <attr_name>
 
 ```console
 # Thank to Minijackson from https://matrix.to/#/#fr:nixos.org channel
-nix develop --override-input nixpkgs 'nixpkgs/master' '.#packages.x86_64-linux.sdrpp'
-rm -rf ./source ; genericBuild
+nix develop --override-input nixpkgs 'nixpkgs/master' .#<attr_name>
+rm -rf ./source ; genericBuild or rm -rf ./source ; phases="unpackPhase" genericBuild 
 # type genericBuild
 ```
 
