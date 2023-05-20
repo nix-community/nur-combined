@@ -104,7 +104,7 @@
 
             nvfetcher = ''
               [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="-k $HOME/Secrets/nvfetcher.toml" || KEY_FLAG=""
-              ${pkgs.nvfetcher}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+              nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
               ${readme}
             '';
 
