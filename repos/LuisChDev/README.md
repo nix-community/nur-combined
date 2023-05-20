@@ -30,12 +30,13 @@ in {
 
   services.nordvpn.enable = true;
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    nordvpn = import (builtins.fetchTarball
+  nixpkgs.config.packageOverrides = pkgs: rec {
+    nur = import (builtins.fetchTarball
       "https://github.com/nix-community/NUR/archive/master.tar.gz"
     ) {
       inherit pkgs;
-    }.repos.LuisChDev.nordvpn;
+    };
+    nordvpn = nur.repos.LuisChDev.nordvpn;
   };
 
   networking.firewall = {
@@ -51,3 +52,56 @@ in {
 }
 ```
 
+## Using flakes
+
+### `flake.nix`
+```
+{
+  inputs = {
+    # ...your other inputs
+    nur.url = "github:nix-community/NUR";
+  };
+
+  outputs = { self, nur }: {
+    nixosConfigurations.<yourSystem> = nixpkgs.lib.nixosSystem {
+      # ...the rest of your config
+      modules = let
+        nur-modules = import nur rec {
+          nurpkgs = nixpkgs.legacyPackages.x86_64-linux;
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        };
+      in [
+        # ...the rest of your modules
+        nur.nixosModules.nur
+        nur-modules.repos.LuisChDev.modules.nordvpn
+      ];
+    };
+  };
+}
+```
+
+### `configuration.nix`
+```
+{
+  nixpkgs.config.packageOverrides = pkgs: {
+    nordvpn = config.nur.repos.LuisChDev.nordvpn;
+  };
+
+  services.nordvpn.enable = true;
+
+  users.users.<yourUser>.extraGroups = [
+    # ...the rest of your groups
+    "nordvpn"
+  ];
+}
+```
+
+## Login
+
+Apparently an upstream issue, the browser login does not work directly, but
+there's a workaround.
+
+1. login on the browser
+2. copy the link of the 'Continue' button
+3. in the command line, run the command `nordvpn login --callback "PASTE URL
+   HERE"` (quotes around the URL are required.)
