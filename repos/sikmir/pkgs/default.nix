@@ -340,7 +340,6 @@ lib.makeScope newScope (
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
     glauth = callPackage ./misc/glauth { };
     graphene = callPackage ./misc/graphene { };
-    gsl-lite = callPackage ./misc/gsl-lite { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     huami-token = callPackage ./misc/huami-token { };
     ish = callPackage ./misc/ish { };
