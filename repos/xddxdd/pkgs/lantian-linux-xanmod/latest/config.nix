@@ -40,6 +40,9 @@ with lib.kernel; {
   # Intel SGX
   X86_SGX = yes;
 
+  # IPv6 6RD
+  IPV6_SIT_6RD = yes;
+
   # Ksmbd
   CIFS_SMB_DIRECT = yes;
   CIFS_SWN_UPCALL = yes;

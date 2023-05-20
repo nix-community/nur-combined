@@ -38,6 +38,9 @@ with lib.kernel; {
   DRM_I915_PXP = yes;
   PMIC_OPREGION = yes;
 
+  # IPv6 6RD
+  IPV6_SIT_6RD = yes;
+
   # Ksmbd
   CIFS_SMB_DIRECT = yes;
   CIFS_SWN_UPCALL = yes;
