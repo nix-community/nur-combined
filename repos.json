@@ -93,6 +93,9 @@
         "bb010g": {
             "url": "https://github.com/bb010g/nur-packages"
         },
+        "bd-g": {
+            "url": "https://github.com/bd-g/nur-packages"
+        },
         "beam": {
             "url": "https://github.com/jechol/nix-beam"
         },
