@@ -1,0 +1,13 @@
+diff --git a/core/xmake.sh b/core/xmake.sh
+index 2ae2e68..d1872bb 100755
+--- a/core/xmake.sh
++++ b/core/xmake.sh
+@@ -204,7 +204,7 @@ option_find_tbox() {
+ }
+ 
+ # add projects
+-if ! has_config "external"; then
++if false; then
+     if is_config "runtime" "luajit"; then
+         includes "src/luajit"
+     else
