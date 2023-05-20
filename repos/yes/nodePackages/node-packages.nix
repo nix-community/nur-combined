@@ -157,13 +157,13 @@ let
         sha512 = "YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==";
       };
     };
-    "@types/node-20.1.4" = {
+    "@types/node-20.2.1" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.1.4";
+      version = "20.2.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.1.4.tgz";
-        sha512 = "At4pvmIOki8yuwLtd7BNHl3CiWNbtclUbNtScGx4OHfBd4/oWoJC8KRCIxXwkdndzhxOsPXihrsOoydxBjlE9Q==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.2.1.tgz";
+        sha512 = "DqJociPbZP1lbZ5SQPk4oag6W7AyaGMO6gSfRwq3PWl4PXTwJpRQJhDq4W0kzrg3w6tJ1SwlvGZ5uKFHY13LIg==";
       };
     };
     "@types/qs-6.9.7" = {
@@ -1372,13 +1372,13 @@ let
         sha512 = "BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==";
       };
     };
-    "is-core-module-2.12.0" = {
+    "is-core-module-2.12.1" = {
       name = "is-core-module";
       packageName = "is-core-module";
-      version = "2.12.0";
+      version = "2.12.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.12.0.tgz";
-        sha512 = "RECHCBCd/viahWmwj6enj19sKbHfJrddi/6cBDsNTKbNq0f7VeaUkBo60BqzvPqo/W54ChS62Z5qyun7cfOMqQ==";
+        url = "https://registry.npmjs.org/is-core-module/-/is-core-module-2.12.1.tgz";
+        sha512 = "Q4ZuBAe2FUsKtyQJoQHlvP8OvBERxO3jEmy1I7hcRXcJBGGHFh/aJBswbXuS9sgrDH2QUO8ilkwNPHvHMd8clg==";
       };
     };
     "is-extglob-2.1.1" = {
@@ -2101,13 +2101,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-3.21.7" = {
+    "rollup-3.22.0" = {
       name = "rollup";
       packageName = "rollup";
-      version = "3.21.7";
+      version = "3.22.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-3.21.7.tgz";
-        sha512 = "KXPaEuR8FfUoK2uHwNjxTmJ18ApyvD6zJpYv9FOJSqLStmt6xOY84l1IjK2dSolQmoXknrhEFRaPRgOPdqCT5w==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-3.22.0.tgz";
+        sha512 = "imsigcWor5Y/dC0rz2q0bBt9PabcL3TORry2hAa6O6BuMvY71bqHyfReAz5qyAqiQATD1m70qdntqBfBQjVWpQ==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -2236,13 +2236,13 @@ let
         sha512 = "cSFtAPtRhljv69IK0hTVZQ+OfE9nePi/rtJmw5UjHeVyVroEqJXP1sFztKUy1qU+xvz3u/sfYJLa947b7nAN2Q==";
       };
     };
-    "smob-0.0.6" = {
+    "smob-1.1.0" = {
       name = "smob";
       packageName = "smob";
-      version = "0.0.6";
+      version = "1.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/smob/-/smob-0.0.6.tgz";
-        sha512 = "V21+XeNni+tTyiST1MHsa84AQhT1aFZipzPpOFAVB8DkHzwJyjjAmt9bgwnuZiZWnIbMo2duE29wybxv/7HWUw==";
+        url = "https://registry.npmjs.org/smob/-/smob-1.1.0.tgz";
+        sha512 = "Rtrm1A5e/Yq53vgWinNSVkQ14UaGNdYzF5xaVqKXG4YBjTxkMdsx3bzpO8pD4hwf4O6JOi5/sAyFta0pLmKZOw==";
       };
     };
     "source-map-0.5.7" = {
@@ -2398,13 +2398,13 @@ let
         sha512 = "YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==";
       };
     };
-    "terser-5.17.3" = {
+    "terser-5.17.4" = {
       name = "terser";
       packageName = "terser";
-      version = "5.17.3";
+      version = "5.17.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.17.3.tgz";
-        sha512 = "AudpAZKmZHkG9jueayypz4duuCFJMMNGRMwaPvQKWfxKedh8Z2x3OCoDqIIi1xx5+iwx1u6Au8XQcc9Lke65Yg==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.17.4.tgz";
+        sha512 = "jcEKZw6UPrgugz/0Tuk/PVyLAPfMBJf5clnGueo45wTweoV8yh7Q7PEkhkJ5uuUbC7zAxEcG3tqNr1bstkQ8nw==";
       };
     };
     "through-2.3.8" = {
@@ -2864,7 +2864,7 @@ in
       sources."inline-source-map-0.6.2"
       sources."insert-module-globals-7.2.1"
       sources."is-buffer-1.1.6"
-      sources."is-core-module-2.12.0"
+      sources."is-core-module-2.12.1"
       sources."is-extglob-2.1.1"
       sources."is-fullwidth-code-point-3.0.0"
       sources."is-glob-4.0.3"
@@ -3089,7 +3089,7 @@ in
       sources."@types/express-serve-static-core-4.17.35"
       sources."@types/http-proxy-1.17.11"
       sources."@types/mime-1.3.2"
-      sources."@types/node-20.1.4"
+      sources."@types/node-20.2.1"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
       sources."@types/send-0.17.1"
@@ -3137,12 +3137,12 @@ in
       sources."function-bind-1.1.1"
       sources."has-1.0.3"
       sources."is-builtin-module-3.2.1"
-      sources."is-core-module-2.12.0"
+      sources."is-core-module-2.12.1"
       sources."is-module-1.0.0"
       sources."path-parse-1.0.7"
       sources."picomatch-2.3.1"
       sources."resolve-1.22.3"
-      sources."rollup-3.21.7"
+      sources."rollup-3.22.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
     ];
     buildInputs = globalBuildInputs;
@@ -3181,7 +3181,7 @@ in
       sources."minimatch-5.1.6"
       sources."once-1.4.0"
       sources."picomatch-2.3.1"
-      sources."rollup-3.21.7"
+      sources."rollup-3.22.0"
       sources."wrappy-1.0.2"
     ];
     buildInputs = globalBuildInputs;
@@ -3208,7 +3208,7 @@ in
       sources."estree-walker-2.0.2"
       sources."fsevents-2.3.2"
       sources."picomatch-2.3.1"
-      sources."rollup-3.21.7"
+      sources."rollup-3.22.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {
@@ -3223,10 +3223,10 @@ in
   "@rollup/plugin-terser" = nodeEnv.buildNodePackage {
     name = "_at_rollup_slash_plugin-terser";
     packageName = "@rollup/plugin-terser";
-    version = "0.4.1";
+    version = "0.4.3";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@rollup/plugin-terser/-/plugin-terser-0.4.1.tgz";
-      sha512 = "aKS32sw5a7hy+fEXVy+5T95aDIwjpGHCTv833HXVtyKMDoVS7pBr5K3L9hEQoNqbJFjfANPrNpIXlTQ7is00eA==";
+      url = "https://registry.npmjs.org/@rollup/plugin-terser/-/plugin-terser-0.4.3.tgz";
+      sha512 = "EF0oejTMtkyhrkwCdg0HJ0IpkcaVg1MMSf2olHb2Jp+1mnLM04OhjpJWGma4HobiDTF0WCyViWuvadyE9ch2XA==";
     };
     dependencies = [
       sources."@jridgewell/gen-mapping-0.3.3"
@@ -3244,13 +3244,13 @@ in
       sources."commander-2.20.3"
       sources."fsevents-2.3.2"
       sources."randombytes-2.1.0"
-      sources."rollup-3.21.7"
+      sources."rollup-3.22.0"
       sources."safe-buffer-5.2.1"
       sources."serialize-javascript-6.0.1"
-      sources."smob-0.0.6"
+      sources."smob-1.1.0"
       sources."source-map-0.6.1"
       sources."source-map-support-0.5.21"
-      sources."terser-5.17.3"
+      sources."terser-5.17.4"
     ];
     buildInputs = globalBuildInputs;
     meta = {

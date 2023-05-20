@@ -20,7 +20,5 @@ in
     inherit pkgs;
   });
 
-  snapgene-viewer = callPackage ./snapgene-viewer { };
-
   xonsh-direnv = callPackage ./xonsh-direnv { };
 }
