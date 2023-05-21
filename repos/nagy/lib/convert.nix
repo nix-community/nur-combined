@@ -3,7 +3,7 @@
 with lib;
 let
   inherit (pkgs) jq biber;
-  emacs = (pkgs.emacs-nox.pkgs.withPackages (epkgs: with epkgs; [ org-ref ]));
+  emacs = pkgs.emacs-nox.pkgs.withPackages (epkgs: [ epkgs.org-ref ]);
 
   conversions = {
     directory.evaldir = { src, ... }: {
@@ -45,7 +45,7 @@ let
         inherit src;
       });
       meta.email = passthru.ejson.email;
-      meta.author = builtins.head passthru.ejson.author;
+      meta.author = lib.head passthru.ejson.author;
       __cmd = ''
         ORGCMD=latex;
         if [[ "$src" == *presentation.org ]] ; then
