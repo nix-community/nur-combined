@@ -124,6 +124,10 @@ fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
 fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
 
+[hoyo-glyphs-star-rail-neue]
+src.manual = "1.000"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/star-rail-$ver/StarRailNeue-$ver-otf.zip"
+
 [kata-containers]
 src.github = "kata-containers/kata-containers"
 fetch.github = "kata-containers/kata-containers"

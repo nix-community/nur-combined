@@ -1814,5 +1814,109 @@
             "url": "https://github.com/ibmruntimes/semeru18-binaries/releases/download/jdk-18.0.1%2B10_openj9-0.32.0/ibm-semeru-open-jre_aarch64_linux_18.0.1_10_openj9-0.32.0.tar.gz",
             "sha256": "637d1399d3e5da6dcbdaaf4ab0610b1320bdeb390e8bc7dd6a1f84d50161e8c8"
         }
+    },
+    "jdk-bin-19": {
+        "x86_64": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_x64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "5fd94c57afe0d4e778bfc284f3f7830c34de59bed4faba12d4bb46a77d0b516e"
+        },
+        "s390x": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_s390x_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "86c896a8513b9c1004536c3ca802f61d788a0da33d11c133ed35d3e41ad65e48"
+        },
+        "ppc64le": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_ppc64le_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "646d8483c53f56799347adf5ab7e1e1bbfa74724da9b5e1b400c7a285486b3f9"
+        },
+        "aarch64": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_aarch64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "c20cd3c641eebc3e534fa4ce05b211fc8bcd011eb392ceda40d3fadd35f5f8d0"
+        }
+    },
+    "jre-bin-19": {
+        "x86_64": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_x64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "3d9ddce72a8ee0bc6e230531157b2e556a1c01204b04ab78f1cbc050aa4e3f6a"
+        },
+        "s390x": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_s390x_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "df3a62c829ba6206a2eac142998c65b895383c9e2caae8905ee9135c8b1c1c37"
+        },
+        "ppc64le": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_ppc64le_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "d9cf2c3cfda38861b9e6fa13a41809dd4812d8e3891d547844e2bc302ed7428a"
+        },
+        "aarch64": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_aarch64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "0e64e9b569336650ae09c4bba3ddab4dc5db898ef73440e1742b375f0f4be7c0"
+        }
+    },
+    "jdk-bin-19_0_2_0": {
+        "x86_64": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_x64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "5fd94c57afe0d4e778bfc284f3f7830c34de59bed4faba12d4bb46a77d0b516e"
+        },
+        "s390x": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_s390x_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "86c896a8513b9c1004536c3ca802f61d788a0da33d11c133ed35d3e41ad65e48"
+        },
+        "ppc64le": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_ppc64le_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "646d8483c53f56799347adf5ab7e1e1bbfa74724da9b5e1b400c7a285486b3f9"
+        },
+        "aarch64": {
+            "version": "19.0.2.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jdk_aarch64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "c20cd3c641eebc3e534fa4ce05b211fc8bcd011eb392ceda40d3fadd35f5f8d0"
+        }
+    },
+    "jre-bin-19_0_2_0": {
+        "x86_64": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_x64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "3d9ddce72a8ee0bc6e230531157b2e556a1c01204b04ab78f1cbc050aa4e3f6a"
+        },
+        "s390x": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_s390x_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "df3a62c829ba6206a2eac142998c65b895383c9e2caae8905ee9135c8b1c1c37"
+        },
+        "ppc64le": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_ppc64le_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "d9cf2c3cfda38861b9e6fa13a41809dd4812d8e3891d547844e2bc302ed7428a"
+        },
+        "aarch64": {
+            "version": "19.0.2.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru19-binaries/releases/download/jdk-19.0.2%2B7_openj9-0.37.0/ibm-semeru-open-jre_aarch64_linux_19.0.2_7_openj9-0.37.0.tar.gz",
+            "sha256": "0e64e9b569336650ae09c4bba3ddab4dc5db898ef73440e1742b375f0f4be7c0"
+        }
     }
 }
