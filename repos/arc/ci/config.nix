@@ -33,7 +33,12 @@ in {
     nixpkgs = {
       version = mkDefault "unstable";
       nixPathImport = skipModules == false;
-      args.config.checkMetaRecursively = true;
+      args.config = {
+        checkMetaRecursively = true;
+        permittedInsecurePackages = [
+          "ruby-2.7.8" # notmuch/notmuch-vim
+        ];
+      };
     };
     home-manager = mkDefault "master";
   };
