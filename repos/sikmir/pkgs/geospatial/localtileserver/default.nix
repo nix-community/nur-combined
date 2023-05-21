@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub, large-image-source-gdal, server-thread, scooby }:
+{ lib, python3Packages, fetchFromGitHub, large-image-source-gdal, server-thread }:
 
 python3Packages.buildPythonApplication rec {
   pname = "localtileserver";

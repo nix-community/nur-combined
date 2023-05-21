@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub, scooby }:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonPackage rec {
   pname = "server-thread";

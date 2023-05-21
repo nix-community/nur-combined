@@ -230,7 +230,6 @@ lib.makeScope newScope (
     rio-stac = callPackage ./geospatial/rio-stac { };
     rio-tiler = callPackage ./geospatial/rio-tiler { };
     sasplanet-bin = callPackage ./geospatial/sasplanet/bin.nix { };
-    scooby = callPackage ./geospatial/scooby { };
     server-thread = callPackage ./geospatial/server-thread { };
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
