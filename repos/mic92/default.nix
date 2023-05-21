@@ -35,10 +35,6 @@ rec {
 
   mastodon-hnbot = pkgs.python39Packages.callPackage ./pkgs/mastodon-hnbot {};
 
-  nixpkgs-review-unstable = pkgs.callPackage ./pkgs/nixpkgs-review { };
-  # compatibility
-  nix-review-unstable = nixpkgs-review-unstable;
-
   inherit (pkgs.callPackages ./pkgs/nix-build-uncached { }) nix-build-uncached;
 
   pandoc-bin = pkgs.callPackage ./pkgs/pandoc { };
