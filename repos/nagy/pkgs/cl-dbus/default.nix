@@ -1,6 +1,6 @@
-{ pkgs, fetchFromGitHub, ... }:
+{ lispPackages_new, fetchFromGitHub, ... }:
 
-pkgs.lispPackages.dbus.overrideAttrs (old: {
+lispPackages_new.sbclPackages.dbus.overrideLispAttrs (_old: {
   src = fetchFromGitHub {
     owner = "nagy";
     repo = "dbus";
