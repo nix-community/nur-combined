@@ -1,0 +1,13 @@
+{ config, pkgs ? import <nixpkgs> { }, ... }:
+
+let cfg = config.module.utilities.compression;
+in
+{
+  options.module.utilities.compression = {
+    enable = mkEnableOption "Archiving & compression tools";
+  };
+
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [ atool libarchive p7zip unrar unzip zip ];
+  };
+}
