@@ -47,8 +47,8 @@ lib.makeScope newScope (
     huzheng = callPackage ./data/dicts/huzheng { };
     it-sanasto = callPackage ./data/dicts/it-sanasto { };
     komputeko = callPackage ./data/dicts/komputeko { };
+    libredict = callPackage ./data/dicts/libredict { };
     tatoeba = callPackage ./data/dicts/tatoeba { };
-    wiktionary = callPackage ./data/dicts/wiktionary { };
 
     gpsmap64 = callPackage ./data/firmwares/gpsmap64 { };
 
