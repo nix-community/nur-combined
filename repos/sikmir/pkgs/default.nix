@@ -104,7 +104,6 @@ lib.makeScope newScope (
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     large-image = callPackage ./development/python-modules/large-image { };
     large-image-source-gdal = (callPackage ./development/python-modules/large-image/sources.nix { }).source-gdal;
-    lru-dict = callPackage ./development/python-modules/lru-dict { };
     modbus_tk = callPackage ./development/python-modules/modbus_tk { };
     portolan = callPackage ./development/python-modules/portolan { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
@@ -154,7 +153,6 @@ lib.makeScope newScope (
     comitium = callPackage ./gemini/comitium { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
-    gemget = callPackage ./gemini/gemget { };
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
@@ -177,9 +175,6 @@ lib.makeScope newScope (
     shavit = callPackage ./gemini/shavit { };
     stagit-gemini-milotier = callPackage ./gemini/stagit-gemini/milotier.nix { };
     stagit-gemini-sloum = callPackage ./gemini/stagit-gemini/sloum.nix { };
-    stargazer = callPackage ./gemini/stargazer {
-      inherit (darwin.apple_sdk.frameworks) Security;
-    };
     tom = callPackage ./gemini/tom { };
 
     ### GEOSPATIAL
