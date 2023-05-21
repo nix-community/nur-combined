@@ -5,7 +5,7 @@
 
 let
   version = "1.6.1";
-  revision = "6200"; # check on http://mighty-hoernsche.de/
+  revision = "6239"; # check on http://mighty-hoernsche.de/
   branch = "release-${lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version)}";
   optFI2 = fi2key != null && fi2iv != null;
   batchBuild = platform == null || platformsub == null;
@@ -18,17 +18,17 @@ stdenv.mkDerivation {
     url = "https://app.assembla.com/spaces/chdk/subversion/source/${revision}/branches/${branch}?_format=zip";
     extension = "zip";
     stripRoot = false;
-    hash = "sha256-m/sERI0Qrcwbv4VWUfLAVttD2KWpYtNpj6r6tXKs9PE=";
+    hash = "sha256-gqb9JvPyzW77wlpZJqg3IYaGafQIzFopzGy9MZbr8Zs=";
   };
 
   nativeBuildInputs = [ gcc-arm-embedded zip ];
 
-  buildFlags = [ "DEF_SVN_REF=${revision}" ]
+  buildFlags = [ "DEF_SVN_REF=${revision}" "HOSTCC=${stdenv.cc.targetPrefix}cc" ]
     ++ lib.optionals (optFI2 && !batchBuild) [ "OPT_FI2=1" "FI2KEY=${fi2key}" "FI2IV=${fi2iv}" ]
     ++ lib.optionals (!batchBuild) [ "PLATFORM=${platform}" "PLATFORMSUB=${platformsub}" "firzipsubcomplete" ]
     ++ lib.optional batchBuild "batch-zip-complete";
 
-  NIX_CFLAGS_COMPILE = "-Wno-format-security";
+  env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 
   installPhase = ''
     runHook preInstall
