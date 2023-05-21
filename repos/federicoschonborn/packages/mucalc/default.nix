@@ -3,6 +3,7 @@
 , fetchzip
 , cmake
 , muparser
+, ninja
 , readline
 }:
 
@@ -17,6 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    ninja
   ];
 
   buildInputs = [

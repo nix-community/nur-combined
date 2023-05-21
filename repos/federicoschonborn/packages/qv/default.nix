@@ -3,6 +3,7 @@
 , fetchzip
 , cmake
 , libtgd
+, ninja
 , qtbase
 , qtwayland
 , wrapQtAppsHook
@@ -19,6 +20,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    ninja
     wrapQtAppsHook
   ];
 

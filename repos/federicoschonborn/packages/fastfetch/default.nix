@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+, ninja
 , pkg-config
 
 , enableChafa ? false
@@ -70,6 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cmake
+    ninja
     pkg-config
   ];
 

@@ -13,6 +13,7 @@
 , ktexteditor
 , ktextwidgets
 , kxmlgui
+, ninja
 , syntax-highlighting
 , wrapQtAppsHook
 }:
@@ -32,6 +33,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     extra-cmake-modules
+    ninja
     wrapQtAppsHook
   ];
 

@@ -20,6 +20,7 @@
 , kwidgetsaddons
 , kwindowsystem
 , networkmanager-qt
+, ninja
 , qtx11extras
 , solid
 , wrapQtAppsHook
@@ -40,6 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     extra-cmake-modules
+    ninja
     wrapQtAppsHook
   ];
 

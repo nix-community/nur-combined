@@ -3,6 +3,7 @@
 , fetchzip
 , cmake
 , doxygen
+, ninja
 }:
 
 stdenv.mkDerivation rec {
@@ -17,6 +18,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     doxygen
+    ninja
   ];
 
   meta = with lib; {

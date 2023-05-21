@@ -1,8 +1,9 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, cmake
 , allegro5
+, cmake
+, ninja
 , surgescript
 }:
 
@@ -19,6 +20,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    ninja
   ];
 
   buildInputs = [
