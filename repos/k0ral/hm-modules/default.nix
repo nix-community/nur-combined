@@ -3,4 +3,5 @@
   btop = ./btop.nix;
   git = ./git.nix;
   mpv = ./mpv.nix;
+  python = ./python.nix;
 }
