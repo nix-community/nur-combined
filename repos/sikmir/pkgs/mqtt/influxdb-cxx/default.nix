@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cpr, boost, catch2, trompeloeil }:
+{ lib, stdenv, fetchFromGitHub, cmake, libcpr, boost, catch2, trompeloeil }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "influxdb-cxx";
@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ cpr boost ]
+  buildInputs = [ libcpr boost ]
     ++ lib.optionals finalAttrs.doCheck [ catch2 trompeloeil ];
 
   cmakeFlags = [

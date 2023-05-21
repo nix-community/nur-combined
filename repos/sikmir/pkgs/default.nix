@@ -325,7 +325,6 @@ lib.makeScope newScope (
     };
     capture2text = libsForQt5.callPackage ./misc/capture2text { };
     cfiles = callPackage ./misc/cfiles { };
-    cpr = callPackage ./misc/cpr { };
     csvquote = callPackage ./misc/csvquote { };
     csvtools = callPackage ./misc/csvtools { };
     didder = callPackage ./misc/didder { };
