@@ -98,6 +98,7 @@
     libadwaita = libadwaita_1_4;
     wrapGAppsHook4 = wrapGAppsHook4_11;
   };
+  srb2p = pkgs.callPackage ./packages/srb2p { };
   surgescript = pkgs.callPackage ./packages/surgescript { };
   telegraph = pkgs.callPackage ./packages/telegraph { };
   textsnatcher = pkgs.callPackage ./packages/textsnatcher { };
