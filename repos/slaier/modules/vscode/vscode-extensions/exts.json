@@ -4,5 +4,11 @@
     "name": "remote-containers",
     "version": "0.269.0",
     "sha256": "sha256-8HY46AKbAU5W01BN4iwCUSFqTXfRbC937Gy0kvPTmn4="
+  },
+  {
+    "publisher": "eamodio",
+    "name": "gitlens",
+    "version": "13.4.0",
+    "sha256": "sha256-CYI62sWPlJNRP2KIkg4vQutIMC6gaCxtTVoOWZIS8Lw="
   }
 ]

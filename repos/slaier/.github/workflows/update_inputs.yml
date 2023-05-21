@@ -26,8 +26,9 @@ jobs:
         run: |
           git config user.name "dependabot[bot]"
           git config user.email "<49699333+dependabot[bot]@users.noreply.github.com>"
-          nix flake update --commit-lock-file --commit-lockfile-summary "nix(deps): update inputs"
-          nix develop --command just update
+          nix develop .#update --command just update &
+          nix flake update --commit-lock-file --commit-lockfile-summary "nix(deps): update inputs" &
+          wait
           git add .
           git commit --amend --no-edit
           git push origin HEAD:wip-update-inputs --force-with-lease

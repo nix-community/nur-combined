@@ -98,7 +98,7 @@ You can have a look at the available flake outputs before getting started.
 
 ```console
 $ nix flake show github:slaier/nixos-config
-github:slaier/nixos-config/c3277d2d83b43e10711e1b3500da1884f4e680b7
+github:slaier/nixos-config/e2b0f58d7a9bdbe737d5503071e01065b1ef5c58
 ├───colmena: unknown
 ├───devShells
 │   ├───aarch64-linux
@@ -112,7 +112,6 @@ github:slaier/nixos-config/c3277d2d83b43e10711e1b3500da1884f4e680b7
 ├───overlay: Nixpkgs overlay
 ├───overlays
 │   ├───arkenfox-userjs: Nixpkgs overlay
-│   ├───material-fox: Nixpkgs overlay
 │   ├───nix-nss-mdns: Nixpkgs overlay
 │   ├───podman: Nixpkgs overlay
 │   ├───safeeyes: Nixpkgs overlay
@@ -121,20 +120,21 @@ github:slaier/nixos-config/c3277d2d83b43e10711e1b3500da1884f4e680b7
 │   ├───sway: Nixpkgs overlay
 │   ├───uboot-phicomm-n1: Nixpkgs overlay
 │   ├───vscode-extensions: Nixpkgs overlay
+│   ├───wavefox: Nixpkgs overlay
 │   └───wrapper: Nixpkgs overlay
 └───packages
     ├───aarch64-linux
     │   ├───arkenfox-userjs: package 'arkenfox-userjs-112.0'
-    │   ├───material-fox: package 'material-fox-93.1'
     │   ├───nix-nss-mdns: package 'nix-2.11.1'
     │   ├───uboot-phicomm-n1: package 'uboot-phicomm-n1-unstable-2023-04-29'
-    │   └───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.269.0'
+    │   ├───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.269.0'
+    │   └───wavefox: package 'wavefox-1.6.113'
     └───x86_64-linux
         ├───arkenfox-userjs: package 'arkenfox-userjs-112.0'
-        ├───material-fox: package 'material-fox-93.1'
         ├───nix-nss-mdns: package 'nix-2.11.1'
         ├───uboot-phicomm-n1: package 'uboot-phicomm-n1-unstable-2023-04-29'
-        └───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.269.0'
+        ├───vscode-extensions-ms-vscode-remote-remote-containers: package 'vscode-extension-ms-vscode-remote-remote-containers-0.269.0'
+        └───wavefox: package 'wavefox-1.6.113'
 ```
 
 As well as all the declared flake inputs.
@@ -194,5 +194,5 @@ In your `flake.nix` add slaier.overlay to your overlay list:
 }
 ```
 
-I am not sure the outputs of flake can work fine in your configutations. If you
+I am not sure the outputs of flake can work fine in your configurations. If you
 have problems when using them, please create a issue and then I will fix it.

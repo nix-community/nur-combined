@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p jq docker nix-prefetch-docker
+#!/usr/bin/env bash
 
 set -euo pipefail
 

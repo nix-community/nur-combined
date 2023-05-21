@@ -4,7 +4,13 @@ super.lib.eachDefaultSystems (pkgs: {
     packages = [
       colmena
       just
-      parallel
+    ];
+  };
+
+  update = with pkgs; mkShell {
+    packages = [
+      just
+      nix-prefetch-docker
     ];
   };
 })

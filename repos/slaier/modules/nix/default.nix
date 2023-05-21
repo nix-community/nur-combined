@@ -17,8 +17,7 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
     min-free = ${toString (100 * 1024 * 1024)}
-    max-free = ${toString (1024 * 1024 * 1024)}
-    gc-reserved-space = ${toString (64 * 1024 * 1024)}
+    max-free = ${toString (15 * 1024 * 1024 * 1024)}
   '';
 
   nix.nixPath = [

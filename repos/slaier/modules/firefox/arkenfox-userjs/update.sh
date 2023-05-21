@@ -1,5 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl jq
+#!/usr/bin/env bash
 
 set -euo pipefail
 
