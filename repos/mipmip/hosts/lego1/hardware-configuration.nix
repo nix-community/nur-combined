@@ -11,8 +11,8 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
   boot.kernelParams = [ "i915.force_probe=4626" "i915.enable_psr=1"];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/67f2b2e1-0854-4e1f-b2da-698222a22d0c";

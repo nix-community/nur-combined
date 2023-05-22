@@ -6,6 +6,7 @@
     x264
     ffmpeg
     vlc
+    obs-studio
   ];
 }
 
