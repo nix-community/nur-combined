@@ -25,7 +25,7 @@
           import nixpkgs {
             inherit system;
             config = {
-              contentAddressedByDefault = true;
+              # contentAddressedByDefault = true;
             };
             overlays = [ fenix.overlays.default ];
           }
