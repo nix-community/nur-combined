@@ -1016,10 +1016,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230518.180043";
+      version = "114.0.20230521.180321";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4112978/francais_language_pack-114.0.20230518.180043.xpi";
-      sha256 = "e8a54abb0f022b51aa256af2710870e19b8aa07cf0acdc7e7cdd643581651d6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4114116/francais_language_pack-114.0.20230521.180321.xpi";
+      sha256 = "b8616ba3d7c7d027a690fb7794afef0b3c3a0092f11768a2e19bcf84845950dc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1544,10 +1544,10 @@
       };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.5.4";
+      version = "2.6.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4079849/libredirect-2.5.4.xpi";
-      sha256 = "57d6adbaabf74f386be88d63906992be46cf77c485c1c00afa27161ef3bbb8d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4113988/libredirect-2.6.0.xpi";
+      sha256 = "d82389cbd48df64e78256fcbd4cb8a828f5b04cbd68338a81b14d143c70c512f";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
