@@ -9,31 +9,31 @@
   globalBuildInputs ? [],
 }: let
   sources = {
-    "@emmetio/abbreviation-2.3.2" = {
+    "@emmetio/abbreviation-2.3.3" = {
       name = "_at_emmetio_slash_abbreviation";
       packageName = "@emmetio/abbreviation";
-      version = "2.3.2";
+      version = "2.3.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@emmetio/abbreviation/-/abbreviation-2.3.2.tgz";
-        sha512 = "8vqkn4rtjm5Zv34RPgsq3/ij88ri+IcfC2MxPELytrQvfpaLyppscE0YSwDVuIUR6KL5GCBUfr5Mo7SHSbswpA==";
+        url = "https://registry.npmjs.org/@emmetio/abbreviation/-/abbreviation-2.3.3.tgz";
+        sha512 = "mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==";
       };
     };
-    "@emmetio/css-abbreviation-2.1.7" = {
+    "@emmetio/css-abbreviation-2.1.8" = {
       name = "_at_emmetio_slash_css-abbreviation";
       packageName = "@emmetio/css-abbreviation";
-      version = "2.1.7";
+      version = "2.1.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@emmetio/css-abbreviation/-/css-abbreviation-2.1.7.tgz";
-        sha512 = "nrOt3/QROjYYK1cMjoO5fCfHIf0hFpcZeQQt7Ew6ixZ0ElEEs77ijnY57HC6ti91W/mn+c1T7ET8sClBMRHHBg==";
+        url = "https://registry.npmjs.org/@emmetio/css-abbreviation/-/css-abbreviation-2.1.8.tgz";
+        sha512 = "s9yjhJ6saOO/uk1V74eifykk2CBYi01STTK3WlXWGOepyKa23ymJ053+DNQjpFcy1ingpaO7AxCcwLvHFY9tuw==";
       };
     };
-    "@emmetio/scanner-1.0.3" = {
+    "@emmetio/scanner-1.0.4" = {
       name = "_at_emmetio_slash_scanner";
       packageName = "@emmetio/scanner";
-      version = "1.0.3";
+      version = "1.0.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@emmetio/scanner/-/scanner-1.0.3.tgz";
-        sha512 = "/EFyTijquAwKMGSBd50RnjxsfDXmZAFp71PGu7sM6LEnEJXMV+FKL7Rvr6YLu4czQmPVRsfyhcbQz+WZnM4AZw==";
+        url = "https://registry.npmjs.org/@emmetio/scanner/-/scanner-1.0.4.tgz";
+        sha512 = "IqRuJtQff7YHHBk4G8YZ45uB9BaAGcwQeVzgj/zj8/UdOhtQpEIupUhSk8dys6spFIWVZVeK20CzGEnqR5SbqA==";
       };
     };
     "@types/node-17.0.45" = {
@@ -45,13 +45,13 @@
         sha512 = "w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==";
       };
     };
-    "emmet-2.4.3" = {
+    "emmet-2.4.4" = {
       name = "emmet";
       packageName = "emmet";
-      version = "2.4.3";
+      version = "2.4.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.3.tgz";
-        sha512 = "Bq6zozVDVrLbBmKdosI9Q2DvrFh/ehwnNjgDRsvGVjPOEAhMKie9HwQnPuUi3NOZ2itVGyRwsLAdufnG9DVFwg==";
+        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.4.tgz";
+        sha512 = "v8Mwpjym55CS3EjJgiCLWUB3J2HSR93jhzXW325720u8KvYxdI2voYLstW3pHBxFz54H6jFjayR9G4LfTG0q+g==";
       };
     };
     "typescript-4.9.5" = {
@@ -137,11 +137,11 @@ in {
       sha512 = "nwiUsbph9c4TkZjrKb7OqrUG6XQ3AxmmVn3IDR6FTx/xLLAegpmSxfOrvvPADbz9vOkSP6jjShpux1tNrqqIkQ==";
     };
     dependencies = [
-      sources."@emmetio/abbreviation-2.3.2"
-      sources."@emmetio/css-abbreviation-2.1.7"
-      sources."@emmetio/scanner-1.0.3"
+      sources."@emmetio/abbreviation-2.3.3"
+      sources."@emmetio/css-abbreviation-2.1.8"
+      sources."@emmetio/scanner-1.0.4"
       sources."@types/node-17.0.45"
-      sources."emmet-2.4.3"
+      sources."emmet-2.4.4"
       sources."typescript-4.9.5"
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"

@@ -147,10 +147,10 @@
   };
   "gitako" = buildFirefoxXpiAddon {
     pname = "gitako";
-    version = "3.11.2";
+    version = "3.11.4";
     addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4104896/gitako_github_file_tree-3.11.2.xpi";
-    sha256 = "c3b834b305c8cde51211e53bbe0401e9390aaada111936b83951c903c507bdce";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4112863/gitako_github_file_tree-3.11.4.xpi";
+    sha256 = "5c094a8b916d50128bd33a9fd300eb1c27e80831d877a34a9133b6c89c14c017";
     meta = with lib; {
       homepage = "https://github.com/EnixCoda/Gitako";
       description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
@@ -262,10 +262,10 @@
   };
   "privacy-badger" = buildFirefoxXpiAddon {
     pname = "privacy-badger";
-    version = "2023.1.31";
+    version = "2023.5.10";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4064595/privacy_badger17-2023.1.31.xpi";
-    sha256 = "0082d8ffe7b25f370a313d9b899b0c1ba1669b21b3a11791fe5ecf031aeb6a6c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4109050/privacy_badger17-2023.5.10.xpi";
+    sha256 = "8ff7650d1ce133894293d1a3e268bb24d300e77a1c25488ed17846e71d8b33e8";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
       description = "Automatically learns to block invisible trackers.";
@@ -288,10 +288,10 @@
   };
   "pronoundb" = buildFirefoxXpiAddon {
     pname = "pronoundb";
-    version = "0.12.2";
+    version = "0.12.3";
     addonId = "firefox-addon@pronoundb.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4101019/pronoundb-0.12.2.xpi";
-    sha256 = "1f679eeed98def94c1b29ace7ce8004810a21295e45600106a04cb0c89f63e70";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4111594/pronoundb-0.12.3.xpi";
+    sha256 = "b5be9f0e5ae218d45c50436e47f8a85df97ea68d1c4ffd571577712bc0b60535";
     meta = with lib; {
       homepage = "https://pronoundb.org";
       description = "PronounDB is a browser extension that helps people know each other's pronouns easily and instantly. Whether hanging out on a Twitch chat, or on any of the supported platforms, PronounDB will make your life easier.";
@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.5.6";
+    version = "23.5.20";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4107151/refined_github-23.5.6.xpi";
-    sha256 = "952f1fe4623f555b16cf9b16a58fc61bed438edb08014d66ca8c5a928f5227f4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4113750/refined_github-23.5.20.xpi";
+    sha256 = "690ddbca1fedd22adcc9a3bd437fcab6baed3d3985bdeb3d388d740937ef72c3";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -351,10 +351,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.5";
+    version = "5.4.6";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4104713/sponsorblock-5.4.5.xpi";
-    sha256 = "b285e657fba56ca9651bce5691c4e9721ce8d3906d77503d88038eb776b51884";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4108025/sponsorblock-5.4.6.xpi";
+    sha256 = "7c81020ef016cd2c81a1c24f2f702a2faf34283fe79972e5103f9b16f013850d";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -364,10 +364,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "3.6.4";
+    version = "3.6.6";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4056899/steam_database-3.6.4.xpi";
-    sha256 = "074d3abfb652c18113a82fe603f46db44b0c4f12012fb2d8fe336688abe82d88";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4106867/steam_database-3.6.6.xpi";
+    sha256 = "1042f5a1b61ee4083e8999405da601bc6fa43cf9069f078b5da45261f40bce2b";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
@@ -377,10 +377,10 @@
   };
   "stylus" = buildFirefoxXpiAddon {
     pname = "stylus";
-    version = "1.5.30";
+    version = "1.5.31";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4075896/styl_us-1.5.30.xpi";
-    sha256 = "9a8b40ecfb4e19252ab5435c3cb5976d9c86a7c295e4eda8a64820838b56b9ea";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4108690/styl_us-1.5.31.xpi";
+    sha256 = "da08660bd4070f4601b321e01986a589ab4ce35946f3ab8a3b0c52df779c9256";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
