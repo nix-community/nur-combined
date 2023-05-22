@@ -25,7 +25,7 @@
 , wrapGAppsHook
 , scriptingSupport ? true
 , luajit
-, swig
+, swig4
 , python3
 , alsaSupport ? stdenv.isLinux
 , alsa-lib
@@ -42,6 +42,10 @@
 , srt
 , qtwayland
 , wrapQtAppsHook
+, nlohmann_json
+, asio
+, websocketpp
+, amf-headers 
 }:
 
 let
@@ -49,22 +53,20 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "obs-studio-amf";
-  version = "29.0.2";
+  version = "29.1.1";
 
   src = fetchFromGitHub {
     owner = "obsproject";
     repo = "obs-studio";
     rev = version;
-    sha256 = "sha256-TIUSjyPEsKRNTSLQXuLJGEgD989hJ5GhOsqJ4nkKVsY=";
+    sha256 = "sha256-XYA8rYWvrK7Wa57SUYH8aVDKoRkke0IEBX/dsCQSwZs=";
     fetchSubmodules = true;
   };
 
   patches = [
-    # Lets obs-browser build against CEF 90.1.0+
+    ./7206.patch #AMF Patch from arch aur version
     ./Enable-file-access-and-universal-access-for-file-URL.patch
-    ./Provide-runtime-plugin-destination-as-relative-path.patch
-    ./7206.patch 
-    ./ffmpeg-6.patch
+    ./fix-nix-plugin-path.patch
   ];
 
   nativeBuildInputs = [
@@ -74,9 +76,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     wrapQtAppsHook
   ]
-  ++ optional scriptingSupport swig;
+  ++ optional scriptingSupport swig4;
 
   buildInputs = [
+    amf-headers 
+    websocketpp
+    asio
+    nlohmann_json
     curl
     fdk_aac
     ffmpeg
@@ -122,7 +128,7 @@ stdenv.mkDerivation rec {
   # DL_OPENGL is an explicit path. Not sure if there's a better way
   # to handle this.
   cmakeFlags = [
-    "-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\\\"$(out)/lib/libobs-opengl.so\\\""
+    #"-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\\\"$(out)/lib/libobs-opengl.so\\\""
     "-DOBS_VERSION_OVERRIDE=${version}"
     "-Wno-dev" # kill dev warnings that are useless for packaging
     # Add support for browser source
@@ -135,6 +141,7 @@ stdenv.mkDerivation rec {
   preFixup = ''
     qtWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
+      --prefix LD_LIBRARY_PATH : "$out/lib"
       ''${gappsWrapperArgs[@]}
     )
   '';
@@ -145,16 +152,16 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Free and open source software for video recording and live streaming";
+    description = "Free and open source software for video recording and live streaming. With AMD AMF";
     longDescription = ''
       This project is a rewrite of what was formerly known as "Open Broadcaster
       Software", software originally designed for recording and streaming live
       video content, efficiently
     '';
     homepage = "https://obsproject.com";
-    maintainers = with maintainers; [ jb55 MP2E V miangraham ];
+    maintainers = with maintainers; [ ];
     license = licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
+    platforms = [ "x86_64-linux" ];
     mainProgram = "obs";
   };
 }
