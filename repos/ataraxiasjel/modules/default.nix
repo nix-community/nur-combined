@@ -1,0 +1,3 @@
+{
+  # my-module = ./my-module;
+}
