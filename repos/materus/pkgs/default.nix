@@ -5,6 +5,7 @@ rec {
     amf = callPackage ./libs/amdgpu-pro-libs/amf.nix { };
     opengl = callPackage ./libs/amdgpu-pro-libs/opengl.nix { };
     prefixes = callPackage ./libs/amdgpu-pro-libs/prefixes.nix { };
+    firmware = callPackage ./libs/amdgpu-pro-libs/firmware.nix { };
   };
 
 

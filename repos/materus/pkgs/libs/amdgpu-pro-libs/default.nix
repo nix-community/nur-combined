@@ -1,27 +1,17 @@
 { pkgs, lib, xorg, stdenv, openssl, libdrm, zlib, dpkg, patchelf, fetchurl }:
 
 let
-  ver = import ./version.nix { inherit pkgs; };
-  suffix = ver.suffix;
-  amdbit = ver.amdbit;
+  sources = import ./amdgpu-src.nix { inherit fetchurl; };
+  suffix = if pkgs.stdenv.system == "x86_64-linux" then "64" else "32";
+  amdbit = if pkgs.stdenv.system == "x86_64-linux" then "x86_64-linux-gnu" else "i386-linux-gnu";
 in
 stdenv.mkDerivation rec {
-  pname = "amdgpu-pro-vulkan${suffix}";
-  version = ver.repo_folder_ver;
+  pname = "amdgpu-pro-vulkan-${suffix}";
+  version = sources.version;
 
 
-  pkg64 = fetchurl {
-    url = "https://repo.radeon.com/amdgpu/${ver.repo_folder_ver}/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_${ver.major_short}-${ver.minor}.${ver.ubuntu_ver}_amd64.deb";
-    sha256 = "sha256:02kavnxcccdrqz09v1628l005p1kzgv17wpqgb75nllyfr5103l9";
-    name = "vulkan64";
-  };
-  pkg32 = fetchurl {
-    url = "https://repo.radeon.com/amdgpu/${ver.repo_folder_ver}/ubuntu/pool/proprietary/v/vulkan-amdgpu-pro/vulkan-amdgpu-pro_${ver.major_short}-${ver.minor}.${ver.ubuntu_ver}_i386.deb";
-    sha256 = "sha256:143r5vcqbh6s699w3y9wg87lnyl77h2g8kmdikcbl44y3q06xm6r";
-    name = "vulkan32";
-  };
 
-  src = if stdenv.system == "x86_64-linux" then pkg64 else pkg32;
+  src = if stdenv.system == "x86_64-linux" then sources.bit64.vulkan-amdgpu-pro else sources.bit32.vulkan-amdgpu-pro;
 
   dontPatchELF = true;
   sourceRoot = ".";
