@@ -1,20 +1,21 @@
 { stdenv
 , lib
 , fetchFromGitHub
-
 , python3
 , ffmpeg
 }:
 
 stdenv.mkDerivation rec {
   pname = "ytarchive";
-  version = "0.2.2";
+  version = "0.2.2+0304577";
 
   src = fetchFromGitHub {
     owner = "Kethsar";
     repo = "ytarchive";
-    rev = "v${version}";
-    sha256 = "xT45FF0ztWQXzQgYztl2YKiI2iGJfnCXgCMw8gOmxzM=";
+    # NOTE: Last revision where it was written in Python, so don't change
+    #   without rewriting the derivation.
+    rev = "030457749d6c8d1d62240bfbad659326f3cd3a30";
+    hash = "sha256-mvmdkxZxlEbWc7GR8LfyxTJOeEhjCoYyeatDx8l1uhM=";
   };
 
   propagatedBuildInputs = [
