@@ -5,13 +5,15 @@ buildGoModule rec {
   version = "1.9.0";
 
   src = fetchFromGitHub {
-    owner = "makeworld-the-better-one";
+    owner = "makew0rld";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-P5+yRaf2HioKOclJMMm8bJ8/BtBbNEeYU57TceZVqQ8=";
+    hash = "sha256-P5+yRaf2HioKOclJMMm8bJ8/BtBbNEeYU57TceZVqQ8=";
   };
 
-  vendorSha256 = "sha256-l8UwkFCCNUB5zyhlyu8YC++MhmcR6midnElCgdj50OU=";
+  vendorHash = "sha256-l8UwkFCCNUB5zyhlyu8YC++MhmcR6midnElCgdj50OU=";
+
+  ldflags = [ "-s" "-w" ];
 
   passthru.tests.version = testers.testVersion {
     package = gemget;
@@ -19,8 +21,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
+    inherit (src.meta) homepage;
     description = "Command line downloader for the Gemini protocol";
-    homepage = "https://github.com/makeworld-the-better-one/gemget";
-    license = with licenses; [ mit ];
+    license = licenses.mit;
   };
 }

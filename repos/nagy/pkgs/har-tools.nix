@@ -8,14 +8,17 @@ buildGoModule rec {
     owner = "outersky";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1k9sklqrpmkjy41w69nwd520w6n7c7ky6bbv9zwbvg8x6pilw58d";
+    hash = "sha256-DRVO4zUdvb34T3st4+dhxxoORGncJsMD8XLWmzGdOs0=";
   };
 
-  vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
+  vendorHash = null;
+
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "tools for HAR file";
     homepage = "https://github.com/outersky/har-tools";
-    license = with licenses; [ gpl2 ];
+    license = licenses.gpl2Only;
+    mainProgram = "harx";
   };
 }

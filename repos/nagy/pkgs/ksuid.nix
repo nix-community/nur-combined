@@ -8,14 +8,16 @@ buildGoModule rec {
     owner = "segmentio";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1qc9w7imal5jk0lw0hwyszs2fh7wjsnbkawgw7kwzdvg9nbahjg7";
+    hash = "sha256-50molk1vt8/n4Y+ruayW/EAn9NeeQ8ApmLJQVePhieE=";
   };
 
-  vendorSha256 = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
+  vendorHash = null;
+
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
+    inherit (src.meta) homepage;
     description = "K-Sortable Globally Unique IDs";
-    homepage = "https://github.com/segmentio/ksuid";
-    license = with licenses; [ mit ];
+    license = licenses.mit;
   };
 }

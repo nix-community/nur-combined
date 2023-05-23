@@ -8,12 +8,14 @@ buildGoModule rec {
     owner = "esimov";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-0K1d/VCsUaYj/uQ2yUIsc8KdGOQVqAUSaIRnyRYdt+s=";
+    hash = "sha256-0K1d/VCsUaYj/uQ2yUIsc8KdGOQVqAUSaIRnyRYdt+s=";
   };
 
-  vendorSha256 = "sha256-MkJVs/i0dPRUz5kUhSFYU+eR1SuVgO01U5ubWVWMUfk=";
+  vendorHash = "sha256-MkJVs/i0dPRUz5kUhSFYU+eR1SuVgO01U5ubWVWMUfk=";
 
   deleteVendor = true;
+
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     mv $out/bin/http $out/bin/pigo-http
@@ -23,6 +25,6 @@ buildGoModule rec {
     description =
       "Fast face detection, pupil/eyes localization and facial landmark points detection library in pure Go";
     homepage = "https://github.com/esimov/pigo";
-    license = with licenses; [ mit ];
+    license = licenses.mit;
   };
 }
