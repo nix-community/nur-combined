@@ -15,7 +15,7 @@
 
   };
 
-  home.packages = [materusPkgs.ffmpeg6-amf-full];
+  home.packages = [materusPkgs.ffmpeg6-amf-full (materusPkgs.polymc.wrap {extraJDKs = [pkgs.graalvm17-ce];})];
 
   programs.obs-studio = {
     enable = true;
