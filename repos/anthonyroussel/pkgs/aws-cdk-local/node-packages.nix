@@ -19,10 +19,10 @@ in
   aws-cdk-local = nodeEnv.buildNodePackage {
     name = "aws-cdk-local";
     packageName = "aws-cdk-local";
-    version = "2.15.0";
+    version = "2.18.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/aws-cdk-local/-/aws-cdk-local-2.15.0.tgz";
-      sha512 = "Wsexx+2yohaEuvC25DcU/MD1wbj9XjHfYfBI67PE2wNo+NZFeZ4T66rvKhYXLDBMKF6kGhTRzjXis6GPwUZvtg==";
+      url = "https://registry.npmjs.org/aws-cdk-local/-/aws-cdk-local-2.18.0.tgz";
+      sha512 = "ZNQxs4GKHG2MC5y19MJZE/Xf/c0tAdjH6LWbZdouyG4k+1DeuFtBZ+UoYjoUfGPI8dycGpwUiewsLBY1lbtTWg==";
     };
     dependencies = [
       sources."diff-5.1.0"

@@ -4,7 +4,7 @@
 cd "$(dirname $(readlink -f $0))"
 
 node2nix \
-  --nodejs-16 \
+  --nodejs-18 \
   --node-env node-env.nix \
   --input node-packages.json \
   --output node-packages.nix \
