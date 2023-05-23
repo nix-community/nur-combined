@@ -16,6 +16,7 @@ in {
     ./dashboards.nix
     ./cf-torrent.nix
     ./sshfs.nix
+    ./lvm.nix
     ./plymouth.nix
     ./rocm-gambiarra.nix
     ./transmission.nix
