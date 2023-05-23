@@ -14,6 +14,40 @@ in
       withNodeJs = true;
       withPython3 = true;
       withRuby = true;
+      defaultEditor = true;
+
+      extraConfig = ''
+      set number
+      '';
+    
+
+    plugins = with pkgs.vimPlugins;[
+      nerdtree
+      syntastic
+
+      vim-fugitive
+      vim-airline
+      vim-nix
+
+      nvim-fzf
+      nvim-treesitter
+      
+      coc-clangd
+      coc-python
+      coc-pyright
+      coc-sh
+      coc-git
+      coc-css
+      coc-yaml
+      coc-toml
+      coc-json
+      coc-html
+      coc-highlight
+      coc-java
+      coc-cmake
+      coc-vimlsp
+      
+    ];
     };
   };
 
