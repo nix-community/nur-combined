@@ -19,4 +19,6 @@ rec {
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc {};
 
+  xmake = callPackage ./dev/xmake {};
+
 }
