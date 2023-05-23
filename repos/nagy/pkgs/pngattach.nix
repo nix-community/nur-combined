@@ -15,14 +15,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "CC:=$(CC)" ];
 
   meta = with lib; {
-    description = "Attach files to a PNG image as metadata";
     inherit (src.meta) homepage;
-    license = with licenses; [ unlicense ];
+    description = "Attach files to a PNG image as metadata";
+    license = licenses.unlicense;
   };
 }

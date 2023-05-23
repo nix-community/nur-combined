@@ -2,37 +2,36 @@
 , recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
 
 let
-  inherit (import ./lib {
+  thisLib = import ./lib {
     inherit pkgs lib;
     inherit (pkgs) callPackage;
-  })
-    callNixFiles importNixFiles;
+  };
 in lib.makeScope pkgs.newScope (self:
-  (callNixFiles self.callPackage ./pkgs) // {
+  (thisLib.callNixFiles self.callPackage ./pkgs) // {
 
     lib = lib.extend (self: super: pkgs.callPackage ./lib { });
 
     qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
     python3Packages = recurseIntoAttrs
-      (lib.makeScope pkgs.python3Packages.newScope (py3: {
-        dool = py3.callPackage ./pkgs/dool { };
-        asyncer = py3.callPackage ./pkgs/asyncer { };
-        dbussy = py3.callPackage ./pkgs/dbussy { };
-        colorpedia = py3.callPackage ./pkgs/colorpedia { };
-        ssort = py3.callPackage ./pkgs/ssort { };
-        extcolors = py3.callPackage ./pkgs/extcolors { };
-        convcolors = py3.callPackage ./pkgs/convcolors { };
-        pymatting = py3.callPackage ./pkgs/pymatting { };
-        rembg = py3.callPackage ./pkgs/rembg { };
-        warctools = py3.callPackage ./pkgs/warctools { };
-        blender-file = py3.callPackage ./pkgs/blender-file { };
-        blender-asset-tracer = py3.callPackage ./pkgs/blender-asset-tracer { };
-        jtbl = py3.callPackage ./pkgs/jtbl { };
-        git-remote-rclone = py3.callPackage ./pkgs/git-remote-rclone { };
-        oauth2token = py3.callPackage ./pkgs/oauth2token { };
-        images-upload-cli = py3.callPackage ./pkgs/images-upload-cli { };
-        imagehash = py3.callPackage ./pkgs/imagehash { };
+      (lib.makeScope pkgs.python3Packages.newScope (self: {
+        dool = self.callPackage ./pkgs/dool { };
+        asyncer = self.callPackage ./pkgs/asyncer { };
+        dbussy = self.callPackage ./pkgs/dbussy { };
+        colorpedia = self.callPackage ./pkgs/colorpedia { };
+        ssort = self.callPackage ./pkgs/ssort { };
+        extcolors = self.callPackage ./pkgs/extcolors { };
+        convcolors = self.callPackage ./pkgs/convcolors { };
+        pymatting = self.callPackage ./pkgs/pymatting { };
+        rembg = self.callPackage ./pkgs/rembg { };
+        warctools = self.callPackage ./pkgs/warctools { };
+        blender-file = self.callPackage ./pkgs/blender-file { };
+        blender-asset-tracer = self.callPackage ./pkgs/blender-asset-tracer { };
+        jtbl = self.callPackage ./pkgs/jtbl { };
+        git-remote-rclone = self.callPackage ./pkgs/git-remote-rclone { };
+        oauth2token = self.callPackage ./pkgs/oauth2token { };
+        images-upload-cli = self.callPackage ./pkgs/images-upload-cli { };
+        imagehash = self.callPackage ./pkgs/imagehash { };
       }));
 
     lispPackages = recurseIntoAttrs {
@@ -49,5 +48,5 @@ in lib.makeScope pkgs.newScope (self:
 
     qr2text = self.callPackage ./pkgs/qr2text { };
 
-    overlay = lib.composeManyExtensions (importNixFiles ./overlays);
+    overlay = lib.composeManyExtensions (thisLib.importNixFiles ./overlays);
   })
