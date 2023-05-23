@@ -381,10 +381,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "11.0.0";
+      version = "12.5.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4043935/censor_tracker-11.0.0.xpi";
-      sha256 = "2f240b6e227a1a226a49c5aaa5931423a5954f76a400e2f46a6a6ad8f5a7d8bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4115078/censor_tracker-12.5.0.xpi";
+      sha256 = "ba756f1c6909a09da024ac66c9856104b8cbe072347a7261a4c304ff13782237";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -1057,10 +1057,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.9.14";
+      version = "8.10.2";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4088491/ghostery-8.9.14.xpi";
-      sha256 = "13c7eca0efb73cf4d3071470aa7b2ef173ddf28ac13ca15f7e0d85f44e2f553c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4111589/ghostery-8.10.2.xpi";
+      sha256 = "4c8cda7a60ca5d2d211510d0f1c0e7bf57319a6a050aea5b99941601b96bbfac";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -2395,10 +2395,10 @@
       };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "4.27.1";
+      version = "4.27.8";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040280/react_devtools-4.27.1.xpi";
-      sha256 = "c0cf290a4dab2d18f840d7267da68033779bb3a001986aed2a78ed5e92432a1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4113335/react_devtools-4.27.8.xpi";
+      sha256 = "fae1c35e731984e4375300df0c4d8ee233ec10cdabe4cafe5cfaca080e063446";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -2437,10 +2437,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.3";
+      version = "6.1.4";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4113287/reddit_moderator_toolbox-6.1.3.xpi";
-      sha256 = "400dde96d85b5b3d09508275ce71d58e036e1a8bd59c8ebda716ccf93ca8b281";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4114831/reddit_moderator_toolbox-6.1.4.xpi";
+      sha256 = "232d6ad291b0936c9a2b0db0c796d73c7a438c7cd9e7ae018e9632afab84ca45";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -2617,10 +2617,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.41";
+      version = "1.21.42";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4097728/single_file-1.21.41.xpi";
-      sha256 = "a9104fad24a8e0356d2beb3e3ba505ca9021b2191c54c6684a01c10013d2a0b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4112597/single_file-1.21.42.xpi";
+      sha256 = "28451f6c86cdbc70c37ef1338152f24afc17900856a287d58afcb95302030bd6";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -3465,6 +3465,33 @@
         homepage = "https://web-scrobbler.com";
         description = "Scrobble music all around the web!";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "web-search-navigator" = buildFirefoxXpiAddon {
+      pname = "web-search-navigator";
+      version = "0.4.22";
+      addonId = "{ffadac89-63bb-4b04-be90-8cb2aa323171}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3966178/web_search_navigator-0.4.22.xpi";
+      sha256 = "62c70e2128d5864177f83c02451bd70b6ac94b3443079c38e57e67a501a44a01";
+      meta = with lib;
+      {
+        homepage = "https://github.com/infokiller/web-search-navigator";
+        description = "Boost your searching productivity with Web Search Navigator! Adds keyboard shortcuts to navigate within Google Search results.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "wikipedia-vector-skin" = buildFirefoxXpiAddon {
+      pname = "wikipedia-vector-skin";
+      version = "1.3";
+      addonId = "{ebe73c0d-b0fd-4f1c-ac90-64ccc950bb0d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4061959/wikipedia_vector_skin-1.3.xpi";
+      sha256 = "d81defbe5810d3c3b1ae0d7427d7ec2ff148fe846d19864bab41675db49c789b";
+      meta = with lib;
+      {
+        description = "This extension restores the old Wikipedia Layout and Design by appending \"?useskin=vector\" to Wikipedia URLs.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
