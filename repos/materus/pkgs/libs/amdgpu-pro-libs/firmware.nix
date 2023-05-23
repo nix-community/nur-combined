@@ -27,7 +27,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out
-    ls -la usr/src
     mv usr/src/amdgpu-5.18.13-1577590.22.04 $out/lib
   '';
 
