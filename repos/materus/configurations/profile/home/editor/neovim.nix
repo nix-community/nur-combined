@@ -30,7 +30,7 @@ in
       vim-nix
 
       nvim-fzf
-      nvim-treesitter
+      nvim-treesitter.withAllGrammars
       
       coc-clangd
       coc-python
