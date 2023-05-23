@@ -20,6 +20,11 @@ python3Packages.buildPythonApplication rec {
     pyyaml
   ];
 
+  patchPhase = ''
+    substituteInPlace setup.py \
+      --replace PROJECTVERSION "${version}"
+  '';
+
   meta = with lib; {
     description = "Fan controller for AMD graphics cards running the amdgpu driver on Linux";
     homepage = "https://github.com/chestm007/amdgpu-fan";
