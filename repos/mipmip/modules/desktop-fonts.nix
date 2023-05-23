@@ -6,6 +6,7 @@
     awesome
     dejavu_fonts
     open-sans
+    inter
   ];
 
   fonts.fonts = with pkgs; [

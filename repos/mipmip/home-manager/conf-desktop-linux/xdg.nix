@@ -44,10 +44,23 @@
       };
     };
 
-
+    proton = {
+      type = "Application";
+      exec = "epiphany --application-mode=proton.desktop https://mail.proton.me";
+      icon = "proton";
+      startupNotify = true;
+      categories     = [ "Network" ];
+      terminal = false;
+      name= "proton";
+      genericName    = "Proton Mail Client";
+      comment = "Mail client in a browser";
+      settings       = {
+        Keywords = "browser;";
+        StartupWMClass = "protonmail";
+      };
+    };
 
     firefox-extra = {
-
       name           = "Firefox Extra";
       comment        = "Extra Firefox with other icon";
       genericName    = "Extra Web Browser";
