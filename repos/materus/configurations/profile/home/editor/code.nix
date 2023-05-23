@@ -8,18 +8,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = lib.mkDefault true;
-      package = lib.mkDefault (pkgs.vscodium.fhsWithPackages (ps: with ps; [
-        gcc
-        clang
-        llvm
-        lld
-        lldb
-        gdb
-        rnix-hashes
-        rnix-lsp
-        nixfmt
-        (python311.withPackages (ps: with ps; [ urllib3 ]))
-      ]));
+      package = lib.mkDefault pkgs.vscodium;
       mutableExtensionsDir = lib.mkDefault true;
     };
     materus.profile.fonts.enable = lib.mkDefault true;
