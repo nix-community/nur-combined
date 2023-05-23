@@ -14,7 +14,7 @@ final: prev: {
         name = "Add-hidden-menu-entries.patch";
         # https://lists.gnu.org/archive/html/grub-devel/2016-04/msg00089.html
         url = "https://marc.info/?l=grub-devel&m=146193404929072&q=mbox";
-        hash = "00wa1q5adiass6i0x7p98vynj9vsz1w0gn1g4dgz89v35mpyw2bi";
+        hash = "sha256-cQnuby1jJ/RfIy/YB3j4eidp/Ubpng6i0VrFpgoOigM=";
       })
 
       # argon2 patches from AUR: https://aur.archlinux.org/packages/grub-improved-luks2-git
