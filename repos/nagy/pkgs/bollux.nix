@@ -8,7 +8,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "~acdw";
     repo = pname;
     rev = version;
-    sha256 = "03zwq7h1cdv63i6803a5c7mxbhi8q5j164wmmypcxmh2la1g35h6";
+    hash = "sha256-BpbxgqIC1s6ur5UTE2TBKMLV62FFDYBMHGY3FuDB/A8=";
   };
 
   outputs = [ "out" "man" ];
@@ -16,8 +16,8 @@ stdenvNoCC.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
+    inherit (src.meta) homepage;
     description = "gemini browser in like, bash?";
-    homepage = "https://sr.ht/~acdw/bollux/";
     license = licenses.mit;
   };
 }
