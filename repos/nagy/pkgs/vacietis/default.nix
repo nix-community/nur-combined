@@ -1,6 +1,6 @@
 { lispPackages, fetchFromGitHub }:
 
-lispPackages.buildLispPackage rec {
+lispPackages.buildLispPackage {
   baseName = "vacietis";
   version = "2012-11-29";
 

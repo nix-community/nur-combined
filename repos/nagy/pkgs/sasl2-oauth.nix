@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ cyrus_sasl ];
 
   passthru = rec {
-    cyrus_sasl_oauth = cyrus_sasl.overrideAttrs (old: rec {
+    cyrus_sasl_oauth = cyrus_sasl.overrideAttrs (old: {
       postInstall = (old.postInstall or "") + ''
         for lib in ${sasl2-oauth}/lib/sasl2/*; do
           ln -sf $lib $out/lib/sasl2/

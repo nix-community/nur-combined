@@ -17,7 +17,6 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    patchShebangs unum/unum.pl
     install -Dm555 unum/unum.pl $out/bin/unum
     runHook postInstall
   '';
@@ -26,5 +25,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description =
       "Utility for looking up Unicode characters and HTML entities by code, name, block, or description";
+    license = licenses.cc-by-sa-40;
   };
 }

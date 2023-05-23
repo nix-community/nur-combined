@@ -13,11 +13,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ xxd ];
 
-  makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [ "PREFIX=$(out)" "CC:=$(CC)" ];
 
   meta = with lib; {
-    description = "A purely functional dialect of Lisp";
     inherit (src.meta) homepage;
+    description = "A purely functional dialect of Lisp";
     license = with licenses; [ mit lgpl3Only ]; # dual licensed
     platforms = platforms.unix;
 
