@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   dotool = pkgs.callPackage ./pkgs/dotool { };
-  iamb = pkgs.callPackage ./pkgs/iamb { };
   mum = pkgs.callPackage ./pkgs/mum { };
   polybar-pulseaudio-control = pkgs.callPackage ./pkgs/polybar-pulseaudio-control { };
 

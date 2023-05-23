@@ -1,10 +1,12 @@
 { stdenv
 , lib
 , fetchFromGitHub
-, pulseaudio
+, coreutils
+, gawk
 , gnugrep
 , gnused
 , libnotify
+, pulseaudio
 }:
 
 stdenv.mkDerivation rec {
@@ -28,6 +30,9 @@ stdenv.mkDerivation rec {
       --replace pactl ${pulseaudio}/bin/pactl \
       --replace grep ${gnugrep}/bin/grep \
       --replace sed ${gnused}/bin/sed \
+      --replace seq ${coreutils}/bin/seq \
+      --replace tr ${coreutils}/bin/tr \
+      --replace awk ${gawk}/bin/awk \
       --replace notify-send ${libnotify}/bin/notify-send
   '';
 
