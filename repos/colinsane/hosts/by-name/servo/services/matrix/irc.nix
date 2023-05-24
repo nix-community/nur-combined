@@ -134,6 +134,7 @@ in
         };
         "irc.libera.chat" = ircServer {
           name = "libera";
+          sasl = false;
           # notable channels:
           # - #hare
         };
