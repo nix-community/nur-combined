@@ -8,7 +8,7 @@ keys:
   - &host_servo age1tzlyex2z6t88tg9h82943e39shxhmqeyr7ywhlwpdjmyqsndv3qq27x0rf
   - &host_moby age18vq5ktwgeaysucvw9t67drqmg5zd5c5k3le34yqxckkfj7wqdqgsd4ejmt
 creation_rules:
-  - path_regex: secrets/universal*
+  - path_regex: secrets/common*
     key_groups:
     - age:
       - *user_desko_colin
@@ -26,19 +26,19 @@ creation_rules:
       - *user_lappy_colin
       - *user_servo_colin
       - *host_servo
-  - path_regex: secrets/desko.yaml$
+  - path_regex: secrets/desko*
     key_groups:
     - age:
       - *user_desko_colin
       - *user_lappy_colin
       - *host_desko
-  - path_regex: secrets/lappy.yaml$
+  - path_regex: secrets/lappy*
     key_groups:
     - age:
       - *user_lappy_colin
       - *user_desko_colin
       - *host_lappy
-  - path_regex: secrets/moby.yaml$
+  - path_regex: secrets/moby*
     key_groups:
     - age:
       - *user_desko_colin

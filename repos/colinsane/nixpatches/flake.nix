@@ -1,5 +1,6 @@
 {
   inputs = {
+    # user is expected to define this from their flake via `inputs.nixpkgs.follows = ...`
     nixpkgs = {};
   };
   outputs = { self, nixpkgs }@inputs:
@@ -16,6 +17,8 @@
         (patchedFlakeFor system).outputs { inherit self; };
     in
     {
+      lib.nixosSystem = args: (patchedFlakeOutputsFor args.system).lib.nixosSystem args;
+
       legacyPackages = builtins.mapAttrs
         (system: _:
           (patchedFlakeOutputsFor system).legacyPackages."${system}"

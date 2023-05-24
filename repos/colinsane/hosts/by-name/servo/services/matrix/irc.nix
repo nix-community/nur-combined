@@ -112,7 +112,6 @@ in
     "/var/lib/matrix-appservice-irc/registration.yml"  # auto-created by irc appservice
   ];
 
-  # Rizon supports CertFP for auth: https://wiki.rizon.net/index.php?title=CertFP
   services.matrix-appservice-irc.enable = true;
   services.matrix-appservice-irc.registrationUrl = "http://127.0.0.1:8009";
   services.matrix-appservice-irc.settings = {
@@ -127,16 +126,29 @@ in
 
     ircService = {
       servers = {
-        "irc.rizon.net" = ircServer { name = "Rizon"; };
+        "irc.esper.net" = ircServer {
+          name = "esper";
+          sasl = false;
+          # notable channels:
+          # - #merveilles
+        };
+        "irc.libera.chat" = ircServer {
+          name = "libera";
+          # notable channels:
+          # - #hare
+        };
         "irc.myanonamouse.net" = ircServer {
           name = "MyAnonamouse";
           additionalAddresses = [ "irc2.myanonamouse.net" ];
           sasl = false;
         };
-        "irc.esper.net" = ircServer {
-          name = "esper";
-          sasl = false;
+        "irc.oftc.net" = ircServer {
+          name = "oftc";
+          # notable channels:
+          # - #sxmo
+          # - #sxmo-offtopic
         };
+        "irc.rizon.net" = ircServer { name = "Rizon"; };
       };
     };
   };

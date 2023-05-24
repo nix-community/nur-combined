@@ -33,13 +33,14 @@ in
       ];
       group = "users";
       extraGroups = [
-        "wheel"
-        "nixbuild"
-        "networkmanager"
-        # phosh/mobile. XXX colin: unsure if necessary
-        "video"
+        "dialout"  # required for modem access (moby)
         "feedbackd"
-        "dialout" # required for modem access
+        "input"  # for /dev/input/<xyz>: sxmo
+        "networkmanager"
+        "nixbuild"
+        "video"  # phosh/mobile. XXX colin: unsure if necessary
+        "wheel"
+        "wireshark"
       ];
 
       # initial password is empty, in case anything goes wrong.

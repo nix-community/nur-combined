@@ -3,6 +3,5 @@
   # - `additional` packages
   # - `patched` versions of nixpkgs (which necessarily shadow their nixpkgs version)
   # - `pythonPackagesExtensions`
-  import ../pkgs
-    { pkgs = next; lib = prev.lib; unpatched = prev; }
+  import ../pkgs { pkgs = prev; final = next; }
 )

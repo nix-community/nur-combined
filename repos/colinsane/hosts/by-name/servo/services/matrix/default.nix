@@ -49,7 +49,7 @@
   services.matrix-synapse.settings.registrations_require_3pid = [ "email" ];
 
   services.matrix-synapse.extraConfigFiles = [
-    config.sops.secrets.matrix_synapse_secrets.path
+    config.sops.secrets."matrix_synapse_secrets.yaml".path
   ];
 
   # services.matrix-synapse.extraConfigFiles = [builtins.toFile "matrix-synapse-extra-config" ''
@@ -138,7 +138,7 @@
   };
 
 
-  sops.secrets."matrix_synapse_secrets" = {
+  sops.secrets."matrix_synapse_secrets.yaml" = {
     owner = config.users.users.matrix-synapse.name;
   };
 }

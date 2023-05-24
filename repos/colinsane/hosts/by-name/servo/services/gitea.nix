@@ -1,3 +1,4 @@
+# config options: <https://docs.gitea.io/en-us/administration/config-cheat-sheet/>
 { config, pkgs, lib, ... }:
 
 {
@@ -60,6 +61,8 @@
     };
     #"ui.meta" = ... to customize html author/description/etc
     mailer = {
+      # alternative is to use nixos-level config:
+      # services.gitea.mailerPasswordFile = ...
       ENABLED = true;
       MAILER_TYPE = "sendmail";
       FROM = "notify.git@uninsane.org";

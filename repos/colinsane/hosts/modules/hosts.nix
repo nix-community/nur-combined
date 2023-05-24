@@ -69,7 +69,7 @@ in
       ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFw9NoRaYrM6LbDd3aFBc4yyBlxGQn8HjeHd/dZ3CfHk";
       wg-home.pubkey = "17PMZssYi0D4t2d0vbmhjBKe1sGsE8kT8/dod0Q2CXc=";
       wg-home.ip = "10.0.10.22";
-      lan-ip = "192.168.15.25";
+      lan-ip = "10.78.79.52";
     };
 
     sane.hosts.by-name."lappy" = {
@@ -77,7 +77,7 @@ in
       ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILSJnqmVl9/SYQ0btvGb0REwwWY8wkdkGXQZfn/1geEc";
       wg-home.pubkey = "FTUWGw2p4/cEcrrIE86PWVnqctbv8OYpw8Gt3+dC/lk=";
       wg-home.ip = "10.0.10.20";
-      lan-ip = "192.168.15.8";
+      lan-ip = "10.78.79.53";
     };
 
     sane.hosts.by-name."moby" = {
@@ -85,7 +85,7 @@ in
       ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1N/IT3nQYUD+dBlU1sTEEVMxfOyMkrrDeyHcYgnJvw";
       wg-home.pubkey = "I7XIR1hm8bIzAtcAvbhWOwIAabGkuEvbWH/3kyIB1yA=";
       wg-home.ip = "10.0.10.48";
-      lan-ip = "192.168.15.21";
+      lan-ip = "10.78.79.54";
     };
 
     sane.hosts.by-name."servo" = {
@@ -94,7 +94,7 @@ in
       wg-home.pubkey = "roAw+IUFVtdpCcqa4khB385Qcv9l5JAB//730tyK4Wk=";
       wg-home.ip = "10.0.10.5";
       wg-home.endpoint = "uninsane.org:51820";
-      lan-ip = "192.168.15.24";
+      lan-ip = "10.78.79.51";
     };
   };
 }

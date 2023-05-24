@@ -65,4 +65,19 @@ in
   # boot.kernelPatches = manjaroPatches ++ [
   #   (patchDefconfig kernelConfig)
   # ];
+
+  nixpkgs.hostPlatform.linux-kernel = {
+    # defaults:
+    name = "aarch64-multiplatform";
+    baseConfig = "defconfig";
+    DTB = true;
+    autoModules = true;
+    preferBuiltin = true;
+    # extraConfig = ...
+    # ^-- raspberry pi stuff: we don't need it.
+
+    # target = "Image";  # <-- default
+    target = "Image.gz";  # <-- compress the kernel image
+    # target = "zImage";  # <-- confuses other parts of nixos :-(
+  };
 }

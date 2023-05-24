@@ -13,21 +13,17 @@ in
       default = false;
       type = types.bool;
     };
-    sane.services.nixserve.sopsFile = mkOption {
+    sane.services.nixserve.secretKeyFile = mkOption {
       type = types.path;
-      description = "path to file that contains the nix_serv_privkey secret (can be in VCS)";
+      description = "path to file that contains the nix_serve_privkey secret (should not be in the store)";
     };
   };
 
   config = mkIf cfg.enable {
     services.nix-serve = {
       enable = true;
-      secretKeyFile = config.sops.secrets.nix_serve_privkey.path;
+      inherit (cfg) secretKeyFile;
       openFirewall = true;  # not needed for servo; only desko
-    };
-
-    sops.secrets.nix_serve_privkey = {
-      sopsFile = cfg.sopsFile;
     };
   };
 }

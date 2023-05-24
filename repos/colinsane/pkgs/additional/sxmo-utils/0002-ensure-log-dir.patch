@@ -1,0 +1,15 @@
+diff --git a/configs/profile.d/sxmo_init.sh b/configs/profile.d/sxmo_init.sh
+index 2d33ea1..76c4c94 100644
+--- a/configs/profile.d/sxmo_init.sh
++++ b/configs/profile.d/sxmo_init.sh
+@@ -167,6 +167,10 @@ _sxmo_prepare_dirs() {
+ 	mkdir -p "$XDG_CACHE_HOME/sxmo/"
+ 	chmod 700 "$XDG_CACHE_HOME"
+ 	chown "$uid:$gid" "$XDG_CACHE_HOME"
++
++	mkdir -p "$XDG_STATE_HOME"
++	chmod 700 "$XDG_STATE_HOME"
++	chown "$uid:$gid" "$XDG_STATE_HOME"
+ }
+ 
+ _sxmo_grab_session

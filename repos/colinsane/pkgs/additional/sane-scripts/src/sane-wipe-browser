@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# remove firefox/librewolf/chromium artifacts
+rm -rf \
+  ~/.librewolf/default/* \
+  ~/.cache/librewolf/* \
+  ~/.config/chromium \
+  ~/.cache/chromium \
+  || true  # in case no matches

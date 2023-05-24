@@ -14,8 +14,8 @@
     ./users.nix
   ];
 
-  _module.args =  {
+  _module.args =  rec {
     sane-lib = import ./lib { inherit lib; };
-    sane-data = import ./data { inherit lib; };
+    sane-data = import ./data { inherit lib sane-lib; };
   };
 }

@@ -33,6 +33,14 @@
   # - getent ahostsv4 www.google.com
   # - try fix: <https://serverfault.com/questions/765989/connect-to-3rd-party-vpn-server-but-dont-use-it-as-the-default-route/766290#766290>
   services.resolved.enable = true;
+  # without DNSSEC:
+  # - dig matrix.org => works
+  # - curl https://matrix.org => works
+  # with default DNSSEC:
+  # - dig matrix.org => works
+  # - curl https://matrix.org => fails
+  # i don't know why. this might somehow be interfering with the DNS run on this device (trust-dns)
+  services.resolved.dnssec = "false";
   networking.nameservers = [
     # use systemd-resolved resolver
     # full resolver (which understands /etc/hosts) lives on 127.0.0.53

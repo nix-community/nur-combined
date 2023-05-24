@@ -48,7 +48,8 @@
 , gtk-doc
 , lib
 , libhandy
-, python3Packages
+, fetchFromGitHub
+, python3
 , gobject-introspection
 , gtk3
 , pango
@@ -61,7 +62,22 @@
 , networkSupport ? true, networkmanager
 }:
 
-python3Packages.buildPythonApplication rec {
+let
+  python = python3.override {
+    packageOverrides = self: super: {
+      semver = super.semver.overridePythonAttrs (oldAttrs: rec {
+        version = "2.13.0";
+        src = fetchFromGitHub {
+          owner = "python-semver";
+          repo = "python-semver";
+          rev = "refs/tags/${version}";
+          hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
+        };
+      });
+    };
+  };
+in
+python.pkgs.buildPythonApplication rec {
   pname = "sublime-music-mobile";
   version = "0.11.16";
   format = "pyproject";
@@ -82,16 +98,17 @@ python3Packages.buildPythonApplication rec {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "sublime-music";
-    rev = "5d8eb1f15c946a43dcf15266ce109f6bec810ce3";
-    sha256 = "sha256-qMCyRNPtmd29dQKKcPi+Jy5gr39crZUBizprdOZlmY4=";
+    rev = "b64498960147c705f530f3d8f91c6217ed66a8f8";
+    sha256 = "sha256-jyC3Fh+b+MBLjHlFr3nOOM7eT/3PPF7dynHsPJaIzLU=";
   };
 
   nativeBuildInputs = [
     gobject-introspection
-    python3Packages.poetry-core
-    python3Packages.pythonRelaxDepsHook
     wrapGAppsHook
-  ];
+  ] ++ (with python.pkgs; [
+   poetry-core
+   pythonRelaxDepsHook
+ ]);
 
   # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [
@@ -122,7 +139,7 @@ python3Packages.buildPythonApplication rec {
    ++ lib.optional networkSupport networkmanager
   ;
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = with python.pkgs; [
     bleach
     dataclasses-json
     deepdiff
@@ -135,7 +152,7 @@ python3Packages.buildPythonApplication rec {
     requests
     semver
   ]
-   ++ lib.optional chromecastSupport PyChromecast
+   ++ lib.optional chromecastSupport pychromecast
    ++ lib.optional keyringSupport keyring
    ++ lib.optional serverSupport bottle
   ;
@@ -152,7 +169,7 @@ python3Packages.buildPythonApplication rec {
   # https://github.com/NixOS/nixpkgs/issues/56943
   strictDeps = false;
 
-  checkInputs = with python3Packages; [
+  checkInputs = with python.pkgs; [
     pytest
   ];
 

@@ -4,6 +4,7 @@
     ./firmware.nix
     ./fs.nix
     ./kernel.nix
+    ./polyfill.nix
   ];
 
   sane.roles.client = true;
@@ -15,10 +16,7 @@
   users.users.colin.initialPassword = "147147";
   services.getty.autologinUser = "root";  # allows for emergency maintenance?
 
-  sops.secrets.colin-passwd = {
-    sopsFile = ../../../secrets/moby.yaml;
-    neededForUsers = true;
-  };
+  sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.programs.web-browser.config = {
     # compromise impermanence for the sake of usability
@@ -31,6 +29,7 @@
   };
 
   sane.user.persist.plaintext = [
+    # TODO: make this just generally conditional upon pulse being enabled?
     ".config/pulse"  # persist pulseaudio volume
   ];
 

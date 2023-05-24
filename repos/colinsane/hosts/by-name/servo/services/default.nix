@@ -19,6 +19,7 @@
     ./navidrome.nix
     ./nixserve.nix
     ./nginx.nix
+    ./pict-rs.nix
     ./pleroma.nix
     ./postgres.nix
     ./prosody.nix

@@ -6,7 +6,7 @@ lib.mkIf false
   systemd.services.ddns-afraid = {
     description = "update dynamic DNS entries for freedns.afraid.org";
     serviceConfig = {
-      EnvironmentFile = config.sops.secrets.ddns_afraid.path;
+      EnvironmentFile = config.sops.secrets."ddns_afraid.env".path;
       # TODO: ProtectSystem = "strict";
       # TODO: ProtectHome = "full";
       # TODO: PrivateTmp = true;

@@ -43,8 +43,8 @@
     #   - use `staging` if no staging-next branch has been cut.
     #
     # <https://github.com/nixos/nixpkgs/tree/nixos-unstable>
-    # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=staging-next";
+    nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=staging-next";
     # nixpkgs-unpatched.url = "github:nixos/nixpkgs?ref=staging";
 
     mobile-nixos = {
@@ -92,36 +92,28 @@
         nixpkgs = nixpkgs-unpatched;
       };
 
-      nixpkgsCompiledBy = local: nixpkgs.legacyPackages."${local}";
+      nixpkgsCompiledBy = system: nixpkgs.legacyPackages."${system}";
 
-      evalHost = { name, local, target }:
-        let
-          # XXX: we'd prefer to use `nixosSystem = (nixpkgsCompiledBy target).nixos`
-          # but it doesn't propagate config to the underlying pkgs, meaning it doesn't let you use
-          # non-free packages even after setting nixpkgs.allowUnfree.
-          # XXX: patch using the target -- not local -- otherwise the target will
-          # need to emulate the host in order to rebuild!
-          nixosSystem = import ((nixpkgsCompiledBy target).path + "/nixos/lib/eval-config.nix");
-        in
-          (nixosSystem {
-            modules = [
-              (import ./hosts/instantiate.nix { localSystem = local; hostName = name; })
-              self.nixosModules.default
-              self.nixosModules.passthru
-              {
-                nixpkgs.overlays = [
-                  self.overlays.disable-flakey-tests
-                  self.overlays.passthru
-                  self.overlays.pins
-                  self.overlays.pkgs
-                  # self.overlays.optimizations
-                ];
-                nixpkgs.hostPlatform = target;
-                # nixpkgs.buildPlatform = local;  # set by instantiate.nix instead
-                # nixpkgs.config.replaceStdenv = { pkgs }: pkgs.ccacheStdenv;
-              }
+      evalHost = { name, local, target }: nixpkgs.lib.nixosSystem {
+        system = target;
+        modules = [
+          (import ./hosts/instantiate.nix { localSystem = local; hostName = name; })
+          self.nixosModules.default
+          self.nixosModules.passthru
+          {
+            nixpkgs.overlays = [
+              self.overlays.passthru
+              self.overlays.sane-all
             ];
-          });
+          }
+          ({ lib, ... }: {
+            # TODO: does the earlier `system` arg to nixosSystem make its way here?
+            nixpkgs.hostPlatform.system = target;
+            # nixpkgs.buildPlatform = local;  # set by instantiate.nix instead
+            # nixpkgs.config.replaceStdenv = { pkgs }: pkgs.ccacheStdenv;
+          })
+        ];
+      };
     in {
       nixosConfigurations =
         let
@@ -180,6 +172,7 @@
         # N.B.: `nix flake check` requires every overlay to take `final: prev:` at defn site,
         #   hence the weird redundancy.
         default = final: prev: self.overlays.pkgs final prev;
+        sane-all = final: prev: import ./overlays/all.nix final prev;
         disable-flakey-tests = final: prev: import ./overlays/disable-flakey-tests.nix final prev;
         pkgs = final: prev: import ./overlays/pkgs.nix final prev;
         pins = final: prev: import ./overlays/pins.nix final prev;
@@ -304,6 +297,12 @@
           # - `nix flake init -t '/home/colin/dev/nixos/#pkgs.rust'`
           path = ./templates/pkgs/rust;
           description = "rust package fit to ship in nixpkgs";
+        };
+        pkgs.make = {
+          # initialize with:
+          # - `nix flake init -t '/home/colin/dev/nixos/#pkgs.make'`
+          path = ./templates/pkgs/make;
+          description = "default Makefile-based derivation";
         };
       };
     };

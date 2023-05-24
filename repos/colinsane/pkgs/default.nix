@@ -1,23 +1,33 @@
-{ pkgs ? import <nixpkgs> {}, lib ? pkgs.lib, unpatched ? pkgs }:
+# this supports being used as an overlay or in a standalone context
+# - if overlay, invoke as `(final: prev: import ./. { inherit final; pkgs = prev; })`
+# - if standalone: `import ./. { inherit pkgs; }`
+#
+# using the correct invocation is critical if any packages mentioned here are
+# additionally patched elsewhere
+#
+{ pkgs ? import <nixpkgs> {}, final ? null }:
 let
+  lib = pkgs.lib;
+  unpatched = pkgs;
 
   pythonPackagesOverlay = py-final: py-prev: import ./python-packages {
     inherit (py-final) callPackage;
   };
-  # this scope ensures that my packages can all take each other as inputs,
-  # even when evaluated bare (i.e. outside of an overlay)
-  sane = lib.makeScope pkgs.newScope (self: with self; {
-    sane-data = import ../modules/data { inherit lib; };
-    sane-lib = import ../modules/lib pkgs;
+  final' = if final != null then final else pkgs.appendOverlays [(_: _: sane)];
+  sane = with final'; {
+    sane-data = import ../modules/data { inherit lib sane-lib; };
+    sane-lib = import ../modules/lib final';
 
     ### ADDITIONAL PACKAGES
+    bonsai = callPackage ./additional/bonsai { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     browserpass-extension = callPackage ./additional/browserpass-extension { };
-    cargo-docset = callPackage ./additional/cargo-docset { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
+    hare-ev = callPackage ./additional/hare-ev { };
+    hare-json = callPackage ./additional/hare-json { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
     linux-megous = callPackage ./additional/linux-megous { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
@@ -25,6 +35,7 @@ let
     sane-scripts = callPackage ./additional/sane-scripts { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
+    sxmo-utils = callPackage ./additional/sxmo-utils { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
 
     # packages i haven't used for a while, may or may not still work
@@ -41,7 +52,9 @@ let
     # ubootRaspberryPi4_64bit = callPackage ./additional/ubootRaspberryPi4_64bit { };
 
     # provided by nixpkgs patch or upstream PR
-    # splatmoji = callPackage ./additional/splatmoji { };
+    # i still conditionally callPackage these to make them available to external consumers (like NUR)
+    cargo-docset = unpatched.cargo-docset or (callPackage ./additional/cargo-docset { });
+    splatmoji = unpatched.splatmoji or (callPackage ./additional/splatmoji { });
 
 
     ### PATCHED PACKAGES
@@ -55,12 +68,20 @@ let
     # mozilla keeps nerfing itself and removing configuration options
     firefox-unwrapped = callPackage ./patched/firefox-unwrapped { inherit (unpatched) firefox-unwrapped; };
 
+    gnome = unpatched.gnome.overrideScope' (gself: gsuper: {
+      gnome-control-center = gself.callPackage ./patched/gnome-control-center {
+        inherit (gsuper) gnome-control-center;
+      };
+    });
+
     gocryptfs = callPackage ./patched/gocryptfs { inherit (unpatched) gocryptfs; };
 
     # jackett doesn't allow customization of the bind address: this will probably always be here.
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
 
     lemmy-server = callPackage ./patched/lemmy-server { inherit (unpatched) lemmy-server; };
+
+    phoc = callPackage ./patched/phoc { inherit (unpatched) phoc; };
 
 
     ### PYTHON PACKAGES
@@ -72,5 +93,5 @@ let
     python3 = unpatched.python3.override {
       packageOverrides = pythonPackagesOverlay;
     };
-  });
-in sane.packages sane
+  };
+in sane

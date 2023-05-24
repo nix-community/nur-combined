@@ -1,0 +1,6 @@
+- nix_serve_privkey.bin:
+    - generate with `nix-store --generate-binary-cache-key desko cache-priv-key.pem cache-pub-key.pem`
+- colin-passwd.bin:
+    - see <https://search.nixos.org/options?channel=unstable&show=users.users.%3Cname%3E.passwordFile&from=0&size=50&sort=relevance&type=packages&query=users.users>
+    - update by running `sudo passwd colin` and then taking the 2nd item from the colin: line in /etc/shadow
+    - N.B.: you MUST do `sudo passwd colin` instead of just `passwd`, i guess because of immutable users or something

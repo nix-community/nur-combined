@@ -1,11 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p transmission
 
 set -e
 
 endpoint=https://bt.uninsane.org/transmission/rpc
 PASS=$(sudo cat /run/secrets/transmission_passwd)
 
-options=$(getopt -l prefix:,film,show:,book:,audiobook:,vn:,author: -- "" "${@}")
+options=$(getopt -l help,prefix:,film,show:,book:,audiobook:,vn:,author: -- "" "${@}")
 eval "set -- ${options}"
 
 type=
@@ -14,6 +15,22 @@ author=
 prefix=
 while true; do
   case "$1" in
+    (--help)
+      echo "add a .torrent or magnet:// file to be downloaded by and stored on my server"
+      echo "usage: sane-bt-add [options] <magnet:// URI or path/to.torrent>"
+      echo "options:"
+      echo "  --prefix <PathString>"
+      echo "  --film"
+      echo "  --show <ShowTitle>"
+      echo "  --book <BookTitle>"
+      echo "  --audiobook <BookTitle>"
+      echo "  --vn <VisualNovelTitle>"
+      echo "  --author <Author>"
+      echo ""
+      echo "the above options are used to construct the filesystem path where the torrent data will live"
+      echo "everything is relative to the root media directory (not /)"
+      exit
+    ;;
     (--prefix)
       shift
       prefix="$1"

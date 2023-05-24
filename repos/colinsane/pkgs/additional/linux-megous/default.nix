@@ -15,14 +15,15 @@ let
   # HOW TO UPDATE:
   # - `git fetch` from megous' repo (https://github.com/megous/linux.git).
   # - there should be some new tag, like `orange-pi-6.1-blah`. use that.
+  # - grab VERSION/PATCHLEVEL/SUBLEVEL/EXTRAVERSION from Makefile.
   # - megi publishes release notes as the most recent commit on any stable branch, so just `git log`.
   # - orange-pi is listed as the "main integration branch".
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  rev = "orange-pi-6.2-20230122-1624";
-  hash = "sha256-Yma9LwlMEnP0QkUZpEl+UkTGvOWOMANBoDsmcTrPb1s=";
-  base = "6.2.0";
-  # set to empty if not a release candidate
-  rc = "-rc5";
+  rev = "orange-pi-6.3-20230426-1041";
+  hash = "sha256-hfnBVtWyn6FAAOXnizE4jRaf6b9KYEwlJu3NOD7DMGM=";
+  base = "6.3.0";
+  # set to empty if not a release candidate, else `-rc<N>`
+  rc = "";
 
   # pinephone uses the linux dtb at arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
   # - this includes sun50i-a64.dtsi

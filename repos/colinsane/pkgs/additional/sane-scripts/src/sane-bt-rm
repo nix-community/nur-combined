@@ -1,0 +1,11 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p transmission
+
+# removes a torrent and trashes its data
+# usage: sane-bt-rm <torrent>
+# where <torrent> is a magnet URL, or an identifier from sane-bt-show (e.g. 132)
+
+endpoint=https://bt.uninsane.org/transmission/rpc
+PASS=$(sudo cat /run/secrets/transmission_passwd)
+
+transmission-remote "$endpoint" --auth "colin:$PASS" --torrent "$1" --remove-and-delete

@@ -6,7 +6,7 @@ lib.mkIf false
   systemd.services.ddns-he = {
     description = "update dynamic DNS entries for HurricaneElectric";
     serviceConfig = {
-      EnvironmentFile = config.sops.secrets.ddns_he.path;
+      EnvironmentFile = config.sops.secrets."ddns_he.env".path;
       # TODO: ProtectSystem = "strict";
       # TODO: ProtectHome = "full";
       # TODO: PrivateTmp = true;

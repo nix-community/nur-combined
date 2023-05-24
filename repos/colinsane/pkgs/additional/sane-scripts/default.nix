@@ -27,7 +27,6 @@ let
           "bin"
           coreutils-full
           curl
-          duplicity
           file
           findutils
           git
@@ -49,12 +48,10 @@ let
           sops
           sudo
           systemd
-          transmission
           util-linux
           which
         ];
         keep = {
-          "/run/secrets/duplicity_passphrase" = true;
           # we write here: keep it
           "/tmp/rmlint.sh" = true;
           # intentionally escapes (into user code)
@@ -78,7 +75,6 @@ let
 
         # list of programs which *can* or *cannot* exec their arguments
         execer = with pkgs; [
-          "cannot:${duplicity}/bin/duplicity"
           "cannot:${git}/bin/git"
           "cannot:${gocryptfs}/bin/gocryptfs"
           "cannot:${ifuse}/bin/ifuse"
@@ -90,7 +86,6 @@ let
           "cannot:${sops}/bin/sops"
           "cannot:${ssh-to-age}/bin/ssh-to-age"
           "cannot:${systemd}/bin/systemctl"
-          "cannot:${transmission}/bin/transmission-remote"
         ];
       };
     };
@@ -108,10 +103,36 @@ let
   };
 
   py-scripts = {
+    # anything added to this attrset gets symlink-joined into `sane-scripts`
+    backup-ls = static-nix-shell.mkBash {
+      pname = "sane-backup-ls";
+      src = ./src;
+      pkgs = [ "duplicity" ];
+    };
+    backup-restore = static-nix-shell.mkBash {
+      pname = "sane-backup-restore";
+      src = ./src;
+      pkgs = [ "duplicity" ];
+    };
+    bt-add = static-nix-shell.mkBash {
+      pname = "sane-bt-add";
+      src = ./src;
+      pkgs = [ "transmission" ];
+    };
+    bt-rm = static-nix-shell.mkBash {
+      pname = "sane-bt-rm";
+      src = ./src;
+      pkgs = [ "transmission" ];
+    };
     bt-search = static-nix-shell.mkPython3Bin {
       pname = "sane-bt-search";
       src = ./src;
       pyPkgs = [ "natsort" "requests" ];
+    };
+    bt-show = static-nix-shell.mkBash {
+      pname = "sane-bt-show";
+      src = ./src;
+      pkgs = [ "transmission" ];
     };
     date-math = static-nix-shell.mkPython3Bin {
       pname = "sane-date-math";

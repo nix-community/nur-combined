@@ -65,7 +65,7 @@ let
     ## Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)
     (fromDb "congressionaldish.libsyn.com" // pol)
-    (mkPod "https://podcasts.la.utexas.edu/this-is-democracy/feed/podcast/" // pol // weekly)
+    # (mkPod "https://podcasts.la.utexas.edu/this-is-democracy/feed/podcast/" // pol // weekly)
     ## Civboot -- https://anchor.fm/civboot
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)
     ## Emerge: making sense of what's next -- <https://www.whatisemerging.com/emergepodcast>
@@ -125,6 +125,7 @@ let
     (fromDb "profectusmag.com" // uncat)
     (fromDb "semiaccurate.com" // tech)
     (mkText "https://linuxphoneapps.org/blog/atom.xml" // tech // infrequent)
+    (fromDb "tuxphones.com" // tech)
     (fromDb "spectrum.ieee.org" // tech)
     (fromDb "theregister.com" // tech)
     (fromDb "thisweek.gnome.org" // tech)

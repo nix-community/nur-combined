@@ -11,7 +11,7 @@ let
   def-ovpn = name: { endpoint, publicKey, address }: {
     networking.wg-quick.interfaces."ovpnd-${name}" = {
       inherit address;
-      privateKeyFile = config.sops.secrets."wg_ovpnd_${name}_privkey".path;
+      privateKeyFile = config.sops.secrets."wg/ovpnd_${name}_privkey".path;
       dns = [
         "46.227.67.134"
         "192.165.9.158"

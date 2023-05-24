@@ -2,5 +2,5 @@
 { ... }:
 
 {
-  sane.programs.aerc.secrets.".config/aerc/accounts.conf" = ../../../secrets/universal/aerc_accounts.conf.bin;
+  sane.programs.aerc.secrets.".config/aerc/accounts.conf" = ../../../secrets/common/aerc_accounts.conf.bin;
 }

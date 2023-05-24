@@ -72,5 +72,22 @@ sane-lib = rec {
       inherit path value;
     }
   ];
+
+
+  # like `lib.listFilesRecursive` but does not mangle paths.
+  #
+  # Type: enumerateFilePaths :: path -> [String]
+  enumerateFilePaths = base:
+    builtins.concatLists (
+      lib.mapAttrsToList
+        (name: type:
+          if type == "directory" then
+            # enumerate this directory and then prefix each result with the directory's name
+            builtins.map (e: "${name}/${e}") (enumerateFilePaths (base + "/${name}"))
+          else
+            [ name ]
+        )
+        (builtins.readDir base)
+    );
 };
 in sane-lib

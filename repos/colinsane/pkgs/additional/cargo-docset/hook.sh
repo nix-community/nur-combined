@@ -2,7 +2,7 @@ postBuildHooks+=(_cargoDocset)
 postInstallHooks+=(_cargoDocsetInstall)
 
 _cargoDocset() {
-  cargo-docset docset
+  cargo docset
 }
 
 _cargoDocsetInstall() {

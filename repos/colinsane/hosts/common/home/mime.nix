@@ -28,6 +28,7 @@ in
     # VIDEO
     "video/mp4" = video;
     "video/quicktime" = video;
+    "video/webm" = video;
     "video/x-matroska" = video;
     # HTML
     "text/html" = www;

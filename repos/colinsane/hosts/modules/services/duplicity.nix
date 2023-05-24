@@ -29,7 +29,7 @@ in
     #   web-created keys are allowed to delete files, which you probably don't want for an incremental backup program
     #   you need to create a new application key from the web in order to first get a key which can create new keys (use env vars in the above command)
     # TODO: s/duplicity_passphrase/duplicity_env/
-    services.duplicity.secretFile = config.sops.secrets.duplicity_passphrase.path;
+    services.duplicity.secretFile = config.sops.secrets."duplicity_passphrase.env".path;
     # NB: manually trigger with `systemctl start duplicity`
     services.duplicity.frequency = "daily";
 

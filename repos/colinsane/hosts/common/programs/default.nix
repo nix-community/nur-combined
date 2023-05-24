@@ -61,7 +61,6 @@ let
       tree
       usbutils
       wget
-      wireshark
     ;
   };
   sysadminExtraPkgs = {
@@ -103,7 +102,7 @@ let
       git  # needed as a user package, for config.
       gnupg
       gocryptfs
-      gopass
+      gopass  # TODO: shouldn't be needed here
       gopass-jsonapi
       imagemagick
       kitty  # TODO: move to GUI, but `ssh servo` from kitty sets `TERM=xterm-kitty` in the remove and breaks things
@@ -119,7 +118,7 @@ let
       # nixos-generators
       nmon
       # node2nix
-      oathToolkit  # for oathtool
+      # oathToolkit  # for oathtool
       # ponymix
       pulsemixer
       python3
@@ -132,7 +131,7 @@ let
       sops
       sox
       speedtest-cli
-      ssh-to-age
+      # ssh-to-age
       sudo
       # tageditor  # music tagging
       unar
@@ -147,7 +146,7 @@ let
 
   guiPkgs = {
     inherit (flattenedPkgs)
-      celluloid  # mpv frontend
+      # celluloid  # mpv frontend
       clinfo
       emote
       evince  # works on phosh
@@ -164,19 +163,19 @@ let
 
       # "gnome.cheese"
       "gnome.dconf-editor"
-      gnome-feeds  # RSS reader (with claimed mobile support)
+      # gnome-feeds  # RSS reader (with claimed mobile support)
       "gnome.file-roller"
       # "gnome.gnome-maps"  # works on phosh
       "gnome.nautilus"
       # gnome-podcasts
       "gnome.gnome-system-monitor"
       # "gnome.gnome-terminal"  # works on phosh
-      "gnome.gnome-weather"
-      gpodder-configured
+      # "gnome.gnome-weather"
+      gpodder
       gthumb
       jellyfin-media-player
       # lollypop
-      mpv
+      # mpv
       networkmanagerapplet
       # newsflash
       nheko
@@ -213,11 +212,12 @@ let
       kdenlive
       kid3  # audio tagging
       krita
-      libreoffice-fresh  # XXX colin: maybe don't want this on mobile
+      libreoffice-fresh
       mumble
       obsidian
       slic3r
       steam
+      wireshark  # could maybe ship the cli as sysadmin pkg
     ;
   };
   x86GuiPkgs = {
@@ -228,7 +228,7 @@ let
       # gnome.zenity # for kaiteki (it will use qarma, kdialog, or zenity)
       # gpt2tc  # XXX: unreliable mirror
 
-      logseq
+      # logseq  # Personal Knowledge Management
       losslesscut-bin
       makemkv
       monero-gui
@@ -347,10 +347,6 @@ in
         gh.persist.private = [ ".config/gh" ];
 
         ghostscript = {};  # used by imagemagick
-
-        # XXX: we preserve the whole thing because if we only preserve gPodder/Downloads
-        #   then startup is SLOW during feed import, and we might end up with zombie eps in the dl dir.
-        gpodder-configured.persist.plaintext = [ "gPodder" ];
 
         imagemagick = {
           package = pkgs.imagemagick.override {

@@ -77,7 +77,7 @@ class Torrent:
 
 class Client:
     def __init__(self):
-        self.apikey = open("/run/secrets/jackett_apikey").read()
+        self.apikey = open("/run/secrets/jackett_apikey").read().strip()
 
     def api_call(self, method: str, params: dict) -> dict:
         endpoint = ENDPOINTS[method]

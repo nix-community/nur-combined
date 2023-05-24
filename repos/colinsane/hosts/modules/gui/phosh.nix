@@ -59,6 +59,8 @@ in
       # qt.style = "gtk2";
 
       # docs: https://github.com/NixOS/nixpkgs/blob/nixos-22.05/nixos/modules/services/x11/desktop-managers/phosh.nix
+      # docs: <repo:gnome/phosh:src/phoc.ini.example>
+      # docs: <repo:gnome/phosh:src/settings.c#config_ini_handler>
       services.xserver.desktopManager.phosh = {
         enable = true;
         user = "colin";
@@ -113,6 +115,18 @@ in
         NIXOS_OZONE_WL = "1";
       };
 
+      systemd.services.phosh.environment = {
+        # PHOC_DEBUG: comma-separated list of:
+        # - ``auto-maximize``: Maximize toplevels
+        # - ``damage-tracking``: Debug damage tracking
+        # - ``no-quit``: Don't quit when session ends
+        # - ``touch-points``: Debug touch points
+        # - ``layer-shell``: Debug layer shell
+        # - ``cutouts``: Debug display cutouts and notches
+        PHOC_DEBUG = "layer-shell";
+        # G_DEBUG, G_MESSAGE_DEBUG for glib debugging: <https://docs.gtk.org/glib/running.html>
+      };
+
       programs.dconf.packages = [
         # org.kde.konsole.desktop
         (pkgs.writeTextFile {
@@ -142,7 +156,11 @@ in
       services.xserver.displayManager.job.preStart = ''
         ${pkgs.systemd}/bin/busctl call org.freedesktop.Accounts /org/freedesktop/Accounts org.freedesktop.Accounts CacheUser s colin
       '';
-      # services.xserver.displayManager.defaultSession = "sm.puri.Phosh";  # XXX: not sure why this doesn't propagate correctly.
+      # XXX for some reason specifying defaultSession = "sm.puri.Phosh" breaks cross-compiled display-manager startup
+      # - causes an attempt to load x86-64 glib-2.76.2/lib/libglib-2.0.so.0
+      # - likely <repo:nixpkgs:nixos/modules/services/x11/display-managers/account-service-util.nix>
+      # - but i believe some variant of this issue existed even during emulated compilation
+      # services.xserver.displayManager.defaultSession = "sm.puri.Phosh";
       services.xserver.displayManager.lightdm.extraSeatDefaults = ''
         user-session = phosh
       '';
