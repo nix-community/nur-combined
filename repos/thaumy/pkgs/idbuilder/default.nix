@@ -5,7 +5,7 @@ let
   overlay_pkgs = pkgs.extend (import ./rust-overlay);
 
   appBinName = "idbuilder";
-  appVersion = "6.0.2";
+  appVersion = "6.0.4";
   appComment = "More than an identifier building tool";
 
   desktopItem = makeDesktopItem rec {
@@ -38,8 +38,8 @@ let
   src_idbuilder = fetchFromGitHub {
     owner = "Thaumy";
     repo = "idbuilder";
-    rev = "de9d8ebe180afc321760dadb4c157acfb27d585e";
-    sha256 = "0v97yhxxhc0if9rng3rmr33idr1085f46661b1y4zr8nixaksq13";
+    rev = "c1eb53c284f49c8b6884b39d9f215f0f689ceedc";
+    sha256 = "y1flEkCAGYvvMvmVIMFNjRKIb0muS1ItAbJPg6nhVf4=";
   };
 
   node_modules = yarn2nix-moretea.mkYarnModules rec {
@@ -56,6 +56,7 @@ let
   };
 
   inputs = with overlay_pkgs; [
+    jq
     gtk3
     glib
     dbus
@@ -87,9 +88,10 @@ in rustPlatform.buildRustPackage {
   buildPhase = ''
     cp -r ${src_idbuilder}/* .
     cp -r ${node_modules}/node_modules .
-    yarn --offline build
 
-    chmod -R 777 src-tauri
+    chmod 777 *
+
+    yarn --offline build
 
     mkdir -p deps/ruster
     cp -r ${src_ruster}/* deps/ruster
