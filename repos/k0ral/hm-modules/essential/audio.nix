@@ -1,4 +1,5 @@
-{ config, pkgs ? import <nixpkgs> { }, ... }:
+{ config, lib, pkgs ? import <nixpkgs> { }, ... }:
+with lib;
 
 let cfg = config.module.essential.audio;
 in {
