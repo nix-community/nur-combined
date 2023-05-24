@@ -189,6 +189,10 @@ in {
     # configure: error: no acceptable C compiler found in $PATH
     inherit (emulated) stdenv;
   };
+  browserpass-extension = prev.browserpass-extension.override {
+    # bash: line 1: node_modules/.bin/prettier: cannot execute: required file not found
+    inherit (emulated) mkYarnModules;
+  };
   cantarell-fonts = prev.cantarell-fonts.override {
     # fixes error where python3.10-skia-pathops dependency isn't available for the build platform
     inherit (emulated) stdenv;

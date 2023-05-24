@@ -15,9 +15,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
+    # needed for basic use:
     ./0001-group-differs-from-user.patch
     ./0002-ensure-log-dir.patch
     ./0003-fix-xkb-paths.patch
+
+    # personal preferences:
+    ./0004-full-auto-rotate.patch
   ];
 
   postPatch = ''
