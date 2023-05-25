@@ -73,7 +73,8 @@ in
       initExtra = ''
         . ${zshcfg}/zinputrc
         source ${zshcfg}/zshcompletion.zsh
-
+        
+        bindkey -r "^["
         bindkey ";5C" forward-word
         bindkey ";5D" backward-word
         '' +

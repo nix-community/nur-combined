@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out
-    mv usr/src/amdgpu-5.18.13-1577590.22.04 $out/lib
+    mv usr/src/amdgpu-5.18.13-1580598.22.04 $out/lib
   '';
 
   meta = with lib; {

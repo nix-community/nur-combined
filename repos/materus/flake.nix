@@ -48,7 +48,6 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     rec {
-      extraFiles = ./extraFiles;
 
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
