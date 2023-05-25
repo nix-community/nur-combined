@@ -107,6 +107,7 @@ lib.makeScope newScope (
     modbus_tk = callPackage ./development/python-modules/modbus_tk { };
     portolan = callPackage ./development/python-modules/portolan { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
+    pytest-mp = callPackage ./development/python-modules/pytest-mp { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
 
     ### EMBEDDED
