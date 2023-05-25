@@ -5,6 +5,7 @@
 , pkg-config
 , scdoc
 , dbus
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
@@ -39,6 +40,8 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Basic mpris player control for linux command line";

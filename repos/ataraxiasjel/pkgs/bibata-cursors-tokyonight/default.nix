@@ -1,13 +1,17 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "bibata-cursors-tokyonight";
-  version = "1.0";
+  version = "unstable-2022-07-02";
 
   src = fetchFromGitHub {
     repo = "Bibata-Modern-TokyoNight";
     owner = "ataraxiasjel";
-    rev = version;
+    rev = "1ffc434ea2bd7e5847e18ed456e034f320a467ac";
     hash = "sha256-PREfEgv+FQZjYAQijY3bHQ/0E/L8HgJUBWeA0vdBkAA=";
   };
 
@@ -21,6 +25,10 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = with lib; {
     description = "Bibata cursor for TokyoNight theme";

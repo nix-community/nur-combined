@@ -3,46 +3,51 @@
 , fetchFromGitHub
 , pkgconfig
 , autoreconfHook
-, libsearpc
-, libuuid
-, libtool
-, libevent
-, sqlite
-, openssl
+, curl
 , fuse
-, vala
 , intltool
 , jansson
-, curl
+, libevent
+, libsearpc
+, libtool
+, libuuid
+, libwebsockets
+, openssl
 , python3
+, sqlite
+, vala
+, nix-update-script
 }:
 
 stdenv.mkDerivation rec {
   pname = "seadrive-fuse";
-  version = "2.0.22";
+  version = "2.0.27";
 
   src = fetchFromGitHub {
     owner = "haiwen";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-zzUg3ukV3bf0X+LYDmDgB6TXfDx388q4RvVCAnKzauE=";
+    hash = "sha256-fm0N2tGg70zfA9jIwR2a6R2+CTsFlFYmiDdcdPSl7M0=";
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [
-    libsearpc
-    libuuid
-    libtool
-    libevent
-    sqlite
-    openssl.dev
+    curl
     fuse
-    vala
     intltool
     jansson
-    curl
+    libevent
+    libsearpc
+    libtool
+    libuuid
+    libwebsockets
+    openssl.dev
     python3
+    sqlite
+    vala
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://github.com/haiwen/seadrive-fuse";

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, tinycc }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, tinycc
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "protonhax";
@@ -10,6 +15,8 @@ stdenv.mkDerivation rec {
     rev = version;
     hash = "sha256-3s1pmHcQy/xJS6ke0Td3tkXAhXcTuJ4mb3Dtpxb2/6o=";
   };
+
+  nativeBuildInputs = [ tinycc ];
 
   buildPhase = ''
     runHook preBuild
@@ -32,7 +39,7 @@ stdenv.mkDerivation rec {
     patchShebangs --build $out/bin protonhax
   '';
 
-  nativeBuildInputs = [ tinycc ];
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Program to help executing outside programs in proton";

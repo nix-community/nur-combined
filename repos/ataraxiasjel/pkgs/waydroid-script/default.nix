@@ -5,10 +5,11 @@
 , lzip
 , sqlite
 , util-linux
+, nix-update-script
 }:
 python3Packages.buildPythonApplication rec {
   pname = "waydroid-script";
-  version = "2023.05.13";
+  version = "unstable-2023-05-13";
 
   src = fetchFromGitHub {
     repo = "waydroid_script";
@@ -29,13 +30,19 @@ python3Packages.buildPythonApplication rec {
     let
       setup = substituteAll {
         src = ./setup.py;
+        inherit pname;
         desc = meta.description;
-        inherit pname version;
+        version = builtins.replaceStrings [ "-" ] [ "." ]
+          (lib.strings.removePrefix "unstable-" version);
       };
     in
     ''
       ln -s ${setup} setup.py
     '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = with lib; {
     description = "Python Script to add libraries to waydroid";

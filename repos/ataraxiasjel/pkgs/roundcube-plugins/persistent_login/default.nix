@@ -1,4 +1,4 @@
-{ roundcubePlugin, lib, fetchFromGitHub }:
+{ roundcubePlugin, lib, fetchFromGitHub, nix-update-script }:
 
 roundcubePlugin rec {
   pname = "persistent_login";
@@ -10,4 +10,6 @@ roundcubePlugin rec {
     rev = "version-${version}";
     hash = "sha256-q1G3ZjyLmWYZ6lia93Ajbl72rHlrqP4uAEjx63XAx+E=";
   };
+
+  passthru.updateScript = nix-update-script { };
 }

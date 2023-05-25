@@ -4,6 +4,7 @@
 , gobject-introspection
 , libnotify
 , wrapGAppsHook
+, nix-update-script
 }:
 python3Packages.buildPythonApplication rec {
   pname = "a2ln";
@@ -32,6 +33,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   strictDeps = false;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A way to display Android phone notifications on Linux";

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, zlib }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, zlib
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "ceserver";
@@ -31,6 +36,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ zlib ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Cheat Engine. A development environment focused on modding";

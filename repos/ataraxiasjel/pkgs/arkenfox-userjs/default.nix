@@ -1,6 +1,7 @@
 { stdenv
 , lib
 , fetchFromGitHub
+, nix-update-script
 }:
 stdenv.mkDerivation rec {
   pname = "arkenfox-userjs";
@@ -29,6 +30,8 @@ stdenv.mkDerivation rec {
   postFixup = ''
     patchShebangs --build $out/bin/userjs-prefsCleaner
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Firefox privacy, security and anti-tracking";

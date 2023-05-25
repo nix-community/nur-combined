@@ -3,13 +3,14 @@
 , fetchFromGitHub
 , gtk-engine-murrine
 , jdupes
+, nix-update-script
 }:
 
 builtins.mapAttrs
   (pname: attrs: stdenv.mkDerivation (attrs // rec {
     inherit pname;
 
-    version = "2023-02-20";
+    version = "unstable-2023-02-20";
 
     src = fetchFromGitHub {
       owner = "Fausto-Korpsvart";
@@ -23,6 +24,10 @@ builtins.mapAttrs
     nativeBuildInputs = [ jdupes ];
 
     propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+
+    passthru.updateScript = nix-update-script {
+      extraArgs = [ "--version=branch" ];
+    };
 
     meta = with lib; {
       description = "A GTK theme with the Rosé Pine colour palette";

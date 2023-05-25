@@ -1,8 +1,12 @@
-{ stdenv, lib, fetchFromGitHub }:
+{ stdenv
+, lib
+, fetchFromGitHub
+, nix-update-script
+}:
 
 stdenv.mkDerivation rec {
   pname = "reshade-shaders";
-  version = "2023-03-02";
+  version = "unstable-2023-03-02";
 
   src = fetchFromGitHub {
     owner = "crosire";
@@ -22,6 +26,10 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = with lib; {
     description = "A collection of post-processing shaders written for ReShade";

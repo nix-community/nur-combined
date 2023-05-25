@@ -1,9 +1,10 @@
 { stdenv
 , lib
 , fetchurl
+, nix-update-script
 }:
 stdenv.mkDerivation rec {
-  name = "proton-ge-custom";
+  pname = "proton-ge-custom";
   version = "GE-Proton8-3";
 
   src = fetchurl {
@@ -19,6 +20,8 @@ stdenv.mkDerivation rec {
 
     runHook postBuild
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Compatibility tool for Steam Play based on Wine and additional components";
