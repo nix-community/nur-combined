@@ -39,13 +39,13 @@
   };
   carla = {
     pname = "carla";
-    version = "d86553f8adf5f2fd3ea9f659ac689210ba0db7e6";
+    version = "75192b71cbd98480f4e3d9b1a609dc22590da892";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "d86553f8adf5f2fd3ea9f659ac689210ba0db7e6";
+      rev = "75192b71cbd98480f4e3d9b1a609dc22590da892";
       fetchSubmodules = false;
-      sha256 = "sha256-fnCgwpbYnRLSiQ7bGUmMmDm7MVaUfvJcGSKbkJ+4JFM=";
+      sha256 = "sha256-Z7YfB9ii58ftn7sViHhsDezdAko0qst3Cwuf8nV1ZoU=";
     };
     date = "2023-05-24";
   };
@@ -74,15 +74,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "6ef80c09ffcb3588b024702ab4c660ea67159ce1";
+    version = "3881ad4ad14576417cbca3cff4ab852b323089f5";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "6ef80c09ffcb3588b024702ab4c660ea67159ce1";
+      rev = "3881ad4ad14576417cbca3cff4ab852b323089f5";
       fetchSubmodules = false;
-      sha256 = "sha256-BToRS3u5jnGsFcpD06MPtSfCOq+AcE5RnGj8HK3BD+A=";
+      sha256 = "sha256-+SxIYu9iha0WFRv9xY0N/7eD0UIoasiq1xW3kVF85c8=";
     };
-    date = "2023-05-20";
+    date = "2023-05-24";
   };
   fennel-language-server = {
     pname = "fennel-language-server";
