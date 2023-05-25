@@ -30,10 +30,7 @@ in
 
   ccache = callPackage ./development/tools/misc/ccache { };
 
-  clonehero = clonehero-fhs-wrapper;
-  clonehero-fhs-wrapper = callPackage ./games/clonehero/fhs-wrapper.nix { };
-  clonehero-unwrapped = callPackage ./games/clonehero { };
-  clonehero-xdg-wrapper = callPackage ./games/clonehero/xdg-wrapper.nix { };
+  clonehero = callPackage ./games/clonehero { };
 
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
     inherit cmake cmake-format;

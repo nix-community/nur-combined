@@ -7,17 +7,18 @@
 , atk
 , glib
 , gtk3-x11
+, nix-update-script
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ukmm";
-  version = "0.8.2";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "NiceneNerd";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-gZ9r+al6WsxwMEBoRPNAkBpZP5CdJkrxEEzSxH+0GdI=";
+    hash = "sha256-Cdbwb+YHAjGI8Sshb5dxHiCrm7QvLXRqkpEWJdvBA2Y=";
   };
 
   cargoLock = {
@@ -65,6 +66,8 @@ rustPlatform.buildRustPackage rec {
     # Requires Clear Camera mod
     "--skip=bnp::test_convert"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "A new mod manager for The Legend of Zelda: Breath of the Wild";
