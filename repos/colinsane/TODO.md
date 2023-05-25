@@ -13,7 +13,6 @@
 - fix lightdm-mobile-greeter for newer libhandy
 - port zecwallet-lite to a from-source build
 - fix or abandon Whalebird
-- upstream bonsai & hare deps (tag wentam; chuangzhu; they packaged superd & mnc recently)
 
 
 ## IMPROVEMENTS:

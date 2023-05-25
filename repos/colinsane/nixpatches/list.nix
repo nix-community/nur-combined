@@ -3,7 +3,8 @@ let
   fetchpatch' = {
     saneCommit ? null,
     prUrl ? null,
-    hash ? null
+    hash ? null,
+    title ? null,
   }:
     let
       url = if prUrl != null then
@@ -12,7 +13,11 @@ let
       else
         "https://git.uninsane.org/colin/nixpkgs/commit/${saneCommit}.diff"
       ;
-    in fetchpatch ({ inherit url; } // (if hash != null then { inherit hash; } else {}));
+    in fetchpatch (
+      { inherit url; }
+      // (if hash != null then { inherit hash; } else {})
+      // (if title != null then { name = title; } else {})
+    );
 in [
 
   # splatmoji: init at 1.2.0
@@ -62,20 +67,20 @@ in [
   ./2023-04-29-lemmy.patch
 
   (fetchpatch' {
-    # cargo-docset: init at 0.3.1
+    title = "cargo-docset: init at 0.3.1";
     saneCommit = "5a09e84c6159ce545029483384580708bc04c08f";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/231188";
     hash = "sha256-Z1HOps3w/WvxAiyUAHWszKqwS9EwA6rf4XfgPGp+2sQ=";
   })
 
   (fetchpatch' {
-    # nixos/lemmy: support nginx
+    title = "nixos/lemmy: support nginx";
     saneCommit = "4c86db6dcb78795ac9bb514d9c779fd591070b23";
     hash = "sha256-G7jGhSPUp9BMxh2yTzo0KUUVabMJeZ28YTA+0iPldRI=";
   })
 
   (fetchpatch' {
-    # feedbackd: 0.1.0 -> 0.2.0
+    title = "feedbackd: 0.1.0 -> 0.2.0";
     saneCommit = "a0186a5782708a640cd6eaad6e9742b9cccebe9d";
     hash = "sha256-f8he7pQow4fZkTVVqU/A5KgovZA7m7MccRQNTnDxw5o=";
   })
@@ -119,34 +124,38 @@ in [
   # })
 
   (fetchpatch' {
-    # 2023-02-18: conky: 1.13.1 -> 1.18.0
+    title = "conky: 1.13.1 -> 1.18.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/217224";
     hash = "sha256-+g3XhmBt/udhbBDiVyfWnfXKvZTvDurlvPblQ9HYp3s=";
   })
 
-  # (fetchpatch' {
-  #   # harec: support pkgsCross cross-compilation
-  #   saneCommit = "6f77961e94fe736b2f9963dd9c6411b36f8bb9c5";
-  #   hash = "sha256-3QmV7ihPBEdLDGfJQBN+J/A3DpzpGFjzggsXLbr3hOE=";
-  # })
-
-  # (fetchpatch' {
-  #   # hare: unstable-2023-03-15 -> unstable-2023-04-23
-  #   saneCommit = "cdea9097fd6afb43751e42f1cd1b50e2bffb4d58";
-  #   hash = "sha256-33LoktURM81bLsfY3v+SHL30Qju9GyOMCXVbsGrgOjU=";
-  # })
-
-  # (fetchpatch' {
-  #   # harec: unstable-2023-02-18 -> unstable-2023-04-25
-  #   saneCommit = "5595e88de982474ba6cc9c4d7f4a7a246edb4980";
-  #   hash = "sha256-kKhygKpf3QqQR0kSxutKwZXbNcsSTp/z165h88J8/+g=";
-  # })
-
   (fetchpatch' {
+    # 2023/05/24: merged upstream
     # hare: unstable-2023-03-15 -> unstable-2023-04-23
     # + harec: unstable-2023-02-18 -> unstable-2023-04-25
     prUrl = "https://github.com/NixOS/nixpkgs/pull/233732";
     hash = "sha256-SGDKvsMiK3Pq57JEj/MamDBX5jBXwV/E5jclKO2NAUs=";
+  })
+
+  # (fetchpatch' {
+  #   title = "hare-json: init at unstable-2023-01-31";
+  #   saneCommit = "260f9c6ac4e3564acbceb46aa4b65fbb652f8e23";
+  #   hash = "sha256-bjLKANo0+zaxugJlEk1ObPqRHWOKptD7dXB+/xzsYqA=";
+  # })
+  # (fetchpatch' {
+  #   title = "hare-ev: init at unstable-2022-12-29";
+  #   saneCommit = "4058200a407c86c5d963bc49b608aa1a881cbbf2";
+  #   hash = "sha256-wm1aavbCfxBhcOXh4EhFO4u0LrA9tNr0mSczHUK8mQU=";
+  # })
+  # (fetchpatch' {
+  #   title = "bonsai: init at 1.0.0";
+  #   saneCommit = "65d37294d939384e8db400ea82d25ce8b4ad6897";
+  #   hash = "sha256-2easgOtJfzvVcz/3nt3lo1GKLLotrM4CkBRyTgIAhHU=";
+  # })
+  (fetchpatch' {
+    title = "bonsai: init at 1.0.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
+    hash = "sha256-9XKPNg7TewicfbMgiASpYysTs5aduIVP+4onz+noc/0=";
   })
 
   # for raspberry pi: allow building u-boot for rpi 4{,00}

@@ -167,6 +167,7 @@
 
       # unofficial output
       host-pkgs = mapAttrValues (host: host.config.system.build.pkgs) self.nixosConfigurations;
+      host-programs = mapAttrValues (host: mapAttrValues (p: p.package) host.config.sane.programs) self.nixosConfigurations;
 
       overlays = {
         # N.B.: `nix flake check` requires every overlay to take `final: prev:` at defn site,

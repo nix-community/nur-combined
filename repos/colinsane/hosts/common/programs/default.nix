@@ -42,6 +42,7 @@ let
       jq
       killall
       lsof
+      miniupnpc
       nano
       netcat
       nethogs
@@ -61,6 +62,7 @@ let
       tree
       usbutils
       wget
+      wirelesstools  # iwlist
     ;
   };
   sysadminExtraPkgs = {
@@ -110,7 +112,7 @@ let
       lm_sensors  # for sensors-detect
       lshw
       ffmpeg
-      memtester
+      # memtester
       neovim
       # nettools
       # networkmanager

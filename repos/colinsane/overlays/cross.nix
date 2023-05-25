@@ -1150,6 +1150,10 @@ in {
   });
   # XXX: aarch64 webp-pixbuf-loader wanted by gdk-pixbuf-loaders.cache.drv, wanted by aarch64 gnome-control-center
 
+  # "extract-binary-wrapper-cmd: line 2: strings: command not found"
+  # XXX: technically this belongs in pkgs/build-support/setup-hooks/make-binary-wrapper/default.nix ?
+  wrapFirefox = browser: args: addNativeInputs [ final.bintools-unwrapped ] (prev.wrapFirefox browser args);
+
   wvkbd = (
     # "wayland-scanner: no such program"
     mvToNativeInputs [ final.wayland-scanner ] prev.wvkbd

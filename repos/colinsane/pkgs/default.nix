@@ -19,15 +19,15 @@ let
     sane-lib = import ../modules/lib final';
 
     ### ADDITIONAL PACKAGES
-    bonsai = callPackage ./additional/bonsai { };
+    bonsai = unpatched.bonsai or (callPackage ./additional/bonsai { });
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     browserpass-extension = callPackage ./additional/browserpass-extension { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
-    hare-ev = callPackage ./additional/hare-ev { };
-    hare-json = callPackage ./additional/hare-json { };
+    hare-ev = unpatched.hare-ev or (callPackage ./additional/hare-ev { });
+    hare-json = unpatched.hare-json or (callPackage ./additional/hare-json { });
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
     linux-megous = callPackage ./additional/linux-megous { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };

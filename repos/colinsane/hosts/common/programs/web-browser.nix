@@ -50,16 +50,32 @@ let
     inherit (pkgs.librewolf-unwrapped) extraPrefsFiles;
     inherit (cfg.browser) libName;
 
-    extraNativeMessagingHosts = [ pkgs.browserpass ];
+    extraNativeMessagingHosts = optional cfg.addons.browserpass-extension.enable pkgs.browserpass;
     # extraNativeMessagingHosts = [ pkgs.gopass-native-messaging-host ];
 
     nixExtensions = concatMap (ext: optional ext.enable ext.package) (attrValues cfg.addons);
 
     extraPolicies = {
+      FirefoxHome = {
+        Search = true;
+        Pocket = false;
+        Snippets = false;
+        TopSites = false;
+        Highlights = false;
+      };
       NoDefaultBookmarks = true;
+      OfferToSaveLogins = false;
+      OfferToSaveLoginsDefault = false;
+      PasswordManagerEnabled = false;
       SearchEngines = {
         Default = "DuckDuckGo";
       };
+      UserMessaging = {
+        ExtensionRecommendations = false;
+        SkipOnboarding = true;
+      };
+
+      # these were taken from Librewolf
       AppUpdateURL = "https://localhost";
       DisableAppUpdate = true;
       OverrideFirstRunPage = "";
@@ -88,6 +104,7 @@ let
       # };
       # NewTabPage = true;
     };
+    # extraPrefs = ...
   };
 
   addonOpts = types.submodule {
@@ -119,30 +136,7 @@ let
       };
       addons = mkOption {
         type = types.attrsOf addonOpts;
-        default = {
-          # get names from:
-          # - ~/ref/nix-community/nur-combined/repos/rycee/pkgs/firefox-addons/generated-firefox-addons.nix
-          # `wget ...xpi`; `unar ...xpi`; `cat */manifest.json | jq '.browser_specific_settings.gecko.id'`
-          # browserpass-ce.package = addon "browserpass-ce" "browserpass@maximbaz.com" "sha256-sXgUBbRvMnRpeIW1MTkmTcoqtW/8RDXAkxAq1evFkpc=";
-          browserpass-extension.package = localAddon pkgs.browserpass-extension;
-          # TODO: build bypass-paywalls from source? it's mysteriously disappeared from the Mozilla store.
-          # bypass-paywalls-clean.package = addon "bypass-paywalls-clean" "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}" "sha256-oUwdqdAwV3DezaTtOMx7A/s4lzIws+t2f08mwk+324k=";
-          ether-metamask.package = addon "ether-metamask" "webextension@metamask.io" "sha256-G+MwJDOcsaxYSUXjahHJmkWnjLeQ0Wven8DU/lGeMzA=";
-          i2p-in-private-browsing.package = addon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io" "sha256-dJcJ3jxeAeAkRvhODeIVrCflvX+S4E0wT/PyYzQBQWs=";
-          sidebery.package = addon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}" "sha256-YONfK/rIjlsrTgRHIt3km07Q7KnpIW89Z9r92ZSCc6w=";
-          sponsorblock.package = addon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-hRsvLaAsVm3dALsTrJqHTNgRFAQcU7XSaGhr5G6+mFs=";
-          ublacklist.package = addon "ublacklist" "@ublacklist" "sha256-RqY5iHzbL2qizth7aguyOKWPyINXmrwOlf/OsfqAS48=";
-          ublock-origin.package = addon "ublock-origin" "uBlock0@raymondhill.net" "sha256-eHlQrU/b9X/6sTbHBpGAd+0VsLT7IrVCnd0AQ948lyA=";
-
-          browserpass-extension.enable = lib.mkDefault true;
-          # bypass-paywalls-clean.enable = lib.mkDefault true;
-          ether-metamask.enable = lib.mkDefault true;
-          i2p-in-private-browsing.enable = lib.mkDefault config.services.i2p.enable;
-          sidebery.enable = lib.mkDefault true;
-          sponsorblock.enable = lib.mkDefault true;
-          ublacklist.enable = lib.mkDefault true;
-          ublock-origin.enable = lib.mkDefault true;
-        };
+        default = {};
       };
     };
   };
@@ -153,6 +147,45 @@ in
       sane.programs.web-browser.configOption = mkOption {
         type = types.submodule configOpts;
         default = {};
+      };
+      sane.programs.web-browser.config.addons = {
+        # get names from:
+        # - ~/ref/nix-community/nur-combined/repos/rycee/pkgs/firefox-addons/generated-firefox-addons.nix
+        # `wget ...xpi`; `unar ...xpi`; `cat */manifest.json | jq '.browser_specific_settings.gecko.id'`
+        browserpass-extension = {
+          # package = addon "browserpass-ce" "browserpass@maximbaz.com" "sha256-sXgUBbRvMnRpeIW1MTkmTcoqtW/8RDXAkxAq1evFkpc=";
+          package = localAddon pkgs.browserpass-extension;
+          enable = lib.mkDefault true;
+        };
+
+        # TODO: build bypass-paywalls from source? it's mysteriously disappeared from the Mozilla store.
+        # bypass-paywalls-clean.package = addon "bypass-paywalls-clean" "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}" "sha256-oUwdqdAwV3DezaTtOMx7A/s4lzIws+t2f08mwk+324k=";
+        # bypass-paywalls-clean.enable = lib.mkDefault true;
+
+        ether-metamask = {
+          package = addon "ether-metamask" "webextension@metamask.io" "sha256-G+MwJDOcsaxYSUXjahHJmkWnjLeQ0Wven8DU/lGeMzA=";
+          enable = lib.mkDefault true;
+        };
+        i2p-in-private-browsing = {
+          package = addon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io" "sha256-dJcJ3jxeAeAkRvhODeIVrCflvX+S4E0wT/PyYzQBQWs=";
+          enable = lib.mkDefault config.services.i2p.enable;
+        };
+        sidebery = {
+          package = addon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}" "sha256-YONfK/rIjlsrTgRHIt3km07Q7KnpIW89Z9r92ZSCc6w=";
+          enable = lib.mkDefault true;
+        };
+        sponsorblock = {
+          package = addon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-hRsvLaAsVm3dALsTrJqHTNgRFAQcU7XSaGhr5G6+mFs=";
+          enable = lib.mkDefault true;
+        };
+        ublacklist = {
+          package = addon "ublacklist" "@ublacklist" "sha256-RqY5iHzbL2qizth7aguyOKWPyINXmrwOlf/OsfqAS48=";
+          enable = lib.mkDefault true;
+        };
+        ublock-origin = {
+          package = addon "ublock-origin" "uBlock0@raymondhill.net" "sha256-eHlQrU/b9X/6sTbHBpGAd+0VsLT7IrVCnd0AQ948lyA=";
+          enable = lib.mkDefault true;
+        };
       };
     })
     ({
