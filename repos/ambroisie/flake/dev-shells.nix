@@ -2,7 +2,7 @@
 {
   perSystem = { config, pkgs, ... }: {
     devShells = {
-      default = pkgs.mkShell {
+      default = pkgs.mkShellNoCC {
         name = "NixOS-config";
 
         nativeBuildInputs = with pkgs; [
