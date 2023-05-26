@@ -11,9 +11,6 @@
   # XXX colin: probably don't need this. wlan0 won't be populated unless i touch a value in networking.interfaces.wlan0
   networking.wireless.enable = false;
 
-  # networking.firewall.enable = false;
-  networking.firewall.enable = true;
-
   # this is needed to forward packets from the VPN to the host
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 

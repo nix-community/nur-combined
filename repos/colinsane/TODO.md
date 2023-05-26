@@ -1,3 +1,7 @@
+## BUGS
+- why i need to manually restart `wireguard-wg-ovpns` on servo periodically
+	- else DNS fails
+
 ## REFACTORING:
 ### sops/secrets
 - attach secrets to the thing they're used by (sane.programs)

@@ -10,7 +10,7 @@
   };
 
   config = lib.mkIf config.sane.roles.ac {
-    sane.yggdrasil.enable = true;
-    services.i2p.enable = true;
+    # sane.yggdrasil.enable = true;
+    # services.i2p.enable = true;
   };
 }
