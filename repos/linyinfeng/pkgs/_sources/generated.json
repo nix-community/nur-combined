@@ -47,11 +47,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZwQxVzWtsBmbPGIe1NMSSIDC7a9BU3GnnzZZDqUEe6c=",
+            "sha256": "sha256-XHnv9jPCNhorbTPJ2yvwCNRKgiu6CdpGLQfI0F47atc=",
             "type": "url",
-            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.23/Clash.for.Windows-0.20.23-x64-linux.tar.gz"
+            "url": "https://github.com/Fndroid/clash_for_windows_pkg/releases/download/0.20.24/Clash.for.Windows-0.20.24-x64-linux.tar.gz"
         },
-        "version": "0.20.23"
+        "version": "0.20.24"
     },
     "clash-premium-aarch64-linux": {
         "cargoLocks": null,
