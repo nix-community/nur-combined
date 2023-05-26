@@ -7,10 +7,12 @@
         eamodio.gitlens
         file-icons.file-icons
         jnoortheen.nix-ide
+        llvm-vs-code-extensions.vscode-clangd
         mkhl.direnv
         ms-python.python
         ms-vscode-remote.remote-containers
         ms-vscode-remote.remote-ssh
+        ms-vscode.makefile-tools
         redhat.vscode-yaml
         shardulm94.trailing-spaces
         tamasfe.even-better-toml
@@ -78,6 +80,7 @@
       "workbench.editor.enablePreviewFromCodeNavigation" = true;
       "workbench.iconTheme" = "file-icons";
 
+      "clangd.path" = pkgs.clang-tools + "/bin/clangd";
       "dev.containers.defaultExtensions" = [
         "Tyriar.sort-lines"
         "eamodio.gitlens"
