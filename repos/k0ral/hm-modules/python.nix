@@ -15,9 +15,10 @@ in {
       python3Packages.black
       python3Packages.isort
       python3Packages.mypy
-      python3Packages.pylint
       python3Packages.python-lsp-server
     ];
+
+    programs.pylint.enable = true;
   };
 }
 

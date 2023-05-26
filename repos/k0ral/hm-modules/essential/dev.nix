@@ -11,10 +11,12 @@ in {
       cacert
       httpie
       just
+      jwt-cli
       libxml2
       openssl
       patchelf
       pup
+      yq
     ];
 
     programs = {

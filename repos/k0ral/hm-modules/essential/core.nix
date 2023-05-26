@@ -23,7 +23,6 @@ in {
       sd
       smartmontools
       sshfs-fuse
-      tealdeer
       usbutils
       utillinux
       xdg_utils
@@ -68,6 +67,7 @@ in {
           git_status.disabled = true;
         };
       };
+      tealdeer.enable = true;
     };
   };
 }
