@@ -13,6 +13,7 @@
     - will make it easier to test new services?
 
 ### upstreaming
+- bump nodejs version in lemmy-ui
 - add updateScripts to all my packages in nixpkgs
 - fix lightdm-mobile-greeter for newer libhandy
 - port zecwallet-lite to a from-source build

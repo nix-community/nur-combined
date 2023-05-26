@@ -1,4 +1,9 @@
 { lib, ... }:
+
+# XXX mx-discord-puppet uses nodejs_14 which is EOL
+# - mx-discord-puppet is abandoned upstream _and_ in nixpkgs
+# - recommended to use mautrix-discord: <https://github.com/NixOS/nixpkgs/pull/200462>
+lib.mkIf false
 {
   sane.persist.sys.plaintext = [
     { user = "matrix-synapse"; group = "matrix-synapse"; directory = "/var/lib/mx-puppet-discord"; }

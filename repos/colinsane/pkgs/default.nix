@@ -80,6 +80,7 @@ let
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
 
     lemmy-server = callPackage ./patched/lemmy-server { inherit (unpatched) lemmy-server; };
+    lemmy-ui = callPackage ./patched/lemmy-ui { inherit (unpatched) lemmy-ui; };
 
     phoc = callPackage ./patched/phoc { inherit (unpatched) phoc; };
 
