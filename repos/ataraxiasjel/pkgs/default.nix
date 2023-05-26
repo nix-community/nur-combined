@@ -6,11 +6,11 @@ with pkgs; with lib; {
   overlays = import ../overlays;
 
   a2ln = python3Packages.callPackage ./a2ln { };
-  proton-ge = callPackage ./proton-ge { };
   arkenfox-userjs = callPackage ./arkenfox-userjs { };
   bibata-cursors-tokyonight = callPackage ./bibata-cursors-tokyonight { };
   ceserver = callPackage ./ceserver { };
   mpris-ctl = callPackage ./mpris-ctl { };
+  proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
   reshade-shaders = callPackage ./reshade-shaders { };
   seadrive-fuse = callPackage ./seadrive-fuse { };
