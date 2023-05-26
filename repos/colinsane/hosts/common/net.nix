@@ -20,4 +20,6 @@
     General.RoamThreshold = "-52";  # default -70
     General.RoamThreshold5G = "-52";  # default -76
   };
+
+  networking.firewall.enable = false;
 }

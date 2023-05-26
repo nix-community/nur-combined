@@ -5,7 +5,8 @@ let
   cfg = config.sane.services.dyn-dns;
   getIp = pkgs.writeShellScript "dyn-dns-query-wan" ''
     # preferred method and fallback
-    ${pkgs.sane-scripts}/bin/sane-ip-check-router-wan || \
+    # OPNsense router broadcasts its UPnP endpoint every 30s
+    timeout 60 ${pkgs.sane-scripts}/bin/sane-ip-check-upnp || \
       ${pkgs.sane-scripts}/bin/sane-ip-check
   '';
 in

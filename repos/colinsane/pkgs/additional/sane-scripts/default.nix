@@ -138,6 +138,11 @@ let
       pname = "sane-date-math";
       src = ./src;
     };
+    ip-check-upnp = static-nix-shell.mkPython3Bin {
+      pname = "sane-ip-check-upnp";
+      src = ./src;
+      pkgs = [ "miniupnpc" ];
+    };
     reclaim-boot-space = static-nix-shell.mkPython3Bin {
       pname = "sane-reclaim-boot-space";
       src = ./src;
