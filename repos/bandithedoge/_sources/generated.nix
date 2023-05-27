@@ -39,13 +39,13 @@
   };
   carla = {
     pname = "carla";
-    version = "1a75fc6b19c34ee5834440573df8a5844bb2cf12";
+    version = "6e2587e8ee0f44920d889fc6f543ec05dad22a00";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "1a75fc6b19c34ee5834440573df8a5844bb2cf12";
+      rev = "6e2587e8ee0f44920d889fc6f543ec05dad22a00";
       fetchSubmodules = false;
-      sha256 = "sha256-NtzcYBPf5CVo0Axen1F5rApaoco2c/9OenzUmauRLss=";
+      sha256 = "sha256-XI1xvvXSRfq7toVklfx2GkuEYSZJyHxLeLUwlXbzogE=";
     };
     date = "2023-05-26";
   };
