@@ -83,7 +83,9 @@
 
   tessil-robin-map = pkgs.callPackage ./pkgs/tessil-robin-map { };
 
-  trng = pkgs.callPackage ./pkgs/trng { };
+  trng = pkgs.callPackage ./pkgs/trng {
+    trng-cmake = ./pkgs/trng/trng-cmake;
+  };
 
   vectorclass = pkgs.callPackage ./pkgs/vectorclass {
     vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
