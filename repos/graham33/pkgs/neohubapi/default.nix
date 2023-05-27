@@ -1,22 +1,22 @@
 { lib
 , buildPythonPackage
-, fetchFromGitLab
+, fetchPypi
 , async-property
+, websockets
 }:
 
 buildPythonPackage rec {
   pname = "neohubapi";
-  version = "0.9";
+  version = "1.0";
 
-  src = fetchFromGitLab {
-    owner = "neohubapi";
-    repo = "neohubapi";
-    rev = "v${version}";
-    sha256 = "sha256-+kMxB8liJ53rY0v3P72kY2aYI1/c7kYF3omEl6SKtlg=";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-lmz9jgdBN+VnZnE/ckNUK9YNINtVj90iCZbCQBL/XXc=";
   };
 
   propagatedBuildInputs = [
     async-property
+    websockets
   ];
 
   checkInputs = [

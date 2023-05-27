@@ -5,14 +5,14 @@
 
 with home-assistant.python.pkgs; buildHomeAssistantCustomComponent rec {
   pname = "heatmiser-for-home-assistant";
-  version = "0.0.1-pre";
+  version = "0.0.1-pre434b6eb";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "MindrustUK";
     repo = pname;
-    rev = "1f76811f3363f8d2d80f91b79b52cf075044f32c";
-    sha256 = "sha256-kSHDNAq139WqNk4U4P6WFwHAOE3NTrK4Fl1sxDWNluI=";
+    rev = "434b6eb92b0f76dd045bd222b8e4860d0492e6a9";
+    sha256 = "sha256-9fD6rHzSI4IXEXNq/WcD/EXWRf0kE/rhckzOZrJ4xKw=";
   };
 
   propagatedBuildInputs = [
