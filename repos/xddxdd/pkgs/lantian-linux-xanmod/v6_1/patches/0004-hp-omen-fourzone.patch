@@ -1,7 +1,7 @@
-diff --git a/drivers/platform/x86/hp-wmi.c b/drivers/platform/x86/hp-wmi.c
-index 4a3851332ef2..e9933ab5e4cd 100644
---- a/drivers/platform/x86/hp-wmi.c
-+++ b/drivers/platform/x86/hp-wmi.c
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 2ef201b625b3..f38b673c5403 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
 @@ -9,6 +9,9 @@
   * Copyright (C) 2005 Miloslav Trmac <mitr@volny.cz>
   * Copyright (C) 2005 Bernhard Rosenkraenzer <bero@arklinux.org>
