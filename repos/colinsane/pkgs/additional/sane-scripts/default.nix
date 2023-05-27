@@ -90,11 +90,17 @@ let
       };
     };
 
-    # remove python scripts  (we package them further below)
-    patchPhase = builtins.concatStringsSep
-      "\n"
-      (lib.mapAttrsToList (name: pkg: "rm ${pkg.pname}") py-scripts)
-    ;
+    patchPhase =
+      let
+        rmPy = builtins.concatStringsSep
+          "\n"
+          (lib.mapAttrsToList (name: pkg: "rm ${pkg.pname}") py-scripts)
+        ;
+      in ''
+        # remove python library files, and python binaries  (those are packaged further below)
+        rm -rf lib/
+        ${rmPy}
+      '';
 
     installPhase = ''
       mkdir -p $out/bin
@@ -142,6 +148,19 @@ let
       pname = "sane-ip-check-upnp";
       src = ./src;
       pkgs = [ "miniupnpc" ];
+      postInstall = ''
+        mkdir -p $out/bin/lib
+        cp -R lib/* $out/bin/lib/
+      '';
+    };
+    ip-port-forward = static-nix-shell.mkPython3Bin {
+      pname = "sane-ip-port-forward";
+      src = ./src;
+      pkgs = [ "miniupnpc" ];
+      postInstall = ''
+        mkdir -p $out/bin/lib
+        cp -R lib/* $out/bin/lib/
+      '';
     };
     reclaim-boot-space = static-nix-shell.mkPython3Bin {
       pname = "sane-reclaim-boot-space";

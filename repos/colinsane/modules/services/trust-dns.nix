@@ -171,8 +171,8 @@ in
 
   config = mkIf cfg.enable {
     sane.services.trust-dns.generatedZones = mapAttrs (zone: zcfg: genZone zcfg) cfg.zones;
-    networking.firewall.allowedTCPPorts = [ 53 ];
-    networking.firewall.allowedUDPPorts = [ 53 ];
+    sane.services.wan-ports.tcp = [ 53 ];
+    sane.services.wan-ports.udp = [ 53 ];
 
     systemd.services.trust-dns = {
       description = "trust-dns DNS server";

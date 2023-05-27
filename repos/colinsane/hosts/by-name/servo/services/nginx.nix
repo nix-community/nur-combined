@@ -13,7 +13,7 @@ let
 in
 {
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  sane.services.wan-ports.tcp = [ 80 443 ];
 
   services.nginx.enable = true;
   services.nginx.appendConfig = ''

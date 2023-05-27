@@ -28,7 +28,7 @@ in
     # "/var/lib/dovecot"
   ];
 
-  networking.firewall.allowedTCPPorts = [
+  sane.services.wan-ports.tcp = [
     # exposed over vpn mx.uninsane.org
     25   # SMTP
     465  # SMTPS

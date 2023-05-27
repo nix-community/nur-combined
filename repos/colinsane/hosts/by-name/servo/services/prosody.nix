@@ -12,7 +12,7 @@ lib.mkIf false
   sane.persist.sys.plaintext = [
     { user = "prosody"; group = "prosody"; directory = "/var/lib/prosody"; }
   ];
-  networking.firewall.allowedTCPPorts = [
+  sane.services.wan-ports.tcp = [
     5222  # XMPP client -> server
     5269  # XMPP server -> server
     5280  # bosh

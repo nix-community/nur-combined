@@ -53,6 +53,7 @@ in rec {
       '';
       nativeBuildInputs = [ makeWrapper ];
       installPhase = ''
+        runHook preInstall
         mkdir -p $out/bin
         mv ${srcPath} $out/bin/${srcPath}
 
@@ -62,6 +63,8 @@ in rec {
         # add runtime dependencies to PATH
         wrapProgram $out/bin/${srcPath} \
           --suffix PATH : ${lib.makeBinPath pkgsEnv }
+
+        runHook postInstall
       '';
     } // (removeAttrs attrs [ "interpreter" "interpreterName" "pkgsEnv" "pkgExprs" "srcPath" ])
   );

@@ -22,7 +22,7 @@
   sane.persist.sys.plaintext = [
     { user = "ejabberd"; group = "ejabberd"; directory = "/var/lib/ejabberd"; }
   ];
-  networking.firewall.allowedTCPPorts = [
+  sane.services.wan-ports.tcp = [
     3478  # STUN/TURN
     5222  # XMPP  client -> server
     5223  # XMPPS client -> server (XMPP over TLS)
@@ -33,9 +33,10 @@
     5349  # STUN/TURN (TLS)
     5443  # web services (file uploads, websockets, admin)
   ];
-  networking.firewall.allowedUDPPorts = [
+  sane.services.wan-ports.udp = [
     3478  # STUN/TURN
   ];
+  # TODO: forward these TURN ports!
   networking.firewall.allowedTCPPortRanges = [{
     from = 49152;  # TURN
     to = 49408;

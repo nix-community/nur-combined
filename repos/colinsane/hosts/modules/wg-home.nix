@@ -33,6 +33,11 @@ in
       type = types.bool;
       default = false;
     };
+    sane.services.wg-home.enableWan = mkOption {
+      type = types.bool;
+      default = false;
+      description = "whether to make this port visible on the WAN";
+    };
     sane.services.wg-home.ip = mkOption {
       type = types.str;
     };
@@ -51,6 +56,7 @@ in
 
     # for convenience, have both the server and client use the same port for their wireguard connections.
     networking.firewall.allowedUDPPorts = [ 51820 ];
+    sane.services.wan-ports.udp = lib.mkIf cfg.enableWan [ 51820 ];
     networking.wireguard.interfaces.wg-home = {
       listenPort = 51820;
       privateKeyFile = "/run/wg-home.priv";

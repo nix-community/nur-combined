@@ -1,0 +1,74 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p miniupnpc
+
+'''
+USAGE: sane-ip-port-forward [options] [proto:port]*
+
+options:
+  -v:  verbose (show info messages)
+  -vv: more verbose (show debug messages)
+  -h:  show this help messages
+
+proto:port:
+  proto is `udp` or `tcp` (case insensitive)
+  port is any integer 1-65535 inclusive
+'''
+
+import logging
+import subprocess
+import sys
+
+sys.path.insert(0, ".")
+
+from lib.sane_ssdp import get_any_wan, forward_port
+
+class BadCliArgs(Exception):
+    def __init__(self, msg: str = None):
+        helpstr = __doc__.strip()
+        if msg:
+            super().__init__(f"{msg}\n\n{helpstr}")
+        else:
+            super().__init__(helpstr)
+
+def try_parse_port(s: str):
+    """
+    `udp:53` -> ["udp", 53]
+    `tcp:65535` -> ["tcp", 65535]
+    """
+    try:
+        proto, portstr = s.strip().split(":")
+        proto, port = proto.lower(), int(portstr)
+        assert proto in ["tcp", "udp"]
+        assert 0 < port < 65536
+        return proto, port
+    except Exception:
+        pass
+
+def parse_args(argv: "List[str]") -> "List[('udp'|'tcp', port)]":
+    forwards = []
+    for arg in sys.argv[1:]:
+        if arg == "-h":
+            raise BadCliArgs()
+        if arg == "-v":
+            logging.getLogger().setLevel(logging.INFO)
+        elif arg == "-vv":
+            logging.getLogger().setLevel(logging.DEBUG)
+        elif try_parse_port(arg):
+            forwards.append(try_parse_port(arg))
+        else:
+            raise BadCliArgs(f"invalid CLI argument {arg!r}")
+    return forwards
+
+if __name__ == '__main__':
+    logging.basicConfig()
+
+    try:
+        forwards = parse_args(sys.argv)
+    except BadCliArgs as e:
+        print(e)
+        sys.exit(1)
+
+    root_device, _wan = get_any_wan()
+    hostname = subprocess.check_output(["hostname"]).decode("utf-8").strip()
+    for (proto, port) in forwards:
+        forward_port(root_device, proto, port, f"colin-{hostname}")

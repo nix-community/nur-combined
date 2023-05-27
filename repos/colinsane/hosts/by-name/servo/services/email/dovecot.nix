@@ -6,7 +6,7 @@
 
 { config, lib, pkgs, ... }:
 {
-  networking.firewall.allowedTCPPorts = [
+  sane.services.wan-ports.tcp = [
     # exposed over non-vpn imap.uninsane.org
     143  # IMAP
     993  # IMAPS

@@ -18,6 +18,7 @@
 {
   # identical to:
   # services.jellyfin.openFirewall = true;
+  # N.B.: these are all for the LAN, so we don't go through `sane.services.wan-ports`.
   networking.firewall.allowedUDPPorts = [
     # https://jellyfin.org/docs/general/networking/index.html
     1900  # UPnP service discovery

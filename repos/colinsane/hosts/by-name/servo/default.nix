@@ -20,6 +20,7 @@
   sane.zsh.showDeadlines = false;  # ~/knowledge doesn't always exist
   sane.services.dyn-dns.enable = true;
   sane.services.wg-home.enable = true;
+  sane.services.wg-home.enableWan = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."servo".wg-home.ip;
   # sane.services.duplicity.enable = true;  # TODO: re-enable after HW upgrade
 
