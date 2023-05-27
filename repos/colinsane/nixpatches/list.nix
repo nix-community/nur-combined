@@ -129,14 +129,6 @@ in [
     hash = "sha256-+g3XhmBt/udhbBDiVyfWnfXKvZTvDurlvPblQ9HYp3s=";
   })
 
-  (fetchpatch' {
-    # 2023/05/24: merged upstream
-    # hare: unstable-2023-03-15 -> unstable-2023-04-23
-    # + harec: unstable-2023-02-18 -> unstable-2023-04-25
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/233732";
-    hash = "sha256-SGDKvsMiK3Pq57JEj/MamDBX5jBXwV/E5jclKO2NAUs=";
-  })
-
   # (fetchpatch' {
   #   title = "hare-json: init at unstable-2023-01-31";
   #   saneCommit = "260f9c6ac4e3564acbceb46aa4b65fbb652f8e23";

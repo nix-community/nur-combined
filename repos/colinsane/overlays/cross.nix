@@ -1135,6 +1135,10 @@ in {
       mvToNativeInputs [ final.gettext final.glib ] prev.xdg-desktop-portal-gnome
     )
   );
+  # "fatal error: urcu.h: No such file or directory"
+  # xfsprogs wants to compile things for the build target (BUILD_CC)
+  # xfsprogs = useEmulatedStdenv prev.xfsprogs;
+  xfsprogs = addNativeInputs [ final.liburcu ] prev.xfsprogs;
   # webkitgtk = prev.webkitgtk.override { stdenv = final.ccacheStdenv; };
   # webp-pixbuf-loader = prev.webp-pixbuf-loader.override {
   #   # fixes "Builder called die: Cannot wrap '/nix/store/kpp8qhzdjqgvw73llka5gpnsj0l4jlg8-gdk-pixbuf-aarch64-unknown-linux-gnu-2.42.10/bin/gdk-pixbuf-thumbnailer' because it is not an executable file"
