@@ -1,4 +1,4 @@
-{ trng-cmake, lib, stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "trng";
@@ -12,11 +12,6 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-
-  postFixup = ''
-    mkdir -p $out/share/trng
-    cp ${trng-cmake}/* $out/share/trng/
-  '';
 
   meta = with lib; {
     description = "Modern C++ pseudo random number generator library";
