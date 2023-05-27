@@ -45,6 +45,12 @@ in
             })
             (lib.optionalAttrs config.my.home.bluetooth.enable {
               block = "bluetooth";
+              mac = "38:18:4C:BE:8E:97";
+              format = " $icon Muon{ $percentage|} ";
+              disconnected_format = "";
+            })
+            (lib.optionalAttrs config.my.home.bluetooth.enable {
+              block = "bluetooth";
               mac = "94:DB:56:00:EE:93";
               format = " $icon Protons{ $percentage|} ";
               disconnected_format = "";
