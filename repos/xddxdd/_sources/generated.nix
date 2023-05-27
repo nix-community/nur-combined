@@ -227,13 +227,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.1.2";
+    version = "v3.2.0";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.1.2";
+      rev = "v3.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-36ILIyMTzm9pK9aakfZHfsHWy9xHtFez8QGZuIJ04vM=";
+      sha256 = "sha256-d3uuOILDvKB+IoIXZVtN/kgurETp40uSAOpoTbPX3yI=";
     };
   };
   flasgger = {
@@ -262,15 +262,15 @@
   };
   genshinhelper2 = {
     pname = "genshinhelper2";
-    version = "e786dedd153fb551baded7ee77d7eefa909555f7";
+    version = "1382b89d0ee1f5dfcbe1425398fb4cfc260ddcdd";
     src = fetchFromGitHub {
       owner = "y1ndan";
       repo = "genshinhelper2";
-      rev = "e786dedd153fb551baded7ee77d7eefa909555f7";
+      rev = "1382b89d0ee1f5dfcbe1425398fb4cfc260ddcdd";
       fetchSubmodules = false;
-      sha256 = "sha256-A9xjkucf3qbDUuTi7rQbOhEYwtGXn6m0IosqhfD2awA=";
+      sha256 = "sha256-jkg3ndR9t/v5TFsda6e94Duce5BexbUFvW8ZevJO35A=";
     };
-    date = "2022-12-10";
+    date = "2023-05-22";
   };
   glauth = {
     pname = "glauth";
@@ -301,16 +301,16 @@
   };
   grasscutter-resources = {
     pname = "grasscutter-resources";
-    version = "5f8c418a9ff6a0cf5af31c2d7aa1200ecafb7b5d";
+    version = "5ca3dafcee53a197332fff399dc5a6cf3bc02f74";
     src = fetchgit {
       url = "https://gitlab.com/YuukiPS/GC-Resources.git";
-      rev = "5f8c418a9ff6a0cf5af31c2d7aa1200ecafb7b5d";
+      rev = "5ca3dafcee53a197332fff399dc5a6cf3bc02f74";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-QbzgI4HNGQSKuKD/Z5Bo/QkBrCsVtyrOsGuXTdyRgwk=";
+      sha256 = "sha256-kZVFFn/J4M3h4rIqiOKE9yqXcd/tttCDkkyDT4URX6k=";
     };
-    date = "2023-05-08";
+    date = "2023-05-26";
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
@@ -388,25 +388,25 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "6e1f49aa48971b0fc8658e94ca41d1ad4fe480ee";
+    version = "7728f20d4d8ce7baa71a118a6e389b649e921497";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "6e1f49aa48971b0fc8658e94ca41d1ad4fe480ee";
+      rev = "7728f20d4d8ce7baa71a118a6e389b649e921497";
       fetchSubmodules = false;
-      sha256 = "sha256-ZZZRZIAkWxUdt3+1Ch4QJ+BeXZWVthv9Wyg/UB01R3Y=";
+      sha256 = "sha256-6Jfx51o/cQ8PCj9dP2qoZ7CTjpac20wEgcBpp3zzLGQ=";
     };
-    date = "2023-05-20";
+    date = "2023-05-22";
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.3.3-xanmod1";
+    version = "6.3.4-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.3.3-xanmod1";
+      rev = "6.3.4-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-3vkY79dmRUITXUIStYVlrR/JVLtLH2hfH1YKCF03Wmo=";
+      sha256 = "sha256-qHwiyaQfKc/v4+rwvH5FSVPsaBoF2rQmhOovHqmUtYE=";
     };
   };
   linux-xanmod-6_0 = {
@@ -422,13 +422,13 @@
   };
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
-    version = "6.1.29-xanmod1";
+    version = "6.1.30-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.1.29-xanmod1";
+      rev = "6.1.30-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-/AaI/cOORkegxjKcrZ941U2oazf3FzLlUv5Y2CXrpb0=";
+      sha256 = "sha256-F5N0PkjVBSpidP08SdBtOx5n+97RUqN32bwyQ6y+CYY=";
     };
   };
   nbfc-linux-lantian = {
@@ -497,15 +497,15 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "bf64dbfabfc49a574eb361f34b2401f880b5a324";
+    version = "bd338835463811fe0221db858d865269952aaed9";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "bf64dbfabfc49a574eb361f34b2401f880b5a324";
+      rev = "bd338835463811fe0221db858d865269952aaed9";
       fetchSubmodules = false;
-      sha256 = "sha256-3vmdfLraMucz+vLt8NT32FjJf6LDf0cvDqF5uzj9hBA=";
+      sha256 = "sha256-ReTmYGVSOwtnYDMkQDMWwxw09vT4iHYfYZvgd8iBotk=";
     };
-    date = "2023-04-17";
+    date = "2023-05-26";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -579,27 +579,27 @@
   };
   openssl-oqs = {
     pname = "openssl-oqs";
-    version = "728b0171923b5c29846e23a28c3be7e65fb4d5ab";
+    version = "c294e1194295c55b4a5da9a6d092439bb6ee7ba0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "openssl";
-      rev = "728b0171923b5c29846e23a28c3be7e65fb4d5ab";
+      rev = "c294e1194295c55b4a5da9a6d092439bb6ee7ba0";
       fetchSubmodules = false;
-      sha256 = "sha256-1rNuhE7AzROtS3zAULGSfabeS3oMxtbBY6oexSm/BEc=";
+      sha256 = "sha256-JjZ3j/KJuVB4yfe0+0lgYGEzrIxlnO25o6NT6JDL9TU=";
     };
-    date = "2023-05-15";
+    date = "2023-05-23";
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "8481fcf810b1ed1878400bbb6082abbc028c692e";
+    version = "4bf202bdbe4a1c9dbb7e88ccd0636c9848d90afc";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "8481fcf810b1ed1878400bbb6082abbc028c692e";
+      rev = "4bf202bdbe4a1c9dbb7e88ccd0636c9848d90afc";
       fetchSubmodules = false;
-      sha256 = "sha256-t+7bQGMSedXTP/Okhk4EKeYCmzVms5T7DV42zAf5DuU=";
+      sha256 = "sha256-MgqCrCUKwA3lbYvaSJtTft2Xvoa0Z6jOy5WL0dm/DXI=";
     };
-    date = "2023-05-19";
+    date = "2023-05-24";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -818,15 +818,15 @@
   };
   transmission-web-control = {
     pname = "transmission-web-control";
-    version = "0bbe64d28667a72130aded6e6d6826efa68566ad";
+    version = "5aeb20c141f6c1ca30c0aaae6b861471a48210d8";
     src = fetchFromGitHub {
       owner = "ronggang";
       repo = "transmission-web-control";
-      rev = "0bbe64d28667a72130aded6e6d6826efa68566ad";
+      rev = "5aeb20c141f6c1ca30c0aaae6b861471a48210d8";
       fetchSubmodules = false;
-      sha256 = "sha256-JMgrbnf6fe3rRO8oWQabchYrUPobwqGJPnbutUtOewU=";
+      sha256 = "sha256-LbhAxInDEcf5Y9KPBbBVlqNC4qbVV9/KMK1PxcdFezY=";
     };
-    date = "2022-02-23";
+    date = "2023-05-21";
   };
   undetected-chromedriver = {
     pname = "undetected-chromedriver";
