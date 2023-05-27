@@ -1,0 +1,12 @@
+diff --git a/xmake.lua b/xmake.lua
+index 6e393a061..5b4438424 100644
+--- a/xmake.lua
++++ b/xmake.lua
+@@ -354,6 +354,7 @@ target("libmogan") do
+             "src/Kernel/Types",
+             "src/Plugins",
+             "src/Plugins/Pdf",
++	    "src/Plugins/Pdf/LibAesgm",
+             "src/Plugins/Qt",
+             "src/Plugins/UniversalStacktrace",
+             "src/Scheme",

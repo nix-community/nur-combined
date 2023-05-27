@@ -1,0 +1,32 @@
+diff --git a/xmake.lua b/xmake.lua
+index 6e393a061..22adabd9b 100644
+--- a/xmake.lua
++++ b/xmake.lua
+@@ -56,19 +56,19 @@ if is_plat("linux") and (linuxos.name() == "debian" or linuxos.name() == "ubuntu
+     end
+ else
+     if not is_plat("wasm") then
+-        add_requires("libiconv 1.17", {system=false})
+-        add_requires("libcurl 7.84.0", {system=false})
++        -- add_requires("libiconv >=1.17", {system=true})
++        add_requires("libcurl >=7.84.0", {system=true})
+     end
+-    add_requires("libpng 1.6.37", {system=false})
+-    add_requires("zlib 1.2.12", {system=false})
+-    add_requires("libjpeg v9e", {system=false})
+-    add_requires("freetype 2.12.1", {system=false})
+-    add_requires("sqlite3 3.39.0+200", {system=false})
++    add_requires("libpng >=1.6.37", {system=true})
++    add_requires("zlib >=1.2.12", {system=true})
++    add_requires("libjpeg", {system=true})
++    add_requires("freetype2 >=2.12.1", {alias="freetype",system=true})
++    add_requires("sqlite3 >=3.39.0+200", {system=true})
+ end
+ 
+ local PDFHUMMUS_VERSION = "4.1"
+ if not is_plat("wasm") then
+-    add_requires("pdfhummus "..PDFHUMMUS_VERSION, {system=false,configs={libpng=true,libjpeg=true}})
++    -- add_requires("cmake::PDFHummus", {alias="pdfhummus",system=true})
+ end
+ 
+ local XMACS_VERSION="1.1.2"

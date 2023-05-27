@@ -22,6 +22,11 @@ stdenv.mkDerivation rec {
     "--demo=n"
   ];
 
+  postInstall = ''
+    mkdir -p $out/lib/pkgconfig
+    substituteAll ${./libtbox.pc.in} $out/lib/pkgconfig/libtbox.pc
+  '';
+
   meta = with lib; {
     description = "A glib-like multi-platform c library";
     homepage = "docs.tboox.org";

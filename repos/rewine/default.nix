@@ -27,4 +27,8 @@ rec {
     inherit tbox xmake-core-sv;
     luaPackages = pkgs.lua54Packages;
   };
+  mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {
+    inherit xmake pdfhummus ;
+  };
+  pdfhummus = pkgs.libsForQt5.callPackage ./pkgs/pdfhummus { }; 
 }
