@@ -8,7 +8,11 @@
     in {
       inherit (selfImported) lib;
       overlays.default = selfImported.overlay;
-      nixosModules.ssh-known-keys = { ... }: {
+      nixosModules.default = {
+        imports = pkgs.lib.attrValues
+          (builtins.removeAttrs self.nixosModules [ "default" ]);
+      };
+      nixosModules.ssh-known-keys = {
         services.openssh.knownHosts =
           self.lib.mapAttrs (_: publicKey: { inherit publicKey; })
           self.lib.sshKnownPublicKeys;
