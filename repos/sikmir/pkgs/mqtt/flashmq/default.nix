@@ -1,27 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, installShellFiles, openssl }:
+{ lib, stdenv, fetchFromGitHub, cmake, installShellFiles, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "flashmq";
-  version = "1.3.0";
+  version = "1.4.5";
 
   src = fetchFromGitHub {
     owner = "halfgaar";
     repo = "FlashMQ";
     rev = "v${version}";
-    hash = "sha256-VikTaPczF1+Bk/K6D5lZgyLybNETtm0YTEwFgPmpiiw=";
+    hash = "sha256-DcxwwUNpnMeK8A3LuyfrWAMCng0yIcX9bKxNGY0uDSo=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/halfgaar/FlashMQ/commit/f33117351496143eb7bf8362697d40f4c74da5b8.patch";
-      hash = "sha256-gEEzQm2g1/G3eh8z1Ao90Nzg8RmTLvRpw2jVWBMyM68=";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace mainapp.cpp --replace "/etc/flashmq" "$out/etc/flashmq"
-  '' + lib.optionalString (stdenv.isLinux && !stdenv.isx86_64) ''
-    substituteInPlace CMakeLists.txt --replace "-msse4.2" ""
   '';
 
   nativeBuildInputs = [ cmake installShellFiles ];
