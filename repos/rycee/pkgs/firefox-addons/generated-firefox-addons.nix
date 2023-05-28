@@ -282,6 +282,19 @@
         platforms = platforms.all;
         };
       };
+    "bing-chat-for-all-browsers" = buildFirefoxXpiAddon {
+      pname = "bing-chat-for-all-browsers";
+      version = "1.0.7";
+      addonId = "{a9cb10b9-75e9-45c3-8194-d3b2c25bb6a2}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4099909/bing_chat_for_all_browsers-1.0.7.xpi";
+      sha256 = "208bd92ed4a75339b8c2a0cd767a47b48593372d52c100c092ff0dd51802545b";
+      meta = with lib;
+      {
+        description = "Enable Bing Chat for All Browsers!";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
       version = "2023.4.0";
@@ -527,6 +540,20 @@
       {
         homepage = "https://github.com/def00111/copy-link-text";
         description = "Copy the text of the link.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "copy-selected-links" = buildFirefoxXpiAddon {
+      pname = "copy-selected-links";
+      version = "2.4.1";
+      addonId = "jid1-vs5odTmtIydjMg@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3860788/copy_selected_links-2.4.1.xpi";
+      sha256 = "f32e2a30518dfcf72cfd39eda5015c85795d694c09b9d29ed0c62f67ed8768e1";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.com/Marnes/webextensions";
+        description = "Right-click selected text to copy the URL of any links it contains.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -1305,6 +1332,20 @@
         platforms = platforms.all;
         };
       };
+    "hover-zoom-plus" = buildFirefoxXpiAddon {
+      pname = "hover-zoom-plus";
+      version = "1.0.205";
+      addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098518/hover_zoom_plus-1.0.205.xpi";
+      sha256 = "0e8c84e7562bcbe1784f8a569e5b9aae08c3ca9c69e3866516ac998696c27cbb";
+      meta = with lib;
+      {
+        homepage = "https://github.com/extesy/hoverzoom/";
+        description = "Zoom images/videos on all your favorite websites (Facebook, Amazon, etc). Simply hover your mouse over the image to enlarge it.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "i-auto-fullscreen" = buildFirefoxXpiAddon {
       pname = "i-auto-fullscreen";
       version = "2.0.4";
@@ -1344,6 +1385,25 @@
         homepage = "http://saucenao.com/";
         description = "A customizable reverse image search tool that conveniently presents a variety of top image search engines.";
         license = licenses.mpl11;
+        platforms = platforms.all;
+        };
+      };
+    "improved-tube" = buildFirefoxXpiAddon {
+      pname = "improved-tube";
+      version = "4.13";
+      addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4113789/youtube_addon-4.13.xpi";
+      sha256 = "94e0a5ef857b11f2aa144485735abf62adbe0652347521ecbb87c2806c04eb38";
+      meta = with lib;
+      {
+        homepage = "https://github.com/code4charity/YouTube-Extension/";
+        description = "Youtube Extension. Powerful but lightweight. Enrich your Youtube &amp; content selection.\nMake YouTube tidy&amp;smart! Layout Filters Shortcuts Adblocker Playlist";
+        license = {
+          shortName = "improved-tube";
+          fullName = "ImprovedTube License";
+          url = "https://github.com/code-charity/youtube/blob/master/LICENSE";
+          free = false;
+          };
         platforms = platforms.all;
         };
       };
@@ -2102,6 +2162,19 @@
       {
         homepage = "https://github.com/Rob--W/open-in-browser";
         description = "Offers the possibility to display documents in the browser window.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "open-url-in-container" = buildFirefoxXpiAddon {
+      pname = "open-url-in-container";
+      version = "1.0.3";
+      addonId = "{f069aec0-43c5-4bbf-b6b4-df95c4326b98}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3566167/open_url_in_container-1.0.3.xpi";
+      sha256 = "687211a5fe6ee08c2b3060292858474b27f91383296bc1b6ba0391c00abc2697";
+      meta = with lib;
+      {
+        description = "This extension enables support for opening links in specific containers using custom protocol handler. It works for terminal, OS shortcuts and regular HTML pages.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -2982,6 +3055,19 @@
         platforms = platforms.all;
         };
       };
+    "tetrio-plus" = buildFirefoxXpiAddon {
+      pname = "tetrio-plus";
+      version = "0.25.2";
+      addonId = "tetrio-plus@example.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4048511/tetrio_plus-0.25.2.xpi";
+      sha256 = "9d7e333c69437c6288671bacb969b0f8a7055fd303762d4bdd1cd2781f671dcc";
+      meta = with lib;
+      {
+        description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d94d4f4d9a39d7847f4259e0053e02794a2d7361e70cf03a773b53993e17363d/http%3A//TETR.IO\" rel=\"nofollow\">TETR.IO</a>.";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
     "text-contrast-for-dark-themes" = buildFirefoxXpiAddon {
       pname = "text-contrast-for-dark-themes";
       version = "2.1.6";
@@ -3160,6 +3246,20 @@
       {
         homepage = "https://github.com/NiklasGollenstede/tst-search#readme";
         description = "Search for or filter the Tabs in TST's sidebar, and quickly find and activate them.";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "tst-wheel-and-double" = buildFirefoxXpiAddon {
+      pname = "tst-wheel-and-double";
+      version = "1.5";
+      addonId = "tst-wheel_and_double@dontpokebadgers.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3473925/tree_style_tab_mouse_wheel-1.5.xpi";
+      sha256 = "c9bad51fceb18e7323465fd25dd81df7c6cb3f5dbaf878dc6f84e8963c492bb5";
+      meta = with lib;
+      {
+        homepage = "https://github.com/joshuacant/";
+        description = "This add-on requires Tree Style Tab. It extends Tree Style Tab to allow tab changing by mouse wheel scrolling and reloading a tab when double clicking it.";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -3454,6 +3554,20 @@
         platforms = platforms.all;
         };
       };
+    "web-archives" = buildFirefoxXpiAddon {
+      pname = "web-archives";
+      version = "4.0.0";
+      addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4065318/view_page_archive-4.0.0.xpi";
+      sha256 = "3e0e0a7d757135975e093e2339f750ce8a762be47c802c59679a0994931ed346";
+      meta = with lib;
+      {
+        homepage = "https://github.com/dessant/web-archives#readme";
+        description = "View archived and cached versions of web pages on 10+ search engines, such as the Wayback Machine, Archive․is, Google, Bing and Yandex";
+        license = licenses.gpl3Only;
+        platforms = platforms.all;
+        };
+      };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
       version = "2.89.0";
@@ -3534,6 +3648,20 @@
         homepage = "https://youchoose.ai";
         description = "Gain control back on your content recommendations on YouTube. See recommendations provided by content creators. Analyze YouTube's algorithm, and help us expose shadow-banning.\nA free-software, built by a non-profit defending your digital rights!";
         license = licenses.lgpl3;
+        platforms = platforms.all;
+        };
+      };
+    "youtube-nonstop" = buildFirefoxXpiAddon {
+      pname = "youtube-nonstop";
+      version = "0.9.1";
+      addonId = "{0d7cafdd-501c-49ca-8ebb-e3341caaa55e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3848483/youtube_nonstop-0.9.1.xpi";
+      sha256 = "8340d57622a663949ec1768eb37d47651c809fadf0ffaa5ff546c48fdd28e33d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/lawfx/YoutubeNonStop";
+        description = "Tired of getting that \"Video paused. Continue watching?\" confirmation dialog?\nThis extension autoclicks it, so you can listen to your favorite music uninterrupted.\n\nWorking on YouTube and YouTube Music!";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };

@@ -79,6 +79,9 @@
     "slug": "beyond-20"
   },
   {
+    "slug": "bing-chat-for-all-browsers"
+  },
+  {
     "slug": "bitwarden-password-manager",
     "pname": "bitwarden"
   },
@@ -138,6 +141,9 @@
   {
     "pname": "copy-link-text",
     "slug": "copy-link-text-webextension"
+  },
+  {
+    "slug": "copy-selected-links"
   },
   {
     "slug": "copy-selection-as-markdown"
@@ -357,6 +363,9 @@
   },
   {
     "slug": "hoppscotch"
+  },
+  {
+    "slug": "hover-zoom-plus"
   },
   {
     "slug": "i-auto-fullscreen"
@@ -606,6 +615,9 @@
     "slug": "open-in-browser"
   },
   {
+    "slug": "open-url-in-container"
+  },
+  {
     "slug": "org-capture"
   },
   {
@@ -847,6 +859,9 @@
     }
   },
   {
+    "slug": "tetrio-plus"
+  },
+  {
     "slug": "text-contrast-for-dark-themes"
   },
   {
@@ -892,6 +907,10 @@
       "url": "https://github.com/piroor/treestyletab/blob/trunk/COPYING.txt",
       "free": true
     }
+  },
+  {
+    "slug": "tree-style-tab-mouse-wheel",
+    "pname": "tst-wheel-and-double"
   },
   {
     "slug": "tridactyl-vim",
@@ -950,6 +969,14 @@
     "slug": "view-image"
   },
   {
+    "slug": "view-page-archive",
+    "pname": "web-archives",
+    "license": {
+      "tag": "predefined",
+      "shortName": "gpl3Only"
+    }
+  },
+  {
     "slug": "vim-vixen"
   },
   {
@@ -1003,6 +1030,20 @@
   },
   {
     "slug": "youchoose-ai"
+  },
+  {
+    "slug": "youtube-addon",
+    "pname": "improved-tube",
+    "license": {
+      "tag": "custom",
+      "shortName": "improved-tube",
+      "fullName": "ImprovedTube License",
+      "url": "https://github.com/code-charity/youtube/blob/master/LICENSE",
+      "free": false
+    }
+  },
+  {
+    "slug": "youtube-nonstop"
   },
   {
     "slug": "youtube-recommended-videos",
