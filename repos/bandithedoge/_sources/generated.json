@@ -221,7 +221,7 @@
   },
   "kmonad": {
     "cargoLocks": null,
-    "date": "2023-04-26",
+    "date": "2023-05-27",
     "extract": null,
     "name": "kmonad",
     "passthru": null,
@@ -233,11 +233,11 @@
       "name": null,
       "owner": "kmonad",
       "repo": "kmonad",
-      "rev": "3aa2f52536de853efbcb0f6e790c97a3734687ec",
-      "sha256": "sha256-gFiQ62jbBfumg0IR4oXR/DRVunOxMd4lJ5+g+qjz7wA=",
+      "rev": "97ac050f9818e942a706194adb7374f7b10ee339",
+      "sha256": "sha256-T3WC47AyxwPxwCmukrwE/alZLU3bu7ZuBrCW5DMefI8=",
       "type": "github"
     },
-    "version": "3aa2f52536de853efbcb0f6e790c97a3734687ec"
+    "version": "97ac050f9818e942a706194adb7374f7b10ee339"
   },
   "lua-dbus": {
     "cargoLocks": null,

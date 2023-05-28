@@ -138,15 +138,15 @@
   };
   kmonad = {
     pname = "kmonad";
-    version = "3aa2f52536de853efbcb0f6e790c97a3734687ec";
+    version = "97ac050f9818e942a706194adb7374f7b10ee339";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "3aa2f52536de853efbcb0f6e790c97a3734687ec";
+      rev = "97ac050f9818e942a706194adb7374f7b10ee339";
       fetchSubmodules = false;
-      sha256 = "sha256-gFiQ62jbBfumg0IR4oXR/DRVunOxMd4lJ5+g+qjz7wA=";
+      sha256 = "sha256-T3WC47AyxwPxwCmukrwE/alZLU3bu7ZuBrCW5DMefI8=";
     };
-    date = "2023-04-26";
+    date = "2023-05-27";
   };
   lua-dbus = {
     pname = "lua-dbus";
