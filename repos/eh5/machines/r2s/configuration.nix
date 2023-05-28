@@ -41,7 +41,7 @@
 
   services.openssh = {
     enable = true;
-    settings.permitRootLogin = "yes";
+    settings.PermitRootLogin = "yes";
   };
 
   services.vlmcsd.enable = true;

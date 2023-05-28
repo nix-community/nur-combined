@@ -80,7 +80,7 @@ in
 
   services.openssh = {
     enable = true;
-    settings.permitRootLogin = "yes";
+    settings.PermitRootLogin = "yes";
     ports = lib.mkForce [ 8022 ];
   };
 
