@@ -156,7 +156,7 @@ let
     ip-port-forward = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-port-forward";
       src = ./src;
-      pkgs = [ "miniupnpc" ];
+      pkgs = [ "inetutils" "miniupnpc" ];
       postInstall = ''
         mkdir -p $out/bin/lib
         cp -R lib/* $out/bin/lib/

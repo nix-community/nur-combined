@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p miniupnpc
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p inetutils -p miniupnpc
 
 '''
 USAGE: sane-ip-port-forward [options] [proto:port]*
@@ -8,11 +8,14 @@ options:
   -v:  verbose (show info messages)
   -vv: more verbose (show debug messages)
   -h:  show this help messages
+  -d <int>: lease for the given duration in seconds (default: {DEFAULT_LEASE_SEC})
 
 proto:port:
   proto is `udp` or `tcp` (case insensitive)
   port is any integer 1-65535 inclusive
 '''
+
+DEFAULT_LEASE_SEC = 86400
 
 import logging
 import subprocess
@@ -24,7 +27,7 @@ from lib.sane_ssdp import get_any_wan, forward_port
 
 class BadCliArgs(Exception):
     def __init__(self, msg: str = None):
-        helpstr = __doc__.strip()
+        helpstr = __doc__.format(DEFAULT_LEASE_SEC=DEFAULT_LEASE_SEC).strip()
         if msg:
             super().__init__(f"{msg}\n\n{helpstr}")
         else:
@@ -45,30 +48,45 @@ def try_parse_port(s: str):
         pass
 
 def parse_args(argv: "List[str]") -> "List[('udp'|'tcp', port)]":
+    """
+    returns (list of forwards, lease duration)
+    where:
+    - list of forwards is [('udp'|'tcp', port: int)]
+    - lease duration is seconds: int
+    """
     forwards = []
-    for arg in sys.argv[1:]:
+    duration = DEFAULT_LEASE_SEC
+    unparsed = sys.argv[1:][::-1]
+    while unparsed:
+        arg = unparsed.pop()
         if arg == "-h":
             raise BadCliArgs()
         if arg == "-v":
             logging.getLogger().setLevel(logging.INFO)
         elif arg == "-vv":
             logging.getLogger().setLevel(logging.DEBUG)
+        elif arg == "-d" and unparsed:
+            d = unparsed.pop()
+            try:
+                duration = int(d)
+            except Exception:
+                raise BadCliArgs(f"invalid CLI argument: -d {d!r}")
         elif try_parse_port(arg):
             forwards.append(try_parse_port(arg))
         else:
-            raise BadCliArgs(f"invalid CLI argument {arg!r}")
-    return forwards
+            raise BadCliArgs(f"invalid CLI argument: {arg!r}")
+    return forwards, duration
 
 if __name__ == '__main__':
     logging.basicConfig()
 
     try:
-        forwards = parse_args(sys.argv)
+        forwards, duration = parse_args(sys.argv)
     except BadCliArgs as e:
         print(e)
         sys.exit(1)
 
-    root_device, _wan = get_any_wan()
+    root_device, lan, _wan = get_any_wan()
     hostname = subprocess.check_output(["hostname"]).decode("utf-8").strip()
     for (proto, port) in forwards:
-        forward_port(root_device, proto, port, f"colin-{hostname}")
+        forward_port(root_device, proto, port, lan_ip=lan, reason=f"colin-{hostname}", duration=duration)

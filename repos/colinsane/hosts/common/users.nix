@@ -129,11 +129,5 @@ in
       enable = true;
       wheelNeedsPassword = false;
     };
-
-    services.openssh = {
-      enable = true;
-      settings.PermitRootLogin = "no";
-      settings.PasswordAuthentication = false;
-    };
   };
 }

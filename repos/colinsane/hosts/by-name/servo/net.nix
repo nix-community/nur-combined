@@ -4,6 +4,7 @@
   networking.domain = "uninsane.org";
 
   sane.services.wan-ports.openFirewall = true;
+  sane.services.wan-ports.openUpnp = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config

@@ -62,37 +62,43 @@ def get_root_devices():
                     logger.info(f"root desc: {root_desc}")
                     yield root_desc
 
-def get_wan_from_location(location: str):
-    """ location = URI from the Location header, e.g. http://10.78.79.1:2189/rootDesc.xml """
+def get_ips_from_location(location: str):
+    """
+    location = URI from the Location header, e.g. http://10.78.79.1:2189/rootDesc.xml
+    returns (lan, wan)
+    """
 
     # get connection [s]tatus
-    res = subprocess.run(["upnpc", "-u", location, "-s"], capture_output=True)
-    res.check_returncode()
+    cmd = ["upnpc", "-u", location, "-s"]
+    res = subprocess.run(cmd, capture_output=True)
+    if res.returncode != 0:
+        logger.info(f"get_wan_from_location failed: {cmd!r}\n{res.stderr}")
+        return None
 
     status = res.stdout.decode("utf-8")
-    logger.info(f"got status: {status}")
+    logger.debug(f"got status: {status}")
 
+    lan = None
+    wan = None
     for line in [l.strip() for l in status.split("\n")]:
-        sentinel = "ExternalIPAddress ="
-        if line.startswith(sentinel):
-            ip = line[len(sentinel):].strip()
-            return ip
+        wan_sentinel = "ExternalIPAddress ="
+        lan_sentinel = "Local LAN ip address :"
+        if line.startswith(wan_sentinel):
+            wan = line[len(wan_sentinel):].strip()
+            logger.info(f"got WAN = {wan} from {location}")
+        if line.startswith(lan_sentinel):
+            lan = line[len(lan_sentinel):].strip()
+            logger.info(f"got LAN = {lan} from {location}")
+    return lan, wan
 
 def get_any_wan():
-    """ return (location, WAN IP) for the first device seen which has a WAN IP """
+    """ return (location, LAN IP, WAN IP) for the first device seen which has a WAN IP """
     for location in get_root_devices():
-        wan = get_wan_from_location(location)
-        if wan:
-            return location, wan
+        lan, wan = get_ips_from_location(location)
+        if lan and wan:
+            return location, lan, wan
 
-def get_lan_ip() -> str:
-    ips = subprocess.check_output(["hostname", "-i"]).decode("utf-8").strip().split(" ")
-    ips = [i for i in ips if i.startswith("10.") or i.startswith("192.168.")]
-    assert len(ips) == 1, ips
-    return ips[0]
-
-def forward_port(root_device: str, proto: str, port: int, reason: str, duration: int = 86400, lan_ip: str = None):
-    lan_ip = lan_ip or get_lan_ip()
+def forward_port(root_device: str, proto: str, port: int, lan_ip: str, reason: str = "", duration: int = 86400):
     args = [
         "upnpc",
         "-u", root_device,

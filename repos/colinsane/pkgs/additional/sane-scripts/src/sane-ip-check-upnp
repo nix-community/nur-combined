@@ -23,5 +23,5 @@ if __name__ == '__main__':
             logging.getLogger().setLevel(logging.DEBUG)
         else:
             raise RuntimeError(f"invalid CLI argument {arg!r}")
-    _rootdev, wan_ip = get_any_wan()
+    _rootdev, _lan_ip, wan_ip = get_any_wan()
     print(wan_ip)

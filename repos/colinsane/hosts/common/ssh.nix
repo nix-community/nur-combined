@@ -30,4 +30,11 @@ in
     })
     (globalKeys ++ domainKeys)
   );
+
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "no";
+    settings.PasswordAuthentication = false;
+  };
+  sane.services.wan-ports.tcp = [ 22 ];
 }
