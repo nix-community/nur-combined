@@ -1757,6 +1757,18 @@
     "url": "https://github.com/folke/trouble.nvim/archive/324c977cfeacb8498ca9ba1c74cc35bd18858a8d.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
+  "typescript.nvim": {
+    "branch": "main",
+    "description": "A Lua plugin, written in TypeScript, to write TypeScript (Lua optional).",
+    "homepage": "",
+    "owner": "jose-elias-alvarez",
+    "repo": "typescript.nvim",
+    "rev": "f66d4472606cb24615dfb7dbc6557e779d177624",
+    "sha256": "1hm87jpscv250x8hv3vacw0sdhkwa81x21cxyvc6nf2vsbj5hx9w",
+    "type": "tarball",
+    "url": "https://github.com/jose-elias-alvarez/typescript.nvim/archive/f66d4472606cb24615dfb7dbc6557e779d177624.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
   "ucw.nvim": {
     "branch": "main",
     "description": "nvimd - specify plugin dependencies using the familiar systemd unit wants/requires before/after concepts",
