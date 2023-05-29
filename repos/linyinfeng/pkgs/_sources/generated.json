@@ -62,11 +62,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-do4g+C/UKMWhhEfLSB+lkEVDim59Y/vNYrgzpxvZyPc=",
+            "sha256": "sha256-Pitnheybki6ZHPr8XBzNVJHIbIiBX2ImBZXBRU2TCPk=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.19.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.29.gz"
         },
-        "version": "2023.05.19"
+        "version": "2023.05.29"
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
@@ -77,11 +77,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Nr8fxewK572z46widIBtwZOWFLugmp6pojCWROzjV2Q=",
+            "sha256": "sha256-W3jj/plBNfaPdzO8/MJZDZdj2g4tz4qEsuzi+cjIkdM=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.19.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.29.gz"
         },
-        "version": "2023.05.19"
+        "version": "2023.05.29"
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
@@ -92,11 +92,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zKZuiqAVm0nKfn/30oorsbqXvOHmezHpvZFIAxdjU2s=",
+            "sha256": "sha256-TjTg3zk/5bfjt3c3xFB5nnv5EqJaS/oychxlZ1Xb5/M=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.19.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.29.gz"
         },
-        "version": "2023.05.19"
+        "version": "2023.05.29"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -107,11 +107,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ekCTdX0h5Anyyxb/SkhhEQLqyl5nMb9UKtUUKWZl8AE=",
+            "sha256": "sha256-qyKo1NWbkEQRpOhwr+nyia08fHqo5yAfSK6E2Hgl/Ks=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.19.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.29.gz"
         },
-        "version": "2023.05.19"
+        "version": "2023.05.29"
     },
     "commit-notifier": {
         "cargoLocks": {
@@ -625,11 +625,11 @@
     "swayosd": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./swayosd-5c2176ae6a01a18fdc2b0f5d5f593737b5765914/Cargo.lock",
+                "./swayosd-d640f1ddceadc7623eb5c7ce0ffdcc35def2d7ca/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-05-08",
+        "date": "2023-05-29",
         "extract": null,
         "name": "swayosd",
         "passthru": null,
@@ -639,12 +639,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5c2176ae6a01a18fdc2b0f5d5f593737b5765914",
-            "sha256": "sha256-rh42J6LWgNPOWYLaIwocU1JtQnA5P1jocN3ywVOfYoc=",
+            "rev": "d640f1ddceadc7623eb5c7ce0ffdcc35def2d7ca",
+            "sha256": "sha256-M6KTUfV3Jy9tuFH+DvdG/n1yq9ZKLKzU9MdHnUzMzEk=",
             "type": "git",
             "url": "https://github.com/ErikReider/SwayOSD.git"
         },
-        "version": "5c2176ae6a01a18fdc2b0f5d5f593737b5765914"
+        "version": "d640f1ddceadc7623eb5c7ce0ffdcc35def2d7ca"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
@@ -751,7 +751,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-05-22",
+        "date": "2023-05-29",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -761,12 +761,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7b0d2e80434523eb22cf3bb5bdc41d590304a113",
-            "sha256": "sha256-Z1DRNJ46gUUixODPwBqRNpWXSshzrg6wsvDcmFhGJU8=",
+            "rev": "47193a3d2f81a8ce7177449f92e927db74d873b0",
+            "sha256": "sha256-r270Qpn5UK9URi3w6hb7ijzCnghQ75surhAs/ERl6/Q=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "7b0d2e80434523eb22cf3bb5bdc41d590304a113"
+        "version": "47193a3d2f81a8ce7177449f92e927db74d873b0"
     },
     "wemeet": {
         "cargoLocks": null,

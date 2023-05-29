@@ -35,34 +35,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2023.05.19";
+    version = "2023.05.29";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.19.gz";
-      sha256 = "sha256-do4g+C/UKMWhhEfLSB+lkEVDim59Y/vNYrgzpxvZyPc=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.29.gz";
+      sha256 = "sha256-Pitnheybki6ZHPr8XBzNVJHIbIiBX2ImBZXBRU2TCPk=";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2023.05.19";
+    version = "2023.05.29";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.19.gz";
-      sha256 = "sha256-Nr8fxewK572z46widIBtwZOWFLugmp6pojCWROzjV2Q=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.29.gz";
+      sha256 = "sha256-W3jj/plBNfaPdzO8/MJZDZdj2g4tz4qEsuzi+cjIkdM=";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2023.05.19";
+    version = "2023.05.29";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.19.gz";
-      sha256 = "sha256-zKZuiqAVm0nKfn/30oorsbqXvOHmezHpvZFIAxdjU2s=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.29.gz";
+      sha256 = "sha256-TjTg3zk/5bfjt3c3xFB5nnv5EqJaS/oychxlZ1Xb5/M=";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.05.19";
+    version = "2023.05.29";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.19.gz";
-      sha256 = "sha256-ekCTdX0h5Anyyxb/SkhhEQLqyl5nMb9UKtUUKWZl8AE=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.29.gz";
+      sha256 = "sha256-qyKo1NWbkEQRpOhwr+nyia08fHqo5yAfSK6E2Hgl/Ks=";
     };
   };
   commit-notifier = {
@@ -404,20 +404,20 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "5c2176ae6a01a18fdc2b0f5d5f593737b5765914";
+    version = "d640f1ddceadc7623eb5c7ce0ffdcc35def2d7ca";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "5c2176ae6a01a18fdc2b0f5d5f593737b5765914";
+      rev = "d640f1ddceadc7623eb5c7ce0ffdcc35def2d7ca";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-rh42J6LWgNPOWYLaIwocU1JtQnA5P1jocN3ywVOfYoc=";
+      sha256 = "sha256-M6KTUfV3Jy9tuFH+DvdG/n1yq9ZKLKzU9MdHnUzMzEk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-5c2176ae6a01a18fdc2b0f5d5f593737b5765914/Cargo.lock;
+      lockFile = ./swayosd-d640f1ddceadc7623eb5c7ce0ffdcc35def2d7ca/Cargo.lock;
       outputHashes = { };
     };
-    date = "2023-05-08";
+    date = "2023-05-29";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
@@ -484,16 +484,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "7b0d2e80434523eb22cf3bb5bdc41d590304a113";
+    version = "47193a3d2f81a8ce7177449f92e927db74d873b0";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "7b0d2e80434523eb22cf3bb5bdc41d590304a113";
+      rev = "47193a3d2f81a8ce7177449f92e927db74d873b0";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Z1DRNJ46gUUixODPwBqRNpWXSshzrg6wsvDcmFhGJU8=";
+      sha256 = "sha256-r270Qpn5UK9URi3w6hb7ijzCnghQ75surhAs/ERl6/Q=";
     };
-    date = "2023-05-22";
+    date = "2023-05-29";
   };
   wemeet = {
     pname = "wemeet";
