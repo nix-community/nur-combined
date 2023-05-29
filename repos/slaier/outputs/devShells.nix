@@ -1,13 +1,20 @@
 { super, ... }:
-super.lib.eachDefaultSystems (pkgs: {
-  default = with pkgs; mkShell {
+super.lib.eachDefaultSystems (pkgs: with pkgs; {
+  default = mkShell {
     packages = [
       colmena
       just
+      sops
     ];
   };
 
-  update = with pkgs; mkShell {
+  ci = mkShell {
+    packages = [
+      colmena
+    ];
+  };
+
+  update = mkShell {
     packages = [
       just
       nix-prefetch-docker

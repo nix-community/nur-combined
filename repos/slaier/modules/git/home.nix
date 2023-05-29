@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, nixosConfig, ... }:
 
 with lib;
 let
@@ -27,12 +27,16 @@ in
         enable = true;
       };
       extraConfig = {
-        core.editor = "vim";
-        credential.helper = "store";
+        credential.helper = "store --file=${nixosConfig.sops.secrets.github_token.path}";
         init.defaultBranch = "main";
         merge.conflictstyle = "diff3";
         merge.ff = "only";
         pull.rebase = true;
+        gpg.format = "ssh";
+        gpg.ssh.allowedSignersFile = ''${pkgs.writeText "allowedSigners.txt"
+          ''${config.programs.git.userEmail} ${nixosConfig.programs.ssh.knownHosts."local.local".publicKey}''}'';
+        user.signingkey = "${config.home.homeDirectory}/.ssh/id_ed25519";
+        commit.gpgsign = true;
       };
 
       ignores = [

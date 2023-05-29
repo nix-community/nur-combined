@@ -1,4 +1,4 @@
-{ config, pkgs, modules, inputs, ... }:
+{ config, pkgs, modules, inputs, lib, ... }:
 let
   modules-enable = with modules; [
     avahi
@@ -22,6 +22,7 @@ let
     podman
     safeeyes
     smartdns
+    sops
     spotify
     sway
     users
@@ -37,17 +38,20 @@ in
       { programs.command-not-found.enable = false; }
     ]);
 
-  home-manager = {
-    users.nixos = {
-      imports = map (x: x.home or { }) modules-enable;
-    };
-    useGlobalPkgs = true;
-    useUserPackages = true;
-  };
+  home-manager.users.nixos.imports = map (x: x.home or { }) modules-enable;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.settings.extra-platforms = [ "aarch64-linux" ];
   boot.supportedFilesystems = [ "ntfs" ];
+
+  sops.secrets.clash = {
+    key = "";
+    sopsFile = ../../secrets/clash_home.yaml;
+    format = "yaml";
+    restartUnits = [ "clash.service" ];
+    owner = "clash";
+    path = "/etc/clash/config.yaml";
+  };
 
   networking = {
     firewall.enable = false;

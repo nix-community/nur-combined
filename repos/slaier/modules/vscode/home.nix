@@ -1,4 +1,5 @@
 { config, pkgs, lib, nixosConfig, ... }: {
+  home.sessionVariables.EDITOR = "code -w";
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;

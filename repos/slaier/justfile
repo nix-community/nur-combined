@@ -1,15 +1,11 @@
-default: (local "test")
+default: (apply "local" "test")
 
-local goal="switch":
-  colmena apply-local --sudo {{goal}}
+local goal="switch": (apply "local" goal)
 
-n1 goal="switch":
-  colmena apply --on n1 {{goal}}
+n1 goal="switch": (apply "n1" goal)
 
-build nodes="local,n1":
-  colmena build --on {{nodes}}
-
-apply goal="switch": build (local goal) (n1 goal)
+apply nodes="local,n1" goal="switch":
+  colmena apply --on {{nodes}} {{goal}}
 
 update:
   find . -type f -name update.sh | parallel -j+1 'cd {//} && ./update.sh'

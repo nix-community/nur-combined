@@ -1,17 +1,29 @@
-{ nodes, lib, modules, ... }: {
-  imports = map (x: x.default) (
-    with modules; [
-      avahi
-      clash
-      common
-      extlinux
-      nix
-      openfortivpn
-      qinglong
-      smartdns
-      users
-    ]
-  );
+{ nodes, lib, modules, config, ... }:
+let
+  modules-enable = with modules; [
+    avahi
+    clash
+    common
+    extlinux
+    nix
+    openfortivpn
+    qinglong
+    smartdns
+    sops
+    users
+  ];
+in
+{
+  imports = map (x: x.default or { }) modules-enable;
+
+  sops.secrets.clash = {
+    key = "";
+    sopsFile = ../../secrets/clash_office.yaml;
+    format = "yaml";
+    restartUnits = [ "clash.service" ];
+    owner = "clash";
+    path = "/etc/clash/config.yaml";
+  };
 
   nix.settings =
     let

@@ -23,7 +23,7 @@
   systemd.services.clash = {
     path = with pkgs; [ clash ];
     description = "Clash networking service";
-    after = [ "network.target" ];
+    after = [ "network.target" "sops-nix.service" ];
     wantedBy = [ "multi-user.target" ];
     script = "exec clash -d /etc/clash";
 
