@@ -1,22 +1,24 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, rustPlatform
 , cairo
+, cargo
 , curl
+, darwin
+, desktop-file-utils
 , gdk-pixbuf
 , glib
 , gtk4
 , libadwaita
+, meson
+, ninja
 , openssl
 , pango
-, zlib
-, darwin
+, pkg-config
+, rustc
+, rustPlatform
 , wrapGAppsHook4
+, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -42,8 +44,8 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     rustPlatform.cargoSetupHook
-    rustPlatform.rust.cargo
-    rustPlatform.rust.rustc
+    cargo
+    rustc
     wrapGAppsHook4
   ];
 

@@ -2,19 +2,21 @@
 , stdenv
 , fetchFromGitLab
 , blueprint-compiler
-, meson
-, ninja
-, pkg-config
-, rustPlatform
 , cairo
+, cargo
+, darwin
 , gdk-pixbuf
 , glib
 , gtk4
 , libadwaita
 , libsecret
+, meson
+, ninja
 , pango
+, pkg-config
+, rustc
+, rustPlatform
 , tracker
-, darwin
 , wrapGAppsHook4
 }:
 
@@ -38,12 +40,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     blueprint-compiler
+    cargo
     meson
     ninja
     pkg-config
+    rustc
     rustPlatform.cargoSetupHook
-    rustPlatform.rust.cargo
-    rustPlatform.rust.rustc
     wrapGAppsHook4
   ];
 

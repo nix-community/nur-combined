@@ -18,7 +18,6 @@
   bsdutils = pkgs.callPackage ./packages/bsdutils { inherit libxo; };
   cargo-aoc = pkgs.callPackage ./packages/cargo-aoc { };
   chess-clock = pkgs.callPackage ./packages/chess-clock { };
-  damask = pkgs.callPackage ./packages/damask { };
   devtoolbox = pkgs.callPackage ./packages/devtoolbox { };
   fastfetch = pkgs.callPackage ./packages/fastfetch { };
   fastfetchFull = (fastfetch.overrideAttrs (oldAttrs: {
@@ -84,55 +83,15 @@
   };
   libxo = pkgs.callPackage ./packages/libxo { };
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell { };
-  loupe = pkgs.callPackage ./packages/loupe {
-    gtk4 = gtk4_11;
-    wrapGAppsHook4 = wrapGAppsHook4_11;
-  };
   metronome = pkgs.callPackage ./packages/metronome { };
   morewaita = pkgs.callPackage ./packages/morewaita { };
   mucalc = pkgs.callPackage ./packages/mucalc { };
   opensurge = pkgs.callPackage ./packages/opensurge { inherit surgescript; };
   qv = pkgs.qt6.callPackage ./packages/qv { inherit libtgd; };
   share-preview = pkgs.callPackage ./packages/share-preview { };
-  snapshot = pkgs.callPackage ./packages/snapshot {
-    gtk4 = gtk4_11;
-    libadwaita = libadwaita_1_4;
-    wrapGAppsHook4 = wrapGAppsHook4_11;
-  };
   srb2p = pkgs.callPackage ./packages/srb2p { };
   surgescript = pkgs.callPackage ./packages/surgescript { };
   telegraph = pkgs.callPackage ./packages/telegraph { };
   textsnatcher = pkgs.callPackage ./packages/textsnatcher { };
   tuba = pkgs.callPackage ./packages/tuba { };
-
-  wrapGAppsHook4_11 = pkgs.wrapGAppsHook4.override { gtk3 = gtk4_11; };
-
-  gtk4_11 = pkgs.gtk4.overrideAttrs (oldAttrs: rec {
-    version = "4.11.2";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.gnome.org";
-      owner = "GNOME";
-      repo = "gtk";
-      rev = version;
-      hash = "sha256-kkT/gr+kykoZplyY49TXmS49n34IrZmmLuPneqVRfNU=";
-    };
-    patches = [];
-    postPatch = (oldAttrs.postPatch or "") + ''
-      patchShebangs build-aux/meson/gen-visibility-macros.py
-    '';
-    doCheck = false;
-  });
-
-  libadwaita_1_4 = (pkgs.libadwaita.overrideAttrs (oldAttrs: {
-    version = "unstable-2023-05-16";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.gnome.org";
-      owner = "GNOME";
-      repo = "libadwaita";
-      rev = "2071c461f2a7d4a7e1db17a0963b9fd4685f625d";
-      hash = "sha256-ibUtzFCiUeYwu3gbpv1XWgfBalDgqHZFagEalK6eEac=";
-    };
-    buildInputs = oldAttrs.buildInputs ++ [ pkgs.appstream ];
-    doCheck = false;
-  })).override { gtk4 = gtk4_11; };
 }
