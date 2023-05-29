@@ -96,10 +96,10 @@
   };
   "downthemall" = buildFirefoxXpiAddon {
     pname = "downthemall";
-    version = "4.9.2";
+    version = "4.10.1";
     addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4103187/downthemall-4.9.2.xpi";
-    sha256 = "5e35b8bb19b2e71cd599a4f36e4edd51e0e02a1d0607846315f7588129fa8243";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4115622/downthemall-4.10.1.xpi";
+    sha256 = "38795ef655c17921f857d67d59c1a799c24d912bc07c21ef96b97b4eee90422c";
     meta = with lib; {
       homepage = "https://www.downthemall.org/";
       description = "The Mass Downloader for your browser";
@@ -236,10 +236,10 @@
   };
   "npm-hub" = buildFirefoxXpiAddon {
     pname = "npm-hub";
-    version = "2023.5.23";
+    version = "2023.5.29";
     addonId = "npm-hub@sikelianos.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4114863/npm_hub-2023.5.23.xpi";
-    sha256 = "0a0b8f5acdd53cbc32aac0ad28435aa28b5e91339bfbc97a5e59b0899e32dae2";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4117658/npm_hub-2023.5.29.xpi";
+    sha256 = "3c59f51145e2fd42f0b56fdf42cfb6a8e882d04149756466a512d3ab2435bbfb";
     meta = with lib; {
       homepage = "https://github.com/npmhub/npmhub";
       description = "Explore npm dependencies on GitHub repos";

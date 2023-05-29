@@ -17,5 +17,5 @@ with open("README.md", "w") as f:
         )
         description = meta["description"] if ("description" in meta) else ""
 
-        list += f'\n| [{sanitized_name}]({url}) | {description} |'
+        list += f"\n| [{sanitized_name}]({url}) | {description} |"
     f.write(list)
