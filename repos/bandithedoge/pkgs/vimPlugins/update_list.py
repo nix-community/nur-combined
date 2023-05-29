@@ -10,5 +10,12 @@ with open("README.md", "w") as f:
     list = "| Name | Description |\n| ---- | ----------- |"
     for plugin, meta in sources.items():
         sanitized_name = plugin.replace(".", "-")
-        list += f'\n| [{sanitized_name}](https://github.com/{meta["owner"]}/{meta["repo"]}) | {meta["description"]} |'
+        url = (
+            meta["repo"]
+            if meta["type"] == "git"
+            else f'https://github.com/{meta["owner"]}/{meta["repo"]}'
+        )
+        description = meta["description"] if ("description" in meta) else ""
+
+        list += f'\n| [{sanitized_name}]({url}) | {description} |'
     f.write(list)

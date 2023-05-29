@@ -527,6 +527,18 @@
         "url": "https://github.com/lewis6991/gitsigns.nvim/archive/f868d82a36f7f7f5e110eb0a9659993984f59875.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "glance.nvim": {
+        "branch": "master",
+        "description": "A pretty window for previewing, navigating and editing your LSP locations",
+        "homepage": null,
+        "owner": "DNLHC",
+        "repo": "glance.nvim",
+        "rev": "77ebd260c360ce11ddc6aa08efdcea993f40614a",
+        "sha256": "0gkpngmdd568j8bbajpcwb30hqba90d9583pg9farfyl8l3j5vqa",
+        "type": "tarball",
+        "url": "https://github.com/DNLHC/glance.nvim/archive/77ebd260c360ce11ddc6aa08efdcea993f40614a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "glow-hover.nvim": {
         "branch": "main",
         "description": "A Neovim plugin leveraging glow for LSPs hover responses.",
