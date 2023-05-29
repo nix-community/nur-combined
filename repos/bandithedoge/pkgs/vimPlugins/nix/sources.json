@@ -23,6 +23,18 @@
     "url": "https://github.com/numToStr/FTerm.nvim/archive/d1320892cc2ebab472935242d9d992a2c9570180.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
+  "JABS.nvim": {
+    "branch": "main",
+    "description": "Just Another Buffer Switcher for Neovim",
+    "homepage": "",
+    "owner": "matbme",
+    "repo": "JABS.nvim",
+    "rev": "b6dbd1a3e1b8cef3d6ebfafe96c2230ca341b65f",
+    "sha256": "1fhn634i7znp90c75z8c2pxprf3mbq3qpdnb03b63s3bgxjgz4g5",
+    "type": "tarball",
+    "url": "https://github.com/matbme/JABS.nvim/archive/b6dbd1a3e1b8cef3d6ebfafe96c2230ca341b65f.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
   "LuaSnip": {
     "branch": "master",
     "description": "Snippet Engine for Neovim written in Lua.",
