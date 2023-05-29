@@ -12,7 +12,7 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "telegraph";
-  version = "0.1.5";
+  version = "0.1.6";
 
   format = "other";
 
@@ -20,7 +20,7 @@ python3.pkgs.buildPythonPackage rec {
     owner = "fkinoshita";
     repo = "Telegraph";
     rev = version;
-    hash = "sha256-STV9BIgPm9KWhn81aD5hJDl/gNp1Qri2OMLU01RnNVM=";
+    hash = "sha256-eYivvuycMhBC9MMJHugTsZUu5M7V8AbkQUWsfybHETU=";
   };
 
   nativeBuildInputs = [

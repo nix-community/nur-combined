@@ -1,12 +1,10 @@
 { lib
-, stdenv
 , fetchFromGitLab
 , desktop-file-utils
 , gettext
 , glib
 , meson
 , ninja
-, pkg-config
 , python3
 , wrapGAppsHook4
 }:

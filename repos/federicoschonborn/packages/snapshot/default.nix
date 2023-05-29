@@ -20,20 +20,20 @@
 
 stdenv.mkDerivation rec {
   pname = "snapshot";
-  version = "44.1";
+  version = "44.2";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "GNOME/Incubator";
     repo = "snapshot";
     rev = version;
-    hash = "sha256-hrhylLfh7ntuW90DbOSvlHAz9QON9Oq2mfGaGHmr2XY=";
+    hash = "sha256-fJEs7GqL94NZiz8f7MJvcfOoufE7LnT/iBvo/2D0zHg=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-ZPmRt50e7EZXrwjuKyWnEGtRwFxxnkl7Y5tCHVxbH80=";
+    hash = "sha256-uYo3I4wA1XPyaK/VFlq+Q5oDbla7k5sXrliZSkh1lF0=";
   };
 
   nativeBuildInputs = [

@@ -11,6 +11,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  atoms = pkgs.callPackage ./packages/atoms { inherit atoms-core; };
+  atoms-core = pkgs.python3Packages.callPackage ./packages/atoms-core { };
   blurble = pkgs.callPackage ./packages/blurble { };
   brisk-menu = pkgs.callPackage ./packages/brisk-menu { };
   bsdutils = pkgs.callPackage ./packages/bsdutils { inherit libxo; };
@@ -80,7 +82,6 @@
     withPfstools = false;
     withPoppler = true;
   };
-  highscore = pkgs.callPackage ./packages/highscore { retro-gtk = retro-gtk_2; };
   libxo = pkgs.callPackage ./packages/libxo { };
   liquidshell = pkgs.libsForQt5.callPackage ./packages/liquidshell { };
   loupe = pkgs.callPackage ./packages/loupe {
@@ -106,15 +107,16 @@
 
   wrapGAppsHook4_11 = pkgs.wrapGAppsHook4.override { gtk3 = gtk4_11; };
 
-  gtk4_11 = pkgs.gtk4.overrideAttrs (oldAttrs: {
-    version = "unstable-2023-05-16";
+  gtk4_11 = pkgs.gtk4.overrideAttrs (oldAttrs: rec {
+    version = "4.11.2";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.gnome.org";
       owner = "GNOME";
       repo = "gtk";
-      rev = "4d66598f315d32a4798b5f67cb0cbc32d05b983c";
-      hash = "sha256-I3J2gnk+WXZ8IGPmHtP9hoiSC9XjFhbDjkS2WU9DqwY=";
+      rev = version;
+      hash = "sha256-kkT/gr+kykoZplyY49TXmS49n34IrZmmLuPneqVRfNU=";
     };
+    patches = [];
     postPatch = (oldAttrs.postPatch or "") + ''
       patchShebangs build-aux/meson/gen-visibility-macros.py
     '';
@@ -127,28 +129,10 @@
       domain = "gitlab.gnome.org";
       owner = "GNOME";
       repo = "libadwaita";
-      rev = "0c154e202060b9de9154ddd70b3d4abfc2ffe09b";
-      hash = "sha256-C2XavYfcojIWogyu9niknjbbQwK5pPNcZCR/eBr+YS4=";
+      rev = "2071c461f2a7d4a7e1db17a0963b9fd4685f625d";
+      hash = "sha256-ibUtzFCiUeYwu3gbpv1XWgfBalDgqHZFagEalK6eEac=";
     };
     buildInputs = oldAttrs.buildInputs ++ [ pkgs.appstream ];
     doCheck = false;
   })).override { gtk4 = gtk4_11; };
-
-  retro-gtk_2 = pkgs.retro-gtk.overrideAttrs (_: {
-    version = "unstable-2022-11-09";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.gnome.org";
-      owner = "GNOME";
-      repo = "retro-gtk";
-      rev = "9033b2a09f4de3ad4e2e70d80841291c3e4fed9c";
-      hash = "sha256-NnB2PRS4Ty06m1TPmUMZvRkq/AY/4BOFEncJt0+CBmU=";
-    };
-    patches = [ ];
-    buildInputs = with pkgs; [
-      libepoxy
-      libpulseaudio
-      libsamplerate
-      gtk4
-    ];
-  });
 }
