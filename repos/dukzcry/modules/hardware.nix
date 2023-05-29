@@ -79,7 +79,7 @@ in {
         backend = "glx";
       };
       services.logind.extraConfig = ''
-        HandlePowerKey=hibernate
+        HandlePowerKey=suspend-then-hibernate
       '';
       services.hardware.remminaLegacy = true;
     } // builder))
