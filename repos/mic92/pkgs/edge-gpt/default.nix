@@ -1,18 +1,19 @@
 { lib
 , python3
 , fetchFromGitHub
+, bing-image-creator
 }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "edge-gpt";
-  version = "0.6.2";
+  version = "0.6.10";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "EdgeGPT";
     rev = version;
-    hash = "sha256-wOLJZAapt4GAs4xzxjGnJsjbo7fOFQG47t4AvXhdz9A=";
+    hash = "sha256-sZ3dXy5wXojcdaR/zWMWC59JDVJT6ODo+TIL5kHyk5k=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -23,7 +24,7 @@ python3.pkgs.buildPythonPackage rec {
     websockets
     regex
     prompt-toolkit
-    (callPackage ./bing-image-creator { })
+    bing-image-creator
   ];
 
   pythonImportsCheck = [

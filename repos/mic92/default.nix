@@ -11,7 +11,10 @@ rec {
 
   eapol_test = pkgs.callPackage ./pkgs/eapol_test { };
 
-  edge-gpt = pkgs.callPackage ./pkgs/edge-gpt { };
+  bing-image-creator = pkgs.callPackage ./pkgs/bing-image-creator { };
+  edge-gpt = pkgs.callPackage ./pkgs/edge-gpt {
+    inherit bing-image-creator;
+  };
 
   fira-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "FiraCode" ];
