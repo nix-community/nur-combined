@@ -142,5 +142,6 @@ python3Packages.buildPythonApplication rec {
     description = "Development tools at your fingertips";
     homepage = "https://github.com/aleiepure/devtoolbox";
     license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 }

@@ -43,5 +43,6 @@ python3Packages.buildPythonApplication rec {
     description = "Time games of over-the-board chess";
     homepage = "https://gitlab.gnome.org/World/chess-clock";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 }

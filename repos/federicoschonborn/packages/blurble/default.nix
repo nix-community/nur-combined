@@ -43,5 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Word guessing game";
     homepage = "https://gitlab.gnome.org/World/Blurble";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

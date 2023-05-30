@@ -27,5 +27,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for emitting text, XML, JSON, or HTML output";
     homepage = "https://github.com/Juniper/libxo";
     license = licenses.bsd2;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

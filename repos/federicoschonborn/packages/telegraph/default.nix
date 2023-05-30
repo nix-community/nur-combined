@@ -49,5 +49,6 @@ python3Packages.buildPythonApplication rec {
     description = "Write and decode morse";
     homepage = "https://github.com/fkinoshita/Telegraph";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 }

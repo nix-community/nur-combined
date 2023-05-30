@@ -63,5 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Keep the tempo";
     homepage = "https://gitlab.gnome.org/World/Metronome";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

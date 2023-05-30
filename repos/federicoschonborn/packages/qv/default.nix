@@ -35,5 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/qv/";
     downloadPage = "https://marlam.de/qv/download/";
     license = licenses.mit;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

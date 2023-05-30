@@ -26,5 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/gta/";
     downloadPage = "https://marlam.de/gta/download/";
     license = licenses.mit;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

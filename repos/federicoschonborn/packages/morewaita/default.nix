@@ -30,5 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "An Adwaita style extra icons theme for Gnome Shell";
     homepage = "https://github.com/somepaulo/MoreWaita";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

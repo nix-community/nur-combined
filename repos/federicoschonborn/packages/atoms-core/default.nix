@@ -28,5 +28,6 @@ buildPythonPackage rec {
     description = "Atoms Core allows you to create and manage your own chroots and podman containers";
     homepage = "https://github.com/AtomsDevs/atoms-core";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 }

@@ -41,5 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/leolost2605/Gradebook";
     mainProgram = "io.github.leolost2605.gradebook";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

@@ -75,5 +75,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://apps.kde.org/liquidshell/";
     license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

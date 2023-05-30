@@ -108,5 +108,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/LinusDierheimer/fastfetch";
     changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.mit;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

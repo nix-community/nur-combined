@@ -31,5 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/mucalc/";
     downloadPage = "https://marlam.de/mucalc/download/";
     license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

@@ -73,5 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/tgd/";
     downloadPage = "https://marlam.de/tgd/download/";
     license = licenses.mit;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

@@ -67,5 +67,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Test social media cards locally";
     homepage = "https://github.com/rafaelmardojai/share-preview";
     license = licenses.gpl3Only;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

@@ -26,5 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/alemart/surgescript";
     changelog = "https://github.com/alemart/surgescript/blob/${finalAttrs.src.rev}/CHANGES.md";
     license = licenses.asl20;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

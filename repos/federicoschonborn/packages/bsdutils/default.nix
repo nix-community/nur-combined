@@ -52,5 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
       bsd2
       bsdOriginal
     ];
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })

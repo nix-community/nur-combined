@@ -55,5 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "dev.geopjr.Tuba";
     homepage = "https://github.com/GeopJr/Tuba";
     license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ federicoschonborn ];
   };
 })
