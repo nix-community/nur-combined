@@ -26,6 +26,8 @@ rec {
   
   ripcord-patched = pkgs.qt5.callPackage ./pkgs/ripcord-patched {};
 
+  ripcord-audio-hook = pkgs.callPackage ./pkgs/ripcord-patched/ripcord-audio-hook.nix {};
+
   ripcord-patcher = pkgs.callPackage ./pkgs/ripcord-patched/ripcord-patcher.nix {};
 
   funchook = pkgs.callPackage ./pkgs/ripcord-patched/funchook.nix {};

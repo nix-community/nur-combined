@@ -5,6 +5,7 @@
 
 let
   ripcordPatch = callPackage ./ripcord-patcher.nix {};
+  audioHook = callPackage ./ripcord-audio-hook.nix {};
 in
 mkDerivation rec {
   pname = "ripcord";
@@ -24,7 +25,8 @@ mkDerivation rec {
   nativeBuildInputs = [ autoPatchelfHook desktop-file-utils imagemagick ];
   buildInputs = [ libsodium libopus libGL alsa-lib ]
     ++ [ qtbase qtsvg qtmultimedia qtwebsockets qtimageformats ]
-    ++ (with xorg; [ libX11 libXScrnSaver libXcursor xkeyboardconfig ]);
+    ++ (with xorg; [ libX11 libXScrnSaver libXcursor xkeyboardconfig ])
+    ++ [ audioHook ];
 
   fontsConf = makeFontsConf {
     fontDirectories = [ twemoji-color-font ];
@@ -54,7 +56,7 @@ mkDerivation rec {
     makeQtWrapper $out/Ripcord $out/bin/ripcord \
       --chdir "$out" \
       --set FONTCONFIG_FILE "${fontsConf}" \
-      --prefix LD_LIBRARY_PATH ":" "${xorg.libXcursor}/lib" \
+      --prefix LD_LIBRARY_PATH ":" "${lib.makeLibraryPath [ xorg.libXcursor audioHook ]}"  \
       --prefix QT_XKB_CONFIG_ROOT ":" "${xorg.xkeyboardconfig}/share/X11/xkb" \
       --set RIPCORD_ALLOW_UPDATES 0
 

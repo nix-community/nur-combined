@@ -1,23 +1,17 @@
 { stdenv
 , lib
-, fetchFromGitHub
+, fetchurl
 , gnumake
 , cmake
-, python3
 }:
 
-let
-  distorm = (python3.withPackages(ps: [ ps.distorm3 ]));
-in
 stdenv.mkDerivation rec {
-  name = "funcHook";
+  name = "funchook";
   version = "1.1.2";
 
-  src = fetchFromGitHub {
-    owner = "kubo";
-    repo = "funchook";
-    rev = "1.1.2";
-    sha256 = "T3loexmITvgTyA340qFs0QaKP7/fz073JW4+oKW8hgg=";
+  src = fetchurl {
+    url = "https://github.com/kubo/funchook/releases/download/v1.1.2/funchook-1.1.2.tar.gz";
+    sha256 = "0c96w4c0jqq9yqpcp6p3vbicl51bqc688pc0bg629fyiinaas4wf";
   };
 
   nativeBuildInputs = [
@@ -27,15 +21,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_INSTALL_PREFIX=$out"
   ];
-
-  buildInputs = [ distorm ];
 
   meta = with lib; {
     description = "Hook function calls by inserting jump instructions at runtime";
     homepage = "https://github.com/kubo/funchook/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    broken = true;
   };
 }
