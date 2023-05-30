@@ -153,9 +153,9 @@
 
       # we also bridge DNS traffic
       ${in-ns} ${iptables} -A PREROUTING -t nat -p udp --dport 53 -m iprange --dst-range ${vpn-ip} \
-        -j DNAT --to-destination ${veth-host-ip}:53
+        -j DNAT --to-destination ${veth-host-ip}:1053
       ${in-ns} ${iptables} -A PREROUTING -t nat -p tcp --dport 53 -m iprange --dst-range ${vpn-ip} \
-        -j DNAT --to-destination ${veth-host-ip}:53
+        -j DNAT --to-destination ${veth-host-ip}:1053
 
       # in order to access DNS in this netns, we need to route it to the VPN's nameservers
       # - alternatively, we could fix DNS servers like 1.1.1.1.

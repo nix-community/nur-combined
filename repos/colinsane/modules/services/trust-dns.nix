@@ -80,6 +80,14 @@ in
         default = false;
         type = types.bool;
       };
+      package = mkOption {
+        type = types.package;
+        default = pkgs.trust-dns;
+        description = ''
+          trust-dns package to use.
+          should provide bin/named, which will be invoked with --config x and --zonedir d and maybe -q.
+        '';
+      };
       listenAddrsIPv4 = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -88,6 +96,13 @@ in
       quiet = mkOption {
         type = types.bool;
         default = false;
+      };
+      zonedir = mkOption {
+        type = types.nullOr types.str;
+        default = "/";
+        description = ''
+          where the `file` option in zones.* is relative to.
+        '';
       };
       # reference <nixpkgs:nixos/modules/services/web-servers/nginx/vhost-options.nix>
       zones = mkOption {
@@ -154,7 +169,9 @@ in
             file = mkOption {
               type = types.nullOr types.str;
               default = null;
-              description = "instead of using the generated zone file, use the specified path";
+              description = ''
+                instead of using the generated zone file, use the specified path (user should populate the file specified here).
+              '';
             };
           };
         });
@@ -171,19 +188,27 @@ in
 
   config = mkIf cfg.enable {
     sane.services.trust-dns.generatedZones = mapAttrs (zone: zcfg: genZone zcfg) cfg.zones;
-    sane.services.wan-ports.tcp = [ 53 ];
-    sane.services.wan-ports.udp = [ 53 ];
+
+    # TODO: we need the UPnP port to map WAN 53 -> LAN 1053
+    # else we'll be giving LAN IPs to WAN requests.
+    # until then, manage forwards manually.
+    # sane.services.wan-ports.tcp = [ 53 ];
+    # sane.services.wan-ports.udp = [ 53 ];
+    networking.firewall.allowedUDPPorts = [ 53 ];
+    networking.firewall.allowedTCPPorts = [ 53 ];
 
     systemd.services.trust-dns = {
       description = "trust-dns DNS server";
       serviceConfig = {
         ExecStart =
           let
-            flags = lib.optionalString cfg.quiet "-q";
+            flags = lib.optional cfg.quiet "-q" ++
+              lib.optionals (cfg.zonedir != null) [ "--zonedir" cfg.zonedir ];
+            flagsStr = builtins.concatStringsSep " " flags;
           in ''
-            ${pkgs.trust-dns}/bin/named \
+            ${cfg.package}/bin/named \
               --config ${configFile} \
-              --zonedir / ${flags}
+              ${flagsStr}
           '';
         Type = "simple";
         Restart = "on-failure";

@@ -30,17 +30,20 @@
                                       7d         ; Expire
                                       5m)        ; Negative response TTL
     '';
-    TXT."rev" = "2022122101";
+    TXT."rev" = "2023052901";
+
+    CNAME."native" = "%CNAMENATIVE%";
+    A."@" =      "%ANATIVE%";
+    A."wan" = "%AWAN%";
+    A."servo.lan" = config.sane.hosts.by-name."servo".lan-ip;
 
     # XXX NS records must also not be CNAME
     # it's best that we keep this identical, or a superset of, what org. lists as our NS.
     # so, org. can specify ns2/ns3 as being to the VPN, with no mention of ns1. we provide ns1 here.
-    A."ns1" =    "%NATIVE%";
+    A."ns1" =    "%ANATIVE%";
     A."ns2" =    "185.157.162.178";
     A."ns3" =    "185.157.162.178";
     A."ovpns" =  "185.157.162.178";
-    A."native" = "%NATIVE%";
-    A."@" =      "%NATIVE%";
     NS."@" = [
       "ns1.uninsane.org."
       "ns2.uninsane.org."
@@ -48,20 +51,49 @@
     ];
   };
 
-  sane.services.trust-dns.zones."uninsane.org".file =
-    "/var/lib/trust-dns/uninsane.org.zone";
+  sane.services.trust-dns.zones."uninsane.org".file = "uninsane.org.zone";
+  sane.services.trust-dns.zonedir = null;
 
-  systemd.services.trust-dns.preStart = let
-    sed = "${pkgs.gnused}/bin/sed";
-    zone-dir = "/var/lib/trust-dns";
-    zone-out = "${zone-dir}/uninsane.org.zone";
-    zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.services.trust-dns.generatedZones."uninsane.org";
-  in ''
-    # make WAN records available to trust-dns
-    mkdir -p ${zone-dir}
-    ip=$(cat '${config.sane.services.dyn-dns.ipPath}')
-    ${sed} s/%NATIVE%/$ip/ ${zone-template} > ${zone-out}
-  '';
+  sane.services.trust-dns.package =
+    let
+      sed = "${pkgs.gnused}/bin/sed";
+      zone-dir = "/var/lib/trust-dns";
+      zone-wan = "${zone-dir}/wan/uninsane.org.zone";
+      zone-lan = "${zone-dir}/lan/uninsane.org.zone";
+      zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.services.trust-dns.generatedZones."uninsane.org";
+    in pkgs.writeShellScriptBin "named" ''
+      # compute wan/lan values
+      mkdir -p ${zone-dir}/{ovpn,wan,lan}
+      wan=$(cat '${config.sane.services.dyn-dns.ipPath}')
+      lan=${config.sane.hosts.by-name."servo".lan-ip}
+
+      # create specializations that resolve native.uninsane.org to different CNAMEs
+      ${sed} s/%AWAN%/$wan/ ${zone-template} \
+        | ${sed} s/%CNAMENATIVE%/wan/ \
+        | ${sed} s/%ANATIVE%/$wan/ \
+        > ${zone-wan}
+      ${sed} s/%AWAN%/$wan/ ${zone-template} \
+        | ${sed} s/%CNAMENATIVE%/servo.lan/ \
+        | ${sed} s/%ANATIVE%/$lan/ \
+        > ${zone-lan}
+
+      # launch the different interfaces, separately
+      ${pkgs.trust-dns}/bin/named --port 1053 --zonedir ${zone-dir}/wan/ $@ &
+      WANPID=$!
+      ${pkgs.trust-dns}/bin/named --zonedir ${zone-dir}/lan/ $@ &
+      LANPID=$!
+
+      # wait until any of the processes exits, then kill them all and exit error
+      while kill -0 $WANPID $LANPID ; do
+        sleep 5
+      done
+      kill $WANPID $LANPID
+      exit 1
+    '';
 
   sane.services.dyn-dns.restartOnChange = [ "trust-dns.service" ];
+
+  # for WAN visibility
+  networking.firewall.allowedUDPPorts = [ 1053 ];
+  networking.firewall.allowedTCPPorts = [ 1053 ];
 }

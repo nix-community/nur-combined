@@ -78,7 +78,7 @@
 
   sane.services.trust-dns.zones."uninsane.org".inet = {
     # XXX: SRV records have to point to something with a A/AAAA record; no CNAMEs
-    A."xmpp" =                "%NATIVE%";
+    A."xmpp" =                "%ANATIVE%";
     CNAME."muc.xmpp" =        "xmpp";
     CNAME."pubsub.xmpp" =     "xmpp";
     CNAME."upload.xmpp" =     "xmpp";
@@ -235,7 +235,7 @@
             use_turn: true
             turn_min_port: 49152
             turn_max_port: 65535
-            turn_ipv4_address: %NATIVE%
+            turn_ipv4_address: %ANATIVE%
           -
             # STUN+TURN UDP
             port: 3478
@@ -244,7 +244,7 @@
             use_turn: true
             turn_min_port: 49152
             turn_max_port: 65535
-            turn_ipv4_address: %NATIVE%
+            turn_ipv4_address: %ANATIVE%
           -
             # STUN+TURN TLS over TCP
             port: 5349
@@ -255,7 +255,7 @@
             use_turn: true
             turn_min_port: 49152
             turn_max_port: 65535
-            turn_ipv4_address: %NATIVE%
+            turn_ipv4_address: %ANATIVE%
 
         # TODO: enable mod_fail2ban
         # TODO(low): look into mod_http_fileserver for serving macros?
@@ -388,7 +388,7 @@
     # config is 444 (not 644), so we want to write out-of-place and then atomically move
     # TODO: factor this out into `sane-woop` helper?
     rm -f /var/lib/ejabberd/ejabberd.yaml.new
-    ${sed} "s/%NATIVE%/$ip/" ${config-in} > /var/lib/ejabberd/ejabberd.yaml.new
+    ${sed} "s/%ANATIVE%/$ip/" ${config-in} > /var/lib/ejabberd/ejabberd.yaml.new
     mv /var/lib/ejabberd/ejabberd.yaml{.new,}
   '';
 
