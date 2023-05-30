@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "finalcut";
-  version = "0.8.0";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "gansm";
     repo = "finalcut";
     rev = finalAttrs.version;
-    hash = "sha256-FaloxuRx9p9oMyuKyJhYZve/WyQoMSGTYwY6A2uE0F0=";
+    hash = "sha256-fRAzfvuqruveb229fV0XYh764cA26NlDVXxX+3Fobg4=";
   };
 
   nativeBuildInputs = [ autoreconfHook autoconf-archive pkg-config ];

@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rumqtt";
-  version = "0.14.0";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "bytebeamio";
     repo = "rumqtt";
     rev = "rumqttd-${version}";
-    hash = "sha256-Ifc5dxSOnR0JWUTwC5JeOQk6ttTjeIFWL9p/Hmyw7Oc=";
+    hash = "sha256-Tl+ViUn7LrJY+iQu6wdNN6h1Y6KKUOrnIaRR3uvvjiw=";
   };
 
-  cargoHash = "sha256-KON1NEyGl7WMqBWo8suSOP55ZpccU5myKoPuyJPw1QU=";
+  cargoHash = "sha256-I9YcgVEfOsaXd3+B+CskdayXVq4mvznNXEAa2p3+zUQ=";
 
   nativeBuildInputs = [ cmake ];
 
