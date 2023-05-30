@@ -257,10 +257,10 @@
     "homepage": "",
     "owner": "ms-jpq",
     "repo": "coq_nvim",
-    "rev": "c1365375558fb320a90522d5a980393d7b98576d",
-    "sha256": "0vkfgplbwij09lsbbkfzzmw2asca73iqbw6rhafcfid6ryihfpai",
+    "rev": "75d0e3ada0e986f16c9b987df0bba6cb3663e80d",
+    "sha256": "0612g5p3cz7b1c6sillp4g8x6d073rdm375nds1qbaac04611fw1",
     "type": "tarball",
-    "url": "https://github.com/ms-jpq/coq_nvim/archive/c1365375558fb320a90522d5a980393d7b98576d.tar.gz",
+    "url": "https://github.com/ms-jpq/coq_nvim/archive/75d0e3ada0e986f16c9b987df0bba6cb3663e80d.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "crates.nvim": {
@@ -713,10 +713,10 @@
     "homepage": "",
     "owner": "lukas-reineke",
     "repo": "indent-blankline.nvim",
-    "rev": "ceaf730b13e332cd76600d9795722413c236c684",
-    "sha256": "0q7hnpz0kdf29d9k0mx86snpwv646my5aicggj3v7caw7s1wydvq",
+    "rev": "7075d7861f7a6bbf0de0298c83f8a13195e6ec01",
+    "sha256": "0hcjr1a4vasjvgs8w7hpg0rdfr2aji6n376g062xjynh0302826q",
     "type": "tarball",
-    "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/ceaf730b13e332cd76600d9795722413c236c684.tar.gz",
+    "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/7075d7861f7a6bbf0de0298c83f8a13195e6ec01.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "lazily-nvim": {
@@ -1271,10 +1271,10 @@
     "homepage": "",
     "owner": "nvim-treesitter",
     "repo": "nvim-treesitter",
-    "rev": "905877e75f91790b693e8154ccfc10e3d4fc05a3",
-    "sha256": "1vryjmvfc09d58sdg2ajxqylzl466bign2zpbcyp25l8n7n4rhj7",
+    "rev": "06aa932bb87c9e30d9c3444c65f4d13599c7fb9c",
+    "sha256": "0gfrhkr3yw40hkb0pkv0px38nfbsla00cl0rvn7dkrmxfhs3pj41",
     "type": "tarball",
-    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/905877e75f91790b693e8154ccfc10e3d4fc05a3.tar.gz",
+    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/06aa932bb87c9e30d9c3444c65f4d13599c7fb9c.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-treesitter-textsubjects": {
