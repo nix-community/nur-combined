@@ -456,6 +456,7 @@ lib.makeScope newScope (
     libacars = callPackage ./radio/libacars { };
     linrad = callPackage ./radio/linrad { };
     rtlsdr-airband = callPackage ./radio/rtlsdr-airband { };
+    rtltcp = callPackage ./radio/rtltcp { };
     sdr-server = callPackage ./radio/sdr-server { };
     smallrx = callPackage ./radio/smallrx { };
 
