@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out
-    mv usr/src/amdgpu-5.18.13-1580598.22.04 $out/lib
+    mkdir -p $out/lib
+    mv lib/firmware/updates $out/lib/firmware
   '';
 
   meta = with lib; {
