@@ -15,5 +15,7 @@
     exit 1
   fi
 
-  printf %04x $1 | ${xxd}/bin/xxd -r -p > /sys/$DEVPATH/dpi
+  DPI_X=$1
+  DPI_Y=''${2-$DPI_X}
+  printf %04x%04x "$DPI_X" "$DPI_Y" | ${xxd}/bin/xxd -r -p > /sys/$DEVPATH/dpi
 ''

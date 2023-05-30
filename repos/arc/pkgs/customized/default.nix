@@ -483,11 +483,11 @@ let
     }).overrideAttrs (old: let
       pname = "qemu-vfio";
       v8 = rec {
-        version = "7.2.1";
+        version = "7.2.2";
         name = "${pname}-${version}";
         src = fetchurl {
           url = "https://download.qemu.org/qemu-${version}.tar.xz";
-          sha256 = "sha256-jIVpms+dekOl/immTN1WNwsMLRrQdLr3CYqCTReq1zs=";
+          sha256 = "sha256-oo9eoS3CKrKQxFEXLQNsCc6aX/f3R1KIAvh2vlFRbpA=";
         };
         nativeBuildInputs = old.nativeBuildInputs ++ [ perl ];
         buildInputs = old.buildInputs ++ [ perl ];
