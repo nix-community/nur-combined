@@ -57,7 +57,8 @@ variable "gcp_service_account_id" {
 
 variable "gcp_turbo_gpu" {
   type = string
-  default = "nvidia-tesla-k80"
+  default = "nvidia-tesla-t4"
+  # default = "nvidia-tesla-k80"
   description = "Que gpu usar"
 }
 

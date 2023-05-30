@@ -1,0 +1,5 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -p sanoid -i bash
+
+sudo syncoid -r zroot/vms storage/backup/vms
+sudo syncoid -r zroot/games storage/games
