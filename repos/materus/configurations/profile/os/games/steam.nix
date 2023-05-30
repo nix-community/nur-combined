@@ -1,8 +1,16 @@
-{ config, pkgs, lib, materusPkgs, ... }:
+{ config, pkgs, lib, materusPkgs, inputs, ... }:
 let
 
-  steamPkg = pkgs.steam.override {
+  pkgsGlbic = import
+    (pkgs.fetchzip {
+      url = "https://github.com/NixOS/nixpkgs/archive/22.11.tar.gz";
+      sha256 = "sha256-/HEZNyGbnQecrgJnfE8d0WC5c1xuPSD2LUpB6YXlg4c=";
+    })
+    { system = pkgs.system; };
 
+
+
+  steamPkg = pkgs.steam.override {
     extraPkgs = pkgs: [
       pkgs.nss_latest
       pkgs.libstrangle
@@ -18,6 +26,8 @@ let
       pkgs.xorg.libXi
       pkgs.xorg.libXinerama
       pkgs.xorg.libXScrnSaver
+      pkgs.xorg.xinput
+      pkgs.libinput
       pkgs.openvdb
       pkgs.tbb_2021_8
       pkgs.gtk4
@@ -25,6 +35,8 @@ let
       pkgs.glib
       pkgs.gsettings-desktop-schemas
       pkgs.fuse
+      pkgs.libsForQt5.breeze-qt5
+      pkgs.libsForQt5.breeze-gtk
 
     ];
 
@@ -32,6 +44,8 @@ let
       pkgs.libkrb5
       pkgs.keyutils
       pkgs.ncurses6
+      pkgs.xorg.xinput
+      pkgs.libinput
       pkgs.fontconfig
       pkgs.libxcrypt
       pkgs.gnutls
@@ -40,10 +54,10 @@ let
     then [ package ] ++ extraPackages
     else [ package32 ] ++ extraPackages32);
 
-    extraEnv = { 
+    extraEnv = {
       XDG_DATA_DIRS = "/usr/share:\${XDG_DATA_DIRS}";
       OBS_VKCAPTURE = "1";
-     };
+    };
 
   };
 

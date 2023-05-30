@@ -30,10 +30,10 @@ in
   ];
 
   systemd.tmpfiles.rules = [
-  "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
   ];
 
-    services.flatpak.enable = true;
+  services.flatpak.enable = true;
   services.gvfs.enable = true;
 
 
@@ -60,19 +60,19 @@ in
   services.xserver.desktopManager.plasma5.useQtScaling = true;
   services.xserver.desktopManager.plasma5.runUsingSystemd = true;
 
-  environment.plasma5.excludePackages = with pkgs; [libsForQt5.kwallet libsForQt5.kwalletmanager libsForQt5.kwallet-pam];
+  environment.plasma5.excludePackages = with pkgs; [ libsForQt5.kwallet libsForQt5.kwalletmanager libsForQt5.kwallet-pam ];
 
   services.xserver.config = pkgs.lib.mkAfter ''
-  Section "OutputClass"
-    Identifier "amd-options"
-    Option "TearFree" "True"
-    Option "SWCursor" "True"
-    Option "VariableRefresh" "true"
-    Option "AsyncFlipSecondaries" "true"
-    MatchDriver "amdgpu
-  EndSection
+    Section "OutputClass"
+      Identifier "amd-options"
+      Option "TearFree" "True"
+      Option "SWCursor" "True"
+      Option "VariableRefresh" "true"
+      Option "AsyncFlipSecondaries" "true"
+      MatchDriver "amdgpu
+    EndSection
 
-  ''; 
+  '';
 
   services.xserver.displayManager.defaultSession = "plasmawayland";
   services.xserver.displayManager.autoLogin.user = "materus";
@@ -153,9 +153,9 @@ in
   };
   environment.variables = {
     KWIN_DRM_NO_AMS = "1";
-    DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1="1"; 
-    VK_ICD_FILENAMES="/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/radeon_icd.i686.json";
-    AMD_VULKAN_ICD="RADV";
+    DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1 = "1";
+    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/radeon_icd.i686.json";
+    AMD_VULKAN_ICD = "RADV";
     RADV_PERFTEST = "gpl,rt,sam";
   };
   environment.sessionVariables = rec {
@@ -187,7 +187,7 @@ in
   services.samba-wsdd.enable = true;
 
   services.samba.enable = true;
-  
+
 
   programs.gnupg.agent = {
     enable = true;
@@ -220,12 +220,20 @@ in
   };
 
 
+
+
+
+  /*containers.test = {
+    config = { config, pkgs, ... }: { environment.systemPackages = with pkgs; [ wayfire ]; };
+    autoStart = false;
+  };*/
+
   environment.systemPackages = with pkgs; [
     firefox
     gamescope
     (pkgs.lutris.override { extraLibraries = pkgs: with pkgs;  [ pkgs.libunwind pkgs.libusb1 pkgs.gnutls pkgs.gtk3 pkgs.pango ]; })
     materusPkgs.amdgpu-pro-libs.prefixes
-    (pkgs.bottles.override {extraLibraries = pkgs: with pkgs; [pkgs.libunwind pkgs.libusb1 pkgs.gnutls pkgs.gtk3 pkgs.pango]; })
+    (pkgs.bottles.override { extraLibraries = pkgs: with pkgs; [ pkgs.libunwind pkgs.libusb1 pkgs.gnutls pkgs.gtk3 pkgs.pango ]; })
     glibc
     glib
     gtk3
@@ -265,7 +273,7 @@ in
     xz
     zip
     gzip
-    
+
     virtiofsd
     config.virtualisation.libvirtd.qemu.package
     looking-glass-client
@@ -282,8 +290,8 @@ in
     bat
 
 
-   # pgcli
-   # litecli
+    # pgcli
+    # litecli
 
     #zenmonitor
 
@@ -320,220 +328,220 @@ in
 
     binutils
     /*
-    gnome3.adwaita-icon-theme
-    gnome3.gnome-tweaks
-    gnome3.gnome-color-manager
-    gnome3.gnome-shell-extensions
+      gnome3.adwaita-icon-theme
+      gnome3.gnome-tweaks
+      gnome3.gnome-color-manager
+      gnome3.gnome-shell-extensions
 
-    gnomeExtensions.appindicator
-    gnomeExtensions.desktop-clock
-    gnomeExtensions.gtk4-desktop-icons-ng-ding
-    gnomeExtensions.compiz-windows-effect
-    gnomeExtensions.burn-my-windows
-    gnomeExtensions.user-themes
-    gnomeExtensions.gsconnect
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.dash-to-dock
+      gnomeExtensions.appindicator
+      gnomeExtensions.desktop-clock
+      gnomeExtensions.gtk4-desktop-icons-ng-ding
+      gnomeExtensions.compiz-windows-effect
+      gnomeExtensions.burn-my-windows
+      gnomeExtensions.user-themes
+      gnomeExtensions.gsconnect
+      gnomeExtensions.dash-to-panel
+      gnomeExtensions.dash-to-dock
     */
 
     config.materus.profile.packages.home-manager
   ];
 
 
-/*
-  system.activationScripts.libvirt-hooks.text =
+  /*
+    system.activationScripts.libvirt-hooks.text =
     ''
-      ln -Tfs /etc/libvirt/hooks /var/lib/libvirt/hooks
+    ln -Tfs /etc/libvirt/hooks /var/lib/libvirt/hooks
     '';
 
 
 
-  environment.etc = {
+    environment.etc = {
     "libvirt/hooks/qemu" = {
-      text =
-        ''
-          #!/usr/bin/env bash
-                            #
-                            # Author: Sebastiaan Meijer (sebastiaan@passthroughpo.st)
-                            #
-                            # Copy this file to /etc/libvirt/hooks, make sure it's called "qemu".
-                            # After this file is installed, restart libvirt.
-                            # From now on, you can easily add per-guest qemu hooks.
-                            # Add your hooks in /etc/libvirt/hooks/qemu.d/vm_name/hook_name/state_name.
-                            # For a list of available hooks, please refer to https://www.libvirt.org/hooks.html
-                            #
+    text =
+    ''
+    #!/usr/bin/env bash
+    #
+    # Author: Sebastiaan Meijer (sebastiaan@passthroughpo.st)
+    #
+    # Copy this file to /etc/libvirt/hooks, make sure it's called "qemu".
+    # After this file is installed, restart libvirt.
+    # From now on, you can easily add per-guest qemu hooks.
+    # Add your hooks in /etc/libvirt/hooks/qemu.d/vm_name/hook_name/state_name.
+    # For a list of available hooks, please refer to https://www.libvirt.org/hooks.html
+    #
 
-                            GUEST_NAME="$1"
-                            HOOK_NAME="$2"
-                            STATE_NAME="$3"
-                            MISC="''${@:4}"
+    GUEST_NAME="$1"
+    HOOK_NAME="$2"
+    STATE_NAME="$3"
+    MISC="''${@:4}"
 
-                            BASEDIR="$(dirname $0)"
+    BASEDIR="$(dirname $0)"
 
-                            HOOKPATH="$BASEDIR/qemu.d/$GUEST_NAME/$HOOK_NAME/$STATE_NAME"
+    HOOKPATH="$BASEDIR/qemu.d/$GUEST_NAME/$HOOK_NAME/$STATE_NAME"
 
-                            set -e # If a script exits with an error, we should as well.
+    set -e # If a script exits with an error, we should as well.
 
-                            # check if it's a non-empty executable file
-                            if [ -f "$HOOKPATH" ] && [ -s "$HOOKPATH"] && [ -x "$HOOKPATH" ]; then
-                                eval \"$HOOKPATH\" "$@"
-                            elif [ -d "$HOOKPATH" ]; then
-                                while read file; do
-                                    # check for null string
-                                    if [ ! -z "$file" ]; then
-                                      eval \"$file\" "$@"
-                                    fi
-                                done <<< "$(find -L "$HOOKPATH" -maxdepth 1 -type f -executable -print;)"
-                            fi
-        '';
-      mode = "0755";
+    # check if it's a non-empty executable file
+    if [ -f "$HOOKPATH" ] && [ -s "$HOOKPATH"] && [ -x "$HOOKPATH" ]; then
+    eval \"$HOOKPATH\" "$@"
+    elif [ -d "$HOOKPATH" ]; then
+    while read file; do
+    # check for null string
+    if [ ! -z "$file" ]; then
+    eval \"$file\" "$@"
+    fi
+    done <<< "$(find -L "$HOOKPATH" -maxdepth 1 -type f -executable -print;)"
+    fi
+    '';
+    mode = "0755";
     };
 
     "libvirt/hooks/kvm.conf" = {
-      text =
-        ''
-          VIRSH_GPU_VIDEO=pci_0000_01_00_0
-          VIRSH_GPU_AUDIO=pci_0000_01_00_1
-          VIRSH_GPU_USB=pci_0000_01_00_2
-          VIRSH_GPU_SERIAL_BUS=pci_0000_01_00_3
-        '';
-      mode = "0755";
+    text =
+    ''
+    VIRSH_GPU_VIDEO=pci_0000_01_00_0
+    VIRSH_GPU_AUDIO=pci_0000_01_00_1
+    VIRSH_GPU_USB=pci_0000_01_00_2
+    VIRSH_GPU_SERIAL_BUS=pci_0000_01_00_3
+    '';
+    mode = "0755";
     };
 
     "libvirt/hooks/qemu.d/win11/prepare/begin/start.sh" = {
-      text =
-        ''
-          #!/usr/bin/env bash
-                            # Debugging
-                             exec 19>/home/materus/startlogfile
-                             BASH_XTRACEFD=19
-                             set -x
+    text =
+    ''
+    #!/usr/bin/env bash
+    # Debugging
+    exec 19>/home/materus/startlogfile
+    BASH_XTRACEFD=19
+    set -x
 
-                             exec 3>&1 4>&2
-                             trap 'exec 2>&4 1>&3' 0 1 2 3
-                             exec 1>/home/materus/startlogfile.out 2>&1
-
-
-
-                            # Stop display manager
-                            killall -u materus
-                            systemctl stop display-manager.service
-                            killall gdm-x-session
-                            #systemctl isolate multi-user.target
-                            sleep 1
-
-
-                            # Load variables we defined
-                            source "/etc/libvirt/hooks/kvm.conf"
-
-                            # Isolate host to core 0
-                            systemctl set-property --runtime -- user.slice AllowedCPUs=0
-                            systemctl set-property --runtime -- system.slice AllowedCPUs=0
-                            systemctl set-property --runtime -- init.scope AllowedCPUs=0
+    exec 3>&1 4>&2
+    trap 'exec 2>&4 1>&3' 0 1 2 3
+    exec 1>/home/materus/startlogfile.out 2>&1
 
 
 
-                            # Unbind VTconsoles
-                            for (( i = 0; i < 16; i++))
-                            do
-                              if test -x /sys/class/vtconsole/vtcon"''${i}"; then
-                                  if [ "$(grep -c "frame buffer" /sys/class/vtconsole/vtcon"''${i}"/name)" = 1 ]; then
-                                    echo 0 > /sys/class/vtconsole/vtcon"''${i}"/bind
-                                      echo "$DATE Unbinding Console ''${i}"
-                                  fi
-                              fi
-                            done
+    # Stop display manager
+    killall -u materus
+    systemctl stop display-manager.service
+    killall gdm-x-session
+    #systemctl isolate multi-user.target
+    sleep 1
 
-                            # Unbind EFI Framebuffer
-                            echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/unbind
 
-                            # Avoid race condition
-                             sleep 1
+    # Load variables we defined
+    source "/etc/libvirt/hooks/kvm.conf"
 
-                            # Unload NVIDIA kernel modules
-                            modprobe -r nvidia_uvm
-                            modprobe -r nvidia_drm
-                            modprobe -r nvidia_modeset
-                            modprobe -r nvidia
-                            modprobe -r i2c_nvidia_gpu
-                            modprobe -r drm_kms_helper
-                            modprobe -r drm
+    # Isolate host to core 0
+    systemctl set-property --runtime -- user.slice AllowedCPUs=0
+    systemctl set-property --runtime -- system.slice AllowedCPUs=0
+    systemctl set-property --runtime -- init.scope AllowedCPUs=0
 
-                            # Detach GPU devices from host
-                            #virsh nodedev-detach $VIRSH_GPU_VIDEO
-                            #virsh nodedev-detach $VIRSH_GPU_AUDIO
-                            #virsh nodedev-detach $VIRSH_GPU_USB
-                            #virsh nodedev-detach $VIRSH_GPU_SERIAL_BUS
 
-                            # Load vfio module
-                            modprobe vfio
-                            modprobe vfio_pci
-                            modprobe vfio_iommu_type1
-        '';
-      mode = "0755";
+
+    # Unbind VTconsoles
+    for (( i = 0; i < 16; i++))
+    do
+    if test -x /sys/class/vtconsole/vtcon"''${i}"; then
+    if [ "$(grep -c "frame buffer" /sys/class/vtconsole/vtcon"''${i}"/name)" = 1 ]; then
+    echo 0 > /sys/class/vtconsole/vtcon"''${i}"/bind
+    echo "$DATE Unbinding Console ''${i}"
+    fi
+    fi
+    done
+
+    # Unbind EFI Framebuffer
+    echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/unbind
+
+    # Avoid race condition
+    sleep 1
+
+    # Unload NVIDIA kernel modules
+    modprobe -r nvidia_uvm
+    modprobe -r nvidia_drm
+    modprobe -r nvidia_modeset
+    modprobe -r nvidia
+    modprobe -r i2c_nvidia_gpu
+    modprobe -r drm_kms_helper
+    modprobe -r drm
+
+    # Detach GPU devices from host
+    #virsh nodedev-detach $VIRSH_GPU_VIDEO
+    #virsh nodedev-detach $VIRSH_GPU_AUDIO
+    #virsh nodedev-detach $VIRSH_GPU_USB
+    #virsh nodedev-detach $VIRSH_GPU_SERIAL_BUS
+
+    # Load vfio module
+    modprobe vfio
+    modprobe vfio_pci
+    modprobe vfio_iommu_type1
+    '';
+    mode = "0755";
     };
 
     "libvirt/hooks/qemu.d/win11/release/end/stop.sh" = {
-      text =
-        ''
-          #!/usr/bin/env bash
-          # Debugging
-          exec 19>/home/materus/stoplogfile
-          BASH_XTRACEFD=19
-          set -x
+    text =
+    ''
+    #!/usr/bin/env bash
+    # Debugging
+    exec 19>/home/materus/stoplogfile
+    BASH_XTRACEFD=19
+    set -x
 
-          exec 3>&1 4>&2
-          trap 'exec 2>&4 1>&3' 0 1 2 3
-          exec 1>/home/materus/stoplogfile.out 2>&1
+    exec 3>&1 4>&2
+    trap 'exec 2>&4 1>&3' 0 1 2 3
+    exec 1>/home/materus/stoplogfile.out 2>&1
 
-          # Load variables we defined
-          source "/etc/libvirt/hooks/kvm.conf"
+    # Load variables we defined
+    source "/etc/libvirt/hooks/kvm.conf"
 
-          # Unload vfio module
-          modprobe -r vfio-pci
-          modprobe -r vfio_iommu_type1
-          modprobe -r vfio
-
-
-
-          modprobe drm
-          modprobe drm_kms_helper
-          modprobe i2c_nvidia_gpu
-          modprobe nvidia
-          modprobe nvidia_modeset
-          modprobe nvidia_drm
-          modprobe nvidia_uvm
-
-          # Attach GPU devices from host
-          #virsh nodedev-reattach $VIRSH_GPU_VIDEO
-          #virsh nodedev-reattach $VIRSH_GPU_AUDIO
-          #virsh nodedev-reattach $VIRSH_GPU_USB
-          #virsh nodedev-reattach $VIRSH_GPU_SERIAL_BUS
-
-          #echo "0000:01:00.0" > /sys/bus/pci/drivers/nvidia/bind
-          # Bind EFI Framebuffer
-          echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
-
-          # Bind VTconsoles
-          echo 1 > /sys/class/vtconsole/vtcon0/bind
-          #echo 1 > /sys/class/vtconsole/vtcon1/bind
+    # Unload vfio module
+    modprobe -r vfio-pci
+    modprobe -r vfio_iommu_type1
+    modprobe -r vfio
 
 
-          # Start display manager
-          sleep 1
-          systemctl start display-manager.service
 
-          # Return host to all cores
-          systemctl set-property --runtime -- user.slice AllowedCPUs=0-3
-          systemctl set-property --runtime -- system.slice AllowedCPUs=0-3
-          systemctl set-property --runtime -- init.scope AllowedCPUs=0-3
-        '';
-      /*text = ''
-        #!/usr/bin/env bash
-        reboot
-        '';*-/
-      mode = "0755";
+    modprobe drm
+    modprobe drm_kms_helper
+    modprobe i2c_nvidia_gpu
+    modprobe nvidia
+    modprobe nvidia_modeset
+    modprobe nvidia_drm
+    modprobe nvidia_uvm
+
+    # Attach GPU devices from host
+    #virsh nodedev-reattach $VIRSH_GPU_VIDEO
+    #virsh nodedev-reattach $VIRSH_GPU_AUDIO
+    #virsh nodedev-reattach $VIRSH_GPU_USB
+    #virsh nodedev-reattach $VIRSH_GPU_SERIAL_BUS
+
+    #echo "0000:01:00.0" > /sys/bus/pci/drivers/nvidia/bind
+    # Bind EFI Framebuffer
+    echo "efi-framebuffer.0" > /sys/bus/platform/drivers/efi-framebuffer/bind
+
+    # Bind VTconsoles
+    echo 1 > /sys/class/vtconsole/vtcon0/bind
+    #echo 1 > /sys/class/vtconsole/vtcon1/bind
+
+
+    # Start display manager
+    sleep 1
+    systemctl start display-manager.service
+
+    # Return host to all cores
+    systemctl set-property --runtime -- user.slice AllowedCPUs=0-3
+    systemctl set-property --runtime -- system.slice AllowedCPUs=0-3
+    systemctl set-property --runtime -- init.scope AllowedCPUs=0-3
+    '';
+    /*text = ''
+    #!/usr/bin/env bash
+    reboot
+    '';*-/
+    mode = "0755";
     };
     "libvirt/vgabios/patched.rom".source = ./vbios.rom;
-  }; */
+    }; */
 }
