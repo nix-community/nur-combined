@@ -1,10 +1,10 @@
-{ stdenv, fetchFromGitLab, pkgs, lib, nodejs-14_x, nodeEnv, pkg-config, libjpeg
+{ stdenv, fetchFromGitLab, pkgs, lib, nodejs-18_x, nodeEnv, pkg-config, libjpeg
 , vips, pixman, cairo, pango
 , fetchgit, fetchurl
 }:
 
 let
-  nodejs = nodejs-14_x;
+  nodejs = nodejs-18_x;
   src = fetchFromGitLab {
     owner = "ruslang02";
     repo = "mx-puppet-discord";
