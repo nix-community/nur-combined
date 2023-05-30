@@ -11,14 +11,14 @@
 , wrapGAppsHook4
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "gradebook";
   version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "leolost2605";
     repo = "Gradebook";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-ZCBaQLU3323t+OAi7NfFNDgJqMfPEw7zoEkma3TX93g=";
   };
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     mainProgram = "io.github.leolost2605.gradebook";
     license = licenses.gpl3Only;
   };
-}
+})

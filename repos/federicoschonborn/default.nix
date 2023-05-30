@@ -52,7 +52,6 @@
   };
   firefox-gnome-theme = pkgs.callPackage ./packages/firefox-gnome-theme { };
   gradebook = pkgs.callPackage ./packages/gradebook { };
-  health = pkgs.callPackage ./packages/health { };
   kommit = pkgs.libsForQt5.callPackage ./packages/kommit { };
   libgta = pkgs.callPackage ./packages/libgta { };
   libtgd = pkgs.callPackage ./packages/libtgd { inherit libgta; };

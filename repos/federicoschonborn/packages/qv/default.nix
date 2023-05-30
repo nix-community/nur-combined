@@ -9,12 +9,12 @@
 , wrapQtAppsHook
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qv";
   version = "5.1";
 
   src = fetchzip {
-    url = "https://marlam.de/qv/releases/qv-${version}.tar.gz";
+    url = "https://marlam.de/qv/releases/qv-${finalAttrs.version}.tar.gz";
     hash = "sha256-zrpbpifk0cPbdaXfX7I75BFOuTLaoj59lx0aXKOoU8g=";
   };
 
@@ -36,4 +36,4 @@ stdenv.mkDerivation rec {
     downloadPage = "https://marlam.de/qv/download/";
     license = licenses.mit;
   };
-}
+})

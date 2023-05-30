@@ -9,14 +9,14 @@
 , mate
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "brisk-menu";
   version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "getsolus";
-    repo = pname;
-    rev = "v${version}";
+    repo = "brisk-menu";
+    rev = "v${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-e7ETdVv0/9UFyfLFQiZalxCEiVaOWYq+0Cv3BTvYecU=";
   };
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/getsolus/brisk-menu";
     license = with licenses; [ gpl2Only cc-by-sa-40 ];
   };
-}
+})

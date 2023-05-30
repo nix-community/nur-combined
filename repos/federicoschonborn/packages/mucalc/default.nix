@@ -7,12 +7,12 @@
 , readline
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mucalc";
   version = "2.1";
 
   src = fetchzip {
-    url = "https://marlam.de/mucalc/releases/mucalc-${version}.tar.gz";
+    url = "https://marlam.de/mucalc/releases/mucalc-${finalAttrs.version}.tar.gz";
     hash = "sha256-qXqe9U7y3YrzSeJKgW53vkdNpPcAmxysxzT7SIlSzMo=";
   };
 
@@ -32,4 +32,4 @@ stdenv.mkDerivation rec {
     downloadPage = "https://marlam.de/mucalc/download/";
     license = licenses.gpl3Plus;
   };
-}
+})

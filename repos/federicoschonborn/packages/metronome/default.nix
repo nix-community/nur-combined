@@ -18,7 +18,7 @@
 , wrapGAppsHook4
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "metronome";
   version = "1.2.1";
 
@@ -26,13 +26,14 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "Metronome";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-YQFS8JHd4SC0vNw6Lm3AN1nh5li8+Ep6lXJAUeUi4fo=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src;
-    hash = "sha256-hako+hpm0lyQdq3xvW5zCWV6ONwjk8tTl+Z5fEpNNkU=";
+    inherit (finalAttrs) src;
+    name = "${finalAttrs.pname}-${finalAttrs.version}";
+    hash = "sha256-ZRGq4lmpxDu/LXAXZTkoSixxBF3Ek2CduVNsPmDUN5Q=";
   };
 
   nativeBuildInputs = [
@@ -62,6 +63,5 @@ stdenv.mkDerivation rec {
     description = "Keep the tempo";
     homepage = "https://gitlab.gnome.org/World/Metronome";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ];
   };
-}
+})

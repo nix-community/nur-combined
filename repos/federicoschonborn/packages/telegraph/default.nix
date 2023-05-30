@@ -1,5 +1,5 @@
 { lib
-, python3
+, python3Packages
 , fetchFromGitHub
 , desktop-file-utils
 , gtk4
@@ -10,7 +10,7 @@
 , wrapGAppsHook4
 }:
 
-python3.pkgs.buildPythonPackage rec {
+python3Packages.buildPythonApplication rec {
   pname = "telegraph";
   version = "0.1.6";
 
@@ -34,10 +34,9 @@ python3.pkgs.buildPythonPackage rec {
   buildInputs = [
     gtk4
     libadwaita
-    python3
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = with python3Packages; [
     pygobject3
   ];
 

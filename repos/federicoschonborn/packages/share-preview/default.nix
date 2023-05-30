@@ -21,20 +21,20 @@
 , zlib
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "share-preview";
   version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "rafaelmardojai";
     repo = "share-preview";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-CsnWQxE2r+uWwuEzHpY/lpWS5i8OXvhRKvy2HzqnQ5U=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src;
-    name = "${pname}-${version}";
+    inherit (finalAttrs) src;
+    name = "${finalAttrs.pname}-${finalAttrs.version}";
     hash = "sha256-H0IDKf5dz+zPnh/zHYP7kCYWHLeP33zHip6K+KCq4is=";
   };
 
@@ -67,6 +67,5 @@ stdenv.mkDerivation rec {
     description = "Test social media cards locally";
     homepage = "https://github.com/rafaelmardojai/share-preview";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ];
   };
-}
+})

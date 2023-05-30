@@ -7,14 +7,14 @@
 , surgescript
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "opensurge";
   version = "0.6.0.3";
 
   src = fetchFromGitHub {
     owner = "alemart";
     repo = "opensurge";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-pawdanCGUzezGlHMia3fpdtNU1FI04uJUYEctRkWKno=";
   };
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A fun 2D retro platformer inspired by Sonic games and a game creation system";
     homepage = "https://github.com/alemart/opensurge";
-    changelog = "https://github.com/alemart/opensurge/blob/${src.rev}/CHANGES.md";
+    changelog = "https://github.com/alemart/opensurge/blob/${finalAttrs.src.rev}/CHANGES.md";
     license = licenses.gpl3Only;
   };
-}
+})

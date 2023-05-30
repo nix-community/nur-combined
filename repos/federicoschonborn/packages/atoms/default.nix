@@ -1,5 +1,5 @@
 { lib
-, python3
+, python3Packages
 , fetchFromGitHub
 , desktop-file-utils
 , atoms-core
@@ -13,7 +13,7 @@
 , wrapGAppsHook4
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "atoms";
   version = "1.1.1";
 
@@ -39,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = [
     atoms-core
-  ] ++ (with python3.pkgs; [
+  ] ++ (with python3Packages; [
     pygobject3
     requests
     orjson

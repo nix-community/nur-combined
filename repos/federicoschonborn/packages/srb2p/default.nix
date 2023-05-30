@@ -13,29 +13,33 @@
 , zlib
 }:
 
-let
-  assets = fetchzip {
-    url = "https://github.com/riomccloud/srb2p-assets/releases/download/1.3.6/srb2p-assets.zip";
-    stripRoot = false;
-    hash = "sha256-lNmqMYUOf15ZjDPAlqybZKF86g0VnCnNcmKgjKEe0Kw=";
-  };
-in
-
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "srb2p";
   version = "1.3.6";
 
-  src = fetchFromGitLab {
-    domain = "git.do.srb2.org";
-    owner = "SinnamonLat";
-    repo = "SRB2";
-    rev = "SRB2P-exe-${version}";
-    hash = "sha256-/c4Brej7ChhO9ObQCxpEjqpJXyOOS4VsvVXd/8kyGAI=";
-  };
+  srcs = [
+    (fetchFromGitLab {
+      name = "srb2p";
+      domain = "git.do.srb2.org";
+      owner = "SinnamonLat";
+      repo = "SRB2";
+      rev = "SRB2P-exe-${finalAttrs.version}";
+      hash = "sha256-/c4Brej7ChhO9ObQCxpEjqpJXyOOS4VsvVXd/8kyGAI=";
+    })
+
+    (fetchzip {
+      name = "srb2p-assets";
+      url = "https://github.com/riomccloud/srb2p-assets/releases/download/${finalAttrs.version}/srb2p-assets.zip";
+      stripRoot = false;
+      hash = "sha256-lNmqMYUOf15ZjDPAlqybZKF86g0VnCnNcmKgjKEe0Kw=";
+    })
+  ];
 
   patches = [
     ./wadlocation.patch
   ];
+
+  sourceRoot = "srb2p";
 
   nativeBuildInputs = [
     cmake
@@ -65,7 +69,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     mkdir assets/installer
-    cp ${assets}/*.{pk3,wad} assets/installer
+    cp ../srb2p-assets/*.{pk3,wad} assets/installer
   '';
 
   postInstall = ''
@@ -80,4 +84,4 @@ stdenv.mkDerivation rec {
     homepage = "https://git.do.srb2.org/SinnamonLat/SRB2";
     license = licenses.gpl2Only;
   };
-}
+})

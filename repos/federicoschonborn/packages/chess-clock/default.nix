@@ -1,15 +1,15 @@
 { lib
+, python3Packages
 , fetchFromGitLab
 , desktop-file-utils
 , gettext
 , glib
 , meson
 , ninja
-, python3
 , wrapGAppsHook4
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "chess-clock";
   version = "0.5.0";
 
@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     glib
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = with python3Packages; [
     pygobject3
   ];
 

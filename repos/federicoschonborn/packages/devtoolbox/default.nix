@@ -1,4 +1,5 @@
 { lib
+, python3Packages
 , fetchFromGitHub
 , desktop-file-utils
 , gobject-introspection
@@ -9,11 +10,10 @@
 , gtk4
 , gtksourceview5
 , libadwaita
-, python3
 , webkitgtk_6_0
 }:
 
-python3.pkgs.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "devtoolbox";
   version = "1.0.2";
 
@@ -47,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
     webkitgtk_6_0
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = with python3Packages; [
     croniter
     humanize
     lxml

@@ -13,14 +13,14 @@
 , wrapGAppsHook
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "textsnatcher";
   version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "RajSolai";
-    repo = pname;
-    rev = "v${version}";
+    repo = finalAttrs.pname;
+    rev = "v${finalAttrs.version}";
     hash = "sha256-phqtPjwKB5BoCpL+cMeHvRLL76ZxQ5T74cpAsgN+/JM=";
   };
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Perform OCR operations in seconds on the Linux desktop";
     mainProgram = "com.github.rajsolai.textsnatcher";
     homepage = "https://github.com/RajSolai/TextSnatcher";
-    changelog = "https://github.com/RajSolai/TextSnatcher/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/RajSolai/TextSnatcher/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
   };
-}
+})

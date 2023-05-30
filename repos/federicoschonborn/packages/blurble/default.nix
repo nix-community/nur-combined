@@ -12,7 +12,7 @@
 , wrapGAppsHook4
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "blurble";
   version = "0.4.0";
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "Blurble";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-wxj+wyD09ueU6p/6Tc7ISI/oLre41DhGVhjsACDsmpE=";
   };
 
@@ -44,4 +44,4 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/Blurble";
     license = licenses.gpl3Only;
   };
-}
+})

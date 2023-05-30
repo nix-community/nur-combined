@@ -37,12 +37,12 @@
 , poppler
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libtgd";
   version = "4.2";
 
   src = fetchzip {
-    url = "https://marlam.de/tgd/releases/tgd-${version}.tar.gz";
+    url = "https://marlam.de/tgd/releases/tgd-${finalAttrs.version}.tar.gz";
     hash = "sha256-raVdV54pemMD3J+uyKmICZFcRCdl/tjIOysTtZPOF4E=";
   };
 
@@ -74,4 +74,4 @@ stdenv.mkDerivation rec {
     downloadPage = "https://marlam.de/tgd/download/";
     license = licenses.mit;
   };
-}
+})

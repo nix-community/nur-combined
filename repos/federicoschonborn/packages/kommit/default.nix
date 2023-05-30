@@ -18,7 +18,7 @@
 , wrapQtAppsHook
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kommit";
   version = "1.0.2";
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     domain = "invent.kde.org";
     owner = "sdk";
     repo = "kommit";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-hEn6G6CWtvhdtG5mnhuyiq2O9bmjdctQkJN2OQuFnGA=";
   };
 
@@ -56,4 +56,4 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.kde.org/kommit/";
     license = licenses.gpl3Plus;
   };
-}
+})
