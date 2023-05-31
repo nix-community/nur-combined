@@ -1,8 +1,7 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, fetchurl
 , cmake
-, wrapQtAppsHook
 , zlib
 , freetype
 , libjpeg
@@ -11,19 +10,16 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "pdfhummus";
-  version = "4.5.6";
+  pname = "libaesgm";
+  version = "20090429";
 
-  src = fetchFromGitHub {
-    owner = "galkahana";
-    repo = "PDF-Writer";
-    rev = "v${version}";
-    hash = "sha256-F195hyUia6o+7PKPqNANf/Ixr8OYpj1HMaB0dqxyMBI=";
+  src = fetchurl {
+    url = "https://src.fedoraproject.org/rpms/libaesgm/archive/libaesgm-20090429-3_fc14/libaesgm-libaesgm-20090429-3_fc14.tar.gz";
+    hash = "";
   };
 
   nativeBuildInputs = [
     cmake
-    wrapQtAppsHook
   ];
 
   buildInputs = [
@@ -36,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A Fast and Free C++ Library for Creating, Parsing an Manipulating PDF Files and Streams";
-    homepage = "www.pdfhummus.com";
+    homepage = "https://src.fedoraproject.org/rpms/libaesgm";
+    # upstream (http://gladman.plushost.co.uk/oldsite/AES/index.php) is not accessible
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [ rewine ];

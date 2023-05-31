@@ -30,5 +30,6 @@ rec {
   mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {
     inherit xmake pdfhummus ;
   };
-  pdfhummus = pkgs.libsForQt5.callPackage ./pkgs/pdfhummus { }; 
+  pdfhummus = pkgs.libsForQt5.callPackage ./pkgs/pdfhummus { };
+  #libaesgm = pkgs.callPackage ./pkgs/libaesgm { };
 }

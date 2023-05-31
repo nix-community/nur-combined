@@ -1,25 +1,23 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, guile_1_8, qtbase, xmodmap, which, freetype,
-  libjpeg,
-  sqlite,
-  aspell,
-  git,
-  python3
-, pkg-config
-, cmake
 , xmake
+, cmake
+, pkg-config
 , wrapQtAppsHook
+, git
 , unzip
 , curl
+, qtbase
+, qtsvg
+, freetype
 , zlib
 , bzip2
 , libpng
+, libjpeg
 , brotli
 , libiconv
 , pdfhummus
-, qtsvg
 }:
 
 stdenv.mkDerivation rec {
@@ -35,42 +33,37 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./use-system-lib.patch
+    ./fix-build.patch
   ];
 
   nativeBuildInputs = [
     xmake
-    pkg-config
     cmake
+    pkg-config
     wrapQtAppsHook
   ];
 
   dontUseCmakeConfigure = true;
 
   buildInputs = [
-    sqlite
     git
-
     unzip
+    curl
 
-    ## yes
+    qtbase
+    qtsvg
     freetype
     zlib
     bzip2
     libpng
     libjpeg
     brotli
-
     libiconv
     pdfhummus
-    qtbase
-    qtsvg
-
-    curl
   ];
 
-  #installFlags = [ "prefix=${placeholder "out"}" ];
   buildPhase = ''
-    export HOME=$PWD
+    export HOME=$(mktemp -d)
     xmake g --network=private
     #xmake f
     xmake build --yes --verbose --diagnosis --all
@@ -78,10 +71,11 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${lib.getDev qtsvg}/include/QtSvg"
-    "-I${pdfhummus}/include/LibAesgm"
-    "-L${pdfhummus}/lib"
-    "-lLibAesgm.a"
   ];
+
+  installPhase = ''
+    xmake install -o $out
+  '';
 
   meta = with lib; {
     description = "A structure editor delivered by Xmacs Labs";

@@ -1,5 +1,5 @@
 diff --git a/xmake.lua b/xmake.lua
-index 6e393a061..22adabd9b 100644
+index 6e393a061..50bf6d520 100644
 --- a/xmake.lua
 +++ b/xmake.lua
 @@ -56,19 +56,19 @@ if is_plat("linux") and (linuxos.name() == "debian" or linuxos.name() == "ubuntu
@@ -8,7 +8,7 @@ index 6e393a061..22adabd9b 100644
      if not is_plat("wasm") then
 -        add_requires("libiconv 1.17", {system=false})
 -        add_requires("libcurl 7.84.0", {system=false})
-+        -- add_requires("libiconv >=1.17", {system=true})
++        -- add_requires("libiconv", {system=true})
 +        add_requires("libcurl >=7.84.0", {system=true})
      end
 -    add_requires("libpng 1.6.37", {system=false})
@@ -26,7 +26,7 @@ index 6e393a061..22adabd9b 100644
  local PDFHUMMUS_VERSION = "4.1"
  if not is_plat("wasm") then
 -    add_requires("pdfhummus "..PDFHUMMUS_VERSION, {system=false,configs={libpng=true,libjpeg=true}})
-+    -- add_requires("cmake::PDFHummus", {alias="pdfhummus",system=true})
++    add_requires("cmake::PDFHummus", {alias="pdfhummus",system=true,configs={link_libraries="PDFHummus::PDFWriter PDFHummus::LibAesgm"}})
  end
  
  local XMACS_VERSION="1.1.2"
