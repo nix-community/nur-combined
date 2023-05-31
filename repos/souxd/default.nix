@@ -36,6 +36,8 @@ rec {
 
   zandronum-dev = pkgs.callPackage ./pkgs/zandronum-dev {};
 
+  zandronum-dev-bin = pkgs.callPackage ./pkgs/zandronum-dev/bin.nix {};
+
   zandronum-dev-server = zandronum-dev.override {
     serverOnly = true;
   };
