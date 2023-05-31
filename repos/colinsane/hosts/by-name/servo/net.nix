@@ -3,8 +3,8 @@
 {
   networking.domain = "uninsane.org";
 
-  sane.services.wan-ports.openFirewall = true;
-  sane.services.wan-ports.openUpnp = true;
+  sane.ports.openFirewall = true;
+  sane.ports.openUpnp = true;
 
   # view refused packets with: `sudo journalctl -k`
   # networking.firewall.logRefusedPackets = true;

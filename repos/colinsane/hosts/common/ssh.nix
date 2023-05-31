@@ -36,5 +36,9 @@ in
     settings.PermitRootLogin = "no";
     settings.PasswordAuthentication = false;
   };
-  sane.services.wan-ports.tcp = [ 22 ];
+  sane.ports.ports."22" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    description = lib.mkDefault "colin-ssh";
+  };
 }

@@ -22,20 +22,59 @@
   sane.persist.sys.plaintext = [
     { user = "ejabberd"; group = "ejabberd"; directory = "/var/lib/ejabberd"; }
   ];
-  sane.services.wan-ports.tcp = [
-    3478  # STUN/TURN
-    5222  # XMPP  client -> server
-    5223  # XMPPS client -> server (XMPP over TLS)
-    5269  # XMPP  server -> server
-    5270  # XMPPS server -> server (XMPP over TLS)
-    5280  # bosh
-    5281  # bosh (https) ??
-    5349  # STUN/TURN (TLS)
-    5443  # web services (file uploads, websockets, admin)
-  ];
-  sane.services.wan-ports.udp = [
-    3478  # STUN/TURN
-  ];
+  sane.ports.ports."3478" = {
+    protocol = [ "tcp" "udp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-stun-turn";
+  };
+  sane.ports.ports."5222" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-client-to-server";
+  };
+  sane.ports.ports."5223" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpps-client-to-server";  # XMPP over TLS
+  };
+  sane.ports.ports."5269" = {
+    protocol = [ "tcp" ];
+    visibleTo.wan = true;
+    description = "colin-xmpp-server-to-server";
+  };
+  sane.ports.ports."5270" = {
+    protocol = [ "tcp" ];
+    visibleTo.wan = true;
+    description = "colin-xmpps-server-to-server";  # XMPP over TLS
+  };
+  sane.ports.ports."5280" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-bosh";
+  };
+  sane.ports.ports."5281" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-bosh-https";
+  };
+  sane.ports.ports."5349" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-stun-turn-over-tls";
+  };
+  sane.ports.ports."5443" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-web-services";  # file uploads, websockets, admin
+  };
+
   # TODO: forward these TURN ports!
   networking.firewall.allowedTCPPortRanges = [{
     from = 49152;  # TURN

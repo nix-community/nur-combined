@@ -189,8 +189,12 @@ in
   config = mkIf cfg.enable {
     sane.services.trust-dns.generatedZones = mapAttrs (zone: zcfg: genZone zcfg) cfg.zones;
 
-    sane.services.wan-ports.tcp = [ 53 ];
-    sane.services.wan-ports.udp = [ 53 ];
+    sane.ports.ports."53" = {
+      protocol = [ "udp" "tcp" ];
+      visibleTo.lan = true;
+      visibleTo.wan = true;
+      description = "colin-dns-hosting";
+    };
 
     systemd.services.trust-dns = {
       description = "trust-dns DNS server";

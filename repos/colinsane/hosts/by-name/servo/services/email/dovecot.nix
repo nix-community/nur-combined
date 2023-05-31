@@ -6,11 +6,18 @@
 
 { config, lib, pkgs, ... }:
 {
-  sane.services.wan-ports.tcp = [
-    # exposed over non-vpn imap.uninsane.org
-    143  # IMAP
-    993  # IMAPS
-  ];
+  sane.ports.ports."143" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-imap-imap.uninsane.org";
+  };
+  sane.ports.ports."993" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-imaps-imap.uninsane.org";
+  };
 
   # exists only to manage certs for dovecot
   services.nginx.virtualHosts."imap.uninsane.org" = {

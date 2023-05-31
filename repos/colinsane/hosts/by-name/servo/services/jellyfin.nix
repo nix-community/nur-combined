@@ -16,18 +16,30 @@
 { config, lib, ... }:
 
 {
-  # identical to:
-  # services.jellyfin.openFirewall = true;
-  # N.B.: these are all for the LAN, so we don't go through `sane.services.wan-ports`.
-  networking.firewall.allowedUDPPorts = [
-    # https://jellyfin.org/docs/general/networking/index.html
-    1900  # UPnP service discovery
-    7359  # Jellyfin-specific (?) client discovery
-  ];
-  networking.firewall.allowedTCPPorts = [
-    8096  # HTTP (for the LAN)
-    8920  # HTTPS (for the LAN)
-  ];
+  # https://jellyfin.org/docs/general/networking/index.html
+  sane.ports.ports."1900" = {
+    protocol = [ "udp" ];
+    visibleTo.lan = true;
+    description = "colin-upnp-for-jellyfin";
+  };
+  sane.ports.ports."7359" = {
+    protocol = [ "udp" ];
+    visibleTo.lan = true;
+    description = "colin-jellyfin-specific-client-discovery";
+    # ^ not sure if this is necessary: copied this port from nixos jellyfin.openFirewall
+  };
+  # not sure if 8096/8920 get used either:
+  sane.ports.ports."8096" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    description = "colin-jellyfin-http-lan";
+  };
+  sane.ports.ports."8920" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    description = "colin-jellyfin-https-lan";
+  };
+
   sane.persist.sys.plaintext = [
     { user = "jellyfin"; group = "jellyfin"; mode = "0700"; directory = "/var/lib/jellyfin"; }
   ];

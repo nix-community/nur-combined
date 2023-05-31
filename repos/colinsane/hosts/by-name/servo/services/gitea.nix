@@ -99,4 +99,11 @@
   };
 
   sane.services.trust-dns.zones."uninsane.org".inet.CNAME."git" = "native";
+
+  sane.ports.ports."22" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-git@git.uninsane.org";
+  };
 }

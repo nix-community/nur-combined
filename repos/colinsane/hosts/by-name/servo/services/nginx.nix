@@ -13,7 +13,19 @@ let
 in
 {
 
-  sane.services.wan-ports.tcp = [ 80 443 ];
+  sane.ports.ports."80" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    visibleTo.ovpn = true;  # so that letsencrypt can procure a cert for the mx record
+    description = "colin-http-uninsane.org";
+  };
+  sane.ports.ports."443" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-https-uninsane.org";
+  };
 
   services.nginx.enable = true;
   services.nginx.appendConfig = ''

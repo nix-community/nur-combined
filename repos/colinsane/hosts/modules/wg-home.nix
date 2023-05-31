@@ -55,8 +55,12 @@ in
     # this config defines both the endpoint (server) and client configs
 
     # for convenience, have both the server and client use the same port for their wireguard connections.
-    networking.firewall.allowedUDPPorts = [ 51820 ];
-    sane.services.wan-ports.udp = lib.mkIf cfg.enableWan [ 51820 ];
+    sane.ports.ports."51820" = {
+      protocol = [ "udp" ];
+      visibleTo.lan = true;
+      visibleTo.wan = cfg.enableWan;
+      description = "colin-wireguard";
+    };
     networking.wireguard.interfaces.wg-home = {
       listenPort = 51820;
       privateKeyFile = "/run/wg-home.priv";

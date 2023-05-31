@@ -26,7 +26,7 @@ in
       type = types.bool;
     };
     sane.nixcache.substituters = mkOption {
-      type = types.listOf types.string;
+      type = types.listOf types.str;
       default =
         # TODO: make these blacklisted entries injectable
         (lib.optional (hostName != "servo") "https://nixcache.uninsane.org")

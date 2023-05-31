@@ -2,7 +2,7 @@
 #!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p inetutils -p miniupnpc
 
 '''
-USAGE: sane-ip-port-forward [options] [proto:port]*
+USAGE: sane-ip-port-forward [options] [proto:port[:desc]]*
 
 options:
   -v:  verbose (show info messages)
@@ -10,9 +10,10 @@ options:
   -h:  show this help messages
   -d <int>: lease for the given duration in seconds (default: {DEFAULT_LEASE_SEC})
 
-proto:port:
+proto:port[:desc]:
   proto is `udp` or `tcp` (case insensitive)
   port is any integer 1-65535 inclusive
+  desc is some public description of the port forward (for humans trying to understand a network config)
 '''
 
 DEFAULT_LEASE_SEC = 86400
@@ -35,23 +36,37 @@ class BadCliArgs(Exception):
 
 def try_parse_port(s: str):
     """
-    `udp:53` -> ["udp", 53]
-    `tcp:65535` -> ["tcp", 65535]
+    `udp:53` -> ["udp", 53, ""]
+    `tcp:65535:my description` -> ["tcp", 65535, "my description"]
     """
+    s = s.strip()
+
+    def split_at_colon(s_: str):
+        next_colon = s_.find(":")
+        return s_[:next_colon], s_[next_colon+1:]
+
+    if ":" not in s: return  # invalid format
+    proto, rest = split_at_colon(s)
+
+    if ":" in rest:
+        portstr, desc = split_at_colon(rest)
+    else:
+        portstr = rest
+        desc = ""
+
     try:
-        proto, portstr = s.strip().split(":")
         proto, port = proto.lower(), int(portstr)
         assert proto in ["tcp", "udp"]
         assert 0 < port < 65536
-        return proto, port
+        return proto, port, desc
     except Exception:
         pass
 
-def parse_args(argv: "List[str]") -> "List[('udp'|'tcp', port)]":
+def parse_args(argv: "List[str]") -> "List[('udp'|'tcp', port: int, description: str)]":
     """
     returns (list of forwards, lease duration)
     where:
-    - list of forwards is [('udp'|'tcp', port: int)]
+    - list of forwards is [('udp'|'tcp', port: int, description: str)]
     - lease duration is seconds: int
     """
     forwards = []
@@ -87,6 +102,5 @@ if __name__ == '__main__':
         sys.exit(1)
 
     root_device, lan, _wan = get_any_wan()
-    hostname = subprocess.check_output(["hostname"]).decode("utf-8").strip()
-    for (proto, port) in forwards:
-        forward_port(root_device, proto, port, lan_ip=lan, reason=f"colin-{hostname}", duration=duration)
+    for (proto, port, reason) in forwards:
+        forward_port(root_device, proto, port, lan_ip=lan, reason=reason, duration=duration)

@@ -8,6 +8,7 @@
     ./programs.nix
     ./image.nix
     ./persist
+    ./ports.nix
     ./services
     ./sops.nix
     ./ssh.nix

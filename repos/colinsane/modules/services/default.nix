@@ -6,6 +6,5 @@
     ./mautrix-signal.nix
     ./nixserve.nix
     ./trust-dns.nix
-    ./wan-ports.nix
   ];
 }

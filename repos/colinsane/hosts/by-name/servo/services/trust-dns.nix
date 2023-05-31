@@ -108,7 +108,11 @@
       -j DNAT --to-destination :1053
   '';
 
-  # because the NAT above redirects in PREROUTING, LAN requests behave as though they arrived on the external interface at the redirected port
-  networking.firewall.allowedUDPPorts = [ 1053 ];
-  networking.firewall.allowedTCPPorts = [ 1053 ];
+  sane.ports.ports."1053" = {
+    # because the NAT above redirects in nixos-nat-pre, LAN requests behave as though they arrived on the external interface at the redirected port.
+    # TODO: try nixos-nat-post instead?
+    protocol = [ "udp" "tcp" ];
+    visibleTo.lan = true;
+    description = "colin-redirected-dns-for-lan-namespace";
+  };
 }

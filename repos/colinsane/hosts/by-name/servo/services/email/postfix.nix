@@ -28,12 +28,21 @@ in
     # "/var/lib/dovecot"
   ];
 
-  sane.services.wan-ports.tcp = [
-    # exposed over vpn mx.uninsane.org
-    25   # SMTP
-    465  # SMTPS
-    587  # SMTPS/submission
-  ];
+  sane.ports.ports."25" = {
+    protocol = [ "tcp" ];
+    visibleTo.ovpn = true;
+    description = "colin-smtp-mx.uninsane.org";
+  };
+  sane.ports.ports."465" = {
+    protocol = [ "tcp" ];
+    visibleTo.ovpn = true;
+    description = "colin-smtps-mx.uninsane.org";
+  };
+  sane.ports.ports."587" = {
+    protocol = [ "tcp" ];
+    visibleTo.ovpn = true;
+    description = "colin-smtps-submission-mx.uninsane.org";
+  };
 
   # exists only to manage certs for Postfix
   services.nginx.virtualHosts."mx.uninsane.org" = {

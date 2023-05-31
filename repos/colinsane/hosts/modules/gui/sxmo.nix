@@ -90,7 +90,7 @@ in
     };
     sane.gui.sxmo.terminal = mkOption {
       # type = types.nullOr (types.enum [ "foot" "st" "vte" ]);
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
       default = "foot";
       description = ''
         name of terminal to use for sxmo_terminal.sh.
@@ -99,7 +99,7 @@ in
     };
     sane.gui.sxmo.keyboard = mkOption {
       # type = types.nullOr (types.enum ["wvkbd"])
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
       default = "wvkbd";
       description = ''
         name of on-screen-keyboard to use for sxmo_keyboard.sh.
@@ -108,7 +108,7 @@ in
       '';
     };
     sane.gui.sxmo.settings = mkOption {
-      type = types.attrsOf types.string;
+      type = types.attrsOf types.str;
       default = {};
       description = ''
         environment variables used to configure sxmo.

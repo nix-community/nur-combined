@@ -12,12 +12,29 @@ lib.mkIf false
   sane.persist.sys.plaintext = [
     { user = "prosody"; group = "prosody"; directory = "/var/lib/prosody"; }
   ];
-  sane.services.wan-ports.tcp = [
-    5222  # XMPP client -> server
-    5269  # XMPP server -> server
-    5280  # bosh
-    5281  # Prosody HTTPS port  (necessary?)
-  ];
+  sane.ports.ports."5222" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-client-to-server";
+  };
+  sane.ports.ports."5269" = {
+    protocol = [ "tcp" ];
+    visibleTo.wan = true;
+    description = "colin-xmpp-server-to-server";
+  };
+  sane.ports.ports."5280" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-bosh";
+  };
+  sane.ports.ports."5281" = {
+    protocol = [ "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-xmpp-prosody-https";  # necessary?
+  };
 
   # provide access to certs
   users.users.prosody.extraGroups = [ "nginx" ];
