@@ -394,10 +394,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "12.6.0";
+      version = "13.0.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4115700/censor_tracker-12.6.0.xpi";
-      sha256 = "dd5fcad50b6fce95476323225fa3311278752da9aaee77fce7491dbc0cb2a11e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117225/censor_tracker-13.0.0.xpi";
+      sha256 = "9de08bb464355cb077baf665740bbbff8966d5d4108383f90e6a9a93b8a1bd0d";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -913,10 +913,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.67";
+      version = "2.68";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4073785/firemonkey-2.67.xpi";
-      sha256 = "2332636d0e64fac8d0d9e06d5623734d5c374ade1d75f129df8e5c78b0a60091";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117479/firemonkey-2.68.xpi";
+      sha256 = "c27ab331b01594c7bb4f5cfefe78f5bc864096e0c33c59b5fedefcda3bd30d77";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -1043,13 +1043,13 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230525.180143";
+      version = "114.0.20230529.85652";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4116306/francais_language_pack-114.0.20230525.180143.xpi";
-      sha256 = "38910e56bbe8f12d3f99f0efc78148af1e061d69ed672191cf40cb685e3c90b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117612/francais_language_pack-114.0.20230529.85652.xpi";
+      sha256 = "8eb8039093bfd9074500ca599bd3dc5d1cc105a7b537f3c6bd47f2f540c2ac35";
       meta = with lib;
       {
-        description = "Firefox Language Pack for Français (fr) – French";
+        description = "Language pack for Firefox for fr";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -1334,10 +1334,10 @@
       };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.205";
+      version = "1.0.206";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4098518/hover_zoom_plus-1.0.205.xpi";
-      sha256 = "0e8c84e7562bcbe1784f8a569e5b9aae08c3ca9c69e3866516ac998696c27cbb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117253/hover_zoom_plus-1.0.206.xpi";
+      sha256 = "9ff7f5f75eec11b67ac738ce025c767cce0c494f238ce5e73a1c6967b710b201";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -2552,10 +2552,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.5.20";
+      version = "23.5.30";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4113750/refined_github-23.5.20.xpi";
-      sha256 = "690ddbca1fedd22adcc9a3bd437fcab6baed3d3985bdeb3d388d740937ef72c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118202/refined_github-23.5.30.xpi";
+      sha256 = "a39ad13089b143723516aa51d0de2c59918f0b0db7e3fe489893f749c26b2685";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -3165,10 +3165,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.0.2";
+      version = "3.1.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4109363/tournesol_extension-3.0.2.xpi";
-      sha256 = "c6166f0a44f84dabe270c325f8de595d1859b3ec9acb46c51fdc4493713f3067";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117614/tournesol_extension-3.1.0.xpi";
+      sha256 = "85879c67c9fef6e12efa61b6dc523b645186ec03c60e690052e1f8699300094a";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -3584,10 +3584,10 @@
       };
     "web-search-navigator" = buildFirefoxXpiAddon {
       pname = "web-search-navigator";
-      version = "0.4.22";
+      version = "0.5.2";
       addonId = "{ffadac89-63bb-4b04-be90-8cb2aa323171}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3966178/web_search_navigator-0.4.22.xpi";
-      sha256 = "62c70e2128d5864177f83c02451bd70b6ac94b3443079c38e57e67a501a44a01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117463/web_search_navigator-0.5.2.xpi";
+      sha256 = "838c5e6e1520232716275c1a284fbeaeb3d5ef2ae16a67ee55fdbe208f4e439b";
       meta = with lib;
       {
         homepage = "https://github.com/infokiller/web-search-navigator";
