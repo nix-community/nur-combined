@@ -378,8 +378,17 @@ in {
     # };
     # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
     file-roller = mvToNativeInputs [ final.glib ] super.file-roller;
+    gnome-bluetooth = super.gnome-bluetooth.override {
+      # fixes -msse2, -mfpmath=sse flags
+      wrapGAppsHook4 = final.wrapGAppsHook;
+    };
     # fixes: "meson.build:75:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
-    gnome-clocks = addNativeInputs [ final.gtk4 ] super.gnome-clocks;
+    gnome-clocks = (
+      addNativeInputs [ final.gtk4 ] super.gnome-clocks
+    ).override {
+      # fixes -msse2, -mfpmath=sse flags
+      wrapGAppsHook4 = final.wrapGAppsHook;
+    };
     # fixes: "src/meson.build:3:0: ERROR: Program 'glib-compile-resources' not found or not executable"
     gnome-color-manager = mvToNativeInputs [ final.glib ] super.gnome-color-manager;
     # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
@@ -470,7 +479,7 @@ in {
     gnome-user-share = addNativeInputs [ final.glib ] super.gnome-user-share;
     # fixes: "FileNotFoundError: [Errno 2] No such file or directory: 'gtk4-update-icon-cache'"
     gnome-weather = addNativeInputs [ final.gtk4 ] super.gnome-weather;
-    mutter = super.mutter.overrideAttrs (orig: {
+    mutter = (super.mutter.overrideAttrs (orig: {
       nativeBuildInputs = orig.nativeBuildInputs ++ [
         final.glib  # fixes "clutter/clutter/meson.build:281:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
         final.buildPackages.gobject-introspection  # allows to build without forcing `introspection=false` (which would break gnome-shell)
@@ -481,7 +490,10 @@ in {
       ];
       mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;
       outputs = lib.remove "devdoc" orig.outputs;
-    });
+    })).override {
+      # fixes -msse2, -mfpmath=sse flags
+      wrapGAppsHook4 = final.wrapGAppsHook;
+    };
     # nautilus = super.nautilus.override {
     #   # fixes: "meson.build:123:0: ERROR: Dependency "libxml-2.0" not found, tried pkgconfig"
     #   # new failure mode: "/nix/store/grqh2wygy9f9wp5bgvqn4im76v82zmcx-binutils-2.39/bin/ld: /nix/store/f7yr5z123d162p5457jh3wzkqm7x8yah-glib-2.74.3/lib/libglib-2.0.so: error adding symbols: file in wrong format"
@@ -1134,7 +1146,10 @@ in {
     addNativeInputs [ final.wayland-scanner ] (
       mvToNativeInputs [ final.gettext final.glib ] prev.xdg-desktop-portal-gnome
     )
-  );
+  ).override {
+    # fixes -msse2, -mfpmath=sse flags
+    wrapGAppsHook4 = final.wrapGAppsHook;
+  };
   # "fatal error: urcu.h: No such file or directory"
   # xfsprogs wants to compile things for the build target (BUILD_CC)
   # xfsprogs = useEmulatedStdenv prev.xfsprogs;
