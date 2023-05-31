@@ -78,9 +78,9 @@
         > ${zone-lan}
 
       # launch the different interfaces, separately
-      ${pkgs.trust-dns}/bin/named --port 1053 --zonedir ${zone-dir}/wan/ $@ &
+      ${pkgs.trust-dns}/bin/named --port 53 --zonedir ${zone-dir}/wan/ $@ &
       WANPID=$!
-      ${pkgs.trust-dns}/bin/named --zonedir ${zone-dir}/lan/ $@ &
+      ${pkgs.trust-dns}/bin/named --port 1053 --zonedir ${zone-dir}/lan/ $@ &
       LANPID=$!
 
       # wait until any of the processes exits, then kill them all and exit error
@@ -93,7 +93,22 @@
 
   sane.services.dyn-dns.restartOnChange = [ "trust-dns.service" ];
 
-  # for WAN visibility
+  networking.nat.enable = true;
+  networking.nat.extraCommands = ''
+    # redirect incoming DNS requests from LAN addresses
+    #   to the LAN-specialized DNS service
+    # N.B.: use the `nixos-*` chains instead of e.g. PREROUTING
+    #   because they get cleanly reset across activations or `systemctl restart firewall`
+    #   instead of accumulating cruft
+    iptables -t nat -A nixos-nat-pre -p udp --dport 53 \
+      -m iprange --src-range 10.78.76.0-10.78.79.255 \
+      -j DNAT --to-destination :1053
+    iptables -t nat -A nixos-nat-pre -p tcp --dport 53 \
+      -m iprange --src-range 10.78.76.0-10.78.79.255 \
+      -j DNAT --to-destination :1053
+  '';
+
+  # because the NAT above redirects in PREROUTING, LAN requests behave as though they arrived on the external interface at the redirected port
   networking.firewall.allowedUDPPorts = [ 1053 ];
   networking.firewall.allowedTCPPorts = [ 1053 ];
 }

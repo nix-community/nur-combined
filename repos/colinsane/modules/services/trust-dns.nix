@@ -189,13 +189,8 @@ in
   config = mkIf cfg.enable {
     sane.services.trust-dns.generatedZones = mapAttrs (zone: zcfg: genZone zcfg) cfg.zones;
 
-    # TODO: we need the UPnP port to map WAN 53 -> LAN 1053
-    # else we'll be giving LAN IPs to WAN requests.
-    # until then, manage forwards manually.
-    # sane.services.wan-ports.tcp = [ 53 ];
-    # sane.services.wan-ports.udp = [ 53 ];
-    networking.firewall.allowedUDPPorts = [ 53 ];
-    networking.firewall.allowedTCPPorts = [ 53 ];
+    sane.services.wan-ports.tcp = [ 53 ];
+    sane.services.wan-ports.udp = [ 53 ];
 
     systemd.services.trust-dns = {
       description = "trust-dns DNS server";

@@ -6,6 +6,9 @@
   sane.services.wan-ports.openFirewall = true;
   sane.services.wan-ports.openUpnp = true;
 
+  # view refused packets with: `sudo journalctl -k`
+  # networking.firewall.logRefusedPackets = true;
+
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
@@ -153,9 +156,9 @@
 
       # we also bridge DNS traffic
       ${in-ns} ${iptables} -A PREROUTING -t nat -p udp --dport 53 -m iprange --dst-range ${vpn-ip} \
-        -j DNAT --to-destination ${veth-host-ip}:1053
+        -j DNAT --to-destination ${veth-host-ip}
       ${in-ns} ${iptables} -A PREROUTING -t nat -p tcp --dport 53 -m iprange --dst-range ${vpn-ip} \
-        -j DNAT --to-destination ${veth-host-ip}:1053
+        -j DNAT --to-destination ${veth-host-ip}
 
       # in order to access DNS in this netns, we need to route it to the VPN's nameservers
       # - alternatively, we could fix DNS servers like 1.1.1.1.
