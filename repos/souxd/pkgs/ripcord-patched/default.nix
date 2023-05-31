@@ -56,8 +56,9 @@ mkDerivation rec {
     makeQtWrapper $out/Ripcord $out/bin/ripcord \
       --chdir "$out" \
       --set FONTCONFIG_FILE "${fontsConf}" \
-      --prefix LD_LIBRARY_PATH ":" "${lib.makeLibraryPath [ xorg.libXcursor audioHook ]}"  \
+      --prefix LD_LIBRARY_PATH ":" "${xorg.libXcursor}/lib" \
       --prefix QT_XKB_CONFIG_ROOT ":" "${xorg.xkeyboardconfig}/share/X11/xkb" \
+      --prefix LD_PRELOAD ":" "${audioHook}/lib/hook.so" \
       --set RIPCORD_ALLOW_UPDATES 0
 
     runHook postInstall
