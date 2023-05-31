@@ -22,6 +22,7 @@ let
   fmod = fmodex; # fmodex is on nixpkgs now
   sqlite = callPackage ./sqlite.nix { };
   clientLibPath = lib.makeLibraryPath [ fluidsynth ];
+  olibjpeg = (libjpeg.override { enableJpeg8 = true; });
 
 in
 stdenv.mkDerivation rec {
@@ -39,7 +40,7 @@ stdenv.mkDerivation rec {
 
   # I have no idea why would SDL and libjpeg be needed for the server part!
   # But they are.
-  buildInputs = [ openssl bzip2 zlib SDL libjpeg sqlite game-music-emu libGL glew fmod fluidsynth gtk2 ];
+  buildInputs = [ openssl bzip2 zlib SDL olibjpeg sqlite game-music-emu libGL glew fmod fluidsynth gtk2 ];
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
