@@ -3,6 +3,43 @@ local M = {}
 -- Simplified LSP formatting configuration
 local lsp_format = require("lsp-format")
 
+-- Move to the next/previous diagnostic, automatically showing the diagnostics
+-- float if necessary.
+-- @param forward whether to go forward or backwards
+local function goto_diagnostic(forward)
+    vim.validate({
+        forward = { forward, "boolean" },
+    })
+
+    local opts = {
+        float = false,
+    }
+
+    -- Only show floating diagnostics if they are otherwise not displayed
+    local config = vim.diagnostic.config()
+    if not (config.virtual_text or config.virtual_lines) then
+        opts.float = true
+    end
+
+    if forward then
+        vim.diagnostic.goto_next(opts)
+    else
+        vim.diagnostic.goto_prev(opts)
+    end
+end
+
+-- Move to the next diagnostic, automatically showing the diagnostics float if
+-- necessary.
+M.goto_next_diagnostic = function()
+    goto_diagnostic(true)
+end
+
+-- Move to the previous diagnostic, automatically showing the diagnostics float
+-- if necessary.
+M.goto_prev_diagnostic = function()
+    goto_diagnostic(false)
+end
+
 -- shared LSP configuration callback
 -- @param client native client configuration
 -- @param bufnr int? buffer number of the attched client

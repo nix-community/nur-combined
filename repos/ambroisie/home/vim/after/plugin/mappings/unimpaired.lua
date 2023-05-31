@@ -1,5 +1,7 @@
 local wk = require("which-key")
 
+local lsp = require("ambroisie.lsp")
+
 local keys = {
     -- Edition and navigation mappins
     ["["] = {
@@ -30,7 +32,7 @@ local keys = {
         x = "XML encode",
         y = "C string encode",
         -- Custom
-        d = { vim.diagnostic.goto_prev, "Previous diagnostic" },
+        d = { lsp.goto_prev_diagnostic, "Previous diagnostic" },
     },
     ["]"] = {
         name = "Next",
@@ -60,7 +62,7 @@ local keys = {
         x = "XML decode",
         y = "C string decode",
         -- Custom
-        d = { vim.diagnostic.goto_next, "Next diagnostic" },
+        d = { lsp.goto_next_diagnostic, "Next diagnostic" },
     },
 
     -- Option mappings
