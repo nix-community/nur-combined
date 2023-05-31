@@ -95,6 +95,7 @@ let
   # - transcoders (ffmpeg, imagemagick) only wanted on desko/lappy ("powerutils"?)
   consolePkgs = {
     inherit (pkgs)
+      alsaUtils  # for aplay, speaker-test
       cdrtools
       dmidecode
       efivar
