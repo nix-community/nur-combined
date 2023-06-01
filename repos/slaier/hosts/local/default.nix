@@ -20,7 +20,6 @@ let
     nix-serve
     pipewire
     podman
-    safeeyes
     smartdns
     sops
     spotify
@@ -33,7 +32,6 @@ in
 {
   imports = map (x: x.default or { }) modules-enable ++
     (with inputs; [
-      (nixpkgs-unstable + "/nixos/modules/programs/nix-index.nix")
       nix-index-database.nixosModules.nix-index
       { programs.command-not-found.enable = false; }
     ]);
@@ -44,14 +42,7 @@ in
   nix.settings.extra-platforms = [ "aarch64-linux" ];
   boot.supportedFilesystems = [ "ntfs" ];
 
-  sops.secrets.clash = {
-    key = "";
-    sopsFile = ../../secrets/clash_home.yaml;
-    format = "yaml";
-    restartUnits = [ "clash.service" ];
-    owner = "clash";
-    path = "/etc/clash/config.yaml";
-  };
+  sops.secrets.clash.sopsFile = lib.mkForce ../../secrets/clash_home.yaml;
 
   networking = {
     firewall.enable = false;
@@ -66,7 +57,7 @@ in
 
   programs.adb.enable = true;
 
-  environment.systemPackages = assert !pkgs ? motrix; with pkgs; [
+  environment.systemPackages = with pkgs; [
     alacritty
     bottom
     clang
@@ -80,6 +71,7 @@ in
     killall
     librespeed-cli
     meld
+    motrix
     nali
     neovim
     nix-tree
@@ -90,6 +82,7 @@ in
     pavucontrol
     pciutils
     quiterss
+    safeeyes
     tdesktop
     tealdeer
     unrar
@@ -100,7 +93,6 @@ in
     xdg-utils
     yt-dlp
     zip
-    (callPackage (inputs.nixpkgs-unstable + "/pkgs/tools/networking/motrix") { })
     config.nur.repos.xddxdd.qbittorrent-enhanced-edition
   ] ++ (map makeNoProxyWrapper [
     ydict

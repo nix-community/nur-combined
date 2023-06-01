@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, ... }:
 {
   nix.settings = {
     substituters = [
@@ -18,7 +18,13 @@
     experimental-features = nix-command flakes
     min-free = ${toString (100 * 1024 * 1024)}
     max-free = ${toString (15 * 1024 * 1024 * 1024)}
+    !include ${config.sops.secrets.nix_access_token.path}
   '';
+
+  sops.secrets.nix_access_token = {
+    mode = "0440";
+    group = config.users.groups.keys.name;
+  };
 
   nix.nixPath = [
     "nixpkgs=${inputs.nixpkgs}"
@@ -36,5 +42,5 @@
     ];
   };
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 }

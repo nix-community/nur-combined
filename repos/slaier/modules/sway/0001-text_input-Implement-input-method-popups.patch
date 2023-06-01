@@ -305,7 +305,7 @@ index b8c19c179e..6350b3f933 100644
 +	struct wlr_box cursor = text_input->input->current.cursor_rectangle;
 +
 +	struct wlr_output *output;
-+	struct wlr_box *output_box;
++	struct wlr_box output_box;
 +	struct wlr_box parent;
 +	if (wlr_surface_is_layer_surface(focused_surface)) {
 +		struct wlr_layer_surface_v1 *layer_surface =
@@ -313,16 +313,16 @@ index b8c19c179e..6350b3f933 100644
 +		struct sway_layer_surface *layer =
 +			layer_from_wlr_layer_surface_v1(layer_surface);
 +		output = layer->layer_surface->output;
-+		output_box = wlr_output_layout_get_box(root->output_layout, output);
++		wlr_output_layout_get_box(root->output_layout, output, &output_box);
 +		parent = layer->geo;
-+		parent.x += output_box->x;
-+		parent.y += output_box->y;
++		parent.x += output_box.x;
++		parent.y += output_box.y;
 +	} else {
 +		struct sway_view *view = view_from_wlr_surface(focused_surface);
 +		output = wlr_output_layout_output_at(root->output_layout,
 +			view->container->surface_x + view->geometry.x,
 +			view->container->surface_y + view->geometry.y);
-+		output_box = wlr_output_layout_get_box(root->output_layout, output);
++		wlr_output_layout_get_box(root->output_layout, output, &output_box);
 +		parent.x = view->container->surface_x + view->geometry.x;
 +		parent.y = view->container->surface_y + view->geometry.y;
 +		parent.width = view->geometry.width;
@@ -345,14 +345,14 @@ index b8c19c179e..6350b3f933 100644
 +	int x = x1;
 +	int y = y2;
 +
-+	int available_right = output_box->x + output_box->width - x1;
-+	int available_left = x2 - output_box->x;
++	int available_right = output_box.x + output_box.width - x1;
++	int available_left = x2 - output_box.x;
 +	if (available_right < popup_width && available_left > available_right) {
 +		x = x2 - popup_width;
 +	}
 +
-+	int available_down = output_box->y + output_box->height - y2;
-+	int available_up = y1 - output_box->y;
++	int available_down = output_box.y + output_box.height - y2;
++	int available_up = y1 - output_box.y;
 +	if (available_down < popup_height && available_up > available_down) {
 +		y = y1 - popup_height;
 +	}

@@ -42,6 +42,15 @@
     };
   };
 
+  sops.secrets.clash = {
+    key = "";
+    sopsFile = ../../secrets/clash_office.yaml;
+    format = "yaml";
+    restartUnits = [ "clash.service" ];
+    owner = "clash";
+    path = "/etc/clash/config.yaml";
+  };
+
   networking.firewall.allowedTCPPorts = [
     7890 # http_proxy
     9090 # clashctl

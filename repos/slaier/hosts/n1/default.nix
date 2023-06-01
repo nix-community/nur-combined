@@ -16,15 +16,6 @@ in
 {
   imports = map (x: x.default or { }) modules-enable;
 
-  sops.secrets.clash = {
-    key = "";
-    sopsFile = ../../secrets/clash_office.yaml;
-    format = "yaml";
-    restartUnits = [ "clash.service" ];
-    owner = "clash";
-    path = "/etc/clash/config.yaml";
-  };
-
   nix.settings =
     let
       hostname = with nodes.local.config.services.avahi; "${hostName}.${domainName}";
