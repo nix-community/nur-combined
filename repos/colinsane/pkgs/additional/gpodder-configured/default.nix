@@ -31,8 +31,8 @@ in
   # repeat imports are deduplicated by url, even when offline.
   postBuild = ''
     makeWrapper $out/bin/gpodder $out/bin/gpodder-configured \
-      --run "$out/bin/gpodder-remove-extra ~/.config/gpodderFeeds.opml" \
-      --run "$out/bin/gpo import ~/.config/gpodderFeeds.opml" \
+      --run "$out/bin/gpodder-remove-extra ~/.config/gpodderFeeds.opml || true" \
+      --run "$out/bin/gpo import ~/.config/gpodderFeeds.opml || true" \
 
     # fix up the .desktop file to invoke our wrapped application
     orig_desktop=$(readlink $out/share/applications/gpodder.desktop)

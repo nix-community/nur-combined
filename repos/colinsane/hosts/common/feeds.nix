@@ -76,7 +76,7 @@ let
     ## Multidisciplinary Association for Psychedelic Studies
     (fromDb "mapspodcast.libsyn.com" // uncat)
     (fromDb "allinchamathjason.libsyn.com" // pol)
-    (fromDb "acquired.libsyn.com" // tech)
+    (fromDb "feeds.transistor.fm/acquired" // tech)
     ## ACQ2 - more "Acquired" episodes
     (fromDb "acquiredlpbonussecretsecret.libsyn.com" // tech)
     # The Intercept - Deconstructed; also available: <rss.acast.com/deconstructed>
