@@ -1043,13 +1043,13 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230529.85652";
+      version = "114.0.20230530.221313";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4117612/francais_language_pack-114.0.20230529.85652.xpi";
-      sha256 = "8eb8039093bfd9074500ca599bd3dc5d1cc105a7b537f3c6bd47f2f540c2ac35";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118380/francais_language_pack-114.0.20230530.221313.xpi";
+      sha256 = "7cf8a058a546f2eda694f4a42938ee3e5b6468758fc0b29a7913b0eba8f51560";
       meta = with lib;
       {
-        description = "Language pack for Firefox for fr";
+        description = "Firefox Language Pack for Français (fr) – French";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -1576,10 +1576,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.5";
+      version = "1.5.6";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101447/leechblock_ng-1.5.5.xpi";
-      sha256 = "733d822b4f2a25a5817a269ecc82461f51929bb5172037fb514ac6a6cd1adf34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117352/leechblock_ng-1.5.6.xpi";
+      sha256 = "f75b897e0f0b02f112a8a0f0f5be0b2b0fe5442c99c82101565785f6f219c87c";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
