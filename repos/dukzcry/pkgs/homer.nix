@@ -4,13 +4,13 @@ let
   configuration' = writeText "config.yml" (builtins.toJSON configuration);
 in stdenv.mkDerivation rec {
   pname = "homer";
-  version = "22.11.2";
+  version = "23.05.1";
 
   src = fetchurl {
     urls = [
       "https://github.com/bastienwirtz/${pname}/releases/download/v${version}/${pname}.zip"
     ];
-    sha256 = "sha256-rOaFjRSg85HDtYD/WJp4vnzBXdDOTazXtNHblMyqC6M=";
+    sha256 = "sha256-oxZjcZH1R+6vPF3ZzFKvupvpkBVHiqM3xjMyPupYEY0=";
   };
   nativeBuildInputs = [ unzip ];
 

@@ -134,7 +134,6 @@ with pkgs.lib; {
       RestrictRealtime = true;
       MemoryDenyWriteExecute = true;
       SystemCallArchitectures = "native";
-      SystemCallFilter = "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @resources";
     };
     dynamic = {
       PrivateTmp = true;
