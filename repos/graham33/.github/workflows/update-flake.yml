@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.5.2
       - name: Install Nix
-        uses: cachix/install-nix-action@v20
+        uses: cachix/install-nix-action@v21
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GH_TOKEN_FOR_UPDATES }}
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@v17
+        uses: DeterminateSystems/update-flake-lock@v19
         with:
           pr-title: "Update flake.lock" # Title of PR to be created
           pr-labels: |                  # Labels to be set on the PR
