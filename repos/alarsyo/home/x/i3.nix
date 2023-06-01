@@ -47,7 +47,7 @@ in {
             config.xdg.configFile."i3status-rust/config-top.toml".target;
         in [
           {
-            statusCommand = "i3status-rs ${barConfigPath}";
+            statusCommand = "i3status-rs ~/${barConfigPath}";
             position = "top";
             fonts = {
               names = ["DejaVuSansMono" "FontAwesome6Free"];

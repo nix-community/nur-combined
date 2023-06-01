@@ -24,7 +24,7 @@ in {
     devices = ["/dev/sda" "/dev/sdb"];
   };
 
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   networking.hostName = "hades"; # Define your hostname.
   networking.domain = "alarsyo.net";

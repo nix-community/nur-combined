@@ -9,11 +9,11 @@
   };
 
   services.openssh = {
-    passwordAuthentication = false;
-    permitRootLogin = "no";
-    extraConfig = ''
-      StreamLocalBindUnlink yes
-    '';
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      StreamLocalBindUnlink = true;
+    };
   };
 
   environment.systemPackages = builtins.attrValues {

@@ -52,46 +52,42 @@ in {
       bars = {
         top = {
           icons = "awesome5";
-          theme = i3BarTheme.theme.name;
-          settings = i3BarTheme;
+          settings.theme = {
+            theme = i3BarTheme.theme.name;
+            overrides = i3BarTheme.theme.overrides;
+          };
 
           blocks =
             [
               {
                 block = "pomodoro";
-                length = 50;
-                break_length = 10;
-                notifier = "i3nag";
+                notify_cmd = "i3nag";
+                blocking_cmd = true;
               }
               {
                 block = "disk_space";
                 path = "/";
-                alias = "/";
                 info_type = "available";
-                unit = "GB";
                 interval = 60;
                 warning = 20.0;
                 alert = 10.0;
+                alert_unit = "GB";
               }
               {
                 block = "memory";
-                display_type = "memory";
-                format_mem = "{mem_used;G}/{mem_total;G}";
+                format = " $icon $mem_used.eng(prefix:G)/$mem_total.eng(prefix:G) ";
                 warning_mem = 70.0;
                 critical_mem = 90.0;
-                # don't show swap
-                clickable = false;
               }
               {
                 block = "cpu";
                 interval = 1;
-                format = "{barchart}";
+                format = " $icon $barchart ";
               }
               {
                 block = "temperature";
-                collapsed = false;
                 interval = 10;
-                format = "{max}";
+                format = " $icon $max ";
                 chip = cfg.temperature.chip;
                 inputs = cfg.temperature.inputs;
               }
@@ -103,14 +99,18 @@ in {
                   block = "net";
                   device = interface;
                   interval = 1;
-                  hide_inactive = true;
+                  missing_format = "";
                 })
                 cfg.networking.throughput_interfaces)
             )
             ++ [
               {
-                block = "networkmanager";
-                primary_only = true;
+                block = "net";
+                format = " $icon $ip {SSID: $ssid|}";
+                theme_overrides = {
+                  idle_bg = {link = "good_bg";};
+                  idle_fg = {link = "good_fg";};
+                };
               }
               {
                 block = "sound";
@@ -121,6 +121,7 @@ in {
               optional config.my.home.laptop.enable
               {
                 block = "battery";
+                format = " $icon $percentage ($power) ";
               }
             )
             ++ [
@@ -130,8 +131,7 @@ in {
               {
                 block = "time";
                 interval = 5;
-                format = "%a %d/%m %T";
-                locale = "fr_FR";
+                format = " $icon $timestamp.datetime(f:'%a %d/%m %T', l:fr_FR) ";
                 timezone = "Europe/Paris";
               }
             ];
