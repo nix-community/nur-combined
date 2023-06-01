@@ -77,14 +77,12 @@
   # enable rotation sensor
   hardware.sensor.iio.enable = true;
 
-  # from https://gitlab.manjaro.org/manjaro-arm/packages/community/phosh/alsa-ucm-pinephone
-  # mobile-nixos does this same thing, with *slightly different settings*.
-  # i trust manjaro more because the guy maintaining that is actively trying to upstream into alsa-ucm-conf.
-  # an alternative may be to build a custom alsa with the PinePhone config patch applied:
-  # - <https://github.com/alsa-project/alsa-ucm-conf/pull/134>
-  # that would make this be not device-specific
-  environment.variables.ALSA_CONFIG_UCM2 = "${./ucm2}";
-  systemd.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = "${./ucm2}";
+  # inject specialized alsa configs via the environment.
+  # specifically, this gets the pinephone headphones & internal earpiece working.
+  # see pkgs/patched/alsa-ucm-conf for more info.
+  # older code had me also setting `systemd.services.pulseaudio.environment.ALSA_CONFIG_UCM2`,
+  # but it seems safe to set this only globally, and not per-service.
+  environment.variables.ALSA_CONFIG_UCM2 = "${pkgs.alsa-ucm-conf-sane}/share/alsa/ucm2";
 
   hardware.opengl.driSupport = true;
 }

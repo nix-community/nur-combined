@@ -1,0 +1,14 @@
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index d188ecdda55..69174ba7dc7 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -26607,7 +26607,8 @@ with pkgs;
+ 
+   tinyalsa = callPackage ../os-specific/linux/tinyalsa { };
+ 
+-  inherit (callPackage ../os-specific/linux/alsa-project { })
++  alsa-project = callPackage ../os-specific/linux/alsa-project { };
++  inherit (alsa-project)
+     alsa-firmware
+     alsa-lib
+     alsa-oss

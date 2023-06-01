@@ -150,6 +150,9 @@ in [
     hash = "sha256-9XKPNg7TewicfbMgiASpYysTs5aduIVP+4onz+noc/0=";
   })
 
+  # make alsa-project members overridable
+  ./2023-05-31-toplevel-alsa.patch
+
   # for raspberry pi: allow building u-boot for rpi 4{,00}
   # TODO: remove after upstreamed: https://github.com/NixOS/nixpkgs/pull/176018
   #   (it's a dupe of https://github.com/NixOS/nixpkgs/pull/112677 )
