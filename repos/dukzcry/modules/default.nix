@@ -3,7 +3,6 @@ rec {
   #
   # my-module = ./my-module;
   logitech-k380 = ./logitech-k380.nix;
-  qt5 = ./qt5.nix;
   gtk = ./gtk.nix;
   cursor = ./cursor.nix;
   jack = ./jack.nix;
@@ -26,7 +25,6 @@ rec {
   hardware = import ./hardware.nix [ nvidia monitor ];
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
-  nix-index = ./nix-index.nix;
   archisteamfarm = ./archisteamfarm.nix;
   adblock = ./adblock.nix;
   gamescope = ./gamescope.nix;

@@ -13,7 +13,7 @@ let
       hostName = "powerhorse";
       systems = [ "x86_64-linux" "i686-linux" ];
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-      maxJobs = 32;
+      maxJobs = 4;
     }];
     nix.extraOptions = ''
       builders-use-substitutes = true
@@ -84,16 +84,12 @@ in {
       services.hardware.remminaLegacy = true;
     } // builder))
     (mkIf (cfg.enable && desktop) {
+      nix.settings.cores = 8;
       hardware.bluetooth.enable = true;
-      # MT7921K is supported starting from 5.17
-      boot.kernelPackages = pkgs.linuxPackages_6_0;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
       services.xserver.dpi = 144;
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
-      '';
-      services.xserver.deviceSection = ''
-        Option "VariableRefresh" "true"
       '';
     })
   ];
