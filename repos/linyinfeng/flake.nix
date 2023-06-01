@@ -24,7 +24,7 @@
     # main nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # extra nixpkgs for checks
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-23.05";
   };
 
   outputs = inputs @ { flake-parts, ... }:
