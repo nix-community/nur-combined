@@ -24,6 +24,7 @@ rec {
   hostapd = ./hostapd;
   hardware = import ./hardware.nix [ nvidia monitor ];
   tun2socks = ./tun2socks.nix;
+  cockpit = ./cockpit.nix;
   archisteamfarm = ./archisteamfarm.nix;
   adblock = ./adblock.nix;
   gamescope = ./gamescope.nix;
