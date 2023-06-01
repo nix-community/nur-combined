@@ -45,9 +45,9 @@ in {
   config = mkMerge [
     (mkIf cfg.enable {
       services.dnsmasq.enable = true;
-      services.dnsmasq.extraConfig = ''
-        conf-file=/var/lib/dnsmasq/rkn
-      '';
+      services.dnsmasq.settings = {
+        conf-file = "/var/lib/dnsmasq/rkn";
+      };
       # в отличие от решения с голым ipset
       # 1) разные сайты с одним IP не задевают друг друга
       # 2) при удалённом использовании не надо гнать весь трафик через VPN
@@ -106,10 +106,10 @@ in {
         iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
       '';
-      services.dnsmasq.extraConfig = ''
-        server=/onion/${cfg.address}#9053
-        rebind-domain-ok=onion
-      '';
+      services.dnsmasq.settings = {
+        server = [ "/onion/${cfg.address}#9053" ];
+        rebind-domain-ok = "onion";
+      };
     })
   ];
 }
