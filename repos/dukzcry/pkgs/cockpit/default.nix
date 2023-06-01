@@ -1,7 +1,7 @@
 { lib, stdenv, fetchzip, pkg-config, glib, systemd, json-glib, gnutls, krb5, polkit, libssh, pam, libxslt, xmlto, libxcrypt
 , python3, gnused, coreutils, makeWrapper, openssl
 , packages ? []
-, client ? false, python3Packages, wrapGAppsHook, gtk3, gobject-introspection, webkitgtk, glib-networking, openssh }:
+, client ? true, python3Packages, wrapGAppsHook, gtk3, gobject-introspection, webkitgtk, glib-networking, openssh }:
 
 let
   path = lib.makeSearchPath "bin" ([ "$out" "/run/wrappers" "/run/current-system/sw" ] ++ packages);
