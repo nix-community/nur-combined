@@ -39,13 +39,13 @@
   };
   carla = {
     pname = "carla";
-    version = "f11c6785a369adee5d50bae316ccafc78f03c343";
+    version = "fa3253b01f5f3ec5e5e15029f482166e8563bf51";
     src = fetchFromGitHub {
       owner = "falkTX";
       repo = "Carla";
-      rev = "f11c6785a369adee5d50bae316ccafc78f03c343";
+      rev = "fa3253b01f5f3ec5e5e15029f482166e8563bf51";
       fetchSubmodules = false;
-      sha256 = "sha256-fFqrtj0yKzwmCP95/wltoCzvdSFGAdyX9wFTkl4fQTo=";
+      sha256 = "sha256-XG7UBsKUKMuLDQq3FLU6irCxhnGrKQRI8GCYu4x2w6I=";
     };
     date = "2023-05-31";
   };
@@ -252,27 +252,27 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "02b1c41adf0c742958a37d7bf39734138c8758ae";
+    version = "741995d09da1264da669d69c6c26fe4575c5d4ba";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "02b1c41adf0c742958a37d7bf39734138c8758ae";
+      rev = "741995d09da1264da669d69c6c26fe4575c5d4ba";
       fetchSubmodules = false;
-      sha256 = "sha256-SfQgb7q+Ftb1dCs2x8y1EkmGM4sO0C9xPqJdrHwpl/I=";
+      sha256 = "sha256-JvoCkRmKzdJwoHL+m29W845eJmp4bRdlYiqUabHvzhY=";
     };
-    date = "2023-05-29";
+    date = "2023-05-31";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
-    version = "22209f09c78016846bdb59fbb7b5530354107021";
+    version = "b6d257c8434ac9cd2f48caf47124b342e2957c83";
     src = fetchFromGitHub {
       owner = "tailwindlabs";
       repo = "tailwindcss-intellisense";
-      rev = "22209f09c78016846bdb59fbb7b5530354107021";
+      rev = "b6d257c8434ac9cd2f48caf47124b342e2957c83";
       fetchSubmodules = false;
-      sha256 = "sha256-U4OF8ocrMqe0bekNl9T/Yq/+Y3h50SE4cFMS7riSUdY=";
+      sha256 = "sha256-X541LcnyWlC2QaUUJnWZ8PfHiEOJ5Xc4dr0nS1JDZQc=";
     };
-    date = "2023-05-30";
+    date = "2023-05-31";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";
@@ -311,15 +311,15 @@
   };
   zrythm = {
     pname = "zrythm";
-    version = "a26e71147907154c6cde060c01f9868f39ee719f";
+    version = "3f498c1aa4faf6e32e88a22556d52f4f380bd79b";
     src = fetchgit {
       url = "https://git.sr.ht/~alextee/zrythm";
-      rev = "a26e71147907154c6cde060c01f9868f39ee719f";
+      rev = "3f498c1aa4faf6e32e88a22556d52f4f380bd79b";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-LyYojzkyFokPenWJpgNchjpxiLaidiGsppJQywyc01Y=";
+      sha256 = "sha256-WUQAbli0MG3dhhDrfsapHsZWgvsdxhqt5wIFT8XyZLk=";
     };
-    date = "2023-05-29";
+    date = "2023-06-01";
   };
 }
