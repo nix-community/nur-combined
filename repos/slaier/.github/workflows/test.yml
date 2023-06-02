@@ -40,4 +40,8 @@ jobs:
             -I $PWD
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-      - run: nix develop .#ci --command colmena build
+      - name: Build NixOS system
+        run: |
+          nix develop .#ci --command colmena build
+          nix develop .#ci --command nixos-rebuild build --flake .#local
+          nix develop .#ci --command nixos-rebuild build --flake .#n1

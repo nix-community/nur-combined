@@ -16,7 +16,7 @@
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
-    min-free = ${toString (100 * 1024 * 1024)}
+    min-free = ${toString (1024 * 1024 * 1024)}
     max-free = ${toString (15 * 1024 * 1024 * 1024)}
     !include ${config.sops.secrets.nix_access_token.path}
   '';

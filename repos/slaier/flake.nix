@@ -31,15 +31,11 @@
         src = ./modules;
         loader = haumea.lib.loaders.verbatim;
       };
-      hosts = haumea.lib.load {
-        src = ./hosts;
-        loader = haumea.lib.loaders.verbatim;
-      };
     in
     haumea.lib.load {
       src = ./outputs;
       inputs = {
-        inherit modules hosts inputs;
+        inherit modules inputs;
         inherit (nixpkgs) lib;
       };
     };

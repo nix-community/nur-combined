@@ -7,6 +7,9 @@ n1 goal="switch": (apply "n1" goal)
 apply nodes="local,n1" goal="switch":
   colmena apply --on {{nodes}} {{goal}}
 
+sd-image:
+  nix build --no-link --print-out-paths .#nixosConfigurations.sd-image-aarch64-installer.config.system.build.sdImage
+
 update:
   find . -type f -name update.sh | parallel -j+1 'cd {//} && ./update.sh'
   nix fmt . 2>/dev/null

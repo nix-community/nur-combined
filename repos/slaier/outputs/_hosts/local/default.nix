@@ -1,4 +1,5 @@
-{ config, pkgs, modules, inputs, lib, ... }:
+{ modules, inputs, ... }:
+{ config, pkgs, lib, ... }:
 let
   modules-enable = with modules; [
     avahi
@@ -42,7 +43,7 @@ in
   nix.settings.extra-platforms = [ "aarch64-linux" ];
   boot.supportedFilesystems = [ "ntfs" ];
 
-  sops.secrets.clash.sopsFile = lib.mkForce ../../secrets/clash_home.yaml;
+  sops.secrets.clash.sopsFile = lib.mkForce ../../../secrets/clash_home.yaml;
 
   networking = {
     firewall.enable = false;
