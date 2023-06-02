@@ -1,0 +1,32 @@
+---
+"on":
+  schedule:
+    # 18:00 on Friday
+    - cron: 0 18 * * 5
+  workflow_dispatch:
+
+# https://github.com/softprops/action-gh-release/issues/236
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v20
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependency
+        run: |
+          nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+          nix-env -iA nixos.nvfetcher
+      - name: Update version
+        run: |
+          scripts/git-commit.sh
+        env:
+          # https://github.com/orgs/community/discussions/25702
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
