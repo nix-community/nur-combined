@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "mobroute";
-  version = "2023-01-27";
+  version = "2023-06-02";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = "mobroute";
-    rev = "dded2d14dd3209515644d7f7492eaf58f7b4a9f5";
-    hash = "sha256-rjhVdt1JwFDTbOiqTnNTsBToFM3slyys6X2fEr9qYOQ=";
+    rev = "c9b25594bc3dbfce558a90d2d856cd8a1269b2bb";
+    hash = "sha256-f2jK9chkxlvthZgahyFMSyzAzCOMU4Rmy0/KWiUklcU=";
   };
 
   vendorHash = "sha256-YJp4vjwASCVdcnqjbREgNosmybLLdCw+q4gSpZHsNJA=";
