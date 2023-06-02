@@ -17,11 +17,3 @@ fetch.pypi = "translate-shell"
 [mulimgviewer]
 src.pypi = "mulimgviewer"
 fetch.pypi = "mulimgviewer"
-
-[qq-nt-x86_64-linux]
-src.manual = "3.1.2_12912"
-fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/80d33f88/linuxqq_3.1.2-12912_amd64.deb"
-
-[qq-nt-aarch64-linux]
-src.manual = "3.1.2_12912"
-fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/80d33f88/linuxqq_3.1.2-12912_arm64.deb"
