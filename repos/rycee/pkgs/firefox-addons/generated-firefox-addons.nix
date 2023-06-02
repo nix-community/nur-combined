@@ -913,10 +913,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.68";
+      version = "2.69";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4117479/firemonkey-2.68.xpi";
-      sha256 = "c27ab331b01594c7bb4f5cfefe78f5bc864096e0c33c59b5fedefcda3bd30d77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118862/firemonkey-2.69.xpi";
+      sha256 = "6fbd2f186cc9e26eb978d766fb89c42b0cbd568bd181dee05ef2238009e8aea2";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -1043,10 +1043,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230530.221313";
+      version = "114.0.20230601.151220";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118380/francais_language_pack-114.0.20230530.221313.xpi";
-      sha256 = "7cf8a058a546f2eda694f4a42938ee3e5b6468758fc0b29a7913b0eba8f51560";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119202/francais_language_pack-114.0.20230601.151220.xpi";
+      sha256 = "d69a8d8dca2900e6581f129ad19a4a9abbbefe84f1a7fcc5b1e0d5a4c17a4f19";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
