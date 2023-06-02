@@ -14,11 +14,13 @@ let
     in f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
   pkgs = rec {
     # The `lib`, `modules`, and `overlay` names are special
-    lib = import ./lib { inherit pkgs; }; # functions
+    lib = nixpkgs.lib // import ./lib { inherit pkgs; }; # functions
     modules = import ./modules; # NixOS modules
     overlays = import ./overlays; # nixpkgs overlays
 
     mySources = callPackage ./_sources/generated.nix { };
+
+    netease-cloud-music = callPackage ./pkgs/netease-cloud-music { };
 
     help2man = callPackage ./pkgs/development/python-modules/help2man { };
     setuptools-generate = callPackage ./pkgs/development/python-modules/setuptools-generate {
