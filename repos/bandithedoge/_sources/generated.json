@@ -56,7 +56,7 @@
   },
   "carla": {
     "cargoLocks": null,
-    "date": "2023-05-31",
+    "date": "2023-06-02",
     "extract": null,
     "name": "carla",
     "passthru": null,
@@ -68,11 +68,11 @@
       "name": null,
       "owner": "falkTX",
       "repo": "Carla",
-      "rev": "fa3253b01f5f3ec5e5e15029f482166e8563bf51",
-      "sha256": "sha256-XG7UBsKUKMuLDQq3FLU6irCxhnGrKQRI8GCYu4x2w6I=",
+      "rev": "f54eb3f7e66a26558dc03a821d9a4d6f7e7a7ca7",
+      "sha256": "sha256-jOiR6rZ5TnT4U0DLOOwxuOQV1sdiavuJlCQDhaaAXH8=",
       "type": "github"
     },
-    "version": "fa3253b01f5f3ec5e5e15029f482166e8563bf51"
+    "version": "f54eb3f7e66a26558dc03a821d9a4d6f7e7a7ca7"
   },
   "dmenu-flexipatch": {
     "cargoLocks": null,
@@ -516,7 +516,7 @@
   },
   "zrythm": {
     "cargoLocks": null,
-    "date": "2023-06-01",
+    "date": "2023-06-02",
     "extract": null,
     "name": "zrythm",
     "passthru": null,
@@ -526,11 +526,11 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "3f498c1aa4faf6e32e88a22556d52f4f380bd79b",
-      "sha256": "sha256-WUQAbli0MG3dhhDrfsapHsZWgvsdxhqt5wIFT8XyZLk=",
+      "rev": "25c63572298dbda75f00e94772cc3cf2167056de",
+      "sha256": "sha256-G4F6CqhseFBvXTBo/YVWwiPxff9U3Gp7ylPyEG3bdPY=",
       "type": "git",
       "url": "https://git.sr.ht/~alextee/zrythm"
     },
-    "version": "3f498c1aa4faf6e32e88a22556d52f4f380bd79b"
+    "version": "25c63572298dbda75f00e94772cc3cf2167056de"
   }
 }
