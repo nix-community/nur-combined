@@ -62,7 +62,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Pitnheybki6ZHPr8XBzNVJHIbIiBX2ImBZXBRU2TCPk=",
+            "sha256": "sha256-px/luv5uPGYSIBhzsLfKO7Tw+EdJbfT5r2kWUNrlr/E=",
             "type": "url",
             "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.29.gz"
         },
@@ -77,7 +77,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-W3jj/plBNfaPdzO8/MJZDZdj2g4tz4qEsuzi+cjIkdM=",
+            "sha256": "sha256-TimlIYq/nyMo43XNQw/ad0hVR8jGWgPaxqejpJkTtAw=",
             "type": "url",
             "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.29.gz"
         },
@@ -92,7 +92,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-TjTg3zk/5bfjt3c3xFB5nnv5EqJaS/oychxlZ1Xb5/M=",
+            "sha256": "sha256-yZhzIZmloCjmodi8P9K8LaCqH5gIU0x86wtejeOivlg=",
             "type": "url",
             "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.29.gz"
         },
@@ -107,7 +107,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qyKo1NWbkEQRpOhwr+nyia08fHqo5yAfSK6E2Hgl/Ks=",
+            "sha256": "sha256-pY0s0xuzoxdzWxHoOgztqf/MezIhvVBGBVYtJovHENU=",
             "type": "url",
             "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.29.gz"
         },
@@ -368,12 +368,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c7c73e184a53d8c69f50929cf509dc26fdc508fa",
-            "sha256": "sha256-cvv1SZLq59f3qGvQgphEdMX5HSjc5IqfqPtbQb1Gb2U=",
+            "rev": "33ab59afe3b20061a0da957a0d24ee71014ddaeb",
+            "sha256": "sha256-aN4R2b/fi4SJeQ00hbmwNaydeS/VMyqN1jDtLBBBpiA=",
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
-        "version": "c7c73e184a53d8c69f50929cf509dc26fdc508fa"
+        "version": "33ab59afe3b20061a0da957a0d24ee71014ddaeb"
     },
     "rime-double-pinyin": {
         "cargoLocks": null,
