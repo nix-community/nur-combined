@@ -152,6 +152,9 @@ lib.makeScope newScope (
     agunua = callPackage ./gemini/agunua { };
     astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
+    eva = callPackage ./gemini/eva {
+      inherit (darwin.apple_sdk.frameworks) Security;
+    };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
