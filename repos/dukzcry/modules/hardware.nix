@@ -87,7 +87,6 @@ in {
       nix.settings.cores = 8;
       hardware.bluetooth.enable = true;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
-      services.xserver.dpi = 144;
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
       '';
