@@ -10,6 +10,8 @@ in
 
   debugpy = callPackage ./debugpy { };
 
+  huggingface-hub = callPackage ./huggingface-hub { };
+
   pygls = callPackage ./pygls { };
 
   pytest-datadir = callPackage ./pytest-datadir { };

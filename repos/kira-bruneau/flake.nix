@@ -55,6 +55,8 @@
             };
 
             nixpkgs-fmt.paths = paths.nix;
+
+            prettier.paths = paths.markdown;
           };
         };
 
