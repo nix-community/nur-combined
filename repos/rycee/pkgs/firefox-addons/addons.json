@@ -114,6 +114,13 @@
     "slug": "close-other-windows"
   },
   {
+    "slug": "codecov",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
+  },
+  {
     "slug": "conex"
   },
   {

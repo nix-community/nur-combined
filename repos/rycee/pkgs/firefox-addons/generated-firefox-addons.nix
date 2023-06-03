@@ -433,6 +433,20 @@
         platforms = platforms.all;
         };
       };
+    "codecov" = buildFirefoxXpiAddon {
+      pname = "codecov";
+      version = "0.2.1";
+      addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119070/codecov-0.2.1.xpi";
+      sha256 = "661f2fefb95c46ae86fd0478c524e3613fa3fefb07c6c3b7836a8f2f2484a5db";
+      meta = with lib;
+      {
+        homepage = "https://about.codecov.io";
+        description = "Codecov Browser Extension\n\nAdds Codecov coverage data and line annotations to public and private repositories on GitHub.";
+        license = licenses.asl20;
+        platforms = platforms.all;
+        };
+      };
     "conex" = buildFirefoxXpiAddon {
       pname = "conex";
       version = "0.9.7";
@@ -913,10 +927,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.69";
+      version = "2.70";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118862/firemonkey-2.69.xpi";
-      sha256 = "6fbd2f186cc9e26eb978d766fb89c42b0cbd568bd181dee05ef2238009e8aea2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119727/firemonkey-2.70.xpi";
+      sha256 = "9ecb1675a56fb2995b2438b904d43625881fd20a960fdcc42729878c56687c28";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -2802,10 +2816,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.18";
+      version = "1.0.19";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101030/statshunters-1.0.18.xpi";
-      sha256 = "7cb8bc27cb0c06e0a13ef36a27b0696ac1a9b0fc666229a832706afe8fa513ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119748/statshunters-1.0.19.xpi";
+      sha256 = "5fac23d8f2894f18c293f9eeb16238851d2f1eb3763417dc14e236646ad396e9";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -3179,10 +3193,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.7.2.1";
+      version = "9.8.0.4";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4110232/traduzir_paginas_web-9.7.2.1.xpi";
-      sha256 = "34ad8f0e88908a8e99053f16756802ca6a7e575b76010ed0abf56120d3eecaa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119319/traduzir_paginas_web-9.8.0.4.xpi";
+      sha256 = "6914a94bd3092205284d320b2eab08cb4a34165fa5b601765f104c8eb6784822";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
