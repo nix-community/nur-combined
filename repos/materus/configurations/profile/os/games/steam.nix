@@ -37,6 +37,8 @@ let
       pkgs.fuse
       pkgs.libsForQt5.breeze-qt5
       pkgs.libsForQt5.breeze-gtk
+      pkgs.samba4Full
+      pkgs.tdb
 
     ];
 
@@ -49,6 +51,8 @@ let
       pkgs.fontconfig
       pkgs.libxcrypt
       pkgs.gnutls
+      pkgs.samba 
+      pkgs.tdb
     ] ++
     (with config.hardware.opengl; if pkgs.hostPlatform.is64bit
     then [ package ] ++ extraPackages

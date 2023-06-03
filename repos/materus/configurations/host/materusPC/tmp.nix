@@ -69,7 +69,7 @@ in
       Option "SWCursor" "True"
       Option "VariableRefresh" "true"
       Option "AsyncFlipSecondaries" "true"
-      MatchDriver "amdgpu
+      MatchDriver "amdgpu"
     EndSection
 
   '';
@@ -226,14 +226,14 @@ in
   /*containers.test = {
     config = { config, pkgs, ... }: { environment.systemPackages = with pkgs; [ wayfire ]; };
     autoStart = false;
-  };*/
+    };*/
 
   environment.systemPackages = with pkgs; [
     firefox
     gamescope
-    (pkgs.lutris.override { extraLibraries = pkgs: with pkgs;  [ pkgs.libunwind pkgs.libusb1 pkgs.gnutls pkgs.gtk3 pkgs.pango ]; })
+    #(pkgs.lutris.override { extraLibraries = pkgs: with pkgs;  [ pkgs.samba pkgs.jansson pkgs.tdb pkgs.libunwind pkgs.libusb1 pkgs.gnutls pkgs.gtk3 pkgs.pango ]; })
     materusPkgs.amdgpu-pro-libs.prefixes
-    (pkgs.bottles.override { extraLibraries = pkgs: with pkgs; [ pkgs.libunwind pkgs.libusb1 pkgs.gnutls pkgs.gtk3 pkgs.pango ]; })
+    (pkgs.bottles.override { extraPkgs = pkgs: with pkgs; [ pkgs.libsForQt5.breeze-qt5 pkgs.libsForQt5.breeze-gtk pkgs.nss_latest ]; extraLibraries = pkgs: with pkgs; [ pkgs.samba pkgs.jansson pkgs.tdb pkgs.libunwind pkgs.libusb1 pkgs.gnutls pkgs.gtk3 pkgs.pango ]; })
     glibc
     glib
     gtk3
