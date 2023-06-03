@@ -16,7 +16,6 @@ in {
   };
 
   config = mkMerge [
-
    (mkIf cfg.enable {
       hardware.uinput.enable = true;
       users.extraUsers.${cfg.user} = {
@@ -29,7 +28,17 @@ in {
         capabilities = "cap_sys_admin+p";
         source = "${pkgs.sunshine}/bin/sunshine";
       };
+      systemd.user.services.sunshine = {
+        description = "Sunshine headless server";
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+
+        serviceConfig = {
+          ExecStart = "${config.security.wrapperDir}/sunshine";
+          RestartSec = 3;
+          Restart = "always";
+        };
+      };
    })
   ];
-
 }
