@@ -2552,10 +2552,10 @@
       };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "23.5.30";
+      version = "23.6.2";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118202/refined_github-23.5.30.xpi";
-      sha256 = "a39ad13089b143723516aa51d0de2c59918f0b0db7e3fe489893f749c26b2685";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119553/refined_github-23.6.2.xpi";
+      sha256 = "218470b74c1e89c51cdca7f04bb5c66638bc243a5bc4b0b01b2feca9a2fc7c58";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/refined-github";
@@ -2775,10 +2775,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.6";
+      version = "5.4.8";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4108025/sponsorblock-5.4.6.xpi";
-      sha256 = "7c81020ef016cd2c81a1c24f2f702a2faf34283fe79972e5103f9b16f013850d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4117298/sponsorblock-5.4.8.xpi";
+      sha256 = "7ec9815177ea05688c3cad85806e6b945786be622a5f438c33e94a8720de043c";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -3570,10 +3570,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "2.89.0";
+      version = "3.0.10";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4089909/web_scrobbler-2.89.0.xpi";
-      sha256 = "298a96681644686b40c118a2a5c579e3860f47c9690ded1fe059b75e28e4b65e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118264/web_scrobbler-3.0.10.xpi";
+      sha256 = "c0e0381cf4cd13e65cb0bfbe2b8846c9098a27396c51c7e958a1774e27460827";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
