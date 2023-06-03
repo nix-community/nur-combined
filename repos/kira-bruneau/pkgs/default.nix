@@ -78,7 +78,8 @@ in
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
-    inherit bash steam-run winetricks yad;
+    steam-run = steamPackages.steam-fhsenv-without-steam.run;
+    inherit bash winetricks yad;
   };
 
   python3Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages);
