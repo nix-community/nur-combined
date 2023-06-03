@@ -253,11 +253,11 @@
     },
     "nbr": {
         "default_branch": "heads/master",
-        "github_commit": "00431b0529b8b1c3e096b21c723f8a105dcac502",
-        "sha256": "cdef0f4dfaf47fd1686b902c3e61e3f7f5e84946a9e7d016bc0a6851f6308f4a",
-        "final_url": "https://codeload.github.com/nixosbrasil/nixpkgs-brasil/tar.gz/00431b0529b8b1c3e096b21c723f8a105dcac502",
+        "github_commit": "a82a1ccd9581570e6f49db9d73d2f163b668495e",
+        "sha256": "f921cb9cc6c90242703a26527b5b7dd7aaa47c8303c2dabaa97c8f4c15c3c1c9",
+        "final_url": "https://codeload.github.com/nixosbrasil/nixpkgs-brasil/tar.gz/a82a1ccd9581570e6f49db9d73d2f163b668495e",
         "file_type": "tar.gz",
-        "_bpk_last_update": 1680228850
+        "_bpk_last_update": 1685814333
     },
     "home-manager": {
         "github_commit": "c0deab0effd576e70343cb5df0c64428e0e0d010",
