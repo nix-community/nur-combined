@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 cd "$(dirname "$(readlink -f "$0")")/.." || exit 1
 
-nvfetcher
 [ -n "$(git diff)" ] || exit
 git add _sources/generated.nix
 git config --global user.name 'Github Actions'

@@ -440,6 +440,6 @@ stdenv.mkDerivation rec {
     description = "Netease Cloud Music";
     license = licenses.unfree;
     maintainers = with maintainers; [ ];
-    platforms = platforms.unix;
+    platforms = [ "x86_64-linux" ];
   };
 }

@@ -30,4 +30,12 @@ buildPythonPackage rec {
   pythonImportsCheck = [
     "mulimgviewer"
   ];
+
+  meta = with lib; {
+    homepage = "https://mulimgviewer.readthedocs.io";
+    description = "MulimgViewer is a multi-image viewer that can open multiple images in one interface, which is convenient for image comparison and image stitching";
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ ];
+    platforms = platforms.unix;
+  };
 }

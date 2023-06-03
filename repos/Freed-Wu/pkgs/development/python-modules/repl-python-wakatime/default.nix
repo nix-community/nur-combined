@@ -16,4 +16,12 @@ buildPythonPackage rec {
   pythonImportsCheck = [
     "repl_python_wakatime"
   ];
+
+  meta = with lib; {
+    homepage = "https://repl-python-wakatime.readthedocs.io";
+    description = "Python REPL plugin for automatic time tracking and metrics generated from your programming activity";
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ ];
+    platforms = platforms.unix;
+  };
 }

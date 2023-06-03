@@ -21,4 +21,12 @@ buildPythonPackage rec {
   pythonImportsCheck = [
     "setuptools_generate"
   ];
+
+  meta = with lib; {
+    homepage = "https://setuptools-generate.readthedocs.io";
+    description = "Generate shell completions and man page when building a python package";
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ ];
+    platforms = platforms.unix;
+  };
 }

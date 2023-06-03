@@ -6,15 +6,15 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ nixpkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { } }:
 let
-  allPkgs = nixpkgs // pkgs;
+  allPkgs = pkgs // myPkgs;
   callPackage = path: overrides:
     let f = import path;
     in f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
-  pkgs = rec {
+  myPkgs = rec {
     # The `lib`, `modules`, and `overlay` names are special
-    lib = nixpkgs.lib // import ./lib { inherit pkgs; }; # functions
+    lib = pkgs.lib // import ./lib { inherit pkgs; }; # functions
     modules = import ./modules; # NixOS modules
     overlays = import ./overlays; # nixpkgs overlays
 
@@ -36,4 +36,4 @@ let
     };
   };
 in
-pkgs
+myPkgs

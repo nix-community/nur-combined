@@ -32,8 +32,7 @@ jobs:
       - name: Build nix packages
         run: |
           nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached \
-          ci.nix -A cacheOutputs
+          nix run 'nixpkgs#nix-build-uncached' -- ci.nix -A cacheOutputs
       - name: Trigger NUR update
         run: |
           curl -XPOST \
