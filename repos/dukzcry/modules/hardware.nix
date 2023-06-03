@@ -78,6 +78,9 @@ in {
         vSync = true;
         backend = "glx";
       };
+      services.xserver.displayManager.sessionCommands = ''
+        printf "%s\n" "Xft.dpi: 120" | xrdb -merge
+      '';
       services.logind.extraConfig = ''
         HandlePowerKey=suspend-then-hibernate
       '';
@@ -87,6 +90,9 @@ in {
       nix.settings.cores = 8;
       hardware.bluetooth.enable = true;
       powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+      services.xserver.displayManager.sessionCommands = ''
+        printf "%s\n" "Xft.dpi: 144" | xrdb -merge
+      '';
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
       '';

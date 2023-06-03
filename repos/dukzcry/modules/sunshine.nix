@@ -29,10 +29,10 @@ in {
         source = "${pkgs.sunshine}/bin/sunshine";
       };
       systemd.user.services.sunshine = {
+        path = cfg.games;
         description = "Sunshine headless server";
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
-
         serviceConfig = {
           ExecStart = "${config.security.wrapperDir}/sunshine";
           RestartSec = 3;
