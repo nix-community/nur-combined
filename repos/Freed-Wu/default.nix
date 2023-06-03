@@ -21,19 +21,14 @@ let
     mySources = callPackage ./_sources/generated.nix { };
 
     netease-cloud-music = callPackage ./pkgs/netease-cloud-music { };
+    g3kb-switch = callPackage ./pkgs/g3kb-switch { };
 
     help2man = callPackage ./pkgs/development/python-modules/help2man { };
-    setuptools-generate = callPackage ./pkgs/development/python-modules/setuptools-generate {
-      help2man = help2man;
-    };
+    setuptools-generate = callPackage ./pkgs/development/python-modules/setuptools-generate { };
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };
-    translate-shell = callPackage ./pkgs/development/python-modules/translate-shell {
-      setuptools-generate = setuptools-generate;
-      repl-python-wakatime = repl-python-wakatime;
-    };
-    mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer {
-      # setuptools-generate = setuptools-generate;
-    };
+    repl-python-codestats = callPackage ./pkgs/development/python-modules/repl-python-codestats { };
+    translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
+    mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
   };
 in
 myPkgs
