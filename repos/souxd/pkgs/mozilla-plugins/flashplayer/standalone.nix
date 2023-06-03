@@ -1,6 +1,7 @@
 { stdenv
 , lib
 , fetchurl
+, makeDesktopItem
 , alsaLib
 , atk
 , bzip2
@@ -50,6 +51,7 @@
 
 stdenv.mkDerivation rec {
   name = "flashplayer-standalone-${version}";
+  pname = "flashplayer-standalone";
   version = "32.0.0.465";
 
   src = fetchurl {
@@ -78,6 +80,7 @@ stdenv.mkDerivation rec {
       --set-rpath "$rpath" \
       $out/bin/flashplayer${lib.optionalString debug "debugger"}
   '';
+
   rpath = lib.makeLibraryPath
     [ stdenv.cc.cc
       alsaLib atk bzip2 cairo curl expat fontconfig freetype gdk-pixbuf glib
@@ -86,6 +89,33 @@ stdenv.mkDerivation rec {
       libXrandr libXrender libXt libXxf86vm libdrm libffi libglvnd libpng
       libvdpau libxcb libxshmfence nspr nss pango pcre pixman zlib
     ];
+
+  desktopItems = [(makeDesktopItem rec {
+    name = pname;
+    desktopName = "Flash player standalone";
+    comment = "Run Adobe flash locally";
+    keywords = [
+      "Flash"
+      "Adobe"
+      "Projector"
+    ];
+    exec = "flashplayer %u";
+    terminal = false;
+    type = "Application";
+    icon = "flashplayer";
+    categories = [
+      "Graphics"
+    ];
+    mimeTypes = [
+      "application/x-shockwave-flash"
+    ];
+    startupNotify = true;
+    startupWMClass = "Adobe Flash";
+    extraConfig = {
+      X-MultipleArgs = "false";
+    };
+  })];
+
   meta = with lib; {
     description = "Adobe Flash Player standalone executable from archive.org";
     homepage = https://archive.org/details/flashplayerarchive;

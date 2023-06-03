@@ -5,7 +5,7 @@
 , makeWrapper
 , callPackage
 , soundfont-fluid
-, SDL
+, SDL_compat
 , libGL
 , glew
 , bzip2
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   # I have no idea why would SDL and libjpeg be needed for the server part!
   # But they are.
-  buildInputs = [ openssl bzip2 zlib SDL olibjpeg sqlite game-music-emu libGL glew fmod fluidsynth gtk2 ];
+  buildInputs = [ openssl bzip2 zlib SDL_compat olibjpeg sqlite game-music-emu libGL glew fmod fluidsynth gtk2 ];
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 

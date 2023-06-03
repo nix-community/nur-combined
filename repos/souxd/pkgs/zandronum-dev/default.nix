@@ -6,7 +6,7 @@
 , makeWrapper
 , callPackage
 , soundfont-fluid
-, SDL
+, SDL_compat
 , libGL
 , glew
 , bzip2
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
 
   # I have no idea why would SDL and libjpeg be needed for the server part!
   # But they are.
-  buildInputs = [ openssl bzip2 zlib SDL libjpeg sqlite game-music-emu ]
+  buildInputs = [ openssl bzip2 zlib SDL_compat libjpeg sqlite game-music-emu ]
     ++ lib.optionals (!serverOnly) [ libGL glew fmod fluidsynth gtk2 ];
 
   nativeBuildInputs = [ cmake pkg-config makeWrapper python3 ];
