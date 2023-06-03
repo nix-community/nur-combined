@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my.programs.steam;
+
+  steam = pkgs.steam;
 in
 {
   options.my.programs.steam = with lib; {
@@ -23,16 +25,14 @@ in
 
     environment.systemPackages = builtins.map lib.hiPrio [
       # Respect XDG conventions, leave my HOME alone
-      (pkgs.writeScriptBin "steam" ''
-        #!/bin/sh
+      (pkgs.writeShellScriptBin "steam" ''
         mkdir -p "${cfg.dataDir}"
-        HOME="${cfg.dataDir}" exec ${pkgs.steam}/bin/steam "$@"
+        HOME="${cfg.dataDir}" exec ${lib.getExe steam} "$@"
       '')
       # Same, for GOG and other such games
-      (pkgs.writeScriptBin "steam-run" ''
-        #!/bin/sh
+      (pkgs.writeShellScriptBin "steam-run" ''
         mkdir -p "${cfg.dataDir}"
-        HOME="${cfg.dataDir}" exec ${pkgs.steam-run}/bin/steam-run "$@"
+        HOME="${cfg.dataDir}" exec ${lib.getExe steam.run}  "$@"
       '')
     ];
   };
