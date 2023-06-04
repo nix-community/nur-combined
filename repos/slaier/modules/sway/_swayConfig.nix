@@ -179,8 +179,10 @@ in
     [title="(?:Open|Save) (?:File|Folder|As)"] floating enable
     [class="Safeeyes"] floating enable
     [app_id="pavucontrol"] floating enable
+    [app_id="firefox" title="^Page Info — .*"] floating enable
     [app_id="firefox" title="^Picture-in-Picture$"] floating enable
     [app_id="firefox" title=".*Download Panel.*"] focus; floating enable; resize set width 400px height 250px;
+    [app_id="org.keepassxc.KeePassXC" title="Generate Password"] floating enable
   }
 
   #

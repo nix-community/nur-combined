@@ -104,5 +104,6 @@ in
     exec --no-startup-id XDG_SESSION_TYPE=x11 qbittorrent
     exec --no-startup-id gammastep -l 31:121
     exec motrix
+    exec safeeyes
   '';
 }
