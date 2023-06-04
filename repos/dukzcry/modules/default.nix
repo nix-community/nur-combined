@@ -3,7 +3,6 @@ rec {
   #
   # my-module = ./my-module;
   logitech-k380 = ./logitech-k380.nix;
-  qt = ./qt.nix;
   gtk = ./gtk.nix;
   cursor = ./cursor.nix;
   jack = ./jack.nix;
