@@ -391,6 +391,7 @@ lib.makeScope newScope (
     mqtt-explorer = callPackage ./mqtt/mqtt-explorer { };
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
+    nanosdk = callPackage ./mqtt/nanosdk { };
     rumqtt = callPackage ./mqtt/rumqtt {
       inherit (darwin.apple_sdk.frameworks) Security;
     };

@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     patchShebangs install.sh
   '';
 
-  NIX_LDFLAGS = "-L${zlib}/lib";
+  env.NIX_LDFLAGS = "-L${zlib}/lib";
 
   installPhase = ''
     ./install.sh
