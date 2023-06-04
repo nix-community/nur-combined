@@ -237,10 +237,10 @@
       };
     "better-tweetdeck" = buildFirefoxXpiAddon {
       pname = "better-tweetdeck";
-      version = "4.10.1";
+      version = "4.11.0";
       addonId = "BetterTweetDeck@erambert.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4067593/better_tweetdeck_17-4.10.1.xpi";
-      sha256 = "d565bed529334e0a2efa95a2a768a372a3901c06a3661a0afb5f161a2e2c9f5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119907/better_tweetdeck_17-4.11.0.xpi";
+      sha256 = "28067c1326793b1dbf0f2e602c79e16b0b3e8e7a30f21e83a240074b3e828114";
       meta = with lib;
       {
         homepage = "https://better.tw/";
