@@ -1,14 +1,17 @@
 { vimUtils
 , lib
 , fetchFromGitHub
-}: vimUtils.buildVimPluginFrom2Nix { 
+}: vimUtils.buildVimPluginFrom2Nix rec { 
   name = "codeium.vim";
+  version = "1.2.26";
   src = fetchFromGitHub {
     owner = "Exafunction";
     repo = "codeium.vim";
-    rev = "cf3bbfa52658fa4380ea2bb764493356f04768c3";
-    sha256 = "sha256-HoTw330lS4bvJJaukZgbTTzr8t5O8mMkpHqi+dF8jqY=";
+    rev = version;
+    sha256 = "sha256-gc4BP4ufE6UPJanskhvoab0vTM3t5b2egPKaV1X5KW0=";
   };
+
+  patches = [ ../patches/codeium-vim/wrap-with-steam-run.patch ];
 
   meta = with lib; {
     description = "Free, ultrafast Copilot alternative for Vim and Neovim";

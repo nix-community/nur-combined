@@ -1,0 +1,21 @@
+From 10cda4bd1cf1b3d91d005a71db9b59988b2a6c86 Mon Sep 17 00:00:00 2001
+From: qverkk <membersy@gmail.com>
+Date: Sat, 3 Jun 2023 23:36:14 +0200
+Subject: [PATCH] feature(nix): Start LSP with steam-run on NixOS
+
+---
+ autoload/codeium/server.vim | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/autoload/codeium/server.vim b/autoload/codeium/server.vim
+index db7781c..33d037a 100644
+--- a/autoload/codeium/server.vim
++++ b/autoload/codeium/server.vim
+@@ -198,6 +198,7 @@ function! s:ActuallyStart() abort
+   call mkdir(manager_dir, 'p')
+ 
+   let args = [
++		\ 'steam-run',
+         \ s:bin,
+         \ '--api_server_url', get(config, 'api_url', 'https://server.codeium.com'),
+         \ '--manager_dir', manager_dir
