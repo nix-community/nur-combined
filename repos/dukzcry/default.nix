@@ -28,7 +28,7 @@ rec {
   prometheus-nut-exporter = callPackage ./pkgs/prometheus-nut-exporter.nix {};
   tun2socks = callPackage ./pkgs/tun2socks.nix {};
   cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};
-  cockpit-client = callPackage ./pkgs/cockpit {};
+  cockpit-client = callPackage ./pkgs/cockpit/client.nix {};
   libvirt-dbus = callPackage ./pkgs/libvirt-dbus.nix {};
   libidn = callPackage ./pkgs/libidn.nix {};
   gitupdate = callPackage ./pkgs/gitupdate.nix {};
