@@ -96,6 +96,9 @@
     "slug": "bukubrow"
   },
   {
+    "slug": "bulgarian-dictionary"
+  },
+  {
     "slug": "buster-captcha-solver"
   },
   {
@@ -166,6 +169,9 @@
   },
   {
     "slug": "decentraleyes"
+  },
+  {
+    "slug": "demodal"
   },
   {
     "slug": "df-youtube"
@@ -299,6 +305,12 @@
   },
   {
     "slug": "ghosttext"
+  },
+  {
+    "slug": "gitako-github-file-tree"
+  },
+  {
+    "slug": "github-isometric-contributions"
   },
   {
     "slug": "gitpod",
@@ -574,7 +586,17 @@
     "slug": "nord-polar-night-theme"
   },
   {
+    "slug": "nos2x-fox",
+    "license": {
+      "tag": "predefined",
+      "shortName": "publicDomain"
+    }
+  },
+  {
     "slug": "noscript"
+  },
+  {
+    "slug": "notifier-for-github"
   },
   {
     "slug": "notion-web-clipper",
@@ -626,6 +648,9 @@
   },
   {
     "slug": "org-capture"
+  },
+  {
+    "slug": "overbitewx"
   },
   {
     "slug": "pay-by-privacy-com",
@@ -706,6 +731,9 @@
     "slug": "rabattcorner"
   },
   {
+    "slug": "re-enable-right-click"
+  },
+  {
     "slug": "react-devtools"
   },
   {
@@ -746,6 +774,9 @@
   {
     "slug": "search_by_image",
     "pname": "search-by-image"
+  },
+  {
+    "slug": "side-view"
   },
   {
     "slug": "sidebery"
@@ -960,6 +991,9 @@
     "slug": "user-agent-string-switcher"
   },
   {
+    "slug": "vencord-web"
+  },
+  {
     "slug": "video-downloadhelper",
     "license": {
       "tag": "custom",
@@ -1024,6 +1058,9 @@
   },
   {
     "slug": "web-search-navigator"
+  },
+  {
+    "slug": "widegithub"
   },
   {
     "slug": "wikipedia-vector-skin"

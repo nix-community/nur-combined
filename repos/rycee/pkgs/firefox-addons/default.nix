@@ -69,6 +69,22 @@ in packages // {
     };
   };
 
+  mullvad = let version = "0.7.9";
+  in buildFirefoxXpiAddon {
+    pname = "mullvad";
+    inherit version;
+    addonId = "{d19a89b9-76c1-4a61-bcd4-49e8de916403}";
+    url =
+      "https://cdn.mullvad.net/browser-extension/${version}/mullvad-browser-extension-${version}.xpi";
+    sha256 = "sha256-F84xsy6L4PDbhqWl7ZNgfMhNXiCSNBruC46rocB0Y5A=";
+    meta = with lib; {
+      homepage = "https://mullvad.net/en/download/browser/extension";
+      description = "Mullvad Browser Extension";
+      license = licenses.gpl3Plus;
+      platforms = platforms.all;
+    };
+  };
+
   proxydocile = buildFirefoxXpiAddon {
     pname = "proxydocile";
     version = "2.3";

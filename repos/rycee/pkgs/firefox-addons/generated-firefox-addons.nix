@@ -351,6 +351,20 @@
         platforms = platforms.all;
         };
       };
+    "bulgarian-dictionary" = buildFirefoxXpiAddon {
+      pname = "bulgarian-dictionary";
+      version = "4.4.3";
+      addonId = "bg-BG@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3609719/bulgarian_dictionary-4.4.3.xpi";
+      sha256 = "f5aa20ff1954a00be98fbf20fe5a77f0115813b36c5fc14c6f0e713cb597d5b2";
+      meta = with lib;
+      {
+        homepage = "http://bgoffice.sourceforge.net/";
+        description = "Bulgarian spellchecking...";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
       version = "2.0.1";
@@ -638,6 +652,20 @@
         homepage = "https://decentraleyes.org";
         description = "Protects you against tracking through \"free\", centralized, content delivery. It prevents a lot of requests from reaching networks like Google Hosted Libraries, and serves local files to keep sites from breaking. Complements regular content blockers.";
         license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
+    "demodal" = buildFirefoxXpiAddon {
+      pname = "demodal";
+      version = "1.0.4";
+      addonId = "{a8445bf1-5494-49bf-9af5-a830e5bf3309}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3984366/demodal-1.0.4.xpi";
+      sha256 = "ed19e0a79cd44feb2a0c9287f66039745819e5a62a75425881a491826f24b437";
+      meta = with lib;
+      {
+        homepage = "https://www.demodal.com";
+        description = "Demodal automatically removes content blocking modals including paywalls, discount offers, promts to sign up or enter your email address and more.";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -1120,6 +1148,33 @@
       {
         homepage = "https://github.com/fregante/GhostText";
         description = "Use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "gitako-github-file-tree" = buildFirefoxXpiAddon {
+      pname = "gitako-github-file-tree";
+      version = "3.11.4";
+      addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4112863/gitako_github_file_tree-3.11.4.xpi";
+      sha256 = "5c094a8b916d50128bd33a9fd300eb1c27e80831d877a34a9133b6c89c14c017";
+      meta = with lib;
+      {
+        homepage = "https://github.com/EnixCoda/Gitako";
+        description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
+        license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "github-isometric-contributions" = buildFirefoxXpiAddon {
+      pname = "github-isometric-contributions";
+      version = "1.1.26";
+      addonId = "isometric-contributions@jasonlong.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4098896/github_isometric_contributions-1.1.26.xpi";
+      sha256 = "1c4eb3e4ecbd1381189319e49cc0c16d68dffefd1064a15678a8f50762147a50";
+      meta = with lib;
+      {
+        description = "Renders an isometric pixel view of GitHub contribution graphs.";
         license = licenses.mit;
         platforms = platforms.all;
         };
@@ -2021,6 +2076,19 @@
         platforms = platforms.all;
         };
       };
+    "nos2x-fox" = buildFirefoxXpiAddon {
+      pname = "nos2x-fox";
+      version = "1.11.0";
+      addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4079573/nos2x_fox-1.11.0.xpi";
+      sha256 = "2692cdcebb628a90b34c69563ce2ddc8e386757e1f1bac17ebfb7c422624177d";
+      meta = with lib;
+      {
+        homepage = "https://github.com/diegogurpegui/nos2x-firefox";
+        description = "Nostr Signer Extension (for Firefox)";
+        platforms = platforms.all;
+        };
+      };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
       version = "11.4.22";
@@ -2032,6 +2100,20 @@
         homepage = "https://noscript.net";
         description = "The best security you can get in a web browser! Allow potentially malicious web content to run only from sites you trust. Protect yourself against XSS other web security exploits.";
         license = licenses.gpl2;
+        platforms = platforms.all;
+        };
+      };
+    "notifier-for-github" = buildFirefoxXpiAddon {
+      pname = "notifier-for-github";
+      version = "23.3.10";
+      addonId = "{8d1582b2-ff2a-42e0-ba40-42f4ebfe921b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4081870/notifier_for_github-23.3.10.xpi";
+      sha256 = "2e2c71cf55ffb96b66d93ed1d91f39e38d11541f34c2d726ccf7e9e5aaf30b05";
+      meta = with lib;
+      {
+        homepage = "https://github.com/sindresorhus/notifier-for-github";
+        description = "Get notified about new GitHub notifications";
+        license = licenses.mit;
         platforms = platforms.all;
         };
       };
@@ -2204,6 +2286,19 @@
         homepage = "https://github.com/sprig/org-capture-extension";
         description = "A helper for capturing things via org-protocol in emacs: First, set up: <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/04ad17418f8d35ee0f3edf4599aed951b2a5ef88d4bc7e0e3237f6d86135e4fb/http%3A//orgmode.org/worg/org-contrib/org-protocol.html\">http://orgmode.org/worg/org-contrib/org-protocol.html</a> or <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fb401af8127ccf82bc948b0a7af0543eec48d58100c0c46404f81aabeda442e6/https%3A//github.com/sprig/org-capture-extension\">https://github.com/sprig/org-capture-extension</a>\n\nSee <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/6aad51cc4e2f9476f9fff344e6554eade08347181aed05f8b61cda05073daecb/https%3A//youtu.be/zKDHto-4wsU\">https://youtu.be/zKDHto-4wsU</a> for example usage";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "overbitewx" = buildFirefoxXpiAddon {
+      pname = "overbitewx";
+      version = "0.4.1";
+      addonId = "overbitewx@floodgap.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/846090/overbitewx-0.4.1.xpi";
+      sha256 = "140a2bf0013c7b2493c3bf78e7c1c556b08412bfc007a83761411312bc4e83ef";
+      meta = with lib;
+      {
+        description = "Re-enables the Gopher protocol in Firefox 56 and above, allowing you to enter Gopher URLs and click on Gopher links. Because WebExtensions does not yet have a TCP sockets API, this version redirects your requests to the Floodgap Public Gopher Proxy.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -2480,6 +2575,20 @@
         platforms = platforms.all;
         };
       };
+    "re-enable-right-click" = buildFirefoxXpiAddon {
+      pname = "re-enable-right-click";
+      version = "0.5.4";
+      addonId = "{278b0ae0-da9d-4cc6-be81-5aa7f3202672}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3981363/re_enable_right_click-0.5.4.xpi";
+      sha256 = "9dd95815d72ebb3bd4ac3ed23b78073cfbd93acca5a7af52de136519aa422b6d";
+      meta = with lib;
+      {
+        homepage = "http://add0n.com/allow-right-click.html";
+        description = "Re-enable the possibility to use the context menu on sites that overrides it";
+        license = licenses.mpl20;
+        platforms = platforms.all;
+        };
+      };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
       version = "4.27.8";
@@ -2657,6 +2766,20 @@
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
         description = "Add a custom search engine and export/import all the search urls and icon urls for all search engines added to Firefox.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "side-view" = buildFirefoxXpiAddon {
+      pname = "side-view";
+      version = "0.4.6423";
+      addonId = "side-view@mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/1088916/side_view-0.4.6423.xpi";
+      sha256 = "b4a8debe4e4d4abf3e57cbee64460280321b113a200548ea106ce07789dfb988";
+      meta = with lib;
+      {
+        homepage = "https://github.com/mozilla/side-view/";
+        description = "Open a mobile view of a page in the sidebar";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -3390,6 +3513,20 @@
         platforms = platforms.all;
         };
       };
+    "vencord-web" = buildFirefoxXpiAddon {
+      pname = "vencord-web";
+      version = "1.2.6";
+      addonId = "vencord-firefox@vendicated.dev";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118109/vencord_web-1.2.6.xpi";
+      sha256 = "4a81a75f44c118ae56ed635155f2ee915409bd5af79255659de91d0dd4a73d43";
+      meta = with lib;
+      {
+        homepage = "https://vencord.dev";
+        description = "The Vencord Client Mod for Discord Web";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
       version = "7.6.6";
@@ -3607,6 +3744,20 @@
         homepage = "https://github.com/infokiller/web-search-navigator";
         description = "Boost your searching productivity with Web Search Navigator! Adds keyboard shortcuts to navigate within Google Search results.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "widegithub" = buildFirefoxXpiAddon {
+      pname = "widegithub";
+      version = "2.1.0";
+      addonId = "{72742915-c83b-4485-9023-b55dc5a1e730}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3855481/widegithub-2.1.0.xpi";
+      sha256 = "4af781d3e7c9771aaae25a1d44e6f0c14e48286931bf23581dd94954bd98e2dc";
+      meta = with lib;
+      {
+        homepage = "https://github.com/fabiocchetti/wide-github/";
+        description = "Makes GitHub wide on Mozilla Firefox.";
+        license = licenses.gpl3;
         platforms = platforms.all;
         };
       };
