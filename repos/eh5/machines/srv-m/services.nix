@@ -22,7 +22,7 @@ in
       ];
       postRun = ''
         export PATH="$PATH:${pkgs.openssh}/bin:${pkgs.sshpass}/bin"
-        bash ${secrets.postScript.path} || true
+        bash ${secrets.postScript.path}
       '';
       reloadServices = [
         "v2ray-next.service"
