@@ -6,8 +6,12 @@
 , sqlite
 , util-linux
 , nix-update-script
-}:
-python3Packages.buildPythonApplication rec {
+# inquirerpy
+, callPackage
+}: let
+  pfzy = callPackage ./pfzy.nix { };
+  inquirerpy = callPackage ./inquirerpy.nix { inherit pfzy; };
+in python3Packages.buildPythonApplication rec {
   pname = "waydroid-script";
   version = "unstable-2023-05-28";
 
