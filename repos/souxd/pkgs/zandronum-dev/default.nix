@@ -29,7 +29,7 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = "zandronum${suffix}";
+  pname = "zandronum-dev${suffix}";
   version = "3.2-221030-0316";
 
   src = fetchhg {
@@ -79,9 +79,9 @@ stdenv.mkDerivation rec {
        *.pk3 \
        ${lib.optionalString (!serverOnly) "liboutput_sdl.so"} \
        $out/lib/zandronum
-    makeWrapper $out/lib/zandronum/zandronum${suffix} $out/bin/zandronum${suffix}
-    wrapProgram $out/bin/zandronum${suffix} \
-      --set LC_ALL=C
+    makeWrapper $out/lib/zandronum/zandronum${suffix} $out/bin/zandronum-dev${suffix}
+    wrapProgram $out/bin/zandronum-dev${suffix} \
+      --set LC_ALL=""
   '';
 
   postFixup = lib.optionalString (!serverOnly) ''

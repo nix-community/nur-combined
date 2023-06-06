@@ -26,7 +26,7 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = "zandronum";
+  pname = "zandronum-dev-bin";
   version = "3.2-221030-0316";
 
   src = fetchurl {
@@ -50,11 +50,11 @@ stdenv.mkDerivation rec {
     cp * \
        $out/lib/zandronum
     rm $out/lib/zandronum/env-vars
-    makeWrapper $out/lib/zandronum/zandronum-server $out/bin/zandronum-server
-    makeWrapper $out/lib/zandronum/zandronum $out/bin/zandronum
-    wrapProgram $out/bin/zandronum-server \
-      --set LC_ALL=C
-    wrapProgram $out/bin/zandronum \
+    makeWrapper $out/lib/zandronum/zandronum-server $out/bin/zandronum-dev-server
+    makeWrapper $out/lib/zandronum/zandronum $out/bin/zandronum-dev
+    wrapProgram $out/bin/zandronum-dev-server \
+      --set LC_ALL=""
+    wrapProgram $out/bin/zandronum-dev \
       --set LC_ALL=C
   '';
 

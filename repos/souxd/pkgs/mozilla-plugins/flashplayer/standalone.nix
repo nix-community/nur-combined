@@ -92,8 +92,8 @@ stdenv.mkDerivation rec {
 
   desktopItems = [(makeDesktopItem rec {
     name = pname;
-    desktopName = "Flash player standalone";
-    comment = "Run Adobe flash locally";
+    desktopName = "Flash Player";
+    comment = "Run Adobe Flash locally";
     keywords = [
       "Flash"
       "Adobe"
@@ -102,22 +102,30 @@ stdenv.mkDerivation rec {
     exec = "flashplayer %u";
     terminal = false;
     type = "Application";
-    icon = "flashplayer";
     categories = [
+      "Audio"
+      "AudioVideo"
       "Graphics"
+      "GTK"
+      "Player"
+      "Video"
+      "Viewer"
     ];
     mimeTypes = [
       "application/x-shockwave-flash"
+      "image/gif"
+      "image/jpg"
+      "image/png"
     ];
-    startupNotify = true;
-    startupWMClass = "Adobe Flash";
+    startupNotify = false;
+    startupWMClass = "Flash Player";
     extraConfig = {
       X-MultipleArgs = "false";
     };
   })];
 
   meta = with lib; {
-    description = "Adobe Flash Player standalone executable from archive.org";
+    description = "Adobe Flash Player Standalone (A.K.A. Adobe Flash Player Projector)";
     homepage = https://archive.org/details/flashplayerarchive;
     license = licenses.unfree;
     maintainers = [];

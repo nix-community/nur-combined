@@ -45,7 +45,7 @@ assert with lib.strings; (
 );
 
 stdenv.mkDerivation rec {
-  pname = "palemoon";
+  pname = "avx-palemoon";
   version = "32.1.1";
 
   src = fetchFromGitea {

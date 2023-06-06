@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     cmake
     gcc
     ninja
-    (python3.withPackages (ps: [ps.sphinx]))
+    (python3.withPackages (ps: [ ps.sphinx ]))
     pkg-config
   ];
 

@@ -15,7 +15,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "palemoon-bin";
+  pname = "avx-palemoon-bin";
   version = "32.2.0";
 
   src = fetchzip {
