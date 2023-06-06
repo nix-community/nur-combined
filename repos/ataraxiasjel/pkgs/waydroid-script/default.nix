@@ -19,10 +19,11 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages; [
-    tqdm
-    requests
+    inquirerpy
     lzip
+    requests
     sqlite
+    tqdm
     util-linux
   ];
 

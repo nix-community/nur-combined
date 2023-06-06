@@ -4,7 +4,7 @@ setup(
     name='@pname@',
     version='@version@',
     description='@desc@',
-    packages=["main", "stuffs", "tools"],
+    packages=["main", "stuff", "tools"],
     python_requires='>=3.8',
     install_requires = ['tqdm', 'requests'],
     package_dir = {
