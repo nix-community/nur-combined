@@ -1,7 +1,7 @@
 { inputs, materusFlake }:
 
 let
-  profles = import ../profile;
+  profiles = import ../profile;
 in
 {
   materusPC = inputs.nixpkgs.lib.nixosSystem rec {
@@ -10,7 +10,23 @@ in
     modules = [
       ./materusPC
       inputs.private.systemModule
-      profles.osProfile
+      profiles.osProfile
+
+      inputs.home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users.materus = { config ,... }: {
+          imports = [
+            ../home/materus
+            materusPC/extraHome.nix
+            profiles.homeProfile
+            inputs.private.homeModule
+          ];
+          materus.profile.nixpkgs.enable = false;
+        };
+        home-manager.extraSpecialArgs = { inherit inputs; inherit materusFlake; };
+      }
     ];
   };
   valkyrie = inputs.nixpkgs.lib.nixosSystem rec {
@@ -19,7 +35,7 @@ in
     modules = [
       ./valkyrie
       inputs.private.systemModule
-      profles.osProfile
+      profiles.osProfile
     ];
   };
 

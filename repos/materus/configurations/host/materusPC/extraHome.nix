@@ -7,7 +7,7 @@
 
   materus.profile = {
     fonts.enable = lib.mkDefault true;
-    nixpkgs.enable = lib.mkDefault true;
+    nixpkgs.enable = lib.mkDefault false;
     enableDesktop = lib.mkDefault true;
     enableTerminal = lib.mkDefault true;
     enableTerminalExtra = lib.mkDefault true;

@@ -343,8 +343,6 @@ in
       gnomeExtensions.dash-to-panel
       gnomeExtensions.dash-to-dock
     */
-
-    config.materus.profile.packages.home-manager
   ];
 
 
