@@ -72,6 +72,9 @@
             "type": "sourcehut",
             "url": "https://git.sr.ht/~artemis/artenekoverlay"
         },
+        "arti5an": {
+            "url": "https://github.com/arti5an/nur-packages"
+        },
         "artturin": {
             "url": "https://github.com/Artturin/artturin-nur"
         },
