@@ -9,13 +9,13 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "waydroid-script";
-  version = "unstable-2023-05-13";
+  version = "unstable-2023-05-28";
 
   src = fetchFromGitHub {
     repo = "waydroid_script";
     owner = "casualsnek";
-    rev = "0abfc4ef4b964cdf3831ae79843f1d4eb44a5dc4";
-    hash = "sha256-ZUSJdqO3bZj5BPvECkm8n/wiOjccZaB97ZGK+1way1E=";
+    rev = "59547e774335c12f08d20b65490bb1be840d7f87";
+    hash = "sha256-8Y/ydjJT07qxASkybDk4du1GnUDoJhoAZ9KfE+K+9zA=";
   };
 
   propagatedBuildInputs = with python3Packages; [
