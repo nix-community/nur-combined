@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p findutils
 # find where a package stores its dotfiles/dotdir
 # e.g. `sane-find-dotfiles foo` might print `/home/colin/.foo`, `/home/colin/.local/share/foo`, etc.
 

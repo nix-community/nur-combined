@@ -1,4 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p coreutils-full
+#^ requires `sudo` and `mount` to be installed system-wide (suid)
+#
 set -ex
 
 # if lan not mounted, then try to mount it

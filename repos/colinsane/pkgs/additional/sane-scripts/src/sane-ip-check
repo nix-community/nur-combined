@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p curl -p gnugrep
 ip=$(curl --silent https://ipinfo.io/ip)
 echo "$ip" | grep -P " *^\d+\.\d+\.\d+\.\d+ *$"
 exit $?

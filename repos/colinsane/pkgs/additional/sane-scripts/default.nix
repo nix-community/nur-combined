@@ -26,22 +26,20 @@ let
           # see: <https://github.com/abathur/resholve/issues/26>
           "bin"
           coreutils-full
-          curl
           file
           findutils
-          git
           gnugrep
           gnused
           gocryptfs
           ifuse
           inetutils
-          inotify-tools
           iwd
           jq
-          ncurses
           oath-toolkit
           openssh
           openssl
+          nix-shell-scripts.ip-check
+          nix-shell-scripts.mount-servo
           rmlint
           rsync
           ssh-to-age
@@ -94,7 +92,7 @@ let
       let
         rmPy = builtins.concatStringsSep
           "\n"
-          (lib.mapAttrsToList (name: pkg: "rm ${pkg.pname}") py-scripts)
+          (lib.mapAttrsToList (name: pkg: "rm ${pkg.pname}") nix-shell-scripts)
         ;
       in ''
         # remove python library files, and python binaries  (those are packaged further below)
@@ -108,7 +106,7 @@ let
     '';
   };
 
-  py-scripts = {
+  nix-shell-scripts = {
     # anything added to this attrset gets symlink-joined into `sane-scripts`
     backup-ls = static-nix-shell.mkBash {
       pname = "sane-backup-ls";
@@ -140,6 +138,31 @@ let
       src = ./src;
       pkgs = [ "transmission" ];
     };
+    deadlines = static-nix-shell.mkBash {
+      pname = "sane-deadlines";
+      src = ./src;
+      pkgs = [ "coreutils-full" ];
+    };
+    dev-cargo-loop = static-nix-shell.mkBash {
+      pname = "sane-dev-cargo-loop";
+      src = ./src;
+      pkgs = [ "inotify-tools" "ncurses" ];
+    };
+    find-dotfiles = static-nix-shell.mkBash {
+      pname = "sane-find-dotfiles";
+      src = ./src;
+      pkgs = [ "findutils" ];
+    };
+    git-init = static-nix-shell.mkBash {
+      pname = "sane-git-init";
+      src = ./src;
+      pkgs = [ "git" ];
+    };
+    ip-check = static-nix-shell.mkBash {
+      pname = "sane-ip-check";
+      src = ./src;
+      pkgs = [ "curl" "gnugrep" ];
+    };
     ip-check-upnp = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-check-upnp";
       src = ./src;
@@ -158,19 +181,29 @@ let
         cp -R lib/* $out/bin/lib/
       '';
     };
-    reclaim-boot-space = static-nix-shell.mkPython3Bin {
-      pname = "sane-reclaim-boot-space";
-      src = ./src;
-    };
     ip-reconnect = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-reconnect";
+      src = ./src;
+    };
+    mount-servo = static-nix-shell.mkBash {
+      pname = "sane-mount-servo";
+      src = ./src;
+      pkgs = [ "coreutils-full" ];
+    };
+    mount-servo-root = static-nix-shell.mkBash {
+      pname = "sane-mount-servo-root";
+      src = ./src;
+      pkgs = [ "coreutils-full" ];
+    };
+    reclaim-boot-space = static-nix-shell.mkPython3Bin {
+      pname = "sane-reclaim-boot-space";
       src = ./src;
     };
   };
 in
 symlinkJoin {
   name = "sane-scripts";
-  paths = [ shell-scripts ] ++ lib.attrValues py-scripts;
+  paths = [ shell-scripts ] ++ lib.attrValues nix-shell-scripts;
   meta = {
     description = "collection of scripts associated with uninsane systems";
     homepage = "https://git.uninsane.org";
