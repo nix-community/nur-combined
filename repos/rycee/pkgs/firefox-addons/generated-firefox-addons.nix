@@ -1085,10 +1085,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "114.0.20230601.151220";
+      version = "115.0.20230605.210831";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119202/francais_language_pack-114.0.20230601.151220.xpi";
-      sha256 = "d69a8d8dca2900e6581f129ad19a4a9abbbefe84f1a7fcc5b1e0d5a4c17a4f19";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4120730/francais_language_pack-115.0.20230605.210831.xpi";
+      sha256 = "08b6ba632b8b552780eec1b5db354a8632a65a683781220714931999e1ad785a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2086,6 +2086,7 @@
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
         description = "Nostr Signer Extension (for Firefox)";
+        license = licenses.publicDomain;
         platforms = platforms.all;
         };
       };
@@ -3302,10 +3303,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.1.0";
+      version = "3.1.1";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4117614/tournesol_extension-3.1.0.xpi";
-      sha256 = "85879c67c9fef6e12efa61b6dc523b645186ec03c60e690052e1f8699300094a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4120280/tournesol_extension-3.1.1.xpi";
+      sha256 = "6cb55f59a43dbb3c74ea26446ea80052b1bf706955e47ec31521be77e78aedc6";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -3316,10 +3317,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.8.0.4";
+      version = "9.7.2.1";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119319/traduzir_paginas_web-9.8.0.4.xpi";
-      sha256 = "6914a94bd3092205284d320b2eab08cb4a34165fa5b601765f104c8eb6784822";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4110232/traduzir_paginas_web-9.7.2.1.xpi";
+      sha256 = "34ad8f0e88908a8e99053f16756802ca6a7e575b76010ed0abf56120d3eecaa9";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
