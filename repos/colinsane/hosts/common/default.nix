@@ -8,6 +8,7 @@
     ./ids.nix
     ./machine-id.nix
     ./net.nix
+    ./nix-path
     ./persist.nix
     ./programs
     ./secrets.nix
@@ -36,11 +37,6 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
-  # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages
-  nix.nixPath = [
-    "nixpkgs=${pkgs.path}"
-    "nixpkgs-overlays=${../..}/overlays"
-  ];
   # hardlinks identical files in the nix store to save 25-35% disk space.
   # unclear _when_ this occurs. it's not a service.
   # does the daemon continually scan the nix store?

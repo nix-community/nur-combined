@@ -264,6 +264,7 @@ in
     ./git.nix
     ./gnome-feeds.nix
     ./gpodder.nix
+    ./jellyfin-media-player.nix
     ./kitty
     ./libreoffice.nix
     ./mpv.nix
@@ -357,11 +358,6 @@ in
           };
           suggestedPrograms = [ "ghostscript" ];
         };
-
-        # jellyfin stores things in a bunch of directories: this one persists auth info.
-        # it *might* be possible to populate this externally (it's Qt stuff), but likely to
-        # be fragile and take an hour+ to figure out.
-        jellyfin-media-player.persist.plaintext = [ ".local/share/Jellyfin Media Player" ];
 
         # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
         # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?

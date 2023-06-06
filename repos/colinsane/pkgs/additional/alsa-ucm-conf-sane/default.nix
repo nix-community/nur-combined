@@ -8,7 +8,7 @@ alsa-ucm-conf.overrideAttrs (upstream: {
   # alternative to patching is to plumb `ALSA_CONFIG_UCM2 = "${./ucm2}"` environment variable into the relevant places
   # e.g. `systemd.services.pulseaudio.environment`.
   # that leaves more opportunity for gaps (i.e. missing a service),
-  # on the other hand thie method causes about 500 packages to be rebuilt
+  # on the other hand this method causes about 500 packages to be rebuilt (including qt5 and webkitgtk).
   #
   # note that with these files, the following audio device support:
   # - headphones work.

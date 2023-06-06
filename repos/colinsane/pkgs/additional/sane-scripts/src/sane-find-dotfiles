@@ -4,6 +4,7 @@
 
 find ~/ -maxdepth 1 -iname "*$1*" -print
 find ~/.local/share/*/ -maxdepth 1 -iname "*$1*" -print
+find ~/.local/state/*/ -maxdepth 1 -iname "*$1*" -print
 find ~/.config/*/ -maxdepth 1 -iname "*$1*" -print
 find ~/.cache/*/ -maxdepth 1 -iname "*$1*" -print
 

@@ -19,12 +19,13 @@ let
     sane-lib = import ../modules/lib final';
 
     ### ADDITIONAL PACKAGES
-    alsa-ucm-conf-sane = callPackage ./patched/alsa-ucm-conf { inherit (unpatched) alsa-ucm-conf; };
+    alsa-ucm-conf-sane = callPackage ./additional/alsa-ucm-conf-sane { };
     bonsai = unpatched.bonsai or (callPackage ./additional/bonsai { });
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     browserpass-extension = callPackage ./additional/browserpass-extension { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
+    jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
     hare-ev = unpatched.hare-ev or (callPackage ./additional/hare-ev { });
@@ -68,7 +69,7 @@ let
     # XXX patching this is... really costly.
     # prefer to set ALSA_CONFIG_UCM2 = "${pkgs.alsa-ucm-conf-sane}/share/alsa/ucm2" if possible instead.
     # alsa-project = unpatched.alsa-project.overrideScope' (sself: ssuper: {
-    #   alsa-ucm-conf = sself.callPackage ./patched/alsa-ucm-conf { inherit (ssuper) alsa-ucm-conf; };
+    #   alsa-ucm-conf = sself.callPackage ./additional/alsa-ucm-conf-sane { inherit (ssuper) alsa-ucm-conf; };
     # });
 
     browserpass = callPackage ./patched/browserpass { inherit (unpatched) browserpass; };

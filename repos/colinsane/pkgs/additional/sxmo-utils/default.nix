@@ -2,6 +2,7 @@
 , fetchgit
 , gitUpdater
 , lib
+, rsync
 }:
 
 stdenv.mkDerivation rec {
@@ -19,9 +20,10 @@ stdenv.mkDerivation rec {
     ./0001-group-differs-from-user.patch
     ./0002-ensure-log-dir.patch
     ./0003-fix-xkb-paths.patch
+    ./0004-no-busybox.patch
 
     # personal preferences:
-    ./0004-full-auto-rotate.patch
+    ./0104-full-auto-rotate.patch
   ];
 
   postPatch = ''
@@ -30,8 +32,11 @@ stdenv.mkDerivation rec {
     sed -i "s@/usr/bin/@@g" scripts/core/sxmo_version.sh
     sed -i 's:ExecStart=/usr/bin/:ExecStart=/usr/bin/env :' configs/superd/services/*.service
 
-    # on devices where volume is part of the primary keyboard, we want to avoid overwriting the default map
-    cp ${./en_us_105.xkb} configs/xkb/xkb_mobile_normal_buttons
+    # apply customizations
+    # - xkb_mobile_normal_buttons:
+    #   - on devices where volume is part of the primary keyboard (e.g. thinkpad), we want to avoid overwriting the default map
+    #   - this provided map is the en_US 105 key map
+    ${rsync}/bin/rsync -rlv ${./customization}/ ./
   '';
 
   installFlags = [

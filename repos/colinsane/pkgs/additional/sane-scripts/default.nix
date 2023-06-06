@@ -140,10 +140,6 @@ let
       src = ./src;
       pkgs = [ "transmission" ];
     };
-    date-math = static-nix-shell.mkPython3Bin {
-      pname = "sane-date-math";
-      src = ./src;
-    };
     ip-check-upnp = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-check-upnp";
       src = ./src;

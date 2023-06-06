@@ -80,9 +80,27 @@
   # inject specialized alsa configs via the environment.
   # specifically, this gets the pinephone headphones & internal earpiece working.
   # see pkgs/patched/alsa-ucm-conf for more info.
-  # older code had me also setting `systemd.services.pulseaudio.environment.ALSA_CONFIG_UCM2`,
-  # but it seems safe to set this only globally, and not per-service.
-  environment.variables.ALSA_CONFIG_UCM2 = "${pkgs.alsa-ucm-conf-sane}/share/alsa/ucm2";
+  environment.variables.ALSA_CONFIG_UCM2 = "/run/current-system/sw/share/alsa/ucm2";
+  environment.pathsToLink = [ "/share/alsa/ucm2" ];
+  environment.systemPackages = [ pkgs.alsa-ucm-conf-sane ];
+  systemd =
+    let ucm-env = config.environment.variables.ALSA_CONFIG_UCM2;
+    in {
+    # cribbed from <repo:nixos/mobile-nixos:modules/quirks/audio.nix>
+
+    # pulseaudio
+    user.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = ucm-env;
+    services.pulseaudio.environment.ALSA_CONFIG_UCM2      = ucm-env;
+
+    # pipewire
+    user.services.pipewire.environment.ALSA_CONFIG_UCM2       = ucm-env;
+    user.services.pipewire-pulse.environment.ALSA_CONFIG_UCM2 = ucm-env;
+    user.services.wireplumber.environment.ALSA_CONFIG_UCM2    = ucm-env;
+    services.pipewire.environment.ALSA_CONFIG_UCM2            = ucm-env;
+    services.pipewire-pulse.environment.ALSA_CONFIG_UCM2      = ucm-env;
+    services.wireplumber.environment.ALSA_CONFIG_UCM2         = ucm-env;
+  };
+
 
   hardware.opengl.driSupport = true;
 }
