@@ -6,30 +6,37 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "edge-gpt";
-  version = "0.6.10";
+  version = "0.10.0";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "EdgeGPT";
     rev = version;
-    hash = "sha256-sZ3dXy5wXojcdaR/zWMWC59JDVJT6ODo+TIL5kHyk5k=";
+    hash = "sha256-ss6+CM2HjLJA76pXlSu8FRH4HfH0NA6zBWCMVhUpKLU=";
   };
+
+  postPatch = ''
+    # we don't need the socks feature
+    # "httpx[socks]>=0.24.0",
+    sed -i -e 's/httpx.*/httpx",/' setup.py
+  '';
 
   propagatedBuildInputs = with python3.pkgs; [
     requests
+    aiofiles
     certifi
     httpx
     rich
     websockets
-    regex
     prompt-toolkit
     bing-image-creator
   ];
 
+
   pythonImportsCheck = [
     "EdgeGPT"
-    "ImageGen"
+    "EdgeGPT.ImageGen"
   ];
 
   meta = with lib; {
