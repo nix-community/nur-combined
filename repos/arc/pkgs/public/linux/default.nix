@@ -145,7 +145,7 @@ let
       pname = "nvidia-patch";
       version = "2023-03-24";
 
-      src = fetchFromGitHub {
+      src = lib.warn "superseded by https://github.com/arcnmx/nvidia-patch.nix" fetchFromGitHub {
         owner = "keylase";
         repo = "nvidia-patch";
         rev = "81772668d61ce52cd3d5fc2b6dd6f86f43d39197";
@@ -204,6 +204,7 @@ let
       passthru = rec {
         inherit nvidiaVersionSupported;
         ci.cache.wrap = true;
+        ci.skip = "deprecated";
         inherit (nvidia_x11) useProfiles persistenced settings bin lib32;
       };
     };
