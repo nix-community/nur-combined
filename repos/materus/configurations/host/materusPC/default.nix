@@ -5,6 +5,7 @@
 
       ./hardware
 
+      ./scripts.nix
       ./tmp.nix
       ./network.nix
     ];

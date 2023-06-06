@@ -17,7 +17,7 @@
 
   fileSystems."/etc/nixos" =
     {
-      device = "/materus/Nix/Nixerus";
+      device = "/materus/config/Nixerus";
       fsType = "none";
       options = [ "bind" ];
     };

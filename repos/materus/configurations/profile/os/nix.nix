@@ -5,13 +5,12 @@ in
 {
   options.materus.profile.nix.enable = materusPkgs.lib.mkBoolOpt false "Enable materus nix settings";
   config.nix = lib.mkIf cfg.enable {
-    package = pkgs.nixVersions.unstable;
+    package = lib.mkDefault pkgs.nixVersions.unstable;
 
     settings = {
       experimental-features = [ "nix-command" "flakes" "repl-flake" "no-url-literals" ];
       auto-optimise-store = true;
-
-
+      trusted-users = [ "root" "@wheel" ];
 
       substituters = [
         "https://nix-community.cachix.org"
