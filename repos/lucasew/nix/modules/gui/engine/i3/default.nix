@@ -36,9 +36,9 @@ in {
   #   vSync = true;
   # };
   environment.systemPackages = with pkgs; [
-    xfce.xfce4-screenshooter
+    gnome.eog # eye of gnome
     xfce.ristretto
-    xfce.thunar
+    doublecmd
   ];
   environment.etc.wallpaper.source = wallpaper;
 }

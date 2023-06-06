@@ -6,6 +6,7 @@ in
   imports = [
     ./nginx.nix
     ./nginx-root-domain.nix
+    ./nix-index-database.nix
     ./netusage.nix
     ./cockpit-extra.nix
     ../bootstrap/default.nix

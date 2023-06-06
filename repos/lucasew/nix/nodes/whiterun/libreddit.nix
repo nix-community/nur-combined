@@ -1,7 +1,7 @@
 { lib, config, ... }:
 lib.mkIf config.services.libreddit.enable {
   services.libreddit = {
-    port = 65532;
+    port = 65530;
   };
 
   services.nginx.virtualHosts."libreddit.${config.networking.hostName}.${config.networking.domain}" = {

@@ -3,11 +3,13 @@
 
   inputs = {
     bumpkin.url = "github:lucasew/bumpkin";
+    nix-index-database.url = "github:Mic92/nix-index-database";
   };
 
   outputs = {
       self
     , bumpkin
+    , nix-index-database
   }:
   let
     defaultNixpkgs = unpackedInputs.nixpkgs.unstable.overrideAttrs (old: {

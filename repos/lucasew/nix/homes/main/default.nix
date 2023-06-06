@@ -76,7 +76,6 @@ in {
 
   programs = {
     # adskipped-spotify.enable = true;
-    command-not-found.enable = true;
     jq.enable = true;
     obs-studio = {
       enable = true;

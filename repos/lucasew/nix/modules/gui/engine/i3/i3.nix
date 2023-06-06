@@ -231,6 +231,8 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
+bindsym --release Print exec ${pkgs.spectacle}/bin/spectacle
+
 exec --no-startup-id ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1
 
 # exec_always feh --bg-fill --no-xinerama --no-fehbg '/etc/wallpaper'
