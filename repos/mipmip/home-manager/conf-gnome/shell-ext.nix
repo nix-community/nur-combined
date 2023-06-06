@@ -10,7 +10,7 @@ let
     mipmip_pkg.gnomeExtensions.custom-menu-panel
     pkgs.gnomeExtensions.emoji-selector
     pkgs.gnomeExtensions.espresso
-    pkgs.gnomeExtensions.lightdark-theme-switcher
+    #pkgs.gnomeExtensions.lightdark-theme-switcher
     pkgs.gnomeExtensions.spotify-tray
     pkgs.gnomeExtensions.wayland-or-x11
   ];
@@ -24,7 +24,7 @@ let
     (import ./shell-ext-dash-to-panel.nix { pkgs = pkgs; })
     (import ./shell-ext-gs-git.nix { mipmip_pkg = mipmip_pkg; })
     (import ./shell-ext-useless-gaps.nix { unstable = unstable; })
-    (import ./shell-ext-hotkeys-popup.nix { unstable = unstable; })
+    #(import ./shell-ext-hotkeys-popup.nix { unstable = unstable; })
     (import ./shell-ext-highlight-focus.nix { mipmip_pkg = mipmip_pkg; })
     (import ./shell-ext-search-light.nix { lib = lib; mipmip_pkg = mipmip_pkg; })
 

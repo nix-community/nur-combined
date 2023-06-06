@@ -16,7 +16,7 @@ let
 in
   stdenv.mkDerivation rec {
     pname = "gnome-shell-extension-highlight-focus";
-    version = "8";
+    version = "9";
 
     meta = with lib; {
       description = "Highlights the focussed window with a temporary border ";
@@ -29,8 +29,8 @@ in
     src = fetchFromGitHub {
       owner = "mipmip";
       repo = "gnome-shell-extensions-highlight-focus";
-      rev = "e4a3024";
-      sha256 = "sha256-DlC3hFP6faAojUdJAYLY0nmriXtAkWl70H7dZVzh6kg=";
+      rev = "cdac4fe";
+      sha256 = "sha256-0VjlEaFj5VZUoXkPaFtB/tp/pt/Ykl+1vNjF4yLtQ/E=";
     };
 
     nativeBuildInputs = [

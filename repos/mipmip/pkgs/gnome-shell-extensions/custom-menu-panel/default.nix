@@ -37,8 +37,8 @@ in
     src = fetchFromGitHub {
       owner = "andreabenini";
       repo = "gnome-plugin.custom-menu-panel";
-      rev = "dc91d44";
-      sha256 = "sha256-2gwEVfRHC9dqZfNlPqHTrsiHQxx73+2UfR0rPQrdp28=";
+      rev = "e26f5ab";
+      sha256 = "sha256-Vmc8owaV45rvf5ZWGSatXVQ9NBbvQVcSMq8NRBqvuko=";
     };
 
     dontBuild = true;

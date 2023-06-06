@@ -26,12 +26,15 @@
 
   services.cron.enable = true;
 
-  users.defaultUserShell = pkgs.zsh;
 
   services.lorri.enable = true;
   services.journald.extraConfig = "SystemMaxUse=100M";
 
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
   users.users.pim = {
+    shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" "networkmanager" "disk"];
   };

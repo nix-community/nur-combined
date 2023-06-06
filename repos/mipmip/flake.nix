@@ -4,7 +4,8 @@
     utils.url = "github:numtide/flake-utils";
 
     #nixpkgs-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    #nixpkgs-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
