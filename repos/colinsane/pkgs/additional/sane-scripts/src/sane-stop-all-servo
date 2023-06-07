@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p systemd
 sudo systemctl stop matrix-appservice-irc mx-puppet-discord
 sudo systemctl stop pleroma gitea matrix-synapse jellyfin transmission jackett
 sudo systemctl stop ejabberd goaccess i2p kiwix-serve navidrome

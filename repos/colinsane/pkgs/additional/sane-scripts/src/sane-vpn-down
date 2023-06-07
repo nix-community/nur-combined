@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p coreutils-full -p gnugrep -p gnused -p sane-scripts.ip-check -p systemd
 
 # first arg should be the region, e.g. `us` or `ukr`
 

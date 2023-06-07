@@ -82,6 +82,18 @@ in rec {
     } // (removeAttrs attrs [ "pkgs" ])
   );
 
+  # `mkShell` specialization for `nix-shell -i zsh` scripts.
+  mkZsh = { pname, pkgs ? {}, srcPath ? pname, ...}@attrs:
+    let
+      pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
+      pkgsEnv = attrValues pkgsAsAttrs;
+      pkgExprs = attrNames pkgsAsAttrs;
+    in mkShell ({
+      inherit pkgsEnv pkgExprs;
+      interpreter = "${pkgs'.zsh}/bin/zsh";
+    } // (removeAttrs attrs [ "pkgs" ])
+  );
+
   # `mkShell` specialization for invocations of `nix-shell -p "python3.withPackages (...)"`
   # pyPkgs argument is parsed the same as pkgs, except that names are assumed to be relative to `"ps"` if specified in list form.
   mkPython3Bin = { pname, pkgs ? {}, pyPkgs ? {}, srcPath ? pname, ... }@attrs:
