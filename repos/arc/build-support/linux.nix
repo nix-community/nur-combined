@@ -222,8 +222,6 @@
   kernelOverlay = kself: ksuper: {
     forcefully-remove-bootfb = (self.forcefully-remove-bootfb.override { linux = kself.kernel; }).out;
     ryzen-smu = self.ryzen-smu.override { linux = kself.kernel; };
-    nvidia-patch = self.nvidia-patch.override { nvidia_x11 = kself.nvidia_x11; };
-    nvidia-patch-beta = self.nvidia-patch.override { nvidia_x11 = kself.nvidia_x11_beta; };
   };
 in {
   linuxBuild = {
