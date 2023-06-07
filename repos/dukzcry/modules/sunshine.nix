@@ -29,12 +29,14 @@ in {
         source = "${pkgs.sunshine}/bin/sunshine";
       };
       systemd.user.services.sunshine = {
-        path = cfg.games;
         description = "Sunshine headless server";
         wantedBy = [ "graphical-session.target" ];
         partOf = [ "graphical-session.target" ];
         serviceConfig = {
-          ExecStart = "${config.security.wrapperDir}/sunshine";
+          ExecStart = pkgs.writeShellScript "sunshine" ''
+            . /etc/set-environment
+            ${config.security.wrapperDir}/sunshine
+          '';
           RestartSec = 3;
           Restart = "always";
         };
