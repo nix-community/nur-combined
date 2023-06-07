@@ -140,5 +140,13 @@
     credentialsFile = "/materus/config/valkyrie/certs.secret";
   };
 
+  security.acme.certs."podkos.pl" = {
+    domain = "podkos.pl";
+    group = "nginx";
+    extraDomainNames = [ "*.podkos.pl" ];
+    dnsProvider = "ovh";
+    credentialsFile = "/materus/config/valkyrie/certs.secret";
+  };
+
 }
 
