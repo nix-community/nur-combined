@@ -8,14 +8,16 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+with pkgs; rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  go-check = pkgs.callPackage ./pkgs/go-check { buildGoModule = pkgs.buildGo118Module; };
-  lux = pkgs.callPackage ./pkgs/lux { buildGoModule = pkgs.buildGo118Module; };
-  catp = pkgs.callPackage ./pkgs/catp { };
-  github-copilot-cli = pkgs.callPackage ./pkgs/github-copilot-cli { };
+  go-check = callPackage ./pkgs/go-check { };
+  lux = callPackage ./pkgs/lux { };
+  catp = callPackage ./pkgs/catp { };
+  github-copilot-cli = callPackage ./pkgs/github-copilot-cli { };
+  libkazv = callPackage ./pkgs/libkazv { };
+  kazv = libsForQt5.callPackage ./pkgs/kazv { inherit libkazv; };
 }
