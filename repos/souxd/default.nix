@@ -21,6 +21,7 @@ rec {
     debug = true;
   };
 
+  flatpak-xdg-utils = pkgs.callPackage ./pkgs/flatpak-xdg-utils {};
 
   glaxnimate = pkgs.qt5.callPackage ./pkgs/glaxnimate {};
   
