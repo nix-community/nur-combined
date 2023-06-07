@@ -13,6 +13,8 @@
     - will make it easier to test new services?
 
 ### upstreaming
+- split out a trust-dns module
+  - see: <https://github.com/NixOS/nixpkgs/pull/205866#issuecomment-1575753054>
 - bump nodejs version in lemmy-ui
 - add updateScripts to all my packages in nixpkgs
 - fix lightdm-mobile-greeter for newer libhandy
