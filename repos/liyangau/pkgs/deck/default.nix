@@ -2,14 +2,14 @@
 
 buildGoModule rec {
   pname = "deck";
-  version = "1.19.1";
-  sha = "0d80472";
+  version = "1.21.0";
+  sha = "735fbe2";
 
   src = fetchFromGitHub {
     owner = "Kong";
     repo = pname ;
     rev = "v${version}";
-    sha256 = "sha256-ao3SGtHwDH+1zTYAzeN37cRNLjCaSFULkXOxLTKTvxc=";
+    sha256 = "sha256-q6ImnIrBdl1ZoB1fEMhGzudpVgNGO0jeHG7EDt/q9xY=";
   };
 
   nativeBuildInputs = [
@@ -23,7 +23,7 @@ buildGoModule rec {
     "-X github.com/kong/deck/cmd.COMMIT=${sha}"
   ];
 
-  vendorSha256 = "sha256-xFynhV1z3+8K613pFxoVxxQeG1N+rV8/gzkpy9MPF/0=";
+  vendorSha256 = "sha256-HB3hI288H3X1O9/24Xhe6ymA7px7CRgnmFEeLsMDVeE=";
 
   postInstall = ''
     installShellCompletion --cmd deck \
