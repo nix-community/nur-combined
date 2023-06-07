@@ -16,7 +16,7 @@ in {
       domain-needed
       bogus-priv
       no-resolv
-      local=/${config.networking.domain}/
+      local=/${config.networking.hostName}.${config.networking.domain}/
     '';
   };
   networking.hosts = {

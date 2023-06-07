@@ -1,11 +1,12 @@
 { pkgs, lib, config, ... }:
 let
-  port = 33444;
   app = pkgs.callPackage pkgs.bumpkin.unpackedInputs.cf-torrent.outPath {};
 in {
+  networking.ports.cf-torrent.enable = true;
+
   services.nginx.virtualHosts."cf-torrent.${config.networking.hostName}.${config.networking.domain}" = {
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString port}";
+      proxyPass = "http://127.0.0.1:${toString config.networking.ports.cf-torrent.port}";
       proxyWebsockets = true;
     };
   };
@@ -13,7 +14,7 @@ in {
     inherit (app.meta) description;
     wantedBy = [ "multi-user.target" ];
     environment = {
-      PORT="${toString port}";
+      PORT="${toString config.networking.ports.cf-torrent.port}";
     };
     script = ''
       ${app}/bin/sveltekit-cftorrent

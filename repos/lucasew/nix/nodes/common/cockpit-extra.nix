@@ -1,6 +1,7 @@
 { self, config, lib, pkgs, ... }:
 
 lib.mkIf config.services.cockpit.enable {
+  # networking.ports.cockpit.enable = true;
 
   services.nginx.virtualHosts."cockpit.${config.networking.hostName}.${config.networking.domain}" = {
     locations."/" = {
@@ -9,9 +10,12 @@ lib.mkIf config.services.cockpit.enable {
     };
   };
 
-  services.cockpit.settings = {
-    WebService = {
-      Origins = "http://cockpit.${config.networking.hostName}.${config.networking.domain}";
+  services.cockpit = {
+    # inherit (config.networking.ports.cockpit) port;
+    settings = {
+      WebService = {
+        Origins = "http://cockpit.${config.networking.hostName}.${config.networking.domain}";
+      };
     };
   };
 }

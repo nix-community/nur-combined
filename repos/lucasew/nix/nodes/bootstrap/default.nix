@@ -11,6 +11,7 @@ in {
     ./netns.nix
     ./zerotier.nix
     ./tailscale.nix
+    ./port-alloc.nix
     ./user.nix
     ./ssh.nix
     ./colors.nix
