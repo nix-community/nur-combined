@@ -1,8 +1,10 @@
 {config, ...}:
 {
+  networking.ports.zerotierone.enable = true;
+
   services.zerotierone = {
     enable = true;
-    port = 6969;
+    inherit (config.networking.ports.zerotierone) port;
     joinNetworks = [
       "e5cd7a9e1c857f07"
     ];

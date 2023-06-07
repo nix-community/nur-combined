@@ -1,9 +1,11 @@
 { config, pkgs, lib, ... }: {
+
+  networking.ports.grafana-web.enable = true;
   services.grafana = {
     enable = true;
     settings.server = {
       domain = "grafana.${config.networking.hostName}.${config.networking.domain}";
-      http_port = 65528;
+      http_port = config.networking.ports.grafana-web.port;
       http_addr = "127.0.0.1";
     };
   };
@@ -25,15 +27,18 @@
 
   services.nginx.statusPage = true;
 
+  networking.ports.prometheus.enable = true;
+  networking.ports.prometheus-node_exporter.enable = true;
   services.prometheus = {
     enable = true;
-    port = 9001;
+    inherit (config.networking.ports.prometheus) port;
+
     webExternalUrl = "http://prometheus.${config.networking.hostName}.${config.networking.domain}";
     exporters = {
       node = {
         enable = true;
         enabledCollectors = [ "logind" "systemd"];
-        port = 9002;
+        inherit (config.networking.ports.prometheus-node_exporter) port;
       };
       zfs.enable = true;
       nginx = {
