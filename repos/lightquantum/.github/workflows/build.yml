@@ -44,7 +44,7 @@ jobs:
           fetch-depth: 0
           submodules: recursive
     - name: Install nix
-      uses: cachix/install-nix-action@v20
+      uses: cachix/install-nix-action@v21
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
