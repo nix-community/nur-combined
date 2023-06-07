@@ -1,6 +1,7 @@
 { config, lib, ... }:
 
 lib.mkIf config.services.kubo.enable {
+  networking.ports.ipfs-gateway.enable = true;
   networking.ports.ipfs-api.enable = true;
   networking.ports.ipfs-swarm.enable = true;
 
@@ -20,6 +21,7 @@ lib.mkIf config.services.kubo.enable {
       "/ip4/0.0.0.0/udp/${toString config.networking.ports.ipfs-swarm.port}/quic"
       "/ip6/::/udp/${toString config.networking.ports.ipfs-swarm.port}/quic"
     ];
-    Gateway = "/ip4/127.0.0.1/tcp/${toString config.networking.ports.ipfs-api.port}";
+    Gateway = "/ip4/127.0.0.1/tcp/${toString config.networking.ports.ipfs-gateway.port}";
+    API = "/ip4/127.0.0.1/tcp/${toString config.networking.ports.ipfs-api.port}";
   };
 }

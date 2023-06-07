@@ -38,4 +38,14 @@ in
       };
       }));
   };
+
+  config.environment.etc = lib.pipe config.networking.ports [
+    (attrNames)
+    (foldl' (x: y: x // {
+      "ports/${y}" = {
+        inherit (config.networking.ports.${y}) enable;
+        text = toString config.networking.ports.${y}.port;
+      };
+    }) {})
+  ];
 }
