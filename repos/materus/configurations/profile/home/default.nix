@@ -33,7 +33,7 @@ in
         delta.enable = lib.mkDefault cfg.enableTerminal;
         lfs.enable = lib.mkDefault cfg.enableTerminal;
       };
-      programs.gitui.enable = cfg.enableTerminal;
+      programs.gitui.enable = cfg.enableTerminalExtra;
 
       programs.nix-index = {
         enable = lib.mkDefault cfg.enableTerminal;
