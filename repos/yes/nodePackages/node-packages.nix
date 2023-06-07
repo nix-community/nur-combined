@@ -157,13 +157,13 @@ let
         sha512 = "YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==";
       };
     };
-    "@types/node-20.2.1" = {
+    "@types/node-20.2.5" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.2.1";
+      version = "20.2.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.2.1.tgz";
-        sha512 = "DqJociPbZP1lbZ5SQPk4oag6W7AyaGMO6gSfRwq3PWl4PXTwJpRQJhDq4W0kzrg3w6tJ1SwlvGZ5uKFHY13LIg==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.2.5.tgz";
+        sha512 = "JJulVEQXmiY9Px5axXHeYGLSjhkZEnD+MDPDGbCbIAbMslkKwmygtZFy1X6s/075Yo94sf8GuSlFfPzysQrWZQ==";
       };
     };
     "@types/qs-6.9.7" = {
@@ -859,13 +859,13 @@ let
         sha512 = "1orqXQr5po+3KI6kQb9A4jnXT1PBwggGl2d7Sq2xsnOeI9GPcE/tGcF9UiSZtZBM7MukY4cAh7MemS6tZYipfw==";
       };
     };
-    "des.js-1.0.1" = {
+    "des.js-1.1.0" = {
       name = "des.js";
       packageName = "des.js";
-      version = "1.0.1";
+      version = "1.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/des.js/-/des.js-1.0.1.tgz";
-        sha512 = "Q0I4pfFrv2VPd34/vfLrFOoRmlYj3OV50i7fskps1jZWK1kApMWWT9G6RRUeYedLcBDIhnSDaUvJMb3AhUlaEA==";
+        url = "https://registry.npmjs.org/des.js/-/des.js-1.1.0.tgz";
+        sha512 = "r17GxjhUCjSRy8aiJpr8/UadFIzMzJGexI3Nmz4ADi9LYSFx4gTBp80+NaX/YsXWWLhpZ7v/v/ubEc/bCNfKwg==";
       };
     };
     "destroy-1.2.0" = {
@@ -2101,13 +2101,13 @@ let
         sha512 = "ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==";
       };
     };
-    "rollup-3.22.0" = {
+    "rollup-3.24.0" = {
       name = "rollup";
       packageName = "rollup";
-      version = "3.22.0";
+      version = "3.24.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/rollup/-/rollup-3.22.0.tgz";
-        sha512 = "imsigcWor5Y/dC0rz2q0bBt9PabcL3TORry2hAa6O6BuMvY71bqHyfReAz5qyAqiQATD1m70qdntqBfBQjVWpQ==";
+        url = "https://registry.npmjs.org/rollup/-/rollup-3.24.0.tgz";
+        sha512 = "OgraHOIg2YpHQTjl0/ymWfFNBEyPucB7lmhXrQUh38qNOegxLapSPFs9sNr0qKR75awW41D93XafoR2QfhBdUQ==";
       };
     };
     "safe-buffer-5.1.2" = {
@@ -2236,13 +2236,13 @@ let
         sha512 = "cSFtAPtRhljv69IK0hTVZQ+OfE9nePi/rtJmw5UjHeVyVroEqJXP1sFztKUy1qU+xvz3u/sfYJLa947b7nAN2Q==";
       };
     };
-    "smob-1.1.0" = {
+    "smob-1.4.0" = {
       name = "smob";
       packageName = "smob";
-      version = "1.1.0";
+      version = "1.4.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/smob/-/smob-1.1.0.tgz";
-        sha512 = "Rtrm1A5e/Yq53vgWinNSVkQ14UaGNdYzF5xaVqKXG4YBjTxkMdsx3bzpO8pD4hwf4O6JOi5/sAyFta0pLmKZOw==";
+        url = "https://registry.npmjs.org/smob/-/smob-1.4.0.tgz";
+        sha512 = "MqR3fVulhjWuRNSMydnTlweu38UhQ0HXM4buStD/S3mc/BzX3CuM9OmhyQpmtYCvoYdl5ris6TI0ZqH355Ymqg==";
       };
     };
     "source-map-0.5.7" = {
@@ -2398,13 +2398,13 @@ let
         sha512 = "YPPlu67mdnHGTup2A8ff7BC2Pjq0e0Yp/IyTFN03zWO0RcK07uLcbi7C2KpGR2FvWbaB0+bfE27a+sBKebSo7w==";
       };
     };
-    "terser-5.17.4" = {
+    "terser-5.17.7" = {
       name = "terser";
       packageName = "terser";
-      version = "5.17.4";
+      version = "5.17.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.17.4.tgz";
-        sha512 = "jcEKZw6UPrgugz/0Tuk/PVyLAPfMBJf5clnGueo45wTweoV8yh7Q7PEkhkJ5uuUbC7zAxEcG3tqNr1bstkQ8nw==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.17.7.tgz";
+        sha512 = "/bi0Zm2C6VAexlGgLlVxA0P2lru/sdLyfCVaRMfKVo9nWxbmz7f/sD8VPybPeSUJaJcwmCJis9pBIhcVcG1QcQ==";
       };
     };
     "through-2.3.8" = {
@@ -2815,7 +2815,7 @@ in
       sources."decamelize-1.2.0"
       sources."defined-1.0.1"
       sources."deps-sort-2.0.1"
-      sources."des.js-1.0.1"
+      sources."des.js-1.1.0"
       sources."detective-5.2.1"
       (sources."diffie-hellman-5.0.3" // {
         dependencies = [
@@ -3089,7 +3089,7 @@ in
       sources."@types/express-serve-static-core-4.17.35"
       sources."@types/http-proxy-1.17.11"
       sources."@types/mime-1.3.2"
-      sources."@types/node-20.2.1"
+      sources."@types/node-20.2.5"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
       sources."@types/send-0.17.1"
@@ -3121,10 +3121,10 @@ in
   "@rollup/plugin-node-resolve" = nodeEnv.buildNodePackage {
     name = "_at_rollup_slash_plugin-node-resolve";
     packageName = "@rollup/plugin-node-resolve";
-    version = "15.0.2";
+    version = "15.1.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-15.0.2.tgz";
-      sha512 = "Y35fRGUjC3FaurG722uhUuG8YHOJRJQbI6/CkbRkdPotSpDj9NtIN85z1zrcyDcCQIW4qp5mgG72U+gJ0TAFEg==";
+      url = "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-15.1.0.tgz";
+      sha512 = "xeZHCgsiZ9pzYVgAo9580eCGqwh/XCEUM9q6iQfGNocjgkufHAqC3exA+45URvhiYV8sBF9RlBai650eNs7AsA==";
     };
     dependencies = [
       sources."@rollup/pluginutils-5.0.2"
@@ -3142,7 +3142,7 @@ in
       sources."path-parse-1.0.7"
       sources."picomatch-2.3.1"
       sources."resolve-1.22.3"
-      sources."rollup-3.22.0"
+      sources."rollup-3.24.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
     ];
     buildInputs = globalBuildInputs;
@@ -3181,7 +3181,7 @@ in
       sources."minimatch-5.1.6"
       sources."once-1.4.0"
       sources."picomatch-2.3.1"
-      sources."rollup-3.22.0"
+      sources."rollup-3.24.0"
       sources."wrappy-1.0.2"
     ];
     buildInputs = globalBuildInputs;
@@ -3208,7 +3208,7 @@ in
       sources."estree-walker-2.0.2"
       sources."fsevents-2.3.2"
       sources."picomatch-2.3.1"
-      sources."rollup-3.22.0"
+      sources."rollup-3.24.0"
     ];
     buildInputs = globalBuildInputs;
     meta = {
@@ -3244,13 +3244,13 @@ in
       sources."commander-2.20.3"
       sources."fsevents-2.3.2"
       sources."randombytes-2.1.0"
-      sources."rollup-3.22.0"
+      sources."rollup-3.24.0"
       sources."safe-buffer-5.2.1"
       sources."serialize-javascript-6.0.1"
-      sources."smob-1.1.0"
+      sources."smob-1.4.0"
       sources."source-map-0.6.1"
       sources."source-map-support-0.5.21"
-      sources."terser-5.17.4"
+      sources."terser-5.17.7"
     ];
     buildInputs = globalBuildInputs;
     meta = {
