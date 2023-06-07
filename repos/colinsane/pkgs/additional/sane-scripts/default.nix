@@ -35,7 +35,6 @@ let
           inetutils
           iwd
           jq
-          oath-toolkit
           openssh
           openssl
           nix-shell-scripts.ip-check
@@ -77,7 +76,6 @@ let
           "cannot:${gocryptfs}/bin/gocryptfs"
           "cannot:${ifuse}/bin/ifuse"
           "cannot:${iwd}/bin/iwctl"
-          "cannot:${oath-toolkit}/bin/oathtool"
           "cannot:${openssh}/bin/ssh-keygen"
           "cannot:${rmlint}/bin/rmlint"
           "cannot:${rsync}/bin/rsync"
@@ -195,15 +193,70 @@ let
       src = ./src;
       pkgs = [ "coreutils-full" ];
     };
+    private-change-passwd = static-nix-shell.mkBash {
+      pname = "sane-private-change-passwd";
+      src = ./src;
+      pkgs = [ "gocryptfs" "rsync" "sane-scripts.private-unlock" ];
+    };
+    private-do = static-nix-shell.mkBash {
+      pname = "sane-private-do";
+      src = ./src;
+      pkgs = [ "sane-scripts.private-unlock" ];
+    };
+    private-unlock = static-nix-shell.mkBash {
+      pname = "sane-private-unlock";
+      src = ./src;
+      pkgs = [ "gocryptfs" ];
+    };
+    private-lock = static-nix-shell.mkBash {
+      pname = "sane-private-lock";
+      src = ./src;
+    };
+    private-init = static-nix-shell.mkBash {
+      pname = "sane-private-init";
+      src = ./src;
+      pkgs = [ "gocryptfs" ];
+    };
+    rcp = static-nix-shell.mkBash {
+      pname = "sane-rcp";
+      src = ./src;
+      pkgs = [ "rsync" ];
+    };
+    reboot = static-nix-shell.mkBash {
+      pname = "sane-reboot";
+      src = ./src;
+      pkgs = [ "systemd" ];
+    };
+    reclaim-disk-space = static-nix-shell.mkBash {
+      pname = "sane-reclaim-disk-space";
+      src = ./src;
+      pkgs = [ "nix" "rmlint" "util-linux" ];
+    };
     reclaim-boot-space = static-nix-shell.mkPython3Bin {
       pname = "sane-reclaim-boot-space";
       src = ./src;
+    };
+    secrets-dump = static-nix-shell.mkBash {
+      pname = "sane-secrets-dump";
+      src = ./src;
+      pkgs = [ "gnugrep" "sops" "oath-toolkit" ];
+    };
+    secrets-unlock = static-nix-shell.mkBash {
+      pname = "sane-secrets-unlock";
+      src = ./src;
+      pkgs = [ "coreutils-full" "openssh" "ssh-to-age" ];
+    };
+    secrets-update-keys = static-nix-shell.mkBash {
+      pname = "sane-secrets-update-keys";
+      src = ./src;
+      pkgs = [ "coreutils-full" "findutils" "sops" ];
     };
   };
 in
 symlinkJoin {
   name = "sane-scripts";
   paths = [ shell-scripts ] ++ lib.attrValues nix-shell-scripts;
+  passthru = nix-shell-scripts;
   meta = {
     description = "collection of scripts associated with uninsane systems";
     homepage = "https://git.uninsane.org";

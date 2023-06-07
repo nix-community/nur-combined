@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p nix -p rmlint -p util-linux
 # script to reclaim some hard drive space
 # some of this is documented here:
 # - <https://nixos.wiki/wiki/Storage_optimization>

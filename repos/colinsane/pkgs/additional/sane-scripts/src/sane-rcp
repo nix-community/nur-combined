@@ -1,4 +1,5 @@
-#!/usr/bin/env sh
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p rsync
 # rsync, with sane defaults
 # + verbosity
 # + default to cwd as destination if none is provided

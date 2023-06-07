@@ -13,9 +13,10 @@ let
   #   <name> = expected string in the nix-shell invocation
   #   <value> = package to provide
   pkgsToAttrs = prefix: pkgSet: expr: ({
+    # branch based on the type of `expr`
     "lambda" = expr: pkgsToAttrs prefix pkgSet (expr pkgSet);
     "list" = expr: foldl' (acc: pname: acc // {
-      "${prefix + pname}" = pkgSet."${pname}";
+      "${prefix + pname}" = lib.getAttrFromPath (lib.splitString "." pname) pkgSet;
     }) {} expr;
     "set" = expr: expr;
   })."${typeOf expr}" expr;
