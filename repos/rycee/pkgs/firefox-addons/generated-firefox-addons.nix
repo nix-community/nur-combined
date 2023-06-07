@@ -519,10 +519,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.5.0";
+      version = "3.5.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4107044/control_panel_for_twitter-3.5.0.xpi";
-      sha256 = "23a497f5a228cea3af0222a3cf5d683f56b8cc2f3c116e405fad510d7f151514";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118326/control_panel_for_twitter-3.5.1.xpi";
+      sha256 = "e50d4464ec6c89e1fca18b989cffde499ef164167efa7e2e97560dec8dd9f8ec";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -982,10 +982,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.62";
+      version = "6.1.63";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4104463/flagfox-6.1.62.xpi";
-      sha256 = "db564593264aa417ec659c53de5bdda28eec0e52b250b329afb0cff982fed382";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118317/flagfox-6.1.63.xpi";
+      sha256 = "42e33a03bd2e774706b5a8ada2003e180ae1dd197a9019bca7899d2420028e41";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -1085,10 +1085,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230605.210831";
+      version = "115.0.20230606.180112";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4120730/francais_language_pack-115.0.20230605.210831.xpi";
-      sha256 = "08b6ba632b8b552780eec1b5db354a8632a65a683781220714931999e1ad785a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4121409/francais_language_pack-115.0.20230606.180112.xpi";
+      sha256 = "8f7ead952f5a39ffa2de7edfd3388b036bf915a99c990dc6684dd876cb7b15b3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1762,10 +1762,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.50";
+      version = "2.6.51";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4106013/localcdn_fork_of_decentraleyes-2.6.50.xpi";
-      sha256 = "7594aa4f95452b416fdeaca7619ae006cb4d415f8ebb6edebc204c32313d73eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4116879/localcdn_fork_of_decentraleyes-2.6.51.xpi";
+      sha256 = "b03478fe3252f9600d801633a0c79d6b4f644f96e561b6806bac4ceee7de8f90";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
