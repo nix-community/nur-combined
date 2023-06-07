@@ -2,14 +2,30 @@
   systemd.services.transmission.serviceConfig.BindPaths = [
     "/storage/downloads"
   ];
+  networking.ports = {
+    transmission-0000.enable = true; # highest port
+    transmission-0001.enable = true;
+    transmission-0002.enable = true;
+    transmission-0003.enable = true;
+    transmission-0004.enable = true;
+    transmission-0005.enable = true;
+    transmission-0006.enable = true;
+    transmission-0007.enable = true;
+    transmission-0008.enable = true;
+    transmission-0009.enable = true;
+    transmission-0010.enable = true;
+    transmission-9999.enable = true; # lowest port
+    transmission-rpc.enable = true; # lowest port
+  };
   services.transmission = {
     enable = true;
     openFirewall = true;
     openPeerPorts = true;
     settings = {
       peer-port-random-on-start = true;
-      peer-port-random-low = 65510;
-      peer-port-random-high = 65535;
+      peer-port-random-low = config.networking.ports.transmission-9999.port;
+      peer-port-random-high = config.networking.ports.transmission-0000.port;
+      rpc-port = config.networking.ports.transmission-rpc.port;
       message-level = 3; # journalctl all the things, hope it doesnt spam
       utp-enabled = true;
     };

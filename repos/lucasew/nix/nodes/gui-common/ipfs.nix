@@ -1,11 +1,12 @@
 { config, lib, ... }:
-let
-  ipfsAPIPort = 65525;
-  ipfsSwarmPort = 65526;
-in lib.mkIf config.services.kubo.enable {
+
+lib.mkIf config.services.kubo.enable {
+  networking.ports.ipfs-api.enable = true;
+  networking.ports.ipfs-swarm.enable = true;
+
   services.nginx.virtualHosts."ipfs.${config.networking.hostName}.${config.networking.domain}" = {
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString ipfsAPIPort}";
+      proxyPass = "http://127.0.0.1:${toString config.networking.ports.ipfs-api.port}";
       proxyWebsockets = true;
     };
   };
@@ -14,11 +15,11 @@ in lib.mkIf config.services.kubo.enable {
 
   services.kubo.settings.Addresses = {
     Swarm = [
-      "/ip4/0.0.0.0/tcp/${toString ipfsSwarmPort}"
-      "/ip6/::/tcp/${toString ipfsSwarmPort}"
-      "/ip4/0.0.0.0/udp/${toString ipfsSwarmPort}/quic"
-      "/ip6/::/udp/${toString ipfsSwarmPort}/quic"
+      "/ip4/0.0.0.0/tcp/${toString config.networking.ports.ipfs-swarm.port}"
+      "/ip6/::/tcp/${toString config.networking.ports.ipfs-swarm.port}"
+      "/ip4/0.0.0.0/udp/${toString config.networking.ports.ipfs-swarm.port}/quic"
+      "/ip6/::/udp/${toString config.networking.ports.ipfs-swarm.port}/quic"
     ];
-    Gateway = "/ip4/127.0.0.1/tcp/${toString ipfsAPIPort}";
+    Gateway = "/ip4/127.0.0.1/tcp/${toString config.networking.ports.ipfs-api.port}";
   };
 }

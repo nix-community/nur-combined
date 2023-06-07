@@ -4,9 +4,15 @@ let
 in
 {
   config = mkIf config.services.magnetico.enable {
-    services.magnetico.web.port = 65530;
-    services.magnetico.crawler.port = 65529;
-    services.magnetico.crawler.extraOptions = [ "-v" ]; # verbose
+    networking.ports.magnetico-web.enable = true;
+    networking.ports.magnetico-crawler.enable = true;
+    services.magnetico.web = {
+      inherit (config.networking.ports.magnetico-web) port;
+    };
+    services.magnetico.crawler = {
+      inherit (config.networking.ports.magnetico-crawler) port;
+      extraOptions = [ "-v" ]; # verbose
+    };
 
     systemd.services.magneticod.wantedBy = mkForce []; # disable start on boot
 
