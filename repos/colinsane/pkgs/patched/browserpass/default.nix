@@ -16,7 +16,7 @@ let
     src = ./.;
 
     inherit bash gnused sops;
-    sane_scripts = sane-scripts;
+    sane_secrets_unlock = sane-scripts.secrets-unlock;  # XXX: must be snake_case
     installPhase = ''
       mkdir -p $out/bin
       substituteAll ${./sops-gpg-adapter} $out/bin/gpg
@@ -45,4 +45,8 @@ in
       mkdir -p $out/lib/mozilla/native-messaging-hosts
       ln -s $out/lib/browserpass/hosts/firefox/*.json $out/lib/mozilla/native-messaging-hosts
     '';
+
+    passthru = (upstream.passthru or {}) // {
+      inherit sane-browserpass-gpg;
+    };
   })

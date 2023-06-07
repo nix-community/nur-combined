@@ -8,7 +8,7 @@ then
 fi
 
 # ensure the secret store is unlocked
-@sane_scripts@/bin/sane-secrets-unlock
+@sane_secrets_unlock@/bin/sane-secrets-unlock
 
 # using exec here forwards our stdin
 # browserpass parses the response in

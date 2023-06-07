@@ -6,8 +6,8 @@ let
   getIp = pkgs.writeShellScript "dyn-dns-query-wan" ''
     # preferred method and fallback
     # OPNsense router broadcasts its UPnP endpoint every 30s
-    timeout 60 ${pkgs.sane-scripts}/bin/sane-ip-check-upnp || \
-      ${pkgs.sane-scripts}/bin/sane-ip-check
+    timeout 60 ${pkgs.sane-scripts.ip-check-upnp}/bin/sane-ip-check-upnp || \
+      ${pkgs.sane-scripts.ip-check}/bin/sane-ip-check
   '';
 in
 {

@@ -85,7 +85,7 @@ in
         after = [ "network.target" ];
         script =
           let
-            portFwd = "${pkgs.sane-scripts}/bin/sane-ip-port-forward";
+            portFwd = "${pkgs.sane-scripts.ip-port-forward}/bin/sane-ip-port-forward";
             forwardsPerCfg = lib.mapAttrsToList
               (port: portCfg: lib.optionals portCfg.visibleTo.wan
                 (

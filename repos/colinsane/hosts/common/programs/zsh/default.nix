@@ -138,7 +138,7 @@ in
           }
         ''
         + lib.optionalString cfg.showDeadlines ''
-          ${pkgs.sane-scripts}/bin/sane-deadlines
+          ${pkgs.sane-scripts.deadlines}/bin/sane-deadlines
         ''
         + ''
           # auto-cd into any of these dirs by typing them and pressing 'enter':
