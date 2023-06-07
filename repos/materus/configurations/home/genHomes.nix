@@ -1,6 +1,6 @@
 { inputs, materusFlake, ... }:
 let
-  profles = import ../profile;
+  profiles = import ../profile;
 
   hosts = builtins.attrNames materusFlake.nixosConfigurations;
   genHomes = username:
@@ -18,7 +18,7 @@ let
               modules = [
                 ./${username}
                 ../host/${host}/extraHome.nix
-                profles.homeProfile
+                profiles.homeProfile
                 inputs.private.homeModule
 
               ];
@@ -34,7 +34,7 @@ let
         extraSpecialArgs = { inherit inputs; inherit materusFlake; };
         modules = [
           ./${username}
-          profles.homeProfile
+          profiles.homeProfile
           inputs.private.homeModule
         ];
       };

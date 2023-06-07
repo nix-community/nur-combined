@@ -119,7 +119,13 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
 
+  services.nginx = {
+    enable = true;
 
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
+  };
 
 
 
@@ -128,7 +134,8 @@
   security.acme.defaults.email = "materus+acme@podkos.pl";
   security.acme.certs."materus.pl" = {
     domain = "materus.pl";
-    extraDomainNames = ["*.materus.pl"];
+    group = "nginx";
+    extraDomainNames = [ "*.materus.pl" ];
     dnsProvider = "ovh";
     credentialsFile = "/materus/config/valkyrie/certs.secret";
   };
