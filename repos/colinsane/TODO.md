@@ -20,6 +20,9 @@
 - fix lightdm-mobile-greeter for newer libhandy
 - port zecwallet-lite to a from-source build
 - fix or abandon Whalebird
+- FIX failed CI on bonsai PR: <https://github.com/NixOS/nixpkgs/pull/233892>
+- REVIEW/integrate jellyfin dataDir config: <https://github.com/NixOS/nixpkgs/pull/233617>
+- remove `libsForQt5.callPackage` broadly: <https://github.com/NixOS/nixpkgs/issues/180841>
 
 
 ## IMPROVEMENTS:
