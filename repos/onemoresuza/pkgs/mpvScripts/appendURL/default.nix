@@ -28,6 +28,8 @@ stdenvNoCC.mkDerivation rec {
     cp ${pname}.lua $out/share/mpv/scripts/
   '';
 
+  passthru.scriptName = "${pname}.lua";
+
   meta = with lib; {
     description = "Appends url from clipboard to the playlist";
     homepage = "https://github.com/jonniek/mpv-scripts/";
