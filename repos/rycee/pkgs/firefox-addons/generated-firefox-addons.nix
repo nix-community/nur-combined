@@ -297,10 +297,10 @@
       };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.4.0";
+      version = "2023.5.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4103016/bitwarden_password_manager-2023.4.0.xpi";
-      sha256 = "484eb6a64d36ed5ee3c7e5d62d09367cc3a6477ff80dabd13e1dc1e92ca87b28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118580/bitwarden_password_manager-2023.5.0.xpi";
+      sha256 = "e36405e8e6d0503102d627bb5fcc43a5bd8b07eb40c4a100f03dfc17d0e60f81";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -408,10 +408,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "13.0.0";
+      version = "15.0.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4117225/censor_tracker-13.0.0.xpi";
-      sha256 = "9de08bb464355cb077baf665740bbbff8966d5d4108383f90e6a9a93b8a1bd0d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4121925/censor_tracker-15.0.0.xpi";
+      sha256 = "ccee0a976051da51af2c5af3c6c21f87e436506823c4179abea3d3112f43f8ca";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -2940,10 +2940,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.19";
+      version = "1.0.20";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119748/statshunters-1.0.19.xpi";
-      sha256 = "5fac23d8f2894f18c293f9eeb16238851d2f1eb3763417dc14e236646ad396e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4121785/statshunters-1.0.20.xpi";
+      sha256 = "0a2db6bd988a03120d8798543b7c1a54a13e0cd5b53f36caf2215e2e2a2c37fb";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -3317,10 +3317,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.7.2.1";
+      version = "9.8.0.4";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4110232/traduzir_paginas_web-9.7.2.1.xpi";
-      sha256 = "34ad8f0e88908a8e99053f16756802ca6a7e575b76010ed0abf56120d3eecaa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119319/traduzir_paginas_web-9.8.0.4.xpi";
+      sha256 = "6914a94bd3092205284d320b2eab08cb4a34165fa5b601765f104c8eb6784822";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
