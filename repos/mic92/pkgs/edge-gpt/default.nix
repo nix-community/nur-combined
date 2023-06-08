@@ -6,14 +6,14 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "edge-gpt";
-  version = "0.10.2";
+  version = "0.10.7";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "EdgeGPT";
     rev = version;
-    hash = "sha256-zXKQ6BP1xtPUxeiHQMh5VlLsKk5rkMVNgIklamhZ8t8=";
+    hash = "sha256-R8+eaBLAhdAPKIAZbNgONFdv1Nq9iRsNt72aoDzNDP4=";
   };
 
   postPatch = ''
@@ -32,6 +32,8 @@ python3.pkgs.buildPythonPackage rec {
     prompt-toolkit
     bing-image-creator
   ];
+
+  checkInputs = [ python3.pkgs.pytest ];
 
 
   pythonImportsCheck = [
