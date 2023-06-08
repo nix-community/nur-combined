@@ -327,6 +327,7 @@ in
     pulseaudio
 
     binutils
+    config.materus.profile.packages.firefox
     /*
       gnome3.adwaita-icon-theme
       gnome3.gnome-tweaks

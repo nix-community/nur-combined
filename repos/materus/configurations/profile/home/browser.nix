@@ -6,7 +6,7 @@ in
   
   options= let mkBoolOpt = materusPkgs.lib.mkBoolOpt; in{
     materus.profile.browser.firefox.enable = mkBoolOpt config.materus.profile.enableDesktop "Enable Firefox with materus cfg";
-    materus.profile.browser.vivaldi.enable = mkBoolOpt false "Enable Vivaldi with materus cfg";
+    materus.profile.browser.vivaldi.enable = mkBoolOpt config.materus.profile.enableDesktop "Enable Vivaldi with materus cfg";
 
   };
   #TODO: Make some config

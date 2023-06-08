@@ -12,6 +12,8 @@ let
 
   steamPkg = pkgs.steam.override {
     extraPkgs = pkgs: [
+      config.materus.profile.packages.firefox
+      
       pkgs.nss_latest
       pkgs.libstrangle
       pkgs.libkrb5
