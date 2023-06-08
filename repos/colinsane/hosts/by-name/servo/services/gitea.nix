@@ -98,7 +98,7 @@
     };
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."git" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."git" = "native";
 
   sane.ports.ports."22" = {
     protocol = [ "tcp" ];

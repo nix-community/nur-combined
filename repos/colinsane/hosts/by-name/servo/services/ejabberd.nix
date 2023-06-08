@@ -115,7 +115,7 @@
     useACMEHost = "uninsane.org";
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet = {
+  sane.dns.zones."uninsane.org".inet = {
     # XXX: SRV records have to point to something with a A/AAAA record; no CNAMEs
     A."xmpp" =                "%ANATIVE%";
     CNAME."muc.xmpp" =        "xmpp";

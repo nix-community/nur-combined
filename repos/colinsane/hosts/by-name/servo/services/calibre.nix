@@ -30,5 +30,5 @@ lib.mkIf false
       proxyPass = "http://${ip}:${builtins.toString port}";
     };
   };
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."calibre" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."calibre" = "native";
 }

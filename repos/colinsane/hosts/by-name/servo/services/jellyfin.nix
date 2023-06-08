@@ -121,7 +121,7 @@
     };
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."jelly" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."jelly" = "native";
 
   services.jellyfin.enable = true;
 }

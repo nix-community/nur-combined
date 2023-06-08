@@ -53,6 +53,8 @@
     - see: <repo:mil/sxmo-utils:scripts/core/sxmo_autorotate.sh>
     - all orientations *except* upside down are supported
 - sxmo: launch with auto-rotation enabled
+- sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
+- sane-bt-search: include .torrent results (rewrite the URL?)
 
 ### perf
 - why does nixos-rebuild switch take 5 minutes when net is flakey?

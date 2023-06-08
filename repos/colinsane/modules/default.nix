@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./dns.nix
     ./feeds.nix
     ./fs
     ./ids.nix

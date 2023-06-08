@@ -64,5 +64,5 @@
     };
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."sink" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."sink" = "native";
 }

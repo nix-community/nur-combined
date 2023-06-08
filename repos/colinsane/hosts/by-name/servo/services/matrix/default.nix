@@ -132,7 +132,7 @@
     };
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet = {
+  sane.dns.zones."uninsane.org".inet = {
     CNAME."matrix" = "native";
     CNAME."web.matrix" = "native";
   };

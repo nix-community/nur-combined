@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   sane.services.trust-dns.enable = true;
@@ -11,7 +11,7 @@
   ];
   sane.services.trust-dns.quiet = true;
 
-  sane.services.trust-dns.zones."uninsane.org".TTL = 900;
+  sane.dns.zones."uninsane.org".TTL = 900;
 
   # SOA record structure: <https://en.wikipedia.org/wiki/SOA_record#Structure>
   # SOA MNAME RNAME (... rest)
@@ -21,7 +21,7 @@
   # Refresh = how frequently secondary NS should query master
   # Retry = how long secondary NS should wait until re-querying master after a failure (must be < Refresh)
   # Expire = how long secondary NS should continue to reply to queries after master fails (> Refresh + Retry)
-  sane.services.trust-dns.zones."uninsane.org".inet = {
+  sane.dns.zones."uninsane.org".inet = {
     SOA."@" = ''
       ns1.uninsane.org. admin-dns.uninsane.org. (
                                       2022122101 ; Serial
@@ -51,7 +51,9 @@
     ];
   };
 
-  sane.services.trust-dns.zones."uninsane.org".file = "uninsane.org.zone";
+  # we need trust-dns to load our zone by relative path instead of /nix/store path
+  # because we generate it at runtime.
+  sane.services.trust-dns.zones."uninsane.org".file = lib.mkForce "uninsane.org.zone";
   sane.services.trust-dns.zonedir = null;
 
   sane.services.trust-dns.package =
@@ -60,7 +62,7 @@
       zone-dir = "/var/lib/trust-dns";
       zone-wan = "${zone-dir}/wan/uninsane.org.zone";
       zone-lan = "${zone-dir}/lan/uninsane.org.zone";
-      zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.services.trust-dns.generatedZones."uninsane.org";
+      zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.services.trust-dns.zones."uninsane.org".text;
     in pkgs.writeShellScriptBin "named" ''
       # compute wan/lan values
       mkdir -p ${zone-dir}/{ovpn,wan,lan}

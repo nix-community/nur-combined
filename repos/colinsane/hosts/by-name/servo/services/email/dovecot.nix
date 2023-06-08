@@ -24,7 +24,7 @@
     enableACME = true;
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet = {
+  sane.dns.zones."uninsane.org".inet = {
     CNAME."imap" = "native";
   };
 

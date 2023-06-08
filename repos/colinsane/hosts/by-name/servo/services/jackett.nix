@@ -27,6 +27,6 @@
     };
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."jackett" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."jackett" = "native";
 }
 

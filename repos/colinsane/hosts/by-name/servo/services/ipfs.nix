@@ -34,7 +34,7 @@ lib.mkIf false # i don't actively use ipfs anymore
     };
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."ipfs" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."ipfs" = "native";
 
   # services.ipfs.enable = true;
   services.kubo.localDiscovery = true;

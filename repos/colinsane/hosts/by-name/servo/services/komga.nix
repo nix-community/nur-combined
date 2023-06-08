@@ -18,5 +18,5 @@ in
       proxyPass = "http://127.0.0.1:${builtins.toString port}";
     };
   };
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."komga" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."komga" = "native";
 }

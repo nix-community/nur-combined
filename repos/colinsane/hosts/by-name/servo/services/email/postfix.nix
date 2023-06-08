@@ -50,7 +50,7 @@ in
   };
 
 
-  sane.services.trust-dns.zones."uninsane.org".inet = {
+  sane.dns.zones."uninsane.org".inet = {
     MX."@" = "10 mx.uninsane.org.";
     # XXX: RFC's specify that the MX record CANNOT BE A CNAME
     A."mx" = "185.157.162.178";

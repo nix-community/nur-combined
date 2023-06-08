@@ -54,5 +54,5 @@ in {
     enableACME = true;
   };
 
-  sane.services.trust-dns.zones."uninsane.org".inet.CNAME."lemmy" = "native";
+  sane.dns.zones."uninsane.org".inet.CNAME."lemmy" = "native";
 }
