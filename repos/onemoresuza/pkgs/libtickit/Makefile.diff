@@ -1,0 +1,29 @@
+Common subdirectories: libtickit-0.4.3/examples and libtickit-0.4.3.new/examples
+Common subdirectories: libtickit-0.4.3/include and libtickit-0.4.3.new/include
+diff -up libtickit-0.4.3/Makefile libtickit-0.4.3.new/Makefile
+--- libtickit-0.4.3/Makefile	2022-08-26 08:39:58.184000000 -0300
++++ libtickit-0.4.3.new/Makefile	2023-06-07 09:27:46.352319114 -0300
+@@ -19,18 +19,8 @@ ifeq ($(PROFILE),1)
+   override LDFLAGS+=-pg
+ endif
+
+-ifeq ($(shell pkg-config --atleast-version=1.1.0 unibilium && echo 1),1)
+-  override CFLAGS +=$(shell pkg-config --cflags unibilium) -DHAVE_UNIBILIUM
+-  override LDFLAGS+=$(shell pkg-config --libs   unibilium)
+-else ifeq ($(shell pkg-config ncursesw && echo 1),1)
+-  override CFLAGS +=$(shell pkg-config --cflags ncursesw)
+-  override LDFLAGS+=$(shell pkg-config --libs   ncursesw)
+-else
+-  override LDFLAGS+=-lncurses
+-endif
+-
+-override CFLAGS +=$(shell pkg-config --cflags termkey)
+-override LDFLAGS+=$(shell pkg-config --libs   termkey)
++CFLAGS+=-DHAVE_UNIBILIUM
++LDFLAGS+=-lunibilium -ltermkey
+
+ CFILES=$(sort $(wildcard src/*.c))
+ HFILES=$(sort $(wildcard include/*.h))
+Common subdirectories: libtickit-0.4.3/man and libtickit-0.4.3.new/man
+Common subdirectories: libtickit-0.4.3/src and libtickit-0.4.3.new/src
+Common subdirectories: libtickit-0.4.3/t and libtickit-0.4.3.new/t
