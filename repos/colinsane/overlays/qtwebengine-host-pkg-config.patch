@@ -1,0 +1,14 @@
+diff --git a/cmake/Functions.cmake b/cmake/Functions.cmake
+index 03d19992f..5ce54ca9d 100644
+--- a/cmake/Functions.cmake
++++ b/cmake/Functions.cmake
+@@ -720,9 +720,6 @@ endfunction()
+ function(create_pkg_config_wrapper wrapperName wrapperCmd)
+     file(WRITE ${wrapperName}
+         "#!/bin/sh\n"
+-        "unset PKG_CONFIG_LIBDIR\n"
+-        "unset PKG_CONFIG_PATH\n"
+-        "unset PKG_CONFIG_SYSROOT_DIR\n"
+         "exec ${wrapperCmd} \"$@\""
+     )
+     file(CHMOD ${wrapperName} PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE)

@@ -1,4 +1,5 @@
 { lib
+, buildPackages
 , cmake
 , fetchFromGitHub
 , jellyfin-media-player
@@ -27,6 +28,7 @@
   patches = (builtins.tail upstream.patches) ++ [
     ./0001-fix-web-path.patch
     ./0002-qt6-build-fixes.patch
+    # ./0003-qt6-components-webengine.patch
   ];
   buildInputs = [
     SDL2
@@ -39,6 +41,7 @@
     qt6.qtwebchannel
     qt6.qtwebengine
     # qtx11extras
+    qt6.qt5compat  #< new
   ] ++ lib.optionals stdenv.isLinux [
     qt6.qtwayland
   ];
@@ -49,15 +52,15 @@
     pkg-config
     python3
 
-    # new packages which weren't needed before
-    qt6.wrapQtAppsHook  # replaces the implicit qt5 version
-    qt6.qt5compat
+    qt6.wrapQtAppsHook  #< new: libsForQt5.callPackage implicitly adds the qt5 wrapQtAppsHook
   ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
     "-DQTROOT=${qt6.qtbase}"
     "-GNinja"
+    # "-DQT_DEBUG_FIND_PACKAGE=ON"
+    # "--debug-find-pkg=Qt6WebEngineQuick"
   ];
 
   meta = upstream.meta // {

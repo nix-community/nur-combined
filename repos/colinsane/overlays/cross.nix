@@ -971,34 +971,100 @@ in {
   #     inherit (emulated.qt5) qtModule;
   #   };
   # });
-  # qt6 = prev.qt6.overrideScope' (self: super: {
-  #   # inherit (emulated.qt6) qtModule;
-  #   qtbase = super.qtbase.overrideAttrs (upstream: {
-  #     # cmakeFlags = upstream.cmakeFlags ++ lib.optionals (final.stdenv.buildPlatform != final.stdenv.hostPlatform) [
-  #     cmakeFlags = upstream.cmakeFlags ++ lib.optionals (final.stdenv.buildPlatform != final.stdenv.hostPlatform) [
-  #       # "-DCMAKE_CROSSCOMPILING=True" # fails to solve QT_HOST_PATH error
-  #       "-DQT_HOST_PATH=${final.buildPackages.qt6.full}"
-  #     ];
-  #   });
-  #   qtModule = args: (super.qtModule args).overrideAttrs (upstream: {
-  #     # the nixpkgs comment about libexec seems to be outdated:
-  #     # it's just that cross-compiled syncqt.pl doesn't get its #!/usr/bin/env shebang replaced.
-  #     preConfigure = lib.replaceStrings
-  #       ["${lib.getDev self.qtbase}/libexec/syncqt.pl"]
-  #       ["perl ${lib.getDev self.qtbase}/libexec/syncqt.pl"]
-  #       upstream.preConfigure;
-  #   });
-  #   # qtwayland = super.qtwayland.overrideAttrs (upstream: {
-  #   #   preConfigure = "fixQtBuiltinPaths . '*.pr?'";
-  #   # });
-  #   # qtwayland = super.qtwayland.override {
-  #   #   inherit (self) qtbase;
-  #   # };
-  #   # qtbase = super.qtbase.override {
-  #   #   # fixes: "You need to set QT_HOST_PATH to cross compile Qt."
-  #   #   inherit (emulated) stdenv;
-  #   # };
-  # });
+  qt6 = prev.qt6.overrideScope' (self: super: {
+    # # inherit (emulated.qt6) qtModule;
+    # qtbase = super.qtbase.overrideAttrs (upstream: {
+    #   # cmakeFlags = upstream.cmakeFlags ++ lib.optionals (final.stdenv.buildPlatform != final.stdenv.hostPlatform) [
+    #   cmakeFlags = upstream.cmakeFlags ++ lib.optionals (final.stdenv.buildPlatform != final.stdenv.hostPlatform) [
+    #     # "-DCMAKE_CROSSCOMPILING=True" # fails to solve QT_HOST_PATH error
+    #     "-DQT_HOST_PATH=${final.buildPackages.qt6.full}"
+    #   ];
+    # });
+    # qtModule = args: (super.qtModule args).overrideAttrs (upstream: {
+    #   # the nixpkgs comment about libexec seems to be outdated:
+    #   # it's just that cross-compiled syncqt.pl doesn't get its #!/usr/bin/env shebang replaced.
+    #   preConfigure = lib.replaceStrings
+    #     ["${lib.getDev self.qtbase}/libexec/syncqt.pl"]
+    #     ["perl ${lib.getDev self.qtbase}/libexec/syncqt.pl"]
+    #     upstream.preConfigure;
+    # });
+    # # qtwayland = super.qtwayland.overrideAttrs (upstream: {
+    # #   preConfigure = "fixQtBuiltinPaths . '*.pr?'";
+    # # });
+    # # qtwayland = super.qtwayland.override {
+    # #   inherit (self) qtbase;
+    # # };
+    # # qtbase = super.qtbase.override {
+    # #   # fixes: "You need to set QT_HOST_PATH to cross compile Qt."
+    # #   inherit (emulated) stdenv;
+    # # };
+
+    qtwebengine = super.qtwebengine.overrideAttrs (upstream: {
+      # depsBuildBuild = upstream.depsBuildBuild or [] ++ [ final.pkg-config ];
+      # XXX: qt seems to use its own terminology for "host" and "target":
+      # - <https://www.qt.io/blog/qt6-development-hosts-and-targets>
+      # - "host" = machine invoking the compiler
+      # - "target" = machine on which the resulting qtwebengine.so binaries will run
+      # XXX: NIX_CFLAGS_COMPILE_<machine> is how we get the `-isystem <dir>` flags.
+      #      probably we shouldn't blindly copy these from host machine to build machine,
+      #      as the headers could reasonably make different assumptions.
+      preConfigure = upstream.preConfigure + ''
+        # export PKG_CONFIG_HOST="$PKG_CONFIG"
+        export PKG_CONFIG_HOST="$PKG_CONFIG_FOR_BUILD"
+        # expose -isystem <zlib> to x86 builds
+        export NIX_CFLAGS_COMPILE_x86_64_unknown_linux_gnu="$NIX_CFLAGS_COMPILE"
+        export NIX_LDFLAGS_x86_64_unknown_linux_gnu="-L${final.buildPackages.zlib}/lib"
+      '';
+      patches = upstream.patches or [] ++ [
+        # ./qtwebengine-host-pkg-config.patch
+        # alternatively, look at dlopenBuildInputs
+        ./qtwebengine-host-cc.patch
+      ];
+      # patch the qt pkg-config script to show us more debug info
+      postPatch = upstream.postPatch or "" + ''
+        sed -i s/options.debug/True/g src/3rdparty/chromium/build/config/linux/pkg-config.py
+      '';
+      nativeBuildInputs = upstream.nativeBuildInputs ++ [
+        final.bintools-unwrapped  # for readelf
+        final.buildPackages.cups  # for cups-config
+        final.buildPackages.fontconfig
+        final.buildPackages.glib
+        final.buildPackages.harfbuzz
+        final.buildPackages.icu
+        final.buildPackages.libjpeg
+        final.buildPackages.libpng
+        final.buildPackages.libwebp
+        final.buildPackages.nss
+        # final.gcc-unwrapped.libgcc  # for libgcc_s.so
+        final.buildPackages.zlib
+      ];
+      depsBuildBuild = upstream.depsBuildBuild or [] ++ [ final.pkg-config ];
+      # buildInputs = upstream.buildInputs ++ [
+      #   final.gcc-unwrapped.libgcc  # for libgcc_s.so. this gets loaded during build, suggesting i surely messed something up
+      # ];
+      # buildInputs = upstream.buildInputs ++ [
+      #   final.gcc-unwrapped.libgcc
+      # ];
+      # nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      #   final.icu
+      # ];
+      # buildInputs = upstream.buildInputs ++ [
+      #   final.icu
+      # ];
+      # env.NIX_DEBUG="1";
+      # env.NIX_DEBUG="7";
+      # cmakeFlags = lib.remove "-DQT_FEATURE_webengine_system_icu=ON" upstream.cmakeFlags;
+      cmakeFlags = upstream.cmakeFlags ++ lib.optionals (final.stdenv.hostPlatform != final.stdenv.buildPlatform) [
+        # "--host-cc=${final.buildPackages.stdenv.cc}/bin/cc"
+        # "--host-cxx=${final.buildPackages.stdenv.cc}/bin/c++"
+        # these are my own vars, used by my own patch
+        "-DCMAKE_HOST_C_COMPILER=${final.buildPackages.stdenv.cc}/bin/gcc"
+        "-DCMAKE_HOST_CXX_COMPILER=${final.buildPackages.stdenv.cc}/bin/g++"
+        "-DCMAKE_HOST_AR=${final.buildPackages.stdenv.cc}/bin/ar"
+        "-DCMAKE_HOST_NM=${final.buildPackages.stdenv.cc}/bin/nm"
+      ];
+    });
+  });
 
   rmlint = prev.rmlint.override {
     # fixes "Checking whether the C compiler works... no"

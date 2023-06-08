@@ -1,0 +1,31 @@
+diff --git a/pkgs/development/libraries/qt-6/modules/qtwebengine.nix b/pkgs/development/libraries/qt-6/modules/qtwebengine.nix
+index fadbc5d2bfa..e4f2aec5a32 100644
+--- a/pkgs/development/libraries/qt-6/modules/qtwebengine.nix
++++ b/pkgs/development/libraries/qt-6/modules/qtwebengine.nix
+@@ -97,6 +97,9 @@
+ , xnu
+ }:
+ 
++let
++  buildPython = buildPackages.python3.withPackages (ps: with ps; [ html5lib ]);
++in
+ qtModule {
+   pname = "qtwebengine";
+   qtInputs = [ qtdeclarative qtwebchannel qtwebsockets qtpositioning ];
+@@ -108,7 +111,7 @@ qtModule {
+     gperf
+     ninja
+     pkg-config
+-    (python3.withPackages (ps: with ps; [ html5lib ]))
++    buildPython
+     which
+     gn
+     nodejs
+@@ -304,6 +307,7 @@ qtModule {
+ 
+   preConfigure = ''
+     export NINJAFLAGS="-j$NIX_BUILD_CORES"
++    export CMAKE_PREFIX_PATH="${buildPython}/bin:$CMAKE_PREFIX_PATH"
+   '';
+ 
+   meta = with lib; {

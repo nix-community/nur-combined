@@ -1,0 +1,35 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 771446ece..c20da0d56 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -172,7 +172,11 @@ if(CMAKE_CROSSCOMPILING AND NOT IOS AND NOT MACOS)
+         CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${QT_HOST_PATH}/lib/cmake/Qt6/qt.toolchain.cmake
+                    -DWEBENGINE_ROOT_BUILD_DIR=${PROJECT_BINARY_DIR}
+                    -DWEBENGINE_ROOT_SOURCE_DIR=${WEBENGINE_ROOT_SOURCE_DIR}
+-                   -DGN_TARGET_CPU=${TEST_architecture_arch}
++                   -DGN_TARGET_CPU=${CMAKE_HOST_SYSTEM_PROCESSOR}
++                   -DCMAKE_C_COMPILER=${CMAKE_HOST_C_COMPILER}
++                   -DCMAKE_CXX_COMPILER=${CMAKE_HOST_CXX_COMPILER}
++                   -DCMAKE_AR=${CMAKE_HOST_AR}
++                   -DCMAKE_NM=${CMAKE_HOST_NM}
+                    -DCMAKE_C_FLAGS=
+                    -DCMAKE_CXX_FLAGS=
+                    -DQT_FEATURE_qtwebengine_build=${QT_FEATURE_qtwebengine_build}
+diff --git a/src/host/CMakeLists.txt b/src/host/CMakeLists.txt
+index 2b92ebe85..e2ff58b35 100644
+--- a/src/host/CMakeLists.txt
++++ b/src/host/CMakeLists.txt
+@@ -22,11 +22,11 @@ project(QtWebEngineConfigure
+ find_package(Qt6 ${PROJECT_VERSION} CONFIG REQUIRED COMPONENTS BuildInternals Core)
+ 
+ set(buildDir ${CMAKE_CURRENT_BINARY_DIR})
+-configure_gn_toolchain(host ${TEST_architecture_arch} ${TEST_architecture_arch}
++configure_gn_toolchain(host ${CMAKE_HOST_SYSTEM_PROCESSOR} ${CMAKE_HOST_SYSTEM_PROCESSOR}
+     ${WEBENGINE_ROOT_SOURCE_DIR}/src/host/BUILD.toolchain.gn.in
+     ${buildDir}/host_toolchain
+ )
+-get_v8_arch(GN_V8_HOST_CPU ${GN_TARGET_CPU} ${TEST_architecture_arch})
++get_v8_arch(GN_V8_HOST_CPU ${GN_TARGET_CPU} ${CMAKE_HOST_SYSTEM_PROCESSOR})
+ configure_gn_toolchain(v8 ${GN_V8_HOST_CPU} ${GN_TARGET_CPU}
+     ${WEBENGINE_ROOT_SOURCE_DIR}/src/host/BUILD.toolchain.gn.in
+     ${buildDir}/v8_toolchain)
