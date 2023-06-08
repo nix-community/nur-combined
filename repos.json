@@ -79,6 +79,7 @@
             "url": "https://github.com/Artturin/artturin-nur"
         },
         "ataraxiasjel": {
+            "file": "pkgs/default.nix",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "awl-fcarza": {
