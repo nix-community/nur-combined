@@ -52,14 +52,16 @@ in {
     services.gitea = {
       enable = true;
       user = giteaUser;
-      domain = "git.${domain}";
       appName = "Personal Forge";
-      rootUrl = "https://git.${domain}/";
-      httpAddress = "127.0.0.1";
-      httpPort = cfg.privatePort;
       lfs.enable = true;
 
       settings = {
+        server = {
+          ROOT_URL = "https://git.${domain}/";
+          DOMAIN = "git.${domain}";
+          HTTP_ADDR = "127.0.0.1";
+          HTTP_PORT = cfg.privatePort;
+        };
         log.LEVEL = "Warn"; # [ "Trace" "Debug" "Info" "Warn" "Error" "Critical" ]
         other.SHOW_FOOTER_VERSION = false;
         repository = {
