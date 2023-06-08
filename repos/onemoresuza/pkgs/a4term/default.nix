@@ -25,10 +25,9 @@ stdenv.mkDerivation rec {
   makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
-    description = ''
-      a dynamic terminal window manager
-    '';
+    description = "a dynamic terminal window manager";
     homepage = "https://www.a4term.com/";
     license = licenses.mit;
+    mainProgram = "a4";
   };
 }
