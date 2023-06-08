@@ -31,7 +31,6 @@ in
 
         flags = [
           "--all"
-          "--force"
         ];
       };
     };
