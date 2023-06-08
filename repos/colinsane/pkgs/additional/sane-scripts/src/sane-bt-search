@@ -51,7 +51,7 @@ class Torrent:
     http_dl_uri: "Optional[str]"  # probably a .torrent file but it COULD be a referral to a magnet:// URI
 
     def __str__(self) -> str:
-        return f"{self.seeders}[S]\t{self.pub_date}\t{self.mib}M\t{self.tracker}\t{self.title}\t{self.dl_uri}"
+        return f"{self.seeders}[S]\t{self.pub_date}\t{self.mib}M\t{self.tracker}\t{self.title}\n\t{self.dl_uri}"
 
     @property
     def dl_uri(self) -> str:
