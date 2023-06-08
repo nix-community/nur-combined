@@ -14,4 +14,5 @@
   libtickit = pkgs.callPackage ./pkgs/libtickit {};
   a4term = pkgs.callPackage ./pkgs/a4term {inherit libtickit;};
   appendURL = pkgs.callPackage ./pkgs/mpvScripts/appendURL {};
+  ttf-literation = pkgs.callPackage ./pkgs/fonts/ttf-literation {};
 }
