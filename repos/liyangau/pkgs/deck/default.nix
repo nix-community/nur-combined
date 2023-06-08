@@ -2,19 +2,17 @@
 
 buildGoModule rec {
   pname = "deck";
-  version = "1.21.0";
-  sha = "735fbe2";
+  version = "1.22.0";
+  sha = "7447a09";
 
   src = fetchFromGitHub {
     owner = "Kong";
-    repo = pname ;
+    repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-q6ImnIrBdl1ZoB1fEMhGzudpVgNGO0jeHG7EDt/q9xY=";
+    sha256 = "sha256-BCx4bw+FrnH291sp52Dz+dc6cYtoLAt8fmdF6YbmgOE=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   CGO_ENABLED = 0;
 
@@ -23,7 +21,7 @@ buildGoModule rec {
     "-X github.com/kong/deck/cmd.COMMIT=${sha}"
   ];
 
-  vendorSha256 = "sha256-HB3hI288H3X1O9/24Xhe6ymA7px7CRgnmFEeLsMDVeE=";
+  vendorSha256 = "sha256-rir8z1IwQenTvihHWaA7dx6Nn45M82ulCNRJuQlUhEM=";
 
   postInstall = ''
     installShellCompletion --cmd deck \
@@ -33,8 +31,9 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "decK provides declarative configuration and drift detection for Kong.";
-    homepage    = "https://github.com/Kong/deck";
-    license     = licenses.asl20;
+    description =
+      "decK provides declarative configuration and drift detection for Kong.";
+    homepage = "https://github.com/Kong/deck";
+    license = licenses.asl20;
   };
 }
