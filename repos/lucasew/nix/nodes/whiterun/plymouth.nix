@@ -1,6 +1,5 @@
 {config, pkgs, lib, ...}: {
   boot.plymouth = {
-    enable = true;
     theme = "breeze"; # TODO: trocar a engrenagem girando por algo menos tosco
     logo = pkgs.stdenv.mkDerivation {
       name = "out.png";

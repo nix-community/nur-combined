@@ -11,15 +11,12 @@ in {
     "${unpackedInputs.nixos-hardware}/common/gpu/amd"
     "${unpackedInputs.nixos-hardware}/common/pc/ssd"
     # "${unpackedInputs.nixos-hardware}/common/gpu/nvidia"
-    # ./kubernetz.nix
     ./magnetico.nix
     ./invidious.nix
     ./libreddit.nix
     ./dashboards.nix
-    ./cf-torrent.nix
     ./sshfs.nix
     ./lvm.nix
-    ./plymouth.nix
     ./rocm-gambiarra.nix
     ./transmission.nix
     ./dlna.nix
@@ -27,6 +24,10 @@ in {
     ./postgresql.nix
     ./nextcloud.nix
   ];
+
+  services.cf-torrent.enable = true;
+
+  boot.plymouth.enable = true;
 
   services.libreddit.enable = true;
   services.invidious.enable = true;
