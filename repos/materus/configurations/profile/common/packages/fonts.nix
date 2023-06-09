@@ -1,5 +1,13 @@
 { pkgs, lib, ... }:
+
 let
+  defaultFonts = [
+    pkgs.dejavu_fonts
+    pkgs.freefont_ttf
+    pkgs.gyre-fonts
+    pkgs.liberation_ttf
+    pkgs.unifont
+  ];
   fonts = [
     pkgs.noto-fonts
     pkgs.noto-fonts-extra
@@ -7,13 +15,15 @@ let
     pkgs.noto-fonts-cjk-sans
     pkgs.noto-fonts-cjk-serif
     pkgs.wqy_zenhei
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Meslo" "ProFont" ]; })
-  ];
+    pkgs.corefonts
+    
+  ] ++ defaultFonts;
+
   moreFonts = [
     pkgs.ubuntu_font_family
     pkgs.monocraft
-    pkgs.dejavu_fonts
     pkgs.hack-font
+    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" "Meslo" "ProFont" ]; })
   ];
 in
 {

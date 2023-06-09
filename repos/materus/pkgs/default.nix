@@ -19,6 +19,9 @@ rec {
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc {};
 
+  vpk_fuse = callPackage ./apps/vpk_fuse.nix {};
+
   xmake = callPackage ./dev/xmake {};
+
 
 }

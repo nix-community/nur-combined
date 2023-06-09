@@ -127,7 +127,14 @@
     recommendedGzipSettings = true;
   };
 
-
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_15;
+    enableTCPIP = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      local all all trust
+    '';
+  };
 
 
   security.acme.acceptTerms = true;
@@ -144,6 +151,14 @@
     domain = "podkos.pl";
     group = "nginx";
     extraDomainNames = [ "*.podkos.pl" ];
+    dnsProvider = "ovh";
+    credentialsFile = "/materus/config/valkyrie/certs.secret";
+  };
+
+  security.acme.certs."podkos.xyz" = {
+    domain = "podkos.xyz";
+    group = "nginx";
+    extraDomainNames = [ "*.podkos.xyz" ];
     dnsProvider = "ovh";
     credentialsFile = "/materus/config/valkyrie/certs.secret";
   };

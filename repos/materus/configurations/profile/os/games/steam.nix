@@ -1,15 +1,6 @@
 { config, pkgs, lib, materusPkgs, inputs, ... }:
 let
 
-  pkgsGlbic = import
-    (pkgs.fetchzip {
-      url = "https://github.com/NixOS/nixpkgs/archive/22.11.tar.gz";
-      sha256 = "sha256-/HEZNyGbnQecrgJnfE8d0WC5c1xuPSD2LUpB6YXlg4c=";
-    })
-    { system = pkgs.system; };
-
-
-
   steamPkg = pkgs.steam.override {
     extraPkgs = pkgs: [
       config.materus.profile.packages.firefox
@@ -42,7 +33,8 @@ let
       pkgs.samba4Full
       pkgs.tdb
 
-    ];
+      config.materus.profile.packages.firefox
+    ] ++ config.materus.profile.packages.list.fonts;
 
     extraLibraries = pkgs: [
       pkgs.libkrb5
