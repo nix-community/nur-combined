@@ -3,14 +3,14 @@
 
 cd "$(dirname "$0")"
 
-set -exuo pipefail
+set -euo pipefail
 
 latestVersion="$(curl -s "https://api.github.com/repos/git-ecosystem/git-credential-manager/releases?per_page=1" | jq -r ".[0].tag_name" | sed 's/^v//')"
 currentVersion="$(nix-instantiate --eval -E "with import ../.. {}; git-credential-manager.version" | tr -d '"')"
 
 if [[ "$latestVersion" == "$currentVersion" ]]; then
 	echo "up to date"
-	#exit 0
+	exit 0
 fi
 
 sed -i -e "s/version = \"${currentVersion}\"/version = \"${latestVersion}\"/" default.nix

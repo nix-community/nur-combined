@@ -36,4 +36,10 @@ assert withLibsecretSupport -> withGuiSupport;
     makeWrapperArgs = lib.optionals withGpgSupport ["--prefix" "PATH" ":" (lib.makeBinPath [gnupg pass])];
 
     passthru.updateScript = ./update.sh;
+
+    meta = with lib; {
+      description = "Secure, cross-platform Git credential storage with authentication to GitHub, Azure Repos, and other popular Git hosting services.";
+      homepage = "https://github.com/git-ecosystem/git-credential-manager";
+      license = with licenses; [mit];
+    };
   }
