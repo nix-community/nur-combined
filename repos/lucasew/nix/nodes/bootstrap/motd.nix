@@ -10,6 +10,8 @@ let
   '';
 
   environment.etc."motd-bash.d/01-hostname-figlet".source = pkgs.runCommand "figlet" {} ''
+    {
+
     printf "%s" "[?7l[1m
   [34m  \\  \\ //
   [34m ==\\__\\/ //
@@ -19,10 +21,13 @@ let
   [34m// /\\  \\==
   [34m  // \\  \\
 
-[m[8A[1m" > $out
-    ${pkgs.figlet}/bin/figlet ${config.networking.hostName} | sed 's;\([^$]*\);[17C\1[m;' >> $out
-    echo -e "\n[0m[?7h" >> $out
+[m[8A[1m"
 
+    ${pkgs.figlet}/bin/figlet ${config.networking.hostName} | sed 's;\([^$]*\);[17C\1[m;'
+
+    echo -e "\n[0m[?7h"
+
+    } > $out
   '';
 
   environment.etc."motd-bash.d/09-space".text = "\n";
@@ -77,9 +82,5 @@ let
 [34;1mInputs:[m ${builtins.concatStringsSep " " (map (mkInput) (builtins.sort (a: b: a < b)(builtins.attrNames self.inputs)))}
   '';
 
-
   environment.etc."motd-bash.d/98-space".text = "\n";
-  environment.etc."motd-bash.d/99-cockpit" = lib.mkIf config.services.cockpit.enable {
-    source = "/run/cockpit/active.motd";
-  };
 }

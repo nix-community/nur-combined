@@ -18,4 +18,8 @@ lib.mkIf config.services.cockpit.enable {
       };
     };
   };
+
+  environment.etc."motd-bash.d/99-cockpit" = {
+    source = "/run/cockpit/active.motd";
+  };
 }

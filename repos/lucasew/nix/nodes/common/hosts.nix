@@ -17,6 +17,8 @@ in {
       bogus-priv
       no-resolv
       local=/${config.networking.hostName}.${config.networking.domain}/
+      bind-interfaces
+      except-interface=virbr0
     '';
   };
   networking.hosts = {
