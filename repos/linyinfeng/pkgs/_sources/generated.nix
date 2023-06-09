@@ -274,16 +274,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0809b2943e9fc7f7fab303d6abe0680edf2530b6";
+    version = "66cf9dba258c718f96624f39f4c9cf716d3e3326";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "0809b2943e9fc7f7fab303d6abe0680edf2530b6";
+      rev = "66cf9dba258c718f96624f39f4c9cf716d3e3326";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-+JxrvnRhodl4U1bbhbjH46eRZFGWowOKh8OeQIArWAM=";
+      sha256 = "sha256-g4sq9HZLgrQuBC2D+ONXShiMzertdGmrddrxxwv4fNQ=";
     };
-    date = "2023-06-09";
+    date = "2023-06-08";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -352,16 +352,16 @@
   };
   rime-stroke = {
     pname = "rime-stroke";
-    version = "e6c7608925009636577ff7469eecc870f1de18f3";
+    version = "c8bc4050d4d667be8f3f4892ab96e4d0881865a4";
     src = fetchgit {
       url = "https://github.com/rime/rime-stroke.git";
-      rev = "e6c7608925009636577ff7469eecc870f1de18f3";
+      rev = "c8bc4050d4d667be8f3f4892ab96e4d0881865a4";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-D20ul7R3rPS0kQR3wsSbJi//ViRV1vSNlkkn4PSk7Oc=";
+      sha256 = "sha256-XJMbmJK6CDYYgxPUMnULm5uJEgU6UF2WzrRlGKQf4yg=";
     };
-    date = "2023-06-09";
+    date = "2023-02-04";
   };
   rime-terra-pinyin = {
     pname = "rime-terra-pinyin";
@@ -484,16 +484,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "9f38631c7f2a1080af3560360beb6259e681c6f2";
+    version = "c5379fa52d5862f5186082d0b414e44bb466da15";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "9f38631c7f2a1080af3560360beb6259e681c6f2";
+      rev = "c5379fa52d5862f5186082d0b414e44bb466da15";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-U5DiWrkn1wxdssTLmazQKSEUBtug0aUxoTPwdLd5Zpk=";
+      sha256 = "sha256-SAnA9xhXIseyqTU/dHPIHG5KrlLlmG1WeygCcecpolM=";
     };
-    date = "2023-06-09";
+    date = "2023-06-06";
   };
   wemeet = {
     pname = "wemeet";
