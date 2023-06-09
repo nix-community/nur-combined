@@ -21,5 +21,4 @@
   mkxp-z = pkgs.callPackage ./pkgs/mkxp-z { };
   rvpacker = pkgs.callPackage ./pkgs/rvpacker { };
   klassy = pkgs.libsForQt5.callPackage ./pkgs/klassy { };
-  _86box = pkgs.libsForQt5.callPackage ./pkgs/86box { };
 }

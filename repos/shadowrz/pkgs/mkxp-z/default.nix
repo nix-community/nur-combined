@@ -1,16 +1,17 @@
-{ lib, stdenv, fetchFromGitLab, physfs, openal, libvorbis, libogg, SDL2, ninja
+{ lib, stdenv, fetchFromGitHub, physfs, openal, libvorbis, libogg, SDL2, ninja
 , SDL2_sound, SDL2_ttf, freetype, SDL2_image, pixman, libpng, libjpeg, zlib
-, libuchardet, meson, libiconv, xxd, pkg-config, libtheora, fluidsynth, ruby }:
+, libuchardet, meson, libiconv, xxd, pkg-config, libtheora, fluidsynth, ruby
+, openssl }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mkxp-z";
-  version = "2.4.0";
+  version = "b594640ab7b781053bdbbcbeac357adae3b92b49";
 
-  src = fetchFromGitLab {
+  src = fetchFromGitHub {
     owner = "mkxp-z";
-    repo = pname;
-    rev = "v2.4.0-fix";
-    sha256 = "sha256-BBNnlCyfArYE/alyLyoSJBs0w1+T6RGeDtULcinfTTM=";
+    repo = finalAttrs.pname;
+    rev = finalAttrs.version;
+    sha256 = "sha256-IMDCyNex8lnHlsaupHiiubgLC+tklxMnDbhb50/gqDo=";
   };
 
   buildInputs = [
@@ -32,11 +33,15 @@ stdenv.mkDerivation rec {
     libuchardet
     libiconv
     ruby
+    openssl
   ];
 
   nativeBuildInputs = [ meson ninja pkg-config xxd ];
 
   postPatch = ''
+    # Hardcode Git revision
+    sed -i "/git_hash = /s:git_hash = .*:git_hash = '${finalAttrs.version}':" meson.build
+    # Count for builtin iconv
     sed -i '25,26s/)/, required: false)/' src/meson.build
     patchShebangs linux/
   '';
@@ -63,4 +68,4 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/mkxp-z/mkxp-z";
     license = licenses.gpl2;
   };
-}
+})
