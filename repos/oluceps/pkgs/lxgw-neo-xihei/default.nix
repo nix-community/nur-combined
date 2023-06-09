@@ -1,26 +1,20 @@
-{ fetchFromGitHub
+{ fetchurl
 , stdenv
 , lib
 }:
 
 stdenv.mkDerivation rec {
-  pname = "LxgwNeoXiHei";
-  version = "1.002";
-  src = fetchFromGitHub {
-    owner = "lxgw";
-    repo = "Plangothic";
-    rev = "04e0c9ea86a0daaf8be7a8d8aacfd1dc127b22ce";
-    fetchSubmodules = false;
-    sha256 = "sha256-7/WObo/gLGc/1+RznR1mSZmhtO5CfcTiu6oOnPjaGx8=";
+  pname = "lxgw-neo-xihei";
+  version = "1.100";
+  src = fetchurl {
+    url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v${version}/LXGWNeoXiHei.ttf";
+    sha256 = "sha256-CQ+A0Hcpo54iaZXdoEyguSO9ACCl1khdqPaOg+QKvVA=";
   };
-
-
+  dontUnpack = true;
   installPhase = ''
     mkdir -p $out/share/fonts/truetype/
-    cp *.ttf $out/share/fonts/truetype/
+    cp $src $out/share/fonts/truetype/LXGWNeoXiHei.ttf
   '';
-  
-  
   meta = with lib; {
     homepage = "https://github.com/welai/glow-sans";
     description = ''
@@ -28,10 +22,5 @@ stdenv.mkDerivation rec {
     '';
     license = with licenses;[ mit ofl ];
     platforms = platforms.all;
-#    maintainers = with maintainers; [ oluceps ];
   };
-
-  #    find . -name  '*.ttf'    -exec install -Dt $out/share/fonts/truetype {} \;
 }
-
-

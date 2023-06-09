@@ -29,6 +29,7 @@ let
       "v2ray-plugin"
       "san-francisco"
       "hk-grotesk"
+      "lxgw-neo-xihei"
       "dae"
     ];
 
