@@ -183,6 +183,7 @@ in
     [app_id="firefox" title="^Picture-in-Picture$"] floating enable
     [app_id="firefox" title=".*Download Panel.*"] focus; floating enable; resize set width 400px height 250px;
     [app_id="org.keepassxc.KeePassXC" title="Generate Password"] floating enable
+    [app_id="org.keepassxc.KeePassXC" title="Unlock Database - KeePassXC"] floating enable
   }
 
   #

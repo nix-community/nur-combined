@@ -4,7 +4,7 @@ local goal="switch": (apply "local" goal)
 
 n1 goal="switch": (apply "n1" goal)
 
-apply nodes="local,n1" goal="switch":
+apply nodes="local,n1" goal="boot":
   colmena apply --on {{nodes}} {{goal}}
 
 sd-image:
