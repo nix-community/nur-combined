@@ -9,23 +9,14 @@
     - `/etc/nixos/configuration.nix`
     - `~/.config/nixpkgs/home.nix`
 
-- a few overlays for custom packages like stremio and shiginima launcher
-
 - multiple interchangeable graphical environments
-    - i3 + xfce: working nice, using polybar and the playback buttons works when locked
-    - gnome: it works but I am not using anymore
-    - xfce: working nice. I use the XFCE daemons on the i3 flavor
-    - kde: works, not so nice and I am not using it
+    - i3: daily driver, working nice, playback buttons works when locked
+    - gnone, xfce and kde: not using anymore, may delete later
 
-module structure and nix imports it automagically, same for `machine/acer`
-    
 - machines referenced:
-    - acer: my main laptop. Acer A315-51-51SL 6GB RAM 240GB SSD Dual booted with Windows 10
-    - vps: a f1-micro VPS running on Google Cloud Platform (for free)
-    - android: a Redmi Note 5 (whyred), it's not running NixOS but I want to add some scripts I use with it
-
-- not tested
-    - bootstrap in a new machine, should regenerate the configuration.nix and hardware.nix and adapt in a new device. I will do this on demand
+    - riverwood: my main laptop, Acer A315-51-51SL 12GB RAM 1TB SSD dual booted with windows 10 (i think)
+    - whiterun: my battlestation, Ryzen 5600G, 32GB RAM 1TB SSD + 2x1TB DVR HDDs + a RTX 3060 in the future
+    - ravenrock: a machine in the cloud, it's provisioned using terraform from `infra/turbo/gcp.tf`
 
 - licence
     - nothing special
@@ -38,7 +29,8 @@ module structure and nix imports it automagically, same for `machine/acer`
 
 - NixOS > Arch
     - change my mind
-    - (yes, I have used arch btw for around 1 year, it's a good distro but NixOS is better)
+    - (yes, I have used arch btw for around 1 year, it's a good distro but NixOS is better for my workflow)
     - `nix-shell` rocks
     - the possibility of rollback at any time in a simple way, even if the distro fails to boot, is like magic
     - you can also replicate very precisely your configuration on another machine, but only if that is defined in Nix, imperative settings are left behind
+    - not perfect but it's really easy to feel physical pain using something else or packaging software that tries to download stuff at build time
