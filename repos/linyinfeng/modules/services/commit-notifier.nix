@@ -78,6 +78,7 @@ in
       environment."RUST_LOG" = cfg.rustLog;
 
       wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
     };
   };
 }
