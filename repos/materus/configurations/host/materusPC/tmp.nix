@@ -23,12 +23,7 @@ in
 
   services.xserver.displayManager.startx.enable = true;
   services.teamviewer.enable = true;
-  services.xserver.windowManager.awesome.enable = true;
-  services.xserver.windowManager.awesome.luaModules = with pkgs.luaPackages; [
-    luarocks
-    luadbi-mysql #
-  ];
-
+  
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.hip}"
   ];
