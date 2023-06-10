@@ -9,6 +9,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ atool libarchive p7zip unrar unzip zip ];
+    home.packages = with pkgs; [ libarchive ouch p7zip unrar unzip zip ];
   };
 }
