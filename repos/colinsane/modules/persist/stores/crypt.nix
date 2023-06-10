@@ -25,7 +25,7 @@ lib.mkIf config.sane.persist.enable
       "nosuid"
       "allow_other"
       "passfile=${key}"
-      "defaults"
+      # "defaults"  # "unknown flag: --defaults. Try 'gocryptfs -help'"
     ];
     noCheck = true;
   };

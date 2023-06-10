@@ -40,7 +40,6 @@
   sane.programs.tuiApps.enableFor.user.colin = false;  # visidata, others, don't compile well
   # disabled for faster deploys (gthumb depends on webkitgtk, particularly)
   sane.programs.soundconverter.enableFor.user.colin = false;
-  sane.programs."gnome.nautilus".enableFor.user.colin = false;
   sane.programs.gthumb.enableFor.user.colin = false;
 
   boot.loader.efi.canTouchEfiVariables = false;

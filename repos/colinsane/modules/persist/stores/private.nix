@@ -35,7 +35,7 @@ lib.mkIf config.sane.persist.enable
       "nodev"
       "nosuid"
       "quiet"
-      "defaults"
+      # "defaults"  # "unknown flag: --defaults. Try 'gocryptfs -help'"
     ];
     noCheck = true;
   };
