@@ -210,6 +210,8 @@ in
       '';
     };
     java.enable = true;
+    java.package = pkgs.graalvm17-ce;
+    java.binfmt = true;
     command-not-found.enable = false;
     dconf.enable = true;
   };
@@ -248,7 +250,7 @@ in
     curl
     wget
 
-    jdk
+    config.programs.java.package
 
     nss_latest
 

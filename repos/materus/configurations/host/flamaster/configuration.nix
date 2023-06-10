@@ -24,6 +24,11 @@
     enable = true;
     clock24 = true;
   };
+  programs.java = {
+    enable = true;
+    package = pkgs.graalvm17-ce;
+    binfmt = true;
+  };
   # Bootloader.
   boot.loader.grub = {
     enable = true;
@@ -129,9 +134,9 @@
     pciutils
     lshw
     steamcmd
-    jdk
     distrobox
     config.materus.profile.packages.firefox
+    config.programs.java.package
 
   ];
 
