@@ -2954,10 +2954,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.20";
+      version = "1.0.21";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4121785/statshunters-1.0.20.xpi";
-      sha256 = "0a2db6bd988a03120d8798543b7c1a54a13e0cd5b53f36caf2215e2e2a2c37fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4122927/statshunters-1.0.21.xpi";
+      sha256 = "b4c0748e56ba0c8eb5312c6d22da1483ed37f76eca1b9e3fdd3c9baa8fe80f4c";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -3235,10 +3235,10 @@
       };
     "textern" = buildFirefoxXpiAddon {
       pname = "textern";
-      version = "0.7";
+      version = "0.8";
       addonId = "textern@jlebon.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3594392/textern-0.7.xpi";
-      sha256 = "cf15dba57b32b24c2dbc79ea169fb53286c40a5c500a066ba81e67439021bb5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4123022/textern-0.8.xpi";
+      sha256 = "e7c6dab734b44148ab10b1d3db016059d571bf7b0537c4f33c153e00327225ee";
       meta = with lib;
       {
         homepage = "https://github.com/jlebon/textern";
@@ -3418,10 +3418,10 @@
       };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.3.0";
+      version = "8.3.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095141/ublacklist-8.3.0.xpi";
-      sha256 = "98413c704d08334ba196a7f085e6a666b60865f6897c7fc41c308097d1f12a5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119793/ublacklist-8.3.1.xpi";
+      sha256 = "359d859a02626271fb8f62e49f4c0e7a66f1684a61994b9493462d99bd2b356a";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -3530,10 +3530,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.2.6";
+      version = "1.2.7";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118109/vencord_web-1.2.6.xpi";
-      sha256 = "4a81a75f44c118ae56ed635155f2ee915409bd5af79255659de91d0dd4a73d43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4123132/vencord_web-1.2.7.xpi";
+      sha256 = "03f5ca753d04b831ec43b99c2bd86c5c0a0025852de14be9febb427fff5d012d";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
