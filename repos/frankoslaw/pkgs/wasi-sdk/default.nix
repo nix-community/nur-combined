@@ -1,9 +1,7 @@
 { stdenv, 
   fetchurl,
   lib,
-  autoPatchelfHook,
-  gcc,
-  glibc
+  autoPatchelfHook
 }:
 
 stdenv.mkDerivation rec {
@@ -11,23 +9,13 @@ stdenv.mkDerivation rec {
   version = "20";
 
   src = fetchurl {
-    # TODO: Add parameters for darwin and version
     url = "https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${version}/wasi-sdk-${version}.0-linux.tar.gz";
     hash = "sha256-cDATnUlaGfvsy5RJFQwrFTHhXY+3RBmHKnGadYCq0Pk=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
-
-  buildInputs = [
-    stdenv.cc.cc.lib
-    gcc
-    glibc
-  ];
-
   sourceRoot = ".";
 
+  dontStrip = true;
   dontBuild = true;
   installPhase = ''
     mkdir -p $out/
