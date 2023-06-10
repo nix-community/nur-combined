@@ -90,6 +90,7 @@ in
       htop
       lm_sensors
       neofetch
+      lls # like netstat
     ];
   };
   cachix.enable = true;
