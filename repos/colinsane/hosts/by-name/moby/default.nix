@@ -33,11 +33,15 @@
     ".config/pulse"  # persist pulseaudio volume
   ];
 
-  sane.gui.phosh.enable = true;
+  sane.gui.sxmo.enable = true;
   # sane.programs.consoleUtils.enableFor.user.colin = false;
   # sane.programs.guiApps.enableFor.user.colin = false;
   sane.programs.sequoia.enableFor.user.colin = false;
   sane.programs.tuiApps.enableFor.user.colin = false;  # visidata, others, don't compile well
+  # disabled for faster deploys (gthumb depends on webkitgtk, particularly)
+  sane.programs.soundconverter.enableFor.user.colin = false;
+  sane.programs."gnome.nautilus".enableFor.user.colin = false;
+  sane.programs.gthumb.enableFor.user.colin = false;
 
   boot.loader.efi.canTouchEfiVariables = false;
   # /boot space is at a premium. default was 20.

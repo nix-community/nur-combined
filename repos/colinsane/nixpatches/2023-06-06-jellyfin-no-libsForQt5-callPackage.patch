@@ -1,0 +1,60 @@
+diff --git a/pkgs/applications/video/jellyfin-media-player/default.nix b/pkgs/applications/video/jellyfin-media-player/default.nix
+index e781f80e455..d1990294141 100644
+--- a/pkgs/applications/video/jellyfin-media-player/default.nix
++++ b/pkgs/applications/video/jellyfin-media-player/default.nix
+@@ -1,7 +1,6 @@
+ { lib
+ , fetchFromGitHub
+ , fetchzip
+-, mkDerivation
+ , stdenv
+ , Cocoa
+ , CoreAudio
+@@ -12,21 +11,20 @@
+ , libGL
+ , libX11
+ , libXrandr
++, libsForQt5
+ , libvdpau
+ , mpv
+ , ninja
+ , pkg-config
+ , python3
+-, qtbase
+-, qtwayland
+-, qtwebchannel
+-, qtwebengine
+-, qtx11extras
+ , jellyfin-web
+ , withDbus ? stdenv.isLinux, dbus
+ }:
+ 
+-mkDerivation rec {
++let
++  inherit (libsForQt5) qtbase qtwayland qtwebchannel qtwebengine qtx11extras wrapQtAppsHook;
++in
++stdenv.mkDerivation rec {
+   pname = "jellyfin-media-player";
+   version = "1.9.1";
+ 
+@@ -69,6 +67,7 @@ mkDerivation rec {
+     ninja
+     pkg-config
+     python3
++    wrapQtAppsHook
+   ];
+ 
+   cmakeFlags = [
+diff --git a/pkgs/top-level/all-packages.nix b/pkgs/top-level/all-packages.nix
+index eb309c9b283..d8a718db698 100644
+--- a/pkgs/top-level/all-packages.nix
++++ b/pkgs/top-level/all-packages.nix
+@@ -5289,7 +5289,7 @@ with pkgs;
+ 
+   jellyfin-ffmpeg = callPackage ../development/libraries/jellyfin-ffmpeg { };
+ 
+-  jellyfin-media-player = libsForQt5.callPackage ../applications/video/jellyfin-media-player {
++  jellyfin-media-player = callPackage ../applications/video/jellyfin-media-player {
+     inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa CoreAudio MediaPlayer;
+     # Disable pipewire to avoid segfault, see https://github.com/jellyfin/jellyfin-media-player/issues/341
+     mpv = wrapMpv (mpv-unwrapped.override { pipewireSupport = false; }) { };

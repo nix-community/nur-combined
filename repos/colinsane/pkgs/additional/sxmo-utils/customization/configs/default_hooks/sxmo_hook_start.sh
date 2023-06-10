@@ -52,3 +52,6 @@ superctl start sxmo_notificationmonitor
 
 # monitor for headphone for statusbar
 superctl start sxmo_soundmonitor
+
+# rotate UI based on physical display angle by default
+sxmo_daemons.sh start autorotate sxmo_autorotate.sh
