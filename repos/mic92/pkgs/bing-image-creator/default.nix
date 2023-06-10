@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "bing-image-creator";
-  version = "0.4.1";
+  version = "0.4.2";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "BingImageCreator";
     rev = version;
-    hash = "sha256-C5yzdVnbf1XryQe3KRj4G1cguB94whGdMpH1+Jcv6Ts=";
+    hash = "sha256-RukhAoVYnriEAVn6Z/VqZbHqt386dfnsHtcTaasAhRU=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
