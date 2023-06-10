@@ -32,6 +32,7 @@ in lib.makeScope pkgs.newScope (self:
         oauth2token = self.callPackage ./pkgs/oauth2token { };
         images-upload-cli = self.callPackage ./pkgs/images-upload-cli { };
         imagehash = self.callPackage ./pkgs/imagehash { };
+        pipe21 = self.callPackage ./pkgs/pipe21 { };
       }));
 
     lispPackages = recurseIntoAttrs {
