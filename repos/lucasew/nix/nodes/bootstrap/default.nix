@@ -5,19 +5,19 @@ let
 in {
   imports = [
     ./bash-extra.nix
-    ./systemd-portd.nix
-    ./nix.nix
-    ./nix-binary-caches.nix
-    ./netns.nix
-    ./zerotier.nix
-    ./tailscale.nix
-    ./port-alloc.nix
-    ./user.nix
-    ./ssh.nix
     ./colors.nix
     ./motd.nix
+    ./netns.nix
+    ./nix-binary-caches.nix
+    ./nix.nix
+    ./port-alloc.nix
     ./rev.nix
     ./screenkey.nix
+    ./ssh.nix
+    ./systemd-portd.nix
+    ./tailscale.nix
+    ./user.nix
+    ./zerotier.nix
 
     (builtins.fetchurl {
       url = "https://raw.githubusercontent.com/NixOS/nixpkgs/60c696e31b14797a346241e4f553399d92ba2b69/nixos/modules/config/dotd.nix";

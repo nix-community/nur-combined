@@ -11,19 +11,18 @@ in
 {
   imports =
     [
-      ../gui-common
-      # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../gui-common
+
       "${unpackedInputs.nixos-hardware}/common/cpu/intel/kaby-lake"
       "${unpackedInputs.nixos-hardware}/common/gpu/intel"
       "${unpackedInputs.nixos-hardware}/common/pc/laptop/ssd"
 
-      ./tuning.nix
-      ./networking.nix
       ./kvm.nix
-      # ./zfs.nix
+      ./networking.nix
       ./plymouth.nix
       ./remote-build.nix
+      ./tuning.nix
     ]
   ;
 

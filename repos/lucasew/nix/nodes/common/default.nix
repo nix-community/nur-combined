@@ -1,34 +1,43 @@
 {self, pkgs, lib, unpackedInputs, ...}:
 let
   inherit (self) inputs;
+  inherit (lib) mkDefault;
 in
 {
   imports = [
-    ./nginx.nix
-    ./nginx-root-domain.nix
-    ./nix-index-database.nix
-    ./netusage.nix
-    ./cockpit-extra.nix
-    ../bootstrap/default.nix
+    ../bootstrap
     ../../modules/cachix/system.nix
     ../../modules/hold-gc/system.nix
-    ./ansible-python.nix
-    ./cloud-savegame.nix
-    ./hosts.nix
-    ./p2k.nix
-    ./tuning.nix
-    ./cf-torrent.nix
-    ./tt-rss.nix
-    ./jellyfin.nix
-    ./user.nix
-    ./tmux
-    ./bash
-    ./kvm.nix
-    ./sops.nix
-    ./unstore.nix
-    ./telegram_sendmail.nix
     "${unpackedInputs.simple-dashboard}/nixos-module.nix"
+
+    ./ansible-python.nix
+    ./bash
+    ./cf-torrent.nix
+    ./cloud-savegame.nix
+    ./cockpit-extra.nix
+    ./hosts.nix
+    ./invidious.nix
+    ./jellyfin.nix
+    ./kvm.nix
+    ./libreddit.nix
+    ./lvm.nix
+    ./magnetico.nix
+    ./netusage.nix
+    ./nginx-root-domain.nix
+    ./nginx.nix
+    ./nix-index-database.nix
+    ./p2k.nix
+    ./sops.nix
+    ./telegram_sendmail.nix
+    ./tmux
+    ./transmission.nix
+    ./tt-rss.nix
+    ./tuning.nix
+    ./unstore.nix
+    ./user.nix
   ];
+
+  services.lvm.enable = mkDefault false;
 
   programs.fuse.userAllowOther = true;
 
