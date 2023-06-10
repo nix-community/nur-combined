@@ -57,8 +57,8 @@ in
           "browser.newtabpage.activity-stream.section.highlights.includePocket" = false; # Disable pocket
           "extensions.pocket.enabled" = false; # Disable pocket
           "media.eme.enabled" = true; # Enable DRM
-          "media.gmp-widevinecdm.visible" = true; # Enable DRM
           "media.gmp-widevinecdm.enabled" = true; # Enable DRM
+          "media.gmp-widevinecdm.visible" = true; # Enable DRM
           "signon.autofillForms" = false; # Disable built-in form-filling
           "signon.rememberSignons" = false; # Disable built-in password manager
           "ui.systemUsesDarkTheme" = true; # Dark mode
