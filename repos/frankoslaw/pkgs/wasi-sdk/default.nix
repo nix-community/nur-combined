@@ -1,5 +1,5 @@
 { stdenv, 
-  fetchFromGitHub,
+  fetchurl,
   lib,
   autoPatchelfHook,
   gcc,
@@ -9,12 +9,11 @@
 stdenv.mkDerivation rec {
   pname = "wasi-sdk";
   version = "20";
-  
-  src = fetchFromGitHub {
-    owner = "WebAssembly";
-    repo = "wasi-sdk";
-    rev = "wasi-sdk-${version}";
-    sha256 = "1rjh19g1mcvaixyp3fs6d9bfa1nqv5b6s6v1nb24q7wbb75y9m8x";
+
+  src = fetchurl {
+    # TODO: Add parameters for darwin and version
+    url = "https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${version}/wasi-sdk-${version}.0-linux.tar.gz";
+    hash = "sha256-cDATnUlaGfvsy5RJFQwrFTHhXY+3RBmHKnGadYCq0Pk=";
   };
 
   nativeBuildInputs = [
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   installPhase = ''
     mkdir -p $out/
-    cp -r ./source/* $out/
+    cp -r ./wasi-sdk-20.0/* $out/
   '';
 
   meta = with lib; {
