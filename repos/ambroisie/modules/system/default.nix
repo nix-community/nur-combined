@@ -4,6 +4,7 @@
 {
   imports = [
     ./boot
+    ./docker
     ./documentation
     ./language
     ./nix

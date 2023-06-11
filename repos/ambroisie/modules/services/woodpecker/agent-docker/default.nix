@@ -27,7 +27,7 @@ in
     };
 
     # Make sure it is activated in that case
-    virtualisation.docker.enable = true;
+    my.system.docker.enable = true;
 
     # FIXME: figure out the issue
     services.unbound.resolveLocalQueries = false;

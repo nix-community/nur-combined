@@ -32,7 +32,7 @@ in
     };
 
     # Make sure it is activated in that case
-    virtualisation.docker.enable = true;
+    my.system.docker.enable = true;
 
     users.users.drone-runner-docker = {
       isSystemUser = true;

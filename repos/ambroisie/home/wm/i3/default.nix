@@ -75,6 +75,7 @@ in
           let
             i3status-rs = lib.getExe config.programs.i3status-rust.package;
           in
+          assert [ "top" ] == lib.attrNames config.programs.i3status-rust.bars;
           [
             {
               statusCommand = "${i3status-rs} config-top.toml";

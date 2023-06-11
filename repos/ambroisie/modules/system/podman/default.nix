@@ -9,6 +9,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.enable -> !config.my.system.docker.enable;
+        message = ''
+          `config.my.system.podman` is incompatible with
+          `config.my.system.docker`.
+        '';
+      }
+    ];
+
     virtualisation.podman = {
       enable = true;
 
