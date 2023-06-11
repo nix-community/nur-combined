@@ -356,6 +356,7 @@ lib.makeScope newScope (
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
     playonmac = callPackage ./misc/playonmac { };
+    plotjuggler = libsForQt5.callPackage ./misc/plotjuggler { };
     pnoise = callPackage ./misc/pnoise { };
     ptunnel = callPackage ./misc/ptunnel { };
     pvs-studio = callPackage ./misc/pvs-studio { };
