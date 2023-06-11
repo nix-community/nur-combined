@@ -8,6 +8,7 @@ in
     extraGroups = [
       "adbusers"
       "aria2"
+      "audio"
       "docker"
       "vboxusers"
       "wheel"

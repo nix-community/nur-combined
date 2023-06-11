@@ -22,6 +22,9 @@ nixosSystem {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
+        sharedModules = [
+          sops-nix.homeManagerModules.sops
+        ];
       };
 
       networking.hostName = hostName;

@@ -2,6 +2,7 @@
 { config, pkgs, lib, ... }:
 let
   modules-enable = with modules; [
+    audio
     avahi
     bluetooth
     clash
@@ -16,10 +17,10 @@ let
     git
     grub
     gtk
+    liferea
     neovim
     nix
     nix-serve
-    pipewire
     podman
     smartdns
     sops
@@ -82,7 +83,6 @@ in
     p7zip
     pavucontrol
     pciutils
-    quiterss
     safeeyes
     tdesktop
     tealdeer

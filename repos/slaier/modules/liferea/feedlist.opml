@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opml version="1.0">
+  <head>
+    <title>Liferea Feed List Export</title>
+  </head>
+  <body>
+    <outline title="news" text="news" description="news" type="folder" id="opkfoym" sortColumn="time" expanded="true">
+      <outline title="奇客Solidot" text="奇客Solidot" description="奇客Solidot" type="rss" id="ilpfvhe" sortColumn="time" sortReversed="false" xmlUrl="https://rsshub.app/solidot/www" htmlUrl="https://www.solidot.org" updateInterval="-1" collapsed="true"/>
+      <outline title="News Minimalist" text="News Minimalist" description="News Minimalist" type="rss" id="hrflxxj" sortColumn="time" sortReversed="false" xmlUrl="https://rss.beehiiv.com/feeds/4aF2pGVAEN.xml" htmlUrl="https://newsletter.newsminimalist.com/" updateInterval="-1" collapsed="true"/>
+    </outline>
+    <outline title="forum" text="forum" description="forum" type="folder" id="imxevvf" sortColumn="time" expanded="true">
+      <outline title="V2EX-最热主题" text="V2EX-最热主题" description="V2EX-最热主题" type="rss" id="xxrsxvc" sortColumn="time" sortReversed="false" xmlUrl="https://rss.shab.fun/v2ex/topics/hot" htmlUrl="https://www.v2ex.com/" updateInterval="-1" collapsed="true"/>
+    </outline>
+    <outline title="changelog" text="changelog" description="changelog" type="folder" id="irnmniv" sortColumn="time" expanded="true">
+      <outline title="GitHub Changelog" text="GitHub Changelog" description="GitHub Changelog" type="rss" id="osnbfxi" sortColumn="time" sortReversed="false" xmlUrl="https://github.blog/changelog/feed/" htmlUrl="https://github.blog/changelog/" updateInterval="-1" collapsed="true"/>
+    </outline>
+    <outline title="trending" text="trending" description="trending" type="folder" id="arryxta" sortColumn="time" expanded="true">
+      <outline title="VS Code Extensions: Trending Weekly" text="VS Code Extensions: Trending Weekly" description="VS Code Extensions: Trending Weekly" type="rss" id="uklmcgw" sortColumn="time" sortReversed="false" xmlUrl="https://rsshub.app/vscode/marketplace/trending" htmlUrl="https://marketplace.visualstudio.com/" updateInterval="-1" collapsed="true"/>
+    </outline>
+    <outline title="blog" text="blog" description="blog" type="folder" id="bevbsqe" sortColumn="time" expanded="true">
+      <outline title="杰哥的{运维,编程,调板子}小笔记" text="杰哥的{运维,编程,调板子}小笔记" description="杰哥的{运维,编程,调板子}小笔记" type="rss" id="hufccmw" sortColumn="time" sortReversed="false" xmlUrl="https://jia.je/feed.xml" htmlUrl="https://jia.je/" updateInterval="-1" collapsed="true"/>
+    </outline>
+  </body>
+</opml>

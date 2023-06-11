@@ -2,12 +2,14 @@
   fonts = {
     enableDefaultFonts = true;
     fonts = with pkgs; [
+      iosevka
       (nerdfonts.override {
         fonts = [
           "FantasqueSansMono"
         ];
       })
       noto-fonts-emoji
+      sarasa-gothic
       source-han-mono
       source-han-sans
       source-han-serif
