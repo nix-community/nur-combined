@@ -135,8 +135,11 @@
     lshw
     steamcmd
     distrobox
+    steamcmd
+
     config.materus.profile.packages.firefox
     config.programs.java.package
+
 
   ];
 

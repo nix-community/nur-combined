@@ -5,6 +5,7 @@ let
     extraPkgs = pkgs: [
       config.materus.profile.packages.firefox
       
+      pkgs.steamcmd
       pkgs.nss_latest
       pkgs.libstrangle
       pkgs.libkrb5
