@@ -75,8 +75,9 @@ in [
 
   (fetchpatch' {
     title = "nixos/lemmy: support nginx";
-    saneCommit = "4c86db6dcb78795ac9bb514d9c779fd591070b23";
-    hash = "sha256-G7jGhSPUp9BMxh2yTzo0KUUVabMJeZ28YTA+0iPldRI=";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/232536";
+    saneCommit = "02a9f9de49923f14fd6c2b069d73e167cdc86078";
+    hash = "sha256-nnZ+95LmZ2nGZxK7yNLs4moovhPX2wFux5JwNjM4Lys=";
   })
 
   (fetchpatch' {
