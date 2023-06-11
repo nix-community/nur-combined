@@ -133,8 +133,6 @@ in
       # some programs (e.g. fractal/nheko) **require** a "Secret Service Provider"
       services.gnome.gnome-keyring.enable = true;
 
-      # TODO: probably need to enable pipewire
-
       networking.useDHCP = false;
       networking.networkmanager.enable = true;
       networking.wireless.enable = lib.mkForce false;
@@ -149,7 +147,9 @@ in
       # TODO: not all of these fonts seem to be mapped to the correct icon
       fonts.fonts = [ pkgs.nerdfonts ];
 
-      # i believe sxmo recomments a different audio stack
+      # sxmo has first-class support only for pulseaudio and alsa -- not pipewire.
+      # however, pipewire can emulate pulseaudio support via `services.pipewire.pulse.enable = true`
+      #   after which the stock pulseaudio binaries magically work
       # administer with pw-cli, pw-mon, pw-top commands
       services.pipewire = {
         enable = true;
@@ -184,7 +184,8 @@ in
 
         cfg.deviceHooks
         cfg.hooks
-      ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
+      ] ++ lib.optionals (config.services.pipewire.pulse.enable) [ pulseaudio ]  # for pactl
+        ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
         ++ lib.optionals (cfg.keyboard != null) [ pkgs."${cfg.keyboard}" ];
 
       environment.sessionVariables = {
