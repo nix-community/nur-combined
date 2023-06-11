@@ -1,10 +1,10 @@
-{ stdenv, 
+{ llvmPackages, 
   fetchurl,
   lib,
-  autoPatchelfHook
+  autoPatchelfHook,
 }:
 
-stdenv.mkDerivation rec {
+llvmPackages.stdenv.mkDerivation rec {
   pname = "wasi-sdk";
   version = "20";
 
@@ -13,9 +13,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-cDATnUlaGfvsy5RJFQwrFTHhXY+3RBmHKnGadYCq0Pk=";
   };
 
+  nativeBuildInputs = [
+    autoPatchelfHook
+  ];
+
+  buildInputs = [ llvmPackages.stdenv.cc.cc.lib ];
+
   sourceRoot = ".";
 
-  dontStrip = true;
   dontBuild = true;
   installPhase = ''
     mkdir -p $out/
