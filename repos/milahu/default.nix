@@ -242,6 +242,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
 
+  surge-filesharing = callPackage ./pkgs/applications/networking/p2p/surge-filesharing/surge-filesharing.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
