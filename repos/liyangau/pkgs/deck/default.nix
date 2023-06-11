@@ -32,7 +32,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "decK provides declarative configuration and drift detection for Kong.";
+      "decK: Configuration management and drift detection for Kong.";
     homepage = "https://github.com/Kong/deck";
     license = licenses.asl20;
   };

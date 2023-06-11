@@ -1,22 +1,22 @@
-{ buildNpmPackage, lib, fetchFromGitHub }:
-
+{ buildNpmPackage, lib, fetchFromGitHub, }:
 buildNpmPackage rec {
   pname = "hexo-cli";
-  version = "4.3.0";
+  version = "4.3.1";
 
   src = fetchFromGitHub {
     owner = "hexojs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-4VI5M71z3QD5TrrRoiXrSZasAQosQpLBw9l/6tLCX3M=";
+    hash = "sha256-mtbg9Fa9LBqG/aNfm4yEo4ymuaxuqhymkO1q6mYA2Fs=";
   };
+
   postPatch = ''
     sed -i 's/"git submodule init && git submodule update && git submodule foreach git pull origin master"/""/' package.json
   '';
 
-  npmDepsHash = "sha256-SPIFddj/cLkxXdF0gmwmT+Xk/EN0xKVycDxigq9M16k=";
+  npmDepsHash = "sha256-VCHG1YMPRwEBbwgscSv6V+fTNVRpsCxWeyO8co4Zy6k=";
 
-  dontNpmBuild = true;
+  dontNpmBuild = false;
 
   meta = {
     description = "Command line interface for Hexo.";
