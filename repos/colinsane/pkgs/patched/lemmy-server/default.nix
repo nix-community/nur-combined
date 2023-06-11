@@ -6,5 +6,7 @@ lemmy-server.overrideAttrs (upstream: {
     ./fix-db-migrations.patch
     # log the database connection events, for debugging
     # ./log-startup.patch
+    # print more debug info about specific problem paths i've encountered
+    # ./debug-db-migrations.patch
   ];
 })

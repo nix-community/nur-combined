@@ -32,6 +32,7 @@ in {
   systemd.services.lemmy.environment = {
     RUST_BACKTRACE = "full";
     # RUST_LOG = "debug";
+    # RUST_LOG = "trace";
     # upstream defaults LEMMY_DATABASE_URL = "postgres:///lemmy?host=/run/postgresql";
     # - Postgres complains that we didn't specify a user
     # lemmy formats the url as:

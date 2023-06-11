@@ -17,7 +17,7 @@ in
   config = mkMerge [
     ({
       sane.programs.docsets.config.rustPkgs = [
-        "lemmy-server"
+        # "lemmy-server"
         "mx-sanebot"
       ];
     })
