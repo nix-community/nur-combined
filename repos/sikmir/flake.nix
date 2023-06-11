@@ -7,7 +7,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }: {
-      overlay = final: prev: import ./pkgs { pkgs = prev; };
+      overlays.default = final: prev: import ./pkgs { pkgs = prev; };
       nixosModules = import ./modules;
     } // flake-utils.lib.eachDefaultSystem (system: {
       packages = flake-utils.lib.filterPackages system (import ./default.nix {
@@ -15,8 +15,8 @@
       });
       legacyPackages = import nixpkgs {
         inherit system;
-        overlays = [ self.overlay ];
-        crossOverlays = [ self.overlay ];
+        overlays = [ self.overlays.default ];
+        crossOverlays = [ self.overlays.default ];
       };
     });
 }
