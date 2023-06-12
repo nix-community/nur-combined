@@ -7,16 +7,12 @@ let
 in
 
 stdenv.mkDerivation rec {
-  srcVersion = "mar23b";
-  version = "20230301_b";
-  pname = "gildas";
+  version = "3.7-04";
+  pname = "imager";
 
   src = fetchurl {
-    # For each new release, the upstream developers of Gildas move the
-    # source code of the previous release to a different directory
-    urls = [ "http://www.iram.fr/~gildas/dist/gildas-src-${srcVersion}.tar.xz"
-      "http://www.iram.fr/~gildas/dist/archive/gildas/gildas-src-${srcVersion}.tar.xz" ];
-    sha256 = "sha256-MpEucwwljchBQjLUfw/ETjiuegz7kz8d8Ft9Xx06WvQ=";
+    url = "https://cloud.univ-grenoble-alpes.fr/s/zxPSZxsb3sdNSHo/download/${pname}-${version}.tar.gz";
+    sha256 = "sha256-qWzkd9j027NEweiCMW82+erz+jj7/zNpyWpqmTwUsLQ=";
   };
 
   nativeBuildInputs = [ pkg-config groff perl getopt gfortran which ];
@@ -24,7 +20,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ gtk2-x11 lesstif cfitsio python3Env ncurses ]
     ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
 
-  patches = [ ./wrapper.patch ./clang.patch ./aarch64.patch ];
+  patches = [ ./wrapper.patch ./clang.patch ./aarch64.patch ./python-ldflags.patch ];
 
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
@@ -37,17 +33,13 @@ stdenv.mkDerivation rec {
     source admin/gildas-env.sh -c gfortran -o openmp
     echo "gag_doc:        $out/share/doc/" >> kernel/etc/gag.dico.lcl
   '';
-
-  userExec = "astro class greg mapping sic";
-
+  
   postInstall=''
     mkdir -p $out/bin
-    cp -a ../gildas-exe-${srcVersion}/* $out
+    cp -a ../gildas-exe/* $out
     mv $out/$GAG_EXEC_SYSTEM $out/libexec
-    for i in ${userExec} ; do
-      cp admin/wrapper.sh $out/bin/$i
-      chmod 755 $out/bin/$i
-    done
+    cp admin/wrapper.sh $out/bin/imager
+    chmod 755 $out/bin/imager
   '';
 
   meta = {
@@ -64,7 +56,7 @@ stdenv.mkDerivation rec {
       plotting, widgets).'';
     homepage = "http://www.iram.fr/IRAMFR/GILDAS/gildas.html";
     license = lib.licenses.free;
-    maintainers = [ lib.maintainers.bzizou lib.maintainers.smaret ];
+    maintainers = [ lib.maintainers.smaret ];
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };

@@ -30,4 +30,5 @@
   };
   radmc3d = pkgs.callPackage ./pkgs/radmc3d { };
   gildas = pkgs.callPackage ./pkgs/gildas { };
+  imager = pkgs.callPackage ./pkgs/imager { };
 }
