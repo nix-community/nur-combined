@@ -7,10 +7,10 @@
 }: {
   basiliskii-bin = {
     pname = "basiliskii-bin";
-    version = "2023-05-11";
+    version = "2023-06-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-05-11/BasiliskII-x86_64.AppImage";
-      sha256 = "sha256-8FuEXcfPMxmqhFgnCzkPT0ItpgDqHHBHJnEP2ihMNRk=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-06-11/BasiliskII-x86_64.AppImage";
+      sha256 = "sha256-LoYORhfPgcaExXlH2FVVnq1noKszMcUWPhh4GFQinI4=";
     };
   };
   bling = {
@@ -27,15 +27,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "4edf85ab928f0c7ee0ce6cb31751807cf83d9cd9";
+    version = "7c7d84963400ef35595f0144006e0f748b49fb05";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "4edf85ab928f0c7ee0ce6cb31751807cf83d9cd9";
+      rev = "7c7d84963400ef35595f0144006e0f748b49fb05";
       fetchSubmodules = true;
-      sha256 = "sha256-jbN412ZM+6EhoY3dgL4h14Iu8u3AtWC9EJRzotGsGIo=";
+      sha256 = "sha256-IelmMGxBvsahSFVxLW6WQQDr33R1plTA9rSlVUnte1Y=";
     };
-    date = "2023-05-23";
+    date = "2023-06-11";
   };
   carla = {
     pname = "carla";
@@ -220,10 +220,10 @@
   };
   sheepshaver-bin = {
     pname = "sheepshaver-bin";
-    version = "2023-05-11";
+    version = "2023-06-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-05-11/SheepShaver-x86_64.AppImage";
-      sha256 = "sha256-0sNY1yu5jJEcm+yK2yaUQ9mPyWnSvdVjDSolGZ93cjU=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-06-11/SheepShaver-x86_64.AppImage";
+      sha256 = "sha256-8ayEFZ+aGYLv/CTcQnAlWXdDSzg97IULoyeU41j4Cg8=";
     };
   };
   slock-flexipatch = {
