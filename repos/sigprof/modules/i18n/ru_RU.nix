@@ -29,19 +29,19 @@ in {
     console.keyMap = "ruwin_cplk-UTF-8";
     console.font = lib.mkMerge [
       (lib.mkOverride 600 "${terminus_font}/share/consolefonts/ter-c16n.psf.gz")
-      (lib.mkIf config.hardware.video.hidpi.enable
+      (lib.mkIf (config.sigprof.hardware.video.uiScale > 1.5)
         (lib.mkOverride 500 "${terminus_font}/share/consolefonts/ter-c32n.psf.gz"))
     ];
 
     # Set the font for GRUB.
     boot.loader.grub.font = lib.mkMerge [
       (lib.mkOverride 600 "${terminus_font}/share/fonts/terminus/ter-x16n.pcf.gz")
-      (lib.mkIf config.hardware.video.hidpi.enable
+      (lib.mkIf (config.sigprof.hardware.video.uiScale > 1.5)
         (lib.mkOverride 500 "${terminus_font}/share/fonts/terminus/ter-x32n.pcf.gz"))
     ];
     boot.loader.grub.fontSize = lib.mkMerge [
       (lib.mkOverride 600 16)
-      (lib.mkIf config.hardware.video.hidpi.enable
+      (lib.mkIf (config.sigprof.hardware.video.uiScale > 1.5)
         (lib.mkOverride 500 32))
     ];
 
