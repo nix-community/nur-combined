@@ -13,10 +13,10 @@
         "homepage": null,
         "owner": "jakemoroni",
         "repo": "audio_async_loopback",
-        "rev": "c2adb28fc55806f5fa1908e9f17a42502823f81c",
-        "sha256": "03w4spxmar3rmqgf02vqk5in8zv6s7vg4fw3fldajvfpn3amrgg7",
+        "rev": "5b8c7bfa0534074146e24ada6f492201ed9b4542",
+        "sha256": "1kz2kymva80kpvn3fwj72yfs93vccn1g8l4j35pnjfqbyab13rh9",
         "type": "tarball",
-        "url": "https://github.com/jakemoroni/audio_async_loopback/archive/c2adb28fc55806f5fa1908e9f17a42502823f81c.tar.gz",
+        "url": "https://github.com/jakemoroni/audio_async_loopback/archive/5b8c7bfa0534074146e24ada6f492201ed9b4542.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "chromium-launcher": {

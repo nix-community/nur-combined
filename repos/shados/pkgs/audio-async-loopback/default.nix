@@ -1,19 +1,19 @@
 { lib, stdenv, pins
-, libsamplerate, pulseaudio, ffmpeg_4
+, libsamplerate, pulseaudio, ffmpeg_5
 }:
 
 stdenv.mkDerivation rec {
   pname = "audio-async-loopback";
-  version = "unstable-2023-02-04";
+  version = "unstable-2023-05-27";
 
   src = pins.audio-async-loopback.outPath;
 
   buildInputs = [
-    libsamplerate pulseaudio ffmpeg_4
+    libsamplerate pulseaudio ffmpeg_5
   ];
 
   buildPhase = ''
-    gcc $(CFLAGS) -o audio_async_loopback main.c iec_61937.c pcm_sink.c ac3_sink.c -lpulse-simple -lsamplerate -lpthread -lavutil -lavcodec -Wall -O3 -flto
+    gcc ''${CFLAGS} -o audio_async_loopback main.c iec_61937.c pcm_sink.c ac3_sink.c -lpulse-simple -lsamplerate -lpthread -lavutil -lavcodec -Wall -O3 -flto
   '';
 
   installPhase = ''

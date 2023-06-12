@@ -1,4 +1,6 @@
-{ lib, stdenv, cmake, pkgconfig, pins
+{ lib, stdenv
+, fetchpatch
+, cmake, pkgconfig, pins
 , ffmpeg, libebur128, taglib, zlib
 }:
 stdenv.mkDerivation rec {
@@ -6,6 +8,14 @@ stdenv.mkDerivation rec {
   version = "unstable-2020-12-28";
 
   src = pins.loudgain.outPath;
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/Moonbase59/loudgain/pull/50.patch";
+      sha256 = "sha256-2TgkhCvs3ZrEAu7e876iXbmT8hIM+ybdYiRoB7uCa4Q=";
+      name = "loudgain-ffmpeg5.patch";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake pkgconfig
