@@ -1,15 +1,17 @@
 { stdenv, fetchurl, buildFHSUserEnv, lib }:
-let tdesktop-bin = stdenv.mkDerivation {
-  pname = "tdesktop-bin";
-  version = "3.2.5";
+let
+  tdesktop-bin = stdenv.mkDerivation {
+    pname = "tdesktop-bin";
+    version = "3.2.5";
 
-  src = fetchurl {
-    url = "https://github.com/telegramdesktop/tdesktop/releases/download/v3.2.5/tsetup.3.2.5.tar.xz";
-    hash = "sha256-ggFYEvYzS9XI7lYgSpRs8KJzROSM6fRL/4fQ3D+E7wM=";
+    src = fetchurl {
+      url = "https://github.com/telegramdesktop/tdesktop/releases/download/v3.2.5/tsetup.3.2.5.tar.xz";
+      hash = "sha256-ggFYEvYzS9XI7lYgSpRs8KJzROSM6fRL/4fQ3D+E7wM=";
+    };
+
+    installPhase = "mkdir -p $out/bin/ && cp ./Telegram $out/bin/";
   };
-
-  installPhase = "mkdir -p $out/bin/ && cp ./Telegram $out/bin/";
-}; in
+in
 buildFHSUserEnv {
   name = "${tdesktop-bin.pname}";
   targetPkgs = pkgs: [ tdesktop-bin ] ++
