@@ -1,13 +1,12 @@
 { buildGoModule, lib, installShellFiles, fetchFromGitHub }:
-
-buildGoModule rec {
+let sha = "7447a09";
+in buildGoModule rec {
   pname = "deck";
   version = "1.22.0";
-  sha = "7447a09";
 
   src = fetchFromGitHub {
     owner = "Kong";
-    repo = pname;
+    repo = "deck";
     rev = "v${version}";
     sha256 = "sha256-BCx4bw+FrnH291sp52Dz+dc6cYtoLAt8fmdF6YbmgOE=";
   };

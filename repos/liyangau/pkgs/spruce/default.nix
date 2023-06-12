@@ -6,17 +6,14 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "geofffranks";
-    repo = pname;
+    repo = "spruce";
     rev = "v${version}";
     sha256 = "sha256-yQ1meEqLCrcqUc9lmVnLqAgPI17VbkWgUV3onzlPF50=";
   };
 
   CGO_ENABLED = 0;
 
-  ldflags = [
-    "-s -w -extldflags '-static'"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s -w -extldflags '-static'" "-X main.Version=${version}" ];
 
   deleteVendor = true;
   vendorSha256 = "sha256-hRIuqOqx2Uncec1VwZ37x1TEx9E1akbe+41NZzFDeWM=";

@@ -5,7 +5,7 @@ buildNpmPackage rec {
 
   src = fetchFromGitHub {
     owner = "hexojs";
-    repo = pname;
+    repo = "hexo-cli";
     rev = "v${version}";
     hash = "sha256-mtbg9Fa9LBqG/aNfm4yEo4ymuaxuqhymkO1q6mYA2Fs=";
   };

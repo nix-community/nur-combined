@@ -6,7 +6,7 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "nektos";
-    repo = pname;
+    repo = "act";
     rev = "v${version}";
     sha256 = "sha256-Le5jw1ezGNx4lurHucbJ+q9arXldnHjDlAO61w4p61U=";
   };

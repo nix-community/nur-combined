@@ -6,7 +6,7 @@ buildNpmPackage rec {
 
   src = fetchFromGitHub {
     owner = "jopemachine";
-    repo = pname;
+    repo = "case-cli";
     rev = version;
     hash = "sha256-/37ZfoOjnw3MR02TSwG9kKzBdxQlepln7JTk3SsR+p4=";
   };
