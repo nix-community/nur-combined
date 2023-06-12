@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.14.0";
+      version = "1.14.1";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4100908/10ten_ja_reader-1.14.0.xpi";
-      sha256 = "5409517868dd0ac18d35515cfc8c6fb37234ead2a2b9982d4d19443ac8f81204";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119678/10ten_ja_reader-1.14.1.xpi";
+      sha256 = "1074ea7d55794b54484f8239e3ba8e676ea41b1718803be6656196016b365989";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -191,6 +191,20 @@
         homepage = "https://github.com/skhzhang/time-based-themes/";
         description = "Automatically change Firefox's theme based on the time.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "aw-watcher-web" = buildFirefoxXpiAddon {
+      pname = "aw-watcher-web";
+      version = "0.4.8";
+      addonId = "{ef87d84c-2127-493f-b952-5b4e744245bc}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4114360/aw_watcher_web-0.4.8.xpi";
+      sha256 = "6be85d9755013520a5a4835cb8ae2a3287e4cb9c12b5baf4957ab10368dd45d2";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ActivityWatch/aw-watcher-web";
+        description = "This extension logs the current tab and your browser activity to ActivityWatch.";
+        license = licenses.mpl20;
         platforms = platforms.all;
         };
       };
@@ -638,6 +652,20 @@
         homepage = "https://darkreader.org/";
         description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "dearrow" = buildFirefoxXpiAddon {
+      pname = "dearrow";
+      version = "1.0.3";
+      addonId = "deArrow@ajay.app";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4122833/dearrow-1.0.3.xpi";
+      sha256 = "93052e9e7ec0d45ffb7fdc9e6bdf4ce9311fa10a4474706135cf182dbbb8cacb";
+      meta = with lib;
+      {
+        homepage = "https://sponsor.ajay.app";
+        description = "Crowdsourcing titles and thumbnails to be descriptive and not sensational";
+        license = licenses.lgpl3;
         platforms = platforms.all;
         };
       };
@@ -1126,10 +1154,10 @@
       };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.10.2";
+      version = "8.10.3";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4111589/ghostery-8.10.2.xpi";
-      sha256 = "4c8cda7a60ca5d2d211510d0f1c0e7bf57319a6a050aea5b99941601b96bbfac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119594/ghostery-8.10.3.xpi";
+      sha256 = "defa8468cc1ebd6929903b9552ebbba56f345e36c513e7620f4632022c3ff65a";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -1916,10 +1944,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.8.1";
+      version = "2.8.6";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4115412/momentumdash-2.8.1.xpi";
-      sha256 = "7a487b3e390a0ca9cc15cf75a6fa74999d28113fc41eb021935076344466e9f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119568/momentumdash-2.8.6.xpi";
+      sha256 = "6e2593a230b68d47cddd156f57306977263629b01d3c2ca4adeb7d02cc6f716c";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -3010,10 +3038,10 @@
       };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.13.0";
+      version = "1.14.0";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4085556/surfingkeys_ff-1.13.0.xpi";
-      sha256 = "66ceeb45d2522825daad8b7be0a30ca42f91264d5c32ba5b897845f25e78f40c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4124047/surfingkeys_ff-1.14.0.xpi";
+      sha256 = "c729a1c6d537d7d12287a0113e091e2b3d5c7a9b39fa67663297fd056c74a03f";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -3432,10 +3460,10 @@
       };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.49.2";
+      version = "1.50.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4103048/ublock_origin-1.49.2.xpi";
-      sha256 = "39266486f720cd31d291d2fdad78625b079782a05517e1936eec7e780bc2a84d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4121906/ublock_origin-1.50.0.xpi";
+      sha256 = "10618003e70b528c3f17996e373146d39e6b15f777ac4ca1f214da2ffdb7a5b3";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
