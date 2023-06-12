@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v3.5.3
 
       - name: Install Nix
         uses: cachix/install-nix-action@4b933aa7ebcc94a6174cf1364864e957b4910265
