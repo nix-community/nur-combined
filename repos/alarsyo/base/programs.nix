@@ -62,7 +62,7 @@
       ;
 
     inherit
-      (pkgs.llvmPackages_11)
+      (pkgs.llvmPackages_16)
       bintools
       clang
       ;
