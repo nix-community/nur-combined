@@ -1085,10 +1085,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230608.214116";
+      version = "115.0.20230611.180300";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4122642/francais_language_pack-115.0.20230608.214116.xpi";
-      sha256 = "16f4f387001af703a5b3931417ac923fe82a909d9899e9408122d09882f046d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4123717/francais_language_pack-115.0.20230611.180300.xpi";
+      sha256 = "2e459bcacf08e815d8e8ea6c8c11a4ff10708f51f8eaf94818653df8fec0f450";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2772,10 +2772,10 @@
       };
     "search-engines-helper" = buildFirefoxXpiAddon {
       pname = "search-engines-helper";
-      version = "3.3.0";
+      version = "3.4.0";
       addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4041949/search_engines_helper-3.3.0.xpi";
-      sha256 = "0e6f49394b7798d27dd507b0de2b27ad4cc888949a0ec9ac02294eb27f1a6382";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4123632/search_engines_helper-3.4.0.xpi";
+      sha256 = "50a4f6be4a134ebed2d8a3d2352ab4956288595c6e6355848e882faf1ff3014f";
       meta = with lib;
       {
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
@@ -3619,10 +3619,10 @@
       };
     "vimium-c" = buildFirefoxXpiAddon {
       pname = "vimium-c";
-      version = "1.99.991";
+      version = "1.99.992";
       addonId = "vimium-c@gdh1995.cn";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4110421/vimium_c-1.99.991.xpi";
-      sha256 = "a2c31bb6f2d9d0c0b139586adfcc4e1271c6d3b581f4d142e3bad8550245cf96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4123617/vimium_c-1.99.992.xpi";
+      sha256 = "1fd6ec4b5eda15e2bbd384e1bffd9c9cc73a31b3e43ad74c33e37070a39e0c90";
       meta = with lib;
       {
         homepage = "https://github.com/gdh1995/vimium-c";
