@@ -73,7 +73,7 @@ def get_ips_from_location(location: str):
     res = subprocess.run(cmd, capture_output=True)
     if res.returncode != 0:
         logger.info(f"get_wan_from_location failed: {cmd!r}\n{res.stderr}")
-        return None
+        return None, None
 
     status = res.stdout.decode("utf-8")
     logger.debug(f"got status: {status}")
