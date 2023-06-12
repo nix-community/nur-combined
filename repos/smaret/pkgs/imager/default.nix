@@ -43,18 +43,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Radioastronomy data analysis software";
+    description = "Interferometric imaging package";
     longDescription = ''
-      GILDAS is a collection of state-of-the-art software
-      oriented toward (sub-)millimeter radioastronomical
-      applications (either single-dish or interferometer).
-      It is daily used to reduce all data acquired with the
-      IRAM 30M telescope and Plateau de Bure Interferometer
-      PDBI (except VLBI observations). GILDAS is easily
-      extensible. GILDAS is written in Fortran-90, with a
-      few parts in C/C++ (mainly keyboard interaction,
-      plotting, widgets).'';
-    homepage = "http://www.iram.fr/IRAMFR/GILDAS/gildas.html";
+      IMAGER is an interferometric imaging package in the GILDAS software, tailored for usage simplicity and efficiency for multi-spectral data sets. IMAGER was developed and optimized to handle large data files. Therefore, IMAGER works mostly on internal buffers and avoids as much as possible saving data to intermediate files. File saving is done ultimately once the data analysis process is complete, which offers an optimum use of the disk bandwidth.'';
+    homepage = "https://imager.oasu.u-bordeaux.fr";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.smaret ];
     platforms = lib.platforms.all;
