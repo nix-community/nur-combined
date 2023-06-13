@@ -20,6 +20,8 @@ in {
 
   ];
 
+  programs.man.enable = true;
+
 
   home = {
     homeDirectory = /home/lucasew;
