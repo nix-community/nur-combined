@@ -38,10 +38,10 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Update packages
-      if: (github.event_name == 'schedule')
-      run: |
-        nix-shell ./update.py --maintainer ataraxiasjel
+#     - name: Update packages
+#       if: (github.event_name == 'schedule')
+#       run: |
+#         nix-shell ./update.py --maintainer ataraxiasjel
     - name: Check evaluation
       run: |
         nix-env -f ./pkgs/default.nix -qa \* --meta --xml \
