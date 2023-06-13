@@ -113,7 +113,7 @@ stdenv.mkDerivation rec {
       "Viewer"
     ];
     mimeTypes = [
-      "application/x-shockwave-flash"
+      "application/vnd.adobe.flash.movie"
       "image/gif"
       "image/jpg"
       "image/png"
