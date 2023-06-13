@@ -240,15 +240,15 @@
   };
   st-flexipatch = {
     pname = "st-flexipatch";
-    version = "1343b29ee5e8a9d67607a4616f74386a2951e276";
+    version = "677f854c05e04e38b77d4659578f64c4a67c347b";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "st-flexipatch";
-      rev = "1343b29ee5e8a9d67607a4616f74386a2951e276";
+      rev = "677f854c05e04e38b77d4659578f64c4a67c347b";
       fetchSubmodules = false;
-      sha256 = "sha256-cZcoBkgcG+MXVSmjupdmhEQv7j54rANbmMso6XnatEw=";
+      sha256 = "sha256-m9NvZcYxC81WMBM/ZStnA7K+btXF2/pU/b9+FU/5T+4=";
     };
-    date = "2023-04-07";
+    date = "2023-06-12";
   };
   taffybar = {
     pname = "taffybar";
