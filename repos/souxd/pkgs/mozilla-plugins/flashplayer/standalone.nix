@@ -74,11 +74,12 @@ stdenv.mkDerivation rec {
   preferLocalBuild = true;
   installPhase = ''
     mkdir -p $out/bin
-    cp -pv flashplayer${lib.optionalString debug "debugger"} $out/bin
+    mv flashplayer${lib.optionalString debug "debugger"} $out/bin
     patchelf \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       --set-rpath "$rpath" \
       $out/bin/flashplayer${lib.optionalString debug "debugger"}
+    cp -r ${desktopItems}/share $out
   '';
 
   rpath = lib.makeLibraryPath
@@ -90,7 +91,7 @@ stdenv.mkDerivation rec {
       libvdpau libxcb libxshmfence nspr nss pango pcre pixman zlib
     ];
 
-  desktopItems = [(makeDesktopItem rec {
+  desktopItems = makeDesktopItem rec {
     name = pname;
     desktopName = "Flash Player";
     comment = "Run Adobe Flash locally";
@@ -122,7 +123,7 @@ stdenv.mkDerivation rec {
     extraConfig = {
       X-MultipleArgs = "false";
     };
-  })];
+  };
 
   meta = with lib; {
     description = "Adobe Flash Player Standalone (A.K.A. Adobe Flash Player Projector)";

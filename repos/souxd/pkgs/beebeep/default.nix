@@ -31,8 +31,9 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp -t $out/bin *
+    mkdir -p $out/{bin,lib}
+    cp -t $out/lib *
+    ln -s $out/lib/beebeep $out/bin
   '';
 
   meta = with lib; {
