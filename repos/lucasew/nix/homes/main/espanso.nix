@@ -5,7 +5,7 @@ in {
   services.espanso = {
     # broken build, might fix later
     enable = false;
-    settings =
+    matches.default =
       let
         justReplace = from: to: {
           trigger = from;
@@ -43,8 +43,7 @@ in {
             };
           }];
         };
-      in {
-      matches = [
+      in [
         # macros
         (justReplace ":email:" "lucas59356@gmail.com")
         (justReplace ":shrug:" "¯\\_(ツ)_/¯")
@@ -110,6 +109,5 @@ in {
         (replaceWord "arent" "aren't")
         (replaceWord "youre" "you're")
       ];
-    };
   };
 }

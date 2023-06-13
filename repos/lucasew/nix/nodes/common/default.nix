@@ -84,6 +84,7 @@ in
       wget
       curl
       unrar
+      zip
       direnv
       pciutils
       usbutils
