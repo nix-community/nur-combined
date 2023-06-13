@@ -52,18 +52,7 @@ in {
     })
     (mkIf cfg.remote {
       virtualisation.libvirtd.enable = lib.mkForce false;
-      networking.edgevpn = {
-        enable = true;
-        logLevel = "debug";
-        router = "10.0.1.1";
-        postStart = ''
-          ip route add dev ${config.networking.edgevpn.interface} 10.0.0.0/24
-          echo -e "nameserver 10.0.0.1\nsearch local" | resolvconf -a ${config.networking.edgevpn.interface}
-        '';
-        postStop = ''
-          resolvconf -d ${config.networking.edgevpn.interface}
-        '';
-      };
+      services.tailscale.enable = true;
     })
   ];
 }
