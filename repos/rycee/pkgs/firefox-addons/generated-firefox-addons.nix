@@ -43,10 +43,10 @@
       };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.16.2.0";
+      version = "3.17.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4075872/adnauseam-3.16.2.0.xpi";
-      sha256 = "9342eb0fa05890b094639b305856461ecf6622387dc5ab9b7cfc12ba97cbfb4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4122213/adnauseam-3.17.0.xpi";
+      sha256 = "ed4d2f3498b3eb379053970e24150d31d4f19ff5987907fc98f870697dffb7c9";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -533,10 +533,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.5.1";
+      version = "3.6.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118326/control_panel_for_twitter-3.5.1.xpi";
-      sha256 = "e50d4464ec6c89e1fca18b989cffde499ef164167efa7e2e97560dec8dd9f8ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4122460/control_panel_for_twitter-3.6.0.xpi";
+      sha256 = "23fcc925e362e19daa5ee2eb98a596e811139e48b4921dc6be7d01eba2f0d5f4";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -657,10 +657,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.0.3";
+      version = "1.0.5";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4122833/dearrow-1.0.3.xpi";
-      sha256 = "93052e9e7ec0d45ffb7fdc9e6bdf4ce9311fa10a4474706135cf182dbbb8cacb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4124301/dearrow-1.0.5.xpi";
+      sha256 = "774867d8cfb1b3044d58ad29197bbc5bc164a9c55037fe3f4080cec6c5ec1ae9";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -796,10 +796,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.5.23";
+      version = "2023.7.7.2";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4115103/duckduckgo_for_firefox-2023.5.23.xpi";
-      sha256 = "27176cd0529b3bc156a43c0e8c8adab985921aa196ef365a07c93716bfe83bb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4122073/duckduckgo_for_firefox-2023.7.7.2.xpi";
+      sha256 = "c35da95c88a17868cad41af37f82956ef9eb47f86c0c2ea1b89c5db568f6bd89";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -1113,10 +1113,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230611.180300";
+      version = "115.0.20230613.195413";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4123717/francais_language_pack-115.0.20230611.180300.xpi";
-      sha256 = "2e459bcacf08e815d8e8ea6c8c11a4ff10708f51f8eaf94818653df8fec0f450";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4124776/francais_language_pack-115.0.20230613.195413.xpi";
+      sha256 = "7c3414279c7dd80905466a50c43351541f961cfbb4850b689d494a83ba669044";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1668,10 +1668,10 @@
       };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.115.0.2";
+      version = "4.116.0.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4113346/lastpass_password_manager-4.115.0.2.xpi";
-      sha256 = "c203bd1c8c0d9ae55e2d21a8b2c5453a8896a19d66c5d46f6c39ee2aac2f6ef4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4120971/lastpass_password_manager-4.116.0.2.xpi";
+      sha256 = "f4082bd37c68ce12d98970255639b8a63a1ebd25d853f6a33de692f27d01c256";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -2786,10 +2786,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.4.2";
+      version = "5.6.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4034617/search_by_image-5.4.2.xpi";
-      sha256 = "327549ce86f8dc27794ece4a065cf673e007eefe716fb188b8c6d28102fca22f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119128/search_by_image-5.6.0.xpi";
+      sha256 = "fb347a4756e87858fb7ad1e8cb44d3cc4374440d1abdb0fcb3d048c6d5b9c522";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -3894,10 +3894,10 @@
       };
     "youtube-shorts-block" = buildFirefoxXpiAddon {
       pname = "youtube-shorts-block";
-      version = "1.3.4";
+      version = "1.4.1";
       addonId = "{34daeb50-c2d2-4f14-886a-7160b24d66a4}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4027038/youtube_shorts_block-1.3.4.xpi";
-      sha256 = "8c2500bffd27d13c066afb705f795b2c6fbf54ae49fa5efa64ccdeb7455c3052";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4121795/youtube_shorts_block-1.4.1.xpi";
+      sha256 = "57102a854845371b6a161b505f4372fb967e40d7e9aea9bee5e2cce798d2535a";
       meta = with lib;
       {
         description = "Play the Youtube shorts video as if it were a normal video.\nand hide \"shorts\"tab and videos (optional).";
