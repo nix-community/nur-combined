@@ -26,9 +26,6 @@
             inherit system;
             config = {
               # contentAddressedByDefault = true;
-              permittedInsecurePackages = [
-                "libav-12.3"
-              ];
             };
             overlays = [ fenix.overlays.default ];
           }
