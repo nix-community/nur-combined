@@ -892,8 +892,8 @@
             "url": "https://github.com/ocfox/nur-pkgs"
         },
         "oluceps": {
-            "rev": "e925f7a805588ad3a8ea8ce0139192601f26fa1f",
-            "sha256": "1g0pyz6fn2v8cl0wd6ps5xfhwx8dc7lj895p71gpg20qaps8d4l7",
+            "rev": "7596f51788dff2aae11d7f1d4fb24041dadf2bc6",
+            "sha256": "00jjkx6pm8k6xi9hzc0jf20qs2h62191x7gra6ir0scvnqiiqd7j",
             "url": "https://github.com/oluceps/nur-pkgs"
         },
         "ondt": {
@@ -1053,8 +1053,8 @@
             "url": "https://gitlab.com/rummik/nixos/nur-packages"
         },
         "rycee": {
-            "rev": "d5df88833a5000d1582d8be5ef51169bcac2e260",
-            "sha256": "0qwwvpaxh2bc2sdx7sxlcn5pvb4500j9c1jyxkj7xf519xxj8a2x",
+            "rev": "7f42b4f5b0768f8578a8ce292c3b0446777f915a",
+            "sha256": "1scysfhmzbdh9946xqrc0s8g67x13kqj6wjrjjvd30lwvmm4jnjh",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "sagikazarmark": {
