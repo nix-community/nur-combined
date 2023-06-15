@@ -87,7 +87,7 @@ quiqr:
 cQuiqrKillerberg:
   base_dir: ~/cQuiqrKillerberg
   repos:
-    - source: :snel-city/wasnel-awsaccount-104144963194-main
+    - source: snel-city/wasnel-awsaccount-104144963194-main
     #- source: mipmip/killerberg-awsaccount-104144963194-main
     #- source: mipmip/poppygo-awsaccount-162604489705
 
@@ -118,6 +118,7 @@ adevinta:
     - source: git@github.mpi-internal.com:automobile-it/automobile-elasticache-infrastructure
     - source: git@github.mpi-internal.com:automobile-it/automobile_grafonnet
     - source: git@github.mpi-internal.com:automobile-it/automobile-core-vitals-metrics.git
+    - source: git@github.mpi-internal.com:automobile-it/adsmetrics
 
 tracklib:
   base_dir: ~/tcTracklib
