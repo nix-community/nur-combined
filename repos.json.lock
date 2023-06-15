@@ -151,8 +151,8 @@
             "url": "https://github.com/balsoft/nur-packages"
         },
         "bandithedoge": {
-            "rev": "b238e383c52d06cc35bf39c5146a81893d2055ca",
-            "sha256": "1kc8jmplqwascqf2wi4f76kwyzc3jw2f3xq40z6yljp3236k661j",
+            "rev": "ebff19d1e301177fd9a1931848b82ed8b6ec5b04",
+            "sha256": "0yjwvfkz7nimns88zzn53rq7lmq6qdim78d2mq73pcpnhh6hsa15",
             "url": "https://github.com/bandithedoge/nur-packages"
         },
         "bb010g": {
@@ -655,8 +655,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "f6805b6887a5a2bb9e842270438a64482a566827",
-            "sha256": "1rgj6lq6ikglklzjnrlkz7m0sh8qh544jgqb65lyhx8c2zjvq7bz",
+            "rev": "61f16dfce62d8dc7795e325b9a11bf2379b4c051",
+            "sha256": "15a5p2n86607l63y4ps3ngypivw329k1hwh4m5w469prkd2lp1i2",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
