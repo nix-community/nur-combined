@@ -9,7 +9,9 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-    ];
+      ./pleroma.nix
+          ];
+
   materus.profile.nix.enable = true;
 
 
@@ -121,7 +123,7 @@
 
   services.nginx = {
     enable = true;
-
+    package = pkgs.tengine;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedGzipSettings = true;

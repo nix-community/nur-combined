@@ -36,7 +36,7 @@ with materusPkgs.lib;
     thunderbird
     keepassxc
     (aspellWithDicts (ds: with ds; [ en en-computers en-science pl ]))
-    libreoffice-qt
+    onlyoffice-bin
   ]);
 
   options.materus.profile.packages.list.terminalApps = mkPrivateVar (with pkgs; [
