@@ -244,6 +244,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   surge-filesharing = callPackage ./pkgs/applications/networking/p2p/surge-filesharing/surge-filesharing.nix { };
 
+  tribler = callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
