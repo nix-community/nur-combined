@@ -6,7 +6,7 @@
 
 let
   appBinName = "dup-img-finder";
-  appVersion = "0.1.0";
+  appVersion = "0.1.1";
   appComment = "Find duplicate images by similarity";
 
   # rust-overlay = import (fetchFromGitHub {
@@ -23,8 +23,8 @@ let
   src = fetchFromGitHub {
     owner = "Thaumy";
     repo = "dup-img-finder";
-    rev = "4ce767b8a0c854dc85b5f60515520fab08c27f2e";
-    sha256 = "UkFyNw1sJuwPqODLua26V68mBR2kXIO5EqPcMpIWw4E=";
+    rev = "a00cea4e2315f400e4a16359493eb99d129c8e2b";
+    sha256 = "lHeT+M6vOgXoxsfDcwUAFCgz3MsNcKzuHmGpNBPrhVw=";
   };
 
   buildTimeDeps = with extended-pkgs; [
