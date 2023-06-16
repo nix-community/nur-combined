@@ -11,8 +11,9 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/Moonbase59/loudgain/pull/50.patch";
-      sha256 = "sha256-2TgkhCvs3ZrEAu7e876iXbmT8hIM+ybdYiRoB7uCa4Q=";
+      # See loudgain PR #50
+      url = "https://github.com/hughmcmaster/loudgain/commit/977332e9e45477b1b41a5af7a2484f92b340413b.patch";
+      sha256 = "113bhaxhfs14cbfjdyqc2br97faxlazg7ppf0b29mpgc5f228f6r";
       name = "loudgain-ffmpeg5.patch";
     })
   ];
