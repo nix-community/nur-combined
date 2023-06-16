@@ -37,6 +37,8 @@ packageSet = do
   gitPkg "rime-wugniu" "https://github.com/rime/rime-wugniu.git"
   gitPkg "telegram-send" "https://github.com/rahiel/telegram-send.git"
   gitPkg "waybar-git" "https://github.com/Alexays/Waybar.git"
+  gitPkgBranch "gnome-shell-mobile-shell" "https://gitlab.gnome.org/verdre/gnome-shell.git" "mobile-shell"
+  gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
   fishPlugins
   birdBabelRtt
   commitNotifier
@@ -63,7 +65,10 @@ ghPkgTag :: Text -> Text -> (ListOptions -> ListOptions) -> PackageSet ()
 ghPkgTag owner repo f = define $ package repo `fromGitHubTag` (owner, repo, f)
 
 gitPkg :: Text -> Text -> PackageSet ()
-gitPkg name git = define $ package name `sourceGit` git `fetchGit` git
+gitPkg name url = define $ package name `sourceGit` url `fetchGit` url
+
+gitPkgBranch :: Text -> Text -> Text -> PackageSet ()
+gitPkgBranch name url branch = define $ package name `sourceGit'` (url, branch) `fetchGit` url
 
 birdBabelRtt :: PackageSet ()
 birdBabelRtt =

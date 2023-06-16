@@ -121,6 +121,19 @@
       sha256 = "sha256-cq9yHBQyqzlEb1Dvpx90MIixT8PxB8TBKv3+nFYCbn8=";
     };
   };
+  gnome-shell-mobile-shell = {
+    pname = "gnome-shell-mobile-shell";
+    version = "9b7df11f136da27633c8d30cd419dcc7906c8b4d";
+    src = fetchgit {
+      url = "https://gitlab.gnome.org/verdre/gnome-shell.git";
+      rev = "9b7df11f136da27633c8d30cd419dcc7906c8b4d";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-+onnwvFsogGlNBrhvc2F2DRrEw+e6VCWqQA0npO0bMo=";
+    };
+    date = "2023-06-05";
+  };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
     version = "v2.9.13";
@@ -143,6 +156,19 @@
       lockFile = ./mstickereditor-v0.3.1/Cargo.lock;
       outputHashes = { };
     };
+  };
+  mutter-mobile-shell = {
+    pname = "mutter-mobile-shell";
+    version = "5e72de83dbf48991d8d60913c8396a0d7f86990c";
+    src = fetchgit {
+      url = "https://gitlab.gnome.org/verdre/mutter.git";
+      rev = "5e72de83dbf48991d8d60913c8396a0d7f86990c";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-93CmMhowMEnl4jVtoNZXgCIOUgmfeIyD2QWT11wGcIw=";
+    };
+    date = "2023-06-04";
   };
   plugin-bang-bang = {
     pname = "plugin-bang-bang";
