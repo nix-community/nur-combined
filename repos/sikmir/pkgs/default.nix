@@ -335,6 +335,7 @@ lib.makeScope newScope (
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
     docx2csv = callPackage ./misc/docx2csv { };
     finalcut = callPackage ./misc/finalcut { };
+    freeopcua = callPackage ./misc/freeopcua { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
     glauth = callPackage ./misc/glauth { };
     graphene = callPackage ./misc/graphene { };
