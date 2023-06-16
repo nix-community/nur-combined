@@ -1,7 +1,7 @@
 { config, pkgs, lib, materusFlake, ... }:
 let
-  
-  socketPath =  "/run/pleroma/http.sock";
+
+  socketPath = "/run/pleroma/http.sock";
 
 
   socketChmod = with pkgs; with lib; pkgs.writers.writeBashBin "pleroma-socket"
@@ -19,8 +19,34 @@ let
       ${pkgs.coreutils}/bin/chmod 0666 ${socketPath}
     '';
 
+  soapbox = pkgs.stdenv.mkDerivation rec {
+    pname = "soapbox";
+    version = "v3.2.0";
+    dontBuild = true;
+    dontConfigure = true;
+    src = pkgs.fetchurl {
+      name = "soapbox";
+      url = "https://gitlab.com/soapbox-pub/soapbox/-/jobs/artifacts/${version}/download?job=build-production";
+      sha256 = "sha256-AdW6JK7JkIKLZ8X+N9STeOHqmGNUdhcXyC9jsQPTa9o=";
+    };
+    nativeBuildInputs = [pkgs.unzip];
+    unpackPhase = ''
+    unzip $src -d .
+    '';
+    installPhase = ''
+    mv ./static $out
+    '';
+
+  };
+
 in
 {
+  systemd.tmpfiles.rules = [
+    "d    /var/lib/pleroma   0766    pleroma    pleroma     -"
+    "d    /var/lib/pleroma/static   0766    pleroma    pleroma     -"
+    "d    /var/lib/pleroma/uploads   0766    pleroma    pleroma     -"
+    "L+   /var/lib/pleroma/static/frontends/soapbox/${soapbox.version}  0766 pleroma pleroma - ${soapbox}"
+  ];
 
   services.nginx.virtualHosts."podkos.xyz" = {
     http2 = true;
@@ -102,7 +128,11 @@ in
         # Configure web push notifications
         config :web_push_encryption, :vapid_details,
           subject: "mailto:admin@podkos.x yz"
-
+        config :pleroma, :frontends,
+          primary: %{
+            "name" => "soapbox",
+            "ref" => "${soapbox.version}"
+          }
 
         config :pleroma, :database, rum_enabled: false
         config :pleroma, :instance, static_dir: "/var/lib/pleroma/static"
