@@ -20,20 +20,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "metronome";
-  version = "1.2.1";
+  version = "1.3.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "Metronome";
     rev = finalAttrs.version;
-    hash = "sha256-YQFS8JHd4SC0vNw6Lm3AN1nh5li8+Ep6lXJAUeUi4fo=";
+    hash = "sha256-Sn2Ua/XxPnJjcQvWeOPkphl+BE7/BdOrUIpf+tLt20U=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit (finalAttrs) src;
     name = "${finalAttrs.pname}-${finalAttrs.version}";
-    hash = "sha256-ZRGq4lmpxDu/LXAXZTkoSixxBF3Ek2CduVNsPmDUN5Q=";
+    hash = "sha256-HYO/IY5yGW8JLBxD/SZz16GFnwvv77kFl/x+QXhV+V0=";
   };
 
   nativeBuildInputs = [
