@@ -2,19 +2,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ascii-dash";
-  version = "1.2.1";
+  version = "1.3";
 
   src = fetchurl {
     url = "mirror://sourceforge/ascii-dash/ASCII-DASH-${finalAttrs.version}.zip";
-    hash = "sha256-MMkhsmWMtK606lWuuvtl2bq3ub9uWl24tqbCdnb8Da8=";
+    hash = "sha256-uXkSiEyW7R13mRqV9MyJ7XVsk60sVSZ93UQ/L5Z0uC0=";
   };
 
   postPatch = ''
     substituteInPlace ascii-gfx/main.cpp \
       --replace "boing.wav" "$out/share/ascii-dash/sounds/boing.wav"
-    substituteInPlace dash.cpp \
+    substituteInPlace dash/dash.cpp \
       --replace "sounds/" "$out/share/ascii-dash/sounds/"
-    substituteInPlace dash_physics.cpp \
+    substituteInPlace dash/dash_physics.cpp \
       --replace "sounds/" "$out/share/ascii-dash/sounds/"
     substituteInPlace main.cpp \
       --replace "data/" "$out/share/ascii-dash/data/"
@@ -39,5 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ascii-dash.sourceforge.io/";
     license = licenses.mit;
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # mesa is broken
   };
 })
