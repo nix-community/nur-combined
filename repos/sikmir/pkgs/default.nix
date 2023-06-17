@@ -337,11 +337,13 @@ lib.makeScope newScope (
     finalcut = callPackage ./misc/finalcut { };
     freeopcua = callPackage ./misc/freeopcua { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
+    git-tui = callPackage ./misc/git-tui { };
     glauth = callPackage ./misc/glauth { };
     graphene = callPackage ./misc/graphene { };
     how-to-use-pvs-studio-free = callPackage ./misc/pvs-studio/how-to-use-pvs-studio-free.nix { };
     huami-token = callPackage ./misc/huami-token { };
     ish = callPackage ./misc/ish { };
+    json-tui = callPackage ./misc/json-tui { };
     lazyscraper = callPackage ./misc/lazyscraper { };
     libmdbx = callPackage ./misc/libmdbx { };
     libnbcompat = callPackage ./misc/libnbcompat { };
@@ -368,6 +370,7 @@ lib.makeScope newScope (
     sdorfehs = callPackage ./misc/sdorfehs { };
     serial-studio-bin = callPackage ./misc/serial-studio/bin.nix { };
     serverpp = callPackage ./misc/serverpp { };
+    subprocess = callPackage ./misc/subprocess { };
     taskcoach = callPackage ./misc/taskcoach { };
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };

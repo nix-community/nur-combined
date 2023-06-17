@@ -1,0 +1,19 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index 576057a..4925b07 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -12,10 +12,10 @@ find_or_fetch_package(ftxui v4.0.0
+   d301fab1f4ecdd3544ed99b9c98e647d5804c341
+ )
+ 
+-find_or_fetch_package(subprocess v0.4.0
+-  https://github.com/benman64/subprocess
+-  e1cae5e86e5d089e65e906f7c13917b7bbb75d04
+-)
++#find_or_fetch_package(subprocess v0.4.0
++#  https://github.com/benman64/subprocess
++#  e1cae5e86e5d089e65e906f7c13917b7bbb75d04
++#)
+ 
+ # ------------------------------------------------------------------------------
+ 

@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ libnbcompat ];
 
-  NIX_CFLAGS_COMPILE = "-Wno-format-security";
+  env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 
   meta = with lib; {
     description = "NetBSD's mtree(8) utility";

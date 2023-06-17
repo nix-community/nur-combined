@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ libX11 ];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=unused-result" ];
+  env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result";
 
   installPhase = ''
     install -Dm755 clinrad -t $out/bin

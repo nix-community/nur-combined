@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ boost16x eigen opencv2 ];
 
-  NIX_CFLAGS_COMPILE = "-fpermissive";
+  env.NIX_CFLAGS_COMPILE = "-fpermissive";
 
   installPhase = ''
     install -Dm755 polyvector_thing -t $out/bin

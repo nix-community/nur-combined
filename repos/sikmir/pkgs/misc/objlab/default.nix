@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     libGLU
   ];
 
-  NIX_CFLAGS_COMPILE = "-fpermissive";
+  env.NIX_CFLAGS_COMPILE = "-fpermissive";
 
   cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=GLVND" ];
 
