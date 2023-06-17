@@ -14,10 +14,10 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  hello-nur = pkgs.callPackage ./pkgs/hello-nur {};
   ani-cli = pkgs.callPackage ./pkgs/ani-cli {};
   wasi-sdk = pkgs.callPackage ./pkgs/wasi-sdk {};
+  openssl-ubuntu-legacy = pkgs.callPackage ./pkgs/openssl-ubuntu-legacy {};
+  # pwn-adventure3 = pkgs.callPackage ./pkgs/PwnAdventure3 {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

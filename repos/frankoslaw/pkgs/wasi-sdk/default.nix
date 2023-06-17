@@ -4,6 +4,7 @@
   autoPatchelfHook,
 }:
 
+# TODO: Fix RAYLIB, LLVM-STRIP, AR
 llvmPackages.stdenv.mkDerivation rec {
   pname = "wasi-sdk";
   version = "20";
