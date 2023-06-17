@@ -463,10 +463,10 @@
       };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.2.1";
+      version = "0.2.2";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119070/codecov-0.2.1.xpi";
-      sha256 = "661f2fefb95c46ae86fd0478c524e3613fa3fefb07c6c3b7836a8f2f2484a5db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4125471/codecov-0.2.2.xpi";
+      sha256 = "7cc853929a4005763f658df72d8b6e0622c01ffb4cc1c251d12d43b160039534";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -657,13 +657,13 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.0.5";
+      version = "1.0.7";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4124301/dearrow-1.0.5.xpi";
-      sha256 = "774867d8cfb1b3044d58ad29197bbc5bc164a9c55037fe3f4080cec6c5ec1ae9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4125311/dearrow-1.0.7.xpi";
+      sha256 = "b76d9baa621a3e5342ac59494d35fc52c1c08f94c538803042ff4cd2004abab1";
       meta = with lib;
       {
-        homepage = "https://sponsor.ajay.app";
+        homepage = "https://dearrow.ajay.app";
         description = "Crowdsourcing titles and thumbnails to be descriptive and not sensational";
         license = licenses.lgpl3;
         platforms = platforms.all;
@@ -1113,10 +1113,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230613.195413";
+      version = "115.0.20230615.175802";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4124776/francais_language_pack-115.0.20230613.195413.xpi";
-      sha256 = "7c3414279c7dd80905466a50c43351541f961cfbb4850b689d494a83ba669044";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4125687/francais_language_pack-115.0.20230615.175802.xpi";
+      sha256 = "423337ddfcb120f094ae00cb73597dedc643827f523278a126ed992988b413c1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1487,10 +1487,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.13";
+      version = "4.14";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4113789/youtube_addon-4.13.xpi";
-      sha256 = "94e0a5ef857b11f2aa144485735abf62adbe0652347521ecbb87c2806c04eb38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4124033/youtube_addon-4.14.xpi";
+      sha256 = "98347775abbb859474fcca27dceddc0e96f2cd5b5e68696a439bb9c18d379ee2";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -1899,10 +1899,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.30.4";
+      version = "10.31.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4112561/ether_metamask-10.30.4.xpi";
-      sha256 = "d1ecbd2cbd375fc69940d2a4337a918b3024a4611a3bca979a87bf3d4162704a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4123065/ether_metamask-10.31.1.xpi";
+      sha256 = "508f37c1451cdf73a54185fea2582e8dea69a28d83d8f01427e5a66b9987d8ed";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -1944,10 +1944,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.8.6";
+      version = "2.8.8";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119568/momentumdash-2.8.6.xpi";
-      sha256 = "6e2593a230b68d47cddd156f57306977263629b01d3c2ca4adeb7d02cc6f716c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4124162/momentumdash-2.8.8.xpi";
+      sha256 = "d3019c655f5bf2091ed7f136da847cb0527cbba2f477e520303dea78a47d017a";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -3558,10 +3558,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.2.7";
+      version = "1.2.8";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4123132/vencord_web-1.2.7.xpi";
-      sha256 = "03f5ca753d04b831ec43b99c2bd86c5c0a0025852de14be9febb427fff5d012d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4126120/vencord_web-1.2.8.xpi";
+      sha256 = "ddb5aeec6eaaaf2a39581b9f1d0d6e259b5157c3fa8a8350453129cf8318e2f7";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
@@ -3722,10 +3722,10 @@
       };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.62";
+      version = "6.10.63";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095500/wappalyzer-6.10.62.xpi";
-      sha256 = "1434950437497dbcd91d7bd781e15a3eb3336bf956217dae4fd5a438b04a67fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4124210/wappalyzer-6.10.63.xpi";
+      sha256 = "3aa75bdfbb2b451f42299bb26401e5506735188863ecc65e0a0e7c8fb3183015";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
