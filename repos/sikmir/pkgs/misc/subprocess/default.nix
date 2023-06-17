@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3 }:
+{ lib, stdenv, fetchFromGitHub, cmake, cxxtest, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "subprocess";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Tgmihv7SJfYpOYHvtuE8rgFzUHyl4bJh9W5CSqotVMg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake cxxtest ];
 
   buildInputs = [ python3 ];
 
