@@ -28,5 +28,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # farbfeld-utils is broken
   };
 })
