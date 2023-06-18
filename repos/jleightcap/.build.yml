@@ -1,0 +1,16 @@
+image: nixos/unstable
+sources:
+  - https://git.sr.ht/~jleightcap/nur-packages
+environment:
+  NIX_CONFIG: "experimental-features = nix-command flakes"
+repositories:
+  nixpkgs: https://nixos.org/channels/nixpkgs-unstable
+tasks:
+  - nixpkgs: |
+      nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+  - build: |
+      nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached nur-packages/ci.nix -A cacheOutputs
+
+  - nur: |
+      curl -XPOST "https://nur-update.nix-community.org/update?repo=jleightcap"
