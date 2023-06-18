@@ -37,5 +37,6 @@ stdenv.mkDerivation {
     license = licenses.publicDomain;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
+    broken = stdenv.isDarwin; # mesa is broken
   };
 }
