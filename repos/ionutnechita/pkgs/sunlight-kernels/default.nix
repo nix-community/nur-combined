@@ -59,6 +59,8 @@ buildLinux (args // rec {
       HZ_1000 = no;
 
       SCHEDSTATS = lib.mkOverride 60 yes;
+      HID = yes;
+      UHID = yes;
     };
 
     extraMeta = {
