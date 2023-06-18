@@ -1,0 +1,16 @@
+diff --git a/Makefile b/Makefile
+index 84bd79b00..afdf9d765 100644
+--- a/Makefile
++++ b/Makefile
+@@ -272,6 +272,11 @@ test:	$(TESTS) aarch64
+ depend:	o/$(MODE)/depend
+ tags:	TAGS HTAGS
+ 
++$(info $(ARCH))
++$(info $(ARCH))
++$(info $(ARCH))
++$(info $(ARCH))
++
+ o/$(MODE)/.x:
+ 	@$(COMPILE) -AMKDIR -tT$@ $(MKDIR) $(@D)
+ 
