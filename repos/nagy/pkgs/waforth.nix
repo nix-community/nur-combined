@@ -1,39 +1,43 @@
 { lib, stdenv, fetchFromGitHub, wabt, which, nodejs, wasmtime }:
 
-stdenv.mkDerivation rec {
+let
+  # the compiler, waforthc, requires an older version of wabt.
+  wabt1031 = wabt.overrideAttrs (old: {
+    src = fetchFromGitHub {
+      owner = "WebAssembly";
+      repo = "wabt";
+      rev = "1.0.31";
+      sha256 = "sha256-EChOQTWGt/LUfwCxmMmYC+zHjW9hVvghhOGr4DfpNtQ=";
+      fetchSubmodules = true;
+    };
+  });
+in stdenv.mkDerivation rec {
   pname = "waforth";
   version = "0.19.1";
 
   src = fetchFromGitHub {
-    owner = "remko";
+    owner = "nagy";
     repo = "waforth";
-    rev = "v${version}";
-    sha256 = "sha256-SH4VtmpXjjCkDYbo2dv6WBk7WtoWWo0b0Qt7wkYWP0I=";
+    rev = "7a3327b093bc69cfda9704f86f7e7d4e11b7ff18";
+    sha256 = "sha256-AxdVIV7nWRtHdqI0cBPvAhiOqKqn3uYdlh6dLK9Uaj8=";
   };
 
-  nativeBuildInputs = [ which wabt nodejs wasmtime ];
+  postPatch = ''
+    patchShebangs src/standalone/../../scripts/bin2h
+  '';
+
+  nativeBuildInputs = [ wabt1031 nodejs ];
 
   makeFlags = [
     "WASMTIME_DIR=${lib.getDev wasmtime}"
-    # "WABT_DATA_DIR=${wabt}/share/wabt"
-    # "WABT_INCLUDE_DIR=${wabt}/include"
+    "WABT_DIR=${wabt1031}"
+    "standalone"
+    "waforthc"
   ];
-
-  postPatch = lib.optionalString (!stdenv.hostPlatform.isStatic) ''
-    patchShebangs src/standalone/../../scripts/bin2h
-    substituteInPlace src/standalone/Makefile \
-      --replace libwasmtime.a libwasmtime.so
-  '';
-
-  buildPhase = ''
-    runHook preBuild
-    make $makeFlags -C src/standalone waforth
-    # make $makeFlags -C src/waforthc waforthc   # broken
-  '';
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 -t $out/bin src/standalone/waforth
+    install -Dm555 -t $out/bin src/standalone/waforth src/waforthc/waforthc
     install -Dm444 src/standalone/waforth_core.wasm $out/share/waforth/waforth.wasm
     runHook postInstall
   '';
