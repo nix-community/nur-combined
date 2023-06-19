@@ -14,6 +14,7 @@ stages:
       EOF
     - |
       if [[ -n "$NIXREMOTE_SSH" && -n "$NIXREMOTE_HOST_KEY" ]]; then
+        mkdir -p /etc/ssh
         cp "$NIXREMOTE_SSH" /etc/nix/id_nixremote
         chmod 400 /etc/nix/id_nixremote
         cat <"$NIXREMOTE_HOST_KEY" >> /etc/ssh/ssh_known_hosts
@@ -55,7 +56,7 @@ build:
         command="cachix watch-exec $CACHIX_CACHE_NAME --"
       fi
     - ${command} nix-build-uncached ci.nix -A cacheOutputs
-    - test -n "$AARCH64" || ${command} nix-build-uncached ci.nix --arg pkgs 'import <nixpkgs> {system="aarch64-linux";}' -A cacheOutputs
+    - test -z "$AARCH64" || ${command} nix-build-uncached ci.nix --arg pkgs 'import <nixpkgs> {system="aarch64-linux";}' -A cacheOutputs
 
 deploy:
   stage: deploy
