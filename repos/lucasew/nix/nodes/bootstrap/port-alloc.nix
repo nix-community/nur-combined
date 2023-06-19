@@ -3,6 +3,8 @@
 let
   inherit (builtins) removeAttrs;
   inherit (lib) mkOption types submodule literalExpression mdDoc mkDefault attrNames foldl' mapAttrs mkEnableOption attrValues;
+
+  upperPortRange = 49151;
 in
 
 {
@@ -24,7 +26,7 @@ in
           port = x._port;
         };
         _port = x._port - 1;
-      })  {_port = 65534; }) # gets the count down of the ports
+      })  {_port = upperPortRange; }) # gets the count down of the ports
       (x: removeAttrs x ["_port"]) # removes the utility _port entity
     ];
 
