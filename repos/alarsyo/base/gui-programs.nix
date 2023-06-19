@@ -70,6 +70,8 @@ in {
 
       inherit (pkgs.gnome) nautilus;
 
+      inherit (pkgs.libsForQt5) okular;
+
       discord = pkgs.discord.override {nss = pkgs.nss_latest;};
     };
 
