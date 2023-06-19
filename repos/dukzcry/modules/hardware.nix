@@ -82,7 +82,7 @@ in {
         printf "%s\n" "Xft.dpi: 120" | xrdb -merge
       '';
       services.logind.extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
+        HandlePowerKey=hibernate
       '';
       services.hardware.remminaLegacy = true;
     } // builder))
