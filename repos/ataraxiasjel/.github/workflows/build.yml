@@ -19,6 +19,8 @@ jobs:
           - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-23.05
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
