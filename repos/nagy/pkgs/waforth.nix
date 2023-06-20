@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, wabt, which, nodejs, wasmtime }:
+{ lib, stdenv, fetchFromGitHub, wabt, nodejs, wasmtime }:
 
 let
   # the compiler, waforthc, requires an older version of wabt.
@@ -7,7 +7,7 @@ let
       owner = "WebAssembly";
       repo = "wabt";
       rev = "1.0.31";
-      sha256 = "sha256-EChOQTWGt/LUfwCxmMmYC+zHjW9hVvghhOGr4DfpNtQ=";
+      hash = "sha256-EChOQTWGt/LUfwCxmMmYC+zHjW9hVvghhOGr4DfpNtQ=";
       fetchSubmodules = true;
     };
   });
@@ -19,7 +19,7 @@ in stdenv.mkDerivation rec {
     owner = "nagy";
     repo = "waforth";
     rev = "7a3327b093bc69cfda9704f86f7e7d4e11b7ff18";
-    sha256 = "sha256-AxdVIV7nWRtHdqI0cBPvAhiOqKqn3uYdlh6dLK9Uaj8=";
+    hash = "sha256-AxdVIV7nWRtHdqI0cBPvAhiOqKqn3uYdlh6dLK9Uaj8=";
   };
 
   postPatch = ''

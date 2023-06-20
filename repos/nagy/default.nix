@@ -1,19 +1,15 @@
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib
-, recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
+{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, callPackage ? pkgs.callPackage }:
 
-let
-  thisLib = import ./lib {
-    inherit pkgs lib;
-    inherit (pkgs) callPackage;
-  };
+let thisLib = import ./lib { inherit pkgs lib callPackage; };
 in lib.makeScope pkgs.newScope (self:
   (thisLib.callNixFiles self.callPackage ./pkgs) // {
 
-    lib = lib.extend (self: super: pkgs.callPackage ./lib { });
+    lib = lib.extend (self: super: thisLib);
 
-    qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
+    qemuImages =
+      pkgs.recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
-    python3Packages = recurseIntoAttrs
+    python3Packages = pkgs.recurseIntoAttrs
       (lib.makeScope pkgs.python3Packages.newScope (self: {
         dool = self.callPackage ./pkgs/dool { };
         asyncer = self.callPackage ./pkgs/asyncer { };
@@ -35,7 +31,7 @@ in lib.makeScope pkgs.newScope (self:
         pipe21 = self.callPackage ./pkgs/pipe21 { };
       }));
 
-    lispPackages = recurseIntoAttrs {
+    lispPackages = pkgs.recurseIntoAttrs {
       vacietis = pkgs.callPackage ./pkgs/vacietis { };
       dbus = pkgs.callPackage ./pkgs/cl-dbus { };
       cl-opengl = pkgs.callPackage ./pkgs/cl-opengl { };
