@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, lib, v }:
+{ stdenv, fetchurl, lib, v, coreutils }:
 
 let
   os = if stdenv.isLinux then "linux" else "macos";
@@ -44,6 +44,12 @@ in stdenv.mkDerivation rec {
     cp -r lib "$out/lib"
     install -d "$out/usr/share/doc"
     cp -r doc "$out/usr/share/doc/zig"
+  '';
+
+  postInstall = ''
+    # Zig's build looks at /usr/bin/env to find dynamic linking info. This
+    # doesn't work in Nix' sandbox. Use env from our coreutils instead.
+    substituteInPlace $out/lib/std/zig/system/NativeTargetInfo.zig --replace "/usr/bin/env" "${coreutils}/bin/env"
   '';
 
   meta = with lib; {
