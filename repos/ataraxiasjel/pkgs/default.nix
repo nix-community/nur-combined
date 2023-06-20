@@ -9,6 +9,8 @@ with pkgs; with lib; {
   arkenfox-userjs = callPackage ./arkenfox-userjs { };
   bibata-cursors-tokyonight = callPackage ./bibata-cursors-tokyonight { };
   ceserver = callPackage ./ceserver { };
+  inherit (callPackage ./ivpn { }) ivpn ivpn-service;
+  ivpn-ui = callPackage ./ivpn-ui { };
   mpris-ctl = callPackage ./mpris-ctl { };
   proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
