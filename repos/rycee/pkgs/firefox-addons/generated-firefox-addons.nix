@@ -1113,10 +1113,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230618.180218";
+      version = "114.0.20230619.81400";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4126731/francais_language_pack-115.0.20230618.180218.xpi";
-      sha256 = "c50d922dceb325fa579e2546fb9ae502f03b8a7bb8fb550a969e6eb45ce7b2e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4127222/francais_language_pack-114.0.20230619.81400.xpi";
+      sha256 = "d42b88fe03dfc9e4e3a9a9889e2b24ac75ac58dcf44b6f3459e9f6f6458d5a69";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2255,10 +2255,10 @@
       };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.10.0";
+      version = "2.11.0";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099241/1password_x_password_manager-2.10.0.xpi";
-      sha256 = "739487dbc460983c752251daeb6d0d9a30f1d32af2bc65e1109968726709319f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4118285/1password_x_password_manager-2.11.0.xpi";
+      sha256 = "c02b78db3f4847553239a44d3ccb8453dbac1c8145ddabf00a8fe5dcd8c8e068";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -2466,10 +2466,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2023.5.10";
+      version = "2023.6.14";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4109050/privacy_badger17-2023.5.10.xpi";
-      sha256 = "8ff7650d1ce133894293d1a3e268bb24d300e77a1c25488ed17846e71d8b33e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4125117/privacy_badger17-2023.6.14.xpi";
+      sha256 = "feacbe17f76ebb6be90e9f981f6ae396534818b5c1e14c790d70802ed188738d";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -3345,10 +3345,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.1.1";
+      version = "3.1.2";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4120280/tournesol_extension-3.1.1.xpi";
-      sha256 = "6cb55f59a43dbb3c74ea26446ea80052b1bf706955e47ec31521be77e78aedc6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4127025/tournesol_extension-3.1.2.xpi";
+      sha256 = "d8597b5c2c98950d516dd27daf3b2ae0528acf894990c87e7168382367f288cb";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
