@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchzip,
+  pkg-config,
   libtermkey,
   unibilium,
   libtool,
@@ -15,14 +16,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dKjmHojZBPP0ZQGXsno+2nFf1GCNmljWF2FklCMGCos=";
   };
 
-  patches = [./Makefile.diff];
-
   makeFlags = ["PREFIX=$(out)"];
 
-  buildInputs = [libtermkey unibilium libtool];
+  nativeBuildInputs = [pkg-config libtermkey unibilium libtool];
 
   meta = with lib; {
-    description = "a terminal interface construction kit";
+    description = "A terminal interface construction kit";
     longDescription = ''
       This library provides an abstracted mechanism for building interactive full-screen terminal
       programs. It provides a full set of output drawing functions, and handles keyboard and mouse

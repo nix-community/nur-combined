@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   #
   # TODO: Find out why using `libvterm` throws an error, while `libvterm-neovim` does not.
   #
-  buildInputs = [libtickit libvterm-neovim];
+  nativeBuildInputs = [libtickit libvterm-neovim];
 
   makeFlags = ["PREFIX=$(out)"];
 
