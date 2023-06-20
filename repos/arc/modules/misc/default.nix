@@ -6,6 +6,7 @@
   binding = ./binding.nix;
   ssl = ./ssl.nix;
   domain = ./domain.nix;
+  mutable-state = ./mutable-state.nix;
 
   __functionArgs = { };
   __functor = self: { ... }: {
