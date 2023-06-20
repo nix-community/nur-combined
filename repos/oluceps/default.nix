@@ -31,6 +31,7 @@ let
       "hk-grotesk"
       "lxgw-neo-xihei"
       "dae"
+      "tuic"
     ];
 
   # some packages only avaliable while flake enabled
