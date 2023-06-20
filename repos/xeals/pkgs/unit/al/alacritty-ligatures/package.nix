@@ -25,7 +25,7 @@ alacritty.overrideAttrs (oldAttrs: rec {
   cargoDeps = oldAttrs.cargoDeps.overrideAttrs (lib.const {
     name = "${pname}-${version}-vendor.tar.gz";
     inherit src;
-    outputHash = "pONu6caJmEKnbr7j+o9AyrYNpS4Q8OEjNZOhGTalncc=";
+    outputSha256 = "pONu6caJmEKnbr7j+o9AyrYNpS4Q8OEjNZOhGTalncc=";
   });
 
   ligatureInputs = [

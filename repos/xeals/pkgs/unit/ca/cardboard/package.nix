@@ -15,7 +15,6 @@
 , wayland
 , wayland-protocols
 , wlroots
-, xwayland
 }:
 
 stdenv.mkDerivation rec {

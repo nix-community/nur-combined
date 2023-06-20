@@ -7,7 +7,6 @@
 , libsecret
 , pkg-config
 , qtbase
-, qtdoc
 }:
 let
   builder = import ./common.nix {
