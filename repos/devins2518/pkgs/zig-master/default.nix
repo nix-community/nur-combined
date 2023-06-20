@@ -3,7 +3,7 @@
 let
   os = if stdenv.isLinux then "linux" else "macos";
   arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
-  master = "0.11.0-dev.3726+8fcc28d30";
+  master = "0.11.0-dev.3696+8d0a8c285";
   url = {
     "0.10.0" =
       "https://ziglang.org/download/0.10.0/zig-${os}-${arch}-0.10.0.tar.xz";
@@ -21,14 +21,12 @@ let
         "02f7a7839b6a1e127eeae22ea72c87603fb7298c58bc35822a951479d53c7557";
     };
     ${master} = {
-      x86_64-linux =
-        "b629d0ed7591b3fb6c28c41a22c2a7cf0b4f749873026b120b7e5a7e65d2e1d7";
+      x86_64-linux = "sha256-qq6xC2Urbrc2Yf8nn/UQ9nhEpSwnLgdZ78c0VHBBd9E=";
       aarch64-linux =
         "5ae415519ffbddbeaa9f82df58d3989d91c2c8889b56b2bc65cf5ec0d84ad3d7";
       x86_64-darwin =
         "0ed720b429ad0f1ca69618768ce2a9eab2e95f219b3e7fec39d804102a0ea1ac";
-      aarch64-darwin =
-        "f9e251226a6ee0f6966f3f54c846ed5eeb39df8205017288869fbfccf2ea8500";
+      aarch64-darwin = "sha256-ejkSBEKORarF/z7/GpwainCnWy9Ed9xXmrDv3g/XLKA=";
     };
   };
 in stdenv.mkDerivation rec {
