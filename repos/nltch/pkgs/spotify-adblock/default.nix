@@ -32,4 +32,5 @@ rec{
   spotify-adblocked = callPackage ./spotify-adblocked.nix {
     inherit spotify-adblock spotifywm;
   };
+  environment.systemPackages = [spotify-adblocked];
 }
