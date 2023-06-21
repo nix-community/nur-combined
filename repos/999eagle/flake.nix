@@ -22,5 +22,18 @@
         pkgs = import nixpkgs {inherit system;};
       });
     overlays.default = import ./overlay.nix;
+    hydraJobs = let
+      hydraSystems = ["x86_64-linux" "aarch64-linux"];
+      inherit (nixpkgs) lib;
+    in
+      lib.foldl' lib.recursiveUpdate {} (lib.flatten (builtins.map (system: let
+        packages = self.packages.${system};
+        names = builtins.attrNames packages;
+      in
+        builtins.map (name: {
+          "${name}".${system} = packages.${name};
+        })
+        names)
+      hydraSystems));
   };
 }
