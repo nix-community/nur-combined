@@ -2,12 +2,12 @@
 with pkgs;
 
 let ibDerivation = stdenv.mkDerivation rec {
-  version = "10.19.1e";
+  version = "10.23.2a";
   pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    sha256 = "1xfp1wnk0l6h1hbc4kk744gv33shzqx42myvxari44k65nwljnch";
+    sha256 = "0jb5cxi8xr7l5nlfxdk4j6va5n29l4pw4055jb4pzn3yscyxxc9z";
     executable = true;
   };
 
@@ -22,6 +22,9 @@ let ibDerivation = stdenv.mkDerivation rec {
     # We use an installer FHS environment because the shell script unpacks
     # a binary, and immediately calls that binary. There is little hope
     # for us to patchelf ld-linux in between. An FHS env is easier.
+    mkdir -p $out/libexec
+    ls -ld $out
+    ls -ld $out/libexec
     ${buildFHSUserEnv { name = "fhs"; }}/bin/fhs ${src} -q -dir $out/libexec
 
     # The following disables the JRE compatability check inside the tws script
