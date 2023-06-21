@@ -16,4 +16,5 @@
   appendURL = pkgs.callPackage ./pkgs/mpvScripts/appendURL {};
   ttf-literation = pkgs.callPackage ./pkgs/fonts/ttf-literation {};
   IRust = pkgs.callPackage ./pkgs/irust {};
+  pass-extension-tail = pkgs.callPackage ./pkgs/pass-extension-tail {};
 }
