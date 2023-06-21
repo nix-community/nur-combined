@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -14,8 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  lsd = pkgs.callPackage ./pkgs/lsd { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  lsd = pkgs.callPackage ./pkgs/lsd.nix { };
+  zsh-capture-completion = pkgs.callPackage ./pkgs/zsh-capture-completion.nix { };
 }
-

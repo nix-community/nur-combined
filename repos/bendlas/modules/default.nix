@@ -3,4 +3,3 @@
   lsd = ./programs/lsd.nix;
 
 }
-
