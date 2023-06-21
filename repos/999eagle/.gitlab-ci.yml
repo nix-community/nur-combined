@@ -16,6 +16,7 @@ stages:
       if [[ -n "$NIXREMOTE_SSH" && -n "$NIXREMOTE_HOST_KEY" ]]; then
         mkdir -p /etc/ssh
         cp "$NIXREMOTE_SSH" /etc/nix/id_nixremote
+        echo "" >> /etc/nix/id_nixremote # add trailing newline because GitLab doesn't and it's required
         chmod 400 /etc/nix/id_nixremote
         cat <"$NIXREMOTE_HOST_KEY" >> /etc/ssh/ssh_known_hosts
         cat >> /etc/nix/nix.conf << EOF
