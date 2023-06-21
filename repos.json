@@ -543,6 +543,9 @@
         "nix-swift-packages": {
             "url": "https://github.com/dduan/nix-swift-packages"
         },
+        "nltch": {
+            "url": "https://github.com/nl-tch/nur-packages"
+        },
         "nnb": {
             "url": "https://github.com/NNBnh/nur-packages"
         },
