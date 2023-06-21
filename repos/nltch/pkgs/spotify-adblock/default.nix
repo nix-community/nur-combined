@@ -31,13 +31,5 @@ rec{
   };
   spotify-adblocked = callPackage ./spotify-adblocked.nix {
     inherit spotify-adblock spotifywm;
-    meta = with lib; {
-      homepage = "https://github.com/NL-TCH/nur-packages";
-      description = "Play adfree music from the Spotify music service";
-      sourceProvenance = with sourceTypes; [binaryNativeCode];
-      license = licenses.unfree;
-      maintainers = with maintainers; [NL-TCH];
-      platforms = ["x86_64-linux"];
-    };
   };
 }
