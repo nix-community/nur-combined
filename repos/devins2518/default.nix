@@ -26,5 +26,5 @@ rec {
   zig-master =
     pkgs.callPackage ./pkgs/zig-master { v = "0.11.0-dev.3696+8d0a8c285"; };
   zigup = pkgs.callPackage ./pkgs/zigup { };
-  # zls = pkgs.callPackage ./pkgs/zls { zig-master = zig-master; };
+  zls = pkgs.callPackage ./pkgs/zls { zig-master = zig-master; };
 }

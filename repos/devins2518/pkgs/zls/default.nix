@@ -14,13 +14,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ zig-master ];
 
+  dontConfigure = true;
+
   preBuild = ''
     export HOME=$TMPDIR
   '';
 
   installPhase = ''
-    zig version
-    zig build -Doptimize=ReleaseSafe --prefix $out
+    runHook preInstall
+    zig build -Doptimize=ReleaseSafe -Dcpu=baseline --prefix $out install
+    runHook postInstall
   '';
 
   meta = with lib; {
