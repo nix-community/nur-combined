@@ -1,37 +1,33 @@
-# nur-packages-template
+# NUR repository NL-TCH
+## packages in repository:
 
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
+1. spotify-adblock using https://github.com/abba23/spotify-adblock and https://github.com/dasJ/spotifywm/
+Listen to spotify without banner ads and interupting audio ads
+2. ciscoPacketTracer8
+This version of packettracer8 automatically installs the required .deb from a private and fast nextcloud server, instead of the slow public link.
 
-## Setup
-
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
-
-## README template
+## how to install
+1. Add the following lines to your `/etc/nixos/configuration.nix`
+```nix
+nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+```
+2. Specify the packages you want to install from my repository in your `/etc/nixos/configuration.nix`
+```nix
+environment.systemPackages = with pkgs; [
+   nur.repos.nltch.spotify-adblock.spotify-adblocked #for installing spotify-adblock
+   nur.repos.nltch.ciscoPacketTracer8 #for installing packettracer8 
+]
+```
+3. run `nixos-rebuild switch` to download, compile and install the packages 
 
 # nur-packages
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
 
 <!-- Remove this if you don't use github actions -->
 ![Build and populate cache](https://github.com/NL-TCH/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
-
-<!--
-Uncomment this if you use travis:
-
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
 [![Cachix Cache](https://img.shields.io/badge/cachix-nltch-blue.svg)](https://nltch.cachix.org)
 
