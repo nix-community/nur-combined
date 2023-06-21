@@ -16,6 +16,7 @@
 
   #example-package = pkgs.callPackage ./pkgs/example-package { };
   spotify-adblock = pkgs.callPackage ./pkgs/spotify-adblock { };
+  ciscoPacketTracer8 = pkgs.callPackage ./pkgs/ciscoPacketTracer8 { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
