@@ -182,7 +182,7 @@ in
       description = "Play adfree music from the Spotify music service";
       sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
-      maintainers = with maintainers; [NL-TCH];
+      maintainers = with maintainers; [ nltch ];
       platforms = ["x86_64-linux"];
     };
   }
