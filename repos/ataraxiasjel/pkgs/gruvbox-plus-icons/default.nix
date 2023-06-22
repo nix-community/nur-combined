@@ -12,8 +12,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "SylEleuth";
     repo = "gruvbox-plus-icon-pack";
-    rev = "484595a1503ba15027295ba5b0a8214af5ad17b9";
-    hash = "sha256-JQ1YuYtSSXFg6B8Ii15kdCT2bfmdz6EOyf0Ukfg1pvc=";
+    rev = "751f0896a4514111e7e0e5aed47009f84ff5890c";
+    hash = "sha256-GMQVaIBrXQo4l7wJhnjSRCLaof2el1NgPeeJrpx2VPA=";
   };
 
   dontBuild = true;

@@ -41,7 +41,7 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Update packages
-      if: (github.event_name == 'schedule')
+      if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
       run: |
         nix-shell ./update.py --maintainer ataraxiasjel
     - name: Check evaluation
@@ -57,7 +57,7 @@ jobs:
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Push changes
       uses: stefanzweifel/git-auto-commit-action@v4
-      if: (github.event_name == 'schedule')
+      if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
       with:
         commit_message: Automated packages update
     - name: Trigger NUR update
