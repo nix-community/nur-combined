@@ -422,10 +422,10 @@
       };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "15.0.0";
+      version = "16.1.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4121925/censor_tracker-15.0.0.xpi";
-      sha256 = "ccee0a976051da51af2c5af3c6c21f87e436506823c4179abea3d3112f43f8ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128289/censor_tracker-16.1.0.xpi";
+      sha256 = "a679840ecd00aeafe5464cb9fcfdf4a1cd71e4b88b806ef2c1f016be3c5dcc0b";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
@@ -533,10 +533,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.6.0";
+      version = "3.8.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4122460/control_panel_for_twitter-3.6.0.xpi";
-      sha256 = "23fcc925e362e19daa5ee2eb98a596e811139e48b4921dc6be7d01eba2f0d5f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4127454/control_panel_for_twitter-3.8.1.xpi";
+      sha256 = "27bd458505eec2c5aebb53384e28c211ee8434334263be166056de44ffe457b6";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2241,10 +2241,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.6.1";
+      version = "1.7.0";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4051311/old_reddit_redirect-1.6.1.xpi";
-      sha256 = "17f18ce82f060d7847cce9b6052631a9f2ec207d4500944ebc60b9d06a348aad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4126417/old_reddit_redirect-1.7.0.xpi";
+      sha256 = "6b70b536b5a14ac8c49f73e8b5f751d36b1e3837f079a3b76d302392bf91de5f";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -3359,10 +3359,10 @@
       };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
-      version = "9.8.0.4";
+      version = "9.8.1.0";
       addonId = "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119319/traduzir_paginas_web-9.8.0.4.xpi";
-      sha256 = "6914a94bd3092205284d320b2eab08cb4a34165fa5b601765f104c8eb6784822";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4126844/traduzir_paginas_web-9.8.1.0.xpi";
+      sha256 = "3530300cef923ac189c6991942160deb9c1fdb4c67432e58d4827a5eee4121c0";
       meta = with lib;
       {
         description = "Translate your page in real time using Google or Yandex.\nIt is not necessary to open new tabs.\nNow works with the NoScript Extension.";
