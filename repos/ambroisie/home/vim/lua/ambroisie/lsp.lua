@@ -44,22 +44,6 @@ end
 -- @param client native client configuration
 -- @param bufnr int? buffer number of the attched client
 M.on_attach = function(client, bufnr)
-    -- Diagnostics
-    vim.diagnostic.config({
-        -- Disable virtual test next to affected regions
-        virtual_text = false,
-        -- Also disable virtual diagnostics under the affected regions
-        virtual_lines = false,
-        -- Show diagnostics signs
-        signs = true,
-        -- Underline offending regions
-        underline = true,
-        -- Do not bother me in the middle of insertion
-        update_in_insert = false,
-        -- Show highest severity first
-        severity_sort = true,
-    })
-
     -- Format on save
     lsp_format.on_attach(client, bufnr)
 
