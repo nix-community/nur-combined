@@ -2,8 +2,5 @@ key_groups: &default-key
   - age:
     - age1njrh2w2c7lla8trn2qdkz46dmgnxmxeehrzr5qtkpk7hgg8jea7s0mg23f
 creation_rules:
-  - path_regex: secrets/clash_[^/]+\.yaml$
-    encrypted_regex: ^proxies$
-    key_groups: *default-key
   - path_regex: secrets/[^/]+\.yaml$
     key_groups: *default-key

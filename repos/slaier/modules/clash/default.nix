@@ -18,6 +18,7 @@
     ];
     etc."clash/Country.mmdb".source = "${pkgs.clash-geoip}/etc/clash/Country.mmdb";
     etc."clash/yacd".source = config.nur.repos.linyinfeng.yacd;
+    etc."clash/config.yaml".source = if config.networking.proxy.httpsProxy == null then ./office.yaml else ./home.yaml;
   };
 
   systemd.services.clash = {
@@ -25,12 +26,19 @@
     description = "Clash networking service";
     after = [ "network.target" "sops-nix.service" ];
     wantedBy = [ "multi-user.target" ];
-    script = "exec clash -d /etc/clash";
+    restartTriggers = [
+      config.environment.etc."clash/config.yaml".source
+      config.sops.secrets.clash.sopsFile
+    ];
+    script = "exec clash -d /etc/clash -secret $(cat ${config.sops.secrets.clash_secret.path})";
 
     # Don't start if the config file doesn't exist.
     unitConfig = {
       # NOTE: configPath is for the original config which is linked to the following path.
-      ConditionPathExists = "/etc/clash/config.yaml";
+      ConditionPathExists = [
+        "/etc/clash/config.yaml"
+        config.sops.secrets.clash_secret.path
+      ];
     };
     serviceConfig = {
       # CAP_NET_BIND_SERVICE: Bind arbitary ports by unprivileged user.
@@ -42,13 +50,16 @@
     };
   };
 
-  sops.secrets.clash = {
-    key = "";
-    sopsFile = ../../secrets/clash_office.yaml;
-    format = "yaml";
-    restartUnits = [ "clash.service" ];
+  sops.secrets.clash_secret = {
     owner = "clash";
-    path = "/etc/clash/config.yaml";
+  };
+
+  sops.secrets.clash = {
+    format = "yaml";
+    key = "";
+    sopsFile = ../../secrets/clash.yaml;
+    owner = "clash";
+    path = "/etc/clash/combination.yaml";
   };
 
   networking.firewall.allowedTCPPorts = [
