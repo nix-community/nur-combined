@@ -18,12 +18,12 @@
 }:
 
 stdenv.mkDerivation rec {
-  name = "hmcl-bin";
-  version = "3.5.4.232";
+  pname = "hmcl-bin";
+  version = "3.5.4.234";
 
   src = fetchurl {
     url = "https://github.com/huanghongxun/HMCL/releases/download/v${version}/HMCL-${version}.jar";
-    sha256 = "sha256-6UCyrnTkLTM+09ulJP55AN5ChiTrcC9wLUUe1MNJw60=";
+    sha256 = "sha256-TeSuWrwsgyOiGzk6Dtfcz43O0h/K6f22bkApXwyyTMU=";
   };
 
   dontUnpack = true;
