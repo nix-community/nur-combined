@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   pname = "radeon-profile-daemon";
-  version = "20190603.g06qxq2h";
+  version = "20190603";
 
   buildInputs = [ qtbase ];
   nativeBuildInputs = [ qmake wrapQtAppsHook ];
