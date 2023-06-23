@@ -657,10 +657,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.0.7";
+      version = "1.0.9";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4125311/dearrow-1.0.7.xpi";
-      sha256 = "b76d9baa621a3e5342ac59494d35fc52c1c08f94c538803042ff4cd2004abab1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128996/dearrow-1.0.9.xpi";
+      sha256 = "bced2b042c47907adb568e7a4b23cc91a25701fe272251188465fc9802819e5d";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1113,10 +1113,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230620.180051";
+      version = "115.0.20230622.161221";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4127814/francais_language_pack-115.0.20230620.180051.xpi";
-      sha256 = "86c577b0344db7da91ffbfb7ac95c87fe50301602c150ae95dafd18ce9c2d5f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128749/francais_language_pack-115.0.20230622.161221.xpi";
+      sha256 = "f9a10e53fc70e2a44e5a63525f1af8ef11bf8c26c61d4eea0f855aa0f81bcff3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1944,10 +1944,10 @@
       };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.8.8";
+      version = "2.8.10";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4124162/momentumdash-2.8.8.xpi";
-      sha256 = "d3019c655f5bf2091ed7f136da847cb0527cbba2f477e520303dea78a47d017a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128042/momentumdash-2.8.10.xpi";
+      sha256 = "c815b77a64d590821ad4e4251fc6c65b02c050835f135844c38ecc481a90bdcd";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -3558,10 +3558,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.2.8";
+      version = "1.2.9";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4126120/vencord_web-1.2.8.xpi";
-      sha256 = "ddb5aeec6eaaaf2a39581b9f1d0d6e259b5157c3fa8a8350453129cf8318e2f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128718/vencord_web-1.2.9.xpi";
+      sha256 = "b20fd59aacf7ceec45ad95d2cbaef70d8d04f5b3e3e75c696f5955a7ee978ce3";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
