@@ -17,8 +17,9 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [
     numpy
-    pyyaml
   ];
+
+  requirementsExtra = "pyyaml==5.4.1";
 
   patchPhase = ''
     substituteInPlace setup.py \
