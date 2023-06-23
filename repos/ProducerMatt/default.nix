@@ -23,4 +23,5 @@
   rsync-bpc = pkgs.callPackage ./pkgs/rsync-bpc { };
   git-fix-whitespace = pkgs.callPackage ./pkgs/git-fix-whitespace { };
   rsbkb = pkgs.callPackage ./pkgs/rsbkb { };
+  regcpython = pkgs.callPackage ./pkgs/regcpython { };
 }
