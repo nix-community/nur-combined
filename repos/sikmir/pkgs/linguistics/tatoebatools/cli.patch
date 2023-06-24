@@ -1,17 +1,17 @@
 diff --git c/setup.py i/setup.py
-index 2a0a75d..01b361c 100644
+index 10ad3c2..4cf6338 100644
 --- c/setup.py
 +++ i/setup.py
-@@ -24,9 +24,12 @@ setuptools.setup(
-     python_requires=">=3.7.1",
+@@ -25,9 +25,12 @@ setuptools.setup(
+     python_requires=">=3.8.0",
      install_requires=[
          "beautifulsoup4>=4.9.0",
 +        "click",
-         "pandas>=1.3.3",
+         "pandas>=1.5.0",
          "requests>=2.23.0",
          "SQLAlchemy==1.4.23",
          "tqdm>=4.46.0",
-+        "xdg"
++        "xdg",
      ],
 +    entry_points={"console_scripts": "parallel_corpus=tatoebatools.cli:parallel_corpus"},
  )
