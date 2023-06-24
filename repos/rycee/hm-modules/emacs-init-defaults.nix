@@ -49,8 +49,6 @@
     elm-mode.mode = [ ''"\\.elm\\'"'' ];
 
     emacsql-sqlite3 = {
-      enable =
-        lib.mkDefault config.programs.emacs.init.usePackage.org-roam.enable;
       defer = lib.mkDefault true;
       config = ''
         (setq emacsql-sqlite3-executable "${pkgs.sqlite}/bin/sqlite3")
@@ -80,6 +78,13 @@
     lsp-eslint = {
       config = ''
         (setq lsp-eslint-server-command '("node" "${pkgs.vscode-extensions.dbaeumer.vscode-eslint}/share/vscode/extensions/dbaeumer.vscode-eslint/server/out/eslintServer.js" "--stdio"))
+      '';
+    };
+
+    lsp-pylsp = {
+      config = ''
+        (setq lsp-pylsp-server-command
+                "${lib.getExe pkgs.python3Packages.python-lsp-server}")
       '';
     };
 
