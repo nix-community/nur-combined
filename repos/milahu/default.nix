@@ -114,6 +114,29 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       faust-cchardet = python3.pkgs.callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
 
+      pocketsphinx = python3.pkgs.callPackage ./pkgs/python3/pkgs/pocketsphinx/pocketsphinx.nix {
+        pkgs = pkgs // {
+          # fix: error: pocketsphinx has been removed: unmaintained
+          inherit pocketsphinx;
+        };
+      };
+
+      speechrecognition = python3.pkgs.callPackage ./pkgs/python3/pkgs/speechrecognition/speechrecognition.nix { };
+
+      tpot = python3.pkgs.callPackage ./pkgs/python3/pkgs/tpot/tpot.nix {
+        # FIXME scope
+        update-checker = python3.pkgs.callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
+      };
+
+      update-checker = python3.pkgs.callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
+
+      pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+
+      dcase-util = python3.pkgs.callPackage ./pkgs/python3/pkgs/dcase-util/dcase-util.nix {
+        # FIXME scope
+        pydot-ng = python3.pkgs.callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+      };
+
     };
   };
 
@@ -245,6 +268,17 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   surge-filesharing = callPackage ./pkgs/applications/networking/p2p/surge-filesharing/surge-filesharing.nix { };
 
   tribler = callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
+
+  # pocketsphinx was removed in https://github.com/NixOS/nixpkgs/pull/170124
+  # based on update in closed PR https://github.com/NixOS/nixpkgs/pull/169609
+
+  # pkgs/development/libraries/pocketsphinx/default.nix
+  # https://github.com/armeenm/nixpkgs/blob/5e826bad51e25f7b8e20e242964ec0e76e147f82/pkgs/development/libraries/pocketsphinx/default.nix
+  pocketsphinx = callPackage ./pkgs/development/libraries/pocketsphinx/pocketsphinx.nix { };
+
+  # https://github.com/cmusphinx/sphinxbase
+  # SphinxBase has been integrated into PocketSphinx
+  #sphinxbase = callPackage ./pkgs/development/libraries/sphinxbase/sphinxbase.nix { };
 
 }
 
