@@ -5,6 +5,7 @@
     ./atuin
     ./bat
     ./bluetooth
+    ./calibre
     ./comma
     ./dircolors
     ./direnv

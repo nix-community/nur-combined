@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   my.home = {
+    # Ebook library
+    calibre.enable = true;
     # Some amount of social life
     discord.enable = true;
     # Image viewver
