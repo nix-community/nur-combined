@@ -75,9 +75,23 @@
 
     latex.mode = [ ''("\\.tex\\'" . latex-mode)'' ];
 
+    lsp-elm = {
+      config = ''
+        (setq lsp-elm-elm-language-server-path
+                "${pkgs.elmPackages.elm-language-server}/bin/elm-language-server")
+      '';
+    };
+
     lsp-eslint = {
       config = ''
         (setq lsp-eslint-server-command '("node" "${pkgs.vscode-extensions.dbaeumer.vscode-eslint}/share/vscode/extensions/dbaeumer.vscode-eslint/server/out/eslintServer.js" "--stdio"))
+      '';
+    };
+
+    lsp-kotlin = {
+      config = ''
+        (setq lsp-clients-kotlin-server-executable
+              "${pkgs.kotlin-language-server}/bin/kotlin-language-server")
       '';
     };
 
