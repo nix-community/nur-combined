@@ -657,10 +657,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.0.9";
+      version = "1.0.10";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128996/dearrow-1.0.9.xpi";
-      sha256 = "bced2b042c47907adb568e7a4b23cc91a25701fe272251188465fc9802819e5d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129285/dearrow-1.0.10.xpi";
+      sha256 = "759abba2dd964b85eb78d1135c3114f2d1970b5c32ea27555a16c68536056f88";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -3764,10 +3764,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.0.12";
+      version = "3.0.13";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4123496/web_scrobbler-3.0.12.xpi";
-      sha256 = "ebdf8b75f5694b8ba9628929235fb8dca11e851bfbe3716b70234008c50c4846";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4126575/web_scrobbler-3.0.13.xpi";
+      sha256 = "0c9a3246f8e5dbada11820626306f5cc80783e8884569523c3f6c362b6e58254";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
