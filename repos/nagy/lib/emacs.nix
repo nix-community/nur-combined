@@ -10,7 +10,7 @@
 
   emacsMakeSingleFilePackage = { src, pname, version ? "unstable"
     , emacs ? pkgs.emacs, epkgs ? pkgs.emacsPackagesFor emacs
-    , packageRequires ? emacsParsePackageSet { inherit emacs src; }, }:
+    , packageRequires ? emacsParsePackageSet { inherit emacs src epkgs; }, }:
     (epkgs.trivialBuild {
       inherit pname version src packageRequires;
       preferLocalBuild = true;
