@@ -3038,10 +3038,10 @@
       };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.14.0";
+      version = "1.15.0";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4124047/surfingkeys_ff-1.14.0.xpi";
-      sha256 = "c729a1c6d537d7d12287a0113e091e2b3d5c7a9b39fa67663297fd056c74a03f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129503/surfingkeys_ff-1.15.0.xpi";
+      sha256 = "0e3ae438d76905e85fb69a14800780f58cd07196e1d668321b8f4da607fa0766";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
