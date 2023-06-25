@@ -8,29 +8,15 @@
         usePkgs = map (name: epkgs.${name}) parsedPkgs;
       in usePkgs);
 
-  emacsShouldIgnoreWarnings = { src }:
-    (builtins.match ".*NIX-IGNORE-WARNINGS.*" (builtins.readFile src)) != null;
-
   emacsMakeSingleFilePackage = { src, pname, version ? "unstable"
     , emacs ? pkgs.emacs, epkgs ? pkgs.emacsPackagesFor emacs
-    , warnIsError ? !(emacsShouldIgnoreWarnings { inherit src; })
     , packageRequires ? emacsParsePackageSet { inherit emacs src; }, }:
-    let
-      warnEvalStr = lib.optionalString warnIsError
-        "--eval '(setq byte-compile-error-on-warn t)'";
-    in (epkgs.trivialBuild {
+    (epkgs.trivialBuild {
       inherit pname version src packageRequires;
-
-      buildPhase = ''
-        runHook preBuild
-        emacs -L . --batch ${warnEvalStr} -f batch-byte-compile *.el
-        runHook postBuild
-      '';
-
       preferLocalBuild = true;
       allowSubstitutes = false;
-    }).overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
+    }).overrideAttrs ({ nativeBuildInputs ? [ ], ... }: {
+      nativeBuildInputs = nativeBuildInputs ++ [ pkgs.git ];
     });
 
   # copied from https://github.com/nix-community/emacs-overlay/blob/master/parse.nix
