@@ -1,7 +1,7 @@
 { lib,
   fetchFromGitHub,
   stdenv,
-  linuxOnly ? true,
+#  linuxOnly ? true,
   buildMode ? "rel",
   limitOutputs ? false # defaults to all
 }:
@@ -20,8 +20,8 @@
 let
   commonMeta = rec {
     name = "cosmopolitan";
-    version = "2023-05-25";
-    rev = "1422e96b4e6071a902be8cbd4e7f9ae73732b34b";
+    version = "2023-06-18";
+    rev = "48b2afb192ec18eca40c0b25603c02a2e3b578e9";
     changelog = "https://github.com/jart/cosmopolitan/commits/${rev}";
   };
 
@@ -40,7 +40,7 @@ let
             "tool/build/pledge.com"
             "tool/build/unveil.com"
           ];
-          licenses = [ asl20 bsd3 zlib ];
+          licenses = [ asl20 bsd3 mit zlib isc ];
         };
         pkzip = {
           coms = [
@@ -72,14 +72,6 @@ let
           ];
           licenses = [ asl20 bsd3 isc mit ];
         };
-        blinkenlights = {
-          coms = [
-            "tool/build/blinkenlights.com"
-          ];
-          licenses = [ asl20 bsd3 mit zlib isc ];
-          # Using "MIT" license in place of fdlibm license
-          # https://lists.fedoraproject.org/pipermail/legal/2013-December/002346.html
-        };
         ttyinfo = {
           coms = [
             "examples/ttyinfo.com"
@@ -100,22 +92,53 @@ let
           ];
           licenses = [ bsd3 mit zlib isc ];
         };
+        cocmd = {
+          coms = [
+            "tool/build/cocmd.com"
+          ];
+          licenses = [ asl20 bsd3 mit isc ];
+        };
+        lua = {
+          coms = [
+            "third_party/lua/lua.com"
+          ];
+          licenses = [ asl20 bsd2 bsd3 mit isc ];
+          # Using "MIT" license in place of fdlibm license
+        };
+        redbean = {
+          coms = [
+            "third_party/radpajama/radpajama-chat.com"
+            "third_party/radpajama/radpajama-copy.com"
+            "third_party/radpajama/radpajama-quantize.com"
+            "third_party/radpajama/radpajama.com"
+          ];
+          licenses = [ asl20 bsd2 bsd3 mit isc ];
+          # Using "MIT" license in place of fdlibm license
+        };
+        llama = {
+          coms = [
+            "third_party/ggml/llama.com"
+          ];
+          licenses = [ asl20 bsd2 bsd3 mit isc ];
+          # Using "MIT" license in place of fdlibm license
+        };
     };
 
-    make = "make";
-    #make = "./build/bootstrap/make.com";
+    #make = "make";
+    make = "./build/bootstrap/make.com";
     platformFlag =
-      if linuxOnly
-        then "CPPFLAGS=-DSUPPORT_VECTOR=1"
-        else "";
-    # NOTE(ProducerMatt): since Nix builds will all be on Linux,
-    # might as well target Linux exclusively.
+      "";
+    #   if linuxOnly
+    #     then "CPPFLAGS=-DSUPPORT_VECTOR=1"
+    #     else "";
+    # # NOTE(ProducerMatt): since Nix builds will all be on Linux,
+    # # might as well target Linux exclusively.
   };
   cosmoSrc = fetchFromGitHub {
     owner = "jart";
     repo = "cosmopolitan";
     rev = commonMeta.rev;
-    hash = "sha256-xlKv25oDHpK1A0Ni2oRdTqKi5PD2t66sZB6Wv9HZmQA=";
+    hash = "sha256-9LcxbQGxS+WanA3hOqa+OrWh69PUEA1VUTYJCHKCbqM=";
   };
   wantedOutputs =
     # make attrs of all outputs to build. If given a bad name in

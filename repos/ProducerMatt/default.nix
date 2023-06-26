@@ -15,7 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   cosmo = pkgs.callPackage ./pkgs/cosmo { };
-  cosmo-unstable = pkgs.callPackage ./pkgs/cosmo-unstable { };
   hugs98 = pkgs.callPackage ./pkgs/hugs98 { };
   ripsecrets = pkgs.callPackage ./pkgs/ripsecrets { };
   orgmk = pkgs.callPackage ./pkgs/orgmk { };
