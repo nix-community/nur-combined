@@ -15,7 +15,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "devtoolbox";
-  version = "1.0.2";
+  version = "1.1.1";
 
   format = "other";
 
@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     owner = "aleiepure";
     repo = "devtoolbox";
     rev = "v${version}";
-    hash = "sha256-NirgCBZW/bgJz5sVioe3gmpDgOtqwxsFD9FMA8kb2Uw=";
+    hash = "sha256-QFGEA+VhhRlvcch2AJrEzvRJGCSqtvZdMXWUvdAGkoU=";
   };
 
   patches = [
