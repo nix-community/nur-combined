@@ -2,14 +2,16 @@
 
 stdenv.mkDerivation rec {
   pname = "self-service-password";
-  version = "1.5.2";
+  version = "1.4.3";
 
   src = fetchFromGitHub {
     owner = "ltb-project";
     repo = "self-service-password";
     rev = "v${version}";
-    hash = "sha256-1mhk/njYIqcurDD6EO/kff/RLUBMO4UkaYVIECuKc/I=";
+    hash = "sha256:14m6ggjilyaf1p5c2a950jszn9ngx8d5vb9m3hw747l82vnbdl90";
   };
+
+  patches = [ ./ssh-add.patch ];
 
   buildInputs = [ optipng ];
   installInputs = [ smarty3 ];
