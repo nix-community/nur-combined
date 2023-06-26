@@ -11,6 +11,7 @@
       name = cfg.lan-ip;
       value = [ host ];
     }) config.sane.hosts.by-name)
+
     (lib.mapAttrs' (host: cfg: {
       # -hn suffixed name for communication over my wg-home VPN.
       # hn = "home network"

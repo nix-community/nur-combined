@@ -14,8 +14,8 @@ in {
   services.lemmy = {
     enable = true;
     settings.hostname = "lemmy.uninsane.org";
-    settings.federation.enabled = true;
     # federation.debug forces outbound federation queries to be run synchronously
+    # N.B.: this option might not be read for 0.17.0+? <https://github.com/LemmyNet/lemmy/blob/c32585b03429f0f76d1e4ff738786321a0a9df98/RELEASES.md#upgrade-instructions>
     # settings.federation.debug = true;
     settings.port = backendPort;
     ui.port = uiPort;

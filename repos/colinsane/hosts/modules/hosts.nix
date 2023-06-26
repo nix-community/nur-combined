@@ -4,8 +4,14 @@ let
   inherit (lib) attrValues filterAttrs mkMerge mkOption types;
   cfg = config.sane.hosts;
 
-  host = types.submodule ({ config, ... }: {
+  host = types.submodule ({ config, name, ... }: {
     options = {
+      names = mkOption {
+        type = types.listOf types.str;
+        description = ''
+          all names by which this host is reachable
+        '';
+      };
       ssh.user_pubkey = mkOption {
         type = types.str;
         description = ''
@@ -47,6 +53,11 @@ let
           e.g. "192.168.0.5";
         '';
       };
+    };
+
+    config = {
+      names = [ name ]
+        ++ lib.optional (config.wg-home.ip != null) "${name}-hn";
     };
   });
 in

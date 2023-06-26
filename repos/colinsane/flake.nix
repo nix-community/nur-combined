@@ -252,7 +252,7 @@
           deployScript = action: pkgs.writeShellScript "deploy-moby" ''
             nixos-rebuild --flake '.#moby' build $@
             sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result)
-            nixos-rebuild --flake '.#moby' ${action} --target-host colin@moby-hn --use-remote-sudo $@
+            nixos-rebuild --flake '.#moby' ${action} --target-host colin@moby --use-remote-sudo $@
           '';
         in {
           update-feeds = {
@@ -275,6 +275,22 @@
             # `nix run '.#deploy-moby-switch'`
             type = "app";
             program = ''${deployScript "switch"}'';
+          };
+
+          check-nur = {
+            # `nix run '.#check-nur'`
+            # validates that my repo can be included in the Nix User Repository
+            type = "app";
+            program = builtins.toString (pkgs.writeShellScript "check-nur" ''
+              cd ${./.}/integrations/nur
+              NIX_PATH= NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix-env -f . -qa \* --meta --xml \
+                --allowed-uris https://static.rust-lang.org \
+                --option restrict-eval true \
+                --option allow-import-from-derivation true \
+                --drv-path --show-trace \
+                -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+                -I ../../
+            '');
           };
         };
 

@@ -38,6 +38,7 @@ in
         "input"  # for /dev/input/<xyz>: sxmo
         "networkmanager"
         "nixbuild"
+        "transmission"  # servo, to admin /var/lib/uninsane/media
         "video"  # phosh/mobile. XXX colin: unsure if necessary
         "wheel"
         "wireshark"

@@ -4,18 +4,23 @@
   imports = [
     ./aerc.nix
     ./assorted.nix
+    ./cozy.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gpodder.nix
     ./imagemagick.nix
     ./jellyfin-media-player.nix
     ./kitty
+    ./komikku.nix
+    ./koreader
     ./libreoffice.nix
+    ./mepo.nix
     ./mpv.nix
     ./neovim.nix
     ./newsflash.nix
     ./offlineimap.nix
     ./ripgrep.nix
+    ./sfeed.nix
     ./splatmoji.nix
     ./steam.nix
     ./sublime-music.nix

@@ -19,8 +19,6 @@
 - add updateScripts to all my packages in nixpkgs
 - fix lightdm-mobile-greeter for newer libhandy
 - port zecwallet-lite to a from-source build
-- fix or abandon Whalebird
-- FIX failed CI on bonsai PR: <https://github.com/NixOS/nixpkgs/pull/233892>
 - REVIEW/integrate jellyfin dataDir config: <https://github.com/NixOS/nixpkgs/pull/233617>
 - remove `libsForQt5.callPackage` broadly: <https://github.com/NixOS/nixpkgs/issues/180841>
 
@@ -37,6 +35,7 @@
     - e.g. daily email checks; daily backup checks
 
 ### user experience
+- neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
 - firefox/librewolf: don't show browserpass/sponsorblock/metamask "first run" on every boot
 - moby: improve gPodder launch time
 - moby: replace jellyfin-desktop with jellyfin-vue?
@@ -44,15 +43,15 @@
     - "newer" jellyfin client
     - not packaged for nix
 - moby/sxmo: display numerical vol percentage in topbar
-- moby/sxmo: include librewolf, jellyfin in `apps` menu
-- find a nice desktop ActivityPub client
 - package Nix/NixOS docs for Zeal
     - install [doc-browser](https://github.com/qwfy/doc-browser)
     - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)
     - install [devhelp](https://wiki.gnome.org/Apps/Devhelp)  (gnome)
-- auto-mount servo
 - have xdg-open parse `<repo:...> URIs (or adjust them so that it _can_ parse)
 - `sane.programs`: auto-populate defaults with everything from `pkgs`
+- `sane.persist`: auto-create parent dirs in ~/private
+  - currently if the application doesn't autocreate dirs leading to its destination, then ~/private storage fails
+  - this might be why librewolf on mobile is still amnesiac
 - zsh: disable "command not found" corrections
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
 
@@ -65,13 +64,13 @@
     - these use significant /tmp space.
     - either place /tmp on encrypted-cleared-at-boot storage
         - which probably causes each CPU load for the encryption
+    - or have nix builds use a subdir of /tmp like /tmp/nix/...
+        - and place that on non-encrypted clear-on-boot (with very lax writeback/swappiness to minimize writes)
     - **or set up encrypted swap**
         - encrypted swap could remove the need for my encrypted-cleared-at-boot stuff
 
 
 ## NEW FEATURES:
-- add a FTP-accessible file share to servo
-    - just /var/www?
 - migrate MAME cabinet to nix
     - boot it from PXE from servo?
 - enable IPv6

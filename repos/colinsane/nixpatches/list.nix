@@ -20,6 +20,24 @@ let
     );
 in [
 
+  # (fetchpatch' {
+  #   # XXX: doesn't cleanly apply; fetch `firefox-pmos-mobile` branch from my git instead
+  #   title = "firefox-pmos-mobile: init at -pmos-2.2.0";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/121356";
+  #   hash = "sha256-eDsR1cJC/IMmhJl5wERpTB1VGawcnMw/gck9sI64GtQ=";
+  # })
+
+  (fetchpatch' {
+    saneCommit = "70c12451b783d6310ab90229728d63e8a903c8cb";
+    title = "firefox-pmos-mobile: init at -pmos-2.2.0";
+    hash = "sha256-o67YRjo31raaYhIpfqQP/tdjbXrjeLLhEr/qzqyPLgQ=";
+  })
+  (fetchpatch' {
+    saneCommit = "f0ed1651158c33504fbd2e04db497d5504dd8570";
+    title = "librewolf-pmos-mobile: init";
+    hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
+  })
+
   # splatmoji: init at 1.2.0
   (fetchpatch' {
     saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
@@ -58,25 +76,6 @@ in [
     hash = "sha256-jl6SZwSDhQTlpM5FyGaFU/svwTb1ySdKtvWMgsneq3A=";
   })
 
-  (fetchpatch' {
-    title = "cargo-docset: init at 0.3.1";
-    saneCommit = "5a09e84c6159ce545029483384580708bc04c08f";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/231188";
-    hash = "sha256-Z1HOps3w/WvxAiyUAHWszKqwS9EwA6rf4XfgPGp+2sQ=";
-  })
-
-  (fetchpatch' {
-    title = "nixos/lemmy: support nginx";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/232536";
-    saneCommit = "02a9f9de49923f14fd6c2b069d73e167cdc86078";
-    hash = "sha256-nnZ+95LmZ2nGZxK7yNLs4moovhPX2wFux5JwNjM4Lys=";
-  })
-
-  (fetchpatch' {
-    title = "feedbackd: 0.1.0 -> 0.2.0";
-    saneCommit = "a0186a5782708a640cd6eaad6e9742b9cccebe9d";
-    hash = "sha256-f8he7pQow4fZkTVVqU/A5KgovZA7m7MccRQNTnDxw5o=";
-  })
   # (fetchpatch' {
   #   # phoc: 0.25.0 -> 0.27.0
   #   # TODO: move wayland-scanner & glib to nativeBuildInputs
@@ -162,6 +161,38 @@ in [
   # or perhaps the whole set of migrations here isn't being running right.
   # related: <https://github.com/NixOS/nixpkgs/issues/236890#issuecomment-1585030861>
   ./2023-06-10-lemmy-downgrade.patch
+
+  # (fetchpatch' {
+  #   title = "gpodder: wrap with missing `xdg-utils` path";
+  #   saneCommit = "10d0ac11bc083cbcf0d6340950079b3888095abf";
+  #   hash = "sha256-cu8L30ZiUJnWFGRR/SK917TC7TalzpGkurGkUAAxl54=";
+  # })
+
+  (fetchpatch' {
+    title = "sequoia: 0.28.0 -> 0.30.1";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/237698";
+    saneCommit = "71f47689d11e09b6ff70cbd4238e386b50d46899";
+    hash = "sha256-cadnRzZ0sjwdSc845zFtgYzLrsPGsZ9ShELibvQWLUU=";
+  })
+
+  (fetchpatch' {
+    title = "koreader: 2023.04 -> 2023.05.1";
+    saneCommit = "a5c471bd263abe93e291239e0078ac4255a94262";
+    hash = "sha256-m++Vv/FK7cxONCz6n0MLO3CiKNrRH0ttFmoC1Xmba+A=";
+  })
+
+  (fetchpatch' {
+    title = "mepo: 1.1 -> 1.1.2";
+    saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
+    hash = "sha256-0lNSgq8ahSvQDEpuF0lyblA8cB9ulv1zGasHo6lUWAU=";
+  })
+
+  # (fetchpatch' {
+  #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
+  #   title = "matrix-appservice-irc: 0.38.0 -> 1.0.0";
+  #   saneCommit = "b168bf862d53535151b9142a15fbd53e18e688c5";
+  #   hash = "sha256-dDa2mrCJ416PIYsDH9ya/4aQdqtp4BwzIisa8HdVFxo=";
+  # })
 
   # for raspberry pi: allow building u-boot for rpi 4{,00}
   # TODO: remove after upstreamed: https://github.com/NixOS/nixpkgs/pull/176018

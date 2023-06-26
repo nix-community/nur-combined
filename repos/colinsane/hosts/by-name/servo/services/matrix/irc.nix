@@ -108,6 +108,12 @@ in
     { user = "matrix-appservice-irc"; group = "matrix-appservice-irc"; directory = "/var/lib/matrix-appservice-irc"; }
   ];
 
+  # XXX: matrix-appservice-irc PreStart tries to chgrp the registration.yml to matrix-synapse,
+  # which requires matrix-appservice-irc to be of that group
+  users.users.matrix-appservice-irc.extraGroups = [ "matrix-synapse" ];
+  # weird race conditions around registration.yml mean we want matrix-synapse to be of matrix-appservice-irc group too.
+  users.users.matrix-synapse.extraGroups = [ "matrix-appservice-irc" ];
+
   services.matrix-synapse.settings.app_service_config_files = [
     "/var/lib/matrix-appservice-irc/registration.yml"  # auto-created by irc appservice
   ];
@@ -152,5 +158,11 @@ in
         "irc.rizon.net" = ircServer { name = "Rizon"; };
       };
     };
+  };
+
+  systemd.services.matrix-appservice-irc.serviceConfig = {
+    # XXX 2023/06/20: nixos specifies this + @aio and @memlock as forbidden
+    # the service actively uses at least one of these, and both of them are fairly innocuous
+    SystemCallFilter = lib.mkForce "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @setuid @swap";
   };
 }

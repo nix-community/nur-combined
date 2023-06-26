@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p miniupnpc
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.sane-lib.ssdp ])" -p miniupnpc
 
 # best to run this with an external timeout. e.g.
 # - `timeout 60 sane-ip-check-upnp`

@@ -40,6 +40,8 @@
   sane.ids.lemmy.gid = 2408;
   sane.ids.pict-rs.uid = 2409;
   sane.ids.pict-rs.gid = 2409;
+  sane.ids.sftpgo.uid = 2410;
+  sane.ids.sftpgo.gid = 2410;
 
   sane.ids.colin.uid = 1000;
   sane.ids.guest.uid = 1100;

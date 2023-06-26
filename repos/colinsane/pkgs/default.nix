@@ -10,8 +10,9 @@ let
   lib = pkgs.lib;
   unpatched = pkgs;
 
-  pythonPackagesOverlay = py-final: py-prev: import ./python-packages {
+  pythonPackagesOverlayFor = pkgs: py-final: py-prev: import ./python-packages {
     inherit (py-final) callPackage;
+    inherit pkgs;
   };
   final' = if final != null then final else pkgs.appendOverlays [(_: _: sane)];
   sane = with final'; {
@@ -25,8 +26,13 @@ let
     browserpass-extension = callPackage ./additional/browserpass-extension { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
+    lemoa = callPackage ./additional/lemoa { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
+    gpodder-adaptive = callPackage ./additional/gpodder-adaptive { };
+    gpodder-adaptive-configured = callPackage ./additional/gpodder-configured {
+      gpodder = final'.gpodder-adaptive;
+    };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
     hare-ev = unpatched.hare-ev or (callPackage ./additional/hare-ev { });
     hare-json = unpatched.hare-json or (callPackage ./additional/hare-json { });
@@ -39,6 +45,8 @@ let
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
     sxmo-utils = callPackage ./additional/sxmo-utils { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
+    unftp = callPackage ./additional/unftp { };
+    zecwallet-light-cli = callPackage ./additional/zecwallet-light-cli { };
 
     # packages i haven't used for a while, may or may not still work
     # fluffychat-moby = callPackage ./additional/fluffychat-moby { };
@@ -55,7 +63,6 @@ let
 
     # provided by nixpkgs patch or upstream PR
     # i still conditionally callPackage these to make them available to external consumers (like NUR)
-    cargo-docset = unpatched.cargo-docset or (callPackage ./additional/cargo-docset { });
     splatmoji = unpatched.splatmoji or (callPackage ./additional/splatmoji { });
 
 
@@ -73,6 +80,8 @@ let
     # });
 
     browserpass = callPackage ./patched/browserpass { inherit (unpatched) browserpass; };
+
+    cozy = callPackage ./patched/cozy { inherit (unpatched) cozy; };
 
     # mozilla keeps nerfing itself and removing configuration options
     firefox-unwrapped = callPackage ./patched/firefox-unwrapped { inherit (unpatched) firefox-unwrapped; };
@@ -95,12 +104,12 @@ let
 
     ### PYTHON PACKAGES
     pythonPackagesExtensions = (unpatched.pythonPackagesExtensions or []) ++ [
-      pythonPackagesOverlay
+      (pythonPackagesOverlayFor final')
     ];
     # when this scope's applied as an overlay pythonPackagesExtensions is propagated as desired.
     # but when freestanding (e.g. NUR), it never gets plumbed into the outer pkgs, so we have to do that explicitly.
     python3 = unpatched.python3.override {
-      packageOverrides = pythonPackagesOverlay;
+      packageOverrides = pythonPackagesOverlayFor final';
     };
   };
 in sane

@@ -63,29 +63,13 @@ in
         "sway" => layered sway greeter. behaves as if you booted to swaylock.
       '';
     };
-    sane.gui.sxmo.hooks = mkOption {
+    sane.gui.sxmo.package = mkOption {
       type = types.package;
-      default = pkgs.runCommand "sxmo-hooks" { } ''
-        mkdir -p $out
-        ln -s ${pkgs.sxmo-utils}/share/sxmo/default_hooks $out/bin
-      '';
+      default = pkgs.sxmo-utils;
       description = ''
-        hooks to make visible to sxmo.
-        a hook is a script generally of the name sxmo_hook_<thing>.sh
-        which is called by sxmo at key moments to proide user programmability.
-      '';
-    };
-    sane.gui.sxmo.deviceHooks = mkOption {
-      type = types.package;
-      default = pkgs.runCommand "sxmo-device-hooks" { } ''
-        mkdir -p $out
-        ln -s ${pkgs.sxmo-utils}/share/sxmo/default_hooks/unknown $out/bin
-      '';
-      description = ''
-        device-specific hooks to make visible to sxmo.
-        this package supplies things like `sxmo_hook_inputhandler.sh`.
-        a hook is a script generally of the name sxmo_hook_<thing>.sh
-        which is called by sxmo at key moments to proide user programmability.
+        sxmo base scripts and hooks collection.
+        consider overriding the outputs under /share/sxmo/default_hooks
+        to insert your own user scripts.
       '';
     };
     sane.gui.sxmo.terminal = mkOption {
@@ -108,12 +92,29 @@ in
       '';
     };
     sane.gui.sxmo.settings = mkOption {
-      type = types.attrsOf types.str;
-      default = {};
       description = ''
         environment variables used to configure sxmo.
         e.g. SXMO_UNLOCK_IDLE_TIME or SXMO_VOLUME_BUTTON.
       '';
+      type = types.submodule {
+        freeformType = types.attrsOf types.str;
+        options =
+          let
+            mkSettingsOpt = default: description: mkOption {
+              inherit default description;
+              type = types.nullOr types.str;
+            };
+          in {
+            SXMO_BAR_SHOW_BAT_PER = mkSettingsOpt "1" "show battery percentage in statusbar";
+            SXMO_UNLOCK_IDLE_TIME = mkSettingsOpt "300" "how many seconds of inactivity before locking the screen";  # lock -> screenoff happens 8s later, not configurable
+          };
+      };
+      default = {};
+    };
+    sane.gui.sxmo.noidle = mkOption {
+      type = types.bool;
+      default = false;
+      description = "inhibit lock-on-idle and screenoff-on-idle";
     };
   };
 
@@ -123,8 +124,17 @@ in
         package = null;
         suggestedPrograms = [
           "guiApps"
+          "sfeed"  # want this here so that the user's ~/.sfeed/sfeedrc gets created
         ];
       };
+    }
+
+    {
+      # TODO: lift to option declaration
+      sane.gui.sxmo.settings.TERMCMD = lib.mkIf (cfg.terminal != null)
+        (lib.mkDefault (if cfg.terminal == "vte" then "vte-2.91" else cfg.terminal));
+      sane.gui.sxmo.settings.KEYBOARD = lib.mkIf (cfg.keyboard != null)
+        (lib.mkDefault (if cfg.keyboard == "wvkbd" then "wvkbd-mobintl" else cfg.keyboard));
     }
 
     (lib.mkIf cfg.enable {
@@ -144,7 +154,7 @@ in
       security.doas.enable = true;
       security.doas.wheelNeedsPassword = false;
 
-      # TODO: not all of these fonts seem to be mapped to the correct icon
+      # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
       fonts.fonts = [ pkgs.nerdfonts ];
 
       # sxmo has first-class support only for pulseaudio and alsa -- not pipewire.
@@ -160,46 +170,19 @@ in
       systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];
 
       # TODO: could use `displayManager.sessionPackages`?
-      environment.systemPackages = with pkgs; [
-        bc
-        bemenu
-        bonsai
-        conky
-        gojq
-        inotify-tools
-        jq
-        libnotify
-        lisgd
-        mako
-        superd
-        sway
-        swayidle
-        sxmo-utils
-        wob
-        wvkbd
-        xdg-user-dirs
-
-        # X11 only?
-        xdotool
-
-        cfg.deviceHooks
-        cfg.hooks
-      ] ++ lib.optionals (config.services.pipewire.pulse.enable) [ pulseaudio ]  # for pactl
-        ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
+      environment.systemPackages = [
+        cfg.package
+      ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
         ++ lib.optionals (cfg.keyboard != null) [ pkgs."${cfg.keyboard}" ];
 
       environment.sessionVariables = {
         XDG_DATA_DIRS = [
           # TODO: only need the share/sxmo directly linked
-          "${pkgs.sxmo-utils}/share"
+          "${cfg.package}/share"
         ];
-      } // lib.optionalAttrs (cfg.terminal != null) {
-        TERMCMD = lib.mkDefault (if cfg.terminal == "vte" then "vte-2.91" else cfg.terminal);
-      } // lib.optionalAttrs (cfg.keyboard != null) {
-        KEYBOARD = lib.mkDefault (if cfg.keyboard == "wvkbd" then "wvkbd-mobintl" else cfg.keyboard);
       } // cfg.settings;
 
-      sane.user.fs.".cache/sxmo/sxmo.noidle" = sane-lib.fs.wantedText "";
+      sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle (sane-lib.fs.wantedText "");
 
 
       ## greeter
@@ -214,7 +197,7 @@ in
         '';
 
         displayManager.sessionPackages = with pkgs; [
-          sxmo-utils  # this gets share/wayland-sessions/swmo.desktop linked
+          cfg.package  # this gets share/wayland-sessions/swmo.desktop linked
         ];
 
         # taken from gui/phosh:
@@ -249,6 +232,15 @@ in
         in "${sway-as-greeter}/bin/sway-as-greeter";
       };
 
+      systemd.services."sxmo-set-permissions" = {
+        description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${cfg.package}/bin/sxmo_setpermissions.sh";
+        };
+        wantedBy = [ "display-manager.service" ];
+      };
+
       sane.fs."/var/log/sway" = lib.mkIf (cfg.greeter == "sway") {
         dir.acl.mode = "0777";
         wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
@@ -261,7 +253,7 @@ in
       #   name = "sxmo";
       #   desktopNames = [ "sxmo" ];
       #   start = ''
-      #     ${pkgs.sxmo-utils}/bin/sxmo_xinit.sh &
+      #     ${cfg.package}/bin/sxmo_xinit.sh &
       #     waitPID=$!
       #   '';
       # }];
@@ -271,7 +263,7 @@ in
       #   enable = true;
       #   settings = {
       #     default_session = {
-      #       command = "${pkgs.sxmo-utils}/bin/sxmo_winit.sh";
+      #       command = "${cfg.package}/bin/sxmo_winit.sh";
       #       user = "colin";
       #     };
       #   };

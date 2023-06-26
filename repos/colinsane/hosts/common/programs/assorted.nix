@@ -85,6 +85,7 @@ let
     inherit (pkgs)
       aerc  # email client
       offlineimap  # email mailox sync
+      sfeed  # RSS fetcher
       visidata  # TUI spreadsheet viewer/editor
       w3m
     ;
@@ -106,21 +107,21 @@ let
   consolePkgs = {
     inherit (pkgs)
       alsaUtils  # for aplay, speaker-test
-      cdrtools
+      # cdrtools
       clinfo
       dmidecode
       efivar
-      flashrom
+      # flashrom
       fwupd
       gh  # MS GitHub cli
       git  # needed as a user package, for config.
-      gnupg
-      gocryptfs
-      gopass  # TODO: shouldn't be needed here
-      gopass-jsonapi
+      # gnupg
+      # gocryptfs
+      # gopass
+      # gopass-jsonapi
       kitty  # TODO: move to GUI, but `ssh servo` from kitty sets `TERM=xterm-kitty` in the remove and breaks things
-      libsecret  # for managing user keyrings
-      lm_sensors  # for sensors-detect
+      libsecret  # for managing user keyrings. TODO: what needs this? lift into the consumer
+      lm_sensors  # for sensors-detect. TODO: what needs this? lift into the consumer
       lshw
       # memtester
       neovim
@@ -156,6 +157,7 @@ let
   guiPkgs = {
     inherit (flattenedPkgs)
       # celluloid  # mpv frontend
+      cozy  # audiobook player
       # emote
       evince  # works on phosh
 
@@ -181,7 +183,10 @@ let
       gpodder
       gthumb
       jellyfin-media-player
+      komikku
+      koreader
       # lollypop
+      mepo  # maps viewer
       # mpv
       # networkmanagerapplet
       # newsflash
@@ -193,6 +198,7 @@ let
       # sublime-music
       # tdesktop  # broken on phosh
       # tokodon
+      tuba  # mastodon/pleroma client (stores pw in keyring)
       vlc
       # pleroma client (Electron). input is broken on phosh. TODO(2023/02/02): fix electron19 input (insecure)
       # whalebird

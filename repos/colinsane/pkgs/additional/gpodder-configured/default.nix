@@ -15,13 +15,14 @@ let
       "gnome-feeds.listparser" = gnome-feeds.listparser;
     };
     pkgs = {
+      # important for this to explicitly use `gpodder` here, because it may be overriden/different from the toplevel `gpodder`!
       inherit gpodder;
     };
   };
 in
 # we use a symlinkJoin so that we can inherit the .desktop and icon files from the original gPodder
 (symlinkJoin {
-  name = "gpodder-configured";
+  name = "${gpodder.pname}-configured";
   paths = [ gpodder remove-extra ];
   nativeBuildInputs = [ makeWrapper ];
 
@@ -30,7 +31,7 @@ in
   # a feedlist every time we run it.
   # repeat imports are deduplicated by url, even when offline.
   postBuild = ''
-    makeWrapper $out/bin/gpodder $out/bin/gpodder-configured \
+    wrapProgram $out/bin/gpodder \
       --run "$out/bin/gpodder-remove-extra ~/.config/gpodderFeeds.opml || true" \
       --run "$out/bin/gpo import ~/.config/gpodderFeeds.opml || true" \
 
@@ -41,6 +42,6 @@ in
   '';
 
   passthru = {
-    remove-extra = remove-extra;
+    inherit gpodder remove-extra;
   };
 })

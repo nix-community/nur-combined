@@ -1,16 +1,29 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p transmission
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.sane-lib.bt ])" -p sane-scripts.lib.bt.propagatedBuildInputs
+# vim: set filetype=python :
 
-endpoint=https://bt.uninsane.org/transmission/rpc
-PASS=$(sudo cat /run/secrets/transmission_passwd)
+import argparse
+import logging
 
+from sane_bt import MediaMeta, TransmissionApi
 
-if [ "$#" -eq 0 ]; then
-  # no specific torrents we want to show, so show all of them.
-  # to query specific torrents, note the index and re-invoke this script with that.
-  transmission-remote "$endpoint" --auth "colin:$PASS" --list
-else
-  for id in $@; do
-    transmission-remote "$endpoint" --auth "colin:$PASS" -t "$id" -i
-  done
-fi
+def main():
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
+
+    parser = argparse.ArgumentParser(description="show information about one or more torrents on servo")
+    TransmissionApi.add_arguments(parser)
+    parser.add_argument("torrents", nargs="*", help="torrent id to show (acquire by first calling with no args)")
+
+    args = parser.parse_args()
+    bt_api = TransmissionApi.from_arguments(args)
+    torrents = args.torrents
+
+    if torrents:
+        for t in torrents:
+            print(bt_api.info(t))
+    else:
+        print(bt_api.list_())
+
+if __name__ == "__main__":
+    main()

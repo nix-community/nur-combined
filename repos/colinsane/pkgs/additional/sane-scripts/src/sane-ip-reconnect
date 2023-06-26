@@ -1,9 +1,16 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+# vim: set filetype=python :
 
 import re
 import subprocess
+import sys
 import time
+
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 def rm_color(stdout: str) -> str:
     " remove terminal control codes -- used by iwctl to colorize the output "
@@ -27,6 +34,8 @@ def extract_columns(stdout: str) -> list:
             # the `>` is formatting, indicating that it's the active network
             first = first[2:].strip()
         items.append((first, second))
+
+    logger.debug(f"parsed iwctl output: {items!r}")
     return items
 
 def iwctl(args: list, sudo: bool = False) -> str:
@@ -47,12 +56,14 @@ def get_known() -> list:
     stdout = iwctl(["known-networks", "list"])
     stdout = rm_color(stdout)
     stdout = rm_heading(stdout)
+    logging.debug(f"iwctl known-networks list: got: {stdout}")
     return [name for (name, date) in extract_columns(stdout)]
 
 def get_visible() -> list:
     stdout = iwctl(["station", "wlan0", "get-networks", "rssi-dbms"])
     stdout = rm_color(stdout)
     stdout = rm_heading(stdout)
+    logging.debug(f"iwctl station wlan0 get-networks rssi-dbms: got: {stdout}")
     return [(name, int(strength)) for (name, strength) in extract_columns(stdout)]
 
 def choose_best(visible: list, known: list) -> str:
@@ -71,26 +82,40 @@ def restart() -> str:
         "iwd",
     ])
 
-print("scanning for networks... ", end="", flush=True)
-scan()
-print("done")
-print()
+def main():
+    print("scanning for networks... ", end="", flush=True)
+    scan()
+    print("done")
+    print()
 
-known = get_known()
-print("known networks:", "".join(f"\n\t{name}" for name in known))
-print()
+    known = get_known()
+    print("known networks:", "".join(f"\n\t{name}" for name in known))
+    print()
 
-visible = get_visible()
-print("visible networks:", "".join(f"\n\t{name}: {rss}" for (name, rss) in visible))
-print()
+    visible = get_visible()
+    print("visible networks:", "".join(f"\n\t{name}: {rss}" for (name, rss) in visible))
+    print()
 
-best = choose_best(visible, known)
+    best = choose_best(visible, known)
 
-try:
-    print(f"connecting to {best}")
-    result = connect(best)
-except subprocess.CalledProcessError as e:
-    print("restarting iwd daemon")
-    restart()
-else:
-    print("success", result)
+    try:
+        print(f"connecting to {best}")
+        result = connect(best)
+    except subprocess.CalledProcessError as e:
+        print("restarting iwd daemon")
+        restart()
+    else:
+        print("success", result)
+
+def parse_args(args: list):
+    for a in args:
+        if a in ("-v", "--verbose"):
+            logging.getLogger().setLevel(logging.DEBUG)
+        else:
+            raise ValueError(f"unexpected arg: {a}")
+
+
+if __name__ == '__main__':
+    logging.basicConfig()
+    parse_args(sys.argv[1:])
+    main()

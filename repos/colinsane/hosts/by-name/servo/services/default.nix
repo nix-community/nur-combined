@@ -7,6 +7,7 @@
     ./email
     ./ejabberd.nix
     ./freshrss.nix
+    ./ftp
     ./gitea.nix
     ./goaccess.nix
     ./ipfs.nix
@@ -17,6 +18,7 @@
     ./lemmy.nix
     ./matrix
     ./navidrome.nix
+    ./nfs.nix
     ./nixserve.nix
     ./nginx.nix
     ./pict-rs.nix

@@ -83,6 +83,7 @@ in {
     jellyfin-web  # in node-dependencies-jellyfin-web: "node: command not found"  (nodePackages don't cross compile)
     # libgccjit  # "../../gcc-9.5.0/gcc/jit/jit-result.c:52:3: error: 'dlclose' was not declared in this scope"  (needed by emacs!)
     # libsForQt5  # if we emulate qt5, we're better off emulating libsForQt5 else qt complains about multiple versions of qtbase
+    mepo  # /build/source/src/sdlshim.zig:1:20: error: C import failed
     perlInterpreters  # perl5.36.0-Module-Build perl5.36.0-Test-utf8 (see tracking issues ^)
     # qgnomeplatform
     # qtbase
@@ -246,6 +247,14 @@ in {
   }).overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [ final.git ];
   });
+
+  cozy = prev.cozy.override {
+    cozy = prev.cozy.upstream.cozy.override {
+      # fixes runtime error: "Settings schema 'org.gtk.Settings.FileChooser' is not installed"
+      # otherwise gtk3+ schemas aren't added to XDG_DATA_DIRS
+      inherit (emulated) wrapGAppsHook;
+    };
+  };
 
   dante = prev.dante.override {
     # fixes: "configure: error: error: getaddrinfo() error value count too low"
@@ -509,6 +518,13 @@ in {
       super.nautilus
     ).override {
       # fixes -msse2, -mfpmath=sse flags
+      # wrapGAppsHook4 = final.wrapGAppsHook;
+      # fixes -msse2, -mfpmath=ssh flags AND "Settings schema 'org.gtk.gtk4.Settings.FileChooser' is not installed"
+      wrapGAppsHook4 = emulated.wrapGAppsHook4;
+    };
+
+    zenity = super.zenity.override {
+      # fixes -msse2, -mfpmath=sse flags
       wrapGAppsHook4 = final.wrapGAppsHook;
     };
   });
@@ -656,9 +672,13 @@ in {
         ];
       };
     }));
-  jellyfin-media-player-qt6 = mvToBuildInputs
-    [ final.qt6.wrapQtAppsHook ]  # otherwise the result targets x86.  TODO: fix the hook in qt6 itself?
-    prev.jellyfin-media-player-qt6;
+  jellyfin-media-player-qt6 = prev.jellyfin-media-player-qt6.overrideAttrs (upstream: {
+    # nativeBuildInputs => result targets x86.
+    # buildInputs => result targets correct platform, but doesn't wrap the runtime deps
+    # TODO: fix the hook in qt6 itself?
+    depsHostHost = upstream.depsHostHost or [] ++ [ final.qt6.wrapQtAppsHook ];
+    nativeBuildInputs = lib.remove [ final.qt6.wrapQtAppsHook ] upstream.nativeBuildInputs;
+  });
   # jellyfin-web = prev.jellyfin-web.override {
   #   # in node-dependencies-jellyfin-web: "node: command not found"
   #   inherit (emulated) stdenv;
@@ -673,6 +693,18 @@ in {
     KITTY_NO_DOCS = true;
     patches = upstream.patches ++ [
       ./kitty-no-docs.patch
+    ];
+  });
+  komikku = prev.komikku.override {
+    # GI_TYPELIB_PATH points to x86_64 types in the default build, only when using wrapGAppsHook4
+    wrapGAppsHook4 = final.wrapGAppsHook;
+  };
+  koreader = (prev.koreader.override {
+    # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
+    inherit (emulated) luajit;
+  }).overrideAttrs (upstream: {
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      final.autoPatchelfHook
     ];
   });
   libgweather = rmNativeBuildInputs [ final.glib ] (prev.libgweather.override {
@@ -711,6 +743,33 @@ in {
   #   # to use non-emulated stdenv by default.
   #   mkDerivation = self.mkDerivationWith final.stdenv.mkDerivation;
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit (final) stdenv; };
+  # });
+
+  # mepo = (prev.mepo.override {
+  #   inherit (emulated)
+  #     stdenv
+  #     SDL2
+  #     SDL2_gfx
+  #     SDL2_image
+  #     SDL2_ttf
+  #     zig
+  #   ;
+  # }).overrideAttrs (_upstream: {
+  #   doCheck = false;
+  #   # dontConfigure = true;
+  #   # dontBuild = true;
+  #   # preInstall = ''
+  #   #   export HOME=$TMPDIR
+  #   # '';
+  #   # installPhase = ''
+  #   #   runHook preInstall
+
+  #   #   zig build -Drelease-safe=true -Dtarget=aarch64-linux-gnu -Dcpu=baseline --prefix $out
+  #   #   install -d $out/share/man/man1
+  #   #   $out/bin/mepo -docman > $out/share/man/man1/mepo.1
+
+  #   #   runHook postInstall
+  #   # '';
   # });
 
   # fixes: "ar: command not found"
@@ -1177,6 +1236,13 @@ in {
     # fixes "meson.build:183:0: ERROR: Can not run test applications in this cross environment."
     inherit (emulated) stdenv;
   };
+  tuba = (prev.tuba.override {
+    # fixes -msse2, -mfpmath=sse flags
+    wrapGAppsHook4 = final.wrapGAppsHook;
+  }).overrideAttrs (upstream: {
+    # error: Package `{libadwaita-1,gtksourceview-5,libsecret-1,gee-0.8}' not found in specified Vala API directories or GObject-Introspection GIR directories
+    buildInputs = upstream.buildInputs ++ [ final.vala ];
+  });
   # twitter-color-emoji = prev.twitter-color-emoji.override {
   #   # fails to fix original error
   #   inherit (emulated) stdenv;

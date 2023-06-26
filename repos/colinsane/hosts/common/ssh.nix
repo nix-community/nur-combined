@@ -1,7 +1,7 @@
 { config, lib, sane-data, sane-lib, ... }:
 
 let
-  inherit (builtins) head map mapAttrs tail;
+  inherit (builtins) attrValues head map mapAttrs tail;
   inherit (lib) concatStringsSep mkMerge reverseList;
 in
 {
@@ -18,11 +18,21 @@ in
 
     # [{ path :: [String], value :: String }] for the keys we want to install
     globalKeys = sane-lib.flattenAttrs sane-data.keys;
+
+    keysForHost = hostCfg: sane-lib.mapToAttrs
+      (name: {
+        inherit name;
+        value = {
+          colin = hostCfg.ssh.user_pubkey;
+          root = hostCfg.ssh.host_pubkey;
+        };
+      })
+      hostCfg.names
+    ;
     domainKeys = sane-lib.flattenAttrs (
-      mapAttrs (host: cfg: {
-        colin = cfg.ssh.user_pubkey;
-        root = cfg.ssh.host_pubkey;
-      }) config.sane.hosts.by-name
+      sane-lib.joinAttrsets (
+        map keysForHost (builtins.attrValues config.sane.hosts.by-name)
+      )
     );
   in mkMerge (map
     ({ path, value }: {

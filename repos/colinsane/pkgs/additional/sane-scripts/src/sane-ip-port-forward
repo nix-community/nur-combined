@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p inetutils -p miniupnpc
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.sane-lib.ssdp ])" -p inetutils -p miniupnpc
 
 '''
 USAGE: sane-ip-port-forward [options] [proto:port[:desc]]*
@@ -22,9 +22,7 @@ import logging
 import subprocess
 import sys
 
-sys.path.insert(0, ".")
-
-from lib.sane_ssdp import get_any_wan, forward_port
+from sane_ssdp import get_any_wan, forward_port
 
 class BadCliArgs(Exception):
     def __init__(self, msg: str = None):

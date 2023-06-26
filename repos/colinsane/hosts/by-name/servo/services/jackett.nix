@@ -24,6 +24,7 @@
     locations."/" = {
       # proxyPass = "http://ovpns.uninsane.org:9117";
       proxyPass = "http://10.0.1.6:9117";
+      recommendedProxySettings = true;
     };
   };
 

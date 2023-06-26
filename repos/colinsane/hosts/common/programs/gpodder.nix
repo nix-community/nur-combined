@@ -7,7 +7,8 @@ let
   wanted-feeds = feeds.filterByFormat ["podcast"] all-feeds;
 in {
   sane.programs.gpodder = {
-    package = pkgs.gpodder-configured;
+    package = pkgs.gpodder-adaptive-configured;
+    # package = pkgs.gpodder-configured;
     fs.".config/gpodderFeeds.opml".symlink.text = feeds.feedsToOpml wanted-feeds;
 
     # XXX: we preserve the whole thing because if we only preserve gPodder/Downloads

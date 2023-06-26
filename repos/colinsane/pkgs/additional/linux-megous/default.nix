@@ -19,11 +19,11 @@ let
   # - megi publishes release notes as the most recent commit on any stable branch, so just `git log`.
   # - orange-pi is listed as the "main integration branch".
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
-  rev = "orange-pi-6.3-20230426-1041";
-  hash = "sha256-hfnBVtWyn6FAAOXnizE4jRaf6b9KYEwlJu3NOD7DMGM=";
-  base = "6.3.0";
+  rev = "orange-pi-6.4-20230619-0323";
+  hash = "sha256-il32UQM/8Fc7VHft3+M4TLMxk5+h28C9Suu1kRdZj2M=";
+  base = "6.4.0";
   # set to empty if not a release candidate, else `-rc<N>`
-  rc = "";
+  rc = "-rc7";
 
   # pinephone uses the linux dtb at arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
   # - this includes sun50i-a64.dtsi

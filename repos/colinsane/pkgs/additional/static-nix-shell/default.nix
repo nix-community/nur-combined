@@ -42,6 +42,9 @@ in rec {
       (pname: " -p ${pname}")
       pkgExprs
     );
+    # allow any package to be a list of packages, to support things like
+    # -p python3Packages.foo.propagatedBuildInputs
+    pkgsEnv' = lib.flatten pkgsEnv;
   in
     stdenv.mkDerivation ({
       version = "0.1.0";  # default version
@@ -63,7 +66,7 @@ in rec {
 
         # add runtime dependencies to PATH
         wrapProgram $out/bin/${srcPath} \
-          --suffix PATH : ${lib.makeBinPath pkgsEnv }
+          --suffix PATH : ${lib.makeBinPath pkgsEnv' }
 
         runHook postInstall
       '';

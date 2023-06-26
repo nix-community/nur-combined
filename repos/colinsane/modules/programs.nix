@@ -52,11 +52,17 @@ let
       };
       enableFor.user = mkOption {
         type = types.attrsOf types.bool;
-        default = joinAttrsets (mapAttrsToList (otherName: otherPkg:
-           optionalAttrs
-             (otherName != name && elem name otherPkg.suggestedPrograms && otherPkg.enableSuggested)
-             (filterAttrs (user: en: en) otherPkg.enableFor.user)
-        ) cfg);
+        default =
+          let
+            suggestedBy = mapAttrsToList (otherName: otherPkg:
+              optionalAttrs
+                (otherName != name && elem name otherPkg.suggestedPrograms && otherPkg.enableSuggested)
+                (filterAttrs (user: en: en) otherPkg.enableFor.user)
+            ) cfg;
+          in
+            # we can just // the attrs since each set is flat and the only value
+            # each attr can have here is `true`, never `false`
+            lib.foldl' (prev: next: prev // next) {} suggestedBy;
         description = ''
           place this program on the PATH for some specified user(s).
         '';

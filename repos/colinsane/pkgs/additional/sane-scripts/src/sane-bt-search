@@ -2,11 +2,25 @@
 #!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.natsort ps.requests ])"
 # vim: set filetype=python :
 """
-usage: sane-bt-search <query_string>
+usage: sane-bt-search [options] <query_string>
 
 searches Jackett for torrent files matching the title.
-returns select results and magnet links
+returns select results and magnet links.
+
+options:
+  --full     display all results
+  --help     show this help message and exit
+  --json     output one json document instead of a human-readable table
+  --top <n>  show the <n> top rated torrents (default: 5)
+  --verbose  show more information, useful for debugging/development
 """
+
+# about Jackett
+# - source: <https://github.com/Jackett/Jackett>
+# - can be queried via APIs:
+#   - Torznab: <https://torznab.github.io/spec-1.3-draft/index.html>
+#   - TorrentPotato: <https://github.com/RuudBurger/CouchPotatoServer/wiki/Couchpotato-torrent-provider>
+#   - its own JSON-based API
 
 from dataclasses import dataclass
 from datetime import datetime
@@ -20,11 +34,21 @@ import time
 SERVICE = "https://jackett.uninsane.org"
 ENDPOINTS = dict(
     results="api/v2.0/indexers/all/results"
+    # results_torznab="api/v2.0/indexers/all/results/torznab"
 )
 
 epoch = datetime(1970, 1, 1)
 
 logger = logging.getLogger(__name__)
+
+class BadCliArgs(Exception):
+    def __init__(self, msg: str = None):
+        helpstr = __doc__
+        if msg:
+            super().__init__(f"{msg}\n\n{helpstr}")
+        else:
+            super().__init__(helpstr)
+
 
 def try_parse_time(t: str):
     try:
@@ -49,9 +73,15 @@ class Torrent:
     title: str
     magnet: "Optional[str]"
     http_dl_uri: "Optional[str]"  # probably a .torrent file but it COULD be a referral to a magnet:// URI
+    tracker_uri: "Optional[str]"
 
     def __str__(self) -> str:
-        return f"{self.seeders}[S]\t{self.pub_date}\t{self.mib}M\t{self.tracker}\t{self.title}\n\t{self.dl_uri}"
+        rows = []
+        rows.append(f"{self.seeders}[S]\t{self.pub_date}\t{self.mib}M\t{self.tracker}\t{self.title}")
+        if self.tracker_uri:
+            rows.append(f"\t{self.tracker_uri}")
+        rows.append(f"\t{self.dl_uri}")
+        return "\n".join(rows)
 
     @property
     def dl_uri(self) -> str:
@@ -76,21 +106,18 @@ class Torrent:
         title = d.get("Title")
         magnet = d.get("MagnetUri") or d.get("Guid")
         http_dl_uri = d.get("Link")
+        tracker_uri = d.get("Details")
 
         if magnet and not magnet.startswith("magnet:"):
             logger.info(f"invalid magnet: {magnet}")
             magnet = None
 
-        # jackett returns bad DL URIs because it doesn't know its public URI
-        firewalled_host = "http://10.0.1.6:9117/"
-        if http_dl_uri and http_dl_uri.startswith(firewalled_host):
-            http_dl_uri = SERVICE + "/" + http_dl_uri[len(firewalled_host):]
-
         if seeders is not None and pub_date is not None and title is not None and (magnet is not None or http_dl_uri is not None):
             pub_date = parse_time(pub_date)
-            return Torrent(seeders, pub_date, size, tracker, title, magnet, http_dl_uri)
+            return Torrent(seeders, pub_date, size, tracker, title, magnet, http_dl_uri, tracker_uri)
 
     def to_dict(self) -> dict:
+        # N.B.: not all fields: needs to be kept in sync with consumers like mx-sanebot
         return dict(
             seeders=self.seeders,
             pub_date=self.pub_date.strftime("%Y-%m-%d"),
@@ -124,10 +151,11 @@ class Client:
 
 def parse_args(args: list) -> dict:
     options = dict(
-        top="5",
         full=False,
-        query="",
+        help=False,
         json=False,
+        query="",
+        top="5",
         verbose=False,
     )
     while args:
@@ -148,15 +176,25 @@ def parse_args(args: list) -> dict:
 def main(args: list):
     logging.basicConfig()
     options = parse_args(args)
+    full = options.pop("full")
+    help = options.pop("help")
+    json = options.pop("json")
+    query = options.pop("query")
+    top = options.pop("top")
+    verbose = options.pop("verbose")
 
-    if options["verbose"]:
+    if options != {}:
+        raise BadCliArgs(f"unexpected options: {options}")
+    if help:
+        raise BadCliArgs()
+
+    if verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
-    query = options["query"]
-    num_listings = 1000 if options["full"] else int(options["top"])
+    num_listings = 1000 if full else int(top)
     client = Client()
     res = client.query(query)
-    if options["json"]:
+    if json:
         dumpable = [t.to_dict() for t in res[:num_listings]]
         print(json.dumps(dumpable))
     else:

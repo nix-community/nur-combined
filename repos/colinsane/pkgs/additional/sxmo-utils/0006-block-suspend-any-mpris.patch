@@ -1,0 +1,13 @@
+diff --git a/configs/default_hooks/sxmo_hook_block_suspend.sh b/configs/default_hooks/sxmo_hook_block_suspend.sh
+index f394575..873b7b2 100755
+--- a/configs/default_hooks/sxmo_hook_block_suspend.sh
++++ b/configs/default_hooks/sxmo_hook_block_suspend.sh
+@@ -68,7 +68,7 @@ playing_mpc() {
+ }
+ 
+ playing_mpris() {
+-	command -v playerctl && [ "$(playerctl status)" = "Playing" ]
++	command -v playerctl && playerctl --all-players status | grep -q "Playing"
+ }
+ 
+ photos_processing() {

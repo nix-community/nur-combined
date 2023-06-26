@@ -1,3 +1,0 @@
-# sudo, umount, others, are located here.
-# resholve can't inline their path, since it's not a store path
-PATH=$PATH:/run/wrappers/bin

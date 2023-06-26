@@ -1,94 +1,28 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p transmission
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.sane-lib.bt ])" -p sane-scripts.lib.bt.propagatedBuildInputs
+# vim: set filetype=python :
 
-set -e
+import argparse
+import logging
 
-endpoint=https://bt.uninsane.org/transmission/rpc
-PASS=$(sudo cat /run/secrets/transmission_passwd)
+from sane_bt import MediaMeta, TransmissionApi
 
-options=$(getopt -l help,prefix:,film,show:,book:,audiobook:,vn:,author: -- "" "${@}")
-eval "set -- ${options}"
 
-type=
-title=
-author=
-prefix=
-while true; do
-  case "$1" in
-    (--help)
-      echo "add a .torrent or magnet:// file to be downloaded by and stored on my server"
-      echo "usage: sane-bt-add [options] <magnet:// URI or path/to.torrent>"
-      echo "options:"
-      echo "  --prefix <PathString>"
-      echo "  --film"
-      echo "  --show <ShowTitle>"
-      echo "  --book <BookTitle>"
-      echo "  --audiobook <BookTitle>"
-      echo "  --vn <VisualNovelTitle>"
-      echo "  --author <Author>"
-      echo ""
-      echo "the above options are used to construct the filesystem path where the torrent data will live"
-      echo "everything is relative to the root media directory (not /)"
-      exit
-    ;;
-    (--prefix)
-      shift
-      prefix="$1"
-      shift
-    ;;
-    (--film)
-      type=Videos/Film/
-      shift
-    ;;
-    (--show)
-      type=Videos/Shows/
-      shift
-      title="$1"/
-      shift
-    ;;
-    (--book)
-      type=Books/Books/
-      shift
-      title="$1"/
-      shift
-    ;;
-    (--audiobook)
-      type=Books/Audiobooks/
-      shift
-      title="$1"/
-      shift
-    ;;
-    (--vn)
-      type=Books/Visual/
-      shift
-      title="$1"/
-      shift
-    ;;
-    (--author)
-      shift
-      author="$1"/
-      shift
-    ;;
-    (--)
-      shift
-      if [ $# -eq 1 ]; then
-        break
-      fi
-    ;;
-    (*)
-      echo "invalid arguments"
-      exit 1
-    ;;
-  esac
-done
+def main():
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
 
-prefix=$prefix$type$author$title
-# positional ("non-option") parameters
-torrent="$1"
+    parser = argparse.ArgumentParser(description="instruct servo to download some torrent")
+    TransmissionApi.add_arguments(parser)
+    MediaMeta.add_arguments(parser)
+    parser.add_argument("torrent", help="magnet: URI or file path to torrent")
 
-echo "saving to $prefix"
+    args = parser.parse_args()
+    meta = MediaMeta.from_arguments(args)
+    bt_api = TransmissionApi.from_arguments(args)
+    torrent = args.torrent
 
-transmission-remote "$endpoint" \
-  --auth "colin:$PASS" \
-  --download-dir "/var/lib/uninsane/media/$prefix" \
-  --add "$torrent"
+    bt_api.add_or_move_torrent(meta, torrent)
+
+if __name__ == "__main__":
+    main()

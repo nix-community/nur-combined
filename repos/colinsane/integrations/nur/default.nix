@@ -22,6 +22,7 @@
 # ^ source: <https://github.com/nix-community/nur-packages-template/blob/master/.github/workflows/build.yml#L63>
 #   N.B.: nur eval allows only PATH (inherited) and NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM="1" (forced),
 #   hence the erasing of NIX_PATH above (to remove external overlays)
+# - or do: `nix run '.#check-nur'` via the toplevel flake.nix in this repo
 #
 # if it validates here but not upstream, likely to do with different `nixpkgs` inputs.
 # - CI logs: <https://github.com/nix-community/NUR/actions/workflows/update.yml>

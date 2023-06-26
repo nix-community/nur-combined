@@ -5,30 +5,11 @@ let
   inherit (lib) concatMapStrings mkIf optionalString;
   # this structure roughly mirrors home-manager's `programs.neovim.plugins` option
   plugins = with pkgs.vimPlugins; [
-    # docs: surround-nvim: https://github.com/ur4ltz/surround.nvim/
-    # docs: vim-surround: https://github.com/tpope/vim-surround
-    { plugin = vim-surround; }
-    # docs: fzf-vim (fuzzy finder): https://github.com/junegunn/fzf.vim
-    { plugin = fzf-vim; }
-    ({
-      # docs: tex-conceal-vim: https://github.com/KeitaNakamura/tex-conceal.vim/
-      plugin = tex-conceal-vim;
-      type = "viml";
-      config = ''
-        " present prettier fractions
-        let g:tex_conceal_frac=1
-      '';
-    })
-    ({
-      plugin = vim-SyntaxRange;
-      type = "viml";
-      config = ''
-        " enable markdown-style codeblock highlighting for tex code
-        autocmd BufEnter * call SyntaxRange#Include('```tex', '```', 'tex', 'NonText')
-        " autocmd Syntax tex set conceallevel=2
-      '';
-    })
-    ({
+    {
+      # docs: fzf-vim (fuzzy finder): https://github.com/junegunn/fzf.vim
+      plugin = fzf-vim;
+    }
+    {
       # treesitter syntax highlighting: https://nixos.wiki/wiki/Tree_sitters
       # docs: https://github.com/nvim-treesitter/nvim-treesitter
       # config taken from: https://github.com/i077/system/blob/master/modules/home/neovim/default.nix
@@ -64,7 +45,35 @@ let
         vim.o.foldmethod = 'expr'
         vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
       '';
-    })
+    }
+    {
+      # docs: tex-conceal-vim: https://github.com/KeitaNakamura/tex-conceal.vim/
+      plugin = tex-conceal-vim;
+      type = "viml";
+      config = ''
+        " present prettier fractions
+        let g:tex_conceal_frac=1
+      '';
+    }
+    {
+      # source: <https://github.com/LnL7/vim-nix>
+      # fixes auto-indent (incl tab size) when editing .nix files
+      plugin = vim-nix;
+    }
+    {
+      # docs: surround-nvim: https://github.com/ur4ltz/surround.nvim/
+      # docs: vim-surround: https://github.com/tpope/vim-surround
+      plugin = vim-surround;
+    }
+    {
+      plugin = vim-SyntaxRange;
+      type = "viml";
+      config = ''
+        " enable markdown-style codeblock highlighting for tex code
+        autocmd BufEnter * call SyntaxRange#Include('```tex', '```', 'tex', 'NonText')
+        " autocmd Syntax tex set conceallevel=2
+      '';
+    }
   ];
   plugin-packages = map (p: p.plugin) plugins;
   plugin-config-tex = concatMapStrings (p: optionalString (p.type or "" == "viml") p.config) plugins;

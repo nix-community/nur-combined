@@ -1,11 +1,36 @@
 { lib
-, pkgs
+, python3Packages
 , static-nix-shell
 , symlinkJoin
+, transmission
 }:
 
 let
-  nix-shell-scripts = {
+  sane-lib = {
+    # TODO: we could simplify the lib/ folder structure
+    # by auto-generating the setup.py files in `postPatch`, below
+    bt = python3Packages.buildPythonPackage {
+      pname = "sane-lib-bt";
+      version = "0.1.0";
+      format = "setuptools";
+      src = ./src/lib/bt;
+      propagatedBuildInputs = [ transmission ];
+      pythonImportChecks = [
+        "sane_bt"
+      ];
+    };
+    ssdp = python3Packages.buildPythonPackage {
+      pname = "sane-lib-ssdp";
+      version = "0.1.0";
+      format = "setuptools";
+      src = ./src/lib/ssdp;
+      pythonImportChecks = [
+        "sane_ssdp"
+      ];
+    };
+  };
+
+  sane-bin = {
     # anything added to this attrset gets symlink-joined into `sane-scripts`
     # and is made available through `sane-scripts.passthru`
     backup-ls = static-nix-shell.mkBash {
@@ -18,25 +43,28 @@ let
       src = ./src;
       pkgs = [ "duplicity" ];
     };
-    bt-add = static-nix-shell.mkBash {
+    bt-add = static-nix-shell.mkPython3Bin {
       pname = "sane-bt-add";
       src = ./src;
-      pkgs = [ "transmission" ];
+      pyPkgs = [ "sane-lib.bt" ];
+      pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
     };
-    bt-rm = static-nix-shell.mkBash {
+    bt-rm = static-nix-shell.mkPython3Bin {
       pname = "sane-bt-rm";
       src = ./src;
-      pkgs = [ "transmission" ];
+      pyPkgs = [ "sane-lib.bt" ];
+      pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
     };
     bt-search = static-nix-shell.mkPython3Bin {
       pname = "sane-bt-search";
       src = ./src;
       pyPkgs = [ "natsort" "requests" ];
     };
-    bt-show = static-nix-shell.mkBash {
+    bt-show = static-nix-shell.mkPython3Bin {
       pname = "sane-bt-show";
       src = ./src;
-      pkgs = [ "transmission" ];
+      pyPkgs = [ "sane-lib.bt" ];
+      pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
     };
     deadlines = static-nix-shell.mkBash {
       pname = "sane-deadlines";
@@ -67,19 +95,13 @@ let
       pname = "sane-ip-check-upnp";
       src = ./src;
       pkgs = [ "miniupnpc" ];
-      postInstall = ''
-        mkdir -p $out/bin/lib
-        cp -R lib/* $out/bin/lib/
-      '';
+      pyPkgs = [ "sane-lib.ssdp" ];
     };
     ip-port-forward = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-port-forward";
       src = ./src;
       pkgs = [ "inetutils" "miniupnpc" ];
-      postInstall = ''
-        mkdir -p $out/bin/lib
-        cp -R lib/* $out/bin/lib/
-      '';
+      pyPkgs = [ "sane-lib.ssdp" ];
     };
     ip-reconnect = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-reconnect";
@@ -206,8 +228,10 @@ let
 in
 symlinkJoin {
   name = "sane-scripts";
-  paths = lib.attrValues nix-shell-scripts;
-  passthru = nix-shell-scripts;
+  paths = lib.attrValues sane-bin;
+  passthru = sane-bin // {
+    lib = sane-lib;
+  };
   meta = {
     description = "collection of scripts associated with sane systems";
     homepage = "https://git.uninsane.org";

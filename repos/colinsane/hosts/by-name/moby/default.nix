@@ -41,6 +41,8 @@
   # disabled for faster deploys (gthumb depends on webkitgtk, particularly)
   sane.programs.soundconverter.enableFor.user.colin = false;
   sane.programs.gthumb.enableFor.user.colin = false;
+  sane.programs.jellyfin-media-player.enableFor.user.colin = false;
+  # sane.programs.mpv.enableFor.user.colin = true;
 
   boot.loader.efi.canTouchEfiVariables = false;
   # /boot space is at a premium. default was 20.
