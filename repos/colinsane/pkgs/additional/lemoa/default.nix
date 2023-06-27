@@ -31,13 +31,9 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
-    gdk-pixbuf
-    glib
-    graphene
     gtk4
     libadwaita
     openssl
-    pango
   ];
 
   meta = with lib; {
