@@ -17,5 +17,7 @@
   lsd = pkgs.callPackage ./pkgs/lsd.nix { };
   zsh-capture-completion = pkgs.callPackage ./pkgs/zsh-capture-completion.nix { };
   ueforth = pkgs.callPackage ./pkgs/ueforth.nix { };
+  gd32-dfu-utils = pkgs.callPackage ./pkgs/gd32-dfu-utils.nix { };
+  openocd-riscv = pkgs.callPackage ./pkgs/openocd-riscv.nix { };
 
 }
