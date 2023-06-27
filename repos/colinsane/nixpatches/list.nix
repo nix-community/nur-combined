@@ -209,7 +209,7 @@ in [
   (fetchpatch' {
     title = "mepo: 1.1 -> 1.1.2";
     saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
-    hash = "sha256-0lNSgq8ahSvQDEpuF0lyblA8cB9ulv1zGasHo6lUWAU=";
+    hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
   })
 
   # (fetchpatch' {
