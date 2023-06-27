@@ -4,6 +4,8 @@
 rm -rf \
   ~/.librewolf/default/* \
   ~/.cache/librewolf/* \
+  ~/.mozilla/* \
+  ~/.cache/mozilla/firefox/* \
   ~/.config/chromium \
   ~/.cache/chromium \
   || true  # in case no matches

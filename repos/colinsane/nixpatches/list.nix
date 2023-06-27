@@ -1,4 +1,4 @@
-{ fetchpatch, fetchurl }:
+{ fetchpatch2, fetchurl }:
 let
   fetchpatch' = {
     saneCommit ? null,
@@ -13,7 +13,7 @@ let
       else
         "https://git.uninsane.org/colin/nixpkgs/commit/${saneCommit}.diff"
       ;
-    in fetchpatch (
+    in fetchpatch2 (
       { inherit url; }
       // (if hash != null then { inherit hash; } else {})
       // (if title != null then { name = title; } else {})
@@ -27,15 +27,40 @@ in [
   #   hash = "sha256-eDsR1cJC/IMmhJl5wERpTB1VGawcnMw/gck9sI64GtQ=";
   # })
 
+  # (fetchpatch' {
+  #   saneCommit = "70c12451b783d6310ab90229728d63e8a903c8cb";
+  #   title = "firefox-pmos-mobile: init at -pmos-2.2.0";
+  #   hash = "sha256-mA22g3ZIERVctq8Uk5nuEsS1JprxA+3DvukJMDTOyso=";
+  # })
+  # (fetchpatch' {
+  #   saneCommit = "ee19a28aa188bb87df836a4edc7b73355b8766eb";
+  #   title = "firefox-pmos-mobile: format the generated policies.nix file";
+  #   hash = "sha256-K8b3QpyVEjajilB5w4F1UHGDRGlmN7i66lP7SwLZpWI=";
+  # })
+  # (fetchpatch' {
+  #   saneCommit = "c068439c701c160ba15b6ed5abe9cf09b159d584";
+  #   title = "firefox-pmos-mobile: implement an updateScript";
+  #   hash = "sha256-afiGDHbZIVR3kJuWABox2dakyiRb/8EgDr39esqwcEk=";
+  # })
+  # (fetchpatch' {
+  #   saneCommit = "865c9849a9f7bd048e066c2efd8068ecddd48e33";
+  #   title = "firefox-pmos-mobile: 2.2.0 -> 4.0.2";
+  #   hash = "sha256-WjWSW0qE+cypvUkDRfK7d9Te8m5zQXwF33z8nEhbvrE=";
+  # })
+  # (fetchpatch' {
+  #   saneCommit = "eb6aae632c55ce7b0a76bca549c09da5e1f7761b";
+  #   title = "firefox-pmos-mobile: refactor and populate `passthru` to aid external consumers";
+  #   hash = "sha256-/LhbwXjC8vuKzIuGQ3/FGplbLllsz57nR5y+PeDjGuA=";
+  # })
+  # (fetchpatch' {
+  #   saneCommit = "c9b90ef1e17ea21ac779a86994e5d9079a2057b9";
+  #   title = "librewolf-pmos-mobile: init";
+  #   hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
+  # })
   (fetchpatch' {
-    saneCommit = "70c12451b783d6310ab90229728d63e8a903c8cb";
-    title = "firefox-pmos-mobile: init at -pmos-2.2.0";
-    hash = "sha256-o67YRjo31raaYhIpfqQP/tdjbXrjeLLhEr/qzqyPLgQ=";
-  })
-  (fetchpatch' {
-    saneCommit = "f0ed1651158c33504fbd2e04db497d5504dd8570";
-    title = "librewolf-pmos-mobile: init";
-    hash = "sha256-oQEM3EZfAOmfZzDu9faCqyOFZsdHYGn1mVBgkxt68Zg=";
+    saneCommit = "c3becd7cdf144d85d12e2e76663e9549a0536efd";
+    title = "firefox-pmos-mobile: init at 4.0.2";
+    hash = "sha256-NRh2INUMA2K7q8zioqKA7xwoqg7v6sxpuJRpTG5IP1Q=";
   })
 
   # splatmoji: init at 1.2.0

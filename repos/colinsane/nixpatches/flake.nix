@@ -9,7 +9,7 @@
         name = "nixpkgs-patched-uninsane";
         src = nixpkgs;
         patches = import ./list.nix {
-          inherit (nixpkgs.legacyPackages.${system}) fetchpatch fetchurl;
+          inherit (nixpkgs.legacyPackages.${system}) fetchpatch2 fetchurl;
         };
       };
       patchedFlakeFor = system: import "${patchedPkgsFor system}/flake.nix";

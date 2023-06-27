@@ -13,17 +13,15 @@ let
   # allow easy switching between firefox and librewolf with `defaultSettings`, below
   librewolfSettings = {
     browser = pkgs.librewolf-unwrapped;
-    # browser = pkgs.librewolf-unwrapped.overrideAttrs (drv: {
-    #   # this allows side-loading unsigned addons
-    #   MOZ_REQUIRE_SIGNING = false;
-    # });
+    extraPrefsFiles = pkgs.librewolf-unwrapped.extraPrefsFiles ++ pkgs.librewolf-pmos-mobile.extraPrefsFiles;
     libName = "librewolf";
     dotDir = ".librewolf";
-    cacheDir = ".cache/librewolf";  # TODO: is it?
+    cacheDir = ".cache/librewolf";
     desktop = "librewolf.desktop";
   };
   firefoxSettings = {
     browser = pkgs.firefox-esr-unwrapped;
+    extraPrefsFiles = pkgs.firefox-pmos-mobile.extraPrefsFiles;
     libName = "firefox";
     dotDir = ".mozilla/firefox";
     cacheDir = ".cache/mozilla";
@@ -47,8 +45,7 @@ let
   package = pkgs.wrapFirefox cfg.browser.browser {
     # inherit the default librewolf.cfg
     # it can be further customized via ~/.librewolf/librewolf.overrides.cfg
-    inherit (pkgs.librewolf-unwrapped) extraPrefsFiles;
-    inherit (cfg.browser) libName;
+    inherit (cfg.browser) extraPrefsFiles libName;
 
     extraNativeMessagingHosts = optional cfg.addons.browserpass-extension.enable pkgs.browserpass;
     # extraNativeMessagingHosts = [ pkgs.gopass-native-messaging-host ];
@@ -72,7 +69,10 @@ let
       };
       UserMessaging = {
         ExtensionRecommendations = false;
+        FeatureRecommendations = false;
         SkipOnboarding = true;
+        UrlbarInterventions = false;
+        WhatsNew = false;
       };
 
       # these were taken from Librewolf

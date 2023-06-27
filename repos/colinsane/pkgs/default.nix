@@ -40,6 +40,7 @@ let
     linux-megous = callPackage ./additional/linux-megous { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
+    # TODO: use `recurseIntoAttrs` ?
     sane-scripts = callPackage ./additional/sane-scripts { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };

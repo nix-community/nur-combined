@@ -1318,9 +1318,19 @@ in {
   });
   # XXX: aarch64 webp-pixbuf-loader wanted by gdk-pixbuf-loaders.cache.drv, wanted by aarch64 gnome-control-center
 
-  # "extract-binary-wrapper-cmd: line 2: strings: command not found"
-  # XXX: technically this belongs in pkgs/build-support/setup-hooks/make-binary-wrapper/default.nix ?
-  wrapFirefox = browser: args: addNativeInputs [ final.bintools-unwrapped ] (prev.wrapFirefox browser args);
+  wrapFirefox = prev.wrapFirefox.override {
+    buildPackages = let
+      bpkgs = final.buildPackages;
+    in bpkgs // {
+      # fixes "extract-binary-wrapper-cmd: line 2: strings: command not found"
+      # ^- in the `nix log` output of cross-compiled `firefox` (it's non-fatal)
+      makeBinaryWrapper = bpkgs.makeBinaryWrapper.overrideAttrs (upstream: {
+        passthru.extractCmd = bpkgs.writeShellScript "extract-binary-wrapper-cmd" ''
+          ${final.stdenv.cc.targetPrefix}strings -dw "$1" | sed -n '/^makeCWrapper/,/^$/ p'
+        '';
+      });
+    };
+  };
 
   wvkbd = (
     # "wayland-scanner: no such program"
