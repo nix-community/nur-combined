@@ -32,6 +32,11 @@ in
       # serve packages to other machines that ask for them
       sane.services.nixserve.enable = true;
 
+      # each concurrent derivation realization uses a different nix build user.
+      # default is 32 build users, limiting us to that many concurrent jobs.
+      # it's nice to not be limited in that way, so increase this a bit.
+      nix.nrBuildUsers = 64;
+
       # enable cross compilation
       # TODO: do this via stdenv injection, linking into /run/binfmt the stuff in <nixpkgs:nixos/modules/system/boot/binfmt.nix>
       boot.binfmt.emulatedSystems = lib.optionals cfg.emulation [

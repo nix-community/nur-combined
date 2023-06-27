@@ -162,8 +162,9 @@ in
         # bypass-paywalls-clean.package = addon "bypass-paywalls-clean" "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}" "sha256-oUwdqdAwV3DezaTtOMx7A/s4lzIws+t2f08mwk+324k=";
         # bypass-paywalls-clean.enable = lib.mkDefault true;
 
+        # TODO: give these update scripts, make them reachable via `pkgs`
         ether-metamask = {
-          package = addon "ether-metamask" "webextension@metamask.io" "sha256-G+MwJDOcsaxYSUXjahHJmkWnjLeQ0Wven8DU/lGeMzA=";
+          package = addon "ether-metamask" "webextension@metamask.io" "sha256-UI83wUUc33OlQYX+olgujeppoo2D2PAUJ+Wma5mH2O0=";
           enable = lib.mkDefault true;
         };
         i2p-in-private-browsing = {
@@ -175,15 +176,15 @@ in
           enable = lib.mkDefault true;
         };
         sponsorblock = {
-          package = addon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-hRsvLaAsVm3dALsTrJqHTNgRFAQcU7XSaGhr5G6+mFs=";
+          package = addon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-b/OTFmhSEUZ/CYrYCE4rHVMQmY+Y78k8jSGMoR8vsZA=";
           enable = lib.mkDefault true;
         };
         ublacklist = {
-          package = addon "ublacklist" "@ublacklist" "sha256-RqY5iHzbL2qizth7aguyOKWPyINXmrwOlf/OsfqAS48=";
+          package = addon "ublacklist" "@ublacklist" "sha256-NZ2FmgJiYnH7j2Lkn0wOembxaEphmUuUk0Ytmb0rNWo=";
           enable = lib.mkDefault true;
         };
         ublock-origin = {
-          package = addon "ublock-origin" "uBlock0@raymondhill.net" "sha256-eHlQrU/b9X/6sTbHBpGAd+0VsLT7IrVCnd0AQ948lyA=";
+          package = addon "ublock-origin" "uBlock0@raymondhill.net" "sha256-EGGAA+cLUow/F5luNzFG055rFfd3rEyh8hTaL/23pbM=";
           enable = lib.mkDefault true;
         };
       };

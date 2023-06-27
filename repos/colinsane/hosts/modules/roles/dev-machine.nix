@@ -18,7 +18,7 @@ in
     ({
       sane.programs.docsets.config.rustPkgs = [
         # "lemmy-server"
-        "mx-sanebot"
+        # "mx-sanebot"
       ];
     })
     (mkIf cfg {

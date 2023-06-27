@@ -3,6 +3,9 @@
 	- else DNS fails
 
 ## REFACTORING:
+
+- remove unused `overlays/pins.nix`
+
 ### sops/secrets
 - attach secrets to the thing they're used by (sane.programs)
 - rework secrets to leverage `sane.fs`
@@ -52,7 +55,6 @@
 - `sane.persist`: auto-create parent dirs in ~/private
   - currently if the application doesn't autocreate dirs leading to its destination, then ~/private storage fails
   - this might be why librewolf on mobile is still amnesiac
-- zsh: disable "command not found" corrections
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
 
 ### perf

@@ -159,8 +159,8 @@ in
       };
 
       # enable a command-not-found hook to show nix packages that might provide the binary typed.
-      programs.nix-index.enable = true;
-      programs.command-not-found.enable = false;  #< mutually exclusive with nix-index
+      # programs.nix-index.enable = true;
+      # programs.command-not-found.enable = false;  #< mutually exclusive with nix-index
     })
   ];
 }
