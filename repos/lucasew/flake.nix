@@ -4,27 +4,35 @@
   inputs = {
     bumpkin.url = "github:lucasew/bumpkin";
     nix-index-database.url = "github:Mic92/nix-index-database";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
   };
 
   outputs = {
       self
     , bumpkin
     , nix-index-database
+    , nixpkgs
   }:
   let
-    defaultNixpkgs = unpackedInputs.nixpkgs.unstable.overrideAttrs (old: {
-      patches = [
-      ];
-    });
+    inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs length;
 
-    inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs;
+    patches = [ ];
+
+    bootstrapPkgs = import nixpkgs { inherit system; };
+
+    defaultNixpkgs = if ((length patches) == 0)
+      then nixpkgs
+      else bootstrapPkgs.stdenvNoCC.mkDerivation {
+        name = "source";
+        src = nixpkgs;
+        phases = [ "unpackPhase" "patchPhase" "installPhase" ];
+        inherit patches;
+        preferLocalBuild = true;
+        installPhase = "cp -r . $out";
+      };
+
 
     inherit (let
-      bootstrapPkgs = mkPkgs {
-        inherit system;
-        nixpkgs = bumpkin.inputs.nixpkgs.outPath;
-        disableOverlays = true;
-      };
       bumpkinPkg = bootstrapPkgs.callPackage bumpkin.outPath {};
       inputs = bumpkinPkg.loadBumpkin {
         inputFile = ./bumpkin.json;
@@ -42,7 +50,7 @@
     system = builtins.currentSystem or "x86_64-linux";
 
     mkPkgs = {
-      nixpkgs #? defaultNixpkgs
+      nixpkgs ? defaultNixpkgs
     , config ? {}
     , overlays ? []
     , disableOverlays ? false

@@ -7,7 +7,7 @@ let
 in {
   imports = [
     ../common/default.nix
-    "${unpackedInputs.nixpkgs.stable}/nixos/modules/virtualisation/google-compute-image.nix"
+    "${self.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
 
     "${unpackedInputs.impermanence}/nixos.nix"
 
