@@ -643,10 +643,10 @@
       };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.63";
+      version = "4.9.64";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4095037/darkreader-4.9.63.xpi";
-      sha256 = "16ba6337fcff7ad85e08ad51b384ba26ff751b2b2ded12309f75e8337ace925a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128489/darkreader-4.9.64.xpi";
+      sha256 = "c09ed43a96dccab1de3445aac263de0569e3333da330d645094e3f938f13b30e";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -983,10 +983,10 @@
       };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.70";
+      version = "2.71";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119727/firemonkey-2.70.xpi";
-      sha256 = "9ecb1675a56fb2995b2438b904d43625881fd20a960fdcc42729878c56687c28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129841/firemonkey-2.71.xpi";
+      sha256 = "191b9ba4b843d585fb98411c8d477eca9c021f541963d356e2a6f0a60a41e48d";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -1113,10 +1113,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230622.161221";
+      version = "115.0.20230626.153624";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128749/francais_language_pack-115.0.20230622.161221.xpi";
-      sha256 = "f9a10e53fc70e2a44e5a63525f1af8ef11bf8c26c61d4eea0f855aa0f81bcff3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4130066/francais_language_pack-115.0.20230626.153624.xpi";
+      sha256 = "0f8dcdfc55f75027f6029feb58186bbea1b8f99adef89140d8072efc207ddf44";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -2870,10 +2870,10 @@
       };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.21.42";
+      version = "1.21.43";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4112597/single_file-1.21.42.xpi";
-      sha256 = "28451f6c86cdbc70c37ef1338152f24afc17900856a287d58afcb95302030bd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128372/single_file-1.21.43.xpi";
+      sha256 = "96ca441d989867e67c235f92c5601d77ead20552a5bdafb7615c04364911cc05";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -2955,10 +2955,10 @@
       };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.4.8";
+      version = "5.4.10";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4117298/sponsorblock-5.4.8.xpi";
-      sha256 = "7ec9815177ea05688c3cad85806e6b945786be622a5f438c33e94a8720de043c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128665/sponsorblock-5.4.10.xpi";
+      sha256 = "6ff39316685211467f098ad8084e2b1d5310998f98efc93c8d218ca11f2fb190";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -2996,10 +2996,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.6";
+      version = "3.6.7";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4106867/steam_database-3.6.6.xpi";
-      sha256 = "1042f5a1b61ee4083e8999405da601bc6fa43cf9069f078b5da45261f40bce2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128503/steam_database-3.6.7.xpi";
+      sha256 = "44a2d00113c7523e08f03445e4983e9fd3e5f295ba096c7e5946a934c322450f";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
