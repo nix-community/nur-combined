@@ -210,6 +210,7 @@ in
            }
           }
         '';
+        # TODO: this is better suited in `extraPrefs` during `wrapFirefox` call
         fs."${cfg.browser.dotDir}/${cfg.browser.libName}.overrides.cfg".symlink.text = ''
           // if we can't query the revocation status of a SSL cert because the issuer is offline,
           // treat it as unrevoked.

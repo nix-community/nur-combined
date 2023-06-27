@@ -10,6 +10,7 @@
       # N.B. some deviceprofiles explicitly set SXMO_SWAY_SCALE, overwriting what we put here.
       SXMO_SWAY_SCALE = "1.5";
       SXMO_ROTATION_GRAVITY = "12800";
+      SXMO_LOCK_IDLE_TIME = "15";  # how long between screenoff -> lock -> back to screenoff
       DEFAULT_COUNTRY = "US";
       BROWSWER = "librewolf";
     };

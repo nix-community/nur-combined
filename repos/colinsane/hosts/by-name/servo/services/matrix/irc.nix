@@ -5,12 +5,11 @@
 { config, lib, ... }:
 
 let
-  ircServer = { name, additionalAddresses ? [], sasl ? true }: let
+  ircServer = { name, additionalAddresses ? [], sasl ? true, port ? 6697 }: let
     lowerName = lib.toLower name;
   in {
     # XXX sasl: appservice doesn't support NickServ identification (only SASL, or PASS if sasl = false)
-    inherit name additionalAddresses sasl;
-    port = 6697;
+    inherit name additionalAddresses sasl port;
     ssl = true;
     botConfig = {
       # bot has no presence in IRC channel; only real Matrix users
@@ -151,6 +150,7 @@ in
         };
         "irc.oftc.net" = ircServer {
           name = "oftc";
+          sasl = false;
           # notable channels:
           # - #sxmo
           # - #sxmo-offtopic
