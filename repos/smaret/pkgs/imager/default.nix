@@ -7,12 +7,12 @@ let
 in
 
 stdenv.mkDerivation rec {
-  version = "3.7-04";
+  version = "3.8-01";
   pname = "imager";
 
   src = fetchurl {
-    url = "https://cloud.univ-grenoble-alpes.fr/s/zxPSZxsb3sdNSHo/download/${pname}-${version}.tar.gz";
-    sha256 = "sha256-qWzkd9j027NEweiCMW82+erz+jj7/zNpyWpqmTwUsLQ=";
+    url = "https://cloud.univ-grenoble-alpes.fr/s/qZZTQqALyLLbDPE/download/imager-3.8-01.tar.gz";
+    sha256 = "sha256-EQ5UeiqMSfbHwwb/xwAyIoZYmt+aEScCg58Sq7ZWibw=";
   };
 
   nativeBuildInputs = [ pkg-config groff perl getopt gfortran which ];
