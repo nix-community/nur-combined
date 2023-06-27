@@ -81,7 +81,12 @@ let
 in
 {
   # private because there could be sensitive things in the swap
-  sane.programs.neovim.persist.private = [ ".cache/vim-swap" ];
+  sane.programs.neovim = {
+    persist.private = [ ".cache/vim-swap" ];
+    env.EDITOR = "vim";
+    # git claims it should use EDITOR, but it doesn't!
+    env.GIT_EDITOR = "vim";
+  };
 
   programs.neovim = mkIf config.sane.programs.neovim.enabled {
     # neovim: https://github.com/neovim/neovim

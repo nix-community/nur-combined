@@ -43,6 +43,7 @@ let
       lsof
       miniupnpc
       nano
+      neovim
       netcat
       nethogs
       nmap
@@ -124,7 +125,7 @@ let
       lm_sensors  # for sensors-detect. TODO: what needs this? lift into the consumer
       lshw
       # memtester
-      neovim
+      neovim  # needed as a user package, for swap persistence
       # nettools
       # networkmanager
       nixpkgs-review

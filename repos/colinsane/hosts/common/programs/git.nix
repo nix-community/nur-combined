@@ -12,7 +12,9 @@ in
     user.email = "colin@uninsane.org";
 
     alias.co   = "checkout";
+    alias.cp   = "cherry-pick";
     alias.d    = "difftool";
+    alias.rb   = "rebase";
     alias.st   = "status";
     alias.stat = "status";
 

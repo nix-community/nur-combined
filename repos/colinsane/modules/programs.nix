@@ -110,6 +110,11 @@ let
           the secret will have same owner as the user under which the program is enabled.
         '';
       };
+      env = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
+        description = "environment variables to set when this program is enabled";
+      };
       configOption = mkOption {
         type = types.raw;
         default = mkOption {
@@ -137,10 +142,11 @@ let
       message = ''program "${sug}" referenced by "${name}", but not defined'';
     }) p.suggestedPrograms;
 
-    # conditionally add to system PATH
-    environment.systemPackages = optional
-      (p.package != null && p.enableFor.system)
-      p.package;
+    # conditionally add to system PATH and env
+    environment = lib.optionalAttrs p.enableFor.system {
+      systemPackages = lib.optional (p.package != null) p.package;
+      variables = p.env;
+    };
 
     # conditionally add to user(s) PATH
     users.users = mapAttrs (user: en: {
@@ -196,6 +202,7 @@ in
       take = f: {
         assertions = f.assertions;
         environment.systemPackages = f.environment.systemPackages;
+        environment.variables = f.environment.variables;
         users.users = f.users.users;
         sane.users = f.sane.users;
         sops.secrets = f.sops.secrets;

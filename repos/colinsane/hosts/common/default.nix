@@ -71,19 +71,6 @@
   # disable non-required packages like nano, perl, rsync, strace
   environment.defaultPackages = [];
 
-  # programs.vim.defaultEditor = true;
-  environment.variables = {
-    EDITOR = "vim";
-    # git claims it should use EDITOR, but it doesn't!
-    GIT_EDITOR = "vim";
-    # TODO: these should be moved to `home.sessionVariables` (home-manager)
-    # Electron apps should use native wayland backend:
-    #   https://nixos.wiki/wiki/Slack#Wayland
-    # Discord under sway crashes with this.
-    # NIXOS_OZONE_WL = "1";
-    # LIBGL_ALWAYS_SOFTWARE = "1";
-  };
-
   # dconf docs: <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/profiles>
   # find keys/values with `dconf dump /`
   programs.dconf.enable = true;
