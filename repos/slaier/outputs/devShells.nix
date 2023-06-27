@@ -2,15 +2,14 @@
 super.lib.eachDefaultSystems (pkgs: with pkgs; {
   default = mkShell {
     packages = [
-      colmena
       just
+      nixos-rebuild
       sops
     ];
   };
 
   ci = mkShell {
     packages = [
-      colmena
       nixos-rebuild
     ];
   };

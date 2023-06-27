@@ -1,11 +1,20 @@
-default: (apply "local" "test")
+default: (local "test")
 
-local goal="switch": (apply "local" goal)
+local goal="switch":
+  sudo nixos-rebuild {{goal}} --no-build-nix --flake .#local
 
-n1 goal="switch": (apply "n1" goal)
+n1 goal="switch":
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  if [ "{{goal}}" = "boot" ]; then
+    nixos-rebuild {{goal}} --no-build-nix --target-host root@n1.local --flake .#n1
+    ssh root@n1.local reboot
+  else
+    ssh root@n1.local systemctl stop podman-qinglong.service
+    nixos-rebuild {{goal}} --no-build-nix --target-host root@n1.local --flake .#n1
+  fi
 
-apply nodes="local,n1" goal="boot":
-  colmena apply --on {{nodes}} {{goal}}
+apply goal="switch": (local goal) (n1 goal)
 
 sd-image:
   nix build --no-link --print-out-paths .#nixosConfigurations.sd-image-aarch64-installer.config.system.build.sdImage

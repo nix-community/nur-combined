@@ -17,6 +17,11 @@ in
 {
   imports = map (x: x.default or { }) modules-enable;
 
+  _module.args.settings = {
+    nix-min-free = 750;
+    nix-max-free = 1500;
+  };
+
   nix.settings = {
     substituters = lib.mkForce [
       "http://local.local:5000"

@@ -42,6 +42,5 @@ jobs:
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Build NixOS system
         run: |
-          nix develop .#ci --command colmena build
           nix develop .#ci --command nixos-rebuild build --flake .#local
           nix develop .#ci --command nixos-rebuild build --flake .#n1

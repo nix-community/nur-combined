@@ -38,6 +38,8 @@ in
       { programs.command-not-found.enable = false; }
     ]);
 
+  _module.args.settings = { };
+
   home-manager.users.nixos.imports = map (x: x.home or { }) modules-enable;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

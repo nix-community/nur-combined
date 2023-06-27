@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }:
+{ pkgs, inputs, config, settings, ... }:
 {
   nix.settings = {
     substituters = [
@@ -16,8 +16,8 @@
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
-    min-free = ${toString (1024 * 1024 * 1024)}
-    max-free = ${toString (15 * 1024 * 1024 * 1024)}
+    min-free = ${toString ((settings.nix-min-free or (30 * 1024)) * 1024 * 1024)}
+    max-free = ${toString ((settings.nix-max-free or (100 * 1024)) * 1024 * 1024)}
     !include ${config.sops.secrets.nix_access_token.path}
   '';
 
