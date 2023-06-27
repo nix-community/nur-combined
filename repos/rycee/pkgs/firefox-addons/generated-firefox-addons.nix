@@ -796,10 +796,10 @@
       };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2023.7.7.2";
+      version = "2023.7.8";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4122073/duckduckgo_for_firefox-2023.7.7.2.xpi";
-      sha256 = "c35da95c88a17868cad41af37f82956ef9eb47f86c0c2ea1b89c5db568f6bd89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129067/duckduckgo_for_firefox-2023.7.8.xpi";
+      sha256 = "21692d0ebdd60665f911ae47704ccfb734bb5531e716fef0f5cf0b8aea961f8c";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2573,6 +2573,33 @@
         homepage = "https://github.com/karlicoss/promnesia";
         description = "Enhancement of your browsing history";
         license = licenses.mit;
+        platforms = platforms.all;
+        };
+      };
+    "proton-pass" = buildFirefoxXpiAddon {
+      pname = "proton-pass";
+      version = "1.2.2";
+      addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4130500/proton_pass-1.2.2.xpi";
+      sha256 = "bddc5079202f8dedd597af6cf804a03f62508af3b15cbb7d1205d457e59244d6";
+      meta = with lib;
+      {
+        homepage = "https://proton.me";
+        description = "Free and unlimited password manager to keep your login credentials safe and manage them directly in your browser.";
+        license = licenses.gpl3;
+        platforms = platforms.all;
+        };
+      };
+    "proton-vpn" = buildFirefoxXpiAddon {
+      pname = "proton-vpn";
+      version = "3.0";
+      addonId = "{c228008e-9d02-4c6d-9b54-288507710fa1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2844710/proton_vpn-3.0.xpi";
+      sha256 = "eb1692f1f7d9c669f4eff615b8db22b020b9ccd8cd995b86240c2a6bc1b8ae37";
+      meta = with lib;
+      {
+        description = "Theme based on a Firefox backdrop.";
+        license = licenses.cc-by-nc-sa-30;
         platforms = platforms.all;
         };
       };
