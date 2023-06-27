@@ -16,4 +16,6 @@
 
   lsd = pkgs.callPackage ./pkgs/lsd.nix { };
   zsh-capture-completion = pkgs.callPackage ./pkgs/zsh-capture-completion.nix { };
+  ueforth = pkgs.callPackage ./pkgs/ueforth.nix { };
+
 }
