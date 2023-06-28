@@ -10,12 +10,12 @@
 }:
 assert (lib.asserts.assertMsg (!enableRdma || stdenv.isLinux) "Can't enable rdma_plugin - rdma-core only works on Linux");
 assert (lib.asserts.assertMsg (!enableAfXdp || stdenv.isLinux) "Can't enable af_xdp_plugin - Only exists on Linux"); let
-  version = "22.10.1";
+  version = "23.06";
   src = pkgs.fetchFromGitHub {
     owner = "FDio";
     repo = "vpp";
     rev = "v${version}";
-    hash = "sha256-HZKG0el7zMc/dsiWpcGjGaZlpylJKA2auLHmNow1yoc=";
+    hash = "sha256-9dn/rpjouwjFUFoQYd8Go1rV4ThZ8gh/egIuXfdPys0=";
   };
   getMeta = description:
     with lib; {
@@ -75,12 +75,6 @@ in rec {
       ++ lib.optionals enableAfXdp [libbpf xdp-tools]
       # Shared deps for DPDK and AF_XDP
       ++ lib.optionals (enableDpdk || enableAfXdp) [elfutils];
-
-    # Needs a few patches.
-    patches = [
-      # Make AF_XDP use libxdp/xdp-tools instead of the stone age libbpf Debian ships.
-      ./vpp-af_xdp-use-libxdp.patch
-    ];
 
     postPatch = ''
       # This attempts to use git to fetch the version, but we already know it.
