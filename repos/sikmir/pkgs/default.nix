@@ -319,6 +319,7 @@ lib.makeScope newScope (
     apibackuper = callPackage ./misc/apibackuper { };
     arduinojson = callPackage ./misc/arduinojson { };
     ascii-dash = callPackage ./misc/ascii-dash { };
+    bash-completor = callPackage ./misc/bash-completor { };
     blink = callPackage ./misc/blink { };
     btpd = callPackage ./misc/btpd { };
     bwh = callPackage ./misc/bwh {
