@@ -43,6 +43,24 @@
   # does the builder use some content-addressed db to efficiently dedupe?
   nix.settings.auto-optimise-store = true;
 
+  systemd.services.nix-daemon.serviceConfig = {
+    # the nix-daemon manages nix builders
+    # kill nix-daemon subprocesses when systemd-oomd detects an out-of-memory condition
+    # see:
+    # - nixos PR that enabled systemd-oomd: <https://github.com/NixOS/nixpkgs/pull/169613>
+    # - systemd's docs on these properties: <https://www.freedesktop.org/software/systemd/man/systemd.resource-control.html#ManagedOOMSwap=auto%7Ckill>
+    #
+    # systemd's docs warn that without swap, systemd-oomd might not be able to react quick enough to save the system.
+    # see `man oomd.conf` for further tunables that may help.
+    #
+    # alternatively, apply this more broadly with `systemd.oomd.enableSystemSlice = true` or `enableRootSlice`
+    # TODO: also apply this to the guest user's slice (user-1100.slice)
+    # TODO: also apply this to distccd
+    ManagedOOMMemoryPressure = "kill";
+    ManagedOOMSwap = "kill";
+  };
+
+  # TODO: move this to gui machines only
   fonts = {
     enableDefaultFonts = true;
     fonts = with pkgs; [ font-awesome noto-fonts-emoji hack-font ];

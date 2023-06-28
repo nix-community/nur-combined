@@ -7,6 +7,7 @@ let fsOpts = rec {
   common = [
     "_netdev"
     "noatime"
+    "user"  # allow any user with access to the device to mount the fs
     "x-systemd.requires=network-online.target"
     "x-systemd.after=network-online.target"
     "x-systemd.mount-timeout=10s"  # how long to wait for mount **and** how long to wait for unmount
@@ -19,7 +20,6 @@ let fsOpts = rec {
   ];
 
   ssh = common ++ [
-    "user"
     "identityfile=/home/colin/.ssh/id_ed25519"
     "allow_other"
     "default_permissions"

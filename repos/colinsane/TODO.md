@@ -34,6 +34,9 @@
 - have `sane.programs` be wrapped such that they run in a cgroup?
     - at least, only give them access to the portion of the fs they *need*.
     - Android takes approach of giving each app its own user: could hack that in here.
+    - **systemd-run** takes a command and runs it in a temporary scope (cgroup)
+      - presumably uses the same options as systemd services
+      - see e.g. <https://github.com/NixOS/nixpkgs/issues/113903#issuecomment-857296349>
     - flatpak does this, somehow
     - apparmor?  SElinux?  (desktop) "portals"?
     - see Spectrum OS; Alyssa Ross; etc
