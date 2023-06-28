@@ -330,6 +330,7 @@ lib.makeScope newScope (
     };
     capture2text = libsForQt5.callPackage ./misc/capture2text { };
     cfiles = callPackage ./misc/cfiles { };
+    complgen = callPackage ./misc/complgen { };
     csv2html = callPackage ./misc/csv2html { };
     csvtools = callPackage ./misc/csvtools { };
     dns-filter = callPackage ./misc/dns-filter { };
