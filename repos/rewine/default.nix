@@ -1,5 +1,5 @@
 { system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
-rec {
+with pkgs; rec {
   cmd-markdown = pkgs.callPackage ./pkgs/cmd-markdown { };
   aliyunpan = pkgs.callPackage ./pkgs/aliyunpan { };
   electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
@@ -32,4 +32,6 @@ rec {
   };
   pdfhummus = pkgs.libsForQt5.callPackage ./pkgs/pdfhummus { };
   #libaesgm = pkgs.callPackage ./pkgs/libaesgm { };
+
+  kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
 }
