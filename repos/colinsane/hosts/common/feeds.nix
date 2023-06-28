@@ -105,6 +105,7 @@ let
     ## Matrix (chat) Live
     (fromDb "feed.podbean.com/matrixlive/feed.xml" // tech)
     (fromDb "cast.postmarketos.org" // tech)
+    (fromDb "podcast.thelinuxexp.com" // tech)
     ## Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
     (fromDb "rss.art19.com/your-welcome" // pol)
     (fromDb "seattlenice.buzzsprout.com" // pol)
