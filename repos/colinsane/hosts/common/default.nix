@@ -13,7 +13,7 @@
     ./programs
     ./secrets.nix
     ./ssh.nix
-    ./users.nix
+    ./users
     ./vpn.nix
   ];
 

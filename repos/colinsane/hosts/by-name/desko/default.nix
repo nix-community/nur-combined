@@ -4,6 +4,10 @@
     ./fs.nix
   ];
 
+  # TODO: make sure this plays nice with impermanence
+  services.distccd.enable = true;
+  sane.programs.distcc.enableFor.user.guest = true;
+
   sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.roles.build-machine.enable = true;

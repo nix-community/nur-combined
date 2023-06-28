@@ -12,9 +12,13 @@ let
         type = types.attrs;
         default = {};
         description = ''
-          entries to pass onto `sane.fs` after prepending the user's home-dir to the path.
+        entries to pass onto `sane.fs` after prepending the user's home-dir to the path
+        and marking them as wanted.
           e.g. `sane.users.colin.fs."/.config/aerc" = X`
-            => `sane.fs."/home/colin/.config/aerc" = X;
+          => `sane.fs."/home/colin/.config/aerc" = { wantedBy = [ "multi-user.target"]; } // X;
+
+          conventions are similar as to toplevel `sane.fs`. so `sane.users.foo.fs."/"` represents the home directory,
+          whereas every other entry is expected to *not* have a trailing slash.
         '';
       };
 
@@ -55,9 +59,13 @@ let
         name = path-lib.concat [ defn.home path ];
         inherit value;
       });
+      makeWanted = lib.mapAttrs (n: v: {
+        # default if not otherwise provided
+        wantedBeforeBy = [ "multi-user.target" ];
+      } // v);
     in
     {
-      sane.fs = prefixWithHome defn.fs;
+      sane.fs = makeWanted (prefixWithHome defn.fs);
 
       # `byPath` is the actual output here, computed from the other keys.
       sane.persist.sys.byPath = prefixWithHome defn.persist.byPath;
