@@ -136,10 +136,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.9.13";
+    version = "v2.9.20";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.13/app-x86_64.asar";
-      sha256 = "sha256-fKmosLRhqkraCopYjCEKzEtrTNOfV5wMuCU/5d5Wfog=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.20/app-x86_64.asar";
+      sha256 = "sha256-zOqBYTvgsMgjdKAqHK062nQCDTjZM177EXYmjWJRBPQ=";
     };
   };
   mstickereditor = {
@@ -300,16 +300,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "c02bbe61ce148e15397089e891a21fd14258ade2";
+    version = "c647c6cefd76b91c04febe5c067f5f82b508312c";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "c02bbe61ce148e15397089e891a21fd14258ade2";
+      rev = "c647c6cefd76b91c04febe5c067f5f82b508312c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-5cyETX/UrZ+2xutHtpzGkutkWwBB/pMI6jIO6UM0IdQ=";
+      sha256 = "sha256-FNvL/ZFhY40lGs3IrwAuPouyo/AUMovsehDoETU2k+I=";
     };
-    date = "2023-06-19";
+    date = "2023-06-27";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -510,23 +510,23 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "b0f89f2bc115f4447dbf4565faca9a6122594d68";
+    version = "41164905351436db3a124207261f9dd759c6fa1b";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "b0f89f2bc115f4447dbf4565faca9a6122594d68";
+      rev = "41164905351436db3a124207261f9dd759c6fa1b";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-vDPxKVIaJzVKkhvWM5qS4xlvuSSQunMlSuxqW0My+Jo=";
+      sha256 = "sha256-VuA7o+xyaXGT39jCtuG7eKGXBJa02YUG69ru3hyIkeY=";
     };
-    date = "2023-06-20";
+    date = "2023-06-27";
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.15.0.400";
+    version = "3.15.0.402";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/72158c3abd95460ff9e7ae59fb4041cf/TencentMeeting_0300000000_3.15.0.400_x86_64_default.publish.deb";
-      sha256 = "sha256-mdrSoenigy720mD32U6KZyBSZ06cJIHcM4wXXCCTsd0=";
+      url = "https://updatecdn.meeting.qq.com/cos/22516e32c067130e73b91ea0793495ae/TencentMeeting_0300000000_3.15.0.402_x86_64_default.publish.deb";
+      sha256 = "sha256-bHIPnJ5ioYF/xjrunpbjXohifJUMu/rVdt76v2DaCmc=";
     };
   };
   yacd = {
