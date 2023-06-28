@@ -463,10 +463,10 @@
       };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.2.2";
+      version = "0.2.3";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4125471/codecov-0.2.2.xpi";
-      sha256 = "7cc853929a4005763f658df72d8b6e0622c01ffb4cc1c251d12d43b160039534";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4130849/codecov-0.2.3.xpi";
+      sha256 = "c8a7acbeae76e9b776d9591863759bdb28283f5aa5df5a23a584fb3202c9e676";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
