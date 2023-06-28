@@ -11,12 +11,13 @@ in
     user.name = "Colin";
     user.email = "colin@uninsane.org";
 
-    alias.co   = "checkout";
-    alias.cp   = "cherry-pick";
-    alias.d    = "difftool";
-    alias.rb   = "rebase";
-    alias.st   = "status";
-    alias.stat = "status";
+    alias.co      = "checkout";
+    alias.cp      = "cherry-pick";
+    alias.d       = "difftool";
+    alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
+    alias.rb      = "rebase";
+    alias.st      = "status";
+    alias.stat    = "status";
 
     # difftastic docs:
     # - <https://difftastic.wilfred.me.uk/git.html>
