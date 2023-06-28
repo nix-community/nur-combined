@@ -34,6 +34,9 @@
 - have `sane.programs` be wrapped such that they run in a cgroup?
     - at least, only give them access to the portion of the fs they *need*.
     - Android takes approach of giving each app its own user: could hack that in here.
+    - flatpak does this, somehow
+    - apparmor?  SElinux?  (desktop) "portals"?
+    - see Spectrum OS; Alyssa Ross; etc
 - canaries for important services
     - e.g. daily email checks; daily backup checks
 
