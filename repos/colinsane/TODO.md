@@ -39,6 +39,7 @@
     - see Spectrum OS; Alyssa Ross; etc
 - canaries for important services
     - e.g. daily email checks; daily backup checks
+    - integrate `nix check` into Gitea actions?
 
 ### user experience
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)

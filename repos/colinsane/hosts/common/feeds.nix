@@ -1,3 +1,6 @@
+# where to find good stuff?
+# - podcast rec thread: <https://lemmy.ml/post/1565858>
+#
 # candidates:
 # - The Nonlinear Library (podcast): <https://forum.effectivealtruism.org/posts/JTZTBienqWEAjGDRv/listen-to-more-ea-content-with-the-nonlinear-library>
 #   - has ~10 posts per day, text-to-speech; i would need better tagging before adding this
