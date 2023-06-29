@@ -21,6 +21,20 @@
     General.RoamThreshold5G = "-52";  # default -76
   };
 
+  # plugins mostly add support for establishing different VPN connections.
+  # the default plugin set includes mostly proprietary VPNs:
+  # - fortisslvpn (Fortinet)
+  # - iodine (DNS tunnels)
+  # - l2tp
+  # - openconnect (Cisco Anyconnect / Juniper / ocserv)
+  # - openvpn
+  # - vpnc (Cisco VPN)
+  # - sstp
+  #
+  # i don't use these, and notably they drag in huge dependency sets and don't cross compile well.
+  # e.g. openconnect drags in webkitgtk (for SSO)!
+  networking.networkmanager.plugins = lib.mkForce [];
+
   networking.firewall.allowedUDPPorts = [
     1900  # to received UPnP advertisements. required by sane-ip-check-upnp
   ];

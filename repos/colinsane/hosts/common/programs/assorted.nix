@@ -214,7 +214,7 @@ let
       dino
       electrum
       element-desktop
-      font-manager
+      # font-manager  #< depends on webkitgtk4_0 (expensive to build)
       gajim  # XMPP client
       gimp  # broken on phosh
       "gnome.dconf-editor"

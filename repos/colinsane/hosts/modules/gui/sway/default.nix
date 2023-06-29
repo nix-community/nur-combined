@@ -66,16 +66,17 @@ in
           "mako"  # notification daemon
           # # "pavucontrol"
           # "gnome.gnome-bluetooth"  # XXX(2023/05/14): broken
-          "gnome.gnome-control-center"
+          # "gnome.gnome-control-center"  # XXX(2023/06/28): depends on webkitgtk4_1
           "sway-contrib.grimshot"
+          "wdisplays"  # like xrandr
         ];
       };
     }
     {
       sane.programs = {
         inherit (pkgs // {
-          "gnome.gnome-bluetooth" = pkgs.gnome.gnome-bluetooth;
-          "gnome.gnome-control-center" = pkgs.gnome.gnome-control-center;
+          # "gnome.gnome-bluetooth" = pkgs.gnome.gnome-bluetooth;
+          # "gnome.gnome-control-center" = pkgs.gnome.gnome-control-center;
           "sway-contrib.grimshot" = pkgs.sway-contrib.grimshot;
         })
           swaylock
@@ -83,9 +84,10 @@ in
           wl-clipboard
           blueberry
           mako
-          "gnome.gnome-bluetooth"
-          "gnome.gnome-control-center"
+          # "gnome.gnome-bluetooth"
+          # "gnome.gnome-control-center"
           "sway-contrib.grimshot"
+          wdisplays
         ;
       };
     }
@@ -126,13 +128,13 @@ in
       hardware.bluetooth.enable = true;
       services.blueman.enable = true;
       # gsd provides Rfkill, which is required for the bluetooth pane in gnome-control-center to work
-      services.gnome.gnome-settings-daemon.enable = true;
+      # services.gnome.gnome-settings-daemon.enable = true;
       # start the components of gsd we need at login
-      systemd.user.targets."org.gnome.SettingsDaemon.Rfkill".wantedBy = [ "graphical-session.target" ];
+      # systemd.user.targets."org.gnome.SettingsDaemon.Rfkill".wantedBy = [ "graphical-session.target" ];
       # go ahead and `systemctl --user cat gnome-session-initialized.target`. i dare you.
       # the only way i can figure out how to get Rfkill to actually load is to just disable all the shit it depends on.
       # it doesn't actually seem to need ANY of them in the first place T_T
-      systemd.user.targets."gnome-session-initialized".enable = false;
+      # systemd.user.targets."gnome-session-initialized".enable = false;
       # bluez can't connect to audio devices unless pipewire is running.
       # a system service can't depend on a user service, so just launch it at graphical-session
       systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];

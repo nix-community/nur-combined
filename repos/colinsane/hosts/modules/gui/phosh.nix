@@ -43,7 +43,7 @@ in
         })
           phosh-mobile-settings
           "plasma5Packages.konsole"
-          # "gnome.gnome-bluetooth"
+          "gnome.gnome-bluetooth"
           "gnome.gnome-terminal"
         ;
       };

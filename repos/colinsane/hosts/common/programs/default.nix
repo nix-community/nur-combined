@@ -8,6 +8,7 @@
     ./git.nix
     ./gnome-feeds.nix
     ./gpodder.nix
+    ./gthumb.nix
     ./imagemagick.nix
     ./jellyfin-media-player.nix
     ./kitty

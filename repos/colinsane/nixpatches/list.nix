@@ -218,6 +218,12 @@ in [
     hash = "sha256-LKDulOSQAM4FzyxqPqrdr1C2M3yLFpo5aAt7fhXRnrs=";
   })
 
+  (fetchpatch' {
+    title = "gthumb: make the webservices feature be optional";
+    saneCommit = "50767d5746fd80657e997b43fc5d82ba0c2c2447";
+    hash = "sha256-lXuLHdSPhWol9X5QX4cxnZqoVGUWEQTCZLmosvLX+WY=";
+  })
+
   # (fetchpatch' {
   #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
   #   title = "matrix-appservice-irc: 0.38.0 -> 1.0.0";
