@@ -1,4 +1,4 @@
-{self, global, pkgs, config, lib, unpackedInputs, ...}@args:
+{self, global, pkgs, config, lib, ...}@args:
 let
   inherit (self) inputs;
   inherit (global) username;
@@ -8,11 +8,11 @@ in {
     ./hardware-configuration.nix
     ../gui-common
 
-    "${unpackedInputs.nixos-hardware}/common/cpu/amd/pstate.nix"
-    "${unpackedInputs.nixos-hardware}/common/gpu/amd"
-    "${unpackedInputs.nixos-hardware}/common/pc/ssd"
+    "${self.inputs.nixos-hardware}/common/cpu/amd/pstate.nix"
+    "${self.inputs.nixos-hardware}/common/gpu/amd"
+    "${self.inputs.nixos-hardware}/common/pc/ssd"
+    # "${self.inputs.nixos-hardware}/common/gpu/nvidia"
 
-    # "${unpackedInputs.nixos-hardware}/common/gpu/nvidia"
     ./dashboards.nix
     ./dlna.nix
     ./nextcloud.nix

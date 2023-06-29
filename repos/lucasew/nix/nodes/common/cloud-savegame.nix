@@ -1,8 +1,8 @@
-{ self, config, pkgs, lib, unpackedInputs, ... }:
+{ self, config, pkgs, lib, bumpkin, ... }:
 let
   inherit (lib) mkOption mkIf mkEnableOption types optionalString optional;
   ini = pkgs.formats.ini {};
-  cloud-savegame = pkgs.callPackage "${unpackedInputs.cloud-savegame}/package.nix" {};
+  cloud-savegame = pkgs.callPackage "${bumpkin.unpacked.cloud-savegame}/package.nix" {};
   cfg = config.services.cloud-savegame;
 in {
   options.services.cloud-savegame = {

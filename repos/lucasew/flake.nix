@@ -3,8 +3,22 @@
 
   inputs = {
     bumpkin.url = "github:lucasew/bumpkin";
+    bumpkin.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-index-database.url = "github:Mic92/nix-index-database";
+
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+
+    impermanence.url = "github:nix-community/impermanence";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    nbr.url = "github:nixosbrasil/nixpkgs-brasil";
+
+    nur.url = "github:nix-community/nur";
+
+    home-manager.url = "home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -12,13 +26,21 @@
     , bumpkin
     , nix-index-database
     , nixpkgs
+    , home-manager
+    , impermanence
+    , nbr
+    , nur
+    , nixos-hardware
   }:
   let
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs length;
 
     system = builtins.currentSystem or "x86_64-linux";
 
-    bootstrapPkgs = import nixpkgs { inherit system; };
+    bootstrapPkgs = import nixpkgs {
+      inherit system;
+      overlays = []; # essential, infinite loop if not when using overlays
+    };
 
     defaultNixpkgs = import ./nix/lib/patchNixpkgs.nix {
       inherit nixpkgs system bootstrapPkgs;
@@ -93,27 +115,24 @@
       inherit self;
       inherit global;
       cfg = throw "your past self made a trap for non compliant code after a migration you did, now follow the stacktrace and go fix it";
-      inherit bumpkinUnpackedInputs;
+      bumpkin = {
+        inputs = bumpkinInputs;
+        unpacked = bumpkinUnpackedInputs;
+      };
     };
 
     overlays = {
-      nix-requirefile = import "${bumpkinUnpackedInputs.nix-requirefile.lib}/overlay.nix";
-      borderless-browser = import "${bumpkinUnpackedInputs.borderless-browser}/overlay.nix";
-      rust-overlay = import "${bumpkinUnpackedInputs.rust-overlay}/rust-overlay.nix";
+      nix-requirefile = import "${extraArgs.bumpkin.unpacked.nix-requirefile.lib}/overlay.nix";
+      borderless-browser = import "${extraArgs.bumpkin.unpacked.borderless-browser}/overlay.nix";
+      rust-overlay = import "${extraArgs.bumpkin.unpacked.rust-overlay}/rust-overlay.nix";
       zzzthis = import ./nix/overlay.nix self;
     };
-    nix-colors = import "${bumpkinUnpackedInputs.nix-colors}" { inherit (bumpkinUnpackedInputs) base16-schemes nixpkgs-lib; };
+    nix-colors = import "${extraArgs.bumpkin.unpacked.nix-colors}" { inherit (extraArgs.bumpkin.unpacked) base16-schemes nixpkgs-lib; };
   in {
     test = {
       inherit self;
     };
-    bumpkin = {
-      inputs = bumpkinInputs;
-      unpackedInputs = bumpkinUnpackedInputs;
-      flakedInputs = {
-        inherit nix-colors;
-      };
-    };
+    inherit (extraArgs) bumpkin;
     inherit global;
     inherit overlays;
     inherit pkgs;
@@ -126,7 +145,7 @@
           modules ? []
         , pkgs
         , extraSpecialArgs ? {}
-      }: import "${bumpkinUnpackedInputs.home-manager}/modules" {
+      }: import "${home-manager}/modules" {
         inherit pkgs;
         extraSpecialArgs = extraArgs // extraSpecialArgs // { inherit pkgs; };
         configuration = {...}: {

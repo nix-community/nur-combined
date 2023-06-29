@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{self, global, pkgs, config, lib, unpackedInputs, ... }@args:
+{self, global, pkgs, config, lib, ... }@args:
 let
   inherit (self) inputs;
   inherit (global) username;
@@ -14,9 +14,9 @@ in
       ./hardware-configuration.nix
       ../gui-common
 
-      "${unpackedInputs.nixos-hardware}/common/cpu/intel/kaby-lake"
-      "${unpackedInputs.nixos-hardware}/common/gpu/intel"
-      "${unpackedInputs.nixos-hardware}/common/pc/laptop/ssd"
+      "${self.inputs.nixos-hardware}/common/cpu/intel/kaby-lake"
+      "${self.inputs.nixos-hardware}/common/gpu/intel"
+      "${self.inputs.nixos-hardware}/common/pc/laptop/ssd"
 
       ./kvm.nix
       ./networking.nix
@@ -31,7 +31,7 @@ in
   services.pocket2kindle.enable = true;
   programs.gamemode.enable = true;
 
-  fonts.fonts = [ "/nix/store/v8jxb2lbcmch96zg7lhf6h4smxwa3l4m-whatsapp-emoji-linux-2.22.8.79-1" ];
+  fonts.fonts = [ pkgs.whatsapp-emoji-font ];
   services.flatpak.enable = true;
 
   networking.networkmanager.wifi.scanRandMacAddress = true;

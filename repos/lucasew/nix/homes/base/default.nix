@@ -1,4 +1,4 @@
-{ global, pkgs, config, self, lib, unpackedInputs, ...}:
+{ global, pkgs, config, self, lib, bumpkin, ...}:
 let
   inherit (self) inputs outputs;
   inherit (lib) mkDefault;
@@ -6,9 +6,9 @@ let
 in
 {
   imports = [
-    "${unpackedInputs.nixgram}/hmModule.nix"
-    "${unpackedInputs.redial_proxy}/hmModule.nix"
-    "${unpackedInputs.borderless-browser}/home-manager.nix"
+    "${bumpkin.unpacked.nixgram}/hmModule.nix"
+    "${bumpkin.unpacked.redial_proxy}/hmModule.nix"
+    "${bumpkin.unpacked.borderless-browser}/home-manager.nix"
   ];
 
   home.packages = with pkgs; [

@@ -1,15 +1,14 @@
-{pkgs, lib, global, self, config, unpackedInputs, ...}:
+{pkgs, lib, global, self, config, bumpkin, ...}:
 let
   inherit (pkgs) dotenv;
   inherit (global) username rootPath;
   inherit (lib) mkOverride;
-  inherit (self.bumpkin) unpackedInputs;
 in {
   imports = [
     ../common/default.nix
     "${self.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
 
-    "${unpackedInputs.impermanence}/nixos.nix"
+    "${self.inputs.impermanence}/nixos.nix"
 
     ../../modules/cachix/system.nix
     ./modules
