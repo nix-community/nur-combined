@@ -4,8 +4,6 @@
 
 ## REFACTORING:
 
-- remove unused `overlays/pins.nix`
-
 ### sops/secrets
 - attach secrets to the thing they're used by (sane.programs)
 - rework secrets to leverage `sane.fs`
@@ -18,6 +16,7 @@
 ### upstreaming
 - split out a trust-dns module
   - see: <https://github.com/NixOS/nixpkgs/pull/205866#issuecomment-1575753054>
+- split out a sxmo module usable by NUR consumers
 - bump nodejs version in lemmy-ui
 - add updateScripts to all my packages in nixpkgs
 - fix lightdm-mobile-greeter for newer libhandy
@@ -65,6 +64,7 @@
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
 
 ### perf
+- why does zsh take so long to init?
 - why does nixos-rebuild switch take 5 minutes when net is flakey?
     - trying to auto-mount servo?
     - something to do with systemd services restarting/stalling

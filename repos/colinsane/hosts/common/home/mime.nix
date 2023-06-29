@@ -1,6 +1,7 @@
 { config, sane-lib, ...}:
 
 let
+  # TODO: should move all of this into `sane.programs` to not ship broken associations
   www = config.sane.programs.web-browser.config.browser.desktop;
   pdf = "org.gnome.Evince.desktop";
   md = "obsidian.desktop";
@@ -8,6 +9,7 @@ let
   video = "vlc.desktop";
   # audio = "mpv.desktop";
   audio = "vlc.desktop";
+  email = "aerc.desktop";
 in
 {
 
@@ -39,5 +41,6 @@ in
     # RICH-TEXT DOCUMENTS
     "application/pdf" = pdf;
     "text/markdown" = md;
+    "x-scheme-handler/mailto" = email;
   };
 }

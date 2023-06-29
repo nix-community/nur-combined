@@ -128,6 +128,7 @@ let
       neovim  # needed as a user package, for swap persistence
       # nettools
       # networkmanager
+      nix-index
       nixpkgs-review
       # nixos-generators
       nmon

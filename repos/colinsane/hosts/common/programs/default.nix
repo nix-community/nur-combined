@@ -19,6 +19,7 @@
     ./mpv.nix
     ./neovim.nix
     ./newsflash.nix
+    ./nix-index.nix
     ./offlineimap.nix
     ./ripgrep.nix
     ./sfeed.nix

@@ -6,7 +6,7 @@ index ba70a31..085ef7d 100755
  write_line_app gnome-calculator "$icon_clc Calculator" "gnome-calculator"
  write_line_app calcurse "$icon_clk Calcurse" "sxmo_terminal.sh calcurse"
  write_line_app cmus "$icon_mus Cmus" "sxmo_terminal.sh cmus"
-+write_line_app cozy "$icon_mus Cozy" "cozy"
++write_line_app cozy "$icon_mus Cozy" "com.github.geigi.cozy"
  write_line_app dino "$icon_msg Dino" "GDK_SCALE=1 dino"
  write_line_app dolphin "$icon_dir Dolphin" "dolphin"
  write_line_app emacs "$icon_edt Emacs (Terminal)" "sxmo_terminal.sh emacs -nw"

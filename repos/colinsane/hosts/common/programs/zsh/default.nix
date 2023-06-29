@@ -1,3 +1,20 @@
+# zsh files/init order
+# - see `man zsh` => "STARTUP/SHUTDOWN FILES"
+# - /etc/zshenv
+# - $ZDOTDIR/.zshenv
+# - if login shell:
+#   - /etc/zprofile
+#   - $ZDOTDIR/.zprofile
+# - if interactive:
+#   - /etc/zshrc
+#   - $ZDOTDIR/.zshrc
+# - if login (again):
+#   - /etc/zlogin
+#   - ZDOTDIR/.zlogin
+# - at exit:
+#   - $ZDOTDIR/.zlogout
+#   - /etc/zlogout
+
 { config, lib, pkgs, ... }:
 
 let
@@ -33,7 +50,7 @@ in
       showDeadlines = mkOption {
         type = types.bool;
         default = true;
-        description = "show upcoming deadlines (frommy PKM) upon shell init";
+        description = "show upcoming deadlines (from my PKM) upon shell init";
       };
     };
   };
@@ -41,41 +58,60 @@ in
   config = mkMerge [
     ({
       sane.programs.zsh = {
-        persist.plaintext = [
+        persist.private = [
           # we don't need to full zsh dir -- just the history file --
-          # but zsh will sometimes backup the history file and we get fewer errors if we do proper mounts instead of symlinks.
-          # TODO: should be private?
+          # but zsh will sometimes backup the history file and symlinking just the file messes things up
           ".local/share/zsh"
-          # cache gitstatus otherwise p10k fetched it from the net EVERY BOOT
+        ];
+        persist.plaintext = [
+          # cache gitstatus otherwise p10k fetches it from the net EVERY BOOT
           ".cache/gitstatus"
         ];
 
-        # zsh/prezto complains if zshrc doesn't exist; but it does allow an "empty" file.
-        fs.".config/zsh/.zshrc".symlink.text = "# ";
+        fs.".config/zsh/.zshrc".symlink.text = ''
+          # zsh/prezto complains if zshrc doesn't exist or is empty;
+          # preserve this comment to prevent that from ever happening.
+        '' + lib.optionalString cfg.showDeadlines ''
+          ${pkgs.sane-scripts.deadlines}/bin/sane-deadlines
+        '' + ''
+          # auto-cd into any of these dirs by typing them and pressing 'enter':
+          hash -d 3rd="/home/colin/dev/3rd"
+          hash -d dev="/home/colin/dev"
+          hash -d knowledge="/home/colin/knowledge"
+          hash -d nixos="/home/colin/nixos"
+          hash -d nixpkgs="/home/colin/dev/3rd/nixpkgs"
+          hash -d ref="/home/colin/ref"
+          hash -d secrets="/home/colin/knowledge/secrets"
+          hash -d tmp="/home/colin/tmp"
+          hash -d uninsane="/home/colin/dev/uninsane"
+          hash -d Videos="/home/colin/Videos"
+        '';
 
         # prezto = oh-my-zsh fork; controls prompt, auto-completion, etc.
         # see: https://github.com/sorin-ionescu/prezto
-        # i believe this file is auto-sourced by the prezto init.zsh script.
+        # this file is auto-sourced by the prezto init.zsh script.
+        # TODO: i should work to move away from prezto:
+        # - it's FUCKING SLOW to initialize (that might also be powerlevel10k tho)
+        # - it messes with my other `setopt`s
         fs.".config/zsh/.zpreztorc".symlink.text = ''
           zstyle ':prezto:*:*' color 'yes'
+          zstyle ':prezto:module:utility' correct 'no'  # prezto: don't setopt CORRECT
 
           # modules (they ship with prezto):
           # ENVIRONMENT: configures jobs to persist after shell exit; other basic niceties
           # TERMINAL: auto-titles terminal (e.g. based on cwd)
           # EDITOR: configures shortcuts like Ctrl+U=undo, Ctrl+L=clear
           # HISTORY: `history-stat` alias, setopts for good history defaults
-          # DIRECTORY: sets AUTO_CD, adds `d` alias to list directory stack, and `1`-`9` to cd that far back the stack
+          # DIRECTORY: sets AUTO_CD, adds `d` alias to list directory stack, and `1`-`9` to cd that far back the stack. also overrides CLOBBER and some other options
           # SPECTRUM: helpers for term colors and styling. used by prompts? might be unnecessary
           # UTILITY: configures aliases like `ll`, `la`, disables globbing for things like rsync
           #   adds aliases like `get` to fetch a file. also adds `http-serve` alias??
           # COMPLETION: tab completion. requires `utility` module prior to loading
-          # TODO: enable AUTO_PARAM_SLASH
           zstyle ':prezto:load' pmodule \
             'environment' \
             'terminal' \
             'editor' \
             'history' \
-            'directory' \
             'spectrum' \
             'utility' \
             'completion' \
@@ -105,12 +141,19 @@ in
           "cd../" = "cd ../";
         };
         setOptions = [
-          # defaults:
+          # docs: `man zshoptions`
+          # nixos defaults:
+          "HIST_FCNTL_LOCK"
           "HIST_IGNORE_DUPS"
           "SHARE_HISTORY"
-          "HIST_FCNTL_LOCK"
-          # disable `rm *` confirmations
-          "rmstarsilent"
+          # customizations:
+          "AUTO_CD"  # type directory name to go there
+          "AUTO_MENU"  # show auto-complete menu on double-tab
+          "CDABLE_VARS"  # allow auto-cd to use my `hash` aliases -- not just immediate subdirs
+          "CLOBBER"  # allow `foo > bar.txt` to overwrite bar.txt
+          "NO_CORRECT"  # don't try to correct commands
+          "PIPE_FAIL"  # when `cmd_a | cmd_b`, make $? be non-zero if *any* of cmd_a or cmd_b fail
+          "RM_STAR_SILENT"  # disable `rm *` confirmations
         ];
 
         # .zshenv config:
@@ -118,7 +161,7 @@ in
           ZDOTDIR=$HOME/.config/zsh
         '';
 
-        # .zshrc config:
+        # system-wide .zshrc config:
         interactiveShellInit =
           (builtins.readFile ./p10k.zsh)
         + p10k-overrides
@@ -136,22 +179,6 @@ in
             mkdir -p "$1";
             pushd "$1";
           }
-        ''
-        + lib.optionalString cfg.showDeadlines ''
-          ${pkgs.sane-scripts.deadlines}/bin/sane-deadlines
-        ''
-        + ''
-          # auto-cd into any of these dirs by typing them and pressing 'enter':
-          hash -d 3rd="/home/colin/dev/3rd"
-          hash -d dev="/home/colin/dev"
-          hash -d knowledge="/home/colin/knowledge"
-          hash -d nixos="/home/colin/nixos"
-          hash -d nixpkgs="/home/colin/dev/3rd/nixpkgs"
-          hash -d ref="/home/colin/ref"
-          hash -d secrets="/home/colin/knowledge/secrets"
-          hash -d tmp="/home/colin/tmp"
-          hash -d uninsane="/home/colin/dev/uninsane"
-          hash -d Videos="/home/colin/Videos"
         '';
 
         syntaxHighlighting.enable = true;
@@ -159,8 +186,8 @@ in
       };
 
       # enable a command-not-found hook to show nix packages that might provide the binary typed.
-      # programs.nix-index.enable = true;
-      # programs.command-not-found.enable = false;  #< mutually exclusive with nix-index
+      # programs.nix-index.enableZshIntegration = true;
+      programs.command-not-found.enable = false;
     })
   ];
 }

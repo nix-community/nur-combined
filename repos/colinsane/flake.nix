@@ -23,9 +23,6 @@
   # preferably, i would rewrite the human-readable https URLs to nix-specific github: URLs with a helper,
   # but `inputs` is required to be a strict attrset: not an expression.
   inputs = {
-    # <https://github.com/nixos/nixpkgs/tree/nixos-22.11>
-    # nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-22.11";
-
     # branch workflow:
     # - daily:
     #   - nixos-unstable cut from master after enough packages have been built in caches.
@@ -180,12 +177,6 @@
         optimizations = final: prev: import ./overlays/optimizations.nix final prev;
         passthru = final: prev:
           let
-            stable =
-              if inputs ? "nixpkgs-stable" then (
-                final': prev': {
-                  stable = inputs.nixpkgs-stable.legacyPackages."${prev'.stdenv.hostPlatform.system}";
-                }
-              ) else (final': prev': {});
             mobile = (import "${mobile-nixos}/overlay/overlay.nix");
             uninsane = uninsane-dot-org.overlay;
             # nix-serve' = nix-serve.overlay;
@@ -196,11 +187,10 @@
               inherit (nix-serve.packages."${next.system}") nix-serve;
             };
           in
-              (stable final prev)
-              // (mobile final prev)
-              // (uninsane final prev)
-              // (nix-serve' final prev)
-            ;
+            (mobile final prev)
+            // (uninsane final prev)
+            // (nix-serve' final prev)
+          ;
       };
 
       nixosModules = rec {

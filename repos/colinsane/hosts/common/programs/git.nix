@@ -14,6 +14,7 @@ in
     alias.co      = "checkout";
     alias.cp      = "cherry-pick";
     alias.d       = "difftool";
+    alias.dif     = "diff";  # common typo
     alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
     alias.rb      = "rebase";
     alias.st      = "status";

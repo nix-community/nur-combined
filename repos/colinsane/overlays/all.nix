@@ -4,7 +4,6 @@
 
 final: prev:
 let
-  pins = import ./pins.nix;
   pkgs = import ./pkgs.nix;
   disable-flakey-tests = import ./disable-flakey-tests.nix;
   optimizations = import ./optimizations.nix;
@@ -18,7 +17,6 @@ let
     overlays;
 in
   renderOverlays [
-    pins
     pkgs
     disable-flakey-tests
     (ifCross optimizations)
