@@ -16,38 +16,28 @@
   let
     inherit (builtins) replaceStrings toFile trace readFile concatStringsSep mapAttrs length;
 
-    patches = [ ];
+    system = builtins.currentSystem or "x86_64-linux";
 
     bootstrapPkgs = import nixpkgs { inherit system; };
 
-    defaultNixpkgs = if ((length patches) == 0)
-      then nixpkgs
-      else bootstrapPkgs.stdenvNoCC.mkDerivation {
-        name = "source";
-        src = nixpkgs;
-        phases = [ "unpackPhase" "patchPhase" "installPhase" ];
-        inherit patches;
-        preferLocalBuild = true;
-        installPhase = "cp -r . $out";
-      };
+    defaultNixpkgs = import ./nix/lib/patchNixpkgs.nix {
+      inherit nixpkgs system bootstrapPkgs;
+      patches = [ ];
+    };
 
+    pkgs = mkPkgs { inherit system; };
 
     inherit (let
-      bumpkinPkg = bootstrapPkgs.callPackage bumpkin.outPath {};
-      inputs = bumpkinPkg.loadBumpkin {
+      bumpkinPkg = bootstrapPkgs.callPackage bumpkin {};
+      bumpkinInputs = bumpkinPkg.loadBumpkin {
         inputFile = ./bumpkin.json;
         outputFile = ./bumpkin.json.lock;
       };
-      unpackedInputs = (bootstrapPkgs.callPackage ./nix/lib/unpackRecursive.nix {}) inputs;
-    in {inherit inputs unpackedInputs;}) inputs unpackedInputs;
+      bumpkinUnpackedInputs = (bootstrapPkgs.callPackage ./nix/lib/unpackRecursive.nix {}) bumpkinInputs;
+    in {inherit bumpkinInputs bumpkinUnpackedInputs;}) bumpkinInputs bumpkinUnpackedInputs;
 
-
-    pkgs = mkPkgs { inherit system; nixpkgs = defaultNixpkgs; };
-
-    importFlake = import ./nix/lib/importFlake.nix;
     mapAttrValues = pkgs.callPackage ./nix/lib/mapAttrValues.nix {};
 
-    system = builtins.currentSystem or "x86_64-linux";
 
     mkPkgs = {
       nixpkgs ? defaultNixpkgs
@@ -55,7 +45,7 @@
     , overlays ? []
     , disableOverlays ? false
     , system ? builtins.currentSystem
-    }: import "${nixpkgs}/pkgs/top-level" {
+    }: import nixpkgs {
       localSystem = system;
       config = config // {
         allowUnfree = true;
@@ -67,7 +57,6 @@
         ];
       };
       overlays = if disableOverlays then [] else (overlays ++ (builtins.attrValues self.outputs.overlays));
-      inherit system;
     };
 
     global = rec {
@@ -96,7 +85,7 @@
           "$NIXCFG_ROOT_PATH/bin"
         ]}"
         export LUA_INIT="pcall(require, 'adapter.fennel')"
-        export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${unpackedInputs.nur}
+        export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${bumpkinUnpackedInputs.nur}
       '';
     };
 
@@ -104,23 +93,23 @@
       inherit self;
       inherit global;
       cfg = throw "your past self made a trap for non compliant code after a migration you did, now follow the stacktrace and go fix it";
-      inherit unpackedInputs;
+      inherit bumpkinUnpackedInputs;
     };
 
     overlays = {
-      nix-requirefile = import "${unpackedInputs.nix-requirefile.lib}/overlay.nix";
-      borderless-browser = import "${unpackedInputs.borderless-browser}/overlay.nix";
-      rust-overlay = import "${unpackedInputs.rust-overlay}/rust-overlay.nix";
+      nix-requirefile = import "${bumpkinUnpackedInputs.nix-requirefile.lib}/overlay.nix";
+      borderless-browser = import "${bumpkinUnpackedInputs.borderless-browser}/overlay.nix";
+      rust-overlay = import "${bumpkinUnpackedInputs.rust-overlay}/rust-overlay.nix";
       zzzthis = import ./nix/overlay.nix self;
     };
-    nix-colors = import "${unpackedInputs.nix-colors}" { inherit (unpackedInputs) base16-schemes nixpkgs-lib; };
+    nix-colors = import "${bumpkinUnpackedInputs.nix-colors}" { inherit (bumpkinUnpackedInputs) base16-schemes nixpkgs-lib; };
   in {
     test = {
       inherit self;
     };
     bumpkin = {
-      inherit inputs;
-      inherit unpackedInputs;
+      inputs = bumpkinInputs;
+      unpackedInputs = bumpkinUnpackedInputs;
       flakedInputs = {
         inherit nix-colors;
       };
@@ -137,7 +126,7 @@
           modules ? []
         , pkgs
         , extraSpecialArgs ? {}
-      }: import "${unpackedInputs.home-manager}/modules" {
+      }: import "${bumpkinUnpackedInputs.home-manager}/modules" {
         inherit pkgs;
         extraSpecialArgs = extraArgs // extraSpecialArgs // { inherit pkgs; };
         configuration = {...}: {
@@ -167,7 +156,7 @@
 
     nixOnDroidConfigurations = let
       nixOnDroidConf = mainModule:
-      import "${unpackedInputs.nix-on-droid}/modules" {
+      import "${bumpkinUnpackedInputs.nix-on-droid}/modules" {
         config = {
           _module.args = extraArgs;
           home-manager.config._module.args = extraArgs;
@@ -176,9 +165,9 @@
           ];
         };
         pkgs = mkPkgs {
-          overlays = (import "${unpackedInputs.nix-on-droid}/overlays");
+          overlays = (import "${bumpkinUnpackedInputs.nix-on-droid}/overlays");
         };
-        home-manager = import unpackedInputs.home-manager {};
+        home-manager = import bumpkinUnpackedInputs.home-manager {};
         isFlake = true;
       };
     in mapAttrValues nixOnDroidConf {
@@ -240,7 +229,7 @@
             else if pkgs.lib.isAttrs items then pkgs.lib.flatten ((map (flattenItems) (builtins.attrValues items)))
             else []
         ;
-        in map (item: (pkgs.writeShellScriptBin "source" "echo ${item}")) (flattenItems inputs))
+        in map (item: (pkgs.writeShellScriptBin "source" "echo ${item}")) (flattenItems bumpkinInputs))
       ;
       installPhase = ''
         echo $version > $out
