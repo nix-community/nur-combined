@@ -8,8 +8,9 @@ let
   inherit (builtins) toString length head tail;
 in
 let
-  cp = f: (callPackage f) {};
-in {
+  cp = f: (callPackage f) { };
+in
+{
   inherit flake;
   inherit bumpkin;
 
@@ -43,13 +44,13 @@ in {
   pytorrentsearch = cp bumpkin.unpackedInputs.pytorrentsearch;
   redial_proxy = cp bumpkin.unpackedInputs.redial_proxy;
   send2kindle = cp bumpkin.unpackedInputs.send2kindle;
-  wrapVSCode = args: import bumpkin.unpackedInputs.nix-vscode (args // {pkgs = prev;});
-  wrapEmacs = args: import bumpkin.unpackedInputs.nix-emacs (args // {pkgs = prev;});
+  wrapVSCode = args: import bumpkin.unpackedInputs.nix-vscode (args // { pkgs = prev; });
+  wrapEmacs = args: import bumpkin.unpackedInputs.nix-emacs (args // { pkgs = prev; });
 
   instantngp = cp ./pkgs/instantngp.nix;
 
   nix-option = callPackage "${bumpkin.unpackedInputs.nix-option}" {
-    nixos-option = (callPackage "${bumpkin.unpackedInputs.nixpkgs.unstable}/nixos/modules/installer/tools/nixos-option" {}).overrideAttrs (attrs: attrs // {
+    nixos-option = (callPackage "${bumpkin.unpackedInputs.nixpkgs.unstable}/nixos/modules/installer/tools/nixos-option" { }).overrideAttrs (attrs: attrs // {
       meta = attrs.meta // {
         platforms = lib.platforms.all;
       };

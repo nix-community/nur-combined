@@ -1,6 +1,6 @@
-{pkgs ? import <nixpkgs> {}, ...}:
+{ pkgs ? import <nixpkgs> { }, ... }:
 let
-  p = path: pkgs.callPackage path {};
+  p = path: pkgs.callPackage path { };
 in
 {
   hmModules = {
