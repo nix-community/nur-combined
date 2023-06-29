@@ -7,11 +7,11 @@
 
 mkElectronAppImage rec {
   pname = "lx-music-desktop";
-  version = "2.2.2";
+  version = "2.3.0";
   
   src = fetchurl {
     url = "${rp}https://github.com/lyswhut/${pname}/releases/download/v${version}/${pname}-v${version}-x64.AppImage";
-    hash = "sha256-RX8RBgv/3vAxKSo0BO2t8DXpdt8RXdLmcRotQZ/sE+4=";
+    hash = "sha256-GzIzFLGSn0PE3DJEeJLY9MPrCPFK+5P0bVrV9ZW+84A=";
   };
 
   runtimeLibs = [ stdenv.cc.cc.lib ];
