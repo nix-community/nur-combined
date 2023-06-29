@@ -29,6 +29,7 @@ in
   boot.plymouth.enable = true;
 
   services.pocket2kindle.enable = true;
+  programs.gamemode.enable = true;
 
   fonts.fonts = [ "/nix/store/v8jxb2lbcmch96zg7lhf6h4smxwa3l4m-whatsapp-emoji-linux-2.22.8.79-1" ];
   services.flatpak.enable = true;

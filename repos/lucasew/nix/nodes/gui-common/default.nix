@@ -12,6 +12,7 @@ in {
     ./vbox.nix
     ./tuning.nix
     ./ipfs.nix
+    ./gamemode.nix
   ];
   nixpkgs = {
     config = {

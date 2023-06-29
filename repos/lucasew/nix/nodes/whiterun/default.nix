@@ -27,6 +27,7 @@ in {
     "/storage/downloads"
   ];
 
+  programs.gamemode.enable = true;
   services.cf-torrent.enable = true;
 
   boot.plymouth.enable = true;
