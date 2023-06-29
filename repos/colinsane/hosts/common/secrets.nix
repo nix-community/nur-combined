@@ -29,14 +29,18 @@
 
 let
   inherit (lib.strings) hasSuffix removeSuffix;
-  secretsForHost = host: sane-lib.joinAttrsets (
+  secretsForHost = host: let
+    extraAttrsForPath = path: lib.optionalAttrs (sane-lib.path.isChild "guest" path) {
+      owner = "guest";
+    };
+  in sane-lib.joinAttrsets (
     map
       (path: lib.optionalAttrs (hasSuffix ".bin" path) (sane-lib.nameValueToAttrs {
         name = removeSuffix ".bin" path;
         value = {
           sopsFile = ../../secrets/${host}/${path};
           format = "binary";
-        };
+        } // (extraAttrsForPath path);
       }))
       (sane-lib.enumerateFilePaths ../../secrets/${host})
   );

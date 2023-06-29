@@ -4,3 +4,5 @@
     - see <https://search.nixos.org/options?channel=unstable&show=users.users.%3Cname%3E.passwordFile&from=0&size=50&sort=relevance&type=packages&query=users.users>
     - update by running `sudo passwd colin` and then taking the 2nd item from the colin: line in /etc/shadow
     - N.B.: you MUST do `sudo passwd colin` instead of just `passwd`, i guess because of immutable users or something
+- guest/authorized_keys.bin
+    - who's allowed to login to the guest account

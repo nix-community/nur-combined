@@ -9,15 +9,6 @@ in
       default = false;
       type = types.bool;
     };
-    sane.guest.authorizedKeys = mkOption {
-      default = [];
-      type = types.listOf types.str;
-      description = ''
-      list of "<key-type> <pubkey> <hostname>" keys.
-      e.g.
-      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPU5GlsSfbaarMvDA20bxpSZGWviEzXGD8gtrIowc1pX colin@desko
-      '';
-    };
   };
 
   config = {
@@ -30,8 +21,9 @@ in
       group = "users";
       initialPassword = lib.mkDefault "";
       shell = pkgs.zsh;
-      openssh.authorizedKeys.keys = cfg.authorizedKeys;
     };
+
+    sane.users.guest.fs.".ssh/authorized_keys".symlink.target = config.sops.secrets."guest/authorized_keys".path or "/dev/null";
 
     sane.persist.sys.plaintext = lib.mkIf cfg.enable [
       # intentionally allow other users to write to the guest folder

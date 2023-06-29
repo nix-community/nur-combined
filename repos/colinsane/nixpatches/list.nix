@@ -177,7 +177,7 @@ in [
   ./2023-06-06-jellyfin-no-libsForQt5-callPackage.patch
 
   # pin to a pre-0.17.3 release
-  # removing this and using stock 0.17.3 causes:
+  # removing this and using stock 0.17.3 (also 0.17.4) causes:
   #   INFO lemmy_server::code_migrations: No Local Site found, creating it.
   #   Error: LemmyError { message: None, inner: duplicate key value violates unique constraint "local_site_site_id_key", context: "SpanTrace" }
   # more specifically, lemmy can't find the site because it receives an error from diesel:
@@ -185,20 +185,13 @@ in [
   # this is likely some mis-ordered db migrations
   # or perhaps the whole set of migrations here isn't being running right.
   # related: <https://github.com/NixOS/nixpkgs/issues/236890#issuecomment-1585030861>
-  ./2023-06-10-lemmy-downgrade.patch
+  # ./2023-06-10-lemmy-downgrade.patch
 
   # (fetchpatch' {
   #   title = "gpodder: wrap with missing `xdg-utils` path";
   #   saneCommit = "10d0ac11bc083cbcf0d6340950079b3888095abf";
   #   hash = "sha256-cu8L30ZiUJnWFGRR/SK917TC7TalzpGkurGkUAAxl54=";
   # })
-
-  (fetchpatch' {
-    title = "sequoia: 0.28.0 -> 0.30.1";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/237698";
-    saneCommit = "71f47689d11e09b6ff70cbd4238e386b50d46899";
-    hash = "sha256-cadnRzZ0sjwdSc845zFtgYzLrsPGsZ9ShELibvQWLUU=";
-  })
 
   (fetchpatch' {
     title = "koreader: 2023.04 -> 2023.05.1";
@@ -210,6 +203,19 @@ in [
     title = "mepo: 1.1 -> 1.1.2";
     saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
     hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
+  })
+
+  (fetchpatch' {
+    title = "spdlog: use fmt 9";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/240270";
+    hash = "sha256-f0QCnrtPN7XwWk0cHSUW7/XlWPFu6XnuoQL6vARYILM=";
+  })
+
+  (fetchpatch' {
+    title = "nmap: lua5_3 -> lua5_4";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/240440";
+    saneCommit = "a2a5c711e7c0ff43143fc58ec08853ec063f35b3";
+    hash = "sha256-LKDulOSQAM4FzyxqPqrdr1C2M3yLFpo5aAt7fhXRnrs=";
   })
 
   # (fetchpatch' {

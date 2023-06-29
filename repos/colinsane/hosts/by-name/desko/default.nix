@@ -4,6 +4,8 @@
     ./fs.nix
   ];
 
+  sane.guest.enable = true;
+
   # TODO: make sure this plays nice with impermanence
   services.distccd.enable = true;
   sane.programs.distcc.enableFor.user.guest = true;

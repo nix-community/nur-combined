@@ -24,6 +24,8 @@ let path = rec {
   # return the last path component; error on the empty path
   leaf = str: lib.last (split str);
 
+  # XXX: this is bugged in that
+  # from "/foo/bar" "/foo/barbag" => "/bag"
   from = start: end: let
     s = path.norm start;
     e = path.norm end;
@@ -31,6 +33,12 @@ let path = rec {
     assert lib.hasPrefix s e;
     "/" +  (lib.removePrefix s e)
   );
+
+  isChild = parent: child:
+    lib.any
+      (p: p == norm parent)
+      (walk "/" child)
+  ;
 
   # yield every node between start and end, including each the endpoints
   # e.g. walk "/foo" "/foo/bar/baz" => [ "/foo" "/foo/bar" "/foo/bar/baz" ]
