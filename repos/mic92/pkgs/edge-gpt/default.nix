@@ -2,19 +2,18 @@
 , python3
 , fetchFromGitHub
 , bing-image-creator
-, fetchpatch
 }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "edge-gpt";
-  version = "0.11.3";
+  version = "0.11.7";
   format = "setuptools";
 
   src = fetchFromGitHub {
     owner = "acheong08";
     repo = "EdgeGPT";
     rev = version;
-    hash = "sha256-Q7avTopr6wGHZ0fveBFwzC72PDyOWkH+EGetf3iGcRw=";
+    hash = "sha256-zyrLSMF+v/rlOXyIF0SppNqaFgGDCqEBgL2Q05NtXIs=";
   };
 
   postPatch = ''
