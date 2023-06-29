@@ -1,6 +1,7 @@
 { lib
 , python3Packages
 , fetchFromGitHub
+, blueprint-compiler
 , desktop-file-utils
 , gobject-introspection
 , meson
@@ -26,12 +27,8 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-QFGEA+VhhRlvcch2AJrEzvRJGCSqtvZdMXWUvdAGkoU=";
   };
 
-  patches = [
-    ./webkit2-to-webkit.patch
-    ./newer-gtk4.patch
-  ];
-
   nativeBuildInputs = [
+    blueprint-compiler
     desktop-file-utils
     gobject-introspection
     meson
