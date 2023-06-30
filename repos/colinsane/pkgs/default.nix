@@ -47,6 +47,7 @@ let
     sxmo-utils = callPackage ./additional/sxmo-utils { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
     unftp = callPackage ./additional/unftp { };
+    xdg-terminal-exec = callPackage ./additional/xdg-terminal-exec { };
     zecwallet-light-cli = callPackage ./additional/zecwallet-light-cli { };
 
     # packages i haven't used for a while, may or may not still work

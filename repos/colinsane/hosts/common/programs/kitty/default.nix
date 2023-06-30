@@ -1,14 +1,17 @@
-{ ... }:
+{ lib, ... }:
 
 {
-  sane.programs.kitty.fs.".config/kitty/kitty.conf".symlink.text = ''
-    # docs: https://sw.kovidgoyal.net/kitty/conf/
-    # disable terminal bell (when e.g. you backspace too many times)
-    enable_audio_bell no
+  sane.programs.kitty = {
+    fs.".config/kitty/kitty.conf".symlink.text = ''
+      # docs: https://sw.kovidgoyal.net/kitty/conf/
+      # disable terminal bell (when e.g. you backspace too many times)
+      enable_audio_bell no
 
-    map ctrl+n new_os_window_with_cwd
-    include ${./PaperColor_dark.conf}
-  '';
+      map ctrl+n new_os_window_with_cwd
+      include ${./PaperColor_dark.conf}
+    '';
+    env.TERMINAL = lib.mkDefault "kitty";
+  };
 
   #  include ${pkgs.kitty-themes}/themes/PaperColor_dark.conf
 

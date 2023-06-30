@@ -150,6 +150,7 @@ let
       # tageditor  # music tagging
       unar
       wireguard-tools
+      xdg-terminal-exec
       xdg-utils  # for xdg-open
       # yarn
       zsh
