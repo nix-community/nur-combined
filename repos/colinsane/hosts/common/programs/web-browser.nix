@@ -193,6 +193,9 @@ in
       sane.programs.web-browser = {
         inherit package;
 
+        # env.BROWSER = "${package}/bin/${cfg.browser.libName}";
+        env.BROWSER = cfg.browser.libName;  # used by misc tools like xdg-email, as fallback
+
         # uBlock filter list configuration.
         # specifically, enable the GDPR cookie prompt blocker.
         # data.toOverwrite.filterLists is additive (i.e. it supplements the default filters)

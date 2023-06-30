@@ -29,6 +29,15 @@ let
           entries to pass onto `sane.persist.sys` after prepending the user's home-dir to the path.
         '';
       };
+
+      environment = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
+        description = ''
+          environment variables to place in user's shell profile.
+          these end up in ~/.profile
+        '';
+      };
     };
   };
   userModule = types.submodule ({ name, config, ... }: {
@@ -50,8 +59,20 @@ let
       };
     };
 
+    config = lib.mkMerge [
     # if we're the default user, inherit whatever settings were routed to the default user
-    config = mkIf config.default sane-user-cfg;
+      (mkIf config.default sane-user-cfg)
+      {
+        fs.".profile".symlink.text =
+          let
+            env = lib.mapAttrsToList
+              (key: value: ''export ${key}="${value}"'')
+              config.environment
+            ;
+          in
+            lib.concatStringsSep "\n" env;
+      }
+    ];
   });
   processUser = user: defn:
     let

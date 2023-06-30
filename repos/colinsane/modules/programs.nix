@@ -156,6 +156,7 @@ let
     # conditionally persist relevant user dirs and create files
     sane.users = mapAttrs (user: en: optionalAttrs en {
       inherit (p) persist;
+      environment = p.env;
       fs = mkMerge [
         # make every fs entry wanted by system boot:
         (mapAttrs (_path: sane-lib.fs.wanted) p.fs)
