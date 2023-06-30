@@ -22,11 +22,12 @@ in {
   # webkitgtk = ccache-able super.webkitgtk;
   # mesa = ccache-able super.mesa;
 
-  webkitgtk = super.webkitgtk.overrideAttrs (_upstream: {
-    # means we drop debug info when linking.
-    # this is a trade-off to require less memory when linking, since
-    # building `webkitgtk` otherwise requires about 40G+ of RAM.
-    # <https://github.com/NixOS/nixpkgs/issues/153528>
-    separateDebugInfo = false;
-  });
+  # webkitgtk = super.webkitgtk.overrideAttrs (_upstream: {
+  #   # means we drop debug info when linking.
+  #   # this is a trade-off to require less memory when linking, since
+  #   # building `webkitgtk` otherwise requires about 40G+ of RAM.
+  #   # <https://github.com/NixOS/nixpkgs/issues/153528>
+  #   # XXX(2023/06/29): doesn't seem to actually reduce the resource requirements
+  #   separateDebugInfo = false;
+  # });
 })
