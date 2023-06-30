@@ -902,6 +902,19 @@ rules:
   - DOMAIN-SUFFIX,pypi.org,PROXY
   - DOMAIN-SUFFIX,python.org,PROXY
   - DOMAIN-SUFFIX,pythonhosted.org,PROXY
+  # NAME: Atlassian
+  # AUTHOR: blackmatrix7
+  # REPO: https://github.com/blackmatrix7/ios_rule_script
+  # UPDATED: 2023-04-07 14:51:15
+  # DOMAIN-SUFFIX: 7
+  # TOTAL: 7
+  - DOMAIN-SUFFIX,atlassian.com,PROXY
+  - DOMAIN-SUFFIX,atlassian.net,PROXY
+  - DOMAIN-SUFFIX,bitbucket.io,PROXY
+  - DOMAIN-SUFFIX,bitbucket.org,PROXY
+  - DOMAIN-SUFFIX,statuspage.io,PROXY
+  - DOMAIN-SUFFIX,trello.com,PROXY
+  - DOMAIN-SUFFIX,trellocdn.com,PROXY
   # misc
   - DOMAIN-SUFFIX,7-zip.org,PROXY
   - DOMAIN-SUFFIX,kernel.org,PROXY
