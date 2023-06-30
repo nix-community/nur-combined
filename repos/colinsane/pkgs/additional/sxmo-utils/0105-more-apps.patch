@@ -14,7 +14,7 @@ index ba70a31..085ef7d 100755
  write_line_app gnome-chess "$icon_chs Gnome Chess" "gnome-chess"
  write_line_app gomuks "$icon_msg Gomuks" "sxmo_terminal.sh gomuks"
  write_line_app gpodder "$icon_rss gPodder" "gpodder"
-+write_lina_app gthumb "$icon_img gThumb" "gthumb"
++write_line_app gthumb "$icon_img gThumb" "gthumb"
  write_line_app gucharmap "$icon_inf Gucharmap" "gucharmap"
  write_line_app hexchat "$icon_msg Hexchat" "hexchat"
  write_line_app htop "$icon_cfg Htop" "sxmo_terminal.sh htop"
