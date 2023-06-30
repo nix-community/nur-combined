@@ -35,34 +35,34 @@
   };
   clash-premium-aarch64-linux = {
     pname = "clash-premium-aarch64-linux";
-    version = "2023.05.29";
+    version = "2023.06.30";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.29.gz";
-      sha256 = "sha256-px/luv5uPGYSIBhzsLfKO7Tw+EdJbfT5r2kWUNrlr/E=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.06.30.gz";
+      sha256 = "sha256-crLorcBx2eU82rO88zs2SmtsLWUMrnwBhWUvhnmxeng=";
     };
   };
   clash-premium-i686-linux = {
     pname = "clash-premium-i686-linux";
-    version = "2023.05.29";
+    version = "2023.06.30";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.29.gz";
-      sha256 = "sha256-TimlIYq/nyMo43XNQw/ad0hVR8jGWgPaxqejpJkTtAw=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.06.30.gz";
+      sha256 = "sha256-6H6+XZiwqLYDSnOjz5MXJzldGa5HF/EK/zNfw9K1djQ=";
     };
   };
   clash-premium-x86_64-darwin = {
     pname = "clash-premium-x86_64-darwin";
-    version = "2023.05.29";
+    version = "2023.06.30";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.29.gz";
-      sha256 = "sha256-yZhzIZmloCjmodi8P9K8LaCqH5gIU0x86wtejeOivlg=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.06.30.gz";
+      sha256 = "sha256-Tz8pwgc0MI3p73bKKVG6upjO1+m7kdpGiVh8FiAbQcw=";
     };
   };
   clash-premium-x86_64-linux = {
     pname = "clash-premium-x86_64-linux";
-    version = "2023.05.29";
+    version = "2023.06.30";
     src = fetchurl {
-      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.29.gz";
-      sha256 = "sha256-pY0s0xuzoxdzWxHoOgztqf/MezIhvVBGBVYtJovHENU=";
+      url = "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.06.30.gz";
+      sha256 = "sha256-AZKbYp5/DXB8LnkX2Xvr8xyuRvRy+DjKDZ6GpR84//U=";
     };
   };
   commit-notifier = {
@@ -136,10 +136,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.9.20";
+    version = "v2.9.21";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.20/app-x86_64.asar";
-      sha256 = "sha256-zOqBYTvgsMgjdKAqHK062nQCDTjZM177EXYmjWJRBPQ=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.21/app-x86_64.asar";
+      sha256 = "sha256-MiMtaT3nGabf5vOUH9FLw5p0K3DaibthF4yHrv5z1ew=";
     };
   };
   mstickereditor = {
@@ -300,16 +300,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "d00aac9ef411ba8828b0e7bcbc6daa384e5bc958";
+    version = "9e86ba39049310c96ae25c31f264e915f1e90904";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "d00aac9ef411ba8828b0e7bcbc6daa384e5bc958";
+      rev = "9e86ba39049310c96ae25c31f264e915f1e90904";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-gWriqvxDhewxSqFad3/qksi6Sy4T4e3nrT/0xBDYk3w=";
+      sha256 = "sha256-ES6iQJQ2pnMexJfNEHIJ8p8fSxLgTS8ksNgdTWPF8xA=";
     };
-    date = "2023-06-29";
+    date = "2023-07-01";
   };
   rime-loengfan = {
     pname = "rime-loengfan";

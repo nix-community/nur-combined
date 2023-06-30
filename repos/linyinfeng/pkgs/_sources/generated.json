@@ -62,11 +62,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-px/luv5uPGYSIBhzsLfKO7Tw+EdJbfT5r2kWUNrlr/E=",
+            "sha256": "sha256-crLorcBx2eU82rO88zs2SmtsLWUMrnwBhWUvhnmxeng=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.05.29.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.06.30.gz"
         },
-        "version": "2023.05.29"
+        "version": "2023.06.30"
     },
     "clash-premium-i686-linux": {
         "cargoLocks": null,
@@ -77,11 +77,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-TimlIYq/nyMo43XNQw/ad0hVR8jGWgPaxqejpJkTtAw=",
+            "sha256": "sha256-6H6+XZiwqLYDSnOjz5MXJzldGa5HF/EK/zNfw9K1djQ=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.05.29.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-386-2023.06.30.gz"
         },
-        "version": "2023.05.29"
+        "version": "2023.06.30"
     },
     "clash-premium-x86_64-darwin": {
         "cargoLocks": null,
@@ -92,11 +92,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-yZhzIZmloCjmodi8P9K8LaCqH5gIU0x86wtejeOivlg=",
+            "sha256": "sha256-Tz8pwgc0MI3p73bKKVG6upjO1+m7kdpGiVh8FiAbQcw=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.05.29.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-darwin-amd64-2023.06.30.gz"
         },
-        "version": "2023.05.29"
+        "version": "2023.06.30"
     },
     "clash-premium-x86_64-linux": {
         "cargoLocks": null,
@@ -107,11 +107,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pY0s0xuzoxdzWxHoOgztqf/MezIhvVBGBVYtJovHENU=",
+            "sha256": "sha256-AZKbYp5/DXB8LnkX2Xvr8xyuRvRy+DjKDZ6GpR84//U=",
             "type": "url",
-            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.05.29.gz"
+            "url": "https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-amd64-2023.06.30.gz"
         },
-        "version": "2023.05.29"
+        "version": "2023.06.30"
     },
     "commit-notifier": {
         "cargoLocks": {
@@ -229,11 +229,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zOqBYTvgsMgjdKAqHK062nQCDTjZM177EXYmjWJRBPQ=",
+            "sha256": "sha256-MiMtaT3nGabf5vOUH9FLw5p0K3DaibthF4yHrv5z1ew=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.20/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.9.21/app-x86_64.asar"
         },
-        "version": "v2.9.20"
+        "version": "v2.9.21"
     },
     "mstickereditor": {
         "cargoLocks": {
@@ -472,7 +472,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-06-29",
+        "date": "2023-07-01",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -482,12 +482,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d00aac9ef411ba8828b0e7bcbc6daa384e5bc958",
-            "sha256": "sha256-gWriqvxDhewxSqFad3/qksi6Sy4T4e3nrT/0xBDYk3w=",
+            "rev": "9e86ba39049310c96ae25c31f264e915f1e90904",
+            "sha256": "sha256-ES6iQJQ2pnMexJfNEHIJ8p8fSxLgTS8ksNgdTWPF8xA=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "d00aac9ef411ba8828b0e7bcbc6daa384e5bc958"
+        "version": "9e86ba39049310c96ae25c31f264e915f1e90904"
     },
     "rime-loengfan": {
         "cargoLocks": null,
