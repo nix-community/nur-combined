@@ -206,19 +206,6 @@ in [
   })
 
   (fetchpatch' {
-    title = "spdlog: use fmt 9";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/240270";
-    hash = "sha256-f0QCnrtPN7XwWk0cHSUW7/XlWPFu6XnuoQL6vARYILM=";
-  })
-
-  (fetchpatch' {
-    title = "nmap: lua5_3 -> lua5_4";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/240440";
-    saneCommit = "a2a5c711e7c0ff43143fc58ec08853ec063f35b3";
-    hash = "sha256-LKDulOSQAM4FzyxqPqrdr1C2M3yLFpo5aAt7fhXRnrs=";
-  })
-
-  (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
     saneCommit = "50767d5746fd80657e997b43fc5d82ba0c2c2447";
     hash = "sha256-lXuLHdSPhWol9X5QX4cxnZqoVGUWEQTCZLmosvLX+WY=";
