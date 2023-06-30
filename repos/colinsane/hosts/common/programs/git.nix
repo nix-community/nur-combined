@@ -11,6 +11,7 @@ in
     user.name = "Colin";
     user.email = "colin@uninsane.org";
 
+    alias.br      = "branch";
     alias.co      = "checkout";
     alias.cp      = "cherry-pick";
     alias.d       = "difftool";
