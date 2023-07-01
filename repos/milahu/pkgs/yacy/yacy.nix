@@ -108,6 +108,11 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${lib.makeBinPath [ jre ]}
   '';
 
-  # TODO meta
-  # https://github.com/yacy/yacy_search_server
+  meta = with lib; {
+    description = "Distributed Peer-to-Peer Web Search Engine and Intranet Search Appliance";
+    homepage = "https://github.com/yacy/yacy_search_server";
+    license = licenses.lgpl2Plus;
+    platforms = platforms.all;
+    maintainers = [ ];
+  };
 }
