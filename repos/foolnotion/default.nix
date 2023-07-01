@@ -20,6 +20,8 @@
 
   berserk = pkgs.callPackage ./pkgs/berserk { };
 
+  boost-hana = pkgs.callPackage ./pkgs/boost-hana { };
+
   cmake-init = pkgs.python3Packages.callPackage ./pkgs/cmake-init { };
 
   cmaketools = pkgs.python3Packages.callPackage ./pkgs/cmaketools { };
