@@ -6,12 +6,12 @@
 
 buildPythonApplication rec {
   pname = "pipe21";
-  version = "1.15.0";
+  version = "1.16.0";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-5/EpOHic+G2iBNRGe/zhUe2dAOhWyuf40Q6mKpYEgFQ=";
+    hash = "sha256-d/gferB3/pYdCoNmZItriwffE3qmAJFj6jHfJ3We1L8=";
   };
 
   nativeBuildInputs = [
