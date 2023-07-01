@@ -81,8 +81,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     # needed for basic use:
-    ./0001-group-differs-from-user.patch
-    ./0002-ensure-log-dir.patch
+    ./0001-group-differs-from-user.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
+    ./0002-ensure-log-dir.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
     ./0003-fix-xkb-paths.patch
     ./0004-no-busybox.patch
     # wanted to fix/silence some non-fatal errors

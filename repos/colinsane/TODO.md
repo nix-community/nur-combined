@@ -62,6 +62,9 @@
   - currently if the application doesn't autocreate dirs leading to its destination, then ~/private storage fails
   - this might be why librewolf on mobile is still amnesiac
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
+- email: fix so that local mail doesn't go to junk
+  - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
+  - could change junk filter from "no DKIM success" to explicit "DKIM failed"
 
 ### perf
 - why does zsh take so long to init?

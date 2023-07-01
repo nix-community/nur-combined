@@ -31,6 +31,9 @@ in
     # render dates as YYYY-MM-DD HH:MM:SS +TZ
     log.date = "iso";
 
+    sendemail.annotate = "yes";
+    sendemail.confirm = "always";
+
     stash.showPatch = true;
   };
 }

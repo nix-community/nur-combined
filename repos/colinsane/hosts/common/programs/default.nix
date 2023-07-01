@@ -17,6 +17,7 @@
     ./libreoffice.nix
     ./mepo.nix
     ./mpv.nix
+    ./msmtp.nix
     ./neovim.nix
     ./newsflash.nix
     ./nix-index.nix
