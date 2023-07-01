@@ -22,13 +22,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
-  version = "0.5.9";
+  version = "0.5.10";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-t7HuFpux80ayqraQbENQzN0xNFWsehhyxE0kQ6eEup4=";
+    hash = "sha256-aybfgvAQtx5Qix1OtzVNpyJ0pTKumIXI1FjFQU8BdP4=";
   };
 
   patches = [ ./0001-fix-build.patch ];
