@@ -15,7 +15,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "atoms";
-  version = "1.1.1";
+  version = "1.1.2";
 
   format = "other";
 
@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     owner = "AtomsDevs";
     repo = "Atoms";
     rev = version;
-    hash = "sha256-jpgZJklczSvMSozLJscsG4IQ9k6q7EidExtEWsnEhtw=";
+    hash = "sha256-FRXHhCSstJzGnqxvSQwZojiF8sSiR8lgGX3oOS03JDs=";
   };
 
   nativeBuildInputs = [
