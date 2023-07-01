@@ -82,9 +82,6 @@
     "slug": "beyond-20"
   },
   {
-    "slug": "bing-chat-for-all-browsers"
-  },
-  {
     "slug": "bitwarden-password-manager",
     "pname": "bitwarden"
   },
@@ -729,6 +726,9 @@
   },
   {
     "slug": "promnesia"
+  },
+  {
+    "slug": "pronoundb"
   },
   {
     "slug": "proton-pass"

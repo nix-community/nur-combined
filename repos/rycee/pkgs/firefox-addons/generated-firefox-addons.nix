@@ -284,10 +284,10 @@
       };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.8.0";
+      version = "2.9.0";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4029811/beyond_20-2.8.0.xpi";
-      sha256 = "d7b1a3a5551f6150d93715fcb8f86ed25464909ae6dfc3c91a0a3bd8308dd2b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129438/beyond_20-2.9.0.xpi";
+      sha256 = "3bc97314f8b75127598dc0d130a2574e80ef7880d6f619aa1e37f69cb48d0fe9";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -296,25 +296,12 @@
         platforms = platforms.all;
         };
       };
-    "bing-chat-for-all-browsers" = buildFirefoxXpiAddon {
-      pname = "bing-chat-for-all-browsers";
-      version = "1.0.7";
-      addonId = "{a9cb10b9-75e9-45c3-8194-d3b2c25bb6a2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099909/bing_chat_for_all_browsers-1.0.7.xpi";
-      sha256 = "208bd92ed4a75339b8c2a0cd767a47b48593372d52c100c092ff0dd51802545b";
-      meta = with lib;
-      {
-        description = "Enable Bing Chat for All Browsers!";
-        license = licenses.mit;
-        platforms = platforms.all;
-        };
-      };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2023.5.0";
+      version = "2023.5.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118580/bitwarden_password_manager-2023.5.0.xpi";
-      sha256 = "e36405e8e6d0503102d627bb5fcc43a5bd8b07eb40c4a100f03dfc17d0e60f81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128403/bitwarden_password_manager-2023.5.1.xpi";
+      sha256 = "92f491cf260e4018192e94e866e5b2c5cd00102873d032331e28fe6ae308c010";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -533,10 +520,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.8.1";
+      version = "3.9.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4127454/control_panel_for_twitter-3.8.1.xpi";
-      sha256 = "27bd458505eec2c5aebb53384e28c211ee8434334263be166056de44ffe457b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129350/control_panel_for_twitter-3.9.0.xpi";
+      sha256 = "0a0e7e3a5d92d657052fed1a73c9979b708f766ecc0518bb54c14f95926104ed";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1113,13 +1100,13 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230626.153624";
+      version = "115.0.20230629.134642";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4130066/francais_language_pack-115.0.20230626.153624.xpi";
-      sha256 = "0f8dcdfc55f75027f6029feb58186bbea1b8f99adef89140d8072efc207ddf44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4131781/francais_language_pack-115.0.20230629.134642.xpi";
+      sha256 = "635e26284ed9da36fb0a29af6545a9becd4674e3830243e61219d185f1489b57";
       meta = with lib;
       {
-        description = "Firefox Language Pack for Français (fr) – French";
+        description = "Language pack for Firefox for fr";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -1804,10 +1791,10 @@
       };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.51";
+      version = "2.6.52";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4116879/localcdn_fork_of_decentraleyes-2.6.51.xpi";
-      sha256 = "b03478fe3252f9600d801633a0c79d6b4f644f96e561b6806bac4ceee7de8f90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129532/localcdn_fork_of_decentraleyes-2.6.52.xpi";
+      sha256 = "2582c17b30a8a5cad2feb0af1f4e267caf4dd51c79ef93d2e5912877c12bea3f";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -2134,10 +2121,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.22";
+      version = "11.4.24";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4111078/noscript-11.4.22.xpi";
-      sha256 = "46a84c85df4c6be11905388ad2b66aeb5a010ed615484112c8c1710ad13bc36e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4131645/noscript-11.4.24.xpi";
+      sha256 = "e4b69777d7b9e06e93fcba93d065a246a53c2fa5e113605207836374e48a4fb5";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2195,10 +2182,10 @@
       };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.9.2";
+      version = "7.9.3";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4115919/octotree-7.9.2.xpi";
-      sha256 = "688890fdb8eeaf85b7a4bd4c051ee217b76aa84349e22d3fc3ec1213662cdb7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4130309/octotree-7.9.3.xpi";
+      sha256 = "c89229d197f62b4f2830c8aa94a52ad296426cddc140e8ab706ec137f866197b";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -2466,10 +2453,10 @@
       };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2023.6.14";
+      version = "2023.6.23";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4125117/privacy_badger17-2023.6.14.xpi";
-      sha256 = "feacbe17f76ebb6be90e9f981f6ae396534818b5c1e14c790d70802ed188738d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4129240/privacy_badger17-2023.6.23.xpi";
+      sha256 = "ce79513710b2aed96bf03ec63d8be2e8274329e8d90911f5b8962c777e006e96";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -2576,12 +2563,26 @@
         platforms = platforms.all;
         };
       };
+    "pronoundb" = buildFirefoxXpiAddon {
+      pname = "pronoundb";
+      version = "0.14.1";
+      addonId = "firefox-addon@pronoundb.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4119845/pronoundb-0.14.1.xpi";
+      sha256 = "aad93ea20e8ec347c1db489754f3d4a3d1e0a6d226af12430dc3e9902d261b61";
+      meta = with lib;
+      {
+        homepage = "https://pronoundb.org";
+        description = "PronounDB is a browser extension that helps people know each other's pronouns easily and instantly. Whether hanging out on a Twitch chat, or on any of the supported platforms, PronounDB will make your life easier.";
+        license = licenses.bsd2;
+        platforms = platforms.all;
+        };
+      };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.2.2";
+      version = "1.2.5";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4130500/proton_pass-1.2.2.xpi";
-      sha256 = "bddc5079202f8dedd597af6cf804a03f62508af3b15cbb7d1205d457e59244d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4131621/proton_pass-1.2.5.xpi";
+      sha256 = "a8d331fe69c1636998027d893867707503acc11197e10a5229aca58618aa3d72";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -3217,10 +3218,10 @@
       };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "4.18.1";
+      version = "4.19.0";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4030629/tampermonkey-4.18.1.xpi";
-      sha256 = "edb43812730e5b8d866589de7ab8d80e7932cab49a2fa10d2bc2b8be374ebcde";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4115771/tampermonkey-4.19.0.xpi";
+      sha256 = "226a1f6b3c9a43d83ee601ca7a9a72feccb75fc8e90d2febcc4232564741db38";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
@@ -3585,10 +3586,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.2.9";
+      version = "1.3.1";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128718/vencord_web-1.2.9.xpi";
-      sha256 = "b20fd59aacf7ceec45ad95d2cbaef70d8d04f5b3e3e75c696f5955a7ee978ce3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132314/vencord_web-1.3.1.xpi";
+      sha256 = "03ddf720f406f7440ee9da1cff57d0de27eb49500e3b892bcb7af37a85dd51dd";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
