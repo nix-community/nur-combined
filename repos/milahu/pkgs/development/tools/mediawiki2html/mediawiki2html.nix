@@ -56,34 +56,13 @@ python3Packages.buildPythonApplication rec {
     chmod +x mediawiki2html
   '';
 
-/*
-    # relax dependencies
-    sed -i -E 's/==.*$//; s/--hash=.*$//' requirements.txt
-    sed -i -E 's/= "\^.*"/= "*"/; s/pre-commit-poetry-export = /#&/' pyproject.toml
-
-  # fix: ./result/bin/launcher: ModuleNotFoundError: No module named 'dumpgenerator'
-  postFixup = ''
-    # fix import path
-    cd $out/bin
-    for f in .*-wrapped; do
-      substituteInPlace "$f" --replace "], site._init_pathinfo());" ",'$out/${python3.sitePackages}/wikiteam3'], site._init_pathinfo());"
-    done
-  '';
-*/
-
   propagatedBuildInputs = [
     htmldata
   ];
 
-/*
-  buildInputs = with python3Packages; [
-    poetry-core
-  ];
-*/
-
   meta = with lib; {
     homepage = "https://github.com/samuell/mw2html";
-    description = "convert a mediawiki xml dump to static html files";
+    description = "scrape mediawiki pages to static html files";
     maintainers = [];
     license = licenses.publicDomain;
     platforms = platforms.all;
