@@ -81,6 +81,9 @@ in {
       services.xserver.displayManager.sessionCommands = ''
         printf "%s\n" "Xft.dpi: 120" | xrdb -merge
       '';
+      services.redshift.enable = true;
+      location.latitude = 55.751244;
+      location.longitude = 37.618423;
       services.logind.extraConfig = ''
         HandlePowerKey=hibernate
       '';
@@ -93,6 +96,9 @@ in {
       services.xserver.displayManager.sessionCommands = ''
         printf "%s\n" "Xft.dpi: 144" | xrdb -merge
       '';
+      services.redshift.enable = true;
+      location.latitude = 55.751244;
+      location.longitude = 37.618423;
       services.logind.extraConfig = ''
         HandlePowerKey=suspend
       '';
