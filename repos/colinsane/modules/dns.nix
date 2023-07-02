@@ -1,3 +1,5 @@
+# TODO: consider using this library for .zone file generation:
+# - <https://github.com/kirelagin/dns.nix>
 { config, lib, pkgs, ... }:
 
 with builtins;
@@ -63,12 +65,22 @@ in
   options = {
     sane.dns = with lib; {
       zones = mkOption {
-        type = types.attrsOf (types.submodule {
+        description = ''
+          declarative zone config.
+          this doesn't feed into anything, rather, one should read `config.sane.dns.zones."foo".rendered`
+          and do something with it.
+        '';
+        default = {};
+        type = types.attrsOf (types.submodule ({ name, config, ... }: {
           options = {
             name = mkOption {
               type = types.nullOr types.str;
               description = "zone name. defaults to the attribute name in zones";
-              default = null;
+              default = name;
+            };
+            rendered = mkOption {
+              type = types.str;
+              description = "rendered .zone text for this zone (read-only)";
             };
             TTL = mkOption {
               type = types.int;
@@ -122,25 +134,12 @@ in
                 default = {};
               };
             };
-
-            file = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              description = ''
-                instead of using the generated zone file, use the specified path (user should populate the file specified here).
-              '';
-            };
           };
-        });
-        default = {};
-        description = "Declarative zone config";
+          config = {
+            rendered = genZone config;
+          };
+        }));
       };
     };
-  };
-
-  config = {
-    sane.services.trust-dns.zones = mapAttrs (_name: zcfg: {
-      text = genZone zcfg;
-    }) cfg.zones;
   };
 }

@@ -1,23 +1,16 @@
+# WIP: porting to the API described here:
+# - <https://github.com/NixOS/nixpkgs/pull/205866>
+# - TODO: hardening!
 { config, lib, pkgs, ... }:
-
-# TODO: consider using this library for .zone file generation:
-# - <https://github.com/kirelagin/dns.nix>
 
 with lib;
 let
   cfg = config.sane.services.trust-dns;
   toml = pkgs.formats.toml { };
 
-  configFile = toml.generate "trust-dns.toml" {
-    listen_addrs_ipv4 = cfg.listenAddrsIPv4;
-    zones = attrValues (
-      mapAttrs (zname: zcfg: rec {
-        zone = if zcfg.name == null then zname else zcfg.name;
-        zone_type = "Primary";
-        file = zcfg.file;
-      }) cfg.zones
-    );
-  };
+  configFile = toml.generate "trust-dns.toml" (
+    lib.filterAttrsRecursive (_: v: v != null) cfg.settings
+  );
 in
 {
   options = {
@@ -34,79 +27,113 @@ in
           should provide bin/named, which will be invoked with --config x and --zonedir d and maybe -q.
         '';
       };
-      listenAddrsIPv4 = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = "array of ipv4 addresses on which to listen for DNS queries";
-      };
       quiet = mkOption {
         type = types.bool;
         default = false;
-      };
-      zonedir = mkOption {
-        type = types.nullOr types.str;
-        default = "/";
         description = ''
-          where the `file` option in zones.* is relative to.
+          log ERROR level messages only.
+          if not specified, defaults to INFO level logging.
+          mutually exclusive with the `debug` option.
         '';
       };
-      # reference <nixpkgs:nixos/modules/services/web-servers/nginx/vhost-options.nix>
-      zones = mkOption {
-        type = types.attrsOf (types.submodule ({ config, name, ... }: {
+      debug = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          log DEBUG, INFO, WARN and ERROR messages.
+          if not specified, defaults to INFO level logging.
+          mutually exclusive with the `quiet` option.
+        '';
+      };
+      settings = mkOption {
+        type = types.submodule {
+          freeformType = toml.type;
           options = {
-            name = mkOption {
-              type = types.nullOr types.str;
-              description = "zone name. defaults to the attribute name in zones";
-              default = name;
+            listen_addrs_ipv4 = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "array of ipv4 addresses on which to listen for DNS queries";
             };
-            text = mkOption {
-              type = types.nullOr types.lines;
-              default = null;
+            listen_addrs_ipv6 = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "array of ipv6 addresses on which to listen for DNS queries";
             };
-            file = mkOption {
-              type = types.nullOr (types.either types.path types.str);
+            listen_port = mkOption {
+              type = types.port;
+              default = 53;
               description = ''
-                path to a .zone file.
-                if omitted, will be generated from the `text` option.
+                port to listen on (applies to all listen addresses).
               '';
             };
+            directory = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = ''
+                directory in which trust-dns will look for .zone files
+                whenever zones aren't specified by absolute path.
+                upstream defaults this to "/var/named".
+              '';
+            };
+            zones = mkOption {
+              description = "Declarative zone config";
+              default = {};
+              type = types.listOf (types.submodule ({ config, name, ... }: {
+                options = {
+                  zone = mkOption {
+                    type = types.str;
+                    description = ''
+                      zone name, like "example.com", "localhost", or "0.0.127.in-addr.arpa".
+                    '';
+                  };
+                  zone_type = mkOption {
+                    type = types.enum [ "Primary" "Secondary" "Hint" "Forward" ];
+                    default = "Primary";
+                    description = ''
+                      one of:
+                      - "Primary" (the master, authority for the zone)
+                      - "Secondary" (the slave, replicated from the primary)
+                      - "Hint" (a cached zone with recursive resolver abilities)
+                      - "Forward" (a cached zone where all requests are forwarded to another resolver)
+                    '';
+                  };
+                  file = mkOption {
+                    type = types.either types.path types.str;
+                    description = ''
+                      path to a .zone file.
+                      if not a fully-qualified path, it will be interpreted relative to the `directory` option.
+                      defaults to the value of `zone` suffixed with ".zone".
+                    '';
+                  };
+                };
+                config = {
+                  file = lib.mkDefault "${config.zone}.zone";
+                };
+              }));
+            };
           };
-
-          config = {
-            file = lib.mkIf (config.text != null) (pkgs.writeText "${config.name}.zone" config.text);
-          };
-        }));
-        default = {};
-        description = "Declarative zone config";
+        };
       };
     };
   };
 
   config = mkIf cfg.enable {
-    sane.ports.ports."53" = {
-      protocol = [ "udp" "tcp" ];
-      visibleTo.lan = true;
-      visibleTo.wan = true;
-      description = "colin-dns-hosting";
-    };
-
     systemd.services.trust-dns = {
       description = "trust-dns DNS server";
       serviceConfig = {
         ExecStart =
-          let
-            flags = lib.optional cfg.quiet "-q" ++
-              lib.optionals (cfg.zonedir != null) [ "--zonedir" cfg.zonedir ];
-            flagsStr = builtins.concatStringsSep " " flags;
-          in ''
-            ${cfg.package}/bin/named \
-              --config ${configFile} \
-              ${flagsStr}
-          '';
+        let
+          flags = lib.optional cfg.debug "--debug"
+            ++ lib.optional cfg.quiet "--quiet";
+          flagsStr = builtins.concatStringsSep " " flags;
+        in ''
+          ${cfg.package}/bin/named --config ${configFile} ${flagsStr}
+        '';
         Type = "simple";
         Restart = "on-failure";
         RestartSec = "10s";
         # TODO: hardening (like, don't run as root!)
+        # TODO: link to docs
       };
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];

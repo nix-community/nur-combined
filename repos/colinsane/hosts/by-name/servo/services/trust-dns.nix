@@ -3,13 +3,21 @@
 {
   sane.services.trust-dns.enable = true;
 
-  sane.services.trust-dns.listenAddrsIPv4 = [
+  sane.services.trust-dns.settings.listen_addrs_ipv4 = [
     # specify each address explicitly, instead of using "*".
     # this ensures responses are sent from the address at which the request was received.
     config.sane.hosts.by-name."servo".lan-ip
     "10.0.1.5"
   ];
   sane.services.trust-dns.quiet = true;
+  # sane.services.trust-dns.debug = true;
+
+  sane.ports.ports."53" = {
+    protocol = [ "udp" "tcp" ];
+    visibleTo.lan = true;
+    visibleTo.wan = true;
+    description = "colin-dns-hosting";
+  };
 
   sane.dns.zones."uninsane.org".TTL = 900;
 
@@ -53,8 +61,11 @@
 
   # we need trust-dns to load our zone by relative path instead of /nix/store path
   # because we generate it at runtime.
-  sane.services.trust-dns.zones."uninsane.org".file = lib.mkForce "uninsane.org.zone";
-  sane.services.trust-dns.zonedir = null;
+  sane.services.trust-dns.settings.zones = [
+    {
+      zone = "uninsane.org";
+    }
+  ];
 
   sane.services.trust-dns.package =
     let
@@ -62,7 +73,7 @@
       zone-dir = "/var/lib/trust-dns";
       zone-wan = "${zone-dir}/wan/uninsane.org.zone";
       zone-lan = "${zone-dir}/lan/uninsane.org.zone";
-      zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.services.trust-dns.zones."uninsane.org".text;
+      zone-template = pkgs.writeText "uninsane.org.zone.in" config.sane.dns.zones."uninsane.org".rendered;
     in pkgs.writeShellScriptBin "named" ''
       # compute wan/lan values
       mkdir -p ${zone-dir}/{ovpn,wan,lan}
