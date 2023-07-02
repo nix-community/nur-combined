@@ -15,6 +15,7 @@
     ./komikku.nix
     ./koreader
     ./libreoffice.nix
+    ./lemoa.nix
     ./mepo.nix
     ./mpv.nix
     ./msmtp.nix

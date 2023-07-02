@@ -189,6 +189,7 @@ let
       jellyfin-media-player
       komikku
       koreader
+      lemoa  # lemmy app
       # lollypop
       mepo  # maps viewer
       # mpv
