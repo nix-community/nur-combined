@@ -572,16 +572,6 @@ let
       };
     });
 
-    lieer-develop = { lieer, fetchFromGitHub }: lieer.overrideAttrs (old: {
-      version = "2021-10-17";
-      src = fetchFromGitHub {
-        owner = "gauteh";
-        repo = "lieer";
-        rev = "87e85ef546223d6a745e3fe95972fd1025c4c009";
-        sha256 = "05nhjg5bckxwx2zsshznlllb22im6lqhb6jlf9s6mrnz4ag62ig3";
-      };
-    });
-
     xkeyboard-config-arc = { xkeyboard_config, fetchpatch, utilmacros, autoreconfHook }: xkeyboard_config.overrideAttrs (old: rec {
       pname = "xkeyboard-config-arc";
       #name = "${pname}-${old.version}";
