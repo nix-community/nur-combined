@@ -1,10 +1,10 @@
 Replaces VPPApiJSONFiles.find_api_dir with placeholder variable vpp
---- a/src/vpp-api/python/vpp_papi/vpp_papi.py
-+++ b/src/vpp-api/python/vpp_papi/vpp_papi.py
+--- a/vpp_papi/vpp_papi.py
++++ b/vpp_papi/vpp_papi.py
 @@ -166,78 +166,7 @@ class VPPApiJSONFiles:
              could be found.
          """
- 
+
 -        # perhaps we're in the 'src/scripts' or 'src/vpp-api/python' dir;
 -        # in which case, plot a course to likely places in the src tree
 -        import __main__ as main
@@ -78,6 +78,6 @@ Replaces VPPApiJSONFiles.find_api_dir with placeholder variable vpp
 -
 -        return None
 +        return "@vppApiSchemas@"
- 
+
      @classmethod
      def find_api_files(cls, api_dir=None, patterns="*"):  # -> list
