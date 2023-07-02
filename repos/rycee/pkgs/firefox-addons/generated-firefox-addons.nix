@@ -16,10 +16,10 @@
       };
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
-      version = "1.3.0";
+      version = "2.0.0";
       addonId = "a11y.css@ffoodd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3997242/a11ycss-1.3.0.xpi";
-      sha256 = "33ed6c73adcd6a3501b3b9320a4e3adcd7ea50820a0e16e97b57efe22fcb4132";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132650/a11ycss-2.0.0.xpi";
+      sha256 = "b42f351fec4d69b65f3d6e0ea23de01bbe0e903ca790db8356cb970eba06fd9b";
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
@@ -3586,10 +3586,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.3.1";
+      version = "1.3.2";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132314/vencord_web-1.3.1.xpi";
-      sha256 = "03ddf720f406f7440ee9da1cff57d0de27eb49500e3b892bcb7af37a85dd51dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132684/vencord_web-1.3.2.xpi";
+      sha256 = "299fde88ddf4884eded4c9566fbaf7be5388849614343beced9e09082f7413c1";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
