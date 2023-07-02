@@ -49,6 +49,8 @@
 - moby: improve gPodder launch time
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
+- moby: ship camera app (megapixels)
+  - may need to enable firmware in hosts/by-name/moby/default.nix
 - package Nix/NixOS docs for Zeal
     - install [doc-browser](https://github.com/qwfy/doc-browser)
     - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)

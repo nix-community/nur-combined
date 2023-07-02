@@ -186,7 +186,6 @@ let
       # "gnome.gnome-weather"
       gpodder
       gthumb
-      jellyfin-media-player
       komikku
       koreader
       lemoa  # lemmy app
@@ -213,6 +212,7 @@ let
   desktopGuiPkgs = {
     inherit (flattenedPkgs)
       audacity
+      blanket  # ambient noise generator
       brave  # for the integrated wallet -- as a backup
       chromium
       dino
@@ -227,6 +227,7 @@ let
       handbrake
       hase
       inkscape
+      jellyfin-media-player
       kdenlive
       kid3  # audio tagging
       krita

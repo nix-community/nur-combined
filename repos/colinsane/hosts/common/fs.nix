@@ -77,34 +77,6 @@ in
   # };
   sane.fs."/mnt/servo-media" = sane-lib.fs.wantedSymlinkTo "/mnt/servo-nfs/media";
 
-  fileSystems."/mnt/servo-media-wan" = {
-    device = "colin@uninsane.org:/var/lib/uninsane/media";
-    fsType = "fuse.sshfs";
-    options = fsOpts.sshColin ++ fsOpts.noauto;
-    noCheck = true;
-  };
-  sane.fs."/mnt/servo-media-wan" = sane-lib.fs.wantedDir;
-  fileSystems."/mnt/servo-media-lan" = {
-    device = "colin@servo:/var/lib/uninsane/media";
-    fsType = "fuse.sshfs";
-    options = fsOpts.sshColin ++ fsOpts.noauto;
-    noCheck = true;
-  };
-  sane.fs."/mnt/servo-media-lan" = sane-lib.fs.wantedDir;
-  fileSystems."/mnt/servo-root-wan" = {
-    device = "colin@uninsane.org:/";
-    fsType = "fuse.sshfs";
-    options = fsOpts.sshRoot ++ fsOpts.noauto;
-    noCheck = true;
-  };
-  sane.fs."/mnt/servo-root-wan" = sane-lib.fs.wantedDir;
-  fileSystems."/mnt/servo-root-lan" = {
-    device = "colin@servo:/";
-    fsType = "fuse.sshfs";
-    options = fsOpts.sshRoot ++ fsOpts.noauto;
-    noCheck = true;
-  };
-  sane.fs."/mnt/servo-root-lan" = sane-lib.fs.wantedDir;
   fileSystems."/mnt/desko-home" = {
     device = "colin@desko:/home/colin";
     fsType = "fuse.sshfs";

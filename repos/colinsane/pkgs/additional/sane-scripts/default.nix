@@ -107,16 +107,6 @@ let
       pname = "sane-ip-reconnect";
       src = ./src;
     };
-    mount-servo = static-nix-shell.mkBash {
-      pname = "sane-mount-servo";
-      src = ./src;
-      pkgs = [ "coreutils-full" ];
-    };
-    mount-servo-root = static-nix-shell.mkBash {
-      pname = "sane-mount-servo-root";
-      src = ./src;
-      pkgs = [ "coreutils-full" ];
-    };
     private-change-passwd = static-nix-shell.mkBash {
       pname = "sane-private-change-passwd";
       src = ./src;
@@ -203,7 +193,7 @@ let
     sync-from-servo = static-nix-shell.mkBash {
       pname = "sane-sync-from-servo";
       src = ./src;
-      pkgs = [ "rsync" "sane-scripts.mount-servo" ];
+      pkgs = [ "rsync" ];
     };
     vpn-down = static-nix-shell.mkBash {
       pname = "sane-vpn-down";

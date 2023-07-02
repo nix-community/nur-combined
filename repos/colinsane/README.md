@@ -37,9 +37,7 @@ directly here; even the sources for those packages is often kept here too.
     - inline code for wholly custom packages (e.g. `pkgs/additional/sane-scripts/` for CLI tools
       that are highly specific to my setup).
 - `scripts/`
-    - scripts which are referenced by other things in this repo.
-    - these aren't generally user-facing, but they're factored out so that they can
-      be invoked directly when i need to debug.
+    - scripts which aren't reachable on a deployed system, but may aid manual deployments
 - `secrets/`
     - encrypted keys, API tokens, anything which one or more of my machines needs
       read access to but shouldn't be world-readable.

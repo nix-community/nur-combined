@@ -1,7 +1,8 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p rsync -p sane-scripts.mount-servo
+#!nix-shell -i bash -p rsync
 set -ex
-sane-mount-servo
 
-rsync -arv --delete --progress $mnt/Music/ ~/Music/
+REMOTE_MUSIC=/mnt/servo-media/Music
 
+test -d "$REMOTE_MUSIC" && \
+  rsync -arv --delete --progress "$REMOTE_MUSIC/" ~/Music/
