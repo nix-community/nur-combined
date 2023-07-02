@@ -1,15 +1,19 @@
-{ lib, fetchFromSourcehut, buildGoModule }:
+{ lib, fetchFromSourcehut, buildGoModule, pkg-config, libxkbcommon }:
 
 buildGoModule rec {
   pname = "dotool";
-  version = "1.2";
+  version = "1.3";
 
   src = fetchFromSourcehut {
     owner = "~geb";
     repo = pname;
     rev = version;
-    hash = "sha256-HWJo9cYOkAXZtqrAUKM4o9Ix46KH9HCbB4eiWnky1x4=";
+    hash = "sha256-z0fQ+qenHjtoriYSD2sOjEvfLVtZcMJbvnjKZFRSsMA=";
   };
+
+  nativeBuildInputs = [ pkg-config ];
+
+  buildInputs = [ libxkbcommon ];
 
   vendorHash = "sha256-v0uoG9mNaemzhQAiG85RequGjkSllPd4UK2SrLjfm7A=";
 
