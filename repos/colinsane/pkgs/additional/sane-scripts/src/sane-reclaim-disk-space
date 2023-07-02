@@ -46,7 +46,7 @@ if [ $do_gc = true ]
 then
   # TODO: do we need `sudo` here?
   # TODO: `nix-store --gc`?
-  sudo nix-collect-garbage
+  sudo nix-collect-garbage --delete-older-than 30d
 fi
 
 if [ $do_rmlint = true ]
