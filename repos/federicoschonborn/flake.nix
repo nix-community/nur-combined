@@ -17,14 +17,11 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      legacyPackages = forAllSystems (system:
-        import ./default.nix {
-          pkgs = import nixpkgs { inherit system; };
-        });
-      packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
+      legacyPackages = forAllSystems (pkgs: import ./. { inherit pkgs; });
+      packages = forAllSystems (pkgs: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${pkgs.system});
+      formatter = forAllSystems (pkgs: pkgs.nixpkgs-fmt);
     };
 }
