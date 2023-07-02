@@ -3,6 +3,8 @@
 # - https://docs.pleroma.social/backend/configuration/cheatsheet/
 #
 # to run it in a oci-container: https://github.com/barrucadu/nixfiles/blob/master/services/pleroma.nix
+#
+# admin frontend: <https://fed.uninsane.org/pleroma/admin>
 { config, pkgs, ... }:
 
 {
@@ -100,6 +102,8 @@
     #  level: :debug
 
     # XXX colin: not sure if this actually _does_ anything
+    # better to steal emoji from other instances?
+    # - <https://docs.pleroma.social/backend/configuration/cheatsheet/#mrf_steal_emoji>
     config :pleroma, :emoji,
       shortcode_globs: ["/emoji/**/*.png"],
       groups: [

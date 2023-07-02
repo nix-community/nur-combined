@@ -47,11 +47,8 @@
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
 - firefox/librewolf: don't show browserpass/sponsorblock/metamask "first run" on every boot
 - moby: improve gPodder launch time
-- moby: replace jellyfin-desktop with jellyfin-vue?
-    - allows (maybe) to cache media for offline use
-    - "newer" jellyfin client
-    - not packaged for nix
-- moby/sxmo: display numerical vol percentage in topbar
+- moby: theme GTK apps (i.e. non-adwaita styles)
+  - especially, make the menubar collapsible
 - package Nix/NixOS docs for Zeal
     - install [doc-browser](https://github.com/qwfy/doc-browser)
     - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)
@@ -62,6 +59,7 @@
   - currently if the application doesn't autocreate dirs leading to its destination, then ~/private storage fails
   - this might be why librewolf on mobile is still amnesiac
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
+- uninsane.org: make URLs relative to allow local use (and as offline homepage)
 - email: fix so that local mail doesn't go to junk
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
