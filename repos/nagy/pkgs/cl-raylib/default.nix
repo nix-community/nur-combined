@@ -2,12 +2,12 @@
 
 lispPackages_new.build-asdf-system {
   pname = "cl-raylib";
-  version = "unstable-2022-08-24";
+  version = "unstable-2023-04-17";
   src = fetchFromGitHub {
     owner = "longlene";
     repo = "cl-raylib";
-    rev = "8bf7ee09e46dc5724a440800a28352ec7fe64a5a";
-    sha256 = "1xx86ydns3gd0ynx47ajfyqmg1iki0182ahbjw69vcck55dhxc9g";
+    rev = "134322a238b2825b109164b1dac7f485aa70bc8d";
+    hash = "sha256-nVPuv/pFCNA3ukToJiHhGHVNa/+ipYIR4nluskofDXI=";
   };
   lisp = lispPackages_new.sbcl;
   nativeLibs = [ raylib ];
