@@ -4,6 +4,7 @@
     [
 
       ./hardware
+      ./vm
 
       ./scripts.nix
       ./tmp.nix

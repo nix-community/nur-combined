@@ -1,4 +1,11 @@
 { config, pkgs, lib, inputs, materusFlake, materusPkgs, ... }:
+let 
+pkg = import  (builtins.fetchTarball {
+  name = "nixos-23.05";
+  url = "https://github.com/nixos/nixpkgs/archive/4ecab3273592f27479a583fb6d975d4aba3486fe.tar.gz";
+  sha256 = "sha256:10wn0l08j9lgqcw8177nh2ljrnxdrpri7bp0g7nvrsn9rkawvlbf";
+}) {system = pkgs.system;};
+in
 {
   imports =
     [
@@ -9,7 +16,7 @@
   hardware.firmware = with pkgs; [
     materusPkgs.amdgpu-pro-libs.firmware.vcn
     materusPkgs.amdgpu-pro-libs.firmware
-    linux-firmware
+    pkg.linux-firmware
     alsa-firmware
     sof-firmware
   ];
