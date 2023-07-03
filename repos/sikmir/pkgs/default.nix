@@ -360,6 +360,7 @@ lib.makeScope newScope (
     nanodns = callPackage ./misc/nanodns { };
     nmtree = callPackage ./misc/nmtree { };
     objlab = callPackage ./misc/objlab { };
+    ocelotgui = libsForQt5.callPackage ./misc/ocelotgui { };
     playonmac = callPackage ./misc/playonmac { };
     plotjuggler = libsForQt5.callPackage ./misc/plotjuggler { };
     pnoise = callPackage ./misc/pnoise { };
