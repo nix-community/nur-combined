@@ -11,7 +11,7 @@ in {
     "${self.inputs.nixos-hardware}/common/cpu/amd/pstate.nix"
     "${self.inputs.nixos-hardware}/common/gpu/amd"
     "${self.inputs.nixos-hardware}/common/pc/ssd"
-    # "${self.inputs.nixos-hardware}/common/gpu/nvidia"
+    ./nvidia.nix
 
     ./dashboards.nix
     ./dlna.nix

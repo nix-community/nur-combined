@@ -14,6 +14,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nbr.url = "github:nixosbrasil/nixpkgs-brasil";
+    nbr.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/nur";
 
