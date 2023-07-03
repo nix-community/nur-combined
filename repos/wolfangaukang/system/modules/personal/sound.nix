@@ -64,7 +64,7 @@ in
         enableOSSEmulation = mkIf cfg.enableOSSEmulation true;
       };
     }
-    (mkIf cfg.pipewire.enable (import ../../profiles/pipewire.nix { inherit lib; }))
+    (mkIf cfg.pipewire.enable (import ../../profiles/services/pipewire.nix { inherit lib; }))
     (mkIf cfg.pulseaudio.enable {
       hardware.pulseaudio.enable = true;
       users.extraGroups.audio.members = cfg.pulseaudio.audioGroupMembers;

@@ -1,9 +1,11 @@
 { ... }:
 
-let 
-  commonSettings = import ./common.nix;
+let
+  commonValues = import ./values.nix;
 
 in {
+  imports = [ ./common.nix ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -12,7 +14,7 @@ in {
       plugins = [ "git" "docker" ];
       theme = "linuxonly";
     };
-    sessionVariables = commonSettings.sessionVariables; 
-    shellAliases = commonSettings.shellAliases;
+    sessionVariables = commonValues.sessionVariables;
+    shellAliases = commonValues.shellAliases;
   };
 }

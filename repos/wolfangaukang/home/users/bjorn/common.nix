@@ -10,7 +10,7 @@ in
     "${self}/home/profiles/configurations/fonts.nix"
     "${self}/home/profiles/configurations/layouts.nix"
     "${self}/home/profiles/programs/syncthing.nix"
-    "${self}/home/profiles/programs/shells/zsh.nix"
+    "${self}/home/profiles/programs/shells/fish.nix"
     "${self}/home/profiles/programs/nixos/alacritty.nix"
     "${inputs.hm-firejail}/modules/programs/firejail.nix"
   ];
@@ -63,17 +63,6 @@ in
       enable = true;
       extraPkgs = with pkgs; [ shellcheck ];
     };
-  };
-
-  programs.firejail.wrappedBinaries = {
-    spotify =
-      let
-        path = "${lib.getBin pkgs.spotify}";
-      in
-      {
-        executable = "${path}/bin/spotify";
-        desktop = "${path}/share/applications/spotify.desktop";
-      };
   };
 
   programs = {

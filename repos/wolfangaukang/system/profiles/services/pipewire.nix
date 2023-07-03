@@ -1,5 +1,5 @@
 { lib
-, enableAlsa32BitSupport ? true 
+, enableAlsa32BitSupport ? true
 }:
 
 let

@@ -104,20 +104,22 @@
             enable-sops = true;
             enable-hm = true;
             hm-users = users;
+            enable-sops-hm = true;
           };
 
           holuhraun = mkSystem {
             inherit inputs overlays;
             users = usersWithRoot;
             hostname = "holuhraun";
-            # Can't upgraade because of ZFS
-            kernel = kernels.linux_6_2;
+            # Can't upgrade because of ZFS
+            kernel = kernels.linux_6_1;
             extra-modules = system76Hardware;
             enable-impermanence = true;
             enable-sops = true;
             enable-hm = true;
             hm-users = users;
             enable-impermanence-hm = true;
+            enable-sops-hm = true;
           };
 
           torfajokull = mkSystem {
@@ -130,6 +132,7 @@
             enable-sops = true;
             enable-hm = true;
             hm-users = users;
+            enable-sops-hm = true;
           };
 
           Katla =

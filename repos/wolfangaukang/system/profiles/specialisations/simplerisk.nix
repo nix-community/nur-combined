@@ -19,4 +19,5 @@ in {
     };
     vmware.enable = true;
   };
+  home-manager.users.bjorn.defaultajAgordoj.work.simplerisk.enable = true;
 }

@@ -1,6 +1,12 @@
 keys:
   - &users:
     - &bjorn 87AA3657F508C4F29FE0C2587B0FF33FF90110C7
+
+  # Creating proxies until getting an explanation for Mic92/sops-nix#287
+  # on why sops.gnupg.home does not work
+  - &proxies:
+    - &bjorn_p age13cgztmk4ncsf0j4dquhae5j9memjnpux24ec3hn4rjxlj4ecrgaqxuxcku
+
   - &hosts:
     - &holuhraun age17gm2cha0zhf55fmchuzq0d2hvggp42xxq3hheqgmhy4cmge7s42qvvqn5f
     - &eyjafjallajokull age1qc7yq0j066kh8r4lftr4wkrfpqmqjkuxl97c6jqgdkjkggfvg9tqhku4h8
@@ -33,3 +39,9 @@ creation_rules:
       - *bjorn
       age:
       - *torfajokull
+  - path_regex: home/users/bjorn/secrets.ya?ml$
+    key_groups:
+    - pgp:
+      - *bjorn
+      age:
+      - *bjorn_p

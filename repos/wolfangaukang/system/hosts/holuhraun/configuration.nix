@@ -5,6 +5,8 @@ let
   inherit (inputs) self;
   system-lib = import "${self}/system/lib" { inherit inputs; };
   inherit (system-lib) obtainIPV4Address obtainIPV4GatewayAddress;
+  inherit (pkgs) heroic retroarch;
+  inherit (pkgs.libretro) mgba bsnes-mercury-performance;
 
 in {
   imports =
@@ -29,10 +31,6 @@ in {
   };
 
   profile = {
-    gaming = {
-      enable = true;
-      useSteamHardware = true;
-    };
     moonlander = {
       enable = true;
       ignoreLayoutSettings = true;
@@ -58,7 +56,31 @@ in {
         libvirtdGroupMembers = [ "bjorn" ];
       };
     };
-    specialisations.work.simplerisk.enable = true;
+    specialisations = {
+      gaming = {
+        enable = true;
+        steam = {
+          enable = true;
+          enableSteamHardware = true;
+          enableGamescope = true;
+        };
+        # TODO: Find a way to enable options for users
+        home = {
+          enable = true;
+          enableProtontricks = true;
+          retroarch = {
+            enable = true;
+            package = retroarch;
+            coresToLoad = [
+              mgba
+              bsnes-mercury-performance
+            ];
+          };
+          extraPkgs = [ heroic ];
+        };
+      };
+      work.simplerisk.enable = true;
+    };
   };
 
   sops.secrets."machine_id" = {
@@ -68,6 +90,6 @@ in {
 
   #environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
 
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 
 }

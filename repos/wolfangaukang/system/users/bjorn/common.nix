@@ -6,13 +6,11 @@ let
   inherit (inputs) self;
 
 in {
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
   users.users.bjorn = {
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     extraGroups = [ "wheel" "nixers" ];
   };
-  home-manager.users.bjorn = {
-    defaultajAgordoj.work.simplerisk.enable = work_config.enable;
-  }; # TODO: Fix this integration // lib.optionals (sway_config.enable) (import "${self}/home/profiles/programs/sway.nix" { inherit config lib pkgs; });
+  # TODO: Fix this integration // lib.optionals (sway_config.enable) (import "${self}/home/profiles/programs/sway.nix" { inherit config lib pkgs; });
 }

@@ -11,13 +11,13 @@ let
 
 in {
   imports = [
-    ./common.nix
+    "${self}/system/profiles/base"
     ./gui.nix
-    "${self}/system/profiles/networking.nix"
-    "${self}/system/profiles/rfkill.nix"
-    "${self}/system/profiles/time.nix"
-    "${self}/system/profiles/flatpak.nix"
+    "${self}/system/profiles/hardware/rfkill.nix"
+    "${self}/system/profiles/services/flatpak.nix"
     "${self}/system/profiles/services/openssh.nix"
     "${self}/system/profiles/services/zerotier.nix"
+    "${self}/system/profiles/system/networking.nix"
+    "${self}/system/profiles/system/time.nix"
   ];
 }

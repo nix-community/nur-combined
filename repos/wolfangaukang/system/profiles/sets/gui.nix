@@ -8,7 +8,7 @@ let
 in {
   imports = [
     # TODO: Handle DE dynamically
-    "${self}/system/profiles/de/pantheon.nix"
-    "${self}/system/profiles/graphics.nix"
+    "${self}/system/profiles/services/de/pantheon.nix"
+    "${self}/system/profiles/hardware/graphics.nix"
   ];
 }

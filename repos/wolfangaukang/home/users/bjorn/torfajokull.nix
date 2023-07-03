@@ -12,6 +12,4 @@ in {
   imports = [
     ./common.nix
   ];
-
-  defaultajAgordoj.gui.extraPkgs = with pkgs; [ stremio ];
 }

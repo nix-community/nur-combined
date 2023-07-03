@@ -12,7 +12,7 @@ let
 in {
   imports = [
     #<nixpkgs/nixos/modules/virtualisation/qemu-vm.nix>
-    "${self}/system/profiles/console.nix"
+    "${self}/system/profiles/base/console.nix"
   ];
 
   # FIXME: Still testing

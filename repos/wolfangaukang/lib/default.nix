@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 let
-  inherit (inputs.nixpkgs.lib) genAttrs mapAttrsToList mkForce optionals systems;
+  inherit (inputs.nixpkgs.lib) genAttrs getBin mapAttrsToList mkForce optionals systems;
   #pkgs_systems = systems.flakeExposed;
   pkgs_systems = [ "x86_64-linux" ];
 
@@ -27,6 +27,7 @@ rec {
     , overlays ? []
     , enable-sab ? true
     , enable-impermanence-hm ? false
+    , enable-sops-hm ? false
     }:
 
     let
@@ -43,7 +44,8 @@ rec {
         sharedModules = personalModules
           ++ hmModules
           ++ optionals (enable-sab) [ inputs.sab.hmModule ]
-          ++ optionals (enable-impermanence-hm) [ inputs.impermanence.nixosModules.home-manager.impermanence ];
+          ++ optionals (enable-impermanence-hm) [ inputs.impermanence.nixosModules.home-manager.impermanence ]
+          ++ optionals (enable-sops-hm) [ inputs.sops.homeManagerModules.sops ];
       } // { users = (importHmUsers users hostname); };
       nixpkgs = {
         config.allowUnfree = true;
@@ -63,6 +65,7 @@ rec {
     , enable-impermanence ? false
     , enable-impermanence-hm ? false
     , enable-sops ? false
+    , enable-sops-hm ? false
     , enable-server-secrets ? false
     }:
 
@@ -74,7 +77,7 @@ rec {
       ] ++ (if kernel != null then [ ({ boot.kernelPackages = kernel; }) ] else []);
       sopsConfig = [
         inputs.sops.nixosModules.sops
-        "${inputs.self}/system/profiles/sops.nix"
+        "${inputs.self}/system/profiles/services/sops.nix"
       ] ++ optionals (enable-server-secrets) [ "${inputs.self}/system/hosts/${hostname}/sops.nix" ];
       impermanenceConfig = [
         inputs.impermanence.nixosModules.impermanence
@@ -84,7 +87,7 @@ rec {
     in
     {
       modules = hostConfig
-        ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( mkHomeNixos { inherit inputs hostname overlays enable-impermanence-hm; users = hm-users; } ) ]
+        ++ optionals (enable-hm) [ inputs.home-manager.nixosModules.home-manager ( mkHomeNixos { inherit inputs hostname overlays enable-impermanence-hm enable-sops-hm; users = hm-users; } ) ]
         ++ optionals (enable-impermanence) impermanenceConfig
         ++ optionals (enable-sops) sopsConfig
         ++ (importUsers users hostname)
@@ -120,4 +123,18 @@ rec {
         }
       ];
     };
+
+ generateFirejailWrappedBinaryConfig =
+   {
+     pkg,
+     pkg_name,
+     bin_name ? pkg_name,
+     enable_desktop ? false,
+     desktop_file_name ? pkg_name
+   }:
+
+   let
+     path = "${getBin pkg}";
+   in { executable = "${path}/bin/${bin_name}"; }
+   // (optionals enable_desktop) { desktop = "${path}/share/applications/${desktop_file_name}.desktop"; };
 }

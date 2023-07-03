@@ -13,6 +13,5 @@ final: prev:
   #  dontBuild = false;
   #  dontConfigure = false;
   #} );
-  upwork = prev.callPackage ../pkgs/applications/misc/upwork {};
-  upwork-require = final.upwork;
+  upwork-require = prev.callPackage ../pkgs/applications/misc/upwork {};
 }

@@ -2,10 +2,13 @@
 
 let
   inherit (inputs) self;
+  general-lib = import "${self}/lib" { inherit inputs; };
+  inherit (general-lib) generateFirejailWrappedBinaryConfig;
 
 in {
   imports = [
     ./common.nix
+    ./profiles/workstation.nix
 
     "${self}/home/profiles/programs/mopidy.nix"
   ];
@@ -48,37 +51,14 @@ in {
   };
 
   # Personal Settings
-  defaultajAgordoj = {
-    gui.extraPkgs = with pkgs; [
-      gimp
-      musescore
-      qbittorrent
-    ];
-    gaming = {
-      enable = true;
-      enableProtontricks = false;
-      retroarch = {
-        enable = true;
-        package = pkgs.retroarch;
-        coresToLoad = with pkgs.libretro; [
-          mgba
-          bsnes-mercury-performance
-        ];
-      };
-    };
-  };
+  defaultajAgordoj.gui.extraPkgs = with pkgs; [
+    gimp
+    musescore
+    qbittorrent
+  ];
 
   programs = {
-    firejail.wrappedBinaries = {
-      discord =
-        let
-          path = "${lib.getBin pkgs.discord}";
-        in
-        {
-          executable = "${path}/bin/discord";
-          desktop = "${path}/share/applications/discord.desktop";
-        };
-    };
+    firejail.wrappedBinaries.discord = generateFirejailWrappedBinaryConfig { pkg = pkgs.discord; pkg_name = "discord"; enable_desktop = true; };
     neofetch.startOnZsh = true;
   };
 

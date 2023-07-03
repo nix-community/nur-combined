@@ -43,6 +43,6 @@ in {
   # Extra settings (22.11)
   nixpkgs.hostPlatform = mkDefault "x86_64-linux";
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 }
 

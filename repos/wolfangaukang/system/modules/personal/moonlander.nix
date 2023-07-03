@@ -35,7 +35,7 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     { environment.systemPackages = cfg.extraPkgs; }
-    (import ../../profiles/moonlander.nix {
+    (import ../../profiles/hardware/moonlander.nix {
       inherit lib dotfiles;
       ignoreLayoutSettings = cfg.ignoreLayoutSettings;
     })
