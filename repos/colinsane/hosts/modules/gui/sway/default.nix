@@ -72,25 +72,6 @@ in
         ];
       };
     }
-    {
-      sane.programs = {
-        inherit (pkgs // {
-          # "gnome.gnome-bluetooth" = pkgs.gnome.gnome-bluetooth;
-          # "gnome.gnome-control-center" = pkgs.gnome.gnome-control-center;
-          "sway-contrib.grimshot" = pkgs.sway-contrib.grimshot;
-        })
-          swaylock
-          swayidle
-          wl-clipboard
-          blueberry
-          mako
-          # "gnome.gnome-bluetooth"
-          # "gnome.gnome-control-center"
-          "sway-contrib.grimshot"
-          wdisplays
-        ;
-      };
-    }
 
     (mkIf cfg.enable {
       sane.programs.swayApps.enableFor.user.colin = true;

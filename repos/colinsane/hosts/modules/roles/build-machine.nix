@@ -22,9 +22,6 @@ in
   };
 
   config = mkMerge [
-    ({
-      sane.programs.qemu = pkgs.qemu;
-    })
     (mkIf cfg.enable {
       # enable opt-in emulation of any package at runtime.
       # i.e. `nix build '.#host-pkgs.moby.bash' ; qemu-aarch64 ./result/bin/bash`.

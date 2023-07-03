@@ -6,5 +6,4 @@
     };
     suggestedPrograms = [ "ghostscript" ];
   };
-  sane.programs.ghostscript = {};
 }

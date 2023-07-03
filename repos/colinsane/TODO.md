@@ -49,6 +49,7 @@
 - moby: improve gPodder launch time
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
+  - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
 - moby: ship camera app (megapixels)
   - may need to enable firmware in hosts/by-name/moby/default.nix
 - package Nix/NixOS docs for Zeal

@@ -5,6 +5,7 @@
     ./aerc.nix
     ./assorted.nix
     ./cozy.nix
+    ./epiphany.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gpodder.nix

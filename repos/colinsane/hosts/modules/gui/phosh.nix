@@ -34,20 +34,6 @@ in
         ];
       };
     }
-    {
-      sane.programs = {
-        inherit (pkgs // {
-          "gnome.gnome-bluetooth" = pkgs.gnome.gnome-bluetooth;
-          "gnome.gnome-terminal" = pkgs.gnome.gnome-terminal;
-          "plasma5Packages.konsole" = pkgs.plasma5Packages.konsole;
-        })
-          phosh-mobile-settings
-          "plasma5Packages.konsole"
-          "gnome.gnome-bluetooth"
-          "gnome.gnome-terminal"
-        ;
-      };
-    }
 
     (mkIf cfg.enable {
       sane.programs.phoshApps.enableFor.user.colin = true;
