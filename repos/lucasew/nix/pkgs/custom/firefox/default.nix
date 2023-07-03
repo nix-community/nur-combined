@@ -19,6 +19,7 @@ wrapFirefox firefox-esr-102-unwrapped {
     ublock-origin
     tweak-new-twitter
     floccus
+    video-downloadhelper
   ])
   ++ ([
     (callPackage ./base16-ext {})

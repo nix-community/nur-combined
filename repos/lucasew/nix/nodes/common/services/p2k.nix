@@ -19,7 +19,7 @@ in
     };
 
     sops.secrets.pocket2kindle = {
-      sopsFile = ../../secrets/p2k.env;
+      sopsFile = ../../../secrets/p2k.env;
       owner = config.users.users.pocket2kindle.name;
       group = config.users.users.pocket2kindle.group;
       format = "dotenv";

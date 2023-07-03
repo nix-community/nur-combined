@@ -9,7 +9,7 @@ in
     services.telegram-sendmail.credentialFile = "/var/run/secrets/telegram-sendmail";
 
     sops.secrets.telegram-sendmail = {
-      sopsFile = ../../secrets/telegram_sendmail.env;
+      sopsFile = ../../../secrets/telegram_sendmail.env;
       owner = config.users.users.telegram_sendmail.name;
       group = config.users.users.telegram_sendmail.group;
       format = "dotenv";

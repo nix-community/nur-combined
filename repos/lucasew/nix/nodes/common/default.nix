@@ -12,26 +12,17 @@ in
 
     ./ansible-python.nix
     ./bash
-    ./cf-torrent.nix
-    ./cloud-savegame.nix
-    ./cockpit-extra.nix
+    ./services
+
     ./hosts.nix
-    ./invidious.nix
-    ./jellyfin.nix
     ./kvm.nix
-    ./libreddit.nix
     ./lvm.nix
-    ./magnetico.nix
     ./netusage.nix
     ./nginx-root-domain.nix
     ./nginx.nix
     ./nix-index-database.nix
-    ./p2k.nix
     ./sops.nix
-    ./telegram_sendmail.nix
     ./tmux
-    ./transmission.nix
-    ./tt-rss.nix
     ./tuning.nix
     ./unstore.nix
     ./user.nix
