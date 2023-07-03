@@ -286,6 +286,11 @@ in {
     # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   };
 
+  epiphany = prev.epiphany.override {
+    # fixes -msse2, -mfpmath=sse flags
+    wrapGAppsHook4 = final.wrapGAppsHook;
+  };
+
   flatpak = prev.flatpak.overrideAttrs (upstream: {
     # fixes "No package 'libxml-2.0' found"
     buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
