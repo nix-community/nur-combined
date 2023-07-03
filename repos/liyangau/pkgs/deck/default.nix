@@ -1,38 +1,42 @@
-{ buildGoModule, lib, installShellFiles, fetchFromGitHub }:
-let sha = "7447a09";
-in buildGoModule rec {
-  pname = "deck";
-  version = "1.22.0";
+{
+  buildGoModule,
+  lib,
+  installShellFiles,
+  fetchFromGitHub,
+}: let
+  sha = "69aa892";
+in
+  buildGoModule rec {
+    pname = "deck";
+    version = "1.23.0";
+    src = fetchFromGitHub {
+      owner = "Kong";
+      repo = "deck";
+      rev = "v${version}";
+      hash = "sha256-PrpiZBGNb8tWt2RiZ4iHKibN+2EQRm1/tBbDLng/lkA=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "Kong";
-    repo = "deck";
-    rev = "v${version}";
-    sha256 = "sha256-BCx4bw+FrnH291sp52Dz+dc6cYtoLAt8fmdF6YbmgOE=";
-  };
+    nativeBuildInputs = [installShellFiles];
 
-  nativeBuildInputs = [ installShellFiles ];
+    CGO_ENABLED = 0;
 
-  CGO_ENABLED = 0;
+    ldflags = [
+      "-s -w -X github.com/kong/deck/cmd.VERSION=${version}"
+      "-X github.com/kong/deck/cmd.COMMIT=${sha}"
+    ];
 
-  ldflags = [
-    "-s -w -X github.com/kong/deck/cmd.VERSION=${version}"
-    "-X github.com/kong/deck/cmd.COMMIT=${sha}"
-  ];
+    vendorSha256 = "sha256-brd+gtIHIarMv3l6O6JMDPRFlMwKSLZjBABAvByUC6o=";
 
-  vendorSha256 = "sha256-rir8z1IwQenTvihHWaA7dx6Nn45M82ulCNRJuQlUhEM=";
+    postInstall = ''
+      installShellCompletion --cmd deck \
+        --bash <($out/bin/deck completion bash) \
+        --fish <($out/bin/deck completion fish) \
+        --zsh <($out/bin/deck completion zsh)
+    '';
 
-  postInstall = ''
-    installShellCompletion --cmd deck \
-      --bash <($out/bin/deck completion bash) \
-      --fish <($out/bin/deck completion fish) \
-      --zsh <($out/bin/deck completion zsh)
-  '';
-
-  meta = with lib; {
-    description =
-      "decK: Configuration management and drift detection for Kong.";
-    homepage = "https://github.com/Kong/deck";
-    license = licenses.asl20;
-  };
-}
+    meta = with lib; {
+      description = "decK: Configuration management and drift detection for Kong.";
+      homepage = "https://github.com/Kong/deck";
+      license = licenses.asl20;
+    };
+  }
