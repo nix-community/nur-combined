@@ -3,6 +3,12 @@
 with lib;
 let
   cfg = config.services.job;
+  vpn-slice = pkgs.vpn-slice.overrideAttrs (oldAttrs: rec {
+    preConfigure = ''
+      substituteInPlace vpn_slice/posix.py \
+        --replace /etc/hosts /var/lib/dnsmasq/hosts/hosts
+    '';
+  });
 in {
   options.services.job = {
     client = mkEnableOption ''
@@ -28,7 +34,7 @@ in {
         pkgs.writeShellScriptBin "openconnect" ''
            ${pkgs.openconnect}/bin/openconnect \
               --background \
-              --script "${pkgs.vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com test.iris.k8s.renins.com --prevent-idle-timeout" \
+              --script "${vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com test.iris.k8s.renins.com wiki.renins.com mytask.renins.com --prevent-idle-timeout" \
               --interface job \
               --user "ALukyanov" \
               --authgroup "xFA" \
@@ -37,14 +43,13 @@ in {
               --local-hostname "DESKTOP-DS0VFGI" \
               --os=win \
               vpn.renins.ru
-            systemctl restart dnsmasq
         ''
       )];
-      environment.etc.hosts.mode = "0644";
       networking.firewall.extraCommands = ''
         iptables -t nat -A POSTROUTING -o job -j MASQUERADE
       '';
       services.dnsmasq.settings = {
+        hostsdir = "/var/lib/dnsmasq/hosts";
         server = [ "/iris.k8s.renins.com/10.50.0.43" "/iris.k8s.renins.com/10.50.0.44" ];
         rebind-domain-ok = "iris.k8s.renins.com";
       };
