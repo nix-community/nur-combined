@@ -510,16 +510,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "91588fb8bb77f840e34c4f7b57df6b961b8592b9";
+    version = "bb61461aad8e43fe8fbc9f266eecd9f0c6249d87";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "91588fb8bb77f840e34c4f7b57df6b961b8592b9";
+      rev = "bb61461aad8e43fe8fbc9f266eecd9f0c6249d87";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-A+2ZmqV8k6XI+dyzjGlviMZlBFomCbmFNQMItKx2eNI=";
+      sha256 = "sha256-vwb33QODFX1S5T7ob/Z1HCZS6NBOzj7G4xHW6sIKNpc=";
     };
-    date = "2023-07-02";
+    date = "2023-07-04";
   };
   wemeet = {
     pname = "wemeet";
