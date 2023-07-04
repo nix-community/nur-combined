@@ -25,7 +25,7 @@ in
       "-X github.com/kong/deck/cmd.COMMIT=${sha}"
     ];
 
-    vendorSha256 = "sha256-brd+gtIHIarMv3l6O6JMDPRFlMwKSLZjBABAvByUC6o=";
+    vendorHash = "sha256-brd+gtIHIarMv3l6O6JMDPRFlMwKSLZjBABAvByUC6o=";
 
     postInstall = ''
       installShellCompletion --cmd deck \
