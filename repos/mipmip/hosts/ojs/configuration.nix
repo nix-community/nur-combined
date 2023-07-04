@@ -23,6 +23,7 @@
     ../../modules/desktop-fonts.nix
     ../../modules/desktop-gnome.nix
     ../../modules/desktop-st.nix
+    ../../modules/desktop-openai.nix
     ../../modules/desktop-video.nix
     ../../modules/desktop-audio.nix
     ../../modules/desktop-virtualbox.nix

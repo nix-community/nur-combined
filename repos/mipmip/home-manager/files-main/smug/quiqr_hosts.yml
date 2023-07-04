@@ -8,11 +8,11 @@ windows:
 
   - name: maanzaad
     commands:
-      - ssh pim@maanzaad.node.poppygo.io
+      - ssh pim@maanzaad.node.quiqr.org
 
   - name: opium
     commands:
-      - ssh pim@opium.node.poppygo.io
+      - ssh pim@opium.node.quiqr.org
 
   - name: pogosite.com
     commands:

@@ -32,6 +32,7 @@
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+  environment.shells = with pkgs; [ zsh ];
 
   users.users.pim = {
     shell = pkgs.zsh;

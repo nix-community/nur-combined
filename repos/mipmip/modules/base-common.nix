@@ -33,10 +33,6 @@
     #help
     cheat
 
-    # data tools
-    sq # Swiss army knife for data
-    jq
-    yj
 
     # GRAPHIC
     imagemagick

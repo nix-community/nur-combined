@@ -19,24 +19,25 @@ if filereadable($HOME."/.i-am-second-brain")
   Plug 'vim-voom/VOoM'
 
   Plug 'tyru/open-browser.vim'
-
-  " MARKDOWN/YAML/ETC
-  Plug 'aserebryakov/vim-todo-lists'
   Plug 'dhruvasagar/vim-table-mode'
 
+  " clean focus on mappings
+  Plug 'SidOfc/mkdx'
+
+  " ----------------off
+
+  " MARKDOWN/YAML/ETC
+  "  Plug 'aserebryakov/vim-todo-lists'
+
   "TOO SLOW
-"  Plug 'godlygeek/tabular'
-"  Plug 'preservim/vim-markdown'
+  "  Plug 'godlygeek/tabular'
+  "  Plug 'preservim/vim-markdown'
 
   " Nice
   " great folding
   " clean
   " lacks promoting headings
   "Plug 'gabrielelana/vim-markdown'
-
-  " clean focus on mappings
-  Plug 'SidOfc/mkdx'
-
   "Plug 'pedrohdz/vim-yaml-folds'
 
   " SNIPPETS
@@ -48,24 +49,17 @@ if filereadable($HOME."/.i-am-second-brain")
 
 endif
 
-" VIM IDE & TWEAKS
-"Plug 'vifm/vifm.vim'
+"" VIM IDE & TWEAKS
 Plug 'airblade/vim-rooter'
 Plug 'vim-scripts/delview'
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'skywind3000/asyncrun.vim'
-"Plug 'severin-lemaignan/vim-minimap'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-"Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
-"Plug 'majutsushi/tagbar'
-"Plug 'simnalamburt/vim-mundo'
-"Plug 'junkblocker/git-time-lapse'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
-"Plug 'jpalardy/vim-slime', { 'branch': 'main' }
 
 Plug 'bkad/camelcasemotion'
 
@@ -74,22 +68,11 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
-"Plug 'thiagoalessio/rainbow_levels.vim'
 Plug 'vim-scripts/argtextobj.vim'
-Plug 'scrooloose/nerdcommenter'
-
-
-" SPECIAL PURPOSE TOOLS
-"Plug 'hrj/vim-DrawIt'
-"Plug 'stevearc/vim-arduino'
-"Plug 'christoomey/vim-tmux-navigator'
 
 " SYNTAX FILES
 Plug 'fatih/vim-go'
 Plug 'LnL7/vim-nix'
-"vim-vue makes it very slow
-"Plug 'posva/vim-vue'
-"Plug 'elmar-hinz/vim.typoscript'
 Plug 'hashivim/vim-terraform'
 Plug 'vim-ruby/vim-ruby'
 Plug 'evanleck/vim-svelte'
@@ -99,39 +82,57 @@ Plug 'google/vim-jsonnet'
 
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'leafgarland/typescript-vim'
 
 Plug 'rhysd/vim-crystal'
-"Plug 'arrufat/vala.vim'
-Plug 'leafgarland/typescript-vim'
+Plug 'nickel-lang/vim-nickel', { 'branch': 'main' }
 Plug 'groenewege/vim-less'
 Plug 'chr4/nginx.vim'
 Plug 'ledger/vim-ledger'
 
 Plug 'ap/vim-css-color'
-"Plug 'RRethy/vim-hexokinase'
+" SPELLING
+Plug 'rhysd/vim-grammarous'
 
+" COLORS
+Plug 'lifepillar/vim-solarized8'
+Plug 'logico/typewriter-vim'
+Plug 'mipmip/vim-whitewriter', { 'branch': 'main' }
+
+
+" ----------------off
+"Plug 'vifm/vifm.vim'
+"Plug 'severin-lemaignan/vim-minimap'
+"Plug 'vim-syntastic/syntastic'
+"Plug 'majutsushi/tagbar'
+"Plug 'simnalamburt/vim-mundo'
+"Plug 'junkblocker/git-time-lapse'
+"Plug 'jpalardy/vim-slime', { 'branch': 'main' }
+"Plug 'thiagoalessio/rainbow_levels.vim'
+"Plug 'scrooloose/nerdcommenter'
+"Plug 'hrj/vim-DrawIt'
+"Plug 'stevearc/vim-arduino'
+"Plug 'christoomey/vim-tmux-navigator'
+"Plug 'posva/vim-vue'
+"Plug 'elmar-hinz/vim.typoscript'
+"Plug 'vmchale/dhall-vim'
+"Plug 'arrufat/vala.vim'
+"Plug 'RRethy/vim-hexokinase'
 "Plug 'morhetz/gruvbox'
-"
 "Plug 'gko/vim-coloresque'
 "Plug 'elzr/vim-json'
 "Plug 'ruby-formatter/rufo-vim'
 "Plug 'kchmck/vim-coffee-script'
 "Plug 'lumiliet/vim-twig'
 "Plug 'mboughaba/i3config.vim'
-
-" SPELLING
-Plug 'rhysd/vim-grammarous'
-
-" COLORS
-"Plug 'altercation/vim-colors-solarized'
-Plug 'lifepillar/vim-solarized8'
-
 "Plug 'vim-scripts/Cleanroom'
 "Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'logico/typewriter-vim'
-Plug 'mipmip/vim-whitewriter', { 'branch': 'main' }
-
+"Plug 'altercation/vim-colors-solarized'
 "Plug 'pbrisbin/vim-colors-off', { 'branch': 'main' }
+
+
+" TOO SLOW
+"Plug 'vim-airline/vim-airline'
 
 
 call plug#end()

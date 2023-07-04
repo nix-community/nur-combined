@@ -19,6 +19,9 @@
     pinentry-gtk2
     pass
 
+    nickel
+    dhall
+
     # AWS
     aws-mfa
     awsweeper

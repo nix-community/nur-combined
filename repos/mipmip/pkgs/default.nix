@@ -11,6 +11,7 @@ let
     #64bit
     crelease                              = pkgs.callPackage ./utils/crelease                               { };
     cryptobox                             = pkgs.callPackage ./utils/cryptobox                              { };
+    mods                                  = pkgs.callPackage ./utils/mods                                   { };
 
     gnome-screenshot                      = pkgs.callPackage ./patched-software/gnome-screenshot            { };
 
