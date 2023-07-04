@@ -49,4 +49,11 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
+
+  meta = with lib; {
+    description = "Database manager for SQLite";
+    homepage = "https://sqlitestudio.pl/";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+  };
 }
