@@ -66,6 +66,9 @@ in
       # Allow any application to send OSC52 escapes to set the clipboard
       set -s set-clipboard on
 
+      # Longer session names in status bar
+      set -g status-left-length 16
+
       ${
         lib.optionalString cfg.enabledPassthrough ''
           # Allow any application to use the tmux DCS for passthrough
