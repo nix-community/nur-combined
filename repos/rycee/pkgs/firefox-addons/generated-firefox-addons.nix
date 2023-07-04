@@ -251,10 +251,10 @@
       };
     "better-tweetdeck" = buildFirefoxXpiAddon {
       pname = "better-tweetdeck";
-      version = "4.11.0";
+      version = "4.11.1";
       addonId = "BetterTweetDeck@erambert.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119907/better_tweetdeck_17-4.11.0.xpi";
-      sha256 = "28067c1326793b1dbf0f2e602c79e16b0b3e8e7a30f21e83a240074b3e828114";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133312/better_tweetdeck_17-4.11.1.xpi";
+      sha256 = "5dc3c9f403016b567f0cd3013665615098bee34e725181a795f1da2dc930f442";
       meta = with lib;
       {
         homepage = "https://better.tw/";
@@ -644,10 +644,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.0.10";
+      version = "1.1.0";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4129285/dearrow-1.0.10.xpi";
-      sha256 = "759abba2dd964b85eb78d1135c3114f2d1970b5c32ea27555a16c68536056f88";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133065/dearrow-1.1.0.xpi";
+      sha256 = "69af17cd9ea7427e99e0adbb8d4e3995ccbe71d858d4d09bc66cf62b2a0a3553";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -853,10 +853,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.117.10";
+      version = "2.0.119";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040535/enhancer_for_youtube-2.0.117.10.xpi";
-      sha256 = "a15758d3c42416575c188cf756dd1f5ce7e0194ebf1055979eff2f21a1bed736";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4131648/enhancer_for_youtube-2.0.119.xpi";
+      sha256 = "8be7094eecf9130222631839422ccad8219d5f76f6fa352c6e7ab3e10d0b6261";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -997,10 +997,10 @@
       };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.63";
+      version = "6.1.64";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4118317/flagfox-6.1.63.xpi";
-      sha256 = "42e33a03bd2e774706b5a8ada2003e180ae1dd197a9019bca7899d2420028e41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132197/flagfox-6.1.64.xpi";
+      sha256 = "22373272060d043043efb42a68833a2155af902ae966c20ffff37bebe7d4aa5e";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -2704,10 +2704,10 @@
       };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.5";
+      version = "6.1.6";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133002/reddit_moderator_toolbox-6.1.5.xpi";
-      sha256 = "c55ce44a59d28a4932dde72b2085e54317fbf695bd684520d6aa65920357b33c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133273/reddit_moderator_toolbox-6.1.6.xpi";
+      sha256 = "d7a980e318ad20ac4e1a9945ca4faad0b74fadbdf122ecd8e8e3e4b9ec381978";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
