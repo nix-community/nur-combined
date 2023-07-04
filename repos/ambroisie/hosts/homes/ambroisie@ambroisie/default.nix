@@ -1,5 +1,5 @@
 # Google Cloudtop configuration
-{ ... }:
+{ lib, pkgs, ... }:
 {
   # Google specific configuration
   home.homeDirectory = "/usr/local/google/home/ambroisie";
@@ -12,4 +12,6 @@
   systemd.user.sessionVariables = {
     LD_PRELOAD = "/lib/x86_64-linux-gnu/libnss_cache.so.2\${LD_PRELOAD:+:}$LD_PRELOAD";
   };
+
+  programs.git.package = lib.mkForce pkgs.empty;
 }
