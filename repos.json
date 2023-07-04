@@ -10,6 +10,9 @@
         "9glenda": {
             "url": "https://github.com/9glenda/nur-packages"
         },
+        "AsterisMono": {
+            "url": "https://github.com/AsterisMono/nur-packages"
+        },
         "Freed-Wu": {
             "url": "https://github.com/Freed-Wu/nur-packages"
         },
@@ -371,6 +374,9 @@
         },
         "joshuafern": {
             "url": "https://github.com/JoshuaFern/nur-package-lab"
+        },
+        "jpts": {
+            "url": "https://github.com/jpts/nur"
         },
         "k0ral": {
             "url": "https://github.com/k0ral/nur-packages"
