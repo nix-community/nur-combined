@@ -33,4 +33,11 @@ python3.pkgs.buildPythonApplication rec {
 
     runHook postInstall
   '';
+
+  meta = with lib; {
+    description = "ADCSKiller is a Python-based tool designed to automate the process of discovering and exploiting Active Directory Certificate Services (ADCS) vulnerabilities. It leverages features of Certipy and Coercer to simplify the process of attacking ADCS infrastructure.";
+    homepage = "https://github.com/grimlockx/ADCSKiller";
+    platforms = platforms.unix;
+    license = licenses.mit;
+  };
 }
