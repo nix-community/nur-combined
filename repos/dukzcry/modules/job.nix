@@ -34,9 +34,7 @@ in {
         pkgs.writeShellScriptBin "openconnect" ''
            ${pkgs.openconnect}/bin/openconnect \
               --background \
-              --script "${vpn-slice}/bin/vpn-slice \
-              msk-vdi-t005.mos.renins.com test.iris.k8s.renins.com wiki.renins.com mytask.renins.com git.mos.renins.com \
-              --prevent-idle-timeout" \
+              --script "${vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com --prevent-idle-timeout" \
               --interface job \
               --user "ALukyanov" \
               --authgroup "xFA" \
@@ -52,14 +50,6 @@ in {
       '';
       services.dnsmasq.settings = {
         hostsdir = "/var/lib/dnsmasq/hosts";
-        server = [ "/iris.k8s.renins.com/10.50.0.43" "/iris.k8s.renins.com/10.50.0.44" ];
-        rebind-domain-ok = "iris.k8s.renins.com";
-      };
-      #services.davmail.enable = true;
-      services.davmail.url = "https://sync2.renins.com/ews/exchange.asmx";
-      services.davmail.config = {
-        davmail.defaultDomain = "mos.renins.com";
-        davmail.allowRemote = true;
       };
     })
   ];
