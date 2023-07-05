@@ -14,6 +14,7 @@ with pkgs; with lib; {
   proton-ge = callPackage ./proton-ge { };
   protonhax = callPackage ./protonhax { };
   reshade-shaders = callPackage ./reshade-shaders { };
+  rpcs3 = libsForQt5.callPackage ./rpcs3 { };
   seadrive-fuse = callPackage ./seadrive-fuse { };
   waydroid-script = callPackage ./waydroid-script { };
 
