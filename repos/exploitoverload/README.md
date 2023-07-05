@@ -56,6 +56,6 @@ hashcat ./hash.txt $(seclists)/Passwords/Leaked-Databases/rockyou.txt
 
 It is also important to mention that rockyou.txt is already extracted, so there is no need to perform this additional step when installing the package.
 
-## Responder
+### Responder
 
 Responder log and database files are stored in the /tmp folder. This is because without implementing a module, it is not possible to write to the NixOS file tree when installing a package, so these necessary files will be generated in that folder.
