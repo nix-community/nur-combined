@@ -17,9 +17,10 @@ buildPythonPackage rec {
     beautifulsoup4
     # portage
   ];
-  # nativeCheckInputs = [
-  #   setuptools-generate
-  # ];
+  nativeCheckInputs = [
+    setuptools
+    # setuptools-generate
+  ];
   pythonImportsCheck = [
     "portage_language_server"
   ];

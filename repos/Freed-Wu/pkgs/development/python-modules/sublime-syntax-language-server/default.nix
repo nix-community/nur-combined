@@ -15,11 +15,12 @@ buildPythonPackage rec {
     platformdirs
     beautifulsoup4
   ];
-  # nativeCheckInputs = [
-  #   setuptools-generate
-  # ];
+  nativeCheckInputs = [
+    setuptools
+    # setuptools-generate
+  ];
   pythonImportsCheck = [
-    "sublime-syntax_language_server"
+    "sublime_syntax_language_server"
   ];
 
   meta = with lib; {

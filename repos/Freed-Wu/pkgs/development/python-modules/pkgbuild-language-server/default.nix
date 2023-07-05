@@ -19,9 +19,10 @@ buildPythonPackage rec {
     pacman
     # pyalpm
   ];
-  # nativeCheckInputs = [
-  #   setuptools-generate
-  # ];
+  nativeCheckInputs = [
+    setuptools
+    # setuptools-generate
+  ];
   pythonImportsCheck = [
     "pkgbuild_language_server"
   ];

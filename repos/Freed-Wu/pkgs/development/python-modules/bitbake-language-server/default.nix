@@ -15,9 +15,10 @@ buildPythonPackage rec {
     platformdirs
     beautifulsoup4
   ];
-  # nativeCheckInputs = [
-  #   setuptools-generate
-  # ];
+  nativeCheckInputs = [
+    setuptools
+    # setuptools-generate
+  ];
   pythonImportsCheck = [
     "bitbake_language_server"
   ];

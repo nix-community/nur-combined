@@ -14,9 +14,10 @@ buildPythonPackage rec {
     pygls
     platformdirs
   ];
-  # nativeCheckInputs = [
-  #   setuptools-generate
-  # ];
+  nativeCheckInputs = [
+    setuptools
+    # setuptools-generate
+  ];
   pythonImportsCheck = [
     "xilinx_language_server"
   ];

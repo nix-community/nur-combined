@@ -18,9 +18,10 @@ buildPythonPackage rec {
     autoconf
     automake
   ];
-  # nativeCheckInputs = [
-  #   setuptools-generate
-  # ];
+  nativeCheckInputs = [
+    setuptools
+    # setuptools-generate
+  ];
   pythonImportsCheck = [
     "autoconf_language_server"
   ];
