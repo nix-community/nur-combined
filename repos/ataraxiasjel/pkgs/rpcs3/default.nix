@@ -80,7 +80,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
-    maintainers = with maintainers; [ abbradar neonfuz ilian zane ];
+    maintainers = with maintainers; [ ataraxiasjel ];
     license = licenses.gpl2Only;
     platforms = [ "x86_64-linux" "aarch64-linux" ];
   };

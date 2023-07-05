@@ -43,7 +43,7 @@ jobs:
     - name: Update packages
       if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
       run: |
-        nix-shell ./update.py --maintainer ataraxiasjel
+        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} nix-shell ./update.py --maintainer ataraxiasjel
     - name: Check evaluation
       run: |
         nix-env -f ./pkgs/default.nix -qa \* --meta --xml \
