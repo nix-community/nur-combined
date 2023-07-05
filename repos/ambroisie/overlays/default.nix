@@ -1,3 +1,3 @@
 {
-  calibre-dedrm = import ./calibre-dedrm;
+  # No overlays
 }
