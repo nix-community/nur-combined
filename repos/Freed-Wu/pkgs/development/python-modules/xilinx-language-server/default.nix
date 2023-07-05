@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://xilinx-language-server.readthedocs.io";
-    description = "xilinx build.sh language server";
+    description = "xilinx vivado/vitis language server";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
