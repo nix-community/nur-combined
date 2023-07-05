@@ -15,10 +15,13 @@ buildPythonPackage rec {
     colorama
     keyring
     langdetect
+    # https://github.com/NixOS/nixpkgs/issues/241694
     # py-notifier
     rich
+    # https://github.com/NixOS/nixpkgs/issues/241696
     # pystardict
     repl-python-wakatime
+    pygls
     pyyaml
   ];
   nativeCheckInputs = [

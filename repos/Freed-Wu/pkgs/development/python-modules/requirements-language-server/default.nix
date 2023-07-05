@@ -14,6 +14,7 @@ buildPythonPackage rec {
     pygls
     platformdirs
     jinja2
+    # https://github.com/NixOS/nixpkgs/issues/241691
     # pip-cache
     pip-tools
   ];
