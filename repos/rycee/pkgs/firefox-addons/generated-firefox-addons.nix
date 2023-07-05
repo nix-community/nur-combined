@@ -249,20 +249,6 @@
         platforms = platforms.all;
         };
       };
-    "better-tweetdeck" = buildFirefoxXpiAddon {
-      pname = "better-tweetdeck";
-      version = "4.11.1";
-      addonId = "BetterTweetDeck@erambert.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133312/better_tweetdeck_17-4.11.1.xpi";
-      sha256 = "5dc3c9f403016b567f0cd3013665615098bee34e725181a795f1da2dc930f442";
-      meta = with lib;
-      {
-        homepage = "https://better.tw/";
-        description = "Improve your experience on TweetDeck web with emojis, thumbnails, and a lot of customization options to make TweetDeck even better for you";
-        license = licenses.mit;
-        platforms = platforms.all;
-        };
-      };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
       version = "7.5.4";
@@ -644,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.0";
+      version = "1.1.1";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133065/dearrow-1.1.0.xpi";
-      sha256 = "69af17cd9ea7427e99e0adbb8d4e3995ccbe71d858d4d09bc66cf62b2a0a3553";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133512/dearrow-1.1.1.xpi";
+      sha256 = "266e7cc657396c5f35ef437a7854f08d7fb6caacc85a73aa42e76972887e835e";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1100,13 +1086,13 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230629.134642";
+      version = "116.0.20230704.81320";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4131781/francais_language_pack-115.0.20230629.134642.xpi";
-      sha256 = "635e26284ed9da36fb0a29af6545a9becd4674e3830243e61219d185f1489b57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133753/francais_language_pack-116.0.20230704.81320.xpi";
+      sha256 = "9ada93b1a87f18eded96ca21e7579535607adab40ab52532be7932c0963a3860";
       meta = with lib;
       {
-        description = "Language pack for Firefox for fr";
+        description = "Firefox Language Pack for Français (fr) – French";
         license = licenses.mpl20;
         platforms = platforms.all;
         };
@@ -1636,10 +1622,10 @@
       };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "6.2.5";
+      version = "7.1.13";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4086343/languagetool-6.2.5.xpi";
-      sha256 = "d17977befe90e9c15b86407668a985587e8fb25aee353c7d47d34b917dec7cd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4128570/languagetool-7.1.13.xpi";
+      sha256 = "e9002ae915c74ff2fe2f986e86a50b0b1617bcd852443e3d5b8e733e476c5808";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
