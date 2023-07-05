@@ -1,8 +1,10 @@
 # docs:
-# - https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/pleroma.nix
-# - https://docs.pleroma.social/backend/configuration/cheatsheet/
+# - <https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/pleroma.nix>
+# - <https://docs.pleroma.social/backend/configuration/cheatsheet/>
+# example config:
+# - <https://git.pleroma.social/pleroma/pleroma/-/blob/develop/config/config.exs>
 #
-# to run it in a oci-container: https://github.com/barrucadu/nixfiles/blob/master/services/pleroma.nix
+# to run it in a oci-container: <https://github.com/barrucadu/nixfiles/blob/master/services/pleroma.nix>
 #
 # admin frontend: <https://fed.uninsane.org/pleroma/admin>
 { config, pkgs, ... }:
@@ -102,6 +104,17 @@ in
 
     config :logger, :ex_syslogger,
       level: :${logLevel}
+
+    # policies => list of message rewriting facilities to be enabled
+    # transparence => whether to publish these rules in node_info (and /about)
+    config :pleroma, :mrf,
+      policies: [Pleroma.Web.ActivityPub.MRF.SimplePolicy],
+      transparency: true
+
+    # reject => { host, reason }
+    config :pleroma, :mrf_simple,
+      reject: [ {"threads.net", "megacorp"}, {"*.threads.net", "megacorp"} ]
+      # reject: [ [host: "threads.net", reason: "megacorp"], [host: "*.threads.net", reason: "megacorp"] ]
 
     # XXX colin: not sure if this actually _does_ anything
     # better to steal emoji from other instances?
