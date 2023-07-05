@@ -351,6 +351,7 @@ lib.makeScope newScope (
     libnbcompat = callPackage ./misc/libnbcompat { };
     md2html = callPackage ./misc/md2html { };
     miband4 = callPackage ./misc/miband4 { };
+    mitzasql = callPackage ./misc/mitzasql { };
     modbus-tools = callPackage ./misc/modbus-tools {
       inherit (darwin.apple_sdk.frameworks) IOKit;
     };
