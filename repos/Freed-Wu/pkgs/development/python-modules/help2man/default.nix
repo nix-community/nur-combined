@@ -22,7 +22,7 @@ buildPythonPackage rec {
     homepage = "https://help2man.readthedocs.io";
     description = "Convert --help and --version to man page";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
   };
 }

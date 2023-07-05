@@ -35,7 +35,7 @@ buildPythonPackage rec {
     homepage = "https://mulimgviewer.readthedocs.io";
     description = "MulimgViewer is a multi-image viewer that can open multiple images in one interface, which is convenient for image comparison and image stitching";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
   };
 }

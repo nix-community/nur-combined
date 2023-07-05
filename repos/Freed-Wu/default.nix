@@ -29,6 +29,14 @@ let
     repl-python-codestats = callPackage ./pkgs/development/python-modules/repl-python-codestats { };
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
+    autoconf-language-server = callPackage ./pkgs/development/python-modules/autoconf-language-server { };
+    bitbake-language-server = callPackage ./pkgs/development/python-modules/bitbake-language-server { };
+    pkgbuild-language-server = callPackage ./pkgs/development/python-modules/pkgbuild-language-server { };
+    portage-language-server = callPackage ./pkgs/development/python-modules/portage-language-server { };
+    requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
+    sublime-syntax-language-server = callPackage ./pkgs/development/python-modules/sublime-syntax-language-server { };
+    termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
+    xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
   };
 in
 myPkgs

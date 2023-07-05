@@ -26,7 +26,7 @@ buildPythonPackage rec {
     homepage = "https://setuptools-generate.readthedocs.io";
     description = "Generate shell completions and man page when building a python package";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
   };
 }

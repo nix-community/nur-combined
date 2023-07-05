@@ -21,7 +21,7 @@ buildPythonPackage rec {
     homepage = "https://repl-python-codestats.readthedocs.io";
     description = "A codestats plugin for python REPLs";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
   };
 }

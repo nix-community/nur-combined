@@ -18,6 +18,38 @@ fetch.pypi = "repl-python-codestats"
 src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"
 
+[autoconf-language-server]
+src.pypi = "autoconf-language-server"
+fetch.pypi = "autoconf-language-server"
+
+[bitbake-language-server]
+src.pypi = "bitbake-language-server"
+fetch.pypi = "bitbake-language-server"
+
+[pkgbuild-language-server]
+src.pypi = "pkgbuild-language-server"
+fetch.pypi = "pkgbuild-language-server"
+
+[portage-language-server]
+src.pypi = "portage-language-server"
+fetch.pypi = "portage-language-server"
+
+[requirements-language-server]
+src.pypi = "requirements-language-server"
+fetch.pypi = "requirements-language-server"
+
+[sublime-syntax-language-server]
+src.pypi = "sublime-syntax-language-server"
+fetch.pypi = "sublime-syntax-language-server"
+
+[termux-language-server]
+src.pypi = "termux-language-server"
+fetch.pypi = "termux-language-server"
+
+[xilinx-language-server]
+src.pypi = "xilinx-language-server"
+fetch.pypi = "xilinx-language-server"
+
 [mulimgviewer]
 src.pypi = "mulimgviewer"
 fetch.pypi = "mulimgviewer"

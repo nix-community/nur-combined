@@ -33,7 +33,7 @@ buildPythonPackage rec {
     homepage = "https://translate-shell.readthedocs.io";
     description = "Translate text by google, bing, youdaozhiyun, haici, stardict, etc at same time from CLI, GUI (GNU/Linux, Android, macOS and Windows), REPL, python, shell and vim";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;
   };
 }
