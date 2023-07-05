@@ -34,7 +34,7 @@ in {
         pkgs.writeShellScriptBin "openconnect" ''
            ${pkgs.openconnect}/bin/openconnect \
               --background \
-              --script "${vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com --prevent-idle-timeout" \
+              --script "${vpn-slice}/bin/vpn-slice msk-vdi-t005.mos.renins.com --prevent-idle-timeout --no-short-names" \
               --interface job \
               --user "ALukyanov" \
               --authgroup "xFA" \
