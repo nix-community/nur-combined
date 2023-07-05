@@ -20,19 +20,21 @@ stdenv.mkDerivation {
     owner = "NVlabs";
     repo = "instant-ngp";
     rev = "e45134b9bcf50d0c04f27bc3ab3cde57c27f5bc8";
-    hash = "sha256-/FAjfmw7GmV7svaFaAQrPXJlfckMM0e1k6aKlJP99V8=";
     fetchSubmodules = true;
     deepClone = true;
   };
 
-  TCNN_CUDA_ARCHITECTURES = 37; # K80
+  # TCNN_CUDA_ARCHITECTURES = 37; # K80
+  TCNN_CUDA_ARCHITECTURES = 86; # K80
 
   patchPhase = ''
     substituteInPlace src/common.cu \
       --replace 'fs::path get_executable_dir() {' "fs::path get_executable_dir() { return \"$out/share/instant-ngp\";"
   '';
 
-  cmakeFlags = [ "-DNGP_BUILD_WITH_GUI=OFF" ];
+  cmakeFlags = [
+    # "-DNGP_BUILD_WITH_GUI=OFF"
+  ];
 
   nativeBuildInputs = [ cmake cudatoolkit addOpenGLRunpath makeWrapper ];
 
