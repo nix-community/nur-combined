@@ -14,6 +14,7 @@
 * psudohash (commit 2d586dec8b5836546ae54b924eb59952a7ee393c)
 * ADCSKiller (commit d74bfea91f24a09df74262998d60f213609b45c6)
 * polenum (1.6.1)
+* maltego (4.4.1)
 
 ## How to install packages - (for testing purposes)
 
@@ -40,3 +41,21 @@ nix-env -q # List installed packages
 
 nix-env -e <package> # Uninstall a package
 ```
+
+## Special package considerations
+
+### seclists
+
+Due to the nature of Nix, the seclists wordlists are stored in a path within the nix store, so it is not possible to store them in the common paths such as /usr/share/wordlists or /usr/share/seclists.
+
+The solution is to create a small binary that returns the path where the seclists repository is located. To use the wordlists, it will be as easy as adding `$(seclists)` inside the tool execution and hitting the `TAB` button. The shell will execute the command and return the seclists path.
+
+```zsh
+hashcat ./hash.txt $(seclists)/Passwords/Leaked-Databases/rockyou.txt
+```
+
+It is also important to mention that rockyou.txt is already extracted, so there is no need to perform this additional step when installing the package.
+
+## Responder
+
+Responder log and database files are stored in the /tmp folder. This is because without implementing a module, it is not possible to write to the NixOS file tree when installing a package, so these necessary files will be generated in that folder.

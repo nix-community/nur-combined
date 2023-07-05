@@ -14,4 +14,5 @@
   psudohash = pkgs.callPackage ./pkgs/psudohash { };
   ADCSKiller = pkgs.callPackage ./pkgs/ADCSKiller { };
   polenum = pkgs.callPackage ./pkgs/polenum { };
+  maltego = pkgs.callPackage ./pkgs/maltego { };
 }
