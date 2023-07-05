@@ -67,7 +67,7 @@ in [
   (fetchpatch' {
     saneCommit = "75149039b6eaf57d8a92164e90aab20eb5d89196";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/211874";
-    hash = "sha256-fftctCx1N/P7yLTRxsHYLHbX+gV/lFpWrWCTtZ2L1Cw=";
+    hash = "sha256-jDXYLlXaEBKMrZ2dgxc6ucrcX/5dtqoIIKw+Ay19vlc=";
   })
 
   # (fetchpatch {
@@ -98,7 +98,7 @@ in [
   # 2023-04-11: bambu-studio: init at 01.06.02.04
   (fetchpatch' {
     prUrl = "https://github.com/NixOS/nixpkgs/pull/206495";
-    hash = "sha256-jl6SZwSDhQTlpM5FyGaFU/svwTb1ySdKtvWMgsneq3A=";
+    hash = "sha256-XG4hvHXmP/wgiKuNRCAfttaGLrg/6mAOr+YvAVmycKQ=";
   })
 
   # (fetchpatch' {
@@ -143,7 +143,7 @@ in [
   (fetchpatch' {
     title = "conky: 1.13.1 -> 1.18.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/217224";
-    hash = "sha256-+g3XhmBt/udhbBDiVyfWnfXKvZTvDurlvPblQ9HYp3s=";
+    hash = "sha256-paNHUbsIBmWRTuSl7stE8INGtENL1ccO9UoDVGJNykM=";
   })
 
   # (fetchpatch' {
@@ -164,7 +164,7 @@ in [
   (fetchpatch' {
     title = "bonsai: init at 1.0.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/233892";
-    hash = "sha256-9XKPNg7TewicfbMgiASpYysTs5aduIVP+4onz+noc/0=";
+    hash = "sha256-HqtDgisbR0xOUY4AxhzEv+2JJMPyQMawKo6nbd9pxhE=";
   })
 
   # make alsa-project members overridable
@@ -196,10 +196,11 @@ in [
   (fetchpatch' {
     title = "koreader: 2023.04 -> 2023.05.1";
     saneCommit = "a5c471bd263abe93e291239e0078ac4255a94262";
-    hash = "sha256-m++Vv/FK7cxONCz6n0MLO3CiKNrRH0ttFmoC1Xmba+A=";
+    hash = "sha256-38sND/UNRj5WAYYKpzdrRBIOK4UAT14RzbIv49KmNNw=";
   })
 
   (fetchpatch' {
+    # TODO: send this upstream!
     title = "mepo: 1.1 -> 1.1.2";
     saneCommit = "eee68d7146a6cd985481cdd8bca52ffb204de423";
     hash = "sha256-uNerTwyFzivTU+o9bEKmNMFceOmy2AKONfKJWI5qkzo=";
@@ -207,6 +208,7 @@ in [
 
   (fetchpatch' {
     title = "gthumb: make the webservices feature be optional";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";
     saneCommit = "50767d5746fd80657e997b43fc5d82ba0c2c2447";
     hash = "sha256-lXuLHdSPhWol9X5QX4cxnZqoVGUWEQTCZLmosvLX+WY=";
   })

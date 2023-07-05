@@ -1,6 +1,10 @@
 ## BUGS
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
-	- else DNS fails
+  - else DNS fails
+- fix port 53 UPnP failures
+  - make one service per forward:
+    - that way one port being bad doesn't take down all of them
+      but i still get `systemctl --failed` status
 
 ## REFACTORING:
 

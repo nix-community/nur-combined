@@ -60,6 +60,12 @@
       mode = "0777";
       directory = "/var/lib/uninsane/media/freeleech";
     }
+    {
+      user = "colin";
+      group = "users";
+      mode = "0777";
+      directory = "/var/lib/uninsane/media/datasets";
+    }
   ];
 
   # in-memory compressed RAM (seems to be dynamically sized)

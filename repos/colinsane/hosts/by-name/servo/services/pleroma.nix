@@ -7,9 +7,12 @@
 # admin frontend: <https://fed.uninsane.org/pleroma/admin>
 { config, pkgs, ... }:
 
+let
+  logLevel = "warn";
+  # logLevel = "debug";
+in
 {
   sane.persist.sys.plaintext = [
-    # TODO: mode? could be more granular
     { user = "pleroma"; group = "pleroma"; directory = "/var/lib/pleroma"; }
   ];
   services.pleroma.enable = true;
@@ -98,8 +101,7 @@
       backends: [{ExSyslogger, :ex_syslogger}]
 
     config :logger, :ex_syslogger,
-      level: :warn
-    #  level: :debug
+      level: :${logLevel}
 
     # XXX colin: not sure if this actually _does_ anything
     # better to steal emoji from other instances?
@@ -152,6 +154,7 @@
     # inherit kTLS;
     locations."/" = {
       proxyPass = "http://127.0.0.1:4000";
+      recommendedProxySettings = true;
       # documented: https://git.pleroma.social/pleroma/pleroma/-/blob/develop/installation/pleroma.nginx
       extraConfig = ''
         # XXX colin: this block is in the nixos examples: i don't understand all of it
@@ -170,17 +173,18 @@
         add_header Referrer-Policy same-origin;
         add_header X-Download-Options noopen;
 
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        # proxy_set_header Host $http_host;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        # proxy_http_version 1.1;
+        # proxy_set_header Upgrade $http_upgrade;
+        # proxy_set_header Connection "upgrade";
+        # # proxy_set_header Host $http_host;
+        # proxy_set_header Host $host;
+        # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
         # colin: added this due to Pleroma complaining in its logs
         # proxy_set_header X-Real-IP $remote_addr;
         # proxy_set_header X-Forwarded-Proto $scheme;
 
+        # NB: this defines the maximum upload size
         client_max_body_size 16m;
       '';
     };
