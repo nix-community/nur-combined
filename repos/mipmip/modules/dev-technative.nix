@@ -19,7 +19,7 @@
     pinentry-gtk2
     pass
 
-    nickel
+    unstable.nickel
     dhall
 
     # AWS

@@ -8,10 +8,10 @@ rustPlatform.buildRustPackage rec {
     owner = "mipmip";
     repo = "mip.rs";
     rev = "c3426cfc391243f08e43465d08e320b64fca0810";
-    hash = "sha256-qsXF0Ya+TNuWFEDMdXRkJHQec6DanD7ZQZNYmT+ijJo=";
+    hash = "sha256-qlt9+cGTciszkRGCrWBoaXL+ocvA98ykGtvMMJRc1Qg=";
   };
 
-  cargoSha256 = "sha256-ih11UIFHQI7H26v1cHjTQMNeD/0L84M6d5bek6mCMsg=";
+  cargoSha256 = "sha256-qsXF0Ya+TNuWFEDMdXRkJHQec6DanD7ZQZNYmT+ijJo=";
 
   nativeBuildInputs = [ pkg-config glib cairo webkitgtk ];
 

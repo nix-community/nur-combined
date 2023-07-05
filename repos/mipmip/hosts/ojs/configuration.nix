@@ -29,6 +29,7 @@
     ../../modules/desktop-virtualbox.nix
     ../../modules/desktop-security.nix
 
+    ../../modules/dev-core.nix
     ../../modules/dev-crystal.nix
     ../../modules/dev-go.nix
     ../../modules/dev-technative.nix
@@ -39,7 +40,6 @@
     ../../modules/hardware-krd_disable-caps.nix
     ../../modules/hardware-printers.nix
 
-    ../../modules/network-wireguard-tracklib.nix
     ../../modules/nix-comma.nix
     ../../modules/nix-common.nix
     ../../modules/nix-desktop.nix
@@ -70,9 +70,9 @@
   };
 
   networking.hostName = "ojs";
-  networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
+  #networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
 
-  systemd.services.NetworkManager-wait-online.enable = false;
+  #systemd.services.NetworkManager-wait-online.enable = false;
 
   networking.firewall.extraCommands = ''
     iptables -A nixos-fw -p tcp --source 192.168.13.0/24 --dport 21:21 -j nixos-fw-accept
@@ -87,19 +87,16 @@
   };
 
   networking.networkmanager.enable = true;
-  networking.useDHCP = false;
-  networking.interfaces.enp10s0.useDHCP = true;
-  networking.interfaces.enp9s0.useDHCP = true;
-  networking.interfaces.wlp0s29f7u5.useDHCP = true;
+  #networking.useDHCP = false;
+  #networking.interfaces.enp10s0.useDHCP = true;
+  #networking.interfaces.enp9s0.useDHCP = true;
+  #networking.interfaces.wlp0s29f7u5.useDHCP = true;
 
-  networking.interfaces.wlp13s0.wakeOnLan.enable = true;
+  #networking.interfaces.wlp13s0.wakeOnLan.enable = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.broadcom_sta
-  ];
 
   system.stateVersion = "22.05";
 }

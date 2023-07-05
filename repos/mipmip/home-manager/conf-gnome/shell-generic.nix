@@ -8,11 +8,11 @@
 
       favorite-apps = [
         "nemo.desktop"
-        "org.gnome.Evolution.desktop"
+#        "org.gnome.Evolution.desktop"
         "firefox.desktop"
         "Alacritty.desktop"
-        "virtualbox.desktop"
-        "org.gnome.Calendar.desktop"
+#        "virtualbox.desktop"
+#        "org.gnome.Calendar.desktop"
         "org.inkscape.Inkscape.desktop" ];
     };
 

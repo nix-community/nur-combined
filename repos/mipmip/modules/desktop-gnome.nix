@@ -10,7 +10,7 @@
     gnome-music
     gedit # text editor
     #epiphany # web browser
-    #geary # email reader
+    geary # email reader
     #gnome-characters
     tali # poker game
     iagno # go game
