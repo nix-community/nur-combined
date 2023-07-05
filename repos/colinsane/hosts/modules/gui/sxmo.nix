@@ -47,6 +47,14 @@
 
 let
   cfg = config.sane.gui.sxmo;
+  knownKeyboards = {
+    # map keyboard package name -> name of binary to invoke
+    wvkbd = "wvkbd-mobintl";
+    svkbd = "svkbd-mobile-intl";
+  };
+  knownTerminals = {
+    vte = "vte-2.91";
+  };
 in
 {
   options = with lib; {
@@ -132,9 +140,9 @@ in
     {
       # TODO: lift to option declaration
       sane.gui.sxmo.settings.TERMCMD = lib.mkIf (cfg.terminal != null)
-        (lib.mkDefault (if cfg.terminal == "vte" then "vte-2.91" else cfg.terminal));
+        (lib.mkDefault (knownTerminals."${cfg.terminal}" or cfg.terminal));
       sane.gui.sxmo.settings.KEYBOARD = lib.mkIf (cfg.keyboard != null)
-        (lib.mkDefault (if cfg.keyboard == "wvkbd" then "wvkbd-mobintl" else cfg.keyboard));
+        (lib.mkDefault (knownKeyboards."${cfg.keyboard}" or cfg.keyboard));
     }
 
     (lib.mkIf cfg.enable {

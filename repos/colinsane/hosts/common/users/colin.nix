@@ -68,6 +68,7 @@
       "ref"
       "tmp"
       "use"
+      "Books"
       "Music"
       "Pictures"
       "Videos"

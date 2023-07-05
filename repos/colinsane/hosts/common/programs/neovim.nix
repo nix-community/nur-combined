@@ -76,7 +76,7 @@ let
     }
   ];
   plugin-packages = map (p: p.plugin) plugins;
-  plugin-config-tex = concatMapStrings (p: optionalString (p.type or "" == "viml") p.config) plugins;
+  plugin-config-viml = concatMapStrings (p: optionalString (p.type or "" == "viml") p.config) plugins;
   plugin-config-lua = concatMapStrings (p: optionalString (p.type or "" == "lua") p.config) plugins;
 in
 {
@@ -94,7 +94,7 @@ in
     viAlias = true;
     vimAlias = true;
     configure = {
-      packages.myVimPackage = {
+      packages.plugins = {
         start = plugin-packages;
       };
       customRC = ''
@@ -130,8 +130,8 @@ in
         set list
         set listchars=tab:▷\·,trail:·,extends:◣,precedes:◢,nbsp:○
 
-        """"" PLUGIN CONFIG (tex)
-        ${plugin-config-tex}
+        """"" PLUGIN CONFIG (vim)
+        ${plugin-config-viml}
 
         """"" PLUGIN CONFIG (lua)
         lua <<EOF

@@ -12,7 +12,22 @@
       SXMO_ROTATION_GRAVITY = "12800";
       SXMO_LOCK_IDLE_TIME = "15";  # how long between screenoff -> lock -> back to screenoff
       DEFAULT_COUNTRY = "US";
-      BROWSWER = "librewolf";
+      # wvkbd layers:
+      # - full
+      # - landscape
+      # - special  (e.g. coding symbols like ~)
+      # - emoji
+      # - nav
+      # - simple  (like landscape, but no parens/tab/etc; even fewer chars)
+      # - simplegrid  (simple, but grid layout)
+      # - dialer  (digits)
+      # - cyrillic
+      # - arabic
+      # - persian
+      # - greek
+      # - georgian
+      WVKBD_LAYERS = "full,special,emoji";
+      WVKBD_LANDSCAPE_LAYERS = "landscape,special,emoji";
     };
     package = pkgs.sxmo-utils.overrideAttrs (base: {
       postPatch = (base.postPatch or "") + ''

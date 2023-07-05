@@ -10,6 +10,7 @@
     ./gnome-feeds.nix
     ./gpodder.nix
     ./gthumb.nix
+    ./helix.nix
     ./imagemagick.nix
     ./jellyfin-media-player.nix
     ./kitty

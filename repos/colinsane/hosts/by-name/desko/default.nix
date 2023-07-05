@@ -26,6 +26,7 @@
 
   sane.programs.guiApps.suggestedPrograms = [ "desktopGuiApps" ];
   sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" ];
+  sane.programs.devPkgs.enableFor.user.colin = true;
 
   boot.loader.efi.canTouchEfiVariables = false;
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];

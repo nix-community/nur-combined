@@ -171,13 +171,17 @@ in
           # see for an example: <https://filipe.kiss.ink/zmv-zsh-rename/>
           autoload -Uz zmv
 
-          HISTORY_IGNORE='(sane-shutdown *|sane-reboot *|rm *|nixos-rebuild.* switch)'
+          HISTORY_IGNORE='(sane-shutdown *|sane-reboot *|rm *|nixos-rebuild.* switch|switch)'
 
           # extra aliases
           # TODO: move to `shellAliases` config?
           function nd() {
             mkdir -p "$1";
             pushd "$1";
+          }
+
+          function switch() {
+            sudo nixos-rebuild --flake . switch;
           }
         '';
 
