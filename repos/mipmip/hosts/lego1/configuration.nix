@@ -28,7 +28,7 @@
       ../../modules/desktop-gnome.nix
       ../../modules/desktop-st.nix
       ../../modules/desktop-video.nix
-      ../../modules/desktop-virtualbox.nix
+#      ../../modules/desktop-virtualbox.nix
       ../../modules/desktop-security.nix
 
       ../../modules/dev-core.nix
