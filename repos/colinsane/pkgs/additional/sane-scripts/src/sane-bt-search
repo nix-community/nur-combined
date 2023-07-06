@@ -11,7 +11,7 @@ options:
   --full     display all results
   --help     show this help message and exit
   --json     output one json document instead of a human-readable table
-  --top <n>  show the <n> top rated torrents (default: 5)
+  --top=<n>  show the <n> top rated torrents (default: 5)
   --verbose  show more information, useful for debugging/development
 """
 

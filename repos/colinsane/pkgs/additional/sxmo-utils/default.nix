@@ -81,18 +81,18 @@ stdenv.mkDerivation rec {
 
   patches = [
     # needed for basic use:
-    ./0001-group-differs-from-user.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
-    ./0002-ensure-log-dir.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
+    ./0001-group-differs-from-user.patch  # merged upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
+    ./0002-ensure-log-dir.patch  # merged upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
     ./0003-fix-xkb-paths.patch
     ./0004-no-busybox.patch
     # wanted to fix/silence some non-fatal errors
     ./0005-system-audio.patch
-    ./0006-block-suspend-any-mpris.patch
+    ./0006-block-suspend-any-mpris.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42441>
 
     # personal (but upstreamable) preferences:
     ./0104-full-auto-rotate.patch
     ./0105-more-apps.patch
-    ./0106-configurable-auto-screenoff.patch
+    ./0106-configurable-auto-screenoff.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42443>
   ];
 
   postPatch = ''
