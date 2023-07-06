@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   stdenv,
   fetchFromGitHub,
@@ -18,9 +17,11 @@ stdenv.mkDerivation rec {
   };
 
   #
-  # TODO: Find out why using `libvterm` throws an error, while `libvterm-neovim` does not.
+  # It seems to be the correct way to use `libvterm-neovim` instead of `libvterm`.
   #
-  nativeBuildInputs = [libtickit libvterm-neovim];
+  # See: https://discourse.nixos.org/t/how-to-compile-a-program-that-includes-vterm-h/14668
+  #
+  buildInputs = [libtickit libvterm-neovim];
 
   makeFlags = ["PREFIX=$(out)"];
 
