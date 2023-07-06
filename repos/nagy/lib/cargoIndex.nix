@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 rec {
 
@@ -11,8 +11,8 @@ rec {
 
   cargoCratesIoRegistryGit = pkgs.fetchgit {
     url = "https://github.com/rust-lang/crates.io-index";
-    rev = "7999b6f424a56b0bc37fec2bbb2a439a0cb07961";
-    sha256 = "sha256-akz1dPwvhFNaFa0JuKqvl8Mby9B5NFE64nVZSDTKCRc=";
+    rev = "79d5c20daee3bf107616e0c802779bd66b80a266";
+    hash = "sha256-mngh0XvY5UBiEKGR9sqS1dddRhQ6RS8titPtGq0cNkY=";
   };
 
   cargoCratesIoRegistry = pkgs.linkFarm "crates.io-index" [{
@@ -61,11 +61,15 @@ rec {
       mv Cargo.* $pname.rs $out/
     '';
 
-  mkRustScript = { file, pname ? "main", version ? "0.0.1" }:
+  mkRustScript =
+    { file, name ? lib.removeSuffix ".rs" (builtins.baseNameOf file) }:
     pkgs.rustPlatform.buildRustPackage rec {
-      inherit pname version;
-      src = mkRustScriptDir { inherit file pname; };
-      lockFile = "${src}/Cargo.lock";
+      inherit name;
+      src = mkRustScriptDir {
+        inherit file;
+        pname = name;
+      };
+      lockFile = src + "/Cargo.lock";
       postPatch = ''
         cp $lockFile Cargo.lock
       '';
