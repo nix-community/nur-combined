@@ -12,6 +12,7 @@
   pkcs11-provider = pkgs.callPackage ./pkgs/pkcs11-provider.nix {};
   sea-orm-cli = pkgs.callPackage ./pkgs/sea-orm-cli {};
   swayaudioidleinhibit = pkgs.callPackage ./pkgs/swayaudioidleinhibit.nix {};
+  synapse-find-unreferenced-state-groups = pkgs.callPackage ./pkgs/synapse-find-unreferenced-state-groups.nix {};
 
   # override because of https://github.com/Alexays/Waybar/issues/1945
   # was fixed in https://github.com/Alexays/Waybar/commit/02b3c125a111f879d6de3aa1090e1a9900632b20
