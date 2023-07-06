@@ -239,10 +239,10 @@
       apps."x86_64-linux" =
         let
           pkgs = self.legacyPackages."x86_64-linux";
-          deployScript = action: pkgs.writeShellScript "deploy-moby" ''
-            nixos-rebuild --flake '.#moby' build $@
+          deployScript = host: action: pkgs.writeShellScript "deploy-moby" ''
+            nixos-rebuild --flake '.#${host}' build $@
             sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result)
-            nixos-rebuild --flake '.#moby' ${action} --target-host colin@moby --use-remote-sudo $@
+            nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${host} --use-remote-sudo $@
           '';
         in {
           update-feeds = {
@@ -259,12 +259,17 @@
           deploy-moby-test = {
             # `nix run '.#deploy-moby-test'`
             type = "app";
-            program = ''${deployScript "test"}'';
+            program = ''${deployScript "moby" "test"}'';
           };
           deploy-moby = {
-            # `nix run '.#deploy-moby-switch'`
+            # `nix run '.#deploy-moby'`
             type = "app";
-            program = ''${deployScript "switch"}'';
+            program = ''${deployScript "moby" "switch"}'';
+          };
+          deploy-servo = {
+            # `nix run '.#deploy-servo'`
+            type = "app";
+            program = ''${deployScript "servo" "switch"}'';
           };
 
           check-nur = {
