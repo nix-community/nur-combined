@@ -1,4 +1,4 @@
-{ rustPlatform, fetchFromGitHub, bash, lib }:
+{ rustPlatform, fetchFromGitHub, bash, lib, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "catp";
@@ -17,6 +17,8 @@ rustPlatform.buildRustPackage rec {
   preCheck = ''
     patchShebangs tests/scripts/*
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Print the output of a running process";

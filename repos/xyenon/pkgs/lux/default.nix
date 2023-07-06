@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoModule, nix-update-script }:
 
 let
   pname = "lux";
@@ -16,6 +16,8 @@ buildGoModule {
 
   vendorSha256 = "sha256-7wgGJYiIsVTRSuSb4a9LgYCkkayGhNMKqcIKoDxMuAM=";
   subPackages = [ "." ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Fast and simple video download library and CLI tool written in Go";

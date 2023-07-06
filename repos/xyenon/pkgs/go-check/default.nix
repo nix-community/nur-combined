@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoModule, unstableGitUpdater }:
 
 let
   pname = "go-check";
@@ -16,6 +16,8 @@ buildGoModule {
 
   vendorHash = "sha256-P91+lPalXhkZgFuMBjTUDp2zgksOkF2G9rqnHZWSDYo=";
   subPackages = [ "." ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "Check for outdated go module";
