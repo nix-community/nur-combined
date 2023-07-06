@@ -2565,10 +2565,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.2.5";
+      version = "1.3.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4131621/proton_pass-1.2.5.xpi";
-      sha256 = "a8d331fe69c1636998027d893867707503acc11197e10a5229aca58618aa3d72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134284/proton_pass-1.3.0.xpi";
+      sha256 = "c41434758e1323230b819e7cd778e062e795e413a491d07c906ede72da44c440";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -3010,10 +3010,10 @@
       };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.6.7";
+      version = "3.6.8";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4128503/steam_database-3.6.7.xpi";
-      sha256 = "44a2d00113c7523e08f03445e4983e9fd3e5f295ba096c7e5946a934c322450f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132639/steam_database-3.6.8.xpi";
+      sha256 = "9f2a8c212739ac0587465dce11fa8f731fd317871e7a8b742e4dafb669538aa3";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -3572,10 +3572,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.3.2";
+      version = "1.3.3";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132684/vencord_web-1.3.2.xpi";
-      sha256 = "299fde88ddf4884eded4c9566fbaf7be5388849614343beced9e09082f7413c1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134418/vencord_web-1.3.3.xpi";
+      sha256 = "311f426d1ddb6221c49eaf12a8c054f695f7f7f29d3b0db95b36f5bf66554756";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
