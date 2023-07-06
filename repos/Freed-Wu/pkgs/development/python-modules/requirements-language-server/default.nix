@@ -1,7 +1,7 @@
 { mySources
 , python3
 , lib
-  # , setuptools-generate
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -19,8 +19,7 @@ buildPythonPackage rec {
     pip-tools
   ];
   nativeCheckInputs = [
-    setuptools
-    # setuptools-generate
+    setuptools-generate
   ];
   pythonImportsCheck = [
     "requirements_language_server"

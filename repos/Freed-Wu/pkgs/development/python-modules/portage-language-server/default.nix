@@ -1,7 +1,7 @@
 { mySources
 , python3
 , lib
-  # , setuptools-generate
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -15,11 +15,11 @@ buildPythonPackage rec {
     platformdirs
     pypandoc
     beautifulsoup4
+    # https://github.com/NixOS/nixpkgs/issues/238970
     # portage
   ];
   nativeCheckInputs = [
-    setuptools
-    # setuptools-generate
+    setuptools-generate
   ];
   pythonImportsCheck = [
     "portage_language_server"

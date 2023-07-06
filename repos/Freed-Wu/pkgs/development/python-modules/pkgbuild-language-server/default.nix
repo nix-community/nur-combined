@@ -2,7 +2,7 @@
 , python3
 , lib
 , pacman
-  # , setuptools-generate
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -17,11 +17,13 @@ buildPythonPackage rec {
     pypandoc
     markdown-it-py
     pacman
+    # https://github.com/NixOS/nixpkgs/issues/241910
     # pyalpm
+    # https://github.com/NixOS/nixpkgs/issues/241911
+    # namcap
   ];
   nativeCheckInputs = [
-    setuptools
-    # setuptools-generate
+    setuptools-generate
   ];
   pythonImportsCheck = [
     "pkgbuild_language_server"

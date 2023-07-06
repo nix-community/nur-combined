@@ -1,7 +1,7 @@
 { mySources
 , python3
 , lib
-  # , setuptools-generate
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -15,8 +15,7 @@ buildPythonPackage rec {
     platformdirs
   ];
   nativeCheckInputs = [
-    setuptools
-    # setuptools-generate
+    setuptools-generate
   ];
   pythonImportsCheck = [
     "xilinx_language_server"

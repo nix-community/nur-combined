@@ -1,7 +1,7 @@
 { mySources
 , python3
 , lib
-  # , setuptools-generate
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -16,8 +16,7 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
   nativeCheckInputs = [
-    setuptools
-    # setuptools-generate
+    setuptools-generate
   ];
   pythonImportsCheck = [
     "termux_language_server"

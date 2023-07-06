@@ -3,7 +3,7 @@
 , lib
 , autoconf
 , automake
-  # , setuptools-generate
+, setuptools-generate
 }:
 
 with python3.pkgs;
@@ -19,8 +19,7 @@ buildPythonPackage rec {
     automake
   ];
   nativeCheckInputs = [
-    setuptools
-    # setuptools-generate
+    setuptools-generate
   ];
   pythonImportsCheck = [
     "autoconf_language_server"

@@ -3,18 +3,18 @@
 {
   autoconf-language-server = {
     pname = "autoconf-language-server";
-    version = "0.0.6";
+    version = "0.0.7";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/a/autoconf-language-server/autoconf-language-server-0.0.6.tar.gz";
-      sha256 = "sha256-LpqOFSAPgw3roaocDRQpajPyt+twvce4KY/kZD9xAY4=";
+      url = "https://pypi.org/packages/source/a/autoconf-language-server/autoconf-language-server-0.0.7.tar.gz";
+      sha256 = "sha256-GQ2//FHdvdAseK9mZCp/IZnN/fT3tomGkbuCfFriV7U=";
     };
   };
   bitbake-language-server = {
     pname = "bitbake-language-server";
-    version = "0.0.3";
+    version = "0.0.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/b/bitbake-language-server/bitbake-language-server-0.0.3.tar.gz";
-      sha256 = "sha256-WMUDeB3XNnY4kscnRZT6ZDLq6Tk1fvA3l8hnUbY+c+0=";
+      url = "https://pypi.org/packages/source/b/bitbake-language-server/bitbake-language-server-0.0.4.tar.gz";
+      sha256 = "sha256-ZJaaGUNsLAcDyN/aBlXcYocFGO/EmkOotJ+iJMO2x2I=";
     };
   };
   g3kb-switch = {
@@ -46,18 +46,18 @@
   };
   pkgbuild-language-server = {
     pname = "pkgbuild-language-server";
-    version = "0.0.5";
+    version = "0.0.6";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/pkgbuild-language-server/pkgbuild-language-server-0.0.5.tar.gz";
-      sha256 = "sha256-jLceOFBWXGQy3XDePFqc2HT7zbGSjEXnPvl9Op0i2Gc=";
+      url = "https://pypi.org/packages/source/p/pkgbuild-language-server/pkgbuild-language-server-0.0.6.tar.gz";
+      sha256 = "sha256-k0XrdeKTOwxAvAkxjwVBmRv+SVv1toTyvnW4vXcwrWQ=";
     };
   };
   portage-language-server = {
     pname = "portage-language-server";
-    version = "0.0.1";
+    version = "0.0.2";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/p/portage-language-server/portage-language-server-0.0.1.tar.gz";
-      sha256 = "sha256-cTUaN9asTZaM8qQZUaxWMM+hGe+JepGe0jAmfE/yWe8=";
+      url = "https://pypi.org/packages/source/p/portage-language-server/portage-language-server-0.0.2.tar.gz";
+      sha256 = "sha256-CkshjHfjJFSJJT1lbRB1kqBz2VKMErae1Plz4Q69XVg=";
     };
   };
   repl-python-codestats = {
@@ -78,10 +78,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.0.3";
+    version = "0.0.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.3.tar.gz";
-      sha256 = "sha256-Qwt6dda2oElbutL9fF9JAvrDL1RnAnXO+YB0EGbjatY=";
+      url = "https://pypi.org/packages/source/r/requirements-language-server/requirements-language-server-0.0.4.tar.gz";
+      sha256 = "sha256-Xr57hhbZ+oxfC6afOMGuyd6Ov2rNMzQf1UI2RpwltAs=";
     };
   };
   setuptools-generate = {
@@ -94,18 +94,18 @@
   };
   sublime-syntax-language-server = {
     pname = "sublime-syntax-language-server";
-    version = "0.0.2";
+    version = "0.0.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/s/sublime-syntax-language-server/sublime-syntax-language-server-0.0.2.tar.gz";
-      sha256 = "sha256-ZSm0HYbBSiJfwppgI0+vJaUVoLWqnPrrNhB6sBAGBBs=";
+      url = "https://pypi.org/packages/source/s/sublime-syntax-language-server/sublime-syntax-language-server-0.0.3.tar.gz";
+      sha256 = "sha256-4nZoq0IwI4e1OaS6J23aUdzE8Cy9LQ/quTEA2TYyYvU=";
     };
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.0.1";
+    version = "0.0.2";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux-language-server/termux-language-server-0.0.1.tar.gz";
-      sha256 = "sha256-5nYjterfStWmDsdvG9UMmWWU83FQxKZhFs0piJu/mxc=";
+      url = "https://pypi.org/packages/source/t/termux-language-server/termux-language-server-0.0.2.tar.gz";
+      sha256 = "sha256-6KI9nV2tLb0VNyZCe4SeQXUYmO4mSZgtg98l0m7RX1E=";
     };
   };
   translate-shell = {
@@ -118,10 +118,10 @@
   };
   xilinx-language-server = {
     pname = "xilinx-language-server";
-    version = "0.0.3";
+    version = "0.0.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/x/xilinx-language-server/xilinx-language-server-0.0.3.tar.gz";
-      sha256 = "sha256-0AvYvx11bilHKumPkgyhjtlczKAwq8jpcZmPfxAuwRM=";
+      url = "https://pypi.org/packages/source/x/xilinx-language-server/xilinx-language-server-0.0.4.tar.gz";
+      sha256 = "sha256-Qs2/RO4i0WHm4dmZh6iHmCLGkgTPLIBErc1n8YRvuk8=";
     };
   };
 }
