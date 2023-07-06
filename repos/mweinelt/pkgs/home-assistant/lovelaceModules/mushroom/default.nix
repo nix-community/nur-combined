@@ -1,23 +1,24 @@
 { lib
-, stdenv
-, fetchurl
+, buildNpmPackage
+, fetchFromGitHub
 }:
 
-stdenv.mkDerivation rec {
+buildNpmPackage rec {
   pname = "mushroom";
-  version = "2.8.1";
+  version = "3.0.0";
 
-  src = fetchurl {
-    url = "https://github.com/piitaya/lovelace-mushroom/releases/download/v${version}/mushroom.js";
-    hash = "sha256-ghu3VS6rYXFi0PGLk+zURrpf0jIaS6269oSOAYEucPQ=";
+  src = fetchFromGitHub {
+    owner = "piitaya";
+    repo = "lovelace-mushroom";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-DbYNVcOg8tPE9VfDPl/Mz0cyDqPzeFyAccqRtuvy1Eo=";
   };
 
-  dontUnpack = true;
-  dontBuild = true;
+  npmDepsHash = "sha256-dmfCrLcoCAVTyge8ROT4TUf9tNju3kVEsCrO5syd2Bc=";
 
   installPhase = ''
     mkdir $out
-    cp -v $src $out/mushroom.js
+    install -m0644 dist/mushroom.js $out
   '';
 
   meta = with lib; {
