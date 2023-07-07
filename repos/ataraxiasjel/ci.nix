@@ -45,7 +45,8 @@ let
 
 in
 rec {
-  allPkgs = pkgsAttrNames;
+  # TODO: recurse into roundcubePlugins
+  allPkgs = (filter (n: n != "roundcubePlugins") pkgsAttrNames);
   
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;
