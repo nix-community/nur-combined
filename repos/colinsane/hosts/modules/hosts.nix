@@ -26,6 +26,11 @@ let
           e.g. "ssh-ed25519 AAAA<base64>".
         '';
       };
+      ssh.authorized = mkOption {
+        type = types.bool;
+        default = true;
+        description = "make this host's ssh key be an authorized_key for the system being deployed to";
+      };
       wg-home.pubkey = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -92,6 +97,7 @@ in
     };
 
     sane.hosts.by-name."moby" = {
+      ssh.authorized = lib.mkDefault false;  # moby's too easy to hijack: don't let it ssh places
       ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICrR+gePnl0nV/vy7I5BzrGeyVL+9eOuXHU1yNE3uCwU";
       ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1N/IT3nQYUD+dBlU1sTEEVMxfOyMkrrDeyHcYgnJvw";
       wg-home.pubkey = "I7XIR1hm8bIzAtcAvbhWOwIAabGkuEvbWH/3kyIB1yA=";
@@ -100,6 +106,7 @@ in
     };
 
     sane.hosts.by-name."servo" = {
+      ssh.authorized = lib.mkDefault false;  # servo presents too many services to the internet: easy atack vector
       ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPS1qFzKurAdB9blkWomq8gI1g0T3sTs9LsmFOj5VtqX";
       ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOfdSmFkrVT6DhpgvFeQKm3Fh9VKZ9DbLYOPOJWYQ0E8";
       wg-home.pubkey = "roAw+IUFVtdpCcqa4khB385Qcv9l5JAB//730tyK4Wk=";

@@ -2,7 +2,6 @@
 
 let
   inherit (builtins) attrValues head map mapAttrs tail;
-  inherit (lib) concatStringsSep mkMerge reverseList;
 in
 {
   sane.ssh.pubkeys =
@@ -10,9 +9,9 @@ in
     # path is a DNS-style path like [ "org" "uninsane" "root" ]
     keyNameForPath = path:
       let
-        rev = reverseList path;
+        rev = lib.reverseList path;
         name = head rev;
-        host = concatStringsSep "." (tail rev);
+        host = lib.concatStringsSep "." (tail rev);
       in
       "${name}@${host}";
 
@@ -23,9 +22,10 @@ in
       (name: {
         inherit name;
         value = {
-          colin = hostCfg.ssh.user_pubkey;
           root = hostCfg.ssh.host_pubkey;
-        };
+        } // (lib.optionalAttrs hostCfg.ssh.authorized {
+          colin = hostCfg.ssh.user_pubkey;
+        });
       })
       hostCfg.names
     ;
@@ -34,7 +34,7 @@ in
         map keysForHost (builtins.attrValues config.sane.hosts.by-name)
       )
     );
-  in mkMerge (map
+  in lib.mkMerge (map
     ({ path, value }: {
       "${keyNameForPath path}" = lib.mkIf (value != null) value;
     })
