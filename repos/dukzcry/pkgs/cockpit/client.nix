@@ -1,5 +1,5 @@
 { lib, stdenv, fetchzip, pkg-config, glib, systemd, json-glib, gnutls, krb5, pam, libxcrypt, python3
-, python3Packages, wrapGAppsHook, gobject-introspection, webkitgtk, coreutils, openssh }:
+, python3Packages, wrapGAppsHook, gobject-introspection, webkitgtk, coreutils, openssh, getent }:
 
 stdenv.mkDerivation rec {
   pname = "cockpit-client";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     "--with-systemdunitdir=$(out)/lib/systemd/system"
   ];
   nativeBuildInputs = [
-    pkg-config python3 python3Packages.wrapPython wrapGAppsHook gobject-introspection
+    pkg-config python3 python3Packages.wrapPython wrapGAppsHook gobject-introspection getent
   ];
   buildInputs = [
     glib systemd json-glib gnutls krb5 pam libxcrypt webkitgtk
