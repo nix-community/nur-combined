@@ -26,7 +26,7 @@ _:
 
   fileSystems."/" =
     {
-      device = "/dev/mmcblk1p2";
+      device = "/dev/disk/by-uuid/9055a2e6-e4f6-4cb1-bf0e-606b1f1a88ff";
       fsType = "btrfs";
     };
 
