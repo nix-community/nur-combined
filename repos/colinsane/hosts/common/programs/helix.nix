@@ -4,6 +4,9 @@
 { ... }:
 {
   sane.programs.helix = {
-    persist.plaintext = [ ".config/helix/runtime/grammars" ];
+    # grammars need to be persisted when developing them
+    # - `hx --grammar fetch` and `hx --grammar build`
+    # but otherwise, they ship as part of HELIX_RUNTIME, in the nix store
+    # persist.plaintext = [ ".config/helix/runtime/grammars" ];
   };
 }

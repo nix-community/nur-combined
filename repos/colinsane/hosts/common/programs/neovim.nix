@@ -14,7 +14,12 @@ let
       # docs: https://github.com/nvim-treesitter/nvim-treesitter
       # config taken from: https://github.com/i077/system/blob/master/modules/home/neovim/default.nix
       # this is required for tree-sitter to even highlight
-      plugin = nvim-treesitter.withAllGrammars;
+      plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [
+        # XXX: this is apparently not enough to enable syntax highlighting!
+        # nvim-treesitter ships its own queries which may be distinct from e.g. helix.
+        # the queries aren't included when i ship the grammar in this manner
+        pkgs.tree-sitter-nix-shell
+      ]);
       type = "lua";
       config = ''
         require'nvim-treesitter.configs'.setup {

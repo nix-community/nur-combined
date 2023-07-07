@@ -46,6 +46,7 @@ let
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
     sxmo-utils = callPackage ./additional/sxmo-utils { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
+    tree-sitter-nix-shell = callPackage ./additional/tree-sitter-nix-shell { };
     unftp = callPackage ./additional/unftp { };
     xdg-terminal-exec = callPackage ./additional/xdg-terminal-exec { };
     zecwallet-light-cli = callPackage ./additional/zecwallet-light-cli { };
@@ -95,6 +96,8 @@ let
     });
 
     gocryptfs = callPackage ./patched/gocryptfs { inherit (unpatched) gocryptfs; };
+
+    helix = callPackage ./patched/helix { inherit (unpatched) helix; };
 
     # jackett doesn't allow customization of the bind address: this will probably always be here.
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
