@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
 
 
   meta = with lib; {
-    description = "Generic header-only C++14 sorting library.";
-    homepage = "https://github.com/Morwenn/cpp-sort";
-    license = licenses.mit;
+    description = "Small binding library that exposes C++ types in Python and vice versa";
+    homepage = "https://github.com/wjakob/nanobind";
+    license = licenses.bsd3;
     platforms = platforms.all;
     #maintainers = with maintainers; [ foolnotion ];
   };
