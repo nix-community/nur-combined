@@ -1,7 +1,10 @@
 { pkgs ? null }: (args: let
-  pkgs = if (builtins.tryEval args.pkgs).success && args.pkgs != null
+  pkgsPassed = (builtins.tryEval args.pkgs).success && args.pkgs != null;
+  pkgs = if pkgsPassed
     then args.pkgs
-    else import (import ./flake-compat.nix).inputs.nixpkgs {};
+    else import (import ./flake-compat.nix).inputs.nixpkgs {
+      config = import ./nixpkgs-config.nix;
+    };
 in with pkgs; rec {
   modules = import ./modules;
 
@@ -44,8 +47,6 @@ in with pkgs; rec {
     jemalloc = (jemalloc.override { stdenv = clangStdenv; }).overrideAttrs(_: {
       doCheck = false;
     });
-
-    abseil-cpp = abseil-cpp_202111;
   };
 
   kotatogram-desktop-with-webkit = callPackage ./pkgs/kotatogram-desktop/with-webkit.nix {
@@ -77,7 +78,18 @@ in with pkgs; rec {
 
   silver = callPackage ./pkgs/silver {};
 
-  ttf-croscore = noto-fonts.overrideAttrs(oldAttrs: {
+  virtualboxWithExtpack = virtualbox.override {
+    enableHardening = true;
+    extensionPack = virtualboxExtpack;
+  };
+
+  #wlcs = callPackage ./pkgs/wlcs {};
+
+  wlrootsqt = libsForQt5.callPackage ./pkgs/wlrootsqt {};
+} // lib.optionalAttrs (!pkgsPassed) {
+  ttf-croscore = (import (import ./flake-compat.nix).inputs.nixpkgs-croscore {
+    system = stdenv.system;
+  }).noto-fonts.overrideAttrs(oldAttrs: {
     pname = "ttf-croscore";
 
     installPhase = ''
@@ -89,13 +101,4 @@ in with pkgs; rec {
       longDescription = "This package includes the Arimo, Cousine, and Tinos fonts.";
     };
   });
-
-  virtualboxWithExtpack = virtualbox.override {
-    enableHardening = true;
-    extensionPack = virtualboxExtpack;
-  };
-
-  #wlcs = callPackage ./pkgs/wlcs {};
-
-  wlrootsqt = libsForQt5.callPackage ./pkgs/wlrootsqt {};
 }) { inherit pkgs; }

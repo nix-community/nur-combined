@@ -10,7 +10,6 @@
 , python3
 , wrapQtAppsHook
 , removeReferencesTo
-, extra-cmake-modules
 , qtbase
 , qtimageformats
 , qtsvg
@@ -84,16 +83,6 @@ let
       CoreGraphics CoreVideo OpenGL Metal MetalKit CoreFoundation ApplicationServices;
   };
 
-  codegenPatch = fetchpatch {
-    url = "https://github.com/desktop-app/codegen/commit/762500d143448189ee5c06239b52268ca1b6b74a.patch";
-    sha256 = "sha256-Al2/Pfy9wYAtaCycsrlt5FjaFMkgTJhFKOQ/8puAJl8=";
-  };
-
-  libUiPatch = fetchpatch {
-    url = "https://github.com/desktop-app/lib_ui/commit/e91cfd55c243cfd2fa0d04f58616ee4f0a0ccb11.patch";
-    sha256 = "sha256-2ieOpC4RXFId1qibCeClJOP4NWdvPrq0v/fRil6/7jc=";
-  };
-
   tgcallsPatch = fetchpatch {
     url = "https://github.com/TelegramMessenger/tgcalls/commit/82c4921045c440b727c38e464f3a0539708423ff.patch";
     sha256 = "sha256-FIPelc6QQsQi9JYHaxjt87lE0foCYd7BNPrirUDp6VM=";
@@ -103,13 +92,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "kotatogram-desktop";
-  version = "unstable-2023-04-09";
+  version = "unstable-2023-06-16";
 
   src = fetchFromGitHub {
     owner = "ilya-fedin";
     repo = "kotatogram-desktop";
-    rev = "7e5535e1ecbb18d76b44c27e79981b75b417fef2";
-    sha256 = "sha256-Tt7sYHsPbc798LEdbiXUBGVmZ1cy4K9UrJDA+EY8qw8=";
+    rev = "bd1a4802ea227d0d3aa156a6d445ed51bc93afed";
+    sha256 = "sha256-AyBKOf+74tGVnBJbQHa3TRGGLe1fQIlGGdDLJrI3HTE=";
     fetchSubmodules = true;
   };
 
@@ -118,8 +107,6 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    patch -p1 -d Telegram/codegen < ${codegenPatch}
-    patch -p1 -d Telegram/lib_ui < ${libUiPatch}
     patch -p1 -d Telegram/ThirdParty/tgcalls < ${tgcallsPatch}
   '' + optionalString stdenv.isLinux ''
     substituteInPlace Telegram/ThirdParty/libtgvoip/os/linux/AudioInputALSA.cpp \
@@ -150,7 +137,6 @@ stdenv.mkDerivation rec {
   ] ++ optionals stdenv.isLinux [
     # to build bundled libdispatch
     clang
-    extra-cmake-modules
   ];
 
   buildInputs = [
@@ -216,8 +202,6 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DTDESKTOP_API_TEST=ON"
   ];
-
-  env.NIX_CFLAGS_COMPILE = optionalString stdenv.isLinux "-DQ_WAYLAND_CLIENT_EXPORT=";
 
   installPhase = optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

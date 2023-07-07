@@ -12,7 +12,7 @@ jobs:
       cache-key: ${{ steps.cache-key.outputs.cache-key }}
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v20
+    - uses: cachix/install-nix-action@v22
     - run: nix flake update
       if: ${{ github.ref_name == github.event.repository.default_branch }}
     - run: echo "::set-output name=cache-key::${{ hashFiles('flake.lock') }}"
@@ -34,13 +34,13 @@ jobs:
       with:
         path: flake.lock
         key: flake-lock-${{ needs.update-flake.outputs.cache-key }}
-    - uses: cachix/install-nix-action@v20
+    - uses: cachix/install-nix-action@v22
     - uses: cachix/cachix-action@v12
       with:
         name: ilya-fedin
         authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
         skipPush: ${{ github.ref_name != github.event.repository.default_branch }}
-    - run: NIXPKGS_ALLOW_UNFREE=1 nix-build non-broken.nix
+    - run: nix-build non-broken.nix
 
   push-flake-update:
     if: ${{ github.ref_name == github.event.repository.default_branch }}
