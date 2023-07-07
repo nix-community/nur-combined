@@ -630,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.1";
+      version = "1.1.3";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133512/dearrow-1.1.1.xpi";
-      sha256 = "266e7cc657396c5f35ef437a7854f08d7fb6caacc85a73aa42e76972887e835e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134798/dearrow-1.1.3.xpi";
+      sha256 = "b7a648be916105673d62761dda24da495303f68d7a376dfa1818fca36a2a7b2f";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1086,10 +1086,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230704.81320";
+      version = "115.0.20230706.202047";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133753/francais_language_pack-116.0.20230704.81320.xpi";
-      sha256 = "9ada93b1a87f18eded96ca21e7579535607adab40ab52532be7932c0963a3860";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135076/francais_language_pack-115.0.20230706.202047.xpi";
+      sha256 = "197741ad65b31d99bef784f8a72f2d08cedd187153e908a35c786f331f97b0cb";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1660,10 +1660,10 @@
       };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.5.6";
+      version = "1.5.7";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4117352/leechblock_ng-1.5.6.xpi";
-      sha256 = "f75b897e0f0b02f112a8a0f0f5be0b2b0fe5442c99c82101565785f6f219c87c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132931/leechblock_ng-1.5.7.xpi";
+      sha256 = "1bac17f5e868aff9fa8a6a820bd6c3fce09105570b60f639458700eade96977e";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -2800,10 +2800,10 @@
       };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "5.6.0";
+      version = "5.7.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4119128/search_by_image-5.6.0.xpi";
-      sha256 = "fb347a4756e87858fb7ad1e8cb44d3cc4374440d1abdb0fcb3d048c6d5b9c522";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132819/search_by_image-5.7.0.xpi";
+      sha256 = "9149335f16762c6d4f33ce39f036db763b8c4a3250f5e04e915b827da22a0eb1";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -3778,10 +3778,10 @@
       };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.0.13";
+      version = "3.0.15";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4126575/web_scrobbler-3.0.13.xpi";
-      sha256 = "0c9a3246f8e5dbada11820626306f5cc80783e8884569523c3f6c362b6e58254";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4132663/web_scrobbler-3.0.15.xpi";
+      sha256 = "db56419d26299c3ec84b23a3da29a4513dd6f6e044804584780829b4eee6136d";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
