@@ -2,7 +2,7 @@
 
 with lib;
 let
-  customPkgs = import ../.. { inherit pkgs; };
+  customPkgs = import ../.. {};
   cfg = config.programs.qtgreet;
   greetdCfg = config.services.greetd;
   settingsFormat = pkgs.formats.ini {};
