@@ -23,4 +23,8 @@ in {
       jq.enable = true;
     };
   };
+
+  xdg.dataFile = {
+    "navi/cheats/dev.cheat".source = ./dev.cheat;
+  };
 }
