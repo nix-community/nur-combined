@@ -630,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.3";
+      version = "1.1.4";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134798/dearrow-1.1.3.xpi";
-      sha256 = "b7a648be916105673d62761dda24da495303f68d7a376dfa1818fca36a2a7b2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135555/dearrow-1.1.4.xpi";
+      sha256 = "1613ff575d83108dfac2d1ee7e8fc6be98eb26879ff66ccf70017266f3614147";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1460,10 +1460,10 @@
       };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.14";
+      version = "4.20";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4124033/youtube_addon-4.14.xpi";
-      sha256 = "98347775abbb859474fcca27dceddc0e96f2cd5b5e68696a439bb9c18d379ee2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133951/youtube_addon-4.20.xpi";
+      sha256 = "8c132ae9b3354158ff0b1b9b33e68ce6194f8347ed074964e74caca1d1ecd84e";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -1872,10 +1872,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.31.1";
+      version = "10.32.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4123065/ether_metamask-10.31.1.xpi";
-      sha256 = "508f37c1451cdf73a54185fea2582e8dea69a28d83d8f01427e5a66b9987d8ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133646/ether_metamask-10.32.0.xpi";
+      sha256 = "fa5d6aa0c4102924f34dd2b3060a422d9d7d24dac8421519f75a5a966e7c3f96";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -3572,10 +3572,10 @@
       };
     "vencord-web" = buildFirefoxXpiAddon {
       pname = "vencord-web";
-      version = "1.3.3";
+      version = "1.3.4";
       addonId = "vencord-firefox@vendicated.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134418/vencord_web-1.3.3.xpi";
-      sha256 = "311f426d1ddb6221c49eaf12a8c054f695f7f7f29d3b0db95b36f5bf66554756";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135687/vencord_web-1.3.4.xpi";
+      sha256 = "14b04578841c93ed96a1720f3389138831c9cecb74e397a70df4881d6806361b";
       meta = with lib;
       {
         homepage = "https://vencord.dev";
