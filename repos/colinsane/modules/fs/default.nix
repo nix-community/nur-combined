@@ -183,13 +183,22 @@ let
   mkGeneratedConfig = path: opt: let
     gen-opt = opt.generated;
     wrapper = generateWrapperScript path gen-opt;
+    ty =
+      if (opt.dir != null) then "dir"
+      else if (opt.symlink != null) then "symlink"
+      else "custom";
+    wrapperPath = pkgs.writeShellScript "sane-fs-ensure-${ty}" wrapper.script;
   in {
     systemd.services."${serviceNameFor path}" = {
       description = "prepare ${path}";
-      serviceConfig.Type = "oneshot";
 
-      script = wrapper.script;
-      scriptArgs = escapeShellArgs wrapper.scriptArgs;
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;  # makes `systemctl start ensure-blah` a noop if already completed, instead of a restart
+        ExecStart = escapeShellArgs (
+          [ "${wrapperPath}" ] ++ wrapper.scriptArgs
+          );
+      };
 
       after = gen-opt.depends;
       wants = gen-opt.depends;
@@ -242,6 +251,8 @@ let
 
   generateWrapperScript = path: gen-opt: {
     script = ''
+      set -e
+
       fspath="$1"
       acluser="$2"
       aclgroup="$3"
