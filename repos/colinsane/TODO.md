@@ -5,6 +5,8 @@
   - make one service per forward:
     - that way one port being bad doesn't take down all of them
       but i still get `systemctl --failed` status
+- fix epiphany to launch on moby
+  - something to do with bwrap/bubblewrap?
 
 ## REFACTORING:
 
@@ -61,10 +63,6 @@
     - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)
     - install [devhelp](https://wiki.gnome.org/Apps/Devhelp)  (gnome)
 - have xdg-open parse `<repo:...> URIs (or adjust them so that it _can_ parse)
-- `sane.programs`: auto-populate defaults with everything from `pkgs`
-- `sane.persist`: auto-create parent dirs in ~/private
-  - currently if the application doesn't autocreate dirs leading to its destination, then ~/private storage fails
-  - this might be why librewolf on mobile is still amnesiac
 - sane-bt-search: show details like 5.1 vs stereo, h264 vs h265
 - uninsane.org: make URLs relative to allow local use (and as offline homepage)
 - email: fix so that local mail doesn't go to junk
@@ -85,6 +83,8 @@
         - and place that on non-encrypted clear-on-boot (with very lax writeback/swappiness to minimize writes)
     - **or set up encrypted swap**
         - encrypted swap could remove the need for my encrypted-cleared-at-boot stuff
+- get moby to build without binfmt emulation (i.e. make all emulation explicit)
+  - then i can distribute builds across servo + desko, and also allow servo to pull packages from desko w/o worrying about purity
 
 
 ## NEW FEATURES:

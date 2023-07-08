@@ -74,6 +74,9 @@ in
         '' + lib.optionalString cfg.showDeadlines ''
           ${pkgs.sane-scripts.deadlines}/bin/sane-deadlines
         '' + ''
+
+          HISTFILE="$HOME/.local/share/zsh/history"
+
           # auto-cd into any of these dirs by typing them and pressing 'enter':
           hash -d 3rd="/home/colin/dev/3rd"
           hash -d dev="/home/colin/dev"
@@ -133,7 +136,6 @@ in
 
       programs.zsh = {
         enable = true;
-        histFile = "$HOME/.local/share/zsh/history";
         shellAliases = {
           ":q" = "exit";
           # common typos

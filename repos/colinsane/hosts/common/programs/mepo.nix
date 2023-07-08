@@ -6,7 +6,9 @@
   sane.programs.mepo = {
     persist.plaintext = [ ".cache/mepo/tiles" ];
     # ~/.cache/mepo/savestate has precise coordinates and pins: keep those private
-    persist.private = [ ".cache/mepo/savestate" ];
+    persist.private = [
+      { type = "file"; path = ".cache/mepo/savestate"; }
+    ];
   };
 
   programs.mepo = lib.mkIf config.sane.programs.mepo.enabled {

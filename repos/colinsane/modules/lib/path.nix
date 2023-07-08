@@ -50,6 +50,7 @@ let path = rec {
   walk = start: end: if start == end then
     [ start ]
   else
+    assert end != "/";  # else there's no path from `start` to `end`!
     (walk start (parent end)) ++ [ end ]
   ;
 };

@@ -4,7 +4,7 @@
 {
   sane.persist.sys.plaintext = [
     # TODO: mode? could be more granular
-    { user = "git"; group = "gitea"; directory = "/var/lib/gitea"; }
+    { user = "git"; group = "gitea"; path = "/var/lib/gitea"; }
   ];
   services.gitea.enable = true;
   services.gitea.user = "git";  # default is 'gitea'

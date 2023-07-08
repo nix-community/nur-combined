@@ -3,7 +3,7 @@
 {
   sane.persist.sys.plaintext = [
     # TODO: mode?
-    { user = "postgres"; group = "postgres"; directory = "/var/lib/postgresql"; }
+    { user = "postgres"; group = "postgres"; path = "/var/lib/postgresql"; }
   ];
   services.postgresql.enable = true;
   # services.postgresql.dataDir = "/opt/postgresql/13";

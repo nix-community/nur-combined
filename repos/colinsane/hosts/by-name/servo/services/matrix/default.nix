@@ -11,7 +11,7 @@
   ];
 
   sane.persist.sys.plaintext = [
-    { user = "matrix-synapse"; group = "matrix-synapse"; directory = "/var/lib/matrix-synapse"; }
+    { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/matrix-synapse"; }
   ];
   services.matrix-synapse.enable = true;
   # this changes the default log level from INFO to WARN.

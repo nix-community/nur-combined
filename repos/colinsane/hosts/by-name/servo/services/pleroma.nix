@@ -15,7 +15,7 @@ let
 in
 {
   sane.persist.sys.plaintext = [
-    { user = "pleroma"; group = "pleroma"; directory = "/var/lib/pleroma"; }
+    { user = "pleroma"; group = "pleroma"; path = "/var/lib/pleroma"; }
   ];
   services.pleroma.enable = true;
   services.pleroma.secretConfigFile = config.sops.secrets.pleroma_secrets.path;

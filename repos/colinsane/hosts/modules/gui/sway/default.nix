@@ -74,7 +74,11 @@ in
     }
 
     (mkIf cfg.enable {
+      sane.programs.fontconfig.enableFor.system = true;
       sane.programs.swayApps.enableFor.user.colin = true;
+      # we need the greeter's command to be on our PATH
+      users.users.colin.packages = [ sway-launcher ];
+
       sane.gui.gtk.enable = lib.mkDefault true;
       # sane.gui.gtk.gtk-theme = lib.mkDefault "Fluent-Light-compact";
       sane.gui.gtk.gtk-theme = lib.mkDefault "Tokyonight-Light-B";
@@ -90,8 +94,6 @@ in
           default_session = if cfg.useGreeter then greeter-session else greeterless-session;
         };
       };
-      # we need the greeter's command to be on our PATH
-      users.users.colin.packages = [ sway-launcher ];
 
       # some programs (e.g. fractal) **require** a "Secret Service Provider"
       services.gnome.gnome-keyring.enable = true;

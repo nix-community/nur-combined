@@ -20,7 +20,7 @@
 # lib.mkIf false
 {
   sane.persist.sys.plaintext = [
-    { user = "ejabberd"; group = "ejabberd"; directory = "/var/lib/ejabberd"; }
+    { user = "ejabberd"; group = "ejabberd"; path = "/var/lib/ejabberd"; }
   ];
   sane.ports.ports."3478" = {
     protocol = [ "tcp" "udp" ];

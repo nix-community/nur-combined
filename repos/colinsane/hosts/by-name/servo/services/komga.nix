@@ -5,7 +5,7 @@ let
 in
 {
   sane.persist.sys.plaintext = [
-    { inherit user group; mode = "0700"; directory = stateDir; }
+    { inherit user group; mode = "0700"; path = stateDir; }
   ];
 
   services.komga.enable = true;

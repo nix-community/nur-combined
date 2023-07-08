@@ -74,7 +74,7 @@ in
       programs.ccache.enable = true;
       nix.settings.extra-sandbox-paths = [ cacheDir ];
       sane.persist.sys.plaintext = [
-        { group = "nixbld"; mode = "0775"; directory = config.programs.ccache.cacheDir; }
+        { group = "nixbld"; mode = "0775"; path = config.programs.ccache.cacheDir; }
       ];
       sane.fs."${cacheDir}/ccache.conf" = sane-lib.fs.wantedText ''
         max_size = 50G

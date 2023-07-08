@@ -81,12 +81,12 @@ let
       };
       persist = {
         plaintext = mkOption {
-          type = types.listOf types.str;
+          type = types.listOf (types.either types.attrs types.str);
           default = [];
           description = "list of home-relative paths to persist for this package";
         };
         private = mkOption {
-          type = types.listOf types.str;
+          type = types.listOf (types.either types.attrs types.str);
           default = [];
           description = "list of home-relative paths to persist (in encrypted format) for this package";
         };
@@ -152,8 +152,7 @@ let
       inherit (p) persist;
       environment = p.env;
       fs = lib.mkMerge [
-        # make every fs entry wanted by system boot:
-        (lib.mapAttrs (_path: sane-lib.fs.wanted) p.fs)
+        p.fs
         # link every secret into the fs:
         (lib.mapAttrs
           # TODO: user the user's *actual* home directory, don't guess.

@@ -44,7 +44,7 @@
 
   sane.persist.sys.plaintext = [
     # TODO: this is overly broad; only need media and share directories to be persisted
-    { user = "colin"; group = "users"; directory = "/var/lib/uninsane"; }
+    { user = "colin"; group = "users"; path = "/var/lib/uninsane"; }
   ];
   # make sure large media is stored to the HDD
   sane.persist.sys.ext = [
@@ -52,19 +52,19 @@
       user = "colin";
       group = "users";
       mode = "0777";
-      directory = "/var/lib/uninsane/media/Videos";
+      path = "/var/lib/uninsane/media/Videos";
     }
     {
       user = "colin";
       group = "users";
       mode = "0777";
-      directory = "/var/lib/uninsane/media/freeleech";
+      path = "/var/lib/uninsane/media/freeleech";
     }
     {
       user = "colin";
       group = "users";
       mode = "0777";
-      directory = "/var/lib/uninsane/media/datasets";
+      path = "/var/lib/uninsane/media/datasets";
     }
   ];
 

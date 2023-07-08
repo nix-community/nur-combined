@@ -76,6 +76,14 @@ let
           how to link the store entry into the fs
         '';
       };
+      type = mkOption {
+        type = types.enum [ "dir" "file" ];
+        default = "dir";
+        description = ''
+          whether the thing being persisted is a whole directory,
+          or just one file.
+        '';
+      };
     };
   };
 
@@ -84,16 +92,16 @@ let
     entryOpts
     {
       options = {
-        directory = mkOption {
+        path = mkOption {
           type = types.str;
         };
       };
     }
   ];
-  # allow "bar/baz" as shorthand for { directory = "bar/baz"; }
+  # allow "bar/baz" as shorthand for { path = "bar/baz"; }
   entryInStoreOrShorthand = types.coercedTo
     types.str
-    (d: { directory = d; })
+    (d: { path = d; })
     entryInStore;
 
   # allow the user to provide the `acl` field inline: we pop acl sub-attributes placed at the
@@ -123,11 +131,12 @@ let
   # this submodule creates one attr per store, so that the user can specify something like:
   #   <option>.private.".cache/vim" = { mode = "0700"; };
   # to place ".cache/vim" into the private store and create with the appropriate mode
-  dirsSubModule = types.submodule ({ config, ... }: {
+  entrySubmodule = types.submodule ({ config, ... }: {
     # TODO: this should be a plain-old `attrsOf (convertInlineAcl entryInStoreOrShorthand)` with downstream checks,
     #   rather than being filled in based on *other* settings.
     #   otherwise, it behaves poorly when `sane.persist.enable = false`
     options = lib.attrsets.unionOfDisjoint
+      # create one option per store:
       (mapAttrs (store: store-cfg: mkOption {
         default = [];
         type = types.listOf (convertInlineAcl entryInStoreOrShorthand);
@@ -135,8 +144,9 @@ let
           suffix = if store-cfg.storeDescription != null then
             ": ${store-cfg.storeDescription}"
           else "";
-        in "directories to persist in ${store}${suffix}";
+        in "directories/files to persist in ${store}${suffix}";
       }) cfg.stores)
+      # or allow direct access by path
       {
         byPath = mkOption {
           type = types.attrsOf (convertInlineAcl entryAtPath);
@@ -150,11 +160,11 @@ let
     config = let
       # set the `store` attribute on one dir attrset
       annotateWithStore = store: dir: {
-        "${dir.directory}".store = store;
+        "${dir.path}".store = store;
       };
       # convert an `entryInStore` to an `entryAtPath` (less the `store` item)
       dirToAttrs = dir: {
-        "${dir.directory}" = builtins.removeAttrs dir ["directory"];
+        "${dir.path}" = builtins.removeAttrs dir ["path"];
       };
       store-names = attrNames cfg.stores;
       # :: (store -> entry -> AttrSet) -> [AttrSet]
@@ -183,9 +193,9 @@ in
       description = "define / fs root to be a tmpfs. make sure to mount some other device to /nix";
     };
     sane.persist.sys = mkOption {
-      description = "directories to persist to disk, relative to the fs root /";
+      description = "directories (or files) to persist to disk, relative to the fs root /";
       default = {};
-      type = dirsSubModule;
+      type = entrySubmodule;
     };
     sane.persist.stores = mkOption {
       type = types.attrsOf storeType;
@@ -202,6 +212,7 @@ in
   ];
 
   config = let
+    # String => entryAtPath => generated toplevel config
     cfgFor = fspath: opt:
       let
         store = opt.store;
@@ -221,10 +232,23 @@ in
             symlink.acl = opt.acl;
             symlink.target = fsPathToBackingPath fspath;
           });
-
-          # create the backing path as a dir
-          sane.fs."${fsPathToBackingPath fspath}".dir = {};
         }
+        (lib.optionalAttrs (opt.type == "dir") {
+          # create the backing path as a dir
+          sane.fs."${fsPathToBackingPath fspath}" = {
+            wantedBeforeBy = [ config.sane.fs."${fspath}".unit ];
+            dir.acl = config.sane.fs."${fspath}".generated.acl;
+          };
+        })
+        (lib.optionalAttrs (opt.type == "file") {
+          # ensure the backing path of this file's parent exists.
+          # XXX: this forces the backing parent to be a directory
+          # this is almost always what is wanted, but it's sometimes an arbitrary constraint
+          sane.fs."${path.parent (fsPathToBackingPath fspath)}" = {
+            wantedBeforeBy = [ config.sane.fs."${fspath}".unit ];
+            dir = {};
+          };
+        })
         {
           # default each item along the backing path to have the same acl as the location it would be mounted.
           sane.fs = lib.mkMerge (builtins.map
@@ -233,7 +257,7 @@ in
                 generated.acl = config.sane.fs."${fsSubpath}".generated.acl;
               };
             })
-            (path.walk store.prefix fspath)
+            (path.walk store.prefix (path.parent fspath))
           );
         }
       ];

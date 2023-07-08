@@ -6,6 +6,7 @@
     ./assorted.nix
     ./cozy.nix
     ./epiphany.nix
+    ./fontconfig.nix
     ./git.nix
     ./gnome-feeds.nix
     ./gpodder.nix

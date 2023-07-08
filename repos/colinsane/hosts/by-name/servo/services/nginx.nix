@@ -134,8 +134,8 @@ in
 
   sane.persist.sys.plaintext = [
     # TODO: mode?
-    { user = "acme"; group = "acme"; directory = "/var/lib/acme"; }
-    { user = "colin"; group = "users"; directory = "/var/www/sites"; }
+    { user = "acme"; group = "acme"; path = "/var/lib/acme"; }
+    { user = "colin"; group = "users"; path = "/var/www/sites"; }
   ];
 
   # let's encrypt default chain looks like:

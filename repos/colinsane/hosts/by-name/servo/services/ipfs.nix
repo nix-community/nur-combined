@@ -12,7 +12,7 @@ lib.mkIf false # i don't actively use ipfs anymore
 {
   sane.persist.sys.plaintext = [
     # TODO: mode? could be more granular
-    { user = "261"; group = "261"; directory = "/var/lib/ipfs"; }
+    { user = "261"; group = "261"; path = "/var/lib/ipfs"; }
   ];
 
   networking.firewall.allowedTCPPorts = [ 4001 ];

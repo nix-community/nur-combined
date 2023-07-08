@@ -3,8 +3,8 @@
 { config, pkgs, ... }:
 {
   sane.persist.sys.plaintext = [
-    { user = "mautrix-signal"; group = "mautrix-signal"; directory = "/var/lib/mautrix-signal"; }
-    { user = "signald"; group = "signald"; directory = "/var/lib/signald"; }
+    { user = "mautrix-signal"; group = "mautrix-signal"; path = "/var/lib/mautrix-signal"; }
+    { user = "signald"; group = "signald"; path = "/var/lib/signald"; }
   ];
 
   # allow synapse to read the registration file

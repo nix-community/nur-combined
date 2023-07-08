@@ -143,8 +143,8 @@
     guiApps = {
       package = null;
       suggestedPrograms = [
-        "web-browser"
         "tuiApps"
+        "web-browser"
       ] ++ lib.optional (pkgs.system == "x86_64-linux") "x86GuiApps"
       ++ [
         # "celluloid"  # mpv frontend

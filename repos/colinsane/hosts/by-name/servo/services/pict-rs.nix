@@ -6,7 +6,7 @@ let
 in
 {
   sane.persist.sys.plaintext = lib.mkIf cfg.enable [
-    { user = "pict-rs"; group = "pict-rs"; directory = cfg.dataDir; }
+    { user = "pict-rs"; group = "pict-rs"; path = cfg.dataDir; }
   ];
 
   systemd.services.pict-rs.serviceConfig = {

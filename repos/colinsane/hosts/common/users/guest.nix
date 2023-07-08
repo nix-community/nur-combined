@@ -27,7 +27,7 @@ in
 
     sane.persist.sys.plaintext = lib.mkIf cfg.enable [
       # intentionally allow other users to write to the guest folder
-      { directory = "/home/guest"; user = "guest"; group = "users"; mode = "0775"; }
+      { path = "/home/guest"; user = "guest"; group = "users"; mode = "0775"; }
     ];
   };
 }
