@@ -12,6 +12,7 @@
 
 srcdir="$1"
 destdir="$2"
+stamp="$3"
 
 if [ "x$destdir" = "x" ]
 then
@@ -36,3 +37,8 @@ do
     touch "$condir/attributes"
   fi
 done
+
+if [ "x$stamp" != "x" ]
+then
+  touch "$stamp"
+fi

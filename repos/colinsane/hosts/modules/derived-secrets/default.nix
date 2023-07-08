@@ -1,8 +1,14 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (builtins) toString;
   inherit (lib) mapAttrs mkOption types;
+
+  hash-path-with-salt = pkgs.static-nix-shell.mkBash {
+    pname = "hash-path-with-salt";
+    src = ./.;
+  };
+  
   cfg = config.sane.derived-secrets;
   secret = types.submodule {
     options = {
@@ -31,16 +37,11 @@ in
 
   config = {
     sane.fs = mapAttrs (path: c: {
-      generated.script.script = ''
-        echo "$1" | cat /dev/stdin /etc/ssh/host_keys/ssh_host_ed25519_key \
-          | sha512sum \
-          | cut -c 1-${toString (c.len * 2)} \
-          | tr a-z A-Z \
-          | basenc -d --base16 \
-          | basenc --${c.encoding} \
-          > "$1"
-      '';
-      generated.script.scriptArgs = [ path ];
+      generated.command = [
+        "${hash-path-with-salt}/bin/hash-path-with-salt"
+        path
+        c.encoding
+      ];
       generated.acl.mode = "0600";
     }) cfg;
   };

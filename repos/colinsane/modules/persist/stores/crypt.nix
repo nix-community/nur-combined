@@ -41,8 +41,8 @@ lib.mkIf config.sane.persist.enable
 
   # let sane.fs know how to initialize the gocryptfs store,
   # and that it MUST do so
-  sane.fs."${underlying}/gocryptfs.conf".generated = {
-    script.script = ''
+  sane.fs."${underlying}/gocryptfs.conf".generated = let
+    script = pkgs.writeShellScript "init-gocryptfs-store" ''
       backing="$1"
       passfile="$2"
       # clear the backing store
@@ -50,17 +50,19 @@ lib.mkIf config.sane.persist.enable
       rm -rf "''${backing:?}"/*
       ${pkgs.gocryptfs}/bin/gocryptfs -quiet -passfile "$passfile" -init "$backing"
     '';
-    script.scriptArgs = [ underlying key ];
+  in {
+    command = [ "${script}" underlying key ];
     # we need the key in order to initialize the store
     depends = [ config.sane.fs."${key}".unit ];
   };
 
   # let sane.fs know how to generate the key for gocryptfs
-  sane.fs."${key}".generated = {
-    script.script = ''
+  sane.fs."${key}".generated = let
+    script = pkgs.writeShellScript "gen-random-gocryptfs-key" ''
       dd if=/dev/random bs=128 count=1 | base64 --wrap=0 > "$1"
     '';
-    script.scriptArgs = [ key ];
+  in {
+    command = [ "${script}" key ];
     # no need for anyone else to be able to read the key
     acl.mode = "0400";
   };

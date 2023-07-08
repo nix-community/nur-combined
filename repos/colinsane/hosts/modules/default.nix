@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./derived-secrets.nix
+    ./derived-secrets
     ./gui
     ./hardware
     ./hostnames.nix

@@ -10,6 +10,7 @@
 
 src_dir="$1"
 dest_dir="$2"
+stamp="$3"
 for f in $(ls "$src_dir")
 do
         if [ -f "$src_dir/$f" ]; then
@@ -21,3 +22,4 @@ do
                 chmod 600 "$dest_dir/$ssid.psk"
         fi
 done
+touch "$stamp"
