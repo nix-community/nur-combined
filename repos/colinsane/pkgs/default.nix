@@ -36,6 +36,7 @@ let
     gpodder-configured = callPackage ./additional/gpodder-configured { };
     hare-ev = unpatched.hare-ev or (callPackage ./additional/hare-ev { });
     hare-json = unpatched.hare-json or (callPackage ./additional/hare-json { });
+    ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
     linux-megous = callPackage ./additional/linux-megous { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
