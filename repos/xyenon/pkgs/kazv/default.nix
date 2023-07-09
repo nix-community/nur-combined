@@ -14,6 +14,7 @@
 , kirigami2
 , kconfig
 , libkazv
+, breeze-icons
 , unstableGitUpdater
 }:
 
@@ -26,8 +27,8 @@ stdenv.mkDerivation {
     owner = "kazv";
     repo = "kazv";
     fetchSubmodules = true;
-    rev = "c78cf365484057f1e4b408c3168e843a4331460d";
-    hash = "sha256-bb4ayXWPshV/BpX6+BZuZkl6klLQDLsBRiauI/WCiB8=";
+    rev = "185151a3417abba2a57c55030f3cad4f0cd67b99";
+    hash = "sha256-T1nybNzP9b70ocAixcZcPhtDdGuXTOEEKwUt07oDC04=";
   };
 
   nativeBuildInputs = [ wrapQtAppsHook cmake pkg-config ];
@@ -47,6 +48,8 @@ stdenv.mkDerivation {
 
     libkazv
   ];
+
+  propagatedBuildInputs = [ breeze-icons ];
 
   passthru.updateScript = unstableGitUpdater { };
 
