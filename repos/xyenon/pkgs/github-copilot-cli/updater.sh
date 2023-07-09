@@ -31,4 +31,4 @@ npm install --ignore-scripts --package-lock-only
 cp package-lock.json "${ROOT}/package-lock.json"
 
 pushd "${ROOT}/../.."
-nix-update --version="${latest_version}"
+nix-update "$NAME" --version="${latest_version}"
