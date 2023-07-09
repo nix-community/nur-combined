@@ -5,6 +5,7 @@
 , conky
 , dbus
 , fetchgit
+, fetchpatch
 , gitUpdater
 , gnugrep
 , gojq
@@ -81,18 +82,33 @@ stdenv.mkDerivation rec {
 
   patches = [
     # needed for basic use:
-    ./0001-group-differs-from-user.patch  # merged upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
-    ./0002-ensure-log-dir.patch  # merged upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42309>
+    (fetchpatch {
+      # merged post 1.14.2
+      # [1/2] sxmo_init: behave well when user's primary group differs from their name
+      # [2/2] sxmo_init: ensure XDG_STATE_HOME exists
+      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42309/mbox";
+      hash = "sha256-GVWJWTccZeaKsVtsUyZFYl9/qEwJ5U7Bu+DiTDXLjys=";
+    })
+    (fetchpatch {
+      # merged post 1.14.2
+      # sxmo_hook_block_suspend: don't assume there's only one MPRIS player
+      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42441/mbox";
+      hash = "sha256-YmkJ4JLIG/mHosRlVQqvWzujFMBsuDf5nVT3iOi40zU=";
+    })
     ./0003-fix-xkb-paths.patch
     ./0004-no-busybox.patch
     # wanted to fix/silence some non-fatal errors
     ./0005-system-audio.patch
-    ./0006-block-suspend-any-mpris.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42441>
 
     # personal (but upstreamable) preferences:
+    (fetchpatch {
+      # merged post 1.14.2
+      # sxmo_hook_lock: allow configuration of auto-screenoff timeout v1
+      url = "https://lists.sr.ht/~mil/sxmo-devel/patches/42443/mbox";
+      hash = "sha256-c4VySbVJgsbh2h+CnCgwWWe5WkAregpYFqL8n3WRXwY=";
+    })
     ./0104-full-auto-rotate.patch
     ./0105-more-apps.patch
-    ./0106-configurable-auto-screenoff.patch  # proposed upstream: <https://lists.sr.ht/~mil/sxmo-devel/patches/42443>
   ];
 
   postPatch = ''

@@ -19,6 +19,8 @@
     # - <https://gitlab.gnome.org/GNOME/gnome-builder/-/issues/1164>
     # - <https://github.com/flatpak/flatpak/issues/3477>
     # - <https://github.com/NixOS/nixpkgs/issues/197085>
+    #
+    # N.B.: this mode of patching the package means no .desktop file!
     package = pkgs.writeShellScriptBin "epiphany" ''
       WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 ${pkgs.epiphany}/bin/epiphany
     '';

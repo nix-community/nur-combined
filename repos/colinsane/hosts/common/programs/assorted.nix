@@ -178,6 +178,7 @@
         # "libsForQt5.plasmatube"  # Youtube player
         "soundconverter"
         # "sublime-music"
+        "tangram"  # web browser
         # "tdesktop"  # broken on phosh
         # "tokodon"
         "tuba"  # mastodon/pleroma client (stores pw in keyring)

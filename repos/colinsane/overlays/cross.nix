@@ -26,7 +26,7 @@ let
     buildInputs = lib.subtractLists buildInputs (upstream.buildInputs or []);
     nativeBuildInputs = lib.subtractLists nativeBuildInputs (upstream.nativeBuildInputs or []);
   });
-  rmNativeBuildInputs = nativeBuildInputs: rmInputs { inherit nativeBuildInputs; };
+  rmNativeInputs = nativeBuildInputs: rmInputs { inherit nativeBuildInputs; };
   # move items from buildInputs into nativeBuildInputs, or vice-versa.
   # arguments represent the final location of specific inputs.
   mvInputs = { buildInputs ? [], nativeBuildInputs ? [] }: pkg:
@@ -36,6 +36,9 @@ let
       pkg
     );
 
+  dontCheck = p: p.overrideAttrs (_: {
+    doCheck = false;
+  });
   useEmulatedStdenv = p: p.override {
     inherit (emulated) stdenv;
   };
@@ -91,11 +94,13 @@ in {
     # qt6  # "You need to set QT_HOST_PATH to cross compile Qt."
     # sequoia  # "/nix/store/q8hg17w47f9xr014g36rdc2gi8fv02qc-clang-aarch64-unknown-linux-gnu-12.0.1-lib/lib/libclang.so.12: cannot open shared object file: No such file or directory"', /build/sequoia-0.27.0-vendor.tar.gz/bindgen/src/lib.rs:1975:31"
     # splatmoji
+    # tangram  # gjs / custom gjspack thing
     # twitter-color-emoji  # /nix/store/0wk6nr1mryvylf5g5frckjam7g7p9gpi-bash-5.2-p15/bin/bash: line 1: pkg-config: command not found
     # visidata  # python3.10-psycopg2 python3.10-pandas python3.10-h5py
     # webkitgtk_4_1  # requires nativeBuildInputs = perl.pkgs.FileCopyRecursive => perl5.36.0-Test-utf8
     # xdg-utils  # perl5.36.0-File-BaseDir / perl5.36.0-Module-Build
   ;
+
 
   # adwaita-qt6 = prev.adwaita-qt6.override {
   #   # adwaita-qt6 still uses the qt5 version of these libs by default?
@@ -712,7 +717,7 @@ in {
       final.autoPatchelfHook
     ];
   });
-  libgweather = rmNativeBuildInputs [ final.glib ] (prev.libgweather.override {
+  libgweather = rmNativeInputs [ final.glib ] (prev.libgweather.override {
     # alternative to emulating python3 is to specify it in `buildInputs` instead of `nativeBuildInputs` (upstream),
     #   but presumably that's just a different way to emulate it.
     # the python gobject-introspection stuff is a tangled mess that's impossible to debug:
@@ -1236,6 +1241,63 @@ in {
   ).override {
     # fixes -msse2, -mfpmath=sse flags
     wrapGAppsHook4 = final.wrapGAppsHook;
+  };
+  # tangram = rmNativeInputs [ final.gobject-introspection ] (
+  # tangram = mvToBuildInputs [ (dontCheck (useEmulatedStdenv final.blueprint-compiler)) ] (
+  #   addNativeInputs [ final.gjs ] (  # new error: "gi._error.GError: g-invoke-error-quark: Could not locate g_option_error_quark" loading glib
+  #     prev.tangram.override {
+  #       blueprint-compiler = dontCheck (useEmulatedStdenv final.blueprint-compiler);
+  #     }
+  #   )
+  # );
+  # tangram = (prev.tangram.override {
+  #   inherit (emulated) stdenv;
+  # }).overrideAttrs (upstream: {
+  #   nativeBuildInputs = (lib.remove final.blueprint-compiler upstream.nativeBuildInputs)++ [
+  #     # final.gjs
+  #   ];
+  #   buildInputs = upstream.buildInputs ++ [
+  #     (dontCheck (useEmulatedStdenv final.blueprint-compiler))
+  #   ];
+  # });
+  # tangram = prev.tangram.override {
+  #   gjs = emulated.gjs.overrideAttrs {
+  #     doCheck = false;  # tests time out
+  #   };
+  # };
+  # tangram = useEmulatedStdenv prev.tangram;
+  # tangram = addNativeInputs [ final.gjs ] (prev.tangram.override {
+  #   gjs = emulated.gjs.overrideAttrs {
+  #     doCheck = false;  # tests time out
+  #   };
+  # });
+  # tangram = prev.tangram.override {
+  #   inherit (emulated) stdenv;
+  #   gjs = emulated.gjs.overrideAttrs {
+  #     doCheck = false;  # tests time out
+  #   };
+  # };
+  tangram = prev.tangram.override {
+    inherit (emulated)
+      gobject-introspection
+      stdenv
+      # not required to compile, but lets try to fix runtime error
+      appstream-glib
+      desktop-file-utils
+      gettext
+      wrapGAppsHook
+      # buildInputs, not required to compile
+      gdk-pixbuf
+      #^ the above wasn't enough. v the below was added in one go
+      # TODO: reduce this emulated set!
+      glib
+      glib-networking
+      gsettings-desktop-schemas
+      gtk4
+      libadwaita
+    ;
+    blueprint-compiler = dontCheck emulated.blueprint-compiler;  # tests time out
+    gjs = dontCheck emulated.gjs;  # tests time out
   };
   tracker-miners = prev.tracker-miners.override {
     # fixes "meson.build:183:0: ERROR: Can not run test applications in this cross environment."

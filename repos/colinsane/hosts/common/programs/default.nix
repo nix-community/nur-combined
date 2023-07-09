@@ -31,6 +31,7 @@
     ./splatmoji.nix
     ./steam.nix
     ./sublime-music.nix
+    ./tangram.nix
     ./vlc.nix
     ./web-browser.nix
     ./wireshark.nix
