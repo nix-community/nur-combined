@@ -1,3 +1,4 @@
 result
 result-*
-
+_update.nix
+*.log

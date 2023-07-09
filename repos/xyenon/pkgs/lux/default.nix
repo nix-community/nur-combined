@@ -1,20 +1,18 @@
 { lib, fetchFromGitHub, buildGoModule, nix-update-script }:
 
-let
-  pname = "lux";
-  version = "0.18.0";
-in
-buildGoModule {
-  inherit pname version;
+buildGoModule rec {
+  name = "lux";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "iawia002";
-    repo = pname;
+    repo = name;
     rev = "v${version}";
-    hash = "sha256-A3DDKpoaZlDUpafAGs5zCknhTeCuwMPnyBHtxke0Bi8=";
+    hash = "sha256-klm1985qBErFfYIWPjr1/n6nYr/jA9dbrDMfw4bf1tM=";
   };
 
   vendorSha256 = "sha256-7wgGJYiIsVTRSuSb4a9LgYCkkayGhNMKqcIKoDxMuAM=";
+
   subPackages = [ "." ];
 
   passthru.updateScript = nix-update-script { };

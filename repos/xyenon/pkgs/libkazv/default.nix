@@ -11,6 +11,7 @@
 , olm
 , cryptopp
 , catch2_3
+, unstableGitUpdater
 }:
 
 let
@@ -97,14 +98,14 @@ let
 in
 stdenv.mkDerivation {
   name = "libkazv";
-  version = "unstable";
+  version = "unstable-2023-06-13";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = "libkazv";
-    rev = "59329dd98998533565629739b73c8853f219bd2e";
-    hash = "sha256-NTIMKpr0cN+vi60/NnIwwPHpUmh+usgdp/qYBmcGNLY=";
+    rev = "036300edd2494ec051ec6c71d154ccbb171ae10c";
+    hash = "sha256-aISYVpGuj2l3x6BF0iB12fXd/fMsDFBfsIZ+0FNA+7Q=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
@@ -129,6 +130,8 @@ stdenv.mkDerivation {
     "-Dlibkazv_BUILD_EXAMPLES=OFF"
     "-Dlibkazv_BUILD_TESTS=ON"
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "A sans-io C++ (gnu++17) matrix client library";
