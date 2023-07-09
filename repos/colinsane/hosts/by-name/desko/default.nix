@@ -4,11 +4,10 @@
     ./fs.nix
   ];
 
-  sane.guest.enable = true;
+  # sane.guest.enable = true;
 
-  # TODO: make sure this plays nice with impermanence
-  services.distccd.enable = true;
-  sane.programs.distcc.enableFor.user.guest = true;
+  # services.distccd.enable = true;
+  # sane.programs.distcc.enableFor.user.guest = true;
 
   sops.secrets.colin-passwd.neededForUsers = true;
 

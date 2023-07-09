@@ -30,7 +30,7 @@
 let
   inherit (lib.strings) hasSuffix removeSuffix;
   secretsForHost = host: let
-    extraAttrsForPath = path: lib.optionalAttrs (sane-lib.path.isChild "guest" path) {
+    extraAttrsForPath = path: lib.optionalAttrs (sane-lib.path.isChild "guest" path && builtins.hasAttr "guest" config.users.users) {
       owner = "guest";
     };
   in sane-lib.joinAttrsets (
