@@ -2,8 +2,6 @@
 
 with lib;
 let
-  customPkgs = import ../.. {};
-
   cfg = config.fonts.fontconfig;
 
   preferConf = pkgs.writeText "fc-30-metric-compatible-fonts.conf" ''
@@ -90,6 +88,21 @@ let
     # 30-metric-compatible-fonts.conf
     ln -s ${preferConf}       $support_folder/30-metric-compatible-fonts.conf
   '';
+
+  ttf-croscore = (import (import ../../flake-compat.nix).inputs.nixpkgs-croscore {
+    inherit (pkgs) system;
+  }).noto-fonts.overrideAttrs(oldAttrs: {
+    pname = "ttf-croscore";
+
+    installPhase = ''
+      install -m444 -Dt $out/share/fonts/truetype/croscore hinted/*/{Arimo,Cousine,Tinos}/*.ttf
+    '';
+
+    meta = oldAttrs.meta // {
+      description = "Chrome OS core fonts";
+      longDescription = "This package includes the Arimo, Cousine, and Tinos fonts.";
+    };
+  });
 in {
   options = {
     fonts.fontconfig = {
@@ -104,7 +117,7 @@ in {
   };
 
   config = mkIf cfg.crOSMaps {
-    fonts.fonts = with pkgs; with customPkgs; [
+    fonts.fonts = with pkgs; [
       ttf-croscore
       carlito
       caladea
