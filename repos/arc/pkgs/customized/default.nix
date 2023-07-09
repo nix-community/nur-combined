@@ -202,8 +202,8 @@ let
       };
     in drv;
 
-    ddclient-develop = { ddclient, autoreconfHook, makeWrapper, fetchFromGitHub, fetchpatch }: let
-      drv = ddclient.overrideAttrs (old: {
+    ddclient-develop = { ddclient, ddclient_3 ? ddclient, autoreconfHook, makeWrapper, fetchFromGitHub, fetchpatch }: let
+      drv = ddclient_3.overrideAttrs (old: {
         version = "2022-01-13";
         src = fetchFromGitHub {
           owner = "ddclient";

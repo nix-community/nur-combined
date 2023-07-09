@@ -18,6 +18,7 @@
   wireplumber = ./wireplumber.nix;
   alsa = ./alsa.nix;
   yggdrasil = ./yggdrasil.nix;
+  ddclient3 = ./ddclient.nix;
   bindings = import ./bindings.nix // {
     __functor = _: { ... }: { imports = [ ./bindings.nix ]; };
   };

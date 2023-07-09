@@ -22,6 +22,7 @@
   switch-lan-play = import ./switch-lan-play.nix;
   mdns-scan = import ./mdns-scan.nix;
   firenvim-native = import ./firenvim-native.nix;
+  ddclient_3 = import ./ddclient.nix;
 }
 // (import ./bolin)
 // (import ./droid.nix)
