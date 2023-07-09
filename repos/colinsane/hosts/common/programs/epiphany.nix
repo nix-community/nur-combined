@@ -18,6 +18,7 @@
     # a few other users have hit this, in different contexts:
     # - <https://gitlab.gnome.org/GNOME/gnome-builder/-/issues/1164>
     # - <https://github.com/flatpak/flatpak/issues/3477>
+    # - <https://github.com/NixOS/nixpkgs/issues/197085>
     package = pkgs.writeShellScriptBin "epiphany" ''
       WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 ${pkgs.epiphany}/bin/epiphany
     '';
