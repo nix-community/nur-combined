@@ -119,6 +119,8 @@ in
 
     dontUseCmakeConfigure = true;
 
+    dontWrapQtApps = true;
+
     mesonFlags = [
       "-Db_lto=false"
       "-Ddebug=true"
