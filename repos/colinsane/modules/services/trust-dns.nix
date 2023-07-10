@@ -120,6 +120,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.trust-dns = {
       description = "trust-dns DNS server";
+      unitConfig.Documentation = "https://trust-dns.org/";
       serviceConfig = {
         ExecStart =
         let
@@ -132,8 +133,31 @@ in
         Type = "simple";
         Restart = "on-failure";
         RestartSec = "10s";
-        # TODO: hardening (like, don't run as root!)
-        # TODO: link to docs
+
+        User = "trust-dns";
+        Group = "trust-dns";
+        DynamicUser = true;
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        # TODO: hardening:
+        # - CapabilityBoundingSet
+        # - SystemCallFilter ?
+        # - RestrictAddressFamilies
+        # - LockPersonality ?
+        # use `systemd-analyze security trust-dns`
+        MemoryDenyWriteExecute = true;
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "invisible";
+        ProtectSystem = "full";
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
       };
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];

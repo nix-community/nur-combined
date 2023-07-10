@@ -106,6 +106,7 @@ let
     ip-reconnect = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-reconnect";
       src = ./src;
+      pkgs = [ "systemd" ];
     };
     private-change-passwd = static-nix-shell.mkBash {
       pname = "sane-private-change-passwd";

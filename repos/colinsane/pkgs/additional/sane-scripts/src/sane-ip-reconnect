@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p systemd
 # vim: set filetype=python :
 
 import re
@@ -48,7 +48,7 @@ def iwctl(args: list, sudo: bool = False) -> str:
         res.check_returncode()  # raise
     return res.stdout.decode()
 
-def scan():
+def scan() -> None:
     iwctl(["station", "wlan0", "scan"], sudo=True)
     time.sleep(5)  # give time for adapter to see networks
 
@@ -69,20 +69,36 @@ def get_visible() -> list:
 def choose_best(visible: list, known: list) -> str:
     candidates = [(name, strength) for (name, strength) in visible if name in known]
     # the least-negative RSSI is the best
-    return max(candidates, key=lambda c: c[1])[0]
+    return max(candidates, key=lambda c: c[1])[0] if candidates else None
 
 def connect(network: str) -> str:
     return iwctl(["station", "wlan0", "connect", network], sudo=True)
 
-def restart() -> str:
+def restart(unit: str = "iwd") -> str:
     return subprocess.check_output([
         "sudo",
         "systemctl",
         "restart",
-        "iwd",
+        unit,
     ])
 
-def main():
+def try_connect(network: str | None) -> bool:
+    """returns True on successful connection"""
+    if network is None:
+        print("no network to connect to")
+        return False
+
+    try:
+        print(f"connecting to {network}")
+        result = connect(network)
+    except subprocess.CalledProcessError as e:
+        print("failed to connect")
+        return False;
+    else:
+        print("success", result)
+        return True
+
+def main() -> None:
     print("scanning for networks... ", end="", flush=True)
     scan()
     print("done")
@@ -98,16 +114,13 @@ def main():
 
     best = choose_best(visible, known)
 
-    try:
-        print(f"connecting to {best}")
-        result = connect(best)
-    except subprocess.CalledProcessError as e:
+    if not try_connect(best):
         print("restarting iwd daemon")
         restart()
-    else:
-        print("success", result)
+        print("reimporting secrets")
+        restart("ensure-var-lib-iwd-.secrets.psk.stamp")
 
-def parse_args(args: list):
+def parse_args(args: list[str]) -> None:
     for a in args:
         if a in ("-v", "--verbose"):
             logging.getLogger().setLevel(logging.DEBUG)

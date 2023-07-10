@@ -2,13 +2,13 @@
 {
   sane.gui.sxmo = {
     settings = {
-      # touch screen
+      ### hardware: touch screen
       SXMO_LISGD_INPUT_DEVICE = "/dev/input/by-path/platform-1c2ac00.i2c-event";
       # vol and power are detected correctly by upstream
 
-      # preferences
-      # N.B. some deviceprofiles explicitly set SXMO_SWAY_SCALE, overwriting what we put here.
-      SXMO_SWAY_SCALE = "1.5";
+      ### preferences
+      # SXMO_SWAY_SCALE = "1.5";
+      SXMO_SWAY_SCALE = "2";
       SXMO_ROTATION_GRAVITY = "12800";
       SXMO_LOCK_IDLE_TIME = "15";  # how long between screenoff -> lock -> back to screenoff
       DEFAULT_COUNTRY = "US";

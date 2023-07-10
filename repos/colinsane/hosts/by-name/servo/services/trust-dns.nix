@@ -104,6 +104,17 @@
       exit 1
     '';
 
+  systemd.services.trust-dns.serviceConfig = {
+    # ReadWritePaths = [ "/var/lib/trust-dns" ];
+    DynamicUser = lib.mkForce false;
+    StateDirectory = "trust-dns";
+  };
+  users.groups.trust-dns = {};
+  users.users.trust-dns = {
+    group = "trust-dns";
+    isSystemUser = true;
+  };
+
   sane.services.dyn-dns.restartOnChange = [ "trust-dns.service" ];
 
   networking.nat.enable = true;

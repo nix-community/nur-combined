@@ -192,7 +192,16 @@ in
       };
 
       sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle (sane-lib.fs.wantedText "");
-      sane.user.fs.".config/sxmo/profile".symlink.text = lib.generators.toKeyValue {} cfg.settings;
+      sane.user.fs.".config/sxmo/profile".symlink.text = let
+        mkKeyValue = key: value: ''export ${key}="${value}"'';
+        userConfig = lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
+      in ''
+        # configversion: 4284f96d91e9550ff8f3b25823e402ad
+        # ^ upstream adds new options every now and then, expects user config file
+        # to include the md5sum of the template it's based on.
+        # see `setup_config_version.sh`
+        ${userConfig}
+      '';
 
 
       ## greeter
