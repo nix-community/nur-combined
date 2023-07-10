@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.117.10";
+    version = "2.0.119";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4040535/enhancer_for_youtube-2.0.117.10.xpi";
-    sha256 = "a15758d3c42416575c188cf756dd1f5ce7e0194ebf1055979eff2f21a1bed736";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4131648/enhancer_for_youtube-2.0.119.xpi";
+    sha256 = "8be7094eecf9130222631839422ccad8219d5f76f6fa352c6e7ab3e10d0b6261";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";
@@ -262,10 +262,10 @@
   };
   "privacy-badger" = buildFirefoxXpiAddon {
     pname = "privacy-badger";
-    version = "2023.5.10";
+    version = "2023.6.23";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4109050/privacy_badger17-2023.5.10.xpi";
-    sha256 = "8ff7650d1ce133894293d1a3e268bb24d300e77a1c25488ed17846e71d8b33e8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4129240/privacy_badger17-2023.6.23.xpi";
+    sha256 = "ce79513710b2aed96bf03ec63d8be2e8274329e8d90911f5b8962c777e006e96";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
       description = "Automatically learns to block invisible trackers.";
@@ -314,10 +314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "23.6.2";
+    version = "23.7.8";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4119553/refined_github-23.6.2.xpi";
-    sha256 = "218470b74c1e89c51cdca7f04bb5c66638bc243a5bc4b0b01b2feca9a2fc7c58";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4135873/refined_github-23.7.8.xpi";
+    sha256 = "9e6555c0b8e11f782ae997783ec6caa0c1f00f6ec9af0b42937a9335f184668a";
     meta = with lib; {
       homepage = "https://github.com/sindresorhus/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -351,10 +351,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.4.8";
+    version = "5.4.10";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4117298/sponsorblock-5.4.8.xpi";
-    sha256 = "7ec9815177ea05688c3cad85806e6b945786be622a5f438c33e94a8720de043c";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4128665/sponsorblock-5.4.10.xpi";
+    sha256 = "6ff39316685211467f098ad8084e2b1d5310998f98efc93c8d218ca11f2fb190";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos.\n\nOther browsers: https://sponsor.ajay.app";
@@ -364,10 +364,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "3.6.6";
+    version = "3.6.8";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4106867/steam_database-3.6.6.xpi";
-    sha256 = "1042f5a1b61ee4083e8999405da601bc6fa43cf9069f078b5da45261f40bce2b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4132639/steam_database-3.6.8.xpi";
+    sha256 = "9f2a8c212739ac0587465dce11fa8f731fd317871e7a8b742e4dafb669538aa3";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
