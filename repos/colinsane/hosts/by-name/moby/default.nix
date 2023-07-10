@@ -34,6 +34,7 @@
   ];
 
   sane.gui.sxmo.enable = true;
+  sane.programs.guiApps.suggestedPrograms = [ "handheldGuiApps" ];
   # sane.programs.consoleUtils.enableFor.user.colin = false;
   # sane.programs.guiApps.enableFor.user.colin = false;
   sane.programs.sequoia.enableFor.user.colin = false;

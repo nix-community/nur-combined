@@ -755,6 +755,11 @@ in {
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit (final) stdenv; };
   # });
 
+  megapixels = prev.megapixels.override {
+    # fixes -msse2, -mfpmath=sse flags
+    wrapGAppsHook4 = final.wrapGAppsHook;
+  };
+
   # mepo = (prev.mepo.override {
   #   inherit (emulated)
   #     stdenv

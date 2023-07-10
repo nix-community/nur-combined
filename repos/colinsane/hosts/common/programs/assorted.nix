@@ -220,6 +220,13 @@
       ];
     };
 
+    handheldGuiApps = {
+      package = null;
+      suggestedPrograms = [
+        "megapixels"  # camera app
+      ];
+    };
+
     x86GuiApps = {
       package = null;
       suggestedPrograms = [

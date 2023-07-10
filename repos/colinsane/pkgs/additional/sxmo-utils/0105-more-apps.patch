@@ -48,7 +48,7 @@ index ba70a31..9f5a129 100755
  write_line_app thunar "$icon_dir Thunar" "sxmo_terminal.sh thunar"
  write_line_app thunderbird "$icon_eml Thunderbird" "thunderbird"
  write_line_app com.github.bleakgrey.tootle "$icon_msg Tootle" "com.github.bleakgrey.tootle"
-+write_line_app re.sonny.Tangram "$icon_web Tangram" "re.sonny.Tangram"
++write_line_app re.sonny.Tangram "$icon_glb Tangram" "re.sonny.Tangram"
  write_line_app totem "$icon_mvi Totem" "totem"
 +write_line_app dev.geopjr.Tuba "$icon_grp Tuba" "dev.geopjr.Tuba"
  write_line_app tuir "$icon_red Tuir" "sxmo_terminal.sh tuir"

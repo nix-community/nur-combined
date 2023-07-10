@@ -11,7 +11,6 @@ in
 
   sane.user.fs."private/.local/share/keyrings/default" = {
     generated.command = [ "${init-keyring}/bin/init-keyring" ];
-    # TODO: is this `wantedBy` needed? can we inherit it?
     wantedBy = [ config.sane.fs."/home/colin/private".unit ];
     wantedBeforeBy = [ ];  # don't created this as part of `multi-user.target`
   };
