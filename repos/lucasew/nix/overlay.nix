@@ -100,6 +100,22 @@ in
     inherit (flake.outputs) colors;
   };
 
+  opencv4Full = prev.python3Packages.opencv4.override {
+    pythonPackages = prev.python3Packages;
+    enablePython = true;
+    enableContrib = true;
+    enableTesseract = true;
+    enableOvis = true;
+    enableUnfree = true;
+    enableGtk3 = true;
+    enableGPhoto2 = true;
+    enableFfmpeg = true;
+    enableGStreamer = false;
+    enableIpp = true;
+    enableTbb = true;
+    enableDC1394 = true;
+  };
+
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {
     src = prev.fetchzip {
       url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/SRB5.0_linux64.zip";
