@@ -8,9 +8,13 @@
     # XXX(2023/07/08): running on moby without this hack fails, with:
     # - `bwrap: Can't make symlink at /var/run: File exists`
     # see epiphany.nix for more info
-    package = pkgs.writeShellScriptBin "re.sonny.Tangram" ''
-      WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1 ${pkgs.tangram}/bin/re.sonny.Tangram
-    '';
+    package = pkgs.tangram.overrideAttrs (upstream: {
+      preFixup = ''
+        gappsWrapperArgs+=(
+          --set WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS "1"
+        );
+      '' + (upstream.preFixup or "");
+    });
     persist.private = [
       ".cache/Tangram"
       ".local/share/Tangram"
