@@ -189,9 +189,10 @@ in
           # TODO: only need the share/sxmo directly linked
           "${cfg.package}/share"
         ];
-      } // cfg.settings;
+      };
 
       sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle (sane-lib.fs.wantedText "");
+      sane.user.fs.".config/sxmo/profile".symlink.text = lib.generators.toKeyValue {} cfg.settings;
 
 
       ## greeter

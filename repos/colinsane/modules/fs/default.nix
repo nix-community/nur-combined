@@ -210,7 +210,7 @@ let
       };
 
       after = gen-opt.depends;
-      wants = gen-opt.depends;
+      requires = gen-opt.depends;
       # prevent systemd making this unit implicitly dependent on sysinit.target.
       # see: <https://www.freedesktop.org/software/systemd/man/systemd.special.html>
       unitConfig.DefaultDependencies = "no";

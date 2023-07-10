@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
 let
+  # TODO: use formats.gitIni or lib.generators.toGitINI
+  # - see: <repo:nixos/nixpkgs:pkgs/pkgs-lib/formats.nix>
   mkCfg = lib.generators.toINI { };
 in
 {
