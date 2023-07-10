@@ -99,6 +99,8 @@
 
   vstat = pkgs.callPackage ./pkgs/vstat { vectorclass = vectorclass; };
 
+  xad = pkgs.callPackage ./pkgs/xad { };
+
   xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
 
   pyoperon = pkgs.python3Packages.callPackage ./pkgs/pyoperon { };
