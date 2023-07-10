@@ -10,6 +10,7 @@ returns select results and magnet links.
 options:
   --full     display all results
   --help     show this help message and exit
+  --manga    show only manga results
   --json     output one json document instead of a human-readable table
   --top=<n>  show the <n> top rated torrents (default: 5)
   --verbose  show more information, useful for debugging/development

@@ -1347,7 +1347,9 @@ in {
     nativeBuildInputs = orig.nativeBuildInputs ++ [ final.lua5 final.protobuf ];
     # fix that it can't find the c compiler
     # makeFlags = orig.makeFlags or [] ++ [ "CC=${prev.stdenv.cc.targetPrefix}cc" ];
-    BUILDCC = "${prev.stdenv.cc}/bin/${prev.stdenv.cc.targetPrefix}cc";
+    env = orig.env // {
+      BUILDCC = "${final.stdenv.cc}/bin/${final.stdenv.cc.targetPrefix}cc";
+    };
   });
   # fixes "perl: command not found"
   vpnc = mvToNativeInputs [ final.perl ] prev.vpnc;
