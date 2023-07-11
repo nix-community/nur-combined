@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DXAD_ENABLE_TESTS=OFF"
     "-DXAD_POSITION_INDEPENDENT_CODE=ON"
+    "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ];
 
   meta = with lib; {
