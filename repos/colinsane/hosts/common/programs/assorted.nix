@@ -28,7 +28,7 @@
         "lsof"
         "miniupnpc"
         "nano"
-        "ncdu"  # ncurses disk usage
+        #  "ncdu"  # ncurses disk usage. doesn't cross compile (zig)
         "neovim"
         "netcat"
         "nethogs"
