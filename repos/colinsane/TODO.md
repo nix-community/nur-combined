@@ -42,6 +42,7 @@
     - flatpak does this, somehow
     - apparmor?  SElinux?  (desktop) "portals"?
     - see Spectrum OS; Alyssa Ross; etc
+    - bubblewrap-based sandboxing: <https://github.com/nixpak/nixpak>
 - canaries for important services
     - e.g. daily email checks; daily backup checks
     - integrate `nix check` into Gitea actions?
