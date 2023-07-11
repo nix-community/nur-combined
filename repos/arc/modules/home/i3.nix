@@ -1,8 +1,9 @@
 { config, pkgs, lib, ... }: with lib; let
+  inherit (config.systemd.user) systemctlPath;
   sessionStart = pkgs.writeShellScript "i3-session" ''
     set -eu
-    ${config.systemd.package or pkgs.systemd}/bin/systemctl --user set-environment I3SOCK=$(${config.xsession.windowManager.i3.package}/bin/i3 --get-socketpath)
-    ${config.systemd.package or pkgs.systemd}/bin/systemctl --user start i3-session.target
+    ${systemctlPath} --user set-environment I3SOCK=$(${config.xsession.windowManager.i3.package}/bin/i3 --get-socketpath)
+    ${systemctlPath} --user start i3-session.target
   '';
   inherit (config.xsession.windowManager.i3) enable;
 in {

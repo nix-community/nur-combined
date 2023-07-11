@@ -2,10 +2,10 @@
   cfg = config.services.konawall;
   arc = import ../../canon.nix { inherit pkgs; };
   service = config.systemd.user.services.konawall;
-  systemd = config.systemd.package or pkgs.systemd;
+  inherit (config.systemd.user) systemctlPath;
   konashow = pkgs.writeShellScriptBin "konashow" ''
-    ${systemd}/bin/journalctl \
-      _SYSTEMD_INVOCATION_ID=$(${systemd}/bin/systemctl show -p InvocationID --value konawall.service --user) \
+    ${builtins.dirOf systemctlPath}/journalctl \
+      _SYSTEMD_INVOCATION_ID=$(${systemctlPath} show -p InvocationID --value konawall.service --user) \
       -o cat --no-pager
   '';
 in with lib; {
@@ -88,7 +88,7 @@ in with lib; {
         };
         Service = {
           Type = "oneshot";
-          ExecStart = "${systemd}/bin/systemctl --user --no-block restart konawall";
+          ExecStart = "${systemctlPath} --user --no-block restart konawall";
         };
       };
     };

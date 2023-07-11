@@ -36,7 +36,7 @@
         '';
       in {
         postLayout = mkIf hconfig.services.polybar.enable ''
-          ${hconfig.systemd.package or pkgs.systemd}/bin/systemctl --user restart polybar.service
+          ${hconfig.systemd.user.systemctlPath} --user restart polybar.service
         ''; # monitor count might change, also polybar tray can break on bar movement
         nvidia = mkOptionDefault displayset-nvidia;
         xrandr = mkOptionDefault displayset-xrandr;

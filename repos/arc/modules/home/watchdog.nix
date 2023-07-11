@@ -3,12 +3,11 @@
   services = filterAttrs (_: wd: wd.enable) cfg.services;
   arclib = import ../../lib { inherit lib; };
   unmerged = lib.unmerged or arclib.unmerged;
-  systemd = osConfig.systemd.package or pkgs.systemd;
   canRequire = false;
   package = pkgs.writeShellScriptBin "watchdog-command" ''
     while ${pkgs.coreutils}/bin/sleep $((WATCHDOG_USEC / 2000000)); do
       if "$@" > /dev/null; then
-        ${systemd}/bin/systemd-notify WATCHDOG=1
+        ${builtins.dirOf config.systemd.user.systemctlPath}/systemd-notify WATCHDOG=1
       else
         echo tripped >&2
       fi

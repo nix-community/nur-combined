@@ -33,7 +33,6 @@
   syncplay = ./syncplay.nix;
   imv = ./imv.nix;
   weechat = ./weechat.nix;
-  systemd = ./systemd.nix;
   xdg = ./xdg.nix;
   watchdog = ./watchdog.nix;
   user = ./user.nix;
@@ -70,7 +69,6 @@
       syncplay
       imv
       weechat
-      systemd
       xdg
       watchdog
       user

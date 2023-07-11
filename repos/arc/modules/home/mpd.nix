@@ -42,7 +42,7 @@ in {
       '';
     };
     systemd.user.services.mpd = mkIf cfg.enable {
-      Service.ExecStart = mkOverride (modules.defaultPriority - 1) "${cfg.package}/bin/mpd --no-daemon ${cfg.configPath}";
+      Service.ExecStart = mkOverride (modules.defaultOverridePriority - 1) "${cfg.package}/bin/mpd --no-daemon ${cfg.configPath}";
     };
     networking.bindings = mkIf cfg.enable {
       mpd = {
