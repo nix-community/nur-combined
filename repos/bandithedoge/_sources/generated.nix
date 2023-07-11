@@ -197,15 +197,15 @@
   };
   macemu = {
     pname = "macemu";
-    version = "51fc1905c4a3608795604e0942320afb873be47d";
+    version = "6f94fdd7b07d42b53a4cbe19e560bf98c16eb8e6";
     src = fetchFromGitHub {
       owner = "kanjitalk755";
       repo = "macemu";
-      rev = "51fc1905c4a3608795604e0942320afb873be47d";
+      rev = "6f94fdd7b07d42b53a4cbe19e560bf98c16eb8e6";
       fetchSubmodules = false;
-      sha256 = "sha256-GgS7NvCDXZWjTqvZnGr2cRFuIs6ejGB+QxwbZEPTFaE=";
+      sha256 = "sha256-EOCqp30NzwwNRhiJbpiClFkb4TyB0Xxv6x088vLSbl4=";
     };
-    date = "2023-06-20";
+    date = "2023-07-09";
   };
   raze = {
     pname = "raze";
