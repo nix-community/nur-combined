@@ -42,6 +42,29 @@ let
       allowedTCPPorts = lib.optional (lib.elem "tcp" portCfg.protocol) (lib.toInt port);
       allowedUDPPorts = lib.optional (lib.elem "udp" portCfg.protocol) (lib.toInt port);
     };
+
+  upnpServiceForPort = port: portCfg:
+    lib.mkIf portCfg.visibleTo.wan {
+      "upnp-forward-${port}" = {
+        description = "forward port ${port} from upstream gateway to this host";
+        serviceConfig.Type = "oneshot";
+        restartTriggers = [(builtins.toJSON portCfg)];
+
+        after = [ "network.target" ];
+        wantedBy = [ "upnp-forwards.target" ];
+        script =
+          let
+            portFwd = "${pkgs.sane-scripts.ip-port-forward}/bin/sane-ip-port-forward";
+            forwards = lib.flatten [
+              (lib.optional (lib.elem "udp" portCfg.protocol) "udp:${port}:${portCfg.description}")
+              (lib.optional (lib.elem "tcp" portCfg.protocol) "tcp:${port}:${portCfg.description}")
+            ];
+          in ''
+            ${portFwd} -v -d ${builtins.toString cfg.upnpLeaseDuration} \
+              ${lib.escapeShellArgs forwards}
+          '';
+      };
+    };
 in
 {
   options = with lib; {
@@ -77,36 +100,19 @@ in
       networking.firewall = lib.mkMerge (lib.mapAttrsToList firewallConfigForPort cfg.ports);
     })
     (lib.mkIf cfg.openUpnp {
-      systemd.services.upnp-forwards = {
-        description = "forward ports from upstream gateway to this host";
-        serviceConfig.Type = "oneshot";
-        restartTriggers = [(builtins.toJSON cfg)];
-
-        after = [ "network.target" ];
-        script =
-          let
-            portFwd = "${pkgs.sane-scripts.ip-port-forward}/bin/sane-ip-port-forward";
-            forwardsPerCfg = lib.mapAttrsToList
-              (port: portCfg: lib.optionals portCfg.visibleTo.wan
-                (
-                  lib.optional (lib.elem "udp" portCfg.protocol) "udp:${port}:${portCfg.description}"
-                    ++ lib.optional (lib.elem "tcp" portCfg.protocol) "tcp:${port}:${portCfg.description}"
-                )
-              )
-              cfg.ports;
-            forwards = lib.flatten forwardsPerCfg;
-          in ''
-            ${portFwd} -v -d ${builtins.toString cfg.upnpLeaseDuration} \
-              ${lib.escapeShellArgs forwards}
-          '';
-      };
-
+      systemd.services = lib.mkMerge (lib.mapAttrsToList upnpServiceForPort cfg.ports);
       systemd.timers.upnp-forwards = {
         wantedBy = [ "network.target" ];
         timerConfig = {
           OnStartupSec = "1min";
           OnUnitActiveSec = cfg.upnpRenewInterval;
         };
+      };
+    })
+    (lib.mkIf cfg.openUpnp {
+      systemd.targets.upnp-forwards = {
+        description = "forward ports from upstream gateway to this host";
+        after = [ "network.target" ];
       };
     })
   ];

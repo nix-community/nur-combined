@@ -31,8 +31,16 @@ class SsdpResponse:
     def location(self) -> str:
         return self.headers.get("LOCATION")
 
+def get_cached_root_devices() -> list[str]:
+    try:
+        dev = open("/var/lib/uninsane/upnp.txt", "r").read()
+    except IOError:
+        return []
+    else:
+        logger.debug("loaded cached UPNP root device", dev)
+        return [dev]
 
-def get_root_devices():
+def get_root_devices() -> list[str]:
     listener = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
     listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     listener.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
@@ -62,7 +70,7 @@ def get_root_devices():
                     logger.info(f"root desc: {root_desc}")
                     yield root_desc
 
-def get_ips_from_location(location: str):
+def get_ips_from_location(location: str) -> tuple[str | None, str | None]:
     """
     location = URI from the Location header, e.g. http://10.78.79.1:2189/rootDesc.xml
     returns (lan, wan)
@@ -91,14 +99,17 @@ def get_ips_from_location(location: str):
             logger.info(f"got LAN = {lan} from {location}")
     return lan, wan
 
-def get_any_wan():
+def get_any_wan(cached: bool = False) -> tuple[str, str, str] | None:
     """ return (location, LAN IP, WAN IP) for the first device seen which has a WAN IP """
-    for location in get_root_devices():
-        lan, wan = get_ips_from_location(location)
-        if lan and wan:
-            return location, lan, wan
+    sources = ([ get_cached_root_devices() ] if cached else []) \
+        + [ get_root_devices() ]
+    for source in sources:
+        for location in source:
+            lan, wan = get_ips_from_location(location)
+            if lan and wan:
+                return location, lan, wan
 
-def forward_port(root_device: str, proto: str, port: int, lan_ip: str, reason: str = "", duration: int = 86400):
+def forward_port(root_device: str, proto: str, port: int, lan_ip: str, reason: str = "", duration: int = 86400) -> None:
     args = [
         "upnpc",
         "-u", root_device,

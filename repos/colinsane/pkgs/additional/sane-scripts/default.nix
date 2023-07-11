@@ -86,16 +86,11 @@ let
       src = ./src;
       pkgs = [ "git" ];
     };
-    ip-check = static-nix-shell.mkBash {
+    ip-check = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-check";
       src = ./src;
-      pkgs = [ "curl" "gnugrep" ];
-    };
-    ip-check-upnp = static-nix-shell.mkPython3Bin {
-      pname = "sane-ip-check-upnp";
-      src = ./src;
       pkgs = [ "miniupnpc" ];
-      pyPkgs = [ "sane-lib.ssdp" ];
+      pyPkgs = [ "requests" "sane-lib.ssdp" ];
     };
     ip-port-forward = static-nix-shell.mkPython3Bin {
       pname = "sane-ip-port-forward";

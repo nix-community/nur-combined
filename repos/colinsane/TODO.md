@@ -2,9 +2,6 @@
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
   - else DNS fails
 - fix port 53 UPnP failures
-  - make one service per forward:
-    - that way one port being bad doesn't take down all of them
-      but i still get `systemctl --failed` status
 - fix epiphany to launch on moby
   - something to do with bwrap/bubblewrap?
 
@@ -75,6 +72,9 @@
 
 ### perf
 - why does zsh take so long to init?
+    - try using Starship prompt instead? <https://starship.rs/>
+      - supports git-status stuff too
+      - can probably displace all of the powerlevel10k stuff
 - why does nixos-rebuild switch take 5 minutes when net is flakey?
     - trying to auto-mount servo?
     - something to do with systemd services restarting/stalling

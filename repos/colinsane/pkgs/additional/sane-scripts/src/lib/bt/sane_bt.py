@@ -19,7 +19,7 @@ class MediaMeta:
     archive: bool
 
     @classmethod
-    def add_arguments(self, parser: ArgumentParser):
+    def add_arguments(self, parser: ArgumentParser) -> None:
         parser.add_argument("--prefix", help="additional path component before anything implied by the other options (but after the base media dir")
         parser.add_argument("--film", action="store_true")
         parser.add_argument("--show", help="ShowTitle")
@@ -69,7 +69,7 @@ class MediaMeta:
             vn="Books/Visual/",
         )[self.type_]
 
-    def fs_path(self, base: str="/var/lib/uninsane/media/"):
+    def fs_path(self, base: str="/var/lib/uninsane/media/") -> None:
         return os.path.join(
             base,
             self.prefix or "",
@@ -93,7 +93,7 @@ class TransmissionApi:
         self.check_output = check_output
 
     @staticmethod
-    def add_arguments(parser: ArgumentParser):
+    def add_arguments(parser: ArgumentParser) -> None:
         parser.add_argument("--dry-run", action="store_true", help="only show what would be done; don't invoke transmission")
 
     @staticmethod
@@ -104,7 +104,7 @@ class TransmissionApi:
     def auth(self) -> str:
         return open(self.PASSFILE, "r").read().strip()
 
-    def add_torrent(self, meta: MediaMeta, torrent: str):
+    def add_torrent(self, meta: MediaMeta, torrent: str) -> None:
         self.call_transmission(
             description=f"saving to {meta.fs_path()}",
             args=[
@@ -113,7 +113,7 @@ class TransmissionApi:
             ]
         )
 
-    def move_torrent(self, meta: MediaMeta, torrent: str):
+    def move_torrent(self, meta: MediaMeta, torrent: str) -> None:
         self.call_transmission(
             description=f"moving {torrent} to {meta.fs_path()}",
             args=[
@@ -122,7 +122,7 @@ class TransmissionApi:
             ]
         )
 
-    def add_or_move_torrent(self, meta: MediaMeta, torrent: str):
+    def add_or_move_torrent(self, meta: MediaMeta, torrent: str) -> None:
         """
         if "torrent" represents a magnet or file URI, then add else
         else assume it's a transmission identifier and move it to the location specified by @p meta.
@@ -132,7 +132,7 @@ class TransmissionApi:
         else:
             self.add_torrent(meta, torrent)
 
-    def rm_torrent(self, torrent: str | int):
+    def rm_torrent(self, torrent: str | int) -> None:
         self.call_transmission(
             description=f"deleting {torrent}",
             args=[

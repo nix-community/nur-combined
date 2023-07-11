@@ -1,5 +1,57 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl -p gnugrep
-ip=$(curl --silent https://ipinfo.io/ip)
-echo "$ip" | grep -P " *^\d+\.\d+\.\d+\.\d+ *$"
-exit $?
+#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.requests ps.sane-lib.ssdp ])" -p miniupnpc
+
+# best to run this with an external timeout. e.g.
+# - `timeout 60 sane-ip-check`
+
+import json
+import logging
+import requests
+import subprocess
+import sys
+
+from sane_ssdp import get_any_wan
+
+logger = logging.getLogger(__name__)
+
+def get_wan_fallback():
+    "untrusted method in which to get the WAN IP"
+    r = requests.get("https://ipinfo.io/ip")
+    ip = r.text.strip()
+    if any(c not in "0123456789." for c in ip):
+        logging.warn("invalid IP from ipinfo.ip", ip)
+        return ""
+    else:
+        return ip
+
+if __name__ == '__main__':
+    logging.basicConfig()
+
+    format = "plaintext"
+    try_upnp = True
+
+    for arg in sys.argv[1:]:
+        if arg == "-v":
+            logging.getLogger().setLevel(logging.INFO)
+        elif arg == "-vv":
+            logging.getLogger().setLevel(logging.DEBUG)
+        elif arg == "--json":
+            format = "json"
+        elif arg == "--no-upnp":
+            try_upnp = False
+        else:
+            raise RuntimeError(f"invalid CLI argument {arg!r}")
+
+    upnp_details = get_any_wan() if try_upnp else None
+    if upnp_details:
+        root_dev, _lan_ip, wan_ip = upnp_details
+    else:
+        root_dev, wan_ip = "", get_wan_fallback()
+
+    if format == "plaintext":
+        print(wan_ip)
+    elif format == "json":
+        print(json.dumps(dict(
+            wan=wan_ip,
+            upnp=root_dev,
+        )))

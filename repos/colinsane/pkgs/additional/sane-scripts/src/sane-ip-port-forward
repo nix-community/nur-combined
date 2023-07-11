@@ -99,6 +99,6 @@ if __name__ == '__main__':
         print(e)
         sys.exit(1)
 
-    root_device, lan, _wan = get_any_wan()
+    root_device, lan, _wan = get_any_wan(cached=True)
     for (proto, port, reason) in forwards:
         forward_port(root_device, proto, port, lan_ip=lan, reason=reason, duration=duration)

@@ -6,8 +6,8 @@ let
   getIp = pkgs.writeShellScript "dyn-dns-query-wan" ''
     # preferred method and fallback
     # OPNsense router broadcasts its UPnP endpoint every 30s
-    timeout 60 ${pkgs.sane-scripts.ip-check-upnp}/bin/sane-ip-check-upnp || \
-      ${pkgs.sane-scripts.ip-check}/bin/sane-ip-check
+    timeout 60 ${pkgs.sane-scripts.ip-check}/bin/sane-ip-check --json || \
+      ${pkgs.sane-scripts.ip-check}/bin/sane-ip-check --json --no-upnp
   '';
 in
 {
@@ -22,6 +22,14 @@ in
         default = "/var/lib/uninsane/wan.txt";
         type = types.str;
         description = "where to store the latest WAN IPv4 address";
+      };
+
+      upnpPath = mkOption {
+        default = "/var/lib/uninsane/upnp.txt";
+        type = types.str;
+        description = ''
+          where to store the address of the UPNP device (if any) that can be used to create port forwards.
+        '';
       };
 
       ipCmd = mkOption {
@@ -54,18 +62,33 @@ in
       wantedBy = cfg.restartOnChange;
       before = cfg.restartOnChange;
 
-      script = ''
+      script = let
+        jq = "${pkgs.jq}/bin/jq";
+        sed = "${pkgs.gnused}/bin/sed";
+      in ''
         mkdir -p "$(dirname '${cfg.ipPath}')"
-        newIp=$(${cfg.ipCmd})
+        mkdir -p "$(dirname '${cfg.upnpPath}')"
+        newIpDetails=$(${cfg.ipCmd})
+        newIp=$(echo "$newIpDetails" | ${jq} ".wan" | ${sed} 's/^"//' | ${sed} 's/"$//')
+        newUpnp=$(echo "$newIpDetails" | ${jq} ".upnp" | ${sed} 's/^"//' | ${sed} 's/"$//')
         oldIp=$(cat '${cfg.ipPath}' || true)
+        oldUpnp=$(cat '${cfg.upnpPath}' || true)
+
         # systemd path units are triggered on any file write action,
         # regardless of content change. so only update the file if our IP *actually* changed
-        if [ "$newIp" != "$oldIp" ]
+        if [ "$newIp" != "$oldIp" -a -n "$newIp" ]
         then
           echo "$newIp" > '${cfg.ipPath}'
           echo "WAN ip changed $oldIp -> $newIp"
         fi
-        exit $(test -f '${cfg.ipPath}')
+
+        if [ "$newUpnp" != "$oldUpnp" -a -n "$newUpnp" ]
+        then
+          echo "$newUpnp" > '${cfg.upnpPath}'
+          echo "UPNP changed $oldUpnp -> $newUpnp"
+        fi
+
+        exit $(test -f '${cfg.ipPath}' -a '${cfg.upnpPath}')
       '';
     };
 
