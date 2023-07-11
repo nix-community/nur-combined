@@ -2,9 +2,10 @@
 #!nix-shell -i bash
 file="$1"
 enc="$2"
+nibbles="$3"
 echo "$file" | cat /dev/stdin /etc/ssh/host_keys/ssh_host_ed25519_key \
   | sha512sum \
-  | cut -c 1-${toString (c.len * 2)} \
+  | cut -c "1-$nibbles" \
   | tr a-z A-Z \
   | basenc -d --base16 \
   | basenc "--$enc" \

@@ -1,16 +1,14 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) toString;
-  inherit (lib) mapAttrs mkOption types;
 
   hash-path-with-salt = pkgs.static-nix-shell.mkBash {
     pname = "hash-path-with-salt";
     src = ./.;
   };
-  
+
   cfg = config.sane.derived-secrets;
-  secret = types.submodule {
+  secret = with lib; types.submodule {
     options = {
       len = mkOption {
         type = types.int;
@@ -23,7 +21,7 @@ let
 in
 {
   options = {
-    sane.derived-secrets = mkOption {
+    sane.derived-secrets = with lib; mkOption {
       type = types.attrsOf secret;
       default = {};
       description = ''
@@ -36,11 +34,12 @@ in
   };
 
   config = {
-    sane.fs = mapAttrs (path: c: {
+    sane.fs = lib.mapAttrs (path: c: {
       generated.command = [
         "${hash-path-with-salt}/bin/hash-path-with-salt"
         path
         c.encoding
+        (builtins.toString (c.len * 2))
       ];
       generated.acl.mode = "0600";
     }) cfg;
