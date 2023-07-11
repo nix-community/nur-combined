@@ -496,6 +496,9 @@
             "type": "sourcehut",
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
+        "mloeper": {
+            "url": "https://github.com/MartinLoeper/nur"
+        },
         "mmilata": {
             "url": "https://github.com/mmilata/nur-packages"
         },
