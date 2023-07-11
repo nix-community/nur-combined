@@ -19,7 +19,7 @@ def rm_color(stdout: str) -> str:
 def rm_heading(stdout: str) -> str:
     return "\n".join(stdout.split("\n")[4:])
 
-def extract_columns(stdout: str) -> list:
+def extract_columns(stdout: str) -> list[tuple[str, str]]:
     " split each line into two fields "
     lines = stdout.split("\n")
     items = []
@@ -38,7 +38,7 @@ def extract_columns(stdout: str) -> list:
     logger.debug(f"parsed iwctl output: {items!r}")
     return items
 
-def iwctl(args: list, sudo: bool = False) -> str:
+def iwctl(args: list[str], sudo: bool = False) -> str:
     cmd = [ "iwctl" ] + args
     if sudo:
         cmd = [ "sudo" ] + cmd
@@ -48,25 +48,32 @@ def iwctl(args: list, sudo: bool = False) -> str:
         res.check_returncode()  # raise
     return res.stdout.decode()
 
+def try_iwctl(args: list[str], sudo: bool = False, default: any = None) -> any:
+    try:
+        return iwctl(args, sudo)
+    except subprocess.CalledProcessError:
+        print("failed to iwctl: {args}")
+        return default
+
 def scan() -> None:
-    iwctl(["station", "wlan0", "scan"], sudo=True)
+    try_iwctl(["station", "wlan0", "scan"], sudo=True)
     time.sleep(5)  # give time for adapter to see networks
 
-def get_known() -> list:
-    stdout = iwctl(["known-networks", "list"])
+def get_known() -> list[str]:
+    stdout = try_iwctl(["known-networks", "list"], default="")
     stdout = rm_color(stdout)
     stdout = rm_heading(stdout)
     logging.debug(f"iwctl known-networks list: got: {stdout}")
     return [name for (name, date) in extract_columns(stdout)]
 
-def get_visible() -> list:
-    stdout = iwctl(["station", "wlan0", "get-networks", "rssi-dbms"])
+def get_visible() -> list[tuple[str, int]]:
+    stdout = try_iwctl(["station", "wlan0", "get-networks", "rssi-dbms"], default="")
     stdout = rm_color(stdout)
     stdout = rm_heading(stdout)
     logging.debug(f"iwctl station wlan0 get-networks rssi-dbms: got: {stdout}")
     return [(name, int(strength)) for (name, strength) in extract_columns(stdout)]
 
-def choose_best(visible: list, known: list) -> str:
+def choose_best(visible: list[tuple[str, int]], known: list[str]) -> str:
     candidates = [(name, strength) for (name, strength) in visible if name in known]
     # the least-negative RSSI is the best
     return max(candidates, key=lambda c: c[1])[0] if candidates else None
@@ -74,13 +81,19 @@ def choose_best(visible: list, known: list) -> str:
 def connect(network: str) -> str:
     return iwctl(["station", "wlan0", "connect", network], sudo=True)
 
-def restart(unit: str = "iwd") -> str:
-    return subprocess.check_output([
+def restart(unit: str = "iwd") -> None:
+    subprocess.check_output([
         "sudo",
         "systemctl",
         "restart",
         unit,
     ])
+
+def try_restart(unit: str = "iwd") -> None:
+    try:
+        restart(unit)
+    except subprocess.CalledProcessError as e:
+        print(f"failed to restart {unit}")
 
 def try_connect(network: str | None) -> bool:
     """returns True on successful connection"""
@@ -116,9 +129,9 @@ def main() -> None:
 
     if not try_connect(best):
         print("restarting iwd daemon")
-        restart()
+        try_restart()
         print("reimporting secrets")
-        restart("ensure-var-lib-iwd-.secrets.psk.stamp")
+        try_restart("ensure-var-lib-iwd-.secrets.psk.stamp")
 
 def parse_args(args: list[str]) -> None:
     for a in args:
