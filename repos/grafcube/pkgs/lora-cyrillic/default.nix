@@ -2,13 +2,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "lora-cyrillic";
-  version = "3.003";
+  version = "3.005";
 
   src = fetchFromGitHub {
     owner = "cyrealtype";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1vdw2c4q18fvjnls541xg4031sswphd71wr3ybydv77m9dwp2szn";
+    sha256 = "0nxpcvdgh76l1yq70886gi6av8cc3xcf766h0mcgfin58c6vqxhh";
   };
 
   installPhase = ''
