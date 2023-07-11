@@ -630,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.4";
+      version = "1.1.5";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4135555/dearrow-1.1.4.xpi";
-      sha256 = "1613ff575d83108dfac2d1ee7e8fc6be98eb26879ff66ccf70017266f3614147";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4136583/dearrow-1.1.5.xpi";
+      sha256 = "8af4af87d18ebb047156b3b75551780b04975ae38229cb83828903f4b282abb7";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -886,10 +886,10 @@
       };
     "facebook-container" = buildFirefoxXpiAddon {
       pname = "facebook-container";
-      version = "2.3.9";
+      version = "2.3.10";
       addonId = "@contain-facebook";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4024031/facebook_container-2.3.9.xpi";
-      sha256 = "f4cdd84471e2f6d3195a3f90aa511b0aba7f138f888bd239d8cb71684611ef78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134385/facebook_container-2.3.10.xpi";
+      sha256 = "a06499857c39be72dad1e18089b55b9404a361f2d047b9961a8e478b099628a9";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/contain-facebook";
@@ -1086,10 +1086,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230709.175949";
+      version = "115.0.20230710.165010";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4136158/francais_language_pack-116.0.20230709.175949.xpi";
-      sha256 = "b79998820a910ec034b0df1e4e520252af32871a622325003203f41a2ed803fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4136735/francais_language_pack-115.0.20230710.165010.xpi";
+      sha256 = "a50f2cb7c2935b978ac12537aab01ff1f9b037c3cbd0257e1d97b6d3696d7025";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1404,10 +1404,10 @@
       };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.206";
+      version = "1.0.207";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4117253/hover_zoom_plus-1.0.206.xpi";
-      sha256 = "9ff7f5f75eec11b67ac738ce025c767cce0c494f238ce5e73a1c6967b710b201";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4136788/hover_zoom_plus-1.0.207.xpi";
+      sha256 = "69a1c251a0edea0b9a21ea683d558785e936350e585ed690c1d46eca7a38f569";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
