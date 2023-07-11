@@ -87,6 +87,8 @@
   environment.defaultPackages = [];
 
   # dconf docs: <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/desktop_migration_and_administration_guide/profiles>
+  # this lets programs temporarily write user-level dconf settings (aka gsettings).
+  # they're written to ~/.config/dconf/user, unless `DCONF_PROFILE` is set to something other than the default of /etc/dconf/profile/user
   # find keys/values with `dconf dump /`
   programs.dconf.enable = true;
   programs.dconf.packages = [
@@ -99,6 +101,7 @@
       '';
     })
   ];
+  # sane.programs.glib.enableFor.user.colin = true;  # for `gsettings`
 
   # link debug symbols into /run/current-system/sw/lib/debug
   # hopefully picked up by gdb automatically?

@@ -28,6 +28,7 @@
         "lsof"
         "miniupnpc"
         "nano"
+        "ncdu"  # ncurses disk usage
         "neovim"
         "netcat"
         "nethogs"
