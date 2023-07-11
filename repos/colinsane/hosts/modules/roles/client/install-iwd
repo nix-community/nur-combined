@@ -8,8 +8,8 @@
 # this is because iwd extracts the SSID from the filename, but users might
 # prefer the SSID be kept separate from the filename.
 
-src_dir="$1"
-dest_dir="$2"
+src_dir="${1:-/run/secrets/net}"
+dest_dir="${2:-/var/lib/iwd}"
 stamp="$3"
 for f in $(ls "$src_dir")
 do
@@ -22,4 +22,4 @@ do
                 chmod 600 "$dest_dir/$ssid.psk"
         fi
 done
-touch "$stamp"
+[ -n "$stamp" ] && touch "$stamp"
