@@ -37,7 +37,12 @@ in {
         windowManager.i3.enable = true;
         layout = "fr";
         xkbVariant = "us";
-        libinput.enable = true;
+        libinput = {
+          enable = true;
+          touchpad = {
+            naturalScrolling = true;
+          };
+        };
       };
 
       logind.lidSwitch = "ignore";
