@@ -4,32 +4,29 @@
 , pkg-config
 , glib
 , fetchFromGitHub
-  # , bash-completion
 }:
 stdenv.mkDerivation rec {
-  pname = "gnome-shell-extension-g3kb-switch";
-  version = "1.2";
+  pname = "g3kb-switch";
+  version = "1.3";
   src = fetchFromGitHub {
     owner = "lyokha";
     repo = "g3kb-switch";
     rev = version;
-    sha256 = "sha256-Nq2psfy51hZQEm57PUSvs17Pp2z6pe30h9BOLbOYV4k=";
+    sha256 = "sha256-QLTRM2GXSxvvVYOMq6QL44zZvoGkiolTLZ1u7dB7dt4=";
   };
 
   nativeBuildInputs = [
     cmake
     pkg-config
-    # bash-completion
   ];
   buildInputs = [
     glib
   ];
-  prePatch = ''
-    sed -i 's=/usr/=''${CMAKE_INSTALL_PREFIX}=g' CMakeLists.txt
-    sed -i 's=\\\''${prefix}/==g' CMakeLists.txt
-    install -d $out/share/gnome-shell/extensions
-    cp -r extension/g3kb-switch@g3kb-switch.org -t $out/share/gnome-shell/extensions
-  '';
+  cmakeFlags = [
+    "-DG3KBSWITCH_VIM_XKBSWITCH_LIB_PATH=lib"
+    "-DBASH_COMPLETION_COMPLETIONSDIR=${placeholder "out"}/share/bash-completions/completions"
+    "-DZSH_COMPLETION_COMPLETIONSDIR=${placeholder "out"}/share/zsh/site-functions"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/lyokha/g3kb-switch";
