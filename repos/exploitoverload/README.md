@@ -7,7 +7,6 @@
 ## List of Packages:
 
 * Responder (v3.1.3.0) (database file and logs in /tmp) -> Functional but WiP
-* impacket (impacket_0_10_0)
 * BloodHound (v4.3.1) (running with steam-run, running natively not working...)
 * bloodhound-python (v1.0.1)
 * seclists (2023.2)
