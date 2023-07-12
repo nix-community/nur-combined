@@ -17,8 +17,8 @@ in appimageTools.wrapType2 {
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-    substituteInPlace $out/share/applications/${pname}.desktop \
+    install -m 444 -D ${appimageContents}/todoist.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/todoist.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
     cp -r ${appimageContents}/usr/share/icons $out/share
   '';
