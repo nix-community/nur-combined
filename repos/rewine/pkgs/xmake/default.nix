@@ -12,18 +12,12 @@
 
 stdenv.mkDerivation rec {
   pname = "xmake";
-  version = "2.7.9";
+  version = "2.8.1";
 
   src = fetchurl {
     url = "https://github.com/xmake-io/xmake/releases/download/v${version}/xmake-v${version}.tar.gz";
-    hash = "sha256-m0LYY0gz9IhbBbiUKd1gBE3KmSMvYJYyC42Ff7M9Ku8=";
+    hash = "sha256-nM0LV3CVaLNbB1EKjc+Ywir2aQ/xWgET2Cu+kh908l8=";
   };
-
-  enableParallelBuilding = true;
-
-  #patches = [
-  #  ./0001-use-external.diff
-  #];
 
   nativeBuildInputs = [
     pkg-config
@@ -40,12 +34,6 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [ "--external=y" ];
-
-  #installFlags = [ "prefix=${placeholder "out"}" ];
-
-  #env.NIX_CFLAGS_COMPILE = toString [
-  #  "-L${tbox}/lib"
-  #];
 
   meta = with lib; {
     description = "A cross-platform build utility based on Lua";

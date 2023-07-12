@@ -21,10 +21,7 @@ with pkgs; rec {
   #libkysdk-applications = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-applications { inherit libkysdk-base; };
   #peony = pkgs.libsForQt5.callPackage ./pkgs/peony { inherit ukui-interface; };
 
-  tbox = pkgs.callPackage ./pkgs/tbox { };
-  xmake-core-sv = pkgs.callPackage ./pkgs/xmake-core-sv { };
   xmake = pkgs.callPackage ./pkgs/xmake { 
-    inherit tbox xmake-core-sv;
     luaPackages = pkgs.lua54Packages;
   };
   mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {
