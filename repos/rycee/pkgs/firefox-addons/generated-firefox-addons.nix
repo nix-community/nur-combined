@@ -506,10 +506,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.9.0";
+      version = "3.11.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4129350/control_panel_for_twitter-3.9.0.xpi";
-      sha256 = "0a0e7e3a5d92d657052fed1a73c9979b708f766ecc0518bb54c14f95926104ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4136040/control_panel_for_twitter-3.11.0.xpi";
+      sha256 = "9cb5deee78c92dd52415b299054307ceaaa09d91ffacacf0955523d615402460";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -839,10 +839,10 @@
       };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.119";
+      version = "2.0.119.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4131648/enhancer_for_youtube-2.0.119.xpi";
-      sha256 = "8be7094eecf9130222631839422ccad8219d5f76f6fa352c6e7ab3e10d0b6261";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134489/enhancer_for_youtube-2.0.119.1.xpi";
+      sha256 = "0ecdbe7e66d6dd6d459bc58c68d35f86612502feb30edd2c10262b4b87f1f3a2";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -1086,10 +1086,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "115.0.20230710.165010";
+      version = "116.0.20230711.183052";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4136735/francais_language_pack-115.0.20230710.165010.xpi";
-      sha256 = "a50f2cb7c2935b978ac12537aab01ff1f9b037c3cbd0257e1d97b6d3696d7025";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4137425/francais_language_pack-116.0.20230711.183052.xpi";
+      sha256 = "9176fea5784cf1865ee07334f9c72efecb8cadd1c030874472eb620de0175e7f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -1566,10 +1566,10 @@
       };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.8.6.1";
+      version = "1.8.7";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4094964/keepassxc_browser-1.8.6.1.xpi";
-      sha256 = "ce2275eb1f0a4b0ce2342204d00d62033f81f6dcb9e021cff38f51273e614f20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134768/keepassxc_browser-1.8.7.xpi";
+      sha256 = "deb1c3c29fabe90dd811536d434d64c200caab9a9f7febc3428aa170eefec5f2";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -2214,10 +2214,10 @@
       };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.7.0";
+      version = "1.7.1";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4126417/old_reddit_redirect-1.7.0.xpi";
-      sha256 = "6b70b536b5a14ac8c49f73e8b5f751d36b1e3837f079a3b76d302392bf91de5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134634/old_reddit_redirect-1.7.1.xpi";
+      sha256 = "d473230e527e007ae98414bc68ffe4f98ed997d2f25a71c349e4e13288d0da62";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -2565,10 +2565,10 @@
       };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.3.0";
+      version = "1.3.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4134284/proton_pass-1.3.0.xpi";
-      sha256 = "c41434758e1323230b819e7cd778e062e795e413a491d07c906ede72da44c440";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4137272/proton_pass-1.3.1.xpi";
+      sha256 = "736c7eaa7769e4c9c001cbec4141ec03a10746aa8847ec7dbf06ffb121669e7c";
       meta = with lib;
       {
         homepage = "https://proton.me";
