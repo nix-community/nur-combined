@@ -1284,25 +1284,25 @@ in {
   # };
   tangram = prev.tangram.override {
     inherit (emulated)
+      # required for compilation
       gobject-introspection
-      stdenv
+      stdenv  # fixes: "src/meson.build:2:20: ERROR: Program 'gjs' not found or not executable"
       # not required to compile, but lets try to fix runtime error
       appstream-glib
-      desktop-file-utils
-      gettext
-      wrapGAppsHook
-      # buildInputs, not required to compile
-      gdk-pixbuf
-      #^ the above wasn't enough. v the below was added in one go
-      # TODO: reduce this emulated set!
-      glib
-      glib-networking
-      gsettings-desktop-schemas
       gtk4
-      libadwaita
+      wrapGAppsHook  # fixes icons
+      # older emulated inputs which probably aren't actually needed:
+      # desktop-file-utils
+      # gettext
+      # buildInputs, not required to compile
+      # gdk-pixbuf
+      # glib
+      # glib-networking
+      # gsettings-desktop-schemas
+      # libadwaita
     ;
-    blueprint-compiler = dontCheck emulated.blueprint-compiler;  # tests time out
-    gjs = dontCheck emulated.gjs;  # tests time out
+    blueprint-compiler = dontCheck emulated.blueprint-compiler;  # emulate: because gi. dontCheck: because tests time out
+    gjs = dontCheck emulated.gjs;  # emulate: because Tangram build hangs. dontCheck: because tests time out
   };
   tracker-miners = prev.tracker-miners.override {
     # fixes "meson.build:183:0: ERROR: Can not run test applications in this cross environment."

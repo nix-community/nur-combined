@@ -7,10 +7,18 @@
       # vol and power are detected correctly by upstream
 
       ### preferences
-      # SXMO_SWAY_SCALE = "1.5";
-      SXMO_SWAY_SCALE = "2";
-      SXMO_ROTATION_GRAVITY = "12800";
-      SXMO_LOCK_IDLE_TIME = "15";  # how long between screenoff -> lock -> back to screenoff
+      # test new scales by running `swaymsg -- output DSI-1 scale x.y`
+      # SXMO_SWAY_SCALE = "1.5";  # hard to press gPodder icons
+      SXMO_SWAY_SCALE = "1.8";
+      # SXMO_SWAY_SCALE = "2";
+      # gravity: how far to tilt the device before the screen rotates
+      # for a given setting, normal <-> invert requires more movement then left <-> right
+      # i.e. the settingd doesn't feel completely symmetric
+      # SXMO_ROTATION_GRAVITY default is 16374
+      # SXMO_ROTATION_GRAVITY = "12800";  # uncomfortably high
+      # SXMO_ROTATION_GRAVITY = "12500";    # kinda uncomfortable when walking
+      SXMO_ROTATION_GRAVITY = "12000";
+      SXMO_LOCK_IDLE_TIME = "15";  # how long between screenoff -> lock -> back to screenoff (default: 8)
       DEFAULT_COUNTRY = "US";
       # wvkbd layers:
       # - full
