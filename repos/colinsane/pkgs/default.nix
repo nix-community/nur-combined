@@ -103,6 +103,8 @@ let
     # jackett doesn't allow customization of the bind address: this will probably always be here.
     jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
 
+    komikku = callPackage ./patched/komikku { inherit (unpatched) komikku; };
+
     lemmy-server = callPackage ./patched/lemmy-server { inherit (unpatched) lemmy-server; };
 
     phoc = callPackage ./patched/phoc { inherit (unpatched) phoc; };
