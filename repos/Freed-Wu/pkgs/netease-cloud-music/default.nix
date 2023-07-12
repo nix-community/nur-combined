@@ -439,7 +439,7 @@ stdenv.mkDerivation rec {
     homepage = "https://music.163.com";
     description = "Netease Cloud Music";
     license = licenses.unfree;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ Freed-Wu ];
     platforms = [ "x86_64-linux" ];
   };
 }
