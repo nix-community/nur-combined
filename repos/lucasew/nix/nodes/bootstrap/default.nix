@@ -18,6 +18,7 @@ in {
     ./tailscale.nix
     ./user.nix
     ./zerotier.nix
+    ./nix-tmp.nix
 
     (builtins.fetchurl {
       url = "https://raw.githubusercontent.com/NixOS/nixpkgs/60c696e31b14797a346241e4f553399d92ba2b69/nixos/modules/config/dotd.nix";
