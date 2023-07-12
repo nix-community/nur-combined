@@ -2,23 +2,36 @@
 , rustPlatform
 , lib
 , pkg-config
+, autoconf
+, automake
+, libtool
+, python3
+, glib
 , gtk3
 , gtk-layer-shell
 , pulseaudio
+, udev
+, libinput
 }:
 
-rustPlatform.buildRustPackage
-rec {
+rustPlatform.buildRustPackage {
   inherit (sources.swayosd) pname version src;
   cargoLock = sources.swayosd.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [
     pkg-config
+    autoconf
+    automake
+    libtool
+    python3
+    glib
   ];
   buildInputs = [
     gtk3
     gtk-layer-shell
     pulseaudio
+    udev
+    libinput
   ];
 
   meta = with lib; {

@@ -663,11 +663,11 @@
     "swayosd": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./swayosd-c573f5ce94e2017d37b3dd3c2c1363bb1c6f82a3/Cargo.lock",
+                "./swayosd-377496a90e6bd353a845cde0f33a1da5cf20b9d7/Cargo.lock",
                 {}
             ]
         },
-        "date": "2023-06-10",
+        "date": "2023-07-12",
         "extract": null,
         "name": "swayosd",
         "passthru": null,
@@ -677,12 +677,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c573f5ce94e2017d37b3dd3c2c1363bb1c6f82a3",
-            "sha256": "sha256-cPom4dU+64TdCIi9D+GZN+EJltgXWy8fezEL1r9kUDo=",
+            "rev": "377496a90e6bd353a845cde0f33a1da5cf20b9d7",
+            "sha256": "sha256-nqUkxFYPsAg97ADBJjzdsoW1d7+8IWTkaD/MSIXkyuo=",
             "type": "git",
             "url": "https://github.com/ErikReider/SwayOSD.git"
         },
-        "version": "c573f5ce94e2017d37b3dd3c2c1363bb1c6f82a3"
+        "version": "377496a90e6bd353a845cde0f33a1da5cf20b9d7"
     },
     "synapse-s3-storage-provider": {
         "cargoLocks": null,
@@ -789,7 +789,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2023-07-06",
+        "date": "2023-07-11",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -799,12 +799,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e4900db9a2e00e41f43e40d6a8d90c2466645c37",
-            "sha256": "sha256-Z4INHQFkORA+20cLKjZvUFb2+kfEuM7nuOSBeYLyob4=",
+            "rev": "dffba784016604b3c700b2a54aa91e433e28af46",
+            "sha256": "sha256-+ufdGEnyq8AOszy4Qn21TWCHIPcRQR1HKv/XrIPiYzE=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "e4900db9a2e00e41f43e40d6a8d90c2466645c37"
+        "version": "dffba784016604b3c700b2a54aa91e433e28af46"
     },
     "wemeet": {
         "cargoLocks": null,
