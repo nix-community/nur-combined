@@ -5,6 +5,6 @@
     ./gtk.nix
     ./phosh.nix
     ./sway
-    ./sxmo.nix
+    ./sxmo
   ];
 }

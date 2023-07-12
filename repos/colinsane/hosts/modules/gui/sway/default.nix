@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
  
 # docs: https://nixos.wiki/wiki/Sway
 with lib;
@@ -134,18 +134,17 @@ in
         enable = true;
         wrapperFeatures.gtk = true;
       };
-      sane.user.fs.".config/sway/config" = sane-lib.fs.wantedText
-        (import ./sway-config.nix { inherit config pkgs; });
+      sane.user.fs.".config/sway/config".symlink.text =
+        import ./sway-config.nix { inherit config pkgs; };
 
-      sane.user.fs.".config/waybar/config" =
+      sane.user.fs.".config/waybar/config".symlink.target =
         let
           waybar-config = import ./waybar-config.nix { inherit pkgs; };
-        in sane-lib.fs.wantedSymlinkTo (
-          (pkgs.formats.json {}).generate "waybar-config.json" waybar-config
-        );
+        in
+          (pkgs.formats.json {}).generate "waybar-config.json" waybar-config;
 
-      sane.user.fs.".config/waybar/style.css" = sane-lib.fs.wantedText
-        (builtins.readFile ./waybar-style.css);
+      sane.user.fs.".config/waybar/style.css".symlink.text =
+        builtins.readFile ./waybar-style.css;
     })
   ];
 }

@@ -1408,6 +1408,14 @@ in {
     };
   };
 
+  waybar = (prev.waybar.override {
+    inherit (emulated) wrapGAppsHook;
+    runTests = false;
+    cavaSupport = false;  # doesn't cross compile
+  }).overrideAttrs (upstream: {
+    depsBuildBuild = upstream.depsBuildBuild or [] ++ [ final.pkg-config ];
+  });
+
   wvkbd = (
     # "wayland-scanner: no such program"
     mvToNativeInputs [ final.wayland-scanner ] prev.wvkbd
