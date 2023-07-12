@@ -15,4 +15,5 @@ komikku.overrideAttrs (upstream: {
       hash = "sha256-mn81hCt5xrypJMOOiCOg8NthLjglXntTDsYpcdCg0E8=";
     })
   ];
+  passthru.unpatched = komikku;
 })

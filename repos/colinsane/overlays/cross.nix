@@ -706,8 +706,10 @@ in {
     ];
   });
   komikku = prev.komikku.override {
-    # GI_TYPELIB_PATH points to x86_64 types in the default build, only when using wrapGAppsHook4
-    wrapGAppsHook4 = final.wrapGAppsHook;
+    komikku = prev.komikku.unpatched.override {
+      # GI_TYPELIB_PATH points to x86_64 types in the default build, only when using wrapGAppsHook4
+      wrapGAppsHook4 = final.wrapGAppsHook;
+    };
   };
   koreader = (prev.koreader.override {
     # fixes runtime error: luajit: ./ffi/util.lua:757: attempt to call field 'pack' (a nil value)
