@@ -79,17 +79,13 @@ let
         type = types.bool;
         default = true;
       };
-      persist = {
-        plaintext = mkOption {
-          type = types.listOf (types.either types.attrs types.str);
-          default = [];
-          description = "list of home-relative paths to persist for this package";
-        };
-        private = mkOption {
-          type = types.listOf (types.either types.attrs types.str);
-          default = [];
-          description = "list of home-relative paths to persist (in encrypted format) for this package";
-        };
+      persist = mkOption {
+        type = options.sane.persist.sys.type;
+        default = {};
+        description = ''
+          entries to pass onto `sane.persist.sys` or `sane.user.persist`
+          when this program is enabled.
+        '';
       };
       fs = mkOption {
         type = types.attrs;

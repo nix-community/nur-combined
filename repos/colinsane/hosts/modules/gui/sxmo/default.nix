@@ -135,6 +135,11 @@ in
           "sfeed"  # want this here so that the user's ~/.sfeed/sfeedrc gets created
           "superd"  # make superctl (used by sxmo) be on PATH
         ];
+
+        persist.cryptClearOnBoot = [
+          # builds to be 10's of MB per day
+          ".local/state/superd/logs"
+        ];
       };
     }
 
@@ -146,152 +151,163 @@ in
         (lib.mkDefault (knownKeyboards."${cfg.keyboard}" or cfg.keyboard));
     }
 
-    (lib.mkIf cfg.enable {
-      sane.programs.sxmoApps.enableFor.user.colin = true;
-      sane.gui.gtk.enable = lib.mkDefault true;
+    (lib.mkIf cfg.enable (lib.mkMerge [
+      {
+        sane.programs.sxmoApps.enableFor.user.colin = true;
+        sane.gui.gtk.enable = lib.mkDefault true;
 
-      # some programs (e.g. fractal/nheko) **require** a "Secret Service Provider"
-      services.gnome.gnome-keyring.enable = true;
+        # some programs (e.g. fractal/nheko) **require** a "Secret Service Provider"
+        services.gnome.gnome-keyring.enable = true;
 
-      networking.useDHCP = false;
-      networking.networkmanager.enable = true;
-      networking.wireless.enable = lib.mkForce false;
+        networking.useDHCP = false;
+        networking.networkmanager.enable = true;
+        networking.wireless.enable = lib.mkForce false;
 
-      hardware.bluetooth.enable = true;
-      services.blueman.enable = true;
+        hardware.bluetooth.enable = true;
+        services.blueman.enable = true;
 
-      # sxmo internally uses doas instead of sudo
-      security.doas.enable = true;
-      security.doas.wheelNeedsPassword = false;
+        # sxmo internally uses doas instead of sudo
+        security.doas.enable = true;
+        security.doas.wheelNeedsPassword = false;
 
-      # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
-      fonts.fonts = [ pkgs.nerdfonts ];
+        # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
+        fonts.fonts = [ pkgs.nerdfonts ];
 
-      # sxmo has first-class support only for pulseaudio and alsa -- not pipewire.
-      # however, pipewire can emulate pulseaudio support via `services.pipewire.pulse.enable = true`
-      #   after which the stock pulseaudio binaries magically work
-      # administer with pw-cli, pw-mon, pw-top commands
-      services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;  # ??
-        pulse.enable = true;
-      };
-      systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];
-
-      # TODO: could use `displayManager.sessionPackages`?
-      environment.systemPackages = [
-        cfg.package
-      ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
-        ++ lib.optionals (cfg.keyboard != null) [ pkgs."${cfg.keyboard}" ];
-
-      environment.sessionVariables = {
-        XDG_DATA_DIRS = [
-          # TODO: only need the share/sxmo directly linked
-          "${cfg.package}/share"
-        ];
-      };
-
-      sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle (sane-lib.fs.wantedText "");
-      sane.user.fs.".config/sxmo/profile".symlink.text = let
-        mkKeyValue = key: value: ''export ${key}="${value}"'';
-        userConfig = lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
-      in ''
-        # configversion: 4284f96d91e9550ff8f3b25823e402ad
-        # ^ upstream adds new options every now and then, expects user config file
-        # to include the md5sum of the template it's based on.
-        # see `setup_config_version.sh`
-        ${userConfig}
-      '';
-
-      sane.user.fs.".config/sxmo/sway".symlink.target = pkgs.substituteAll {
-        src = ./sway-config;
-        waybar = "${pkgs.waybar}/bin/waybar";
-      };
-
-      sane.user.fs.".config/waybar/config".symlink.target =
-        let
-          waybar-config = import ./waybar-config.nix { inherit pkgs; };
-        in
-          (pkgs.formats.json {}).generate "waybar-config.json" waybar-config;
-
-      # sane.user.fs.".config/waybar/style.css".symlink.text =
-      #   builtins.readFile ./waybar-style.css;
-
-      sane.user.fs.".config/sxmo/conky.conf".symlink.target = let
-        battery_estimate = pkgs.static-nix-shell.mkBash {
-          pname = "battery_estimate";
-          src = ./.;
+        # sxmo has first-class support only for pulseaudio and alsa -- not pipewire.
+        # however, pipewire can emulate pulseaudio support via `services.pipewire.pulse.enable = true`
+        #   after which the stock pulseaudio binaries magically work
+        # administer with pw-cli, pw-mon, pw-top commands
+        services.pipewire = {
+          enable = true;
+          alsa.enable = true;
+          alsa.support32Bit = true;  # ??
+          pulse.enable = true;
         };
-      in pkgs.substituteAll {
-        src = ./conky-config;
-        bat = "${battery_estimate}/bin/battery_estimate";
-      };
+        systemd.user.services."pipewire".wantedBy = [ "graphical-session.target" ];
 
-      ## greeter
+        # TODO: could use `displayManager.sessionPackages`?
+        environment.systemPackages = [
+          cfg.package
+        ] ++ lib.optionals (cfg.terminal != null) [ pkgs."${cfg.terminal}" ]
+          ++ lib.optionals (cfg.keyboard != null) [ pkgs."${cfg.keyboard}" ];
 
-      services.xserver = lib.mkIf (cfg.greeter == "lightdm-mobile") {
-        enable = true;
+        environment.sessionVariables = {
+          XDG_DATA_DIRS = [
+            # TODO: only need the share/sxmo directly linked
+            "${cfg.package}/share"
+          ];
+        };
 
-        displayManager.lightdm.enable = true;
-        displayManager.lightdm.greeters.mobile.enable = true;
-        displayManager.lightdm.extraSeatDefaults = ''
-          user-session = swmo
+        systemd.services."sxmo-set-permissions" = {
+          description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${cfg.package}/bin/sxmo_setpermissions.sh";
+          };
+          wantedBy = [ "display-manager.service" ];
+        };
+
+        # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
+        services.gnome.at-spi2-core.enable = true;
+
+        sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle (sane-lib.fs.wantedText "");
+        sane.user.fs.".config/sxmo/profile".symlink.text = let
+          mkKeyValue = key: value: ''export ${key}="${value}"'';
+          userConfig = lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;
+        in ''
+          # configversion: 4284f96d91e9550ff8f3b25823e402ad
+          # ^ upstream adds new options every now and then, expects user config file
+          # to include the md5sum of the template it's based on.
+          # see `setup_config_version.sh`
+          ${userConfig}
         '';
 
-        displayManager.sessionPackages = with pkgs; [
-          cfg.package  # this gets share/wayland-sessions/swmo.desktop linked
+        sane.user.fs.".config/sxmo/sway".symlink.target = pkgs.substituteAll {
+          src = ./sway-config;
+          waybar = "${pkgs.waybar}/bin/waybar";
+        };
+
+        sane.user.fs.".config/waybar/config".symlink.target =
+          let
+            waybar-config = import ./waybar-config.nix { inherit pkgs; };
+          in
+            (pkgs.formats.json {}).generate "waybar-config.json" waybar-config;
+
+        # sane.user.fs.".config/waybar/style.css".symlink.text =
+        #   builtins.readFile ./waybar-style.css;
+
+        sane.user.fs.".config/sxmo/conky.conf".symlink.target = let
+          battery_estimate = pkgs.static-nix-shell.mkBash {
+            pname = "battery_estimate";
+            src = ./.;
+          };
+        in pkgs.substituteAll {
+          src = ./conky-config;
+          bat = "${battery_estimate}/bin/battery_estimate";
+        };
+      }
+
+      (lib.mkIf (cfg.greeter == "lightdm-mobile") {
+        sane.persist.sys.plaintext = [
+          # this takes up 4-5 MB of fontconfig and mesa shader caches.
+          # it could optionally be cleared on boot.
+          { path = "/var/lib/lightdm"; user = "lightdm"; group = "lightdm"; mode = "0770"; }
         ];
 
-        # taken from gui/phosh:
-        # NB: setting defaultSession has the critical side-effect that it lets org.freedesktop.AccountsService
-        # know that our user exists. this ensures lightdm succeeds when calling /org/freedesktop/AccountsServices ListCachedUsers
-        # lightdm greeters get the login users from lightdm which gets it from org.freedesktop.Accounts.ListCachedUsers.
-        # this requires the user we want to login as to be cached.
-        displayManager.job.preStart = ''
-          ${pkgs.systemd}/bin/busctl call org.freedesktop.Accounts /org/freedesktop/Accounts org.freedesktop.Accounts CacheUser s colin
-        '';
-      };
+        services.xserver = {
+          enable = true;
 
-      services.greetd = lib.mkIf (cfg.greeter == "sway") {
-        enable = true;
-        # borrowed from gui/sway
-        settings.default_session.command =
-        let
-          # start sway and have it construct the gtkgreeter
-          sway-as-greeter = pkgs.writeShellScriptBin "sway-as-greeter" ''
-            ${pkgs.sway}/bin/sway --debug --config ${sway-config-into-gtkgreet} > /var/log/sway/sway-as-greeter.log 2>&1
+          displayManager.lightdm.enable = true;
+          displayManager.lightdm.greeters.mobile.enable = true;
+          displayManager.lightdm.extraSeatDefaults = ''
+            user-session = swmo
           '';
-          # (config file for the above)
-          sway-config-into-gtkgreet = pkgs.writeText "greetd-sway-config" ''
-            exec "${gtkgreet-launcher}"
-          '';
-          # gtkgreet which launches a layered sway instance
-          gtkgreet-launcher = pkgs.writeShellScript "gtkgreet-launcher" ''
-            # NB: the "command" field here is run in the user's shell.
-            # so that command must exist on the specific user's path who is logging in. it doesn't need to exist system-wide.
-            ${pkgs.greetd.gtkgreet}/bin/gtkgreet --layer-shell --command sxmo_winit.sh
-          '';
-        in "${sway-as-greeter}/bin/sway-as-greeter";
-      };
 
-      systemd.services."sxmo-set-permissions" = {
-        description = "configure specific /sys and /dev nodes to be writable by sxmo scripts";
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = "${cfg.package}/bin/sxmo_setpermissions.sh";
+          displayManager.sessionPackages = with pkgs; [
+            cfg.package  # this gets share/wayland-sessions/swmo.desktop linked
+          ];
+
+          # taken from gui/phosh:
+          # NB: setting defaultSession has the critical side-effect that it lets org.freedesktop.AccountsService
+          # know that our user exists. this ensures lightdm succeeds when calling /org/freedesktop/AccountsServices ListCachedUsers
+          # lightdm greeters get the login users from lightdm which gets it from org.freedesktop.Accounts.ListCachedUsers.
+          # this requires the user we want to login as to be cached.
+          displayManager.job.preStart = ''
+            ${pkgs.systemd}/bin/busctl call org.freedesktop.Accounts /org/freedesktop/Accounts org.freedesktop.Accounts CacheUser s colin
+          '';
         };
-        wantedBy = [ "display-manager.service" ];
-      };
+      })
 
-      sane.fs."/var/log/sway" = lib.mkIf (cfg.greeter == "sway") {
-        dir.acl.mode = "0777";
-        wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
-      };
+      (lib.mkIf (cfg.greeter == "sway") {
+        services.greetd = {
+          enable = true;
+          # borrowed from gui/sway
+          settings.default_session.command =
+          let
+            # start sway and have it construct the gtkgreeter
+            sway-as-greeter = pkgs.writeShellScriptBin "sway-as-greeter" ''
+              ${pkgs.sway}/bin/sway --debug --config ${sway-config-into-gtkgreet} > /var/log/sway/sway-as-greeter.log 2>&1
+            '';
+            # (config file for the above)
+            sway-config-into-gtkgreet = pkgs.writeText "greetd-sway-config" ''
+              exec "${gtkgreet-launcher}"
+            '';
+            # gtkgreet which launches a layered sway instance
+            gtkgreet-launcher = pkgs.writeShellScript "gtkgreet-launcher" ''
+              # NB: the "command" field here is run in the user's shell.
+              # so that command must exist on the specific user's path who is logging in. it doesn't need to exist system-wide.
+              ${pkgs.greetd.gtkgreet}/bin/gtkgreet --layer-shell --command sxmo_winit.sh
+            '';
+          in "${sway-as-greeter}/bin/sway-as-greeter";
+        };
 
-      # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
-      services.gnome.at-spi2-core.enable = true;
+        sane.fs."/var/log/sway" = {
+          dir.acl.mode = "0777";
+          wantedBeforeBy = [ "greetd.service" "display-manager.service" ];
+        };
+      })
 
+      # old, greeterless options:
       # services.xserver.windowManager.session = [{
       #   name = "sxmo";
       #   desktopNames = [ "sxmo" ];
@@ -311,6 +327,6 @@ in
       #     };
       #   };
       # };
-    })
+    ]))
   ];
 }

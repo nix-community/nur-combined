@@ -238,14 +238,20 @@ in
     })
     (mkIf config.sane.programs.web-browser.enabled {
       # TODO: move the persistence into the sane.programs API (above)
-      # flush the cache to disk to avoid it taking up too much tmp
-      sane.user.persist.byPath."${cfg.browser.cacheDir}" = lib.mkIf (cfg.persistCache != null) {
-        store = cfg.persistCache;
-      };
+      # flush the cache to disk to avoid it taking up too much tmp.
+      sane.user.persist.byPath."${cfg.browser.cacheDir}".store =
+        if (cfg.persistData != null) then
+          cfg.persistData
+        else
+          "cryptClearOnBoot"
+        ;
 
-      sane.user.persist.byPath."${cfg.browser.dotDir}/default" = lib.mkIf (cfg.persistData != null) {
-        store = cfg.persistData;
-      };
+      sane.user.persist.byPath."${cfg.browser.dotDir}/default".store =
+        if (cfg.persistData != null) then
+          cfg.persistData
+        else
+          "cryptClearOnBoot"
+        ;
     })
   ];
 }

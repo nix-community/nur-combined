@@ -73,6 +73,11 @@
       "Pictures"
       "Videos"
 
+      # these are persisted simply to save on RAM.
+      # ~/.cache/nix can become several GB.
+      # fontconfig and mesa_shader_cache are < 10 MB.
+      ".cache/fontconfig"
+      ".cache/mesa_shader_cache"
       ".cache/nix"
 
       # ".cargo"

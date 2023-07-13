@@ -4,6 +4,7 @@
   imports = [
     ./colin.nix
     ./guest.nix
+    ./root.nix
   ];
 
   # Users are exactly these specified here;
