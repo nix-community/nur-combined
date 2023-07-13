@@ -16,9 +16,9 @@ let
   # - `git fetch` from megous' repo (https://github.com/megous/linux.git).
   # - there should be some new tag, like `orange-pi-6.1-blah`. use that.
   # - grab VERSION/PATCHLEVEL/SUBLEVEL/EXTRAVERSION from Makefile.
-  # - megi publishes release notes as the most recent commit on any stable branch, so just `git log`.
+  # - megi publishes release notes as the most recent commit on any release tag, so just `git show` or `git log`
   # - orange-pi is listed as the "main integration branch".
-  #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` branches are "formal" releases
+  #   - this suggests it's NOT a stable branch, only `orange-pi-X.YY-YYYYMMDD-NNNN` tags are "formal" releases
   #   - specific branches like `pp` (pinephone) are dev branches, and probably less stable.
   rev = "orange-pi-6.4-20230619-0323";
   hash = "sha256-il32UQM/8Fc7VHft3+M4TLMxk5+h28C9Suu1kRdZj2M=";

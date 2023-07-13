@@ -23,9 +23,6 @@
   sane.programs.sysadminUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
 
-  # some services which use private directories error if the parent (/var/lib/private) isn't 700.
-  sane.fs."/var/lib/private".dir.acl.mode = "0700";
-
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;  # NIXPKGS_ALLOW_BROKEN
 
@@ -69,19 +66,6 @@
       ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
     '';
   };
-
-  # XXX: twitter-color-emoji doesn't cross-compile; but not-fonts-emoji does
-  # fonts = {
-  #   enableDefaultFonts = true;
-  #   fonts = with pkgs; [ font-awesome twitter-color-emoji hack-font ];
-  #   fontconfig.enable = true;
-  #   fontconfig.defaultFonts = {
-  #     emoji = [ "Font Awesome 6 Free" "Twitter Color Emoji" ];
-  #     monospace = [ "Hack" ];
-  #     serif = [ "DejaVu Serif" ];
-  #     sansSerif = [ "DejaVu Sans" ];
-  #   };
-  # };
 
   # disable non-required packages like nano, perl, rsync, strace
   environment.defaultPackages = [];

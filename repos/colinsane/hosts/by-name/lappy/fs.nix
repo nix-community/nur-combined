@@ -2,15 +2,6 @@
 
 {
   sane.persist.root-on-tmpfs = true;
-  # we need a /tmp of default size (half RAM) for building large nix things
-  fileSystems."/tmp" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = [
-      "mode=777"
-      "defaults"
-    ];
-  };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/75230e56-2c69-4e41-b03e-68475f119980";

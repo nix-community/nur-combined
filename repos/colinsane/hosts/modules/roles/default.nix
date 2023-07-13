@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 {
   imports = [
     ./ac.nix
@@ -6,4 +6,13 @@
     ./client
     ./dev-machine.nix
   ];
+
+  fileSystems."/tmp" = lib.mkIf (config.sane.roles.build-machine.enable || config.sane.roles.dev-machine) {
+    device = "none";
+    fsType = "tmpfs";
+    options = [
+      "mode=777"
+      "defaults"
+    ];
+  };
 }

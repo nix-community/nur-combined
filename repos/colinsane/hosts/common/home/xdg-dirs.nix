@@ -1,9 +1,9 @@
-{ lib, sane-lib, ...}:
+{ ... }:
 
 {
   # XDG defines things like ~/Desktop, ~/Downloads, etc.
   # these clutter the home, so i mostly don't use them.
-  sane.user.fs.".config/user-dirs.dirs" = sane-lib.fs.wantedText ''
+  sane.user.fs.".config/user-dirs.dirs".symlink.text = ''
     XDG_DESKTOP_DIR="$HOME/.xdg/Desktop"
     XDG_DOCUMENTS_DIR="$HOME/dev"
     XDG_DOWNLOAD_DIR="$HOME/tmp"
@@ -16,5 +16,5 @@
 
   # prevent `xdg-user-dirs-update` from overriding/updating our config
   # see <https://manpages.ubuntu.com/manpages/bionic/man5/user-dirs.conf.5.html>
-  sane.user.fs.".config/user-dirs.conf" = sane-lib.fs.wantedText "enabled=False";
+  sane.user.fs.".config/user-dirs.conf".symlink.text = "enabled=False";
 }

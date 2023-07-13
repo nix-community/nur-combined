@@ -1,4 +1,4 @@
-{ config, sane-lib, ...}:
+{ config, ...}:
 
 let
   # TODO: should move all of this into `sane.programs` to not ship broken associations

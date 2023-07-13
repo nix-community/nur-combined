@@ -43,7 +43,7 @@
 #   - gestures:            lisgd
 #   - on-screen keyboard:  wvkbd (if wayland), svkbd (if X)
 #
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.sane.gui.sxmo;
@@ -211,7 +211,9 @@ in
           wantedBy = [ "display-manager.service" ];
         };
 
-        sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle (sane-lib.fs.wantedText "");
+        sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle {
+          symlink.text = "";
+        };
         sane.user.fs.".config/sxmo/profile".symlink.text = let
           mkKeyValue = key: value: ''export ${key}="${value}"'';
           userConfig = lib.generators.toKeyValue { inherit mkKeyValue; } cfg.settings;

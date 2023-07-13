@@ -2,15 +2,6 @@
 
 {
   sane.persist.root-on-tmpfs = true;
-  # we need a /tmp for building large nix things
-  fileSystems."/tmp" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = [
-      "mode=777"
-      "defaults"
-    ];
-  };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/cc81cca0-3cc7-4d82-a00c-6243af3e7776";
@@ -67,11 +58,6 @@
       path = "/var/lib/uninsane/media/datasets";
     }
   ];
-
-  # in-memory compressed RAM (seems to be dynamically sized)
-  # zramSwap = {
-  #   enable = true;
-  # };
 
   # btrfs doesn't easily support swapfiles
   # swapDevices = [
