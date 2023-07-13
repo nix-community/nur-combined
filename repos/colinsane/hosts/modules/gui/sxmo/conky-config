@@ -1,0 +1,24 @@
+-- configversion: 737cb1de0389cee32a04785691a446a2
+conky.config = {
+    out_to_wayland = true,
+    alignment = 'middle_middle',
+    own_window_argb_value = 0,
+    own_window_type = 'desktop',
+    default_shade_color = 'grey',
+    draw_shades = false,
+    font = 'Sxmo:size=8',
+    use_xft = true,
+    update_interval = 10,
+}
+
+conky.text = [[
+${alignc}${font Sxmo:size=50:style=Bold}${exec date +"%H:%M"}${font}
+${font Sxmo:size=20}${color lightgrey}${alignc}${exec date +"%a %d %b"}${color}${font}
+
+
+${alignc}${font Sxmo:size=22:style=Bold}${color lightgrey}${exec @bat@ }${font}
+
+
+${alignc}${font Sxmo:size=16}${color lightgrey}⇅ ${downspeedf wlan0}K/s${font}
+${alignc}${font Sxmo:size=16}${color lightgrey}☵ $memperc%  $cpu%${font}
+]]

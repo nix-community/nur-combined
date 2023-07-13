@@ -43,7 +43,7 @@
 #   - gestures:            lisgd
 #   - on-screen keyboard:  wvkbd (if wayland), svkbd (if X)
 #
-{ lib, config, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, sane-lib, ... }:
 
 let
   cfg = config.sane.gui.sxmo;
@@ -133,6 +133,7 @@ in
         suggestedPrograms = [
           "guiApps"
           "sfeed"  # want this here so that the user's ~/.sfeed/sfeedrc gets created
+          "superd"  # make superctl (used by sxmo) be on PATH
         ];
       };
     }
@@ -217,6 +218,15 @@ in
       # sane.user.fs.".config/waybar/style.css".symlink.text =
       #   builtins.readFile ./waybar-style.css;
 
+      sane.user.fs.".config/sxmo/conky.conf".symlink.target = let
+        battery_estimate = pkgs.static-nix-shell.mkBash {
+          pname = "battery_estimate";
+          src = ./.;
+        };
+      in pkgs.substituteAll {
+        src = ./conky-config;
+        bat = "${battery_estimate}/bin/battery_estimate";
+      };
 
       ## greeter
 

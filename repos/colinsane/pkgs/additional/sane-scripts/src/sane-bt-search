@@ -65,7 +65,7 @@ def parse_time(t: str) -> datetime:
     return try_parse_time(t).astimezone() or epoch
 
 
-DROP_CATS = { "dvd", "hd", "misc", "other", "sd" }
+DROP_CATS = { "dvd", "hd", "misc", "other", "sd", "uhd" }
 MANGA_CATS = { "books", "comics", "ebook" }
 KNOWN_CATS = frozenset(list(MANGA_CATS) + ["anime", "audio", "movies", "tv", "xxx"])
 def clean_cat(c: str) -> str | None:

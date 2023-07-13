@@ -1,0 +1,31 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash
+
+full=$(cat /sys/class/power_supply/axp20x-battery/charge_full_design)
+rate=$(cat /sys/class/power_supply/axp20x-battery/current_now)
+perc=$(cat /sys/class/power_supply/axp20x-battery/capacity)
+perc_left=$((100 - $perc))
+# these icons come from sxmo; they only render in nerdfonts
+bat_dis="󱊢"
+bat_chg="󱊥"
+
+fmt_minutes() {
+  if [[ $2 -gt 1440 ]]; then
+    echo "∞"  # more than 1d
+  else
+    hr=$(($2 / 60))
+    hr_in_min=$(($hr * 60))
+    min=$(($2 - $hr_in_min))
+    printf "%s %dh%02dm" "$1" "$hr" "$min"
+  fi
+}
+
+if [[ $rate -lt 0 ]]; then
+  # discharging
+  fmt_minutes "$bat_dis" $(($full * 60 * $perc / (-100 * $rate)))
+elif [[ $rate -gt 0 ]]; then
+  # charging
+  fmt_minutes "$bat_chg" $(($full * 60 * $perc_left / (100 * $rate)))
+else
+  echo "󱊢 N/A"
+fi
