@@ -28,6 +28,6 @@ rec {
     sc3-plugins = pkgs.callPackage ./pkgs/sc3-plugins {};
   };
 
-  #implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
+  implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad {};
   joplin-desktop = pkgs.callPackage ./pkgs/joplin-desktop { };
 }

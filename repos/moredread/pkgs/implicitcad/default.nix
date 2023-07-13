@@ -109,4 +109,5 @@ mkDerivation rec {
   homepage = "http://kalli1.faikvm.com/ImplicitCAD/Stable";
   description = "Warning: experimental package, might change at any time. Math-inspired programmatic 2&3D CAD, also known as extopenscad";
   license = lib.licenses.agpl3;
+  broken = true;
 }
