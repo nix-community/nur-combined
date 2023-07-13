@@ -156,9 +156,11 @@ in
         sane.programs.sxmoApps.enableFor.user.colin = true;
         sane.gui.gtk.enable = lib.mkDefault true;
 
-        # some programs (e.g. fractal/nheko) **require** a "Secret Service Provider"
-        services.gnome.gnome-keyring.enable = true;
+        # sxmo internally uses doas instead of sudo
+        security.doas.enable = true;
+        security.doas.wheelNeedsPassword = false;
 
+        # TODO: move this further to the host-specific config?
         networking.useDHCP = false;
         networking.networkmanager.enable = true;
         networking.wireless.enable = lib.mkForce false;
@@ -166,12 +168,14 @@ in
         hardware.bluetooth.enable = true;
         services.blueman.enable = true;
 
-        # sxmo internally uses doas instead of sudo
-        security.doas.enable = true;
-        security.doas.wheelNeedsPassword = false;
-
         # TODO: nerdfonts is 4GB. it accepts an option to ship only some fonts: probably want to use that.
         fonts.fonts = [ pkgs.nerdfonts ];
+
+        # some programs (e.g. fractal/nheko) **require** a "Secret Service Provider"
+        services.gnome.gnome-keyring.enable = true;
+
+        # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
+        services.gnome.at-spi2-core.enable = true;
 
         # sxmo has first-class support only for pulseaudio and alsa -- not pipewire.
         # however, pipewire can emulate pulseaudio support via `services.pipewire.pulse.enable = true`
@@ -206,9 +210,6 @@ in
           };
           wantedBy = [ "display-manager.service" ];
         };
-
-        # lightdm-mobile-greeter: "The name org.a11y.Bus was not provided by any .service files"
-        services.gnome.at-spi2-core.enable = true;
 
         sane.user.fs.".cache/sxmo/sxmo.noidle" = lib.mkIf cfg.noidle (sane-lib.fs.wantedText "");
         sane.user.fs.".config/sxmo/profile".symlink.text = let
