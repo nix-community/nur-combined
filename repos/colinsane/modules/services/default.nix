@@ -5,6 +5,7 @@
     ./kiwix-serve.nix
     ./mautrix-signal.nix
     ./nixserve.nix
-    ./trust-dns.nix
+    # XXX: partially lifted into nixpkgs repo: remove once upstreamed
+    # ./trust-dns.nix
   ];
 }

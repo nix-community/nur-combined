@@ -1,16 +1,16 @@
 { config, lib, pkgs, ... }:
 
 {
-  sane.services.trust-dns.enable = true;
+  services.trust-dns.enable = true;
 
-  sane.services.trust-dns.settings.listen_addrs_ipv4 = [
+  services.trust-dns.settings.listen_addrs_ipv4 = [
     # specify each address explicitly, instead of using "*".
     # this ensures responses are sent from the address at which the request was received.
     config.sane.hosts.by-name."servo".lan-ip
     "10.0.1.5"
   ];
-  sane.services.trust-dns.quiet = true;
-  # sane.services.trust-dns.debug = true;
+  services.trust-dns.quiet = true;
+  # services.trust-dns.debug = true;
 
   sane.ports.ports."53" = {
     protocol = [ "udp" "tcp" ];
@@ -59,15 +59,9 @@
     ];
   };
 
-  # we need trust-dns to load our zone by relative path instead of /nix/store path
-  # because we generate it at runtime.
-  sane.services.trust-dns.settings.zones = [
-    {
-      zone = "uninsane.org";
-    }
-  ];
+  services.trust-dns.settings.zones = [ "uninsane.org" ];
 
-  sane.services.trust-dns.package =
+  services.trust-dns.package =
     let
       sed = "${pkgs.gnused}/bin/sed";
       zone-dir = "/var/lib/trust-dns";

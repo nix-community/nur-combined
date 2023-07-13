@@ -226,6 +226,12 @@ in [
     hash = "sha256-njSTwVvUkmzmJcN2oGkv7VZA92lr4HS8cDPVpKRE+0w=";
   })
 
+  (fetchpatch' {
+    title = "nixos/trust-dns: init";
+    saneCommit = "4c801fa25278faceb1ccb0273bc58111bfb3d42e";
+    hash = "sha256-CHbEos/rPmy5WmE4xuZhYL6IqjXZui2iuMQWzmmlE0E=";
+  })
+
   # (fetchpatch' {
   #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
   #   title = "matrix-appservice-irc: 0.38.0 -> 1.0.0";
