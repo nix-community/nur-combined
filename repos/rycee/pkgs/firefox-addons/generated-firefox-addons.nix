@@ -1884,10 +1884,10 @@
       };
     "modheader" = buildFirefoxXpiAddon {
       pname = "modheader";
-      version = "4.3.6";
+      version = "4.3.8";
       addonId = "{ed630365-1261-4ba9-a676-99963d2b4f54}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4105390/modheader_firefox-4.3.6.xpi";
-      sha256 = "041df6efa34686f46bfb36bc7906767a5538387f50dab86b3f5f641c5a95a68d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4133335/modheader_firefox-4.3.8.xpi";
+      sha256 = "5220f3b029988bfeccdfc987428edbb9be34307333efc25d1506114c94b92407";
       meta = with lib;
       {
         homepage = "https://modheader.com/";
@@ -2107,10 +2107,10 @@
       };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.24";
+      version = "11.4.25";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4131645/noscript-11.4.24.xpi";
-      sha256 = "e4b69777d7b9e06e93fcba93d065a246a53c2fa5e113605207836374e48a4fb5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4136347/noscript-11.4.25.xpi";
+      sha256 = "36b44a4af8b57188db230c29284dd64626611ee6b46fbf8ef3e352317fbf55aa";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -2121,10 +2121,10 @@
       };
     "notifier-for-github" = buildFirefoxXpiAddon {
       pname = "notifier-for-github";
-      version = "23.3.10";
+      version = "23.7.12";
       addonId = "{8d1582b2-ff2a-42e0-ba40-42f4ebfe921b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4081870/notifier_for_github-23.3.10.xpi";
-      sha256 = "2e2c71cf55ffb96b66d93ed1d91f39e38d11541f34c2d726ccf7e9e5aaf30b05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4137804/notifier_for_github-23.7.12.xpi";
+      sha256 = "4e44fc076f10f89d9358673abd1962cc288feec80e4f40dd1d695c05977c7ba0";
       meta = with lib;
       {
         homepage = "https://github.com/sindresorhus/notifier-for-github";
@@ -3586,10 +3586,10 @@
       };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "7.6.6";
+      version = "8.0.0.0";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4040817/video_downloadhelper-7.6.6.xpi";
-      sha256 = "460b64348a6616c87bdead85f6226a6f22decfc5b33458d9577777b762438c8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135495/video_downloadhelper-8.0.0.0.xpi";
+      sha256 = "33b1a059d197e74944006e3a5b4ec838fa2f3e0b817913016e1535258d5dfa29";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
