@@ -14,6 +14,7 @@ let
     hledger-utils = pkgs.callPackage ./pkgs/hledger-utils { };
     drawilleplot = pkgs.callPackage ./pkgs/drawilleplot { };
     drawille = pkgs.callPackage ./pkgs/drawille { };
+    math-preview = pkgs.callPackage ./pkgs/math-preview { };
   };
   supportedSystem = (name: pkg: builtins.elem system pkg.meta.platforms);
 in (pkgs.lib.filterAttrs supportedSystem packages) // aliases
