@@ -14,7 +14,7 @@ buildPythonPackage rec {
     pygls
     platformdirs
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     setuptools-generate
   ];
   pythonImportsCheck = [

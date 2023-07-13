@@ -15,7 +15,7 @@ buildPythonPackage rec {
     platformdirs
     beautifulsoup4
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     setuptools-generate
   ];
   pythonImportsCheck = [

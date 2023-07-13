@@ -10,8 +10,10 @@ buildPythonPackage rec {
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    setuptools
     repl-python-wakatime
+  ];
+  nativeBuildInputs = [
+    setuptools
   ];
   pythonImportsCheck = [
     "repl_python_codestats"

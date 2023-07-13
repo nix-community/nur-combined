@@ -10,7 +10,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     jinja2
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     setuptools
     shtab
   ];

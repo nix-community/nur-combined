@@ -1,7 +1,6 @@
 { mySources
 , python3
 , lib
-, pacman
 , setuptools-generate
 }:
 
@@ -16,13 +15,12 @@ buildPythonPackage rec {
     platformdirs
     pypandoc
     markdown-it-py
-    pacman
     # https://github.com/NixOS/nixpkgs/issues/241910
     # pyalpm
     # https://github.com/NixOS/nixpkgs/issues/241911
     # namcap
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     setuptools-generate
   ];
   pythonImportsCheck = [

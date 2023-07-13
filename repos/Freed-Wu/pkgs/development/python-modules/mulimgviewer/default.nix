@@ -18,7 +18,7 @@ buildPythonPackage rec {
     wxPython_4_2
     requests
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     # setuptools-generate
     setuptools
   ];

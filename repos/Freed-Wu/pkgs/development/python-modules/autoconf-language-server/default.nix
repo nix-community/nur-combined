@@ -1,8 +1,6 @@
 { mySources
 , python3
 , lib
-, autoconf
-, automake
 , setuptools-generate
 }:
 
@@ -15,10 +13,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     pygls
     platformdirs
-    autoconf
-    automake
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     setuptools-generate
   ];
   pythonImportsCheck = [

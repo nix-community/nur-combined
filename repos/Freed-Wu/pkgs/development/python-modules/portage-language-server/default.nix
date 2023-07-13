@@ -18,7 +18,7 @@ buildPythonPackage rec {
     # https://github.com/NixOS/nixpkgs/issues/238970
     # portage
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     setuptools-generate
   ];
   pythonImportsCheck = [

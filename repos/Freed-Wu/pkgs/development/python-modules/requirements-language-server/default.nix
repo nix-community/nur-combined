@@ -18,8 +18,8 @@ buildPythonPackage rec {
     # pip-cache
     pip-tools
   ];
-  nativeCheckInputs = [
-    setuptools-generate
+  nativeBuildInputs = [
+    setuptools
   ];
   pythonImportsCheck = [
     "requirements_language_server"

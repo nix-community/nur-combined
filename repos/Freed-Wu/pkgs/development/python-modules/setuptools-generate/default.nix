@@ -14,7 +14,6 @@ buildPythonPackage rec {
     click
     help2man
     markdown-it-py
-    setuptools
     shtab
     tomli
   ];

@@ -23,7 +23,7 @@ buildPythonPackage rec {
     pygls
     pyyaml
   ];
-  nativeCheckInputs = [
+  nativeBuildInputs = [
     setuptools-generate
   ];
   pythonImportsCheck = [
