@@ -22,6 +22,7 @@
 
   sane.gui.sway.enable = true;
   sane.programs.iphoneUtils.enableFor.user.colin = true;
+  sane.programs.steam.enableFor.user.colin = true;
 
   sane.programs.guiApps.suggestedPrograms = [ "desktopGuiApps" ];
   sane.programs.consoleUtils.suggestedPrograms = [ "consoleMediaUtils" ];
@@ -47,17 +48,6 @@
     # TODO: ALLOW_USERS doesn't seem to work. still need `sudo snapper -c nix list`
     ALLOW_USERS = [ "colin" ];
   };
-
-  programs.steam = {
-    enable = true;
-    # not sure if needed: stole this whole snippet from the wiki
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
-  sane.user.persist.plaintext = [
-    ".steam"
-    ".local/share/Steam"
-  ];
 
   # docs: https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
   system.stateVersion = "21.05";
