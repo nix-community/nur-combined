@@ -223,7 +223,7 @@ in [
     title = "komikku: 1.21.1 -> 1.22.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/243017";
     saneCommit = "853be697f59f64c342269e81e34ca375e8b3e7aa";
-    hash = "sha256-qyGEqV+xYiA/TPMaU6QitpJwzYSuZ82ZSaZT5mFmKxs=";
+    hash = "sha256-njSTwVvUkmzmJcN2oGkv7VZA92lr4HS8cDPVpKRE+0w=";
   })
 
   # (fetchpatch' {

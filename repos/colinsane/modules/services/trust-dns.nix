@@ -124,8 +124,10 @@ in
       serviceConfig = {
         ExecStart =
         let
-          flags = lib.optional cfg.debug "--debug"
-            ++ lib.optional cfg.quiet "--quiet";
+          flags = lib.flatten [
+            (lib.optional cfg.debug "--debug")
+            (lib.optional cfg.quiet "--quiet")
+          ];
           flagsStr = builtins.concatStringsSep " " flags;
         in ''
           ${cfg.package}/bin/named --config ${configFile} ${flagsStr}
@@ -137,14 +139,12 @@ in
         User = "trust-dns";
         Group = "trust-dns";
         DynamicUser = true;
+
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        # TODO: hardening:
-        # - CapabilityBoundingSet
-        # - SystemCallFilter ?
-        # - RestrictAddressFamilies
-        # - LockPersonality ?
-        # use `systemd-analyze security trust-dns`
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        LockPersonality = true;
         MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
         PrivateDevices = true;
         PrivateMounts = true;
         PrivateTmp = true;
@@ -153,11 +153,16 @@ in
         ProtectHome = true;
         ProtectHostname = true;
         ProtectKernelLogs = true;
+        ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "full";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
+        RestrictNamespaces = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
       };
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];

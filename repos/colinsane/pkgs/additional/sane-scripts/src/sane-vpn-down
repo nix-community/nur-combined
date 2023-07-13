@@ -15,6 +15,6 @@ fi
 
 iface=wg-quick-ovpnd-$1.service
 
-echo vpn: $(sane-ip-check)
+echo vpn: $(sane-ip-check --no-upnp)
 sudo systemctl stop $iface
-echo plain:   $(sane-ip-check)
+echo plain:   $(sane-ip-check --no-upnp)
