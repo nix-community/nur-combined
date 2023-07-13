@@ -396,7 +396,7 @@
     },
     "rime-cantonese": {
         "cargoLocks": null,
-        "date": "2023-06-01",
+        "date": "2023-07-13",
         "extract": null,
         "name": "rime-cantonese",
         "passthru": null,
@@ -406,12 +406,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "33ab59afe3b20061a0da957a0d24ee71014ddaeb",
-            "sha256": "sha256-aN4R2b/fi4SJeQ00hbmwNaydeS/VMyqN1jDtLBBBpiA=",
+            "rev": "f3c7485a7fa8d3e6904323bd4a520d27fe1878f2",
+            "sha256": "sha256-/n7Ix2xMw3QEovzfk8wmYhd/gYpFmN+2VEaSR7h42Do=",
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
-        "version": "33ab59afe3b20061a0da957a0d24ee71014ddaeb"
+        "version": "f3c7485a7fa8d3e6904323bd4a520d27fe1878f2"
     },
     "rime-double-pinyin": {
         "cargoLocks": null,
@@ -472,7 +472,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2023-07-08",
+        "date": "2023-07-13",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -482,12 +482,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "98e2368456e9e4cda3adf9812891e5dd4b2edc55",
-            "sha256": "sha256-3J6i2y05r5B616eI+myyoxhX6h55MKlVdNdnTHneHCE=",
+            "rev": "ec4821a816baeb8af7413f3969b99ff17b45e860",
+            "sha256": "sha256-bisWNeUDL+XFTNt7keVS6sZX/CVz6N2nvh+z1uKpQD8=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "98e2368456e9e4cda3adf9812891e5dd4b2edc55"
+        "version": "ec4821a816baeb8af7413f3969b99ff17b45e860"
     },
     "rime-loengfan": {
         "cargoLocks": null,
