@@ -6,13 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {} }:
 
 rec {
-  # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
 
   # For some reason NUR needs to be passed git-credential-manager explicitly to support self-referencing in passthru.tests
   git-credential-manager = pkgs.callPackage ./pkgs/git-credential-manager { git-credential-manager = git-credential-manager; };
