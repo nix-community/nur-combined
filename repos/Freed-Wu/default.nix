@@ -20,6 +20,11 @@ let
 
     mySources = callPackage ./_sources/generated.nix { };
 
+    # https://github.com/NixOS-CN/flakes/pull/51
+    netease-cloud-music = callPackage ./pkgs/netease-cloud-music { };
+    # https://github.com/NixOS/nixpkgs/pull/243032
+    g3kb-switch = callPackage ./pkgs/g3kb-switch { };
+
     help2man = callPackage ./pkgs/development/python-modules/help2man { };
     setuptools-generate = callPackage ./pkgs/development/python-modules/setuptools-generate { };
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };

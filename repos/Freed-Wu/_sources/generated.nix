@@ -17,6 +17,17 @@
       sha256 = "sha256-ZJaaGUNsLAcDyN/aBlXcYocFGO/EmkOotJ+iJMO2x2I=";
     };
   };
+  g3kb-switch = {
+    pname = "g3kb-switch";
+    version = "1.2";
+    src = fetchFromGitHub {
+      owner = "lyokha";
+      repo = "g3kb-switch";
+      rev = "1.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-Nq2psfy51hZQEm57PUSvs17Pp2z6pe30h9BOLbOYV4k=";
+    };
+  };
   help2man = {
     pname = "help2man";
     version = "0.0.9";

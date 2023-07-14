@@ -53,3 +53,7 @@ fetch.pypi = "xilinx-language-server"
 [mulimgviewer]
 src.pypi = "mulimgviewer"
 fetch.pypi = "mulimgviewer"
+
+[g3kb-switch]
+src.github = "lyokha/g3kb-switch"
+fetch.github = "lyokha/g3kb-switch"
