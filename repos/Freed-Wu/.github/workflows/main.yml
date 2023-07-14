@@ -34,6 +34,7 @@ jobs:
           nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
           nix run 'nixpkgs#nix-build-uncached' -- ci.nix -A cacheOutputs
       - name: Trigger NUR update
+        if: github.ref == 'refs/heads/main'
         run: |
           curl -XPOST \
           "https://nur-update.nix-community.org/update?repo=Freed-Wu"
