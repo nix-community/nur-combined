@@ -1,0 +1,3 @@
+{
+  cachix     = ./cachix.nix;
+}
