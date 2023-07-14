@@ -75,8 +75,9 @@ in buildPythonPackage rec {
   pythonImportsCheck = [ "rembg" ];
 
   passthru.tests.version =
-    (testers.testVersion { package = rembg; }).overrideAttrs
-    (_: { NUMBA_CACHE_DIR = "/tmp"; });
+    (testers.testVersion { package = rembg; }).overrideAttrs {
+      NUMBA_CACHE_DIR = "/tmp";
+    };
 
   meta = with lib; {
     description = "Tool to remove images background";

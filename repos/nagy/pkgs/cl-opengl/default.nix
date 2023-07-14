@@ -1,18 +1,6 @@
-{ lispPackages, fetchFromGitHub, libglvnd, ... }:
+{ sbclPackages, fetchFromGitHub, ... }:
 
-lispPackages.buildLispPackage {
-
-  baseName = "cl-opengl";
-  version = "unstable-2019-11-22";
-
-  buildSystems = [ ];
-
-  description = "A set of CFFI bindings to the OpenGL, GLU and GLUT APIs";
-
-  deps = [ lispPackages.float-features ];
-
-  propagatedBuildInputs = [ libglvnd ];
-
+sbclPackages.cl-opengl.overrideAttrs {
   src = fetchFromGitHub {
     owner = "nagy";
     repo = "cl-opengl";

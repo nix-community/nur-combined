@@ -1,8 +1,8 @@
 { lib, stdenv, fetchFromGitHub, wabt, nodejs, wasmtime }:
 
 let
-  # the compiler, waforthc, requires an older version of wabt.
-  wabt1031 = wabt.overrideAttrs (old: {
+  # The compiler, waforthc, requires an older version of wabt.
+  wabt1031 = wabt.overrideAttrs {
     src = fetchFromGitHub {
       owner = "WebAssembly";
       repo = "wabt";
@@ -10,8 +10,9 @@ let
       hash = "sha256-EChOQTWGt/LUfwCxmMmYC+zHjW9hVvghhOGr4DfpNtQ=";
       fetchSubmodules = true;
     };
-  });
-in stdenv.mkDerivation rec {
+  };
+in
+stdenv.mkDerivation rec {
   pname = "waforth";
   version = "0.19.1";
 

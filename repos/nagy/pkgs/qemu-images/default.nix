@@ -1,7 +1,14 @@
-{ pkgs, expect, fetchurl, fetchFromGitHub, recurseIntoAttrs, qemu, runCommand }:
+{ pkgs, expect, fetchurl, fetchFromGitHub, recurseIntoAttrs, qemu-utils, qemu
+, runCommand }:
 
 # more info here
 # https://raspberrypi.stackexchange.com/questions/89196/emulate-raspberry-pi-zero-w-with-qemu-failed-due-to-missing-dtb
+
+# * TODO rasp qemu
+# https://azeria-labs.com/emulate-raspberry-pi-with-qemu/
+# https://github.com/dhruvvyas90/qemu-rpi-kernel
+# https://gitlab.com/qemu-project/qemu/-/issues/448
+# https://www.qemu.org/docs/master/system/arm/raspi.html?highlight=raspi0
 
 recurseIntoAttrs rec {
   lib = {
@@ -13,7 +20,7 @@ recurseIntoAttrs rec {
     };
     makeCompressedQcow2 = img:
       runCommand (pkgs.lib.replaceStrings [ ".img.xz" ] [ ".qcow2" ] img.name) {
-        nativeBuildInputs = [ qemu ];
+        nativeBuildInputs = [ qemu-utils ];
       } ''
         xzcat ${img} > image
         qemu-img convert -O qcow2 -c -o compression_type=zstd image $out

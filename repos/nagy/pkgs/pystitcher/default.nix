@@ -1,6 +1,7 @@
-{ lib, python3, fetchFromGitHub }:
+{ lib, buildPythonApplication, fetchFromGitHub, setuptools, html5lib, validators
+, markdown, pypdf3, wheel }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "pystitcher";
   version = "1.0.4";
   format = "pyproject";
@@ -12,14 +13,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-JI0gQh05zrrJSUnlDt0e3mG/VoFrzJzvL7JJzSD+2Q8=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-    html5lib
-    validators
-    markdown
-    pypdf3
-    wheel
-  ];
+  propagatedBuildInputs =
+    [ setuptools html5lib validators markdown pypdf3 wheel ];
 
   pythonImportsCheck = [ "pystitcher" ];
 
