@@ -85,6 +85,7 @@ in
     tixati = cp ./pkgs/custom/tixati.nix;
     vscode = cp ./pkgs/custom/vscode;
     rofi = cp ./pkgs/custom/rofi.nix;
+    pidgin = cp ./pkgs/custom/pidgin.nix;
     send2kindle = cp ./pkgs/custom/send2kindle.nix;
     retroarch = cp ./pkgs/custom/retroarch.nix;
     loader = cp ./pkgs/custom/loader/default.nix;

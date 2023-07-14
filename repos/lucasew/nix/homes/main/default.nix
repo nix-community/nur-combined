@@ -33,6 +33,7 @@ in {
     calibre # a dependency is broken
     chromium
     custom.tixati
+    custom.pidgin
     (custom.neovim.override { inherit colors; })
     (custom.emacs.override { inherit colors; })
     custom.firefox
