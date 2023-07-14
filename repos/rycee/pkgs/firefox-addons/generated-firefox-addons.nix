@@ -270,10 +270,10 @@
       };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.9.0";
+      version = "2.9.1";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4129438/beyond_20-2.9.0.xpi";
-      sha256 = "3bc97314f8b75127598dc0d130a2574e80ef7880d6f619aa1e37f69cb48d0fe9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4134441/beyond_20-2.9.1.xpi";
+      sha256 = "2587ed0ee4dcd401519682337b76bebad77b86afb86fe9f9dcb4e9a9874f7f55";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -436,10 +436,10 @@
       };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.2.3";
+      version = "0.3.2";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4130849/codecov-0.2.3.xpi";
-      sha256 = "c8a7acbeae76e9b776d9591863759bdb28283f5aa5df5a23a584fb3202c9e676";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4138391/codecov-0.3.2.xpi";
+      sha256 = "89b7f3650b83d7027615e60800d644bd230e86128bc504c0b04d4391c47508ac";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -1086,10 +1086,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230711.183052";
+      version = "116.0.20230713.175905";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4137425/francais_language_pack-116.0.20230711.183052.xpi";
-      sha256 = "9176fea5784cf1865ee07334f9c72efecb8cadd1c030874472eb620de0175e7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4138348/francais_language_pack-116.0.20230713.175905.xpi";
+      sha256 = "3aad77cd43a0447a250f2cb20823616892bcbd91125124ec1ecb577799a4f6ef";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3024,10 +3024,10 @@
       };
     "streetpass-for-mastodon" = buildFirefoxXpiAddon {
       pname = "streetpass-for-mastodon";
-      version = "2023.9";
+      version = "2023.10";
       addonId = "streetpass@streetpass.social";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4092171/streetpass_for_mastodon-2023.9.xpi";
-      sha256 = "3a707d9a75c77f29c4bc69a345552d9626fc62ecab5b5afff6b40523bb9fbf27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4138609/streetpass_for_mastodon-2023.10.xpi";
+      sha256 = "1a3fe89760130b6ee150f05e1817724bb33e5be89cf45ba444cc720cc8c1efe3";
       meta = with lib;
       {
         homepage = "https://streetpass.social/";
