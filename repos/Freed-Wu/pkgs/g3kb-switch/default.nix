@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     owner = "lyokha";
     repo = "g3kb-switch";
     rev = version;
-    sha256 = "sha256-QLTRM2GXSxvvVYOMq6QL44zZvoGkiolTLZ1u7dB7dt4=";
+    sha256 = "sha256-90ELWRVHkdLLQoUIQuE1yc2F1Rj9UOMcxmKTmK1S8yY=";
   };
 
   nativeBuildInputs = [
@@ -21,11 +21,6 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     glib
-  ];
-  cmakeFlags = [
-    "-DG3KBSWITCH_VIM_XKBSWITCH_LIB_PATH=lib"
-    "-DBASH_COMPLETION_COMPLETIONSDIR=${placeholder "out"}/share/bash-completions/completions"
-    "-DZSH_COMPLETION_COMPLETIONSDIR=${placeholder "out"}/share/zsh/site-functions"
   ];
 
   meta = with lib; {
