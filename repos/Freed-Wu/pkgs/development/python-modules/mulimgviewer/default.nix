@@ -1,13 +1,21 @@
 { mySources
 , python3
 , wrapGAppsHook
+, fetchFromGitHub
   # , setuptools-generate
 }:
 
 with python3.pkgs;
 
 buildPythonPackage rec {
-  inherit (mySources.mulimgviewer) pname version src;
+  inherit (mySources.mulimgviewer) pname version;
+  # version is old
+  src = fetchFromGitHub {
+    owner = "nachifur";
+    repo = "MulimgViewer";
+    rev = "04f0fca44f372ff5a7e3b92d4e8bac8e85697da6";
+    sha256 = "sha256-QsBP1AeUYBUWP43ROQqCNn0S4PNf7+ug2KM8z7p/4A8=";
+  };
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
