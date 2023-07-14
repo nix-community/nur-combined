@@ -21,7 +21,7 @@
       "networkmanager"
       "nixbuild"
       "transmission"  # servo, to admin /var/lib/uninsane/media
-      "video"  # phosh/mobile. XXX colin: unsure if necessary
+      "video"  # mobile; for LEDs & maybe for camera?
       "wheel"
       "wireshark"
     ];

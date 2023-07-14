@@ -124,7 +124,7 @@ let
   texts = [
     # AGGREGATORS (> 1 post/day)
     (fromDb "lwn.net" // tech)
-    (fromDb "lesswrong.com" // rat)
+    # (fromDb "lesswrong.com" // rat)
     # (fromDb "econlib.org" // pol)
 
     # AGGREGATORS (< 1 post/day)
@@ -166,10 +166,11 @@ let
     (fromDb "ianthehenry.com" // tech)
     (fromDb "bitbashing.io" // tech)
     (fromDb "idiomdrottning.org" // uncat)
+    (mkText "http://boginjr.com/feed" // tech // infrequent)
     (mkText "https://anish.lakhwara.com/home.html" // tech // weekly)
     (fromDb "jefftk.com" // tech)
     (fromDb "pomeroyb.com" // tech)
-    (mkText "https://til.simonwillison.net/tils/feed.atom" // tech // weekly)
+    # (mkText "https://til.simonwillison.net/tils/feed.atom" // tech // weekly)
 
     # TECH PROJECTS
     (fromDb "blog.rust-lang.org" // tech)

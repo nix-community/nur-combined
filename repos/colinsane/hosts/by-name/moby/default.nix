@@ -1,3 +1,8 @@
+# Pinephone
+# other setups to reference:
+# - <https://hamblingreen.gitlab.io/2022/03/02/my-pinephone-setup.html>
+#   - sxmo Arch user. lots of app recommendations
+
 { config, pkgs, lib, ... }:
 {
   imports = [
@@ -105,6 +110,17 @@
     services.wireplumber.environment.ALSA_CONFIG_UCM2         = ucm-env;
   };
 
+  services.udev.extraRules = let
+    chmod = "${pkgs.coreutils}/bin/chmod";
+    chown = "${pkgs.coreutils}/bin/chown";
+  in ''
+    # make Pinephone flashlight writable by user.
+    # taken from postmarketOS: <repo:postmarketOS/pmaports:device/main/device-pine64-pinephone/60-flashlight.rules>
+    SUBSYSTEM=="leds", DEVPATH=="*/*:flash", RUN+="${chmod} g+w /sys%p/brightness /sys%p/flash_strobe", RUN+="${chown} :video /sys%p/brightness /sys%p/flash_strobe"
+
+    # make Pinephone front LEDs writable by user.
+    SUBSYSTEM=="leds", DEVPATH=="*/*:indicator", RUN+="${chmod} g+w /sys%p/brightness", RUN+="${chown} :video /sys%p/brightness"
+  '';
 
   hardware.opengl.driSupport = true;
 }
