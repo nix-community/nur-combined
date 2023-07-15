@@ -1,5 +1,19 @@
+# this file configures preferences per program, without actually enabling any programs.
+# the goal is to separate the place where we decide *what* to use (i.e. `sane.programs.firefox.enable = true` -- at the toplevel)
+# from where we specific how that thing should behave *if* it's in use.
+
 { pkgs, sane-lib, ... }:
 {
+  sane.programs.firefox.config = {
+    # compromise impermanence for the sake of usability
+    persistCache = "private";
+    persistData = "private";
+
+    # i don't do crypto stuff on moby
+    addons.ether-metamask.enable = false;
+    # addons.sideberry.enable = false;
+  };
+
   sane.gui.sxmo = {
     settings = {
       ### hardware: touch screen
@@ -10,6 +24,17 @@
       ### preferences
       DEFAULT_COUNTRY = "US";
 
+      # BEMENU lines (wayland DMENU):
+      # - camera is 9th entry
+      # - flashlight is 10th entry
+      # - config is 14th entry. inside that:
+      #   - autorotate is 11th entry
+      #   - system menu is 19th entry
+      #   - close is 20th entry
+      # - power is 15th entry
+      # - close is 16th entry
+      SXMO_BEMENU_LANDSCAPE_LINES = "11";  # default 8
+      SXMO_BEMENU_PORTRAIT_LINES = "16";  # default 16
       SXMO_LOCK_IDLE_TIME = "15";  # how long between screenoff -> lock -> back to screenoff (default: 8)
       # gravity: how far to tilt the device before the screen rotates
       # for a given setting, normal <-> invert requires more movement then left <-> right

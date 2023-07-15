@@ -99,6 +99,7 @@ in rec {
 
   # `mkShell` specialization for invocations of `nix-shell -p "python3.withPackages (...)"`
   # pyPkgs argument is parsed the same as pkgs, except that names are assumed to be relative to `"ps"` if specified in list form.
+  # TODO: rename to `mkPython3` for consistency with e.g. `mkBash`
   mkPython3Bin = { pname, pkgs ? {}, pyPkgs ? {}, srcPath ? pname, ... }@attrs:
     let
       pyEnv = python3.withPackages (ps: attrValues (

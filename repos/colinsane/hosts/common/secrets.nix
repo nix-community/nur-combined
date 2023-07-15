@@ -66,7 +66,6 @@ in
     {
       "jackett_apikey".owner = config.users.users.colin.name;
       "mx-sanebot-env".owner = config.users.users.colin.name;
-      "snippets".owner = config.users.users.colin.name;
       "transmission_passwd".owner = config.users.users.colin.name;
     }
   ];

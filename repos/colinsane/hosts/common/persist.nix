@@ -6,13 +6,11 @@
   sane.persist.stores.private.prefix = "/home/colin";
 
   sane.persist.sys.plaintext = [
+    # TODO: these should be private.. somehow
     "/var/log"
     "/var/backup"  # for e.g. postgres dumps
-    # TODO: move elsewhere
-    "/var/lib/alsa"                # preserve output levels, default devices
-    "/var/lib/colord"              # preserve color calibrations (?)
-    "/var/lib/machines"            # maybe not needed, but would be painful to add a VM and forget.
-    "/var/lib/systemd/backlight"   # backlight brightness
+  ];
+  sane.persist.sys.cryptClearOnBoot = [
     "/var/lib/systemd/coredump"
   ];
 }

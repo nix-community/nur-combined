@@ -1,4 +1,4 @@
-{ pkgs, config }:
+{ pkgs }:
 let
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
   sed = "${pkgs.gnused}/bin/sed";
@@ -16,11 +16,10 @@ let
   # "bookmarking"/snippets inspired by Luke Smith:
   # - <https://www.youtube.com/watch?v=d_11QaTlf1I>
   snip-file = ../snippets.txt;
-  # TODO: querying sops here breaks encapsulation
-  list-snips = "cat ${snip-file} ${config.sops.secrets.snippets.path}";
+  list-snips = "cat ${snip-file} ~/.config/sane-sway/snippets.txt";
   strip-comments = "${sed} 's/ #.*$//'";
   snip-cmd = "${wtype} $(${list-snips} | ${fuzzel} -d -i -w 60 | ${strip-comments})";
-  # TODO: next splatmoji release should allow `-s none` to disable skin tones
+  # TODO: splatmoji release > 1.2.0 should allow `-s none` to disable skin tones
   emoji-cmd = "${pkgs.splatmoji}/bin/splatmoji -s medium-light type";
 
   # mod = "Mod1";  # Alt
@@ -128,9 +127,6 @@ in ''
 
   ### lightly modified bars
   bar {
-    # TODO: fonts was:
-    #   config.fonts.fontconfig.defaultFonts; (monospace ++ emoji)
-    font pango:Hack, Font Awesome 6 Free, Twitter Color Emoji 24.000000
     mode dock
     hidden_state hide
     position top

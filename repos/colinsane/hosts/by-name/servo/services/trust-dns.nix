@@ -9,6 +9,8 @@
     config.sane.hosts.by-name."servo".lan-ip
     "10.0.1.5"
   ];
+  # don't bind to IPv6 until i explicitly test that stack
+  services.trust-dns.settings.listen_addrs_ipv6 = [];
   services.trust-dns.quiet = true;
   # services.trust-dns.debug = true;
 
@@ -99,9 +101,9 @@
     '';
 
   systemd.services.trust-dns.serviceConfig = {
-    # ReadWritePaths = [ "/var/lib/trust-dns" ];
     DynamicUser = lib.mkForce false;
-    StateDirectory = "trust-dns";
+    User = "trust-dns";
+    Group = "trust-dns";
   };
   users.groups.trust-dns = {};
   users.users.trust-dns = {

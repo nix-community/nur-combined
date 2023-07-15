@@ -30,19 +30,12 @@ in
           "gnome.gnome-bluetooth"
           "gnome.gnome-terminal"
           "phosh-mobile-settings"
-          # "plasma5Packages.konsole"  # more reliable terminal
         ];
       };
     }
 
     (mkIf cfg.enable {
       sane.programs.phoshApps.enableFor.user.colin = true;
-
-      # TODO(2023/02/28): remove this qt.style = "gtk2" override.
-      # gnome by default tells qt to stylize its apps similar to gnome.
-      # but the package needed for that doesn't cross-compile, hence i disable that here.
-      # qt.platformTheme = "gtk2";
-      # qt.style = "gtk2";
 
       # docs: https://github.com/NixOS/nixpkgs/blob/nixos-22.05/nixos/modules/services/x11/desktop-managers/phosh.nix
       # docs: <repo:gnome/phosh:src/phoc.ini.example>

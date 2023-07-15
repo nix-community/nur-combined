@@ -22,6 +22,8 @@
   sane.services.wg-home.enable = true;
   sane.services.wg-home.enableWan = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."servo".wg-home.ip;
+  sane.nixcache.substituters.servo = false;
+  sane.nixcache.substituters.desko = false;
   # sane.services.duplicity.enable = true;  # TODO: re-enable after HW upgrade
 
   # automatically log in at the virtual consoles.

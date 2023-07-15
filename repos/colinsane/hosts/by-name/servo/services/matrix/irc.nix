@@ -1,6 +1,5 @@
 # config docs:
 # - <https://github.com/matrix-org/matrix-appservice-irc/blob/develop/config.sample.yaml>
-# TODO: /quit message for bridged users reveals to IRC users that i'm using a bridge;
 #       probably want to remove that.
 { config, lib, ... }:
 

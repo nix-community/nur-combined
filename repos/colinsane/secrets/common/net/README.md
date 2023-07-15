@@ -1,5 +1,9 @@
 ## to add a new network
-- connect to it (via GUI or `iwctl` TUI)
-- find it under `/var/lib/iwd`
-- `sops ./<NETWORK_NICKNAME>.psk.bin` and paste the contents from `/var/lib/iwd/SSID.psk`
-        - in same file: add `# SSID=UNQUOTED_NETWORK_NAME` to the top
+- connect to it
+  - iwd: `iwctl`
+  - networkmanager:`nmtui`
+- find it under:
+  - iwd: `/var/lib/iwd`
+  - networkmanager: `/var/lib/NetworkManager/system-connections`
+  - networkmanager (new install): `/etc/NetworkManager/system-connections`
+- `sops all.json` and add an entry with the ssid and passphrase

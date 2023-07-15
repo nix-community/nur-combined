@@ -11,15 +11,15 @@
   # - `man iwd.config`  for global config
   # - `man iwd.network` for per-SSID config
   # use `iwctl` to control
-  networking.networkmanager.wifi.backend = "iwd";
-  networking.wireless.iwd.enable = true;
-  networking.wireless.iwd.settings = {
-    # auto-connect to a stronger network if signal drops below this value
-    # bedroom -> bedroom connection is -35 to -40 dBm
-    # bedroom -> living room connection is -60 dBm
-    General.RoamThreshold = "-52";  # default -70
-    General.RoamThreshold5G = "-52";  # default -76
-  };
+  # networking.networkmanager.wifi.backend = "iwd";
+  # networking.wireless.iwd.enable = true;
+  # networking.wireless.iwd.settings = {
+  #   # auto-connect to a stronger network if signal drops below this value
+  #   # bedroom -> bedroom connection is -35 to -40 dBm
+  #   # bedroom -> living room connection is -60 dBm
+  #   General.RoamThreshold = "-52";  # default -70
+  #   General.RoamThreshold5G = "-52";  # default -76
+  # };
 
   # plugins mostly add support for establishing different VPN connections.
   # the default plugin set includes mostly proprietary VPNs:
@@ -38,4 +38,10 @@
   networking.firewall.allowedUDPPorts = [
     1900  # to received UPnP advertisements. required by sane-ip-check-upnp
   ];
+
+  # keyfile.path = where networkmanager should look for connection credentials
+  networking.networkmanager.extraConfig = ''
+    [keyfile]
+    path=/var/lib/NetworkManager/system-connections
+  '';
 }

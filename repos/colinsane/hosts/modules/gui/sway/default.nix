@@ -70,6 +70,8 @@ in
           "sway-contrib.grimshot"
           "wdisplays"  # like xrandr
         ];
+
+        secrets.".config/sane-sway/snippets.txt" = ../../../../secrets/common/snippets.txt.bin;
       };
     }
 
@@ -135,7 +137,7 @@ in
         wrapperFeatures.gtk = true;
       };
       sane.user.fs.".config/sway/config".symlink.text =
-        import ./sway-config.nix { inherit config pkgs; };
+        import ./sway-config.nix { inherit pkgs; };
 
       sane.user.fs.".config/waybar/config".symlink.target =
         let

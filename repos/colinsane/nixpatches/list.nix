@@ -225,8 +225,8 @@ in [
   (fetchpatch' {
     title = "nixos/trust-dns: init";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/243244";
-    saneCommit = "4c801fa25278faceb1ccb0273bc58111bfb3d42e";
-    hash = "sha256-CCj7qInTFkJrVBNbP9DJQYYsjWFvEyMlysuyYqoLG1k=";
+    saneCommit = "62e1ad47d09ac21901b43355b3c81ed5a1eede60";
+    hash = "sha256-cTqpmpIDUwdrlIPM8MWmylnxpv+x6qEcZ8ssJJVvgL8=";
   })
 
   # (fetchpatch' {

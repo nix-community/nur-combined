@@ -9,7 +9,7 @@
 { config, lib, pkgs, ...}:
 with lib;
 let
-  cfg = config.sane.programs.web-browser.config;
+  cfg = config.sane.programs.firefox.config;
   # allow easy switching between firefox and librewolf with `defaultSettings`, below
   librewolfSettings = {
     browser = pkgs.librewolf-unwrapped;
@@ -144,11 +144,11 @@ in
 {
   config = mkMerge [
     ({
-      sane.programs.web-browser.configOption = mkOption {
+      sane.programs.firefox.configOption = mkOption {
         type = types.submodule configOpts;
         default = {};
       };
-      sane.programs.web-browser.config.addons = {
+      sane.programs.firefox.config.addons = {
         # get names from:
         # - ~/ref/nix-community/nur-combined/repos/rycee/pkgs/firefox-addons/generated-firefox-addons.nix
         # `wget ...xpi`; `unar ...xpi`; `cat */manifest.json | jq '.browser_specific_settings.gecko.id'`
@@ -190,8 +190,18 @@ in
       };
     })
     ({
-      sane.programs.web-browser = {
+      sane.programs.firefox = {
         inherit package;
+
+        mime.associations = let
+          inherit (cfg.browser) desktop;
+        in {
+          "text/html" = desktop;
+          "x-scheme-handler/http" = desktop;
+          "x-scheme-handler/https" = desktop;
+          "x-scheme-handler/about" = desktop;
+          "x-scheme-handler/unknown" = desktop;
+        };
 
         # env.BROWSER = "${package}/bin/${cfg.browser.libName}";
         env.BROWSER = cfg.browser.libName;  # used by misc tools like xdg-email, as fallback
@@ -236,7 +246,7 @@ in
         '';
       };
     })
-    (mkIf config.sane.programs.web-browser.enabled {
+    (mkIf config.sane.programs.firefox.enabled {
       # TODO: move the persistence into the sane.programs API (above)
       # flush the cache to disk to avoid it taking up too much tmp.
       sane.user.persist.byPath."${cfg.browser.cacheDir}".store =

@@ -101,7 +101,8 @@ in
     };
 
     # allow ActivityPub clients to discover how to reach @user@uninsane.org
-    # TODO: waiting on https://git.pleroma.social/pleroma/pleroma/-/merge_requests/3361/
+    # see: https://git.pleroma.social/pleroma/pleroma/-/merge_requests/3361/
+    # not sure this makes sense while i run multiple AP services (pleroma, lemmy)
     # locations."/.well-known/nodeinfo" = {
     #   proxyPass = "http://127.0.0.1:4000";
     #   extraConfig = pleromaExtraConfig;

@@ -81,6 +81,12 @@ in
   # see also:
   # - `man zramctl`
   zramSwap.enable = true;
+  # how much ram can be swapped into the zram device.
+  # this shouldn't be higher than the observed compression ratio.
+  # the default is 50% (why?)
+  # 100% should be "guaranteed" safe so long as the data is even *slightly* compressible.
+  # but it decreases working memory under the heaviest of loads by however much space the compressed memory occupies (e.g. 50% if 2:1; 25% if 4:1)
+  zramSwap.memoryPercent = 100;
 
   # fileSystems."/mnt/servo-nfs" = {
   #   device = "servo-hn:/";

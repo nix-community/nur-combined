@@ -1,9 +1,7 @@
 ## BUGS
 - why i need to manually restart `wireguard-wg-ovpns` on servo periodically
   - else DNS fails
-- fix port 53 UPnP failures
-- fix epiphany to launch on moby
-  - something to do with bwrap/bubblewrap?
+- fix epiphany URL bar input on moby
 
 ## REFACTORING:
 
@@ -17,8 +15,6 @@
     - will make it easier to test new services?
 
 ### upstreaming
-- split out a trust-dns module
-  - see: <https://github.com/NixOS/nixpkgs/pull/205866#issuecomment-1575753054>
 - split out a sxmo module usable by NUR consumers
 - bump nodejs version in lemmy-ui
 - add updateScripts to all my packages in nixpkgs
@@ -58,8 +54,6 @@
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
   - try Gradience tool specifically for theming adwaita? <https://linuxphoneapps.org/apps/com.github.gradienceteam.gradience/>
-- moby: ship camera app (megapixels)
-  - may need to enable firmware in hosts/by-name/moby/default.nix
 - package Nix/NixOS docs for Zeal
     - install [doc-browser](https://github.com/qwfy/doc-browser)
     - this supports both dash (zeal) *and* the datasets from <https://devdocs.io> (which includes nix!)

@@ -25,5 +25,13 @@ in
       [qt]
       qt-privacy-ask=0
     '';
+
+    mime.associations."audio/flac" = "vlc.desktop";
+    mime.associations."audio/mpeg" = "vlc.desktop";
+    mime.associations."audio/x-vorbis+ogg" = "vlc.desktop";
+    mime.associations."video/mp4" = "vlc.desktop";
+    mime.associations."video/quicktime" = "vlc.desktop";
+    mime.associations."video/webm" = "vlc.desktop";
+    mime.associations."video/x-matroska" = "vlc.desktop";
   };
 }

@@ -40,7 +40,7 @@ let
       };
     };
   };
-  userModule = types.submodule ({ name, config, ... }: {
+  userModule = let nixConfig = config; in types.submodule ({ name, config, ... }: {
     options = userOptions.options // {
       default = mkOption {
         type = types.bool;
@@ -63,6 +63,11 @@ let
     # if we're the default user, inherit whatever settings were routed to the default user
       (mkIf config.default sane-user-cfg)
       {
+        fs."/".dir.acl = {
+          user = name;
+          group = nixConfig.users.users."${name}".group;
+          mode = nixConfig.users.users."${name}".homeMode;
+        };
         fs.".profile".symlink.text =
           let
             env = lib.mapAttrsToList

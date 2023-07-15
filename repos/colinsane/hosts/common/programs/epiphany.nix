@@ -31,5 +31,15 @@
       ".local/share/epiphany"
       # also .config/epiphany, but appears empty
     ];
+    mime.priority = 200;  # default priority is 100: install epiphany only as a fallback
+    mime.associations = let
+      desktop = "org.gnome.Epiphany.desktop";
+    in {
+      "text/html" = desktop;
+      "x-scheme-handler/http" = desktop;
+      "x-scheme-handler/https" = desktop;
+      "x-scheme-handler/about" = desktop;
+      "x-scheme-handler/unknown" = desktop;
+    };
   };
 }

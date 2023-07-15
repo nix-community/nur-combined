@@ -11,8 +11,8 @@ in
     };
   };
 
-  config = {
-    users.users.guest = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
+    users.users.guest = {
       isNormalUser = true;
       home = "/home/guest";
       subUidRanges = [

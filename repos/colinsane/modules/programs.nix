@@ -79,6 +79,26 @@ let
         type = types.bool;
         default = true;
       };
+      mime.priority = mkOption {
+        type = types.int;
+        default = 100;
+        description = ''
+          program with the numerically lower priority takes precedence whenever two mime associations overlap.
+        '';
+      };
+      mime.associations = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
+        description = ''
+          mime associations. each entry takes the form of:
+            "<mime type>" = "<launcher>.desktop"
+          e.g.
+          {
+            "audio/flac" = "vlc.desktop";
+            "application/pdf" = "org.gnome.Evince.desktop";
+          }
+        '';
+      };
       persist = mkOption {
         type = options.sane.persist.sys.type;
         default = {};

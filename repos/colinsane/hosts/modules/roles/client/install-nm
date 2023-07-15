@@ -1,0 +1,83 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+
+import argparse
+import json
+import os.path
+
+from dataclasses import dataclass
+
+@dataclass
+class Connection:
+    comment: str | None
+    ssid: str
+    passphrase: str | None
+
+def parse_manifest(manifest_path: str) -> list[Connection]:
+    for entry in json.load(open(manifest_path)):
+        comment = entry.get("comment")
+        ssid = entry["ssid"]
+        passphrase = entry.get("passphrase")
+        if ssid != "<EOF>":
+            yield Connection(comment=comment, ssid=ssid, passphrase=passphrase)
+
+def write_iwd(fh: "file", con: Connection) -> None:
+    fh.write("[Security]\n")
+    if con.passphrase is not None:
+        fh.write(f"Passphrase={con.passphrase}\n")
+
+def write_nm(fh: "file", con: Connection) -> None:
+    fh.write("[connection]\n")
+    fh.write(f"id={con.ssid}\n")
+    fh.write("type=wifi\n")  #< TODO: needed?
+
+    fh.write("\n")
+    fh.write("[wifi]\n")
+    fh.write("mode=infrastructure\n")
+    fh.write(f"ssid={con.ssid}\n")
+
+    fh.write("\n")
+    fh.write("[wifi-security]\n")
+    fh.write("auth-alg=open\n")
+    fh.write("key-mgmt=wpa-psk\n")
+    if con.passphrase is not None:
+        fh.write(f"psk={con.passphrase}\n")
+
+    fh.write("\n")
+    fh.write("[ipv4]\n")
+    fh.write("method=auto\n")
+
+    fh.write("\n")
+    fh.write("[ipv6]\n")
+    fh.write("addr-gen-mode=default\n")
+    fh.write("method=auto\n")
+
+def install_all(manifest: list[Connection], destination: str, flavor: str) -> None:
+    ext, writer = dict(
+        iwd=("psk", write_iwd),
+        nm=("nmconnection", write_nm),
+    )[flavor]
+    for con in manifest:
+        path = os.path.join(destination, f"{con.ssid}.{ext}")
+        with open(path, "w") as fh:
+            writer(fh, con)
+
+def stamp(destination: str, stamp: str) -> None:
+    if stamp:
+        with open(os.path.join(destination, stamp), "w"):
+            pass
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="create network connection descriptions from a static manifest")
+    parser.add_argument("manifest", help="path to the manifest.json")
+    parser.add_argument("destination", help="directory in which to install files")
+    parser.add_argument("--flavor", help="'nm' or 'iwd' based on which program will read the results", default="iwd")
+    parser.add_argument("--stamp", default=".install-nm.stamp", help="relative path of empty file to touch after completion")
+
+    args = parser.parse_args()
+    manifest = parse_manifest(args.manifest)
+    install_all(manifest, args.destination, flavor=args.flavor)
+    stamp(args.destination, args.stamp)
+
+if __name__ == "__main__":
+    main()

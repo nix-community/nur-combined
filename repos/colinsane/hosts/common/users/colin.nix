@@ -52,13 +52,6 @@
 
   sane.users.colin = {
     default = true;
-    # ensure ~ perms are known to sane.fs module.
-    # TODO: this is generic enough to be lifted up into sane.fs itself.
-    fs."/".dir.acl = {
-      user = "colin";
-      group = config.users.users.colin.group;
-      mode = config.users.users.colin.homeMode;
-    };
 
     persist.plaintext = [
       "archive"

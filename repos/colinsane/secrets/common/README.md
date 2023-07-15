@@ -1,3 +1,3 @@
 - router_passwd: CenturyLink password from old home
     - no longer used
-- snippets.bin: sensitive snippets that go into e.g. sway menu
+- snippets.txt.bin: sensitive snippets that go into e.g. sway menu
