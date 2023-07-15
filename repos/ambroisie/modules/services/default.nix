@@ -30,6 +30,7 @@
     ./rss-bridge
     ./sabnzbd
     ./ssh-server
+    ./tandoor-recipes
     ./tlp
     ./transmission
     ./vikunja

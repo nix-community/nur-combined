@@ -44,6 +44,12 @@ in
         dbhost = "/run/postgresql";
         overwriteProtocol = "https"; # Nginx only allows SSL
       };
+
+      notify_push = {
+        enable = true;
+        # Allow using the push service without hard-coding my IP in the configuration
+        bendDomainToLocalhost = true;
+      };
     };
 
     services.postgresql = {
