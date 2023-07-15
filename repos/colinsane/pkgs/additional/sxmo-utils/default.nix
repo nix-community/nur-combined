@@ -99,6 +99,7 @@ stdenv.mkDerivation rec {
     ./0004-no-busybox.patch
     # wanted to fix/silence some non-fatal errors
     ./0005-system-audio.patch
+    ./0007-workspace-wrapping.patch
 
     # personal (but upstreamable) preferences:
     (fetchpatch {

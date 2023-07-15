@@ -1,0 +1,58 @@
+commit bf0057011777b91ef5af005fb4e984b4b9b71c7b
+Author: Colin <colin@uninsane.org>
+Date:   2023-07-15 21:35:45 +0000
+
+    sxmo_wmmenu: respect SXMO_WORKSPACE_WRAPPING
+    
+    sxmo_wm.sh uses the `SXMO_WORKSPACE_WRAPPING` variable to control
+    relative movements. for example, set this to "5" and then the "Next
+    Workspace" option in the switch menu will cycle WS 1 -> 2 ... -> 5 -> 1.
+    same for one- and two-finger left/right swipe to switch/move workspaces.
+    
+    however, absolute movements (via the move menu) only allowed moving to
+    WS 1-4. a user with non-default `SXMO_WORKSPACE_WRAPPING` could move a
+    window from WS 5 to WS 4 with this menu, but not from WS 4 back to WS 5.
+    this patch brings consistency by using `SXMO_WORKSPACE_WRAPPING`
+    anywhere we would otherwise assume the number of possible workspaces.
+
+diff --git a/scripts/core/sxmo_wmmenu.sh b/scripts/core/sxmo_wmmenu.sh
+index 3d40b31..d3c1db6 100755
+--- a/scripts/core/sxmo_wmmenu.sh
++++ b/scripts/core/sxmo_wmmenu.sh
+@@ -12,6 +12,12 @@
+ 
+ set -e
+ 
++_movetowssubmenu() {
++	for ws in $(seq "${SXMO_WORKSPACE_WRAPPING:-4}"); do
++		printf "%s Move to WS %s\n" "$ws" "$ws"
++	done
++}
++
+ # A menu which allows to move windows or toggle floating.
+ swaymovemenu() {
+ 	CHOICES="$(cat <<EOF
+@@ -22,10 +28,7 @@ $icon_arl Move Left
+ $icon_arr Move Right
+ $icon_wn2 Toggle Floating
+ $icon_ac1 Move Scratchpad
+-1 Move to WS 1
+-2 Move to WS 2
+-3 Move to WS 3
+-4 Move to WS 4
++$(_movetowssubmenu)
+ EOF
+ 	)"
+ 
+@@ -125,10 +128,7 @@ dwmwmmenu() {
+ 		CHOICES="$(
+ 			cat <<EOF
+ $icon_cls Close Menu
+-1 Move to WS 1
+-2 Move to WS 2
+-3 Move to WS 3
+-4 Move to WS 4
++$(_movetowssubmenu)
+ $icon_rld Shift stack
+ $icon_grd Toggle Layout
+ EOF

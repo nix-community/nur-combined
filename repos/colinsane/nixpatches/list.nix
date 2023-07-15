@@ -216,13 +216,6 @@ in [
   })
 
   (fetchpatch' {
-    title = "komikku: 1.21.1 -> 1.22.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/243017";
-    saneCommit = "853be697f59f64c342269e81e34ca375e8b3e7aa";
-    hash = "sha256-njSTwVvUkmzmJcN2oGkv7VZA92lr4HS8cDPVpKRE+0w=";
-  })
-
-  (fetchpatch' {
     title = "nixos/trust-dns: init";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/243244";
     saneCommit = "62e1ad47d09ac21901b43355b3c81ed5a1eede60";
