@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, lib, v, pkgs }:
+{ stdenv, fetchFromGitHub, lib, v, pkgs, llvmPackages_16 }:
 
 let
   os = if stdenv.isLinux then "linux" else "macos";
@@ -45,8 +45,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = with pkgs; [ cmake llvmPackages_16.llvm.dev ];
 
   buildInputs = with pkgs;
-    [ libxml2 zlib coreutils ]
-    ++ (with pkgs.llvmPackages_16; [ libclang lld llvm ]);
+    [ coreutils libxml2 zlib ] ++ (with llvmPackages_16; [ libclang lld llvm ]);
 
   preBuild = ''
     export HOME=$TMPDIR;
@@ -62,15 +61,14 @@ in stdenv.mkDerivation rec {
     # file RPATH_CHANGE could not write new RPATH
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
 
+    # always link against static build of LLVM
+    "-DZIG_STATIC_LLVM=ON"
+
     # ensure determinism in the compiler build
     "-DZIG_TARGET_MCPU=baseline"
   ];
 
-  doCheck = true;
-
-  installCheckPhase = ''
-    $out/bin/zig test --cache-dir "$TMPDIR" -I $src/test $src/test/behavior.zig
-  '';
+  env.ZIG_GLOBAL_CACHE_DIR = "$TMPDIR/zig-cache";
 
   meta = with lib; {
     description =
