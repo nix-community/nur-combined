@@ -7,6 +7,7 @@ in {
     ./audio.nix
     ./gui.nix
     ./networking.nix
+    ./steam.nix
     ./git.nix
     ./adb.nix
     ./vbox.nix
