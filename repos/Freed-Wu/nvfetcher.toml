@@ -1,3 +1,7 @@
+[undollar]
+src.github = "Freed-Wu/undollar"
+fetch.github = "Freed-Wu/undollar"
+
 [help2man]
 src.pypi = "help2man"
 fetch.pypi = "help2man"

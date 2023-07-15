@@ -25,6 +25,7 @@ let
     # https://github.com/NixOS/nixpkgs/pull/243032
     g3kb-switch = callPackage ./pkgs/g3kb-switch { };
 
+    undollar = callPackage ./pkgs/tools/misc/undollar { };
     help2man = callPackage ./pkgs/development/python-modules/help2man { };
     setuptools-generate = callPackage ./pkgs/development/python-modules/setuptools-generate { };
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };

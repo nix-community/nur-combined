@@ -116,6 +116,17 @@
       sha256 = "sha256-aTZI/wO2fV0mC9L75Y0V/qD78RQhPeyAqmaJajvNS2s=";
     };
   };
+  undollar = {
+    pname = "undollar";
+    version = "0.0.3";
+    src = fetchFromGitHub {
+      owner = "Freed-Wu";
+      repo = "undollar";
+      rev = "0.0.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-cvKb02wZ0gH2jJFLrNr7ptkUaVPjymuZP2qbMK4KVCo=";
+    };
+  };
   xilinx-language-server = {
     pname = "xilinx-language-server";
     version = "0.0.4";
