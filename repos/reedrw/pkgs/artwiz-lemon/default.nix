@@ -1,13 +1,13 @@
 { stdenv, lib, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   name = "artwiz-lemon";
 
   src = fetchFromGitHub (lib.importJSON ./source.json);
 
   installPhase = ''
-    install -D -m644 lemon.bdf "$out/share/fonts/lemon.bdf"
-    install -D -m644 spectrum-fonts/berry.bdf "$out/share/fonts/berry.bdf"
+    mkdir -p "$out/share/fonts"
+    find . -type f \( -name "*.bdf" -o -name "*.otb" \) -exec cp {} "$out/share/fonts" \;
   '';
 
   meta = {

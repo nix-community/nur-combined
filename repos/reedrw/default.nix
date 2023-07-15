@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-rec {
+{
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -17,12 +17,12 @@ rec {
   artwiz-lemon = pkgs.callPackage ./pkgs/artwiz-lemon { };
   bitwarden-rofi = pkgs.callPackage ./pkgs/bitwarden-rofi { };
   genshin-account-switcher = pkgs.callPackage ./pkgs/genshin-account-switcher { };
+  jkps = pkgs.callPackage ./pkgs/jkps { };
   picom-next-ibhagwan = pkgs.callPackage ./pkgs/picom-next-ibhagwan { };
   rctpm = pkgs.callPackage ./pkgs/rctpm { };
   shairport-sync-metadata-reader = pkgs.callPackage ./pkgs/shairport-sync-metadata-reader { };
   toonmux = pkgs.callPackage ./pkgs/toonmux { };
   uxplay = pkgs.callPackage ./pkgs/uxplay { };
-  jkps = pkgs.callPackage ./pkgs/jkps { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
