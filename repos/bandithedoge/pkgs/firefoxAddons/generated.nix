@@ -6,10 +6,10 @@
 }: {
   "augmented-steam" = buildFirefoxXpiAddon {
     pname = "augmented-steam";
-    version = "2.4.1";
+    version = "2.5.0";
     addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4054613/augmented_steam-2.4.1.xpi";
-    sha256 = "962412b40471bc0dfafe72cd29c7e80ef789c33dc322086bbc03d3a89a5d08db";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4135651/augmented_steam-2.5.0.xpi";
+    sha256 = "f470a28abde4e4179a6bc3f8bab9fdb167a745c9a93a192c4dc9638f68beabde";
     meta = with lib; {
       homepage = "https://augmentedsteam.com/";
       description = "Augments your Steam Experience";
@@ -122,10 +122,10 @@
   };
   "enhancer-for-youtube" = buildFirefoxXpiAddon {
     pname = "enhancer-for-youtube";
-    version = "2.0.119";
+    version = "2.0.119.1";
     addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4131648/enhancer_for_youtube-2.0.119.xpi";
-    sha256 = "8be7094eecf9130222631839422ccad8219d5f76f6fa352c6e7ab3e10d0b6261";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4134489/enhancer_for_youtube-2.0.119.1.xpi";
+    sha256 = "0ecdbe7e66d6dd6d459bc58c68d35f86612502feb30edd2c10262b4b87f1f3a2";
     meta = with lib; {
       homepage = "https://www.mrfdev.com/enhancer-for-youtube";
       description = "Take control of YouTube and boost your user experience!";

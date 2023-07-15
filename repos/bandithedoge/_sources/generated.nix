@@ -7,10 +7,10 @@
 }: {
   basiliskii-bin = {
     pname = "basiliskii-bin";
-    version = "2023-06-11";
+    version = "2023-07-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-06-11/BasiliskII-x86_64.AppImage";
-      sha256 = "sha256-LoYORhfPgcaExXlH2FVVnq1noKszMcUWPhh4GFQinI4=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-07-11/BasiliskII-x86_64.AppImage";
+      sha256 = "sha256-WqAkKT3+WyiYFItY04r8O77ruvZsioeQwLuChqvQXCg=";
     };
   };
   bling = {
@@ -27,15 +27,15 @@
   };
   cardinal = {
     pname = "cardinal";
-    version = "391d44f7d31c819e9a0739e19d3b9115b0a374e9";
+    version = "0ddffa6c77374056745289c236b58eb6354b99a7";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "391d44f7d31c819e9a0739e19d3b9115b0a374e9";
+      rev = "0ddffa6c77374056745289c236b58eb6354b99a7";
       fetchSubmodules = true;
-      sha256 = "sha256-UQZPcm0TkOj3rsTFLRdqhiNGlIPs982CaG7jR7ThpsQ=";
+      sha256 = "sha256-4sSQK0vZXVHIXZgmSF+zEJct8mXWEHztVcC4hSfEgAw=";
     };
-    date = "2023-07-08";
+    date = "2023-07-13";
   };
   carla = {
     pname = "carla";
@@ -103,15 +103,15 @@
   };
   ildaeil = {
     pname = "ildaeil";
-    version = "843a330eef80419cab9e3188da86d939546db1b6";
+    version = "d0a728697757a3c71772f8ad6fad6891e9366bd9";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Ildaeil";
-      rev = "843a330eef80419cab9e3188da86d939546db1b6";
+      rev = "d0a728697757a3c71772f8ad6fad6891e9366bd9";
       fetchSubmodules = true;
-      sha256 = "sha256-+k3e48lLw9WUNSfCI3dKTJVpkdu9Atusdj7BEDPQWGY=";
+      sha256 = "sha256-Ck56D7T7m0wwqZZJV+Z3tyF/iPXLxhAz6vXZIiaN/EA=";
     };
-    date = "2023-07-06";
+    date = "2023-07-12";
   };
   keepmenu = {
     pname = "keepmenu";
@@ -220,10 +220,10 @@
   };
   sheepshaver-bin = {
     pname = "sheepshaver-bin";
-    version = "2023-06-11";
+    version = "2023-07-11";
     src = fetchurl {
-      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-06-11/SheepShaver-x86_64.AppImage";
-      sha256 = "sha256-8ayEFZ+aGYLv/CTcQnAlWXdDSzg97IULoyeU41j4Cg8=";
+      url = "https://github.com/Korkman/macemu-appimage-builder/releases/download/2023-07-11/SheepShaver-x86_64.AppImage";
+      sha256 = "sha256-LqPnU7a2gkNJs46lyL17pprQlTlOy6FYyumX+NHqaXE=";
     };
   };
   slock-flexipatch = {
@@ -252,15 +252,15 @@
   };
   taffybar = {
     pname = "taffybar";
-    version = "741995d09da1264da669d69c6c26fe4575c5d4ba";
+    version = "b57006885d35cee63244b1559813ca4b5990e04c";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "741995d09da1264da669d69c6c26fe4575c5d4ba";
+      rev = "b57006885d35cee63244b1559813ca4b5990e04c";
       fetchSubmodules = false;
-      sha256 = "sha256-JvoCkRmKzdJwoHL+m29W845eJmp4bRdlYiqUabHvzhY=";
+      sha256 = "sha256-aSta0A0WCGnZ/MPCAr//LoNWNnxLdaqOo437EB9405Y=";
     };
-    date = "2023-05-31";
+    date = "2023-07-14";
   };
   tailwindcss-intellisense = {
     pname = "tailwindcss-intellisense";
