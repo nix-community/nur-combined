@@ -49,7 +49,7 @@ switch_cmd = "switch" if is_switch else "boot"
 
 server.shell(
     _sudo=True,
-    name="Applying configuration",
+    name="Applying NixOS configuration",
     commands = [
         f"{str(config_path)}/bin/switch-to-configuration {switch_cmd}"
     ]
