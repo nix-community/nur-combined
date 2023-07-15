@@ -3,7 +3,7 @@
 let
   os = if stdenv.isLinux then "linux" else "macos";
   arch = if stdenv.isx86_64 then "x86_64" else "aarch64";
-  master = "0.11.0-dev.3696+8d0a8c285";
+  master = "0.11.0-dev.4002+7dd1cf26f";
   url = {
     "0.10.0" =
       "https://ziglang.org/download/0.10.0/zig-${os}-${arch}-0.10.0.tar.xz";
@@ -21,17 +21,19 @@ let
         "02f7a7839b6a1e127eeae22ea72c87603fb7298c58bc35822a951479d53c7557";
     };
     ${master} = {
-      x86_64-linux = "sha256-qq6xC2Urbrc2Yf8nn/UQ9nhEpSwnLgdZ78c0VHBBd9E=";
+      x86_64-linux =
+        "b1ed8e3ce2fb277efdfac2330601467d63e67782e8f6cf467977adf738d9c92a";
       aarch64-linux =
-        "5ae415519ffbddbeaa9f82df58d3989d91c2c8889b56b2bc65cf5ec0d84ad3d7";
+        "89c22c85df280cd101358aff913aa15581ea0bc1b52d50cfe67a83dfab43a45d";
       x86_64-darwin =
-        "0ed720b429ad0f1ca69618768ce2a9eab2e95f219b3e7fec39d804102a0ea1ac";
-      aarch64-darwin = "sha256-ejkSBEKORarF/z7/GpwainCnWy9Ed9xXmrDv3g/XLKA=";
+        "4f00a0a12145f30aa3f5c0430722d4fcb753d2e051064fbbd0b1b0e17981ef33";
+      aarch64-darwin =
+        "26e615194f930c64dbf3b02ca01cf2c6f07e8ac1c274c2905af3790c7e344e8b";
     };
   };
 in stdenv.mkDerivation rec {
   pname = "zig-master";
-  version = "unstable-2023-6-20";
+  version = "unstable-2023-7-15";
 
   src = fetchurl {
     url = url.${v};
@@ -44,12 +46,6 @@ in stdenv.mkDerivation rec {
     cp -r lib "$out/lib"
     install -d "$out/usr/share/doc"
     cp -r doc "$out/usr/share/doc/zig"
-  '';
-
-  postInstall = ''
-    # Zig's build looks at /usr/bin/env to find dynamic linking info. This
-    # doesn't work in Nix' sandbox. Use env from our coreutils instead.
-    substituteInPlace $out/lib/std/zig/system/NativeTargetInfo.zig --replace "/usr/bin/env" "${coreutils}/bin/env"
   '';
 
   meta = with lib; {
