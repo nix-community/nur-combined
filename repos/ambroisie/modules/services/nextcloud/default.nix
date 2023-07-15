@@ -36,6 +36,7 @@ in
       home = "/var/lib/nextcloud";
       maxUploadSize = cfg.maxSize;
       enableBrokenCiphersForSSE = false;
+      configureRedis = true;
       config = {
         adminuser = cfg.admin;
         adminpassFile = cfg.passwordFile;
