@@ -9,6 +9,7 @@ in {
     ./motd.nix
     ./netns.nix
     ./nix-binary-caches.nix
+    ./nixpkgs-symlink.nix
     ./nix.nix
     ./port-alloc.nix
     ./rev.nix

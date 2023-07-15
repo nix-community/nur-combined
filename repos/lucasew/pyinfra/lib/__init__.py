@@ -27,4 +27,3 @@ def is_nixos():
 @expose()
 def noop():
     yield ""
-
