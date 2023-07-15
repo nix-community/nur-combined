@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, lib, v, coreutils }:
+{ stdenv, fetchFromGitHub, lib, v, pkgs }:
 
 let
   os = if stdenv.isLinux then "linux" else "macos";
@@ -35,17 +35,41 @@ in stdenv.mkDerivation rec {
   pname = "zig-master";
   version = "unstable-2023-7-15";
 
-  src = fetchurl {
-    url = url.${v};
-    sha256 = shas.${v}.${stdenv.hostPlatform.system};
+  src = fetchFromGitHub {
+    owner = "ziglang";
+    repo = "zig";
+    rev = "7dd1cf26f9b0cb104ada166a10ff356ca272577a";
+    sha256 = "sha256-CFbGDPDBpeXbTsJdPHf17SZShEjyLfkRLHouPpg0sWo=";
   };
 
-  installPhase = ''
-    install -D zig "$out/bin/zig"
-    install -D LICENSE "$out/usr/share/licenses/zig/LICENSE"
-    cp -r lib "$out/lib"
-    install -d "$out/usr/share/doc"
-    cp -r doc "$out/usr/share/doc/zig"
+  nativeBuildInputs = with pkgs; [ cmake llvmPackages_16.llvm.dev ];
+
+  buildInputs = with pkgs;
+    [ libxml2 zlib coreutils ]
+    ++ (with pkgs.llvmPackages_16; [ libclang lld llvm ]);
+
+  preBuild = ''
+    export HOME=$TMPDIR;
+  '';
+
+  postPatch = ''
+    # Zig's build looks at /usr/bin/env to find dynamic linking info. This
+    # doesn't work in Nix' sandbox. Use env from our coreutils instead.
+    substituteInPlace lib/std/zig/system/NativeTargetInfo.zig --replace "/usr/bin/env" "${pkgs.coreutils}/bin/env"
+  '';
+
+  cmakeFlags = [
+    # file RPATH_CHANGE could not write new RPATH
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+
+    # ensure determinism in the compiler build
+    "-DZIG_TARGET_MCPU=baseline"
+  ];
+
+  doCheck = true;
+
+  installCheckPhase = ''
+    $out/bin/zig test --cache-dir "$TMPDIR" -I $src/test $src/test/behavior.zig
   '';
 
   meta = with lib; {
