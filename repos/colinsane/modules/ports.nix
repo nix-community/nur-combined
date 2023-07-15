@@ -106,10 +106,9 @@ in
         timerConfig = {
           OnStartupSec = "1min";
           OnUnitActiveSec = cfg.upnpRenewInterval;
+          Unit = "upnp-forwards.target";
         };
       };
-    })
-    (lib.mkIf cfg.openUpnp {
       systemd.targets.upnp-forwards = {
         description = "forward ports from upstream gateway to this host";
         after = [ "network.target" ];

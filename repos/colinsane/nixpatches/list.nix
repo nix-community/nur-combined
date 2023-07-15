@@ -229,6 +229,12 @@ in [
     hash = "sha256-cTqpmpIDUwdrlIPM8MWmylnxpv+x6qEcZ8ssJJVvgL8=";
   })
 
+  (fetchpatch' {
+    title = "lemmy-server: 0.18.1 -> 0.18.2";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/243608";
+    hash = "sha256-54W1PqB3T54vz5HylQaDENa1avwWI0EHveuMX0sBzj4=";
+  })
+
   # (fetchpatch' {
   #   # N.B.: compiles, but runtime error on launch suggestive of some module not being shipped
   #   title = "matrix-appservice-irc: 0.38.0 -> 1.0.0";
