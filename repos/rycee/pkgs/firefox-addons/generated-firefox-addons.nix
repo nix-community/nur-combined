@@ -154,10 +154,10 @@
       };
     "augmented-steam" = buildFirefoxXpiAddon {
       pname = "augmented-steam";
-      version = "2.4.1";
+      version = "2.5.0";
       addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4054613/augmented_steam-2.4.1.xpi";
-      sha256 = "962412b40471bc0dfafe72cd29c7e80ef789c33dc322086bbc03d3a89a5d08db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135651/augmented_steam-2.5.0.xpi";
+      sha256 = "f470a28abde4e4179a6bc3f8bab9fdb167a745c9a93a192c4dc9638f68beabde";
       meta = with lib;
       {
         homepage = "https://augmentedsteam.com/";
@@ -506,10 +506,10 @@
       };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "3.11.0";
+      version = "3.11.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4136040/control_panel_for_twitter-3.11.0.xpi";
-      sha256 = "9cb5deee78c92dd52415b299054307ceaaa09d91ffacacf0955523d615402460";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4137192/control_panel_for_twitter-3.11.1.xpi";
+      sha256 = "9ef818be0d8a0c18559da3d7add938a7c57aa9959012db6f3d9eda5fa26571bf";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1805,10 +1805,10 @@
       };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "5.0.1";
+      version = "5.1.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4099640/mailvelope-5.0.1.xpi";
-      sha256 = "d09d77ce483e6e92abe7ddfd6c4c3ff526ce61e8e37befa010654b07fbd56eab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4137207/mailvelope-5.1.0.xpi";
+      sha256 = "f1be9d226480b4b73a98051b4df71cd157ea6b460c500dc95b8ba994d024ef30";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -1872,10 +1872,10 @@
       };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "10.32.0";
+      version = "10.33.1";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4133646/ether_metamask-10.32.0.xpi";
-      sha256 = "fa5d6aa0c4102924f34dd2b3060a422d9d7d24dac8421519f75a5a966e7c3f96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4136645/ether_metamask-10.33.1.xpi";
+      sha256 = "f3d1416d2232a7432756be9631488e4ed1151f600e2d6e4754d6238d1c6a23f2";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -2996,10 +2996,10 @@
       };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "1.0.21";
+      version = "1.1.0";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4122927/statshunters-1.0.21.xpi";
-      sha256 = "b4c0748e56ba0c8eb5312c6d22da1483ed37f76eca1b9e3fdd3c9baa8fe80f4c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4138782/statshunters-1.1.0.xpi";
+      sha256 = "4ef8455ad7aa3f32d7fd50ca18752201a98b2c7c6c20351417f731dc03203059";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
