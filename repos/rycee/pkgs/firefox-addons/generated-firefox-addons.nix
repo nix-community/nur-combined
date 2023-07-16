@@ -630,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.5";
+      version = "1.1.6";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4136583/dearrow-1.1.5.xpi";
-      sha256 = "8af4af87d18ebb047156b3b75551780b04975ae38229cb83828903f4b282abb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139182/dearrow-1.1.6.xpi";
+      sha256 = "11827e6912ab074e114cac831d9771e7df4fb9b56e91f5c8e5bdb2ec10fe412c";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2773,10 +2773,10 @@
       };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.11.1";
+      version = "1.12.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4101007/rust_search_extension-1.11.1.xpi";
-      sha256 = "0e98ea24d5d12dc2678a3f9c6961d1883c3ac69741e9e1090b8bd715124f1c99";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139032/rust_search_extension-1.12.0.xpi";
+      sha256 = "5731dd0ac69570e41537034073ca9fc51616d15f08cf0138f0a9a1bd0d7b078e";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
@@ -3661,10 +3661,10 @@
       };
     "vimium-c" = buildFirefoxXpiAddon {
       pname = "vimium-c";
-      version = "1.99.992";
+      version = "1.99.993";
       addonId = "vimium-c@gdh1995.cn";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4123617/vimium_c-1.99.992.xpi";
-      sha256 = "1fd6ec4b5eda15e2bbd384e1bffd9c9cc73a31b3e43ad74c33e37070a39e0c90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139051/vimium_c-1.99.993.xpi";
+      sha256 = "71494629786c84e4a4d32bb7a13d18b849438544841662aa1ab01123403063a8";
       meta = with lib;
       {
         homepage = "https://github.com/gdh1995/vimium-c";
