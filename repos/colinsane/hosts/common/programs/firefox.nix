@@ -10,10 +10,11 @@
 with lib;
 let
   cfg = config.sane.programs.firefox.config;
+  mobile-prefs = lib.optionals false pkgs.librewolf-pmos-mobile.extraPrefsFiles;
   # allow easy switching between firefox and librewolf with `defaultSettings`, below
   librewolfSettings = {
     browser = pkgs.librewolf-unwrapped;
-    extraPrefsFiles = pkgs.librewolf-unwrapped.extraPrefsFiles ++ pkgs.librewolf-pmos-mobile.extraPrefsFiles;
+    extraPrefsFiles = pkgs.librewolf-unwrapped.extraPrefsFiles ++ mobile-prefs;
     libName = "librewolf";
     dotDir = ".librewolf";
     cacheDir = ".cache/librewolf";
@@ -21,7 +22,7 @@ let
   };
   firefoxSettings = {
     browser = pkgs.firefox-esr-unwrapped;
-    extraPrefsFiles = pkgs.firefox-pmos-mobile.extraPrefsFiles;
+    extraPrefsFiles = mobile-prefs;
     libName = "firefox";
     dotDir = ".mozilla/firefox";
     cacheDir = ".cache/mozilla";

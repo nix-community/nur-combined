@@ -18,6 +18,9 @@ in
 {
   # the xdg mime type for a file can be found with:
   # - `xdg-mime query filetype path/to/thing.ext`
+  # the default handler for a mime type can be found with:
+  # - `xdg-mime query default <mimetype>`  (e.g. x-scheme-handler/http)
+  #
   # we can have single associations or a list of associations.
   # there's also options to *remove* [non-default] associations from specific apps
   xdg.mime.enable = true;

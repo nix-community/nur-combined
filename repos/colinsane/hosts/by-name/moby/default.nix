@@ -37,7 +37,11 @@
   sane.programs.tuiApps.enableFor.user.colin = false;  # visidata, others, don't compile well
   # disabled for faster deploys
   sane.programs.soundconverter.enableFor.user.colin = false;
-  sane.programs.firefox.enableFor.user.colin = false;  # use epiphany instead
+  sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
+  # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
+  sane.programs.firefox.env = lib.mkForce {};
+  sane.programs.epiphany.env.BROWSER = "epiphany";
+  # sane.programs.firefox.enableFor.user.colin = false;  # use epiphany instead
   # sane.programs.mpv.enableFor.user.colin = true;
 
   boot.loader.efi.canTouchEfiVariables = false;
