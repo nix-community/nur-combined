@@ -16,12 +16,11 @@ rec {
 
   # grub-holdshift = pkgs.callPackage ./pkgs/grub-holdshift { };
   bunnyfetch-rs = pkgs.callPackage ./pkgs/bunnyfetch-rs { };
-  gyro = pkgs.callPackage ./pkgs/gyro {
-    zig = pkgs.callPackage ./pkgs/zig-master { v = "0.10.0"; };
-  };
   iosevka-serif = pkgs.callPackage ./pkgs/iosevka-serif { };
   # midle = pkgs.callPackage ./pkgs/midle { };
   # paper = pkgs.callPackage ./pkgs/paper { };
   # ristate = pkgs.callPackage ./pkgs/ristate { };
   # zigup = pkgs.callPackage ./pkgs/zigup { };
+  zig-stable = pkgs.callPackage ./pkgs/zig-stable { v = "0.10.0"; };
+  gyro = pkgs.callPackage ./pkgs/gyro { zig = zig-stable; };
 }
