@@ -300,14 +300,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fda808409d8e1502a29275baa56c2192b5120436";
+    version = "9bb8b5ddabc545ce097fd2e34f3bf7e8f4d37073";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "fda808409d8e1502a29275baa56c2192b5120436";
+      rev = "9bb8b5ddabc545ce097fd2e34f3bf7e8f4d37073";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-RKTlepGF8cn7uOx4bUzRXLKoHV+y6WWsAeq3ew55FWo=";
+      sha256 = "sha256-2NNRHqieWjw+gGxXvAY1nXAuBt87fxR3WKiWCEJUNnA=";
     };
     date = "2023-07-16";
   };
@@ -510,14 +510,14 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "85b4ff4f8144a17f988363ad5537df0326f4214c";
+    version = "1e2b9cb5ed6871a63a4a3d371c1e41e298004cff";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "85b4ff4f8144a17f988363ad5537df0326f4214c";
+      rev = "1e2b9cb5ed6871a63a4a3d371c1e41e298004cff";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-RnwXAIIdil+hC7sxbZSjDJzpJPkMpzLWnKlRabfhZsQ=";
+      sha256 = "sha256-CQK6P5ce/cnuNUhrwwGeiR2YdjJD5YjJ1liCSlGyCNA=";
     };
     date = "2023-07-16";
   };

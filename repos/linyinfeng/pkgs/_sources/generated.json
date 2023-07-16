@@ -482,12 +482,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fda808409d8e1502a29275baa56c2192b5120436",
-            "sha256": "sha256-RKTlepGF8cn7uOx4bUzRXLKoHV+y6WWsAeq3ew55FWo=",
+            "rev": "9bb8b5ddabc545ce097fd2e34f3bf7e8f4d37073",
+            "sha256": "sha256-2NNRHqieWjw+gGxXvAY1nXAuBt87fxR3WKiWCEJUNnA=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "fda808409d8e1502a29275baa56c2192b5120436"
+        "version": "9bb8b5ddabc545ce097fd2e34f3bf7e8f4d37073"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -799,12 +799,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "85b4ff4f8144a17f988363ad5537df0326f4214c",
-            "sha256": "sha256-RnwXAIIdil+hC7sxbZSjDJzpJPkMpzLWnKlRabfhZsQ=",
+            "rev": "1e2b9cb5ed6871a63a4a3d371c1e41e298004cff",
+            "sha256": "sha256-CQK6P5ce/cnuNUhrwwGeiR2YdjJD5YjJ1liCSlGyCNA=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "85b4ff4f8144a17f988363ad5537df0326f4214c"
+        "version": "1e2b9cb5ed6871a63a4a3d371c1e41e298004cff"
     },
     "wemeet": {
         "cargoLocks": null,
