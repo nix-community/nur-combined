@@ -32,7 +32,9 @@
       in retainAttrs (unusedWarn args) allowed // {
         url = mirrorUrl url;
       } // optionalAttrs (!(args.showURLs or false || args ? name)) {
-        name = baseNameOf url;
+        name = strings.sanitizeDerivationName (baseNameOf url);
+      } // optionalAttrs (args ? name) {
+        name = strings.sanitizeDerivationName args.name;
       } // optionalAttrs (args ? recursiveHash) { unpack = args.recursiveHash; };
       nixFetchurl = { meta ? {}, passthru ? {}, ... }@args:
         if !nix-fetchurl.success || needsNixpkgs args
