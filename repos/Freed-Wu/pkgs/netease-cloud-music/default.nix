@@ -4,7 +4,7 @@
 , dpkg
 , autoPatchelfHook
 , makeWrapper
-# , qt5
+  # , qt5
 , xorg
 , libdrm
 , alsa-lib
@@ -31,10 +31,8 @@
 , libinput
 , mtdev
 , libpulseaudio
-  # , double-conversion
   # , libjpeg_original
-  # , nettle
-  # , flac
+  # , double-conversion
   # , eudev
 }:
 stdenv.mkDerivation rec {
@@ -89,10 +87,8 @@ stdenv.mkDerivation rec {
     libinput
     mtdev
     libpulseaudio
-    # double-conversion
     # libjpeg_original
-    # nettle
-    # flac
+    # double-conversion
     # eudev
   ];
 
@@ -107,9 +103,7 @@ stdenv.mkDerivation rec {
     install -D opt/netease/netease-cloud-music/netease-cloud-music -t $out/bin
     install -Dm644 \
       opt/netease/netease-cloud-music/libs/libdouble-conversion.so.1 \
-      opt/netease/netease-cloud-music/libs/libFLAC.so.8 \
       opt/netease/netease-cloud-music/libs/libjpeg.so.8 \
-      opt/netease/netease-cloud-music/libs/libpulsecommon-11.1.so \
       opt/netease/netease-cloud-music/libs/libqcef.so.1.1.4 \
       opt/netease/netease-cloud-music/libs/libudev.so.1 \
       opt/netease/netease-cloud-music/libs/libXtst.so.6 \
