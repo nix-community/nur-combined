@@ -21,4 +21,5 @@
   openssl-tpm2-engine = pkgs.callPackage ./pkgs/openssl-tpm2-engine { };
   ibmtss = pkgs.callPackage ./pkgs/ibmtss { };
   rusmux = pkgs.callPackage ./pkgs/rusmux { };
+  wikit = pkgs.callPackage ./pkgs/wikit { };
 }
