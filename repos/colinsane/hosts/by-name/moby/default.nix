@@ -114,4 +114,37 @@
   '';
 
   hardware.opengl.driSupport = true;
+
+  services.xserver.displayManager.job.preStart = let
+    dmesg = "${pkgs.util-linux}/bin/dmesg";
+    grep = "${pkgs.gnugrep}/bin/grep";
+    modprobe = "${pkgs.kmod}/bin/modprobe";
+  in ''
+    # common boot failure:
+    # blank screen (no backlight even), with the following log:
+    # ```syslog
+    # sun8i-dw-hdmi 1ee0000.hdmi: Couldn't get the HDMI PHY
+    # ...
+    # sun4i-drm display-engine: Couldn't bind all pipelines components
+    # ...
+    # sun8i-dw-hdmi: probe of 1ee0000.hdmi failed with error -17
+    # ```
+    #
+    # in particular, that `probe ... failed` occurs *only* on failed boots
+    # (the other messages might sometimes occur even on successful runs?)
+    #
+    # reloading the sun8i hdmi driver usually gets the screen on, showing boot text.
+    # then restarting display-manager.service gets us to the login.
+    #
+    # NB: the above log is default level. though less specific, there's a `err` level message that also signals this:
+    # sun4i-drm display-engine: failed to bind 1ee0000.hdmi (ops sun8i_dw_hdmi_ops [sun8i_drm_hdmi]): -17
+
+    if (${dmesg} --kernel --level err --color=never --notime | ${grep} -q 'sun4i-drm display-engine: failed to bind 1ee0000.hdmi')
+    then
+      echo "reprobing sun8i_drm_hdmi"
+      # if a command here fails it errors the whole service, so prefer to log instead
+      ${modprobe} -r sun8i_drm_hdmi || echo "failed to unload sun8i_drm_hdmi"
+      ${modprobe} sun8i_drm_hdmi || echo "failed to load sub8i_drm_hdmi"
+    fi
+  '';
 }
