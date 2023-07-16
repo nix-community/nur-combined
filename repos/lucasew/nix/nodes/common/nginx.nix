@@ -8,7 +8,6 @@ let
   ipExprs = map (ip: "allow ${ip};") ips;
 in {
   services.nginx = {
-    enable = true;
     appendHttpConfig = ''
       ${concatStringsSep "\n" ipExprs}
       allow 127.0.0.1;

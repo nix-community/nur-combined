@@ -40,5 +40,8 @@ in {
     xfce.ristretto
     doublecmd
   ];
+
   environment.etc.wallpaper.source = wallpaper;
+
+  fonts.fonts = [ pkgs.whatsapp-emoji-font ];
 }

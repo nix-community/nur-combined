@@ -2,12 +2,11 @@
 let
   node = global.nodeIps.${config.networking.hostName}.ts or "127.0.0.1";
 
-  mySubdomains = 
-  let
-    nginx = builtins.attrNames config.services.nginx.virtualHosts;
-    baseDomain = "${config.networking.hostName}.${config.networking.domain}";
-  in lib.flatten [ nginx baseDomain ];
+  nginxDomains = builtins.attrNames config.services.nginx.virtualHosts;
+  baseDomain = "${config.networking.hostName}.${config.networking.domain}";
+  allMySubdomains = lib.flatten [ nginxDomains baseDomain ];
 in {
+  services.nginx.enable = lib.mkDefault ((builtins.length nginxDomains) > 0);
   services.dnsmasq = {
     enable = node != null;
     resolveLocalQueries = false;
@@ -22,6 +21,6 @@ in {
     '';
   };
   networking.hosts = {
-    "${node}" = mySubdomains;
+    "${node}" = allMySubdomains;
   };
 }

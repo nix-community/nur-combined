@@ -31,7 +31,6 @@ in
   services.pocket2kindle.enable = true;
   programs.gamemode.enable = true;
 
-  fonts.fonts = [ pkgs.whatsapp-emoji-font ];
   services.flatpak.enable = true;
 
   networking.networkmanager.wifi.scanRandMacAddress = true;
