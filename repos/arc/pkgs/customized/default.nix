@@ -583,6 +583,9 @@ let
       ];
 
       nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ autoreconfHook utilmacros ];
+      passthru = old.passthru or { } // {
+        ci.skip = "broken and unmaintained";
+      };
     });
 
     mosh-client = { mosh, stdenvNoCC }: stdenvNoCC.mkDerivation {
