@@ -26,6 +26,7 @@ let
     g3kb-switch = callPackage ./pkgs/tools/misc/g3kb-switch { };
 
     undollar = callPackage ./pkgs/tools/misc/undollar { };
+    manpager = callPackage ./pkgs/tools/misc/manpager { };
     help2man = callPackage ./pkgs/development/python-modules/help2man { };
     setuptools-generate = callPackage ./pkgs/development/python-modules/setuptools-generate { };
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };

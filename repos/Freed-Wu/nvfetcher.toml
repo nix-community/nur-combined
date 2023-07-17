@@ -2,6 +2,10 @@
 src.github = "Freed-Wu/undollar"
 fetch.github = "Freed-Wu/undollar"
 
+[manpager]
+src.github = "Freed-Wu/manpager"
+fetch.github = "Freed-Wu/manpager"
+
 [help2man]
 src.pypi = "help2man"
 fetch.pypi = "help2man"

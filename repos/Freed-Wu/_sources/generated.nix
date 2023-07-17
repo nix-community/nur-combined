@@ -36,6 +36,17 @@
       sha256 = "sha256-V/oY7VnulJUqI0EVPq40/JACDLTrsmzopzJDNBGc+Bo=";
     };
   };
+  manpager = {
+    pname = "manpager";
+    version = "0.0.1";
+    src = fetchFromGitHub {
+      owner = "Freed-Wu";
+      repo = "manpager";
+      rev = "0.0.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-YNpfg1zl6sHGJuv/Wdr8mbutai9khUhe95oaHJ0UXmQ=";
+    };
+  };
   mulimgviewer = {
     pname = "mulimgviewer";
     version = "3.9.10";
@@ -110,21 +121,21 @@
   };
   translate-shell = {
     pname = "translate-shell";
-    version = "0.0.29";
+    version = "0.0.30";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.29.tar.gz";
-      sha256 = "sha256-aTZI/wO2fV0mC9L75Y0V/qD78RQhPeyAqmaJajvNS2s=";
+      url = "https://pypi.org/packages/source/t/translate-shell/translate-shell-0.0.30.tar.gz";
+      sha256 = "sha256-hguFcmNvYyRfTDsqiwQ2meMinQb+qzq+2z+Ry31RMn4=";
     };
   };
   undollar = {
     pname = "undollar";
-    version = "0.0.3";
+    version = "0.0.5";
     src = fetchFromGitHub {
       owner = "Freed-Wu";
       repo = "undollar";
-      rev = "0.0.3";
+      rev = "0.0.5";
       fetchSubmodules = false;
-      sha256 = "sha256-cvKb02wZ0gH2jJFLrNr7ptkUaVPjymuZP2qbMK4KVCo=";
+      sha256 = "sha256-HyWZz7wYnKDID8zs/a96YByjoPO7vKRAPZg6rL17sQ4=";
     };
   };
   xilinx-language-server = {
