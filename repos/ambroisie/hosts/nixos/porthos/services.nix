@@ -136,6 +136,11 @@ in
     sabnzbd.enable = true;
     # Because I stilll need to play sysadmin
     ssh-server.enable = true;
+    # Recipe manager
+    tandoor-recipes = {
+      enable = true;
+      secretKeyFile = secrets."tandoor-recipes/secret-key".path;
+    };
     # Torrent client and webui
     transmission = {
       enable = true;

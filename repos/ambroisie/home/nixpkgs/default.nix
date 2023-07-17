@@ -14,6 +14,7 @@ in
 
     home.sessionVariables = {
       GITHUB_TOKEN = ''$(cat "${config.age.secrets."github/token".path}")'';
+      GITHUB_API_TOKEN = ''$(cat "${config.age.secrets."github/token".path}")'';
     };
   };
 }

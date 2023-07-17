@@ -59,6 +59,8 @@ in
   "sso/ambroisie/password-hash.age".publicKeys = all;
   "sso/ambroisie/totp-secret.age".publicKeys = all;
 
+  "tandoor-recipes/secret-key.age".publicKeys = all;
+
   "transmission/credentials.age".publicKeys = all;
 
   "vikunja/mail.age".publicKeys = all;
