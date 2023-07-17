@@ -28,6 +28,7 @@ let
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
     lemoa = callPackage ./additional/lemoa { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
+    firefox-extensions = lib.recurseIntoAttrs (callPackage ./additional/firefox-extensions { });
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
     gpodder-adaptive = callPackage ./additional/gpodder-adaptive { };
     gpodder-adaptive-configured = callPackage ./additional/gpodder-configured {

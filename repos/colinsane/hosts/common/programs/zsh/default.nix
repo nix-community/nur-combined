@@ -183,7 +183,7 @@ in
           }
 
           function switch() {
-            sudo nixos-rebuild --flake . switch;
+            sudo nixos-rebuild --flake . switch --keep-going;
           }
         '';
 

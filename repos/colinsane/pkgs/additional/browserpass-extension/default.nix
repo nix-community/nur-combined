@@ -56,10 +56,8 @@ in stdenv.mkDerivation {
 
     # firefox requires addons to have an id field when sideloading:
     # - <https://extensionworkshop.com/documentation/publish/distribute-sideloading/>
-    # also, disable the `notifications` permission
     cat manifest.json \
       | ${jq}/bin/jq '. + { applications: {gecko: {id: "${extid}" }}, browser_specific_settings: {gecko: {id: "${extid}"}} }' \
-      | ${jq}/bin/jq 'del(.permissions[] | select(. == "notifications"))' \
       > manifest.patched.json
     mv manifest{.patched,}.json
 

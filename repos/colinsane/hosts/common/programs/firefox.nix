@@ -150,42 +150,33 @@ in
         default = {};
       };
       sane.programs.firefox.config.addons = {
-        # get names from:
-        # - ~/ref/nix-community/nur-combined/repos/rycee/pkgs/firefox-addons/generated-firefox-addons.nix
-        # `wget ...xpi`; `unar ...xpi`; `cat */manifest.json | jq '.browser_specific_settings.gecko.id'`
         browserpass-extension = {
-          # package = addon "browserpass-ce" "browserpass@maximbaz.com" "sha256-sXgUBbRvMnRpeIW1MTkmTcoqtW/8RDXAkxAq1evFkpc=";
-          package = localAddon pkgs.browserpass-extension;
+          package = pkgs.firefox-extensions.browserpass-extension.withoutPermission "notifications";
           enable = lib.mkDefault true;
         };
-
-        # TODO: build bypass-paywalls from source? it's mysteriously disappeared from the Mozilla store.
-        # bypass-paywalls-clean.package = addon "bypass-paywalls-clean" "{d133e097-46d9-4ecc-9903-fa6a722a6e0e}" "sha256-oUwdqdAwV3DezaTtOMx7A/s4lzIws+t2f08mwk+324k=";
-        # bypass-paywalls-clean.enable = lib.mkDefault true;
-
-        # TODO: give these update scripts, make them reachable via `pkgs`
+        # TODO: add bypass-paywalls-clean (build from source)
         ether-metamask = {
-          package = addon "ether-metamask" "webextension@metamask.io" "sha256-UI83wUUc33OlQYX+olgujeppoo2D2PAUJ+Wma5mH2O0=";
+          package = pkgs.firefox-extensions.ether-metamask;
           enable = lib.mkDefault true;
         };
         i2p-in-private-browsing = {
-          package = addon "i2p-in-private-browsing" "i2ppb@eyedeekay.github.io" "sha256-dJcJ3jxeAeAkRvhODeIVrCflvX+S4E0wT/PyYzQBQWs=";
+          package = pkgs.firefox-extensions.i2p-in-private-browsing;
           enable = lib.mkDefault config.services.i2p.enable;
         };
         sidebery = {
-          package = addon "sidebery" "{3c078156-979c-498b-8990-85f7987dd929}" "sha256-YONfK/rIjlsrTgRHIt3km07Q7KnpIW89Z9r92ZSCc6w=";
+          package = pkgs.firefox-extensions.sidebery;
           enable = lib.mkDefault true;
         };
         sponsorblock = {
-          package = addon "sponsorblock" "sponsorBlocker@ajay.app" "sha256-b/OTFmhSEUZ/CYrYCE4rHVMQmY+Y78k8jSGMoR8vsZA=";
+          package = pkgs.firefox-extensions.sponsorblock;
           enable = lib.mkDefault true;
         };
         ublacklist = {
-          package = addon "ublacklist" "@ublacklist" "sha256-NZ2FmgJiYnH7j2Lkn0wOembxaEphmUuUk0Ytmb0rNWo=";
+          package = pkgs.firefox-extensions.ublacklist;
           enable = lib.mkDefault true;
         };
         ublock-origin = {
-          package = addon "ublock-origin" "uBlock0@raymondhill.net" "sha256-EGGAA+cLUow/F5luNzFG055rFfd3rEyh8hTaL/23pbM=";
+          package = pkgs.firefox-extensions.ublock-origin;
           enable = lib.mkDefault true;
         };
       };

@@ -110,6 +110,7 @@ stdenv.mkDerivation rec {
     })
     ./0104-full-auto-rotate.patch
     ./0105-more-apps.patch
+    ./0106-no-restart-lisgd.patch
   ];
 
   postPatch = ''
