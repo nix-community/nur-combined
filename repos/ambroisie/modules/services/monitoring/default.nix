@@ -27,6 +27,12 @@ in
         example = "/var/lib/grafana/password.txt";
         description = "Admin password stored in a file";
       };
+
+      secretKeyFile = mkOption {
+        type = types.str;
+        example = "/var/lib/grafana/secret_key.txt";
+        description = "Secret key stored in a file";
+      };
     };
 
     prometheus = {
@@ -61,6 +67,7 @@ in
         security = {
           admin_user = cfg.grafana.username;
           admin_password = "$__file{${cfg.grafana.passwordFile}}";
+          secret_key = "$__file{${cfg.grafana.secretKeyFile}}";
         };
       };
 

@@ -80,6 +80,7 @@ in
       enable = true;
       grafana = {
         passwordFile = secrets."monitoring/password".path;
+        secretKeyFile = secrets."monitoring/secret-key".path;
       };
     };
     # FLOSS music streaming server

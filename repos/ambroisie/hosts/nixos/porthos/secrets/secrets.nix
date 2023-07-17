@@ -42,6 +42,10 @@ in
     owner = "grafana";
     publicKeys = all;
   };
+  "monitoring/secret-key.age" = {
+    owner = "grafana";
+    publicKeys = all;
+  };
 
   "nextcloud/password.age" = {
     owner = "nextcloud";
