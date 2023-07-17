@@ -9,22 +9,22 @@
 
 let
   pname = "browserpass-extension";
-  version = "3.7.2-20221121";
-  # src = fetchFromGitHub {
-  #   owner = "browserpass";
-  #   repo = "browserpass-extension";
-  #   # rev = version;
-  #   rev = "21f3431d09e1d7ffd33e0b9fc5d2965b7bd93a1a";
-  #   sha256 = "sha256-XIgbaQSAXx7L1e/9rzN7oBQy9U3HWJHOX2auuvgdvbc=";
-  # };
-  src = fetchFromGitea {
-    domain = "git.uninsane.org";
-    owner = "colin";
+  version = "3.7.2-2023-06-18";
+  src = fetchFromGitHub {
+    owner = "browserpass";
     repo = "browserpass-extension";
-    # hack in sops support
-    rev = "e3bf558ff63d002d3c15f2ce966071f04fada306";
-    sha256 = "sha256-dSRZ2ToEOPhzHNvlG8qdewa7689gT8cNB7nXkN3/Avo=";
+    # rev = version;
+    rev = "858cc821d20df9102b8040b78d79893d4b7af352";
+    hash = "sha256-m1JmwAKsYyfKLYbtfBn3IKT48Af5Az34BXmJQ1tYaz4=";
   };
+  # src = fetchFromGitea {
+  #   domain = "git.uninsane.org";
+  #   owner = "colin";
+  #   repo = "browserpass-extension";
+  #   # hack in sops support
+  #   rev = "e3bf558ff63d002d3c15f2ce966071f04fada306";
+  #   sha256 = "sha256-dSRZ2ToEOPhzHNvlG8qdewa7689gT8cNB7nXkN3/Avo=";
+  # };
   browserpass-extension-yarn-modules = mkYarnModules {
     inherit pname version;
     packageJSON = ./package.json;
@@ -39,7 +39,7 @@ let
 in stdenv.mkDerivation {
   inherit pname version src;
 
-  patchPhase = ''
+  postPatch = ''
     # dependencies are built separately: skip the yarn install
     ${gnused}/bin/sed -i /yarn\ install/d src/Makefile
   '';
@@ -56,8 +56,10 @@ in stdenv.mkDerivation {
 
     # firefox requires addons to have an id field when sideloading:
     # - <https://extensionworkshop.com/documentation/publish/distribute-sideloading/>
+    # also, disable the `notifications` permission
     cat manifest.json \
       | ${jq}/bin/jq '. + { applications: {gecko: {id: "${extid}" }}, browser_specific_settings: {gecko: {id: "${extid}"}} }' \
+      | ${jq}/bin/jq 'del(.permissions[] | select(. == "notifications"))' \
       > manifest.patched.json
     mv manifest{.patched,}.json
 

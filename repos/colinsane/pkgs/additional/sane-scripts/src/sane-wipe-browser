@@ -9,3 +9,7 @@ rm -rf \
   ~/.config/chromium \
   ~/.cache/chromium \
   || true  # in case no matches
+
+# browsers like to stick around in the background so they can load faster
+sudo pkill librewolf || true
+sudo pkill firefox || true
