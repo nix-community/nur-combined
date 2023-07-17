@@ -630,10 +630,10 @@
       };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.1.6";
+      version = "1.1.8";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4139182/dearrow-1.1.6.xpi";
-      sha256 = "11827e6912ab074e114cac831d9771e7df4fb9b56e91f5c8e5bdb2ec10fe412c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139260/dearrow-1.1.8.xpi";
+      sha256 = "113361caf26821edeee44216998fccabf70f884f650cd485ad6c937d0adc2489";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1086,10 +1086,10 @@
       };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "116.0.20230713.175905";
+      version = "116.0.20230716.180334";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4138348/francais_language_pack-116.0.20230713.175905.xpi";
-      sha256 = "3aad77cd43a0447a250f2cb20823616892bcbd91125124ec1ecb577799a4f6ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139500/francais_language_pack-116.0.20230716.180334.xpi";
+      sha256 = "1c3629b4a1150562e6dc87caa54076e6abba4775f1be5e7f7a7b3c1217da8e6f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
