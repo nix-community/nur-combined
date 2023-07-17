@@ -21,6 +21,21 @@ in
     climod = cp bumpkin.unpacked.climod;
   });
 
+  bin = builtins.mapAttrs (k: v: final.stdenvNoCC.mkDerivation {
+    name = k;
+    dontUnpack = true;
+
+    nativeBuildInputs = [ final.makeWrapper ];
+
+    installPhase = ''
+      mkdir $out/bin -p
+      install -m 755 ${../bin}/${k} $out/bin/${k}
+      wrapProgram $out/bin/${k} \
+        --set NIX_PATH nixpkgs=${final.path}:nixpkgs-overlays=${flake.outPath}/nix/compat/overlay.nix:home-manager=${flake.inputs.home-manager}:nur=${flake.inputs.nur}
+    '';
+    meta.mainProgram = k;
+  }) (builtins.readDir ../bin);
+
   devenv = final.writeShellScriptBin "devenv" ''
     nix run ${bumpkin.unpacked.devenv}# -- "$@"
   '';

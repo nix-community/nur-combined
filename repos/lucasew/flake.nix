@@ -108,7 +108,7 @@
           "$NIXCFG_ROOT_PATH/bin"
         ]}"
         export LUA_INIT="pcall(require, 'adapter.fennel')"
-        export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${bumpkinUnpackedInputs.nur}
+        export NIX_PATH=nixpkgs=${defaultNixpkgs}:nixpkgs-overlays=$NIXCFG_ROOT_PATH/nix/compat/overlay.nix:home-manager=${home-manager}:nur=${nur}
       '';
     };
 
@@ -130,9 +130,6 @@
     };
     nix-colors = import "${extraArgs.bumpkin.unpacked.nix-colors}" { inherit (extraArgs.bumpkin.unpacked) base16-schemes nixpkgs-lib; };
   in {
-    test = {
-      inherit self;
-    };
     inherit (extraArgs) bumpkin;
     inherit global;
     inherit overlays;
