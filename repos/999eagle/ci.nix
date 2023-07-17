@@ -11,6 +11,7 @@
 {pkgs ? import <nixpkgs> {}}:
 with builtins; let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
+  skipBuild = n: n == "openmoji";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
@@ -41,7 +42,7 @@ with builtins; let
     flattenPkgs
     (listToAttrs
       (map (n: nameValuePair n nurAttrs.${n})
-        (filter (n: !isReserved n)
+        (filter (n: (!isReserved n) && (!skipBuild n))
           (attrNames nurAttrs))));
 in rec {
   buildPkgs = filter isBuildable nurPkgs;
