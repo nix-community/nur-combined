@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
       -t $out/lib/netease-cloud-music
     cp -r opt/netease/netease-cloud-music/plugins $out/lib/netease-cloud-music
     cp -r opt/netease/netease-cloud-music/libs/qcef $out/lib/netease-cloud-music
-    cp -r usr $out
+    cp -r usr/share $out
   '';
 
   preFixup = ''
