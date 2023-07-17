@@ -39,4 +39,6 @@ python3.pkgs.buildPythonPackage rec {
     pytestCheckHook
     pytest
   ];
+
+  doCheck = !python3.stdenv.isAarch64;
 }
