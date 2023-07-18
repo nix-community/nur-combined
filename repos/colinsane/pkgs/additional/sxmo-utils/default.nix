@@ -16,7 +16,7 @@
 , lib
 , libnotify
 , lisgd
-, makeWrapper
+, makeBinaryWrapper
 , mako
 , mepo
 , modemmanager
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    makeWrapper
+    makeBinaryWrapper
     scdoc
   ];
 

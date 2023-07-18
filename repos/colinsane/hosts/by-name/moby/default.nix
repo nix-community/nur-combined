@@ -2,6 +2,12 @@
 # other setups to reference:
 # - <https://hamblingreen.gitlab.io/2022/03/02/my-pinephone-setup.html>
 #   - sxmo Arch user. lots of app recommendations
+#
+# wikis, resources, ...:
+# - Linux Phone Apps: <https://linuxphoneapps.org/>
+#   - massive mobile-friendly app database
+# - Mobian wiki: <https://wiki.mobian-project.org/doku.php?id=start>
+#   - recommended apps, chatrooms
 
 { config, pkgs, lib, ... }:
 {

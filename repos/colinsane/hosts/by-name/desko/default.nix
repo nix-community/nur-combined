@@ -36,6 +36,7 @@
 
   # don't enable wifi by default: it messes with connectivity.
   systemd.services.iwd.enable = false;
+  systemd.services.wpa_supplicant.enable = false;
 
   # default config: https://man.archlinux.org/man/snapper-configs.5
   # defaults to something like:

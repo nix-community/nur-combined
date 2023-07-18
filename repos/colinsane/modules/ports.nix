@@ -78,9 +78,13 @@ in
         type = types.bool;
       };
       upnpRenewInterval = mkOption {
-        default = "1hr";
+        default = "hourly";
         type = types.str;
-        description = "how frequently to renew UPnP leases";
+        description = ''
+          how frequently to renew UPnP leases.
+          syntax is what systemd uses for Calendar Events:
+          - <https://www.freedesktop.org/software/systemd/man/systemd.time.html#Calendar%20Events>
+        '';
       };
       upnpLeaseDuration = mkOption {
         default = 86400;
@@ -101,17 +105,33 @@ in
     })
     (lib.mkIf cfg.openUpnp {
       systemd.services = lib.mkMerge (lib.mapAttrsToList upnpServiceForPort cfg.ports);
+      # in order to run all upnp-forward-xyz services on a regular schedule:
+      # - upnp-forwards.timer
+      #   -> activates upnp-forwards.target
+      #      -> activates all upnp-forward-xyz.service's
+      #
+      # crucially, the timer only activates the target if upnp-forwards.target is in the "stopped" (or, "inactive") state.
+      # this isn't the case by default. but adding `StopWhenUnneeded` to the target causes it to be considered "stopped"
+      # immediately after it schedules the services.
+      #
+      # additionally, one could add `Upholds = upnp-forwards.target` to all the services if we only want the target to
+      # be stopped after all forwards are complete.
+      # source: <https://serverfault.com/a/1128671>
       systemd.timers.upnp-forwards = {
         wantedBy = [ "network.target" ];
         timerConfig = {
           OnStartupSec = "1min";
-          OnUnitActiveSec = cfg.upnpRenewInterval;
+          OnCalendar = cfg.upnpRenewInterval;
+          RandomizeDelaySec = "2min";
           Unit = "upnp-forwards.target";
         };
       };
       systemd.targets.upnp-forwards = {
         description = "forward ports from upstream gateway to this host";
         after = [ "network.target" ];
+        unitConfig = {
+          StopWhenUnneeded = true;
+        };
       };
     })
   ];

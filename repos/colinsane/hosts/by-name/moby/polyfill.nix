@@ -44,6 +44,7 @@
       # SXMO_ROTATION_GRAVITY = "12800";  # uncomfortably high
       # SXMO_ROTATION_GRAVITY = "12500";    # kinda uncomfortable when walking
       SXMO_ROTATION_GRAVITY = "12000";
+      SXMO_SCREENSHOT_DIR = "/home/colin/Pictures";  # default: "$HOME"
       # test new scales by running `swaymsg -- output DSI-1 scale x.y`
       # SXMO_SWAY_SCALE = "1.5";  # hard to press gPodder icons
       SXMO_SWAY_SCALE = "1.8";
