@@ -3359,10 +3359,10 @@
       };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.1.2";
+      version = "3.1.3";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4127025/tournesol_extension-3.1.2.xpi";
-      sha256 = "d8597b5c2c98950d516dd27daf3b2ae0528acf894990c87e7168382367f288cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4139969/tournesol_extension-3.1.3.xpi";
+      sha256 = "15a4ecce5dc541c3f9cf4d19d624d140b09adce0944b6a6fbc2e0d88543e0bdb";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -3647,10 +3647,10 @@
       };
     "vimium" = buildFirefoxXpiAddon {
       pname = "vimium";
-      version = "1.67.6";
+      version = "1.67.7";
       addonId = "{d7742d87-e61d-4b78-b8a1-b469842139fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4046008/vimium_ff-1.67.6.xpi";
-      sha256 = "e8d6c98842bd7221d62d1079e4153e3e0d20c5ca5412316dd71cb5c3bdb7d457";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4137983/vimium_ff-1.67.7.xpi";
+      sha256 = "a164a4f62aa152dd6439cd96aebadbfc655fc56285854d198e7dcee2aca4eb97";
       meta = with lib;
       {
         homepage = "https://github.com/philc/vimium";
