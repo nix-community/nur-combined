@@ -77,6 +77,8 @@ stdenv.mkDerivation {
     install -D ${./99-dualsense-controllers.rules} $out/etc/udev/rules.d/99-dualsense-controllers.rules
   '';
 
+  preferLocalBuild = true; # broken in ci
+
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
