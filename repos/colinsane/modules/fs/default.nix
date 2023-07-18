@@ -132,7 +132,7 @@ let
         description = "fs path to link to";
       };
       text = mkOption {
-        type = types.nullOr types.str;
+        type = types.nullOr types.lines;
         default = null;
         description = "create a file in the /nix/store with the provided text and use that as the target";
       };

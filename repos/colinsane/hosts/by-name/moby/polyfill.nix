@@ -69,6 +69,9 @@
     };
     package = pkgs.sxmo-utils.overrideAttrs (base: {
       postPatch = (base.postPatch or "") + ''
+        # don't enable gestures at launch
+        sed -i '/superctl start sxmo_hook_lisgd/d' ./configs/default_hooks/sxmo_hook_start.sh
+
         cat <<EOF >> ./configs/default_hooks/sxmo_hook_start.sh
         # rotate UI based on physical display angle by default
         sxmo_daemons.sh start autorotate sxmo_autorotate.sh

@@ -216,16 +216,9 @@ in [
   })
 
   (fetchpatch' {
-    title = "nixos/trust-dns: init";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/243244";
-    saneCommit = "64645a696a48bc9610f306de75f73bab8aaefd7a";
-    hash = "sha256-9da3/igzSb8puEcUMGStOvo92yCfAWEaBK7IDEDuQs0=";
-  })
-
-  (fetchpatch' {
-    title = "lemmy-server: 0.18.1 -> 0.18.2";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/243608";
-    hash = "sha256-54W1PqB3T54vz5HylQaDENa1avwWI0EHveuMX0sBzj4=";
+    title = "gnustep: remove `rec` to support `overrideScope`";
+    saneCommit = "69162cbf727264e50fc9d7222a03789d12644705";
+    hash = "sha256-rD0es4uUbaLMrI9ZB2HzPmRLyu/ixNBLAFyDJtFHNko=";
   })
 
   # (fetchpatch' {

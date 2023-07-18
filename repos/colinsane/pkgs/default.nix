@@ -23,7 +23,6 @@ let
     alsa-ucm-conf-sane = callPackage ./additional/alsa-ucm-conf-sane { };
     bonsai = unpatched.bonsai or (callPackage ./additional/bonsai { });
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
-    browserpass-extension = callPackage ./additional/browserpass-extension { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
     lemoa = callPackage ./additional/lemoa { };

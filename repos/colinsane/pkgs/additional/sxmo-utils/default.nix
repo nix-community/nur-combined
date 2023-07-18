@@ -9,6 +9,7 @@
 , gitUpdater
 , gnugrep
 , gojq
+, grim
 , inotify-tools
 , j4-dmenu-desktop
 , jq
@@ -46,6 +47,7 @@ let
     # dmenu  # or dmenu-wayland? only used on x11?
     gnugrep
     gojq
+    grim
     inotify-tools
     j4-dmenu-desktop
     jq
@@ -110,7 +112,7 @@ stdenv.mkDerivation rec {
     })
     ./0104-full-auto-rotate.patch
     ./0105-more-apps.patch
-    ./0106-no-restart-lisgd.patch
+    # ./0106-no-restart-lisgd.patch
   ];
 
   postPatch = ''

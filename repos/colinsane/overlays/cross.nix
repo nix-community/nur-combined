@@ -72,10 +72,6 @@ in {
     # duplicity  # python3.10-s3transfer
     # gdk-pixbuf  # cross-compiled version doesn't output bin/gdk-pixbuf-thumbnailer  (used by webp-pixbuf-loader
     # gnome-tour
-    # XXX: gnustep members aren't individually overridable, because the "scope" uses `rec` such that members don't see overrides
-    # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
-    # though if we make the members overridable maybe we can get away with emulating only stdenv.
-    gnustep  # gnustep.base: "configure: error: Your compiler does not appear to implement the -fconstant-string-class option needed for support of strings."
     # grpc
     hare
     harec
@@ -195,10 +191,6 @@ in {
     # configure: error: no acceptable C compiler found in $PATH
     inherit (emulated) stdenv;
   };
-  browserpass-extension = prev.browserpass-extension.override {
-    # bash: line 1: node_modules/.bin/prettier: cannot execute: required file not found
-    inherit (emulated) mkYarnModules;
-  };
   cantarell-fonts = prev.cantarell-fonts.override {
     # fixes error where python3.10-skia-pathops dependency isn't available for the build platform
     inherit (emulated) stdenv;
@@ -296,6 +288,15 @@ in {
     wrapGAppsHook4 = final.wrapGAppsHook;
   };
 
+  firefox-extensions = prev.firefox-extensions.overrideScope' (self: super: {
+    unwrapped = super.unwrapped // {
+      browserpass-extension = super.unwrapped.browserpass-extension.override {
+        # bash: line 1: node_modules/.bin/prettier: cannot execute: required file not found
+        inherit (emulated) mkYarnModules;
+      };
+    };
+  });
+
   flatpak = prev.flatpak.overrideAttrs (upstream: {
     # fixes "No package 'libxml-2.0' found"
     buildInputs = upstream.buildInputs ++ [ final.libxml2 ];
@@ -347,6 +348,19 @@ in {
     # fixes -msse2, -mfpmath=sse flags
     wrapGAppsHook4 = final.wrapGAppsHook;
   };
+  gnustep = prev.gnustep.overrideScope' (self: super: {
+    # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
+    # base = emulated.gnustep.base;
+    base = (super.base.override {
+      # fixes: "configure: error: Your compiler does not appear to implement the -fconstant-string-class option needed for support of strings."
+      # emulating gsmake amounts to emulating stdenv.
+      inherit (emulated.gnustep) gsmakeDerivation;
+    }).overrideAttrs (upstream: {
+      # fixes: "checking FFI library usage... ./configure: line 11028: pkg-config: command not found"
+      # nixpkgs has this in nativeBuildInputs... but that's failing when we partially emulate things.
+      buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
+    });
+  });
   gthumb = mvInputs { nativeBuildInputs = [ final.glib ]; } prev.gthumb;
 
   gnome = prev.gnome.overrideScope' (self: super: {
@@ -1058,7 +1072,7 @@ in {
   #     inherit (emulated.qt5) qtModule;
   #   };
   # });
-  qt5 = emulated.qt5.overrideScope' (self: super: {
+  qt5 = emulated.qt5.overrideScope (self: super: {
     # emulate all the qt5 packages, but rework `libsForQt5.callPackage` and `mkDerivation`
     # to use non-emulated stdenv by default.
     mkDerivation = self.mkDerivationWith final.stdenv.mkDerivation;

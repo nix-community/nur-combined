@@ -46,8 +46,6 @@
 ### user experience
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
 - Helix: make copy-to-system clipboard be the default
-- Sway: use <Super> instead of <Alt>, so that <Alt> can be used by applications
-- firefox/librewolf: don't show browserpass/sponsorblock/metamask "first run" on every boot
 - firefox/librewolf: persist history
   - just not cookies or tabs
 - moby: improve gPodder launch time
@@ -66,10 +64,6 @@
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
 
 ### perf
-- why does zsh take so long to init?
-    - try using Starship prompt instead? <https://starship.rs/>
-      - supports git-status stuff too
-      - can probably displace all of the powerlevel10k stuff
 - why does nixos-rebuild switch take 5 minutes when net is flakey?
     - trying to auto-mount servo?
     - something to do with systemd services restarting/stalling

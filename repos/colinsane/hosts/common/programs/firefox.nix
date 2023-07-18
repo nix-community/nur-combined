@@ -151,13 +151,13 @@ in
       };
       sane.programs.firefox.config.addons = {
         browserpass-extension = {
-          package = pkgs.firefox-extensions.browserpass-extension.withoutPermission "notifications";
+          package = pkgs.firefox-extensions.browserpass-extension;
           enable = lib.mkDefault true;
         };
         # TODO: add bypass-paywalls-clean (build from source)
         ether-metamask = {
           package = pkgs.firefox-extensions.ether-metamask;
-          enable = lib.mkDefault true;
+          enable = lib.mkDefault false;  # until i can disable the first-run notification
         };
         i2p-in-private-browsing = {
           package = pkgs.firefox-extensions.i2p-in-private-browsing;

@@ -13,20 +13,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "lemoa";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "lemmy-gtk";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-krd/w8YTzqQHZYmU3Pt/lKS7eg8n1N8hfL3Rgl1wGfM=";
+    hash = "sha256-LT+UkjDkKbi327SE4VT+BdrpE6hQywajIZ7xpJPvvCc=";
   };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
-    outputHashes = {
-      "lemmy_api_common-0.18.0" = "sha256-l4UNO5Obx73nOiVnl6dc+sw2tekDLn2ixTs1GwqdE8I=";
-    };
   };
 
   nativeBuildInputs = [ pkg-config ];

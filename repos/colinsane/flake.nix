@@ -239,9 +239,13 @@
       apps."x86_64-linux" =
         let
           pkgs = self.legacyPackages."x86_64-linux";
-          deployScript = host: action: pkgs.writeShellScript "deploy-moby" ''
-            nixos-rebuild --flake '.#${host}' build $@
-            sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result)
+          deployScript = host: action: pkgs.writeShellScript "deploy-${host}" ''
+            nix build '.#nixosConfigurations.${host}.config.system.build.toplevel' --out-link ./result-${host} $@
+            sudo nix sign-paths -r -k /run/secrets/nix_serve_privkey $(readlink ./result-${host})
+
+            # XXX: this triggers another config eval & (potentially) build.
+            # if the config changed between these invocations, the above signatures might not apply to the deployed config.
+            # let the user handle that edge case by re-running this whole command
             nixos-rebuild --flake '.#${host}' ${action} --target-host colin@${host} --use-remote-sudo $@
           '';
         in {
@@ -256,6 +260,11 @@
             program = "${pkgs.feeds.initFeedScript}";
           };
 
+          deploy-lappy = {
+            # `nix run '.#deploy-lappy'`
+            type = "app";
+            program = ''${deployScript "lappy" "switch"}'';
+          };
           deploy-moby-test = {
             # `nix run '.#deploy-moby-test'`
             type = "app";
