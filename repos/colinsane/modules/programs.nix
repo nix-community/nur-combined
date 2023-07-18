@@ -108,7 +108,7 @@ let
         '';
       };
       fs = mkOption {
-        type = types.attrs;
+        type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
         default = {};
         description = "files to populate when this program is enabled";
       };

@@ -9,16 +9,20 @@ let
   userOptions = {
     options = {
       fs = mkOption {
-        type = types.attrs;
+        type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
         default = {};
         description = ''
-        entries to pass onto `sane.fs` after prepending the user's home-dir to the path
-        and marking them as wanted.
+          entries to pass onto `sane.fs` after prepending the user's home-dir to the path
+          and marking them as wanted.
           e.g. `sane.users.colin.fs."/.config/aerc" = X`
           => `sane.fs."/home/colin/.config/aerc" = { wantedBy = [ "multi-user.target"]; } // X;
 
           conventions are similar as to toplevel `sane.fs`. so `sane.users.foo.fs."/"` represents the home directory,
           whereas every other entry is expected to *not* have a trailing slash.
+
+          option merging happens inside `sane.fs`, so `sane.users.colin.fs."foo" = A` and `sane.fs."/home/colin/foo" = B`
+          behaves identically to `sane.fs."/home/colin/foo" = lib.mkMerge [ A B ];
+          (the unusual signature for this type is how we delay option merging)
         '';
       };
 
@@ -85,10 +89,10 @@ let
         name = path-lib.concat [ defn.home path ];
         inherit value;
       });
-      makeWanted = lib.mapAttrs (n: v: {
+      makeWanted = lib.mapAttrs (_path: values: lib.mkMerge (values ++ [{
         # default if not otherwise provided
-        wantedBeforeBy = [ "multi-user.target" ];
-      } // v);
+        wantedBeforeBy = lib.mkDefault [ "multi-user.target" ];
+      }]));
     in
     {
       sane.fs = makeWanted (prefixWithHome defn.fs);
